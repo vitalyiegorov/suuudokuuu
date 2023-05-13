@@ -1,15 +1,22 @@
-import { View, Text } from "react-native"
-import {CellStyles} from "./cell.styles";
+import { cs } from '@rnw-community/shared';
+import { View, Text } from 'react-native';
+
+import { type CellInterface } from '../../interfaces/cell.interface';
+
+import { CellStyles as styles } from './cell.styles';
 
 interface Props {
-    row: number;
-    col: number;
+    cell: CellInterface;
+    isLastGroup?: boolean;
+    isLastRow?: boolean;
 }
 
-export const Cell = ({row, col}: Props) => {
+export const Cell = ({ cell, isLastGroup = false, isLastRow = false }: Props) => {
+    const cellStyles = [styles.cell, cs(isLastGroup, styles.cellLastGroup), cs(isLastRow, styles.cellLastRow)];
+
     return (
-        <View style={CellStyles.cell}>
-            <Text>{row}-{col}</Text>
+        <View style={cellStyles}>
+            <Text>{cell.value}</Text>
         </View>
-    )
-}
+    );
+};

@@ -1,5 +1,10 @@
-import {StyleSheet} from "react-native";
+import { StyleSheet } from 'react-native';
 
 export const RowStyles = StyleSheet.create({
-    row: { flex: 1, flexDirection:'row' }
-})
+    row: {
+        flexDirection: 'row'
+    },
+    rowLast: {
+        borderBottomWidth: 2
+    }
+});
