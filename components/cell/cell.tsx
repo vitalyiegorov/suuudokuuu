@@ -9,10 +9,16 @@ interface Props {
     cell: CellInterface;
     isLastGroup?: boolean;
     isLastRow?: boolean;
+    isHighlighted?: boolean;
 }
 
-export const Cell = ({ cell, isLastGroup = false, isLastRow = false }: Props) => {
-    const cellStyles = [styles.cell, cs(isLastGroup, styles.cellLastGroup), cs(isLastRow, styles.cellLastRow)];
+export const Cell = ({ cell, isLastGroup = false, isLastRow = false, isHighlighted = false }: Props) => {
+    const cellStyles = [
+        styles.cell,
+        cs(isLastGroup, styles.cellLastGroup),
+        cs(isLastRow, styles.cellLastRow),
+        cs(isHighlighted, styles.cellHighlighted)
+    ];
 
     return (
         <View style={cellStyles}>

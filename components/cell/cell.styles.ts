@@ -14,6 +14,9 @@ export const CellStyles = StyleSheet.create({
         justifyContent: 'center',
         width: cellSize
     },
+    cellHighlighted: {
+        backgroundColor: 'yellow'
+    },
     cellLastGroup: {
         borderRightWidth: 2
     },
