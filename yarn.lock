@@ -2574,6 +2574,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rnw-community/shared@npm:^0.54.0":
+  version: 0.54.0
+  resolution: "@rnw-community/shared@npm:0.54.0"
+  checksum: 6dcf05208d8614e4fe3e96b56eba1d46c3ac180601a539477394a902c1bfc13ae3e78b2071df13e32d025f5c30a4ae5fa2a61f1fbffdd415b942b9e0b26da365
+  languageName: node
+  linkType: hard
+
 "@segment/loosely-validate-event@npm:^2.0.0":
   version: 2.0.0
   resolution: "@segment/loosely-validate-event@npm:2.0.0"
@@ -12651,6 +12658,7 @@ __metadata:
   dependencies:
     "@babel/core": ^7.20.0
     "@expo/webpack-config": ^18.0.1
+    "@rnw-community/shared": ^0.54.0
     "@types/react": ~18.0.27
     "@typescript-eslint/eslint-plugin": ^5.59.5
     eslint: ^8.40.0

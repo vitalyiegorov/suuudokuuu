@@ -1,7 +1,15 @@
-import {CellInterface} from "./cell.interface";
+import { type CellInterface } from './cell.interface';
 
 export interface CellGroupInterface {
-    cells: [CellInterface, CellInterface, CellInterface,
-        CellInterface, CellInterface, CellInterface,
-        CellInterface, CellInterface, CellInterface];
+    cells: [
+        CellInterface,
+        CellInterface,
+        CellInterface,
+        CellInterface,
+        CellInterface,
+        CellInterface,
+        CellInterface,
+        CellInterface,
+        CellInterface
+    ];
 }
