@@ -2,6 +2,7 @@ import { cs } from '@rnw-community/shared';
 import { Pressable, Text } from 'react-native';
 
 import { useAppDispatch, useAppSelector } from '../../hooks/redux.hook';
+import { BlankCellValue } from '../../interfaces/blank-cell-value';
 import { type CellInterface } from '../../interfaces/cell.interface';
 import { appRootSelectCellAction } from '../../store/app-root/app-root.actions';
 import { appRootSelectedCellSelector } from '../../store/app-root/app-root.selectors';
@@ -21,7 +22,8 @@ export const Cell = ({ cell, isLastGroup = false, isLastRow = false, isHighlight
     const selectedCell = useAppSelector(appRootSelectedCellSelector);
 
     const isActive = isSameCell(cell, selectedCell);
-    const isActiveValue = cell.value === selectedCell?.value;
+    const isActiveValue = cell.value === selectedCell?.value && cell.value !== BlankCellValue;
+    const value = cell.value === BlankCellValue ? '' : cell.value.toString();
 
     const handlePress = () => void dispatch(appRootSelectCellAction(isActive ? undefined : cell));
 
@@ -37,7 +39,7 @@ export const Cell = ({ cell, isLastGroup = false, isLastRow = false, isHighlight
 
     return (
         <Pressable style={cellStyles} onPress={handlePress}>
-            <Text style={textStyles}>{cell.value}</Text>
+            <Text style={textStyles}>{value}</Text>
         </Pressable>
     );
 };
