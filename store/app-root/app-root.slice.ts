@@ -1,10 +1,8 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import { isDefined } from '@rnw-community/shared';
 
 import { type CellInterface } from '../../interfaces/cell.interface';
 import { createField } from '../../utils/field/create-field.util';
 import { createGameField } from '../../utils/field/create-game-field.util';
-import { isCorrectCell } from '../../utils/field/is-correct-cell.util';
 
 import { appRootInitialState } from './app-root.state';
 
@@ -19,13 +17,10 @@ export const appRootSlice = createSlice({
         selectCell: (state, action: PayloadAction<CellInterface | undefined>) => {
             state.selectedCell = action.payload;
         },
-        selectValue: (state, action: PayloadAction<number>) => {
-            if (isDefined(state.selectedCell)) {
-                if (isCorrectCell({ ...state.selectedCell, value: action.payload }, state.gameField)) {
-                    state.gameField[state.selectedCell.x][state.selectedCell.y].value = action.payload;
-                    state.selectedCell = state.gameField[state.selectedCell.x][state.selectedCell.y];
-                }
-            }
+        setValue: (state, action: PayloadAction<CellInterface>) => {
+            const cell = action.payload;
+            state.selectedCell = state.gameField[cell.x][cell.y];
+            state.gameField[cell.x][cell.y].value = cell.value;
         }
     }
 });
