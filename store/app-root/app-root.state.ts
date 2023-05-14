@@ -4,6 +4,7 @@ export interface AppRootState {
     filledField: CellInterface[][];
     gameField: CellInterface[][];
     selectedCell?: CellInterface;
+    selectedValue?: number;
 }
 
 export const appRootInitialState: AppRootState = {
