@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 export const FieldStyles = StyleSheet.create({
     wrapper: {
         alignItems: 'center',
-        flex: 1,
+        flex: 5,
         flexDirection: 'column',
         justifyContent: 'center',
         margin: 'auto',
