@@ -1,4 +1,4 @@
-import { cs, isDefined } from '@rnw-community/shared';
+import { cs } from '@rnw-community/shared';
 import { View } from 'react-native';
 
 import { useAppSelector } from '../../hooks/redux.hook';
