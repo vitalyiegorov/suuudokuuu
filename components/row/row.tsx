@@ -1,9 +1,8 @@
 import { cs } from '@rnw-community/shared';
+import { memo } from 'react';
 import { View } from 'react-native';
 
-import { useAppSelector } from '../../hooks/redux.hook';
 import { type CellInterface } from '../../interfaces/cell.interface';
-import { appRootSelectedCellSelector } from '../../store/app-root/app-root.selectors';
 import { isCellHighlighted } from '../../utils/cell/is-cell-highlighted.util';
 import { isGroupEnd } from '../../utils/cell/is-group-end.util';
 import { Cell } from '../cell/cell';
@@ -15,11 +14,10 @@ interface Props {
     cells: CellInterface[];
     isGroupLast?: boolean;
     isLastRow?: boolean;
+    selectedCell?: CellInterface;
 }
 
-export const Row = ({ row, cells, isGroupLast = false, isLastRow = false }: Props) => {
-    const selectedCell = useAppSelector(appRootSelectedCellSelector);
-
+const RowComponent = ({ row, cells, selectedCell, isGroupLast = false, isLastRow = false }: Props) => {
     const rowStyles = [styles.row, cs(isGroupLast, styles.rowLast)];
 
     return (
@@ -36,3 +34,5 @@ export const Row = ({ row, cells, isGroupLast = false, isLastRow = false }: Prop
         </View>
     );
 };
+
+export const Row = memo(RowComponent);

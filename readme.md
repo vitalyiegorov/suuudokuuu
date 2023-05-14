@@ -13,6 +13,7 @@
 - add game over screen
 - add chicken dinner screen
 - add theming, dark mode
+- optimize rendering
 
 ### Backend
 - setup backend

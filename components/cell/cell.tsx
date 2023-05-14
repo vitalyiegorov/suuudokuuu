@@ -1,4 +1,5 @@
 import { cs } from '@rnw-community/shared';
+import { memo } from 'react';
 import { Pressable, Text } from 'react-native';
 
 import { useAppDispatch, useAppSelector } from '../../hooks/redux.hook';
@@ -17,7 +18,7 @@ interface Props {
     isHighlighted?: boolean;
 }
 
-export const Cell = ({ cell, isLastGroup = false, isLastRow = false, isHighlighted = false }: Props) => {
+const CellComponent = ({ cell, isLastGroup = false, isLastRow = false, isHighlighted = false }: Props) => {
     const dispatch = useAppDispatch();
     const selectedCell = useAppSelector(appRootSelectedCellSelector);
 
@@ -43,3 +44,5 @@ export const Cell = ({ cell, isLastGroup = false, isLastRow = false, isHighlight
         </Pressable>
     );
 };
+
+export const Cell = memo(CellComponent);
