@@ -12,7 +12,7 @@ export const appRootSlice = createSlice({
         load: state => {
             state.field = createField(9);
         },
-        selectCell: (state, action: PayloadAction<CellInterface>) => {
+        selectCell: (state, action: PayloadAction<CellInterface | undefined>) => {
             state.selectedCell = action.payload;
         }
     }
