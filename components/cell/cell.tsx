@@ -6,7 +6,7 @@ import { BlankCellValue } from '../../interfaces/blank-cell-value';
 import { type CellInterface } from '../../interfaces/cell.interface';
 import { appRootSelectCellAction } from '../../store/app-root/app-root.actions';
 import { appRootSelectedCellSelector } from '../../store/app-root/app-root.selectors';
-import { isSameCell } from '../../utils/is-same-cell.util';
+import { isSameCell } from '../../utils/cell/is-same-cell.util';
 
 import { CellStyles as styles } from './cell.styles';
 

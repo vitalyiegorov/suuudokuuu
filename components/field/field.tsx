@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux.hook';
 import { appRootLoadAction } from '../../store/app-root/app-root.actions';
 import { appRootFieldSelector } from '../../store/app-root/app-root.selectors';
-import { isGroupEnd } from '../../utils/is-group-last.util';
+import { isGroupEnd } from '../../utils/cell/is-group-end.util';
 import { Row } from '../row/row';
 
 import { FieldStyles as styles } from './field.styles';

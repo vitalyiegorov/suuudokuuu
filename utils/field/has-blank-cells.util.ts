@@ -1,5 +1,5 @@
-import { BlankCellValue } from '../interfaces/blank-cell-value';
-import { type CellInterface } from '../interfaces/cell.interface';
+import { BlankCellValue } from '../../interfaces/blank-cell-value';
+import { type CellInterface } from '../../interfaces/cell.interface';
 
 export const hasBlankCells = (field: CellInterface[][]): [boolean, number, number] => {
     let row = 0;
