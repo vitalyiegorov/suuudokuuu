@@ -11,20 +11,20 @@ const isSafe = (cell: CellInterface, matrix: CellInterface[][]): boolean => {
     return !hasValueInRow(cell, matrix) && !hasValueInColumn(cell, matrix) && !hasValueInGroup(cell, matrix);
 };
 
-export const fillField = (field: CellInterface[][]): boolean => {
+export const fillField = (field: CellInterface[][], values: number[]): boolean => {
     const [needsFilling, x, y] = hasBlankCells(field);
 
     if (!needsFilling) {
         return true;
     }
 
-    for (let value = 1; value <= 9; value++) {
+    for (const value of values) {
         const newCell: CellInterface = createCell(x, y, value);
 
         if (isSafe(newCell, field)) {
             field[x][y] = newCell;
 
-            if (fillField(field)) {
+            if (fillField(field, values)) {
                 return true;
             }
 
