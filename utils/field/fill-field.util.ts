@@ -1,7 +1,7 @@
-import { BlankCellValue } from '../interfaces/blank-cell-value';
-import { type CellInterface } from '../interfaces/cell.interface';
+import { BlankCellValue } from '../../interfaces/blank-cell-value';
+import { type CellInterface } from '../../interfaces/cell.interface';
+import { createCell } from '../cell/create-cell.util';
 
-import { createCell } from './create-cell.util';
 import { hasBlankCells } from './has-blank-cells.util';
 import { isCorrectCell } from './is-correct-cell.util';
 

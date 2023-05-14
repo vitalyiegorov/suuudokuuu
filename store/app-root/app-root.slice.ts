@@ -2,9 +2,9 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import { isDefined } from '@rnw-community/shared';
 
 import { type CellInterface } from '../../interfaces/cell.interface';
-import { createField } from '../../utils/create-field.util';
-import { createGameField } from '../../utils/create-game-field.util';
-import { isCorrectCell } from '../../utils/is-correct-cell.util';
+import { createField } from '../../utils/field/create-field.util';
+import { createGameField } from '../../utils/field/create-game-field.util';
+import { isCorrectCell } from '../../utils/field/is-correct-cell.util';
 
 import { appRootInitialState } from './app-root.state';
 

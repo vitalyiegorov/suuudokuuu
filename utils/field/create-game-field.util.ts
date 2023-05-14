@@ -1,5 +1,5 @@
-import { BlankCellValue } from '../interfaces/blank-cell-value';
-import { type CellInterface } from '../interfaces/cell.interface';
+import { BlankCellValue } from '../../interfaces/blank-cell-value';
+import { type CellInterface } from '../../interfaces/cell.interface';
 
 const cloneField = (field: CellInterface[][]): CellInterface[][] => field.map(row => row.map(cell => ({ ...cell })));
 const getRandomPosition = (field: CellInterface[][]): number => Math.floor(Math.random() * field.length);

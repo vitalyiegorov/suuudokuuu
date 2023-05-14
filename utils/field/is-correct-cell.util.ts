@@ -1,4 +1,4 @@
-import { type CellInterface } from '../interfaces/cell.interface';
+import { type CellInterface } from '../../interfaces/cell.interface';
 
 import { hasValueInColumn } from './has-value-in-column.util';
 import { hasValueInGroup } from './has-value-in-group.util';
