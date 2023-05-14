@@ -1,4 +1,4 @@
-import { type CellInterface } from '../interfaces/cell.interface';
+import { type CellInterface } from '../../interfaces/cell.interface';
 
 export const hasValueInGroup = (cell: CellInterface, matrix: CellInterface[][]): boolean => {
     const boxStartRow = cell.x - (cell.x % 3);

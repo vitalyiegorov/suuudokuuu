@@ -1,6 +1,6 @@
-import { type CellInterface } from '../interfaces/cell.interface';
+import { type CellInterface } from '../../interfaces/cell.interface';
+import { createCell } from '../cell/create-cell.util';
 
-import { createCell } from './create-cell.util';
 import { fillField } from './fill-field.util';
 
 const createFillingValues = (length: number): number[] => {

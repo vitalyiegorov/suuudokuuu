@@ -4,8 +4,8 @@ import { View } from 'react-native';
 import { useAppSelector } from '../../hooks/redux.hook';
 import { type CellInterface } from '../../interfaces/cell.interface';
 import { appRootSelectedCellSelector } from '../../store/app-root/app-root.selectors';
-import { isCellHighlighted } from '../../utils/is-cell-highlighted.util';
-import { isGroupEnd } from '../../utils/is-group-last.util';
+import { isCellHighlighted } from '../../utils/cell/is-cell-highlighted.util';
+import { isGroupEnd } from '../../utils/cell/is-group-end.util';
 import { Cell } from '../cell/cell';
 
 import { RowStyles as styles } from './row.styles';
