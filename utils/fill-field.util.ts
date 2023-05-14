@@ -3,13 +3,7 @@ import { type CellInterface } from '../interfaces/cell.interface';
 
 import { createCell } from './create-cell.util';
 import { hasBlankCells } from './has-blank-cells.util';
-import { hasValueInColumn } from './has-value-in-column.util';
-import { hasValueInGroup } from './has-value-in-group.util';
-import { hasValueInRow } from './has-value-in-row.util';
-
-const isSafe = (cell: CellInterface, matrix: CellInterface[][]): boolean => {
-    return !hasValueInRow(cell, matrix) && !hasValueInColumn(cell, matrix) && !hasValueInGroup(cell, matrix);
-};
+import { isCorrectCell } from './is-correct-cell.util';
 
 export const fillField = (field: CellInterface[][], values: number[]): boolean => {
     const [needsFilling, x, y] = hasBlankCells(field);
@@ -21,7 +15,7 @@ export const fillField = (field: CellInterface[][], values: number[]): boolean =
     for (const value of values) {
         const newCell: CellInterface = createCell(x, y, value);
 
-        if (isSafe(newCell, field)) {
+        if (isCorrectCell(newCell, field)) {
             field[x][y] = newCell;
 
             if (fillField(field, values)) {

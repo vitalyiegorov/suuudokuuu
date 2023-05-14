@@ -9,7 +9,19 @@ indent_size = 4
 trim_trailing_whitespace = true
 end_of_line = lf
 insert_final_newline = true
-max_line_length = 140
+max_line_length = 135
 
-[{*.yml, *.yaml}]
+[*.yml]
 indent_size = 2
+
+[*.yaml]
+indent_size = 2
+
+[*.plist]
+indent_style = tab
+
+[*_{password,secret,key}]
+insert_final_newline = false
+
+[*.xml]
+insert_final_newline = false

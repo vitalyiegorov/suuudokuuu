@@ -1,17 +1,19 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Provider } from 'react-redux';
 
+import { AvailableValues } from './components/available-values/available-values';
 import { Field } from './components/field/field';
 import { createStore } from './store/create-store';
 
+// TODO: Extract to AppRoot
 export default function App() {
     return (
         <Provider store={createStore}>
             <View style={styles.container}>
-                <Text>Open up App.js to start working on your app!</Text>
                 <StatusBar style="auto" />
                 <Field />
+                <AvailableValues />
             </View>
         </Provider>
     );
@@ -19,9 +21,6 @@ export default function App() {
 
 const styles = StyleSheet.create({
     container: {
-        alignItems: 'center',
-        backgroundColor: '#fff',
-        flex: 1,
-        justifyContent: 'center'
+        flex: 1
     }
 });
