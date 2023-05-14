@@ -1,3 +1,3 @@
 import { appRootSlice } from './app-root.slice';
 
-export const { load: appRootLoadAction, selectCell: appRootSelectCellAction, selectValue: appRootSelectValueAction } = appRootSlice.actions;
+export const { load: appRootLoadAction, selectCell: appRootSelectCellAction, setValue: appRootSetValueAction } = appRootSlice.actions;
