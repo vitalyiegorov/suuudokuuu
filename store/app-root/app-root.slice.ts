@@ -12,7 +12,7 @@ export const appRootSlice = createSlice({
     reducers: {
         load: state => {
             state.filledField = createField(9);
-            state.gameField = createGameField(state.filledField, 60);
+            state.gameField = createGameField(state.filledField, 1);
         },
         selectCell: (state, action: PayloadAction<CellInterface | undefined>) => {
             state.selectedCell = action.payload;
