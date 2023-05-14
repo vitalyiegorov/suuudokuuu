@@ -23,6 +23,8 @@ export const appRootSelectValueAction = createAsyncThunk<boolean, number, { disp
                 if (!hasBlankCells(state.gameField)[0]) {
                     // TODO: Add logic for winner winner chicken dinner
                     // TODO: Redirect to winner screen!
+                    alert('Winner winner chicken dinner!');
+
                     return true;
                 }
             } else {
