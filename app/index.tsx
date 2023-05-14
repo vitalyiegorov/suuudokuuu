@@ -2,12 +2,17 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 import { Provider } from 'react-redux';
 
-import { AvailableValues } from './components/available-values/available-values';
-import { Field } from './components/field/field';
-import { createStore } from './store/create-store';
+import { AvailableValues } from '../components/available-values/available-values';
+import { Field } from '../components/field/field';
+import { createStore } from '../store/create-store';
 
-// TODO: Extract to AppRoot
-export default function App() {
+const styles = StyleSheet.create({
+    container: {
+        flex: 1
+    }
+});
+
+export default function Game() {
     return (
         <Provider store={createStore}>
             <View style={styles.container}>
@@ -18,9 +23,3 @@ export default function App() {
         </Provider>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    }
-});
