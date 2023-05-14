@@ -1,7 +1,9 @@
-import { cs } from '@rnw-community/shared';
+import { cs, isDefined } from '@rnw-community/shared';
 import { View } from 'react-native';
 
+import { useAppSelector } from '../../hooks/redux.hook';
 import { type CellInterface } from '../../interfaces/cell.interface';
+import { appRootSelectedCellSelector } from '../../store/app-root/app-root.selectors';
 import { isCellHighlighted } from '../../utils/is-cell-highlighted.util';
 import { isGroupEnd } from '../../utils/is-group-last.util';
 import { Cell } from '../cell/cell';
@@ -15,14 +17,9 @@ interface Props {
     isLastRow?: boolean;
 }
 
-const activeCell: CellInterface = {
-    group: 1,
-    value: 1,
-    x: 1,
-    y: 1
-};
-
 export const Row = ({ row, cells, isGroupLast = false, isLastRow = false }: Props) => {
+    const selectedCell = useAppSelector(appRootSelectedCellSelector);
+
     const rowStyles = [styles.row, cs(isGroupLast, styles.rowLast)];
 
     return (
@@ -33,7 +30,7 @@ export const Row = ({ row, cells, isGroupLast = false, isLastRow = false }: Prop
                     cell={cell}
                     isLastGroup={isGroupEnd(i)}
                     isLastRow={isLastRow}
-                    isHighlighted={isCellHighlighted(activeCell, cell)}
+                    isHighlighted={isCellHighlighted(cell, selectedCell)}
                 />
             ))}
         </View>

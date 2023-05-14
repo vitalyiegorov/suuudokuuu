@@ -26,6 +26,7 @@ module.exports = {
     settings: {},
     plugins: ['react', 'react-native', 'import', 'prettier'],
     rules: {
+        'no-void': 'off',
         'import/namespace': 'off',
         'prettier/prettier': 'error',
         'import/order': [
