@@ -1,5 +1,6 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
+import { type DifficultyEnum, difficultyValues } from '../../enums/difficulty.enum';
 import { type CellInterface } from '../../interfaces/cell.interface';
 import { createField } from '../../utils/field/create-field.util';
 import { createGameField } from '../../utils/field/create-game-field.util';
@@ -10,9 +11,11 @@ export const appRootSlice = createSlice({
     name: 'counter',
     initialState: appRootInitialState,
     reducers: {
-        load: state => {
+        load: (state, action: PayloadAction<DifficultyEnum>) => {
+            const blankCellsCount = difficultyValues[action.payload];
+
             state.filledField = createField(9);
-            state.gameField = createGameField(state.filledField, 1);
+            state.gameField = createGameField(state.filledField, blankCellsCount);
         },
         selectCell: (state, action: PayloadAction<CellInterface | undefined>) => {
             state.selectedCell = action.payload;

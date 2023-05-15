@@ -11,6 +11,7 @@ export const CellStyles = StyleSheet.create({
         borderStyle: 'solid',
         borderTopWidth: 1,
         flex: 1,
+        fontFamily: 'Inter_500Medium',
         height: cellSize,
         justifyContent: 'center',
         width: cellSize

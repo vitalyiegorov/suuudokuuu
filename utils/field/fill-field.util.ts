@@ -1,4 +1,4 @@
-import { BlankCellValue } from '../../interfaces/blank-cell-value';
+import { BlankCellValue } from '../../constants/blank-cell-value';
 import { type CellInterface } from '../../interfaces/cell.interface';
 import { createCell } from '../cell/create-cell.util';
 
