@@ -2,8 +2,8 @@ import { cs } from '@rnw-community/shared';
 import { memo } from 'react';
 import { Pressable, Text } from 'react-native';
 
+import { BlankCellValue } from '../../constants/blank-cell-value';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux.hook';
-import { BlankCellValue } from '../../interfaces/blank-cell-value';
 import { type CellInterface } from '../../interfaces/cell.interface';
 import { appRootSelectCellAction } from '../../store/app-root/app-root.actions';
 import { appRootSelectedCellSelector } from '../../store/app-root/app-root.selectors';

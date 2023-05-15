@@ -1,4 +1,4 @@
-import { BlankCellValue } from '../../interfaces/blank-cell-value';
+import { BlankCellValue } from '../../constants/blank-cell-value';
 import { type CellInterface } from '../../interfaces/cell.interface';
 
 const cloneField = (field: CellInterface[][]): CellInterface[][] => field.map(row => row.map(cell => ({ ...cell })));

@@ -1,4 +1,4 @@
-import { BlankCellValue } from '../../interfaces/blank-cell-value';
+import { BlankCellValue } from '../../constants/blank-cell-value';
 
 const getGroupValue = (x: number, y: number): number => Math.floor(x / 3) * 3 + Math.floor(y / 3) + 1;
 
