@@ -8,10 +8,12 @@
         "web": "expo start --web"
     },
     "dependencies": {
+        "@expo-google-fonts/inter": "^0.2.3",
         "@expo/webpack-config": "^18.0.1",
         "@reduxjs/toolkit": "^1.9.5",
         "expo": "~48.0.15",
         "expo-constants": "~14.2.1",
+        "expo-font": "~11.1.1",
         "expo-linking": "~4.0.1",
         "expo-router": "^1.5.3",
         "expo-splash-screen": "~0.18.2",
