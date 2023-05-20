@@ -2,7 +2,7 @@ import { cs } from '@rnw-community/shared';
 import { memo } from 'react';
 import { Pressable, Text } from 'react-native';
 
-import { BlankCellValue } from '../../constants/blank-cell-value';
+import { BlankCellValueContant } from '../../constants/blank-cell-value.contant';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux.hook';
 import { type CellInterface } from '../../interfaces/cell.interface';
 import { appRootSelectCellAction } from '../../store/app-root/app-root.actions';
@@ -23,8 +23,9 @@ const CellComponent = ({ cell, isLastGroup = false, isLastRow = false, isHighlig
     const selectedCell = useAppSelector(appRootSelectedCellSelector);
 
     const isActive = isSameCell(cell, selectedCell);
-    const isActiveValue = cell.value === selectedCell?.value && cell.value !== BlankCellValue;
-    const value = cell.value === BlankCellValue ? '' : cell.value.toString();
+    const isActiveValue = cell.value === selectedCell?.value && cell.value !== BlankCellValueContant;
+    const isLastCol = cell.y === 8;
+    const value = cell.value === BlankCellValueContant ? '' : cell.value.toString();
 
     const handlePress = () => void dispatch(appRootSelectCellAction(isActive ? undefined : cell));
 
@@ -34,7 +35,8 @@ const CellComponent = ({ cell, isLastGroup = false, isLastRow = false, isHighlig
         cs(isLastRow, styles.cellLastRow),
         cs(isHighlighted, styles.cellHighlighted),
         cs(isActiveValue, styles.cellValueHighlighted),
-        cs(isActive, styles.cellActive)
+        cs(isActive, styles.cellActive),
+        cs(isLastCol, styles.cellLastCol)
     ];
     const textStyles = [styles.cellText, cs(isActiveValue, styles.cellTextHighlighted), cs(isActive, styles.cellTextActive)];
 

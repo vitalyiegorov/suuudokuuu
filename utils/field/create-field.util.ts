@@ -16,9 +16,9 @@ const createFillingValues = (length: number): number[] => {
 export const createField = (size: number): CellInterface[][] => {
     const field: CellInterface[][] = [];
 
-    for (let x = 0; x < size; x++) {
+    for (let y = 0; y < size; y++) {
         const row: CellInterface[] = [];
-        for (let y = 0; y < size; y++) {
+        for (let x = 0; x < size; x++) {
             row.push(createCell(x, y));
         }
         field.push(row);
