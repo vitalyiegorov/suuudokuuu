@@ -22,8 +22,8 @@ export const appRootSlice = createSlice({
         },
         setValue: (state, action: PayloadAction<CellInterface>) => {
             const cell = action.payload;
-            state.selectedCell = state.gameField[cell.x][cell.y];
-            state.gameField[cell.x][cell.y].value = cell.value;
+            state.selectedCell = state.gameField[cell.y][cell.x];
+            state.gameField[cell.y][cell.x].value = cell.value;
         }
     }
 });
