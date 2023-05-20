@@ -6,7 +6,7 @@ import { hasBlankCells } from './has-blank-cells.util';
 import { isCorrectCell } from './is-correct-cell.util';
 
 export const fillField = (field: CellInterface[][], values: number[]): boolean => {
-    const [needsFilling, x, y] = hasBlankCells(field);
+    const [needsFilling, y, x] = hasBlankCells(field);
 
     if (!needsFilling) {
         return true;
@@ -16,13 +16,13 @@ export const fillField = (field: CellInterface[][], values: number[]): boolean =
         const newCell: CellInterface = createCell(x, y, value);
 
         if (isCorrectCell(newCell, field)) {
-            field[x][y] = newCell;
+            field[y][x] = newCell;
 
             if (fillField(field, values)) {
                 return true;
             }
 
-            field[x][y].value = BlankCellValueContant;
+            field[y][x].value = BlankCellValueContant;
         }
     }
 
