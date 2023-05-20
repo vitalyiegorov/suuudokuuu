@@ -1,12 +1,12 @@
 import { StyleSheet } from 'react-native';
 
-import { cellSize } from '../../constants/dimensions.contant';
+import { CellSizeConstant } from '../../constants/dimensions.contant';
 
 export const AvailableValuesStyles = StyleSheet.create({
     valueWrapper: {
         borderWidth: 1,
-        height: cellSize,
-        width: cellSize
+        height: CellSizeConstant,
+        width: CellSizeConstant
     },
     wrapper: {
         flex: 1,
