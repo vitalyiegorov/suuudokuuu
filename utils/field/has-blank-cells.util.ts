@@ -1,17 +1,17 @@
 import { BlankCellValueContant } from '../../constants/blank-cell-value.contant';
 import { type CellInterface } from '../../interfaces/cell.interface';
 
-export const hasBlankCells = (field: CellInterface[][]): [boolean, number, number] => {
-    let row = 0;
-    let col = 0;
+export const hasBlankCells = (field: CellInterface[][]): [hasBlankCells: boolean, lastY: number, lastX: number] => {
+    let y = 0;
+    let x = 0;
 
-    for (row = 0; row < field.length; row++) {
-        for (col = 0; col < field[row].length; col++) {
-            if (field[row][col].value === BlankCellValueContant) {
-                return [true, row, col];
+    for (y = 0; y < field.length; y++) {
+        for (x = 0; x < field[y].length; x++) {
+            if (field[y][x].value === BlankCellValueContant) {
+                return [true, y, x];
             }
         }
     }
 
-    return [false, row, col];
+    return [false, y, x];
 };

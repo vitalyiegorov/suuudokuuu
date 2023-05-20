@@ -3,37 +3,38 @@ import { memo } from 'react';
 import { Pressable, Text } from 'react-native';
 
 import { BlankCellValueContant } from '../../constants/blank-cell-value.contant';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux.hook';
+import { useAppDispatch } from '../../hooks/redux.hook';
 import { type CellInterface } from '../../interfaces/cell.interface';
 import { appRootSelectCellAction } from '../../store/app-root/app-root.actions';
-import { appRootSelectedCellSelector } from '../../store/app-root/app-root.selectors';
+import { isCellHighlighted } from '../../utils/cell/is-cell-highlighted.util';
+import { isGroupEnd } from '../../utils/cell/is-group-end.util';
 import { isSameCell } from '../../utils/cell/is-same-cell.util';
 
 import { CellStyles as styles } from './cell.styles';
 
 interface Props {
     cell: CellInterface;
-    isLastGroup?: boolean;
-    isLastRow?: boolean;
-    isHighlighted?: boolean;
+    selectedCell?: CellInterface;
 }
 
-const CellComponent = ({ cell, isLastGroup = false, isLastRow = false, isHighlighted = false }: Props) => {
+const CellComponent = ({ cell, selectedCell }: Props) => {
     const dispatch = useAppDispatch();
-    const selectedCell = useAppSelector(appRootSelectedCellSelector);
 
+    const isLastRow = cell.y === 8;
+    const isLastCol = cell.x === 8;
     const isActive = isSameCell(cell, selectedCell);
     const isActiveValue = cell.value === selectedCell?.value && cell.value !== BlankCellValueContant;
-    const isLastCol = cell.y === 8;
+
     const value = cell.value === BlankCellValueContant ? '' : cell.value.toString();
 
     const handlePress = () => void dispatch(appRootSelectCellAction(isActive ? undefined : cell));
 
     const cellStyles = [
         styles.cell,
-        cs(isLastGroup, styles.cellLastGroup),
+        cs(isGroupEnd(cell.x), styles.cellGroupXEnd),
+        cs(isGroupEnd(cell.y), styles.cellGroupYEnd),
         cs(isLastRow, styles.cellLastRow),
-        cs(isHighlighted, styles.cellHighlighted),
+        cs(isCellHighlighted(cell, selectedCell), styles.cellHighlighted),
         cs(isActiveValue, styles.cellValueHighlighted),
         cs(isActive, styles.cellActive),
         cs(isLastCol, styles.cellLastCol)

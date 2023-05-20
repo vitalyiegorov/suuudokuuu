@@ -19,14 +19,17 @@ export const CellStyles = StyleSheet.create({
     cellActive: {
         backgroundColor: 'green'
     },
+    cellGroupXEnd: {
+        borderRightWidth: 2
+    },
+    cellGroupYEnd: {
+        borderBottomWidth: 2
+    },
     cellHighlighted: {
         backgroundColor: 'rgba(0,0,0,0.05)'
     },
     cellLastCol: {
         borderRightWidth: 1
-    },
-    cellLastGroup: {
-        borderRightWidth: 2
     },
     cellLastRow: {
         borderBottomWidth: 1
