@@ -33,10 +33,10 @@ const CellComponent = ({ cell, selectedCell }: Props) => {
         styles.cell,
         cs(isGroupEnd(cell.x), styles.cellGroupXEnd),
         cs(isGroupEnd(cell.y), styles.cellGroupYEnd),
-        cs(isLastRow, styles.cellLastRow),
         cs(isCellHighlighted(cell, selectedCell), styles.cellHighlighted),
         cs(isActiveValue, styles.cellValueHighlighted),
         cs(isActive, styles.cellActive),
+        cs(isLastRow, styles.cellLastRow),
         cs(isLastCol, styles.cellLastCol)
     ];
     const textStyles = [styles.cellText, cs(isActiveValue, styles.cellTextHighlighted), cs(isActive, styles.cellTextActive)];
