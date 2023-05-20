@@ -1,7 +1,8 @@
 import { type OnEventFn } from '@rnw-community/shared';
-import { Pressable, View, Text } from 'react-native';
+import { View } from 'react-native';
 
 import { DifficultyEnum } from '../../enums/difficulty.enum';
+import { BlackButton } from '../black-button/black-button';
 
 import { DifficultySelectStyles as styles } from './difficulty-select.styles';
 
@@ -15,9 +16,7 @@ export const DifficultySelect = ({ onSelect }: Props) => {
     return (
         <View style={styles.wrapper}>
             {Object.values(DifficultyEnum).map(difficulty => (
-                <Pressable key={difficulty} style={styles.option} onPress={handlePress(difficulty)}>
-                    <Text style={styles.optionText}>{difficulty}</Text>
-                </Pressable>
+                <BlackButton key={difficulty} text={difficulty} onPress={handlePress(difficulty)} />
             ))}
         </View>
     );

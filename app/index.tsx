@@ -1,8 +1,9 @@
 import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 
+import { BlackButton } from '../components/black-button/black-button';
 import { DifficultySelect } from '../components/difficulty-select/difficulty-select';
 import { type DifficultyEnum } from '../enums/difficulty.enum';
 import { useAppDispatch } from '../hooks/redux.hook';
@@ -28,23 +29,15 @@ export default function Home() {
         setShowDifficultySelect(false);
     };
 
-    const backButtonStyles = [styles.startButton, styles.backButton];
-
     return (
         <View style={styles.container}>
             <StatusBar style="auto" />
             <Text style={styles.header}>SuuudokuuU</Text>
-            {!showDifficultySelect && (
-                <Pressable style={styles.startButton} onPress={handleDifficultySelect}>
-                    <Text style={styles.startButtonText}>Start</Text>
-                </Pressable>
-            )}
+            {!showDifficultySelect && <BlackButton text="Start" onPress={handleDifficultySelect} />}
             {showDifficultySelect && (
                 <>
                     <DifficultySelect onSelect={handleStart} />
-                    <Pressable style={backButtonStyles} onPress={handleBack}>
-                        <Text style={styles.startButtonText}>Back</Text>
-                    </Pressable>
+                    <BlackButton text="Back" onPress={handleBack} />
                 </>
             )}
         </View>

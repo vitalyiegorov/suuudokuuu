@@ -13,14 +13,5 @@ export const HomeStyles = StyleSheet.create({
         fontFamily: 'Inter_700Bold',
         fontSize: 22,
         marginBottom: 20
-    },
-    startButton: {
-        backgroundColor: '#000',
-        paddingHorizontal: 20,
-        paddingVertical: 10
-    },
-    startButtonText: {
-        color: 'white',
-        fontFamily: 'Inter_500Medium'
     }
 });

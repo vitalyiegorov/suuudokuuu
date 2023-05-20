@@ -1,8 +1,8 @@
 import { StyleSheet } from 'react-native';
 
-export const cellSize = 50;
+import { cellSize } from '../../constants/dimensions.contant';
 
-// TODO: Add style theming support, add tamagui
+// TODO: Add style theming support
 export const CellStyles = StyleSheet.create({
     cell: {
         alignItems: 'center',
@@ -21,6 +21,9 @@ export const CellStyles = StyleSheet.create({
     },
     cellHighlighted: {
         backgroundColor: 'rgba(0,0,0,0.05)'
+    },
+    cellLastCol: {
+        borderRightWidth: 1
     },
     cellLastGroup: {
         borderRightWidth: 2
