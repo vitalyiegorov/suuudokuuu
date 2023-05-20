@@ -20,13 +20,7 @@ export const appRootSelectValueAction = createAsyncThunk<boolean, number, { disp
                 // TODO: Add logic for group animation
                 // TODO: Add score logic
 
-                if (!hasBlankCells(state.gameField)[0]) {
-                    // TODO: Add logic for winner winner chicken dinner
-                    // TODO: Redirect to winner screen!
-                    alert('Winner winner chicken dinner!');
-
-                    return true;
-                }
+                return true;
             } else {
                 // TODO: Add logic for mistake and game over
             }
