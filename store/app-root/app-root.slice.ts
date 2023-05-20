@@ -16,6 +16,7 @@ export const appRootSlice = createSlice({
 
             state.filledField = createField(9);
             state.gameField = createGameField(state.filledField, blankCellsCount);
+            state.mistakes = 0;
         },
         selectCell: (state, action: PayloadAction<CellInterface | undefined>) => {
             state.selectedCell = action.payload;
@@ -24,6 +25,9 @@ export const appRootSlice = createSlice({
             const cell = action.payload;
             state.selectedCell = state.gameField[cell.y][cell.x];
             state.gameField[cell.y][cell.x].value = cell.value;
+        },
+        madeAMistake: state => {
+            state.mistakes++;
         }
     }
 });
