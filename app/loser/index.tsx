@@ -4,13 +4,13 @@ import { View } from 'react-native';
 import { BlackButton } from '../../components/black-button/black-button';
 import { Header } from '../../components/header/header';
 
-import { WinnerStyles as styles } from './winner.styles';
+import { LoserStyles as styles } from './loser.styles';
 
-export default function Winner() {
+export default function Loser() {
     return (
         <View style={styles.container}>
             <StatusBar style="auto" />
-            <Header text="Winner-winner, chicken dinner!" />
+            <Header text="Better next time! Loooooser =)" />
             <BlackButton text={'Play again'} href={'/'} />
         </View>
     );

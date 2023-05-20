@@ -1,1 +1,1 @@
-export const cellSize = 50;
+export const CellSizeConstant = 50;

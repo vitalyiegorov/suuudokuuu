@@ -9,3 +9,4 @@ export const appRootFieldSelector = createSelector(appRootSelector, state => sta
 export const appRootSelectedCellSelector = createSelector(appRootSelector, state => state.selectedCell);
 export const appRootSelectedValueSelector = createSelector(appRootSelector, state => state.selectedValue);
 export const appRootAvailableValuesSelector = createSelector(appRootSelector, state => getAvailableFieldValues(state.gameField));
+export const appRootMistakesSelector = createSelector(appRootSelector, state => state.mistakes);

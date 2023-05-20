@@ -5,9 +5,11 @@ export interface AppRootState {
     gameField: CellInterface[][];
     selectedCell?: CellInterface;
     selectedValue?: number;
+    mistakes: number;
 }
 
 export const appRootInitialState: AppRootState = {
     filledField: [],
-    gameField: []
+    gameField: [],
+    mistakes: 0
 };
