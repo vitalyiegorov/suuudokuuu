@@ -1,7 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { isDefined } from '@rnw-community/shared';
 
-import { hasBlankCells } from '../../../utils/field/has-blank-cells.util';
 import { isCorrectCell } from '../../../utils/field/is-correct-cell.util';
 import { type AppDispatch, type RootState } from '../../create-store';
 import { appRootSetValueAction } from '../app-root.actions';
