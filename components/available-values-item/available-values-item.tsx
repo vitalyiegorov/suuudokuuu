@@ -10,6 +10,8 @@ interface Props {
     value: number;
 }
 
+// TODO: Add animation when wrong value is selected
+// TODO: Add animation when correct value is selected
 export const AvailableValuesItem = ({ value }: Props) => {
     const dispatch = useAppDispatch();
 
