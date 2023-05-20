@@ -1,5 +1,6 @@
 import { useFonts, Inter_500Medium, Inter_700Bold } from '@expo-google-fonts/inter';
 import { SplashScreen, Stack } from 'expo-router';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 
 import { createStore } from '../store/create-store';
@@ -17,7 +18,9 @@ export default function RootLayout() {
 
     return (
         <Provider store={createStore}>
-            <Stack screenOptions={stackOptions} />
+            <SafeAreaProvider>
+                <Stack screenOptions={stackOptions} />
+            </SafeAreaProvider>
         </Provider>
     );
 }
