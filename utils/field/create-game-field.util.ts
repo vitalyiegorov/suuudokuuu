@@ -1,4 +1,4 @@
-import { BlankCellValueContant } from '../../constants/blank-cell-value.contant';
+import { BlankCellValueConstant } from '../../constants/blank-cell-value.constant';
 import { type CellInterface } from '../../interfaces/cell.interface';
 
 const cloneField = (field: CellInterface[][]): CellInterface[][] => field.map(row => row.map(cell => ({ ...cell })));
@@ -8,7 +8,7 @@ export const createGameField = (originalField: CellInterface[][], blankCellsCoun
     const newField = cloneField(originalField);
 
     for (let i = 0; i < blankCellsCount; i++) {
-        newField[getRandomPosition(originalField)][getRandomPosition(originalField)].value = BlankCellValueContant;
+        newField[getRandomPosition(originalField)][getRandomPosition(originalField)].value = BlankCellValueConstant;
     }
 
     return newField;

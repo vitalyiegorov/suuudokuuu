@@ -1,6 +1,6 @@
 import { isDefined } from '@rnw-community/shared';
 
-import { BlankCellValueContant } from '../constants/blank-cell-value.contant';
+import { BlankCellValueConstant } from '../constants/blank-cell-value.constant';
 import { type CellInterface } from '../interfaces/cell.interface';
 
 export const getAvailableFieldValues = (field: CellInterface[][]): Record<number, number> => {
@@ -8,7 +8,7 @@ export const getAvailableFieldValues = (field: CellInterface[][]): Record<number
     for (let x = 0; x < field.length; x++) {
         for (let y = 0; y < field[x].length; y++) {
             const value = field[x][y].value;
-            if (value !== BlankCellValueContant) {
+            if (value !== BlankCellValueConstant) {
                 availableValues[value] = isDefined(availableValues[value]) ? availableValues[value] + 1 : 1;
             }
         }
