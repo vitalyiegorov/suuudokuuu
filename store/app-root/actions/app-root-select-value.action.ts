@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { isDefined } from '@rnw-community/shared';
+import * as Haptics from 'expo-haptics';
 
 import { BlankCellValueContant } from '../../../constants/blank-cell-value.contant';
 import { isCorrectCell } from '../../../utils/field/is-correct-cell.util';
@@ -20,9 +21,13 @@ export const appRootSelectValueAction = createAsyncThunk<boolean, number, { disp
                 // TODO: Add logic for group animation
                 // TODO: Add score logic
 
+                await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+
                 return true;
             } else {
                 thunkAPI.dispatch(appRootMadeAMistake());
+                await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+
                 // TODO: Add logic for mistake and game over
             }
         }

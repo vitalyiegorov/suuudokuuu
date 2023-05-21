@@ -6519,6 +6519,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"expo-haptics@npm:~12.2.1":
+  version: 12.2.1
+  resolution: "expo-haptics@npm:12.2.1"
+  peerDependencies:
+    expo: "*"
+  checksum: b64d9eb3adf7ea514d50393f3aec0ecda869aac0fa56469ef2f4310b6a66e7dd06f7ebbefd7ded6151b131da39450767b2bccb451249ded6675479d55984d264
+  languageName: node
+  linkType: hard
+
 "expo-keep-awake@npm:~12.0.1":
   version: 12.0.1
   resolution: "expo-keep-awake@npm:12.0.1"
@@ -13195,6 +13204,7 @@ __metadata:
     expo: ~48.0.15
     expo-constants: ~14.2.1
     expo-font: ~11.1.1
+    expo-haptics: ~12.2.1
     expo-linking: ~4.0.1
     expo-router: ^1.5.3
     expo-splash-screen: ~0.18.2
