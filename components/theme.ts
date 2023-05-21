@@ -11,7 +11,8 @@ export const WhiteTheme = {
             active: 'rgba(0, 255, 0, 1)',
             highlighted: 'rgba(0,0,0,0.05)',
             highlightedText: 'rgba(0, 255, 0, 1)',
-            activeValueText: 'rgba(201, 242, 155, 0.5)'
+            activeValueText: 'rgba(201, 242, 155, 0.5)',
+            error: 'rgba(255, 0, 0, 1)'
         },
         value: {
             border: 'rgba(0,0,0,0.15)',
@@ -32,7 +33,8 @@ export const BlackTheme = {
             active: 'rgba(0, 255, 0, 1)',
             highlighted: 'rgba(255,255,255,0.15)',
             highlightedText: 'rgba(0, 255, 0, 1)',
-            activeValueText: 'rgba(201, 242, 155, 0.5)'
+            activeValueText: 'rgba(201, 242, 155, 0.5)',
+            error: 'rgba(255, 0, 0, 1)'
         },
         value: {
             border: 'rgba(255,255,255,0.15)',

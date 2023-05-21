@@ -1,1 +1,1 @@
-export const MaxMistakesConstant = 3;
+export const MaxMistakesConstant = 300;
