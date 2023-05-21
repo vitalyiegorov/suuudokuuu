@@ -1,12 +1,13 @@
 import { StyleSheet } from 'react-native';
 
 import { CellSizeConstant } from '../../constants/dimensions.contant';
+import { Colors } from '../theme';
 
 // TODO: Add style theming support
 export const CellStyles = StyleSheet.create({
     cell: {
         alignItems: 'center',
-        borderColor: 'black',
+        borderColor: Colors.black,
         borderLeftWidth: 1,
         borderStyle: 'solid',
         borderTopWidth: 1,
@@ -17,7 +18,10 @@ export const CellStyles = StyleSheet.create({
         width: CellSizeConstant
     },
     cellActive: {
-        backgroundColor: 'green'
+        backgroundColor: Colors.cell.active
+    },
+    cellActiveText: {
+        color: Colors.white
     },
     cellGroupXEnd: {
         borderRightWidth: 2
@@ -26,7 +30,15 @@ export const CellStyles = StyleSheet.create({
         borderBottomWidth: 2
     },
     cellHighlighted: {
-        backgroundColor: 'rgba(0,0,0,0.05)'
+        backgroundColor: Colors.cell.highlighted
+    },
+    cellHighlightedText: {
+        color: Colors.cell.highlightedText,
+        fontSize: 16,
+        fontWeight: 'bold'
+    },
+    cellHighlightedValue: {
+        backgroundColor: Colors.cell.activeValueText
     },
     cellLastCol: {
         borderRightWidth: 1
@@ -35,17 +47,7 @@ export const CellStyles = StyleSheet.create({
         borderBottomWidth: 1
     },
     cellText: {
+        color: Colors.black,
         fontSize: 16
-    },
-    cellTextActive: {
-        color: 'white'
-    },
-    cellTextHighlighted: {
-        color: 'green',
-        fontSize: 16,
-        fontWeight: 'bold'
-    },
-    cellValueHighlighted: {
-        backgroundColor: 'rgba(201, 242, 155, 0.5)'
     }
 });

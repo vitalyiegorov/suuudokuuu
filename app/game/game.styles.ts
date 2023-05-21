@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native';
 
+import { Colors } from '../../components/theme';
+
 export const GameStyles = StyleSheet.create({
     container: {
         flex: 1,
@@ -11,7 +13,10 @@ export const GameStyles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     mistakesCountText: {
+        color: Colors.black,
         fontWeight: 'bold'
     },
-    mistakesText: {}
+    mistakesText: {
+        color: Colors.black
+    }
 });
