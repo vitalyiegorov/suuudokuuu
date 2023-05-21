@@ -21,3 +21,8 @@
 - [ ] setup iphone deployment
 - [ ] setup android deployment
 - [ ] add github actions
+- [ ] add mistakes purchasing through in-app purchases
+  - [ ] donate 75% to ZSU, add BE logic for this
+  - [ ] add donation branding and description on main screen
+- [ ] add gamification and percentage of completeness
+  - [ ] percentage can show animation(with links) to ZSU successes during war
