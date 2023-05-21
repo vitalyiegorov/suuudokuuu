@@ -26,6 +26,7 @@ export const AvailableValues = () => {
     const selectedCell = useSelector(appRootSelectedCellSelector);
 
     const correctValue = isDefined(selectedCell) ? filledField[selectedCell.y][selectedCell.x].value : BlankCellValueContant;
+    const canPress = isDefined(selectedCell) && selectedCell.value === BlankCellValueContant;
 
     const dispatch = useAppDispatch();
     const handleSelect = (value: number) => void dispatch(appRootSelectValueAction(value));
@@ -34,6 +35,7 @@ export const AvailableValues = () => {
         <View style={styles.wrapper}>
             {getAvailableValues(allValues).map(value => (
                 <AvailableValuesItem
+                    canPress={canPress}
                     isCorrect={value === correctValue}
                     value={value}
                     key={value}
