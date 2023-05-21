@@ -3,7 +3,7 @@ import { memo } from 'react';
 import { Pressable, Text } from 'react-native';
 import Reanimated, { interpolateColor, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
-import { BlankCellValueContant } from '../../constants/blank-cell-value.contant';
+import { BlankCellValueConstant } from '../../constants/blank-cell-value.constant';
 import { type CellInterface } from '../../interfaces/cell.interface';
 import { isGroupEnd } from '../../utils/cell/is-group-end.util';
 import { Colors } from '../theme';
@@ -31,7 +31,7 @@ const getCellBgColor = (isActiveValue: boolean, isCellHighlighted: boolean) => {
 };
 
 const CellComponent = ({ cell, onSelect, isActive, isActiveValue, isCellHighlighted }: Props) => {
-    const value = cell.value === BlankCellValueContant ? '' : cell.value.toString();
+    const value = cell.value === BlankCellValueConstant ? '' : cell.value.toString();
     const isLastRow = cell.y === 8;
     const isLastCol = cell.x === 8;
     const backgroundColor = getCellBgColor(isActiveValue, isCellHighlighted);

@@ -1,4 +1,4 @@
-import { BlankCellValueContant } from '../../constants/blank-cell-value.contant';
+import { BlankCellValueConstant } from '../../constants/blank-cell-value.constant';
 import { type CellInterface } from '../../interfaces/cell.interface';
 import { createCell } from '../cell/create-cell.util';
 
@@ -22,7 +22,7 @@ export const fillField = (field: CellInterface[][], values: number[]): boolean =
                 return true;
             }
 
-            field[y][x].value = BlankCellValueContant;
+            field[y][x].value = BlankCellValueConstant;
         }
     }
 
