@@ -13,3 +13,11 @@
 - [ ] add user creation and logic
 - [ ] store user solved puzzle, add time, score, rank for same puzzle
 - [ ] create leaderboards
+
+### Overall
+- [ ] add commitlint
+- [ ] add e2e tests(maestro)
+- [ ] setup eas,
+- [ ] setup iphone deployment
+- [ ] setup android deployment
+- [ ] add github actions
