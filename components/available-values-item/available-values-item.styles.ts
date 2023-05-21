@@ -20,7 +20,7 @@ export const AvailableValuesItemStyles = StyleSheet.create({
         position: 'relative'
     },
     progress: {
-        backgroundColor: 'green',
+        backgroundColor: Colors.cell.active,
         height: progressHeight,
         left: 0,
         position: 'absolute',
