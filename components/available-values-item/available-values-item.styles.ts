@@ -8,8 +8,9 @@ const progressHeight = 2;
 export const AvailableValuesItemStyles = StyleSheet.create({
     button: {
         alignItems: 'center',
-        borderBottomColor: Colors.black,
-        borderColor: Colors.cell.highlighted,
+        borderBottomColor: Colors.value.progress,
+        borderBottomWidth: progressHeight,
+        borderColor: Colors.value.border,
         borderWidth: 1,
         height: CellSizeConstant,
         justifyContent: 'center',
@@ -25,7 +26,7 @@ export const AvailableValuesItemStyles = StyleSheet.create({
         position: 'absolute',
         top: CellSizeConstant - progressHeight
     },
-    text: { color: Colors.black },
+    text: { color: Colors.value.text },
     textActive: {
         color: Colors.cell.activeValueText
     },

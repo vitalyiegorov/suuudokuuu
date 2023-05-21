@@ -12,6 +12,12 @@ export const WhiteTheme = {
             highlighted: 'rgba(0,0,0,0.05)',
             highlightedText: 'rgba(0, 255, 0, 1)',
             activeValueText: 'rgba(201, 242, 155, 0.5)'
+        },
+        value: {
+            border: 'rgba(0,0,0,0.15)',
+            progress: 'rgba(0, 255, 0, 0.3)',
+            progressActive: 'rgba(0, 255, 0, 0.7)',
+            text: 'rgba(0, 0, 0,1)'
         }
     }
 };
@@ -27,6 +33,12 @@ export const BlackTheme = {
             highlighted: 'rgba(255,255,255,0.15)',
             highlightedText: 'rgba(0, 255, 0, 1)',
             activeValueText: 'rgba(201, 242, 155, 0.5)'
+        },
+        value: {
+            border: 'rgba(255,255,255,0.15)',
+            progress: 'rgba(0, 255, 0, 0.3)',
+            progressActive: 'rgba(0, 255, 0, 0.7)',
+            text: 'rgba(255, 255, 255,1)'
         }
     }
 };
