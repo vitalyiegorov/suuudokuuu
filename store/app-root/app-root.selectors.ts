@@ -6,6 +6,7 @@ import { type RootState } from '../create-store';
 const appRootSelector = (state: RootState) => state.appRoot;
 
 export const appRootFieldSelector = createSelector(appRootSelector, state => state.gameField);
+export const appRootFilledFieldSelector = createSelector(appRootSelector, state => state.filledField);
 export const appRootSelectedCellSelector = createSelector(appRootSelector, state => state.selectedCell);
 export const appRootSelectedValueSelector = createSelector(appRootSelector, state => state.selectedValue);
 export const appRootAvailableValuesSelector = createSelector(appRootSelector, state => getAvailableFieldValues(state.gameField));
