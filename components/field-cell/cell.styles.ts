@@ -26,16 +26,10 @@ export const CellStyles = StyleSheet.create({
     cellGroupYEnd: {
         borderBottomWidth: 2
     },
-    cellHighlighted: {
-        backgroundColor: Colors.cell.highlighted
-    },
     cellHighlightedText: {
         color: Colors.cell.highlightedText,
         fontSize: 16,
         fontWeight: 'bold'
-    },
-    cellHighlightedValue: {
-        backgroundColor: Colors.cell.activeValueText
     },
     cellLastCol: {
         borderRightWidth: 1
