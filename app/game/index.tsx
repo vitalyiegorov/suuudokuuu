@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-raw-text */
 import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { useRouter } from 'expo-router';
@@ -55,7 +56,7 @@ export default function Game() {
             <StatusBar style="auto" />
             <View style={styles.controls}>
                 <Text style={styles.mistakesText}>
-                    Mistakes: <Text style={styles.mistakesCountText}>{mistakes}</Text>/{MaxMistakesConstant}
+                    Mistakes: <Text style={styles.mistakesCountText}>{mistakes}</Text> / {MaxMistakesConstant}
                 </Text>
                 <BlackButton text="Exit" onPress={handleExit} />
             </View>

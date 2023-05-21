@@ -17,6 +17,7 @@ const ReanimatedPressable = Reanimated.createAnimatedComponent(Pressable);
 
 interface Props {
     value: number;
+    canPress: boolean;
     isActive: boolean;
     progress: number;
     isCorrect: boolean;
@@ -24,7 +25,7 @@ interface Props {
 }
 
 // TODO: Add animation when correct value is selected
-export const AvailableValuesItem = ({ value, isActive, onSelect, progress, isCorrect }: Props) => {
+export const AvailableValuesItem = ({ value, isActive, onSelect, progress, isCorrect, canPress }: Props) => {
     const pressAnimatedBgColor = isCorrect ? Colors.cell.active : Colors.cell.error;
 
     const animated = useSharedValue(0);
@@ -39,8 +40,10 @@ export const AvailableValuesItem = ({ value, isActive, onSelect, progress, isCor
     }));
 
     const handlePress = () => {
-        animated.value = withSequence(withTiming(1, { duration: 200 }), withTiming(0, { duration: 200 }));
-        onSelect(value);
+        if (canPress) {
+            animated.value = withSequence(withTiming(1, { duration: 200 }), withTiming(0, { duration: 200 }));
+            onSelect(value);
+        }
     };
 
     const buttonStyles = [styles.button, cs(isActive, styles.wrapperActive), animatedStyles];
