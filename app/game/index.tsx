@@ -1,7 +1,9 @@
+import * as Haptics from 'expo-haptics';
+import { ImpactFeedbackStyle } from 'expo-haptics';
 import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
-import { Alert, View, Text } from 'react-native';
+import { Alert, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { AvailableValues } from '../../components/available-values/available-values';
@@ -21,16 +23,21 @@ export default function Game() {
     const selectedCell = useAppSelector(appRootSelectedCellSelector);
     const mistakes = useAppSelector(appRootMistakesSelector);
 
-    useEffect(() => {
+    const handleWin = async () => {
         if (!hasBlankCells(field)[0]) {
+            await Haptics.impactAsync(ImpactFeedbackStyle.Heavy);
             router.push('winner');
         }
-    }, [field]);
-    useEffect(() => {
+    };
+    const handleLose = async () => {
         if (mistakes >= MaxMistakesConstant) {
+            await Haptics.impactAsync(ImpactFeedbackStyle.Heavy);
             router.push('loser');
         }
-    }, [mistakes]);
+    };
+
+    useEffect(() => void handleWin(), [field]);
+    useEffect(() => void handleLose(), [mistakes]);
 
     const handleExit = () => {
         Alert.alert('Stop current run?', 'All progress will be lost', [
