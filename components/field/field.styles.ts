@@ -1,6 +1,9 @@
 import { StyleSheet } from 'react-native';
 
 export const FieldStyles = StyleSheet.create({
+    row: {
+        flexDirection: 'row'
+    },
     wrapper: {
         alignItems: 'center',
         flex: 5,

@@ -17,9 +17,6 @@ export const CellStyles = StyleSheet.create({
         justifyContent: 'center',
         width: CellSizeConstant
     },
-    cellActive: {
-        backgroundColor: Colors.cell.active
-    },
     cellActiveText: {
         color: Colors.white
     },
