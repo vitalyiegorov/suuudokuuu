@@ -3,6 +3,8 @@ import { StyleSheet } from 'react-native';
 import { CellSizeConstant } from '../../constants/dimensions.contant';
 import { Colors } from '../theme';
 
+const progressHeight = 2;
+
 export const AvailableValuesItemStyles = StyleSheet.create({
     button: {
         alignItems: 'center',
@@ -18,11 +20,10 @@ export const AvailableValuesItemStyles = StyleSheet.create({
     },
     progress: {
         backgroundColor: 'green',
-        height: 2,
+        height: progressHeight,
         left: 0,
         position: 'absolute',
-        top: CellSizeConstant - 2,
-        zIndex: 5
+        top: CellSizeConstant - progressHeight
     },
     text: { color: Colors.black },
     textActive: {
