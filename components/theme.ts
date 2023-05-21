@@ -24,7 +24,7 @@ export const BlackTheme = {
         black: 'rgb(255, 255, 255)',
         cell: {
             active: 'rgba(0, 255, 0, 1)',
-            highlighted: 'rgba(255,255,255,0.05)',
+            highlighted: 'rgba(255,255,255,0.2)',
             highlightedText: 'rgba(0, 255, 0, 1)',
             activeValueText: 'rgba(201, 242, 155, 0.5)'
         }
