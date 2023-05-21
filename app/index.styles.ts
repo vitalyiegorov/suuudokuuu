@@ -8,10 +8,5 @@ export const HomeStyles = StyleSheet.create({
         alignItems: 'center',
         flex: 1,
         justifyContent: 'center'
-    },
-    header: {
-        fontFamily: 'Inter_700Bold',
-        fontSize: 22,
-        marginBottom: 20
     }
 });
