@@ -40,7 +40,7 @@ const CellComponent = ({ cell, onSelect, isActive, isActiveValue, isCellHighligh
     const animatedStyles = useAnimatedStyle(() => ({
         backgroundColor: interpolateColor(progress.value, [0, 1], [backgroundColor, Colors.cell.active])
     }));
-    progress.value = withTiming(isActive ? 1 : 0, { duration: 500 });
+    progress.value = withTiming(isActive ? 1 : 0, { duration: 200 });
 
     const handlePress = () => void onSelect(isActive ? undefined : cell);
 
