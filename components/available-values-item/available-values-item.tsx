@@ -1,30 +1,30 @@
-import { cs } from '@rnw-community/shared';
-import { Pressable, Text } from 'react-native';
-
-import { useAppDispatch } from '../../hooks/redux.hook';
-import { appRootSelectValueAction } from '../../store/app-root/actions/app-root-select-value.action';
+import { cs, type OnEventFn } from '@rnw-community/shared';
+import { Pressable, Text, View } from 'react-native';
 
 import { AvailableValuesItemStyles as styles } from './available-values-item.styles';
 
 interface Props {
     value: number;
+    isActive: boolean;
+    progress: number;
+    onSelect: OnEventFn<number>;
 }
 
 // TODO: Add animation when wrong value is selected
 // TODO: Add animation when correct value is selected
-export const AvailableValuesItem = ({ value }: Props) => {
-    const dispatch = useAppDispatch();
+export const AvailableValuesItem = ({ value, isActive, onSelect, progress }: Props) => {
+    const handlePress = () => onSelect(value);
 
-    const isActive = false;
-
-    const handlePress = () => void dispatch(appRootSelectValueAction(value));
-
-    const wrapperStyles = [styles.wrapper, cs(isActive, styles.wrapperActive)];
+    const buttonStyles = [styles.button, cs(isActive, styles.wrapperActive)];
     const textStyles = [styles.text, cs(isActive, styles.textActive)];
+    const progressStyles = [styles.progress, { width: `${progress}%` }];
 
     return (
-        <Pressable key={value} style={wrapperStyles} onPress={handlePress}>
-            <Text style={textStyles}>{value}</Text>
-        </Pressable>
+        <View style={styles.container}>
+            <Pressable key={value} style={buttonStyles} onPress={handlePress}>
+                <Text style={textStyles}>{value}</Text>
+            </Pressable>
+            <View style={progressStyles} />
+        </View>
     );
 };
