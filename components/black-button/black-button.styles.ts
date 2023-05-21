@@ -1,13 +1,15 @@
 import { StyleSheet } from 'react-native';
 
+import { Colors } from '../theme';
+
 export const BlackButtonStyles = StyleSheet.create({
     button: {
-        backgroundColor: '#000',
+        backgroundColor: Colors.black,
         paddingHorizontal: 20,
         paddingVertical: 10
     },
     buttonText: {
-        color: 'white',
+        color: Colors.white,
         textAlign: 'center'
     }
 });

@@ -34,12 +34,12 @@ const CellComponent = ({ cell, selectedCell }: Props) => {
         cs(isGroupEnd(cell.x), styles.cellGroupXEnd),
         cs(isGroupEnd(cell.y), styles.cellGroupYEnd),
         cs(isCellHighlighted(cell, selectedCell), styles.cellHighlighted),
-        cs(isActiveValue, styles.cellValueHighlighted),
+        cs(isActiveValue, styles.cellHighlightedValue),
         cs(isActive, styles.cellActive),
         cs(isLastRow, styles.cellLastRow),
         cs(isLastCol, styles.cellLastCol)
     ];
-    const textStyles = [styles.cellText, cs(isActiveValue, styles.cellTextHighlighted), cs(isActive, styles.cellTextActive)];
+    const textStyles = [styles.cellText, cs(isActiveValue, styles.cellHighlightedText), cs(isActive, styles.cellActiveText)];
 
     return (
         <Pressable style={cellStyles} onPress={handlePress}>
