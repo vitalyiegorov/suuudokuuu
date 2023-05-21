@@ -2,7 +2,7 @@ import { isDefined } from '@rnw-community/shared';
 import { View } from 'react-native';
 import { useSelector } from 'react-redux';
 
-import { BlankCellValueContant } from '../../constants/blank-cell-value.contant';
+import { BlankCellValueConstant } from '../../constants/blank-cell-value.constant';
 import { useAppDispatch } from '../../hooks/redux.hook';
 import { appRootSelectValueAction } from '../../store/app-root/actions/app-root-select-value.action';
 import {
@@ -25,8 +25,8 @@ export const AvailableValues = () => {
     const allValues = useSelector(appRootAvailableValuesSelector);
     const selectedCell = useSelector(appRootSelectedCellSelector);
 
-    const correctValue = isDefined(selectedCell) ? filledField[selectedCell.y][selectedCell.x].value : BlankCellValueContant;
-    const canPress = isDefined(selectedCell) && selectedCell.value === BlankCellValueContant;
+    const correctValue = isDefined(selectedCell) ? filledField[selectedCell.y][selectedCell.x].value : BlankCellValueConstant;
+    const canPress = isDefined(selectedCell) && selectedCell.value === BlankCellValueConstant;
 
     const dispatch = useAppDispatch();
     const handleSelect = (value: number) => void dispatch(appRootSelectValueAction(value));
