@@ -2,22 +2,14 @@
 
 ## TODO
 ### Frontend
-- add RXJS game logic:
-  - timer
-  - mistakes
-  - score
-- add animations
-- add start screen:
-  - add difficulty levels
-- add exit button to the game
-- add game over screen
-- add chicken dinner screen
-- add theming, dark mode
-- optimize rendering
+- [ ] add game logic:
+  - [ ] timer
+  - [ ] score and its calculation based on errors, timer, row/col/group finish
+- [ ] add animations
+- [ ] optimize rendering(why does it lag? =)
 
 ### Backend
-- setup backend
-- add user creation and logic
-- add apple gamecenter
-- store user solved puzzle by hash, add time
-- create leaderboards
+- [ ] setup backend, full offline mode support(no wifi, planes, trains etc)
+- [ ] add user creation and logic
+- [ ] store user solved puzzle, add time, score, rank for same puzzle
+- [ ] create leaderboards
