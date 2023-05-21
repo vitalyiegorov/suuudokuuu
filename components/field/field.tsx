@@ -18,11 +18,11 @@ interface Props {
 export const Field = ({ field, selectedCell, onSelect }: Props) => {
     return (
         <View style={styles.wrapper}>
-            {field.map((row, i) => (
-                <View key={`row-${i}`} style={styles.row}>
+            {field.map(row => (
+                <View key={`row-${row[0].y}`} style={styles.row}>
                     {row.map(cell => (
                         <Cell
-                            key={`${cell.x}-${cell.y}`}
+                            key={`cell-${cell.y}-${cell.x}`}
                             cell={cell}
                             onSelect={onSelect}
                             isActive={isSameCell(cell, selectedCell)}

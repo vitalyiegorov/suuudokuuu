@@ -20,31 +20,37 @@ interface Props {
     isCellHighlighted: boolean;
 }
 
+const getCellBgColor = (isActiveValue: boolean, isCellHighlighted: boolean) => {
+    if (isActiveValue) {
+        return Colors.cell.activeValueText;
+    } else if (isCellHighlighted) {
+        return Colors.cell.highlighted;
+    }
+
+    return Colors.white;
+};
+
 const CellComponent = ({ cell, onSelect, isActive, isActiveValue, isCellHighlighted }: Props) => {
     const value = cell.value === BlankCellValueContant ? '' : cell.value.toString();
     const isLastRow = cell.y === 8;
     const isLastCol = cell.x === 8;
+    const backgroundColor = getCellBgColor(isActiveValue, isCellHighlighted);
 
     const progress = useSharedValue(0);
     const animatedStyles = useAnimatedStyle(() => ({
-        backgroundColor: interpolateColor(progress.value, [0, 1], [Colors.white, Colors.cell.active])
+        backgroundColor: interpolateColor(progress.value, [0, 1], [backgroundColor, Colors.cell.active])
     }));
+    progress.value = withTiming(isActive ? 1 : 0, { duration: 500 });
 
-    const handlePress = () => {
-        progress.value = withTiming(isActive ? 0 : 1, { duration: 500 });
-
-        onSelect(isActive ? undefined : cell);
-    };
+    const handlePress = () => void onSelect(isActive ? undefined : cell);
 
     const cellStyles = [
         styles.cell,
         cs(isGroupEnd(cell.x), styles.cellGroupXEnd),
         cs(isGroupEnd(cell.y), styles.cellGroupYEnd),
-        cs(isCellHighlighted, styles.cellHighlighted),
         cs(isLastRow, styles.cellLastRow),
         cs(isLastCol, styles.cellLastCol),
-        cs(isActiveValue, styles.cellHighlightedValue),
-        cs(isActive, animatedStyles)
+        animatedStyles
     ];
     const textStyles = [styles.cellText, cs(isActiveValue, styles.cellHighlightedText), cs(isActive, styles.cellActiveText)];
 
