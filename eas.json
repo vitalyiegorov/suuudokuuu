@@ -1,23 +1,26 @@
 {
-  "cli": {
-    "version": ">= 3.13.0"
-  },
-  "build": {
-    "development": {
-      "distribution": "internal",
-      "android": {
-        "gradleCommand": ":app:assembleDebug"
-      },
-      "ios": {
-        "buildConfiguration": "Debug"
-      }
+    "cli": {
+        "version": ">= 3.13.0"
     },
-    "preview": {
-      "distribution": "internal"
+    "build": {
+        "development": {
+            "distribution": "internal",
+            "android": {
+                "gradleCommand": ":app:assembleDebug"
+            },
+            "ios": {
+                "buildConfiguration": "Debug"
+            }
+        },
+        "preview": {
+            "channel": "staging",
+            "distribution": "internal"
+        },
+        "production": {
+            "channel": "production"
+        }
     },
-    "production": {}
-  },
-  "submit": {
-    "production": {}
-  }
+    "submit": {
+        "production": {}
+    }
 }
