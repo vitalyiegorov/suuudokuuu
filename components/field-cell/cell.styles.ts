@@ -18,7 +18,10 @@ export const CellStyles = StyleSheet.create({
         width: CellSizeConstant
     },
     cellActiveText: {
-        color: Colors.white
+        color: Colors.cell.activeText
+    },
+    cellActiveValueText: {
+        color: Colors.cell.activeValueText
     },
     cellGroupXEnd: {
         borderRightWidth: 2
