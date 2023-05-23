@@ -9,15 +9,17 @@ export const WhiteTheme = {
         black: 'rgb(0, 0, 0)',
         cell: {
             active: 'rgba(0, 255, 0, 1)',
+            activeText: 'rgba(0, 0, 0, 1)',
             highlighted: 'rgba(0,0,0,0.05)',
             highlightedText: 'rgba(0, 255, 0, 1)',
-            activeValueText: 'rgba(201, 242, 155, 0.5)',
+            activeValue: 'rgba(0, 255, 0, 0.5)',
+            activeValueText: 'rgba(0, 0, 0, 1)',
             error: 'rgba(255, 0, 0, 1)'
         },
         value: {
             border: 'rgba(0,0,0,0.15)',
             progress: 'rgba(0, 255, 0, 0.3)',
-            progressActive: 'rgba(0, 255, 0, 0.7)',
+            progressActive: 'rgba(0, 255, 0, 1)',
             text: 'rgba(0, 0, 0,1)'
         }
     }
@@ -31,9 +33,11 @@ export const BlackTheme = {
         black: 'rgb(255, 255, 255)',
         cell: {
             active: 'rgba(0, 255, 0, 1)',
+            activeText: 'rgba(255, 255, 255, 1)',
             highlighted: 'rgba(255,255,255,0.15)',
             highlightedText: 'rgba(0, 255, 0, 1)',
-            activeValueText: 'rgba(201, 242, 155, 0.5)',
+            activeValue: 'rgba(255, 255, 255, 0.5)',
+            activeValueText: 'rgba(255, 255, 255, 1)',
             error: 'rgba(255, 0, 0, 1)'
         },
         value: {
