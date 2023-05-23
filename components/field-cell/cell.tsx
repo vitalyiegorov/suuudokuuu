@@ -22,7 +22,7 @@ interface Props {
 
 const getCellBgColor = (isActiveValue: boolean, isCellHighlighted: boolean) => {
     if (isActiveValue) {
-        return Colors.cell.activeValueText;
+        return Colors.cell.activeValue;
     } else if (isCellHighlighted) {
         return Colors.cell.highlighted;
     }
@@ -52,7 +52,7 @@ const CellComponent = ({ cell, onSelect, isActive, isActiveValue, isCellHighligh
         cs(isLastCol, styles.cellLastCol),
         animatedStyles
     ];
-    const textStyles = [styles.cellText, cs(isActiveValue, styles.cellHighlightedText), cs(isActive, styles.cellActiveText)];
+    const textStyles = [styles.cellText, cs(isActiveValue, styles.cellActiveValueText), cs(isActive, styles.cellActiveText)];
 
     return (
         <ReanimatedPressable style={cellStyles} onPress={handlePress}>
