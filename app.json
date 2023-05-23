@@ -6,7 +6,10 @@
         "version": "1.0.1",
         "orientation": "portrait",
         "icon": "./assets/icon.png",
-        "userInterfaceStyle": "light",
+        "userInterfaceStyle": "automatic",
+        "runtimeVersion": {
+            "policy": "appVersion"
+        },
         "splash": {
             "image": "./assets/splash.png",
             "resizeMode": "contain",
@@ -17,18 +20,12 @@
         ],
         "ios": {
             "supportsTablet": true,
-            "bundleIdentifier": "com.vitalyiegorov.suuudokuuu",
-            "runtimeVersion": {
-                "policy": "sdkVersion"
-            }
+            "bundleIdentifier": "com.vitalyiegorov.suuudokuuu"
         },
         "android": {
             "adaptiveIcon": {
                 "foregroundImage": "./assets/adaptive-icon.png",
                 "backgroundColor": "#000"
-            },
-            "runtimeVersion": {
-                "policy": "sdkVersion"
             }
         },
         "web": {
