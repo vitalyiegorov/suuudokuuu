@@ -25,7 +25,7 @@
         "android": {
             "adaptiveIcon": {
                 "foregroundImage": "./assets/adaptive-icon.png",
-                "backgroundColor": "#ffffff"
+                "backgroundColor": "#000"
             },
             "runtimeVersion": {
                 "policy": "sdkVersion"
