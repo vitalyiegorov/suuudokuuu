@@ -13,17 +13,12 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18.x
-      - name: Setup Expo and EAS
-        uses: expo/expo-github-action@v8
-        with:
-          eas-version: latest
-          token: ${{ secrets.EXPO_TOKEN }}
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
       - name: Install dependencies
         run: yarn install
       - name: Build expo web
-        run: expo export --platform=web && cd dist
+        run: npx expo export --platform=web && cd dist
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
       - name: Build Project Artifacts
