@@ -1,4 +1,4 @@
-name: preview
+name: Merge Request
 on: pull_request
 
 jobs:
