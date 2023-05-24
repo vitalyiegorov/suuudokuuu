@@ -1,4 +1,4 @@
-name: EAS Build
+name: Deploy production
 on:
   workflow_dispatch:
   push:
