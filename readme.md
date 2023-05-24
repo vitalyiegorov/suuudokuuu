@@ -24,6 +24,11 @@
 - [ ] add donation CTA on main screen
 - [x] optimize rendering(why does it lag? =)
 
+#### Web
+- [ ] add pages titles
+- [ ] fix font issue
+- [ ] fix mobile version padding
+
 ### Backend
 - [ ] setup backend, app should still support full offline mode support
 - [ ] add user creation and logic
