@@ -13,14 +13,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18.x
-      - name: Install Vercel CLI
-        run: npm install --global vercel@latest
-      - name: Install Expo CLI
-        run: npm install --global expo@latest
       - name: Install dependencies
         run: yarn install
       - name: Build expo web
-        run: expo export --platform=web
+        run: npx expo export --platform=web
       - name: Deploy to Vercel
-        run: cd dist && vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
+        run: cd dist && npx vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
 
