@@ -1,8 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { isDefined } from '@rnw-community/shared';
 import * as Haptics from 'expo-haptics';
+import { ImpactFeedbackStyle } from 'expo-haptics';
 
 import { BlankCellValueConstant } from '../../../constants/blank-cell-value.constant';
+import { hapticNotification } from '../../../utils/haptic.utils';
 import { type AppDispatch, type RootState } from '../../create-store';
 import { appRootMadeAMistake, appRootSetValueAction } from '../app-root.actions';
 
@@ -16,11 +18,12 @@ export const appRootSelectValueAction = createAsyncThunk<boolean, number, { disp
             if (state.filledField[newCell.y][newCell.x].value === value) {
                 thunkAPI.dispatch(appRootSetValueAction(newCell));
 
-                await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+                await hapticNotification(Haptics.NotificationFeedbackType.Success);
 
                 return true;
             } else {
                 thunkAPI.dispatch(appRootMadeAMistake());
+                await hapticNotification(Haptics.NotificationFeedbackType.Error);
                 await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
             }
         }
