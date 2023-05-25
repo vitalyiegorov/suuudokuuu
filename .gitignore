@@ -26,3 +26,6 @@ web-build/
 !.yarn/versions
 
 .idea
+
+ios
+android
