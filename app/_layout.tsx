@@ -4,9 +4,10 @@ import { SplashScreen, Stack } from 'expo-router';
 import { useColorScheme } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 
 import { BlackTheme, WhiteTheme } from '../components/theme';
-import { createStore } from '../store/create-store';
+import { appPersistor, appStore } from '../store/app.store';
 
 const stackOptions = { headerShown: false };
 
@@ -22,12 +23,14 @@ export default function RootLayout() {
     }
 
     return (
-        <Provider store={createStore}>
-            <SafeAreaProvider>
-                <ThemeProvider value={scheme}>
-                    <Stack screenOptions={stackOptions} />
-                </ThemeProvider>
-            </SafeAreaProvider>
+        <Provider store={appStore}>
+            <PersistGate loading={null} persistor={appPersistor}>
+                <SafeAreaProvider>
+                    <ThemeProvider value={scheme}>
+                        <Stack screenOptions={stackOptions} />
+                    </ThemeProvider>
+                </SafeAreaProvider>
+            </PersistGate>
         </Provider>
     );
 }

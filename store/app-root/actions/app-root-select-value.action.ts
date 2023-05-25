@@ -4,7 +4,7 @@ import * as Haptics from 'expo-haptics';
 
 import { BlankCellValueConstant } from '../../../constants/blank-cell-value.constant';
 import { hapticNotification } from '../../../utils/haptic.utils';
-import { type AppDispatch, type RootState } from '../../create-store';
+import { type AppDispatch, type RootState } from '../../app.store';
 import { appRootMadeAMistake, appRootSetValueAction } from '../app-root.actions';
 
 export const appRootSelectValueAction = createAsyncThunk<boolean, number, { dispatch: AppDispatch; state: RootState }>(
