@@ -32,8 +32,10 @@ jobs:
       - name: Deploy to Vercel
         working-directory: ./dist
         run: |
-          cd dist && vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
-          cd dist && vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
+          cd dist
+          echo "!node_modules" > .vercelignore
+          vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+          vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
 
   ios-and-android-deploy:
     name: Build and Deploy IOS and Android
