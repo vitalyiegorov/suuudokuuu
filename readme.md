@@ -1,4 +1,7 @@
 # Suuudokuuu
+Sudoku game to help Ukraine win the war against Russia.
+
+[Play now!](https://www.suuudokuuu.com/)
 
 ## TODO
 ### Features
@@ -25,9 +28,9 @@
 - [x] optimize rendering(why does it lag? =)
 
 #### Web
-- [ ] add pages titles
-- [ ] fix font issue
 - [ ] fix mobile version padding
+- [x] add pages titles
+- [x] fix font issue
 
 ### Backend
 - [ ] setup backend, app should still support full offline mode support
