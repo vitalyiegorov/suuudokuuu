@@ -19,7 +19,11 @@ export const appRootSlice = createSlice({
             state.startedAt = new Date();
         },
         reset: state => {
-            Object.assign(state, appRootInitialState);
+            state.startedAt = appRootInitialState.startedAt;
+            state.score = appRootInitialState.score;
+            state.calculatedAt = appRootInitialState.calculatedAt;
+            state.mistakes = 0;
+            state.selectedValue = undefined;
         },
         selectCell: (state, action: PayloadAction<CellInterface | undefined>) => {
             state.selectedCell = action.payload;
