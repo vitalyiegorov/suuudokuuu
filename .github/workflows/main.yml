@@ -32,7 +32,6 @@ jobs:
       - name: Deploy to Vercel
         working-directory: ./dist
         run: |
-          cd dist
           echo "!node_modules" > .vercelignore
           vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
           vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
