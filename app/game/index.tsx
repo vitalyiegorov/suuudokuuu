@@ -13,7 +13,7 @@ import { PageHeader } from '../../components/page-header/page-header';
 import { MaxMistakesConstant } from '../../constants/max-mistakes.constant';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux.hook';
 import { type CellInterface } from '../../interfaces/cell.interface';
-import { appRootSelectCellAction } from '../../store/app-root/app-root.actions';
+import { appRootResetAction, appRootSelectCellAction } from '../../store/app-root/app-root.actions';
 import { appRootFieldSelector, appRootMistakesSelector, appRootSelectedCellSelector } from '../../store/app-root/app-root.selectors';
 import { hasBlankCells } from '../../utils/field/has-blank-cells.util';
 import { hapticImpact } from '../../utils/haptic.utils';
@@ -41,14 +41,21 @@ export default function Game() {
         }
     };
 
-    useEffect(() => void handleWin(), [field]);
-    useEffect(() => void handleLose(), [mistakes]);
-
-    const handleExit = () =>
+    const handleExit = () => {
         Alert('Stop current run?', 'All progress will be lost', [
             { text: 'Cancel', style: 'cancel' },
-            { text: 'OK', onPress: () => void router.push('/') }
+            {
+                text: 'OK',
+                onPress: () => {
+                    dispatch(appRootResetAction());
+                    router.push('/');
+                }
+            }
         ]);
+    };
+
+    useEffect(() => void handleWin(), [field]);
+    useEffect(() => void handleLose(), [mistakes]);
 
     const handleSelectCell = useCallback((cell: CellInterface | undefined) => void dispatch(appRootSelectCellAction(cell)), []);
 
