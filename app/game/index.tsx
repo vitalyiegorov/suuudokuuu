@@ -2,9 +2,10 @@
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { useRouter } from 'expo-router';
 import { useCallback, useEffect } from 'react';
-import { Alert, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { Alert } from '../../components/alert/alert';
 import { AvailableValues } from '../../components/available-values/available-values';
 import { BlackButton } from '../../components/black-button/black-button';
 import { Field } from '../../components/field/field';
@@ -43,12 +44,12 @@ export default function Game() {
     useEffect(() => void handleWin(), [field]);
     useEffect(() => void handleLose(), [mistakes]);
 
-    const handleExit = () => {
-        Alert.alert('Stop current run?', 'All progress will be lost', [
+    const handleExit = () =>
+        Alert('Stop current run?', 'All progress will be lost', [
             { text: 'Cancel', style: 'cancel' },
             { text: 'OK', onPress: () => void router.push('/') }
         ]);
-    };
+
     const handleSelectCell = useCallback((cell: CellInterface | undefined) => void dispatch(appRootSelectCellAction(cell)), []);
 
     return (
