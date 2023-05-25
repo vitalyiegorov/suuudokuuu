@@ -2379,14 +2379,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native-async-storage/async-storage@npm:^1.18.1":
-  version: 1.18.1
-  resolution: "@react-native-async-storage/async-storage@npm:1.18.1"
+"@react-native-async-storage/async-storage@npm:1.17.11":
+  version: 1.17.11
+  resolution: "@react-native-async-storage/async-storage@npm:1.17.11"
   dependencies:
     merge-options: ^3.0.4
   peerDependencies:
-    react-native: ^0.0.0-0 || 0.60 - 0.72 || 1000.0.0
-  checksum: 58c8497fafdd4d112c4a70b0976783abdc6fa487f0cffca196901efd146fc838dee0cf498fdc4ef67a4634ba4ca97d60fec5a24720aea1d46f1999b0ba8b249b
+    react-native: ^0.0.0-0 || 0.60 - 0.71 || 1000.0.0
+  checksum: 691f2b74498160d0b532f673402d8affeecb28b005b1c6d6fa2e7c87f89ab3068177e8e2d2686738306e7592a39c6d7148aa4c426b7e8e149c43a336ad446648
   languageName: node
   linkType: hard
 
@@ -13249,7 +13249,7 @@ __metadata:
     "@babel/plugin-proposal-export-namespace-from": ^7.18.9
     "@expo-google-fonts/inter": ^0.2.3
     "@expo/webpack-config": ^18.0.1
-    "@react-native-async-storage/async-storage": ^1.18.1
+    "@react-native-async-storage/async-storage": 1.17.11
     "@reduxjs/toolkit": ^1.9.5
     "@rnw-community/shared": ^0.54.0
     "@types/react": ~18.0.27
