@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { CellSizeConstant } from '../../constants/dimensions.contant';
+import { CellSizeConstant, CellFontSizeConstant } from '../../constants/dimensions.contant';
 import { Colors } from '../theme';
 
 // TODO: Add style theming support
@@ -11,7 +11,6 @@ export const CellStyles = StyleSheet.create({
         borderLeftWidth: 1,
         borderStyle: 'solid',
         borderTopWidth: 1,
-        flex: 1,
         fontFamily: 'Inter_500Medium',
         height: CellSizeConstant,
         justifyContent: 'center',
@@ -42,6 +41,6 @@ export const CellStyles = StyleSheet.create({
     },
     cellText: {
         color: Colors.black,
-        fontSize: 16
+        fontSize: CellFontSizeConstant
     }
 });

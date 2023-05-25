@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { CellSizeConstant } from '../../constants/dimensions.contant';
+import { CellFontSizeConstant, CellSizeConstant } from '../../constants/dimensions.contant';
 import { Colors } from '../theme';
 
 const progressHeight = 2;
@@ -26,7 +26,10 @@ export const AvailableValuesItemStyles = StyleSheet.create({
         position: 'absolute',
         top: CellSizeConstant - progressHeight
     },
-    text: { color: Colors.value.text },
+    text: {
+        color: Colors.value.text,
+        fontSize: CellFontSizeConstant
+    },
     textActive: {
         color: Colors.cell.activeValueText
     },
