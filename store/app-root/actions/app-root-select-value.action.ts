@@ -1,7 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { isDefined } from '@rnw-community/shared';
 import * as Haptics from 'expo-haptics';
-import { ImpactFeedbackStyle } from 'expo-haptics';
 
 import { BlankCellValueConstant } from '../../../constants/blank-cell-value.constant';
 import { hapticNotification } from '../../../utils/haptic.utils';
