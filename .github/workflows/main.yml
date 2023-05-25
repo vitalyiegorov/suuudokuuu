@@ -27,13 +27,13 @@ jobs:
         run: yarn install
 
       - name: Build expo web
-        run: npx expo export --platform=web && cd dist
-
-      - name: Pull Vercel Environment Information
-        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+        run: npx expo export --platform=web
 
       - name: Deploy to Vercel
-        run: vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
+        working-directory: ./dist
+        run: |
+          cd dist && vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+          cd dist && vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
 
   ios-and-android-deploy:
     name: Build and Deploy IOS and Android

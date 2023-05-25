@@ -1,11 +1,11 @@
 import { useRouter } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { View } from 'react-native';
 
 import { BlackButton } from '../components/black-button/black-button';
 import { DifficultySelect } from '../components/difficulty-select/difficulty-select';
 import { Header } from '../components/header/header';
+import { PageHeader } from '../components/page-header/page-header';
 import { type DifficultyEnum } from '../enums/difficulty.enum';
 import { useAppDispatch } from '../hooks/redux.hook';
 import { appRootLoadAction } from '../store/app-root/app-root.actions';
@@ -32,7 +32,7 @@ export default function Home() {
 
     return (
         <View style={styles.container}>
-            <StatusBar style="auto" />
+            <PageHeader />
             <Header text="SuuudokuuU"></Header>
             {!showDifficultySelect && <BlackButton text="Start" onPress={handleDifficultySelect} />}
             {showDifficultySelect && (
