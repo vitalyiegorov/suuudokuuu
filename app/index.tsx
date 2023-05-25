@@ -1,7 +1,11 @@
-import { useRouter } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import { useState } from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
+// eslint-disable-next-line @typescript-eslint/prefer-ts-expect-error,@typescript-eslint/ban-ts-comment
+// @ts-ignore
+import * as AppConfig from '../app.json';
 import { BlackButton } from '../components/black-button/black-button';
 import { DifficultySelect } from '../components/difficulty-select/difficulty-select';
 import { Header } from '../components/header/header';
@@ -38,21 +42,30 @@ export default function Home() {
     };
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <PageHeader />
-            <Header text="SuuudokuuU"></Header>
-            {!showDifficultySelect && (
-                <View style={styles.buttonWrapper}>
-                    {isGameStarted && <BlackButton text="Continue" onPress={handleContinue} />}
-                    <BlackButton text="Start new" onPress={handleDifficultySelect} />
-                </View>
-            )}
-            {showDifficultySelect && (
-                <>
-                    <DifficultySelect onSelect={handleStart} />
-                    <BlackButton text="Back" onPress={handleBack} />
-                </>
-            )}
-        </View>
+            <View style={styles.centerContainer}>
+                <Header text="SuuudokuuU"></Header>
+                {!showDifficultySelect && (
+                    <View style={styles.buttonWrapper}>
+                        {isGameStarted && <BlackButton text="Continue" onPress={handleContinue} />}
+                        <BlackButton text="Start new" onPress={handleDifficultySelect} />
+                    </View>
+                )}
+                {showDifficultySelect && (
+                    <>
+                        <DifficultySelect onSelect={handleStart} />
+                        <BlackButton text="Back" onPress={handleBack} />
+                    </>
+                )}
+            </View>
+
+            <View style={styles.bottomContainer}>
+                <Text style={styles.bottomLink}>V.{AppConfig.expo.version}</Text>
+                <Link href="/privacy-policy" style={styles.bottomLink}>
+                    <Text>Privacy policy</Text>
+                </Link>
+            </View>
+        </SafeAreaView>
     );
 }
