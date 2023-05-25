@@ -8,7 +8,7 @@ import { createGameField } from '../../utils/field/create-game-field.util';
 import { appRootInitialState } from './app-root.state';
 
 export const appRootSlice = createSlice({
-    name: 'counter',
+    name: 'appRoot',
     initialState: appRootInitialState,
     reducers: {
         load: (state, action: PayloadAction<DifficultyEnum>) => {
@@ -16,7 +16,10 @@ export const appRootSlice = createSlice({
 
             state.filledField = createField(9);
             state.gameField = createGameField(state.filledField, blankCellsCount);
-            state.mistakes = 0;
+            state.startedAt = new Date();
+        },
+        reset: state => {
+            Object.assign(state, appRootInitialState);
         },
         selectCell: (state, action: PayloadAction<CellInterface | undefined>) => {
             state.selectedCell = action.payload;
