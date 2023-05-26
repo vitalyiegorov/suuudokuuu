@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import { BlankCellValueConstant } from '../../constants/blank-cell-value.constant';
+import { FieldSizeConstant } from '../../constants/field.constant';
 import { useAppDispatch } from '../../hooks/redux.hook';
 import { appRootSelectValueAction } from '../../store/app-root/actions/app-root-select-value.action';
 import {
@@ -14,10 +15,10 @@ import { AvailableValuesItem } from '../available-values-item/available-values-i
 
 import { AvailableValuesStyles as styles } from './available-values.styles';
 
-const getValueProgress = (allValues: Record<number, number>, value: number) => (allValues[value] / 9) * 100;
+const getValueProgress = (allValues: Record<number, number>, value: number) => (allValues[value] / FieldSizeConstant) * 100;
 const getAvailableValues = (allValues: Record<number, number>) =>
     Object.keys(allValues)
-        .filter(key => allValues[Number(key)] < 9)
+        .filter(key => allValues[Number(key)] < FieldSizeConstant)
         .map(Number);
 
 export const AvailableValues = () => {

@@ -12,3 +12,4 @@ export const appRootSelectedValueSelector = createSelector(appRootSelector, stat
 export const appRootAvailableValuesSelector = createSelector(appRootSelector, state => getAvailableFieldValues(state.gameField));
 export const appRootMistakesSelector = createSelector(appRootSelector, state => state.mistakes);
 export const appRootGameStartedAtSelector = createSelector(appRootSelector, state => new Date(state.startedAt));
+export const appRootScoreSelector = createSelector(appRootSelector, state => state.score);

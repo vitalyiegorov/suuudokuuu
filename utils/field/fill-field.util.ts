@@ -1,11 +1,12 @@
 import { BlankCellValueConstant } from '../../constants/blank-cell-value.constant';
 import { type CellInterface } from '../../interfaces/cell.interface';
+import { type FieldInterface } from '../../interfaces/field.interface';
 import { createCell } from '../cell/create-cell.util';
 
 import { hasBlankCells } from './has-blank-cells.util';
 import { isCorrectCell } from './is-correct-cell.util';
 
-export const fillField = (field: CellInterface[][], values: number[]): boolean => {
+export const fillField = (field: FieldInterface, values: number[]): boolean => {
     const [needsFilling, y, x] = hasBlankCells(field);
 
     if (!needsFilling) {

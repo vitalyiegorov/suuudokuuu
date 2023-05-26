@@ -1,6 +1,7 @@
 import { InitialDateConstant } from '../constants/date.constant';
 
 import { type CellInterface } from './cell.interface';
+import { type FieldInterface } from './field.interface';
 
 /**
  * General game state, used for logic and persisting
@@ -11,8 +12,8 @@ export interface GameStateInterface {
     calculatedAt: Date;
     startedAt: Date;
     completionPercent: number;
-    filledField: CellInterface[][];
-    gameField: CellInterface[][];
+    filledField: FieldInterface;
+    gameField: FieldInterface;
     selectedCell?: CellInterface;
     selectedValue?: number;
 }

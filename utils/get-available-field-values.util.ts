@@ -1,9 +1,9 @@
 import { isDefined } from '@rnw-community/shared';
 
 import { BlankCellValueConstant } from '../constants/blank-cell-value.constant';
-import { type CellInterface } from '../interfaces/cell.interface';
+import { type FieldInterface } from '../interfaces/field.interface';
 
-export const getAvailableFieldValues = (field: CellInterface[][]): Record<number, number> => {
+export const getAvailableFieldValues = (field: FieldInterface): Record<number, number> => {
     const availableValues: Record<string, number> = {};
     for (let x = 0; x < field.length; x++) {
         for (let y = 0; y < field[x].length; y++) {
