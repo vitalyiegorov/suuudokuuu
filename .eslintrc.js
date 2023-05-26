@@ -23,7 +23,11 @@ module.exports = {
             jsx: true
         }
     },
-    settings: {},
+    settings: {
+        react: {
+            version: 'detect'
+        }
+    },
     plugins: ['react', 'react-native', 'import', 'prettier'],
     rules: {
         'no-void': 'off',

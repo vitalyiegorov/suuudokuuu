@@ -8,13 +8,20 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Alert } from '../../components/alert/alert';
 import { AvailableValues } from '../../components/available-values/available-values';
 import { BlackButton } from '../../components/black-button/black-button';
+import { ElapsedTime } from '../../components/elapsed-time/elapsed-time';
 import { Field } from '../../components/field/field';
 import { PageHeader } from '../../components/page-header/page-header';
 import { MaxMistakesConstant } from '../../constants/max-mistakes.constant';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux.hook';
 import { type CellInterface } from '../../interfaces/cell.interface';
 import { appRootResetAction, appRootSelectCellAction } from '../../store/app-root/app-root.actions';
-import { appRootFieldSelector, appRootMistakesSelector, appRootSelectedCellSelector } from '../../store/app-root/app-root.selectors';
+import {
+    appRootFieldSelector,
+    appRootGameStartedAtSelector,
+    appRootMistakesSelector,
+    appRootScoreSelector,
+    appRootSelectedCellSelector
+} from '../../store/app-root/app-root.selectors';
 import { hasBlankCells } from '../../utils/field/has-blank-cells.util';
 import { hapticImpact } from '../../utils/haptic.utils';
 
@@ -27,6 +34,8 @@ export default function Game() {
     const field = useAppSelector(appRootFieldSelector);
     const selectedCell = useAppSelector(appRootSelectedCellSelector);
     const mistakes = useAppSelector(appRootMistakesSelector);
+    const currentScore = useAppSelector(appRootScoreSelector);
+    const startedAt = useAppSelector(appRootGameStartedAtSelector);
 
     const handleWin = async () => {
         if (!hasBlankCells(field)[0]) {
@@ -63,12 +72,20 @@ export default function Game() {
         <SafeAreaView style={styles.container}>
             <PageHeader title="Be wise, be smart, be quick..." />
             <View style={styles.controls}>
-                <Text style={styles.mistakesText}>
-                    Mistakes: <Text style={styles.mistakesCountText}>{mistakes}</Text> / {MaxMistakesConstant}
-                </Text>
+                <View style={styles.controlsWrapper}>
+                    <Text style={styles.headerText}>Mistakes</Text>
+                    <Text style={styles.headerText}>
+                        <Text style={styles.mistakesCountText}>{mistakes}</Text> / {MaxMistakesConstant}
+                    </Text>
+                </View>
+                <View style={styles.controlsWrapper}>
+                    <Text style={styles.headerText}>Score</Text>
+                    <Text style={styles.scoreText}>{currentScore}</Text>
+                </View>
                 <BlackButton text="Exit" onPress={handleExit} />
             </View>
             <Field field={field} selectedCell={selectedCell} onSelect={handleSelectCell} />
+            <ElapsedTime startedAt={startedAt} />
             <AvailableValues />
         </SafeAreaView>
     );

@@ -3,9 +3,10 @@ import { isDefined } from '@rnw-community/shared';
 import * as Haptics from 'expo-haptics';
 
 import { BlankCellValueConstant } from '../../../constants/blank-cell-value.constant';
+import { calculateScore } from '../../../utils/calculate-score.util';
 import { hapticNotification } from '../../../utils/haptic.utils';
 import { type AppDispatch, type RootState } from '../../app.store';
-import { appRootMadeAMistake, appRootSetValueAction } from '../app-root.actions';
+import { appRootIncreaseScoreAction, appRootMadeAMistake, appRootSetValueAction } from '../app-root.actions';
 
 export const appRootSelectValueAction = createAsyncThunk<boolean, number, { dispatch: AppDispatch; state: RootState }>(
     'appRoot/selectValue',
@@ -18,6 +19,10 @@ export const appRootSelectValueAction = createAsyncThunk<boolean, number, { disp
                 thunkAPI.dispatch(appRootSetValueAction(newCell));
 
                 await hapticNotification(Haptics.NotificationFeedbackType.Success);
+
+                thunkAPI.dispatch(
+                    appRootIncreaseScoreAction(calculateScore(state.filledField, state.selectedCell, state.mistakes, state.startedAt))
+                );
 
                 return true;
             } else {
