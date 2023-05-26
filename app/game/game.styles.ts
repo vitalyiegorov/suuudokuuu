@@ -12,11 +12,18 @@ export const GameStyles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between'
     },
+    controlsWrapper: {
+        alignItems: 'center'
+    },
+    headerText: {
+        color: Colors.black
+    },
     mistakesCountText: {
         color: Colors.black,
         fontWeight: 'bold'
     },
-    mistakesText: {
-        color: Colors.black
+    scoreText: {
+        color: Colors.black,
+        fontWeight: 'bold'
     }
 });

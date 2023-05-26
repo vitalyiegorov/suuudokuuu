@@ -1,4 +1,5 @@
 import { type CellInterface } from '../../interfaces/cell.interface';
+import { type FieldInterface } from '../../interfaces/field.interface';
 import { createCell } from '../cell/create-cell.util';
 
 import { fillField } from './fill-field.util';
@@ -13,8 +14,8 @@ const createFillingValues = (length: number): number[] => {
     return values;
 };
 
-export const createField = (size: number): CellInterface[][] => {
-    const field: CellInterface[][] = [];
+export const createField = (size: number): FieldInterface => {
+    const field: FieldInterface = [];
 
     for (let y = 0; y < size; y++) {
         const row: CellInterface[] = [];
