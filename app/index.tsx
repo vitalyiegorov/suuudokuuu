@@ -22,7 +22,7 @@ export default function Home() {
     const router = useRouter();
 
     const dispatch = useAppDispatch();
-    const isGameStarted = useAppSelector(appRootGameStartedAtSelector) > InitialDateConstant;
+    const isGameStarted = useAppSelector(appRootGameStartedAtSelector).getTime() > InitialDateConstant.getTime();
 
     const [showDifficultySelect, setShowDifficultySelect] = useState(false);
 

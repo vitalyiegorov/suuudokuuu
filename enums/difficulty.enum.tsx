@@ -8,7 +8,7 @@ export enum DifficultyEnum {
     Nightmare = 'Nightmare'
 }
 
-export const difficultyValues = {
+export const difficultyValues: Record<DifficultyEnum, number> = {
     [DifficultyEnum.Newbie]: Math.ceil(FieldCellCountConstant * 0.1),
     [DifficultyEnum.Easy]: Math.ceil(FieldCellCountConstant * 0.2),
     [DifficultyEnum.Medium]: Math.ceil(FieldCellCountConstant * 0.4),
