@@ -9,7 +9,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { BlackTheme, WhiteTheme } from '../components/theme';
 import { appPersistor, appStore } from '../store/app.store';
 
-const stackOptions = { headerShown: false };
+const stackOptions = { headerShown: false, gestureEnabled: false };
 
 export default function RootLayout() {
     const scheme = useColorScheme() === 'dark' ? BlackTheme : WhiteTheme;
