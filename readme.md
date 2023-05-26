@@ -9,6 +9,7 @@ Sudoku game to help Ukraine win the war against Russia.
     - [ ] donate to ZSU, add BE logic for this
     - [ ] add donation branding and description on main screen
 - [ ] add gamification and percentage of completeness
+- [ ] add game pausing? Can be exploited as a cheat to maximize scroll?
 
 ### Frontend
 - [ ] add animations
