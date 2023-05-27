@@ -1,7 +1,8 @@
-import { emptyGameState, type GameStateInterface } from '../../interfaces/game-state.interface';
+import { emptyGame, type GameInterface } from '../../interfaces/game.interface';
 
-export interface AppRootState extends GameStateInterface {}
+// TODO: Extract game to separate state
+export interface AppRootState extends GameInterface {}
 
 export const appRootInitialState: AppRootState = {
-    ...emptyGameState
+    ...emptyGame
 };

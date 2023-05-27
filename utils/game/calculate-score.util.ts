@@ -5,13 +5,12 @@ import {
     ScoreLastInGroupCoefficientConstant,
     ScoreLastInRowCoefficientConstant,
     ScoreMistakesCoefficientConstant
-} from '../constants/score.constant';
-import { type CellInterface } from '../interfaces/cell.interface';
-import { type FieldInterface } from '../interfaces/field.interface';
-
-import { isLastInCol } from './cell/is-last-in-col.util';
-import { isLastInGroup } from './cell/is-last-in-group.util';
-import { isLastInRow } from './cell/is-last-in-row.util';
+} from '../../constants/score.constant';
+import { type CellInterface } from '../../interfaces/cell.interface';
+import { type FieldInterface } from '../../interfaces/field.interface';
+import { isLastInCol } from '../cell/is-last-in-col.util';
+import { isLastInGroup } from '../cell/is-last-in-group.util';
+import { isLastInRow } from '../cell/is-last-in-row.util';
 
 export const calculateScore = (gameField: FieldInterface, selectedCell: CellInterface, mistakes: number, startedAt: Date): number => {
     const elapsedS = (new Date().getTime() - startedAt.getTime()) / 1000;
@@ -25,15 +24,15 @@ export const calculateScore = (gameField: FieldInterface, selectedCell: CellInte
 
     let totalEarned = valueDecreasedByElapsed;
     if (isLastInRow(gameField, selectedCell)) {
-        totalEarned += ScoreLastInRowCoefficientConstant;
+        totalEarned += valueDecreasedByElapsed * ScoreLastInRowCoefficientConstant;
     }
 
     if (isLastInGroup(gameField, selectedCell)) {
-        totalEarned += ScoreLastInGroupCoefficientConstant;
+        totalEarned += valueDecreasedByElapsed * ScoreLastInGroupCoefficientConstant;
     }
 
     if (isLastInCol(gameField, selectedCell)) {
-        totalEarned += ScoreLastInColCoefficientConstant;
+        totalEarned += valueDecreasedByElapsed * ScoreLastInColCoefficientConstant;
     }
 
     return totalEarned;

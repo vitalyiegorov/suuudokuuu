@@ -5,7 +5,7 @@ import { type DifficultyEnum, difficultyValues } from '../../enums/difficulty.en
 import { type CellInterface } from '../../interfaces/cell.interface';
 import { createField } from '../../utils/field/create-field.util';
 import { createGameField } from '../../utils/field/create-game-field.util';
-import { resetGameState } from '../../utils/reset-game-state.util';
+import { resetGameState } from '../../utils/game/reset-game-state.util';
 
 import { appRootInitialState } from './app-root.state';
 
@@ -19,8 +19,9 @@ export const appRootSlice = createSlice({
             state.filledField = createField(FieldSizeConstant);
             state.gameField = createGameField(state.filledField, blankCellsCount);
             state.startedAt = new Date();
+            state.difficulty = action.payload;
         },
-        reset: state => {
+        finish: state => {
             Object.assign(state, resetGameState(state));
         },
         selectCell: (state, action: PayloadAction<CellInterface | undefined>) => {

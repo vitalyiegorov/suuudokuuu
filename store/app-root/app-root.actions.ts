@@ -5,6 +5,6 @@ export const {
     selectCell: appRootSelectCellAction,
     setValue: appRootSetValueAction,
     madeAMistake: appRootMadeAMistake,
-    reset: appRootResetAction,
+    finish: appRootFinishAction,
     increaseScore: appRootIncreaseScoreAction
 } = appRootSlice.actions;
