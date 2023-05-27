@@ -14,5 +14,6 @@ export const getMultiplier = () => {
     return 12;
 };
 
+export const FieldPaddingConstant = Dimensions.get('screen').width / 10;
 export const CellSizeConstant = Dimensions.get('screen').width / getMultiplier();
 export const CellFontSizeConstant = CellSizeConstant / 2.9;
