@@ -29,7 +29,7 @@ Sudoku game to help Ukraine win the war against Russia.
 - [x] optimize rendering(why does it lag? =)
 
 #### Web
-- [ ] fix mobile version padding
+- [ ] fix mobile version padding and field size
 - [x] add pages titles
 - [x] fix font issue
 
@@ -40,15 +40,17 @@ Sudoku game to help Ukraine win the war against Russia.
 - [ ] create leaderboards
 
 ### Overall
+- [ ] fix ts error on app.json import
 - [ ] add commitlint
+- [ ] fix require cycles =)
 - [ ] add husky
-- [ ] refactor folder structure to modules(game, app-root, history)
 - [ ] migrate to monorepo
 - [ ] setup github actions for releases and release management
 - [ ] setup github actions for PRs, create web, expo previews
 - [ ] add e2e tests(maestro)
 - [ ] setup android build and deployment
 - [ ] setup [eas submit](https://docs.expo.dev/submit/eas-json/) credentials and github action
+- [x] refactor folder structure to modules(game, app-root, history)
 - [x] setup eas
 - [x] setup iphone deployment
 - [x] add github actions

@@ -2,9 +2,7 @@ import { format } from 'date-fns';
 import { ScrollView, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { Header } from '../../components/header/header';
-import { PageHeader } from '../../components/page-header/page-header';
-import { PlayAgainButton } from '../../components/play-again-button/play-again-button';
+import { Header, PageHeader, PlayAgainButton } from '../../src/@generic';
 
 import { PrivacyPolicyStyles as styles } from './privacy-policy.styles';
 
