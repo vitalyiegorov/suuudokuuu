@@ -14,7 +14,7 @@ import { PageHeader } from '../../components/page-header/page-header';
 import { MaxMistakesConstant } from '../../constants/max-mistakes.constant';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux.hook';
 import { type CellInterface } from '../../interfaces/cell.interface';
-import { appRootResetAction, appRootSelectCellAction } from '../../store/app-root/app-root.actions';
+import { appRootFinishAction, appRootSelectCellAction } from '../../store/app-root/app-root.actions';
 import {
     appRootFieldSelector,
     appRootGameStartedAtSelector,
@@ -56,7 +56,7 @@ export default function Game() {
             {
                 text: 'OK',
                 onPress: () => {
-                    dispatch(appRootResetAction());
+                    dispatch(appRootFinishAction());
                     router.push('/');
                 }
             }

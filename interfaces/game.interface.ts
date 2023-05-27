@@ -1,4 +1,5 @@
 import { InitialDateConstant } from '../constants/date.constant';
+import { DifficultyEnum } from '../enums/difficulty.enum';
 
 import { type CellInterface } from './cell.interface';
 import { type FieldInterface } from './field.interface';
@@ -6,10 +7,10 @@ import { type FieldInterface } from './field.interface';
 /**
  * General game state, used for logic and persisting
  */
-export interface GameStateInterface {
+export interface GameInterface {
+    difficulty: DifficultyEnum;
     score: number;
     mistakes: number;
-    calculatedAt: Date;
     startedAt: Date;
     completionPercent: number;
     filledField: FieldInterface;
@@ -18,14 +19,9 @@ export interface GameStateInterface {
     selectedValue?: number;
 }
 
-export type PersistedGameStateInterface = Omit<GameStateInterface, 'calculatedAt' | 'startedAt'> & {
-    calculatedAt: string;
-    startedAt: string;
-};
-
-export const emptyGameState: GameStateInterface = {
+export const emptyGame: GameInterface = {
+    difficulty: DifficultyEnum.Newbie,
     startedAt: InitialDateConstant,
-    calculatedAt: InitialDateConstant,
     completionPercent: 0,
     filledField: [],
     gameField: [],

@@ -1,3 +1,4 @@
+import { formatDuration } from 'date-fns';
 import { Link, useRouter } from 'expo-router';
 import { useState } from 'react';
 import { View, Text } from 'react-native';
@@ -15,6 +16,7 @@ import { type DifficultyEnum } from '../enums/difficulty.enum';
 import { useAppDispatch, useAppSelector } from '../hooks/redux.hook';
 import { appRootLoadAction } from '../store/app-root/app-root.actions';
 import { appRootGameStartedAtSelector } from '../store/app-root/app-root.selectors';
+import { historyBestScoreSelector, historyBestTimeSelector } from '../store/history/history.selectors';
 
 import { HomeStyles as styles } from './index.styles';
 
@@ -23,6 +25,9 @@ export default function Home() {
 
     const dispatch = useAppDispatch();
     const isGameStarted = useAppSelector(appRootGameStartedAtSelector).getTime() > InitialDateConstant.getTime();
+    const bestScore = useAppSelector(historyBestScoreSelector);
+    const bestTime = useAppSelector(historyBestTimeSelector);
+    const bestTimeFormat = formatDuration(bestTime);
 
     const [showDifficultySelect, setShowDifficultySelect] = useState(false);
 
@@ -58,6 +63,17 @@ export default function Home() {
                         <BlackButton text="Back" onPress={handleBack} />
                     </>
                 )}
+            </View>
+
+            <View style={styles.historyContainer}>
+                <View style={styles.historyGroup}>
+                    <Text style={styles.historyLabel}>Best score</Text>
+                    <Text style={styles.historyValue}>{bestScore}</Text>
+                </View>
+                <View style={styles.historyGroup}>
+                    <Text style={styles.historyLabel}>Best time</Text>
+                    <Text style={styles.historyValue}>{bestTimeFormat}</Text>
+                </View>
             </View>
 
             <View style={styles.bottomContainer}>
