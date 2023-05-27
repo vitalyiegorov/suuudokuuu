@@ -49,6 +49,7 @@ export default function Home() {
     return (
         <SafeAreaView style={styles.container}>
             <PageHeader />
+            <View style={styles.historyContainer}></View>
             <View style={styles.centerContainer}>
                 <Header text="SuuudokuuU"></Header>
                 {!showDifficultySelect && (
