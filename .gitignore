@@ -29,7 +29,3 @@ web-build/
 
 # TypeScript
 *.tsbuildinfo
-
-# Expo
-ios
-android
