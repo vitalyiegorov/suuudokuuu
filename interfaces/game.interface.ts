@@ -12,6 +12,7 @@ export interface GameInterface {
     score: number;
     mistakes: number;
     startedAt: Date;
+    endedAt: Date;
     completionPercent: number;
     filledField: FieldInterface;
     gameField: FieldInterface;
@@ -22,6 +23,7 @@ export interface GameInterface {
 export const emptyGame: GameInterface = {
     difficulty: DifficultyEnum.Newbie,
     startedAt: InitialDateConstant,
+    endedAt: InitialDateConstant,
     completionPercent: 0,
     filledField: [],
     gameField: [],

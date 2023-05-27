@@ -22,6 +22,9 @@ export const appRootSlice = createSlice({
             state.difficulty = action.payload;
         },
         finish: state => {
+            state.endedAt = new Date();
+        },
+        reset: state => {
             Object.assign(state, resetGameState(state));
         },
         selectCell: (state, action: PayloadAction<CellInterface | undefined>) => {

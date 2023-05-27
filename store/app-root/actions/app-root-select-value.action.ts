@@ -8,7 +8,7 @@ import { calculateScore } from '../../../utils/game/calculate-score.util';
 import { hapticNotification } from '../../../utils/haptic.utils';
 import { type AppDispatch, type RootState } from '../../app.store';
 import { historyRecordAction } from '../../history/history.actions';
-import { appRootIncreaseScoreAction, appRootMadeAMistake, appRootSetValueAction } from '../app-root.actions';
+import { appRootFinishAction, appRootIncreaseScoreAction, appRootMadeAMistakeAction, appRootSetValueAction } from '../app-root.actions';
 
 export const appRootSelectValueAction = createAsyncThunk<boolean, number, { dispatch: AppDispatch; state: RootState }>(
     'appRoot/selectValue',
@@ -25,16 +25,17 @@ export const appRootSelectValueAction = createAsyncThunk<boolean, number, { disp
                 thunkAPI.dispatch(
                     appRootIncreaseScoreAction(calculateScore(state.filledField, state.selectedCell, state.mistakes, state.startedAt))
                 );
+                thunkAPI.dispatch(appRootFinishAction());
 
                 // TODO: This needs improvement
                 const newState = thunkAPI.getState().appRoot;
                 if (!hasBlankCells(newState.gameField)[0]) {
-                    thunkAPI.dispatch(historyRecordAction({ ...newState, endedAt: new Date() }));
+                    thunkAPI.dispatch(historyRecordAction(newState));
                 }
 
                 return true;
             } else {
-                thunkAPI.dispatch(appRootMadeAMistake());
+                thunkAPI.dispatch(appRootMadeAMistakeAction());
                 await hapticNotification(Haptics.NotificationFeedbackType.Error);
                 await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
             }

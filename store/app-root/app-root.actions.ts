@@ -4,7 +4,8 @@ export const {
     load: appRootLoadAction,
     selectCell: appRootSelectCellAction,
     setValue: appRootSetValueAction,
-    madeAMistake: appRootMadeAMistake,
+    madeAMistake: appRootMadeAMistakeAction,
     finish: appRootFinishAction,
+    reset: appRootResetAction,
     increaseScore: appRootIncreaseScoreAction
 } = appRootSlice.actions;

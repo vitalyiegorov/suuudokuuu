@@ -23,10 +23,10 @@ export const CellStyles = StyleSheet.create({
         color: Colors.cell.activeValueText
     },
     cellGroupXEnd: {
-        borderRightWidth: 2
+        borderRightWidth: 1
     },
     cellGroupYEnd: {
-        borderBottomWidth: 2
+        borderBottomWidth: 1
     },
     cellHighlightedText: {
         color: Colors.cell.highlightedText,
