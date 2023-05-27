@@ -1,8 +1,10 @@
-import { isDurationLower } from '../../@generic/utils/is-duration.lower';
 import { type HistoryInterface } from '../interfaces/history.interface';
 
-export const historyBestTime = (history: HistoryInterface): Duration => {
-    return Object.values(history.byDifficulty).reduce<Duration>((min, gameHistory) => {
-        return isDurationLower(gameHistory.bestTime, min) ? gameHistory.bestTime : min;
-    }, {});
+export const historyBestGame = (history: HistoryInterface): [number, Duration] => {
+    return Object.values(history.byDifficulty).reduce<[number, Duration]>(
+        (max, gameHistory) => {
+            return gameHistory.bestScore > max[0] ? [gameHistory.bestScore, gameHistory.bestTime] : max;
+        },
+        [0, {}]
+    );
 };

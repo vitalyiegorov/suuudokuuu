@@ -20,17 +20,18 @@ export const gameSelectValueAction = createAsyncThunk<boolean, number, { dispatc
             if (state.filledField[newCell.y][newCell.x].value === value) {
                 thunkAPI.dispatch(gameSetValueAction(newCell));
 
+                // TODO: We should form winning state and store it
+                const newState = thunkAPI.getState().game;
+                const score = calculateScore(newState.filledField, state.selectedCell, state.mistakes, state.startedAt);
+
                 await hapticNotification(Haptics.NotificationFeedbackType.Success);
 
-                // TODO: Is this is ok to get new state like this
-                const newState = thunkAPI.getState().game;
-                thunkAPI.dispatch(
-                    gameIncreaseScoreAction(calculateScore(newState.filledField, state.selectedCell, newState.mistakes, newState.startedAt))
-                );
+                thunkAPI.dispatch(gameIncreaseScoreAction(score));
                 thunkAPI.dispatch(gameFinishAction());
 
+                const newState2 = thunkAPI.getState().game;
                 if (!hasBlankCells(newState.gameField)[0]) {
-                    thunkAPI.dispatch(historyRecordAction(newState));
+                    thunkAPI.dispatch(historyRecordAction(newState2));
                 }
 
                 return true;

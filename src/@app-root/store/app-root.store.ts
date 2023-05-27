@@ -3,8 +3,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { persistReducer, persistStore } from 'redux-persist';
 
 import { gameReducer, gameSlice } from '../../game';
-import { historyReducer } from '../../history/store/history.reducer';
-import { historySlice } from '../../history/store/history.slice';
+import { historyReducer, historySlice } from '../../history';
 
 import { appRootReducer } from './app-root.reducer';
 import { appRootSlice } from './app-root.slice';

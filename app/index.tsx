@@ -11,7 +11,7 @@ import AppConfig from '../app.json';
 import { DifficultySelect } from '../src/@app-root';
 import { BlackButton, type DifficultyEnum, Header, InitialDateConstant, PageHeader, useAppDispatch, useAppSelector } from '../src/@generic';
 import { gameLoadAction, gameStartedAtSelector } from '../src/game';
-import { historyBestScoreSelector, historyBestTimeSelector } from '../src/history';
+import { historyBestTimeSelector } from '../src/history';
 
 import { StartScreenStyles as styles } from './start-screen.styles';
 
@@ -20,8 +20,7 @@ export default function StartScreen() {
 
     const dispatch = useAppDispatch();
     const isGameStarted = useAppSelector(gameStartedAtSelector).getTime() > InitialDateConstant.getTime();
-    const bestScore = useAppSelector(historyBestScoreSelector);
-    const bestTime = useAppSelector(historyBestTimeSelector);
+    const [bestScore, bestTime] = useAppSelector(historyBestTimeSelector);
     const bestTimeFormat = formatDuration(bestTime);
 
     const [showDifficultySelect, setShowDifficultySelect] = useState(false);
