@@ -19,8 +19,8 @@ export const HomeStyles = StyleSheet.create({
     },
     centerContainer: {
         alignItems: 'center',
-        flex: 1,
-        justifyContent: 'flex-end'
+        flex: 3,
+        justifyContent: 'center'
     },
     container: {
         flex: 1,
