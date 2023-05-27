@@ -10,6 +10,10 @@ Sudoku game to help Ukraine win the war against Russia.
     - [ ] add donation branding and description on main screen
 - [ ] add gamification and percentage of completeness
 - [ ] add game pausing? Can be exploited as a cheat to maximize scroll?
+- [ ] best stats is confusing and not clear, especially time
+  - [ ] add best time/score for each difficulty
+  - [ ] add history screen?
+- [ ] score row completing row/col/group
 
 ### Frontend
 - [ ] add animations
@@ -36,6 +40,8 @@ Sudoku game to help Ukraine win the war against Russia.
 
 ### Overall
 - [ ] add commitlint
+- [ ] add husky
+- [ ] refactor folder structure to modules(game, app-root, history)
 - [ ] migrate to monorepo
 - [ ] setup github actions for releases and release management
 - [ ] setup github actions for PRs, create web, expo previews

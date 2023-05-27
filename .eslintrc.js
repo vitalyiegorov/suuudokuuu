@@ -55,6 +55,7 @@ module.exports = {
         '@typescript-eslint/explicit-function-return-type': 'off',
         '@typescript-eslint/no-confusing-void-expression': 'off',
         'react/react-in-jsx-scope': 'off',
-        'react/jsx-uses-react': 'off'
+        'react/jsx-uses-react': 'off',
+        'react-native/no-raw-text': 'off'
     }
 };
