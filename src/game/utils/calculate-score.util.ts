@@ -26,15 +26,15 @@ export const calculateScore = (gameField: FieldInterface, selectedCell: CellInte
 
     let totalEarned = valueDecreasedByElapsed;
     const blankCell = { ...selectedCell, value: BlankCellValueConstant };
-    if (hasValueInRow(blankCell, gameField)) {
+    if (!hasValueInRow(blankCell, gameField)) {
         totalEarned += valueDecreasedByElapsed * ScoreLastInRowCoefficientConstant;
     }
 
-    if (hasValueInGroup(blankCell, gameField)) {
+    if (!hasValueInGroup(blankCell, gameField)) {
         totalEarned += valueDecreasedByElapsed * ScoreLastInGroupCoefficientConstant;
     }
 
-    if (hasValueInColumn(blankCell, gameField)) {
+    if (!hasValueInColumn(blankCell, gameField)) {
         totalEarned += valueDecreasedByElapsed * ScoreLastInColCoefficientConstant;
     }
 
