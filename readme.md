@@ -13,6 +13,7 @@ Sudoku game to help Ukraine win the war against Russia.
 - [ ] best stats is confusing and not clear, especially time
   - [ ] add best time/score for each difficulty
   - [ ] add history screen?
+  - [ ] add best run stats for each difficulty
 - [ ] score row completing row/col/group
 
 ### Frontend

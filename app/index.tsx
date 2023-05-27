@@ -1,3 +1,4 @@
+import { isNotEmptyString } from '@rnw-community/shared';
 import { formatDuration } from 'date-fns';
 import { Link, useRouter } from 'expo-router';
 import { useState } from 'react';
@@ -67,14 +68,18 @@ export default function Home() {
             </View>
 
             <View style={styles.historyContainer}>
-                <View style={styles.historyGroup}>
-                    <Text style={styles.historyLabel}>Best score</Text>
-                    <Text style={styles.historyValue}>{bestScore}</Text>
-                </View>
-                <View style={styles.historyGroup}>
-                    <Text style={styles.historyLabel}>Best time</Text>
-                    <Text style={styles.historyValue}>{bestTimeFormat}</Text>
-                </View>
+                {isNotEmptyString(bestTimeFormat) && (
+                    <>
+                        <View style={styles.historyGroup}>
+                            <Text style={styles.historyLabel}>Best score</Text>
+                            <Text style={styles.historyValue}>{bestScore}</Text>
+                        </View>
+                        <View style={styles.historyGroup}>
+                            <Text style={styles.historyLabel}>Best time</Text>
+                            <Text style={styles.historyValue}>{bestTimeFormat}</Text>
+                        </View>
+                    </>
+                )}
             </View>
 
             <View style={styles.bottomContainer}>
