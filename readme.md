@@ -31,7 +31,7 @@ Sudoku game to help Ukraine win the war against Russia.
 - [x] optimize rendering(why does it lag? =)
 
 #### Web
-- [ ] fix mobile version padding and field size
+- [x] fix mobile version padding and field size
 - [x] add pages titles
 - [x] fix font issue
 
