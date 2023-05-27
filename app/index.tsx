@@ -2,30 +2,24 @@ import { isNotEmptyString } from '@rnw-community/shared';
 import { formatDuration } from 'date-fns';
 import { Link, useRouter } from 'expo-router';
 import { useState } from 'react';
-import { View, Text } from 'react-native';
+import { Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 // eslint-disable-next-line @typescript-eslint/prefer-ts-expect-error,@typescript-eslint/ban-ts-comment
-// @ts-ignore
-import * as AppConfig from '../app.json';
-import { BlackButton } from '../components/black-button/black-button';
-import { DifficultySelect } from '../components/difficulty-select/difficulty-select';
-import { Header } from '../components/header/header';
-import { PageHeader } from '../components/page-header/page-header';
-import { InitialDateConstant } from '../constants/date.constant';
-import { type DifficultyEnum } from '../enums/difficulty.enum';
-import { useAppDispatch, useAppSelector } from '../hooks/redux.hook';
-import { appRootLoadAction } from '../store/app-root/app-root.actions';
-import { appRootGameStartedAtSelector } from '../store/app-root/app-root.selectors';
-import { historyBestScoreSelector, historyBestTimeSelector } from '../store/history/history.selectors';
+// @ts-ignore No types
+import AppConfig from '../app.json';
+import { DifficultySelect } from '../src/@app-root';
+import { BlackButton, type DifficultyEnum, Header, InitialDateConstant, PageHeader, useAppDispatch, useAppSelector } from '../src/@generic';
+import { gameLoadAction, gameStartedAtSelector } from '../src/game';
+import { historyBestScoreSelector, historyBestTimeSelector } from '../src/history';
 
-import { HomeStyles as styles } from './index.styles';
+import { StartScreenStyles as styles } from './start-screen.styles';
 
-export default function Home() {
+export default function StartScreen() {
     const router = useRouter();
 
     const dispatch = useAppDispatch();
-    const isGameStarted = useAppSelector(appRootGameStartedAtSelector).getTime() > InitialDateConstant.getTime();
+    const isGameStarted = useAppSelector(gameStartedAtSelector).getTime() > InitialDateConstant.getTime();
     const bestScore = useAppSelector(historyBestScoreSelector);
     const bestTime = useAppSelector(historyBestTimeSelector);
     const bestTimeFormat = formatDuration(bestTime);
@@ -39,7 +33,7 @@ export default function Home() {
         setShowDifficultySelect(false);
     };
     const handleStart = (difficulty: DifficultyEnum) => {
-        dispatch(appRootLoadAction(difficulty));
+        dispatch(gameLoadAction(difficulty));
         router.push('game');
         setShowDifficultySelect(false);
     };

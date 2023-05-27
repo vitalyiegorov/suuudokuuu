@@ -1,8 +1,8 @@
 import { View } from 'react-native';
 
-import { Header } from '../../components/header/header';
-import { PageHeader } from '../../components/page-header/page-header';
-import { PlayAgainButton } from '../../components/play-again-button/play-again-button';
+import { Header } from '../../src/@generic/components/header/header';
+import { PageHeader } from '../../src/@generic/components/page-header/page-header';
+import { PlayAgainButton } from '../../src/@generic/components/play-again-button/play-again-button';
 
 import { LoserStyles as styles } from './loser.styles';
 
