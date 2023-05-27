@@ -1,5 +1,6 @@
 import { Dimensions, Platform } from 'react-native';
 
+// TODO: Maybe there is a better way to do this? just based on the screen width?
 export const getMultiplier = () => {
     if (Platform.OS === 'ios') {
         if (Platform.isPad) {
@@ -8,7 +9,12 @@ export const getMultiplier = () => {
             return 9.5;
         }
     } else if (Platform.OS === 'web') {
-        return 22;
+        if (Dimensions.get('screen').width > 1000) {
+            return 22;
+        } else if (Dimensions.get('screen').width > 600) {
+            return 18;
+        }
+        return 9.5;
     }
 
     return 12;
