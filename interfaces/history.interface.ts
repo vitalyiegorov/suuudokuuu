@@ -4,24 +4,14 @@ import { emptyGameHistory, type GameHistoryInterface } from './game-history.inte
 
 export interface HistoryInterface {
     byDifficulty: Record<DifficultyEnum, GameHistoryInterface>;
-    totalGamesCompleted: number;
-    totalGamesWon: number;
-    totalGamesLost: number;
-    totalBestScore: number;
-    totalBestTime: number;
 }
 
-export const emptyHistoryState: HistoryInterface = {
+export const emptyHistory: HistoryInterface = {
     byDifficulty: {
         [DifficultyEnum.Newbie]: emptyGameHistory,
         [DifficultyEnum.Easy]: emptyGameHistory,
         [DifficultyEnum.Medium]: emptyGameHistory,
         [DifficultyEnum.Hard]: emptyGameHistory,
         [DifficultyEnum.Nightmare]: emptyGameHistory
-    },
-    totalGamesCompleted: 0,
-    totalGamesWon: 0,
-    totalGamesLost: 0,
-    totalBestScore: 0,
-    totalBestTime: 0
+    }
 };

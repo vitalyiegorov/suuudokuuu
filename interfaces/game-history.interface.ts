@@ -6,12 +6,12 @@ export interface GameHistoryInterface {
     gamesWon: number;
     gamesLost: number;
     bestScore: number;
-    bestTime: number;
+    bestTime: Duration;
 }
 
 export const emptyGameHistory: GameHistoryInterface = {
     bestScore: 0,
-    bestTime: 0,
+    bestTime: {},
     difficulty: DifficultyEnum.Easy,
     gamesCompleted: 0,
     gamesLost: 0,

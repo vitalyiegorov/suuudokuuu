@@ -20,10 +20,27 @@ export const HomeStyles = StyleSheet.create({
     centerContainer: {
         alignItems: 'center',
         flex: 1,
-        justifyContent: 'center'
+        justifyContent: 'flex-end'
     },
     container: {
         flex: 1,
         justifyContent: 'space-between'
+    },
+    historyContainer: {
+        alignItems: 'center',
+        flexDirection: 'row',
+        flex: 1,
+        gap: 20,
+        justifyContent: 'center'
+    },
+    historyGroup: {
+        alignItems: 'center'
+    },
+    historyLabel: {
+        color: Colors.black
+    },
+    historyValue: {
+        color: Colors.black,
+        fontWeight: 'bold'
     }
 });
