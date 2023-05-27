@@ -57,8 +57,8 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
-      - name: Build on EAS
-        run: eas build --platform ios --non-interactive
-
-      - name: Submit IOS
-        run: eas submit --platform ios --latest --non-interactive
+#      - name: Build on EAS
+#        run: eas build --platform ios --non-interactive
+#
+#      - name: Submit IOS
+#        run: eas submit --platform ios --latest --non-interactive
