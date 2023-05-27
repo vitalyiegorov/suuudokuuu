@@ -1,7 +1,6 @@
 import { intervalToDuration } from 'date-fns';
 
-import { isDurationLower } from '../../@generic';
-import { type GameInterface } from '../../game/interfaces/game.interface';
+import { type GameInterface } from '../../game';
 import { type GameHistoryInterface } from '../interfaces/game-history.interface';
 
 const gameDuration = (game: GameInterface): Duration =>
@@ -10,10 +9,12 @@ const gameDuration = (game: GameInterface): Duration =>
 export const gameToGameHistory = (game: GameInterface, current: GameHistoryInterface): GameHistoryInterface => {
     const duration = gameDuration(game);
 
+    const isBestScore = game.score > current.bestScore;
+
     return {
         difficulty: game.difficulty,
-        bestScore: current.bestScore > game.score ? current.bestScore : game.score,
-        bestTime: isDurationLower(duration, current.bestTime) ? duration : current.bestTime,
+        bestScore: isBestScore ? game.score : current.bestScore,
+        bestTime: isBestScore ? duration : current.bestTime,
         gamesCompleted: current.gamesCompleted + 1,
         gamesLost: game.isLost ? current.gamesLost + 1 : current.gamesLost,
         gamesWon: game.mistakes === 0 ? current.gamesWon + 1 : current.gamesWon
