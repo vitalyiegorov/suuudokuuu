@@ -14,6 +14,7 @@ import { hasValueInColumn } from './field/has-value-in-column.util';
 import { hasValueInGroup } from './field/has-value-in-group.util';
 import { hasValueInRow } from './field/has-value-in-row.util';
 
+// HINT: This is the state after the new value is set on the field
 export const calculateScore = (gameField: FieldInterface, selectedCell: CellInterface, mistakes: number, startedAt: Date): number => {
     const elapsedS = (new Date().getTime() - startedAt.getTime()) / 1000;
 
