@@ -4,23 +4,25 @@ Sudoku game to help Ukraine win the war against Russia.
 [Play now!](https://www.suuudokuuu.com/)
 
 ## TODO
+
 ### Features
 - [ ] add mistakes purchasing through in-app purchases
     - [ ] donate to ZSU, add BE logic for this
     - [ ] add donation branding and description on main screen
 - [ ] add gamification and percentage of completeness
-- [ ] add game pausing? Can be exploited as a cheat to maximize scroll?
-- [ ] best stats is confusing and not clear, especially time
-  - [ ] add best time/score for each difficulty
-  - [ ] add history screen?
-  - [ ] add best run stats for each difficulty
-- [ ] score row completing row/col/group
+- [ ] add game pausing? timer should not run when app is in background
+- [ ] disable screenshots?
+- [ ] add unique check for generated field, sometimes puzzle can have multiple solutions
+- [ ] best stats is confusing and not clear, especially time:
+  - [ ] add best time/score for each difficulty, when user selects difficulty show separate screen
+- [x] score row completing row/col/group
 
 ### Frontend
 - [ ] add animations
     - [ ] add number flying to its stop?
     - [ ] add more fun to winner page(ZSU, Ukraine, donation CTA)
     - [ ] add more fun to looser page(ZSU, Ukraine, donation CTA)
+    - [ ] animation when finishing full row/col/group(score multiplies)
 - [ ] add successful run count and longest run count history on main screen?
 - [ ] add donation CTA on main screen
 - [x] add game logic:
@@ -39,17 +41,21 @@ Sudoku game to help Ukraine win the war against Russia.
 - [ ] store user solved puzzle, add time, score, rank for same puzzle
 - [ ] create leaderboards
 
+### CI/CD
+- [ ] setup github actions hosted runners for ios build
+  - [ ] setup fastlane for testflight publication
+- [ ] setup github actions hosted runners for android build
+- [ ] setup conventional commits, automatic version management and changelog generation(ios, android also)
+- [ ] setup pull-request pipeline for linting, tests, etc
+  - [ ] ios/android builds should be published as artifacts so team members can test them
+
 ### Overall
 - [ ] fix ts error on app.json import
-- [ ] add commitlint
-- [ ] fix require cycles =)
+- [ ] add commit-lint
+- [ ] fix metro require cycles (store related as usual) =)
 - [ ] add husky
 - [ ] migrate to monorepo
-- [ ] setup github actions for releases and release management
-- [ ] setup github actions for PRs, create web, expo previews
 - [ ] add e2e tests(maestro)
-- [ ] setup android build and deployment
-- [ ] setup [eas submit](https://docs.expo.dev/submit/eas-json/) credentials and github action
 - [x] refactor folder structure to modules(game, app-root, history)
 - [x] setup eas
 - [x] setup iphone deployment
