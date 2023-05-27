@@ -6,8 +6,8 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
-import { BlackTheme, WhiteTheme } from '../components/theme';
-import { appPersistor, appStore } from '../store/app.store';
+import { appRootPersistor, appRootStore } from '../src/@app-root';
+import { BlackTheme, WhiteTheme } from '../src/@generic';
 
 const stackOptions = { headerShown: false, gestureEnabled: false };
 
@@ -23,8 +23,8 @@ export default function RootLayout() {
     }
 
     return (
-        <Provider store={appStore}>
-            <PersistGate loading={null} persistor={appPersistor}>
+        <Provider store={appRootStore}>
+            <PersistGate loading={null} persistor={appRootPersistor}>
                 <SafeAreaProvider>
                     <ThemeProvider value={scheme}>
                         <Stack screenOptions={stackOptions} />
