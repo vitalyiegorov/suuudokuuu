@@ -5,7 +5,7 @@ import Reanimated, { interpolateColor, useAnimatedStyle, useSharedValue, withTim
 
 import { Colors } from '../../../@generic';
 import { BlankCellValueConstant } from '../../constants/blank-cell-value.constant';
-import { FieldGroupSizeConstant, FieldSizeConstant } from '../../constants/field.constant';
+import { FieldGroupWidthConstant, FieldSizeConstant } from '../../constants/field.constant';
 import { type CellInterface } from '../../interfaces/cell.interface';
 
 import { CellStyles as styles } from './cell.styles';
@@ -13,7 +13,7 @@ import { CellStyles as styles } from './cell.styles';
 const ReanimatedPressable = Reanimated.createAnimatedComponent(Pressable);
 
 const isGroupEnd = (index: number): boolean => {
-    return index < FieldSizeConstant - 1 && (index + 1) % FieldGroupSizeConstant === 0;
+    return index < FieldSizeConstant - 1 && (index + 1) % FieldGroupWidthConstant === 0;
 };
 
 interface Props {

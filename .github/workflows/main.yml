@@ -33,6 +33,7 @@ jobs:
         working-directory: ./dist
         run: |
           echo "!node_modules" > .vercelignore
+          cp ../vercel.json .
           vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
           vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
 
