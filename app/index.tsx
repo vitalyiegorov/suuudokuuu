@@ -1,13 +1,11 @@
 import { isNotEmptyString } from '@rnw-community/shared';
 import { formatDuration } from 'date-fns';
+import Constants from 'expo-constants';
 import { Link, useRouter } from 'expo-router';
 import { useState } from 'react';
 import { Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-// eslint-disable-next-line @typescript-eslint/prefer-ts-expect-error,@typescript-eslint/ban-ts-comment
-// @ts-ignore No types
-import AppConfig from '../app.json';
 import { DifficultySelect } from '../src/@app-root';
 import { BlackButton, type DifficultyEnum, Header, InitialDateConstant, PageHeader, useAppDispatch, useAppSelector } from '../src/@generic';
 import { gameLoadAction, gameStartedAtSelector } from '../src/game';
@@ -76,7 +74,7 @@ export default function StartScreen() {
             </View>
 
             <View style={styles.bottomContainer}>
-                <Text style={styles.bottomLink}>V.{AppConfig.expo.version}</Text>
+                <Text style={styles.bottomLink}>V.{Constants.expoConfig?.version}</Text>
                 <Link href="/privacy-policy" style={styles.bottomLink}>
                     <Text>Privacy policy</Text>
                 </Link>
