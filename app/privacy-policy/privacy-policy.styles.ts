@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { Colors } from '../../src/@generic/styles/theme';
+import { Colors } from '../../src/@generic';
 
 export const PrivacyPolicyStyles = StyleSheet.create({
     container: {

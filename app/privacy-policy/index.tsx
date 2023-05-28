@@ -2,7 +2,7 @@ import { format } from 'date-fns';
 import { ScrollView, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { Header, PageHeader, PlayAgainButton } from '../../src/@generic';
+import { BlackButton, Header, PageHeader } from '../../src/@generic';
 
 import { PrivacyPolicyStyles as styles } from './privacy-policy.styles';
 
@@ -50,7 +50,7 @@ export default function PrivacyPolicy() {
             <ScrollView contentContainerStyle={styles.scrollView}>
                 <Text style={styles.text}>{text}</Text>
             </ScrollView>
-            <PlayAgainButton />
+            <BlackButton href="/" text="Return" />
         </SafeAreaView>
     );
 }
