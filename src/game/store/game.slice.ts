@@ -16,6 +16,8 @@ export const gameSlice = createSlice({
         load: (state, action: PayloadAction<DifficultyEnum>) => {
             const blankCellsCount = difficultyValues[action.payload];
 
+            Object.assign(state, emptyGame);
+
             state.filledField = createField(FieldSizeConstant);
             state.gameField = createGameField(state.filledField, blankCellsCount);
             state.startedAt = new Date();

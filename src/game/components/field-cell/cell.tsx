@@ -1,8 +1,14 @@
-import { cs, type OnEventFn } from '@rnw-community/shared';
+import { cs, isDefined, type OnEventFn } from '@rnw-community/shared';
 import { memo, useEffect } from 'react';
 import { Pressable } from 'react-native';
-import Animated, { useSharedValue } from 'react-native-reanimated';
-import Reanimated, { interpolate, interpolateColor, useAnimatedStyle, useDerivedValue, withTiming } from 'react-native-reanimated';
+import Reanimated, {
+    interpolate,
+    interpolateColor,
+    useAnimatedStyle,
+    useDerivedValue,
+    useSharedValue,
+    withTiming
+} from 'react-native-reanimated';
 
 import { Colors } from '../../../@generic';
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
@@ -19,10 +25,13 @@ const isGroupEnd = (index: number): boolean => {
     return index < FieldSizeConstant - 1 && (index + 1) % FieldGroupWidthConstant === 0;
 };
 
+const isScoredCell = (cell: CellInterface, scoredCell?: CellInterface): boolean =>
+    isDefined(scoredCell) && (scoredCell.x === cell.x || scoredCell.y === cell.y || scoredCell.group === cell.group);
+
 interface Props {
     cell: CellInterface;
     onSelect: OnEventFn<CellInterface | undefined>;
-    isScored: boolean;
+    scoredCell?: CellInterface;
     isActive: boolean;
     isActiveValue: boolean;
     isCellHighlighted: boolean;
@@ -39,23 +48,24 @@ const getCellBgColor = (isActiveValue: boolean, isCellHighlighted: boolean) => {
 };
 
 // TODO: We need animations logic improvements
-const CellComponent = ({ cell, onSelect, isActive, isActiveValue, isCellHighlighted, isScored = true }: Props) => {
+const CellComponent = ({ cell, onSelect, isActive, isActiveValue, isCellHighlighted, scoredCell }: Props) => {
     const value = cell.value === BlankCellValueConstant ? '' : cell.value.toString();
     const isLastRow = cell.y === 8;
     const isLastCol = cell.x === 8;
     const backgroundColor = getCellBgColor(isActiveValue, isCellHighlighted);
 
-    const activeAnimation = useDerivedValue(() => {
-        return withTiming(isActive ? 1 : 0, { duration: animationDurationConstant });
-    });
+    const activeAnimation = useDerivedValue(() => withTiming(isActive ? 1 : 0, { duration: animationDurationConstant }));
     const scoreAnimation = useSharedValue(0);
 
     useEffect(() => {
-        if (isScored) {
-            scoreAnimation.value = 0;
-            scoreAnimation.value = withTiming(1, { duration: 8 * animationDurationConstant });
+        if (isScoredCell(cell, scoredCell)) {
+            scoreAnimation.value = withTiming(1, { duration: 8 * animationDurationConstant }, finished => {
+                if (finished !== undefined && finished) {
+                    scoreAnimation.value = 0;
+                }
+            });
         }
-    }, [isScored]);
+    }, [scoredCell?.x, scoredCell?.y, scoredCell?.group]);
 
     const cellAnimatedStyles = useAnimatedStyle(
         () => ({
@@ -73,7 +83,7 @@ const CellComponent = ({ cell, onSelect, isActive, isActiveValue, isCellHighligh
             ),
             transform: [{ rotate: `${interpolate(scoreAnimation.value, [0, 1], [0, 360])}deg` }]
         }),
-        [backgroundColor]
+        []
     );
 
     const handlePress = () => void onSelect(isActive ? undefined : cell);
@@ -95,7 +105,7 @@ const CellComponent = ({ cell, onSelect, isActive, isActiveValue, isCellHighligh
 
     return (
         <ReanimatedPressable style={cellStyles} onPress={handlePress}>
-            <Animated.Text style={textStyles}>{value}</Animated.Text>
+            <Reanimated.Text style={textStyles}>{value}</Reanimated.Text>
         </ReanimatedPressable>
     );
 };

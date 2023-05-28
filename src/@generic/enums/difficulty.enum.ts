@@ -9,7 +9,7 @@ export enum DifficultyEnum {
 }
 
 export const difficultyValues: Record<DifficultyEnum, number> = {
-    [DifficultyEnum.Newbie]: Math.ceil(FieldCellCountConstant * 0.02),
+    [DifficultyEnum.Newbie]: Math.ceil(FieldCellCountConstant * 0.03),
     [DifficultyEnum.Easy]: Math.ceil(FieldCellCountConstant * 0.2),
     [DifficultyEnum.Medium]: Math.ceil(FieldCellCountConstant * 0.4),
     [DifficultyEnum.Hard]: Math.ceil(FieldCellCountConstant * 0.5),
