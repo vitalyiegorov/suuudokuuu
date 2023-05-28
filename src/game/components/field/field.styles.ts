@@ -1,6 +1,6 @@
 import { Platform, StyleSheet } from 'react-native';
 
-import { isMobileScreen } from '../../constants/dimensions.contant';
+import { isMobileScreen } from '../../../@generic';
 
 export const FieldStyles = StyleSheet.create({
     row: {

@@ -8,7 +8,8 @@ export const GameScreenStyles = StyleSheet.create({
         padding: 10
     },
     controls: {
-        alignItems: 'center',
+        alignItems: 'flex-start',
+        flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between'
     },

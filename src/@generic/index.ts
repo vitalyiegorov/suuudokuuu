@@ -6,6 +6,7 @@ export * from './enums/difficulty.enum';
 export * from './hooks/redux.hook';
 
 export * from './styles/theme';
+export * from './styles/media-queries';
 
 export * from './utils/haptic/haptic.util';
 export * from './utils/is-duration.lower';
