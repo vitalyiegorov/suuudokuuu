@@ -50,12 +50,12 @@ Sudoku game to help Ukraine win the war against Russia.
   - [ ] ios/android builds should be published as artifacts so team members can test them
 
 ### Overall
-- [ ] fix ts error on app.json import
 - [ ] add commit-lint
 - [ ] fix metro require cycles (store related as usual) =)
 - [ ] add husky
 - [ ] migrate to monorepo
 - [ ] add e2e tests(maestro)
+- [x] fix ts error on app.json import
 - [x] refactor folder structure to modules(game, app-root, history)
 - [x] setup eas
 - [x] setup iphone deployment
