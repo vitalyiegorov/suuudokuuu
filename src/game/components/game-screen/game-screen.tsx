@@ -1,17 +1,17 @@
-/* eslint-disable react-native/no-raw-text */
-import { ImpactFeedbackStyle } from 'expo-haptics';
 import { useRouter } from 'expo-router';
 import { useCallback, useEffect } from 'react';
 import { Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { Alert, BlackButton, PageHeader, useAppDispatch, useAppSelector, hapticImpact } from '../../../@generic';
+import { Alert, BlackButton, PageHeader, useAppDispatch, useAppSelector } from '../../../@generic';
+import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
 import { MaxMistakesConstant } from '../../constants/max-mistakes.constant';
 import { type CellInterface } from '../../interfaces/cell.interface';
 import { gameResetAction, gameSelectCellAction } from '../../store/game.actions';
 import {
     gameFieldSelector,
     gameMistakesSelector,
+    gameScoredCellsSelector,
     gameScoreSelector,
     gameSelectedCellSelector,
     gameStartedAtSelector
@@ -32,16 +32,16 @@ export const GameScreen = () => {
     const mistakes = useAppSelector(gameMistakesSelector);
     const currentScore = useAppSelector(gameScoreSelector);
     const startedAt = useAppSelector(gameStartedAtSelector);
+    const scoredCells = useAppSelector(gameScoredCellsSelector);
 
     const handleWin = async () => {
         if (!hasBlankCells(field)[0]) {
-            await hapticImpact(ImpactFeedbackStyle.Heavy);
-            router.push('winner');
+            // HINT: We need to wait for the animation to finish
+            setTimeout(() => void router.push('winner'), 10 * animationDurationConstant);
         }
     };
     const handleLose = async () => {
         if (mistakes >= MaxMistakesConstant) {
-            await hapticImpact(ImpactFeedbackStyle.Heavy);
             router.push('loser');
         }
     };
@@ -80,7 +80,7 @@ export const GameScreen = () => {
                 </View>
                 <BlackButton text="Exit" onPress={handleExit} />
             </View>
-            <Field field={field} selectedCell={selectedCell} onSelect={handleSelectCell} />
+            <Field field={field} selectedCell={selectedCell} onSelect={handleSelectCell} scoredCells={scoredCells} />
             <GameTimer startedAt={startedAt} />
             <AvailableValues />
         </SafeAreaView>

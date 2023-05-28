@@ -1,6 +1,6 @@
 import { Platform, StyleSheet } from 'react-native';
 
-import { isMobileScreen } from '../../../@generic';
+import { isMobileScreen, isTabletScreen } from '../../../@generic';
 
 export const FieldStyles = StyleSheet.create({
     row: {
@@ -10,7 +10,7 @@ export const FieldStyles = StyleSheet.create({
         alignItems: 'center',
         flex: 5,
         flexDirection: 'column',
-        justifyContent: isMobileScreen() ? 'center' : 'flex-end',
+        justifyContent: isMobileScreen() || isTabletScreen() ? 'center' : 'flex-end',
         margin: 'auto',
         ...(Platform.OS === 'web' && {
             flex: 7

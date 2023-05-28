@@ -7,5 +7,6 @@ export const {
     madeAMistake: gameMadeAMistakeAction,
     finish: gameFinishAction,
     reset: gameResetAction,
-    increaseScore: gameIncreaseScoreAction
+    increaseScore: gameIncreaseScoreAction,
+    setScoredCells: gameSetScoredCellsAction
 } = gameSlice.actions;
