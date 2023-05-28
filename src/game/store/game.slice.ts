@@ -40,6 +40,9 @@ export const gameSlice = createSlice({
         },
         madeAMistake: state => {
             state.mistakes++;
+        },
+        setScoredCells: (state, action: PayloadAction<CellInterface>) => {
+            state.scoredCells = action.payload;
         }
     }
 });

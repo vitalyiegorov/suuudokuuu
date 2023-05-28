@@ -2,8 +2,8 @@ import { type CellInterface } from '../../interfaces/cell.interface';
 import { type FieldInterface } from '../../interfaces/field.interface';
 
 export const hasValueInColumn = (cell: CellInterface, field: FieldInterface): boolean => {
-    for (let row = 0; row < field.length; row++) {
-        if (field[row][cell.x].value === cell.value) {
+    for (let y = 0; y < field.length; y++) {
+        if (field[y][cell.x].value === cell.value) {
             return true;
         }
     }

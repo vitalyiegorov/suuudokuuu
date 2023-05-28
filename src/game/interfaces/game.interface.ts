@@ -1,5 +1,4 @@
-import { InitialDateConstant } from '../../@generic/constants/date.constant';
-import { DifficultyEnum } from '../../@generic/enums/difficulty.enum';
+import { InitialDateConstant, DifficultyEnum } from '../../@generic';
 
 import { type CellInterface } from './cell.interface';
 import { type FieldInterface } from './field.interface';
@@ -18,7 +17,7 @@ export interface GameInterface {
     filledField: FieldInterface;
     gameField: FieldInterface;
     selectedCell?: CellInterface;
-    selectedValue?: number;
+    scoredCells?: CellInterface;
 }
 
 export const emptyGame: GameInterface = {
@@ -31,5 +30,6 @@ export const emptyGame: GameInterface = {
     filledField: [],
     gameField: [],
     mistakes: 0,
-    score: 0
+    score: 0,
+    scoredCells: undefined
 };

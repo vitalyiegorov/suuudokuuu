@@ -11,3 +11,4 @@ export const gameMistakesSelector = createSelector(gameSelector, state => state.
 export const gameStartedAtSelector = createSelector(gameSelector, state => new Date(state.startedAt));
 export const gameEndedAtSelector = createSelector(gameSelector, state => new Date(state.endedAt));
 export const gameScoreSelector = createSelector(gameSelector, state => state.score);
+export const gameScoredCellsSelector = createSelector(gameSelector, state => state.scoredCells);

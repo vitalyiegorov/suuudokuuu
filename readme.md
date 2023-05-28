@@ -22,7 +22,7 @@ Sudoku game to help Ukraine win the war against Russia.
     - [ ] add number flying to its stop?
     - [ ] add more fun to winner page(ZSU, Ukraine, donation CTA)
     - [ ] add more fun to looser page(ZSU, Ukraine, donation CTA)
-    - [ ] animation when finishing full row/col/group(score multiplies)
+    - [x] animation when finishing full row/col/group(score multiplies)
 - [ ] add successful run count and longest run count history on main screen?
 - [ ] add donation CTA on main screen
 - [x] add game logic:
