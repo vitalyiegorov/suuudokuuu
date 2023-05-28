@@ -15,4 +15,3 @@ export * from './store/game.slice';
 export * from './store/game.selectors';
 
 export * from './components/game-screen/game-screen';
-export { getCellSize } from '../@generic/styles/media-queries';
