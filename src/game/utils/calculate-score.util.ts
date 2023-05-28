@@ -1,5 +1,6 @@
 import { BlankCellValueConstant } from '../constants/blank-cell-value.constant';
 import {
+    ScoreCorrectMinValueConstant,
     ScoreCorrectValueConstant,
     ScoreElapsedCoefficientConstant,
     ScoreLastInColCoefficientConstant,
@@ -39,5 +40,5 @@ export const calculateScore = (gameField: FieldInterface, selectedCell: CellInte
         totalEarned += valueDecreasedByElapsed * ScoreLastInColCoefficientConstant;
     }
 
-    return totalEarned;
+    return Math.max(totalEarned, ScoreCorrectMinValueConstant);
 };
