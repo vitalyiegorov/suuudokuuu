@@ -1,6 +1,3 @@
-export * from './interfaces/cell.interface';
-export * from './interfaces/cell-group.interface';
-export * from './interfaces/field.interface';
 export * from './interfaces/game.interface';
 
 export * from './constants/blank-cell-value.constant';

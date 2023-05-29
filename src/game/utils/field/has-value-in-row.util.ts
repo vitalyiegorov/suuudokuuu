@@ -1,5 +1,5 @@
-import { type CellInterface } from '../../interfaces/cell.interface';
-import { type FieldInterface } from '../../interfaces/field.interface';
+import { type CellInterface } from '../../../@logic/interfaces/cell.interface';
+import { type FieldInterface } from '../../../@logic/interfaces/field.interface';
 
 export const hasValueInRow = (cell: CellInterface, field: FieldInterface): boolean => {
     for (let x = 0; x < field.length; x++) {
