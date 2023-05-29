@@ -1,31 +1,164 @@
-import { BlankCellValueConstant, type FieldInterface, FieldSizeConstant } from './game';
-import { getGroupValue } from './game/utils/create-cell.util';
+import { isDefined } from '@rnw-community/shared';
+
+import { BlankCellValueConstant, type CellInterface, type FieldInterface } from './game';
+import { createCell } from './game/utils/create-cell.util';
+
+type AvailableValues = Record<number, number>;
 
 export class GameLogic {
     private readonly emptyStringValue = '.';
-    private readonly field: FieldInterface;
+    private readonly blankCellValue = BlankCellValueConstant;
 
-    constructor(fieldString: string) {
-        this.field = this.fromString(fieldString);
+    private readonly fieldSize: number;
+    private readonly fieldGroupWidth: number;
+    private readonly fieldGroupHeight: number;
+    private readonly fieldFillingValues: number[];
+
+    public field: FieldInterface = [];
+    public availableValues: AvailableValues = {};
+
+    constructor(fieldSize: number, fieldGroupWidth: number, fieldGroupHeight: number) {
+        this.fieldSize = fieldSize;
+        this.fieldGroupWidth = fieldGroupWidth;
+        this.fieldGroupHeight = fieldGroupHeight;
+
+        // TODO: Is there a better way to randomize array of numbers in JS? =)
+        this.fieldFillingValues = Array.from({ length: this.fieldSize }, (_, i) => i + 1);
+        for (let i = this.fieldFillingValues.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [this.fieldFillingValues[i], this.fieldFillingValues[j]] = [this.fieldFillingValues[j], this.fieldFillingValues[i]];
+        }
+
+        this.createEmptyField();
     }
 
     toString(): string {
         return this.field
-            .map(row => row.map(cell => (cell.value === BlankCellValueConstant ? this.emptyStringValue : cell.value)).join(''))
+            .map(row => row.map(cell => (cell.value === this.blankCellValue ? this.emptyStringValue : cell.value)).join(''))
             .join('');
     }
 
-    private fromString(fieldString: string): FieldInterface {
-        const emptyField: FieldInterface = Array.from({ length: FieldSizeConstant }, () => Array.from({ length: FieldSizeConstant }));
+    hasBlankCells(): [hasBlankCells: boolean, lastY: number, lastX: number] {
+        let y = 0;
+        let x = 0;
 
-        return fieldString.split('').reduce((acc, stringValue, index) => {
-            const x = index % FieldSizeConstant;
-            const y = Math.floor(index / FieldSizeConstant);
-            const value = stringValue === this.emptyStringValue ? BlankCellValueConstant : parseInt(stringValue, 10);
+        for (y = 0; y < this.field.length; y++) {
+            for (x = 0; x < this.field[y].length; x++) {
+                if (this.field[y][x].value === this.blankCellValue) {
+                    return [true, y, x];
+                }
+            }
+        }
 
-            acc[y][x] = { x, y, value, group: getGroupValue(x, y) };
+        return [false, y, x];
+    }
+
+    hasValueInRow(cell: CellInterface): boolean {
+        for (let x = 0; x < this.field.length; x++) {
+            if (this.field[cell.y][x].value === cell.value) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    hasValueInColumn(cell: CellInterface): boolean {
+        for (let y = 0; y < this.field.length; y++) {
+            if (this.field[y][cell.x].value === cell.value) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    hasValueInGroup(cell: CellInterface): boolean {
+        const boxStartY = cell.y - (cell.y % this.fieldGroupHeight);
+        const boxStartX = cell.x - (cell.x % this.fieldGroupWidth);
+
+        for (let y = 0; y < this.fieldGroupHeight; y++) {
+            for (let x = 0; x < this.fieldGroupWidth; x++) {
+                if (this.field[y + boxStartY][x + boxStartX].value === cell.value) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    fill(): void {
+        if (this.fillRecursive()) {
+            throw new Error('Unable to create a game field');
+        }
+
+        this.calculateAvailableValues();
+    }
+
+    private fillRecursive(): boolean {
+        const [needsFilling, y, x] = this.hasBlankCells();
+
+        if (!needsFilling) {
+            return true;
+        }
+
+        for (const value of this.fieldFillingValues) {
+            const newCell: CellInterface = createCell(x, y, value);
+
+            if (!this.hasValueInRow(newCell) && !this.hasValueInColumn(newCell) && !this.hasValueInGroup(newCell)) {
+                this.field[y][x] = newCell;
+
+                if (this.fillRecursive()) {
+                    return true;
+                }
+
+                this.field[y][x].value = this.blankCellValue;
+            }
+        }
+
+        return false;
+    }
+
+    private calculateAvailableValues(): void {
+        this.availableValues = {};
+
+        for (let y = 0; y < this.field.length; y++) {
+            for (let x = 0; x < this.field[y].length; x++) {
+                const value = this.field[y][x].value;
+                if (value !== this.blankCellValue) {
+                    this.availableValues[value] = isDefined(this.availableValues[value]) ? this.availableValues[value] + 1 : 1;
+                }
+            }
+        }
+    }
+
+    private createEmptyField() {
+        this.field = Array.from({ length: this.fieldSize }, (_, y) =>
+            Array.from({ length: this.fieldSize }, (_, x) => ({
+                y,
+                x,
+                value: this.blankCellValue,
+                group: Math.floor(x / this.fieldGroupWidth) * this.fieldGroupWidth + Math.floor(y / this.fieldGroupHeight) + 1
+            }))
+        );
+    }
+
+    static fromString(fieldString: string, fieldSize: number, fieldGroupWidth: number, fieldGroupHeight: number): GameLogic {
+        const gameLogic = new GameLogic(fieldSize, fieldGroupWidth, fieldGroupHeight);
+
+        fieldString.split('').reduce((acc, stringValue, index) => {
+            const x = index % gameLogic.fieldSize;
+            const y = Math.floor(index / gameLogic.fieldSize);
+            const value = stringValue === gameLogic.emptyStringValue ? gameLogic.blankCellValue : parseInt(stringValue, 10);
+
+            acc[y][x] = { ...acc[y][x], value };
 
             return acc;
-        }, emptyField);
+        }, gameLogic.field);
+
+        gameLogic.calculateAvailableValues();
+
+        return gameLogic;
     }
 }
