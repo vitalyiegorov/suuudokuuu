@@ -57,9 +57,6 @@ export const gameSelectValueAction = createAsyncThunk<boolean, number, { dispatc
                 if (!hasValueInGroup(blankCell, newState2.gameField)) {
                     scoredCells.group = blankCell.group;
                 }
-                if (!hasValueInGroup(blankCell, newState2.gameField)) {
-                    scoredCells.group = blankCell.group;
-                }
                 if (!newState2.availableValues.includes(value)) {
                     scoredCells.values = [value];
                 }
