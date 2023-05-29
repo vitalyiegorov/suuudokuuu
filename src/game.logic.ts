@@ -1,6 +1,7 @@
 import { isDefined } from '@rnw-community/shared';
 
 import { BlankCellValueConstant, type CellInterface, type FieldInterface } from './game';
+import { type ScoredCellsInterface } from './game/interfaces/scored-cells.interface';
 import { createCell } from './game/utils/create-cell.util';
 
 type AvailableValues = Record<number, number>;
@@ -16,6 +17,7 @@ export class GameLogic {
 
     public field: FieldInterface = [];
     public availableValues: AvailableValues = {};
+    public possibleValues: number[] = [];
 
     constructor(fieldSize: number, fieldGroupWidth: number, fieldGroupHeight: number) {
         this.fieldSize = fieldSize;
@@ -30,6 +32,42 @@ export class GameLogic {
         }
 
         this.createEmptyField();
+    }
+
+    setCellValue(y: number, x: number, value: number): ScoredCellsInterface {
+        const scoredCells: ScoredCellsInterface = { x: 0, y: 0, group: 0, values: [] };
+
+        if (this.field[y][x].value === value) {
+            this.field[y][x].value = value;
+            const cell = this.field[y][x];
+
+            this.availableValues[value] = this.availableValues[value]--;
+            this.calculatePossibleValues();
+
+            if (!this.hasValueInColumn(this.field[y][x])) {
+                scoredCells.x = x;
+            }
+
+            if (!this.hasValueInRow(cell)) {
+                scoredCells.y = y;
+            }
+
+            if (!this.hasValueInGroup(cell)) {
+                scoredCells.group = cell.group;
+            }
+
+            if (!this.possibleValues.includes(value)) {
+                scoredCells.values = [value];
+            }
+
+            if (!this.hasBlankCells()[0]) {
+                scoredCells.values = this.fieldFillingValues;
+            }
+
+            return scoredCells;
+        } else {
+            throw new Error('Cell value is wrong');
+        }
     }
 
     toString(): string {
@@ -94,6 +132,13 @@ export class GameLogic {
         }
 
         this.calculateAvailableValues();
+    }
+
+    private calculatePossibleValues(): void {
+        this.possibleValues = Object.keys(this.availableValues)
+            .map(Number)
+            .filter(key => this.availableValues[key] > 0)
+            .map(key => this.availableValues[key]);
     }
 
     private fillRecursive(): boolean {
