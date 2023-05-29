@@ -4,6 +4,7 @@ import { type DifficultyEnum, difficultyValues } from '../../@generic';
 import { FieldSizeConstant } from '../constants/field.constant';
 import { type CellInterface } from '../interfaces/cell.interface';
 import { emptyGame } from '../interfaces/game.interface';
+import { type ScoredCellsInterface } from '../interfaces/scored-cells.interface';
 import { createField } from '../utils/field/create-field.util';
 import { createGameField } from '../utils/field/create-game-field.util';
 
@@ -43,7 +44,7 @@ export const gameSlice = createSlice({
         madeAMistake: state => {
             state.mistakes++;
         },
-        setScoredCells: (state, action: PayloadAction<CellInterface>) => {
+        setScoredCells: (state, action: PayloadAction<ScoredCellsInterface>) => {
             state.scoredCells = action.payload;
         }
     }

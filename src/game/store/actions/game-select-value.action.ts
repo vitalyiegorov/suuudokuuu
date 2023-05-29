@@ -7,9 +7,11 @@ import { type AppDispatch, type RootState } from '../../../@app-root';
 import { hapticImpact, hapticNotification } from '../../../@generic';
 import { historyRecordAction } from '../../../history';
 import { BlankCellValueConstant } from '../../constants/blank-cell-value.constant';
+import { FieldAvailableValuesConstant } from '../../constants/field.constant';
 import { MaxMistakesConstant } from '../../constants/max-mistakes.constant';
+import { type CellInterface } from '../../interfaces/cell.interface';
+import { type ScoredCellsInterface } from '../../interfaces/scored-cells.interface';
 import { calculateScore } from '../../utils/calculate-score.util';
-import { createCell } from '../../utils/create-cell.util';
 import { hasBlankCells } from '../../utils/field/has-blank-cells.util';
 import { hasValueInColumn } from '../../utils/field/has-value-in-column.util';
 import { hasValueInGroup } from '../../utils/field/has-value-in-group.util';
@@ -44,8 +46,8 @@ export const gameSelectValueAction = createAsyncThunk<boolean, number, { dispatc
 
                 const newState2 = thunkAPI.getState().game;
 
-                const blankCell = { ...newCell, value: BlankCellValueConstant };
-                const scoredCells = createCell(-1, -1, BlankCellValueConstant);
+                const blankCell: CellInterface = { ...newCell, value: BlankCellValueConstant };
+                const scoredCells: ScoredCellsInterface = { x: -1, y: -1, group: -1, values: [] };
                 if (!hasValueInColumn(blankCell, newState2.gameField)) {
                     scoredCells.x = blankCell.x;
                 }
@@ -55,13 +57,20 @@ export const gameSelectValueAction = createAsyncThunk<boolean, number, { dispatc
                 if (!hasValueInGroup(blankCell, newState2.gameField)) {
                     scoredCells.group = blankCell.group;
                 }
-                // TODO: Add win animation, probably lose animation?
-                thunkAPI.dispatch(gameSetScoredCellsAction(scoredCells));
+                if (!hasValueInGroup(blankCell, newState2.gameField)) {
+                    scoredCells.group = blankCell.group;
+                }
+                if (!newState2.availableValues.includes(value)) {
+                    scoredCells.values = [value];
+                }
 
-                if (!hasBlankCells(newState.gameField)[0]) {
+                if (!hasBlankCells(newState2.gameField)[0]) {
                     await hapticImpact(ImpactFeedbackStyle.Heavy);
                     thunkAPI.dispatch(historyRecordAction(newState2));
+                    scoredCells.values = FieldAvailableValuesConstant;
                 }
+
+                thunkAPI.dispatch(gameSetScoredCellsAction(scoredCells));
 
                 return true;
             } else {
