@@ -1,5 +1,5 @@
-import { type CellInterface } from '../../interfaces/cell.interface';
-import { type FieldInterface } from '../../interfaces/field.interface';
+import { type CellInterface } from '../../../@logic/interfaces/cell.interface';
+import { type FieldInterface } from '../../../@logic/interfaces/field.interface';
 import { createCell } from '../create-cell.util';
 
 import { fillField } from './fill-field.util';
