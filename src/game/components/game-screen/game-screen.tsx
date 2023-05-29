@@ -5,8 +5,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Alert, BlackButton, PageHeader, useAppDispatch, useAppSelector } from '../../../@generic';
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
+import { type CellInterface } from '../../../@logic/interfaces/cell.interface';
 import { MaxMistakesConstant } from '../../constants/max-mistakes.constant';
-import { type CellInterface } from '../../interfaces/cell.interface';
 import { gameResetAction, gameSelectCellAction } from '../../store/game.actions';
 import {
     gameFieldSelector,

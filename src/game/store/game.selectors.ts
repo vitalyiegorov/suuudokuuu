@@ -4,8 +4,10 @@ import { type RootState } from '../../@app-root';
 
 export const gameSelector = (state: RootState) => state.game;
 
-export const gameFieldSelector = createSelector(gameSelector, state => state.gameField);
-export const gameFilledFieldSelector = createSelector(gameSelector, state => state.filledField);
+export const gameFieldSelector = createSelector(gameSelector, state => state.field);
+export const gameAvailableValuesSelector = createSelector(gameSelector, state => state.availableValues);
+export const gamePossibleValuesSelector = createSelector(gameSelector, state => state.possibleValues);
+export const gameFullFieldSelector = createSelector(gameSelector, state => state.fullField);
 export const gameSelectedCellSelector = createSelector(gameSelector, state => state.selectedCell);
 export const gameMistakesSelector = createSelector(gameSelector, state => state.mistakes);
 export const gameStartedAtSelector = createSelector(gameSelector, state => new Date(state.startedAt));

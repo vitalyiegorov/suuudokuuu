@@ -1,6 +1,6 @@
+import { type CellInterface } from '../../../@logic/interfaces/cell.interface';
+import { type FieldInterface } from '../../../@logic/interfaces/field.interface';
 import { BlankCellValueConstant } from '../../constants/blank-cell-value.constant';
-import { type CellInterface } from '../../interfaces/cell.interface';
-import { type FieldInterface } from '../../interfaces/field.interface';
 import { createCell } from '../create-cell.util';
 
 import { hasBlankCells } from './has-blank-cells.util';
