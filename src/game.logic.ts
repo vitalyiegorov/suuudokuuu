@@ -35,7 +35,7 @@ export class GameLogic {
     }
 
     setCellValue(y: number, x: number, value: number): ScoredCellsInterface {
-        const scoredCells: ScoredCellsInterface = { x: 0, y: 0, group: 0, values: [] };
+        const scoredCells: ScoredCellsInterface = { x: -1, y: -1, group: -1, values: [] };
 
         if (this.field[y][x].value === value) {
             this.field[y][x].value = value;
@@ -76,7 +76,17 @@ export class GameLogic {
             .join('');
     }
 
-    hasBlankCells(): [hasBlankCells: boolean, lastY: number, lastX: number] {
+    create(): FieldInterface {
+        if (this.fillRecursive()) {
+            throw new Error('Unable to create a game field');
+        }
+
+        this.calculateAvailableValues();
+
+        return this.field;
+    }
+
+    private hasBlankCells(): [hasBlankCells: boolean, lastY: number, lastX: number] {
         let y = 0;
         let x = 0;
 
@@ -91,7 +101,7 @@ export class GameLogic {
         return [false, y, x];
     }
 
-    hasValueInRow(cell: CellInterface): boolean {
+    private hasValueInRow(cell: CellInterface): boolean {
         for (let x = 0; x < this.field.length; x++) {
             if (this.field[cell.y][x].value === cell.value) {
                 return true;
@@ -101,7 +111,7 @@ export class GameLogic {
         return false;
     }
 
-    hasValueInColumn(cell: CellInterface): boolean {
+    private hasValueInColumn(cell: CellInterface): boolean {
         for (let y = 0; y < this.field.length; y++) {
             if (this.field[y][cell.x].value === cell.value) {
                 return true;
@@ -111,7 +121,7 @@ export class GameLogic {
         return false;
     }
 
-    hasValueInGroup(cell: CellInterface): boolean {
+    private hasValueInGroup(cell: CellInterface): boolean {
         const boxStartY = cell.y - (cell.y % this.fieldGroupHeight);
         const boxStartX = cell.x - (cell.x % this.fieldGroupWidth);
 
@@ -124,14 +134,6 @@ export class GameLogic {
         }
 
         return false;
-    }
-
-    fill(): void {
-        if (this.fillRecursive()) {
-            throw new Error('Unable to create a game field');
-        }
-
-        this.calculateAvailableValues();
     }
 
     private calculatePossibleValues(): void {
