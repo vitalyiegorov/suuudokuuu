@@ -4,6 +4,7 @@ import { View } from 'react-native';
 import { BlankCellValueConstant } from '../../constants/blank-cell-value.constant';
 import { type CellInterface } from '../../interfaces/cell.interface';
 import { type FieldInterface } from '../../interfaces/field.interface';
+import { type ScoredCellsInterface } from '../../interfaces/scored-cells.interface';
 import { Cell } from '../field-cell/cell';
 
 import { FieldStyles as styles } from './field.styles';
@@ -18,7 +19,7 @@ const isSameCellValue = (cell: CellInterface, selectedCell?: CellInterface): boo
     isDefined(selectedCell) && cell.value === selectedCell?.value && cell.value !== BlankCellValueConstant;
 
 interface Props {
-    scoredCells?: CellInterface;
+    scoredCells?: ScoredCellsInterface;
     field: FieldInterface;
     selectedCell?: CellInterface;
     onSelect: OnEventFn<CellInterface | undefined>;
