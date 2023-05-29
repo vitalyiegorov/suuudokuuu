@@ -16,6 +16,7 @@ import { BlankCellValueConstant } from '../../constants/blank-cell-value.constan
 import { CellFontSizeConstant } from '../../constants/dimensions.contant';
 import { FieldGroupWidthConstant, FieldSizeConstant } from '../../constants/field.constant';
 import { type CellInterface } from '../../interfaces/cell.interface';
+import { type ScoredCellsInterface } from '../../interfaces/scored-cells.interface';
 
 import { CellStyles as styles } from './cell.styles';
 
@@ -25,13 +26,14 @@ const isGroupEnd = (index: number): boolean => {
     return index < FieldSizeConstant - 1 && (index + 1) % FieldGroupWidthConstant === 0;
 };
 
-const isScoredCell = (cell: CellInterface, scoredCell?: CellInterface): boolean =>
-    isDefined(scoredCell) && (scoredCell.x === cell.x || scoredCell.y === cell.y || scoredCell.group === cell.group);
+const isScoredCell = (cell: CellInterface, scoredCell?: ScoredCellsInterface): boolean =>
+    isDefined(scoredCell) &&
+    (scoredCell.x === cell.x || scoredCell.y === cell.y || scoredCell.group === cell.group || scoredCell.values.includes(cell.value));
 
 interface Props {
     cell: CellInterface;
     onSelect: OnEventFn<CellInterface | undefined>;
-    scoredCell?: CellInterface;
+    scoredCell?: ScoredCellsInterface;
     isActive: boolean;
     isActiveValue: boolean;
     isCellHighlighted: boolean;
