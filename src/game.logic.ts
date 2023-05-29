@@ -6,11 +6,7 @@ export class GameLogic {
     private readonly field: FieldInterface;
 
     constructor(fieldString: string) {
-        this.field = this.parseString(fieldString);
-    }
-
-    static fromString(fieldString: string): GameLogic {
-        return new GameLogic(fieldString);
+        this.field = this.fromString(fieldString);
     }
 
     toString(): string {
@@ -19,7 +15,7 @@ export class GameLogic {
             .join('');
     }
 
-    private parseString(fieldString: string): FieldInterface {
+    private fromString(fieldString: string): FieldInterface {
         const emptyField: FieldInterface = Array.from({ length: FieldSizeConstant }, () => Array.from({ length: FieldSizeConstant }));
 
         return fieldString.split('').reduce((acc, stringValue, index) => {
