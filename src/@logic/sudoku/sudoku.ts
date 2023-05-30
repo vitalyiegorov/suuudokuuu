@@ -26,11 +26,11 @@ export class Sudoku extends SerializableSudoku {
     }
 
     get PossibleValues(): number[] {
-        return this.possibleValues;
+        return [...this.possibleValues];
     }
 
     get AvailableValues(): AvailableValues {
-        return this.availableValues;
+        return { ...this.availableValues };
     }
 
     create(difficulty: DifficultyEnum): void {
@@ -42,8 +42,8 @@ export class Sudoku extends SerializableSudoku {
 
         const getRandomPosition = (): number => Math.floor(Math.random() * this.fieldSize);
 
-        this.gameField = this.field.map(row => row.map(cell => ({ ...cell })));
         // TODO: Can we improve this logic to make it more unique??
+        this.gameField = this.cloneField(this.field);
         for (let i = 0; i < getDifficulty(difficulty, this.fieldSize); i += 1) {
             this.gameField[getRandomPosition()][getRandomPosition()].value = this.blankCellValue;
         }
@@ -52,24 +52,26 @@ export class Sudoku extends SerializableSudoku {
         this.calculatePossibleValues();
     }
 
+    isCorrectValue(cell: CellInterface): boolean {
+        return this.field[cell.y][cell.x].value === cell.value;
+    }
+
     // eslint-disable-next-line max-statements
-    setCellValue(y: number, x: number, value: number): ScoredCellsInterface {
+    setCellValue(cell: CellInterface): ScoredCellsInterface {
         const scoredCells = { ...emptyScoredCells };
-        if (this.field[y][x].value === value) {
-            const cell = this.gameField[y][x];
+        if (this.isCorrectValue(cell)) {
+            this.gameField[cell.y][cell.x].value = cell.value;
             const blankCell = { ...cell, value: this.blankCellValue };
 
-            cell.value = value;
-
-            this.availableValues[value] += 1;
+            this.availableValues[cell.value] += 1;
             this.calculatePossibleValues();
 
             if (!this.hasValueInColumn(this.gameField, blankCell)) {
-                scoredCells.x = x;
+                scoredCells.x = cell.x;
             }
 
             if (!this.hasValueInRow(this.gameField, blankCell)) {
-                scoredCells.y = y;
+                scoredCells.y = cell.y;
             }
 
             if (!this.hasValueInGroup(this.gameField, blankCell)) {
@@ -80,8 +82,8 @@ export class Sudoku extends SerializableSudoku {
             if (this.possibleValues.length === 0) {
                 scoredCells.values = this.fieldFillingValues;
                 // HINT: This value is completed!
-            } else if (!this.possibleValues.includes(value)) {
-                scoredCells.values = [value];
+            } else if (!this.possibleValues.includes(cell.value)) {
+                scoredCells.values = [cell.value];
             }
 
             return scoredCells;
