@@ -6,6 +6,5 @@ export const {
     setValue: gameSetValueAction,
     madeAMistake: gameMadeAMistakeAction,
     reset: gameResetAction,
-    increaseScore: gameIncreaseScoreAction,
-    setScoredCells: gameSetScoredCellsAction
+    increaseScore: gameIncreaseScoreAction
 } = gameSlice.actions;

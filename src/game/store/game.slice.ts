@@ -1,8 +1,8 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { type DifficultyEnum } from '../../@generic';
+import type { DifficultyEnum } from '../../@generic';
 import { SudokuGame } from '../../@logic';
-import { type CellInterface, type ScoredCellsInterface } from '../../@logic';
+import type { CellInterface, ScoredCellsInterface } from '../../@logic';
 import { emptyGame } from '../interfaces/game.interface';
 
 import { initialGameState } from './game.state';
@@ -22,8 +22,11 @@ export const gameSlice = createSlice({
             state.startedAt = new Date();
             state.difficulty = action.payload;
         },
-        setValue: (state, action: PayloadAction<CellInterface>) => {
-            state.field[action.payload.y][action.payload.x] = action.payload;
+        setValue: (state, action: PayloadAction<{ cell: CellInterface; scoredCells: ScoredCellsInterface }>) => {
+            state.field[action.payload.cell.y][action.payload.cell.x] = action.payload.cell;
+            state.scoredCells = action.payload.scoredCells;
+            state.possibleValues = SudokuGame.PossibleValues;
+            state.availableValues = SudokuGame.AvailableValues;
             state.endedAt = new Date();
         },
         reset: state => {
@@ -36,10 +39,8 @@ export const gameSlice = createSlice({
             state.score += action.payload;
         },
         madeAMistake: state => {
-            state.mistakes++;
-        },
-        setScoredCells: (state, action: PayloadAction<ScoredCellsInterface>) => {
-            state.scoredCells = action.payload;
+            state.mistakes += 1;
+            state.endedAt = new Date();
         }
     }
 });

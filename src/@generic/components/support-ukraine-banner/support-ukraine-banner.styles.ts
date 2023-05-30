@@ -6,10 +6,10 @@ export const SupportUkraineBannerStyles = StyleSheet.create({
     container: {
         alignItems: 'center',
         backgroundColor: Colors.black,
-        flexDirection: 'row',
         height: 40,
         justifyContent: 'center'
     },
+    link: {},
     text: {
         color: Colors.white,
         fontFamily: 'Inter_700Bold',
