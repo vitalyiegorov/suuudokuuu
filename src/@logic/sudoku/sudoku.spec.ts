@@ -6,7 +6,7 @@ import { defaultSudokuConfig } from '../interfaces/sudoku-config.interface';
 import { Sudoku } from './sudoku';
 
 // TODO: Cover whole logic with tests
-describe('sudoku', () => {
+describe('Sudoku', () => {
     it('create field', () => {
         // expect.assertions()
         const sudoku = new Sudoku(defaultSudokuConfig);
