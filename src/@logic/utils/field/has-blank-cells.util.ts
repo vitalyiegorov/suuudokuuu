@@ -1,4 +1,4 @@
-import { BlankCellValueConstant } from '../../../game/constants/blank-cell-value.constant';
+import { BlankCellValueConstant } from '../../constants/blank-cell-value.constant';
 import { type FieldInterface } from '../../interfaces/field.interface';
 
 export const hasBlankCells = (field: FieldInterface): [hasBlankCells: boolean, lastY: number, lastX: number] => {

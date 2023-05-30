@@ -4,8 +4,8 @@ import { useSelector } from 'react-redux';
 
 import { useAppDispatch } from '../../../@generic';
 import { type CellInterface, type FieldInterface } from '../../../@logic';
-import { BlankCellValueConstant } from '../../constants/blank-cell-value.constant';
-import { FieldSizeConstant } from '../../constants/field.constant';
+import { BlankCellValueConstant } from '../../../@logic/constants/blank-cell-value.constant';
+import { FieldSizeConstant } from '../../../@logic/constants/field.constant';
 import { gameSelectValueAction } from '../../store/actions/game-select-value.action';
 import {
     gameAvailableValuesSelector,
