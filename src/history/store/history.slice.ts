@@ -1,6 +1,6 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { type GameInterface } from '../../game';
+import type { GameInterface } from '../../game';
 import { gameToGameHistory } from '../utils/game-to-game-history.util';
 
 import { initialHistoryState } from './history.state';

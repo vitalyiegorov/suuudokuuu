@@ -1,9 +1,10 @@
-import { isDefined } from '@rnw-community/shared';
 import { View } from 'react-native';
 import { useSelector } from 'react-redux';
 
+import { isDefined } from '@rnw-community/shared';
+
 import { useAppDispatch } from '../../../@generic';
-import { type CellInterface, type FieldInterface } from '../../../@logic';
+import type { CellInterface, FieldInterface } from '../../../@logic';
 import { BlankCellValueConstant } from '../../../@logic/constants/blank-cell-value.constant';
 import { FieldSizeConstant } from '../../../@logic/constants/field.constant';
 import { gameSelectValueAction } from '../../store/actions/game-select-value.action';
@@ -43,12 +44,12 @@ export const AvailableValues = () => {
             {possibleValues.map(value => (
                 <AvailableValuesItem
                     canPress={canPress}
+                    isActive={false}
                     isCorrect={value === correctValue}
-                    value={value}
                     key={value}
                     onSelect={handleSelect}
-                    isActive={false}
                     progress={getValueProgress(allValues, value)}
+                    value={value}
                 />
             ))}
         </View>
