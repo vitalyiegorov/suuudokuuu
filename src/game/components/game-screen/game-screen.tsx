@@ -5,15 +5,15 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Alert, BlackButton, PageHeader, useAppDispatch, useAppSelector } from '../../../@generic';
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
-import { MaxMistakesConstant } from '../../../@logic/constants/max-mistakes.constant';
-import { type CellInterface } from '../../../@logic/interfaces/cell.interface';
+import { MaxMistakesConstant } from '../../../@logic';
+import type { CellInterface } from '../../../@logic';
 import { hasBlankCells } from '../../../@logic/utils/field/has-blank-cells.util';
 import { gameResetAction, gameSelectCellAction } from '../../store/game.actions';
 import {
     gameFieldSelector,
     gameMistakesSelector,
-    gameScoredCellsSelector,
     gameScoreSelector,
+    gameScoredCellsSelector,
     gameSelectedCellSelector,
     gameStartedAtSelector
 } from '../../store/game.selectors';
@@ -34,18 +34,6 @@ export const GameScreen = () => {
     const startedAt = useAppSelector(gameStartedAtSelector);
     const scoredCells = useAppSelector(gameScoredCellsSelector);
 
-    const handleWin = async () => {
-        if (!hasBlankCells(field)[0]) {
-            // HINT: We need to wait for the animation to finish
-            setTimeout(() => void router.push('winner'), 10 * animationDurationConstant);
-        }
-    };
-    const handleLose = async () => {
-        if (mistakes >= MaxMistakesConstant) {
-            router.push('loser');
-        }
-    };
-
     const handleExit = () => {
         Alert('Stop current run?', 'All progress will be lost', [
             { text: 'Cancel', style: 'cancel' },
@@ -59,28 +47,40 @@ export const GameScreen = () => {
         ]);
     };
 
-    useEffect(() => void handleWin(), [field]);
-    useEffect(() => void handleLose(), [mistakes]);
+    useEffect(() => {
+        if (!hasBlankCells(field)[0]) {
+            // HINT: We need to wait for the animation to finish
+            setTimeout(() => void router.push('winner'), 10 * animationDurationConstant);
+        }
+    }, [router, field]);
+    useEffect(() => {
+        if (mistakes >= MaxMistakesConstant) {
+            router.push('loser');
+        }
+    }, [router, mistakes]);
 
-    const handleSelectCell = useCallback((cell: CellInterface | undefined) => void dispatch(gameSelectCellAction(cell)), []);
+    const handleSelectCell = useCallback((cell: CellInterface | undefined) => void dispatch(gameSelectCellAction(cell)), [dispatch]);
 
     return (
         <SafeAreaView style={styles.container}>
             <PageHeader title="Be wise, be smart, be quick..." />
+
             <View style={styles.controls}>
                 <View style={styles.controlsWrapper}>
                     <Text style={styles.headerText}>Mistakes</Text>
                     <Text style={styles.headerText}>
-                        <Text style={styles.mistakesCountText}>{mistakes}</Text> / {MaxMistakesConstant}
+                        <Text style={styles.mistakesCountText}>{mistakes}</Text> /{MaxMistakesConstant}
                     </Text>
                 </View>
+
                 <View style={styles.controlsWrapper}>
                     <Text style={styles.headerText}>Score</Text>
                     <Text style={styles.scoreText}>{currentScore}</Text>
                 </View>
-                <BlackButton text="Exit" onPress={handleExit} />
+                <BlackButton onPress={handleExit} text="Exit" />
             </View>
-            <Field field={field} selectedCell={selectedCell} onSelect={handleSelectCell} scoredCells={scoredCells} />
+
+            <Field field={field} onSelect={handleSelectCell} scoredCells={scoredCells} selectedCell={selectedCell} />
             <GameTimer startedAt={startedAt} />
             <AvailableValues />
         </SafeAreaView>

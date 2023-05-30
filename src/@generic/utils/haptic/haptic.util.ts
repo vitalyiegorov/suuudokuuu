@@ -3,6 +3,6 @@ import { ImpactFeedbackStyle, NotificationFeedbackType } from 'expo-haptics/src/
 
 // HINT: Temporary wrapper https://github.com/expo/expo/issues/19141
 export const hapticNotification = async (type: NotificationFeedbackType = NotificationFeedbackType.Success) =>
-    await Haptics.notificationAsync(type);
+    void (await Haptics.notificationAsync(type));
 
-export const hapticImpact = async (style: ImpactFeedbackStyle = ImpactFeedbackStyle.Medium) => await Haptics.impactAsync(style);
+export const hapticImpact = async (style: ImpactFeedbackStyle = ImpactFeedbackStyle.Medium) => void (await Haptics.impactAsync(style));

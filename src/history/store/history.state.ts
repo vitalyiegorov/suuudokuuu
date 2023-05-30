@@ -1,6 +1,7 @@
-import { emptyHistory, type HistoryInterface } from '../interfaces/history.interface';
+import { type HistoryInterface, emptyHistory } from '../interfaces/history.interface';
 
-interface HistoryState extends HistoryInterface {}
+// ts-prune-ignore-next
+export interface HistoryState extends HistoryInterface {}
 
 export const initialHistoryState: HistoryState = {
     ...emptyHistory
