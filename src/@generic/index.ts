@@ -16,3 +16,4 @@ export * from './components/page-header/page-header';
 export * from './components/header/header';
 export * from './components/black-button/black-button';
 export * from './components/play-again-button/play-again-button';
+export * from './components/support-ukraine-banner/support-ukraine-banner';
