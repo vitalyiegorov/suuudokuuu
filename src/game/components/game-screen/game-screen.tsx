@@ -5,15 +5,15 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Alert, BlackButton, PageHeader, useAppDispatch, useAppSelector } from '../../../@generic';
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
-import { MaxMistakesConstant } from '../../../@logic/constants/max-mistakes.constant';
-import { type CellInterface } from '../../../@logic/interfaces/cell.interface';
+import { MaxMistakesConstant } from '../../../@logic';
+import type { CellInterface } from '../../../@logic';
 import { hasBlankCells } from '../../../@logic/utils/field/has-blank-cells.util';
 import { gameResetAction, gameSelectCellAction } from '../../store/game.actions';
 import {
     gameFieldSelector,
     gameMistakesSelector,
-    gameScoredCellsSelector,
     gameScoreSelector,
+    gameScoredCellsSelector,
     gameSelectedCellSelector,
     gameStartedAtSelector
 } from '../../store/game.selectors';
@@ -67,20 +67,23 @@ export const GameScreen = () => {
     return (
         <SafeAreaView style={styles.container}>
             <PageHeader title="Be wise, be smart, be quick..." />
+
             <View style={styles.controls}>
                 <View style={styles.controlsWrapper}>
                     <Text style={styles.headerText}>Mistakes</Text>
                     <Text style={styles.headerText}>
-                        <Text style={styles.mistakesCountText}>{mistakes}</Text> / {MaxMistakesConstant}
+                        <Text style={styles.mistakesCountText}>{mistakes}</Text> /{MaxMistakesConstant}
                     </Text>
                 </View>
+
                 <View style={styles.controlsWrapper}>
                     <Text style={styles.headerText}>Score</Text>
                     <Text style={styles.scoreText}>{currentScore}</Text>
                 </View>
-                <BlackButton text="Exit" onPress={handleExit} />
+                <BlackButton onPress={handleExit} text="Exit" />
             </View>
-            <Field field={field} selectedCell={selectedCell} onSelect={handleSelectCell} scoredCells={scoredCells} />
+
+            <Field field={field} onSelect={handleSelectCell} scoredCells={scoredCells} selectedCell={selectedCell} />
             <GameTimer startedAt={startedAt} />
             <AvailableValues />
         </SafeAreaView>

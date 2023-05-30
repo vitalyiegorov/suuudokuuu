@@ -1,5 +1,5 @@
 import { DifficultyEnum, InitialDateConstant } from '../../@generic';
-import { type CellInterface, type ScoredCellsInterface } from '../../@logic';
+import type { CellInterface, ScoredCellsInterface } from '../../@logic';
 
 export interface GameInterface {
     difficulty: DifficultyEnum;
@@ -16,11 +16,13 @@ export interface GameInterface {
 export const emptyGame: GameInterface = {
     isLost: false,
     availableValues: [],
+    // eslint-disable-next-line no-undefined
     selectedCell: undefined,
     difficulty: DifficultyEnum.Newbie,
     startedAt: InitialDateConstant,
     endedAt: InitialDateConstant,
     mistakes: 0,
     score: 0,
+    // eslint-disable-next-line no-undefined
     scoredCells: undefined
 };

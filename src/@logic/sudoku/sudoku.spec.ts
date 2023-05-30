@@ -8,7 +8,7 @@ import { Sudoku } from './sudoku';
 // TODO: Cover whole logic with tests
 describe('Sudoku', () => {
     it('create field', () => {
-        // expect.assertions()
+        // Expect.assertions()
         const sudoku = new Sudoku(defaultSudokuConfig);
 
         sudoku.create(DifficultyEnum.Newbie);

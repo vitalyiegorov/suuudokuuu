@@ -1,9 +1,10 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { isDefined } from '@rnw-community/shared';
 import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 
-import { type AppDispatch, type RootState } from '../../../@app-root';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { isDefined } from '@rnw-community/shared';
+
+import type { AppDispatch, RootState } from '../../../@app-root';
 import { hapticImpact, hapticNotification } from '../../../@generic';
 import { SudokuGame } from '../../../@logic';
 import { BlankCellValueConstant } from '../../../@logic/constants/blank-cell-value.constant';
