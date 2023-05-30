@@ -3,8 +3,7 @@ import { gameSlice } from './game.slice';
 export const {
     start: gameLoadAction,
     selectCell: gameSelectCellAction,
-    setValue: gameSetValueAction,
+    finishMove: gameFinishMoveAction,
     madeAMistake: gameMadeAMistakeAction,
-    reset: gameResetAction,
-    increaseScore: gameIncreaseScoreAction
+    reset: gameResetAction
 } = gameSlice.actions;

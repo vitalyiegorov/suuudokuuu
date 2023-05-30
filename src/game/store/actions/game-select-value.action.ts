@@ -6,8 +6,8 @@ import { isDefined } from '@rnw-community/shared';
 
 import type { AppDispatch, RootState } from '../../../@app-root';
 import { hapticImpact, hapticNotification } from '../../../@generic';
-import { BlankCellValueConstant, MaxMistakesConstant, SudokuGame, calculateScore } from '../../../@logic';
-import { gameIncreaseScoreAction, gameMadeAMistakeAction, gameSetValueAction } from '../game.actions';
+import { BlankCellValueConstant, MaxMistakesConstant, SudokuGame } from '../../../@logic';
+import { gameFinishMoveAction, gameMadeAMistakeAction } from '../game.actions';
 
 export const gameSelectValueAction = createAsyncThunk<boolean, number, { dispatch: AppDispatch; state: RootState }>(
     'game/selectValue',
@@ -17,25 +17,19 @@ export const gameSelectValueAction = createAsyncThunk<boolean, number, { dispatc
         if (isDefined(state.selectedCell) && state.selectedCell.value === BlankCellValueConstant) {
             const cell = { ...state.selectedCell, value };
 
-            try {
-                const scoredCells = SudokuGame.setCellValue(cell.y, cell.x, cell.value);
-                await hapticNotification(Haptics.NotificationFeedbackType.Success);
-                // TODO: Move score calculation to logic
-                const score = calculateScore(SudokuGame.Field, state.selectedCell, state.mistakes, state.startedAt);
+            if (SudokuGame.isCorrectValue(cell)) {
+                thunkAPI.dispatch(gameFinishMoveAction(cell));
 
-                thunkAPI.dispatch(gameSetValueAction({ cell, scoredCells }));
-                // TODO: Merge with setValue and rename it
-                thunkAPI.dispatch(gameIncreaseScoreAction(score));
+                await hapticNotification(Haptics.NotificationFeedbackType.Success);
 
                 return true;
-            } catch (e) {
-                await hapticNotification(Haptics.NotificationFeedbackType.Error);
+            }
 
-                if (state.mistakes >= MaxMistakesConstant) {
-                    await hapticImpact(ImpactFeedbackStyle.Heavy);
-                } else {
-                    thunkAPI.dispatch(gameMadeAMistakeAction());
-                }
+            if (state.mistakes >= MaxMistakesConstant) {
+                await hapticImpact(ImpactFeedbackStyle.Heavy);
+            } else {
+                thunkAPI.dispatch(gameMadeAMistakeAction());
+                await hapticNotification(Haptics.NotificationFeedbackType.Error);
             }
         }
 
