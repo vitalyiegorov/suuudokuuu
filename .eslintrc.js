@@ -2,7 +2,8 @@ module.exports = {
     env: {
         browser: true,
         es2021: true,
-        'react-native/react-native': true
+        'react-native/react-native': true,
+        'jest/globals': true
     },
     extends: [
         'eslint:recommended',
@@ -14,7 +15,14 @@ module.exports = {
         'plugin:prettier/recommended',
         'plugin:react-native/all'
     ],
-    overrides: [],
+    overrides: [
+        {
+            files: ['*.spec.ts', '*.spec.tsx'],
+            plugins: ['jest'],
+            extends: ['plugin:jest/recommended'],
+            rules: { 'jest/prefer-expect-assertions': 'off' }
+        }
+    ],
     parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module',
@@ -28,7 +36,7 @@ module.exports = {
             version: 'detect'
         }
     },
-    plugins: ['react', 'react-native', 'import', 'prettier'],
+    plugins: ['react', 'react-native', 'import', 'prettier', 'jest'],
     rules: {
         'no-void': 'off',
         'import/namespace': 'off',
