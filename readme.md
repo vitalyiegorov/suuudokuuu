@@ -2,7 +2,11 @@
 
 Sudoku game to help Ukraine win the war against Russia.
 
-[Play now!](https://www.suuudokuuu.com/)
+## Play now! Do not hesitate
+
+[![Download on the App Store](./assets/appstore-badge.png)](https://apps.apple.com/ua/app/suuudokuuu/id6449440933)
+
+### [Play directly in your browser!](https://www.suuudokuuu.com/)
 
 ## TODO
 
