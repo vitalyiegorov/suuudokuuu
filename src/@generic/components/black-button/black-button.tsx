@@ -1,4 +1,3 @@
-import { isNotEmptyString } from '@rnw-community/shared';
 import { useRouter } from 'expo-router';
 import {
     type GestureResponderEvent,
@@ -9,6 +8,8 @@ import {
     type TextProps,
     type ViewStyle
 } from 'react-native';
+
+import { isNotEmptyString } from '@rnw-community/shared';
 
 import { BlackButtonStyles as styles } from './black-button.styles';
 
@@ -33,7 +34,7 @@ export const BlackButton = ({ text, style, href, styleText, onPress, ...props }:
     };
 
     return (
-        <Pressable style={wrapperStyles} onPress={handlePress} {...props}>
+        <Pressable onPress={handlePress} style={wrapperStyles} {...props}>
             <Text style={textStyles}>{text}</Text>
         </Pressable>
     );

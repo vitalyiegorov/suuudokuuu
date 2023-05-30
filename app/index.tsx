@@ -1,10 +1,11 @@
-import { isNotEmptyString } from '@rnw-community/shared';
 import { formatDuration } from 'date-fns';
 import Constants from 'expo-constants';
 import { Link, useRouter } from 'expo-router';
 import { useState } from 'react';
 import { Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
+import { isNotEmptyString } from '@rnw-community/shared';
 
 import { DifficultySelect } from '../src/@app-root';
 import {
@@ -50,22 +51,29 @@ export default function StartScreen() {
     return (
         <SafeAreaView style={styles.container}>
             <PageHeader />
+
             <SupportUkraineBanner />
-            <View style={styles.historyContainer}></View>
+
+            <View style={styles.historyContainer} />
+
             <View style={styles.centerContainer}>
-                <Header text="SuuudokuuU"></Header>
+                <Header text="SuuudokuuU" />
+
                 {!showDifficultySelect && (
                     <View style={styles.buttonWrapper}>
-                        {isGameStarted && <BlackButton text="Continue" onPress={handleContinue} />}
-                        <BlackButton text="Start new" onPress={handleDifficultySelect} />
+                        {isGameStarted ? <BlackButton onPress={handleContinue} text="Continue" /> : null}
+
+                        <BlackButton onPress={handleDifficultySelect} text="Start new" />
                     </View>
                 )}
-                {showDifficultySelect && (
+
+                {showDifficultySelect ? (
                     <>
                         <DifficultySelect onSelect={handleStart} />
-                        <BlackButton text="Back" onPress={handleBack} />
+
+                        <BlackButton onPress={handleBack} text="Back" />
                     </>
-                )}
+                ) : null}
             </View>
 
             <View style={styles.historyContainer}>
@@ -73,10 +81,13 @@ export default function StartScreen() {
                     <>
                         <View style={styles.historyGroup}>
                             <Text style={styles.historyLabel}>Best score</Text>
+
                             <Text style={styles.historyValue}>{bestScore}</Text>
                         </View>
+
                         <View style={styles.historyGroup}>
                             <Text style={styles.historyLabel}>Best time</Text>
+
                             <Text style={styles.historyValue}>{bestTimeFormat}</Text>
                         </View>
                     </>
@@ -84,7 +95,11 @@ export default function StartScreen() {
             </View>
 
             <View style={styles.bottomContainer}>
-                <Text style={styles.bottomLink}>V.{Constants.expoConfig?.version}</Text>
+                <Text style={styles.bottomLink}>
+                    V.
+                    {Constants.expoConfig?.version}
+                </Text>
+
                 <Link href="/privacy-policy" style={styles.bottomLink}>
                     <Text>Privacy policy</Text>
                 </Link>

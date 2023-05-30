@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 import { Colors } from '../../../@generic';
-import { CellSizeConstant, CellFontSizeConstant } from '../constants/dimensions.contant';
+import { CellFontSizeConstant, CellSizeConstant } from '../constants/dimensions.contant';
 
 // TODO: Add style theming support
 export const CellStyles = StyleSheet.create({

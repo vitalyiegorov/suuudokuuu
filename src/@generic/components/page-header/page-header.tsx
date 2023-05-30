@@ -1,6 +1,7 @@
-import { isNotEmptyString } from '@rnw-community/shared';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+
+import { isNotEmptyString } from '@rnw-community/shared';
 
 import { PageTitleConstant } from '../../constants/text.constants';
 
@@ -13,6 +14,7 @@ export const PageHeader = ({ title = '' }: Props) => {
 
     return (
         <>
+            {/* eslint-disable-next-line react/style-prop-object */}
             <StatusBar style="auto" />
             <Stack.Screen options={{ title: fullTitle }} />
         </>
