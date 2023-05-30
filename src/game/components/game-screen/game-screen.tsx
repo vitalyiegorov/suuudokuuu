@@ -34,18 +34,6 @@ export const GameScreen = () => {
     const startedAt = useAppSelector(gameStartedAtSelector);
     const scoredCells = useAppSelector(gameScoredCellsSelector);
 
-    const handleWin = async () => {
-        if (!hasBlankCells(field)[0]) {
-            // HINT: We need to wait for the animation to finish
-            setTimeout(() => void router.push('winner'), 10 * animationDurationConstant);
-        }
-    };
-    const handleLose = async () => {
-        if (mistakes >= MaxMistakesConstant) {
-            router.push('loser');
-        }
-    };
-
     const handleExit = () => {
         Alert('Stop current run?', 'All progress will be lost', [
             { text: 'Cancel', style: 'cancel' },
@@ -59,10 +47,19 @@ export const GameScreen = () => {
         ]);
     };
 
-    useEffect(() => void handleWin(), [field]);
-    useEffect(() => void handleLose(), [mistakes]);
+    useEffect(() => {
+        if (!hasBlankCells(field)[0]) {
+            // HINT: We need to wait for the animation to finish
+            setTimeout(() => void router.push('winner'), 10 * animationDurationConstant);
+        }
+    }, [router, field]);
+    useEffect(() => {
+        if (mistakes >= MaxMistakesConstant) {
+            router.push('loser');
+        }
+    }, [router, mistakes]);
 
-    const handleSelectCell = useCallback((cell: CellInterface | undefined) => void dispatch(gameSelectCellAction(cell)), []);
+    const handleSelectCell = useCallback((cell: CellInterface | undefined) => void dispatch(gameSelectCellAction(cell)), [dispatch]);
 
     return (
         <SafeAreaView style={styles.container}>
