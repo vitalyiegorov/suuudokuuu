@@ -1,8 +1,5 @@
-import { InitialDateConstant, DifficultyEnum } from '../../@generic';
-
-import { type CellInterface } from './cell.interface';
-import { type FieldInterface } from './field.interface';
-import { type ScoredCellsInterface } from './scored-cells.interface';
+import { DifficultyEnum, InitialDateConstant } from '../../@generic';
+import { type CellInterface, type ScoredCellsInterface } from '../../@logic';
 
 export interface GameInterface {
     difficulty: DifficultyEnum;
@@ -11,9 +8,6 @@ export interface GameInterface {
     mistakes: number;
     startedAt: Date;
     endedAt: Date;
-    completionPercent: number;
-    filledField: FieldInterface;
-    gameField: FieldInterface;
     selectedCell?: CellInterface;
     scoredCells?: ScoredCellsInterface;
     availableValues: number[];
@@ -26,9 +20,6 @@ export const emptyGame: GameInterface = {
     difficulty: DifficultyEnum.Newbie,
     startedAt: InitialDateConstant,
     endedAt: InitialDateConstant,
-    completionPercent: 0,
-    filledField: [],
-    gameField: [],
     mistakes: 0,
     score: 0,
     scoredCells: undefined

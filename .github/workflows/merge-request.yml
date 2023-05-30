@@ -31,7 +31,20 @@ jobs:
       - name: ESLint checks
         run: yarn lint
 
+      - name: Deadcode detection
+        run: yarn deadcode
+
+      - name: Copy/Paste detection
+        run: yarn cpd
+
+      - name: Unit tests
+        run: yarn test:coverage
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+
       - name: Create preview
         uses: expo/expo-github-action/preview@v8
         with:
           command: eas update --auto
+          token: ${{ secrets.EXPO_TOKEN }}

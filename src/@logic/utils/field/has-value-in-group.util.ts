@@ -2,6 +2,7 @@ import { FieldGroupHeightConstant, FieldGroupWidthConstant } from '../../constan
 import { type CellInterface } from '../../interfaces/cell.interface';
 import { type FieldInterface } from '../../interfaces/field.interface';
 
+/** @deprecated */
 export const hasValueInGroup = (cell: CellInterface, field: FieldInterface): boolean => {
     const boxStartY = cell.y - (cell.y % FieldGroupHeightConstant);
     const boxStartX = cell.x - (cell.x % FieldGroupWidthConstant);

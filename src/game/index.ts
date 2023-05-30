@@ -1,13 +1,10 @@
-export * from './interfaces/cell.interface';
-export * from './interfaces/cell-group.interface';
-export * from './interfaces/field.interface';
 export * from './interfaces/game.interface';
 
-export * from './constants/blank-cell-value.constant';
-export * from './constants/dimensions.contant';
-export * from './constants/field.constant';
-export * from './constants/max-mistakes.constant';
-export * from './constants/score.constant';
+export * from '../@logic/constants/blank-cell-value.constant';
+export * from '../@logic/constants/dimensions.contant';
+export * from '../@logic/constants/field.constant';
+export * from '../@logic/constants/max-mistakes.constant';
+export * from '../@logic/constants/score.constant';
 
 export * from './store/game.reducer';
 export * from './store/game.actions';

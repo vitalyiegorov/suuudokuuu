@@ -1,10 +1,10 @@
 import { isDefined, type OnEventFn } from '@rnw-community/shared';
 import { View } from 'react-native';
 
-import { BlankCellValueConstant } from '../../constants/blank-cell-value.constant';
-import { type CellInterface } from '../../interfaces/cell.interface';
-import { type FieldInterface } from '../../interfaces/field.interface';
-import { type ScoredCellsInterface } from '../../interfaces/scored-cells.interface';
+import { BlankCellValueConstant } from '../../../@logic/constants/blank-cell-value.constant';
+import { type CellInterface } from '../../../@logic/interfaces/cell.interface';
+import { type FieldInterface } from '../../../@logic/interfaces/field.interface';
+import { type ScoredCellsInterface } from '../../../@logic/interfaces/scored-cells.interface';
 import { Cell } from '../field-cell/cell';
 
 import { FieldStyles as styles } from './field.styles';

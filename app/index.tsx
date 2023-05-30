@@ -7,7 +7,16 @@ import { Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { DifficultySelect } from '../src/@app-root';
-import { BlackButton, type DifficultyEnum, Header, InitialDateConstant, PageHeader, useAppDispatch, useAppSelector } from '../src/@generic';
+import {
+    BlackButton,
+    type DifficultyEnum,
+    Header,
+    InitialDateConstant,
+    PageHeader,
+    SupportUkraineBanner,
+    useAppDispatch,
+    useAppSelector
+} from '../src/@generic';
 import { gameLoadAction, gameStartedAtSelector } from '../src/game';
 import { historyBestTimeSelector } from '../src/history';
 
@@ -41,6 +50,7 @@ export default function StartScreen() {
     return (
         <SafeAreaView style={styles.container}>
             <PageHeader />
+            <SupportUkraineBanner />
             <View style={styles.historyContainer}></View>
             <View style={styles.centerContainer}>
                 <Header text="SuuudokuuU"></Header>
