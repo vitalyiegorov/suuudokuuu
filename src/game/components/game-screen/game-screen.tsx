@@ -6,6 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Alert, BlackButton, PageHeader, useAppDispatch, useAppSelector } from '../../../@generic';
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
 import { type CellInterface } from '../../../@logic/interfaces/cell.interface';
+import { hasBlankCells } from '../../../@logic/utils/field/has-blank-cells.util';
 import { MaxMistakesConstant } from '../../constants/max-mistakes.constant';
 import { gameResetAction, gameSelectCellAction } from '../../store/game.actions';
 import {
@@ -16,7 +17,6 @@ import {
     gameSelectedCellSelector,
     gameStartedAtSelector
 } from '../../store/game.selectors';
-import { hasBlankCells } from '../../utils/field/has-blank-cells.util';
 import { AvailableValues } from '../available-values/available-values';
 import { Field } from '../field/field';
 import { GameTimer } from '../game-timer/game-timer';

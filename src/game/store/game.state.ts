@@ -2,7 +2,7 @@ import { DifficultyEnum, InitialDateConstant } from '../../@generic';
 import { type CellInterface, emptyScoredCells, type FieldInterface, type ScoredCellsInterface } from '../../@logic';
 import { type AvailableValues } from '../../@logic/types/available-values.type';
 
-export interface GameState {
+interface GameState {
     difficulty: DifficultyEnum;
     field: FieldInterface;
     fullField: FieldInterface;

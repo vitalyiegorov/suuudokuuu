@@ -1,7 +1,5 @@
-import { type CellInterface } from '../../@logic/interfaces/cell.interface';
-import { type FieldInterface } from '../../@logic/interfaces/field.interface';
-import { BlankCellValueConstant } from '../constants/blank-cell-value.constant';
 import {
+    BlankCellValueConstant,
     ScoreCorrectMinValueConstant,
     ScoreCorrectValueConstant,
     ScoreElapsedCoefficientConstant,
@@ -9,7 +7,9 @@ import {
     ScoreLastInGroupCoefficientConstant,
     ScoreLastInRowCoefficientConstant,
     ScoreMistakesCoefficientConstant
-} from '../constants/score.constant';
+} from '../../game';
+import { type CellInterface } from '../interfaces/cell.interface';
+import { type FieldInterface } from '../interfaces/field.interface';
 
 import { hasValueInColumn } from './field/has-value-in-column.util';
 import { hasValueInGroup } from './field/has-value-in-group.util';
