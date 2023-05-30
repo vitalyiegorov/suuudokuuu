@@ -30,6 +30,14 @@ export const gameSlice = createSlice({
             // TODO: Move score calculation to logic, improve logic
             state.score += calculateScore(SudokuGame.Field, action.payload, state.mistakes, state.startedAt);
             state.endedAt = new Date();
+
+            // HINT: We reselect cell if there are values left, otherwise loose focus
+            if (state.possibleValues.includes(action.payload.value)) {
+                state.selectedCell = state.field[action.payload.y][action.payload.x];
+            } else {
+                // eslint-disable-next-line no-undefined
+                state.selectedCell = undefined;
+            }
         },
         reset: state => {
             Object.assign(state, emptyGame);
