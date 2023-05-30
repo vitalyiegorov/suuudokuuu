@@ -1,5 +1,5 @@
+import { BlankCellValueConstant } from '../constants/blank-cell-value.constant';
 import {
-    BlankCellValueConstant,
     ScoreCorrectMinValueConstant,
     ScoreCorrectValueConstant,
     ScoreElapsedCoefficientConstant,
@@ -7,7 +7,7 @@ import {
     ScoreLastInGroupCoefficientConstant,
     ScoreLastInRowCoefficientConstant,
     ScoreMistakesCoefficientConstant
-} from '../../game';
+} from '../constants/score.constant';
 import type { CellInterface } from '../interfaces/cell.interface';
 import type { FieldInterface } from '../interfaces/field.interface';
 

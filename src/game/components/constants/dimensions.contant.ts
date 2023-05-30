@@ -1,4 +1,4 @@
-import { isDesktopScreen, isTabletScreen } from '../../../@generic';
+import { isDesktopScreen, isTabletScreen } from '../../../@generic/styles/media-queries';
 
 const getCellSize = (): number => {
     if (isDesktopScreen()) {
