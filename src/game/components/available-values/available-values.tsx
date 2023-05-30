@@ -5,8 +5,7 @@ import { isDefined } from '@rnw-community/shared';
 
 import { useAppDispatch } from '../../../@generic';
 import type { CellInterface, FieldInterface } from '../../../@logic';
-import { BlankCellValueConstant } from '../../../@logic/constants/blank-cell-value.constant';
-import { FieldSizeConstant } from '../../../@logic/constants/field.constant';
+import { BlankCellValueConstant, FieldSizeConstant } from '../../../@logic';
 import { gameSelectValueAction } from '../../store/actions/game-select-value.action';
 import {
     gameAvailableValuesSelector,
