@@ -37,6 +37,9 @@ jobs:
       - name: Copy/Paste detection
         run: yarn cpd
 
+      - name: Unit tests
+        run: yarn test:coverage
+
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
 

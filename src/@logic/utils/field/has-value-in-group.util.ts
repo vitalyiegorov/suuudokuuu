@@ -1,4 +1,4 @@
-import { FieldGroupHeightConstant, FieldGroupWidthConstant } from '../../../game/constants/field.constant';
+import { FieldGroupHeightConstant, FieldGroupWidthConstant } from '../../constants/field.constant';
 import { type CellInterface } from '../../interfaces/cell.interface';
 import { type FieldInterface } from '../../interfaces/field.interface';
 
