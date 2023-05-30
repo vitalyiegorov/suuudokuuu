@@ -12,7 +12,7 @@ export const FieldCellTextStyles = StyleSheet.create({
         color: Colors.cell.activeValueText
     },
     empty: {
-        fontWeight: 'bold'
+        color: Colors.cell.emptyValueText
     },
     highlighted: {
         color: Colors.cell.highlightedText
