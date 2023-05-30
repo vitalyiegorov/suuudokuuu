@@ -24,6 +24,7 @@ export const gameSlice = createSlice({
         },
         setValue: (state, action: PayloadAction<CellInterface>) => {
             state.field[action.payload.y][action.payload.x] = action.payload;
+            state.endedAt = new Date();
         },
         reset: state => {
             Object.assign(state, emptyGame);
