@@ -26,11 +26,11 @@ export class SerializableSudoku {
     }
 
     get FullField(): FieldInterface {
-        return this.field;
+        return this.cloneField(this.field);
     }
 
     get Field(): FieldInterface {
-        return this.gameField;
+        return this.cloneField(this.gameField);
     }
 
     // eslint-disable-next-line max-statements
@@ -55,7 +55,7 @@ export class SerializableSudoku {
         const [fieldString, gameFieldString] = fieldsString.split(gameLogic.fieldSeparator);
 
         gameLogic.field = gameLogic.createEmptyField();
-        gameLogic.gameField = gameLogic.createEmptyField();
+        gameLogic.gameField = gameLogic.cloneField(gameLogic.field);
 
         gameLogic.convertFieldFromString(fieldString, gameLogic.field);
         gameLogic.convertFieldFromString(gameFieldString, gameLogic.gameField);
@@ -68,6 +68,11 @@ export class SerializableSudoku {
             field.map(row => row.map(cell => (cell.value === this.blankCellValue ? this.emptyStringValue : cell.value)).join('')).join('');
 
         return `${convertField(this.field)}|${convertField(this.gameField)}`;
+    }
+
+    // eslint-disable-next-line class-methods-use-this
+    protected cloneField(field: FieldInterface): FieldInterface {
+        return field.map(row => row.map(cell => ({ ...cell })));
     }
 
     protected createEmptyField(): FieldInterface {
