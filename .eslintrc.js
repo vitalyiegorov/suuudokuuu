@@ -143,6 +143,12 @@ module.exports = {
             {
                 ignore: [-20, -10, 0, 0.5, 1, 2, 2.9, 3, 4, 5, 6, 7, 8, 9, 10, 20, 40, 60, 70, 100, 360, 600, 1000, 1200]
             }
+        ],
+        'react-hooks/exhaustive-deps': [
+            'error',
+            {
+                additionalHooks: '(useAnimatedStyle|useDerivedValue|useAnimatedProps)'
+            }
         ]
     }
 };

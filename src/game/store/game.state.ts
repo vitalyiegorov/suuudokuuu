@@ -1,4 +1,5 @@
-import { DifficultyEnum, InitialDateConstant } from '../../@generic';
+import { InitialDateConstant } from '../../@generic/constants/date.constant';
+import { DifficultyEnum } from '../../@generic/enums/difficulty.enum';
 import { type CellInterface, type FieldInterface, type ScoredCellsInterface, emptyScoredCells } from '../../@logic';
 import type { AvailableValues } from '../../@logic/types/available-values.type';
 
