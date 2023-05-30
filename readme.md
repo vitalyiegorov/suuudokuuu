@@ -8,6 +8,8 @@ Sudoku game to help Ukraine win the war against Russia.
 
 ### Features
 
+-   [ ] share puzzle/challenge with friends:
+    -   [ ] challenge mode - see target score and countdown timer based on shared data
 -   [ ] add mistakes purchasing through in-app purchases
     -   [ ] donate to ZSU, add BE logic for this
     -   [ ] add donation branding and description on main screen
@@ -21,13 +23,13 @@ Sudoku game to help Ukraine win the war against Russia.
 
 ### Frontend
 
+-   [ ] add donation CTA on main screen and ukraine support
 -   [ ] add animations
     -   [ ] add number flying to its stop?
     -   [ ] add more fun to winner page(ZSU, Ukraine, donation CTA)
     -   [ ] add more fun to looser page(ZSU, Ukraine, donation CTA)
     -   [x] animation when finishing full row/col/group(score multiplies)
 -   [ ] add successful run count and longest run count history on main screen?
--   [ ] add donation CTA on main screen
 -   [x] add game logic:
     -   [x] timer
     -   [x] score and its calculation based on errors, timer, row/col/group finish
@@ -57,9 +59,14 @@ Sudoku game to help Ukraine win the war against Russia.
 
 ### Overall
 
+-   [ ] improve logic code coverage
 -   [ ] fix metro require cycles (store related as usual) =)
+-   [ ] add sentry for error reporting
 -   [ ] migrate to monorepo
--   [ ] add e2e tests(maestro)
+-   [ ] add e2e tests(maestro or wdio?)
+-   [x] add unit tests for game logic, add code coverage([codecov](https://about.codecov.io)?)
+-   [x] add ts-prune
+-   [x] add jscpd
 -   [x] add commit-lint
 -   [x] add husky
 -   [x] fix ts error on app.json import

@@ -12,11 +12,11 @@ import Reanimated, {
 
 import { Colors } from '../../../@generic';
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
-import { BlankCellValueConstant } from '../../constants/blank-cell-value.constant';
-import { CellFontSizeConstant } from '../../constants/dimensions.contant';
-import { FieldGroupWidthConstant, FieldSizeConstant } from '../../constants/field.constant';
-import { type CellInterface } from '../../interfaces/cell.interface';
-import { type ScoredCellsInterface } from '../../interfaces/scored-cells.interface';
+import { BlankCellValueConstant } from '../../../@logic/constants/blank-cell-value.constant';
+import { CellFontSizeConstant } from '../../../@logic/constants/dimensions.contant';
+import { FieldGroupWidthConstant, FieldSizeConstant } from '../../../@logic/constants/field.constant';
+import { type CellInterface } from '../../../@logic/interfaces/cell.interface';
+import { type ScoredCellsInterface } from '../../../@logic/interfaces/scored-cells.interface';
 
 import { CellStyles as styles } from './cell.styles';
 

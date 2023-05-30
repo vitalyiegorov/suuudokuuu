@@ -1,11 +1,10 @@
 import { gameSlice } from './game.slice';
 
 export const {
-    load: gameLoadAction,
+    start: gameLoadAction,
     selectCell: gameSelectCellAction,
     setValue: gameSetValueAction,
     madeAMistake: gameMadeAMistakeAction,
-    finish: gameFinishAction,
     reset: gameResetAction,
     increaseScore: gameIncreaseScoreAction,
     setScoredCells: gameSetScoredCellsAction
