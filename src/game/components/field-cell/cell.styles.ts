@@ -17,16 +17,25 @@ export const CellStyles = StyleSheet.create({
         width: CellSizeConstant
     },
     cellActiveText: {
-        color: Colors.cell.activeText
+        color: Colors.cell.activeText,
+        fontWeight: 'bold'
     },
     cellActiveValueText: {
-        color: Colors.cell.activeValueText
+        color: Colors.cell.activeValueText,
+        fontWeight: 'bold'
+    },
+    cellFirstCol: {
+        borderLeftWidth: 3
+    },
+
+    cellFirstRow: {
+        borderTopWidth: 3
     },
     cellGroupXEnd: {
-        borderRightWidth: 1
+        borderRightWidth: 2
     },
     cellGroupYEnd: {
-        borderBottomWidth: 1
+        borderBottomWidth: 2
     },
     cellHighlightedText: {
         color: Colors.cell.highlightedText,
@@ -34,10 +43,10 @@ export const CellStyles = StyleSheet.create({
         fontWeight: 'bold'
     },
     cellLastCol: {
-        borderRightWidth: 1
+        borderRightWidth: 3
     },
     cellLastRow: {
-        borderBottomWidth: 1
+        borderBottomWidth: 3
     },
     cellText: {
         color: Colors.black,
