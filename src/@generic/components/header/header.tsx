@@ -6,10 +6,8 @@ interface Props extends TextProps {
     text: string;
 }
 
-export const Header = ({ text, ...props }: Props) => {
-    return (
-        <Text style={styles.container} {...props}>
-            {text}
-        </Text>
-    );
-};
+export const Header = ({ text, ...props }: Props) => (
+    <Text style={styles.container} {...props}>
+        {text}
+    </Text>
+);

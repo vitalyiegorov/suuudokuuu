@@ -1,10 +1,6 @@
 export * from './interfaces/game.interface';
 
-export * from '../@logic/constants/blank-cell-value.constant';
-export * from '../@logic/constants/dimensions.contant';
-export * from '../@logic/constants/field.constant';
-export * from '../@logic/constants/max-mistakes.constant';
-export * from '../@logic/constants/score.constant';
+export * from './components/constants/dimensions.contant';
 
 export * from './store/game.reducer';
 export * from './store/game.actions';

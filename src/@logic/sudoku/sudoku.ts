@@ -1,28 +1,28 @@
 import { isDefined } from '@rnw-community/shared';
 
 import { type DifficultyEnum, getDifficulty } from '../../@generic/enums/difficulty.enum';
-import { type CellInterface } from '../interfaces/cell.interface';
-import { type FieldInterface } from '../interfaces/field.interface';
-import { emptyScoredCells, type ScoredCellsInterface } from '../interfaces/scored-cells.interface';
-import { type SudokuConfigInterface } from '../interfaces/sudoku-config.interface';
-import { type AvailableValues } from '../types/available-values.type';
+import type { CellInterface } from '../interfaces/cell.interface';
+import type { FieldInterface } from '../interfaces/field.interface';
+import { type ScoredCellsInterface, emptyScoredCells } from '../interfaces/scored-cells.interface';
+import type { SudokuConfigInterface } from '../interfaces/sudoku-config.interface';
+import { SerializableSudoku } from '../serializable-sudoku/serializable-sudoku';
+import type { AvailableValues } from '../types/available-values.type';
 
 // TODO: We can split this class into rules validator(or similar)
-export class Sudoku {
-    private readonly emptyStringValue = '.';
-
-    private readonly blankCellValue: number;
-    private readonly fieldSize: number;
-    private readonly fieldGroupWidth: number;
-    private readonly fieldGroupHeight: number;
+export class Sudoku extends SerializableSudoku {
     private readonly fieldFillingValues: number[];
+    private availableValues: AvailableValues = {};
+    private possibleValues: number[] = [];
 
-    get FullField(): FieldInterface {
-        return this.field;
-    }
+    constructor(config: SudokuConfigInterface) {
+        super(config);
 
-    get Field(): FieldInterface {
-        return this.gameField;
+        // TODO: Is there a better way to randomize array of numbers in JS? =)
+        this.fieldFillingValues = Array.from({ length: this.fieldSize }, (_, i) => i + 1);
+        for (let i = this.fieldFillingValues.length - 1; i > 0; i -= 1) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [this.fieldFillingValues[i], this.fieldFillingValues[j]] = [this.fieldFillingValues[j], this.fieldFillingValues[i]];
+        }
     }
 
     get PossibleValues(): number[] {
@@ -33,27 +33,8 @@ export class Sudoku {
         return this.availableValues;
     }
 
-    private field: FieldInterface = [];
-    private gameField: FieldInterface = [];
-    private availableValues: AvailableValues = {};
-    private possibleValues: number[] = [];
-
-    constructor(config: SudokuConfigInterface) {
-        this.fieldSize = config.fieldSize;
-        this.fieldGroupWidth = config.fieldGroupWidth;
-        this.fieldGroupHeight = config.fieldGroupHeight;
-        this.blankCellValue = config.blankCellValue;
-
-        // TODO: Is there a better way to randomize array of numbers in JS? =)
-        this.fieldFillingValues = Array.from({ length: this.fieldSize }, (_, i) => i + 1);
-        for (let i = this.fieldFillingValues.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [this.fieldFillingValues[i], this.fieldFillingValues[j]] = [this.fieldFillingValues[j], this.fieldFillingValues[i]];
-        }
-    }
-
     create(difficulty: DifficultyEnum): void {
-        this.createEmptyField();
+        this.field = this.createEmptyField();
 
         if (!this.fillRecursive()) {
             throw new Error('Unable to create a game field');
@@ -63,7 +44,7 @@ export class Sudoku {
 
         this.gameField = this.field.map(row => row.map(cell => ({ ...cell })));
         // TODO: Can we improve this logic to make it more unique??
-        for (let i = 0; i < getDifficulty(difficulty, this.fieldSize); i++) {
+        for (let i = 0; i < getDifficulty(difficulty, this.fieldSize); i += 1) {
             this.gameField[getRandomPosition()][getRandomPosition()].value = this.blankCellValue;
         }
 
@@ -71,6 +52,7 @@ export class Sudoku {
         this.calculatePossibleValues();
     }
 
+    // eslint-disable-next-line max-statements
     setCellValue(y: number, x: number, value: number): ScoredCellsInterface {
         const scoredCells = { ...emptyScoredCells };
         if (this.field[y][x].value === value) {
@@ -79,7 +61,7 @@ export class Sudoku {
 
             cell.value = value;
 
-            this.availableValues[value] = this.availableValues[value] + 1;
+            this.availableValues[value] += 1;
             this.calculatePossibleValues();
 
             if (!this.hasValueInColumn(this.gameField, blankCell)) {
@@ -103,23 +85,16 @@ export class Sudoku {
             }
 
             return scoredCells;
-        } else {
-            throw new Error('Cell value is wrong');
         }
-    }
-
-    toString(): string {
-        return this.field
-            .map(row => row.map(cell => (cell.value === this.blankCellValue ? this.emptyStringValue : cell.value)).join(''))
-            .join('');
+        throw new Error('Cell value is wrong');
     }
 
     private hasBlankCells(): [hasBlankCells: boolean, lastY: number, lastX: number] {
         let y = 0;
         let x = 0;
 
-        for (y = 0; y < this.field.length; y++) {
-            for (x = 0; x < this.field[y].length; x++) {
+        for (y = 0; y < this.field.length; y += 1) {
+            for (x = 0; x < this.field[y].length; x += 1) {
                 if (this.field[y][x].value === this.blankCellValue) {
                     return [true, y, x];
                 }
@@ -130,7 +105,7 @@ export class Sudoku {
     }
 
     private hasValueInRow(field: FieldInterface, cell: CellInterface): boolean {
-        for (let x = 0; x < field.length; x++) {
+        for (let x = 0; x < this.fieldSize; x += 1) {
             if (field[cell.y][x].value === cell.value) {
                 return true;
             }
@@ -139,9 +114,10 @@ export class Sudoku {
         return false;
     }
 
+    // eslint-disable-next-line class-methods-use-this
     private hasValueInColumn(field: FieldInterface, cell: CellInterface): boolean {
-        for (let y = 0; y < field.length; y++) {
-            if (field[y][cell.x].value === cell.value) {
+        for (const row of field) {
+            if (row[cell.x].value === cell.value) {
                 return true;
             }
         }
@@ -153,8 +129,8 @@ export class Sudoku {
         const boxStartY = cell.y - (cell.y % this.fieldGroupHeight);
         const boxStartX = cell.x - (cell.x % this.fieldGroupWidth);
 
-        for (let y = 0; y < this.fieldGroupHeight; y++) {
-            for (let x = 0; x < this.fieldGroupWidth; x++) {
+        for (let y = 0; y < this.fieldGroupHeight; y += 1) {
+            for (let x = 0; x < this.fieldGroupWidth; x += 1) {
                 if (field[y + boxStartY][x + boxStartX].value === cell.value) {
                     return true;
                 }
@@ -207,44 +183,13 @@ export class Sudoku {
     private calculateAvailableValues(): void {
         this.availableValues = {};
 
-        for (let y = 0; y < this.gameField.length; y++) {
-            for (let x = 0; x < this.gameField[y].length; x++) {
-                const value = this.gameField[y][x].value;
+        for (const row of this.gameField) {
+            for (const col of row) {
+                const { value } = col;
                 if (value !== this.blankCellValue) {
                     this.availableValues[value] = isDefined(this.availableValues[value]) ? this.availableValues[value] + 1 : 1;
                 }
             }
         }
-    }
-
-    private createEmptyField() {
-        this.field = Array.from({ length: this.fieldSize }, (_, y) =>
-            Array.from({ length: this.fieldSize }, (_, x) => ({
-                y,
-                x,
-                value: this.blankCellValue,
-                group: Math.floor(x / this.fieldGroupWidth) * this.fieldGroupWidth + Math.floor(y / this.fieldGroupHeight) + 1
-            }))
-        );
-    }
-
-    static fromString(fieldString: string, config: SudokuConfigInterface): Sudoku {
-        const gameLogic = new Sudoku(config);
-
-        gameLogic.createEmptyField();
-
-        fieldString.split('').reduce((acc, stringValue, index) => {
-            const x = index % gameLogic.fieldSize;
-            const y = Math.floor(index / gameLogic.fieldSize);
-            const value = stringValue === gameLogic.emptyStringValue ? gameLogic.blankCellValue : parseInt(stringValue, 10);
-
-            acc[y][x] = { ...acc[y][x], value };
-
-            return acc;
-        }, gameLogic.field);
-
-        gameLogic.calculateAvailableValues();
-
-        return gameLogic;
     }
 }
