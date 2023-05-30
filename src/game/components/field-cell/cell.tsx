@@ -1,4 +1,3 @@
-import { cs, isDefined, type OnEventFn } from '@rnw-community/shared';
 import { memo, useEffect } from 'react';
 import { Pressable } from 'react-native';
 import Reanimated, {
@@ -10,9 +9,11 @@ import Reanimated, {
     withTiming
 } from 'react-native-reanimated';
 
+import { type OnEventFn, cs, isDefined } from '@rnw-community/shared';
+
 import { Colors } from '../../../@generic';
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
-import { type CellInterface, type ScoredCellsInterface } from '../../../@logic';
+import type { CellInterface, ScoredCellsInterface } from '../../../@logic';
 import { BlankCellValueConstant, FieldGroupWidthConstant, FieldSizeConstant } from '../../../@logic';
 import { CellFontSizeConstant } from '../constants/dimensions.contant';
 
@@ -20,9 +21,7 @@ import { CellStyles as styles } from './cell.styles';
 
 const ReanimatedPressable = Reanimated.createAnimatedComponent(Pressable);
 
-const isGroupEnd = (index: number): boolean => {
-    return index < FieldSizeConstant - 1 && (index + 1) % FieldGroupWidthConstant === 0;
-};
+const isGroupEnd = (index: number): boolean => index < FieldSizeConstant - 1 && (index + 1) % FieldGroupWidthConstant === 0;
 
 const isScoredCell = (cell: CellInterface, scoredCell?: ScoredCellsInterface): boolean =>
     isDefined(scoredCell) &&
@@ -48,6 +47,7 @@ const getCellBgColor = (isActiveValue: boolean, isCellHighlighted: boolean) => {
 };
 
 // TODO: We need animations logic improvements
+// eslint-disable-next-line max-statements
 const CellComponent = ({ cell, onSelect, isActive, isActiveValue, isCellHighlighted, scoredCell }: Props) => {
     const value = cell.value === BlankCellValueConstant ? '' : cell.value.toString();
     const isLastRow = cell.y === 8;
@@ -60,6 +60,7 @@ const CellComponent = ({ cell, onSelect, isActive, isActiveValue, isCellHighligh
     useEffect(() => {
         if (isScoredCell(cell, scoredCell)) {
             scoreAnimation.value = withTiming(1, { duration: 8 * animationDurationConstant }, finished => {
+                // eslint-disable-next-line no-undefined
                 if (finished !== undefined && finished) {
                     scoreAnimation.value = 0;
                 }
@@ -86,6 +87,7 @@ const CellComponent = ({ cell, onSelect, isActive, isActiveValue, isCellHighligh
         []
     );
 
+    // eslint-disable-next-line no-undefined
     const handlePress = () => void onSelect(isActive ? undefined : cell);
 
     const cellStyles = [
@@ -104,14 +106,15 @@ const CellComponent = ({ cell, onSelect, isActive, isActiveValue, isCellHighligh
     ];
 
     return (
-        <ReanimatedPressable style={cellStyles} onPress={handlePress}>
+        <ReanimatedPressable onPress={handlePress} style={cellStyles}>
             <Reanimated.Text style={textStyles}>{value}</Reanimated.Text>
         </ReanimatedPressable>
     );
 };
 
-export const Cell = memo(CellComponent, (prevProps, nextProps) => {
-    return (
+export const Cell = memo(
+    CellComponent,
+    (prevProps, nextProps) =>
         prevProps.cell.value === nextProps.cell.value &&
         prevProps.isActive === nextProps.isActive &&
         prevProps.isActiveValue === nextProps.isActiveValue &&
@@ -119,6 +122,5 @@ export const Cell = memo(CellComponent, (prevProps, nextProps) => {
         prevProps.scoredCell?.x === nextProps.scoredCell?.x &&
         prevProps.scoredCell?.y === nextProps.scoredCell?.y &&
         prevProps.scoredCell?.group === nextProps.scoredCell?.group &&
-        prevProps.scoredCell?.values.length === nextProps.scoredCell?.values.length
-    );
-});
+        JSON.stringify(prevProps.scoredCell?.values) === JSON.stringify(nextProps.scoredCell?.values)
+);

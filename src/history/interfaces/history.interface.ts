@@ -1,6 +1,6 @@
 import { DifficultyEnum } from '../../@generic/enums/difficulty.enum';
 
-import { emptyGameHistory, type GameHistoryInterface } from './game-history.interface';
+import { type GameHistoryInterface, emptyGameHistory } from './game-history.interface';
 
 export interface HistoryInterface {
     byDifficulty: Record<DifficultyEnum, GameHistoryInterface>;

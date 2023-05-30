@@ -10,7 +10,9 @@ export default function Loser() {
     return (
         <View style={styles.container}>
             <PageHeader title="Looooooser! =)" />
+
             <Header text="Better next time! Loooooser =)" />
+
             <PlayAgainButton />
         </View>
     );

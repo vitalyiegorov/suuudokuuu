@@ -1,11 +1,11 @@
 import { formatDuration, intervalToDuration } from 'date-fns';
-import { View, Text } from 'react-native';
+import { Text, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import { Header } from '../../src/@generic/components/header/header';
 import { PageHeader } from '../../src/@generic/components/page-header/page-header';
 import { PlayAgainButton } from '../../src/@generic/components/play-again-button/play-again-button';
-import { gameEndedAtSelector, gameStartedAtSelector, gameScoreSelector } from '../../src/game/store/game.selectors';
+import { gameEndedAtSelector, gameScoreSelector, gameStartedAtSelector } from '../../src/game/store/game.selectors';
 
 import { WinnerStyles as styles } from './winner.styles';
 
@@ -22,13 +22,17 @@ export default function Winner() {
     return (
         <View style={styles.container}>
             <PageHeader title={title} />
+
             <Header text={title} />
+
             <Text style={styles.scoreText}>
-                You have scored <Text style={styles.boldText}>{score}</Text> points
+                You have scored <Text style={styles.boldText}>{score}</Text>{' '}
             </Text>
+
             <Text style={styles.timeText}>
                 It took you <Text style={styles.boldText}>{durationFormat}</Text>
             </Text>
+
             <PlayAgainButton />
         </View>
     );

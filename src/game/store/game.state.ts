@@ -1,8 +1,9 @@
 import { DifficultyEnum, InitialDateConstant } from '../../@generic';
-import { type CellInterface, emptyScoredCells, type FieldInterface, type ScoredCellsInterface } from '../../@logic';
-import { type AvailableValues } from '../../@logic/types/available-values.type';
+import { type CellInterface, type FieldInterface, type ScoredCellsInterface, emptyScoredCells } from '../../@logic';
+import type { AvailableValues } from '../../@logic/types/available-values.type';
 
-interface GameState {
+// ts-prune-ignore-next
+export interface GameState {
     difficulty: DifficultyEnum;
     field: FieldInterface;
     fullField: FieldInterface;

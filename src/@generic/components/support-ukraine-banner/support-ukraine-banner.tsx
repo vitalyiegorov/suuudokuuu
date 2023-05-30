@@ -5,12 +5,10 @@ import { SupportUkraineBannerStyles as styles } from './support-ukraine-banner.s
 
 const donationLink = 'https://savelife.in.ua/en/donate-en/#donate-army-card-monthly';
 
-export const SupportUkraineBanner = () => {
-    return (
-        <Link href={donationLink} asChild>
-            <Pressable style={styles.container}>
-                <Text style={styles.text}>Support Ukraine 🇺🇦</Text>
-            </Pressable>
-        </Link>
-    );
-};
+export const SupportUkraineBanner = () => (
+    <Link asChild href={donationLink}>
+        <Pressable style={styles.container}>
+            <Text style={styles.text}>Support Ukraine 🇺🇦</Text>
+        </Pressable>
+    </Link>
+);

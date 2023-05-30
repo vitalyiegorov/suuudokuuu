@@ -1,8 +1,8 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { type DifficultyEnum } from '../../@generic';
+import type { DifficultyEnum } from '../../@generic';
 import { SudokuGame } from '../../@logic';
-import { type CellInterface, type ScoredCellsInterface } from '../../@logic';
+import type { CellInterface, ScoredCellsInterface } from '../../@logic';
 import { emptyGame } from '../interfaces/game.interface';
 
 import { initialGameState } from './game.state';
@@ -38,7 +38,7 @@ export const gameSlice = createSlice({
             state.score += action.payload;
         },
         madeAMistake: state => {
-            state.mistakes++;
+            state.mistakes += 1;
         },
         setScoredCells: (state, action: PayloadAction<ScoredCellsInterface>) => {
             state.scoredCells = action.payload;
