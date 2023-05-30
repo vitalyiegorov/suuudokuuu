@@ -1,4 +1,4 @@
-import { gameResetAction } from '../../../game';
+import { gameResetAction } from '../../../game/store/game.actions';
 import { useAppDispatch } from '../../hooks/redux.hook';
 import { BlackButton } from '../black-button/black-button';
 

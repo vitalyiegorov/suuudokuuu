@@ -19,6 +19,10 @@ const isSameCell = (cell: CellInterface, selectedCell?: CellInterface): boolean 
 const isSameCellValue = (cell: CellInterface, selectedCell?: CellInterface): boolean =>
     isDefined(selectedCell) && cell.value === selectedCell.value && cell.value !== BlankCellValueConstant;
 
+const isScoredCell = (cell: CellInterface, scoredCell?: ScoredCellsInterface): boolean =>
+    isDefined(scoredCell) &&
+    (scoredCell.x === cell.x || scoredCell.y === cell.y || scoredCell.group === cell.group || scoredCell.values.includes(cell.value));
+
 interface Props {
     scoredCells?: ScoredCellsInterface;
     field: FieldInterface;
@@ -35,10 +39,10 @@ export const Field = ({ field, selectedCell, onSelect, scoredCells }: Props) => 
                         cell={cell}
                         isActive={isSameCell(cell, selectedCell)}
                         isActiveValue={isSameCellValue(cell, selectedCell)}
-                        isCellHighlighted={isCellHighlighted(cell, selectedCell)}
+                        isHighlighted={isCellHighlighted(cell, selectedCell)}
+                        isScored={isScoredCell(cell, scoredCells)}
                         key={`cell-${cell.y}-${cell.x}`}
                         onSelect={onSelect}
-                        scoredCell={scoredCells}
                     />
                 ))}
             </View>

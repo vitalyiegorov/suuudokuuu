@@ -22,8 +22,9 @@ export const gameSlice = createSlice({
             state.startedAt = new Date();
             state.difficulty = action.payload;
         },
-        setValue: (state, action: PayloadAction<CellInterface>) => {
-            state.field[action.payload.y][action.payload.x] = action.payload;
+        setValue: (state, action: PayloadAction<{ cell: CellInterface; scoredCells: ScoredCellsInterface }>) => {
+            state.field[action.payload.cell.y][action.payload.cell.x] = action.payload.cell;
+            state.scoredCells = action.payload.scoredCells;
             state.possibleValues = SudokuGame.PossibleValues;
             state.availableValues = SudokuGame.AvailableValues;
             state.endedAt = new Date();
@@ -39,9 +40,7 @@ export const gameSlice = createSlice({
         },
         madeAMistake: state => {
             state.mistakes += 1;
-        },
-        setScoredCells: (state, action: PayloadAction<ScoredCellsInterface>) => {
-            state.scoredCells = action.payload;
+            state.endedAt = new Date();
         }
     }
 });
