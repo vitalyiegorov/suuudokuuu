@@ -8,6 +8,8 @@ Sudoku game to help Ukraine win the war against Russia.
 
 ### Features
 
+-   [ ] share puzzle/challenge with friends:
+    -   [ ] challenge mode - see target score and countdown timer based on shared data
 -   [ ] add mistakes purchasing through in-app purchases
     -   [ ] donate to ZSU, add BE logic for this
     -   [ ] add donation branding and description on main screen
