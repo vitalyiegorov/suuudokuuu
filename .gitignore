@@ -29,3 +29,6 @@ web-build/
 
 # TypeScript
 *.tsbuildinfo
+
+# Jest
+coverage
