@@ -1,0 +1,22 @@
+{
+    "threshold": 0,
+    "reporters": ["console", "html"],
+    "output": "report/jscpd",
+    "ignore": [
+        "**/*.json",
+        "**/*.svg",
+        "**/build/**",
+        "**/dist/**",
+        "**/index.html",
+        "**/*.md",
+        "**/__snapshots__/**",
+        "**/__coverage__/**",
+        "**/coverage/**",
+        "**/node_modules/**",
+        "**/ios/**",
+        "**/android/**"
+    ],
+    "absolute": false,
+    "gitignore": true,
+    "blame": true
+}

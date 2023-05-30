@@ -8,16 +8,14 @@
         "icon": "./assets/icon.png",
         "userInterfaceStyle": "automatic",
         "runtimeVersion": {
-            "policy": "sdkVersion"
+            "policy": "exposdk:48.0.0"
         },
         "splash": {
             "image": "./assets/splash.png",
             "resizeMode": "contain",
             "backgroundColor": "#000"
         },
-        "assetBundlePatterns": [
-            "**/*"
-        ],
+        "assetBundlePatterns": ["**/*"],
         "ios": {
             "supportsTablet": true,
             "bundleIdentifier": "com.vitalyiegorov.suuudokuuu"

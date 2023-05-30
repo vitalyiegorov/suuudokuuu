@@ -6,9 +6,9 @@ import { ImpactFeedbackStyle } from 'expo-haptics';
 import { type AppDispatch, type RootState } from '../../../@app-root';
 import { hapticImpact, hapticNotification } from '../../../@generic';
 import { SudokuGame } from '../../../@logic';
+import { calculateScore } from '../../../@logic/utils/calculate-score.util';
 import { BlankCellValueConstant } from '../../constants/blank-cell-value.constant';
 import { MaxMistakesConstant } from '../../constants/max-mistakes.constant';
-import { calculateScore } from '../../utils/calculate-score.util';
 import { gameIncreaseScoreAction, gameMadeAMistakeAction, gameSetScoredCellsAction, gameSetValueAction } from '../game.actions';
 
 export const gameSelectValueAction = createAsyncThunk<boolean, number, { dispatch: AppDispatch; state: RootState }>(

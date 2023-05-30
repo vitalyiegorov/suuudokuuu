@@ -59,13 +59,13 @@ Sudoku game to help Ukraine win the war against Russia.
 
 ### Overall
 
--   [ ] add ts-prune
--   [ ] add jscpd
 -   [ ] add unit tests for game logic, add code coverage([codecov](https://about.codecov.io)?)
 -   [ ] fix metro require cycles (store related as usual) =)
 -   [ ] add sentry for error reporting
 -   [ ] migrate to monorepo
 -   [ ] add e2e tests(maestro or wdio?)
+-   [x] add ts-prune
+-   [x] add jscpd
 -   [x] add commit-lint
 -   [x] add husky
 -   [x] fix ts error on app.json import
