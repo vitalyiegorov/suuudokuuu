@@ -1,10 +1,11 @@
-import { Inter_500Medium, Inter_700Bold, useFonts } from '@expo-google-fonts/inter';
-import { ThemeProvider } from '@react-navigation/native';
 import { SplashScreen, Stack } from 'expo-router';
 import { useColorScheme } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
+
+import { Inter_500Medium, Inter_700Bold, useFonts } from '@expo-google-fonts/inter';
+import { ThemeProvider } from '@react-navigation/native';
 
 import { appRootPersistor, appRootStore } from '../src/@app-root';
 import { BlackTheme, WhiteTheme } from '../src/@generic';

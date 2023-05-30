@@ -2,8 +2,8 @@ name: Merge Request
 on: pull_request
 
 jobs:
-  update:
-    name: EAS Update
+  checks:
+    name: Merge Request
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
@@ -15,12 +15,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18.x
-
-      - name: Setup EAS
-        uses: expo/expo-github-action@v8
-        with:
-          eas-version: latest
-          token: ${{ secrets.EXPO_TOKEN }}
 
       - name: Install dependencies
         run: yarn install
@@ -42,9 +36,3 @@ jobs:
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
-
-      - name: Create preview
-        uses: expo/expo-github-action/preview@v8
-        with:
-          command: eas update --auto
-          token: ${{ secrets.EXPO_TOKEN }}

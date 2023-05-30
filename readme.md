@@ -64,10 +64,10 @@ Sudoku game to help Ukraine win the war against Russia.
 ### Overall
 
 -   [ ] improve logic code coverage
--   [ ] fix metro require cycles (store related as usual) =)
 -   [ ] add sentry for error reporting
 -   [ ] migrate to monorepo
 -   [ ] add e2e tests(maestro or wdio?)
+-   [x] fix metro require cycles (store related as usual) =)
 -   [x] add unit tests for game logic, add code coverage([codecov](https://about.codecov.io)?)
 -   [x] add ts-prune
 -   [x] add jscpd

@@ -1,4 +1,3 @@
-import { cs, type OnEventFn } from '@rnw-community/shared';
 import { Pressable, Text, View } from 'react-native';
 import Reanimated, {
     interpolate,
@@ -8,6 +7,8 @@ import Reanimated, {
     withSequence,
     withTiming
 } from 'react-native-reanimated';
+
+import { type OnEventFn, cs } from '@rnw-community/shared';
 
 import { Colors } from '../../../@generic/styles/theme';
 
@@ -52,9 +53,10 @@ export const AvailableValuesItem = ({ value, isActive, onSelect, progress, isCor
 
     return (
         <View style={styles.container}>
-            <ReanimatedPressable key={value} style={buttonStyles} onPress={handlePress}>
+            <ReanimatedPressable key={value} onPress={handlePress} style={buttonStyles}>
                 <Text style={textStyles}>{value}</Text>
             </ReanimatedPressable>
+
             <View style={progressStyles} />
         </View>
     );

@@ -1,4 +1,4 @@
-import { gameResetAction } from '../../../game';
+import { gameResetAction } from '../../../game/store/game.actions';
 import { useAppDispatch } from '../../hooks/redux.hook';
 import { BlackButton } from '../black-button/black-button';
 
@@ -9,5 +9,5 @@ export const PlayAgainButton = () => {
         dispatch(gameResetAction());
     };
 
-    return <BlackButton text="Play again" onPress={handlePlayAgain} href="/" />;
+    return <BlackButton href="/" onPress={handlePlayAgain} text="Play again" />;
 };
