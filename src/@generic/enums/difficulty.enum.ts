@@ -1,5 +1,3 @@
-import { FieldCellCountConstant } from '../../game/constants/field.constant';
-
 export enum DifficultyEnum {
     Newbie = 'Newbie',
     Easy = 'Easy',
@@ -8,10 +6,12 @@ export enum DifficultyEnum {
     Nightmare = 'Nightmare'
 }
 
-export const difficultyValues: Record<DifficultyEnum, number> = {
-    [DifficultyEnum.Newbie]: Math.ceil(FieldCellCountConstant * 0.03),
-    [DifficultyEnum.Easy]: Math.ceil(FieldCellCountConstant * 0.2),
-    [DifficultyEnum.Medium]: Math.ceil(FieldCellCountConstant * 0.4),
-    [DifficultyEnum.Hard]: Math.ceil(FieldCellCountConstant * 0.5),
-    [DifficultyEnum.Nightmare]: Math.ceil(FieldCellCountConstant * 0.8)
+const difficultyValues: Record<DifficultyEnum, number> = {
+    [DifficultyEnum.Newbie]: 0.03,
+    [DifficultyEnum.Easy]: 0.2,
+    [DifficultyEnum.Medium]: 0.4,
+    [DifficultyEnum.Hard]: 0.5,
+    [DifficultyEnum.Nightmare]: 0.8
 };
+
+export const getDifficulty = (difficulty: DifficultyEnum, fieldSize: number): number => Math.ceil(difficultyValues[difficulty] * fieldSize);
