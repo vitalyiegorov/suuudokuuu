@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { Colors } from '../../src/@generic/styles/theme';
+import { Colors } from '../../src/@generic';
 
 export const WinnerStyles = StyleSheet.create({
     boldText: {
@@ -9,13 +9,13 @@ export const WinnerStyles = StyleSheet.create({
     container: {
         alignItems: 'center',
         flex: 1,
+        gap: 20,
         justifyContent: 'center'
     },
     scoreText: {
         color: Colors.black
     },
     timeText: {
-        color: Colors.black,
-        marginBottom: 20
+        color: Colors.black
     }
 });
