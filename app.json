@@ -7,9 +7,7 @@
         "orientation": "portrait",
         "icon": "./assets/icon.png",
         "userInterfaceStyle": "automatic",
-        "runtimeVersion": {
-            "policy": "exposdk:48.0.0"
-        },
+        "runtimeVersion": "exposdk:48.0.0",
         "splash": {
             "image": "./assets/splash.png",
             "resizeMode": "contain",
