@@ -1,5 +1,6 @@
-import { DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { Appearance } from 'react-native';
+
+import { DarkTheme, DefaultTheme } from '@react-navigation/native';
 
 export const WhiteTheme = {
     ...DefaultTheme,
@@ -32,11 +33,11 @@ export const BlackTheme = {
         white: 'rgb(0, 0, 0)',
         black: 'rgb(255, 255, 255)',
         cell: {
-            active: 'rgba(0, 255, 0, 1)',
+            active: 'rgba(0, 255, 0, 0.7)',
             activeText: 'rgba(255, 255, 255, 1)',
-            highlighted: 'rgba(255,255,255,0.15)',
+            highlighted: 'rgba(255,255,255,0.2)',
             highlightedText: 'rgba(0, 255, 0, 1)',
-            activeValue: 'rgba(255, 255, 255, 0.5)',
+            activeValue: 'rgba(255, 255, 255, 0.4)',
             activeValueText: 'rgba(255, 255, 255, 1)',
             error: 'rgba(255, 0, 0, 1)'
         },

@@ -1,5 +1,6 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createMigrate, persistReducer } from 'redux-persist';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { historySlice } from './history.slice';
 

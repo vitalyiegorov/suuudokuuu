@@ -1,15 +1,13 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { isDefined } from '@rnw-community/shared';
 import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 
-import { type AppDispatch, type RootState } from '../../../@app-root';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { isDefined } from '@rnw-community/shared';
+
+import type { AppDispatch, RootState } from '../../../@app-root';
 import { hapticImpact, hapticNotification } from '../../../@generic';
-import { SudokuGame } from '../../../@logic';
-import { BlankCellValueConstant } from '../../../@logic/constants/blank-cell-value.constant';
-import { MaxMistakesConstant } from '../../../@logic/constants/max-mistakes.constant';
-import { calculateScore } from '../../../@logic/utils/calculate-score.util';
-import { gameIncreaseScoreAction, gameMadeAMistakeAction, gameSetScoredCellsAction, gameSetValueAction } from '../game.actions';
+import { BlankCellValueConstant, MaxMistakesConstant, SudokuGame, calculateScore } from '../../../@logic';
+import { gameIncreaseScoreAction, gameMadeAMistakeAction, gameSetValueAction } from '../game.actions';
 
 export const gameSelectValueAction = createAsyncThunk<boolean, number, { dispatch: AppDispatch; state: RootState }>(
     'game/selectValue',
@@ -25,9 +23,9 @@ export const gameSelectValueAction = createAsyncThunk<boolean, number, { dispatc
                 // TODO: Move score calculation to logic
                 const score = calculateScore(SudokuGame.Field, state.selectedCell, state.mistakes, state.startedAt);
 
-                thunkAPI.dispatch(gameSetValueAction(cell));
+                thunkAPI.dispatch(gameSetValueAction({ cell, scoredCells }));
+                // TODO: Merge with setValue and rename it
                 thunkAPI.dispatch(gameIncreaseScoreAction(score));
-                thunkAPI.dispatch(gameSetScoredCellsAction(scoredCells));
 
                 return true;
             } catch (e) {

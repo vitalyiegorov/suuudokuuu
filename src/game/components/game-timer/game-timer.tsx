@@ -23,9 +23,9 @@ export const GameTimer = ({ startedAt }: Props) => {
     const elapsedFormatted = getElapsedTime(startedAt);
 
     useEffect(() => {
-        const handle = setInterval(() => setCurrentTime(new Date()), 1000);
+        const handle = setInterval(() => void setCurrentTime(new Date()), 1000);
 
-        return () => clearTimeout(handle);
+        return () => void clearTimeout(handle);
     }, []);
 
     return (
