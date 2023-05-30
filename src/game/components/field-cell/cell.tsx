@@ -52,6 +52,8 @@ const getCellBgColor = (isActiveValue: boolean, isCellHighlighted: boolean) => {
 // TODO: We need animations logic improvements
 const CellComponent = ({ cell, onSelect, isActive, isActiveValue, isCellHighlighted, scoredCell }: Props) => {
     const value = cell.value === BlankCellValueConstant ? '' : cell.value.toString();
+    const isFirstRow = cell.y === 0;
+    const isFirstCol = cell.x === 0;
     const isLastRow = cell.y === 8;
     const isLastCol = cell.x === 8;
     const backgroundColor = getCellBgColor(isActiveValue, isCellHighlighted);
@@ -94,6 +96,8 @@ const CellComponent = ({ cell, onSelect, isActive, isActiveValue, isCellHighligh
         styles.cell,
         cs(isGroupEnd(cell.x), styles.cellGroupXEnd),
         cs(isGroupEnd(cell.y), styles.cellGroupYEnd),
+        cs(isFirstRow, styles.cellFirstRow),
+        cs(isFirstCol, styles.cellFirstCol),
         cs(isLastRow, styles.cellLastRow),
         cs(isLastCol, styles.cellLastCol),
         cellAnimatedStyles
