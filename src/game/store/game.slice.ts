@@ -24,6 +24,8 @@ export const gameSlice = createSlice({
         },
         setValue: (state, action: PayloadAction<CellInterface>) => {
             state.field[action.payload.y][action.payload.x] = action.payload;
+            state.possibleValues = SudokuGame.PossibleValues;
+            state.availableValues = SudokuGame.AvailableValues;
             state.endedAt = new Date();
         },
         reset: state => {

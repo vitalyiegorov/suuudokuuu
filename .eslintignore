@@ -3,4 +3,5 @@ dist
 build
 public
 report
+coverage
 .eslintrc.js
