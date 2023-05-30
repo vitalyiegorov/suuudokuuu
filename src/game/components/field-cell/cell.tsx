@@ -12,11 +12,9 @@ import Reanimated, {
 
 import { Colors } from '../../../@generic';
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
-import { BlankCellValueConstant } from '../../../@logic/constants/blank-cell-value.constant';
-import { CellFontSizeConstant } from '../../../@logic/constants/dimensions.contant';
-import { FieldGroupWidthConstant, FieldSizeConstant } from '../../../@logic/constants/field.constant';
-import { type CellInterface } from '../../../@logic/interfaces/cell.interface';
-import { type ScoredCellsInterface } from '../../../@logic/interfaces/scored-cells.interface';
+import { type CellInterface, type ScoredCellsInterface } from '../../../@logic';
+import { BlankCellValueConstant, FieldGroupWidthConstant, FieldSizeConstant } from '../../../@logic';
+import { CellFontSizeConstant } from '../constants/dimensions.contant';
 
 import { CellStyles as styles } from './cell.styles';
 
@@ -112,4 +110,15 @@ const CellComponent = ({ cell, onSelect, isActive, isActiveValue, isCellHighligh
     );
 };
 
-export const Cell = memo(CellComponent);
+export const Cell = memo(CellComponent, (prevProps, nextProps) => {
+    return (
+        prevProps.cell.value === nextProps.cell.value &&
+        prevProps.isActive === nextProps.isActive &&
+        prevProps.isActiveValue === nextProps.isActiveValue &&
+        prevProps.isCellHighlighted === nextProps.isCellHighlighted &&
+        prevProps.scoredCell?.x === nextProps.scoredCell?.x &&
+        prevProps.scoredCell?.y === nextProps.scoredCell?.y &&
+        prevProps.scoredCell?.group === nextProps.scoredCell?.group &&
+        prevProps.scoredCell?.values.length === nextProps.scoredCell?.values.length
+    );
+});
