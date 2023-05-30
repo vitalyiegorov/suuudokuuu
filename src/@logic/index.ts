@@ -6,4 +6,6 @@ export * from './interfaces/cell.interface';
 export * from './interfaces/field.interface';
 export * from './interfaces/scored-cells.interface';
 
+export * from './utils/calculate-score.util';
+
 export const SudokuGame = new Sudoku(defaultSudokuConfig);
