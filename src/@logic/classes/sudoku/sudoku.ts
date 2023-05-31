@@ -53,8 +53,8 @@ export class Sudoku extends SerializableSudoku {
         this.calculatePossibleValues();
     }
 
-    getScore(scoredCells: ScoredCellsInterface, startedAt: Date, mistakes: number): number {
-        return this.scoring.calculate(this.difficulty, scoredCells, mistakes, startedAt);
+    getScore(scoredCells: ScoredCellsInterface, elapsedTime: number, mistakes: number): number {
+        return this.scoring.calculate(this.difficulty, scoredCells, mistakes, elapsedTime);
     }
 
     getValueProgress(value: number): number {

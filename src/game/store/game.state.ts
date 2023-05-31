@@ -1,5 +1,4 @@
 // TODO: Cannot use barrel =) metro will collapse with `TypeError: Cannot read property 'actions' of undefined, js engine: hermes`
-import { InitialDateConstant } from '../../@generic/constants/date.constant';
 import { DifficultyEnum } from '../../@generic/enums/difficulty.enum';
 
 // ts-prune-ignore-next
@@ -8,15 +7,15 @@ export interface GameState {
     sudokuString: string;
     score: number;
     mistakes: number;
-    startedAt: Date;
-    endedAt: Date;
+    elapsedTime: number;
+    paused: boolean;
 }
 
 export const initialGameState: GameState = {
+    paused: false,
+    elapsedTime: 0,
     difficulty: DifficultyEnum.Newbie,
     sudokuString: '',
-    endedAt: InitialDateConstant,
     mistakes: 0,
-    score: 0,
-    startedAt: InitialDateConstant
+    score: 0
 };

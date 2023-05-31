@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import { Donation, Header, PageHeader, PlayAgainButton } from '../../src/@generic';
-import { gameEndedAtSelector, gameScoreSelector, gameStartedAtSelector } from '../../src/game';
+import { gameElapsedTimeSelector, gameScoreSelector } from '../../src/game';
 
 import { WinnerStyles as styles } from './winner.styles';
 
@@ -11,10 +11,9 @@ const title = 'Winner-winner, \n chicken dinner!';
 
 export default function Winner() {
     const score = useSelector(gameScoreSelector);
-    const start = useSelector(gameStartedAtSelector);
-    const end = useSelector(gameEndedAtSelector);
+    const elapsed = useSelector(gameElapsedTimeSelector);
 
-    const duration = intervalToDuration({ start, end });
+    const duration = intervalToDuration({ start: 0, end: elapsed });
     const durationFormat = formatDuration(duration);
 
     return (
@@ -32,7 +31,7 @@ export default function Winner() {
                 </Text>
             </View>
 
-            <Donation isWinner />
+            <Donation type="winner" />
 
             <PlayAgainButton />
         </View>

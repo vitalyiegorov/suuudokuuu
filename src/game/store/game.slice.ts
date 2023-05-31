@@ -13,13 +13,19 @@ export const gameSlice = createSlice({
 
             state.difficulty = action.payload.difficulty;
             state.sudokuString = action.payload.sudokuString;
-            state.startedAt = new Date();
+            state.elapsedTime = 0;
+        },
+        pause: (state, action: PayloadAction<number>) => {
+            state.paused = true;
+            state.elapsedTime = action.payload;
+        },
+        resume: state => {
+            state.paused = false;
         },
         save: (state, action: PayloadAction<{ sudokuString: string; newScore: number; mistakes: number }>) => {
             state.sudokuString = action.payload.sudokuString;
             state.score = action.payload.newScore;
             state.mistakes = action.payload.mistakes;
-            state.endedAt = new Date();
         },
         reset: state => {
             Object.assign(state, initialGameState);
