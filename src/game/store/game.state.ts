@@ -2,6 +2,7 @@
 import { InitialDateConstant } from '../../@generic/constants/date.constant';
 import { DifficultyEnum } from '../../@generic/enums/difficulty.enum';
 
+// ts-prune-ignore-next
 export interface GameState {
     difficulty: DifficultyEnum;
     sudokuString: string;
