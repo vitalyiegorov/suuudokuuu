@@ -1,3 +1,3 @@
 import { gameSlice } from './game.slice';
 
-export const { start: gameLoadAction, move: gameMoveAction, reset: gameResetAction } = gameSlice.actions;
+export const { start: gameStartAction, save: gameSaveAction, reset: gameResetAction } = gameSlice.actions;

@@ -20,8 +20,8 @@ import {
 } from '../../../@generic';
 import type { CellInterface, FieldInterface, ScoredCellsInterface } from '../../../@logic';
 import { MaxMistakesConstant, Sudoku, defaultSudokuConfig, emptyScoredCells } from '../../../@logic';
-import { gameMoveAction, gameResetAction } from '../../store/game.actions';
-import { gameStartedAtSelector } from '../../store/game.selectors';
+import { gameResetAction, gameSaveAction, gameStartAction } from '../../store/game.actions';
+import { gameMistakesSelector, gameScoreSelector, gameStartedAtSelector } from '../../store/game.selectors';
 import { AvailableValues } from '../available-values/available-values';
 import { Field } from '../field/field';
 import { GameTimer } from '../game-timer/game-timer';
@@ -38,14 +38,16 @@ export const GameScreen = () => {
 
     const dispatch = useAppDispatch();
     const startedAt = useAppSelector(gameStartedAtSelector);
+    const savedScore = useAppSelector(gameScoreSelector);
+    const savedMistakes = useAppSelector(gameMistakesSelector);
 
     const sudokuRef = useRef<Sudoku>(new Sudoku(defaultSudokuConfig));
 
     const [field, setField] = useState<FieldInterface>([]);
     const [selectedCell, setSelectedCell] = useState<CellInterface>();
     const [scoredCells, setScoredCells] = useState<ScoredCellsInterface>(emptyScoredCells);
-    const [mistakes, setMistakes] = useState(0);
-    const [score, setScore] = useState(0);
+    const [mistakes, setMistakes] = useState(savedMistakes);
+    const [score, setScore] = useState(savedScore);
 
     const maxMistakesReached = mistakes >= MaxMistakesConstant;
 
@@ -54,9 +56,16 @@ export const GameScreen = () => {
             sudokuRef.current = Sudoku.fromString(routeField, defaultSudokuConfig);
         } else if (isNotEmptyString(routeDifficulty)) {
             sudokuRef.current.create(routeDifficulty);
+
+            setScore(0);
+            setMistakes(0);
+            // eslint-disable-next-line no-undefined
+            setSelectedCell(undefined);
+
+            dispatch(gameStartAction({ difficulty: routeDifficulty, sudokuString: sudokuRef.current.toString() }));
         }
         setField(sudokuRef.current.Field);
-    }, [routeField, routeDifficulty]);
+    }, [routeField, routeDifficulty, dispatch]);
 
     const handleExit = () => {
         Alert('Stop current run?', 'All progress will be lost', [
@@ -79,27 +88,36 @@ export const GameScreen = () => {
     }, []);
     const handleCorrectValue = useCallback(
         ([correctCell, newScoredCells]: [CellInterface, ScoredCellsInterface]) => {
-            hapticNotification(Haptics.NotificationFeedbackType.Success);
-            setScoredCells(newScoredCells);
-            setScore(prevScore => prevScore + sudokuRef.current.scoring.calculate(newScoredCells, mistakes, startedAt));
+            const newScore = score + sudokuRef.current.scoring.calculate(newScoredCells, mistakes, startedAt);
+            const sudokuString = sudokuRef.current.toString();
 
-            dispatch(gameMoveAction(sudokuRef.current.toString()));
+            setScoredCells(newScoredCells);
+            setScore(newScore);
 
             if (newScoredCells.isWon) {
+                hapticImpact(ImpactFeedbackStyle.Heavy);
                 // TODO: We need to wait for the animation to finish, animation finish event would fix it?
                 setTimeout(() => void router.push('winner'), 10 * animationDurationConstant);
-            } else if (sudokuRef.current.isValueAvailable(correctCell)) {
-                // HINT: We reselect cell if there are values left, otherwise loose focus
-                setSelectedCell(() => ({ ...correctCell }));
             } else {
-                // HINT: Otherwise we loose focus
-                // eslint-disable-next-line no-undefined
-                setSelectedCell(undefined);
+                hapticNotification(Haptics.NotificationFeedbackType.Success);
+
+                if (sudokuRef.current.isValueAvailable(correctCell)) {
+                    // HINT: We reselect cell if there are values left, otherwise loose focus
+                    setSelectedCell(() => ({ ...correctCell }));
+                } else {
+                    // HINT: Otherwise we loose focus
+                    // eslint-disable-next-line no-undefined
+                    setSelectedCell(undefined);
+                }
             }
+
+            dispatch(gameSaveAction({ newScore, sudokuString, mistakes }));
         },
-        [dispatch, mistakes, router, startedAt]
+        [dispatch, mistakes, router, score, startedAt]
     );
     const handleWrongValue = useCallback(() => {
+        const sudokuString = sudokuRef.current.toString();
+
         if (mistakes < MaxMistakesConstant) {
             hapticNotification(Haptics.NotificationFeedbackType.Error);
             setMistakes(prevState => prevState + 1);
@@ -107,7 +125,9 @@ export const GameScreen = () => {
             hapticImpact(ImpactFeedbackStyle.Heavy);
             router.push('loser');
         }
-    }, [mistakes, router]);
+
+        dispatch(gameSaveAction({ sudokuString, newScore: score, mistakes: mistakes + 1 }));
+    }, [dispatch, mistakes, router, score]);
 
     const mistakesCountTextStyles = [styles.mistakesCountText, cs(maxMistakesReached, styles.mistakesCountErrorText)];
 
