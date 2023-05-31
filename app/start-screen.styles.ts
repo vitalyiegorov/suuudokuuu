@@ -9,7 +9,8 @@ export const StartScreenStyles = StyleSheet.create({
     bottomContainer: {
         alignItems: 'center',
         flexDirection: 'row',
-        justifyContent: 'space-evenly'
+        justifyContent: 'space-evenly',
+        marginBottom: 20
     },
     bottomLink: {
         color: Colors.black

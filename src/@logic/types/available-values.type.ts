@@ -1,1 +1,1 @@
-export type AvailableValues = Record<number, number>;
+export type AvailableValuesType = Record<number, { count: number; progress: number }>;
