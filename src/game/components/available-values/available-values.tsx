@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { View } from 'react-native';
 
-import { type OnEventFn } from '@rnw-community/shared';
+import { type OnEventFn, isDefined } from '@rnw-community/shared';
 
 import type { CellInterface, ScoredCellsInterface, Sudoku } from '../../../@logic';
 import { AvailableValuesItem } from '../available-values-item/available-values-item';
@@ -22,7 +22,7 @@ export const AvailableValues = ({ sudoku, possibleValues, selectedCell, onCorrec
 
     const handleSelectValue = useCallback(
         (value: number) => {
-            if (isBlankCellSelected) {
+            if (isBlankCellSelected && isDefined(selectedCell)) {
                 const newValueCell = { ...selectedCell, value };
                 if (sudoku.isCorrectValue(newValueCell)) {
                     onCorrectValue([selectedCell, sudoku.setCellValue(newValueCell)]);

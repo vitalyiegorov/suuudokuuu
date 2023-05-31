@@ -1,19 +1,22 @@
 import { isDefined } from '@rnw-community/shared';
 
-import { type DifficultyEnum, getDifficulty } from '../../@generic/enums/difficulty.enum';
-import type { CellInterface } from '../interfaces/cell.interface';
-import type { FieldInterface } from '../interfaces/field.interface';
-import { type ScoredCellsInterface, emptyScoredCells } from '../interfaces/scored-cells.interface';
-import type { SudokuConfigInterface } from '../interfaces/sudoku-config.interface';
+import { type DifficultyEnum } from '../../../@generic/enums/difficulty.enum';
+import type { CellInterface } from '../../interfaces/cell.interface';
+import type { FieldInterface } from '../../interfaces/field.interface';
+import { type ScoredCellsInterface, emptyScoredCells } from '../../interfaces/scored-cells.interface';
+import type { SudokuConfigInterface } from '../../interfaces/sudoku-config.interface';
 import { SerializableSudoku } from '../serializable-sudoku/serializable-sudoku';
 import { SudokuScoring } from '../sudoku-scoring/sudoku-scoring';
 
 // TODO: We can split this class into rules validator(or similar)
 export class Sudoku extends SerializableSudoku {
     private readonly fieldFillingValues: number[];
+    private readonly scoring: SudokuScoring;
 
-    constructor(config: SudokuConfigInterface, public readonly scoring: SudokuScoring = new SudokuScoring(config.score)) {
+    constructor(config: SudokuConfigInterface, scoring: SudokuScoring = new SudokuScoring(config.score)) {
         super(config);
+
+        this.scoring = scoring;
 
         // TODO: Is there a better way to randomize array of numbers in JS? =)
         this.fieldFillingValues = Array.from({ length: this.fieldSize }, (_, i) => i + 1);
@@ -29,6 +32,7 @@ export class Sudoku extends SerializableSudoku {
     }
 
     create(difficulty: DifficultyEnum): void {
+        this.difficulty = difficulty;
         this.field = this.createEmptyField();
 
         if (!this.fillRecursive()) {
@@ -37,14 +41,20 @@ export class Sudoku extends SerializableSudoku {
 
         const getRandomPosition = (): number => Math.floor(Math.random() * this.fieldSize);
 
-        // TODO: Can we improve this logic to make it more unique??
+        const blankCellsCount = Math.ceil(this.config.difficultyBlankCellsPercentage[difficulty] * this.fieldSize * this.fieldSize);
         this.gameField = this.cloneField(this.field);
-        for (let i = 0; i < getDifficulty(difficulty, this.fieldSize); i += 1) {
+
+        // TODO: Can we improve this logic to make it more unique??
+        for (let i = 0; i < blankCellsCount; i += 1) {
             this.gameField[getRandomPosition()][getRandomPosition()].value = this.blankCellValue;
         }
 
         this.calculateAvailableValues();
         this.calculatePossibleValues();
+    }
+
+    getScore(scoredCells: ScoredCellsInterface, startedAt: Date, mistakes: number): number {
+        return this.scoring.calculate(this.difficulty, scoredCells, mistakes, startedAt);
     }
 
     getValueProgress(value: number): number {
@@ -53,6 +63,20 @@ export class Sudoku extends SerializableSudoku {
 
     getCorrectValue(cell?: CellInterface): number {
         return isDefined(cell) ? this.field[cell.y][cell.x].value : this.blankCellValue;
+    }
+
+    // eslint-disable-next-line class-methods-use-this
+    isCellHighlighted(cell: CellInterface, selectedCell?: CellInterface): boolean {
+        return isDefined(selectedCell) && (selectedCell.x === cell.x || selectedCell.y === cell.y || selectedCell.group === cell.group);
+    }
+
+    // eslint-disable-next-line class-methods-use-this
+    isSameCell(cell: CellInterface, selectedCell?: CellInterface): boolean {
+        return isDefined(selectedCell) && cell.x === selectedCell.x && cell.y === selectedCell.y;
+    }
+
+    isSameCellValue(cell: CellInterface, selectedCell?: CellInterface): boolean {
+        return isDefined(selectedCell) && cell.value === selectedCell.value && cell.value !== this.blankCellValue;
     }
 
     isCorrectValue(cell?: CellInterface): boolean {
@@ -71,8 +95,19 @@ export class Sudoku extends SerializableSudoku {
         return cell.y < this.fieldSize - 1 && (cell.y + 1) % this.fieldGroupHeight === 0;
     }
 
-    isBlankCell(cell?: CellInterface): cell is CellInterface {
+    isBlankCell(cell?: CellInterface): boolean {
         return isDefined(cell) && this.gameField[cell.y][cell.x].value === this.blankCellValue;
+    }
+
+    // eslint-disable-next-line class-methods-use-this
+    isScoredCell(cell: CellInterface, scoredCell: ScoredCellsInterface): boolean {
+        return (
+            scoredCell.isWon ||
+            scoredCell.x === cell.x ||
+            scoredCell.y === cell.y ||
+            scoredCell.group === cell.group ||
+            scoredCell.values.includes(cell.value)
+        );
     }
 
     // eslint-disable-next-line max-statements

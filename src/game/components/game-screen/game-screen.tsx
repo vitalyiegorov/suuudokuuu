@@ -46,7 +46,7 @@ export const GameScreen = () => {
     const [mistakes, setMistakes] = useState(savedMistakes);
     const [score, setScore] = useState(savedScore);
 
-    const maxMistakesReached = mistakes >= MaxMistakesConstant;
+    const maxMistakesReached = mistakes > MaxMistakesConstant;
 
     useEffect(() => {
         if (isNotEmptyString(routeField)) {
@@ -85,7 +85,7 @@ export const GameScreen = () => {
     }, []);
     const handleCorrectValue = useCallback(
         ([correctCell, newScoredCells]: [CellInterface, ScoredCellsInterface]) => {
-            const newScore = score + sudokuRef.current.scoring.calculate(newScoredCells, mistakes, startedAt);
+            const newScore = score + sudokuRef.current.getScore(newScoredCells, startedAt, mistakes);
             const sudokuString = sudokuRef.current.toString();
 
             setScoredCells(newScoredCells);
@@ -115,7 +115,7 @@ export const GameScreen = () => {
     const handleWrongValue = useCallback(() => {
         const sudokuString = sudokuRef.current.toString();
 
-        if (mistakes < MaxMistakesConstant) {
+        if (mistakes < MaxMistakesConstant - 1) {
             hapticNotification(Haptics.NotificationFeedbackType.Error);
             setMistakes(prevState => prevState + 1);
         } else {

@@ -1,8 +1,9 @@
 import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
-import type { FieldInterface } from '../interfaces/field.interface';
-import type { SudokuConfigInterface } from '../interfaces/sudoku-config.interface';
-import { type AvailableValuesType } from '../types/available-values.type';
+import { type DifficultyEnum } from '../../../@generic';
+import type { FieldInterface } from '../../interfaces/field.interface';
+import type { SudokuConfigInterface } from '../../interfaces/sudoku-config.interface';
+import { type AvailableValuesType } from '../../types/available-values.type';
 
 /**
  * HINT: Serialization inspired from https://github.com/robatron/sudoku.js
@@ -13,6 +14,7 @@ export class SerializableSudoku {
     protected readonly fieldGroupWidth: number;
     protected readonly fieldGroupHeight: number;
 
+    protected difficulty: DifficultyEnum;
     protected field: FieldInterface = [];
     protected gameField: FieldInterface = [];
     protected availableValues: AvailableValuesType = {};
@@ -21,11 +23,12 @@ export class SerializableSudoku {
     private readonly emptyStringValue: string = '.';
     private readonly fieldSeparator: string = '|';
 
-    constructor(config: SudokuConfigInterface) {
+    constructor(protected readonly config: SudokuConfigInterface) {
         this.fieldSize = config.fieldSize;
         this.fieldGroupWidth = config.fieldGroupWidth;
         this.fieldGroupHeight = config.fieldGroupHeight;
         this.blankCellValue = config.blankCellValue;
+        this.difficulty = config.difficulty;
     }
 
     get FullField(): FieldInterface {

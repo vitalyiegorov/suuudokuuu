@@ -62,11 +62,12 @@ const CellComponent = ({ sudoku, cell, onSelect, isActive, isActiveValue, isHigh
         <ReanimatedPressable onPress={handlePress} style={cellStyles}>
             <FieldCellText
                 animation={textAnimation}
+                cell={cell}
                 hasAnimation={hasAnimation}
                 isActive={isActive}
                 isActiveValue={isActiveValue}
                 isHighlighted={isHighlighted}
-                value={cell.value}
+                sudoku={sudoku}
             />
         </ReanimatedPressable>
     );

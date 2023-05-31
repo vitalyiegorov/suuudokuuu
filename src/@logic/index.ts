@@ -6,4 +6,4 @@ export * from './interfaces/scored-cells.interface';
 export * from './constants/max-mistakes.constant';
 export * from './constants/blank-cell-value.constant';
 
-export * from './sudoku/sudoku';
+export * from './classes/sudoku/sudoku';
