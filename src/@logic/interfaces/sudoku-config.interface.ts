@@ -1,16 +1,19 @@
 import { BlankCellValueConstant } from '../constants/blank-cell-value.constant';
-import { FieldGroupHeightConstant, FieldGroupWidthConstant, FieldSizeConstant } from '../constants/field.constant';
+
+import { type SudokuScoringConfigInterface, defaultSudokuScoringConfig } from './sudoku-scoring-config.interface';
 
 export interface SudokuConfigInterface {
     fieldSize: number;
     fieldGroupWidth: number;
     fieldGroupHeight: number;
     blankCellValue: number;
+    score: SudokuScoringConfigInterface;
 }
 
 export const defaultSudokuConfig: SudokuConfigInterface = {
-    fieldSize: FieldSizeConstant,
-    fieldGroupWidth: FieldGroupWidthConstant,
-    fieldGroupHeight: FieldGroupHeightConstant,
+    score: defaultSudokuScoringConfig,
+    fieldSize: 9,
+    fieldGroupWidth: 3,
+    fieldGroupHeight: 3,
     blankCellValue: BlankCellValueConstant
 };

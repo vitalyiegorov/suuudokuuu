@@ -18,7 +18,8 @@
         "@expo/config-plugins": "~6.0.0",
         "@expo/prebuild-config": "~6.0.0",
         "metro": "^0.73.7",
-        "metro-resolver": "^0.73.7"
+        "metro-resolver": "^0.73.7",
+        "redux-persist@^6.0.0": "patch:redux-persist@npm%3A6.0.0#./.yarn/patches/redux-persist-npm-6.0.0-56dad69feb.patch"
     },
     "dependencies": {
         "@expo-google-fonts/inter": "^0.2.3",

@@ -1,25 +1,34 @@
-import { persistReducer, persistStore } from 'redux-persist';
+import { createMigrate, persistReducer, persistStore } from 'redux-persist';
+import { type MigrationManifest } from 'redux-persist/es/types';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
-import { gameReducer, gameSlice } from '../../game';
-import { historyReducer, historySlice } from '../../history';
+import { gameSlice } from '../../game';
+import { initialGameState } from '../../game/store/game.state';
+import { historySlice } from '../../history';
 
-import { appRootReducer } from './app-root.reducer';
 import { appRootSlice } from './app-root.slice';
 
+// void AsyncStorage.clear();
+
+// HINT: All changes to state that are persisted should be handled through this migration
+const migrations: MigrationManifest<RootState> = {
+    3: state => ({ ...state, [gameSlice.name]: { ...initialGameState } })
+};
+
 const rootReducer = combineReducers({
-    [appRootSlice.name]: appRootReducer,
-    [gameSlice.name]: gameReducer,
-    [historySlice.name]: historyReducer
+    [appRootSlice.name]: appRootSlice.reducer,
+    [gameSlice.name]: gameSlice.reducer,
+    [historySlice.name]: historySlice.reducer
 });
 
 const persistedReducer = persistReducer(
     {
         key: 'root',
         storage: AsyncStorage,
-        version: 1
+        version: 4,
+        migrate: createMigrate(migrations)
     },
     rootReducer
 ) as unknown as typeof rootReducer;

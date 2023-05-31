@@ -1,5 +1,6 @@
 export * from './constants/date.constant';
 export * from './constants/text.constants';
+export * from './constants/animation.constant';
 
 export * from './enums/difficulty.enum';
 

@@ -4,6 +4,7 @@ import { Colors } from '../../../@generic';
 import { CellFontSizeConstant, CellSizeConstant } from '../constants/dimensions.contant';
 
 const progressHeight = 2;
+const buttonSize = CellSizeConstant * 1.3;
 
 export const AvailableValuesItemStyles = StyleSheet.create({
     button: {
@@ -12,9 +13,9 @@ export const AvailableValuesItemStyles = StyleSheet.create({
         borderBottomWidth: progressHeight,
         borderColor: Colors.value.border,
         borderWidth: 1,
-        height: CellSizeConstant,
+        height: buttonSize,
         justifyContent: 'center',
-        width: CellSizeConstant
+        width: buttonSize
     },
     container: {
         position: 'relative'
@@ -24,7 +25,7 @@ export const AvailableValuesItemStyles = StyleSheet.create({
         height: progressHeight,
         left: 0,
         position: 'absolute',
-        top: CellSizeConstant - progressHeight
+        top: buttonSize - progressHeight
     },
     text: {
         color: Colors.value.text,
