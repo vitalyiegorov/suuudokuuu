@@ -1,3 +1,5 @@
+import { DifficultyEnum } from '../../@generic';
+
 export interface SudokuScoringConfigInterface {
     // Base score value for correct value
     correctValue: number;
@@ -15,6 +17,8 @@ export interface SudokuScoringConfigInterface {
     lastInGroupCoefficientConstant: number;
     // Increasing coefficient for completing all values
     lastValueCoefficient: number;
+    // Increasing coefficient for difficulty
+    difficultyCoefficients: Record<DifficultyEnum, number>;
 }
 
 export const defaultSudokuScoringConfig: SudokuScoringConfigInterface = {
@@ -25,5 +29,12 @@ export const defaultSudokuScoringConfig: SudokuScoringConfigInterface = {
     lastInGroupCoefficientConstant: 3,
     lastInRowCoefficientConstant: 3,
     lastValueCoefficient: 2,
-    mistakesCoefficient: 0.05
+    mistakesCoefficient: 0.05,
+    difficultyCoefficients: {
+        [DifficultyEnum.Newbie]: 1,
+        [DifficultyEnum.Easy]: 2,
+        [DifficultyEnum.Medium]: 3,
+        [DifficultyEnum.Hard]: 4,
+        [DifficultyEnum.Nightmare]: 5
+    }
 };

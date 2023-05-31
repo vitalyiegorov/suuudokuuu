@@ -4,23 +4,24 @@ import Reanimated, { type SharedValue, interpolate, interpolateColor, useAnimate
 import { cs } from '@rnw-community/shared';
 
 import { Colors } from '../../../@generic';
-import { BlankCellValueConstant } from '../../../@logic';
+import { type CellInterface, type Sudoku } from '../../../@logic';
 import { CellFontSizeConstant } from '../constants/dimensions.contant';
 
 import { FieldCellTextStyles as styles } from './field-cell-text.styles';
 
 interface Props {
+    sudoku: Sudoku;
     isActive: boolean;
     isActiveValue: boolean;
     isHighlighted: boolean;
-    value: number;
+    cell: CellInterface;
     hasAnimation: boolean;
     animation: SharedValue<number>;
 }
 
-const FieldCellTextComponent = ({ value, isHighlighted, isActiveValue, isActive, hasAnimation, animation }: Props) => {
-    const isEmpty = value === BlankCellValueConstant;
-    const cellText = isEmpty ? '' : value.toString();
+const FieldCellTextComponent = ({ sudoku, cell, isHighlighted, isActiveValue, isActive, hasAnimation, animation }: Props) => {
+    const isEmpty = sudoku.isBlankCell(cell);
+    const cellText = isEmpty ? '' : cell.value.toString();
 
     const animatedStyles = useAnimatedStyle(() => ({
         color: interpolateColor(animation.value, [0, 0.5, 1], [Colors.black, Colors.cell.highlightedText, Colors.black]),
@@ -48,5 +49,5 @@ export const FieldCellText = memo(
         prevProps.isActive === nextProps.isActive &&
         prevProps.isActiveValue === nextProps.isActiveValue &&
         prevProps.isHighlighted === nextProps.isHighlighted &&
-        prevProps.value === nextProps.value
+        prevProps.cell.value === nextProps.cell.value
 );

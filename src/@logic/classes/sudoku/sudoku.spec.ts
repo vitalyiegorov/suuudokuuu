@@ -1,7 +1,7 @@
 import { describe, expect, it } from '@jest/globals';
 
-import { DifficultyEnum } from '../../@generic/enums/difficulty.enum';
-import { defaultSudokuConfig } from '../interfaces/sudoku-config.interface';
+import { DifficultyEnum } from '../../../@generic/enums/difficulty.enum';
+import { defaultSudokuConfig } from '../../interfaces/sudoku-config.interface';
 
 import { Sudoku } from './sudoku';
 
