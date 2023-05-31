@@ -28,9 +28,6 @@ import { GameTimer } from '../game-timer/game-timer';
 
 import { GameScreenStyles as styles } from './game-screen.styles';
 
-/**
- * TODO: Can passing SudokuGame instance values as component props rendering problems? =)
- */
 // eslint-disable-next-line max-lines-per-function
 export const GameScreen = () => {
     const router = useRouter();
