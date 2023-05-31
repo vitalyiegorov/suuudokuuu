@@ -1,13 +1,15 @@
-import { type ScoredCellsInterface, emptyScoredCells } from '../interfaces/scored-cells.interface';
-import { type SudokuScoringConfigInterface } from '../interfaces/sudoku-scoring-config.interface';
+import { type DifficultyEnum } from '../../../@generic';
+import { type ScoredCellsInterface, emptyScoredCells } from '../../interfaces/scored-cells.interface';
+import { type SudokuScoringConfigInterface } from '../../interfaces/sudoku-scoring-config.interface';
 
 export class SudokuScoring {
     private currentScore = 0;
 
     constructor(private readonly config: SudokuScoringConfigInterface) {}
 
-    calculate(scoredCells: ScoredCellsInterface, mistakes: number, startedAt: Date): number {
-        this.currentScore = this.getElapsedPenalty(this.config.correctValue, startedAt);
+    calculate(difficulty: DifficultyEnum, scoredCells: ScoredCellsInterface, mistakes: number, startedAt: Date): number {
+        this.currentScore = this.getDifficultyBonus(this.config.correctValue, difficulty);
+        this.currentScore = this.getElapsedPenalty(this.currentScore, startedAt);
         this.currentScore = this.getMistakesPenalty(this.currentScore, mistakes);
 
         if (scoredCells.x !== emptyScoredCells.x) {
@@ -37,6 +39,10 @@ export class SudokuScoring {
 
     private getMistakesPenalty(score: number, mistakes: number): number {
         return Math.floor(score - score * mistakes * this.config.elapsedCoefficient);
+    }
+
+    private getDifficultyBonus(score: number, difficulty: DifficultyEnum): number {
+        return Math.floor(score * this.config.difficultyCoefficients[difficulty]);
     }
 
     private getCompletedRowBonus(): number {

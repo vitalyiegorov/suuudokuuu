@@ -1,6 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 
-import { defaultSudokuConfig } from '../interfaces/sudoku-config.interface';
+import { defaultSudokuConfig } from '../../interfaces/sudoku-config.interface';
 
 import { SerializableSudoku } from './serializable-sudoku';
 

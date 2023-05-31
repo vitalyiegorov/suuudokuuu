@@ -2,30 +2,14 @@ import { useEffect } from 'react';
 import { View } from 'react-native';
 import { useSharedValue, withTiming } from 'react-native-reanimated';
 
-import { type OnEventFn, isDefined } from '@rnw-community/shared';
+import { type OnEventFn } from '@rnw-community/shared';
 
 import { animationDurationConstant } from '../../../@generic';
 import type { CellInterface, FieldInterface, ScoredCellsInterface, Sudoku } from '../../../@logic';
-import { BlankCellValueConstant, emptyScoredCells } from '../../../@logic';
+import { emptyScoredCells } from '../../../@logic';
 import { Cell } from '../field-cell/cell';
 
 import { FieldStyles as styles } from './field.styles';
-
-const isCellHighlighted = (cell: CellInterface, selectedCell?: CellInterface): boolean =>
-    isDefined(selectedCell) && (selectedCell.x === cell.x || selectedCell.y === cell.y || selectedCell.group === cell.group);
-
-const isSameCell = (cell: CellInterface, selectedCell?: CellInterface): boolean =>
-    isDefined(selectedCell) && cell.x === selectedCell.x && cell.y === selectedCell.y;
-
-const isSameCellValue = (cell: CellInterface, selectedCell?: CellInterface): boolean =>
-    isDefined(selectedCell) && cell.value === selectedCell.value && cell.value !== BlankCellValueConstant;
-
-const isScoredCell = (cell: CellInterface, scoredCell: ScoredCellsInterface): boolean =>
-    scoredCell.isWon ||
-    scoredCell.x === cell.x ||
-    scoredCell.y === cell.y ||
-    scoredCell.group === cell.group ||
-    scoredCell.values.includes(cell.value);
 
 const textAnimationConfig = { duration: 8 * animationDurationConstant };
 
@@ -55,10 +39,10 @@ export const Field = ({ field, selectedCell, onSelect, scoredCells, sudoku }: Pr
             {field.map(row => (
                 <View key={`row-${row[0].y}`} style={styles.row}>
                     {row.map(cell => {
-                        const isActive = isSameCell(cell, selectedCell);
-                        const isActiveValue = isSameCellValue(cell, selectedCell);
-                        const isHighlighted = isCellHighlighted(cell, selectedCell);
-                        const hasAnimation = isScoredCell(cell, scoredCells);
+                        const isActive = sudoku.isSameCell(cell, selectedCell);
+                        const isActiveValue = sudoku.isSameCellValue(cell, selectedCell);
+                        const isHighlighted = sudoku.isCellHighlighted(cell, selectedCell);
+                        const hasAnimation = sudoku.isScoredCell(cell, scoredCells);
 
                         return (
                             <Cell
