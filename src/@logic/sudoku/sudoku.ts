@@ -1,6 +1,6 @@
 import { isDefined } from '@rnw-community/shared';
 
-import { type DifficultyEnum, getDifficulty } from '../../@generic';
+import { type DifficultyEnum, getDifficulty } from '../../@generic/enums/difficulty.enum';
 import type { CellInterface } from '../interfaces/cell.interface';
 import type { FieldInterface } from '../interfaces/field.interface';
 import { type ScoredCellsInterface, emptyScoredCells } from '../interfaces/scored-cells.interface';
