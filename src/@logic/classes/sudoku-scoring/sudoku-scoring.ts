@@ -7,9 +7,9 @@ export class SudokuScoring {
 
     constructor(private readonly config: SudokuScoringConfigInterface) {}
 
-    calculate(difficulty: DifficultyEnum, scoredCells: ScoredCellsInterface, mistakes: number, startedAt: Date): number {
+    calculate(difficulty: DifficultyEnum, scoredCells: ScoredCellsInterface, mistakes: number, elapsedTime: number): number {
         this.currentScore = this.getDifficultyBonus(this.config.correctValue, difficulty);
-        this.currentScore = this.getElapsedPenalty(this.currentScore, startedAt);
+        this.currentScore = this.getElapsedPenalty(this.currentScore, elapsedTime);
         this.currentScore = this.getMistakesPenalty(this.currentScore, mistakes);
 
         if (scoredCells.x !== emptyScoredCells.x) {
@@ -31,8 +31,8 @@ export class SudokuScoring {
         return Math.max(this.currentScore, this.config.correctMinValue);
     }
 
-    private getElapsedPenalty(score: number, gameStartedAt: Date): number {
-        const elapsedSeconds = (new Date().getTime() - gameStartedAt.getTime()) / 1000;
+    private getElapsedPenalty(score: number, elapsedTime: number): number {
+        const elapsedSeconds = elapsedTime / 1000;
 
         return Math.floor(score - score * elapsedSeconds * this.config.elapsedCoefficient);
     }

@@ -10,7 +10,7 @@ export default function Loser() {
             <PageHeader title="Looooooser! =)" />
             <Header text={'Better next time!\nLoooooser =)'} />
 
-            <Donation isWinner={false} />
+            <Donation type="loser" />
 
             <PlayAgainButton />
         </View>

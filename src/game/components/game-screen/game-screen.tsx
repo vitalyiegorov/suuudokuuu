@@ -21,7 +21,7 @@ import {
 import type { CellInterface, FieldInterface, ScoredCellsInterface } from '../../../@logic';
 import { MaxMistakesConstant, Sudoku, defaultSudokuConfig, emptyScoredCells } from '../../../@logic';
 import { gameResetAction, gameSaveAction, gameStartAction } from '../../store/game.actions';
-import { gameMistakesSelector, gameScoreSelector, gameStartedAtSelector } from '../../store/game.selectors';
+import { gameElapsedTimeSelector, gameMistakesSelector, gameScoreSelector } from '../../store/game.selectors';
 import { AvailableValues } from '../available-values/available-values';
 import { Field } from '../field/field';
 import { GameTimer } from '../game-timer/game-timer';
@@ -34,9 +34,9 @@ export const GameScreen = () => {
     const { field: routeField, difficulty: routeDifficulty } = useLocalSearchParams<{ field?: string; difficulty?: DifficultyEnum }>();
 
     const dispatch = useAppDispatch();
-    const startedAt = useAppSelector(gameStartedAtSelector);
     const savedScore = useAppSelector(gameScoreSelector);
     const savedMistakes = useAppSelector(gameMistakesSelector);
+    const savedTime = useAppSelector(gameElapsedTimeSelector);
 
     const sudokuRef = useRef<Sudoku>(new Sudoku(defaultSudokuConfig));
 
@@ -85,7 +85,7 @@ export const GameScreen = () => {
     }, []);
     const handleCorrectValue = useCallback(
         ([correctCell, newScoredCells]: [CellInterface, ScoredCellsInterface]) => {
-            const newScore = score + sudokuRef.current.getScore(newScoredCells, startedAt, mistakes);
+            const newScore = score + sudokuRef.current.getScore(newScoredCells, savedTime, mistakes);
             const sudokuString = sudokuRef.current.toString();
 
             setScoredCells(newScoredCells);
@@ -110,7 +110,7 @@ export const GameScreen = () => {
 
             dispatch(gameSaveAction({ newScore, sudokuString, mistakes }));
         },
-        [dispatch, mistakes, router, score, startedAt]
+        [dispatch, mistakes, router, score, savedTime]
     );
     const handleWrongValue = useCallback(() => {
         const sudokuString = sudokuRef.current.toString();
@@ -156,7 +156,7 @@ export const GameScreen = () => {
                 sudoku={sudokuRef.current}
             />
 
-            <GameTimer startedAt={startedAt} />
+            <GameTimer />
 
             <AvailableValues
                 onCorrectValue={handleCorrectValue}
