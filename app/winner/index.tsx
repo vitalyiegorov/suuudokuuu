@@ -1,4 +1,4 @@
-import { formatDuration, intervalToDuration } from 'date-fns';
+import { formatDistance } from 'date-fns';
 import { Text, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
@@ -7,14 +7,13 @@ import { gameElapsedTimeSelector, gameScoreSelector } from '../../src/game';
 
 import { WinnerStyles as styles } from './winner.styles';
 
-const title = 'Winner-winner, \n chicken dinner!';
+const title = 'Winners-winner, \n chicken dinner!';
 
 export default function Winner() {
     const score = useSelector(gameScoreSelector);
     const elapsed = useSelector(gameElapsedTimeSelector);
 
-    const duration = intervalToDuration({ start: 0, end: elapsed });
-    const durationFormat = formatDuration(duration);
+    const durationFormat = formatDistance(0, elapsed * 1000, { includeSeconds: true });
 
     return (
         <View style={styles.container}>
