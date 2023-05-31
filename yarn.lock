@@ -14833,12 +14833,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"redux-persist@npm:^6.0.0":
+"redux-persist@npm:6.0.0":
   version: 6.0.0
   resolution: "redux-persist@npm:6.0.0"
   peerDependencies:
     redux: ">4.0.0"
   checksum: edaf10dbf17351ce8058d0802357adae8665b3a1ff39371834e37838ddbe1a79cccbc717b8ba54acb5307651ccf51d0f7dc1cbc8dbae0726ff952d11ef61c6b8
+  languageName: node
+  linkType: hard
+
+"redux-persist@patch:redux-persist@npm%3A6.0.0#./.yarn/patches/redux-persist-npm-6.0.0-56dad69feb.patch::locator=suuudokuuu%40workspace%3A.":
+  version: 6.0.0
+  resolution: "redux-persist@patch:redux-persist@npm%3A6.0.0#./.yarn/patches/redux-persist-npm-6.0.0-56dad69feb.patch::version=6.0.0&hash=1b9e11&locator=suuudokuuu%40workspace%3A."
+  peerDependencies:
+    redux: ">4.0.0"
+  checksum: 89b61b2b0e8d186430ad7d9700ca6fd5669e2ff78ee1f7eaf0ce9cf5d2d0749b13d951dc01f4a8e27859e5d063d12a066b30063f911fc3177670122751aed88b
   languageName: node
   linkType: hard
 

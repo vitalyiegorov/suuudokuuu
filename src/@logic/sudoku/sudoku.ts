@@ -1,20 +1,18 @@
 import { isDefined } from '@rnw-community/shared';
 
-import { type DifficultyEnum, getDifficulty } from '../../@generic/enums/difficulty.enum';
+import { type DifficultyEnum, getDifficulty } from '../../@generic';
 import type { CellInterface } from '../interfaces/cell.interface';
 import type { FieldInterface } from '../interfaces/field.interface';
 import { type ScoredCellsInterface, emptyScoredCells } from '../interfaces/scored-cells.interface';
 import type { SudokuConfigInterface } from '../interfaces/sudoku-config.interface';
 import { SerializableSudoku } from '../serializable-sudoku/serializable-sudoku';
-import type { AvailableValues } from '../types/available-values.type';
+import { SudokuScoring } from '../sudoku-scoring/sudoku-scoring';
 
 // TODO: We can split this class into rules validator(or similar)
 export class Sudoku extends SerializableSudoku {
     private readonly fieldFillingValues: number[];
-    private availableValues: AvailableValues = {};
-    private possibleValues: number[] = [];
 
-    constructor(config: SudokuConfigInterface) {
+    constructor(config: SudokuConfigInterface, public readonly scoring: SudokuScoring = new SudokuScoring(config.score)) {
         super(config);
 
         // TODO: Is there a better way to randomize array of numbers in JS? =)
@@ -25,12 +23,9 @@ export class Sudoku extends SerializableSudoku {
         }
     }
 
-    get PossibleValues(): number[] {
-        return [...this.possibleValues];
-    }
-
-    get AvailableValues(): AvailableValues {
-        return { ...this.availableValues };
+    // TODO: Can we avoid it and just use parent version with correct types?
+    static override fromString(fieldsString: string, config: SudokuConfigInterface): Sudoku {
+        return super.fromString(fieldsString, config) as Sudoku;
     }
 
     create(difficulty: DifficultyEnum): void {
@@ -52,8 +47,32 @@ export class Sudoku extends SerializableSudoku {
         this.calculatePossibleValues();
     }
 
-    isCorrectValue(cell: CellInterface): boolean {
-        return this.field[cell.y][cell.x].value === cell.value;
+    getValueProgress(value: number): number {
+        return this.availableValues[value].progress;
+    }
+
+    getCorrectValue(cell?: CellInterface): number {
+        return isDefined(cell) ? this.field[cell.y][cell.x].value : this.blankCellValue;
+    }
+
+    isCorrectValue(cell?: CellInterface): boolean {
+        return isDefined(cell) && this.field[cell.y][cell.x].value === cell.value;
+    }
+
+    isValueAvailable(cell?: CellInterface): boolean {
+        return isDefined(cell) && this.availableValues[cell.value].count < this.fieldSize;
+    }
+
+    isLastInCellGroupX(cell: CellInterface): boolean {
+        return cell.x < this.fieldSize - 1 && (cell.x + 1) % this.fieldGroupWidth === 0;
+    }
+
+    isLastInCellGroupY(cell: CellInterface): boolean {
+        return cell.y < this.fieldSize - 1 && (cell.y + 1) % this.fieldGroupHeight === 0;
+    }
+
+    isBlankCell(cell?: CellInterface): cell is CellInterface {
+        return isDefined(cell) && this.gameField[cell.y][cell.x].value === this.blankCellValue;
     }
 
     // eslint-disable-next-line max-statements
@@ -63,7 +82,7 @@ export class Sudoku extends SerializableSudoku {
             this.gameField[cell.y][cell.x].value = cell.value;
             const blankCell = { ...cell, value: this.blankCellValue };
 
-            this.availableValues[cell.value] += 1;
+            this.calculateAvailableValues();
             this.calculatePossibleValues();
 
             if (!this.hasValueInColumn(this.gameField, blankCell)) {
@@ -81,6 +100,7 @@ export class Sudoku extends SerializableSudoku {
             // HINT: No possible values left - winner!
             if (this.possibleValues.length === 0) {
                 scoredCells.values = this.fieldFillingValues;
+                scoredCells.isWon = true;
                 // HINT: This value is completed!
             } else if (!this.possibleValues.includes(cell.value)) {
                 scoredCells.values = [cell.value];
@@ -142,13 +162,6 @@ export class Sudoku extends SerializableSudoku {
         return false;
     }
 
-    private calculatePossibleValues(): void {
-        this.possibleValues = Object.keys(this.availableValues)
-            .map(Number)
-            .filter(key => this.availableValues[key] < this.fieldSize)
-            .map(key => key);
-    }
-
     /**
      * TODO: Can we improve generation speed? =)
      * HINT: This algorithm is based on backtracking
@@ -180,18 +193,5 @@ export class Sudoku extends SerializableSudoku {
         }
 
         return false;
-    }
-
-    private calculateAvailableValues(): void {
-        this.availableValues = {};
-
-        for (const row of this.gameField) {
-            for (const col of row) {
-                const { value } = col;
-                if (value !== this.blankCellValue) {
-                    this.availableValues[value] = isDefined(this.availableValues[value]) ? this.availableValues[value] + 1 : 1;
-                }
-            }
-        }
     }
 }

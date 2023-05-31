@@ -1,9 +1,3 @@
 import { gameSlice } from './game.slice';
 
-export const {
-    start: gameLoadAction,
-    selectCell: gameSelectCellAction,
-    finishMove: gameFinishMoveAction,
-    madeAMistake: gameMadeAMistakeAction,
-    reset: gameResetAction
-} = gameSlice.actions;
+export const { start: gameLoadAction, move: gameMoveAction, reset: gameResetAction } = gameSlice.actions;

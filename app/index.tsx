@@ -8,17 +8,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { isNotEmptyString } from '@rnw-community/shared';
 
 import { DifficultySelect } from '../src/@app-root';
-import {
-    BlackButton,
-    type DifficultyEnum,
-    Header,
-    InitialDateConstant,
-    PageHeader,
-    SupportUkraineBanner,
-    useAppDispatch,
-    useAppSelector
-} from '../src/@generic';
-import { gameLoadAction, gameStartedAtSelector } from '../src/game';
+import { BlackButton, type DifficultyEnum, Header, PageHeader, SupportUkraineBanner, useAppSelector } from '../src/@generic';
+import { gameSudokuStringSelector } from '../src/game';
 import { historyBestTimeSelector } from '../src/history';
 
 import { StartScreenStyles as styles } from './start-screen.styles';
@@ -26,12 +17,13 @@ import { StartScreenStyles as styles } from './start-screen.styles';
 export default function StartScreen() {
     const router = useRouter();
 
-    const dispatch = useAppDispatch();
-    const isGameStarted = useAppSelector(gameStartedAtSelector).getTime() > InitialDateConstant.getTime();
+    const oldGameString = useAppSelector(gameSudokuStringSelector);
     const [bestScore, bestTime] = useAppSelector(historyBestTimeSelector);
-    const bestTimeFormat = formatDuration(bestTime);
 
     const [showDifficultySelect, setShowDifficultySelect] = useState(false);
+
+    const isGameStarted = isNotEmptyString(oldGameString);
+    const bestTimeFormat = formatDuration(bestTime);
 
     const handleDifficultySelect = () => {
         setShowDifficultySelect(true);
@@ -40,20 +32,17 @@ export default function StartScreen() {
         setShowDifficultySelect(false);
     };
     const handleStart = (difficulty: DifficultyEnum) => {
-        dispatch(gameLoadAction(difficulty));
-        router.push('game');
+        router.push(`game?difficulty=${difficulty}`);
         setShowDifficultySelect(false);
     };
     const handleContinue = () => {
-        router.push('game');
+        router.push(`game?field=${oldGameString}`);
     };
 
     return (
         <SafeAreaView style={styles.container}>
             <PageHeader />
-
             <SupportUkraineBanner />
-
             <View style={styles.historyContainer} />
 
             <View style={styles.centerContainer}>
@@ -62,7 +51,6 @@ export default function StartScreen() {
                 {!showDifficultySelect && (
                     <View style={styles.buttonWrapper}>
                         {isGameStarted ? <BlackButton onPress={handleContinue} text="Continue" /> : null}
-
                         <BlackButton onPress={handleDifficultySelect} text="Start new" />
                     </View>
                 )}
@@ -70,7 +58,6 @@ export default function StartScreen() {
                 {showDifficultySelect ? (
                     <>
                         <DifficultySelect onSelect={handleStart} />
-
                         <BlackButton onPress={handleBack} text="Back" />
                     </>
                 ) : null}
@@ -81,13 +68,11 @@ export default function StartScreen() {
                     <>
                         <View style={styles.historyGroup}>
                             <Text style={styles.historyLabel}>Best score</Text>
-
                             <Text style={styles.historyValue}>{bestScore}</Text>
                         </View>
 
                         <View style={styles.historyGroup}>
                             <Text style={styles.historyLabel}>Best time</Text>
-
                             <Text style={styles.historyValue}>{bestTimeFormat}</Text>
                         </View>
                     </>
@@ -95,11 +80,7 @@ export default function StartScreen() {
             </View>
 
             <View style={styles.bottomContainer}>
-                <Text style={styles.bottomLink}>
-                    V.
-                    {Constants.expoConfig?.version}
-                </Text>
-
+                <Text style={styles.bottomLink}>V.{Constants.expoConfig?.version}</Text>
                 <Link href="/privacy-policy" style={styles.bottomLink}>
                     <Text>Privacy policy</Text>
                 </Link>
