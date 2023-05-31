@@ -8,3 +8,4 @@ export const gameStartedAtSelector = createSelector(gameSelector, state => new D
 export const gameSudokuStringSelector = createSelector(gameSelector, state => state.sudokuString);
 export const gameEndedAtSelector = createSelector(gameSelector, state => new Date(state.endedAt));
 export const gameScoreSelector = createSelector(gameSelector, state => state.score);
+export const gameMistakesSelector = createSelector(gameSelector, state => state.mistakes);
