@@ -1,3 +1,9 @@
 import { gameSlice } from './game.slice';
 
-export const { start: gameStartAction, save: gameSaveAction, reset: gameResetAction } = gameSlice.actions;
+export const {
+    start: gameStartAction,
+    save: gameSaveAction,
+    reset: gameResetAction,
+    pause: gamePauseAction,
+    resume: gameResumeAction
+} = gameSlice.actions;
