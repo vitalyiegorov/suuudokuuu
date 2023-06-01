@@ -3,13 +3,14 @@ export * from './constants/animation.constant';
 
 export * from './enums/difficulty.enum';
 
-export * from './hooks/redux.hook';
+export * from './hooks/use-app-dispatch.hook';
+export * from './hooks/use-app-selector.hook';
+export * from './hooks/use-app-state-change.hook';
 
 export * from './styles/theme';
 export * from './styles/media-queries';
 
 export * from './utils/haptic/haptic.util';
-export * from './utils/get-elapsed-time.util';
 export * from './utils/get-game-distance.util';
 
 export * from './components/alert/alert';

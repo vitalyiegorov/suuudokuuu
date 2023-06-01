@@ -1,4 +1,4 @@
-export const getElapsedTime = (timeInSeconds: number) => {
+export const getTimerText = (timeInSeconds: number) => {
     const minutes = Math.floor(timeInSeconds / 60);
     const seconds = timeInSeconds % 60;
 
