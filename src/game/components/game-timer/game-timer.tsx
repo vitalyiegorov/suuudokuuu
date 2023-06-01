@@ -5,20 +5,11 @@ import { AppState, type AppStateStatus, Text, View } from 'react-native';
 import { isDefined } from '@rnw-community/shared';
 
 import { useAppDispatch, useAppSelector } from '../../../@generic';
-import { gamePauseAction } from '../../store/game.actions';
+import { getElapsedTime } from '../../../@generic/utils/get-elapsed-time.util';
+import { gamePauseAction, gameUpdateTimeAction } from '../../store/game.actions';
 import { gameElapsedTimeSelector, gamePausedSelector } from '../../store/game.selectors';
 
 import { GameTimerStyles as styles } from './game-timer.styles';
-
-const getElapsedTime = (timeInSeconds: number) => {
-    const minutes = Math.floor(timeInSeconds / 60);
-    const seconds = timeInSeconds % 60;
-
-    const formattedMinutes = String(minutes).padStart(2, '0');
-    const formattedSeconds = String(seconds).padStart(2, '0');
-
-    return `${formattedMinutes}:${formattedSeconds}`;
-};
 
 export const GameTimer = () => {
     const router = useRouter();
@@ -37,9 +28,10 @@ export const GameTimer = () => {
                 const startTime = Date.now();
                 timerIntervalRef.current = setInterval(() => {
                     setTimerValue(() => savedTime + Math.floor((Date.now() - startTime) / 1000));
+                    dispatch(gameUpdateTimeAction(timerValue));
                 }, 1000);
             }
-        }, [paused, savedTime])
+        }, [dispatch, paused, savedTime, timerValue])
     );
     useEffect(() => {
         const subscription = AppState.addEventListener('change', (nextAppState: AppStateStatus) => {

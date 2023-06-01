@@ -1,5 +1,3 @@
-export * from './interfaces/game.interface';
-
 export * from './components/constants/dimensions.contant';
 
 export * from './store/game.slice';

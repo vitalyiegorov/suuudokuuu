@@ -9,6 +9,8 @@ export * from './styles/theme';
 export * from './styles/media-queries';
 
 export * from './utils/haptic/haptic.util';
+export * from './utils/get-elapsed-time.util';
+export * from './utils/get-game-distance.util';
 
 export * from './components/alert/alert';
 export * from './components/page-header/page-header';
