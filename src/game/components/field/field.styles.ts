@@ -8,7 +8,7 @@ export const FieldStyles = StyleSheet.create({
     },
     wrapper: {
         alignItems: 'center',
-        flex: 5,
+        flex: 4,
         flexDirection: 'column',
         justifyContent: isMobileScreen() || isTabletScreen() ? 'center' : 'flex-end',
         margin: 'auto',

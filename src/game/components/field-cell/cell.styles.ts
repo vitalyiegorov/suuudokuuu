@@ -16,10 +16,12 @@ export const CellStyles = StyleSheet.create({
         width: CellSizeConstant
     },
     groupXEnd: {
-        borderRightWidth: 1
+        borderRightWidth: 1,
+        marginRight: 5
     },
     groupYEnd: {
-        borderBottomWidth: 1
+        borderBottomWidth: 1,
+        marginBottom: 5
     },
     lastCol: {
         borderRightWidth: 1
