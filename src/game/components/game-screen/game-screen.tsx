@@ -21,7 +21,7 @@ import {
 import type { CellInterface, FieldInterface, ScoredCellsInterface } from '../../../@logic';
 import { MaxMistakesConstant, Sudoku, defaultSudokuConfig, emptyScoredCells } from '../../../@logic';
 import { historyRecordAction } from '../../../history';
-import { gameResetAction, gameSaveAction, gameStartAction } from '../../store/game.actions';
+import { gameFinishAction, gameResetAction, gameSaveAction, gameStartAction } from '../../store/game.actions';
 import { gameElapsedTimeSelector, gameMistakesSelector, gameScoreSelector } from '../../store/game.selectors';
 import { AvailableValues } from '../available-values/available-values';
 import { Field } from '../field/field';
@@ -105,6 +105,7 @@ export const GameScreen = () => {
                         isWon: true
                     })
                 );
+                dispatch(gameFinishAction());
 
                 // TODO: We need to wait for the animation to finish, animation finish event would fix it?
                 setTimeout(() => void router.push('winner'), 10 * animationDurationConstant);
@@ -132,6 +133,7 @@ export const GameScreen = () => {
             hapticNotification(Haptics.NotificationFeedbackType.Error);
             setMistakes(prevState => prevState + 1);
         } else {
+            dispatch(gameFinishAction());
             hapticImpact(ImpactFeedbackStyle.Heavy);
             router.push('loser');
         }

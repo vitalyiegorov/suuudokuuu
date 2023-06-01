@@ -7,6 +7,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { gameSlice } from '../../game';
 import { initialGameState } from '../../game/store/game.state';
 import { historySlice } from '../../history';
+import { initialHistoryState } from '../../history/store/history.state';
 
 import { appRootSlice } from './app-root.slice';
 
@@ -15,7 +16,7 @@ import { appRootSlice } from './app-root.slice';
 
 // HINT: All changes to state that are persisted should be handled through this migration
 const migrations: MigrationManifest<RootState> = {
-    3: state => ({ ...state, [gameSlice.name]: { ...initialGameState } })
+    5: state => ({ ...state, [gameSlice.name]: { ...initialGameState }, [historySlice.name]: { ...initialHistoryState } })
 };
 
 const rootReducer = combineReducers({
@@ -28,7 +29,7 @@ const persistedReducer = persistReducer(
     {
         key: 'root',
         storage: AsyncStorage,
-        version: 4,
+        version: 5,
         migrate: createMigrate(migrations)
     },
     rootReducer
