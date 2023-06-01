@@ -1,7 +1,7 @@
 import { Text, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
-import { Donation, Header, PageHeader, PlayAgainButton, getGameDistance } from '../../src/@generic';
+import { Donation, Header, PageHeader, PlayAgainButton, getTimerText } from '../../src/@generic';
 import { gameElapsedTimeSelector, gameScoreSelector } from '../../src/game';
 
 import { WinnerStyles as styles } from './winner.styles';
@@ -23,7 +23,7 @@ export default function Winner() {
                 </Text>
 
                 <Text style={styles.timeText}>
-                    It took you <Text style={styles.boldText}>{getGameDistance(elapsedTime)}</Text>
+                    It took you <Text style={styles.boldText}>{getTimerText(elapsedTime)}</Text>
                 </Text>
             </View>
 
