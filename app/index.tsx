@@ -1,4 +1,3 @@
-import { formatDuration } from 'date-fns';
 import Constants from 'expo-constants';
 import { Link, useRouter } from 'expo-router';
 import { useState } from 'react';
@@ -8,7 +7,15 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { isNotEmptyString } from '@rnw-community/shared';
 
 import { DifficultySelect } from '../src/@app-root';
-import { BlackButton, type DifficultyEnum, Header, PageHeader, SupportUkraineBanner, useAppSelector } from '../src/@generic';
+import {
+    BlackButton,
+    type DifficultyEnum,
+    Header,
+    PageHeader,
+    SupportUkraineBanner,
+    getGameDistance,
+    useAppSelector
+} from '../src/@generic';
 import { gameSudokuStringSelector } from '../src/game';
 import { historyBestTimeSelector } from '../src/history';
 
@@ -23,7 +30,6 @@ export default function StartScreen() {
     const [showDifficultySelect, setShowDifficultySelect] = useState(false);
 
     const isGameStarted = isNotEmptyString(oldGameString);
-    const bestTimeFormat = formatDuration(bestTime);
 
     const handleDifficultySelect = () => {
         setShowDifficultySelect(true);
@@ -64,7 +70,7 @@ export default function StartScreen() {
             </View>
 
             <View style={styles.historyContainer}>
-                {isNotEmptyString(bestTimeFormat) && (
+                {bestScore > 0 && (
                     <>
                         <View style={styles.historyGroup}>
                             <Text style={styles.historyLabel}>Best score</Text>
@@ -73,7 +79,7 @@ export default function StartScreen() {
 
                         <View style={styles.historyGroup}>
                             <Text style={styles.historyLabel}>Best time</Text>
-                            <Text style={styles.historyValue}>{bestTimeFormat}</Text>
+                            <Text style={styles.historyValue}>{getGameDistance(bestTime)}</Text>
                         </View>
                     </>
                 )}

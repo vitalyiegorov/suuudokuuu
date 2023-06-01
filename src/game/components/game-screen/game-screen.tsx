@@ -20,6 +20,7 @@ import {
 } from '../../../@generic';
 import type { CellInterface, FieldInterface, ScoredCellsInterface } from '../../../@logic';
 import { MaxMistakesConstant, Sudoku, defaultSudokuConfig, emptyScoredCells } from '../../../@logic';
+import { historyRecordAction } from '../../../history';
 import { gameResetAction, gameSaveAction, gameStartAction } from '../../store/game.actions';
 import { gameElapsedTimeSelector, gameMistakesSelector, gameScoreSelector } from '../../store/game.selectors';
 import { AvailableValues } from '../available-values/available-values';
@@ -51,6 +52,7 @@ export const GameScreen = () => {
     useEffect(() => {
         if (isNotEmptyString(routeField)) {
             sudokuRef.current = Sudoku.fromString(routeField, defaultSudokuConfig);
+            // TODO: Should we save state here?
         } else if (isNotEmptyString(routeDifficulty)) {
             sudokuRef.current.create(routeDifficulty);
 
@@ -59,8 +61,9 @@ export const GameScreen = () => {
             // eslint-disable-next-line no-undefined
             setSelectedCell(undefined);
 
-            dispatch(gameStartAction({ difficulty: routeDifficulty, sudokuString: sudokuRef.current.toString() }));
+            dispatch(gameStartAction({ sudokuString: sudokuRef.current.toString() }));
         }
+
         setField(sudokuRef.current.Field);
     }, [routeField, routeDifficulty, dispatch]);
 
@@ -84,6 +87,7 @@ export const GameScreen = () => {
         setScoredCells(emptyScoredCells);
     }, []);
     const handleCorrectValue = useCallback(
+        // eslint-disable-next-line max-statements
         ([correctCell, newScoredCells]: [CellInterface, ScoredCellsInterface]) => {
             const newScore = score + sudokuRef.current.getScore(newScoredCells, savedTime, mistakes);
             const sudokuString = sudokuRef.current.toString();
@@ -92,7 +96,16 @@ export const GameScreen = () => {
             setScore(newScore);
 
             if (newScoredCells.isWon) {
-                hapticImpact(ImpactFeedbackStyle.Heavy);
+                Array(3).forEach(() => void hapticImpact(ImpactFeedbackStyle.Heavy));
+                dispatch(
+                    historyRecordAction({
+                        difficulty: sudokuRef.current.Difficulty,
+                        elapsedTime: savedTime,
+                        score: newScore,
+                        isWon: true
+                    })
+                );
+
                 // TODO: We need to wait for the animation to finish, animation finish event would fix it?
                 setTimeout(() => void router.push('winner'), 10 * animationDurationConstant);
             } else {
@@ -108,7 +121,7 @@ export const GameScreen = () => {
                 }
             }
 
-            dispatch(gameSaveAction({ newScore, sudokuString, mistakes }));
+            dispatch(gameSaveAction({ newScore, sudokuString, mistakes, elapsedTime: savedTime }));
         },
         [dispatch, mistakes, router, score, savedTime]
     );
@@ -123,8 +136,8 @@ export const GameScreen = () => {
             router.push('loser');
         }
 
-        dispatch(gameSaveAction({ sudokuString, newScore: score, mistakes: mistakes + 1 }));
-    }, [dispatch, mistakes, router, score]);
+        dispatch(gameSaveAction({ sudokuString, newScore: score, mistakes: mistakes + 1, elapsedTime: savedTime }));
+    }, [dispatch, mistakes, router, savedTime, score]);
 
     const mistakesCountTextStyles = [styles.mistakesCountText, cs(maxMistakesReached, styles.mistakesCountErrorText)];
 

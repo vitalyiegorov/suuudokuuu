@@ -1,6 +1,6 @@
 import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
-import { type DifficultyEnum } from '../../../@generic';
+import { DifficultyEnum } from '../../../@generic';
 import type { FieldInterface } from '../../interfaces/field.interface';
 import type { SudokuConfigInterface } from '../../interfaces/sudoku-config.interface';
 import { type AvailableValuesType } from '../../types/available-values.type';
@@ -43,6 +43,10 @@ export class SerializableSudoku {
         return this.possibleValues;
     }
 
+    get Difficulty(): DifficultyEnum {
+        return this.difficulty;
+    }
+
     // eslint-disable-next-line max-statements
     static fromString(fieldsString: string, config: SudokuConfigInterface) {
         const game = new this(config);
@@ -68,7 +72,8 @@ export class SerializableSudoku {
         game.gameField = game.cloneField(game.field);
 
         game.convertFieldFromString(fieldString, game.field);
-        game.convertFieldFromString(gameFieldString, game.gameField);
+        const blankCellCount = game.convertFieldFromString(gameFieldString, game.gameField);
+        game.setDifficultyByBlankCells(blankCellCount);
 
         game.calculateAvailableValues();
         game.calculatePossibleValues();
@@ -126,15 +131,32 @@ export class SerializableSudoku {
         );
     }
 
-    private convertFieldFromString(fieldString: string, field: FieldInterface): FieldInterface {
-        return fieldString.split('').reduce((acc, stringValue, index) => {
+    private setDifficultyByBlankCells(blankCellCount: number): void {
+        for (const difficulty of Object.values(DifficultyEnum)) {
+            if (this.config.difficultyBlankCellsPercentage[difficulty] <= blankCellCount / (this.fieldSize * this.fieldSize)) {
+                this.difficulty = difficulty;
+                break;
+            }
+        }
+    }
+
+    private convertFieldFromString(fieldString: string, field: FieldInterface): number {
+        let blankCellCount = 0;
+
+        fieldString.split('').reduce((acc, stringValue, index) => {
             const x = index % this.fieldSize;
             const y = Math.floor(index / this.fieldSize);
             const value = stringValue === this.emptyStringValue ? this.blankCellValue : parseInt(stringValue, 10);
 
             acc[y][x] = { ...acc[y][x], value };
 
+            if (value === this.blankCellValue) {
+                blankCellCount += 1;
+            }
+
             return acc;
         }, field);
+
+        return blankCellCount;
     }
 }

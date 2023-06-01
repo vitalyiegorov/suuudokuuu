@@ -1,7 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit';
 
 import type { RootState } from '../../@app-root';
-import { historyBestGame } from '../utils/history-best-time.util';
+import { historyBestGame } from '../utils/history-best-game.util';
 
 export const historySelector = (state: RootState) => state.history;
 
