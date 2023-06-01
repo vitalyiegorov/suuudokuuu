@@ -16,7 +16,7 @@ import { appRootSlice } from './app-root.slice';
 
 // HINT: All changes to state that are persisted should be handled through this migration
 const migrations: MigrationManifest<RootState> = {
-    4: state => ({ ...state, [gameSlice.name]: { ...initialGameState }, [historySlice.name]: { ...initialHistoryState } })
+    5: state => ({ ...state, [gameSlice.name]: { ...initialGameState }, [historySlice.name]: { ...initialHistoryState } })
 };
 
 const rootReducer = combineReducers({
@@ -29,7 +29,7 @@ const persistedReducer = persistReducer(
     {
         key: 'root',
         storage: AsyncStorage,
-        version: 4,
+        version: 5,
         migrate: createMigrate(migrations)
     },
     rootReducer
