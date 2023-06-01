@@ -12,9 +12,8 @@ export const gameSlice = createSlice({
             state.sudokuString = action.payload.sudokuString;
             state.elapsedTime = 0;
         },
-        pause: (state, action: PayloadAction<number>) => {
+        pause: state => {
             state.paused = true;
-            state.elapsedTime = action.payload;
         },
         resume: state => {
             state.paused = false;
@@ -25,8 +24,8 @@ export const gameSlice = createSlice({
             state.score = action.payload.newScore;
             state.mistakes = action.payload.mistakes;
         },
-        updateTime: (state, action: PayloadAction<number>) => {
-            state.elapsedTime = action.payload;
+        tick: state => {
+            state.elapsedTime += 1;
         },
         reset: state => {
             Object.assign(state, initialGameState);
