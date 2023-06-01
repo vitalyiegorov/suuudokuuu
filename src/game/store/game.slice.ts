@@ -1,17 +1,14 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import type { DifficultyEnum } from '../../@generic';
-
 import { initialGameState } from './game.state';
 
 export const gameSlice = createSlice({
     name: 'game',
     initialState: initialGameState,
     reducers: {
-        start: (state, action: PayloadAction<{ difficulty: DifficultyEnum; sudokuString: string }>) => {
+        start: (state, action: PayloadAction<{ sudokuString: string }>) => {
             Object.assign(state, initialGameState);
 
-            state.difficulty = action.payload.difficulty;
             state.sudokuString = action.payload.sudokuString;
             state.elapsedTime = 0;
         },
@@ -22,10 +19,14 @@ export const gameSlice = createSlice({
         resume: state => {
             state.paused = false;
         },
-        save: (state, action: PayloadAction<{ sudokuString: string; newScore: number; mistakes: number }>) => {
+        save: (state, action: PayloadAction<{ elapsedTime: number; sudokuString: string; newScore: number; mistakes: number }>) => {
+            state.elapsedTime = action.payload.elapsedTime;
             state.sudokuString = action.payload.sudokuString;
             state.score = action.payload.newScore;
             state.mistakes = action.payload.mistakes;
+        },
+        updateTime: (state, action: PayloadAction<number>) => {
+            state.elapsedTime = action.payload;
         },
         reset: state => {
             Object.assign(state, initialGameState);

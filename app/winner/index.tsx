@@ -1,8 +1,7 @@
-import { formatDistance } from 'date-fns';
 import { Text, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
-import { Donation, Header, PageHeader, PlayAgainButton } from '../../src/@generic';
+import { Donation, Header, PageHeader, PlayAgainButton, getGameDistance } from '../../src/@generic';
 import { gameElapsedTimeSelector, gameScoreSelector } from '../../src/game';
 
 import { WinnerStyles as styles } from './winner.styles';
@@ -11,9 +10,7 @@ const title = 'Winners-winner, \n chicken dinner!';
 
 export default function Winner() {
     const score = useSelector(gameScoreSelector);
-    const elapsed = useSelector(gameElapsedTimeSelector);
-
-    const durationFormat = formatDistance(0, elapsed * 1000, { includeSeconds: true });
+    const elapsedTime = useSelector(gameElapsedTimeSelector);
 
     return (
         <View style={styles.container}>
@@ -26,7 +23,7 @@ export default function Winner() {
                 </Text>
 
                 <Text style={styles.timeText}>
-                    It took you <Text style={styles.boldText}>{durationFormat}</Text>
+                    It took you <Text style={styles.boldText}>{getGameDistance(elapsedTime)}</Text>
                 </Text>
             </View>
 

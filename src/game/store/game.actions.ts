@@ -5,5 +5,6 @@ export const {
     save: gameSaveAction,
     reset: gameResetAction,
     pause: gamePauseAction,
-    resume: gameResumeAction
+    resume: gameResumeAction,
+    updateTime: gameUpdateTimeAction
 } = gameSlice.actions;
