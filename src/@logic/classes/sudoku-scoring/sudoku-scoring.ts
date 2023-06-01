@@ -9,8 +9,6 @@ export class SudokuScoring {
 
     calculate(difficulty: DifficultyEnum, scoredCells: ScoredCellsInterface, mistakes: number, elapsedTime: number): number {
         this.currentScore = this.getDifficultyBonus(this.config.correctValue, difficulty);
-        this.currentScore = this.getElapsedPenalty(this.currentScore, elapsedTime);
-        this.currentScore = this.getMistakesPenalty(this.currentScore, mistakes);
 
         if (scoredCells.x !== emptyScoredCells.x) {
             this.currentScore += this.getCompletedRowBonus();
@@ -27,6 +25,9 @@ export class SudokuScoring {
         if (scoredCells.values.length === 1) {
             this.currentScore += this.getCompletedValuesBonus();
         }
+
+        this.currentScore = this.getElapsedPenalty(this.currentScore, elapsedTime);
+        this.currentScore = this.getMistakesPenalty(this.currentScore, mistakes);
 
         return Math.max(this.currentScore, this.config.correctMinValue);
     }

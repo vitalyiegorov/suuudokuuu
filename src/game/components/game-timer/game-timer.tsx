@@ -4,10 +4,9 @@ import { Text, View } from 'react-native';
 
 import { isDefined } from '@rnw-community/shared';
 
-import { useAppDispatch, useAppSelector, useAppStateChange } from '../../../@generic';
+import { getTimerText, useAppDispatch, useAppSelector, useAppStateChange } from '../../../@generic';
 import { gamePauseAction, gameTickAction } from '../../store/game.actions';
 import { gameElapsedTimeSelector, gameIsGameActiveSelector, gamePausedSelector } from '../../store/game.selectors';
-import { getTimerText } from '../../utils/get-timer-text.util';
 
 import { GameTimerStyles as styles } from './game-timer.styles';
 
