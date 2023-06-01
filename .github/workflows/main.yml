@@ -2,6 +2,9 @@ name: Deploy production
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+  EXPO_APPLE_TEAM_TYPE: INDIVIDUAL
+  EXPO_APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
+  EXPO_ASC_API_KEY_PATH: asc_api_key.p8
 on:
   workflow_dispatch:
   push:
@@ -55,11 +58,17 @@ jobs:
           eas-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
 
+      - name: ASC API Key file creation
+        uses: MobileDevOps/secret-to-file-action@v1.0.0
+
       - name: Install dependencies
         run: yarn install
 
-#      - name: Build on EAS
-#        run: eas build --platform ios --non-interactive
-#
-#      - name: Submit IOS
-#        run: eas submit --platform ios --latest --non-interactive
+      - name: Build on EAS
+        run: eas build --platform ios --non-interactive
+        with:
+          base64-encoded-secret: ${{ secrets.EXPO_API_KEY }}
+          filename: "asc_api_key.p8"
+
+      - name: Submit IOS
+        run: eas submit --platform ios --latest --non-interactive

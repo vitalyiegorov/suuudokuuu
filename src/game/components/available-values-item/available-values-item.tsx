@@ -10,7 +10,7 @@ import Reanimated, {
 
 import { type OnEventFn, cs } from '@rnw-community/shared';
 
-import { Colors } from '../../../@generic/styles/theme';
+import { Colors } from '../../../@generic';
 
 import { AvailableValuesItemStyles as styles } from './available-values-item.styles';
 
@@ -21,12 +21,13 @@ interface Props {
     canPress: boolean;
     isActive: boolean;
     progress: number;
-    isCorrect: boolean;
+    correctValue?: number;
     onSelect: OnEventFn<number>;
 }
 
 // TODO: Add animation when correct value is selected
-export const AvailableValuesItem = ({ value, isActive, onSelect, progress, isCorrect, canPress }: Props) => {
+export const AvailableValuesItem = ({ value, isActive, onSelect, progress, correctValue, canPress }: Props) => {
+    const isCorrect = value === correctValue;
     const pressAnimatedBgColor = isCorrect ? Colors.cell.active : Colors.cell.error;
 
     const animated = useSharedValue(0);
@@ -41,10 +42,8 @@ export const AvailableValuesItem = ({ value, isActive, onSelect, progress, isCor
     }));
 
     const handlePress = () => {
-        if (canPress) {
-            animated.value = withSequence(withTiming(1, { duration: 200 }), withTiming(0, { duration: 200 }));
-            onSelect(value);
-        }
+        animated.value = withSequence(withTiming(1, { duration: 200 }), withTiming(0, { duration: 200 }));
+        onSelect(value);
     };
 
     const buttonStyles = [styles.button, cs(isActive, styles.wrapperActive), animatedStyles];
@@ -53,7 +52,7 @@ export const AvailableValuesItem = ({ value, isActive, onSelect, progress, isCor
 
     return (
         <View style={styles.container}>
-            <ReanimatedPressable key={value} onPress={handlePress} style={buttonStyles}>
+            <ReanimatedPressable key={value} style={buttonStyles} {...(canPress && { onPress: handlePress })}>
                 <Text style={textStyles}>{value}</Text>
             </ReanimatedPressable>
 

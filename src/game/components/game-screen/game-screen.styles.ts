@@ -5,7 +5,8 @@ import { Colors } from '../../../@generic';
 export const GameScreenStyles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 10
+        padding: 10,
+        paddingBottom: 20
     },
     controls: {
         alignItems: 'flex-start',
@@ -19,7 +20,15 @@ export const GameScreenStyles = StyleSheet.create({
     headerText: {
         color: Colors.black
     },
+    mistakesCountErrorText: {
+        color: Colors.red,
+        fontWeight: 'bold'
+    },
     mistakesCountText: {
+        color: Colors.black,
+        fontWeight: 'bold'
+    },
+    mistakesMaxText: {
         color: Colors.black,
         fontWeight: 'bold'
     },

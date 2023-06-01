@@ -1,36 +1,51 @@
-import { differenceInSeconds, format, setMinutes, setSeconds } from 'date-fns';
-import { useEffect, useState } from 'react';
+import { useFocusEffect, useRouter } from 'expo-router';
+import { useCallback, useEffect, useRef } from 'react';
 import { Text, View } from 'react-native';
+
+import { isDefined } from '@rnw-community/shared';
+
+import { getTimerText, useAppDispatch, useAppSelector, useAppStateChange } from '../../../@generic';
+import { gamePauseAction, gameTickAction } from '../../store/game.actions';
+import { gameElapsedTimeSelector, gameIsGameActiveSelector, gamePausedSelector } from '../../store/game.selectors';
 
 import { GameTimerStyles as styles } from './game-timer.styles';
 
-const getElapsedTime = (start: Date) => (end: Date) => {
-    const currentTime = new Date();
+export const GameTimer = () => {
+    const router = useRouter();
 
-    const remainingSeconds = differenceInSeconds(end, start);
-    const minutes = Math.floor(remainingSeconds / 60);
-    const seconds = remainingSeconds % 60;
+    const dispatch = useAppDispatch();
+    const savedTime = useAppSelector(gameElapsedTimeSelector);
+    const paused = useAppSelector(gamePausedSelector);
+    const isGameActive = useAppSelector(gameIsGameActiveSelector);
 
-    return format(setMinutes(setSeconds(currentTime, seconds), minutes), 'mm:ss');
-};
+    const timerIntervalRef = useRef<ReturnType<typeof setInterval> | null>();
 
-interface Props {
-    startedAt: Date;
-}
-
-export const GameTimer = ({ startedAt }: Props) => {
-    const [currentTime, setCurrentTime] = useState(new Date());
-    const elapsedFormatted = getElapsedTime(startedAt);
-
-    useEffect(() => {
-        const handle = setInterval(() => void setCurrentTime(new Date()), 1000);
-
-        return () => void clearTimeout(handle);
+    const stopTimer = useCallback((): void => {
+        if (isDefined(timerIntervalRef.current)) {
+            clearInterval(timerIntervalRef.current);
+            timerIntervalRef.current = null;
+        }
     }, []);
+    const routerScreenFocused = useCallback(() => {
+        if (!paused) {
+            timerIntervalRef.current = setInterval(() => void dispatch(gameTickAction()), 1000);
+        }
+    }, [dispatch, paused]);
+    const appBecameInactive = useCallback((): void => {
+        stopTimer();
+        dispatch(gamePauseAction());
+        router.push('pause');
+    }, [dispatch, router, stopTimer]);
+
+    // HINT: We need to stop timer when game is finished
+    useEffect(() => void (!isGameActive && void stopTimer()), [stopTimer, isGameActive]);
+    // HINT: We should start timer only when we are on this screen and game is not paused
+    useFocusEffect(routerScreenFocused);
+    useAppStateChange(appBecameInactive);
 
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>({elapsedFormatted(currentTime)})</Text>
+            <Text style={styles.text}>({getTimerText(savedTime)})</Text>
         </View>
     );
 };

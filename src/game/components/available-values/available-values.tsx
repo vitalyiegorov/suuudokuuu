@@ -1,53 +1,49 @@
+import { useCallback } from 'react';
 import { View } from 'react-native';
-import { useSelector } from 'react-redux';
 
-import { isDefined } from '@rnw-community/shared';
+import { type OnEventFn, isDefined } from '@rnw-community/shared';
 
-import { useAppDispatch } from '../../../@generic';
-import type { CellInterface, FieldInterface } from '../../../@logic';
-import { BlankCellValueConstant, FieldSizeConstant } from '../../../@logic';
-import { gameSelectValueAction } from '../../store/actions/game-select-value.action';
-import {
-    gameAvailableValuesSelector,
-    gameFullFieldSelector,
-    gamePossibleValuesSelector,
-    gameSelectedCellSelector
-} from '../../store/game.selectors';
+import type { CellInterface, ScoredCellsInterface, Sudoku } from '../../../@logic';
 import { AvailableValuesItem } from '../available-values-item/available-values-item';
 
 import { AvailableValuesStyles as styles } from './available-values.styles';
 
-const getValueProgress = (allValues: Record<number, number>, value: number) => (allValues[value] / FieldSizeConstant) * 100;
-const getCorrectValue = (filledField: FieldInterface, selectedCell?: CellInterface): number => {
-    if (isDefined(selectedCell) && filledField.length > 0) {
-        return filledField[selectedCell.y][selectedCell.x].value;
-    }
+interface Props {
+    sudoku: Sudoku;
+    possibleValues: number[];
+    selectedCell?: CellInterface;
+    onCorrectValue: OnEventFn<[CellInterface, ScoredCellsInterface]>;
+    onWrongValue: OnEventFn<number>;
+}
 
-    return BlankCellValueConstant;
-};
+export const AvailableValues = ({ sudoku, possibleValues, selectedCell, onCorrectValue, onWrongValue }: Props) => {
+    const isBlankCellSelected = sudoku.isBlankCell(selectedCell);
+    const currentCorrectValue = sudoku.getCorrectValue(selectedCell);
 
-export const AvailableValues = () => {
-    const fullField = useSelector(gameFullFieldSelector);
-    const possibleValues = useSelector(gamePossibleValuesSelector);
-    const selectedCell = useSelector(gameSelectedCellSelector);
-    const allValues = useSelector(gameAvailableValuesSelector);
-
-    const correctValue = getCorrectValue(fullField, selectedCell);
-    const canPress = isDefined(selectedCell) && selectedCell.value === BlankCellValueConstant;
-
-    const dispatch = useAppDispatch();
-    const handleSelect = (value: number) => void dispatch(gameSelectValueAction(value));
+    const handleSelectValue = useCallback(
+        (value: number) => {
+            if (isBlankCellSelected && isDefined(selectedCell)) {
+                const newValueCell = { ...selectedCell, value };
+                if (sudoku.isCorrectValue(newValueCell)) {
+                    onCorrectValue([selectedCell, sudoku.setCellValue(newValueCell)]);
+                } else {
+                    onWrongValue(value);
+                }
+            }
+        },
+        [isBlankCellSelected, onCorrectValue, onWrongValue, selectedCell, sudoku]
+    );
 
     return (
         <View style={styles.wrapper}>
             {possibleValues.map(value => (
                 <AvailableValuesItem
-                    canPress={canPress}
+                    canPress={isBlankCellSelected}
+                    correctValue={currentCorrectValue}
                     isActive={false}
-                    isCorrect={value === correctValue}
-                    key={value}
-                    onSelect={handleSelect}
-                    progress={getValueProgress(allValues, value)}
+                    key={`possible-value-${value}`}
+                    onSelect={handleSelectValue}
+                    progress={sudoku.getValueProgress(value)}
                     value={value}
                 />
             ))}
