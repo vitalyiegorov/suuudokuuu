@@ -1,4 +1,4 @@
-import { type DifficultyEnum } from '../../../@generic';
+import { type DifficultyEnum } from '../../../@generic/enums/difficulty.enum';
 import { type ScoredCellsInterface, emptyScoredCells } from '../../interfaces/scored-cells.interface';
 import { type SudokuScoringConfigInterface } from '../../interfaces/sudoku-scoring-config.interface';
 

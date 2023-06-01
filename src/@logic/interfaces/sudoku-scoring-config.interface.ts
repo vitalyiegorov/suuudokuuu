@@ -1,4 +1,4 @@
-import { DifficultyEnum } from '../../@generic';
+import { DifficultyEnum } from '../../@generic/enums/difficulty.enum';
 
 export interface SudokuScoringConfigInterface {
     // Base score value for correct value
