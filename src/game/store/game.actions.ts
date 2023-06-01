@@ -6,5 +6,5 @@ export const {
     reset: gameResetAction,
     pause: gamePauseAction,
     resume: gameResumeAction,
-    updateTime: gameUpdateTimeAction
+    tick: gameTickAction
 } = gameSlice.actions;
