@@ -32,9 +32,7 @@ export class SudokuScoring {
         return Math.max(this.currentScore, this.config.correctMinValue);
     }
 
-    private getElapsedPenalty(score: number, elapsedTime: number): number {
-        const elapsedSeconds = elapsedTime / 1000;
-
+    private getElapsedPenalty(score: number, elapsedSeconds: number): number {
         return Math.floor(score - score * elapsedSeconds * this.config.elapsedCoefficient);
     }
 
