@@ -10,6 +10,7 @@ import { historySlice } from '../../history';
 
 import { appRootSlice } from './app-root.slice';
 
+/* HINT: Uncomment to clear persisted state */
 // void AsyncStorage.clear();
 
 // HINT: All changes to state that are persisted should be handled through this migration
