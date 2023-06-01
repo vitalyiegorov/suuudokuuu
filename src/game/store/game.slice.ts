@@ -18,6 +18,9 @@ export const gameSlice = createSlice({
         resume: state => {
             state.paused = false;
         },
+        finish: state => {
+            state.isFinished = true;
+        },
         save: (state, action: PayloadAction<{ elapsedTime: number; sudokuString: string; newScore: number; mistakes: number }>) => {
             state.elapsedTime = action.payload.elapsedTime;
             state.sudokuString = action.payload.sudokuString;
