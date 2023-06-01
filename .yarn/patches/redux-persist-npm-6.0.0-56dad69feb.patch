@@ -1,0 +1,15 @@
+diff --git a/types/types.d.ts b/types/types.d.ts
+index b3733bc8b696f07e791158b0afcfb29c30fa6836..ec182f8f32c572552bf70f4a82988667f0ad989d 100644
+--- a/types/types.d.ts
++++ b/types/types.d.ts
+@@ -72,8 +72,8 @@ declare module "redux-persist/es/types" {
+     removeItem(key: string): Promise<void>;
+   }
+
+-  interface MigrationManifest {
+-    [key: string]: (state: PersistedState) => PersistedState;
++  interface MigrationManifest<T> {
++    [key: string]: (state: T) => T
+   }
+
+   /**

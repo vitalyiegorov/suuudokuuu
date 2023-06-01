@@ -3,11 +3,13 @@ export interface ScoredCellsInterface {
     y: number;
     group: number;
     values: number[];
+    isWon: boolean;
 }
 
 export const emptyScoredCells: ScoredCellsInterface = {
     x: -1,
     y: -1,
     group: -1,
-    values: []
+    values: [],
+    isWon: false
 };

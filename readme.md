@@ -1,6 +1,7 @@
 [![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner2-direct.svg)](https://stand-with-ukraine.pp.ua)
 
 # Suuudokuuu
+
 Sudoku game to help Ukraine win the war against Russia.
 
 ## Play now! Do not hesitate
@@ -66,6 +67,7 @@ Sudoku game to help Ukraine win the war against Russia.
 
 -   [ ] improve logic code coverage
 -   [ ] add sentry for error reporting
+-   [ ] add turbo
 -   [ ] migrate to monorepo
 -   [ ] add e2e tests(maestro or wdio?)
 -   [x] fix metro require cycles (store related as usual) =)

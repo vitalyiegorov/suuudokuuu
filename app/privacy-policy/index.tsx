@@ -46,7 +46,6 @@ export default function PrivacyPolicy() {
     return (
         <SafeAreaView style={styles.container}>
             <PageHeader title="Privacy policy" />
-
             <Header text="Privacy policy" />
 
             <ScrollView contentContainerStyle={styles.scrollView}>

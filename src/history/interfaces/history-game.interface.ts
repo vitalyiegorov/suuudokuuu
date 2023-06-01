@@ -1,17 +1,17 @@
 import { DifficultyEnum } from '../../@generic/enums/difficulty.enum';
 
-export interface GameHistoryInterface {
+export interface HistoryGameInterface {
     difficulty: DifficultyEnum;
     gamesCompleted: number;
     gamesWon: number;
     gamesLost: number;
     bestScore: number;
-    bestTime: Duration;
+    bestTime: number;
 }
 
-export const emptyGameHistory: GameHistoryInterface = {
+export const emptyGameHistory: HistoryGameInterface = {
     bestScore: 0,
-    bestTime: {},
+    bestTime: 0,
     difficulty: DifficultyEnum.Easy,
     gamesCompleted: 0,
     gamesLost: 0,

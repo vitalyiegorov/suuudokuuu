@@ -1,32 +1,16 @@
-import { InitialDateConstant } from '../../@generic/constants/date.constant';
-import { DifficultyEnum } from '../../@generic/enums/difficulty.enum';
-import { type CellInterface, type FieldInterface, type ScoredCellsInterface, emptyScoredCells } from '../../@logic';
-import type { AvailableValues } from '../../@logic/types/available-values.type';
-
 // ts-prune-ignore-next
 export interface GameState {
-    difficulty: DifficultyEnum;
-    field: FieldInterface;
-    fullField: FieldInterface;
-    possibleValues: number[];
-    availableValues: AvailableValues;
+    sudokuString: string;
     score: number;
     mistakes: number;
-    startedAt: Date;
-    endedAt: Date;
-    selectedCell?: CellInterface;
-    scoredCells: ScoredCellsInterface;
+    elapsedTime: number;
+    paused: boolean;
 }
 
 export const initialGameState: GameState = {
-    fullField: [],
-    difficulty: DifficultyEnum.Newbie,
-    availableValues: [],
-    possibleValues: [],
-    field: [],
-    endedAt: InitialDateConstant,
+    paused: false,
+    elapsedTime: 0,
+    sudokuString: '',
     mistakes: 0,
-    score: 0,
-    startedAt: InitialDateConstant,
-    scoredCells: emptyScoredCells
+    score: 0
 };
