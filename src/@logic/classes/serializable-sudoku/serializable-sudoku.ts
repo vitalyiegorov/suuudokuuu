@@ -1,6 +1,6 @@
 import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
-import { DifficultyEnum } from '../../../@generic';
+import { DifficultyEnum } from '../../../@generic/enums/difficulty.enum';
 import type { FieldInterface } from '../../interfaces/field.interface';
 import type { SudokuConfigInterface } from '../../interfaces/sudoku-config.interface';
 import { type AvailableValuesType } from '../../types/available-values.type';
