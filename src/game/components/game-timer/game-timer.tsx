@@ -32,10 +32,12 @@ export const GameTimer = () => {
         }
     }, [dispatch, paused]);
     const appBecameInactive = useCallback((): void => {
-        stopTimer();
-        dispatch(gamePauseAction());
-        router.push('pause');
-    }, [dispatch, router, stopTimer]);
+        if (isGameActive) {
+            stopTimer();
+            dispatch(gamePauseAction());
+            router.push('pause');
+        }
+    }, [dispatch, isGameActive, router, stopTimer]);
 
     // HINT: We need to stop timer when game is finished
     useEffect(() => void (!isGameActive && void stopTimer()), [stopTimer, isGameActive]);
