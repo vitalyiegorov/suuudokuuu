@@ -33,6 +33,11 @@ jobs:
       - name: Publish a release
         run: yarn release
 
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          tags: true
+
   web-deploy:
     name: Install and build Web
     needs: release
