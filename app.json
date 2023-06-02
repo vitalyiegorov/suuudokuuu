@@ -3,7 +3,7 @@
         "name": "suuudokuuu",
         "slug": "suuudokuuu",
         "scheme": "myapp",
-        "version": "1.10.0",
+        "version": "1.11.0",
         "orientation": "portrait",
         "icon": "./assets/icon.png",
         "userInterfaceStyle": "automatic",
@@ -16,14 +16,16 @@
         "assetBundlePatterns": ["**/*"],
         "ios": {
             "supportsTablet": true,
-            "bundleIdentifier": "com.vitalyiegorov.suuudokuuu"
+            "bundleIdentifier": "com.vitalyiegorov.suuudokuuu",
+            "buildNumber": "1"
         },
         "android": {
             "adaptiveIcon": {
                 "foregroundImage": "./assets/adaptive-icon.png",
                 "backgroundColor": "#000"
             },
-            "package": "com.vitalyiegorov.suuudokuuu"
+            "package": "com.vitalyiegorov.suuudokuuu",
+            "versionCode": 1
         },
         "web": {
             "favicon": "./assets/favicon.png",

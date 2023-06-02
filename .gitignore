@@ -10,6 +10,8 @@ npm-debug.*
 *.orig.*
 web-build/
 google-service-account.json
+.turbo
+report
 
 # macOS
 .DS_Store

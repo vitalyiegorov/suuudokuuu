@@ -57,8 +57,8 @@ Sudoku game to help Ukraine win the war against Russia.
 ### CI/CD
 
 -   [ ] android build for main branch should be published to play console
--   [ ] setup conventional commits, automatic version management and changelog generation(ios, android also)
--   [ ] ios/android builds should be published as artifacts so team members can test them
+-   [x] ios/android builds should be published as artifacts so team members can test them
+-   [x] setup conventional commits, automatic version management and changelog generation(ios, android also)
 -   [x] setup pull-request pipeline for linting, tests, etc
 -   [x] ios build for main branch should be published to testflight
 
@@ -66,9 +66,9 @@ Sudoku game to help Ukraine win the war against Russia.
 
 -   [ ] improve logic code coverage
 -   [ ] add sentry for error reporting
--   [ ] add turbo
 -   [ ] migrate to monorepo
 -   [ ] add e2e tests(maestro or wdio?)
+-   [x] add turbo
 -   [x] fix metro require cycles (store related as usual) =)
 -   [x] add unit tests for game logic, add code coverage([codecov](https://about.codecov.io)?)
 -   [x] add ts-prune

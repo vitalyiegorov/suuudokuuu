@@ -72,5 +72,8 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
+      - name: Publish release
+        run: yarn release
+
       - name: Build on EAS
         run: eas build --platform all --non-interactive --auto-submit --no-wait
