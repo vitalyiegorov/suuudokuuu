@@ -1,11 +1,9 @@
 {
     "$schema": "https://turbo.build/schema.json",
     "pipeline": {
-        "build": {
-            "dependsOn": ["^build"],
-            "outputs": ["dist/**", "build/**"]
-        },
         "release": {
+            "dependsOn": ["^release"],
+            "outputMode": "new-only",
             "outputs": ["dist/**", "build/**"]
         },
         "ts": {
@@ -14,10 +12,10 @@
         "lint": {
             "outputs": []
         },
-        "test": {
+        "deadcode": {
             "outputs": []
         },
-        "test:coverage": {
+        "cpd": {
             "outputs": []
         }
     },
