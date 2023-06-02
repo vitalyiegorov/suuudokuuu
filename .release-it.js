@@ -29,6 +29,6 @@ module.exports = {
         releaseName: `v${version}`
     },
     hooks: {
-        'before:git:release': ['git add --all']
+        'before:git:release': ['react-native-version --never-amend', 'git add --all']
     }
 };
