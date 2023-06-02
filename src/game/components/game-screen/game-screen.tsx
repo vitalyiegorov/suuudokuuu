@@ -20,7 +20,6 @@ import {
 } from '../../../@generic';
 import type { CellInterface, FieldInterface, ScoredCellsInterface } from '../../../@logic';
 import { MaxMistakesConstant, Sudoku, defaultSudokuConfig, emptyScoredCells } from '../../../@logic';
-import { historyRecordAction } from '../../../history';
 import { gameFinishAction, gameResetAction, gameResumeAction, gameSaveAction, gameStartAction } from '../../store/game.actions';
 import { gameElapsedTimeSelector, gameMistakesSelector, gameScoreSelector } from '../../store/game.selectors';
 import { AvailableValues } from '../available-values/available-values';
@@ -99,14 +98,13 @@ export const GameScreen = () => {
             if (newScoredCells.isWon) {
                 Array(3).forEach(() => void hapticImpact(ImpactFeedbackStyle.Heavy));
                 dispatch(
-                    historyRecordAction({
+                    gameFinishAction({
                         difficulty: sudokuRef.current.Difficulty,
                         elapsedTime: savedTime,
                         score: newScore,
                         isWon: true
                     })
                 );
-                dispatch(gameFinishAction());
 
                 // TODO: We need to wait for the animation to finish, animation finish event would fix it?
                 setTimeout(() => void router.push('winner'), 10 * animationDurationConstant);
@@ -123,23 +121,31 @@ export const GameScreen = () => {
                 }
             }
 
-            dispatch(gameSaveAction({ newScore, sudokuString, mistakes, elapsedTime: savedTime }));
+            dispatch(gameSaveAction({ newScore, sudokuString, mistakes }));
         },
         [dispatch, mistakes, router, score, savedTime]
     );
     const handleWrongValue = useCallback(() => {
         const sudokuString = sudokuRef.current.toString();
+        const newMistakes = mistakes + 1;
 
-        if (mistakes < MaxMistakesConstant - 1) {
+        if (newMistakes < MaxMistakesConstant) {
             hapticNotification(Haptics.NotificationFeedbackType.Error);
-            setMistakes(prevState => prevState + 1);
+            setMistakes(newMistakes);
         } else {
-            dispatch(gameFinishAction());
+            dispatch(
+                gameFinishAction({
+                    score,
+                    difficulty: sudokuRef.current.Difficulty,
+                    elapsedTime: savedTime,
+                    isWon: false
+                })
+            );
             hapticImpact(ImpactFeedbackStyle.Heavy);
             router.push('loser');
         }
 
-        dispatch(gameSaveAction({ sudokuString, newScore: score, mistakes: mistakes + 1, elapsedTime: savedTime }));
+        dispatch(gameSaveAction({ sudokuString, newScore: score, mistakes: newMistakes }));
     }, [dispatch, mistakes, router, savedTime, score]);
 
     const mistakesCountTextStyles = [styles.mistakesCountText, cs(maxMistakesReached, styles.mistakesCountErrorText)];
