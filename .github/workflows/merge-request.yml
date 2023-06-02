@@ -1,4 +1,8 @@
 name: Merge Request
+env:
+  TURBO_TEAM: vitalyiegorov
+  TURBO_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+
 on: pull_request
 
 jobs:
@@ -20,16 +24,16 @@ jobs:
         run: yarn install
 
       - name: Typescript checks
-        run: yarn ts
+        run: yarn turbo ts
 
       - name: ESLint checks
-        run: yarn lint
+        run: yarn turbo lint
 
       - name: Deadcode detection
-        run: yarn deadcode
+        run: yarn turbo deadcode
 
       - name: Copy/Paste detection
-        run: yarn cpd
+        run: yarn turbo cpd
 
       - name: Unit tests
         run: yarn test:coverage
