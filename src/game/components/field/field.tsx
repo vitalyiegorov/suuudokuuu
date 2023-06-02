@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { memo, useEffect } from 'react';
 import { View } from 'react-native';
 import { useSharedValue, withTiming } from 'react-native-reanimated';
 
@@ -21,7 +21,7 @@ interface Props {
     onSelect: OnEventFn<CellInterface | undefined>;
 }
 
-export const Field = ({ field, selectedCell, onSelect, scoredCells, sudoku }: Props) => {
+const FieldComponent = ({ field, selectedCell, onSelect, scoredCells, sudoku }: Props) => {
     const textAnimation = useSharedValue(0);
 
     useEffect(() => {
@@ -63,3 +63,11 @@ export const Field = ({ field, selectedCell, onSelect, scoredCells, sudoku }: Pr
         </View>
     );
 };
+
+export const Field = memo(
+    FieldComponent,
+    (prevProps, nextProps) =>
+        prevProps.scoredCells === nextProps.scoredCells &&
+        prevProps.field === nextProps.field &&
+        prevProps.selectedCell === nextProps.selectedCell
+);

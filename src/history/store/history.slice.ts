@@ -1,14 +1,15 @@
-import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
-import { type HistoryRecordInterface } from '../interfaces/history-record.interface';
+import { gameFinishAction } from '../../game/store/game.actions';
 
 import { initialHistoryState } from './history.state';
 
 export const historySlice = createSlice({
     name: 'history',
     initialState: initialHistoryState,
-    reducers: {
-        record: (state, action: PayloadAction<HistoryRecordInterface>) => {
+    reducers: {},
+    extraReducers: builder => {
+        builder.addCase(gameFinishAction, (state, action) => {
             const { difficulty, isWon, score, elapsedTime } = action.payload;
 
             const current = state.byDifficulty[difficulty];
@@ -22,6 +23,6 @@ export const historySlice = createSlice({
                 gamesLost: isWon ? current.gamesLost : current.gamesLost + 1,
                 gamesWon: isWon ? current.gamesWon + 1 : current.gamesWon
             };
-        }
+        });
     }
 });
