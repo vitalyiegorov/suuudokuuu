@@ -1,3 +1,5 @@
+const version = '${version}';
+
 module.exports = {
     plugins: {
         '@release-it/conventional-changelog': {
