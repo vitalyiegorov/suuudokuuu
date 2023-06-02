@@ -12,7 +12,7 @@ module.exports = {
         }
     },
     git: {
-        push: true,
+        push: false,
         tagName: `v${version}`,
         pushRepo: 'git@github.com:vitalyiegorov/suuudokuuu.git',
         commitsPath: '.',
