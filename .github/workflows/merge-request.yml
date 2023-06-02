@@ -1,4 +1,6 @@
 name: Merge Request
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 on: pull_request
 
 jobs:
@@ -17,7 +19,7 @@ jobs:
           node-version: 18.x
 
       - name: Install dependencies
-        run: yarn install
+        run: yarn install && yarn global add turbo
 
       - name: Typescript checks
         run: turbo ts
