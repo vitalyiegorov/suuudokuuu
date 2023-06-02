@@ -5,6 +5,7 @@ env:
   EXPO_APPLE_TEAM_TYPE: INDIVIDUAL
   EXPO_APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
 
+
 on:
   workflow_dispatch:
   push:
@@ -97,7 +98,7 @@ jobs:
           base64-encoded-secret: ${{ secrets.EXPO_API_KEY }}
           filename: "asc_api_key.p8"
 
-      - name: ASC API Key file creation
+      - name: Play Market Console Key file creation
         uses: MobileDevOps/secret-to-file-action@v1.0.0
         with:
           base64-encoded-secret: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
