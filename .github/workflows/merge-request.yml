@@ -20,16 +20,16 @@ jobs:
         run: yarn install
 
       - name: Typescript checks
-        run: yarn ts
+        run: turbo ts
 
       - name: ESLint checks
-        run: yarn lint
+        run: turbo lint
 
       - name: Deadcode detection
-        run: yarn deadcode
+        run: turbo deadcode
 
       - name: Copy/Paste detection
-        run: yarn cpd
+        run: turbo cpd
 
       - name: Unit tests
         run: yarn test:coverage
