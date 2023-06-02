@@ -4,11 +4,13 @@ env:
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
   EXPO_APPLE_TEAM_TYPE: INDIVIDUAL
   EXPO_APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
+
 on:
   workflow_dispatch:
   push:
     branches:
       - main
+
 jobs:
   release:
     name: Publish a release
@@ -22,11 +24,14 @@ jobs:
         with:
           node-version: 18.x
 
+      - name: Setup Git user
+        uses: fregante/setup-git-user@v2.0.1
+
       - name: Install dependencies
         run: yarn install
 
       - name: Publish a release
-        uses: TheRealWaldo/release-it@v0.7.2
+        run: yarn release
 
   web-deploy:
     name: Install and build Web
@@ -58,7 +63,7 @@ jobs:
           vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
           vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
 
-  ios-and-android-deploy:
+  expo-build:
     name: Build and Deploy IOS and Android
     needs: release
     runs-on: ubuntu-latest
