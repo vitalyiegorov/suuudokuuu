@@ -1,0 +1,25 @@
+{
+    "$schema": "https://turbo.build/schema.json",
+    "pipeline": {
+        "build": {
+            "dependsOn": ["^build"],
+            "outputs": ["dist/**", "build/**"]
+        },
+        "release": {
+            "outputs": ["dist/**", "build/**"]
+        },
+        "ts": {
+            "outputs": []
+        },
+        "lint": {
+            "outputs": []
+        },
+        "test": {
+            "outputs": []
+        },
+        "test:coverage": {
+            "outputs": []
+        }
+    },
+    "globalDependencies": ["tsconfig*.json", "app.json", ".env*"]
+}
