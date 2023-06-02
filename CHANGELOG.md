@@ -1,3 +1,27 @@
+
+
+## [1.12.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.11.0...v1.12.0) (2023-06-02)
+
+
+### Features
+
+* added automatic react-native versioning on release ([d832066](https://github.com/vitalyiegorov/suuudokuuu/commit/d832066c99b8ef702eea023105183f254cc20507))
+* added release to main branch merge ([ad7dadc](https://github.com/vitalyiegorov/suuudokuuu/commit/ad7dadc74af01ef9bd9ccf5409eac6054744aac4))
+* added release to main branch merge ([75fe2d9](https://github.com/vitalyiegorov/suuudokuuu/commit/75fe2d9025942b8efb6096c6d96c882e219979d1))
+* added release to main branch merge ([7ca5a6a](https://github.com/vitalyiegorov/suuudokuuu/commit/7ca5a6a181a4a75339d3e9f484d14217ee95b926))
+* added release to main branch merge ([8290b18](https://github.com/vitalyiegorov/suuudokuuu/commit/8290b18fc943cb6f119b561461d1991f50f75123))
+* added release to main branch merge ([274280e](https://github.com/vitalyiegorov/suuudokuuu/commit/274280e63d671eaeba723bcc5b6b10cc47e8ae88))
+
+
+### Bug Fixes
+
+* added separate release job ([ac31443](https://github.com/vitalyiegorov/suuudokuuu/commit/ac31443c1894acb089e33dec4591f4501ae742db))
+* added separate release job ([fd9bc2e](https://github.com/vitalyiegorov/suuudokuuu/commit/fd9bc2ee15264b54f7f549b784301e21a3ba975a))
+* added separate release job ([5ca70cd](https://github.com/vitalyiegorov/suuudokuuu/commit/5ca70cd3250c126c9a1bef9a9b6bddb61fd33bc9))
+* added separate release job ([43ef1bd](https://github.com/vitalyiegorov/suuudokuuu/commit/43ef1bd38d02a6fbaa40b921c2241660d62901ef))
+* release it ([ad01eb0](https://github.com/vitalyiegorov/suuudokuuu/commit/ad01eb0636c827cdd5dea56f109eaa2352b875fd))
+* release it ([5d6cdf1](https://github.com/vitalyiegorov/suuudokuuu/commit/5d6cdf1b1deb7250fb1630a1ab80ae1c2620baf8))
+
 ## 1.11.0 (2023-06-02)
 
 ### Features
