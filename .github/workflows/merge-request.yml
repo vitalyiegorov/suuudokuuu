@@ -1,4 +1,6 @@
 name: Merge Request
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 on: pull_request
 
 jobs:
