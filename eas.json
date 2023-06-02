@@ -34,7 +34,7 @@
                 "ascApiKeyPath": "asc_api_key.p8"
             },
             "android": {
-                "serviceAccountKeyPath": "google-play-console.json",
+                "serviceAccountKeyPath": "google-service-account.json",
                 "track": "internal"
             }
         }
