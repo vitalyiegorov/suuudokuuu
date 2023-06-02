@@ -21,7 +21,7 @@ import {
 import type { CellInterface, FieldInterface, ScoredCellsInterface } from '../../../@logic';
 import { MaxMistakesConstant, Sudoku, defaultSudokuConfig, emptyScoredCells } from '../../../@logic';
 import { historyRecordAction } from '../../../history';
-import { gameFinishAction, gameResetAction, gameSaveAction, gameStartAction } from '../../store/game.actions';
+import { gameFinishAction, gameResetAction, gameResumeAction, gameSaveAction, gameStartAction } from '../../store/game.actions';
 import { gameElapsedTimeSelector, gameMistakesSelector, gameScoreSelector } from '../../store/game.selectors';
 import { AvailableValues } from '../available-values/available-values';
 import { Field } from '../field/field';
@@ -37,6 +37,7 @@ export const GameScreen = () => {
     const dispatch = useAppDispatch();
     const savedScore = useAppSelector(gameScoreSelector);
     const savedMistakes = useAppSelector(gameMistakesSelector);
+    // TODO: Due to time ticking we render component every second
     const savedTime = useAppSelector(gameElapsedTimeSelector);
 
     const sudokuRef = useRef<Sudoku>(new Sudoku(defaultSudokuConfig));
@@ -52,7 +53,7 @@ export const GameScreen = () => {
     useEffect(() => {
         if (isNotEmptyString(routeField)) {
             sudokuRef.current = Sudoku.fromString(routeField, defaultSudokuConfig);
-            // TODO: Should we save state here?
+            dispatch(gameResumeAction());
         } else if (isNotEmptyString(routeDifficulty)) {
             sudokuRef.current.create(routeDifficulty);
 
