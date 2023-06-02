@@ -10,8 +10,27 @@ on:
     branches:
       - main
 jobs:
+  release:
+    name: Publish a release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Publish a release
+        uses: TheRealWaldo/release-it@v0.7.2
+
   web-deploy:
     name: Install and build Web
+    needs: release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -41,6 +60,7 @@ jobs:
 
   ios-and-android-deploy:
     name: Build and Deploy IOS and Android
+    needs: release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -71,9 +91,6 @@ jobs:
 
       - name: Install dependencies
         run: yarn install
-
-      - name: Publish a release
-        uses: TheRealWaldo/release-it@v0.7.2
 
       - name: Build on EAS
         run: eas build --platform all --non-interactive --auto-submit --no-wait
