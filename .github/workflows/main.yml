@@ -18,6 +18,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v3
@@ -37,6 +40,7 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           tags: true
+          github_token: ${{ secrets.PUSH_TO_PROTECTED_TOKEN }}
 
   web-deploy:
     name: Install and build Web
