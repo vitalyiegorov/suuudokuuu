@@ -1,5 +1,3 @@
-const version = '${version}';
-
 module.exports = {
     plugins: {
         '@release-it/conventional-changelog': {
@@ -20,13 +18,8 @@ module.exports = {
         requireCommits: true,
         requireCommitsFail: false
     },
-    npm: {
-        publish: false,
-        versionArgs: ['--workspaces false']
-    },
     github: {
-        release: true,
-        releaseName: `v${version}`
+        release: true
     },
     hooks: {
         'before:git:release': ['react-native-version --never-amend', 'git add --all']
