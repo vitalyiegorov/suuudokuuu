@@ -1,5 +1,12 @@
 
 
+## [1.12.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.12.0...v1.12.1) (2023-06-02)
+
+
+### Bug Fixes
+
+* fixed eas config ([87336f2](https://github.com/vitalyiegorov/suuudokuuu/commit/87336f2e3e343bd00cac0ffb9dfc4797834779c1))
+
 ## [1.12.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.11.0...v1.12.0) (2023-06-02)
 
 
