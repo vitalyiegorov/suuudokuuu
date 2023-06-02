@@ -1,9 +1,8 @@
 name: Merge Request
 env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+  TURBO_TEAM: vitalyiegorov
+  TURBO_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+
 on: pull_request
 
 jobs:
