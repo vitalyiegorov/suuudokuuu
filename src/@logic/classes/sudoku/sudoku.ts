@@ -84,7 +84,7 @@ export class Sudoku extends SerializableSudoku {
     }
 
     isValueAvailable(cell?: CellInterface): boolean {
-        return isDefined(cell) && this.availableValues[cell.value].count < this.fieldSize;
+        return isDefined(cell) && isDefined(this.availableValues[cell.value]) && this.availableValues[cell.value].count < this.fieldSize;
     }
 
     isLastInCellGroupX(cell: CellInterface): boolean {
