@@ -1,6 +1,9 @@
 name: Merge Request
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 on: pull_request
 
 jobs:
@@ -19,19 +22,19 @@ jobs:
           node-version: 18.x
 
       - name: Install dependencies
-        run: yarn install && yarn global add turbo
+        run: yarn install
 
       - name: Typescript checks
-        run: turbo ts
+        run: yarn turbo ts
 
       - name: ESLint checks
-        run: turbo lint
+        run: yarn turbo lint
 
       - name: Deadcode detection
-        run: turbo deadcode
+        run: yarn turbo deadcode
 
       - name: Copy/Paste detection
-        run: turbo cpd
+        run: yarn turbo cpd
 
       - name: Unit tests
         run: yarn test:coverage
