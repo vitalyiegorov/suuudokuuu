@@ -15,12 +15,14 @@ export const emptyScoredCells: ScoredCellsInterface = {
 };
 
 export const isEmptyScoredCells = (scoredCells: ScoredCellsInterface): boolean =>
+    scoredCells.isWon === emptyScoredCells.isWon &&
     scoredCells.x === emptyScoredCells.x &&
     scoredCells.y === emptyScoredCells.y &&
     scoredCells.group === emptyScoredCells.group &&
     scoredCells.values.length === 0;
 
 export const isEqualScoreCells = (scoredCells1: ScoredCellsInterface, scoredCells2: ScoredCellsInterface): boolean =>
+    scoredCells1.isWon === scoredCells2.isWon &&
     scoredCells1.x === scoredCells2.x &&
     scoredCells1.y === scoredCells2.y &&
     scoredCells1.group === scoredCells2.group &&
