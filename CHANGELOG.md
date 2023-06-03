@@ -1,5 +1,14 @@
 
 
+## [1.12.4](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.12.3...v1.12.4) (2023-06-03)
+
+
+### Bug Fixes
+
+* fixed cell scored animation ([04d3d71](https://github.com/vitalyiegorov/suuudokuuu/commit/04d3d712adae949db653f3bc5efa98fe0c2fd37d))
+* fixed cell scored animation ([256b6e1](https://github.com/vitalyiegorov/suuudokuuu/commit/256b6e1487c68609cb88a2afecfafc46ad0e6416))
+* improved scored cells comparison, should fix incorrect animations ([ddade16](https://github.com/vitalyiegorov/suuudokuuu/commit/ddade168b06116b7eab47d91a3976e18325263a8))
+
 ## [1.12.3](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.12.2...v1.12.3) (2023-06-03)
 
 ## [1.12.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.12.1...v1.12.2) (2023-06-02)
