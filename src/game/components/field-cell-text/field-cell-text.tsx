@@ -9,6 +9,13 @@ import { CellFontSizeConstant } from '../constants/dimensions.contant';
 
 import { FieldCellTextStyles as styles } from './field-cell-text.styles';
 
+const getText = (isActive: boolean, isEmpty: boolean, cell: CellInterface): string => {
+    if (isEmpty) {
+        return isActive ? '•' : '';
+    }
+
+    return cell.value.toString();
+};
 interface Props {
     sudoku: Sudoku;
     isActive: boolean;
@@ -21,7 +28,6 @@ interface Props {
 
 const FieldCellTextComponent = ({ sudoku, cell, isHighlighted, isActiveValue, isActive, hasAnimation, animation }: Props) => {
     const isEmpty = sudoku.isBlankCell(cell);
-    const cellText = isEmpty ? '' : cell.value.toString();
 
     const animatedStyles = useAnimatedStyle(() => ({
         color: interpolateColor(animation.value, [0, 0.5, 1], [Colors.black, Colors.cell.highlightedText, Colors.black]),
@@ -39,7 +45,7 @@ const FieldCellTextComponent = ({ sudoku, cell, isHighlighted, isActiveValue, is
         cs(hasAnimation || animation.value !== 0, animatedStyles)
     ];
 
-    return <Reanimated.Text style={textStyles}>{cellText}</Reanimated.Text>;
+    return <Reanimated.Text style={textStyles}>{getText(isActive, isEmpty, cell)}</Reanimated.Text>;
 };
 
 export const FieldCellText = memo(

@@ -7,7 +7,7 @@ import { type OnEventFn } from '@rnw-community/shared';
 import { animationDurationConstant } from '../../../@generic';
 import type { CellInterface, FieldInterface, ScoredCellsInterface, Sudoku } from '../../../@logic';
 import { isEmptyScoredCells, isEqualScoreCells } from '../../../@logic';
-import { Cell } from '../field-cell/cell';
+import { FieldCell } from '../field-cell/field-cell';
 
 import { FieldStyles as styles } from './field.styles';
 
@@ -45,7 +45,7 @@ const FieldComponent = ({ field, selectedCell, onSelect, scoredCells, sudoku }: 
                         const hasAnimation = sudoku.isScoredCell(cell, scoredCells);
 
                         return (
-                            <Cell
+                            <FieldCell
                                 cell={cell}
                                 hasAnimation={hasAnimation}
                                 isActive={isActive}

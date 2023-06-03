@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import { Colors } from '../../../@generic';
 import { CellSizeConstant } from '../constants/dimensions.contant';
 
-export const CellStyles = StyleSheet.create({
+export const FieldCellStyles = StyleSheet.create({
     container: {
         alignItems: 'center',
         borderColor: Colors.black,

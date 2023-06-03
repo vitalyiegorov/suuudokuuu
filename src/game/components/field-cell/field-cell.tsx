@@ -3,12 +3,14 @@ import { Pressable } from 'react-native';
 import Reanimated, { type SharedValue, interpolateColor, useAnimatedStyle, useDerivedValue, withTiming } from 'react-native-reanimated';
 
 import { type OnEventFn, cs } from '@rnw-community/shared';
+import { setTestID } from '@rnw-community/wdio';
 
 import { Colors, animationDurationConstant } from '../../../@generic';
 import type { CellInterface, Sudoku } from '../../../@logic';
 import { FieldCellText } from '../field-cell-text/field-cell-text';
 
-import { CellStyles as styles } from './cell.styles';
+import { FieldCellSelectors as selectors } from './field-cell.selectors';
+import { FieldCellStyles as styles } from './field-cell.styles';
 
 const ReanimatedPressable = Reanimated.createAnimatedComponent(Pressable);
 
@@ -20,6 +22,18 @@ const getCellBgColor = (isActiveValue: boolean, isCellHighlighted: boolean) => {
     }
 
     return Colors.white;
+};
+
+const getCellSelector = (props: Props): selectors => {
+    if (props.isActive) {
+        return selectors.Active;
+    } else if (props.isActiveValue) {
+        return selectors.ActiveValue;
+    } else if (props.isHighlighted) {
+        return selectors.Highlighted;
+    }
+
+    return selectors.Root;
 };
 
 const animationConfig = { duration: animationDurationConstant };
@@ -35,7 +49,9 @@ interface Props {
     isHighlighted: boolean;
 }
 
-const CellComponent = ({ sudoku, cell, onSelect, isActive, isActiveValue, isHighlighted, hasAnimation, textAnimation }: Props) => {
+const FieldCellComponent = (props: Props) => {
+    const { sudoku, cell, onSelect, isActive, isActiveValue, isHighlighted, hasAnimation, textAnimation } = props;
+
     const isLastRow = cell.y === 8;
     const isLastCol = cell.x === 8;
     const backgroundColor = getCellBgColor(isActiveValue, isHighlighted);
@@ -59,7 +75,7 @@ const CellComponent = ({ sudoku, cell, onSelect, isActive, isActiveValue, isHigh
     ];
 
     return (
-        <ReanimatedPressable onPress={handlePress} style={cellStyles}>
+        <ReanimatedPressable onPress={handlePress} style={cellStyles} {...setTestID(getCellSelector(props))}>
             <FieldCellText
                 animation={textAnimation}
                 cell={cell}
@@ -73,8 +89,8 @@ const CellComponent = ({ sudoku, cell, onSelect, isActive, isActiveValue, isHigh
     );
 };
 
-export const Cell = memo(
-    CellComponent,
+export const FieldCell = memo(
+    FieldCellComponent,
     (prevProps, nextProps) =>
         prevProps.cell.value === nextProps.cell.value &&
         prevProps.hasAnimation === nextProps.hasAnimation &&
