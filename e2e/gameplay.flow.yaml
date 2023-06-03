@@ -1,18 +1,11 @@
 appId: com.vitalyiegorov.suuudokuuu
-
+name: Gameplay
+env:
+  # TODO: Load app with specific puzzle
+  PUZZLE: 123
 ---
-# TODO: Load app with specific puzzle
 
-- launchApp
-- tapOn: "Start new"
-- tapOn: "Newbie"
-- assertVisible: "0 / 3"
-- assertVisible:
-    below: "Score"
-    text: "0"
-- assertVisible:
-    id: "CellSelectors.Root"
-
+- runFlow: start-game.flow.yaml
 # Check cell selection and deselection
 - assertNotVisible:
     id: "CellSelectors.Active"
