@@ -1,0 +1,19 @@
+appId: com.vitalyiegorov.suuudokuuu
+
+---
+
+- launchApp
+- tapOn: "Start new"
+- tapOn: "Newbie"
+- assertVisible: "0 / 3"
+- assertVisible:
+    below: "Score"
+    text: "0"
+- assertVisible:
+    id: "CellSelectors.Root"
+- tapOn:
+    id: "CellSelectors.Root"
+    index: 12
+    retryTapIfNoChange: false
+
+
