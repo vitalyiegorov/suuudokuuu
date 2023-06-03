@@ -25,7 +25,7 @@ const FieldComponent = ({ field, selectedCell, onSelect, scoredCells, sudoku }: 
     const textAnimation = useSharedValue(0);
 
     useEffect(() => {
-        if (isEmptyScoredCells(scoredCells)) {
+        if (!isEmptyScoredCells(scoredCells)) {
             textAnimation.value = withTiming(1, textAnimationConfig, finished => {
                 if (finished === true) {
                     textAnimation.value = 0;
