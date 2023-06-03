@@ -5,9 +5,7 @@ import { BlackButton } from '../black-button/black-button';
 export const PlayAgainButton = () => {
     const dispatch = useAppDispatch();
 
-    const handlePlayAgain = () => {
-        dispatch(gameResetAction());
-    };
+    const handlePlayAgain = () => void dispatch(gameResetAction());
 
     return <BlackButton href="/" onPress={handlePlayAgain} text="Play again" />;
 };
