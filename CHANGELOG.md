@@ -1,5 +1,13 @@
 
 
+## [1.12.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.12.1...v1.12.2) (2023-06-02)
+
+
+### Bug Fixes
+
+* fixed automatic GH release creation ([1861828](https://github.com/vitalyiegorov/suuudokuuu/commit/1861828186b73173372d75a8116397c9003c01e7))
+* fixed pushing tags after the release ([79f5b58](https://github.com/vitalyiegorov/suuudokuuu/commit/79f5b58f1193a92909c0848d155a62dbdb8669d3))
+
 ## [1.12.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.12.0...v1.12.1) (2023-06-02)
 
 
