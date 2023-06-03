@@ -6,7 +6,7 @@ import { type OnEventFn } from '@rnw-community/shared';
 
 import { animationDurationConstant } from '../../../@generic';
 import type { CellInterface, FieldInterface, ScoredCellsInterface, Sudoku } from '../../../@logic';
-import { emptyScoredCells } from '../../../@logic';
+import { isEmptyScoredCells, isEqualScoreCells } from '../../../@logic';
 import { Cell } from '../field-cell/cell';
 
 import { FieldStyles as styles } from './field.styles';
@@ -25,7 +25,7 @@ const FieldComponent = ({ field, selectedCell, onSelect, scoredCells, sudoku }: 
     const textAnimation = useSharedValue(0);
 
     useEffect(() => {
-        if (scoredCells !== emptyScoredCells) {
+        if (!isEmptyScoredCells(scoredCells)) {
             textAnimation.value = withTiming(1, textAnimationConfig, finished => {
                 if (finished === true) {
                     textAnimation.value = 0;
@@ -67,7 +67,7 @@ const FieldComponent = ({ field, selectedCell, onSelect, scoredCells, sudoku }: 
 export const Field = memo(
     FieldComponent,
     (prevProps, nextProps) =>
-        prevProps.scoredCells === nextProps.scoredCells &&
+        isEqualScoreCells(prevProps.scoredCells, nextProps.scoredCells) &&
         prevProps.field === nextProps.field &&
         prevProps.selectedCell === nextProps.selectedCell
 );
