@@ -33,4 +33,3 @@ appId: com.vitalyiegorov.suuudokuuu
 - assertNotVisible:
     id: "CellSelectors.Active"
 
-
