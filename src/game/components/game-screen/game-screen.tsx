@@ -28,6 +28,10 @@ import { GameTimer } from '../game-timer/game-timer';
 
 import { GameScreenStyles as styles } from './game-screen.styles';
 
+/**
+ * We have inconsistency of state storage, field is comming from the url and score and mistakes from redux
+ * we need to inify this approach
+ */
 // eslint-disable-next-line max-lines-per-function
 export const GameScreen = () => {
     const router = useRouter();
@@ -36,7 +40,7 @@ export const GameScreen = () => {
     const dispatch = useAppDispatch();
     const savedScore = useAppSelector(gameScoreSelector);
     const savedMistakes = useAppSelector(gameMistakesSelector);
-    // TODO: Due to time ticking we render component every second
+    // TODO: Due to time ticking we render component every second, would be nice if we could avoid it
     const savedTime = useAppSelector(gameElapsedTimeSelector);
 
     const sudokuRef = useRef<Sudoku>(new Sudoku(defaultSudokuConfig));
@@ -75,7 +79,7 @@ export const GameScreen = () => {
                 onPress: () => {
                     // TODO: do we need to reset internal component state?
                     dispatch(gameResetAction());
-                    router.push('/');
+                    router.replace('/');
                 }
             }
         ]);
@@ -96,7 +100,8 @@ export const GameScreen = () => {
             setScore(newScore);
 
             if (newScoredCells.isWon) {
-                Array(3).forEach(() => void hapticImpact(ImpactFeedbackStyle.Heavy));
+                hapticImpact(ImpactFeedbackStyle.Heavy);
+
                 dispatch(
                     gameFinishAction({
                         difficulty: sudokuRef.current.Difficulty,
@@ -107,7 +112,7 @@ export const GameScreen = () => {
                 );
 
                 // TODO: We need to wait for the animation to finish, animation finish event would fix it?
-                setTimeout(() => void router.push('winner'), 10 * animationDurationConstant);
+                setTimeout(() => void router.replace('winner'), 10 * animationDurationConstant);
             } else {
                 hapticNotification(Haptics.NotificationFeedbackType.Success);
 
@@ -133,6 +138,8 @@ export const GameScreen = () => {
             hapticNotification(Haptics.NotificationFeedbackType.Error);
             setMistakes(newMistakes);
         } else {
+            hapticImpact(ImpactFeedbackStyle.Heavy);
+
             dispatch(
                 gameFinishAction({
                     score,
@@ -141,8 +148,9 @@ export const GameScreen = () => {
                     isWon: false
                 })
             );
-            hapticImpact(ImpactFeedbackStyle.Heavy);
-            router.push('loser');
+
+            // TODO: We need to wait for the animation to finish, animation finish event would fix it?
+            setTimeout(() => void router.replace('loser'), 10 * animationDurationConstant);
         }
 
         dispatch(gameSaveAction({ sudokuString, newScore: score, mistakes: newMistakes }));

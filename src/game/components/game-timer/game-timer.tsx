@@ -35,7 +35,7 @@ export const GameTimer = () => {
         if (isGameActive) {
             stopTimer();
             dispatch(gamePauseAction());
-            router.push('pause');
+            router.replace('pause');
         }
     }, [dispatch, isGameActive, router, stopTimer]);
 
