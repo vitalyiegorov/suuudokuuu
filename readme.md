@@ -62,6 +62,22 @@ Sudoku game to help Ukraine win the war against Russia.
 -   [x] setup pull-request pipeline for linting, tests, etc
 -   [x] ios build for main branch should be published to testflight
 
+### E2E
+
+-   [ ] Cannot select value if not empty cell selected
+-   [ ] Deselect cell if value is completed
+-   [ ] Leave cell selection if value is not completed
+-   [ ] Animations:
+    -   [ ] Select cell animation
+    -   [ ] Complete row animation
+    -   [ ] Complete col animation
+    -   [ ] Complete group animation
+    -   [ ] Complete value animation
+    -   [ ] Win animation
+-   [ ] Win scenario
+-   [ ] Loose scenario
+-   [ ] Pause scenario
+
 ### Overall
 
 -   [ ] improve logic code coverage
