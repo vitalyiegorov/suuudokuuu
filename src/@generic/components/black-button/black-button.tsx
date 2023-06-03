@@ -1,3 +1,4 @@
+import { ImpactFeedbackStyle } from 'expo-haptics/src/Haptics.types';
 import { useRouter } from 'expo-router';
 import {
     type GestureResponderEvent,
@@ -10,6 +11,8 @@ import {
 } from 'react-native';
 
 import { isNotEmptyString } from '@rnw-community/shared';
+
+import { hapticImpact } from '../../utils/haptic/haptic.util';
 
 import { BlackButtonStyles as styles } from './black-button.styles';
 
@@ -27,6 +30,8 @@ export const BlackButton = ({ text, style, href, styleText, onPress, ...props }:
 
     const handlePress = (event: GestureResponderEvent) => {
         onPress?.(event);
+
+        hapticImpact(ImpactFeedbackStyle.Light);
 
         if (isNotEmptyString(href)) {
             router.push(href);
