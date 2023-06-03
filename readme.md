@@ -29,6 +29,7 @@ Sudoku game to help Ukraine win the war against Russia.
 
 ### Frontend
 
+-   [ ] improve logic code coverage
 -   [ ] add donation CTA on main screen and ukraine support
 -   [ ] add animations
     -   [ ] add number flying to its stop?
@@ -56,7 +57,8 @@ Sudoku game to help Ukraine win the war against Russia.
 
 ### CI/CD
 
--   [ ] android build for main branch should be published to play console
+-   [ ] setup maestro e2e tests on CI pull request
+-   [x] android build for main branch should be published to play console
 -   [x] ios/android builds should be published as artifacts so team members can test them
 -   [x] setup conventional commits, automatic version management and changelog generation(ios, android also)
 -   [x] setup pull-request pipeline for linting, tests, etc
@@ -64,6 +66,8 @@ Sudoku game to help Ukraine win the war against Russia.
 
 ### E2E
 
+-   [ ] Create separate flows for described items
+-   [ ] Pass selectors from `typescript selector files`
 -   [ ] Cannot select value if not empty cell selected
 -   [ ] Deselect cell if value is completed
 -   [ ] Leave cell selection if value is not completed
@@ -74,16 +78,22 @@ Sudoku game to help Ukraine win the war against Russia.
     -   [ ] Complete group animation
     -   [ ] Complete value animation
     -   [ ] Win animation
--   [ ] Win scenario
--   [ ] Loose scenario
--   [ ] Pause scenario
+-   [ ] Win scenario:
+    -   [ ] Win score and time
+-   [ ] Loose scenario:
+    -   [ ] Win score and time
+-   [ ] Pause scenario:
+    -   [ ] Return to game after pause
+    -   [ ] No pause on other screens(win, loose, home)
+    -   [ ] Reset app after pause
+-   [ ] Score calculation
+-   [ ] Best game on home page
 
 ### Overall
 
--   [ ] improve logic code coverage
 -   [ ] add sentry for error reporting
 -   [ ] migrate to monorepo
--   [ ] add e2e tests(maestro or wdio?)
+-   [x] add e2e tests(maestro or wdio?)
 -   [x] add turbo
 -   [x] fix metro require cycles (store related as usual) =)
 -   [x] add unit tests for game logic, add code coverage([codecov](https://about.codecov.io)?)
