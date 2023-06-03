@@ -12,7 +12,6 @@ export const gameSlice = createSlice({
             Object.assign(state, initialGameState);
 
             state.sudokuString = action.payload.sudokuString;
-            state.elapsedTime = 0;
         },
         pause: state => {
             state.paused = true;
