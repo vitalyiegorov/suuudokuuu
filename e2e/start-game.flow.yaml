@@ -1,0 +1,18 @@
+appId: com.vitalyiegorov.suuudokuuu
+name: Start a new game
+env:
+  # TODO: Load app with specific puzzle
+  PUZZLE: 123
+
+---
+
+- launchApp
+- tapOn: "Start new"
+- tapOn: "Newbie"
+- assertVisible: "0 / 3"
+- assertVisible:
+    below: "Score"
+    text: "0"
+- assertVisible:
+    id: "CellSelectors.Root"
+
