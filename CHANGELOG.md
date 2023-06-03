@@ -1,5 +1,12 @@
 
 
+## [1.12.5](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.12.4...v1.12.5) (2023-06-03)
+
+
+### Bug Fixes
+
+* added ios config to bypass compliance ([bf292b9](https://github.com/vitalyiegorov/suuudokuuu/commit/bf292b93124cd1a7e5948130c4a38d3e0d5aff16))
+
 ## [1.12.4](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.12.3...v1.12.4) (2023-06-03)
 
 

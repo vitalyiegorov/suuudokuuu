@@ -1,47 +1,49 @@
 {
-    "expo": {
-        "name": "suuudokuuu",
-        "slug": "suuudokuuu",
-        "scheme": "myapp",
-        "version": "1.12.4",
-        "orientation": "portrait",
-        "icon": "./assets/icon.png",
-        "userInterfaceStyle": "automatic",
-        "runtimeVersion": "exposdk:48.0.0",
-        "splash": {
-            "image": "./assets/splash.png",
-            "resizeMode": "contain",
-            "backgroundColor": "#000"
-        },
-        "assetBundlePatterns": ["**/*"],
-        "ios": {
-            "supportsTablet": true,
-            "bundleIdentifier": "com.vitalyiegorov.suuudokuuu",
-            "buildNumber": "7",
-            "config": {
-                "usesNonExemptEncryption": false
-            }
-        },
-        "android": {
-            "adaptiveIcon": {
-                "foregroundImage": "./assets/adaptive-icon.png",
-                "backgroundColor": "#000"
-            },
-            "package": "com.vitalyiegorov.suuudokuuu",
-            "versionCode": 7
-        },
-        "web": {
-            "favicon": "./assets/favicon.png",
-            "bundler": "metro"
-        },
-        "extra": {
-            "eas": {
-                "projectId": "4a70028a-5f9e-4ab6-9389-82d8b8b6c833"
-            }
-        },
-        "owner": "vitalyiegorov",
-        "updates": {
-            "url": "https://u.expo.dev/4a70028a-5f9e-4ab6-9389-82d8b8b6c833"
-        }
+  "expo": {
+    "name": "suuudokuuu",
+    "slug": "suuudokuuu",
+    "scheme": "myapp",
+    "version": "1.12.5",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "runtimeVersion": "exposdk:48.0.0",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#000"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.vitalyiegorov.suuudokuuu",
+      "buildNumber": "8",
+      "config": {
+        "usesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#000"
+      },
+      "package": "com.vitalyiegorov.suuudokuuu",
+      "versionCode": 8
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "4a70028a-5f9e-4ab6-9389-82d8b8b6c833"
+      }
+    },
+    "owner": "vitalyiegorov",
+    "updates": {
+      "url": "https://u.expo.dev/4a70028a-5f9e-4ab6-9389-82d8b8b6c833"
     }
+  }
 }
