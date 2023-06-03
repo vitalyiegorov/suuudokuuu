@@ -24,6 +24,18 @@ const getCellBgColor = (isActiveValue: boolean, isCellHighlighted: boolean) => {
     return Colors.white;
 };
 
+const getCellSelector = (props: Props): selectors => {
+    if (props.isActive) {
+        return selectors.Active;
+    } else if (props.isActiveValue) {
+        return selectors.ActiveValue;
+    } else if (props.isHighlighted) {
+        return selectors.Highlighted;
+    }
+
+    return selectors.Root;
+};
+
 const animationConfig = { duration: animationDurationConstant };
 
 interface Props {
@@ -36,18 +48,6 @@ interface Props {
     isActiveValue: boolean;
     isHighlighted: boolean;
 }
-
-const getCellSelector = (props: Props): selectors => {
-    if (props.isActive) {
-        return selectors.Active;
-    } else if (props.isActiveValue) {
-        return selectors.ActiveValue;
-    } else if (props.isHighlighted) {
-        return selectors.Highlighted;
-    }
-
-    return selectors.Root;
-};
 
 const FieldCellComponent = (props: Props) => {
     const { sudoku, cell, onSelect, isActive, isActiveValue, isHighlighted, hasAnimation, textAnimation } = props;
