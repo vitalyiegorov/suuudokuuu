@@ -57,6 +57,7 @@ Sudoku game to help Ukraine win the war against Russia.
 
 ### CI/CD
 
+-   [ ] create release notes and migrate to [semantic-release](https://github.com/semantic-release/release-notes-generator#options)
 -   [ ] setup maestro e2e tests on CI pull request
 -   [x] android build for main branch should be published to play console
 -   [x] ios/android builds should be published as artifacts so team members can test them
