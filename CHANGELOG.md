@@ -1,5 +1,12 @@
 
 
+## [1.14.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.13.0...v1.14.0) (2023-06-03)
+
+
+### Features
+
+* added haptic to ui buttons, fixed mistakes increase on losing game ([8d3bb68](https://github.com/vitalyiegorov/suuudokuuu/commit/8d3bb6806a270c25d01d950021395ff6024f47fb))
+
 ## [1.13.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.12.5...v1.13.0) (2023-06-03)
 
 
