@@ -1,6 +1,7 @@
 appId: com.vitalyiegorov.suuudokuuu
 
 ---
+# TODO: Load app with specific puzzle
 
 - launchApp
 - tapOn: "Start new"
@@ -11,9 +12,25 @@ appId: com.vitalyiegorov.suuudokuuu
     text: "0"
 - assertVisible:
     id: "CellSelectors.Root"
+
+# Check cell selection and deselection
+- assertNotVisible:
+    id: "CellSelectors.Active"
 - tapOn:
     id: "CellSelectors.Root"
     index: 12
     retryTapIfNoChange: false
+- assertVisible:
+    id: "CellSelectors.Active"
+
+# TODO: Can we assert highlighted cells count?
+- assertVisible:
+    id: "CellSelectors.Highlighted"
+
+- tapOn:
+    id: "CellSelectors.Active"
+    retryTapIfNoChange: false
+- assertNotVisible:
+    id: "CellSelectors.Active"
 
 
