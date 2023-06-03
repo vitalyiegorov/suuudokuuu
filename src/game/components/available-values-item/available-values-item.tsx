@@ -9,9 +9,11 @@ import Reanimated, {
 } from 'react-native-reanimated';
 
 import { type OnEventFn, cs } from '@rnw-community/shared';
+import { setTestID } from '@rnw-community/wdio';
 
 import { Colors } from '../../../@generic';
 
+import { AvailableValueItemSelectors as selectors } from './available-value-item.selectors';
 import { AvailableValuesItemStyles as styles } from './available-values-item.styles';
 
 const ReanimatedPressable = Reanimated.createAnimatedComponent(Pressable);
@@ -51,8 +53,13 @@ export const AvailableValuesItem = ({ value, isActive, onSelect, progress, corre
     const progressStyles = [styles.progress, { width: `${progress}%` }];
 
     return (
-        <View style={styles.container}>
-            <ReanimatedPressable key={value} style={buttonStyles} {...(canPress && { onPress: handlePress })}>
+        <View style={styles.container} {...setTestID(selectors.Root)}>
+            <ReanimatedPressable
+                key={value}
+                style={buttonStyles}
+                {...(canPress && { onPress: handlePress })}
+                {...setTestID(selectors.Button)}
+            >
                 <Text style={textStyles}>{value}</Text>
             </ReanimatedPressable>
 

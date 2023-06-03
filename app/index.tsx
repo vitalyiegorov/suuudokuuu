@@ -8,7 +8,7 @@ import { isNotEmptyString } from '@rnw-community/shared';
 
 import { DifficultySelect } from '../src/@app-root';
 import { BlackButton, type DifficultyEnum, Header, PageHeader, SupportUkraineBanner, getTimerText, useAppSelector } from '../src/@generic';
-import { gameSudokuStringSelector } from '../src/game';
+import { gameSudokuStringSelector, useResumeGame } from '../src/game';
 import { historyBestTimeSelector } from '../src/history';
 
 import { StartScreenStyles as styles } from './start-screen.styles';
@@ -18,6 +18,8 @@ export default function StartScreen() {
 
     const oldGameString = useAppSelector(gameSudokuStringSelector);
     const [bestScore, bestTime] = useAppSelector(historyBestTimeSelector);
+
+    const handleContinue = useResumeGame();
 
     const [showDifficultySelect, setShowDifficultySelect] = useState(false);
 
@@ -32,9 +34,6 @@ export default function StartScreen() {
     const handleStart = (difficulty: DifficultyEnum) => {
         router.push(`game?difficulty=${difficulty}`);
         setShowDifficultySelect(false);
-    };
-    const handleContinue = () => {
-        router.push(`game?field=${oldGameString}`);
     };
 
     return (
