@@ -1,3 +1,4 @@
+#file: noinspection YAMLSchemaValidation
 appId: com.vitalyiegorov.suuudokuuu
 name: Gameplay
 env:
@@ -5,7 +6,7 @@ env:
   PUZZLE: 123
 ---
 
-- runFlow: start-game.flow.yaml
+- runFlow: ./templates/start-game.template.yaml
 # Check cell selection and deselection
 - assertNotVisible:
     id: "CellSelectors.Active"
@@ -25,4 +26,5 @@ env:
     retryTapIfNoChange: false
 - assertNotVisible:
     id: "CellSelectors.Active"
+
 
