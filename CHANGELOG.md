@@ -1,5 +1,19 @@
 
 
+## [1.13.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.12.5...v1.13.0) (2023-06-03)
+
+
+### Features
+
+* added dot symbol for active empty cell ([5a1a148](https://github.com/vitalyiegorov/suuudokuuu/commit/5a1a1483afdc8b5f53fa915647294de1125d3365))
+* moved eas udpate workflow to pull-request workflow job ([7e0d589](https://github.com/vitalyiegorov/suuudokuuu/commit/7e0d58988d5df7413220834b973e614d516cbd9d))
+
+
+### Bug Fixes
+
+* fixed pause, winner screen change logic to unmount game screen and stop the timer ([ae06b5d](https://github.com/vitalyiegorov/suuudokuuu/commit/ae06b5d7c6badbcb814cd9f5ee5c2339c7e69b21))
+* fixed pause, winner screen change logic to unmount game screen and stop the timer ([79e3a7c](https://github.com/vitalyiegorov/suuudokuuu/commit/79e3a7c5cf3ae7287e8b6e6edd1540d84bfcd903))
+
 ## [1.12.5](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.12.4...v1.12.5) (2023-06-03)
 
 
