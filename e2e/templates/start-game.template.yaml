@@ -1,3 +1,4 @@
+#file: noinspection YAMLSchemaValidation
 appId: com.vitalyiegorov.suuudokuuu
 name: Start a new game
 env:
