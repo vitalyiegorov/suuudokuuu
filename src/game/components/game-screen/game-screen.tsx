@@ -134,9 +134,10 @@ export const GameScreen = () => {
         const sudokuString = sudokuRef.current.toString();
         const newMistakes = mistakes + 1;
 
+        setMistakes(newMistakes);
+
         if (newMistakes < MaxMistakesConstant) {
             hapticNotification(Haptics.NotificationFeedbackType.Error);
-            setMistakes(newMistakes);
         } else {
             hapticImpact(ImpactFeedbackStyle.Heavy);
 
@@ -150,7 +151,7 @@ export const GameScreen = () => {
             );
 
             // TODO: We need to wait for the animation to finish, animation finish event would fix it?
-            setTimeout(() => void router.replace('loser'), 10 * animationDurationConstant);
+            setTimeout(() => void router.replace('loser'), 5 * animationDurationConstant);
         }
 
         dispatch(gameSaveAction({ sudokuString, newScore: score, mistakes: newMistakes }));
