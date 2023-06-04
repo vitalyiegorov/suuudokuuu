@@ -20,8 +20,11 @@ import {
 } from '../../../@generic';
 import type { CellInterface, FieldInterface, ScoredCellsInterface } from '../../../@logic';
 import { MaxMistakesConstant, Sudoku, defaultSudokuConfig, emptyScoredCells } from '../../../@logic';
-import { gameFinishAction, gameResetAction, gameResumeAction, gameSaveAction, gameStartAction } from '../../store/game.actions';
-import { gameElapsedTimeSelector, gameMistakesSelector, gameScoreSelector } from '../../store/game.selectors';
+import { gameResetAction, gameResumeAction, gameStartAction } from '../../store/game.actions';
+import { gameMistakesSelector, gameScoreSelector } from '../../store/game.selectors';
+import { gameFinishedThunk } from '../../store/thunks/game-finish.thunk';
+import { gameMistakeThunk } from '../../store/thunks/game-mistake.thunk';
+import { gameSaveThunk } from '../../store/thunks/game-save.thunk';
 import { AvailableValues } from '../available-values/available-values';
 import { Field } from '../field/field';
 import { GameTimer } from '../game-timer/game-timer';
@@ -29,8 +32,8 @@ import { GameTimer } from '../game-timer/game-timer';
 import { GameScreenStyles as styles } from './game-screen.styles';
 
 /**
- * We have inconsistency of state storage, field is comming from the url and score and mistakes from redux
- * we need to inify this approach
+ * We have inconsistency of state storage, field is coming from the url and score and mistakes from redux
+ * we need to unify this approach
  */
 // eslint-disable-next-line max-lines-per-function
 export const GameScreen = () => {
@@ -38,20 +41,15 @@ export const GameScreen = () => {
     const { field: routeField, difficulty: routeDifficulty } = useLocalSearchParams<{ field?: string; difficulty?: DifficultyEnum }>();
 
     const dispatch = useAppDispatch();
-    const savedScore = useAppSelector(gameScoreSelector);
-    const savedMistakes = useAppSelector(gameMistakesSelector);
-    // TODO: Due to time ticking we render component every second, would be nice if we could avoid it
-    const savedTime = useAppSelector(gameElapsedTimeSelector);
-
+    const score = useAppSelector(gameScoreSelector);
+    const mistakes = useAppSelector(gameMistakesSelector);
     const sudokuRef = useRef<Sudoku>(new Sudoku(defaultSudokuConfig));
 
     const [field, setField] = useState<FieldInterface>([]);
     const [selectedCell, setSelectedCell] = useState<CellInterface>();
     const [scoredCells, setScoredCells] = useState<ScoredCellsInterface>(emptyScoredCells);
-    const [mistakes, setMistakes] = useState(savedMistakes);
-    const [score, setScore] = useState(savedScore);
 
-    const maxMistakesReached = mistakes > MaxMistakesConstant;
+    const maxMistakesReached = mistakes >= MaxMistakesConstant;
 
     useEffect(() => {
         if (isNotEmptyString(routeField)) {
@@ -60,8 +58,6 @@ export const GameScreen = () => {
         } else if (isNotEmptyString(routeDifficulty)) {
             sudokuRef.current.create(routeDifficulty);
 
-            setScore(0);
-            setMistakes(0);
             // eslint-disable-next-line no-undefined
             setSelectedCell(undefined);
 
@@ -87,32 +83,36 @@ export const GameScreen = () => {
 
     const handleSelectCell = useCallback((cell: CellInterface | undefined) => {
         setSelectedCell(cell);
+        hapticImpact(ImpactFeedbackStyle.Light);
         // HINT: This is needed to clear animation on all cells
         setScoredCells(emptyScoredCells);
     }, []);
+
+    const handleLostGame = useCallback(() => {
+        hapticImpact(ImpactFeedbackStyle.Heavy);
+
+        void dispatch(gameFinishedThunk({ difficulty: sudokuRef.current.Difficulty, isWon: false }));
+
+        router.replace('loser');
+    }, [dispatch, router]);
+
+    const handleWonGame = useCallback(() => {
+        hapticImpact(ImpactFeedbackStyle.Heavy);
+
+        void dispatch(gameFinishedThunk({ difficulty: sudokuRef.current.Difficulty, isWon: true }));
+
+        // TODO: We need to wait for the animation to finish, animation finish event would fix it?
+        setTimeout(() => void router.replace('winner'), 10 * animationDurationConstant);
+    }, [dispatch, router]);
+
     const handleCorrectValue = useCallback(
         // eslint-disable-next-line max-statements
         ([correctCell, newScoredCells]: [CellInterface, ScoredCellsInterface]) => {
-            const newScore = score + sudokuRef.current.getScore(newScoredCells, savedTime, mistakes);
-            const sudokuString = sudokuRef.current.toString();
-
             setScoredCells(newScoredCells);
-            setScore(newScore);
+            void dispatch(gameSaveThunk({ sudoku: sudokuRef.current, scoredCells: newScoredCells }));
 
             if (newScoredCells.isWon) {
-                hapticImpact(ImpactFeedbackStyle.Heavy);
-
-                dispatch(
-                    gameFinishAction({
-                        difficulty: sudokuRef.current.Difficulty,
-                        elapsedTime: savedTime,
-                        score: newScore,
-                        isWon: true
-                    })
-                );
-
-                // TODO: We need to wait for the animation to finish, animation finish event would fix it?
-                setTimeout(() => void router.replace('winner'), 10 * animationDurationConstant);
+                handleWonGame();
             } else {
                 hapticNotification(Haptics.NotificationFeedbackType.Success);
 
@@ -125,37 +125,19 @@ export const GameScreen = () => {
                     setSelectedCell(undefined);
                 }
             }
-
-            dispatch(gameSaveAction({ newScore, sudokuString, mistakes }));
         },
-        [dispatch, mistakes, router, score, savedTime]
+        [dispatch, handleWonGame]
     );
+
     const handleWrongValue = useCallback(() => {
-        const sudokuString = sudokuRef.current.toString();
-        const newMistakes = mistakes + 1;
+        void dispatch(gameMistakeThunk(sudokuRef.current));
 
-        setMistakes(newMistakes);
-
-        if (newMistakes < MaxMistakesConstant) {
-            hapticNotification(Haptics.NotificationFeedbackType.Error);
+        if (mistakes + 1 >= MaxMistakesConstant) {
+            handleLostGame();
         } else {
-            hapticImpact(ImpactFeedbackStyle.Heavy);
-
-            dispatch(
-                gameFinishAction({
-                    score,
-                    difficulty: sudokuRef.current.Difficulty,
-                    elapsedTime: savedTime,
-                    isWon: false
-                })
-            );
-
-            // TODO: We need to wait for the animation to finish, animation finish event would fix it?
-            setTimeout(() => void router.replace('loser'), 5 * animationDurationConstant);
+            hapticNotification(Haptics.NotificationFeedbackType.Error);
         }
-
-        dispatch(gameSaveAction({ sudokuString, newScore: score, mistakes: newMistakes }));
-    }, [dispatch, mistakes, router, savedTime, score]);
+    }, [dispatch, handleLostGame, mistakes]);
 
     const mistakesCountTextStyles = [styles.mistakesCountText, cs(maxMistakesReached, styles.mistakesCountErrorText)];
 

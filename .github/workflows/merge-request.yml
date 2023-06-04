@@ -43,7 +43,7 @@ jobs:
 
   update:
     name: EAS Update
-    needs: checks
+    needs: code-quality
     runs-on: ubuntu-latest
     steps:
       - name: Check for EXPO_TOKEN
