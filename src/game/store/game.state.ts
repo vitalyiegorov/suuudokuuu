@@ -1,3 +1,4 @@
+// ts-prune-ignore-next
 export interface GameState {
     sudokuString: string;
     score: number;
