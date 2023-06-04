@@ -1,7 +1,5 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { type HistoryRecordInterface } from '../../history';
-
 import { initialGameState } from './game.state';
 
 export const gameSlice = createSlice({
@@ -19,12 +17,9 @@ export const gameSlice = createSlice({
         resume: state => {
             state.paused = false;
         },
-        finish: (state, _action: PayloadAction<HistoryRecordInterface>) => {
-            state.isFinished = true;
-        },
-        save: (state, action: PayloadAction<{ sudokuString: string; newScore: number; mistakes: number }>) => {
+        save: (state, action: PayloadAction<{ sudokuString: string; score: number; mistakes: number }>) => {
             state.sudokuString = action.payload.sudokuString;
-            state.score = action.payload.newScore;
+            state.score = action.payload.score;
             state.mistakes = action.payload.mistakes;
         },
         tick: state => {
