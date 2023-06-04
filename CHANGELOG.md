@@ -1,5 +1,12 @@
 
 
+## [1.14.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.14.0...v1.14.1) (2023-06-04)
+
+
+### Bug Fixes
+
+* refactor calculation logic, re-renders, timer speed up ([a504a59](https://github.com/vitalyiegorov/suuudokuuu/commit/a504a59fc970df1ad6cfa4bd51fb7d0cc3e9195b))
+
 ## [1.14.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.13.0...v1.14.0) (2023-06-03)
 
 
