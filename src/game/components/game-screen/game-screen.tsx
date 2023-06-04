@@ -32,7 +32,7 @@ import { GameTimer } from '../game-timer/game-timer';
 import { GameScreenStyles as styles } from './game-screen.styles';
 
 /**
- * We have inconsistency of state storage, field is comming from the url and score and mistakes from redux
+ * We have inconsistency of state storage, field is coming from the url and score and mistakes from redux
  * we need to unify this approach
  */
 // eslint-disable-next-line max-lines-per-function
