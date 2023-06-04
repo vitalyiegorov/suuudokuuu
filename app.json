@@ -3,7 +3,7 @@
     "name": "suuudokuuu",
     "slug": "suuudokuuu",
     "scheme": "myapp",
-    "version": "1.14.0",
+    "version": "1.14.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
@@ -19,7 +19,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.vitalyiegorov.suuudokuuu",
-      "buildNumber": "10",
+      "buildNumber": "11",
       "config": {
         "usesNonExemptEncryption": false
       }
@@ -30,7 +30,7 @@
         "backgroundColor": "#000"
       },
       "package": "com.vitalyiegorov.suuudokuuu",
-      "versionCode": 10
+      "versionCode": 11
     },
     "web": {
       "favicon": "./assets/favicon.png",
