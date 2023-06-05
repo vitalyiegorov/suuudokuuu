@@ -93,7 +93,7 @@ export class SerializableSudoku {
         return field.map(row => row.map(cell => ({ ...cell })));
     }
 
-    protected calculateAvailableValues(): void {
+    protected calculateAvailableValues(): AvailableValuesType {
         const getValueProgress = (count: number) => (count / this.fieldSize) * 100;
 
         // TODO: Can we optimize and not recalculate full object every time?
@@ -111,13 +111,17 @@ export class SerializableSudoku {
                 }
             }
         }
+
+        return this.availableValues;
     }
 
-    protected calculatePossibleValues(): void {
+    protected calculatePossibleValues(): number[] {
         this.possibleValues = Object.keys(this.availableValues)
             .map(Number)
             .filter(key => this.availableValues[key].count < this.fieldSize)
             .map(key => key);
+
+        return this.possibleValues;
     }
 
     protected createEmptyField(): FieldInterface {
