@@ -1,4 +1,5 @@
-import { type Observable, Subject, defer, of, scan, startWith, switchMap, takeWhile, tap } from 'rxjs';
+import { compress, decompress } from 'lz-string';
+import { type Observable, Subject, scan, startWith, takeWhile } from 'rxjs';
 
 import { isDefined } from '@rnw-community/shared';
 
@@ -7,7 +8,7 @@ import type { CellInterface } from '../../interfaces/cell.interface';
 import type { FieldInterface } from '../../interfaces/field.interface';
 import { type ScoredCellsInterface, emptyScoredCells } from '../../interfaces/scored-cells.interface';
 import type { SudokuConfigInterface } from '../../interfaces/sudoku-config.interface';
-import { SudokuMoveEnum, type SudokuState, initialSudokuState } from '../../interfaces/sudoku-state.interface';
+import { SudokuMoveEnum, type SudokuStateInterface, initialSudokuState } from '../../interfaces/sudoku-state.interface';
 import { type AvailableValuesType } from '../../types/available-values.type';
 import { SudokuScoring } from '../sudoku-scoring/sudoku-scoring';
 import { SudokuFiller } from '../sudoku-solver/sudoku-filler';
@@ -20,67 +21,57 @@ export class Sudoku extends SudokuFiller {
         super(config);
     }
 
-    // TODO: Can we avoid it and just use parent version with correct types?
-    static override fromString(fieldsString: string, config: SudokuConfigInterface): Sudoku {
-        return super.fromString(fieldsString, config) as Sudoku;
+    static fromString(input: string): SudokuStateInterface {
+        return JSON.parse(decompress(input)) as SudokuStateInterface;
     }
 
-    // TODO: Add support to load game from string
-    start$(difficulty: DifficultyEnum): Observable<SudokuState> {
-        const initialState: SudokuState = {
+    static override toString(sudokuState: SudokuStateInterface): string {
+        return compress(JSON.stringify(sudokuState));
+    }
+
+    newGame(difficulty: DifficultyEnum): SudokuStateInterface {
+        const initialFullField = this.createFullField();
+        const initialGameField = this.createGameField(initialFullField, difficulty);
+
+        return {
             ...initialSudokuState,
+            fullField: initialFullField,
+            gameField: initialGameField,
+            availableValues: this.createAvailableValues(initialGameField),
             difficulty,
             maxMistakes: this.config.maxMistakes,
             emptyCells: this.config.fieldSize * this.config.fieldSize
         };
+    }
 
-        const field$ = defer(() => {
-            const [fullField, gameField] = this.create(difficulty);
+    start$(initialState: SudokuStateInterface): Observable<SudokuStateInterface> {
+        return this.valueSelected$.pipe(
+            scan((state, cell) => {
+                if (this.isCorrectValue(state.fullField, cell)) {
+                    const gameField = this.setCellValue(state.gameField, cell);
+                    const scoredCells = this.getScoredValues(gameField, cell);
+                    const availableValues = this.calculateAvailableValues(state.availableValues, cell);
 
-            return of({ fullField, gameField, availableValues: this.createAvailableValues(gameField) });
-        });
+                    return {
+                        ...state,
+                        gameField,
+                        scoredCells,
+                        availableValues,
+                        hasMoreValues: this.isValueAvailable(availableValues, cell),
+                        move: scoredCells.isWon ? SudokuMoveEnum.Won : SudokuMoveEnum.Correct,
+                        score: this.scoring.calculate(state.difficulty, scoredCells, state.mistakes, 0)
+                    };
+                }
 
-        return field$.pipe(
-            switchMap(({ fullField, gameField, availableValues }) =>
-                this.valueSelected$.pipe(
-                    startWith({ x: 0, y: 0, value: 0, group: 0 }),
-                    tap(cell => void console.log('EVENT', cell)),
-                    scan(
-                        (state, cell) => {
-                            if (this.isCorrectValue(fullField, cell)) {
-                                const newGameField = this.setCellValue(state.gameField, cell);
-                                const scoredCells = this.getScoredValues(newGameField, cell);
-
-                                console.log(scoredCells);
-
-                                return {
-                                    ...state,
-                                    // TODO: Do we need to pass the cell?
-                                    cell,
-                                    scoredCells,
-                                    gameField: newGameField,
-                                    availableValues: this.calculateAvailableValues(state.availableValues, cell),
-                                    move: scoredCells.isWon ? SudokuMoveEnum.Won : SudokuMoveEnum.Correct,
-                                    score: this.scoring.calculate(state.difficulty, scoredCells, state.mistakes, 0)
-                                };
-                            }
-
-                            const mistakes = state.mistakes + 1;
-
-                            return {
-                                ...state,
-                                // TODO: Do we need to pass the cell?
-                                cell,
-                                mistakes,
-                                scoredCells: emptyScoredCells,
-                                move: mistakes === state.maxMistakes ? SudokuMoveEnum.Lost : SudokuMoveEnum.Mistake
-                            };
-                        },
-                        { ...initialState, fullField, gameField, availableValues }
-                    )
-                )
-            ),
-            takeWhile(({ mistakes, maxMistakes, emptyCells }) => emptyCells === 0 || mistakes < maxMistakes)
+                return {
+                    ...state,
+                    mistakes: state.mistakes + 1,
+                    scoredCells: emptyScoredCells,
+                    move: state.mistakes + 1 === state.maxMistakes ? SudokuMoveEnum.Lost : SudokuMoveEnum.Mistake
+                };
+            }, initialState),
+            startWith(initialState),
+            takeWhile(({ move }) => move !== SudokuMoveEnum.Lost, true)
         );
     }
 

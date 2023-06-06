@@ -1,7 +1,6 @@
 import { DifficultyEnum } from '../../@generic';
 import { type AvailableValuesType } from '../types/available-values.type';
 
-import { type CellInterface } from './cell.interface';
 import { type FieldInterface } from './field.interface';
 import { type ScoredCellsInterface, emptyScoredCells } from './scored-cells.interface';
 
@@ -13,7 +12,7 @@ export enum SudokuMoveEnum {
     Won = 'Won'
 }
 
-export interface SudokuState {
+export interface SudokuStateInterface {
     difficulty: DifficultyEnum;
     scoredCells: ScoredCellsInterface;
     availableValues: AvailableValuesType;
@@ -26,10 +25,10 @@ export interface SudokuState {
     fullField: FieldInterface;
     gameField: FieldInterface;
     move: SudokuMoveEnum;
-    cell?: CellInterface;
+    hasMoreValues: boolean;
 }
 
-export const initialSudokuState: SudokuState = {
+export const initialSudokuState: SudokuStateInterface = {
     difficulty: DifficultyEnum.Newbie,
     scoredCells: emptyScoredCells,
     availableValues: {},
@@ -40,5 +39,6 @@ export const initialSudokuState: SudokuState = {
     emptyCells: 0,
     fullField: [],
     gameField: [],
-    move: SudokuMoveEnum.Start
+    move: SudokuMoveEnum.Start,
+    hasMoreValues: false
 };
