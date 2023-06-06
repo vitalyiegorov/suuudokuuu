@@ -2,7 +2,7 @@ import { memo, useEffect } from 'react';
 import { View } from 'react-native';
 import { useSharedValue, withTiming } from 'react-native-reanimated';
 
-import { type OnEventFn } from '@rnw-community/shared';
+import { type OnEventFn, isDefined } from '@rnw-community/shared';
 
 import { animationDurationConstant } from '../../../@generic';
 import type { CellInterface, FieldInterface, ScoredCellsInterface, Sudoku } from '../../../@logic';
@@ -10,6 +10,9 @@ import { isEmptyScoredCells, isEqualScoreCells } from '../../../@logic';
 import { FieldCell } from '../field-cell/field-cell';
 
 import { FieldStyles as styles } from './field.styles';
+
+const isCellHighlighted = (cell: CellInterface, selectedCell?: CellInterface): boolean =>
+    isDefined(selectedCell) && (selectedCell.x === cell.x || selectedCell.y === cell.y || selectedCell.group === cell.group);
 
 const textAnimationConfig = { duration: 8 * animationDurationConstant };
 
@@ -39,10 +42,10 @@ const FieldComponent = ({ field, selectedCell, onSelect, scoredCells, sudoku }: 
             {field.map(row => (
                 <View key={`row-${row[0].y}`} style={styles.row}>
                     {row.map(cell => {
+                        const hasAnimation = sudoku.isScoredCell(cell, scoredCells);
                         const isActive = sudoku.isSameCell(cell, selectedCell);
                         const isActiveValue = sudoku.isSameCellValue(cell, selectedCell);
-                        const isHighlighted = sudoku.isCellHighlighted(cell, selectedCell);
-                        const hasAnimation = sudoku.isScoredCell(cell, scoredCells);
+                        const isHighlighted = isCellHighlighted(cell, selectedCell);
 
                         return (
                             <FieldCell

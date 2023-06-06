@@ -1,33 +1,23 @@
-import { type Observable, Subject, distinctUntilChanged, filter, interval, scan, takeWhile, withLatestFrom } from 'rxjs';
+import { type Observable, Subject, defer, of, scan, startWith, switchMap, takeWhile, tap } from 'rxjs';
 
-import { type OnEventFn, isDefined } from '@rnw-community/shared';
+import { isDefined } from '@rnw-community/shared';
 
 import { type DifficultyEnum } from '../../../@generic/enums/difficulty.enum';
 import type { CellInterface } from '../../interfaces/cell.interface';
 import type { FieldInterface } from '../../interfaces/field.interface';
 import { type ScoredCellsInterface, emptyScoredCells } from '../../interfaces/scored-cells.interface';
 import type { SudokuConfigInterface } from '../../interfaces/sudoku-config.interface';
-import { type SudokuState } from '../../interfaces/sudoku-state.interface';
+import { SudokuMoveEnum, type SudokuState, initialSudokuState } from '../../interfaces/sudoku-state.interface';
 import { type AvailableValuesType } from '../../types/available-values.type';
-import { SerializableSudoku } from '../serializable-sudoku/serializable-sudoku';
 import { SudokuScoring } from '../sudoku-scoring/sudoku-scoring';
+import { SudokuFiller } from '../sudoku-solver/sudoku-filler';
 
 // TODO: We can split this class into rules validator(or similar)
-export class Sudoku extends SerializableSudoku {
-    private readonly fieldFillingValues: number[];
-    private readonly scoring: SudokuScoring;
+export class Sudoku extends SudokuFiller {
+    valueSelected$ = new Subject<CellInterface>();
 
-    constructor(config: SudokuConfigInterface, scoring: SudokuScoring = new SudokuScoring(config.score)) {
+    constructor(config: SudokuConfigInterface, private readonly scoring = new SudokuScoring(config.score)) {
         super(config);
-
-        this.scoring = scoring;
-
-        // TODO: Is there a better way to randomize array of numbers in JS? =)
-        this.fieldFillingValues = Array.from({ length: this.fieldSize }, (_, i) => i + 1);
-        for (let i = this.fieldFillingValues.length - 1; i > 0; i -= 1) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [this.fieldFillingValues[i], this.fieldFillingValues[j]] = [this.fieldFillingValues[j], this.fieldFillingValues[i]];
-        }
     }
 
     // TODO: Can we avoid it and just use parent version with correct types?
@@ -35,106 +25,73 @@ export class Sudoku extends SerializableSudoku {
         return super.fromString(fieldsString, config) as Sudoku;
     }
 
-    start$(difficulty: DifficultyEnum): [move: OnEventFn<CellInterface | undefined>, gameState$: Observable<SudokuState>] {
-        const valueSelected$ = new Subject<CellInterface | undefined>();
-        const [field, gameField, availableValues, possibleValues] = this.create(difficulty);
-
+    // TODO: Add support to load game from string
+    start$(difficulty: DifficultyEnum): Observable<SudokuState> {
         const initialState: SudokuState = {
-            field,
-            gameField,
-            availableValues,
-            // TODO: Do we really need both in the state?
-            possibleValues,
-            // TODO: We should set from parsed string
-            elapsedSeconds: 0,
-            // TODO: We should set from parsed string
-            mistakes: 0,
-            // TODO: We should set from parsed string
-            score: 0,
-            // TODO: We should set from config or parsed string
-            maxMistakes: 3,
-            // TODO: We should calculate this value
-            emptyCells: this.fieldSize * this.fieldSize
+            ...initialSudokuState,
+            difficulty,
+            maxMistakes: this.config.maxMistakes,
+            emptyCells: this.config.fieldSize * this.config.fieldSize
         };
 
-        // TODO: Add pausing and resuming
-        const secondsTicks$ = interval(1000).pipe(scan(state => state + 1, initialState.elapsedSeconds));
-        // HINT: We process only selected non-blank cells
-        const selectValue$ = valueSelected$.pipe(
-            filter(isDefined),
-            filter(cell => !this.isBlankCell(cell))
-        );
+        const field$ = defer(() => {
+            const [fullField, gameField] = this.create(difficulty);
 
-        const subscription = secondsTicks$.pipe(
-            withLatestFrom(selectValue$, (elapsedSeconds, cell) => ({ cell, elapsedSeconds })),
-            // HINT: This will prevent emitting same cell with same value twice, maybe there is a better way to timer to tick and catch selectValue$ emit??
-            distinctUntilChanged(({ cell: prev }, { cell: curr }) => this.isSameCell(prev, curr) && this.isSameCellValue(prev, curr)),
-            scan((state, { cell, elapsedSeconds }) => {
-                if (this.isCorrectValue(state.field, cell)) {
-                    const scoredCells = this.getScoredValues(state.gameField, cell);
+            return of({ fullField, gameField, availableValues: this.createAvailableValues(gameField) });
+        });
 
-                    return {
-                        ...state,
-                        elapsedSeconds,
-                        emptyCells: state.emptyCells - 1,
-                        // TODO: This can be improved by decreasing initial object, instead of recalculating
-                        availableValues: this.calculateAvailableValues(),
-                        possibleValues: this.calculatePossibleValues(),
-                        // TODO: We need to add elapsed time calculation(timeInterval operator?)
-                        score: this.scoring.calculate(this.difficulty, scoredCells, state.mistakes, 0)
-                    };
-                }
+        return field$.pipe(
+            switchMap(({ fullField, gameField, availableValues }) =>
+                this.valueSelected$.pipe(
+                    startWith({ x: 0, y: 0, value: 0, group: 0 }),
+                    tap(cell => void console.log('EVENT', cell)),
+                    scan(
+                        (state, cell) => {
+                            if (this.isCorrectValue(fullField, cell)) {
+                                const newGameField = this.setCellValue(state.gameField, cell);
+                                const scoredCells = this.getScoredValues(newGameField, cell);
 
-                return {
-                    ...state,
-                    mistakes: state.mistakes + 1
-                };
-            }, initialState),
+                                console.log(scoredCells);
+
+                                return {
+                                    ...state,
+                                    // TODO: Do we need to pass the cell?
+                                    cell,
+                                    scoredCells,
+                                    gameField: newGameField,
+                                    availableValues: this.calculateAvailableValues(state.availableValues, cell),
+                                    move: scoredCells.isWon ? SudokuMoveEnum.Won : SudokuMoveEnum.Correct,
+                                    score: this.scoring.calculate(state.difficulty, scoredCells, state.mistakes, 0)
+                                };
+                            }
+
+                            const mistakes = state.mistakes + 1;
+
+                            return {
+                                ...state,
+                                // TODO: Do we need to pass the cell?
+                                cell,
+                                mistakes,
+                                scoredCells: emptyScoredCells,
+                                move: mistakes === state.maxMistakes ? SudokuMoveEnum.Lost : SudokuMoveEnum.Mistake
+                            };
+                        },
+                        { ...initialState, fullField, gameField, availableValues }
+                    )
+                )
+            ),
             takeWhile(({ mistakes, maxMistakes, emptyCells }) => emptyCells === 0 || mistakes < maxMistakes)
         );
-
-        return [(value: CellInterface | undefined) => void valueSelected$.next(value), subscription];
     }
 
-    create(difficulty: DifficultyEnum): [FieldInterface, FieldInterface, AvailableValuesType, number[]] {
-        this.difficulty = difficulty;
-        this.field = this.createEmptyField();
+    setCellValue(field: FieldInterface, cell: CellInterface): FieldInterface {
+        field[cell.y][cell.x].value = cell.value;
 
-        if (!this.fillRecursive()) {
-            throw new Error('Unable to create a game field');
-        }
-
-        const getRandomPosition = (): number => Math.floor(Math.random() * this.fieldSize);
-
-        const blankCellsCount = Math.ceil(this.config.difficultyBlankCellsPercentage[difficulty] * this.fieldSize * this.fieldSize);
-        this.gameField = this.cloneField(this.field);
-
-        // TODO: Can we improve this logic to make it more unique??
-        for (let i = 0; i < blankCellsCount; i += 1) {
-            this.gameField[getRandomPosition()][getRandomPosition()].value = this.blankCellValue;
-        }
-
-        this.calculateAvailableValues();
-        this.calculatePossibleValues();
-
-        return [this.field, this.gameField, this.availableValues, this.possibleValues];
+        return this.cloneField(field);
     }
 
-    getScore(scoredCells: ScoredCellsInterface, elapsedTime: number, mistakes: number): number {
-        return this.scoring.calculate(this.difficulty, scoredCells, mistakes, elapsedTime);
-    }
-
-    getValueProgress(value: number): number {
-        return this.availableValues[value].progress;
-    }
-
-    getCorrectValue(cell?: CellInterface): number {
-        return isDefined(cell) ? this.field[cell.y][cell.x].value : this.blankCellValue;
-    }
-
-    // eslint-disable-next-line class-methods-use-this
-    isCellHighlighted(cell: CellInterface, selectedCell?: CellInterface): boolean {
-        return isDefined(selectedCell) && (selectedCell.x === cell.x || selectedCell.y === cell.y || selectedCell.group === cell.group);
+    getCorrectValue(field: FieldInterface, cell?: CellInterface): number {
+        return isDefined(cell) ? field[cell.y][cell.x].value : this.config.blankCellValue;
     }
 
     // eslint-disable-next-line class-methods-use-this
@@ -142,29 +99,22 @@ export class Sudoku extends SerializableSudoku {
         return isDefined(selectedCell) && cell.x === selectedCell.x && cell.y === selectedCell.y;
     }
 
-    isSameCellValue(cell: CellInterface, selectedCell?: CellInterface): boolean {
-        return isDefined(selectedCell) && cell.value === selectedCell.value && cell.value !== this.blankCellValue;
-    }
-
     // eslint-disable-next-line class-methods-use-this
     isCorrectValue(fullField: FieldInterface, cell?: CellInterface): boolean {
         return isDefined(cell) && fullField[cell.y][cell.x].value === cell.value;
     }
 
-    isValueAvailable(cell?: CellInterface): boolean {
-        return isDefined(cell) && isDefined(this.availableValues[cell.value]) && this.availableValues[cell.value].count < this.fieldSize;
+    // eslint-disable-next-line class-methods-use-this
+    isValueAvailable(availableValues: AvailableValuesType, cell?: CellInterface): boolean {
+        return isDefined(cell) && isDefined(availableValues[cell.value]) && availableValues[cell.value].count > 0;
     }
 
     isLastInCellGroupX(cell: CellInterface): boolean {
-        return cell.x < this.fieldSize - 1 && (cell.x + 1) % this.fieldGroupWidth === 0;
+        return cell.x < this.config.fieldSize - 1 && (cell.x + 1) % this.config.fieldGroupWidth === 0;
     }
 
     isLastInCellGroupY(cell: CellInterface): boolean {
-        return cell.y < this.fieldSize - 1 && (cell.y + 1) % this.fieldGroupHeight === 0;
-    }
-
-    isBlankCell(cell?: CellInterface): boolean {
-        return isDefined(cell) && this.gameField[cell.y][cell.x].value === this.blankCellValue;
+        return cell.y < this.config.fieldSize - 1 && (cell.y + 1) % this.config.fieldGroupHeight === 0;
     }
 
     // eslint-disable-next-line class-methods-use-this
@@ -197,13 +147,13 @@ export class Sudoku extends SerializableSudoku {
         let valueCount = 0;
 
         // HINT: We iterate over all cells to check for blank cells in a specific types of cell grouping
-        for (let y = 0; y < this.fieldSize; y += 1) {
+        for (let y = 0; y < this.config.fieldSize; y += 1) {
             // HINT: If there is a blank value in a column, then column is not scored
             if (this.isBlankCell(gameField[y][cell.x])) {
                 scoredCells.x = emptyScoredCells.x;
             }
 
-            for (let x = 0; x < this.fieldSize; x += 1) {
+            for (let x = 0; x < this.config.fieldSize; x += 1) {
                 // HINT: If there is a blank value in a row, then row is not scored
                 if (this.isBlankCell(gameField[cell.y][x])) {
                     scoredCells.y = emptyScoredCells.y;
@@ -233,166 +183,49 @@ export class Sudoku extends SerializableSudoku {
         }
 
         // HINT: If there are fewer values than field size, then all values is not scored
-        if (valueCount < this.fieldSize) {
+        if (valueCount < this.config.fieldSize) {
             scoredCells.values = [];
             scoredCells.isWon = false;
         }
 
         if (scoredCells.isWon) {
-            scoredCells.values = Array.from({ length: this.fieldSize }, (_, i) => i + 1);
+            scoredCells.values = Array.from({ length: this.config.fieldSize }, (_, i) => i + 1);
         }
 
         return scoredCells;
     }
 
-    // eslint-disable-next-line max-statements
-    setCellValue(field: FieldInterface, cell: CellInterface): ScoredCellsInterface {
-        const scoredCells = { ...emptyScoredCells };
-        if (this.isCorrectValue(field, cell)) {
-            this.gameField[cell.y][cell.x].value = cell.value;
-            const blankCell = { ...cell, value: this.blankCellValue };
-
-            this.calculateAvailableValues();
-            this.calculatePossibleValues();
-
-            if (!this.hasValueInColumn(this.gameField, blankCell)) {
-                scoredCells.x = cell.x;
-            }
-
-            if (!this.hasValueInRow(this.gameField, blankCell)) {
-                scoredCells.y = cell.y;
-            }
-
-            if (!this.hasValueInGroup(this.gameField, blankCell)) {
-                scoredCells.group = cell.group;
-            }
-
-            // HINT: No possible values left - winner!
-            if (this.possibleValues.length === 0) {
-                scoredCells.values = this.fieldFillingValues;
-                scoredCells.isWon = true;
-                // HINT: This value is completed!
-            } else if (!this.possibleValues.includes(cell.value)) {
-                scoredCells.values = [cell.value];
-            }
-
-            return scoredCells;
-        }
-        throw new Error('Cell value is wrong');
+    private getAvailableValueProgress(value: number): number {
+        return 100 * (1 - value / this.config.fieldSize);
     }
 
-    private getGroupCoordinates(cell: CellInterface): [startY: number, endY: number, startX: number, endX: number] {
-        // TODO: To optimize we potentially can precalculate all groups coordinates once
-        const groupStartY = cell.y - (cell.y % this.fieldGroupHeight);
-        const groupStartX = cell.x - (cell.x % this.fieldGroupWidth);
-        const groupEndY = groupStartY + this.fieldGroupHeight;
-        const groupEndX = groupStartX + this.fieldGroupWidth;
-
-        return [groupStartY, groupEndY, groupStartX, groupEndX];
+    private createAvailableValues(gameField: FieldInterface): AvailableValuesType {
+        return gameField.reduce<AvailableValuesType>(
+            (acc, row) =>
+                row.reduce<AvailableValuesType>(
+                    (acc2, cell) => ({
+                        ...acc,
+                        ...acc2,
+                        [cell.value]: isDefined(acc[cell.value])
+                            ? {
+                                  count: acc[cell.value].count - 1,
+                                  progress: this.getAvailableValueProgress(acc[cell.value].count - 1)
+                              }
+                            : { count: this.config.fieldSize - 1, progress: this.getAvailableValueProgress(this.config.fieldSize - 1) }
+                    }),
+                    {}
+                ),
+            {}
+        );
     }
 
-    private isCoordinatesInGroup(cell: CellInterface, y: number, x: number): boolean {
-        const [groupStartY, groupEndY, groupStartX, groupEndX] = this.getGroupCoordinates(cell);
-
-        return y >= groupStartY && y < groupEndY && x >= groupStartX && x < groupEndX;
-    }
-
-    private hasBlankCells(): [hasBlankCells: boolean, lastY: number, lastX: number] {
-        let y = 0;
-        let x = 0;
-
-        // TODO: We can introduce different filling logic to randomize puzzle generation
-
-        for (y = 0; y < this.field.length; y += 1) {
-            for (x = 0; x < this.field[y].length; x += 1) {
-                if (this.isBlankCell(this.field[y][x])) {
-                    return [true, y, x];
-                }
+    private calculateAvailableValues(availableValues: AvailableValuesType, cell: CellInterface): AvailableValuesType {
+        return {
+            ...availableValues,
+            [cell.value]: {
+                count: availableValues[cell.value].count - 1,
+                progress: this.getAvailableValueProgress(availableValues[cell.value].count - 1)
             }
-        }
-
-        return [false, y, x];
-    }
-
-    private hasValueInRow(field: FieldInterface, cell: CellInterface): boolean {
-        for (let x = 0; x < this.fieldSize; x += 1) {
-            if (field[cell.y][x].value === cell.value) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    // eslint-disable-next-line class-methods-use-this
-    private hasValueInColumn(field: FieldInterface, cell: CellInterface): boolean {
-        for (const row of field) {
-            if (row[cell.x].value === cell.value) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private hasValueInGroup(field: FieldInterface, cell: CellInterface): boolean {
-        const [groupStartY, groupStartX] = this.getGroupCoordinates(cell);
-
-        for (let y = 0; y < this.fieldGroupHeight; y += 1) {
-            for (let x = 0; x < this.fieldGroupWidth; x += 1) {
-                if (field[y + groupStartY][x + groupStartX].value === cell.value) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    // TODO: Can we optimize this?
-    private hasValueInField(field: FieldInterface, cell: CellInterface): boolean {
-        let valueCount = 0;
-        for (const row of field) {
-            for (const col of row) {
-                if (col.value === cell.value) {
-                    valueCount += 1;
-                }
-            }
-        }
-
-        return valueCount < this.fieldSize;
-    }
-
-    /**
-     * TODO: Can we improve generation speed? =)
-     * HINT: This algorithm is based on backtracking
-     * ispired by https://dev.to/christinamcmahon/use-backtracking-algorithm-to-solve-sudoku-270
-     */
-    private fillRecursive(): boolean {
-        const [needsFilling, emptyY, emptyX] = this.hasBlankCells();
-
-        if (!needsFilling) {
-            return true;
-        }
-
-        for (const value of this.fieldFillingValues) {
-            const cell = { ...this.field[emptyY][emptyX], value };
-
-            if (
-                !this.hasValueInRow(this.field, cell) &&
-                !this.hasValueInColumn(this.field, cell) &&
-                !this.hasValueInGroup(this.field, cell)
-            ) {
-                this.field[emptyY][emptyX] = cell;
-
-                if (this.fillRecursive()) {
-                    return true;
-                }
-
-                this.field[emptyY][emptyX].value = this.blankCellValue;
-            }
-        }
-
-        return false;
+        };
     }
 }

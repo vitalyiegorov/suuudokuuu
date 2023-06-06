@@ -8,7 +8,7 @@ import Reanimated, {
     withTiming
 } from 'react-native-reanimated';
 
-import { type OnEventFn, cs } from '@rnw-community/shared';
+import { type OnEventFn, cs, isDefined } from '@rnw-community/shared';
 import { setTestID } from '@rnw-community/wdio';
 
 import { Colors } from '../../../@generic';
@@ -20,15 +20,15 @@ const ReanimatedPressable = Reanimated.createAnimatedComponent(Pressable);
 
 interface Props {
     value: number;
-    canPress: boolean;
     isActive: boolean;
     progress: number;
     correctValue?: number;
-    onSelect: OnEventFn<number>;
+    onSelect?: OnEventFn<number>;
 }
 
 // TODO: Add animation when correct value is selected
-export const AvailableValuesItem = ({ value, isActive, onSelect, progress, correctValue, canPress }: Props) => {
+export const AvailableValuesItem = ({ value, isActive, onSelect, progress, correctValue }: Props) => {
+    const canPress = isDefined(onSelect);
     const isCorrect = value === correctValue;
     const pressAnimatedBgColor = isCorrect ? Colors.cell.active : Colors.cell.error;
 
@@ -45,7 +45,7 @@ export const AvailableValuesItem = ({ value, isActive, onSelect, progress, corre
 
     const handlePress = () => {
         animated.value = withSequence(withTiming(1, { duration: 200 }), withTiming(0, { duration: 200 }));
-        onSelect(value);
+        onSelect?.(value);
     };
 
     const buttonStyles = [styles.button, cs(isActive, styles.wrapperActive), animatedStyles];
