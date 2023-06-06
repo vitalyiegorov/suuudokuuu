@@ -1,50 +1,38 @@
-import { useCallback } from 'react';
+import { useMemo } from 'react';
 import { View } from 'react-native';
 
 import { type OnEventFn, isDefined } from '@rnw-community/shared';
 
-import type { CellInterface, ScoredCellsInterface, Sudoku } from '../../../@logic';
+import { type AvailableValuesType } from '../../../@logic/types/available-values.type';
 import { AvailableValuesItem } from '../available-values-item/available-values-item';
 
 import { AvailableValuesStyles as styles } from './available-values.styles';
 
+const getPossibleValues = (availableValues: AvailableValuesType) =>
+    Object.keys(availableValues)
+        .map(Number)
+        .filter(key => availableValues[key].count > 0 && key > 0)
+        .map(key => key);
+
 interface Props {
-    sudoku: Sudoku;
-    possibleValues: number[];
-    selectedCell?: CellInterface;
-    onCorrectValue: OnEventFn<[CellInterface, ScoredCellsInterface]>;
-    onWrongValue: OnEventFn<number>;
+    availableValues: AvailableValuesType;
+    onSelectValue?: OnEventFn<number>;
+    currentCorrectValue: number;
 }
 
-export const AvailableValues = ({ sudoku, possibleValues, selectedCell, onCorrectValue, onWrongValue }: Props) => {
-    const isBlankCellSelected = sudoku.isBlankCell(selectedCell);
-    const currentCorrectValue = sudoku.getCorrectValue(selectedCell);
-
-    const handleSelectValue = useCallback(
-        (value: number) => {
-            if (isBlankCellSelected && isDefined(selectedCell)) {
-                const newValueCell = { ...selectedCell, value };
-                if (sudoku.isCorrectValue(newValueCell)) {
-                    onCorrectValue([selectedCell, sudoku.setCellValue(newValueCell)]);
-                } else {
-                    onWrongValue(value);
-                }
-            }
-        },
-        [isBlankCellSelected, onCorrectValue, onWrongValue, selectedCell, sudoku]
-    );
+export const AvailableValues = ({ currentCorrectValue, onSelectValue, availableValues }: Props) => {
+    const possibleValues = useMemo(() => getPossibleValues(availableValues), [availableValues]);
 
     return (
         <View style={styles.wrapper}>
             {possibleValues.map(value => (
                 <AvailableValuesItem
-                    canPress={isBlankCellSelected}
                     correctValue={currentCorrectValue}
                     isActive={false}
                     key={`possible-value-${value}`}
-                    onSelect={handleSelectValue}
-                    progress={sudoku.getValueProgress(value)}
+                    progress={availableValues[value].progress}
                     value={value}
+                    {...(isDefined(onSelectValue) && { onSelect: onSelectValue })}
                 />
             ))}
         </View>

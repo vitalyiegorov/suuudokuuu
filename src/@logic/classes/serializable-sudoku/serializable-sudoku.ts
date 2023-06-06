@@ -1,4 +1,4 @@
-import { isDefined, isNotEmptyString } from '@rnw-community/shared';
+import { isNotEmptyString } from '@rnw-community/shared';
 
 import { DifficultyEnum } from '../../../@generic/enums/difficulty.enum';
 import type { FieldInterface } from '../../interfaces/field.interface';
@@ -9,12 +9,6 @@ import { type AvailableValuesType } from '../../types/available-values.type';
  * HINT: Serialization inspired from https://github.com/robatron/sudoku.js
  */
 export class SerializableSudoku {
-    protected readonly blankCellValue: number;
-    protected readonly fieldSize: number;
-    protected readonly fieldGroupWidth: number;
-    protected readonly fieldGroupHeight: number;
-
-    protected difficulty: DifficultyEnum;
     protected field: FieldInterface = [];
     protected gameField: FieldInterface = [];
     protected availableValues: AvailableValuesType = {};
@@ -23,13 +17,7 @@ export class SerializableSudoku {
     private readonly emptyStringValue: string = '.';
     private readonly fieldSeparator: string = '|';
 
-    constructor(protected readonly config: SudokuConfigInterface) {
-        this.fieldSize = config.fieldSize;
-        this.fieldGroupWidth = config.fieldGroupWidth;
-        this.fieldGroupHeight = config.fieldGroupHeight;
-        this.blankCellValue = config.blankCellValue;
-        this.difficulty = config.difficulty;
-    }
+    constructor(protected readonly config: SudokuConfigInterface) {}
 
     get FullField(): FieldInterface {
         return this.field;
@@ -37,14 +25,6 @@ export class SerializableSudoku {
 
     get Field(): FieldInterface {
         return this.gameField;
-    }
-
-    get PossibleValues(): number[] {
-        return this.possibleValues;
-    }
-
-    get Difficulty(): DifficultyEnum {
-        return this.difficulty;
     }
 
     // eslint-disable-next-line max-statements
@@ -55,7 +35,7 @@ export class SerializableSudoku {
             throw new Error('Invalid string format: Empty string passed');
         }
 
-        const correctLength = game.fieldSize * game.fieldSize * 2 + game.fieldSeparator.length;
+        const correctLength = game.config.fieldSize * game.config.fieldSize * 2 + game.fieldSeparator.length;
         if (fieldsString.length !== correctLength) {
             throw new Error(
                 `Invalid string format: String length is wrong for the given configuration(${fieldsString.length}/${correctLength})})`
@@ -73,17 +53,18 @@ export class SerializableSudoku {
 
         game.convertFieldFromString(fieldString, game.field);
         const blankCellCount = game.convertFieldFromString(gameFieldString, game.gameField);
-        game.setDifficultyByBlankCells(blankCellCount);
 
-        game.calculateAvailableValues();
-        game.calculatePossibleValues();
+        // TODO: Do we need it here?
+        game.getDifficultyByBlankCells(blankCellCount);
 
         return game;
     }
 
     toString(): string {
         const convertField = (field: FieldInterface) =>
-            field.map(row => row.map(cell => (cell.value === this.blankCellValue ? this.emptyStringValue : cell.value)).join('')).join('');
+            field
+                .map(row => row.map(cell => (cell.value === this.config.blankCellValue ? this.emptyStringValue : cell.value)).join(''))
+                .join('');
 
         return `${convertField(this.field)}|${convertField(this.gameField)}`;
     }
@@ -93,68 +74,45 @@ export class SerializableSudoku {
         return field.map(row => row.map(cell => ({ ...cell })));
     }
 
-    protected calculateAvailableValues(): AvailableValuesType {
-        const getValueProgress = (count: number) => (count / this.fieldSize) * 100;
-
-        // TODO: Can we optimize and not recalculate full object every time?
-        this.availableValues = {};
-        for (const row of this.gameField) {
-            for (const col of row) {
-                const { value } = col;
-                if (value !== this.blankCellValue) {
-                    if (isDefined(this.availableValues[value])) {
-                        this.availableValues[value].count += 1;
-                        this.availableValues[value].progress = getValueProgress(this.availableValues[value].count);
-                    } else {
-                        this.availableValues[value] = { count: 1, progress: getValueProgress(1) };
-                    }
-                }
-            }
-        }
-
-        return this.availableValues;
-    }
-
-    protected calculatePossibleValues(): number[] {
-        this.possibleValues = Object.keys(this.availableValues)
-            .map(Number)
-            .filter(key => this.availableValues[key].count < this.fieldSize)
-            .map(key => key);
-
-        return this.possibleValues;
-    }
-
+    // TODO: Groups are numbered vertically
     protected createEmptyField(): FieldInterface {
-        return Array.from({ length: this.fieldSize }, (_, y) =>
-            Array.from({ length: this.fieldSize }, (__, x) => ({
+        return Array.from({ length: this.config.fieldSize }, (_, y) =>
+            Array.from({ length: this.config.fieldSize }, (__, x) => ({
                 y,
                 x,
-                value: this.blankCellValue,
-                group: Math.floor(x / this.fieldGroupWidth) * this.fieldGroupWidth + Math.floor(y / this.fieldGroupHeight) + 1
+                value: this.config.blankCellValue,
+                group:
+                    Math.floor(x / this.config.fieldGroupWidth) * this.config.fieldGroupWidth +
+                    Math.floor(y / this.config.fieldGroupHeight) +
+                    1
             }))
         );
     }
 
-    private setDifficultyByBlankCells(blankCellCount: number): void {
+    private getDifficultyByBlankCells(blankCellCount: number): DifficultyEnum {
         for (const difficulty of Object.values(DifficultyEnum)) {
-            if (this.config.difficultyBlankCellsPercentage[difficulty] <= blankCellCount / (this.fieldSize * this.fieldSize)) {
-                this.difficulty = difficulty;
-                break;
+            if (
+                this.config.difficultyBlankCellsPercentage[difficulty] <=
+                blankCellCount / (this.config.fieldSize * this.config.fieldSize)
+            ) {
+                return difficulty;
             }
         }
+
+        throw new Error('Cannot identify difficulty by blank cells count');
     }
 
     private convertFieldFromString(fieldString: string, field: FieldInterface): number {
         let blankCellCount = 0;
 
         fieldString.split('').reduce((acc, stringValue, index) => {
-            const x = index % this.fieldSize;
-            const y = Math.floor(index / this.fieldSize);
-            const value = stringValue === this.emptyStringValue ? this.blankCellValue : parseInt(stringValue, 10);
+            const x = index % this.config.fieldSize;
+            const y = Math.floor(index / this.config.fieldSize);
+            const value = stringValue === this.emptyStringValue ? this.config.blankCellValue : parseInt(stringValue, 10);
 
             acc[y][x] = { ...acc[y][x], value };
 
-            if (value === this.blankCellValue) {
+            if (value === this.config.blankCellValue) {
                 blankCellCount += 1;
             }
 
