@@ -3,16 +3,31 @@ import { isDefined } from '@rnw-community/shared';
 import { type DifficultyEnum } from '../../../@generic';
 import { type CellInterface } from '../../interfaces/cell.interface';
 import { type FieldInterface } from '../../interfaces/field.interface';
-import { SerializableSudoku } from '../serializable-sudoku/serializable-sudoku';
+import { type SudokuConfigInterface } from '../../interfaces/sudoku-config.interface';
 
-export class SudokuFiller extends SerializableSudoku {
-    create(difficulty: DifficultyEnum): [fullField: FieldInterface, gameField: FieldInterface] {
+export class SudokuFiller {
+    constructor(protected readonly config: SudokuConfigInterface) {}
+
+    createFullField(): FieldInterface {
         const fullField = this.createEmptyField();
         if (!this.fillRecursive(fullField, this.getRandomFillingValues())) {
             throw new Error('Unable to create a game field');
         }
 
-        return [fullField, this.createFieldWithBlankCells(fullField, this.getBlankCellsFromDifficulty(difficulty))];
+        return fullField;
+    }
+
+    createGameField(fullField: FieldInterface, difficulty: DifficultyEnum): FieldInterface {
+        const getRandomPosition = (): number => Math.floor(Math.random() * this.config.fieldSize);
+
+        const blankCellsCount = this.getBlankCellsFromDifficulty(difficulty);
+
+        const blankField = this.cloneField(fullField);
+        for (let i = 0; i < blankCellsCount; i += 1) {
+            blankField[getRandomPosition()][getRandomPosition()].value = this.config.blankCellValue;
+        }
+
+        return blankField;
     }
 
     getBlankCellsFromDifficulty(difficulty: DifficultyEnum): number {
@@ -28,21 +43,30 @@ export class SudokuFiller extends SerializableSudoku {
 
         return y >= startY && y < endY && x >= startX && x < endX;
     }
-
     // eslint-disable-next-line class-methods-use-this
+
     isSameCellValue(cell: CellInterface, selectedCell?: CellInterface): boolean {
         return isDefined(selectedCell) && cell.value === selectedCell.value && cell.value !== this.config.blankCellValue;
     }
 
-    private createFieldWithBlankCells(field: FieldInterface, blankCellsCount: number): FieldInterface {
-        const getRandomPosition = (): number => Math.floor(Math.random() * this.config.fieldSize);
+    // eslint-disable-next-line class-methods-use-this
+    protected cloneField(field: FieldInterface): FieldInterface {
+        return field.map(row => row.map(cell => ({ ...cell })));
+    }
 
-        const blankField = this.cloneField(field);
-        for (let i = 0; i < blankCellsCount; i += 1) {
-            blankField[getRandomPosition()][getRandomPosition()].value = this.config.blankCellValue;
-        }
-
-        return blankField;
+    // TODO: Groups are numbered vertically
+    protected createEmptyField(): FieldInterface {
+        return Array.from({ length: this.config.fieldSize }, (_, y) =>
+            Array.from({ length: this.config.fieldSize }, (__, x) => ({
+                y,
+                x,
+                value: this.config.blankCellValue,
+                group:
+                    Math.floor(x / this.config.fieldGroupWidth) * this.config.fieldGroupWidth +
+                    Math.floor(y / this.config.fieldGroupHeight) +
+                    1
+            }))
+        );
     }
 
     private getRandomFillingValues(): number[] {

@@ -4,7 +4,4 @@ export * from './interfaces/field.interface';
 export * from './interfaces/scored-cells.interface';
 export * from './interfaces/sudoku-state.interface';
 
-export * from './constants/max-mistakes.constant';
-export * from './constants/blank-cell-value.constant';
-
 export * from './classes/sudoku/sudoku';

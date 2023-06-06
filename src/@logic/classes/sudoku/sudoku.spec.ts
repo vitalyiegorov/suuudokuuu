@@ -1,6 +1,5 @@
 import { describe, expect, it } from '@jest/globals';
 
-import { DifficultyEnum } from '../../../@generic/enums/difficulty.enum';
 import { defaultSudokuConfig } from '../../interfaces/sudoku-config.interface';
 
 import { Sudoku } from './sudoku';
@@ -11,8 +10,8 @@ describe('Sudoku', () => {
         // Expect.assertions()
         const sudoku = new Sudoku(defaultSudokuConfig);
 
-        sudoku.create(DifficultyEnum.Newbie);
+        const fullField = sudoku.createFullField();
 
-        expect(sudoku.Field).toHaveLength(defaultSudokuConfig.fieldSize);
+        expect(fullField).toHaveLength(defaultSudokuConfig.fieldSize);
     });
 });
