@@ -5,7 +5,7 @@ import { DonateButton } from '../donate-button/donate-button';
 import { DonationStyles as styles } from './donation.styles';
 
 interface Props {
-    type: 'loser' | 'paused' | 'winner';
+    readonly type: 'loser' | 'paused' | 'winner';
 }
 
 // TODO: Add different random texts based on difficulty and results
