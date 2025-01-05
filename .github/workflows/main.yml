@@ -34,7 +34,7 @@ jobs:
         run: yarn install
 
       - name: Publish a release
-        run: yarn release
+        run: yarn release --no-git.requireCleanWorkingDir
 
       - name: Push changes
         uses: ad-m/github-push-action@master
