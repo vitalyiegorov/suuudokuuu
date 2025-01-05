@@ -2,42 +2,23 @@
     "$schema": "https://turborepo.org/schema.json",
     "globalDependencies": ["tsconfig*.json", "app.json", ".env*"],
     "tasks": {
-        "topo": {
-            "dependsOn": ["^topo"]
-        },
         "release": {
             "dependsOn": ["^release"],
             "outputs": ["dist/**", "build/**"]
         },
-        "build": {
-            "dependsOn": ["^build"],
-            "outputs": ["dist/**"]
-        },
         "ts": {
-            "dependsOn": ["^topo"],
             "outputs": ["node_modules/.cache/tsbuildinfo.json"]
         },
         "lint": {
-            "dependsOn": ["^topo"],
             "outputs": []
         },
-        "format": {
+        "deadcode": {
             "outputs": []
         },
-        "clear": {
-            "outputs": []
-        },
-        "clear:deps": {
-            "outputs": []
-        },
-        "test": {},
-        "test:coverage": {
-            "outputs": ["coverage/**"]
-        },
-        "//#cpd": {
+        "cpd": {
             "outputs": ["report/jscpd/**"]
         },
-        "//#deadcode": {
+        "format": {
             "outputs": []
         }
     }
