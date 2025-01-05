@@ -18,11 +18,11 @@ void SplashScreen.preventAutoHideAsync();
 const stackOptions = { headerShown: false, gestureEnabled: false };
 
 export default function RootLayout() {
-    const scheme = useColorScheme() === 'dark' ? BlackTheme : WhiteTheme;
-    const [loaded, error] = useFonts({
-        Inter_500Medium,
-        Inter_700Bold
-    });
+    const scheme = useColorScheme() === 'dark' ? BlackTheme : WhiteTheme,
+        [loaded, error] = useFonts({
+            Inter_500Medium,
+            Inter_700Bold
+        });
 
     useEffect(() => {
         if (loaded || isDefined(error)) {

@@ -17,13 +17,13 @@ const getText = (isActive: boolean, isEmpty: boolean, cell: CellInterface): stri
     return cell.value.toString();
 };
 interface Props {
-    sudoku: Sudoku;
-    isActive: boolean;
-    isActiveValue: boolean;
-    isHighlighted: boolean;
-    cell: CellInterface;
-    hasAnimation: boolean;
-    animation: SharedValue<number>;
+    readonly sudoku: Sudoku;
+    readonly isActive: boolean;
+    readonly isActiveValue: boolean;
+    readonly isHighlighted: boolean;
+    readonly cell: CellInterface;
+    readonly hasAnimation: boolean;
+    readonly animation: SharedValue<number>;
 }
 
 const FieldCellTextComponent = ({ sudoku, cell, isHighlighted, isActiveValue, isActive, hasAnimation, animation }: Props) => {

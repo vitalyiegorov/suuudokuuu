@@ -25,6 +25,7 @@ const rootReducer = combineReducers({
     [historySlice.name]: historySlice.reducer
 });
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
 const persistedReducer = persistReducer(
     {
         key: 'root',
