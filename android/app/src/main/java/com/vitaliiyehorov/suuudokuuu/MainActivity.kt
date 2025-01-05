@@ -1,4 +1,4 @@
-package com.vitalyiegorov.suuudokuuu
+package com.vitaliiyehorov.suuudokuuu
 import expo.modules.splashscreen.SplashScreenManager
 
 import android.os.Build

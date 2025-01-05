@@ -1,5 +1,5 @@
 #file: noinspection YAMLSchemaValidation
-appId: com.vitalyiegorov.suuudokuuu
+appId: com.vitaliiyehorov.suuudokuuu
 name: Start a new game
 env:
   # TODO: Load app with specific puzzle
