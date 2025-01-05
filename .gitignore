@@ -12,8 +12,6 @@ web-build/
 google-service-account.json
 .turbo
 report
-android
-ios
 
 # macOS
 .DS_Store
