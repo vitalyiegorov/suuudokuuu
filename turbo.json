@@ -1,9 +1,13 @@
 {
     "$schema": "https://turborepo.org/schema.json",
-    "globalDependencies": ["tsconfig*.json"],
+    "globalDependencies": ["tsconfig*.json", "app.json", ".env*"],
     "tasks": {
         "topo": {
             "dependsOn": ["^topo"]
+        },
+        "release": {
+            "dependsOn": ["^release"],
+            "outputs": ["dist/**", "build/**"]
         },
         "build": {
             "dependsOn": ["^build"],
