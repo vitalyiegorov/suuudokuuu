@@ -201,7 +201,7 @@ export class Sudoku extends SerializableSudoku {
     /**
      * TODO: Can we improve generation speed? =)
      * HINT: This algorithm is based on backtracking
-     * ispired by https://dev.to/christinamcmahon/use-backtracking-algorithm-to-solve-sudoku-270
+     * inspired by https://dev.to/christinamcmahon/use-backtracking-algorithm-to-solve-sudoku-270
      */
     private fillRecursive(): boolean {
         const [needsFilling, emptyY, emptyX] = this.hasBlankCells();
