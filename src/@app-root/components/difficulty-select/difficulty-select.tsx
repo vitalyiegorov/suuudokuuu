@@ -8,7 +8,7 @@ import { DifficultyEnum } from '../../../@generic/enums/difficulty.enum';
 import { DifficultySelectStyles as styles } from './difficulty-select.styles';
 
 interface Props {
-    onSelect: OnEventFn<DifficultyEnum>;
+    readonly onSelect: OnEventFn<DifficultyEnum>;
 }
 
 export const DifficultySelect = ({ onSelect }: Props) => {

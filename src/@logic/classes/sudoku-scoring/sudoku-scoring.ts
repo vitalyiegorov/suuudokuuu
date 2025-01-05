@@ -7,6 +7,7 @@ export class SudokuScoring {
 
     constructor(private readonly config: SudokuScoringConfigInterface) {}
 
+    // eslint-disable-next-line @typescript-eslint/max-params
     calculate(difficulty: DifficultyEnum, scoredCells: ScoredCellsInterface, mistakes: number, elapsedTime: number): number {
         this.currentScore = this.getDifficultyBonus(this.config.correctValue, difficulty);
 
