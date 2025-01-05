@@ -28,6 +28,7 @@ export class Sudoku extends SerializableSudoku {
 
     // TODO: Can we avoid it and just use parent version with correct types?
     static override fromString(fieldsString: string, config: SudokuConfigInterface): Sudoku {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
         return super.fromString(fieldsString, config) as Sudoku;
     }
 
@@ -65,12 +66,12 @@ export class Sudoku extends SerializableSudoku {
         return isDefined(cell) ? this.field[cell.y][cell.x].value : this.blankCellValue;
     }
 
-    // eslint-disable-next-line class-methods-use-this
+    // eslint-disable-next-line @typescript-eslint/class-methods-use-this
     isCellHighlighted(cell: CellInterface, selectedCell?: CellInterface): boolean {
         return isDefined(selectedCell) && (selectedCell.x === cell.x || selectedCell.y === cell.y || selectedCell.group === cell.group);
     }
 
-    // eslint-disable-next-line class-methods-use-this
+    // eslint-disable-next-line @typescript-eslint/class-methods-use-this
     isSameCell(cell: CellInterface, selectedCell?: CellInterface): boolean {
         return isDefined(selectedCell) && cell.x === selectedCell.x && cell.y === selectedCell.y;
     }
@@ -99,7 +100,7 @@ export class Sudoku extends SerializableSudoku {
         return isDefined(cell) && this.gameField[cell.y][cell.x].value === this.blankCellValue;
     }
 
-    // eslint-disable-next-line class-methods-use-this
+    // eslint-disable-next-line @typescript-eslint/class-methods-use-this
     isScoredCell(cell: CellInterface, scoredCell: ScoredCellsInterface): boolean {
         return (
             scoredCell.isWon ||
@@ -171,7 +172,7 @@ export class Sudoku extends SerializableSudoku {
         return false;
     }
 
-    // eslint-disable-next-line class-methods-use-this
+    // eslint-disable-next-line @typescript-eslint/class-methods-use-this
     private hasValueInColumn(field: FieldInterface, cell: CellInterface): boolean {
         for (const row of field) {
             if (row[cell.x].value === cell.value) {

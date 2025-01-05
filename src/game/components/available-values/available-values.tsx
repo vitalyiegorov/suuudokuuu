@@ -9,11 +9,11 @@ import { AvailableValuesItem } from '../available-values-item/available-values-i
 import { AvailableValuesStyles as styles } from './available-values.styles';
 
 interface Props {
-    sudoku: Sudoku;
-    possibleValues: number[];
-    selectedCell?: CellInterface;
-    onCorrectValue: OnEventFn<[CellInterface, ScoredCellsInterface]>;
-    onWrongValue: OnEventFn<number>;
+    readonly sudoku: Sudoku;
+    readonly possibleValues: number[];
+    readonly selectedCell?: CellInterface;
+    readonly onCorrectValue: OnEventFn<[CellInterface, ScoredCellsInterface]>;
+    readonly onWrongValue: OnEventFn<number>;
 }
 
 export const AvailableValues = ({ sudoku, possibleValues, selectedCell, onCorrectValue, onWrongValue }: Props) => {

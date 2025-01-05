@@ -7,11 +7,9 @@ module.exports = {
     },
     extends: [
         'eslint:all',
-        'standard-with-typescript',
         'plugin:import/recommended',
         'plugin:import/typescript',
         'plugin:promise/recommended',
-        'plugin:prettier/recommended',
         'plugin:react-native/all',
         'plugin:react/all',
         'plugin:@typescript-eslint/all',
@@ -38,7 +36,7 @@ module.exports = {
             version: 'detect'
         }
     },
-    plugins: ['react', 'react-native', 'import', 'prettier', 'jest'],
+    plugins: ['react', 'react-native', 'import', 'jest'],
     rules: {
         'jest/max-expects': 'off',
         '@typescript-eslint/parameter-properties': 'off',
@@ -51,28 +49,14 @@ module.exports = {
         '@typescript-eslint/no-magic-numbers': 'off',
         '@typescript-eslint/init-declarations': 'off',
         '@typescript-eslint/no-confusing-void-expression': ['error', { ignoreVoidOperator: true }],
-        '@typescript-eslint/member-delimiter-style': [
-            'error',
-            {
-                multiline: {
-                    delimiter: 'semi',
-                    requireLast: true
-                },
-                singleline: {
-                    delimiter: 'semi',
-                    requireLast: false
-                },
-                multilineDetection: 'brackets'
-            }
-        ],
         '@typescript-eslint/no-type-alias': 'off',
         '@typescript-eslint/require-await': 'off',
         '@typescript-eslint/explicit-module-boundary-types': 'off',
         '@typescript-eslint/explicit-function-return-type': 'off',
         '@typescript-eslint/no-meaningless-void-operator': 'off',
         '@typescript-eslint/no-import-type-side-effects': 'off',
+        '@typescript-eslint/naming-convention': ['error', { selector: 'enumMember', format: ['UPPER_CASE', 'PascalCase'] }],
         'import/namespace': 'off',
-        'lines-between-class-members': 'off',
         'import/order': [
             'error',
             {
@@ -92,10 +76,19 @@ module.exports = {
                 pathGroupsExcludedImportTypes: ['builtin']
             }
         ],
+        'lines-between-class-members': 'off',
+        camelcase: 'off',
+        'class-methods-use-this': 'off',
         'no-duplicate-imports': 'off',
         'no-ternary': 'off',
         'no-void': 'off',
-        'prettier/prettier': 'error',
+        'no-undef': 'off',
+        'no-useless-constructor': 'off',
+        'no-unused-vars': 'off',
+        'one-var': 'off',
+        'new-cap': 'off',
+        'no-redeclare': 'off',
+        'no-undefined': 'off',
         'react/react-in-jsx-scope': 'off',
         'react/jsx-uses-react': 'off',
         'react-native/no-raw-text': 'off',

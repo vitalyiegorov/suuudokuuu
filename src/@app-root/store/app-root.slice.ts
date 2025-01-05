@@ -8,7 +8,7 @@ export const appRootSlice = createSlice({
     name: 'appRoot',
     initialState: appRootInitialState,
     reducers: {
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        // eslint-disable-next-line @typescript-eslint/no-empty-function,@typescript-eslint/no-unused-vars
         load: (_state, _action: PayloadAction<DifficultyEnum>) => {}
     }
 });
