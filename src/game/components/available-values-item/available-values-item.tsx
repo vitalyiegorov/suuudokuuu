@@ -1,4 +1,4 @@
-import { Pressable, Text, View } from 'react-native';
+import { Pressable, type StyleProp, Text, View, type ViewStyle } from 'react-native';
 import Reanimated, {
     interpolate,
     interpolateColor,
@@ -50,7 +50,7 @@ export const AvailableValuesItem = ({ value, isActive, onSelect, progress, corre
 
     const buttonStyles = [styles.button, cs(isActive, styles.wrapperActive), animatedStyles];
     const textStyles = [styles.text, cs(isActive, styles.textActive)];
-    const progressStyles = [styles.progress, { width: `${progress}%` }];
+    const progressStyles = [styles.progress, { width: `${progress}%` }] as StyleProp<ViewStyle>;
 
     return (
         <View style={styles.container} {...setTestID(selectors.Root)}>
