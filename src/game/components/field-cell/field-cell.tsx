@@ -39,14 +39,14 @@ const getCellSelector = (props: Props): selectors => {
 const animationConfig = { duration: animationDurationConstant };
 
 interface Props {
-    hasAnimation: boolean;
-    textAnimation: SharedValue<number>;
-    cell: CellInterface;
-    sudoku: Sudoku;
-    onSelect: OnEventFn<CellInterface | undefined>;
-    isActive: boolean;
-    isActiveValue: boolean;
-    isHighlighted: boolean;
+    readonly hasAnimation: boolean;
+    readonly textAnimation: SharedValue<number>;
+    readonly cell: CellInterface;
+    readonly sudoku: Sudoku;
+    readonly onSelect: OnEventFn<CellInterface | undefined>;
+    readonly isActive: boolean;
+    readonly isActiveValue: boolean;
+    readonly isHighlighted: boolean;
 }
 
 const FieldCellComponent = (props: Props) => {
