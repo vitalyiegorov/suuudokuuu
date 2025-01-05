@@ -5,11 +5,16 @@ env:
   EXPO_APPLE_TEAM_TYPE: INDIVIDUAL
   EXPO_APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
   GITHUB_TOKEN: ${{ secrets.PUSH_TO_PROTECTED_TOKEN }}
+
 on:
   workflow_dispatch:
   push:
     branches:
       - main
+
+permissions:
+  contents: read
+  pull-requests: write
 
 jobs:
   release:
@@ -17,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           persist-credentials: false
           fetch-depth: 0
@@ -47,7 +52,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: main
 
@@ -79,7 +84,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: main
 
