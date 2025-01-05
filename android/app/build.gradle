@@ -86,9 +86,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace 'com.vitalyiegorov.suuudokuuu'
+    namespace 'com.vitaliiyehorov.suuudokuuu'
     defaultConfig {
-        applicationId 'com.vitalyiegorov.suuudokuuu'
+        applicationId 'com.vitaliiyehorov.suuudokuuu'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 11

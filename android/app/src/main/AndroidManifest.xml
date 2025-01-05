@@ -27,7 +27,7 @@
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
         <data android:scheme="myapp"/>
-        <data android:scheme="com.vitalyiegorov.suuudokuuu"/>
+        <data android:scheme="com.vitaliiyehorov.suuudokuuu"/>
         <data android:scheme="exp+suuudokuuu"/>
       </intent-filter>
     </activity>
