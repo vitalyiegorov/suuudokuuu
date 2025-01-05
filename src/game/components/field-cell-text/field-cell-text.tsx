@@ -16,6 +16,7 @@ const getText = (isActive: boolean, isEmpty: boolean, cell: CellInterface): stri
 
     return cell.value.toString();
 };
+
 interface Props {
     readonly sudoku: Sudoku;
     readonly isActive: boolean;
