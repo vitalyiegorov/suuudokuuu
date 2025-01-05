@@ -6,6 +6,7 @@
         "android": "expo run:android",
         "cpd": "run -T jscpd --pattern \"**/*.{ts,tsx}\"",
         "deadcode": "run -T ts-prune .",
+        "format": "run -T prettier --write \"./src/**/*.{ts,tsx}\"",
         "ios": "expo run:ios",
         "lint": "run -T eslint --quiet --fix ./",
         "prepare": "husky install",
@@ -13,8 +14,7 @@
         "start": "expo start --dev-client",
         "test": "run -T jest",
         "test:coverage": "run -T jest --coverage",
-        "ts": "turbo run ts",
-        "ts:force": "turbo run ts --force",
+        "ts": "run -T tsc -p .",
         "web": "expo start --web"
     },
     "resolutions": {
@@ -79,7 +79,7 @@
         "release-it": "^15.10.5",
         "sort-package-json": "^2.12.0",
         "ts-prune": "^0.10.3",
-        "turbo": "1.10.1",
+        "turbo": "^2.3.3",
         "typescript": "^5.7.2"
     },
     "packageManager": "yarn@4.6.0"

@@ -1,23 +1,40 @@
 {
-    "$schema": "https://turbo.build/schema.json",
-    "pipeline": {
-        "release": {
-            "dependsOn": ["^release"],
-            "outputMode": "new-only",
-            "outputs": ["dist/**", "build/**"]
+    "$schema": "https://turborepo.org/schema.json",
+    "globalDependencies": ["tsconfig*.json"],
+    "tasks": {
+        "topo": {
+            "dependsOn": ["^topo"]
+        },
+        "build": {
+            "dependsOn": ["^build"],
+            "outputs": ["dist/**"]
         },
         "ts": {
-            "outputs": []
+            "dependsOn": ["^topo"],
+            "outputs": ["node_modules/.cache/tsbuildinfo.json"]
         },
         "lint": {
+            "dependsOn": ["^topo"],
             "outputs": []
         },
-        "deadcode": {
+        "format": {
             "outputs": []
         },
-        "cpd": {
+        "clear": {
+            "outputs": []
+        },
+        "clear:deps": {
+            "outputs": []
+        },
+        "test": {},
+        "test:coverage": {
+            "outputs": ["coverage/**"]
+        },
+        "//#cpd": {
+            "outputs": ["report/jscpd/**"]
+        },
+        "//#deadcode": {
             "outputs": []
         }
-    },
-    "globalDependencies": ["tsconfig*.json", "app.json", ".env*"]
+    }
 }
