@@ -6,7 +6,7 @@ import { isNotEmptyString } from '@rnw-community/shared';
 import { PageTitleConstant } from '../../constants/text.constants';
 
 interface Props {
-    title?: string;
+    readonly title?: string;
 }
 
 export const PageHeader = ({ title = '' }: Props) => {

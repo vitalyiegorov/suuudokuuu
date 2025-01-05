@@ -1,3 +1,4 @@
+import type { StyleProp, ViewStyle } from 'react-native';
 import { Pressable, Text, View } from 'react-native';
 import Reanimated, {
     interpolate,
@@ -19,12 +20,12 @@ import { AvailableValuesItemStyles as styles } from './available-values-item.sty
 const ReanimatedPressable = Reanimated.createAnimatedComponent(Pressable);
 
 interface Props {
-    value: number;
-    canPress: boolean;
-    isActive: boolean;
-    progress: number;
-    correctValue?: number;
-    onSelect: OnEventFn<number>;
+    readonly value: number;
+    readonly canPress: boolean;
+    readonly isActive: boolean;
+    readonly progress: number;
+    readonly correctValue?: number;
+    readonly onSelect: OnEventFn<number>;
 }
 
 // TODO: Add animation when correct value is selected
@@ -50,7 +51,7 @@ export const AvailableValuesItem = ({ value, isActive, onSelect, progress, corre
 
     const buttonStyles = [styles.button, cs(isActive, styles.wrapperActive), animatedStyles];
     const textStyles = [styles.text, cs(isActive, styles.textActive)];
-    const progressStyles = [styles.progress, { width: `${progress}%` }];
+    const progressStyles = [styles.progress, { width: `${progress}%` }] as StyleProp<ViewStyle>;
 
     return (
         <View style={styles.container} {...setTestID(selectors.Root)}>

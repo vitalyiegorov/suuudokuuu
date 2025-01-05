@@ -1,13 +1,13 @@
 {
-    "$schema": "https://turbo.build/schema.json",
-    "pipeline": {
+    "$schema": "https://turborepo.org/schema.json",
+    "globalDependencies": ["tsconfig*.json", "app.json", ".env*"],
+    "tasks": {
         "release": {
             "dependsOn": ["^release"],
-            "outputMode": "new-only",
             "outputs": ["dist/**", "build/**"]
         },
         "ts": {
-            "outputs": []
+            "outputs": ["node_modules/.cache/tsbuildinfo.json"]
         },
         "lint": {
             "outputs": []
@@ -16,8 +16,10 @@
             "outputs": []
         },
         "cpd": {
+            "outputs": ["report/jscpd/**"]
+        },
+        "format": {
             "outputs": []
         }
-    },
-    "globalDependencies": ["tsconfig*.json", "app.json", ".env*"]
+    }
 }
