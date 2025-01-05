@@ -13,7 +13,8 @@
         "start": "expo start --dev-client",
         "test": "run -T jest",
         "test:coverage": "run -T jest --coverage",
-        "ts": "run -T tsc -p .",
+        "ts": "turbo run ts",
+        "ts:force": "turbo run ts --force",
         "web": "expo start --web"
     },
     "resolutions": {
@@ -78,6 +79,7 @@
         "release-it": "^15.10.5",
         "sort-package-json": "^2.12.0",
         "ts-prune": "^0.10.3",
+        "turbo": "1.10.1",
         "typescript": "^5.7.2"
     },
     "packageManager": "yarn@4.6.0"
