@@ -17,14 +17,15 @@ import { hapticImpact } from '../../utils/haptic/haptic.util';
 import { BlackButtonStyles as styles } from './black-button.styles';
 
 interface Props extends PressableProps {
-    text: string;
-    styleText?: TextProps['style'];
-    href?: string;
+    readonly text: string;
+    readonly styleText?: TextProps['style'];
+    readonly href?: string;
 }
 
 export const BlackButton = ({ text, style, href, styleText, onPress, ...props }: Props) => {
     const router = useRouter();
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
     const wrapperStyles = [styles.button, style] as StyleProp<ViewStyle>;
     const textStyles = [styles.buttonText, styleText];
 

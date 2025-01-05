@@ -88,7 +88,7 @@ export class SerializableSudoku {
         return `${convertField(this.field)}|${convertField(this.gameField)}`;
     }
 
-    // eslint-disable-next-line class-methods-use-this
+    // eslint-disable-next-line @typescript-eslint/class-methods-use-this
     protected cloneField(field: FieldInterface): FieldInterface {
         return field.map(row => row.map(cell => ({ ...cell })));
     }

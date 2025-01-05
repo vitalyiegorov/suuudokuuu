@@ -14,11 +14,11 @@ import { FieldStyles as styles } from './field.styles';
 const textAnimationConfig = { duration: 8 * animationDurationConstant };
 
 interface Props {
-    sudoku: Sudoku;
-    scoredCells: ScoredCellsInterface;
-    field: FieldInterface;
-    selectedCell?: CellInterface;
-    onSelect: OnEventFn<CellInterface | undefined>;
+    readonly sudoku: Sudoku;
+    readonly scoredCells: ScoredCellsInterface;
+    readonly field: FieldInterface;
+    readonly selectedCell?: CellInterface;
+    readonly onSelect: OnEventFn<CellInterface | undefined>;
 }
 
 const FieldComponent = ({ field, selectedCell, onSelect, scoredCells, sudoku }: Props) => {
