@@ -1,10 +1,8 @@
 import { format } from 'date-fns';
-import { ScrollView, Text } from 'react-native';
+import { ScrollView, StyleSheet, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { BlackButton, Header, PageHeader } from '../../src/@generic';
-
-import { PrivacyPolicyStyles as styles } from './privacy-policy.styles';
+import { BlackButton, Colors, Header, PageHeader } from '../@generic';
 
 const email = 'vitalyiegorov@gmail.com';
 const date = format(new Date('2023-05-25'), 'dd MMMM yyyy');
@@ -42,7 +40,20 @@ By using Suuudokuuu, you agree to the collection and use of information as descr
 
 Last updated: ${date}`;
 
-export default function PrivacyPolicy() {
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        padding: 20
+    },
+    scrollView: {
+        paddingBottom: 20
+    },
+    text: {
+        color: Colors.black
+    }
+});
+
+export default function PrivacyPolicyPage() {
     return (
         <SafeAreaView style={styles.container}>
             <PageHeader title="Privacy policy" />

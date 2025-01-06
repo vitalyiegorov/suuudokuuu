@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { type RootState } from '../../../@app-root/store/app-root.store';
+import { type RootState } from '../../../@generic/app-root.store';
 import { type ScoredCellsInterface, type Sudoku } from '../../../@logic';
 import { gameSaveAction } from '../game.actions';
 
