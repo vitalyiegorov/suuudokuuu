@@ -1,17 +1,11 @@
 {
     "cli": {
-        "version": ">= 3.13.0",
+        "version": ">= 13.3.0",
         "appVersionSource": "remote"
     },
     "build": {
-        "development-simulator": {
-            "developmentClient": true,
-            "distribution": "internal",
-            "ios": {
-                "simulator": true
-            }
-        },
         "development": {
+            "developmentClient": true,
             "distribution": "internal",
             "android": {
                 "gradleCommand": ":app:assembleDebug"
