@@ -2,12 +2,11 @@
     "expo": {
         "name": "suuudokuuu",
         "slug": "suuudokuuu",
-        "scheme": "myapp",
+        "scheme": "suuudokuuu",
         "version": "1.14.1",
         "orientation": "portrait",
         "icon": "./assets/icon.png",
         "userInterfaceStyle": "automatic",
-        "runtimeVersion": "exposdk:48.0.0",
         "splash": {
             "image": "./assets/splash.png",
             "resizeMode": "contain",
