@@ -4,12 +4,10 @@ import { type MigrationManifest } from 'redux-persist/es/types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
-import { gameSlice } from '../../game';
-import { initialGameState } from '../../game/store/game.state';
-import { historySlice } from '../../history';
-import { initialHistoryState } from '../../history/store/history.state';
-
-import { appRootSlice } from './app-root.slice';
+import { gameSlice } from '../game';
+import { initialGameState } from '../game/store/game.state';
+import { historySlice } from '../history';
+import { initialHistoryState } from '../history/store/history.state';
 
 /* HINT: Uncomment to clear persisted state */
 // void AsyncStorage.clear();
@@ -20,7 +18,6 @@ const migrations: MigrationManifest<RootState> = {
 };
 
 const rootReducer = combineReducers({
-    [appRootSlice.name]: appRootSlice.reducer,
     [gameSlice.name]: gameSlice.reducer,
     [historySlice.name]: historySlice.reducer
 });

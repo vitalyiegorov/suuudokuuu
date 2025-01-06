@@ -1,5 +1,5 @@
 {
-    "include": ["./src", "./app"],
+    "include": ["./src", "./src/app"],
     "exclude": ["node_modules", "dist"],
     "compilerOptions": {
         "esModuleInterop": true,
@@ -37,5 +37,6 @@
         "isolatedModules": true,
         "removeComments": false,
         "resolveJsonModule": true
-    }
+    },
+    "extends": "expo/tsconfig.base"
 }
