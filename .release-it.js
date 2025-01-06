@@ -18,7 +18,8 @@ module.exports = {
         commitsPath: '.',
         commitMessage: `chore: released version v${version} [no ci]`,
         requireCommits: true,
-        requireCommitsFail: false
+        requireCommitsFail: false,
+        requireCleanWorkingDir: false
     },
     github: {
         release: true
