@@ -1,4 +1,4 @@
-import { memo, useEffect } from 'react';
+import { useEffect } from 'react';
 import { View } from 'react-native';
 import { useSharedValue, withTiming } from 'react-native-reanimated';
 
@@ -6,7 +6,7 @@ import { type OnEventFn } from '@rnw-community/shared';
 
 import { animationDurationConstant } from '../../../@generic';
 import type { CellInterface, FieldInterface, ScoredCellsInterface, Sudoku } from '../../../@logic';
-import { isEmptyScoredCells, isEqualScoreCells } from '../../../@logic';
+import { isEmptyScoredCells } from '../../../@logic';
 import { FieldCell } from '../field-cell/field-cell';
 
 import { FieldStyles as styles } from './field.styles';
@@ -21,7 +21,7 @@ interface Props {
     readonly onSelect: OnEventFn<CellInterface | undefined>;
 }
 
-const FieldComponent = ({ field, selectedCell, onSelect, scoredCells, sudoku }: Props) => {
+export const Field = ({ field, selectedCell, onSelect, scoredCells, sudoku }: Props) => {
     const textAnimation = useSharedValue(0);
 
     useEffect(() => {
@@ -63,11 +63,3 @@ const FieldComponent = ({ field, selectedCell, onSelect, scoredCells, sudoku }: 
         </View>
     );
 };
-
-export const Field = memo(
-    FieldComponent,
-    (prevProps, nextProps) =>
-        isEqualScoreCells(prevProps.scoredCells, nextProps.scoredCells) &&
-        prevProps.field === nextProps.field &&
-        prevProps.selectedCell === nextProps.selectedCell
-);
