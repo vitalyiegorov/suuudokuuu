@@ -5,14 +5,3 @@ export enum DifficultyEnum {
     Hard = 'Hard',
     Nightmare = 'Nightmare'
 }
-
-const difficultyValues: Record<DifficultyEnum, number> = {
-    [DifficultyEnum.Newbie]: 0.03,
-    [DifficultyEnum.Easy]: 0.2,
-    [DifficultyEnum.Medium]: 0.4,
-    [DifficultyEnum.Hard]: 0.65,
-    [DifficultyEnum.Nightmare]: 0.85
-};
-
-export const getDifficulty = (difficulty: DifficultyEnum, fieldSize: number): number =>
-    Math.ceil(difficultyValues[difficulty] * fieldSize * fieldSize);
