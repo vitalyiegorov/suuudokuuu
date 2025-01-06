@@ -16929,6 +16929,7 @@ __metadata:
     "@expo-google-fonts/inter": "npm:^0.2.3"
     "@jest/globals": "npm:^29.5.0"
     "@react-native-async-storage/async-storage": "npm:1.23.1"
+    "@react-navigation/native": "npm:^7.0.14"
     "@reduxjs/toolkit": "npm:^1.9.5"
     "@release-it/conventional-changelog": "npm:^9.0.4"
     "@rnw-community/shared": "npm:^0.54.0"
