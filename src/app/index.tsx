@@ -1,19 +1,67 @@
 import Constants from 'expo-constants';
 import { Link, useRouter } from 'expo-router';
 import { useState } from 'react';
-import { Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { isNotEmptyString } from '@rnw-community/shared';
 
-import { DifficultySelect } from '../src/@app-root';
-import { BlackButton, type DifficultyEnum, Header, PageHeader, SupportUkraineBanner, getTimerText, useAppSelector } from '../src/@generic';
-import { gameSudokuStringSelector, useResumeGame } from '../src/game';
-import { historyBestTimeSelector } from '../src/history';
+import {
+    BlackButton,
+    Colors,
+    type DifficultyEnum,
+    DifficultySelect,
+    Header,
+    PageHeader,
+    SupportUkraineBanner,
+    getTimerText,
+    useAppSelector
+} from '../@generic';
+import { gameSudokuStringSelector, useResumeGame } from '../game';
+import { historyBestTimeSelector } from '../history';
 
-import { StartScreenStyles as styles } from './start-screen.styles';
+export const styles = StyleSheet.create({
+    bottomContainer: {
+        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        marginBottom: 20
+    },
+    bottomLink: {
+        color: Colors.black
+    },
+    buttonWrapper: {
+        gap: 10
+    },
+    centerContainer: {
+        alignItems: 'center',
+        flex: 3,
+        justifyContent: 'center'
+    },
+    container: {
+        flex: 1,
+        justifyContent: 'space-between'
+    },
+    historyContainer: {
+        alignItems: 'center',
+        flexDirection: 'row',
+        flex: 1,
+        gap: 20,
+        justifyContent: 'center'
+    },
+    historyGroup: {
+        alignItems: 'center'
+    },
+    historyLabel: {
+        color: Colors.black
+    },
+    historyValue: {
+        color: Colors.black,
+        fontWeight: 'bold'
+    }
+});
 
-export default function StartScreen() {
+export default function HomePage() {
     const router = useRouter();
 
     const oldGameString = useAppSelector(gameSudokuStringSelector);

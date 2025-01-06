@@ -10,19 +10,16 @@ import { Inter_500Medium, Inter_700Bold, useFonts } from '@expo-google-fonts/int
 import { ThemeProvider } from '@react-navigation/native';
 import { isDefined } from '@rnw-community/shared';
 
-import { appRootPersistor, appRootStore } from '../src/@app-root';
-import { BlackTheme, WhiteTheme } from '../src/@generic';
+import { BlackTheme, WhiteTheme } from '../@generic';
+import { appRootPersistor, appRootStore } from '../@generic/app-root.store';
 
 void SplashScreen.preventAutoHideAsync();
 
 const stackOptions = { headerShown: false, gestureEnabled: false };
 
 export default function RootLayout() {
-    const scheme = useColorScheme() === 'dark' ? BlackTheme : WhiteTheme,
-        [loaded, error] = useFonts({
-            Inter_500Medium,
-            Inter_700Bold
-        });
+    const scheme = useColorScheme() === 'dark' ? BlackTheme : WhiteTheme;
+    const [loaded, error] = useFonts({ Inter_500Medium, Inter_700Bold });
 
     useEffect(() => {
         if (loaded || isDefined(error)) {

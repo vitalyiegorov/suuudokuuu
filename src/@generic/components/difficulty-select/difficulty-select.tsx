@@ -2,8 +2,8 @@ import { View } from 'react-native';
 
 import type { OnEventFn } from '@rnw-community/shared';
 
-import { BlackButton } from '../../../@generic/components/black-button/black-button';
-import { DifficultyEnum } from '../../../@generic/enums/difficulty.enum';
+import { DifficultyEnum } from '../../enums/difficulty.enum';
+import { BlackButton } from '../black-button/black-button';
 
 import { DifficultySelectStyles as styles } from './difficulty-select.styles';
 

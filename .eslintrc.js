@@ -13,7 +13,8 @@ module.exports = {
         'plugin:react-native/all',
         'plugin:react/all',
         'plugin:@typescript-eslint/all',
-        'plugin:react-hooks/recommended'
+        'plugin:react-hooks/recommended',
+        'plugin:n/recommended'
     ],
     overrides: [
         {
@@ -36,8 +37,10 @@ module.exports = {
             version: 'detect'
         }
     },
-    plugins: ['react', 'react-native', 'import', 'jest'],
+    plugins: ['react', 'react-native', 'import', 'jest', 'eslint-plugin-react-compiler'],
     rules: {
+        'n/no-missing-import': 'off',
+        'react-compiler/react-compiler': 'error',
         'jest/max-expects': 'off',
         '@typescript-eslint/parameter-properties': 'off',
         '@typescript-eslint/indent': 'off',

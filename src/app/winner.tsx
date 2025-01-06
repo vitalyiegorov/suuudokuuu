@@ -1,14 +1,30 @@
-import { Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
-import { Donation, Header, PageHeader, PlayAgainButton, getTimerText } from '../../src/@generic';
-import { gameElapsedTimeSelector, gameScoreSelector } from '../../src/game';
-
-import { WinnerStyles as styles } from './winner.styles';
+import { Colors, Donation, Header, PageHeader, PlayAgainButton, getTimerText } from '../@generic';
+import { gameElapsedTimeSelector, gameScoreSelector } from '../game';
 
 const title = 'Winners-winner, \n chicken dinner!';
 
-export default function Winner() {
+const styles = StyleSheet.create({
+    boldText: {
+        fontWeight: 'bold'
+    },
+    container: {
+        alignItems: 'center',
+        flex: 1,
+        gap: 20,
+        justifyContent: 'center'
+    },
+    scoreText: {
+        color: Colors.black
+    },
+    timeText: {
+        color: Colors.black
+    }
+});
+
+export default function WinnerPage() {
     const score = useSelector(gameScoreSelector);
     const elapsedTime = useSelector(gameElapsedTimeSelector);
 
