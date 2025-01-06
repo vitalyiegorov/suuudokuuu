@@ -1,7 +1,7 @@
 import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -81,55 +81,52 @@ export const GameScreen = () => {
         ]);
     };
 
-    const handleSelectCell = useCallback((cell: CellInterface | undefined) => {
+    const handleSelectCell = (cell: CellInterface | undefined) => {
         setSelectedCell(cell);
         hapticImpact(ImpactFeedbackStyle.Light);
         // HINT: This is needed to clear animation on all cells
         setScoredCells(emptyScoredCells);
-    }, []);
+    };
 
-    const handleLostGame = useCallback(() => {
+    const handleLostGame = () => {
         hapticImpact(ImpactFeedbackStyle.Heavy);
 
         void dispatch(gameFinishedThunk({ difficulty: sudokuRef.current.Difficulty, isWon: false }));
 
         router.replace('loser');
-    }, [dispatch, router]);
+    };
 
-    const handleWonGame = useCallback(() => {
+    const handleWonGame = () => {
         hapticImpact(ImpactFeedbackStyle.Heavy);
 
         void dispatch(gameFinishedThunk({ difficulty: sudokuRef.current.Difficulty, isWon: true }));
 
         // TODO: We need to wait for the animation to finish, animation finish event would fix it?
         setTimeout(() => void router.replace('winner'), 10 * animationDurationConstant);
-    }, [dispatch, router]);
+    };
 
-    const handleCorrectValue = useCallback(
-        // eslint-disable-next-line max-statements
-        ([correctCell, newScoredCells]: [CellInterface, ScoredCellsInterface]) => {
-            setScoredCells(newScoredCells);
-            void dispatch(gameSaveThunk({ sudoku: sudokuRef.current, scoredCells: newScoredCells }));
+    // eslint-disable-next-line max-statements
+    const handleCorrectValue = ([correctCell, newScoredCells]: [CellInterface, ScoredCellsInterface]) => {
+        setScoredCells(newScoredCells);
+        void dispatch(gameSaveThunk({ sudoku: sudokuRef.current, scoredCells: newScoredCells }));
 
-            if (newScoredCells.isWon) {
-                handleWonGame();
+        if (newScoredCells.isWon) {
+            handleWonGame();
+        } else {
+            hapticNotification(Haptics.NotificationFeedbackType.Success);
+
+            if (sudokuRef.current.isValueAvailable(correctCell)) {
+                // HINT: We reselect cell if there are values left, otherwise loose focus
+                setSelectedCell(() => ({ ...correctCell }));
             } else {
-                hapticNotification(Haptics.NotificationFeedbackType.Success);
-
-                if (sudokuRef.current.isValueAvailable(correctCell)) {
-                    // HINT: We reselect cell if there are values left, otherwise loose focus
-                    setSelectedCell(() => ({ ...correctCell }));
-                } else {
-                    // HINT: Otherwise we loose focus
-                    // eslint-disable-next-line no-undefined
-                    setSelectedCell(undefined);
-                }
+                // HINT: Otherwise we loose focus
+                // eslint-disable-next-line no-undefined
+                setSelectedCell(undefined);
             }
-        },
-        [dispatch, handleWonGame]
-    );
+        }
+    };
 
-    const handleWrongValue = useCallback(() => {
+    const handleWrongValue = () => {
         void dispatch(gameMistakeThunk(sudokuRef.current));
 
         if (mistakes + 1 >= MaxMistakesConstant) {
@@ -137,7 +134,7 @@ export const GameScreen = () => {
         } else {
             hapticNotification(Haptics.NotificationFeedbackType.Error);
         }
-    }, [dispatch, handleLostGame, mistakes]);
+    };
 
     const mistakesCountTextStyles = [styles.mistakesCountText, cs(maxMistakesReached, styles.mistakesCountErrorText)];
 
@@ -166,6 +163,7 @@ export const GameScreen = () => {
                 onSelect={handleSelectCell}
                 scoredCells={scoredCells}
                 selectedCell={selectedCell}
+                /* eslint-disable-next-line react-compiler/react-compiler */
                 sudoku={sudokuRef.current}
             />
 
@@ -174,8 +172,10 @@ export const GameScreen = () => {
             <AvailableValues
                 onCorrectValue={handleCorrectValue}
                 onWrongValue={handleWrongValue}
+                /* eslint-disable-next-line react-compiler/react-compiler */
                 possibleValues={sudokuRef.current.PossibleValues}
                 selectedCell={selectedCell}
+                /* eslint-disable-next-line react-compiler/react-compiler */
                 sudoku={sudokuRef.current}
             />
         </SafeAreaView>
