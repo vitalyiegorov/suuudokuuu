@@ -1,0 +1,21 @@
+{
+    "entry": ["src/app/**/*.{ts,tsx}"],
+    "ignore": [
+        "babel.config.js",
+        "jest.config.js",
+        "metro.config.js",
+        "tsconfig.json",
+        "index.js",
+        "**/*.web.ts",
+        "**/*.web.tsx",
+        "**/selectors.ts",
+        "src/game/store/game.state.ts"
+    ],
+    "ignoreDependencies": [
+        "react-compiler-runtime",
+        "react-native-gesture-handler",
+        "babel-jest",
+        "babel-plugin-macros",
+        "babel-plugin-react-compiler"
+    ]
+}
