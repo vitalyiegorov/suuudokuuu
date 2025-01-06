@@ -3,11 +3,9 @@ const version = '${version}';
 module.exports = {
     plugins: {
         '@release-it/conventional-changelog': {
-            path: '.',
             infile: 'CHANGELOG.md',
-            preset: 'conventionalcommits',
-            gitRawCommitsOpts: {
-                path: '.'
+            preset: {
+                name: 'conventionalcommits'
             }
         }
     },
