@@ -21,3 +21,4 @@ export * from './components/play-again-button/play-again-button';
 export * from './components/support-ukraine-banner/support-ukraine-banner';
 export * from './components/donate-button/donate-button';
 export * from './components/donation/donation';
+export * from './components/difficulty-select/difficulty-select';

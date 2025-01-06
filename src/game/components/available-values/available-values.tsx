@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import { View } from 'react-native';
 
 import { type OnEventFn, isDefined } from '@rnw-community/shared';
@@ -20,19 +19,16 @@ export const AvailableValues = ({ sudoku, possibleValues, selectedCell, onCorrec
     const isBlankCellSelected = sudoku.isBlankCell(selectedCell);
     const currentCorrectValue = sudoku.getCorrectValue(selectedCell);
 
-    const handleSelectValue = useCallback(
-        (value: number) => {
-            if (isBlankCellSelected && isDefined(selectedCell)) {
-                const newValueCell = { ...selectedCell, value };
-                if (sudoku.isCorrectValue(newValueCell)) {
-                    onCorrectValue([selectedCell, sudoku.setCellValue(newValueCell)]);
-                } else {
-                    onWrongValue(value);
-                }
+    const handleSelectValue = (value: number) => {
+        if (isBlankCellSelected && isDefined(selectedCell)) {
+            const newValueCell = { ...selectedCell, value };
+            if (sudoku.isCorrectValue(newValueCell)) {
+                onCorrectValue([selectedCell, sudoku.setCellValue(newValueCell)]);
+            } else {
+                onWrongValue(value);
             }
-        },
-        [isBlankCellSelected, onCorrectValue, onWrongValue, selectedCell, sudoku]
-    );
+        }
+    };
 
     return (
         <View style={styles.wrapper}>

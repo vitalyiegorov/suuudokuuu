@@ -36,8 +36,9 @@ module.exports = {
             version: 'detect'
         }
     },
-    plugins: ['react', 'react-native', 'import', 'jest'],
+    plugins: ['react', 'react-native', 'import', 'jest', 'eslint-plugin-react-compiler'],
     rules: {
+        'react-compiler/react-compiler': 'error',
         'jest/max-expects': 'off',
         '@typescript-eslint/parameter-properties': 'off',
         '@typescript-eslint/indent': 'off',
