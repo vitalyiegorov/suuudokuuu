@@ -16,7 +16,6 @@
         "ios": {
             "supportsTablet": true,
             "bundleIdentifier": "com.vitalyiegorov.suuudokuuu",
-            "buildNumber": "11",
             "config": {
                 "usesNonExemptEncryption": false
             }
@@ -26,8 +25,7 @@
                 "foregroundImage": "./assets/adaptive-icon.png",
                 "backgroundColor": "#000"
             },
-            "package": "com.vitaliiyehorov.suuudokuuu",
-            "versionCode": 11
+            "package": "com.vitaliiyehorov.suuudokuuu"
         },
         "web": {
             "favicon": "./assets/favicon.png",
