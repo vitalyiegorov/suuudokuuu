@@ -14843,7 +14843,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-version@npm:^4.0.0":
+"react-native-version@npm:4.0.0":
   version: 4.0.0
   resolution: "react-native-version@npm:4.0.0"
   dependencies:
@@ -14863,6 +14863,29 @@ __metadata:
   bin:
     react-native-version: cli.js
   checksum: 10/cfcb87390a56d1b083b0ef1ec50e31a16d2d8b5e9620670bec963db23eb62ce64f9ea762694bddd184f903e92357d8e39baea7124431498b3924c35bab317426
+  languageName: node
+  linkType: hard
+
+"react-native-version@patch:react-native-version@npm%3A4.0.0#~/.yarn/patches/react-native-version-npm-4.0.0-521a73b041.patch":
+  version: 4.0.0
+  resolution: "react-native-version@patch:react-native-version@npm%3A4.0.0#~/.yarn/patches/react-native-version-npm-4.0.0-521a73b041.patch::version=4.0.0&hash=fe2359"
+  dependencies:
+    chalk: "npm:^3.0.0"
+    commander: "npm:^4.0.0"
+    common-tags: "npm:^1.4.0"
+    detect-indent: "npm:^6.0.0"
+    dottie: "npm:^2.0.0"
+    js-beautify: "npm:^1.7.4"
+    lodash.flattendeep: "npm:^4.4.0"
+    lodash.uniq: "npm:^4.5.0"
+    p-settle: "npm:^3.0.0"
+    pbxproj-dom: "npm:^1.0.11"
+    plist: "npm:^3.0.1"
+    resolve-from: "npm:^5.0.0"
+    semver: "npm:^7.0.0"
+  bin:
+    react-native-version: cli.js
+  checksum: 10/d0300e98ce577901003423a9f2b2969bf2bb5a0970922fabd9557e4b371599ba692687f73a17262160167687e7ccaae6a79bdc35b6b09354b3a1491f1ce736de
   languageName: node
   linkType: hard
 
@@ -16977,7 +17000,7 @@ __metadata:
     react-native-reanimated: "npm:~3.16.1"
     react-native-safe-area-context: "npm:4.12.0"
     react-native-screens: "npm:~4.4.0"
-    react-native-version: "npm:^4.0.0"
+    react-native-version: "patch:react-native-version@npm%3A4.0.0#~/.yarn/patches/react-native-version-npm-4.0.0-521a73b041.patch"
     react-native-web: "npm:~0.19.13"
     react-redux: "npm:^8.0.5"
     redux-persist: "npm:^6.0.0"

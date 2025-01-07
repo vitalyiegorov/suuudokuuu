@@ -1,0 +1,13 @@
+diff --git a/index.js b/index.js
+index 345f3d410750317151296c8c7e57a98d444bbdcb..da3479406bdf8df4d3fd560dfdcd03dc2becb040 100644
+--- a/index.js
++++ b/index.js
+@@ -119,7 +119,7 @@ function isExpoProject(projPath) {
+ 		let module = resolveFrom(projPath, "expo");
+ 		let appInfo = require(`${projPath}/app.json`);
+ 
+-		return !!(module && appInfo.expo);
++		return !!(module && appInfo);
+ 	} catch (err) {
+ 		return false;
+ 	}
