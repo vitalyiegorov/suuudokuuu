@@ -1,4 +1,4 @@
-import { DifficultyEnum } from '../../@generic';
+import { DifficultyEnum } from '../../@generic/enums/difficulty.enum';
 import { type HistoryGameInterface, emptyGameHistory } from '../interfaces/history-game.interface';
 
 // ts-prune-ignore-next

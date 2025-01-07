@@ -4,7 +4,7 @@ import { type MigrationManifest } from 'redux-persist/es/types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
-import { gameSlice } from '../game';
+import { gameSlice } from '../game/store/game.slice';
 import { initialGameState } from '../game/store/game.state';
 import { historySlice } from '../history';
 import { initialHistoryState } from '../history/store/history.state';

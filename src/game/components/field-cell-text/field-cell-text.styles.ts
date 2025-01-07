@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { Colors } from '../../../@generic';
+import { Colors } from '../../../@generic/styles/theme';
 import { CellFontSizeConstant } from '../constants/dimensions.contant';
 
 export const FieldCellTextStyles = StyleSheet.create({

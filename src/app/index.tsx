@@ -6,18 +6,17 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { isNotEmptyString } from '@rnw-community/shared';
 
-import {
-    BlackButton,
-    Colors,
-    type DifficultyEnum,
-    DifficultySelect,
-    Header,
-    PageHeader,
-    SupportUkraineBanner,
-    getTimerText,
-    useAppSelector
-} from '../@generic';
-import { gameSudokuStringSelector, useResumeGame } from '../game';
+import { BlackButton } from '../@generic/components/black-button/black-button';
+import { DifficultySelect } from '../@generic/components/difficulty-select/difficulty-select';
+import { Header } from '../@generic/components/header/header';
+import { PageHeader } from '../@generic/components/page-header/page-header';
+import { SupportUkraineBanner } from '../@generic/components/support-ukraine-banner/support-ukraine-banner';
+import type { DifficultyEnum } from '../@generic/enums/difficulty.enum';
+import { useAppSelector } from '../@generic/hooks/use-app-selector.hook';
+import { Colors } from '../@generic/styles/theme';
+import { getTimerText } from '../@generic/utils/get-timer-text.util';
+import { useResumeGame } from '../game/hooks/use-resume-game.hook';
+import { gameSudokuStringSelector } from '../game/store/game.selectors';
 import { historyBestTimeSelector } from '../history';
 
 export const styles = StyleSheet.create({

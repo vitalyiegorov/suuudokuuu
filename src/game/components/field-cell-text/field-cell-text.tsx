@@ -3,7 +3,7 @@ import Reanimated, { type SharedValue, interpolate, interpolateColor, useAnimate
 
 import { cs } from '@rnw-community/shared';
 
-import { Colors } from '../../../@generic';
+import { Colors } from '../../../@generic/styles/theme';
 import { type CellInterface, type Sudoku } from '../../../@logic';
 import { CellFontSizeConstant } from '../constants/dimensions.contant';
 

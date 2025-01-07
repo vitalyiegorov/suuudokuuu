@@ -1,8 +1,12 @@
 import { StyleSheet, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { BlackButton, Colors, Donation, Header, PageHeader } from '../@generic';
-import { useResumeGame } from '../game';
+import { BlackButton } from '../@generic/components/black-button/black-button';
+import { Donation } from '../@generic/components/donation/donation';
+import { Header } from '../@generic/components/header/header';
+import { PageHeader } from '../@generic/components/page-header/page-header';
+import { Colors } from '../@generic/styles/theme';
+import { useResumeGame } from '../game/hooks/use-resume-game.hook';
 
 export const styles = StyleSheet.create({
     container: {

@@ -1,6 +1,6 @@
 import { Platform, StyleSheet } from 'react-native';
 
-import { isMobileScreen, isTabletScreen } from '../../../@generic';
+import { isMobileScreen, isTabletScreen } from '../../../@generic/styles/media-queries';
 
 export const FieldStyles = StyleSheet.create({
     row: {
