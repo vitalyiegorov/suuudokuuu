@@ -14868,7 +14868,7 @@ __metadata:
 
 "react-native-version@patch:react-native-version@npm%3A4.0.0#~/.yarn/patches/react-native-version-npm-4.0.0-521a73b041.patch":
   version: 4.0.0
-  resolution: "react-native-version@patch:react-native-version@npm%3A4.0.0#~/.yarn/patches/react-native-version-npm-4.0.0-521a73b041.patch::version=4.0.0&hash=fe2359"
+  resolution: "react-native-version@patch:react-native-version@npm%3A4.0.0#~/.yarn/patches/react-native-version-npm-4.0.0-521a73b041.patch::version=4.0.0&hash=84cca3"
   dependencies:
     chalk: "npm:^3.0.0"
     commander: "npm:^4.0.0"
@@ -14885,7 +14885,7 @@ __metadata:
     semver: "npm:^7.0.0"
   bin:
     react-native-version: cli.js
-  checksum: 10/d0300e98ce577901003423a9f2b2969bf2bb5a0970922fabd9557e4b371599ba692687f73a17262160167687e7ccaae6a79bdc35b6b09354b3a1491f1ce736de
+  checksum: 10/579a8ad3b49258c60bc865533b17338fe47154c760090f33d2dd818046460cc393738e5a2eae40f1d62495bf970dba98e8d93ae7d3842d978320d418bd2a22e2
   languageName: node
   linkType: hard
 
