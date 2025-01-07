@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.16.0 (2025-01-07)
+
+* fix: patched react-native-version to support new app.json without expo ([6f677e0](https://github.com/vitalyiegorov/suuudokuuu/commit/6f677e0))
+* feat: migrated to knip ([a532b51](https://github.com/vitalyiegorov/suuudokuuu/commit/a532b51))
+* feat: migrated to knip ([9f2f46b](https://github.com/vitalyiegorov/suuudokuuu/commit/9f2f46b))
+* refactor: expo routes structure + 404 ([6015478](https://github.com/vitalyiegorov/suuudokuuu/commit/6015478))
+* refactor: removed memo ([c1ad4d0](https://github.com/vitalyiegorov/suuudokuuu/commit/c1ad4d0))
+* docs: updated todo ([79a5995](https://github.com/vitalyiegorov/suuudokuuu/commit/79a5995))
+* ci: fixed release changelog generation ([2d08558](https://github.com/vitalyiegorov/suuudokuuu/commit/2d08558))
+* chore: released version v1.15.0 [no ci] ([1cf6d8b](https://github.com/vitalyiegorov/suuudokuuu/commit/1cf6d8b))
+
 ## 1.15.0 (2025-01-06)
 
 * ci: android bundle id ([1c40702](https://github.com/vitalyiegorov/suuudokuuu/commit/1c40702))
