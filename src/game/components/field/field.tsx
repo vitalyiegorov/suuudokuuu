@@ -4,7 +4,7 @@ import { useSharedValue, withTiming } from 'react-native-reanimated';
 
 import { type OnEventFn } from '@rnw-community/shared';
 
-import { animationDurationConstant } from '../../../@generic';
+import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
 import type { CellInterface, FieldInterface, ScoredCellsInterface, Sudoku } from '../../../@logic';
 import { isEmptyScoredCells } from '../../../@logic';
 import { FieldCell } from '../field-cell/field-cell';

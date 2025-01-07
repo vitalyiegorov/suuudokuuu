@@ -5,7 +5,8 @@ import Reanimated, { type SharedValue, interpolateColor, useAnimatedStyle, useDe
 import { type OnEventFn, cs } from '@rnw-community/shared';
 import { setTestID } from '@rnw-community/wdio';
 
-import { Colors, animationDurationConstant } from '../../../@generic';
+import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
+import { Colors } from '../../../@generic/styles/theme';
 import type { CellInterface, Sudoku } from '../../../@logic';
 import { FieldCellText } from '../field-cell-text/field-cell-text';
 

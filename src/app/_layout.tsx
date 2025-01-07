@@ -10,8 +10,8 @@ import { Inter_500Medium, Inter_700Bold, useFonts } from '@expo-google-fonts/int
 import { ThemeProvider } from '@react-navigation/native';
 import { isDefined } from '@rnw-community/shared';
 
-import { BlackTheme, WhiteTheme } from '../@generic';
 import { appRootPersistor, appRootStore } from '../@generic/app-root.store';
+import { BlackTheme, WhiteTheme } from '../@generic/styles/theme';
 
 void SplashScreen.preventAutoHideAsync();
 
