@@ -1,5 +1,10 @@
 # Changelog
 
+## <small>1.16.2 (2025-01-07)</small>
+
+* fix: web bundle error, bump redux ([6e24b1e](https://github.com/vitalyiegorov/suuudokuuu/commit/6e24b1e))
+* chore: released version v1.16.1 [no ci] ([53b7db9](https://github.com/vitalyiegorov/suuudokuuu/commit/53b7db9))
+
 ## <small>1.16.1 (2025-01-07)</small>
 
 * fix: patched react-native-version to support new app.json without expo ([d0686db](https://github.com/vitalyiegorov/suuudokuuu/commit/d0686db))
