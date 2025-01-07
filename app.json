@@ -57,5 +57,14 @@
     ],
     "experiments": {
         "reactCompiler": true
+    },
+    "expo": {
+        "version": "1.15.0",
+        "android": {
+            "versionCode": 1
+        },
+        "ios": {
+            "buildNumber": "1"
+        }
     }
 }
