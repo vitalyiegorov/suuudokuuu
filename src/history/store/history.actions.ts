@@ -1,3 +1,3 @@
 import { historySlice } from './history.slice';
 
-export const { save: historySaveAction } = historySlice.actions;
+export const historySaveAction = historySlice.actions.save;

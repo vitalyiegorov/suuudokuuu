@@ -7,17 +7,14 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { cs, isNotEmptyString } from '@rnw-community/shared';
 
-import {
-    Alert,
-    BlackButton,
-    type DifficultyEnum,
-    PageHeader,
-    animationDurationConstant,
-    hapticImpact,
-    hapticNotification,
-    useAppDispatch,
-    useAppSelector
-} from '../../../@generic';
+import { Alert } from '../../../@generic/components/alert/alert';
+import { BlackButton } from '../../../@generic/components/black-button/black-button';
+import { PageHeader } from '../../../@generic/components/page-header/page-header';
+import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
+import type { DifficultyEnum } from '../../../@generic/enums/difficulty.enum';
+import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
+import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
+import { hapticImpact, hapticNotification } from '../../../@generic/utils/haptic/haptic.util';
 import type { CellInterface, FieldInterface, ScoredCellsInterface } from '../../../@logic';
 import { MaxMistakesConstant, Sudoku, defaultSudokuConfig, emptyScoredCells } from '../../../@logic';
 import { gameResetAction, gameResumeAction, gameStartAction } from '../../store/game.actions';

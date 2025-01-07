@@ -5,7 +5,10 @@ import { Text, View } from 'react-native';
 
 import { isDefined } from '@rnw-community/shared';
 
-import { getTimerText, useAppDispatch, useAppSelector, useAppStateChange } from '../../../@generic';
+import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
+import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
+import { useAppStateChange } from '../../../@generic/hooks/use-app-state-change.hook';
+import { getTimerText } from '../../../@generic/utils/get-timer-text.util';
 import { gamePauseAction, gameTickAction } from '../../store/game.actions';
 import { gameElapsedTimeSelector, gamePausedSelector } from '../../store/game.selectors';
 

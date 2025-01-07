@@ -12,7 +12,7 @@ import Reanimated, {
 import { type OnEventFn, cs } from '@rnw-community/shared';
 import { setTestID } from '@rnw-community/wdio';
 
-import { Colors } from '../../../@generic';
+import { Colors } from '../../../@generic/styles/theme';
 
 import { AvailableValueItemSelectors as selectors } from './available-value-item.selectors';
 import { AvailableValuesItemStyles as styles } from './available-values-item.styles';

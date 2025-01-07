@@ -2,7 +2,10 @@ import { format } from 'date-fns';
 import { ScrollView, StyleSheet, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { BlackButton, Colors, Header, PageHeader } from '../@generic';
+import { BlackButton } from '../@generic/components/black-button/black-button';
+import { Header } from '../@generic/components/header/header';
+import { PageHeader } from '../@generic/components/page-header/page-header';
+import { Colors } from '../@generic/styles/theme';
 
 const email = 'vitalyiegorov@gmail.com';
 const date = format(new Date('2023-05-25'), 'dd MMMM yyyy');

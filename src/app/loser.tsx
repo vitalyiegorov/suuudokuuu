@@ -1,6 +1,9 @@
 import { StyleSheet, View } from 'react-native';
 
-import { Donation, Header, PageHeader, PlayAgainButton } from '../@generic';
+import { Donation } from '../@generic/components/donation/donation';
+import { Header } from '../@generic/components/header/header';
+import { PageHeader } from '../@generic/components/page-header/page-header';
+import { PlayAgainButton } from '../@generic/components/play-again-button/play-again-button';
 
 const styles = StyleSheet.create({
     container: {

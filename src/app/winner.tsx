@@ -1,8 +1,13 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
-import { Colors, Donation, Header, PageHeader, PlayAgainButton, getTimerText } from '../@generic';
-import { gameElapsedTimeSelector, gameScoreSelector } from '../game';
+import { Donation } from '../@generic/components/donation/donation';
+import { Header } from '../@generic/components/header/header';
+import { PageHeader } from '../@generic/components/page-header/page-header';
+import { PlayAgainButton } from '../@generic/components/play-again-button/play-again-button';
+import { Colors } from '../@generic/styles/theme';
+import { getTimerText } from '../@generic/utils/get-timer-text.util';
+import { gameElapsedTimeSelector, gameScoreSelector } from '../game/store/game.selectors';
 
 const title = 'Winners-winner, \n chicken dinner!';
 
