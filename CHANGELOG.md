@@ -1,5 +1,10 @@
 # Changelog
 
+## <small>1.16.1 (2025-01-07)</small>
+
+* fix: patched react-native-version to support new app.json without expo ([d0686db](https://github.com/vitalyiegorov/suuudokuuu/commit/d0686db))
+* chore: released version v1.16.0 [no ci] ([5f505db](https://github.com/vitalyiegorov/suuudokuuu/commit/5f505db))
+
 ## 1.16.0 (2025-01-07)
 
 - fix: patched react-native-version to support new app.json without expo ([6f677e0](https://github.com/vitalyiegorov/suuudokuuu/commit/6f677e0))
