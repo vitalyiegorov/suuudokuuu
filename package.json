@@ -19,8 +19,8 @@
         "lint": "turbo run lint",
         "lint:force": "turbo run lint --force",
         "release": "release-it --ci",
-        "test": "jest",
-        "test:coverage": "jest --coverage",
+        "test": "turbo run test",
+        "test:coverage": "turbo run test:coverage",
         "ts": "turbo run ts",
         "ts:force": "turbo run ts --force"
     },
