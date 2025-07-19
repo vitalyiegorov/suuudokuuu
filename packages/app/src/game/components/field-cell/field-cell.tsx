@@ -11,9 +11,7 @@ import { FieldCellText } from '../field-cell-text/field-cell-text';
 import { FieldCellSelectors as selectors } from './field-cell.selectors';
 import { FieldCellStyles as styles } from './field-cell.styles';
 
-import type { Sudoku } from '../../../@logic/classes/sudoku/sudoku';
-import type { CellInterface } from '../../../@logic/interfaces/cell.interface';
-
+import type { CellInterface, Sudoku } from '@suuudokuuu/generator';
 
 const ReanimatedPressable = Reanimated.createAnimatedComponent(Pressable);
 
@@ -78,11 +76,7 @@ const FieldCellComponent = (props: Props) => {
     ];
 
     return (
-        <ReanimatedPressable
-            onPress={handlePress}
-            style={cellStyles}
-            testID={getCellSelector(props)}
-        >
+        <ReanimatedPressable onPress={handlePress} style={cellStyles} testID={getCellSelector(props)}>
             <FieldCellText
                 animation={textAnimation}
                 cell={cell}

@@ -3,8 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { gameSaveAction } from '../game.actions';
 
 import type { RootState } from '../../../@generic/app-root.store';
-import type { Sudoku } from '../../../@logic/classes/sudoku/sudoku';
-
+import type { Sudoku } from '@suuudokuuu/generator';
 
 export const gameMistakeThunk = createAsyncThunk<boolean, Sudoku, { state: RootState }>('game/save', (sudoku, thunkAPI) => {
     const state = thunkAPI.getState();

@@ -8,12 +8,11 @@
         "lint": "run -T eslint --fix src",
         "prepare": "husky install",
         "start": "expo start --dev-client",
-        "test": "run -T jest",
-        "test:coverage": "run -T jest --coverage",
-        "ts": "tsc -p .",
+        "ts": "run -T tsc -p .",
         "web": "expo start --web"
     },
     "dependencies": {
+        "@suuudokuuu/generator": "workspace:*",
         "@expo-google-fonts/inter": "^0.2.3",
         "@react-native-async-storage/async-storage": "2.1.2",
         "@react-navigation/native": "^7.0.14",

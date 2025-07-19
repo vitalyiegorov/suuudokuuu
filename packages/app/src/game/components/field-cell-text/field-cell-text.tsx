@@ -8,8 +8,7 @@ import { CellFontSizeConstant } from '../constants/dimensions.contant';
 
 import { FieldCellTextStyles as styles } from './field-cell-text.styles';
 
-import type { Sudoku } from '../../../@logic/classes/sudoku/sudoku';
-import type { CellInterface } from '../../../@logic/interfaces/cell.interface';
+import type { CellInterface, Sudoku } from '@suuudokuuu/generator';
 
 const getText = (isActive: boolean, isEmpty: boolean, cell: CellInterface): string => {
     if (isEmpty) {
@@ -48,13 +47,8 @@ const FieldCellTextComponent = ({ sudoku, cell, isHighlighted, isActiveValue, is
         cs(hasAnimation || animation.value !== 0, animatedStyles)
     ];
 
-    return (
-        <Reanimated.Text style={textStyles}>
-            {getText(isActive, isEmpty, cell)}
-        </Reanimated.Text>
-    );
+    return <Reanimated.Text style={textStyles}>{getText(isActive, isEmpty, cell)}</Reanimated.Text>;
 };
-
 
 export const FieldCellText = memo(
     FieldCellTextComponent,
