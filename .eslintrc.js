@@ -19,7 +19,8 @@ module.exports = {
         'plugin:rxjs/recommended',
         'plugin:@typescript-eslint/all',
         'plugin:react-hooks/recommended',
-        'plugin:n/recommended'
+        'plugin:n/recommended',
+        'plugin:eslint-comments/recommended'
     ],
     overrides: [
         {
@@ -42,7 +43,7 @@ module.exports = {
             version: 'detect'
         }
     },
-    plugins: ['react', 'react-native', 'import', 'jest', 'react-compiler',  '@typescript-eslint', 'rxjs', 'n'],
+    plugins: ['react', 'react-native', 'import', 'jest', 'react-compiler', '@typescript-eslint', 'rxjs', 'n'],
     rules: {
         '@typescript-eslint/indent': 'off',
         '@typescript-eslint/prefer-readonly-parameter-types': 'off',
@@ -138,9 +139,9 @@ module.exports = {
                     'instance-method',
                     'abstract-method',
                     'decorated-method',
-                    'method',
-                ],
-            },
+                    'method'
+                ]
+            }
         ],
         '@typescript-eslint/parameter-properties': 'off',
         '@typescript-eslint/no-type-alias': 'off',
@@ -159,8 +160,8 @@ module.exports = {
                 caughtErrorsIgnorePattern: '^_',
                 destructuredArrayIgnorePattern: '^_',
                 varsIgnorePattern: '(^_)|(Fields$)',
-                ignoreRestSiblings: true,
-            },
+                ignoreRestSiblings: true
+            }
         ],
         '@typescript-eslint/no-deprecated': 1,
         '@typescript-eslint/no-unsafe-type-assertion': 1,
@@ -172,7 +173,7 @@ module.exports = {
             {
                 alphabetize: {
                     caseInsensitive: true,
-                    order: 'asc',
+                    order: 'asc'
                 },
                 groups: ['builtin', 'external', 'object', 'parent', 'sibling', 'index', 'type'],
                 'newlines-between': 'always',
@@ -180,11 +181,11 @@ module.exports = {
                     {
                         group: 'object',
                         pattern: '@rnw-community/*',
-                        position: 'after',
-                    },
+                        position: 'after'
+                    }
                 ],
-                pathGroupsExcludedImportTypes: ['builtin', 'type'],
-            },
+                pathGroupsExcludedImportTypes: ['builtin', 'type']
+            }
         ],
         camelcase: ['error', { properties: 'never' }],
         'no-undef': 'off',
@@ -201,8 +202,8 @@ module.exports = {
         'n/no-missing-import': [
             'error',
             {
-                tryExtensions: ['.js', '.json', '.ts', '.tsx'],
-            },
+                tryExtensions: ['.js', '.json', '.ts', '.tsx']
+            }
         ],
         'n/no-unsupported-features/es-syntax': 'off',
         'react/react-in-jsx-scope': 'off',
@@ -219,8 +220,8 @@ module.exports = {
                 ignoreCase: false,
                 ignoreDeclarationSort: true,
                 ignoreMemberSort: false,
-                memberSyntaxSortOrder: ['all', 'multiple', 'none', 'single'],
-            },
+                memberSyntaxSortOrder: ['all', 'multiple', 'none', 'single']
+            }
         ],
         'no-warning-comments': ['error', { terms: ['fixme', 'xxx'], location: 'start' }],
         'sort-keys': 'off',
@@ -252,6 +253,6 @@ module.exports = {
         'jest/prefer-lowercase-title': ['error', { ignore: ['describe'] }],
         'jest/prefer-ending-with-an-expect': 'off',
         'jest/max-expects': 'off',
-        'jest/no-untyped-mock-factory': 'off',
+        'jest/no-untyped-mock-factory': 'off'
     }
 };
