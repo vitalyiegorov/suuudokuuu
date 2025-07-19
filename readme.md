@@ -13,9 +13,8 @@ Sudoku game to help Ukraine win the war against Russia.
 ## TODO
 
 - [ ] add android
-
-### DX
-
+- [ ] add lingui
+- [ ] add styling library
 - [ ] migrate to monorepo
     - [ ] extract logic for processing sudoku game into separate package
 - [ ] setup maestro e2e tests on CI pull request
