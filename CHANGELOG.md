@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.18.0 (2025-07-19)
+
+* fix: mobile web style ([218c1e5](https://github.com/vitalyiegorov/suuudokuuu/commit/218c1e5))
+* fix: mobile web style ([80354d8](https://github.com/vitalyiegorov/suuudokuuu/commit/80354d8))
+* feat: web theme color status bars ([40b7903](https://github.com/vitalyiegorov/suuudokuuu/commit/40b7903))
+* chore: released version v1.17.0 [no ci] ([48e7156](https://github.com/vitalyiegorov/suuudokuuu/commit/48e7156))
+
 ## 1.17.0 (2025-07-19)
 
 * chore: added play market assets ([77672a1](https://github.com/vitalyiegorov/suuudokuuu/commit/77672a1))
