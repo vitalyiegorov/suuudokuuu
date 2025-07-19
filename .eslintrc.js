@@ -37,7 +37,7 @@ module.exports = {
             version: 'detect'
         }
     },
-    plugins: ['react', 'react-native', 'import', 'jest', 'eslint-plugin-react-compiler'],
+    plugins: ['react', 'react-native', 'import', 'jest', 'react-compiler'],
     rules: {
         'n/no-missing-import': 'off',
         'react-compiler/react-compiler': 'error',

@@ -1,5 +1,5 @@
 import { useRouter } from 'expo-router';
-import type { MutableRefObject } from 'react';
+import type { RefObject } from 'react';
 import { useEffect, useRef } from 'react';
 import { Text, View } from 'react-native';
 
@@ -16,7 +16,7 @@ import { GameTimerStyles as styles } from './game-timer.styles';
 
 type SetIntervalRef = ReturnType<typeof setInterval> | null;
 
-const stopTimer = (timerIntervalRef: MutableRefObject<SetIntervalRef | undefined>): void => {
+const stopTimer = (timerIntervalRef: RefObject<SetIntervalRef | undefined>): void => {
     if (isDefined(timerIntervalRef.current)) {
         clearInterval(timerIntervalRef.current);
         timerIntervalRef.current = null;
@@ -30,7 +30,7 @@ export const GameTimer = () => {
     const savedTime = useAppSelector(gameElapsedTimeSelector);
     const paused = useAppSelector(gamePausedSelector);
 
-    const timerIntervalRef = useRef<SetIntervalRef>();
+    const timerIntervalRef = useRef<SetIntervalRef>(null);
 
     useEffect(() => {
         if (!paused) {
