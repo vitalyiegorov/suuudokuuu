@@ -37,7 +37,7 @@ module.exports = {
             version: 'detect'
         }
     },
-    plugins: ['react', 'react-native', 'import', 'jest', 'eslint-plugin-react-compiler'],
+    plugins: ['react', 'react-native', 'import', 'jest', 'react-compiler'],
     rules: {
         'n/no-missing-import': 'off',
         'react-compiler/react-compiler': 'error',
@@ -137,7 +137,7 @@ module.exports = {
         'no-magic-numbers': [
             'error',
             {
-                ignore: [-20, -10, 0, 0.5, 1, 1.3, 2, 2.9, 3, 4, 5, 6, 7, 8, 9, 10, 20, 40, 60, 70, 100, 360, 600, 1000, 1200]
+                ignore: [-20, -10, 0, 0.5, 1, 1.3, 2, 2.9, 3, 4, 5, 6, 7, 8, 9, 10, 20, 40, 50, 60, 70, 100, 360, 600, 1000, 1200]
             }
         ],
         'react-hooks/exhaustive-deps': [
