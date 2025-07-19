@@ -12,6 +12,8 @@ Sudoku game to help Ukraine win the war against Russia.
 
 ## TODO
 
+- [ ] add android
+
 ### DX
 
 - [ ] migrate to monorepo
