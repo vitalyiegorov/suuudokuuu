@@ -1,10 +1,10 @@
-import { isDesktopScreen, isTabletScreen } from '../../../@generic/styles/media-queries';
+import * as Device from 'expo-device';
 
 const getCellSize = (): number => {
-    if (isDesktopScreen()) {
+    if (Device.deviceType === Device.DeviceType.TABLET) {
+        return 50;
+    } else if (Device.deviceType === Device.DeviceType.DESKTOP) {
         return 70;
-    } else if (isTabletScreen()) {
-        return 60;
     }
 
     return 40;
