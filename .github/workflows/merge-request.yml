@@ -2,6 +2,8 @@ name: Merge Request
 env:
   TURBO_TEAM: vitalyiegorov
   TURBO_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+  PR_NUMBER: ${{ github.event.pull_request.number }}
+  PR_TITLE: ${{ github.event.pull_request.title }}
 
 on: pull_request
 
@@ -22,6 +24,9 @@ jobs:
 
       - name: Install dependencies
         run: yarn install
+
+      - name: Lint the PR Title
+        run: echo "${{env.PR_TITLE}}" | node_modules/.bin/commitlint
 
       - name: Typescript checks
         run: yarn turbo ts
