@@ -1,3 +1,4 @@
+import * as Device from 'expo-device';
 import { StyleSheet } from 'react-native';
 
 export const FieldStyles = StyleSheet.create({
@@ -6,9 +7,13 @@ export const FieldStyles = StyleSheet.create({
     },
     wrapper: {
         alignItems: 'center',
-        flex: 3,
         flexDirection: 'column',
         justifyContent: 'center',
-        margin: 'auto'
+        margin: 'auto',
+        ...(Device.deviceType === Device.DeviceType.DESKTOP
+            ? { flex: 4 }
+            : {
+                  flex: 3
+              })
     }
 });
