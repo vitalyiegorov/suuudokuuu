@@ -1,6 +1,6 @@
 import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
 import { Text, View } from 'react-native';
 
@@ -26,14 +26,17 @@ import { gameSaveThunk } from '../../../game/store/thunks/game-save.thunk';
 
 import { GameScreenStyles as styles } from './game-screen.styles';
 
+interface Props {
+    readonly routeField: string | undefined;
+    readonly routeDifficulty: DifficultyEnum | undefined;
+}
 /**
  * We have inconsistency of state storage, field is coming from the url and score and mistakes from redux
  * we need to unify this approach
  */
 // eslint-disable-next-line max-lines-per-function
-export const GameScreen = () => {
+export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
     const router = useRouter();
-    const { field: routeField, difficulty: routeDifficulty } = useLocalSearchParams<{ field?: string; difficulty?: DifficultyEnum }>();
 
     const dispatch = useAppDispatch();
     const score = useAppSelector(gameScoreSelector);
