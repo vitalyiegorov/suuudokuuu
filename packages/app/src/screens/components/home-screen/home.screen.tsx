@@ -17,7 +17,7 @@ import { historyBestTimeSelector } from '../../../history/store/history.selector
 
 import { HomeScreenStyles } from './home-screen.styles';
 
-import type { DifficultyEnum } from '../../../@generic/enums/difficulty.enum';
+import type { DifficultyEnum } from '@suuudokuuu/generator';
 
 export const HomeScreen = () => {
     const router = useRouter();

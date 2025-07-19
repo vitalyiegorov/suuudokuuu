@@ -1,7 +1,7 @@
 import { type ScoredCellsInterface, emptyScoredCells } from '../../interfaces/scored-cells.interface';
 
+import type { DifficultyEnum } from '../../enums/difficulty.enum';
 import type { SudokuScoringConfigInterface } from '../../interfaces/sudoku-scoring-config.interface';
-import type { DifficultyEnum } from '@suuudokuuu/app/src/@generic/enums/difficulty.enum';
 
 export class SudokuScoring {
     private currentScore = 0;

@@ -4,10 +4,10 @@ import { type ScoredCellsInterface, emptyScoredCells } from '../../interfaces/sc
 import { SerializableSudoku } from '../serializable-sudoku/serializable-sudoku';
 import { SudokuScoring } from '../sudoku-scoring/sudoku-scoring';
 
+import type { DifficultyEnum } from '../../enums/difficulty.enum';
 import type { CellInterface } from '../../interfaces/cell.interface';
 import type { FieldInterface } from '../../interfaces/field.interface';
 import type { SudokuConfigInterface } from '../../interfaces/sudoku-config.interface';
-import type { DifficultyEnum } from '@suuudokuuu/app/src/@generic/enums/difficulty.enum';
 
 
 // TODO: We can split this class into rules validator(or similar)

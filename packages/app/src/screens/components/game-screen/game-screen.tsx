@@ -24,8 +24,7 @@ import { gameSaveThunk } from '../../../game/store/thunks/game-save.thunk';
 
 import { GameScreenStyles as styles } from './game-screen.styles';
 
-import type { DifficultyEnum } from '../../../@generic/enums/difficulty.enum';
-import type { CellInterface, FieldInterface, ScoredCellsInterface } from '@suuudokuuu/generator';
+import type { CellInterface , DifficultyEnum, FieldInterface, ScoredCellsInterface } from '@suuudokuuu/generator';
 
 interface Props {
     readonly routeField: string | undefined;
@@ -142,21 +141,40 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
         <View style={styles.container}>
             <View style={styles.controls}>
                 <View style={styles.controlsWrapper}>
-                    <Text style={styles.headerText}>Mistakes</Text>
+                    <Text style={styles.headerText}>
+                        Mistakes
+                    </Text>
 
                     <Text style={styles.headerText}>
-                        <Text style={mistakesCountTextStyles}>{mistakes}</Text> /{' '}
-                        <Text style={styles.mistakesMaxText}>{MaxMistakesConstant}</Text>
+                        <Text style={mistakesCountTextStyles}>
+                            {mistakes}
+                        </Text>
+
+                        {' '}
+
+                        /
+                        {' '}
+
+                        <Text style={styles.mistakesMaxText}>
+                            {MaxMistakesConstant}
+                        </Text>
                     </Text>
                 </View>
 
                 <View style={styles.controlsWrapper}>
-                    <Text style={styles.headerText}>Score</Text>
+                    <Text style={styles.headerText}>
+                        Score
+                    </Text>
 
-                    <Text style={styles.scoreText}>{score}</Text>
+                    <Text style={styles.scoreText}>
+                        {score}
+                    </Text>
                 </View>
 
-                <BlackButton onPress={handleExit} text="Exit" />
+                <BlackButton
+                    onPress={handleExit}
+                    text="Exit"
+                />
             </View>
 
             <Field

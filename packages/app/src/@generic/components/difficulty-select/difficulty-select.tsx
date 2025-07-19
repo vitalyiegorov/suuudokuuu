@@ -1,7 +1,7 @@
+import { DifficultyEnum } from '@suuudokuuu/generator';
 import { View } from 'react-native';
 
 
-import { DifficultyEnum } from '../../enums/difficulty.enum';
 import { BlackButton } from '../black-button/black-button';
 
 import { DifficultySelectStyles as styles } from './difficulty-select.styles';

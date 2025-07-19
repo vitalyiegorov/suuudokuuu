@@ -1,6 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
-import { DifficultyEnum } from '@suuudokuuu/app/src/@generic/enums/difficulty.enum';
 
+import { DifficultyEnum } from '../../enums/difficulty.enum';
 import { defaultSudokuConfig } from '../../interfaces/sudoku-config.interface';
 
 import { Sudoku } from './sudoku';

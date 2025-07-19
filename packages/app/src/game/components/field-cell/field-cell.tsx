@@ -76,7 +76,11 @@ const FieldCellComponent = (props: Props) => {
     ];
 
     return (
-        <ReanimatedPressable onPress={handlePress} style={cellStyles} testID={getCellSelector(props)}>
+        <ReanimatedPressable
+            onPress={handlePress}
+            style={cellStyles}
+            testID={getCellSelector(props)}
+        >
             <FieldCellText
                 animation={textAnimation}
                 cell={cell}

@@ -1,4 +1,4 @@
-import { DifficultyEnum } from '@suuudokuuu/app/src/@generic/enums/difficulty.enum';
+import { DifficultyEnum } from '../enums/difficulty.enum';
 
 import { type SudokuScoringConfigInterface, defaultSudokuScoringConfig } from './sudoku-scoring-config.interface';
 

@@ -6,6 +6,8 @@ export type { SudokuScoringConfigInterface } from './interfaces/sudoku-scoring-c
 
 export type { AvailableValuesType } from './types/available-values.type';
 
+export { DifficultyEnum } from './enums/difficulty.enum';
+
 export { SerializableSudoku } from './classes/serializable-sudoku/serializable-sudoku';
 export { Sudoku } from './classes/sudoku/sudoku';
 export { SudokuScoring } from './classes/sudoku-scoring/sudoku-scoring';
