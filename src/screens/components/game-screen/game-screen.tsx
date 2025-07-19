@@ -3,13 +3,11 @@ import { ImpactFeedbackStyle } from 'expo-haptics';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
 import { Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { cs, isNotEmptyString } from '@rnw-community/shared';
 
 import { Alert } from '../../../@generic/components/alert/alert';
 import { BlackButton } from '../../../@generic/components/black-button/black-button';
-import { PageHeader } from '../../../@generic/components/page-header/page-header';
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
 import type { DifficultyEnum } from '../../../@generic/enums/difficulty.enum';
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
@@ -17,14 +15,14 @@ import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { hapticImpact, hapticNotification } from '../../../@generic/utils/haptic/haptic.util';
 import type { CellInterface, FieldInterface, ScoredCellsInterface } from '../../../@logic';
 import { MaxMistakesConstant, Sudoku, defaultSudokuConfig, emptyScoredCells } from '../../../@logic';
-import { gameResetAction, gameResumeAction, gameStartAction } from '../../store/game.actions';
-import { gameMistakesSelector, gameScoreSelector } from '../../store/game.selectors';
-import { gameFinishedThunk } from '../../store/thunks/game-finish.thunk';
-import { gameMistakeThunk } from '../../store/thunks/game-mistake.thunk';
-import { gameSaveThunk } from '../../store/thunks/game-save.thunk';
-import { AvailableValues } from '../available-values/available-values';
-import { Field } from '../field/field';
-import { GameTimer } from '../game-timer/game-timer';
+import { AvailableValues } from '../../../game/components/available-values/available-values';
+import { Field } from '../../../game/components/field/field';
+import { GameTimer } from '../../../game/components/game-timer/game-timer';
+import { gameResetAction, gameResumeAction, gameStartAction } from '../../../game/store/game.actions';
+import { gameMistakesSelector, gameScoreSelector } from '../../../game/store/game.selectors';
+import { gameFinishedThunk } from '../../../game/store/thunks/game-finish.thunk';
+import { gameMistakeThunk } from '../../../game/store/thunks/game-mistake.thunk';
+import { gameSaveThunk } from '../../../game/store/thunks/game-save.thunk';
 
 import { GameScreenStyles as styles } from './game-screen.styles';
 
@@ -136,9 +134,7 @@ export const GameScreen = () => {
     const mistakesCountTextStyles = [styles.mistakesCountText, cs(maxMistakesReached, styles.mistakesCountErrorText)];
 
     return (
-        <SafeAreaView style={styles.container}>
-            <PageHeader title="Be wise, be smart, be quick..." />
-
+        <View style={styles.container}>
             <View style={styles.controls}>
                 <View style={styles.controlsWrapper}>
                     <Text style={styles.headerText}>Mistakes</Text>
@@ -175,6 +171,6 @@ export const GameScreen = () => {
                 /* eslint-disable-next-line react-compiler/react-compiler */
                 sudoku={sudokuRef.current}
             />
-        </SafeAreaView>
+        </View>
     );
 };
