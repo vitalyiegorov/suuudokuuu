@@ -1,14 +1,16 @@
 {
-    "extends": "expo/tsconfig.base",
-    "include": ["./src"],
-    "exclude": ["node_modules", "dist"],
     "compilerOptions": {
         "esModuleInterop": true,
         "target": "ESNext",
-        "module": "NodeNext",
-        "moduleResolution": "nodenext",
-        "lib": ["dom", "ES2022"],
-        "types": ["node", "jest"],
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "lib": [
+            "ESNext"
+        ],
+        "types": [
+            "node",
+            "jest"
+        ],
         "jsx": "react-jsx",
         "skipLibCheck": true,
         "declaration": true,
