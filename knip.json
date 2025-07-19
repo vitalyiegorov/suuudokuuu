@@ -8,14 +8,17 @@
         "**/*.web.ts",
         "**/*.web.tsx",
         "**/selectors.ts",
-        "src/game/store/game.state.ts"
+        "packages/app/src/game/store/game.state.ts"
     ],
     "ignoreDependencies": [
+        "@expo/metro-config",
+        "metro-minify-terser",
         "react-compiler-runtime",
         "react-dom",
         "react-native-gesture-handler",
         "babel-jest",
         "babel-plugin-macros",
         "babel-plugin-react-compiler"
-    ]
+    ],
+    "ignoreBinaries": ["run", "expo"]
 }

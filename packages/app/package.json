@@ -47,7 +47,6 @@
     "devDependencies": {
         "@types/react": "~19.0.10",
         "babel-plugin-macros": "^3.1.0",
-        "babel-plugin-react-compiler": "19.0.0-beta-af1b7da-20250417",
-        "prettier": "^3.6.2"
+        "babel-plugin-react-compiler": "19.0.0-beta-af1b7da-20250417"
     }
 }
