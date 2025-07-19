@@ -1,5 +1,6 @@
 {
-    "include": ["./src", "./app"],
+    "extends": "expo/tsconfig.base",
+    "include": ["./src"],
     "exclude": ["node_modules", "dist"],
     "compilerOptions": {
         "esModuleInterop": true,

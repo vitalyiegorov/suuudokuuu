@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { Colors } from '../../../@generic';
+import { Colors } from '../../../@generic/styles/theme';
 import { CellFontSizeConstant, CellSizeConstant } from '../constants/dimensions.contant';
 
 const progressHeight = 2;

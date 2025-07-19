@@ -3,11 +3,9 @@ const version = '${version}';
 module.exports = {
     plugins: {
         '@release-it/conventional-changelog': {
-            path: '.',
             infile: 'CHANGELOG.md',
-            preset: 'conventionalcommits',
-            gitRawCommitsOpts: {
-                path: '.'
+            preset: {
+                name: 'conventionalcommits'
             }
         }
     },
@@ -18,12 +16,13 @@ module.exports = {
         commitsPath: '.',
         commitMessage: `chore: released version v${version} [no ci]`,
         requireCommits: true,
-        requireCommitsFail: false
+        requireCommitsFail: false,
+        requireCleanWorkingDir: false
     },
     github: {
         release: true
     },
     hooks: {
-        'before:git:release': ['react-native-version --never-amend', 'git add --all']
+        'before:release': ['react-native-version --never-amend', 'git add --all']
     }
 };
