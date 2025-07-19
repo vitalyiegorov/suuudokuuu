@@ -1,10 +1,10 @@
 {
     "name": "@suuudokuuu/root",
-    "version": "1.18.0",
+    "version": "1.18.1",
+    "private": true,
     "description": "suudokuuu platform",
     "license": "MIT",
     "author": "Vitalii Yehorov",
-    "private": true,
     "workspaces": [
         "packages/*",
         "utils/*",
