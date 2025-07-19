@@ -11,5 +11,5 @@ export { Sudoku } from './classes/sudoku/sudoku';
 export { SudokuScoring } from './classes/sudoku-scoring/sudoku-scoring';
 export { MaxMistakesConstant } from './constants/max-mistakes.constant';
 export { defaultSudokuConfig } from './interfaces/sudoku-config.interface';
-export  { emptyScoredCells } from './interfaces/scored-cells.interface';
+export  { emptyScoredCells, isEmptyScoredCells } from './interfaces/scored-cells.interface';
 

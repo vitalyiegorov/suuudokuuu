@@ -1,19 +1,15 @@
+import { isEmptyScoredCells } from '@suuudokuuu/generator';
 import { useEffect } from 'react';
 import { View } from 'react-native';
 import { useSharedValue, withTiming } from 'react-native-reanimated';
 
-
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
-import { isEmptyScoredCells } from '../../../@logic/interfaces/scored-cells.interface';
 import { FieldCell } from '../field-cell/field-cell';
 
 import { FieldStyles as styles } from './field.styles';
 
-import type { Sudoku } from '../../../@logic/classes/sudoku/sudoku';
-import type { CellInterface } from '../../../@logic/interfaces/cell.interface';
-import type { FieldInterface } from '../../../@logic/interfaces/field.interface';
-import type { ScoredCellsInterface } from '../../../@logic/interfaces/scored-cells.interface';
 import type { OnEventFn } from '@rnw-community/shared';
+import type { CellInterface, FieldInterface, ScoredCellsInterface, Sudoku } from '@suuudokuuu/generator';
 
 const textAnimationConfig = { duration: 8 * animationDurationConstant };
 

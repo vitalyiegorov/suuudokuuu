@@ -6,10 +6,7 @@ import { AvailableValuesItem } from '../available-values-item/available-values-i
 
 import { AvailableValuesStyles as styles } from './available-values.styles';
 
-import type { Sudoku } from '../../../@logic/classes/sudoku/sudoku';
-import type { CellInterface } from '../../../@logic/interfaces/cell.interface';
-import type { ScoredCellsInterface } from '../../../@logic/interfaces/scored-cells.interface';
-
+import type { CellInterface, ScoredCellsInterface, Sudoku } from '@suuudokuuu/generator';
 
 interface Props {
     readonly sudoku: Sudoku;

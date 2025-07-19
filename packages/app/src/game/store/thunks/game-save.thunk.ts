@@ -3,8 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { gameSaveAction } from '../game.actions';
 
 import type { RootState } from '../../../@generic/app-root.store';
-import type { Sudoku } from '../../../@logic/classes/sudoku/sudoku';
-import type { ScoredCellsInterface } from '../../../@logic/interfaces/scored-cells.interface';
+import type { ScoredCellsInterface, Sudoku } from '@suuudokuuu/generator';
 
 interface GameSavePayloadInterface {
     sudoku: Sudoku;
