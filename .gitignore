@@ -35,3 +35,6 @@ report
 
 # Jest
 coverage/
+
+android
+ios
