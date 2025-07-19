@@ -20,6 +20,25 @@
         },
         "format": {
             "outputs": []
+        },
+        "build": {
+            "outputs": [
+                "dist/**"
+            ]
+        },
+        "test": {},
+        "test:coverage": {
+            "outputs": [
+                "coverage/**"
+            ]
+        },
+        "//#cpd": {
+            "outputs": [
+                "report/jscpd/**"
+            ]
+        },
+        "//#deadcode": {
+            "outputs": []
         }
     }
 }

@@ -22,7 +22,4 @@ module.exports = {
     github: {
         release: true
     },
-    hooks: {
-        'before:release': ['react-native-version --never-amend', 'git add --all']
-    }
 };
