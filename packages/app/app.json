@@ -51,7 +51,7 @@
         [
             "expo-font",
             {
-                "fonts": ["node_modules/@expo-google-fonts/inter/Inter_900Black.ttf"]
+                "fonts": ["../../node_modules/@expo-google-fonts/inter/Inter_900Black.ttf"]
             }
         ]
     ],
