@@ -1,0 +1,14 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "tsBuildInfoFile": "./node_modules/.cache/tsbuildinfo.json",
+        "allowJs": true,
+        "jsx": "react-native",
+        "lib": ["DOM", "ESNext"],
+        "module": "preserve",
+        "moduleDetection": "force",
+        "moduleResolution": "bundler",
+        "customConditions": ["react-native"]
+    },
+    "exclude": ["dist","node_modules", "babel.config.js", "metro.config.js", "jest.config.js"]
+}

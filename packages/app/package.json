@@ -1,0 +1,53 @@
+{
+    "name": "@suuudokuuu/app",
+    "version": "1.18.0",
+    "private": true,
+    "scripts": {
+        "android": "expo run:android",
+        "ios": "expo run:ios",
+        "lint": "run -T eslint --fix src",
+        "prepare": "husky install",
+        "start": "expo start --dev-client",
+        "test": "run -T jest",
+        "test:coverage": "run -T jest --coverage",
+        "ts": "tsc -p .",
+        "web": "expo start --web"
+    },
+    "dependencies": {
+        "@expo-google-fonts/inter": "^0.2.3",
+        "@react-native-async-storage/async-storage": "2.1.2",
+        "@react-navigation/native": "^7.0.14",
+        "@reduxjs/toolkit": "^2.5.0",
+        "@rnw-community/shared": "^1.3.0",
+        "date-fns": "^2.30.0",
+        "expo": "^53.0.20",
+        "expo-constants": "~17.1.7",
+        "expo-dev-client": "~5.2.4",
+        "expo-device": "^7.1.4",
+        "expo-font": "~13.3.2",
+        "expo-haptics": "~14.1.4",
+        "expo-linking": "~7.1.7",
+        "expo-router": "~5.1.4",
+        "expo-splash-screen": "~0.30.10",
+        "expo-status-bar": "~2.2.3",
+        "expo-system-ui": "~5.0.10",
+        "expo-updates": "~0.28.17",
+        "react": "19.0.0",
+        "react-compiler-runtime": "19.0.0-beta-63e3235-20250105",
+        "react-dom": "19.0.0",
+        "react-native": "0.79.5",
+        "react-native-gesture-handler": "~2.24.0",
+        "react-native-reanimated": "~3.17.4",
+        "react-native-safe-area-context": "5.4.0",
+        "react-native-screens": "~4.11.1",
+        "react-native-web": "^0.20.0",
+        "react-redux": "^9.2.0",
+        "redux-persist": "^6.0.0"
+    },
+    "devDependencies": {
+        "@types/react": "~19.0.10",
+        "babel-plugin-macros": "^3.1.0",
+        "babel-plugin-react-compiler": "19.0.0-beta-af1b7da-20250417",
+        "prettier": "^3.6.2"
+    }
+}
