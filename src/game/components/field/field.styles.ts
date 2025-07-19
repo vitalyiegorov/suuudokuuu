@@ -1,4 +1,4 @@
-import { Platform, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 export const FieldStyles = StyleSheet.create({
     row: {
@@ -6,12 +6,9 @@ export const FieldStyles = StyleSheet.create({
     },
     wrapper: {
         alignItems: 'center',
-        flex: 4,
+        flex: 3,
         flexDirection: 'column',
         justifyContent: 'center',
-        margin: 'auto',
-        ...(Platform.OS === 'web' && {
-            flex: 7
-        })
+        margin: 'auto'
     }
 });
