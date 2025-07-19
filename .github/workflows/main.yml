@@ -115,4 +115,5 @@ jobs:
         run: yarn install && yarn build
 
       - name: Build on EAS
+        working-directory: packages/app
         run: eas build --platform all --non-interactive --auto-submit --no-wait
