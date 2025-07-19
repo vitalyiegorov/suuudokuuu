@@ -1,4 +1,4 @@
-import type { DifficultyEnum } from '../../@generic/enums/difficulty.enum';
+import type { DifficultyEnum } from '@suuudokuuu/generator';
 
 export interface HistoryRecordInterface {
     isWon: boolean;

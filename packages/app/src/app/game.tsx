@@ -4,7 +4,7 @@ import { Page } from '../@generic/components/page/page';
 import { PageHeader } from '../@generic/components/page-header/page-header';
 import { GameScreen } from '../screens/components/game-screen/game-screen';
 
-import type { DifficultyEnum } from '../@generic/enums/difficulty.enum';
+import type { DifficultyEnum } from '@suuudokuuu/generator';
 
 export default function GamePage() {
     const { field, difficulty } = useLocalSearchParams<{ field?: string; difficulty?: DifficultyEnum }>();

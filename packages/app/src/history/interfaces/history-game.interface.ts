@@ -1,4 +1,4 @@
-import { DifficultyEnum } from '../../@generic/enums/difficulty.enum';
+import { DifficultyEnum } from '@suuudokuuu/generator';
 
 export interface HistoryGameInterface {
     difficulty: DifficultyEnum;

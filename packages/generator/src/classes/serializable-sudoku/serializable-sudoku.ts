@@ -1,6 +1,7 @@
-import { DifficultyEnum } from '@suuudokuuu/app/src/@generic/enums/difficulty.enum';
 
 import { isDefined, isNotEmptyString } from '@rnw-community/shared';
+
+import { DifficultyEnum } from '../../enums/difficulty.enum';
 
 import type { FieldInterface } from '../../interfaces/field.interface';
 import type { SudokuConfigInterface } from '../../interfaces/sudoku-config.interface';
