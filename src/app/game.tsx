@@ -1,12 +1,17 @@
+import { useLocalSearchParams } from 'expo-router';
+
 import { Page } from '../@generic/components/page/page';
 import { PageHeader } from '../@generic/components/page-header/page-header';
+import type { DifficultyEnum } from '../@generic/enums/difficulty.enum';
 import { GameScreen } from '../screens/components/game-screen/game-screen';
 
 export default function GamePage() {
+    const { field, difficulty } = useLocalSearchParams<{ field?: string; difficulty?: DifficultyEnum }>();
+
     return (
         <Page>
             <PageHeader title="Be wise, be smart, be quick..." />
-            <GameScreen />
+            <GameScreen routeDifficulty={difficulty} routeField={field} />
         </Page>
     );
 }
