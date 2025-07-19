@@ -2,7 +2,9 @@
 
 # Suuudokuuu
 
-Sudoku game to help Ukraine win the war against Russia.
+> Sudoku game to help Ukraine win the war against Russia.
+
+Unique modern open source React Native/ Expo Sudoku game with a lot of features
 
 ## Play now! Do not hesitate
 
@@ -12,7 +14,7 @@ Sudoku game to help Ukraine win the war against Russia.
 
 ## TODO
 
-- [ ] add android
+- [x] add android
 - [ ] add lingui
 - [ ] add styling library
 - [ ] migrate to monorepo
@@ -20,6 +22,8 @@ Sudoku game to help Ukraine win the war against Russia.
 - [ ] setup maestro e2e tests on CI pull request
 - [ ] add sentry for error reporting
 - [ ] migrate game logic to RxJS
+- [ ] add `master` branch dev build, master app build, CI/CD and certificates for iOS and Android
+- [ ] add `production` branch and CI/CD for production release
 
 ### Puzzle generation
 
@@ -27,9 +31,11 @@ Sudoku game to help Ukraine win the war against Russia.
 - [ ] optimize puzzle processing performance
 - [ ] add 90%+ code coverage and extensive test cases
 - [ ] add unique check for generated field, sometimes puzzle can have multiple solutions
+- [ ] use DHX for puzzle generation/solving
 
 ### UI/UX
 
+- [ ] add hints in the cells for possible values, switching this mode on/off
 - [ ] add gamification and percentage of completeness
 - [ ] best stats is confusing and not clear, especially time:
     - [ ] add best time/score for each difficulty, when user selects difficulty show separate screen
