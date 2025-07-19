@@ -2,42 +2,42 @@
 
 ## <small>1.18.1 (2025-07-19)</small>
 
-* docs: added todo, updated description ([5b81747](https://github.com/vitalyiegorov/suuudokuuu/commit/5b81747))
-* chore: released version v1.18.0 [no ci] ([edbeb4d](https://github.com/vitalyiegorov/suuudokuuu/commit/edbeb4d))
+- docs: added todo, updated description ([5b81747](https://github.com/vitalyiegorov/suuudokuuu/commit/5b81747))
+- chore: released version v1.18.0 [no ci] ([edbeb4d](https://github.com/vitalyiegorov/suuudokuuu/commit/edbeb4d))
 
 ## 1.18.0 (2025-07-19)
 
-* fix: mobile web style ([218c1e5](https://github.com/vitalyiegorov/suuudokuuu/commit/218c1e5))
-* fix: mobile web style ([80354d8](https://github.com/vitalyiegorov/suuudokuuu/commit/80354d8))
-* feat: web theme color status bars ([40b7903](https://github.com/vitalyiegorov/suuudokuuu/commit/40b7903))
-* chore: released version v1.17.0 [no ci] ([48e7156](https://github.com/vitalyiegorov/suuudokuuu/commit/48e7156))
+- fix: mobile web style ([218c1e5](https://github.com/vitalyiegorov/suuudokuuu/commit/218c1e5))
+- fix: mobile web style ([80354d8](https://github.com/vitalyiegorov/suuudokuuu/commit/80354d8))
+- feat: web theme color status bars ([40b7903](https://github.com/vitalyiegorov/suuudokuuu/commit/40b7903))
+- chore: released version v1.17.0 [no ci] ([48e7156](https://github.com/vitalyiegorov/suuudokuuu/commit/48e7156))
 
 ## 1.17.0 (2025-07-19)
 
-* chore: added play market assets ([77672a1](https://github.com/vitalyiegorov/suuudokuuu/commit/77672a1))
-* chore: released version v1.16.2 [no ci] ([6dc4fdc](https://github.com/vitalyiegorov/suuudokuuu/commit/6dc4fdc))
-* chore: removed wdio ([fc1af50](https://github.com/vitalyiegorov/suuudokuuu/commit/fc1af50))
-* chore: removed wdio ([35b7ca6](https://github.com/vitalyiegorov/suuudokuuu/commit/35b7ca6))
-* refactor: screens + styles ([c6b3fee](https://github.com/vitalyiegorov/suuudokuuu/commit/c6b3fee))
-* docs: updated todos ([6be797a](https://github.com/vitalyiegorov/suuudokuuu/commit/6be797a))
-* docs: updated todos ([5d0d79c](https://github.com/vitalyiegorov/suuudokuuu/commit/5d0d79c))
-* docs: updated todos ([a11e311](https://github.com/vitalyiegorov/suuudokuuu/commit/a11e311))
-* docs: updated todos ([a739e9f](https://github.com/vitalyiegorov/suuudokuuu/commit/a739e9f))
-* docs: updated todos ([6d5edf5](https://github.com/vitalyiegorov/suuudokuuu/commit/6d5edf5))
-* docs: updated todos ([f6680d0](https://github.com/vitalyiegorov/suuudokuuu/commit/f6680d0))
-* ci: added pr name job ([2d6a7ae](https://github.com/vitalyiegorov/suuudokuuu/commit/2d6a7ae))
-* feat: bump expo and deps ([36aad0d](https://github.com/vitalyiegorov/suuudokuuu/commit/36aad0d))
-* feat: bump expo and deps ([00072e0](https://github.com/vitalyiegorov/suuudokuuu/commit/00072e0))
+- chore: added play market assets ([77672a1](https://github.com/vitalyiegorov/suuudokuuu/commit/77672a1))
+- chore: released version v1.16.2 [no ci] ([6dc4fdc](https://github.com/vitalyiegorov/suuudokuuu/commit/6dc4fdc))
+- chore: removed wdio ([fc1af50](https://github.com/vitalyiegorov/suuudokuuu/commit/fc1af50))
+- chore: removed wdio ([35b7ca6](https://github.com/vitalyiegorov/suuudokuuu/commit/35b7ca6))
+- refactor: screens + styles ([c6b3fee](https://github.com/vitalyiegorov/suuudokuuu/commit/c6b3fee))
+- docs: updated todos ([6be797a](https://github.com/vitalyiegorov/suuudokuuu/commit/6be797a))
+- docs: updated todos ([5d0d79c](https://github.com/vitalyiegorov/suuudokuuu/commit/5d0d79c))
+- docs: updated todos ([a11e311](https://github.com/vitalyiegorov/suuudokuuu/commit/a11e311))
+- docs: updated todos ([a739e9f](https://github.com/vitalyiegorov/suuudokuuu/commit/a739e9f))
+- docs: updated todos ([6d5edf5](https://github.com/vitalyiegorov/suuudokuuu/commit/6d5edf5))
+- docs: updated todos ([f6680d0](https://github.com/vitalyiegorov/suuudokuuu/commit/f6680d0))
+- ci: added pr name job ([2d6a7ae](https://github.com/vitalyiegorov/suuudokuuu/commit/2d6a7ae))
+- feat: bump expo and deps ([36aad0d](https://github.com/vitalyiegorov/suuudokuuu/commit/36aad0d))
+- feat: bump expo and deps ([00072e0](https://github.com/vitalyiegorov/suuudokuuu/commit/00072e0))
 
 ## <small>1.16.2 (2025-01-07)</small>
 
-* fix: web bundle error, bump redux ([6e24b1e](https://github.com/vitalyiegorov/suuudokuuu/commit/6e24b1e))
-* chore: released version v1.16.1 [no ci] ([53b7db9](https://github.com/vitalyiegorov/suuudokuuu/commit/53b7db9))
+- fix: web bundle error, bump redux ([6e24b1e](https://github.com/vitalyiegorov/suuudokuuu/commit/6e24b1e))
+- chore: released version v1.16.1 [no ci] ([53b7db9](https://github.com/vitalyiegorov/suuudokuuu/commit/53b7db9))
 
 ## <small>1.16.1 (2025-01-07)</small>
 
-* fix: patched react-native-version to support new app.json without expo ([d0686db](https://github.com/vitalyiegorov/suuudokuuu/commit/d0686db))
-* chore: released version v1.16.0 [no ci] ([5f505db](https://github.com/vitalyiegorov/suuudokuuu/commit/5f505db))
+- fix: patched react-native-version to support new app.json without expo ([d0686db](https://github.com/vitalyiegorov/suuudokuuu/commit/d0686db))
+- chore: released version v1.16.0 [no ci] ([5f505db](https://github.com/vitalyiegorov/suuudokuuu/commit/5f505db))
 
 ## 1.16.0 (2025-01-07)
 

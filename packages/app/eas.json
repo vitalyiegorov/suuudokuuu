@@ -1,0 +1,42 @@
+{
+    "cli": {
+        "version": ">= 13.3.0",
+        "appVersionSource": "remote"
+    },
+    "build": {
+        "development": {
+            "developmentClient": true,
+            "distribution": "internal",
+            "android": {
+                "gradleCommand": ":app:assembleDebug"
+            },
+            "ios": {
+                "buildConfiguration": "Debug"
+            }
+        },
+        "preview": {
+            "channel": "staging",
+            "distribution": "internal"
+        },
+        "production": {
+            "autoIncrement": true,
+            "channel": "production"
+        }
+    },
+    "submit": {
+        "production": {
+            "ios": {
+                "appleId": "vitalyiegorov@gmail.com",
+                "ascAppId": "6449440933",
+                "appleTeamId": "3R8589YV24",
+                "ascApiKeyId": "LD57UK43J9",
+                "ascApiKeyIssuerId": "76e76b40-770a-4a81-bcdc-1f8346aeed02",
+                "ascApiKeyPath": "asc_api_key.p8"
+            },
+            "android": {
+                "serviceAccountKeyPath": "google-service-account.json",
+                "track": "internal"
+            }
+        }
+    }
+}

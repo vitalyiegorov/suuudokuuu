@@ -1,5 +1,5 @@
 node_modules/
-.expo/
+packages/app/.expo/
 dist/
 npm-debug.*
 *.jks
@@ -9,7 +9,7 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
-google-service-account.json
+packages/app/google-service-account.json
 .turbo
 report
 
@@ -37,5 +37,5 @@ report
 coverage/
 
 # Expo prebuild
-android
-ios
+packages/app/android
+packages/app/ios

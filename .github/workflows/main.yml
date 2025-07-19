@@ -36,10 +36,7 @@ jobs:
         uses: fregante/setup-git-user@v2.0.1
 
       - name: Install dependencies
-        run: yarn install
-
-      - name: Install dependencies
-        run: git status
+        run: yarn install && yarn build
 
       - name: Publish a release
         run: yarn release
@@ -68,7 +65,7 @@ jobs:
         run: npm install --global vercel@latest
 
       - name: Install dependencies
-        run: yarn install
+        run: yarn install && yarn build
 
       - name: Build expo web
         run: npx expo export --platform=web
@@ -115,7 +112,8 @@ jobs:
           filename: "google-service-account.json"
 
       - name: Install dependencies
-        run: yarn install
+        run: yarn install && yarn build
 
       - name: Build on EAS
+        working-directory: packages/app
         run: eas build --platform all --non-interactive --auto-submit --no-wait

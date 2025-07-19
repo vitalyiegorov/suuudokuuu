@@ -23,7 +23,7 @@ jobs:
           node-version: 18.x
 
       - name: Install dependencies
-        run: yarn install
+        run: yarn install && yarn build
 
       - name: Lint the PR Title
         run: echo "${{env.PR_TITLE}}" | node_modules/.bin/commitlint
@@ -74,7 +74,8 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
 
       - name: Install dependencies
-        run: yarn install
+        run: yarn install && yarn build
 
       - name: Publish update
+        working-directory: packages/app
         run: eas update --auto
