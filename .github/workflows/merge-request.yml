@@ -77,4 +77,5 @@ jobs:
         run: yarn install && yarn build
 
       - name: Publish update
+        working-directory: packages/app
         run: eas update --auto
