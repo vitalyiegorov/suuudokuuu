@@ -2,7 +2,7 @@
   "name": "suuudokuuu",
   "slug": "suuudokuuu",
   "scheme": "suuudokuuu",
-  "version": "1.18.0",
+  "version": "1.18.1",
   "orientation": "portrait",
   "icon": "./assets/icon.png",
   "userInterfaceStyle": "automatic",
@@ -20,7 +20,7 @@
     "config": {
       "usesNonExemptEncryption": false
     },
-    "buildNumber": "6"
+    "buildNumber": "7"
   },
   "android": {
     "adaptiveIcon": {
@@ -28,7 +28,7 @@
       "backgroundColor": "#000000"
     },
     "package": "com.vitaliiyehorov.suuudokuuu",
-    "versionCode": 6
+    "versionCode": 7
   },
   "web": {
     "favicon": "./assets/favicon.png",

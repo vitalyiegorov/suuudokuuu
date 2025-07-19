@@ -1,5 +1,10 @@
 # Changelog
 
+## <small>1.18.1 (2025-07-19)</small>
+
+* docs: added todo, updated description ([5b81747](https://github.com/vitalyiegorov/suuudokuuu/commit/5b81747))
+* chore: released version v1.18.0 [no ci] ([edbeb4d](https://github.com/vitalyiegorov/suuudokuuu/commit/edbeb4d))
+
 ## 1.18.0 (2025-07-19)
 
 * fix: mobile web style ([218c1e5](https://github.com/vitalyiegorov/suuudokuuu/commit/218c1e5))
