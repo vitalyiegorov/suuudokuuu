@@ -1,28 +1,12 @@
-import { StyleSheet, View } from 'react-native';
-
-import { Donation } from '../@generic/components/donation/donation';
-import { Header } from '../@generic/components/header/header';
+import { Page } from '../@generic/components/page/page';
 import { PageHeader } from '../@generic/components/page-header/page-header';
-import { PlayAgainButton } from '../@generic/components/play-again-button/play-again-button';
-
-const styles = StyleSheet.create({
-    container: {
-        alignItems: 'center',
-        flex: 1,
-        gap: 20,
-        justifyContent: 'center'
-    }
-});
+import { LoserScreen } from '../screens/components/loser-screen/loserScreen';
 
 export default function LoserPage() {
     return (
-        <View style={styles.container}>
+        <Page>
             <PageHeader title="Looooooser! =)" />
-            <Header text={'Better luck next time!\nLoooooser =)'} />
-
-            <Donation type="loser" />
-
-            <PlayAgainButton />
-        </View>
+            <LoserScreen />
+        </Page>
     );
 }

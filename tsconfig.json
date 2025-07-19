@@ -5,8 +5,8 @@
     "compilerOptions": {
         "esModuleInterop": true,
         "target": "ESNext",
-        "module": "ESNext",
-        "moduleResolution": "node",
+        "module": "NodeNext",
+        "moduleResolution": "nodenext",
         "lib": ["dom", "ES2022"],
         "types": ["node", "jest"],
         "jsx": "react-jsx",

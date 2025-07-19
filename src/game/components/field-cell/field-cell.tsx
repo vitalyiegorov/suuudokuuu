@@ -3,7 +3,6 @@ import { Pressable } from 'react-native';
 import Reanimated, { type SharedValue, interpolateColor, useAnimatedStyle, useDerivedValue, withTiming } from 'react-native-reanimated';
 
 import { type OnEventFn, cs } from '@rnw-community/shared';
-import { setTestID } from '@rnw-community/wdio';
 
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
 import { Colors } from '../../../@generic/styles/theme';
@@ -76,7 +75,7 @@ const FieldCellComponent = (props: Props) => {
     ];
 
     return (
-        <ReanimatedPressable onPress={handlePress} style={cellStyles} {...setTestID(getCellSelector(props))}>
+        <ReanimatedPressable onPress={handlePress} style={cellStyles} testID={getCellSelector(props)}>
             <FieldCellText
                 animation={textAnimation}
                 cell={cell}

@@ -12,8 +12,24 @@ Sudoku game to help Ukraine win the war against Russia.
 
 ## TODO
 
+- [ ] add android
+- [ ] add lingui
+- [ ] add styling library
+- [ ] migrate to monorepo
+    - [ ] extract logic for processing sudoku game into separate package
 - [ ] setup maestro e2e tests on CI pull request
 - [ ] add sentry for error reporting
+- [ ] migrate game logic to RxJS
+
+### Puzzle generation
+
+- [ ] optimize puzzle generation performance
+- [ ] optimize puzzle processing performance
+- [ ] add 90%+ code coverage and extensive test cases
+- [ ] add unique check for generated field, sometimes puzzle can have multiple solutions
+
+### UI/UX
+
 - [ ] add gamification and percentage of completeness
 - [ ] best stats is confusing and not clear, especially time:
     - [ ] add best time/score for each difficulty, when user selects difficulty show separate screen
@@ -21,13 +37,7 @@ Sudoku game to help Ukraine win the war against Russia.
     - [ ] add number flying to its stop?
     - [ ] add more fun to winner page(ZSU, Ukraine, donation CTA)
     - [ ] add more fun to looser page(ZSU, Ukraine, donation CTA)
-    - [ ] add winner confetti?
-- [ ] migrate to monorepo
-    - [ ] extract logic for processing sudoku game into separate package
-        - [ ] optimize puzzle generation performance
-        - [ ] optimize puzzle processing performance
-        - [ ] add 90%+ code coverage and extensive test cases
-        - [ ] add unique check for generated field, sometimes puzzle can have multiple solutions
+- [ ] add winner confetti?
 
 ### E2E
 
