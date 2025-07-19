@@ -1,4 +1,5 @@
-import { Platform, StyleSheet } from 'react-native';
+import * as Device from 'expo-device';
+import { StyleSheet } from 'react-native';
 
 export const FieldStyles = StyleSheet.create({
     row: {
@@ -6,12 +7,13 @@ export const FieldStyles = StyleSheet.create({
     },
     wrapper: {
         alignItems: 'center',
-        flex: 4,
         flexDirection: 'column',
         justifyContent: 'center',
         margin: 'auto',
-        ...(Platform.OS === 'web' && {
-            flex: 7
-        })
+        ...(Device.deviceType === Device.DeviceType.DESKTOP
+            ? { flex: 4 }
+            : {
+                  flex: 3
+              })
     }
 });
