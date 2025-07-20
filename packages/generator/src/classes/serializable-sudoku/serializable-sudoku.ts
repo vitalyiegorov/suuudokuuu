@@ -108,6 +108,8 @@ export class SerializableSudoku {
     // eslint-disable-next-line max-statements
     static fromString(fieldsString: string, config: SudokuConfigInterface = defaultSudokuConfig): SerializableSudoku {
         const game = new this(config);
+        game.field = cloneField(game.emptyField);
+        game.gameField = cloneField(game.emptyField);
 
         if (!isNotEmptyString(fieldsString)) {
             throw new Error('Invalid string format: Empty string passed');
@@ -123,9 +125,6 @@ export class SerializableSudoku {
         if (!fieldsString.includes(game.fieldSeparator)) {
             throw new Error('Invalid string format: No field separator found');
         }
-
-        game.field = cloneField(game.emptyField);
-        game.gameField = cloneField(game.emptyField);
 
         const [fieldString, gameFieldString] = fieldsString.split(game.fieldSeparator);
         game.convertFieldFromString(fieldString, game.field);
