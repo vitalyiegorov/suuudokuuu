@@ -1,6 +1,7 @@
 import { ImpactFeedbackStyle } from 'expo-haptics/src/Haptics.types';
 import { useRouter } from 'expo-router';
 import {
+    ActivityIndicator,
     type GestureResponderEvent,
     Pressable,
     type PressableProps,
@@ -12,6 +13,7 @@ import {
 
 import { isNotEmptyString } from '@rnw-community/shared';
 
+import { Colors } from '../../styles/theme';
 import { hapticImpact } from '../../utils/haptic/haptic.util';
 
 import { BlackButtonStyles as styles } from './black-button.styles';
@@ -20,9 +22,10 @@ interface Props extends PressableProps {
     readonly text: string;
     readonly styleText?: TextProps['style'];
     readonly href?: string;
+    readonly isLoading?: boolean;
 }
 
-export const BlackButton = ({ text, style, href, styleText, onPress, ...props }: Props) => {
+export const BlackButton = ({ text, style, href, styleText, onPress, isLoading = false, ...props }: Props) => {
     const router = useRouter();
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
@@ -40,14 +43,8 @@ export const BlackButton = ({ text, style, href, styleText, onPress, ...props }:
     };
 
     return (
-        <Pressable
-            onPress={handlePress}
-            style={wrapperStyles}
-            {...props}
-        >
-            <Text style={textStyles}>
-                {text}
-            </Text>
+        <Pressable onPress={handlePress} style={wrapperStyles} {...props}>
+            {isLoading ? <ActivityIndicator color={Colors.white} /> : <Text style={textStyles}>{text}</Text>}
         </Pressable>
     );
 };
