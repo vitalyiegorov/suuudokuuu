@@ -2,9 +2,18 @@
 
 # Suuudokuuu
 
-> Sudoku game to help Ukraine win the war against Russia.
+> Sudoku game to help **_Ukraine_** win the war against `russia`.
 
 Unique modern open source React Native/ Expo Sudoku game with a lot of features.
+
+## Features
+
+### Enterprise-grade CI/CD
+
+- EAS Build and EAS Submit for React Native/ Expo application with automatic versioning, changelog generation, and release notes.
+- Lerna monorepo release management with automatic versioning and changelog generation.
+- Each `master` commit triggers a Github release and EAS update
+- Manual workflows for EAS Build and EAS Submit to native stores.
 
 ## Play now! Do not hesitate
 
