@@ -84,15 +84,15 @@ describe('Sudoku', () => {
         it('isLastInCellGroupX()', () => {
             const sudoku = new Sudoku();
 
-            expect(sudoku.isLastInCellGroupX({ x: 2, y: 0, group: 0, value: 0 })).toBe(false);
             expect(sudoku.isLastInCellGroupX({ x: 2, y: 0, group: 0, value: 0 })).toBe(true);
+            expect(sudoku.isLastInCellGroupX({ x: 1, y: 0, group: 0, value: 0 })).toBe(false);
         });
 
         it('isLastInCellGroupY()', () => {
             const sudoku = new Sudoku();
 
             expect(sudoku.isLastInCellGroupY({ x: 0, y: 2, group: 0, value: 0 })).toBe(true);
-            expect(sudoku.isLastInCellGroupY({ x: 0, y: 3, group: 0, value: 0 })).toBe(false);
+            expect(sudoku.isLastInCellGroupY({ x: 0, y: 1, group: 0, value: 0 })).toBe(false);
         });
     });
 
