@@ -1,4 +1,4 @@
-import { MaxMistakesConstant, Sudoku, defaultSudokuConfig, emptyScoredCells } from '@suuudokuuu/generator';
+import { Sudoku, defaultSudokuConfig, emptyScoredCells } from '@suuudokuuu/generator';
 import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { useRouter } from 'expo-router';
@@ -26,13 +26,15 @@ import { GameScreenStyles as styles } from './game-screen.styles';
 
 import type { CellInterface, DifficultyEnum, FieldInterface, ScoredCellsInterface } from '@suuudokuuu/generator';
 
+const MaxMistakesConstant = 3;
+
 interface Props {
     readonly routeField: string | undefined;
     readonly routeDifficulty: DifficultyEnum | undefined;
 }
 
 /**
- * We have inconsistency of state storage, field is coming from the url and score and mistakes from redux
+ * TODO: We have inconsistency of state storage, field is coming from the url and score and mistakes from redux
  * we need to unify this approach
  */
 // eslint-disable-next-line max-lines-per-function

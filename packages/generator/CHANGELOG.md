@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.21.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.20.3...v1.21.0) (2025-07-20)
+
+### Features
+
+- **generator:** added DLX algorithm ([3803c16](https://github.com/vitalyiegorov/suuudokuuu/commit/3803c16fe60d745a7c9e7eabfcd83cb41e96a8d3))
+- **generator:** added DLX algorithm ([19b579b](https://github.com/vitalyiegorov/suuudokuuu/commit/19b579be201770e74d6383502df34d40674ed59c))
+- **generator:** added DLX algorithm ([f0ac98f](https://github.com/vitalyiegorov/suuudokuuu/commit/f0ac98fa57c6896752935d23d97277fab0215c1b))
+- **generator:** added DLX algorithm ([0df8247](https://github.com/vitalyiegorov/suuudokuuu/commit/0df82474824c3e9e88a03e0c1c872bf80378c2ce))
+- **generator:** added DLX algorithm ([112455a](https://github.com/vitalyiegorov/suuudokuuu/commit/112455a8f41305cf1e95d4f0efbc25febcce982f))
+- **generator:** added DLX algorithm ([280acef](https://github.com/vitalyiegorov/suuudokuuu/commit/280acef19a19140f230863c0cd1fd58eef4220f5))
+- **generator:** added DLX algorithm ([32958c0](https://github.com/vitalyiegorov/suuudokuuu/commit/32958c0c60ee7e702df683f6b16d98e84fe00bad))
+- **generator:** added DLX algorithm ([11a1223](https://github.com/vitalyiegorov/suuudokuuu/commit/11a122388fe3cee3c05b06b83e8dac7a5e9fd34a))
+- **generator:** added DLX algorithm ([f8dbcfa](https://github.com/vitalyiegorov/suuudokuuu/commit/f8dbcfa07112f89881ceace29b037bd4e6baa9cb))
+- **generator:** added DLX algorithm ([53f443d](https://github.com/vitalyiegorov/suuudokuuu/commit/53f443dea1c672ebb2d2848f3d876b6590fd6a95))
+- **generator:** added DLX algorithm ([ef18c23](https://github.com/vitalyiegorov/suuudokuuu/commit/ef18c239c838f68ab3a1d8213672e4466a217f7a))
+- **generator:** added DLX algorithm ([34af3a1](https://github.com/vitalyiegorov/suuudokuuu/commit/34af3a1e0171475479d1e6ee52c1581631e05ff8))
+- **generator:** added DLX algorithm ([a45f48d](https://github.com/vitalyiegorov/suuudokuuu/commit/a45f48d086503a6555ae89fc8308be45f3123115))
+- **generator:** added DLX algorithm ([a57c56d](https://github.com/vitalyiegorov/suuudokuuu/commit/a57c56d5950c91e52799593be2d6c0ab1fbf791a))
+
 ## [1.20.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.20.1...v1.20.2) (2025-07-20)
 
 **Note:** Version bump only for package @suuudokuuu/generator
