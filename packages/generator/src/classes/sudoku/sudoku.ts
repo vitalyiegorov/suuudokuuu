@@ -235,15 +235,8 @@ export class Sudoku extends SerializableSudoku {
         for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
             this.gameField = this.cloneField(this.field);
 
-            const coords: { x: number; y: number }[] = [];
-            for (let y = 0; y < this.config.fieldSize; y += 1) {
-                for (let x = 0; x < this.config.fieldSize; x += 1) {
-                    coords.push({ x, y });
-                }
-            }
-
             let blankCells = 0;
-            for (const { x, y } of shuffle(coords)) {
+            for (const { x, y } of shuffle(this.coordinates)) {
                 const backup = this.gameField[y][x].value;
                 this.gameField[y][x].value = this.config.blankCellValue;
                 blankCells += 1;
