@@ -50,15 +50,10 @@ export class Sudoku extends SerializableSudoku {
         }
 
         this.calculateAvailableValues();
-        this.calculatePossibleValues();
     }
 
     getScore(scoredCells: ScoredCellsInterface, elapsedTime: number, mistakes: number): number {
         return this.scoring.calculate(this.config.difficulty, scoredCells, mistakes, elapsedTime);
-    }
-
-    getValueProgress(value: number): number {
-        return this.availableValues[value].progress;
     }
 
     getCorrectValue(cell?: CellInterface): number {
@@ -81,12 +76,6 @@ export class Sudoku extends SerializableSudoku {
 
     isCorrectValue(cell?: CellInterface): boolean {
         return isDefined(cell) && this.field[cell.y][cell.x].value === cell.value;
-    }
-
-    isValueAvailable(cell?: CellInterface): boolean {
-        return (
-            isDefined(cell) && isDefined(this.availableValues[cell.value]) && this.availableValues[cell.value].count < this.config.fieldSize
-        );
     }
 
     isLastInCellGroupX(cell: CellInterface): boolean {
@@ -120,7 +109,6 @@ export class Sudoku extends SerializableSudoku {
             const blankCell = { ...cell, value: this.config.blankCellValue };
 
             this.calculateAvailableValues();
-            this.calculatePossibleValues();
 
             if (!this.hasValueInColumn(this.gameField, blankCell)) {
                 scoredCells.x = cell.x;
