@@ -2,6 +2,7 @@ import { isDefined } from '@rnw-community/shared';
 
 import { type ScoredCellsInterface, emptyScoredCells } from '../../interfaces/scored-cells.interface';
 import { defaultSudokuConfig, getBlankCellCountByConfig } from '../../interfaces/sudoku-config.interface';
+import { cloneField } from '../../util/clone-field.util';
 import { shuffle } from '../../util/shuffle.util';
 import { DLXSolver } from '../dlx/dlx-solver';
 import { SerializableSudoku } from '../serializable-sudoku/serializable-sudoku';
@@ -37,11 +38,11 @@ export class Sudoku extends SerializableSudoku {
         const targetBlankCells = getBlankCellCountByConfig(this.config);
 
         for (let attempt = 0; attempt < 10; attempt += 1) {
-            this.field = this.createEmptyField();
+            this.field = cloneField(this.emptyField);
             if (!this.fillRecursive()) {
                 throw new Error('Unable to create a game field');
             }
-            this.gameField = this.cloneField(this.field);
+            this.gameField = cloneField(this.field);
 
             if (this.removeClues(targetBlankCells, 50) >= targetBlankCells) {
                 break;
@@ -235,10 +236,10 @@ export class Sudoku extends SerializableSudoku {
     // eslint-disable-next-line max-statements
     private removeClues(targetBlankCells: number, maxAttempts = 50): number {
         let maxBlanks = 0;
-        let bestGameField = this.cloneField(this.gameField);
+        let bestGameField = cloneField(this.gameField);
 
         for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
-            this.gameField = this.cloneField(this.field);
+            this.gameField = cloneField(this.field);
 
             let blankCells = 0;
             for (const { x, y } of shuffle(this.coordinates)) {
@@ -258,7 +259,7 @@ export class Sudoku extends SerializableSudoku {
 
             if (blankCells > maxBlanks) {
                 maxBlanks = blankCells;
-                bestGameField = this.cloneField(this.gameField);
+                bestGameField = cloneField(this.gameField);
             }
 
             if (maxBlanks >= targetBlankCells) {

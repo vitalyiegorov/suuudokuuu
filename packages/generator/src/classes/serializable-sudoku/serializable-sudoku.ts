@@ -2,6 +2,7 @@ import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
 import { DifficultyEnum } from '../../enums/difficulty.enum';
 import { defaultSudokuConfig } from '../../interfaces/sudoku-config.interface';
+import { cloneField } from '../../util/clone-field.util';
 import { createEmptyField } from '../../util/create-empty-field.util';
 
 import type { FieldInterface } from '../../interfaces/field.interface';
@@ -49,11 +50,6 @@ export class SerializableSudoku {
         return `${convertField(this.field)}|${convertField(this.gameField)}`;
     }
 
-    // eslint-disable-next-line @typescript-eslint/class-methods-use-this
-    protected cloneField(field: FieldInterface): FieldInterface {
-        return field.map(row => row.map(cell => ({ ...cell })));
-    }
-
     protected calculateAvailableValues(): void {
         const getValueProgress = (count: number): number => (count / this.config.fieldSize) * 100;
 
@@ -78,10 +74,6 @@ export class SerializableSudoku {
             .map(Number)
             .filter(key => this.availableValues[key].count < this.config.fieldSize)
             .map(key => key);
-    }
-
-    protected createEmptyField(): FieldInterface {
-        return this.cloneField(this.emptyField);
     }
 
     private setDifficultyByBlankCells(blankCellCount: number): void {
@@ -134,8 +126,8 @@ export class SerializableSudoku {
 
         const [fieldString, gameFieldString] = fieldsString.split(game.fieldSeparator);
 
-        game.field = game.createEmptyField();
-        game.gameField = game.cloneField(game.field);
+        game.field = cloneField(game.emptyField);
+        game.gameField = cloneField(game.field);
 
         game.convertFieldFromString(fieldString, game.field);
         const blankCellCount = game.convertFieldFromString(gameFieldString, game.gameField);
