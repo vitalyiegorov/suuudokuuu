@@ -36,7 +36,9 @@ jobs:
         uses: fregante/setup-git-user@v2.0.1
 
       - name: Install dependencies
-        run: yarn install && yarn build
+        env:
+          YARN_ENABLE_IMMUTABLE_INSTALLS: true
+        run: yarn install
 
       - name: Publish a release
         run: yarn release
