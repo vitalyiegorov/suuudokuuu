@@ -1,7 +1,7 @@
 import { isDefined } from '@rnw-community/shared';
 
 import { type ScoredCellsInterface, emptyScoredCells } from '../../interfaces/scored-cells.interface';
-import { getBlankCellCountByConfig } from '../../interfaces/sudoku-config.interface';
+import { defaultSudokuConfig, getBlankCellCountByConfig } from '../../interfaces/sudoku-config.interface';
 import { shuffle } from '../../util/shuffle.util';
 import { DLXSolver } from '../dlx/dlx-solver';
 import { SerializableSudoku } from '../serializable-sudoku/serializable-sudoku';
@@ -17,7 +17,7 @@ export class Sudoku extends SerializableSudoku {
     private readonly fieldFillingValues: number[];
     private readonly scoring: SudokuScoring;
 
-    constructor(config: SudokuConfigInterface, scoring: SudokuScoring = new SudokuScoring(config.score)) {
+    constructor(config: SudokuConfigInterface = defaultSudokuConfig, scoring: SudokuScoring = new SudokuScoring(config.score)) {
         super(config);
 
         this.scoring = scoring;
@@ -27,19 +27,21 @@ export class Sudoku extends SerializableSudoku {
 
     create(difficulty: DifficultyEnum): void {
         this.config = { ...this.config, difficulty };
+        const targetBlankCells = getBlankCellCountByConfig(this.config);
 
-        do {
+        for (let attempt = 0; attempt < 10; attempt += 1) {
             this.field = this.createEmptyField();
             if (!this.fillRecursive()) {
                 throw new Error('Unable to create a game field');
             }
             this.gameField = this.cloneField(this.field);
 
-            const getRandomPosition = (): number => Math.floor(Math.random() * this.config.fieldSize);
-            for (let i = 0; i < getBlankCellCountByConfig(this.config); i += 1) {
-                this.gameField[getRandomPosition()][getRandomPosition()].value = this.config.blankCellValue;
+            const blankCells = this.removeClues(targetBlankCells, 50);
+
+            if (blankCells >= targetBlankCells) {
+                break;
             }
-        } while (new DLXSolver().count(this.field.map(row => row.map(cell => cell.value))) !== 1);
+        }
 
         this.calculateAvailableValues();
         this.calculatePossibleValues();
@@ -223,6 +225,53 @@ export class Sudoku extends SerializableSudoku {
         }
 
         return false;
+    }
+
+    // eslint-disable-next-line max-statements
+    private removeClues(targetBlankCells: number, maxAttempts = 50): number {
+        let maxBlanks = 0;
+        let bestGameField = this.cloneField(this.gameField);
+
+        for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
+            this.gameField = this.cloneField(this.field);
+
+            const coords: { x: number; y: number }[] = [];
+            for (let y = 0; y < this.config.fieldSize; y += 1) {
+                for (let x = 0; x < this.config.fieldSize; x += 1) {
+                    coords.push({ x, y });
+                }
+            }
+
+            let blankCells = 0;
+            for (const { x, y } of shuffle(coords)) {
+                const backup = this.gameField[y][x].value;
+                this.gameField[y][x].value = this.config.blankCellValue;
+                blankCells += 1;
+
+                const grid = this.gameField.map(row => row.map(cell => cell.value));
+                if (new DLXSolver().count(grid) !== 1) {
+                    this.gameField[y][x].value = backup;
+                    blankCells -= 1;
+                }
+
+                if (blankCells >= targetBlankCells) {
+                    break;
+                }
+            }
+
+            if (blankCells > maxBlanks) {
+                maxBlanks = blankCells;
+                bestGameField = this.cloneField(this.gameField);
+            }
+
+            if (maxBlanks >= targetBlankCells) {
+                break;
+            }
+        }
+
+        this.gameField = bestGameField;
+
+        return maxBlanks;
     }
 
     // TODO: Can we avoid it and just use parent version with correct types?
