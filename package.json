@@ -16,7 +16,6 @@
         "cpd": "jscpd --pattern \"**/*.{ts,tsx}\"",
         "deadcode": "knip",
         "format": "prettier --write \"**/*.{ts,tsx}\"",
-        "postinstall": "yarn build",
         "lint": "turbo run lint",
         "lint:force": "turbo run lint --force",
         "release": "lerna publish --yes --conventional-commits --create-release=github -m \"chore: release %s [skip ci]\"",

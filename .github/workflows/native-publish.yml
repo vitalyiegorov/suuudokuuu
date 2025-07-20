@@ -44,7 +44,7 @@ jobs:
           filename: "packages/app/google-service-account.json"
 
       - name: Install dependencies
-        run: yarn install && yarn build
+        run: yarn install
 
       - name: Build on EAS
         working-directory: packages/app

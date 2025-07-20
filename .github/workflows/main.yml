@@ -75,7 +75,7 @@ jobs:
         run: npm install --global vercel@latest
 
       - name: Install dependencies
-        run: yarn install && yarn build
+        run: yarn install
 
       - name: Build expo web
         working-directory: packages/app
@@ -117,7 +117,7 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
 
       - name: Install dependencies
-        run: yarn install && yarn build
+        run: yarn install
 
       - name: Publish update
         working-directory: packages/app
