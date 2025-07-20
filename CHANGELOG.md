@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.20.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.19.0...v1.20.0) (2025-07-20)
+
+### Features
+
+- **app:** fix runtimeVersion ([122d22f](https://github.com/vitalyiegorov/suuudokuuu/commit/122d22f1d45b5559e2195ff09049ae827ef07c70))
+
 # [1.19.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.18.5...v1.19.0) (2025-07-20)
 
 ### Features
