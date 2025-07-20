@@ -10,6 +10,7 @@ export const FieldStyles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         margin: 'auto',
+        zIndex: 99,
         ...(Device.deviceType === Device.DeviceType.DESKTOP
             ? { flex: 4 }
             : {
