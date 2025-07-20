@@ -2,6 +2,8 @@ import { isDefined } from '@rnw-community/shared';
 
 import { type ScoredCellsInterface, emptyScoredCells } from '../../interfaces/scored-cells.interface';
 import { getBlankCellCountByConfig } from '../../interfaces/sudoku-config.interface';
+import { shuffle } from '../../util/shuffle.util';
+import { DLXSolver } from '../dlx/dlx-solver';
 import { SerializableSudoku } from '../serializable-sudoku/serializable-sudoku';
 import { SudokuScoring } from '../sudoku-scoring/sudoku-scoring';
 
@@ -26,17 +28,18 @@ export class Sudoku extends SerializableSudoku {
     create(difficulty: DifficultyEnum): void {
         this.config = { ...this.config, difficulty };
 
-        this.field = this.createEmptyField();
-        if (!this.fillRecursive()) {
-            throw new Error('Unable to create a game field');
-        }
-        this.gameField = this.cloneField(this.field);
+        do {
+            this.field = this.createEmptyField();
+            if (!this.fillRecursive()) {
+                throw new Error('Unable to create a game field');
+            }
+            this.gameField = this.cloneField(this.field);
 
-        const getRandomPosition = (): number => Math.floor(Math.random() * this.config.fieldSize);
-
-        for (let i = 0; i < getBlankCellCountByConfig(this.config); i += 1) {
-            this.gameField[getRandomPosition()][getRandomPosition()].value = this.config.blankCellValue;
-        }
+            const getRandomPosition = (): number => Math.floor(Math.random() * this.config.fieldSize);
+            for (let i = 0; i < getBlankCellCountByConfig(this.config); i += 1) {
+                this.gameField[getRandomPosition()][getRandomPosition()].value = this.config.blankCellValue;
+            }
+        } while (new DLXSolver().count(this.field.map(row => row.map(cell => cell.value))) !== 1);
 
         this.calculateAvailableValues();
         this.calculatePossibleValues();
@@ -201,16 +204,7 @@ export class Sudoku extends SerializableSudoku {
             return true;
         }
 
-        /*
-         * HINT: Randomize fieldFillingValues to make generation more unique
-         * TODO: Is there a better way to randomize array of numbers in JS? =)
-         */
-        for (let i = this.fieldFillingValues.length - 1; i > 0; i -= 1) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [this.fieldFillingValues[i], this.fieldFillingValues[j]] = [this.fieldFillingValues[j], this.fieldFillingValues[i]];
-        }
-
-        for (const value of this.fieldFillingValues) {
+        for (const value of shuffle(this.fieldFillingValues)) {
             const cell = { ...this.field[emptyY][emptyX], value };
 
             if (
