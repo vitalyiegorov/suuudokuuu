@@ -92,10 +92,7 @@ export class SerializableSudoku {
 
     private setDifficultyByBlankCells(blankCellCount: number): void {
         for (const difficulty of Object.values(DifficultyEnum)) {
-            if (
-                this.config.difficultyBlankCellsPercentage[difficulty] <=
-                blankCellCount / (this.config.fieldSize * this.config.fieldSize)
-            ) {
+            if (this.config.difficultyBlankCells[difficulty] <= blankCellCount / (this.config.fieldSize * this.config.fieldSize)) {
                 this.config.difficulty = difficulty;
                 break;
             }
