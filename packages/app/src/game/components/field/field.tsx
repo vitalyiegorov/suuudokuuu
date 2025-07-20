@@ -37,30 +37,21 @@ export const Field = ({ field, selectedCell, onSelect, scoredCells, sudoku }: Pr
     return (
         <View style={styles.wrapper}>
             {field.map(row => (
-                <View
-                    key={`row-${row[0].y}`}
-                    style={styles.row}
-                >
-                    {row.map(cell => {
-                        const isActive = sudoku.isSameCell(cell, selectedCell);
-                        const isActiveValue = sudoku.isSameCellValue(cell, selectedCell);
-                        const isHighlighted = sudoku.isCellHighlighted(cell, selectedCell);
-                        const hasAnimation = sudoku.isScoredCell(cell, scoredCells);
-
-                        return (
-                            <FieldCell
-                                cell={cell}
-                                hasAnimation={hasAnimation}
-                                isActive={isActive}
-                                isActiveValue={isActiveValue}
-                                isHighlighted={isHighlighted}
-                                key={`cell-${cell.y}-${cell.x}`}
-                                onSelect={onSelect}
-                                sudoku={sudoku}
-                                textAnimation={textAnimation}
-                            />
-                        );
-                    })}
+                <View key={`row-${row[0].y}`} style={styles.row}>
+                    {row.map(cell => (
+                        <FieldCell
+                            cell={cell}
+                            hasAnimation={sudoku.isScoredCell(cell, scoredCells)}
+                            isActive={sudoku.isSameCell(cell, selectedCell)}
+                            isActiveValue={sudoku.isSameCellValue(cell, selectedCell)}
+                            isHighlighted={sudoku.isCellHighlighted(cell, selectedCell)}
+                            isWrong={sudoku.isCellWrong(cell, selectedCell)}
+                            key={`cell-${cell.y}-${cell.x}`}
+                            onSelect={onSelect}
+                            sudoku={sudoku}
+                            textAnimation={textAnimation}
+                        />
+                    ))}
                 </View>
             ))}
         </View>

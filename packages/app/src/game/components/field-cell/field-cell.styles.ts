@@ -13,6 +13,8 @@ export const FieldCellStyles = StyleSheet.create({
         fontFamily: 'Inter_500Medium',
         height: CellSizeConstant,
         justifyContent: 'center',
+        outlineOffset: 0,
+        outlineWidth: 0,
         width: CellSizeConstant
     },
     groupXEnd: {

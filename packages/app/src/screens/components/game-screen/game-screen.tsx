@@ -5,7 +5,7 @@ import { useRouter } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
 import { Text, View } from 'react-native';
 
-import { cs, isNotEmptyString } from '@rnw-community/shared';
+import { cs, isDefined, isNotEmptyString } from '@rnw-community/shared';
 
 import { Alert } from '../../../@generic/components/alert/alert';
 import { BlackButton } from '../../../@generic/components/black-button/black-button';
@@ -107,7 +107,7 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
     };
 
     // eslint-disable-next-line max-statements
-    const handleCorrectValue = ([correctCell, newScoredCells]: [CellInterface, ScoredCellsInterface]) => {
+    const handleCorrectValue = (correctCell: CellInterface, newScoredCells: ScoredCellsInterface) => {
         setScoredCells(newScoredCells);
         void dispatch(gameSaveThunk({ sudoku: sudokuRef.current, scoredCells: newScoredCells }));
 
@@ -137,45 +137,85 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
         }
     };
 
+    const handleSelectValue = (value: number) => {
+        const isBlankCellSelected = sudokuRef.current.isBlankCell(selectedCell);
+
+        if (isBlankCellSelected && isDefined(selectedCell)) {
+            const newValueCell = { ...selectedCell, value };
+            if (sudokuRef.current.isCorrectValue(newValueCell)) {
+                handleCorrectValue(selectedCell, sudokuRef.current.setCellValue(newValueCell));
+            } else {
+                handleWrongValue();
+            }
+        }
+    };
+
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            const { key } = e;
+
+            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(key)) {
+                e.preventDefault();
+                const currentCell = selectedCell ?? sudokuRef.current.Field[0][0];
+
+                let nextCell: CellInterface | undefined;
+                switch (key) {
+                    case 'ArrowUp':
+                        nextCell = sudokuRef.current.getCellUp(currentCell);
+                        break;
+                    case 'ArrowDown':
+                        nextCell = sudokuRef.current.getCellDown(currentCell);
+                        break;
+                    case 'ArrowLeft':
+                        nextCell = sudokuRef.current.getCellLeft(currentCell);
+                        break;
+                    case 'ArrowRight':
+                        nextCell = sudokuRef.current.getCellRight(currentCell);
+                        break;
+                    default:
+                        break;
+                }
+
+                handleSelectCell(nextCell);
+
+                return;
+            }
+
+            if (isDefined(selectedCell) && /^[1-9]$/iu.test(key)) {
+                e.preventDefault();
+                handleSelectValue(Number(key));
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+
+        return () => void window.removeEventListener('keydown', handleKeyDown);
+    }, [selectedCell, mistakes]);
+
     const mistakesCountTextStyles = [styles.mistakesCountText, cs(maxMistakesReached, styles.mistakesCountErrorText)];
 
     return (
         <View style={styles.container}>
             <View style={styles.controls}>
                 <View style={styles.controlsWrapper}>
-                    <Text style={styles.headerText}>
-                        Mistakes
-                    </Text>
+                    <Text style={styles.headerText}>Mistakes</Text>
 
                     <Text style={styles.headerText}>
-                        <Text style={mistakesCountTextStyles}>
-                            {mistakes}
-                        </Text>
+                        <Text style={mistakesCountTextStyles}>{mistakes}</Text>
 
-                        <Text style={styles.mistakesSeparator}>
-                            /
-                        </Text>
+                        <Text style={styles.mistakesSeparator}>/</Text>
 
-                        <Text style={styles.mistakesMaxText}>
-                            {MaxMistakesConstant}
-                        </Text>
+                        <Text style={styles.mistakesMaxText}>{MaxMistakesConstant}</Text>
                     </Text>
                 </View>
 
                 <View style={styles.controlsWrapper}>
-                    <Text style={styles.headerText}>
-                        Score
-                    </Text>
+                    <Text style={styles.headerText}>Score</Text>
 
-                    <Text style={styles.scoreText}>
-                        {score}
-                    </Text>
+                    <Text style={styles.scoreText}>{score}</Text>
                 </View>
 
-                <BlackButton
-                    onPress={handleExit}
-                    text="Exit"
-                />
+                <BlackButton onPress={handleExit} text="Exit" />
             </View>
 
             <Field
@@ -190,8 +230,7 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
             <GameTimer />
 
             <AvailableValues
-                onCorrectValue={handleCorrectValue}
-                onWrongValue={handleWrongValue}
+                onSelect={handleSelectValue}
                 /* eslint-disable-next-line react-compiler/react-compiler */
                 possibleValues={sudokuRef.current.PossibleValues}
                 selectedCell={selectedCell}
