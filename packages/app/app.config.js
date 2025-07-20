@@ -50,5 +50,8 @@ export default ({ config }) => ({
     ],
     experiments: {
         reactCompiler: true
+    },
+    runtimeVersion: {
+        policy: 'sdkVersion'
     }
 });
