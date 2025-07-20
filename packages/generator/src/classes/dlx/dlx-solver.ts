@@ -1,10 +1,13 @@
 import { isDefined } from '@rnw-community/shared';
 
+import { defaultSudokuConfig } from '../../interfaces/sudoku-config.interface';
+import { createEmptyField } from '../../util/create-empty-field.util';
+
 import { DLXColumnNode } from './dlx-column-node';
 import { DLXNode } from './dlx-node';
 
+import type { FieldInterface } from '../../interfaces/field.interface';
 import type { RowMappingInterface } from '../../interfaces/row-mapping.interface';
-import type { SudokuGridType } from '../../types/sudoku-grid.type';
 
 // TODO: Make algorithm generic to support different grid sizes
 export class DLXSolver {
@@ -16,19 +19,18 @@ export class DLXSolver {
         this.reset();
     }
 
-    // eslint-disable-next-line max-statements
-    solve(grid: SudokuGridType): SudokuGridType | null {
+    solve(field: FieldInterface): FieldInterface | null {
         this.reset();
 
-        this.buildExactCover(grid);
+        this.buildExactCover(field);
 
         if (this.search(0, false) > 0) {
-            const result = this.createEmptyGrid();
+            const result = createEmptyField(defaultSudokuConfig);
             for (const node of this.solution) {
                 if (isDefined(node.rowIndex)) {
                     const { row, col, num } = this.rowMapping[node.rowIndex];
 
-                    result[row][col] = num;
+                    result[row][col].value = num;
                 }
             }
 
@@ -38,10 +40,10 @@ export class DLXSolver {
         return null;
     }
 
-    count(grid: SudokuGridType): number {
+    count(field: FieldInterface): number {
         this.reset();
 
-        this.buildExactCover(grid);
+        this.buildExactCover(field);
 
         return this.search(0, true);
     }
@@ -56,7 +58,7 @@ export class DLXSolver {
     }
 
     // eslint-disable-next-line max-statements
-    private buildExactCover(grid: SudokuGridType): void {
+    private buildExactCover(grid: FieldInterface): void {
         const cellCount = 81;
         const constraintsCount = 4;
         const columnCountWithConstraints = cellCount * constraintsCount;
@@ -76,7 +78,7 @@ export class DLXSolver {
         for (let row = 0; row < 9; row += 1) {
             for (let col = 0; col < 9; col += 1) {
                 for (let num = 1; num <= 9; num += 1) {
-                    const isNumberConflicting = grid[row][col] !== 0 && grid[row][col] !== num;
+                    const isNumberConflicting = grid[row][col].value !== 0 && grid[row][col].value !== num;
                     if (isNumberConflicting) {
                         // eslint-disable-next-line no-continue
                         continue;
@@ -190,10 +192,5 @@ export class DLXSolver {
         this.uncover(col);
 
         return count;
-    }
-
-    // eslint-disable-next-line @typescript-eslint/class-methods-use-this
-    private createEmptyGrid(size = 9, initialValue = 0): SudokuGridType {
-        return Array.from({ length: size }, () => Array<number>(size).fill(initialValue));
     }
 }

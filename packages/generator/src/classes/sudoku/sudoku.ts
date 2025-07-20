@@ -16,6 +16,7 @@ import type { SudokuConfigInterface } from '../../interfaces/sudoku-config.inter
 export class Sudoku extends SerializableSudoku {
     private readonly fieldFillingValues: number[];
     private readonly scoring: SudokuScoring;
+    private readonly coordinates: { x: number; y: number }[] = [];
 
     constructor(config: SudokuConfigInterface = defaultSudokuConfig, scoring: SudokuScoring = new SudokuScoring(config.score)) {
         super(config);
@@ -23,6 +24,12 @@ export class Sudoku extends SerializableSudoku {
         this.scoring = scoring;
 
         this.fieldFillingValues = Array.from({ length: this.config.fieldSize }, (_, i) => i + 1);
+        // HINT: Prepare all possible coordinates for clue removal
+        for (let y = 0; y < this.config.fieldSize; y += 1) {
+            for (let x = 0; x < this.config.fieldSize; x += 1) {
+                this.coordinates.push({ x, y });
+            }
+        }
     }
 
     create(difficulty: DifficultyEnum): void {
@@ -239,9 +246,7 @@ export class Sudoku extends SerializableSudoku {
                 this.gameField[y][x].value = this.config.blankCellValue;
                 blankCells += 1;
 
-                // TODO: Removing this step can improve performance
-                const grid = this.gameField.map(row => row.map(cell => cell.value));
-                if (new DLXSolver().count(grid) !== 1) {
+                if (new DLXSolver().count(this.gameField) !== 1) {
                     this.gameField[y][x].value = backup;
                     blankCells -= 1;
                 }

@@ -1,14 +1,14 @@
 import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
 import { DifficultyEnum } from '../../enums/difficulty.enum';
+import { defaultSudokuConfig } from '../../interfaces/sudoku-config.interface';
+import { createEmptyField } from '../../util/create-empty-field.util';
 
 import type { FieldInterface } from '../../interfaces/field.interface';
 import type { SudokuConfigInterface } from '../../interfaces/sudoku-config.interface';
 import type { AvailableValuesType } from '../../types/available-values.type';
 
-/**
- * HINT: Serialization inspired from https://github.com/robatron/sudoku.js
- */
+/** HINT: Serialization inspired from https://github.com/robatron/sudoku.js */
 export class SerializableSudoku {
     protected field: FieldInterface = [];
     protected gameField: FieldInterface = [];
@@ -16,31 +16,12 @@ export class SerializableSudoku {
     protected possibleValues: number[] = [];
 
     protected readonly emptyField: FieldInterface = [];
-    protected readonly coordinates: { x: number; y: number }[] = [];
 
     private readonly emptyStringValue: string = '.';
     private readonly fieldSeparator: string = '|';
 
-    constructor(protected config: SudokuConfigInterface) {
-        // HINT: Prepare empty field
-        this.emptyField = Array.from({ length: this.config.fieldSize }, (_, y) =>
-            Array.from({ length: this.config.fieldSize }, (__, x) => ({
-                y,
-                x,
-                value: this.config.blankCellValue,
-                group:
-                    Math.floor(x / this.config.fieldGroupWidth) * this.config.fieldGroupWidth +
-                    Math.floor(y / this.config.fieldGroupHeight) +
-                    1
-            }))
-        );
-
-        // HINT: Prepare all possible coordinates for clue removal
-        for (let y = 0; y < this.config.fieldSize; y += 1) {
-            for (let x = 0; x < this.config.fieldSize; x += 1) {
-                this.coordinates.push({ x, y });
-            }
-        }
+    constructor(protected config: SudokuConfigInterface = defaultSudokuConfig) {
+        this.emptyField = createEmptyField(this.config);
     }
 
     get FullField(): FieldInterface {
@@ -133,7 +114,7 @@ export class SerializableSudoku {
     }
 
     // eslint-disable-next-line max-statements
-    static fromString(fieldsString: string, config: SudokuConfigInterface): SerializableSudoku {
+    static fromString(fieldsString: string, config: SudokuConfigInterface = defaultSudokuConfig): SerializableSudoku {
         const game = new this(config);
 
         if (!isNotEmptyString(fieldsString)) {
