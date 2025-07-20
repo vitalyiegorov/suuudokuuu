@@ -16,5 +16,5 @@ Unique modern open source React Native/ Expo Sudoku game with a lot of features.
 ## Packages
 
 - [app](packages/app/readme.md) - React Native / Expo application package
-- [generator](packages/generator/readme.md) - Puzzle generator for the app package
+- [generator](packages/generator/readme.md) - Sudoku puzzle generator
 - [app-tests](tests/app-tests/readme.md) - Maestro tests for the app package
