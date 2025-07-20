@@ -30,7 +30,8 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 18.x
+          node-version: 22.x
+          cache: yarn
 
       - name: Setup Git user
         run: |
@@ -67,7 +68,8 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 18.x
+          node-version: 22.x
+          cache: yarn
 
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
@@ -87,42 +89,36 @@ jobs:
           vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
           vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
 
-  expo-build:
-    name: Build and Deploy IOS and Android
+  eas-update:
+    name: EAS Update
     needs: release
     runs-on: ubuntu-latest
     steps:
+      - name: Check for EXPO_TOKEN
+        run: |
+          if [ -z "${{ secrets.EXPO_TOKEN }}" ]; then
+            echo "You must provide an EXPO_TOKEN secret linked to this project's Expo account in this repo's secrets. Learn more: https://docs.expo.dev/eas-update/github-actions"
+            exit 1
+          fi
+
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          ref: main
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 18.x
+          node-version: 22.x
+          cache: yarn
 
-      - name: Setup Expo and EAS
+      - name: Setup EAS
         uses: expo/expo-github-action@v8
         with:
           eas-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
 
-      - name: ASC API Key file creation
-        uses: MobileDevOps/secret-to-file-action@v1.0.0
-        with:
-          base64-encoded-secret: ${{ secrets.EXPO_IOS_ASC_API_KEY }}
-          filename: "asc_api_key.p8"
-
-      - name: Play Market Console Key file creation
-        uses: MobileDevOps/secret-to-file-action@v1.0.0
-        with:
-          base64-encoded-secret: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
-          filename: "google-service-account.json"
-
       - name: Install dependencies
         run: yarn install && yarn build
 
-      - name: Build on EAS
+      - name: Publish update
         working-directory: packages/app
-        run: eas build --platform all --non-interactive --auto-submit --no-wait
+        run: eas update --auto

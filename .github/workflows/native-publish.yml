@@ -1,0 +1,51 @@
+name: Build and Publish to Stores
+env:
+  EXPO_APPLE_TEAM_TYPE: INDIVIDUAL
+  EXPO_APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-publish:
+    name: Build & Publish to App Stores
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          cache: yarn
+
+      - name: Setup Expo and EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: ASC API Key file creation
+        uses: MobileDevOps/secret-to-file-action@v1.0.0
+        with:
+          base64-encoded-secret: ${{ secrets.EXPO_IOS_ASC_API_KEY }}
+          filename: "asc_api_key.p8"
+
+      - name: Play Market Console Key file creation
+        uses: MobileDevOps/secret-to-file-action@v1.0.0
+        with:
+          base64-encoded-secret: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+          filename: "google-service-account.json"
+
+      - name: Install dependencies
+        run: yarn install && yarn build
+
+      - name: Build on EAS
+        working-directory: packages/app
+        run: eas build --platform all --non-interactive --auto-submit --no-wait
