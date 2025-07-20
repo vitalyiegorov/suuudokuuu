@@ -24,7 +24,7 @@ import { gameSaveThunk } from '../../../game/store/thunks/game-save.thunk';
 
 import { GameScreenStyles as styles } from './game-screen.styles';
 
-import type { CellInterface , DifficultyEnum, FieldInterface, ScoredCellsInterface } from '@suuudokuuu/generator';
+import type { CellInterface, DifficultyEnum, FieldInterface, ScoredCellsInterface } from '@suuudokuuu/generator';
 
 interface Props {
     readonly routeField: string | undefined;
@@ -150,10 +150,9 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
                             {mistakes}
                         </Text>
 
-                        {' '}
-
-                        /
-                        {' '}
+                        <Text style={styles.mistakesSeparator}>
+                            /
+                        </Text>
 
                         <Text style={styles.mistakesMaxText}>
                             {MaxMistakesConstant}

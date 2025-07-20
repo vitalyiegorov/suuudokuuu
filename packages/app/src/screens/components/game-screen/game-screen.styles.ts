@@ -32,6 +32,9 @@ export const GameScreenStyles = StyleSheet.create({
         color: Colors.black,
         fontWeight: 'bold'
     },
+    mistakesSeparator: {
+        marginHorizontal: 5
+    },
     scoreText: {
         color: Colors.black,
         fontWeight: 'bold'
