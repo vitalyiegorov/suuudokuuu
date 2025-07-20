@@ -35,13 +35,13 @@ jobs:
         uses: MobileDevOps/secret-to-file-action@v1.0.0
         with:
           base64-encoded-secret: ${{ secrets.EXPO_IOS_ASC_API_KEY }}
-          filename: "asc_api_key.p8"
+          filename: "packages/app/asc_api_key.p8"
 
       - name: Play Market Console Key file creation
         uses: MobileDevOps/secret-to-file-action@v1.0.0
         with:
           base64-encoded-secret: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
-          filename: "google-service-account.json"
+          filename: "packages/app/google-service-account.json"
 
       - name: Install dependencies
         run: yarn install && yarn build
