@@ -41,7 +41,7 @@ jobs:
           git remote rm origin
           git remote add origin https://vitalyiegorov:${GITHUB_TOKEN}@github.com/rnw-community/rnw-community.git
           git fetch
-          git branch --set-upstream-to=origin/master master
+          git branch --set-upstream-to=origin/main main
 
       - name: Install dependencies
         env:
