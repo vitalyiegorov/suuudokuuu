@@ -1,4 +1,3 @@
-
 import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
 import { DifficultyEnum } from '../../enums/difficulty.enum';
@@ -67,8 +66,7 @@ export class SerializableSudoku {
         // TODO: Can we optimize and not recalculate full object every time?
         this.availableValues = {};
         for (const row of this.gameField) {
-            for (const col of row) {
-                const { value } = col;
+            for (const { value } of row) {
                 if (value !== this.blankCellValue) {
                     if (isDefined(this.availableValues[value])) {
                         this.availableValues[value].count += 1;

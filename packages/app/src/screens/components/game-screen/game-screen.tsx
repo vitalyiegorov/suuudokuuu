@@ -32,7 +32,7 @@ interface Props {
 }
 
 /**
- * We have inconsistency of state storage, field is coming from the url and score and mistakes from redux
+ * TODO: We have inconsistency of state storage, field is coming from the url and score and mistakes from redux
  * we need to unify this approach
  */
 // eslint-disable-next-line max-lines-per-function
