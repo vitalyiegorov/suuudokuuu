@@ -124,11 +124,10 @@ export class SerializableSudoku {
             throw new Error('Invalid string format: No field separator found');
         }
 
-        const [fieldString, gameFieldString] = fieldsString.split(game.fieldSeparator);
-
         game.field = cloneField(game.emptyField);
-        game.gameField = cloneField(game.field);
+        game.gameField = cloneField(game.emptyField);
 
+        const [fieldString, gameFieldString] = fieldsString.split(game.fieldSeparator);
         game.convertFieldFromString(fieldString, game.field);
         const blankCellCount = game.convertFieldFromString(gameFieldString, game.gameField);
         game.setDifficultyByBlankCells(blankCellCount);
