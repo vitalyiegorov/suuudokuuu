@@ -1,11 +1,11 @@
-import type { ColumnNode } from './column-node';
+import type { DLXColumnNode } from './dlx-column-node';
 
 export class DLXNode {
     left: DLXNode;
     right: DLXNode;
     up: DLXNode;
     down: DLXNode;
-    column!: ColumnNode;
+    column!: DLXColumnNode;
     rowIndex?: number;
 
     constructor() {

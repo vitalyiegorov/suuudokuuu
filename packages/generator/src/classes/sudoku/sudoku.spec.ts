@@ -6,9 +6,8 @@ import { defaultSudokuConfig } from '../../interfaces/sudoku-config.interface';
 import { Sudoku } from './sudoku';
 
 // TODO: Cover whole logic with tests
-describe('sudoku', () => {
+describe('Sudoku', () => {
     it('create field', () => {
-        // Expect.assertions()
         const sudoku = new Sudoku(defaultSudokuConfig);
 
         sudoku.create(DifficultyEnum.Newbie);

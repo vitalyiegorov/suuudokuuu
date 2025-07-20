@@ -1,34 +1,60 @@
 import { isDefined } from '@rnw-community/shared';
 
-import { ColumnNode } from './column-node';
+import { DLXColumnNode } from './dlx-column-node';
 import { DLXNode } from './dlx-node';
 
 import type { RowMappingInterface } from '../../interfaces/row-mapping.interface';
 import type { SudokuGridType } from '../../types/sudoku-grid.type';
 
+// TODO: Make algorithm generic to support different grid sizes
 export class DLXSolver {
-    private header: ColumnNode;
+    private header: DLXColumnNode;
     private solution: DLXNode[];
     private rowMapping: RowMappingInterface[];
 
     constructor() {
-        this.header = new ColumnNode('header');
+        this.header = new DLXColumnNode('header');
         this.header.left = this.header;
         this.header.right = this.header;
         this.solution = [];
         this.rowMapping = [];
     }
 
+    // eslint-disable-next-line max-statements
     public solve(grid: SudokuGridType): SudokuGridType | null {
-        this.header = new ColumnNode('header');
+        this.reset(grid);
+
+        if (this.search(0, false) > 0) {
+            const result = this.createEmptyGrid();
+            for (const node of this.solution) {
+                if (isDefined(node.rowIndex)) {
+                    const { row, col, num } = this.rowMapping[node.rowIndex];
+
+                    result[row][col] = num;
+                }
+            }
+
+            return result;
+        }
+
+        return null;
+    }
+
+    public count(grid: SudokuGridType): number {
+        this.reset(grid);
+
+        return this.search(0, true);
+    }
+
+    private reset(grid: SudokuGridType): void {
+        this.header = new DLXColumnNode('header');
         this.header.left = this.header;
         this.header.right = this.header;
+
         this.solution = [];
         this.rowMapping = [];
 
         this.buildExactCover(grid);
-
-        return this.search(0) ? this.buildResult() : null;
     }
 
     // eslint-disable-next-line max-statements
@@ -37,9 +63,9 @@ export class DLXSolver {
         const constraintsCount = 4;
         const columnCountWithConstraints = cellCount * constraintsCount;
 
-        const columns: ColumnNode[] = [];
+        const columns: DLXColumnNode[] = [];
         for (let i = 0; i < columnCountWithConstraints; i += 1) {
-            const col = new ColumnNode(i.toString());
+            const col = new DLXColumnNode(i.toString());
             columns.push(col);
 
             col.right = this.header;
@@ -95,7 +121,7 @@ export class DLXSolver {
     }
 
     // eslint-disable-next-line @typescript-eslint/class-methods-use-this
-    private cover(col: ColumnNode): void {
+    private cover(col: DLXColumnNode): void {
         col.right.left = col.left;
         col.left.right = col.right;
 
@@ -109,7 +135,7 @@ export class DLXSolver {
     }
 
     // eslint-disable-next-line @typescript-eslint/class-methods-use-this
-    private uncover(col: ColumnNode): void {
+    private uncover(col: DLXColumnNode): void {
         for (let row = col.up; row !== col; row = row.up) {
             for (let node = row.left; node !== row; node = node.left) {
                 node.down.up = node;
@@ -122,30 +148,40 @@ export class DLXSolver {
     }
 
     // eslint-disable-next-line max-statements
-    private search(step: number): boolean {
-        // HINT: If no columns left, a solution is found
+    private search(step: number, findAll = false): number {
         if (this.header.right === this.header) {
-            return true;
+            return 1;
         }
 
-        // HINT: Choose column with smallest size (heuristic)
-        let col = this.header.right as ColumnNode;
-        for (let currentCol = col.right as ColumnNode; currentCol !== this.header; currentCol = currentCol.right as ColumnNode) {
-            if (currentCol.size < col.size) {
-                col = currentCol;
+        let col = this.header.right as DLXColumnNode;
+        for (let current = col.right as DLXColumnNode; current !== this.header; current = current.right as DLXColumnNode) {
+            if (current.size < col.size) {
+                col = current;
             }
         }
 
         this.cover(col);
 
+        let count = 0;
+
         for (let row = col.down; row !== col; row = row.down) {
             this.solution[step] = row;
+
             for (let node = row.right; node !== row; node = node.right) {
                 this.cover(node.column);
             }
 
-            if (this.search(step + 1)) {
-                return true;
+            const result = this.search(step + 1, findAll);
+
+            count += result;
+
+            if (!findAll && result > 0) {
+                for (let node = row.left; node !== row; node = node.left) {
+                    this.uncover(node.column);
+                }
+                this.uncover(col);
+
+                return 1;
             }
 
             for (let node = row.left; node !== row; node = node.left) {
@@ -155,19 +191,11 @@ export class DLXSolver {
 
         this.uncover(col);
 
-        return false;
+        return count;
     }
 
-    private buildResult(): SudokuGridType {
-        const result: SudokuGridType = Array.from({ length: 9 }, () => Array<number>(9).fill(0));
-        for (const node of this.solution) {
-            if (isDefined(node.rowIndex)) {
-                const { row, col, num } = this.rowMapping[node.rowIndex];
-
-                result[row][col] = num;
-            }
-        }
-
-        return result;
+    // eslint-disable-next-line @typescript-eslint/class-methods-use-this
+    private createEmptyGrid(size = 9, initialValue = 0): SudokuGridType {
+        return Array.from({ length: size }, () => Array<number>(size).fill(initialValue));
     }
 }
