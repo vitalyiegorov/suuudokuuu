@@ -8,21 +8,19 @@ import type { SudokuGridType } from '../../types/sudoku-grid.type';
 
 // TODO: Make algorithm generic to support different grid sizes
 export class DLXSolver {
-    private header: DLXColumnNode;
-    private solution: DLXNode[];
-    private rowMapping: RowMappingInterface[];
+    private header: DLXColumnNode = new DLXColumnNode('header');
+    private solution: DLXNode[] = [];
+    private rowMapping: RowMappingInterface[] = [];
 
     constructor() {
-        this.header = new DLXColumnNode('header');
-        this.header.left = this.header;
-        this.header.right = this.header;
-        this.solution = [];
-        this.rowMapping = [];
+        this.reset();
     }
 
     // eslint-disable-next-line max-statements
-    public solve(grid: SudokuGridType): SudokuGridType | null {
-        this.reset(grid);
+    solve(grid: SudokuGridType): SudokuGridType | null {
+        this.reset();
+
+        this.buildExactCover(grid);
 
         if (this.search(0, false) > 0) {
             const result = this.createEmptyGrid();
@@ -40,21 +38,21 @@ export class DLXSolver {
         return null;
     }
 
-    public count(grid: SudokuGridType): number {
-        this.reset(grid);
+    count(grid: SudokuGridType): number {
+        this.reset();
+
+        this.buildExactCover(grid);
 
         return this.search(0, true);
     }
 
-    private reset(grid: SudokuGridType): void {
+    private reset(): void {
         this.header = new DLXColumnNode('header');
         this.header.left = this.header;
         this.header.right = this.header;
 
         this.solution = [];
         this.rowMapping = [];
-
-        this.buildExactCover(grid);
     }
 
     // eslint-disable-next-line max-statements
