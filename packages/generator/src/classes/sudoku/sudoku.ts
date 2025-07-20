@@ -36,9 +36,7 @@ export class Sudoku extends SerializableSudoku {
             }
             this.gameField = this.cloneField(this.field);
 
-            const blankCells = this.removeClues(targetBlankCells, 50);
-
-            if (blankCells >= targetBlankCells) {
+            if (this.removeClues(targetBlankCells, 50) >= targetBlankCells) {
                 break;
             }
         }
@@ -241,6 +239,7 @@ export class Sudoku extends SerializableSudoku {
                 this.gameField[y][x].value = this.config.blankCellValue;
                 blankCells += 1;
 
+                // TODO: Removing this step can improve performance
                 const grid = this.gameField.map(row => row.map(cell => cell.value));
                 if (new DLXSolver().count(grid) !== 1) {
                     this.gameField[y][x].value = backup;
