@@ -130,8 +130,8 @@ export class SerializableSudoku {
         const [fieldString, gameFieldString] = fieldsString.split(game.fieldSeparator);
         game.convertFieldFromString(fieldString, game.field);
         const blankCellCount = game.convertFieldFromString(gameFieldString, game.gameField);
-        game.setDifficultyByBlankCells(blankCellCount);
 
+        game.setDifficultyByBlankCells(blankCellCount);
         game.calculateAvailableValues();
         game.calculatePossibleValues();
 
