@@ -5,6 +5,7 @@
     "ignore": [
         "**/*.json",
         "**/*.svg",
+        "**/*.spec.ts",
         "**/build/**",
         "**/dist/**",
         "**/index.html",
