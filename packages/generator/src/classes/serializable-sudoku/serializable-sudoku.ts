@@ -15,10 +15,33 @@ export class SerializableSudoku {
     protected availableValues: AvailableValuesType = {};
     protected possibleValues: number[] = [];
 
+    protected readonly emptyField: FieldInterface = [];
+    protected readonly coordinates: { x: number; y: number }[] = [];
+
     private readonly emptyStringValue: string = '.';
     private readonly fieldSeparator: string = '|';
 
-    constructor(protected config: SudokuConfigInterface) {}
+    constructor(protected config: SudokuConfigInterface) {
+        // HINT: Prepare empty field
+        this.emptyField = Array.from({ length: this.config.fieldSize }, (_, y) =>
+            Array.from({ length: this.config.fieldSize }, (__, x) => ({
+                y,
+                x,
+                value: this.config.blankCellValue,
+                group:
+                    Math.floor(x / this.config.fieldGroupWidth) * this.config.fieldGroupWidth +
+                    Math.floor(y / this.config.fieldGroupHeight) +
+                    1
+            }))
+        );
+
+        // HINT: Prepare all possible coordinates for clue removal
+        for (let y = 0; y < this.config.fieldSize; y += 1) {
+            for (let x = 0; x < this.config.fieldSize; x += 1) {
+                this.coordinates.push({ x, y });
+            }
+        }
+    }
 
     get FullField(): FieldInterface {
         return this.field;
@@ -77,17 +100,7 @@ export class SerializableSudoku {
     }
 
     protected createEmptyField(): FieldInterface {
-        return Array.from({ length: this.config.fieldSize }, (_, y) =>
-            Array.from({ length: this.config.fieldSize }, (__, x) => ({
-                y,
-                x,
-                value: this.config.blankCellValue,
-                group:
-                    Math.floor(x / this.config.fieldGroupWidth) * this.config.fieldGroupWidth +
-                    Math.floor(y / this.config.fieldGroupHeight) +
-                    1
-            }))
-        );
+        return this.cloneField(this.emptyField);
     }
 
     private setDifficultyByBlankCells(blankCellCount: number): void {
