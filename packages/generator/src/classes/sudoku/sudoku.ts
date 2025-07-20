@@ -72,34 +72,34 @@ export class Sudoku extends SerializableSudoku {
 
     getCellRight(selectedCell?: CellInterface): CellInterface | undefined {
         if (isDefined(selectedCell) && selectedCell.x < this.config.fieldSize - 1) {
-            return this.field[selectedCell.y][selectedCell.x + 1];
+            return this.gameField[selectedCell.y][selectedCell.x + 1];
         }
 
-        return undefined;
+        return selectedCell;
     }
 
     getCellLeft(selectedCell?: CellInterface): CellInterface | undefined {
         if (isDefined(selectedCell) && selectedCell.x > 0) {
-            return this.field[selectedCell.y][selectedCell.x - 1];
+            return this.gameField[selectedCell.y][selectedCell.x - 1];
         }
 
-        return undefined;
+        return selectedCell;
     }
 
     getCellUp(selectedCell?: CellInterface): CellInterface | undefined {
         if (isDefined(selectedCell) && selectedCell.y > 0) {
-            return this.field[selectedCell.y - 1][selectedCell.x];
+            return this.gameField[selectedCell.y - 1][selectedCell.x];
         }
 
-        return undefined;
+        return selectedCell;
     }
 
     getCellDown(selectedCell?: CellInterface): CellInterface | undefined {
         if (isDefined(selectedCell) && selectedCell.y < this.config.fieldSize - 1) {
-            return this.field[selectedCell.y + 1][selectedCell.x];
+            return this.gameField[selectedCell.y + 1][selectedCell.x];
         }
 
-        return undefined;
+        return selectedCell;
     }
 
     // eslint-disable-next-line @typescript-eslint/class-methods-use-this
