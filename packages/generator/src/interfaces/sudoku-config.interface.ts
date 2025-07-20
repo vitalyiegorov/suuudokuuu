@@ -27,3 +27,6 @@ export const defaultSudokuConfig: SudokuConfigInterface = {
         [DifficultyEnum.Nightmare]: 0.9
     }
 };
+
+export const getBlankCellCountByConfig = (config: SudokuConfigInterface): number =>
+    Math.ceil(config.difficultyBlankCellsPercentage[config.difficulty] * config.fieldSize * config.fieldSize);
