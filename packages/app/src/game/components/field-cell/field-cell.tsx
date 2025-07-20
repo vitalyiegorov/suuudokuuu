@@ -75,6 +75,7 @@ const FieldCellComponent = (props: Props) => {
         cs(sudoku.isLastInCellGroupY(cell), styles.groupYEnd),
         cs(isLastRow, styles.lastRow),
         cs(isLastCol, styles.lastCol),
+        { backgroundColor },
         animatedStyles
     ];
 
