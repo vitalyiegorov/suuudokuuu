@@ -5,6 +5,7 @@ import { defaultSudokuConfig } from '../../interfaces/sudoku-config.interface';
 import { cloneField } from '../../util/clone-field.util';
 import { createEmptyField } from '../../util/create-empty-field.util';
 
+import type { CellInterface } from '../../interfaces/cell.interface';
 import type { FieldInterface } from '../../interfaces/field.interface';
 import type { SudokuConfigInterface } from '../../interfaces/sudoku-config.interface';
 import type { AvailableValuesType } from '../../types/available-values.type';
@@ -41,6 +42,16 @@ export class SerializableSudoku {
         return this.config.difficulty;
     }
 
+    getValueProgress(value: number): number {
+        return this.availableValues[value].progress;
+    }
+
+    isValueAvailable(cell?: CellInterface): boolean {
+        return (
+            isDefined(cell) && isDefined(this.availableValues[cell.value]) && this.availableValues[cell.value].count < this.config.fieldSize
+        );
+    }
+
     toString(): string {
         const convertField = (field: FieldInterface): string =>
             field
@@ -67,9 +78,7 @@ export class SerializableSudoku {
                 }
             }
         }
-    }
 
-    protected calculatePossibleValues(): void {
         this.possibleValues = Object.keys(this.availableValues)
             .map(Number)
             .filter(key => this.availableValues[key].count < this.config.fieldSize)
@@ -132,7 +141,6 @@ export class SerializableSudoku {
 
         game.setDifficultyByBlankCells(blankCellCount);
         game.calculateAvailableValues();
-        game.calculatePossibleValues();
 
         return game;
     }
