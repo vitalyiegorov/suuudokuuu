@@ -56,7 +56,7 @@ jobs:
           github_token: ${{ secrets.PUSH_TO_PROTECTED_TOKEN }}
 
   web-deploy:
-    name: Install and build Web
+    name: Vercel deploy Web
     needs: release
     runs-on: ubuntu-latest
     steps:
