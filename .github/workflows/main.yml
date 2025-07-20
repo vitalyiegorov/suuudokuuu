@@ -76,10 +76,11 @@ jobs:
         run: yarn install && yarn build
 
       - name: Build expo web
+        working-directory: packages/app
         run: npx expo export --platform=web
 
       - name: Deploy to Vercel
-        working-directory: ./dist
+        working-directory: packages/app/dist
         run: |
           echo "!node_modules" > .vercelignore
           cp ../vercel.json .
