@@ -33,7 +33,15 @@ jobs:
           node-version: 18.x
 
       - name: Setup Git user
-        uses: fregante/setup-git-user@v2.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.PUSH_TO_PROTECTED_TOKEN }}
+        run: |
+          git config user.name "Vitalii Yehorov"
+          git config user.email "vitalyiegorov@gmail.com"
+          git remote rm origin
+          git remote add origin https://vitalyiegorov:${GITHUB_TOKEN}@github.com/rnw-community/rnw-community.git
+          git fetch
+          git branch --set-upstream-to=origin/master master
 
       - name: Install dependencies
         env:
