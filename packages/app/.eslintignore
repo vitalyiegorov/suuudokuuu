@@ -3,3 +3,6 @@
 .turbo/
 .android/
 .ios/
+
+app.config.js
+babel.config.js
