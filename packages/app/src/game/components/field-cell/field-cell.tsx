@@ -15,8 +15,10 @@ import type { CellInterface, Sudoku } from '@suuudokuuu/generator';
 
 const ReanimatedPressable = Reanimated.createAnimatedComponent(Pressable);
 
-const getCellBgColor = (isActiveValue: boolean, isCellHighlighted: boolean) => {
-    if (isActiveValue) {
+const getCellBgColor = (isActiveValue: boolean, isCellHighlighted: boolean, isWrong: boolean) => {
+    if (isWrong) {
+        return Colors.cell.error;
+    } else if (isActiveValue) {
         return Colors.cell.activeValue;
     } else if (isCellHighlighted) {
         return Colors.cell.highlighted;
@@ -48,14 +50,15 @@ interface Props {
     readonly isActive: boolean;
     readonly isActiveValue: boolean;
     readonly isHighlighted: boolean;
+    readonly isWrong: boolean;
 }
 
 const FieldCellComponent = (props: Props) => {
-    const { sudoku, cell, onSelect, isActive, isActiveValue, isHighlighted, hasAnimation, textAnimation } = props;
+    const { sudoku, cell, onSelect, isActive, isActiveValue, isHighlighted, isWrong, hasAnimation, textAnimation } = props;
 
     const isLastRow = cell.y === 8;
     const isLastCol = cell.x === 8;
-    const backgroundColor = getCellBgColor(isActiveValue, isHighlighted);
+    const backgroundColor = getCellBgColor(isActiveValue, isHighlighted, isWrong);
 
     const animation = useDerivedValue(() => withTiming(isActive ? 1 : 0, animationConfig));
 
@@ -72,15 +75,12 @@ const FieldCellComponent = (props: Props) => {
         cs(sudoku.isLastInCellGroupY(cell), styles.groupYEnd),
         cs(isLastRow, styles.lastRow),
         cs(isLastCol, styles.lastCol),
+        { backgroundColor },
         animatedStyles
     ];
 
     return (
-        <ReanimatedPressable
-            onPress={handlePress}
-            style={cellStyles}
-            testID={getCellSelector(props)}
-        >
+        <ReanimatedPressable onPress={handlePress} style={cellStyles} testID={getCellSelector(props)}>
             <FieldCellText
                 animation={textAnimation}
                 cell={cell}
@@ -100,6 +100,7 @@ export const FieldCell = memo(
         prevProps.cell.value === nextProps.cell.value &&
         prevProps.hasAnimation === nextProps.hasAnimation &&
         prevProps.isActive === nextProps.isActive &&
+        prevProps.isWrong === nextProps.isWrong &&
         prevProps.isActiveValue === nextProps.isActiveValue &&
         prevProps.isHighlighted === nextProps.isHighlighted
 );

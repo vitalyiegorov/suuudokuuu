@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { isDefined } from '@rnw-community/shared';
 
 import { type ScoredCellsInterface, emptyScoredCells } from '../../interfaces/scored-cells.interface';
@@ -63,6 +64,42 @@ export class Sudoku extends SerializableSudoku {
     // eslint-disable-next-line @typescript-eslint/class-methods-use-this
     isCellHighlighted(cell: CellInterface, selectedCell?: CellInterface): boolean {
         return isDefined(selectedCell) && (selectedCell.x === cell.x || selectedCell.y === cell.y || selectedCell.group === cell.group);
+    }
+
+    isCellWrong(cell: CellInterface, selectedCell?: CellInterface): boolean {
+        return this.isSameCell(cell, selectedCell) && !this.isBlankCell(selectedCell) && !this.isCorrectValue(selectedCell);
+    }
+
+    getCellRight(selectedCell?: CellInterface): CellInterface | undefined {
+        if (isDefined(selectedCell) && selectedCell.x < this.config.fieldSize - 1) {
+            return this.gameField[selectedCell.y][selectedCell.x + 1];
+        }
+
+        return selectedCell;
+    }
+
+    getCellLeft(selectedCell?: CellInterface): CellInterface | undefined {
+        if (isDefined(selectedCell) && selectedCell.x > 0) {
+            return this.gameField[selectedCell.y][selectedCell.x - 1];
+        }
+
+        return selectedCell;
+    }
+
+    getCellUp(selectedCell?: CellInterface): CellInterface | undefined {
+        if (isDefined(selectedCell) && selectedCell.y > 0) {
+            return this.gameField[selectedCell.y - 1][selectedCell.x];
+        }
+
+        return selectedCell;
+    }
+
+    getCellDown(selectedCell?: CellInterface): CellInterface | undefined {
+        if (isDefined(selectedCell) && selectedCell.y < this.config.fieldSize - 1) {
+            return this.gameField[selectedCell.y + 1][selectedCell.x];
+        }
+
+        return selectedCell;
     }
 
     // eslint-disable-next-line @typescript-eslint/class-methods-use-this
@@ -266,3 +303,4 @@ export class Sudoku extends SerializableSudoku {
         return super.fromString(fieldsString, config) as Sudoku;
     }
 }
+/* eslint-enable max-lines */
