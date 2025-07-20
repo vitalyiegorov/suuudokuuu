@@ -1,6 +1,10 @@
 import { isDefined } from '@rnw-community/shared';
 
 import { type ScoredCellsInterface, emptyScoredCells } from '../../interfaces/scored-cells.interface';
+import { defaultSudokuConfig, getBlankCellCountByConfig } from '../../interfaces/sudoku-config.interface';
+import { cloneField } from '../../util/clone-field.util';
+import { shuffle } from '../../util/shuffle.util';
+import { DLXSolver } from '../dlx/dlx-solver';
 import { SerializableSudoku } from '../serializable-sudoku/serializable-sudoku';
 import { SudokuScoring } from '../sudoku-scoring/sudoku-scoring';
 
@@ -9,57 +13,51 @@ import type { CellInterface } from '../../interfaces/cell.interface';
 import type { FieldInterface } from '../../interfaces/field.interface';
 import type { SudokuConfigInterface } from '../../interfaces/sudoku-config.interface';
 
-
 // TODO: We can split this class into rules validator(or similar)
 export class Sudoku extends SerializableSudoku {
     private readonly fieldFillingValues: number[];
     private readonly scoring: SudokuScoring;
+    private readonly coordinates: { x: number; y: number }[] = [];
 
-    constructor(config: SudokuConfigInterface, scoring: SudokuScoring = new SudokuScoring(config.score)) {
+    constructor(config: SudokuConfigInterface = defaultSudokuConfig, scoring: SudokuScoring = new SudokuScoring(config.score)) {
         super(config);
 
         this.scoring = scoring;
 
-        // TODO: Is there a better way to randomize array of numbers in JS? =)
-        this.fieldFillingValues = Array.from({ length: this.fieldSize }, (_, i) => i + 1);
-        for (let i = this.fieldFillingValues.length - 1; i > 0; i -= 1) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [this.fieldFillingValues[i], this.fieldFillingValues[j]] = [this.fieldFillingValues[j], this.fieldFillingValues[i]];
+        this.fieldFillingValues = Array.from({ length: this.config.fieldSize }, (_, i) => i + 1);
+        // HINT: Prepare all possible coordinates for clue removal
+        for (let y = 0; y < this.config.fieldSize; y += 1) {
+            for (let x = 0; x < this.config.fieldSize; x += 1) {
+                this.coordinates.push({ x, y });
+            }
         }
     }
 
     create(difficulty: DifficultyEnum): void {
-        this.difficulty = difficulty;
-        this.field = this.createEmptyField();
+        this.config = { ...this.config, difficulty };
+        const targetBlankCells = getBlankCellCountByConfig(this.config);
 
-        if (!this.fillRecursive()) {
-            throw new Error('Unable to create a game field');
-        }
+        for (let attempt = 0; attempt < 10; attempt += 1) {
+            this.field = cloneField(this.emptyField);
+            if (!this.fillRecursive()) {
+                throw new Error('Unable to create a game field');
+            }
+            this.gameField = cloneField(this.field);
 
-        const getRandomPosition = (): number => Math.floor(Math.random() * this.fieldSize);
-
-        const blankCellsCount = Math.ceil(this.config.difficultyBlankCellsPercentage[difficulty] * this.fieldSize * this.fieldSize);
-        this.gameField = this.cloneField(this.field);
-
-        // TODO: Can we improve this logic to make it more unique??
-        for (let i = 0; i < blankCellsCount; i += 1) {
-            this.gameField[getRandomPosition()][getRandomPosition()].value = this.blankCellValue;
+            if (this.removeClues(targetBlankCells, 50) >= targetBlankCells) {
+                break;
+            }
         }
 
         this.calculateAvailableValues();
-        this.calculatePossibleValues();
     }
 
     getScore(scoredCells: ScoredCellsInterface, elapsedTime: number, mistakes: number): number {
-        return this.scoring.calculate(this.difficulty, scoredCells, mistakes, elapsedTime);
-    }
-
-    getValueProgress(value: number): number {
-        return this.availableValues[value].progress;
+        return this.scoring.calculate(this.config.difficulty, scoredCells, mistakes, elapsedTime);
     }
 
     getCorrectValue(cell?: CellInterface): number {
-        return isDefined(cell) ? this.field[cell.y][cell.x].value : this.blankCellValue;
+        return isDefined(cell) ? this.field[cell.y][cell.x].value : this.config.blankCellValue;
     }
 
     // eslint-disable-next-line @typescript-eslint/class-methods-use-this
@@ -73,27 +71,23 @@ export class Sudoku extends SerializableSudoku {
     }
 
     isSameCellValue(cell: CellInterface, selectedCell?: CellInterface): boolean {
-        return isDefined(selectedCell) && cell.value === selectedCell.value && cell.value !== this.blankCellValue;
+        return isDefined(selectedCell) && cell.value === selectedCell.value && cell.value !== this.config.blankCellValue;
     }
 
     isCorrectValue(cell?: CellInterface): boolean {
         return isDefined(cell) && this.field[cell.y][cell.x].value === cell.value;
     }
 
-    isValueAvailable(cell?: CellInterface): boolean {
-        return isDefined(cell) && isDefined(this.availableValues[cell.value]) && this.availableValues[cell.value].count < this.fieldSize;
-    }
-
     isLastInCellGroupX(cell: CellInterface): boolean {
-        return cell.x < this.fieldSize - 1 && (cell.x + 1) % this.fieldGroupWidth === 0;
+        return cell.x < this.config.fieldSize - 1 && (cell.x + 1) % this.config.fieldGroupWidth === 0;
     }
 
     isLastInCellGroupY(cell: CellInterface): boolean {
-        return cell.y < this.fieldSize - 1 && (cell.y + 1) % this.fieldGroupHeight === 0;
+        return cell.y < this.config.fieldSize - 1 && (cell.y + 1) % this.config.fieldGroupHeight === 0;
     }
 
     isBlankCell(cell?: CellInterface): boolean {
-        return isDefined(cell) && this.gameField[cell.y][cell.x].value === this.blankCellValue;
+        return isDefined(cell) && this.gameField[cell.y][cell.x].value === this.config.blankCellValue;
     }
 
     // eslint-disable-next-line @typescript-eslint/class-methods-use-this
@@ -112,10 +106,9 @@ export class Sudoku extends SerializableSudoku {
         const scoredCells = { ...emptyScoredCells };
         if (this.isCorrectValue(cell)) {
             this.gameField[cell.y][cell.x].value = cell.value;
-            const blankCell = { ...cell, value: this.blankCellValue };
+            const blankCell = { ...cell, value: this.config.blankCellValue };
 
             this.calculateAvailableValues();
-            this.calculatePossibleValues();
 
             if (!this.hasValueInColumn(this.gameField, blankCell)) {
                 scoredCells.x = cell.x;
@@ -149,7 +142,7 @@ export class Sudoku extends SerializableSudoku {
 
         for (y = 0; y < this.field.length; y += 1) {
             for (x = 0; x < this.field[y].length; x += 1) {
-                if (this.field[y][x].value === this.blankCellValue) {
+                if (this.field[y][x].value === this.config.blankCellValue) {
                     return [true, y, x];
                 }
             }
@@ -159,7 +152,7 @@ export class Sudoku extends SerializableSudoku {
     }
 
     private hasValueInRow(field: FieldInterface, cell: CellInterface): boolean {
-        for (let x = 0; x < this.fieldSize; x += 1) {
+        for (let x = 0; x < this.config.fieldSize; x += 1) {
             if (field[cell.y][x].value === cell.value) {
                 return true;
             }
@@ -180,11 +173,11 @@ export class Sudoku extends SerializableSudoku {
     }
 
     private hasValueInGroup(field: FieldInterface, cell: CellInterface): boolean {
-        const boxStartY = cell.y - (cell.y % this.fieldGroupHeight);
-        const boxStartX = cell.x - (cell.x % this.fieldGroupWidth);
+        const boxStartY = cell.y - (cell.y % this.config.fieldGroupHeight);
+        const boxStartX = cell.x - (cell.x % this.config.fieldGroupWidth);
 
-        for (let y = 0; y < this.fieldGroupHeight; y += 1) {
-            for (let x = 0; x < this.fieldGroupWidth; x += 1) {
+        for (let y = 0; y < this.config.fieldGroupHeight; y += 1) {
+            for (let x = 0; x < this.config.fieldGroupWidth; x += 1) {
                 if (field[y + boxStartY][x + boxStartX].value === cell.value) {
                     return true;
                 }
@@ -199,6 +192,7 @@ export class Sudoku extends SerializableSudoku {
      * HINT: This algorithm is based on backtracking
      * inspired by https://dev.to/christinamcmahon/use-backtracking-algorithm-to-solve-sudoku-270
      */
+    // eslint-disable-next-line max-statements
     private fillRecursive(): boolean {
         const [needsFilling, emptyY, emptyX] = this.hasBlankCells();
 
@@ -206,7 +200,7 @@ export class Sudoku extends SerializableSudoku {
             return true;
         }
 
-        for (const value of this.fieldFillingValues) {
+        for (const value of shuffle(this.fieldFillingValues)) {
             const cell = { ...this.field[emptyY][emptyX], value };
 
             if (
@@ -220,11 +214,50 @@ export class Sudoku extends SerializableSudoku {
                     return true;
                 }
 
-                this.field[emptyY][emptyX].value = this.blankCellValue;
+                this.field[emptyY][emptyX].value = this.config.blankCellValue;
             }
         }
 
         return false;
+    }
+
+    // eslint-disable-next-line max-statements
+    private removeClues(targetBlankCells: number, maxAttempts = 50): number {
+        let maxBlanks = 0;
+        let bestGameField = cloneField(this.gameField);
+
+        for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
+            this.gameField = cloneField(this.field);
+
+            let blankCells = 0;
+            for (const { x, y } of shuffle(this.coordinates)) {
+                const backup = this.gameField[y][x].value;
+                this.gameField[y][x].value = this.config.blankCellValue;
+                blankCells += 1;
+
+                if (new DLXSolver().count(this.gameField) !== 1) {
+                    this.gameField[y][x].value = backup;
+                    blankCells -= 1;
+                }
+
+                if (blankCells >= targetBlankCells) {
+                    break;
+                }
+            }
+
+            if (blankCells > maxBlanks) {
+                maxBlanks = blankCells;
+                bestGameField = cloneField(this.gameField);
+            }
+
+            if (maxBlanks >= targetBlankCells) {
+                break;
+            }
+        }
+
+        this.gameField = bestGameField;
+
+        return maxBlanks;
     }
 
     // TODO: Can we avoid it and just use parent version with correct types?

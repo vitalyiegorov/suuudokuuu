@@ -9,7 +9,7 @@ export interface SudokuConfigInterface {
     fieldGroupHeight: number;
     blankCellValue: number;
     score: SudokuScoringConfigInterface;
-    difficultyBlankCellsPercentage: Record<DifficultyEnum, number>;
+    difficultyBlankCells: Record<DifficultyEnum, number>;
 }
 
 export const defaultSudokuConfig: SudokuConfigInterface = {
@@ -19,11 +19,13 @@ export const defaultSudokuConfig: SudokuConfigInterface = {
     fieldGroupWidth: 3,
     fieldGroupHeight: 3,
     blankCellValue: 0,
-    difficultyBlankCellsPercentage: {
-        [DifficultyEnum.Newbie]: 0.3,
-        [DifficultyEnum.Easy]: 0.5,
-        [DifficultyEnum.Medium]: 0.6,
-        [DifficultyEnum.Hard]: 0.75,
-        [DifficultyEnum.Nightmare]: 0.9
+    difficultyBlankCells: {
+        [DifficultyEnum.Newbie]: 24,
+        [DifficultyEnum.Easy]: 30,
+        [DifficultyEnum.Medium]: 40,
+        [DifficultyEnum.Hard]: 50,
+        [DifficultyEnum.Nightmare]: 59
     }
 };
+
+export const getBlankCellCountByConfig = (config: SudokuConfigInterface): number => config.difficultyBlankCells[config.difficulty];
