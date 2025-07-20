@@ -1,3 +1,15 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.18.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.18.1...v1.18.2) (2025-07-20)
+
+### Features
+
+- increase difficulty, refactor game screen ([24a6140](https://github.com/vitalyiegorov/suuudokuuu/commit/24a61405c6e818a10a336b7628525e354e5ebfa7))
+- remove .idea ([7e60e88](https://github.com/vitalyiegorov/suuudokuuu/commit/7e60e88819f1a3c795054e67a87754ecb4143627))
+
 # Changelog
 
 ## <small>1.18.1 (2025-07-19)</small>
