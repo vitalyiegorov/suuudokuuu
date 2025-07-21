@@ -4,7 +4,7 @@ import Reanimated, { type SharedValue, interpolate, interpolateColor, useAnimate
 import { cs } from '@rnw-community/shared';
 
 import { Colors } from '../../../@generic/styles/theme';
-import { sudokuInstance } from '../../store/sudoku-instance';
+import { sudoku } from '../../store/sudoku-instance';
 import { CellFontSizeConstant } from '../constants/dimensions.contant';
 
 import { FieldCellTextStyles as styles } from './field-cell-text.styles';
@@ -29,7 +29,7 @@ interface Props {
 }
 
 const FieldCellTextComponent = ({ cell, isHighlighted, isActiveValue, isActive, hasAnimation, animation }: Props) => {
-    const isEmpty = sudokuInstance.isBlankCell(cell);
+    const isEmpty = sudoku.isBlankCell(cell);
 
     const animatedStyles = useAnimatedStyle(() => ({
         color: interpolateColor(animation.value, [0, 0.5, 1], [Colors.black, Colors.cell.highlightedText, Colors.black]),
