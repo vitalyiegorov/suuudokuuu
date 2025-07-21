@@ -1,8 +1,21 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 
 import { Colors } from '../../../@generic/styles/theme';
 
 const progressHeight = 2;
+const minButtonSize = 35;
+const maxButtonSize = 80;
+const buttonSizeRatio = 0.12;
+const minFontSize = 14;
+const maxFontSize = 20;
+const fontSizeRatio = 0.04;
+
+const { width: screenWidth } = Dimensions.get('window');
+
+/*
+ * Calculate button size as percentage of screen width for responsiveness
+ */
+const buttonSize = Math.max(minButtonSize, Math.min(maxButtonSize, screenWidth * buttonSizeRatio));
 
 export const AvailableValuesItemStyles = StyleSheet.create({
     button: {
@@ -14,10 +27,10 @@ export const AvailableValuesItemStyles = StyleSheet.create({
         borderWidth: 1,
         flex: 1,
         justifyContent: 'center',
-        maxHeight: 80,
-        maxWidth: 80,
-        minHeight: 35,
-        minWidth: 35
+        maxHeight: buttonSize,
+        maxWidth: buttonSize,
+        minHeight: minButtonSize,
+        minWidth: minButtonSize
     },
     container: {
         position: 'relative'
@@ -31,7 +44,7 @@ export const AvailableValuesItemStyles = StyleSheet.create({
     },
     text: {
         color: Colors.value.text,
-        fontSize: 16
+        fontSize: Math.max(minFontSize, Math.min(maxFontSize, screenWidth * fontSizeRatio))
     },
     textActive: {
         color: Colors.cell.activeValueText
