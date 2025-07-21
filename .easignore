@@ -1,47 +1,107 @@
-# Copy everything from your .gitignore file here
-node_modules/
-.expo/
-dist/
-npm-debug.*
-*.jks
-*.p8
-*.p12
-*.key
-*.mobileprovision
-*.orig.*
-web-build/
-google-service-account.json
-.turbo
-report
+# dependencies
+node_modules
+.pnp
+.pnp.js
 
-# macOS
+# compiled output
+build
+dist
+out
+*.tsbuildinfo
+.eslintcache
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# OS
 .DS_Store
 
-# Temporary files created by Metro to check the health of the file watcher
-.metro-health-check*
+# Tests
+coverage
+.nyc_output
+.lighthouseci/
 
-# Yarn
+# IDEs and editors
+.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Bundle artifact
+*.jsbundle
+
+# CocoaPods
+Pods
+
+# Env
+.env*
+!.env.dist
+
+# React
+react-app-env.d.ts
+
+#JSCPD
+report
+
+#typeorm
+ormconfig.json
+ormconfig.js
+
+# webpack
+.build_cache
+
+# partytown
+packages/site/public/~partytown
+
+# turbo
+.turbo
+
+# yarn 2
 .yarn/*
-!.yarn/cache
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
 
-.idea
+# nextjs
+.vercel
+next-env.d.ts
+.next/
+out/
+.vscode
 
-# TypeScript
-*.tsbuildinfo
+# playwright
+playwright-report/
+playwright/.cache/
 
-# Jest
-coverage/
+# tsc
+trace
 
-# Additional ignores specific to EAS builds
+# wdio
+junit/
+junit.xml
 
-# Ignore native directories (if you are using EAS Build)
-/android
-/ios
-
-# Ignore test coverage reports
-/e2e
+# expo
+.expo
+android
+ios
+*.apk
+*.aab
+google-service-account.json
+asc_api_key.p8

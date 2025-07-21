@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.22.4](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.22.3...v1.22.4) (2025-07-21)
+
+**Note:** Version bump only for package @suuudokuuu/app
+
+## [1.22.3](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.22.2...v1.22.3) (2025-07-21)
+
+### Bug Fixes
+
+- **app:** fix native keyboard handler error ([6ffab9a](https://github.com/vitalyiegorov/suuudokuuu/commit/6ffab9abe7f8a7eadc51b54bb9388177875cb193))
+- **app:** fix text animation ([df9c360](https://github.com/vitalyiegorov/suuudokuuu/commit/df9c36069ef4de482118f44af54a3d1b1d8de9f4))
+- **app:** fix text animation ([e182ad6](https://github.com/vitalyiegorov/suuudokuuu/commit/e182ad62f9ec4924d9400fbb44d2852f9561b11f))
+
 ## [1.22.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.22.1...v1.22.2) (2025-07-21)
 
 **Note:** Version bump only for package @suuudokuuu/app

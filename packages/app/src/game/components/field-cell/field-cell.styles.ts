@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 import { Colors } from '../../../@generic/styles/theme';
-import { CellSizeConstant } from '../constants/dimensions.contant';
+import { CellFontSizeConstant, CellSizeConstant } from '../constants/dimensions.contant';
 
 export const FieldCellStyles = StyleSheet.create({
     container: {
@@ -30,5 +30,22 @@ export const FieldCellStyles = StyleSheet.create({
     },
     lastRow: {
         borderBottomWidth: 1
+    },
+    textActive: {
+        color: Colors.cell.activeText,
+        fontWeight: 'bold'
+    },
+    textActiveValue: {
+        color: Colors.cell.activeValueText
+    },
+    textEmpty: {
+        color: Colors.cell.emptyValueText
+    },
+    textHighlighted: {
+        color: Colors.cell.highlightedText
+    },
+    textRegular: {
+        color: Colors.black,
+        fontSize: CellFontSizeConstant
     }
 });
