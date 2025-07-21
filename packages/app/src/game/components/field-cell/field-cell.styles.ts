@@ -5,16 +5,16 @@ import { Colors } from '../../../@generic/styles/theme';
 export const FieldCellStyles = StyleSheet.create({
     container: {
         alignItems: 'center',
+        aspectRatio: 1,
         borderColor: Colors.black,
         borderLeftWidth: 1,
         borderStyle: 'solid',
         borderTopWidth: 1,
+        flex: 1,
         fontFamily: 'Inter_500Medium',
         justifyContent: 'center',
         outlineOffset: 0,
-        outlineWidth: 0,
-        flex: 1,
-        aspectRatio: 1
+        outlineWidth: 0
     },
     groupXEnd: {
         borderRightWidth: 1,
