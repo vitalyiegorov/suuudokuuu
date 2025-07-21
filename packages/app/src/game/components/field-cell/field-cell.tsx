@@ -95,7 +95,7 @@ export const FieldCell = (props: Props) => {
                 });
             }
         }),
-        [textAnimation, cell]
+        [textAnimation]
     );
 
     const cellAnimatedStyles = useAnimatedStyle(() => ({
