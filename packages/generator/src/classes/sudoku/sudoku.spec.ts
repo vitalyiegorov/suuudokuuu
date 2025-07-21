@@ -197,8 +197,8 @@ describe('Sudoku - Cell Validation', () => {
             
             // Find an actually blank cell in the game field
             let blankCell = null;
-            for (let y = 0; y < sudoku.config.fieldSize; y++) {
-                for (let x = 0; x < sudoku.config.fieldSize; x++) {
+            for (let y = 0; y < defaultSudokuConfig.fieldSize; y++) {
+                for (let x = 0; x < defaultSudokuConfig.fieldSize; x++) {
                     const cell = { x, y, group: 0, value: defaultSudokuConfig.blankCellValue };
                     if (sudoku.isBlankCell(cell)) {
                         blankCell = cell;
