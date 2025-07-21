@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.22.4](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.22.3...v1.22.4) (2025-07-21)
+
+**Note:** Version bump only for package @suuudokuuu/app
+
 ## [1.22.3](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.22.2...v1.22.3) (2025-07-21)
 
 ### Bug Fixes
