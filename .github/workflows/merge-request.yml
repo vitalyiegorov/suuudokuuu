@@ -149,13 +149,13 @@ jobs:
               comment.body.includes('🚀 Preview Deployment')
             );
             
-            const commentBody = \`## 🚀 Preview Deployment
+            const commentBody = `## 🚀 Preview Deployment
             
             Your PR has been deployed! You can test the changes at:
             
-            🌐 **[Open Preview App](\${deploymentUrl})**
+            🌐 **[Open Preview App](${deploymentUrl})**
             
-            This deployment will be automatically updated when you push new commits to this PR.\`;
+            This deployment will be automatically updated when you push new commits to this PR.`;
             
             if (existingComment) {
               // Update existing comment
