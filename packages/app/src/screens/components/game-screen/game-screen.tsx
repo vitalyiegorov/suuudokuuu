@@ -2,7 +2,7 @@ import { Sudoku, defaultSudokuConfig, emptyScoredCells } from '@suuudokuuu/gener
 import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { useRouter } from 'expo-router';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Text, View } from 'react-native';
 
 import { cs, isDefined, isNotEmptyString } from '@rnw-community/shared';
@@ -138,7 +138,7 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
         }
     };
 
-    const handleSelectValue = (value: number, isFromKeyboard = false) => {
+    const handleSelectValue = useCallback((value: number, isFromKeyboard = false) => {
         const isBlankCellSelected = sudokuRef.current.isBlankCell(selectedCell);
 
         if (isBlankCellSelected && isDefined(selectedCell)) {
@@ -153,7 +153,7 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
                 handleWrongValue();
             }
         }
-    };
+    }, [selectedCell, mistakes]);
 
     const handleAvailableRef = (value: number) => (ref: AvailableValuesItemRef | null) => {
         availableValuesRefs.current[value] = ref;
