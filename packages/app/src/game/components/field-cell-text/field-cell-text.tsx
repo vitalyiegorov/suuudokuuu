@@ -26,25 +26,19 @@ interface Props {
     readonly cell: CellInterface;
     readonly hasAnimation: boolean;
     readonly animation: SharedValue<number>;
-    readonly fontSize?: number;
 }
 
-const FieldCellTextComponent = ({ sudoku, cell, isHighlighted, isActiveValue, isActive, hasAnimation, animation, fontSize }: Props) => {
+const FieldCellTextComponent = ({ sudoku, cell, isHighlighted, isActiveValue, isActive, hasAnimation, animation }: Props) => {
     const isEmpty = sudoku.isBlankCell(cell);
-    
-    // Use dynamic font size if provided, otherwise fall back to static constant
-    const actualFontSize = fontSize ?? CellFontSizeConstant;
 
     const animatedStyles = useAnimatedStyle(() => ({
         color: interpolateColor(animation.value, [0, 0.5, 1], [Colors.black, Colors.cell.highlightedText, Colors.black]),
-        fontSize: interpolate(animation.value, [0, 0.5, 1], [actualFontSize, actualFontSize * 2, actualFontSize]),
+        fontSize: interpolate(animation.value, [0, 0.5, 1], [CellFontSizeConstant, CellFontSizeConstant * 2, CellFontSizeConstant]),
         transform: [{ rotate: `${interpolate(animation.value, [0, 1], [0, 360])}deg` }]
     }));
 
     const textStyles = [
         styles.regular,
-        // Apply dynamic font size
-        { fontSize: actualFontSize },
         cs(isEmpty, styles.empty),
         cs(isHighlighted, styles.highlighted),
         cs(isActiveValue, styles.activeValue),
@@ -63,6 +57,5 @@ export const FieldCellText = memo(
         prevProps.isActive === nextProps.isActive &&
         prevProps.isActiveValue === nextProps.isActiveValue &&
         prevProps.isHighlighted === nextProps.isHighlighted &&
-        prevProps.cell.value === nextProps.cell.value &&
-        prevProps.fontSize === nextProps.fontSize
+        prevProps.cell.value === nextProps.cell.value
 );

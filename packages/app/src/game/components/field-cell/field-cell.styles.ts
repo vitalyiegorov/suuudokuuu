@@ -1,7 +1,6 @@
 import { StyleSheet } from 'react-native';
 
 import { Colors } from '../../../@generic/styles/theme';
-import { CellSizeConstant } from '../constants/dimensions.contant';
 
 export const FieldCellStyles = StyleSheet.create({
     container: {
@@ -11,11 +10,11 @@ export const FieldCellStyles = StyleSheet.create({
         borderStyle: 'solid',
         borderTopWidth: 1,
         fontFamily: 'Inter_500Medium',
-        height: CellSizeConstant,
         justifyContent: 'center',
         outlineOffset: 0,
         outlineWidth: 0,
-        width: CellSizeConstant
+        flex: 1,
+        aspectRatio: 1
     },
     groupXEnd: {
         borderRightWidth: 1,

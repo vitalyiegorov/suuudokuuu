@@ -19,11 +19,9 @@ interface Props {
     readonly field: FieldInterface;
     readonly selectedCell?: CellInterface;
     readonly onSelect: OnEventFn<CellInterface | undefined>;
-    readonly cellSize?: number;
-    readonly fontSize?: number;
 }
 
-export const Field = ({ field, selectedCell, onSelect, scoredCells, sudoku, cellSize, fontSize }: Props) => {
+export const Field = ({ field, selectedCell, onSelect, scoredCells, sudoku }: Props) => {
     const textAnimation = useSharedValue(0);
 
     useEffect(() => {
@@ -43,8 +41,6 @@ export const Field = ({ field, selectedCell, onSelect, scoredCells, sudoku, cell
                     {row.map(cell => (
                         <FieldCell
                             cell={cell}
-                            cellSize={cellSize}
-                            fontSize={fontSize}
                             hasAnimation={sudoku.isScoredCell(cell, scoredCells)}
                             isActive={sudoku.isSameCell(cell, selectedCell)}
                             isActiveValue={sudoku.isSameCellValue(cell, selectedCell)}
