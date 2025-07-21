@@ -1,19 +1,35 @@
-import { memo } from 'react';
+import { useImperativeHandle } from 'react';
 import { Pressable } from 'react-native';
-import Reanimated, { type SharedValue, interpolateColor, useAnimatedStyle, useDerivedValue, withTiming } from 'react-native-reanimated';
+import Reanimated, {
+    interpolate,
+    interpolateColor,
+    useAnimatedStyle,
+    useDerivedValue,
+    useSharedValue,
+    withTiming
+} from 'react-native-reanimated';
 
 import { type OnEventFn, cs } from '@rnw-community/shared';
 
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
 import { Colors } from '../../../@generic/styles/theme';
-import { FieldCellText } from '../field-cell-text/field-cell-text';
+import { CellFontSizeConstant } from '../constants/dimensions.contant';
 
 import { FieldCellSelectors as selectors } from './field-cell.selectors';
 import { FieldCellStyles as styles } from './field-cell.styles';
 
 import type { CellInterface, Sudoku } from '@suuudokuuu/generator';
+import type { Ref } from 'react';
 
 const ReanimatedPressable = Reanimated.createAnimatedComponent(Pressable);
+
+const getText = (isActive: boolean, isEmpty: boolean, cell: CellInterface): string => {
+    if (isEmpty) {
+        return isActive ? '•' : '';
+    }
+
+    return cell.value.toString();
+};
 
 const getCellBgColor = (isActiveValue: boolean, isCellHighlighted: boolean, isWrong: boolean) => {
     if (isWrong) {
@@ -40,10 +56,13 @@ const getCellSelector = (props: Props): selectors => {
 };
 
 const animationConfig = { duration: animationDurationConstant };
+const textAnimationConfig = { duration: 8 * animationDurationConstant };
+
+export interface FieldCellRef {
+    triggerAnimation: () => void;
+}
 
 interface Props {
-    readonly hasAnimation: boolean;
-    readonly textAnimation: SharedValue<number>;
     readonly cell: CellInterface;
     readonly sudoku: Sudoku;
     readonly onSelect: OnEventFn<CellInterface | undefined>;
@@ -51,56 +70,68 @@ interface Props {
     readonly isActiveValue: boolean;
     readonly isHighlighted: boolean;
     readonly isWrong: boolean;
+    readonly ref: Ref<FieldCellRef>;
 }
 
-const FieldCellComponent = (props: Props) => {
-    const { sudoku, cell, onSelect, isActive, isActiveValue, isHighlighted, isWrong, hasAnimation, textAnimation } = props;
+// eslint-disable-next-line max-statements
+export const FieldCell = (props: Props) => {
+    const { sudoku, cell, onSelect, isActive, isActiveValue, isHighlighted, isWrong, ref } = props;
 
-    const isLastRow = cell.y === 8;
-    const isLastCol = cell.x === 8;
-    const backgroundColor = getCellBgColor(isActiveValue, isHighlighted, isWrong);
+    const isEmpty = sudoku.isBlankCell(cell);
+    const cellBackgroundColor = getCellBgColor(isActiveValue, isHighlighted, isWrong);
+    const text = getText(isActive, isEmpty, cell);
 
     const animation = useDerivedValue(() => withTiming(isActive ? 1 : 0, animationConfig));
+    const textAnimation = useSharedValue(0);
 
-    const animatedStyles = useAnimatedStyle(() => ({
-        backgroundColor: interpolateColor(animation.value, [0, 1], [backgroundColor, Colors.cell.active])
+    useImperativeHandle(
+        ref,
+        () => ({
+            triggerAnimation: () => {
+                textAnimation.value = withTiming(1, textAnimationConfig, finished => {
+                    if (finished === true) {
+                        textAnimation.value = 0;
+                    }
+                });
+            }
+        }),
+        [textAnimation, cell]
+    );
+
+    const cellAnimatedStyles = useAnimatedStyle(() => ({
+        backgroundColor: interpolateColor(animation.value, [0, 1], [cellBackgroundColor, Colors.cell.active])
+    }));
+    const textAnimatedStyles = useAnimatedStyle(() => ({
+        color: interpolateColor(textAnimation.value, [0, 0.5, 1], [Colors.black, Colors.cell.highlightedText, Colors.black]),
+        fontSize: interpolate(textAnimation.value, [0, 0.5, 1], [CellFontSizeConstant, CellFontSizeConstant * 2, CellFontSizeConstant]),
+        transform: [{ rotate: `${interpolate(textAnimation.value, [0, 1], [0, 360])}deg` }]
     }));
 
-    // eslint-disable-next-line no-undefined
-    const handlePress = () => void onSelect(isActive ? undefined : cell);
+    const handlePress = () => {
+        onSelect(isActive ? undefined : cell);
+    };
 
     const cellStyles = [
         styles.container,
         cs(sudoku.isLastInCellGroupX(cell), styles.groupXEnd),
         cs(sudoku.isLastInCellGroupY(cell), styles.groupYEnd),
-        cs(isLastRow, styles.lastRow),
-        cs(isLastCol, styles.lastCol),
-        { backgroundColor },
-        animatedStyles
+        cs(sudoku.isLastInRow(cell), styles.lastRow),
+        cs(sudoku.isLastInColumn(cell), styles.lastCol),
+        { backgroundColor: cellBackgroundColor },
+        cellAnimatedStyles
+    ];
+    const textStyles = [
+        styles.textRegular,
+        cs(isEmpty, styles.textEmpty),
+        cs(isHighlighted, styles.textHighlighted),
+        cs(isActiveValue, styles.textActiveValue),
+        cs(isActive, styles.textActive),
+        textAnimatedStyles
     ];
 
     return (
         <ReanimatedPressable onPress={handlePress} style={cellStyles} testID={getCellSelector(props)}>
-            <FieldCellText
-                animation={textAnimation}
-                cell={cell}
-                hasAnimation={hasAnimation}
-                isActive={isActive}
-                isActiveValue={isActiveValue}
-                isHighlighted={isHighlighted}
-                sudoku={sudoku}
-            />
+            <Reanimated.Text style={textStyles}>{text}</Reanimated.Text>
         </ReanimatedPressable>
     );
 };
-
-export const FieldCell = memo(
-    FieldCellComponent,
-    (prevProps, nextProps) =>
-        prevProps.cell.value === nextProps.cell.value &&
-        prevProps.hasAnimation === nextProps.hasAnimation &&
-        prevProps.isActive === nextProps.isActive &&
-        prevProps.isWrong === nextProps.isWrong &&
-        prevProps.isActiveValue === nextProps.isActiveValue &&
-        prevProps.isHighlighted === nextProps.isHighlighted
-);
