@@ -1,34 +1,45 @@
-import { memo } from 'react';
-import Reanimated, { type SharedValue, interpolate, interpolateColor, useAnimatedStyle } from 'react-native-reanimated';
+import { forwardRef, memo, useCallback, useImperativeHandle } from 'react';
+import Reanimated, { interpolate, interpolateColor, runOnJS, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
 import { cs } from '@rnw-community/shared';
 
+import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
 import { Colors } from '../../../@generic/styles/theme';
 import { CellFontSizeConstant } from '../constants/dimensions.contant';
 
 import { FieldCellTextStyles as styles } from './field-cell-text.styles';
 
-import type { CellInterface, Sudoku } from '@suuudokuuu/generator';
+const textAnimationConfig = { duration: 8 * animationDurationConstant };
 
-const getText = (isActive: boolean, isEmpty: boolean, cell: CellInterface): string => {
-    if (isEmpty) {
-        return isActive ? '•' : '';
-    }
-
-    return cell.value.toString();
-};
+export interface FieldCellTextRef {
+    triggerAnimation: () => void;
+}
 
 interface Props {
-    readonly sudoku: Sudoku;
     readonly isActive: boolean;
     readonly isActiveValue: boolean;
     readonly isHighlighted: boolean;
-    readonly cell: CellInterface;
-    readonly animation: SharedValue<number>;
+    readonly children: string;
 }
 
-const FieldCellTextComponent = ({ sudoku, cell, isHighlighted, isActiveValue, isActive, animation }: Props) => {
-    const isEmpty = sudoku.isBlankCell(cell);
+const FieldCellTextComponent = forwardRef<FieldCellTextRef, Props>(({ children, isHighlighted, isActiveValue, isActive }, ref) => {
+    const animation = useSharedValue(0);
+
+    const resetAnimation = useCallback(() => {
+        animation.value = 0;
+    }, [animation]);
+
+    const triggerAnimation = useCallback(() => {
+        animation.value = withTiming(1, textAnimationConfig, finished => {
+            if (finished === true) {
+                runOnJS(resetAnimation)();
+            }
+        });
+    }, [animation, resetAnimation]);
+
+    useImperativeHandle(ref, () => ({
+        triggerAnimation
+    }));
 
     const animatedStyles = useAnimatedStyle(() => ({
         color: interpolateColor(animation.value, [0, 0.5, 1], [Colors.black, Colors.cell.highlightedText, Colors.black]),
@@ -38,7 +49,7 @@ const FieldCellTextComponent = ({ sudoku, cell, isHighlighted, isActiveValue, is
 
     const textStyles = [
         styles.regular,
-        cs(isEmpty, styles.empty),
+        cs(children === '' || children === '•', styles.empty),
         cs(isHighlighted, styles.highlighted),
         cs(isActiveValue, styles.activeValue),
         cs(isActive, styles.active),
@@ -46,8 +57,8 @@ const FieldCellTextComponent = ({ sudoku, cell, isHighlighted, isActiveValue, is
         cs(animation.value !== 0, animatedStyles)
     ];
 
-    return <Reanimated.Text style={textStyles}>{getText(isActive, isEmpty, cell)}</Reanimated.Text>;
-};
+    return <Reanimated.Text style={textStyles}>{children}</Reanimated.Text>;
+});
 
 export const FieldCellText = memo(
     FieldCellTextComponent,
@@ -55,5 +66,5 @@ export const FieldCellText = memo(
         prevProps.isActive === nextProps.isActive &&
         prevProps.isActiveValue === nextProps.isActiveValue &&
         prevProps.isHighlighted === nextProps.isHighlighted &&
-        prevProps.cell.value === nextProps.cell.value
+        prevProps.children === nextProps.children
 );

@@ -9,6 +9,8 @@ import { FieldStyles as styles } from './field.styles';
 import type { OnEventFn } from '@rnw-community/shared';
 import type { CellInterface, FieldInterface, ScoredCellsInterface, Sudoku } from '@suuudokuuu/generator';
 
+const getCellKey = (cell: CellInterface) => `${cell.y}-${cell.x}`;
+
 export interface FieldRef {
     triggerCellAnimations: (scoredCells: ScoredCellsInterface) => void;
 }
@@ -22,8 +24,6 @@ interface Props {
 
 export const Field = forwardRef<FieldRef, Props>(({ field, selectedCell, onSelect, sudoku }, ref) => {
     const cellRefs = useRef<Record<string, FieldCellRef | null>>({});
-
-    const getCellKey = (cell: CellInterface) => `${cell.y}-${cell.x}`;
 
     const handleCellRef = (cell: CellInterface) => (cellRef: FieldCellRef | null) => {
         cellRefs.current[getCellKey(cell)] = cellRef;
