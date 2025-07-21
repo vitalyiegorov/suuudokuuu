@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import { useSharedValue, withTiming } from 'react-native-reanimated';
 
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
-import { sudokuInstance } from '../../store/sudoku-instance';
+import { sudoku } from '../../store/sudoku-instance';
 import { FieldCell } from '../field-cell/field-cell';
 
 import { FieldStyles as styles } from './field.styles';
@@ -33,20 +33,18 @@ export const Field = ({ selectedCell, onSelect, scoredCells }: Props) => {
         }
     }, [scoredCells, textAnimation]);
 
-    const field = sudokuInstance.Field;
-
     return (
         <View style={styles.wrapper}>
-            {field.map(row => (
+            {sudoku.Field.map(row => (
                 <View key={`row-${row[0].y}`} style={styles.row}>
                     {row.map(cell => (
                         <FieldCell
                             cell={cell}
-                            hasAnimation={sudokuInstance.isScoredCell(cell, scoredCells)}
-                            isActive={sudokuInstance.isSameCell(cell, selectedCell)}
-                            isActiveValue={sudokuInstance.isSameCellValue(cell, selectedCell)}
-                            isHighlighted={sudokuInstance.isCellHighlighted(cell, selectedCell)}
-                            isWrong={sudokuInstance.isCellWrong(cell, selectedCell)}
+                            hasAnimation={sudoku.isScoredCell(cell, scoredCells)}
+                            isActive={sudoku.isSameCell(cell, selectedCell)}
+                            isActiveValue={sudoku.isSameCellValue(cell, selectedCell)}
+                            isHighlighted={sudoku.isCellHighlighted(cell, selectedCell)}
+                            isWrong={sudoku.isCellWrong(cell, selectedCell)}
                             key={`cell-${cell.y}-${cell.x}`}
                             onSelect={onSelect}
                             textAnimation={textAnimation}

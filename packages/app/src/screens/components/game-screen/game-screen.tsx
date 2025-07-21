@@ -18,7 +18,7 @@ import { Field } from '../../../game/components/field/field';
 import { GameTimer } from '../../../game/components/game-timer/game-timer';
 import { gameResetAction, gameResumeAction, gameStartAction } from '../../../game/store/game.actions';
 import { gameMistakesSelector, gameScoreSelector } from '../../../game/store/game.selectors';
-import { createSudokuGame, initializeSudokuFromString, sudokuInstance } from '../../../game/store/sudoku-instance';
+import { createSudokuGame, initializeSudokuFromString, sudoku } from '../../../game/store/sudoku-instance';
 import { gameFinishedThunk } from '../../../game/store/thunks/game-finish.thunk';
 import { gameMistakeThunk } from '../../../game/store/thunks/game-mistake.thunk';
 import { gameSaveThunk } from '../../../game/store/thunks/game-save.thunk';
@@ -34,10 +34,6 @@ interface Props {
     readonly routeDifficulty: DifficultyEnum | undefined;
 }
 
-/**
- * Game state is stored in multiple places: route params, redux, and sudoku singleton
- * Route provides initial data, Redux stores game progress, and sudoku singleton handles game logic
- */
 // eslint-disable-next-line max-lines-per-function
 export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
     const router = useRouter();
@@ -62,7 +58,7 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
             // eslint-disable-next-line no-undefined
             setSelectedCell(undefined);
 
-            dispatch(gameStartAction({ sudokuString: sudokuInstance.toString() }));
+            dispatch(gameStartAction({ sudokuString: sudoku.toString() }));
         }
     }, [routeField, routeDifficulty, dispatch]);
 
@@ -90,7 +86,7 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
     const handleLostGame = () => {
         hapticImpact(ImpactFeedbackStyle.Heavy);
 
-        void dispatch(gameFinishedThunk({ difficulty: sudokuInstance.Difficulty, isWon: false }));
+        void dispatch(gameFinishedThunk({ difficulty: sudoku.Difficulty, isWon: false }));
 
         router.replace('loser');
     };
@@ -98,7 +94,7 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
     const handleWonGame = () => {
         hapticImpact(ImpactFeedbackStyle.Heavy);
 
-        void dispatch(gameFinishedThunk({ difficulty: sudokuInstance.Difficulty, isWon: true }));
+        void dispatch(gameFinishedThunk({ difficulty: sudoku.Difficulty, isWon: true }));
 
         // TODO: We need to wait for the animation to finish, animation finish event would fix it?
         setTimeout(() => void router.replace('winner'), 10 * animationDurationConstant);
@@ -107,14 +103,14 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
     // eslint-disable-next-line max-statements
     const handleCorrectValue = (correctCell: CellInterface, newScoredCells: ScoredCellsInterface) => {
         setScoredCells(newScoredCells);
-        void dispatch(gameSaveThunk({ sudoku: sudokuInstance, scoredCells: newScoredCells }));
+        void dispatch(gameSaveThunk({ sudoku, scoredCells: newScoredCells }));
 
         if (newScoredCells.isWon) {
             handleWonGame();
         } else {
             hapticNotification(Haptics.NotificationFeedbackType.Success);
 
-            if (sudokuInstance.isValueAvailable(correctCell)) {
+            if (sudoku.isValueAvailable(correctCell)) {
                 // HINT: We reselect cell if there are values left, otherwise loose focus
                 setSelectedCell(() => ({ ...correctCell }));
             } else {
@@ -126,7 +122,7 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
     };
 
     const handleWrongValue = () => {
-        void dispatch(gameMistakeThunk(sudokuInstance));
+        void dispatch(gameMistakeThunk(sudoku));
 
         if (mistakes + 1 >= MaxMistakesConstant) {
             handleLostGame();
@@ -136,7 +132,7 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
     };
 
     const handleSelectValue = (value: number, isFromKeyboard = false) => {
-        const isBlankCellSelected = sudokuInstance.isBlankCell(selectedCell);
+        const isBlankCellSelected = sudoku.isBlankCell(selectedCell);
 
         if (isBlankCellSelected && isDefined(selectedCell)) {
             if (isFromKeyboard) {
@@ -144,8 +140,8 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
             }
 
             const newValueCell = { ...selectedCell, value };
-            if (sudokuInstance.isCorrectValue(newValueCell)) {
-                handleCorrectValue(selectedCell, sudokuInstance.setCellValue(newValueCell));
+            if (sudoku.isCorrectValue(newValueCell)) {
+                handleCorrectValue(selectedCell, sudoku.setCellValue(newValueCell));
             } else {
                 handleWrongValue();
             }
@@ -162,21 +158,21 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
 
             if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(key)) {
                 e.preventDefault();
-                const currentCell = selectedCell ?? sudokuInstance.Field[0][0];
+                const currentCell = selectedCell ?? sudoku.Field[0][0];
 
                 let nextCell: CellInterface | undefined;
                 switch (key) {
                     case 'ArrowUp':
-                        nextCell = sudokuInstance.getCellUp(currentCell);
+                        nextCell = sudoku.getCellUp(currentCell);
                         break;
                     case 'ArrowDown':
-                        nextCell = sudokuInstance.getCellDown(currentCell);
+                        nextCell = sudoku.getCellDown(currentCell);
                         break;
                     case 'ArrowLeft':
-                        nextCell = sudokuInstance.getCellLeft(currentCell);
+                        nextCell = sudoku.getCellLeft(currentCell);
                         break;
                     case 'ArrowRight':
-                        nextCell = sudokuInstance.getCellRight(currentCell);
+                        nextCell = sudoku.getCellRight(currentCell);
                         break;
                     default:
                         break;
@@ -234,14 +230,14 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
             <GameTimer />
 
             <View style={styles.availableValuesWrapper}>
-                {sudokuInstance.PossibleValues.map(value => (
+                {sudoku.PossibleValues.map(value => (
                     <AvailableValuesItem
-                        canPress={sudokuInstance.isBlankCell(selectedCell)}
-                        correctValue={sudokuInstance.getCorrectValue(selectedCell)}
+                        canPress={sudoku.isBlankCell(selectedCell)}
+                        correctValue={sudoku.getCorrectValue(selectedCell)}
                         isActive={false}
                         key={`possible-value-${value}`}
                         onSelect={handleSelectValue}
-                        progress={sudokuInstance.getValueProgress(value)}
+                        progress={sudoku.getValueProgress(value)}
                         ref={handleAvailableRef(value)}
                         value={value}
                     />

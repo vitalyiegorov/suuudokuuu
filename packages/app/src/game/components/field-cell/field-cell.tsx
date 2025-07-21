@@ -6,7 +6,7 @@ import { type OnEventFn, cs } from '@rnw-community/shared';
 
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
 import { Colors } from '../../../@generic/styles/theme';
-import { sudokuInstance } from '../../store/sudoku-instance';
+import { sudoku } from '../../store/sudoku-instance';
 import { FieldCellText } from '../field-cell-text/field-cell-text';
 
 import { FieldCellSelectors as selectors } from './field-cell.selectors';
@@ -71,8 +71,8 @@ const FieldCellComponent = (props: Props) => {
 
     const cellStyles = [
         styles.container,
-        cs(sudokuInstance.isLastInCellGroupX(cell), styles.groupXEnd),
-        cs(sudokuInstance.isLastInCellGroupY(cell), styles.groupYEnd),
+        cs(sudoku.isLastInCellGroupX(cell), styles.groupXEnd),
+        cs(sudoku.isLastInCellGroupY(cell), styles.groupYEnd),
         cs(isLastRow, styles.lastRow),
         cs(isLastCol, styles.lastCol),
         { backgroundColor },
