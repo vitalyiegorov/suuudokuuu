@@ -33,4 +33,16 @@ describe('serializableSudoku', () => {
         expect(() => SerializableSudoku.fromString(wrongLength, defaultSudokuConfig)).toThrow('String length is wrong');
         expect(() => SerializableSudoku.fromString(noSeparator, defaultSudokuConfig)).toThrow('No field separator');
     });
+
+    it('should correctly calculate possible values', () => {
+        expect.assertions(1);
+
+        // HINT: Puzzle has all 6 solved, and zero 4
+        const testFieldsString =
+            '875469123469123875123875469784596231596231784231784596658947312947312658312658947|....69123.69123875123875.6978.596...59623178.23178.5966589.73129.7312658312658...';
+
+        const sudoku = SerializableSudoku.fromString(testFieldsString, defaultSudokuConfig);
+
+        expect(sudoku.PossibleValues).toStrictEqual([1, 2, 3, 4, 5, 7, 8, 9]);
+    });
 });
