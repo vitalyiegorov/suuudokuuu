@@ -10,18 +10,17 @@ import { FieldCell } from '../field-cell/field-cell';
 import { FieldStyles as styles } from './field.styles';
 
 import type { OnEventFn } from '@rnw-community/shared';
-import type { CellInterface, FieldInterface, ScoredCellsInterface } from '@suuudokuuu/generator';
+import type { CellInterface, ScoredCellsInterface } from '@suuudokuuu/generator';
 
 const textAnimationConfig = { duration: 8 * animationDurationConstant };
 
 interface Props {
     readonly scoredCells: ScoredCellsInterface;
-    readonly field: FieldInterface;
     readonly selectedCell?: CellInterface;
     readonly onSelect: OnEventFn<CellInterface | undefined>;
 }
 
-export const Field = ({ field, selectedCell, onSelect, scoredCells }: Props) => {
+export const Field = ({ selectedCell, onSelect, scoredCells }: Props) => {
     const textAnimation = useSharedValue(0);
 
     useEffect(() => {
@@ -33,6 +32,8 @@ export const Field = ({ field, selectedCell, onSelect, scoredCells }: Props) => 
             });
         }
     }, [scoredCells, textAnimation]);
+
+    const field = sudokuInstance.Field;
 
     return (
         <View style={styles.wrapper}>
