@@ -1,4 +1,4 @@
-import { Sudoku, defaultSudokuConfig, emptyScoredCells } from '@suuudokuuu/generator';
+import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { useRouter } from 'expo-router';
@@ -14,7 +14,7 @@ import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { hapticImpact, hapticNotification } from '../../../@generic/utils/haptic/haptic.util';
 import { AvailableValuesItem, type AvailableValuesItemRef } from '../../../game/components/available-values-item/available-values-item';
-import { Field } from '../../../game/components/field/field';
+import { Field, type FieldRef } from '../../../game/components/field/field';
 import { GameTimer } from '../../../game/components/game-timer/game-timer';
 import { gameResetAction, gameResumeAction, gameStartAction } from '../../../game/store/game.actions';
 import { gameMistakesSelector, gameScoreSelector } from '../../../game/store/game.selectors';
@@ -48,8 +48,8 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
 
     const [field, setField] = useState<FieldInterface>([]);
     const [selectedCell, setSelectedCell] = useState<CellInterface>();
-    const [scoredCells, setScoredCells] = useState<ScoredCellsInterface>(emptyScoredCells);
     const availableValuesRefs = useRef<Record<number, AvailableValuesItemRef | null>>({});
+    const fieldRef = useRef<FieldRef>(null);
 
     const maxMistakesReached = mistakes >= MaxMistakesConstant;
 
@@ -86,8 +86,6 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
     const handleSelectCell = (cell: CellInterface | undefined) => {
         setSelectedCell(cell);
         hapticImpact(ImpactFeedbackStyle.Light);
-        // HINT: This is needed to clear animation on all cells
-        setScoredCells(emptyScoredCells);
     };
 
     const handleLostGame = () => {
@@ -109,7 +107,7 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
 
     // eslint-disable-next-line max-statements
     const handleCorrectValue = (correctCell: CellInterface, newScoredCells: ScoredCellsInterface) => {
-        setScoredCells(newScoredCells);
+        fieldRef.current?.triggerCellAnimations(newScoredCells);
         void dispatch(gameSaveThunk({ sudoku: sudokuRef.current, scoredCells: newScoredCells }));
 
         if (newScoredCells.isWon) {
@@ -230,7 +228,7 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
             <Field
                 field={field}
                 onSelect={handleSelectCell}
-                scoredCells={scoredCells}
+                ref={fieldRef}
                 selectedCell={selectedCell}
                 /* eslint-disable-next-line react-compiler/react-compiler */
                 sudoku={sudokuRef.current}
