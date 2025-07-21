@@ -4,24 +4,24 @@ import { View } from 'react-native';
 import { useSharedValue, withTiming } from 'react-native-reanimated';
 
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
+import { sudokuInstance } from '../../store/sudoku-instance';
 import { FieldCell } from '../field-cell/field-cell';
 
 import { FieldStyles as styles } from './field.styles';
 
 import type { OnEventFn } from '@rnw-community/shared';
-import type { CellInterface, FieldInterface, ScoredCellsInterface, Sudoku } from '@suuudokuuu/generator';
+import type { CellInterface, FieldInterface, ScoredCellsInterface } from '@suuudokuuu/generator';
 
 const textAnimationConfig = { duration: 8 * animationDurationConstant };
 
 interface Props {
-    readonly sudoku: Sudoku;
     readonly scoredCells: ScoredCellsInterface;
     readonly field: FieldInterface;
     readonly selectedCell?: CellInterface;
     readonly onSelect: OnEventFn<CellInterface | undefined>;
 }
 
-export const Field = ({ field, selectedCell, onSelect, scoredCells, sudoku }: Props) => {
+export const Field = ({ field, selectedCell, onSelect, scoredCells }: Props) => {
     const textAnimation = useSharedValue(0);
 
     useEffect(() => {
@@ -41,14 +41,13 @@ export const Field = ({ field, selectedCell, onSelect, scoredCells, sudoku }: Pr
                     {row.map(cell => (
                         <FieldCell
                             cell={cell}
-                            hasAnimation={sudoku.isScoredCell(cell, scoredCells)}
-                            isActive={sudoku.isSameCell(cell, selectedCell)}
-                            isActiveValue={sudoku.isSameCellValue(cell, selectedCell)}
-                            isHighlighted={sudoku.isCellHighlighted(cell, selectedCell)}
-                            isWrong={sudoku.isCellWrong(cell, selectedCell)}
+                            hasAnimation={sudokuInstance.isScoredCell(cell, scoredCells)}
+                            isActive={sudokuInstance.isSameCell(cell, selectedCell)}
+                            isActiveValue={sudokuInstance.isSameCellValue(cell, selectedCell)}
+                            isHighlighted={sudokuInstance.isCellHighlighted(cell, selectedCell)}
+                            isWrong={sudokuInstance.isCellWrong(cell, selectedCell)}
                             key={`cell-${cell.y}-${cell.x}`}
                             onSelect={onSelect}
-                            sudoku={sudoku}
                             textAnimation={textAnimation}
                         />
                     ))}

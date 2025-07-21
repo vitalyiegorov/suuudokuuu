@@ -4,11 +4,12 @@ import Reanimated, { type SharedValue, interpolate, interpolateColor, useAnimate
 import { cs } from '@rnw-community/shared';
 
 import { Colors } from '../../../@generic/styles/theme';
+import { sudokuInstance } from '../../store/sudoku-instance';
 import { CellFontSizeConstant } from '../constants/dimensions.contant';
 
 import { FieldCellTextStyles as styles } from './field-cell-text.styles';
 
-import type { CellInterface, Sudoku } from '@suuudokuuu/generator';
+import type { CellInterface } from '@suuudokuuu/generator';
 
 const getText = (isActive: boolean, isEmpty: boolean, cell: CellInterface): string => {
     if (isEmpty) {
@@ -19,7 +20,6 @@ const getText = (isActive: boolean, isEmpty: boolean, cell: CellInterface): stri
 };
 
 interface Props {
-    readonly sudoku: Sudoku;
     readonly isActive: boolean;
     readonly isActiveValue: boolean;
     readonly isHighlighted: boolean;
@@ -28,8 +28,8 @@ interface Props {
     readonly animation: SharedValue<number>;
 }
 
-const FieldCellTextComponent = ({ sudoku, cell, isHighlighted, isActiveValue, isActive, hasAnimation, animation }: Props) => {
-    const isEmpty = sudoku.isBlankCell(cell);
+const FieldCellTextComponent = ({ cell, isHighlighted, isActiveValue, isActive, hasAnimation, animation }: Props) => {
+    const isEmpty = sudokuInstance.isBlankCell(cell);
 
     const animatedStyles = useAnimatedStyle(() => ({
         color: interpolateColor(animation.value, [0, 0.5, 1], [Colors.black, Colors.cell.highlightedText, Colors.black]),

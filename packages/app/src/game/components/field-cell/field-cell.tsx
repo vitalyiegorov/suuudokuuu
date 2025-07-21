@@ -6,12 +6,13 @@ import { type OnEventFn, cs } from '@rnw-community/shared';
 
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
 import { Colors } from '../../../@generic/styles/theme';
+import { sudokuInstance } from '../../store/sudoku-instance';
 import { FieldCellText } from '../field-cell-text/field-cell-text';
 
 import { FieldCellSelectors as selectors } from './field-cell.selectors';
 import { FieldCellStyles as styles } from './field-cell.styles';
 
-import type { CellInterface, Sudoku } from '@suuudokuuu/generator';
+import type { CellInterface } from '@suuudokuuu/generator';
 
 const ReanimatedPressable = Reanimated.createAnimatedComponent(Pressable);
 
@@ -45,7 +46,6 @@ interface Props {
     readonly hasAnimation: boolean;
     readonly textAnimation: SharedValue<number>;
     readonly cell: CellInterface;
-    readonly sudoku: Sudoku;
     readonly onSelect: OnEventFn<CellInterface | undefined>;
     readonly isActive: boolean;
     readonly isActiveValue: boolean;
@@ -54,7 +54,7 @@ interface Props {
 }
 
 const FieldCellComponent = (props: Props) => {
-    const { sudoku, cell, onSelect, isActive, isActiveValue, isHighlighted, isWrong, hasAnimation, textAnimation } = props;
+    const { cell, onSelect, isActive, isActiveValue, isHighlighted, isWrong, hasAnimation, textAnimation } = props;
 
     const isLastRow = cell.y === 8;
     const isLastCol = cell.x === 8;
@@ -71,8 +71,8 @@ const FieldCellComponent = (props: Props) => {
 
     const cellStyles = [
         styles.container,
-        cs(sudoku.isLastInCellGroupX(cell), styles.groupXEnd),
-        cs(sudoku.isLastInCellGroupY(cell), styles.groupYEnd),
+        cs(sudokuInstance.isLastInCellGroupX(cell), styles.groupXEnd),
+        cs(sudokuInstance.isLastInCellGroupY(cell), styles.groupYEnd),
         cs(isLastRow, styles.lastRow),
         cs(isLastCol, styles.lastCol),
         { backgroundColor },
@@ -88,7 +88,6 @@ const FieldCellComponent = (props: Props) => {
                 isActive={isActive}
                 isActiveValue={isActiveValue}
                 isHighlighted={isHighlighted}
-                sudoku={sudoku}
             />
         </ReanimatedPressable>
     );
