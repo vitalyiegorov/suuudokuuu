@@ -77,9 +77,7 @@ export const FieldCell = (props: Props) => {
     const triggerAnimation = () => {
         textAnimation.value = withTiming(1, textAnimationConfig, finished => {
             if (finished === true) {
-                runOnJS(() => {
-                    textAnimation.value = 0;
-                })();
+                textAnimation.value = 0;
             }
         });
     };
