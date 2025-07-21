@@ -13,7 +13,6 @@ import { animationDurationConstant } from '../../../@generic/constants/animation
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { hapticImpact, hapticNotification } from '../../../@generic/utils/haptic/haptic.util';
-import { AvailableValuesStyles } from '../../../game/components/available-values/available-values.styles';
 import { AvailableValuesItem, type AvailableValuesItemRef } from '../../../game/components/available-values-item/available-values-item';
 import { Field } from '../../../game/components/field/field';
 import { GameTimer } from '../../../game/components/game-timer/game-timer';
@@ -156,6 +155,10 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
         }
     };
 
+    const handleAvailableRef = (value: number) => (ref: AvailableValuesItemRef | null) => {
+        availableValuesRefs.current[value] = ref;
+    };
+
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             const { key } = e;
@@ -235,26 +238,21 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
 
             <GameTimer />
 
-            <View style={AvailableValuesStyles.wrapper}>
+            <View style={styles.availableValuesWrapper}>
                 {/* eslint-disable-next-line react-compiler/react-compiler */}
-                {sudokuRef.current.PossibleValues.map(value => {
-                    const isBlankCellSelected = sudokuRef.current.isBlankCell(selectedCell);
-                    const currentCorrectValue = sudokuRef.current.getCorrectValue(selectedCell);
-                    
-                    return (
-                        <AvailableValuesItem
-                            canPress={isBlankCellSelected}
-                            correctValue={currentCorrectValue}
-                            isActive={false}
-                            key={`possible-value-${value}`}
-                            onSelect={handleSelectValue}
-                            /* eslint-disable-next-line react-compiler/react-compiler */
-                            progress={sudokuRef.current.getValueProgress(value)}
-                            ref={(ref) => { availableValuesRefs.current[value] = ref; }}
-                            value={value}
-                        />
-                    );
-                })}
+                {sudokuRef.current.PossibleValues.map(value => (
+                    <AvailableValuesItem
+                        canPress={sudokuRef.current.isBlankCell(selectedCell)}
+                        correctValue={sudokuRef.current.getCorrectValue(selectedCell)}
+                        isActive={false}
+                        key={`possible-value-${value}`}
+                        onSelect={handleSelectValue}
+                        /* eslint-disable-next-line react-compiler/react-compiler */
+                        progress={sudokuRef.current.getValueProgress(value)}
+                        ref={handleAvailableRef(value)}
+                        value={value}
+                    />
+                ))}
             </View>
         </View>
     );
