@@ -25,7 +25,7 @@ import { gameSaveThunk } from '../../../game/store/thunks/game-save.thunk';
 
 import { GameScreenStyles as styles } from './game-screen.styles';
 
-import type { CellInterface, DifficultyEnum, FieldInterface, ScoredCellsInterface } from '@suuudokuuu/generator';
+import type { CellInterface, DifficultyEnum, ScoredCellsInterface } from '@suuudokuuu/generator';
 
 const MaxMistakesConstant = 3;
 
@@ -35,8 +35,8 @@ interface Props {
 }
 
 /**
- * TODO: We have inconsistency of state storage, field is coming from the url and score and mistakes from redux
- * we need to unify this approach
+ * Game state is stored in multiple places: route params, redux, and sudoku singleton
+ * Route provides initial data, Redux stores game progress, and sudoku singleton handles game logic
  */
 // eslint-disable-next-line max-lines-per-function
 export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
@@ -46,7 +46,6 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
     const score = useAppSelector(gameScoreSelector);
     const mistakes = useAppSelector(gameMistakesSelector);
 
-    const [field, setField] = useState<FieldInterface>([]);
     const [selectedCell, setSelectedCell] = useState<CellInterface>();
     const [scoredCells, setScoredCells] = useState<ScoredCellsInterface>(emptyScoredCells);
     const availableValuesRefs = useRef<Record<number, AvailableValuesItemRef | null>>({});
@@ -65,8 +64,6 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
 
             dispatch(gameStartAction({ sudokuString: sudokuInstance.toString() }));
         }
-
-        setField(sudokuInstance.Field);
     }, [routeField, routeDifficulty, dispatch]);
 
     const handleExit = () => {
@@ -228,7 +225,7 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
             </View>
 
             <Field
-                field={field}
+                key={`${routeField}-${routeDifficulty}`}
                 onSelect={handleSelectCell}
                 scoredCells={scoredCells}
                 selectedCell={selectedCell}
