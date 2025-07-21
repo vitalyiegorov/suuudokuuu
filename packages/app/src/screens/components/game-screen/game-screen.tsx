@@ -1,10 +1,10 @@
 import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { useRouter } from 'expo-router';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Text, View } from 'react-native';
 
-import { cs, isNotEmptyString } from '@rnw-community/shared';
+import { cs } from '@rnw-community/shared';
 
 import { Alert } from '../../../@generic/components/alert/alert';
 import { BlackButton } from '../../../@generic/components/black-button/black-button';
@@ -15,10 +15,11 @@ import { hapticImpact, hapticNotification } from '../../../@generic/utils/haptic
 import { AvailableValuesItem, type AvailableValuesItemRef } from '../../../game/components/available-values-item/available-values-item';
 import { Field, type FieldRef } from '../../../game/components/field/field';
 import { GameTimer } from '../../../game/components/game-timer/game-timer';
+import { useInitializeGame } from '../../../game/hooks/use-initialize-game.hook';
 import { useKeyboardControls } from '../../../game/hooks/use-keyboard-controls/use-keyboard-controls.hook';
-import { gameResetAction, gameResumeAction, gameStartAction } from '../../../game/store/game.actions';
+import { gameResetAction } from '../../../game/store/game.actions';
 import { gameMistakesSelector, gameScoreSelector } from '../../../game/store/game.selectors';
-import { createSudokuGame, initializeSudokuFromString, sudoku } from '../../../game/store/sudoku-instance';
+import { sudoku } from '../../../game/store/sudoku-instance';
 import { gameFinishedThunk } from '../../../game/store/thunks/game-finish.thunk';
 import { gameMistakeThunk } from '../../../game/store/thunks/game-mistake.thunk';
 import { gameSaveThunk } from '../../../game/store/thunks/game-save.thunk';
@@ -48,19 +49,7 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
 
     const maxMistakesReached = mistakes >= MaxMistakesConstant;
 
-    useEffect(() => {
-        if (isNotEmptyString(routeField)) {
-            initializeSudokuFromString(routeField);
-            dispatch(gameResumeAction());
-        } else if (isNotEmptyString(routeDifficulty)) {
-            createSudokuGame(routeDifficulty);
 
-            // eslint-disable-next-line no-undefined
-            setSelectedCell(undefined);
-
-            dispatch(gameStartAction({ sudokuString: sudoku.toString() }));
-        }
-    }, [routeField, routeDifficulty, dispatch]);
     const handleExit = () => {
         Alert('Stop current run?', 'All progress will be lost', [
             { text: 'Cancel', style: 'cancel' },
@@ -147,6 +136,7 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
         availableValuesRefs.current[value] = ref;
     };
 
+    useInitializeGame({ routeField, routeDifficulty, setSelectedCell });
     useKeyboardControls(sudoku, selectedCell, handleSelectCell, handleSelectValue);
 
     const mistakesCountTextStyles = [styles.mistakesCountText, cs(maxMistakesReached, styles.mistakesCountErrorText)];
