@@ -3,6 +3,13 @@ import { StyleSheet } from 'react-native';
 import { Colors } from '../../../@generic/styles/theme';
 
 export const GameScreenStyles = StyleSheet.create({
+    availableValuesWrapper: {
+        flex: 1,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        gap: 10,
+        justifyContent: 'center'
+    },
     container: {
         flex: 1,
         padding: 10,
@@ -38,12 +45,5 @@ export const GameScreenStyles = StyleSheet.create({
     scoreText: {
         color: Colors.black,
         fontWeight: 'bold'
-    },
-    availableValuesWrapper: {
-        flex: 1,
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        gap: 10,
-        justifyContent: 'center'
     }
 });
