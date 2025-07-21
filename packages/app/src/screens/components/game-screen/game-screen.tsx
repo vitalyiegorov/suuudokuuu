@@ -136,13 +136,11 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
         }
     };
 
-    const handleSelectValue = (value: number, isFromKeyboard = false) => {
+    const handleSelectValue = (value: number) => {
         const isBlankCellSelected = sudokuRef.current.isBlankCell(selectedCell);
 
         if (isBlankCellSelected) {
-            if (isFromKeyboard) {
-                availableValuesRefs.current[value]?.triggerAnimation();
-            }
+            availableValuesRefs.current[value]?.triggerAnimation();
 
             const newValueCell = { ...selectedCell, value };
             if (sudokuRef.current.isCorrectValue(newValueCell)) {
@@ -190,7 +188,7 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
 
             if (isDefined(selectedCell) && /^[1-9]$/iu.test(key)) {
                 e.preventDefault();
-                handleSelectValue(Number(key), true);
+                handleSelectValue(Number(key));
             }
         };
 
