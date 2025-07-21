@@ -104,4 +104,30 @@ describe('Sudoku', () => {
 
         expect(() => sudoku.setCellValue(badCell)).toThrow('Cell value is wrong');
     });
+
+    describe('fromString error handling', () => {
+        it('should handle malformed field string (162 chars instead of 163)', () => {
+            // This is the problematic field from the web crash issue
+            const malformedField = decodeURIComponent("683957124594132786172468953926813475748295631315746892431589267867324519259671348%7C...9..1...94........2..89.39...........2.....31....8...315...67.67..4....59.7..4");
+            
+            expect(() => {
+                Sudoku.fromString(malformedField, defaultSudokuConfig);
+            }).toThrow('Invalid string format: String length is wrong for the given configuration');
+        });
+
+        it('should handle empty field string', () => {
+            expect(() => {
+                Sudoku.fromString('', defaultSudokuConfig);
+            }).toThrow('Invalid string format: Empty string passed');
+        });
+
+        it('should handle field without separator', () => {
+            // Create a string with correct length but no separator
+            const fieldWithoutSeparator = 'A'.repeat(163);
+            
+            expect(() => {
+                Sudoku.fromString(fieldWithoutSeparator, defaultSudokuConfig);
+            }).toThrow('Invalid string format: No field separator found');
+        });
+    });
 });
