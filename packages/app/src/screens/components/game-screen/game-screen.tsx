@@ -1,10 +1,10 @@
 import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { useRouter } from 'expo-router';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Text, View } from 'react-native';
 
-import { cs } from '@rnw-community/shared';
+import { cs, isNotEmptyString } from '@rnw-community/shared';
 
 import { Alert } from '../../../@generic/components/alert/alert';
 import { BlackButton } from '../../../@generic/components/black-button/black-button';
@@ -136,8 +136,16 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
         availableValuesRefs.current[value] = ref;
     };
 
-    useInitializeGame({ routeField, routeDifficulty, setSelectedCell });
+    useInitializeGame(routeField, routeDifficulty);
     useKeyboardControls(sudoku, selectedCell, handleSelectCell, handleSelectValue);
+
+    // Reset selected cell when starting a new game
+    useEffect(() => {
+        if (isNotEmptyString(routeDifficulty)) {
+            // eslint-disable-next-line no-undefined
+            setSelectedCell(undefined);
+        }
+    }, [routeDifficulty]);
 
     const mistakesCountTextStyles = [styles.mistakesCountText, cs(maxMistakesReached, styles.mistakesCountErrorText)];
 
