@@ -103,4 +103,5 @@ android
 ios
 *.apk
 *.aab
-easy-to-travel-446012-8648544e3ce3.json
+google-service-account.json
+asc_api_key.p8
