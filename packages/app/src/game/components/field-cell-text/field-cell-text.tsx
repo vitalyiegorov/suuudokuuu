@@ -24,11 +24,10 @@ interface Props {
     readonly isActiveValue: boolean;
     readonly isHighlighted: boolean;
     readonly cell: CellInterface;
-    readonly hasAnimation: boolean;
     readonly animation: SharedValue<number>;
 }
 
-const FieldCellTextComponent = ({ sudoku, cell, isHighlighted, isActiveValue, isActive, hasAnimation, animation }: Props) => {
+const FieldCellTextComponent = ({ sudoku, cell, isHighlighted, isActiveValue, isActive, animation }: Props) => {
     const isEmpty = sudoku.isBlankCell(cell);
 
     const animatedStyles = useAnimatedStyle(() => ({
@@ -44,7 +43,7 @@ const FieldCellTextComponent = ({ sudoku, cell, isHighlighted, isActiveValue, is
         cs(isActiveValue, styles.activeValue),
         cs(isActive, styles.active),
         // HINT: We can block animation while it is still running by selecting another cell
-        cs(hasAnimation || animation.value !== 0, animatedStyles)
+        cs(animation.value !== 0, animatedStyles)
     ];
 
     return <Reanimated.Text style={textStyles}>{getText(isActive, isEmpty, cell)}</Reanimated.Text>;
@@ -53,7 +52,6 @@ const FieldCellTextComponent = ({ sudoku, cell, isHighlighted, isActiveValue, is
 export const FieldCellText = memo(
     FieldCellTextComponent,
     (prevProps, nextProps) =>
-        prevProps.hasAnimation === nextProps.hasAnimation &&
         prevProps.isActive === nextProps.isActive &&
         prevProps.isActiveValue === nextProps.isActiveValue &&
         prevProps.isHighlighted === nextProps.isHighlighted &&

@@ -1,6 +1,6 @@
-import { memo } from 'react';
+import { forwardRef, memo, useImperativeHandle } from 'react';
 import { Pressable } from 'react-native';
-import Reanimated, { type SharedValue, interpolateColor, useAnimatedStyle, useDerivedValue, withTiming } from 'react-native-reanimated';
+import Reanimated, { interpolateColor, useAnimatedStyle, useDerivedValue, useSharedValue, withTiming } from 'react-native-reanimated';
 
 import { type OnEventFn, cs } from '@rnw-community/shared';
 
@@ -40,10 +40,13 @@ const getCellSelector = (props: Props): selectors => {
 };
 
 const animationConfig = { duration: animationDurationConstant };
+const textAnimationConfig = { duration: 8 * animationDurationConstant };
+
+export interface FieldCellRef {
+    triggerAnimation: () => void;
+}
 
 interface Props {
-    readonly hasAnimation: boolean;
-    readonly textAnimation: SharedValue<number>;
     readonly cell: CellInterface;
     readonly sudoku: Sudoku;
     readonly onSelect: OnEventFn<CellInterface | undefined>;
@@ -53,14 +56,27 @@ interface Props {
     readonly isWrong: boolean;
 }
 
-const FieldCellComponent = (props: Props) => {
-    const { sudoku, cell, onSelect, isActive, isActiveValue, isHighlighted, isWrong, hasAnimation, textAnimation } = props;
+const FieldCellComponent = forwardRef<FieldCellRef, Props>((props, ref) => {
+    const { sudoku, cell, onSelect, isActive, isActiveValue, isHighlighted, isWrong } = props;
 
     const isLastRow = cell.y === 8;
     const isLastCol = cell.x === 8;
     const backgroundColor = getCellBgColor(isActiveValue, isHighlighted, isWrong);
 
     const animation = useDerivedValue(() => withTiming(isActive ? 1 : 0, animationConfig));
+    const textAnimation = useSharedValue(0);
+
+    const triggerAnimationFn = () => {
+        textAnimation.value = withTiming(1, textAnimationConfig, finished => {
+            if (finished === true) {
+                textAnimation.value = 0;
+            }
+        });
+    };
+
+    useImperativeHandle(ref, () => ({
+        triggerAnimation: triggerAnimationFn
+    }));
 
     const animatedStyles = useAnimatedStyle(() => ({
         backgroundColor: interpolateColor(animation.value, [0, 1], [backgroundColor, Colors.cell.active])
@@ -84,7 +100,6 @@ const FieldCellComponent = (props: Props) => {
             <FieldCellText
                 animation={textAnimation}
                 cell={cell}
-                hasAnimation={hasAnimation}
                 isActive={isActive}
                 isActiveValue={isActiveValue}
                 isHighlighted={isHighlighted}
@@ -92,13 +107,12 @@ const FieldCellComponent = (props: Props) => {
             />
         </ReanimatedPressable>
     );
-};
+});
 
 export const FieldCell = memo(
     FieldCellComponent,
     (prevProps, nextProps) =>
         prevProps.cell.value === nextProps.cell.value &&
-        prevProps.hasAnimation === nextProps.hasAnimation &&
         prevProps.isActive === nextProps.isActive &&
         prevProps.isWrong === nextProps.isWrong &&
         prevProps.isActiveValue === nextProps.isActiveValue &&
