@@ -77,6 +77,7 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
-      - name: Publish update
-        working-directory: packages/app
-        run: eas update --auto
+      - name: Create preview
+        uses: expo/expo-github-action/preview@v8
+        with:
+          command: eas update --auto
