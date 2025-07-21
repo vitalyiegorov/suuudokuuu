@@ -38,5 +38,12 @@ export const GameScreenStyles = StyleSheet.create({
     scoreText: {
         color: Colors.black,
         fontWeight: 'bold'
+    },
+    availableValuesWrapper: {
+        flex: 1,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        gap: 10,
+        justifyContent: 'center'
     }
 });

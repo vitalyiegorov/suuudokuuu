@@ -13,7 +13,7 @@ import { animationDurationConstant } from '../../../@generic/constants/animation
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { hapticImpact, hapticNotification } from '../../../@generic/utils/haptic/haptic.util';
-import { AvailableValues } from '../../../game/components/available-values/available-values';
+import { AvailableValuesItem, type AvailableValuesItemRef } from '../../../game/components/available-values-item/available-values-item';
 import { Field } from '../../../game/components/field/field';
 import { GameTimer } from '../../../game/components/game-timer/game-timer';
 import { gameResetAction, gameResumeAction, gameStartAction } from '../../../game/store/game.actions';
@@ -49,6 +49,7 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
     const [field, setField] = useState<FieldInterface>([]);
     const [selectedCell, setSelectedCell] = useState<CellInterface>();
     const [scoredCells, setScoredCells] = useState<ScoredCellsInterface>(emptyScoredCells);
+    const availableValuesRefs = useRef<Record<number, AvailableValuesItemRef | null>>({});
 
     const maxMistakesReached = mistakes >= MaxMistakesConstant;
 
@@ -137,10 +138,14 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
         }
     };
 
-    const handleSelectValue = (value: number) => {
+    const handleSelectValue = (value: number, isFromKeyboard = false) => {
         const isBlankCellSelected = sudokuRef.current.isBlankCell(selectedCell);
 
         if (isBlankCellSelected && isDefined(selectedCell)) {
+            if (isFromKeyboard) {
+                availableValuesRefs.current[value]?.triggerAnimation();
+            }
+
             const newValueCell = { ...selectedCell, value };
             if (sudokuRef.current.isCorrectValue(newValueCell)) {
                 handleCorrectValue(selectedCell, sudokuRef.current.setCellValue(newValueCell));
@@ -148,6 +153,10 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
                 handleWrongValue();
             }
         }
+    };
+
+    const handleAvailableRef = (value: number) => (ref: AvailableValuesItemRef | null) => {
+        availableValuesRefs.current[value] = ref;
     };
 
     useEffect(() => {
@@ -183,14 +192,14 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
 
             if (isDefined(selectedCell) && /^[1-9]$/iu.test(key)) {
                 e.preventDefault();
-                handleSelectValue(Number(key));
+                handleSelectValue(Number(key), true);
             }
         };
 
         window.addEventListener('keydown', handleKeyDown);
 
         return () => void window.removeEventListener('keydown', handleKeyDown);
-    }, [selectedCell, mistakes]);
+    }, [selectedCell, mistakes, handleSelectValue]);
 
     const mistakesCountTextStyles = [styles.mistakesCountText, cs(maxMistakesReached, styles.mistakesCountErrorText)];
 
@@ -229,14 +238,22 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
 
             <GameTimer />
 
-            <AvailableValues
-                onSelect={handleSelectValue}
-                /* eslint-disable-next-line react-compiler/react-compiler */
-                possibleValues={sudokuRef.current.PossibleValues}
-                selectedCell={selectedCell}
-                /* eslint-disable-next-line react-compiler/react-compiler */
-                sudoku={sudokuRef.current}
-            />
+            <View style={styles.availableValuesWrapper}>
+                {/* eslint-disable-next-line react-compiler/react-compiler */}
+                {sudokuRef.current.PossibleValues.map(value => (
+                    <AvailableValuesItem
+                        canPress={sudokuRef.current.isBlankCell(selectedCell)}
+                        correctValue={sudokuRef.current.getCorrectValue(selectedCell)}
+                        isActive={false}
+                        key={`possible-value-${value}`}
+                        onSelect={handleSelectValue}
+                        /* eslint-disable-next-line react-compiler/react-compiler */
+                        progress={sudokuRef.current.getValueProgress(value)}
+                        ref={handleAvailableRef(value)}
+                        value={value}
+                    />
+                ))}
+            </View>
         </View>
     );
 };
