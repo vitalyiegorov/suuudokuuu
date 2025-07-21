@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Pressable, Text, View } from 'react-native';
 import Reanimated, {
     interpolate,
@@ -46,9 +46,9 @@ export const AvailableValuesItem = ({ value, isActive, onSelect, progress, corre
         })
     }));
 
-    const triggerAnimation = useCallback(() => {
+    const triggerAnimation = () => {
         animated.value = withSequence(withTiming(1, { duration: 200 }), withTiming(0, { duration: 200 }));
-    }, [animated]);
+    };
 
     const handlePress = () => {
         triggerAnimation();
@@ -60,7 +60,8 @@ export const AvailableValuesItem = ({ value, isActive, onSelect, progress, corre
         if (shouldAnimate === true) {
             triggerAnimation();
         }
-    }, [shouldAnimate, triggerAnimation]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [shouldAnimate]);
 
     const buttonStyles = [styles.button, cs(isActive, styles.wrapperActive), animatedStyles];
     const textStyles = [styles.text, cs(isActive, styles.textActive)];
