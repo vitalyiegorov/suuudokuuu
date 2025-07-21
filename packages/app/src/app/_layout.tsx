@@ -9,7 +9,6 @@ import { enableFreeze, enableScreens } from 'react-native-screens';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
-
 import { appRootPersistor, appRootStore } from '../@generic/app-root.store';
 import { BlackTheme, WhiteTheme } from '../@generic/styles/theme';
 
@@ -38,10 +37,7 @@ export default function RootLayout() {
 
     return (
         <Provider store={appRootStore}>
-            <PersistGate
-                loading={null}
-                persistor={appRootPersistor}
-            >
+            <PersistGate loading={null} persistor={appRootPersistor}>
                 <ThemeProvider value={scheme}>
                     <Stack screenOptions={stackOptions} />
                 </ThemeProvider>
