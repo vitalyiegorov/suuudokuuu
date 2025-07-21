@@ -139,7 +139,7 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
     const handleSelectValue = (value: number, isFromKeyboard = false) => {
         const isBlankCellSelected = sudokuRef.current.isBlankCell(selectedCell);
 
-        if (isBlankCellSelected && isDefined(selectedCell)) {
+        if (isBlankCellSelected) {
             if (isFromKeyboard) {
                 availableValuesRefs.current[value]?.triggerAnimation();
             }
