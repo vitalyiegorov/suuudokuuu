@@ -1,11 +1,11 @@
-import { emptyScoredCells } from '@suuudokuuu/generator';
+import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { useRouter } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
 import { Text, View } from 'react-native';
 
-import { cs, isDefined, isNotEmptyString } from '@rnw-community/shared';
+import { cs, isNotEmptyString } from '@rnw-community/shared';
 
 import { Alert } from '../../../@generic/components/alert/alert';
 import { BlackButton } from '../../../@generic/components/black-button/black-button';
@@ -14,8 +14,9 @@ import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { hapticImpact, hapticNotification } from '../../../@generic/utils/haptic/haptic.util';
 import { AvailableValuesItem, type AvailableValuesItemRef } from '../../../game/components/available-values-item/available-values-item';
-import { Field } from '../../../game/components/field/field';
+import { Field, type FieldRef } from '../../../game/components/field/field';
 import { GameTimer } from '../../../game/components/game-timer/game-timer';
+import { useKeyboardControls } from '../../../game/hooks/use-keyboard-controls/use-keyboard-controls.hook';
 import { gameResetAction, gameResumeAction, gameStartAction } from '../../../game/store/game.actions';
 import { gameMistakesSelector, gameScoreSelector } from '../../../game/store/game.selectors';
 import { createSudokuGame, initializeSudokuFromString, sudoku } from '../../../game/store/sudoku-instance';
@@ -43,8 +44,8 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
     const mistakes = useAppSelector(gameMistakesSelector);
 
     const [selectedCell, setSelectedCell] = useState<CellInterface>();
-    const [scoredCells, setScoredCells] = useState<ScoredCellsInterface>(emptyScoredCells);
     const availableValuesRefs = useRef<Record<number, AvailableValuesItemRef | null>>({});
+    const fieldRef = useRef<FieldRef>(null);
 
     const maxMistakesReached = mistakes >= MaxMistakesConstant;
 
@@ -61,7 +62,6 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
             dispatch(gameStartAction({ sudokuString: sudoku.toString() }));
         }
     }, [routeField, routeDifficulty, dispatch]);
-
     const handleExit = () => {
         Alert('Stop current run?', 'All progress will be lost', [
             { text: 'Cancel', style: 'cancel' },
@@ -79,8 +79,6 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
     const handleSelectCell = (cell: CellInterface | undefined) => {
         setSelectedCell(cell);
         hapticImpact(ImpactFeedbackStyle.Light);
-        // HINT: This is needed to clear animation on all cells
-        setScoredCells(emptyScoredCells);
     };
 
     const handleLostGame = () => {
@@ -102,7 +100,7 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
 
     // eslint-disable-next-line max-statements
     const handleCorrectValue = (correctCell: CellInterface, newScoredCells: ScoredCellsInterface) => {
-        setScoredCells(newScoredCells);
+        fieldRef.current?.triggerCellAnimations(newScoredCells);
         void dispatch(gameSaveThunk({ sudoku, scoredCells: newScoredCells }));
 
         if (newScoredCells.isWon) {
@@ -131,13 +129,11 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
         }
     };
 
-    const handleSelectValue = (value: number, isFromKeyboard = false) => {
+    const handleSelectValue = (value: number) => {
         const isBlankCellSelected = sudoku.isBlankCell(selectedCell);
 
-        if (isBlankCellSelected && isDefined(selectedCell)) {
-            if (isFromKeyboard) {
-                availableValuesRefs.current[value]?.triggerAnimation();
-            }
+        if (isBlankCellSelected) {
+            availableValuesRefs.current[value]?.triggerAnimation();
 
             const newValueCell = { ...selectedCell, value };
             if (sudoku.isCorrectValue(newValueCell)) {
@@ -152,47 +148,7 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
         availableValuesRefs.current[value] = ref;
     };
 
-    useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
-            const { key } = e;
-
-            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(key)) {
-                e.preventDefault();
-                const currentCell = selectedCell ?? sudoku.Field[0][0];
-
-                let nextCell: CellInterface | undefined;
-                switch (key) {
-                    case 'ArrowUp':
-                        nextCell = sudoku.getCellUp(currentCell);
-                        break;
-                    case 'ArrowDown':
-                        nextCell = sudoku.getCellDown(currentCell);
-                        break;
-                    case 'ArrowLeft':
-                        nextCell = sudoku.getCellLeft(currentCell);
-                        break;
-                    case 'ArrowRight':
-                        nextCell = sudoku.getCellRight(currentCell);
-                        break;
-                    default:
-                        break;
-                }
-
-                handleSelectCell(nextCell);
-
-                return;
-            }
-
-            if (isDefined(selectedCell) && /^[1-9]$/iu.test(key)) {
-                e.preventDefault();
-                handleSelectValue(Number(key), true);
-            }
-        };
-
-        window.addEventListener('keydown', handleKeyDown);
-
-        return () => void window.removeEventListener('keydown', handleKeyDown);
-    }, [selectedCell, mistakes, handleSelectValue]);
+    useKeyboardControls(sudoku, selectedCell, handleSelectCell, handleSelectValue);
 
     const mistakesCountTextStyles = [styles.mistakesCountText, cs(maxMistakesReached, styles.mistakesCountErrorText)];
 
@@ -223,7 +179,7 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
             <Field
                 key={`${routeField}-${routeDifficulty}`}
                 onSelect={handleSelectCell}
-                scoredCells={scoredCells}
+                ref={fieldRef}
                 selectedCell={selectedCell}
             />
 

@@ -1,37 +1,52 @@
 import { isEmptyScoredCells } from '@suuudokuuu/generator';
-import { useEffect } from 'react';
+import { useImperativeHandle, useRef } from 'react';
 import { View } from 'react-native';
-import { useSharedValue, withTiming } from 'react-native-reanimated';
 
-import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
 import { sudoku } from '../../store/sudoku-instance';
-import { FieldCell } from '../field-cell/field-cell';
+import { FieldCell, type FieldCellRef } from '../field-cell/field-cell';
 
 import { FieldStyles as styles } from './field.styles';
 
 import type { OnEventFn } from '@rnw-community/shared';
 import type { CellInterface, ScoredCellsInterface } from '@suuudokuuu/generator';
+import type { Ref } from 'react';
 
-const textAnimationConfig = { duration: 8 * animationDurationConstant };
+const getCellKey = (cell: CellInterface) => `${cell.y}-${cell.x}`;
 
-interface Props {
-    readonly scoredCells: ScoredCellsInterface;
-    readonly selectedCell?: CellInterface;
-    readonly onSelect: OnEventFn<CellInterface | undefined>;
+export interface FieldRef {
+    triggerCellAnimations: (scoredCells: ScoredCellsInterface) => void;
 }
 
-export const Field = ({ selectedCell, onSelect, scoredCells }: Props) => {
-    const textAnimation = useSharedValue(0);
+interface Props {
+    readonly selectedCell?: CellInterface;
+    readonly onSelect: OnEventFn<CellInterface | undefined>;
+    readonly ref: Ref<FieldRef>;
+}
 
-    useEffect(() => {
-        if (!isEmptyScoredCells(scoredCells)) {
-            textAnimation.value = withTiming(1, textAnimationConfig, finished => {
-                if (finished === true) {
-                    textAnimation.value = 0;
+export const Field = ({ selectedCell, onSelect, ref }: Props) => {
+    const cellRefs = useRef<Record<string, FieldCellRef | null>>({});
+
+    useImperativeHandle(
+        ref,
+        () => ({
+            triggerCellAnimations: (scoredCells: ScoredCellsInterface) => {
+                if (!isEmptyScoredCells(scoredCells)) {
+                    sudoku.Field.forEach(row => {
+                        row.forEach(cell => {
+                            if (sudoku.isScoredCell(cell, scoredCells)) {
+                                cellRefs.current[getCellKey(cell)]?.triggerAnimation();
+                            }
+                        });
+                    });
                 }
-            });
-        }
-    }, [scoredCells, textAnimation]);
+            }
+        }),
+        []
+    );
+
+    const handleCellRef = (cell: CellInterface) => (cellRef: FieldCellRef | null) => {
+        cellRefs.current[getCellKey(cell)] = cellRef;
+    };
 
     return (
         <View style={styles.wrapper}>
@@ -40,14 +55,13 @@ export const Field = ({ selectedCell, onSelect, scoredCells }: Props) => {
                     {row.map(cell => (
                         <FieldCell
                             cell={cell}
-                            hasAnimation={sudoku.isScoredCell(cell, scoredCells)}
                             isActive={sudoku.isSameCell(cell, selectedCell)}
                             isActiveValue={sudoku.isSameCellValue(cell, selectedCell)}
                             isHighlighted={sudoku.isCellHighlighted(cell, selectedCell)}
                             isWrong={sudoku.isCellWrong(cell, selectedCell)}
                             key={`cell-${cell.y}-${cell.x}`}
                             onSelect={onSelect}
-                            textAnimation={textAnimation}
+                            ref={handleCellRef(cell)}
                         />
                     ))}
                 </View>
