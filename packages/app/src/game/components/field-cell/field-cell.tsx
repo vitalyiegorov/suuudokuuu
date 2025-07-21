@@ -1,6 +1,6 @@
 import { useImperativeHandle } from 'react';
 import { Pressable } from 'react-native';
-import Reanimated, { interpolate, interpolateColor, runOnJS, useAnimatedStyle, useDerivedValue, useSharedValue, withTiming } from 'react-native-reanimated';
+import Reanimated, { interpolate, interpolateColor, useAnimatedStyle, useDerivedValue, useSharedValue, withTiming } from 'react-native-reanimated';
 
 import { type OnEventFn, cs } from '@rnw-community/shared';
 
