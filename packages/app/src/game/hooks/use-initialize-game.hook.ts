@@ -6,15 +6,9 @@ import { useAppDispatch } from '../../@generic/hooks/use-app-dispatch.hook';
 import { gameResumeAction, gameStartAction } from '../store/game.actions';
 import { createSudokuGame, initializeSudokuFromString, sudoku } from '../store/sudoku-instance';
 
-import type { CellInterface, DifficultyEnum } from '@suuudokuuu/generator';
+import type { DifficultyEnum } from '@suuudokuuu/generator';
 
-interface UseInitializeGameParams {
-    readonly routeField: string | undefined;
-    readonly routeDifficulty: DifficultyEnum | undefined;
-    readonly setSelectedCell: (cell: CellInterface | undefined) => void;
-}
-
-export const useInitializeGame = ({ routeField, routeDifficulty, setSelectedCell }: UseInitializeGameParams) => {
+export const useInitializeGame = (routeField: string | undefined, routeDifficulty: DifficultyEnum | undefined) => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -24,10 +18,7 @@ export const useInitializeGame = ({ routeField, routeDifficulty, setSelectedCell
         } else if (isNotEmptyString(routeDifficulty)) {
             createSudokuGame(routeDifficulty);
 
-            // eslint-disable-next-line no-undefined
-            setSelectedCell(undefined);
-
             dispatch(gameStartAction({ sudokuString: sudoku.toString() }));
         }
-    }, [routeField, routeDifficulty, dispatch, setSelectedCell]);
+    }, [routeField, routeDifficulty, dispatch]);
 };
