@@ -7,7 +7,6 @@ import { type OnEventFn, cs } from '@rnw-community/shared';
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
 import { Colors } from '../../../@generic/styles/theme';
 import { CellFontSizeConstant } from '../constants/dimensions.contant';
-import { FieldCellTextStyles as textStyles } from '../field-cell-text/field-cell-text.styles';
 
 import { FieldCellSelectors as selectors } from './field-cell.selectors';
 import { FieldCellStyles as styles } from './field-cell.styles';
@@ -92,11 +91,11 @@ const useTextStyles = (textAnimation: SharedValue<number>, textState: { text: st
     }));
 
     return [
-        textStyles.regular,
-        cs(textState.text === '' || textState.text === '•', textStyles.empty),
-        cs(textState.isHighlighted, textStyles.highlighted),
-        cs(textState.isActiveValue, textStyles.activeValue),
-        cs(textState.isActive, textStyles.active),
+        styles.textRegular,
+        cs(textState.text === '' || textState.text === '•', styles.textEmpty),
+        cs(textState.isHighlighted, styles.textHighlighted),
+        cs(textState.isActiveValue, styles.textActiveValue),
+        cs(textState.isActive, styles.textActive),
         cs(textAnimation.value !== 0, textAnimatedStyles)
     ];
 };
