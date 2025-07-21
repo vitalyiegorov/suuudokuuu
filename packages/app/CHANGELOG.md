@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.22.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.22.0...v1.22.1) (2025-07-21)
+
+### Bug Fixes
+
+- **generator:** fix possible/available values calculation ([e0b9841](https://github.com/vitalyiegorov/suuudokuuu/commit/e0b9841b8d6182ddf32b2e353717338121674910))
+
 # [1.22.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.21.0...v1.22.0) (2025-07-20)
 
 ### Features
