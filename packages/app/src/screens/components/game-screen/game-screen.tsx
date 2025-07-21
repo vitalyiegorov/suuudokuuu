@@ -2,7 +2,7 @@ import { Sudoku, defaultSudokuConfig, emptyScoredCells } from '@suuudokuuu/gener
 import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { useRouter } from 'expo-router';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Text, View } from 'react-native';
 
 import { cs, isDefined, isNotEmptyString } from '@rnw-community/shared';
@@ -13,7 +13,8 @@ import { animationDurationConstant } from '../../../@generic/constants/animation
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { hapticImpact, hapticNotification } from '../../../@generic/utils/haptic/haptic.util';
-import { AvailableValues } from '../../../game/components/available-values/available-values';
+import { AvailableValuesStyles } from '../../../game/components/available-values/available-values.styles';
+import { AvailableValuesItem, type AvailableValuesItemRef } from '../../../game/components/available-values-item/available-values-item';
 import { Field } from '../../../game/components/field/field';
 import { GameTimer } from '../../../game/components/game-timer/game-timer';
 import { gameResetAction, gameResumeAction, gameStartAction } from '../../../game/store/game.actions';
@@ -27,7 +28,6 @@ import { GameScreenStyles as styles } from './game-screen.styles';
 import type { CellInterface, DifficultyEnum, FieldInterface, ScoredCellsInterface } from '@suuudokuuu/generator';
 
 const MaxMistakesConstant = 3;
-const AnimationDurationMs = 400;
 
 interface Props {
     readonly routeField: string | undefined;
@@ -50,7 +50,7 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
     const [field, setField] = useState<FieldInterface>([]);
     const [selectedCell, setSelectedCell] = useState<CellInterface>();
     const [scoredCells, setScoredCells] = useState<ScoredCellsInterface>(emptyScoredCells);
-    const [keyboardAnimateValue, setKeyboardAnimateValue] = useState<number | undefined>();
+    const availableValuesRefs = useRef<Record<number, AvailableValuesItemRef | null>>({});
 
     const maxMistakesReached = mistakes >= MaxMistakesConstant;
 
@@ -91,25 +91,25 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
         setScoredCells(emptyScoredCells);
     };
 
-    const handleLostGame = useCallback(() => {
+    const handleLostGame = () => {
         hapticImpact(ImpactFeedbackStyle.Heavy);
 
         void dispatch(gameFinishedThunk({ difficulty: sudokuRef.current.Difficulty, isWon: false }));
 
         router.replace('loser');
-    }, [dispatch, router]);
+    };
 
-    const handleWonGame = useCallback(() => {
+    const handleWonGame = () => {
         hapticImpact(ImpactFeedbackStyle.Heavy);
 
         void dispatch(gameFinishedThunk({ difficulty: sudokuRef.current.Difficulty, isWon: true }));
 
         // TODO: We need to wait for the animation to finish, animation finish event would fix it?
         setTimeout(() => void router.replace('winner'), 10 * animationDurationConstant);
-    }, [dispatch, router]);
+    };
 
     // eslint-disable-next-line max-statements
-    const handleCorrectValue = useCallback((correctCell: CellInterface, newScoredCells: ScoredCellsInterface) => {
+    const handleCorrectValue = (correctCell: CellInterface, newScoredCells: ScoredCellsInterface) => {
         setScoredCells(newScoredCells);
         void dispatch(gameSaveThunk({ sudoku: sudokuRef.current, scoredCells: newScoredCells }));
 
@@ -127,9 +127,9 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
                 setSelectedCell(undefined);
             }
         }
-    }, [dispatch, handleWonGame]);
+    };
 
-    const handleWrongValue = useCallback(() => {
+    const handleWrongValue = () => {
         void dispatch(gameMistakeThunk(sudokuRef.current));
 
         if (mistakes + 1 >= MaxMistakesConstant) {
@@ -137,17 +137,14 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
         } else {
             hapticNotification(Haptics.NotificationFeedbackType.Error);
         }
-    }, [dispatch, mistakes, handleLostGame]);
+    };
 
-    const handleSelectValue = useCallback((value: number, isFromKeyboard = false) => {
+    const handleSelectValue = (value: number, isFromKeyboard = false) => {
         const isBlankCellSelected = sudokuRef.current.isBlankCell(selectedCell);
 
         if (isBlankCellSelected && isDefined(selectedCell)) {
-            // Trigger animation for keyboard input
             if (isFromKeyboard) {
-                setKeyboardAnimateValue(value);
-                // Clear animation state after animation completes
-                setTimeout(() => void setKeyboardAnimateValue(undefined), AnimationDurationMs);
+                availableValuesRefs.current[value]?.triggerAnimation();
             }
 
             const newValueCell = { ...selectedCell, value };
@@ -157,7 +154,7 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
                 handleWrongValue();
             }
         }
-    }, [selectedCell, handleCorrectValue, handleWrongValue]);
+    };
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
@@ -238,15 +235,27 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
 
             <GameTimer />
 
-            <AvailableValues
-                animateValue={keyboardAnimateValue}
-                onSelect={handleSelectValue}
-                /* eslint-disable-next-line react-compiler/react-compiler */
-                possibleValues={sudokuRef.current.PossibleValues}
-                selectedCell={selectedCell}
-                /* eslint-disable-next-line react-compiler/react-compiler */
-                sudoku={sudokuRef.current}
-            />
+            <View style={AvailableValuesStyles.wrapper}>
+                {/* eslint-disable-next-line react-compiler/react-compiler */}
+                {sudokuRef.current.PossibleValues.map(value => {
+                    const isBlankCellSelected = sudokuRef.current.isBlankCell(selectedCell);
+                    const currentCorrectValue = sudokuRef.current.getCorrectValue(selectedCell);
+                    
+                    return (
+                        <AvailableValuesItem
+                            canPress={isBlankCellSelected}
+                            correctValue={currentCorrectValue}
+                            isActive={false}
+                            key={`possible-value-${value}`}
+                            onSelect={handleSelectValue}
+                            /* eslint-disable-next-line react-compiler/react-compiler */
+                            progress={sudokuRef.current.getValueProgress(value)}
+                            ref={(ref) => { availableValuesRefs.current[value] = ref; }}
+                            value={value}
+                        />
+                    );
+                })}
+            </View>
         </View>
     );
 };

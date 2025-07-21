@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { forwardRef, useImperativeHandle } from 'react';
 import { Pressable, Text, View } from 'react-native';
 import Reanimated, {
     interpolate,
@@ -27,11 +27,14 @@ interface Props {
     readonly progress: number;
     readonly correctValue?: number;
     readonly onSelect: OnEventFn<number>;
-    readonly shouldAnimate?: boolean;
+}
+
+export interface AvailableValuesItemRef {
+    triggerAnimation: () => void;
 }
 
 // TODO: Add animation when correct value is selected
-export const AvailableValuesItem = ({ value, isActive, onSelect, progress, correctValue, canPress, shouldAnimate }: Props) => {
+export const AvailableValuesItem = forwardRef<AvailableValuesItemRef, Props>(({ value, isActive, onSelect, progress, correctValue, canPress }, ref) => {
     const isCorrect = value === correctValue;
     const pressAnimatedBgColor = isCorrect ? Colors.cell.active : Colors.cell.error;
 
@@ -46,22 +49,18 @@ export const AvailableValuesItem = ({ value, isActive, onSelect, progress, corre
         })
     }));
 
-    const triggerAnimation = () => {
+    const triggerAnimationFn = () => {
         animated.value = withSequence(withTiming(1, { duration: 200 }), withTiming(0, { duration: 200 }));
     };
 
+    useImperativeHandle(ref, () => ({
+        triggerAnimation: triggerAnimationFn
+    }));
+
     const handlePress = () => {
-        triggerAnimation();
+        triggerAnimationFn();
         onSelect(value);
     };
-
-    // Trigger animation when shouldAnimate prop changes to true
-    useEffect(() => {
-        if (shouldAnimate === true) {
-            triggerAnimation();
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [shouldAnimate]);
 
     const buttonStyles = [styles.button, cs(isActive, styles.wrapperActive), animatedStyles];
     const textStyles = [styles.text, cs(isActive, styles.textActive)];
@@ -76,4 +75,4 @@ export const AvailableValuesItem = ({ value, isActive, onSelect, progress, corre
             <View style={progressStyles} />
         </View>
     );
-};
+});
