@@ -117,6 +117,3 @@ ios
 *.apk
 *.aab
 easy-to-travel-446012-8648544e3ce3.json
-
-# Project specific
-tests
