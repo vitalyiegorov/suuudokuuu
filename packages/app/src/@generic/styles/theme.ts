@@ -1,7 +1,6 @@
 import { DarkTheme, DefaultTheme } from '@react-navigation/native';
 import { Appearance } from 'react-native';
 
-
 export const WhiteTheme = {
     ...DefaultTheme,
     colors: {

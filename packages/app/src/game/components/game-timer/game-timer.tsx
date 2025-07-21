@@ -52,11 +52,7 @@ export const GameTimer = () => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>
-                (
-                {getTimerText(savedTime)}
-                )
-            </Text>
+            <Text style={styles.text}>({getTimerText(savedTime)})</Text>
         </View>
     );
 };

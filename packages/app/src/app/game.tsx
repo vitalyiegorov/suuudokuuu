@@ -13,10 +13,7 @@ export default function GamePage() {
         <Page>
             <PageHeader title="Be wise, be smart, be quick..." />
 
-            <GameScreen
-                routeDifficulty={difficulty}
-                routeField={field}
-            />
+            <GameScreen routeDifficulty={difficulty} routeField={field} />
         </Page>
     );
 }
