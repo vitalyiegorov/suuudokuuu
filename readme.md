@@ -32,4 +32,5 @@ Unique modern open source React Native/ Expo Sudoku game with a lot of features.
 
 ### IOS
 
-[Register your device](https://expo.dev/register-device/c1da1a6e-616b-40a3-93ba-45bef53696e5)
+- [Register your device](https://expo.dev/register-device/c1da1a6e-616b-40a3-93ba-45bef53696e5)
+- [Install Dev build](https://expo.dev/accounts/vitalyiegorov/projects/suuudokuuu/builds/e42efd58-74cf-48be-bdf1-ebc51cde1d6e)
