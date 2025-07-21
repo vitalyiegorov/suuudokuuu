@@ -2,6 +2,7 @@ import rootPkg from './package.json';
 
 const APP_VARIANT = process.env.APP_VARIANT;
 const IS_DEV = APP_VARIANT === 'development';
+const IS_PREVIEW = APP_VARIANT === 'preview';
 
 const getUniqueIdentifier = isAndroid => {
     const prefix = isAndroid ? 'com.vitaliiyehorov.suuudokuuu' : 'com.vitalyiegorov.suuudokuuu';
@@ -10,12 +11,20 @@ const getUniqueIdentifier = isAndroid => {
         return `${prefix}.dev`;
     }
 
+    if (IS_PREVIEW) {
+        return `${prefix}.preview`;
+    }
+
     return prefix;
 };
 
 const getAppName = () => {
     if (IS_DEV) {
         return 'suuudokuuu (Dev)';
+    }
+
+    if (IS_PREVIEW) {
+        return 'suuudokuuu (Preview)';
     }
 
     return 'suuudokuuu';
