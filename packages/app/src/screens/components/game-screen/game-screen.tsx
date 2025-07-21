@@ -2,7 +2,7 @@ import { Sudoku, defaultSudokuConfig, emptyScoredCells } from '@suuudokuuu/gener
 import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { useRouter } from 'expo-router';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Text, View } from 'react-native';
 
 import { cs, isDefined, isNotEmptyString } from '@rnw-community/shared';
@@ -27,6 +27,7 @@ import { GameScreenStyles as styles } from './game-screen.styles';
 import type { CellInterface, DifficultyEnum, FieldInterface, ScoredCellsInterface } from '@suuudokuuu/generator';
 
 const MaxMistakesConstant = 3;
+const AnimationDurationMs = 400;
 
 interface Props {
     readonly routeField: string | undefined;
@@ -49,6 +50,7 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
     const [field, setField] = useState<FieldInterface>([]);
     const [selectedCell, setSelectedCell] = useState<CellInterface>();
     const [scoredCells, setScoredCells] = useState<ScoredCellsInterface>(emptyScoredCells);
+    const [keyboardAnimateValue, setKeyboardAnimateValue] = useState<number | undefined>();
 
     const maxMistakesReached = mistakes >= MaxMistakesConstant;
 
@@ -89,25 +91,25 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
         setScoredCells(emptyScoredCells);
     };
 
-    const handleLostGame = () => {
+    const handleLostGame = useCallback(() => {
         hapticImpact(ImpactFeedbackStyle.Heavy);
 
         void dispatch(gameFinishedThunk({ difficulty: sudokuRef.current.Difficulty, isWon: false }));
 
         router.replace('loser');
-    };
+    }, [dispatch, router]);
 
-    const handleWonGame = () => {
+    const handleWonGame = useCallback(() => {
         hapticImpact(ImpactFeedbackStyle.Heavy);
 
         void dispatch(gameFinishedThunk({ difficulty: sudokuRef.current.Difficulty, isWon: true }));
 
         // TODO: We need to wait for the animation to finish, animation finish event would fix it?
         setTimeout(() => void router.replace('winner'), 10 * animationDurationConstant);
-    };
+    }, [dispatch, router]);
 
     // eslint-disable-next-line max-statements
-    const handleCorrectValue = (correctCell: CellInterface, newScoredCells: ScoredCellsInterface) => {
+    const handleCorrectValue = useCallback((correctCell: CellInterface, newScoredCells: ScoredCellsInterface) => {
         setScoredCells(newScoredCells);
         void dispatch(gameSaveThunk({ sudoku: sudokuRef.current, scoredCells: newScoredCells }));
 
@@ -125,9 +127,9 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
                 setSelectedCell(undefined);
             }
         }
-    };
+    }, [dispatch, handleWonGame]);
 
-    const handleWrongValue = () => {
+    const handleWrongValue = useCallback(() => {
         void dispatch(gameMistakeThunk(sudokuRef.current));
 
         if (mistakes + 1 >= MaxMistakesConstant) {
@@ -135,12 +137,19 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
         } else {
             hapticNotification(Haptics.NotificationFeedbackType.Error);
         }
-    };
+    }, [dispatch, mistakes, handleLostGame]);
 
-    const handleSelectValue = (value: number) => {
+    const handleSelectValue = useCallback((value: number, isFromKeyboard = false) => {
         const isBlankCellSelected = sudokuRef.current.isBlankCell(selectedCell);
 
         if (isBlankCellSelected && isDefined(selectedCell)) {
+            // Trigger animation for keyboard input
+            if (isFromKeyboard) {
+                setKeyboardAnimateValue(value);
+                // Clear animation state after animation completes
+                setTimeout(() => void setKeyboardAnimateValue(undefined), AnimationDurationMs);
+            }
+
             const newValueCell = { ...selectedCell, value };
             if (sudokuRef.current.isCorrectValue(newValueCell)) {
                 handleCorrectValue(selectedCell, sudokuRef.current.setCellValue(newValueCell));
@@ -148,7 +157,7 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
                 handleWrongValue();
             }
         }
-    };
+    }, [selectedCell, handleCorrectValue, handleWrongValue]);
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
@@ -183,14 +192,14 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
 
             if (isDefined(selectedCell) && /^[1-9]$/iu.test(key)) {
                 e.preventDefault();
-                handleSelectValue(Number(key));
+                handleSelectValue(Number(key), true);
             }
         };
 
         window.addEventListener('keydown', handleKeyDown);
 
         return () => void window.removeEventListener('keydown', handleKeyDown);
-    }, [selectedCell, mistakes]);
+    }, [selectedCell, mistakes, handleSelectValue]);
 
     const mistakesCountTextStyles = [styles.mistakesCountText, cs(maxMistakesReached, styles.mistakesCountErrorText)];
 
@@ -230,6 +239,7 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
             <GameTimer />
 
             <AvailableValues
+                animateValue={keyboardAnimateValue}
                 onSelect={handleSelectValue}
                 /* eslint-disable-next-line react-compiler/react-compiler */
                 possibleValues={sudokuRef.current.PossibleValues}
