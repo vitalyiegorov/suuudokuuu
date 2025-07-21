@@ -1,6 +1,6 @@
 import { useImperativeHandle } from 'react';
 import { Pressable } from 'react-native';
-import Reanimated, { type AnimatedStyle, interpolate, interpolateColor, runOnJS, useAnimatedStyle, useDerivedValue, useSharedValue, withTiming } from 'react-native-reanimated';
+import Reanimated, { interpolate, interpolateColor, runOnJS, useAnimatedStyle, useDerivedValue, useSharedValue, withTiming } from 'react-native-reanimated';
 
 import { type OnEventFn, cs } from '@rnw-community/shared';
 
@@ -96,32 +96,30 @@ export const FieldCell = (props: Props) => {
         transform: [{ rotate: `${interpolate(textAnimation.value, [0, 1], [0, 360])}deg` }]
     }));
 
-    const getCellStyles = (sudokuArg: Sudoku, cellArg: CellInterface, backgroundColor: string, animatedStylesArg: AnimatedStyle<object>) => [
-        styles.container,
-        cs(sudokuArg.isLastInCellGroupX(cellArg), styles.groupXEnd),
-        cs(sudokuArg.isLastInCellGroupY(cellArg), styles.groupYEnd),
-        cs(sudokuArg.isLastInRow(cellArg), styles.lastRow),
-        cs(sudokuArg.isLastInColumn(cellArg), styles.lastCol),
-        { backgroundColor },
-        animatedStylesArg
-    ];
-
-    const getTextStyles = (params: { text: string; isHighlighted: boolean; isActiveValue: boolean; isActive: boolean; textAnimation: ReturnType<typeof useSharedValue>; textAnimatedStyles: AnimatedStyle<object> }) => [
-        styles.textRegular,
-        cs(params.text === '' || params.text === '•', styles.textEmpty),
-        cs(params.isHighlighted, styles.textHighlighted),
-        cs(params.isActiveValue, styles.textActiveValue),
-        cs(params.isActive, styles.textActive),
-        cs(params.textAnimation.value !== 0, params.textAnimatedStyles)
-    ];
-
     return (
         <ReanimatedPressable 
             onPress={() => void onSelect(isActive ? undefined : cell)} 
-            style={getCellStyles(sudoku, cell, cellBackgroundColor, animatedStyles)} 
+            style={[
+                styles.container,
+                cs(sudoku.isLastInCellGroupX(cell), styles.groupXEnd),
+                cs(sudoku.isLastInCellGroupY(cell), styles.groupYEnd),
+                cs(sudoku.isLastInRow(cell), styles.lastRow),
+                cs(sudoku.isLastInColumn(cell), styles.lastCol),
+                { backgroundColor: cellBackgroundColor },
+                animatedStyles
+            ]} 
             testID={getCellSelector(props)}
         >
-            <Reanimated.Text style={getTextStyles({ text, isHighlighted, isActiveValue, isActive, textAnimation, textAnimatedStyles })}>{text}</Reanimated.Text>
+            <Reanimated.Text style={[
+                styles.textRegular,
+                cs(text === '' || text === '•', styles.textEmpty),
+                cs(isHighlighted, styles.textHighlighted),
+                cs(isActiveValue, styles.textActiveValue),
+                cs(isActive, styles.textActive),
+                cs(textAnimation.value !== 0, textAnimatedStyles)
+            ]}
+            >{text}
+            </Reanimated.Text>
         </ReanimatedPressable>
     );
 };
