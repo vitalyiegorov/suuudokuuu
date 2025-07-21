@@ -59,7 +59,6 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
                 sudokuRef.current = Sudoku.fromString(routeField, defaultSudokuConfig);
                 dispatch(gameResumeAction());
             } catch (error) {
-                // Handle malformed field parameter gracefully
                 Alert('Invalid game link', 'The game link is corrupted or invalid. Redirecting to home.', [
                     {
                         text: 'OK',
