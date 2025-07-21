@@ -8,6 +8,7 @@ import { FieldStyles as styles } from './field.styles';
 
 import type { OnEventFn } from '@rnw-community/shared';
 import type { CellInterface, FieldInterface, ScoredCellsInterface, Sudoku } from '@suuudokuuu/generator';
+import type { Ref } from 'react';
 
 const getCellKey = (cell: CellInterface) => `${cell.y}-${cell.x}`;
 
@@ -20,32 +21,33 @@ interface Props {
     readonly field: FieldInterface;
     readonly selectedCell?: CellInterface;
     readonly onSelect: OnEventFn<CellInterface | undefined>;
-    readonly ref?: React.Ref<FieldRef>;
+    readonly ref: Ref<FieldRef>;
 }
 
 export const Field = ({ field, selectedCell, onSelect, sudoku, ref }: Props) => {
     const cellRefs = useRef<Record<string, FieldCellRef | null>>({});
 
+    useImperativeHandle(
+        ref,
+        () => ({
+            triggerCellAnimations: (scoredCells: ScoredCellsInterface) => {
+                if (!isEmptyScoredCells(scoredCells)) {
+                    field.forEach(row => {
+                        row.forEach(cell => {
+                            if (sudoku.isScoredCell(cell, scoredCells)) {
+                                cellRefs.current[getCellKey(cell)]?.triggerAnimation();
+                            }
+                        });
+                    });
+                }
+            }
+        }),
+        [field, sudoku]
+    );
+
     const handleCellRef = (cell: CellInterface) => (cellRef: FieldCellRef | null) => {
         cellRefs.current[getCellKey(cell)] = cellRef;
     };
-
-    const triggerCellAnimations = (scoredCells: ScoredCellsInterface) => {
-        if (!isEmptyScoredCells(scoredCells)) {
-            field.forEach(row => {
-                row.forEach(cell => {
-                    if (sudoku.isScoredCell(cell, scoredCells)) {
-                        const cellRef = cellRefs.current[getCellKey(cell)];
-                        cellRef?.triggerAnimation();
-                    }
-                });
-            });
-        }
-    };
-
-    useImperativeHandle(ref, () => ({
-        triggerCellAnimations
-    }));
 
     return (
         <View style={styles.wrapper}>

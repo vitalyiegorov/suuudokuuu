@@ -131,7 +131,7 @@ export class Sudoku extends SerializableSudoku {
         return cell.x === this.config.fieldSize - 1;
     }
 
-    isBlankCell(cell?: CellInterface): boolean {
+    isBlankCell(cell?: CellInterface): cell is CellInterface {
         return isDefined(cell) && this.gameField[cell.y][cell.x].value === this.config.blankCellValue;
     }
 
