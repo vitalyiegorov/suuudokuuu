@@ -1,10 +1,12 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
 import { Colors } from '../../../@generic/styles/theme';
-import { CellFontSizeConstant, CellSizeConstant } from '../constants/dimensions.contant';
+import { CellFontSizeConstant } from '../constants/dimensions.contant';
 
 const progressHeight = 2;
-const buttonSize = CellSizeConstant * 1.3;
+// Responsive button size as percentage of screen width
+const { width } = Dimensions.get('window');
+const buttonSize = Math.min(width * 0.12, 80); // ~12% of screen width, max 80px
 
 export const AvailableValuesItemStyles = StyleSheet.create({
     button: {

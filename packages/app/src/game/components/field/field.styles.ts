@@ -1,9 +1,9 @@
-import * as Device from 'expo-device';
 import { StyleSheet } from 'react-native';
 
 export const FieldStyles = StyleSheet.create({
     row: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        flex: 1
     },
     wrapper: {
         alignItems: 'center',
@@ -11,10 +11,9 @@ export const FieldStyles = StyleSheet.create({
         justifyContent: 'center',
         margin: 'auto',
         zIndex: 99,
-        ...(Device.deviceType === Device.DeviceType.DESKTOP
-            ? { flex: 4 }
-            : {
-                  flex: 3
-              })
+        flex: 1,
+        aspectRatio: 1,
+        maxWidth: '90%',
+        maxHeight: '60%'
     }
 });
