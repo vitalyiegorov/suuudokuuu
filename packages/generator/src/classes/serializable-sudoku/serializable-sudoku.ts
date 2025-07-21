@@ -64,17 +64,20 @@ export class SerializableSudoku {
     protected calculateAvailableValues(): void {
         const getValueProgress = (count: number): number => (count / this.config.fieldSize) * 100;
 
+        this.availableValues = Array.from({ length: this.config.fieldSize }).reduce<AvailableValuesType>(
+            (acc, _, index) => ({
+                ...acc,
+                [index + 1]: { count: 0, progress: 0 }
+            }),
+            {}
+        );
+
         // TODO: Can we optimize and not recalculate full object every time?
-        this.availableValues = {};
         for (const row of this.gameField) {
             for (const { value } of row) {
                 if (value !== this.config.blankCellValue) {
-                    if (isDefined(this.availableValues[value])) {
-                        this.availableValues[value].count += 1;
-                        this.availableValues[value].progress = getValueProgress(this.availableValues[value].count);
-                    } else {
-                        this.availableValues[value] = { count: 1, progress: getValueProgress(1) };
-                    }
+                    this.availableValues[value].count += 1;
+                    this.availableValues[value].progress = getValueProgress(this.availableValues[value].count);
                 }
             }
         }
