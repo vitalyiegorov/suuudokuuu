@@ -7,13 +7,13 @@ export const FieldStyles = StyleSheet.create({
     },
     wrapper: {
         alignItems: 'center',
-        aspectRatio: 1,
+        aspectRatio: 9 / 10,
         flexDirection: 'column',
-        flex: 1,
         justifyContent: 'center',
         margin: 'auto',
-        maxHeight: '60%',
-        maxWidth: '90%',
+        maxHeight: '75%',
+        maxWidth: '95%',
+        width: '90%',
         zIndex: 99
     }
 });
