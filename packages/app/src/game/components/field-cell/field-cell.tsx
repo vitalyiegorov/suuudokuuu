@@ -1,4 +1,4 @@
-import { forwardRef, memo, useImperativeHandle, useRef } from 'react';
+import { memo, useImperativeHandle, useRef } from 'react';
 import { Pressable } from 'react-native';
 import Reanimated, { interpolateColor, useAnimatedStyle, useDerivedValue, withTiming } from 'react-native-reanimated';
 
@@ -61,13 +61,14 @@ interface Props {
     readonly isActiveValue: boolean;
     readonly isHighlighted: boolean;
     readonly isWrong: boolean;
+    readonly ref?: React.Ref<FieldCellRef>;
 }
 
-const FieldCellComponent = forwardRef<FieldCellRef, Props>((props, ref) => {
-    const { sudoku, cell, onSelect, isActive, isActiveValue, isHighlighted, isWrong } = props;
+const FieldCellComponent = (props: Props) => {
+    const { sudoku, cell, onSelect, isActive, isActiveValue, isHighlighted, isWrong, ref } = props;
 
-    const isLastRow = cell.y === sudoku.config.fieldSize - 1;
-    const isLastCol = cell.x === sudoku.config.fieldSize - 1;
+    const isLastRow = cell.y === sudoku.Field.length - 1;
+    const isLastCol = cell.x === sudoku.Field[0].length - 1;
     const backgroundColor = getCellBgColor(isActiveValue, isHighlighted, isWrong);
     const isEmpty = sudoku.isBlankCell(cell);
 
@@ -109,7 +110,7 @@ const FieldCellComponent = forwardRef<FieldCellRef, Props>((props, ref) => {
             </FieldCellText>
         </ReanimatedPressable>
     );
-});
+};
 
 export const FieldCell = memo(
     FieldCellComponent,

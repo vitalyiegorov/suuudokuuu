@@ -1,5 +1,5 @@
 import { isEmptyScoredCells } from '@suuudokuuu/generator';
-import { forwardRef, useImperativeHandle, useRef } from 'react';
+import { useImperativeHandle, useRef } from 'react';
 import { View } from 'react-native';
 
 import { FieldCell, type FieldCellRef } from '../field-cell/field-cell';
@@ -20,9 +20,10 @@ interface Props {
     readonly field: FieldInterface;
     readonly selectedCell?: CellInterface;
     readonly onSelect: OnEventFn<CellInterface | undefined>;
+    readonly ref?: React.Ref<FieldRef>;
 }
 
-export const Field = forwardRef<FieldRef, Props>(({ field, selectedCell, onSelect, sudoku }, ref) => {
+export const Field = ({ field, selectedCell, onSelect, sudoku, ref }: Props) => {
     const cellRefs = useRef<Record<string, FieldCellRef | null>>({});
 
     const handleCellRef = (cell: CellInterface) => (cellRef: FieldCellRef | null) => {
@@ -67,4 +68,4 @@ export const Field = forwardRef<FieldRef, Props>(({ field, selectedCell, onSelec
             ))}
         </View>
     );
-});
+};

@@ -1,4 +1,4 @@
-import { forwardRef, memo, useCallback, useImperativeHandle } from 'react';
+import { memo, useCallback, useImperativeHandle } from 'react';
 import Reanimated, { interpolate, interpolateColor, runOnJS, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
 import { cs } from '@rnw-community/shared';
@@ -20,9 +20,10 @@ interface Props {
     readonly isActiveValue: boolean;
     readonly isHighlighted: boolean;
     readonly children: string;
+    readonly ref?: React.Ref<FieldCellTextRef>;
 }
 
-const FieldCellTextComponent = forwardRef<FieldCellTextRef, Props>(({ children, isHighlighted, isActiveValue, isActive }, ref) => {
+const FieldCellTextComponent = ({ children, isHighlighted, isActiveValue, isActive, ref }: Props) => {
     const animation = useSharedValue(0);
 
     const resetAnimation = useCallback(() => {
@@ -58,7 +59,7 @@ const FieldCellTextComponent = forwardRef<FieldCellTextRef, Props>(({ children, 
     ];
 
     return <Reanimated.Text style={textStyles}>{children}</Reanimated.Text>;
-});
+};
 
 export const FieldCellText = memo(
     FieldCellTextComponent,
