@@ -122,8 +122,12 @@ describe('Sudoku', () => {
         });
 
         it('should handle field without separator', () => {
-            // Create a string with correct length but no separator
-            const fieldWithoutSeparator = 'A'.repeat(163);
+            /*
+             * Create a string with correct length but no separator
+             * Expected length for 9x9 sudoku: 9*9*2 + 1 = 163
+             */
+            const expectedLength = defaultSudokuConfig.fieldSize * defaultSudokuConfig.fieldSize * 2 + 1;
+            const fieldWithoutSeparator = 'A'.repeat(expectedLength);
             
             expect(() => {
                 Sudoku.fromString(fieldWithoutSeparator, defaultSudokuConfig);

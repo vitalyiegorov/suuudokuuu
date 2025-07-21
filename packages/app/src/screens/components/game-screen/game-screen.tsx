@@ -55,8 +55,21 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
 
     useEffect(() => {
         if (isNotEmptyString(routeField)) {
-            sudokuRef.current = Sudoku.fromString(routeField, defaultSudokuConfig);
-            dispatch(gameResumeAction());
+            try {
+                sudokuRef.current = Sudoku.fromString(routeField, defaultSudokuConfig);
+                dispatch(gameResumeAction());
+            } catch (error) {
+                // Handle malformed field parameter gracefully
+                Alert('Invalid game link', 'The game link is corrupted or invalid. Redirecting to home.', [
+                    {
+                        text: 'OK',
+                        onPress: () => {
+                            router.replace('/');
+                        }
+                    }
+                ]);
+                return;
+            }
         } else if (isNotEmptyString(routeDifficulty)) {
             sudokuRef.current.create(routeDifficulty);
 
@@ -67,7 +80,7 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
         }
 
         setField(sudokuRef.current.Field);
-    }, [routeField, routeDifficulty, dispatch]);
+    }, [routeField, routeDifficulty, dispatch, router]);
 
     const handleExit = () => {
         Alert('Stop current run?', 'All progress will be lost', [
