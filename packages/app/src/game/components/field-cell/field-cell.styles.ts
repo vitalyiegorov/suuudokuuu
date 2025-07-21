@@ -31,7 +31,6 @@ export const FieldCellStyles = StyleSheet.create({
     lastRow: {
         borderBottomWidth: 1
     },
-    // Text styles - inlined from FieldCellText
     textActive: {
         color: Colors.cell.activeText,
         fontWeight: 'bold'

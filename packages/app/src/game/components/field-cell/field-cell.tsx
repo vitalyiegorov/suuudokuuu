@@ -1,6 +1,6 @@
-import { memo, useImperativeHandle } from 'react';
+import { useImperativeHandle } from 'react';
 import { Pressable } from 'react-native';
-import Reanimated, { type AnimatedStyle, type SharedValue, interpolate, interpolateColor, runOnJS, useAnimatedStyle, useDerivedValue, useSharedValue, withTiming } from 'react-native-reanimated';
+import Reanimated, { type AnimatedStyle, interpolate, interpolateColor, runOnJS, useAnimatedStyle, useDerivedValue, useSharedValue, withTiming } from 'react-native-reanimated';
 
 import { type OnEventFn, cs } from '@rnw-community/shared';
 
@@ -83,22 +83,31 @@ const useTextAnimation = () => {
     return { textAnimation, triggerAnimation };
 };
 
-const useTextStyles = (textAnimation: SharedValue<number>, textState: { text: string; isHighlighted: boolean; isActiveValue: boolean; isActive: boolean }) => {
-    const textAnimatedStyles = useAnimatedStyle(() => ({
+const useTextAnimatedStyles = (textAnimation: ReturnType<typeof useSharedValue>) => 
+    useAnimatedStyle(() => ({
         color: interpolateColor(textAnimation.value, [0, 0.5, 1], [Colors.black, Colors.cell.highlightedText, Colors.black]),
         fontSize: interpolate(textAnimation.value, [0, 0.5, 1], [CellFontSizeConstant, CellFontSizeConstant * 2, CellFontSizeConstant]),
         transform: [{ rotate: `${interpolate(textAnimation.value, [0, 1], [0, 360])}deg` }]
     }));
 
-    return [
-        styles.textRegular,
-        cs(textState.text === '' || textState.text === '•', styles.textEmpty),
-        cs(textState.isHighlighted, styles.textHighlighted),
-        cs(textState.isActiveValue, styles.textActiveValue),
-        cs(textState.isActive, styles.textActive),
-        cs(textAnimation.value !== 0, textAnimatedStyles)
-    ];
-};
+const getTextStyles = (params: { text: string; isHighlighted: boolean; isActiveValue: boolean; isActive: boolean; textAnimation: ReturnType<typeof useSharedValue>; textAnimatedStyles: AnimatedStyle<object> }) => [
+    styles.textRegular,
+    cs(params.text === '' || params.text === '•', styles.textEmpty),
+    cs(params.isHighlighted, styles.textHighlighted),
+    cs(params.isActiveValue, styles.textActiveValue),
+    cs(params.isActive, styles.textActive),
+    cs(params.textAnimation.value !== 0, params.textAnimatedStyles)
+];
+
+const getCellStyles = (sudoku: Sudoku, cell: CellInterface, backgroundColor: string, animatedStyles: AnimatedStyle<object>) => [
+    styles.container,
+    cs(sudoku.isLastInCellGroupX(cell), styles.groupXEnd),
+    cs(sudoku.isLastInCellGroupY(cell), styles.groupYEnd),
+    cs(sudoku.isLastInRow(cell), styles.lastRow),
+    cs(sudoku.isLastInColumn(cell), styles.lastCol),
+    { backgroundColor },
+    animatedStyles
+];
 
 const FieldCellComponent = (props: Props) => {
     const { sudoku, cell, onSelect, isActive, isActiveValue, isHighlighted, isWrong, ref } = props;
@@ -112,27 +121,18 @@ const FieldCellComponent = (props: Props) => {
 
     useImperativeHandle(ref, () => ({ triggerAnimation }));
 
-    const getCellStyles = (backgroundColor: string, animatedStyles: AnimatedStyle<object>) => [
-        styles.container,
-        cs(sudoku.isLastInCellGroupX(cell), styles.groupXEnd),
-        cs(sudoku.isLastInCellGroupY(cell), styles.groupYEnd),
-        cs(sudoku.isLastInRow(cell), styles.lastRow),
-        cs(sudoku.isLastInColumn(cell), styles.lastCol),
-        { backgroundColor },
-        animatedStyles
-    ];
-
     const animatedStyles = useAnimatedStyle(() => ({
         backgroundColor: interpolateColor(animation.value, [0, 1], [cellBackgroundColor, Colors.cell.active])
     }));
 
-    const mergedTextStyles = useTextStyles(textAnimation, { text, isHighlighted, isActiveValue, isActive });
+    const textAnimatedStyles = useTextAnimatedStyles(textAnimation);
+    const mergedTextStyles = getTextStyles({ text, isHighlighted, isActiveValue, isActive, textAnimation, textAnimatedStyles });
     const handlePress = () => void onSelect(isActive ? undefined : cell); // eslint-disable-line no-undefined
 
     return (
         <ReanimatedPressable 
             onPress={handlePress} 
-            style={getCellStyles(cellBackgroundColor, animatedStyles)} 
+            style={getCellStyles(sudoku, cell, cellBackgroundColor, animatedStyles)} 
             testID={getCellSelector(props)}
         >
             <Reanimated.Text style={mergedTextStyles}>{text}</Reanimated.Text>
@@ -140,12 +140,4 @@ const FieldCellComponent = (props: Props) => {
     );
 };
 
-export const FieldCell = memo(
-    FieldCellComponent,
-    (prevProps, nextProps) =>
-        prevProps.cell.value === nextProps.cell.value &&
-        prevProps.isActive === nextProps.isActive &&
-        prevProps.isWrong === nextProps.isWrong &&
-        prevProps.isActiveValue === nextProps.isActiveValue &&
-        prevProps.isHighlighted === nextProps.isHighlighted
-);
+export const FieldCell = FieldCellComponent;
