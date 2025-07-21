@@ -14,22 +14,14 @@ export default function Root({ children }: PropsWithChildren) {
             <head>
                 <meta charSet="utf-8" />
 
-                <meta
-                    content="IE=edge"
-                    httpEquiv="X-UA-Compatible"
-                />
+                <meta content="IE=edge" httpEquiv="X-UA-Compatible" />
 
-                <meta
-                    content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no"
-                    name="viewport"
-                />
+                <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport" />
 
                 <ScrollViewStyleReset />
             </head>
 
-            <body>
-                {children}
-            </body>
+            <body>{children}</body>
         </html>
     );
 }

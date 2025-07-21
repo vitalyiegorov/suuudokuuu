@@ -14,14 +14,9 @@ export const PrivacyPolicyScreen = () => (
         <Header text="Privacy policy" />
 
         <ScrollView contentContainerStyle={PrivacyPolicyScreenStyles.scrollView}>
-            <Text style={PrivacyPolicyScreenStyles.text}>
-                {privacyPolicyConstant}
-            </Text>
+            <Text style={PrivacyPolicyScreenStyles.text}>{privacyPolicyConstant}</Text>
         </ScrollView>
 
-        <BlackButton
-            href="/"
-            text="Return"
-        />
+        <BlackButton href="/" text="Return" />
     </View>
 );

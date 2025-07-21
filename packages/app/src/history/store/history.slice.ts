@@ -4,7 +4,6 @@ import { initialHistoryState } from './history.state';
 
 import type { HistoryGameInterface } from '../interfaces/history-game.interface';
 
-
 export const historySlice = createSlice({
     name: 'history',
     initialState: initialHistoryState,

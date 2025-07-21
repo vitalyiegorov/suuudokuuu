@@ -2,14 +2,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { createMigrate, persistReducer, persistStore } from 'redux-persist';
 
-
 import { gameSlice } from '../game/store/game.slice';
 import { initialGameState } from '../game/store/game.state';
 import { historySlice } from '../history/store/history.slice';
 import { initialHistoryState } from '../history/store/history.state';
 
 import type { MigrationManifest } from 'redux-persist/es/types';
-
 
 /* HINT: Uncomment to clear persisted state */
 // void AsyncStorage.clear();

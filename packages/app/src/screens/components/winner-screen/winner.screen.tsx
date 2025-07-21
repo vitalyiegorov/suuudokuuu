@@ -15,27 +15,15 @@ export const WinnerScreen = () => {
 
     return (
         <View style={WinnerScreenStyles.container}>
-            <Header text="Winners-winner, \n chicken dinner!" />
+            <Header text={`Winners-winner, \n chicken dinner!`} />
 
             <View>
                 <Text style={WinnerScreenStyles.scoreText}>
-                    You have scored 
-                    {' '}
-
-                    <Text style={WinnerScreenStyles.boldText}>
-                        {score}
-                    </Text>
-
-                    {' '}
+                    You have scored <Text style={WinnerScreenStyles.boldText}>{score}</Text>{' '}
                 </Text>
 
                 <Text style={WinnerScreenStyles.timeText}>
-                    It took you 
-                    {' '}
-
-                    <Text style={WinnerScreenStyles.boldText}>
-                        {getTimerText(elapsedTime)}
-                    </Text>
+                    It took you <Text style={WinnerScreenStyles.boldText}>{getTimerText(elapsedTime)}</Text>
                 </Text>
             </View>
 

@@ -5,7 +5,8 @@
         "module": "ESNext",
         "moduleResolution": "node",
         "lib": [
-            "ESNext"
+            "ESNext",
+            "DOM"
         ],
         "types": [
             "node",
