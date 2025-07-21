@@ -123,3 +123,124 @@ describe('Sudoku', () => {
         expect(() => sudoku.setCellValue(badCell)).toThrow('Cell value is wrong');
     });
 });
+
+describe('Sudoku - Additional Cell Methods', () => {
+    describe('cell navigation helpers', () => {
+        it('getCellRight() navigation', () => {
+            const sudoku = new Sudoku();
+            sudoku.create(DifficultyEnum.Easy);
+            
+            expect(sudoku.getCellRight({ x: 3, y: 4, group: 0, value: 5 })).toStrictEqual({ x: 4, y: 4, group: expect.any(Number), value: expect.any(Number) });
+            expect(sudoku.getCellRight({ x: 8, y: 4, group: 0, value: 5 })).toStrictEqual({ x: 8, y: 4, group: 0, value: 5 });
+            expect(sudoku.getCellRight()).toBeUndefined();
+        });
+
+        it('getCellLeft() navigation', () => {
+            const sudoku = new Sudoku();
+            sudoku.create(DifficultyEnum.Easy);
+            
+            expect(sudoku.getCellLeft({ x: 3, y: 4, group: 0, value: 5 })).toStrictEqual({ x: 2, y: 4, group: expect.any(Number), value: expect.any(Number) });
+            expect(sudoku.getCellLeft({ x: 0, y: 4, group: 0, value: 5 })).toStrictEqual({ x: 0, y: 4, group: 0, value: 5 });
+        });
+
+        it('getCellUp() navigation', () => {
+            const sudoku = new Sudoku();
+            sudoku.create(DifficultyEnum.Easy);
+            
+            expect(sudoku.getCellUp({ x: 3, y: 4, group: 0, value: 5 })).toStrictEqual({ x: 3, y: 3, group: expect.any(Number), value: expect.any(Number) });
+            expect(sudoku.getCellUp({ x: 3, y: 0, group: 0, value: 5 })).toStrictEqual({ x: 3, y: 0, group: 0, value: 5 });
+        });
+
+        it('getCellDown() navigation', () => {
+            const sudoku = new Sudoku();
+            sudoku.create(DifficultyEnum.Easy);
+            
+            expect(sudoku.getCellDown({ x: 3, y: 4, group: 0, value: 5 })).toStrictEqual({ x: 3, y: 5, group: expect.any(Number), value: expect.any(Number) });
+            expect(sudoku.getCellDown({ x: 3, y: 8, group: 0, value: 5 })).toStrictEqual({ x: 3, y: 8, group: 0, value: 5 });
+        });
+    });
+});
+
+describe('Sudoku - Cell Validation', () => {
+    describe('cell validation helpers', () => {
+        it('isBlankCell() validation', () => {
+            const sudoku = new Sudoku();
+            sudoku.create(DifficultyEnum.Easy);
+            const blankCell = sudoku.Field.flat().find(cell => cell.value === defaultSudokuConfig.blankCellValue);
+            const nonBlankCell = sudoku.Field.flat().find(cell => cell.value !== defaultSudokuConfig.blankCellValue);
+            
+            expect(sudoku.isBlankCell(blankCell)).toBe(true);
+            expect(sudoku.isBlankCell(nonBlankCell)).toBe(false);
+            expect(sudoku.isBlankCell()).toBe(false);
+        });
+
+        it('isCorrectValue() validation', () => {
+            const sudoku = new Sudoku();
+            sudoku.create(DifficultyEnum.Easy);
+            const correctValue = sudoku.getCorrectValue({ x: 0, y: 0, group: 0, value: 0 });
+            // Use fixed wrong value
+            const wrongValue = 5;
+            
+            expect(sudoku.isCorrectValue({ x: 0, y: 0, group: 0, value: correctValue })).toBe(true);
+            expect(sudoku.isCorrectValue({ x: 0, y: 0, group: 0, value: wrongValue })).toBe(false);
+            expect(sudoku.isCorrectValue()).toBe(false);
+        });
+
+        it('isCellWrong() validation', () => {
+            const sudoku = new Sudoku();
+            sudoku.create(DifficultyEnum.Easy);
+            const correctValue = sudoku.getCorrectValue({ x: 0, y: 0, group: 0, value: 0 });
+            // Use fixed wrong value
+            const wrongValue = 5;
+            const wrongCell = { x: 0, y: 0, group: 0, value: wrongValue };
+            const correctCell = { x: 0, y: 0, group: 0, value: correctValue };
+            const blankCell = { x: 1, y: 1, group: 0, value: defaultSudokuConfig.blankCellValue };
+            
+            expect(sudoku.isCellWrong(wrongCell, wrongCell)).toBe(true);
+            expect(sudoku.isCellWrong(correctCell, correctCell)).toBe(false);
+            expect(sudoku.isCellWrong(blankCell, blankCell)).toBe(false);
+        });
+    });
+});
+
+describe('Sudoku - Scoring', () => {
+    describe('scoring helpers', () => {
+        const emptyScoredCells = { x: -1, y: -1, group: -1, values: [], isWon: false };
+
+        it('isScoredCell() returns true when game is won', () => {
+            const sudoku = new Sudoku();
+            const cell = { x: 0, y: 0, group: 0, value: 5 };
+            const scoredCells = { ...emptyScoredCells, isWon: true };
+            
+            expect(sudoku.isScoredCell(cell, scoredCells)).toBe(true);
+        });
+
+        it('isScoredCell() returns true for matching coordinates', () => {
+            const sudoku = new Sudoku();
+            const cell = { x: 3, y: 4, group: 2, value: 7 };
+            
+            expect(sudoku.isScoredCell(cell, { ...emptyScoredCells, x: 3 })).toBe(true);
+            expect(sudoku.isScoredCell(cell, { ...emptyScoredCells, y: 4 })).toBe(true);
+            expect(sudoku.isScoredCell(cell, { ...emptyScoredCells, group: 2 })).toBe(true);
+            expect(sudoku.isScoredCell(cell, { ...emptyScoredCells, values: [7] })).toBe(true);
+        });
+
+        it('isScoredCell() returns false when no conditions match', () => {
+            const sudoku = new Sudoku();
+            const cell = { x: 0, y: 0, group: 0, value: 5 };
+            const scoredCells = { ...emptyScoredCells, x: 1, y: 1, group: 1, values: [6, 7, 8] };
+            
+            expect(sudoku.isScoredCell(cell, scoredCells)).toBe(false);
+        });
+
+        it('getScore() returns a number', () => {
+            const sudoku = new Sudoku();
+            const scoredCells = { ...emptyScoredCells };
+            
+            const score = sudoku.getScore(scoredCells, 100, 2);
+            
+            expect(typeof score).toBe('number');
+            expect(score).toBeGreaterThanOrEqual(0);
+        });
+    });
+});
