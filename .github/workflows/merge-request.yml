@@ -100,7 +100,6 @@ jobs:
           environment: preview
           transient_environment: true
           auto_merge: false
-          required_contexts: []
 
       - name: Set Deployment Status
         uses: actions/create-deployment-status@v1
