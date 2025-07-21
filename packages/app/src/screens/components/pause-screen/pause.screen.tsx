@@ -18,10 +18,7 @@ export const PauseScreen = () => {
 
             <Donation type="paused" />
 
-            <BlackButton
-                onPress={handleResume}
-                text="Resume"
-            />
+            <BlackButton onPress={handleResume} text="Resume" />
         </View>
     );
 };

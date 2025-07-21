@@ -1,6 +1,5 @@
 import { useRouter } from 'expo-router';
 
-
 import { useAppDispatch } from '../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../@generic/hooks/use-app-selector.hook';
 import { gameResumeAction } from '../store/game.actions';

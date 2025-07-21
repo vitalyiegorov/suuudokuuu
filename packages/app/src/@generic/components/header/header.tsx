@@ -7,10 +7,7 @@ interface Props extends TextProps {
 }
 
 export const Header = ({ text, ...props }: Props) => (
-    <Text
-        style={styles.container}
-        {...props}
-    >
+    <Text style={styles.container} {...props}>
         {text}
     </Text>
 );

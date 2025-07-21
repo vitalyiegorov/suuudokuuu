@@ -47,11 +47,7 @@ const FieldCellTextComponent = ({ sudoku, cell, isHighlighted, isActiveValue, is
         cs(hasAnimation || animation.value !== 0, animatedStyles)
     ];
 
-    return (
-        <Reanimated.Text style={textStyles}>
-            {getText(isActive, isEmpty, cell)}
-        </Reanimated.Text>
-    );
+    return <Reanimated.Text style={textStyles}>{getText(isActive, isEmpty, cell)}</Reanimated.Text>;
 };
 
 export const FieldCellText = memo(

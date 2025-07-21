@@ -21,9 +21,7 @@ const getText = (type: Props['type']) => {
 
 export const Donation = ({ type }: Props) => (
     <View style={styles.donation}>
-        <Text style={styles.donationText}>
-            {getText(type)}
-        </Text>
+        <Text style={styles.donationText}>{getText(type)}</Text>
 
         <DonateButton />
     </View>

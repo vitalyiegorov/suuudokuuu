@@ -54,19 +54,9 @@ export const AvailableValuesItem = ({ value, isActive, onSelect, progress, corre
     const progressStyles = [styles.progress, { width: `${progress}%` }] as StyleProp<ViewStyle>;
 
     return (
-        <View
-            style={styles.container}
-            testID={selectors.Root}
-        >
-            <ReanimatedPressable
-                key={value}
-                style={buttonStyles}
-                testID={selectors.Button}
-                {...(canPress && { onPress: handlePress })}
-            >
-                <Text style={textStyles}>
-                    {value}
-                </Text>
+        <View style={styles.container} testID={selectors.Root}>
+            <ReanimatedPressable key={value} style={buttonStyles} testID={selectors.Button} {...(canPress && { onPress: handlePress })}>
+                <Text style={textStyles}>{value}</Text>
             </ReanimatedPressable>
 
             <View style={progressStyles} />

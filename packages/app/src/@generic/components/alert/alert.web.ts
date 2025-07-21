@@ -2,7 +2,6 @@ import { isDefined } from '@rnw-community/shared';
 
 import type { AlertButton } from 'react-native/Libraries/Alert/Alert';
 
-
 // TODO: Simple web wrapper for the alert https://github.com/necolas/react-native-web/issues/1026
 export const Alert = (title: string, message?: string, buttons?: AlertButton[]) => {
     const okButton = buttons?.find(button => button.text === 'OK');
