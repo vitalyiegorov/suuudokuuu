@@ -12,6 +12,7 @@ import Reanimated, {
 import { type OnEventFn, cs } from '@rnw-community/shared';
 
 import { Colors } from '../../../@generic/styles/theme';
+import { CellFontSizeConstant, CellSizeConstant } from '../constants/dimensions.contant';
 
 import { AvailableValueItemSelectors as selectors } from './available-value-item.selectors';
 import { AvailableValuesItemStyles as styles } from './available-values-item.styles';
@@ -27,6 +28,8 @@ interface Props {
     readonly progress: number;
     readonly correctValue?: number;
     readonly onSelect: OnEventFn<number>;
+    readonly cellSize?: number;
+    readonly fontSize?: number;
 }
 
 export interface AvailableValuesItemRef {
@@ -34,9 +37,15 @@ export interface AvailableValuesItemRef {
 }
 
 export const AvailableValuesItem = forwardRef<AvailableValuesItemRef, Props>(
-    ({ value, isActive, onSelect, progress, correctValue, canPress }, ref) => {
+    ({ value, isActive, onSelect, progress, correctValue, canPress, cellSize, fontSize }, ref) => {
         const isCorrect = value === correctValue;
         const pressAnimatedBgColor = isCorrect ? Colors.cell.active : Colors.cell.error;
+
+        // Use dynamic sizes if provided, otherwise fall back to static constants
+        const actualCellSize = cellSize ?? CellSizeConstant;
+        const actualFontSize = fontSize ?? CellFontSizeConstant;
+        const buttonSize = actualCellSize * 1.3;
+        const progressHeight = 2;
 
         const animated = useSharedValue(0);
         const animatedStyles = useAnimatedStyle(() => ({
@@ -62,9 +71,33 @@ export const AvailableValuesItem = forwardRef<AvailableValuesItemRef, Props>(
             onSelect(value);
         };
 
-        const buttonStyles = [styles.button, cs(isActive, styles.wrapperActive), animatedStyles];
-        const textStyles = [styles.text, cs(isActive, styles.textActive)];
-        const progressStyles = [styles.progress, { width: `${progress}%` }] as StyleProp<ViewStyle>;
+        const dynamicButtonStyles = {
+            alignItems: 'center' as const,
+            borderBottomColor: Colors.value.progress,
+            borderBottomWidth: progressHeight,
+            borderColor: Colors.value.border,
+            borderWidth: 1,
+            height: buttonSize,
+            justifyContent: 'center' as const,
+            width: buttonSize
+        };
+
+        const dynamicTextStyles = {
+            color: Colors.value.text,
+            fontSize: actualFontSize
+        };
+
+        const dynamicProgressStyles = {
+            backgroundColor: Colors.cell.active,
+            height: progressHeight,
+            left: 0,
+            position: 'absolute' as const,
+            top: buttonSize - progressHeight,
+            width: `${progress}%`
+        } as StyleProp<ViewStyle>;
+
+        const buttonStyles = [dynamicButtonStyles, cs(isActive, styles.wrapperActive), animatedStyles];
+        const textStyles = [dynamicTextStyles, cs(isActive, styles.textActive)];
 
         return (
             <View style={styles.container} testID={selectors.Root}>
@@ -72,7 +105,7 @@ export const AvailableValuesItem = forwardRef<AvailableValuesItemRef, Props>(
                     <Text style={textStyles}>{value}</Text>
                 </ReanimatedPressable>
 
-                <View style={progressStyles} />
+                <View style={dynamicProgressStyles} />
             </View>
         );
     }
