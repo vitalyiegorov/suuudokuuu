@@ -1,6 +1,6 @@
 import { memo, useImperativeHandle, useRef } from 'react';
 import { Pressable } from 'react-native';
-import Reanimated, { interpolateColor, useAnimatedStyle, useDerivedValue, withTiming } from 'react-native-reanimated';
+import Reanimated, { type AnimatedStyle, interpolateColor, useAnimatedStyle, useDerivedValue, withTiming } from 'react-native-reanimated';
 
 import { type OnEventFn, cs } from '@rnw-community/shared';
 
@@ -49,6 +49,21 @@ const getCellSelector = (props: Props): selectors => {
 
 const animationConfig = { duration: animationDurationConstant };
 
+const getCellStyles = (
+    sudoku: Sudoku,
+    cell: CellInterface,
+    backgroundColor: string,
+    animatedStyles: AnimatedStyle<object>
+) => [
+    styles.container,
+    cs(sudoku.isLastInCellGroupX(cell), styles.groupXEnd),
+    cs(sudoku.isLastInCellGroupY(cell), styles.groupYEnd),
+    cs(sudoku.isLastInRow(cell), styles.lastRow),
+    cs(sudoku.isLastInColumn(cell), styles.lastCol),
+    { backgroundColor },
+    animatedStyles
+];
+
 export interface FieldCellRef {
     triggerAnimation: () => void;
 }
@@ -67,8 +82,6 @@ interface Props {
 const FieldCellComponent = (props: Props) => {
     const { sudoku, cell, onSelect, isActive, isActiveValue, isHighlighted, isWrong, ref } = props;
 
-    const isLastRow = cell.y === sudoku.Field.length - 1;
-    const isLastCol = cell.x === sudoku.Field[0].length - 1;
     const backgroundColor = getCellBgColor(isActiveValue, isHighlighted, isWrong);
     const isEmpty = sudoku.isBlankCell(cell);
 
@@ -86,18 +99,12 @@ const FieldCellComponent = (props: Props) => {
     // eslint-disable-next-line no-undefined
     const handlePress = () => void onSelect(isActive ? undefined : cell);
 
+    const cellStyles = getCellStyles(sudoku, cell, backgroundColor, animatedStyles);
+
     return (
         <ReanimatedPressable 
             onPress={handlePress} 
-            style={[
-                styles.container,
-                cs(sudoku.isLastInCellGroupX(cell), styles.groupXEnd),
-                cs(sudoku.isLastInCellGroupY(cell), styles.groupYEnd),
-                cs(isLastRow, styles.lastRow),
-                cs(isLastCol, styles.lastCol),
-                { backgroundColor },
-                animatedStyles
-            ]} 
+            style={cellStyles} 
             testID={getCellSelector(props)}
         >
             <FieldCellText

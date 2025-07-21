@@ -96,6 +96,24 @@ describe('Sudoku', () => {
         });
     });
 
+    describe('row-column boundary helpers', () => {
+        it('isLastInRow()', () => {
+            const sudoku = new Sudoku();
+
+            expect(sudoku.isLastInRow({ x: 0, y: 8, group: 0, value: 0 })).toBe(true);
+            expect(sudoku.isLastInRow({ x: 0, y: 7, group: 0, value: 0 })).toBe(false);
+            expect(sudoku.isLastInRow({ x: 8, y: 8, group: 0, value: 0 })).toBe(true);
+        });
+
+        it('isLastInColumn()', () => {
+            const sudoku = new Sudoku();
+
+            expect(sudoku.isLastInColumn({ x: 8, y: 0, group: 0, value: 0 })).toBe(true);
+            expect(sudoku.isLastInColumn({ x: 7, y: 0, group: 0, value: 0 })).toBe(false);
+            expect(sudoku.isLastInColumn({ x: 8, y: 8, group: 0, value: 0 })).toBe(true);
+        });
+    });
+
     it('setCellValue() throws on wrong value', () => {
         const sudoku = new Sudoku();
         sudoku.create(DifficultyEnum.Easy);
