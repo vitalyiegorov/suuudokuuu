@@ -89,7 +89,6 @@ jobs:
         run: |
           result="$(eas deploy --non-interactive --json)"
           echo "$result"
-          echo "deployment=$result" >> $GITHUB_OUTPUT
           
           # Extract the URL from the deployment result
           url=$(echo "$result" | jq -r '.url // empty')
