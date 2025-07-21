@@ -33,7 +33,6 @@ export interface AvailableValuesItemRef {
     triggerAnimation: () => void;
 }
 
-// TODO: Add animation when correct value is selected
 export const AvailableValuesItem = forwardRef<AvailableValuesItemRef, Props>(({ value, isActive, onSelect, progress, correctValue, canPress }, ref) => {
     const isCorrect = value === correctValue;
     const pressAnimatedBgColor = isCorrect ? Colors.cell.active : Colors.cell.error;
