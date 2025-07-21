@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.22.3](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.22.2...v1.22.3) (2025-07-21)
+
+### Bug Fixes
+
+- **app:** fix text animation ([e182ad6](https://github.com/vitalyiegorov/suuudokuuu/commit/e182ad62f9ec4924d9400fbb44d2852f9561b11f))
+- **generator:** replace protected config access with defaultSudokuConfig in tests ([c789b26](https://github.com/vitalyiegorov/suuudokuuu/commit/c789b26bc58646b6f11d6d8b0369a7e2f21ad9d1))
+- isCellWrong test to ensure wrong value is actually different from correct value ([3060eae](https://github.com/vitalyiegorov/suuudokuuu/commit/3060eae1ab2d1da3c6e9f61d738c487955c43df4))
+- **tests:** resolve ESLint failures in sudoku.spec.ts ([1e2307a](https://github.com/vitalyiegorov/suuudokuuu/commit/1e2307a7a68d7a1db477342fb9dad27b670dbb5c))
+
 ## [1.22.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.22.0...v1.22.1) (2025-07-21)
 
 ### Bug Fixes
