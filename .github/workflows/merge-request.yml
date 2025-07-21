@@ -83,7 +83,7 @@ jobs:
 
       - name: Deploy web app
         working-directory: packages/app
-        run: eas deploy --non-interactive
+        run: eas deploy --non-interactive --json
 
   eas-update:
     name: EAS Update
