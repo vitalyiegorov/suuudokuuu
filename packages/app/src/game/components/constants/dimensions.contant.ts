@@ -10,5 +10,9 @@ const getCellSize = (): number => {
     return 40;
 };
 
+/*
+ * Legacy static sizing - kept for compatibility
+ * Use useDynamicCellSize hook for responsive sizing instead
+ */
 export const CellSizeConstant = getCellSize();
 export const CellFontSizeConstant = CellSizeConstant / 2.9;

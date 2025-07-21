@@ -6,6 +6,7 @@ import { type OnEventFn, cs } from '@rnw-community/shared';
 
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
 import { Colors } from '../../../@generic/styles/theme';
+import { CellSizeConstant } from '../constants/dimensions.contant';
 import { FieldCellText } from '../field-cell-text/field-cell-text';
 
 import { FieldCellSelectors as selectors } from './field-cell.selectors';
@@ -51,14 +52,20 @@ interface Props {
     readonly isActiveValue: boolean;
     readonly isHighlighted: boolean;
     readonly isWrong: boolean;
+    readonly cellSize?: number;
+    readonly fontSize?: number;
 }
 
 const FieldCellComponent = (props: Props) => {
-    const { sudoku, cell, onSelect, isActive, isActiveValue, isHighlighted, isWrong, hasAnimation, textAnimation } = props;
+    const { sudoku, cell, onSelect, isActive, isActiveValue, isHighlighted, isWrong, hasAnimation, textAnimation, cellSize, fontSize } = props;
 
     const isLastRow = cell.y === 8;
     const isLastCol = cell.x === 8;
     const backgroundColor = getCellBgColor(isActiveValue, isHighlighted, isWrong);
+
+    // Use dynamic size if provided, otherwise fall back to static constant
+    const actualCellSize = cellSize ?? CellSizeConstant;
+    const actualFontSize = fontSize ?? (actualCellSize / 2.9);
 
     const animation = useDerivedValue(() => withTiming(isActive ? 1 : 0, animationConfig));
 
@@ -75,7 +82,7 @@ const FieldCellComponent = (props: Props) => {
         cs(sudoku.isLastInCellGroupY(cell), styles.groupYEnd),
         cs(isLastRow, styles.lastRow),
         cs(isLastCol, styles.lastCol),
-        { backgroundColor },
+        { backgroundColor, width: actualCellSize, height: actualCellSize },
         animatedStyles
     ];
 
@@ -84,6 +91,7 @@ const FieldCellComponent = (props: Props) => {
             <FieldCellText
                 animation={textAnimation}
                 cell={cell}
+                fontSize={actualFontSize}
                 hasAnimation={hasAnimation}
                 isActive={isActive}
                 isActiveValue={isActiveValue}
@@ -102,5 +110,7 @@ export const FieldCell = memo(
         prevProps.isActive === nextProps.isActive &&
         prevProps.isWrong === nextProps.isWrong &&
         prevProps.isActiveValue === nextProps.isActiveValue &&
-        prevProps.isHighlighted === nextProps.isHighlighted
+        prevProps.isHighlighted === nextProps.isHighlighted &&
+        prevProps.cellSize === nextProps.cellSize &&
+        prevProps.fontSize === nextProps.fontSize
 );

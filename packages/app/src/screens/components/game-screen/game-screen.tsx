@@ -16,6 +16,7 @@ import { hapticImpact, hapticNotification } from '../../../@generic/utils/haptic
 import { AvailableValuesItem, type AvailableValuesItemRef } from '../../../game/components/available-values-item/available-values-item';
 import { Field } from '../../../game/components/field/field';
 import { GameTimer } from '../../../game/components/game-timer/game-timer';
+import { useDynamicCellSize } from '../../../game/hooks/use-dynamic-cell-size.hook';
 import { gameResetAction, gameResumeAction, gameStartAction } from '../../../game/store/game.actions';
 import { gameMistakesSelector, gameScoreSelector } from '../../../game/store/game.selectors';
 import { gameFinishedThunk } from '../../../game/store/thunks/game-finish.thunk';
@@ -45,6 +46,7 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
     const score = useAppSelector(gameScoreSelector);
     const mistakes = useAppSelector(gameMistakesSelector);
     const sudokuRef = useRef<Sudoku>(new Sudoku(defaultSudokuConfig));
+    const { cellSize, fontSize } = useDynamicCellSize();
 
     const [field, setField] = useState<FieldInterface>([]);
     const [selectedCell, setSelectedCell] = useState<CellInterface>();
@@ -228,7 +230,9 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
             </View>
 
             <Field
+                cellSize={cellSize}
                 field={field}
+                fontSize={fontSize}
                 onSelect={handleSelectCell}
                 scoredCells={scoredCells}
                 selectedCell={selectedCell}
@@ -243,7 +247,9 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
                 {sudokuRef.current.PossibleValues.map(value => (
                     <AvailableValuesItem
                         canPress={sudokuRef.current.isBlankCell(selectedCell)}
+                        cellSize={cellSize}
                         correctValue={sudokuRef.current.getCorrectValue(selectedCell)}
+                        fontSize={fontSize}
                         isActive={false}
                         key={`possible-value-${value}`}
                         onSelect={handleSelectValue}
