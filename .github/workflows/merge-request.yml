@@ -52,7 +52,10 @@ jobs:
     needs: code-quality
     runs-on: ubuntu-latest
     permissions:
+      contents: read
       pull-requests: write
+      deployments: write
+      issues: write
     steps:
       - name: Check for EXPO_TOKEN
         run: |
