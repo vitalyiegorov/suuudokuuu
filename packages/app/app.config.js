@@ -1,8 +1,29 @@
 import rootPkg from './package.json';
 
+const APP_VARIANT = process.env.APP_VARIANT;
+const IS_DEV = APP_VARIANT === 'development';
+
+const getUniqueIdentifier = isAndroid => {
+    const prefix = isAndroid ? 'com.vitaliiyehorov.suuudokuuu' : 'com.vitalyiegorov.suuudokuuu';
+
+    if (IS_DEV) {
+        return `${prefix}.dev`;
+    }
+
+    return prefix;
+};
+
+const getAppName = () => {
+    if (IS_DEV) {
+        return 'suuudokuuu (Dev)';
+    }
+
+    return 'suuudokuuu';
+};
+
 export default ({ config }) => ({
     ...config,
-    name: 'suuudokuuu',
+    name: getAppName(),
     slug: 'suuudokuuu',
     scheme: 'suuudokuuu',
     version: rootPkg.version,
@@ -17,7 +38,7 @@ export default ({ config }) => ({
     assetBundlePatterns: ['**/*'],
     ios: {
         supportsTablet: true,
-        bundleIdentifier: 'com.vitalyiegorov.suuudokuuu',
+        bundleIdentifier: getUniqueIdentifier(false),
         config: {
             usesNonExemptEncryption: false
         },
@@ -28,7 +49,7 @@ export default ({ config }) => ({
             foregroundImage: './assets/adaptive-icon.png',
             backgroundColor: '#000000'
         },
-        package: 'com.vitaliiyehorov.suuudokuuu',
+        package: getUniqueIdentifier(true),
         versionCode: 7
     },
     web: {
