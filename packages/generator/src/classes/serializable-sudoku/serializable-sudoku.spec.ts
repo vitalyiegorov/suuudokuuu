@@ -48,8 +48,10 @@ describe('serializableSudoku', () => {
 
     describe('fromString error handling', () => {
         it('should handle malformed field string (162 chars instead of 163)', () => {
-            const malformedField = decodeURIComponent("683957124594132786172468953926813475748295631315746892431589267867324519259671348%7C...9..1...94........2..89.39...........2.....31....8...315...67.67..4....59.7..4");
-            
+            const malformedField = decodeURIComponent(
+                '683957124594132786172468953926813475748295631315746892431589267867324519259671348%7C...9..1...94........2..89.39...........2.....31....8...315...67.67..4....59.7..4'
+            );
+
             expect(() => {
                 SerializableSudoku.fromString(malformedField, defaultSudokuConfig);
             }).toThrow('Invalid string format: String length is wrong for the given configuration');
@@ -64,7 +66,7 @@ describe('serializableSudoku', () => {
         it('should handle field without separator', () => {
             const expectedLength = defaultSudokuConfig.fieldSize * defaultSudokuConfig.fieldSize * 2 + 1;
             const fieldWithoutSeparator = 'A'.repeat(expectedLength);
-            
+
             expect(() => {
                 SerializableSudoku.fromString(fieldWithoutSeparator, defaultSudokuConfig);
             }).toThrow('Invalid string format: No field separator found');
