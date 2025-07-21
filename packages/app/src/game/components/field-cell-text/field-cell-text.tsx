@@ -1,4 +1,4 @@
-import { memo, useCallback, useImperativeHandle } from 'react';
+import { memo, useImperativeHandle } from 'react';
 import Reanimated, { interpolate, interpolateColor, runOnJS, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
 import { cs } from '@rnw-community/shared';
@@ -26,17 +26,17 @@ interface Props {
 const FieldCellTextComponent = ({ children, isHighlighted, isActiveValue, isActive, ref }: Props) => {
     const animation = useSharedValue(0);
 
-    const resetAnimation = useCallback(() => {
+    const resetAnimation = () => {
         animation.value = 0;
-    }, [animation]);
+    };
 
-    const triggerAnimation = useCallback(() => {
+    const triggerAnimation = () => {
         animation.value = withTiming(1, textAnimationConfig, finished => {
             if (finished === true) {
                 runOnJS(resetAnimation)();
             }
         });
-    }, [animation, resetAnimation]);
+    };
 
     useImperativeHandle(ref, () => ({
         triggerAnimation
@@ -54,7 +54,6 @@ const FieldCellTextComponent = ({ children, isHighlighted, isActiveValue, isActi
         cs(isHighlighted, styles.highlighted),
         cs(isActiveValue, styles.activeValue),
         cs(isActive, styles.active),
-        // HINT: We can block animation while it is still running by selecting another cell
         cs(animation.value !== 0, animatedStyles)
     ];
 
