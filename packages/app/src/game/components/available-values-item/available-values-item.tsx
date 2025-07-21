@@ -1,3 +1,4 @@
+import { forwardRef, useImperativeHandle } from 'react';
 import { Pressable, Text, View } from 'react-native';
 import Reanimated, {
     interpolate,
@@ -28,38 +29,51 @@ interface Props {
     readonly onSelect: OnEventFn<number>;
 }
 
-// TODO: Add animation when correct value is selected
-export const AvailableValuesItem = ({ value, isActive, onSelect, progress, correctValue, canPress }: Props) => {
-    const isCorrect = value === correctValue;
-    const pressAnimatedBgColor = isCorrect ? Colors.cell.active : Colors.cell.error;
+export interface AvailableValuesItemRef {
+    triggerAnimation: () => void;
+}
 
-    const animated = useSharedValue(0);
-    const animatedStyles = useAnimatedStyle(() => ({
-        backgroundColor: interpolateColor(animated.value, [0, 1], [Colors.white, pressAnimatedBgColor]),
-        ...(!isCorrect && {
-            transform: [
-                { translateX: interpolate(animated.value, [0, 0.5, 1], [0, -10, 10]) },
-                { rotate: `${interpolate(animated.value, [0, 0.5, 1], [0, -20, 20])}deg` }
-            ]
-        })
-    }));
+export const AvailableValuesItem = forwardRef<AvailableValuesItemRef, Props>(
+    ({ value, isActive, onSelect, progress, correctValue, canPress }, ref) => {
+        const isCorrect = value === correctValue;
+        const pressAnimatedBgColor = isCorrect ? Colors.cell.active : Colors.cell.error;
 
-    const handlePress = () => {
-        animated.value = withSequence(withTiming(1, { duration: 200 }), withTiming(0, { duration: 200 }));
-        onSelect(value);
-    };
+        const animated = useSharedValue(0);
+        const animatedStyles = useAnimatedStyle(() => ({
+            backgroundColor: interpolateColor(animated.value, [0, 1], [Colors.white, pressAnimatedBgColor]),
+            ...(!isCorrect && {
+                transform: [
+                    { translateX: interpolate(animated.value, [0, 0.5, 1], [0, -10, 10]) },
+                    { rotate: `${interpolate(animated.value, [0, 0.5, 1], [0, -20, 20])}deg` }
+                ]
+            })
+        }));
 
-    const buttonStyles = [styles.button, cs(isActive, styles.wrapperActive), animatedStyles];
-    const textStyles = [styles.text, cs(isActive, styles.textActive)];
-    const progressStyles = [styles.progress, { width: `${progress}%` }] as StyleProp<ViewStyle>;
+        const triggerAnimationFn = () => {
+            animated.value = withSequence(withTiming(1, { duration: 200 }), withTiming(0, { duration: 200 }));
+        };
 
-    return (
-        <View style={styles.container} testID={selectors.Root}>
-            <ReanimatedPressable key={value} style={buttonStyles} testID={selectors.Button} {...(canPress && { onPress: handlePress })}>
-                <Text style={textStyles}>{value}</Text>
-            </ReanimatedPressable>
+        useImperativeHandle(ref, () => ({
+            triggerAnimation: triggerAnimationFn
+        }));
 
-            <View style={progressStyles} />
-        </View>
-    );
-};
+        const handlePress = () => {
+            triggerAnimationFn();
+            onSelect(value);
+        };
+
+        const buttonStyles = [styles.button, cs(isActive, styles.wrapperActive), animatedStyles];
+        const textStyles = [styles.text, cs(isActive, styles.textActive)];
+        const progressStyles = [styles.progress, { width: `${progress}%` }] as StyleProp<ViewStyle>;
+
+        return (
+            <View style={styles.container} testID={selectors.Root}>
+                <ReanimatedPressable key={value} style={buttonStyles} testID={selectors.Button} {...(canPress && { onPress: handlePress })}>
+                    <Text style={textStyles}>{value}</Text>
+                </ReanimatedPressable>
+
+                <View style={progressStyles} />
+            </View>
+        );
+    }
+);
