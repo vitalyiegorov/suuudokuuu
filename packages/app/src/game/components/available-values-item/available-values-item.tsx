@@ -1,3 +1,4 @@
+import { useCallback, useEffect } from 'react';
 import { Pressable, Text, View } from 'react-native';
 import Reanimated, {
     interpolate,
@@ -26,10 +27,11 @@ interface Props {
     readonly progress: number;
     readonly correctValue?: number;
     readonly onSelect: OnEventFn<number>;
+    readonly shouldAnimate?: boolean;
 }
 
 // TODO: Add animation when correct value is selected
-export const AvailableValuesItem = ({ value, isActive, onSelect, progress, correctValue, canPress }: Props) => {
+export const AvailableValuesItem = ({ value, isActive, onSelect, progress, correctValue, canPress, shouldAnimate }: Props) => {
     const isCorrect = value === correctValue;
     const pressAnimatedBgColor = isCorrect ? Colors.cell.active : Colors.cell.error;
 
@@ -44,10 +46,21 @@ export const AvailableValuesItem = ({ value, isActive, onSelect, progress, corre
         })
     }));
 
-    const handlePress = () => {
+    const triggerAnimation = useCallback(() => {
         animated.value = withSequence(withTiming(1, { duration: 200 }), withTiming(0, { duration: 200 }));
+    }, [animated]);
+
+    const handlePress = () => {
+        triggerAnimation();
         onSelect(value);
     };
+
+    // Trigger animation when shouldAnimate prop changes to true
+    useEffect(() => {
+        if (shouldAnimate === true) {
+            triggerAnimation();
+        }
+    }, [shouldAnimate, triggerAnimation]);
 
     const buttonStyles = [styles.button, cs(isActive, styles.wrapperActive), animatedStyles];
     const textStyles = [styles.text, cs(isActive, styles.textActive)];

@@ -12,9 +12,10 @@ interface Props {
     readonly possibleValues: number[];
     readonly selectedCell?: CellInterface;
     readonly onSelect: OnEventFn<number>;
+    readonly animateValue?: number;
 }
 
-export const AvailableValues = ({ sudoku, possibleValues, selectedCell, onSelect }: Props) => {
+export const AvailableValues = ({ sudoku, possibleValues, selectedCell, onSelect, animateValue }: Props) => {
     const isBlankCellSelected = sudoku.isBlankCell(selectedCell);
     const currentCorrectValue = sudoku.getCorrectValue(selectedCell);
 
@@ -28,6 +29,7 @@ export const AvailableValues = ({ sudoku, possibleValues, selectedCell, onSelect
                     key={`possible-value-${value}`}
                     onSelect={onSelect}
                     progress={sudoku.getValueProgress(value)}
+                    shouldAnimate={animateValue === value}
                     value={value}
                 />
             ))}
