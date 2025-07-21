@@ -1,4 +1,3 @@
-import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { useRouter } from 'expo-router';
