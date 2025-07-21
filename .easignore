@@ -62,19 +62,6 @@ report
 ormconfig.json
 ormconfig.js
 
-# docker
-infrastructure/docker/postgres/data
-infrastructure/docker/elasticsearch/data
-
-# docker secrets
-infrastructure/docker/secrets/*
-!infrastructure/docker/secrets/.gitkeep
-
-# helm
-infrastructure/kubernetes/charts/dynamic-backend/charts/
-infrastructure/kubernetes/envs/**/charts/
-**/deployment/charts/*/charts/
-
 # webpack
 .build_cache
 
