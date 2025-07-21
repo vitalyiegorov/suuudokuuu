@@ -190,15 +190,29 @@ describe('Sudoku - Cell Validation', () => {
             const sudoku = new Sudoku();
             sudoku.create(DifficultyEnum.Easy);
             const correctValue = sudoku.getCorrectValue({ x: 0, y: 0, group: 0, value: 0 });
-            // Use fixed wrong value
-            const wrongValue = 5;
+            // Use a wrong value that's guaranteed to be different from the correct value
+            const wrongValue = correctValue === 9 ? 1 : correctValue + 1;
             const wrongCell = { x: 0, y: 0, group: 0, value: wrongValue };
             const correctCell = { x: 0, y: 0, group: 0, value: correctValue };
-            const blankCell = { x: 1, y: 1, group: 0, value: defaultSudokuConfig.blankCellValue };
+            
+            // Find an actually blank cell in the game field
+            let blankCell = null;
+            for (let y = 0; y < sudoku.config.fieldSize; y++) {
+                for (let x = 0; x < sudoku.config.fieldSize; x++) {
+                    const cell = { x, y, group: 0, value: defaultSudokuConfig.blankCellValue };
+                    if (sudoku.isBlankCell(cell)) {
+                        blankCell = cell;
+                        break;
+                    }
+                }
+                if (blankCell) break;
+            }
             
             expect(sudoku.isCellWrong(wrongCell, wrongCell)).toBe(true);
             expect(sudoku.isCellWrong(correctCell, correctCell)).toBe(false);
-            expect(sudoku.isCellWrong(blankCell, blankCell)).toBe(false);
+            if (blankCell) {
+                expect(sudoku.isCellWrong(blankCell, blankCell)).toBe(false);
+            }
         });
     });
 });
