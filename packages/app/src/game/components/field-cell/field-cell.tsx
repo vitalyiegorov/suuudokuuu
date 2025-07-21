@@ -83,39 +83,12 @@ const useTextAnimation = () => {
     return { textAnimation, triggerAnimation };
 };
 
-const useTextAnimatedStyles = (textAnimation: ReturnType<typeof useSharedValue>) => 
-    useAnimatedStyle(() => ({
-        color: interpolateColor(textAnimation.value, [0, 0.5, 1], [Colors.black, Colors.cell.highlightedText, Colors.black]),
-        fontSize: interpolate(textAnimation.value, [0, 0.5, 1], [CellFontSizeConstant, CellFontSizeConstant * 2, CellFontSizeConstant]),
-        transform: [{ rotate: `${interpolate(textAnimation.value, [0, 1], [0, 360])}deg` }]
-    }));
-
-const getTextStyles = (params: { text: string; isHighlighted: boolean; isActiveValue: boolean; isActive: boolean; textAnimation: ReturnType<typeof useSharedValue>; textAnimatedStyles: AnimatedStyle<object> }) => [
-    styles.textRegular,
-    cs(params.text === '' || params.text === '•', styles.textEmpty),
-    cs(params.isHighlighted, styles.textHighlighted),
-    cs(params.isActiveValue, styles.textActiveValue),
-    cs(params.isActive, styles.textActive),
-    cs(params.textAnimation.value !== 0, params.textAnimatedStyles)
-];
-
-const getCellStyles = (sudoku: Sudoku, cell: CellInterface, backgroundColor: string, animatedStyles: AnimatedStyle<object>) => [
-    styles.container,
-    cs(sudoku.isLastInCellGroupX(cell), styles.groupXEnd),
-    cs(sudoku.isLastInCellGroupY(cell), styles.groupYEnd),
-    cs(sudoku.isLastInRow(cell), styles.lastRow),
-    cs(sudoku.isLastInColumn(cell), styles.lastCol),
-    { backgroundColor },
-    animatedStyles
-];
-
-const FieldCellComponent = (props: Props) => {
+export const FieldCell = (props: Props) => {
     const { sudoku, cell, onSelect, isActive, isActiveValue, isHighlighted, isWrong, ref } = props;
 
     const cellBackgroundColor = getCellBgColor(isActiveValue, isHighlighted, isWrong);
     const isEmpty = sudoku.isBlankCell(cell);
     const text = getText(isActive, isEmpty, cell);
-
     const animation = useDerivedValue(() => withTiming(isActive ? 1 : 0, animationConfig));
     const { textAnimation, triggerAnimation } = useTextAnimation();
 
@@ -125,19 +98,39 @@ const FieldCellComponent = (props: Props) => {
         backgroundColor: interpolateColor(animation.value, [0, 1], [cellBackgroundColor, Colors.cell.active])
     }));
 
-    const textAnimatedStyles = useTextAnimatedStyles(textAnimation);
-    const mergedTextStyles = getTextStyles({ text, isHighlighted, isActiveValue, isActive, textAnimation, textAnimatedStyles });
-    const handlePress = () => void onSelect(isActive ? undefined : cell); // eslint-disable-line no-undefined
+    const getCellStyles = (sudokuArg: Sudoku, cellArg: CellInterface, backgroundColor: string, animatedStylesArg: AnimatedStyle<object>) => [
+        styles.container,
+        cs(sudokuArg.isLastInCellGroupX(cellArg), styles.groupXEnd),
+        cs(sudokuArg.isLastInCellGroupY(cellArg), styles.groupYEnd),
+        cs(sudokuArg.isLastInRow(cellArg), styles.lastRow),
+        cs(sudokuArg.isLastInColumn(cellArg), styles.lastCol),
+        { backgroundColor },
+        animatedStylesArg
+    ];
+
+    const getTextStyles = (params: { text: string; isHighlighted: boolean; isActiveValue: boolean; isActive: boolean; textAnimation: ReturnType<typeof useSharedValue>; textAnimatedStyles: AnimatedStyle<object> }) => [
+        styles.textRegular,
+        cs(params.text === '' || params.text === '•', styles.textEmpty),
+        cs(params.isHighlighted, styles.textHighlighted),
+        cs(params.isActiveValue, styles.textActiveValue),
+        cs(params.isActive, styles.textActive),
+        cs(params.textAnimation.value !== 0, params.textAnimatedStyles)
+    ];
+
+    const useTextAnimatedStyles = (textAnimationArg: ReturnType<typeof useSharedValue>) => 
+        useAnimatedStyle(() => ({
+            color: interpolateColor(textAnimationArg.value, [0, 0.5, 1], [Colors.black, Colors.cell.highlightedText, Colors.black]),
+            fontSize: interpolate(textAnimationArg.value, [0, 0.5, 1], [CellFontSizeConstant, CellFontSizeConstant * 2, CellFontSizeConstant]),
+            transform: [{ rotate: `${interpolate(textAnimationArg.value, [0, 1], [0, 360])}deg` }]
+        }));
 
     return (
         <ReanimatedPressable 
-            onPress={handlePress} 
+            onPress={() => void onSelect(isActive ? undefined : cell)} 
             style={getCellStyles(sudoku, cell, cellBackgroundColor, animatedStyles)} 
             testID={getCellSelector(props)}
         >
-            <Reanimated.Text style={mergedTextStyles}>{text}</Reanimated.Text>
+            <Reanimated.Text style={getTextStyles({ text, isHighlighted, isActiveValue, isActive, textAnimation, textAnimatedStyles: useTextAnimatedStyles(textAnimation) })}>{text}</Reanimated.Text>
         </ReanimatedPressable>
     );
 };
-
-export const FieldCell = FieldCellComponent;
