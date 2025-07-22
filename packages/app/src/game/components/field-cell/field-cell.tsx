@@ -32,16 +32,18 @@ const getText = (isActive: boolean, isEmpty: boolean, cell: CellInterface): stri
     return cell.value.toString();
 };
 
-const getCellBgColor = (isActiveValue: boolean, isCellHighlighted: boolean, isWrong: boolean) => {
+const getCellBgColor = (isActiveValue: boolean, isCellHighlighted: boolean, isWrong: boolean, isEmpty: boolean) => {
     if (isWrong) {
         return Colors.cell.error;
     } else if (isActiveValue) {
         return Colors.cell.activeValue;
     } else if (isCellHighlighted) {
         return Colors.cell.highlighted;
+    } else if (isEmpty) {
+        return Colors.white;
     }
 
-    return Colors.white;
+    return Colors.cell.filled;
 };
 
 const getCellSelector = (props: Props): selectors => {
@@ -101,7 +103,7 @@ export const FieldCell = (props: Props) => {
     const { sudoku } = use(GameContext);
 
     const isEmpty = sudoku.isBlankCell(cell);
-    const cellBackgroundColor = getCellBgColor(isActiveValue, isHighlighted, isWrong);
+    const cellBackgroundColor = getCellBgColor(isActiveValue, isHighlighted, isWrong, isEmpty);
     const text = getText(isActive, isEmpty, cell);
     const candidates = isEmpty && hasCandidates ? sudoku.getCellCandidates(cell) : [];
 
