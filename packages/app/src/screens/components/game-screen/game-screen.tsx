@@ -1,6 +1,7 @@
 import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { useRouter } from 'expo-router';
+import { LucideHandHelping, LucideLogOut } from 'lucide-react-native';
 import { use, useRef, useState } from 'react';
 import { Text, View } from 'react-native';
 
@@ -17,8 +18,8 @@ import { Field, type FieldRef } from '../../../game/components/field/field';
 import { GameTimer } from '../../../game/components/game-timer/game-timer';
 import { GameContext } from '../../../game/context/game.context';
 import { useKeyboardControls } from '../../../game/hooks/use-keyboard-controls/use-keyboard-controls.hook';
-import { gameResetAction } from '../../../game/store/game.actions';
-import { gameMistakesSelector, gameScoreSelector } from '../../../game/store/game.selectors';
+import { gameResetAction, gameToggleCandidatesAction } from '../../../game/store/game.actions';
+import { gameHasCandidatesSelector, gameMistakesSelector, gameScoreSelector } from '../../../game/store/game.selectors';
 import { gameFinishedThunk } from '../../../game/store/thunks/game-finish.thunk';
 import { gameMistakeThunk } from '../../../game/store/thunks/game-mistake.thunk';
 import { gameSaveThunk } from '../../../game/store/thunks/game-save.thunk';
@@ -37,6 +38,7 @@ export const GameScreen = () => {
     const dispatch = useAppDispatch();
     const score = useAppSelector(gameScoreSelector);
     const mistakes = useAppSelector(gameMistakesSelector);
+    const hasCandidates = useAppSelector(gameHasCandidatesSelector);
 
     const [selectedCell, setSelectedCell] = useState<CellInterface>();
     const availableValuesRefs = useRef<Record<number, AvailableValuesItemRef | null>>({});
@@ -130,6 +132,10 @@ export const GameScreen = () => {
         availableValuesRefs.current[value] = ref;
     };
 
+    const handleCandidates = () => {
+        dispatch(gameToggleCandidatesAction());
+    };
+
     useKeyboardControls(sudoku, selectedCell, handleSelectCell, handleSelectValue);
 
     const mistakesCountTextStyles = [styles.mistakesCountText, cs(maxMistakesReached, styles.mistakesCountErrorText)];
@@ -155,7 +161,15 @@ export const GameScreen = () => {
                     <Text style={styles.scoreText}>{score}</Text>
                 </View>
 
-                <BlackButton onPress={handleExit} text="Exit" />
+                <View style={styles.buttonsWrapper}>
+                    <BlackButton isActive={hasCandidates} onPress={handleCandidates} style={styles.button}>
+                        <LucideHandHelping color={hasCandidates ? 'red' : 'black'} />
+                    </BlackButton>
+
+                    <BlackButton onPress={handleExit} style={styles.button}>
+                        <LucideLogOut />
+                    </BlackButton>
+                </View>
             </View>
 
             <Field onSelect={handleSelectCell} ref={fieldRef} selectedCell={selectedCell} />

@@ -146,6 +146,22 @@ export class Sudoku extends SerializableSudoku {
         );
     }
 
+    getCellCandidates(cell: CellInterface): number[] {
+        const candidates: number[] = [];
+        for (const value of this.fieldFillingValues) {
+            const candidateCell = { ...cell, value };
+            if (
+                !this.hasValueInRow(this.gameField, candidateCell) &&
+                !this.hasValueInColumn(this.gameField, candidateCell) &&
+                !this.hasValueInGroup(this.gameField, candidateCell)
+            ) {
+                candidates.push(value);
+            }
+        }
+
+        return candidates;
+    }
+
     // eslint-disable-next-line max-statements
     setCellValue(cell: CellInterface): ScoredCellsInterface {
         const scoredCells = { ...emptyScoredCells };

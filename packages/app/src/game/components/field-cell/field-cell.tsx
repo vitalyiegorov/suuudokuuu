@@ -56,6 +56,24 @@ const getCellSelector = (props: Props): selectors => {
     return selectors.Root;
 };
 
+const getCandidateTextStyles = (candidate: number) => {
+    const textCandidatePositionStyles = {
+        1: styles.textCandidatePosition1,
+        2: styles.textCandidatePosition2,
+        3: styles.textCandidatePosition3,
+        4: styles.textCandidatePosition4,
+        5: styles.textCandidatePosition5,
+        6: styles.textCandidatePosition6,
+        7: styles.textCandidatePosition7,
+        8: styles.textCandidatePosition8,
+        9: styles.textCandidatePosition9
+    };
+
+    const textCandidateStyle = textCandidatePositionStyles[candidate as keyof typeof textCandidatePositionStyles];
+
+    return [styles.textCandidate, textCandidateStyle];
+};
+
 const animationConfig = { duration: animationDurationConstant };
 const textAnimationConfig = { duration: 6 * animationDurationConstant };
 
@@ -72,18 +90,20 @@ interface Props {
     readonly isActiveValue: boolean;
     readonly isHighlighted: boolean;
     readonly isWrong: boolean;
+    readonly hasCandidates: boolean;
     readonly ref: Ref<FieldCellRef>;
 }
 
 // eslint-disable-next-line max-statements
 export const FieldCell = (props: Props) => {
-    const { cell, onSelect, isActive, isActiveValue, isHighlighted, isWrong, ref } = props;
+    const { cell, onSelect, isActive, isActiveValue, isHighlighted, isWrong, hasCandidates, ref } = props;
 
     const { sudoku } = use(GameContext);
 
     const isEmpty = sudoku.isBlankCell(cell);
     const cellBackgroundColor = getCellBgColor(isActiveValue, isHighlighted, isWrong);
     const text = getText(isActive, isEmpty, cell);
+    const candidates = isEmpty && hasCandidates ? sudoku.getCellCandidates(cell) : [];
 
     const animation = useDerivedValue(() => withTiming(isActive ? 1 : 0, animationConfig));
     const textAnimation = useSharedValue(0);
@@ -139,6 +159,12 @@ export const FieldCell = (props: Props) => {
 
     return (
         <ReanimatedPressable onPress={handlePress} style={cellStyles} testID={getCellSelector(props)}>
+            {candidates.map(candidate => (
+                <Reanimated.Text key={`candidate-${candidate}`} style={getCandidateTextStyles(candidate)}>
+                    {candidate}
+                </Reanimated.Text>
+            ))}
+
             <Reanimated.Text style={textStyles}>{text}</Reanimated.Text>
         </ReanimatedPressable>
     );

@@ -2,7 +2,9 @@ import { isEmptyScoredCells } from '@suuudokuuu/generator';
 import { use, useImperativeHandle, useRef } from 'react';
 import { View } from 'react-native';
 
+import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { GameContext } from '../../context/game.context';
+import { gameHasCandidatesSelector } from '../../store/game.selectors';
 import { FieldCell, type FieldCellRef } from '../field-cell/field-cell';
 
 import { FieldStyles as styles } from './field.styles';
@@ -25,6 +27,7 @@ interface Props {
 
 export const Field = ({ selectedCell, onSelect, ref }: Props) => {
     const { sudoku } = use(GameContext);
+    const hasCandidates = useAppSelector(gameHasCandidatesSelector);
 
     const cellRefs = useRef<Record<string, FieldCellRef | null>>({});
 
@@ -57,6 +60,7 @@ export const Field = ({ selectedCell, onSelect, ref }: Props) => {
                     {row.map(cell => (
                         <FieldCell
                             cell={cell}
+                            hasCandidates={hasCandidates}
                             isActive={sudoku.isSameCell(cell, selectedCell)}
                             isActiveValue={sudoku.isSameCellValue(cell, selectedCell)}
                             isHighlighted={sudoku.isCellHighlighted(cell, selectedCell)}

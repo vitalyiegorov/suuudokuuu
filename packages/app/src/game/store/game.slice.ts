@@ -27,6 +27,9 @@ export const gameSlice = createSlice({
         },
         reset: state => {
             Object.assign(state, initialGameState);
+        },
+        toggleCandidates: state => {
+            state.hasCandidates = !state.hasCandidates;
         }
     }
 });
