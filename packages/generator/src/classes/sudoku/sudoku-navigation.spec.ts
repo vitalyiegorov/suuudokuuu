@@ -92,11 +92,11 @@ describe('Sudoku - Cell Validation', () => {
             const sudoku = new Sudoku();
             sudoku.create(DifficultyEnum.Easy);
             
-            const targetCell = { x: 0, y: 0, group: 0, value: 1 };
+            const filledCell = sudoku.Field.flat().find(cell => cell.value !== defaultSudokuConfig.blankCellValue);
             const differentCell = { x: 1, y: 1, group: 1, value: 8 };
 
-            expect(sudoku.isCellWrong(targetCell, differentCell)).toBe(false);
-            expect(sudoku.isCellWrong(targetCell, targetCell)).toBe(false);
+            expect(sudoku.isCellWrong(filledCell, differentCell)).toBe(false);
+            expect(sudoku.isCellWrong(filledCell, filledCell)).toBe(false);
         });
     });
 });
