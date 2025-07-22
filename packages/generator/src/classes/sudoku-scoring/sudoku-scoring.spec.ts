@@ -24,7 +24,7 @@ describe('SudokuScoring', () => {
 
         const scoredCellsWithRow: ScoredCellsInterface = {
             ...emptyScoredCells,
-            x: 5 // Non-empty value indicates row completion
+            x: 5
         };
 
         const score = scoring.calculate(DifficultyEnum.Easy, scoredCellsWithRow, 0, 0);
@@ -37,7 +37,7 @@ describe('SudokuScoring', () => {
 
         const scoredCellsWithCol: ScoredCellsInterface = {
             ...emptyScoredCells,
-            y: 3 // Non-empty value indicates column completion
+            y: 3
         };
 
         const score = scoring.calculate(DifficultyEnum.Easy, scoredCellsWithCol, 0, 0);
@@ -50,7 +50,7 @@ describe('SudokuScoring', () => {
 
         const scoredCellsWithGroup: ScoredCellsInterface = {
             ...emptyScoredCells,
-            group: 2 // Non-empty value indicates group completion
+            group: 2
         };
 
         const score = scoring.calculate(DifficultyEnum.Easy, scoredCellsWithGroup, 0, 0);
@@ -63,7 +63,7 @@ describe('SudokuScoring', () => {
 
         const scoredCellsWithValue: ScoredCellsInterface = {
             ...emptyScoredCells,
-            values: [7] // Exactly one value indicates value completion
+            values: [7]
         };
 
         const score = scoring.calculate(DifficultyEnum.Easy, scoredCellsWithValue, 0, 0);
@@ -101,7 +101,7 @@ describe('SudokuScoring', () => {
         expect.assertions(1);
 
         // Apply very high penalties to test minimum score
-        const score = scoring.calculate(DifficultyEnum.Easy, emptyScoredCells, 1000, 10000);
+        const score = scoring.calculate(DifficultyEnum.Easy, emptyScoredCells, 1000, 3600);
 
         expect(score).toBe(defaultSudokuScoringConfig.correctMinValue);
     });

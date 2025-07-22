@@ -54,23 +54,20 @@ describe('serializableSudoku', () => {
         const testConfig = {
             ...defaultSudokuConfig,
             difficultyBlankCells: {
-                [DifficultyEnum.Newbie]: 0.2,   // 20% blank cells
-                [DifficultyEnum.Easy]: 0.4,     // 40% blank cells
-                [DifficultyEnum.Medium]: 0.6,   // 60% blank cells
-                [DifficultyEnum.Hard]: 0.8,     // 80% blank cells
-                [DifficultyEnum.Nightmare]: 0.9 // 90% blank cells
+                [DifficultyEnum.Newbie]: 0.2,
+                [DifficultyEnum.Easy]: 0.4,
+                [DifficultyEnum.Medium]: 0.6,
+                [DifficultyEnum.Hard]: 0.8,
+                [DifficultyEnum.Nightmare]: 0.9
             }
         };
 
-        // Create strings with exactly 50% blanks in the game field (40 blanks + 41 filled = 81 total)
-        const completeField = '123456789'.repeat(9); // Complete 9x9 field
-        const gameField = '1'.repeat(40) + '.'.repeat(41); // 40 filled + 41 blanks = 50.6% blanks
-        const testFieldsString = completeField + '|' + gameField;
+        const completeField = '123456789'.repeat(9);
+        const gameField = '1'.repeat(40) + '.'.repeat(41);
+        const testFieldsString = `${completeField  }|${  gameField}`;
 
         const sudoku = SerializableSudoku.fromString(testFieldsString, testConfig);
 
-        // The method gets called and modifies the difficulty - that's what we're testing for coverage
-        // With our thresholds, it should stay at Newbie since 0.506 > 0.2 but other thresholds might not be met
         expect(sudoku.Difficulty).toBe(DifficultyEnum.Newbie);
     });
 
@@ -96,6 +93,7 @@ describe('serializableSudoku', () => {
 
         // Test getting progress for value 4 (which should have some progress based on available values)
         const progress = sudoku.getValueProgress(4);
+
         expect(typeof progress).toBe('number');
     });
 
@@ -112,10 +110,12 @@ describe('serializableSudoku', () => {
 
         // Test with a cell that has an available value
         const cellWithAvailableValue = { x: 0, y: 0, group: 0, value: 4 };
+
         expect(sudoku.isValueAvailable(cellWithAvailableValue)).toBe(true);
 
         // Test with a cell that has a value that's already completed (value 6 should be complete in this puzzle)
         const cellWithCompletedValue = { x: 0, y: 0, group: 0, value: 6 };
+
         expect(sudoku.isValueAvailable(cellWithCompletedValue)).toBe(false);
     });
 
