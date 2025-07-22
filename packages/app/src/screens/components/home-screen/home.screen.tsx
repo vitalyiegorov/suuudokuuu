@@ -1,6 +1,6 @@
 import Constants from 'expo-constants';
 import { Link, useRouter } from 'expo-router';
-import { useState } from 'react';
+import { use, useState } from 'react';
 import { Text, View } from 'react-native';
 
 import { isNotEmptyString } from '@rnw-community/shared';
@@ -11,6 +11,7 @@ import { Header } from '../../../@generic/components/header/header';
 import { SupportUkraineBanner } from '../../../@generic/components/support-ukraine-banner/support-ukraine-banner';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { getTimerText } from '../../../@generic/utils/get-timer-text.util';
+import { GameContext } from '../../../game/context/game.context';
 import { useResumeGame } from '../../../game/hooks/use-resume-game.hook';
 import { gameSudokuStringSelector } from '../../../game/store/game.selectors';
 import { historyBestTimeSelector } from '../../../history/store/history.selectors';
@@ -21,6 +22,7 @@ import type { DifficultyEnum } from '@suuudokuuu/generator';
 
 export const HomeScreen = () => {
     const router = useRouter();
+    const { createFromDifficulty } = use(GameContext);
 
     const oldGameString = useAppSelector(gameSudokuStringSelector);
     const [bestScore, bestTime] = useAppSelector(historyBestTimeSelector);
@@ -38,8 +40,9 @@ export const HomeScreen = () => {
         setShowDifficultySelect(false);
     };
     const handleStart = (difficulty: DifficultyEnum) => {
-        router.push(`game?difficulty=${difficulty}`);
+        createFromDifficulty(difficulty);
         setShowDifficultySelect(false);
+        router.push(`game?difficulty=${difficulty}`);
     };
 
     return (

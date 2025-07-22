@@ -1,4 +1,4 @@
-import { useImperativeHandle } from 'react';
+import { use, useImperativeHandle } from 'react';
 import { Pressable } from 'react-native';
 import Reanimated, {
     interpolate,
@@ -13,7 +13,7 @@ import { type OnEventFn, cs } from '@rnw-community/shared';
 
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
 import { Colors } from '../../../@generic/styles/theme';
-import { sudoku } from '../../store/sudoku-instance';
+import { GameContext } from '../../context/game.context';
 import { CellFontSizeConstant } from '../constants/dimensions.contant';
 
 import { FieldCellSelectors as selectors } from './field-cell.selectors';
@@ -76,6 +76,8 @@ interface Props {
 // eslint-disable-next-line max-statements
 export const FieldCell = (props: Props) => {
     const { cell, onSelect, isActive, isActiveValue, isHighlighted, isWrong, ref } = props;
+
+    const { sudoku } = use(GameContext);
 
     const isEmpty = sudoku.isBlankCell(cell);
     const cellBackgroundColor = getCellBgColor(isActiveValue, isHighlighted, isWrong);

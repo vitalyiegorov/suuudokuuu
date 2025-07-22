@@ -1,8 +1,8 @@
 import { isEmptyScoredCells } from '@suuudokuuu/generator';
-import { useImperativeHandle, useRef } from 'react';
+import { use, useImperativeHandle, useRef } from 'react';
 import { View } from 'react-native';
 
-import { sudoku } from '../../store/sudoku-instance';
+import { GameContext } from '../../context/game.context';
 import { FieldCell, type FieldCellRef } from '../field-cell/field-cell';
 
 import { FieldStyles as styles } from './field.styles';
@@ -24,6 +24,8 @@ interface Props {
 }
 
 export const Field = ({ selectedCell, onSelect, ref }: Props) => {
+    const { sudoku } = use(GameContext);
+
     const cellRefs = useRef<Record<string, FieldCellRef | null>>({});
 
     useImperativeHandle(
