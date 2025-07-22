@@ -48,7 +48,7 @@ export const useKeyboardControls = (
                 return;
             }
 
-            if (['Space'].includes(code)) {
+            if (['Tab'].includes(code)) {
                 dispatch(gameToggleCandidatesAction());
             }
 
