@@ -5,6 +5,7 @@ export interface GameState {
     elapsedTime: number;
     paused: boolean;
     isFinished: boolean;
+    hasCandidates: boolean;
 }
 
 export const initialGameState: GameState = {
@@ -13,5 +14,6 @@ export const initialGameState: GameState = {
     elapsedTime: 0,
     sudokuString: '',
     mistakes: 0,
-    score: 0
+    score: 0,
+    hasCandidates: false
 };
