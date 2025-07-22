@@ -2,6 +2,9 @@ import { useEffect } from 'react';
 
 import { isDefined } from '@rnw-community/shared';
 
+import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
+import { gameToggleCandidatesAction } from '../../store/game.actions';
+
 import type { OnEventFn } from '@rnw-community/shared';
 import type { CellInterface, Sudoku } from '@suuudokuuu/generator';
 
@@ -11,9 +14,12 @@ export const useKeyboardControls = (
     onSelectCell: OnEventFn<CellInterface | undefined>,
     onSelectValue: OnEventFn<number>
 ) => {
+    const dispatch = useAppDispatch();
+
     useEffect(() => {
+        // eslint-disable-next-line max-statements
         const handleKeyDown = (e: KeyboardEvent) => {
-            const { key } = e;
+            const { key, code } = e;
 
             if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(key)) {
                 e.preventDefault();
@@ -40,6 +46,10 @@ export const useKeyboardControls = (
                 onSelectCell(nextCell);
 
                 return;
+            }
+
+            if (['Space'].includes(code)) {
+                dispatch(gameToggleCandidatesAction());
             }
 
             if (isDefined(selectedCell) && /^[1-9]$/iu.test(key)) {
