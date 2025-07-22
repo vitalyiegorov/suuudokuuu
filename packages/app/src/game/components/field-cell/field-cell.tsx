@@ -61,12 +61,6 @@ const textAnimationConfig = { duration: 2 * animationDurationConstant };
 
 const FONT_SIZE_MULTIPLIER = 1.5;
 
-const getTextAnimatedStyles = (textAnimation: number) => ({
-    color: interpolateColor(textAnimation, [0, 0.5, 1], [Colors.black, Colors.cell.highlightedText, Colors.black]),
-    fontSize: interpolate(textAnimation, [0, 0.5, 1], [CellFontSizeConstant, CellFontSizeConstant * FONT_SIZE_MULTIPLIER, CellFontSizeConstant]),
-    transform: [{ rotate: `${interpolate(textAnimation, [0, 1], [0, 360])}deg` }]
-});
-
 export interface FieldCellRef {
     triggerAnimation: () => void;
 }
@@ -111,7 +105,11 @@ export const FieldCell = (props: Props) => {
     const cellAnimatedStyles = useAnimatedStyle(() => ({
         backgroundColor: interpolateColor(animation.value, [0, 1], [cellBackgroundColor, Colors.cell.active])
     }));
-    const textAnimatedStyles = useAnimatedStyle(() => getTextAnimatedStyles(textAnimation.value));
+    const textAnimatedStyles = useAnimatedStyle(() => ({
+        color: interpolateColor(textAnimation.value, [0, 0.5, 1], [Colors.black, Colors.cell.highlightedText, Colors.black]),
+        fontSize: interpolate(textAnimation.value, [0, 0.5, 1], [CellFontSizeConstant, CellFontSizeConstant * FONT_SIZE_MULTIPLIER, CellFontSizeConstant]),
+        transform: [{ rotate: `${interpolate(textAnimation.value, [0, 1], [0, 360])}deg` }]
+    }));
 
     const handlePress = () => {
         onSelect(isActive ? undefined : cell);
