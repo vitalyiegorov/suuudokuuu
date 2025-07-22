@@ -11,6 +11,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 import { appRootPersistor, appRootStore } from '../@generic/app-root.store';
 import { BlackTheme, WhiteTheme } from '../@generic/styles/theme';
+import { GameProvider } from '../game/context/game.context';
 
 // eslint-disable-next-line jest/require-hook
 enableScreens();
@@ -21,7 +22,7 @@ void SplashScreen.preventAutoHideAsync();
 const stackOptions = { headerShown: false, gestureEnabled: false };
 
 export default function RootLayout() {
-    const scheme = useColorScheme() === 'dark' ? BlackTheme : WhiteTheme;
+    const theme = useColorScheme() === 'dark' ? BlackTheme : WhiteTheme;
     // eslint-disable-next-line camelcase
     const [loaded] = useFonts({ Inter_500Medium, Inter_700Bold });
 
@@ -38,8 +39,10 @@ export default function RootLayout() {
     return (
         <Provider store={appRootStore}>
             <PersistGate loading={null} persistor={appRootPersistor}>
-                <ThemeProvider value={scheme}>
-                    <Stack screenOptions={stackOptions} />
+                <ThemeProvider value={theme}>
+                    <GameProvider>
+                        <Stack screenOptions={stackOptions} />
+                    </GameProvider>
                 </ThemeProvider>
             </PersistGate>
         </Provider>

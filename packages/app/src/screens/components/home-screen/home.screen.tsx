@@ -1,7 +1,7 @@
 import Constants from 'expo-constants';
-import { Link, useRouter } from 'expo-router';
-import { useState } from 'react';
-import { Text, View } from 'react-native';
+import { Link } from 'expo-router';
+import { use, useState } from 'react';
+import { ActivityIndicator, Text, View } from 'react-native';
 
 import { isNotEmptyString } from '@rnw-community/shared';
 
@@ -10,7 +10,9 @@ import { DifficultySelect } from '../../../@generic/components/difficulty-select
 import { Header } from '../../../@generic/components/header/header';
 import { SupportUkraineBanner } from '../../../@generic/components/support-ukraine-banner/support-ukraine-banner';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
+import { Colors } from '../../../@generic/styles/theme';
 import { getTimerText } from '../../../@generic/utils/get-timer-text.util';
+import { GameContext } from '../../../game/context/game.context';
 import { useResumeGame } from '../../../game/hooks/use-resume-game.hook';
 import { gameSudokuStringSelector } from '../../../game/store/game.selectors';
 import { historyBestTimeSelector } from '../../../history/store/history.selectors';
@@ -20,7 +22,7 @@ import { HomeScreenStyles } from './home-screen.styles';
 import type { DifficultyEnum } from '@suuudokuuu/generator';
 
 export const HomeScreen = () => {
-    const router = useRouter();
+    const { createFromDifficulty } = use(GameContext);
 
     const oldGameString = useAppSelector(gameSudokuStringSelector);
     const [bestScore, bestTime] = useAppSelector(historyBestTimeSelector);
@@ -28,6 +30,7 @@ export const HomeScreen = () => {
     const handleContinue = useResumeGame();
 
     const [showDifficultySelect, setShowDifficultySelect] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const isGameStarted = isNotEmptyString(oldGameString);
 
@@ -38,8 +41,14 @@ export const HomeScreen = () => {
         setShowDifficultySelect(false);
     };
     const handleStart = (difficulty: DifficultyEnum) => {
-        router.push(`game?difficulty=${difficulty}`);
-        setShowDifficultySelect(false);
+        setIsLoading(true);
+
+        // HINT: Sudoku creation hangs the UI thread, we need to render the loading first
+        setTimeout(() => {
+            createFromDifficulty(difficulty);
+            setShowDifficultySelect(false);
+            setIsLoading(false);
+        }, 10);
     };
 
     return (
@@ -57,7 +66,9 @@ export const HomeScreen = () => {
                     </View>
                 )}
 
-                {showDifficultySelect ? (
+                {isLoading ? <ActivityIndicator color={Colors.black} /> : null}
+
+                {!isLoading && showDifficultySelect ? (
                     <>
                         <DifficultySelect onSelect={handleStart} />
 
