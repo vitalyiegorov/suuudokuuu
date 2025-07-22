@@ -38,7 +38,6 @@ describe('serializableSudoku', () => {
     it('should correctly calculate possible values', () => {
         expect.assertions(1);
 
-        // HINT: Puzzle has all 6 solved, and zero 4
         const testFieldsString =
             '875469123469123875123875469784596231596231784231784596658947312947312658312658947|....69123.69123875123875.6978.596...59623178.23178.5966589.73129.7312658312658...';
 
@@ -50,7 +49,6 @@ describe('serializableSudoku', () => {
     it('should set difficulty based on blank cells ratio', () => {
         expect.assertions(1);
 
-        // Create a configuration with specific difficulty thresholds
         const testConfig = {
             ...defaultSudokuConfig,
             difficultyBlankCells: {
@@ -91,7 +89,6 @@ describe('serializableSudoku', () => {
 
         const sudoku = SerializableSudoku.fromString(testFieldsString, defaultSudokuConfig);
 
-        // Test getting progress for value 4 (which should have some progress based on available values)
         const progress = sudoku.getValueProgress(4);
 
         expect(progress).toBeGreaterThanOrEqual(0);

@@ -100,7 +100,6 @@ describe('SudokuScoring', () => {
     it('should respect minimum score threshold', () => {
         expect.assertions(1);
 
-        // Apply very high penalties to test minimum score
         const score = scoring.calculate(DifficultyEnum.Easy, emptyScoredCells, 1000, 3600);
 
         expect(score).toBe(defaultSudokuScoringConfig.correctMinValue);
