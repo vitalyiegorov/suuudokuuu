@@ -17,7 +17,8 @@ export const WhiteTheme = {
             activeValueText: 'rgba(0, 0, 0, 1)',
             error: 'rgba(255, 0, 0, 1)',
             emptyValueText: 'rgba(0, 0, 0, 0.5)',
-            candidate: 'rgba(0, 0, 0, 0.5)'
+            candidate: 'rgba(0, 0, 0, 0.5)',
+            filled: 'rgba(0, 0, 0, 0.1)'
         },
         value: {
             border: 'rgba(0,0,0,0.15)',
@@ -44,7 +45,8 @@ export const BlackTheme = {
             activeValueText: 'rgba(255, 255, 255, 1)',
             emptyValueText: 'rgba(255, 255, 255, 0.1)',
             error: 'rgba(255, 0, 0, 1)',
-            candidate: 'rgba(255, 255, 255, 0.5)'
+            candidate: 'rgba(255, 255, 255, 0.5)',
+            filled: 'rgba(255, 255, 255, 0.1)'
         },
         value: {
             border: 'rgba(255,255,255,0.15)',
