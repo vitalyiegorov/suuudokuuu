@@ -1,10 +1,10 @@
 import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { useRouter } from 'expo-router';
-import { useRef, useState } from 'react';
+import { use, useEffect, useRef, useState } from 'react';
 import { Text, View } from 'react-native';
 
-import { cs } from '@rnw-community/shared';
+import { cs, isNotEmptyString } from '@rnw-community/shared';
 
 import { Alert } from '../../../@generic/components/alert/alert';
 import { BlackButton } from '../../../@generic/components/black-button/black-button';
@@ -15,11 +15,10 @@ import { hapticImpact, hapticNotification } from '../../../@generic/utils/haptic
 import { AvailableValuesItem, type AvailableValuesItemRef } from '../../../game/components/available-values-item/available-values-item';
 import { Field, type FieldRef } from '../../../game/components/field/field';
 import { GameTimer } from '../../../game/components/game-timer/game-timer';
-import { useInitializeGame } from '../../../game/hooks/use-initialize-game.hook';
+import { GameContext } from '../../../game/context/game.context';
 import { useKeyboardControls } from '../../../game/hooks/use-keyboard-controls/use-keyboard-controls.hook';
 import { gameResetAction } from '../../../game/store/game.actions';
 import { gameMistakesSelector, gameScoreSelector } from '../../../game/store/game.selectors';
-import { sudoku } from '../../../game/store/sudoku-instance';
 import { gameFinishedThunk } from '../../../game/store/thunks/game-finish.thunk';
 import { gameMistakeThunk } from '../../../game/store/thunks/game-mistake.thunk';
 import { gameSaveThunk } from '../../../game/store/thunks/game-save.thunk';
@@ -38,6 +37,7 @@ interface Props {
 // eslint-disable-next-line max-lines-per-function
 export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
     const router = useRouter();
+    const { sudoku, createFromString } = use(GameContext);
 
     const dispatch = useAppDispatch();
     const score = useAppSelector(gameScoreSelector);
@@ -48,7 +48,6 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
     const fieldRef = useRef<FieldRef>(null);
 
     const maxMistakesReached = mistakes >= MaxMistakesConstant;
-
 
     const handleExit = () => {
         Alert('Stop current run?', 'All progress will be lost', [
@@ -136,7 +135,11 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
         availableValuesRefs.current[value] = ref;
     };
 
-    useInitializeGame(routeField, routeDifficulty);
+    useEffect(() => {
+        if (isNotEmptyString(routeField)) {
+            createFromString(routeField);
+        }
+    }, [routeField]);
     useKeyboardControls(sudoku, selectedCell, handleSelectCell, handleSelectValue);
 
     const mistakesCountTextStyles = [styles.mistakesCountText, cs(maxMistakesReached, styles.mistakesCountErrorText)];
@@ -165,12 +168,7 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
                 <BlackButton onPress={handleExit} text="Exit" />
             </View>
 
-            <Field
-                key={`${routeField}-${routeDifficulty}`}
-                onSelect={handleSelectCell}
-                ref={fieldRef}
-                selectedCell={selectedCell}
-            />
+            <Field key={`${routeField}-${routeDifficulty}`} onSelect={handleSelectCell} ref={fieldRef} selectedCell={selectedCell} />
 
             <GameTimer />
 
