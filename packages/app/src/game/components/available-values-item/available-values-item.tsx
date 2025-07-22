@@ -39,19 +39,18 @@ export const AvailableValuesItem = forwardRef<AvailableValuesItemRef, Props>(
         const pressAnimatedBgColor = isCorrect ? Colors.cell.active : Colors.cell.error;
 
         const animated = useSharedValue(0);
-const TRANSLATE_OFFSET = 5;
-
         const animatedStyles = useAnimatedStyle(() => ({
             backgroundColor: interpolateColor(animated.value, [0, 1], [Colors.white, pressAnimatedBgColor]),
             ...(!isCorrect && {
                 transform: [
-                    { translateX: interpolate(animated.value, [0, 0.5, 1], [0, -TRANSLATE_OFFSET, TRANSLATE_OFFSET]) }
+                    { translateX: interpolate(animated.value, [0, 0.5, 1], [0, -10, 10]) },
+                    { rotate: `${interpolate(animated.value, [0, 0.5, 1], [0, -20, 20])}deg` }
                 ]
             })
         }));
 
         const triggerAnimationFn = () => {
-            animated.value = withSequence(withTiming(1, { duration: 150 }), withTiming(0, { duration: 150 }));
+            animated.value = withSequence(withTiming(1, { duration: 200 }), withTiming(0, { duration: 200 }));
         };
 
         useImperativeHandle(ref, () => ({
