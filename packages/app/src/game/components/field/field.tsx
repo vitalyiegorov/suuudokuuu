@@ -1,5 +1,5 @@
 import { isEmptyScoredCells } from '@suuudokuuu/generator';
-import { use, useImperativeHandle, useRef } from 'react';
+import { use, useCallback, useImperativeHandle, useRef } from 'react';
 import { View } from 'react-native';
 
 import { GameContext } from '../../context/game.context';
@@ -43,12 +43,12 @@ export const Field = ({ selectedCell, onSelect, ref }: Props) => {
                 }
             }
         }),
-        []
+        [sudoku]
     );
 
-    const handleCellRef = (cell: CellInterface) => (cellRef: FieldCellRef | null) => {
+    const handleCellRef = useCallback((cell: CellInterface) => (cellRef: FieldCellRef | null) => {
         cellRefs.current[getCellKey(cell)] = cellRef;
-    };
+    }, []);
 
     return (
         <View style={styles.wrapper}>

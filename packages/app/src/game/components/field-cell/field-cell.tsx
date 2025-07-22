@@ -1,4 +1,4 @@
-import { use, useImperativeHandle } from 'react';
+import { use, useCallback, useImperativeHandle } from 'react';
 import { Pressable } from 'react-native';
 import Reanimated, {
     interpolate,
@@ -57,7 +57,7 @@ const getCellSelector = (props: Props): selectors => {
 };
 
 const animationConfig = { duration: animationDurationConstant };
-const textAnimationConfig = { duration: 8 * animationDurationConstant };
+const textAnimationConfig = { duration: 2 * animationDurationConstant };
 
 export interface FieldCellRef {
     triggerAnimation: () => void;
@@ -103,15 +103,16 @@ export const FieldCell = (props: Props) => {
     const cellAnimatedStyles = useAnimatedStyle(() => ({
         backgroundColor: interpolateColor(animation.value, [0, 1], [cellBackgroundColor, Colors.cell.active])
     }));
+const FONT_SIZE_MULTIPLIER = 1.5;
+
     const textAnimatedStyles = useAnimatedStyle(() => ({
         color: interpolateColor(textAnimation.value, [0, 0.5, 1], [Colors.black, Colors.cell.highlightedText, Colors.black]),
-        fontSize: interpolate(textAnimation.value, [0, 0.5, 1], [CellFontSizeConstant, CellFontSizeConstant * 2, CellFontSizeConstant]),
-        transform: [{ rotate: `${interpolate(textAnimation.value, [0, 1], [0, 360])}deg` }]
+        fontSize: interpolate(textAnimation.value, [0, 0.5, 1], [CellFontSizeConstant, CellFontSizeConstant * FONT_SIZE_MULTIPLIER, CellFontSizeConstant])
     }));
 
-    const handlePress = () => {
+    const handlePress = useCallback(() => {
         onSelect(isActive ? undefined : cell);
-    };
+    }, [cell, isActive, onSelect]);
 
     const cellStyles = [
         styles.container,

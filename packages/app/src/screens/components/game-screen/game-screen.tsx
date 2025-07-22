@@ -1,7 +1,7 @@
 import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { useRouter } from 'expo-router';
-import { use, useRef, useState } from 'react';
+import { use, useCallback, useRef, useState } from 'react';
 import { Text, View } from 'react-native';
 
 import { cs } from '@rnw-community/shared';
@@ -44,7 +44,7 @@ export const GameScreen = () => {
 
     const maxMistakesReached = mistakes >= MaxMistakesConstant;
 
-    const handleExit = () => {
+    const handleExit = useCallback(() => {
         Alert('Stop current run?', 'All progress will be lost', [
             { text: 'Cancel', style: 'cancel' },
             {
@@ -56,29 +56,31 @@ export const GameScreen = () => {
                 }
             }
         ]);
-    };
+    }, [dispatch, router]);
 
-    const handleSelectCell = (cell: CellInterface | undefined) => {
+    const handleSelectCell = useCallback((cell: CellInterface | undefined) => {
         setSelectedCell(cell);
         hapticImpact(ImpactFeedbackStyle.Light);
-    };
+    }, []);
 
-    const handleLostGame = () => {
+    const handleLostGame = useCallback(() => {
         hapticImpact(ImpactFeedbackStyle.Heavy);
 
         void dispatch(gameFinishedThunk({ difficulty: sudoku.Difficulty, isWon: false }));
 
         router.replace('loser');
-    };
+    }, [dispatch, router, sudoku.Difficulty]);
 
-    const handleWonGame = () => {
+const ANIMATION_DELAY_MULTIPLIER = 5;
+
+    const handleWonGame = useCallback(() => {
         hapticImpact(ImpactFeedbackStyle.Heavy);
 
         void dispatch(gameFinishedThunk({ difficulty: sudoku.Difficulty, isWon: true }));
 
         // TODO: We need to wait for the animation to finish, animation finish event would fix it?
-        setTimeout(() => void router.replace('winner'), 10 * animationDurationConstant);
-    };
+        setTimeout(() => void router.replace('winner'), ANIMATION_DELAY_MULTIPLIER * animationDurationConstant);
+    }, [dispatch, router, sudoku.Difficulty]);
 
     // eslint-disable-next-line max-statements
     const handleCorrectValue = (correctCell: CellInterface, newScoredCells: ScoredCellsInterface) => {
@@ -126,9 +128,9 @@ export const GameScreen = () => {
         }
     };
 
-    const handleAvailableRef = (value: number) => (ref: AvailableValuesItemRef | null) => {
+    const handleAvailableRef = useCallback((value: number) => (ref: AvailableValuesItemRef | null) => {
         availableValuesRefs.current[value] = ref;
-    };
+    }, []);
 
     useKeyboardControls(sudoku, selectedCell, handleSelectCell, handleSelectValue);
 
