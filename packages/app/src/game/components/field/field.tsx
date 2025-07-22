@@ -1,8 +1,6 @@
-import { use, useCallback, useImperativeHandle, useRef, useState } from 'react';
+import { use, useImperativeHandle, useRef } from 'react';
 import { View } from 'react-native';
-import { useSharedValue, withTiming } from 'react-native-reanimated';
 
-import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
 import { GameContext } from '../../context/game.context';
 import { FieldCell, type FieldCellRef } from '../field-cell/field-cell';
 
@@ -28,57 +26,43 @@ export const Field = ({ selectedCell, onSelect, ref }: Props) => {
     const { sudoku } = use(GameContext);
 
     const cellRefs = useRef<Record<string, FieldCellRef | null>>({});
-    const [animatedScoredCells, setAnimatedScoredCells] = useState<ScoredCellsInterface>();
-    
-    // Single shared animation value for all cells
-    const cellAnimation = useSharedValue(0);
 
     useImperativeHandle(
         ref,
         () => ({
             triggerCellAnimations: (scoredCells: ScoredCellsInterface) => {
-                // Set the scored cells that should animate
-                setAnimatedScoredCells(scoredCells);
-                
-                // Trigger single animation for all cells
-                cellAnimation.value = withTiming(1, { duration: 2 * animationDurationConstant }, finished => {
-                    if (finished === true) {
-                        cellAnimation.value = 0;
-                        setAnimatedScoredCells(undefined);
-                    }
+                sudoku.Field.forEach(row => {
+                    row.forEach(cell => {
+                        if (sudoku.isScoredCell(cell, scoredCells)) {
+                            cellRefs.current[getCellKey(cell)]?.triggerAnimation();
+                        }
+                    });
                 });
             }
         }),
-        [cellAnimation]
+        [sudoku]
     );
 
-    const handleCellRef = useCallback((cell: CellInterface) => (cellRef: FieldCellRef | null) => {
+    const handleCellRef = (cell: CellInterface) => (cellRef: FieldCellRef | null) => {
         cellRefs.current[getCellKey(cell)] = cellRef;
-    }, []);
+    };
 
     return (
         <View style={styles.wrapper}>
             {sudoku.Field.map(row => (
                 <View key={`row-${row[0].y}`} style={styles.row}>
-                    {row.map(cell => {
-                        // Check if this cell should animate based on scored cells
-                        const shouldAnimate = Boolean(animatedScoredCells && sudoku.isScoredCell(cell, animatedScoredCells));
-                        
-                        return (
-                            <FieldCell
-                                animatedScoredCells={shouldAnimate ? animatedScoredCells : undefined}
-                                cell={cell}
-                                cellAnimation={shouldAnimate ? cellAnimation : undefined}
-                                isActive={sudoku.isSameCell(cell, selectedCell)}
-                                isActiveValue={sudoku.isSameCellValue(cell, selectedCell)}
-                                isHighlighted={sudoku.isCellHighlighted(cell, selectedCell)}
-                                isWrong={sudoku.isCellWrong(cell, selectedCell)}
-                                key={`cell-${cell.y}-${cell.x}`}
-                                onSelect={onSelect}
-                                ref={handleCellRef(cell)}
-                            />
-                        );
-                    })}
+                    {row.map(cell => (
+                        <FieldCell
+                            cell={cell}
+                            isActive={sudoku.isSameCell(cell, selectedCell)}
+                            isActiveValue={sudoku.isSameCellValue(cell, selectedCell)}
+                            isHighlighted={sudoku.isCellHighlighted(cell, selectedCell)}
+                            isWrong={sudoku.isCellWrong(cell, selectedCell)}
+                            key={`cell-${cell.y}-${cell.x}`}
+                            onSelect={onSelect}
+                            ref={handleCellRef(cell)}
+                        />
+                    ))}
                 </View>
             ))}
         </View>

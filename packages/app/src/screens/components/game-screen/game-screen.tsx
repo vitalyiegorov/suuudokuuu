@@ -71,15 +71,13 @@ export const GameScreen = () => {
         router.replace('loser');
     };
 
-const ANIMATION_DELAY_MULTIPLIER = 5;
-
     const handleWonGame = () => {
         hapticImpact(ImpactFeedbackStyle.Heavy);
 
         void dispatch(gameFinishedThunk({ difficulty: sudoku.Difficulty, isWon: true }));
 
         // TODO: We need to wait for the animation to finish, animation finish event would fix it?
-        setTimeout(() => void router.replace('winner'), ANIMATION_DELAY_MULTIPLIER * animationDurationConstant);
+        setTimeout(() => void router.replace('winner'), 10 * animationDurationConstant);
     };
 
     // eslint-disable-next-line max-statements
@@ -160,11 +158,7 @@ const ANIMATION_DELAY_MULTIPLIER = 5;
                 <BlackButton onPress={handleExit} text="Exit" />
             </View>
 
-            <Field 
-                onSelect={handleSelectCell}
-                ref={fieldRef}
-                selectedCell={selectedCell}
-            />
+            <Field onSelect={handleSelectCell} ref={fieldRef} selectedCell={selectedCell} />
 
             <GameTimer />
 
