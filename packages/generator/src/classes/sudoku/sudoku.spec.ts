@@ -115,6 +115,7 @@ describe('Sudoku - Row Column Boundary Helpers', () => {
     });
 });
 
+// eslint-disable-next-line max-lines-per-function
 describe('Sudoku - Cell Value Operations', () => {
     it('setCellValue() throws on wrong value', () => {
         const sudoku = new Sudoku();
@@ -136,38 +137,79 @@ describe('Sudoku - Cell Value Operations', () => {
         expect(() => void sudoku.create(DifficultyEnum.Easy)).toThrow('Unable to create a game field');
     });
 
-    it('should return scored cells when setting correct cell value', () => {
-        const sudoku = new Sudoku();
-        sudoku.create(DifficultyEnum.Easy);
+    describe('Sudoku - Scoring (deterministic)', () => {
+        it('complete a row', () => {
+            const sudoku = Sudoku.fromString(
+                '417352689852796134963148275241685397796234851538971426385467912629513748174829563|417352.898.27.613..6.14827..416.53..79623.8.15389.142638546.912..9.13...1748.9.6.'
+            );
 
-        const blankCell = sudoku.Field.flat().find(cell => cell.value === defaultSudokuConfig.blankCellValue);
+            // eslint-disable-next-line @typescript-eslint/prefer-destructuring
+            const cell = sudoku.Field[0][6];
+            const correct = sudoku.getCorrectValue(cell);
+            const scored = sudoku.setCellValue({ ...cell, value: correct });
 
-        expect(blankCell).toBeDefined();
+            expect(scored.x).toBe(-1);
+            expect(scored.y).toBe(0);
+            expect(scored.group).toBe(-1);
+            expect(scored.isWon).toBe(false);
+            expect(scored.values).toStrictEqual([]);
+        });
 
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        const correctValue = sudoku.getCorrectValue(blankCell);
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        const cellToSet = { ...blankCell!, value: correctValue };
-        const scoredCells = sudoku.setCellValue(cellToSet);
+        it('complete a column', () => {
+            const sudoku = Sudoku.fromString(
+                '417352689852796134963148275241685397796234851538971426385467912629513748174829563|417352.898.27.613..6.14827..416.53..79623.8.15389.142638546.912..9.13...1748.9.6.'
+            );
 
-        expect(scoredCells).toBeDefined();
-    });
+            // eslint-disable-next-line @typescript-eslint/prefer-destructuring
+            const cell = sudoku.Field[2][2];
+            const correct = sudoku.getCorrectValue(cell);
+            const scored = sudoku.setCellValue({ ...cell, value: correct });
 
-    it('should handle column, row, and group completion scoring', () => {
-        const sudoku = new Sudoku();
-        sudoku.create(DifficultyEnum.Easy);
+            expect(scored.x).toBe(2);
+            expect(scored.y).toBe(-1);
+            expect(scored.group).toBe(-1);
+            expect(scored.isWon).toBe(false);
+            expect(scored.values).toStrictEqual([]);
+        });
 
-        const blankCell = sudoku.Field.flat().find(cell => cell.value === defaultSudokuConfig.blankCellValue);
+        it('complete a group', () => {
+            const sudoku = Sudoku.fromString(
+                '417352689852796134963148275241685397796234851538971426385467912629513748174829563|417352.898.27.613..6.14827..416.53..79623.8.15389.142638546.912..9.13...1748.9.6.'
+            );
 
-        expect(blankCell).toBeDefined();
+            // eslint-disable-next-line @typescript-eslint/prefer-destructuring
+            const cell = sudoku.Field[3][0];
+            const correct = sudoku.getCorrectValue(cell);
+            const scored = sudoku.setCellValue({ ...cell, value: correct });
 
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        const correctValue = sudoku.getCorrectValue(blankCell);
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        const cellToSet = { ...blankCell!, value: correctValue };
-        const scoredCells = sudoku.setCellValue(cellToSet);
+            expect(scored.x).toBe(-1);
+            expect(scored.y).toBe(-1);
+            expect(scored.group).toBe(2);
+            expect(scored.isWon).toBe(false);
+            expect(scored.values).toStrictEqual([]);
+        });
 
-        expect(scoredCells).toBeDefined();
+        it('complete all values', () => {
+            const sudoku = Sudoku.fromString(
+                '417352689852796134963148275241685397796234851538971426385467912629513748174829563|417352.898.27.613..6.14827.2416.53..79623.8.15389.142638546.912.29.13...1748.9.6.'
+            );
+
+            // eslint-disable-next-line @typescript-eslint/prefer-destructuring
+            const cell = sudoku.Field[8][4];
+            const correct = sudoku.getCorrectValue(cell);
+            const scored = sudoku.setCellValue({ ...cell, value: correct });
+
+            expect(scored.x).toBe(-1);
+            expect(scored.y).toBe(-1);
+            expect(scored.group).toBe(-1);
+            expect(scored.isWon).toBe(false);
+            expect(scored.values).toStrictEqual([2]);
+        });
+
+        /*
+         * TODO: Add multiple completion tests
+         * TODO: Add win tests
+         */
     });
 
     it('should handle game winning scenario', () => {
