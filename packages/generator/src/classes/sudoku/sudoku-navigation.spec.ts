@@ -81,7 +81,7 @@ describe('Sudoku - Cell Validation', () => {
         it('isCorrectValue() validation', () => {
             const sudoku = new Sudoku();
             sudoku.create(DifficultyEnum.Easy);
-            
+
             const blankCell = sudoku.Field.flat().find(cell => cell.value === defaultSudokuConfig.blankCellValue);
             const nonBlankCell = sudoku.Field.flat().find(cell => cell.value !== defaultSudokuConfig.blankCellValue);
 
@@ -93,12 +93,12 @@ describe('Sudoku - Cell Validation', () => {
         it('isCellWrong() validation with correct value', () => {
             const sudoku = new Sudoku();
             sudoku.create(DifficultyEnum.Easy);
-            
+
             const filledCell = sudoku.Field.flat().find(cell => cell.value !== defaultSudokuConfig.blankCellValue);
             const differentCell = { x: 1, y: 1, group: 1, value: 8 };
 
             expect(isDefined(filledCell)).toBe(true);
-            
+
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             expect(sudoku.isCellWrong(filledCell!, differentCell)).toBe(false);
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

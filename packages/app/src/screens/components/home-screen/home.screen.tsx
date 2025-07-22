@@ -43,12 +43,11 @@ export const HomeScreen = () => {
     const handleStart = (difficulty: DifficultyEnum) => {
         setIsLoading(true);
 
-        // HINT: Sudoku creation hangs the UI thread, we need to render the loading first
-        setTimeout(() => {
+        requestAnimationFrame(() => {
             createFromDifficulty(difficulty);
             setShowDifficultySelect(false);
             setIsLoading(false);
-        }, 10);
+        });
     };
 
     return (
