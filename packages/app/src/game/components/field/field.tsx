@@ -1,3 +1,4 @@
+import { isEmptyScoredCells } from '@suuudokuuu/generator';
 import { use, useImperativeHandle, useRef } from 'react';
 import { View } from 'react-native';
 
@@ -31,16 +32,18 @@ export const Field = ({ selectedCell, onSelect, ref }: Props) => {
         ref,
         () => ({
             triggerCellAnimations: (scoredCells: ScoredCellsInterface) => {
-                sudoku.Field.forEach(row => {
-                    row.forEach(cell => {
-                        if (sudoku.isScoredCell(cell, scoredCells)) {
-                            cellRefs.current[getCellKey(cell)]?.triggerAnimation();
-                        }
+                if (!isEmptyScoredCells(scoredCells)) {
+                    sudoku.Field.forEach(row => {
+                        row.forEach(cell => {
+                            if (sudoku.isScoredCell(cell, scoredCells)) {
+                                cellRefs.current[getCellKey(cell)]?.triggerAnimation();
+                            }
+                        });
                     });
-                });
+                }
             }
         }),
-        [sudoku]
+        []
     );
 
     const handleCellRef = (cell: CellInterface) => (cellRef: FieldCellRef | null) => {
