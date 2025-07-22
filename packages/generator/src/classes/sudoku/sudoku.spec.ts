@@ -1,4 +1,4 @@
-import { describe, expect, it } from '@jest/globals';
+import { describe, expect, it, jest } from '@jest/globals';
 
 import { DifficultyEnum } from '../../enums/difficulty.enum';
 import { defaultSudokuConfig, getBlankCellCountByConfig } from '../../interfaces/sudoku-config.interface';
@@ -128,91 +128,72 @@ describe('Sudoku', () => {
 
         const sudoku = new Sudoku();
         
-        // Mock fillRecursive to always return false to trigger the error
-        const originalFillRecursive = sudoku['fillRecursive'];
-        sudoku['fillRecursive'] = jest.fn().mockReturnValue(false);
+        jest.spyOn(sudoku, 'fillRecursive').mockImplementation().mockReturnValue(false);
 
-        expect(() => sudoku.create(DifficultyEnum.Easy)).toThrow('Unable to create a game field');
-
-        // Restore original method
-        sudoku['fillRecursive'] = originalFillRecursive;
+        expect(() => void sudoku.create(DifficultyEnum.Easy)).toThrow('Unable to create a game field');
     });
 
     it('should return scored cells when setting correct cell value', () => {
-        expect.assertions(1);
-
         const sudoku = new Sudoku();
         sudoku.create(DifficultyEnum.Easy);
 
-        // Find a blank cell and set its correct value
         const blankCell = sudoku.Field.flat().find(cell => cell.value === defaultSudokuConfig.blankCellValue);
+        expect(blankCell).toBeDefined();
+        
         if (blankCell) {
             const correctValue = sudoku.getCorrectValue(blankCell);
             const cellToSet = { ...blankCell, value: correctValue };
-            
             const scoredCells = sudoku.setCellValue(cellToSet);
-            
             expect(scoredCells).toBeDefined();
         }
     });
 
     it('should handle column, row, and group completion scoring', () => {
-        expect.assertions(1);
-
         const sudoku = new Sudoku();
         sudoku.create(DifficultyEnum.Easy);
 
-        // Find a blank cell and test the scoring mechanism
         const blankCell = sudoku.Field.flat().find(cell => cell.value === defaultSudokuConfig.blankCellValue);
+        expect(blankCell).toBeDefined();
+        
         if (blankCell) {
             const correctValue = sudoku.getCorrectValue(blankCell);
             const cellToSet = { ...blankCell, value: correctValue };
-            
             const scoredCells = sudoku.setCellValue(cellToSet);
-            
-            // We should get scored cells back (specific scoring depends on the puzzle state)
             expect(scoredCells).toBeDefined();
         }
     });
 
     it('should handle game winning scenario', () => {
-        expect.assertions(1);
-
         const sudoku = new Sudoku();
-        sudoku.create(DifficultyEnum.Newbie); // Use easier puzzle for faster completion
+        sudoku.create(DifficultyEnum.Newbie);
 
-        // Play through the entire puzzle to reach a winning state
         let moveCount = 0;
-        const maxMoves = 100; // Prevent infinite loop
+        const maxMoves = 100;
         
-        while (sudoku['possibleValues'].length > 0 && moveCount < maxMoves) {
+        while (sudoku.possibleValues.length > 0 && moveCount < maxMoves) {
             const blankCell = sudoku.Field.flat().find(cell => cell.value === defaultSudokuConfig.blankCellValue);
             if (blankCell) {
                 const correctValue = sudoku.getCorrectValue(blankCell);
                 const cellToSet = { ...blankCell, value: correctValue };
                 sudoku.setCellValue(cellToSet);
             }
-            moveCount++;
+            moveCount += 1;
         }
 
-        expect(moveCount).toBeLessThan(maxMoves); // Ensure we didn't hit the limit
+        expect(moveCount).toBeLessThan(maxMoves);
     });
 
     it('should handle value completion scoring', () => {
-        expect.assertions(1);
-
         const sudoku = new Sudoku();
         sudoku.create(DifficultyEnum.Easy);
 
-        // Find a blank cell and test value completion
         const blankCell = sudoku.Field.flat().find(cell => cell.value === defaultSudokuConfig.blankCellValue);
+        expect(blankCell).toBeDefined();
+        
         if (blankCell) {
             const correctValue = sudoku.getCorrectValue(blankCell);
             const cellToSet = { ...blankCell, value: correctValue };
-            
             const scoredCells = sudoku.setCellValue(cellToSet);
-            
-            // Check that we get scoring information
             expect(scoredCells.values).toBeDefined();
         }
     });
