@@ -3,6 +3,7 @@ import { ImpactFeedbackStyle } from 'expo-haptics';
 import { useRouter } from 'expo-router';
 import { use, useCallback, useRef, useState } from 'react';
 import { Text, View } from 'react-native';
+import { useSharedValue, withTiming } from 'react-native-reanimated';
 
 import { cs } from '@rnw-community/shared';
 
@@ -39,8 +40,12 @@ export const GameScreen = () => {
     const mistakes = useAppSelector(gameMistakesSelector);
 
     const [selectedCell, setSelectedCell] = useState<CellInterface>();
+    const [animatedScoredCells, setAnimatedScoredCells] = useState<ScoredCellsInterface>();
     const availableValuesRefs = useRef<Record<number, AvailableValuesItemRef | null>>({});
     const fieldRef = useRef<FieldRef>(null);
+    
+    // Single shared animation value for all cells
+    const cellAnimation = useSharedValue(0);
 
     const maxMistakesReached = mistakes >= MaxMistakesConstant;
 
@@ -84,7 +89,17 @@ const ANIMATION_DELAY_MULTIPLIER = 5;
 
     // eslint-disable-next-line max-statements
     const handleCorrectValue = (correctCell: CellInterface, newScoredCells: ScoredCellsInterface) => {
-        fieldRef.current?.triggerCellAnimations(newScoredCells);
+        // Set the scored cells that should animate
+        setAnimatedScoredCells(newScoredCells);
+        
+        // Trigger single animation for all cells
+        cellAnimation.value = withTiming(1, { duration: 2 * animationDurationConstant }, finished => {
+            if (finished === true) {
+                cellAnimation.value = 0;
+                setAnimatedScoredCells(undefined);
+            }
+        });
+        
         void dispatch(gameSaveThunk({ sudoku, scoredCells: newScoredCells }));
 
         if (newScoredCells.isWon) {
@@ -160,7 +175,13 @@ const ANIMATION_DELAY_MULTIPLIER = 5;
                 <BlackButton onPress={handleExit} text="Exit" />
             </View>
 
-            <Field onSelect={handleSelectCell} ref={fieldRef} selectedCell={selectedCell} />
+            <Field 
+                animatedScoredCells={animatedScoredCells} 
+                cellAnimation={cellAnimation} 
+                onSelect={handleSelectCell}
+                ref={fieldRef}
+                selectedCell={selectedCell}
+            />
 
             <GameTimer />
 
