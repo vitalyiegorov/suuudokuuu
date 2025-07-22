@@ -1,5 +1,4 @@
 import { DifficultyEnum } from '@suuudokuuu/generator';
-import { useState } from 'react';
 import { View } from 'react-native';
 
 import { BlackButton } from '../black-button/black-button';
@@ -10,13 +9,11 @@ import type { OnEventFn } from '@rnw-community/shared';
 
 interface Props {
     readonly onSelect: OnEventFn<DifficultyEnum>;
+    readonly isLoading?: boolean;
 }
 
-export const DifficultySelect = ({ onSelect }: Props) => {
-    const [isLoading, setIsLoading] = useState(false);
-
+export const DifficultySelect = ({ onSelect, isLoading = false }: Props) => {
     const handlePress = (difficulty: DifficultyEnum) => () => {
-        setIsLoading(true);
         onSelect(difficulty);
     };
 
