@@ -24,9 +24,9 @@ import type { Ref } from 'react';
 
 const ReanimatedPressable = Reanimated.createAnimatedComponent(Pressable);
 
-const getText = (isActive: boolean, isEmpty: boolean, cell: CellInterface): string => {
+const getText = (isActive: boolean, isEmpty: boolean, hasCandidates: boolean, cell: CellInterface): string => {
     if (isEmpty) {
-        return isActive ? '•' : '';
+        return isActive && !hasCandidates ? '•' : '';
     }
 
     return cell.value.toString();
@@ -104,7 +104,7 @@ export const FieldCell = (props: Props) => {
 
     const isEmpty = sudoku.isBlankCell(cell);
     const cellBackgroundColor = getCellBgColor(isActiveValue, isHighlighted, isWrong, isEmpty);
-    const text = getText(isActive, isEmpty, cell);
+    const text = getText(isActive, isEmpty, hasCandidates, cell);
     const candidates = isEmpty && hasCandidates ? sudoku.getCellCandidates(cell) : [];
 
     const animation = useDerivedValue(() => withTiming(isActive ? 1 : 0, animationConfig));
