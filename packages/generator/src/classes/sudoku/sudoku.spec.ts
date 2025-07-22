@@ -1,7 +1,5 @@
 import { describe, expect, it, jest } from '@jest/globals';
 
-import { isDefined } from '@rnw-community/shared';
-
 import { DifficultyEnum } from '../../enums/difficulty.enum';
 import { defaultSudokuConfig, getBlankCellCountByConfig } from '../../interfaces/sudoku-config.interface';
 
@@ -48,39 +46,39 @@ describe('Sudoku - Basic Operations', () => {
 });
 
 describe('Sudoku - Cell Highlighting and Comparison', () => {
-        const sudoku = new Sudoku();
+    const sudoku = new Sudoku();
 
-        const base: CellInterface = { x: 1, y: 2, group: 5, value: 7 };
+    const base: CellInterface = { x: 1, y: 2, group: 5, value: 7 };
 
-        it('isCellHighlighted → same row', () => {
-            const sel = { x: 3, y: 2, group: 8, value: 0 };
+    it('isCellHighlighted → same row', () => {
+        const sel = { x: 3, y: 2, group: 8, value: 0 };
 
-            expect(sudoku.isCellHighlighted(base, sel)).toBe(true);
-        });
+        expect(sudoku.isCellHighlighted(base, sel)).toBe(true);
+    });
 
-        it('isCellHighlighted → same column', () => {
-            const sel = { x: 1, y: 8, group: 2, value: 0 };
+    it('isCellHighlighted → same column', () => {
+        const sel = { x: 1, y: 8, group: 2, value: 0 };
 
-            expect(sudoku.isCellHighlighted(base, sel)).toBe(true);
-        });
+        expect(sudoku.isCellHighlighted(base, sel)).toBe(true);
+    });
 
-        it('isCellHighlighted → same group', () => {
-            const sel = { x: 0, y: 0, group: 5, value: 0 };
+    it('isCellHighlighted → same group', () => {
+        const sel = { x: 0, y: 0, group: 5, value: 0 };
 
-            expect(sudoku.isCellHighlighted(base, sel)).toBe(true);
-        });
+        expect(sudoku.isCellHighlighted(base, sel)).toBe(true);
+    });
 
-        it('isSameCell()', () => {
-            const sel = { x: 1, y: 2, group: 99, value: 0 };
+    it('isSameCell()', () => {
+        const sel = { x: 1, y: 2, group: 99, value: 0 };
 
-            expect(sudoku.isSameCell(base, sel)).toBe(true);
-            expect(sudoku.isSameCell(base, { x: 1, y: 3, group: 5, value: 7 })).toBe(false);
-        });
+        expect(sudoku.isSameCell(base, sel)).toBe(true);
+        expect(sudoku.isSameCell(base, { x: 1, y: 3, group: 5, value: 7 })).toBe(false);
+    });
 
-        it('isSameCellValue()', () => {
-            expect(sudoku.isSameCellValue(base, { ...base })).toBe(true);
-            expect(sudoku.isSameCellValue({ ...base, value: 0 }, { ...base, value: 0 })).toBe(false);
-        });
+    it('isSameCellValue()', () => {
+        expect(sudoku.isSameCellValue(base, { ...base })).toBe(true);
+        expect(sudoku.isSameCellValue({ ...base, value: 0 }, { ...base, value: 0 })).toBe(false);
+    });
 });
 
 describe('Sudoku - Group Boundary Helpers', () => {
@@ -131,7 +129,7 @@ describe('Sudoku - Cell Value Operations', () => {
         expect.assertions(1);
 
         const sudoku = new Sudoku();
-        
+
         // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-type-assertion
         jest.spyOn(sudoku as any, 'fillRecursive').mockImplementation(() => false);
 
@@ -145,8 +143,7 @@ describe('Sudoku - Cell Value Operations', () => {
         const blankCell = sudoku.Field.flat().find(cell => cell.value === defaultSudokuConfig.blankCellValue);
 
         expect(blankCell).toBeDefined();
-        expect(isDefined(blankCell)).toBe(true);
-        
+
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const correctValue = sudoku.getCorrectValue(blankCell);
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -163,7 +160,7 @@ describe('Sudoku - Cell Value Operations', () => {
         const blankCell = sudoku.Field.flat().find(cell => cell.value === defaultSudokuConfig.blankCellValue);
 
         expect(blankCell).toBeDefined();
-        
+
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const correctValue = sudoku.getCorrectValue(blankCell);
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -176,12 +173,12 @@ describe('Sudoku - Cell Value Operations', () => {
     it('should handle game winning scenario', () => {
         const sudoku = new Sudoku();
         sudoku.create(DifficultyEnum.Newbie);
-        
+
         while (sudoku.PossibleValues.length > 0) {
             const blankCell = sudoku.Field.flat().find(cell => cell.value === defaultSudokuConfig.blankCellValue);
 
             expect(blankCell).toBeDefined();
-            
+
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             const correctValue = sudoku.getCorrectValue(blankCell);
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -200,7 +197,7 @@ describe('Sudoku - Cell Value Operations', () => {
         const blankCell = sudoku.Field.flat().find(cell => cell.value === defaultSudokuConfig.blankCellValue);
 
         expect(blankCell).toBeDefined();
-        
+
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const correctValue = sudoku.getCorrectValue(blankCell);
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -223,4 +220,3 @@ describe('Sudoku - Static Methods', () => {
         expect(sudoku).toBeInstanceOf(Sudoku);
     });
 });
-
