@@ -121,4 +121,4 @@ jobs:
 
       - name: Publish update
         working-directory: packages/app
-        run: eas update --auto
+        run: eas update --channel production --auto

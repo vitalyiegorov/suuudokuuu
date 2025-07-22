@@ -47,15 +47,21 @@ jobs:
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
 
-  eas-update:
-    name: EAS Update
+  eas-deploy:
+    name: EAS Deploy
     needs: code-quality
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      deployments: write
+      issues: write
     steps:
       - name: Check for EXPO_TOKEN
         run: |
           if [ -z "${{ secrets.EXPO_TOKEN }}" ]; then
-            echo "You must provide an EXPO_TOKEN secret linked to this project's Expo account in this repo's secrets. Learn more: https://docs.expo.dev/eas-update/github-actions"
+            echo "You must provide an EXPO_TOKEN secret linked to this project."
+            echo "Learn more: https://docs.expo.dev/eas/github-actions"
             exit 1
           fi
 
@@ -80,5 +86,93 @@ jobs:
       - name: Create preview
         uses: expo/expo-github-action/preview@v8
         with:
-          command: eas update --auto
+          command: eas update --channel development --auto
           working-directory: packages/app
+
+      - name: Build web app
+        working-directory: packages/app
+        run: npx expo export --platform web
+
+      - name: Deploy web app
+        id: deploy-web
+        working-directory: packages/app
+        run: |
+          result="$(eas deploy --non-interactive --json)"
+          echo "$result"
+
+          # Extract the URL from the deployment result
+          url=$(echo "$result" | jq -r '.url // empty')
+          if [ -n "$url" ]; then
+            echo "deployment_url=$url" >> $GITHUB_OUTPUT
+            echo "## 🚀 Web App Deployment" >> $GITHUB_STEP_SUMMARY
+            echo "Your PR has been deployed and is available at: [$url]($url)" \
+              >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Create deployment environment
+        if: steps.deploy-web.outputs.deployment_url
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const deploymentUrl = '${{ steps.deploy-web.outputs.deployment_url }}';
+
+            // Create deployment
+            const deployment = await github.rest.repos.createDeployment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: context.payload.pull_request.head.sha,
+              environment: 'preview',
+              description: 'PR Preview Deployment',
+              auto_merge: false,
+              required_contexts: []
+            });
+
+            // Create deployment status
+            await github.rest.repos.createDeploymentStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              deployment_id: deployment.data.id,
+              state: 'success',
+              environment_url: deploymentUrl,
+              description: 'Web app deployed successfully'
+            });
+
+      - name: Comment deployment URL on PR
+        if: steps.deploy-web.outputs.deployment_url
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const deploymentUrl = '${{ steps.deploy-web.outputs.deployment_url }}';
+            const prNumber = context.payload.pull_request.number;
+
+            const comments = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber
+            });
+
+            const existingComment = comments.data.find(comment =>
+              comment.user.login === 'github-actions[bot]' &&
+              comment.body.includes('🚀 Preview Deployment')
+            );
+
+            const commentBody = '## 🚀 Preview Deployment\n\n' +
+              'Your PR has been deployed! You can test the changes at:\n\n' +
+              '🌐 **[Open Preview App](' + deploymentUrl + ')**\n\n' +
+              'This deployment will be automatically updated with new commits.';
+
+            if (existingComment) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existingComment.id,
+                body: commentBody
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: prNumber,
+                body: commentBody
+              });
+            }
