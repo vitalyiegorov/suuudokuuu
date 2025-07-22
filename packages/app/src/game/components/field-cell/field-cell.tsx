@@ -71,7 +71,7 @@ interface Props {
     readonly isHighlighted: boolean;
     readonly isWrong: boolean;
     readonly ref: Ref<FieldCellRef>;
-    readonly cellAnimation: SharedValue<number>;
+    readonly cellAnimation?: SharedValue<number>;
     readonly animatedScoredCells?: ScoredCellsInterface;
 }
 
@@ -105,12 +105,12 @@ export const FieldCell = (props: Props) => {
     }));
 
     // Check if this cell should animate based on scored cells
-    const shouldAnimate = animatedScoredCells && sudoku.isScoredCell(cell, animatedScoredCells);
+    const shouldAnimate = Boolean(animatedScoredCells && cellAnimation && sudoku.isScoredCell(cell, animatedScoredCells));
     
 const FONT_SIZE_MULTIPLIER = 1.5;
 
     const textAnimatedStyles = useAnimatedStyle(() => {
-        if (shouldAnimate !== true) {
+        if (!shouldAnimate || cellAnimation === undefined) {
             return {};
         }
         

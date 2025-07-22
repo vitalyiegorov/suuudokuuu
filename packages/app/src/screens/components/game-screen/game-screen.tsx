@@ -1,9 +1,8 @@
 import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { useRouter } from 'expo-router';
-import { use, useCallback, useRef, useState } from 'react';
+import { use, useRef, useState } from 'react';
 import { Text, View } from 'react-native';
-import { useSharedValue, withTiming } from 'react-native-reanimated';
 
 import { cs } from '@rnw-community/shared';
 
@@ -40,16 +39,12 @@ export const GameScreen = () => {
     const mistakes = useAppSelector(gameMistakesSelector);
 
     const [selectedCell, setSelectedCell] = useState<CellInterface>();
-    const [animatedScoredCells, setAnimatedScoredCells] = useState<ScoredCellsInterface>();
     const availableValuesRefs = useRef<Record<number, AvailableValuesItemRef | null>>({});
     const fieldRef = useRef<FieldRef>(null);
-    
-    // Single shared animation value for all cells
-    const cellAnimation = useSharedValue(0);
 
     const maxMistakesReached = mistakes >= MaxMistakesConstant;
 
-    const handleExit = useCallback(() => {
+    const handleExit = () => {
         Alert('Stop current run?', 'All progress will be lost', [
             { text: 'Cancel', style: 'cancel' },
             {
@@ -61,45 +56,35 @@ export const GameScreen = () => {
                 }
             }
         ]);
-    }, [dispatch, router]);
+    };
 
-    const handleSelectCell = useCallback((cell: CellInterface | undefined) => {
+    const handleSelectCell = (cell: CellInterface | undefined) => {
         setSelectedCell(cell);
         hapticImpact(ImpactFeedbackStyle.Light);
-    }, []);
+    };
 
-    const handleLostGame = useCallback(() => {
+    const handleLostGame = () => {
         hapticImpact(ImpactFeedbackStyle.Heavy);
 
         void dispatch(gameFinishedThunk({ difficulty: sudoku.Difficulty, isWon: false }));
 
         router.replace('loser');
-    }, [dispatch, router, sudoku.Difficulty]);
+    };
 
 const ANIMATION_DELAY_MULTIPLIER = 5;
 
-    const handleWonGame = useCallback(() => {
+    const handleWonGame = () => {
         hapticImpact(ImpactFeedbackStyle.Heavy);
 
         void dispatch(gameFinishedThunk({ difficulty: sudoku.Difficulty, isWon: true }));
 
         // TODO: We need to wait for the animation to finish, animation finish event would fix it?
         setTimeout(() => void router.replace('winner'), ANIMATION_DELAY_MULTIPLIER * animationDurationConstant);
-    }, [dispatch, router, sudoku.Difficulty]);
+    };
 
     // eslint-disable-next-line max-statements
     const handleCorrectValue = (correctCell: CellInterface, newScoredCells: ScoredCellsInterface) => {
-        // Set the scored cells that should animate
-        setAnimatedScoredCells(newScoredCells);
-        
-        // Trigger single animation for all cells
-        cellAnimation.value = withTiming(1, { duration: 2 * animationDurationConstant }, finished => {
-            if (finished === true) {
-                cellAnimation.value = 0;
-                setAnimatedScoredCells(undefined);
-            }
-        });
-        
+        fieldRef.current?.triggerCellAnimations(newScoredCells);
         void dispatch(gameSaveThunk({ sudoku, scoredCells: newScoredCells }));
 
         if (newScoredCells.isWon) {
@@ -143,9 +128,9 @@ const ANIMATION_DELAY_MULTIPLIER = 5;
         }
     };
 
-    const handleAvailableRef = useCallback((value: number) => (ref: AvailableValuesItemRef | null) => {
+    const handleAvailableRef = (value: number) => (ref: AvailableValuesItemRef | null) => {
         availableValuesRefs.current[value] = ref;
-    }, []);
+    };
 
     useKeyboardControls(sudoku, selectedCell, handleSelectCell, handleSelectValue);
 
@@ -176,8 +161,6 @@ const ANIMATION_DELAY_MULTIPLIER = 5;
             </View>
 
             <Field 
-                animatedScoredCells={animatedScoredCells} 
-                cellAnimation={cellAnimation} 
                 onSelect={handleSelectCell}
                 ref={fieldRef}
                 selectedCell={selectedCell}
