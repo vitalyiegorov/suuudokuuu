@@ -2,6 +2,7 @@
     "name": "@suuudokuuu/generator",
     "version": "1.22.3",
     "private": true,
+    "sideEffects": "false",
     "exports": {
         ".": {
             "import": "./dist/esm/index.js",
@@ -14,11 +15,10 @@
     "files": [
         "dist/**/*"
     ],
-    "sideEffects": "false",
     "scripts": {
-        "build:esm": "run -T tsc --pretty -p tsconfig.build-esm.json",
-        "build:cjs": "run -T tsc --pretty -p tsconfig.build-cjs.json",
         "build": "yarn build:esm && yarn build:cjs && rm -rf ./dist/*/*.tsbuildinfo",
+        "build:cjs": "run -T tsc --pretty -p tsconfig.build-cjs.json",
+        "build:esm": "run -T tsc --pretty -p tsconfig.build-esm.json",
         "lint": "run -T eslint --fix src",
         "start": "expo start --dev-client",
         "test": "run -T jest",
