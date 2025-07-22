@@ -1,7 +1,12 @@
 import { StyleSheet } from 'react-native';
 
 import { Colors } from '../../../@generic/styles/theme';
-import { CellFontSizeConstant, CellSizeConstant } from '../constants/dimensions.contant';
+import {
+    CellCandidateFontSizeConstant,
+    CellCandidateOffsetConstant,
+    CellFontSizeConstant,
+    CellSizeConstant
+} from '../constants/dimensions.contant';
 
 export const FieldCellStyles = StyleSheet.create({
     container: {
@@ -15,6 +20,7 @@ export const FieldCellStyles = StyleSheet.create({
         justifyContent: 'center',
         outlineOffset: 0,
         outlineWidth: 0,
+        position: 'relative',
         width: CellSizeConstant
     },
     groupXEnd: {
@@ -37,6 +43,47 @@ export const FieldCellStyles = StyleSheet.create({
     },
     textActiveValue: {
         color: Colors.cell.activeValueText
+    },
+    textCandidate: {
+        color: Colors.cell.candidate,
+        fontSize: CellCandidateFontSizeConstant,
+        position: 'absolute'
+    },
+    textCandidatePosition1: {
+        left: CellCandidateOffsetConstant,
+        top: CellCandidateOffsetConstant
+    },
+    textCandidatePosition2: {
+        left: CellCandidateOffsetConstant + CellSizeConstant / 3,
+        top: CellCandidateOffsetConstant
+    },
+    textCandidatePosition3: {
+        left: CellCandidateOffsetConstant + (2 * CellSizeConstant) / 3,
+        top: CellCandidateOffsetConstant
+    },
+    textCandidatePosition4: {
+        left: CellCandidateOffsetConstant,
+        top: CellCandidateOffsetConstant / 2 + CellSizeConstant / 3
+    },
+    textCandidatePosition5: {
+        left: CellCandidateOffsetConstant + CellSizeConstant / 3,
+        top: CellCandidateOffsetConstant / 2 + CellSizeConstant / 3
+    },
+    textCandidatePosition6: {
+        left: CellCandidateOffsetConstant + (2 * CellSizeConstant) / 3,
+        top: CellCandidateOffsetConstant / 2 + CellSizeConstant / 3
+    },
+    textCandidatePosition7: {
+        left: CellCandidateOffsetConstant,
+        top: (CellSizeConstant / 3) * 2
+    },
+    textCandidatePosition8: {
+        left: CellCandidateOffsetConstant + CellSizeConstant / 3,
+        top: (CellSizeConstant / 3) * 2
+    },
+    textCandidatePosition9: {
+        left: CellCandidateOffsetConstant + (2 * CellSizeConstant) / 3,
+        top: (CellSizeConstant / 3) * 2
     },
     textEmpty: {
         color: Colors.cell.emptyValueText

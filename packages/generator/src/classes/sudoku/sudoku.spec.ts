@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { describe, expect, it, jest } from '@jest/globals';
 
 import { DifficultyEnum } from '../../enums/difficulty.enum';
@@ -274,3 +275,30 @@ describe('Sudoku - Static Methods', () => {
         expect(sudoku).toBeInstanceOf(Sudoku);
     });
 });
+
+describe('Sudoku - Candidates', () => {
+    it('getCellCandidates should return single possible cell value', () => {
+        const sudoku = Sudoku.fromString(
+            '271345968384619752659872314537986241126437895498251673963124587845793126712568439|27.3459.838.6..75..598.2..45.7986.4.1264378.5498...673.6312.5.784.793.267125.84.9'
+        );
+
+        // eslint-disable-next-line @typescript-eslint/prefer-destructuring
+        const cell = sudoku.Field[2][0];
+        const candidates = sudoku.getCellCandidates(cell);
+
+        expect(candidates).toStrictEqual([6]);
+    });
+
+    it('getCellCandidates should return multiple possible cell values', () => {
+        const sudoku = Sudoku.fromString(
+            '271345968384619752659872314537986241126437895498251673963124587845793126712568439|27.3459.838.6..75..598.2..45.7986.4.1264378.5498...673.6312.5.784.793.267125.84.9'
+        );
+
+        // eslint-disable-next-line @typescript-eslint/prefer-destructuring
+        const cell = sudoku.Field[5][4];
+        const candidates = sudoku.getCellCandidates(cell);
+
+        expect(candidates).toStrictEqual([1, 5]);
+    });
+});
+/* eslint-enable max-lines */

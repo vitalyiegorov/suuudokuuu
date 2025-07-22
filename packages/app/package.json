@@ -31,6 +31,7 @@
         "expo-status-bar": "~2.2.3",
         "expo-system-ui": "~5.0.10",
         "expo-updates": "~0.28.17",
+        "lucide-react-native": "^0.525.0",
         "react": "19.0.0",
         "react-compiler-runtime": "19.0.0-beta-63e3235-20250105",
         "react-dom": "19.0.0",
@@ -39,6 +40,7 @@
         "react-native-reanimated": "~3.17.4",
         "react-native-safe-area-context": "5.4.0",
         "react-native-screens": "~4.11.1",
+        "react-native-svg": "^15.1.0",
         "react-native-web": "^0.20.0",
         "react-redux": "^9.2.0",
         "redux-persist": "^6.0.0"
