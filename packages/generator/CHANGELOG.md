@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.22.7](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.22.6...v1.22.7) (2025-07-22)
+
+### Bug Fixes
+
+- correct failing test in sudoku-navigation.spec.ts ([0929507](https://github.com/vitalyiegorov/suuudokuuu/commit/09295074816cdd04ac96a90f437379b58889dcc7))
+- resolve TypeScript compilation errors in sudoku-navigation.spec.ts ([4016a03](https://github.com/vitalyiegorov/suuudokuuu/commit/4016a0303cbe1597e163775d70b45779459abba4))
+
 ## [1.22.5](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.22.4...v1.22.5) (2025-07-22)
 
 **Note:** Version bump only for package @suuudokuuu/generator
