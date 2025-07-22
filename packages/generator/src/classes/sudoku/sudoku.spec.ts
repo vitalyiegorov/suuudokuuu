@@ -206,10 +206,22 @@ describe('Sudoku - Cell Value Operations', () => {
             expect(scored.values).toStrictEqual([2]);
         });
 
-        /*
-         * TODO: Add multiple completion tests
-         * TODO: Add win tests
-         */
+        it('complete whole game', () => {
+            const sudoku = Sudoku.fromString(
+                '417352689852796134963148275241685397796234851538971426385467912629513748174829563|41735268985279613496314827524168539779623485153897142638546791262951374.174829563'
+            );
+
+            // eslint-disable-next-line @typescript-eslint/prefer-destructuring
+            const cell = sudoku.Field[7][8];
+            const correct = sudoku.getCorrectValue(cell);
+            const scored = sudoku.setCellValue({ ...cell, value: correct });
+
+            expect(scored.x).toBe(8);
+            expect(scored.y).toBe(7);
+            expect(scored.group).toBe(9);
+            expect(scored.isWon).toBe(true);
+            expect(scored.values).toStrictEqual([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+        });
     });
 
     it('should handle game winning scenario', () => {
