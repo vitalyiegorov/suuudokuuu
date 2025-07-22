@@ -1,7 +1,7 @@
 import Constants from 'expo-constants';
-import { Link, useRouter } from 'expo-router';
+import { Link } from 'expo-router';
 import { use, useState } from 'react';
-import { Text, View } from 'react-native';
+import { ActivityIndicator, Text, View } from 'react-native';
 
 import { isNotEmptyString } from '@rnw-community/shared';
 
@@ -10,6 +10,7 @@ import { DifficultySelect } from '../../../@generic/components/difficulty-select
 import { Header } from '../../../@generic/components/header/header';
 import { SupportUkraineBanner } from '../../../@generic/components/support-ukraine-banner/support-ukraine-banner';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
+import { Colors } from '../../../@generic/styles/theme';
 import { getTimerText } from '../../../@generic/utils/get-timer-text.util';
 import { GameContext } from '../../../game/context/game.context';
 import { useResumeGame } from '../../../game/hooks/use-resume-game.hook';
@@ -21,7 +22,6 @@ import { HomeScreenStyles } from './home-screen.styles';
 import type { DifficultyEnum } from '@suuudokuuu/generator';
 
 export const HomeScreen = () => {
-    const router = useRouter();
     const { createFromDifficulty } = use(GameContext);
 
     const oldGameString = useAppSelector(gameSudokuStringSelector);
@@ -42,10 +42,13 @@ export const HomeScreen = () => {
     };
     const handleStart = (difficulty: DifficultyEnum) => {
         setIsLoading(true);
-        createFromDifficulty(difficulty);
-        setShowDifficultySelect(false);
-        router.push(`game?difficulty=${difficulty}`);
-        setIsLoading(false);
+
+        // HINT: Sudoku creation hangs the UI thread, we need to render the loading first
+        setTimeout(() => {
+            createFromDifficulty(difficulty);
+            setShowDifficultySelect(false);
+            setIsLoading(false);
+        }, 10);
     };
 
     return (
@@ -63,9 +66,11 @@ export const HomeScreen = () => {
                     </View>
                 )}
 
-                {showDifficultySelect ? (
+                {isLoading ? <ActivityIndicator color={Colors.black} /> : null}
+
+                {!isLoading && showDifficultySelect ? (
                     <>
-                        <DifficultySelect isLoading={isLoading} onSelect={handleStart} />
+                        <DifficultySelect onSelect={handleStart} />
 
                         <BlackButton onPress={handleBack} text="Back" />
                     </>

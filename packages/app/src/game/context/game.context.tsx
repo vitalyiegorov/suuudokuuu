@@ -1,10 +1,12 @@
 import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
+import { useRouter } from 'expo-router';
 import React, { createContext, useState } from 'react';
 
-import { emptyFn } from '@rnw-community/shared';
+import { emptyFn, getErrorMessage } from '@rnw-community/shared';
 
+import { Alert } from '../../@generic/components/alert/alert';
 import { useAppDispatch } from '../../@generic/hooks/use-app-dispatch.hook';
-import { gameResumeAction, gameStartAction } from '../store/game.actions';
+import { gameResetAction, gameResumeAction, gameStartAction } from '../store/game.actions';
 
 import type { DifficultyEnum } from '@suuudokuuu/generator';
 import type { ReactNode } from 'react';
@@ -17,19 +19,34 @@ export const GameContext = createContext<{
 
 export const GameProvider = ({ children }: { readonly children: ReactNode }) => {
     const dispatch = useAppDispatch();
+    const router = useRouter();
 
     const [sudoku, setSudoku] = useState(new Sudoku(defaultSudokuConfig));
 
     const createFromString = (sudokuString: string) => {
-        setSudoku(Sudoku.fromString(sudokuString, defaultSudokuConfig));
-        dispatch(gameResumeAction());
+        try {
+            setSudoku(Sudoku.fromString(sudokuString, defaultSudokuConfig));
+            dispatch(gameResumeAction());
+        } catch (error) {
+            Alert('Invalid Sudoku', getErrorMessage(error), [
+                {
+                    text: 'OK',
+                    onPress: () => {
+                        dispatch(gameResetAction());
+                        router.replace('/');
+                    }
+                }
+            ]);
+        }
     };
 
     const createFromDifficulty = (difficulty: DifficultyEnum) => {
         sudoku.create(difficulty);
         setSudoku(sudoku);
 
-        dispatch(gameStartAction({ sudokuString: sudoku.toString() }));
+        const sudokuString = sudoku.toString();
+        dispatch(gameStartAction({ sudokuString }));
+        router.push(`game?field=${sudokuString}`);
     };
 
     return <GameContext value={{ sudoku, createFromString, createFromDifficulty }}>{children}</GameContext>;

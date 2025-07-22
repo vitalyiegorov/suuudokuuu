@@ -1,10 +1,10 @@
 import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { useRouter } from 'expo-router';
-import { use, useEffect, useRef, useState } from 'react';
+import { use, useRef, useState } from 'react';
 import { Text, View } from 'react-native';
 
-import { cs, isNotEmptyString } from '@rnw-community/shared';
+import { cs } from '@rnw-community/shared';
 
 import { Alert } from '../../../@generic/components/alert/alert';
 import { BlackButton } from '../../../@generic/components/black-button/black-button';
@@ -25,19 +25,14 @@ import { gameSaveThunk } from '../../../game/store/thunks/game-save.thunk';
 
 import { GameScreenStyles as styles } from './game-screen.styles';
 
-import type { CellInterface, DifficultyEnum, ScoredCellsInterface } from '@suuudokuuu/generator';
+import type { CellInterface, ScoredCellsInterface } from '@suuudokuuu/generator';
 
 const MaxMistakesConstant = 3;
 
-interface Props {
-    readonly routeField: string | undefined;
-    readonly routeDifficulty: DifficultyEnum | undefined;
-}
-
 // eslint-disable-next-line max-lines-per-function
-export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
+export const GameScreen = () => {
     const router = useRouter();
-    const { sudoku, createFromString } = use(GameContext);
+    const { sudoku } = use(GameContext);
 
     const dispatch = useAppDispatch();
     const score = useAppSelector(gameScoreSelector);
@@ -135,11 +130,6 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
         availableValuesRefs.current[value] = ref;
     };
 
-    useEffect(() => {
-        if (isNotEmptyString(routeField)) {
-            createFromString(routeField);
-        }
-    }, [routeField]);
     useKeyboardControls(sudoku, selectedCell, handleSelectCell, handleSelectValue);
 
     const mistakesCountTextStyles = [styles.mistakesCountText, cs(maxMistakesReached, styles.mistakesCountErrorText)];
@@ -168,7 +158,7 @@ export const GameScreen = ({ routeField, routeDifficulty }: Props) => {
                 <BlackButton onPress={handleExit} text="Exit" />
             </View>
 
-            <Field key={`${routeField}-${routeDifficulty}`} onSelect={handleSelectCell} ref={fieldRef} selectedCell={selectedCell} />
+            <Field onSelect={handleSelectCell} ref={fieldRef} selectedCell={selectedCell} />
 
             <GameTimer />
 
