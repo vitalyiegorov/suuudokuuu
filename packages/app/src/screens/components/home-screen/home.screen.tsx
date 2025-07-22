@@ -43,7 +43,6 @@ export const HomeScreen = () => {
     const handleStart = (difficulty: DifficultyEnum) => {
         setIsLoading(true);
 
-        // Use requestAnimationFrame instead of setTimeout for better performance
         requestAnimationFrame(() => {
             createFromDifficulty(difficulty);
             setShowDifficultySelect(false);

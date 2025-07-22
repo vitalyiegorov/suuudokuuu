@@ -57,7 +57,7 @@ const getCellSelector = (props: Props): selectors => {
 };
 
 const animationConfig = { duration: animationDurationConstant };
-const textAnimationConfig = { duration: 2 * animationDurationConstant };
+const textAnimationConfig = { duration: 6 * animationDurationConstant };
 
 const FONT_SIZE_MULTIPLIER = 1.5;
 
@@ -107,7 +107,11 @@ export const FieldCell = (props: Props) => {
     }));
     const textAnimatedStyles = useAnimatedStyle(() => ({
         color: interpolateColor(textAnimation.value, [0, 0.5, 1], [Colors.black, Colors.cell.highlightedText, Colors.black]),
-        fontSize: interpolate(textAnimation.value, [0, 0.5, 1], [CellFontSizeConstant, CellFontSizeConstant * FONT_SIZE_MULTIPLIER, CellFontSizeConstant]),
+        fontSize: interpolate(
+            textAnimation.value,
+            [0, 0.5, 1],
+            [CellFontSizeConstant, CellFontSizeConstant * FONT_SIZE_MULTIPLIER, CellFontSizeConstant]
+        ),
         transform: [{ rotate: `${interpolate(textAnimation.value, [0, 1], [0, 360])}deg` }]
     }));
 
