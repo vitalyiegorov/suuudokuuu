@@ -306,7 +306,7 @@ export class Sudoku extends SerializableSudoku {
     }
 
     // TODO: Can we avoid it and just use parent version with correct types?
-    static override fromString(fieldsString: string, config: SudokuConfigInterface): Sudoku {
+    static override fromString(fieldsString: string, config?: SudokuConfigInterface): Sudoku {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
         return super.fromString(fieldsString, config) as Sudoku;
     }
