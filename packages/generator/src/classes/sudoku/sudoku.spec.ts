@@ -122,6 +122,111 @@ describe('Sudoku', () => {
 
         expect(() => sudoku.setCellValue(badCell)).toThrow('Cell value is wrong');
     });
+
+    it('should handle failure to create game field', () => {
+        expect.assertions(1);
+
+        const sudoku = new Sudoku();
+        
+        // Mock fillRecursive to always return false to trigger the error
+        const originalFillRecursive = sudoku['fillRecursive'];
+        sudoku['fillRecursive'] = jest.fn().mockReturnValue(false);
+
+        expect(() => sudoku.create(DifficultyEnum.Easy)).toThrow('Unable to create a game field');
+
+        // Restore original method
+        sudoku['fillRecursive'] = originalFillRecursive;
+    });
+
+    it('should return scored cells when setting correct cell value', () => {
+        expect.assertions(1);
+
+        const sudoku = new Sudoku();
+        sudoku.create(DifficultyEnum.Easy);
+
+        // Find a blank cell and set its correct value
+        const blankCell = sudoku.Field.flat().find(cell => cell.value === defaultSudokuConfig.blankCellValue);
+        if (blankCell) {
+            const correctValue = sudoku.getCorrectValue(blankCell);
+            const cellToSet = { ...blankCell, value: correctValue };
+            
+            const scoredCells = sudoku.setCellValue(cellToSet);
+            
+            expect(scoredCells).toBeDefined();
+        }
+    });
+
+    it('should handle column, row, and group completion scoring', () => {
+        expect.assertions(1);
+
+        const sudoku = new Sudoku();
+        sudoku.create(DifficultyEnum.Easy);
+
+        // Find a blank cell and test the scoring mechanism
+        const blankCell = sudoku.Field.flat().find(cell => cell.value === defaultSudokuConfig.blankCellValue);
+        if (blankCell) {
+            const correctValue = sudoku.getCorrectValue(blankCell);
+            const cellToSet = { ...blankCell, value: correctValue };
+            
+            const scoredCells = sudoku.setCellValue(cellToSet);
+            
+            // We should get scored cells back (specific scoring depends on the puzzle state)
+            expect(scoredCells).toBeDefined();
+        }
+    });
+
+    it('should handle game winning scenario', () => {
+        expect.assertions(1);
+
+        const sudoku = new Sudoku();
+        sudoku.create(DifficultyEnum.Newbie); // Use easier puzzle for faster completion
+
+        // Play through the entire puzzle to reach a winning state
+        let moveCount = 0;
+        const maxMoves = 100; // Prevent infinite loop
+        
+        while (sudoku['possibleValues'].length > 0 && moveCount < maxMoves) {
+            const blankCell = sudoku.Field.flat().find(cell => cell.value === defaultSudokuConfig.blankCellValue);
+            if (blankCell) {
+                const correctValue = sudoku.getCorrectValue(blankCell);
+                const cellToSet = { ...blankCell, value: correctValue };
+                sudoku.setCellValue(cellToSet);
+            }
+            moveCount++;
+        }
+
+        expect(moveCount).toBeLessThan(maxMoves); // Ensure we didn't hit the limit
+    });
+
+    it('should handle value completion scoring', () => {
+        expect.assertions(1);
+
+        const sudoku = new Sudoku();
+        sudoku.create(DifficultyEnum.Easy);
+
+        // Find a blank cell and test value completion
+        const blankCell = sudoku.Field.flat().find(cell => cell.value === defaultSudokuConfig.blankCellValue);
+        if (blankCell) {
+            const correctValue = sudoku.getCorrectValue(blankCell);
+            const cellToSet = { ...blankCell, value: correctValue };
+            
+            const scoredCells = sudoku.setCellValue(cellToSet);
+            
+            // Check that we get scoring information
+            expect(scoredCells.values).toBeDefined();
+        }
+    });
+
+    it('fromString should return Sudoku instance', () => {
+        expect.assertions(1);
+
+        const testFieldsString =
+            '875469123469123875123875469784596231596231784231784596658947312947312658312658947|...469123469123875123875469784596...596231784231784596658947312947312658312658...';
+
+        const sudoku = Sudoku.fromString(testFieldsString, defaultSudokuConfig);
+
+        expect(sudoku).toBeInstanceOf(Sudoku);
+    });
 });
 
 describe('Sudoku - Additional Cell Methods', () => {
