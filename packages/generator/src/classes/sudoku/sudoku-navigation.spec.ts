@@ -1,5 +1,7 @@
 import { describe, expect, it } from '@jest/globals';
 
+import { isDefined } from '@rnw-community/shared';
+
 import { DifficultyEnum } from '../../enums/difficulty.enum';
 import { emptyScoredCells } from '../../interfaces/scored-cells.interface';
 import { defaultSudokuConfig } from '../../interfaces/sudoku-config.interface';
@@ -95,8 +97,12 @@ describe('Sudoku - Cell Validation', () => {
             const filledCell = sudoku.Field.flat().find(cell => cell.value !== defaultSudokuConfig.blankCellValue);
             const differentCell = { x: 1, y: 1, group: 1, value: 8 };
 
-            expect(sudoku.isCellWrong(filledCell, differentCell)).toBe(false);
-            expect(sudoku.isCellWrong(filledCell, filledCell)).toBe(false);
+            expect(isDefined(filledCell)).toBe(true);
+            
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            expect(sudoku.isCellWrong(filledCell!, differentCell)).toBe(false);
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            expect(sudoku.isCellWrong(filledCell!, filledCell)).toBe(false);
         });
     });
 });
@@ -107,7 +113,9 @@ describe('Sudoku - Scoring', () => {
             const sudoku = new Sudoku();
             sudoku.create(DifficultyEnum.Newbie);
 
-            expect(sudoku.isScoredCell({ x: 0, y: 0, group: 0, value: 1 }, { isWon: true })).toBe(true);
+            const wonScoredCells = { ...emptyScoredCells, isWon: true };
+
+            expect(sudoku.isScoredCell({ x: 0, y: 0, group: 0, value: 1 }, wonScoredCells)).toBe(true);
         });
 
         it('isScoredCell() returns true for matching coordinates', () => {
