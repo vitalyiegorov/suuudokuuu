@@ -66,7 +66,7 @@ describe('SerializableSudoku - Difficulty Settings', () => {
 
         const completeField = '123456789'.repeat(9);
         const gameField = '1'.repeat(40) + '.'.repeat(BLANK_CELLS_COUNT);
-        const testFieldsString = `${completeField  }|${  gameField}`;
+        const testFieldsString = `${completeField}|${gameField}`;
 
         const sudoku = SerializableSudoku.fromString(testFieldsString, testConfig);
 
@@ -122,14 +122,14 @@ describe('SerializableSudoku - Value Operations', () => {
 
 describe('SerializableSudoku - Error Handling', () => {
     it('should handle malformed field string (162 chars instead of 163)', () => {
-            const malformedField = decodeURIComponent(
-                '683957124594132786172468953926813475748295631315746892431589267867324519259671348%7C...9..1...94........2..89.39...........2.....31....8...315...67.67..4....59.7..4'
-            );
+        const malformedField = decodeURIComponent(
+            '683957124594132786172468953926813475748295631315746892431589267867324519259671348%7C...9..1...94........2..89.39...........2.....31....8...315...67.67..4....59.7..4'
+        );
 
-            expect(() => {
-                SerializableSudoku.fromString(malformedField, defaultSudokuConfig);
-            }).toThrow('Invalid string format: String length is wrong for the given configuration');
-        });
+        expect(() => {
+            SerializableSudoku.fromString(malformedField, defaultSudokuConfig);
+        }).toThrow('Invalid string format: String length is wrong for the given configuration');
+    });
 
     it('should handle empty field string', () => {
         expect(() => {
