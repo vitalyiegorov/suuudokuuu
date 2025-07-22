@@ -146,7 +146,7 @@ describe('Sudoku', () => {
         expect(isDefined(blankCell)).toBe(true);
         
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        const correctValue = sudoku.getCorrectValue(blankCell!);
+        const correctValue = sudoku.getCorrectValue(blankCell);
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const cellToSet = { ...blankCell!, value: correctValue };
         const scoredCells = sudoku.setCellValue(cellToSet);
@@ -163,7 +163,7 @@ describe('Sudoku', () => {
         expect(blankCell).toBeDefined();
         
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        const correctValue = sudoku.getCorrectValue(blankCell!);
+        const correctValue = sudoku.getCorrectValue(blankCell);
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const cellToSet = { ...blankCell!, value: correctValue };
         const scoredCells = sudoku.setCellValue(cellToSet);
@@ -181,7 +181,7 @@ describe('Sudoku', () => {
             expect(blankCell).toBeDefined();
             
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            const correctValue = sudoku.getCorrectValue(blankCell!);
+            const correctValue = sudoku.getCorrectValue(blankCell);
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             const cellToSet = { ...blankCell!, value: correctValue };
             sudoku.setCellValue(cellToSet);
@@ -200,7 +200,7 @@ describe('Sudoku', () => {
         expect(blankCell).toBeDefined();
         
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        const correctValue = sudoku.getCorrectValue(blankCell!);
+        const correctValue = sudoku.getCorrectValue(blankCell);
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const cellToSet = { ...blankCell!, value: correctValue };
         const scoredCells = sudoku.setCellValue(cellToSet);
