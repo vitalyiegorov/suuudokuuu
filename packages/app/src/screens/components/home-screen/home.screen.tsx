@@ -30,6 +30,7 @@ export const HomeScreen = () => {
     const handleContinue = useResumeGame();
 
     const [showDifficultySelect, setShowDifficultySelect] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const isGameStarted = isNotEmptyString(oldGameString);
 
@@ -40,9 +41,11 @@ export const HomeScreen = () => {
         setShowDifficultySelect(false);
     };
     const handleStart = (difficulty: DifficultyEnum) => {
+        setIsLoading(true);
         createFromDifficulty(difficulty);
         setShowDifficultySelect(false);
         router.push(`game?difficulty=${difficulty}`);
+        setIsLoading(false);
     };
 
     return (
@@ -62,7 +65,7 @@ export const HomeScreen = () => {
 
                 {showDifficultySelect ? (
                     <>
-                        <DifficultySelect onSelect={handleStart} />
+                        <DifficultySelect isLoading={isLoading} onSelect={handleStart} />
 
                         <BlackButton onPress={handleBack} text="Back" />
                     </>
