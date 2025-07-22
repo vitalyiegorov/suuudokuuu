@@ -1,4 +1,5 @@
 import { describe, expect, it, jest } from '@jest/globals';
+
 import { isDefined } from '@rnw-community/shared';
 
 import { DifficultyEnum } from '../../enums/difficulty.enum';
@@ -129,6 +130,7 @@ describe('Sudoku', () => {
 
         const sudoku = new Sudoku();
         
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-type-assertion
         jest.spyOn(sudoku as any, 'fillRecursive').mockImplementation(() => false);
 
         expect(() => void sudoku.create(DifficultyEnum.Easy)).toThrow('Unable to create a game field');
@@ -139,14 +141,17 @@ describe('Sudoku', () => {
         sudoku.create(DifficultyEnum.Easy);
 
         const blankCell = sudoku.Field.flat().find(cell => cell.value === defaultSudokuConfig.blankCellValue);
+
         expect(blankCell).toBeDefined();
+        expect(isDefined(blankCell)).toBe(true);
         
-        if (isDefined(blankCell)) {
-            const correctValue = sudoku.getCorrectValue(blankCell);
-            const cellToSet = { ...blankCell, value: correctValue };
-            const scoredCells = sudoku.setCellValue(cellToSet);
-            expect(scoredCells).toBeDefined();
-        }
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const correctValue = sudoku.getCorrectValue(blankCell!);
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const cellToSet = { ...blankCell!, value: correctValue };
+        const scoredCells = sudoku.setCellValue(cellToSet);
+
+        expect(scoredCells).toBeDefined();
     });
 
     it('should handle column, row, and group completion scoring', () => {
@@ -154,14 +159,16 @@ describe('Sudoku', () => {
         sudoku.create(DifficultyEnum.Easy);
 
         const blankCell = sudoku.Field.flat().find(cell => cell.value === defaultSudokuConfig.blankCellValue);
+
         expect(blankCell).toBeDefined();
         
-        if (blankCell) {
-            const correctValue = sudoku.getCorrectValue(blankCell);
-            const cellToSet = { ...blankCell, value: correctValue };
-            const scoredCells = sudoku.setCellValue(cellToSet);
-            expect(scoredCells).toBeDefined();
-        }
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const correctValue = sudoku.getCorrectValue(blankCell!);
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const cellToSet = { ...blankCell!, value: correctValue };
+        const scoredCells = sudoku.setCellValue(cellToSet);
+
+        expect(scoredCells).toBeDefined();
     });
 
     it('should handle game winning scenario', () => {
@@ -170,20 +177,18 @@ describe('Sudoku', () => {
         
         while (sudoku.PossibleValues.length > 0) {
             const blankCell = sudoku.Field.flat().find(cell => cell.value === defaultSudokuConfig.blankCellValue);
-            if (isDefined(blankCell)) {
-                const correctValue = sudoku.getCorrectValue(blankCell);
-                const cellToSet = { ...blankCell, value: correctValue };
-                const scoredCells = sudoku.setCellValue(cellToSet);
-                
-                if (scoredCells.isWon) {
-                    expect(sudoku.PossibleValues.length).toBe(0);
-                    expect(sudoku.Field.flat().every(cell => cell.value !== defaultSudokuConfig.blankCellValue)).toBe(true);
-                    break;
-                }
-            }
+
+            expect(blankCell).toBeDefined();
+            
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            const correctValue = sudoku.getCorrectValue(blankCell!);
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            const cellToSet = { ...blankCell!, value: correctValue };
+            sudoku.setCellValue(cellToSet);
         }
 
-        expect(sudoku.PossibleValues.length).toBe(0);
+        expect(sudoku.PossibleValues).toHaveLength(0);
+        expect(sudoku.Field.flat().every(cell => cell.value !== defaultSudokuConfig.blankCellValue)).toBe(true);
     });
 
     it('should handle value completion scoring', () => {
@@ -191,14 +196,16 @@ describe('Sudoku', () => {
         sudoku.create(DifficultyEnum.Easy);
 
         const blankCell = sudoku.Field.flat().find(cell => cell.value === defaultSudokuConfig.blankCellValue);
+
         expect(blankCell).toBeDefined();
         
-        if (blankCell) {
-            const correctValue = sudoku.getCorrectValue(blankCell);
-            const cellToSet = { ...blankCell, value: correctValue };
-            const scoredCells = sudoku.setCellValue(cellToSet);
-            expect(scoredCells.values).toBeDefined();
-        }
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const correctValue = sudoku.getCorrectValue(blankCell!);
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const cellToSet = { ...blankCell!, value: correctValue };
+        const scoredCells = sudoku.setCellValue(cellToSet);
+
+        expect(scoredCells.values).toBeDefined();
     });
 
     it('fromString should return Sudoku instance', () => {
