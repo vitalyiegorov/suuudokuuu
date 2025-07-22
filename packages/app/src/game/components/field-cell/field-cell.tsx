@@ -1,11 +1,11 @@
 import { use, useCallback, useImperativeHandle } from 'react';
 import { Pressable } from 'react-native';
 import Reanimated, {
+    type SharedValue,
     interpolate,
     interpolateColor,
     useAnimatedStyle,
     useDerivedValue,
-    useSharedValue,
     withTiming
 } from 'react-native-reanimated';
 
@@ -19,7 +19,7 @@ import { CellFontSizeConstant } from '../constants/dimensions.contant';
 import { FieldCellSelectors as selectors } from './field-cell.selectors';
 import { FieldCellStyles as styles } from './field-cell.styles';
 
-import type { CellInterface } from '@suuudokuuu/generator';
+import type { CellInterface, ScoredCellsInterface } from '@suuudokuuu/generator';
 import type { Ref } from 'react';
 
 const ReanimatedPressable = Reanimated.createAnimatedComponent(Pressable);
@@ -57,9 +57,9 @@ const getCellSelector = (props: Props): selectors => {
 };
 
 const animationConfig = { duration: animationDurationConstant };
-const textAnimationConfig = { duration: 2 * animationDurationConstant };
 
 export interface FieldCellRef {
+    // Kept for backwards compatibility, but no longer used
     triggerAnimation: () => void;
 }
 
@@ -71,11 +71,13 @@ interface Props {
     readonly isHighlighted: boolean;
     readonly isWrong: boolean;
     readonly ref: Ref<FieldCellRef>;
+    readonly cellAnimation: SharedValue<number>;
+    readonly animatedScoredCells?: ScoredCellsInterface;
 }
 
 // eslint-disable-next-line max-statements
 export const FieldCell = (props: Props) => {
-    const { cell, onSelect, isActive, isActiveValue, isHighlighted, isWrong, ref } = props;
+    const { cell, onSelect, isActive, isActiveValue, isHighlighted, isWrong, ref, cellAnimation, animatedScoredCells } = props;
 
     const { sudoku } = use(GameContext);
 
@@ -84,31 +86,39 @@ export const FieldCell = (props: Props) => {
     const text = getText(isActive, isEmpty, cell);
 
     const animation = useDerivedValue(() => withTiming(isActive ? 1 : 0, animationConfig));
-    const textAnimation = useSharedValue(0);
 
     useImperativeHandle(
         ref,
         () => ({
             triggerAnimation: () => {
-                textAnimation.value = withTiming(1, textAnimationConfig, finished => {
-                    if (finished === true) {
-                        textAnimation.value = 0;
-                    }
-                });
+                /*
+                 * This method is kept for backwards compatibility but is no longer used
+                 * Animation is now handled at the GameScreen level with a single shared value
+                 */
             }
         }),
-        [textAnimation]
+        []
     );
 
     const cellAnimatedStyles = useAnimatedStyle(() => ({
         backgroundColor: interpolateColor(animation.value, [0, 1], [cellBackgroundColor, Colors.cell.active])
     }));
+
+    // Check if this cell should animate based on scored cells
+    const shouldAnimate = animatedScoredCells && sudoku.isScoredCell(cell, animatedScoredCells);
+    
 const FONT_SIZE_MULTIPLIER = 1.5;
 
-    const textAnimatedStyles = useAnimatedStyle(() => ({
-        color: interpolateColor(textAnimation.value, [0, 0.5, 1], [Colors.black, Colors.cell.highlightedText, Colors.black]),
-        fontSize: interpolate(textAnimation.value, [0, 0.5, 1], [CellFontSizeConstant, CellFontSizeConstant * FONT_SIZE_MULTIPLIER, CellFontSizeConstant])
-    }));
+    const textAnimatedStyles = useAnimatedStyle(() => {
+        if (shouldAnimate !== true) {
+            return {};
+        }
+        
+        return {
+            color: interpolateColor(cellAnimation.value, [0, 0.5, 1], [Colors.black, Colors.cell.highlightedText, Colors.black]),
+            fontSize: interpolate(cellAnimation.value, [0, 0.5, 1], [CellFontSizeConstant, CellFontSizeConstant * FONT_SIZE_MULTIPLIER, CellFontSizeConstant])
+        };
+    });
 
     const handlePress = useCallback(() => {
         onSelect(isActive ? undefined : cell);
