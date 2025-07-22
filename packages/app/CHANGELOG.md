@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.22.8](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.22.7...v1.22.8) (2025-07-22)
+
+### Bug Fixes
+
+- **field-cell:** resolve ReanimatedError by inlining animation logic and keeping optimization changes ([51685aa](https://github.com/vitalyiegorov/suuudokuuu/commit/51685aaaaac205272f8b4cc94d7ff42d32b3f5bf))
+
+### Performance Improvements
+
+- **app:** optimize iOS animation performance and reduce UI blocking ([f76847b](https://github.com/vitalyiegorov/suuudokuuu/commit/f76847b3f465b9b8caaade2429cf2b78d2b21517))
+
 ## [1.22.7](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.22.6...v1.22.7) (2025-07-22)
 
 **Note:** Version bump only for package @suuudokuuu/app
