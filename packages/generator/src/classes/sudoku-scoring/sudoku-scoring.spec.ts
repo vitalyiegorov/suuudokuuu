@@ -8,6 +8,8 @@ import { SudokuScoring } from './sudoku-scoring';
 
 import type { ScoredCellsInterface } from '../../interfaces/scored-cells.interface';
 
+const TIME_IN_SECONDS = 3600;
+
 describe('SudokuScoring', () => {
     const scoring = new SudokuScoring(defaultSudokuScoringConfig);
 
@@ -100,7 +102,7 @@ describe('SudokuScoring', () => {
     it('should respect minimum score threshold', () => {
         expect.assertions(1);
 
-        const score = scoring.calculate(DifficultyEnum.Easy, emptyScoredCells, 1000, 3600);
+        const score = scoring.calculate(DifficultyEnum.Easy, emptyScoredCells, 1000, TIME_IN_SECONDS);
 
         expect(score).toBe(defaultSudokuScoringConfig.correctMinValue);
     });
