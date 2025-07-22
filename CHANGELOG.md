@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.23.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.22.8...v1.23.0) (2025-07-22)
+
+### Features
+
+- **app,generator:** added candidate mode ([e064aa4](https://github.com/vitalyiegorov/suuudokuuu/commit/e064aa4f978975a9f6375a157e25477a030af85f))
+- **app,generator:** added contrast to filled cells ([c79c69c](https://github.com/vitalyiegorov/suuudokuuu/commit/c79c69c2ce1ae9bb3b673c1e1087bfa5c6a8fe94))
+- **app,generator:** added contrast to filled cells ([1216356](https://github.com/vitalyiegorov/suuudokuuu/commit/1216356efb2b0079adc5871e9b73e6ebeeee2f0b))
+- **app,generator:** added contrast to filled cells ([cbcd11e](https://github.com/vitalyiegorov/suuudokuuu/commit/cbcd11ebde60ce10e4a0092936048c63ebc861a2))
+- **app,generator:** added contrast to filled cells ([7958c98](https://github.com/vitalyiegorov/suuudokuuu/commit/7958c985e527f3d95fd48360befbd4f8e70e640f))
+- **app,generator:** added contrast to filled cells ([b946756](https://github.com/vitalyiegorov/suuudokuuu/commit/b94675677b48433a70a2a0dd4536417f2ebb10b4))
+
 ## [1.22.8](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.22.7...v1.22.8) (2025-07-22)
 
 ### Bug Fixes
