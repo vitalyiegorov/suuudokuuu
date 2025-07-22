@@ -12,7 +12,9 @@ export const useKeyboardControls = (
     sudoku: Sudoku,
     selectedCell: CellInterface | undefined,
     onSelectCell: OnEventFn<CellInterface | undefined>,
-    onSelectValue: OnEventFn<number>
+    onSelectValue: OnEventFn<number>,
+    onExit: OnEventFn<void>
+    // eslint-disable-next-line @typescript-eslint/max-params
 ) => {
     const dispatch = useAppDispatch();
 
@@ -52,6 +54,12 @@ export const useKeyboardControls = (
                 dispatch(gameToggleCandidatesAction());
             }
 
+            if (key === 'Escape') {
+                e.stopPropagation();
+                e.preventDefault();
+                onExit();
+            }
+
             if (isDefined(selectedCell) && /^[1-9]$/iu.test(key)) {
                 e.preventDefault();
                 onSelectValue(Number(key));
@@ -61,5 +69,5 @@ export const useKeyboardControls = (
         window.addEventListener('keydown', handleKeyDown);
 
         return () => void window.removeEventListener('keydown', handleKeyDown);
-    }, [selectedCell, onSelectCell, onSelectValue, sudoku]);
+    }, [selectedCell, onSelectCell, onSelectValue, sudoku, onExit]);
 };

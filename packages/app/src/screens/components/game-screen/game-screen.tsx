@@ -136,7 +136,7 @@ export const GameScreen = () => {
         dispatch(gameToggleCandidatesAction());
     };
 
-    useKeyboardControls(sudoku, selectedCell, handleSelectCell, handleSelectValue);
+    useKeyboardControls(sudoku, selectedCell, handleSelectCell, handleSelectValue, handleExit);
 
     const mistakesCountTextStyles = [styles.mistakesCountText, cs(maxMistakesReached, styles.mistakesCountErrorText)];
 
