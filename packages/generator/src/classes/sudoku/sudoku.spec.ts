@@ -1,4 +1,5 @@
 import { describe, expect, it, jest } from '@jest/globals';
+import { isDefined } from '@rnw-community/shared';
 
 import { DifficultyEnum } from '../../enums/difficulty.enum';
 import { defaultSudokuConfig, getBlankCellCountByConfig } from '../../interfaces/sudoku-config.interface';
@@ -128,7 +129,7 @@ describe('Sudoku', () => {
 
         const sudoku = new Sudoku();
         
-        jest.spyOn(sudoku, 'fillRecursive').mockImplementation().mockReturnValue(false);
+        jest.spyOn(sudoku as any, 'fillRecursive').mockImplementation(() => false);
 
         expect(() => void sudoku.create(DifficultyEnum.Easy)).toThrow('Unable to create a game field');
     });
@@ -140,7 +141,7 @@ describe('Sudoku', () => {
         const blankCell = sudoku.Field.flat().find(cell => cell.value === defaultSudokuConfig.blankCellValue);
         expect(blankCell).toBeDefined();
         
-        if (blankCell) {
+        if (isDefined(blankCell)) {
             const correctValue = sudoku.getCorrectValue(blankCell);
             const cellToSet = { ...blankCell, value: correctValue };
             const scoredCells = sudoku.setCellValue(cellToSet);
@@ -166,21 +167,23 @@ describe('Sudoku', () => {
     it('should handle game winning scenario', () => {
         const sudoku = new Sudoku();
         sudoku.create(DifficultyEnum.Newbie);
-
-        let moveCount = 0;
-        const maxMoves = 100;
         
-        while (sudoku.possibleValues.length > 0 && moveCount < maxMoves) {
+        while (sudoku.PossibleValues.length > 0) {
             const blankCell = sudoku.Field.flat().find(cell => cell.value === defaultSudokuConfig.blankCellValue);
-            if (blankCell) {
+            if (isDefined(blankCell)) {
                 const correctValue = sudoku.getCorrectValue(blankCell);
                 const cellToSet = { ...blankCell, value: correctValue };
-                sudoku.setCellValue(cellToSet);
+                const scoredCells = sudoku.setCellValue(cellToSet);
+                
+                if (scoredCells.isWon) {
+                    expect(sudoku.PossibleValues.length).toBe(0);
+                    expect(sudoku.Field.flat().every(cell => cell.value !== defaultSudokuConfig.blankCellValue)).toBe(true);
+                    break;
+                }
             }
-            moveCount += 1;
         }
 
-        expect(moveCount).toBeLessThan(maxMoves);
+        expect(sudoku.PossibleValues.length).toBe(0);
     });
 
     it('should handle value completion scoring', () => {

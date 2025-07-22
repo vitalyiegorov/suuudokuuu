@@ -4,7 +4,7 @@ import { emptyScoredCells, isEmptyScoredCells } from './scored-cells.interface';
 
 import type { ScoredCellsInterface } from './scored-cells.interface';
 
-describe('scored-cells.interface', () => {
+describe('isEmptyScoredCells utility', () => {
     describe('isEmptyScoredCells', () => {
         it('should return true for empty scored cells', () => {
             expect.assertions(1);

@@ -77,10 +77,10 @@ describe('serializableSudoku', () => {
         const testFieldsString =
             '875469123469123875123875469784596231596231784231784596658947312947312658312658947|...469123469123875123875469784596...596231784231784596658947312947312658312658...';
 
-        const config = { ...defaultSudokuConfig, difficulty: 'Easy' };
+        const config = { ...defaultSudokuConfig, difficulty: DifficultyEnum.Easy };
         const sudoku = SerializableSudoku.fromString(testFieldsString, config);
 
-        expect(sudoku.Difficulty).toBe('Easy');
+        expect(sudoku.Difficulty).toBe(DifficultyEnum.Easy);
     });
 
     it('should get value progress for a specific value', () => {
@@ -94,7 +94,7 @@ describe('serializableSudoku', () => {
         // Test getting progress for value 4 (which should have some progress based on available values)
         const progress = sudoku.getValueProgress(4);
 
-        expect(typeof progress).toBe('number');
+        expect(progress).toBeGreaterThanOrEqual(0);
     });
 
     it('should check if value is available for a cell', () => {
@@ -105,15 +105,12 @@ describe('serializableSudoku', () => {
 
         const sudoku = SerializableSudoku.fromString(testFieldsString, defaultSudokuConfig);
 
-        // Test with undefined cell
         expect(sudoku.isValueAvailable(undefined)).toBe(false);
 
-        // Test with a cell that has an available value
         const cellWithAvailableValue = { x: 0, y: 0, group: 0, value: 4 };
 
         expect(sudoku.isValueAvailable(cellWithAvailableValue)).toBe(true);
 
-        // Test with a cell that has a value that's already completed (value 6 should be complete in this puzzle)
         const cellWithCompletedValue = { x: 0, y: 0, group: 0, value: 6 };
 
         expect(sudoku.isValueAvailable(cellWithCompletedValue)).toBe(false);
