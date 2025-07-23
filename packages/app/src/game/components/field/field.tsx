@@ -46,7 +46,7 @@ export const Field = ({ selectedCell, onSelect, ref }: Props) => {
                 }
             }
         }),
-        []
+        [sudoku]
     );
 
     const handleCellRef = (cell: CellInterface) => (cellRef: FieldCellRef | null) => {
