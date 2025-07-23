@@ -1,4 +1,4 @@
-import { use, useImperativeHandle } from 'react';
+import { forwardRef, use, useImperativeHandle } from 'react';
 import { Pressable } from 'react-native';
 import Reanimated, {
     interpolate,
@@ -20,7 +20,6 @@ import { FieldCellSelectors as selectors } from './field-cell.selectors';
 import { FieldCellStyles as styles } from './field-cell.styles';
 
 import type { CellInterface } from '@suuudokuuu/generator';
-import type { Ref } from 'react';
 
 const ReanimatedPressable = Reanimated.createAnimatedComponent(Pressable);
 
@@ -93,12 +92,11 @@ interface Props {
     readonly isHighlighted: boolean;
     readonly isWrong: boolean;
     readonly hasCandidates: boolean;
-    readonly ref: Ref<FieldCellRef>;
 }
 
 // eslint-disable-next-line max-statements
-export const FieldCell = (props: Props) => {
-    const { cell, onSelect, isActive, isActiveValue, isHighlighted, isWrong, hasCandidates, ref } = props;
+export const FieldCell = forwardRef<FieldCellRef, Props>((props, ref) => {
+    const { cell, onSelect, isActive, isActiveValue, isHighlighted, isWrong, hasCandidates } = props;
 
     const { sudoku } = use(GameContext);
 
@@ -170,4 +168,4 @@ export const FieldCell = (props: Props) => {
             <Reanimated.Text style={textStyles}>{text}</Reanimated.Text>
         </ReanimatedPressable>
     );
-};
+});
