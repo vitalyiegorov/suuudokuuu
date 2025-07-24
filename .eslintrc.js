@@ -20,7 +20,8 @@ module.exports = {
         'plugin:@typescript-eslint/all',
         'plugin:react-hooks/recommended',
         'plugin:n/recommended',
-        'plugin:eslint-comments/recommended'
+        'plugin:eslint-comments/recommended',
+        'plugin:lingui/recommended'
     ],
     overrides: [
         {
