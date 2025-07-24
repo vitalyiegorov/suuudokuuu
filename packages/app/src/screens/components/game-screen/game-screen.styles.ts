@@ -47,5 +47,9 @@ export const GameScreenStyles = StyleSheet.create({
     scoreText: {
         color: Colors.black,
         fontWeight: 'bold'
+    },
+    scoreWrapper: {
+        alignItems: 'flex-end',
+        minWidth: 80
     }
 });

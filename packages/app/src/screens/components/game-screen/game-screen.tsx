@@ -156,10 +156,12 @@ export const GameScreen = () => {
                     </Text>
                 </View>
 
-                <View style={styles.controlsWrapper}>
-                    <Text style={styles.headerText}>Score</Text>
+                <View style={styles.scoreWrapper}>
+                    <View style={styles.controlsWrapper}>
+                        <Text style={styles.headerText}>Score</Text>
 
-                    <Text style={styles.scoreText}>{score}</Text>
+                        <Text style={styles.scoreText}>{score}</Text>
+                    </View>
                 </View>
 
                 <View style={styles.buttonsWrapper}>
