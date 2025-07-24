@@ -166,7 +166,7 @@ export const GameScreen = () => {
 
                 <View style={styles.buttonsWrapper}>
                     <BlackButton isActive={hasCandidates} onPress={handleCandidates} style={styles.button}>
-                        <LucideHandHelping color={hasCandidates ? 'red' : Colors.white} />
+                        <LucideHandHelping color={hasCandidates ? Colors.black : Colors.white} />
                     </BlackButton>
 
                     <BlackButton onPress={handleExit} style={styles.button}>
