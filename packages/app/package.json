@@ -4,15 +4,15 @@
     "private": true,
     "scripts": {
         "android": "expo run:android",
+        "i18n:compile": "run -T lingui compile --typescript",
+        "i18n:extract": "run -T lingui extract --overwrite --clean",
+        "i18n:sync": "yarn i18n:extract && yarn i18n:compile",
         "ios": "expo run:ios",
         "lint": "run -T eslint --fix src",
         "prepare": "husky install",
         "start": "expo start --dev-client -c",
         "ts": "run -T tsc -p .",
-        "web": "expo start --web",
-        "i18n:sync": "run -T lingui extract --overwrite --clean && lingui compile --typescript",
-        "i18n:extract": "run -T lingui extract",
-        "i18n:compile": "run -T lingui compile --typescript"
+        "web": "expo start --web"
     },
     "dependencies": {
         "@expo-google-fonts/inter": "^0.2.3",

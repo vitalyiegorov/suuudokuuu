@@ -1,3 +1,4 @@
+import { useLingui } from '@lingui/react/macro';
 import { useLocalSearchParams } from 'expo-router';
 import { use, useEffect } from 'react';
 
@@ -10,6 +11,7 @@ import { GameScreen } from '../screens/components/game-screen/game.screen';
 
 export default function GamePage() {
     const { field } = useLocalSearchParams<{ field?: string }>();
+    const { t } = useLingui();
 
     const { createFromString } = use(GameContext);
 
@@ -21,7 +23,7 @@ export default function GamePage() {
 
     return (
         <Page>
-            <PageHeader title="Be wise, be smart, be quick..." />
+            <PageHeader title={t`Be wise, be smart, be quick...`} />
 
             <GameScreen />
         </Page>
