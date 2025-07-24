@@ -3,6 +3,8 @@
 .turbo/
 .android/
 .ios/
+src/locales
 
 app.config.js
 babel.config.js
+index.js
