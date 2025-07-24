@@ -3,6 +3,7 @@ import { format } from 'date-fns';
 const email = 'vitalyiegorov@gmail.com';
 const date = format(new Date('2023-05-25'), 'dd MMMM yyyy');
 
+// eslint-disable-next-line lingui/no-unlocalized-strings
 export const privacyPolicyConstant = `
 Privacy Policy Effective Date: ${date}
 

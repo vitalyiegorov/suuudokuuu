@@ -27,7 +27,7 @@ export const WinnerScreen = () => {
                 </Text>
 
                 <Text style={WinnerScreenStyles.timeText}>
-                    It took you <Text style={WinnerScreenStyles.boldText}>{getTimerText(elapsedTime)}</Text>
+                    <Text>{t`It took you`}</Text> <Text style={WinnerScreenStyles.boldText}>{getTimerText(elapsedTime)}</Text>
                 </Text>
             </View>
 

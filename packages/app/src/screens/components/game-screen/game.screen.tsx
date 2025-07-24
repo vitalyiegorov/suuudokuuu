@@ -50,8 +50,8 @@ export const GameScreen = () => {
     const maxMistakesReached = mistakes >= MaxMistakesConstant;
 
     const handleExit = () => {
-        Alert('Stop current run?', 'All progress will be lost', [
-            { text: 'Cancel', style: 'cancel' },
+        Alert(t`Stop current run?`, t`All progress will be lost`, [
+            { text: t`Cancel`, style: 'cancel' },
             {
                 text: 'OK',
                 onPress: () => {

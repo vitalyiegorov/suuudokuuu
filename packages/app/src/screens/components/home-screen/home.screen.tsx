@@ -57,7 +57,7 @@ export const HomeScreen = () => {
             <SupportUkraineBanner />
 
             <View style={HomeScreenStyles.centerContainer}>
-                <Header text="SuuudokuuU" />
+                <Header text={t`SuuudokuuU`} />
 
                 {!showDifficultySelect && (
                     <View style={HomeScreenStyles.buttonWrapper}>
@@ -98,7 +98,7 @@ export const HomeScreen = () => {
 
             <View style={HomeScreenStyles.bottomContainer}>
                 <Text style={HomeScreenStyles.bottomLink}>
-                    V.
+                    <Text>{t`V.`}</Text>
                     {Constants.expoConfig?.version}
                 </Text>
 

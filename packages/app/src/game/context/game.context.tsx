@@ -1,3 +1,4 @@
+import { useLingui } from '@lingui/react/macro';
 import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { useRouter } from 'expo-router';
 import React, { createContext, useState } from 'react';
@@ -20,6 +21,7 @@ export const GameContext = createContext<{
 export const GameProvider = ({ children }: { readonly children: ReactNode }) => {
     const dispatch = useAppDispatch();
     const router = useRouter();
+    const { t } = useLingui();
 
     const [sudoku, setSudoku] = useState(new Sudoku(defaultSudokuConfig));
 
@@ -28,9 +30,9 @@ export const GameProvider = ({ children }: { readonly children: ReactNode }) => 
             setSudoku(Sudoku.fromString(sudokuString, defaultSudokuConfig));
             dispatch(gameResumeAction());
         } catch (error) {
-            Alert('Invalid Sudoku', getErrorMessage(error), [
+            Alert(t`Invalid Sudoku`, getErrorMessage(error), [
                 {
-                    text: 'OK',
+                    text: t`OK`,
                     onPress: () => {
                         dispatch(gameResetAction());
                         router.replace('/');
