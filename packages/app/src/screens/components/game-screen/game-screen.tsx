@@ -12,6 +12,7 @@ import { BlackButton } from '../../../@generic/components/black-button/black-but
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
+import { Colors } from '../../../@generic/styles/theme';
 import { hapticImpact, hapticNotification } from '../../../@generic/utils/haptic/haptic.util';
 import { AvailableValuesItem, type AvailableValuesItemRef } from '../../../game/components/available-values-item/available-values-item';
 import { Field, type FieldRef } from '../../../game/components/field/field';
@@ -163,11 +164,11 @@ export const GameScreen = () => {
 
                 <View style={styles.buttonsWrapper}>
                     <BlackButton isActive={hasCandidates} onPress={handleCandidates} style={styles.button}>
-                        <LucideHandHelping color={hasCandidates ? 'red' : 'black'} />
+                        <LucideHandHelping color={hasCandidates ? 'red' : Colors.white} />
                     </BlackButton>
 
                     <BlackButton onPress={handleExit} style={styles.button}>
-                        <LucideLogOut />
+                        <LucideLogOut color={Colors.white} />
                     </BlackButton>
                 </View>
             </View>
