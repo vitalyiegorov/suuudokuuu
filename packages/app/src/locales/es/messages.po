@@ -37,17 +37,37 @@ msgstr ""
 msgid "Continue"
 msgstr "Continuar"
 
+#: src/@generic/components/difficulty-select/difficulty-select.tsx:26
+msgid "Easy"
+msgstr "Fácil"
+
 #: src/screens/components/pause-screen/pause.screen.tsx:18
 msgid "Game paused"
 msgstr "Juego en pausa"
+
+#: src/@generic/components/difficulty-select/difficulty-select.tsx:30
+msgid "Hard"
+msgstr "Difícil"
 
 #: src/@generic/components/donation/donation.tsx:33
 msgid "Help Ukraine win!"
 msgstr "¡Ayuda a Ucrania a ganar!"
 
+#: src/@generic/components/difficulty-select/difficulty-select.tsx:28
+msgid "Medium"
+msgstr "Medio"
+
 #: src/screens/components/game-screen/game.screen.tsx:150
 msgid "Mistakes"
 msgstr "Errores"
+
+#: src/@generic/components/difficulty-select/difficulty-select.tsx:32
+msgid "Newbie"
+msgstr "Novato"
+
+#: src/@generic/components/difficulty-select/difficulty-select.tsx:34
+msgid "Nightmare"
+msgstr "Pesadilla"
 
 #: src/@generic/components/play-again-button/play-again-button.tsx:14
 msgid "Play again"
@@ -78,6 +98,10 @@ msgstr "Empezar de nuevo"
 #: src/@generic/components/support-ukraine-banner/support-ukraine-banner.tsx:15
 msgid "Support Ukraine"
 msgstr "Apoya a Ucrania"
+
+#: src/@generic/components/difficulty-select/difficulty-select.tsx:36
+msgid "Unknown"
+msgstr ""
 
 #: src/@generic/components/donation/donation.tsx:23
 msgid ""
