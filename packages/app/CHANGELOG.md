@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.23.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.23.0...v1.23.1) (2025-07-24)
+
+### Bug Fixes
+
+- **app:** align controls with new buttons ([ae03bec](https://github.com/vitalyiegorov/suuudokuuu/commit/ae03bec71a787ac5c27f5fc69b94978fe51a8805))
+- **app:** align controls with new buttons ([0e65c0b](https://github.com/vitalyiegorov/suuudokuuu/commit/0e65c0bf05bb8251d22883e9f9d92f742e8fa036))
+- **app:** improve candidate and cell styling ([291b5e5](https://github.com/vitalyiegorov/suuudokuuu/commit/291b5e53342e0ce597c5ed7b851d4aaf2430fbf5))
+- **app:** improve candidate styling ([1088124](https://github.com/vitalyiegorov/suuudokuuu/commit/108812486009235649d828f10e9b3a32e234b081))
+- **app:** native expo support ([2fb4eb0](https://github.com/vitalyiegorov/suuudokuuu/commit/2fb4eb0c226b009033ce80f3babb551e24af9107))
+- **app:** svg colors on white theme ([56918fc](https://github.com/vitalyiegorov/suuudokuuu/commit/56918fc5328656e88b3e4cf43ace10b87ad2ab12))
+
 # [1.23.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.22.8...v1.23.0) (2025-07-22)
 
 ### Features
