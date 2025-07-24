@@ -18,7 +18,7 @@ export const GameScreenStyles = StyleSheet.create({
         paddingBottom: 20
     },
     controls: {
-        alignItems: 'flex-start',
+        alignItems: 'center',
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between'
