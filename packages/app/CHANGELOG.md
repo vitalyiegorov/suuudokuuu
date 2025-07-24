@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.24.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.23.1...v1.24.0) (2025-07-24)
+
+### Features
+
+- **app:** i18n support ([0a69a2b](https://github.com/vitalyiegorov/suuudokuuu/commit/0a69a2b705f8e475044cb397099ede7ba1a04053))
+- **app:** i18n support ([335af03](https://github.com/vitalyiegorov/suuudokuuu/commit/335af032bdad5837692e0c66dfc2e90384504e08))
+- **app:** i18n support ([869679f](https://github.com/vitalyiegorov/suuudokuuu/commit/869679f4b233aac824c41d8ff1c300f0ff1979fc))
+- **app:** i18n support ([c5f9048](https://github.com/vitalyiegorov/suuudokuuu/commit/c5f90486d46f60c711f794b36d75dba547124ac0))
+- **app:** i18n support ([ba61a89](https://github.com/vitalyiegorov/suuudokuuu/commit/ba61a89b70ec84d2adeed5aca73656b52a5c8262))
+
 ## [1.23.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.23.0...v1.23.1) (2025-07-24)
 
 ### Bug Fixes
