@@ -1,3 +1,4 @@
+import { useLingui } from '@lingui/react/macro';
 import { DifficultyEnum } from '@suuudokuuu/generator';
 import { View } from 'react-native';
 
@@ -13,14 +14,33 @@ interface Props {
 }
 
 export const DifficultySelect = ({ onSelect, isLoading = false }: Props) => {
+    const { t } = useLingui();
+
     const handlePress = (difficulty: DifficultyEnum) => () => {
         onSelect(difficulty);
+    };
+
+    const getTitle = (difficulty: DifficultyEnum): string => {
+        switch (difficulty) {
+            case DifficultyEnum.Easy:
+                return t`Easy`;
+            case DifficultyEnum.Medium:
+                return t`Medium`;
+            case DifficultyEnum.Hard:
+                return t`Hard`;
+            case DifficultyEnum.Newbie:
+                return t`Newbie`;
+            case DifficultyEnum.Nightmare:
+                return t`Nightmare`;
+            default:
+                return t`Unknown`;
+        }
     };
 
     return (
         <View style={styles.wrapper}>
             {Object.values(DifficultyEnum).map(difficulty => (
-                <BlackButton isLoading={isLoading} key={difficulty} onPress={handlePress(difficulty)} text={difficulty} />
+                <BlackButton isLoading={isLoading} key={difficulty} onPress={handlePress(difficulty)} text={getTitle(difficulty)} />
             ))}
         </View>
     );
