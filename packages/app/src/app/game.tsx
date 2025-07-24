@@ -1,3 +1,4 @@
+import { useLingui } from '@lingui/react/macro';
 import { useLocalSearchParams } from 'expo-router';
 import { use, useEffect } from 'react';
 
@@ -6,10 +7,11 @@ import { isNotEmptyString } from '@rnw-community/shared';
 import { Page } from '../@generic/components/page/page';
 import { PageHeader } from '../@generic/components/page-header/page-header';
 import { GameContext } from '../game/context/game.context';
-import { GameScreen } from '../screens/components/game-screen/game-screen';
+import { GameScreen } from '../screens/components/game-screen/game.screen';
 
 export default function GamePage() {
     const { field } = useLocalSearchParams<{ field?: string }>();
+    const { t } = useLingui();
 
     const { createFromString } = use(GameContext);
 
@@ -21,7 +23,7 @@ export default function GamePage() {
 
     return (
         <Page>
-            <PageHeader title="Be wise, be smart, be quick..." />
+            <PageHeader title={t`Be wise, be smart, be quick...`} />
 
             <GameScreen />
         </Page>

@@ -1,6 +1,10 @@
+import { i18n } from '@lingui/core';
+import { msg } from '@lingui/core/macro';
+import { useLingui } from '@lingui/react/macro';
 import { Text, View } from 'react-native';
 
-import { DonateButton } from '../donate-button/donate-button';
+import { donationLinkConstant } from '../../constants/donation.constant';
+import { BlackButton } from '../black-button/black-button';
 
 import { DonationStyles as styles } from './donation.styles';
 
@@ -11,18 +15,22 @@ interface Props {
 // TODO: Add different random texts based on difficulty and results
 const getText = (type: Props['type']) => {
     if (type === 'winner') {
-        return 'You won and Ukraine needs to!\n\nEvery 1$ donation matters!';
+        return i18n._(msg`You won and Ukraine needs to!\n\nEvery 1$ donation matters!`);
     } else if (type === 'loser') {
-        return 'You lost but Ukraine must win!\n\nEvery 1$ donation matters!';
+        return i18n._(msg`You lost but Ukraine must win!\n\nEvery 1$ donation matters!`);
     }
 
-    return 'While you were away Ukraine continued its fight for freedom!\n\nEvery 1$ donation matters!';
+    return i18n._(msg`While you were away Ukraine continued its fight for freedom!\n\nEvery 1$ donation matters!`);
 };
 
-export const Donation = ({ type }: Props) => (
-    <View style={styles.donation}>
-        <Text style={styles.donationText}>{getText(type)}</Text>
+export const Donation = ({ type }: Props) => {
+    const { t } = useLingui();
 
-        <DonateButton />
-    </View>
-);
+    return (
+        <View style={styles.donation}>
+            <Text style={styles.donationText}>{getText(type)}</Text>
+
+            <BlackButton href={donationLinkConstant} text={t`Help Ukraine win!`} />
+        </View>
+    );
+};

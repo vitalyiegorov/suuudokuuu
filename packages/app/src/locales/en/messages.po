@@ -1,0 +1,196 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2025-07-24 14:45+0200\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: en\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#: src/screens/components/game-screen/game.screen.tsx:53
+msgid "All progress will be lost"
+msgstr "All progress will be lost"
+
+#: src/screens/components/home-screen/home.screen.tsx:76
+msgid "Back"
+msgstr "Back"
+
+#: src/app/game.tsx:26
+msgid "Be wise, be smart, be quick..."
+msgstr "Be wise, be smart, be quick..."
+
+#: src/screens/components/home-screen/home.screen.tsx:85
+msgid "Best score"
+msgstr "Best score"
+
+#: src/screens/components/home-screen/home.screen.tsx:91
+msgid "Best time"
+msgstr "Best time"
+
+#: src/screens/components/loser-screen/loser.screen.tsx:15
+msgid ""
+"Better luck next time!\n"
+"Loooooser =)"
+msgstr ""
+"Better luck next time!\n"
+"Loooooser =)"
+
+#: src/screens/components/game-screen/game.screen.tsx:54
+msgid "Cancel"
+msgstr "Cancel"
+
+#: src/screens/components/home-screen/home.screen.tsx:64
+msgid "Continue"
+msgstr "Continue"
+
+#: src/@generic/components/difficulty-select/difficulty-select.tsx:26
+msgid "Easy"
+msgstr "Easy"
+
+#: src/screens/components/pause-screen/pause.screen.tsx:18
+#: src/app/pause.tsx:12
+msgid "Game paused"
+msgstr "Game paused"
+
+#: src/@generic/components/difficulty-select/difficulty-select.tsx:30
+msgid "Hard"
+msgstr "Hard"
+
+#: src/@generic/components/donation/donation.tsx:33
+msgid "Help Ukraine win!"
+msgstr "Help Ukraine win!"
+
+#: src/game/context/game.context.tsx:33
+msgid "Invalid Sudoku"
+msgstr "Invalid Sudoku"
+
+#: src/screens/components/winner-screen/winner.screen.tsx:30
+msgid "It took you"
+msgstr "It took you"
+
+#: src/app/loser.tsx:12
+msgid "Looooooser! =)"
+msgstr "Looooooser! =)"
+
+#: src/@generic/components/difficulty-select/difficulty-select.tsx:28
+msgid "Medium"
+msgstr "Medium"
+
+#: src/screens/components/game-screen/game.screen.tsx:150
+msgid "Mistakes"
+msgstr "Mistakes"
+
+#: src/@generic/components/difficulty-select/difficulty-select.tsx:32
+msgid "Newbie"
+msgstr "Newbie"
+
+#: src/@generic/components/difficulty-select/difficulty-select.tsx:34
+msgid "Nightmare"
+msgstr "Nightmare"
+
+#: src/game/context/game.context.tsx:35
+msgid "OK"
+msgstr "OK"
+
+#: src/@generic/components/play-again-button/play-again-button.tsx:14
+msgid "Play again"
+msgstr "Play again"
+
+#: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx:16
+#: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx:18
+#: src/screens/components/home-screen/home.screen.tsx:106
+#: src/app/privacy-policy.tsx:12
+msgid "Privacy policy"
+msgstr "Privacy policy"
+
+#: src/screens/components/pause-screen/pause.screen.tsx:24
+msgid "Resume"
+msgstr "Resume"
+
+#: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx:24
+msgid "Return"
+msgstr "Return"
+
+#: src/screens/components/game-screen/game.screen.tsx:163
+msgid "Score"
+msgstr "Score"
+
+#: src/screens/components/home-screen/home.screen.tsx:66
+msgid "Start new"
+msgstr "Start new"
+
+#: src/screens/components/game-screen/game.screen.tsx:53
+msgid "Stop current run?"
+msgstr "Stop current run?"
+
+#: src/@generic/components/support-ukraine-banner/support-ukraine-banner.tsx:15
+msgid "Support Ukraine"
+msgstr "Support Ukraine"
+
+#: src/screens/components/home-screen/home.screen.tsx:60
+msgid "SuuudokuuU"
+msgstr "SuuudokuuU"
+
+#: src/@generic/components/page-header/page-header.tsx:18
+msgid "SuuudokuuU The Game"
+msgstr "SuuudokuuU The Game"
+
+#: src/@generic/components/difficulty-select/difficulty-select.tsx:36
+msgid "Unknown"
+msgstr "Unknown"
+
+#: src/screens/components/home-screen/home.screen.tsx:101
+msgid "V."
+msgstr "V."
+
+#: src/@generic/components/donation/donation.tsx:23
+msgid ""
+"While you were away Ukraine continued its fight for freedom!\n"
+"\n"
+"Every 1$ donation matters!"
+msgstr ""
+"While you were away Ukraine continued its fight for freedom!\n"
+"\n"
+"Every 1$ donation matters!"
+
+#: src/screens/components/winner-screen/winner.screen.tsx:21
+msgid ""
+"Winners-winner, \n"
+" chicken dinner!"
+msgstr ""
+"Winners-winner, \n"
+" chicken dinner!"
+
+#: src/app/winner.tsx:12
+msgid "Winners-winner, chicken dinner!"
+msgstr "Winners-winner, chicken dinner!"
+
+#: src/screens/components/winner-screen/winner.screen.tsx:25
+msgid "You have scored"
+msgstr "You have scored"
+
+#: src/@generic/components/donation/donation.tsx:20
+msgid ""
+"You lost but Ukraine must win!\n"
+"\n"
+"Every 1$ donation matters!"
+msgstr ""
+"You lost but Ukraine must win!\n"
+"\n"
+"Every 1$ donation matters!"
+
+#: src/@generic/components/donation/donation.tsx:18
+msgid ""
+"You won and Ukraine needs to!\n"
+"\n"
+"Every 1$ donation matters!"
+msgstr ""
+"You won and Ukraine needs to!\n"
+"\n"
+"Every 1$ donation matters!"

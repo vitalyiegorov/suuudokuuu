@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-export const LooserScreenStyles = StyleSheet.create({
+export const LoserScreenStyles = StyleSheet.create({
     container: {
         alignItems: 'center',
         flex: 1,

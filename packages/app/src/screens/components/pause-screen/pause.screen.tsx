@@ -1,3 +1,4 @@
+import { useLingui } from '@lingui/react/macro';
 import { Text, View } from 'react-native';
 
 import { BlackButton } from '../../../@generic/components/black-button/black-button';
@@ -8,17 +9,19 @@ import { useResumeGame } from '../../../game/hooks/use-resume-game.hook';
 import { PauseScreenStyles } from './pause-screen.styles';
 
 export const PauseScreen = () => {
+    const { t } = useLingui();
+
     const handleResume = useResumeGame();
 
     return (
         <View style={PauseScreenStyles.container}>
-            <Header text="Game paused" />
+            <Header text={t`Game paused`} />
 
             <Text style={PauseScreenStyles.text} />
 
             <Donation type="paused" />
 
-            <BlackButton onPress={handleResume} text="Resume" />
+            <BlackButton onPress={handleResume} text={t`Resume`} />
         </View>
     );
 };
