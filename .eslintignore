@@ -10,5 +10,3 @@ packages/app/babel.config.js
 commitlint.config.js
 packages/app/jest.config.js
 packages/app/metro.config.js
-
-packages/app/index.js

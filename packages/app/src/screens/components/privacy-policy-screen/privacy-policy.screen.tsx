@@ -1,22 +1,27 @@
+import { useLingui } from '@lingui/react/macro';
 import { ScrollView, Text, View } from 'react-native';
 
 import { BlackButton } from '../../../@generic/components/black-button/black-button';
 import { Header } from '../../../@generic/components/header/header';
 import { PageHeader } from '../../../@generic/components/page-header/page-header';
 
+import { PrivacyPolicyScreenStyles } from './privacy-policy-screen.styles';
 import { privacyPolicyConstant } from './privacy-policy.constant';
-import { PrivacyPolicyScreenStyles } from './privacy-policy.styles';
 
-export const PrivacyPolicyScreen = () => (
-    <View style={PrivacyPolicyScreenStyles.container}>
-        <PageHeader title="Privacy policy" />
+export const PrivacyPolicyScreen = () => {
+    const { t } = useLingui();
 
-        <Header text="Privacy policy" />
+    return (
+        <View style={PrivacyPolicyScreenStyles.container}>
+            <PageHeader title={t`Privacy policy`} />
 
-        <ScrollView contentContainerStyle={PrivacyPolicyScreenStyles.scrollView}>
-            <Text style={PrivacyPolicyScreenStyles.text}>{privacyPolicyConstant}</Text>
-        </ScrollView>
+            <Header text={t`Privacy policy`} />
 
-        <BlackButton href="/" text="Return" />
-    </View>
-);
+            <ScrollView contentContainerStyle={PrivacyPolicyScreenStyles.scrollView}>
+                <Text style={PrivacyPolicyScreenStyles.text}>{privacyPolicyConstant}</Text>
+            </ScrollView>
+
+            <BlackButton href="/" text={t`Return`} />
+        </View>
+    );
+};

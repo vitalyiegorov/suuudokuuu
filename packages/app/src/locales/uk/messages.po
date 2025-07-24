@@ -1,0 +1,196 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2025-07-24 14:45+0200\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: uk\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#: src/screens/components/game-screen/game.screen.tsx:53
+msgid "All progress will be lost"
+msgstr "Всі досягнення будуть втрачені"
+
+#: src/screens/components/home-screen/home.screen.tsx:76
+msgid "Back"
+msgstr "Назад"
+
+#: src/app/game.tsx:26
+msgid "Be wise, be smart, be quick..."
+msgstr "Будьте мудрими, розумними, швидкими..."
+
+#: src/screens/components/home-screen/home.screen.tsx:85
+msgid "Best score"
+msgstr "Найкращий результат"
+
+#: src/screens/components/home-screen/home.screen.tsx:91
+msgid "Best time"
+msgstr "Найкращий час"
+
+#: src/screens/components/loser-screen/loser.screen.tsx:15
+msgid ""
+"Better luck next time!\n"
+"Loooooser =)"
+msgstr ""
+"Наступного разу пощастить!\n"
+"Лууууузер =)"
+
+#: src/screens/components/game-screen/game.screen.tsx:54
+msgid "Cancel"
+msgstr "Скасувати"
+
+#: src/screens/components/home-screen/home.screen.tsx:64
+msgid "Continue"
+msgstr "Продовжити"
+
+#: src/@generic/components/difficulty-select/difficulty-select.tsx:26
+msgid "Easy"
+msgstr "Легкий"
+
+#: src/screens/components/pause-screen/pause.screen.tsx:18
+#: src/app/pause.tsx:12
+msgid "Game paused"
+msgstr "Гру призупинено"
+
+#: src/@generic/components/difficulty-select/difficulty-select.tsx:30
+msgid "Hard"
+msgstr "Важкий"
+
+#: src/@generic/components/donation/donation.tsx:33
+msgid "Help Ukraine win!"
+msgstr "Допоможіть Україні перемогти!"
+
+#: src/game/context/game.context.tsx:33
+msgid "Invalid Sudoku"
+msgstr "Недійсний Судоку"
+
+#: src/screens/components/winner-screen/winner.screen.tsx:30
+msgid "It took you"
+msgstr "Вам знадобилося"
+
+#: src/app/loser.tsx:12
+msgid "Looooooser! =)"
+msgstr "Лууууузер! =)"
+
+#: src/@generic/components/difficulty-select/difficulty-select.tsx:28
+msgid "Medium"
+msgstr "Середній"
+
+#: src/screens/components/game-screen/game.screen.tsx:150
+msgid "Mistakes"
+msgstr "Помилки"
+
+#: src/@generic/components/difficulty-select/difficulty-select.tsx:32
+msgid "Newbie"
+msgstr "Новачок"
+
+#: src/@generic/components/difficulty-select/difficulty-select.tsx:34
+msgid "Nightmare"
+msgstr "Кошмар"
+
+#: src/game/context/game.context.tsx:35
+msgid "OK"
+msgstr "Гаразд"
+
+#: src/@generic/components/play-again-button/play-again-button.tsx:14
+msgid "Play again"
+msgstr "Зіграти знову"
+
+#: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx:16
+#: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx:18
+#: src/screens/components/home-screen/home.screen.tsx:106
+#: src/app/privacy-policy.tsx:12
+msgid "Privacy policy"
+msgstr "Політика конфіденційності"
+
+#: src/screens/components/pause-screen/pause.screen.tsx:24
+msgid "Resume"
+msgstr "Відновити"
+
+#: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx:24
+msgid "Return"
+msgstr "Повернутися"
+
+#: src/screens/components/game-screen/game.screen.tsx:163
+msgid "Score"
+msgstr "Рахунок"
+
+#: src/screens/components/home-screen/home.screen.tsx:66
+msgid "Start new"
+msgstr "Почати заново"
+
+#: src/screens/components/game-screen/game.screen.tsx:53
+msgid "Stop current run?"
+msgstr "Зупинити поточний прогрес?"
+
+#: src/@generic/components/support-ukraine-banner/support-ukraine-banner.tsx:15
+msgid "Support Ukraine"
+msgstr "Підтримайте Україну 🇺🇦"
+
+#: src/screens/components/home-screen/home.screen.tsx:60
+msgid "SuuudokuuU"
+msgstr "СууудокуУ"
+
+#: src/@generic/components/page-header/page-header.tsx:18
+msgid "SuuudokuuU The Game"
+msgstr "СууудокуУ Гра"
+
+#: src/@generic/components/difficulty-select/difficulty-select.tsx:36
+msgid "Unknown"
+msgstr "Невідомий"
+
+#: src/screens/components/home-screen/home.screen.tsx:101
+msgid "V."
+msgstr "В."
+
+#: src/@generic/components/donation/donation.tsx:23
+msgid ""
+"While you were away Ukraine continued its fight for freedom!\n"
+"\n"
+"Every 1$ donation matters!"
+msgstr ""
+"Поки вас не було, Україна продовжувала свою боротьбу за свободу!\n"
+"\n"
+"Кожен долар важливий!"
+
+#: src/screens/components/winner-screen/winner.screen.tsx:21
+msgid ""
+"Winners-winner, \n"
+" chicken dinner!"
+msgstr ""
+"Переможець-переможець,\n"
+"курячий обід!"
+
+#: src/app/winner.tsx:12
+msgid "Winners-winner, chicken dinner!"
+msgstr "Вигращ є - Можна поісти!"
+
+#: src/screens/components/winner-screen/winner.screen.tsx:25
+msgid "You have scored"
+msgstr "Ви набрали"
+
+#: src/@generic/components/donation/donation.tsx:20
+msgid ""
+"You lost but Ukraine must win!\n"
+"\n"
+"Every 1$ donation matters!"
+msgstr ""
+"Ви програли, але Україна має перемогти!\n"
+"\n"
+"Кожен долар важливий!"
+
+#: src/@generic/components/donation/donation.tsx:18
+msgid ""
+"You won and Ukraine needs to!\n"
+"\n"
+"Every 1$ donation matters!"
+msgstr ""
+"Ви виграли, а Україна має виграти!\n"
+"\n"
+"Кожен долар важливий!"

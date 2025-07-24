@@ -1,3 +1,4 @@
+import { useLingui } from '@lingui/react/macro';
 import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { useRouter } from 'expo-router';
@@ -35,6 +36,7 @@ const MaxMistakesConstant = 3;
 export const GameScreen = () => {
     const router = useRouter();
     const { sudoku } = use(GameContext);
+    const { t } = useLingui();
 
     const dispatch = useAppDispatch();
     const score = useAppSelector(gameScoreSelector);
@@ -48,8 +50,8 @@ export const GameScreen = () => {
     const maxMistakesReached = mistakes >= MaxMistakesConstant;
 
     const handleExit = () => {
-        Alert('Stop current run?', 'All progress will be lost', [
-            { text: 'Cancel', style: 'cancel' },
+        Alert(t`Stop current run?`, t`All progress will be lost`, [
+            { text: t`Cancel`, style: 'cancel' },
             {
                 text: 'OK',
                 onPress: () => {
@@ -145,7 +147,7 @@ export const GameScreen = () => {
         <View style={styles.container}>
             <View style={styles.controls}>
                 <View style={styles.controlsWrapper}>
-                    <Text style={styles.headerText}>Mistakes</Text>
+                    <Text style={styles.headerText}>{t`Mistakes`}</Text>
 
                     <Text style={styles.headerText}>
                         <Text style={mistakesCountTextStyles}>{mistakes}</Text>
@@ -158,7 +160,7 @@ export const GameScreen = () => {
 
                 <View style={styles.scoreWrapper}>
                     <View style={styles.controlsWrapper}>
-                        <Text style={styles.headerText}>Score</Text>
+                        <Text style={styles.headerText}>{t`Score`}</Text>
 
                         <Text style={styles.scoreText}>{score}</Text>
                     </View>

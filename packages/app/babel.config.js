@@ -3,6 +3,6 @@ module.exports = function (api) {
 
     return {
         presets: ['babel-preset-expo'],
-        plugins: ['macros', 'react-native-reanimated/plugin']
+        plugins: ['macros', 'react-native-reanimated/plugin', '@lingui/babel-plugin-lingui-macro']
     };
 };

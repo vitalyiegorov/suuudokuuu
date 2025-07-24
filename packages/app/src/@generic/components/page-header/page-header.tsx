@@ -1,10 +1,10 @@
+import { useLingui } from '@lingui/react/macro';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useColorScheme } from 'react-native';
 
 import { isNotEmptyString } from '@rnw-community/shared';
 
-import { PageTitleConstant } from '../../constants/text.constants';
 import { useHtmlThemeColor } from '../../hooks/use-html-theme-color.hook';
 
 interface Props {
@@ -13,8 +13,10 @@ interface Props {
 
 export const PageHeader = ({ title = '' }: Props) => {
     const theme = useColorScheme();
+    const { t } = useLingui();
 
-    const fullTitle = isNotEmptyString(title) ? `${PageTitleConstant} - ${title}` : PageTitleConstant;
+    const pageTitle = t`SuuudokuuU The Game`;
+    const fullTitle = isNotEmptyString(title) ? `${pageTitle} - ${title}` : pageTitle;
     const baseColor = theme === 'dark' ? '#010101' : '#f2f2f2';
 
     useHtmlThemeColor(baseColor);
