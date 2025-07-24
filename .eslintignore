@@ -12,3 +12,4 @@ packages/app/jest.config.js
 packages/app/metro.config.js
 
 packages/app/index.js
+packages/app/src/locales

@@ -7,12 +7,17 @@
         "ios": "expo run:ios",
         "lint": "run -T eslint --fix src",
         "prepare": "husky install",
-        "start": "expo start --dev-client",
+        "start": "expo start --dev-client -c",
         "ts": "run -T tsc -p .",
-        "web": "expo start --web"
+        "web": "expo start --web",
+        "i18n:sync": "run -T lingui extract --overwrite --clean && lingui compile --typescript",
+        "i18n:extract": "run -T lingui extract",
+        "i18n:compile": "run -T lingui compile --typescript"
     },
     "dependencies": {
         "@expo-google-fonts/inter": "^0.2.3",
+        "@lingui/core": "^5.3.3",
+        "@lingui/react": "^5.3.3",
         "@react-native-async-storage/async-storage": "2.1.2",
         "@react-navigation/native": "^7.0.14",
         "@reduxjs/toolkit": "^2.5.0",
@@ -26,6 +31,7 @@
         "expo-font": "~13.3.2",
         "expo-haptics": "~14.1.4",
         "expo-linking": "~7.1.7",
+        "expo-localization": "^16.1.6",
         "expo-router": "~5.1.4",
         "expo-splash-screen": "~0.30.10",
         "expo-status-bar": "~2.2.3",

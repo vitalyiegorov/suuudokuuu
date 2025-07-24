@@ -1,3 +1,4 @@
+import { useLingui } from '@lingui/react/macro';
 import { Text, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
@@ -10,16 +11,19 @@ import { gameElapsedTimeSelector, gameScoreSelector } from '../../../game/store/
 import { WinnerScreenStyles } from './winner-screen.styles';
 
 export const WinnerScreen = () => {
+    const { t } = useLingui();
+
     const score = useSelector(gameScoreSelector);
     const elapsedTime = useSelector(gameElapsedTimeSelector);
 
     return (
         <View style={WinnerScreenStyles.container}>
-            <Header text={`Winners-winner, \n chicken dinner!`} />
+            <Header text={t`Winners-winner, \n chicken dinner!`} />
 
             <View>
                 <Text style={WinnerScreenStyles.scoreText}>
-                    You have scored <Text style={WinnerScreenStyles.boldText}>{score}</Text>{' '}
+                    <Text>{t`You have scored`} </Text>
+                    <Text style={WinnerScreenStyles.boldText}>{score}</Text>{' '}
                 </Text>
 
                 <Text style={WinnerScreenStyles.timeText}>

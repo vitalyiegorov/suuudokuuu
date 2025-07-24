@@ -6,7 +6,7 @@ import { isNotEmptyString } from '@rnw-community/shared';
 import { Page } from '../@generic/components/page/page';
 import { PageHeader } from '../@generic/components/page-header/page-header';
 import { GameContext } from '../game/context/game.context';
-import { GameScreen } from '../screens/components/game-screen/game-screen';
+import { GameScreen } from '../screens/components/game-screen/game.screen';
 
 export default function GamePage() {
     const { field } = useLocalSearchParams<{ field?: string }>();

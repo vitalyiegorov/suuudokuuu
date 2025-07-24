@@ -1,0 +1,122 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2025-07-24 14:45+0200\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: fr\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#: src/screens/components/home-screen/home.screen.tsx:76
+msgid "Back"
+msgstr "Retour"
+
+#: src/screens/components/home-screen/home.screen.tsx:85
+msgid "Best score"
+msgstr "Meilleur score"
+
+#: src/screens/components/home-screen/home.screen.tsx:91
+msgid "Best time"
+msgstr "Meilleur temps"
+
+#: src/screens/components/loser-screen/loser.screen.tsx:15
+msgid ""
+"Better luck next time!\n"
+"Loooooser =)"
+msgstr ""
+"Bonne chance pour la prochaine fois !\n"
+"Perdant =)"
+
+#: src/screens/components/home-screen/home.screen.tsx:64
+msgid "Continue"
+msgstr "Continuer"
+
+#: src/screens/components/pause-screen/pause.screen.tsx:18
+msgid "Game paused"
+msgstr "Jeu en pause"
+
+#: src/@generic/components/donation/donation.tsx:33
+msgid "Help Ukraine win!"
+msgstr "Aidez l'Ukraine à gagner !"
+
+#: src/screens/components/game-screen/game.screen.tsx:150
+msgid "Mistakes"
+msgstr "Erreurs"
+
+#: src/@generic/components/play-again-button/play-again-button.tsx:14
+msgid "Play again"
+msgstr "Rejouer"
+
+#: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx:16
+#: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx:18
+#: src/screens/components/home-screen/home.screen.tsx:106
+msgid "Privacy policy"
+msgstr "Politique de confidentialité"
+
+#: src/screens/components/pause-screen/pause.screen.tsx:24
+msgid "Resume"
+msgstr "Reprendre"
+
+#: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx:24
+msgid "Return"
+msgstr "Retour"
+
+#: src/screens/components/game-screen/game.screen.tsx:163
+msgid "Score"
+msgstr "Score"
+
+#: src/screens/components/home-screen/home.screen.tsx:66
+msgid "Start new"
+msgstr "Recommencer"
+
+#: src/@generic/components/support-ukraine-banner/support-ukraine-banner.tsx:15
+msgid "Support Ukraine"
+msgstr "Soutenir l'Ukraine"
+
+#: src/@generic/components/donation/donation.tsx:23
+msgid ""
+"While you were away Ukraine continued its fight for freedom!\n"
+"\n"
+"Every 1$ donation matters!"
+msgstr ""
+"Pendant votre absence, l'Ukraine a poursuivi son combat pour la liberté !\n"
+"\n"
+"Chaque don de 1 $ compte !"
+
+#: src/screens/components/winner-screen/winner.screen.tsx:21
+msgid ""
+"Winners-winner, \n"
+" chicken dinner!"
+msgstr ""
+"Gagnant-gagnant,\n"
+"dîner de poulet !"
+
+#: src/screens/components/winner-screen/winner.screen.tsx:25
+msgid "You have scored"
+msgstr "Vous avez obtenu"
+
+#: src/@generic/components/donation/donation.tsx:20
+msgid ""
+"You lost but Ukraine must win!\n"
+"\n"
+"Every 1$ donation matters!"
+msgstr ""
+"Vous avez perdu, mais l'Ukraine doit gagner !\n"
+"\n"
+"Chaque don de 1 $ compte !"
+
+#: src/@generic/components/donation/donation.tsx:18
+msgid ""
+"You won and Ukraine needs to!\n"
+"\n"
+"Every 1$ donation matters!"
+msgstr ""
+"Vous avez gagné et l'Ukraine doit gagner !\n"
+"\n"
+"Chaque don de 1 $ compte !"
