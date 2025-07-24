@@ -20,8 +20,6 @@ i18n.load({
 export const i18nGetOSLocale = (): string => {
     const locales = getLocales();
 
-    console.log('i18nGetOSLocale', locales);
-
     for (const locale of locales) {
         const languageCode = locale.languageCode?.toLowerCase();
 
