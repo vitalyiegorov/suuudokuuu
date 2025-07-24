@@ -236,7 +236,7 @@ module.exports = {
         'multiline-ternary': 'off',
         'max-lines-per-function': ['error', { max: 90, skipBlankLines: true, skipComments: true }],
         'max-statements': ['error', { max: 12 }, { ignoreTopLevelFunctions: true }],
-        'id-length': ['error', { exceptions: ['x', 'y', 'z', 'i', 'e', '_', 'j'] }],
+        'id-length': ['error', { exceptions: ['x', 'y', 'z', 'i', 'e', '_', 'j', 't'] }],
         'max-params': 'off',
         'newline-before-return': 'error',
         'react/display-name': 'off',

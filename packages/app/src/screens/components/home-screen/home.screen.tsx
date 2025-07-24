@@ -1,3 +1,4 @@
+import { useLingui } from '@lingui/react/macro';
 import Constants from 'expo-constants';
 import { Link } from 'expo-router';
 import { use, useState } from 'react';
@@ -23,6 +24,7 @@ import type { DifficultyEnum } from '@suuudokuuu/generator';
 
 export const HomeScreen = () => {
     const { createFromDifficulty } = use(GameContext);
+    const { t } = useLingui();
 
     const oldGameString = useAppSelector(gameSudokuStringSelector);
     const [bestScore, bestTime] = useAppSelector(historyBestTimeSelector);
@@ -59,9 +61,9 @@ export const HomeScreen = () => {
 
                 {!showDifficultySelect && (
                     <View style={HomeScreenStyles.buttonWrapper}>
-                        {isGameStarted ? <BlackButton onPress={handleContinue} text="Continue" /> : null}
+                        {isGameStarted ? <BlackButton onPress={handleContinue} text={t`Continue`} /> : null}
 
-                        <BlackButton onPress={handleDifficultySelect} text="Start new" />
+                        <BlackButton onPress={handleDifficultySelect} text={t`Start new`} />
                     </View>
                 )}
 
@@ -71,7 +73,7 @@ export const HomeScreen = () => {
                     <>
                         <DifficultySelect onSelect={handleStart} />
 
-                        <BlackButton onPress={handleBack} text="Back" />
+                        <BlackButton onPress={handleBack} text={t`Back`} />
                     </>
                 ) : null}
             </View>
@@ -80,13 +82,13 @@ export const HomeScreen = () => {
                 {bestScore > 0 && (
                     <>
                         <View style={HomeScreenStyles.historyGroup}>
-                            <Text style={HomeScreenStyles.historyLabel}>Best score</Text>
+                            <Text style={HomeScreenStyles.historyLabel}>{t`Best score`}</Text>
 
                             <Text style={HomeScreenStyles.historyValue}>{bestScore}</Text>
                         </View>
 
                         <View style={HomeScreenStyles.historyGroup}>
-                            <Text style={HomeScreenStyles.historyLabel}>Best time</Text>
+                            <Text style={HomeScreenStyles.historyLabel}>{t`Best time`}</Text>
 
                             <Text style={HomeScreenStyles.historyValue}>{getTimerText(bestTime)}</Text>
                         </View>
@@ -101,7 +103,7 @@ export const HomeScreen = () => {
                 </Text>
 
                 <Link href="/privacy-policy" style={HomeScreenStyles.bottomLink}>
-                    <Text>Privacy policy</Text>
+                    <Text>{t`Privacy policy`}</Text>
                 </Link>
             </View>
         </View>
