@@ -13,6 +13,8 @@ Feel free to create an `issue`, `feature request` or `pull request` if you have 
 | [![Play directly in your browser!](packages/app/assets/chrome.png)](https://www.suuudokuuu.com/) | [![Download on the App Store](packages/app/assets/appstore-badge.png)](https://apps.apple.com/ua/app/suuudokuuu/id6449440933) | [![Download on the Play Market](packages/app/assets/google-play-badge.png)](https://apps.apple.com/ua/app/suuudokuuu/id6449440933) |
 | ------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
 
+![Play directly in your browser!](packages/app/assets/gameplay.gif)]
+
 ## Features
 
 ### Monorepo architecture
