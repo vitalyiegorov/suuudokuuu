@@ -7,16 +7,17 @@ import { emptyFn, getErrorMessage } from '@rnw-community/shared';
 
 import { Alert } from '../../@generic/components/alert/alert';
 import { useAppDispatch } from '../../@generic/hooks/use-app-dispatch.hook';
-import { gameResetAction, gameResumeAction, gameStartAction } from '../store/game.actions';
+import { gameLoadAction, gameResetAction, gameResumeAction, gameStartAction } from '../store/game.actions';
 
+import type { SerializedGameState } from '../store/game.state';
 import type { DifficultyEnum } from '@suuudokuuu/generator';
 import type { ReactNode } from 'react';
 
 export const GameContext = createContext<{
     sudoku: Sudoku;
-    createFromString: (sudokuString: string) => void;
+    createFromState: (state: SerializedGameState) => void;
     createFromDifficulty: (difficulty: DifficultyEnum) => void;
-}>({ sudoku: new Sudoku(defaultSudokuConfig), createFromDifficulty: emptyFn, createFromString: emptyFn });
+}>({ sudoku: new Sudoku(defaultSudokuConfig), createFromDifficulty: emptyFn, createFromState: emptyFn });
 
 export const GameProvider = ({ children }: { readonly children: ReactNode }) => {
     const dispatch = useAppDispatch();
@@ -25,9 +26,10 @@ export const GameProvider = ({ children }: { readonly children: ReactNode }) => 
 
     const [sudoku, setSudoku] = useState(new Sudoku(defaultSudokuConfig));
 
-    const createFromString = (sudokuString: string) => {
+    const createFromState = (state: SerializedGameState) => {
         try {
-            setSudoku(Sudoku.fromString(sudokuString, defaultSudokuConfig));
+            setSudoku(Sudoku.fromString(state.sudokuString, defaultSudokuConfig));
+            dispatch(gameLoadAction(state));
             dispatch(gameResumeAction());
         } catch (error) {
             Alert(t`Invalid Sudoku`, getErrorMessage(error), [
@@ -48,8 +50,8 @@ export const GameProvider = ({ children }: { readonly children: ReactNode }) => 
 
         const sudokuString = sudoku.toString();
         dispatch(gameStartAction({ sudokuString }));
-        router.push(`game?field=${sudokuString}`);
+        router.push(`game?sudokuString=${sudokuString}`);
     };
 
-    return <GameContext value={{ sudoku, createFromString, createFromDifficulty }}>{children}</GameContext>;
+    return <GameContext value={{ sudoku, createFromState, createFromDifficulty }}>{children}</GameContext>;
 };

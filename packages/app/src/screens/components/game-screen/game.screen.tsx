@@ -2,8 +2,9 @@ import { useLingui } from '@lingui/react/macro';
 import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { useRouter } from 'expo-router';
-import { LucideHandHelping, LucideLogOut } from 'lucide-react-native';
-import { use, useRef, useState } from 'react';
+import * as Sharing from 'expo-sharing';
+import { LucideHandHelping, LucideLogOut, LucideShare2 } from 'lucide-react-native';
+import { use, useEffect, useRef, useState } from 'react';
 import { Text, View } from 'react-native';
 
 import { cs } from '@rnw-community/shared';
@@ -20,6 +21,7 @@ import { Field, type FieldRef } from '../../../game/components/field/field';
 import { GameTimer } from '../../../game/components/game-timer/game-timer';
 import { GameContext } from '../../../game/context/game.context';
 import { useKeyboardControls } from '../../../game/hooks/use-keyboard-controls/use-keyboard-controls.hook';
+import { useShare } from '../../../game/hooks/use-share.hook';
 import { gameResetAction, gameToggleCandidatesAction } from '../../../game/store/game.actions';
 import { gameHasCandidatesSelector, gameMistakesSelector, gameScoreSelector } from '../../../game/store/game.selectors';
 import { gameFinishedThunk } from '../../../game/store/thunks/game-finish.thunk';
@@ -29,10 +31,17 @@ import { gameSaveThunk } from '../../../game/store/thunks/game-save.thunk';
 import { GameScreenStyles as styles } from './game-screen.styles';
 
 import type { CellInterface, ScoredCellsInterface } from '@suuudokuuu/generator';
+import type { Dispatch, SetStateAction } from 'react';
 
 const MaxMistakesConstant = 3;
 
-// eslint-disable-next-line max-lines-per-function
+const setSharingAvailable = (setHasSharing: Dispatch<SetStateAction<boolean>>): void => {
+    Sharing.isAvailableAsync()
+        .then(result => void setHasSharing(result))
+        .catch(() => void setHasSharing(false));
+};
+
+// eslint-disable-next-line max-lines-per-function,max-statements
 export const GameScreen = () => {
     const router = useRouter();
     const { sudoku } = use(GameContext);
@@ -44,10 +53,16 @@ export const GameScreen = () => {
     const hasCandidates = useAppSelector(gameHasCandidatesSelector);
 
     const [selectedCell, setSelectedCell] = useState<CellInterface>();
+    const [hasSharing, setHasSharing] = useState(false);
     const availableValuesRefs = useRef<Record<number, AvailableValuesItemRef | null>>({});
     const fieldRef = useRef<FieldRef>(null);
 
     const maxMistakesReached = mistakes >= MaxMistakesConstant;
+
+    // TODO: Is there a better way without using useEffect?
+    useEffect(() => void setSharingAvailable(setHasSharing), []);
+
+    const handleShare = useShare();
 
     const handleExit = () => {
         Alert(t`Stop current run?`, t`All progress will be lost`, [
@@ -85,25 +100,12 @@ export const GameScreen = () => {
         setTimeout(() => void router.replace('winner'), 10 * animationDurationConstant);
     };
 
-    // eslint-disable-next-line max-statements
     const handleCorrectValue = (correctCell: CellInterface, newScoredCells: ScoredCellsInterface) => {
         fieldRef.current?.triggerCellAnimations(newScoredCells);
         void dispatch(gameSaveThunk({ sudoku, scoredCells: newScoredCells }));
 
-        if (newScoredCells.isWon) {
-            handleWonGame();
-        } else {
-            hapticNotification(Haptics.NotificationFeedbackType.Success);
-
-            if (sudoku.isValueAvailable(correctCell)) {
-                // HINT: We reselect cell if there are values left, otherwise loose focus
-                setSelectedCell(() => ({ ...correctCell }));
-            } else {
-                // HINT: Otherwise we loose focus
-                // eslint-disable-next-line no-undefined
-                setSelectedCell(undefined);
-            }
-        }
+        hapticNotification(Haptics.NotificationFeedbackType.Success);
+        setSelectedCell(() => ({ ...correctCell }));
     };
 
     const handleWrongValue = () => {
@@ -124,7 +126,13 @@ export const GameScreen = () => {
 
             const newValueCell = { ...selectedCell, value };
             if (sudoku.isCorrectValue(newValueCell)) {
-                handleCorrectValue(selectedCell, sudoku.setCellValue(newValueCell));
+                const newScoredCells = sudoku.setCellValue(newValueCell);
+
+                if (newScoredCells.isWon) {
+                    handleWonGame();
+                } else {
+                    handleCorrectValue(selectedCell, newScoredCells);
+                }
             } else {
                 handleWrongValue();
             }
@@ -170,6 +178,13 @@ export const GameScreen = () => {
                     <BlackButton isActive={hasCandidates} onPress={handleCandidates} style={styles.button}>
                         <LucideHandHelping color={hasCandidates ? Colors.black : Colors.white} />
                     </BlackButton>
+
+                    {hasSharing ? (
+                        // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                        <BlackButton onPress={handleShare} style={styles.button}>
+                            <LucideShare2 color={Colors.white} />
+                        </BlackButton>
+                    ) : null}
 
                     <BlackButton onPress={handleExit} style={styles.button}>
                         <LucideLogOut color={Colors.white} />

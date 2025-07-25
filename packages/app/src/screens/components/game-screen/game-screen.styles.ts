@@ -18,10 +18,11 @@ export const GameScreenStyles = StyleSheet.create({
         paddingBottom: 20
     },
     controls: {
-        alignItems: 'flex-start',
-        flex: 1,
+        alignItems: 'center',
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        flex: 0.25,
+        justifyContent: 'space-between',
+        marginBottom: 40
     },
     controlsWrapper: {
         alignItems: 'center'
@@ -50,6 +51,6 @@ export const GameScreenStyles = StyleSheet.create({
     },
     scoreWrapper: {
         alignItems: 'flex-end',
-        minWidth: 80
+        minWidth: 130
     }
 });
