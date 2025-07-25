@@ -13,7 +13,7 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/screens/components/game-screen/game.screen.tsx:53
+#: src/screens/components/game-screen/game.screen.tsx:68
 msgid "All progress will be lost"
 msgstr "All progress will be lost"
 
@@ -21,7 +21,7 @@ msgstr "All progress will be lost"
 msgid "Back"
 msgstr "Back"
 
-#: src/app/game.tsx:26
+#: src/app/game.tsx:28
 msgid "Be wise, be smart, be quick..."
 msgstr "Be wise, be smart, be quick..."
 
@@ -41,7 +41,7 @@ msgstr ""
 "Better luck next time!\n"
 "Loooooser =)"
 
-#: src/screens/components/game-screen/game.screen.tsx:54
+#: src/screens/components/game-screen/game.screen.tsx:69
 msgid "Cancel"
 msgstr "Cancel"
 
@@ -53,7 +53,7 @@ msgstr "Continue"
 msgid "Easy"
 msgstr "Easy"
 
-#: src/screens/components/pause-screen/pause.screen.tsx:18
+#: src/screens/components/pause-screen/pause.screen.tsx:20
 #: src/app/pause.tsx:12
 msgid "Game paused"
 msgstr "Game paused"
@@ -66,7 +66,7 @@ msgstr "Hard"
 msgid "Help Ukraine win!"
 msgstr "Help Ukraine win!"
 
-#: src/game/context/game.context.tsx:33
+#: src/game/context/game.context.tsx:35
 msgid "Invalid Sudoku"
 msgstr "Invalid Sudoku"
 
@@ -82,7 +82,7 @@ msgstr "Looooooser! =)"
 msgid "Medium"
 msgstr "Medium"
 
-#: src/screens/components/game-screen/game.screen.tsx:150
+#: src/screens/components/game-screen/game.screen.tsx:165
 msgid "Mistakes"
 msgstr "Mistakes"
 
@@ -94,7 +94,7 @@ msgstr "Newbie"
 msgid "Nightmare"
 msgstr "Nightmare"
 
-#: src/game/context/game.context.tsx:35
+#: src/game/context/game.context.tsx:37
 msgid "OK"
 msgstr "OK"
 
@@ -109,7 +109,7 @@ msgstr "Play again"
 msgid "Privacy policy"
 msgstr "Privacy policy"
 
-#: src/screens/components/pause-screen/pause.screen.tsx:24
+#: src/screens/components/pause-screen/pause.screen.tsx:29
 msgid "Resume"
 msgstr "Resume"
 
@@ -117,15 +117,19 @@ msgstr "Resume"
 msgid "Return"
 msgstr "Return"
 
-#: src/screens/components/game-screen/game.screen.tsx:163
+#: src/screens/components/game-screen/game.screen.tsx:178
 msgid "Score"
 msgstr "Score"
+
+#: src/screens/components/pause-screen/pause.screen.tsx:27
+msgid "Share puzzle"
+msgstr "Share puzzle"
 
 #: src/screens/components/home-screen/home.screen.tsx:66
 msgid "Start new"
 msgstr "Start new"
 
-#: src/screens/components/game-screen/game.screen.tsx:53
+#: src/screens/components/game-screen/game.screen.tsx:68
 msgid "Stop current run?"
 msgstr "Stop current run?"
 
