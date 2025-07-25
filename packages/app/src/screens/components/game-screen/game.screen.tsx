@@ -100,7 +100,6 @@ export const GameScreen = () => {
         setTimeout(() => void router.replace('winner'), 10 * animationDurationConstant);
     };
 
-    // eslint-disable-next-line max-statements
     const handleCorrectValue = (correctCell: CellInterface, newScoredCells: ScoredCellsInterface) => {
         fieldRef.current?.triggerCellAnimations(newScoredCells);
         void dispatch(gameSaveThunk({ sudoku, scoredCells: newScoredCells }));
@@ -109,15 +108,7 @@ export const GameScreen = () => {
             handleWonGame();
         } else {
             hapticNotification(Haptics.NotificationFeedbackType.Success);
-
-            if (sudoku.isValueAvailable(correctCell)) {
-                // HINT: We reselect cell if there are values left, otherwise loose focus
-                setSelectedCell(() => ({ ...correctCell }));
-            } else {
-                // HINT: Otherwise we loose focus
-                // eslint-disable-next-line no-undefined
-                setSelectedCell(undefined);
-            }
+            setSelectedCell(() => ({ ...correctCell }));
         }
     };
 
