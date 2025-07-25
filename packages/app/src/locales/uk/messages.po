@@ -13,7 +13,7 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/screens/components/game-screen/game.screen.tsx:53
+#: src/screens/components/game-screen/game.screen.tsx:68
 msgid "All progress will be lost"
 msgstr "Всі досягнення будуть втрачені"
 
@@ -21,7 +21,7 @@ msgstr "Всі досягнення будуть втрачені"
 msgid "Back"
 msgstr "Назад"
 
-#: src/app/game.tsx:26
+#: src/app/game.tsx:28
 msgid "Be wise, be smart, be quick..."
 msgstr "Будьте мудрими, розумними, швидкими..."
 
@@ -41,7 +41,7 @@ msgstr ""
 "Наступного разу пощастить!\n"
 "Лууууузер =)"
 
-#: src/screens/components/game-screen/game.screen.tsx:54
+#: src/screens/components/game-screen/game.screen.tsx:69
 msgid "Cancel"
 msgstr "Скасувати"
 
@@ -53,7 +53,7 @@ msgstr "Продовжити"
 msgid "Easy"
 msgstr "Легкий"
 
-#: src/screens/components/pause-screen/pause.screen.tsx:18
+#: src/screens/components/pause-screen/pause.screen.tsx:20
 #: src/app/pause.tsx:12
 msgid "Game paused"
 msgstr "Гру призупинено"
@@ -66,7 +66,7 @@ msgstr "Важкий"
 msgid "Help Ukraine win!"
 msgstr "Допоможіть Україні перемогти!"
 
-#: src/game/context/game.context.tsx:33
+#: src/game/context/game.context.tsx:35
 msgid "Invalid Sudoku"
 msgstr "Недійсний Судоку"
 
@@ -82,7 +82,7 @@ msgstr "Лууууузер! =)"
 msgid "Medium"
 msgstr "Середній"
 
-#: src/screens/components/game-screen/game.screen.tsx:150
+#: src/screens/components/game-screen/game.screen.tsx:165
 msgid "Mistakes"
 msgstr "Помилки"
 
@@ -94,7 +94,7 @@ msgstr "Новачок"
 msgid "Nightmare"
 msgstr "Кошмар"
 
-#: src/game/context/game.context.tsx:35
+#: src/game/context/game.context.tsx:37
 msgid "OK"
 msgstr "Гаразд"
 
@@ -109,7 +109,7 @@ msgstr "Зіграти знову"
 msgid "Privacy policy"
 msgstr "Політика конфіденційності"
 
-#: src/screens/components/pause-screen/pause.screen.tsx:24
+#: src/screens/components/pause-screen/pause.screen.tsx:29
 msgid "Resume"
 msgstr "Відновити"
 
@@ -117,15 +117,19 @@ msgstr "Відновити"
 msgid "Return"
 msgstr "Повернутися"
 
-#: src/screens/components/game-screen/game.screen.tsx:163
+#: src/screens/components/game-screen/game.screen.tsx:178
 msgid "Score"
 msgstr "Рахунок"
+
+#: src/screens/components/pause-screen/pause.screen.tsx:27
+msgid "Share puzzle"
+msgstr "Поділитися головоломкою"
 
 #: src/screens/components/home-screen/home.screen.tsx:66
 msgid "Start new"
 msgstr "Почати заново"
 
-#: src/screens/components/game-screen/game.screen.tsx:53
+#: src/screens/components/game-screen/game.screen.tsx:68
 msgid "Stop current run?"
 msgstr "Зупинити поточний прогрес?"
 

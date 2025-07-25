@@ -55,7 +55,6 @@ export const useKeyboardControls = (
             }
 
             if (key === 'Escape') {
-                e.stopPropagation();
                 e.preventDefault();
                 onExit();
             }
