@@ -15,6 +15,6 @@ export const useResumeGame = (): OnEventFn => {
 
     return () => {
         dispatch(gameResumeAction());
-        router.push(`game?field=${oldGameString}`);
+        router.push(`game?sudokuString=${oldGameString}`);
     };
 };
