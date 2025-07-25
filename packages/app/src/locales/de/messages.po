@@ -13,17 +13,17 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/screens/components/game-screen/game.screen.tsx:53
+#: src/screens/components/game-screen/game.screen.tsx:68
 msgid "All progress will be lost"
-msgstr ""
+msgstr "Alle Fortschritte gehen verloren"
 
 #: src/screens/components/home-screen/home.screen.tsx:76
 msgid "Back"
 msgstr "Zurück"
 
-#: src/app/game.tsx:26
+#: src/app/game.tsx:28
 msgid "Be wise, be smart, be quick..."
-msgstr ""
+msgstr "Sei weise, sei schlau, sei schnell..."
 
 #: src/screens/components/home-screen/home.screen.tsx:85
 msgid "Best score"
@@ -41,9 +41,9 @@ msgstr ""
 "Viel Glück beim nächsten Mal!\n"
 "Verlierer =)"
 
-#: src/screens/components/game-screen/game.screen.tsx:54
+#: src/screens/components/game-screen/game.screen.tsx:69
 msgid "Cancel"
-msgstr ""
+msgstr "Abbrechen"
 
 #: src/screens/components/home-screen/home.screen.tsx:64
 msgid "Continue"
@@ -53,7 +53,7 @@ msgstr "Weiter"
 msgid "Easy"
 msgstr "Einfach"
 
-#: src/screens/components/pause-screen/pause.screen.tsx:18
+#: src/screens/components/pause-screen/pause.screen.tsx:20
 #: src/app/pause.tsx:12
 msgid "Game paused"
 msgstr "Spiel pausiert"
@@ -66,23 +66,23 @@ msgstr "Schwer"
 msgid "Help Ukraine win!"
 msgstr "Hilf der Ukraine zum Sieg!"
 
-#: src/game/context/game.context.tsx:33
+#: src/game/context/game.context.tsx:35
 msgid "Invalid Sudoku"
-msgstr ""
+msgstr "Ungültiges Sudoku"
 
 #: src/screens/components/winner-screen/winner.screen.tsx:30
 msgid "It took you"
-msgstr ""
+msgstr "Du hast gebraucht"
 
 #: src/app/loser.tsx:12
 msgid "Looooooser! =)"
-msgstr ""
+msgstr "Verlierer! =)"
 
 #: src/@generic/components/difficulty-select/difficulty-select.tsx:28
 msgid "Medium"
 msgstr "Mittelschwer"
 
-#: src/screens/components/game-screen/game.screen.tsx:150
+#: src/screens/components/game-screen/game.screen.tsx:165
 msgid "Mistakes"
 msgstr "Fehler"
 
@@ -94,9 +94,9 @@ msgstr "Anfänger"
 msgid "Nightmare"
 msgstr "Albtraum"
 
-#: src/game/context/game.context.tsx:35
+#: src/game/context/game.context.tsx:37
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: src/@generic/components/play-again-button/play-again-button.tsx:14
 msgid "Play again"
@@ -109,7 +109,7 @@ msgstr "Erneut spielen"
 msgid "Privacy policy"
 msgstr "Datenschutzerklärung"
 
-#: src/screens/components/pause-screen/pause.screen.tsx:24
+#: src/screens/components/pause-screen/pause.screen.tsx:29
 msgid "Resume"
 msgstr "Fortsetzen"
 
@@ -117,17 +117,21 @@ msgstr "Fortsetzen"
 msgid "Return"
 msgstr "Zurück"
 
-#: src/screens/components/game-screen/game.screen.tsx:163
+#: src/screens/components/game-screen/game.screen.tsx:178
 msgid "Score"
 msgstr "Punktestand"
+
+#: src/screens/components/pause-screen/pause.screen.tsx:27
+msgid "Share puzzle"
+msgstr "Rätsel teilen"
 
 #: src/screens/components/home-screen/home.screen.tsx:66
 msgid "Start new"
 msgstr "Neu starten"
 
-#: src/screens/components/game-screen/game.screen.tsx:53
+#: src/screens/components/game-screen/game.screen.tsx:68
 msgid "Stop current run?"
-msgstr ""
+msgstr "Aktuellen Lauf stoppen?"
 
 #: src/@generic/components/support-ukraine-banner/support-ukraine-banner.tsx:15
 msgid "Support Ukraine"
@@ -135,19 +139,19 @@ msgstr "Unterstütze die Ukraine"
 
 #: src/screens/components/home-screen/home.screen.tsx:60
 msgid "SuuudokuuU"
-msgstr ""
+msgstr "SuuudokuuU"
 
 #: src/@generic/components/page-header/page-header.tsx:18
 msgid "SuuudokuuU The Game"
-msgstr ""
+msgstr "SuuudokuuU Das Spiel"
 
 #: src/@generic/components/difficulty-select/difficulty-select.tsx:36
 msgid "Unknown"
-msgstr ""
+msgstr "Unbekannt"
 
 #: src/screens/components/home-screen/home.screen.tsx:101
 msgid "V."
-msgstr ""
+msgstr "V."
 
 #: src/@generic/components/donation/donation.tsx:23
 msgid ""
@@ -169,7 +173,7 @@ msgstr ""
 
 #: src/app/winner.tsx:12
 msgid "Winners-winner, chicken dinner!"
-msgstr ""
+msgstr "Gewinner, Gewinner, Hähnchen-Dinner!"
 
 #: src/screens/components/winner-screen/winner.screen.tsx:25
 msgid "You have scored"
