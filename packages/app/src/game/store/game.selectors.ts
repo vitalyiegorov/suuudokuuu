@@ -7,6 +7,6 @@ const gameSelector = (state: RootState) => state.game;
 export const gameSudokuStringSelector = createSelector(gameSelector, state => state.sudokuString);
 export const gameScoreSelector = createSelector(gameSelector, state => state.score);
 export const gameMistakesSelector = createSelector(gameSelector, state => state.mistakes);
-export const gamePausedSelector = createSelector(gameSelector, state => state.paused);
+export const gamePausedSelector = createSelector(gameSelector, state => state.isPaused);
 export const gameElapsedTimeSelector = createSelector(gameSelector, state => state.elapsedTime);
 export const gameHasCandidatesSelector = createSelector(gameSelector, state => state.hasCandidates);

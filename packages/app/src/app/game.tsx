@@ -9,17 +9,19 @@ import { PageHeader } from '../@generic/components/page-header/page-header';
 import { GameContext } from '../game/context/game.context';
 import { GameScreen } from '../screens/components/game-screen/game.screen';
 
+import type { SerializedGameState } from '../game/store/game.state';
+
 export default function GamePage() {
-    const { field } = useLocalSearchParams<{ field?: string }>();
-    const { t } = useLingui();
+    const state = useLocalSearchParams() as unknown as SerializedGameState;
 
     const { createFromString } = use(GameContext);
+    const { t } = useLingui();
 
     useEffect(() => {
-        if (isNotEmptyString(field)) {
-            createFromString(field);
+        if (isNotEmptyString(state.sudokuString)) {
+            createFromString(state);
         }
-    }, [field]);
+    }, [state.sudokuString]);
 
     return (
         <Page>
