@@ -21,9 +21,9 @@ import { Field, type FieldRef } from '../../../game/components/field/field';
 import { GameTimer } from '../../../game/components/game-timer/game-timer';
 import { GameContext } from '../../../game/context/game.context';
 import { useKeyboardControls } from '../../../game/hooks/use-keyboard-controls/use-keyboard-controls.hook';
+import { useShare } from '../../../game/hooks/use-share.hook';
 import { gameResetAction, gameToggleCandidatesAction } from '../../../game/store/game.actions';
 import { gameHasCandidatesSelector, gameMistakesSelector, gameScoreSelector } from '../../../game/store/game.selectors';
-import { gameStateToUrl } from '../../../game/store/game.state';
 import { gameFinishedThunk } from '../../../game/store/thunks/game-finish.thunk';
 import { gameMistakeThunk } from '../../../game/store/thunks/game-mistake.thunk';
 import { gameSaveThunk } from '../../../game/store/thunks/game-save.thunk';
@@ -46,7 +46,6 @@ export const GameScreen = () => {
     const router = useRouter();
     const { sudoku } = use(GameContext);
     const { t } = useLingui();
-    const state = useAppSelector(({ game }) => game);
 
     const dispatch = useAppDispatch();
     const score = useAppSelector(gameScoreSelector);
@@ -62,6 +61,8 @@ export const GameScreen = () => {
 
     // TODO: Is there a better way without using useEffect?
     useEffect(() => void setSharingAvailable(setHasSharing), []);
+
+    const handleShare = useShare();
 
     const handleExit = () => {
         Alert(t`Stop current run?`, t`All progress will be lost`, [
@@ -151,12 +152,6 @@ export const GameScreen = () => {
 
     const handleCandidates = () => {
         dispatch(gameToggleCandidatesAction());
-    };
-
-    const handleShare = async () => {
-        if (await Sharing.isAvailableAsync()) {
-            await Sharing.shareAsync(gameStateToUrl(state));
-        }
     };
 
     useKeyboardControls(sudoku, selectedCell, handleSelectCell, handleSelectValue, handleExit);
