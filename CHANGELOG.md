@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.25.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.24.2...v1.25.0) (2025-07-25)
+
+### Bug Fixes
+
+- **app:** remove losing focus if last value filled ([0183c64](https://github.com/vitalyiegorov/suuudokuuu/commit/0183c640ed083a51bfd69df56b5e544e271ac556))
+
+### Features
+
+- **app:** added puzzle sharing ([db315b7](https://github.com/vitalyiegorov/suuudokuuu/commit/db315b761feceeb2f83631818a532bbd96e8a226))
+- **app:** fix styles ([76818b9](https://github.com/vitalyiegorov/suuudokuuu/commit/76818b98daaa0721e922e3ed4d6684cf8eb91710))
+
 ## [1.24.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.24.1...v1.24.2) (2025-07-25)
 
 **Note:** Version bump only for package @suuudokuuu/root
