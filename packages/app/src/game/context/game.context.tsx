@@ -15,9 +15,9 @@ import type { ReactNode } from 'react';
 
 export const GameContext = createContext<{
     sudoku: Sudoku;
-    createFromString: (state: SerializedGameState) => void;
+    createFromState: (state: SerializedGameState) => void;
     createFromDifficulty: (difficulty: DifficultyEnum) => void;
-}>({ sudoku: new Sudoku(defaultSudokuConfig), createFromDifficulty: emptyFn, createFromString: emptyFn });
+}>({ sudoku: new Sudoku(defaultSudokuConfig), createFromDifficulty: emptyFn, createFromState: emptyFn });
 
 export const GameProvider = ({ children }: { readonly children: ReactNode }) => {
     const dispatch = useAppDispatch();
@@ -26,7 +26,7 @@ export const GameProvider = ({ children }: { readonly children: ReactNode }) => 
 
     const [sudoku, setSudoku] = useState(new Sudoku(defaultSudokuConfig));
 
-    const createFromString = (state: SerializedGameState) => {
+    const createFromState = (state: SerializedGameState) => {
         try {
             setSudoku(Sudoku.fromString(state.sudokuString, defaultSudokuConfig));
             dispatch(gameLoadAction(state));
@@ -53,5 +53,5 @@ export const GameProvider = ({ children }: { readonly children: ReactNode }) => 
         router.push(`game?sudokuString=${sudokuString}`);
     };
 
-    return <GameContext value={{ sudoku, createFromString, createFromDifficulty }}>{children}</GameContext>;
+    return <GameContext value={{ sudoku, createFromState, createFromDifficulty }}>{children}</GameContext>;
 };

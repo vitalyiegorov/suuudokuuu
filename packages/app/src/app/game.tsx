@@ -12,14 +12,14 @@ import { GameScreen } from '../screens/components/game-screen/game.screen';
 import type { SerializedGameState } from '../game/store/game.state';
 
 export default function GamePage() {
-    const state = useLocalSearchParams() as unknown as SerializedGameState;
+    const state = useLocalSearchParams<SerializedGameState>();
 
-    const { createFromString } = use(GameContext);
+    const { createFromState } = use(GameContext);
     const { t } = useLingui();
 
     useEffect(() => {
         if (isNotEmptyString(state.sudokuString)) {
-            createFromString(state);
+            createFromState(state);
         }
     }, [state.sudokuString]);
 
