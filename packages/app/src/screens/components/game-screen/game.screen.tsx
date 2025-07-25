@@ -104,12 +104,8 @@ export const GameScreen = () => {
         fieldRef.current?.triggerCellAnimations(newScoredCells);
         void dispatch(gameSaveThunk({ sudoku, scoredCells: newScoredCells }));
 
-        if (newScoredCells.isWon) {
-            handleWonGame();
-        } else {
-            hapticNotification(Haptics.NotificationFeedbackType.Success);
-            setSelectedCell(() => ({ ...correctCell }));
-        }
+        hapticNotification(Haptics.NotificationFeedbackType.Success);
+        setSelectedCell(() => ({ ...correctCell }));
     };
 
     const handleWrongValue = () => {
@@ -130,7 +126,13 @@ export const GameScreen = () => {
 
             const newValueCell = { ...selectedCell, value };
             if (sudoku.isCorrectValue(newValueCell)) {
-                handleCorrectValue(selectedCell, sudoku.setCellValue(newValueCell));
+                const newScoredCells = sudoku.setCellValue(newValueCell);
+
+                if (newScoredCells.isWon) {
+                    handleWonGame();
+                } else {
+                    handleCorrectValue(selectedCell, newScoredCells);
+                }
             } else {
                 handleWrongValue();
             }
