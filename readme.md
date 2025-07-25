@@ -79,6 +79,20 @@ For testing on `real devices` special manual [GitHub Workflow](./.github/workflo
 
 [Register your IOS device](https://expo.dev/register-device/c1da1a6e-616b-40a3-93ba-45bef53696e5)
 
+### Auto-candidates
+
+The app supports auto-candidates mode, which allows you to fill the candidates automatically based on the current state of the board.
+
+### Web keyboard support
+
+Use your arrow keys to navigate through the Sudoku board, press any number `1-9` to fill the cell.
+
+### Sharing puzzles
+
+You can share the current puzzle with your friends via a link, which will open the app with the same puzzle, mistakes and timer.
+
+> Tab activates auto-candidate mode
+
 ## Packages
 
 - [app](packages/app/readme.md) - React Native / Expo application package
