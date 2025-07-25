@@ -89,7 +89,7 @@ Use your arrow keys to navigate through the Sudoku board, press any number `1-9`
 
 ### Sharing puzzles
 
-You can share the current puzzle with your friends via a link, which will open the app with the same puzzle, mistakes and timer.
+You can share the current puzzle with your friends via a link, which will open the app with the same puzzle, score, mistakes and timer.
 
 > Tab activates auto-candidate mode
 
