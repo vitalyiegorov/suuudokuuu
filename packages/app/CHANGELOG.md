@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.27.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.27.1...v1.27.2) (2025-07-26)
+
+### Bug Fixes
+
+- **app:** improve field responsive styling ([4165857](https://github.com/vitalyiegorov/suuudokuuu/commit/416585765ced315cea94c3bf3768181cabe95175))
+
 ## [1.27.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.27.0...v1.27.1) (2025-07-26)
 
 ### Bug Fixes
