@@ -18,7 +18,7 @@ export const ThemeProvider = ({ children }: { readonly children: ReactNode }) =>
     const osColorSchema = useColorScheme() ?? 'dark';
 
     const [colorScheme, setColorScheme] = useState<'dark' | 'light'>(osColorSchema);
-    const theme = colorScheme === 'dark' ? BlackTheme : WhiteTheme;
+    const theme = colorScheme === 'light' ? BlackTheme : WhiteTheme;
 
     const toggleTheme = () => {
         const newColorSchema = colorScheme === 'dark' ? 'light' : 'dark';
