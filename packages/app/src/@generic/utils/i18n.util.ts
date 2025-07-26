@@ -23,7 +23,7 @@ export const i18nGetOSLocale = (): string => {
     for (const locale of locales) {
         const languageCode = locale.languageCode?.toLowerCase();
 
-        if (isNotEmptyString(languageCode)) {
+        if (isNotEmptyString(languageCode) && ['en', 'fr', 'uk', 'es'].includes(languageCode)) {
             return languageCode;
         }
     }
