@@ -11,7 +11,7 @@ export const GameScreenStyles = StyleSheet.create({
         justifyContent: 'center'
     },
     button: { paddingHorizontal: 10 },
-    buttonsWrapper: { flexDirection: 'row', gap: 10 },
+    buttonsWrapper: { flexDirection: 'row', gap: 5 },
     container: {
         flex: 1,
         padding: 10,
