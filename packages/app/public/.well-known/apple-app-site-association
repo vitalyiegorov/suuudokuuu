@@ -3,7 +3,9 @@
     "details": [
       {
         "appIDs": [
-          "3R8589YV24.com.vitalyiegorov.suuudokuuu"
+          "3R8589YV24.com.vitalyiegorov.suuudokuuu",
+          "3R8589YV24.com.vitalyiegorov.suuudokuuu.dev",
+          "3R8589YV24.com.vitalyiegorov.suuudokuuu.preview"
         ],
         "components": [
           {
