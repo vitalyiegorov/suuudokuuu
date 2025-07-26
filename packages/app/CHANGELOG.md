@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.27.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.27.0...v1.27.1) (2025-07-26)
+
+### Bug Fixes
+
+- auto theme ([0d4789f](https://github.com/vitalyiegorov/suuudokuuu/commit/0d4789fdb36544e2570ecd2cb108b8ba976e6b87))
+- auto theme ([c90660f](https://github.com/vitalyiegorov/suuudokuuu/commit/c90660fb8079fe0a9ae61b87fef248829c6f3863))
+
 # [1.27.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.26.0...v1.27.0) (2025-07-26)
 
 ### Bug Fixes
