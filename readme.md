@@ -93,6 +93,12 @@ Use your arrow keys to navigate through the Sudoku board, press any number `1-9`
 
 You can share the current puzzle with your friends via a link, which will open the app with the same puzzle, score, mistakes and timer.
 
+> [Expo - Sharing](https://docs.expo.dev/versions/latest/sdk/sharing/)
+>
+> [Expo - Linking](https://docs.expo.dev/versions/latest/sdk/linking/)
+>
+> [Expo - Router](https://docs.expo.dev/linking/overview/#use-expo-router-to-handle-deep-linking)
+
 ### Theming support
 
 You can switch between light and dark themes, OS/Browser theme is detected automatically initially.
@@ -108,6 +114,10 @@ You can switch between light and dark themes, OS/Browser theme is detected autom
 Sharing a link to `https://suuudokuuu.com/` will open the app on your device if it is installed, otherwise it will open the web version of the app.
 
 > [Expo iOS Universal Links](https://docs.expo.dev/linking/ios-universal-links/)
+>
+> [Expo - Android Linking](https://docs.expo.dev/linking/android-app-links/)
+>
+> [Expo - iOS Linking](https://docs.expo.dev/linking/ios-universal-links/)
 
 ## Packages
 
