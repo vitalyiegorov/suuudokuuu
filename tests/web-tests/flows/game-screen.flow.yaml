@@ -1,0 +1,64 @@
+url: https://www.suuudokuuu.com/shared?sudokuString=837142956561938427429675183642519378953287641178364295714896532296753814385421769%7C..7142956561938427429675183642519378953287641178364295714896532296753814385421769&score=9999&mistakes=1&elapsedTime=35&isFinished=false&hasCandidates=false
+---
+- launchApp
+- assertVisible: "Відкрити спільну головоломку?"
+- tapOn: "Відкрити головоломку"
+- assertVisible:
+    below: "Рахунок"
+    text: "9999"
+- assertVisible:
+    below: "Помилки"
+    rightOf: "1"
+    text: "3"
+- assertVisible:
+    id: "CellSelectors.Root"
+- assertVisible:
+    id: "AvailableValueItemSelectors.Button"
+- assertVisible: "\\([0-9]{2}:[0-9]{2}\\)"
+- tapOn:
+    id: "CellSelectors.Root"
+    index: 0
+- tapOn:
+    id: "AvailableValueItemSelectors.Button"
+    containsDescendants:
+      - text: "3"
+- assertVisible:
+    below: "Помилки"
+    rightOf: "2"
+    text: "3"
+- tapOn:
+    id: "AvailableValueItemSelectors.Button"
+    containsDescendants:
+      - text: "3"
+- assertVisible: "Наступного разу пощастить!.*"
+- assertVisible: "Допоможіть Україні перемогти!"
+- tapOn: "Зіграти знову"
+- assertVisible:
+    below: "Найкращий результат"
+    text: "[0-9]+"
+- assertVisible:
+    below: "Найкращий час"
+    text: "[0-9]{2}:[0-9]{2}"
+- tapOn: "Почати заново"
+- assertVisible: "Новачок"
+
+- launchApp
+- tapOn: "Відкрити головоломку"
+- tapOn:
+    id: "CellSelectors.Root"
+    index: 0
+- tapOn:
+    id: "AvailableValueItemSelectors.Button"
+    containsDescendants:
+      - text: "8"
+- tapOn:
+    id: "CellSelectors.Root"
+    index: 1
+- tapOn:
+    id: "AvailableValueItemSelectors.Button"
+    containsDescendants:
+      - text: "3"
+- assertVisible: "Переможець-переможець,.*"
+- assertVisible: "Ви набрали 77467"
+- assertVisible: "Допоможіть Україні перемогти!"
+- tapOn: "Зіграти знову"

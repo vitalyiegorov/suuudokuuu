@@ -1,0 +1,42 @@
+url: https://www.suuudokuuu.com
+---
+- launchApp
+- assertVisible: "СууудокуУ"
+- tapOn: "Підтримайте Україну .*"
+- assertVisible:
+    text: "Зробити внесок на рахунок фонду допомоги ЗСУ"
+- back
+- tapOn: "Політика конфіденційності"
+- assertVisible: "Privacy Policy Effective Date.*"
+- back
+- tapOn: "Почати заново"
+- tapOn: "Назад"
+- assertVisible: "Почати заново"
+- tapOn: "Почати заново"
+- runScript: subflows/scripts/levels.js
+- assertVisible: ${ output.levels[0] }
+- evalScript: ${output.counter = 0}
+- repeat:
+    times: ${output.levels.length}
+    commands:
+      - assertVisible: ${output.levels[output.counter]}
+      - evalScript: ${output.counter = output.counter + 1}
+- tapOn: "Новачок"
+- assertVisible:
+    below: "Рахунок"
+    id: "GameScreenSelectors.Score"
+    text: "0"
+- assertVisible:
+    below: "Помилки"
+- assertVisible:
+    id: "GameScreenSelectors.MistakesCount"
+    text: "0"
+- assertVisible:
+    id: "GameScreenSelectors.MaxMistakesAllowed"
+    text: "3"
+- assertVisible:
+    id: "CellSelectors.Root"
+- assertVisible:
+    id: "AvailableValueItemSelectors.Button"
+- assertVisible: "\\([0-9]{2}:[0-9]{2}\\)"
+
