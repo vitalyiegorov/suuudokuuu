@@ -87,11 +87,27 @@ The app supports auto-candidates mode, which allows you to fill the candidates a
 
 Use your arrow keys to navigate through the Sudoku board, press any number `1-9` to fill the cell.
 
+> `Tab` activates auto-candidate mode
+
 ### Sharing puzzles
 
 You can share the current puzzle with your friends via a link, which will open the app with the same puzzle, score, mistakes and timer.
 
-> Tab activates auto-candidate mode
+### Theming support
+
+You can switch between light and dark themes, OS/Browser theme is detected automatically initially.
+
+> [React navigation theming](https://reactnavigation.org/docs/themes/)
+>
+> [React native - Appearance](https://reactnative.dev/docs/appearance)
+>
+> [React native - useColorTheme](https://reactnative.dev/docs/usecolorscheme)
+
+### Universal links
+
+Sharing a link to `https://suuudokuuu.com/` will open the app on your device if it is installed, otherwise it will open the web version of the app.
+
+> [Expo iOS Universal Links](https://docs.expo.dev/linking/ios-universal-links/)
 
 ## Packages
 
