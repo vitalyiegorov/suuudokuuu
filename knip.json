@@ -13,6 +13,7 @@
         "packages/app/src/game/store/game.state.ts"
     ],
     "ignoreDependencies": [
+        "husky",
         "@lingui/cli",
         "@expo/metro-config",
         "metro-minify-terser",
