@@ -21,7 +21,7 @@ msgstr "All progress will be lost"
 msgid "Back"
 msgstr "Back"
 
-#: src/app/game.tsx:28
+#: src/app/game.tsx:12
 msgid "Be wise, be smart, be quick..."
 msgstr "Be wise, be smart, be quick..."
 
@@ -41,6 +41,7 @@ msgstr ""
 "Better luck next time!\n"
 "Loooooser =)"
 
+#: src/screens/components/shared-screen/shared-screen.tsx:30
 #: src/screens/components/game-screen/game.screen.tsx:69
 msgid "Cancel"
 msgstr "Cancel"
@@ -66,7 +67,7 @@ msgstr "Hard"
 msgid "Help Ukraine win!"
 msgstr "Help Ukraine win!"
 
-#: src/game/context/game.context.tsx:35
+#: src/game/context/game.context.tsx:51
 msgid "Invalid Sudoku"
 msgstr "Invalid Sudoku"
 
@@ -82,7 +83,7 @@ msgstr "Looooooser! =)"
 msgid "Medium"
 msgstr "Medium"
 
-#: src/screens/components/game-screen/game.screen.tsx:165
+#: src/screens/components/game-screen/game.screen.tsx:158
 msgid "Mistakes"
 msgstr "Mistakes"
 
@@ -94,9 +95,18 @@ msgstr "Newbie"
 msgid "Nightmare"
 msgstr "Nightmare"
 
-#: src/game/context/game.context.tsx:37
+#: src/game/context/game.context.tsx:53
 msgid "OK"
 msgstr "OK"
+
+#: src/screens/components/shared-screen/shared-screen.tsx:29
+msgid "Open puzzle"
+msgstr "Open puzzle"
+
+#: src/screens/components/shared-screen/shared-screen.tsx:27
+#: src/app/shared.tsx:12
+msgid "Open shared puzzle?"
+msgstr "Open shared puzzle?"
 
 #: src/@generic/components/play-again-button/play-again-button.tsx:14
 msgid "Play again"
@@ -117,7 +127,7 @@ msgstr "Resume"
 msgid "Return"
 msgstr "Return"
 
-#: src/screens/components/game-screen/game.screen.tsx:178
+#: src/screens/components/game-screen/game.screen.tsx:171
 msgid "Score"
 msgstr "Score"
 

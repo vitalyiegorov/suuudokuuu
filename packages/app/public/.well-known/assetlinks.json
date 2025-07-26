@@ -1,0 +1,10 @@
+[
+    {
+        "relation": ["delegate_permission/common.handle_all_urls"],
+        "target": {
+            "namespace": "android_app",
+            "package_name": "com.vitaliiyehorov.suuudokuuu",
+            "sha256_cert_fingerprints": ["B4:8C:27:A3:87:13:18:A0:7E:06:45:47:31:71:0F:70:72:1D:12:9E:E4:9C:44:5E:C8:3D:E8:DF:3A:B6:DB:70"]
+        }
+    }
+]

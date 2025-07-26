@@ -1,29 +1,32 @@
 import { useLingui } from '@lingui/react/macro';
 import Constants from 'expo-constants';
 import { Link } from 'expo-router';
+import { LucideMoon, LucideSunMedium } from 'lucide-react-native';
 import { use, useState } from 'react';
 import { ActivityIndicator, Text, View } from 'react-native';
 
 import { isNotEmptyString } from '@rnw-community/shared';
 
 import { BlackButton } from '../../../@generic/components/black-button/black-button';
+import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { DifficultySelect } from '../../../@generic/components/difficulty-select/difficulty-select';
 import { Header } from '../../../@generic/components/header/header';
 import { SupportUkraineBanner } from '../../../@generic/components/support-ukraine-banner/support-ukraine-banner';
+import { ThemeContext } from '../../../@generic/context/theme.context';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
-import { Colors } from '../../../@generic/styles/theme';
 import { getTimerText } from '../../../@generic/utils/get-timer-text.util';
 import { GameContext } from '../../../game/context/game.context';
 import { useResumeGame } from '../../../game/hooks/use-resume-game.hook';
 import { gameSudokuStringSelector } from '../../../game/store/game.selectors';
 import { historyBestTimeSelector } from '../../../history/store/history.selectors';
 
-import { HomeScreenStyles } from './home-screen.styles';
+import { HomeScreenStyles as styles } from './home-screen.styles';
 
 import type { DifficultyEnum } from '@suuudokuuu/generator';
 
 export const HomeScreen = () => {
     const { createFromDifficulty } = use(GameContext);
+    const { toggleTheme, colorScheme, theme } = use(ThemeContext);
     const { t } = useLingui();
 
     const oldGameString = useAppSelector(gameSudokuStringSelector);
@@ -52,22 +55,27 @@ export const HomeScreen = () => {
         });
     };
 
+    const ThemeIcon = colorScheme === 'dark' ? LucideSunMedium : LucideMoon;
+
     return (
-        <View style={HomeScreenStyles.container}>
+        <View style={styles.container}>
+            <BlackButton onPress={toggleTheme} style={styles.themeButton}>
+                <ThemeIcon color={theme.colors.white} />
+            </BlackButton>
             <SupportUkraineBanner />
 
-            <View style={HomeScreenStyles.centerContainer}>
+            <View style={styles.centerContainer}>
                 <Header text={t`SuuudokuuU`} />
 
                 {!showDifficultySelect && (
-                    <View style={HomeScreenStyles.buttonWrapper}>
+                    <View style={styles.buttonWrapper}>
                         {isGameStarted ? <BlackButton onPress={handleContinue} text={t`Continue`} /> : null}
 
                         <BlackButton onPress={handleDifficultySelect} text={t`Start new`} />
                     </View>
                 )}
 
-                {isLoading ? <ActivityIndicator color={Colors.black} /> : null}
+                {isLoading ? <ActivityIndicator color={theme.colors.black} /> : null}
 
                 {!isLoading && showDifficultySelect ? (
                     <>
@@ -78,32 +86,32 @@ export const HomeScreen = () => {
                 ) : null}
             </View>
 
-            <View style={HomeScreenStyles.historyContainer}>
+            <View style={styles.historyContainer}>
                 {bestScore > 0 && (
                     <>
-                        <View style={HomeScreenStyles.historyGroup}>
-                            <Text style={HomeScreenStyles.historyLabel}>{t`Best score`}</Text>
+                        <View style={styles.historyGroup}>
+                            <BlackText>{t`Best score`}</BlackText>
 
-                            <Text style={HomeScreenStyles.historyValue}>{bestScore}</Text>
+                            <BlackText style={styles.historyValue}>{bestScore}</BlackText>
                         </View>
 
-                        <View style={HomeScreenStyles.historyGroup}>
-                            <Text style={HomeScreenStyles.historyLabel}>{t`Best time`}</Text>
+                        <View style={styles.historyGroup}>
+                            <BlackText>{t`Best time`}</BlackText>
 
-                            <Text style={HomeScreenStyles.historyValue}>{getTimerText(bestTime)}</Text>
+                            <BlackText style={styles.historyValue}>{getTimerText(bestTime)}</BlackText>
                         </View>
                     </>
                 )}
             </View>
 
-            <View style={HomeScreenStyles.bottomContainer}>
-                <Text style={HomeScreenStyles.bottomLink}>
+            <View style={styles.bottomContainer}>
+                <BlackText>
                     <Text>{t`V.`}</Text>
                     {Constants.expoConfig?.version}
-                </Text>
+                </BlackText>
 
-                <Link href="/privacy-policy" style={HomeScreenStyles.bottomLink}>
-                    <Text>{t`Privacy policy`}</Text>
+                <Link href="/privacy-policy">
+                    <BlackText>{t`Privacy policy`}</BlackText>
                 </Link>
             </View>
         </View>

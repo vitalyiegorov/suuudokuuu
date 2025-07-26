@@ -1,9 +1,10 @@
 import { useRouter } from 'expo-router';
 import { useEffect, useRef } from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 
 import { isDefined } from '@rnw-community/shared';
 
+import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { useAppStateChange } from '../../../@generic/hooks/use-app-state-change.hook';
@@ -52,7 +53,7 @@ export const GameTimer = () => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>({getTimerText(savedTime)})</Text>
+            <BlackText>({getTimerText(savedTime)})</BlackText>
         </View>
     );
 };

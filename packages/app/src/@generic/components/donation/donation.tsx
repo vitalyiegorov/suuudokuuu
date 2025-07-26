@@ -1,9 +1,11 @@
 import { i18n } from '@lingui/core';
 import { msg } from '@lingui/core/macro';
 import { useLingui } from '@lingui/react/macro';
+import { use } from 'react';
 import { Text, View } from 'react-native';
 
 import { donationLinkConstant } from '../../constants/donation.constant';
+import { ThemeContext } from '../../context/theme.context';
 import { BlackButton } from '../black-button/black-button';
 
 import { DonationStyles as styles } from './donation.styles';
@@ -24,11 +26,12 @@ const getText = (type: Props['type']) => {
 };
 
 export const Donation = ({ type }: Props) => {
+    const { theme } = use(ThemeContext);
     const { t } = useLingui();
 
     return (
-        <View style={styles.donation}>
-            <Text style={styles.donationText}>{getText(type)}</Text>
+        <View style={[styles.donation, { borderBottomColor: theme.colors.black, borderTopColor: theme.colors.black }]}>
+            <Text style={[styles.donationText, { color: theme.colors.black }]}>{getText(type)}</Text>
 
             <BlackButton href={donationLinkConstant} text={t`Help Ukraine win!`} />
         </View>

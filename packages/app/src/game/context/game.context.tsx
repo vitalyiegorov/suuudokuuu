@@ -3,11 +3,13 @@ import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { useRouter } from 'expo-router';
 import React, { createContext, useState } from 'react';
 
-import { emptyFn, getErrorMessage } from '@rnw-community/shared';
+import { emptyFn, getErrorMessage, isNotEmptyString } from '@rnw-community/shared';
 
 import { Alert } from '../../@generic/components/alert/alert';
 import { useAppDispatch } from '../../@generic/hooks/use-app-dispatch.hook';
+import { useAppSelector } from '../../@generic/hooks/use-app-selector.hook';
 import { gameLoadAction, gameResetAction, gameResumeAction, gameStartAction } from '../store/game.actions';
+import { gameSudokuStringSelector } from '../store/game.selectors';
 
 import type { SerializedGameState } from '../store/game.state';
 import type { DifficultyEnum } from '@suuudokuuu/generator';
@@ -24,13 +26,27 @@ export const GameProvider = ({ children }: { readonly children: ReactNode }) => 
     const router = useRouter();
     const { t } = useLingui();
 
-    const [sudoku, setSudoku] = useState(new Sudoku(defaultSudokuConfig));
+    const currentGameString = useAppSelector(gameSudokuStringSelector);
+
+    const [sudoku, setSudoku] = useState(() => {
+        if (isNotEmptyString(currentGameString)) {
+            return Sudoku.fromString(currentGameString, defaultSudokuConfig);
+        }
+
+        return new Sudoku(defaultSudokuConfig);
+    });
 
     const createFromState = (state: SerializedGameState) => {
         try {
-            setSudoku(Sudoku.fromString(state.sudokuString, defaultSudokuConfig));
+            const newSudoku = Sudoku.fromString(state.sudokuString, defaultSudokuConfig);
+
+            setSudoku(newSudoku);
             dispatch(gameLoadAction(state));
             dispatch(gameResumeAction());
+
+            router.replace(`game`);
+
+            return true;
         } catch (error) {
             Alert(t`Invalid Sudoku`, getErrorMessage(error), [
                 {
@@ -41,6 +57,8 @@ export const GameProvider = ({ children }: { readonly children: ReactNode }) => 
                     }
                 }
             ]);
+
+            return false;
         }
     };
 
@@ -50,7 +68,7 @@ export const GameProvider = ({ children }: { readonly children: ReactNode }) => 
 
         const sudokuString = sudoku.toString();
         dispatch(gameStartAction({ sudokuString }));
-        router.push(`game?sudokuString=${sudokuString}`);
+        router.push(`game`);
     };
 
     return <GameContext value={{ sudoku, createFromState, createFromDifficulty }}>{children}</GameContext>;

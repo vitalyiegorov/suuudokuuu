@@ -1,7 +1,8 @@
 import { useLingui } from '@lingui/react/macro';
-import { ScrollView, Text, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 
 import { BlackButton } from '../../../@generic/components/black-button/black-button';
+import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { Header } from '../../../@generic/components/header/header';
 import { PageHeader } from '../../../@generic/components/page-header/page-header';
 
@@ -18,7 +19,7 @@ export const PrivacyPolicyScreen = () => {
             <Header text={t`Privacy policy`} />
 
             <ScrollView contentContainerStyle={PrivacyPolicyScreenStyles.scrollView}>
-                <Text style={PrivacyPolicyScreenStyles.text}>{privacyPolicyConstant}</Text>
+                <BlackText>{privacyPolicyConstant}</BlackText>
             </ScrollView>
 
             <BlackButton href="/" text={t`Return`} />

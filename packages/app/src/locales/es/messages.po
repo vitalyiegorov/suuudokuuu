@@ -21,7 +21,7 @@ msgstr ""
 msgid "Back"
 msgstr "Atrás"
 
-#: src/app/game.tsx:28
+#: src/app/game.tsx:12
 msgid "Be wise, be smart, be quick..."
 msgstr ""
 
@@ -41,6 +41,7 @@ msgstr ""
 "¡Mejor suerte la próxima vez!\n"
 "¡Perdedor =)"
 
+#: src/screens/components/shared-screen/shared-screen.tsx:30
 #: src/screens/components/game-screen/game.screen.tsx:69
 msgid "Cancel"
 msgstr "Cancelar"
@@ -66,7 +67,7 @@ msgstr "Difícil"
 msgid "Help Ukraine win!"
 msgstr "¡Ayuda a Ucrania a ganar!"
 
-#: src/game/context/game.context.tsx:35
+#: src/game/context/game.context.tsx:51
 msgid "Invalid Sudoku"
 msgstr "Sudoku inválido"
 
@@ -82,7 +83,7 @@ msgstr ""
 msgid "Medium"
 msgstr "Medio"
 
-#: src/screens/components/game-screen/game.screen.tsx:165
+#: src/screens/components/game-screen/game.screen.tsx:158
 msgid "Mistakes"
 msgstr "Errores"
 
@@ -94,9 +95,18 @@ msgstr "Novato"
 msgid "Nightmare"
 msgstr "Pesadilla"
 
-#: src/game/context/game.context.tsx:37
+#: src/game/context/game.context.tsx:53
 msgid "OK"
 msgstr ""
+
+#: src/screens/components/shared-screen/shared-screen.tsx:29
+msgid "Open puzzle"
+msgstr "Abrir rompecabezas"
+
+#: src/screens/components/shared-screen/shared-screen.tsx:27
+#: src/app/shared.tsx:12
+msgid "Open shared puzzle?"
+msgstr "¿Abrir rompecabezas compartido?"
 
 #: src/@generic/components/play-again-button/play-again-button.tsx:14
 msgid "Play again"
@@ -117,7 +127,7 @@ msgstr "Reanudar"
 msgid "Return"
 msgstr "Volver"
 
-#: src/screens/components/game-screen/game.screen.tsx:178
+#: src/screens/components/game-screen/game.screen.tsx:171
 msgid "Score"
 msgstr "Puntuación"
 
