@@ -23,27 +23,24 @@ export const initialGameState: GameState = {
 };
 
 export const gameStateToUrl = (gameState: GameState): string => {
-    const { sudokuString, score, mistakes, elapsedTime, isPaused, isFinished, hasCandidates } = gameState;
+    const { sudokuString, score, mistakes, elapsedTime, isFinished, hasCandidates } = gameState;
 
-    const url = new URL(window.location.href);
-    url.searchParams.set('sudokuString', sudokuString);
-    url.searchParams.set('score', score.toString());
-    url.searchParams.set('mistakes', mistakes.toString());
-    url.searchParams.set('elapsedTime', elapsedTime.toString());
-    url.searchParams.set('paused', isPaused.toString());
-    url.searchParams.set('isFinished', isFinished.toString());
-    url.searchParams.set('hasCandidates', hasCandidates.toString());
+    const searchParams = new URLSearchParams();
+    searchParams.set('sudokuString', sudokuString);
+    searchParams.set('score', score.toString());
+    searchParams.set('mistakes', mistakes.toString());
+    searchParams.set('elapsedTime', elapsedTime.toString());
+    searchParams.set('isFinished', isFinished.toString());
+    searchParams.set('hasCandidates', hasCandidates.toString());
 
-    return url.toString();
+    return searchParams.toString();
 };
 
-export const urlToGameState = (input: SerializedGameState): GameState => ({
-    ...initialGameState,
+export const urlToGameState = (input: SerializedGameState): Partial<GameState> => ({
     ...(isDefined(input.sudokuString) && { sudokuString: input.sudokuString }),
     ...(isDefined(input.score) && { score: parseInt(input.score ?? '0', 10) }),
     ...(isDefined(input.mistakes) && { mistakes: parseInt(input.mistakes ?? '0', 10) }),
     ...(isDefined(input.elapsedTime) && { elapsedTime: parseInt(input.elapsedTime ?? '0', 10) }),
-    ...(isDefined(input.isPaused) && { paused: Boolean(input.isPaused) }),
     ...(isDefined(input.isFinished) && { isFinished: Boolean(input.isFinished) }),
     ...(isDefined(input.hasCandidates) && { hasCandidates: Boolean(input.hasCandidates) })
 });
