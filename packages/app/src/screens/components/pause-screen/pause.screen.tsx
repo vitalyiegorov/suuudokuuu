@@ -1,5 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 
 import { BlackButton } from '../../../@generic/components/black-button/black-button';
 import { Donation } from '../../../@generic/components/donation/donation';
@@ -18,8 +18,6 @@ export const PauseScreen = () => {
     return (
         <View style={PauseScreenStyles.container}>
             <Header text={t`Game paused`} />
-
-            <Text style={PauseScreenStyles.text} />
 
             <Donation type="paused" />
 

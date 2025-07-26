@@ -1,16 +1,11 @@
 import { StyleSheet } from 'react-native';
 
-import { Colors } from '../../../@generic/styles/theme';
-
 export const HomeScreenStyles = StyleSheet.create({
     bottomContainer: {
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         marginBottom: 20
-    },
-    bottomLink: {
-        color: Colors.black
     },
     buttonWrapper: {
         gap: 10
@@ -34,11 +29,18 @@ export const HomeScreenStyles = StyleSheet.create({
     historyGroup: {
         alignItems: 'center'
     },
-    historyLabel: {
-        color: Colors.black
-    },
     historyValue: {
-        color: Colors.black,
         fontWeight: 'bold'
+    },
+    themeButton: {
+        alignItems: 'center',
+        flex: 1,
+        height: 40,
+        justifyContent: 'center',
+        position: 'absolute',
+        right: 10,
+        top: 0,
+        width: 40,
+        zIndex: 99
     }
 });
