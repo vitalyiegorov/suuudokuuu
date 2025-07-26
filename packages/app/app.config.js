@@ -51,7 +51,8 @@ export default ({ config }) => ({
         config: {
             usesNonExemptEncryption: false
         },
-        buildNumber: '7'
+        buildNumber: '7',
+        associatedDomains: ['applinks:suuudokuuu.com']
     },
     android: {
         adaptiveIcon: {

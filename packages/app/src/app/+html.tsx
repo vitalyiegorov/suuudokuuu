@@ -17,6 +17,7 @@ export default function Root({ children }: PropsWithChildren) {
                 <meta content="IE=edge" httpEquiv="X-UA-Compatible" />
 
                 <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport" />
+                <meta content="app-id=6449440933" name="apple-itunes-app" />
 
                 <ScrollViewStyleReset />
             </head>

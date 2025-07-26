@@ -1,0 +1,27 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": [
+          "3R8589YV24.com.vitalyiegorov.suuudokuuu"
+        ],
+        "components": [
+          {
+            "/": "*",
+            "comment": "Matches all routes"
+          }
+        ]
+      }
+    ]
+  },
+  "activitycontinuation": {
+    "apps": [
+      "3R8589YV24.com.vitalyiegorov.suuudokuuu"
+    ]
+  },
+  "webcredentials": {
+    "apps": [
+      "3R8589YV24.com.vitalyiegorov.suuudokuuu"
+    ]
+  }
+}
