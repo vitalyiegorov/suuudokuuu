@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.26.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.25.1...v1.26.0) (2025-07-26)
+
+### Features
+
+- **app:** added universal links ([540ddf3](https://github.com/vitalyiegorov/suuudokuuu/commit/540ddf31ad5117f9f20f6e3d011f1f2f61d62e17))
+
 ## [1.25.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.25.0...v1.25.1) (2025-07-26)
 
 ### Bug Fixes
