@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 
-import { Colors } from '../../../@generic/styles/theme';
 import {
     CellCandidateFontSizeConstant,
     CellCandidateOffsetConstant,
@@ -11,7 +10,6 @@ import {
 export const FieldCellStyles = StyleSheet.create({
     container: {
         alignItems: 'center',
-        borderColor: Colors.black,
         borderLeftWidth: 1,
         borderStyle: 'solid',
         borderTopWidth: 1,
@@ -38,14 +36,9 @@ export const FieldCellStyles = StyleSheet.create({
         borderBottomWidth: 1
     },
     textActive: {
-        color: Colors.cell.activeText,
         fontWeight: 'bold'
     },
-    textActiveValue: {
-        color: Colors.cell.activeValueText
-    },
     textCandidate: {
-        color: Colors.cell.candidate,
         fontSize: CellCandidateFontSizeConstant,
         position: 'absolute'
     },
@@ -85,14 +78,7 @@ export const FieldCellStyles = StyleSheet.create({
         left: CellCandidateOffsetConstant / 2 + (2 * CellSizeConstant) / 3,
         top: -CellCandidateOffsetConstant / 2 + (CellSizeConstant / 3) * 2
     },
-    textEmpty: {
-        color: Colors.cell.emptyValueText
-    },
-    textHighlighted: {
-        color: Colors.cell.highlightedText
-    },
     textRegular: {
-        color: Colors.black,
         fontSize: CellFontSizeConstant
     }
 });

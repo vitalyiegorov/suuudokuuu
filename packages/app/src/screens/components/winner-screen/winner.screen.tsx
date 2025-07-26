@@ -2,6 +2,7 @@ import { useLingui } from '@lingui/react/macro';
 import { Text, View } from 'react-native';
 import { useSelector } from 'react-redux';
 
+import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { Donation } from '../../../@generic/components/donation/donation';
 import { Header } from '../../../@generic/components/header/header';
 import { PlayAgainButton } from '../../../@generic/components/play-again-button/play-again-button';
@@ -21,14 +22,14 @@ export const WinnerScreen = () => {
             <Header text={t`Winners-winner, \n chicken dinner!`} />
 
             <View>
-                <Text style={WinnerScreenStyles.scoreText}>
+                <BlackText>
                     <Text>{t`You have scored`} </Text>
                     <Text style={WinnerScreenStyles.boldText}>{score}</Text>{' '}
-                </Text>
+                </BlackText>
 
-                <Text style={WinnerScreenStyles.timeText}>
+                <BlackText>
                     <Text>{t`It took you`}</Text> <Text style={WinnerScreenStyles.boldText}>{getTimerText(elapsedTime)}</Text>
-                </Text>
+                </BlackText>
             </View>
 
             <Donation type="winner" />

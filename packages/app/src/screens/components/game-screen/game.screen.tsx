@@ -7,14 +7,13 @@ import { LucideHandHelping, LucideLogOut, LucideShare2 } from 'lucide-react-nati
 import { use, useEffect, useRef, useState } from 'react';
 import { Text, View } from 'react-native';
 
-import { cs } from '@rnw-community/shared';
-
 import { Alert } from '../../../@generic/components/alert/alert';
 import { BlackButton } from '../../../@generic/components/black-button/black-button';
+import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
+import { ThemeContext } from '../../../@generic/context/theme.context';
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
-import { Colors } from '../../../@generic/styles/theme';
 import { hapticImpact, hapticNotification } from '../../../@generic/utils/haptic/haptic.util';
 import { AvailableValuesItem, type AvailableValuesItemRef } from '../../../game/components/available-values-item/available-values-item';
 import { Field, type FieldRef } from '../../../game/components/field/field';
@@ -45,6 +44,7 @@ const setSharingAvailable = (setHasSharing: Dispatch<SetStateAction<boolean>>): 
 export const GameScreen = () => {
     const router = useRouter();
     const { sudoku } = use(GameContext);
+    const { theme } = use(ThemeContext);
     const { t } = useLingui();
 
     const dispatch = useAppDispatch();
@@ -149,45 +149,45 @@ export const GameScreen = () => {
 
     useKeyboardControls(sudoku, selectedCell, handleSelectCell, handleSelectValue, handleExit);
 
-    const mistakesCountTextStyles = [styles.mistakesCountText, cs(maxMistakesReached, styles.mistakesCountErrorText)];
+    const mistakesCountTextStyles = [styles.mistakesCountText, { color: maxMistakesReached ? theme.colors.red : theme.colors.black }];
 
     return (
         <View style={styles.container}>
             <View style={styles.controls}>
                 <View style={styles.controlsWrapper}>
-                    <Text style={styles.headerText}>{t`Mistakes`}</Text>
+                    <BlackText>{t`Mistakes`}</BlackText>
 
-                    <Text style={styles.headerText}>
+                    <BlackText>
                         <Text style={mistakesCountTextStyles}>{mistakes}</Text>
 
                         <Text style={styles.mistakesSeparator}>/</Text>
 
-                        <Text style={styles.mistakesMaxText}>{MaxMistakesConstant}</Text>
-                    </Text>
+                        <BlackText style={styles.mistakesMaxText}>{MaxMistakesConstant}</BlackText>
+                    </BlackText>
                 </View>
 
                 <View style={styles.scoreWrapper}>
                     <View style={styles.controlsWrapper}>
-                        <Text style={styles.headerText}>{t`Score`}</Text>
+                        <BlackText>{t`Score`}</BlackText>
 
-                        <Text style={styles.scoreText}>{score}</Text>
+                        <BlackText style={styles.scoreText}>{score}</BlackText>
                     </View>
                 </View>
 
                 <View style={styles.buttonsWrapper}>
                     <BlackButton isActive={hasCandidates} onPress={handleCandidates} style={styles.button}>
-                        <LucideHandHelping color={hasCandidates ? Colors.black : Colors.white} />
+                        <LucideHandHelping color={hasCandidates ? theme.colors.black : theme.colors.white} />
                     </BlackButton>
 
                     {hasSharing ? (
                         // eslint-disable-next-line @typescript-eslint/no-misused-promises
                         <BlackButton onPress={handleShare} style={styles.button}>
-                            <LucideShare2 color={Colors.white} />
+                            <LucideShare2 color={theme.colors.white} />
                         </BlackButton>
                     ) : null}
 
                     <BlackButton onPress={handleExit} style={styles.button}>
-                        <LucideLogOut color={Colors.white} />
+                        <LucideLogOut color={theme.colors.white} />
                     </BlackButton>
                 </View>
             </View>

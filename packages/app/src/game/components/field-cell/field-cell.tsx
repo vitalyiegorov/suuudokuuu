@@ -12,13 +12,14 @@ import Reanimated, {
 import { type OnEventFn, cs } from '@rnw-community/shared';
 
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
-import { Colors } from '../../../@generic/styles/theme';
+import { ThemeContext } from '../../../@generic/context/theme.context';
 import { GameContext } from '../../context/game.context';
 import { CellFontSizeConstant } from '../constants/dimensions.contant';
 
 import { FieldCellSelectors as selectors } from './field-cell.selectors';
 import { FieldCellStyles as styles } from './field-cell.styles';
 
+import type { BlackTheme } from '../../../@generic/styles/theme';
 import type { CellInterface } from '@suuudokuuu/generator';
 import type { Ref } from 'react';
 
@@ -32,18 +33,46 @@ const getText = (isActive: boolean, isEmpty: boolean, hasCandidates: boolean, ce
     return cell.value.toString();
 };
 
-const getCellBgColor = (isActiveValue: boolean, isCellHighlighted: boolean, isWrong: boolean, isEmpty: boolean) => {
+const getCellBgColor = (
+    theme: typeof BlackTheme,
+    isActiveValue: boolean,
+    isCellHighlighted: boolean,
+    isWrong: boolean,
+    isEmpty: boolean
+    // eslint-disable-next-line @typescript-eslint/max-params
+) => {
     if (isWrong) {
-        return Colors.cell.error;
+        return theme.colors.cell.error;
     } else if (isActiveValue) {
-        return Colors.cell.activeValue;
+        return theme.colors.cell.activeValue;
     } else if (isCellHighlighted) {
-        return Colors.cell.highlighted;
+        return theme.colors.cell.highlighted;
     } else if (isEmpty) {
-        return Colors.white;
+        return theme.colors.white;
     }
 
-    return Colors.cell.filled;
+    return theme.colors.cell.filled;
+};
+
+const getCellTextColor = (
+    theme: typeof BlackTheme,
+    isActive: boolean,
+    isEmpty: boolean,
+    isHighlighted: boolean,
+    isActiveValue: boolean
+    // eslint-disable-next-line @typescript-eslint/max-params
+) => {
+    if (isActive) {
+        return theme.colors.cell.activeText;
+    } else if (isActiveValue) {
+        return theme.colors.cell.activeValueText;
+    } else if (isHighlighted) {
+        return theme.colors.cell.highlightedText;
+    } else if (isEmpty) {
+        return theme.colors.cell.emptyValueText;
+    }
+
+    return theme.colors.black;
 };
 
 const getCellSelector = (props: Props): selectors => {
@@ -58,7 +87,7 @@ const getCellSelector = (props: Props): selectors => {
     return selectors.Root;
 };
 
-const getCandidateTextStyles = (candidate: number) => {
+const getCandidateTextStyles = (theme: typeof BlackTheme, candidate: number) => {
     const textCandidatePositionStyles = {
         1: styles.textCandidatePosition1,
         2: styles.textCandidatePosition2,
@@ -73,7 +102,7 @@ const getCandidateTextStyles = (candidate: number) => {
 
     const textCandidateStyle = textCandidatePositionStyles[candidate as keyof typeof textCandidatePositionStyles];
 
-    return [styles.textCandidate, textCandidateStyle];
+    return [styles.textCandidate, { color: theme.colors.cell.candidate }, textCandidateStyle];
 };
 
 const animationConfig = { duration: animationDurationConstant };
@@ -96,14 +125,17 @@ interface Props {
     readonly ref: Ref<FieldCellRef>;
 }
 
+// TODO: Components is overloaded - split into smaller components
 // eslint-disable-next-line max-statements
 export const FieldCell = (props: Props) => {
     const { cell, onSelect, isActive, isActiveValue, isHighlighted, isWrong, hasCandidates, ref } = props;
 
     const { sudoku } = use(GameContext);
+    const { theme } = use(ThemeContext);
 
     const isEmpty = sudoku.isBlankCell(cell);
-    const cellBackgroundColor = getCellBgColor(isActiveValue, isHighlighted, isWrong, isEmpty);
+    const cellBackgroundColor = getCellBgColor(theme, isActiveValue, isHighlighted, isWrong, isEmpty);
+    const cellTextColor = getCellTextColor(theme, isActive, isEmpty, isHighlighted, isActiveValue);
     const text = getText(isActive, isEmpty, hasCandidates, cell);
     const candidates = isEmpty && hasCandidates ? sudoku.getCellCandidates(cell) : [];
 
@@ -125,10 +157,14 @@ export const FieldCell = (props: Props) => {
     );
 
     const cellAnimatedStyles = useAnimatedStyle(() => ({
-        backgroundColor: interpolateColor(animation.value, [0, 1], [cellBackgroundColor, Colors.cell.active])
+        backgroundColor: interpolateColor(animation.value, [0, 1], [cellBackgroundColor, theme.colors.cell.active])
     }));
     const textAnimatedStyles = useAnimatedStyle(() => ({
-        color: interpolateColor(textAnimation.value, [0, 0.5, 1], [Colors.black, Colors.cell.highlightedText, Colors.black]),
+        color: interpolateColor(
+            textAnimation.value,
+            [0, 0.5, 1],
+            [theme.colors.black, theme.colors.cell.highlightedText, theme.colors.black]
+        ),
         fontSize: interpolate(
             textAnimation.value,
             [0, 0.5, 1],
@@ -143,6 +179,7 @@ export const FieldCell = (props: Props) => {
 
     const cellStyles = [
         styles.container,
+        { borderColor: theme.colors.black },
         cs(sudoku.isLastInCellGroupX(cell), styles.groupXEnd),
         cs(sudoku.isLastInCellGroupY(cell), styles.groupYEnd),
         cs(sudoku.isLastInRow(cell), styles.lastRow),
@@ -150,19 +187,12 @@ export const FieldCell = (props: Props) => {
         { backgroundColor: cellBackgroundColor },
         cellAnimatedStyles
     ];
-    const textStyles = [
-        styles.textRegular,
-        cs(isEmpty, styles.textEmpty),
-        cs(isHighlighted, styles.textHighlighted),
-        cs(isActiveValue, styles.textActiveValue),
-        cs(isActive, styles.textActive),
-        textAnimatedStyles
-    ];
+    const textStyles = [styles.textRegular, { color: cellTextColor }, cs(isActive, styles.textActive), textAnimatedStyles];
 
     return (
         <ReanimatedPressable onPress={handlePress} style={cellStyles} testID={getCellSelector(props)}>
             {candidates.map(candidate => (
-                <Reanimated.Text key={`candidate-${candidate}`} style={getCandidateTextStyles(candidate)}>
+                <Reanimated.Text key={`candidate-${candidate}`} style={getCandidateTextStyles(theme, candidate)}>
                     {candidate}
                 </Reanimated.Text>
             ))}
