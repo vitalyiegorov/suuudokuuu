@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.27.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.26.0...v1.27.0) (2025-07-26)
+
+### Bug Fixes
+
+- **app:** ios site association ids ([bd2a2ff](https://github.com/vitalyiegorov/suuudokuuu/commit/bd2a2ff903e37b0879471fa2c52b2411ad9da9ab))
+- **app:** ios site association ids ([429a166](https://github.com/vitalyiegorov/suuudokuuu/commit/429a166098f4d542b26d46b8886673961f0fec31))
+- **app:** themes and status bar ([60035c4](https://github.com/vitalyiegorov/suuudokuuu/commit/60035c42abf286b92f253328defd4d4d21d0d68e))
+
+### Features
+
+- **app:** added android deep links ([8e7ac54](https://github.com/vitalyiegorov/suuudokuuu/commit/8e7ac544a6a492edc14e23db50d08da6ad26b2db))
+
 # [1.26.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.25.1...v1.26.0) (2025-07-26)
 
 ### Features
