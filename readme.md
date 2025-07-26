@@ -81,7 +81,7 @@ For testing on `real devices` special manual [GitHub Workflow](./.github/workflo
 
 ### Auto-candidates
 
-The app supports auto-candidates mode, which allows you to fill the candidates automatically based on the current state of the board.
+The app supports `auto-candidates mode`, which allows you to fill the candidates automatically based on the current state of the board.
 
 ### Web keyboard support
 
