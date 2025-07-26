@@ -31,6 +31,7 @@ import { GameScreenStyles as styles } from './game-screen.styles';
 
 import type { CellInterface, ScoredCellsInterface } from '@suuudokuuu/generator';
 import type { Dispatch, SetStateAction } from 'react';
+import {GameScreenSelectors} from "./game-screen.selectors";
 
 const MaxMistakesConstant = 3;
 
@@ -152,17 +153,17 @@ export const GameScreen = () => {
     const mistakesCountTextStyles = [styles.mistakesCountText, { color: maxMistakesReached ? theme.colors.red : theme.colors.black }];
 
     return (
-        <View style={styles.container}>
+        <View style={styles.container} testID={GameScreenSelectors.Root}>
             <View style={styles.controls}>
                 <View style={styles.controlsWrapper}>
                     <BlackText>{t`Mistakes`}</BlackText>
 
                     <BlackText>
-                        <Text style={mistakesCountTextStyles}>{mistakes}</Text>
+                        <Text style={mistakesCountTextStyles} testID={GameScreenSelectors.MistakesCount}>{mistakes}</Text>
 
                         <Text style={styles.mistakesSeparator}>/</Text>
 
-                        <BlackText style={styles.mistakesMaxText}>{MaxMistakesConstant}</BlackText>
+                        <BlackText style={styles.mistakesMaxText} testID={GameScreenSelectors.MaxMistakesAllowed}>{MaxMistakesConstant}</BlackText>
                     </BlackText>
                 </View>
 
@@ -170,23 +171,23 @@ export const GameScreen = () => {
                     <View style={styles.controlsWrapper}>
                         <BlackText>{t`Score`}</BlackText>
 
-                        <BlackText style={styles.scoreText}>{score}</BlackText>
+                        <BlackText style={styles.scoreText} testID={GameScreenSelectors.Score}>{score}</BlackText>
                     </View>
                 </View>
 
                 <View style={styles.buttonsWrapper}>
-                    <BlackButton isActive={hasCandidates} onPress={handleCandidates} style={styles.button}>
+                    <BlackButton isActive={hasCandidates} onPress={handleCandidates} style={styles.button} testID={GameScreenSelectors.TipsButton}>
                         <LucideHandHelping color={hasCandidates ? theme.colors.black : theme.colors.white} />
                     </BlackButton>
 
                     {hasSharing ? (
                         // eslint-disable-next-line @typescript-eslint/no-misused-promises
-                        <BlackButton onPress={handleShare} style={styles.button}>
+                        <BlackButton onPress={handleShare} style={styles.button} testID={GameScreenSelectors.ShareButton}>
                             <LucideShare2 color={theme.colors.white} />
                         </BlackButton>
                     ) : null}
 
-                    <BlackButton onPress={handleExit} style={styles.button}>
+                    <BlackButton onPress={handleExit} style={styles.button} testID={GameScreenSelectors.QuitButton}>
                         <LucideLogOut color={theme.colors.white} />
                     </BlackButton>
                 </View>
