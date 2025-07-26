@@ -21,7 +21,7 @@ msgstr "Всі досягнення будуть втрачені"
 msgid "Back"
 msgstr "Назад"
 
-#: src/app/game.tsx:28
+#: src/app/game.tsx:12
 msgid "Be wise, be smart, be quick..."
 msgstr "Будьте мудрими, розумними, швидкими..."
 
@@ -41,6 +41,7 @@ msgstr ""
 "Наступного разу пощастить!\n"
 "Лууууузер =)"
 
+#: src/screens/components/shared-screen/shared-screen.tsx:30
 #: src/screens/components/game-screen/game.screen.tsx:69
 msgid "Cancel"
 msgstr "Скасувати"
@@ -66,7 +67,7 @@ msgstr "Важкий"
 msgid "Help Ukraine win!"
 msgstr "Допоможіть Україні перемогти!"
 
-#: src/game/context/game.context.tsx:35
+#: src/game/context/game.context.tsx:51
 msgid "Invalid Sudoku"
 msgstr "Недійсний Судоку"
 
@@ -82,7 +83,7 @@ msgstr "Лууууузер! =)"
 msgid "Medium"
 msgstr "Середній"
 
-#: src/screens/components/game-screen/game.screen.tsx:165
+#: src/screens/components/game-screen/game.screen.tsx:158
 msgid "Mistakes"
 msgstr "Помилки"
 
@@ -94,9 +95,18 @@ msgstr "Новачок"
 msgid "Nightmare"
 msgstr "Кошмар"
 
-#: src/game/context/game.context.tsx:37
+#: src/game/context/game.context.tsx:53
 msgid "OK"
 msgstr "Гаразд"
+
+#: src/screens/components/shared-screen/shared-screen.tsx:29
+msgid "Open puzzle"
+msgstr "Відкрити головоломку"
+
+#: src/screens/components/shared-screen/shared-screen.tsx:27
+#: src/app/shared.tsx:12
+msgid "Open shared puzzle?"
+msgstr "Відкрити спільну головоломку?"
 
 #: src/@generic/components/play-again-button/play-again-button.tsx:14
 msgid "Play again"
@@ -117,7 +127,7 @@ msgstr "Відновити"
 msgid "Return"
 msgstr "Повернутися"
 
-#: src/screens/components/game-screen/game.screen.tsx:178
+#: src/screens/components/game-screen/game.screen.tsx:171
 msgid "Score"
 msgstr "Рахунок"
 
