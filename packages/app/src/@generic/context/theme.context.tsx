@@ -15,9 +15,9 @@ export const ThemeContext = createContext<{
 }>({ colorScheme: 'light', toggleTheme: emptyFn, theme: BlackTheme });
 
 export const ThemeProvider = ({ children }: { readonly children: ReactNode }) => {
-    const osColorSchema = useColorScheme() ?? 'dark';
+    const osColorSchema = useColorScheme();
 
-    const [colorScheme, setColorScheme] = useState<'dark' | 'light'>(osColorSchema);
+    const [colorScheme, setColorScheme] = useState<'dark' | 'light'>(osColorSchema ?? 'dark');
     const theme = colorScheme === 'dark' ? BlackTheme : WhiteTheme;
 
     const toggleTheme = () => {
