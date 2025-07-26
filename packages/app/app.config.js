@@ -60,7 +60,21 @@ export default ({ config }) => ({
             backgroundColor: '#000000'
         },
         package: getUniqueIdentifier(true),
-        versionCode: 7
+        versionCode: 7,
+        intentFilters: [
+            {
+                action: 'VIEW',
+                autoVerify: true,
+                data: [
+                    {
+                        scheme: 'https',
+                        host: '*.suuudokuuu.com',
+                        pathPrefix: '/'
+                    }
+                ],
+                category: ['BROWSABLE', 'DEFAULT']
+            }
+        ]
     },
     web: {
         favicon: './assets/favicon.png',
