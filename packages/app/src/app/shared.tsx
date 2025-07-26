@@ -2,16 +2,15 @@ import { useLingui } from '@lingui/react/macro';
 
 import { Page } from '../@generic/components/page/page';
 import { PageHeader } from '../@generic/components/page-header/page-header';
-import { GameScreen } from '../screens/components/game-screen/game.screen';
 
-export default function GamePage() {
+export default function SharedPage() {
     const { t } = useLingui();
 
     return (
         <Page>
-            <PageHeader title={t`Be wise, be smart, be quick...`} />
+            <PageHeader title={t`Open shared puzzle?`} />
 
-            <GameScreen />
+            <SharedPage />
         </Page>
     );
 }

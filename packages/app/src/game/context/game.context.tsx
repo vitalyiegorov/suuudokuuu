@@ -28,9 +28,15 @@ export const GameProvider = ({ children }: { readonly children: ReactNode }) => 
 
     const createFromState = (state: SerializedGameState) => {
         try {
-            setSudoku(Sudoku.fromString(state.sudokuString, defaultSudokuConfig));
+            const newSudoku = Sudoku.fromString(state.sudokuString, defaultSudokuConfig);
+
+            setSudoku(newSudoku);
             dispatch(gameLoadAction(state));
             dispatch(gameResumeAction());
+
+            router.replace(`game?sudokuString=${newSudoku.toString()}`);
+
+            return true;
         } catch (error) {
             Alert(t`Invalid Sudoku`, getErrorMessage(error), [
                 {
@@ -41,6 +47,8 @@ export const GameProvider = ({ children }: { readonly children: ReactNode }) => 
                     }
                 }
             ]);
+
+            return false;
         }
     };
 
