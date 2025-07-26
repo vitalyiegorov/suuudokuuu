@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.26.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.25.1...v1.26.0) (2025-07-26)
+
+### Features
+
+- **app:** added universal links ([540ddf3](https://github.com/vitalyiegorov/suuudokuuu/commit/540ddf31ad5117f9f20f6e3d011f1f2f61d62e17))
+
+## [1.25.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.25.0...v1.25.1) (2025-07-26)
+
+### Bug Fixes
+
+- **app:** game state parsing and sharing ([fcc2f89](https://github.com/vitalyiegorov/suuudokuuu/commit/fcc2f898d5d7c90457192eafe8d742e4abc6a5d4))
+- **app:** language fallback ([c9d8527](https://github.com/vitalyiegorov/suuudokuuu/commit/c9d85271bdbaff61a677d85ee1afd05b0297cf40))
+
 # [1.25.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.24.2...v1.25.0) (2025-07-25)
 
 ### Bug Fixes
