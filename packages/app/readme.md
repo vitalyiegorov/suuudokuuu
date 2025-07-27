@@ -4,22 +4,14 @@ React Native / Expo application package
 
 ## TODO
 
-- [ ] add lingui
-- [ ] add styling library
-- [ ] extract logic for processing sudoku game into separate package
 - [ ] setup maestro e2e tests on CI pull request
 - [ ] add sentry for error reporting
 - [ ] migrate game logic to RxJS
-- [ ] add `master` branch dev build, master app build, CI/CD and certificates for iOS and Android
-- [ ] add `production` branch and CI/CD for production release
 
 ### Puzzle generation
 
 - [ ] optimize puzzle generation performance
 - [ ] optimize puzzle processing performance
-- [ ] add 90%+ code coverage and extensive test cases
-- [ ] add unique check for generated field, sometimes puzzle can have multiple solutions
-- [ ] use DHX for puzzle generation/solving
 
 ### UI/UX
 

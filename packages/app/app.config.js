@@ -97,6 +97,6 @@ export default ({ config }) => ({
         reactCompiler: true
     },
     runtimeVersion: {
-        policy: 'sdkVersion'
+        policy: 'fingerprint'
     }
 });
