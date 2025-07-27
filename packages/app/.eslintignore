@@ -7,4 +7,5 @@ src/locales
 
 app.config.js
 babel.config.js
+fingerprint.config.js
 index.js

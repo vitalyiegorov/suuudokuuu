@@ -4,6 +4,7 @@ export const WhiteTheme = {
     ...DefaultTheme,
     colors: {
         ...DefaultTheme.colors,
+        background: '#f2f2f2',
         white: 'rgb(255, 255, 255)',
         black: 'rgb(0, 0, 0)',
         red: 'rgba(255, 0, 0, 1)',
@@ -32,6 +33,7 @@ export const BlackTheme = {
     ...DarkTheme,
     colors: {
         ...DarkTheme.colors,
+        background: '#010101',
         white: 'rgb(0, 0, 0)',
         black: 'rgb(255, 255, 255)',
         red: 'rgba(255, 0, 0, 1)',
