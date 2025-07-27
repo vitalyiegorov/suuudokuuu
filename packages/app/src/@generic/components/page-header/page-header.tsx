@@ -13,19 +13,19 @@ interface Props {
 }
 
 export const PageHeader = ({ title = '' }: Props) => {
-    const { colorScheme } = use(ThemeContext);
+    const { colorScheme, theme } = use(ThemeContext);
     const { t } = useLingui();
 
     const pageTitle = t`SuuudokuuU The Game`;
     const fullTitle = isNotEmptyString(title) ? `${pageTitle} - ${title}` : pageTitle;
-    const baseColor = colorScheme === 'dark' ? '#010101' : '#f2f2f2';
+    const statusBarStyle = colorScheme === 'dark' ? 'light' : 'dark';
 
-    useHtmlThemeColor(baseColor);
+    useHtmlThemeColor(theme.colors.background);
 
     return (
         <>
             {/* eslint-disable-next-line react/style-prop-object */}
-            <StatusBar style={colorScheme} />
+            <StatusBar style={statusBarStyle} />
 
             <Stack.Screen options={{ title: fullTitle }} />
         </>
