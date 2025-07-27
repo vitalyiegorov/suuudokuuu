@@ -1,13 +1,3 @@
-# Ignore the entire android directory
-android/**/*
+# HINT: Nothing to ignore to produce single fingerprint for iOS and Android
 
-# Ignore the entire ios directory but still keep ios/Podfile and ios/Podfile.lock
-ios/**/*
-!ios/Podfile
-!ios/Podfile.lock
 
-# Ignore specific package in node_modules
-# node_modules/some-package/**/*
-
-# Same as above but having broader scope because packages may be nested
-# **/node_modules/some-package/**/*

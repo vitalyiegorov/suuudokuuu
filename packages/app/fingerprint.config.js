@@ -1,5 +1,6 @@
 /** @type {import('@expo/fingerprint').Config} */
 const config = {
-    sourceSkips: []
+    sourceSkips: ['ExpoConfigRuntimeVersionIfString', 'ExpoConfigVersions', 'PackageJsonAndroidAndIosScriptsIfNotContainRun']
 };
+
 module.exports = config;
