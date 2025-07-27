@@ -11,6 +11,7 @@ export const GameScreenStyles = StyleSheet.create({
     button: { paddingHorizontal: 10 },
     buttonsWrapper: { flexDirection: 'row', gap: 5 },
     container: {
+        alignItems: 'center',
         flex: 1,
         padding: 10,
         paddingBottom: 20
@@ -18,12 +19,16 @@ export const GameScreenStyles = StyleSheet.create({
     controls: {
         alignItems: 'center',
         flexDirection: 'row',
-        flex: 0.25,
         justifyContent: 'space-between',
-        marginBottom: 40
+        marginBottom: 40,
+        maxWidth: 600,
+        minWidth: 380
     },
     controlsWrapper: {
         alignItems: 'center'
+    },
+    fieldWrapper: {
+        flex: 5
     },
     mistakesCountText: {
         fontWeight: 'bold'
@@ -38,7 +43,6 @@ export const GameScreenStyles = StyleSheet.create({
         fontWeight: 'bold'
     },
     scoreWrapper: {
-        alignItems: 'flex-end',
-        minWidth: 130
+        alignItems: 'flex-end'
     }
 });
