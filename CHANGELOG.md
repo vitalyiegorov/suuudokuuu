@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.30.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.29.0...v1.30.0) (2025-07-27)
+
+### Bug Fixes
+
+- **app:** fix game timer, using Intl ([ddd51d5](https://github.com/vitalyiegorov/suuudokuuu/commit/ddd51d5ebeeb4847482e2f8e4bbd80d960064916))
+
+### Features
+
+- **app:** improve game header ([ce1b2b4](https://github.com/vitalyiegorov/suuudokuuu/commit/ce1b2b410cc1da13f2e0205fe61e345223b96d0c))
+- **app:** improve game header ([88a30f0](https://github.com/vitalyiegorov/suuudokuuu/commit/88a30f0064ecc0a8b90674d749997927983085c1))
+- **app:** improve game header ([373d591](https://github.com/vitalyiegorov/suuudokuuu/commit/373d591a38f41adcca99dd5f219d4382621ee758))
+- **app:** improve game header ([fa2d15f](https://github.com/vitalyiegorov/suuudokuuu/commit/fa2d15fcb930d953cd02bfd1e4f42dfa3399ed00))
+
 # [1.29.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.28.2...v1.29.0) (2025-07-27)
 
 ### Bug Fixes
