@@ -2,6 +2,8 @@ import { StyleSheet } from 'react-native';
 
 export const BlackButtonStyles = StyleSheet.create({
     button: {
+        alignItems: 'center',
+        justifyContent: 'center',
         outlineOffset: 0,
         outlineWidth: 0,
         paddingHorizontal: 20,

@@ -3,7 +3,7 @@ import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { useRouter } from 'expo-router';
 import * as Sharing from 'expo-sharing';
-import { LucideHandHelping, LucideLogOut, LucideShare2 } from 'lucide-react-native';
+import { LucideLogOut, LucideShare2 } from 'lucide-react-native';
 import { use, useEffect, useRef, useState } from 'react';
 import { Text, View } from 'react-native';
 
@@ -16,14 +16,15 @@ import { ThemeContext } from '../../../@generic/context/theme.context';
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { hapticImpact, hapticNotification } from '../../../@generic/utils/haptic/haptic.util';
+import { AutoCandidatesButton } from '../../../game/components/auto-candidates-button/auto-candidates-button';
 import { AvailableValuesItem, type AvailableValuesItemRef } from '../../../game/components/available-values-item/available-values-item';
 import { Field, type FieldRef } from '../../../game/components/field/field';
 import { GameTimer } from '../../../game/components/game-timer/game-timer';
 import { GameContext } from '../../../game/context/game.context';
 import { useKeyboardControls } from '../../../game/hooks/use-keyboard-controls/use-keyboard-controls.hook';
 import { useShare } from '../../../game/hooks/use-share.hook';
-import { gameResetAction, gameToggleCandidatesAction } from '../../../game/store/game.actions';
-import { gameHasCandidatesSelector, gameMistakesSelector, gameScoreSelector } from '../../../game/store/game.selectors';
+import { gameResetAction } from '../../../game/store/game.actions';
+import { gameMistakesSelector, gameScoreSelector } from '../../../game/store/game.selectors';
 import { gameFinishedThunk } from '../../../game/store/thunks/game-finish.thunk';
 import { gameMistakeThunk } from '../../../game/store/thunks/game-mistake.thunk';
 import { gameSaveThunk } from '../../../game/store/thunks/game-save.thunk';
@@ -51,7 +52,6 @@ export const GameScreen = () => {
     const dispatch = useAppDispatch();
     const score = useAppSelector(gameScoreSelector);
     const mistakes = useAppSelector(gameMistakesSelector);
-    const hasCandidates = useAppSelector(gameHasCandidatesSelector);
 
     const [selectedCell, setSelectedCell] = useState<CellInterface>();
     const [hasSharing, setHasSharing] = useState(false);
@@ -144,10 +144,6 @@ export const GameScreen = () => {
         availableValuesRefs.current[value] = ref;
     };
 
-    const handleCandidates = () => {
-        dispatch(gameToggleCandidatesAction());
-    };
-
     useKeyboardControls(sudoku, selectedCell, handleSelectCell, handleSelectValue, handleExit);
 
     const mistakesCountTextStyles = [styles.mistakesCountText, { color: maxMistakesReached ? theme.colors.red : theme.colors.black }];
@@ -182,10 +178,6 @@ export const GameScreen = () => {
                 </View>
 
                 <View style={styles.buttonsWrapper}>
-                    <BlackButton isActive={hasCandidates} onPress={handleCandidates} style={styles.button}>
-                        <LucideHandHelping color={hasCandidates ? theme.colors.black : theme.colors.white} />
-                    </BlackButton>
-
                     <ThemeButton style={styles.button} />
 
                     {hasSharing ? (
@@ -218,6 +210,8 @@ export const GameScreen = () => {
                         value={value}
                     />
                 ))}
+
+                <AutoCandidatesButton />
             </View>
         </View>
     );
