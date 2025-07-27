@@ -1,13 +1,13 @@
 url: https://www.suuudokuuu.com/shared?sudokuString=837142956561938427429675183642519378953287641178364295714896532296753814385421769%7C..7142956561938427429675183642519378953287641178364295714896532296753814385421769&score=9999&mistakes=1&elapsedTime=35&isFinished=false&hasCandidates=false
 ---
 - launchApp
-- assertVisible: "Відкрити спільну головоломку?"
-- tapOn: "Відкрити головоломку"
+- assertVisible: "Open shared puzzle?"
+- tapOn: "Open puzzle"
 - assertVisible:
-    below: "Рахунок"
+    below: "Score"
     text: "9999"
 - assertVisible:
-    below: "Помилки"
+    below: "Mistakes"
     rightOf: "1"
     text: "3"
 - assertVisible:
@@ -23,21 +23,21 @@ url: https://www.suuudokuuu.com/shared?sudokuString=8371429565619384274296751836
     containsDescendants:
       - text: "3"
 - assertVisible:
-    below: "Помилки"
+    below: "Mistakes"
     rightOf: "2"
     text: "3"
 - tapOn:
     id: "AvailableValueItemSelectors.Button"
     containsDescendants:
       - text: "3"
-- assertVisible: "Наступного разу пощастить!.*"
-- assertVisible: "Допоможіть Україні перемогти!"
-- tapOn: "Зіграти знову"
+- assertVisible: "Better luck next time!.*"
+- assertVisible: "Help Ukraine win!"
+- tapOn: "Play again"
 - assertVisible:
-    below: "Найкращий результат"
+    below: "Best score"
     text: "[0-9]+"
 - assertVisible:
-    below: "Найкращий час"
+    below: "Best time"
     text: "[0-9]{2}:[0-9]{2}"
-- tapOn: "Почати заново"
-- assertVisible: "Новачок"
+- tapOn: "Start new"
+- assertVisible: "Newbie"
