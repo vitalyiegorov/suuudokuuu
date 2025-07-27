@@ -1,7 +1,7 @@
 import { isEmptyScoredCells } from '@suuudokuuu/generator';
 import { use, useImperativeHandle, useState } from 'react';
 import { View } from 'react-native';
-import { interpolate, interpolateColor, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import { interpolate, interpolateColor, useAnimatedStyle, useSharedValue, withSequence, withTiming } from 'react-native-reanimated';
 
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
 import { ThemeContext } from '../../../@generic/context/theme.context';
@@ -59,13 +59,6 @@ export const Field = ({ selectedCell, onSelect, ref }: Props) => {
             triggerCellAnimations: (scoredCells: ScoredCellsInterface) => {
                 const newAnimatedCells = new Set<string>();
                 if (!isEmptyScoredCells(scoredCells)) {
-                    textAnimation.value = withTiming(1, textAnimationConfig, finished => {
-                        // TODO: Improve me
-                        if (finished === true) {
-                            textAnimation.value = 0;
-                        }
-                    });
-
                     sudoku.Field.forEach(row => {
                         row.forEach(cell => {
                             if (sudoku.isScoredCell(cell, scoredCells)) {
@@ -75,6 +68,8 @@ export const Field = ({ selectedCell, onSelect, ref }: Props) => {
                     });
 
                     setAnimatedCells(newAnimatedCells);
+
+                    textAnimation.value = withSequence(withTiming(1, textAnimationConfig), withTiming(0, { duration: 0 }));
                 }
             }
         }),
