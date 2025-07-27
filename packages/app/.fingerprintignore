@@ -1,10 +1,10 @@
 # Ignore the entire android directory
-android/**/*
+**/android/**/*
 
 # Ignore the entire ios directory but still keep ios/Podfile and ios/Podfile.lock
-ios/**/*
-!ios/Podfile
-!ios/Podfile.lock
+**/ios/**/*
+!**/ios/Podfile
+!**/ios/Podfile.lock
 
 # Ignore specific package in node_modules
 # node_modules/some-package/**/*
