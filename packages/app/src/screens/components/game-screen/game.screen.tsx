@@ -166,6 +166,12 @@ export const GameScreen = () => {
                     </BlackText>
                 </View>
 
+                <View style={styles.controlsWrapper}>
+                    <BlackText>{t`Elapsed`}</BlackText>
+
+                    <GameTimer />
+                </View>
+
                 <View style={styles.scoreWrapper}>
                     <View style={styles.controlsWrapper}>
                         <BlackText>{t`Score`}</BlackText>
@@ -192,9 +198,9 @@ export const GameScreen = () => {
                 </View>
             </View>
 
-            <Field onSelect={handleSelectCell} ref={fieldRef} selectedCell={selectedCell} />
-
-            <GameTimer />
+            <View style={styles.fieldWrapper}>
+                <Field onSelect={handleSelectCell} ref={fieldRef} selectedCell={selectedCell} />
+            </View>
 
             <View style={styles.availableValuesWrapper}>
                 {sudoku.PossibleValues.map(value => (

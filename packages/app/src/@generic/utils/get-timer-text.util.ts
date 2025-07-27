@@ -1,17 +1,20 @@
+const dtfHMS = new Intl.DateTimeFormat(undefined, {
+    timeZone: 'UTC',
+    hour12: false,
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit'
+});
+
+const dtfMS = new Intl.DateTimeFormat(undefined, {
+    timeZone: 'UTC',
+    hour12: false,
+    minute: '2-digit',
+    second: '2-digit'
+});
+
 export const getTimerText = (timeInSeconds: number): string => {
-    const hours = Math.floor(timeInSeconds / (60 * 60));
-    const minutes = Math.floor(timeInSeconds / 60);
-    const seconds = timeInSeconds % 60;
+    const date = new Date(timeInSeconds * 1000);
 
-    const formattedHours = String(hours).padStart(2, '0');
-    const formattedMinutes = String(minutes).padStart(2, '0');
-    const formattedSeconds = String(seconds).padStart(2, '0');
-
-    const formattedTime = [formattedMinutes, formattedSeconds];
-
-    if (hours > 0) {
-        formattedTime.unshift(formattedHours);
-    }
-
-    return formattedTime.join(':');
+    return timeInSeconds >= 3600 ? dtfHMS.format(date) : dtfMS.format(date);
 };
