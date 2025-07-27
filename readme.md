@@ -33,7 +33,7 @@ The app supports multiple languages, which is detected by [expo-localization](ht
 
 > i18n is implemented using [Lingui](https://lingui.dev/) library
 
-### App versioning
+### App versioning and release management
 
 The app uses [semantic versioning](https://semver.org/) to manage versions with [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/)
 meaning each commit and pull request has a strict format, which allows to generate beautiful changelogs and release notes automatically.
@@ -80,9 +80,14 @@ Each pull request creates an EAS preview for the `iOS`, `Android` and `Web` plat
 
 #### Master branch
 
-Each commit to the `master` branch creates an EAS OTA update for the `iOS`, `Android` and `Web` production platforms.
+Each commit to the `master` branch:
+
+- creates an EAS OTA update for the `iOS`, `Android` and `Web` production platforms.
+- creates a new [GitHub release](#app-versioning-and-release-management) with the changelog for the release
 
 > Production Web is hosted on [Vercel](https://vercel.com/), maybe we will migrate to EAS hosting when it becomes stable.
+
+Each commit
 
 #### [AppStore](https://www.apple.com/app-store/) and [Google Play](https://play.google.com/console)
 
