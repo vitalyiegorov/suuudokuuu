@@ -8,11 +8,11 @@ const getCellSize = (): number => {
 
     if (Device.deviceType === Device.DeviceType.PHONE) {
         if (minDimension <= 300) {
-            return 30;
-        } else if (minDimension <= 400) {
             return 35;
-        } else if (minDimension <= 500) {
+        } else if (minDimension <= 400) {
             return 40;
+        } else if (minDimension <= 500) {
+            return 45;
         }
 
         return 60;
