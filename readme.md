@@ -44,7 +44,7 @@ A [github PR workflow](.github/workflows/merge-request.yml#29) has a step to val
 
 #### Native versions
 
-App uses [fingerprint](https://docs.expo.dev/versions/latest/sdk/fingerprint/) [runtimeVersion](https://docs.expo.dev/eas-update/runtime-versions/) policy ensure that expo-updates are applied to the correct version of the app.
+App uses [fingerprint](https://expo.dev/blog/understanding-and-comparing-fingerprints-in-expo-apps) [runtimeVersion](https://docs.expo.dev/eas-update/runtime-versions/) policy ensure that expo-updates are applied to the correct version of the app.
 
 > To automate `user-facing` app version `app.cofig.js` takes it from the `package.json` file of the `app` package, which is updated automatically by [lerna](https://lerna.js.org/).
 
