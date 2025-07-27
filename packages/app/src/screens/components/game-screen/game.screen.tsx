@@ -1,4 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
+import { emptyScoredCells } from '@suuudokuuu/generator';
 import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { useRouter } from 'expo-router';
@@ -18,7 +19,7 @@ import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { hapticImpact, hapticNotification } from '../../../@generic/utils/haptic/haptic.util';
 import { AutoCandidatesButton } from '../../../game/components/auto-candidates-button/auto-candidates-button';
 import { AvailableValuesItem, type AvailableValuesItemRef } from '../../../game/components/available-values-item/available-values-item';
-import { Field, type FieldRef } from '../../../game/components/field/field';
+import { Field } from '../../../game/components/field/field';
 import { GameTimer } from '../../../game/components/game-timer/game-timer';
 import { GameContext } from '../../../game/context/game.context';
 import { useKeyboardControls } from '../../../game/hooks/use-keyboard-controls/use-keyboard-controls.hook';
@@ -55,8 +56,8 @@ export const GameScreen = () => {
 
     const [selectedCell, setSelectedCell] = useState<CellInterface>();
     const [hasSharing, setHasSharing] = useState(false);
+    const [scoredCells, setScoredCells] = useState<ScoredCellsInterface>(emptyScoredCells);
     const availableValuesRefs = useRef<Record<number, AvailableValuesItemRef | null>>({});
-    const fieldRef = useRef<FieldRef>(null);
 
     const maxMistakesReached = mistakes >= MaxMistakesConstant;
 
@@ -102,10 +103,11 @@ export const GameScreen = () => {
     };
 
     const handleCorrectValue = (correctCell: CellInterface, newScoredCells: ScoredCellsInterface) => {
-        fieldRef.current?.triggerCellAnimations(newScoredCells);
         void dispatch(gameSaveThunk({ sudoku, scoredCells: newScoredCells }));
 
         hapticNotification(Haptics.NotificationFeedbackType.Success);
+
+        setScoredCells(newScoredCells);
         setSelectedCell(() => ({ ...correctCell }));
     };
 
@@ -129,10 +131,10 @@ export const GameScreen = () => {
             if (sudoku.isCorrectValue(newValueCell)) {
                 const newScoredCells = sudoku.setCellValue(newValueCell);
 
+                handleCorrectValue(selectedCell, newScoredCells);
+
                 if (newScoredCells.isWon) {
                     handleWonGame();
-                } else {
-                    handleCorrectValue(selectedCell, newScoredCells);
                 }
             } else {
                 handleWrongValue();
@@ -194,7 +196,7 @@ export const GameScreen = () => {
             </View>
 
             <View style={styles.fieldWrapper}>
-                <Field onSelect={handleSelectCell} ref={fieldRef} selectedCell={selectedCell} />
+                <Field onSelect={handleSelectCell} scoredCells={scoredCells} selectedCell={selectedCell} />
             </View>
 
             <View style={styles.availableValuesWrapper}>
