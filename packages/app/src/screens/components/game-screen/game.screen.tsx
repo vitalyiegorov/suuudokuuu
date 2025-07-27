@@ -129,10 +129,10 @@ export const GameScreen = () => {
             if (sudoku.isCorrectValue(newValueCell)) {
                 const newScoredCells = sudoku.setCellValue(newValueCell);
 
+                handleCorrectValue(selectedCell, newScoredCells);
+
                 if (newScoredCells.isWon) {
                     handleWonGame();
-                } else {
-                    handleCorrectValue(selectedCell, newScoredCells);
                 }
             } else {
                 handleWrongValue();
