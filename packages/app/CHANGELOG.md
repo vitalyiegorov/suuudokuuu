@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.32.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.31.0...v1.32.0) (2025-07-27)
+
+### Features
+
+- **app:** improve active value cells background ([2ceb5a9](https://github.com/vitalyiegorov/suuudokuuu/commit/2ceb5a9af63ee4e1395288bc67f08bfb4e5e1325))
+
 # [1.31.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.30.0...v1.31.0) (2025-07-27)
 
 ### Features
