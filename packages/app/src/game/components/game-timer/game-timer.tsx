@@ -1,6 +1,5 @@
 import { useRouter } from 'expo-router';
 import { useEffect, useRef } from 'react';
-import { View } from 'react-native';
 
 import { isDefined } from '@rnw-community/shared';
 
@@ -12,7 +11,7 @@ import { getTimerText } from '../../../@generic/utils/get-timer-text.util';
 import { gamePauseAction, gameTickAction } from '../../store/game.actions';
 import { gameElapsedTimeSelector, gamePausedSelector } from '../../store/game.selectors';
 
-import { GameTimerStyles as styles } from './game-timer.styles';
+import { GameTimerStyles } from './game-timer.styles';
 
 import type { RefObject } from 'react';
 
@@ -51,9 +50,5 @@ export const GameTimer = () => {
         router.replace('pause');
     });
 
-    return (
-        <View style={styles.container}>
-            <BlackText>({getTimerText(savedTime)})</BlackText>
-        </View>
-    );
+    return <BlackText style={GameTimerStyles.text}>{getTimerText(savedTime)}</BlackText>;
 };
