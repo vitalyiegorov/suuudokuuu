@@ -41,6 +41,6 @@ export const urlToGameState = (input: SerializedGameState): Partial<GameState> =
     ...(isDefined(input.score) && { score: parseInt(input.score ?? '0', 10) }),
     ...(isDefined(input.mistakes) && { mistakes: parseInt(input.mistakes ?? '0', 10) }),
     ...(isDefined(input.elapsedTime) && { elapsedTime: parseInt(input.elapsedTime ?? '0', 10) }),
-    ...(isDefined(input.isFinished) && { isFinished: Boolean(input.isFinished) }),
-    ...(isDefined(input.hasCandidates) && { hasCandidates: Boolean(input.hasCandidates) })
+    ...(isDefined(input.isFinished) && { isFinished: input.isFinished === 'true' }),
+    ...(isDefined(input.hasCandidates) && { hasCandidates: input.hasCandidates === 'true' })
 });
