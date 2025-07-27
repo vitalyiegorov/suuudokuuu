@@ -1,3 +1,5 @@
+# HINT: https://github.com/expo/eas-cli/issues/2448#issuecomment-2975167353
+
 # Ignore the entire android directory
 **/android/**/*
 
@@ -6,8 +8,3 @@
 !**/ios/Podfile
 !**/ios/Podfile.lock
 
-# Ignore specific package in node_modules
-# node_modules/some-package/**/*
-
-# Same as above but having broader scope because packages may be nested
-# **/node_modules/some-package/**/*
