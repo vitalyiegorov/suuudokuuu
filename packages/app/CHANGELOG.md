@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.31.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.30.0...v1.31.0) (2025-07-27)
+
+### Features
+
+- **app:** added theme button to game screen ([769019c](https://github.com/vitalyiegorov/suuudokuuu/commit/769019ca831cd3e33bbbdd4e4ee9c2f35f7b1469))
+- **app:** moved auto-candidates button ([4a6e8e0](https://github.com/vitalyiegorov/suuudokuuu/commit/4a6e8e0f30f11ce7ae317cd4e0d7482fb6c952af))
+
 # [1.30.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.29.0...v1.30.0) (2025-07-27)
 
 ### Bug Fixes
