@@ -1,5 +1,5 @@
 import { isEmptyScoredCells } from '@suuudokuuu/generator';
-import { use, useImperativeHandle, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { interpolate, interpolateColor, useAnimatedStyle, useSharedValue, withSequence, withTiming } from 'react-native-reanimated';
 
@@ -15,25 +15,22 @@ import { FieldStyles as styles } from './field.styles';
 
 import type { OnEventFn } from '@rnw-community/shared';
 import type { CellInterface, ScoredCellsInterface } from '@suuudokuuu/generator';
-import type { Ref } from 'react';
 
 const getCellKey = (cell: CellInterface) => `${cell.y}-${cell.x}`;
 
-export interface FieldRef {
-    triggerCellAnimations: (scoredCells: ScoredCellsInterface) => void;
-}
 const textAnimationConfig = { duration: 6 * animationDurationConstant };
 const FONT_SIZE_MULTIPLIER = 1.5;
 
 interface Props {
     readonly selectedCell?: CellInterface;
     readonly onSelect: OnEventFn<CellInterface | undefined>;
-    readonly ref: Ref<FieldRef>;
+    readonly scoredCells: ScoredCellsInterface;
 }
 
-export const Field = ({ selectedCell, onSelect, ref }: Props) => {
+export const Field = ({ selectedCell, onSelect, scoredCells }: Props) => {
     const { sudoku } = use(GameContext);
     const { theme } = use(ThemeContext);
+
     const hasCandidates = useAppSelector(gameHasCandidatesSelector);
 
     const [animatedCells, setAnimatedCells] = useState(new Set<string>());
@@ -53,28 +50,23 @@ export const Field = ({ selectedCell, onSelect, ref }: Props) => {
         transform: [{ rotate: `${interpolate(textAnimation.value, [0, 1], [0, 360])}deg` }]
     }));
 
-    useImperativeHandle(
-        ref,
-        () => ({
-            triggerCellAnimations: (scoredCells: ScoredCellsInterface) => {
-                const newAnimatedCells = new Set<string>();
-                if (!isEmptyScoredCells(scoredCells)) {
-                    sudoku.Field.forEach(row => {
-                        row.forEach(cell => {
-                            if (sudoku.isScoredCell(cell, scoredCells)) {
-                                newAnimatedCells.add(getCellKey(cell));
-                            }
-                        });
-                    });
+    // TODO: Can we implement this without useEffect?
+    useEffect(() => {
+        const newAnimatedCells = new Set<string>();
+        if (!isEmptyScoredCells(scoredCells)) {
+            sudoku.Field.forEach(row => {
+                row.forEach(cell => {
+                    if (sudoku.isScoredCell(cell, scoredCells)) {
+                        newAnimatedCells.add(getCellKey(cell));
+                    }
+                });
+            });
 
-                    setAnimatedCells(newAnimatedCells);
+            setAnimatedCells(newAnimatedCells);
 
-                    textAnimation.value = withSequence(withTiming(1, textAnimationConfig), withTiming(0, { duration: 0 }));
-                }
-            }
-        }),
-        [sudoku, textAnimation]
-    );
+            textAnimation.value = withSequence(withTiming(1, textAnimationConfig), withTiming(0, { duration: 0 }));
+        }
+    }, [scoredCells, sudoku, textAnimation]);
 
     return (
         <View style={styles.wrapper}>
