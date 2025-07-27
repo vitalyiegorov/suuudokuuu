@@ -1,8 +1,9 @@
 {
     "ignore": [
         "packages/app/babel.config.js",
-        "packages/generator/babel.config.js",
         "packages/app/lingui.config.js",
+        "packages/app/fingerprint.config.js",
+        "packages/generator/babel.config.js",
         "jest.config.js",
         "metro.config.js",
         "tsconfig.json",
@@ -16,6 +17,7 @@
         "husky",
         "@lingui/cli",
         "@expo/metro-config",
+        "@expo/fingerprint",
         "metro-minify-terser",
         "react-compiler-runtime",
         "react-dom",
