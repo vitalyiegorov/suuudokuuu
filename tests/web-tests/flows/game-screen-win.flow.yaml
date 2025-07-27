@@ -1,7 +1,7 @@
 url: https://www.suuudokuuu.com/shared?sudokuString=837142956561938427429675183642519378953287641178364295714896532296753814385421769%7C.37142956561938427429675183642519378953287641178364295714896532296753814385421769&score=9999&mistakes=1&elapsedTime=35&isFinished=false&hasCandidates=false
 ---
 - launchApp
-- tapOn: "Відкрити головоломку"
+- tapOn: "Open puzzle"
 - tapOn:
     id: "CellSelectors.Root"
     index: 0
@@ -9,10 +9,10 @@ url: https://www.suuudokuuu.com/shared?sudokuString=8371429565619384274296751836
     id: "AvailableValueItemSelectors.Button"
     containsDescendants:
       - text: "8"
-- assertVisible: "Переможець-переможець,.*"
+- assertVisible: "Winners-winner, .*"
 - assertVisible:
-    rightOf: "Ви набрали.*"
+    rightOf: "You have scored.*"
     text: "9999"
-- assertVisible: "Допоможіть Україні перемогти!"
-- tapOn: "Зіграти знову"
-- assertVisible: "Почати заново"
+- assertVisible: "Help Ukraine win!"
+- tapOn: "Play again"
+- assertVisible: "Start new"

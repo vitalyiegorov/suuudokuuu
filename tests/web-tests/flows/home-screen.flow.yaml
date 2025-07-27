@@ -1,33 +1,33 @@
 url: https://www.suuudokuuu.com
 ---
 - launchApp
-- assertVisible: "СууудокуУ"
-- tapOn: "Підтримайте Україну .*"
+- assertVisible: "SuuudokuuU"
+- tapOn: "Support Ukraine.*"
 - assertVisible:
-    text: "Зробити внесок на рахунок фонду допомоги ЗСУ"
+    text: "Donate to Ukraine Army Fundraiser"
 - back
-- tapOn: "Політика конфіденційності"
+- tapOn: "Privacy policy"
 - assertVisible: "Privacy Policy Effective Date.*"
 - back
-- tapOn: "Почати заново"
-- tapOn: "Назад"
-- assertVisible: "Почати заново"
-- tapOn: "Почати заново"
-- runScript: subflows/scripts/levels.js
-- assertVisible: ${ output.levels[0] }
+- tapOn: "Start new"
+- tapOn: "Back"
+- assertVisible: "Start new"
+- tapOn: "Start new"
+- runScript: subflows/scripts/difficulties.js
+- assertVisible: ${ output.difficulties[0] }
 - evalScript: ${output.counter = 0}
 - repeat:
-    times: ${output.levels.length}
+    times: ${output.difficulties.length}
     commands:
-      - assertVisible: ${output.levels[output.counter]}
+      - assertVisible: ${output.difficulties[output.counter]}
       - evalScript: ${output.counter = output.counter + 1}
-- tapOn: "Новачок"
+- tapOn: "Newbie"
 - assertVisible:
-    below: "Рахунок"
+    below: "Score"
     id: "GameScreenSelectors.Score"
     text: "0"
 - assertVisible:
-    below: "Помилки"
+    below: "Mistakes"
 - assertVisible:
     id: "GameScreenSelectors.MistakesCount"
     text: "0"
