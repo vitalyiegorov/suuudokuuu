@@ -10,6 +10,7 @@ import { Text, View } from 'react-native';
 import { Alert } from '../../../@generic/components/alert/alert';
 import { BlackButton } from '../../../@generic/components/black-button/black-button';
 import { BlackText } from '../../../@generic/components/black-text/black-text';
+import { ThemeButton } from '../../../@generic/components/theme-button/theme-button';
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
 import { ThemeContext } from '../../../@generic/context/theme.context';
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
@@ -184,6 +185,8 @@ export const GameScreen = () => {
                     <BlackButton isActive={hasCandidates} onPress={handleCandidates} style={styles.button}>
                         <LucideHandHelping color={hasCandidates ? theme.colors.black : theme.colors.white} />
                     </BlackButton>
+
+                    <ThemeButton style={styles.button} />
 
                     {hasSharing ? (
                         // eslint-disable-next-line @typescript-eslint/no-misused-promises
