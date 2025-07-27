@@ -59,7 +59,6 @@ export const Field = ({ selectedCell, onSelect, ref }: Props) => {
             triggerCellAnimations: (scoredCells: ScoredCellsInterface) => {
                 const newAnimatedCells = new Set<string>();
                 if (!isEmptyScoredCells(scoredCells)) {
-                    textAnimation.value = 0;
                     textAnimation.value = withTiming(1, textAnimationConfig, finished => {
                         // TODO: Improve me
                         if (finished === true) {
