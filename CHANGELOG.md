@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.28.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.28.1...v1.28.2) (2025-07-27)
+
+### Bug Fixes
+
+- **app:** single fingerprint for all ios/android ([f594b0a](https://github.com/vitalyiegorov/suuudokuuu/commit/f594b0a457fc2599c9aecbfa76b9e51f7cbfc57e))
+
 ## [1.28.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.28.0...v1.28.1) (2025-07-27)
 
 ### Bug Fixes
