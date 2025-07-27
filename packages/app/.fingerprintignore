@@ -2,14 +2,9 @@
 package.json
 
 # Ignore the entire android directory
-android/**/*
 **/android/**/*
 
 # Ignore the entire ios directory but still keep ios/Podfile and ios/Podfile.lock
-ios/**/*
-!ios/Podfile
-!ios/Podfile.lock
-
 **/ios/**/*
 !**/ios/Podfile
 !**/ios/Podfile.lock
