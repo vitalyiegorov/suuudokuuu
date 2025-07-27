@@ -1,9 +1,14 @@
 # HINT: Nothing to ignore to produce single fingerprint for iOS and Android
 
 # Ignore the entire android directory
+android/**/*
 **/android/**/*
 
 # Ignore the entire ios directory but still keep ios/Podfile and ios/Podfile.lock
+ios/**/*
+!ios/Podfile
+!ios/Podfile.lock
+
 **/ios/**/*
 !**/ios/Podfile
 !**/ios/Podfile.lock
