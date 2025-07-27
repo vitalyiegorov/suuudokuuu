@@ -5,7 +5,8 @@ const config = {
         'ExpoConfigVersions',
         'PackageJsonAndroidAndIosScriptsIfNotContainRun',
         'ExpoConfigIosBundleIdentifier',
-        'ExpoConfigAndroidPackage'
+        'ExpoConfigAndroidPackage',
+        'ExpoConfigNames'
     ]
 };
 
