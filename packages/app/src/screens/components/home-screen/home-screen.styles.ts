@@ -33,8 +33,6 @@ export const HomeScreenStyles = StyleSheet.create({
         fontWeight: 'bold'
     },
     themeButton: {
-        alignItems: 'center',
-        flex: 1,
         height: 40,
         justifyContent: 'center',
         position: 'absolute',

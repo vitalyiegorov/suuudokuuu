@@ -1,7 +1,6 @@
 import { useLingui } from '@lingui/react/macro';
 import Constants from 'expo-constants';
 import { Link } from 'expo-router';
-import { LucideMoon, LucideSunMedium } from 'lucide-react-native';
 import { use, useState } from 'react';
 import { ActivityIndicator, Text, View } from 'react-native';
 
@@ -12,6 +11,7 @@ import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { DifficultySelect } from '../../../@generic/components/difficulty-select/difficulty-select';
 import { Header } from '../../../@generic/components/header/header';
 import { SupportUkraineBanner } from '../../../@generic/components/support-ukraine-banner/support-ukraine-banner';
+import { ThemeButton } from '../../../@generic/components/theme-button/theme-button';
 import { ThemeContext } from '../../../@generic/context/theme.context';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { getTimerText } from '../../../@generic/utils/get-timer-text.util';
@@ -26,7 +26,7 @@ import type { DifficultyEnum } from '@suuudokuuu/generator';
 
 export const HomeScreen = () => {
     const { createFromDifficulty } = use(GameContext);
-    const { toggleTheme, colorScheme, theme } = use(ThemeContext);
+    const { theme } = use(ThemeContext);
     const { t } = useLingui();
 
     const oldGameString = useAppSelector(gameSudokuStringSelector);
@@ -55,13 +55,9 @@ export const HomeScreen = () => {
         });
     };
 
-    const ThemeIcon = colorScheme === 'dark' ? LucideSunMedium : LucideMoon;
-
     return (
         <View style={styles.container}>
-            <BlackButton onPress={toggleTheme} style={styles.themeButton}>
-                <ThemeIcon color={theme.colors.white} />
-            </BlackButton>
+            <ThemeButton style={styles.themeButton} />
             <SupportUkraineBanner />
 
             <View style={styles.centerContainer}>
