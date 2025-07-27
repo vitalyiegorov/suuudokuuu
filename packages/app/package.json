@@ -15,6 +15,7 @@
     },
     "dependencies": {
         "@expo-google-fonts/inter": "^0.2.3",
+        "@expo/fingerprint": "~0.13.4",
         "@lingui/core": "^5.3.3",
         "@lingui/react": "^5.3.3",
         "@react-native-async-storage/async-storage": "2.1.2",
