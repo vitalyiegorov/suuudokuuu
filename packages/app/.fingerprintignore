@@ -1,13 +1,11 @@
 # HINT: https://github.com/expo/eas-cli/issues/2448#issuecomment-2975167353
 
 # Ignore the entire android directory
-**/android/**/*
+#android/**/*
 
 # Ignore the entire ios directory but still keep ios/Podfile and ios/Podfile.lock
-**/ios/**/*
-!**/ios/Podfile
-!**/ios/Podfile.lock
+#ios/**/*
+#!ios/Podfile
+#!ios/Podfile.lock
 
-# HINT: https://github.com/expo/eas-cli/issues/2448#issuecomment-2975167353
-**/node_modules/**/*
-!**/node_modules/**/package.json
+
