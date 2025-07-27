@@ -42,7 +42,7 @@ export const BlackTheme = {
             activeText: 'rgba(255, 255, 255, 1)',
             highlighted: 'rgba(255,255,255,0.35)',
             highlightedText: 'rgba(255, 255, 255, 1)',
-            activeValue: 'rgba(255, 255, 255, 0.4)',
+            activeValue: 'rgba(0, 255, 0, 0.5)',
             activeValueText: 'rgba(255, 255, 255, 1)',
             emptyValueText: 'rgba(255, 255, 255, 0.1)',
             error: 'rgba(255, 0, 0, 1)',
