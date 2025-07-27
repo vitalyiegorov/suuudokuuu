@@ -3,6 +3,55 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.29.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.28.2...v1.29.0) (2025-07-27)
+
+### Bug Fixes
+
+- **app:** fix fingerprint to work on internal dev build ([dfeba04](https://github.com/vitalyiegorov/suuudokuuu/commit/dfeba04f9aa23e4980d607cbc34fe46c2ce8b8b6))
+- **app:** fix fingerprint to work on internal dev build ([b93487b](https://github.com/vitalyiegorov/suuudokuuu/commit/b93487b395fb54a7b69eb352469fe415f99ba339))
+- **app:** fix parsing boolean from the url state ([bc1240b](https://github.com/vitalyiegorov/suuudokuuu/commit/bc1240b099cfeb5a441a8919391a4098318cb7f7))
+
+### Features
+
+- **app:** added theme background color ([f60a443](https://github.com/vitalyiegorov/suuudokuuu/commit/f60a443776fc013b7dc0cf9f3c9c8c82aa778296))
+
+## [1.28.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.28.1...v1.28.2) (2025-07-27)
+
+### Bug Fixes
+
+- **app:** single fingerprint for all ios/android ([f594b0a](https://github.com/vitalyiegorov/suuudokuuu/commit/f594b0a457fc2599c9aecbfa76b9e51f7cbfc57e))
+
+## [1.28.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.28.0...v1.28.1) (2025-07-27)
+
+### Bug Fixes
+
+- **app:** fix ios fingerprint ([62a7d4d](https://github.com/vitalyiegorov/suuudokuuu/commit/62a7d4da0d45e511fd79140a2c19b52c6456b820))
+- **app:** fix ios fingerprint ([5796656](https://github.com/vitalyiegorov/suuudokuuu/commit/5796656ffa8b74eac6d4f81f31a29be3b390853d))
+- **app:** fix ios fingerprint ([f9dd029](https://github.com/vitalyiegorov/suuudokuuu/commit/f9dd0297932287ab0365e779fff07f4d60f6ec47))
+- **app:** single fingerprint for all ios/android ([3b59d4d](https://github.com/vitalyiegorov/suuudokuuu/commit/3b59d4d36ed1dee96b7a25bb9f9167578cc926eb))
+- **app:** single fingerprint for all ios/android ([4fe9cb6](https://github.com/vitalyiegorov/suuudokuuu/commit/4fe9cb6c5cdaba80178eb5c6cad7bc7f06909193))
+- **app:** single fingerprint for all ios/android ([5d3880e](https://github.com/vitalyiegorov/suuudokuuu/commit/5d3880ebc5bc1f76ece55164a46f006543b3267c))
+
+# [1.28.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.27.2...v1.28.0) (2025-07-27)
+
+### Bug Fixes
+
+- **app:** fix phone field size ([ae04247](https://github.com/vitalyiegorov/suuudokuuu/commit/ae042474a5de0742d024abb2e6eb419d7aedb436))
+
+### Features
+
+- **app:** change runtimeVersion to fingerprint ([42b54e7](https://github.com/vitalyiegorov/suuudokuuu/commit/42b54e799e1b509ed22808fe670ea6122061d8b8))
+- **app:** change runtimeVersion to fingerprint ([a734292](https://github.com/vitalyiegorov/suuudokuuu/commit/a7342927902b0c9a9bb9982fae6dfc45893cf1c9))
+- **app:** change runtimeVersion to fingerprint ([dd5b7db](https://github.com/vitalyiegorov/suuudokuuu/commit/dd5b7db2214ce1c3827c22a891e2b31b98cd7ee5))
+- **app:** change runtimeVersion to fingerprint ([aff6199](https://github.com/vitalyiegorov/suuudokuuu/commit/aff6199104c325c0c3afb9c0d51e1c06d45d1285))
+- **app:** change runtimeVersion to fingerprint ([b47a60a](https://github.com/vitalyiegorov/suuudokuuu/commit/b47a60aae16da5596c18cf9039ff56d63ee7af74))
+
+## [1.27.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.27.1...v1.27.2) (2025-07-26)
+
+### Bug Fixes
+
+- **app:** improve field responsive styling ([4165857](https://github.com/vitalyiegorov/suuudokuuu/commit/416585765ced315cea94c3bf3768181cabe95175))
+
 ## [1.27.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.27.0...v1.27.1) (2025-07-26)
 
 ### Bug Fixes
