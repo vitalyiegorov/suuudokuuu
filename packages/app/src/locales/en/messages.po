@@ -17,7 +17,7 @@ msgstr ""
 msgid "All progress will be lost"
 msgstr "All progress will be lost"
 
-#: src/screens/components/home-screen/home.screen.tsx:76
+#: src/screens/components/home-screen/home.screen.tsx:84
 msgid "Back"
 msgstr "Back"
 
@@ -25,11 +25,11 @@ msgstr "Back"
 msgid "Be wise, be smart, be quick..."
 msgstr "Be wise, be smart, be quick..."
 
-#: src/screens/components/home-screen/home.screen.tsx:85
+#: src/screens/components/home-screen/home.screen.tsx:93
 msgid "Best score"
 msgstr "Best score"
 
-#: src/screens/components/home-screen/home.screen.tsx:91
+#: src/screens/components/home-screen/home.screen.tsx:99
 msgid "Best time"
 msgstr "Best time"
 
@@ -46,13 +46,17 @@ msgstr ""
 msgid "Cancel"
 msgstr "Cancel"
 
-#: src/screens/components/home-screen/home.screen.tsx:64
+#: src/screens/components/home-screen/home.screen.tsx:72
 msgid "Continue"
 msgstr "Continue"
 
 #: src/@generic/components/difficulty-select/difficulty-select.tsx:26
 msgid "Easy"
 msgstr "Easy"
+
+#: src/screens/components/game-screen/game.screen.tsx:170
+msgid "Elapsed"
+msgstr "Elapsed"
 
 #: src/screens/components/pause-screen/pause.screen.tsx:20
 #: src/app/pause.tsx:12
@@ -63,7 +67,7 @@ msgstr "Game paused"
 msgid "Hard"
 msgstr "Hard"
 
-#: src/@generic/components/donation/donation.tsx:33
+#: src/@generic/components/donation/donation.tsx:36
 msgid "Help Ukraine win!"
 msgstr "Help Ukraine win!"
 
@@ -71,7 +75,7 @@ msgstr "Help Ukraine win!"
 msgid "Invalid Sudoku"
 msgstr "Invalid Sudoku"
 
-#: src/screens/components/winner-screen/winner.screen.tsx:30
+#: src/screens/components/winner-screen/winner.screen.tsx:31
 msgid "It took you"
 msgstr "It took you"
 
@@ -112,30 +116,30 @@ msgstr "Open shared puzzle?"
 msgid "Play again"
 msgstr "Play again"
 
-#: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx:16
-#: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx:18
-#: src/screens/components/home-screen/home.screen.tsx:106
+#: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx:17
+#: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx:19
+#: src/screens/components/home-screen/home.screen.tsx:114
 #: src/app/privacy-policy.tsx:12
 msgid "Privacy policy"
 msgstr "Privacy policy"
 
-#: src/screens/components/pause-screen/pause.screen.tsx:29
+#: src/screens/components/pause-screen/pause.screen.tsx:27
 msgid "Resume"
 msgstr "Resume"
 
-#: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx:24
+#: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx:25
 msgid "Return"
 msgstr "Return"
 
-#: src/screens/components/game-screen/game.screen.tsx:171
+#: src/screens/components/game-screen/game.screen.tsx:177
 msgid "Score"
 msgstr "Score"
 
-#: src/screens/components/pause-screen/pause.screen.tsx:27
+#: src/screens/components/pause-screen/pause.screen.tsx:25
 msgid "Share puzzle"
 msgstr "Share puzzle"
 
-#: src/screens/components/home-screen/home.screen.tsx:66
+#: src/screens/components/home-screen/home.screen.tsx:74
 msgid "Start new"
 msgstr "Start new"
 
@@ -143,15 +147,15 @@ msgstr "Start new"
 msgid "Stop current run?"
 msgstr "Stop current run?"
 
-#: src/@generic/components/support-ukraine-banner/support-ukraine-banner.tsx:15
+#: src/@generic/components/support-ukraine-banner/support-ukraine-banner.tsx:18
 msgid "Support Ukraine"
 msgstr "Support Ukraine"
 
-#: src/screens/components/home-screen/home.screen.tsx:60
+#: src/screens/components/home-screen/home.screen.tsx:68
 msgid "SuuudokuuU"
 msgstr "SuuudokuuU"
 
-#: src/@generic/components/page-header/page-header.tsx:18
+#: src/@generic/components/page-header/page-header.tsx:19
 msgid "SuuudokuuU The Game"
 msgstr "SuuudokuuU The Game"
 
@@ -159,11 +163,11 @@ msgstr "SuuudokuuU The Game"
 msgid "Unknown"
 msgstr "Unknown"
 
-#: src/screens/components/home-screen/home.screen.tsx:101
+#: src/screens/components/home-screen/home.screen.tsx:109
 msgid "V."
 msgstr "V."
 
-#: src/@generic/components/donation/donation.tsx:23
+#: src/@generic/components/donation/donation.tsx:25
 msgid ""
 "While you were away Ukraine continued its fight for freedom!\n"
 "\n"
@@ -173,7 +177,7 @@ msgstr ""
 "\n"
 "Every 1$ donation matters!"
 
-#: src/screens/components/winner-screen/winner.screen.tsx:21
+#: src/screens/components/winner-screen/winner.screen.tsx:22
 msgid ""
 "Winners-winner, \n"
 " chicken dinner!"
@@ -185,11 +189,11 @@ msgstr ""
 msgid "Winners-winner, chicken dinner!"
 msgstr "Winners-winner, chicken dinner!"
 
-#: src/screens/components/winner-screen/winner.screen.tsx:25
+#: src/screens/components/winner-screen/winner.screen.tsx:26
 msgid "You have scored"
 msgstr "You have scored"
 
-#: src/@generic/components/donation/donation.tsx:20
+#: src/@generic/components/donation/donation.tsx:22
 msgid ""
 "You lost but Ukraine must win!\n"
 "\n"
@@ -199,7 +203,7 @@ msgstr ""
 "\n"
 "Every 1$ donation matters!"
 
-#: src/@generic/components/donation/donation.tsx:18
+#: src/@generic/components/donation/donation.tsx:20
 msgid ""
 "You won and Ukraine needs to!\n"
 "\n"

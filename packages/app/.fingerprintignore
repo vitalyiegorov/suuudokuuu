@@ -1,4 +1,5 @@
-# HINT: Nothing to ignore to produce single fingerprint for iOS and Android
+# HINT: We bump version on each master commit.
+package.json
 
 # Ignore the entire android directory
 **/android/**/*
