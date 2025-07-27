@@ -33,6 +33,27 @@ The app supports multiple languages, which is detected by [expo-localization](ht
 
 > i18n is implemented using [Lingui](https://lingui.dev/) library
 
+### App versioning
+
+The app uses [semantic versioning](https://semver.org/) to manage versions with [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/)
+meaning each commit and pull request has a strict format, which allows to generate beautiful changelogs and release notes automatically.
+
+A [github PR workflow](.github/workflows/merge-request.yml#29) has a step to validate the PR title using [commitlint](https://commitlint.js.org/) to ensure that the PR title follows the conventional commits format.
+
+> Users can automatically see current app version on home page using [expo-constants](https://docs.expo.dev/versions/latest/sdk/constants/)
+
+#### Native versions
+
+App uses [fingerprint](https://docs.expo.dev/versions/latest/sdk/fingerprint/) [runtimeVersion](https://docs.expo.dev/eas-update/runtime-versions/) policy ensure that expo-updates are applied to the correct version of the app.
+
+> To automate `user-facing` app version `app.cofig.js` takes it from the `package.json` file of the `app` package, which is updated automatically by [lerna](https://lerna.js.org/).
+
+[Expo tutorial on app versioning](https://docs.expo.dev/tutorial/eas/manage-app-versions/)
+
+#### Release management
+
+The app uses [lerna](https://lerna.js.org/) to manage versions of the packages in the monorepo, generate changelogs for each package if it was changed, and create [Github releases](https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases).
+
 ### Enterprise-grade CI/CD
 
 [EAS](https://expo.dev/eas) over the air updates are used to deliver the PRs and production updates to the users, 2 channels are used:
