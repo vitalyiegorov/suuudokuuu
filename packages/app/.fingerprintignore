@@ -1,11 +1,3 @@
-# HINT: https://github.com/expo/eas-cli/issues/2448#issuecomment-2975167353
-
-# Ignore the entire android directory
-#android/**/*
-
-# Ignore the entire ios directory but still keep ios/Podfile and ios/Podfile.lock
-#ios/**/*
-#!ios/Podfile
-#!ios/Podfile.lock
+# HINT: Nothing to ignore to produce single fingerprint for iOS and Android
 
 
