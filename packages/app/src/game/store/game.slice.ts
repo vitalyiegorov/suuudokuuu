@@ -1,8 +1,8 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { initialGameState, urlToGameState } from './game.state';
+import { initialGameState } from './game.state';
 
-import type { GameState, SerializedGameState } from './game.state';
+import type { GameState } from './game.state';
 
 export const gameSlice = createSlice({
     name: 'game',
@@ -24,8 +24,8 @@ export const gameSlice = createSlice({
             state.score = action.payload.score;
             state.mistakes = action.payload.mistakes;
         },
-        load: (state, action: PayloadAction<SerializedGameState>) => {
-            Object.assign(state, urlToGameState(action.payload));
+        load: (state, action: PayloadAction<Partial<GameState>>) => {
+            Object.assign(state, action.payload);
         },
         tick: state => {
             state.elapsedTime += 1;
