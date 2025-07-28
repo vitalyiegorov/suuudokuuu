@@ -8,10 +8,11 @@ export const gameSlice = createSlice({
     name: 'game',
     initialState: initialGameState,
     reducers: {
-        start: (state, action: PayloadAction<{ sudokuString: string }>) => {
+        start: (state, action: PayloadAction<Pick<GameState, 'sudokuString' | 'maxMistakes'>>) => {
             Object.assign(state, initialGameState);
 
             state.sudokuString = action.payload.sudokuString;
+            state.maxMistakes = action.payload.maxMistakes;
         },
         pause: state => {
             state.isPaused = true;
