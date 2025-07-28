@@ -9,17 +9,15 @@ import { GameContext } from '../../../game/context/game.context';
 
 import { SharedScreenStyles as styles } from './shared-screen.styles';
 
-import type { SerializedGameState } from '../../../game/store/game.state';
-
 export const SharedScreen = () => {
-    const state = useLocalSearchParams<SerializedGameState>();
+    const stateObject = useLocalSearchParams<Record<string, string>>();
 
     const { t } = useLingui();
 
     const { createFromState } = use(GameContext);
 
     const handleOpenPuzzle = () => {
-        createFromState(state);
+        createFromState(Object.keys(stateObject)[0]);
     };
 
     return (
