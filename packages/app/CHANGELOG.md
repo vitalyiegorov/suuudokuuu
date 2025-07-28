@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.34.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.33.0...v1.34.0) (2025-07-28)
+
+### Features
+
+- **app:** added max mistakes selector, hardcore mode ([4e0afd1](https://github.com/vitalyiegorov/suuudokuuu/commit/4e0afd1603a6788c0568b5782adc7831f7a9d6e5))
+- **app:** added max mistakes selector, hardcore mode ([83ee598](https://github.com/vitalyiegorov/suuudokuuu/commit/83ee598586e8d6fa2d6ae54b1ef7275408cb5886))
+- **app:** added max mistakes selector, hardcore mode ([e14afc4](https://github.com/vitalyiegorov/suuudokuuu/commit/e14afc4e207b0241d2123f7bc5df79030857ce65))
+- **app:** added max mistakes selector, hardcore mode ([b4a1e09](https://github.com/vitalyiegorov/suuudokuuu/commit/b4a1e09c853dfc09cb346a84127f622e585099c7))
+- **app:** added max mistakes selector, hardcore mode ([41cf87c](https://github.com/vitalyiegorov/suuudokuuu/commit/41cf87cc6704140605e672ceaf4c2b4abb72f3bd))
+
 # [1.33.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.32.1...v1.33.0) (2025-07-28)
 
 ### Features
