@@ -13,11 +13,12 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/screens/components/game-screen/game.screen.tsx:68
+#: src/screens/components/game-screen/game.screen.tsx:69
 msgid "All progress will be lost"
 msgstr "Alle Fortschritte gehen verloren"
 
-#: src/screens/components/home-screen/home.screen.tsx:84
+#: src/screens/components/home-screen/home.screen.tsx:85
+#: src/screens/components/home-screen/home.screen.tsx:93
 msgid "Back"
 msgstr "Zurück"
 
@@ -25,11 +26,11 @@ msgstr "Zurück"
 msgid "Be wise, be smart, be quick..."
 msgstr "Sei weise, sei schlau, sei schnell..."
 
-#: src/screens/components/home-screen/home.screen.tsx:93
+#: src/screens/components/home-screen/home.screen.tsx:102
 msgid "Best score"
 msgstr "Höchstpunktzahl"
 
-#: src/screens/components/home-screen/home.screen.tsx:99
+#: src/screens/components/home-screen/home.screen.tsx:108
 msgid "Best time"
 msgstr "Bestzeit"
 
@@ -41,20 +42,28 @@ msgstr ""
 "Viel Glück beim nächsten Mal!\n"
 "Verlierer =)"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:30
-#: src/screens/components/game-screen/game.screen.tsx:69
+#: src/screens/components/shared-screen/shared-screen.tsx:28
+#: src/screens/components/game-screen/game.screen.tsx:70
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: src/screens/components/home-screen/home.screen.tsx:72
+#: src/game/components/mistakes-select/mistakes-select.tsx:27
+msgid "Choose your challenge"
+msgstr ""
+
+#: src/game/components/difficulty-select/difficulty-select.tsx:43
+msgid "Choose your difficulty"
+msgstr ""
+
+#: src/screens/components/home-screen/home.screen.tsx:73
 msgid "Continue"
 msgstr "Weiter"
 
-#: src/@generic/components/difficulty-select/difficulty-select.tsx:26
+#: src/game/components/difficulty-select/difficulty-select.tsx:27
 msgid "Easy"
 msgstr "Einfach"
 
-#: src/screens/components/game-screen/game.screen.tsx:170
+#: src/screens/components/game-screen/game.screen.tsx:168
 msgid "Elapsed"
 msgstr "Verstrichen"
 
@@ -63,15 +72,23 @@ msgstr "Verstrichen"
 msgid "Game paused"
 msgstr "Spiel pausiert"
 
-#: src/@generic/components/difficulty-select/difficulty-select.tsx:30
+#: src/game/components/difficulty-select/difficulty-select.tsx:31
 msgid "Hard"
 msgstr "Schwer"
+
+#: src/game/components/mistakes-select/mistakes-select.tsx:31
+msgid "Hardcore"
+msgstr ""
 
 #: src/@generic/components/donation/donation.tsx:36
 msgid "Help Ukraine win!"
 msgstr "Hilf der Ukraine zum Sieg!"
 
-#: src/game/context/game.context.tsx:51
+#: src/game/components/mistakes-select/mistakes-select.tsx:29
+msgid "Immortal"
+msgstr ""
+
+#: src/game/context/game.context.tsx:32
 msgid "Invalid Sudoku"
 msgstr "Ungültiges Sudoku"
 
@@ -83,31 +100,31 @@ msgstr "Du hast gebraucht"
 msgid "Looooooser! =)"
 msgstr "Verlierer! =)"
 
-#: src/@generic/components/difficulty-select/difficulty-select.tsx:28
+#: src/game/components/difficulty-select/difficulty-select.tsx:29
 msgid "Medium"
 msgstr "Mittelschwer"
 
-#: src/screens/components/game-screen/game.screen.tsx:158
+#: src/screens/components/game-screen/game.screen.tsx:156
 msgid "Mistakes"
 msgstr "Fehler"
 
-#: src/@generic/components/difficulty-select/difficulty-select.tsx:32
+#: src/game/components/difficulty-select/difficulty-select.tsx:33
 msgid "Newbie"
 msgstr "Anfänger"
 
-#: src/@generic/components/difficulty-select/difficulty-select.tsx:34
+#: src/game/components/difficulty-select/difficulty-select.tsx:35
 msgid "Nightmare"
 msgstr "Albtraum"
 
-#: src/game/context/game.context.tsx:53
+#: src/game/context/game.context.tsx:34
 msgid "OK"
 msgstr "OK"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:29
+#: src/screens/components/shared-screen/shared-screen.tsx:27
 msgid "Open puzzle"
 msgstr "Rätsel öffnen"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:27
+#: src/screens/components/shared-screen/shared-screen.tsx:25
 #: src/app/shared.tsx:12
 msgid "Open shared puzzle?"
 msgstr "Geteilter Rätsel öffnen?"
@@ -118,7 +135,7 @@ msgstr "Erneut spielen"
 
 #: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx:17
 #: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx:19
-#: src/screens/components/home-screen/home.screen.tsx:114
+#: src/screens/components/home-screen/home.screen.tsx:123
 #: src/app/privacy-policy.tsx:12
 msgid "Privacy policy"
 msgstr "Datenschutzerklärung"
@@ -131,7 +148,7 @@ msgstr "Fortsetzen"
 msgid "Return"
 msgstr "Zurück"
 
-#: src/screens/components/game-screen/game.screen.tsx:177
+#: src/screens/components/game-screen/game.screen.tsx:175
 msgid "Score"
 msgstr "Punktestand"
 
@@ -139,11 +156,15 @@ msgstr "Punktestand"
 msgid "Share puzzle"
 msgstr "Rätsel teilen"
 
-#: src/screens/components/home-screen/home.screen.tsx:74
+#: src/game/components/mistakes-select/mistakes-select.tsx:30
+msgid "Standard"
+msgstr ""
+
+#: src/screens/components/home-screen/home.screen.tsx:75
 msgid "Start new"
 msgstr "Neu starten"
 
-#: src/screens/components/game-screen/game.screen.tsx:68
+#: src/screens/components/game-screen/game.screen.tsx:69
 msgid "Stop current run?"
 msgstr "Aktuellen Lauf stoppen?"
 
@@ -151,7 +172,7 @@ msgstr "Aktuellen Lauf stoppen?"
 msgid "Support Ukraine"
 msgstr "Unterstütze die Ukraine"
 
-#: src/screens/components/home-screen/home.screen.tsx:68
+#: src/screens/components/home-screen/home.screen.tsx:71
 msgid "SuuudokuuU"
 msgstr "SuuudokuuU"
 
@@ -159,11 +180,11 @@ msgstr "SuuudokuuU"
 msgid "SuuudokuuU The Game"
 msgstr "SuuudokuuU Das Spiel"
 
-#: src/@generic/components/difficulty-select/difficulty-select.tsx:36
+#: src/game/components/difficulty-select/difficulty-select.tsx:37
 msgid "Unknown"
 msgstr "Unbekannt"
 
-#: src/screens/components/home-screen/home.screen.tsx:109
+#: src/screens/components/home-screen/home.screen.tsx:118
 msgid "V."
 msgstr "V."
 
