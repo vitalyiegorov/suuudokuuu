@@ -4,17 +4,18 @@ import { Link } from 'expo-router';
 import { use, useState } from 'react';
 import { ActivityIndicator, Text, View } from 'react-native';
 
-import { isNotEmptyString } from '@rnw-community/shared';
+import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
 import { BlackButton } from '../../../@generic/components/black-button/black-button';
 import { BlackText } from '../../../@generic/components/black-text/black-text';
-import { DifficultySelect } from '../../../@generic/components/difficulty-select/difficulty-select';
 import { Header } from '../../../@generic/components/header/header';
 import { SupportUkraineBanner } from '../../../@generic/components/support-ukraine-banner/support-ukraine-banner';
 import { ThemeButton } from '../../../@generic/components/theme-button/theme-button';
 import { ThemeContext } from '../../../@generic/context/theme.context';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { getTimerText } from '../../../@generic/utils/get-timer-text.util';
+import { DifficultySelect } from '../../../game/components/difficulty-select/difficulty-select';
+import { MistakesSelect } from '../../../game/components/mistakes-select/mistakes-select';
 import { GameContext } from '../../../game/context/game.context';
 import { useResumeGame } from '../../../game/hooks/use-resume-game.hook';
 import { gameSudokuStringSelector } from '../../../game/store/game.selectors';
@@ -25,7 +26,7 @@ import { HomeScreenStyles as styles } from './home-screen.styles';
 import type { DifficultyEnum } from '@suuudokuuu/generator';
 
 export const HomeScreen = () => {
-    const { createFromDifficulty } = use(GameContext);
+    const { create } = use(GameContext);
     const { theme } = use(ThemeContext);
     const { t } = useLingui();
 
@@ -34,25 +35,29 @@ export const HomeScreen = () => {
 
     const handleContinue = useResumeGame();
 
-    const [showDifficultySelect, setShowDifficultySelect] = useState(false);
+    const [state, setState] = useState<'initial' | 'difficulty' | 'mistakes'>('initial');
     const [isLoading, setIsLoading] = useState(false);
+    const [difficulty, setDifficulty] = useState<DifficultyEnum>();
 
     const isGameStarted = isNotEmptyString(oldGameString);
 
-    const handleDifficultySelect = () => {
-        setShowDifficultySelect(true);
+    const handleState = (newState: typeof state) => () => {
+        setState(newState);
     };
-    const handleBack = () => {
-        setShowDifficultySelect(false);
+    const handleDifficulty = (newDifficulty: DifficultyEnum) => {
+        setDifficulty(newDifficulty);
+        setState('mistakes');
     };
-    const handleStart = (difficulty: DifficultyEnum) => {
+    const handleStart = (maxMistakes: number) => {
         setIsLoading(true);
 
-        requestAnimationFrame(() => {
-            createFromDifficulty(difficulty);
-            setShowDifficultySelect(false);
-            setIsLoading(false);
-        });
+        if (isDefined(difficulty)) {
+            requestAnimationFrame(() => {
+                create(difficulty, maxMistakes);
+                setState('initial');
+                setIsLoading(false);
+            });
+        }
     };
 
     return (
@@ -61,23 +66,31 @@ export const HomeScreen = () => {
             <SupportUkraineBanner />
 
             <View style={styles.centerContainer}>
-                <Header text={t`SuuudokuuU`} />
-
-                {!showDifficultySelect && (
+                {state === 'initial' && (
                     <View style={styles.buttonWrapper}>
+                        <Header text={t`SuuudokuuU`} />
+
                         {isGameStarted ? <BlackButton onPress={handleContinue} text={t`Continue`} /> : null}
 
-                        <BlackButton onPress={handleDifficultySelect} text={t`Start new`} />
+                        <BlackButton onPress={handleState('difficulty')} text={t`Start new`} />
                     </View>
                 )}
 
                 {isLoading ? <ActivityIndicator color={theme.colors.black} /> : null}
 
-                {!isLoading && showDifficultySelect ? (
+                {!isLoading && state === 'difficulty' ? (
                     <>
-                        <DifficultySelect onSelect={handleStart} />
+                        <DifficultySelect onSelect={handleDifficulty} />
 
-                        <BlackButton onPress={handleBack} text={t`Back`} />
+                        <BlackButton onPress={handleState('initial')} text={t`Back`} />
+                    </>
+                ) : null}
+
+                {!isLoading && state === 'mistakes' ? (
+                    <>
+                        <MistakesSelect onSelect={handleStart} />
+
+                        <BlackButton onPress={handleState('difficulty')} text={t`Back`} />
                     </>
                 ) : null}
             </View>

@@ -2,6 +2,7 @@ export interface GameState {
     sudokuString: string;
     score: number;
     mistakes: number;
+    maxMistakes: number;
     elapsedTime: number;
     isPaused: boolean;
     isFinished: boolean;
@@ -16,6 +17,7 @@ export const initialGameState: GameState = {
     elapsedTime: 0,
     sudokuString: '',
     mistakes: 0,
+    maxMistakes: 3,
     score: 0,
     hasCandidates: false
 };
@@ -33,6 +35,7 @@ export const urlToGameState = (gameStateString: string): Omit<GameState, 'isPaus
         sudokuString: input.sudokuString,
         score: parseInt(input.score ?? '0', 10),
         mistakes: parseInt(input.mistakes ?? '0', 10),
+        maxMistakes: parseInt(input.maxMistakes ?? '0', 10),
         elapsedTime: parseInt(input.elapsedTime ?? '0', 10)
     };
 };
