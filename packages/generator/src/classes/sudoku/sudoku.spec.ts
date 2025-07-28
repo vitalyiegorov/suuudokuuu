@@ -140,9 +140,7 @@ describe('Sudoku - Cell Value Operations', () => {
 
     describe('Sudoku - Scoring (deterministic)', () => {
         it('complete a row', () => {
-            const sudoku = Sudoku.fromString(
-                '417352689852796134963148275241685397796234851538971426385467912629513748174829563|417352.898.27.613..6.14827..416.53..79623.8.15389.142638546.912..9.13...1748.9.6.'
-            );
+            const sudoku = Sudoku.fromString('417352.898.27.613..6.14827..416.53..79623.8.15389.142638546.912..9.13...1748.9.6.');
 
             // eslint-disable-next-line @typescript-eslint/prefer-destructuring
             const cell = sudoku.Field[0][6];
@@ -157,9 +155,7 @@ describe('Sudoku - Cell Value Operations', () => {
         });
 
         it('complete a column', () => {
-            const sudoku = Sudoku.fromString(
-                '417352689852796134963148275241685397796234851538971426385467912629513748174829563|417352.898.27.613..6.14827..416.53..79623.8.15389.142638546.912..9.13...1748.9.6.'
-            );
+            const sudoku = Sudoku.fromString('417352.898.27.613..6.14827..416.53..79623.8.15389.142638546.912..9.13...1748.9.6.');
 
             // eslint-disable-next-line @typescript-eslint/prefer-destructuring
             const cell = sudoku.Field[2][2];
@@ -174,9 +170,7 @@ describe('Sudoku - Cell Value Operations', () => {
         });
 
         it('complete a group', () => {
-            const sudoku = Sudoku.fromString(
-                '417352689852796134963148275241685397796234851538971426385467912629513748174829563|417352.898.27.613..6.14827..416.53..79623.8.15389.142638546.912..9.13...1748.9.6.'
-            );
+            const sudoku = Sudoku.fromString('417352.898.27.613..6.14827..416.53..79623.8.15389.142638546.912..9.13...1748.9.6.');
 
             // eslint-disable-next-line @typescript-eslint/prefer-destructuring
             const cell = sudoku.Field[3][0];
@@ -191,9 +185,7 @@ describe('Sudoku - Cell Value Operations', () => {
         });
 
         it('complete all values', () => {
-            const sudoku = Sudoku.fromString(
-                '417352689852796134963148275241685397796234851538971426385467912629513748174829563|417352.898.27.613..6.14827.2416.53..79623.8.15389.142638546.912.29.13...1748.9.6.'
-            );
+            const sudoku = Sudoku.fromString('417352.898.27.613..6.14827.2416.53..79623.8.15389.142638546.912.29.13...1748.9.6.');
 
             // eslint-disable-next-line @typescript-eslint/prefer-destructuring
             const cell = sudoku.Field[8][4];
@@ -208,9 +200,7 @@ describe('Sudoku - Cell Value Operations', () => {
         });
 
         it('complete whole game', () => {
-            const sudoku = Sudoku.fromString(
-                '417352689852796134963148275241685397796234851538971426385467912629513748174829563|41735268985279613496314827524168539779623485153897142638546791262951374.174829563'
-            );
+            const sudoku = Sudoku.fromString('41735268985279613496314827524168539779623485153897142638546791262951374.174829563');
 
             // eslint-disable-next-line @typescript-eslint/prefer-destructuring
             const cell = sudoku.Field[7][8];
@@ -267,8 +257,7 @@ describe('Sudoku - Static Methods', () => {
     it('fromString should return Sudoku instance', () => {
         expect.assertions(1);
 
-        const testFieldsString =
-            '875469123469123875123875469784596231596231784231784596658947312947312658312658947|...469123469123875123875469784596...596231784231784596658947312947312658312658...';
+        const testFieldsString = '...469123469123875123875469784596...596231784231784596658947312947312658312658...';
 
         const sudoku = Sudoku.fromString(testFieldsString, defaultSudokuConfig);
 
@@ -278,9 +267,7 @@ describe('Sudoku - Static Methods', () => {
 
 describe('Sudoku - Candidates', () => {
     it('getCellCandidates should return single possible cell value', () => {
-        const sudoku = Sudoku.fromString(
-            '271345968384619752659872314537986241126437895498251673963124587845793126712568439|27.3459.838.6..75..598.2..45.7986.4.1264378.5498...673.6312.5.784.793.267125.84.9'
-        );
+        const sudoku = Sudoku.fromString('27.3459.838.6..75..598.2..45.7986.4.1264378.5498...673.6312.5.784.793.267125.84.9');
 
         // eslint-disable-next-line @typescript-eslint/prefer-destructuring
         const cell = sudoku.Field[2][0];
@@ -290,9 +277,7 @@ describe('Sudoku - Candidates', () => {
     });
 
     it('getCellCandidates should return multiple possible cell values', () => {
-        const sudoku = Sudoku.fromString(
-            '271345968384619752659872314537986241126437895498251673963124587845793126712568439|27.3459.838.6..75..598.2..45.7986.4.1264378.5498...673.6312.5.784.793.267125.84.9'
-        );
+        const sudoku = Sudoku.fromString('27.3459.838.6..75..598.2..45.7986.4.1264378.5498...673.6312.5.784.793.267125.84.9');
 
         // eslint-disable-next-line @typescript-eslint/prefer-destructuring
         const cell = sudoku.Field[5][4];
