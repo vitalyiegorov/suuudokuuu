@@ -10,14 +10,14 @@ import { useAppDispatch } from '../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../@generic/hooks/use-app-selector.hook';
 import { gameLoadAction, gameResetAction, gameResumeAction, gameStartAction } from '../store/game.actions';
 import { gameSudokuStringSelector } from '../store/game.selectors';
+import { urlToGameState } from '../store/game.state';
 
-import type { SerializedGameState } from '../store/game.state';
 import type { DifficultyEnum } from '@suuudokuuu/generator';
 import type { ReactNode } from 'react';
 
 export const GameContext = createContext<{
     sudoku: Sudoku;
-    createFromState: (state: SerializedGameState) => void;
+    createFromState: (stateString: string) => void;
     createFromDifficulty: (difficulty: DifficultyEnum) => void;
 }>({ sudoku: new Sudoku(defaultSudokuConfig), createFromDifficulty: emptyFn, createFromState: emptyFn });
 
@@ -28,35 +28,44 @@ export const GameProvider = ({ children }: { readonly children: ReactNode }) => 
 
     const currentGameString = useAppSelector(gameSudokuStringSelector);
 
+    const showAlert = (error: unknown) => {
+        Alert(t`Invalid Sudoku`, getErrorMessage(error), [
+            {
+                text: t`OK`,
+                onPress: () => {
+                    dispatch(gameResetAction());
+                    router.replace('/');
+                }
+            }
+        ]);
+    };
+
     const [sudoku, setSudoku] = useState(() => {
         if (isNotEmptyString(currentGameString)) {
-            return Sudoku.fromString(currentGameString, defaultSudokuConfig);
+            try {
+                return Sudoku.fromString(currentGameString, defaultSudokuConfig);
+            } catch (error: unknown) {
+                showAlert(error);
+            }
         }
 
         return new Sudoku(defaultSudokuConfig);
     });
 
-    const createFromState = (state: SerializedGameState) => {
+    const createFromState = (stateString: string) => {
         try {
-            const newSudoku = Sudoku.fromString(state.sudokuString, defaultSudokuConfig);
+            const newState = urlToGameState(stateString);
+            dispatch(gameLoadAction(newState));
 
-            setSudoku(newSudoku);
-            dispatch(gameLoadAction(state));
+            setSudoku(Sudoku.fromString(newState.sudokuString, defaultSudokuConfig));
+
             dispatch(gameResumeAction());
 
             router.replace(`game`);
 
             return true;
         } catch (error) {
-            Alert(t`Invalid Sudoku`, getErrorMessage(error), [
-                {
-                    text: t`OK`,
-                    onPress: () => {
-                        dispatch(gameResetAction());
-                        router.replace('/');
-                    }
-                }
-            ]);
+            showAlert(error);
 
             return false;
         }
