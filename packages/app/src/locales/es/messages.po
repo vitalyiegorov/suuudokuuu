@@ -24,7 +24,7 @@ msgstr "Atrás"
 
 #: src/app/game.tsx:12
 msgid "Be wise, be smart, be quick..."
-msgstr ""
+msgstr "Sea sabio, sea inteligente, sea rápido..."
 
 #: src/screens/components/home-screen/home.screen.tsx:102
 msgid "Best score"
@@ -49,11 +49,11 @@ msgstr "Cancelar"
 
 #: src/game/components/mistakes-select/mistakes-select.tsx:27
 msgid "Choose your challenge"
-msgstr ""
+msgstr "Elige tu desafío"
 
 #: src/game/components/difficulty-select/difficulty-select.tsx:43
 msgid "Choose your difficulty"
-msgstr ""
+msgstr "Elige tu dificultad"
 
 #: src/screens/components/home-screen/home.screen.tsx:73
 msgid "Continue"
@@ -78,7 +78,7 @@ msgstr "Difícil"
 
 #: src/game/components/mistakes-select/mistakes-select.tsx:31
 msgid "Hardcore"
-msgstr ""
+msgstr "Hardcore"
 
 #: src/@generic/components/donation/donation.tsx:36
 msgid "Help Ukraine win!"
@@ -86,7 +86,7 @@ msgstr "¡Ayuda a Ucrania a ganar!"
 
 #: src/game/components/mistakes-select/mistakes-select.tsx:29
 msgid "Immortal"
-msgstr ""
+msgstr "Inmortal"
 
 #: src/game/context/game.context.tsx:32
 msgid "Invalid Sudoku"
@@ -98,7 +98,7 @@ msgstr "Te tomó"
 
 #: src/app/loser.tsx:12
 msgid "Looooooser! =)"
-msgstr ""
+msgstr "¡Perdedor! =)"
 
 #: src/game/components/difficulty-select/difficulty-select.tsx:29
 msgid "Medium"
@@ -118,7 +118,7 @@ msgstr "Pesadilla"
 
 #: src/game/context/game.context.tsx:34
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: src/screens/components/shared-screen/shared-screen.tsx:27
 msgid "Open puzzle"
@@ -158,7 +158,7 @@ msgstr "Compartir rompecabezas"
 
 #: src/game/components/mistakes-select/mistakes-select.tsx:30
 msgid "Standard"
-msgstr ""
+msgstr "Estandar"
 
 #: src/screens/components/home-screen/home.screen.tsx:75
 msgid "Start new"
