@@ -28,9 +28,25 @@ export const GameProvider = ({ children }: { readonly children: ReactNode }) => 
 
     const currentGameString = useAppSelector(gameSudokuStringSelector);
 
+    const showAlert = (error: unknown) => {
+        Alert(t`Invalid Sudoku`, getErrorMessage(error), [
+            {
+                text: t`OK`,
+                onPress: () => {
+                    dispatch(gameResetAction());
+                    router.replace('/');
+                }
+            }
+        ]);
+    };
+
     const [sudoku, setSudoku] = useState(() => {
         if (isNotEmptyString(currentGameString)) {
-            return Sudoku.fromString(currentGameString, defaultSudokuConfig);
+            try {
+                return Sudoku.fromString(currentGameString, defaultSudokuConfig);
+            } catch (error: unknown) {
+                showAlert(error);
+            }
         }
 
         return new Sudoku(defaultSudokuConfig);
@@ -48,15 +64,7 @@ export const GameProvider = ({ children }: { readonly children: ReactNode }) => 
 
             return true;
         } catch (error) {
-            Alert(t`Invalid Sudoku`, getErrorMessage(error), [
-                {
-                    text: t`OK`,
-                    onPress: () => {
-                        dispatch(gameResetAction());
-                        router.replace('/');
-                    }
-                }
-            ]);
+            showAlert(error);
 
             return false;
         }

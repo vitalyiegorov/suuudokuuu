@@ -4,6 +4,7 @@ import { DifficultyEnum } from '../../enums/difficulty.enum';
 import { defaultSudokuConfig } from '../../interfaces/sudoku-config.interface';
 import { cloneField } from '../../util/clone-field.util';
 import { createEmptyField } from '../../util/create-empty-field.util';
+import { DLXSolver } from '../dlx/dlx-solver';
 
 import type { CellInterface } from '../../interfaces/cell.interface';
 import type { FieldInterface } from '../../interfaces/field.interface';
@@ -20,7 +21,6 @@ export class SerializableSudoku {
     protected readonly emptyField: FieldInterface = [];
 
     private readonly emptyStringValue: string = '.';
-    private readonly fieldSeparator: string = '|';
 
     constructor(protected config: SudokuConfigInterface = defaultSudokuConfig) {
         this.emptyField = createEmptyField(this.config);
@@ -58,7 +58,7 @@ export class SerializableSudoku {
                 .map(row => row.map(cell => (cell.value === this.config.blankCellValue ? this.emptyStringValue : cell.value)).join(''))
                 .join('');
 
-        return `${convertField(this.field)}|${convertField(this.gameField)}`;
+        return convertField(this.gameField);
     }
 
     protected calculateAvailableValues(): void {
@@ -118,30 +118,29 @@ export class SerializableSudoku {
     }
 
     // eslint-disable-next-line max-statements
-    static fromString(fieldsString: string, config: SudokuConfigInterface = defaultSudokuConfig): SerializableSudoku {
+    static fromString(fieldString: string, config: SudokuConfigInterface = defaultSudokuConfig): SerializableSudoku {
         const game = new this(config);
         game.field = cloneField(game.emptyField);
         game.gameField = cloneField(game.emptyField);
 
-        if (!isNotEmptyString(fieldsString)) {
+        if (!isNotEmptyString(fieldString)) {
             throw new Error('Invalid string format: Empty string passed');
         }
 
-        const correctLength = game.config.fieldSize * game.config.fieldSize * 2 + game.fieldSeparator.length;
-        if (fieldsString.length !== correctLength) {
+        const correctLength = game.config.fieldSize * game.config.fieldSize;
+        if (fieldString.length !== correctLength) {
             throw new Error(
-                `Invalid string format: String length is wrong for the given configuration(${fieldsString.length}/${correctLength})})`
+                `Invalid string format: String length is wrong for the given configuration(${fieldString.length}/${correctLength})})`
             );
         }
 
-        if (!fieldsString.includes(game.fieldSeparator)) {
-            throw new Error('Invalid string format: No field separator found');
+        const blankCellCount = game.convertFieldFromString(fieldString, game.gameField);
+        const solvedField = new DLXSolver().solve(game.gameField);
+        if (!isDefined(solvedField)) {
+            throw new Error('Invalid string format: No solution found for the given field');
         }
 
-        const [fieldString, gameFieldString] = fieldsString.split(game.fieldSeparator);
-        game.convertFieldFromString(fieldString, game.field);
-        const blankCellCount = game.convertFieldFromString(gameFieldString, game.gameField);
-
+        game.field = solvedField;
         game.setDifficultyByBlankCells(blankCellCount);
         game.calculateAvailableValues();
 
