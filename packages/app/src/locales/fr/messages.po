@@ -49,11 +49,11 @@ msgstr "Annuler"
 
 #: src/game/components/mistakes-select/mistakes-select.tsx:27
 msgid "Choose your challenge"
-msgstr ""
+msgstr "Choisissez votre défi"
 
 #: src/game/components/difficulty-select/difficulty-select.tsx:43
 msgid "Choose your difficulty"
-msgstr ""
+msgstr "Choisissez votre difficulté"
 
 #: src/screens/components/home-screen/home.screen.tsx:73
 msgid "Continue"
@@ -78,7 +78,7 @@ msgstr "Difficile"
 
 #: src/game/components/mistakes-select/mistakes-select.tsx:31
 msgid "Hardcore"
-msgstr ""
+msgstr "Hardcore"
 
 #: src/@generic/components/donation/donation.tsx:36
 msgid "Help Ukraine win!"
@@ -86,7 +86,7 @@ msgstr "Aidez l'Ukraine à gagner !"
 
 #: src/game/components/mistakes-select/mistakes-select.tsx:29
 msgid "Immortal"
-msgstr ""
+msgstr "Immortel"
 
 #: src/game/context/game.context.tsx:32
 msgid "Invalid Sudoku"
@@ -158,7 +158,7 @@ msgstr "Partager la grille"
 
 #: src/game/components/mistakes-select/mistakes-select.tsx:30
 msgid "Standard"
-msgstr ""
+msgstr "Standard"
 
 #: src/screens/components/home-screen/home.screen.tsx:75
 msgid "Start new"
@@ -166,7 +166,7 @@ msgstr "Recommencer"
 
 #: src/screens/components/game-screen/game.screen.tsx:69
 msgid "Stop current run?"
-msgstr ""
+msgstr "Arrêter la partie en cours ?"
 
 #: src/@generic/components/support-ukraine-banner/support-ukraine-banner.tsx:18
 msgid "Support Ukraine"
@@ -174,19 +174,19 @@ msgstr "Soutenir l'Ukraine"
 
 #: src/screens/components/home-screen/home.screen.tsx:71
 msgid "SuuudokuuU"
-msgstr ""
+msgstr "SuuudokuuU"
 
 #: src/@generic/components/page-header/page-header.tsx:19
 msgid "SuuudokuuU The Game"
-msgstr ""
+msgstr "SuuudokuuU Le Jeu"
 
 #: src/game/components/difficulty-select/difficulty-select.tsx:37
 msgid "Unknown"
-msgstr ""
+msgstr "Inconnu"
 
 #: src/screens/components/home-screen/home.screen.tsx:118
 msgid "V."
-msgstr ""
+msgstr "V."
 
 #: src/@generic/components/donation/donation.tsx:25
 msgid ""
@@ -208,7 +208,7 @@ msgstr ""
 
 #: src/app/winner.tsx:12
 msgid "Winners-winner, chicken dinner!"
-msgstr ""
+msgstr "Gagnant-gagnant, dîner de poulet !"
 
 #: src/screens/components/winner-screen/winner.screen.tsx:26
 msgid "You have scored"

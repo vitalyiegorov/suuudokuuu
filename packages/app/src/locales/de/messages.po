@@ -49,11 +49,11 @@ msgstr "Abbrechen"
 
 #: src/game/components/mistakes-select/mistakes-select.tsx:27
 msgid "Choose your challenge"
-msgstr ""
+msgstr "Wähle deine Herausforderung"
 
 #: src/game/components/difficulty-select/difficulty-select.tsx:43
 msgid "Choose your difficulty"
-msgstr ""
+msgstr "Wähle deine Schwierigkeit"
 
 #: src/screens/components/home-screen/home.screen.tsx:73
 msgid "Continue"
@@ -78,7 +78,7 @@ msgstr "Schwer"
 
 #: src/game/components/mistakes-select/mistakes-select.tsx:31
 msgid "Hardcore"
-msgstr ""
+msgstr "Hardcore"
 
 #: src/@generic/components/donation/donation.tsx:36
 msgid "Help Ukraine win!"
@@ -86,7 +86,7 @@ msgstr "Hilf der Ukraine zum Sieg!"
 
 #: src/game/components/mistakes-select/mistakes-select.tsx:29
 msgid "Immortal"
-msgstr ""
+msgstr "Unsterblich"
 
 #: src/game/context/game.context.tsx:32
 msgid "Invalid Sudoku"
@@ -158,7 +158,7 @@ msgstr "Rätsel teilen"
 
 #: src/game/components/mistakes-select/mistakes-select.tsx:30
 msgid "Standard"
-msgstr ""
+msgstr "Standard"
 
 #: src/screens/components/home-screen/home.screen.tsx:75
 msgid "Start new"
