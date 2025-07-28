@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.32.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.32.0...v1.32.1) (2025-07-27)
+
+### Bug Fixes
+
+- **app:** fix i18n ([fb0b7ca](https://github.com/vitalyiegorov/suuudokuuu/commit/fb0b7ca6d798d71928d5e17c6fc789f49498e32b))
+
+### Performance Improvements
+
+- **app:** improve animation ([54d741f](https://github.com/vitalyiegorov/suuudokuuu/commit/54d741fae494c69d666bb1bcbc7575ab8a7d440a))
+- **app:** improve animation ([9de31b1](https://github.com/vitalyiegorov/suuudokuuu/commit/9de31b1e2c8d173a54cda08dd150dc312823d34e))
+- **app:** improve animation, fix win animation ([31f6f8b](https://github.com/vitalyiegorov/suuudokuuu/commit/31f6f8bf33213a008bad37bd1eb295aaa795ab31))
+- **app:** improve animation, fix win animation ([80b85a6](https://github.com/vitalyiegorov/suuudokuuu/commit/80b85a6e1546f75b56180a630d305dae757dd926))
+
+# [1.32.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.31.0...v1.32.0) (2025-07-27)
+
+### Features
+
+- **app:** improve active value cells background ([2ceb5a9](https://github.com/vitalyiegorov/suuudokuuu/commit/2ceb5a9af63ee4e1395288bc67f08bfb4e5e1325))
+
 # [1.31.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.30.0...v1.31.0) (2025-07-27)
 
 ### Features
