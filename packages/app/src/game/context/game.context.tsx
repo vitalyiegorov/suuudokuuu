@@ -18,8 +18,8 @@ import type { ReactNode } from 'react';
 export const GameContext = createContext<{
     sudoku: Sudoku;
     createFromState: (stateString: string) => void;
-    createFromDifficulty: (difficulty: DifficultyEnum) => void;
-}>({ sudoku: new Sudoku(defaultSudokuConfig), createFromDifficulty: emptyFn, createFromState: emptyFn });
+    create: (difficulty: DifficultyEnum, maxMistakes: number) => void;
+}>({ sudoku: new Sudoku(defaultSudokuConfig), create: emptyFn, createFromState: emptyFn });
 
 export const GameProvider = ({ children }: { readonly children: ReactNode }) => {
     const dispatch = useAppDispatch();
@@ -71,14 +71,14 @@ export const GameProvider = ({ children }: { readonly children: ReactNode }) => 
         }
     };
 
-    const createFromDifficulty = (difficulty: DifficultyEnum) => {
+    const create = (difficulty: DifficultyEnum, maxMistakes: number) => {
         sudoku.create(difficulty);
         setSudoku(sudoku);
 
         const sudokuString = sudoku.toString();
-        dispatch(gameStartAction({ sudokuString }));
+        dispatch(gameStartAction({ sudokuString, maxMistakes }));
         router.push(`game`);
     };
 
-    return <GameContext value={{ sudoku, createFromState, createFromDifficulty }}>{children}</GameContext>;
+    return <GameContext value={{ sudoku, createFromState, create }}>{children}</GameContext>;
 };

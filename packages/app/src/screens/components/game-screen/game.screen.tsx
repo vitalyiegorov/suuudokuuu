@@ -25,7 +25,7 @@ import { GameContext } from '../../../game/context/game.context';
 import { useKeyboardControls } from '../../../game/hooks/use-keyboard-controls/use-keyboard-controls.hook';
 import { useShare } from '../../../game/hooks/use-share.hook';
 import { gameResetAction } from '../../../game/store/game.actions';
-import { gameMistakesSelector, gameScoreSelector } from '../../../game/store/game.selectors';
+import { gameMaxMistakesSelector, gameMistakesSelector, gameScoreSelector } from '../../../game/store/game.selectors';
 import { gameFinishedThunk } from '../../../game/store/thunks/game-finish.thunk';
 import { gameMistakeThunk } from '../../../game/store/thunks/game-mistake.thunk';
 import { gameSaveThunk } from '../../../game/store/thunks/game-save.thunk';
@@ -34,8 +34,6 @@ import { GameScreenStyles as styles } from './game-screen.styles';
 
 import type { CellInterface, ScoredCellsInterface } from '@suuudokuuu/generator';
 import type { Dispatch, SetStateAction } from 'react';
-
-const MaxMistakesConstant = 3;
 
 const setSharingAvailable = (setHasSharing: Dispatch<SetStateAction<boolean>>): void => {
     Sharing.isAvailableAsync()
@@ -53,13 +51,14 @@ export const GameScreen = () => {
     const dispatch = useAppDispatch();
     const score = useAppSelector(gameScoreSelector);
     const mistakes = useAppSelector(gameMistakesSelector);
+    const maxMistakes = useAppSelector(gameMaxMistakesSelector);
 
     const [selectedCell, setSelectedCell] = useState<CellInterface>();
     const [hasSharing, setHasSharing] = useState(false);
     const [scoredCells, setScoredCells] = useState<ScoredCellsInterface>(emptyScoredCells);
     const availableValuesRefs = useRef<Record<number, AvailableValuesItemRef | null>>({});
 
-    const maxMistakesReached = mistakes >= MaxMistakesConstant;
+    const maxMistakesReached = mistakes >= maxMistakes;
 
     // TODO: Is there a better way without using useEffect?
     useEffect(() => void setSharingAvailable(setHasSharing), []);
@@ -114,7 +113,7 @@ export const GameScreen = () => {
     const handleWrongValue = () => {
         void dispatch(gameMistakeThunk(sudoku));
 
-        if (mistakes + 1 >= MaxMistakesConstant) {
+        if (mistakes + 1 >= maxMistakes) {
             handleLostGame();
         } else {
             hapticNotification(Haptics.NotificationFeedbackType.Error);
@@ -161,7 +160,7 @@ export const GameScreen = () => {
 
                         <Text style={styles.mistakesSeparator}>/</Text>
 
-                        <BlackText style={styles.mistakesMaxText}>{MaxMistakesConstant}</BlackText>
+                        <BlackText style={styles.mistakesMaxText}>{maxMistakes}</BlackText>
                     </BlackText>
                 </View>
 
