@@ -4,12 +4,17 @@ import { ScrollView, View } from 'react-native';
 
 import { Header } from '../../../@generic/components/header/header';
 import { ReturnButton } from '../../../@generic/components/return-button/return-button';
+import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { HistoryDifficulty } from '../../../history/component/history-difficulty/history-difficulty';
+import { historyByDifficultySelector } from '../../../history/store/history.selectors';
 
 import { HistoryScreenStyles } from './history-screen.styles';
 
 export const HistoryScreen = () => {
     const { t } = useLingui();
+    const historyByDifficulty = useAppSelector(historyByDifficultySelector);
+
+    const difficulties = Object.values(DifficultyEnum).filter(difficulty => historyByDifficulty[difficulty].bestScore > 0);
 
     return (
         <View style={HistoryScreenStyles.container}>
@@ -20,11 +25,9 @@ export const HistoryScreen = () => {
                 showsVerticalScrollIndicator={false}
                 style={HistoryScreenStyles.scrollView}
             >
-                <HistoryDifficulty difficulty={DifficultyEnum.Nightmare} />
-                <HistoryDifficulty difficulty={DifficultyEnum.Hard} />
-                <HistoryDifficulty difficulty={DifficultyEnum.Medium} />
-                <HistoryDifficulty difficulty={DifficultyEnum.Easy} />
-                <HistoryDifficulty difficulty={DifficultyEnum.Newbie} />
+                {difficulties.map(difficulty => (
+                    <HistoryDifficulty difficulty={difficulty} key={difficulty} />
+                ))}
             </ScrollView>
 
             <ReturnButton />
