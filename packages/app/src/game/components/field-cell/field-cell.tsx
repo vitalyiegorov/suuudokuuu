@@ -152,12 +152,14 @@ export const FieldCell = (props: Props) => {
     return (
         <ReanimatedPressable onPress={handlePress} style={cellStyles} testID={getCellSelector(props)}>
             {candidates.map(candidate => (
-                <Reanimated.Text key={`candidate-${candidate}`} style={getCandidateTextStyles(theme, candidate)}>
+                <Reanimated.Text allowFontScaling={false} key={`candidate-${candidate}`} style={getCandidateTextStyles(theme, candidate)}>
                     {candidate}
                 </Reanimated.Text>
             ))}
 
-            <Reanimated.Text style={textStyles}>{getText(isActive, isEmpty, hasCandidates, cell)}</Reanimated.Text>
+            <Reanimated.Text allowFontScaling={false} style={textStyles}>
+                {getText(isActive, isEmpty, hasCandidates, cell)}
+            </Reanimated.Text>
         </ReanimatedPressable>
     );
 };
