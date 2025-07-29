@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.39.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.39.0...v1.39.1) (2025-07-29)
+
+### Bug Fixes
+
+- **app:** difficulty/mistakes ([a361e91](https://github.com/vitalyiegorov/suuudokuuu/commit/a361e91645e10bcaf2a396bb36ee6cbffffe8cbc))
+
 # [1.39.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.38.0...v1.39.0) (2025-07-29)
 
 ### Features
