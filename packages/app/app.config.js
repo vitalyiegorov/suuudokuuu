@@ -89,7 +89,8 @@ export default ({ config }) => ({
     },
     plugins: [
         ['expo-router', { origin: 'https://www.suuudokuuu.com/' }],
-        ['expo-font', { fonts: ['../../node_modules/@expo-google-fonts/inter/Inter_900Black.ttf'] }]
+        ['expo-font', { fonts: ['../../node_modules/@expo-google-fonts/inter/Inter_900Black.ttf'] }],
+        ['expo-build-properties', { android: { targetSdkVersion: 35 } }]
     ],
     experiments: {
         reactCompiler: true

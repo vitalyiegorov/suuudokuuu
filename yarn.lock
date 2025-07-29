@@ -4720,6 +4720,7 @@ __metadata:
     babel-plugin-react-compiler: "npm:19.0.0-beta-af1b7da-20250417"
     date-fns: "npm:^2.30.0"
     expo: "npm:^53.0.20"
+    expo-build-properties: "npm:^0.14.8"
     expo-constants: "npm:~17.1.7"
     expo-dev-client: "npm:~5.2.4"
     expo-device: "npm:^7.1.4"
@@ -9068,6 +9069,18 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: 10/c7851f3cf69ad2d8075908f719baf3a96660f262109374a563418912b7588a126f425225bc2126eca005873aa719c4683b99a467984e244d1931e6f1ba68655a
+  languageName: node
+  linkType: hard
+
+"expo-build-properties@npm:^0.14.8":
+  version: 0.14.8
+  resolution: "expo-build-properties@npm:0.14.8"
+  dependencies:
+    ajv: "npm:^8.11.0"
+    semver: "npm:^7.6.0"
+  peerDependencies:
+    expo: "*"
+  checksum: 10/6506f63542acd370eb2e4c850a39592229bc8ac236daa0915045890833052d7b2dfdc0c6cb1253e724241f91ec02716cdd94bb96df05ecfd8bc642a5101d4180
   languageName: node
   linkType: hard
 
