@@ -18,7 +18,7 @@ export const PrivacyPolicyScreen = () => {
 
             <Header text={t`Privacy policy`} />
 
-            <ScrollView contentContainerStyle={PrivacyPolicyScreenStyles.scrollView}>
+            <ScrollView showsVerticalScrollIndicator={false} style={PrivacyPolicyScreenStyles.scrollView}>
                 <BlackText>{privacyPolicyConstant}</BlackText>
             </ScrollView>
 

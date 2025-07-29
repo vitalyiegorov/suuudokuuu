@@ -7,6 +7,6 @@ export const PrivacyPolicyScreenStyles = StyleSheet.create({
         padding: 20
     },
     scrollView: {
-        paddingBottom: 20
+        marginBottom: 20
     }
 });
