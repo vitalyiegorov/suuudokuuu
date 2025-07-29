@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.37.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.37.0...v1.37.1) (2025-07-29)
+
+### Bug Fixes
+
+- **app:** remove font scaling ([9992374](https://github.com/vitalyiegorov/suuudokuuu/commit/99923745a82d9f974865ceee4d18fe96bd2db1fa))
+
 # [1.37.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.36.0...v1.37.0) (2025-07-29)
 
 ### Features
