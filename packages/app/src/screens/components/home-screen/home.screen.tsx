@@ -1,6 +1,6 @@
 import { useLingui } from '@lingui/react/macro';
 import Constants from 'expo-constants';
-import { Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import { use, useState } from 'react';
 import { ActivityIndicator, Text, View } from 'react-native';
 
@@ -29,6 +29,7 @@ export const HomeScreen = () => {
     const { create } = use(GameContext);
     const { theme } = use(ThemeContext);
     const { t } = useLingui();
+    const router = useRouter();
 
     const oldGameString = useAppSelector(gameSudokuStringSelector);
     const [bestScore, bestTime] = useAppSelector(historyBestTimeSelector);
@@ -59,6 +60,9 @@ export const HomeScreen = () => {
             });
         }
     };
+    const handleStatistics = () => {
+        router.navigate('/history');
+    };
 
     return (
         <View style={styles.container}>
@@ -73,6 +77,8 @@ export const HomeScreen = () => {
                         {isGameStarted ? <BlackButton onPress={handleContinue} text={t`Continue`} /> : null}
 
                         <BlackButton onPress={handleState('difficulty')} text={t`Start new`} />
+
+                        <BlackButton onPress={handleStatistics} text={t`Statistics`} />
                     </View>
                 )}
 
