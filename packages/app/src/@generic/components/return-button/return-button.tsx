@@ -7,7 +7,7 @@ export const ReturnButton = () => {
     const { t } = useLingui();
     const router = useRouter();
 
-    const handleReturn = () => void router.back();
+    const handleReturn = () => (router.canGoBack() ? void router.back() : void router.replace('/'));
 
     return <BlackButton onPress={handleReturn} text={t`Return`} />;
 };
