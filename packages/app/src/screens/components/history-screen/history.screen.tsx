@@ -15,7 +15,11 @@ export const HistoryScreen = () => {
         <View style={HistoryScreenStyles.container}>
             <Header text={t`Statistics`} />
 
-            <ScrollView contentContainerStyle={HistoryScreenStyles.scrollView} showsVerticalScrollIndicator={false}>
+            <ScrollView
+                contentContainerStyle={HistoryScreenStyles.scrollViewContainer}
+                showsVerticalScrollIndicator={false}
+                style={HistoryScreenStyles.scrollView}
+            >
                 <HistoryDifficulty difficulty={DifficultyEnum.Nightmare} />
                 <HistoryDifficulty difficulty={DifficultyEnum.Hard} />
                 <HistoryDifficulty difficulty={DifficultyEnum.Medium} />

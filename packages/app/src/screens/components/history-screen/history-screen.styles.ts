@@ -7,8 +7,10 @@ export const HistoryScreenStyles = StyleSheet.create({
         padding: 20
     },
     scrollView: {
+        marginBottom: 20
+    },
+    scrollViewContainer: {
         gap: 20,
-        paddingBottom: 20,
         paddingHorizontal: 20
     }
 });
