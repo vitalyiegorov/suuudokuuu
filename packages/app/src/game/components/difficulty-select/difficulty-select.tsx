@@ -31,6 +31,7 @@ export const DifficultySelect = ({ onSelect, isLoading = false }: Props) => {
                     isLoading={isLoading}
                     key={difficulty}
                     onPress={handlePress(difficulty)}
+                    style={styles.button}
                     text={getDifficultyText(difficulty)}
                 />
             ))}

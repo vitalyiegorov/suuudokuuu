@@ -26,9 +26,9 @@ export const MistakesSelect = ({ onSelect }: Props) => {
         <View style={styles.wrapper}>
             <Header text={t`Choose your challenge`} />
 
-            <BlackButton onPress={handlePress(99)} text={t`Immortal`} />
-            <BlackButton onPress={handlePress(3)} text={t`Standard`} />
-            <BlackButton onPress={handlePress(0)} styleText={hardcoreStyle} text={t`Hardcore`} />
+            <BlackButton onPress={handlePress(99)} style={styles.button} text={t`Immortal`} />
+            <BlackButton onPress={handlePress(3)} style={styles.button} text={t`Standard`} />
+            <BlackButton onPress={handlePress(0)} style={styles.button} styleText={hardcoreStyle} text={t`Hardcore`} />
         </View>
     );
 };
