@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.38.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.37.1...v1.38.0) (2025-07-29)
+
+### Features
+
+- **app:** added statistics page, extended data ([6812868](https://github.com/vitalyiegorov/suuudokuuu/commit/681286814c8ae15af66f271a389e08fe933346e7))
+- **app:** added statistics page, extended data ([bfe3fe0](https://github.com/vitalyiegorov/suuudokuuu/commit/bfe3fe0e8254cd996cbddeb841938c7b74c6958e))
+- **app:** added statistics page, extended data ([6093b3d](https://github.com/vitalyiegorov/suuudokuuu/commit/6093b3d8e9e23118699b9b021c9a88ebec953fbb))
+- **app:** added statistics page, extended data ([8decc36](https://github.com/vitalyiegorov/suuudokuuu/commit/8decc36702beb4e9e7943d765a3755fe92730438))
+
+## [1.37.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.37.0...v1.37.1) (2025-07-29)
+
+### Bug Fixes
+
+- **app:** remove font scaling ([9992374](https://github.com/vitalyiegorov/suuudokuuu/commit/99923745a82d9f974865ceee4d18fe96bd2db1fa))
+
 # [1.37.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.36.0...v1.37.0) (2025-07-29)
 
 ### Features
