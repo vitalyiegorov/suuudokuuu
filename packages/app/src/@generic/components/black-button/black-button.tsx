@@ -45,7 +45,7 @@ export const BlackButton = ({ text, style, href, styleText, onPress, children, i
         hapticImpact(ImpactFeedbackStyle.Light);
 
         if (isNotEmptyString(href)) {
-            router.push(href);
+            router.navigate(href);
         }
     };
 
