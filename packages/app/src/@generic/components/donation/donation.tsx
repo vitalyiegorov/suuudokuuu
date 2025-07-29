@@ -31,7 +31,9 @@ export const Donation = ({ type }: Props) => {
 
     return (
         <View style={[styles.donation, { borderBottomColor: theme.colors.black, borderTopColor: theme.colors.black }]}>
-            <Text style={[styles.donationText, { color: theme.colors.black }]}>{getText(type)}</Text>
+            <Text allowFontScaling={false} style={[styles.donationText, { color: theme.colors.black }]}>
+                {getText(type)}
+            </Text>
 
             <BlackButton href={donationLinkConstant} text={t`Help Ukraine win!`} />
         </View>

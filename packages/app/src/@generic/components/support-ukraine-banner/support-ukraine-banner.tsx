@@ -15,7 +15,9 @@ export const SupportUkraineBanner = () => {
     return (
         <Link asChild href={donationLinkConstant} style={{ backgroundColor: theme.colors.black }}>
             <Pressable style={styles.container}>
-                <Text style={[styles.text, { color: theme.colors.white }]}>{t`Support Ukraine`} 🇺🇦</Text>
+                <Text allowFontScaling={false} style={[styles.text, { color: theme.colors.white }]}>
+                    {t`Support Ukraine`} 🇺🇦
+                </Text>
             </Pressable>
         </Link>
     );

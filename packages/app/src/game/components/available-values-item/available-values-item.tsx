@@ -80,7 +80,9 @@ export const AvailableValuesItem = ({ value, isActive, onSelect, progress, corre
     return (
         <View style={styles.container} testID={selectors.Root}>
             <ReanimatedPressable key={value} style={buttonStyles} testID={selectors.Button} {...(canPress && { onPress: handlePress })}>
-                <Text style={textStyles}>{value}</Text>
+                <Text allowFontScaling={false} style={textStyles}>
+                    {value}
+                </Text>
             </ReanimatedPressable>
 
             <View style={progressStyles} />

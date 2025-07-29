@@ -13,7 +13,7 @@ export const Header = ({ text, ...props }: Props) => {
     const { theme } = use(ThemeContext);
 
     return (
-        <Text style={[styles.container, { color: theme.colors.black }]} {...props}>
+        <Text allowFontScaling={false} style={[styles.container, { color: theme.colors.black }]} {...props}>
             {text}
         </Text>
     );
