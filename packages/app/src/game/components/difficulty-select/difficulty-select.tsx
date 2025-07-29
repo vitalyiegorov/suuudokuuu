@@ -4,6 +4,7 @@ import { View } from 'react-native';
 
 import { BlackButton } from '../../../@generic/components/black-button/black-button';
 import { Header } from '../../../@generic/components/header/header';
+import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
 
 import { DifficultySelectStyles as styles } from './difficulty-select.styles';
 
@@ -21,29 +22,17 @@ export const DifficultySelect = ({ onSelect, isLoading = false }: Props) => {
         onSelect(difficulty);
     };
 
-    const getTitle = (difficulty: DifficultyEnum): string => {
-        switch (difficulty) {
-            case DifficultyEnum.Easy:
-                return t`Easy`;
-            case DifficultyEnum.Medium:
-                return t`Medium`;
-            case DifficultyEnum.Hard:
-                return t`Hard`;
-            case DifficultyEnum.Newbie:
-                return t`Newbie`;
-            case DifficultyEnum.Nightmare:
-                return t`Nightmare`;
-            default:
-                return t`Unknown`;
-        }
-    };
-
     return (
         <View style={styles.wrapper}>
             <Header text={t`Choose your difficulty`} />
 
             {Object.values(DifficultyEnum).map(difficulty => (
-                <BlackButton isLoading={isLoading} key={difficulty} onPress={handlePress(difficulty)} text={getTitle(difficulty)} />
+                <BlackButton
+                    isLoading={isLoading}
+                    key={difficulty}
+                    onPress={handlePress(difficulty)}
+                    text={getDifficultyText(difficulty)}
+                />
             ))}
         </View>
     );
