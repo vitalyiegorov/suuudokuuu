@@ -26,7 +26,8 @@ export const gameFinishedThunk = createAsyncThunk<boolean, HistoryRecordInterfac
                 gamesWon: isWon ? current.gamesWon + 1 : current.gamesWon,
                 averageTime: (current.averageTime * current.gamesCompleted + state.game.elapsedTime) / (current.gamesCompleted + 1),
                 gamesWonWithoutMistakes:
-                    isWon && state.game.mistakes === 0 ? current.gamesWonWithoutMistakes + 1 : current.gamesWonWithoutMistakes
+                    isWon && state.game.mistakes === 0 ? current.gamesWonWithoutMistakes + 1 : current.gamesWonWithoutMistakes,
+                hardcoreWon: isWon && state.game.maxMistakes === 0 ? current.hardcoreWon + 1 : current.hardcoreWon
             })
         );
 

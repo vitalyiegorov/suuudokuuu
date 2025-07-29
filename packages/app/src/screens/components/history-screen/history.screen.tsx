@@ -1,6 +1,6 @@
 import { useLingui } from '@lingui/react/macro';
 import { DifficultyEnum } from '@suuudokuuu/generator';
-import { ScrollView } from 'react-native';
+import { ScrollView, View } from 'react-native';
 
 import { Header } from '../../../@generic/components/header/header';
 import { ReturnButton } from '../../../@generic/components/return-button/return-button';
@@ -12,16 +12,18 @@ export const HistoryScreen = () => {
     const { t } = useLingui();
 
     return (
-        <ScrollView contentContainerStyle={HistoryScreenStyles.container}>
+        <View style={HistoryScreenStyles.container}>
             <Header text={t`Statistics`} />
 
-            <HistoryDifficulty difficulty={DifficultyEnum.Nightmare} />
-            <HistoryDifficulty difficulty={DifficultyEnum.Hard} />
-            <HistoryDifficulty difficulty={DifficultyEnum.Medium} />
-            <HistoryDifficulty difficulty={DifficultyEnum.Easy} />
-            <HistoryDifficulty difficulty={DifficultyEnum.Newbie} />
+            <ScrollView contentContainerStyle={HistoryScreenStyles.scrollView} showsVerticalScrollIndicator={false}>
+                <HistoryDifficulty difficulty={DifficultyEnum.Nightmare} />
+                <HistoryDifficulty difficulty={DifficultyEnum.Hard} />
+                <HistoryDifficulty difficulty={DifficultyEnum.Medium} />
+                <HistoryDifficulty difficulty={DifficultyEnum.Easy} />
+                <HistoryDifficulty difficulty={DifficultyEnum.Newbie} />
+            </ScrollView>
 
             <ReturnButton />
-        </ScrollView>
+        </View>
     );
 };

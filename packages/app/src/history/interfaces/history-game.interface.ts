@@ -9,6 +9,7 @@ export interface HistoryGameInterface {
     bestScore: number;
     bestTime: number;
     averageTime: number;
+    hardcoreWon: number;
 }
 
 export const emptyGameHistory: HistoryGameInterface = {
@@ -19,5 +20,6 @@ export const emptyGameHistory: HistoryGameInterface = {
     gamesLost: 0,
     gamesWon: 0,
     gamesWonWithoutMistakes: 0,
-    averageTime: 0
+    averageTime: 0,
+    hardcoreWon: 0
 };

@@ -1,10 +1,13 @@
 import { useLingui } from '@lingui/react/macro';
+import { use } from 'react';
 import { Text, View } from 'react-native';
 
 import { BlackSubHeader } from '../../../@generic/components/black-sub-header/black-text';
 import { BlackText } from '../../../@generic/components/black-text/black-text';
+import { ThemeContext } from '../../../@generic/context/theme.context';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
+import { getTimerText } from '../../../@generic/utils/get-timer-text.util';
 import { historyDifficultySelector } from '../../store/history.selectors';
 
 import { HistoryDifficultyStyles as styles } from './history-difficulty.styles';
@@ -16,10 +19,18 @@ interface Props {
 }
 
 export const HistoryDifficulty = ({ difficulty }: Props) => {
+    const { theme } = use(ThemeContext);
     const { t } = useLingui();
-    const { bestScore, bestTime, gamesCompleted, gamesWon, gamesLost, averageTime, gamesWonWithoutMistakes } = useAppSelector(
-        historyDifficultySelector(difficulty)
-    );
+    const {
+        bestScore,
+        bestTime,
+        gamesCompleted,
+        gamesWon,
+        gamesLost,
+        averageTime = 0,
+        gamesWonWithoutMistakes = 0,
+        hardcoreWon = 0
+    } = useAppSelector(historyDifficultySelector(difficulty));
 
     const winRate = gamesWon > 0 ? Math.round((gamesWon / gamesCompleted) * 100) : 0;
 
@@ -31,10 +42,10 @@ export const HistoryDifficulty = ({ difficulty }: Props) => {
                 {t`Best score`}: <Text style={styles.boldText}>{bestScore}</Text>
             </BlackText>
             <BlackText>
-                {t`Best time`}: <Text style={styles.boldText}>{bestTime}</Text>
+                {t`Best time`}: <Text style={styles.boldText}>{getTimerText(bestTime)}</Text>
             </BlackText>
             <BlackText>
-                {t`Average time`}: <Text style={styles.boldText}>{averageTime}</Text>
+                {t`Average time`}: <Text style={styles.boldText}>{getTimerText(averageTime)}</Text>
             </BlackText>
             <BlackText>
                 {t`Attempts`}: <Text style={styles.boldText}>{gamesCompleted}</Text>
@@ -50,6 +61,10 @@ export const HistoryDifficulty = ({ difficulty }: Props) => {
             </BlackText>
             <BlackText>
                 {t`Win rate`}: <Text style={styles.boldText}>{winRate}%</Text>
+            </BlackText>
+            <BlackText>
+                <Text style={{ color: theme.colors.red }}>{t`Hardcore won`}:</Text>{' '}
+                <Text style={[styles.boldText, { color: theme.colors.red }]}>{hardcoreWon}</Text>
             </BlackText>
         </View>
     );
