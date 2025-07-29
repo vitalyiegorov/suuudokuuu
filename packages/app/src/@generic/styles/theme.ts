@@ -7,6 +7,7 @@ export const WhiteTheme = {
         background: '#f2f2f2',
         white: 'rgb(255, 255, 255)',
         black: 'rgb(0, 0, 0)',
+        black05: 'rgba(0, 0, 0, 0.25)',
         red: 'rgba(255, 0, 0, 1)',
         cell: {
             active: 'rgba(0, 255, 0, 1)',
@@ -36,6 +37,7 @@ export const BlackTheme = {
         background: '#010101',
         white: 'rgb(0, 0, 0)',
         black: 'rgb(255, 255, 255)',
+        black05: 'rgba(255, 255, 255, 0.25)',
         red: 'rgba(255, 0, 0, 1)',
         cell: {
             active: 'rgba(0, 255, 0, 0.7)',
