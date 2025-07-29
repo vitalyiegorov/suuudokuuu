@@ -119,7 +119,7 @@ export const HomeScreen = () => {
                     {Constants.expoConfig?.version}
                 </BlackText>
 
-                <Link href="/privacy-policy">
+                <Link asChild href="/privacy-policy">
                     <BlackText>{t`Privacy policy`}</BlackText>
                 </Link>
             </View>

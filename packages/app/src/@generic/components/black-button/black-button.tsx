@@ -49,7 +49,12 @@ export const BlackButton = ({ text, style, href, styleText, onPress, children, i
         }
     };
 
-    const renderContent = () => children ?? <Text style={textStyles}>{text}</Text>;
+    const renderContent = () =>
+        children ?? (
+            <Text allowFontScaling={false} style={textStyles}>
+                {text}
+            </Text>
+        );
 
     return (
         <Pressable onPress={handlePress} style={wrapperStyles} {...props}>
