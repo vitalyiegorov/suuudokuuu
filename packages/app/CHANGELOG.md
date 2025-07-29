@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.39.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.38.0...v1.39.0) (2025-07-29)
+
+### Features
+
+- **app:** improved statistics ([5e89274](https://github.com/vitalyiegorov/suuudokuuu/commit/5e892747d6c13c596bf1a8b05e3a7805a38343c2))
+- **app:** improved statistics ([122e642](https://github.com/vitalyiegorov/suuudokuuu/commit/122e642759392f3e697114fede074c4c7067fc18))
+
 # [1.38.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.37.1...v1.38.0) (2025-07-29)
 
 ### Features
