@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.37.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.36.0...v1.37.0) (2025-07-29)
+
+### Features
+
+- **app:** increase cell font size ([20a1206](https://github.com/vitalyiegorov/suuudokuuu/commit/20a1206cce9f188986d500f9b112ada399e0bc6a))
+
 # [1.36.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.35.1...v1.36.0) (2025-07-29)
 
 ### Features
