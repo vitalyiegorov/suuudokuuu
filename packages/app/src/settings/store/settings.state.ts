@@ -5,10 +5,11 @@ export interface SettingsState {
     showIdenticalNumbers: boolean;
     showComboAnimation: boolean;
     fontSize: (typeof FontSizes)[number];
+    language: (typeof Languages)[number];
 }
 
-export const FontSizes = [0.7, 0.8, 1, 1.2] as const;
-export const getFontSizeIndex = (size: SettingsState['fontSize']) => FontSizes.indexOf(size);
+export const FontSizes = ['xs', 's', 'm', 'xl'] as const;
+export const Languages = ['en', 'de', 'uk', 'es', 'fr'] as const;
 
 export const initialSettingsState: SettingsState = {
     hasVibration: true,
@@ -16,5 +17,6 @@ export const initialSettingsState: SettingsState = {
     showAreas: true,
     showIdenticalNumbers: true,
     showComboAnimation: true,
-    fontSize: 1
+    fontSize: 'm',
+    language: 'en'
 };

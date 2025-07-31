@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 export const SettingsGroupStyles = StyleSheet.create({
     container: {
         alignItems: 'center',
-        flex: 1,
+        flexDirection: 'row',
         justifyContent: 'space-between'
     },
     description: {
@@ -11,7 +11,5 @@ export const SettingsGroupStyles = StyleSheet.create({
         marginTop: 10
     },
     title: {},
-    wrapper: {
-        flex: 1
-    }
+    wrapper: {}
 });
