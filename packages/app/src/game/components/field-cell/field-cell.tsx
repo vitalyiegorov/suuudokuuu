@@ -7,7 +7,7 @@ import { type OnEventFn, cs } from '@rnw-community/shared';
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
 import { ThemeContext } from '../../../@generic/context/theme.context';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
-import { settingsFontSizeSelector, settingsKeySelector } from '../../../settings/store/settings.selectors';
+import { settingsFontSizeMultiplierSelector, settingsKeySelector } from '../../../settings/store/settings.selectors';
 import { GameContext } from '../../context/game.context';
 import { CellCandidateFontSizeConstant, CellFontSizeConstant } from '../constants/dimensions.contant';
 
@@ -132,8 +132,7 @@ export const FieldCell = (props: Props) => {
     const hasTextAnimation = useAppSelector(settingsKeySelector('showComboAnimation'));
     const showAreas = useAppSelector(settingsKeySelector('showAreas'));
     const showIdenticalNumbers = useAppSelector(settingsKeySelector('showIdenticalNumbers'));
-    // eslint-disable-next-line id-length
-    const fontSizeMultiplier = { xs: 0.75, s: 0.875, m: 1, xl: 1.25 }[useAppSelector(settingsFontSizeSelector)];
+    const fontSizeMultiplier = useAppSelector(settingsFontSizeMultiplierSelector);
 
     const isEmpty = sudoku.isBlankCell(cell);
     const cellBackgroundColor = getCellBgColor(theme, isActiveValue, isHighlighted, isWrong, isEmpty, showAreas, showIdenticalNumbers);

@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { CellFontSizeConstant, CellSizeConstant } from '../constants/dimensions.contant';
+import { CellSizeConstant } from '../constants/dimensions.contant';
 
 const progressHeight = 2;
 const buttonSize = CellSizeConstant * 1.3;
@@ -22,8 +22,5 @@ export const AvailableValuesItemStyles = StyleSheet.create({
         left: 0,
         position: 'absolute',
         top: buttonSize - progressHeight
-    },
-    text: {
-        fontSize: CellFontSizeConstant
     }
 });
