@@ -13,7 +13,7 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/screens/components/game-screen/game.screen.tsx:74
+#: src/screens/components/game-screen/game.screen.tsx:73
 msgid "All progress will be lost"
 msgstr "Todo el progreso se perderá"
 
@@ -53,7 +53,7 @@ msgstr ""
 "¡Perdedor =)"
 
 #: src/screens/components/shared-screen/shared-screen.tsx:28
-#: src/screens/components/game-screen/game.screen.tsx:75
+#: src/screens/components/game-screen/game.screen.tsx:74
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -73,13 +73,17 @@ msgstr "Continuar"
 msgid "Easy"
 msgstr "Fácil"
 
-#: src/screens/components/game-screen/game.screen.tsx:174
+#: src/screens/components/game-screen/game.screen.tsx:173
 msgid "Elapsed"
 msgstr "Transcurrido"
 
-#: src/settings/component/font-size-toggle/font-size-toggle.tsx:41
+#: src/settings/component/font-size-toggle/font-size-toggle.tsx:28
 msgid "Font size"
 msgstr "Tamaño de fuente"
+
+#: src/settings/component/theme-toggle/theme-toggle.tsx:23
+msgid "Game appearance"
+msgstr "Apariencia del juego"
 
 #: src/settings/component/language-toggle/language-toggle.tsx:29
 msgid "Game localization"
@@ -90,7 +94,7 @@ msgstr "Localización del juego"
 msgid "Game paused"
 msgstr "Juego en pausa"
 
-#: src/settings/component/font-size-toggle/font-size-toggle.tsx:41
+#: src/settings/component/font-size-toggle/font-size-toggle.tsx:28
 msgid "Game screen font size"
 msgstr "Tamaño de fuente en la pantalla del juego"
 
@@ -110,19 +114,19 @@ msgstr "Hardcore ganado"
 msgid "Help Ukraine win!"
 msgstr "¡Ayuda a Ucrania a ganar!"
 
-#: src/screens/components/settings-screen/settings.screen.tsx:28
+#: src/screens/components/settings-screen/settings.screen.tsx:30
 msgid "Highlight areas"
 msgstr "Resaltar áreas"
 
-#: src/screens/components/settings-screen/settings.screen.tsx:26
+#: src/screens/components/settings-screen/settings.screen.tsx:28
 msgid "Highlight block, column, row for a selected cell"
 msgstr "Resaltar bloque, columna, fila para una celda seleccionada"
 
-#: src/screens/components/settings-screen/settings.screen.tsx:33
+#: src/screens/components/settings-screen/settings.screen.tsx:35
 msgid "Highlight identical numbers"
 msgstr "Resaltar números idénticos"
 
-#: src/screens/components/settings-screen/settings.screen.tsx:31
+#: src/screens/components/settings-screen/settings.screen.tsx:33
 msgid "Highlight repeated numbers in a block, column, row"
 msgstr "Resaltar números repetidos en un bloque, columna, fila"
 
@@ -130,7 +134,7 @@ msgstr "Resaltar números repetidos en un bloque, columna, fila"
 msgid "Immortal"
 msgstr "Inmortal"
 
-#: src/game/context/game.context.tsx:32
+#: src/game/context/game.context.tsx:35
 msgid "Invalid Sudoku"
 msgstr "Sudoku inválido"
 
@@ -154,7 +158,7 @@ msgstr "Perdido"
 msgid "Medium"
 msgstr "Medio"
 
-#: src/screens/components/game-screen/game.screen.tsx:161
+#: src/screens/components/game-screen/game.screen.tsx:160
 msgid "Mistakes"
 msgstr "Errores"
 
@@ -166,11 +170,11 @@ msgstr "Novato"
 msgid "Nightmare"
 msgstr "Pesadilla"
 
-#: src/screens/components/settings-screen/settings.screen.tsx:23
+#: src/screens/components/settings-screen/settings.screen.tsx:25
 msgid "Not timer - no stress"
 msgstr "No hay temporizador - sin estrés"
 
-#: src/game/context/game.context.tsx:34
+#: src/game/context/game.context.tsx:37
 msgid "OK"
 msgstr "OK"
 
@@ -183,7 +187,7 @@ msgstr "Abrir rompecabezas"
 msgid "Open shared puzzle?"
 msgstr "¿Abrir rompecabezas compartido?"
 
-#: src/screens/components/settings-screen/settings.screen.tsx:24
+#: src/screens/components/settings-screen/settings.screen.tsx:26
 msgid "Phone vibration"
 msgstr "Vibración del teléfono"
 
@@ -210,12 +214,12 @@ msgstr "Reanudar"
 msgid "Return"
 msgstr "Volver"
 
-#: src/screens/components/game-screen/game.screen.tsx:182
+#: src/screens/components/game-screen/game.screen.tsx:181
 msgid "Score"
 msgstr "Puntuación"
 
-#: src/screens/components/settings-screen/settings.screen.tsx:18
-#: src/screens/components/settings-screen/settings.screen.tsx:20
+#: src/screens/components/settings-screen/settings.screen.tsx:19
+#: src/screens/components/settings-screen/settings.screen.tsx:21
 #: src/screens/components/home-screen/home.screen.tsx:87
 #: src/app/settings.tsx:12
 msgid "Settings"
@@ -225,11 +229,11 @@ msgstr "Ajustes"
 msgid "Share puzzle"
 msgstr "Compartir rompecabezas"
 
-#: src/screens/components/settings-screen/settings.screen.tsx:36
+#: src/screens/components/settings-screen/settings.screen.tsx:38
 msgid "Show animated effects when a grid, row, column, block is completed"
 msgstr "Mostrar efectos animados cuando se completa una cuadrícula, fila, columna o bloque"
 
-#: src/screens/components/settings-screen/settings.screen.tsx:38
+#: src/screens/components/settings-screen/settings.screen.tsx:40
 msgid "Show combo animation"
 msgstr "Mostrar animación de combo"
 
@@ -247,7 +251,7 @@ msgstr "Empezar de nuevo"
 msgid "Statistics"
 msgstr "Estadísticas"
 
-#: src/screens/components/game-screen/game.screen.tsx:74
+#: src/screens/components/game-screen/game.screen.tsx:73
 msgid "Stop current run?"
 msgstr "¿Detener la ejecución actual?"
 
@@ -263,7 +267,11 @@ msgstr "SuuudokuuU"
 msgid "SuuudokuuU The Game"
 msgstr "SuuudokuuU El Juego"
 
-#: src/screens/components/settings-screen/settings.screen.tsx:23
+#: src/settings/component/theme-toggle/theme-toggle.tsx:23
+msgid "Theme"
+msgstr "Tema"
+
+#: src/screens/components/settings-screen/settings.screen.tsx:25
 msgid "Timer"
 msgstr "Temporizador"
 
@@ -275,7 +283,7 @@ msgstr "Desconocido"
 msgid "V."
 msgstr "V."
 
-#: src/screens/components/settings-screen/settings.screen.tsx:24
+#: src/screens/components/settings-screen/settings.screen.tsx:26
 msgid "Vibration"
 msgstr "Vibración"
 
