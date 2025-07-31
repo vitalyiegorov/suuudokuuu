@@ -16,7 +16,7 @@ import { animationDurationConstant } from '../../../@generic/constants/animation
 import { ThemeContext } from '../../../@generic/context/theme.context';
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
-import { hapticImpact, hapticNotification } from '../../../@generic/utils/haptic/haptic.util';
+import { useVibration } from '../../../@generic/hooks/use-vibration.hook';
 import { AutoCandidatesButton } from '../../../game/components/auto-candidates-button/auto-candidates-button';
 import { AvailableValuesItem, type AvailableValuesItemRef } from '../../../game/components/available-values-item/available-values-item';
 import { Field } from '../../../game/components/field/field';
@@ -29,6 +29,7 @@ import { gameMaxMistakesSelector, gameMistakesSelector, gameScoreSelector } from
 import { gameFinishedThunk } from '../../../game/store/thunks/game-finish.thunk';
 import { gameMistakeThunk } from '../../../game/store/thunks/game-mistake.thunk';
 import { gameSaveThunk } from '../../../game/store/thunks/game-save.thunk';
+import { settingsKeySelector } from '../../../settings/store/settings.selectors';
 
 import { GameScreenStyles as styles } from './game-screen.styles';
 
@@ -44,14 +45,18 @@ const setSharingAvailable = (setHasSharing: Dispatch<SetStateAction<boolean>>): 
 // eslint-disable-next-line max-lines-per-function,max-statements
 export const GameScreen = () => {
     const router = useRouter();
+    const { t } = useLingui();
+
     const { sudoku } = use(GameContext);
     const { theme } = use(ThemeContext);
-    const { t } = useLingui();
+
+    const [hapticNotification, hapticImpact] = useVibration();
 
     const dispatch = useAppDispatch();
     const score = useAppSelector(gameScoreSelector);
     const mistakes = useAppSelector(gameMistakesSelector);
     const maxMistakes = useAppSelector(gameMaxMistakesSelector);
+    const hasTimer = useAppSelector(settingsKeySelector('hasTimer'));
 
     const [selectedCell, setSelectedCell] = useState<CellInterface>();
     const [hasSharing, setHasSharing] = useState(false);
@@ -164,11 +169,13 @@ export const GameScreen = () => {
                     </BlackText>
                 </View>
 
-                <View style={styles.controlsWrapper}>
-                    <BlackText>{t`Elapsed`}</BlackText>
+                {hasTimer ? (
+                    <View style={styles.controlsWrapper}>
+                        <BlackText>{t`Elapsed`}</BlackText>
 
-                    <GameTimer />
-                </View>
+                        <GameTimer />
+                    </View>
+                ) : null}
 
                 <View style={styles.scoreWrapper}>
                     <View style={styles.controlsWrapper}>

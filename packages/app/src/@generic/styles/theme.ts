@@ -2,6 +2,11 @@ import { DarkTheme, DefaultTheme } from '@react-navigation/native';
 
 export const WhiteTheme = {
     ...DefaultTheme,
+    text: {
+        main: 'rgba(0, 0, 0, 1)',
+        inverted: 'rgba(255, 255, 255, 1)',
+        hint: 'rgba(0, 0, 0, 0.5)'
+    },
     colors: {
         ...DefaultTheme.colors,
         background: '#f2f2f2',
@@ -9,6 +14,7 @@ export const WhiteTheme = {
         black: 'rgb(0, 0, 0)',
         black05: 'rgba(0, 0, 0, 0.25)',
         red: 'rgba(255, 0, 0, 1)',
+        blue: 'rgba(0,0,255,0.28)',
         cell: {
             active: 'rgba(0, 255, 0, 1)',
             activeText: 'rgba(0, 0, 0, 1)',
@@ -32,6 +38,11 @@ export const WhiteTheme = {
 
 export const BlackTheme = {
     ...DarkTheme,
+    text: {
+        main: 'rgba(255, 255, 255, 1)',
+        inverted: 'rgba(0, 0, 0, 1)',
+        hint: 'rgba(255, 255, 255, 0.5)'
+    },
     colors: {
         ...DarkTheme.colors,
         background: '#010101',
@@ -39,6 +50,7 @@ export const BlackTheme = {
         black: 'rgb(255, 255, 255)',
         black05: 'rgba(255, 255, 255, 0.25)',
         red: 'rgba(255, 0, 0, 1)',
+        blue: 'rgba(0,0,255,0.28)',
         cell: {
             active: 'rgba(0, 255, 0, 0.7)',
             activeText: 'rgba(255, 255, 255, 1)',

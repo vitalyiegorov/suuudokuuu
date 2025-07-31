@@ -32,6 +32,10 @@ export const HomeScreenStyles = StyleSheet.create({
     historyValue: {
         fontWeight: 'bold'
     },
+    separator: {
+        borderTopWidth: 1,
+        marginVertical: 10
+    },
     themeButton: {
         height: 40,
         justifyContent: 'center',
