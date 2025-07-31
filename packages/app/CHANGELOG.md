@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.40.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.39.1...v1.40.0) (2025-07-31)
+
+### Bug Fixes
+
+- **app:** fix available items font size setting ([5c5486c](https://github.com/vitalyiegorov/suuudokuuu/commit/5c5486ca2cb2f4acaa0fae269af466bc55bc399e))
+- **app:** game screen for iphone ([bc95638](https://github.com/vitalyiegorov/suuudokuuu/commit/bc95638d2868442816aa8719cc1904d65984141a))
+- **app:** game screen for iphone ([b5e81ad](https://github.com/vitalyiegorov/suuudokuuu/commit/b5e81ad1a74a40827a4ed281534b9f0d98de53b5))
+- **app:** game screen for iphone ([2554723](https://github.com/vitalyiegorov/suuudokuuu/commit/255472339a157bb7adb1bf12e4194f879489e764))
+- **app:** game screen for iphone ([c82bdda](https://github.com/vitalyiegorov/suuudokuuu/commit/c82bdda22d073347f5164111d3ff9dd2f93c4ce1))
+- **app:** game screen for iphone ([610dd00](https://github.com/vitalyiegorov/suuudokuuu/commit/610dd006ed18655cab744fe0b4a817cfeef2f86a))
+- **app:** i18n ([1544ed4](https://github.com/vitalyiegorov/suuudokuuu/commit/1544ed489d115e26cb8dcd31a5e46609bba24932))
+- **app:** i18n ([6e6b3e2](https://github.com/vitalyiegorov/suuudokuuu/commit/6e6b3e296b3f78b8b41cb62e75643d7e2a6d2c31))
+- **app:** initial language selection ([da6f8ac](https://github.com/vitalyiegorov/suuudokuuu/commit/da6f8acc6f68ed6e1ac983290116cd8684f78300))
+- **app:** initial language selection ([e4710b1](https://github.com/vitalyiegorov/suuudokuuu/commit/e4710b130b41144b1bce7c2f654daa4941bcc50d))
+
+### Features
+
+- **app:** added settings ([6ab3e22](https://github.com/vitalyiegorov/suuudokuuu/commit/6ab3e22a2c43384f4a187ce0c8ae5881cfb07c71))
+- **app:** added settings ([9e4eb0d](https://github.com/vitalyiegorov/suuudokuuu/commit/9e4eb0d06d5edde97ed2007432e7d427585b97d2))
+- **app:** added settings ([61b0ad6](https://github.com/vitalyiegorov/suuudokuuu/commit/61b0ad679c98b55d08487485e7777a4a15f922f5))
+- **app:** added settings ([ebd330e](https://github.com/vitalyiegorov/suuudokuuu/commit/ebd330e8f2b20593001876e8306003bf2d1734e0))
+- **app:** added settings ([7275c3e](https://github.com/vitalyiegorov/suuudokuuu/commit/7275c3e377a5e23aac34e20727f599f49fe30971))
+
 ## [1.39.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.39.0...v1.39.1) (2025-07-29)
 
 ### Bug Fixes
