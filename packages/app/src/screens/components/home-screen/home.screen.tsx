@@ -133,11 +133,11 @@ export const HomeScreen = () => {
                 </BlackText>
 
                 <Link asChild href="https://github.com/vitalyiegorov/suuudokuuu/issues/new">
-                    <BlackText>{t`Report a bug`}</BlackText>
+                    <BlackText numberOfLines={2} style={styles.infoLink}>{t`Report a bug`}</BlackText>
                 </Link>
 
                 <Link asChild href="/privacy-policy">
-                    <BlackText>{t`Privacy policy`}</BlackText>
+                    <BlackText numberOfLines={2} style={styles.infoLink}>{t`Privacy policy`}</BlackText>
                 </Link>
             </View>
         </View>
