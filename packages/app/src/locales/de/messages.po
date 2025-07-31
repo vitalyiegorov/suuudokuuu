@@ -79,11 +79,11 @@ msgstr "Verstrichen"
 
 #: src/settings/component/font-size-toggle/font-size-toggle.tsx:41
 msgid "Font size"
-msgstr ""
+msgstr "Schriftgröße"
 
 #: src/settings/component/language-toggle/language-toggle.tsx:29
 msgid "Game localization"
-msgstr ""
+msgstr "Spiel-Lokalisierung"
 
 #: src/screens/components/pause-screen/pause.screen.tsx:20
 #: src/app/pause.tsx:12
@@ -92,7 +92,7 @@ msgstr "Spiel pausiert"
 
 #: src/settings/component/font-size-toggle/font-size-toggle.tsx:41
 msgid "Game screen font size"
-msgstr ""
+msgstr "Schriftgröße auf dem Spielbildschirm"
 
 #: src/@generic/utils/get-difficulty-text.util.ts:11
 msgid "Hard"
@@ -112,19 +112,19 @@ msgstr "Hilf der Ukraine zum Sieg!"
 
 #: src/screens/components/settings-screen/settings.screen.tsx:28
 msgid "Highlight areas"
-msgstr ""
+msgstr "Bereiche hervorheben"
 
 #: src/screens/components/settings-screen/settings.screen.tsx:26
 msgid "Highlight block, column, row for a selected cell"
-msgstr ""
+msgstr "Block, Spalte, Zeile für eine ausgewählte Zelle hervorheben"
 
 #: src/screens/components/settings-screen/settings.screen.tsx:33
 msgid "Highlight identical numbers"
-msgstr ""
+msgstr "Hervorheben identischer Zahlen"
 
 #: src/screens/components/settings-screen/settings.screen.tsx:31
 msgid "Highlight repeated numbers in a block, column, row"
-msgstr ""
+msgstr "Hervorheben wiederholter Zahlen in einem Block, einer Spalte, einer Zeile"
 
 #: src/game/components/mistakes-select/mistakes-select.tsx:29
 msgid "Immortal"
@@ -140,7 +140,7 @@ msgstr "Du hast gebraucht"
 
 #: src/settings/component/language-toggle/language-toggle.tsx:29
 msgid "Language"
-msgstr ""
+msgstr "Sprache"
 
 #: src/app/loser.tsx:12
 msgid "Looooooser! =)"
@@ -168,7 +168,7 @@ msgstr "Albtraum"
 
 #: src/screens/components/settings-screen/settings.screen.tsx:23
 msgid "Not timer - no stress"
-msgstr ""
+msgstr "Kein Timer - kein Stress"
 
 #: src/game/context/game.context.tsx:34
 msgid "OK"
@@ -185,7 +185,7 @@ msgstr "Geteilter Rätsel öffnen?"
 
 #: src/screens/components/settings-screen/settings.screen.tsx:24
 msgid "Phone vibration"
-msgstr ""
+msgstr "Handy-Vibration"
 
 #: src/@generic/components/play-again-button/play-again-button.tsx:14
 msgid "Play again"
@@ -200,7 +200,7 @@ msgstr "Datenschutzerklärung"
 
 #: src/screens/components/home-screen/home.screen.tsx:136
 msgid "Report a bug"
-msgstr ""
+msgstr "Ein Problem melden"
 
 #: src/screens/components/pause-screen/pause.screen.tsx:27
 msgid "Resume"
@@ -219,7 +219,7 @@ msgstr "Punktestand"
 #: src/screens/components/home-screen/home.screen.tsx:87
 #: src/app/settings.tsx:12
 msgid "Settings"
-msgstr ""
+msgstr "Einstellungen"
 
 #: src/screens/components/pause-screen/pause.screen.tsx:25
 msgid "Share puzzle"
@@ -227,11 +227,11 @@ msgstr "Rätsel teilen"
 
 #: src/screens/components/settings-screen/settings.screen.tsx:36
 msgid "Show animated effects when a grid, row, column, block is completed"
-msgstr ""
+msgstr "Animierte Effekte anzeigen, wenn ein Gitter, eine Zeile, eine Spalte oder ein Block abgeschlossen ist"
 
 #: src/screens/components/settings-screen/settings.screen.tsx:38
 msgid "Show combo animation"
-msgstr ""
+msgstr "Combo-Animation anzeigen"
 
 #: src/game/components/mistakes-select/mistakes-select.tsx:30
 msgid "Standard"
@@ -265,7 +265,7 @@ msgstr "SuuudokuuU Das Spiel"
 
 #: src/screens/components/settings-screen/settings.screen.tsx:23
 msgid "Timer"
-msgstr ""
+msgstr "Timer"
 
 #: src/@generic/utils/get-difficulty-text.util.ts:17
 msgid "Unknown"
@@ -277,7 +277,7 @@ msgstr "V."
 
 #: src/screens/components/settings-screen/settings.screen.tsx:24
 msgid "Vibration"
-msgstr ""
+msgstr "Vibration"
 
 #: src/@generic/components/donation/donation.tsx:25
 msgid ""

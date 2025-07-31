@@ -253,7 +253,7 @@ msgstr "Зупинити поточний прогрес?"
 
 #: src/@generic/components/support-ukraine-banner/support-ukraine-banner.tsx:19
 msgid "Support Ukraine"
-msgstr "Підтримайте Україну 🇺🇦"
+msgstr "Підтримайте Україну"
 
 #: src/screens/components/home-screen/home.screen.tsx:72
 msgid "SuuudokuuU"
