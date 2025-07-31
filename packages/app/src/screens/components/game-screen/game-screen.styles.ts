@@ -28,7 +28,7 @@ export const GameScreenStyles = StyleSheet.create({
         alignItems: 'center'
     },
     fieldWrapper: {
-        flex: 5
+        flex: 4
     },
     mistakesCountText: {
         fontWeight: 'bold'

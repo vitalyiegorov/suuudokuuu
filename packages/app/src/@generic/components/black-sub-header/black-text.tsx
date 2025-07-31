@@ -10,5 +10,7 @@ import type { TextProps } from 'react-native';
 export const BlackSubHeader = ({ style, ...props }: TextProps) => {
     const { theme } = use(ThemeContext);
 
-    return <Text allowFontScaling={false} style={[BlackSubHeaderStyles.container, { color: theme.colors.black }, style]} {...props} />;
+    const styles = [BlackSubHeaderStyles.container, { color: theme.text.main }, style];
+
+    return <Text allowFontScaling={false} style={styles} {...props} />;
 };

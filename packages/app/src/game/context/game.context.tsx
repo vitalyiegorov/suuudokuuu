@@ -1,13 +1,15 @@
+import { i18n } from '@lingui/core';
 import { useLingui } from '@lingui/react/macro';
 import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { useRouter } from 'expo-router';
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 
 import { emptyFn, getErrorMessage, isNotEmptyString } from '@rnw-community/shared';
 
 import { Alert } from '../../@generic/components/alert/alert';
 import { useAppDispatch } from '../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../@generic/hooks/use-app-selector.hook';
+import { settingsLanguageSelector } from '../../settings/store/settings.selectors';
 import { gameLoadAction, gameResetAction, gameResumeAction, gameStartAction } from '../store/game.actions';
 import { gameSudokuStringSelector } from '../store/game.selectors';
 import { urlToGameState } from '../store/game.state';
@@ -27,6 +29,7 @@ export const GameProvider = ({ children }: { readonly children: ReactNode }) => 
     const { t } = useLingui();
 
     const currentGameString = useAppSelector(gameSudokuStringSelector);
+    const currentLanguage = useAppSelector(settingsLanguageSelector);
 
     const showAlert = (error: unknown) => {
         Alert(t`Invalid Sudoku`, getErrorMessage(error), [
@@ -79,6 +82,10 @@ export const GameProvider = ({ children }: { readonly children: ReactNode }) => 
         dispatch(gameStartAction({ sudokuString, maxMistakes }));
         router.push(`game`);
     };
+
+    useEffect(() => {
+        i18n.activate(currentLanguage);
+    }, []);
 
     return <GameContext value={{ sudoku, createFromState, create }}>{children}</GameContext>;
 };

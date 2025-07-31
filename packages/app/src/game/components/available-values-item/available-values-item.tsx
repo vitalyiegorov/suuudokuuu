@@ -10,6 +10,9 @@ import Reanimated, {
 } from 'react-native-reanimated';
 
 import { ThemeContext } from '../../../@generic/context/theme.context';
+import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
+import { settingsFontSizeMultiplierSelector } from '../../../settings/store/settings.selectors';
+import { CellFontSizeConstant } from '../constants/dimensions.contant';
 
 import { AvailableValueItemSelectors as selectors } from './available-value-item.selectors';
 import { AvailableValuesItemStyles as styles } from './available-values-item.styles';
@@ -36,6 +39,8 @@ export interface AvailableValuesItemRef {
 
 export const AvailableValuesItem = ({ value, isActive, onSelect, progress, correctValue, canPress, ref }: Props) => {
     const { theme } = use(ThemeContext);
+
+    const fontSizeMultiplier = useAppSelector(settingsFontSizeMultiplierSelector);
 
     const isCorrect = value === correctValue;
     const pressAnimatedBgColor = isCorrect ? theme.colors.cell.active : theme.colors.cell.error;
@@ -75,7 +80,10 @@ export const AvailableValuesItem = ({ value, isActive, onSelect, progress, corre
         { backgroundColor: theme.colors.cell.active },
         { width: `${progress}%` }
     ] as StyleProp<ViewStyle>;
-    const textStyles = [styles.text, { color: isActive ? theme.colors.cell.activeValueText : theme.colors.value.text }];
+    const textStyles = [
+        { fontSize: CellFontSizeConstant * fontSizeMultiplier },
+        { color: isActive ? theme.colors.cell.activeValueText : theme.colors.value.text }
+    ];
 
     return (
         <View style={styles.container} testID={selectors.Root}>

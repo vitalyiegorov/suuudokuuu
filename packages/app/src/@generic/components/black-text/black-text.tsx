@@ -10,5 +10,7 @@ import type { TextProps } from 'react-native';
 export const BlackText = ({ style, ...props }: TextProps) => {
     const { theme } = use(ThemeContext);
 
-    return <Text allowFontScaling={false} style={[BlackTextStyles.container, { color: theme.colors.black }, style]} {...props} />;
+    const styles = [BlackTextStyles.container, { color: theme.text.main }, style];
+
+    return <Text allowFontScaling={false} style={styles} {...props} />;
 };
