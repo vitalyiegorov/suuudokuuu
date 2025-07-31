@@ -4,7 +4,7 @@ import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { useRouter } from 'expo-router';
 import * as Sharing from 'expo-sharing';
-import { LucideLogOut, LucideShare2 } from 'lucide-react-native';
+import { LucideLogOut, LucideSettings, LucideShare2 } from 'lucide-react-native';
 import { use, useEffect, useRef, useState } from 'react';
 import { Text, View } from 'react-native';
 
@@ -194,6 +194,10 @@ export const GameScreen = () => {
                             <LucideShare2 color={theme.colors.white} />
                         </BlackButton>
                     ) : null}
+
+                    <BlackButton href="/settings" style={styles.button}>
+                        <LucideSettings color={theme.colors.white} />
+                    </BlackButton>
 
                     <BlackButton onPress={handleExit} style={styles.button}>
                         <LucideLogOut color={theme.colors.white} />
