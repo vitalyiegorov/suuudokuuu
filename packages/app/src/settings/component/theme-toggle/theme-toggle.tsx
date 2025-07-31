@@ -4,8 +4,8 @@ import React, { use } from 'react';
 import { ToggleSelect } from '../../../@generic/components/toggle-select/toggle-select';
 import { ThemeContext } from '../../../@generic/context/theme.context';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
+import { Themes } from '../../constant/themes.constant';
 import { settingsThemeSelector } from '../../store/settings.selectors';
-import { Themes } from '../../store/settings.state';
 import { SettingsGroup } from '../settings-group/settings-group';
 
 import type { SettingsState } from '../../store/settings.state';
