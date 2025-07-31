@@ -7,13 +7,15 @@ import { type OnEventFn, cs } from '@rnw-community/shared';
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
 import { ThemeContext } from '../../../@generic/context/theme.context';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
-import { settingsKeySelector } from '../../../settings/store/settings.selectors';
+import { settingsFontSizeSelector, settingsKeySelector } from '../../../settings/store/settings.selectors';
 import { GameContext } from '../../context/game.context';
+import { CellCandidateFontSizeConstant, CellFontSizeConstant } from '../constants/dimensions.contant';
 
 import { FieldCellSelectors as selectors } from './field-cell.selectors';
 import { FieldCellStyles as styles } from './field-cell.styles';
 
 import type { BlackTheme } from '../../../@generic/styles/theme';
+import type { SettingsState } from '../../../settings/store/settings.state';
 import type { CellInterface } from '@suuudokuuu/generator';
 
 const ReanimatedPressable = Reanimated.createAnimatedComponent(Pressable);
@@ -84,7 +86,7 @@ const getCellSelector = (props: Props): selectors => {
     return selectors.Root;
 };
 
-const getCandidateTextStyles = (theme: typeof BlackTheme, candidate: number) => {
+const getCandidateTextStyles = (theme: typeof BlackTheme, candidate: number, fontSize: SettingsState['fontSize']) => {
     const textCandidatePositionStyles = {
         1: styles.textCandidatePosition1,
         2: styles.textCandidatePosition2,
@@ -99,7 +101,11 @@ const getCandidateTextStyles = (theme: typeof BlackTheme, candidate: number) => 
 
     const textCandidateStyle = textCandidatePositionStyles[candidate as keyof typeof textCandidatePositionStyles];
 
-    return [styles.textCandidate, { color: theme.colors.cell.candidate }, textCandidateStyle];
+    return [
+        styles.textCandidate,
+        { fontSize: CellCandidateFontSizeConstant * fontSize, color: theme.colors.cell.candidate },
+        textCandidateStyle
+    ];
 };
 
 const animationConfig = { duration: animationDurationConstant };
@@ -127,6 +133,7 @@ export const FieldCell = (props: Props) => {
     const hasTextAnimation = useAppSelector(settingsKeySelector('showComboAnimation'));
     const showAreas = useAppSelector(settingsKeySelector('showAreas'));
     const showIdenticalNumbers = useAppSelector(settingsKeySelector('showIdenticalNumbers'));
+    const fontSize = useAppSelector(settingsFontSizeSelector);
 
     const isEmpty = sudoku.isBlankCell(cell);
     const cellBackgroundColor = getCellBgColor(theme, isActiveValue, isHighlighted, isWrong, isEmpty, showAreas, showIdenticalNumbers);
@@ -153,16 +160,20 @@ export const FieldCell = (props: Props) => {
         cellAnimatedStyles
     ];
     const textStyles = [
-        styles.textRegular,
         { color: getCellTextColor(theme, isActive, isEmpty, isHighlighted, isActiveValue, showAreas, showIdenticalNumbers) },
         cs(isActive, styles.textActive),
-        cs(hasAnimation && hasTextAnimation, textAnimatedStyle)
+        cs(hasAnimation && hasTextAnimation, textAnimatedStyle),
+        { fontSize: CellFontSizeConstant * fontSize }
     ];
 
     return (
         <ReanimatedPressable onPress={handlePress} style={cellStyles} testID={getCellSelector(props)}>
             {candidates.map(candidate => (
-                <Reanimated.Text allowFontScaling={false} key={`candidate-${candidate}`} style={getCandidateTextStyles(theme, candidate)}>
+                <Reanimated.Text
+                    allowFontScaling={false}
+                    key={`candidate-${candidate}`}
+                    style={getCandidateTextStyles(theme, candidate, fontSize)}
+                >
                     {candidate}
                 </Reanimated.Text>
             ))}
