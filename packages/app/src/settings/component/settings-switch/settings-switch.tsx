@@ -10,10 +10,8 @@ import { SettingsGroup } from '../settings-group/settings-group';
 
 import { SettingsSwitchStyles as styles } from './settings-switch.styles';
 
-import type { SettingsState } from '../../store/settings.state';
-
 interface Props {
-    readonly setting: keyof Omit<SettingsState, 'fontSize' | 'language'>;
+    readonly setting: Parameters<typeof settingsKeySelector>[0];
     readonly title: string;
     readonly description?: string;
 }

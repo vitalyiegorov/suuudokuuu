@@ -7,6 +7,7 @@ import { ReturnButton } from '../../../@generic/components/return-button/return-
 import { FontSizeToggle } from '../../../settings/component/font-size-toggle/font-size-toggle';
 import { LanguageToggle } from '../../../settings/component/language-toggle/language-toggle';
 import { SettingsSwitch } from '../../../settings/component/settings-switch/settings-switch';
+import { ThemeToggle } from '../../../settings/component/theme-toggle/theme-toggle';
 
 import { SettingsScreenStyles as styles } from './settings-screen.styles';
 
@@ -39,6 +40,7 @@ export const SettingsScreen = () => {
                     title={t`Show combo animation`}
                 />
                 <FontSizeToggle />
+                <ThemeToggle />
             </ScrollView>
 
             <ReturnButton />

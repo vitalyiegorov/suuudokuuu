@@ -1,3 +1,7 @@
+import { Appearance } from 'react-native';
+
+import getColorScheme = Appearance.getColorScheme;
+
 export interface SettingsState {
     hasVibration: boolean;
     hasTimer: boolean;
@@ -6,10 +10,12 @@ export interface SettingsState {
     showComboAnimation: boolean;
     fontSize: (typeof FontSizes)[number];
     language: (typeof Languages)[number];
+    theme: (typeof Themes)[number];
 }
 
 export const FontSizes = ['xs', 's', 'm', 'xl'] as const;
 export const Languages = ['en', 'de', 'uk', 'es', 'fr'] as const;
+export const Themes = ['light', 'dark'] as const;
 
 export const initialSettingsState: SettingsState = {
     hasVibration: true,
@@ -18,5 +24,6 @@ export const initialSettingsState: SettingsState = {
     showIdenticalNumbers: true,
     showComboAnimation: true,
     fontSize: 'm',
-    language: 'en'
+    language: 'en',
+    theme: getColorScheme() ?? 'light'
 };
