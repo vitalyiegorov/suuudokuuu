@@ -1,5 +1,5 @@
 import { use, useState } from 'react';
-import { Switch } from 'react-native';
+import { Platform, Switch } from 'react-native';
 
 import { ThemeContext } from '../../../@generic/context/theme.context';
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
@@ -34,7 +34,17 @@ export const SettingsSwitch = ({ setting, title, description }: Props) => {
 
     return (
         <SettingsGroup description={description} title={title}>
-            <Switch onValueChange={toggleSwitch} style={styles.switch} thumbColor={thumbColor} trackColor={trackColor} value={isEnabled} />
+            <Switch
+                {...(Platform.OS === 'web' && {
+                    activeTrackColor: theme.colors.black05,
+                    activeThumbColor: theme.colors.black
+                })}
+                onValueChange={toggleSwitch}
+                style={styles.switch}
+                thumbColor={thumbColor}
+                trackColor={trackColor}
+                value={isEnabled}
+            />
         </SettingsGroup>
     );
 };
