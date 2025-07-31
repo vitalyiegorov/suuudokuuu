@@ -32,6 +32,10 @@ export const HomeScreenStyles = StyleSheet.create({
     historyValue: {
         fontWeight: 'bold'
     },
+    infoLink: {
+        maxWidth: 125,
+        textAlign: 'center'
+    },
     separator: {
         borderTopWidth: 1,
         marginVertical: 10
