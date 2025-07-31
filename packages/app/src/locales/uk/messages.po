@@ -13,7 +13,7 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/screens/components/game-screen/game.screen.tsx:74
+#: src/screens/components/game-screen/game.screen.tsx:73
 msgid "All progress will be lost"
 msgstr "Всі досягнення будуть втрачені"
 
@@ -53,7 +53,7 @@ msgstr ""
 "Лууууузер =)"
 
 #: src/screens/components/shared-screen/shared-screen.tsx:28
-#: src/screens/components/game-screen/game.screen.tsx:75
+#: src/screens/components/game-screen/game.screen.tsx:74
 msgid "Cancel"
 msgstr "Скасувати"
 
@@ -73,13 +73,17 @@ msgstr "Продовжити"
 msgid "Easy"
 msgstr "Легкий"
 
-#: src/screens/components/game-screen/game.screen.tsx:174
+#: src/screens/components/game-screen/game.screen.tsx:173
 msgid "Elapsed"
 msgstr "Минуло"
 
-#: src/settings/component/font-size-toggle/font-size-toggle.tsx:41
+#: src/settings/component/font-size-toggle/font-size-toggle.tsx:28
 msgid "Font size"
 msgstr "Розмір шрифту"
+
+#: src/settings/component/theme-toggle/theme-toggle.tsx:23
+msgid "Game appearance"
+msgstr "Зовнішній вигляд гри"
 
 #: src/settings/component/language-toggle/language-toggle.tsx:29
 msgid "Game localization"
@@ -90,7 +94,7 @@ msgstr "Локалізація гри"
 msgid "Game paused"
 msgstr "Гру призупинено"
 
-#: src/settings/component/font-size-toggle/font-size-toggle.tsx:41
+#: src/settings/component/font-size-toggle/font-size-toggle.tsx:28
 msgid "Game screen font size"
 msgstr "Розмір шрифту на екрані гри"
 
@@ -110,19 +114,19 @@ msgstr "Хардкорів виграно"
 msgid "Help Ukraine win!"
 msgstr "Допоможіть Україні перемогти!"
 
-#: src/screens/components/settings-screen/settings.screen.tsx:28
+#: src/screens/components/settings-screen/settings.screen.tsx:30
 msgid "Highlight areas"
 msgstr "Підсвітити області"
 
-#: src/screens/components/settings-screen/settings.screen.tsx:26
+#: src/screens/components/settings-screen/settings.screen.tsx:28
 msgid "Highlight block, column, row for a selected cell"
 msgstr "Підсвітити блок, стовпець, рядок для вибраної клітинки"
 
-#: src/screens/components/settings-screen/settings.screen.tsx:33
+#: src/screens/components/settings-screen/settings.screen.tsx:35
 msgid "Highlight identical numbers"
 msgstr "Підсвітити однакові числа"
 
-#: src/screens/components/settings-screen/settings.screen.tsx:31
+#: src/screens/components/settings-screen/settings.screen.tsx:33
 msgid "Highlight repeated numbers in a block, column, row"
 msgstr "Підсвітити повторювані числа в блоці, стовпці, рядку"
 
@@ -130,7 +134,7 @@ msgstr "Підсвітити повторювані числа в блоці, с
 msgid "Immortal"
 msgstr "Безсмертний"
 
-#: src/game/context/game.context.tsx:32
+#: src/game/context/game.context.tsx:35
 msgid "Invalid Sudoku"
 msgstr "Недійсний Судоку"
 
@@ -154,7 +158,7 @@ msgstr "Програно"
 msgid "Medium"
 msgstr "Середній"
 
-#: src/screens/components/game-screen/game.screen.tsx:161
+#: src/screens/components/game-screen/game.screen.tsx:160
 msgid "Mistakes"
 msgstr "Помилки"
 
@@ -166,11 +170,11 @@ msgstr "Новачок"
 msgid "Nightmare"
 msgstr "Кошмар"
 
-#: src/screens/components/settings-screen/settings.screen.tsx:23
+#: src/screens/components/settings-screen/settings.screen.tsx:25
 msgid "Not timer - no stress"
 msgstr "Без таймера - без стресу"
 
-#: src/game/context/game.context.tsx:34
+#: src/game/context/game.context.tsx:37
 msgid "OK"
 msgstr "Гаразд"
 
@@ -183,7 +187,7 @@ msgstr "Відкрити головоломку"
 msgid "Open shared puzzle?"
 msgstr "Відкрити спільну головоломку?"
 
-#: src/screens/components/settings-screen/settings.screen.tsx:24
+#: src/screens/components/settings-screen/settings.screen.tsx:26
 msgid "Phone vibration"
 msgstr "Вібрація телефону"
 
@@ -210,12 +214,12 @@ msgstr "Відновити"
 msgid "Return"
 msgstr "Повернутися"
 
-#: src/screens/components/game-screen/game.screen.tsx:182
+#: src/screens/components/game-screen/game.screen.tsx:181
 msgid "Score"
 msgstr "Рахунок"
 
-#: src/screens/components/settings-screen/settings.screen.tsx:18
-#: src/screens/components/settings-screen/settings.screen.tsx:20
+#: src/screens/components/settings-screen/settings.screen.tsx:19
+#: src/screens/components/settings-screen/settings.screen.tsx:21
 #: src/screens/components/home-screen/home.screen.tsx:87
 #: src/app/settings.tsx:12
 msgid "Settings"
@@ -225,11 +229,11 @@ msgstr "Налаштування"
 msgid "Share puzzle"
 msgstr "Поділитися головоломкою"
 
-#: src/screens/components/settings-screen/settings.screen.tsx:36
+#: src/screens/components/settings-screen/settings.screen.tsx:38
 msgid "Show animated effects when a grid, row, column, block is completed"
 msgstr "Показувати анімаційні ефекти при завершенні сітки, рядка, стовпця, блоку"
 
-#: src/screens/components/settings-screen/settings.screen.tsx:38
+#: src/screens/components/settings-screen/settings.screen.tsx:40
 msgid "Show combo animation"
 msgstr "Показувати анімацію комбо"
 
@@ -247,7 +251,7 @@ msgstr "Почати заново"
 msgid "Statistics"
 msgstr "Статистика"
 
-#: src/screens/components/game-screen/game.screen.tsx:74
+#: src/screens/components/game-screen/game.screen.tsx:73
 msgid "Stop current run?"
 msgstr "Зупинити поточний прогрес?"
 
@@ -263,7 +267,11 @@ msgstr "СууудокуУ"
 msgid "SuuudokuuU The Game"
 msgstr "СууудокуУ Гра"
 
-#: src/screens/components/settings-screen/settings.screen.tsx:23
+#: src/settings/component/theme-toggle/theme-toggle.tsx:23
+msgid "Theme"
+msgstr "Тема"
+
+#: src/screens/components/settings-screen/settings.screen.tsx:25
 msgid "Timer"
 msgstr "Таймер"
 
@@ -275,7 +283,7 @@ msgstr "Невідомий"
 msgid "V."
 msgstr "В."
 
-#: src/screens/components/settings-screen/settings.screen.tsx:24
+#: src/screens/components/settings-screen/settings.screen.tsx:26
 msgid "Vibration"
 msgstr "Вібрація"
 

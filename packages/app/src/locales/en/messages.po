@@ -13,7 +13,7 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/screens/components/game-screen/game.screen.tsx:74
+#: src/screens/components/game-screen/game.screen.tsx:73
 msgid "All progress will be lost"
 msgstr "All progress will be lost"
 
@@ -53,7 +53,7 @@ msgstr ""
 "Loooooser =)"
 
 #: src/screens/components/shared-screen/shared-screen.tsx:28
-#: src/screens/components/game-screen/game.screen.tsx:75
+#: src/screens/components/game-screen/game.screen.tsx:74
 msgid "Cancel"
 msgstr "Cancel"
 
@@ -73,13 +73,17 @@ msgstr "Continue"
 msgid "Easy"
 msgstr "Easy"
 
-#: src/screens/components/game-screen/game.screen.tsx:174
+#: src/screens/components/game-screen/game.screen.tsx:173
 msgid "Elapsed"
 msgstr "Elapsed"
 
-#: src/settings/component/font-size-toggle/font-size-toggle.tsx:41
+#: src/settings/component/font-size-toggle/font-size-toggle.tsx:28
 msgid "Font size"
 msgstr "Font size"
+
+#: src/settings/component/theme-toggle/theme-toggle.tsx:23
+msgid "Game appearance"
+msgstr "Game appearance"
 
 #: src/settings/component/language-toggle/language-toggle.tsx:29
 msgid "Game localization"
@@ -90,7 +94,7 @@ msgstr "Game localization"
 msgid "Game paused"
 msgstr "Game paused"
 
-#: src/settings/component/font-size-toggle/font-size-toggle.tsx:41
+#: src/settings/component/font-size-toggle/font-size-toggle.tsx:28
 msgid "Game screen font size"
 msgstr "Game screen font size"
 
@@ -110,19 +114,19 @@ msgstr "Hardcore won"
 msgid "Help Ukraine win!"
 msgstr "Help Ukraine win!"
 
-#: src/screens/components/settings-screen/settings.screen.tsx:28
+#: src/screens/components/settings-screen/settings.screen.tsx:30
 msgid "Highlight areas"
 msgstr "Highlight areas"
 
-#: src/screens/components/settings-screen/settings.screen.tsx:26
+#: src/screens/components/settings-screen/settings.screen.tsx:28
 msgid "Highlight block, column, row for a selected cell"
 msgstr "Highlight block, column, row for a selected cell"
 
-#: src/screens/components/settings-screen/settings.screen.tsx:33
+#: src/screens/components/settings-screen/settings.screen.tsx:35
 msgid "Highlight identical numbers"
 msgstr "Highlight identical numbers"
 
-#: src/screens/components/settings-screen/settings.screen.tsx:31
+#: src/screens/components/settings-screen/settings.screen.tsx:33
 msgid "Highlight repeated numbers in a block, column, row"
 msgstr "Highlight repeated numbers in a block, column, row"
 
@@ -130,7 +134,7 @@ msgstr "Highlight repeated numbers in a block, column, row"
 msgid "Immortal"
 msgstr "Immortal"
 
-#: src/game/context/game.context.tsx:32
+#: src/game/context/game.context.tsx:35
 msgid "Invalid Sudoku"
 msgstr "Invalid Sudoku"
 
@@ -154,7 +158,7 @@ msgstr "Lost"
 msgid "Medium"
 msgstr "Medium"
 
-#: src/screens/components/game-screen/game.screen.tsx:161
+#: src/screens/components/game-screen/game.screen.tsx:160
 msgid "Mistakes"
 msgstr "Mistakes"
 
@@ -166,11 +170,11 @@ msgstr "Newbie"
 msgid "Nightmare"
 msgstr "Nightmare"
 
-#: src/screens/components/settings-screen/settings.screen.tsx:23
+#: src/screens/components/settings-screen/settings.screen.tsx:25
 msgid "Not timer - no stress"
 msgstr "Not timer - no stress"
 
-#: src/game/context/game.context.tsx:34
+#: src/game/context/game.context.tsx:37
 msgid "OK"
 msgstr "OK"
 
@@ -183,7 +187,7 @@ msgstr "Open puzzle"
 msgid "Open shared puzzle?"
 msgstr "Open shared puzzle?"
 
-#: src/screens/components/settings-screen/settings.screen.tsx:24
+#: src/screens/components/settings-screen/settings.screen.tsx:26
 msgid "Phone vibration"
 msgstr "Phone vibration"
 
@@ -210,12 +214,12 @@ msgstr "Resume"
 msgid "Return"
 msgstr "Return"
 
-#: src/screens/components/game-screen/game.screen.tsx:182
+#: src/screens/components/game-screen/game.screen.tsx:181
 msgid "Score"
 msgstr "Score"
 
-#: src/screens/components/settings-screen/settings.screen.tsx:18
-#: src/screens/components/settings-screen/settings.screen.tsx:20
+#: src/screens/components/settings-screen/settings.screen.tsx:19
+#: src/screens/components/settings-screen/settings.screen.tsx:21
 #: src/screens/components/home-screen/home.screen.tsx:87
 #: src/app/settings.tsx:12
 msgid "Settings"
@@ -225,11 +229,11 @@ msgstr "Settings"
 msgid "Share puzzle"
 msgstr "Share puzzle"
 
-#: src/screens/components/settings-screen/settings.screen.tsx:36
+#: src/screens/components/settings-screen/settings.screen.tsx:38
 msgid "Show animated effects when a grid, row, column, block is completed"
 msgstr "Show animated effects when a grid, row, column, block is completed"
 
-#: src/screens/components/settings-screen/settings.screen.tsx:38
+#: src/screens/components/settings-screen/settings.screen.tsx:40
 msgid "Show combo animation"
 msgstr "Show combo animation"
 
@@ -247,7 +251,7 @@ msgstr "Start new"
 msgid "Statistics"
 msgstr "Statistics"
 
-#: src/screens/components/game-screen/game.screen.tsx:74
+#: src/screens/components/game-screen/game.screen.tsx:73
 msgid "Stop current run?"
 msgstr "Stop current run?"
 
@@ -263,7 +267,11 @@ msgstr "SuuudokuuU"
 msgid "SuuudokuuU The Game"
 msgstr "SuuudokuuU The Game"
 
-#: src/screens/components/settings-screen/settings.screen.tsx:23
+#: src/settings/component/theme-toggle/theme-toggle.tsx:23
+msgid "Theme"
+msgstr "Theme"
+
+#: src/screens/components/settings-screen/settings.screen.tsx:25
 msgid "Timer"
 msgstr "Timer"
 
@@ -275,7 +283,7 @@ msgstr "Unknown"
 msgid "V."
 msgstr "V."
 
-#: src/screens/components/settings-screen/settings.screen.tsx:24
+#: src/screens/components/settings-screen/settings.screen.tsx:26
 msgid "Vibration"
 msgstr "Vibration"
 
