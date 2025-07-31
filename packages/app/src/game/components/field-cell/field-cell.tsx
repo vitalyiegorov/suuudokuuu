@@ -6,6 +6,8 @@ import { type OnEventFn, cs } from '@rnw-community/shared';
 
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
 import { ThemeContext } from '../../../@generic/context/theme.context';
+import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
+import { settingsKeySelector } from '../../../settings/store/settings.selectors';
 import { GameContext } from '../../context/game.context';
 
 import { FieldCellSelectors as selectors } from './field-cell.selectors';
@@ -29,14 +31,16 @@ const getCellBgColor = (
     isActiveValue: boolean,
     isCellHighlighted: boolean,
     isWrong: boolean,
-    isEmpty: boolean
+    isEmpty: boolean,
+    showAreas: boolean,
+    showIdenticalNumbers: boolean
     // eslint-disable-next-line @typescript-eslint/max-params
 ) => {
     if (isWrong) {
         return theme.colors.cell.error;
-    } else if (isActiveValue) {
+    } else if (isActiveValue && showIdenticalNumbers) {
         return theme.colors.cell.activeValue;
-    } else if (isCellHighlighted) {
+    } else if (isCellHighlighted && showAreas) {
         return theme.colors.cell.highlighted;
     } else if (isEmpty) {
         return theme.colors.white;
@@ -50,14 +54,16 @@ const getCellTextColor = (
     isActive: boolean,
     isEmpty: boolean,
     isHighlighted: boolean,
-    isActiveValue: boolean
+    isActiveValue: boolean,
+    showAreas: boolean,
+    showIdenticalNumbers: boolean
     // eslint-disable-next-line @typescript-eslint/max-params
 ) => {
     if (isActive) {
         return theme.colors.cell.activeText;
-    } else if (isActiveValue) {
+    } else if (isActiveValue && showIdenticalNumbers) {
         return theme.colors.cell.activeValueText;
-    } else if (isHighlighted) {
+    } else if (isHighlighted && showAreas) {
         return theme.colors.cell.highlightedText;
     } else if (isEmpty) {
         return theme.colors.cell.emptyValueText;
@@ -118,8 +124,12 @@ export const FieldCell = (props: Props) => {
     const { sudoku } = use(GameContext);
     const { theme } = use(ThemeContext);
 
+    const hasTextAnimation = useAppSelector(settingsKeySelector('showComboAnimation'));
+    const showAreas = useAppSelector(settingsKeySelector('showAreas'));
+    const showIdenticalNumbers = useAppSelector(settingsKeySelector('showIdenticalNumbers'));
+
     const isEmpty = sudoku.isBlankCell(cell);
-    const cellBackgroundColor = getCellBgColor(theme, isActiveValue, isHighlighted, isWrong, isEmpty);
+    const cellBackgroundColor = getCellBgColor(theme, isActiveValue, isHighlighted, isWrong, isEmpty, showAreas, showIdenticalNumbers);
     const candidates = isEmpty && hasCandidates ? sudoku.getCellCandidates(cell) : [];
 
     const animation = useDerivedValue(() => withTiming(isActive ? 1 : 0, animationConfig));
@@ -144,9 +154,9 @@ export const FieldCell = (props: Props) => {
     ];
     const textStyles = [
         styles.textRegular,
-        { color: getCellTextColor(theme, isActive, isEmpty, isHighlighted, isActiveValue) },
+        { color: getCellTextColor(theme, isActive, isEmpty, isHighlighted, isActiveValue, showAreas, showIdenticalNumbers) },
         cs(isActive, styles.textActive),
-        cs(hasAnimation, textAnimatedStyle)
+        cs(hasAnimation && hasTextAnimation, textAnimatedStyle)
     ];
 
     return (
