@@ -15,7 +15,6 @@ import { FieldCellSelectors as selectors } from './field-cell.selectors';
 import { FieldCellStyles as styles } from './field-cell.styles';
 
 import type { BlackTheme } from '../../../@generic/styles/theme';
-import type { SettingsState } from '../../../settings/store/settings.state';
 import type { CellInterface } from '@suuudokuuu/generator';
 
 const ReanimatedPressable = Reanimated.createAnimatedComponent(Pressable);
@@ -86,7 +85,7 @@ const getCellSelector = (props: Props): selectors => {
     return selectors.Root;
 };
 
-const getCandidateTextStyles = (theme: typeof BlackTheme, candidate: number, fontSize: SettingsState['fontSize']) => {
+const getCandidateTextStyles = (theme: typeof BlackTheme, candidate: number, fontSize: number) => {
     const textCandidatePositionStyles = {
         1: styles.textCandidatePosition1,
         2: styles.textCandidatePosition2,
@@ -133,7 +132,8 @@ export const FieldCell = (props: Props) => {
     const hasTextAnimation = useAppSelector(settingsKeySelector('showComboAnimation'));
     const showAreas = useAppSelector(settingsKeySelector('showAreas'));
     const showIdenticalNumbers = useAppSelector(settingsKeySelector('showIdenticalNumbers'));
-    const fontSize = useAppSelector(settingsFontSizeSelector);
+    // eslint-disable-next-line id-length
+    const fontSizeMultiplier = { xs: 0.75, s: 0.875, m: 1, xl: 1.25 }[useAppSelector(settingsFontSizeSelector)];
 
     const isEmpty = sudoku.isBlankCell(cell);
     const cellBackgroundColor = getCellBgColor(theme, isActiveValue, isHighlighted, isWrong, isEmpty, showAreas, showIdenticalNumbers);
@@ -163,7 +163,7 @@ export const FieldCell = (props: Props) => {
         { color: getCellTextColor(theme, isActive, isEmpty, isHighlighted, isActiveValue, showAreas, showIdenticalNumbers) },
         cs(isActive, styles.textActive),
         cs(hasAnimation && hasTextAnimation, textAnimatedStyle),
-        { fontSize: CellFontSizeConstant * fontSize }
+        { fontSize: CellFontSizeConstant * fontSizeMultiplier }
     ];
 
     return (
@@ -172,7 +172,7 @@ export const FieldCell = (props: Props) => {
                 <Reanimated.Text
                     allowFontScaling={false}
                     key={`candidate-${candidate}`}
-                    style={getCandidateTextStyles(theme, candidate, fontSize)}
+                    style={getCandidateTextStyles(theme, candidate, fontSizeMultiplier)}
                 >
                     {candidate}
                 </Reanimated.Text>

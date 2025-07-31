@@ -9,6 +9,7 @@ export const SettingsScreenStyles = StyleSheet.create({
     },
     scrollView: {
         marginBottom: 20,
+        maxWidth: 500,
         width: '100%'
     },
     scrollViewContent: {

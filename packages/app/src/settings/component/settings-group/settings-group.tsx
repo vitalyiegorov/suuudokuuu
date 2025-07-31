@@ -1,7 +1,7 @@
 import React, { use } from 'react';
 import { View } from 'react-native';
 
-import { isNotEmptyString } from '@rnw-community/shared';
+import { cs, isNotEmptyString } from '@rnw-community/shared';
 
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { ThemeContext } from '../../../@generic/context/theme.context';
@@ -21,14 +21,16 @@ export const SettingsGroup = ({ title, description, children, hasAnotherRow = fa
     const { theme } = use(ThemeContext);
 
     const descriptionStyles = [styles.description, { color: theme.text.hint }];
-    const containerStyles: StyleProp<ViewStyle> = [styles.container, { flexDirection: hasAnotherRow ? 'column' : 'row' }];
+    const wrapperStyles: StyleProp<ViewStyle> = [styles.wrapper, cs(hasAnotherRow, { textAlign: 'center', alignItems: 'center' })];
+    const containerStyles: StyleProp<ViewStyle> = [styles.container, cs(hasAnotherRow, { flexDirection: 'column' })];
 
     return (
-        <View style={styles.wrapper}>
+        <View style={wrapperStyles}>
             <View style={containerStyles}>
                 <BlackText style={styles.title}>{title}</BlackText>
                 {children}
             </View>
+
             {isNotEmptyString(description) && <BlackText style={descriptionStyles}>{description}</BlackText>}
         </View>
     );

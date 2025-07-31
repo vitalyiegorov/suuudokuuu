@@ -5,6 +5,7 @@ import { Header } from '../../../@generic/components/header/header';
 import { PageHeader } from '../../../@generic/components/page-header/page-header';
 import { ReturnButton } from '../../../@generic/components/return-button/return-button';
 import { FontSizeToggle } from '../../../settings/component/font-size-toggle/font-size-toggle';
+import { LanguageToggle } from '../../../settings/component/language-toggle/language-toggle';
 import { SettingsSwitch } from '../../../settings/component/settings-switch/settings-switch';
 
 import { SettingsScreenStyles as styles } from './settings-screen.styles';
@@ -19,8 +20,9 @@ export const SettingsScreen = () => {
             <Header text={t`Settings`} />
 
             <ScrollView contentContainerStyle={styles.scrollViewContent} showsVerticalScrollIndicator={false} style={styles.scrollView}>
-                <SettingsSwitch setting="hasTimer" title={t`Timer`} />
-                <SettingsSwitch setting="hasVibration" title={t`Vibration`} />
+                <LanguageToggle />
+                <SettingsSwitch description={t`Not timer - no stress`} setting="hasTimer" title={t`Timer`} />
+                <SettingsSwitch description={t`Phone vibration`} setting="hasVibration" title={t`Vibration`} />
                 <SettingsSwitch
                     description={t`Highlight block, column, row for a selected cell`}
                     setting="showAreas"

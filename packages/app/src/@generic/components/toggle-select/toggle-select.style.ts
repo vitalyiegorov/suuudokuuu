@@ -1,11 +1,10 @@
 import { StyleSheet } from 'react-native';
 
-export const FontSizeToggleStyles = StyleSheet.create({
+export const ToggleSelectStyles = StyleSheet.create({
     button: {
         alignItems: 'center',
         flex: 1,
         justifyContent: 'center',
-        width: 50,
         zIndex: 1
     },
     label: {
@@ -16,20 +15,16 @@ export const FontSizeToggleStyles = StyleSheet.create({
         fontWeight: '700'
     },
     slider: {
-        borderRadius: 25,
+        borderRadius: 40,
         elevation: 3,
-        height: 44,
         position: 'absolute',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.2,
-        shadowRadius: 2,
-        top: 3,
-        width: 74
+        shadowRadius: 2
     },
     toggleContainer: {
-        borderRadius: 25,
+        borderRadius: 20,
         flexDirection: 'row',
-        height: 50,
         marginTop: 10,
         overflow: 'hidden',
         position: 'relative'

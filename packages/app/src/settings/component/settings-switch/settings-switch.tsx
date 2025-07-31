@@ -13,7 +13,7 @@ import { SettingsSwitchStyles as styles } from './settings-switch.styles';
 import type { SettingsState } from '../../store/settings.state';
 
 interface Props {
-    readonly setting: keyof Omit<SettingsState, 'fontSize'>;
+    readonly setting: keyof Omit<SettingsState, 'fontSize' | 'language'>;
     readonly title: string;
     readonly description?: string;
 }
@@ -32,7 +32,7 @@ export const SettingsSwitch = ({ setting, title, description }: Props) => {
     };
 
     const thumbColor = theme.colors.black;
-    const trackColor = { false: theme.colors.red, true: theme.colors.blue };
+    const trackColor = { false: theme.colors.black05, true: theme.colors.black05 };
 
     return (
         <SettingsGroup description={description} title={title}>
