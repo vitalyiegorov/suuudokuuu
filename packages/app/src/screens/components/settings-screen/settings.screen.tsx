@@ -4,6 +4,7 @@ import { ScrollView, View } from 'react-native';
 import { Header } from '../../../@generic/components/header/header';
 import { PageHeader } from '../../../@generic/components/page-header/page-header';
 import { ReturnButton } from '../../../@generic/components/return-button/return-button';
+import { FontSizeToggle } from '../../../settings/component/font-size-toggle/font-size-toggle';
 import { SettingsSwitch } from '../../../settings/component/settings-switch/settings-switch';
 
 import { SettingsScreenStyles as styles } from './settings-screen.styles';
@@ -35,6 +36,7 @@ export const SettingsScreen = () => {
                     setting="showComboAnimation"
                     title={t`Show combo animation`}
                 />
+                <FontSizeToggle />
             </ScrollView>
 
             <ReturnButton />

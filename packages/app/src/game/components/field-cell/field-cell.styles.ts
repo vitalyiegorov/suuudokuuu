@@ -1,11 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import {
-    CellCandidateFontSizeConstant,
-    CellCandidateOffsetConstant,
-    CellFontSizeConstant,
-    CellSizeConstant
-} from '../constants/dimensions.contant';
+import { CellCandidateOffsetConstant, CellSizeConstant } from '../constants/dimensions.contant';
 
 export const FieldCellStyles = StyleSheet.create({
     container: {
@@ -39,7 +34,6 @@ export const FieldCellStyles = StyleSheet.create({
         fontWeight: 'bold'
     },
     textCandidate: {
-        fontSize: CellCandidateFontSizeConstant,
         position: 'absolute'
     },
     textCandidatePosition1: {
@@ -77,8 +71,5 @@ export const FieldCellStyles = StyleSheet.create({
     textCandidatePosition9: {
         left: CellCandidateOffsetConstant / 2 + (2 * CellSizeConstant) / 3,
         top: -CellCandidateOffsetConstant / 2 + (CellSizeConstant / 3) * 2
-    },
-    textRegular: {
-        fontSize: CellFontSizeConstant
     }
 });

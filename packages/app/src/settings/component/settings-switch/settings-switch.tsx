@@ -1,14 +1,12 @@
 import { use, useState } from 'react';
-import { Switch, View } from 'react-native';
+import { Switch } from 'react-native';
 
-import { isNotEmptyString } from '@rnw-community/shared';
-
-import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { ThemeContext } from '../../../@generic/context/theme.context';
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { settingsSetAction } from '../../store/settings.actions';
 import { settingsKeySelector } from '../../store/settings.selectors';
+import { SettingsGroup } from '../settings-group/settings-group';
 
 import { SettingsSwitchStyles as styles } from './settings-switch.styles';
 
@@ -35,21 +33,10 @@ export const SettingsSwitch = ({ setting, title, description }: Props) => {
 
     const thumbColor = theme.colors.black;
     const trackColor = { false: theme.colors.red, true: theme.colors.blue };
-    const descriptionStyles = [styles.description, { color: theme.text.hint }];
 
     return (
-        <View style={styles.wrapper}>
-            <View style={styles.container}>
-                <BlackText style={styles.title}>{title}</BlackText>
-                <Switch
-                    onValueChange={toggleSwitch}
-                    style={styles.switch}
-                    thumbColor={thumbColor}
-                    trackColor={trackColor}
-                    value={isEnabled}
-                />
-            </View>
-            {isNotEmptyString(description) && <BlackText style={descriptionStyles}>{description}</BlackText>}
-        </View>
+        <SettingsGroup description={description} title={title}>
+            <Switch onValueChange={toggleSwitch} style={styles.switch} thumbColor={thumbColor} trackColor={trackColor} value={isEnabled} />
+        </SettingsGroup>
     );
 };
