@@ -15,7 +15,7 @@ import {
 import { isNotEmptyString } from '@rnw-community/shared';
 
 import { ThemeContext } from '../../context/theme.context';
-import { hapticImpact } from '../../utils/haptic/haptic.util';
+import { useVibration } from '../../hooks/use-vibration.hook';
 
 import { BlackButtonStyles as styles } from './black-button.styles';
 
@@ -29,15 +29,16 @@ interface Props extends PressableProps {
 }
 
 export const BlackButton = ({ text, style, href, styleText, onPress, children, isActive = false, isLoading = false, ...props }: Props) => {
-    const { theme } = use(ThemeContext);
     const router = useRouter();
+    const { theme } = use(ThemeContext);
+    const [, hapticImpact] = useVibration();
 
     const wrapperStyles = [
         styles.button,
         { backgroundColor: isActive ? theme.colors.white : theme.colors.black },
         style
     ] as StyleProp<ViewStyle>;
-    const textStyles = [styles.buttonText, { color: isActive ? theme.colors.black : theme.colors.white }, styleText];
+    const textStyles = [styles.buttonText, { color: isActive ? theme.text.main : theme.text.inverted }, styleText];
 
     const handlePress = (event: GestureResponderEvent) => {
         onPress?.(event);

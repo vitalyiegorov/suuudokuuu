@@ -1,6 +1,6 @@
 import { useLingui } from '@lingui/react/macro';
 import Constants from 'expo-constants';
-import { Link, useRouter } from 'expo-router';
+import { Link } from 'expo-router';
 import { use, useState } from 'react';
 import { ActivityIndicator, Text, View } from 'react-native';
 
@@ -25,11 +25,11 @@ import { HomeScreenStyles as styles } from './home-screen.styles';
 
 import type { DifficultyEnum } from '@suuudokuuu/generator';
 
+// eslint-disable-next-line max-lines-per-function
 export const HomeScreen = () => {
     const { create } = use(GameContext);
     const { theme } = use(ThemeContext);
     const { t } = useLingui();
-    const router = useRouter();
 
     const oldGameString = useAppSelector(gameSudokuStringSelector);
     const [bestScore, bestTime] = useAppSelector(historyBestTimeSelector);
@@ -60,9 +60,6 @@ export const HomeScreen = () => {
             });
         }
     };
-    const handleStatistics = () => {
-        router.navigate('/history');
-    };
 
     return (
         <View style={styles.container}>
@@ -74,11 +71,21 @@ export const HomeScreen = () => {
                     <View style={styles.buttonWrapper}>
                         <Header text={t`SuuudokuuU`} />
 
-                        {isGameStarted ? <BlackButton onPress={handleContinue} text={t`Continue`} /> : null}
+                        {isGameStarted ? (
+                            <>
+                                <BlackButton onPress={handleContinue} text={t`Continue`} />
+                                <View style={[styles.separator, { borderColor: theme.colors.black }]} />
+                            </>
+                        ) : null}
 
                         <BlackButton onPress={handleState('difficulty')} text={t`Start new`} />
 
-                        <BlackButton onPress={handleStatistics} text={t`Statistics`} />
+                        <Link asChild href="/history">
+                            <BlackButton text={t`Statistics`} />
+                        </Link>
+                        <Link asChild href="/settings">
+                            <BlackButton text={t`Settings`} />
+                        </Link>
                     </View>
                 )}
 
@@ -125,8 +132,12 @@ export const HomeScreen = () => {
                     {Constants.expoConfig?.version}
                 </BlackText>
 
+                <Link asChild href="https://github.com/vitalyiegorov/suuudokuuu/issues/new">
+                    <BlackText numberOfLines={2} style={styles.infoLink}>{t`Report a bug`}</BlackText>
+                </Link>
+
                 <Link asChild href="/privacy-policy">
-                    <BlackText>{t`Privacy policy`}</BlackText>
+                    <BlackText numberOfLines={2} style={styles.infoLink}>{t`Privacy policy`}</BlackText>
                 </Link>
             </View>
         </View>
