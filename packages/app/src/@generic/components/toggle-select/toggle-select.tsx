@@ -45,12 +45,18 @@ export const ToggleSelect = <T extends unknown>(props: Props<T>) => {
     const toggleSliderVerticalPadding = (toggleHeight - toggleSliderHeight) / 2;
 
     const translateX = animatedValue.interpolate({
-        inputRange: [0, 1, 2, 3],
-        outputRange: [0, toggleSliderWidth, 2 * toggleSliderWidth, 3 * toggleSliderWidth]
+        inputRange: options.map((_, index) => index),
+        outputRange: options.map((_, index) => index * toggleSliderWidth)
     });
     const scaleX = animatedValue.interpolate({
-        inputRange: [0, 1, 2, 3],
-        outputRange: [0.8, 1, 1, 0.8]
+        inputRange: options.map((_, index) => index),
+        outputRange: options.map((_, index) => {
+            if (index === 0 || index === options.length - 1) {
+                return 0.8;
+            }
+
+            return 1;
+        })
     });
 
     const getButtonTextStyle = (value: T) => [
