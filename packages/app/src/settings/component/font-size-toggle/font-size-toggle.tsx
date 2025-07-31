@@ -4,9 +4,9 @@ import React from 'react';
 import { ToggleSelect } from '../../../@generic/components/toggle-select/toggle-select';
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
+import { FontSizes } from '../../constant/font-sizes.constant';
 import { settingsSetAction } from '../../store/settings.actions';
 import { settingsFontSizeSelector } from '../../store/settings.selectors';
-import { FontSizes } from '../../store/settings.state';
 import { SettingsGroup } from '../settings-group/settings-group';
 
 import type { SettingsState } from '../../store/settings.state';

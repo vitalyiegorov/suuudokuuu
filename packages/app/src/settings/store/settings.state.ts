@@ -1,6 +1,10 @@
 import { Appearance } from 'react-native';
 
-import getColorScheme = Appearance.getColorScheme;
+import { i18nGetOSLocale } from '../../@generic/utils/i18n.util';
+
+import type { FontSizes } from '../constant/font-sizes.constant';
+import type { Languages } from '../constant/languages.constant';
+import type { Themes } from '../constant/themes.constant';
 
 export interface SettingsState {
     hasVibration: boolean;
@@ -13,10 +17,6 @@ export interface SettingsState {
     theme: (typeof Themes)[number];
 }
 
-export const FontSizes = ['xs', 's', 'm', 'xl'] as const;
-export const Languages = ['en', 'de', 'uk', 'es', 'fr'] as const;
-export const Themes = ['light', 'dark'] as const;
-
 export const initialSettingsState: SettingsState = {
     hasVibration: true,
     hasTimer: true,
@@ -24,6 +24,6 @@ export const initialSettingsState: SettingsState = {
     showIdenticalNumbers: true,
     showComboAnimation: true,
     fontSize: 'm',
-    language: 'en',
-    theme: getColorScheme() ?? 'light'
+    language: i18nGetOSLocale(),
+    theme: Appearance.getColorScheme() ?? 'light'
 };
