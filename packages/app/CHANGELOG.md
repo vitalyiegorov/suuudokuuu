@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.40.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.40.1...v1.40.2) (2025-07-31)
+
+### Bug Fixes
+
+- **app:** fix i18n ([b58b7e7](https://github.com/vitalyiegorov/suuudokuuu/commit/b58b7e7e1bda629bf0138dc18b98e58a1772c1e0))
+
 ## [1.40.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.40.0...v1.40.1) (2025-07-31)
 
 ### Bug Fixes
