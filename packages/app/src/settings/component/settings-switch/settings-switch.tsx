@@ -36,6 +36,7 @@ export const SettingsSwitch = ({ setting, title, description }: Props) => {
         <SettingsGroup description={description} title={title}>
             <Switch
                 {...(Platform.OS === 'web' && {
+                    // HINT: https://necolas.github.io/react-native-web/docs/switch/
                     activeTrackColor: theme.colors.black05,
                     activeThumbColor: theme.colors.black
                 })}
