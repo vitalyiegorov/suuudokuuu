@@ -13,11 +13,20 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/screens/components/game-screen/game.screen.tsx:68
+#: src/screens/components/game-screen/game.screen.tsx:73
 msgid "All progress will be lost"
 msgstr "Tous les progrès seront perdus"
 
-#: src/screens/components/home-screen/home.screen.tsx:84
+#: src/history/component/history-difficulty/history-difficulty.tsx:51
+msgid "Attempts"
+msgstr "Essais"
+
+#: src/history/component/history-difficulty/history-difficulty.tsx:48
+msgid "Average time"
+msgstr "Temps moyen"
+
+#: src/screens/components/home-screen/home.screen.tsx:98
+#: src/screens/components/home-screen/home.screen.tsx:106
 msgid "Back"
 msgstr "Retour"
 
@@ -25,11 +34,13 @@ msgstr "Retour"
 msgid "Be wise, be smart, be quick..."
 msgstr "Soyez sage, soyez intelligent, soyez rapide..."
 
-#: src/screens/components/home-screen/home.screen.tsx:93
+#: src/screens/components/home-screen/home.screen.tsx:115
+#: src/history/component/history-difficulty/history-difficulty.tsx:42
 msgid "Best score"
 msgstr "Meilleur score"
 
-#: src/screens/components/home-screen/home.screen.tsx:99
+#: src/screens/components/home-screen/home.screen.tsx:121
+#: src/history/component/history-difficulty/history-difficulty.tsx:45
 msgid "Best time"
 msgstr "Meilleur temps"
 
@@ -41,37 +52,89 @@ msgstr ""
 "Bonne chance pour la prochaine fois !\n"
 "Perdant =)"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:30
-#: src/screens/components/game-screen/game.screen.tsx:69
+#: src/screens/components/shared-screen/shared-screen.tsx:28
+#: src/screens/components/game-screen/game.screen.tsx:74
 msgid "Cancel"
 msgstr "Annuler"
 
-#: src/screens/components/home-screen/home.screen.tsx:72
+#: src/game/components/mistakes-select/mistakes-select.tsx:27
+msgid "Choose your challenge"
+msgstr "Choisissez votre défi"
+
+#: src/game/components/difficulty-select/difficulty-select.tsx:27
+msgid "Choose your difficulty"
+msgstr "Choisissez votre difficulté"
+
+#: src/screens/components/home-screen/home.screen.tsx:76
 msgid "Continue"
 msgstr "Continuer"
 
-#: src/@generic/components/difficulty-select/difficulty-select.tsx:26
+#: src/@generic/utils/get-difficulty-text.util.ts:7
 msgid "Easy"
 msgstr "Facile"
 
-#: src/screens/components/game-screen/game.screen.tsx:170
+#: src/screens/components/game-screen/game.screen.tsx:173
 msgid "Elapsed"
 msgstr "Écoulé"
+
+#: src/settings/component/font-size-toggle/font-size-toggle.tsx:28
+msgid "Font size"
+msgstr "Tailles de police"
+
+#: src/settings/component/theme-toggle/theme-toggle.tsx:23
+msgid "Game appearance"
+msgstr "Apparence du jeu"
+
+#: src/settings/component/language-toggle/language-toggle.tsx:29
+msgid "Game localization"
+msgstr "Localisation du jeu"
 
 #: src/screens/components/pause-screen/pause.screen.tsx:20
 #: src/app/pause.tsx:12
 msgid "Game paused"
 msgstr "Jeu en pause"
 
-#: src/@generic/components/difficulty-select/difficulty-select.tsx:30
+#: src/settings/component/font-size-toggle/font-size-toggle.tsx:28
+msgid "Game screen font size"
+msgstr "Taille de police de l'écran de jeu"
+
+#: src/@generic/utils/get-difficulty-text.util.ts:11
 msgid "Hard"
 msgstr "Difficile"
 
-#: src/@generic/components/donation/donation.tsx:36
+#: src/game/components/mistakes-select/mistakes-select.tsx:31
+msgid "Hardcore"
+msgstr "Hardcore"
+
+#: src/history/component/history-difficulty/history-difficulty.tsx:66
+msgid "Hardcore won"
+msgstr "Hardcore gagné"
+
+#: src/@generic/components/donation/donation.tsx:38
 msgid "Help Ukraine win!"
 msgstr "Aidez l'Ukraine à gagner !"
 
-#: src/game/context/game.context.tsx:51
+#: src/screens/components/settings-screen/settings.screen.tsx:30
+msgid "Highlight areas"
+msgstr "Mettre en évidence les zones"
+
+#: src/screens/components/settings-screen/settings.screen.tsx:28
+msgid "Highlight block, column, row for a selected cell"
+msgstr "Mettre en évidence le bloc, la colonne, la ligne pour une cellule sélectionnée"
+
+#: src/screens/components/settings-screen/settings.screen.tsx:35
+msgid "Highlight identical numbers"
+msgstr "Mettre en évidence les nombres identiques"
+
+#: src/screens/components/settings-screen/settings.screen.tsx:33
+msgid "Highlight repeated numbers in a block, column, row"
+msgstr "Mettre en évidence les nombres répétés dans un bloc, une colonne, une ligne"
+
+#: src/game/components/mistakes-select/mistakes-select.tsx:29
+msgid "Immortal"
+msgstr "Immortel"
+
+#: src/game/context/game.context.tsx:35
 msgid "Invalid Sudoku"
 msgstr "Sudoku invalide"
 
@@ -79,38 +142,54 @@ msgstr "Sudoku invalide"
 msgid "It took you"
 msgstr "Il vous a fallu"
 
+#: src/settings/component/language-toggle/language-toggle.tsx:29
+msgid "Language"
+msgstr "Langue"
+
 #: src/app/loser.tsx:12
 msgid "Looooooser! =)"
 msgstr "Perdant ! =)"
 
-#: src/@generic/components/difficulty-select/difficulty-select.tsx:28
+#: src/history/component/history-difficulty/history-difficulty.tsx:60
+msgid "Lost"
+msgstr "Perdu"
+
+#: src/@generic/utils/get-difficulty-text.util.ts:9
 msgid "Medium"
 msgstr "Moyen"
 
-#: src/screens/components/game-screen/game.screen.tsx:158
+#: src/screens/components/game-screen/game.screen.tsx:160
 msgid "Mistakes"
 msgstr "Erreurs"
 
-#: src/@generic/components/difficulty-select/difficulty-select.tsx:32
+#: src/@generic/utils/get-difficulty-text.util.ts:13
 msgid "Newbie"
 msgstr "Novice"
 
-#: src/@generic/components/difficulty-select/difficulty-select.tsx:34
+#: src/@generic/utils/get-difficulty-text.util.ts:15
 msgid "Nightmare"
 msgstr "Enfer"
 
-#: src/game/context/game.context.tsx:53
+#: src/screens/components/settings-screen/settings.screen.tsx:25
+msgid "Not timer - no stress"
+msgstr "Pas de minuteur - pas de stress"
+
+#: src/game/context/game.context.tsx:37
 msgid "OK"
 msgstr "OK"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:29
+#: src/screens/components/shared-screen/shared-screen.tsx:27
 msgid "Open puzzle"
 msgstr "Ouvrir la grille"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:27
+#: src/screens/components/shared-screen/shared-screen.tsx:25
 #: src/app/shared.tsx:12
 msgid "Open shared puzzle?"
 msgstr "Ouvrir la grille partagée ?"
+
+#: src/screens/components/settings-screen/settings.screen.tsx:26
+msgid "Phone vibration"
+msgstr "Vibration du téléphone"
 
 #: src/@generic/components/play-again-button/play-again-button.tsx:14
 msgid "Play again"
@@ -118,54 +197,95 @@ msgstr "Rejouer"
 
 #: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx:17
 #: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx:19
-#: src/screens/components/home-screen/home.screen.tsx:114
+#: src/screens/components/home-screen/home.screen.tsx:140
 #: src/app/privacy-policy.tsx:12
 msgid "Privacy policy"
 msgstr "Politique de confidentialité"
+
+#: src/screens/components/home-screen/home.screen.tsx:136
+msgid "Report a bug"
+msgstr "Signaler un bug"
 
 #: src/screens/components/pause-screen/pause.screen.tsx:27
 msgid "Resume"
 msgstr "Reprendre"
 
-#: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx:25
+#: src/@generic/components/return-button/return-button.tsx:12
 msgid "Return"
 msgstr "Retour"
 
-#: src/screens/components/game-screen/game.screen.tsx:177
+#: src/screens/components/game-screen/game.screen.tsx:181
 msgid "Score"
 msgstr "Score"
+
+#: src/screens/components/settings-screen/settings.screen.tsx:19
+#: src/screens/components/settings-screen/settings.screen.tsx:21
+#: src/screens/components/home-screen/home.screen.tsx:87
+#: src/app/settings.tsx:12
+msgid "Settings"
+msgstr "Paramètres"
 
 #: src/screens/components/pause-screen/pause.screen.tsx:25
 msgid "Share puzzle"
 msgstr "Partager la grille"
 
-#: src/screens/components/home-screen/home.screen.tsx:74
+#: src/screens/components/settings-screen/settings.screen.tsx:38
+msgid "Show animated effects when a grid, row, column, block is completed"
+msgstr "Afficher les effets animés lorsqu'une grille, une ligne, une colonne, un bloc est complété"
+
+#: src/screens/components/settings-screen/settings.screen.tsx:40
+msgid "Show combo animation"
+msgstr "Afficher l'animation de combo"
+
+#: src/game/components/mistakes-select/mistakes-select.tsx:30
+msgid "Standard"
+msgstr "Standard"
+
+#: src/screens/components/home-screen/home.screen.tsx:81
 msgid "Start new"
 msgstr "Recommencer"
 
-#: src/screens/components/game-screen/game.screen.tsx:68
-msgid "Stop current run?"
-msgstr ""
+#: src/screens/components/home-screen/home.screen.tsx:84
+#: src/screens/components/history-screen/history.screen.tsx:21
+#: src/app/history.tsx:12
+msgid "Statistics"
+msgstr "Statistiques"
 
-#: src/@generic/components/support-ukraine-banner/support-ukraine-banner.tsx:18
+#: src/screens/components/game-screen/game.screen.tsx:73
+msgid "Stop current run?"
+msgstr "Arrêter la partie en cours ?"
+
+#: src/@generic/components/support-ukraine-banner/support-ukraine-banner.tsx:19
 msgid "Support Ukraine"
 msgstr "Soutenir l'Ukraine"
 
-#: src/screens/components/home-screen/home.screen.tsx:68
+#: src/screens/components/home-screen/home.screen.tsx:72
 msgid "SuuudokuuU"
-msgstr ""
+msgstr "SuuudokuuU"
 
 #: src/@generic/components/page-header/page-header.tsx:19
 msgid "SuuudokuuU The Game"
-msgstr ""
+msgstr "SuuudokuuU Le Jeu"
 
-#: src/@generic/components/difficulty-select/difficulty-select.tsx:36
+#: src/settings/component/theme-toggle/theme-toggle.tsx:23
+msgid "Theme"
+msgstr "Thème"
+
+#: src/screens/components/settings-screen/settings.screen.tsx:25
+msgid "Timer"
+msgstr "Chronomètre"
+
+#: src/@generic/utils/get-difficulty-text.util.ts:17
 msgid "Unknown"
-msgstr ""
+msgstr "Inconnu"
 
-#: src/screens/components/home-screen/home.screen.tsx:109
+#: src/screens/components/home-screen/home.screen.tsx:131
 msgid "V."
-msgstr ""
+msgstr "V."
+
+#: src/screens/components/settings-screen/settings.screen.tsx:26
+msgid "Vibration"
+msgstr "Vibration"
 
 #: src/@generic/components/donation/donation.tsx:25
 msgid ""
@@ -177,6 +297,10 @@ msgstr ""
 "\n"
 "Chaque don de 1 $ compte !"
 
+#: src/history/component/history-difficulty/history-difficulty.tsx:63
+msgid "Win rate"
+msgstr "Taux de victoire"
+
 #: src/screens/components/winner-screen/winner.screen.tsx:22
 msgid ""
 "Winners-winner, \n"
@@ -187,7 +311,15 @@ msgstr ""
 
 #: src/app/winner.tsx:12
 msgid "Winners-winner, chicken dinner!"
-msgstr ""
+msgstr "Gagnant-gagnant, dîner de poulet !"
+
+#: src/history/component/history-difficulty/history-difficulty.tsx:54
+msgid "Won"
+msgstr "Gagné"
+
+#: src/history/component/history-difficulty/history-difficulty.tsx:57
+msgid "Won without mistakes"
+msgstr "Gagné sans erreurs"
 
 #: src/screens/components/winner-screen/winner.screen.tsx:26
 msgid "You have scored"

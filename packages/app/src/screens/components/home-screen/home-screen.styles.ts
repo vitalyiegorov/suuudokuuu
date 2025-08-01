@@ -32,9 +32,15 @@ export const HomeScreenStyles = StyleSheet.create({
     historyValue: {
         fontWeight: 'bold'
     },
+    infoLink: {
+        maxWidth: 125,
+        textAlign: 'center'
+    },
+    separator: {
+        borderTopWidth: 1,
+        marginVertical: 10
+    },
     themeButton: {
-        alignItems: 'center',
-        flex: 1,
         height: 40,
         justifyContent: 'center',
         position: 'absolute',

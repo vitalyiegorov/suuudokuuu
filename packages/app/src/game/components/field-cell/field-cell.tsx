@@ -1,27 +1,21 @@
-import { use, useImperativeHandle } from 'react';
+import { use } from 'react';
 import { Pressable } from 'react-native';
-import Reanimated, {
-    interpolate,
-    interpolateColor,
-    useAnimatedStyle,
-    useDerivedValue,
-    useSharedValue,
-    withTiming
-} from 'react-native-reanimated';
+import Reanimated, { interpolateColor, useAnimatedStyle, useDerivedValue, withTiming } from 'react-native-reanimated';
 
 import { type OnEventFn, cs } from '@rnw-community/shared';
 
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
 import { ThemeContext } from '../../../@generic/context/theme.context';
+import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
+import { settingsFontSizeMultiplierSelector, settingsKeySelector } from '../../../settings/store/settings.selectors';
 import { GameContext } from '../../context/game.context';
-import { CellFontSizeConstant } from '../constants/dimensions.contant';
+import { CellCandidateFontSizeConstant, CellFontSizeConstant } from '../constants/dimensions.contant';
 
 import { FieldCellSelectors as selectors } from './field-cell.selectors';
 import { FieldCellStyles as styles } from './field-cell.styles';
 
 import type { BlackTheme } from '../../../@generic/styles/theme';
 import type { CellInterface } from '@suuudokuuu/generator';
-import type { Ref } from 'react';
 
 const ReanimatedPressable = Reanimated.createAnimatedComponent(Pressable);
 
@@ -38,14 +32,16 @@ const getCellBgColor = (
     isActiveValue: boolean,
     isCellHighlighted: boolean,
     isWrong: boolean,
-    isEmpty: boolean
+    isEmpty: boolean,
+    showAreas: boolean,
+    showIdenticalNumbers: boolean
     // eslint-disable-next-line @typescript-eslint/max-params
 ) => {
     if (isWrong) {
         return theme.colors.cell.error;
-    } else if (isActiveValue) {
+    } else if (isActiveValue && showIdenticalNumbers) {
         return theme.colors.cell.activeValue;
-    } else if (isCellHighlighted) {
+    } else if (isCellHighlighted && showAreas) {
         return theme.colors.cell.highlighted;
     } else if (isEmpty) {
         return theme.colors.white;
@@ -59,14 +55,16 @@ const getCellTextColor = (
     isActive: boolean,
     isEmpty: boolean,
     isHighlighted: boolean,
-    isActiveValue: boolean
+    isActiveValue: boolean,
+    showAreas: boolean,
+    showIdenticalNumbers: boolean
     // eslint-disable-next-line @typescript-eslint/max-params
 ) => {
     if (isActive) {
         return theme.colors.cell.activeText;
-    } else if (isActiveValue) {
+    } else if (isActiveValue && showIdenticalNumbers) {
         return theme.colors.cell.activeValueText;
-    } else if (isHighlighted) {
+    } else if (isHighlighted && showAreas) {
         return theme.colors.cell.highlightedText;
     } else if (isEmpty) {
         return theme.colors.cell.emptyValueText;
@@ -87,7 +85,7 @@ const getCellSelector = (props: Props): selectors => {
     return selectors.Root;
 };
 
-const getCandidateTextStyles = (theme: typeof BlackTheme, candidate: number) => {
+const getCandidateTextStyles = (theme: typeof BlackTheme, candidate: number, fontSize: number) => {
     const textCandidatePositionStyles = {
         1: styles.textCandidatePosition1,
         2: styles.textCandidatePosition2,
@@ -102,17 +100,14 @@ const getCandidateTextStyles = (theme: typeof BlackTheme, candidate: number) => 
 
     const textCandidateStyle = textCandidatePositionStyles[candidate as keyof typeof textCandidatePositionStyles];
 
-    return [styles.textCandidate, { color: theme.colors.cell.candidate }, textCandidateStyle];
+    return [
+        styles.textCandidate,
+        { fontSize: CellCandidateFontSizeConstant * fontSize, color: theme.colors.cell.candidate },
+        textCandidateStyle
+    ];
 };
 
 const animationConfig = { duration: animationDurationConstant };
-const textAnimationConfig = { duration: 6 * animationDurationConstant };
-
-const FONT_SIZE_MULTIPLIER = 1.5;
-
-export interface FieldCellRef {
-    triggerAnimation: () => void;
-}
 
 interface Props {
     readonly cell: CellInterface;
@@ -122,55 +117,31 @@ interface Props {
     readonly isHighlighted: boolean;
     readonly isWrong: boolean;
     readonly hasCandidates: boolean;
-    readonly ref: Ref<FieldCellRef>;
+    readonly hasAnimation: boolean;
+    readonly textAnimatedStyle: ReturnType<typeof useAnimatedStyle>;
 }
 
 // TODO: Components is overloaded - split into smaller components
 // eslint-disable-next-line max-statements
 export const FieldCell = (props: Props) => {
-    const { cell, onSelect, isActive, isActiveValue, isHighlighted, isWrong, hasCandidates, ref } = props;
+    const { cell, onSelect, isActive, isActiveValue, isHighlighted, isWrong, hasCandidates, hasAnimation, textAnimatedStyle } = props;
 
     const { sudoku } = use(GameContext);
     const { theme } = use(ThemeContext);
 
+    const hasTextAnimation = useAppSelector(settingsKeySelector('showComboAnimation'));
+    const showAreas = useAppSelector(settingsKeySelector('showAreas'));
+    const showIdenticalNumbers = useAppSelector(settingsKeySelector('showIdenticalNumbers'));
+    const fontSizeMultiplier = useAppSelector(settingsFontSizeMultiplierSelector);
+
     const isEmpty = sudoku.isBlankCell(cell);
-    const cellBackgroundColor = getCellBgColor(theme, isActiveValue, isHighlighted, isWrong, isEmpty);
-    const cellTextColor = getCellTextColor(theme, isActive, isEmpty, isHighlighted, isActiveValue);
-    const text = getText(isActive, isEmpty, hasCandidates, cell);
+    const cellBackgroundColor = getCellBgColor(theme, isActiveValue, isHighlighted, isWrong, isEmpty, showAreas, showIdenticalNumbers);
     const candidates = isEmpty && hasCandidates ? sudoku.getCellCandidates(cell) : [];
 
     const animation = useDerivedValue(() => withTiming(isActive ? 1 : 0, animationConfig));
-    const textAnimation = useSharedValue(0);
-
-    useImperativeHandle(
-        ref,
-        () => ({
-            triggerAnimation: () => {
-                textAnimation.value = withTiming(1, textAnimationConfig, finished => {
-                    if (finished === true) {
-                        textAnimation.value = 0;
-                    }
-                });
-            }
-        }),
-        [textAnimation]
-    );
 
     const cellAnimatedStyles = useAnimatedStyle(() => ({
         backgroundColor: interpolateColor(animation.value, [0, 1], [cellBackgroundColor, theme.colors.cell.active])
-    }));
-    const textAnimatedStyles = useAnimatedStyle(() => ({
-        color: interpolateColor(
-            textAnimation.value,
-            [0, 0.5, 1],
-            [theme.colors.black, theme.colors.cell.highlightedText, theme.colors.black]
-        ),
-        fontSize: interpolate(
-            textAnimation.value,
-            [0, 0.5, 1],
-            [CellFontSizeConstant, CellFontSizeConstant * FONT_SIZE_MULTIPLIER, CellFontSizeConstant]
-        ),
-        transform: [{ rotate: `${interpolate(textAnimation.value, [0, 1], [0, 360])}deg` }]
     }));
 
     const handlePress = () => {
@@ -187,17 +158,28 @@ export const FieldCell = (props: Props) => {
         { backgroundColor: cellBackgroundColor },
         cellAnimatedStyles
     ];
-    const textStyles = [styles.textRegular, { color: cellTextColor }, cs(isActive, styles.textActive), textAnimatedStyles];
+    const textStyles = [
+        { color: getCellTextColor(theme, isActive, isEmpty, isHighlighted, isActiveValue, showAreas, showIdenticalNumbers) },
+        cs(isActive, styles.textActive),
+        cs(hasAnimation && hasTextAnimation, textAnimatedStyle),
+        { fontSize: CellFontSizeConstant * fontSizeMultiplier }
+    ];
 
     return (
         <ReanimatedPressable onPress={handlePress} style={cellStyles} testID={getCellSelector(props)}>
             {candidates.map(candidate => (
-                <Reanimated.Text key={`candidate-${candidate}`} style={getCandidateTextStyles(theme, candidate)}>
+                <Reanimated.Text
+                    allowFontScaling={false}
+                    key={`candidate-${candidate}`}
+                    style={getCandidateTextStyles(theme, candidate, fontSizeMultiplier)}
+                >
                     {candidate}
                 </Reanimated.Text>
             ))}
 
-            <Reanimated.Text style={textStyles}>{text}</Reanimated.Text>
+            <Reanimated.Text allowFontScaling={false} style={textStyles}>
+                {getText(isActive, isEmpty, hasCandidates, cell)}
+            </Reanimated.Text>
         </ReanimatedPressable>
     );
 };

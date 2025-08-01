@@ -1,3 +1,4 @@
+/* eslint-disable */
 // eslint-disable-next-line camelcase
 import { Inter_500Medium, Inter_700Bold, useFonts } from '@expo-google-fonts/inter';
 import { i18n } from '@lingui/core';
@@ -43,8 +44,7 @@ export default function RootLayout() {
                 <ThemeProvider>
                     <I18nProvider i18n={i18n}>
                         <GameProvider>
-                            {/* eslint-disable-next-line react/jsx-max-depth */}
-                            <Stack screenOptions={stackOptions} />
+                            <Stack screenOptions={stackOptions}></Stack>
                         </GameProvider>
                     </I18nProvider>
                 </ThemeProvider>

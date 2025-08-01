@@ -145,6 +145,12 @@ Sharing a link to `https://suuudokuuu.com/` will open the app on your device if 
 >
 > [Expo - iOS Linking](https://docs.expo.dev/linking/ios-universal-links/)
 
+### Animation
+
+The app uses [react-native-reanimated](https://docs.swmansion.com/react-native-reanimated/) for smooth animations and transitions.
+
+> Cell text animations are implemented using single `SharedValue` to optimize the performance, prop flag triggers the animation.
+
 ## Packages
 
 - [app](packages/app/readme.md) - React Native / Expo application package

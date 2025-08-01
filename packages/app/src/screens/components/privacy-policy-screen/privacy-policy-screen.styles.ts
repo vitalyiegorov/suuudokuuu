@@ -2,10 +2,11 @@ import { StyleSheet } from 'react-native';
 
 export const PrivacyPolicyScreenStyles = StyleSheet.create({
     container: {
+        alignItems: 'center',
         flex: 1,
         padding: 20
     },
     scrollView: {
-        paddingBottom: 20
+        marginBottom: 20
     }
 });

@@ -3,6 +3,135 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.40.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.40.1...v1.40.2) (2025-07-31)
+
+### Bug Fixes
+
+- **app:** fix i18n ([b58b7e7](https://github.com/vitalyiegorov/suuudokuuu/commit/b58b7e7e1bda629bf0138dc18b98e58a1772c1e0))
+
+## [1.40.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.40.0...v1.40.1) (2025-07-31)
+
+### Bug Fixes
+
+- **app:** fix i18n ([8823637](https://github.com/vitalyiegorov/suuudokuuu/commit/8823637d7bf63e65f9382e6aef6bd193e0ba9eb9))
+
+# [1.40.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.39.1...v1.40.0) (2025-07-31)
+
+### Bug Fixes
+
+- **app:** fix available items font size setting ([5c5486c](https://github.com/vitalyiegorov/suuudokuuu/commit/5c5486ca2cb2f4acaa0fae269af466bc55bc399e))
+- **app:** game screen for iphone ([bc95638](https://github.com/vitalyiegorov/suuudokuuu/commit/bc95638d2868442816aa8719cc1904d65984141a))
+- **app:** game screen for iphone ([b5e81ad](https://github.com/vitalyiegorov/suuudokuuu/commit/b5e81ad1a74a40827a4ed281534b9f0d98de53b5))
+- **app:** game screen for iphone ([2554723](https://github.com/vitalyiegorov/suuudokuuu/commit/255472339a157bb7adb1bf12e4194f879489e764))
+- **app:** game screen for iphone ([c82bdda](https://github.com/vitalyiegorov/suuudokuuu/commit/c82bdda22d073347f5164111d3ff9dd2f93c4ce1))
+- **app:** game screen for iphone ([610dd00](https://github.com/vitalyiegorov/suuudokuuu/commit/610dd006ed18655cab744fe0b4a817cfeef2f86a))
+- **app:** i18n ([1544ed4](https://github.com/vitalyiegorov/suuudokuuu/commit/1544ed489d115e26cb8dcd31a5e46609bba24932))
+- **app:** i18n ([6e6b3e2](https://github.com/vitalyiegorov/suuudokuuu/commit/6e6b3e296b3f78b8b41cb62e75643d7e2a6d2c31))
+- **app:** initial language selection ([da6f8ac](https://github.com/vitalyiegorov/suuudokuuu/commit/da6f8acc6f68ed6e1ac983290116cd8684f78300))
+- **app:** initial language selection ([e4710b1](https://github.com/vitalyiegorov/suuudokuuu/commit/e4710b130b41144b1bce7c2f654daa4941bcc50d))
+
+### Features
+
+- **app:** added settings ([6ab3e22](https://github.com/vitalyiegorov/suuudokuuu/commit/6ab3e22a2c43384f4a187ce0c8ae5881cfb07c71))
+- **app:** added settings ([9e4eb0d](https://github.com/vitalyiegorov/suuudokuuu/commit/9e4eb0d06d5edde97ed2007432e7d427585b97d2))
+- **app:** added settings ([61b0ad6](https://github.com/vitalyiegorov/suuudokuuu/commit/61b0ad679c98b55d08487485e7777a4a15f922f5))
+- **app:** added settings ([ebd330e](https://github.com/vitalyiegorov/suuudokuuu/commit/ebd330e8f2b20593001876e8306003bf2d1734e0))
+- **app:** added settings ([7275c3e](https://github.com/vitalyiegorov/suuudokuuu/commit/7275c3e377a5e23aac34e20727f599f49fe30971))
+
+## [1.39.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.39.0...v1.39.1) (2025-07-29)
+
+### Bug Fixes
+
+- **app:** difficulty/mistakes ([a361e91](https://github.com/vitalyiegorov/suuudokuuu/commit/a361e91645e10bcaf2a396bb36ee6cbffffe8cbc))
+
+# [1.39.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.38.0...v1.39.0) (2025-07-29)
+
+### Features
+
+- **app:** improved statistics ([5e89274](https://github.com/vitalyiegorov/suuudokuuu/commit/5e892747d6c13c596bf1a8b05e3a7805a38343c2))
+- **app:** improved statistics ([122e642](https://github.com/vitalyiegorov/suuudokuuu/commit/122e642759392f3e697114fede074c4c7067fc18))
+
+# [1.38.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.37.1...v1.38.0) (2025-07-29)
+
+### Features
+
+- **app:** added statistics page, extended data ([6812868](https://github.com/vitalyiegorov/suuudokuuu/commit/681286814c8ae15af66f271a389e08fe933346e7))
+- **app:** added statistics page, extended data ([bfe3fe0](https://github.com/vitalyiegorov/suuudokuuu/commit/bfe3fe0e8254cd996cbddeb841938c7b74c6958e))
+- **app:** added statistics page, extended data ([6093b3d](https://github.com/vitalyiegorov/suuudokuuu/commit/6093b3d8e9e23118699b9b021c9a88ebec953fbb))
+- **app:** added statistics page, extended data ([8decc36](https://github.com/vitalyiegorov/suuudokuuu/commit/8decc36702beb4e9e7943d765a3755fe92730438))
+
+## [1.37.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.37.0...v1.37.1) (2025-07-29)
+
+### Bug Fixes
+
+- **app:** remove font scaling ([9992374](https://github.com/vitalyiegorov/suuudokuuu/commit/99923745a82d9f974865ceee4d18fe96bd2db1fa))
+
+# [1.37.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.36.0...v1.37.0) (2025-07-29)
+
+### Features
+
+- **app:** increase cell font size ([20a1206](https://github.com/vitalyiegorov/suuudokuuu/commit/20a1206cce9f188986d500f9b112ada399e0bc6a))
+
+# [1.36.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.35.1...v1.36.0) (2025-07-29)
+
+### Features
+
+- disable font scaling ([52b7b60](https://github.com/vitalyiegorov/suuudokuuu/commit/52b7b60814dd398085613878b777f884d924832a))
+
+## [1.35.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.35.0...v1.35.1) (2025-07-29)
+
+**Note:** Version bump only for package @suuudokuuu/root
+
+# [1.35.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.34.0...v1.35.0) (2025-07-29)
+
+### Features
+
+- **app:** disable app font scaling ([528c756](https://github.com/vitalyiegorov/suuudokuuu/commit/528c756b875cf6ef209e86d6a65c4dac79e7cda3))
+
+# [1.34.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.33.0...v1.34.0) (2025-07-28)
+
+### Features
+
+- **app:** added max mistakes selector, hardcore mode ([4e0afd1](https://github.com/vitalyiegorov/suuudokuuu/commit/4e0afd1603a6788c0568b5782adc7831f7a9d6e5))
+- **app:** added max mistakes selector, hardcore mode ([83ee598](https://github.com/vitalyiegorov/suuudokuuu/commit/83ee598586e8d6fa2d6ae54b1ef7275408cb5886))
+- **app:** added max mistakes selector, hardcore mode ([e14afc4](https://github.com/vitalyiegorov/suuudokuuu/commit/e14afc4e207b0241d2123f7bc5df79030857ce65))
+- **app:** added max mistakes selector, hardcore mode ([b4a1e09](https://github.com/vitalyiegorov/suuudokuuu/commit/b4a1e09c853dfc09cb346a84127f622e585099c7))
+- **app:** added max mistakes selector, hardcore mode ([41cf87c](https://github.com/vitalyiegorov/suuudokuuu/commit/41cf87cc6704140605e672ceaf4c2b4abb72f3bd))
+
+# [1.33.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.32.1...v1.33.0) (2025-07-28)
+
+### Features
+
+- **app,generator:** avoid passing solved puzzle as string ([c456d7a](https://github.com/vitalyiegorov/suuudokuuu/commit/c456d7a760be20ceb35601263dbc60f59a2b6027))
+- **app:** encode sharing state ([260210a](https://github.com/vitalyiegorov/suuudokuuu/commit/260210a3f3900ea6b60e3281665b4689a13cf68d))
+- **generator:** fix tests ([dd5257a](https://github.com/vitalyiegorov/suuudokuuu/commit/dd5257a4504b9ea289711b700c9eef3313901854))
+
+## [1.32.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.32.0...v1.32.1) (2025-07-27)
+
+### Bug Fixes
+
+- **app:** fix i18n ([fb0b7ca](https://github.com/vitalyiegorov/suuudokuuu/commit/fb0b7ca6d798d71928d5e17c6fc789f49498e32b))
+
+### Performance Improvements
+
+- **app:** improve animation ([54d741f](https://github.com/vitalyiegorov/suuudokuuu/commit/54d741fae494c69d666bb1bcbc7575ab8a7d440a))
+- **app:** improve animation ([9de31b1](https://github.com/vitalyiegorov/suuudokuuu/commit/9de31b1e2c8d173a54cda08dd150dc312823d34e))
+- **app:** improve animation, fix win animation ([31f6f8b](https://github.com/vitalyiegorov/suuudokuuu/commit/31f6f8bf33213a008bad37bd1eb295aaa795ab31))
+- **app:** improve animation, fix win animation ([80b85a6](https://github.com/vitalyiegorov/suuudokuuu/commit/80b85a6e1546f75b56180a630d305dae757dd926))
+
+# [1.32.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.31.0...v1.32.0) (2025-07-27)
+
+### Features
+
+- **app:** improve active value cells background ([2ceb5a9](https://github.com/vitalyiegorov/suuudokuuu/commit/2ceb5a9af63ee4e1395288bc67f08bfb4e5e1325))
+
+# [1.31.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.30.0...v1.31.0) (2025-07-27)
+
+### Features
+
+- **app:** added theme button to game screen ([769019c](https://github.com/vitalyiegorov/suuudokuuu/commit/769019ca831cd3e33bbbdd4e4ee9c2f35f7b1469))
+- **app:** moved auto-candidates button ([4a6e8e0](https://github.com/vitalyiegorov/suuudokuuu/commit/4a6e8e0f30f11ce7ae317cd4e0d7482fb6c952af))
+
 # [1.30.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.29.0...v1.30.0) (2025-07-27)
 
 ### Bug Fixes

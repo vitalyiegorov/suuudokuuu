@@ -1,9 +1,8 @@
-import { isDefined } from '@rnw-community/shared';
-
 export interface GameState {
     sudokuString: string;
     score: number;
     mistakes: number;
+    maxMistakes: number;
     elapsedTime: number;
     isPaused: boolean;
     isFinished: boolean;
@@ -18,29 +17,25 @@ export const initialGameState: GameState = {
     elapsedTime: 0,
     sudokuString: '',
     mistakes: 0,
+    maxMistakes: 3,
     score: 0,
     hasCandidates: false
 };
 
 export const gameStateToUrl = (gameState: GameState): string => {
-    const { sudokuString, score, mistakes, elapsedTime, isFinished, hasCandidates } = gameState;
+    const { isFinished, isPaused, hasCandidates, ...persistedParams } = gameState;
 
-    const searchParams = new URLSearchParams();
-    searchParams.set('sudokuString', sudokuString);
-    searchParams.set('score', score.toString());
-    searchParams.set('mistakes', mistakes.toString());
-    searchParams.set('elapsedTime', elapsedTime.toString());
-    searchParams.set('isFinished', isFinished.toString());
-    searchParams.set('hasCandidates', hasCandidates.toString());
-
-    return searchParams.toString();
+    return btoa(JSON.stringify(persistedParams));
 };
 
-export const urlToGameState = (input: SerializedGameState): Partial<GameState> => ({
-    ...(isDefined(input.sudokuString) && { sudokuString: input.sudokuString }),
-    ...(isDefined(input.score) && { score: parseInt(input.score ?? '0', 10) }),
-    ...(isDefined(input.mistakes) && { mistakes: parseInt(input.mistakes ?? '0', 10) }),
-    ...(isDefined(input.elapsedTime) && { elapsedTime: parseInt(input.elapsedTime ?? '0', 10) }),
-    ...(isDefined(input.isFinished) && { isFinished: input.isFinished === 'true' }),
-    ...(isDefined(input.hasCandidates) && { hasCandidates: input.hasCandidates === 'true' })
-});
+export const urlToGameState = (gameStateString: string): Omit<GameState, 'isPaused' | 'isFinished' | 'hasCandidates'> => {
+    const input = JSON.parse(atob(gameStateString)) as SerializedGameState;
+
+    return {
+        sudokuString: input.sudokuString,
+        score: parseInt(input.score ?? '0', 10),
+        mistakes: parseInt(input.mistakes ?? '0', 10),
+        maxMistakes: parseInt(input.maxMistakes ?? '0', 10),
+        elapsedTime: parseInt(input.elapsedTime ?? '0', 10)
+    };
+};
