@@ -191,7 +191,7 @@ jobs:
       - name: Install Maestro
         run: |
           curl -fsSL "https://get.maestro.mobile.dev" | bash
-          export PATH=”$PATH:$HOME/.maestro/bin”
+          export PATH="$PATH":"$HOME/.maestro/bin"
           maestro --version
 
       - name: Run Maestro UI tests
@@ -218,7 +218,7 @@ jobs:
       - name: Install Maestro
         run: |
           curl -fsSL "https://get.maestro.mobile.dev" | bash
-          export PATH=”$PATH:$HOME/.maestro/bin”
+          export PATH="$PATH":"$HOME/.maestro/bin"
           maestro --version
 
       - name: Start iOS Simulator
@@ -251,7 +251,7 @@ jobs:
       - name: Install Maestro
         run: |
           curl -fsSL "https://get.maestro.mobile.dev" | bash
-          export PATH=”$PATH:$HOME/.maestro/bin”
+          export PATH="$PATH":"$HOME/.maestro/bin"
           maestro --version
 
       - name: Gradle cache
