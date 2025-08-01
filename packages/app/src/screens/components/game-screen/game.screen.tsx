@@ -203,7 +203,7 @@ export const GameScreen = () => {
                         <LucideSettings color={theme.colors.white} />
                     </BlackButton>
 
-                    <BlackButton onPress={handleExit} style={styles.button}>
+                    <BlackButton onPress={handleExit} style={styles.button} testID={GameScreenSelectors.QuitButton}>
                         <LucideLogOut color={theme.colors.white} />
                     </BlackButton>
                 </View>
