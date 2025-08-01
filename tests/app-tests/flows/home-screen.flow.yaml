@@ -1,40 +1,41 @@
-url: https://www.suuudokuuu.com
+#url: "${DEPLOYMENT_URL}"
+#url: https://www.suuudokuuu.com
+appId: com.vitalyiegorov.suuudokuuu
 ---
 - launchApp
-- assertVisible: "SuuudokuuU"
-- tapOn: "Support Ukraine.*"
+- assertVisible: 'SuuudokuuU'
+# - tapOn: Support Ukraine 🇺🇦
+# - assertVisible: 'Donate to Ukraine Army Fundraiser'
+# - launchApp:
+#     clearState: false
+- tapOn: Privacy policy
+- assertVisible: Privacy Policy
+- tapOn: 'Return'
+- tapOn: 'Start new'
+- tapOn: 'Back'
+- assertVisible: 'Start new'
+- tapOn: 'Start new'
+- assertVisible: 'Newbie'
+- assertVisible: 'Easy'
+- assertVisible: 'Medium'
+- assertVisible: 'Hard'
+- assertVisible: 'Nightmare'
+- tapOn: 'Newbie'
+- assertVisible: 'Immortal'
+- assertVisible: 'Standard'
+- assertVisible: 'Hardcore'
+- tapOn: 'Standard'
 - assertVisible:
-    text: "Donate to Ukraine Army Fundraiser"
-- back
-- tapOn: "Privacy policy"
-- assertVisible: "Privacy Policy Effective Date.*"
-- back
-- tapOn: "Start new"
-- tapOn: "Back"
-- assertVisible: "Start new"
-- tapOn: "Start new"
-- assertVisible: "Newbie"
-- assertVisible: "Easy"
-- assertVisible: "Medium"
-- assertVisible: "Hard"
-- assertVisible: "Nightmare"
-- tapOn: "Newbie"
-- assertVisible: "Immortal"
-- assertVisible: "Standard"
-- assertVisible: "Hardcore"
-- tapOn: "Standard"
+    below: 'Score'
+    text: '0'
 - assertVisible:
-    below: "Score"
-    text: "0"
+    below: 'Mistakes'
+    rightOf: '0'
+    text: '3'
 - assertVisible:
-    below: "Mistakes"
-    rightOf: "0"
-    text: "3"
+    id: 'CellSelectors.Root'
 - assertVisible:
-    id: "CellSelectors.Root"
+    id: 'AvailableValueItemSelectors.Button'
 - assertVisible:
-    id: "AvailableValueItemSelectors.Button"
-- assertVisible:
-    below: "Elapsed"
-    text: "[0-9]{2}:[0-9]{2}"
-
+    below: 'Elapsed'
+    text: '[0-9]{2}:[0-9]{2}'
