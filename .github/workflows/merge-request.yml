@@ -180,7 +180,7 @@ jobs:
   e2e-ios:
     needs: [code-quality, eas-deploy]
     name: E2E Tests on iOS
-    runs-on: macos-15
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -197,7 +197,7 @@ jobs:
       - name: Start iOS Simulator
         uses: futureware-tech/simulator-action@v4
         with:
-          model: 'iPhone 14 Pro'
+          model: 'iPhone 15 Pro'
 
       - name: Run Maestro UI tests
         run: |
