@@ -2,8 +2,8 @@ import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
 import { DifficultyEnum } from '../../enums/difficulty.enum';
 import { defaultSudokuConfig } from '../../interfaces/sudoku-config.interface';
-import { cloneField } from '../../util/clone-field.util';
 import { createEmptyField } from '../../util/create-empty-field.util';
+import { DLXSolver } from '../dlx/dlx-solver';
 
 import type { CellInterface } from '../../interfaces/cell.interface';
 import type { FieldInterface } from '../../interfaces/field.interface';
@@ -12,15 +12,14 @@ import type { AvailableValuesType } from '../../types/available-values.type';
 
 /** HINT: Serialization inspired from https://github.com/robatron/sudoku.js */
 export class SerializableSudoku {
+    private static readonly emptyStringValue: string = '.';
+
     protected field: FieldInterface = [];
     protected gameField: FieldInterface = [];
     protected availableValues: AvailableValuesType = {};
     protected possibleValues: number[] = [];
 
     protected readonly emptyField: FieldInterface = [];
-
-    private readonly emptyStringValue: string = '.';
-    private readonly fieldSeparator: string = '|';
 
     constructor(protected config: SudokuConfigInterface = defaultSudokuConfig) {
         this.emptyField = createEmptyField(this.config);
@@ -55,10 +54,12 @@ export class SerializableSudoku {
     toString(): string {
         const convertField = (field: FieldInterface): string =>
             field
-                .map(row => row.map(cell => (cell.value === this.config.blankCellValue ? this.emptyStringValue : cell.value)).join(''))
+                .map(row =>
+                    row.map(cell => (cell.value === this.config.blankCellValue ? SerializableSudoku.emptyStringValue : cell.value)).join('')
+                )
                 .join('');
 
-        return `${convertField(this.field)}|${convertField(this.gameField)}`;
+        return convertField(this.gameField);
     }
 
     protected calculateAvailableValues(): void {
@@ -88,61 +89,59 @@ export class SerializableSudoku {
             .map(key => key);
     }
 
-    private setDifficultyByBlankCells(blankCellCount: number): void {
-        for (const difficulty of Object.values(DifficultyEnum)) {
-            if (this.config.difficultyBlankCells[difficulty] <= blankCellCount / (this.config.fieldSize * this.config.fieldSize)) {
-                this.config.difficulty = difficulty;
-                break;
-            }
-        }
-    }
-
-    private convertFieldFromString(fieldString: string, field: FieldInterface): number {
+    static convertFieldFromString(fieldString: string, config: SudokuConfigInterface): [field: FieldInterface, difficulty: DifficultyEnum] {
         let blankCellCount = 0;
 
+        const field = createEmptyField(config);
         fieldString.split('').reduce((acc, stringValue, index) => {
-            const x = index % this.config.fieldSize;
-            const y = Math.floor(index / this.config.fieldSize);
-            const value = stringValue === this.emptyStringValue ? this.config.blankCellValue : parseInt(stringValue, 10);
+            const x = index % config.fieldSize;
+            const y = Math.floor(index / config.fieldSize);
+            const value = stringValue === SerializableSudoku.emptyStringValue ? config.blankCellValue : parseInt(stringValue, 10);
 
             acc[y][x] = { ...acc[y][x], value };
 
-            if (value === this.config.blankCellValue) {
+            if (value === config.blankCellValue) {
                 blankCellCount += 1;
             }
 
             return acc;
         }, field);
 
-        return blankCellCount;
+        let foundDifficulty = DifficultyEnum.Newbie;
+        for (const difficulty of Object.values(DifficultyEnum)) {
+            if (config.difficultyBlankCells[difficulty] <= blankCellCount / (config.fieldSize * config.fieldSize)) {
+                foundDifficulty = difficulty;
+                break;
+            }
+        }
+
+        return [field, foundDifficulty] as const;
     }
 
     // eslint-disable-next-line max-statements
-    static fromString(fieldsString: string, config: SudokuConfigInterface = defaultSudokuConfig): SerializableSudoku {
+    static fromString(fieldString: string, config: SudokuConfigInterface = defaultSudokuConfig): SerializableSudoku {
         const game = new this(config);
-        game.field = cloneField(game.emptyField);
-        game.gameField = cloneField(game.emptyField);
 
-        if (!isNotEmptyString(fieldsString)) {
+        if (!isNotEmptyString(fieldString)) {
             throw new Error('Invalid string format: Empty string passed');
         }
 
-        const correctLength = game.config.fieldSize * game.config.fieldSize * 2 + game.fieldSeparator.length;
-        if (fieldsString.length !== correctLength) {
+        const correctLength = game.config.fieldSize * game.config.fieldSize;
+        if (fieldString.length !== correctLength) {
             throw new Error(
-                `Invalid string format: String length is wrong for the given configuration(${fieldsString.length}/${correctLength})})`
+                `Invalid string format: String length is wrong for the given configuration(${fieldString.length}/${correctLength})})`
             );
         }
 
-        if (!fieldsString.includes(game.fieldSeparator)) {
-            throw new Error('Invalid string format: No field separator found');
+        const [gameField, difficulty] = SerializableSudoku.convertFieldFromString(fieldString, config);
+        const field = new DLXSolver().solve(gameField);
+        if (!isDefined(field)) {
+            throw new Error('Invalid string format: No solution found for the given field');
         }
 
-        const [fieldString, gameFieldString] = fieldsString.split(game.fieldSeparator);
-        game.convertFieldFromString(fieldString, game.field);
-        const blankCellCount = game.convertFieldFromString(gameFieldString, game.gameField);
-
-        game.setDifficultyByBlankCells(blankCellCount);
+        game.field = field;
+        game.gameField = gameField;
+        game.config.difficulty = difficulty;
         game.calculateAvailableValues();
 
         return game;

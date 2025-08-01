@@ -1,17 +1,18 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { initialGameState, urlToGameState } from './game.state';
+import { initialGameState } from './game.state';
 
-import type { GameState, SerializedGameState } from './game.state';
+import type { GameState } from './game.state';
 
 export const gameSlice = createSlice({
     name: 'game',
     initialState: initialGameState,
     reducers: {
-        start: (state, action: PayloadAction<{ sudokuString: string }>) => {
+        start: (state, action: PayloadAction<Pick<GameState, 'sudokuString' | 'maxMistakes'>>) => {
             Object.assign(state, initialGameState);
 
             state.sudokuString = action.payload.sudokuString;
+            state.maxMistakes = action.payload.maxMistakes;
         },
         pause: state => {
             state.isPaused = true;
@@ -24,8 +25,8 @@ export const gameSlice = createSlice({
             state.score = action.payload.score;
             state.mistakes = action.payload.mistakes;
         },
-        load: (state, action: PayloadAction<SerializedGameState>) => {
-            Object.assign(state, urlToGameState(action.payload));
+        load: (state, action: PayloadAction<Partial<GameState>>) => {
+            Object.assign(state, action.payload);
         },
         tick: state => {
             state.elapsedTime += 1;

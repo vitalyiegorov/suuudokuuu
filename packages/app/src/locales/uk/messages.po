@@ -13,11 +13,20 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/screens/components/game-screen/game.screen.tsx:68
+#: src/screens/components/game-screen/game.screen.tsx:73
 msgid "All progress will be lost"
 msgstr "Всі досягнення будуть втрачені"
 
-#: src/screens/components/home-screen/home.screen.tsx:84
+#: src/history/component/history-difficulty/history-difficulty.tsx:51
+msgid "Attempts"
+msgstr "Спроби"
+
+#: src/history/component/history-difficulty/history-difficulty.tsx:48
+msgid "Average time"
+msgstr "Середній час"
+
+#: src/screens/components/home-screen/home.screen.tsx:98
+#: src/screens/components/home-screen/home.screen.tsx:106
 msgid "Back"
 msgstr "Назад"
 
@@ -25,11 +34,13 @@ msgstr "Назад"
 msgid "Be wise, be smart, be quick..."
 msgstr "Будьте мудрими, розумними, швидкими..."
 
-#: src/screens/components/home-screen/home.screen.tsx:93
+#: src/screens/components/home-screen/home.screen.tsx:115
+#: src/history/component/history-difficulty/history-difficulty.tsx:42
 msgid "Best score"
 msgstr "Найкращий результат"
 
-#: src/screens/components/home-screen/home.screen.tsx:99
+#: src/screens/components/home-screen/home.screen.tsx:121
+#: src/history/component/history-difficulty/history-difficulty.tsx:45
 msgid "Best time"
 msgstr "Найкращий час"
 
@@ -41,37 +52,89 @@ msgstr ""
 "Наступного разу пощастить!\n"
 "Лууууузер =)"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:30
-#: src/screens/components/game-screen/game.screen.tsx:69
+#: src/screens/components/shared-screen/shared-screen.tsx:28
+#: src/screens/components/game-screen/game.screen.tsx:74
 msgid "Cancel"
 msgstr "Скасувати"
 
-#: src/screens/components/home-screen/home.screen.tsx:72
+#: src/game/components/mistakes-select/mistakes-select.tsx:27
+msgid "Choose your challenge"
+msgstr "Виберіть своє випробування"
+
+#: src/game/components/difficulty-select/difficulty-select.tsx:27
+msgid "Choose your difficulty"
+msgstr "Виберіть складність"
+
+#: src/screens/components/home-screen/home.screen.tsx:76
 msgid "Continue"
 msgstr "Продовжити"
 
-#: src/@generic/components/difficulty-select/difficulty-select.tsx:26
+#: src/@generic/utils/get-difficulty-text.util.ts:7
 msgid "Easy"
 msgstr "Легкий"
 
-#: src/screens/components/game-screen/game.screen.tsx:170
+#: src/screens/components/game-screen/game.screen.tsx:173
 msgid "Elapsed"
 msgstr "Минуло"
+
+#: src/settings/component/font-size-toggle/font-size-toggle.tsx:28
+msgid "Font size"
+msgstr "Розмір шрифту"
+
+#: src/settings/component/theme-toggle/theme-toggle.tsx:23
+msgid "Game appearance"
+msgstr "Зовнішній вигляд гри"
+
+#: src/settings/component/language-toggle/language-toggle.tsx:29
+msgid "Game localization"
+msgstr "Локалізація гри"
 
 #: src/screens/components/pause-screen/pause.screen.tsx:20
 #: src/app/pause.tsx:12
 msgid "Game paused"
 msgstr "Гру призупинено"
 
-#: src/@generic/components/difficulty-select/difficulty-select.tsx:30
+#: src/settings/component/font-size-toggle/font-size-toggle.tsx:28
+msgid "Game screen font size"
+msgstr "Розмір шрифту на екрані гри"
+
+#: src/@generic/utils/get-difficulty-text.util.ts:11
 msgid "Hard"
 msgstr "Важкий"
 
-#: src/@generic/components/donation/donation.tsx:36
+#: src/game/components/mistakes-select/mistakes-select.tsx:31
+msgid "Hardcore"
+msgstr "Хардкор"
+
+#: src/history/component/history-difficulty/history-difficulty.tsx:66
+msgid "Hardcore won"
+msgstr "Хардкорів виграно"
+
+#: src/@generic/components/donation/donation.tsx:38
 msgid "Help Ukraine win!"
 msgstr "Допоможіть Україні перемогти!"
 
-#: src/game/context/game.context.tsx:51
+#: src/screens/components/settings-screen/settings.screen.tsx:30
+msgid "Highlight areas"
+msgstr "Підсвітити області"
+
+#: src/screens/components/settings-screen/settings.screen.tsx:28
+msgid "Highlight block, column, row for a selected cell"
+msgstr "Підсвітити блок, стовпець, рядок для вибраної клітинки"
+
+#: src/screens/components/settings-screen/settings.screen.tsx:35
+msgid "Highlight identical numbers"
+msgstr "Підсвітити однакові числа"
+
+#: src/screens/components/settings-screen/settings.screen.tsx:33
+msgid "Highlight repeated numbers in a block, column, row"
+msgstr "Підсвітити повторювані числа в блоці, стовпці, рядку"
+
+#: src/game/components/mistakes-select/mistakes-select.tsx:29
+msgid "Immortal"
+msgstr "Безсмертний"
+
+#: src/game/context/game.context.tsx:35
 msgid "Invalid Sudoku"
 msgstr "Недійсний Судоку"
 
@@ -79,38 +142,54 @@ msgstr "Недійсний Судоку"
 msgid "It took you"
 msgstr "Вам знадобилося"
 
+#: src/settings/component/language-toggle/language-toggle.tsx:29
+msgid "Language"
+msgstr "Мова"
+
 #: src/app/loser.tsx:12
 msgid "Looooooser! =)"
 msgstr "Лууууузер! =)"
 
-#: src/@generic/components/difficulty-select/difficulty-select.tsx:28
+#: src/history/component/history-difficulty/history-difficulty.tsx:60
+msgid "Lost"
+msgstr "Програно"
+
+#: src/@generic/utils/get-difficulty-text.util.ts:9
 msgid "Medium"
 msgstr "Середній"
 
-#: src/screens/components/game-screen/game.screen.tsx:158
+#: src/screens/components/game-screen/game.screen.tsx:160
 msgid "Mistakes"
 msgstr "Помилки"
 
-#: src/@generic/components/difficulty-select/difficulty-select.tsx:32
+#: src/@generic/utils/get-difficulty-text.util.ts:13
 msgid "Newbie"
 msgstr "Новачок"
 
-#: src/@generic/components/difficulty-select/difficulty-select.tsx:34
+#: src/@generic/utils/get-difficulty-text.util.ts:15
 msgid "Nightmare"
 msgstr "Кошмар"
 
-#: src/game/context/game.context.tsx:53
+#: src/screens/components/settings-screen/settings.screen.tsx:25
+msgid "Not timer - no stress"
+msgstr "Без таймера - без стресу"
+
+#: src/game/context/game.context.tsx:37
 msgid "OK"
 msgstr "Гаразд"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:29
+#: src/screens/components/shared-screen/shared-screen.tsx:27
 msgid "Open puzzle"
 msgstr "Відкрити головоломку"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:27
+#: src/screens/components/shared-screen/shared-screen.tsx:25
 #: src/app/shared.tsx:12
 msgid "Open shared puzzle?"
 msgstr "Відкрити спільну головоломку?"
+
+#: src/screens/components/settings-screen/settings.screen.tsx:26
+msgid "Phone vibration"
+msgstr "Вібрація телефону"
 
 #: src/@generic/components/play-again-button/play-again-button.tsx:14
 msgid "Play again"
@@ -118,40 +197,69 @@ msgstr "Зіграти знову"
 
 #: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx:17
 #: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx:19
-#: src/screens/components/home-screen/home.screen.tsx:114
+#: src/screens/components/home-screen/home.screen.tsx:140
 #: src/app/privacy-policy.tsx:12
 msgid "Privacy policy"
 msgstr "Політика конфіденційності"
+
+#: src/screens/components/home-screen/home.screen.tsx:136
+msgid "Report a bug"
+msgstr "Повідомити про помилку"
 
 #: src/screens/components/pause-screen/pause.screen.tsx:27
 msgid "Resume"
 msgstr "Відновити"
 
-#: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx:25
+#: src/@generic/components/return-button/return-button.tsx:12
 msgid "Return"
 msgstr "Повернутися"
 
-#: src/screens/components/game-screen/game.screen.tsx:177
+#: src/screens/components/game-screen/game.screen.tsx:181
 msgid "Score"
 msgstr "Рахунок"
+
+#: src/screens/components/settings-screen/settings.screen.tsx:19
+#: src/screens/components/settings-screen/settings.screen.tsx:21
+#: src/screens/components/home-screen/home.screen.tsx:87
+#: src/app/settings.tsx:12
+msgid "Settings"
+msgstr "Налаштування"
 
 #: src/screens/components/pause-screen/pause.screen.tsx:25
 msgid "Share puzzle"
 msgstr "Поділитися головоломкою"
 
-#: src/screens/components/home-screen/home.screen.tsx:74
+#: src/screens/components/settings-screen/settings.screen.tsx:38
+msgid "Show animated effects when a grid, row, column, block is completed"
+msgstr "Показувати анімаційні ефекти при завершенні сітки, рядка, стовпця, блоку"
+
+#: src/screens/components/settings-screen/settings.screen.tsx:40
+msgid "Show combo animation"
+msgstr "Показувати анімацію комбо"
+
+#: src/game/components/mistakes-select/mistakes-select.tsx:30
+msgid "Standard"
+msgstr "Стандартний"
+
+#: src/screens/components/home-screen/home.screen.tsx:81
 msgid "Start new"
 msgstr "Почати заново"
 
-#: src/screens/components/game-screen/game.screen.tsx:68
+#: src/screens/components/home-screen/home.screen.tsx:84
+#: src/screens/components/history-screen/history.screen.tsx:21
+#: src/app/history.tsx:12
+msgid "Statistics"
+msgstr "Статистика"
+
+#: src/screens/components/game-screen/game.screen.tsx:73
 msgid "Stop current run?"
 msgstr "Зупинити поточний прогрес?"
 
-#: src/@generic/components/support-ukraine-banner/support-ukraine-banner.tsx:18
+#: src/@generic/components/support-ukraine-banner/support-ukraine-banner.tsx:19
 msgid "Support Ukraine"
-msgstr "Підтримайте Україну 🇺🇦"
+msgstr "Підтримайте Україну"
 
-#: src/screens/components/home-screen/home.screen.tsx:68
+#: src/screens/components/home-screen/home.screen.tsx:72
 msgid "SuuudokuuU"
 msgstr "СууудокуУ"
 
@@ -159,13 +267,25 @@ msgstr "СууудокуУ"
 msgid "SuuudokuuU The Game"
 msgstr "СууудокуУ Гра"
 
-#: src/@generic/components/difficulty-select/difficulty-select.tsx:36
+#: src/settings/component/theme-toggle/theme-toggle.tsx:23
+msgid "Theme"
+msgstr "Тема"
+
+#: src/screens/components/settings-screen/settings.screen.tsx:25
+msgid "Timer"
+msgstr "Таймер"
+
+#: src/@generic/utils/get-difficulty-text.util.ts:17
 msgid "Unknown"
 msgstr "Невідомий"
 
-#: src/screens/components/home-screen/home.screen.tsx:109
+#: src/screens/components/home-screen/home.screen.tsx:131
 msgid "V."
 msgstr "В."
+
+#: src/screens/components/settings-screen/settings.screen.tsx:26
+msgid "Vibration"
+msgstr "Вібрація"
 
 #: src/@generic/components/donation/donation.tsx:25
 msgid ""
@@ -176,6 +296,10 @@ msgstr ""
 "Поки вас не було, Україна продовжувала свою боротьбу за свободу!\n"
 "\n"
 "Кожен долар важливий!"
+
+#: src/history/component/history-difficulty/history-difficulty.tsx:63
+msgid "Win rate"
+msgstr "Рівень виграшу"
 
 #: src/screens/components/winner-screen/winner.screen.tsx:22
 msgid ""
@@ -188,6 +312,14 @@ msgstr ""
 #: src/app/winner.tsx:12
 msgid "Winners-winner, chicken dinner!"
 msgstr "Вигращ є - Можна поісти!"
+
+#: src/history/component/history-difficulty/history-difficulty.tsx:54
+msgid "Won"
+msgstr "Виграно"
+
+#: src/history/component/history-difficulty/history-difficulty.tsx:57
+msgid "Won without mistakes"
+msgstr "Виграно без помилок"
 
 #: src/screens/components/winner-screen/winner.screen.tsx:26
 msgid "You have scored"

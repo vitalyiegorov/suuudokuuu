@@ -9,11 +9,13 @@ interface Props extends TextProps {
     readonly text: string;
 }
 
-export const Header = ({ text, ...props }: Props) => {
+export const Header = ({ text, style, ...props }: Props) => {
     const { theme } = use(ThemeContext);
 
+    const textStyles = [styles.container, { color: theme.text.main }, style];
+
     return (
-        <Text style={[styles.container, { color: theme.colors.black }]} {...props}>
+        <Text allowFontScaling={false} style={textStyles} {...props}>
             {text}
         </Text>
     );

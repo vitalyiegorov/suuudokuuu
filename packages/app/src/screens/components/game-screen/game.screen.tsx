@@ -1,9 +1,10 @@
 import { useLingui } from '@lingui/react/macro';
+import { emptyScoredCells } from '@suuudokuuu/generator';
 import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { useRouter } from 'expo-router';
 import * as Sharing from 'expo-sharing';
-import { LucideHandHelping, LucideLogOut, LucideShare2 } from 'lucide-react-native';
+import { LucideLogOut, LucideSettings, LucideShare2 } from 'lucide-react-native';
 import { use, useEffect, useRef, useState } from 'react';
 import { Text, View } from 'react-native';
 
@@ -14,26 +15,26 @@ import { animationDurationConstant } from '../../../@generic/constants/animation
 import { ThemeContext } from '../../../@generic/context/theme.context';
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
-import { hapticImpact, hapticNotification } from '../../../@generic/utils/haptic/haptic.util';
+import { useVibration } from '../../../@generic/hooks/use-vibration.hook';
+import { AutoCandidatesButton } from '../../../game/components/auto-candidates-button/auto-candidates-button';
 import { AvailableValuesItem, type AvailableValuesItemRef } from '../../../game/components/available-values-item/available-values-item';
-import { Field, type FieldRef } from '../../../game/components/field/field';
+import { Field } from '../../../game/components/field/field';
 import { GameTimer } from '../../../game/components/game-timer/game-timer';
 import { GameContext } from '../../../game/context/game.context';
 import { useKeyboardControls } from '../../../game/hooks/use-keyboard-controls/use-keyboard-controls.hook';
 import { useShare } from '../../../game/hooks/use-share.hook';
-import { gameResetAction, gameToggleCandidatesAction } from '../../../game/store/game.actions';
-import { gameHasCandidatesSelector, gameMistakesSelector, gameScoreSelector } from '../../../game/store/game.selectors';
+import { gameResetAction } from '../../../game/store/game.actions';
+import { gameMaxMistakesSelector, gameMistakesSelector, gameScoreSelector } from '../../../game/store/game.selectors';
 import { gameFinishedThunk } from '../../../game/store/thunks/game-finish.thunk';
 import { gameMistakeThunk } from '../../../game/store/thunks/game-mistake.thunk';
 import { gameSaveThunk } from '../../../game/store/thunks/game-save.thunk';
+import { settingsKeySelector } from '../../../settings/store/settings.selectors';
 
+import { GameScreenSelectors } from './game-screen.selectors';
 import { GameScreenStyles as styles } from './game-screen.styles';
 
 import type { CellInterface, ScoredCellsInterface } from '@suuudokuuu/generator';
 import type { Dispatch, SetStateAction } from 'react';
-import {GameScreenSelectors} from "./game-screen.selectors";
-
-const MaxMistakesConstant = 3;
 
 const setSharingAvailable = (setHasSharing: Dispatch<SetStateAction<boolean>>): void => {
     Sharing.isAvailableAsync()
@@ -44,21 +45,25 @@ const setSharingAvailable = (setHasSharing: Dispatch<SetStateAction<boolean>>): 
 // eslint-disable-next-line max-lines-per-function,max-statements
 export const GameScreen = () => {
     const router = useRouter();
+    const { t } = useLingui();
+
     const { sudoku } = use(GameContext);
     const { theme } = use(ThemeContext);
-    const { t } = useLingui();
+
+    const [hapticNotification, hapticImpact] = useVibration();
 
     const dispatch = useAppDispatch();
     const score = useAppSelector(gameScoreSelector);
     const mistakes = useAppSelector(gameMistakesSelector);
-    const hasCandidates = useAppSelector(gameHasCandidatesSelector);
+    const maxMistakes = useAppSelector(gameMaxMistakesSelector);
+    const hasTimer = useAppSelector(settingsKeySelector('hasTimer'));
 
     const [selectedCell, setSelectedCell] = useState<CellInterface>();
     const [hasSharing, setHasSharing] = useState(false);
+    const [scoredCells, setScoredCells] = useState<ScoredCellsInterface>(emptyScoredCells);
     const availableValuesRefs = useRef<Record<number, AvailableValuesItemRef | null>>({});
-    const fieldRef = useRef<FieldRef>(null);
 
-    const maxMistakesReached = mistakes >= MaxMistakesConstant;
+    const maxMistakesReached = mistakes >= maxMistakes;
 
     // TODO: Is there a better way without using useEffect?
     useEffect(() => void setSharingAvailable(setHasSharing), []);
@@ -102,17 +107,18 @@ export const GameScreen = () => {
     };
 
     const handleCorrectValue = (correctCell: CellInterface, newScoredCells: ScoredCellsInterface) => {
-        fieldRef.current?.triggerCellAnimations(newScoredCells);
         void dispatch(gameSaveThunk({ sudoku, scoredCells: newScoredCells }));
 
         hapticNotification(Haptics.NotificationFeedbackType.Success);
+
+        setScoredCells(newScoredCells);
         setSelectedCell(() => ({ ...correctCell }));
     };
 
     const handleWrongValue = () => {
         void dispatch(gameMistakeThunk(sudoku));
 
-        if (mistakes + 1 >= MaxMistakesConstant) {
+        if (mistakes + 1 >= maxMistakes) {
             handleLostGame();
         } else {
             hapticNotification(Haptics.NotificationFeedbackType.Error);
@@ -129,10 +135,10 @@ export const GameScreen = () => {
             if (sudoku.isCorrectValue(newValueCell)) {
                 const newScoredCells = sudoku.setCellValue(newValueCell);
 
+                handleCorrectValue(selectedCell, newScoredCells);
+
                 if (newScoredCells.isWon) {
                     handleWonGame();
-                } else {
-                    handleCorrectValue(selectedCell, newScoredCells);
                 }
             } else {
                 handleWrongValue();
@@ -142,10 +148,6 @@ export const GameScreen = () => {
 
     const handleAvailableRef = (value: number) => (ref: AvailableValuesItemRef | null) => {
         availableValuesRefs.current[value] = ref;
-    };
-
-    const handleCandidates = () => {
-        dispatch(gameToggleCandidatesAction());
     };
 
     useKeyboardControls(sudoku, selectedCell, handleSelectCell, handleSelectValue, handleExit);
@@ -159,33 +161,37 @@ export const GameScreen = () => {
                     <BlackText>{t`Mistakes`}</BlackText>
 
                     <BlackText>
-                        <Text style={mistakesCountTextStyles} testID={GameScreenSelectors.MistakesCount}>{mistakes}</Text>
+                        <Text style={mistakesCountTextStyles} testID={GameScreenSelectors.MistakesCount}>
+                            {mistakes}
+                        </Text>
 
                         <Text style={styles.mistakesSeparator}>/</Text>
 
-                        <BlackText style={styles.mistakesMaxText} testID={GameScreenSelectors.MaxMistakesAllowed}>{MaxMistakesConstant}</BlackText>
+                        <BlackText style={styles.mistakesMaxText} testID={GameScreenSelectors.MaxMistakesAllowed}>
+                            {maxMistakes}
+                        </BlackText>
                     </BlackText>
                 </View>
 
-                <View style={styles.controlsWrapper}>
-                    <BlackText>{t`Elapsed`}</BlackText>
+                {hasTimer ? (
+                    <View style={styles.controlsWrapper}>
+                        <BlackText>{t`Elapsed`}</BlackText>
 
-                    <GameTimer />
-                </View>
+                        <GameTimer />
+                    </View>
+                ) : null}
 
                 <View style={styles.scoreWrapper}>
                     <View style={styles.controlsWrapper}>
                         <BlackText>{t`Score`}</BlackText>
 
-                        <BlackText style={styles.scoreText} testID={GameScreenSelectors.Score}>{score}</BlackText>
+                        <BlackText style={styles.scoreText} testID={GameScreenSelectors.Score}>
+                            {score}
+                        </BlackText>
                     </View>
                 </View>
 
                 <View style={styles.buttonsWrapper}>
-                    <BlackButton isActive={hasCandidates} onPress={handleCandidates} style={styles.button} testID={GameScreenSelectors.TipsButton}>
-                        <LucideHandHelping color={hasCandidates ? theme.colors.black : theme.colors.white} />
-                    </BlackButton>
-
                     {hasSharing ? (
                         // eslint-disable-next-line @typescript-eslint/no-misused-promises
                         <BlackButton onPress={handleShare} style={styles.button} testID={GameScreenSelectors.ShareButton}>
@@ -193,14 +199,18 @@ export const GameScreen = () => {
                         </BlackButton>
                     ) : null}
 
-                    <BlackButton onPress={handleExit} style={styles.button} testID={GameScreenSelectors.QuitButton}>
+                    <BlackButton href="/settings" style={styles.button}>
+                        <LucideSettings color={theme.colors.white} />
+                    </BlackButton>
+
+                    <BlackButton onPress={handleExit} style={styles.button}>
                         <LucideLogOut color={theme.colors.white} />
                     </BlackButton>
                 </View>
             </View>
 
             <View style={styles.fieldWrapper}>
-                <Field onSelect={handleSelectCell} ref={fieldRef} selectedCell={selectedCell} />
+                <Field onSelect={handleSelectCell} scoredCells={scoredCells} selectedCell={selectedCell} />
             </View>
 
             <View style={styles.availableValuesWrapper}>
@@ -216,6 +226,8 @@ export const GameScreen = () => {
                         value={value}
                     />
                 ))}
+
+                <AutoCandidatesButton />
             </View>
         </View>
     );

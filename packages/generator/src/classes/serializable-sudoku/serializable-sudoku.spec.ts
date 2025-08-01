@@ -5,14 +5,11 @@ import { defaultSudokuConfig } from '../../interfaces/sudoku-config.interface';
 
 import { SerializableSudoku } from './serializable-sudoku';
 
-const BLANK_CELLS_COUNT = 41;
-
 describe('SerializableSudoku - Basic Operations', () => {
     it('should create from string', () => {
         expect.assertions(5);
 
-        const testFieldsString =
-            '875469123469123875123875469784596231596231784231784596658947312947312658312658947|...469123469123875123875469784596...596231784231784596658947312947312658312658...';
+        const testFieldsString = '...469123469123875123875469784596...596231784231784596658947312947312658312658...';
 
         const sudoku = SerializableSudoku.fromString(testFieldsString, defaultSudokuConfig);
 
@@ -25,23 +22,18 @@ describe('SerializableSudoku - Basic Operations', () => {
     });
 
     it('should validate fields string length', () => {
-        expect.assertions(3);
+        expect.assertions(2);
 
-        const wrongLength =
-            '75469123469123875123875469784596231596231784231784596658947312947312658312658947|...469123469123875123875469784596...596231784231784596658947312947312658312658...';
-        const noSeparator =
-            '754691234691238751238754697845962315962317842317845966589473129473126582312658947]...469123469123875123875469784596...596231784231784596658947312947312658312658...';
+        const wrongLength = '...469123469123875123875469784596...596231784231784596658947312947312658312658...2';
 
         expect(() => SerializableSudoku.fromString('', defaultSudokuConfig)).toThrow('Empty string passed');
         expect(() => SerializableSudoku.fromString(wrongLength, defaultSudokuConfig)).toThrow('String length is wrong');
-        expect(() => SerializableSudoku.fromString(noSeparator, defaultSudokuConfig)).toThrow('No field separator');
     });
 
     it('should correctly calculate possible values', () => {
         expect.assertions(1);
 
-        const testFieldsString =
-            '875469123469123875123875469784596231596231784231784596658947312947312658312658947|....69123.69123875123875.6978.596...59623178.23178.5966589.73129.7312658312658...';
+        const testFieldsString = '....69123.69123875123875.6978.596...59623178.23178.5966589.73129.7312658312658...';
 
         const sudoku = SerializableSudoku.fromString(testFieldsString, defaultSudokuConfig);
 
@@ -64,11 +56,9 @@ describe('SerializableSudoku - Difficulty Settings', () => {
             }
         };
 
-        const completeField = '123456789'.repeat(9);
-        const gameField = '1'.repeat(40) + '.'.repeat(BLANK_CELLS_COUNT);
-        const testFieldsString = `${completeField}|${gameField}`;
+        const gameField = '...469123469123875123875469784596...596231784231784596658947312947312658312658...';
 
-        const sudoku = SerializableSudoku.fromString(testFieldsString, testConfig);
+        const sudoku = SerializableSudoku.fromString(gameField, testConfig);
 
         expect(sudoku.Difficulty).toBe(DifficultyEnum.Newbie);
     });
@@ -76,13 +66,11 @@ describe('SerializableSudoku - Difficulty Settings', () => {
     it('should get difficulty from config', () => {
         expect.assertions(1);
 
-        const testFieldsString =
-            '875469123469123875123875469784596231596231784231784596658947312947312658312658947|...469123469123875123875469784596...596231784231784596658947312947312658312658...';
+        const testFieldsString = '...469123469123875123875469784596...596231784231784596658947312947312658312658...';
 
-        const config = { ...defaultSudokuConfig, difficulty: DifficultyEnum.Easy };
-        const sudoku = SerializableSudoku.fromString(testFieldsString, config);
+        const sudoku = SerializableSudoku.fromString(testFieldsString, defaultSudokuConfig);
 
-        expect(sudoku.Difficulty).toBe(DifficultyEnum.Easy);
+        expect(sudoku.Difficulty).toBe(DifficultyEnum.Newbie);
     });
 });
 
@@ -90,8 +78,7 @@ describe('SerializableSudoku - Value Operations', () => {
     it('should get value progress for a specific value', () => {
         expect.assertions(1);
 
-        const testFieldsString =
-            '875469123469123875123875469784596231596231784231784596658947312947312658312658947|....69123.69123875123875.6978.596...59623178.23178.5966589.73129.7312658312658...';
+        const testFieldsString = '....69123.69123875123875.6978.596...59623178.23178.5966589.73129.7312658312658...';
 
         const sudoku = SerializableSudoku.fromString(testFieldsString, defaultSudokuConfig);
 
@@ -103,8 +90,7 @@ describe('SerializableSudoku - Value Operations', () => {
     it('should check if value is available for a cell', () => {
         expect.assertions(3);
 
-        const testFieldsString =
-            '875469123469123875123875469784596231596231784231784596658947312947312658312658947|....69123.69123875123875.6978.596...59623178.23178.5966589.73129.7312658312658...';
+        const testFieldsString = '....69123.69123875123875.6978.596...59623178.23178.5966589.73129.7312658312658...';
 
         const sudoku = SerializableSudoku.fromString(testFieldsString, defaultSudokuConfig);
 
@@ -122,9 +108,7 @@ describe('SerializableSudoku - Value Operations', () => {
 
 describe('SerializableSudoku - Error Handling', () => {
     it('should handle malformed field string (162 chars instead of 163)', () => {
-        const malformedField = decodeURIComponent(
-            '683957124594132786172468953926813475748295631315746892431589267867324519259671348%7C...9..1...94........2..89.39...........2.....31....8...315...67.67..4....59.7..4'
-        );
+        const malformedField = decodeURIComponent('...9..1...94........2..89.39...........2.....31....8...315...67.67..4....59.7..4');
 
         expect(() => {
             SerializableSudoku.fromString(malformedField, defaultSudokuConfig);
@@ -135,14 +119,5 @@ describe('SerializableSudoku - Error Handling', () => {
         expect(() => {
             SerializableSudoku.fromString('', defaultSudokuConfig);
         }).toThrow('Invalid string format: Empty string passed');
-    });
-
-    it('should handle field without separator', () => {
-        const expectedLength = defaultSudokuConfig.fieldSize * defaultSudokuConfig.fieldSize * 2 + 1;
-        const fieldWithoutSeparator = 'A'.repeat(expectedLength);
-
-        expect(() => {
-            SerializableSudoku.fromString(fieldWithoutSeparator, defaultSudokuConfig);
-        }).toThrow('Invalid string format: No field separator found');
     });
 });
