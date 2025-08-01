@@ -13,17 +13,17 @@ url: https://www.suuudokuuu.com
 - tapOn: "Back"
 - assertVisible: "Start new"
 - tapOn: "Start new"
-- runScript: subflows/scripts/difficulties.js
-- assertVisible: ${ output.difficulties[0] }
-- evalScript: ${output.counter = 0}
-- repeat:
-    times: ${output.difficulties.length}
-    commands:
-      - assertVisible: ${output.difficulties[output.counter]}
-      - evalScript: ${output.counter = output.counter + 1}
+- assertVisible: "Newbie"
+- assertVisible: "Easy"
+- assertVisible: "Medium"
+- assertVisible: "Hard"
+- assertVisible: "Nightmare"
 - tapOn: "Newbie"
+- assertVisible: "Immortal"
+- assertVisible: "Standard"
+- assertVisible: "Hardcore"
+- tapOn: "Standard"
 - assertVisible:
-    below: "Score"
     id: "GameScreenSelectors.Score"
     text: "0"
 - assertVisible:
