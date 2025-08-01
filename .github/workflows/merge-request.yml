@@ -194,7 +194,7 @@ jobs:
 
       - uses: dniHze/maestro-test-action@v1
         with:
-          flow: .maestro
+          flow: packages/app/flows
           report: report.xml
 
   e2e-android:
@@ -239,4 +239,4 @@ jobs:
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
-          script: maestro test --format=junit --output=report.xml --no-ansi .maestro
+          script: maestro test --format=junit --output=report.xml --no-ansi packages/app/flows
