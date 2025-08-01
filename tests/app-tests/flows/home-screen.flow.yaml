@@ -24,19 +24,17 @@ url: https://www.suuudokuuu.com
 - assertVisible: "Hardcore"
 - tapOn: "Standard"
 - assertVisible:
-    id: "GameScreenSelectors.Score"
+    below: "Score"
     text: "0"
 - assertVisible:
     below: "Mistakes"
-- assertVisible:
-    id: "GameScreenSelectors.MistakesCount"
-    text: "0"
-- assertVisible:
-    id: "GameScreenSelectors.MaxMistakesAllowed"
+    rightOf: "0"
     text: "3"
 - assertVisible:
     id: "CellSelectors.Root"
 - assertVisible:
     id: "AvailableValueItemSelectors.Button"
-- assertVisible: "\\([0-9]{2}:[0-9]{2}\\)"
+- assertVisible:
+    below: "Elapsed"
+    text: "[0-9]{2}:[0-9]{2}"
 
