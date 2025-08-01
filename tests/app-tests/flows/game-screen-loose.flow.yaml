@@ -1,27 +1,36 @@
-url: https://www.suuudokuuu.com/shared?sudokuString=837142956561938427429675183642519378953287641178364295714896532296753814385421769%7C..7142956561938427429675183642519378953287641178364295714896532296753814385421769&score=9999&mistakes=1&elapsedTime=35&isFinished=false&hasCandidates=false
+url: https://www.suuudokuuu.com/shared?eyJwYXVzZWQiOnRydWUsImVsYXBzZWRUaW1lIjo3NSwic3Vkb2t1U3RyaW5nIjoiODYzMi40NzUxNDI5MTU3NjgzNzUxMzYuMjQuNi41NzI5MTMuOTM3NDgxNTYyMjEuNTM2LjcuNTcyODEzNDk2MTk4NjQ1MzI3MzQ2OTcyODE1IiwibWlzdGFrZXMiOjAsInNjb3JlIjo0MjA0MCwibWF4TWlzdGFrZXMiOjN9
+
+
 ---
 - launchApp
 - assertVisible: "Open shared puzzle?"
 - tapOn: "Open puzzle"
 - assertVisible:
     below: "Score"
-    text: "9999"
+    text: "42040"
 - assertVisible:
     below: "Mistakes"
-    rightOf: "1"
+    rightOf: "0"
     text: "3"
 - assertVisible:
     id: "CellSelectors.Root"
 - assertVisible:
     id: "AvailableValueItemSelectors.Button"
-- assertVisible: "\\([0-9]{2}:[0-9]{2}\\)"
 - tapOn:
     id: "CellSelectors.Root"
-    index: 0
+    index: 28
 - tapOn:
     id: "AvailableValueItemSelectors.Button"
     containsDescendants:
-      - text: "3"
+      - text: "4"
+- assertVisible:
+    below: "Mistakes"
+    rightOf: "1"
+    text: "3"
+- tapOn:
+    id: "AvailableValueItemSelectors.Button"
+    containsDescendants:
+      - text: "4"
 - assertVisible:
     below: "Mistakes"
     rightOf: "2"
@@ -29,7 +38,7 @@ url: https://www.suuudokuuu.com/shared?sudokuString=8371429565619384274296751836
 - tapOn:
     id: "AvailableValueItemSelectors.Button"
     containsDescendants:
-      - text: "3"
+      - text: "4"
 - assertVisible: "Better luck next time!.*"
 - assertVisible: "Help Ukraine win!"
 - tapOn: "Play again"

@@ -1,18 +1,19 @@
-url: https://www.suuudokuuu.com/shared?sudokuString=837142956561938427429675183642519378953287641178364295714896532296753814385421769%7C.37142956561938427429675183642519378953287641178364295714896532296753814385421769&score=9999&mistakes=1&elapsedTime=35&isFinished=false&hasCandidates=false
+url: https://www.suuudokuuu.com/shared?eyJwYXVzZWQiOnRydWUsImVsYXBzZWRUaW1lIjo5Niwic3Vkb2t1U3RyaW5nIjoiNTE4NzkyNDM2MzI0ODYxNTc5OTc2NDM1MjgxNjU3MTI5ODQzODQyNjczMTk1MTkzNTg0NzYyLjMxOTQ4NjU3NDY1MzE3OTI4Nzg5MjU2MzE0IiwibWlzdGFrZXMiOjEsInNjb3JlIjoxMzQyMjYsIm1heE1pc3Rha2VzIjo5OX0=
+
 ---
 - launchApp
 - tapOn: "Open puzzle"
 - tapOn:
     id: "CellSelectors.Root"
-    index: 0
+    index: 54
 - tapOn:
     id: "AvailableValueItemSelectors.Button"
     containsDescendants:
-      - text: "8"
+      - text: "2"
 - assertVisible: "Winners-winner, .*"
 - assertVisible:
     rightOf: "You have scored.*"
-    text: "9999"
+    text: "155852"
 - assertVisible: "Help Ukraine win!"
 - tapOn: "Play again"
 - assertVisible: "Start new"
