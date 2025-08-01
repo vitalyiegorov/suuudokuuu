@@ -188,14 +188,27 @@ jobs:
           distribution: 'adopt'
           java-version: '11'
 
-      - uses: futureware-tech/simulator-action@v4
+      - name: Install Maestro
+        run: |
+          curl -fsSL "https://get.maestro.mobile.dev" | bash
+          export PATH=”$PATH:$HOME/.maestro/bin”
+          maestro --version
+
+      - name: Start iOS Simulator
+        uses: futureware-tech/simulator-action@v4
         with:
           model: 'iPhone 15 Pro'
 
-      - uses: dniHze/maestro-test-action@v1
+      - name: Run Maestro UI tests
+        run: |
+          xcrun simctl install $DEVICE_ID Wikipedia.app
+          maestro test --format junit --output report.xml packages/app/flows
+
+      - name: Upload report
+        uses: actions/upload-artifact@v4
         with:
-          flow: packages/app/flows
-          report: report.xml
+          name: "maestro-ios-report"
+          path: report.xml
 
   e2e-android:
     needs: [code-quality, eas-deploy]
@@ -208,7 +221,11 @@ jobs:
           distribution: 'adopt'
           java-version: '11'
 
-      - uses: dniHze/maestro-test-action@v1
+      - name: Install Maestro
+        run: |
+          curl -fsSL "https://get.maestro.mobile.dev" | bash
+          export PATH=”$PATH:$HOME/.maestro/bin”
+          maestro --version
 
       - name: Gradle cache
         uses: gradle/actions/setup-gradle@v3
@@ -239,4 +256,10 @@ jobs:
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
-          script: maestro test --format=junit --output=report.xml --no-ansi packages/app/flows
+          script: maestro test --format junit --output report.xml packages/app/flows
+
+      - name: Upload report
+        uses: actions/upload-artifact@v4
+        with:
+          name: "maestro-android-report"
+          path: report.xml
