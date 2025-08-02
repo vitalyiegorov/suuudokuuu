@@ -225,14 +225,14 @@ jobs:
           curl -fsSL "https://get.maestro.mobile.dev" | bash
           export PATH="$PATH":"$HOME/.maestro/bin"
           mkdir .maestro
-          maestro test flows --format junit --output ./.maestro/report.xml --debug-output ./
+          maestro test flows --format junit --output ./maestro/report.xml --debug-output ./maestro
 
       - name: Upload report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: "maestro-ios-report"
-          path: tests/app-tests/.maestro/*
+          path: tests/app-tests/maestro
 
   e2e-android:
     needs: [ code-quality, eas-deploy ]
@@ -287,12 +287,11 @@ jobs:
             eas build:run --profile=development --platform android --latest
             curl -fsSL "https://get.maestro.mobile.dev" | bash
             export PATH="$PATH:$HOME/.maestro/bin"
-            mkdir .maestro
-            maestro test flows --format junit --output ./.maestro/report.xml --debug-output ./
+            maestro test flows --format junit --output ./maestro/report.xml --debug-output ./maestro
 
       - name: Upload Report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: "maestro-android-report"
-          path: tests/app-tests/.maestro/*
+          path: tests/app-tests/maestro
