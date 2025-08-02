@@ -204,9 +204,6 @@ jobs:
           node-version: 22.x
           cache: yarn
 
-      - name: Install dependencies
-        run: yarn install
-
       - name: Start iOS Simulator
         uses: futureware-tech/simulator-action@v4
         with:
@@ -246,14 +243,17 @@ jobs:
           distribution: 'adopt'
           java-version: '17'
 
+      - name: Enable KVM group perms
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22.x
           cache: yarn
-
-      - name: Install dependencies
-        run: yarn install
 
       - name: Gradle cache
         uses: gradle/actions/setup-gradle@v3
@@ -265,13 +265,13 @@ jobs:
           path: |
             ~/.android/avd/*
             ~/.android/adb*
-          key: avd-35
+          key: avd-33
 
       - name: Create AVD and Generate Snapshot for Caching
         if: steps.avd-cache.outputs.cache-hit != 'true'
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 34
+          api-level: 33
           force-avd-creation: false
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: false
@@ -280,7 +280,7 @@ jobs:
       - name: Run Tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 34
+          api-level: 33
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
@@ -295,4 +295,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: "maestro-android-report"
-          path: tests/app-tests/maestro
+          path: |
+            - tests/app-tests/maestro/report.xml
+            - tests/app-tests/maestro/.maestro
