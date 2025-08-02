@@ -232,7 +232,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: "maestro-ios-report"
-          path: tests/app-tests/.maestro
+          path: tests/app-tests/.maestro/*
 
   e2e-android:
     needs: [ code-quality, eas-deploy ]
@@ -295,4 +295,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: "maestro-android-report"
-          path: tests/app-tests/.maestro
+          path: tests/app-tests/.maestro/*
