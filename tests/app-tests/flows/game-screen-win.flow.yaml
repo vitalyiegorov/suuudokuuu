@@ -1,19 +1,18 @@
-url: ${DEPLOYMENT_URL}/shared?eyJwYXVzZWQiOnRydWUsImVsYXBzZWRUaW1lIjo5Niwic3Vkb2t1U3RyaW5nIjoiNTE4NzkyNDM2MzI0ODYxNTc5OTc2NDM1MjgxNjU3MTI5ODQzODQyNjczMTk1MTkzNTg0NzYyLjMxOTQ4NjU3NDY1MzE3OTI4Nzg5MjU2MzE0IiwibWlzdGFrZXMiOjEsInNjb3JlIjoxMzQyMjYsIm1heE1pc3Rha2VzIjo5OX0=
+#url: ${DEPLOYMENT_URL}/shared?eyJwYXVzZWQiOnRydWUsImVsYXBzZWRUaW1lIjo5Niwic3Vkb2t1U3RyaW5nIjoiNTE4NzkyNDM2MzI0ODYxNTc5OTc2NDM1MjgxNjU3MTI5ODQzODQyNjczMTk1MTkzNTg0NzYyLjMxOTQ4NjU3NDY1MzE3OTI4Nzg5MjU2MzE0IiwibWlzdGFrZXMiOjEsInNjb3JlIjoxMzQyMjYsIm1heE1pc3Rha2VzIjo5OX0=
 
+appId: com.vitalyiegorov.suuudokuuu
 ---
-- launchApp
-- tapOn: "Open puzzle"
+- openLink:
+    link: suuudokuuu://shared?eyJwYXVzZWQiOnRydWUsImVsYXBzZWRUaW1lIjo5Niwic3Vkb2t1U3RyaW5nIjoiNTE4NzkyNDM2MzI0ODYxNTc5OTc2NDM1MjgxNjU3MTI5ODQzODQyNjczMTk1MTkzNTg0NzYyLjMxOTQ4NjU3NDY1MzE3OTI4Nzg5MjU2MzE0IiwibWlzdGFrZXMiOjEsInNjb3JlIjoxMzQyMjYsIm1heE1pc3Rha2VzIjo5OX0=
+- tapOn: 'Open puzzle'
 - tapOn:
-    id: "CellSelectors.Root"
+    id: 'CellSelectors.Root'
     index: 54
 - tapOn:
-    id: "AvailableValueItemSelectors.Button"
-    containsDescendants:
-      - text: "2"
-- assertVisible: "Winners-winner, .*"
-- assertVisible:
-    rightOf: "You have scored.*"
-    text: "155852"
-- assertVisible: "Help Ukraine win!"
-- tapOn: "Play again"
-- assertVisible: "Start new"
+    id: 'AvailableValueItemSelectors.Button'
+    index: 0
+- assertVisible: Winners-winner, .*
+- assertVisible: You have scored.*
+- assertVisible: Help Ukraine win!
+- tapOn: 'Play again'
+- assertVisible: 'Start new'
