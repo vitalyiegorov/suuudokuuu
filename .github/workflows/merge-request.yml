@@ -188,20 +188,43 @@ jobs:
           distribution: 'adopt'
           java-version: '11'
 
+      - name: Setup EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
       - name: Install Maestro
         run: |
           curl -fsSL "https://get.maestro.mobile.dev" | bash
           export PATH="$PATH":"$HOME/.maestro/bin"
           maestro --version
 
+      - name: Download Simulator Build
+        run: |
+          build_id=$(eas build:list --platform ios --build-profile ios-simulator --status finished --limit 1 --json | jq -r '.[0].id // empty')
+          if [ -z "$build_id" ]; then
+            echo "No finished simulator build found."
+            exit 1
+          fi
+          eas build:download --platform ios --build-id "$build_id" --path simulator-build.tar.gz
+          tar -xzf simulator-build.tar.gz
+          find . -name "*.app" -exec mv {} simulator-build.app \;
+          echo "app_path=$(pwd)/simulator-build.app" >> $GITHUB_OUTPUT
+        id: download-build
+        working-directory: packages/app
+
       - name: Start iOS Simulator
         uses: futureware-tech/simulator-action@v4
         with:
           model: 'iPhone 15 Pro'
 
+      - name: Install App on Simulator
+        run: |
+          xcrun simctl install booted "${{ steps.download-build.outputs.app_path }}"
+
       - name: Run Maestro UI tests
         run: |
-          xcrun simctl install $DEVICE_ID Wikipedia.app
           maestro test --format junit --output report.xml packages/app/flows
 
       - name: Upload report
