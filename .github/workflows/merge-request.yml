@@ -207,12 +207,6 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
-      - name: Install Maestro
-        run: |
-          curl -fsSL "https://get.maestro.mobile.dev" | bash
-          export PATH="$PATH":"$HOME/.maestro/bin"
-          maestro --version
-
       - name: Start iOS Simulator
         uses: futureware-tech/simulator-action@v4
         with:
@@ -227,6 +221,8 @@ jobs:
       - name: Run Maestro UI tests
         working-directory: tests/app-tests
         run: |
+          curl -fsSL "https://get.maestro.mobile.dev" | bash
+          export PATH="$PATH":"$HOME/.maestro/bin"
           maestro test flows --format junit --output ./report.xml
 
       - name: Upload report
@@ -255,12 +251,6 @@ jobs:
 
       - name: Install dependencies
         run: yarn install
-
-      - name: Install Maestro
-        run: |
-          curl -fsSL "https://get.maestro.mobile.dev" | bash
-          export PATH="$PATH:$HOME/.maestro/bin"
-          maestro --version
 
       - name: Gradle cache
         uses: gradle/actions/setup-gradle@v3
@@ -293,6 +283,8 @@ jobs:
           disable-animations: true
           script: |
             eas build:run --profile=development --platform android --latest
+            curl -fsSL "https://get.maestro.mobile.dev" | bash
+            export PATH="$PATH:$HOME/.maestro/bin"
             maestro test flows --format junit --output ./report.xml
 
       - name: Upload Report
