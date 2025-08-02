@@ -226,9 +226,10 @@ jobs:
 
       - name: Run Maestro UI tests
         run: |
-          maestro test --format junit --output report.xml packages/app/flows
+          maestro test --format junit --output report.xml tests/app-tests/flows
 
       - name: Upload report
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: "maestro-ios-report"
@@ -291,9 +292,10 @@ jobs:
           disable-animations: true
           script: |
             eas build:run --profile=development --platform android --latest
-            maestro test --format junit --output report.xml packages/app/flows
+            maestro test --format junit --output report.xml tests/app-tests/flows
 
       - name: Upload Report
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: "maestro-android-report"
