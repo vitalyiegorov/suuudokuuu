@@ -71,11 +71,11 @@ msgstr "Продовжити"
 
 #: src/screens/components/settings-screen/settings.screen.tsx:47
 msgid "Dark/Light color schema"
-msgstr ""
+msgstr "Темна/Світла колірна схема"
 
 #: src/settings/component/theme-toggle/theme-toggle.tsx:22
 msgid "default"
-msgstr ""
+msgstr "стандартна"
 
 #: src/@generic/utils/get-difficulty-text.util.ts:7
 msgid "Easy"
@@ -91,7 +91,7 @@ msgstr "Розмір шрифту"
 
 #: src/settings/component/theme-toggle/theme-toggle.tsx:28
 msgid "Game coloring and appearance"
-msgstr ""
+msgstr "Колірна схема та зовнішній вигляд гри"
 
 #: src/settings/component/language-toggle/language-toggle.tsx:29
 msgid "Game localization"
@@ -132,11 +132,11 @@ msgstr "Підсвітити блок, стовпець, рядок для ви�
 
 #: src/screens/components/settings-screen/settings.screen.tsx:43
 msgid "Highlight cells with the number filled in"
-msgstr ""
+msgstr "Підсвітити клітинки з заповненим числом"
 
 #: src/screens/components/settings-screen/settings.screen.tsx:45
 msgid "Highlight filled numbers"
-msgstr ""
+msgstr "Підсвітити заповнені числа"
 
 #: src/screens/components/settings-screen/settings.screen.tsx:35
 msgid "Highlight identical numbers"
@@ -232,7 +232,7 @@ msgstr "Повернутися"
 
 #: src/settings/component/theme-toggle/theme-toggle.tsx:23
 msgid "safari"
-msgstr ""
+msgstr "сафарі"
 
 #: src/screens/components/game-screen/game.screen.tsx:186
 msgid "Score"
@@ -301,7 +301,7 @@ msgstr "Невідомий"
 
 #: src/screens/components/settings-screen/settings.screen.tsx:47
 msgid "Use dark mode"
-msgstr ""
+msgstr "Використовувати темний режим"
 
 #: src/screens/components/home-screen/home.screen.tsx:131
 msgid "V."
