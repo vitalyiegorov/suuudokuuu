@@ -71,11 +71,11 @@ msgstr "Continuar"
 
 #: src/screens/components/settings-screen/settings.screen.tsx:47
 msgid "Dark/Light color schema"
-msgstr ""
+msgstr "Esquema de color oscuro/claro"
 
 #: src/settings/component/theme-toggle/theme-toggle.tsx:22
 msgid "default"
-msgstr ""
+msgstr "predeterminado"
 
 #: src/@generic/utils/get-difficulty-text.util.ts:7
 msgid "Easy"
@@ -91,7 +91,7 @@ msgstr "Tamaño de fuente"
 
 #: src/settings/component/theme-toggle/theme-toggle.tsx:28
 msgid "Game coloring and appearance"
-msgstr ""
+msgstr "Coloreado y apariencia del juego"
 
 #: src/settings/component/language-toggle/language-toggle.tsx:29
 msgid "Game localization"
@@ -132,11 +132,11 @@ msgstr "Resaltar bloque, columna, fila para una celda seleccionada"
 
 #: src/screens/components/settings-screen/settings.screen.tsx:43
 msgid "Highlight cells with the number filled in"
-msgstr ""
+msgstr "Resaltar celdas con el número rellenado"
 
 #: src/screens/components/settings-screen/settings.screen.tsx:45
 msgid "Highlight filled numbers"
-msgstr ""
+msgstr "Resaltar números rellenados"
 
 #: src/screens/components/settings-screen/settings.screen.tsx:35
 msgid "Highlight identical numbers"
@@ -232,7 +232,7 @@ msgstr "Volver"
 
 #: src/settings/component/theme-toggle/theme-toggle.tsx:23
 msgid "safari"
-msgstr ""
+msgstr "safari"
 
 #: src/screens/components/game-screen/game.screen.tsx:186
 msgid "Score"
@@ -301,7 +301,7 @@ msgstr "Desconocido"
 
 #: src/screens/components/settings-screen/settings.screen.tsx:47
 msgid "Use dark mode"
-msgstr ""
+msgstr "Usar modo oscuro"
 
 #: src/screens/components/home-screen/home.screen.tsx:131
 msgid "V."
