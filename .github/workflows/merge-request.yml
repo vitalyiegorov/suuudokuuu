@@ -224,7 +224,6 @@ jobs:
         run: |
           curl -fsSL "https://get.maestro.mobile.dev" | bash
           export PATH="$PATH":"$HOME/.maestro/bin"
-          mkdir .maestro
           maestro test flows --format junit --output ./maestro/report.xml --debug-output ./maestro
 
       - name: Upload report
@@ -232,7 +231,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: "maestro-ios-report"
-          path: tests/app-tests/maestro
+          path: |
+            - tests/app-tests/maestro
+            - tests/app-tests/maestro/.maestro
 
   e2e-android:
     needs: [ code-quality, eas-deploy ]
