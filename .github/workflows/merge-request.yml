@@ -287,6 +287,7 @@ jobs:
             eas build:run --profile=development --platform android --latest
             curl -fsSL "https://get.maestro.mobile.dev" | bash
             export PATH="$PATH:$HOME/.maestro/bin"
+            mkdir .maestro
             maestro test flows --format junit --output ./.maestro/report.xml --debug-output ./
 
       - name: Upload Report
