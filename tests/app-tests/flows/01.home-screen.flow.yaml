@@ -1,4 +1,4 @@
-appId: com.vitalyiegorov.suuudokuuu
+appId: com.vitalyiegorov.suuudokuuu.dev
 ---
 - launchApp
 - assertVisible: 'SuuudokuuU'
