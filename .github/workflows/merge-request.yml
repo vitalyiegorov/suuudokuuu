@@ -213,21 +213,6 @@ jobs:
           export PATH="$PATH":"$HOME/.maestro/bin"
           maestro --version
 
-      - name: Download Simulator Build
-        run: |
-          eas build:list --platform ios --build-profile ios-simulator --status finished --limit 1 --json  --non-interactive
-          build_id=$(eas build:list --platform ios --build-profile ios-simulator --status finished --limit 1 --json  --non-interactive | jq -r '.[0].id // empty')
-          if [ -z "$build_id" ]; then
-            echo "No finished simulator build found."
-            exit 1
-          fi
-          eas build:download --platform ios --build-id "$build_id" --path simulator-build.tar.gz
-          tar -xzf simulator-build.tar.gz
-          find . -name "*.app" -exec mv {} simulator-build.app \;
-          echo "app_path=$(pwd)/simulator-build.app" >> $GITHUB_OUTPUT
-        id: download-build
-        working-directory: packages/app
-
       - name: Start iOS Simulator
         uses: futureware-tech/simulator-action@v4
         with:
@@ -235,6 +220,7 @@ jobs:
 
       - name: Install App on Simulator
         run: |
+          eas build:run --profile=ios-simulator --platform ios --latest
           xcrun simctl install booted "${{ steps.download-build.outputs.app_path }}"
 
       - name: Open Preview URL
@@ -277,27 +263,6 @@ jobs:
           export PATH="$PATH:$HOME/.maestro/bin"
           maestro --version
 
-      - name: Cache Android Build
-        id: cache-android-build
-        uses: actions/cache@v4
-        with:
-          path: packages/app/build.apk
-          key: android-build-${{ hashFiles('**/app.json', '**/eas.json', '**/package.json') }}
-          restore-keys: android-build-
-
-      - name: Download Android Build
-        if: steps.cache-android-build.outputs.cache-hit != 'true'
-        run: |
-          build_id=$(eas build:list --platform android --profile development --status finished --limit 1 --json --non-interactive | jq -r '.[0].id // empty')
-          if [ -z "$build_id" ]; then
-            echo "No finished Android build found for the development profile."
-            exit 1
-          fi
-          eas build:download --platform android --build-id "$build_id" --path build.apk
-          echo "apk_path=$(pwd)/build.apk" >> $GITHUB_OUTPUT
-        id: download-build
-        working-directory: packages/app
-
       - name: Gradle cache
         uses: gradle/actions/setup-gradle@v3
 
@@ -328,7 +293,7 @@ jobs:
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
           script: |
-            adb install "${{ steps.download-build.outputs.apk_path }}"
+            eas build:run --profile=development --platform android --latest
             maestro test --format junit --output report.xml packages/app/flows
 
       - name: Upload Report
