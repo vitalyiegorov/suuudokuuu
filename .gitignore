@@ -45,3 +45,4 @@ packages/app/android
 packages/app/ios
 
 .maestro
+report.xml
