@@ -228,9 +228,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: "maestro-ios-report"
+          include-hidden-files: true
           path: |
-            - tests/app-tests/maestro/report.xml
-            - tests/app-tests/maestro/.maestro
+            - tests/app-tests/maestro
 
   e2e-android:
     needs: [ code-quality, eas-deploy ]
@@ -295,6 +295,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: "maestro-android-report"
+          include-hidden-files: true
           path: |
-            - tests/app-tests/maestro/report.xml
-            - tests/app-tests/maestro/.maestro
+            - tests/app-tests/maestro
