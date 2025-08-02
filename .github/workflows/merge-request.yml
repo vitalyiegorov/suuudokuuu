@@ -225,15 +225,16 @@ jobs:
           xcrun simctl openurl booted "suuudokuuu://expo-development-client/?url=${{ needs.eas-deploy.outputs.update_url }}"
 
       - name: Run Maestro UI tests
+        working-directory: tests/app-tests
         run: |
-          maestro test --format junit --output report.xml tests/app-tests/flows
+          maestro test flows --format junit --output ./report.xml
 
       - name: Upload report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: "maestro-ios-report"
-          path: report.xml
+          path: tests/app-tests/report.xml
 
   e2e-android:
     needs: [ code-quality, eas-deploy ]
@@ -292,11 +293,11 @@ jobs:
           disable-animations: true
           script: |
             eas build:run --profile=development --platform android --latest
-            maestro test --format junit --output report.xml tests/app-tests/flows
+            maestro test flows --format junit --output ./report.xml
 
       - name: Upload Report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: "maestro-android-report"
-          path: report.xml
+          path: tests/app-tests/report.xml
