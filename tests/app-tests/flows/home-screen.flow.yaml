@@ -1,13 +1,7 @@
-#url: "${DEPLOYMENT_URL}"
-#url: https://www.suuudokuuu.com
 appId: com.vitalyiegorov.suuudokuuu
 ---
 - launchApp
 - assertVisible: 'SuuudokuuU'
-# - tapOn: Support Ukraine 🇺🇦
-# - assertVisible: 'Donate to Ukraine Army Fundraiser'
-# - launchApp:
-#     clearState: false
 - tapOn: Privacy policy
 - assertVisible: Privacy Policy
 - tapOn: 'Return'
