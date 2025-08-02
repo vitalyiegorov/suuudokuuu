@@ -4,7 +4,7 @@ appId: com.vitalyiegorov.suuudokuuu.dev
 - assertVisible: 'SuuudokuuU'
 - tapOn: Privacy policy
 - assertVisible: Privacy Policy
-- tapOn: 'Returns'
+- tapOn: 'Return'
 - tapOn: 'Start new'
 - tapOn: 'Back'
 - assertVisible: 'Start new'
