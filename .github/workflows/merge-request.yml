@@ -232,7 +232,7 @@ jobs:
         with:
           name: "maestro-ios-report"
           path: |
-            - tests/app-tests/maestro
+            - tests/app-tests/maestro/report.xml
             - tests/app-tests/maestro/.maestro
 
   e2e-android:
