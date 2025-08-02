@@ -2,10 +2,10 @@ import { LucideHandHelping } from 'lucide-react-native';
 import { use } from 'react';
 
 import { BlackButton } from '../../../@generic/components/black-button/black-button';
-import { ThemeContext } from '../../../@generic/context/theme.context';
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { GameScreenSelectors } from '../../../screens/components/game-screen/game-screen.selectors';
+import { ThemeContext } from '../../../theme/context/theme.context';
 import { gameToggleCandidatesAction } from '../../store/game.actions';
 import { gameHasCandidatesSelector } from '../../store/game.selectors';
 

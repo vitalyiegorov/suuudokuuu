@@ -39,6 +39,7 @@ export const SettingsScreen = () => {
                     setting="showComboAnimation"
                     title={t`Show combo animation`}
                 />
+                <SettingsSwitch description={t`Dark/Light color schema`} setting="isDarkColorSchema" title={t`Use dark mode`} />
                 <FontSizeToggle />
                 <ThemeToggle />
             </ScrollView>

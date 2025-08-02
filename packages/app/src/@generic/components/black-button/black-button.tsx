@@ -14,7 +14,7 @@ import {
 
 import { isNotEmptyString } from '@rnw-community/shared';
 
-import { ThemeContext } from '../../context/theme.context';
+import { ThemeContext } from '../../../theme/context/theme.context';
 import { useVibration } from '../../hooks/use-vibration.hook';
 
 import { BlackButtonStyles as styles } from './black-button.styles';

@@ -1,7 +1,7 @@
 import { use } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { ThemeContext } from '../../context/theme.context';
+import { ThemeContext } from '../../../theme/context/theme.context';
 
 import type { ComponentProps } from 'react';
 

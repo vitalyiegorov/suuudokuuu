@@ -4,8 +4,8 @@ import { View } from 'react-native';
 import { interpolate, interpolateColor, useAnimatedStyle, useSharedValue, withSequence, withTiming } from 'react-native-reanimated';
 
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
-import { ThemeContext } from '../../../@generic/context/theme.context';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
+import { ThemeContext } from '../../../theme/context/theme.context';
 import { GameContext } from '../../context/game.context';
 import { gameHasCandidatesSelector } from '../../store/game.selectors';
 import { CellFontSizeConstant } from '../constants/dimensions.contant';

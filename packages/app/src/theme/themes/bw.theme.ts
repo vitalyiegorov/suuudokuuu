@@ -1,6 +1,6 @@
 import { DarkTheme, DefaultTheme } from '@react-navigation/native';
 
-export const WhiteTheme = {
+export const BWLightTheme = {
     ...DefaultTheme,
     text: {
         main: 'rgba(0, 0, 0, 1)',
@@ -37,7 +37,7 @@ export const WhiteTheme = {
     }
 };
 
-export const BlackTheme = {
+export const BWDarkTheme = {
     ...DarkTheme,
     text: {
         main: 'rgba(255, 255, 255, 1)',

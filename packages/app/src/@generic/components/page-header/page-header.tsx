@@ -5,7 +5,8 @@ import { use } from 'react';
 
 import { isNotEmptyString } from '@rnw-community/shared';
 
-import { ThemeContext } from '../../context/theme.context';
+import { ThemeContext } from '../../../theme/context/theme.context';
+import { ColorSchemaEnum } from '../../../theme/enum/color-schema.enum';
 import { useHtmlThemeColor } from '../../hooks/use-html-theme-color.hook';
 
 interface Props {
@@ -18,7 +19,7 @@ export const PageHeader = ({ title = '' }: Props) => {
 
     const pageTitle = t`SuuudokuuU The Game`;
     const fullTitle = isNotEmptyString(title) ? `${pageTitle} - ${title}` : pageTitle;
-    const statusBarStyle = colorScheme === 'dark' ? 'light' : 'dark';
+    const statusBarStyle = colorScheme === ColorSchemaEnum.Dark ? 'light' : 'dark';
 
     useHtmlThemeColor(theme.colors.background);
 

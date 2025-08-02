@@ -12,7 +12,6 @@ import { Alert } from '../../../@generic/components/alert/alert';
 import { BlackButton } from '../../../@generic/components/black-button/black-button';
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
-import { ThemeContext } from '../../../@generic/context/theme.context';
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { useVibration } from '../../../@generic/hooks/use-vibration.hook';
@@ -29,6 +28,7 @@ import { gameFinishedThunk } from '../../../game/store/thunks/game-finish.thunk'
 import { gameMistakeThunk } from '../../../game/store/thunks/game-mistake.thunk';
 import { gameSaveThunk } from '../../../game/store/thunks/game-save.thunk';
 import { settingsKeySelector } from '../../../settings/store/settings.selectors';
+import { ThemeContext } from '../../../theme/context/theme.context';
 
 import { GameScreenSelectors } from './game-screen.selectors';
 import { GameScreenStyles as styles } from './game-screen.styles';

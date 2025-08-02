@@ -5,16 +5,16 @@ import Reanimated, { interpolateColor, useAnimatedStyle, useDerivedValue, withTi
 import { type OnEventFn, cs } from '@rnw-community/shared';
 
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
-import { ThemeContext } from '../../../@generic/context/theme.context';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { settingsFontSizeMultiplierSelector, settingsKeySelector } from '../../../settings/store/settings.selectors';
+import { ThemeContext } from '../../../theme/context/theme.context';
 import { GameContext } from '../../context/game.context';
 import { CellCandidateFontSizeConstant, CellFontSizeConstant } from '../constants/dimensions.contant';
 
 import { FieldCellSelectors as selectors } from './field-cell.selectors';
 import { FieldCellStyles as styles } from './field-cell.styles';
 
-import type { BlackTheme } from '../../../@generic/styles/theme';
+import type { BWDarkTheme } from '../../../theme/themes/bw.theme';
 import type { CellInterface } from '@suuudokuuu/generator';
 
 const ReanimatedPressable = Reanimated.createAnimatedComponent(Pressable);
@@ -28,7 +28,7 @@ const getText = (isActive: boolean, isEmpty: boolean, hasCandidates: boolean, ce
 };
 
 const getCellBgColor = (
-    theme: typeof BlackTheme,
+    theme: typeof BWDarkTheme,
     isActiveValue: boolean,
     isCellHighlighted: boolean,
     isWrong: boolean,
@@ -51,7 +51,7 @@ const getCellBgColor = (
 };
 
 const getCellTextColor = (
-    theme: typeof BlackTheme,
+    theme: typeof BWDarkTheme,
     isActive: boolean,
     isEmpty: boolean,
     isHighlighted: boolean,
@@ -85,7 +85,7 @@ const getCellSelector = (props: Props): selectors => {
     return selectors.Root;
 };
 
-const getCandidateTextStyles = (theme: typeof BlackTheme, candidate: number, fontSize: number) => {
+const getCandidateTextStyles = (theme: typeof BWDarkTheme, candidate: number, fontSize: number) => {
     const textCandidatePositionStyles = {
         1: styles.textCandidatePosition1,
         2: styles.textCandidatePosition2,

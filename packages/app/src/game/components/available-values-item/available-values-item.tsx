@@ -9,9 +9,9 @@ import Reanimated, {
     withTiming
 } from 'react-native-reanimated';
 
-import { ThemeContext } from '../../../@generic/context/theme.context';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { settingsFontSizeMultiplierSelector } from '../../../settings/store/settings.selectors';
+import { ThemeContext } from '../../../theme/context/theme.context';
 import { CellFontSizeConstant } from '../constants/dimensions.contant';
 
 import { AvailableValueItemSelectors as selectors } from './available-value-item.selectors';

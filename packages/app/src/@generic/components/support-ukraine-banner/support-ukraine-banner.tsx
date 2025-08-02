@@ -3,8 +3,8 @@ import { Link } from 'expo-router';
 import { use } from 'react';
 import { Pressable, Text } from 'react-native';
 
+import { ThemeContext } from '../../../theme/context/theme.context';
 import { donationLinkConstant } from '../../constants/donation.constant';
-import { ThemeContext } from '../../context/theme.context';
 
 import { SupportUkraineBannerStyles as styles } from './support-ukraine-banner.styles';
 

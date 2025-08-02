@@ -11,7 +11,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
 import { appRootPersistor, appRootStore } from '../@generic/app-root.store';
-import { ThemeProvider } from '../@generic/context/theme.context';
+import { ThemeProvider } from '../theme/context/theme.context';
 import { i18nGetOSLocale } from '../@generic/utils/i18n.util';
 import { GameProvider } from '../game/context/game.context';
 
