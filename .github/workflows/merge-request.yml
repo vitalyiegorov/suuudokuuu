@@ -221,11 +221,7 @@ jobs:
       - name: Install App on Simulator
         run: |
           eas build:run --profile=ios-simulator --platform ios --latest
-          xcrun simctl install booted "${{ steps.download-build.outputs.app_path }}"
-
-      - name: Open Preview URL
-        run: |
-          xcrun simctl openurl booted "${{ needs.eas-deploy.outputs.update_url }}"
+          xcrun simctl openurl booted "suuudokuuu://expo-development-client/?url=${{ needs.eas-deploy.outputs.update_url }}"
 
       - name: Run Maestro UI tests
         run: |
