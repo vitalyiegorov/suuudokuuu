@@ -219,6 +219,7 @@ jobs:
           model: 'iPhone 15 Pro'
 
       - name: Install App on Simulator
+        working-directory: packages/app
         run: |
           eas build:run --profile=ios-simulator --platform ios --latest
           xcrun simctl openurl booted "suuudokuuu://expo-development-client/?url=${{ needs.eas-deploy.outputs.update_url }}"
@@ -275,7 +276,7 @@ jobs:
         if: steps.avd-cache.outputs.cache-hit != 'true'
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 35
+          api-level: 34
           force-avd-creation: false
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: false
@@ -284,7 +285,7 @@ jobs:
       - name: Run Tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 35
+          api-level: 34
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
