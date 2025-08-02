@@ -243,7 +243,7 @@ jobs:
           path: report.xml
 
   e2e-android:
-    needs: [code-quality, eas-deploy]
+    needs: [ code-quality, eas-deploy ]
     name: E2E Tests on Android
     runs-on: ubuntu-latest
     steps:
@@ -256,8 +256,29 @@ jobs:
       - name: Install Maestro
         run: |
           curl -fsSL "https://get.maestro.mobile.dev" | bash
-          export PATH="$PATH":"$HOME/.maestro/bin"
+          export PATH="$PATH:$HOME/.maestro/bin"
           maestro --version
+
+      - name: Cache Android Build
+        id: cache-android-build
+        uses: actions/cache@v4
+        with:
+          path: packages/app/build.apk
+          key: android-build-${{ hashFiles('**/app.json', '**/eas.json', '**/package.json') }}
+          restore-keys: android-build-
+
+      - name: Download Android Build
+        if: steps.cache-android-build.outputs.cache-hit != 'true'
+        run: |
+          build_id=$(eas build:list --platform android --profile development --status finished --limit 1 --json --non-interactive | jq -r '.[0].id // empty')
+          if [ -z "$build_id" ]; then
+            echo "No finished Android build found for the development profile."
+            exit 1
+          fi
+          eas build:download --platform android --build-id "$build_id" --path build.apk
+          echo "apk_path=$(pwd)/build.apk" >> $GITHUB_OUTPUT
+        id: download-build
+        working-directory: packages/app
 
       - name: Gradle cache
         uses: gradle/actions/setup-gradle@v3
@@ -271,7 +292,7 @@ jobs:
             ~/.android/adb*
           key: avd-35
 
-      - name: create AVD and generate snapshot for caching
+      - name: Create AVD and Generate Snapshot for Caching
         if: steps.avd-cache.outputs.cache-hit != 'true'
         uses: reactivecircus/android-emulator-runner@v2
         with:
@@ -281,16 +302,18 @@ jobs:
           disable-animations: false
           script: echo "Generated AVD snapshot for caching."
 
-      - name: run tests
+      - name: Run Tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 35
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
-          script: maestro test --format junit --output report.xml packages/app/flows
+          script: |
+            adb install "${{ steps.download-build.outputs.apk_path }}"
+            maestro test --format junit --output report.xml packages/app/flows
 
-      - name: Upload report
+      - name: Upload Report
         uses: actions/upload-artifact@v4
         with:
           name: "maestro-android-report"
