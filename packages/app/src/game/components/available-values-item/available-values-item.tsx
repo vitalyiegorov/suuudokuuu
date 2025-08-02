@@ -26,7 +26,6 @@ const ReanimatedPressable = Reanimated.createAnimatedComponent(Pressable);
 interface Props {
     readonly value: number;
     readonly canPress: boolean;
-    readonly isActive: boolean;
     readonly progress: number;
     readonly correctValue?: number;
     readonly onSelect: OnEventFn<number>;
@@ -37,7 +36,7 @@ export interface AvailableValuesItemRef {
     triggerAnimation: () => void;
 }
 
-export const AvailableValuesItem = ({ value, isActive, onSelect, progress, correctValue, canPress, ref }: Props) => {
+export const AvailableValuesItem = ({ value, onSelect, progress, correctValue, canPress, ref }: Props) => {
     const { theme } = use(ThemeContext);
 
     const fontSizeMultiplier = useAppSelector(settingsFontSizeMultiplierSelector);
@@ -72,7 +71,6 @@ export const AvailableValuesItem = ({ value, isActive, onSelect, progress, corre
     const buttonStyles = [
         styles.button,
         { borderBottomColor: theme.colors.value.progress, borderColor: theme.colors.value.border },
-        { backgroundColor: isActive ? theme.colors.cell.highlightedText : 'transparent' },
         animatedStyles
     ];
     const progressStyles = [
@@ -80,10 +78,7 @@ export const AvailableValuesItem = ({ value, isActive, onSelect, progress, corre
         { backgroundColor: theme.colors.cell.active },
         { width: `${progress}%` }
     ] as StyleProp<ViewStyle>;
-    const textStyles = [
-        { fontSize: CellFontSizeConstant * fontSizeMultiplier },
-        { color: isActive ? theme.colors.cell.activeValueText : theme.colors.value.text }
-    ];
+    const textStyles = [{ fontSize: CellFontSizeConstant * fontSizeMultiplier }, { color: theme.text.main }];
 
     return (
         <View style={styles.container} testID={selectors.Root}>
