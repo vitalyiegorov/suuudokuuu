@@ -13,7 +13,7 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/screens/components/game-screen/game.screen.tsx:73
+#: src/screens/components/game-screen/game.screen.tsx:74
 msgid "All progress will be lost"
 msgstr "Всі досягнення будуть втрачені"
 
@@ -53,7 +53,7 @@ msgstr ""
 "Лууууузер =)"
 
 #: src/screens/components/shared-screen/shared-screen.tsx:28
-#: src/screens/components/game-screen/game.screen.tsx:74
+#: src/screens/components/game-screen/game.screen.tsx:75
 msgid "Cancel"
 msgstr "Скасувати"
 
@@ -69,11 +69,19 @@ msgstr "Виберіть складність"
 msgid "Continue"
 msgstr "Продовжити"
 
+#: src/screens/components/settings-screen/settings.screen.tsx:42
+msgid "Dark/Light color schema"
+msgstr ""
+
+#: src/settings/component/theme-toggle/theme-toggle.tsx:21
+msgid "default"
+msgstr ""
+
 #: src/@generic/utils/get-difficulty-text.util.ts:7
 msgid "Easy"
 msgstr "Легкий"
 
-#: src/screens/components/game-screen/game.screen.tsx:173
+#: src/screens/components/game-screen/game.screen.tsx:178
 msgid "Elapsed"
 msgstr "Минуло"
 
@@ -81,9 +89,9 @@ msgstr "Минуло"
 msgid "Font size"
 msgstr "Розмір шрифту"
 
-#: src/settings/component/theme-toggle/theme-toggle.tsx:23
-msgid "Game appearance"
-msgstr "Зовнішній вигляд гри"
+#: src/settings/component/theme-toggle/theme-toggle.tsx:27
+msgid "Game coloring and appearance"
+msgstr ""
 
 #: src/settings/component/language-toggle/language-toggle.tsx:29
 msgid "Game localization"
@@ -158,7 +166,7 @@ msgstr "Програно"
 msgid "Medium"
 msgstr "Середній"
 
-#: src/screens/components/game-screen/game.screen.tsx:160
+#: src/screens/components/game-screen/game.screen.tsx:161
 msgid "Mistakes"
 msgstr "Помилки"
 
@@ -214,7 +222,11 @@ msgstr "Відновити"
 msgid "Return"
 msgstr "Повернутися"
 
-#: src/screens/components/game-screen/game.screen.tsx:181
+#: src/settings/component/theme-toggle/theme-toggle.tsx:22
+msgid "safari"
+msgstr ""
+
+#: src/screens/components/game-screen/game.screen.tsx:186
 msgid "Score"
 msgstr "Рахунок"
 
@@ -251,7 +263,7 @@ msgstr "Почати заново"
 msgid "Statistics"
 msgstr "Статистика"
 
-#: src/screens/components/game-screen/game.screen.tsx:73
+#: src/screens/components/game-screen/game.screen.tsx:74
 msgid "Stop current run?"
 msgstr "Зупинити поточний прогрес?"
 
@@ -267,7 +279,7 @@ msgstr "СууудокуУ"
 msgid "SuuudokuuU The Game"
 msgstr "СууудокуУ Гра"
 
-#: src/settings/component/theme-toggle/theme-toggle.tsx:23
+#: src/settings/component/theme-toggle/theme-toggle.tsx:27
 msgid "Theme"
 msgstr "Тема"
 
@@ -278,6 +290,10 @@ msgstr "Таймер"
 #: src/@generic/utils/get-difficulty-text.util.ts:17
 msgid "Unknown"
 msgstr "Невідомий"
+
+#: src/screens/components/settings-screen/settings.screen.tsx:42
+msgid "Use dark mode"
+msgstr ""
 
 #: src/screens/components/home-screen/home.screen.tsx:131
 msgid "V."

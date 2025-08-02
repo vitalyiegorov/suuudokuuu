@@ -6,7 +6,10 @@ import type { RootState } from '../../@generic/app-root.store';
 const settingsSelector = (state: RootState) => state.settings;
 
 export const settingsKeySelector = (
-    key: keyof Pick<SettingsState, 'hasVibration' | 'hasTimer' | 'showComboAnimation' | 'showAreas' | 'showIdenticalNumbers'>
+    key: keyof Pick<
+        SettingsState,
+        'hasVibration' | 'hasTimer' | 'showComboAnimation' | 'showAreas' | 'showIdenticalNumbers' | 'isDarkColorSchema'
+    >
 ) => createSelector(settingsSelector, state => state[key]);
 export const settingsFontSizeSelector = createSelector(settingsSelector, state => state.fontSize);
 export const settingsFontSizeMultiplierSelector = createSelector(

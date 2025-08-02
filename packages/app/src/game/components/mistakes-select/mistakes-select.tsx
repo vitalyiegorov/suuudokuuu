@@ -4,7 +4,7 @@ import { View } from 'react-native';
 
 import { BlackButton } from '../../../@generic/components/black-button/black-button';
 import { Header } from '../../../@generic/components/header/header';
-import { ThemeContext } from '../../../@generic/context/theme.context';
+import { ThemeContext } from '../../../theme/context/theme.context';
 
 import { MistakesSelectStyles as styles } from './mistakes-select.styles';
 

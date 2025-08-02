@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import { cs, isNotEmptyString } from '@rnw-community/shared';
 
 import { BlackText } from '../../../@generic/components/black-text/black-text';
-import { ThemeContext } from '../../../@generic/context/theme.context';
+import { ThemeContext } from '../../../theme/context/theme.context';
 
 import { SettingsGroupStyles as styles } from './settings-switch.styles';
 

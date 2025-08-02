@@ -1,7 +1,7 @@
 import { use } from 'react';
 import { Text, type TextProps } from 'react-native';
 
-import { ThemeContext } from '../../context/theme.context';
+import { ThemeContext } from '../../../theme/context/theme.context';
 
 import { HeaderStyles as styles } from './header.styles';
 

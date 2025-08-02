@@ -2,9 +2,10 @@ import { useLingui } from '@lingui/react/macro';
 import React, { use } from 'react';
 
 import { ToggleSelect } from '../../../@generic/components/toggle-select/toggle-select';
-import { ThemeContext } from '../../../@generic/context/theme.context';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
-import { Themes } from '../../constant/themes.constant';
+import { Themes } from '../../../theme/constant/themes.constant';
+import { ThemeContext } from '../../../theme/context/theme.context';
+import { ThemeEnum } from '../../../theme/enum/theme.enum';
 import { settingsThemeSelector } from '../../store/settings.selectors';
 import { SettingsGroup } from '../settings-group/settings-group';
 
@@ -16,11 +17,15 @@ export const ThemeToggle = () => {
 
     const currentTheme = useAppSelector(settingsThemeSelector);
 
-    const getThemeText = (theme: SettingsState['theme']) => theme;
+    const getThemeText = (theme: SettingsState['theme']) =>
+        ({
+            [ThemeEnum.BlackAndWhite]: t`default`,
+            [ThemeEnum.Colorful]: t`safari`
+        })[theme];
     const getThemeIndex = (theme: SettingsState['theme']) => Themes.indexOf(theme);
 
     return (
-        <SettingsGroup description={t`Game appearance`} hasAnotherRow title={t`Theme`}>
+        <SettingsGroup description={t`Game coloring and appearance`} hasAnotherRow title={t`Theme`}>
             <ToggleSelect
                 initialValue={currentTheme}
                 onChange={changeTheme}

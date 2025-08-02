@@ -13,6 +13,15 @@
             },
             "channel": "development"
         },
+        "ios-simulator": {
+            "distribution": "internal",
+            "env": {
+                "APP_VARIANT": "development"
+            },
+            "ios": {
+                "simulator": true
+            }
+        },
         "preview": {
             "distribution": "internal",
             "environment": "preview",

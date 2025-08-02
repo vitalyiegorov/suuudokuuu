@@ -1,10 +1,11 @@
 import { Appearance } from 'react-native';
 
 import { i18nGetOSLocale } from '../../@generic/utils/i18n.util';
+import { ThemeEnum } from '../../theme/enum/theme.enum';
 
+import type { Themes } from '../../theme/constant/themes.constant';
 import type { FontSizes } from '../constant/font-sizes.constant';
 import type { Languages } from '../constant/languages.constant';
-import type { Themes } from '../constant/themes.constant';
 
 export interface SettingsState {
     hasVibration: boolean;
@@ -15,6 +16,7 @@ export interface SettingsState {
     fontSize: (typeof FontSizes)[number];
     language: (typeof Languages)[number];
     theme: (typeof Themes)[number];
+    isDarkColorSchema: boolean;
 }
 
 export const initialSettingsState: SettingsState = {
@@ -25,5 +27,6 @@ export const initialSettingsState: SettingsState = {
     showComboAnimation: true,
     fontSize: 'm',
     language: i18nGetOSLocale(),
-    theme: Appearance.getColorScheme() ?? 'light'
+    theme: ThemeEnum.BlackAndWhite,
+    isDarkColorSchema: Appearance.getColorScheme() === 'dark'
 };

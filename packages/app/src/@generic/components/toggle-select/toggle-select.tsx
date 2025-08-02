@@ -3,7 +3,7 @@ import { Animated, Pressable, View } from 'react-native';
 
 import { cs } from '@rnw-community/shared';
 
-import { ThemeContext } from '../../context/theme.context';
+import { ThemeContext } from '../../../theme/context/theme.context';
 import { BlackText } from '../black-text/black-text';
 
 import { ToggleSelectStyles as styles } from './toggle-select.style';
