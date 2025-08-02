@@ -58,7 +58,7 @@ jobs:
       issues: write
     outputs:
       deployment_url: ${{ steps.deploy-web.outputs.deployment_url }}
-      update_url: ${{ steps.extract-preview-url.outputs.update_url }}
+      update_url: ${{ steps.create-preview.outputs.link }}
     steps:
       - name: Check for EXPO_TOKEN
         run: |
@@ -92,16 +92,6 @@ jobs:
         with:
           command: eas update --channel development --auto
           working-directory: packages/app
-
-      - name: Extract Preview URL
-        run: |
-          update_url=$(jq -r '.updateUrl // empty' <<< "${{ steps.create-preview.outputs.result }}")
-          if [ -z "$update_url" ]; then
-            echo "Failed to retrieve update URL."
-            exit 1
-          fi
-          echo "update_url=$update_url" >> $GITHUB_OUTPUT
-        id: extract-preview-url
 
       - name: Build web app
         working-directory: packages/app
