@@ -9,7 +9,7 @@ import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { settingsFontSizeMultiplierSelector, settingsKeySelector } from '../../../settings/store/settings.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { GameContext } from '../../context/game.context';
-import { CellCandidateFontSizeConstant, CellFontSizeConstant } from '../constants/dimensions.contant';
+import { CellCandidateFontSizeConstant, CellCandidateMaxFontSizeConstant, CellFontSizeConstant } from '../constants/dimensions.contant';
 
 import { FieldCellSelectors as selectors } from './field-cell.selectors';
 import { FieldCellStyles as styles } from './field-cell.styles';
@@ -34,7 +34,8 @@ const getCellBgColor = (
     isWrong: boolean,
     isEmpty: boolean,
     showAreas: boolean,
-    showIdenticalNumbers: boolean
+    showIdenticalNumbers: boolean,
+    showFilledNumbers: boolean
     // eslint-disable-next-line @typescript-eslint/max-params
 ) => {
     if (isWrong) {
@@ -45,9 +46,11 @@ const getCellBgColor = (
         return theme.colors.cell.highlighted;
     } else if (isEmpty) {
         return theme.colors.white;
+    } else if (showFilledNumbers) {
+        return theme.colors.cell.filled;
     }
 
-    return theme.colors.cell.filled;
+    return theme.colors.white;
 };
 
 const getCellTextColor = (
@@ -85,7 +88,7 @@ const getCellSelector = (props: Props): selectors => {
     return selectors.Root;
 };
 
-const getCandidateTextStyles = (theme: typeof BWDarkTheme, candidate: number, fontSize: number) => {
+const getCandidateTextStyles = (theme: typeof BWDarkTheme, candidate: number, fontSizeMultiplier: number) => {
     const textCandidatePositionStyles = {
         1: styles.textCandidatePosition1,
         2: styles.textCandidatePosition2,
@@ -102,7 +105,10 @@ const getCandidateTextStyles = (theme: typeof BWDarkTheme, candidate: number, fo
 
     return [
         styles.textCandidate,
-        { fontSize: CellCandidateFontSizeConstant * fontSize, color: theme.colors.cell.candidate },
+        {
+            fontSize: Math.min(CellCandidateFontSizeConstant * fontSizeMultiplier, CellCandidateMaxFontSizeConstant),
+            color: theme.colors.cell.candidate
+        },
         textCandidateStyle
     ];
 };
@@ -132,10 +138,20 @@ export const FieldCell = (props: Props) => {
     const hasTextAnimation = useAppSelector(settingsKeySelector('showComboAnimation'));
     const showAreas = useAppSelector(settingsKeySelector('showAreas'));
     const showIdenticalNumbers = useAppSelector(settingsKeySelector('showIdenticalNumbers'));
+    const showFilledNumbers = useAppSelector(settingsKeySelector('showFilledNumbers'));
     const fontSizeMultiplier = useAppSelector(settingsFontSizeMultiplierSelector);
 
     const isEmpty = sudoku.isBlankCell(cell);
-    const cellBackgroundColor = getCellBgColor(theme, isActiveValue, isHighlighted, isWrong, isEmpty, showAreas, showIdenticalNumbers);
+    const cellBackgroundColor = getCellBgColor(
+        theme,
+        isActiveValue,
+        isHighlighted,
+        isWrong,
+        isEmpty,
+        showAreas,
+        showIdenticalNumbers,
+        showFilledNumbers
+    );
     const candidates = isEmpty && hasCandidates ? sudoku.getCellCandidates(cell) : [];
 
     const animation = useDerivedValue(() => withTiming(isActive ? 1 : 0, animationConfig));

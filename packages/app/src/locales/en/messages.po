@@ -69,11 +69,11 @@ msgstr "Choose your difficulty"
 msgid "Continue"
 msgstr "Continue"
 
-#: src/screens/components/settings-screen/settings.screen.tsx:42
+#: src/screens/components/settings-screen/settings.screen.tsx:47
 msgid "Dark/Light color schema"
 msgstr "Dark/Light color schema"
 
-#: src/settings/component/theme-toggle/theme-toggle.tsx:21
+#: src/settings/component/theme-toggle/theme-toggle.tsx:22
 msgid "default"
 msgstr "default"
 
@@ -89,7 +89,7 @@ msgstr "Elapsed"
 msgid "Font size"
 msgstr "Font size"
 
-#: src/settings/component/theme-toggle/theme-toggle.tsx:27
+#: src/settings/component/theme-toggle/theme-toggle.tsx:28
 msgid "Game coloring and appearance"
 msgstr "Game coloring and appearance"
 
@@ -129,6 +129,14 @@ msgstr "Highlight areas"
 #: src/screens/components/settings-screen/settings.screen.tsx:28
 msgid "Highlight block, column, row for a selected cell"
 msgstr "Highlight block, column, row for a selected cell"
+
+#: src/screens/components/settings-screen/settings.screen.tsx:43
+msgid "Highlight cells with the number filled in"
+msgstr "Highlight cells with the number filled in"
+
+#: src/screens/components/settings-screen/settings.screen.tsx:45
+msgid "Highlight filled numbers"
+msgstr "Highlight filled numbers"
 
 #: src/screens/components/settings-screen/settings.screen.tsx:35
 msgid "Highlight identical numbers"
@@ -222,7 +230,7 @@ msgstr "Resume"
 msgid "Return"
 msgstr "Return"
 
-#: src/settings/component/theme-toggle/theme-toggle.tsx:22
+#: src/settings/component/theme-toggle/theme-toggle.tsx:23
 msgid "safari"
 msgstr "safari"
 
@@ -275,11 +283,11 @@ msgstr "Support Ukraine"
 msgid "SuuudokuuU"
 msgstr "SuuudokuuU"
 
-#: src/@generic/components/page-header/page-header.tsx:19
+#: src/@generic/components/page-header/page-header.tsx:20
 msgid "SuuudokuuU The Game"
 msgstr "SuuudokuuU The Game"
 
-#: src/settings/component/theme-toggle/theme-toggle.tsx:27
+#: src/settings/component/theme-toggle/theme-toggle.tsx:28
 msgid "Theme"
 msgstr "Theme"
 
@@ -291,7 +299,7 @@ msgstr "Timer"
 msgid "Unknown"
 msgstr "Unknown"
 
-#: src/screens/components/settings-screen/settings.screen.tsx:42
+#: src/screens/components/settings-screen/settings.screen.tsx:47
 msgid "Use dark mode"
 msgstr "Use dark mode"
 

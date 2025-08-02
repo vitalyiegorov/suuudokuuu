@@ -39,6 +39,11 @@ export const SettingsScreen = () => {
                     setting="showComboAnimation"
                     title={t`Show combo animation`}
                 />
+                <SettingsSwitch
+                    description={t`Highlight cells with the number filled in`}
+                    setting="showFilledNumbers"
+                    title={t`Highlight filled numbers`}
+                />
                 <SettingsSwitch description={t`Dark/Light color schema`} setting="isDarkColorSchema" title={t`Use dark mode`} />
                 <FontSizeToggle />
                 <ThemeToggle />

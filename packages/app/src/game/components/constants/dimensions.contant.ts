@@ -35,5 +35,7 @@ const getCellSize = (): number => {
 
 export const CellSizeConstant = getCellSize();
 export const CellFontSizeConstant = CellSizeConstant / 2.5;
-export const CellCandidateOffsetConstant = CellSizeConstant * 0.1;
-export const CellCandidateFontSizeConstant = CellFontSizeConstant / 1.8;
+export const CellCandidateVerticalOffsetConstant = CellSizeConstant * 0.05;
+export const CellCandidateHorizontalOffsetConstant = CellSizeConstant * 0.1;
+export const CellCandidateFontSizeConstant = CellSizeConstant / 3;
+export const CellCandidateMaxFontSizeConstant = CellSizeConstant / 3.7;

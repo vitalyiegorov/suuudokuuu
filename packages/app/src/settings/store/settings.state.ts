@@ -13,6 +13,7 @@ export interface SettingsState {
     showAreas: boolean;
     showIdenticalNumbers: boolean;
     showComboAnimation: boolean;
+    showFilledNumbers: boolean;
     fontSize: (typeof FontSizes)[number];
     language: (typeof Languages)[number];
     theme: (typeof Themes)[number];
@@ -25,6 +26,7 @@ export const initialSettingsState: SettingsState = {
     showAreas: true,
     showIdenticalNumbers: true,
     showComboAnimation: true,
+    showFilledNumbers: true,
     fontSize: 'm',
     language: i18nGetOSLocale(),
     theme: ThemeEnum.BlackAndWhite,
