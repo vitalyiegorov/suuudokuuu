@@ -206,6 +206,7 @@ jobs:
 
       - name: Download Simulator Build
         run: |
+          eas build:list --platform ios --build-profile ios-simulator --status finished --limit 1 --json  --non-interactive
           build_id=$(eas build:list --platform ios --build-profile ios-simulator --status finished --limit 1 --json  --non-interactive | jq -r '.[0].id // empty')
           if [ -z "$build_id" ]; then
             echo "No finished simulator build found."
