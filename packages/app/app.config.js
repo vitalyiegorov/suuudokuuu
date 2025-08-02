@@ -51,7 +51,6 @@ export default ({ config }) => ({
         config: {
             usesNonExemptEncryption: false
         },
-        buildNumber: '7',
         associatedDomains: ['applinks:suuudokuuu.com']
     },
     android: {
@@ -60,7 +59,6 @@ export default ({ config }) => ({
             backgroundColor: '#000000'
         },
         package: getUniqueIdentifier(true),
-        versionCode: 7,
         intentFilters: [
             {
                 action: 'VIEW',
