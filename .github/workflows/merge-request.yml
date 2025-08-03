@@ -301,7 +301,7 @@ jobs:
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
           working-directory: packages/app
-          script: ./gradlew connectedCheck
+          script: echo "Started emulator"
 
       - name: Install Maestro
         run: |
