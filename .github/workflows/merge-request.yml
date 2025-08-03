@@ -274,6 +274,11 @@ jobs:
       - name: Gradle cache
         uses: gradle/actions/setup-gradle@v3
 
+      - name: Install Maestro
+        run: |
+          curl -fsSL "https://get.maestro.mobile.dev" | bash
+          echo "$HOME/.maestro/bin" >> $GITHUB_PATH
+
       - name: AVD cache
         uses: actions/cache@v4
         id: avd-cache
@@ -293,7 +298,7 @@ jobs:
           disable-animations: false
           script: echo "Generated AVD snapshot for caching."
 
-      - name: Run Tests
+      - name: Start emulator and run Maestro tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 29
@@ -301,24 +306,12 @@ jobs:
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
           working-directory: packages/app
-          script: echo "Started emulator"
-
-      - name: Install Maestro
-        run: |
-          curl -fsSL "https://get.maestro.mobile.dev" | bash
-          echo "$HOME/.maestro/bin" >> $GITHUB_PATH
-
-      - name: Install App on Simulator
-        working-directory: packages/app
-        run: |
-          eas build:run --profile=development --platform android --latest
-          adb shell am start -W -a android.intent.action.VIEW -d "exp+suuudokuuu://expo-development-client/?url=${{ needs.eas-deploy.outputs.androidLink }}"
-
-      - name: Run Maestro UI tests
-        working-directory: tests/app-tests
-        run: |
-          mkdir -p ./maestro
-          maestro test flows --format junit --output ./maestro/report.xml --debug-output ./maestro
+          script: |
+            eas build:run --profile=development --platform android --latest
+            adb shell am start -W -a android.intent.action.VIEW -d "exp+suuudokuuu://expo-development-client/?url=${{ needs.eas-deploy.outputs.androidLink }}"
+            cd tests/app-tests
+            mkdir -p ./maestro
+            maestro test flows --format junit --output ./maestro/report.xml --debug-output ./maestro
 
       - name: Upload Report
         if: always()
