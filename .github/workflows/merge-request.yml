@@ -235,7 +235,7 @@ jobs:
           name: "maestro-ios-report"
           include-hidden-files: true
           path: |
-            - tests/app-tests
+            - tests/app-tests/*
 
   e2e-android:
     needs: [ code-quality, eas-deploy ]
@@ -309,7 +309,7 @@ jobs:
             adb shell am start -W -a android.intent.action.VIEW -d "exp+suuudokuuu://expo-development-client/?url=${{ needs.eas-deploy.outputs.androidLink }}"
             cd ../../tests/app-tests
             mkdir -p ./maestro
-            maestro test flows --format junit --output ./report.xml --debug-output ./
+            maestro test ./flows --format junit --output ./report.xml --debug-output ./
 
       - name: Upload Report
         if: always()
@@ -318,4 +318,4 @@ jobs:
           name: "maestro-android-report"
           include-hidden-files: true
           path: |
-            - tests/app-tests
+            - tests/app-tests/*
