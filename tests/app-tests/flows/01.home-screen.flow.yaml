@@ -1,4 +1,4 @@
-appId: com.vitalyiegorov.suuudokuuu.dev
+appId: ${APP_ID}
 ---
 - launchApp:
     # HINT: On CI we launch the correct version of the app via the deeplink
