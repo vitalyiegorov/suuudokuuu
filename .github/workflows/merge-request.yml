@@ -4,6 +4,7 @@ env:
   TURBO_TOKEN: ${{ secrets.VERCEL_TOKEN }}
   PR_NUMBER: ${{ github.event.pull_request.number }}
   PR_TITLE: ${{ github.event.pull_request.title }}
+  MAESTRO_CLI_NO_ANALYTICS: false
 
 on: pull_request
 
