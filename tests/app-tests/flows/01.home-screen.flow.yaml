@@ -1,6 +1,8 @@
 appId: com.vitalyiegorov.suuudokuuu.dev
 ---
-- launchApp
+- launchApp:
+    stopApp: false
+
 # HINT: EXPO bottom sheet
 - tapOn:
     text: 'Continue'
