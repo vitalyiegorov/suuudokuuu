@@ -4,10 +4,10 @@ appId: ${APP_ID}
     link: suuudokuuu://shared?eyJwYXVzZWQiOnRydWUsImVsYXBzZWRUaW1lIjo3NSwic3Vkb2t1U3RyaW5nIjoiODYzMi40NzUxNDI5MTU3NjgzNzUxMzYuMjQuNi41NzI5MTMuOTM3NDgxNTYyMjEuNTM2LjcuNTcyODEzNDk2MTk4NjQ1MzI3MzQ2OTcyODE1IiwibWlzdGFrZXMiOjAsInNjb3JlIjo0MjA0MCwibWF4TWlzdGFrZXMiOjN9
 - runFlow:
     when:
-      visible: 'Open in "SuuudokuuU"'
+      visible: 'Open in "suuudokuuu (Dev)"'
     commands:
       - tapOn: Open
-        
+
 - assertVisible: 'Open shared puzzle?'
 - tapOn: 'Open puzzle'
 - assertVisible:

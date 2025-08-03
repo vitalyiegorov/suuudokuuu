@@ -16,7 +16,7 @@ appId: ${APP_ID}
     link: suuudokuuu://home
 - runFlow:
     when:
-      visible: 'Open in "SuuudokuuU"'
+      visible: 'Open in "suuudokuuu (Dev)"'
     commands:
       - tapOn: Open
 
