@@ -15,6 +15,9 @@ appId: ${APP_ID}
     text: 'Open'
     optional: true
 
+- openLink:
+    link: suuudokuuu://home
+
 - assertVisible: 'SuuudokuuU'
 - tapOn: Privacy policy
 - assertVisible: Privacy Policy
