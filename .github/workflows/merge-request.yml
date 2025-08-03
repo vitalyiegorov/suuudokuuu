@@ -211,7 +211,7 @@ jobs:
       - name: Install Maestro
         run: |
           curl -fsSL "https://get.maestro.mobile.dev" | bash
-          export PATH="$PATH":"$HOME/.maestro/bin"
+          echo "$HOME/.maestro/bin" >> $GITHUB_PATH
 
       - name: Start iOS Simulator
         uses: futureware-tech/simulator-action@v4
@@ -306,7 +306,7 @@ jobs:
       - name: Install Maestro
         run: |
           curl -fsSL "https://get.maestro.mobile.dev" | bash
-          export PATH="$PATH":"$HOME/.maestro/bin"
+          echo "$HOME/.maestro/bin" >> $GITHUB_PATH
 
       - name: Install App on Simulator
         working-directory: packages/app
