@@ -229,8 +229,6 @@ jobs:
         working-directory: tests/app-tests
         run: |
           maestro test flows --format junit --output ./report.xml --debug-output ./
-          ls -la .maestro/tests
-          mv .maestro/tests tests
 
       - name: Upload report
         if: always()
@@ -239,7 +237,7 @@ jobs:
           name: "maestro-ios-report"
           include-hidden-files: true
           path: |
-            tests/app-tests/tests
+            tests/app-tests/.maestro/tests
             tests/app-tests/report.xml
 
   e2e-android:
@@ -312,10 +310,7 @@ jobs:
           script: |
             cd ../../packages/app && eas build:run --profile=development --platform android --latest
             adb shell am start -W -a android.intent.action.VIEW -d "exp+suuudokuuu://expo-development-client/?url=${{ needs.eas-deploy.outputs.androidLink }}"
-            mkdir -p ./maestro
             maestro test flows --format junit --output ./report.xml --debug-output ./
-            ls -la .maestro/tests
-            mv -r .maestro/tests tests
 
       - name: Upload Report
         if: always()
@@ -324,5 +319,5 @@ jobs:
           name: "maestro-android-report"
           include-hidden-files: true
           path: |
-            tests/app-tests/tests
+            tests/app-tests/.maestro/tests
             tests/app-tests/report.xml
