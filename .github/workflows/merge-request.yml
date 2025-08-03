@@ -224,6 +224,7 @@ jobs:
         run: |
           curl -fsSL "https://get.maestro.mobile.dev" | bash
           export PATH="$PATH":"$HOME/.maestro/bin"
+          mkdir -p ./maestro
           maestro test flows --format junit --output ./maestro/report.xml --debug-output ./maestro
 
       - name: Upload report
@@ -296,10 +297,13 @@ jobs:
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
+          working-directory: packages/app
           script: |
             eas build:run --profile=development --platform android --latest
             curl -fsSL "https://get.maestro.mobile.dev" | bash
             export PATH="$PATH:$HOME/.maestro/bin"
+            cd ../../tests/app-tests
+            mkdir -p ./maestro
             maestro test flows --format junit --output ./maestro/report.xml --debug-output ./maestro
 
       - name: Upload Report
