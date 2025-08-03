@@ -236,8 +236,8 @@ jobs:
           name: "maestro-ios-report"
           include-hidden-files: true
           path: |
-            - **/.maestro/**
-            - tests/app-tests/report.xml
+            tests/app-tests/.maestro
+            tests/app-tests/report.xml
 
   e2e-android:
     needs: [ code-quality, eas-deploy ]
@@ -319,5 +319,5 @@ jobs:
           name: "maestro-android-report"
           include-hidden-files: true
           path: |
-            - **/.maestro/**
-            - tests/app-tests/report.xml
+            tests/app-tests/.maestro
+            tests/app-tests/report.xml
