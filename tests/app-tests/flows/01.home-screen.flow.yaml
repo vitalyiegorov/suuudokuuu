@@ -1,6 +1,7 @@
 appId: com.vitalyiegorov.suuudokuuu.dev
 ---
 - launchApp:
+    # HINT: On CI we launch the correct version of the app via the deeplink
     stopApp: false
 
 # HINT: EXPO bottom sheet
