@@ -1,7 +1,14 @@
 appId: com.vitalyiegorov.suuudokuuu.dev
 ---
 - launchApp
-- takeScreenshot: HomeScreen
+# HINT: EXPO bottom sheet
+- tapOn:
+    text: 'Continue'
+    optional: true
+- tapOn:
+    point: 91%,42%
+    optional: true
+
 - assertVisible: 'SuuudokuuU'
 - tapOn: Privacy policy
 - assertVisible: Privacy Policy
