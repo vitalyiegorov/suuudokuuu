@@ -236,7 +236,8 @@ jobs:
           name: "maestro-ios-report"
           include-hidden-files: true
           path: |
-            - tests/app-tests/*
+            - **/.maestro/**
+            - tests/app-tests/report.xml
 
   e2e-android:
     needs: [ code-quality, eas-deploy ]
@@ -304,10 +305,10 @@ jobs:
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
+          working-directory: tests/app-tests
           script: |
-            cd ../../tests/app-tests && eas build:run --profile=development --platform android --latest
+            cd ../../packages/app && eas build:run --profile=development --platform android --latest
             adb shell am start -W -a android.intent.action.VIEW -d "exp+suuudokuuu://expo-development-client/?url=${{ needs.eas-deploy.outputs.androidLink }}"
-            cd tests/app-tests
             mkdir -p ./maestro
             maestro test flows --format junit --output ./report.xml --debug-output ./
 
@@ -318,4 +319,5 @@ jobs:
           name: "maestro-android-report"
           include-hidden-files: true
           path: |
-            - tests/app-tests/*
+            - **/.maestro/**
+            - tests/app-tests/report.xml
