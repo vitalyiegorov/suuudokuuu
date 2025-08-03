@@ -1,6 +1,7 @@
 appId: com.vitalyiegorov.suuudokuuu.dev
 ---
 - launchApp
+- takeScreenshot: HomeScreen
 - assertVisible: 'SuuudokuuU'
 - tapOn: Privacy policy
 - assertVisible: Privacy Policy
