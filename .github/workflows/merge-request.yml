@@ -314,7 +314,7 @@ jobs:
           script: |
             cd ../../packages/app && eas build:run --profile=development --platform android --latest
             adb shell am start -W -a android.intent.action.VIEW -d "exp+suuudokuuu://expo-development-client/?url=https://u.expo.dev/${{ needs.eas-deploy.outputs.projectId }}/group/${{needs.eas-deploy.outputs.androidGroupId}}"
-            maestro test flows -e APP_ID=com.vitaliiyehorov.suuudokuuu --format junit --output ./report.xml --debug-output ./
+            maestro test flows -e APP_ID=com.vitaliiyehorov.suuudokuuu.dev --format junit --output ./report.xml --debug-output ./
 
       - name: Upload Report
         if: always()
