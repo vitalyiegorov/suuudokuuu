@@ -236,7 +236,7 @@ jobs:
           name: "maestro-ios-report"
           include-hidden-files: true
           path: |
-            tests/app-tests/.maestro
+            tests/app-tests/.maestro/tests
             tests/app-tests/report.xml
 
   e2e-android:
@@ -319,5 +319,5 @@ jobs:
           name: "maestro-android-report"
           include-hidden-files: true
           path: |
-            tests/app-tests/.maestro
+            tests/app-tests/.maestro/tests
             tests/app-tests/report.xml
