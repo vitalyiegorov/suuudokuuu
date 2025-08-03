@@ -8,6 +8,9 @@ appId: com.vitalyiegorov.suuudokuuu.dev
 - tapOn:
     point: 91%,42%
     optional: true
+- tapOn:
+    text: 'Open'
+    optional: true
 
 - assertVisible: 'SuuudokuuU'
 - tapOn: Privacy policy
