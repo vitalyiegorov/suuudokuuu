@@ -229,7 +229,7 @@ jobs:
         working-directory: tests/app-tests
         run: |
           maestro test flows --format junit --output ./report.xml --debug-output ./
-          mv -R .maestro/tests/* ./tests
+          mv .maestro/tests ./tests
 
       - name: Upload report
         if: always()
@@ -313,7 +313,7 @@ jobs:
             adb shell am start -W -a android.intent.action.VIEW -d "exp+suuudokuuu://expo-development-client/?url=${{ needs.eas-deploy.outputs.androidLink }}"
             mkdir -p ./maestro
             maestro test flows --format junit --output ./report.xml --debug-output ./
-            mv -R .maestro/tests/* ./tests
+            mv .maestro/tests ./tests
 
       - name: Upload Report
         if: always()
