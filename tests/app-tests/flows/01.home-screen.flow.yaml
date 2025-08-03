@@ -11,12 +11,14 @@ appId: ${APP_ID}
 - tapOn:
     point: 91%,42%
     optional: true
-- tapOn:
-    text: 'Open'
-    optional: true
 
 - openLink:
     link: suuudokuuu://home
+- runFlow:
+    when:
+      visible: 'Open in "SuuudokuuU"'
+    commands:
+      - tapOn: Open
 
 - assertVisible: 'SuuudokuuU'
 - tapOn: Privacy policy
