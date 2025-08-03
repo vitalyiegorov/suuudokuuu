@@ -58,7 +58,8 @@ jobs:
       issues: write
     outputs:
       deployment_url: ${{ steps.deploy-web.outputs.deployment_url }}
-      update_url: ${{ steps.create-preview.outputs.link }}
+      iosLink: ${{ steps.create-preview.outputs.iosLink }}
+      androidLink: ${{ steps.create-preview.outputs.androidlink }}
     steps:
       - name: Check for EXPO_TOKEN
         run: |
@@ -207,6 +208,11 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
+      - name: Install Maestro
+        run: |
+          curl -fsSL "https://get.maestro.mobile.dev" | bash
+          export PATH="$PATH":"$HOME/.maestro/bin"
+
       - name: Start iOS Simulator
         uses: futureware-tech/simulator-action@v4
         with:
@@ -216,14 +222,11 @@ jobs:
         working-directory: packages/app
         run: |
           eas build:run --profile=ios-simulator --platform ios --latest
-          xcrun simctl openurl booted "suuudokuuu://expo-development-client/?url=${{ needs.eas-deploy.outputs.update_url }}"
-          xcrun simctl listapps booted | grep com.vitalyiegorov.suuudokuuu || echo "App not found after installation"
+          xcrun simctl openurl booted "exp+suuudokuuu://expo-development-client/?url=${{ needs.eas-deploy.outputs.iosLink }}"
 
       - name: Run Maestro UI tests
         working-directory: tests/app-tests
         run: |
-          curl -fsSL "https://get.maestro.mobile.dev" | bash
-          export PATH="$PATH":"$HOME/.maestro/bin"
           mkdir -p ./maestro
           maestro test flows --format junit --output ./maestro/report.xml --debug-output ./maestro
 
@@ -298,13 +301,24 @@ jobs:
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
           working-directory: packages/app
-          script: |
-            eas build:run --profile=development --platform android --latest
-            curl -fsSL "https://get.maestro.mobile.dev" | bash
-            export PATH="$PATH:$HOME/.maestro/bin"
-            cd ../../tests/app-tests
-            mkdir -p ./maestro
-            maestro test flows --format junit --output ./maestro/report.xml --debug-output ./maestro
+          script: ./gradlew connectedCheck
+
+      - name: Install Maestro
+        run: |
+          curl -fsSL "https://get.maestro.mobile.dev" | bash
+          export PATH="$PATH":"$HOME/.maestro/bin"
+
+      - name: Install App on Simulator
+        working-directory: packages/app
+        run: |
+          eas build:run --profile=development --platform android --latest
+          adb shell am start -W -a android.intent.action.VIEW -d "exp+suuudokuuu://expo-development-client/?url=${{ needs.eas-deploy.outputs.androidLink }}"
+
+      - name: Run Maestro UI tests
+        working-directory: tests/app-tests
+        run: |
+          mkdir -p ./maestro
+          maestro test flows --format junit --output ./maestro/report.xml --debug-output ./maestro
 
       - name: Upload Report
         if: always()
