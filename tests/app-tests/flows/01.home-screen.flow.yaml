@@ -1,23 +1,6 @@
 appId: ${APP_ID}
 ---
-- launchApp:
-    # HINT: On CI we launch the correct version of the app via the deeplink
-    stopApp: false
-
-# HINT: EXPO bottom sheet
-- tapOn:
-    text: 'Continue'
-    optional: true
-- tapOn:
-    point: 91%,42%
-    optional: true
-
-- openLink:
-    link: suuudokuuu://home
-- tapOn:
-    text: Open
-    optional: true
-
+- launchApp
 - assertVisible: 'SuuudokuuU'
 - tapOn: Privacy policy
 - assertVisible: Privacy Policy
