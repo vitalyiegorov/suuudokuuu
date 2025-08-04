@@ -44,6 +44,12 @@ export const SettingsScreen = () => {
                     setting="showFilledNumbers"
                     title={t`Highlight filled numbers`}
                 />
+                <SettingsSwitch
+                    description={t`Highlight candidate numbers when a cell is selected`}
+                    setting="showActiveCandidates"
+                    title={t`Highlight selected candidate numbers`}
+                />
+
                 <SettingsSwitch description={t`Dark/Light color schema`} setting="isDarkColorSchema" title={t`Use dark mode`} />
                 <FontSizeToggle />
                 <ThemeToggle />
