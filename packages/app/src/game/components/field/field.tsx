@@ -93,7 +93,7 @@ export const Field = ({ selectedCell, onSelect, scoredCells }: Props) => {
                                 key={`cell-${cell.y}-${cell.x}`}
                                 onSelect={onSelect}
                             >
-                                {hasCandidates ? <FieldCellCandidates candidates={candidates} /> : null}
+                                {hasCandidates ? <FieldCellCandidates activeValue={selectedCell?.value} candidates={candidates} /> : null}
                                 <FieldCellText
                                     cell={cell}
                                     hasAnimation={animatedCells.has(getCellKey(cell))}

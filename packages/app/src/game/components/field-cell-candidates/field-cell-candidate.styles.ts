@@ -8,6 +8,7 @@ import {
 
 export const FieldCellCandidateStyles = StyleSheet.create({
     textCandidate: {
+        paddingHorizontal: 5,
         position: 'absolute'
     },
     textCandidatePosition1: {
@@ -15,7 +16,7 @@ export const FieldCellCandidateStyles = StyleSheet.create({
         top: CellCandidateVerticalOffsetConstant
     },
     textCandidatePosition2: {
-        left: CellCandidateHorizontalOffsetConstant + CellSizeConstant / 3,
+        left: CellCandidateHorizontalOffsetConstant / 2 + CellSizeConstant / 3,
         top: CellCandidateVerticalOffsetConstant
     },
     textCandidatePosition3: {
@@ -27,7 +28,7 @@ export const FieldCellCandidateStyles = StyleSheet.create({
         top: CellSizeConstant / 3
     },
     textCandidatePosition5: {
-        left: CellCandidateHorizontalOffsetConstant + CellSizeConstant / 3,
+        left: CellCandidateHorizontalOffsetConstant / 2 + CellSizeConstant / 3,
         top: CellSizeConstant / 3
     },
     textCandidatePosition6: {
@@ -40,7 +41,7 @@ export const FieldCellCandidateStyles = StyleSheet.create({
     },
     textCandidatePosition8: {
         bottom: CellCandidateVerticalOffsetConstant,
-        left: CellCandidateHorizontalOffsetConstant + CellSizeConstant / 3
+        left: CellCandidateHorizontalOffsetConstant / 2 + CellSizeConstant / 3
     },
     textCandidatePosition9: {
         bottom: CellCandidateVerticalOffsetConstant,
