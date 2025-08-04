@@ -48,3 +48,4 @@ packages/app/ios
 report.xml
 build-*.tar.gz
 *.app
+*.apk
