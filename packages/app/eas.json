@@ -15,6 +15,7 @@
         },
         "ios-simulator": {
             "extends": "development",
+            "developmentClient": false,
             "ios": {
                 "simulator": true
             }
