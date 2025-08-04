@@ -218,7 +218,7 @@ jobs:
       - name: Build app
         working-directory: packages/app
         run: |
-          eas build --profile=ios-simulator --platform ios --non-interactive --local
+          eas build --profile=ios-simulator --platform ios --non-interactive --local --json --output app.app
           tar -xzf "$(ls build-*.tar.gz 2>/dev/null)"
 
       - name: Install Maestro
@@ -234,7 +234,7 @@ jobs:
       - name: Install App on Simulator
         working-directory: packages/app
         run: |
-          xcrun simctl install booted "$(ls *.app)"
+          xcrun simctl install booted app.app
 
       - name: Run Maestro UI tests
         working-directory: tests/app-tests
@@ -289,7 +289,7 @@ jobs:
       - name: Build app
         working-directory: packages/app
         run: |
-          eas build --profile=development --platform android --non-interactive --local
+          eas build --profile=development --platform android --non-interactive --local --json --output app.apk
 
       - name: Install Maestro
         run: |
@@ -324,7 +324,7 @@ jobs:
           disable-animations: true
           working-directory: tests/app-tests
           script: |
-            adb install "$(ls ../../packages/app/*.apk)"
+            adb install ../../packages/app/app.apk
             maestro test flows -e APP_ID=com.vitaliiyehorov.suuudokuuu.dev --format junit --output ./report.xml --debug-output ./
 
       - name: Upload Report
