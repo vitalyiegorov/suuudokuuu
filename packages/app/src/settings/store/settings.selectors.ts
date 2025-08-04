@@ -15,6 +15,7 @@ export const settingsKeySelector = (
         | 'showIdenticalNumbers'
         | 'isDarkColorSchema'
         | 'showFilledNumbers'
+        | 'showActiveCandidates'
     >
 ) => createSelector(settingsSelector, state => state[key]);
 export const settingsFontSizeSelector = createSelector(settingsSelector, state => state.fontSize);

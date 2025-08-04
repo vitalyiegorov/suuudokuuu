@@ -4,7 +4,7 @@ import Reanimated from 'react-native-reanimated';
 import { cs } from '@rnw-community/shared';
 
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
-import { settingsFontSizeMultiplierSelector } from '../../../settings/store/settings.selectors';
+import { settingsFontSizeMultiplierSelector, settingsKeySelector } from '../../../settings/store/settings.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { CellCandidateFontSizeConstant, CellCandidateMaxFontSizeConstant } from '../constants/dimensions.contant';
 
@@ -19,6 +19,7 @@ export const FieldCellCandidates = ({ candidates, activeValue }: Props) => {
     const { theme } = use(ThemeContext);
 
     const fontSizeMultiplier = useAppSelector(settingsFontSizeMultiplierSelector);
+    const showActiveCandidates = useAppSelector(settingsKeySelector('showActiveCandidates'));
 
     const getCandidateTextStyles = (candidate: number) => {
         const textCandidateStyle = textCandidatePositionStyles[candidate as keyof typeof textCandidatePositionStyles];
@@ -30,7 +31,10 @@ export const FieldCellCandidates = ({ candidates, activeValue }: Props) => {
                 fontSize: Math.min(CellCandidateFontSizeConstant * fontSizeMultiplier, CellCandidateMaxFontSizeConstant),
                 color: theme.colors.cell.candidate
             },
-            cs(isCandidateActive, { backgroundColor: theme.colors.cell.candidateActiveBg, color: theme.colors.cell.candidateActive }),
+            cs(isCandidateActive && showActiveCandidates, {
+                backgroundColor: theme.colors.cell.candidateActiveBg,
+                color: theme.colors.cell.candidateActive
+            }),
             textCandidateStyle
         ];
     };
