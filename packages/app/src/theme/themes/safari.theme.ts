@@ -26,6 +26,8 @@ export const SafariLightTheme = {
             error: '#FBDE66',
             emptyValueText: 'rgba(74, 97, 58, 0.75)',
             candidate: 'rgba(74, 97, 58, 0.75)',
+            candidateActive: '#AFCEBE',
+            candidateActiveBg: '#D9E3D8',
             filled: '#E1DACA'
         },
         value: {
@@ -63,6 +65,8 @@ export const SafariDarkTheme = {
             error: '#C24641',
             emptyValueText: 'rgba(205, 208, 194, 0.75)',
             candidate: 'rgba(205, 208, 194, 0.75)',
+            candidateActive: '#4B613A',
+            candidateActiveBg: '#829B74',
             filled: '#D0C7B8'
         },
         value: {
