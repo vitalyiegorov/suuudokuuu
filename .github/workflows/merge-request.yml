@@ -218,7 +218,7 @@ jobs:
       - name: Build app
         working-directory: packages/app
         run: |
-          eas build --profile=ios-simulator --platform ios --non-interactive --local --output app.app
+          eas build --profile=ios-simulator --platform ios --non-interactive --local --output ./app.app
 
       - name: Install Maestro
         run: |
