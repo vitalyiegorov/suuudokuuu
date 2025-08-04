@@ -218,8 +218,7 @@ jobs:
       - name: Build app
         working-directory: packages/app
         run: |
-          eas build --profile=ios-simulator --platform ios --non-interactive --local --json --output app.app
-          tar -xzf "$(ls build-*.tar.gz 2>/dev/null)"
+          eas build --profile=ios-simulator --platform ios --non-interactive --local --output app.app
 
       - name: Install Maestro
         run: |
@@ -289,7 +288,7 @@ jobs:
       - name: Build app
         working-directory: packages/app
         run: |
-          eas build --profile=development --platform android --non-interactive --local --json --output app.apk
+          eas build --profile=preview --platform android --non-interactive --local --output app.apk
 
       - name: Install Maestro
         run: |
