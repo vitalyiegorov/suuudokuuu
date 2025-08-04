@@ -46,3 +46,4 @@ packages/app/ios
 
 .maestro
 report.xml
+build-*.tar.gz

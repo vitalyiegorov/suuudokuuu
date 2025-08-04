@@ -210,6 +210,12 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
+      - name: Build app
+        working-directory: packages/app
+        run: |
+          eas build --profile=ios-simulator --platform ios --non-interactive --local
+          tar -xzf "$(ls build-*.tar.gz 2>/dev/null)"
+
       - name: Install Maestro
         run: |
           curl -fsSL "https://get.maestro.mobile.dev" | bash
@@ -223,11 +229,7 @@ jobs:
       - name: Install App on Simulator
         working-directory: packages/app
         run: |
-          eas build:run --profile=ios-simulator --platform ios --latest
-
-      - name: Open Expo PR preview
-        run: |
-          xcrun simctl openurl booted "exp+suuudokuuu://expo-development-client/?url=https://u.expo.dev/${{ needs.eas-deploy.outputs.projectId }}/group/${{needs.eas-deploy.outputs.iosGroupId}}"
+          xcrun simctl install booted "$(ls *.app)"
 
       - name: Run Maestro UI tests
         working-directory: tests/app-tests
@@ -279,6 +281,12 @@ jobs:
       - name: Gradle cache
         uses: gradle/actions/setup-gradle@v3
 
+      - name: Build app
+        working-directory: packages/app
+        run: |
+          eas build --profile=development --platform android --non-interactive --local
+          tar -xzf "$(ls build-*.tar.gz 2>/dev/null)"
+
       - name: Install Maestro
         run: |
           curl -fsSL "https://get.maestro.mobile.dev" | bash
@@ -312,8 +320,7 @@ jobs:
           disable-animations: true
           working-directory: tests/app-tests
           script: |
-            cd ../../packages/app && eas build:run --profile=development --platform android --latest
-            adb shell am start -W -a android.intent.action.VIEW -d "exp+suuudokuuu://expo-development-client/?url=https://u.expo.dev/${{ needs.eas-deploy.outputs.projectId }}/group/${{needs.eas-deploy.outputs.androidGroupId}}"
+            adb install "$(ls ../../packages/app/*.apk)"
             maestro test flows -e APP_ID=com.vitaliiyehorov.suuudokuuu.dev --format junit --output ./report.xml --debug-output ./
 
       - name: Upload Report
