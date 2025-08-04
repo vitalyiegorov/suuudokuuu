@@ -14,11 +14,9 @@ appId: ${APP_ID}
 
 - openLink:
     link: suuudokuuu://home
-- runFlow:
-    when:
-      visible: 'Open in "suuudokuuu (Dev)"'
-    commands:
-      - tapOn: Open
+- tapOn:
+    text: Open
+    optional: true
 
 - assertVisible: 'SuuudokuuU'
 - tapOn: Privacy policy
