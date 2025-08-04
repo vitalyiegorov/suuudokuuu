@@ -14,11 +14,7 @@
             "channel": "development"
         },
         "ios-simulator": {
-            "developmentClient": true,
-            "distribution": "internal",
-            "env": {
-                "APP_VARIANT": "development"
-            },
+            "extends": "development",
             "ios": {
                 "simulator": true
             }

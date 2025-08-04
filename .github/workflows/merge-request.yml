@@ -201,6 +201,11 @@ jobs:
           node-version: 22.x
           cache: yarn
 
+      - name: Select Xcode 16
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '16'
+
       - name: Setup EAS
         uses: expo/expo-github-action@v8
         with:
@@ -285,7 +290,6 @@ jobs:
         working-directory: packages/app
         run: |
           eas build --profile=development --platform android --non-interactive --local
-          tar -xzf "$(ls build-*.tar.gz 2>/dev/null)"
 
       - name: Install Maestro
         run: |
