@@ -4,10 +4,10 @@ import { Text, View } from 'react-native';
 
 import { BlackSubHeader } from '../../../@generic/components/black-sub-header/black-text';
 import { BlackText } from '../../../@generic/components/black-text/black-text';
-import { ThemeContext } from '../../../@generic/context/theme.context';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
 import { getTimerText } from '../../../@generic/utils/get-timer-text.util';
+import { ThemeContext } from '../../../theme/context/theme.context';
 import { historyDifficultySelector } from '../../store/history.selectors';
 
 import { HistoryDifficultyStyles as styles } from './history-difficulty.styles';

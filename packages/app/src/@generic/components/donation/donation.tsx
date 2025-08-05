@@ -4,8 +4,8 @@ import { useLingui } from '@lingui/react/macro';
 import { use } from 'react';
 import { Text, View } from 'react-native';
 
+import { ThemeContext } from '../../../theme/context/theme.context';
 import { donationLinkConstant } from '../../constants/donation.constant';
-import { ThemeContext } from '../../context/theme.context';
 import { BlackButton } from '../black-button/black-button';
 
 import { DonationStyles as styles } from './donation.styles';

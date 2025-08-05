@@ -1,9 +1,9 @@
 import { use, useState } from 'react';
 import { Platform, Switch } from 'react-native';
 
-import { ThemeContext } from '../../../@generic/context/theme.context';
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
+import { ThemeContext } from '../../../theme/context/theme.context';
 import { settingsSetAction } from '../../store/settings.actions';
 import { settingsKeySelector } from '../../store/settings.selectors';
 import { SettingsGroup } from '../settings-group/settings-group';

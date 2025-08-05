@@ -13,7 +13,7 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/screens/components/game-screen/game.screen.tsx:73
+#: src/screens/components/game-screen/game.screen.tsx:74
 msgid "All progress will be lost"
 msgstr "All progress will be lost"
 
@@ -53,7 +53,7 @@ msgstr ""
 "Loooooser =)"
 
 #: src/screens/components/shared-screen/shared-screen.tsx:28
-#: src/screens/components/game-screen/game.screen.tsx:74
+#: src/screens/components/game-screen/game.screen.tsx:75
 msgid "Cancel"
 msgstr "Cancel"
 
@@ -69,11 +69,19 @@ msgstr "Choose your difficulty"
 msgid "Continue"
 msgstr "Continue"
 
+#: src/screens/components/settings-screen/settings.screen.tsx:47
+msgid "Dark/Light color schema"
+msgstr "Dark/Light color schema"
+
+#: src/settings/component/theme-toggle/theme-toggle.tsx:22
+msgid "default"
+msgstr "default"
+
 #: src/@generic/utils/get-difficulty-text.util.ts:7
 msgid "Easy"
 msgstr "Easy"
 
-#: src/screens/components/game-screen/game.screen.tsx:173
+#: src/screens/components/game-screen/game.screen.tsx:178
 msgid "Elapsed"
 msgstr "Elapsed"
 
@@ -81,9 +89,9 @@ msgstr "Elapsed"
 msgid "Font size"
 msgstr "Font size"
 
-#: src/settings/component/theme-toggle/theme-toggle.tsx:23
-msgid "Game appearance"
-msgstr "Game appearance"
+#: src/settings/component/theme-toggle/theme-toggle.tsx:28
+msgid "Game coloring and appearance"
+msgstr "Game coloring and appearance"
 
 #: src/settings/component/language-toggle/language-toggle.tsx:29
 msgid "Game localization"
@@ -122,6 +130,14 @@ msgstr "Highlight areas"
 msgid "Highlight block, column, row for a selected cell"
 msgstr "Highlight block, column, row for a selected cell"
 
+#: src/screens/components/settings-screen/settings.screen.tsx:43
+msgid "Highlight cells with the number filled in"
+msgstr "Highlight cells with the number filled in"
+
+#: src/screens/components/settings-screen/settings.screen.tsx:45
+msgid "Highlight filled numbers"
+msgstr "Highlight filled numbers"
+
 #: src/screens/components/settings-screen/settings.screen.tsx:35
 msgid "Highlight identical numbers"
 msgstr "Highlight identical numbers"
@@ -158,7 +174,7 @@ msgstr "Lost"
 msgid "Medium"
 msgstr "Medium"
 
-#: src/screens/components/game-screen/game.screen.tsx:160
+#: src/screens/components/game-screen/game.screen.tsx:161
 msgid "Mistakes"
 msgstr "Mistakes"
 
@@ -214,7 +230,11 @@ msgstr "Resume"
 msgid "Return"
 msgstr "Return"
 
-#: src/screens/components/game-screen/game.screen.tsx:181
+#: src/settings/component/theme-toggle/theme-toggle.tsx:23
+msgid "safari"
+msgstr "safari"
+
+#: src/screens/components/game-screen/game.screen.tsx:186
 msgid "Score"
 msgstr "Score"
 
@@ -251,7 +271,7 @@ msgstr "Start new"
 msgid "Statistics"
 msgstr "Statistics"
 
-#: src/screens/components/game-screen/game.screen.tsx:73
+#: src/screens/components/game-screen/game.screen.tsx:74
 msgid "Stop current run?"
 msgstr "Stop current run?"
 
@@ -263,11 +283,11 @@ msgstr "Support Ukraine"
 msgid "SuuudokuuU"
 msgstr "SuuudokuuU"
 
-#: src/@generic/components/page-header/page-header.tsx:19
+#: src/@generic/components/page-header/page-header.tsx:20
 msgid "SuuudokuuU The Game"
 msgstr "SuuudokuuU The Game"
 
-#: src/settings/component/theme-toggle/theme-toggle.tsx:23
+#: src/settings/component/theme-toggle/theme-toggle.tsx:28
 msgid "Theme"
 msgstr "Theme"
 
@@ -278,6 +298,10 @@ msgstr "Timer"
 #: src/@generic/utils/get-difficulty-text.util.ts:17
 msgid "Unknown"
 msgstr "Unknown"
+
+#: src/screens/components/settings-screen/settings.screen.tsx:47
+msgid "Use dark mode"
+msgstr "Use dark mode"
 
 #: src/screens/components/home-screen/home.screen.tsx:131
 msgid "V."

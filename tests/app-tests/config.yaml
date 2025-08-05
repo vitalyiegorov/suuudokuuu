@@ -1,0 +1,9 @@
+flows:
+  - "flows/*"
+
+platform:
+  ios:
+    snapshotKeyHonorModalViews: false
+    disableAnimations: true
+  android:
+    disableAnimations: true

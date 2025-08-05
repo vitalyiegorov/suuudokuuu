@@ -1,0 +1,35 @@
+appId: ${APP_ID}
+---
+- launchApp
+- assertVisible: 'SuuudokuuU'
+- tapOn: Privacy policy
+- assertVisible: Privacy Policy
+- tapOn: 'Return'
+- tapOn: 'Start new'
+- tapOn: 'Back'
+- assertVisible: 'Start new'
+- tapOn: 'Start new'
+- assertVisible: 'Newbie'
+- assertVisible: 'Easy'
+- assertVisible: 'Medium'
+- assertVisible: 'Hard'
+- assertVisible: 'Nightmare'
+- tapOn: 'Newbie'
+- assertVisible: 'Immortal'
+- assertVisible: 'Standard'
+- assertVisible: 'Hardcore'
+- tapOn: 'Standard'
+- assertVisible:
+    below: 'Score'
+    text: '0'
+- assertVisible:
+    below: 'Mistakes'
+    rightOf: '0'
+    text: '3'
+- assertVisible:
+    id: 'CellSelectors.Root'
+- assertVisible:
+    id: 'AvailableValueItemSelectors.Button'
+- assertVisible:
+    below: 'Elapsed'
+    text: '[0-9]{2}:[0-9]{2}'

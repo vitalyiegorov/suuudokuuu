@@ -11,7 +11,6 @@ import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { Header } from '../../../@generic/components/header/header';
 import { SupportUkraineBanner } from '../../../@generic/components/support-ukraine-banner/support-ukraine-banner';
 import { ThemeButton } from '../../../@generic/components/theme-button/theme-button';
-import { ThemeContext } from '../../../@generic/context/theme.context';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { getTimerText } from '../../../@generic/utils/get-timer-text.util';
 import { DifficultySelect } from '../../../game/components/difficulty-select/difficulty-select';
@@ -20,6 +19,7 @@ import { GameContext } from '../../../game/context/game.context';
 import { useResumeGame } from '../../../game/hooks/use-resume-game.hook';
 import { gameSudokuStringSelector } from '../../../game/store/game.selectors';
 import { historyBestTimeSelector } from '../../../history/store/history.selectors';
+import { ThemeContext } from '../../../theme/context/theme.context';
 
 import { HomeScreenStyles as styles } from './home-screen.styles';
 

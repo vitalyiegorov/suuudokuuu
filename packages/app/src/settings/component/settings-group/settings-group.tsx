@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import { cs, isNotEmptyString } from '@rnw-community/shared';
 
 import { BlackText } from '../../../@generic/components/black-text/black-text';
-import { ThemeContext } from '../../../@generic/context/theme.context';
+import { ThemeContext } from '../../../theme/context/theme.context';
 
 import { SettingsGroupStyles as styles } from './settings-switch.styles';
 
@@ -20,7 +20,7 @@ interface Props {
 export const SettingsGroup = ({ title, description, children, hasAnotherRow = false }: Props) => {
     const { theme } = use(ThemeContext);
 
-    const descriptionStyles = [styles.description, { color: theme.text.hint }];
+    const descriptionStyles = [styles.description, { color: theme.colors.label.hint }];
     const wrapperStyles: StyleProp<ViewStyle> = [styles.wrapper, cs(hasAnotherRow, { textAlign: 'center', alignItems: 'center' })];
     const containerStyles: StyleProp<ViewStyle> = [styles.container, cs(hasAnotherRow, { flexDirection: 'column' })];
 

@@ -3,7 +3,7 @@ import { Animated, Pressable, View } from 'react-native';
 
 import { cs } from '@rnw-community/shared';
 
-import { ThemeContext } from '../../context/theme.context';
+import { ThemeContext } from '../../../theme/context/theme.context';
 import { BlackText } from '../black-text/black-text';
 
 import { ToggleSelectStyles as styles } from './toggle-select.style';
@@ -62,7 +62,7 @@ export const ToggleSelect = <T extends unknown>(props: Props<T>) => {
     const getButtonTextStyle = (value: T) => [
         styles.label,
         cs(selectedValue === value, styles.selectedLabel),
-        { color: selectedValue === value ? theme.text.main : theme.text.inverted }
+        { color: selectedValue === value ? theme.colors.label.main : theme.colors.label.inverted }
     ];
 
     const toggleContainerStyle = [

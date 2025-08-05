@@ -1,14 +1,12 @@
-import { DarkTheme, DefaultTheme } from '@react-navigation/native';
+import type { ThemeInterface } from '../interface/theme.interface';
 
-export const WhiteTheme = {
-    ...DefaultTheme,
-    text: {
-        main: 'rgba(0, 0, 0, 1)',
-        inverted: 'rgba(255, 255, 255, 1)',
-        hint: 'rgba(0, 0, 0, 0.5)'
-    },
+export const BWLightTheme: ThemeInterface = {
     colors: {
-        ...DefaultTheme.colors,
+        label: {
+            main: 'rgba(0, 0, 0, 1)',
+            inverted: 'rgba(255, 255, 255, 1)',
+            hint: 'rgba(0, 0, 0, 0.5)'
+        },
         background: '#f2f2f2',
         white: 'rgb(255, 255, 255)',
         white05: 'rgba(255, 255, 255, 0.5)',
@@ -25,8 +23,12 @@ export const WhiteTheme = {
             activeValueText: 'rgba(0, 0, 0, 1)',
             error: 'rgba(255, 0, 0, 1)',
             emptyValueText: 'rgba(0, 0, 0, 0.5)',
-            candidate: 'rgba(0, 0, 0, 0.5)',
             filled: 'rgba(0, 0, 0, 0.01)'
+        },
+        candidate: {
+            text: 'rgba(0, 0, 0, 0.5)',
+            textActive: 'rgba(0, 0, 0, 1)',
+            bgActive: 'rgba(0, 255, 0, 0.5)'
         },
         value: {
             border: 'rgba(0,0,0,0.15)',
@@ -37,15 +39,8 @@ export const WhiteTheme = {
     }
 };
 
-export const BlackTheme = {
-    ...DarkTheme,
-    text: {
-        main: 'rgba(255, 255, 255, 1)',
-        inverted: 'rgba(0, 0, 0, 1)',
-        hint: 'rgba(255, 255, 255, 0.5)'
-    },
+export const BWDarkTheme: ThemeInterface = {
     colors: {
-        ...DarkTheme.colors,
         background: '#010101',
         white: 'rgb(0, 0, 0)',
         white05: 'rgba(0, 0, 0, 0.5)',
@@ -53,6 +48,11 @@ export const BlackTheme = {
         black05: 'rgba(255, 255, 255, 0.25)',
         red: 'rgba(255, 0, 0, 1)',
         blue: 'rgba(0,0,255,0.28)',
+        label: {
+            main: 'rgba(255, 255, 255, 1)',
+            inverted: 'rgba(0, 0, 0, 1)',
+            hint: 'rgba(255, 255, 255, 0.5)'
+        },
         cell: {
             active: 'rgba(0, 255, 0, 0.7)',
             activeText: 'rgba(255, 255, 255, 1)',
@@ -62,8 +62,12 @@ export const BlackTheme = {
             activeValueText: 'rgba(255, 255, 255, 1)',
             emptyValueText: 'rgba(255, 255, 255, 0.1)',
             error: 'rgba(255, 0, 0, 1)',
-            candidate: 'rgba(255, 255, 255, 0.5)',
             filled: 'rgba(255, 255, 255, 0.2)'
+        },
+        candidate: {
+            text: 'rgba(255, 255, 255, 0.5)',
+            textActive: 'rgba(255, 255, 255, 1)',
+            bgActive: 'rgba(0, 255, 0, 0.5)'
         },
         value: {
             border: 'rgba(255,255,255,0.15)',
