@@ -1,4 +1,5 @@
 export enum ThemeEnum {
     BlackAndWhite = 'black-and-white',
-    Colorful = 'colorful'
+    Colorful = 'colorful',
+    Newspaper = 'newspaper'
 }

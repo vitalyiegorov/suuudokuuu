@@ -29,11 +29,11 @@ export const FieldCellCandidates = ({ candidates, activeValue }: Props) => {
             styles.textCandidate,
             {
                 fontSize: Math.min(CellCandidateFontSizeConstant * fontSizeMultiplier, CellCandidateMaxFontSizeConstant),
-                color: theme.colors.cell.candidate
+                color: theme.colors.candidate.text
             },
             cs(isCandidateActive && showActiveCandidates, {
-                backgroundColor: theme.colors.cell.candidateActiveBg,
-                color: theme.colors.cell.candidateActive
+                backgroundColor: theme.colors.candidate.bgActive,
+                color: theme.colors.candidate.textActive
             }),
             textCandidateStyle
         ];

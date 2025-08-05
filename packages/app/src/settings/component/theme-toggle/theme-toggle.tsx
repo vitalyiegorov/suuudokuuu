@@ -20,7 +20,8 @@ export const ThemeToggle = () => {
     const getThemeText = (theme: SettingsState['theme']) =>
         ({
             [ThemeEnum.BlackAndWhite]: t`default`,
-            [ThemeEnum.Colorful]: t`safari`
+            [ThemeEnum.Colorful]: t`gold`,
+            [ThemeEnum.Newspaper]: t`gray`
         })[theme];
     const getThemeIndex = (theme: SettingsState['theme']) => Themes.indexOf(theme);
 
