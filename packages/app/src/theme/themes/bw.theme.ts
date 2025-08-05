@@ -1,14 +1,12 @@
-import { DarkTheme, DefaultTheme } from '@react-navigation/native';
+import type { ThemeInterface } from '../interface/theme.interface';
 
-export const BWLightTheme = {
-    ...DefaultTheme,
-    text: {
-        main: 'rgba(0, 0, 0, 1)',
-        inverted: 'rgba(255, 255, 255, 1)',
-        hint: 'rgba(0, 0, 0, 0.5)'
-    },
+export const BWLightTheme: ThemeInterface = {
     colors: {
-        ...DefaultTheme.colors,
+        label: {
+            main: 'rgba(0, 0, 0, 1)',
+            inverted: 'rgba(255, 255, 255, 1)',
+            hint: 'rgba(0, 0, 0, 0.5)'
+        },
         background: '#f2f2f2',
         white: 'rgb(255, 255, 255)',
         white05: 'rgba(255, 255, 255, 0.5)',
@@ -39,15 +37,8 @@ export const BWLightTheme = {
     }
 };
 
-export const BWDarkTheme = {
-    ...DarkTheme,
-    text: {
-        main: 'rgba(255, 255, 255, 1)',
-        inverted: 'rgba(0, 0, 0, 1)',
-        hint: 'rgba(255, 255, 255, 0.5)'
-    },
+export const BWDarkTheme: ThemeInterface = {
     colors: {
-        ...DarkTheme.colors,
         background: '#010101',
         white: 'rgb(0, 0, 0)',
         white05: 'rgba(0, 0, 0, 0.5)',
@@ -55,6 +46,11 @@ export const BWDarkTheme = {
         black05: 'rgba(255, 255, 255, 0.25)',
         red: 'rgba(255, 0, 0, 1)',
         blue: 'rgba(0,0,255,0.28)',
+        label: {
+            main: 'rgba(255, 255, 255, 1)',
+            inverted: 'rgba(0, 0, 0, 1)',
+            hint: 'rgba(255, 255, 255, 0.5)'
+        },
         cell: {
             active: 'rgba(0, 255, 0, 0.7)',
             activeText: 'rgba(255, 255, 255, 1)',

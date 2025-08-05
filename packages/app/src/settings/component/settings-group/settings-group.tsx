@@ -20,7 +20,7 @@ interface Props {
 export const SettingsGroup = ({ title, description, children, hasAnotherRow = false }: Props) => {
     const { theme } = use(ThemeContext);
 
-    const descriptionStyles = [styles.description, { color: theme.text.hint }];
+    const descriptionStyles = [styles.description, { color: theme.colors.label.hint }];
     const wrapperStyles: StyleProp<ViewStyle> = [styles.wrapper, cs(hasAnotherRow, { textAlign: 'center', alignItems: 'center' })];
     const containerStyles: StyleProp<ViewStyle> = [styles.container, cs(hasAnotherRow, { flexDirection: 'column' })];
 

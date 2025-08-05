@@ -223,8 +223,8 @@ jobs:
       - name: Build and install app
         working-directory: packages/app
         run: |
-          eas build --profile=ios-simulator --platform ios --non-interactive --local --output app.app
-          eas build:run --profile=ios-simulator --platform ios --path app.app
+          eas build --profile=e2e --platform ios --non-interactive --local --output app.app
+          eas build:run --profile=e2e --platform ios --path app.app
 
       - name: Install Maestro
         run: |
@@ -284,7 +284,7 @@ jobs:
       - name: Build app
         working-directory: packages/app
         run: |
-          eas build --profile=preview --platform android --non-interactive --local --output app.apk
+          eas build --profile=e2e --platform android --non-interactive --local --output app.apk
 
       - name: Install Maestro
         run: |

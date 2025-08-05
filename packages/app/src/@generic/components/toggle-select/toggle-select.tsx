@@ -62,7 +62,7 @@ export const ToggleSelect = <T extends unknown>(props: Props<T>) => {
     const getButtonTextStyle = (value: T) => [
         styles.label,
         cs(selectedValue === value, styles.selectedLabel),
-        { color: selectedValue === value ? theme.text.main : theme.text.inverted }
+        { color: selectedValue === value ? theme.colors.label.main : theme.colors.label.inverted }
     ];
 
     const toggleContainerStyle = [

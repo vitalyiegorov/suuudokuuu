@@ -38,7 +38,7 @@ export const BlackButton = ({ text, style, href, styleText, onPress, children, i
         { backgroundColor: isActive ? theme.colors.white : theme.colors.black },
         style
     ] as StyleProp<ViewStyle>;
-    const textStyles = [styles.buttonText, { color: isActive ? theme.text.main : theme.text.inverted }, styleText];
+    const textStyles = [styles.buttonText, { color: isActive ? theme.colors.label.main : theme.colors.label.inverted }, styleText];
 
     const handlePress = (event: GestureResponderEvent) => {
         onPress?.(event);
