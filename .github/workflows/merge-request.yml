@@ -223,8 +223,8 @@ jobs:
       - name: Build and install app
         working-directory: packages/app
         run: |
-          eas build --profile=e2e --platform ios --non-interactive --local --output app.app
-          eas build:run --profile=e2e --platform ios --path app.app
+          eas build --profile=e2e --platform ios --non-interactive --local --output app.tar.gz
+          eas build:run --profile=e2e --platform ios --path app.tar.gz
 
       - name: Install Maestro
         run: |
