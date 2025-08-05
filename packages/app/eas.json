@@ -13,6 +13,12 @@
             },
             "channel": "development"
         },
+        "ios-simulator": {
+            "extends": "development",
+            "ios": {
+                "simulator": true
+            }
+        },
         "preview": {
             "distribution": "internal",
             "environment": "preview",
@@ -21,7 +27,7 @@
             },
             "channel": "preview"
         },
-        "ios-simulator": {
+        "e2e": {
             "extends": "preview",
             "ios": {
                 "simulator": true

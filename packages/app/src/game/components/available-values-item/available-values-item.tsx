@@ -78,7 +78,7 @@ export const AvailableValuesItem = ({ value, onSelect, progress, correctValue, c
         { backgroundColor: theme.colors.cell.active },
         { width: `${progress}%` }
     ] as StyleProp<ViewStyle>;
-    const textStyles = [{ fontSize: CellFontSizeConstant * fontSizeMultiplier }, { color: theme.text.main }];
+    const textStyles = [{ fontSize: CellFontSizeConstant * fontSizeMultiplier }, { color: theme.colors.value.text }];
 
     return (
         <View style={styles.container} testID={selectors.Root}>

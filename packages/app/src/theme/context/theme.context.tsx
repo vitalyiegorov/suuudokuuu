@@ -1,4 +1,4 @@
-import { ThemeProvider as NavigationThemeProvider } from '@react-navigation/native';
+import { DarkTheme, DefaultTheme, ThemeProvider as NavigationThemeProvider } from '@react-navigation/native';
 import React, { createContext } from 'react';
 import { Appearance, Platform } from 'react-native';
 
@@ -51,10 +51,19 @@ export const ThemeProvider = ({ children }: { readonly children: ReactNode }) =>
     };
 
     const theme = getTheme(selectedTheme, colorScheme);
+    const navigationTheme = colorScheme === ColorSchemaEnum.Light ? DefaultTheme : DarkTheme;
+    const fullNavigationTheme = {
+        ...navigationTheme,
+        ...theme,
+        colors: {
+            ...navigationTheme.colors,
+            ...theme.colors
+        }
+    };
 
     return (
         <ThemeContext value={{ theme, colorScheme, toggleColorSchema, changeTheme }}>
-            <NavigationThemeProvider value={theme}>{children}</NavigationThemeProvider>
+            <NavigationThemeProvider value={fullNavigationTheme}>{children}</NavigationThemeProvider>
         </ThemeContext>
     );
 };

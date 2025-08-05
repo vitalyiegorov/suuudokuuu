@@ -12,7 +12,7 @@ interface Props extends TextProps {
 export const Header = ({ text, style, ...props }: Props) => {
     const { theme } = use(ThemeContext);
 
-    const textStyles = [styles.container, { color: theme.text.main }, style];
+    const textStyles = [styles.container, { color: theme.colors.label.main }, style];
 
     return (
         <Text allowFontScaling={false} style={textStyles} {...props}>
