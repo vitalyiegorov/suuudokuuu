@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { CellCandidateOffsetConstant, CellSizeConstant } from '../constants/dimensions.contant';
+import { CellSizeConstant } from '../constants/dimensions.contant';
 
 export const FieldCellStyles = StyleSheet.create({
     container: {
@@ -29,47 +29,5 @@ export const FieldCellStyles = StyleSheet.create({
     },
     lastRow: {
         borderBottomWidth: 1
-    },
-    textActive: {
-        fontWeight: 'bold'
-    },
-    textCandidate: {
-        position: 'absolute'
-    },
-    textCandidatePosition1: {
-        left: CellCandidateOffsetConstant,
-        top: CellCandidateOffsetConstant / 2
-    },
-    textCandidatePosition2: {
-        left: CellCandidateOffsetConstant / 2 + CellSizeConstant / 3,
-        top: CellCandidateOffsetConstant / 2
-    },
-    textCandidatePosition3: {
-        left: CellCandidateOffsetConstant / 2 + (2 * CellSizeConstant) / 3,
-        top: CellCandidateOffsetConstant / 2
-    },
-    textCandidatePosition4: {
-        left: CellCandidateOffsetConstant,
-        top: CellSizeConstant / 3
-    },
-    textCandidatePosition5: {
-        left: CellCandidateOffsetConstant / 2 + CellSizeConstant / 3,
-        top: CellSizeConstant / 3
-    },
-    textCandidatePosition6: {
-        left: CellCandidateOffsetConstant / 2 + (2 * CellSizeConstant) / 3,
-        top: CellSizeConstant / 3
-    },
-    textCandidatePosition7: {
-        left: CellCandidateOffsetConstant,
-        top: -CellCandidateOffsetConstant / 2 + (CellSizeConstant / 3) * 2
-    },
-    textCandidatePosition8: {
-        left: CellCandidateOffsetConstant / 2 + CellSizeConstant / 3,
-        top: -CellCandidateOffsetConstant / 2 + (CellSizeConstant / 3) * 2
-    },
-    textCandidatePosition9: {
-        left: CellCandidateOffsetConstant / 2 + (2 * CellSizeConstant) / 3,
-        top: -CellCandidateOffsetConstant / 2 + (CellSizeConstant / 3) * 2
     }
 });

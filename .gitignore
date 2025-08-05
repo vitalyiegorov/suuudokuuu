@@ -43,3 +43,10 @@ coverage/
 # Expo prebuild
 packages/app/android
 packages/app/ios
+
+.maestro
+report.xml
+build-*.tar.gz
+*.app
+*.apk
+app*.tar.gz

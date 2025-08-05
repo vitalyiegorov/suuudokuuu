@@ -12,7 +12,6 @@ import { Alert } from '../../../@generic/components/alert/alert';
 import { BlackButton } from '../../../@generic/components/black-button/black-button';
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
-import { ThemeContext } from '../../../@generic/context/theme.context';
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { useVibration } from '../../../@generic/hooks/use-vibration.hook';
@@ -29,7 +28,9 @@ import { gameFinishedThunk } from '../../../game/store/thunks/game-finish.thunk'
 import { gameMistakeThunk } from '../../../game/store/thunks/game-mistake.thunk';
 import { gameSaveThunk } from '../../../game/store/thunks/game-save.thunk';
 import { settingsKeySelector } from '../../../settings/store/settings.selectors';
+import { ThemeContext } from '../../../theme/context/theme.context';
 
+import { GameScreenSelectors } from './game-screen.selectors';
 import { GameScreenStyles as styles } from './game-screen.styles';
 
 import type { CellInterface, ScoredCellsInterface } from '@suuudokuuu/generator';
@@ -151,20 +152,24 @@ export const GameScreen = () => {
 
     useKeyboardControls(sudoku, selectedCell, handleSelectCell, handleSelectValue, handleExit);
 
-    const mistakesCountTextStyles = [styles.mistakesCountText, { color: maxMistakesReached ? theme.colors.red : theme.colors.black }];
+    const mistakesCountTextStyles = [styles.mistakesCountText, { color: maxMistakesReached ? theme.colors.red : theme.colors.label.main }];
 
     return (
-        <View style={styles.container}>
+        <View style={styles.container} testID={GameScreenSelectors.Root}>
             <View style={styles.controls}>
                 <View style={styles.controlsWrapper}>
                     <BlackText>{t`Mistakes`}</BlackText>
 
                     <BlackText>
-                        <Text style={mistakesCountTextStyles}>{mistakes}</Text>
+                        <Text style={mistakesCountTextStyles} testID={GameScreenSelectors.MistakesCount}>
+                            {mistakes}
+                        </Text>
 
                         <Text style={styles.mistakesSeparator}>/</Text>
 
-                        <BlackText style={styles.mistakesMaxText}>{maxMistakes}</BlackText>
+                        <BlackText style={styles.mistakesMaxText} testID={GameScreenSelectors.MaxMistakesAllowed}>
+                            {maxMistakes}
+                        </BlackText>
                     </BlackText>
                 </View>
 
@@ -180,14 +185,16 @@ export const GameScreen = () => {
                     <View style={styles.controlsWrapper}>
                         <BlackText>{t`Score`}</BlackText>
 
-                        <BlackText style={styles.scoreText}>{score}</BlackText>
+                        <BlackText style={styles.scoreText} testID={GameScreenSelectors.Score}>
+                            {score}
+                        </BlackText>
                     </View>
                 </View>
 
                 <View style={styles.buttonsWrapper}>
                     {hasSharing ? (
                         // eslint-disable-next-line @typescript-eslint/no-misused-promises
-                        <BlackButton onPress={handleShare} style={styles.button}>
+                        <BlackButton onPress={handleShare} style={styles.button} testID={GameScreenSelectors.ShareButton}>
                             <LucideShare2 color={theme.colors.white} />
                         </BlackButton>
                     ) : null}
@@ -196,7 +203,7 @@ export const GameScreen = () => {
                         <LucideSettings color={theme.colors.white} />
                     </BlackButton>
 
-                    <BlackButton onPress={handleExit} style={styles.button}>
+                    <BlackButton onPress={handleExit} style={styles.button} testID={GameScreenSelectors.QuitButton}>
                         <LucideLogOut color={theme.colors.white} />
                     </BlackButton>
                 </View>
@@ -211,7 +218,6 @@ export const GameScreen = () => {
                     <AvailableValuesItem
                         canPress={sudoku.isBlankCell(selectedCell)}
                         correctValue={sudoku.getCorrectValue(selectedCell)}
-                        isActive={false}
                         key={`possible-value-${value}`}
                         onSelect={handleSelectValue}
                         progress={sudoku.getValueProgress(value)}

@@ -4,12 +4,14 @@ import { View } from 'react-native';
 import { interpolate, interpolateColor, useAnimatedStyle, useSharedValue, withSequence, withTiming } from 'react-native-reanimated';
 
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
-import { ThemeContext } from '../../../@generic/context/theme.context';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
+import { ThemeContext } from '../../../theme/context/theme.context';
 import { GameContext } from '../../context/game.context';
 import { gameHasCandidatesSelector } from '../../store/game.selectors';
 import { CellFontSizeConstant } from '../constants/dimensions.contant';
 import { FieldCell } from '../field-cell/field-cell';
+import { FieldCellCandidates } from '../field-cell-candidates/field-cell-candidates';
+import { FieldCellText } from '../field-cell-text/field-cell-text';
 
 import { FieldStyles as styles } from './field.styles';
 
@@ -72,20 +74,39 @@ export const Field = ({ selectedCell, onSelect, scoredCells }: Props) => {
         <View style={styles.wrapper}>
             {sudoku.Field.map(row => (
                 <View key={`row-${row[0].y}`} style={styles.row}>
-                    {row.map(cell => (
-                        <FieldCell
-                            cell={cell}
-                            hasAnimation={animatedCells.has(getCellKey(cell))}
-                            hasCandidates={hasCandidates}
-                            isActive={sudoku.isSameCell(cell, selectedCell)}
-                            isActiveValue={sudoku.isSameCellValue(cell, selectedCell)}
-                            isHighlighted={sudoku.isCellHighlighted(cell, selectedCell)}
-                            isWrong={sudoku.isCellWrong(cell, selectedCell)}
-                            key={`cell-${cell.y}-${cell.x}`}
-                            onSelect={onSelect}
-                            textAnimatedStyle={textAnimatedStyles}
-                        />
-                    ))}
+                    {row.map(cell => {
+                        const isActive = sudoku.isSameCell(cell, selectedCell);
+                        const isActiveValue = sudoku.isSameCellValue(cell, selectedCell);
+                        const isHighlighted = sudoku.isCellHighlighted(cell, selectedCell);
+                        const isWrong = sudoku.isCellWrong(cell, selectedCell);
+                        const isEmpty = sudoku.isBlankCell(cell);
+                        const candidates = isEmpty && hasCandidates ? sudoku.getCellCandidates(cell) : [];
+
+                        return (
+                            <FieldCell
+                                cell={cell}
+                                isActive={isActive}
+                                isActiveValue={isActiveValue}
+                                isEmpty={isEmpty}
+                                isHighlighted={isHighlighted}
+                                isWrong={isWrong}
+                                key={`cell-${cell.y}-${cell.x}`}
+                                onSelect={onSelect}
+                            >
+                                {hasCandidates ? <FieldCellCandidates activeValue={selectedCell?.value} candidates={candidates} /> : null}
+                                <FieldCellText
+                                    cell={cell}
+                                    hasAnimation={animatedCells.has(getCellKey(cell))}
+                                    hasCandidates={hasCandidates}
+                                    isActive={isActive}
+                                    isActiveValue={isActiveValue}
+                                    isEmpty={isEmpty}
+                                    isHighlighted={isHighlighted}
+                                    textAnimatedStyle={textAnimatedStyles}
+                                />
+                            </FieldCell>
+                        );
+                    })}
                 </View>
             ))}
         </View>

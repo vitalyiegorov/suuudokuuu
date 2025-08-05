@@ -13,7 +13,7 @@ import type { MigrationManifest } from 'redux-persist/es/types';
 
 const migrations: MigrationManifest<RootState> = {
     5: state => ({ ...state, [gameSlice.name]: { ...initialGameState }, [historySlice.name]: { ...initialHistoryState } }),
-    8: state => ({ ...state, [settingsSlice.name]: { ...initialSettingsState } })
+    9: state => ({ ...state, [settingsSlice.name]: { ...initialSettingsState } })
 };
 
 const rootReducer = combineReducers({
@@ -27,7 +27,7 @@ const persistedReducer = persistReducer(
     {
         key: 'root',
         storage: AsyncStorage,
-        version: 8,
+        version: 9,
         migrate: createMigrate(migrations)
     },
     rootReducer

@@ -4,6 +4,7 @@ env:
   TURBO_TOKEN: ${{ secrets.VERCEL_TOKEN }}
   PR_NUMBER: ${{ github.event.pull_request.number }}
   PR_TITLE: ${{ github.event.pull_request.title }}
+  MAESTRO_CLI_NO_ANALYTICS: false
 
 on: pull_request
 
@@ -56,6 +57,11 @@ jobs:
       pull-requests: write
       deployments: write
       issues: write
+    outputs:
+      deployment_url: ${{ steps.deploy-web.outputs.deployment_url }}
+      projectId: ${{ steps.create-preview.outputs.projectId }}
+      iosGroupId: ${{ steps.create-preview.outputs.iosGroupId }}
+      androidGroupId: ${{ steps.create-preview.outputs.androidGroupId }}
     steps:
       - name: Check for EXPO_TOKEN
         run: |
@@ -84,6 +90,7 @@ jobs:
         run: yarn install
 
       - name: Create preview
+        id: create-preview
         uses: expo/expo-github-action/preview@v8
         with:
           command: eas update --channel development --auto
@@ -176,3 +183,151 @@ jobs:
                 body: commentBody
               });
             }
+
+  e2e-ios:
+    needs: [code-quality, eas-deploy]
+    name: E2E Tests on iOS
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'adopt'
+          java-version: '11'
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          cache: yarn
+
+      - name: Select Xcode 16
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '16'
+
+      - name: Setup EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Start iOS Simulator
+        uses: futureware-tech/simulator-action@v4
+        with:
+          model: 'iPhone 15 Pro'
+
+      - name: Build and install app
+        working-directory: packages/app
+        run: |
+          eas build --profile=e2e --platform ios --non-interactive --local --output app.tar.gz
+          eas build:run --profile=e2e --platform ios --path app.tar.gz
+
+      - name: Install Maestro
+        run: |
+          curl -fsSL "https://get.maestro.mobile.dev" | bash
+          echo "$HOME/.maestro/bin" >> $GITHUB_PATH
+
+      - name: Run Maestro UI tests
+        working-directory: tests/app-tests
+        run: |
+          maestro test flows -e APP_ID=com.vitalyiegorov.suuudokuuu.preview --format junit --output ./report.xml --debug-output ./
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: "maestro-ios-report"
+          include-hidden-files: true
+          path: |
+            tests/app-tests/.maestro/tests
+            tests/app-tests/report.xml
+
+  e2e-android:
+    needs: [ code-quality, eas-deploy ]
+    name: E2E Tests on Android
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'adopt'
+          java-version: '17'
+
+      - name: Enable KVM group perms
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          cache: yarn
+
+      - name: Setup EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Gradle cache
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Build app
+        working-directory: packages/app
+        run: |
+          eas build --profile=e2e --platform android --non-interactive --local --output app.apk
+
+      - name: Install Maestro
+        run: |
+          curl -fsSL "https://get.maestro.mobile.dev" | bash
+          echo "$HOME/.maestro/bin" >> $GITHUB_PATH
+
+      - name: AVD cache
+        uses: actions/cache@v4
+        id: avd-cache
+        with:
+          path: |
+            ~/.android/avd/*
+            ~/.android/adb*
+          key: avd-33
+
+      - name: Create AVD and Generate Snapshot for Caching
+        if: steps.avd-cache.outputs.cache-hit != 'true'
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          force-avd-creation: false
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: false
+          script: echo "Generated AVD snapshot for caching."
+
+      - name: Start emulator and run Maestro tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          force-avd-creation: false
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: true
+          working-directory: tests/app-tests
+          script: |
+            cd ../../packages/app && eas build:run --platform android --path app.apk
+            maestro test flows -e APP_ID=com.vitaliiyehorov.suuudokuuu.preview --format junit --output ./report.xml --debug-output ./
+
+      - name: Upload Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: "maestro-android-report"
+          include-hidden-files: true
+          path: |
+            tests/app-tests/.maestro/tests
+            tests/app-tests/report.xml
