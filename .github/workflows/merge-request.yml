@@ -215,31 +215,26 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
-      - name: Build app
+      - name: Start iOS Simulator
+        uses: futureware-tech/simulator-action@v4
+        with:
+          model: 'iPhone 15 Pro'
+
+      - name: Build and install app
         working-directory: packages/app
         run: |
-          eas build --profile=ios-simulator --platform ios --non-interactive --local --output app.ipa
+          eas build --profile=ios-simulator --platform ios --non-interactive --local --output app.app
+          eas build:run --profile=ios-simulator --platform ios --path app.app
 
       - name: Install Maestro
         run: |
           curl -fsSL "https://get.maestro.mobile.dev" | bash
           echo "$HOME/.maestro/bin" >> $GITHUB_PATH
 
-      - name: Start iOS Simulator
-        uses: futureware-tech/simulator-action@v4
-        with:
-          model: 'iPhone 15 Pro'
-
-      - name: Install App on Simulator
-        working-directory: packages/app
-        run: |
-          ls -la
-          eas build:run --profile=ios-simulator --platform ios --path app.ipa
-
       - name: Run Maestro UI tests
         working-directory: tests/app-tests
         run: |
-          maestro test flows -e APP_ID=com.vitalyiegorov.suuudokuuu.dev --format junit --output ./report.xml --debug-output ./
+          maestro test flows -e APP_ID=com.vitalyiegorov.suuudokuuu.preview --format junit --output ./report.xml --debug-output ./
 
       - name: Upload report
         if: always()
@@ -325,7 +320,7 @@ jobs:
           working-directory: tests/app-tests
           script: |
             cd ../../packages/app && eas build:run --platform android --path app.apk
-            maestro test flows -e APP_ID=com.vitaliiyehorov.suuudokuuu.dev --format junit --output ./report.xml --debug-output ./
+            maestro test flows -e APP_ID=com.vitaliiyehorov.suuudokuuu.preview --format junit --output ./report.xml --debug-output ./
 
       - name: Upload Report
         if: always()
