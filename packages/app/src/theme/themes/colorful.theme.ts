@@ -1,6 +1,6 @@
 import type { ThemeInterface } from '../interface/theme.interface';
 
-export const SafariLightTheme: ThemeInterface = {
+export const ColorfulLightTheme: ThemeInterface = {
     colors: {
         background: '#F7ECD0',
         white: '#FFFFFF',
@@ -23,10 +23,12 @@ export const SafariLightTheme: ThemeInterface = {
             activeValueText: '#2A3B4D',
             error: '#FBDE66',
             emptyValueText: 'rgba(74, 97, 58, 0.75)',
-            candidate: 'rgba(74, 97, 58, 0.75)',
-            candidateActive: '#AFCEBE',
-            candidateActiveBg: '#D9E3D8',
             filled: '#E1DACA'
+        },
+        candidate: {
+            text: 'rgba(74, 97, 58, 0.75)',
+            textActive: '#AFCEBE',
+            bgActive: '#D9E3D8'
         },
         value: {
             border: 'rgba(193, 182, 164, 0.5)',
@@ -37,7 +39,7 @@ export const SafariLightTheme: ThemeInterface = {
     }
 };
 
-export const SafariDarkTheme: ThemeInterface = {
+export const ColorfulDarkTheme: ThemeInterface = {
     colors: {
         background: '#2A3B4D',
         white: '#FFFFFF',
@@ -60,10 +62,12 @@ export const SafariDarkTheme: ThemeInterface = {
             activeValueText: '#EDECE7',
             error: '#C24641',
             emptyValueText: 'rgba(205, 208, 194, 0.75)',
-            candidate: 'rgba(205, 208, 194, 0.75)',
-            candidateActive: '#4B613A',
-            candidateActiveBg: '#829B74',
             filled: '#D0C7B8'
+        },
+        candidate: {
+            text: 'rgba(205, 208, 194, 0.75)',
+            textActive: '#4B613A',
+            bgActive: '#829B74'
         },
         value: {
             border: 'rgba(68, 91, 122, 0.5)',

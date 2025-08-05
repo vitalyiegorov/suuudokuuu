@@ -1,7 +1,8 @@
 import { ColorSchemaEnum } from '../enum/color-schema.enum';
 import { ThemeEnum } from '../enum/theme.enum';
 import { BWDarkTheme, BWLightTheme } from '../themes/bw.theme';
-import { SafariDarkTheme, SafariLightTheme } from '../themes/safari.theme';
+import { ColorfulDarkTheme, ColorfulLightTheme } from '../themes/colorful.theme';
+import { NewspaperDarkTheme, NewspaperLightTheme } from '../themes/newspaper';
 
 export const getTheme = (theme: ThemeEnum, colorShema: ColorSchemaEnum) => {
     const themesConfig: Record<ThemeEnum, Record<ColorSchemaEnum, typeof BWLightTheme>> = {
@@ -10,8 +11,12 @@ export const getTheme = (theme: ThemeEnum, colorShema: ColorSchemaEnum) => {
             [ColorSchemaEnum.Light]: BWLightTheme
         },
         [ThemeEnum.Colorful]: {
-            [ColorSchemaEnum.Dark]: SafariDarkTheme,
-            [ColorSchemaEnum.Light]: SafariLightTheme
+            [ColorSchemaEnum.Dark]: ColorfulDarkTheme,
+            [ColorSchemaEnum.Light]: ColorfulLightTheme
+        },
+        [ThemeEnum.Newspaper]: {
+            [ColorSchemaEnum.Dark]: NewspaperDarkTheme,
+            [ColorSchemaEnum.Light]: NewspaperLightTheme
         }
     };
 

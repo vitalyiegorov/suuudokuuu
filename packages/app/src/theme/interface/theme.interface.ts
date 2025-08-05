@@ -12,6 +12,11 @@ export interface ThemeInterface {
             inverted: string;
             hint: string;
         };
+        candidate: {
+            text: string;
+            textActive: string;
+            bgActive: string;
+        };
         cell: {
             active: string;
             activeText: string;
@@ -21,9 +26,6 @@ export interface ThemeInterface {
             activeValueText: string;
             error: string;
             emptyValueText: string;
-            candidate: string;
-            candidateActive: string;
-            candidateActiveBg: string;
             filled: string;
         };
         value: {
