@@ -69,7 +69,7 @@ msgstr "Elige tu dificultad"
 msgid "Continue"
 msgstr "Continuar"
 
-#: src/screens/components/settings-screen/settings.screen.tsx:47
+#: src/screens/components/settings-screen/settings.screen.tsx:53
 msgid "Dark/Light color schema"
 msgstr "Esquema de color oscuro/claro"
 
@@ -89,7 +89,7 @@ msgstr "Transcurrido"
 msgid "Font size"
 msgstr "Tamaño de fuente"
 
-#: src/settings/component/theme-toggle/theme-toggle.tsx:28
+#: src/settings/component/theme-toggle/theme-toggle.tsx:29
 msgid "Game coloring and appearance"
 msgstr "Coloreado y apariencia del juego"
 
@@ -105,6 +105,14 @@ msgstr "Juego en pausa"
 #: src/settings/component/font-size-toggle/font-size-toggle.tsx:28
 msgid "Game screen font size"
 msgstr "Tamaño de fuente en la pantalla del juego"
+
+#: src/settings/component/theme-toggle/theme-toggle.tsx:23
+msgid "gold"
+msgstr ""
+
+#: src/settings/component/theme-toggle/theme-toggle.tsx:24
+msgid "gray"
+msgstr ""
 
 #: src/@generic/utils/get-difficulty-text.util.ts:11
 msgid "Hard"
@@ -130,6 +138,10 @@ msgstr "Resaltar áreas"
 msgid "Highlight block, column, row for a selected cell"
 msgstr "Resaltar bloque, columna, fila para una celda seleccionada"
 
+#: src/screens/components/settings-screen/settings.screen.tsx:48
+msgid "Highlight candidate numbers when a cell is selected"
+msgstr "Resaltar números candidatos cuando se selecciona una celda"
+
 #: src/screens/components/settings-screen/settings.screen.tsx:43
 msgid "Highlight cells with the number filled in"
 msgstr "Resaltar celdas con el número rellenado"
@@ -145,6 +157,10 @@ msgstr "Resaltar números idénticos"
 #: src/screens/components/settings-screen/settings.screen.tsx:33
 msgid "Highlight repeated numbers in a block, column, row"
 msgstr "Resaltar números repetidos en un bloque, columna, fila"
+
+#: src/screens/components/settings-screen/settings.screen.tsx:50
+msgid "Highlight selected candidate numbers"
+msgstr "Resaltar números candidatos seleccionados"
 
 #: src/game/components/mistakes-select/mistakes-select.tsx:29
 msgid "Immortal"
@@ -230,10 +246,6 @@ msgstr "Reanudar"
 msgid "Return"
 msgstr "Volver"
 
-#: src/settings/component/theme-toggle/theme-toggle.tsx:23
-msgid "safari"
-msgstr "safari"
-
 #: src/screens/components/game-screen/game.screen.tsx:186
 msgid "Score"
 msgstr "Puntuación"
@@ -287,7 +299,7 @@ msgstr "SuuudokuuU"
 msgid "SuuudokuuU The Game"
 msgstr "SuuudokuuU El Juego"
 
-#: src/settings/component/theme-toggle/theme-toggle.tsx:28
+#: src/settings/component/theme-toggle/theme-toggle.tsx:29
 msgid "Theme"
 msgstr "Tema"
 
@@ -299,7 +311,7 @@ msgstr "Temporizador"
 msgid "Unknown"
 msgstr "Desconocido"
 
-#: src/screens/components/settings-screen/settings.screen.tsx:47
+#: src/screens/components/settings-screen/settings.screen.tsx:53
 msgid "Use dark mode"
 msgstr "Usar modo oscuro"
 

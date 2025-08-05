@@ -69,7 +69,7 @@ msgstr "Виберіть складність"
 msgid "Continue"
 msgstr "Продовжити"
 
-#: src/screens/components/settings-screen/settings.screen.tsx:47
+#: src/screens/components/settings-screen/settings.screen.tsx:53
 msgid "Dark/Light color schema"
 msgstr "Темна/Світла колірна схема"
 
@@ -89,7 +89,7 @@ msgstr "Минуло"
 msgid "Font size"
 msgstr "Розмір шрифту"
 
-#: src/settings/component/theme-toggle/theme-toggle.tsx:28
+#: src/settings/component/theme-toggle/theme-toggle.tsx:29
 msgid "Game coloring and appearance"
 msgstr "Колірна схема та зовнішній вигляд гри"
 
@@ -105,6 +105,14 @@ msgstr "Гру призупинено"
 #: src/settings/component/font-size-toggle/font-size-toggle.tsx:28
 msgid "Game screen font size"
 msgstr "Розмір шрифту на екрані гри"
+
+#: src/settings/component/theme-toggle/theme-toggle.tsx:23
+msgid "gold"
+msgstr ""
+
+#: src/settings/component/theme-toggle/theme-toggle.tsx:24
+msgid "gray"
+msgstr ""
 
 #: src/@generic/utils/get-difficulty-text.util.ts:11
 msgid "Hard"
@@ -130,6 +138,10 @@ msgstr "Підсвітити області"
 msgid "Highlight block, column, row for a selected cell"
 msgstr "Підсвітити блок, стовпець, рядок для вибраної клітинки"
 
+#: src/screens/components/settings-screen/settings.screen.tsx:48
+msgid "Highlight candidate numbers when a cell is selected"
+msgstr "Підсвітити числа кандидатів при виборі клітинки"
+
 #: src/screens/components/settings-screen/settings.screen.tsx:43
 msgid "Highlight cells with the number filled in"
 msgstr "Підсвітити клітинки з заповненим числом"
@@ -145,6 +157,10 @@ msgstr "Підсвітити однакові числа"
 #: src/screens/components/settings-screen/settings.screen.tsx:33
 msgid "Highlight repeated numbers in a block, column, row"
 msgstr "Підсвітити повторювані числа в блоці, стовпці, рядку"
+
+#: src/screens/components/settings-screen/settings.screen.tsx:50
+msgid "Highlight selected candidate numbers"
+msgstr "Підсвітити вибрані числа кандидатів"
 
 #: src/game/components/mistakes-select/mistakes-select.tsx:29
 msgid "Immortal"
@@ -230,10 +246,6 @@ msgstr "Відновити"
 msgid "Return"
 msgstr "Повернутися"
 
-#: src/settings/component/theme-toggle/theme-toggle.tsx:23
-msgid "safari"
-msgstr "сафарі"
-
 #: src/screens/components/game-screen/game.screen.tsx:186
 msgid "Score"
 msgstr "Рахунок"
@@ -287,7 +299,7 @@ msgstr "СууудокуУ"
 msgid "SuuudokuuU The Game"
 msgstr "СууудокуУ Гра"
 
-#: src/settings/component/theme-toggle/theme-toggle.tsx:28
+#: src/settings/component/theme-toggle/theme-toggle.tsx:29
 msgid "Theme"
 msgstr "Тема"
 
@@ -299,7 +311,7 @@ msgstr "Таймер"
 msgid "Unknown"
 msgstr "Невідомий"
 
-#: src/screens/components/settings-screen/settings.screen.tsx:47
+#: src/screens/components/settings-screen/settings.screen.tsx:53
 msgid "Use dark mode"
 msgstr "Використовувати темний режим"
 
