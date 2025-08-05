@@ -49,3 +49,4 @@ report.xml
 build-*.tar.gz
 *.app
 *.apk
+app*.tar.gz
