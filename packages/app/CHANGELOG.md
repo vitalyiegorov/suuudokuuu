@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.41.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.40.2...v1.41.0) (2025-08-05)
+
+### Bug Fixes
+
+- **app:** added gray color ([fdb6b1b](https://github.com/vitalyiegorov/suuudokuuu/commit/fdb6b1bcc9352bd00e2196e56ac50692326bd0c4))
+- **app:** themes ([2fbbfb1](https://github.com/vitalyiegorov/suuudokuuu/commit/2fbbfb1d443b359ac95633a204c9e92f62fa4927))
+
+### Features
+
+- **app-tests:** added showFilledNumber settings ([11b90f3](https://github.com/vitalyiegorov/suuudokuuu/commit/11b90f3db8f1444faa23a7e356a2e1690775217d))
+- **app-tests:** added showFilledNumber settings ([2b3da9e](https://github.com/vitalyiegorov/suuudokuuu/commit/2b3da9e1a3605ec82c46a860dd10d218463b5494))
+- **app-tests:** added showFilledNumber settings ([4ec49de](https://github.com/vitalyiegorov/suuudokuuu/commit/4ec49def17aeb019a9031e990c644a5bf6740ee9))
+- **app-tests:** added themes support ([4d0d131](https://github.com/vitalyiegorov/suuudokuuu/commit/4d0d1312fa2df45edde5fd4b2837cb01dbe677a7))
+- **app-tests:** added themes support ([f3bdc3f](https://github.com/vitalyiegorov/suuudokuuu/commit/f3bdc3f94f657cbf9daf0c9fc6ee791cd5bdad9e))
+- **app:** added candidate highlight ([d0abca0](https://github.com/vitalyiegorov/suuudokuuu/commit/d0abca0f4804ee6a4c1d258bf555111a7672aaf7))
+- **app:** added candidate highlight ([39e66fd](https://github.com/vitalyiegorov/suuudokuuu/commit/39e66fd919ee6fb088bf258022c840ce830de9a5))
+
+### Performance Improvements
+
+- **app:** optimize cells rendering ([9edaee9](https://github.com/vitalyiegorov/suuudokuuu/commit/9edaee9d2b8601a810ba56b76647eb6fc5a7655c))
+
 ## [1.40.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.40.1...v1.40.2) (2025-07-31)
 
 ### Bug Fixes
