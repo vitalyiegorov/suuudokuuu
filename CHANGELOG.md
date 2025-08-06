@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.41.3](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.41.2...v1.41.3) (2025-08-06)
+
+### Bug Fixes
+
+- **app:** fix styling ([ecc63c6](https://github.com/vitalyiegorov/suuudokuuu/commit/ecc63c6afa51f33f3f603ea2bbf9b4c8b6ded032))
+
 ## [1.41.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.41.1...v1.41.2) (2025-08-06)
 
 ### Bug Fixes
