@@ -8,7 +8,7 @@ import {
 
 export const FieldCellCandidateStyles = StyleSheet.create({
     textCandidate: {
-        paddingHorizontal: 5,
+        paddingHorizontal: CellCandidateHorizontalOffsetConstant,
         position: 'absolute'
     },
     textCandidatePosition1: {

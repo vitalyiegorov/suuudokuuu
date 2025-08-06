@@ -8,7 +8,7 @@ const getCellSize = (): number => {
     const minDimension = Math.min(height, width);
 
     if (Device.deviceType === Device.DeviceType.PHONE) {
-        if (minDimension <= 300) {
+        if (minDimension <= 345) {
             return 35;
         } else if (minDimension <= 410) {
             return 40;
