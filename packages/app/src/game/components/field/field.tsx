@@ -5,6 +5,7 @@ import { interpolate, interpolateColor, useAnimatedStyle, useSharedValue, withSe
 
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
+import { settingsFontSizeMultiplierSelector } from '../../../settings/store/settings.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { GameContext } from '../../context/game.context';
 import { gameHasCandidatesSelector } from '../../store/game.selectors';
@@ -34,6 +35,8 @@ export const Field = ({ selectedCell, onSelect, scoredCells }: Props) => {
     const { theme } = use(ThemeContext);
 
     const hasCandidates = useAppSelector(gameHasCandidatesSelector);
+    const fontSizeMultiplier = useAppSelector(settingsFontSizeMultiplierSelector);
+    const fontSize = CellFontSizeConstant * fontSizeMultiplier;
 
     const [animatedCells, setAnimatedCells] = useState(new Set<string>());
 
@@ -44,11 +47,7 @@ export const Field = ({ selectedCell, onSelect, scoredCells }: Props) => {
             [0, 0.5, 1],
             [theme.colors.black, theme.colors.cell.highlightedText, theme.colors.black]
         ),
-        fontSize: interpolate(
-            textAnimation.value,
-            [0, 0.5, 1],
-            [CellFontSizeConstant, CellFontSizeConstant * FONT_SIZE_MULTIPLIER, CellFontSizeConstant]
-        ),
+        fontSize: interpolate(textAnimation.value, [0, 0.5, 1], [fontSize, fontSize * FONT_SIZE_MULTIPLIER, fontSize]),
         transform: [{ rotate: `${interpolate(textAnimation.value, [0, 1], [0, 360])}deg` }]
     }));
 
