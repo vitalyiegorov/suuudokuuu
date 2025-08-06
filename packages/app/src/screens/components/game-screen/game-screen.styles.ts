@@ -22,7 +22,7 @@ export const GameScreenStyles = StyleSheet.create({
         justifyContent: 'space-between',
         marginBottom: 40,
         maxWidth: 600,
-        minWidth: 380
+        minWidth: 345
     },
     controlsWrapper: {
         alignItems: 'center'
