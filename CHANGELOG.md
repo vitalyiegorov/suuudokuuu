@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.41.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.41.1...v1.41.2) (2025-08-06)
+
+### Bug Fixes
+
+- **app:** fix styling ([9ff68b4](https://github.com/vitalyiegorov/suuudokuuu/commit/9ff68b476248fe2ab4abb22ce8196900d7476911))
+
 ## [1.41.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.41.0...v1.41.1) (2025-08-05)
 
 **Note:** Version bump only for package @suuudokuuu/root
