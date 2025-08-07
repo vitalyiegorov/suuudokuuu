@@ -8,9 +8,11 @@ const getCellSize = (): number => {
     const minDimension = Math.min(height, width);
 
     if (Device.deviceType === Device.DeviceType.PHONE) {
+        // eslint-disable-next-line no-magic-numbers
         if (minDimension <= 345) {
             return 35;
-        } else if (minDimension <= 410) {
+            // eslint-disable-next-line no-magic-numbers
+        } else if (minDimension <= 420) {
             return 40;
         } else if (minDimension <= 500) {
             return 45;
