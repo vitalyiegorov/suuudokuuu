@@ -20,7 +20,6 @@
         "build:cjs": "run -T tsc --pretty -p tsconfig.build-cjs.json",
         "build:esm": "run -T tsc --pretty -p tsconfig.build-esm.json",
         "lint": "run -T eslint --fix src",
-        "start": "expo start --dev-client",
         "test": "run -T jest",
         "test:coverage": "run -T jest --coverage",
         "ts": "run -T tsc -p ."
