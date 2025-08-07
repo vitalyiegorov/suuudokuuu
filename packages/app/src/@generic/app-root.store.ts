@@ -10,7 +10,7 @@ import type { GameState } from '../game/store/game.state';
 import type { MigrationManifest } from 'redux-persist/es/types';
 
 const migrations: MigrationManifest<RootState> = {
-    10: state => ({
+    12: state => ({
         ...state,
         [gameSlice.name]: {
             ...initialGameState,
@@ -35,7 +35,7 @@ const persistedReducer = persistReducer(
     {
         key: 'root',
         storage: AsyncStorage,
-        version: 10,
+        version: 12,
         migrate: createMigrate(migrations)
     },
     rootReducer

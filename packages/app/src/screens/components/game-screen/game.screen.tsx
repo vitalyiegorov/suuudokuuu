@@ -99,7 +99,7 @@ export const GameScreen = () => {
 
         dispatch(gameFinishAction({ difficulty: sudoku.Difficulty, isWon: true }));
 
-        // TODO: We need to wait for the animation to finish, animation finish event would fix it?
+        // HINT: We need to wait for the animation to finish, animation finish event would fix it?
         setTimeout(() => void router.replace('winner'), 10 * animationDurationConstant);
     };
 

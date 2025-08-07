@@ -1,6 +1,5 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { emptyGameHistory } from '../../history/interfaces/history-game.interface';
 import { solutionStepFromCell } from '../interface/solution-step.interface';
 
 import { initialGameState } from './game.state';
@@ -39,34 +38,38 @@ export const gameSlice = createSlice({
             state.elapsedTime += 1;
         },
         reset: state => {
-            Object.assign(state, initialGameState);
+            Object.assign(state, { ...initialGameState, historyByDifficulty: state.historyByDifficulty });
         },
         toggleCandidates: state => {
             state.hasCandidates = !state.hasCandidates;
         },
+        // eslint-disable-next-line max-statements
         finish: (state, action: PayloadAction<{ difficulty: DifficultyEnum; isWon: boolean }>) => {
-            const current = { ...emptyGameHistory, ...state.historyByDifficulty[action.payload.difficulty] };
+            const { difficulty, isWon } = action.payload;
 
-            state.historyByDifficulty[action.payload.difficulty] = {
-                ...current,
-                gamesCompleted: current.gamesCompleted + 1,
-                averageTime: (current.averageTime * current.gamesCompleted + state.elapsedTime) / (current.gamesCompleted + 1),
+            const history = state.historyByDifficulty[difficulty];
 
-                ...(action.payload.isWon && {
-                    gamesWon: current.gamesWon + 1,
-                    gamesWonWithoutMistakes: state.mistakes === 0 ? current.gamesWonWithoutMistakes + 1 : current.gamesWonWithoutMistakes,
-                    hardcoreWon: state.maxMistakes === 0 ? current.hardcoreWon + 1 : current.hardcoreWon,
+            history.gamesCompleted += 1;
+            history.averageTime = (history.averageTime * history.gamesCompleted + state.elapsedTime) / history.gamesCompleted;
 
-                    ...(state.score > current.bestScore && {
-                        bestScore: state.score,
-                        bestTime: state.elapsedTime
-                    })
-                }),
+            if (isWon) {
+                history.gamesWon += 1;
 
-                ...(!action.payload.isWon && {
-                    gamesLost: current.gamesLost + 1
-                })
-            };
+                if (state.mistakes === 0) {
+                    history.gamesWonWithoutMistakes += 1;
+                }
+
+                if (state.maxMistakes === 0) {
+                    history.hardcoreWon += 1;
+                }
+
+                if (state.score > history.bestScore) {
+                    history.bestScore = state.score;
+                    history.bestTime = state.elapsedTime;
+                }
+            } else {
+                history.gamesLost += 1;
+            }
         }
     }
 });
