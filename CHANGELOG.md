@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.42.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.41.3...v1.42.0) (2025-08-07)
+
+### Bug Fixes
+
+- **app:** fix field styling ([4e7be27](https://github.com/vitalyiegorov/suuudokuuu/commit/4e7be27da4a85e4f08cf7f09c07a0cf8f6cfad4f))
+
+### Features
+
+- **app:** make phone cell size dynamic to support more screens ([1c47dea](https://github.com/vitalyiegorov/suuudokuuu/commit/1c47dea8b35800fb4f8d00b2413decaafd833450))
+
 ## [1.41.3](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.41.2...v1.41.3) (2025-08-06)
 
 ### Bug Fixes
