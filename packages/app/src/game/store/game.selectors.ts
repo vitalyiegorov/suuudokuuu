@@ -12,15 +12,12 @@ export const gameMaxMistakesSelector = createSelector(gameSelector, state => sta
 export const gamePausedSelector = createSelector(gameSelector, state => state.isPaused);
 export const gameElapsedTimeSelector = createSelector(gameSelector, state => state.elapsedTime);
 export const gameHasCandidatesSelector = createSelector(gameSelector, state => state.hasCandidates);
-
-const gameHistorySelector = (state: RootState) => state.game;
-
-export const gameHistoryByDifficultySelector = createSelector(gameHistorySelector, state => state.historyByDifficulty);
-export const gameHistoryBestTimeSelector = createSelector(gameHistorySelector, state =>
+export const gameHistoryByDifficultySelector = createSelector(gameSelector, state => state.historyByDifficulty);
+export const gameHistoryBestTimeSelector = createSelector(gameSelector, state =>
     Object.values(state.historyByDifficulty).reduce(
         (max, gameHistory) => (gameHistory.bestScore > max[0] ? [gameHistory.bestScore, gameHistory.bestTime] : max),
         [0, 0]
     )
 );
 export const gameHistoryDifficultySelector = (difficulty: DifficultyEnum) =>
-    createSelector(gameHistorySelector, state => state.historyByDifficulty[difficulty]);
+    createSelector(gameSelector, state => state.historyByDifficulty[difficulty]);

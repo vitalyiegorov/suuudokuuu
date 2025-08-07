@@ -32,11 +32,11 @@ export const initialGameState: GameState = {
     score: 0,
     hasCandidates: false,
     historyByDifficulty: {
-        [DifficultyEnum.Newbie]: emptyGameHistory,
-        [DifficultyEnum.Easy]: emptyGameHistory,
-        [DifficultyEnum.Medium]: emptyGameHistory,
-        [DifficultyEnum.Hard]: emptyGameHistory,
-        [DifficultyEnum.Nightmare]: emptyGameHistory
+        [DifficultyEnum.Newbie]: { ...emptyGameHistory, difficulty: DifficultyEnum.Newbie },
+        [DifficultyEnum.Easy]: { ...emptyGameHistory, difficulty: DifficultyEnum.Easy },
+        [DifficultyEnum.Medium]: { ...emptyGameHistory, difficulty: DifficultyEnum.Medium },
+        [DifficultyEnum.Hard]: { ...emptyGameHistory, difficulty: DifficultyEnum.Hard },
+        [DifficultyEnum.Nightmare]: { ...emptyGameHistory, difficulty: DifficultyEnum.Nightmare }
     },
     solutionSteps: []
 };
