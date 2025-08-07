@@ -1,3 +1,11 @@
+import { DifficultyEnum } from '@suuudokuuu/generator';
+
+import { emptyGameHistory } from '../../history/interfaces/history-game.interface';
+import { solutionStepsParse, solutionStepsStringify } from '../interface/solution-step.interface';
+
+import type { HistoryGameInterface } from '../../history/interfaces/history-game.interface';
+import type { SolutionStepInterface } from '../interface/solution-step.interface';
+
 export interface GameState {
     sudokuString: string;
     score: number;
@@ -7,9 +15,12 @@ export interface GameState {
     isPaused: boolean;
     isFinished: boolean;
     hasCandidates: boolean;
+    solutionSteps: SolutionStepInterface[];
+    historyByDifficulty: Record<DifficultyEnum, HistoryGameInterface>;
 }
 
 export type SerializedGameState = Partial<Record<keyof Omit<GameState, 'sudokuString'>, string>> & Pick<GameState, 'sudokuString'>;
+export type SharableGameState = Omit<GameState, 'isPaused' | 'isFinished' | 'hasCandidates' | 'historyByDifficulty'>;
 
 export const initialGameState: GameState = {
     isFinished: false,
@@ -19,16 +30,24 @@ export const initialGameState: GameState = {
     mistakes: 0,
     maxMistakes: 3,
     score: 0,
-    hasCandidates: false
+    hasCandidates: false,
+    historyByDifficulty: {
+        [DifficultyEnum.Newbie]: emptyGameHistory,
+        [DifficultyEnum.Easy]: emptyGameHistory,
+        [DifficultyEnum.Medium]: emptyGameHistory,
+        [DifficultyEnum.Hard]: emptyGameHistory,
+        [DifficultyEnum.Nightmare]: emptyGameHistory
+    },
+    solutionSteps: []
 };
 
 export const gameStateToUrl = (gameState: GameState): string => {
-    const { isFinished, isPaused, hasCandidates, ...persistedParams } = gameState;
+    const { isFinished, isPaused, hasCandidates, solutionSteps, historyByDifficulty, ...persistedParams } = gameState;
 
-    return btoa(JSON.stringify(persistedParams));
+    return btoa(JSON.stringify({ ...persistedParams, solutionSteps: solutionStepsStringify(solutionSteps) }));
 };
 
-export const urlToGameState = (gameStateString: string): Omit<GameState, 'isPaused' | 'isFinished' | 'hasCandidates'> => {
+export const urlToGameState = (gameStateString: string): SharableGameState => {
     const input = JSON.parse(atob(gameStateString)) as SerializedGameState;
 
     return {
@@ -36,6 +55,7 @@ export const urlToGameState = (gameStateString: string): Omit<GameState, 'isPaus
         score: parseInt(input.score ?? '0', 10),
         mistakes: parseInt(input.mistakes ?? '0', 10),
         maxMistakes: parseInt(input.maxMistakes ?? '0', 10),
-        elapsedTime: parseInt(input.elapsedTime ?? '0', 10)
+        elapsedTime: parseInt(input.elapsedTime ?? '0', 10),
+        solutionSteps: solutionStepsParse(input.solutionSteps)
     };
 };
