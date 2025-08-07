@@ -1,6 +1,6 @@
 import { ImpactFeedbackStyle } from 'expo-haptics/src/Haptics.types';
 import { useRouter } from 'expo-router';
-import { type ReactNode, use } from 'react';
+import { type ComponentProps, type ReactNode, use } from 'react';
 import {
     ActivityIndicator,
     type GestureResponderEvent,
@@ -12,23 +12,27 @@ import {
     type ViewStyle
 } from 'react-native';
 
-import { isNotEmptyString } from '@rnw-community/shared';
+import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { useVibration } from '../../hooks/use-vibration.hook';
 
 import { BlackButtonStyles as styles } from './black-button.styles';
 
+import type { Link } from 'expo-router';
+
 interface Props extends PressableProps {
     readonly text?: string;
     readonly styleText?: TextProps['style'];
-    readonly href?: string;
+    readonly replace?: ComponentProps<typeof Link>['replace'];
+    readonly href?: ComponentProps<typeof Link>['href'];
     readonly isLoading?: boolean;
     readonly isActive?: boolean;
     readonly children?: ReactNode;
 }
 
-export const BlackButton = ({ text, style, href, styleText, onPress, children, isActive = false, isLoading = false, ...props }: Props) => {
+export const BlackButton = (props: Props) => {
+    const { text, style, href, replace, styleText, onPress, children, isActive = false, isLoading = false, ...restProps } = props;
     const router = useRouter();
     const { theme } = use(ThemeContext);
     const [, hapticImpact] = useVibration();
@@ -46,7 +50,11 @@ export const BlackButton = ({ text, style, href, styleText, onPress, children, i
         hapticImpact(ImpactFeedbackStyle.Light);
 
         if (isNotEmptyString(href)) {
-            router.navigate(href);
+            if (isDefined(replace)) {
+                router.replace(href);
+            } else {
+                router.navigate(href);
+            }
         }
     };
 
@@ -58,7 +66,7 @@ export const BlackButton = ({ text, style, href, styleText, onPress, children, i
         );
 
     return (
-        <Pressable onPress={handlePress} style={wrapperStyles} {...props}>
+        <Pressable onPress={handlePress} style={wrapperStyles} {...restProps}>
             {isLoading ? <ActivityIndicator color={theme.colors.white} /> : renderContent()}
         </Pressable>
     );
