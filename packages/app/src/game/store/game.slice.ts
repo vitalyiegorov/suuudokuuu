@@ -12,7 +12,7 @@ export const gameSlice = createSlice({
     initialState: initialGameState,
     reducers: {
         start: (state, action: PayloadAction<Pick<GameState, 'sudokuString' | 'maxMistakes'>>) => {
-            Object.assign(state, initialGameState);
+            Object.assign(state, { ...initialGameState, historyByDifficulty: state.historyByDifficulty });
 
             state.sudokuString = action.payload.sudokuString;
             state.maxMistakes = action.payload.maxMistakes;
