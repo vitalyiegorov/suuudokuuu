@@ -22,11 +22,8 @@ import { GameTimer } from '../../../game/components/game-timer/game-timer';
 import { GameContext } from '../../../game/context/game.context';
 import { useKeyboardControls } from '../../../game/hooks/use-keyboard-controls/use-keyboard-controls.hook';
 import { useShare } from '../../../game/hooks/use-share.hook';
-import { gameResetAction } from '../../../game/store/game.actions';
+import { gameFinishAction, gameMistakeAction, gameResetAction, gameSaveAction } from '../../../game/store/game.actions';
 import { gameMaxMistakesSelector, gameMistakesSelector, gameScoreSelector } from '../../../game/store/game.selectors';
-import { gameFinishedThunk } from '../../../game/store/thunks/game-finish.thunk';
-import { gameMistakeThunk } from '../../../game/store/thunks/game-mistake.thunk';
-import { gameSaveThunk } from '../../../game/store/thunks/game-save.thunk';
 import { settingsKeySelector } from '../../../settings/store/settings.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
 
@@ -92,7 +89,7 @@ export const GameScreen = () => {
     const handleLostGame = () => {
         hapticImpact(ImpactFeedbackStyle.Heavy);
 
-        void dispatch(gameFinishedThunk({ difficulty: sudoku.Difficulty, isWon: false }));
+        dispatch(gameFinishAction({ difficulty: sudoku.Difficulty, isWon: false }));
 
         router.replace('loser');
     };
@@ -100,14 +97,14 @@ export const GameScreen = () => {
     const handleWonGame = () => {
         hapticImpact(ImpactFeedbackStyle.Heavy);
 
-        void dispatch(gameFinishedThunk({ difficulty: sudoku.Difficulty, isWon: true }));
+        dispatch(gameFinishAction({ difficulty: sudoku.Difficulty, isWon: true }));
 
         // TODO: We need to wait for the animation to finish, animation finish event would fix it?
         setTimeout(() => void router.replace('winner'), 10 * animationDurationConstant);
     };
 
     const handleCorrectValue = (correctCell: CellInterface, newScoredCells: ScoredCellsInterface) => {
-        void dispatch(gameSaveThunk({ sudoku, scoredCells: newScoredCells }));
+        dispatch(gameSaveAction({ sudoku, scoredCells, correctCell }));
 
         hapticNotification(Haptics.NotificationFeedbackType.Success);
 
@@ -116,7 +113,7 @@ export const GameScreen = () => {
     };
 
     const handleWrongValue = () => {
-        void dispatch(gameMistakeThunk(sudoku));
+        dispatch(gameMistakeAction());
 
         if (mistakes + 1 >= maxMistakes) {
             handleLostGame();
