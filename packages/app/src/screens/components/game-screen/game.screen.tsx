@@ -73,7 +73,6 @@ export const GameScreen = () => {
             {
                 text: 'OK',
                 onPress: () => {
-                    // TODO: do we need to reset internal component state?
                     dispatch(gameResetAction());
                     router.replace('/');
                 }
