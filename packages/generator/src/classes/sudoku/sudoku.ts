@@ -296,7 +296,7 @@ export class Sudoku extends SerializableSudoku {
                 this.gameField[y][x].value = this.config.blankCellValue;
                 blankCells += 1;
 
-                if (new DLXSolver().count(this.gameField) !== 1) {
+                if (new DLXSolver().count(this.gameField, 2) !== 1) {
                     this.gameField[y][x].value = backup;
                     blankCells -= 1;
                 }
