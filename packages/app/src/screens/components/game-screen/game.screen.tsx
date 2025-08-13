@@ -1,5 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
-import { emptyScoredCells } from '@suuudokuuu/generator';
+import { DifficultyEnum, emptyScoredCells } from '@suuudokuuu/generator';
 import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { useRouter } from 'expo-router';
@@ -149,6 +149,7 @@ export const GameScreen = () => {
     useKeyboardControls(sudoku, selectedCell, handleSelectCell, handleSelectValue, handleExit);
 
     const mistakesCountTextStyles = [styles.mistakesCountText, { color: maxMistakesReached ? theme.colors.red : theme.colors.label.main }];
+    const hideAutoCandidates = maxMistakes === 0 && sudoku.Difficulty === DifficultyEnum.Nightmare;
 
     return (
         <View style={styles.container} testID={GameScreenSelectors.Root}>
@@ -222,7 +223,7 @@ export const GameScreen = () => {
                     />
                 ))}
 
-                <AutoCandidatesButton />
+                {hideAutoCandidates ? null : <AutoCandidatesButton />}
             </View>
         </View>
     );
