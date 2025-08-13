@@ -24,7 +24,7 @@ export class DLXSolver {
 
         this.buildExactCover(field);
 
-        if (this.search(0, false) > 0) {
+        if (this.search(0, 1) > 0) {
             const result = createEmptyField(defaultSudokuConfig);
             for (const node of this.solution) {
                 if (isDefined(node.rowIndex)) {
@@ -40,12 +40,12 @@ export class DLXSolver {
         return null;
     }
 
-    count(field: FieldInterface): number {
+    count(field: FieldInterface, limit = Number.POSITIVE_INFINITY): number {
         this.reset();
 
         this.buildExactCover(field);
 
-        return this.search(0, true);
+        return this.search(0, limit);
     }
 
     private reset(): void {
@@ -148,7 +148,7 @@ export class DLXSolver {
     }
 
     // eslint-disable-next-line max-statements
-    private search(step: number, findAll = false): number {
+    private search(step: number, limit: number): number {
         if (this.header.right === this.header) {
             return 1;
         }
@@ -171,17 +171,17 @@ export class DLXSolver {
                 this.cover(node.column);
             }
 
-            const result = this.search(step + 1, findAll);
+            const result = this.search(step + 1, limit);
 
             count += result;
 
-            if (!findAll && result > 0) {
+            if (count >= limit && result > 0) {
                 for (let node = row.left; node !== row; node = node.left) {
                     this.uncover(node.column);
                 }
                 this.uncover(col);
 
-                return 1;
+                return count;
             }
 
             for (let node = row.left; node !== row; node = node.left) {

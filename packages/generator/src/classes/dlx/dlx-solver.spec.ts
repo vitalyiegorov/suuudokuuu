@@ -57,4 +57,14 @@ describe('DLXSolver', () => {
 
         expect(solver.count(Field)).toBe(20);
     });
+
+    it('should count multiple solutions for a grid with multiple valid configurations up to a certain limit', () => {
+        const { Field } = SerializableSudoku.fromString(
+            '.........................678597614234268537917139248569615372842874196.5345286179'
+        );
+
+        const solver = new DLXSolver();
+
+        expect(solver.count(Field, 2)).toBe(2);
+    });
 });
