@@ -11,13 +11,11 @@
         "tests/*"
     ],
     "scripts": {
-        "android": "expo run:android",
         "build": "turbo run build",
         "build:force": "turbo run build --force",
         "cpd": "jscpd --pattern \"**/*.{ts,tsx}\"",
         "deadcode": "knip",
         "format": "prettier --write \"**/*.{ts,tsx}\"",
-        "ios": "expo run:ios",
         "lint": "turbo run lint",
         "lint:force": "turbo run lint --force",
         "release": "lerna publish --yes --conventional-commits --create-release=github -m \"chore: release %s [skip ci]\"",
@@ -28,11 +26,6 @@
     },
     "resolutions": {
         "redux-persist@^6.0.0": "patch:redux-persist@npm%3A6.0.0#./.yarn/patches/redux-persist-npm-6.0.0-56dad69feb.patch"
-    },
-    "dependencies": {
-        "expo": "~54.0.8",
-        "react": "19.1.0",
-        "react-native": "0.81.4"
     },
     "devDependencies": {
         "@commitlint/cli": "^19.8.1",

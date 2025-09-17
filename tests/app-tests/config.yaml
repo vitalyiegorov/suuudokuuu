@@ -1,6 +1,13 @@
 flows:
   - "flows/*"
 
+executionOrder:
+  continueOnFailure: false
+  flowsOrder:
+    - 01.home-screen.flow
+    - 02.game-screen-loose.flow
+    - 03.game-screen-win.flow
+
 platform:
   ios:
     snapshotKeyHonorModalViews: false
