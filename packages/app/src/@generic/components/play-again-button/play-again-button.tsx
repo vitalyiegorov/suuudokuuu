@@ -11,5 +11,5 @@ export const PlayAgainButton = () => {
 
     const handlePlayAgain = () => void dispatch(gameResetAction());
 
-    return <BlackButton href="/" onPress={handlePlayAgain} text={t`Play again`} />;
+    return <BlackButton href="/" onPress={handlePlayAgain} replace text={t`Play again`} />;
 };

@@ -20,7 +20,7 @@ export const defaultSudokuConfig: SudokuConfigInterface = {
     fieldGroupHeight: 3,
     blankCellValue: 0,
     difficultyBlankCells: {
-        [DifficultyEnum.Newbie]: 24,
+        [DifficultyEnum.Newbie]: 10,
         [DifficultyEnum.Easy]: 30,
         [DifficultyEnum.Medium]: 40,
         [DifficultyEnum.Hard]: 50,
