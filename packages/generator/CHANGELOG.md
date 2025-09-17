@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.43.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.42.0...v1.43.0) (2025-09-17)
+
+### Features
+
+- **app:** refactor game and history state, add solution steps ([05f8983](https://github.com/vitalyiegorov/suuudokuuu/commit/05f898307e04b697f4ffce2e7f64bee26b7546b4))
+- **app:** refactor game and history state, add solution steps ([30688f8](https://github.com/vitalyiegorov/suuudokuuu/commit/30688f8d9dc69e699f2db31409d23ea379f910fd))
+
+### Performance Improvements
+
+- **generator:** limit DLX solver unique solutions count ([cbd0dc2](https://github.com/vitalyiegorov/suuudokuuu/commit/cbd0dc25a406b3aa48e6d093861c0b0c9c47e779))
+
 # [1.33.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.32.1...v1.33.0) (2025-07-28)
 
 ### Features
