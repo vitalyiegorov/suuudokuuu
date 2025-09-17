@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.43.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.42.0...v1.43.0) (2025-09-17)
+
+### Bug Fixes
+
+- **app:** browser navigation back ([a273234](https://github.com/vitalyiegorov/suuudokuuu/commit/a273234f929578f3eef838141e4a7d2c4a31640b))
+- **app:** browser navigation back ([5f0af99](https://github.com/vitalyiegorov/suuudokuuu/commit/5f0af997b36763ce9ca942d84e70fd2e2acc042f))
+
+### Features
+
+- **app:** fix android target 35 ([e894195](https://github.com/vitalyiegorov/suuudokuuu/commit/e8941954fcaa11ccca64ee03ee64f55ae9b14cfb))
+- **app:** hide auto candidates for Nightmare + Hardcore ([588572b](https://github.com/vitalyiegorov/suuudokuuu/commit/588572b397d33670cbbcc803bfa7db266c33b1a1))
+- **app:** refactor game and history state, add solution steps ([d970a35](https://github.com/vitalyiegorov/suuudokuuu/commit/d970a357d673b909ae66d77ebb64b32309aebc32))
+- **app:** refactor game and history state, add solution steps ([05f8983](https://github.com/vitalyiegorov/suuudokuuu/commit/05f898307e04b697f4ffce2e7f64bee26b7546b4))
+- **app:** refactor game and history state, add solution steps ([ec57ad6](https://github.com/vitalyiegorov/suuudokuuu/commit/ec57ad670ece61df5f63d6a3589322214af7a88b))
+
 # [1.42.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.41.3...v1.42.0) (2025-08-07)
 
 ### Bug Fixes
