@@ -7,4 +7,6 @@ export const gameResetAction = gameSlice.actions.reset;
 export const gamePauseAction = gameSlice.actions.pause;
 export const gameResumeAction = gameSlice.actions.resume;
 export const gameTickAction = gameSlice.actions.tick;
+export const gameMistakeAction = gameSlice.actions.mistake;
 export const gameToggleCandidatesAction = gameSlice.actions.toggleCandidates;
+export const gameFinishAction = gameSlice.actions.finish;

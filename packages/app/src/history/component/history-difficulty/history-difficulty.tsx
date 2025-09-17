@@ -7,8 +7,8 @@ import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
 import { getTimerText } from '../../../@generic/utils/get-timer-text.util';
+import { gameHistoryDifficultySelector } from '../../../game/store/game.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
-import { historyDifficultySelector } from '../../store/history.selectors';
 
 import { HistoryDifficultyStyles as styles } from './history-difficulty.styles';
 
@@ -30,7 +30,7 @@ export const HistoryDifficulty = ({ difficulty }: Props) => {
         averageTime = 0,
         gamesWonWithoutMistakes = 0,
         hardcoreWon = 0
-    } = useAppSelector(historyDifficultySelector(difficulty));
+    } = useAppSelector(gameHistoryDifficultySelector(difficulty));
 
     const winRate = gamesWon > 0 ? Math.round((gamesWon / gamesCompleted) * 100) : 0;
 
