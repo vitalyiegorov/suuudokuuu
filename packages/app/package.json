@@ -9,6 +9,7 @@
         "i18n:sync": "yarn i18n:extract && yarn i18n:compile",
         "ios": "expo run:ios",
         "lint": "run -T eslint --fix src",
+        "prebuild": "expo prebuild --clean",
         "start": "expo start --dev-client -c",
         "ts": "run -T tsc -p .",
         "web": "expo start --web"
