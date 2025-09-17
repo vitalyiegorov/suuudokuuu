@@ -218,7 +218,7 @@ jobs:
       - name: Start iOS Simulator
         uses: futureware-tech/simulator-action@v4
         with:
-          model: 'iPhone 15 Pro'
+          os_version: '>=15.0'
 
       - name: Build and install app
         working-directory: packages/app
