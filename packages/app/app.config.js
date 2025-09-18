@@ -92,7 +92,8 @@ export default ({ config }) => ({
         ['expo-font', { fonts: ['../../node_modules/@expo-google-fonts/inter/Inter_900Black.ttf'] }]
     ],
     experiments: {
-        reactCompiler: true
+        reactCompiler: true,
+        buildCacheProvider: 'eas'
     },
     runtimeVersion: {
         policy: 'fingerprint'
