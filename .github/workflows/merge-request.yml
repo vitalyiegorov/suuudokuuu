@@ -201,10 +201,10 @@ jobs:
           node-version: 22.x
           cache: yarn
 
-      - name: Select Xcode 16
+      - name: Select Xcode 16.4
         uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: '16'
+          xcode-version: '16.4'
 
       - uses: irgaly/xcode-cache@v1
         with:
@@ -221,25 +221,16 @@ jobs:
         run: yarn install
 
       - name: Start iOS Simulator
-        id: simulator
         uses: futureware-tech/simulator-action@v4
         with:
           os: 'iOS'
           os_version: '>=15.0'
 
-      - name: Build iOS simulator app
+      - name: Build and install app
         working-directory: packages/app
         run: |
           eas build --profile=e2e --platform ios --non-interactive --local --output app.tar.gz
-          tar -xzf app.tar.gz
-          APP_PATH="$(find . -maxdepth 2 -type d -name "*.app" | head -n1)"
-          echo "APP_PATH=$APP_PATH" >> $GITHUB_ENV
-
-      - name: Install on simulator
-        run: |
-          xcrun simctl shutdown all || true
-          xcrun simctl boot "${{ steps.simulator.outputs.udid }}"
-          xcrun simctl install "${{ steps.simulator.outputs.udid }}" "$APP_PATH"
+          eas build:run --profile=e2e --platform ios --path app.tar.gz
 
       - name: Install Maestro
         run: |
@@ -248,13 +239,8 @@ jobs:
 
       - name: Run Maestro UI tests
         working-directory: tests/app-tests
-        env:
-          MAESTRO_DRIVER_STARTUP_TIMEOUT: "60000"
         run: |
-          maestro test flows \
-            --device ${{ steps.simulator.outputs.udid }} \
-            -e APP_ID=com.vitalyiegorov.suuudokuuu.preview \
-            --format junit --output ./report.xml --debug-output ./
+          maestro test flows -e APP_ID=com.vitalyiegorov.suuudokuuu.preview --format junit --output ./report.xml --debug-output ./
 
       - name: Upload report
         if: always()
