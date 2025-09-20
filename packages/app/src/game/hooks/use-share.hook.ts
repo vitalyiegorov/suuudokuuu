@@ -1,5 +1,4 @@
 import * as Sharing from 'expo-sharing';
-import { Share } from 'react-native';
 
 import { useAppSelector } from '../../@generic/hooks/use-app-selector.hook';
 import { gameStateToUrl } from '../store/game.state';
@@ -9,9 +8,7 @@ export const useShare = () => {
 
     return async () => {
         if (await Sharing.isAvailableAsync()) {
-            const url = `${window.location.origin}/shared?${gameStateToUrl(state)}`;
-
-            await Share.share({ message: url });
+            await Sharing.shareAsync(`${window.location.origin}/shared?${gameStateToUrl(state)}`);
         }
     };
 };
