@@ -224,12 +224,14 @@ jobs:
         id: simulator
         uses: futureware-tech/simulator-action@v4
         with:
+          model: 'iPhone 15 Pro'
           os_version: '>=15.0'
 
       - name: Build and install app
         working-directory: packages/app
         run: |
           eas build --profile=e2e --platform ios --non-interactive --local --output app.tar.gz
+          eas build:run --profile=e2e --platform ios --path app.tar.gz
 
       - name: Install Maestro
         run: |
