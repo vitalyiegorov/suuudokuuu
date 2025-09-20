@@ -230,7 +230,6 @@ jobs:
         working-directory: packages/app
         run: |
           eas build --profile=e2e --platform ios --non-interactive --local --output app.tar.gz
-          eas build:run --platform ios --path app.tar.gz --id "${{ steps.simulator.outputs.udid }}"
 
       - name: Install Maestro
         run: |
@@ -319,7 +318,7 @@ jobs:
           disable-animations: true
           working-directory: tests/app-tests
           script: |
-            cd ../../packages/app && eas build:run --platform android --path app.apk --non-interactive
+            cd ../../packages/app && eas build:run --platform android --path app.apk
             maestro test flows -e APP_ID=com.vitaliiyehorov.suuudokuuu.preview --format junit --output ./report.xml --debug-output ./
 
       - name: Upload Report
