@@ -224,7 +224,7 @@ jobs:
         id: simulator
         uses: futureware-tech/simulator-action@v4
         with:
-          model: 'iPhone 15 Pro'
+          os: 'iOS'
           os_version: '>=15.0'
 
       - name: Build and install app
