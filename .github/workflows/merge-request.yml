@@ -255,7 +255,7 @@ jobs:
   e2e-android:
     needs: [ code-quality, eas-deploy ]
     name: E2E Tests on Android
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -319,7 +319,7 @@ jobs:
           disable-animations: true
           working-directory: tests/app-tests
           script: |
-            cd ../../packages/app && eas build:run --platform android --path app.apk
+            cd ../../packages/app && eas build:run --platform android --path app.apk --non-interactive
             maestro test flows -e APP_ID=com.vitaliiyehorov.suuudokuuu.preview --format junit --output ./report.xml --debug-output ./
 
       - name: Upload Report
