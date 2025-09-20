@@ -201,10 +201,10 @@ jobs:
           node-version: 22.x
           cache: yarn
 
-      - name: Select Xcode 16
+      - name: Select Xcode 16.1
         uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: '16'
+          xcode-version: '16.1'
 
       - uses: irgaly/xcode-cache@v1
         with:
