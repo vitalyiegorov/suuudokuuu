@@ -1,12 +1,5 @@
 flows:
-  - "flows/*.flow.yaml"
-
-executionOrder:
-  continueOnFailure: false
-  flowsOrder:
-    - 01.home-screen
-    - 02.game-screen-loose
-    - 03.game-screen-win
+  - "flows/*"
 
 platform:
   ios:
