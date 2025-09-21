@@ -185,8 +185,10 @@ jobs:
               });
             }
 
+
   e2e-ios:
-    needs: [code-quality, eas-deploy]
+    #    needs: [code-quality, eas-deploy]
+    needs: [ code-quality ]
     name: E2E Tests on iOS
     runs-on: macos-latest
     steps:
@@ -248,8 +250,10 @@ jobs:
             tests/app-tests/.maestro/tests
             tests/app-tests/report.xml
 
+
   e2e-android:
-    needs: [ code-quality, eas-deploy ]
+    #    needs: [ code-quality, eas-deploy ]
+    needs: [ code-quality ]
     name: E2E Tests on Android
     runs-on: ubuntu-latest
     steps:
