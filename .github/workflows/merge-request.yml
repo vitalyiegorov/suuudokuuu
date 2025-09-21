@@ -49,6 +49,7 @@ jobs:
         uses: codecov/codecov-action@v3
 
   eas-deploy:
+    if: false
     name: EAS Deploy
     needs: code-quality
     runs-on: ubuntu-latest
