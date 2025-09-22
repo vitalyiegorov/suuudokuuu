@@ -1,5 +1,7 @@
 appId: ${APP_ID}
 ---
+- launchApp:
+  appId: ${APP_ID}
 - openLink:
     link: suuudokuuu://shared?eyJwYXVzZWQiOnRydWUsImVsYXBzZWRUaW1lIjo5Niwic3Vkb2t1U3RyaW5nIjoiNTE4NzkyNDM2MzI0ODYxNTc5OTc2NDM1MjgxNjU3MTI5ODQzODQyNjczMTk1MTkzNTg0NzYyLjMxOTQ4NjU3NDY1MzE3OTI4Nzg5MjU2MzE0IiwibWlzdGFrZXMiOjEsInNjb3JlIjoxMzQyMjYsIm1heE1pc3Rha2VzIjo5OX0=
 - runFlow:
@@ -10,7 +12,7 @@ appId: ${APP_ID}
 
 - extendedWaitUntil:
     visible: 'Open shared puzzle?'
-    timeout: 10000
+    timeout: 10000ч
 - tapOn: 'Open puzzle'
 - tapOn:
     id: 'CellSelectors.Root'
