@@ -6,7 +6,7 @@ appId: ${APP_ID}
     when:
       visible: 'Open in'
     commands:
-      - tapOn: Open
+      - tapOn: 'Open'
 
 - extendedWaitUntil:
     visible: 'Open shared puzzle?'
