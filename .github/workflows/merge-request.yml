@@ -208,8 +208,8 @@ jobs:
 
       - uses: irgaly/xcode-cache@v1
         with:
-          key: xcode-cache-deriveddata-${{ github.workflow }}-${{ github.sha }}
-          restore-keys: xcode-cache-deriveddata-${{ github.workflow }}-
+          key: xcode-cache-deriveddata-pr-${{ github.sha }}
+          restore-keys: xcode-cache-deriveddata-pr-
 
       - name: Setup EAS
         uses: expo/expo-github-action@v8
