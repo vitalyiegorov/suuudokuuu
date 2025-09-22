@@ -262,7 +262,8 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: 'adopt'
-          java-version: '17'
+          java-version: '20'
+          cache: gradle
 
       - name: Enable KVM group perms
         run: |
