@@ -263,7 +263,6 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: '20'
-          cache: gradle
 
       - name: Enable KVM group perms
         run: |
@@ -288,6 +287,9 @@ jobs:
 
       - name: Gradle cache
         uses: gradle/actions/setup-gradle@v3
+        with:
+          build-root-directory: packages/app/android
+          dependency-graph: disabled
 
       - name: Build app
         working-directory: packages/app
