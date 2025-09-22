@@ -290,7 +290,7 @@ jobs:
       - name: Build app
         working-directory: packages/app
         run: |
-          eas build --profile=e2e --platform android --non-interactive --local --output app.android.tar.gz
+          eas build --profile=e2e --platform android --non-interactive --local --output app.android.apk
 
       - name: Install Maestro
         run: |
@@ -306,18 +306,19 @@ jobs:
             ~/.android/adb*
           key: avd-35
 
-      - name: Create AVD and Generate Snapshot for Caching
-        if: steps.avd-cache.outputs.cache-hit != 'true'
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 35
-          target: aosp_atd
-          channel: canary
-          arch: x86_64
-          force-avd-creation: false
-          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          disable-animations: false
-          script: echo "Generated AVD snapshot for caching."
+# HINT: Disabled as cause hanging
+#      - name: Create AVD and Generate Snapshot for Caching
+#        if: steps.avd-cache.outputs.cache-hit != 'true'
+#        uses: reactivecircus/android-emulator-runner@v2
+#        with:
+#          api-level: 35
+#          target: aosp_atd
+#          channel: canary
+#          arch: x86_64
+#          force-avd-creation: false
+#          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+#          disable-animations: false
+#          script: echo "Generated AVD snapshot for caching."
 
       - name: Start emulator and run Maestro tests
         uses: reactivecircus/android-emulator-runner@v2
@@ -331,7 +332,7 @@ jobs:
           disable-animations: true
           working-directory: tests/app-tests
           script: |
-            cd ../../packages/app && eas build:run --platform android --path app.android.tar.gz
+            cd ../../packages/app && eas build:run --platform android --path app.android.apk
             maestro test flows -e APP_ID=com.vitaliiyehorov.suuudokuuu.preview --format junit --output ./report.xml --debug-output ./
 
       - name: Upload Report
