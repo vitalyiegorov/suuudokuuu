@@ -7,3 +7,11 @@ platform:
     disableAnimations: true
   android:
     disableAnimations: true
+
+onFlowStart:
+  - startRecording: 'run-recording'
+  - tapOn:
+      text: '^Open$'
+      optional: true
+onFlowComplete:
+  - stopRecording

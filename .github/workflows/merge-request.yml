@@ -240,19 +240,26 @@ jobs:
 
       - name: Run Maestro UI tests
         working-directory: tests/app-tests
+        env:
+          MAESTRO_DRIVER_STARTUP_TIMEOUT: "120000"
         run: |
-          maestro test flows -e APP_ID=com.vitalyiegorov.suuudokuuu.preview --format junit --output ./report.xml --debug-output ./
+          mkdir -p artifacts/maestro artifacts/maestro/debug
+          maestro test flows \
+            -e APP_ID=com.vitalyiegorov.suuudokuuu.preview \
+            --format junit \
+            --output artifacts/maestro \
+            --debug-output artifacts/maestro/debug
 
-      - name: Upload report
+      - name: Upload Maestro artifacts (report, logs, videos, screenshots)
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: "maestro-ios-report"
+          name: maestro-ios-artifacts
           include-hidden-files: true
           path: |
-            tests/app-tests/.maestro/tests
-            tests/app-tests/report.xml
-
+            tests/app-tests/artifacts/maestro/**
+            tests/app-tests/flows/**/*.mp4
+            tests/app-tests/**/maestro.screenshots/**
 
   e2e-android:
     #    needs: [ code-quality, eas-deploy ]
