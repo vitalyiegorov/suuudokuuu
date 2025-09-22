@@ -244,7 +244,7 @@ jobs:
           MAESTRO_DRIVER_STARTUP_TIMEOUT: "120000"
         run: |
           mkdir -p artifacts/maestro artifacts/maestro/debug
-          maestro test flows \
+          maestro test "$GITHUB_WORKSPACE/tests/app-tests/flows" \
             -e APP_ID=com.vitalyiegorov.suuudokuuu.preview \
             --format junit \
             --output artifacts/maestro \
@@ -333,14 +333,21 @@ jobs:
           working-directory: tests/app-tests
           script: |
             cd ../../packages/app && eas build:run --platform android --path app.android.apk
-            maestro test flows -e APP_ID=com.vitaliiyehorov.suuudokuuu.preview --format junit --output ./report.xml --debug-output ./
+            cd "$GITHUB_WORKSPACE/tests/app-tests"
+            mkdir -p artifacts/maestro artifacts/maestro/debug
+            maestro test "$GITHUB_WORKSPACE/tests/app-tests/flows" \
+              -e APP_ID=com.vitalyiegorov.suuudokuuu.preview \
+              --format junit \
+              --output artifacts/maestro \
+              --debug-output artifacts/maestro/debug
 
-      - name: Upload Report
+      - name: Upload Maestro artifacts (report, logs, videos, screenshots)
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: "maestro-android-report"
+          name: maestro-android-artifacts
           include-hidden-files: true
           path: |
-            tests/app-tests/.maestro/tests
-            tests/app-tests/report.xml
+            tests/app-tests/artifacts/maestro/**
+            tests/app-tests/flows/**/*.mp4
+            tests/app-tests/**/maestro.screenshots/**

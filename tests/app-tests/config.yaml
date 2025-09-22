@@ -10,8 +10,10 @@ platform:
 
 onFlowStart:
   - startRecording: 'run-recording'
-  - tapOn:
-      text: '^Open$'
-      optional: true
+  - runFlow:
+      when:
+        visible: 'Open in "suuudokuuu (Preview)"'
+      commands:
+        - tapOn: Open
 onFlowComplete:
   - stopRecording
