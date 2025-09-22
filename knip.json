@@ -21,8 +21,6 @@
         "@expo/fingerprint",
         "metro-minify-terser",
         "react-compiler-runtime",
-        "react-dom",
-        "react-native-gesture-handler",
         "babel-jest",
         "babel-plugin-react-compiler",
         "@lingui/babel-plugin-lingui-macro"
