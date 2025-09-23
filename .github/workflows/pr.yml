@@ -317,7 +317,7 @@ jobs:
           path: |
             ~/.android/avd/*
             ~/.android/adb*
-          key: avd-35
+          key: avd-34
 
       - name: Build app
         working-directory: packages/app
@@ -333,7 +333,7 @@ jobs:
         if: steps.avd-cache.outputs.cache-hit != 'true'
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 35
+          api-level: 34
           target: aosp_atd
           channel: canary
           arch: x86_64
@@ -345,7 +345,7 @@ jobs:
       - name: Start emulator and run Maestro tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 35
+          api-level: 34
           target: aosp_atd
           channel: canary
           arch: x86_64
@@ -355,7 +355,7 @@ jobs:
           working-directory: tests/app-tests
           script: |
             cd ../../packages/app && eas build:run --platform android --path app.android.apk
-            maestro test flows -e APP_ID=com.vitaliiyehorov.suuudokuuu.preview --config config.yaml --format junit --output ./report.xml --debug-output ./ && killall -INT crashpad_handler || true
+            maestro test flows -e APP_ID=com.vitaliiyehorov.suuudokuuu.preview --config config.yaml --format junit --output ./report.xml --debug-output ./ && killall -INT crashpad_handler
 
       - name: Upload Maestro artifacts (report, logs, videos, screenshots)
         if: always()
