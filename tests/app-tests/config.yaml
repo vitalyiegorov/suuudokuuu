@@ -4,3 +4,10 @@ platform:
     disableAnimations: true
   android:
     disableAnimations: true
+
+executionOrder:
+  continueOnFailure: true
+  flowsOrder:
+    - flows/01.home-screen.flow
+    - flows/02.game-screen-loose.flow
+    - flows/03.game-screen-win.flow
