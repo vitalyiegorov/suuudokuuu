@@ -19,7 +19,6 @@ appId: ${APP_ID}
     commands:
       - tapOn: 'suuudokuuu (Preview)'
       - tapOn: 'Always'
-
 - extendedWaitUntil:
     visible: 'Open shared puzzle?'
     timeout: 10000
@@ -35,3 +34,4 @@ appId: ${APP_ID}
 - assertVisible: Help Ukraine win!
 - tapOn: 'Play again'
 - assertVisible: 'Start new'
+- stopRecording

@@ -19,8 +19,6 @@ appId: ${APP_ID}
     commands:
       - tapOn: 'suuudokuuu (Preview)'
       - tapOn: 'Always'
-
-
 - extendedWaitUntil:
     visible: 'Open shared puzzle?'
     timeout: 10000
@@ -64,3 +62,4 @@ appId: ${APP_ID}
     text: '[0-9]{2}:[0-9]{2}'
 - tapOn: 'Start new'
 - assertVisible: 'Newbie'
+- stopRecording
