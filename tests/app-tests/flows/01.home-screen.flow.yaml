@@ -1,6 +1,9 @@
 appId: ${APP_ID}
 ---
-- startRecording: '01.home-screen'
+- startRecording:
+    path: '01.home-screen'
+    optional: true
+
 - launchApp
 - assertVisible: 'SuuudokuuU'
 - tapOn: Privacy policy
