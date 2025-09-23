@@ -317,7 +317,7 @@ jobs:
           path: |
             ~/.android/avd/*
             ~/.android/adb*
-          key: avd-34
+          key: avd-35
 
       - name: Build app
         working-directory: packages/app
@@ -333,7 +333,7 @@ jobs:
         if: steps.avd-cache.outputs.cache-hit != 'true'
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 34
+          api-level: 35
           target: aosp_atd
           channel: canary
           arch: x86_64
@@ -345,7 +345,7 @@ jobs:
       - name: Start emulator and run Maestro tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 34
+          api-level: 35
           target: aosp_atd
           channel: canary
           arch: x86_64
