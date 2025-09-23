@@ -7,6 +7,10 @@ env:
   PR_TITLE: ${{ github.event.pull_request.title }}
   MAESTRO_CLI_NO_ANALYTICS: false
 
+concurrency:
+  group: pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
 on: pull_request
 
 jobs:
@@ -337,7 +341,6 @@ jobs:
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: false
           script: echo "Generated AVD snapshot for caching."
-
 
       - name: Start emulator and run Maestro tests
         uses: reactivecircus/android-emulator-runner@v2
