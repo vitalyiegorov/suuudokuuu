@@ -243,13 +243,11 @@ jobs:
         env:
           MAESTRO_DRIVER_STARTUP_TIMEOUT: "120000"
         run: |
-          mkdir -p artifacts/maestro artifacts/maestro/debug
           maestro test flows \
             -e APP_ID=com.vitalyiegorov.suuudokuuu.preview \
             --format junit \
             --config config.yaml \
-            --output artifacts/maestro \
-            --debug-output artifacts/maestro/debug
+            --debug-output ./
 
       - name: Upload Maestro artifacts (report, logs, videos, screenshots)
         if: always()
@@ -258,9 +256,8 @@ jobs:
           name: maestro-ios-artifacts
           include-hidden-files: true
           path: |
-            tests/app-tests/artifacts/maestro/**
-            tests/app-tests/flows/**/*.mp4
-            tests/app-tests/**/maestro.screenshots/**
+            tests/app-tests/.maestro/**
+            tests/app-tests/*.mp4
 
   e2e-android:
     #    needs: [ code-quality, eas-deploy ]
@@ -343,6 +340,5 @@ jobs:
           name: maestro-android-artifacts
           include-hidden-files: true
           path: |
-            tests/app-tests/artifacts/maestro/**
-            tests/app-tests/flows/**/*.mp4
-            tests/app-tests/**/maestro.screenshots/**
+            tests/app-tests/.maestro/**
+            tests/app-tests/*.mp4

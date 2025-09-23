@@ -1,5 +1,6 @@
 appId: ${APP_ID}
 ---
+- startRecording: 'home-screen'
 - launchApp
 - assertVisible: 'SuuudokuuU'
 - tapOn: Privacy policy
@@ -33,3 +34,4 @@ appId: ${APP_ID}
 - assertVisible:
     below: 'Elapsed'
     text: '[0-9]{2}:[0-9]{2}'
+- stopRecording
