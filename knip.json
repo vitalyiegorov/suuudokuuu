@@ -25,5 +25,5 @@
         "babel-plugin-react-compiler",
         "@lingui/babel-plugin-lingui-macro"
     ],
-    "ignoreBinaries": ["run", "expo"]
+    "ignoreBinaries": ["run", "expo", "eas-build-cache-provider"]
 }
