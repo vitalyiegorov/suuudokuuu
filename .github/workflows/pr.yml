@@ -1,4 +1,4 @@
-name: Merge Request
+name: Pull Request
 env:
   MAESTRO_DRIVER_STARTUP_TIMEOUT: "120000"
   TURBO_TEAM: vitalyiegorov
@@ -240,8 +240,6 @@ jobs:
 
       - name: Run Maestro UI tests
         working-directory: tests/app-tests
-        env:
-          MAESTRO_DRIVER_STARTUP_TIMEOUT: "120000"
         run: |
           maestro test flows \
             -e APP_ID=com.vitalyiegorov.suuudokuuu.preview \
@@ -308,15 +306,6 @@ jobs:
         run: |
           curl -fsSL "https://get.maestro.mobile.dev" | bash
           echo "$HOME/.maestro/bin" >> $GITHUB_PATH
-
-      - name: AVD cache
-        uses: actions/cache@v4
-        id: avd-cache
-        with:
-          path: |
-            ~/.android/avd/*
-            ~/.android/adb*
-          key: avd-35
 
       - name: Start emulator and run Maestro tests
         uses: reactivecircus/android-emulator-runner@v2
