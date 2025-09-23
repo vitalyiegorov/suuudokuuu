@@ -9,8 +9,16 @@ appId: ${APP_ID}
 - runFlow:
     when:
       visible: 'Open in "suuudokuuu(Preview)?"'
+      platform: iOS
     commands:
       - tapOn: 'Open'
+- runFlow:
+    when:
+      visible: 'Open with'
+      platform: android
+    commands:
+      - tapOn: 'suuudokuuu (Preview)'
+      - tapOn: 'Always'
 
 - extendedWaitUntil:
     visible: 'Open shared puzzle?'
