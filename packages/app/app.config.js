@@ -89,11 +89,11 @@ export default ({ config }) => ({
     },
     plugins: [
         ['expo-router', { origin: 'https://www.suuudokuuu.com/' }],
-        ['expo-font', { fonts: ['../../node_modules/@expo-google-fonts/inter/Inter_900Black.ttf'] }],
-        ['expo-build-properties', { android: { targetSdkVersion: 35 } }]
+        ['expo-font', { fonts: ['../../node_modules/@expo-google-fonts/inter/Inter_900Black.ttf'] }]
     ],
     experiments: {
-        reactCompiler: true
+        reactCompiler: true,
+        buildCacheProvider: 'eas'
     },
     runtimeVersion: {
         policy: 'fingerprint'

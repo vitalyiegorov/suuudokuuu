@@ -31,6 +31,9 @@
             "extends": "preview",
             "ios": {
                 "simulator": true
+            },
+            "android": {
+                "gradleCommand": ":app:assembleRelease -x lint -x lintVitalAnalyzeRelease -x lintAnalyzeRelease"
             }
         },
         "production": {

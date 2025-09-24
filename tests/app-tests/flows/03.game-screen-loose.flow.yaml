@@ -1,15 +1,23 @@
 appId: ${APP_ID}
 ---
+#- startRecording:
+#    path: '03.game-screen-loose'
+#    optional: true
+
 - openLink:
     link: suuudokuuu://shared?eyJwYXVzZWQiOnRydWUsImVsYXBzZWRUaW1lIjo3NSwic3Vkb2t1U3RyaW5nIjoiODYzMi40NzUxNDI5MTU3NjgzNzUxMzYuMjQuNi41NzI5MTMuOTM3NDgxNTYyMjEuNTM2LjcuNTcyODEzNDk2MTk4NjQ1MzI3MzQ2OTcyODE1IiwibWlzdGFrZXMiOjAsInNjb3JlIjo0MjA0MCwibWF4TWlzdGFrZXMiOjN9
-- tapOn:
-    text: Open
-    optional: true
+- runFlow:
+    when:
+      visible: 'Open in.*'
+    commands:
+      - tapOn: 'Open'
 
-- assertVisible: 'Open shared puzzle?'
+- extendedWaitUntil:
+    visible: 'Open shared puzzle?'
+    timeout: 10000
 - tapOn: 'Open puzzle'
 - assertVisible:
-    below: 'Score'
+    id: 'GameScreenSelectors.Score'
     text: '42040'
 - assertVisible:
     below: 'Mistakes'
@@ -47,3 +55,4 @@ appId: ${APP_ID}
     text: '[0-9]{2}:[0-9]{2}'
 - tapOn: 'Start new'
 - assertVisible: 'Newbie'
+- stopApp

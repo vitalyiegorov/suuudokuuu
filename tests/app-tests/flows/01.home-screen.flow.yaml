@@ -1,6 +1,13 @@
 appId: ${APP_ID}
 ---
+#- startRecording:
+#    path: '01.home-screen'
+#    optional: true
+
 - launchApp
+- extendedWaitUntil:
+    visible: 'SuuudokuuU'
+    timeout: 10000
 - assertVisible: 'SuuudokuuU'
 - tapOn: Privacy policy
 - assertVisible: Privacy Policy
@@ -33,3 +40,4 @@ appId: ${APP_ID}
 - assertVisible:
     below: 'Elapsed'
     text: '[0-9]{2}:[0-9]{2}'
+- stopApp
