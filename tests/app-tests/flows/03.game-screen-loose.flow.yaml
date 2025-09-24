@@ -48,7 +48,7 @@ appId: ${APP_ID}
 - assertVisible: 'Help Ukraine win!'
 - tapOn: 'Play again'
 - assertVisible:
-    id: 'HomeScreenSelectors.BestScore'
+    below: 'Best score'
     text: '[0-9]+'
 - assertVisible:
     below: 'Best time'
