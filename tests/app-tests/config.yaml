@@ -9,5 +9,5 @@ executionOrder:
   continueOnFailure: true
   flowsOrder:
     - 01.home-screen.flow
-    - 02.game-screen-loose.flow
-    - 03.game-screen-win.flow
+    - 02.game-screen-win.flow
+    - 03.game-screen-loose.flow
