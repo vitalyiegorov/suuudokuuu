@@ -17,7 +17,7 @@ appId: ${APP_ID}
     timeout: 10000
 - tapOn: 'Open puzzle'
 - assertVisible:
-    below: 'Score'
+    id: 'GameScreenSelectors.Score'
     text: '42040'
 - assertVisible:
     below: 'Mistakes'
@@ -48,7 +48,7 @@ appId: ${APP_ID}
 - assertVisible: 'Help Ukraine win!'
 - tapOn: 'Play again'
 - assertVisible:
-    below: 'Best score'
+    id: 'HomeScreenSelectors.BestScore'
     text: '[0-9]+'
 - assertVisible:
     below: 'Best time'

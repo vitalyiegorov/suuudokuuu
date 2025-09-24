@@ -256,7 +256,7 @@ jobs:
 
       - name: Install Maestro
         run: |
-          curl -fsSL "https://get.maestro.mobile.dev" | bash
+          export MAESTRO_VERSION=2.0.3; curl -fsSL "https://get.maestro.mobile.dev" | bash
           echo "$HOME/.maestro/bin" >> $GITHUB_PATH
 
       - name: Run Maestro UI tests
@@ -333,7 +333,7 @@ jobs:
 
       - name: Install Maestro
         run: |
-          curl -fsSL "https://get.maestro.mobile.dev" | bash
+          export MAESTRO_VERSION=2.0.3; curl -fsSL "https://get.maestro.mobile.dev" | bash
           echo "$HOME/.maestro/bin" >> $GITHUB_PATH
 
       - name: Сreate AVD and generate snapshot for caching
