@@ -20,6 +20,7 @@ import { useResumeGame } from '../../../game/hooks/use-resume-game.hook';
 import { gameHistoryBestTimeSelector, gameSudokuStringSelector } from '../../../game/store/game.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
 
+import { HomeScreenSelectors } from './home-screen.selectors';
 import { HomeScreenStyles as styles } from './home-screen.styles';
 
 import type { DifficultyEnum } from '@suuudokuuu/generator';
@@ -113,7 +114,9 @@ export const HomeScreen = () => {
                         <View style={styles.historyGroup}>
                             <BlackText>{t`Best score`}</BlackText>
 
-                            <BlackText style={styles.historyValue}>{bestScore}</BlackText>
+                            <BlackText style={styles.historyValue} testID={HomeScreenSelectors.BestScore}>
+                                {bestScore}
+                            </BlackText>
                         </View>
 
                         <View style={styles.historyGroup}>

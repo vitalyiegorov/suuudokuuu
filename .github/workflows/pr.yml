@@ -1,10 +1,17 @@
-name: Merge Request
+name: Pull Request
 env:
+  MAESTRO_DRIVER_STARTUP_TIMEOUT: "120000"
   TURBO_TEAM: vitalyiegorov
   TURBO_TOKEN: ${{ secrets.VERCEL_TOKEN }}
   PR_NUMBER: ${{ github.event.pull_request.number }}
   PR_TITLE: ${{ github.event.pull_request.title }}
   MAESTRO_CLI_NO_ANALYTICS: false
+  RCT_USE_PREBUILT_RNCORE: 1
+  RCT_USE_RN_DEP: 1
+
+concurrency:
+  group: pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
 
 on: pull_request
 
@@ -49,6 +56,7 @@ jobs:
         uses: codecov/codecov-action@v3
 
   eas-deploy:
+    if: false
     name: EAS Deploy
     needs: code-quality
     runs-on: ubuntu-latest
@@ -184,16 +192,14 @@ jobs:
               });
             }
 
+
   e2e-ios:
-    needs: [code-quality, eas-deploy]
+    #    needs: [code-quality, eas-deploy]
+    needs: [ code-quality ]
     name: E2E Tests on iOS
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
-        with:
-          distribution: 'adopt'
-          java-version: '11'
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -201,10 +207,9 @@ jobs:
           node-version: 22.x
           cache: yarn
 
-      - name: Select Xcode 16
-        uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: '16'
+      - name: Install dependencies
+        run: |
+          yarn install
 
       - name: Setup EAS
         uses: expo/expo-github-action@v8
@@ -212,50 +217,70 @@ jobs:
           eas-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
 
-      - name: Install dependencies
-        run: yarn install
+      - name: Expo Prebuild
+        working-directory: packages/app
+        run: npx expo prebuild -p ios --clean
+
+      - name: Select Xcode 16.4
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '16.4'
+
+      - name: Cache Xcode DerivedData
+        uses: actions/cache@v4
+        with:
+          path: ~/Library/Developer/Xcode/DerivedData
+          key: xcode-deriveddata-${{ runner.os }}-${{ github.sha }}
+          restore-keys: xcode-deriveddata-${{ runner.os }}-
+
+      - name: Cache iOS dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/Library/Caches/CocoaPods
+            ~/.cocoapods
+            /packages/app/ios/Pods
+          key: pods-${{ runner.os }}-${{ github.sha }}
+          restore-keys: pods-${{ runner.os }}-
 
       - name: Start iOS Simulator
         uses: futureware-tech/simulator-action@v4
         with:
-          model: 'iPhone 15 Pro'
+          model: 'iPhone 16 Pro'
 
       - name: Build and install app
         working-directory: packages/app
         run: |
-          eas build --profile=e2e --platform ios --non-interactive --local --output app.tar.gz
-          eas build:run --profile=e2e --platform ios --path app.tar.gz
+          eas build --profile=e2e --platform ios --non-interactive --local --output app.ios.tar.gz
+          eas build:run --profile=e2e --platform ios --path app.ios.tar.gz
 
       - name: Install Maestro
         run: |
-          curl -fsSL "https://get.maestro.mobile.dev" | bash
+          export MAESTRO_VERSION=2.0.3; curl -fsSL "https://get.maestro.mobile.dev" | bash
           echo "$HOME/.maestro/bin" >> $GITHUB_PATH
 
       - name: Run Maestro UI tests
         working-directory: tests/app-tests
         run: |
-          maestro test flows -e APP_ID=com.vitalyiegorov.suuudokuuu.preview --format junit --output ./report.xml --debug-output ./
+          maestro test flows -e APP_ID=com.vitalyiegorov.suuudokuuu.preview --format junit  --config config.yaml --debug-output ./
 
-      - name: Upload report
+      - name: Upload Maestro artifacts (report, logs, videos, screenshots)
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: "maestro-ios-report"
+          name: maestro-ios-artifacts
           include-hidden-files: true
           path: |
-            tests/app-tests/.maestro/tests
-            tests/app-tests/report.xml
+            tests/app-tests/.maestro/**
+            tests/app-tests/*.mp4
 
   e2e-android:
-    needs: [ code-quality, eas-deploy ]
+    #    needs: [ code-quality, eas-deploy ]
+    needs: [ code-quality ]
     name: E2E Tests on Android
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
-        with:
-          distribution: 'adopt'
-          java-version: '17'
 
       - name: Enable KVM group perms
         run: |
@@ -276,20 +301,21 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
 
       - name: Install dependencies
-        run: yarn install
+        run: |
+          yarn install
 
-      - name: Gradle cache
-        uses: gradle/actions/setup-gradle@v3
-
-      - name: Build app
+      - name: Expo Prebuild
         working-directory: packages/app
-        run: |
-          eas build --profile=e2e --platform android --non-interactive --local --output app.apk
+        run: npx expo prebuild -p android --clean
 
-      - name: Install Maestro
-        run: |
-          curl -fsSL "https://get.maestro.mobile.dev" | bash
-          echo "$HOME/.maestro/bin" >> $GITHUB_PATH
+      - name: Cache Gradle
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('packages/app/android/**/*.gradle*', 'packages/app/android/gradle/wrapper/gradle-wrapper.properties') }}
+          restore-keys: ${{ runner.os }}-gradle-
 
       - name: AVD cache
         uses: actions/cache@v4
@@ -298,13 +324,26 @@ jobs:
           path: |
             ~/.android/avd/*
             ~/.android/adb*
-          key: avd-33
+          key: avd-34
 
-      - name: Create AVD and Generate Snapshot for Caching
+      - name: Build app
+        working-directory: packages/app
+        run: |
+          eas build --profile=e2e --platform android --non-interactive --local --output app.android.apk
+
+      - name: Install Maestro
+        run: |
+          export MAESTRO_VERSION=2.0.3; curl -fsSL "https://get.maestro.mobile.dev" | bash
+          echo "$HOME/.maestro/bin" >> $GITHUB_PATH
+
+      - name: Сreate AVD and generate snapshot for caching
         if: steps.avd-cache.outputs.cache-hit != 'true'
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 29
+          api-level: 34
+          target: aosp_atd
+          channel: canary
+          arch: x86_64
           force-avd-creation: false
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: false
@@ -313,21 +352,24 @@ jobs:
       - name: Start emulator and run Maestro tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 29
+          api-level: 34
+          target: aosp_atd
+          channel: canary
+          arch: x86_64
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
           working-directory: tests/app-tests
           script: |
-            cd ../../packages/app && eas build:run --platform android --path app.apk
-            maestro test flows -e APP_ID=com.vitaliiyehorov.suuudokuuu.preview --format junit --output ./report.xml --debug-output ./
+            cd ../../packages/app && eas build:run --platform android --path app.android.apk
+            maestro test flows -e APP_ID=com.vitaliiyehorov.suuudokuuu.preview --config config.yaml --format junit --output ./report.xml --debug-output ./ && killall -INT crashpad_handler
 
-      - name: Upload Report
+      - name: Upload Maestro artifacts (report, logs, videos, screenshots)
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: "maestro-android-report"
+          name: maestro-android-artifacts
           include-hidden-files: true
           path: |
-            tests/app-tests/.maestro/tests
-            tests/app-tests/report.xml
+            tests/app-tests/.maestro/**
+            tests/app-tests/*.mp4

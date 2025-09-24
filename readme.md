@@ -38,7 +38,7 @@ The app supports multiple languages, which is detected by [expo-localization](ht
 The app uses [semantic versioning](https://semver.org/) to manage versions with [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/)
 meaning each commit and pull request has a strict format, which allows to generate beautiful changelogs and release notes automatically.
 
-A [github PR workflow](.github/workflows/merge-request.yml#29) has a step to validate the PR title using [commitlint](https://commitlint.js.org/) to ensure that the PR title follows the conventional commits format.
+A [github PR workflow](.github/workflows/pr.yml#29) has a step to validate the PR title using [commitlint](https://commitlint.js.org/) to ensure that the PR title follows the conventional commits format.
 
 > Users can automatically see current app version on home page using [expo-constants](https://docs.expo.dev/versions/latest/sdk/constants/)
 
