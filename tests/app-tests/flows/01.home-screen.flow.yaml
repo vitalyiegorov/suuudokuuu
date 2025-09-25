@@ -1,8 +1,8 @@
 appId: ${APP_ID}
 ---
-#- startRecording:
-#    path: '01.home-screen'
-#    optional: true
+- startRecording:
+    path: '01.home-screen'
+    optional: true
 
 - launchApp
 - extendedWaitUntil:
