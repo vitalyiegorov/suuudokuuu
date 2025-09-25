@@ -194,8 +194,7 @@ jobs:
 
 
   e2e-ios:
-    #    needs: [code-quality, eas-deploy]
-    needs: [ code-quality ]
+    needs: [code-quality, eas-deploy]
     name: E2E Tests on iOS
     runs-on: macos-latest
     steps:
@@ -275,8 +274,7 @@ jobs:
             tests/app-tests/*.mp4
 
   e2e-android:
-    #    needs: [ code-quality, eas-deploy ]
-    needs: [ code-quality ]
+    needs: [ code-quality, eas-deploy ]
     name: E2E Tests on Android
     runs-on: ubuntu-latest
     steps:
