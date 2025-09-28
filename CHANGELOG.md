@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.44.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.44.0...v1.44.1) (2025-09-28)
+
+### Bug Fixes
+
+- **generator:** revert nightmare difficulty ([#103](https://github.com/vitalyiegorov/suuudokuuu/issues/103)) ([8ace4ec](https://github.com/vitalyiegorov/suuudokuuu/commit/8ace4ec544fe81e6c7a145651db55511789c3905))
+
 # [1.44.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.43.0...v1.44.0) (2025-09-24)
 
 ### Features
