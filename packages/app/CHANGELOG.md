@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.45.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.44.1...v1.45.0) (2025-11-09)
+
+### Features
+
+- **app:** add manual candidate mode with enhanced keyboard controls ([#104](https://github.com/vitalyiegorov/suuudokuuu/issues/104)) ([6eeb270](https://github.com/vitalyiegorov/suuudokuuu/commit/6eeb270931b241aa081d3a133dc63324db4fa0ec))
+
 ## [1.44.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.44.0...v1.44.1) (2025-09-28)
 
 **Note:** Version bump only for package @suuudokuuu/app
