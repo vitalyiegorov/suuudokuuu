@@ -31,7 +31,12 @@ import {
     gameSaveAction,
     gameToggleCellCandidateAction
 } from '../../../game/store/game.actions';
-import { gameInputModeSelector, gameMaxMistakesSelector, gameMistakesSelector, gameScoreSelector } from '../../../game/store/game.selectors';
+import {
+    gameInputModeSelector,
+    gameMaxMistakesSelector,
+    gameMistakesSelector,
+    gameScoreSelector
+} from '../../../game/store/game.selectors';
 import { settingsKeySelector } from '../../../settings/store/settings.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
 
@@ -255,8 +260,8 @@ export const GameScreen = () => {
                     />
                 ))}
 
-                {hideAutoCandidates || inputMode === 'candidate' ? null : <AutoCandidatesButton />}
                 <InputModeButton />
+                {hideAutoCandidates || inputMode === 'candidate' ? null : <AutoCandidatesButton />}
             </View>
         </View>
     );

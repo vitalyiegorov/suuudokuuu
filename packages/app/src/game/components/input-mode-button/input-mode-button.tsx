@@ -23,13 +23,8 @@ export const InputModeButton = () => {
     const isCandidateMode = inputMode === 'candidate';
 
     return (
-        <BlackButton
-            isActive={isCandidateMode}
-            onPress={handleToggle}
-            style={InputModeButtonStyles.button}
-            testID="input-mode-button"
-        >
-            <LucidePencil color={isCandidateMode ? theme.colors.black : theme.colors.white} />
+        <BlackButton isActive={!isCandidateMode} onPress={handleToggle} style={InputModeButtonStyles.button} testID="input-mode-button">
+            <LucidePencil color={isCandidateMode ? theme.colors.white : theme.colors.black} />
         </BlackButton>
     );
 };

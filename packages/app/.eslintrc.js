@@ -14,7 +14,17 @@ module.exports = {
         'lingui/no-unlocalized-strings': [
             'error',
             {
-                ignore: ['^(?![A-Z])\\S+$', '^[A-Z0-9_-]+$', 'rgba', 'rgb', '^Inter_[0-9A-Z]+', '^Arrow[A-Z]+', 'Tab', 'Enter'],
+                ignore: [
+                    '^(?![A-Z])\\S+$',
+                    '^[A-Z0-9_-]+$',
+                    'rgba',
+                    'rgb',
+                    '^Inter_[0-9A-Z]+',
+                    '^Arrow[A-Z]+',
+                    '^Key[A-Z]+',
+                    'Tab',
+                    'Enter'
+                ],
                 ignoreFunctions: ['format']
             }
         ],

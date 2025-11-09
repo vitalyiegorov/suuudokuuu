@@ -8,10 +8,8 @@ import { gameToggleInputModeAction } from '../../store/game.actions';
 import type { OnEventFn } from '@rnw-community/shared';
 import type { CellInterface, Sudoku } from '@suuudokuuu/generator';
 
-/* eslint-disable lingui/no-unlocalized-strings */
 const ARROW_KEYS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
 const WASD_KEYS = ['KeyW', 'KeyA', 'KeyS', 'KeyD'];
-/* eslint-enable lingui/no-unlocalized-strings */
 
 interface NavigationOptions {
     key: string;
@@ -54,28 +52,26 @@ export const useKeyboardControls = (
         const handleKeyDown = (e: KeyboardEvent) => {
             const { key, code } = e;
 
-            // Navigation with arrow keys and WASD
             if (ARROW_KEYS.includes(key) || WASD_KEYS.includes(code)) {
                 e.preventDefault();
                 const nextCell = getNextCell({ key, code, sudoku, selectedCell });
                 onSelectCell(nextCell);
-                
-return;
+
+                return;
             }
 
-            // Toggle input mode with Space (only when cell is selected)
             if (code === 'Space' && isDefined(selectedCell)) {
                 e.preventDefault();
                 dispatch(gameToggleInputModeAction());
-                
-return;
+
+                return;
             }
 
             if (key === 'Escape') {
                 e.preventDefault();
                 onExit();
-                
-return;
+
+                return;
             }
 
             if (isDefined(selectedCell) && /^[1-9]$/iu.test(key)) {
