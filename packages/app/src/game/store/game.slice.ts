@@ -42,9 +42,19 @@ export const gameSlice = createSlice({
         },
         toggleCandidates: state => {
             state.hasCandidates = !state.hasCandidates;
+            // When enabling auto-candidates, switch to normal mode and clear manual candidates
+            if (state.hasCandidates) {
+                state.inputMode = 'normal';
+                state.manualCandidates = {};
+            }
         },
         toggleInputMode: state => {
-            state.inputMode = state.inputMode === 'normal' ? 'candidate' : 'normal';
+            const newMode = state.inputMode === 'normal' ? 'candidate' : 'normal';
+            state.inputMode = newMode;
+            // When enabling manual candidate mode, disable auto-candidates
+            if (newMode === 'candidate') {
+                state.hasCandidates = false;
+            }
         },
         toggleCellCandidate: (state, action: PayloadAction<{ x: number; y: number; value: number }>) => {
             const { x, y, value } = action.payload;

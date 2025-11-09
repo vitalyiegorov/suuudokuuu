@@ -17,6 +17,7 @@ import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { useVibration } from '../../../@generic/hooks/use-vibration.hook';
 import { AutoCandidatesButton } from '../../../game/components/auto-candidates-button/auto-candidates-button';
 import { AvailableValuesItem, type AvailableValuesItemRef } from '../../../game/components/available-values-item/available-values-item';
+import { CandidateInputItem } from '../../../game/components/candidate-input-item/candidate-input-item';
 import { Field } from '../../../game/components/field/field';
 import { GameTimer } from '../../../game/components/game-timer/game-timer';
 import { InputModeButton } from '../../../game/components/input-mode-button/input-mode-button';
@@ -247,18 +248,30 @@ export const GameScreen = () => {
             </View>
 
             <View style={styles.availableValuesWrapper}>
-                {sudoku.PossibleValues.map(value => (
-                    <AvailableValuesItem
-                        canPress={sudoku.isBlankCell(selectedCell)}
-                        correctValue={sudoku.getCorrectValue(selectedCell)}
-                        isCandidateMode={inputMode === 'candidate'}
-                        key={`possible-value-${value}`}
-                        onSelect={handleSelectValue}
-                        progress={sudoku.getValueProgress(value)}
-                        ref={handleAvailableRef(value)}
-                        value={value}
-                    />
-                ))}
+                {inputMode === 'candidate' ? (
+                    // Manual candidate input mode
+                    sudoku.PossibleValues.map(value => (
+                        <CandidateInputItem
+                            canPress={sudoku.isBlankCell(selectedCell)}
+                            key={`candidate-value-${value}`}
+                            onSelect={handleSelectValue}
+                            value={value}
+                        />
+                    ))
+                ) : (
+                    // Normal value input mode
+                    sudoku.PossibleValues.map(value => (
+                        <AvailableValuesItem
+                            canPress={sudoku.isBlankCell(selectedCell)}
+                            correctValue={sudoku.getCorrectValue(selectedCell)}
+                            key={`possible-value-${value}`}
+                            onSelect={handleSelectValue}
+                            progress={sudoku.getValueProgress(value)}
+                            ref={handleAvailableRef(value)}
+                            value={value}
+                        />
+                    ))
+                )}
 
                 <InputModeButton />
                 {hideAutoCandidates || inputMode === 'candidate' ? null : <AutoCandidatesButton />}

@@ -30,14 +30,13 @@ interface Props {
     readonly correctValue?: number;
     readonly onSelect: OnEventFn<number>;
     readonly ref: Ref<AvailableValuesItemRef>;
-    readonly isCandidateMode?: boolean;
 }
 
 export interface AvailableValuesItemRef {
     triggerAnimation: () => void;
 }
 
-export const AvailableValuesItem = ({ value, onSelect, progress, correctValue, canPress, ref, isCandidateMode }: Props) => {
+export const AvailableValuesItem = ({ value, onSelect, progress, correctValue, canPress, ref }: Props) => {
     const { theme } = use(ThemeContext);
 
     const fontSizeMultiplier = useAppSelector(settingsFontSizeMultiplierSelector);
@@ -46,26 +45,15 @@ export const AvailableValuesItem = ({ value, onSelect, progress, correctValue, c
     const pressAnimatedBgColor = isCorrect ? theme.colors.cell.active : theme.colors.cell.error;
 
     const animated = useSharedValue(0);
-    
-    // Different animation for candidate mode - simple opacity pulse instead of color/shake
-    const candidateOpacityMin = 0.6;
-    const animatedStyles = useAnimatedStyle(() => {
-        if (isCandidateMode === true) {
-            return {
-                opacity: interpolate(animated.value, [0, 0.5, 1], [1, candidateOpacityMin, 1])
-            };
-        }
-        
-        return {
-            backgroundColor: interpolateColor(animated.value, [0, 1], [theme.colors.white, pressAnimatedBgColor]),
-            ...(!isCorrect && {
-                transform: [
-                    { translateX: interpolate(animated.value, [0, 0.5, 1], [0, -10, 10]) },
-                    { rotate: `${interpolate(animated.value, [0, 0.5, 1], [0, -20, 20])}deg` }
-                ]
-            })
-        };
-    });
+    const animatedStyles = useAnimatedStyle(() => ({
+        backgroundColor: interpolateColor(animated.value, [0, 1], [theme.colors.white, pressAnimatedBgColor]),
+        ...(!isCorrect && {
+            transform: [
+                { translateX: interpolate(animated.value, [0, 0.5, 1], [0, -10, 10]) },
+                { rotate: `${interpolate(animated.value, [0, 0.5, 1], [0, -20, 20])}deg` }
+            ]
+        })
+    }));
 
     const triggerAnimationFn = () => {
         animated.value = withSequence(withTiming(1, { duration: 200 }), withTiming(0, { duration: 200 }));
@@ -82,11 +70,7 @@ export const AvailableValuesItem = ({ value, onSelect, progress, correctValue, c
 
     const buttonStyles = [
         styles.button,
-        { 
-            borderBottomColor: isCandidateMode === true ? theme.colors.value.border : theme.colors.value.progress, 
-            borderColor: isCandidateMode === true ? theme.colors.candidate.bgActive : theme.colors.value.border,
-            borderWidth: isCandidateMode === true ? 2 : 1
-        },
+        { borderBottomColor: theme.colors.value.progress, borderColor: theme.colors.value.border },
         animatedStyles
     ];
     const progressStyles = [
@@ -94,10 +78,7 @@ export const AvailableValuesItem = ({ value, onSelect, progress, correctValue, c
         { backgroundColor: theme.colors.cell.active },
         { width: `${progress}%` }
     ] as StyleProp<ViewStyle>;
-    const textStyles = [
-        { fontSize: CellFontSizeConstant * fontSizeMultiplier },
-        { color: theme.colors.value.text }
-    ];
+    const textStyles = [{ fontSize: CellFontSizeConstant * fontSizeMultiplier }, { color: theme.colors.value.text }];
 
     return (
         <View style={styles.container} testID={selectors.Root}>
@@ -107,7 +88,7 @@ export const AvailableValuesItem = ({ value, onSelect, progress, correctValue, c
                 </Text>
             </ReanimatedPressable>
 
-            {isCandidateMode !== true && <View style={progressStyles} />}
+            <View style={progressStyles} />
         </View>
     );
 };
