@@ -11,7 +11,9 @@ export const gameMistakesSelector = createSelector(gameSelector, state => state.
 export const gameMaxMistakesSelector = createSelector(gameSelector, state => state.maxMistakes);
 export const gamePausedSelector = createSelector(gameSelector, state => state.isPaused);
 export const gameElapsedTimeSelector = createSelector(gameSelector, state => state.elapsedTime);
-export const gameHasCandidatesSelector = createSelector(gameSelector, state => state.hasCandidates);
+export const gameShowAutoCandidatesSelector = createSelector(gameSelector, state => state.showAutoCandidates);
+export const gameInputModeSelector = createSelector(gameSelector, state => state.inputMode);
+export const gameCandidatesSelector = createSelector(gameSelector, state => state.candidates);
 export const gameHistoryByDifficultySelector = createSelector(gameSelector, state => state.historyByDifficulty);
 export const gameHistoryBestTimeSelector = createSelector(gameSelector, state =>
     Object.values(state.historyByDifficulty).reduce(

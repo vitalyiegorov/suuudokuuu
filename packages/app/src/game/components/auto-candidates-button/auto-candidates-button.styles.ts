@@ -4,7 +4,7 @@ import { CellSizeConstant } from '../../../game/components/constants/dimensions.
 
 export const AutoCandidatesButtonStyles = StyleSheet.create({
     autoCandidatesButton: {
-        height: CellSizeConstant * 1.3,
-        width: CellSizeConstant * 1.3
+        height: CellSizeConstant,
+        width: CellSizeConstant
     }
 });

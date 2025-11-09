@@ -2,14 +2,14 @@ import { StyleSheet } from 'react-native';
 
 import { CellSizeConstant } from '../constants/dimensions.contant';
 
-const progressHeight = 2;
 const buttonSize = CellSizeConstant * 1.3;
+const whiteColor = '#ffffff';
 
-export const AvailableValuesItemStyles = StyleSheet.create({
+export const CandidateInputItemStyles = StyleSheet.create({
     button: {
         alignItems: 'center',
-        borderBottomWidth: progressHeight,
-        borderWidth: 1,
+        backgroundColor: whiteColor,
+        borderWidth: 2,
         height: buttonSize,
         justifyContent: 'center',
         outlineOffset: 0,
@@ -18,11 +18,5 @@ export const AvailableValuesItemStyles = StyleSheet.create({
     },
     container: {
         position: 'relative'
-    },
-    progress: {
-        height: progressHeight,
-        left: 0,
-        position: 'absolute',
-        top: buttonSize - progressHeight
     }
 });
