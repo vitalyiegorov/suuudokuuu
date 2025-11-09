@@ -1,5 +1,6 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 
+import { getCellKey } from '../../@generic/utils/get-cell-key.util';
 import { solutionStepFromCell } from '../interface/solution-step.interface';
 
 import { initialGameState } from './game.state';
@@ -23,10 +24,29 @@ export const gameSlice = createSlice({
         resume: state => {
             state.isPaused = false;
         },
+        // eslint-disable-next-line max-statements
         save: (state, action: PayloadAction<{ sudoku: Sudoku; correctCell: CellInterface; scoredCells: ScoredCellsInterface }>) => {
-            state.sudokuString = action.payload.sudoku.toString();
-            state.score += action.payload.sudoku.getScore(action.payload.scoredCells, state.elapsedTime, state.mistakes);
-            state.solutionSteps.push(solutionStepFromCell(action.payload.correctCell, state.elapsedTime));
+            const { sudoku, correctCell, scoredCells } = action.payload;
+
+            state.sudokuString = sudoku.toString();
+            state.score += sudoku.getScore(scoredCells, state.elapsedTime, state.mistakes);
+            state.solutionSteps.push(solutionStepFromCell(correctCell, state.elapsedTime));
+
+            state.candidates[getCellKey(correctCell)] = [];
+
+            sudoku.Field.forEach(
+                row =>
+                    void row.forEach(cell => {
+                        if (sudoku.isBlankCell(cell)) {
+                            const possibleCandidates = sudoku.getCellCandidates(cell);
+
+                            const key = getCellKey(cell);
+                            const currentCandidates = state.candidates[key] ?? [];
+
+                            state.candidates[key] = currentCandidates.filter(candidate => possibleCandidates.includes(candidate));
+                        }
+                    })
+            );
         },
         mistake: state => {
             state.mistakes += 1;
@@ -40,8 +60,32 @@ export const gameSlice = createSlice({
         reset: state => {
             Object.assign(state, { ...initialGameState, historyByDifficulty: state.historyByDifficulty });
         },
-        toggleCandidates: state => {
-            state.hasCandidates = !state.hasCandidates;
+        toggleShowAutoCandidates: state => {
+            state.showAutoCandidates = !state.showAutoCandidates;
+
+            if (state.showAutoCandidates) {
+                state.inputMode = 'normal';
+            }
+        },
+        toggleInputMode: state => {
+            const newMode = state.inputMode === 'normal' ? 'candidate' : 'normal';
+            state.inputMode = newMode;
+
+            if (newMode === 'candidate') {
+                state.showAutoCandidates = false;
+            }
+        },
+        toggleCellCandidate: (state, action: PayloadAction<CellInterface>) => {
+            const { value } = action.payload;
+
+            const key = getCellKey(action.payload);
+            const candidates = state.candidates[key] ?? [];
+
+            if (candidates.includes(value)) {
+                state.candidates[key] = candidates.filter(val => val !== value);
+            } else {
+                state.candidates[key] = [...candidates, value];
+            }
         },
         // eslint-disable-next-line max-statements
         finish: (state, action: PayloadAction<{ difficulty: DifficultyEnum; isWon: boolean }>) => {

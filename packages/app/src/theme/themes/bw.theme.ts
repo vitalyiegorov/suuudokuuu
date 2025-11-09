@@ -28,7 +28,10 @@ export const BWLightTheme: ThemeInterface = {
         candidate: {
             text: 'rgba(0, 0, 0, 0.5)',
             textActive: 'rgba(0, 0, 0, 1)',
-            bgActive: 'rgba(0, 255, 0, 0.5)'
+            bgActive: 'rgba(0, 255, 0, 0.5)',
+            bg: 'rgb(255, 255, 255)',
+            border: 'rgba(0,0,0,0.15)',
+            borderActive: 'rgba(0, 255, 0, 1)'
         },
         value: {
             border: 'rgba(0,0,0,0.15)',
@@ -67,7 +70,10 @@ export const BWDarkTheme: ThemeInterface = {
         candidate: {
             text: 'rgba(255, 255, 255, 0.5)',
             textActive: 'rgba(255, 255, 255, 1)',
-            bgActive: 'rgba(0, 255, 0, 0.5)'
+            bgActive: 'rgba(0, 255, 0, 0.5)',
+            bg: 'rgb(0, 0, 0)',
+            border: 'rgba(255,255,255,0.15)',
+            borderActive: 'rgba(0, 255, 0, 0.7)'
         },
         value: {
             border: 'rgba(255,255,255,0.15)',

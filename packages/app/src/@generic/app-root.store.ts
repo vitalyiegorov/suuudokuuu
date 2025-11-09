@@ -22,7 +22,8 @@ const migrations: MigrationManifest<RootState> = {
                 ...(state.history?.byDifficulty as unknown as GameState['historyByDifficulty'])
             }
         }
-    })
+    }),
+    13: state => ({ ...state, [gameSlice.name]: { ...initialGameState, ...state[gameSlice.name] } })
 };
 
 const rootReducer = combineReducers({
@@ -35,7 +36,7 @@ const persistedReducer = persistReducer(
     {
         key: 'root',
         storage: AsyncStorage,
-        version: 12,
+        version: 13,
         migrate: createMigrate(migrations)
     },
     rootReducer

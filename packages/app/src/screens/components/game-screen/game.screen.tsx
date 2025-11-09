@@ -17,13 +17,26 @@ import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { useVibration } from '../../../@generic/hooks/use-vibration.hook';
 import { AutoCandidatesButton } from '../../../game/components/auto-candidates-button/auto-candidates-button';
 import { AvailableValuesItem, type AvailableValuesItemRef } from '../../../game/components/available-values-item/available-values-item';
+import { CandidateInputItem } from '../../../game/components/candidate-input-item/candidate-input-item';
 import { Field } from '../../../game/components/field/field';
 import { GameTimer } from '../../../game/components/game-timer/game-timer';
+import { InputModeButton } from '../../../game/components/input-mode-button/input-mode-button';
 import { GameContext } from '../../../game/context/game.context';
 import { useKeyboardControls } from '../../../game/hooks/use-keyboard-controls/use-keyboard-controls.hook';
 import { useShare } from '../../../game/hooks/use-share.hook';
-import { gameFinishAction, gameMistakeAction, gameResetAction, gameSaveAction } from '../../../game/store/game.actions';
-import { gameMaxMistakesSelector, gameMistakesSelector, gameScoreSelector } from '../../../game/store/game.selectors';
+import {
+    gameFinishAction,
+    gameMistakeAction,
+    gameResetAction,
+    gameSaveAction,
+    gameToggleCellCandidateAction
+} from '../../../game/store/game.actions';
+import {
+    gameInputModeSelector,
+    gameMaxMistakesSelector,
+    gameMistakesSelector,
+    gameScoreSelector
+} from '../../../game/store/game.selectors';
 import { settingsKeySelector } from '../../../settings/store/settings.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
 
@@ -54,6 +67,7 @@ export const GameScreen = () => {
     const mistakes = useAppSelector(gameMistakesSelector);
     const maxMistakes = useAppSelector(gameMaxMistakesSelector);
     const hasTimer = useAppSelector(settingsKeySelector('hasTimer'));
+    const inputMode = useAppSelector(gameInputModeSelector);
 
     const [selectedCell, setSelectedCell] = useState<CellInterface>();
     const [hasSharing, setHasSharing] = useState(false);
@@ -103,7 +117,7 @@ export const GameScreen = () => {
     };
 
     const handleCorrectValue = (correctCell: CellInterface, newScoredCells: ScoredCellsInterface) => {
-        dispatch(gameSaveAction({ sudoku, scoredCells, correctCell }));
+        dispatch(gameSaveAction({ sudoku, scoredCells: newScoredCells, correctCell }));
 
         hapticNotification(Haptics.NotificationFeedbackType.Success);
 
@@ -121,23 +135,36 @@ export const GameScreen = () => {
         }
     };
 
+    const handleCandidateInput = (cell: CellInterface, value: number) => {
+        dispatch(gameToggleCellCandidateAction({ ...cell, value }));
+        hapticImpact(ImpactFeedbackStyle.Light);
+    };
+
+    const handleNormalInput = (cell: CellInterface, value: number) => {
+        const newValueCell = { ...cell, value };
+        if (sudoku.isCorrectValue(newValueCell)) {
+            const newScoredCells = sudoku.setCellValue(newValueCell);
+
+            handleCorrectValue(cell, newScoredCells);
+
+            if (newScoredCells.isWon) {
+                handleWonGame();
+            }
+        } else {
+            handleWrongValue();
+        }
+    };
+
     const handleSelectValue = (value: number) => {
         const isBlankCellSelected = sudoku.isBlankCell(selectedCell);
 
         if (isBlankCellSelected) {
             availableValuesRefs.current[value]?.triggerAnimation();
 
-            const newValueCell = { ...selectedCell, value };
-            if (sudoku.isCorrectValue(newValueCell)) {
-                const newScoredCells = sudoku.setCellValue(newValueCell);
-
-                handleCorrectValue(selectedCell, newScoredCells);
-
-                if (newScoredCells.isWon) {
-                    handleWonGame();
-                }
+            if (inputMode === 'candidate') {
+                handleCandidateInput(selectedCell, value);
             } else {
-                handleWrongValue();
+                handleNormalInput(selectedCell, value);
             }
         }
     };
@@ -210,20 +237,34 @@ export const GameScreen = () => {
                 <Field onSelect={handleSelectCell} scoredCells={scoredCells} selectedCell={selectedCell} />
             </View>
 
-            <View style={styles.availableValuesWrapper}>
-                {sudoku.PossibleValues.map(value => (
-                    <AvailableValuesItem
-                        canPress={sudoku.isBlankCell(selectedCell)}
-                        correctValue={sudoku.getCorrectValue(selectedCell)}
-                        key={`possible-value-${value}`}
-                        onSelect={handleSelectValue}
-                        progress={sudoku.getValueProgress(value)}
-                        ref={handleAvailableRef(value)}
-                        value={value}
-                    />
-                ))}
-
-                {hideAutoCandidates ? null : <AutoCandidatesButton />}
+            <View style={styles.bottomContainer}>
+                <View style={styles.additionalControlsWrapper}>
+                    <InputModeButton />
+                    {hideAutoCandidates ? null : <AutoCandidatesButton />}
+                </View>
+                <View style={styles.availableValuesWrapper}>
+                    {sudoku.PossibleValues.map(value =>
+                        inputMode === 'candidate' ? (
+                            <CandidateInputItem
+                                canPress={sudoku.isBlankCell(selectedCell)}
+                                key={`candidate-value-${value}`}
+                                onSelect={handleSelectValue}
+                                selectedCell={selectedCell}
+                                value={value}
+                            />
+                        ) : (
+                            <AvailableValuesItem
+                                canPress={sudoku.isBlankCell(selectedCell)}
+                                correctValue={sudoku.getCorrectValue(selectedCell)}
+                                key={`possible-value-${value}`}
+                                onSelect={handleSelectValue}
+                                progress={sudoku.getValueProgress(value)}
+                                ref={handleAvailableRef(value)}
+                                value={value}
+                            />
+                        )
+                    )}
+                </View>
             </View>
         </View>
     );

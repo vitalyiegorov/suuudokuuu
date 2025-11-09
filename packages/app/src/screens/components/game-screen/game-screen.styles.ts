@@ -1,12 +1,23 @@
 import { StyleSheet } from 'react-native';
 
 export const GameScreenStyles = StyleSheet.create({
-    availableValuesWrapper: {
+    additionalControlsWrapper: {
         flex: 1,
+        flexDirection: 'row',
+        gap: 10,
+        justifyContent: 'center',
+        marginBottom: 20
+    },
+    availableValuesWrapper: {
+        alignItems: 'center',
+        flex: 2,
         flexDirection: 'row',
         flexWrap: 'wrap',
         gap: 10,
         justifyContent: 'center'
+    },
+    bottomContainer: {
+        flex: 1
     },
     button: { paddingHorizontal: 10 },
     buttonsWrapper: { flexDirection: 'row', gap: 5 },
@@ -28,7 +39,7 @@ export const GameScreenStyles = StyleSheet.create({
         alignItems: 'center'
     },
     fieldWrapper: {
-        flex: 4
+        flex: 3
     },
     mistakesCountText: {
         fontWeight: 'bold'

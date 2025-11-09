@@ -18,14 +18,14 @@ interface Props {
     readonly isActive: boolean;
     readonly isActiveValue: boolean;
     readonly isHighlighted: boolean;
-    readonly hasCandidates: boolean;
+    readonly showAutoCandidates: boolean;
     readonly hasAnimation: boolean;
     readonly isEmpty: boolean;
     readonly textAnimatedStyle: ReturnType<typeof useAnimatedStyle>;
 }
 
 export const FieldCellText = (props: Props) => {
-    const { cell, isActive, isActiveValue, isHighlighted, isEmpty, hasCandidates, hasAnimation, textAnimatedStyle } = props;
+    const { cell, isActive, isActiveValue, isHighlighted, isEmpty, showAutoCandidates, hasAnimation, textAnimatedStyle } = props;
 
     const { theme } = use(ThemeContext);
 
@@ -50,7 +50,7 @@ export const FieldCellText = (props: Props) => {
 
     const getText = (): string => {
         if (isEmpty) {
-            return isActive && !hasCandidates ? '•' : '';
+            return isActive && !showAutoCandidates ? '•' : '';
         }
 
         return cell.value.toString();

@@ -28,7 +28,10 @@ export const ColorfulLightTheme: ThemeInterface = {
         candidate: {
             text: 'rgba(74, 97, 58, 0.75)',
             textActive: '#AFCEBE',
-            bgActive: '#D9E3D8'
+            bgActive: '#D9E3D8',
+            bg: '#FFFFFF',
+            border: 'rgba(193, 182, 164, 0.5)',
+            borderActive: '#AFCEBE'
         },
         value: {
             border: 'rgba(193, 182, 164, 0.5)',
@@ -67,7 +70,10 @@ export const ColorfulDarkTheme: ThemeInterface = {
         candidate: {
             text: 'rgba(205, 208, 194, 0.75)',
             textActive: '#4B613A',
-            bgActive: '#829B74'
+            bgActive: '#829B74',
+            bg: '#2A3B4D',
+            border: 'rgba(68, 91, 122, 0.5)',
+            borderActive: '#4B613A'
         },
         value: {
             border: 'rgba(68, 91, 122, 0.5)',
