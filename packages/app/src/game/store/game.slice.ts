@@ -1,5 +1,6 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 
+import { getCellKey } from '../../@generic/utils/get-cell-key.util';
 import { solutionStepFromCell } from '../interface/solution-step.interface';
 
 import { initialGameState } from './game.state';
@@ -42,42 +43,33 @@ export const gameSlice = createSlice({
         },
         toggleCandidates: state => {
             state.hasCandidates = !state.hasCandidates;
-            // When enabling auto-candidates, switch to normal mode and clear manual candidates
+
             if (state.hasCandidates) {
                 state.inputMode = 'normal';
-                state.manualCandidates = {};
             }
         },
         toggleInputMode: state => {
             const newMode = state.inputMode === 'normal' ? 'candidate' : 'normal';
             state.inputMode = newMode;
-            // When enabling manual candidate mode, disable auto-candidates
+
             if (newMode === 'candidate') {
                 state.hasCandidates = false;
             }
         },
-        toggleCellCandidate: (state, action: PayloadAction<{ x: number; y: number; value: number }>) => {
-            const { x, y, value } = action.payload;
-            const key = `${x}-${y}`;
+        toggleCellCandidate: (state, action: PayloadAction<CellInterface>) => {
+            const { value } = action.payload;
+
+            const key = getCellKey(action.payload);
             const candidates = state.manualCandidates[key] ?? [];
-            
+
             if (candidates.includes(value)) {
-                const filtered = candidates.filter(candidate => candidate !== value);
-                if (filtered.length === 0) {
-                    // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-                    delete state.manualCandidates[key];
-                } else {
-                    state.manualCandidates[key] = filtered;
-                }
+                state.manualCandidates[key] = candidates.filter(val => val !== value);
             } else {
-                state.manualCandidates[key] = [...candidates, value].sort((valueA, valueB) => valueA - valueB);
+                state.manualCandidates[key] = [...candidates, value];
             }
         },
-        clearCellCandidates: (state, action: PayloadAction<{ x: number; y: number }>) => {
-            const { x, y } = action.payload;
-            const key = `${x}-${y}`;
-            // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-            delete state.manualCandidates[key];
+        clearCellCandidates: (state, action: PayloadAction<CellInterface>) => {
+            state.manualCandidates[getCellKey(action.payload)] = [];
         },
         // eslint-disable-next-line max-statements
         finish: (state, action: PayloadAction<{ difficulty: DifficultyEnum; isWon: boolean }>) => {

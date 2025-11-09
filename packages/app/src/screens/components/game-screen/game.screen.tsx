@@ -136,27 +136,19 @@ export const GameScreen = () => {
         }
     };
 
-    const handleCandidateInput = (value: number) => {
-        if (!selectedCell) {
-            return;
-        }
-        dispatch(gameToggleCellCandidateAction({ x: selectedCell.x, y: selectedCell.y, value }));
+    const handleCandidateInput = (cell: CellInterface, value: number) => {
+        dispatch(gameToggleCellCandidateAction({ ...cell, value }));
         hapticImpact(ImpactFeedbackStyle.Light);
     };
 
-    const handleNormalInput = (value: number) => {
-        if (!selectedCell) {
-            return;
-        }
-
-        const newValueCell = { ...selectedCell, value };
+    const handleNormalInput = (cell: CellInterface, value: number) => {
+        const newValueCell = { ...cell, value };
         if (sudoku.isCorrectValue(newValueCell)) {
             const newScoredCells = sudoku.setCellValue(newValueCell);
 
-            // Clear candidates for this cell when a value is set
-            dispatch(gameClearCellCandidatesAction({ x: selectedCell.x, y: selectedCell.y }));
+            dispatch(gameClearCellCandidatesAction(cell));
 
-            handleCorrectValue(selectedCell, newScoredCells);
+            handleCorrectValue(cell, newScoredCells);
 
             if (newScoredCells.isWon) {
                 handleWonGame();
@@ -173,9 +165,9 @@ export const GameScreen = () => {
             availableValuesRefs.current[value]?.triggerAnimation();
 
             if (inputMode === 'candidate') {
-                handleCandidateInput(value);
+                handleCandidateInput(selectedCell, value);
             } else {
-                handleNormalInput(value);
+                handleNormalInput(selectedCell, value);
             }
         }
     };
@@ -248,30 +240,34 @@ export const GameScreen = () => {
                 <Field onSelect={handleSelectCell} scoredCells={scoredCells} selectedCell={selectedCell} />
             </View>
 
-            <View style={styles.availableValuesWrapper}>
-                {sudoku.PossibleValues.map(value =>
-                    inputMode === 'candidate' ? (
-                        <CandidateInputItem
-                            canPress={sudoku.isBlankCell(selectedCell)}
-                            key={`candidate-value-${value}`}
-                            onSelect={handleSelectValue}
-                            value={value}
-                        />
-                    ) : (
-                        <AvailableValuesItem
-                            canPress={sudoku.isBlankCell(selectedCell)}
-                            correctValue={sudoku.getCorrectValue(selectedCell)}
-                            key={`possible-value-${value}`}
-                            onSelect={handleSelectValue}
-                            progress={sudoku.getValueProgress(value)}
-                            ref={handleAvailableRef(value)}
-                            value={value}
-                        />
-                    )
-                )}
-
-                <InputModeButton />
-                {hideAutoCandidates || inputMode === 'candidate' ? null : <AutoCandidatesButton />}
+            <View style={styles.bottomContainer}>
+                <View style={styles.additionalControlsWrapper}>
+                    <InputModeButton />
+                    {hideAutoCandidates ? null : <AutoCandidatesButton />}
+                </View>
+                <View style={styles.availableValuesWrapper}>
+                    {sudoku.PossibleValues.map(value =>
+                        inputMode === 'candidate' ? (
+                            <CandidateInputItem
+                                canPress={sudoku.isBlankCell(selectedCell)}
+                                key={`candidate-value-${value}`}
+                                onSelect={handleSelectValue}
+                                selectedCell={selectedCell}
+                                value={value}
+                            />
+                        ) : (
+                            <AvailableValuesItem
+                                canPress={sudoku.isBlankCell(selectedCell)}
+                                correctValue={sudoku.getCorrectValue(selectedCell)}
+                                key={`possible-value-${value}`}
+                                onSelect={handleSelectValue}
+                                progress={sudoku.getValueProgress(value)}
+                                ref={handleAvailableRef(value)}
+                                value={value}
+                            />
+                        )
+                    )}
+                </View>
             </View>
         </View>
     );

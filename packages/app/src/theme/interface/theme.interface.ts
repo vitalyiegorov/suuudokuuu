@@ -13,8 +13,11 @@ export interface ThemeInterface {
             hint: string;
         };
         candidate: {
+            border: string;
+            borderActive: string;
             text: string;
             textActive: string;
+            bg: string;
             bgActive: string;
         };
         cell: {

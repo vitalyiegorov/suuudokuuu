@@ -1,58 +1,64 @@
-import { use } from 'react';
+import { use, useEffect } from 'react';
 import { Pressable, Text, View } from 'react-native';
-import Reanimated, { interpolate, useAnimatedStyle, useSharedValue, withSequence, withTiming } from 'react-native-reanimated';
+import Reanimated, { interpolateColor, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+
+import { isDefined } from '@rnw-community/shared';
 
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
+import { getCellKey } from '../../../@generic/utils/get-cell-key.util';
 import { settingsFontSizeMultiplierSelector } from '../../../settings/store/settings.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { gameManualCandidatesSelector } from '../../store/game.selectors';
 import { CellFontSizeConstant } from '../constants/dimensions.contant';
 
 import { CandidateInputItemStyles as styles } from './candidate-input-item.styles';
 
 import type { OnEventFn } from '@rnw-community/shared';
+import type { CellInterface } from '@suuudokuuu/generator';
 
 const ReanimatedPressable = Reanimated.createAnimatedComponent(Pressable);
 
 interface Props {
+    readonly selectedCell?: CellInterface;
     readonly value: number;
     readonly canPress: boolean;
     readonly onSelect: OnEventFn<number>;
 }
 
-export const CandidateInputItem = ({ value, onSelect, canPress }: Props) => {
+export const CandidateInputItem = ({ selectedCell, value, onSelect, canPress }: Props) => {
     const { theme } = use(ThemeContext);
+
+    const manualCandidates = useAppSelector(gameManualCandidatesSelector);
+
+    const isSelected = isDefined(selectedCell) && (manualCandidates[getCellKey(selectedCell)] ?? []).includes(value);
 
     const fontSizeMultiplier = useAppSelector(settingsFontSizeMultiplierSelector);
 
-    const animated = useSharedValue(0);
-    
-    // Subtle opacity pulse animation for candidate input
-    const candidateOpacityMin = 0.6;
+    const animated = useSharedValue(isSelected ? 1 : 0);
+
+    useEffect(() => {
+        animated.value = withTiming(isSelected ? 1 : 0, { duration: 200 });
+    }, [isSelected, animated]);
+
     const animatedStyles = useAnimatedStyle(() => ({
-        opacity: interpolate(animated.value, [0, 0.5, 1], [1, candidateOpacityMin, 1])
+        backgroundColor: interpolateColor(animated.value, [0, 1], [theme.colors.white, theme.colors.candidate.bgActive])
     }));
 
-    const triggerAnimationFn = () => {
-        animated.value = withSequence(withTiming(1, { duration: 200 }), withTiming(0, { duration: 200 }));
-    };
-
     const handlePress = () => {
-        triggerAnimationFn();
         onSelect(value);
     };
 
     const buttonStyles = [
         styles.button,
-        { 
-            borderColor: theme.colors.candidate.bgActive,
-            borderWidth: 2
+        {
+            borderColor: isSelected ? theme.colors.candidate.borderActive : theme.colors.candidate.border,
+            backgroundColor: isSelected ? theme.colors.candidate.bgActive : theme.colors.candidate.bg
         },
         animatedStyles
     ];
-    
     const textStyles = [
         { fontSize: CellFontSizeConstant * fontSizeMultiplier },
-        { color: theme.colors.value.text }
+        { color: isSelected ? theme.colors.candidate.textActive : theme.colors.candidate.text }
     ];
 
     return (
