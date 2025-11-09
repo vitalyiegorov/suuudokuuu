@@ -246,6 +246,7 @@ export const GameScreen = () => {
                     <AvailableValuesItem
                         canPress={sudoku.isBlankCell(selectedCell)}
                         correctValue={sudoku.getCorrectValue(selectedCell)}
+                        isCandidateMode={inputMode === 'candidate'}
                         key={`possible-value-${value}`}
                         onSelect={handleSelectValue}
                         progress={sudoku.getValueProgress(value)}

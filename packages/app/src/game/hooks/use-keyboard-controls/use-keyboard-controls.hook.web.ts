@@ -11,8 +11,33 @@ import type { CellInterface, Sudoku } from '@suuudokuuu/generator';
 /* eslint-disable lingui/no-unlocalized-strings */
 const ARROW_KEYS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
 const WASD_KEYS = ['KeyW', 'KeyA', 'KeyS', 'KeyD'];
-const TOGGLE_KEYS = ['Tab', 'Space'];
 /* eslint-enable lingui/no-unlocalized-strings */
+
+interface NavigationOptions {
+    key: string;
+    code: string;
+    sudoku: Sudoku;
+    selectedCell: CellInterface | undefined;
+}
+
+const getNextCell = (options: NavigationOptions): CellInterface | undefined => {
+    const { key, code, sudoku, selectedCell } = options;
+    const currentCell = selectedCell ?? sudoku.Field[0][0];
+    const lastRowIndex = sudoku.Field.length - 1;
+    const lastColIndex = sudoku.Field[currentCell.y].length - 1;
+
+    if (key === 'ArrowUp' || code === 'KeyW') {
+        return sudoku.getCellUp(currentCell) ?? sudoku.Field[lastRowIndex][currentCell.x];
+    } else if (key === 'ArrowDown' || code === 'KeyS') {
+        return sudoku.getCellDown(currentCell) ?? sudoku.Field[0][currentCell.x];
+    } else if (key === 'ArrowLeft' || code === 'KeyA') {
+        return sudoku.getCellLeft(currentCell) ?? sudoku.Field[currentCell.y][lastColIndex];
+    } else if (key === 'ArrowRight' || code === 'KeyD') {
+        return sudoku.getCellRight(currentCell) ?? sudoku.Field[currentCell.y][0];
+    }
+
+    return undefined;
+};
 
 export const useKeyboardControls = (
     sudoku: Sudoku,
@@ -32,43 +57,25 @@ export const useKeyboardControls = (
             // Navigation with arrow keys and WASD
             if (ARROW_KEYS.includes(key) || WASD_KEYS.includes(code)) {
                 e.preventDefault();
-                const currentCell = selectedCell ?? sudoku.Field[0][0];
-                const lastRowIndex = sudoku.Field.length - 1;
-                const lastColIndex = sudoku.Field[currentCell.y].length - 1;
-
-                let nextCell: CellInterface | undefined;
-                if (key === 'ArrowUp' || code === 'KeyW') {
-                    nextCell = sudoku.getCellUp(currentCell);
-                    // Jump to bottom if at top
-                    nextCell ??= sudoku.Field[lastRowIndex][currentCell.x];
-                } else if (key === 'ArrowDown' || code === 'KeyS') {
-                    nextCell = sudoku.getCellDown(currentCell);
-                    // Jump to top if at bottom
-                    nextCell ??= sudoku.Field[0][currentCell.x];
-                } else if (key === 'ArrowLeft' || code === 'KeyA') {
-                    nextCell = sudoku.getCellLeft(currentCell);
-                    // Jump to right if at left edge
-                    nextCell ??= sudoku.Field[currentCell.y][lastColIndex];
-                } else if (key === 'ArrowRight' || code === 'KeyD') {
-                    nextCell = sudoku.getCellRight(currentCell);
-                    // Jump to left if at right edge
-                    nextCell ??= sudoku.Field[currentCell.y][0];
-                }
-
+                const nextCell = getNextCell({ key, code, sudoku, selectedCell });
                 onSelectCell(nextCell);
-
-                return;
+                
+return;
             }
 
-            // Toggle input mode with Space or Tab
-            if (TOGGLE_KEYS.includes(code)) {
+            // Toggle input mode with Space (only when cell is selected)
+            if (code === 'Space' && isDefined(selectedCell)) {
                 e.preventDefault();
                 dispatch(gameToggleInputModeAction());
+                
+return;
             }
 
             if (key === 'Escape') {
                 e.preventDefault();
                 onExit();
+                
+return;
             }
 
             if (isDefined(selectedCell) && /^[1-9]$/iu.test(key)) {

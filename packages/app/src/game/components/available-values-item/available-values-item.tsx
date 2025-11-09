@@ -30,13 +30,14 @@ interface Props {
     readonly correctValue?: number;
     readonly onSelect: OnEventFn<number>;
     readonly ref: Ref<AvailableValuesItemRef>;
+    readonly isCandidateMode?: boolean;
 }
 
 export interface AvailableValuesItemRef {
     triggerAnimation: () => void;
 }
 
-export const AvailableValuesItem = ({ value, onSelect, progress, correctValue, canPress, ref }: Props) => {
+export const AvailableValuesItem = ({ value, onSelect, progress, correctValue, canPress, ref, isCandidateMode }: Props) => {
     const { theme } = use(ThemeContext);
 
     const fontSizeMultiplier = useAppSelector(settingsFontSizeMultiplierSelector);
@@ -46,7 +47,11 @@ export const AvailableValuesItem = ({ value, onSelect, progress, correctValue, c
 
     const animated = useSharedValue(0);
     const animatedStyles = useAnimatedStyle(() => ({
-        backgroundColor: interpolateColor(animated.value, [0, 1], [theme.colors.white, pressAnimatedBgColor]),
+        backgroundColor: interpolateColor(
+            animated.value,
+            [0, 1],
+            [isCandidateMode === true ? theme.colors.candidate.bgActive : theme.colors.white, pressAnimatedBgColor]
+        ),
         ...(!isCorrect && {
             transform: [
                 { translateX: interpolate(animated.value, [0, 0.5, 1], [0, -10, 10]) },
@@ -71,6 +76,7 @@ export const AvailableValuesItem = ({ value, onSelect, progress, correctValue, c
     const buttonStyles = [
         styles.button,
         { borderBottomColor: theme.colors.value.progress, borderColor: theme.colors.value.border },
+        isCandidateMode === true && { backgroundColor: theme.colors.candidate.bgActive },
         animatedStyles
     ];
     const progressStyles = [
@@ -78,7 +84,10 @@ export const AvailableValuesItem = ({ value, onSelect, progress, correctValue, c
         { backgroundColor: theme.colors.cell.active },
         { width: `${progress}%` }
     ] as StyleProp<ViewStyle>;
-    const textStyles = [{ fontSize: CellFontSizeConstant * fontSizeMultiplier }, { color: theme.colors.value.text }];
+    const textStyles = [
+        { fontSize: CellFontSizeConstant * fontSizeMultiplier },
+        { color: isCandidateMode === true ? theme.colors.candidate.textActive : theme.colors.value.text }
+    ];
 
     return (
         <View style={styles.container} testID={selectors.Root}>

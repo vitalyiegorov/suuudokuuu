@@ -52,7 +52,13 @@ export const gameSlice = createSlice({
             const candidates = state.manualCandidates[key] ?? [];
             
             if (candidates.includes(value)) {
-                state.manualCandidates[key] = candidates.filter(candidate => candidate !== value);
+                const filtered = candidates.filter(candidate => candidate !== value);
+                if (filtered.length === 0) {
+                    // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+                    delete state.manualCandidates[key];
+                } else {
+                    state.manualCandidates[key] = filtered;
+                }
             } else {
                 state.manualCandidates[key] = [...candidates, value].sort((valueA, valueB) => valueA - valueB);
             }
