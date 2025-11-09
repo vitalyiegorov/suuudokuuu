@@ -12,6 +12,8 @@ export const AvailableValuesItemStyles = StyleSheet.create({
         borderWidth: 1,
         height: buttonSize,
         justifyContent: 'center',
+        outlineOffset: 0,
+        outlineWidth: 0,
         width: buttonSize
     },
     container: {
