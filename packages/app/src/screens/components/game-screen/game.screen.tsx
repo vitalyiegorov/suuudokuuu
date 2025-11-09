@@ -148,6 +148,7 @@ export const GameScreen = () => {
         if (!selectedCell) {
             return;
         }
+
         const newValueCell = { ...selectedCell, value };
         if (sudoku.isCorrectValue(newValueCell)) {
             const newScoredCells = sudoku.setCellValue(newValueCell);
@@ -248,19 +249,15 @@ export const GameScreen = () => {
             </View>
 
             <View style={styles.availableValuesWrapper}>
-                {inputMode === 'candidate' ? (
-                    // Manual candidate input mode
-                    sudoku.PossibleValues.map(value => (
+                {sudoku.PossibleValues.map(value =>
+                    inputMode === 'candidate' ? (
                         <CandidateInputItem
                             canPress={sudoku.isBlankCell(selectedCell)}
                             key={`candidate-value-${value}`}
                             onSelect={handleSelectValue}
                             value={value}
                         />
-                    ))
-                ) : (
-                    // Normal value input mode
-                    sudoku.PossibleValues.map(value => (
+                    ) : (
                         <AvailableValuesItem
                             canPress={sudoku.isBlankCell(selectedCell)}
                             correctValue={sudoku.getCorrectValue(selectedCell)}
@@ -270,7 +267,7 @@ export const GameScreen = () => {
                             ref={handleAvailableRef(value)}
                             value={value}
                         />
-                    ))
+                    )
                 )}
 
                 <InputModeButton />
