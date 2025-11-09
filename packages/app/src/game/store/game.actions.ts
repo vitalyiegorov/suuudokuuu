@@ -9,4 +9,7 @@ export const gameResumeAction = gameSlice.actions.resume;
 export const gameTickAction = gameSlice.actions.tick;
 export const gameMistakeAction = gameSlice.actions.mistake;
 export const gameToggleCandidatesAction = gameSlice.actions.toggleCandidates;
+export const gameToggleInputModeAction = gameSlice.actions.toggleInputMode;
+export const gameToggleCellCandidateAction = gameSlice.actions.toggleCellCandidate;
+export const gameClearCellCandidatesAction = gameSlice.actions.clearCellCandidates;
 export const gameFinishAction = gameSlice.actions.finish;

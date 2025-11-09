@@ -8,7 +8,7 @@ import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { settingsFontSizeMultiplierSelector } from '../../../settings/store/settings.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { GameContext } from '../../context/game.context';
-import { gameHasCandidatesSelector } from '../../store/game.selectors';
+import { gameHasCandidatesSelector, gameManualCandidatesSelector } from '../../store/game.selectors';
 import { CellFontSizeConstant } from '../constants/dimensions.contant';
 import { FieldCell } from '../field-cell/field-cell';
 import { FieldCellCandidates } from '../field-cell-candidates/field-cell-candidates';
@@ -35,6 +35,7 @@ export const Field = ({ selectedCell, onSelect, scoredCells }: Props) => {
     const { theme } = use(ThemeContext);
 
     const hasCandidates = useAppSelector(gameHasCandidatesSelector);
+    const manualCandidates = useAppSelector(gameManualCandidatesSelector);
     const fontSizeMultiplier = useAppSelector(settingsFontSizeMultiplierSelector);
     const fontSize = CellFontSizeConstant * fontSizeMultiplier;
 
@@ -79,7 +80,14 @@ export const Field = ({ selectedCell, onSelect, scoredCells }: Props) => {
                         const isHighlighted = sudoku.isCellHighlighted(cell, selectedCell);
                         const isWrong = sudoku.isCellWrong(cell, selectedCell);
                         const isEmpty = sudoku.isBlankCell(cell);
-                        const candidates = isEmpty && hasCandidates ? sudoku.getCellCandidates(cell) : [];
+                        
+                        // Get candidates: manual candidates if set, otherwise auto-generated
+                        const cellKey = `${cell.x}-${cell.y}`;
+                        const hasManualCandidates = cellKey in manualCandidates;
+                        let candidates: number[] = [];
+                        if (isEmpty && hasCandidates) {
+                            candidates = hasManualCandidates ? manualCandidates[cellKey] : sudoku.getCellCandidates(cell);
+                        }
 
                         return (
                             <FieldCell

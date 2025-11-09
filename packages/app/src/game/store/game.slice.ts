@@ -43,6 +43,26 @@ export const gameSlice = createSlice({
         toggleCandidates: state => {
             state.hasCandidates = !state.hasCandidates;
         },
+        toggleInputMode: state => {
+            state.inputMode = state.inputMode === 'normal' ? 'candidate' : 'normal';
+        },
+        toggleCellCandidate: (state, action: PayloadAction<{ x: number; y: number; value: number }>) => {
+            const { x, y, value } = action.payload;
+            const key = `${x}-${y}`;
+            const candidates = state.manualCandidates[key] ?? [];
+            
+            if (candidates.includes(value)) {
+                state.manualCandidates[key] = candidates.filter(candidate => candidate !== value);
+            } else {
+                state.manualCandidates[key] = [...candidates, value].sort((valueA, valueB) => valueA - valueB);
+            }
+        },
+        clearCellCandidates: (state, action: PayloadAction<{ x: number; y: number }>) => {
+            const { x, y } = action.payload;
+            const key = `${x}-${y}`;
+            // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+            delete state.manualCandidates[key];
+        },
         // eslint-disable-next-line max-statements
         finish: (state, action: PayloadAction<{ difficulty: DifficultyEnum; isWon: boolean }>) => {
             const { difficulty, isWon } = action.payload;

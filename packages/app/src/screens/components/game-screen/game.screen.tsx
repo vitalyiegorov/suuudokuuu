@@ -19,11 +19,19 @@ import { AutoCandidatesButton } from '../../../game/components/auto-candidates-b
 import { AvailableValuesItem, type AvailableValuesItemRef } from '../../../game/components/available-values-item/available-values-item';
 import { Field } from '../../../game/components/field/field';
 import { GameTimer } from '../../../game/components/game-timer/game-timer';
+import { InputModeButton } from '../../../game/components/input-mode-button/input-mode-button';
 import { GameContext } from '../../../game/context/game.context';
 import { useKeyboardControls } from '../../../game/hooks/use-keyboard-controls/use-keyboard-controls.hook';
 import { useShare } from '../../../game/hooks/use-share.hook';
-import { gameFinishAction, gameMistakeAction, gameResetAction, gameSaveAction } from '../../../game/store/game.actions';
-import { gameMaxMistakesSelector, gameMistakesSelector, gameScoreSelector } from '../../../game/store/game.selectors';
+import {
+    gameClearCellCandidatesAction,
+    gameFinishAction,
+    gameMistakeAction,
+    gameResetAction,
+    gameSaveAction,
+    gameToggleCellCandidateAction
+} from '../../../game/store/game.actions';
+import { gameInputModeSelector, gameMaxMistakesSelector, gameMistakesSelector, gameScoreSelector } from '../../../game/store/game.selectors';
 import { settingsKeySelector } from '../../../settings/store/settings.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
 
@@ -54,6 +62,7 @@ export const GameScreen = () => {
     const mistakes = useAppSelector(gameMistakesSelector);
     const maxMistakes = useAppSelector(gameMaxMistakesSelector);
     const hasTimer = useAppSelector(settingsKeySelector('hasTimer'));
+    const inputMode = useAppSelector(gameInputModeSelector);
 
     const [selectedCell, setSelectedCell] = useState<CellInterface>();
     const [hasSharing, setHasSharing] = useState(false);
@@ -121,23 +130,45 @@ export const GameScreen = () => {
         }
     };
 
+    const handleCandidateInput = (value: number) => {
+        if (!selectedCell) {
+            return;
+        }
+        dispatch(gameToggleCellCandidateAction({ x: selectedCell.x, y: selectedCell.y, value }));
+        hapticImpact(ImpactFeedbackStyle.Light);
+    };
+
+    const handleNormalInput = (value: number) => {
+        if (!selectedCell) {
+            return;
+        }
+        const newValueCell = { ...selectedCell, value };
+        if (sudoku.isCorrectValue(newValueCell)) {
+            const newScoredCells = sudoku.setCellValue(newValueCell);
+
+            // Clear candidates for this cell when a value is set
+            dispatch(gameClearCellCandidatesAction({ x: selectedCell.x, y: selectedCell.y }));
+
+            handleCorrectValue(selectedCell, newScoredCells);
+
+            if (newScoredCells.isWon) {
+                handleWonGame();
+            }
+        } else {
+            handleWrongValue();
+        }
+    };
+
     const handleSelectValue = (value: number) => {
         const isBlankCellSelected = sudoku.isBlankCell(selectedCell);
 
         if (isBlankCellSelected) {
             availableValuesRefs.current[value]?.triggerAnimation();
 
-            const newValueCell = { ...selectedCell, value };
-            if (sudoku.isCorrectValue(newValueCell)) {
-                const newScoredCells = sudoku.setCellValue(newValueCell);
-
-                handleCorrectValue(selectedCell, newScoredCells);
-
-                if (newScoredCells.isWon) {
-                    handleWonGame();
-                }
+            if (inputMode === 'candidate') {
+                handleCandidateInput(value);
             } else {
-                handleWrongValue();
+                handleNormalInput(value);
             }
         }
     };
@@ -224,6 +255,7 @@ export const GameScreen = () => {
                 ))}
 
                 {hideAutoCandidates ? null : <AutoCandidatesButton />}
+                <InputModeButton />
             </View>
         </View>
     );

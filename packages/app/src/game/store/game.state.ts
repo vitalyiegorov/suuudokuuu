@@ -6,6 +6,8 @@ import { solutionStepsParse, solutionStepsStringify } from '../interface/solutio
 import type { HistoryGameInterface } from '../../history/interfaces/history-game.interface';
 import type { SolutionStepInterface } from '../interface/solution-step.interface';
 
+export type InputMode = 'normal' | 'candidate';
+
 export interface GameState {
     sudokuString: string;
     score: number;
@@ -15,12 +17,14 @@ export interface GameState {
     isPaused: boolean;
     isFinished: boolean;
     hasCandidates: boolean;
+    inputMode: InputMode;
+    manualCandidates: Record<string, number[]>;
     solutionSteps: SolutionStepInterface[];
     historyByDifficulty: Record<DifficultyEnum, HistoryGameInterface>;
 }
 
 export type SerializedGameState = Partial<Record<keyof Omit<GameState, 'sudokuString'>, string>> & Pick<GameState, 'sudokuString'>;
-export type SharableGameState = Omit<GameState, 'isPaused' | 'isFinished' | 'hasCandidates' | 'historyByDifficulty'>;
+export type SharableGameState = Omit<GameState, 'isPaused' | 'isFinished' | 'hasCandidates' | 'inputMode' | 'manualCandidates' | 'historyByDifficulty'>;
 
 export const initialGameState: GameState = {
     isFinished: false,
@@ -31,6 +35,8 @@ export const initialGameState: GameState = {
     maxMistakes: 3,
     score: 0,
     hasCandidates: false,
+    inputMode: 'normal',
+    manualCandidates: {},
     historyByDifficulty: {
         [DifficultyEnum.Newbie]: { ...emptyGameHistory, difficulty: DifficultyEnum.Newbie },
         [DifficultyEnum.Easy]: { ...emptyGameHistory, difficulty: DifficultyEnum.Easy },
@@ -42,7 +48,7 @@ export const initialGameState: GameState = {
 };
 
 export const gameStateToUrl = (gameState: GameState): string => {
-    const { isFinished, isPaused, hasCandidates, solutionSteps, historyByDifficulty, ...persistedParams } = gameState;
+    const { isFinished, isPaused, hasCandidates, inputMode, manualCandidates, solutionSteps, historyByDifficulty, ...persistedParams } = gameState;
 
     return btoa(JSON.stringify({ ...persistedParams, solutionSteps: solutionStepsStringify(solutionSteps) }));
 };
