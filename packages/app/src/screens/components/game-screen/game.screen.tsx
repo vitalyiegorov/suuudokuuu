@@ -255,7 +255,7 @@ export const GameScreen = () => {
                     />
                 ))}
 
-                {hideAutoCandidates ? null : <AutoCandidatesButton />}
+                {hideAutoCandidates || inputMode === 'candidate' ? null : <AutoCandidatesButton />}
                 <InputModeButton />
             </View>
         </View>

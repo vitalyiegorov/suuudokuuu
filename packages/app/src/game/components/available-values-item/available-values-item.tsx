@@ -46,19 +46,26 @@ export const AvailableValuesItem = ({ value, onSelect, progress, correctValue, c
     const pressAnimatedBgColor = isCorrect ? theme.colors.cell.active : theme.colors.cell.error;
 
     const animated = useSharedValue(0);
-    const animatedStyles = useAnimatedStyle(() => ({
-        backgroundColor: interpolateColor(
-            animated.value,
-            [0, 1],
-            [isCandidateMode === true ? theme.colors.candidate.bgActive : theme.colors.white, pressAnimatedBgColor]
-        ),
-        ...(!isCorrect && {
-            transform: [
-                { translateX: interpolate(animated.value, [0, 0.5, 1], [0, -10, 10]) },
-                { rotate: `${interpolate(animated.value, [0, 0.5, 1], [0, -20, 20])}deg` }
-            ]
-        })
-    }));
+    
+    // Different animation for candidate mode - simple opacity pulse instead of color/shake
+    const candidateOpacityMin = 0.6;
+    const animatedStyles = useAnimatedStyle(() => {
+        if (isCandidateMode === true) {
+            return {
+                opacity: interpolate(animated.value, [0, 0.5, 1], [1, candidateOpacityMin, 1])
+            };
+        }
+        
+        return {
+            backgroundColor: interpolateColor(animated.value, [0, 1], [theme.colors.white, pressAnimatedBgColor]),
+            ...(!isCorrect && {
+                transform: [
+                    { translateX: interpolate(animated.value, [0, 0.5, 1], [0, -10, 10]) },
+                    { rotate: `${interpolate(animated.value, [0, 0.5, 1], [0, -20, 20])}deg` }
+                ]
+            })
+        };
+    });
 
     const triggerAnimationFn = () => {
         animated.value = withSequence(withTiming(1, { duration: 200 }), withTiming(0, { duration: 200 }));
@@ -75,8 +82,11 @@ export const AvailableValuesItem = ({ value, onSelect, progress, correctValue, c
 
     const buttonStyles = [
         styles.button,
-        { borderBottomColor: theme.colors.value.progress, borderColor: theme.colors.value.border },
-        isCandidateMode === true && { backgroundColor: theme.colors.candidate.bgActive },
+        { 
+            borderBottomColor: isCandidateMode === true ? theme.colors.value.border : theme.colors.value.progress, 
+            borderColor: isCandidateMode === true ? theme.colors.candidate.bgActive : theme.colors.value.border,
+            borderWidth: isCandidateMode === true ? 2 : 1
+        },
         animatedStyles
     ];
     const progressStyles = [
@@ -86,7 +96,7 @@ export const AvailableValuesItem = ({ value, onSelect, progress, correctValue, c
     ] as StyleProp<ViewStyle>;
     const textStyles = [
         { fontSize: CellFontSizeConstant * fontSizeMultiplier },
-        { color: isCandidateMode === true ? theme.colors.candidate.textActive : theme.colors.value.text }
+        { color: theme.colors.value.text }
     ];
 
     return (
@@ -97,7 +107,7 @@ export const AvailableValuesItem = ({ value, onSelect, progress, correctValue, c
                 </Text>
             </ReanimatedPressable>
 
-            <View style={progressStyles} />
+            {isCandidateMode !== true && <View style={progressStyles} />}
         </View>
     );
 };

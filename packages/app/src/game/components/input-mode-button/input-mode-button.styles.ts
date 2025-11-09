@@ -1,7 +1,11 @@
 import { StyleSheet } from 'react-native';
 
+import { CellSizeConstant } from '../constants/dimensions.contant';
+
 export const InputModeButtonStyles = StyleSheet.create({
     button: {
-        marginTop: 5
+        height: CellSizeConstant * 1.3,
+        marginTop: 5,
+        width: CellSizeConstant * 1.3
     }
 });
