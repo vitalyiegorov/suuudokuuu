@@ -8,6 +8,12 @@ import { gameToggleInputModeAction } from '../../store/game.actions';
 import type { OnEventFn } from '@rnw-community/shared';
 import type { CellInterface, Sudoku } from '@suuudokuuu/generator';
 
+/* eslint-disable lingui/no-unlocalized-strings */
+const ARROW_KEYS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
+const WASD_KEYS = ['KeyW', 'KeyA', 'KeyS', 'KeyD'];
+const TOGGLE_KEYS = ['Tab', 'Space'];
+/* eslint-enable lingui/no-unlocalized-strings */
+
 export const useKeyboardControls = (
     sudoku: Sudoku,
     selectedCell: CellInterface | undefined,
@@ -19,12 +25,6 @@ export const useKeyboardControls = (
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        /* eslint-disable lingui/no-unlocalized-strings */
-        const ARROW_KEYS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
-        const WASD_KEYS = ['KeyW', 'KeyA', 'KeyS', 'KeyD'];
-        const TOGGLE_KEYS = ['Tab', 'Space'];
-        /* eslint-enable lingui/no-unlocalized-strings */
-
         // eslint-disable-next-line max-statements
         const handleKeyDown = (e: KeyboardEvent) => {
             const { key, code } = e;
