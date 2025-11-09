@@ -12,6 +12,8 @@ export const CandidateInputItemStyles = StyleSheet.create({
         borderWidth: 2,
         height: buttonSize,
         justifyContent: 'center',
+        outlineOffset: 0,
+        outlineWidth: 0,
         width: buttonSize
     },
     container: {

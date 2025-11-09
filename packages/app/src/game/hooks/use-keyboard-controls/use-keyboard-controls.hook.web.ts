@@ -11,32 +11,6 @@ import type { CellInterface, Sudoku } from '@suuudokuuu/generator';
 const ARROW_KEYS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
 const WASD_KEYS = ['KeyW', 'KeyA', 'KeyS', 'KeyD'];
 
-interface NavigationOptions {
-    key: string;
-    code: string;
-    sudoku: Sudoku;
-    selectedCell: CellInterface | undefined;
-}
-
-const getNextCell = (options: NavigationOptions): CellInterface | undefined => {
-    const { key, code, sudoku, selectedCell } = options;
-    const currentCell = selectedCell ?? sudoku.Field[0][0];
-    const lastRowIndex = sudoku.Field.length - 1;
-    const lastColIndex = sudoku.Field[currentCell.y].length - 1;
-
-    if (key === 'ArrowUp' || code === 'KeyW') {
-        return sudoku.getCellUp(currentCell) ?? sudoku.Field[lastRowIndex][currentCell.x];
-    } else if (key === 'ArrowDown' || code === 'KeyS') {
-        return sudoku.getCellDown(currentCell) ?? sudoku.Field[0][currentCell.x];
-    } else if (key === 'ArrowLeft' || code === 'KeyA') {
-        return sudoku.getCellLeft(currentCell) ?? sudoku.Field[currentCell.y][lastColIndex];
-    } else if (key === 'ArrowRight' || code === 'KeyD') {
-        return sudoku.getCellRight(currentCell) ?? sudoku.Field[currentCell.y][0];
-    }
-
-    return undefined;
-};
-
 export const useKeyboardControls = (
     sudoku: Sudoku,
     selectedCell: CellInterface | undefined,
@@ -48,13 +22,27 @@ export const useKeyboardControls = (
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        // eslint-disable-next-line max-statements
+        // eslint-disable-next-line max-statements, complexity
         const handleKeyDown = (e: KeyboardEvent) => {
             const { key, code } = e;
 
             if (ARROW_KEYS.includes(key) || WASD_KEYS.includes(code)) {
                 e.preventDefault();
-                const nextCell = getNextCell({ key, code, sudoku, selectedCell });
+                const currentCell = selectedCell ?? sudoku.Field[0][0];
+                const lastRowIndex = sudoku.Field.length - 1;
+                const lastColIndex = sudoku.Field[currentCell.y].length - 1;
+
+                let nextCell: CellInterface | undefined;
+                if (key === 'ArrowUp' || code === 'KeyW') {
+                    nextCell = sudoku.getCellUp(currentCell) ?? sudoku.Field[lastRowIndex][currentCell.x];
+                } else if (key === 'ArrowDown' || code === 'KeyS') {
+                    nextCell = sudoku.getCellDown(currentCell) ?? sudoku.Field[0][currentCell.x];
+                } else if (key === 'ArrowLeft' || code === 'KeyA') {
+                    nextCell = sudoku.getCellLeft(currentCell) ?? sudoku.Field[currentCell.y][lastColIndex];
+                } else if (key === 'ArrowRight' || code === 'KeyD') {
+                    nextCell = sudoku.getCellRight(currentCell) ?? sudoku.Field[currentCell.y][0];
+                }
+
                 onSelectCell(nextCell);
 
                 return;

@@ -25,7 +25,6 @@ import { GameContext } from '../../../game/context/game.context';
 import { useKeyboardControls } from '../../../game/hooks/use-keyboard-controls/use-keyboard-controls.hook';
 import { useShare } from '../../../game/hooks/use-share.hook';
 import {
-    gameClearCellCandidatesAction,
     gameFinishAction,
     gameMistakeAction,
     gameResetAction,
@@ -118,7 +117,7 @@ export const GameScreen = () => {
     };
 
     const handleCorrectValue = (correctCell: CellInterface, newScoredCells: ScoredCellsInterface) => {
-        dispatch(gameSaveAction({ sudoku, scoredCells, correctCell }));
+        dispatch(gameSaveAction({ sudoku, scoredCells: newScoredCells, correctCell }));
 
         hapticNotification(Haptics.NotificationFeedbackType.Success);
 
@@ -145,8 +144,6 @@ export const GameScreen = () => {
         const newValueCell = { ...cell, value };
         if (sudoku.isCorrectValue(newValueCell)) {
             const newScoredCells = sudoku.setCellValue(newValueCell);
-
-            dispatch(gameClearCellCandidatesAction(cell));
 
             handleCorrectValue(cell, newScoredCells);
 
