@@ -23,7 +23,7 @@ const migrations: MigrationManifest<RootState> = {
             }
         }
     }),
-    13: state => ({ ...initialGameState, ...state })
+    13: state => ({ ...state, [gameSlice.name]: { ...initialGameState, ...state[gameSlice.name] } })
 };
 
 const rootReducer = combineReducers({

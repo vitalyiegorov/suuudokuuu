@@ -27,69 +27,26 @@ export const gameSlice = createSlice({
         // eslint-disable-next-line max-statements
         save: (state, action: PayloadAction<{ sudoku: Sudoku; correctCell: CellInterface; scoredCells: ScoredCellsInterface }>) => {
             const { sudoku, correctCell, scoredCells } = action.payload;
-            const { x, y, value } = correctCell;
-            
+
             state.sudokuString = sudoku.toString();
             state.score += sudoku.getScore(scoredCells, state.elapsedTime, state.mistakes);
             state.solutionSteps.push(solutionStepFromCell(correctCell, state.elapsedTime));
-            
-            // Clear candidates from the filled cell
+
             state.candidates[getCellKey(correctCell)] = [];
-            
-            /*
-             * Clear the filled value from all related cells' manual candidates
-             * Use sudoku's Field to efficiently get field dimensions
-             */
-            const fieldSize = sudoku.Field.length;
-            // Standard Sudoku box size
-            const boxSize = 3;
-            const boxX = Math.floor(x / boxSize) * boxSize;
-            const boxY = Math.floor(y / boxSize) * boxSize;
-            
-            for (let i = 0; i < fieldSize; i += 1) {
-                // Clear from same row
-                const rowKey = `${i}-${y}`;
-                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-                if (state.candidates[rowKey]?.includes(value)) {
-                    const filtered = state.candidates[rowKey].filter(candidate => candidate !== value);
-                    if (filtered.length === 0) {
-                        // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-                        delete state.candidates[rowKey];
-                    } else {
-                        state.candidates[rowKey] = filtered;
-                    }
-                }
-                
-                // Clear from same column
-                const colKey = `${x}-${i}`;
-                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-                if (state.candidates[colKey]?.includes(value)) {
-                    const filtered = state.candidates[colKey].filter(candidate => candidate !== value);
-                    if (filtered.length === 0) {
-                        // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-                        delete state.candidates[colKey];
-                    } else {
-                        state.candidates[colKey] = filtered;
-                    }
-                }
-            }
-            
-            // Clear from same box
-            for (let by = boxY; by < boxY + boxSize; by += 1) {
-                for (let bx = boxX; bx < boxX + boxSize; bx += 1) {
-                    const boxKey = `${bx}-${by}`;
-                    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-                    if (state.candidates[boxKey]?.includes(value)) {
-                        const filtered = state.candidates[boxKey].filter(candidate => candidate !== value);
-                        if (filtered.length === 0) {
-                            // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-                            delete state.candidates[boxKey];
-                        } else {
-                            state.candidates[boxKey] = filtered;
+
+            sudoku.Field.forEach(
+                row =>
+                    void row.forEach(cell => {
+                        if (sudoku.isBlankCell(cell)) {
+                            const possibleCandidates = sudoku.getCellCandidates(cell);
+
+                            const key = getCellKey(cell);
+                            const currentCandidates = state.candidates[key] ?? [];
+
+                            state.candidates[key] = currentCandidates.filter(candidate => possibleCandidates.includes(candidate));
                         }
-                    }
-                }
-            }
+                    })
+            );
         },
         mistake: state => {
             state.mistakes += 1;
