@@ -34,7 +34,10 @@ export const NewspaperLightTheme: ThemeInterface = {
         candidate: {
             text: 'rgba(26, 26, 26, 0.5)',
             textActive: '#1a1a1a',
-            bgActive: '#dcdcdc'
+            bgActive: '#dcdcdc',
+            bg: '#ffffff',
+            border: 'rgba(26, 26, 26, 0.1)',
+            borderActive: '#1a1a1a'
         }
     }
 };
@@ -73,7 +76,10 @@ export const NewspaperDarkTheme: ThemeInterface = {
         candidate: {
             text: 'rgba(240, 240, 240, 0.5)',
             textActive: '#ffffff',
-            bgActive: '#444444'
+            bgActive: '#444444',
+            bg: '#1a1a1a',
+            border: 'rgba(240, 240, 240, 0.1)',
+            borderActive: '#ffffff'
         }
     }
 };

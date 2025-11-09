@@ -15,7 +15,7 @@ React Native / Expo application package
 
 ### UI/UX
 
-- [ ] add hints in the cells for possible values, switching this mode on/off
+- [x] add hints in the cells for possible values, switching this mode on/off (candidate mode with manual/auto toggle)
 - [ ] add gamification and percentage of completeness
 - [ ] best stats is confusing and not clear, especially time:
     - [ ] add best time/score for each difficulty, when user selects difficulty show separate screen
