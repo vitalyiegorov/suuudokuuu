@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.46.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.45.0...v1.46.0) (2025-11-09)
+
+### Features
+
+- **app:** clear impossible candidates on input ([#105](https://github.com/vitalyiegorov/suuudokuuu/issues/105)) ([3dce46b](https://github.com/vitalyiegorov/suuudokuuu/commit/3dce46b4c33fb648af2dfcf45baae211c17ea8bb))
+
 # [1.45.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.44.1...v1.45.0) (2025-11-09)
 
 ### Features
