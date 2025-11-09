@@ -9,7 +9,7 @@ import { getCellKey } from '../../../@generic/utils/get-cell-key.util';
 import { settingsFontSizeMultiplierSelector } from '../../../settings/store/settings.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { GameContext } from '../../context/game.context';
-import { gameHasAutoCandidatesSelector, gameManualCandidatesSelector } from '../../store/game.selectors';
+import { gameCandidatesSelector, gameShowAutoCandidatesSelector } from '../../store/game.selectors';
 import { CellFontSizeConstant } from '../constants/dimensions.contant';
 import { FieldCell } from '../field-cell/field-cell';
 import { FieldCellCandidates } from '../field-cell-candidates/field-cell-candidates';
@@ -33,8 +33,8 @@ export const Field = ({ selectedCell, onSelect, scoredCells }: Props) => {
     const { sudoku } = use(GameContext);
     const { theme } = use(ThemeContext);
 
-    const showAutoCandidates = useAppSelector(gameHasAutoCandidatesSelector);
-    const manualCandidates = useAppSelector(gameManualCandidatesSelector);
+    const showAutoCandidates = useAppSelector(gameShowAutoCandidatesSelector);
+    const candidates = useAppSelector(gameCandidatesSelector);
     const fontSizeMultiplier = useAppSelector(settingsFontSizeMultiplierSelector);
     const fontSize = CellFontSizeConstant * fontSizeMultiplier;
 
@@ -80,8 +80,8 @@ export const Field = ({ selectedCell, onSelect, scoredCells }: Props) => {
                         const isWrong = sudoku.isCellWrong(cell, selectedCell);
                         const isEmpty = sudoku.isBlankCell(cell);
 
-                        const candidates = showAutoCandidates ? sudoku.getCellCandidates(cell) : (manualCandidates[getCellKey(cell)] ?? []);
-                        const shouldShowCandidates = isEmpty && candidates.length > 0;
+                        const cellCandidates = showAutoCandidates ? sudoku.getCellCandidates(cell) : (candidates[getCellKey(cell)] ?? []);
+                        const shouldShowCandidates = isEmpty && cellCandidates.length > 0;
 
                         return (
                             <FieldCell
@@ -95,16 +95,16 @@ export const Field = ({ selectedCell, onSelect, scoredCells }: Props) => {
                                 onSelect={onSelect}
                             >
                                 {shouldShowCandidates ? (
-                                    <FieldCellCandidates activeValue={selectedCell?.value} candidates={candidates} />
+                                    <FieldCellCandidates activeValue={selectedCell?.value} candidates={cellCandidates} />
                                 ) : null}
                                 <FieldCellText
                                     cell={cell}
                                     hasAnimation={animatedCells.has(getCellKey(cell))}
-                                    hasCandidates={shouldShowCandidates}
                                     isActive={isActive}
                                     isActiveValue={isActiveValue}
                                     isEmpty={isEmpty}
                                     isHighlighted={isHighlighted}
+                                    showAutoCandidates={shouldShowCandidates}
                                     textAnimatedStyle={textAnimatedStyles}
                                 />
                             </FieldCell>

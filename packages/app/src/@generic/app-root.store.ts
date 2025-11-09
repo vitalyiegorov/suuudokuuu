@@ -22,7 +22,8 @@ const migrations: MigrationManifest<RootState> = {
                 ...(state.history?.byDifficulty as unknown as GameState['historyByDifficulty'])
             }
         }
-    })
+    }),
+    13: state => ({ ...initialGameState, ...state })
 };
 
 const rootReducer = combineReducers({

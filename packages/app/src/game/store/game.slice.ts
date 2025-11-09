@@ -41,10 +41,10 @@ export const gameSlice = createSlice({
         reset: state => {
             Object.assign(state, { ...initialGameState, historyByDifficulty: state.historyByDifficulty });
         },
-        toggleCandidates: state => {
-            state.hasCandidates = !state.hasCandidates;
+        toggleShowAutoCandidates: state => {
+            state.showAutoCandidates = !state.showAutoCandidates;
 
-            if (state.hasCandidates) {
+            if (state.showAutoCandidates) {
                 state.inputMode = 'normal';
             }
         },
@@ -53,23 +53,23 @@ export const gameSlice = createSlice({
             state.inputMode = newMode;
 
             if (newMode === 'candidate') {
-                state.hasCandidates = false;
+                state.showAutoCandidates = false;
             }
         },
         toggleCellCandidate: (state, action: PayloadAction<CellInterface>) => {
             const { value } = action.payload;
 
             const key = getCellKey(action.payload);
-            const candidates = state.manualCandidates[key] ?? [];
+            const candidates = state.candidates[key] ?? [];
 
             if (candidates.includes(value)) {
-                state.manualCandidates[key] = candidates.filter(val => val !== value);
+                state.candidates[key] = candidates.filter(val => val !== value);
             } else {
-                state.manualCandidates[key] = [...candidates, value];
+                state.candidates[key] = [...candidates, value];
             }
         },
         clearCellCandidates: (state, action: PayloadAction<CellInterface>) => {
-            state.manualCandidates[getCellKey(action.payload)] = [];
+            state.candidates[getCellKey(action.payload)] = [];
         },
         // eslint-disable-next-line max-statements
         finish: (state, action: PayloadAction<{ difficulty: DifficultyEnum; isWon: boolean }>) => {

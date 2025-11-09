@@ -18,16 +18,16 @@ export interface GameState {
     elapsedTime: number;
     isPaused: boolean;
     isFinished: boolean;
-    hasCandidates: boolean;
+    showAutoCandidates: boolean;
     inputMode: InputMode;
-    manualCandidates: Record<string, number[]>;
+    candidates: Record<string, number[]>;
     solutionSteps: SolutionStepInterface[];
     historyByDifficulty: Record<DifficultyEnum, HistoryGameInterface>;
 }
 
-export type SerializedGameState = Partial<Record<keyof Omit<GameState, 'sudokuString' | 'manualCandidates'>, string>> &
-    Pick<GameState, 'sudokuString' | 'manualCandidates'>;
-export type SharableGameState = Omit<GameState, 'isPaused' | 'isFinished' | 'hasCandidates' | 'inputMode' | 'historyByDifficulty'>;
+export type SerializedGameState = Partial<Record<keyof Omit<GameState, 'sudokuString' | 'candidates'>, string>> &
+    Pick<GameState, 'sudokuString' | 'candidates'>;
+export type SharableGameState = Omit<GameState, 'isPaused' | 'isFinished' | 'showAutoCandidates' | 'inputMode' | 'historyByDifficulty'>;
 
 export const initialGameState: GameState = {
     isFinished: false,
@@ -37,9 +37,9 @@ export const initialGameState: GameState = {
     mistakes: 0,
     maxMistakes: 3,
     score: 0,
-    hasCandidates: false,
+    showAutoCandidates: false,
     inputMode: 'normal',
-    manualCandidates: {},
+    candidates: {},
     historyByDifficulty: {
         [DifficultyEnum.Newbie]: { ...emptyGameHistory, difficulty: DifficultyEnum.Newbie },
         [DifficultyEnum.Easy]: { ...emptyGameHistory, difficulty: DifficultyEnum.Easy },
@@ -51,7 +51,7 @@ export const initialGameState: GameState = {
 };
 
 export const gameStateToUrl = (gameState: GameState): string => {
-    const { isFinished, isPaused, hasCandidates, inputMode, solutionSteps, historyByDifficulty, ...persistedParams } = gameState;
+    const { isFinished, isPaused, showAutoCandidates, inputMode, solutionSteps, historyByDifficulty, ...persistedParams } = gameState;
 
     return btoa(JSON.stringify({ ...persistedParams, solutionSteps: solutionStepsStringify(solutionSteps) }));
 };
@@ -66,6 +66,6 @@ export const urlToGameState = (gameStateString: string): SharableGameState => {
         maxMistakes: parseInt(input.maxMistakes ?? '0', 10),
         elapsedTime: parseInt(input.elapsedTime ?? '0', 10),
         solutionSteps: solutionStepsParse(input.solutionSteps),
-        manualCandidates: isDefined(input.manualCandidates) ? input.manualCandidates : {}
+        candidates: isDefined(input.candidates) ? input.candidates : {}
     };
 };

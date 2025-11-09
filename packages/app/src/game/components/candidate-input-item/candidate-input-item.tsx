@@ -8,7 +8,7 @@ import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { getCellKey } from '../../../@generic/utils/get-cell-key.util';
 import { settingsFontSizeMultiplierSelector } from '../../../settings/store/settings.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
-import { gameManualCandidatesSelector } from '../../store/game.selectors';
+import { gameCandidatesSelector } from '../../store/game.selectors';
 import { CellFontSizeConstant } from '../constants/dimensions.contant';
 
 import { CandidateInputItemStyles as styles } from './candidate-input-item.styles';
@@ -28,11 +28,10 @@ interface Props {
 export const CandidateInputItem = ({ selectedCell, value, onSelect, canPress }: Props) => {
     const { theme } = use(ThemeContext);
 
-    const manualCandidates = useAppSelector(gameManualCandidatesSelector);
-
-    const isSelected = isDefined(selectedCell) && (manualCandidates[getCellKey(selectedCell)] ?? []).includes(value);
-
+    const candidates = useAppSelector(gameCandidatesSelector);
     const fontSizeMultiplier = useAppSelector(settingsFontSizeMultiplierSelector);
+
+    const isSelected = isDefined(selectedCell) && (candidates[getCellKey(selectedCell)] ?? []).includes(value);
 
     const animated = useSharedValue(isSelected ? 1 : 0);
 
