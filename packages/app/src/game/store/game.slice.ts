@@ -37,7 +37,10 @@ export const gameSlice = createSlice({
             sudoku.Field.forEach(
                 row =>
                     void row.forEach(cell => {
-                        if (sudoku.isBlankCell(cell)) {
+                        if (
+                            sudoku.isBlankCell(cell) &&
+                            (cell.x === correctCell.x || cell.y === correctCell.y || cell.group === correctCell.group)
+                        ) {
                             const possibleCandidates = sudoku.getCellCandidates(cell);
 
                             const key = getCellKey(cell);
