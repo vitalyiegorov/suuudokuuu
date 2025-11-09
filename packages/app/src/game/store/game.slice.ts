@@ -87,9 +87,6 @@ export const gameSlice = createSlice({
                 state.candidates[key] = [...candidates, value];
             }
         },
-        clearCellCandidates: (state, action: PayloadAction<CellInterface>) => {
-            state.candidates[getCellKey(action.payload)] = [];
-        },
         // eslint-disable-next-line max-statements
         finish: (state, action: PayloadAction<{ difficulty: DifficultyEnum; isWon: boolean }>) => {
             const { difficulty, isWon } = action.payload;
