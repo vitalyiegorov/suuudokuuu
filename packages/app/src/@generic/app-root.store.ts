@@ -36,7 +36,7 @@ const persistedReducer = persistReducer(
     {
         key: 'root',
         storage: AsyncStorage,
-        version: 12,
+        version: 13,
         migrate: createMigrate(migrations)
     },
     rootReducer
