@@ -26,6 +26,7 @@ import { useKeyboardControls } from '../../../game/hooks/use-keyboard-controls/u
 import { useShare } from '../../../game/hooks/use-share.hook';
 import {
     gameClearCellCandidatesAction,
+    gameClearRelatedCandidatesAction,
     gameFinishAction,
     gameMistakeAction,
     gameResetAction,
@@ -146,7 +147,10 @@ export const GameScreen = () => {
         if (sudoku.isCorrectValue(newValueCell)) {
             const newScoredCells = sudoku.setCellValue(newValueCell);
 
+            // Clear candidates from the filled cell
             dispatch(gameClearCellCandidatesAction(cell));
+            // Clear the filled value from all related cells' candidates
+            dispatch(gameClearRelatedCandidatesAction(newValueCell));
 
             handleCorrectValue(cell, newScoredCells);
 

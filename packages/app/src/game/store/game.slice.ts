@@ -71,6 +71,48 @@ export const gameSlice = createSlice({
         clearCellCandidates: (state, action: PayloadAction<CellInterface>) => {
             state.candidates[getCellKey(action.payload)] = [];
         },
+        // eslint-disable-next-line max-statements, no-continue
+        clearRelatedCandidates: (state, action: PayloadAction<CellInterface>) => {
+            const { x, y, value } = action.payload;
+            
+            // Calculate box coordinates
+            const boxX = Math.floor(x / 3) * 3;
+            const boxY = Math.floor(y / 3) * 3;
+            
+            // Iterate through all possible cells (9x9 grid)
+            for (let row = 0; row < 9; row += 1) {
+                for (let col = 0; col < 9; col += 1) {
+                    // Check if cell is in same row, column, or box
+                    const isSameRow = row === y;
+                    const isSameCol = col === x;
+                    const isSameBox = col >= boxX && col < boxX + 3 && row >= boxY && row < boxY + 3;
+                    
+                    if (!isSameRow && !isSameCol && !isSameBox) {
+                        // eslint-disable-next-line no-continue
+                        continue;
+                    }
+                    
+                    const cellKey = `${col}-${row}`;
+                    const candidates = state.candidates[cellKey];
+                    
+                    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition, @typescript-eslint/strict-boolean-expressions
+                    if (!candidates) {
+                        // eslint-disable-next-line no-continue
+                        continue;
+                    }
+                    
+                    if (candidates.includes(value)) {
+                        const filtered = candidates.filter(candidate => candidate !== value);
+                        if (filtered.length === 0) {
+                            // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+                            delete state.candidates[cellKey];
+                        } else {
+                            state.candidates[cellKey] = filtered;
+                        }
+                    }
+                }
+            }
+        },
         // eslint-disable-next-line max-statements
         finish: (state, action: PayloadAction<{ difficulty: DifficultyEnum; isWon: boolean }>) => {
             const { difficulty, isWon } = action.payload;
