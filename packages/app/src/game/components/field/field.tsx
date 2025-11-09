@@ -17,9 +17,38 @@ import { FieldCellText } from '../field-cell-text/field-cell-text';
 import { FieldStyles as styles } from './field.styles';
 
 import type { OnEventFn } from '@rnw-community/shared';
-import type { CellInterface, ScoredCellsInterface } from '@suuudokuuu/generator';
+import type { CellInterface, ScoredCellsInterface, Sudoku } from '@suuudokuuu/generator';
 
 const getCellKey = (cell: CellInterface) => `${cell.y}-${cell.x}`;
+
+interface GetCellCandidatesOptions {
+    cell: CellInterface;
+    isEmpty: boolean;
+    manualCandidates: Record<string, number[]>;
+    hasCandidates: boolean;
+    sudoku: Sudoku;
+}
+
+const getCellCandidates = (options: GetCellCandidatesOptions): number[] => {
+    const { cell, isEmpty, manualCandidates, hasCandidates, sudoku } = options;
+    
+    if (!isEmpty) {
+        return [];
+    }
+
+    const cellKey = `${cell.x}-${cell.y}`;
+    const hasManualCandidates = cellKey in manualCandidates;
+
+    if (hasManualCandidates) {
+        // Always show manual candidates if they exist
+        return manualCandidates[cellKey];
+    } else if (hasCandidates) {
+        // Only show auto-generated candidates if the feature is enabled
+        return sudoku.getCellCandidates(cell);
+    }
+
+    return [];
+};
 
 const textAnimationConfig = { duration: 6 * animationDurationConstant };
 const FONT_SIZE_MULTIPLIER = 1.5;
@@ -81,13 +110,8 @@ export const Field = ({ selectedCell, onSelect, scoredCells }: Props) => {
                         const isWrong = sudoku.isCellWrong(cell, selectedCell);
                         const isEmpty = sudoku.isBlankCell(cell);
                         
-                        // Get candidates: manual candidates if set, otherwise auto-generated
-                        const cellKey = `${cell.x}-${cell.y}`;
-                        const hasManualCandidates = cellKey in manualCandidates;
-                        let candidates: number[] = [];
-                        if (isEmpty && hasCandidates) {
-                            candidates = hasManualCandidates ? manualCandidates[cellKey] : sudoku.getCellCandidates(cell);
-                        }
+                        const candidates = getCellCandidates({ cell, isEmpty, manualCandidates, hasCandidates, sudoku });
+                        const shouldShowCandidates = candidates.length > 0;
 
                         return (
                             <FieldCell
@@ -100,11 +124,11 @@ export const Field = ({ selectedCell, onSelect, scoredCells }: Props) => {
                                 key={`cell-${cell.y}-${cell.x}`}
                                 onSelect={onSelect}
                             >
-                                {hasCandidates ? <FieldCellCandidates activeValue={selectedCell?.value} candidates={candidates} /> : null}
+                                {shouldShowCandidates ? <FieldCellCandidates activeValue={selectedCell?.value} candidates={candidates} /> : null}
                                 <FieldCellText
                                     cell={cell}
                                     hasAnimation={animatedCells.has(getCellKey(cell))}
-                                    hasCandidates={hasCandidates}
+                                    hasCandidates={shouldShowCandidates}
                                     isActive={isActive}
                                     isActiveValue={isActiveValue}
                                     isEmpty={isEmpty}
