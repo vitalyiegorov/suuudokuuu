@@ -1,5 +1,7 @@
 import { DifficultyEnum } from '@suuudokuuu/generator';
 
+import { isDefined } from '@rnw-community/shared';
+
 import { emptyGameHistory } from '../../history/interfaces/history-game.interface';
 import { solutionStepsParse, solutionStepsStringify } from '../interface/solution-step.interface';
 
@@ -23,8 +25,9 @@ export interface GameState {
     historyByDifficulty: Record<DifficultyEnum, HistoryGameInterface>;
 }
 
-export type SerializedGameState = Partial<Record<keyof Omit<GameState, 'sudokuString'>, string>> & Pick<GameState, 'sudokuString'>;
-export type SharableGameState = Omit<GameState, 'isPaused' | 'isFinished' | 'hasCandidates' | 'inputMode' | 'manualCandidates' | 'historyByDifficulty'>;
+export type SerializedGameState = Partial<Record<keyof Omit<GameState, 'sudokuString' | 'manualCandidates'>, string>> &
+    Pick<GameState, 'sudokuString' | 'manualCandidates'>;
+export type SharableGameState = Omit<GameState, 'isPaused' | 'isFinished' | 'hasCandidates' | 'inputMode' | 'historyByDifficulty'>;
 
 export const initialGameState: GameState = {
     isFinished: false,
@@ -48,7 +51,7 @@ export const initialGameState: GameState = {
 };
 
 export const gameStateToUrl = (gameState: GameState): string => {
-    const { isFinished, isPaused, hasCandidates, inputMode, manualCandidates, solutionSteps, historyByDifficulty, ...persistedParams } = gameState;
+    const { isFinished, isPaused, hasCandidates, inputMode, solutionSteps, historyByDifficulty, ...persistedParams } = gameState;
 
     return btoa(JSON.stringify({ ...persistedParams, solutionSteps: solutionStepsStringify(solutionSteps) }));
 };
@@ -62,6 +65,7 @@ export const urlToGameState = (gameStateString: string): SharableGameState => {
         mistakes: parseInt(input.mistakes ?? '0', 10),
         maxMistakes: parseInt(input.maxMistakes ?? '0', 10),
         elapsedTime: parseInt(input.elapsedTime ?? '0', 10),
-        solutionSteps: solutionStepsParse(input.solutionSteps)
+        solutionSteps: solutionStepsParse(input.solutionSteps),
+        manualCandidates: isDefined(input.manualCandidates) ? input.manualCandidates : {}
     };
 };
