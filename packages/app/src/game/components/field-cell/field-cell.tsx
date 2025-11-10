@@ -15,7 +15,7 @@ import { FieldCellStyles as styles } from './field-cell.styles';
 
 import type { BWDarkTheme } from '../../../theme/themes/bw.theme';
 import type { CellInterface } from '@suuudokuuu/generator';
-import type { ReactNode} from 'react';
+import type { ReactNode } from 'react';
 
 const ReanimatedPressable = Reanimated.createAnimatedComponent(Pressable);
 
@@ -97,6 +97,7 @@ export const FieldCell = (props: Props) => {
     }));
 
     const handlePress = () => {
+        // eslint-disable-next-line no-undefined
         onSelect(isActive ? undefined : cell);
     };
 

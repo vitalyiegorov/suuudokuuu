@@ -23,12 +23,14 @@ export const PageHeader = ({ title = '' }: Props) => {
 
     useHtmlThemeColor(theme.colors.background);
 
+    const options = { title: fullTitle };
+
     return (
         <>
-            {/* eslint-disable-next-line react/style-prop-object */}
+            {}
             <StatusBar style={statusBarStyle} />
 
-            <Stack.Screen options={{ title: fullTitle }} />
+            <Stack.Screen options={options} />
         </>
     );
 };

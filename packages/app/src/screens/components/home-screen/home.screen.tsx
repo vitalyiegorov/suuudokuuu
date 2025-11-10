@@ -61,6 +61,8 @@ export const HomeScreen = () => {
         }
     };
 
+    const separatorStyles = [styles.separator, { borderColor: theme.colors.black }];
+
     return (
         <View style={styles.container}>
             <ThemeButton style={styles.themeButton} />
@@ -74,7 +76,7 @@ export const HomeScreen = () => {
                         {isGameStarted ? (
                             <>
                                 <BlackButton onPress={handleContinue} text={t`Continue`} />
-                                <View style={[styles.separator, { borderColor: theme.colors.black }]} />
+                                <View style={separatorStyles} />
                             </>
                         ) : null}
 

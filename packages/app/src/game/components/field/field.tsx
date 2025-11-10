@@ -65,6 +65,7 @@ export const Field = ({ selectedCell, onSelect, scoredCells }: Props) => {
 
             setAnimatedCells(newAnimatedCells);
 
+            // eslint-disable-next-line react-hooks/immutability
             textAnimation.value = withSequence(withTiming(1, textAnimationConfig), withTiming(0, { duration: 0 }));
         }
     }, [scoredCells, sudoku, textAnimation]);
