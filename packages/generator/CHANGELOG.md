@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.47.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.46.0...v1.47.0) (2025-11-10)
+
+### Features
+
+- eslint 9 migration ([#106](https://github.com/vitalyiegorov/suuudokuuu/issues/106)) ([6f05934](https://github.com/vitalyiegorov/suuudokuuu/commit/6f05934438680b1884985ca6e361cea2da6dfd5a))
+
 ## [1.44.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.44.0...v1.44.1) (2025-09-28)
 
 ### Bug Fixes
