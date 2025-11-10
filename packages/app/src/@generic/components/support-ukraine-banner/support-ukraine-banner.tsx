@@ -12,10 +12,13 @@ export const SupportUkraineBanner = () => {
     const { theme } = use(ThemeContext);
     const { t } = useLingui();
 
+    const wrapperStyles = { backgroundColor: theme.colors.black };
+    const textStyles = [styles.text, { color: theme.colors.white }];
+
     return (
-        <Link asChild href={donationLinkConstant} style={{ backgroundColor: theme.colors.black }}>
+        <Link asChild href={donationLinkConstant} style={wrapperStyles}>
             <Pressable style={styles.container}>
-                <Text allowFontScaling={false} style={[styles.text, { color: theme.colors.white }]}>
+                <Text allowFontScaling={false} style={textStyles}>
                     {t`Support Ukraine`} 🇺🇦
                 </Text>
             </Pressable>

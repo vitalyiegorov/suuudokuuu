@@ -217,7 +217,6 @@ export const GameScreen = () => {
 
                 <View style={styles.buttonsWrapper}>
                     {hasSharing ? (
-                        // eslint-disable-next-line @typescript-eslint/no-misused-promises
                         <BlackButton onPress={handleShare} style={styles.button} testID={GameScreenSelectors.ShareButton}>
                             <LucideShare2 color={theme.colors.white} />
                         </BlackButton>

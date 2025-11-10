@@ -21,7 +21,7 @@ export const PauseScreen = () => {
 
             <Donation type="paused" />
 
-            {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
+            {}
             <BlackButton onPress={handleShare} text={t`Share puzzle`} />
 
             <BlackButton onPress={handleResume} text={t`Resume`} />

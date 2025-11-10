@@ -61,7 +61,6 @@ export class Sudoku extends SerializableSudoku {
         return isDefined(cell) ? this.field[cell.y][cell.x].value : this.config.blankCellValue;
     }
 
-    // eslint-disable-next-line @typescript-eslint/class-methods-use-this
     isCellHighlighted(cell: CellInterface, selectedCell?: CellInterface): boolean {
         return isDefined(selectedCell) && (selectedCell.x === cell.x || selectedCell.y === cell.y || selectedCell.group === cell.group);
     }
@@ -102,7 +101,6 @@ export class Sudoku extends SerializableSudoku {
         return selectedCell;
     }
 
-    // eslint-disable-next-line @typescript-eslint/class-methods-use-this
     isSameCell(cell: CellInterface, selectedCell?: CellInterface): boolean {
         return isDefined(selectedCell) && cell.x === selectedCell.x && cell.y === selectedCell.y;
     }
@@ -135,7 +133,6 @@ export class Sudoku extends SerializableSudoku {
         return isDefined(cell) && this.gameField[cell.y][cell.x].value === this.config.blankCellValue;
     }
 
-    // eslint-disable-next-line @typescript-eslint/class-methods-use-this
     isScoredCell(cell: CellInterface, scoredCell: ScoredCellsInterface): boolean {
         return (
             scoredCell.isWon ||
@@ -198,7 +195,7 @@ export class Sudoku extends SerializableSudoku {
     }
 
     private hasBlankCells(): [hasBlankCells: boolean, lastY: number, lastX: number] {
-        let y = 0;
+        let y: number;
         let x = 0;
 
         for (y = 0; y < this.field.length; y += 1) {
@@ -222,7 +219,6 @@ export class Sudoku extends SerializableSudoku {
         return false;
     }
 
-    // eslint-disable-next-line @typescript-eslint/class-methods-use-this
     private hasValueInColumn(field: FieldInterface, cell: CellInterface): boolean {
         for (const row of field) {
             if (row[cell.x].value === cell.value) {
@@ -253,7 +249,7 @@ export class Sudoku extends SerializableSudoku {
      * HINT: This algorithm is based on backtracking
      * inspired by https://dev.to/christinamcmahon/use-backtracking-algorithm-to-solve-sudoku-270
      */
-    // eslint-disable-next-line max-statements
+
     private fillRecursive(): boolean {
         const [needsFilling, emptyY, emptyX] = this.hasBlankCells();
 
@@ -323,7 +319,6 @@ export class Sudoku extends SerializableSudoku {
 
     // TODO: Can we avoid it and just use parent version with correct types?
     static override fromString(fieldsString: string, config?: SudokuConfigInterface): Sudoku {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
         return super.fromString(fieldsString, config) as Sudoku;
     }
 }

@@ -34,6 +34,9 @@ export const HistoryDifficulty = ({ difficulty }: Props) => {
 
     const winRate = gamesWon > 0 ? Math.round((gamesWon / gamesCompleted) * 100) : 0;
 
+    const hardcoreWonTitleStyles = { color: theme.colors.red };
+    const hardcoreWonStyles = [styles.boldText, { color: theme.colors.red }];
+
     return (
         <View style={styles.container}>
             <BlackSubHeader> {getDifficultyText(difficulty)} </BlackSubHeader>
@@ -63,8 +66,7 @@ export const HistoryDifficulty = ({ difficulty }: Props) => {
                 {t`Win rate`}: <Text style={styles.boldText}>{winRate}%</Text>
             </BlackText>
             <BlackText>
-                <Text style={{ color: theme.colors.red }}>{t`Hardcore won`}:</Text>{' '}
-                <Text style={[styles.boldText, { color: theme.colors.red }]}>{hardcoreWon}</Text>
+                <Text style={hardcoreWonTitleStyles}>{t`Hardcore won`}:</Text> <Text style={hardcoreWonStyles}>{hardcoreWon}</Text>
             </BlackText>
         </View>
     );
