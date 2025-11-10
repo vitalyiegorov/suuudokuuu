@@ -44,10 +44,13 @@ export const ToggleSelect = <T extends unknown>(props: Props<T>) => {
     const toggleSliderHeight = toggleHeight * 0.8;
     const toggleSliderVerticalPadding = (toggleHeight - toggleSliderHeight) / 2;
 
+    // eslint-disable-next-line react-hooks/refs
     const translateX = animatedValue.interpolate({
         inputRange: options.map((_, index) => index),
         outputRange: options.map((_, index) => index * toggleSliderWidth)
     });
+
+    // eslint-disable-next-line react-hooks/refs
     const scaleX = animatedValue.interpolate({
         inputRange: options.map((_, index) => index),
         outputRange: options.map((_, index) => {

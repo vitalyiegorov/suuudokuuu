@@ -5,7 +5,6 @@ import { SerializableSudoku } from '../serializable-sudoku/serializable-sudoku';
 
 import { DLXSolver } from './dlx-solver';
 
-// eslint-disable-next-line max-lines-per-function
 describe('DLXSolver', () => {
     it('solves a standard easy puzzle', () => {
         const { Field, FullField } = SerializableSudoku.fromString(
