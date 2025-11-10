@@ -1,5 +1,5 @@
 /* eslint-disable */
-// eslint-disable-next-line camelcase
+
 import { Inter_500Medium, Inter_700Bold, useFonts } from '@expo-google-fonts/inter';
 import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
@@ -25,7 +25,6 @@ void SplashScreen.preventAutoHideAsync();
 const stackOptions = { headerShown: false, gestureEnabled: false };
 
 export default function RootLayout() {
-    // eslint-disable-next-line camelcase
     const [loaded] = useFonts({ Inter_500Medium, Inter_700Bold });
 
     useEffect(() => {

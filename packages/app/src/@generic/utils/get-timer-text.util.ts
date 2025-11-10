@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-undefined
 const dtfHMS = new Intl.DateTimeFormat(undefined, {
     timeZone: 'UTC',
     hour12: false,
@@ -6,6 +7,7 @@ const dtfHMS = new Intl.DateTimeFormat(undefined, {
     second: '2-digit'
 });
 
+// eslint-disable-next-line no-undefined
 const dtfMS = new Intl.DateTimeFormat(undefined, {
     timeZone: 'UTC',
     hour12: false,

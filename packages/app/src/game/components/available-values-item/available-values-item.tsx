@@ -56,6 +56,7 @@ export const AvailableValuesItem = ({ value, onSelect, progress, correctValue, c
     }));
 
     const triggerAnimationFn = () => {
+        // eslint-disable-next-line react-hooks/immutability
         animated.value = withSequence(withTiming(1, { duration: 200 }), withTiming(0, { duration: 200 }));
     };
 
