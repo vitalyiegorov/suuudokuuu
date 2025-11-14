@@ -24,7 +24,6 @@ export const gameSlice = createSlice({
         resume: state => {
             state.isPaused = false;
 
-            // In hardcore mode (maxMistakes === 0), auto candidates should always be disabled
             if (state.maxMistakes === 0) {
                 state.showAutoCandidates = false;
             }
