@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.47.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.47.0...v1.47.1) (2025-11-15)
+
+### Bug Fixes
+
+- **app:** disable auto candidates on resume in hardcore mode ([3336d3b](https://github.com/vitalyiegorov/suuudokuuu/commit/3336d3be03a4aa7f6f043ed91f61bedc1ed1af05))
+
 # [1.47.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.46.0...v1.47.0) (2025-11-10)
 
 ### Features
