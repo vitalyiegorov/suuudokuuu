@@ -23,6 +23,10 @@ export const gameSlice = createSlice({
         },
         resume: state => {
             state.isPaused = false;
+
+            if (state.maxMistakes === 0) {
+                state.showAutoCandidates = false;
+            }
         },
 
         save: (state, action: PayloadAction<{ sudoku: Sudoku; correctCell: CellInterface; scoredCells: ScoredCellsInterface }>) => {
