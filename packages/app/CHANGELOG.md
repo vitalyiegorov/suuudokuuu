@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.47.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.47.1...v1.47.2) (2025-11-16)
+
+### Bug Fixes
+
+- **app:** fixed restoring correct difficulty ([b129c65](https://github.com/vitalyiegorov/suuudokuuu/commit/b129c6590783c9a1ddfe1b2630357e446a07699c))
+
 ## [1.47.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.47.0...v1.47.1) (2025-11-15)
 
 ### Bug Fixes
