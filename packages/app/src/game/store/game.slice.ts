@@ -23,8 +23,12 @@ export const gameSlice = createSlice({
         },
         resume: state => {
             state.isPaused = false;
+
+            if (state.maxMistakes === 0) {
+                state.showAutoCandidates = false;
+            }
         },
-        // eslint-disable-next-line max-statements
+
         save: (state, action: PayloadAction<{ sudoku: Sudoku; correctCell: CellInterface; scoredCells: ScoredCellsInterface }>) => {
             const { sudoku, correctCell, scoredCells } = action.payload;
 

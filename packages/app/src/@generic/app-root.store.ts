@@ -18,7 +18,7 @@ const migrations: MigrationManifest<RootState> = {
             historyByDifficulty: {
                 ...initialGameState.historyByDifficulty,
                 // @ts-expect-error Migrating old state
-                // eslint-disable-next-line  @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-type-assertion
+                // eslint-disable-next-line  @typescript-eslint/no-unsafe-member-access
                 ...(state.history?.byDifficulty as unknown as GameState['historyByDifficulty'])
             }
         }
@@ -31,7 +31,6 @@ const rootReducer = combineReducers({
     [settingsSlice.name]: settingsSlice.reducer
 });
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
 const persistedReducer = persistReducer(
     {
         key: 'root',

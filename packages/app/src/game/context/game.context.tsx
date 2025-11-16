@@ -83,9 +83,9 @@ export const GameProvider = ({ children }: { readonly children: ReactNode }) => 
         router.push(`game`);
     };
 
-    useEffect(() => {
-        i18n.activate(currentLanguage);
-    }, []);
+    useEffect(() => void i18n.activate(currentLanguage), [currentLanguage]);
 
-    return <GameContext value={{ sudoku, createFromState, create }}>{children}</GameContext>;
+    const value = { sudoku, createFromState, create };
+
+    return <GameContext value={value}>{children}</GameContext>;
 };
