@@ -6,7 +6,7 @@ import { type OnEventFn, cs } from '@rnw-community/shared';
 
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
-import { settingsKeySelector } from '../../../settings/store/settings.selectors';
+import { settingsCellMarginSelector, settingsKeySelector } from '../../../settings/store/settings.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { GameContext } from '../../context/game.context';
 
@@ -70,6 +70,7 @@ interface Props {
     readonly children?: ReactNode;
 }
 
+// eslint-disable-next-line max-statements
 export const FieldCell = (props: Props) => {
     const { cell, onSelect, isActive, isActiveValue, isHighlighted, isWrong, isEmpty, children } = props;
 
@@ -79,6 +80,7 @@ export const FieldCell = (props: Props) => {
     const showAreas = useAppSelector(settingsKeySelector('showAreas'));
     const showIdenticalNumbers = useAppSelector(settingsKeySelector('showIdenticalNumbers'));
     const showFilledNumbers = useAppSelector(settingsKeySelector('showFilledNumbers'));
+    const cellMargin = useAppSelector(settingsCellMarginSelector);
 
     const cellBackgroundColor = getCellBgColor(
         theme,
@@ -104,8 +106,8 @@ export const FieldCell = (props: Props) => {
     const cellStyles = [
         styles.container,
         { borderColor: theme.colors.black },
-        cs(sudoku.isLastInCellGroupX(cell), styles.groupXEnd),
-        cs(sudoku.isLastInCellGroupY(cell), styles.groupYEnd),
+        cs(sudoku.isLastInCellGroupX(cell), [styles.groupXEnd, { marginRight: cellMargin }]),
+        cs(sudoku.isLastInCellGroupY(cell), [styles.groupYEnd, { marginBottom: cellMargin }]),
         cs(sudoku.isLastInRow(cell), styles.lastRow),
         cs(sudoku.isLastInColumn(cell), styles.lastCol),
         { backgroundColor: cellBackgroundColor },
