@@ -1,4 +1,4 @@
-/* eslint-disable max-lines */
+/* eslint-disable prefer-destructuring */
 import { describe, expect, it, jest } from '@jest/globals';
 
 import { DifficultyEnum } from '../../enums/difficulty.enum';
@@ -116,7 +116,6 @@ describe('Sudoku - Row Column Boundary Helpers', () => {
     });
 });
 
-// eslint-disable-next-line max-lines-per-function
 describe('Sudoku - Cell Value Operations', () => {
     it('setCellValue() throws on wrong value', () => {
         const sudoku = new Sudoku();
@@ -132,7 +131,7 @@ describe('Sudoku - Cell Value Operations', () => {
 
         const sudoku = new Sudoku();
 
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-type-assertion
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         jest.spyOn(sudoku as any, 'fillRecursive').mockImplementation(() => false);
 
         expect(() => void sudoku.create(DifficultyEnum.Easy)).toThrow('Unable to create a game field');
@@ -142,7 +141,6 @@ describe('Sudoku - Cell Value Operations', () => {
         it('complete a row', () => {
             const sudoku = Sudoku.fromString('417352.898.27.613..6.14827..416.53..79623.8.15389.142638546.912..9.13...1748.9.6.');
 
-            // eslint-disable-next-line @typescript-eslint/prefer-destructuring
             const cell = sudoku.Field[0][6];
             const correct = sudoku.getCorrectValue(cell);
             const scored = sudoku.setCellValue({ ...cell, value: correct });
@@ -157,7 +155,6 @@ describe('Sudoku - Cell Value Operations', () => {
         it('complete a column', () => {
             const sudoku = Sudoku.fromString('417352.898.27.613..6.14827..416.53..79623.8.15389.142638546.912..9.13...1748.9.6.');
 
-            // eslint-disable-next-line @typescript-eslint/prefer-destructuring
             const cell = sudoku.Field[2][2];
             const correct = sudoku.getCorrectValue(cell);
             const scored = sudoku.setCellValue({ ...cell, value: correct });
@@ -172,7 +169,6 @@ describe('Sudoku - Cell Value Operations', () => {
         it('complete a group', () => {
             const sudoku = Sudoku.fromString('417352.898.27.613..6.14827..416.53..79623.8.15389.142638546.912..9.13...1748.9.6.');
 
-            // eslint-disable-next-line @typescript-eslint/prefer-destructuring
             const cell = sudoku.Field[3][0];
             const correct = sudoku.getCorrectValue(cell);
             const scored = sudoku.setCellValue({ ...cell, value: correct });
@@ -187,7 +183,6 @@ describe('Sudoku - Cell Value Operations', () => {
         it('complete all values', () => {
             const sudoku = Sudoku.fromString('417352.898.27.613..6.14827.2416.53..79623.8.15389.142638546.912.29.13...1748.9.6.');
 
-            // eslint-disable-next-line @typescript-eslint/prefer-destructuring
             const cell = sudoku.Field[8][4];
             const correct = sudoku.getCorrectValue(cell);
             const scored = sudoku.setCellValue({ ...cell, value: correct });
@@ -202,7 +197,6 @@ describe('Sudoku - Cell Value Operations', () => {
         it('complete whole game', () => {
             const sudoku = Sudoku.fromString('41735268985279613496314827524168539779623485153897142638546791262951374.174829563');
 
-            // eslint-disable-next-line @typescript-eslint/prefer-destructuring
             const cell = sudoku.Field[7][8];
             const correct = sudoku.getCorrectValue(cell);
             const scored = sudoku.setCellValue({ ...cell, value: correct });
@@ -224,7 +218,6 @@ describe('Sudoku - Cell Value Operations', () => {
 
             expect(blankCell).toBeDefined();
 
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             const correctValue = sudoku.getCorrectValue(blankCell);
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             const cellToSet = { ...blankCell!, value: correctValue };
@@ -243,7 +236,6 @@ describe('Sudoku - Cell Value Operations', () => {
 
         expect(blankCell).toBeDefined();
 
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const correctValue = sudoku.getCorrectValue(blankCell);
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const cellToSet = { ...blankCell!, value: correctValue };
@@ -269,7 +261,6 @@ describe('Sudoku - Candidates', () => {
     it('getCellCandidates should return single possible cell value', () => {
         const sudoku = Sudoku.fromString('27.3459.838.6..75..598.2..45.7986.4.1264378.5498...673.6312.5.784.793.267125.84.9');
 
-        // eslint-disable-next-line @typescript-eslint/prefer-destructuring
         const cell = sudoku.Field[2][0];
         const candidates = sudoku.getCellCandidates(cell);
 
@@ -279,11 +270,9 @@ describe('Sudoku - Candidates', () => {
     it('getCellCandidates should return multiple possible cell values', () => {
         const sudoku = Sudoku.fromString('27.3459.838.6..75..598.2..45.7986.4.1264378.5498...673.6312.5.784.793.267125.84.9');
 
-        // eslint-disable-next-line @typescript-eslint/prefer-destructuring
         const cell = sudoku.Field[5][4];
         const candidates = sudoku.getCellCandidates(cell);
 
         expect(candidates).toStrictEqual([1, 5]);
     });
 });
-/* eslint-enable max-lines */

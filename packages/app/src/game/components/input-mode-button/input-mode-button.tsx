@@ -21,10 +21,11 @@ export const InputModeButton = () => {
     };
 
     const isCandidateMode = inputMode === 'candidate';
+    const iconColor = isCandidateMode ? theme.colors.white : theme.colors.black;
 
     return (
         <BlackButton isActive={!isCandidateMode} onPress={handleToggle} style={InputModeButtonStyles.button} testID="input-mode-button">
-            <LucidePencil color={isCandidateMode ? theme.colors.white : theme.colors.black} />
+            <LucidePencil color={iconColor} />
         </BlackButton>
     );
 };

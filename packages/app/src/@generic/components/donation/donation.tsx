@@ -29,9 +29,12 @@ export const Donation = ({ type }: Props) => {
     const { theme } = use(ThemeContext);
     const { t } = useLingui();
 
+    const wrapperStyles = [styles.donation, { borderBottomColor: theme.colors.black, borderTopColor: theme.colors.black }];
+    const textStyles = [styles.donationText, { color: theme.colors.black }];
+
     return (
-        <View style={[styles.donation, { borderBottomColor: theme.colors.black, borderTopColor: theme.colors.black }]}>
-            <Text allowFontScaling={false} style={[styles.donationText, { color: theme.colors.black }]}>
+        <View style={wrapperStyles}>
+            <Text allowFontScaling={false} style={textStyles}>
                 {getText(type)}
             </Text>
 

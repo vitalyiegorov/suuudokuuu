@@ -22,7 +22,7 @@ export const useKeyboardControls = (
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        // eslint-disable-next-line max-statements, complexity
+        // eslint-disable-next-line max-statements
         const handleKeyDown = (e: KeyboardEvent) => {
             const { key, code } = e;
 

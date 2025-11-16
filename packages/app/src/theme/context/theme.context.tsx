@@ -61,8 +61,10 @@ export const ThemeProvider = ({ children }: { readonly children: ReactNode }) =>
         }
     };
 
+    const value = { theme, colorScheme, toggleColorSchema, changeTheme };
+
     return (
-        <ThemeContext value={{ theme, colorScheme, toggleColorSchema, changeTheme }}>
+        <ThemeContext value={value}>
             <NavigationThemeProvider value={fullNavigationTheme}>{children}</NavigationThemeProvider>
         </ThemeContext>
     );
