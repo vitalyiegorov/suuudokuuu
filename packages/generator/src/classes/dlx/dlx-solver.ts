@@ -120,7 +120,6 @@ export class DLXSolver {
         }
     }
 
-    // eslint-disable-next-line @typescript-eslint/class-methods-use-this
     private cover(col: DLXColumnNode): void {
         col.right.left = col.left;
         col.left.right = col.right;
@@ -134,7 +133,6 @@ export class DLXSolver {
         }
     }
 
-    // eslint-disable-next-line @typescript-eslint/class-methods-use-this
     private uncover(col: DLXColumnNode): void {
         for (let row = col.up; row !== col; row = row.up) {
             for (let node = row.left; node !== row; node = node.left) {

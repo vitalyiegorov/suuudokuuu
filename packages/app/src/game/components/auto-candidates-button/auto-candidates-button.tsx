@@ -21,6 +21,8 @@ export const AutoCandidatesButton = () => {
         dispatch(gameToggleAutoCandidatesAction());
     };
 
+    const iconColor = showAutoCandidates ? theme.colors.white : theme.colors.black;
+
     return (
         <BlackButton
             isActive={!showAutoCandidates}
@@ -28,7 +30,7 @@ export const AutoCandidatesButton = () => {
             style={AutoCandidatesButtonStyles.autoCandidatesButton}
             testID={GameScreenSelectors.TipsButton}
         >
-            <LucideHandHelping color={showAutoCandidates ? theme.colors.white : theme.colors.black} />
+            <LucideHandHelping color={iconColor} />
         </BlackButton>
     );
 };
