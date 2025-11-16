@@ -55,5 +55,38 @@ export const GameScreenStyles = StyleSheet.create({
     },
     scoreWrapper: {
         alignItems: 'flex-end'
+    },
+    // Wide screen layout styles
+    wideScreenContainer: {
+        alignItems: 'stretch',
+        flexDirection: 'row',
+        flex: 1,
+        padding: 20,
+        gap: 20
+    },
+    wideScreenLeftColumn: {
+        flex: 3,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    wideScreenRightColumn: {
+        flex: 1,
+        minWidth: 300,
+        maxWidth: 400,
+        justifyContent: 'space-between',
+        paddingVertical: 20
+    },
+    wideScreenControls: {
+        flexDirection: 'column',
+        gap: 30,
+        marginBottom: 20
+    },
+    wideScreenFieldWrapper: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    wideScreenBottomContainer: {
+        gap: 20
     }
 });

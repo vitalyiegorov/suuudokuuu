@@ -14,6 +14,7 @@ import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
+import { useIsWideScreen } from '../../../@generic/hooks/use-is-wide-screen.hook';
 import { useVibration } from '../../../@generic/hooks/use-vibration.hook';
 import { AutoCandidatesButton } from '../../../game/components/auto-candidates-button/auto-candidates-button';
 import { AvailableValuesItem, type AvailableValuesItemRef } from '../../../game/components/available-values-item/available-values-item';
@@ -61,6 +62,7 @@ export const GameScreen = () => {
     const { theme } = use(ThemeContext);
 
     const [hapticNotification, hapticImpact] = useVibration();
+    const isWideScreen = useIsWideScreen();
 
     const dispatch = useAppDispatch();
     const score = useAppSelector(gameScoreSelector);
@@ -178,93 +180,120 @@ export const GameScreen = () => {
     const mistakesCountTextStyles = [styles.mistakesCountText, { color: maxMistakesReached ? theme.colors.red : theme.colors.label.main }];
     const hideAutoCandidates = maxMistakes === 0;
 
-    return (
-        <View style={styles.container} testID={GameScreenSelectors.Root}>
-            <View style={styles.controls}>
+    const controlsSectionStyle = isWideScreen ? styles.wideScreenControls : styles.controls;
+    const bottomContainerStyle = isWideScreen ? styles.wideScreenBottomContainer : styles.bottomContainer;
+
+    const controlsSection = (
+        <View style={controlsSectionStyle}>
+            <View style={styles.controlsWrapper}>
+                <BlackText>{t`Mistakes`}</BlackText>
+
+                <BlackText>
+                    <Text style={mistakesCountTextStyles} testID={GameScreenSelectors.MistakesCount}>
+                        {mistakes}
+                    </Text>
+
+                    <Text style={styles.mistakesSeparator}>/</Text>
+
+                    <BlackText style={styles.mistakesMaxText} testID={GameScreenSelectors.MaxMistakesAllowed}>
+                        {maxMistakes}
+                    </BlackText>
+                </BlackText>
+            </View>
+
+            {hasTimer ? (
                 <View style={styles.controlsWrapper}>
-                    <BlackText>{t`Mistakes`}</BlackText>
+                    <BlackText>{t`Elapsed`}</BlackText>
 
-                    <BlackText>
-                        <Text style={mistakesCountTextStyles} testID={GameScreenSelectors.MistakesCount}>
-                            {mistakes}
-                        </Text>
+                    <GameTimer />
+                </View>
+            ) : null}
 
-                        <Text style={styles.mistakesSeparator}>/</Text>
+            <View style={styles.scoreWrapper}>
+                <View style={styles.controlsWrapper}>
+                    <BlackText>{t`Score`}</BlackText>
 
-                        <BlackText style={styles.mistakesMaxText} testID={GameScreenSelectors.MaxMistakesAllowed}>
-                            {maxMistakes}
-                        </BlackText>
+                    <BlackText style={styles.scoreText} testID={GameScreenSelectors.Score}>
+                        {score}
                     </BlackText>
                 </View>
+            </View>
 
-                {hasTimer ? (
-                    <View style={styles.controlsWrapper}>
-                        <BlackText>{t`Elapsed`}</BlackText>
-
-                        <GameTimer />
-                    </View>
+            <View style={styles.buttonsWrapper}>
+                {hasSharing ? (
+                    <BlackButton onPress={handleShare} style={styles.button} testID={GameScreenSelectors.ShareButton}>
+                        <LucideShare2 color={theme.colors.white} />
+                    </BlackButton>
                 ) : null}
 
-                <View style={styles.scoreWrapper}>
-                    <View style={styles.controlsWrapper}>
-                        <BlackText>{t`Score`}</BlackText>
+                <BlackButton href="/settings" style={styles.button}>
+                    <LucideSettings color={theme.colors.white} />
+                </BlackButton>
 
-                        <BlackText style={styles.scoreText} testID={GameScreenSelectors.Score}>
-                            {score}
-                        </BlackText>
+                <BlackButton onPress={handleExit} style={styles.button} testID={GameScreenSelectors.QuitButton}>
+                    <LucideLogOut color={theme.colors.white} />
+                </BlackButton>
+            </View>
+        </View>
+    );
+
+    const bottomControls = (
+        <View style={bottomContainerStyle}>
+            <View style={styles.additionalControlsWrapper}>
+                <InputModeButton />
+                {hideAutoCandidates ? null : <AutoCandidatesButton />}
+            </View>
+            <View style={styles.availableValuesWrapper}>
+                {sudoku.PossibleValues.map(value =>
+                    inputMode === 'candidate' ? (
+                        <CandidateInputItem
+                            canPress={sudoku.isBlankCell(selectedCell)}
+                            key={`candidate-value-${value}`}
+                            onSelect={handleSelectValue}
+                            selectedCell={selectedCell}
+                            value={value}
+                        />
+                    ) : (
+                        <AvailableValuesItem
+                            canPress={sudoku.isBlankCell(selectedCell)}
+                            correctValue={sudoku.getCorrectValue(selectedCell)}
+                            key={`possible-value-${value}`}
+                            onSelect={handleSelectValue}
+                            progress={sudoku.getValueProgress(value)}
+                            ref={handleAvailableRef(value)}
+                            value={value}
+                        />
+                    )
+                )}
+            </View>
+        </View>
+    );
+
+    if (isWideScreen) {
+        return (
+            <View style={styles.wideScreenContainer} testID={GameScreenSelectors.Root}>
+                <View style={styles.wideScreenLeftColumn}>
+                    <View style={styles.wideScreenFieldWrapper}>
+                        <Field onSelect={handleSelectCell} scoredCells={scoredCells} selectedCell={selectedCell} />
                     </View>
                 </View>
-
-                <View style={styles.buttonsWrapper}>
-                    {hasSharing ? (
-                        <BlackButton onPress={handleShare} style={styles.button} testID={GameScreenSelectors.ShareButton}>
-                            <LucideShare2 color={theme.colors.white} />
-                        </BlackButton>
-                    ) : null}
-
-                    <BlackButton href="/settings" style={styles.button}>
-                        <LucideSettings color={theme.colors.white} />
-                    </BlackButton>
-
-                    <BlackButton onPress={handleExit} style={styles.button} testID={GameScreenSelectors.QuitButton}>
-                        <LucideLogOut color={theme.colors.white} />
-                    </BlackButton>
+                <View style={styles.wideScreenRightColumn}>
+                    {controlsSection}
+                    {bottomControls}
                 </View>
             </View>
+        );
+    }
+
+    return (
+        <View style={styles.container} testID={GameScreenSelectors.Root}>
+            {controlsSection}
 
             <View style={styles.fieldWrapper}>
                 <Field onSelect={handleSelectCell} scoredCells={scoredCells} selectedCell={selectedCell} />
             </View>
 
-            <View style={styles.bottomContainer}>
-                <View style={styles.additionalControlsWrapper}>
-                    <InputModeButton />
-                    {hideAutoCandidates ? null : <AutoCandidatesButton />}
-                </View>
-                <View style={styles.availableValuesWrapper}>
-                    {sudoku.PossibleValues.map(value =>
-                        inputMode === 'candidate' ? (
-                            <CandidateInputItem
-                                canPress={sudoku.isBlankCell(selectedCell)}
-                                key={`candidate-value-${value}`}
-                                onSelect={handleSelectValue}
-                                selectedCell={selectedCell}
-                                value={value}
-                            />
-                        ) : (
-                            <AvailableValuesItem
-                                canPress={sudoku.isBlankCell(selectedCell)}
-                                correctValue={sudoku.getCorrectValue(selectedCell)}
-                                key={`possible-value-${value}`}
-                                onSelect={handleSelectValue}
-                                progress={sudoku.getValueProgress(value)}
-                                ref={handleAvailableRef(value)}
-                                value={value}
-                            />
-                        )
-                    )}
-                </View>
-            </View>
+            {bottomControls}
         </View>
     );
 };
