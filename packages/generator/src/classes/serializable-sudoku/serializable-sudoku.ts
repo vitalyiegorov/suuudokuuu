@@ -109,7 +109,7 @@ export class SerializableSudoku {
 
         let foundDifficulty = DifficultyEnum.Newbie;
         for (const difficulty of Object.values(DifficultyEnum)) {
-            if (config.difficultyBlankCells[difficulty] <= blankCellCount / (config.fieldSize * config.fieldSize)) {
+            if (config.difficultyBlankCells[difficulty] >= blankCellCount) {
                 foundDifficulty = difficulty;
                 break;
             }
