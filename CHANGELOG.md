@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.48.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.47.2...v1.48.0) (2025-11-17)
+
+### Features
+
+- **app:** added cell margin setting ([8ba2de8](https://github.com/vitalyiegorov/suuudokuuu/commit/8ba2de810857ebd958360554ce9d6b7a3dc1b8fe))
+
+### Reverts
+
+- style changes ([057737d](https://github.com/vitalyiegorov/suuudokuuu/commit/057737d89ae94595a23b248cc4dca4a119cca639))
+- style changes ([e921e93](https://github.com/vitalyiegorov/suuudokuuu/commit/e921e93370d10a3d1ab21c25e09723a8c1ddd4f9))
+
 ## [1.47.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.47.1...v1.47.2) (2025-11-16)
 
 ### Bug Fixes
