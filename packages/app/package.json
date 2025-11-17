@@ -1,6 +1,6 @@
 {
     "name": "@suuudokuuu/app",
-    "version": "1.47.2",
+    "version": "1.48.0",
     "private": true,
     "scripts": {
         "android": "expo run:android",
@@ -8,6 +8,7 @@
         "i18n:extract": "run -T lingui extract --overwrite --clean",
         "i18n:sync": "yarn i18n:extract && yarn i18n:compile",
         "ios": "expo run:ios",
+        "ios:device": "expo run:ios --device",
         "lint": "run -T eslint --fix src",
         "prebuild": "expo prebuild --clean",
         "start": "expo start --dev-client -c",
