@@ -5274,6 +5274,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@shopify/react-native-skia@npm:^2.3.13":
+  version: 2.3.13
+  resolution: "@shopify/react-native-skia@npm:2.3.13"
+  dependencies:
+    canvaskit-wasm: "npm:0.40.0"
+    react-reconciler: "npm:0.31.0"
+  peerDependencies:
+    react: ">=19.0"
+    react-native: ">=0.78"
+    react-native-reanimated: ">=3.19.1"
+  peerDependenciesMeta:
+    react-native:
+      optional: true
+    react-native-reanimated:
+      optional: true
+  bin:
+    setup-skia-web: scripts/setup-canvaskit.js
+  checksum: 10/b8b95c7b2b74dc6f8c257732bba727c9c4c546ba3a17cec123fbefc57e9dec9c99326bda7b7af36ee727ac6ed80c4818ff8fdadba2d7427798d1ca3a4ff6bc06
+  languageName: node
+  linkType: hard
+
 "@sigstore/bundle@npm:^2.3.2":
   version: 2.3.2
   resolution: "@sigstore/bundle@npm:2.3.2"
@@ -5382,6 +5403,7 @@ __metadata:
     "@react-navigation/native": "npm:^7.0.14"
     "@reduxjs/toolkit": "npm:^2.5.0"
     "@rnw-community/shared": "npm:^1.3.0"
+    "@shopify/react-native-skia": "npm:^2.3.13"
     "@suuudokuuu/generator": "workspace:*"
     "@types/react": "npm:~19.1.10"
     babel-plugin-macros: "npm:^3.1.0"
@@ -5407,6 +5429,7 @@ __metadata:
     react-compiler-runtime: "npm:19.0.0-beta-63e3235-20250105"
     react-dom: "npm:19.1.0"
     react-native: "npm:0.81.4"
+    react-native-fast-confetti: "npm:^1.1.1"
     react-native-gesture-handler: "npm:~2.28.0"
     react-native-reanimated: "npm:^4.1.0"
     react-native-safe-area-context: "npm:~5.6.0"
@@ -6033,6 +6056,13 @@ __metadata:
   peerDependencies:
     "@urql/core": ^5.0.0
   checksum: 10/5bbc914a58a6de6ee7146d55fa8d6454cbf0fb5f6d7a3f7b1770d95dfbaa9e44fad041d4655f00f38ce87f12b52fdd694a1ccb8df487265185f5b425d5e12177
+  languageName: node
+  linkType: hard
+
+"@webgpu/types@npm:0.1.21":
+  version: 0.1.21
+  resolution: "@webgpu/types@npm:0.1.21"
+  checksum: 10/73fc5f2bebb1abf084b146c26c237c6450747b8119cdf3733643ff90968f6e7790d0ae0ad6aa6dc7b0783a502571d348a76d22c8e8466b3b7f7c9ee956da7e5b
   languageName: node
   linkType: hard
 
@@ -7327,6 +7357,15 @@ __metadata:
   version: 1.0.30001743
   resolution: "caniuse-lite@npm:1.0.30001743"
   checksum: 10/e55b13b4a547c9f610a68d5f5668a3239ada4a4aef5d198860397757ab7c03a5b0590675b7e82c5d3d57316b40499e1da52decb08a97ef3066a338871bbb5c37
+  languageName: node
+  linkType: hard
+
+"canvaskit-wasm@npm:0.40.0":
+  version: 0.40.0
+  resolution: "canvaskit-wasm@npm:0.40.0"
+  dependencies:
+    "@webgpu/types": "npm:0.1.21"
+  checksum: 10/2bdd0607a0e8e55a40e53be1693e59ee39cc99191dc53a265fdd12842d0f77b20f87862bfe9ecc432ad7f0079dc275505d2d5a828451bccd4f597fc12f14ebb7
   languageName: node
   linkType: hard
 
@@ -16450,6 +16489,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-fast-confetti@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "react-native-fast-confetti@npm:1.1.1"
+  peerDependencies:
+    "@shopify/react-native-skia": "*"
+    react: "*"
+    react-native: "*"
+    react-native-reanimated: "*"
+  checksum: 10/849be9469fe1b55d65ae94d071a00cb7c540efb8d2946e889e5bf43ba7088da16077035144a78b6b99559bb2a0f177347e4c184fcb36a69425c75337e1ed73d2
+  languageName: node
+  linkType: hard
+
 "react-native-gesture-handler@npm:~2.28.0":
   version: 2.28.0
   resolution: "react-native-gesture-handler@npm:2.28.0"
@@ -16626,6 +16677,17 @@ __metadata:
   bin:
     react-native: cli.js
   checksum: 10/a4e27ffecd7c8acd59ae957f79818173c02057e75352fc39ec5271a27c2a9301e55160bf01bbf87b312034a1427dd5e56d2fa2f3d38c0a7f605a8f1941e0456a
+  languageName: node
+  linkType: hard
+
+"react-reconciler@npm:0.31.0":
+  version: 0.31.0
+  resolution: "react-reconciler@npm:0.31.0"
+  dependencies:
+    scheduler: "npm:^0.25.0"
+  peerDependencies:
+    react: ^19.0.0
+  checksum: 10/e7235fa08947296c2084a89dc264651fd7cb9dc3a26c3b132b84ecf2a30c46b9b98cd004c30adfe2a24741cd1e49a618858a48080008ce2b4e964a2c4233041e
   languageName: node
   linkType: hard
 
@@ -17365,6 +17427,13 @@ __metadata:
   version: 0.26.0
   resolution: "scheduler@npm:0.26.0"
   checksum: 10/1ecf2e5d7de1a7a132796834afe14a2d589ba7e437615bd8c06f3e0786a3ac3434655e67aac8755d9b14e05754c177e49c064261de2673aaa3c926bc98caa002
+  languageName: node
+  linkType: hard
+
+"scheduler@npm:^0.25.0":
+  version: 0.25.0
+  resolution: "scheduler@npm:0.25.0"
+  checksum: 10/e661e38503ab29a153429a99203fefa764f28b35c079719eb5efdd2c1c1086522f6653d8ffce388209682c23891a6d1d32fa6badf53c35fb5b9cd0c55ace42de
   languageName: node
   linkType: hard
 
