@@ -5274,27 +5274,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@shopify/react-native-skia@npm:^2.3.13":
-  version: 2.3.13
-  resolution: "@shopify/react-native-skia@npm:2.3.13"
-  dependencies:
-    canvaskit-wasm: "npm:0.40.0"
-    react-reconciler: "npm:0.31.0"
-  peerDependencies:
-    react: ">=19.0"
-    react-native: ">=0.78"
-    react-native-reanimated: ">=3.19.1"
-  peerDependenciesMeta:
-    react-native:
-      optional: true
-    react-native-reanimated:
-      optional: true
-  bin:
-    setup-skia-web: scripts/setup-canvaskit.js
-  checksum: 10/b8b95c7b2b74dc6f8c257732bba727c9c4c546ba3a17cec123fbefc57e9dec9c99326bda7b7af36ee727ac6ed80c4818ff8fdadba2d7427798d1ca3a4ff6bc06
-  languageName: node
-  linkType: hard
-
 "@sigstore/bundle@npm:^2.3.2":
   version: 2.3.2
   resolution: "@sigstore/bundle@npm:2.3.2"
@@ -5403,7 +5382,6 @@ __metadata:
     "@react-navigation/native": "npm:^7.0.14"
     "@reduxjs/toolkit": "npm:^2.5.0"
     "@rnw-community/shared": "npm:^1.3.0"
-    "@shopify/react-native-skia": "npm:^2.3.13"
     "@suuudokuuu/generator": "workspace:*"
     "@types/react": "npm:~19.1.10"
     babel-plugin-macros: "npm:^3.1.0"
@@ -5429,16 +5407,17 @@ __metadata:
     react-compiler-runtime: "npm:19.0.0-beta-63e3235-20250105"
     react-dom: "npm:19.1.0"
     react-native: "npm:0.81.4"
-    react-native-fast-confetti: "npm:^1.1.1"
     react-native-gesture-handler: "npm:~2.28.0"
     react-native-reanimated: "npm:^4.1.0"
     react-native-safe-area-context: "npm:~5.6.0"
     react-native-screens: "npm:~4.16.0"
     react-native-svg: "npm:15.12.1"
     react-native-web: "npm:^0.21.0"
+    react-native-wgpu: "npm:^0.4.1"
     react-native-worklets: "npm:^0.5.1"
     react-redux: "npm:^9.2.0"
     redux-persist: "npm:^6.0.0"
+    typegpu-confetti: "npm:^0.1.1"
   languageName: unknown
   linkType: soft
 
@@ -5527,6 +5506,15 @@ __metadata:
   dependencies:
     tslib: "npm:^2.4.0"
   checksum: 10/aa58e64753a420ad1eefaf7bacef3dda61d74f9336925943d9244132d5b48d9242f734f1e707fd5ccfa6dd1d8ec8e6debc234b4dedb3a5b0d8486d1f373350b2
+  languageName: node
+  linkType: hard
+
+"@typegpu/noise@npm:0.7.*":
+  version: 0.7.0
+  resolution: "@typegpu/noise@npm:0.7.0"
+  peerDependencies:
+    typegpu: ^0.7.0
+  checksum: 10/789152d73361639ce9dab77bf7065825c5189c1bee2b2088528c3ab952f643d4fda6c39d3fd9fa660e61f35f8ae5650d738c0df2446204ef14e34712c4a1aa10
   languageName: node
   linkType: hard
 
@@ -6056,13 +6044,6 @@ __metadata:
   peerDependencies:
     "@urql/core": ^5.0.0
   checksum: 10/5bbc914a58a6de6ee7146d55fa8d6454cbf0fb5f6d7a3f7b1770d95dfbaa9e44fad041d4655f00f38ce87f12b52fdd694a1ccb8df487265185f5b425d5e12177
-  languageName: node
-  linkType: hard
-
-"@webgpu/types@npm:0.1.21":
-  version: 0.1.21
-  resolution: "@webgpu/types@npm:0.1.21"
-  checksum: 10/73fc5f2bebb1abf084b146c26c237c6450747b8119cdf3733643ff90968f6e7790d0ae0ad6aa6dc7b0783a502571d348a76d22c8e8466b3b7f7c9ee956da7e5b
   languageName: node
   linkType: hard
 
@@ -7357,15 +7338,6 @@ __metadata:
   version: 1.0.30001743
   resolution: "caniuse-lite@npm:1.0.30001743"
   checksum: 10/e55b13b4a547c9f610a68d5f5668a3239ada4a4aef5d198860397757ab7c03a5b0590675b7e82c5d3d57316b40499e1da52decb08a97ef3066a338871bbb5c37
-  languageName: node
-  linkType: hard
-
-"canvaskit-wasm@npm:0.40.0":
-  version: 0.40.0
-  resolution: "canvaskit-wasm@npm:0.40.0"
-  dependencies:
-    "@webgpu/types": "npm:0.1.21"
-  checksum: 10/2bdd0607a0e8e55a40e53be1693e59ee39cc99191dc53a265fdd12842d0f77b20f87862bfe9ecc432ad7f0079dc275505d2d5a828451bccd4f597fc12f14ebb7
   languageName: node
   linkType: hard
 
@@ -16489,18 +16461,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-fast-confetti@npm:^1.1.1":
-  version: 1.1.1
-  resolution: "react-native-fast-confetti@npm:1.1.1"
-  peerDependencies:
-    "@shopify/react-native-skia": "*"
-    react: "*"
-    react-native: "*"
-    react-native-reanimated: "*"
-  checksum: 10/849be9469fe1b55d65ae94d071a00cb7c540efb8d2946e889e5bf43ba7088da16077035144a78b6b99559bb2a0f177347e4c184fcb36a69425c75337e1ed73d2
-  languageName: node
-  linkType: hard
-
 "react-native-gesture-handler@npm:~2.28.0":
   version: 2.28.0
   resolution: "react-native-gesture-handler@npm:2.28.0"
@@ -16607,6 +16567,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-wgpu@npm:^0.4.1":
+  version: 0.4.1
+  resolution: "react-native-wgpu@npm:0.4.1"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10/9a25cb00885d71ce12173eff34bfb37e8735a8f111efad8c7917bc0bf3ce3cc7b3742cbfa6b25b69ab990c7dbcbcc6e5658a16f2a53d42d8b52822825d5bac98
+  languageName: node
+  linkType: hard
+
 "react-native-worklets@npm:^0.5.1":
   version: 0.5.1
   resolution: "react-native-worklets@npm:0.5.1"
@@ -16677,17 +16647,6 @@ __metadata:
   bin:
     react-native: cli.js
   checksum: 10/a4e27ffecd7c8acd59ae957f79818173c02057e75352fc39ec5271a27c2a9301e55160bf01bbf87b312034a1427dd5e56d2fa2f3d38c0a7f605a8f1941e0456a
-  languageName: node
-  linkType: hard
-
-"react-reconciler@npm:0.31.0":
-  version: 0.31.0
-  resolution: "react-reconciler@npm:0.31.0"
-  dependencies:
-    scheduler: "npm:^0.25.0"
-  peerDependencies:
-    react: ^19.0.0
-  checksum: 10/e7235fa08947296c2084a89dc264651fd7cb9dc3a26c3b132b84ecf2a30c46b9b98cd004c30adfe2a24741cd1e49a618858a48080008ce2b4e964a2c4233041e
   languageName: node
   linkType: hard
 
@@ -17427,13 +17386,6 @@ __metadata:
   version: 0.26.0
   resolution: "scheduler@npm:0.26.0"
   checksum: 10/1ecf2e5d7de1a7a132796834afe14a2d589ba7e437615bd8c06f3e0786a3ac3434655e67aac8755d9b14e05754c177e49c064261de2673aaa3c926bc98caa002
-  languageName: node
-  linkType: hard
-
-"scheduler@npm:^0.25.0":
-  version: 0.25.0
-  resolution: "scheduler@npm:0.25.0"
-  checksum: 10/e661e38503ab29a153429a99203fefa764f28b35c079719eb5efdd2c1c1086522f6653d8ffce388209682c23891a6d1d32fa6badf53c35fb5b9cd0c55ace42de
   languageName: node
   linkType: hard
 
@@ -18661,6 +18613,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tinyest@npm:~0.1.1":
+  version: 0.1.2
+  resolution: "tinyest@npm:0.1.2"
+  checksum: 10/7d61f7dea10a1db54695862c46272ccda05423cb53f8682d735775857b473d2f9835372b811d994fa080b230d382cf4601fa8b6df8a1f1be4b5439e7bca775b3
+  languageName: node
+  linkType: hard
+
 "tinyexec@npm:^1.0.0":
   version: 1.0.1
   resolution: "tinyexec@npm:1.0.1"
@@ -19046,10 +19005,41 @@ __metadata:
   languageName: node
   linkType: hard
 
+"typed-binary@npm:^4.3.1":
+  version: 4.3.2
+  resolution: "typed-binary@npm:4.3.2"
+  checksum: 10/35a91834caa7cd386776b46d8ccd58c533430be3d40bb0604f11b43d10f618a7aa3077d5edac33726b7ed953696d1165fd86eb13124c316674955b5d0aea9d14
+  languageName: node
+  linkType: hard
+
 "typedarray@npm:^0.0.6":
   version: 0.0.6
   resolution: "typedarray@npm:0.0.6"
   checksum: 10/2cc1bcf7d8c1237f6a16c04efc06637b2c5f2d74e58e84665445cf87668b85a21ab18dd751fa49eee6ae024b70326635d7b79ad37b1c370ed2fec6aeeeb52714
+  languageName: node
+  linkType: hard
+
+"typegpu-confetti@npm:^0.1.1":
+  version: 0.1.1
+  resolution: "typegpu-confetti@npm:0.1.1"
+  dependencies:
+    "@typegpu/noise": "npm:0.7.*"
+    typegpu: "npm:0.7.*"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+    react-native-wgpu: "*"
+  checksum: 10/c0ab5843d54bca311c7bca681efc130e8b1ea5c6cd0bec1a79793797be28799dd6979bd2550abf28bf25bfb5aef738c8350576c091453093c7e43c45bf260c01
+  languageName: node
+  linkType: hard
+
+"typegpu@npm:0.7.*":
+  version: 0.7.1
+  resolution: "typegpu@npm:0.7.1"
+  dependencies:
+    tinyest: "npm:~0.1.1"
+    typed-binary: "npm:^4.3.1"
+  checksum: 10/1bc8c4e87b746d2613b1205eea764110126c80d57edfa6541e83f0d400b6e8e86a84e2b9f3f2b54ff85497186b7982f56252815ab2ca0da82ef370892c59b832
   languageName: node
   linkType: hard
 
