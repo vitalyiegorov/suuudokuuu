@@ -7,6 +7,7 @@ import * as Sharing from 'expo-sharing';
 import { LucideLogOut, LucideSettings, LucideShare2 } from 'lucide-react-native';
 import { use, useEffect, useRef, useState } from 'react';
 import { Text, View } from 'react-native';
+import { Confetti, type ConfettiMethods } from 'react-native-fast-confetti';
 
 import { Alert } from '../../../@generic/components/alert/alert';
 import { BlackButton } from '../../../@generic/components/black-button/black-button';
@@ -73,6 +74,7 @@ export const GameScreen = () => {
     const [hasSharing, setHasSharing] = useState(false);
     const [scoredCells, setScoredCells] = useState<ScoredCellsInterface>(emptyScoredCells);
     const availableValuesRefs = useRef<Record<number, AvailableValuesItemRef | null>>({});
+    const confettiRef = useRef<ConfettiMethods>(null);
 
     const maxMistakesReached = mistakes >= maxMistakes;
 
@@ -111,6 +113,9 @@ export const GameScreen = () => {
         hapticImpact(ImpactFeedbackStyle.Heavy);
 
         dispatch(gameFinishAction({ difficulty: sudoku.Difficulty, isWon: true }));
+
+        // Trigger confetti animation on the game field
+        confettiRef.current?.restart();
 
         // HINT: We need to wait for the animation to finish, animation finish event would fix it?
         setTimeout(() => void router.replace('winner'), 10 * animationDurationConstant);
@@ -178,8 +183,17 @@ export const GameScreen = () => {
     const mistakesCountTextStyles = [styles.mistakesCountText, { color: maxMistakesReached ? theme.colors.red : theme.colors.label.main }];
     const hideAutoCandidates = maxMistakes === 0;
 
+    const confettiColors = [
+        theme.colors.blue,
+        theme.colors.red,
+        theme.colors.label.main,
+        theme.colors.cell.active,
+        theme.colors.value.progress
+    ];
+
     return (
         <View style={styles.container} testID={GameScreenSelectors.Root}>
+            <Confetti ref={confettiRef} autoplay={false} count={300} isInfinite={false} colors={confettiColors} />
             <View style={styles.controls}>
                 <View style={styles.controlsWrapper}>
                     <BlackText>{t`Mistakes`}</BlackText>
