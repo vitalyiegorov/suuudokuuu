@@ -89,7 +89,7 @@ msgstr "стандартна"
 msgid "Easy"
 msgstr "Легкий"
 
-#: src/screens/components/game-screen/game.screen.tsx:202
+#: src/screens/components/game-screen/game.screen.tsx:203
 msgid "Elapsed"
 msgstr "Минуло"
 
@@ -202,7 +202,7 @@ msgstr "Програно"
 msgid "Medium"
 msgstr "Середній"
 
-#: src/screens/components/game-screen/game.screen.tsx:185
+#: src/screens/components/game-screen/game.screen.tsx:186
 msgid "Mistakes"
 msgstr "Помилки"
 
@@ -262,7 +262,7 @@ msgstr "Відновити"
 msgid "Return"
 msgstr "Повернутися"
 
-#: src/screens/components/game-screen/game.screen.tsx:210
+#: src/screens/components/game-screen/game.screen.tsx:211
 msgid "Score"
 msgstr "Рахунок"
 

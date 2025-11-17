@@ -180,59 +180,59 @@ export const GameScreen = () => {
 
     return (
         <View style={styles.container} testID={GameScreenSelectors.Root}>
-            <View style={styles.controls}>
-                <View style={styles.controlsWrapper}>
-                    <BlackText>{t`Mistakes`}</BlackText>
-
-                    <BlackText>
-                        <Text style={mistakesCountTextStyles} testID={GameScreenSelectors.MistakesCount}>
-                            {mistakes}
-                        </Text>
-
-                        <Text style={styles.mistakesSeparator}>/</Text>
-
-                        <BlackText style={styles.mistakesMaxText} testID={GameScreenSelectors.MaxMistakesAllowed}>
-                            {maxMistakes}
-                        </BlackText>
-                    </BlackText>
-                </View>
-
-                {hasTimer ? (
+            <View style={styles.fieldWrapper}>
+                <View style={styles.controls}>
                     <View style={styles.controlsWrapper}>
-                        <BlackText>{t`Elapsed`}</BlackText>
+                        <BlackText>{t`Mistakes`}</BlackText>
 
-                        <GameTimer />
-                    </View>
-                ) : null}
+                        <BlackText>
+                            <Text style={mistakesCountTextStyles} testID={GameScreenSelectors.MistakesCount}>
+                                {mistakes}
+                            </Text>
 
-                <View style={styles.scoreWrapper}>
-                    <View style={styles.controlsWrapper}>
-                        <BlackText>{t`Score`}</BlackText>
+                            <Text style={styles.mistakesSeparator}>/</Text>
 
-                        <BlackText style={styles.scoreText} testID={GameScreenSelectors.Score}>
-                            {score}
+                            <BlackText style={styles.mistakesMaxText} testID={GameScreenSelectors.MaxMistakesAllowed}>
+                                {maxMistakes}
+                            </BlackText>
                         </BlackText>
                     </View>
-                </View>
 
-                <View style={styles.buttonsWrapper}>
-                    {hasSharing ? (
-                        <BlackButton onPress={handleShare} style={styles.button} testID={GameScreenSelectors.ShareButton}>
-                            <LucideShare2 color={theme.colors.white} />
-                        </BlackButton>
+                    {hasTimer ? (
+                        <View style={styles.controlsWrapper}>
+                            <BlackText>{t`Elapsed`}</BlackText>
+
+                            <GameTimer />
+                        </View>
                     ) : null}
 
-                    <BlackButton href="/settings" style={styles.button}>
-                        <LucideSettings color={theme.colors.white} />
-                    </BlackButton>
+                    <View style={styles.scoreWrapper}>
+                        <View style={styles.controlsWrapper}>
+                            <BlackText>{t`Score`}</BlackText>
 
-                    <BlackButton onPress={handleExit} style={styles.button} testID={GameScreenSelectors.QuitButton}>
-                        <LucideLogOut color={theme.colors.white} />
-                    </BlackButton>
+                            <BlackText style={styles.scoreText} testID={GameScreenSelectors.Score}>
+                                {score}
+                            </BlackText>
+                        </View>
+                    </View>
+
+                    <View style={styles.buttonsWrapper}>
+                        {hasSharing ? (
+                            <BlackButton onPress={handleShare} style={styles.button} testID={GameScreenSelectors.ShareButton}>
+                                <LucideShare2 color={theme.colors.white} />
+                            </BlackButton>
+                        ) : null}
+
+                        <BlackButton href="/settings" style={styles.button}>
+                            <LucideSettings color={theme.colors.white} />
+                        </BlackButton>
+
+                        <BlackButton onPress={handleExit} style={styles.button} testID={GameScreenSelectors.QuitButton}>
+                            <LucideLogOut color={theme.colors.white} />
+                        </BlackButton>
+                    </View>
                 </View>
-            </View>
 
-            <View style={styles.fieldWrapper}>
                 <Field onSelect={handleSelectCell} scoredCells={scoredCells} selectedCell={selectedCell} />
             </View>
 
