@@ -15,7 +15,7 @@ export const CellMarginToggle = () => {
     const { t } = useLingui();
 
     const dispatch = useAppDispatch();
-    const fontSize = useAppSelector(settingsCellMarginSelector);
+    const cellMargin = useAppSelector(settingsCellMarginSelector);
 
     const handleChange = (cellMargin: SettingsState['cellMargin']) => {
         dispatch(settingsSetAction({ cellMargin }));
@@ -32,7 +32,7 @@ export const CellMarginToggle = () => {
     return (
         <SettingsGroup description={t`Game screen cell margin`} hasAnotherRow title={t`Cell margin`}>
             <ToggleSelect
-                initialValue={fontSize}
+                initialValue={cellMargin}
                 onChange={handleChange}
                 options={CellMargin}
                 toNumberFn={getCellMarginIndex}
