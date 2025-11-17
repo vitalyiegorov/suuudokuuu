@@ -7,7 +7,7 @@ import * as Sharing from 'expo-sharing';
 import { LucideLogOut, LucideSettings, LucideShare2 } from 'lucide-react-native';
 import { use, useEffect, useRef, useState } from 'react';
 import { Text, View } from 'react-native';
-import { useConfetti } from 'typegpu-confetti/react-native';
+import { useConfetti } from 'typegpu-confetti/react';
 
 import { Alert } from '../../../@generic/components/alert/alert';
 import { BlackButton } from '../../../@generic/components/black-button/black-button';

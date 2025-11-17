@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 import { enableFreeze, enableScreens } from 'react-native-screens';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { ConfettiProvider } from 'typegpu-confetti/react-native';
+import { ConfettiProvider } from 'typegpu-confetti/react';
 
 import { appRootPersistor, appRootStore } from '../@generic/app-root.store';
 import { ThemeProvider } from '../theme/context/theme.context';

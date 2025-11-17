@@ -15,7 +15,8 @@
         "**/coverage/**",
         "**/node_modules/**",
         "**/ios/**",
-        "**/android/**"
+        "**/android/**",
+        "**/*.web.tsx"
     ],
     "absolute": false,
     "gitignore": true,
