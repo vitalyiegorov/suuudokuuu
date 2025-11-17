@@ -35,5 +35,5 @@ export const initialSettingsState: SettingsState = {
     language: i18nGetOSLocale(),
     theme: ThemeEnum.BlackAndWhite,
     isDarkColorSchema: Appearance.getColorScheme() === 'dark',
-    cellMargin: 0
+    cellMargin: 5
 };
