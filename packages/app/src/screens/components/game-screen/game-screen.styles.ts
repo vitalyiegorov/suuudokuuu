@@ -17,32 +17,29 @@ export const GameScreenStyles = StyleSheet.create({
         justifyContent: 'center'
     },
     bottomContainer: {
-        flex: 1,
-        flexDirection: 'column-reverse',
-        maxWidth: 300
+        flex: 1
     },
     button: { paddingHorizontal: 10 },
     buttonsWrapper: { flexDirection: 'row', gap: 5 },
     container: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
         alignItems: 'center',
+        flex: 1,
         padding: 10,
         paddingBottom: 20
     },
     controls: {
         alignItems: 'center',
         flexDirection: 'row',
-        justifyContent: 'space-evenly',
-        marginBottom: 40
+        justifyContent: 'space-between',
+        marginBottom: 40,
+        maxWidth: 600,
+        minWidth: 345
     },
     controlsWrapper: {
         alignItems: 'center'
     },
     fieldWrapper: {
-        flex: 1,
-        backgroundColor: 'red'
+        flex: 3
     },
     mistakesCountText: {
         fontWeight: 'bold'
