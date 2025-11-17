@@ -89,7 +89,7 @@ msgstr "default"
 msgid "Easy"
 msgstr "Einfach"
 
-#: src/screens/components/game-screen/game.screen.tsx:202
+#: src/screens/components/game-screen/game.screen.tsx:203
 msgid "Elapsed"
 msgstr "Verstrichen"
 
@@ -202,7 +202,7 @@ msgstr "Verloren"
 msgid "Medium"
 msgstr "Mittelschwer"
 
-#: src/screens/components/game-screen/game.screen.tsx:185
+#: src/screens/components/game-screen/game.screen.tsx:186
 msgid "Mistakes"
 msgstr "Fehler"
 
@@ -262,7 +262,7 @@ msgstr "Fortsetzen"
 msgid "Return"
 msgstr "Zurück"
 
-#: src/screens/components/game-screen/game.screen.tsx:210
+#: src/screens/components/game-screen/game.screen.tsx:211
 msgid "Score"
 msgstr "Punktestand"
 
