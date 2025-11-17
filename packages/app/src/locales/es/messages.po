@@ -54,7 +54,7 @@ msgstr ""
 
 #: src/settings/component/cell-margin-toggle/cell-margin-toggle.tsx:29
 msgid "big"
-msgstr ""
+msgstr "grande"
 
 #: src/screens/components/shared-screen/shared-screen.tsx:28
 #: src/screens/components/game-screen/game.screen.tsx:86
@@ -63,7 +63,7 @@ msgstr "Cancelar"
 
 #: src/settings/component/cell-margin-toggle/cell-margin-toggle.tsx:33
 msgid "Cell margin"
-msgstr ""
+msgstr "Margen de celda"
 
 #: src/game/components/mistakes-select/mistakes-select.tsx:27
 msgid "Choose your challenge"
@@ -112,7 +112,7 @@ msgstr "Juego en pausa"
 
 #: src/settings/component/cell-margin-toggle/cell-margin-toggle.tsx:33
 msgid "Game screen cell margin"
-msgstr ""
+msgstr "Margen de celda en la pantalla del juego"
 
 #: src/settings/component/font-size-toggle/font-size-toggle.tsx:28
 msgid "Game screen font size"
@@ -120,11 +120,11 @@ msgstr "Tamaño de fuente en la pantalla del juego"
 
 #: src/settings/component/theme-toggle/theme-toggle.tsx:23
 msgid "gold"
-msgstr ""
+msgstr "oro"
 
 #: src/settings/component/theme-toggle/theme-toggle.tsx:24
 msgid "gray"
-msgstr ""
+msgstr "gris"
 
 #: src/@generic/utils/get-difficulty-text.util.ts:11
 msgid "Hard"
@@ -216,7 +216,7 @@ msgstr "Pesadilla"
 
 #: src/settings/component/cell-margin-toggle/cell-margin-toggle.tsx:27
 msgid "none"
-msgstr ""
+msgstr "ninguno"
 
 #: src/screens/components/settings-screen/settings.screen.tsx:26
 msgid "Not timer - no stress"
