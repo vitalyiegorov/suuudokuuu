@@ -17,12 +17,10 @@ export const FieldCellStyles = StyleSheet.create({
         width: CellSizeConstant
     },
     groupXEnd: {
-        borderRightWidth: 1,
-        marginRight: 5
+        borderRightWidth: 1
     },
     groupYEnd: {
-        borderBottomWidth: 1,
-        marginBottom: 5
+        borderBottomWidth: 1
     },
     lastCol: {
         borderRightWidth: 1

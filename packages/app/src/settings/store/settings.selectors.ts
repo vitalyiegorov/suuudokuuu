@@ -24,5 +24,6 @@ export const settingsFontSizeMultiplierSelector = createSelector(
     // eslint-disable-next-line id-length
     state => ({ xs: 0.6, s: 0.8, m: 1.25, xl: 1.75 })[state.fontSize]
 );
+export const settingsCellMarginSelector = createSelector(settingsSelector, state => state.cellMargin);
 export const settingsLanguageSelector = createSelector(settingsSelector, state => state.language);
 export const settingsThemeSelector = createSelector(settingsSelector, state => state.theme);
