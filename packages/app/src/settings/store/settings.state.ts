@@ -2,6 +2,7 @@ import { Appearance } from 'react-native';
 
 import { i18nGetOSLocale } from '../../@generic/utils/i18n.util';
 import { ThemeEnum } from '../../theme/enum/theme.enum';
+import { CellMargin } from '../constant/cell-margin.constant';
 
 import type { Themes } from '../../theme/constant/themes.constant';
 import type { FontSizes } from '../constant/font-sizes.constant';
@@ -19,6 +20,7 @@ export interface SettingsState {
     language: (typeof Languages)[number];
     theme: (typeof Themes)[number];
     isDarkColorSchema: boolean;
+    cellMargin: (typeof CellMargin)[number];
 }
 
 export const initialSettingsState: SettingsState = {
@@ -32,5 +34,6 @@ export const initialSettingsState: SettingsState = {
     fontSize: 'm',
     language: i18nGetOSLocale(),
     theme: ThemeEnum.BlackAndWhite,
-    isDarkColorSchema: Appearance.getColorScheme() === 'dark'
+    isDarkColorSchema: Appearance.getColorScheme() === 'dark',
+    cellMargin: 5
 };
