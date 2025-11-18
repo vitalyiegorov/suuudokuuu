@@ -1,5 +1,4 @@
-/* eslint-disable */
-
+// eslint-disable-next-line camelcase
 import { Inter_500Medium, Inter_700Bold, useFonts } from '@expo-google-fonts/inter';
 import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
@@ -9,12 +8,12 @@ import { useEffect } from 'react';
 import { enableFreeze, enableScreens } from 'react-native-screens';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { ConfettiProvider } from 'typegpu-confetti/react-native';
 
 import { appRootPersistor, appRootStore } from '../@generic/app-root.store';
-import { ThemeProvider } from '../theme/context/theme.context';
 import { i18nGetOSLocale } from '../@generic/utils/i18n.util';
+import { ConfettiSafeProvider } from '../confetti/provider/confetti-provider/confetti-safe.provider';
 import { GameProvider } from '../game/context/game.context';
+import { ThemeProvider } from '../theme/context/theme.context';
 
 enableScreens();
 enableFreeze();
@@ -26,6 +25,7 @@ void SplashScreen.preventAutoHideAsync();
 const stackOptions = { headerShown: false, gestureEnabled: false };
 
 export default function RootLayout() {
+    // eslint-disable-next-line camelcase
     const [loaded] = useFonts({ Inter_500Medium, Inter_700Bold });
 
     useEffect(() => {
@@ -44,9 +44,9 @@ export default function RootLayout() {
                 <ThemeProvider>
                     <I18nProvider i18n={i18n}>
                         <GameProvider>
-                            <ConfettiProvider>
+                            <ConfettiSafeProvider>
                                 <Stack screenOptions={stackOptions}></Stack>
-                            </ConfettiProvider>
+                            </ConfettiSafeProvider>
                         </GameProvider>
                     </I18nProvider>
                 </ThemeProvider>

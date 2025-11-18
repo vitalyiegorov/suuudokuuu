@@ -7,7 +7,6 @@ import * as Sharing from 'expo-sharing';
 import { LucideLogOut, LucideSettings, LucideShare2 } from 'lucide-react-native';
 import { use, useEffect, useRef, useState } from 'react';
 import { Text, View } from 'react-native';
-import { useConfetti } from 'typegpu-confetti/react-native';
 
 import { Alert } from '../../../@generic/components/alert/alert';
 import { BlackButton } from '../../../@generic/components/black-button/black-button';
@@ -16,6 +15,7 @@ import { animationDurationConstant } from '../../../@generic/constants/animation
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { useVibration } from '../../../@generic/hooks/use-vibration.hook';
+import { useConfettiSafe } from '../../../confetti/hook/use-safe-confetti/use-confetti-safe.hook';
 import { AutoCandidatesButton } from '../../../game/components/auto-candidates-button/auto-candidates-button';
 import { AvailableValuesItem, type AvailableValuesItemRef } from '../../../game/components/available-values-item/available-values-item';
 import { CandidateInputItem } from '../../../game/components/candidate-input-item/candidate-input-item';
@@ -74,7 +74,7 @@ export const GameScreen = () => {
     const [hasSharing, setHasSharing] = useState(false);
     const [scoredCells, setScoredCells] = useState<ScoredCellsInterface>(emptyScoredCells);
     const availableValuesRefs = useRef<Record<number, AvailableValuesItemRef | null>>({});
-    const confettiRef = useConfetti();
+    const confettiRef = useConfettiSafe();
 
     const maxMistakesReached = mistakes >= maxMistakes;
 
@@ -114,8 +114,7 @@ export const GameScreen = () => {
 
         dispatch(gameFinishAction({ difficulty: sudoku.Difficulty, isWon: true }));
 
-        // Trigger confetti animation on the game field
-        confettiRef?.current?.addParticles(300);
+        confettiRef?.current?.addParticles(100);
 
         // HINT: We need to wait for the animation to finish, animation finish event would fix it?
         setTimeout(() => void router.replace('winner'), 10 * animationDurationConstant);
