@@ -1,10 +1,12 @@
+/* eslint-disable @typescript-eslint/no-magic-numbers, lingui/no-unlocalized-strings */
 import { describe, expect, it } from '@jest/globals';
 import { DifficultyEnum, emptyScoredCells } from '@suuudokuuu/generator';
 
-import type { ScoredCellsInterface } from '@suuudokuuu/generator';
 
 import { defaultScoringConfig } from './scoring-config.interface';
 import { SudokuScoring } from './sudoku-scoring';
+
+import type { ScoredCellsInterface } from '@suuudokuuu/generator';
 
 describe('SudokuScoring', () => {
     const scoring = new SudokuScoring(defaultScoringConfig);
@@ -29,11 +31,16 @@ describe('SudokuScoring', () => {
             const nightmare = scoring.calculate(DifficultyEnum.Nightmare, emptyScoredCells, 0, 0);
 
             // Base value is 500
-            expect(newbie).toBe(500); // 500 * 1
-            expect(easy).toBe(1000); // 500 * 2
-            expect(medium).toBe(1500); // 500 * 3
-            expect(hard).toBe(2000); // 500 * 4
-            expect(nightmare).toBe(2500); // 500 * 5
+            // 500 * 1
+            expect(newbie).toBe(500);
+            // 500 * 2
+            expect(easy).toBe(1000);
+            // 500 * 3
+            expect(medium).toBe(1500);
+            // 500 * 4
+            expect(hard).toBe(2000);
+            // 500 * 5
+            expect(nightmare).toBe(2500);
         });
     });
 
