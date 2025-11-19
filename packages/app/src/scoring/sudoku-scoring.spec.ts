@@ -17,7 +17,6 @@ describe('SudokuScoring', () => {
 
             const score = scoring.calculate(DifficultyEnum.Easy, emptyScoredCells, 0, 0);
 
-            // Easy difficulty: 500 * 2 = 1000
             expect(score).toBe(1000);
         });
 
@@ -30,16 +29,10 @@ describe('SudokuScoring', () => {
             const hard = scoring.calculate(DifficultyEnum.Hard, emptyScoredCells, 0, 0);
             const nightmare = scoring.calculate(DifficultyEnum.Nightmare, emptyScoredCells, 0, 0);
 
-            // Base value is 500
-            // 500 * 1
             expect(newbie).toBe(500);
-            // 500 * 2
             expect(easy).toBe(1000);
-            // 500 * 3
             expect(medium).toBe(1500);
-            // 500 * 4
             expect(hard).toBe(2000);
-            // 500 * 5
             expect(nightmare).toBe(2500);
         });
     });
@@ -55,7 +48,6 @@ describe('SudokuScoring', () => {
 
             const score = scoring.calculate(DifficultyEnum.Easy, scoredCellsWithRow, 0, 0);
 
-            // Base: 1000, Row bonus: 1000 * 3 = 3000
             expect(score).toBe(4000);
         });
 
@@ -69,7 +61,6 @@ describe('SudokuScoring', () => {
 
             const score = scoring.calculate(DifficultyEnum.Easy, scoredCellsWithCol, 0, 0);
 
-            // Base: 1000, Col bonus: 1000 * 2 = 2000
             expect(score).toBe(3000);
         });
 
@@ -83,7 +74,6 @@ describe('SudokuScoring', () => {
 
             const score = scoring.calculate(DifficultyEnum.Easy, scoredCellsWithGroup, 0, 0);
 
-            // Base: 1000, Group bonus: 1000 * 3 = 3000
             expect(score).toBe(4000);
         });
 
@@ -97,7 +87,6 @@ describe('SudokuScoring', () => {
 
             const score = scoring.calculate(DifficultyEnum.Easy, scoredCellsWithValue, 0, 0);
 
-            // Base: 1000, Value bonus: 1000 * 2 = 2000
             expect(score).toBe(3000);
         });
 
@@ -111,7 +100,6 @@ describe('SudokuScoring', () => {
 
             const score = scoring.calculate(DifficultyEnum.Easy, scoredCellsWithValues, 0, 0);
 
-            // Base: 1000, no value bonus
             expect(score).toBe(1000);
         });
 
@@ -128,12 +116,6 @@ describe('SudokuScoring', () => {
 
             const score = scoring.calculate(DifficultyEnum.Hard, scoredCellsWithAll, 0, 0);
 
-            // Base: 2000 (Hard = 500 * 4)
-            // Row: 2000 * 3 = 6000
-            // Col: 2000 * 2 = 4000
-            // Group: 2000 * 3 = 6000
-            // Value: 2000 * 2 = 4000
-            // Total: 2000 + 6000 + 4000 + 6000 + 4000 = 22000
             expect(score).toBe(22000);
         });
     });
@@ -144,9 +126,6 @@ describe('SudokuScoring', () => {
 
             const score = scoring.calculate(DifficultyEnum.Easy, emptyScoredCells, 0, 60);
 
-            // Base: 1000
-            // Time penalty: 1000 * 60 * 0.001 = 60
-            // Result: 1000 - 60 = 940
             expect(score).toBe(940);
         });
 
@@ -155,9 +134,6 @@ describe('SudokuScoring', () => {
 
             const score = scoring.calculate(DifficultyEnum.Easy, emptyScoredCells, 0, 600);
 
-            // Base: 1000
-            // Time penalty: 1000 * 600 * 0.001 = 600
-            // Result: 1000 - 600 = 400
             expect(score).toBe(400);
         });
     });
@@ -168,9 +144,6 @@ describe('SudokuScoring', () => {
 
             const score = scoring.calculate(DifficultyEnum.Easy, emptyScoredCells, 5, 0);
 
-            // Base: 1000
-            // Mistake penalty: 1000 * 5 * 0.05 = 250
-            // Result: 1000 - 250 = 750
             expect(score).toBe(750);
         });
 
@@ -179,9 +152,6 @@ describe('SudokuScoring', () => {
 
             const score = scoring.calculate(DifficultyEnum.Easy, emptyScoredCells, 10, 0);
 
-            // Base: 1000
-            // Mistake penalty: 1000 * 10 * 0.05 = 500
-            // Result: 1000 - 500 = 500
             expect(score).toBe(500);
         });
     });
@@ -192,10 +162,6 @@ describe('SudokuScoring', () => {
 
             const score = scoring.calculate(DifficultyEnum.Easy, emptyScoredCells, 5, 60);
 
-            // Base: 1000
-            // Time penalty: 1000 * 60 * 0.001 = 60 -> 940
-            // Mistake penalty: 940 * 5 * 0.05 = 235 -> 705
-            // Result: 705
             expect(score).toBe(705);
         });
 
@@ -204,22 +170,14 @@ describe('SudokuScoring', () => {
 
             const score = scoring.calculate(DifficultyEnum.Easy, emptyScoredCells, 1000, 3600);
 
-            // Base: 1000
-            // Time penalty: 1000 * 3600 * 0.001 = 3600 -> would be -2600
-            // But minimum is enforced: 50
             expect(score).toBe(defaultScoringConfig.correctMinValue);
         });
 
         it('should not let penalties create negative scores that become positive', () => {
             expect.assertions(1);
 
-            // This tests the bug fix where negative scores after time penalty
-            // would become positive after mistake penalty
             const score = scoring.calculate(DifficultyEnum.Easy, emptyScoredCells, 100, 2000);
 
-            // Base: 1000
-            // Time penalty: 1000 * 2000 * 0.001 = 2000 -> would be -1000
-            // Should be capped at minimum: 50
             expect(score).toBe(defaultScoringConfig.correctMinValue);
         });
     });
@@ -238,14 +196,6 @@ describe('SudokuScoring', () => {
 
             const score = scoring.calculate(DifficultyEnum.Medium, scoredCells, 3, 120);
 
-            // Base: 1500 (Medium = 500 * 3)
-            // Row: 1500 * 3 = 4500
-            // Col: 1500 * 2 = 3000
-            // Group: 1500 * 3 = 4500
-            // Value: 1500 * 2 = 3000
-            // Subtotal: 1500 + 4500 + 3000 + 4500 + 3000 = 16500
-            // Time penalty: 16500 * 120 * 0.001 = 1980 -> 14520
-            // Mistake penalty: 14520 * 3 * 0.05 = 2178 -> 12342
             expect(score).toBe(12342);
         });
 
@@ -262,12 +212,6 @@ describe('SudokuScoring', () => {
 
             const score = scoring.calculate(DifficultyEnum.Nightmare, scoredCells, 0, 0);
 
-            // Base: 2500 (Nightmare = 500 * 5)
-            // Row: 2500 * 3 = 7500
-            // Col: 2500 * 2 = 5000
-            // Group: 2500 * 3 = 7500
-            // Value: 2500 * 2 = 5000
-            // Total: 2500 + 7500 + 5000 + 7500 + 5000 = 27500
             expect(score).toBe(27500);
         });
     });

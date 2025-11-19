@@ -1,8 +1,9 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { getCellKey } from '../../@generic/utils/get-cell-key.util';
+import { defaultScoringConfig } from '../../scoring/scoring-config.interface';
+import { SudokuScoring } from '../../scoring/sudoku-scoring';
 import { solutionStepFromCell } from '../interface/solution-step.interface';
-import { SudokuScoring, defaultScoringConfig } from '../scoring';
 
 import { initialGameState } from './game.state';
 

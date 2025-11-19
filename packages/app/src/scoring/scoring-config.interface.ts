@@ -1,23 +1,14 @@
 import { DifficultyEnum } from '@suuudokuuu/generator';
 
 export interface ScoringConfigInterface {
-    // Base score value for correct value
     correctValue: number;
-    // Minimal score earned for correct value
     correctMinValue: number;
-    // Decreasing coefficient for elapsed time (per second)
     elapsedCoefficient: number;
-    // Decreasing coefficient for mistakes count (per mistake)
     mistakesCoefficient: number;
-    // Increasing coefficient for completing row
     lastInRowCoefficientConstant: number;
-    // Increasing coefficient for completing column
     lastInColCoefficientConstant: number;
-    // Increasing coefficient for completing group
     lastInGroupCoefficientConstant: number;
-    // Increasing coefficient for completing all values
     lastValueCoefficient: number;
-    // Increasing coefficient for difficulty
     difficultyCoefficients: Record<DifficultyEnum, number>;
 }
 
