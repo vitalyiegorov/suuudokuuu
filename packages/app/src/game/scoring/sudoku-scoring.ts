@@ -1,8 +1,8 @@
-import type { DifficultyEnum, ScoredCellsInterface } from '@suuudokuuu/generator';
 
 import { emptyScoredCells } from '@suuudokuuu/generator';
 
 import type { ScoringConfigInterface } from './scoring-config.interface';
+import type { DifficultyEnum, ScoredCellsInterface } from '@suuudokuuu/generator';
 
 /**
  * SudokuScoring class handles all score calculations for Sudoku gameplay.
@@ -34,6 +34,7 @@ export class SudokuScoring {
      * @param elapsedTime Total elapsed time in seconds
      * @returns The calculated score (minimum: correctMinValue)
      */
+    // eslint-disable-next-line max-statements
     calculate(difficulty: DifficultyEnum, scoredCells: ScoredCellsInterface, mistakes: number, elapsedTime: number): number {
         // Start with base score multiplied by difficulty coefficient
         let score = this.getDifficultyBonus(this.config.correctValue, difficulty);
@@ -67,12 +68,14 @@ export class SudokuScoring {
 
     private applyElapsedPenalty(score: number, elapsedSeconds: number): number {
         const penalty = Math.floor(score * elapsedSeconds * this.config.elapsedCoefficient);
-        return Math.floor(score - penalty);
+        
+return Math.floor(score - penalty);
     }
 
     private applyMistakesPenalty(score: number, mistakes: number): number {
         const penalty = Math.floor(score * mistakes * this.config.mistakesCoefficient);
-        return Math.floor(score - penalty);
+        
+return Math.floor(score - penalty);
     }
 
     private getDifficultyBonus(score: number, difficulty: DifficultyEnum): number {
