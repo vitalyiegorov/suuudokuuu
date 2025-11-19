@@ -136,6 +136,10 @@ export const HomeScreen = () => {
                     {Constants.expoConfig?.version}
                 </BlackText>
 
+                <Link asChild href="/scoring">
+                    <BlackText numberOfLines={2} style={styles.infoLink}>{t`How Scoring Works`}</BlackText>
+                </Link>
+
                 <Link asChild href="https://github.com/vitalyiegorov/suuudokuuu/issues/new">
                     <BlackText numberOfLines={2} style={styles.infoLink}>{t`Report a bug`}</BlackText>
                 </Link>
