@@ -38,7 +38,7 @@ export class SudokuScoring {
     }
 
     private getMistakesPenalty(score: number, mistakes: number): number {
-        return Math.floor(score - score * mistakes * this.config.elapsedCoefficient);
+        return Math.floor(score - score * mistakes * this.config.mistakesCoefficient);
     }
 
     private getDifficultyBonus(score: number, difficulty: DifficultyEnum): number {
