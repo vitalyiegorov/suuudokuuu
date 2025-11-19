@@ -13,6 +13,22 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: src/screens/components/scoring-screen/scoring.screen.tsx:164
+msgid "3,384 points"
+msgstr ""
+
+#: src/screens/components/scoring-screen/scoring.screen.tsx:158
+msgid "3,760 × 2 × 0.05 = 376"
+msgstr ""
+
+#: src/screens/components/scoring-screen/scoring.screen.tsx:93
+msgid "3×3 Block"
+msgstr ""
+
+#: src/screens/components/scoring-screen/scoring.screen.tsx:98
+msgid "All of a number (1-9)"
+msgstr ""
+
 #: src/screens/components/game-screen/game.screen.tsx:85
 msgid "All progress will be lost"
 msgstr "Alle Fortschritte gehen verloren"
@@ -25,10 +41,26 @@ msgstr "Versuche"
 msgid "Average time"
 msgstr "Durchschnittszeit"
 
+#: src/screens/components/scoring-screen/scoring.screen.tsx:182
+msgid "Avoid mistakes - they cost you points!"
+msgstr ""
+
 #: src/screens/components/home-screen/home.screen.tsx:100
 #: src/screens/components/home-screen/home.screen.tsx:108
 msgid "Back"
 msgstr "Zurück"
+
+#: src/screens/components/scoring-screen/scoring.screen.tsx:138
+msgid "Base"
+msgstr ""
+
+#: src/screens/components/scoring-screen/scoring.screen.tsx:40
+msgid "Base Score"
+msgstr ""
+
+#: src/screens/components/scoring-screen/scoring.screen.tsx:179
+msgid "Be fast to minimize time penalties"
+msgstr ""
 
 #: src/app/game.tsx:12
 msgid "Be wise, be smart, be quick..."
@@ -73,6 +105,18 @@ msgstr "Wähle deine Herausforderung"
 msgid "Choose your difficulty"
 msgstr "Wähle deine Schwierigkeit"
 
+#: src/screens/components/scoring-screen/scoring.screen.tsx:88
+msgid "Column"
+msgstr ""
+
+#: src/screens/components/scoring-screen/scoring.screen.tsx:176
+msgid "Complete rows, columns, and blocks for huge bonuses"
+msgstr ""
+
+#: src/screens/components/scoring-screen/scoring.screen.tsx:79
+msgid "Completion Bonuses"
+msgstr ""
+
 #: src/screens/components/home-screen/home.screen.tsx:78
 msgid "Continue"
 msgstr "Weiter"
@@ -85,13 +129,34 @@ msgstr "Dark/Light Farbschema"
 msgid "default"
 msgstr "default"
 
+#: src/screens/components/scoring-screen/scoring.screen.tsx:42
+msgid "Each correct placement starts with a base value:"
+msgstr ""
+
+#: src/screens/components/scoring-screen/scoring.screen.tsx:53
 #: src/@generic/utils/get-difficulty-text.util.ts:7
 msgid "Easy"
 msgstr "Einfach"
 
-#: src/screens/components/game-screen/game.screen.tsx:203
+#: src/screens/components/scoring-screen/scoring.screen.tsx:135
+msgid "Easy difficulty, completing a row after 60 seconds with 2 mistakes:"
+msgstr ""
+
+#: src/screens/components/game-screen/game.screen.tsx:202
 msgid "Elapsed"
 msgstr "Verstrichen"
+
+#: src/screens/components/scoring-screen/scoring.screen.tsx:134
+msgid "Example"
+msgstr ""
+
+#: src/screens/components/scoring-screen/scoring.screen.tsx:80
+msgid "Extra points are awarded when your placement completes:"
+msgstr ""
+
+#: src/screens/components/scoring-screen/scoring.screen.tsx:163
+msgid "Final score"
+msgstr ""
 
 #: src/settings/component/font-size-toggle/font-size-toggle.tsx:28
 msgid "Font size"
@@ -126,6 +191,7 @@ msgstr "Gold"
 msgid "gray"
 msgstr "Grau"
 
+#: src/screens/components/scoring-screen/scoring.screen.tsx:65
 #: src/@generic/utils/get-difficulty-text.util.ts:11
 msgid "Hard"
 msgstr "Schwer"
@@ -174,6 +240,13 @@ msgstr "Hervorheben wiederholter Zahlen in einem Block, einer Spalte, einer Zeil
 msgid "Highlight selected candidate numbers"
 msgstr "Hervorheben ausgewählter Kandidatennummern"
 
+#: src/screens/components/scoring-screen/scoring.screen.tsx:26
+#: src/screens/components/scoring-screen/scoring.screen.tsx:28
+#: src/screens/components/home-screen/home.screen.tsx:140
+#: src/app/scoring.tsx:12
+msgid "How Scoring Works"
+msgstr ""
+
 #: src/game/components/mistakes-select/mistakes-select.tsx:29
 msgid "Immortal"
 msgstr "Unsterblich"
@@ -198,21 +271,37 @@ msgstr "Verlierer! =)"
 msgid "Lost"
 msgstr "Verloren"
 
+#: src/screens/components/scoring-screen/scoring.screen.tsx:59
 #: src/@generic/utils/get-difficulty-text.util.ts:9
 msgid "Medium"
 msgstr "Mittelschwer"
 
-#: src/screens/components/game-screen/game.screen.tsx:186
+#: src/screens/components/scoring-screen/scoring.screen.tsx:125
+msgid "Minimum Score"
+msgstr ""
+
+#: src/screens/components/scoring-screen/scoring.screen.tsx:158
+msgid "Mistake penalty"
+msgstr ""
+
+#: src/screens/components/scoring-screen/scoring.screen.tsx:115
+#: src/screens/components/game-screen/game.screen.tsx:185
 msgid "Mistakes"
 msgstr "Fehler"
 
+#: src/screens/components/scoring-screen/scoring.screen.tsx:47
 #: src/@generic/utils/get-difficulty-text.util.ts:13
 msgid "Newbie"
 msgstr "Anfänger"
 
+#: src/screens/components/scoring-screen/scoring.screen.tsx:71
 #: src/@generic/utils/get-difficulty-text.util.ts:15
 msgid "Nightmare"
 msgstr "Albtraum"
+
+#: src/screens/components/scoring-screen/scoring.screen.tsx:127
+msgid "No matter how many penalties, you always earn at least"
+msgstr ""
 
 #: src/settings/component/cell-margin-toggle/cell-margin-toggle.tsx:27
 msgid "none"
@@ -221,6 +310,13 @@ msgstr "kein"
 #: src/screens/components/settings-screen/settings.screen.tsx:26
 msgid "Not timer - no stress"
 msgstr "Kein Timer - kein Stress"
+
+#: src/screens/components/scoring-screen/scoring.screen.tsx:83
+#: src/screens/components/scoring-screen/scoring.screen.tsx:88
+#: src/screens/components/scoring-screen/scoring.screen.tsx:93
+#: src/screens/components/scoring-screen/scoring.screen.tsx:99
+msgid "of current score"
+msgstr ""
 
 #: src/game/context/game.context.tsx:37
 msgid "OK"
@@ -235,6 +331,22 @@ msgstr "Rätsel öffnen"
 msgid "Open shared puzzle?"
 msgstr "Geteilter Rätsel öffnen?"
 
+#: src/screens/components/scoring-screen/scoring.screen.tsx:106
+msgid "Penalties"
+msgstr ""
+
+#: src/screens/components/scoring-screen/scoring.screen.tsx:119
+msgid "Penalty formula"
+msgstr ""
+
+#: src/screens/components/scoring-screen/scoring.screen.tsx:115
+msgid "per mistake"
+msgstr ""
+
+#: src/screens/components/scoring-screen/scoring.screen.tsx:110
+msgid "per second"
+msgstr ""
+
 #: src/screens/components/settings-screen/settings.screen.tsx:27
 msgid "Phone vibration"
 msgstr "Handy-Vibration"
@@ -243,14 +355,26 @@ msgstr "Handy-Vibration"
 msgid "Play again"
 msgstr "Erneut spielen"
 
+#: src/screens/components/scoring-screen/scoring.screen.tsx:173
+msgid "Play on higher difficulties for bigger multipliers"
+msgstr ""
+
+#: src/screens/components/scoring-screen/scoring.screen.tsx:107
+msgid "Points are deducted for:"
+msgstr ""
+
+#: src/screens/components/scoring-screen/scoring.screen.tsx:128
+msgid "points per correct placement."
+msgstr ""
+
 #: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx:17
 #: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx:19
-#: src/screens/components/home-screen/home.screen.tsx:144
+#: src/screens/components/home-screen/home.screen.tsx:148
 #: src/app/privacy-policy.tsx:12
 msgid "Privacy policy"
 msgstr "Datenschutzerklärung"
 
-#: src/screens/components/home-screen/home.screen.tsx:140
+#: src/screens/components/home-screen/home.screen.tsx:144
 msgid "Report a bug"
 msgstr "Ein Problem melden"
 
@@ -262,9 +386,25 @@ msgstr "Fortsetzen"
 msgid "Return"
 msgstr "Zurück"
 
-#: src/screens/components/game-screen/game.screen.tsx:211
+#: src/screens/components/scoring-screen/scoring.screen.tsx:83
+msgid "Row"
+msgstr ""
+
+#: src/screens/components/scoring-screen/scoring.screen.tsx:143
+msgid "Row bonus"
+msgstr ""
+
+#: src/screens/components/game-screen/game.screen.tsx:210
 msgid "Score"
 msgstr "Punktestand"
+
+#: src/screens/components/scoring-screen/scoring.screen.tsx:119
+msgid "score × coefficient × count"
+msgstr ""
+
+#: src/screens/components/scoring-screen/scoring.screen.tsx:34
+msgid "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
+msgstr ""
 
 #: src/screens/components/settings-screen/settings.screen.tsx:20
 #: src/screens/components/settings-screen/settings.screen.tsx:22
@@ -307,6 +447,10 @@ msgstr "Statistiken"
 msgid "Stop current run?"
 msgstr "Aktuellen Lauf stoppen?"
 
+#: src/screens/components/scoring-screen/scoring.screen.tsx:148
+msgid "Subtotal"
+msgstr ""
+
 #: src/@generic/components/support-ukraine-banner/support-ukraine-banner.tsx:22
 msgid "Support Ukraine"
 msgstr "Unterstütze die Ukraine"
@@ -323,9 +467,25 @@ msgstr "SuuudokuuU Das Spiel"
 msgid "Theme"
 msgstr "Thema"
 
+#: src/screens/components/scoring-screen/scoring.screen.tsx:44
+msgid "This value is multiplied by the difficulty coefficient:"
+msgstr ""
+
+#: src/screens/components/scoring-screen/scoring.screen.tsx:110
+msgid "Time"
+msgstr ""
+
+#: src/screens/components/scoring-screen/scoring.screen.tsx:153
+msgid "Time penalty"
+msgstr ""
+
 #: src/screens/components/settings-screen/settings.screen.tsx:26
 msgid "Timer"
 msgstr "Timer"
+
+#: src/screens/components/scoring-screen/scoring.screen.tsx:171
+msgid "Tips for High Scores"
+msgstr ""
 
 #: src/@generic/utils/get-difficulty-text.util.ts:17
 msgid "Unknown"
