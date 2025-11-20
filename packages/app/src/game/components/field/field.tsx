@@ -73,7 +73,6 @@ export const Field = ({ selectedCell, onSelect, scoredCells }: Props) => {
 
             setAnimatedCells(newAnimatedCells);
 
-            // Cancel any ongoing animation before starting a new one to ensure proper reset
             cancelAnimation(textAnimation);
 
             // eslint-disable-next-line react-hooks/immutability
