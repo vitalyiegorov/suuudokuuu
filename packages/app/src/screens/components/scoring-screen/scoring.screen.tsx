@@ -21,7 +21,7 @@ export const ScoringScreen = () => {
 
     const textStyle = { color: theme.colors.label.main };
     const headingStyle = { color: theme.colors.label.main, fontWeight: 'bold' as const, fontSize: 16, marginTop: 16, marginBottom: 8 };
-    const codeStyle = { color: theme.colors.blue, fontFamily: 'monospace' };
+    const codeStyle = { color: theme.colors.label.main, fontFamily: 'monospace', fontWeight: 'bold' as const };
     const sectionStyle = { marginBottom: 16 };
 
     return (

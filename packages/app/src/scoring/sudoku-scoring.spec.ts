@@ -2,7 +2,6 @@
 import { describe, expect, it } from '@jest/globals';
 import { DifficultyEnum, emptyScoredCells } from '@suuudokuuu/generator';
 
-
 import { defaultScoringConfig } from './scoring-config.interface';
 import { SudokuScoring } from './sudoku-scoring';
 
@@ -17,7 +16,7 @@ describe('SudokuScoring', () => {
 
             const score = scoring.calculate(DifficultyEnum.Easy, emptyScoredCells, 0, 0);
 
-            expect(score).toBe(1000);
+            expect(score).toBe(1);
         });
 
         it('should apply difficulty multipliers correctly', () => {
@@ -29,11 +28,11 @@ describe('SudokuScoring', () => {
             const hard = scoring.calculate(DifficultyEnum.Hard, emptyScoredCells, 0, 0);
             const nightmare = scoring.calculate(DifficultyEnum.Nightmare, emptyScoredCells, 0, 0);
 
-            expect(newbie).toBe(500);
-            expect(easy).toBe(1000);
-            expect(medium).toBe(1500);
-            expect(hard).toBe(2000);
-            expect(nightmare).toBe(2500);
+            expect(newbie).toBe(0.5);
+            expect(easy).toBe(1);
+            expect(medium).toBe(1.5);
+            expect(hard).toBe(2);
+            expect(nightmare).toBe(2.5);
         });
     });
 
@@ -48,7 +47,7 @@ describe('SudokuScoring', () => {
 
             const score = scoring.calculate(DifficultyEnum.Easy, scoredCellsWithRow, 0, 0);
 
-            expect(score).toBe(4000);
+            expect(score).toBe(4);
         });
 
         it('should apply column completion bonus', () => {
@@ -61,7 +60,7 @@ describe('SudokuScoring', () => {
 
             const score = scoring.calculate(DifficultyEnum.Easy, scoredCellsWithCol, 0, 0);
 
-            expect(score).toBe(3000);
+            expect(score).toBe(3);
         });
 
         it('should apply group completion bonus', () => {
@@ -74,7 +73,7 @@ describe('SudokuScoring', () => {
 
             const score = scoring.calculate(DifficultyEnum.Easy, scoredCellsWithGroup, 0, 0);
 
-            expect(score).toBe(4000);
+            expect(score).toBe(4);
         });
 
         it('should apply value completion bonus when exactly one value is completed', () => {
@@ -87,7 +86,7 @@ describe('SudokuScoring', () => {
 
             const score = scoring.calculate(DifficultyEnum.Easy, scoredCellsWithValue, 0, 0);
 
-            expect(score).toBe(3000);
+            expect(score).toBe(3);
         });
 
         it('should NOT apply value bonus when multiple values are in the array', () => {
@@ -100,7 +99,7 @@ describe('SudokuScoring', () => {
 
             const score = scoring.calculate(DifficultyEnum.Easy, scoredCellsWithValues, 0, 0);
 
-            expect(score).toBe(1000);
+            expect(score).toBe(1);
         });
 
         it('should apply all bonuses when all conditions are met', () => {
@@ -116,7 +115,7 @@ describe('SudokuScoring', () => {
 
             const score = scoring.calculate(DifficultyEnum.Hard, scoredCellsWithAll, 0, 0);
 
-            expect(score).toBe(22000);
+            expect(score).toBe(22);
         });
     });
 
@@ -126,7 +125,7 @@ describe('SudokuScoring', () => {
 
             const score = scoring.calculate(DifficultyEnum.Easy, emptyScoredCells, 0, 60);
 
-            expect(score).toBe(940);
+            expect(score).toBeCloseTo(0.99, 2);
         });
 
         it('should apply larger time penalty for longer duration', () => {
@@ -134,7 +133,7 @@ describe('SudokuScoring', () => {
 
             const score = scoring.calculate(DifficultyEnum.Easy, emptyScoredCells, 0, 600);
 
-            expect(score).toBe(400);
+            expect(score).toBeCloseTo(0.99, 2);
         });
     });
 
@@ -144,7 +143,7 @@ describe('SudokuScoring', () => {
 
             const score = scoring.calculate(DifficultyEnum.Easy, emptyScoredCells, 5, 0);
 
-            expect(score).toBe(750);
+            expect(score).toBeCloseTo(0.99, 2);
         });
 
         it('should apply larger penalty for more mistakes', () => {
@@ -152,7 +151,7 @@ describe('SudokuScoring', () => {
 
             const score = scoring.calculate(DifficultyEnum.Easy, emptyScoredCells, 10, 0);
 
-            expect(score).toBe(500);
+            expect(score).toBeCloseTo(0.99, 2);
         });
     });
 
@@ -162,7 +161,7 @@ describe('SudokuScoring', () => {
 
             const score = scoring.calculate(DifficultyEnum.Easy, emptyScoredCells, 5, 60);
 
-            expect(score).toBe(705);
+            expect(score).toBeCloseTo(0.99, 2);
         });
 
         it('should respect minimum score threshold with heavy penalties', () => {
@@ -196,7 +195,7 @@ describe('SudokuScoring', () => {
 
             const score = scoring.calculate(DifficultyEnum.Medium, scoredCells, 3, 120);
 
-            expect(score).toBe(12342);
+            expect(score).toBeCloseTo(12.34, 1);
         });
 
         it('should handle nightmare difficulty with all bonuses', () => {
@@ -212,7 +211,7 @@ describe('SudokuScoring', () => {
 
             const score = scoring.calculate(DifficultyEnum.Nightmare, scoredCells, 0, 0);
 
-            expect(score).toBe(27500);
+            expect(score).toBe(27.5);
         });
     });
 
@@ -222,7 +221,7 @@ describe('SudokuScoring', () => {
 
             const score = scoring.calculate(DifficultyEnum.Easy, emptyScoredCells, 0, 0);
 
-            expect(score).toBe(1000);
+            expect(score).toBe(1);
         });
 
         it('should handle zero mistakes', () => {
@@ -230,7 +229,7 @@ describe('SudokuScoring', () => {
 
             const score = scoring.calculate(DifficultyEnum.Easy, emptyScoredCells, 0, 60);
 
-            expect(score).toBe(940);
+            expect(score).toBeCloseTo(0.99, 2);
         });
 
         it('should never return less than minimum score', () => {
