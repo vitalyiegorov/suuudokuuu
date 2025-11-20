@@ -1,4 +1,3 @@
-
 import { emptyScoredCells } from '@suuudokuuu/generator';
 
 import type { ScoringConfigInterface } from './scoring-config.interface';
@@ -31,20 +30,17 @@ export class SudokuScoring {
 
     private applyPenalties(score: number, elapsedTime: number, mistakes: number): number {
         const afterTime = this.applyElapsedPenalty(score, elapsedTime);
-        
-return this.applyMistakesPenalty(afterTime, mistakes);
+        return this.applyMistakesPenalty(afterTime, mistakes);
     }
 
     private applyElapsedPenalty(score: number, elapsedSeconds: number): number {
         const penalty = Math.floor(score * elapsedSeconds * this.config.elapsedCoefficient);
-        
-return Math.floor(score - penalty);
+        return Math.floor(score - penalty);
     }
 
     private applyMistakesPenalty(score: number, mistakes: number): number {
         const penalty = Math.floor(score * mistakes * this.config.mistakesCoefficient);
-        
-return Math.floor(score - penalty);
+        return Math.floor(score - penalty);
     }
 
     private getDifficultyBonus(score: number, difficulty: DifficultyEnum): number {
