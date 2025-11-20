@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.48.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.48.0...v1.48.1) (2025-11-20)
+
+### Bug Fixes
+
+- **app:** cancel ongoing animation before restarting to prevent stuck rotation ([#115](https://github.com/vitalyiegorov/suuudokuuu/issues/115)) ([8063a84](https://github.com/vitalyiegorov/suuudokuuu/commit/8063a84b2c5ddcb1217c3c456447f4f74bee9f29))
+
+### Features
+
+- add comprehensive copilot-instructions.md file ([051a115](https://github.com/vitalyiegorov/suuudokuuu/commit/051a1157f30a5fd27b2c3ce17ed33842cf19641c))
+
 # [1.48.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.47.2...v1.48.0) (2025-11-17)
 
 ### Features
