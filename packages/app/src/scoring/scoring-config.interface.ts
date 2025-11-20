@@ -13,14 +13,14 @@ export interface ScoringConfigInterface {
 }
 
 export const defaultScoringConfig: ScoringConfigInterface = {
-    correctMinValue: 50,
-    correctValue: 500,
-    elapsedCoefficient: 0.001,
+    correctMinValue: 0.05,
+    correctValue: 0.5,
+    elapsedCoefficient: 0.000001,
     lastInColCoefficientConstant: 2,
     lastInGroupCoefficientConstant: 3,
     lastInRowCoefficientConstant: 3,
     lastValueCoefficient: 2,
-    mistakesCoefficient: 0.05,
+    mistakesCoefficient: 0.00005,
     difficultyCoefficients: {
         [DifficultyEnum.Newbie]: 1,
         [DifficultyEnum.Easy]: 2,
