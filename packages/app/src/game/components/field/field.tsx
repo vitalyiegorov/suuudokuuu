@@ -1,7 +1,15 @@
 import { isEmptyScoredCells } from '@suuudokuuu/generator';
 import { use, useEffect, useState } from 'react';
 import { View } from 'react-native';
-import { interpolate, interpolateColor, useAnimatedStyle, useSharedValue, withSequence, withTiming } from 'react-native-reanimated';
+import {
+    cancelAnimation,
+    interpolate,
+    interpolateColor,
+    useAnimatedStyle,
+    useSharedValue,
+    withSequence,
+    withTiming
+} from 'react-native-reanimated';
 
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
@@ -64,6 +72,8 @@ export const Field = ({ selectedCell, onSelect, scoredCells }: Props) => {
             });
 
             setAnimatedCells(newAnimatedCells);
+
+            cancelAnimation(textAnimation);
 
             // eslint-disable-next-line react-hooks/immutability
             textAnimation.value = withSequence(withTiming(1, textAnimationConfig), withTiming(0, { duration: 0 }));
