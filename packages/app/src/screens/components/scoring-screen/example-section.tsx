@@ -13,26 +13,32 @@ interface ExampleSectionProps {
 
 const boldStyle = { fontWeight: 'bold' as const };
 
-export const ExampleSection = ({ textStyle, codeStyle, listItemStyle, t }: ExampleSectionProps) => (
-    <>
-        <Text style={textStyle}>{t`Easy difficulty, completing a row after 60 seconds with 2 mistakes:`}</Text>
-        <ListItem listItemStyle={listItemStyle} textStyle={textStyle}>
-            1. {t`Base`}: <Text style={codeStyle}>{t`500 × 2 = 1,000`}</Text>
-        </ListItem>
-        <ListItem listItemStyle={listItemStyle} textStyle={textStyle}>
-            2. {t`Row bonus`}: <Text style={codeStyle}>{t`1,000 × 3 = 3,000`}</Text>
-        </ListItem>
-        <ListItem listItemStyle={listItemStyle} textStyle={textStyle}>
-            3. {t`Subtotal`}: <Text style={codeStyle}>{t`4,000`}</Text>
-        </ListItem>
-        <ListItem listItemStyle={listItemStyle} textStyle={textStyle}>
-            4. {t`Time penalty`}: <Text style={codeStyle}>{t`4,000 × 60 × 0.001 = 240`}</Text>
-        </ListItem>
-        <ListItem listItemStyle={listItemStyle} textStyle={textStyle}>
-            5. {t`Mistake penalty`}: <Text style={codeStyle}>{t`3,760 × 2 × 0.05 = 376`}</Text>
-        </ListItem>
-        <ListItem listItemStyle={listItemStyle} textStyle={textStyle}>
-            <Text style={boldStyle}>{t`Final score`}:</Text> <Text style={codeStyle}>{t`3,384 points`}</Text>
-        </ListItem>
-    </>
-);
+export const ExampleSection = ({ textStyle, codeStyle, listItemStyle, t }: ExampleSectionProps) => {
+    const steps = [
+        { label: t`Base`, value: t`500 × 2 = 1,000`, isBold: false },
+        { label: t`Row bonus`, value: t`1,000 × 3 = 3,000`, isBold: false },
+        { label: t`Subtotal`, value: t`4,000`, isBold: false },
+        { label: t`Time penalty`, value: t`4,000 × 60 × 0.001 = 240`, isBold: false },
+        { label: t`Mistake penalty`, value: t`3,760 × 2 × 0.05 = 376`, isBold: false },
+        { label: t`Final score`, value: t`3,384 points`, isBold: true }
+    ];
+
+    return (
+        <>
+            <Text style={textStyle}>{t`Easy difficulty, completing a row after 60 seconds with 2 mistakes:`}</Text>
+            {steps.map(({ label, value, isBold }, index) => (
+                <ListItem key={index} listItemStyle={listItemStyle} textStyle={textStyle}>
+                    {isBold ? (
+                        <>
+                            <Text style={boldStyle}>{index + 1}. {label}:</Text> <Text style={codeStyle}>{value}</Text>
+                        </>
+                    ) : (
+                        <>
+                            {index + 1}. {label}: <Text style={codeStyle}>{value}</Text>
+                        </>
+                    )}
+                </ListItem>
+            ))}
+        </>
+    );
+};
