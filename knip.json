@@ -12,6 +12,7 @@
         "**/*.web.tsx",
         "**/selectors.ts",
         "packages/app/src/game/store/game.state.ts",
+        "packages/app/src/game/services/hell-puzzle-generator.service.ts",
         "tests/web-tests/**"
     ],
     "ignoreDependencies": [

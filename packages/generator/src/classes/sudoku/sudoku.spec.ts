@@ -18,9 +18,14 @@ describe('Sudoku - Basic Operations', () => {
 
         // Hell difficulty is extremely hard to generate exactly, so allow a range
         if (difficulty === DifficultyEnum.Hell) {
-            expect(blanks).toBeGreaterThanOrEqual(59);
-            expect(blanks).toBeLessThanOrEqual(64);
+            const minBlanks = 59;
+            const maxBlanks = 64;
+            // eslint-disable-next-line jest/no-conditional-expect
+            expect(blanks).toBeGreaterThanOrEqual(minBlanks);
+            // eslint-disable-next-line jest/no-conditional-expect
+            expect(blanks).toBeLessThanOrEqual(maxBlanks);
         } else {
+            // eslint-disable-next-line jest/no-conditional-expect
             expect(blanks).toBe(target);
         }
     });
