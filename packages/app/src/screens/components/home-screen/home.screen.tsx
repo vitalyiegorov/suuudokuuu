@@ -17,7 +17,7 @@ import { DifficultySelect } from '../../../game/components/difficulty-select/dif
 import { MistakesSelect } from '../../../game/components/mistakes-select/mistakes-select';
 import { GameContext } from '../../../game/context/game.context';
 import { useResumeGame } from '../../../game/hooks/use-resume-game.hook';
-import { gameHistoryBestTimeSelector, gameSudokuStringSelector } from '../../../game/store/game.selectors';
+import { gameFinishedSelector, gameHistoryBestTimeSelector, gameSudokuStringSelector } from '../../../game/store/game.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
 
 import { HomeScreenSelectors } from './home-screen.selectors';
@@ -32,6 +32,7 @@ export const HomeScreen = () => {
     const { t } = useLingui();
 
     const oldGameString = useAppSelector(gameSudokuStringSelector);
+    const isFinished = useAppSelector(gameFinishedSelector);
     const [bestScore, bestTime] = useAppSelector(gameHistoryBestTimeSelector);
 
     const handleContinue = useResumeGame();
@@ -40,7 +41,7 @@ export const HomeScreen = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [difficulty, setDifficulty] = useState<DifficultyEnum>();
 
-    const isGameStarted = isNotEmptyString(oldGameString);
+    const isGameStarted = isNotEmptyString(oldGameString) && !isFinished;
 
     const handleState = (newState: typeof state) => () => {
         setState(newState);
