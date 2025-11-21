@@ -12,6 +12,7 @@ import { BonusList } from './bonus-list';
 import { DifficultyList } from './difficulty-list';
 import { ExampleSection } from './example-section';
 import { ListItem } from './list-item';
+import { MaxMistakesList } from './max-mistakes-list';
 import { ScoringScreenStyles as styles } from './scoring-screen.styles';
 import { TipsList } from './tips-list';
 
@@ -48,24 +49,7 @@ export const ScoringScreen = () => {
                 <View style={sectionStyle}>
                     <Text style={headingStyle}>{t`Hardcore Mode Bonus`}</Text>
                     <Text style={textStyle}>{t`Playing with fewer mistakes allowed gives you a score multiplier:`}</Text>
-                    <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
-                        • {t`Hardcore (0 mistakes)`}: <Text style={codeStyle}>×5</Text>
-                    </ListItem>
-                    <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
-                        • {t`1 mistake`}: <Text style={codeStyle}>×3</Text>
-                    </ListItem>
-                    <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
-                        • {t`2 mistakes`}: <Text style={codeStyle}>×2</Text>
-                    </ListItem>
-                    <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
-                        • {t`3 mistakes`}: <Text style={codeStyle}>×1.5</Text>
-                    </ListItem>
-                    <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
-                        • {t`5 mistakes`}: <Text style={codeStyle}>×1.2</Text>
-                    </ListItem>
-                    <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
-                        • {t`Immortal (99 mistakes)`}: <Text style={codeStyle}>×1</Text> {t`(no bonus)`}
-                    </ListItem>
+                    <MaxMistakesList codeStyle={codeStyle} listItemStyle={styles.listItem} t={t} textStyle={textStyle} />
                 </View>
 
                 <View style={sectionStyle}>
