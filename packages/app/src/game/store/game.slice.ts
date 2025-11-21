@@ -31,7 +31,13 @@ export const gameSlice = createSlice({
             const scoring = new SudokuScoring(defaultScoringConfig);
 
             state.sudokuString = sudoku.toString();
-            state.score += scoring.calculate(sudoku.Difficulty, scoredCells, state.mistakes, state.elapsedTime);
+            state.score += scoring.calculate({
+                difficulty: sudoku.Difficulty,
+                scoredCells,
+                mistakes: state.mistakes,
+                elapsedTime: state.elapsedTime,
+                maxMistakes: state.maxMistakes
+            });
             state.solutionSteps.push(solutionStepFromCell(correctCell, state.elapsedTime));
 
             state.candidates[getCellKey(correctCell)] = [];

@@ -3,31 +3,55 @@ import { emptyScoredCells } from '@suuudokuuu/generator';
 import type { ScoringConfigInterface } from './scoring-config.interface';
 import type { DifficultyEnum, ScoredCellsInterface } from '@suuudokuuu/generator';
 
+interface CalculateScoreParams {
+    difficulty: DifficultyEnum;
+    scoredCells: ScoredCellsInterface;
+    mistakes: number;
+    elapsedTime: number;
+    maxMistakes: number;
+}
+
 export class SudokuScoring {
     constructor(private readonly config: ScoringConfigInterface) {}
 
-    calculate(difficulty: DifficultyEnum, scoredCells: ScoredCellsInterface, mistakes: number, elapsedTime: number): number {
+    calculate(params: CalculateScoreParams): number {
+        const { difficulty, scoredCells, mistakes, elapsedTime, maxMistakes } = params;
+
         let score = this.getDifficultyBonus(this.config.correctValue, difficulty);
-
-        if (scoredCells.x !== emptyScoredCells.x) {
-            score += this.getCompletedRowBonus(score);
-        }
-
-        if (scoredCells.y !== emptyScoredCells.y) {
-            score += this.getCompletedColBonus(score);
-        }
-
-        if (scoredCells.group !== emptyScoredCells.group) {
-            score += this.getCompletedGroupBonus(score);
-        }
-
-        if (scoredCells.values.length === 1) {
-            score += this.getCompletedValuesBonus(score);
-        }
+        score = this.applyMaxMistakesBonus(score, maxMistakes);
+        score = this.applyCompletionBonuses(score, scoredCells);
 
         const penalizedScore = this.applyPenalties(score, elapsedTime, mistakes);
         
 return Math.max(penalizedScore, this.config.correctMinValue);
+    }
+
+    private applyCompletionBonuses(score: number, scoredCells: ScoredCellsInterface): number {
+        let bonusScore = score;
+
+        if (scoredCells.x !== emptyScoredCells.x) {
+            bonusScore += this.getCompletedRowBonus(bonusScore);
+        }
+
+        if (scoredCells.y !== emptyScoredCells.y) {
+            bonusScore += this.getCompletedColBonus(bonusScore);
+        }
+
+        if (scoredCells.group !== emptyScoredCells.group) {
+            bonusScore += this.getCompletedGroupBonus(bonusScore);
+        }
+
+        if (scoredCells.values.length === 1) {
+            bonusScore += this.getCompletedValuesBonus(bonusScore);
+        }
+
+        return bonusScore;
+    }
+
+    private applyMaxMistakesBonus(score: number, maxMistakes: number): number {
+        const coefficient = this.config.maxMistakesCoefficients[maxMistakes] ?? 1;
+        
+return Math.floor(score * coefficient);
     }
 
     private applyPenalties(score: number, elapsedTime: number, mistakes: number): number {

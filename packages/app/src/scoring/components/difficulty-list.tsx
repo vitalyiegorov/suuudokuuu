@@ -1,7 +1,7 @@
 import { DifficultyEnum } from '@suuudokuuu/generator';
 import { Text } from 'react-native';
 
-import { defaultScoringConfig } from '../../../scoring/scoring-config.interface';
+import { defaultScoringConfig } from '../scoring-config.interface';
 
 import { ListItem } from './list-item';
 
