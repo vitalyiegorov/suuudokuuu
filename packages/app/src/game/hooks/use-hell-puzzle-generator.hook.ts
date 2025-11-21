@@ -16,7 +16,7 @@ export const useHellPuzzleGenerator = () => {
         if (hellPuzzlesCount < 10) {
             hellPuzzleGeneratorService.startGenerating((puzzle: string) => {
                 dispatch(gameAddHellPuzzlesAction([puzzle]));
-            });
+            }, hellPuzzlesCount);
         }
 
         return () => {

@@ -2,17 +2,18 @@ import { DifficultyEnum, Sudoku, defaultSudokuConfig } from '@suuudokuuu/generat
 
 export class HellPuzzleGeneratorService {
     private isGenerating = false;
-    private generationQueue: string[] = [];
+    private generatedCount = 0;
     private readonly maxPuzzles = 10;
 
     /**
      * Start generating Hell puzzles in the background
      */
-    startGenerating(onPuzzleGenerated: (puzzle: string) => void): void {
+    startGenerating(onPuzzleGenerated: (puzzle: string) => void, currentCount: number): void {
         if (this.isGenerating) {
             return;
         }
 
+        this.generatedCount = currentCount;
         this.isGenerating = true;
         this.generatePuzzlesInBackground(onPuzzleGenerated);
     }
@@ -32,13 +33,6 @@ export class HellPuzzleGeneratorService {
     }
 
     /**
-     * Get current queue size
-     */
-    getQueueSize(): number {
-        return this.generationQueue.length;
-    }
-
-    /**
      * Generate puzzles in the background using requestIdleCallback or setTimeout
      */
     private generatePuzzlesInBackground(onPuzzleGenerated: (puzzle: string) => void): void {
@@ -48,7 +42,7 @@ export class HellPuzzleGeneratorService {
                 return;
             }
 
-            if (this.generationQueue.length >= this.maxPuzzles) {
+            if (this.generatedCount >= this.maxPuzzles) {
                 this.isGenerating = false;
                 
 return;
@@ -59,14 +53,14 @@ return;
                 sudoku.create(DifficultyEnum.Hell);
                 const puzzleString = sudoku.toString();
 
-                this.generationQueue.push(puzzleString);
+                this.generatedCount += 1;
                 onPuzzleGenerated(puzzleString);
             } catch {
                 // Silently fail puzzle generation
             }
 
             // Continue generating if we haven't reached the max
-            if (this.generationQueue.length < this.maxPuzzles) {
+            if (this.generatedCount < this.maxPuzzles) {
                 if (typeof requestIdleCallback === 'undefined') {
                     setTimeout(generateNextPuzzle, 100);
                 } else {
