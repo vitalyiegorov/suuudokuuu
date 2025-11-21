@@ -2,11 +2,11 @@ import { useLingui } from '@lingui/react/macro';
 import { use } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 
-import { Header } from '../../../@generic/components/header/header';
-import { PageHeader } from '../../../@generic/components/page-header/page-header';
-import { ReturnButton } from '../../../@generic/components/return-button/return-button';
-import { defaultScoringConfig } from '../../../scoring/scoring-config.interface';
-import { ThemeContext } from '../../../theme/context/theme.context';
+import { Header } from '../../@generic/components/header/header';
+import { PageHeader } from '../../@generic/components/page-header/page-header';
+import { ReturnButton } from '../../@generic/components/return-button/return-button';
+import { ThemeContext } from '../../theme/context/theme.context';
+import { defaultScoringConfig } from '../scoring-config.interface';
 
 import { BonusList } from './bonus-list';
 import { DifficultyList } from './difficulty-list';
@@ -43,6 +43,29 @@ export const ScoringScreen = () => {
                     </Text>
                     <Text style={textStyle}>{t`This value is multiplied by the difficulty coefficient:`}</Text>
                     <DifficultyList codeStyle={codeStyle} listItemStyle={styles.listItem} t={t} textStyle={textStyle} />
+                </View>
+
+                <View style={sectionStyle}>
+                    <Text style={headingStyle}>{t`Hardcore Mode Bonus`}</Text>
+                    <Text style={textStyle}>{t`Playing with fewer mistakes allowed gives you a score multiplier:`}</Text>
+                    <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
+                        • {t`Hardcore (0 mistakes)`}: <Text style={codeStyle}>×5</Text>
+                    </ListItem>
+                    <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
+                        • {t`1 mistake`}: <Text style={codeStyle}>×3</Text>
+                    </ListItem>
+                    <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
+                        • {t`2 mistakes`}: <Text style={codeStyle}>×2</Text>
+                    </ListItem>
+                    <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
+                        • {t`3 mistakes`}: <Text style={codeStyle}>×1.5</Text>
+                    </ListItem>
+                    <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
+                        • {t`5 mistakes`}: <Text style={codeStyle}>×1.2</Text>
+                    </ListItem>
+                    <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
+                        • {t`Immortal (99 mistakes)`}: <Text style={codeStyle}>×1</Text> {t`(no bonus)`}
+                    </ListItem>
                 </View>
 
                 <View style={sectionStyle}>
