@@ -16,6 +16,7 @@ import { getTimerText } from '../../../@generic/utils/get-timer-text.util';
 import { DifficultySelect } from '../../../game/components/difficulty-select/difficulty-select';
 import { MistakesSelect } from '../../../game/components/mistakes-select/mistakes-select';
 import { GameContext } from '../../../game/context/game.context';
+import { useHellPuzzleGenerator } from '../../../game/hooks/use-hell-puzzle-generator.hook';
 import { useResumeGame } from '../../../game/hooks/use-resume-game.hook';
 import { gameHistoryBestTimeSelector, gameSudokuStringSelector } from '../../../game/store/game.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
@@ -33,6 +34,7 @@ export const HomeScreen = () => {
 
     const oldGameString = useAppSelector(gameSudokuStringSelector);
     const [bestScore, bestTime] = useAppSelector(gameHistoryBestTimeSelector);
+    const hellPuzzlesCount = useHellPuzzleGenerator();
 
     const handleContinue = useResumeGame();
 
@@ -95,7 +97,7 @@ export const HomeScreen = () => {
 
                 {!isLoading && state === 'difficulty' ? (
                     <>
-                        <DifficultySelect onSelect={handleDifficulty} />
+                        <DifficultySelect onSelect={handleDifficulty} hellPuzzlesCount={hellPuzzlesCount} />
 
                         <BlackButton onPress={handleState('initial')} text={t`Back`} />
                     </>

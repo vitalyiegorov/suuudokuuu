@@ -23,3 +23,5 @@ export const gameHistoryBestTimeSelector = createSelector(gameSelector, state =>
 );
 export const gameHistoryDifficultySelector = (difficulty: DifficultyEnum) =>
     createSelector(gameSelector, state => state.historyByDifficulty[difficulty]);
+export const gameHellPuzzlesSelector = createSelector(gameSelector, state => state.hellPuzzles);
+export const gameHellPuzzlesCountSelector = createSelector(gameSelector, state => state.hellPuzzles.length);

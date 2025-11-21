@@ -1,6 +1,6 @@
 import { i18n } from '@lingui/core';
 import { useLingui } from '@lingui/react/macro';
-import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
+import { DifficultyEnum, Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { useRouter } from 'expo-router';
 import React, { createContext, useEffect, useState } from 'react';
 
@@ -10,11 +10,10 @@ import { Alert } from '../../@generic/components/alert/alert';
 import { useAppDispatch } from '../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../@generic/hooks/use-app-selector.hook';
 import { settingsLanguageSelector } from '../../settings/store/settings.selectors';
-import { gameLoadAction, gameResetAction, gameResumeAction, gameStartAction } from '../store/game.actions';
-import { gameSudokuStringSelector } from '../store/game.selectors';
+import { gameConsumeHellPuzzleAction, gameLoadAction, gameResetAction, gameResumeAction, gameStartAction } from '../store/game.actions';
+import { gameHellPuzzlesSelector, gameSudokuStringSelector } from '../store/game.selectors';
 import { urlToGameState } from '../store/game.state';
 
-import type { DifficultyEnum } from '@suuudokuuu/generator';
 import type { ReactNode } from 'react';
 
 export const GameContext = createContext<{
@@ -30,6 +29,7 @@ export const GameProvider = ({ children }: { readonly children: ReactNode }) => 
 
     const currentGameString = useAppSelector(gameSudokuStringSelector);
     const currentLanguage = useAppSelector(settingsLanguageSelector);
+    const hellPuzzles = useAppSelector(gameHellPuzzlesSelector);
 
     const showAlert = (error: unknown) => {
         Alert(t`Invalid Sudoku`, getErrorMessage(error), [
@@ -75,10 +75,20 @@ export const GameProvider = ({ children }: { readonly children: ReactNode }) => 
     };
 
     const create = (difficulty: DifficultyEnum, maxMistakes: number) => {
-        sudoku.create(difficulty);
-        setSudoku(sudoku);
+        let sudokuString: string;
 
-        const sudokuString = sudoku.toString();
+        if (difficulty === DifficultyEnum.Hell && hellPuzzles.length > 0) {
+            // Use pre-generated Hell puzzle
+            [sudokuString] = hellPuzzles;
+            setSudoku(Sudoku.fromString(sudokuString, defaultSudokuConfig));
+            dispatch(gameConsumeHellPuzzleAction());
+        } else {
+            // Generate puzzle on the fly
+            sudoku.create(difficulty);
+            setSudoku(sudoku);
+            sudokuString = sudoku.toString();
+        }
+
         dispatch(gameStartAction({ sudokuString, maxMistakes }));
         router.push(`game`);
     };

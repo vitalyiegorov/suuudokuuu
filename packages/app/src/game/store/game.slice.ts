@@ -13,7 +13,7 @@ export const gameSlice = createSlice({
     initialState: initialGameState,
     reducers: {
         start: (state, action: PayloadAction<Pick<GameState, 'sudokuString' | 'maxMistakes'>>) => {
-            Object.assign(state, { ...initialGameState, historyByDifficulty: state.historyByDifficulty });
+            Object.assign(state, { ...initialGameState, historyByDifficulty: state.historyByDifficulty, hellPuzzles: state.hellPuzzles });
 
             state.sudokuString = action.payload.sudokuString;
             state.maxMistakes = action.payload.maxMistakes;
@@ -60,7 +60,7 @@ export const gameSlice = createSlice({
             state.elapsedTime += 1;
         },
         reset: state => {
-            Object.assign(state, { ...initialGameState, historyByDifficulty: state.historyByDifficulty });
+            Object.assign(state, { ...initialGameState, historyByDifficulty: state.historyByDifficulty, hellPuzzles: state.hellPuzzles });
         },
         toggleShowAutoCandidates: state => {
             state.showAutoCandidates = !state.showAutoCandidates;
@@ -115,6 +115,14 @@ export const gameSlice = createSlice({
                 }
             } else {
                 history.gamesLost += 1;
+            }
+        },
+        addHellPuzzles: (state, action: PayloadAction<string[]>) => {
+            state.hellPuzzles = [...state.hellPuzzles, ...action.payload];
+        },
+        consumeHellPuzzle: state => {
+            if (state.hellPuzzles.length > 0) {
+                state.hellPuzzles = state.hellPuzzles.slice(1);
             }
         }
     }

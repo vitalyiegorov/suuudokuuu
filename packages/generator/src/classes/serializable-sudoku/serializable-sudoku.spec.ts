@@ -52,7 +52,8 @@ describe('SerializableSudoku - Difficulty Settings', () => {
                 [DifficultyEnum.Easy]: 0.4,
                 [DifficultyEnum.Medium]: 0.6,
                 [DifficultyEnum.Hard]: 0.8,
-                [DifficultyEnum.Nightmare]: 0.9
+                [DifficultyEnum.Nightmare]: 0.9,
+                [DifficultyEnum.Hell]: 0.95
             }
         };
 

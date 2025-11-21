@@ -23,11 +23,12 @@ export interface GameState {
     candidates: Record<string, number[]>;
     solutionSteps: SolutionStepInterface[];
     historyByDifficulty: Record<DifficultyEnum, HistoryGameInterface>;
+    hellPuzzles: string[];
 }
 
 export type SerializedGameState = Partial<Record<keyof Omit<GameState, 'sudokuString' | 'candidates'>, string>> &
     Pick<GameState, 'sudokuString' | 'candidates'>;
-export type SharableGameState = Omit<GameState, 'isPaused' | 'isFinished' | 'showAutoCandidates' | 'inputMode' | 'historyByDifficulty'>;
+export type SharableGameState = Omit<GameState, 'isPaused' | 'isFinished' | 'showAutoCandidates' | 'inputMode' | 'historyByDifficulty' | 'hellPuzzles'>;
 
 export const initialGameState: GameState = {
     isFinished: false,
@@ -45,9 +46,11 @@ export const initialGameState: GameState = {
         [DifficultyEnum.Easy]: { ...emptyGameHistory, difficulty: DifficultyEnum.Easy },
         [DifficultyEnum.Medium]: { ...emptyGameHistory, difficulty: DifficultyEnum.Medium },
         [DifficultyEnum.Hard]: { ...emptyGameHistory, difficulty: DifficultyEnum.Hard },
-        [DifficultyEnum.Nightmare]: { ...emptyGameHistory, difficulty: DifficultyEnum.Nightmare }
+        [DifficultyEnum.Nightmare]: { ...emptyGameHistory, difficulty: DifficultyEnum.Nightmare },
+        [DifficultyEnum.Hell]: { ...emptyGameHistory, difficulty: DifficultyEnum.Hell }
     },
-    solutionSteps: []
+    solutionSteps: [],
+    hellPuzzles: []
 };
 
 export const gameStateToUrl = (gameState: GameState): string => {
