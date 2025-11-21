@@ -93,6 +93,8 @@ export const gameSlice = createSlice({
         finish: (state, action: PayloadAction<{ difficulty: DifficultyEnum; isWon: boolean }>) => {
             const { difficulty, isWon } = action.payload;
 
+            state.isFinished = true;
+
             const history = state.historyByDifficulty[difficulty];
 
             history.gamesCompleted += 1;
