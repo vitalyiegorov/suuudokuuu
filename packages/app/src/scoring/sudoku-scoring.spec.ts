@@ -22,7 +22,7 @@ describe('SudokuScoring', () => {
                 maxMistakes: 3
             });
 
-            expect(score).toBe(1.5);
+            expect(score).toBe(30);
         });
 
         it('should apply hardcore mode bonus (0 mistakes allowed)', () => {
@@ -36,7 +36,7 @@ describe('SudokuScoring', () => {
                 maxMistakes: 0
             });
 
-            expect(score).toBe(5);
+            expect(score).toBe(100);
         });
 
         it('should apply 1 mistake bonus', () => {
@@ -50,7 +50,7 @@ describe('SudokuScoring', () => {
                 maxMistakes: 1
             });
 
-            expect(score).toBe(3);
+            expect(score).toBe(60);
         });
 
         it('should apply immortal mode (no bonus for 99 mistakes)', () => {
@@ -64,24 +64,54 @@ describe('SudokuScoring', () => {
                 maxMistakes: 99
             });
 
-            expect(score).toBe(1);
+            expect(score).toBe(20);
         });
 
         it('should apply difficulty multipliers correctly with maxMistakes', () => {
             expect.assertions(5);
 
             const maxMistakes = 3;
-            const newbie = scoring.calculate({ difficulty: DifficultyEnum.Newbie, scoredCells: emptyScoredCells, mistakes: 0, elapsedTime: 0, maxMistakes });
-            const easy = scoring.calculate({ difficulty: DifficultyEnum.Easy, scoredCells: emptyScoredCells, mistakes: 0, elapsedTime: 0, maxMistakes });
-            const medium = scoring.calculate({ difficulty: DifficultyEnum.Medium, scoredCells: emptyScoredCells, mistakes: 0, elapsedTime: 0, maxMistakes });
-            const hard = scoring.calculate({ difficulty: DifficultyEnum.Hard, scoredCells: emptyScoredCells, mistakes: 0, elapsedTime: 0, maxMistakes });
-            const nightmare = scoring.calculate({ difficulty: DifficultyEnum.Nightmare, scoredCells: emptyScoredCells, mistakes: 0, elapsedTime: 0, maxMistakes });
+            const newbie = scoring.calculate({
+                difficulty: DifficultyEnum.Newbie,
+                scoredCells: emptyScoredCells,
+                mistakes: 0,
+                elapsedTime: 0,
+                maxMistakes
+            });
+            const easy = scoring.calculate({
+                difficulty: DifficultyEnum.Easy,
+                scoredCells: emptyScoredCells,
+                mistakes: 0,
+                elapsedTime: 0,
+                maxMistakes
+            });
+            const medium = scoring.calculate({
+                difficulty: DifficultyEnum.Medium,
+                scoredCells: emptyScoredCells,
+                mistakes: 0,
+                elapsedTime: 0,
+                maxMistakes
+            });
+            const hard = scoring.calculate({
+                difficulty: DifficultyEnum.Hard,
+                scoredCells: emptyScoredCells,
+                mistakes: 0,
+                elapsedTime: 0,
+                maxMistakes
+            });
+            const nightmare = scoring.calculate({
+                difficulty: DifficultyEnum.Nightmare,
+                scoredCells: emptyScoredCells,
+                mistakes: 0,
+                elapsedTime: 0,
+                maxMistakes
+            });
 
-            expect(newbie).toBe(0.75);
-            expect(easy).toBe(1.5);
-            expect(medium).toBe(2.25);
-            expect(hard).toBe(3);
-            expect(nightmare).toBe(3.75);
+            expect(newbie).toBe(15);
+            expect(easy).toBe(30);
+            expect(medium).toBe(45);
+            expect(hard).toBe(60);
+            expect(nightmare).toBe(75);
         });
     });
 
@@ -102,7 +132,7 @@ describe('SudokuScoring', () => {
                 maxMistakes: 3
             });
 
-            expect(score).toBe(6);
+            expect(score).toBe(90);
         });
 
         it('should apply all bonuses when all conditions are met', () => {
@@ -124,7 +154,7 @@ describe('SudokuScoring', () => {
                 maxMistakes: 3
             });
 
-            expect(score).toBe(33);
+            expect(score).toBe(8640);
         });
     });
 
@@ -140,7 +170,7 @@ describe('SudokuScoring', () => {
                 maxMistakes: 3
             });
 
-            expect(score).toBeCloseTo(1.4, 1);
+            expect(score).toBeCloseTo(12, 1);
         });
 
         it('should apply larger time penalty for longer duration', () => {
@@ -154,7 +184,7 @@ describe('SudokuScoring', () => {
                 maxMistakes: 3
             });
 
-            expect(score).toBeCloseTo(1.4, 1);
+            expect(score).toBeCloseTo(5, 1);
         });
     });
 
@@ -170,7 +200,7 @@ describe('SudokuScoring', () => {
                 maxMistakes: 3
             });
 
-            expect(score).toBeCloseTo(1.3, 1);
+            expect(score).toBeCloseTo(27, 1);
         });
 
         it('should apply larger penalty for more mistakes', () => {
@@ -184,7 +214,7 @@ describe('SudokuScoring', () => {
                 maxMistakes: 3
             });
 
-            expect(score).toBeCloseTo(1.1, 1);
+            expect(score).toBeCloseTo(23, 1);
         });
     });
 
@@ -200,7 +230,7 @@ describe('SudokuScoring', () => {
                 maxMistakes: 3
             });
 
-            expect(score).toBeCloseTo(1.2, 1);
+            expect(score).toBeCloseTo(11, 1);
         });
 
         it('should respect minimum score threshold with heavy penalties', () => {
@@ -238,7 +268,7 @@ describe('SudokuScoring', () => {
                 maxMistakes: 3
             });
 
-            expect(score).toBeCloseTo(16, 0);
+            expect(score).toBeCloseTo(5, 0);
         });
 
         it('should handle nightmare difficulty with hardcore mode', () => {
@@ -260,7 +290,7 @@ describe('SudokuScoring', () => {
                 maxMistakes: 0
             });
 
-            expect(score).toBe(137.5);
+            expect(score).toBe(36000);
         });
     });
 
@@ -276,7 +306,7 @@ describe('SudokuScoring', () => {
                 maxMistakes: 3
             });
 
-            expect(score).toBe(1.5);
+            expect(score).toBe(30);
         });
 
         it('should never return less than minimum score', () => {

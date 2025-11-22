@@ -20,10 +20,10 @@ export class SudokuScoring {
         let score = this.getDifficultyBonus(this.config.correctValue, difficulty);
         score = this.applyMaxMistakesBonus(score, maxMistakes);
         score = this.applyCompletionBonuses(score, scoredCells);
+        score = this.applyElapsedPenalty(score, elapsedTime);
+        score = this.applyMistakesPenalty(score, mistakes);
 
-        const penalizedScore = this.applyPenalties(score, elapsedTime, mistakes);
-
-        return Math.floor(Math.max(penalizedScore, this.config.correctMinValue));
+        return Math.floor(Math.max(score, this.config.correctMinValue));
     }
 
     private applyCompletionBonuses(score: number, scoredCells: ScoredCellsInterface): number {
@@ -54,22 +54,16 @@ export class SudokuScoring {
         return Math.floor(score * coefficient);
     }
 
-    private applyPenalties(score: number, elapsedTime: number, mistakes: number): number {
-        const afterTime = this.applyElapsedPenalty(score, elapsedTime);
-
-        return this.applyMistakesPenalty(afterTime, mistakes);
-    }
-
     private applyElapsedPenalty(score: number, elapsedSeconds: number): number {
         const penalty = Math.floor(score * elapsedSeconds * this.config.elapsedCoefficient);
 
-        return Math.floor(score - penalty);
+        return Math.floor(Math.max(score - penalty, this.config.correctMinValue));
     }
 
     private applyMistakesPenalty(score: number, mistakes: number): number {
         const penalty = Math.floor(score * mistakes * this.config.mistakesCoefficient);
 
-        return Math.floor(score - penalty);
+        return Math.floor(Math.max(score - penalty, this.config.correctMinValue));
     }
 
     private getDifficultyBonus(score: number, difficulty: DifficultyEnum): number {
