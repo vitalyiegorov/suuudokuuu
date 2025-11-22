@@ -25,7 +25,8 @@
         "ts:force": "turbo run ts --force"
     },
     "resolutions": {
-        "redux-persist@^6.0.0": "patch:redux-persist@npm%3A6.0.0#./.yarn/patches/redux-persist-npm-6.0.0-56dad69feb.patch"
+        "redux-persist@^6.0.0": "patch:redux-persist@npm%3A6.0.0#./.yarn/patches/redux-persist-npm-6.0.0-56dad69feb.patch",
+        "typescript": "^5.9.3"
     },
     "devDependencies": {
         "@commitlint/cli": "^19.8.1",
@@ -56,8 +57,8 @@
         "lint-staged": "^16.1.2",
         "prettier": "^3.6.2",
         "sort-package-json": "^3.4.0",
-        "turbo": "^2.6.0",
-        "typescript": "~5.9.2",
+        "turbo": "^2.6.1",
+        "typescript": "^5.9.3",
         "typescript-eslint": "^8.46.2"
     },
     "packageManager": "yarn@4.9.2",

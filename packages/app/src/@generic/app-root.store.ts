@@ -10,6 +10,20 @@ import { initialSettingsState } from '../settings/store/settings.state';
 import type { GameState } from '../game/store/game.state';
 import type { MigrationManifest } from 'redux-persist/es/types';
 
+const resetBestScores = (state: RootState): RootState => {
+    const gameState = state[gameSlice.name];
+    const resetHistory = { ...gameState.historyByDifficulty };
+
+    Object.keys(resetHistory).forEach(key => {
+        resetHistory[key as keyof typeof resetHistory].bestScore = 0;
+    });
+
+    return {
+        ...state,
+        [gameSlice.name]: { ...gameState, historyByDifficulty: resetHistory }
+    };
+};
+
 const migrations: MigrationManifest<RootState> = {
     12: state => ({
         ...state,
@@ -25,7 +39,8 @@ const migrations: MigrationManifest<RootState> = {
         }
     }),
     13: state => ({ ...state, [gameSlice.name]: { ...initialGameState, ...state[gameSlice.name] } }),
-    14: state => ({ ...state, [settingsSlice.name]: { ...initialSettingsState, ...state[settingsSlice.name] } })
+    14: state => ({ ...state, [settingsSlice.name]: { ...initialSettingsState, ...state[settingsSlice.name] } }),
+    15: resetBestScores
 };
 
 const rootReducer = combineReducers({
@@ -37,7 +52,7 @@ const persistedReducer = persistReducer(
     {
         key: 'root',
         storage: AsyncStorage,
-        version: 14,
+        version: 15,
         migrate: createMigrate(migrations)
     },
     rootReducer

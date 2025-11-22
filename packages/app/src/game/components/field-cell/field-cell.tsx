@@ -1,5 +1,5 @@
 import { use } from 'react';
-import { Pressable } from 'react-native';
+import { Platform, Pressable } from 'react-native';
 import Reanimated, { interpolateColor, useAnimatedStyle, useDerivedValue, withTiming } from 'react-native-reanimated';
 
 import { type OnEventFn, cs } from '@rnw-community/shared';
@@ -111,7 +111,8 @@ export const FieldCell = (props: Props) => {
         cs(sudoku.isLastInRow(cell), styles.lastRow),
         cs(sudoku.isLastInColumn(cell), styles.lastCol),
         { backgroundColor: cellBackgroundColor },
-        cellAnimatedStyles
+        cellAnimatedStyles,
+        Platform.select({ web: { outline: 'none' } })
     ];
 
     return (

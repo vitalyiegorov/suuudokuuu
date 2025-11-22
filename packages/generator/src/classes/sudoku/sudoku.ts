@@ -7,26 +7,20 @@ import { cloneField } from '../../util/clone-field.util';
 import { shuffle } from '../../util/shuffle.util';
 import { DLXSolver } from '../dlx/dlx-solver';
 import { SerializableSudoku } from '../serializable-sudoku/serializable-sudoku';
-import { SudokuScoring } from '../sudoku-scoring/sudoku-scoring';
 
 import type { DifficultyEnum } from '../../enums/difficulty.enum';
 import type { CellInterface } from '../../interfaces/cell.interface';
 import type { FieldInterface } from '../../interfaces/field.interface';
 import type { SudokuConfigInterface } from '../../interfaces/sudoku-config.interface';
 
-// TODO: We can split this class into rules validator(or similar)
 export class Sudoku extends SerializableSudoku {
     private readonly fieldFillingValues: number[];
-    private readonly scoring: SudokuScoring;
     private readonly coordinates: { x: number; y: number }[] = [];
 
-    constructor(config: SudokuConfigInterface = defaultSudokuConfig, scoring: SudokuScoring = new SudokuScoring(config.score)) {
+    constructor(config: SudokuConfigInterface = defaultSudokuConfig) {
         super(config);
 
-        this.scoring = scoring;
-
         this.fieldFillingValues = Array.from({ length: this.config.fieldSize }, (_, i) => i + 1);
-        // HINT: Prepare all possible coordinates for clue removal
         for (let y = 0; y < this.config.fieldSize; y += 1) {
             for (let x = 0; x < this.config.fieldSize; x += 1) {
                 this.coordinates.push({ x, y });
@@ -51,10 +45,6 @@ export class Sudoku extends SerializableSudoku {
         }
 
         this.calculateAvailableValues();
-    }
-
-    getScore(scoredCells: ScoredCellsInterface, elapsedTime: number, mistakes: number): number {
-        return this.scoring.calculate(this.config.difficulty, scoredCells, mistakes, elapsedTime);
     }
 
     getCorrectValue(cell?: CellInterface): number {

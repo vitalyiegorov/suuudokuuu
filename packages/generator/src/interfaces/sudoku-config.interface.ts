@@ -1,20 +1,16 @@
 import { DifficultyEnum } from '../enums/difficulty.enum';
 
-import { type SudokuScoringConfigInterface, defaultSudokuScoringConfig } from './sudoku-scoring-config.interface';
-
 export interface SudokuConfigInterface {
     difficulty: DifficultyEnum;
     fieldSize: number;
     fieldGroupWidth: number;
     fieldGroupHeight: number;
     blankCellValue: number;
-    score: SudokuScoringConfigInterface;
     difficultyBlankCells: Record<DifficultyEnum, number>;
 }
 
 export const defaultSudokuConfig: SudokuConfigInterface = {
     difficulty: DifficultyEnum.Newbie,
-    score: defaultSudokuScoringConfig,
     fieldSize: 9,
     fieldGroupWidth: 3,
     fieldGroupHeight: 3,

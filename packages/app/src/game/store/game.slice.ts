@@ -1,6 +1,8 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { getCellKey } from '../../@generic/utils/get-cell-key.util';
+import { defaultScoringConfig } from '../../scoring/scoring-config.interface';
+import { SudokuScoring } from '../../scoring/sudoku-scoring';
 import { solutionStepFromCell } from '../interface/solution-step.interface';
 
 import { initialGameState } from './game.state';
@@ -26,9 +28,16 @@ export const gameSlice = createSlice({
         },
         save: (state, action: PayloadAction<{ sudoku: Sudoku; correctCell: CellInterface; scoredCells: ScoredCellsInterface }>) => {
             const { sudoku, correctCell, scoredCells } = action.payload;
+            const scoring = new SudokuScoring(defaultScoringConfig);
 
             state.sudokuString = sudoku.toString();
-            state.score += sudoku.getScore(scoredCells, state.elapsedTime, state.mistakes);
+            state.score += scoring.calculate({
+                scoredCells,
+                difficulty: sudoku.Difficulty,
+                mistakes: state.mistakes,
+                elapsedTime: state.elapsedTime,
+                maxMistakes: state.maxMistakes
+            });
             state.solutionSteps.push(solutionStepFromCell(correctCell, state.elapsedTime));
 
             state.candidates[getCellKey(correctCell)] = [];

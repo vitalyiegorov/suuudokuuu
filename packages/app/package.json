@@ -12,6 +12,8 @@
         "lint": "run -T eslint --fix src",
         "prebuild": "expo prebuild --clean",
         "start": "expo start --dev-client -c",
+        "test": "run -T jest",
+        "test:coverage": "run -T jest --coverage",
         "ts": "run -T tsc -p .",
         "web": "expo start --web"
     },
