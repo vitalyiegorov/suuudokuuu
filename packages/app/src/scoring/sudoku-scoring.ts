@@ -22,8 +22,8 @@ export class SudokuScoring {
         score = this.applyCompletionBonuses(score, scoredCells);
 
         const penalizedScore = this.applyPenalties(score, elapsedTime, mistakes);
-        
-return Math.max(penalizedScore, this.config.correctMinValue);
+
+        return Math.floor(Math.max(penalizedScore, this.config.correctMinValue));
     }
 
     private applyCompletionBonuses(score: number, scoredCells: ScoredCellsInterface): number {
@@ -50,45 +50,45 @@ return Math.max(penalizedScore, this.config.correctMinValue);
 
     private applyMaxMistakesBonus(score: number, maxMistakes: number): number {
         const coefficient = this.config.maxMistakesCoefficients[maxMistakes] ?? 1;
-        
-return Math.floor(score * coefficient);
+
+        return Math.floor(score * coefficient);
     }
 
     private applyPenalties(score: number, elapsedTime: number, mistakes: number): number {
         const afterTime = this.applyElapsedPenalty(score, elapsedTime);
-        
-return this.applyMistakesPenalty(afterTime, mistakes);
+
+        return this.applyMistakesPenalty(afterTime, mistakes);
     }
 
     private applyElapsedPenalty(score: number, elapsedSeconds: number): number {
         const penalty = Math.floor(score * elapsedSeconds * this.config.elapsedCoefficient);
-        
-return Math.floor(score - penalty);
+
+        return Math.floor(score - penalty);
     }
 
     private applyMistakesPenalty(score: number, mistakes: number): number {
         const penalty = Math.floor(score * mistakes * this.config.mistakesCoefficient);
-        
-return Math.floor(score - penalty);
+
+        return Math.floor(score - penalty);
     }
 
     private getDifficultyBonus(score: number, difficulty: DifficultyEnum): number {
         return Math.floor(score * this.config.difficultyCoefficients[difficulty]);
     }
 
-    private getCompletedRowBonus(currentScore: number): number {
-        return Math.floor(currentScore * this.config.lastInRowCoefficientConstant);
+    private getCompletedRowBonus(score: number): number {
+        return Math.floor(score * this.config.lastInRowCoefficientConstant);
     }
 
-    private getCompletedColBonus(currentScore: number): number {
-        return Math.floor(currentScore * this.config.lastInColCoefficientConstant);
+    private getCompletedColBonus(score: number): number {
+        return Math.floor(score * this.config.lastInColCoefficientConstant);
     }
 
-    private getCompletedGroupBonus(currentScore: number): number {
-        return Math.floor(currentScore * this.config.lastInGroupCoefficientConstant);
+    private getCompletedGroupBonus(score: number): number {
+        return Math.floor(score * this.config.lastInGroupCoefficientConstant);
     }
 
-    private getCompletedValuesBonus(currentScore: number): number {
-        return Math.floor(currentScore * this.config.lastValueCoefficient);
+    private getCompletedValuesBonus(score: number): number {
+        return Math.floor(score * this.config.lastValueCoefficient);
     }
 }
