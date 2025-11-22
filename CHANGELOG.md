@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.48.4](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.48.3...v1.48.4) (2025-11-22)
+
+**Note:** Version bump only for package @suuudokuuu/root
+
 ## [1.48.3](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.48.2...v1.48.3) (2025-11-22)
 
 ### Bug Fixes
