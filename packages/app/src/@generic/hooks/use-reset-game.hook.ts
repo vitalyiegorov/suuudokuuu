@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
 
 import { gameResetAction } from '../../game/store/game.actions';
 import { gameElapsedTimeSelector, gameIsStartedSelector, gameScoreSelector } from '../../game/store/game.selectors';
@@ -11,8 +10,8 @@ export const useResetGame = () => {
     const dispatch = useAppDispatch();
 
     const isGameStarted = useAppSelector(gameIsStartedSelector);
-    const score = useSelector(gameScoreSelector);
-    const elapsedTime = useSelector(gameElapsedTimeSelector);
+    const score = useAppSelector(gameScoreSelector);
+    const elapsedTime = useAppSelector(gameElapsedTimeSelector);
     const memoizedData = useRef({ score, elapsedTime });
 
     useEffect(() => void dispatch(gameResetAction()), [dispatch]);
