@@ -20,10 +20,7 @@ const resetBestScores = (state: RootState): RootState => {
 
     return {
         ...state,
-        [gameSlice.name]: {
-            ...gameState,
-            historyByDifficulty: resetHistory
-        }
+        [gameSlice.name]: { ...gameState, historyByDifficulty: resetHistory }
     };
 };
 
