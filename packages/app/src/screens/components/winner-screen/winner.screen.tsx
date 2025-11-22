@@ -16,7 +16,7 @@ export const WinnerScreen = () => {
 
     const [isGameStarted, score, elapsedTime] = useResetGame();
 
-    if (!isGameStarted && score === 0) {
+    if (!isGameStarted && elapsedTime === 0) {
         return <Redirect href="/" />;
     }
 
