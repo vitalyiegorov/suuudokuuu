@@ -32,8 +32,8 @@ export const gameSlice = createSlice({
 
             state.sudokuString = sudoku.toString();
             state.score += scoring.calculate({
-                difficulty: sudoku.Difficulty,
                 scoredCells,
+                difficulty: sudoku.Difficulty,
                 mistakes: state.mistakes,
                 elapsedTime: state.elapsedTime,
                 maxMistakes: state.maxMistakes
