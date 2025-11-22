@@ -27,9 +27,11 @@ export const HomeScreenStyles = StyleSheet.create({
         justifyContent: 'center'
     },
     historyGroup: {
+        maxWidth: 120,
         alignItems: 'center'
     },
     historyValue: {
+        alignItems: 'center',
         fontWeight: 'bold'
     },
     infoLink: {

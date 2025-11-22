@@ -1,6 +1,7 @@
 import { useLingui } from '@lingui/react/macro';
 import Constants from 'expo-constants';
 import { Link } from 'expo-router';
+import { Info } from 'lucide-react-native';
 import { use, useState } from 'react';
 import { ActivityIndicator, Text, View } from 'react-native';
 
@@ -111,13 +112,15 @@ export const HomeScreen = () => {
             <View style={styles.historyContainer}>
                 {bestScore > 0 && (
                     <>
-                        <View style={styles.historyGroup}>
-                            <BlackText>{t`Best score`}</BlackText>
+                        <Link href="/scoring">
+                            <View style={styles.historyGroup}>
+                                <BlackText icon={Info}>{t`Best score`}</BlackText>
 
-                            <BlackText style={styles.historyValue} testID={HomeScreenSelectors.BestScore}>
-                                {bestScore}
-                            </BlackText>
-                        </View>
+                                <BlackText style={styles.historyValue} testID={HomeScreenSelectors.BestScore}>
+                                    {bestScore}
+                                </BlackText>
+                            </View>
+                        </Link>
 
                         <View style={styles.historyGroup}>
                             <BlackText>{t`Best time`}</BlackText>
@@ -129,15 +132,6 @@ export const HomeScreen = () => {
             </View>
 
             <View style={styles.bottomContainer}>
-                <BlackText>
-                    <Text>{t`V.`}</Text>
-                    {Constants.expoConfig?.version}
-                </BlackText>
-
-                <Link asChild href="/scoring">
-                    <BlackText numberOfLines={2} style={styles.infoLink}>{t`How Scoring Works`}</BlackText>
-                </Link>
-
                 <Link asChild href="https://github.com/vitalyiegorov/suuudokuuu/issues/new">
                     <BlackText numberOfLines={2} style={styles.infoLink}>{t`Report a bug`}</BlackText>
                 </Link>
@@ -145,6 +139,12 @@ export const HomeScreen = () => {
                 <Link asChild href="/privacy-policy">
                     <BlackText numberOfLines={2} style={styles.infoLink}>{t`Privacy policy`}</BlackText>
                 </Link>
+            </View>
+            <View style={styles.bottomContainer}>
+                <BlackText>
+                    <Text>{t`V.`}</Text>
+                    {Constants.expoConfig?.version}
+                </BlackText>
             </View>
         </View>
     );
