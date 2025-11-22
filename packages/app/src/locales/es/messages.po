@@ -33,8 +33,8 @@ msgstr "Tiempo promedio"
 msgid "Avoid mistakes - they cost you points!"
 msgstr "¡Evita errores - te cuestan puntos!"
 
-#: src/screens/components/home-screen/home.screen.tsx:98
-#: src/screens/components/home-screen/home.screen.tsx:106
+#: src/screens/components/home-screen/home.screen.tsx:99
+#: src/screens/components/home-screen/home.screen.tsx:107
 msgid "Back"
 msgstr "Atrás"
 
@@ -50,12 +50,12 @@ msgstr "Sé rápido para minimizar las penalizaciones de tiempo"
 msgid "Be wise, be smart, be quick..."
 msgstr "Sea sabio, sea inteligente, sea rápido..."
 
-#: src/screens/components/home-screen/home.screen.tsx:115
+#: src/screens/components/home-screen/home.screen.tsx:117
 #: src/history/component/history-difficulty/history-difficulty.tsx:45
 msgid "Best score"
 msgstr "Mejor puntuación"
 
-#: src/screens/components/home-screen/home.screen.tsx:123
+#: src/screens/components/home-screen/home.screen.tsx:126
 #: src/history/component/history-difficulty/history-difficulty.tsx:48
 msgid "Best time"
 msgstr "Mejor tiempo"
@@ -101,7 +101,7 @@ msgstr "Completa filas, columnas y bloques para obtener bonificaciones enormes"
 msgid "Completion Bonuses"
 msgstr "Bonificaciones de Finalización"
 
-#: src/screens/components/home-screen/home.screen.tsx:76
+#: src/screens/components/home-screen/home.screen.tsx:77
 msgid "Continue"
 msgstr "Continuar"
 
@@ -220,7 +220,6 @@ msgstr "Resaltar números repetidos en un bloque, columna, fila"
 msgid "Highlight selected candidate numbers"
 msgstr "Resaltar números candidatos seleccionados"
 
-#: src/screens/components/home-screen/home.screen.tsx:138
 #: src/scoring/components/scoring.screen.tsx:27
 #: src/scoring/components/scoring.screen.tsx:28
 msgid "How Scoring Works"
@@ -360,12 +359,12 @@ msgstr "puntos por colocación correcta."
 
 #: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx:17
 #: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx:19
-#: src/screens/components/home-screen/home.screen.tsx:146
+#: src/screens/components/home-screen/home.screen.tsx:140
 #: src/app/privacy-policy.tsx:12
 msgid "Privacy policy"
 msgstr "Política de privacidad"
 
-#: src/screens/components/home-screen/home.screen.tsx:142
+#: src/screens/components/home-screen/home.screen.tsx:136
 msgid "Report a bug"
 msgstr "Reportar un error"
 
@@ -395,7 +394,7 @@ msgstr "La puntuación se calcula para cada colocación correcta de celda según
 
 #: src/screens/components/settings-screen/settings.screen.tsx:20
 #: src/screens/components/settings-screen/settings.screen.tsx:22
-#: src/screens/components/home-screen/home.screen.tsx:87
+#: src/screens/components/home-screen/home.screen.tsx:88
 #: src/app/settings.tsx:12
 msgid "Settings"
 msgstr "Ajustes"
@@ -424,11 +423,11 @@ msgstr "Estandar"
 msgid "Standard (3 mistakes)"
 msgstr "Estándar (3 errores)"
 
-#: src/screens/components/home-screen/home.screen.tsx:81
+#: src/screens/components/home-screen/home.screen.tsx:82
 msgid "Start new"
 msgstr "Empezar de nuevo"
 
-#: src/screens/components/home-screen/home.screen.tsx:84
+#: src/screens/components/home-screen/home.screen.tsx:85
 #: src/screens/components/history-screen/history.screen.tsx:21
 #: src/app/history.tsx:12
 msgid "Statistics"
@@ -442,7 +441,7 @@ msgstr "¿Detener la ejecución actual?"
 msgid "Support Ukraine"
 msgstr "Apoya a Ucrania"
 
-#: src/screens/components/home-screen/home.screen.tsx:72
+#: src/screens/components/home-screen/home.screen.tsx:73
 msgid "SuuudokuuU"
 msgstr "SuuudokuuU"
 
@@ -478,7 +477,7 @@ msgstr "Desconocido"
 msgid "Use dark mode"
 msgstr "Usar modo oscuro"
 
-#: src/screens/components/home-screen/home.screen.tsx:133
+#: src/screens/components/home-screen/home.screen.tsx:145
 msgid "V."
 msgstr "V."
 
