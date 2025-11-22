@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.48.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.48.1...v1.48.2) (2025-11-22)
+
+### Bug Fixes
+
+- **app:** reset game state when winner/loser screen is entered ([#118](https://github.com/vitalyiegorov/suuudokuuu/issues/118)) ([6f82325](https://github.com/vitalyiegorov/suuudokuuu/commit/6f823258219d15d6978fdf0cd95035ee92b22a00))
+
 ## [1.48.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.48.0...v1.48.1) (2025-11-20)
 
 ### Bug Fixes
