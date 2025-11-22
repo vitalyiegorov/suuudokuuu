@@ -82,26 +82,18 @@ export const ScoringScreen = () => {
                     <Text style={headingStyle}>{t`Max Mistakes bonus`}</Text>
                     <Text style={textStyle}>{t`Playing with fewer mistakes allowed gives you a score multiplier:`}</Text>
                     <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
-                        • <Trans>0 mistakes(Hardcore)</Trans>:{' '}
-                        <Text style={codeStyle}>×{defaultScoringConfig.maxMistakesCoefficients[0]}</Text>
-                    </ListItem>
-                    <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
-                        • <Trans>1 mistakes</Trans>: <Text style={codeStyle}>×{defaultScoringConfig.maxMistakesCoefficients[1]}</Text>
-                    </ListItem>
-                    <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
-                        • <Trans>2 mistakes</Trans>: <Text style={codeStyle}>×{defaultScoringConfig.maxMistakesCoefficients[2]}</Text>
-                    </ListItem>
-                    <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
-                        • <Trans>3 mistakes</Trans>: <Text style={codeStyle}>×{defaultScoringConfig.maxMistakesCoefficients[3]}</Text>
-                    </ListItem>
-                    <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
-                        • <Trans>5 mistakes</Trans>: <Text style={codeStyle}>×{defaultScoringConfig.maxMistakesCoefficients[5]}</Text>
-                    </ListItem>
-                    <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
-                        • <Trans>99 mistakes</Trans>:{' '}
+                        • <Trans>Immortal (99 mistakes)</Trans>:{' '}
                         <Text style={codeStyle}>
                             ×{defaultScoringConfig.maxMistakesCoefficients[99]}(<Trans>no bonus</Trans>)
                         </Text>
+                    </ListItem>
+                    <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
+                        • <Trans>Standard (3 mistakes)</Trans>:{' '}
+                        <Text style={codeStyle}>×{defaultScoringConfig.maxMistakesCoefficients[3]}</Text>
+                    </ListItem>
+                    <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
+                        • <Trans>Hardcore (0 mistakes)</Trans>:{' '}
+                        <Text style={codeStyle}>×{defaultScoringConfig.maxMistakesCoefficients[0]}</Text>
                     </ListItem>
                 </View>
 
