@@ -1,5 +1,13 @@
 # Copilot Instructions for Suuudokuuu
 
+## Code Style and Quality Standards
+
+**CRITICAL RULES:**
+- **Never add comments** - code should be explicit, clean and understandable through proper naming
+- **Never use barrel exports** (index.ts files that re-export other modules)
+- **Favor composition** over inheritance and complex patterns
+- **Pick proper names** for classes, functions, modules, and variables that make the code self-documenting
+
 ## Repository Overview
 
 **Suuudokuuu** is a modern, open-source Sudoku game built with React Native/Expo to support Ukraine. The repository is a **monorepo** (~1.7GB) using **TurboRepo** and **Lerna** for managing multiple packages with enterprise-grade CI/CD.

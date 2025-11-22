@@ -2,7 +2,6 @@ import { useLingui } from '@lingui/react/macro';
 import { ScrollView, View } from 'react-native';
 
 import { Header } from '../../../@generic/components/header/header';
-import { PageHeader } from '../../../@generic/components/page-header/page-header';
 import { ReturnButton } from '../../../@generic/components/return-button/return-button';
 import { CellMarginToggle } from '../../../settings/component/cell-margin-toggle/cell-margin-toggle';
 import { FontSizeToggle } from '../../../settings/component/font-size-toggle/font-size-toggle';
@@ -17,8 +16,6 @@ export const SettingsScreen = () => {
 
     return (
         <View style={styles.container}>
-            <PageHeader title={t`Settings`} />
-
             <Header text={t`Settings`} />
 
             <ScrollView contentContainerStyle={styles.scrollViewContent} showsVerticalScrollIndicator={false} style={styles.scrollView}>
