@@ -26,7 +26,7 @@ export interface GameState {
 
 export type SerializedGameState = Partial<Record<keyof Omit<GameState, 'sudokuString' | 'candidates'>, string>> &
     Pick<GameState, 'sudokuString' | 'candidates'>;
-export type SharableGameState = Omit<GameState, 'isPaused' | 'isFinished' | 'showAutoCandidates' | 'inputMode' | 'historyByDifficulty'>;
+export type SharableGameState = Omit<GameState, 'isPaused' | 'showAutoCandidates' | 'inputMode' | 'historyByDifficulty'>;
 
 export const initialGameState: GameState = {
     isPaused: false,
