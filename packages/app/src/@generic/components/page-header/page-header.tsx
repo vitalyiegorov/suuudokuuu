@@ -27,7 +27,6 @@ export const PageHeader = ({ title = '' }: Props) => {
 
     return (
         <>
-            {}
             <StatusBar style={statusBarStyle} />
 
             <Stack.Screen options={options} />

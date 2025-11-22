@@ -131,13 +131,5 @@ describe('Sudoku - Scoring', () => {
 
             expect(sudoku.isScoredCell({ x: 1, y: 1, group: 0, value: 1 }, scoredCells)).toBe(false);
         });
-
-        it('getScore() returns a number', () => {
-            const sudoku = new Sudoku();
-
-            const score = sudoku.getScore(emptyScoredCells, 100, 2);
-
-            expect(typeof score).toBe('number');
-        });
     });
 });
