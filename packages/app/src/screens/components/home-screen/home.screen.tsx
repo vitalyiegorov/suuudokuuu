@@ -4,7 +4,7 @@ import { Link } from 'expo-router';
 import { use, useState } from 'react';
 import { ActivityIndicator, Text, View } from 'react-native';
 
-import { isDefined, isNotEmptyString } from '@rnw-community/shared';
+import { isDefined } from '@rnw-community/shared';
 
 import { BlackButton } from '../../../@generic/components/black-button/black-button';
 import { BlackText } from '../../../@generic/components/black-text/black-text';
@@ -17,7 +17,7 @@ import { DifficultySelect } from '../../../game/components/difficulty-select/dif
 import { MistakesSelect } from '../../../game/components/mistakes-select/mistakes-select';
 import { GameContext } from '../../../game/context/game.context';
 import { useResumeGame } from '../../../game/hooks/use-resume-game.hook';
-import { gameHistoryBestTimeSelector, gameSudokuStringSelector } from '../../../game/store/game.selectors';
+import { gameHistoryBestTimeSelector, gameIsStartedSelector } from '../../../game/store/game.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
 
 import { HomeScreenSelectors } from './home-screen.selectors';
@@ -31,16 +31,14 @@ export const HomeScreen = () => {
     const { theme } = use(ThemeContext);
     const { t } = useLingui();
 
-    const oldGameString = useAppSelector(gameSudokuStringSelector);
     const [bestScore, bestTime] = useAppSelector(gameHistoryBestTimeSelector);
+    const isGameStarted = useAppSelector(gameIsStartedSelector);
 
     const handleContinue = useResumeGame();
 
     const [state, setState] = useState<'initial' | 'difficulty' | 'mistakes'>('initial');
     const [isLoading, setIsLoading] = useState(false);
     const [difficulty, setDifficulty] = useState<DifficultyEnum>();
-
-    const isGameStarted = isNotEmptyString(oldGameString);
 
     const handleState = (newState: typeof state) => () => {
         setState(newState);

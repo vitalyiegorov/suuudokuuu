@@ -1,5 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit';
 
+import { isNotEmptyString } from '@rnw-community/shared';
+
 import type { RootState } from '../../@generic/app-root.store';
 import type { DifficultyEnum } from '@suuudokuuu/generator';
 
@@ -23,3 +25,4 @@ export const gameHistoryBestTimeSelector = createSelector(gameSelector, state =>
 );
 export const gameHistoryDifficultySelector = (difficulty: DifficultyEnum) =>
     createSelector(gameSelector, state => state.historyByDifficulty[difficulty]);
+export const gameIsStartedSelector = createSelector(gameSelector, state => isNotEmptyString(state.sudokuString));
