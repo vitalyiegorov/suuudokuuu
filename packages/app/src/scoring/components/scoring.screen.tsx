@@ -4,7 +4,6 @@ import { use } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 
 import { Header } from '../../@generic/components/header/header';
-import { PageHeader } from '../../@generic/components/page-header/page-header';
 import { ReturnButton } from '../../@generic/components/return-button/return-button';
 import { ThemeContext } from '../../theme/context/theme.context';
 import { defaultScoringConfig } from '../scoring-config.interface';
@@ -24,7 +23,6 @@ export const ScoringScreen = () => {
 
     return (
         <View style={styles.container}>
-            <PageHeader title={t`How Scoring Works`} />
             <Header text={t`How Scoring Works`} />
 
             <ScrollView contentContainerStyle={styles.scrollViewContent} showsVerticalScrollIndicator={false} style={styles.scrollView}>
