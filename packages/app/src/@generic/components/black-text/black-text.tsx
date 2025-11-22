@@ -17,7 +17,7 @@ interface Props extends TextProps {
 export const BlackText = ({ style, icon: Icon, ...props }: Props) => {
     const { theme } = use(ThemeContext);
 
-    const textStyles = [{ color: theme.colors.label.main }, style];
+    const textStyles = [BlackTextStyles.text, { color: theme.colors.label.main, ...(isDefined(Icon) && { flexBasis: 0 }) }, style];
     const iconStyles = [{ color: theme.colors.label.main, marginLeft: 4 }];
 
     return (
