@@ -14,9 +14,9 @@ export interface ScoringConfigInterface {
 }
 
 export const defaultScoringConfig: ScoringConfigInterface = {
-    correctMinValue: 0.05,
-    correctValue: 0.5,
-    elapsedCoefficient: 0.0001,
+    correctMinValue: 5,
+    correctValue: 10,
+    elapsedCoefficient: 0.001,
     lastInColCoefficientConstant: 2,
     lastInGroupCoefficientConstant: 3,
     lastInRowCoefficientConstant: 3,
