@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.48.3](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.48.2...v1.48.3) (2025-11-22)
+
+### Bug Fixes
+
+- **app:** improve scoring ([#116](https://github.com/vitalyiegorov/suuudokuuu/issues/116)) ([a472503](https://github.com/vitalyiegorov/suuudokuuu/commit/a472503f74842ad35695d15a1e48843d9e5efc99))
+
 ## [1.47.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.47.1...v1.47.2) (2025-11-16)
 
 ### Bug Fixes
