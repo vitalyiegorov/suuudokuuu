@@ -1,6 +1,6 @@
 import { LucideProps } from 'lucide-react-native';
 import { FC, use } from 'react';
-import { Text, View } from 'react-native';
+import { Platform, Text, View } from 'react-native';
 
 import { isDefined } from '@rnw-community/shared';
 
@@ -17,13 +17,25 @@ interface Props extends TextProps {
 export const BlackText = ({ style, icon: Icon, ...props }: Props) => {
     const { theme } = use(ThemeContext);
 
-    const textStyles = [BlackTextStyles.text, { color: theme.colors.label.main, ...(isDefined(Icon) && { flexBasis: 0 }) }, style];
-    const iconStyles = [{ color: theme.colors.label.main, marginLeft: 4 }];
+    const textStyles = [
+        BlackTextStyles.text,
+        {
+            color: theme.colors.label.main,
+            ...(isDefined(Icon) && Platform.select({ web: { flexBasis: 0 } }))
+        },
+        style
+    ];
 
-    return (
-        <View style={BlackTextStyles.container}>
-            <Text allowFontScaling={false} style={textStyles} {...props} />
-            {isDefined(Icon) && <Icon style={iconStyles} width={10} height={10} />}
-        </View>
-    );
+    if (isDefined(Icon)) {
+        const iconStyles = [{ color: theme.colors.label.main, marginLeft: 4 }];
+
+        return (
+            <View style={BlackTextStyles.container}>
+                <Text allowFontScaling={false} style={textStyles} {...props} />
+                <Icon style={iconStyles} width={10} height={10} />
+            </View>
+        );
+    }
+
+    return <Text allowFontScaling={false} style={textStyles} {...props} />;
 };
