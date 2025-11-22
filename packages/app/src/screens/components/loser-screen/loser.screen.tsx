@@ -1,22 +1,22 @@
 import { useLingui } from '@lingui/react/macro';
-import { useEffect } from 'react';
+import { Redirect } from 'expo-router';
 import { View } from 'react-native';
 
 import { Donation } from '../../../@generic/components/donation/donation';
 import { Header } from '../../../@generic/components/header/header';
 import { PlayAgainButton } from '../../../@generic/components/play-again-button/play-again-button';
-import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
-import { gameResetAction } from '../../../game/store/game.actions';
+import { useResetGame } from '../../../@generic/hooks/use-reset-game.hook';
 
 import { LoserScreenStyles } from './loser-screen.styles';
 
 export const LoserScreen = () => {
     const { t } = useLingui();
-    const dispatch = useAppDispatch();
 
-    useEffect(() => {
-        dispatch(gameResetAction());
-    }, [dispatch]);
+    const [isGameStarted, _, elapsedTime] = useResetGame();
+
+    if (!isGameStarted && elapsedTime === 0) {
+        return <Redirect href="/" />;
+    }
 
     return (
         <View style={LoserScreenStyles.container}>

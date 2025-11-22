@@ -1,29 +1,24 @@
 import { useLingui } from '@lingui/react/macro';
-import { useEffect } from 'react';
+import { Redirect } from 'expo-router';
 import { Text, View } from 'react-native';
-import { useSelector } from 'react-redux';
 
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { Donation } from '../../../@generic/components/donation/donation';
 import { Header } from '../../../@generic/components/header/header';
 import { PlayAgainButton } from '../../../@generic/components/play-again-button/play-again-button';
-import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
+import { useResetGame } from '../../../@generic/hooks/use-reset-game.hook';
 import { getTimerText } from '../../../@generic/utils/get-timer-text.util';
-import { gameResetAction } from '../../../game/store/game.actions';
-import { gameElapsedTimeSelector, gameScoreSelector } from '../../../game/store/game.selectors';
 
 import { WinnerScreenStyles } from './winner-screen.styles';
 
 export const WinnerScreen = () => {
     const { t } = useLingui();
-    const dispatch = useAppDispatch();
 
-    const score = useSelector(gameScoreSelector);
-    const elapsedTime = useSelector(gameElapsedTimeSelector);
+    const [isGameStarted, score, elapsedTime] = useResetGame();
 
-    useEffect(() => {
-        dispatch(gameResetAction());
-    }, [dispatch]);
+    if (!isGameStarted && score === 0) {
+        return <Redirect href="/" />;
+    }
 
     return (
         <View style={WinnerScreenStyles.container}>
