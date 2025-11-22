@@ -1,4 +1,5 @@
-import { useLingui } from '@lingui/react/macro';
+import { Trans, useLingui } from '@lingui/react/macro';
+import { DifficultyEnum } from '@suuudokuuu/generator';
 import { use } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 
@@ -8,14 +9,10 @@ import { ReturnButton } from '../../@generic/components/return-button/return-but
 import { ThemeContext } from '../../theme/context/theme.context';
 import { defaultScoringConfig } from '../scoring-config.interface';
 
-import { BonusList } from './bonus-list';
-import { DifficultyList } from './difficulty-list';
-import { ExampleSection } from './example-section';
 import { ListItem } from './list-item';
-import { MaxMistakesList } from './max-mistakes-list';
 import { ScoringScreenStyles as styles } from './scoring-screen.styles';
-import { TipsList } from './tips-list';
 
+// eslint-disable-next-line max-lines-per-function
 export const ScoringScreen = () => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
@@ -40,22 +37,94 @@ export const ScoringScreen = () => {
                 <View style={sectionStyle}>
                     <Text style={headingStyle}>{t`Base Score`}</Text>
                     <Text style={textStyle}>
-                        {t`Each correct placement starts with a base value:`} <Text style={codeStyle}>{defaultScoringConfig.correctValue}</Text>
+                        {t`Each correct placement starts with a base value:`}{' '}
+                        <Text style={codeStyle}>{defaultScoringConfig.correctValue}</Text>
                     </Text>
                     <Text style={textStyle}>{t`This value is multiplied by the difficulty coefficient:`}</Text>
-                    <DifficultyList codeStyle={codeStyle} listItemStyle={styles.listItem} t={t} textStyle={textStyle} />
+                    <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
+                        • <Trans>Newbie</Trans>:{' '}
+                        <Text style={codeStyle}>×{defaultScoringConfig.difficultyCoefficients[DifficultyEnum.Newbie]}</Text> ={' '}
+                        <Text style={codeStyle}>
+                            {defaultScoringConfig.correctValue * defaultScoringConfig.difficultyCoefficients[DifficultyEnum.Newbie]}
+                        </Text>
+                    </ListItem>
+                    <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
+                        • <Trans>Easy</Trans>:{' '}
+                        <Text style={codeStyle}>×{defaultScoringConfig.difficultyCoefficients[DifficultyEnum.Easy]}</Text> ={' '}
+                        <Text style={codeStyle}>
+                            {defaultScoringConfig.correctValue * defaultScoringConfig.difficultyCoefficients[DifficultyEnum.Easy]}
+                        </Text>
+                    </ListItem>
+                    <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
+                        • <Trans>Medium</Trans>:{' '}
+                        <Text style={codeStyle}>×{defaultScoringConfig.difficultyCoefficients[DifficultyEnum.Medium]}</Text> ={' '}
+                        <Text style={codeStyle}>
+                            {defaultScoringConfig.correctValue * defaultScoringConfig.difficultyCoefficients[DifficultyEnum.Medium]}
+                        </Text>
+                    </ListItem>
+                    <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
+                        • <Trans>Hard</Trans>:{' '}
+                        <Text style={codeStyle}>×{defaultScoringConfig.difficultyCoefficients[DifficultyEnum.Hard]}</Text> ={' '}
+                        <Text style={codeStyle}>
+                            {defaultScoringConfig.correctValue * defaultScoringConfig.difficultyCoefficients[DifficultyEnum.Hard]}
+                        </Text>
+                    </ListItem>
+                    <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
+                        • <Trans>Nightmare</Trans>:{' '}
+                        <Text style={codeStyle}>×{defaultScoringConfig.difficultyCoefficients[DifficultyEnum.Nightmare]}</Text> ={' '}
+                        <Text style={codeStyle}>
+                            {defaultScoringConfig.correctValue * defaultScoringConfig.difficultyCoefficients[DifficultyEnum.Nightmare]}
+                        </Text>
+                    </ListItem>
                 </View>
 
                 <View style={sectionStyle}>
-                    <Text style={headingStyle}>{t`Hardcore Mode Bonus`}</Text>
+                    <Text style={headingStyle}>{t`Max Mistakes bonus`}</Text>
                     <Text style={textStyle}>{t`Playing with fewer mistakes allowed gives you a score multiplier:`}</Text>
-                    <MaxMistakesList codeStyle={codeStyle} listItemStyle={styles.listItem} t={t} textStyle={textStyle} />
+                    <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
+                        • <Trans>0 mistakes(Hardcore)</Trans>:{' '}
+                        <Text style={codeStyle}>×{defaultScoringConfig.maxMistakesCoefficients[0]}</Text>
+                    </ListItem>
+                    <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
+                        • <Trans>1 mistakes</Trans>: <Text style={codeStyle}>×{defaultScoringConfig.maxMistakesCoefficients[1]}</Text>
+                    </ListItem>
+                    <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
+                        • <Trans>2 mistakes</Trans>: <Text style={codeStyle}>×{defaultScoringConfig.maxMistakesCoefficients[2]}</Text>
+                    </ListItem>
+                    <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
+                        • <Trans>3 mistakes</Trans>: <Text style={codeStyle}>×{defaultScoringConfig.maxMistakesCoefficients[3]}</Text>
+                    </ListItem>
+                    <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
+                        • <Trans>5 mistakes</Trans>: <Text style={codeStyle}>×{defaultScoringConfig.maxMistakesCoefficients[5]}</Text>
+                    </ListItem>
+                    <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
+                        • <Trans>99 mistakes</Trans>:{' '}
+                        <Text style={codeStyle}>
+                            ×{defaultScoringConfig.maxMistakesCoefficients[99]}(<Trans>no bonus</Trans>)
+                        </Text>
+                    </ListItem>
                 </View>
 
                 <View style={sectionStyle}>
                     <Text style={headingStyle}>{t`Completion Bonuses`}</Text>
                     <Text style={textStyle}>{t`Extra points are awarded when your placement completes:`}</Text>
-                    <BonusList codeStyle={codeStyle} listItemStyle={styles.listItem} t={t} textStyle={textStyle} />
+                    <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
+                        • <Trans>Row</Trans>: <Text style={codeStyle}>×{defaultScoringConfig.lastInRowCoefficientConstant}</Text>{' '}
+                        <Trans>of current score</Trans>
+                    </ListItem>
+                    <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
+                        • <Trans>Column</Trans>: <Text style={codeStyle}>×{defaultScoringConfig.lastInColCoefficientConstant}</Text>{' '}
+                        <Trans>of current score</Trans>
+                    </ListItem>
+                    <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
+                        • <Trans>Group(3x3 cells)</Trans>:{' '}
+                        <Text style={codeStyle}>×{defaultScoringConfig.lastInGroupCoefficientConstant}</Text>{' '}
+                        <Trans>of current score</Trans>
+                    </ListItem>
+                    <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
+                        • <Trans>All of a number (1-9)</Trans>: <Text style={codeStyle}>×{defaultScoringConfig.lastValueCoefficient}</Text>{' '}
+                        <Trans>of current score</Trans>
+                    </ListItem>
                 </View>
 
                 <View style={sectionStyle}>
@@ -81,13 +150,19 @@ export const ScoringScreen = () => {
                 </View>
 
                 <View style={sectionStyle}>
-                    <Text style={headingStyle}>{t`Example`}</Text>
-                    <ExampleSection codeStyle={codeStyle} listItemStyle={styles.listItem} t={t} textStyle={textStyle} />
-                </View>
-
-                <View style={sectionStyle}>
                     <Text style={headingStyle}>{t`Tips for High Scores`}</Text>
-                    <TipsList listItemStyle={styles.listItem} t={t} textStyle={textStyle} />
+                    <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
+                        • <Trans>Play on higher difficulties for bigger multipliers</Trans>
+                    </ListItem>
+                    <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
+                        • <Trans>Complete rows, columns, and blocks for huge bonuses</Trans>
+                    </ListItem>
+                    <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
+                        • <Trans>Be fast to minimize time penalties</Trans>
+                    </ListItem>
+                    <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
+                        • <Trans>Avoid mistakes - they cost you points!</Trans>
+                    </ListItem>
                 </View>
             </ScrollView>
 
