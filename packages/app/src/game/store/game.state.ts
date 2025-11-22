@@ -17,7 +17,6 @@ export interface GameState {
     maxMistakes: number;
     elapsedTime: number;
     isPaused: boolean;
-    isFinished: boolean;
     showAutoCandidates: boolean;
     inputMode: InputMode;
     candidates: Record<string, number[]>;
@@ -27,10 +26,9 @@ export interface GameState {
 
 export type SerializedGameState = Partial<Record<keyof Omit<GameState, 'sudokuString' | 'candidates'>, string>> &
     Pick<GameState, 'sudokuString' | 'candidates'>;
-export type SharableGameState = Omit<GameState, 'isPaused' | 'isFinished' | 'showAutoCandidates' | 'inputMode' | 'historyByDifficulty'>;
+export type SharableGameState = Omit<GameState, 'isPaused' | 'showAutoCandidates' | 'inputMode' | 'historyByDifficulty'>;
 
 export const initialGameState: GameState = {
-    isFinished: false,
     isPaused: false,
     elapsedTime: 0,
     sudokuString: '',
@@ -51,7 +49,7 @@ export const initialGameState: GameState = {
 };
 
 export const gameStateToUrl = (gameState: GameState): string => {
-    const { isFinished, isPaused, showAutoCandidates, inputMode, solutionSteps, historyByDifficulty, ...persistedParams } = gameState;
+    const { isPaused, showAutoCandidates, inputMode, solutionSteps, historyByDifficulty, ...persistedParams } = gameState;
 
     return btoa(JSON.stringify({ ...persistedParams, solutionSteps: solutionStepsStringify(solutionSteps) }));
 };

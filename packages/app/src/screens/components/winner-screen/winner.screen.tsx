@@ -1,21 +1,24 @@
 import { useLingui } from '@lingui/react/macro';
+import { Redirect } from 'expo-router';
 import { Text, View } from 'react-native';
-import { useSelector } from 'react-redux';
 
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { Donation } from '../../../@generic/components/donation/donation';
 import { Header } from '../../../@generic/components/header/header';
 import { PlayAgainButton } from '../../../@generic/components/play-again-button/play-again-button';
+import { useResetGame } from '../../../@generic/hooks/use-reset-game.hook';
 import { getTimerText } from '../../../@generic/utils/get-timer-text.util';
-import { gameElapsedTimeSelector, gameScoreSelector } from '../../../game/store/game.selectors';
 
 import { WinnerScreenStyles } from './winner-screen.styles';
 
 export const WinnerScreen = () => {
     const { t } = useLingui();
 
-    const score = useSelector(gameScoreSelector);
-    const elapsedTime = useSelector(gameElapsedTimeSelector);
+    const [isGameStarted, score, elapsedTime] = useResetGame();
+
+    if (!isGameStarted && elapsedTime === 0) {
+        return <Redirect href="/" />;
+    }
 
     return (
         <View style={WinnerScreenStyles.container}>
