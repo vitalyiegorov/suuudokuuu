@@ -23,6 +23,10 @@ import type { StyleProp, ViewStyle } from 'react-native';
 
 const ReanimatedPressable = Reanimated.createAnimatedComponent(Pressable);
 
+export interface AvailableValuesItemRef {
+    triggerAnimation: OnEventFn<void>;
+}
+
 interface Props {
     readonly value: number;
     readonly canPress: boolean;
@@ -30,10 +34,6 @@ interface Props {
     readonly correctValue?: number;
     readonly onSelect: OnEventFn<number>;
     readonly ref: Ref<AvailableValuesItemRef>;
-}
-
-export interface AvailableValuesItemRef {
-    triggerAnimation: () => void;
 }
 
 export const AvailableValuesItem = ({ value, onSelect, progress, correctValue, canPress, ref }: Props) => {
