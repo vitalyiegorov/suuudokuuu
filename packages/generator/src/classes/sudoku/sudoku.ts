@@ -39,7 +39,7 @@ export class Sudoku extends SerializableSudoku {
             }
             this.gameField = cloneField(this.field);
 
-            if (this.removeClues(targetBlankCells, 50) >= targetBlankCells) {
+            if (this.removeClues(targetBlankCells) >= targetBlankCells) {
                 break;
             }
         }
@@ -269,16 +269,16 @@ export class Sudoku extends SerializableSudoku {
     }
 
     // eslint-disable-next-line max-statements
-    private removeClues(targetBlankCells: number, maxAttempts = 50): number {
-        let maxBlanks = 0;
-        let bestGameField = cloneField(this.gameField);
-
+    private removeClues(targetBlankCells: number, maxAttempts = 300, firstPhaseBlanks = 40): number {
         for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
             this.gameField = cloneField(this.field);
 
             let blankCells = 0;
+
+            // HINT: 1st phase quick solution
             for (const { x, y } of shuffle(this.coordinates)) {
                 const backup = this.gameField[y][x].value;
+
                 this.gameField[y][x].value = this.config.blankCellValue;
                 blankCells += 1;
 
@@ -287,24 +287,39 @@ export class Sudoku extends SerializableSudoku {
                     blankCells -= 1;
                 }
 
-                if (blankCells >= targetBlankCells) {
+                if (blankCells >= Math.min(targetBlankCells, firstPhaseBlanks)) {
                     break;
                 }
             }
 
-            if (blankCells > maxBlanks) {
-                maxBlanks = blankCells;
-                bestGameField = cloneField(this.gameField);
+            if (blankCells >= targetBlankCells) {
+                return blankCells;
             }
 
-            if (maxBlanks >= targetBlankCells) {
-                break;
+            for (const { x, y } of shuffle(this.coordinates)) {
+                const backup = this.gameField[y][x].value;
+
+                if (this.gameField[y][x].value !== this.config.blankCellValue) {
+                    this.gameField[y][x].value = this.config.blankCellValue;
+                    blankCells += 1;
+
+                    if (new DLXSolver().count(this.gameField, 2) !== 1) {
+                        this.gameField[y][x].value = backup;
+                        blankCells -= 1;
+                    }
+
+                    if (blankCells >= targetBlankCells) {
+                        break;
+                    }
+                }
+            }
+
+            if (blankCells >= targetBlankCells) {
+                return blankCells;
             }
         }
 
-        this.gameField = bestGameField;
-
-        return maxBlanks;
+        return -1;
     }
 
     // TODO: Can we avoid it and just use parent version with correct types?

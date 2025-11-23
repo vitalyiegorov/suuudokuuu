@@ -19,7 +19,7 @@ export const defaultSudokuConfig: SudokuConfigInterface = {
         [DifficultyEnum.Newbie]: 10,
         [DifficultyEnum.Easy]: 30,
         [DifficultyEnum.Medium]: 40,
-        [DifficultyEnum.Hard]: 50,
+        [DifficultyEnum.Hard]: 55,
         [DifficultyEnum.Nightmare]: 59
     }
 };
