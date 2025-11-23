@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.48.5](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.48.4...v1.48.5) (2025-11-23)
+
+### Bug Fixes
+
+- **app:** fix best score link, fix completing previous animation ([#124](https://github.com/vitalyiegorov/suuudokuuu/issues/124)) ([ecbb57c](https://github.com/vitalyiegorov/suuudokuuu/commit/ecbb57cc4a9b801a484784c092968ebed15cd9af))
+
 ## [1.48.4](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.48.3...v1.48.4) (2025-11-22)
 
 **Note:** Version bump only for package @suuudokuuu/root
