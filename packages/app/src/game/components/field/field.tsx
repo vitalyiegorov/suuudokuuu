@@ -63,8 +63,6 @@ export const Field = ({ selectedCell, onSelect, scoredCells }: Props) => {
     useEffect(() => {
         const newAnimatedCells = new Set<string>();
         if (!isEmptyScoredCells(scoredCells)) {
-            cancelAnimation(textAnimation);
-
             sudoku.Field.forEach(row => {
                 row.forEach(cell => {
                     if (sudoku.isScoredCell(cell, scoredCells)) {
@@ -73,9 +71,12 @@ export const Field = ({ selectedCell, onSelect, scoredCells }: Props) => {
                 });
             });
 
+            cancelAnimation(textAnimation);
+            // eslint-disable-next-line react-hooks/immutability
+            textAnimation.value = 0;
+
             setAnimatedCells(newAnimatedCells);
 
-            // eslint-disable-next-line react-hooks/immutability
             textAnimation.value = withSequence(withTiming(1, textAnimationConfig), withTiming(0, { duration: 0 }));
         }
     }, [scoredCells, sudoku, textAnimation]);

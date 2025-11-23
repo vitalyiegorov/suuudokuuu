@@ -2,7 +2,7 @@ import { useLingui } from '@lingui/react/macro';
 import { emptyScoredCells } from '@suuudokuuu/generator';
 import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
-import { useRouter } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import * as Sharing from 'expo-sharing';
 import { LucideLogOut, LucideSettings, LucideShare2 } from 'lucide-react-native';
 import { use, useEffect, useRef, useState } from 'react';
@@ -206,13 +206,15 @@ export const GameScreen = () => {
                 ) : null}
 
                 <View style={styles.scoreWrapper}>
-                    <View style={styles.controlsWrapper}>
-                        <BlackText>{t`Score`}</BlackText>
+                    <Link href="/scoring">
+                        <View style={styles.controlsWrapper}>
+                            <BlackText>{t`Score`}</BlackText>
 
-                        <BlackText style={styles.scoreText} testID={GameScreenSelectors.Score}>
-                            {score}
-                        </BlackText>
-                    </View>
+                            <BlackText style={styles.scoreText} testID={GameScreenSelectors.Score}>
+                                {score}
+                            </BlackText>
+                        </View>
+                    </Link>
                 </View>
 
                 <View style={styles.buttonsWrapper}>
