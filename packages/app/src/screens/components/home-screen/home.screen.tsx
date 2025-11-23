@@ -112,7 +112,7 @@ export const HomeScreen = () => {
             <View style={styles.historyContainer}>
                 {bestScore > 0 && (
                     <>
-                        <Link asChild href="/scoring">
+                        <Link href="/scoring">
                             <View style={styles.historyGroup}>
                                 <BlackText icon={Info}>{t`Best score`}</BlackText>
 
