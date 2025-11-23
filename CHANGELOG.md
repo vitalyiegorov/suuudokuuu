@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.49.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.48.5...v1.49.0) (2025-11-23)
+
+### Features
+
+- **app:** fixed queued animation, bump expo ([#125](https://github.com/vitalyiegorov/suuudokuuu/issues/125)) ([171c282](https://github.com/vitalyiegorov/suuudokuuu/commit/171c282c9ec0991609257eeaf8ae9779537c278e))
+
 ## [1.48.5](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.48.4...v1.48.5) (2025-11-23)
 
 ### Bug Fixes
