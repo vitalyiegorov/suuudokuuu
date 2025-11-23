@@ -37,6 +37,7 @@ interface Props {
     readonly scoredCells: ScoredCellsInterface;
 }
 
+// eslint-disable-next-line max-lines-per-function
 export const Field = ({ selectedCell, onSelect, scoredCells }: Props) => {
     const { sudoku } = use(GameContext);
     const { theme } = use(ThemeContext);
@@ -48,6 +49,7 @@ export const Field = ({ selectedCell, onSelect, scoredCells }: Props) => {
 
     const [animatedCells, setAnimatedCells] = useState(new Set<string>());
 
+    const isAnimatingRef = useSharedValue(false);
     const textAnimation = useSharedValue(0);
     const textAnimatedStyles = useAnimatedStyle(() => ({
         color: interpolateColor(
@@ -63,8 +65,6 @@ export const Field = ({ selectedCell, onSelect, scoredCells }: Props) => {
     useEffect(() => {
         const newAnimatedCells = new Set<string>();
         if (!isEmptyScoredCells(scoredCells)) {
-            cancelAnimation(textAnimation);
-
             sudoku.Field.forEach(row => {
                 row.forEach(cell => {
                     if (sudoku.isScoredCell(cell, scoredCells)) {
@@ -73,10 +73,20 @@ export const Field = ({ selectedCell, onSelect, scoredCells }: Props) => {
                 });
             });
 
+            if (!isAnimatingRef.value) {
+                cancelAnimation(textAnimation);
+                // eslint-disable-next-line react-hooks/immutability
+                textAnimation.value = 0;
+            }
+
             setAnimatedCells(newAnimatedCells);
 
-            // eslint-disable-next-line react-hooks/immutability
-            textAnimation.value = withSequence(withTiming(1, textAnimationConfig), withTiming(0, { duration: 0 }));
+            textAnimation.value = withSequence(
+                withTiming(1, textAnimationConfig),
+                withTiming(0, { duration: 0 }, () => {
+                    isAnimatingRef.value = false;
+                })
+            );
         }
     }, [scoredCells, sudoku, textAnimation]);
 
