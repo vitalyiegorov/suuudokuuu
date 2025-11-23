@@ -69,28 +69,24 @@ export const Field = ({ selectedCell, onSelect, ref }: Props) => {
         transform: [{ rotate: `${interpolate(textAnimation.value, [0, 1], [0, 360])}deg` }]
     }));
 
-    useImperativeHandle(
-        ref,
-        () => ({
-            triggerAnimation: (scoredCells: ScoredCellsInterface) => {
-                if (isEmptyScoredCells(scoredCells)) {
-                    return;
-                }
-
-                const runAnimation = () => {
-                    setAnimatedCells(getCellKeysToAnimate(sudoku, scoredCells));
-
-                    textAnimation.value = withSequence(withTiming(1, textAnimationConfig), withTiming(0, { duration: 0 }));
-                };
-
-                // HINT: We always immediately reset previous animation before starting a new one
-                textAnimation.value = withTiming(0, { duration: 0 }, () => {
-                    scheduleOnRN(runAnimation);
-                });
+    useImperativeHandle(ref, () => ({
+        triggerAnimation: (scoredCells: ScoredCellsInterface) => {
+            if (isEmptyScoredCells(scoredCells)) {
+                return;
             }
-        }),
-        [sudoku]
-    );
+
+            const runAnimation = () => {
+                setAnimatedCells(getCellKeysToAnimate(sudoku, scoredCells));
+
+                textAnimation.value = withSequence(withTiming(1, textAnimationConfig), withTiming(0, { duration: 0 }));
+            };
+
+            // HINT: We always immediately reset previous animation before starting a new one
+            textAnimation.value = withTiming(0, { duration: 0 }, () => {
+                scheduleOnRN(runAnimation);
+            });
+        }
+    }));
 
     return (
         <View style={styles.wrapper}>
