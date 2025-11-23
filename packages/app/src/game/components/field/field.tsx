@@ -1,5 +1,5 @@
 import { isEmptyScoredCells } from '@suuudokuuu/generator';
-import { use, useEffect, useState } from 'react';
+import { type Ref, use, useImperativeHandle, useState } from 'react';
 import { View } from 'react-native';
 import {
     cancelAnimation,
@@ -31,13 +31,17 @@ import type { CellInterface, ScoredCellsInterface } from '@suuudokuuu/generator'
 const textAnimationConfig = { duration: 6 * animationDurationConstant };
 const FONT_SIZE_MULTIPLIER = 1.5;
 
+export interface FieldRef {
+    triggerAnimation: OnEventFn<ScoredCellsInterface>;
+}
+
 interface Props {
     readonly selectedCell?: CellInterface;
     readonly onSelect: OnEventFn<CellInterface | undefined>;
-    readonly scoredCells: ScoredCellsInterface;
+    readonly ref: Ref<FieldRef>;
 }
 
-export const Field = ({ selectedCell, onSelect, scoredCells }: Props) => {
+export const Field = ({ selectedCell, onSelect, ref }: Props) => {
     const { sudoku } = use(GameContext);
     const { theme } = use(ThemeContext);
 
@@ -59,8 +63,7 @@ export const Field = ({ selectedCell, onSelect, scoredCells }: Props) => {
         transform: [{ rotate: `${interpolate(textAnimation.value, [0, 1], [0, 360])}deg` }]
     }));
 
-    // TODO: Can we implement this without useEffect?
-    useEffect(() => {
+    const triggerAnimationFn = (scoredCells: ScoredCellsInterface) => {
         const newAnimatedCells = new Set<string>();
         if (!isEmptyScoredCells(scoredCells)) {
             sudoku.Field.forEach(row => {
@@ -79,7 +82,11 @@ export const Field = ({ selectedCell, onSelect, scoredCells }: Props) => {
 
             textAnimation.value = withSequence(withTiming(1, textAnimationConfig), withTiming(0, { duration: 0 }));
         }
-    }, [scoredCells, sudoku, textAnimation]);
+    };
+
+    useImperativeHandle(ref, () => ({
+        triggerAnimation: triggerAnimationFn
+    }));
 
     return (
         <View style={styles.wrapper}>
