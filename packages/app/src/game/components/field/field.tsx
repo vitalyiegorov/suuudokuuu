@@ -78,9 +78,7 @@ export const Field = ({ selectedCell, onSelect, ref }: Props) => {
                 }
 
                 const runAnimation = () => {
-                    const toAnimateCellKeys = getCellKeysToAnimate(sudoku, scoredCells);
-
-                    setAnimatedCells(toAnimateCellKeys);
+                    setAnimatedCells(getCellKeysToAnimate(sudoku, scoredCells));
 
                     textAnimation.value = withSequence(withTiming(1, textAnimationConfig), withTiming(0, { duration: 0 }));
                 };
