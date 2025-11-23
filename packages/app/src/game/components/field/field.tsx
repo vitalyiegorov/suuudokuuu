@@ -1,15 +1,8 @@
-import { isEmptyScoredCells } from '@suuudokuuu/generator';
+import { Sudoku, isEmptyScoredCells } from '@suuudokuuu/generator';
 import { type Ref, use, useImperativeHandle, useState } from 'react';
 import { View } from 'react-native';
-import {
-    cancelAnimation,
-    interpolate,
-    interpolateColor,
-    useAnimatedStyle,
-    useSharedValue,
-    withSequence,
-    withTiming
-} from 'react-native-reanimated';
+import { interpolate, interpolateColor, useAnimatedStyle, useSharedValue, withSequence, withTiming } from 'react-native-reanimated';
+import { scheduleOnRN } from 'react-native-worklets';
 
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
@@ -34,6 +27,19 @@ const FONT_SIZE_MULTIPLIER = 1.5;
 export interface FieldRef {
     triggerAnimation: OnEventFn<ScoredCellsInterface>;
 }
+
+const getCellKeysToAnimate = (sudoku: Sudoku, scored: ScoredCellsInterface) => {
+    const newAnimatedCells = new Set<string>();
+    sudoku.Field.forEach(row => {
+        row.forEach(cell => {
+            if (sudoku.isScoredCell(cell, scored)) {
+                newAnimatedCells.add(getCellKey(cell));
+            }
+        });
+    });
+
+    return newAnimatedCells;
+};
 
 interface Props {
     readonly selectedCell?: CellInterface;
@@ -63,30 +69,30 @@ export const Field = ({ selectedCell, onSelect, ref }: Props) => {
         transform: [{ rotate: `${interpolate(textAnimation.value, [0, 1], [0, 360])}deg` }]
     }));
 
-    const triggerAnimationFn = (scoredCells: ScoredCellsInterface) => {
-        const newAnimatedCells = new Set<string>();
-        if (!isEmptyScoredCells(scoredCells)) {
-            sudoku.Field.forEach(row => {
-                row.forEach(cell => {
-                    if (sudoku.isScoredCell(cell, scoredCells)) {
-                        newAnimatedCells.add(getCellKey(cell));
-                    }
+    useImperativeHandle(
+        ref,
+        () => ({
+            triggerAnimation: (scoredCells: ScoredCellsInterface) => {
+                if (isEmptyScoredCells(scoredCells)) {
+                    return;
+                }
+
+                const runAnimation = () => {
+                    const toAnimateCellKeys = getCellKeysToAnimate(sudoku, scoredCells);
+
+                    setAnimatedCells(toAnimateCellKeys);
+
+                    textAnimation.value = withSequence(withTiming(1, textAnimationConfig), withTiming(0, { duration: 0 }));
+                };
+
+                // HINT: We always immediately reset previous animation before starting a new one
+                textAnimation.value = withTiming(0, { duration: 0 }, () => {
+                    scheduleOnRN(runAnimation);
                 });
-            });
-
-            cancelAnimation(textAnimation);
-            // eslint-disable-next-line react-hooks/immutability
-            textAnimation.value = 0;
-
-            setAnimatedCells(newAnimatedCells);
-
-            textAnimation.value = withSequence(withTiming(1, textAnimationConfig), withTiming(0, { duration: 0 }));
-        }
-    };
-
-    useImperativeHandle(ref, () => ({
-        triggerAnimation: triggerAnimationFn
-    }));
+            }
+        }),
+        [sudoku]
+    );
 
     return (
         <View style={styles.wrapper}>
