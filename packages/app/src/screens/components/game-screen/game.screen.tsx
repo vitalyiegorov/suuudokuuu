@@ -1,5 +1,4 @@
 import { useLingui } from '@lingui/react/macro';
-import { emptyScoredCells } from '@suuudokuuu/generator';
 import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { Link, useRouter } from 'expo-router';
@@ -16,9 +15,9 @@ import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { useVibration } from '../../../@generic/hooks/use-vibration.hook';
 import { AutoCandidatesButton } from '../../../game/components/auto-candidates-button/auto-candidates-button';
-import { AvailableValuesItem, type AvailableValuesItemRef } from '../../../game/components/available-values-item/available-values-item';
+import { AvailableValuesItem, AvailableValuesItemRef } from '../../../game/components/available-values-item/available-values-item';
 import { CandidateInputItem } from '../../../game/components/candidate-input-item/candidate-input-item';
-import { Field } from '../../../game/components/field/field';
+import { Field, FieldRef } from '../../../game/components/field/field';
 import { GameTimer } from '../../../game/components/game-timer/game-timer';
 import { InputModeButton } from '../../../game/components/input-mode-button/input-mode-button';
 import { GameContext } from '../../../game/context/game.context';
@@ -69,10 +68,11 @@ export const GameScreen = () => {
     const hasTimer = useAppSelector(settingsKeySelector('hasTimer'));
     const inputMode = useAppSelector(gameInputModeSelector);
 
+    const availableValuesRefs = useRef<Record<number, AvailableValuesItemRef | null>>({});
+    const fieldRef = useRef<FieldRef>(null);
+
     const [selectedCell, setSelectedCell] = useState<CellInterface>();
     const [hasSharing, setHasSharing] = useState(false);
-    const [scoredCells, setScoredCells] = useState<ScoredCellsInterface>(emptyScoredCells);
-    const availableValuesRefs = useRef<Record<number, AvailableValuesItemRef | null>>({});
 
     const maxMistakesReached = mistakes >= maxMistakes;
 
@@ -121,7 +121,8 @@ export const GameScreen = () => {
 
         hapticNotification(Haptics.NotificationFeedbackType.Success);
 
-        setScoredCells(newScoredCells);
+        fieldRef.current?.triggerAnimation(newScoredCells);
+
         setSelectedCell(() => ({ ...correctCell }));
     };
 
@@ -235,7 +236,7 @@ export const GameScreen = () => {
             </View>
 
             <View style={styles.fieldWrapper}>
-                <Field onSelect={handleSelectCell} scoredCells={scoredCells} selectedCell={selectedCell} />
+                <Field ref={fieldRef} onSelect={handleSelectCell} selectedCell={selectedCell} />
             </View>
 
             <View style={styles.bottomContainer}>
