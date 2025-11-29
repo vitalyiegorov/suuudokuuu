@@ -1,4 +1,4 @@
-import { DifficultyEnum } from '@suuudokuuu/generator';
+import { DifficultyEnum, defaultSudokuConfig } from '@suuudokuuu/generator';
 
 import { Solution } from '../../history/classes/solution';
 import { emptyGameHistory } from '../../history/interfaces/history-game.interface';
@@ -67,8 +67,10 @@ export const gameStateToUrl = (gameState: GameState): string => {
 
 export const clearSolutionStepsFromSudokuString = (sudokuString: string, steps: SolutionStepInterface[]): string => {
     const chars = sudokuString.split('');
+    const gridSize = defaultSudokuConfig.fieldSize;
+
     for (const step of steps) {
-        const index = step.y * 9 + step.x;
+        const index = step.y * gridSize + step.x;
         chars[index] = '.';
     }
 

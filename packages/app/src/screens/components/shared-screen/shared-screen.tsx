@@ -9,6 +9,8 @@ import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { Header } from '../../../@generic/components/header/header';
 import { getTimerText } from '../../../@generic/utils/get-timer-text.util';
 import { GameContext } from '../../../game/context/game.context';
+import { calculateTotalTimeFromSteps } from '../../../game/store/game.state';
+import { Solution } from '../../../history/classes/solution';
 import { ThemeContext } from '../../../theme/context/theme.context';
 
 import { SharedScreenStyles as styles } from './shared-screen.styles';
@@ -19,15 +21,7 @@ const parseSharedState = (stateString: string): { isChallenge: boolean; opponent
     try {
         const input = JSON.parse(atob(stateString)) as SerializedGameState;
         const isChallenge = input.c === '1';
-        let opponentTime = 0;
-
-        if (isChallenge && input.h) {
-            const stepLength = 6;
-            for (let i = 0; i < input.h.length; i += stepLength) {
-                const tsStr = input.h.substring(i + 3, i + stepLength);
-                opponentTime += parseInt(tsStr, 10);
-            }
-        }
+        const opponentTime = isChallenge ? calculateTotalTimeFromSteps(Solution.fromString(input.h ?? '').getSteps()) : 0;
 
         return { isChallenge, opponentTime };
     } catch {
