@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-export const ChallengeWonScreenStyles = StyleSheet.create({
+export const ChallengeResultScreenStyles = StyleSheet.create({
     boldText: {
         fontWeight: 'bold'
     },
@@ -16,7 +16,7 @@ export const ChallengeWonScreenStyles = StyleSheet.create({
     icon: {
         marginBottom: 10
     },
-    scoreText: {
+    messageText: {
         marginTop: 10
     },
     statsContainer: {
