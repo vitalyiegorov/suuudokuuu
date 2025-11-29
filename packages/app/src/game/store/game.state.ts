@@ -68,5 +68,3 @@ export const urlToGameState = (gameStateString: string): GameState => {
         solutionSteps: solutionStepsParse(input.h ?? '')
     };
 };
-
-//suuudokuuu://shared?eyJzIjoiOTIxODQzNTc2ODQ2OTc1MjEzNzM1MjE2OTQ4LjUyNzk4MTY0Njk3NDUxODMyNDE4MzYyNzU5NTg0MTM5NjI3MTc5NjI0Mzg1Li4zNTg3NDkxIiwiaCI6IjYzMTM0ODg2NzM1MCIsIm0iOiI5OSJ9
