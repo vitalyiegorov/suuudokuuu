@@ -3,6 +3,7 @@ import { Redirect } from 'expo-router';
 import { Text, View } from 'react-native';
 
 import { BlackText } from '../../../@generic/components/black-text/black-text';
+import { ChallengeFriendButton } from '../../../@generic/components/challenge-friend-button/challenge-friend-button';
 import { Donation } from '../../../@generic/components/donation/donation';
 import { Header } from '../../../@generic/components/header/header';
 import { PlayAgainButton } from '../../../@generic/components/play-again-button/play-again-button';
@@ -14,7 +15,7 @@ import { WinnerScreenStyles } from './winner-screen.styles';
 export const WinnerScreen = () => {
     const { t } = useLingui();
 
-    const [isGameStarted, score, elapsedTime] = useResetGame();
+    const [isGameStarted, score, elapsedTime, isChallengeMode] = useResetGame();
 
     if (!isGameStarted && elapsedTime === 0) {
         return <Redirect href="/" />;
@@ -37,7 +38,10 @@ export const WinnerScreen = () => {
 
             <Donation type="winner" />
 
-            <PlayAgainButton />
+            <View style={WinnerScreenStyles.buttonsWrapper}>
+                {!isChallengeMode && <ChallengeFriendButton />}
+                <PlayAgainButton />
+            </View>
         </View>
     );
 };

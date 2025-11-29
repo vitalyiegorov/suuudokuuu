@@ -20,12 +20,16 @@ export interface GameState {
     candidates: Record<string, number[]>;
     solutionSteps: SolutionStepInterface[];
     historyByDifficulty: Record<DifficultyEnum, HistoryGameInterface>;
+    isChallengeMode: boolean;
+    opponentSteps: SolutionStepInterface[];
+    opponentTotalTime: number;
 }
 
 export interface SerializedGameState {
     s: string;
     h?: string;
     m?: string;
+    c?: string;
 }
 
 export const initialGameState: GameState = {
@@ -45,7 +49,10 @@ export const initialGameState: GameState = {
         [DifficultyEnum.Hard]: { ...emptyGameHistory, difficulty: DifficultyEnum.Hard },
         [DifficultyEnum.Nightmare]: { ...emptyGameHistory, difficulty: DifficultyEnum.Nightmare }
     },
-    solutionSteps: []
+    solutionSteps: [],
+    isChallengeMode: false,
+    opponentSteps: [],
+    opponentTotalTime: 0
 };
 
 export const gameStateToUrl = (gameState: GameState): string => {
@@ -58,13 +65,42 @@ export const gameStateToUrl = (gameState: GameState): string => {
     return btoa(JSON.stringify(serializedState));
 };
 
+export const clearSolutionStepsFromSudokuString = (sudokuString: string, steps: SolutionStepInterface[]): string => {
+    const chars = sudokuString.split('');
+    for (const step of steps) {
+        const index = step.y * 9 + step.x;
+        chars[index] = '.';
+    }
+
+    return chars.join('');
+};
+
+export const calculateTotalTimeFromSteps = (steps: SolutionStepInterface[]): number => steps.reduce((total, step) => total + step.ts, 0);
+
+export const gameStateToChallengeUrl = (gameState: GameState): string => {
+    const cleanedSudokuString = clearSolutionStepsFromSudokuString(gameState.sudokuString, gameState.solutionSteps);
+    const serializedState = {
+        s: cleanedSudokuString,
+        h: Solution.fromSteps(gameState.solutionSteps).stringify(),
+        m: gameState.maxMistakes.toString(),
+        c: '1'
+    } satisfies SerializedGameState;
+
+    return btoa(JSON.stringify(serializedState));
+};
+
 export const urlToGameState = (gameStateString: string): GameState => {
     const input = JSON.parse(atob(gameStateString)) as SerializedGameState;
+    const isChallenge = input.c === '1';
+    const opponentSteps = Solution.fromString(input.h ?? '').getSteps();
 
     return {
         ...initialGameState,
         sudokuString: input.s,
         maxMistakes: parseInt(input.m ?? '0', 10),
-        solutionSteps: Solution.fromString(input.h ?? '').getSteps()
+        solutionSteps: isChallenge ? [] : opponentSteps,
+        isChallengeMode: isChallenge,
+        opponentSteps: isChallenge ? opponentSteps : [],
+        opponentTotalTime: isChallenge ? calculateTotalTimeFromSteps(opponentSteps) : 0
     };
 };

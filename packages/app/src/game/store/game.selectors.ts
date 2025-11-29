@@ -26,3 +26,6 @@ export const gameHistoryBestTimeSelector = createSelector(gameSelector, state =>
 export const gameHistoryDifficultySelector = (difficulty: DifficultyEnum) =>
     createSelector(gameSelector, state => state.historyByDifficulty[difficulty]);
 export const gameIsStartedSelector = createSelector(gameSelector, state => isNotEmptyString(state.sudokuString));
+export const gameIsChallengeModeSelector = createSelector(gameSelector, state => state.isChallengeMode);
+export const gameOpponentStepsSelector = createSelector(gameSelector, state => state.opponentSteps);
+export const gameOpponentTotalTimeSelector = createSelector(gameSelector, state => state.opponentTotalTime);
