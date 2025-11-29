@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.49.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.49.0...v1.49.1) (2025-11-29)
+
+### Bug Fixes
+
+- **app:** share puzzle improvements, mobile browser styles ([#127](https://github.com/vitalyiegorov/suuudokuuu/issues/127)) ([3d15cd0](https://github.com/vitalyiegorov/suuudokuuu/commit/3d15cd076a81912ef1d2aac0036f417b04738626))
+
 # [1.49.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.48.5...v1.49.0) (2025-11-23)
 
 ### Features
