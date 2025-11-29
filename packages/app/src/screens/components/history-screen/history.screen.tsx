@@ -6,7 +6,7 @@ import { Header } from '../../../@generic/components/header/header';
 import { ReturnButton } from '../../../@generic/components/return-button/return-button';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { gameHistoryByDifficultySelector } from '../../../game/store/game.selectors';
-import { HistoryDifficulty } from '../../../history/component/history-difficulty/history-difficulty';
+import { HistoryDifficulty } from '../../../history/components/history-difficulty/history-difficulty';
 
 import { HistoryScreenStyles } from './history-screen.styles';
 

@@ -1,4 +1,5 @@
-import { StyleSheet } from 'react-native';
+import * as Device from 'expo-device';
+import { Platform, StyleSheet } from 'react-native';
 
 export const GameScreenStyles = StyleSheet.create({
     additionalControlsWrapper: {
@@ -17,7 +18,8 @@ export const GameScreenStyles = StyleSheet.create({
         justifyContent: 'center'
     },
     bottomContainer: {
-        flex: 1
+        flex: 1,
+        ...(Device.deviceType === Device.DeviceType.PHONE && Platform.select({ web: { flex: 1.3 } }))
     },
     button: { paddingHorizontal: 10 },
     buttonsWrapper: { flexDirection: 'row', gap: 5 },
@@ -31,9 +33,11 @@ export const GameScreenStyles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: 40,
+        marginBottom: 20,
         maxWidth: 600,
-        minWidth: 345
+        minWidth: 345,
+
+        ...(Device.deviceType === Device.DeviceType.PHONE && Platform.select({ web: { height: 50 } }))
     },
     controlsWrapper: {
         alignItems: 'center'
