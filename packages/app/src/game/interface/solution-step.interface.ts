@@ -9,10 +9,10 @@ export interface SolutionStepInterface {
     ts: number;
 }
 
-const solutionStepStringLength = 7;
+const solutionStepStringLength = 6;
 
 const solutionStepToString = (solutionStep: SolutionStepInterface): string =>
-    `${solutionStep.x}${solutionStep.y}${solutionStep.value}${solutionStep.ts}`;
+    `${solutionStep.x}${solutionStep.y}${solutionStep.value}${solutionStep.ts.toString().padStart(3, '0')}`;
 
 const solutionStepFromString = (solutionStep: string): SolutionStepInterface => ({
     x: parseInt(solutionStep[0], 10),
