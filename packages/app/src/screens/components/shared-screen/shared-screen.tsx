@@ -29,16 +29,12 @@ export const SharedScreen = () => {
         createFromState(stateString);
     };
 
-    const headerText = isChallengeMode ? t`Accept challenge?` : t`Open shared puzzle?`;
-    const buttonText = isChallengeMode ? t`Accept Challenge` : t`Open puzzle`;
+    if (isChallengeMode) {
+        return (
+            <View style={styles.container}>
+                <LucideSwords color={theme.colors.label.main} size={48} style={styles.icon} />
+                <Header text={t`Accept challenge?`} />
 
-    return (
-        <View style={styles.container}>
-            {isChallengeMode && <LucideSwords color={theme.colors.label.main} size={48} style={styles.icon} />}
-
-            <Header text={headerText} />
-
-            {isChallengeMode && (
                 <View style={styles.challengeInfo}>
                     <BlackText>
                         <Text>{t`Your opponent completed this puzzle in`}</Text>
@@ -48,10 +44,21 @@ export const SharedScreen = () => {
                         <Text>{t`Can you beat them?`}</Text>
                     </BlackText>
                 </View>
-            )}
+
+                <View style={styles.buttonsWrapper}>
+                    <BlackButton onPress={handleOpenPuzzle} text={t`Accept Challenge`} />
+                    <BlackButton href="/" text={t`Cancel`} />
+                </View>
+            </View>
+        );
+    }
+
+    return (
+        <View style={styles.container}>
+            <Header text={t`Open shared puzzle?`} />
 
             <View style={styles.buttonsWrapper}>
-                <BlackButton onPress={handleOpenPuzzle} text={buttonText} />
+                <BlackButton onPress={handleOpenPuzzle} text={t`Open puzzle`} />
                 <BlackButton href="/" text={t`Cancel`} />
             </View>
         </View>

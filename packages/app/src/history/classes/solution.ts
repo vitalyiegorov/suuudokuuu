@@ -16,7 +16,6 @@ export class Solution {
     private readonly bitsPerStep = CELL_INDEX_BITS + VALUE_BITS + TIMESTAMP_BITS;
 
     private steps: SolutionStepInterface[] = [];
-    private totalElapsedTime = 0;
 
     stringify(): string {
         if (this.steps.length === 0) {
@@ -34,7 +33,8 @@ export class Solution {
     }
 
     addStep(cell: Pick<CellInterface, 'x' | 'y' | 'value'>, elapsedTime: number): SolutionStepInterface {
-        const timeDiff = elapsedTime - this.totalElapsedTime;
+        const totalElapsedTime = this.steps.reduce((total, step) => total + step.ts, 0);
+        const timeDiff = elapsedTime - totalElapsedTime;
         const cappedTimeDiff = Math.min(timeDiff, this.maxTimestamp);
 
         const lastStep = {
@@ -44,7 +44,6 @@ export class Solution {
         };
 
         this.steps.push(lastStep);
-        this.totalElapsedTime = elapsedTime;
 
         return lastStep;
     }

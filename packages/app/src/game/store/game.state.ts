@@ -92,5 +92,3 @@ export const urlToGameState = (gameStateString: string): GameState => {
         return initialGameState;
     }
 };
-
-// suuudokuuu://shared?eyJzIjoiQUNCY0V3UWdxaG9FU0pNVW91Umdqb0hzUUlpNUlpY0ZFS3NXY3ZKZ1RLbWpOb2NFN0I5VURvWlJHalpJNlUweXAwVVNwWlVTdUZncldYU3hOa0xOR2p0b2JvNGR6THBuWnZGZWkrSi9NQW9Kd2xoakVTSzhlSkN5V2x2TWlhVTQ1OGc9IiwiaCI6IkJtQXBQRUFyR29Bc2xDQXRYa0F2WVFBd2pNQXhvSUF5RG9BMGFxQTIiLCJtIjoiMyIsImMiOiIxIn0=

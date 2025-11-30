@@ -35,8 +35,8 @@ export const ChallengeResultScreen = ({ icon: Icon, headerText, differenceLabel,
     }
 
     const timeDifference = isWon ? opponentTotalTime - elapsedTime : elapsedTime - opponentTotalTime;
-    const differenceColor = isWon ? theme.colors.blue : theme.colors.red;
-    const iconColor = isWon ? theme.colors.blue : theme.colors.red;
+    const differenceColor = isWon ? theme.colors.black : theme.colors.red;
+    const iconColor = isWon ? theme.colors.black : theme.colors.red;
     const differenceTimeTextStyle = [styles.boldText, { color: differenceColor }];
     const donationType = isWon ? 'winner' : 'loser';
 

@@ -71,6 +71,7 @@ const useProgressAnimation = (opponentProgress: number, progressAnim: Animated.V
 // eslint-disable-next-line max-statements
 export const ChallengeProgressBar = () => {
     const { theme } = use(ThemeContext);
+
     const elapsedTime = useAppSelector(gameElapsedTimeSelector);
     const opponentSteps = useAppSelector(gameOpponentStepsSelector);
     const opponentTotalTime = useAppSelector(gameOpponentTotalTimeSelector);
@@ -87,8 +88,14 @@ export const ChallengeProgressBar = () => {
 
     const progressWidth = progressAnim.interpolate({ inputRange: [0, 100], outputRange: ['0%', '100%'] });
     const trackStyle: StyleProp<ViewStyle> = [styles.track, { backgroundColor: theme.colors.black05 }];
-    const playerProgressStyle: StyleProp<ViewStyle> = [styles.playerProgress, { width: `${playerProgress}%`, backgroundColor: theme.colors.blue }];
-    const opponentProgressStyle = [styles.opponentProgress, { width: progressWidth, backgroundColor: theme.colors.red, transform: [{ scaleY: pulseAnim }] }];
+    const playerProgressStyle: StyleProp<ViewStyle> = [
+        styles.playerProgress,
+        { width: `${playerProgress}%`, backgroundColor: theme.colors.blue }
+    ];
+    const opponentProgressStyle = [
+        styles.opponentProgress,
+        { width: progressWidth, backgroundColor: theme.colors.red, transform: [{ scaleY: pulseAnim }] }
+    ];
 
     const getStepIndicatorStyle = (position: number): StyleProp<ViewStyle> => [
         styles.stepIndicator,
