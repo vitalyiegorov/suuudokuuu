@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.51.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.50.0...v1.51.0) (2025-11-30)
+
+### Features
+
+- **app:** add challenge mode ([#129](https://github.com/vitalyiegorov/suuudokuuu/issues/129)) ([766e8b4](https://github.com/vitalyiegorov/suuudokuuu/commit/766e8b45962f5d7d991338eed7270cae36229ed0))
+
 # [1.50.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.49.1...v1.50.0) (2025-11-30)
 
 ### Features
