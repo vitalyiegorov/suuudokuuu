@@ -13,13 +13,13 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:33
+#: src/screens/components/shared-screen/shared-screen.tsx:49
 msgid "Accept Challenge"
-msgstr ""
+msgstr "Aceptar desafío"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:32
+#: src/screens/components/shared-screen/shared-screen.tsx:36
 msgid "Accept challenge?"
-msgstr ""
+msgstr "¿Aceptar desafío?"
 
 #: src/scoring/components/scoring.screen.tsx:115
 msgid "All of a number (1-9)"
@@ -70,7 +70,7 @@ msgstr "Mejor tiempo"
 
 #: src/screens/components/challenge-lost-screen/challenge-lost-screen.tsx:11
 msgid "Better luck next time!"
-msgstr ""
+msgstr "¡Mejor suerte la próxima vez!"
 
 #: src/screens/components/loser-screen/loser.screen.tsx:23
 msgid ""
@@ -84,11 +84,12 @@ msgstr ""
 msgid "big"
 msgstr "grande"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:48
+#: src/screens/components/shared-screen/shared-screen.tsx:44
 msgid "Can you beat them?"
-msgstr ""
+msgstr "¿Puedes vencerlos?"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:55
+#: src/screens/components/shared-screen/shared-screen.tsx:50
+#: src/screens/components/shared-screen/shared-screen.tsx:62
 #: src/screens/components/game-screen/game.screen.tsx:93
 msgid "Cancel"
 msgstr "Cancelar"
@@ -97,21 +98,21 @@ msgstr "Cancelar"
 msgid "Cell margin"
 msgstr "Margen de celda"
 
-#: src/@generic/components/challenge-friend-button/challenge-friend-button.tsx:19
+#: src/@generic/components/challenge-friend-button/challenge-friend-button.tsx:23
 msgid "Challenge a Friend"
-msgstr ""
+msgstr "Desafiar a un amigo"
 
 #: src/app/challenge-lost.tsx:12
 msgid "Challenge Lost"
-msgstr ""
+msgstr "Desafío perdido"
 
 #: src/screens/components/challenge-lost-screen/challenge-lost-screen.tsx:17
 msgid "Challenge lost!"
-msgstr ""
+msgstr "¡Desafío perdido!"
 
 #: src/app/challenge-won.tsx:12
 msgid "Challenge Won!"
-msgstr ""
+msgstr "¡Desafío ganado!"
 
 #: src/game/components/mistakes-select/mistakes-select.tsx:27
 msgid "Choose your challenge"
@@ -164,7 +165,7 @@ msgstr "Se otorgan puntos adicionales cuando tu colocación completa:"
 
 #: src/screens/components/challenge-won-screen/challenge-won-screen.tsx:11
 msgid "faster!"
-msgstr ""
+msgstr "¡más rápido!"
 
 #: src/settings/component/font-size-toggle/font-size-toggle.tsx:28
 msgid "Font size"
@@ -273,7 +274,7 @@ msgstr "Inmortal (99 errores)"
 msgid "Invalid Sudoku"
 msgstr "Sudoku inválido"
 
-#: src/screens/components/winner-screen/winner.screen.tsx:35
+#: src/screens/components/winner-screen/winner.screen.tsx:36
 msgid "It took you"
 msgstr "Te tomó"
 
@@ -344,18 +345,18 @@ msgstr "de la puntuación actual"
 msgid "OK"
 msgstr "OK"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:33
+#: src/screens/components/shared-screen/shared-screen.tsx:61
 msgid "Open puzzle"
 msgstr "Abrir rompecabezas"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:32
+#: src/screens/components/shared-screen/shared-screen.tsx:58
 #: src/app/shared.tsx:12
 msgid "Open shared puzzle?"
 msgstr "¿Abrir rompecabezas compartido?"
 
 #: src/screens/components/challenge-result-screen/challenge-result-screen.tsx:56
 msgid "Opponent's time:"
-msgstr ""
+msgstr "Tiempo del oponente:"
 
 #: src/scoring/components/scoring.screen.tsx:121
 msgid "Penalties"
@@ -433,7 +434,7 @@ msgstr "La puntuación se calcula para cada colocación correcta de celda según
 
 #: src/screens/components/challenge-result-screen/challenge-result-screen.tsx:68
 msgid "Score:"
-msgstr ""
+msgstr "Puntuación:"
 
 #: src/screens/components/settings-screen/settings.screen.tsx:19
 #: src/screens/components/home-screen/home.screen.tsx:88
@@ -455,7 +456,7 @@ msgstr "Mostrar animación de combo"
 
 #: src/screens/components/challenge-lost-screen/challenge-lost-screen.tsx:15
 msgid "slower"
-msgstr ""
+msgstr "más lento"
 
 #: src/settings/component/cell-margin-toggle/cell-margin-toggle.tsx:28
 msgid "small"
@@ -545,7 +546,7 @@ msgstr ""
 msgid "Win rate"
 msgstr "Tasa de victorias"
 
-#: src/screens/components/winner-screen/winner.screen.tsx:26
+#: src/screens/components/winner-screen/winner.screen.tsx:27
 msgid ""
 "Winners-winner, \n"
 " chicken dinner!"
@@ -565,7 +566,7 @@ msgstr "Ganado"
 msgid "Won without mistakes"
 msgstr "Ganado sin errores"
 
-#: src/screens/components/winner-screen/winner.screen.tsx:30
+#: src/screens/components/winner-screen/winner.screen.tsx:31
 msgid "You have scored"
 msgstr "Has conseguido"
 
@@ -581,7 +582,7 @@ msgstr ""
 
 #: src/screens/components/challenge-result-screen/challenge-result-screen.tsx:61
 msgid "You were"
-msgstr ""
+msgstr "Fuiste"
 
 #: src/@generic/components/donation/donation.tsx:20
 msgid ""
@@ -595,12 +596,12 @@ msgstr ""
 
 #: src/screens/components/challenge-won-screen/challenge-won-screen.tsx:12
 msgid "You won the challenge!"
-msgstr ""
+msgstr "¡Ganaste el desafío!"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:44
+#: src/screens/components/shared-screen/shared-screen.tsx:40
 msgid "Your opponent completed this puzzle in"
-msgstr ""
+msgstr "Tu oponente completó este rompecabezas en"
 
 #: src/screens/components/challenge-result-screen/challenge-result-screen.tsx:51
 msgid "Your time:"
-msgstr ""
+msgstr "Tu tiempo:"
