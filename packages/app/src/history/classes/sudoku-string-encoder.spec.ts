@@ -1,29 +1,35 @@
-/* eslint-disable @typescript-eslint/no-magic-numbers, lingui/no-unlocalized-strings, no-plusplus */
-import { describe, expect, it } from '@jest/globals';
+/* eslint-disable @typescript-eslint/no-magic-numbers, lingui/no-unlocalized-strings */
+import { beforeEach, describe, expect, it } from '@jest/globals';
 
-import { decodeSudokuString, encodeSudokuString } from './sudoku-string-encoder';
+import { SudokuStringEncoder } from './sudoku-string-encoder';
 
-describe('Sudoku String Encoder', () => {
-    describe('encodeSudokuString', () => {
+describe('SudokuStringEncoder', () => {
+    let encoder: SudokuStringEncoder;
+
+    beforeEach(() => {
+        encoder = new SudokuStringEncoder();
+    });
+
+    describe('encode', () => {
         it('should return empty string for invalid length input', () => {
             expect.assertions(3);
 
-            expect(encodeSudokuString('')).toBe('');
-            expect(encodeSudokuString('123')).toBe('');
-            expect(encodeSudokuString('.'.repeat(80))).toBe('');
+            expect(encoder.encode('')).toBe('');
+            expect(encoder.encode('123')).toBe('');
+            expect(encoder.encode('.'.repeat(80))).toBe('');
         });
 
         it('should return empty string for all-empty grid', () => {
             expect.assertions(1);
 
-            expect(encodeSudokuString('.'.repeat(81))).toBe('');
+            expect(encoder.encode('.'.repeat(81))).toBe('');
         });
 
         it('should encode a simple grid with few clues', () => {
             expect.assertions(1);
 
-            const sudokuString = `1${  '.'.repeat(80)}`;
-            const encoded = encodeSudokuString(sudokuString);
+            const sudokuString = `1${'.'.repeat(80)}`;
+            const encoded = encoder.encode(sudokuString);
 
             expect(encoded.length).toBeGreaterThan(0);
         });
@@ -33,16 +39,16 @@ describe('Sudoku String Encoder', () => {
 
             const sudokuString = '...469123469123875123875469784596...596231784231784596658947312947312658312658...';
 
-            const encoded = encodeSudokuString(sudokuString);
+            const encoded = encoder.encode(sudokuString);
             expect(encoded.length).toBeGreaterThan(0);
         });
     });
 
-    describe('decodeSudokuString', () => {
+    describe('decode', () => {
         it('should return all-empty grid for empty string', () => {
             expect.assertions(2);
 
-            const decoded = decodeSudokuString('');
+            const decoded = encoder.decode('');
             expect(decoded.length).toBe(81);
             expect(decoded).toBe('.'.repeat(81));
         });
@@ -50,7 +56,7 @@ describe('Sudoku String Encoder', () => {
         it('should return all-empty grid for invalid base64', () => {
             expect.assertions(2);
 
-            const decoded = decodeSudokuString('!!!invalid!!!');
+            const decoded = encoder.decode('!!!invalid!!!');
             expect(decoded.length).toBe(81);
             expect(decoded).toBe('.'.repeat(81));
         });
@@ -62,8 +68,8 @@ describe('Sudoku String Encoder', () => {
 
             const original = '...469123469123875123875469784596...596231784231784596658947312947312658312658...';
 
-            const encoded = encodeSudokuString(original);
-            const decoded = decodeSudokuString(encoded);
+            const encoded = encoder.encode(original);
+            const decoded = encoder.decode(encoded);
 
             expect(decoded).toBe(original);
         });
@@ -72,8 +78,8 @@ describe('Sudoku String Encoder', () => {
             expect.assertions(1);
 
             const original = '.'.repeat(81);
-            const encoded = encodeSudokuString(original);
-            const decoded = decodeSudokuString(encoded);
+            const encoded = encoder.encode(original);
+            const decoded = encoder.decode(encoded);
 
             expect(decoded).toBe(original);
         });
@@ -83,8 +89,8 @@ describe('Sudoku String Encoder', () => {
 
             const original = '123456789456789123789123456234567891567891234891234567345678912678912345912345678';
 
-            const encoded = encodeSudokuString(original);
-            const decoded = decodeSudokuString(encoded);
+            const encoded = encoder.encode(original);
+            const decoded = encoder.decode(encoded);
 
             expect(decoded).toBe(original);
         });
@@ -92,9 +98,9 @@ describe('Sudoku String Encoder', () => {
         it('should handle grid with single clue', () => {
             expect.assertions(1);
 
-            const original = `5${  '.'.repeat(80)}`;
-            const encoded = encodeSudokuString(original);
-            const decoded = decodeSudokuString(encoded);
+            const original = `5${'.'.repeat(80)}`;
+            const encoded = encoder.encode(original);
+            const decoded = encoder.decode(encoded);
 
             expect(decoded).toBe(original);
         });
@@ -102,9 +108,9 @@ describe('Sudoku String Encoder', () => {
         it('should handle grid with clue at end', () => {
             expect.assertions(1);
 
-            const original = `${'.'.repeat(80)  }9`;
-            const encoded = encodeSudokuString(original);
-            const decoded = decodeSudokuString(encoded);
+            const original = `${'.'.repeat(80)}9`;
+            const encoded = encoder.encode(original);
+            const decoded = encoder.decode(encoded);
 
             expect(decoded).toBe(original);
         });
@@ -118,8 +124,8 @@ describe('Sudoku String Encoder', () => {
             chars[80] = '9';
             const original = chars.join('');
 
-            const encoded = encodeSudokuString(original);
-            const decoded = decodeSudokuString(encoded);
+            const encoded = encoder.encode(original);
+            const decoded = encoder.decode(encoded);
 
             expect(decoded).toBe(original);
         });
@@ -130,12 +136,12 @@ describe('Sudoku String Encoder', () => {
             expect.assertions(1);
 
             const chars = '.'.repeat(81).split('');
-            for (let i = 0; i < 25; i++) {
+            for (let i = 0; i < 25; i += 1) {
                 chars[i * 3] = String((i % 9) + 1);
             }
             const original = chars.join('');
 
-            const encoded = encodeSudokuString(original);
+            const encoded = encoder.encode(original);
 
             expect(encoded.length).toBeLessThan(original.length);
         });
@@ -148,7 +154,7 @@ describe('Sudoku String Encoder', () => {
             chars[40] = '5';
             const original = chars.join('');
 
-            const encoded = encodeSudokuString(original);
+            const encoded = encoder.encode(original);
 
             expect(encoded.length).toBeLessThan(10);
         });
@@ -158,13 +164,13 @@ describe('Sudoku String Encoder', () => {
         it('should correctly encode and decode all cell positions', () => {
             expect.assertions(81);
 
-            for (let i = 0; i < 81; i++) {
+            for (let i = 0; i < 81; i += 1) {
                 const chars = '.'.repeat(81).split('');
                 chars[i] = '5';
                 const original = chars.join('');
 
-                const encoded = encodeSudokuString(original);
-                const decoded = decodeSudokuString(encoded);
+                const encoded = encoder.encode(original);
+                const decoded = encoder.decode(encoded);
 
                 expect(decoded).toBe(original);
             }
@@ -173,13 +179,13 @@ describe('Sudoku String Encoder', () => {
         it('should correctly encode and decode all values', () => {
             expect.assertions(9);
 
-            for (let val = 1; val <= 9; val++) {
+            for (let val = 1; val <= 9; val += 1) {
                 const chars = '.'.repeat(81).split('');
                 chars[0] = val.toString();
                 const original = chars.join('');
 
-                const encoded = encodeSudokuString(original);
-                const decoded = decodeSudokuString(encoded);
+                const encoded = encoder.encode(original);
+                const decoded = encoder.decode(encoded);
 
                 expect(decoded).toBe(original);
             }

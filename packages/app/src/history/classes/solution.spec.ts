@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-magic-numbers, lingui/no-unlocalized-strings, no-plusplus */
+/* eslint-disable @typescript-eslint/no-magic-numbers, lingui/no-unlocalized-strings */
 import { beforeEach, describe, expect, it } from '@jest/globals';
 
 import { Solution } from './solution';
@@ -356,7 +356,7 @@ describe('Solution', () => {
         it('should correctly encode value in 4 bits', () => {
             expect.assertions(9);
 
-            for (let value = 1; value <= 9; value++) {
+            for (let value = 1; value <= 9; value += 1) {
                 const sol = new Solution();
                 sol.addStep({ x: 0, y: 0, value } as CellInterface, 0);
                 const stringified = sol.stringify();

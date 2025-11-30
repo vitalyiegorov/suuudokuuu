@@ -1,25 +1,25 @@
-/* eslint-disable no-bitwise, no-plusplus */
+/* eslint-disable no-bitwise, @typescript-eslint/no-magic-numbers */
 import { isDefined } from '@rnw-community/shared';
 
 import { SolutionStepInterface } from '../interfaces/solution-step.interface';
 
 import type { CellInterface } from '@suuudokuuu/generator';
 
-const GRID_SIZE = 9;
-const MAX_TIMESTAMP = 8191;
-const BYTES_PER_STEP = 3;
-const CELL_INDEX_BITS = 7;
-const VALUE_BITS = 4;
-const TIMESTAMP_BITS = 13;
-const CELL_INDEX_MASK = (1 << CELL_INDEX_BITS) - 1;
-const VALUE_MASK = (1 << VALUE_BITS) - 1;
-const TIMESTAMP_MASK = (1 << TIMESTAMP_BITS) - 1;
-const BYTE_MASK = 0xFF;
-const BITS_PER_BYTE = 8;
-const VALUE_SHIFT = CELL_INDEX_BITS;
-const TIMESTAMP_SHIFT = CELL_INDEX_BITS + VALUE_BITS;
-
 export class Solution {
+    private readonly gridSize = 9;
+    private readonly maxTimestamp = 8191;
+    private readonly bytesPerStep = 3;
+    private readonly cellIndexBits = 7;
+    private readonly valueBits = 4;
+    private readonly timestampBits = 13;
+    private readonly cellIndexMask = (1 << this.cellIndexBits) - 1;
+    private readonly valueMask = (1 << this.valueBits) - 1;
+    private readonly timestampMask = (1 << this.timestampBits) - 1;
+    private readonly byteMask = 0xFF;
+    private readonly bitsPerByte = 8;
+    private readonly valueShift = this.cellIndexBits;
+    private readonly timestampShift = this.cellIndexBits + this.valueBits;
+
     private steps: SolutionStepInterface[] = [];
     private totalElapsedTime = 0;
 
@@ -28,18 +28,18 @@ export class Solution {
             return '';
         }
 
-        const bytes = new Uint8Array(this.steps.length * BYTES_PER_STEP);
+        const bytes = new Uint8Array(this.steps.length * this.bytesPerStep);
 
-        for (let i = 0; i < this.steps.length; i++) {
+        for (let i = 0; i < this.steps.length; i += 1) {
             const step = this.steps[i];
-            const packed = (step.cellIndex & CELL_INDEX_MASK) |
-                           ((step.value & VALUE_MASK) << VALUE_SHIFT) |
-                           ((step.ts & TIMESTAMP_MASK) << TIMESTAMP_SHIFT);
+            const packed = (step.cellIndex & this.cellIndexMask) |
+                           ((step.value & this.valueMask) << this.valueShift) |
+                           ((step.ts & this.timestampMask) << this.timestampShift);
 
-            const byteOffset = i * BYTES_PER_STEP;
-            bytes[byteOffset] = packed & BYTE_MASK;
-            bytes[byteOffset + 1] = (packed >> BITS_PER_BYTE) & BYTE_MASK;
-            bytes[byteOffset + 2] = (packed >> (BITS_PER_BYTE * 2)) & BYTE_MASK;
+            const byteOffset = i * this.bytesPerStep;
+            bytes[byteOffset] = packed & this.byteMask;
+            bytes[byteOffset + 1] = (packed >> this.bitsPerByte) & this.byteMask;
+            bytes[byteOffset + 2] = (packed >> (this.bitsPerByte * 2)) & this.byteMask;
         }
 
         return this.bytesToBase64(bytes);
@@ -47,10 +47,10 @@ export class Solution {
 
     addStep(cell: CellInterface, elapsedTime: number): SolutionStepInterface {
         const timeDiff = elapsedTime - this.totalElapsedTime;
-        const cappedTimeDiff = Math.min(timeDiff, MAX_TIMESTAMP);
+        const cappedTimeDiff = Math.min(timeDiff, this.maxTimestamp);
 
         const lastStep = {
-            cellIndex: cell.y * GRID_SIZE + cell.x,
+            cellIndex: cell.y * this.gridSize + cell.x,
             value: cell.value,
             ts: cappedTimeDiff
         };
@@ -71,20 +71,20 @@ export class Solution {
         }
 
         const bytes = this.base64ToBytes(solutionSteps);
-        if (bytes.length % BYTES_PER_STEP !== 0) {
+        if (bytes.length % this.bytesPerStep !== 0) {
             return [];
         }
 
         this.steps = [];
-        for (let i = 0; i < bytes.length; i += BYTES_PER_STEP) {
+        for (let i = 0; i < bytes.length; i += this.bytesPerStep) {
             const packed = bytes[i] |
-                          (bytes[i + 1] << BITS_PER_BYTE) |
-                          (bytes[i + 2] << (BITS_PER_BYTE * 2));
+                          (bytes[i + 1] << this.bitsPerByte) |
+                          (bytes[i + 2] << (this.bitsPerByte * 2));
 
             this.steps.push({
-                cellIndex: packed & CELL_INDEX_MASK,
-                value: (packed >> VALUE_SHIFT) & VALUE_MASK,
-                ts: (packed >> TIMESTAMP_SHIFT) & TIMESTAMP_MASK
+                cellIndex: packed & this.cellIndexMask,
+                value: (packed >> this.valueShift) & this.valueMask,
+                ts: (packed >> this.timestampShift) & this.timestampMask
             });
         }
 
