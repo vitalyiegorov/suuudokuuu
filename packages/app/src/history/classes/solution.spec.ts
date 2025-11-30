@@ -172,7 +172,7 @@ describe('Solution', () => {
         it('should skip steps with invalid cellIndex', () => {
             expect.assertions(1);
 
-            const invalidData = String.fromCharCode(0xFF, 0xFF, 0xFF);
+            const invalidData = String.fromCharCode(0xff, 0xff, 0xff);
             const parsed = Solution.fromString(invalidData);
 
             expect(parsed.getSteps()).toEqual([]);
@@ -399,8 +399,7 @@ describe('Solution', () => {
 
             solution.addStep({ x: 0, y: 0, value: 1 }, 0);
 
-            const stringified = solution.stringify();
-            expect(stringified.length).toBe(3);
+            expect(solution.stringify().length).toBe(4);
         });
     });
 

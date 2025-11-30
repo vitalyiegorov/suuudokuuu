@@ -5,7 +5,7 @@ import { isNotEmptyString } from '@rnw-community/shared';
 import type { RootState } from '../../@generic/app-root.store';
 import type { DifficultyEnum } from '@suuudokuuu/generator';
 
-const gameSelector = (state: RootState) => state.game;
+export const gameSelector = (state: RootState) => state.game;
 
 export const gameSudokuStringSelector = createSelector(gameSelector, state => state.sudokuString);
 export const gameScoreSelector = createSelector(gameSelector, state => state.score);

@@ -5,16 +5,15 @@ import { isNotEmptyString } from '@rnw-community/shared';
 import { CELL_INDEX_BITS, TIMESTAMP_BITS, VALUE_BITS } from '../constants/bit-encoding.constant';
 import { GRID_SIZE } from '../constants/grid.constant';
 import { SolutionStepInterface } from '../interfaces/solution-step.interface';
+import { base64ToUint8Array } from '../util/base64-to-uint8array.util';
 import { isValidCellIndex } from '../util/is-valid-cell-index.util';
 import { isValidCellValue } from '../util/is-valid-cell-value.util';
-import { stringToUint8Array } from '../util/string-to-uint8array.util';
 
 import type { CellInterface } from '@suuudokuuu/generator';
 
-const BITS_PER_STEP = CELL_INDEX_BITS + VALUE_BITS + TIMESTAMP_BITS;
-
 export class Solution {
     private readonly maxTimestamp = 8191;
+    private readonly bitsPerStep = CELL_INDEX_BITS + VALUE_BITS + TIMESTAMP_BITS;
 
     private steps: SolutionStepInterface[] = [];
     private totalElapsedTime = 0;
@@ -31,7 +30,7 @@ export class Solution {
             out.write(step.ts, TIMESTAMP_BITS);
         }
 
-        return String.fromCharCode(...out.bytes());
+        return btoa(String.fromCharCode(...out.bytes()));
     }
 
     addStep(cell: Pick<CellInterface, 'x' | 'y' | 'value'>, elapsedTime: number): SolutionStepInterface {
@@ -54,21 +53,28 @@ export class Solution {
         return this.steps;
     }
 
+    // eslint-disable-next-line max-statements
     private parse(inputString: string): SolutionStepInterface[] {
         if (!isNotEmptyString(inputString)) {
             return [];
         }
 
-        const input = new BitInputStream(stringToUint8Array(inputString));
+        this.steps = [];
 
-        while (input.position + BITS_PER_STEP <= input.length) {
-            const index = input.read(CELL_INDEX_BITS);
-            const value = input.read(VALUE_BITS);
-            const ts = input.read(TIMESTAMP_BITS);
+        try {
+            const input = new BitInputStream(base64ToUint8Array(inputString));
 
-            if (isValidCellValue(value) && isValidCellIndex(index) && ts >= 0 && ts <= this.maxTimestamp) {
-                this.steps.push({ cellIndex: index, value, ts });
+            while (input.position + this.bitsPerStep <= input.length) {
+                const index = input.read(CELL_INDEX_BITS);
+                const value = input.read(VALUE_BITS);
+                const ts = input.read(TIMESTAMP_BITS);
+
+                if (isValidCellValue(value) && isValidCellIndex(index) && ts >= 0 && ts <= this.maxTimestamp) {
+                    this.steps.push({ cellIndex: index, value, ts });
+                }
             }
+        } catch {
+            return this.steps;
         }
 
         return this.steps;

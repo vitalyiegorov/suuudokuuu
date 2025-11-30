@@ -15,7 +15,8 @@ import { WinnerScreenStyles } from './winner-screen.styles';
 export const WinnerScreen = () => {
     const { t } = useLingui();
 
-    const [isGameStarted, score, elapsedTime, isChallengeMode] = useResetGame();
+    const [isGameStarted, gameState] = useResetGame();
+    const { score, elapsedTime, isChallengeMode } = gameState;
 
     if (!isGameStarted && elapsedTime === 0) {
         return <Redirect href="/" />;
@@ -39,7 +40,7 @@ export const WinnerScreen = () => {
             <Donation type="winner" />
 
             <View style={WinnerScreenStyles.buttonsWrapper}>
-                {!isChallengeMode && <ChallengeFriendButton />}
+                {!isChallengeMode && <ChallengeFriendButton gameState={gameState} />}
                 <PlayAgainButton />
             </View>
         </View>

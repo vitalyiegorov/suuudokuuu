@@ -28,7 +28,7 @@ export const ChallengeResultScreen = ({ icon: Icon, headerText, differenceLabel,
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
 
-    const [isGameStarted, score, elapsedTime, , opponentTotalTime] = useResetGame();
+    const [isGameStarted, { score, elapsedTime, opponentTotalTime }] = useResetGame();
 
     if (!isGameStarted && elapsedTime === 0) {
         return <Redirect href="/" />;

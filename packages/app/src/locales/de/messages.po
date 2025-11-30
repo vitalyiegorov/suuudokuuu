@@ -13,11 +13,11 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:48
+#: src/screens/components/shared-screen/shared-screen.tsx:33
 msgid "Accept Challenge"
 msgstr ""
 
-#: src/screens/components/shared-screen/shared-screen.tsx:47
+#: src/screens/components/shared-screen/shared-screen.tsx:32
 msgid "Accept challenge?"
 msgstr ""
 
@@ -84,11 +84,11 @@ msgstr ""
 msgid "big"
 msgstr "groß"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:62
+#: src/screens/components/shared-screen/shared-screen.tsx:48
 msgid "Can you beat them?"
 msgstr ""
 
-#: src/screens/components/shared-screen/shared-screen.tsx:69
+#: src/screens/components/shared-screen/shared-screen.tsx:55
 #: src/screens/components/game-screen/game.screen.tsx:93
 msgid "Cancel"
 msgstr "Abbrechen"
@@ -97,7 +97,7 @@ msgstr "Abbrechen"
 msgid "Cell margin"
 msgstr "Zellenabstand"
 
-#: src/@generic/components/challenge-friend-button/challenge-friend-button.tsx:20
+#: src/@generic/components/challenge-friend-button/challenge-friend-button.tsx:19
 msgid "Challenge a Friend"
 msgstr ""
 
@@ -344,11 +344,11 @@ msgstr "der aktuellen Punktzahl"
 msgid "OK"
 msgstr "OK"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:48
+#: src/screens/components/shared-screen/shared-screen.tsx:33
 msgid "Open puzzle"
 msgstr "Rätsel öffnen"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:47
+#: src/screens/components/shared-screen/shared-screen.tsx:32
 #: src/app/shared.tsx:12
 msgid "Open shared puzzle?"
 msgstr "Geteilter Rätsel öffnen?"
@@ -597,7 +597,7 @@ msgstr ""
 msgid "You won the challenge!"
 msgstr ""
 
-#: src/screens/components/shared-screen/shared-screen.tsx:58
+#: src/screens/components/shared-screen/shared-screen.tsx:44
 msgid "Your opponent completed this puzzle in"
 msgstr ""
 

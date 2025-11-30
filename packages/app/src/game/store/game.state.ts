@@ -68,22 +68,29 @@ export const gameStateToUrl = (gameState: GameState, isChallenge = false): strin
     return btoa(JSON.stringify(serializedState));
 };
 
-export const calculateTotalTimeFromSteps = (steps: SolutionStepInterface[]): number => steps.reduce((total, step) => total + step.ts, 0);
+const calculateTotalTimeFromSteps = (steps: SolutionStepInterface[]): number => steps.reduce((total, step) => total + step.ts, 0);
 
 export const urlToGameState = (gameStateString: string): GameState => {
-    const input = JSON.parse(atob(gameStateString)) as SerializedGameState;
+    try {
+        const input = JSON.parse(atob(gameStateString)) as SerializedGameState;
 
-    const sudokuEncoder = new SudokuStringEncoder();
-    const opponentSteps = Solution.fromString(input.h ?? '').getSteps();
+        const sudokuEncoder = new SudokuStringEncoder();
+        const opponentSteps = Solution.fromString(input.h ?? '').getSteps();
 
-    return {
-        ...initialGameState,
-        sudokuString: sudokuEncoder.decode(input.s),
-        maxMistakes: parseInt(input.m ?? '0', 10),
-        ...(input.c === '1' && {
-            isChallengeMode: true,
-            opponentSteps,
-            opponentTotalTime: calculateTotalTimeFromSteps(opponentSteps)
-        })
-    };
+        return {
+            ...initialGameState,
+            sudokuString: sudokuEncoder.decode(input.s),
+            maxMistakes: parseInt(input.m ?? '0', 10),
+
+            ...(input.c === '1' && {
+                isChallengeMode: true,
+                opponentSteps,
+                opponentTotalTime: calculateTotalTimeFromSteps(opponentSteps)
+            })
+        };
+    } catch {
+        return initialGameState;
+    }
 };
+
+// suuudokuuu://shared?eyJzIjoiQUNCY0V3UWdxaG9FU0pNVW91Umdqb0hzUUlpNUlpY0ZFS3NXY3ZKZ1RLbWpOb2NFN0I5VURvWlJHalpJNlUweXAwVVNwWlVTdUZncldYU3hOa0xOR2p0b2JvNGR6THBuWnZGZWkrSi9NQW9Kd2xoakVTSzhlSkN5V2x2TWlhVTQ1OGc9IiwiaCI6IkJtQXBQRUFyR29Bc2xDQXRYa0F2WVFBd2pNQXhvSUF5RG9BMGFxQTIiLCJtIjoiMyIsImMiOiIxIn0=

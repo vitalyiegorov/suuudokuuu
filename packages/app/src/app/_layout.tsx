@@ -2,7 +2,7 @@
 
 import { Inter_500Medium, Inter_700Bold, useFonts } from '@expo-google-fonts/inter';
 import { i18n } from '@lingui/core';
-import { I18nProvider } from '@lingui/react';
+import { I18nProvider, TransRenderProps } from '@lingui/react';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
@@ -14,6 +14,7 @@ import { appRootPersistor, appRootStore } from '../@generic/app-root.store';
 import { ThemeProvider } from '../theme/context/theme.context';
 import { i18nGetOSLocale } from '../@generic/utils/i18n.util';
 import { GameProvider } from '../game/context/game.context';
+import { Text } from 'react-native';
 
 enableScreens();
 enableFreeze();
@@ -23,6 +24,10 @@ i18n.activate(i18nGetOSLocale());
 void SplashScreen.preventAutoHideAsync();
 
 const stackOptions = { headerShown: false, gestureEnabled: false };
+
+const DefaultComponent = (props: TransRenderProps) => {
+    return <Text>{props.children}</Text>;
+};
 
 export default function RootLayout() {
     const [loaded] = useFonts({ Inter_500Medium, Inter_700Bold });
@@ -41,7 +46,7 @@ export default function RootLayout() {
         <Provider store={appRootStore}>
             <PersistGate loading={null} persistor={appRootPersistor}>
                 <ThemeProvider>
-                    <I18nProvider i18n={i18n}>
+                    <I18nProvider i18n={i18n} defaultComponent={DefaultComponent}>
                         <GameProvider>
                             <Stack screenOptions={stackOptions}></Stack>
                         </GameProvider>
