@@ -12,5 +12,6 @@ module.exports = {
             lines: 100,
             functions: 100
         }
-    }
+    },
+    transformIgnorePatterns: ['node_modules/(?!(@thi.ng/bitstream|@thi.ng/errors)/)']
 };
