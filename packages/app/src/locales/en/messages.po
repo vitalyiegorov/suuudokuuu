@@ -13,11 +13,11 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:54
+#: src/screens/components/shared-screen/shared-screen.tsx:48
 msgid "Accept Challenge"
 msgstr "Accept Challenge"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:53
+#: src/screens/components/shared-screen/shared-screen.tsx:47
 msgid "Accept challenge?"
 msgstr "Accept challenge?"
 
@@ -84,11 +84,11 @@ msgstr ""
 msgid "big"
 msgstr "big"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:68
+#: src/screens/components/shared-screen/shared-screen.tsx:62
 msgid "Can you beat them?"
 msgstr "Can you beat them?"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:75
+#: src/screens/components/shared-screen/shared-screen.tsx:69
 #: src/screens/components/game-screen/game.screen.tsx:93
 msgid "Cancel"
 msgstr "Cancel"
@@ -344,11 +344,11 @@ msgstr "of current score"
 msgid "OK"
 msgstr "OK"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:54
+#: src/screens/components/shared-screen/shared-screen.tsx:48
 msgid "Open puzzle"
 msgstr "Open puzzle"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:53
+#: src/screens/components/shared-screen/shared-screen.tsx:47
 #: src/app/shared.tsx:12
 msgid "Open shared puzzle?"
 msgstr "Open shared puzzle?"
@@ -597,7 +597,7 @@ msgstr ""
 msgid "You won the challenge!"
 msgstr "You won the challenge!"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:64
+#: src/screens/components/shared-screen/shared-screen.tsx:58
 msgid "Your opponent completed this puzzle in"
 msgstr "Your opponent completed this puzzle in"
 
