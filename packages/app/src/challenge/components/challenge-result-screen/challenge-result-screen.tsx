@@ -9,6 +9,7 @@ import { Header } from '../../../@generic/components/header/header';
 import { PlayAgainButton } from '../../../@generic/components/play-again-button/play-again-button';
 import { useResetGame } from '../../../@generic/hooks/use-reset-game.hook';
 import { getTimerText } from '../../../@generic/utils/get-timer-text.util';
+import { GameState } from '../../../game/store/game.state';
 import { ThemeContext } from '../../../theme/context/theme.context';
 
 import { ChallengeResultScreenStyles as styles } from './challenge-result-screen.styles';
@@ -22,13 +23,16 @@ interface ChallengeResultScreenProps {
     readonly differenceLabel: string;
     readonly isWon: boolean;
     readonly extraContent?: ReactNode;
+    readonly renderActionButtons?: (gameState: GameState) => ReactNode;
 }
 
-export const ChallengeResultScreen = ({ icon: Icon, headerText, differenceLabel, isWon, extraContent }: ChallengeResultScreenProps) => {
+export const ChallengeResultScreen = (props: ChallengeResultScreenProps) => {
+    const { icon: Icon, headerText, differenceLabel, isWon, extraContent, renderActionButtons } = props;
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
 
-    const [isGameStarted, { score, elapsedTime, opponentTotalTime }] = useResetGame();
+    const [isGameStarted, gameState] = useResetGame();
+    const { score, elapsedTime, opponentTotalTime } = gameState;
 
     if (!isGameStarted && elapsedTime === 0) {
         return <Redirect href="/" />;
@@ -74,6 +78,8 @@ export const ChallengeResultScreen = ({ icon: Icon, headerText, differenceLabel,
             </View>
 
             <Donation type={donationType} />
+
+            {renderActionButtons?.(gameState)}
 
             <PlayAgainButton />
         </View>
