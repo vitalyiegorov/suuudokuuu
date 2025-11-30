@@ -1,7 +1,7 @@
 import { useLingui } from '@lingui/react/macro';
 import { useLocalSearchParams } from 'expo-router';
 import { LucideSwords } from 'lucide-react-native';
-import { use, useMemo } from 'react';
+import { use } from 'react';
 import { Text, View } from 'react-native';
 
 import { BlackButton } from '../../../@generic/components/black-button/black-button';
@@ -9,25 +9,10 @@ import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { Header } from '../../../@generic/components/header/header';
 import { getTimerText } from '../../../@generic/utils/get-timer-text.util';
 import { GameContext } from '../../../game/context/game.context';
-import { calculateTotalTimeFromSteps } from '../../../game/store/game.state';
-import { Solution } from '../../../history/classes/solution';
+import { urlToGameState } from '../../../game/store/game.state';
 import { ThemeContext } from '../../../theme/context/theme.context';
 
 import { SharedScreenStyles as styles } from './shared-screen.styles';
-
-import type { SerializedGameState } from '../../../game/store/game.state';
-
-const parseSharedState = (stateString: string): { isChallenge: boolean; opponentTime: number } => {
-    try {
-        const input = JSON.parse(atob(stateString)) as SerializedGameState;
-        const isChallenge = input.c === '1';
-        const opponentTime = isChallenge ? calculateTotalTimeFromSteps(Solution.fromString(input.h ?? '').getSteps()) : 0;
-
-        return { isChallenge, opponentTime };
-    } catch {
-        return { isChallenge: false, opponentTime: 0 };
-    }
-};
 
 export const SharedScreen = () => {
     const stateObject = useLocalSearchParams<Record<string, string>>();
@@ -38,26 +23,27 @@ export const SharedScreen = () => {
     const { createFromState } = use(GameContext);
 
     const [stateString] = Object.keys(stateObject);
-    const { isChallenge, opponentTime } = useMemo(() => parseSharedState(stateString), [stateString]);
+    const { isChallengeMode, opponentTotalTime } = urlToGameState(stateString);
 
     const handleOpenPuzzle = () => {
         createFromState(stateString);
     };
 
-    const headerText = isChallenge ? t`Accept challenge?` : t`Open shared puzzle?`;
-    const buttonText = isChallenge ? t`Accept Challenge` : t`Open puzzle`;
+    const headerText = isChallengeMode ? t`Accept challenge?` : t`Open shared puzzle?`;
+    const buttonText = isChallengeMode ? t`Accept Challenge` : t`Open puzzle`;
 
     return (
         <View style={styles.container}>
-            {isChallenge && <LucideSwords color={theme.colors.label.main} size={48} style={styles.icon} />}
+            {isChallengeMode && <LucideSwords color={theme.colors.label.main} size={48} style={styles.icon} />}
+
             <Header text={headerText} />
 
-            {isChallenge && (
+            {isChallengeMode && (
                 <View style={styles.challengeInfo}>
                     <BlackText>
                         <Text>{t`Your opponent completed this puzzle in`}</Text>
                     </BlackText>
-                    <BlackText style={styles.opponentTime}>{getTimerText(opponentTime)}</BlackText>
+                    <BlackText style={styles.opponentTime}>{getTimerText(opponentTotalTime)}</BlackText>
                     <BlackText>
                         <Text>{t`Can you beat them?`}</Text>
                     </BlackText>

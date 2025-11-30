@@ -56,37 +56,34 @@ export const initialGameState: GameState = {
     opponentTotalTime: 0
 };
 
-const serializeGameState = (gameState: GameState, isChallenge = false): string => {
+export const gameStateToUrl = (gameState: GameState, isChallenge = false): string => {
     const sudokuEncoder = new SudokuStringEncoder();
-    const serializedState: SerializedGameState = {
+    const serializedState = {
         s: sudokuEncoder.encode(gameState.sudokuString, gameState.solutionSteps),
         h: Solution.fromSteps(gameState.solutionSteps).stringify(),
         m: gameState.maxMistakes.toString(),
-        ...(isChallenge && { c: '1' })
-    };
+        c: isChallenge ? '1' : '0'
+    } satisfies SerializedGameState;
 
     return btoa(JSON.stringify(serializedState));
 };
-
-export const gameStateToUrl = (gameState: GameState): string => serializeGameState(gameState);
-
-export const gameStateToChallengeUrl = (gameState: GameState): string => serializeGameState(gameState, true);
 
 export const calculateTotalTimeFromSteps = (steps: SolutionStepInterface[]): number => steps.reduce((total, step) => total + step.ts, 0);
 
 export const urlToGameState = (gameStateString: string): GameState => {
     const input = JSON.parse(atob(gameStateString)) as SerializedGameState;
+
     const sudokuEncoder = new SudokuStringEncoder();
-    const isChallenge = input.c === '1';
     const opponentSteps = Solution.fromString(input.h ?? '').getSteps();
 
     return {
         ...initialGameState,
         sudokuString: sudokuEncoder.decode(input.s),
         maxMistakes: parseInt(input.m ?? '0', 10),
-        solutionSteps: isChallenge ? [] : opponentSteps,
-        isChallengeMode: isChallenge,
-        opponentSteps: isChallenge ? opponentSteps : [],
-        opponentTotalTime: isChallenge ? calculateTotalTimeFromSteps(opponentSteps) : 0
+        ...(input.c === '1' && {
+            isChallengeMode: true,
+            opponentSteps,
+            opponentTotalTime: calculateTotalTimeFromSteps(opponentSteps)
+        })
     };
 };
