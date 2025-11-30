@@ -3,16 +3,15 @@ import { BitInputStream, BitOutputStream } from '@thi.ng/bitstream';
 import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
 import { CELL_INDEX_BITS, VALUE_BITS } from '../constants/bit-encoding.constant';
+import { GRID_CELL_COUNT, GRID_SIZE } from '../constants/grid.constant';
 import { SolutionStepInterface } from '../interfaces/solution-step.interface';
 import { stringToUint8Array } from '../util/string-to-uint8array.util';
 
 export class SudokuStringEncoder {
-    private readonly gridSize = 9;
-    private readonly totalCells = this.gridSize * this.gridSize;
     private readonly emptyCell = '.';
 
     encode(sudokuString: string, steps: SolutionStepInterface[] = []): string {
-        if (sudokuString.length !== this.totalCells) {
+        if (sudokuString.length !== GRID_CELL_COUNT) {
             return '';
         }
 
@@ -35,13 +34,13 @@ export class SudokuStringEncoder {
 
     decode(input: string): string {
         if (!isNotEmptyString(input)) {
-            return this.emptyCell.repeat(this.totalCells);
+            return this.emptyCell.repeat(GRID_CELL_COUNT);
         }
 
         const clues = this.getCluesFromInput(input);
 
         let result = '';
-        for (let i = 0; i < this.totalCells; i += 1) {
+        for (let i = 0; i < GRID_CELL_COUNT; i += 1) {
             result += isDefined(clues[i]) ? clues[i].toString() : this.emptyCell;
         }
 
@@ -58,12 +57,12 @@ export class SudokuStringEncoder {
                 const cellIndex = inputStream.read(CELL_INDEX_BITS);
                 const value = inputStream.read(VALUE_BITS);
 
-                if (cellIndex > this.totalCells - 1 || cellIndex < 0) {
+                if (cellIndex > GRID_CELL_COUNT - 1 || cellIndex < 0) {
                     // eslint-disable-next-line no-continue
                     continue;
                 }
 
-                if (value > this.gridSize || value <= 0) {
+                if (value > GRID_SIZE || value <= 0) {
                     // eslint-disable-next-line no-continue
                     continue;
                 }

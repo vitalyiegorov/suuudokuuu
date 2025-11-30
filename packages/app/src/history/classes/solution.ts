@@ -3,14 +3,13 @@ import { BitInputStream, BitOutputStream } from '@thi.ng/bitstream';
 import { isNotEmptyString } from '@rnw-community/shared';
 
 import { CELL_INDEX_BITS, TIMESTAMP_BITS, VALUE_BITS } from '../constants/bit-encoding.constant';
+import { GRID_CELL_COUNT, GRID_SIZE } from '../constants/grid.constant';
 import { SolutionStepInterface } from '../interfaces/solution-step.interface';
 import { stringToUint8Array } from '../util/string-to-uint8array.util';
 
 import type { CellInterface } from '@suuudokuuu/generator';
 
 export class Solution {
-    private readonly gridSize = 9;
-    private readonly totalCells = this.gridSize * this.gridSize;
     private readonly maxTimestamp = 8191;
 
     private steps: SolutionStepInterface[] = [];
@@ -36,7 +35,7 @@ export class Solution {
         const cappedTimeDiff = Math.min(timeDiff, this.maxTimestamp);
 
         const lastStep = {
-            cellIndex: cell.y * this.gridSize + cell.x,
+            cellIndex: cell.y * GRID_SIZE + cell.x,
             value: cell.value,
             ts: cappedTimeDiff
         };
@@ -65,12 +64,12 @@ export class Solution {
                 const value = input.read(VALUE_BITS);
                 const ts = input.read(TIMESTAMP_BITS);
 
-                if (cellIndex > this.totalCells - 1 || cellIndex < 0) {
+                if (cellIndex > GRID_CELL_COUNT - 1 || cellIndex < 0) {
                     // eslint-disable-next-line no-continue
                     continue;
                 }
 
-                if (value > this.gridSize || value <= 0) {
+                if (value > GRID_SIZE || value <= 0) {
                     // eslint-disable-next-line no-continue
                     continue;
                 }
