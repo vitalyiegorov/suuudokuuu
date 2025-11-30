@@ -54,12 +54,12 @@ export class Solution {
         return this.steps;
     }
 
-    private parse(inputBase64: string): SolutionStepInterface[] {
-        if (!isNotEmptyString(inputBase64)) {
+    private parse(inputString: string): SolutionStepInterface[] {
+        if (!isNotEmptyString(inputString)) {
             return [];
         }
 
-        const input = new BitInputStream(stringToUint8Array(inputBase64));
+        const input = new BitInputStream(stringToUint8Array(inputString));
 
         while (input.position + BITS_PER_STEP <= input.length) {
             const index = input.read(CELL_INDEX_BITS);

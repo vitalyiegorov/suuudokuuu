@@ -10,7 +10,8 @@ export const useShare = () => {
     return async () => {
         if (await Sharing.isAvailableAsync()) {
             const shareUrl = `${window.location.origin}/shared?${gameStateToUrl(state)}`;
-            await Share.share({ message: shareUrl, url: shareUrl });
+
+            await Share.share({ url: shareUrl });
         }
     };
 };
