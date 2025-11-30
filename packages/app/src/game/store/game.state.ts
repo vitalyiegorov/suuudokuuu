@@ -3,6 +3,8 @@ import { DifficultyEnum } from '@suuudokuuu/generator';
 import { Solution } from '../../history/classes/solution';
 import { emptyGameHistory } from '../../history/interfaces/history-game.interface';
 
+import { decodeSudokuString, encodeSudokuString } from './sudoku-string-encoder';
+
 import type { HistoryGameInterface } from '../../history/interfaces/history-game.interface';
 import type { SolutionStepInterface } from '../../history/interfaces/solution-step.interface';
 
@@ -50,7 +52,7 @@ export const initialGameState: GameState = {
 
 export const gameStateToUrl = (gameState: GameState): string => {
     const serializedState = {
-        s: gameState.sudokuString,
+        s: encodeSudokuString(gameState.sudokuString),
         h: Solution.fromSteps(gameState.solutionSteps).stringify(),
         m: gameState.maxMistakes.toString()
     } satisfies SerializedGameState;
@@ -63,7 +65,7 @@ export const urlToGameState = (gameStateString: string): GameState => {
 
     return {
         ...initialGameState,
-        sudokuString: input.s,
+        sudokuString: decodeSudokuString(input.s),
         maxMistakes: parseInt(input.m ?? '0', 10),
         solutionSteps: Solution.fromString(input.h ?? '').getSteps()
     };
