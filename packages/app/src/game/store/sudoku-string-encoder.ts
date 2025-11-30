@@ -43,12 +43,7 @@ export const encodeSudokuString = (sudokuString: string): string => {
         }
     }
 
-    let binary = '';
-    for (let i = 0; i < bytes.length; i++) {
-        binary += String.fromCharCode(bytes[i]);
-    }
-
-    return btoa(binary);
+    return btoa(String.fromCharCode(...bytes));
 };
 
 export const decodeSudokuString = (encoded: string): string => {
@@ -59,10 +54,7 @@ export const decodeSudokuString = (encoded: string): string => {
     let bytes: Uint8Array;
     try {
         const binary = atob(encoded);
-        bytes = new Uint8Array(binary.length);
-        for (let i = 0; i < binary.length; i++) {
-            bytes[i] = binary.charCodeAt(i);
-        }
+        bytes = Uint8Array.from(binary, char => char.charCodeAt(0));
     } catch {
         return EMPTY_CELL.repeat(TOTAL_CELLS);
     }

@@ -92,23 +92,14 @@ export class Solution {
     }
 
     private bytesToBase64(bytes: Uint8Array): string {
-        let binary = '';
-        for (let i = 0; i < bytes.length; i++) {
-            binary += String.fromCharCode(bytes[i]);
-        }
-
-        return btoa(binary);
+        return btoa(String.fromCharCode(...bytes));
     }
 
     private base64ToBytes(base64: string): Uint8Array {
         try {
             const binary = atob(base64);
-            const bytes = new Uint8Array(binary.length);
-            for (let i = 0; i < binary.length; i++) {
-                bytes[i] = binary.charCodeAt(i);
-            }
 
-            return bytes;
+            return Uint8Array.from(binary, char => char.charCodeAt(0));
         } catch {
             return new Uint8Array(0);
         }
