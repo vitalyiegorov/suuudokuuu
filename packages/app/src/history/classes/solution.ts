@@ -1,27 +1,45 @@
-import { isDefined } from '@rnw-community/shared';
+import { BitInputStream, BitOutputStream } from '@thi.ng/bitstream';
 
+import { isNotEmptyString } from '@rnw-community/shared';
+
+import { CELL_INDEX_BITS, TIMESTAMP_BITS, VALUE_BITS } from '../constants/bit-encoding.constant';
+import { GRID_SIZE } from '../constants/grid.constant';
 import { SolutionStepInterface } from '../interfaces/solution-step.interface';
+import { isValidCellIndex } from '../util/is-valid-cell-index.util';
+import { isValidCellValue } from '../util/is-valid-cell-value.util';
+import { stringToUint8Array } from '../util/string-to-uint8array.util';
 
 import type { CellInterface } from '@suuudokuuu/generator';
 
+const BITS_PER_STEP = CELL_INDEX_BITS + VALUE_BITS + TIMESTAMP_BITS;
+
 export class Solution {
-    private readonly solutionStepStringLength = 6;
-    private readonly maxTimestamp = 999;
+    private readonly maxTimestamp = 8191;
 
     private steps: SolutionStepInterface[] = [];
     private totalElapsedTime = 0;
 
     stringify(): string {
-        return this.steps.map(step => this.stepToString(step)).join('');
+        if (this.steps.length === 0) {
+            return '';
+        }
+
+        const out = new BitOutputStream();
+        for (const step of this.steps) {
+            out.write(step.cellIndex, CELL_INDEX_BITS);
+            out.write(step.value, VALUE_BITS);
+            out.write(step.ts, TIMESTAMP_BITS);
+        }
+
+        return String.fromCharCode(...out.bytes());
     }
 
-    addStep(cell: CellInterface, elapsedTime: number): SolutionStepInterface {
+    addStep(cell: Pick<CellInterface, 'x' | 'y' | 'value'>, elapsedTime: number): SolutionStepInterface {
         const timeDiff = elapsedTime - this.totalElapsedTime;
         const cappedTimeDiff = Math.min(timeDiff, this.maxTimestamp);
 
         const lastStep = {
-            x: cell.x,
-            y: cell.y,
+            cellIndex: cell.y * GRID_SIZE + cell.x,
             value: cell.value,
             ts: cappedTimeDiff
         };
@@ -36,30 +54,24 @@ export class Solution {
         return this.steps;
     }
 
-    private parse(solutionSteps: string): SolutionStepInterface[] {
-        if (!isDefined(solutionSteps) || solutionSteps.length % this.solutionStepStringLength !== 0) {
+    private parse(inputString: string): SolutionStepInterface[] {
+        if (!isNotEmptyString(inputString)) {
             return [];
         }
 
-        this.steps = [];
-        for (let i = 0; i < solutionSteps.length; i += this.solutionStepStringLength) {
-            this.steps.push(this.stepFromString(solutionSteps.substring(i, i + this.solutionStepStringLength)));
+        const input = new BitInputStream(stringToUint8Array(inputString));
+
+        while (input.position + BITS_PER_STEP <= input.length) {
+            const index = input.read(CELL_INDEX_BITS);
+            const value = input.read(VALUE_BITS);
+            const ts = input.read(TIMESTAMP_BITS);
+
+            if (isValidCellValue(value) && isValidCellIndex(index) && ts >= 0 && ts <= this.maxTimestamp) {
+                this.steps.push({ cellIndex: index, value, ts });
+            }
         }
 
         return this.steps;
-    }
-
-    private stepToString(solutionStep: SolutionStepInterface): string {
-        return `${solutionStep.x}${solutionStep.y}${solutionStep.value}${solutionStep.ts.toString().padStart(3, '0')}`;
-    }
-
-    private stepFromString(step: string): SolutionStepInterface {
-        return {
-            x: parseInt(step[0], 10),
-            y: parseInt(step[1], 10),
-            value: parseInt(step[2], 10),
-            ts: parseInt(step.substring(3), 10)
-        };
     }
 
     static fromString(solutionSteps: string): Solution {
