@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.50.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.49.1...v1.50.0) (2025-11-30)
+
+### Features
+
+- **app:** optimize solution URL sharing with binary encoding ([#131](https://github.com/vitalyiegorov/suuudokuuu/issues/131)) ([0d71297](https://github.com/vitalyiegorov/suuudokuuu/commit/0d7129725ba60e582e7041d6d46455fa60bc12b7))
+
 ## [1.49.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.49.0...v1.49.1) (2025-11-29)
 
 ### Bug Fixes
