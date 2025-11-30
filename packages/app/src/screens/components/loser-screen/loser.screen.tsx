@@ -12,7 +12,7 @@ import { LoserScreenStyles } from './loser-screen.styles';
 export const LoserScreen = () => {
     const { t } = useLingui();
 
-    const [isGameStarted, _, elapsedTime] = useResetGame();
+    const [isGameStarted, { elapsedTime }] = useResetGame();
 
     if (!isGameStarted && elapsedTime === 0) {
         return <Redirect href="/" />;

@@ -4,6 +4,9 @@ export const WinnerScreenStyles = StyleSheet.create({
     boldText: {
         fontWeight: 'bold'
     },
+    buttonsWrapper: {
+        gap: 10
+    },
     container: {
         alignItems: 'center',
         flex: 1,

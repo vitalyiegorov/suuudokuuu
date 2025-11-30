@@ -5,7 +5,7 @@ import { isNotEmptyString } from '@rnw-community/shared';
 import type { RootState } from '../../@generic/app-root.store';
 import type { DifficultyEnum } from '@suuudokuuu/generator';
 
-const gameSelector = (state: RootState) => state.game;
+export const gameSelector = (state: RootState) => state.game;
 
 export const gameSudokuStringSelector = createSelector(gameSelector, state => state.sudokuString);
 export const gameScoreSelector = createSelector(gameSelector, state => state.score);
@@ -26,3 +26,6 @@ export const gameHistoryBestTimeSelector = createSelector(gameSelector, state =>
 export const gameHistoryDifficultySelector = (difficulty: DifficultyEnum) =>
     createSelector(gameSelector, state => state.historyByDifficulty[difficulty]);
 export const gameIsStartedSelector = createSelector(gameSelector, state => isNotEmptyString(state.sudokuString));
+export const gameIsChallengeModeSelector = createSelector(gameSelector, state => state.isChallengeMode);
+export const gameOpponentStepsSelector = createSelector(gameSelector, state => state.opponentSteps);
+export const gameOpponentTotalTimeSelector = createSelector(gameSelector, state => state.opponentTotalTime);

@@ -14,6 +14,7 @@ import { animationDurationConstant } from '../../../@generic/constants/animation
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { useVibration } from '../../../@generic/hooks/use-vibration.hook';
+import { ChallengeProgressBar } from '../../../challenge/components/challenge-progress-bar/challenge-progress-bar';
 import { AutoCandidatesButton } from '../../../game/components/auto-candidates-button/auto-candidates-button';
 import { AvailableValuesItem, AvailableValuesItemRef } from '../../../game/components/available-values-item/available-values-item';
 import { CandidateInputItem } from '../../../game/components/candidate-input-item/candidate-input-item';
@@ -31,9 +32,12 @@ import {
     gameToggleCellCandidateAction
 } from '../../../game/store/game.actions';
 import {
+    gameElapsedTimeSelector,
     gameInputModeSelector,
+    gameIsChallengeModeSelector,
     gameMaxMistakesSelector,
     gameMistakesSelector,
+    gameOpponentTotalTimeSelector,
     gameScoreSelector
 } from '../../../game/store/game.selectors';
 import { settingsKeySelector } from '../../../settings/store/settings.selectors';
@@ -67,6 +71,9 @@ export const GameScreen = () => {
     const maxMistakes = useAppSelector(gameMaxMistakesSelector);
     const hasTimer = useAppSelector(settingsKeySelector('hasTimer'));
     const inputMode = useAppSelector(gameInputModeSelector);
+    const isChallengeMode = useAppSelector(gameIsChallengeModeSelector);
+    const opponentTotalTime = useAppSelector(gameOpponentTotalTimeSelector);
+    const elapsedTime = useAppSelector(gameElapsedTimeSelector);
 
     const availableValuesRefs = useRef<Record<number, AvailableValuesItemRef | null>>({});
     const fieldRef = useRef<FieldRef>(null);
@@ -113,7 +120,14 @@ export const GameScreen = () => {
         dispatch(gameFinishAction({ difficulty: sudoku.Difficulty, isWon: true }));
 
         // HINT: We need to wait for the animation to finish, animation finish event would fix it?
-        setTimeout(() => void router.replace('winner'), 10 * animationDurationConstant);
+        setTimeout(() => {
+            if (isChallengeMode) {
+                const wonChallenge = elapsedTime < opponentTotalTime;
+                router.replace(wonChallenge ? 'challenge-won' : 'challenge-lost');
+            } else {
+                router.replace('winner');
+            }
+        }, 10 * animationDurationConstant);
     };
 
     const handleCorrectValue = (correctCell: CellInterface, newScoredCells: ScoredCellsInterface) => {
@@ -181,6 +195,7 @@ export const GameScreen = () => {
 
     return (
         <View style={styles.container} testID={GameScreenSelectors.Root}>
+            {isChallengeMode && <ChallengeProgressBar />}
             <View style={styles.controls}>
                 <View style={styles.controlsWrapper}>
                     <BlackText>{t`Mistakes`}</BlackText>
