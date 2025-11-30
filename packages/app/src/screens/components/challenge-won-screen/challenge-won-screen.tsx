@@ -1,7 +1,7 @@
 import { useLingui } from '@lingui/react/macro';
 import { LucideTrophy } from 'lucide-react-native';
 
-import { ChallengeResultScreen } from '../challenge-result-screen/challenge-result-screen';
+import { ChallengeResultScreen } from '../../../challenge/components/challenge-result-screen/challenge-result-screen';
 
 export const ChallengeWonScreen = () => {
     const { t } = useLingui();

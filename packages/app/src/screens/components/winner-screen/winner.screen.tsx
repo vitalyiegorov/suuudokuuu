@@ -3,12 +3,12 @@ import { Redirect } from 'expo-router';
 import { Text, View } from 'react-native';
 
 import { BlackText } from '../../../@generic/components/black-text/black-text';
-import { ChallengeFriendButton } from '../../../@generic/components/challenge-friend-button/challenge-friend-button';
 import { Donation } from '../../../@generic/components/donation/donation';
 import { Header } from '../../../@generic/components/header/header';
 import { PlayAgainButton } from '../../../@generic/components/play-again-button/play-again-button';
 import { useResetGame } from '../../../@generic/hooks/use-reset-game.hook';
 import { getTimerText } from '../../../@generic/utils/get-timer-text.util';
+import { ChallengeFriendButton } from '../../../challenge/components/challenge-friend-button/challenge-friend-button';
 
 import { WinnerScreenStyles } from './winner-screen.styles';
 

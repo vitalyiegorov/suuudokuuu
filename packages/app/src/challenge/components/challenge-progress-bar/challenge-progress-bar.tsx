@@ -2,45 +2,15 @@ import { use, useEffect, useMemo, useState } from 'react';
 import { Animated, View } from 'react-native';
 
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
+import { gameElapsedTimeSelector, gameOpponentStepsSelector, gameOpponentTotalTimeSelector } from '../../../game/store/game.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
-import { gameElapsedTimeSelector, gameOpponentStepsSelector, gameOpponentTotalTimeSelector } from '../../store/game.selectors';
+import { calculateOpponentProgress } from '../../utils/calculate-opponent-progress.util';
+import { getStepIndicators } from '../../utils/get-step-indicators.util';
 
 import { ChallengeProgressBarStyles as styles } from './challenge-progress-bar.styles';
 
 import type { SolutionStepInterface } from '../../../history/interfaces/solution-step.interface';
 import type { StyleProp, ViewStyle } from 'react-native';
-
-const calculateOpponentProgress = (steps: SolutionStepInterface[], elapsedTime: number): number => {
-    let cumulativeTime = 0;
-    let completedSteps = 0;
-
-    for (const step of steps) {
-        cumulativeTime += step.ts;
-        if (cumulativeTime <= elapsedTime) {
-            completedSteps += 1;
-        } else {
-            break;
-        }
-    }
-
-    if (steps.length === 0) {
-        return 0;
-    }
-
-    return (completedSteps / steps.length) * 100;
-};
-
-const getStepIndicators = (steps: SolutionStepInterface[], totalTime: number): number[] => {
-    let cumulativeTime = 0;
-    const indicators: number[] = [];
-
-    for (const step of steps) {
-        cumulativeTime += step.ts;
-        indicators.push((cumulativeTime / totalTime) * 100);
-    }
-
-    return indicators;
-};
 
 const usePulseAnimation = (
     opponentProgress: number,
