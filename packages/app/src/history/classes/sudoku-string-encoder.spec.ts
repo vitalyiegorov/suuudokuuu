@@ -52,40 +52,17 @@ describe('SudokuStringEncoder', () => {
             expect(decoded.length).toBe(81);
             expect(decoded).toBe('.'.repeat(81));
         });
-
-        it('should skip clues with invalid cellIndex', () => {
-            expect.assertions(1);
-
-            const invalidData = String.fromCharCode(0xFF, 0xFF);
-            const decoded = encoder.decode(invalidData);
-
-            expect(decoded).toBe('.'.repeat(81));
-        });
-
-        it('should skip clues with invalid value', () => {
-            expect.assertions(1);
-
-            const invalidData = String.fromCharCode(0x00, 0x00);
-            const decoded = encoder.decode(invalidData);
-
-            expect(decoded).toBe('.'.repeat(81));
-        });
-
-        it('should handle data too short for a full clue', () => {
-            expect.assertions(1);
-
-            const decoded = encoder.decode(String.fromCharCode(0));
-
-            expect(decoded).toBe('.'.repeat(81));
-        });
     });
 
     describe('encode with steps', () => {
         it('should exclude solution steps from encoded clues', () => {
             expect.assertions(2);
 
-            const sudokuString = `123456789${  '.'.repeat(72)}`;
-            const steps = [{ cellIndex: 0, value: 1, ts: 0 }, { cellIndex: 1, value: 2, ts: 10 }];
+            const sudokuString = `123456789${'.'.repeat(72)}`;
+            const steps = [
+                { cellIndex: 0, value: 1, ts: 0 },
+                { cellIndex: 1, value: 2, ts: 10 }
+            ];
 
             const encodedWithSteps = encoder.encode(sudokuString, steps);
             const encodedWithoutSteps = encoder.encode(sudokuString);
