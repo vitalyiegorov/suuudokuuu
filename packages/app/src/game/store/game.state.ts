@@ -52,7 +52,7 @@ export const initialGameState: GameState = {
 export const gameStateToUrl = (gameState: GameState): string => {
     const sudokuEncoder = new SudokuStringEncoder();
     const serializedState = {
-        s: sudokuEncoder.encode(gameState.sudokuString),
+        s: sudokuEncoder.encode(gameState.sudokuString, gameState.solutionSteps),
         h: Solution.fromSteps(gameState.solutionSteps).stringify(),
         m: gameState.maxMistakes.toString()
     } satisfies SerializedGameState;

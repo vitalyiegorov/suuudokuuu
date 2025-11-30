@@ -52,14 +52,6 @@ describe('SudokuStringEncoder', () => {
             expect(decoded.length).toBe(81);
             expect(decoded).toBe('.'.repeat(81));
         });
-
-        it('should return all-empty grid for invalid base64', () => {
-            expect.assertions(2);
-
-            const decoded = encoder.decode('!!!invalid!!!');
-            expect(decoded.length).toBe(81);
-            expect(decoded).toBe('.'.repeat(81));
-        });
     });
 
     describe('round-trip conversion', () => {

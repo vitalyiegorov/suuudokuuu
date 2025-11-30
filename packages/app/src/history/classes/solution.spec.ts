@@ -4,7 +4,6 @@ import { beforeEach, describe, expect, it } from '@jest/globals';
 import { Solution } from './solution';
 
 import type { SolutionStepInterface } from '../interfaces/solution-step.interface';
-import type { CellInterface } from '@suuudokuuu/generator';
 
 describe('Solution', () => {
     let solution: Solution;
@@ -25,7 +24,7 @@ describe('Solution', () => {
         it('should add first step with full elapsed time', () => {
             expect.assertions(2);
 
-            const cell: CellInterface = { x: 1, y: 2, value: 3 } as CellInterface;
+            const cell = { x: 1, y: 2, value: 3 };
             const elapsedTime = 100;
 
             const result = solution.addStep(cell, elapsedTime);
@@ -37,9 +36,9 @@ describe('Solution', () => {
         it('should calculate relative timestamp for subsequent steps', () => {
             expect.assertions(3);
 
-            const cell1: CellInterface = { x: 0, y: 0, value: 1 } as CellInterface;
-            const cell2: CellInterface = { x: 1, y: 1, value: 2 } as CellInterface;
-            const cell3: CellInterface = { x: 2, y: 2, value: 3 } as CellInterface;
+            const cell1 = { x: 0, y: 0, value: 1 };
+            const cell2 = { x: 1, y: 1, value: 2 };
+            const cell3 = { x: 2, y: 2, value: 3 };
 
             solution.addStep(cell1, 100);
             solution.addStep(cell2, 250);
@@ -53,7 +52,7 @@ describe('Solution', () => {
         it('should handle zero elapsed time', () => {
             expect.assertions(1);
 
-            const cell: CellInterface = { x: 0, y: 0, value: 1 } as CellInterface;
+            const cell = { x: 0, y: 0, value: 1 };
 
             const result = solution.addStep(cell, 0);
 
@@ -63,7 +62,7 @@ describe('Solution', () => {
         it('should handle maximum grid coordinates', () => {
             expect.assertions(1);
 
-            const cell: CellInterface = { x: 8, y: 8, value: 9 } as CellInterface;
+            const cell = { x: 8, y: 8, value: 9 };
 
             const result = solution.addStep(cell, 999);
 
@@ -73,8 +72,8 @@ describe('Solution', () => {
         it('should cap timestamp at 8191 when time difference exceeds maximum', () => {
             expect.assertions(2);
 
-            const cell1: CellInterface = { x: 0, y: 0, value: 1 } as CellInterface;
-            const cell2: CellInterface = { x: 1, y: 1, value: 2 } as CellInterface;
+            const cell1 = { x: 0, y: 0, value: 1 };
+            const cell2 = { x: 1, y: 1, value: 2 };
 
             solution.addStep(cell1, 100);
             const result = solution.addStep(cell2, 10000);
@@ -86,9 +85,9 @@ describe('Solution', () => {
         it('should handle multiple steps with timestamps exceeding maximum', () => {
             expect.assertions(3);
 
-            solution.addStep({ x: 0, y: 0, value: 1 } as CellInterface, 0);
-            solution.addStep({ x: 1, y: 1, value: 2 } as CellInterface, 9000);
-            solution.addStep({ x: 2, y: 2, value: 3 } as CellInterface, 20000);
+            solution.addStep({ x: 0, y: 0, value: 1 }, 0);
+            solution.addStep({ x: 1, y: 1, value: 2 }, 9000);
+            solution.addStep({ x: 2, y: 2, value: 3 }, 20000);
 
             const steps = solution.getSteps();
             expect(steps[0].ts).toBe(0);
@@ -107,7 +106,7 @@ describe('Solution', () => {
         it('should convert single step to base64 encoded string', () => {
             expect.assertions(1);
 
-            const cell: CellInterface = { x: 1, y: 2, value: 3 } as CellInterface;
+            const cell = { x: 1, y: 2, value: 3 };
             solution.addStep(cell, 5);
 
             const stringified = solution.stringify();
@@ -117,9 +116,9 @@ describe('Solution', () => {
         it('should convert multiple steps to base64 encoded string', () => {
             expect.assertions(1);
 
-            solution.addStep({ x: 0, y: 0, value: 1 } as CellInterface, 100);
-            solution.addStep({ x: 4, y: 5, value: 6 } as CellInterface, 223);
-            solution.addStep({ x: 8, y: 8, value: 9 } as CellInterface, 1222);
+            solution.addStep({ x: 0, y: 0, value: 1 }, 100);
+            solution.addStep({ x: 4, y: 5, value: 6 }, 223);
+            solution.addStep({ x: 8, y: 8, value: 9 }, 1222);
 
             const stringified = solution.stringify();
             expect(stringified.length).toBeGreaterThan(0);
@@ -130,8 +129,8 @@ describe('Solution', () => {
         it('should return all added steps', () => {
             expect.assertions(1);
 
-            solution.addStep({ x: 0, y: 0, value: 1 } as CellInterface, 100);
-            solution.addStep({ x: 1, y: 1, value: 2 } as CellInterface, 200);
+            solution.addStep({ x: 0, y: 0, value: 1 }, 100);
+            solution.addStep({ x: 1, y: 1, value: 2 }, 200);
 
             const steps = solution.getSteps();
 
@@ -145,7 +144,7 @@ describe('Solution', () => {
             expect.assertions(2);
 
             const steps1 = solution.getSteps();
-            solution.addStep({ x: 0, y: 0, value: 1 } as CellInterface, 100);
+            solution.addStep({ x: 0, y: 0, value: 1 }, 100);
             const steps2 = solution.getSteps();
 
             expect(steps1).toBe(steps2);
@@ -168,12 +167,6 @@ describe('Solution', () => {
 
             expect(Solution.fromString(null as unknown as string).getSteps()).toEqual([]);
             expect(Solution.fromString(undefined as unknown as string).getSteps()).toEqual([]);
-        });
-
-        it('should handle invalid base64 gracefully', () => {
-            expect.assertions(1);
-
-            expect(Solution.fromString('!!!invalid!!!').getSteps()).toEqual([]);
         });
     });
 
@@ -227,9 +220,9 @@ describe('Solution', () => {
         it('should maintain data integrity through stringify and fromString', () => {
             expect.assertions(1);
 
-            solution.addStep({ x: 0, y: 0, value: 1 } as CellInterface, 0);
-            solution.addStep({ x: 4, y: 5, value: 6 } as CellInterface, 123);
-            solution.addStep({ x: 8, y: 8, value: 9 } as CellInterface, 1122);
+            solution.addStep({ x: 0, y: 0, value: 1 }, 0);
+            solution.addStep({ x: 4, y: 5, value: 6 }, 123);
+            solution.addStep({ x: 8, y: 8, value: 9 }, 1122);
 
             const stringified = solution.stringify();
             const parsed = Solution.fromString(stringified);
@@ -240,9 +233,9 @@ describe('Solution', () => {
         it('should handle edge cases in round-trip conversion', () => {
             expect.assertions(1);
 
-            solution.addStep({ x: 0, y: 0, value: 1 } as CellInterface, 0);
-            solution.addStep({ x: 8, y: 8, value: 9 } as CellInterface, 999);
-            solution.addStep({ x: 4, y: 4, value: 5 } as CellInterface, 1998);
+            solution.addStep({ x: 0, y: 0, value: 1 }, 0);
+            solution.addStep({ x: 8, y: 8, value: 9 }, 999);
+            solution.addStep({ x: 4, y: 4, value: 5 }, 1998);
 
             const stringified = solution.stringify();
             const parsed = Solution.fromString(stringified);
@@ -255,7 +248,7 @@ describe('Solution', () => {
         it('should handle maximum timestamp value (8191)', () => {
             expect.assertions(2);
 
-            solution.addStep({ x: 0, y: 0, value: 1 } as CellInterface, 8191);
+            solution.addStep({ x: 0, y: 0, value: 1 }, 8191);
 
             const stringified = solution.stringify();
             const parsed = Solution.fromString(stringified);
@@ -266,9 +259,9 @@ describe('Solution', () => {
         it('should handle consecutive steps with same elapsed time', () => {
             expect.assertions(1);
 
-            solution.addStep({ x: 0, y: 0, value: 1 } as CellInterface, 100);
-            solution.addStep({ x: 1, y: 1, value: 2 } as CellInterface, 100);
-            solution.addStep({ x: 2, y: 2, value: 3 } as CellInterface, 100);
+            solution.addStep({ x: 0, y: 0, value: 1 }, 100);
+            solution.addStep({ x: 1, y: 1, value: 2 }, 100);
+            solution.addStep({ x: 2, y: 2, value: 3 }, 100);
 
             expect(solution.getSteps()).toEqual([
                 { cellIndex: 0, value: 1, ts: 100 },
@@ -281,7 +274,7 @@ describe('Solution', () => {
             expect.assertions(1);
 
             for (let i = 0; i <= 8; i += 1) {
-                solution.addStep({ x: i, y: i, value: i + 1 } as CellInterface, i * 100);
+                solution.addStep({ x: i, y: i, value: i + 1 }, i * 100);
             }
 
             expect(solution.getSteps()).toHaveLength(9);
@@ -292,7 +285,7 @@ describe('Solution', () => {
         it('should cap timestamps at 8191', () => {
             expect.assertions(2);
 
-            solution.addStep({ x: 0, y: 0, value: 1 } as CellInterface, 10000);
+            solution.addStep({ x: 0, y: 0, value: 1 }, 10000);
 
             const stringified = solution.stringify();
             expect(stringified.length).toBeGreaterThan(0);
@@ -302,8 +295,8 @@ describe('Solution', () => {
         it('should handle extreme time differences by capping at 8191', () => {
             expect.assertions(1);
 
-            solution.addStep({ x: 0, y: 0, value: 1 } as CellInterface, 0);
-            solution.addStep({ x: 1, y: 1, value: 2 } as CellInterface, 20000);
+            solution.addStep({ x: 0, y: 0, value: 1 }, 0);
+            solution.addStep({ x: 1, y: 1, value: 2 }, 20000);
 
             expect(solution.getSteps()[1].ts).toBe(8191);
         });
@@ -311,9 +304,9 @@ describe('Solution', () => {
         it('should maintain data integrity with capped timestamps', () => {
             expect.assertions(2);
 
-            solution.addStep({ x: 5, y: 5, value: 5 } as CellInterface, 100);
-            solution.addStep({ x: 6, y: 6, value: 6 } as CellInterface, 9000);
-            solution.addStep({ x: 7, y: 7, value: 7 } as CellInterface, 9050);
+            solution.addStep({ x: 5, y: 5, value: 5 }, 100);
+            solution.addStep({ x: 6, y: 6, value: 6 }, 9000);
+            solution.addStep({ x: 7, y: 7, value: 7 }, 9050);
 
             const steps = solution.getSteps();
 
@@ -326,9 +319,9 @@ describe('Solution', () => {
         it('should maintain capped timestamps through serialization', () => {
             expect.assertions(2);
 
-            solution.addStep({ x: 0, y: 0, value: 1 } as CellInterface, 0);
-            solution.addStep({ x: 1, y: 1, value: 2 } as CellInterface, 9000);
-            solution.addStep({ x: 2, y: 2, value: 3 } as CellInterface, 9100);
+            solution.addStep({ x: 0, y: 0, value: 1 }, 0);
+            solution.addStep({ x: 1, y: 1, value: 2 }, 9000);
+            solution.addStep({ x: 2, y: 2, value: 3 }, 9100);
 
             const stringified = solution.stringify();
             const parsed = Solution.fromString(stringified);
@@ -346,7 +339,7 @@ describe('Solution', () => {
         it('should correctly encode cellIndex in 7 bits', () => {
             expect.assertions(1);
 
-            solution.addStep({ x: 8, y: 8, value: 9 } as CellInterface, 0);
+            solution.addStep({ x: 8, y: 8, value: 9 }, 0);
 
             const stringified = solution.stringify();
             const parsed = Solution.fromString(stringified);
@@ -358,7 +351,7 @@ describe('Solution', () => {
 
             for (let value = 1; value <= 9; value += 1) {
                 const sol = new Solution();
-                sol.addStep({ x: 0, y: 0, value } as CellInterface, 0);
+                sol.addStep({ x: 0, y: 0, value }, 0);
                 const stringified = sol.stringify();
                 const parsed = Solution.fromString(stringified);
                 expect(parsed.getSteps()[0].value).toBe(value);
@@ -368,7 +361,7 @@ describe('Solution', () => {
         it('should correctly encode timestamp in 13 bits', () => {
             expect.assertions(1);
 
-            solution.addStep({ x: 0, y: 0, value: 1 } as CellInterface, 8191);
+            solution.addStep({ x: 0, y: 0, value: 1 }, 8191);
 
             const stringified = solution.stringify();
             const parsed = Solution.fromString(stringified);
@@ -378,11 +371,10 @@ describe('Solution', () => {
         it('should encode 3 bytes per step', () => {
             expect.assertions(1);
 
-            solution.addStep({ x: 0, y: 0, value: 1 } as CellInterface, 0);
+            solution.addStep({ x: 0, y: 0, value: 1 }, 0);
 
             const stringified = solution.stringify();
-            const decoded = atob(stringified);
-            expect(decoded.length).toBe(3);
+            expect(stringified.length).toBe(3);
         });
     });
 
@@ -390,10 +382,10 @@ describe('Solution', () => {
         it('should cap at exactly 8191 seconds (~136 minutes)', () => {
             expect.assertions(4);
 
-            solution.addStep({ x: 0, y: 0, value: 1 } as CellInterface, 0);
-            solution.addStep({ x: 1, y: 1, value: 2 } as CellInterface, 8191);
-            solution.addStep({ x: 2, y: 2, value: 3 } as CellInterface, 8192);
-            solution.addStep({ x: 3, y: 3, value: 4 } as CellInterface, 20000);
+            solution.addStep({ x: 0, y: 0, value: 1 }, 0);
+            solution.addStep({ x: 1, y: 1, value: 2 }, 8191);
+            solution.addStep({ x: 2, y: 2, value: 3 }, 8192);
+            solution.addStep({ x: 3, y: 3, value: 4 }, 20000);
 
             const steps = solution.getSteps();
             expect(steps[0].ts).toBe(0);
@@ -405,11 +397,11 @@ describe('Solution', () => {
         it('should handle rapid consecutive moves', () => {
             expect.assertions(5);
 
-            solution.addStep({ x: 0, y: 0, value: 1 } as CellInterface, 1000);
-            solution.addStep({ x: 1, y: 1, value: 2 } as CellInterface, 1001);
-            solution.addStep({ x: 2, y: 2, value: 3 } as CellInterface, 1002);
-            solution.addStep({ x: 3, y: 3, value: 4 } as CellInterface, 1003);
-            solution.addStep({ x: 4, y: 4, value: 5 } as CellInterface, 1004);
+            solution.addStep({ x: 0, y: 0, value: 1 }, 1000);
+            solution.addStep({ x: 1, y: 1, value: 2 }, 1001);
+            solution.addStep({ x: 2, y: 2, value: 3 }, 1002);
+            solution.addStep({ x: 3, y: 3, value: 4 }, 1003);
+            solution.addStep({ x: 4, y: 4, value: 5 }, 1004);
 
             const steps = solution.getSteps();
             expect(steps[0].ts).toBe(1000);

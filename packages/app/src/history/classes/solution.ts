@@ -1,24 +1,17 @@
-/* eslint-disable no-bitwise, @typescript-eslint/no-magic-numbers */
-import { isDefined } from '@rnw-community/shared';
+import { BitInputStream, BitOutputStream } from '@thi.ng/bitstream';
 
+import { isNotEmptyString } from '@rnw-community/shared';
+
+import { CELL_INDEX_BITS, TIMESTAMP_BITS, VALUE_BITS } from '../constants/bit-encoding.constant';
 import { SolutionStepInterface } from '../interfaces/solution-step.interface';
+import { stringToUint8Array } from '../util/string-to-uint8array.util';
 
 import type { CellInterface } from '@suuudokuuu/generator';
 
 export class Solution {
     private readonly gridSize = 9;
+    private readonly totalCells = this.gridSize * this.gridSize;
     private readonly maxTimestamp = 8191;
-    private readonly bytesPerStep = 3;
-    private readonly cellIndexBits = 7;
-    private readonly valueBits = 4;
-    private readonly timestampBits = 13;
-    private readonly cellIndexMask = (1 << this.cellIndexBits) - 1;
-    private readonly valueMask = (1 << this.valueBits) - 1;
-    private readonly timestampMask = (1 << this.timestampBits) - 1;
-    private readonly byteMask = 0xFF;
-    private readonly bitsPerByte = 8;
-    private readonly valueShift = this.cellIndexBits;
-    private readonly timestampShift = this.cellIndexBits + this.valueBits;
 
     private steps: SolutionStepInterface[] = [];
     private totalElapsedTime = 0;
@@ -28,24 +21,17 @@ export class Solution {
             return '';
         }
 
-        const bytes = new Uint8Array(this.steps.length * this.bytesPerStep);
-
-        for (let i = 0; i < this.steps.length; i += 1) {
-            const step = this.steps[i];
-            const packed = (step.cellIndex & this.cellIndexMask) |
-                           ((step.value & this.valueMask) << this.valueShift) |
-                           ((step.ts & this.timestampMask) << this.timestampShift);
-
-            const byteOffset = i * this.bytesPerStep;
-            bytes[byteOffset] = packed & this.byteMask;
-            bytes[byteOffset + 1] = (packed >> this.bitsPerByte) & this.byteMask;
-            bytes[byteOffset + 2] = (packed >> (this.bitsPerByte * 2)) & this.byteMask;
+        const out = new BitOutputStream();
+        for (const step of this.steps) {
+            out.write(step.cellIndex, CELL_INDEX_BITS);
+            out.write(step.value, VALUE_BITS);
+            out.write(step.ts, TIMESTAMP_BITS);
         }
 
-        return this.bytesToBase64(bytes);
+        return String.fromCharCode(...out.bytes());
     }
 
-    addStep(cell: CellInterface, elapsedTime: number): SolutionStepInterface {
+    addStep(cell: Pick<CellInterface, 'x' | 'y' | 'value'>, elapsedTime: number): SolutionStepInterface {
         const timeDiff = elapsedTime - this.totalElapsedTime;
         const cappedTimeDiff = Math.min(timeDiff, this.maxTimestamp);
 
@@ -65,44 +51,42 @@ export class Solution {
         return this.steps;
     }
 
-    private parse(solutionSteps: string): SolutionStepInterface[] {
-        if (!isDefined(solutionSteps) || solutionSteps.length === 0) {
+    // eslint-disable-next-line max-statements
+    private parse(inputBase64: string): SolutionStepInterface[] {
+        if (!isNotEmptyString(inputBase64)) {
             return [];
         }
 
-        const bytes = this.base64ToBytes(solutionSteps);
-        if (bytes.length % this.bytesPerStep !== 0) {
+        try {
+            const input = new BitInputStream(stringToUint8Array(inputBase64));
+
+            do {
+                const cellIndex = input.read(CELL_INDEX_BITS);
+                const value = input.read(VALUE_BITS);
+                const ts = input.read(TIMESTAMP_BITS);
+
+                if (cellIndex > this.totalCells - 1 || cellIndex < 0) {
+                    // eslint-disable-next-line no-continue
+                    continue;
+                }
+
+                if (value > this.gridSize || value <= 0) {
+                    // eslint-disable-next-line no-continue
+                    continue;
+                }
+
+                if (ts > this.maxTimestamp || ts < 0) {
+                    // eslint-disable-next-line no-continue
+                    continue;
+                }
+
+                this.steps.push({ cellIndex, value, ts });
+            } while (input.length > 0);
+        } catch {
             return [];
-        }
-
-        this.steps = [];
-        for (let i = 0; i < bytes.length; i += this.bytesPerStep) {
-            const packed = bytes[i] |
-                          (bytes[i + 1] << this.bitsPerByte) |
-                          (bytes[i + 2] << (this.bitsPerByte * 2));
-
-            this.steps.push({
-                cellIndex: packed & this.cellIndexMask,
-                value: (packed >> this.valueShift) & this.valueMask,
-                ts: (packed >> this.timestampShift) & this.timestampMask
-            });
         }
 
         return this.steps;
-    }
-
-    private bytesToBase64(bytes: Uint8Array): string {
-        return btoa(String.fromCharCode(...bytes));
-    }
-
-    private base64ToBytes(base64: string): Uint8Array {
-        try {
-            const binary = atob(base64);
-
-            return Uint8Array.from(binary, char => char.charCodeAt(0));
-        } catch {
-            return new Uint8Array(0);
-        }
     }
 
     static fromString(solutionSteps: string): Solution {

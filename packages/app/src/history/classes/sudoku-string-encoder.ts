@@ -1,132 +1,83 @@
-/* eslint-disable no-bitwise */
+import { BitInputStream, BitOutputStream } from '@thi.ng/bitstream';
+
+import { isDefined, isNotEmptyString } from '@rnw-community/shared';
+
+import { CELL_INDEX_BITS, VALUE_BITS } from '../constants/bit-encoding.constant';
+import { SolutionStepInterface } from '../interfaces/solution-step.interface';
+import { stringToUint8Array } from '../util/string-to-uint8array.util';
+
 export class SudokuStringEncoder {
     private readonly gridSize = 9;
     private readonly totalCells = this.gridSize * this.gridSize;
-    private readonly cellIndexBits = 7;
-    private readonly valueBits = 4;
-    private readonly bitsPerClue = this.cellIndexBits + this.valueBits;
     private readonly emptyCell = '.';
-    private readonly bitsPerByte = 8;
-    private readonly cellIndexMask = (1 << this.cellIndexBits) - 1;
-    private readonly valueMask = (1 << this.valueBits) - 1;
+    //suuudokuuu://shared?eyJzIjoiQU1CVUc0UVFzaGpEa0lnUzRxQlpqQ0dvT1llcEFTTWtwSmlVSXFwYUM1bUVNdWFZMkp3anNua1BtZ2hDeUpVYnBJU29tVlBLaGxMcWlWbXNGYWE1bDdzQllreVZuRFNXcU5pYm00RnpEcVhhUEhlcytWK2tCNExRamhyRUdMTWFJNVNGa3pLaVcweDVwVGhucFFNPSIsImgiOiJUTFdJWWxXU0RsV1piRldlT0ZXZ1ZGV2lHRldsWnhXcVNSV3NjeFcwTFJXNEZSVzZFUlc4SmpYSWNEWE9XRFhTaURYVllEWFhuRFhZa0xYdVpMWHhIclgwZkxYM1JMWDRsdFgvZ3RZRFhOWUVRdFlJTk5ZS0hOWUxVdllRQnZZU1J2WVVhVFlXZVBZY012WWVFdllmZ1BZaW9IWW9oSFlwV25ZdFBuWXZJell5aXpZMWt6WTJPelk0SlRZNkN6WTdkVFk5bnBZK2RwWkFQSlpCZnBaRExuWklNSlpMREhaTUdwWk9GblpQIiwibSI6Ijk5In0=
+    //suuudokuuu://shared?eyJzIjoiQU1CVUlKQVNoRlZOaWdoS2llVkRLelh1MVJ1YjFvYXhvamxLaVk4MGdBPT0iLCJoIjoiVExXSVlsV1NEbFdaYkZXZU9GV2dWRldpR0ZXbFp4V3FTUldzY3hXMExSVzRGUlc2RVJXOEpqWEljRFhPV0RYU2lEWFZZRFhYbkRYWWtMWHVaTFh4SHJYMGZMWDNSTFg0bHRYL2d0WURYTllFUXRZSU5OWUtITllMVXZZUUJ2WVNSdllVYVRZV2VQWWNNdlllRXZZZmdQWWlvSFlvaEhZcFduWXRQbll2SXpZeWl6WTFrelkyT3pZNEpUWTZDelk3ZFRZOW5wWStkcFpBUEpaQmZwWkRMblpJTUpaTERIWk1HcFpPRm5aUCIsIm0iOiI5OSJ9
+    // https://suuudokuuu.com/shared?eyJzIjoiXHUwMDAwwFQgkFx1MDAxMoRVTYpcYkqJ5UMrNe7VXHUwMDFim9aGsaI5SomPNIAiLCJoIjoiTLWIYlWSXHUwMDBlVZlsVZ44VaBUVaJcdTAwMThVpWdcdTAwMTWqSVx1MDAxNaxzXHUwMDE1tC1cdTAwMTW4XHUwMDE1XHUwMDE1ulx1MDAxMVx1MDAxNbwmNchwNc5YNdKINdVgNdecNdiQte5ktfFcdTAwMWW19Hy190S1+JbV/4LWXHUwMDAzXFzWXHUwMDA0QtZcYjTWXG5cdTAwMWPWXHUwMDBiUvZcdTAwMTBcdTAwMDb2XHUwMDEyRvZcdTAwMTRpNlx1MDAxNnj2XHUwMDFjMvZcdTAwMWVcdTAwMTL2XHUwMDFmgPZcIqB2KIR2KVp2LT52LyM2Mos2NZM2Njs2OCU2Olx1MDAwYjY7dTY9npY+dpZAPJZBfpZDLnZIMJZLXGZ2TFx1MDAxYZZOXHUwMDE2dk8iLCJtIjoiOTkifQ==
+    // http://127.0.0.1:8081/shared?eyJzIjoiXHUwMDAwwFQgkFx1MDAxMoRVTYpcYkqJ5UMrNe7VXHUwMDFim9aGsaI5SomPNIAiLCJoIjoiTLWIYlWSXHUwMDBlVZlsVZ44VaBUVaJcdTAwMThVpWdcdTAwMTWqSVx1MDAxNaxzXHUwMDE1tC1cdTAwMTW4XHUwMDE1XHUwMDE1ulx1MDAxMVx1MDAxNbwmNchwNc5YNdKINdVgNdecNdiQte5ktfFcdTAwMWW19Hy190S1+JbV/4LWXHUwMDAzXFzWXHUwMDA0QtZcYjTWXG5cdTAwMWPWXHUwMDBiUvZcdTAwMTBcdTAwMDb2XHUwMDEyRvZcdTAwMTRpNlx1MDAxNnj2XHUwMDFjMvZcdTAwMWVcdTAwMTL2XHUwMDFmgPZcIqB2KIR2KVp2LT52LyM2Mos2NZM2Njs2OCU2Olx1MDAwYjY7dTY9npY+dpZAPJZBfpZDLnZIMJZLXGZ2TFx1MDAxYZZOXHUwMDE2dk8iLCJtIjoiOTkifQ==
 
-    encode(sudokuString: string): string {
+    encode(sudokuString: string, steps: SolutionStepInterface[] = []): string {
         if (sudokuString.length !== this.totalCells) {
             return '';
         }
 
-        const clues = this.extractClues(sudokuString);
-
-        if (clues.length === 0) {
-            return '';
+        const initial = sudokuString.split('');
+        for (const step of steps) {
+            initial[step.cellIndex] = this.emptyCell;
         }
 
-        const bytes = this.packCluesToBytes(clues);
-
-        return this.bytesToBase64(bytes);
-    }
-
-    decode(encoded: string): string {
-        if (encoded.length === 0) {
-            return this.emptyCell.repeat(this.totalCells);
-        }
-
-        const bytes = this.base64ToBytes(encoded);
-        if (bytes.length === 0) {
-            return this.emptyCell.repeat(this.totalCells);
-        }
-
-        return this.unpackBytesToGrid(bytes);
-    }
-
-    private extractClues(sudokuString: string): Array<{ cellIndex: number; value: number }> {
-        const clues: Array<{ cellIndex: number; value: number }> = [];
-
-        for (let i = 0; i < sudokuString.length; i += 1) {
-            const char = sudokuString[i];
+        const out = new BitOutputStream();
+        for (let i = 0; i < initial.length; i += 1) {
+            const char = initial[i];
             if (char !== this.emptyCell) {
-                clues.push({ cellIndex: i, value: parseInt(char, 10) });
+                out.write(i, CELL_INDEX_BITS);
+                out.write(parseInt(char, 10), VALUE_BITS);
             }
+        }
+
+        return String.fromCharCode(...out.bytes());
+    }
+
+    decode(input: string): string {
+        if (!isNotEmptyString(input)) {
+            return this.emptyCell.repeat(this.totalCells);
+        }
+
+        const clues = this.getCluesFromInput(input);
+
+        let result = '';
+        for (let i = 0; i < this.totalCells; i += 1) {
+            result += isDefined(clues[i]) ? clues[i].toString() : this.emptyCell;
+        }
+
+        return result;
+    }
+
+    // eslint-disable-next-line max-statements
+    private getCluesFromInput(input: string): Record<number, number> {
+        const clues: Record<number, number> = {};
+
+        try {
+            const inputStream = new BitInputStream(stringToUint8Array(input));
+            do {
+                const cellIndex = inputStream.read(CELL_INDEX_BITS);
+                const value = inputStream.read(VALUE_BITS);
+
+                if (cellIndex > this.totalCells - 1 || cellIndex < 0) {
+                    // eslint-disable-next-line no-continue
+                    continue;
+                }
+
+                if (value > this.gridSize || value <= 0) {
+                    // eslint-disable-next-line no-continue
+                    continue;
+                }
+
+                clues[cellIndex] = value;
+            } while (inputStream.length > 0);
+        } catch {
+            return clues;
         }
 
         return clues;
-    }
-
-    private packCluesToBytes(clues: Array<{ cellIndex: number; value: number }>): Uint8Array {
-        const totalBits = clues.length * this.bitsPerClue;
-        const byteCount = Math.ceil(totalBits / this.bitsPerByte);
-        const bytes = new Uint8Array(byteCount);
-
-        let bitPosition = 0;
-        for (const clue of clues) {
-            const packed = (clue.cellIndex & this.cellIndexMask) |
-                           ((clue.value & this.valueMask) << this.cellIndexBits);
-
-            this.writeBitsToBytes(bytes, bitPosition, packed);
-            bitPosition += this.bitsPerClue;
-        }
-
-        return bytes;
-    }
-
-    private writeBitsToBytes(bytes: Uint8Array, startBit: number, value: number): void {
-        for (let i = 0; i < this.bitsPerClue; i += 1) {
-            const bit = (value >> i) & 1;
-            const byteIndex = Math.floor((startBit + i) / this.bitsPerByte);
-            const bitOffset = (startBit + i) % this.bitsPerByte;
-            bytes[byteIndex] |= bit << bitOffset;
-        }
-    }
-
-    private unpackBytesToGrid(bytes: Uint8Array): string {
-        const totalBits = bytes.length * this.bitsPerByte;
-        const clueCount = Math.floor(totalBits / this.bitsPerClue);
-
-        const result = Array(this.totalCells).fill(this.emptyCell);
-
-        let bitPosition = 0;
-        for (let clueIndex = 0; clueIndex < clueCount; clueIndex += 1) {
-            const packed = this.readBitsFromBytes(bytes, bitPosition);
-            bitPosition += this.bitsPerClue;
-
-            const cellIndex = packed & this.cellIndexMask;
-            const value = (packed >> this.cellIndexBits) & this.valueMask;
-
-            if (cellIndex < this.totalCells && value >= 1 && value <= this.gridSize) {
-                result[cellIndex] = value.toString();
-            }
-        }
-
-        return result.join('');
-    }
-
-    private readBitsFromBytes(bytes: Uint8Array, startBit: number): number {
-        let packed = 0;
-
-        for (let i = 0; i < this.bitsPerClue; i += 1) {
-            const byteIndex = Math.floor((startBit + i) / this.bitsPerByte);
-            const bitOffset = (startBit + i) % this.bitsPerByte;
-
-            if (byteIndex < bytes.length) {
-                const bit = (bytes[byteIndex] >> bitOffset) & 1;
-                packed |= bit << i;
-            }
-        }
-
-        return packed;
-    }
-
-    private bytesToBase64(bytes: Uint8Array): string {
-        return btoa(String.fromCharCode(...bytes));
-    }
-
-    private base64ToBytes(base64: string): Uint8Array {
-        try {
-            const binary = atob(base64);
-
-            return Uint8Array.from(binary, char => char.charCodeAt(0));
-        } catch {
-            return new Uint8Array(0);
-        }
     }
 }
