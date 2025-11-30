@@ -3,8 +3,10 @@ import { BitInputStream, BitOutputStream } from '@thi.ng/bitstream';
 import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
 import { CELL_INDEX_BITS, VALUE_BITS } from '../constants/bit-encoding.constant';
-import { GRID_CELL_COUNT, GRID_SIZE } from '../constants/grid.constant';
+import { GRID_CELL_COUNT } from '../constants/grid.constant';
 import { SolutionStepInterface } from '../interfaces/solution-step.interface';
+import { isValidCellIndex } from '../util/is-valid-cell-index.util';
+import { isValidCellValue } from '../util/is-valid-cell-value.util';
 import { stringToUint8Array } from '../util/string-to-uint8array.util';
 
 export class SudokuStringEncoder {
@@ -47,27 +49,18 @@ export class SudokuStringEncoder {
         return result;
     }
 
-    // eslint-disable-next-line max-statements
     private getCluesFromInput(input: string): Record<number, number> {
         const clues: Record<number, number> = {};
 
         try {
             const inputStream = new BitInputStream(stringToUint8Array(input));
             do {
-                const cellIndex = inputStream.read(CELL_INDEX_BITS);
+                const index = inputStream.read(CELL_INDEX_BITS);
                 const value = inputStream.read(VALUE_BITS);
 
-                if (cellIndex > GRID_CELL_COUNT - 1 || cellIndex < 0) {
-                    // eslint-disable-next-line no-continue
-                    continue;
+                if (isValidCellValue(value) && isValidCellIndex(index)) {
+                    clues[index] = value;
                 }
-
-                if (value > GRID_SIZE || value <= 0) {
-                    // eslint-disable-next-line no-continue
-                    continue;
-                }
-
-                clues[cellIndex] = value;
             } while (inputStream.length > 0);
         } catch {
             return clues;

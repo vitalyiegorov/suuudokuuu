@@ -3,8 +3,10 @@ import { BitInputStream, BitOutputStream } from '@thi.ng/bitstream';
 import { isNotEmptyString } from '@rnw-community/shared';
 
 import { CELL_INDEX_BITS, TIMESTAMP_BITS, VALUE_BITS } from '../constants/bit-encoding.constant';
-import { GRID_CELL_COUNT, GRID_SIZE } from '../constants/grid.constant';
+import { GRID_SIZE } from '../constants/grid.constant';
 import { SolutionStepInterface } from '../interfaces/solution-step.interface';
+import { isValidCellIndex } from '../util/is-valid-cell-index.util';
+import { isValidCellValue } from '../util/is-valid-cell-value.util';
 import { stringToUint8Array } from '../util/string-to-uint8array.util';
 
 import type { CellInterface } from '@suuudokuuu/generator';
@@ -50,7 +52,6 @@ export class Solution {
         return this.steps;
     }
 
-    // eslint-disable-next-line max-statements
     private parse(inputBase64: string): SolutionStepInterface[] {
         if (!isNotEmptyString(inputBase64)) {
             return [];
@@ -60,26 +61,13 @@ export class Solution {
             const input = new BitInputStream(stringToUint8Array(inputBase64));
 
             do {
-                const cellIndex = input.read(CELL_INDEX_BITS);
+                const index = input.read(CELL_INDEX_BITS);
                 const value = input.read(VALUE_BITS);
                 const ts = input.read(TIMESTAMP_BITS);
 
-                if (cellIndex > GRID_CELL_COUNT - 1 || cellIndex < 0) {
-                    // eslint-disable-next-line no-continue
-                    continue;
+                if (isValidCellValue(value) && isValidCellIndex(index) && ts >= 0 && ts <= this.maxTimestamp) {
+                    this.steps.push({ cellIndex: index, value, ts });
                 }
-
-                if (value > GRID_SIZE || value <= 0) {
-                    // eslint-disable-next-line no-continue
-                    continue;
-                }
-
-                if (ts > this.maxTimestamp || ts < 0) {
-                    // eslint-disable-next-line no-continue
-                    continue;
-                }
-
-                this.steps.push({ cellIndex, value, ts });
             } while (input.length > 0);
         } catch {
             return [];
