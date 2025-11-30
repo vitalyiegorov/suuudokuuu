@@ -168,6 +168,32 @@ describe('Solution', () => {
             expect(Solution.fromString(null as unknown as string).getSteps()).toEqual([]);
             expect(Solution.fromString(undefined as unknown as string).getSteps()).toEqual([]);
         });
+
+        it('should skip steps with invalid cellIndex', () => {
+            expect.assertions(1);
+
+            const invalidData = String.fromCharCode(0xFF, 0xFF, 0xFF);
+            const parsed = Solution.fromString(invalidData);
+
+            expect(parsed.getSteps()).toEqual([]);
+        });
+
+        it('should skip steps with invalid value', () => {
+            expect.assertions(1);
+
+            const invalidData = String.fromCharCode(0x00, 0x00, 0x00);
+            const parsed = Solution.fromString(invalidData);
+
+            expect(parsed.getSteps()).toEqual([]);
+        });
+
+        it('should handle data too short for a full step', () => {
+            expect.assertions(1);
+
+            const parsed = Solution.fromString(String.fromCharCode(0, 0));
+
+            expect(parsed.getSteps()).toEqual([]);
+        });
     });
 
     describe('fromSteps', () => {

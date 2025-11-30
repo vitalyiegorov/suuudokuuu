@@ -9,6 +9,8 @@ import { isValidCellIndex } from '../util/is-valid-cell-index.util';
 import { isValidCellValue } from '../util/is-valid-cell-value.util';
 import { stringToUint8Array } from '../util/string-to-uint8array.util';
 
+const BITS_PER_CLUE = CELL_INDEX_BITS + VALUE_BITS;
+
 export class SudokuStringEncoder {
     private readonly emptyCell = '.';
 
@@ -51,19 +53,15 @@ export class SudokuStringEncoder {
 
     private getCluesFromInput(input: string): Record<number, number> {
         const clues: Record<number, number> = {};
+        const inputStream = new BitInputStream(stringToUint8Array(input));
 
-        try {
-            const inputStream = new BitInputStream(stringToUint8Array(input));
-            do {
-                const index = inputStream.read(CELL_INDEX_BITS);
-                const value = inputStream.read(VALUE_BITS);
+        while (inputStream.position + BITS_PER_CLUE <= inputStream.length) {
+            const index = inputStream.read(CELL_INDEX_BITS);
+            const value = inputStream.read(VALUE_BITS);
 
-                if (isValidCellValue(value) && isValidCellIndex(index)) {
-                    clues[index] = value;
-                }
-            } while (inputStream.length > 0);
-        } catch {
-            return clues;
+            if (isValidCellValue(value) && isValidCellIndex(index)) {
+                clues[index] = value;
+            }
         }
 
         return clues;

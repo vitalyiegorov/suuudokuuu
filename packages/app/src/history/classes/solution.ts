@@ -11,6 +11,8 @@ import { stringToUint8Array } from '../util/string-to-uint8array.util';
 
 import type { CellInterface } from '@suuudokuuu/generator';
 
+const BITS_PER_STEP = CELL_INDEX_BITS + VALUE_BITS + TIMESTAMP_BITS;
+
 export class Solution {
     private readonly maxTimestamp = 8191;
 
@@ -57,20 +59,16 @@ export class Solution {
             return [];
         }
 
-        try {
-            const input = new BitInputStream(stringToUint8Array(inputBase64));
+        const input = new BitInputStream(stringToUint8Array(inputBase64));
 
-            do {
-                const index = input.read(CELL_INDEX_BITS);
-                const value = input.read(VALUE_BITS);
-                const ts = input.read(TIMESTAMP_BITS);
+        while (input.position + BITS_PER_STEP <= input.length) {
+            const index = input.read(CELL_INDEX_BITS);
+            const value = input.read(VALUE_BITS);
+            const ts = input.read(TIMESTAMP_BITS);
 
-                if (isValidCellValue(value) && isValidCellIndex(index) && ts >= 0 && ts <= this.maxTimestamp) {
-                    this.steps.push({ cellIndex: index, value, ts });
-                }
-            } while (input.length > 0);
-        } catch {
-            return [];
+            if (isValidCellValue(value) && isValidCellIndex(index) && ts >= 0 && ts <= this.maxTimestamp) {
+                this.steps.push({ cellIndex: index, value, ts });
+            }
         }
 
         return this.steps;
