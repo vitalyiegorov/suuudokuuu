@@ -98,11 +98,11 @@ msgstr "Cancelar"
 msgid "Cell margin"
 msgstr "Margen de celda"
 
-#: src/challenge/components/challenge-friend-button/challenge-friend-button.tsx:25
+#: src/challenge/components/challenge-friend-button/challenge-friend-button.tsx:20
 msgid "Challenge a Friend"
 msgstr "Desafiar a un amigo"
 
-#: src/challenge/components/challenge-back-button/challenge-back-button.tsx:24
+#: src/challenge/components/challenge-back-button/challenge-back-button.tsx:19
 msgid "Challenge Back"
 msgstr "Desafiar de vuelta"
 
@@ -520,7 +520,7 @@ msgstr "Temporizador"
 msgid "Tips for High Scores"
 msgstr "Consejos para Puntuaciones Altas"
 
-#: src/challenge/components/challenge-try-again-button/challenge-try-again-button.tsx:25
+#: src/challenge/components/challenge-try-again-button/challenge-try-again-button.tsx:29
 msgid "Try Again"
 msgstr "Intentar de nuevo"
 

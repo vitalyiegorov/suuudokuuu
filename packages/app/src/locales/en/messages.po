@@ -98,11 +98,11 @@ msgstr "Cancel"
 msgid "Cell margin"
 msgstr "Cell margin"
 
-#: src/challenge/components/challenge-friend-button/challenge-friend-button.tsx:25
+#: src/challenge/components/challenge-friend-button/challenge-friend-button.tsx:20
 msgid "Challenge a Friend"
 msgstr "Challenge a Friend"
 
-#: src/challenge/components/challenge-back-button/challenge-back-button.tsx:24
+#: src/challenge/components/challenge-back-button/challenge-back-button.tsx:19
 msgid "Challenge Back"
 msgstr "Challenge Back"
 
@@ -520,7 +520,7 @@ msgstr "Timer"
 msgid "Tips for High Scores"
 msgstr "Tips for High Scores"
 
-#: src/challenge/components/challenge-try-again-button/challenge-try-again-button.tsx:25
+#: src/challenge/components/challenge-try-again-button/challenge-try-again-button.tsx:29
 msgid "Try Again"
 msgstr "Try Again"
 
