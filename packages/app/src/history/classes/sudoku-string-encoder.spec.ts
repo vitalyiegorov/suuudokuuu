@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers, lingui/no-unlocalized-strings */
 import { beforeEach, describe, expect, it } from '@jest/globals';
-
-import { SolutionTechniqueEnum } from '../enums/solution-technique.enum';
+import { SolutionTechniqueEnum } from '@suuudokuuu/generator';
 
 import { SudokuStringEncoder } from './sudoku-string-encoder';
 

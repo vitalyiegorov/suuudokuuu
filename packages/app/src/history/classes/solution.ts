@@ -1,10 +1,11 @@
+import { SolutionTechniqueEnum, TECHNIQUE_BITS, isValidTechnique } from '@suuudokuuu/generator';
 import { BitInputStream, BitOutputStream } from '@thi.ng/bitstream';
 
 import { isNotEmptyString } from '@rnw-community/shared';
 
-import { CELL_INDEX_BITS, TECHNIQUE_BITS, TIMESTAMP_BITS, VALUE_BITS } from '../constants/bit-encoding.constant';
+
+import { CELL_INDEX_BITS, TIMESTAMP_BITS, VALUE_BITS } from '../constants/bit-encoding.constant';
 import { GRID_SIZE } from '../constants/grid.constant';
-import { SolutionTechniqueEnum, isValidTechnique } from '../enums/solution-technique.enum';
 import { SolutionStepInterface } from '../interfaces/solution-step.interface';
 import { base64ToUint8Array } from '../util/base64-to-uint8array.util';
 import { isValidCellIndex } from '../util/is-valid-cell-index.util';

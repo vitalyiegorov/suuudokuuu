@@ -19,6 +19,8 @@ export enum SolutionTechniqueEnum {
 }
 /* eslint-enable @typescript-eslint/no-magic-numbers */
 
+export const TECHNIQUE_BITS = 4;
+
 const techniqueMaxValue = 15;
 
 export const isValidTechnique = (technique: number): technique is SolutionTechniqueEnum =>
