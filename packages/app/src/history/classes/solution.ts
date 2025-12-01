@@ -2,8 +2,9 @@ import { BitInputStream, BitOutputStream } from '@thi.ng/bitstream';
 
 import { isNotEmptyString } from '@rnw-community/shared';
 
-import { CELL_INDEX_BITS, TIMESTAMP_BITS, VALUE_BITS } from '../constants/bit-encoding.constant';
+import { CELL_INDEX_BITS, TECHNIQUE_BITS, TIMESTAMP_BITS, VALUE_BITS } from '../constants/bit-encoding.constant';
 import { GRID_SIZE } from '../constants/grid.constant';
+import { SolutionTechniqueEnum, isValidTechnique } from '../enums/solution-technique.enum';
 import { SolutionStepInterface } from '../interfaces/solution-step.interface';
 import { base64ToUint8Array } from '../util/base64-to-uint8array.util';
 import { isValidCellIndex } from '../util/is-valid-cell-index.util';
@@ -13,7 +14,7 @@ import type { CellInterface } from '@suuudokuuu/generator';
 
 export class Solution {
     private readonly maxTimestamp = 8191;
-    private readonly bitsPerStep = CELL_INDEX_BITS + VALUE_BITS + TIMESTAMP_BITS;
+    private readonly bitsPerStep = CELL_INDEX_BITS + VALUE_BITS + TIMESTAMP_BITS + TECHNIQUE_BITS;
 
     private steps: SolutionStepInterface[] = [];
 
@@ -27,12 +28,17 @@ export class Solution {
             out.write(step.cellIndex, CELL_INDEX_BITS);
             out.write(step.value, VALUE_BITS);
             out.write(step.ts, TIMESTAMP_BITS);
+            out.write(step.technique, TECHNIQUE_BITS);
         }
 
         return btoa(String.fromCharCode(...out.bytes()));
     }
 
-    addStep(cell: Pick<CellInterface, 'x' | 'y' | 'value'>, elapsedTime: number): SolutionStepInterface {
+    addStep(
+        cell: Pick<CellInterface, 'x' | 'y' | 'value'>,
+        elapsedTime: number,
+        technique: SolutionTechniqueEnum = SolutionTechniqueEnum.Guess
+    ): SolutionStepInterface {
         const totalElapsedTime = this.steps.reduce((total, step) => total + step.ts, 0);
         const timeDiff = elapsedTime - totalElapsedTime;
         const cappedTimeDiff = Math.min(timeDiff, this.maxTimestamp);
@@ -40,7 +46,8 @@ export class Solution {
         const lastStep = {
             cellIndex: cell.y * GRID_SIZE + cell.x,
             value: cell.value,
-            ts: cappedTimeDiff
+            ts: cappedTimeDiff,
+            technique
         };
 
         this.steps.push(lastStep);
@@ -67,9 +74,16 @@ export class Solution {
                 const index = input.read(CELL_INDEX_BITS);
                 const value = input.read(VALUE_BITS);
                 const ts = input.read(TIMESTAMP_BITS);
+                const technique = input.read(TECHNIQUE_BITS);
 
-                if (isValidCellValue(value) && isValidCellIndex(index) && ts >= 0 && ts <= this.maxTimestamp) {
-                    this.steps.push({ cellIndex: index, value, ts });
+                if (
+                    isValidCellValue(value) &&
+                    isValidCellIndex(index) &&
+                    ts >= 0 &&
+                    ts <= this.maxTimestamp &&
+                    isValidTechnique(technique)
+                ) {
+                    this.steps.push({ cellIndex: index, value, ts, technique });
                 }
             }
         } catch {

@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers, lingui/no-unlocalized-strings */
 import { beforeEach, describe, expect, it } from '@jest/globals';
 
+import { SolutionTechniqueEnum } from '../enums/solution-technique.enum';
+
 import { Solution } from './solution';
 
 import type { SolutionStepInterface } from '../interfaces/solution-step.interface';
@@ -29,7 +31,7 @@ describe('Solution', () => {
 
             const result = solution.addStep(cell, elapsedTime);
 
-            expect(result).toEqual({ cellIndex: 19, value: 3, ts: 100 });
+            expect(result).toEqual({ cellIndex: 19, value: 3, ts: 100, technique: SolutionTechniqueEnum.Guess });
             expect(solution.getSteps()).toHaveLength(1);
         });
 
@@ -46,7 +48,7 @@ describe('Solution', () => {
 
             expect(result.ts).toBe(150);
             expect(solution.getSteps()).toHaveLength(3);
-            expect(solution.getSteps()[2]).toEqual({ cellIndex: 20, value: 3, ts: 150 });
+            expect(solution.getSteps()[2]).toEqual({ cellIndex: 20, value: 3, ts: 150, technique: SolutionTechniqueEnum.Guess });
         });
 
         it('should handle zero elapsed time', () => {
@@ -56,7 +58,7 @@ describe('Solution', () => {
 
             const result = solution.addStep(cell, 0);
 
-            expect(result).toEqual({ cellIndex: 0, value: 1, ts: 0 });
+            expect(result).toEqual({ cellIndex: 0, value: 1, ts: 0, technique: SolutionTechniqueEnum.Guess });
         });
 
         it('should handle maximum grid coordinates', () => {
@@ -66,7 +68,7 @@ describe('Solution', () => {
 
             const result = solution.addStep(cell, 999);
 
-            expect(result).toEqual({ cellIndex: 80, value: 9, ts: 999 });
+            expect(result).toEqual({ cellIndex: 80, value: 9, ts: 999, technique: SolutionTechniqueEnum.Guess });
         });
 
         it('should cap timestamp at 8191 when time difference exceeds maximum', () => {
@@ -135,8 +137,8 @@ describe('Solution', () => {
             const steps = solution.getSteps();
 
             expect(steps).toEqual([
-                { cellIndex: 0, value: 1, ts: 100 },
-                { cellIndex: 10, value: 2, ts: 100 }
+                { cellIndex: 0, value: 1, ts: 100, technique: SolutionTechniqueEnum.Guess },
+                { cellIndex: 10, value: 2, ts: 100, technique: SolutionTechniqueEnum.Guess }
             ]);
         });
 
@@ -209,7 +211,7 @@ describe('Solution', () => {
         it('should create solution from single step', () => {
             expect.assertions(1);
 
-            const steps: SolutionStepInterface[] = [{ cellIndex: 19, value: 3, ts: 100 }];
+            const steps: SolutionStepInterface[] = [{ cellIndex: 19, value: 3, ts: 100, technique: SolutionTechniqueEnum.Guess }];
 
             const result = Solution.fromSteps(steps);
 
@@ -220,9 +222,9 @@ describe('Solution', () => {
             expect.assertions(1);
 
             const steps: SolutionStepInterface[] = [
-                { cellIndex: 0, value: 1, ts: 100 },
-                { cellIndex: 49, value: 6, ts: 123 },
-                { cellIndex: 80, value: 9, ts: 999 }
+                { cellIndex: 0, value: 1, ts: 100, technique: SolutionTechniqueEnum.Guess },
+                { cellIndex: 49, value: 6, ts: 123, technique: SolutionTechniqueEnum.NakedSingle },
+                { cellIndex: 80, value: 9, ts: 999, technique: SolutionTechniqueEnum.HiddenSingle }
             ];
 
             const result = Solution.fromSteps(steps);
@@ -236,7 +238,7 @@ describe('Solution', () => {
             const steps: SolutionStepInterface[] = [];
             const result = Solution.fromSteps(steps);
 
-            steps.push({ cellIndex: 10, value: 1, ts: 100 });
+            steps.push({ cellIndex: 10, value: 1, ts: 100, technique: SolutionTechniqueEnum.Guess });
 
             expect(result.getSteps()).toHaveLength(1);
         });
@@ -278,7 +280,7 @@ describe('Solution', () => {
 
             const stringified = solution.stringify();
             const parsed = Solution.fromString(stringified);
-            expect(parsed.getSteps()).toEqual([{ cellIndex: 0, value: 1, ts: 8191 }]);
+            expect(parsed.getSteps()).toEqual([{ cellIndex: 0, value: 1, ts: 8191, technique: SolutionTechniqueEnum.Guess }]);
             expect(parsed.stringify()).toBe(stringified);
         });
 
@@ -290,9 +292,9 @@ describe('Solution', () => {
             solution.addStep({ x: 2, y: 2, value: 3 }, 100);
 
             expect(solution.getSteps()).toEqual([
-                { cellIndex: 0, value: 1, ts: 100 },
-                { cellIndex: 10, value: 2, ts: 0 },
-                { cellIndex: 20, value: 3, ts: 0 }
+                { cellIndex: 0, value: 1, ts: 100, technique: SolutionTechniqueEnum.Guess },
+                { cellIndex: 10, value: 2, ts: 0, technique: SolutionTechniqueEnum.Guess },
+                { cellIndex: 20, value: 3, ts: 0, technique: SolutionTechniqueEnum.Guess }
             ]);
         });
 
@@ -353,9 +355,9 @@ describe('Solution', () => {
             const parsed = Solution.fromString(stringified);
 
             expect(parsed.getSteps()).toEqual([
-                { cellIndex: 0, value: 1, ts: 0 },
-                { cellIndex: 10, value: 2, ts: 8191 },
-                { cellIndex: 20, value: 3, ts: 909 }
+                { cellIndex: 0, value: 1, ts: 0, technique: SolutionTechniqueEnum.Guess },
+                { cellIndex: 10, value: 2, ts: 8191, technique: SolutionTechniqueEnum.Guess },
+                { cellIndex: 20, value: 3, ts: 909, technique: SolutionTechniqueEnum.Guess }
             ]);
             expect(parsed.stringify()).toBe(stringified);
         });
@@ -394,12 +396,12 @@ describe('Solution', () => {
             expect(parsed.getSteps()[0].ts).toBe(8191);
         });
 
-        it('should encode 3 bytes per step', () => {
+        it('should encode 4 bytes per step', () => {
             expect.assertions(1);
 
             solution.addStep({ x: 0, y: 0, value: 1 }, 0);
 
-            expect(solution.stringify().length).toBe(4);
+            expect(solution.stringify().length).toBe(8);
         });
     });
 
@@ -434,6 +436,71 @@ describe('Solution', () => {
             expect(steps[2].ts).toBe(1);
             expect(steps[3].ts).toBe(1);
             expect(steps[4].ts).toBe(1);
+        });
+    });
+
+    describe('technique encoding', () => {
+        it('should default to Guess technique when not specified', () => {
+            expect.assertions(1);
+
+            const result = solution.addStep({ x: 0, y: 0, value: 1 }, 0);
+
+            expect(result.technique).toBe(SolutionTechniqueEnum.Guess);
+        });
+
+        it('should store specified technique', () => {
+            expect.assertions(1);
+
+            const result = solution.addStep({ x: 0, y: 0, value: 1 }, 0, SolutionTechniqueEnum.NakedSingle);
+
+            expect(result.technique).toBe(SolutionTechniqueEnum.NakedSingle);
+        });
+
+        it('should preserve all techniques through round-trip conversion', () => {
+            expect.assertions(1);
+
+            solution.addStep({ x: 0, y: 0, value: 1 }, 0, SolutionTechniqueEnum.Guess);
+            solution.addStep({ x: 1, y: 1, value: 2 }, 100, SolutionTechniqueEnum.NakedSingle);
+            solution.addStep({ x: 2, y: 2, value: 3 }, 200, SolutionTechniqueEnum.HiddenSingle);
+            solution.addStep({ x: 3, y: 3, value: 4 }, 300, SolutionTechniqueEnum.NakedPair);
+            solution.addStep({ x: 4, y: 4, value: 5 }, 400, SolutionTechniqueEnum.XWing);
+            solution.addStep({ x: 5, y: 5, value: 6 }, 500, SolutionTechniqueEnum.XYZWing);
+
+            const stringified = solution.stringify();
+            const parsed = Solution.fromString(stringified);
+
+            expect(parsed.getSteps()).toEqual(solution.getSteps());
+        });
+
+        it('should correctly encode all technique values in 4 bits', () => {
+            expect.assertions(16);
+
+            const techniques = [
+                SolutionTechniqueEnum.Guess,
+                SolutionTechniqueEnum.NakedSingle,
+                SolutionTechniqueEnum.HiddenSingle,
+                SolutionTechniqueEnum.NakedPair,
+                SolutionTechniqueEnum.HiddenPair,
+                SolutionTechniqueEnum.NakedTriple,
+                SolutionTechniqueEnum.HiddenTriple,
+                SolutionTechniqueEnum.NakedQuad,
+                SolutionTechniqueEnum.HiddenQuad,
+                SolutionTechniqueEnum.PointingPair,
+                SolutionTechniqueEnum.BoxLineReduction,
+                SolutionTechniqueEnum.XWing,
+                SolutionTechniqueEnum.Swordfish,
+                SolutionTechniqueEnum.Jellyfish,
+                SolutionTechniqueEnum.XYWing,
+                SolutionTechniqueEnum.XYZWing
+            ];
+
+            for (const technique of techniques) {
+                const sol = new Solution();
+                sol.addStep({ x: 0, y: 0, value: 1 }, 0, technique);
+                const stringified = sol.stringify();
+                const parsed = Solution.fromString(stringified);
+                expect(parsed.getSteps()[0].technique).toBe(technique);
+            }
         });
     });
 });
