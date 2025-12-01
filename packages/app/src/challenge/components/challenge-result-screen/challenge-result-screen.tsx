@@ -1,48 +1,49 @@
 import { useLingui } from '@lingui/react/macro';
 import { Redirect } from 'expo-router';
+import { LucideHeartCrack, LucideTrophy } from 'lucide-react-native';
 import { use } from 'react';
 import { Text, View } from 'react-native';
+
+import { isNotEmptyString } from '@rnw-community/shared';
 
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { Donation } from '../../../@generic/components/donation/donation';
 import { Header } from '../../../@generic/components/header/header';
 import { PlayAgainButton } from '../../../@generic/components/play-again-button/play-again-button';
-import { useResetGame } from '../../../@generic/hooks/use-reset-game.hook';
 import { getTimerText } from '../../../@generic/utils/get-timer-text.util';
+import { GameState } from '../../../game/store/game.state';
 import { ThemeContext } from '../../../theme/context/theme.context';
 
 import { ChallengeResultScreenStyles as styles } from './challenge-result-screen.styles';
 
-import type { GameState } from '../../../game/store/game.state';
-import type { LucideIcon } from 'lucide-react-native';
 import type { ReactNode } from 'react';
 
 interface ChallengeResultScreenProps {
-    readonly icon: LucideIcon;
-    readonly headerText: string;
-    readonly differenceLabel: string;
     readonly isWon: boolean;
-    readonly extraContent?: ReactNode;
-    readonly children?: (gameState: GameState) => ReactNode;
+    readonly children?: ReactNode;
+    readonly gameState: GameState;
 }
 
 export const ChallengeResultScreen = (props: ChallengeResultScreenProps) => {
-    const { icon: Icon, headerText, differenceLabel, isWon, extraContent, children } = props;
+    const { isWon, children, gameState } = props;
+    const { score, elapsedTime, opponentTotalTime, sudokuString } = gameState;
+
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
 
-    const [isGameStarted, gameState] = useResetGame();
-    const { score, elapsedTime, opponentTotalTime } = gameState;
-
-    if (!isGameStarted && elapsedTime === 0) {
+    if (!isNotEmptyString(sudokuString) && elapsedTime === 0) {
         return <Redirect href="/" />;
     }
 
-    const timeDifference = isWon ? opponentTotalTime - elapsedTime : elapsedTime - opponentTotalTime;
-    const differenceColor = isWon ? theme.colors.black : theme.colors.red;
+    const headerText = isWon ? t`You won the challenge!` : t`Challenge lost!`;
+    const Icon = isWon ? LucideTrophy : LucideHeartCrack;
     const iconColor = isWon ? theme.colors.black : theme.colors.red;
-    const differenceTimeTextStyle = [styles.boldText, { color: differenceColor }];
     const donationType = isWon ? 'winner' : 'loser';
+    const differenceLabel = isWon ? t`faster!` : t`slower!`;
+
+    const timeDifference = Math.abs(opponentTotalTime - elapsedTime);
+
+    const differenceTimeTextStyle = [styles.boldText, { color: isWon ? theme.colors.black : theme.colors.red }];
 
     return (
         <View style={styles.container}>
@@ -73,13 +74,11 @@ export const ChallengeResultScreen = (props: ChallengeResultScreenProps) => {
                         <Text style={styles.boldText}>{score}</Text>
                     </BlackText>
                 )}
-
-                {extraContent}
             </View>
 
             <Donation type={donationType} />
 
-            {children?.(gameState)}
+            {children}
 
             <PlayAgainButton />
         </View>

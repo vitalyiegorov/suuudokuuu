@@ -68,7 +68,7 @@ msgstr "Найкращий результат"
 msgid "Best time"
 msgstr "Найкращий час"
 
-#: src/screens/components/challenge-lost-screen/challenge-lost-screen.tsx:12
+#: src/app/challenge-lost.tsx:21
 msgid "Better luck next time!"
 msgstr "Більше пощастить наступного разу!"
 
@@ -106,15 +106,15 @@ msgstr "Кинути виклик другу"
 msgid "Challenge Back"
 msgstr ""
 
-#: src/app/challenge-lost.tsx:12
+#: src/app/challenge-lost.tsx:17
 msgid "Challenge Lost"
 msgstr "Виклик програно"
 
-#: src/screens/components/challenge-lost-screen/challenge-lost-screen.tsx:18
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:38
 msgid "Challenge lost!"
 msgstr "Виклик програно!"
 
-#: src/app/challenge-won.tsx:12
+#: src/app/challenge-won.tsx:16
 msgid "Challenge Won!"
 msgstr "Виклик виграно!"
 
@@ -167,7 +167,7 @@ msgstr "Минуло"
 msgid "Extra points are awarded when your placement completes:"
 msgstr "Додаткові бали нараховуються, коли ваше розміщення завершує:"
 
-#: src/screens/components/challenge-won-screen/challenge-won-screen.tsx:12
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:44
 msgid "faster!"
 msgstr "швидше!"
 
@@ -358,7 +358,7 @@ msgstr "Відкрити головоломку"
 msgid "Open shared puzzle?"
 msgstr "Відкрити спільну головоломку?"
 
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:60
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:61
 msgid "Opponent's time:"
 msgstr "Час суперника:"
 
@@ -436,7 +436,7 @@ msgstr "рахунок × коефіцієнт × кількість"
 msgid "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 msgstr "Рахунок нараховується за кожне правильне розміщення клітинки на основі складності, бонусів та штрафів."
 
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:72
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:73
 msgid "Score:"
 msgstr "Рахунок:"
 
@@ -458,9 +458,9 @@ msgstr "Показувати анімаційні ефекти при завер
 msgid "Show combo animation"
 msgstr "Показувати анімацію комбо"
 
-#: src/screens/components/challenge-lost-screen/challenge-lost-screen.tsx:16
-msgid "slower"
-msgstr "повільніше"
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:44
+msgid "slower!"
+msgstr ""
 
 #: src/settings/component/cell-margin-toggle/cell-margin-toggle.tsx:28
 msgid "small"
@@ -588,7 +588,7 @@ msgstr ""
 "\n"
 "Кожен долар важливий!"
 
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:65
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:66
 msgid "You were"
 msgstr "Ви були"
 
@@ -602,7 +602,7 @@ msgstr ""
 "\n"
 "Кожен долар важливий!"
 
-#: src/screens/components/challenge-won-screen/challenge-won-screen.tsx:13
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:38
 msgid "You won the challenge!"
 msgstr "Ви виграли виклик!"
 
@@ -610,6 +610,6 @@ msgstr "Ви виграли виклик!"
 msgid "Your opponent completed this puzzle in"
 msgstr "Ваш суперник завершив цю головоломку за"
 
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:55
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:56
 msgid "Your time:"
 msgstr "Ваш час:"

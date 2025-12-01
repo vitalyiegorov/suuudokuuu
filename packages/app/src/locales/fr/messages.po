@@ -68,7 +68,7 @@ msgstr "Meilleur score"
 msgid "Best time"
 msgstr "Meilleur temps"
 
-#: src/screens/components/challenge-lost-screen/challenge-lost-screen.tsx:12
+#: src/app/challenge-lost.tsx:21
 msgid "Better luck next time!"
 msgstr "Bonne chance pour la prochaine fois !"
 
@@ -106,15 +106,15 @@ msgstr "Défier un ami"
 msgid "Challenge Back"
 msgstr ""
 
-#: src/app/challenge-lost.tsx:12
+#: src/app/challenge-lost.tsx:17
 msgid "Challenge Lost"
 msgstr "Défi perdu"
 
-#: src/screens/components/challenge-lost-screen/challenge-lost-screen.tsx:18
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:38
 msgid "Challenge lost!"
 msgstr "Défi perdu !"
 
-#: src/app/challenge-won.tsx:12
+#: src/app/challenge-won.tsx:16
 msgid "Challenge Won!"
 msgstr "Défi gagné !"
 
@@ -167,7 +167,7 @@ msgstr "Écoulé"
 msgid "Extra points are awarded when your placement completes:"
 msgstr "Des points supplémentaires sont attribués lorsque votre placement complète :"
 
-#: src/screens/components/challenge-won-screen/challenge-won-screen.tsx:12
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:44
 msgid "faster!"
 msgstr "plus rapide !"
 
@@ -358,7 +358,7 @@ msgstr "Ouvrir la grille"
 msgid "Open shared puzzle?"
 msgstr "Ouvrir la grille partagée ?"
 
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:60
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:61
 msgid "Opponent's time:"
 msgstr "Temps de l'adversaire :"
 
@@ -436,7 +436,7 @@ msgstr "score × coefficient × nombre"
 msgid "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 msgstr "Le score est calculé pour chaque placement de cellule correct en fonction de la difficulté, des bonus et des pénalités."
 
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:72
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:73
 msgid "Score:"
 msgstr "Score :"
 
@@ -458,9 +458,9 @@ msgstr "Afficher les effets animés lorsqu'une grille, une ligne, une colonne, u
 msgid "Show combo animation"
 msgstr "Afficher l'animation de combo"
 
-#: src/screens/components/challenge-lost-screen/challenge-lost-screen.tsx:16
-msgid "slower"
-msgstr "plus lent"
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:44
+msgid "slower!"
+msgstr ""
 
 #: src/settings/component/cell-margin-toggle/cell-margin-toggle.tsx:28
 msgid "small"
@@ -588,7 +588,7 @@ msgstr ""
 "\n"
 "Chaque don de 1 $ compte !"
 
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:65
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:66
 msgid "You were"
 msgstr "Vous étiez"
 
@@ -602,7 +602,7 @@ msgstr ""
 "\n"
 "Chaque don de 1 $ compte !"
 
-#: src/screens/components/challenge-won-screen/challenge-won-screen.tsx:13
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:38
 msgid "You won the challenge!"
 msgstr "Vous avez gagné le défi !"
 
@@ -610,6 +610,6 @@ msgstr "Vous avez gagné le défi !"
 msgid "Your opponent completed this puzzle in"
 msgstr "Votre adversaire a terminé ce puzzle en"
 
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:55
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:56
 msgid "Your time:"
 msgstr "Votre temps :"
