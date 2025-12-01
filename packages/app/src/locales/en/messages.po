@@ -13,11 +13,11 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:49
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx:39
 msgid "Accept Challenge"
 msgstr "Accept Challenge"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:36
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx:26
 msgid "Accept challenge?"
 msgstr "Accept challenge?"
 
@@ -45,6 +45,10 @@ msgstr "Avoid mistakes - they cost you points!"
 #: src/screens/components/home-screen/home.screen.tsx:107
 msgid "Back"
 msgstr "Back"
+
+#: src/screens/components/shared-screen/shared-screen.tsx:26
+msgid "Back to Home"
+msgstr "Back to Home"
 
 #: src/scoring/components/scoring.screen.tsx:36
 msgid "Base Score"
@@ -84,13 +88,13 @@ msgstr ""
 msgid "big"
 msgstr "big"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:44
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx:34
 msgid "Can you beat them?"
 msgstr "Can you beat them?"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:50
-#: src/screens/components/shared-screen/shared-screen.tsx:62
+#: src/screens/components/shared-screen/shared-screen.tsx:48
 #: src/screens/components/game-screen/game.screen.tsx:93
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx:40
 msgid "Cancel"
 msgstr "Cancel"
 
@@ -98,7 +102,7 @@ msgstr "Cancel"
 msgid "Cell margin"
 msgstr "Cell margin"
 
-#: src/@generic/components/challenge-friend-button/challenge-friend-button.tsx:23
+#: src/challenge/components/challenge-friend-button/challenge-friend-button.tsx:25
 msgid "Challenge a Friend"
 msgstr "Challenge a Friend"
 
@@ -270,6 +274,10 @@ msgstr "Immortal"
 msgid "Immortal (99 mistakes)"
 msgstr "Immortal (99 mistakes)"
 
+#: src/screens/components/shared-screen/shared-screen.tsx:24
+msgid "Invalid or missing puzzle link."
+msgstr "Invalid or missing puzzle link."
+
 #: src/game/context/game.context.tsx:35
 msgid "Invalid Sudoku"
 msgstr "Invalid Sudoku"
@@ -345,16 +353,16 @@ msgstr "of current score"
 msgid "OK"
 msgstr "OK"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:61
+#: src/screens/components/shared-screen/shared-screen.tsx:47
 msgid "Open puzzle"
 msgstr "Open puzzle"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:58
-#: src/app/shared.tsx:12
+#: src/screens/components/shared-screen/shared-screen.tsx:44
+#: src/app/shared/[state].tsx:12
 msgid "Open shared puzzle?"
 msgstr "Open shared puzzle?"
 
-#: src/screens/components/challenge-result-screen/challenge-result-screen.tsx:56
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:56
 msgid "Opponent's time:"
 msgstr "Opponent's time:"
 
@@ -432,7 +440,7 @@ msgstr "score × coefficient × count"
 msgid "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 msgstr "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 
-#: src/screens/components/challenge-result-screen/challenge-result-screen.tsx:68
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:68
 msgid "Score:"
 msgstr "Score:"
 
@@ -580,7 +588,7 @@ msgstr ""
 "\n"
 "Every 1$ donation matters!"
 
-#: src/screens/components/challenge-result-screen/challenge-result-screen.tsx:61
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:61
 msgid "You were"
 msgstr "You were"
 
@@ -598,10 +606,10 @@ msgstr ""
 msgid "You won the challenge!"
 msgstr "You won the challenge!"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:40
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx:30
 msgid "Your opponent completed this puzzle in"
 msgstr "Your opponent completed this puzzle in"
 
-#: src/screens/components/challenge-result-screen/challenge-result-screen.tsx:51
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:51
 msgid "Your time:"
 msgstr "Your time:"

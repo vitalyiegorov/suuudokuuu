@@ -13,11 +13,11 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:49
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx:39
 msgid "Accept Challenge"
 msgstr "Прийняти виклик"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:36
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx:26
 msgid "Accept challenge?"
 msgstr "Прийняти виклик?"
 
@@ -45,6 +45,10 @@ msgstr "Уникайте помилок - вони коштують балів!"
 #: src/screens/components/home-screen/home.screen.tsx:107
 msgid "Back"
 msgstr "Назад"
+
+#: src/screens/components/shared-screen/shared-screen.tsx:26
+msgid "Back to Home"
+msgstr "Назад на головну"
 
 #: src/scoring/components/scoring.screen.tsx:36
 msgid "Base Score"
@@ -84,13 +88,13 @@ msgstr ""
 msgid "big"
 msgstr "великий"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:44
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx:34
 msgid "Can you beat them?"
 msgstr "Чи зможете ви їх перемогти?"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:50
-#: src/screens/components/shared-screen/shared-screen.tsx:62
+#: src/screens/components/shared-screen/shared-screen.tsx:48
 #: src/screens/components/game-screen/game.screen.tsx:93
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx:40
 msgid "Cancel"
 msgstr "Скасувати"
 
@@ -98,7 +102,7 @@ msgstr "Скасувати"
 msgid "Cell margin"
 msgstr "Відступ клітинки"
 
-#: src/@generic/components/challenge-friend-button/challenge-friend-button.tsx:23
+#: src/challenge/components/challenge-friend-button/challenge-friend-button.tsx:25
 msgid "Challenge a Friend"
 msgstr "Кинути виклик другу"
 
@@ -270,6 +274,10 @@ msgstr "Безсмертний"
 msgid "Immortal (99 mistakes)"
 msgstr "Безсмертний (99 помилок)"
 
+#: src/screens/components/shared-screen/shared-screen.tsx:24
+msgid "Invalid or missing puzzle link."
+msgstr "Недійсне або відсутнє посилання на головоломку."
+
 #: src/game/context/game.context.tsx:35
 msgid "Invalid Sudoku"
 msgstr "Недійсний Судоку"
@@ -345,16 +353,16 @@ msgstr "від поточного рахунку"
 msgid "OK"
 msgstr "Гаразд"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:61
+#: src/screens/components/shared-screen/shared-screen.tsx:47
 msgid "Open puzzle"
 msgstr "Відкрити головоломку"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:58
-#: src/app/shared.tsx:12
+#: src/screens/components/shared-screen/shared-screen.tsx:44
+#: src/app/shared/[state].tsx:12
 msgid "Open shared puzzle?"
 msgstr "Відкрити спільну головоломку?"
 
-#: src/screens/components/challenge-result-screen/challenge-result-screen.tsx:56
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:56
 msgid "Opponent's time:"
 msgstr "Час суперника:"
 
@@ -432,7 +440,7 @@ msgstr "рахунок × коефіцієнт × кількість"
 msgid "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 msgstr "Рахунок нараховується за кожне правильне розміщення клітинки на основі складності, бонусів та штрафів."
 
-#: src/screens/components/challenge-result-screen/challenge-result-screen.tsx:68
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:68
 msgid "Score:"
 msgstr "Рахунок:"
 
@@ -580,7 +588,7 @@ msgstr ""
 "\n"
 "Кожен долар важливий!"
 
-#: src/screens/components/challenge-result-screen/challenge-result-screen.tsx:61
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:61
 msgid "You were"
 msgstr "Ви були"
 
@@ -598,10 +606,10 @@ msgstr ""
 msgid "You won the challenge!"
 msgstr "Ви виграли виклик!"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:40
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx:30
 msgid "Your opponent completed this puzzle in"
 msgstr "Ваш суперник завершив цю головоломку за"
 
-#: src/screens/components/challenge-result-screen/challenge-result-screen.tsx:51
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:51
 msgid "Your time:"
 msgstr "Ваш час:"

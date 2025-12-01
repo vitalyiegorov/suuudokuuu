@@ -12,10 +12,22 @@ import { urlToGameState } from '../../../game/store/game.state';
 import { SharedScreenStyles as styles } from './shared-screen.styles';
 
 export const SharedScreen = () => {
-    const { state: stateString } = useLocalSearchParams<{ state: string }>();
+    const { state: stateParam } = useLocalSearchParams<{ state?: string | string[] }>();
+    const stateString = Array.isArray(stateParam) ? stateParam[0] : stateParam;
 
     const { t } = useLingui();
     const { createFromState } = use(GameContext);
+
+    if (!stateString) {
+        return (
+            <View style={styles.container}>
+                <Header text={t`Invalid or missing puzzle link.`} />
+                <View style={styles.buttonsWrapper}>
+                    <BlackButton href="/" text={t`Back to Home`} />
+                </View>
+            </View>
+        );
+    }
 
     const { isChallengeMode, opponentTotalTime } = urlToGameState(stateString);
 
