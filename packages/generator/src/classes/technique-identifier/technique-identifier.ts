@@ -5,7 +5,6 @@ import type { CellInterface } from '../../interfaces/cell.interface';
 import type { FieldInterface } from '../../interfaces/field.interface';
 import type { SudokuConfigInterface } from '../../interfaces/sudoku-config.interface';
 
-
 export interface TechniqueResultInterface {
     technique: SolutionTechniqueEnum;
     cell: CellInterface;
