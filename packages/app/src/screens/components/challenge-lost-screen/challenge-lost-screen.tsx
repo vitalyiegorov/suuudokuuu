@@ -19,7 +19,7 @@ export const ChallengeLostScreen = () => {
             icon={LucideHeartCrack}
             isWon={false}
         >
-            <TryAgainButton />
+            {() => <TryAgainButton />}
         </ChallengeResultScreen>
     );
 };

@@ -14,7 +14,7 @@ export const ChallengeWonScreen = () => {
             icon={LucideTrophy}
             isWon={true}
         >
-            <ChallengeBackButton />
+            {gameState => <ChallengeBackButton gameState={gameState} />}
         </ChallengeResultScreen>
     );
 };
