@@ -52,7 +52,6 @@ export class Solution {
         return this.steps;
     }
 
-    // eslint-disable-next-line max-statements
     private parse(inputString: string): SolutionStepInterface[] {
         if (!isNotEmptyString(inputString)) {
             return [];

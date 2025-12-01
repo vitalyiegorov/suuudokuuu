@@ -13,11 +13,11 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:49
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx:39
 msgid "Accept Challenge"
 msgstr "Aceptar desafío"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:36
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx:26
 msgid "Accept challenge?"
 msgstr "¿Aceptar desafío?"
 
@@ -84,13 +84,13 @@ msgstr ""
 msgid "big"
 msgstr "grande"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:44
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx:34
 msgid "Can you beat them?"
 msgstr "¿Puedes vencerlos?"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:50
-#: src/screens/components/shared-screen/shared-screen.tsx:62
+#: src/screens/components/shared-screen/shared-screen.tsx:38
 #: src/screens/components/game-screen/game.screen.tsx:93
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx:40
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -98,7 +98,7 @@ msgstr "Cancelar"
 msgid "Cell margin"
 msgstr "Margen de celda"
 
-#: src/@generic/components/challenge-friend-button/challenge-friend-button.tsx:23
+#: src/challenge/components/challenge-friend-button/challenge-friend-button.tsx:25
 msgid "Challenge a Friend"
 msgstr "Desafiar a un amigo"
 
@@ -345,16 +345,16 @@ msgstr "de la puntuación actual"
 msgid "OK"
 msgstr "OK"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:61
+#: src/screens/components/shared-screen/shared-screen.tsx:37
 msgid "Open puzzle"
 msgstr "Abrir rompecabezas"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:58
-#: src/app/shared.tsx:12
+#: src/screens/components/shared-screen/shared-screen.tsx:34
+#: src/app/shared/[url].tsx:14
 msgid "Open shared puzzle?"
 msgstr "¿Abrir rompecabezas compartido?"
 
-#: src/screens/components/challenge-result-screen/challenge-result-screen.tsx:56
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:56
 msgid "Opponent's time:"
 msgstr "Tiempo del oponente:"
 
@@ -432,7 +432,7 @@ msgstr "puntuación × coeficiente × cantidad"
 msgid "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 msgstr "La puntuación se calcula para cada colocación correcta de celda según la dificultad, bonificaciones y penalizaciones."
 
-#: src/screens/components/challenge-result-screen/challenge-result-screen.tsx:68
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:68
 msgid "Score:"
 msgstr "Puntuación:"
 
@@ -580,7 +580,7 @@ msgstr ""
 "\n"
 "¡Cada donación de 1$ cuenta!"
 
-#: src/screens/components/challenge-result-screen/challenge-result-screen.tsx:61
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:61
 msgid "You were"
 msgstr "Fuiste"
 
@@ -598,10 +598,10 @@ msgstr ""
 msgid "You won the challenge!"
 msgstr "¡Ganaste el desafío!"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:40
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx:30
 msgid "Your opponent completed this puzzle in"
 msgstr "Tu oponente completó este rompecabezas en"
 
-#: src/screens/components/challenge-result-screen/challenge-result-screen.tsx:51
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:51
 msgid "Your time:"
 msgstr "Tu tiempo:"
