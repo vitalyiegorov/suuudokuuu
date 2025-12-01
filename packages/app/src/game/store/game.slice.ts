@@ -2,7 +2,6 @@ import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { getCellKey } from '../../@generic/utils/get-cell-key.util';
 import { Solution } from '../../history/classes/solution';
-import { getOriginalSudokuString } from '../../history/util/get-original-sudoku-string.util';
 import { defaultScoringConfig } from '../../scoring/scoring-config.interface';
 import { SudokuScoring } from '../../scoring/sudoku-scoring';
 
@@ -75,20 +74,6 @@ export const gameSlice = createSlice({
         },
         reset: state => {
             Object.assign(state, { ...initialGameState, historyByDifficulty: state.historyByDifficulty });
-        },
-        retryChallenge: state => {
-            const originalSudokuString = getOriginalSudokuString(state.sudokuString, state.solutionSteps);
-            const { maxMistakes, opponentSteps, opponentTotalTime, historyByDifficulty } = state;
-
-            Object.assign(state, {
-                ...initialGameState,
-                historyByDifficulty,
-                sudokuString: originalSudokuString,
-                maxMistakes,
-                isChallengeMode: true,
-                opponentSteps,
-                opponentTotalTime
-            });
         },
         toggleShowAutoCandidates: state => {
             state.showAutoCandidates = !state.showAutoCandidates;

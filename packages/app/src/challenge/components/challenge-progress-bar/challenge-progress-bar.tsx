@@ -2,7 +2,7 @@ import { use, useMemo, useState } from 'react';
 import { Animated, View } from 'react-native';
 
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
-import { gameElapsedTimeSelector, gameOpponentStepsSelector, gameOpponentTotalTimeSelector } from '../../../game/store/game.selectors';
+import { gameChallengeStepsSelector, gameChallengeTimeSelector, gameElapsedTimeSelector } from '../../../game/store/game.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { useProgressAnimation } from '../../hooks/use-progress-animation.hook';
 import { usePulseAnimation } from '../../hooks/use-pulse-animation.hook';
@@ -13,23 +13,22 @@ import { ChallengeProgressBarStyles as styles } from './challenge-progress-bar.s
 
 import type { StyleProp, ViewStyle } from 'react-native';
 
- 
 export const ChallengeProgressBar = () => {
     const { theme } = use(ThemeContext);
 
     const elapsedTime = useAppSelector(gameElapsedTimeSelector);
-    const opponentSteps = useAppSelector(gameOpponentStepsSelector);
-    const opponentTotalTime = useAppSelector(gameOpponentTotalTimeSelector);
+    const challengeSteps = useAppSelector(gameChallengeStepsSelector);
+    const challengeTime = useAppSelector(gameChallengeTimeSelector);
 
     const [progressAnim] = useState(() => new Animated.Value(0));
     const [pulseAnim] = useState(() => new Animated.Value(1));
 
-    const opponentProgress = useMemo(() => calculateOpponentProgress(opponentSteps, elapsedTime), [opponentSteps, elapsedTime]);
-    const stepIndicators = useMemo(() => getStepIndicators(opponentSteps, opponentTotalTime), [opponentSteps, opponentTotalTime]);
-    const playerProgress = opponentTotalTime > 0 ? Math.min((elapsedTime / opponentTotalTime) * 100, 100) : 0;
+    const opponentProgress = useMemo(() => calculateOpponentProgress(challengeSteps, elapsedTime), [challengeSteps, elapsedTime]);
+    const stepIndicators = useMemo(() => getStepIndicators(challengeSteps, challengeTime), [challengeSteps, challengeTime]);
+    const playerProgress = challengeTime > 0 ? Math.min((elapsedTime / challengeTime) * 100, 100) : 0;
 
     useProgressAnimation(opponentProgress, progressAnim);
-    usePulseAnimation(opponentProgress, opponentSteps, elapsedTime, pulseAnim);
+    usePulseAnimation(opponentProgress, challengeSteps, elapsedTime, pulseAnim);
 
     const progressWidth = progressAnim.interpolate({ inputRange: [0, 100], outputRange: ['0%', '100%'] });
     const trackStyle: StyleProp<ViewStyle> = [styles.track, { backgroundColor: theme.colors.black05 }];

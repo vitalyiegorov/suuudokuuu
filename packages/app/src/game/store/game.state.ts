@@ -21,9 +21,9 @@ export interface GameState {
     candidates: Record<string, number[]>;
     solutionSteps: SolutionStepInterface[];
     historyByDifficulty: Record<DifficultyEnum, HistoryGameInterface>;
-    isChallengeMode: boolean;
-    opponentSteps: SolutionStepInterface[];
-    opponentTotalTime: number;
+    challengeSteps: SolutionStepInterface[];
+    challengeTime: number;
+    challengeState: string;
 }
 
 export interface SerializedGameState {
@@ -51,9 +51,9 @@ export const initialGameState: GameState = {
         [DifficultyEnum.Nightmare]: { ...emptyGameHistory, difficulty: DifficultyEnum.Nightmare }
     },
     solutionSteps: [],
-    isChallengeMode: false,
-    opponentSteps: [],
-    opponentTotalTime: 0
+    challengeSteps: [],
+    challengeTime: 0,
+    challengeState: ''
 };
 
 export const gameStateToUrl = (gameState: GameState, isChallenge = false): string => {
@@ -68,14 +68,12 @@ export const gameStateToUrl = (gameState: GameState, isChallenge = false): strin
     return btoa(JSON.stringify(serializedState));
 };
 
-const calculateTotalTimeFromSteps = (steps: SolutionStepInterface[]): number => steps.reduce((total, step) => total + step.ts, 0);
-
 export const urlToGameState = (gameStateString: string): GameState => {
     try {
         const input = JSON.parse(atob(gameStateString)) as SerializedGameState;
 
         const sudokuEncoder = new SudokuStringEncoder();
-        const opponentSteps = Solution.fromString(input.h ?? '').getSteps();
+        const solution = Solution.fromString(input.h ?? '');
 
         return {
             ...initialGameState,
@@ -83,11 +81,11 @@ export const urlToGameState = (gameStateString: string): GameState => {
             maxMistakes: parseInt(input.m ?? '0', 10),
 
             ...(input.c === '1' && {
-                isChallengeMode: true,
-                opponentSteps,
-                opponentTotalTime: calculateTotalTimeFromSteps(opponentSteps)
+                challengeState: input.s,
+                challengeSteps: solution.getSteps(),
+                challengeTime: solution.getElapsedTime()
             })
-        };
+        } satisfies GameState;
     } catch {
         return initialGameState;
     }

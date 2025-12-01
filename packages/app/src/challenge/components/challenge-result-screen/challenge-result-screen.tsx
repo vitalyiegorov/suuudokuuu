@@ -26,7 +26,7 @@ interface ChallengeResultScreenProps {
 
 export const ChallengeResultScreen = (props: ChallengeResultScreenProps) => {
     const { isWon, children, gameState } = props;
-    const { score, elapsedTime, opponentTotalTime, sudokuString } = gameState;
+    const { score, elapsedTime, challengeTime, sudokuString } = gameState;
 
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
@@ -41,7 +41,7 @@ export const ChallengeResultScreen = (props: ChallengeResultScreenProps) => {
     const donationType = isWon ? 'winner' : 'loser';
     const differenceLabel = isWon ? t`faster!` : t`slower!`;
 
-    const timeDifference = Math.abs(opponentTotalTime - elapsedTime);
+    const timeDifference = Math.abs(challengeTime - elapsedTime);
 
     const differenceTimeTextStyle = [styles.boldText, { color: isWon ? theme.colors.black : theme.colors.red }];
 
@@ -59,7 +59,7 @@ export const ChallengeResultScreen = (props: ChallengeResultScreenProps) => {
 
                 <BlackText>
                     <Text>{t`Opponent's time:`} </Text>
-                    <Text style={styles.boldText}>{getTimerText(opponentTotalTime)}</Text>
+                    <Text style={styles.boldText}>{getTimerText(challengeTime)}</Text>
                 </BlackText>
 
                 <BlackText style={styles.differenceText}>
