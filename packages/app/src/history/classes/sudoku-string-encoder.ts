@@ -5,7 +5,6 @@ import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 import { CELL_INDEX_BITS, VALUE_BITS } from '../constants/bit-encoding.constant';
 import { GRID_CELL_COUNT, GRID_EMPTY_CELL } from '../constants/grid.constant';
 import { base64ToUint8Array } from '../util/base64-to-uint8array.util';
-import { getOriginalSudokuString } from '../util/get-original-sudoku-string.util';
 import { isValidCellIndex } from '../util/is-valid-cell-index.util';
 import { isValidCellValue } from '../util/is-valid-cell-value.util';
 
@@ -19,7 +18,7 @@ export class SudokuStringEncoder {
             return '';
         }
 
-        const initial = getOriginalSudokuString(sudokuString, steps);
+        const initial = this.removeStepsFromSudokuString(sudokuString, steps);
 
         const out = new BitOutputStream();
         for (let i = 0; i < initial.length; i += 1) {
@@ -46,6 +45,16 @@ export class SudokuStringEncoder {
         }
 
         return result;
+    }
+
+    private removeStepsFromSudokuString(sudokuString: string, solutionSteps: SolutionStepInterface[]): string {
+        const chars = sudokuString.split('');
+
+        for (const step of solutionSteps) {
+            chars[step.cellIndex] = GRID_EMPTY_CELL;
+        }
+
+        return chars.join('');
     }
 
     private getCluesFromInput(input: string): Record<number, number> {
