@@ -12,12 +12,11 @@ import { urlToGameState } from '../../../game/store/game.state';
 import { SharedScreenStyles as styles } from './shared-screen.styles';
 
 export const SharedScreen = () => {
-    const stateObject = useLocalSearchParams<Record<string, string>>();
+    const { state: stateString } = useLocalSearchParams<{ state: string }>();
 
     const { t } = useLingui();
     const { createFromState } = use(GameContext);
 
-    const [stateString] = Object.keys(stateObject);
     const { isChallengeMode, opponentTotalTime } = urlToGameState(stateString);
 
     const handleOpenPuzzle = () => {
