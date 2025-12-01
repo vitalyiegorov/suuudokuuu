@@ -58,6 +58,7 @@ export const initialGameState: GameState = {
 
 export const gameStateToUrl = (gameState: GameState, isChallenge = false): string => {
     const sudokuEncoder = new SudokuStringEncoder();
+
     const serializedState = {
         s: sudokuEncoder.encode(gameState.sudokuString, gameState.solutionSteps),
         h: Solution.fromSteps(gameState.solutionSteps).stringify(),
@@ -81,7 +82,7 @@ export const urlToGameState = (gameStateString: string): GameState => {
             maxMistakes: parseInt(input.m ?? '0', 10),
 
             ...(input.c === '1' && {
-                challengeState: input.s,
+                challengeState: gameStateString,
                 challengeSteps: solution.getSteps(),
                 challengeTime: solution.getElapsedTime()
             })

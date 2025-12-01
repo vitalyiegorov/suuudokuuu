@@ -88,7 +88,7 @@ msgstr "великий"
 msgid "Can you beat them?"
 msgstr "Чи зможете ви їх перемогти?"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:38
+#: src/screens/components/shared-screen/shared-screen.tsx:40
 #: src/screens/components/game-screen/game.screen.tsx:93
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx:40
 msgid "Cancel"
@@ -104,7 +104,7 @@ msgstr "Кинути виклик другу"
 
 #: src/challenge/components/challenge-back-button/challenge-back-button.tsx:24
 msgid "Challenge Back"
-msgstr ""
+msgstr "Відповісти на виклик"
 
 #: src/app/challenge-lost.tsx:17
 msgid "Challenge Lost"
@@ -167,7 +167,7 @@ msgstr "Минуло"
 msgid "Extra points are awarded when your placement completes:"
 msgstr "Додаткові бали нараховуються, коли ваше розміщення завершує:"
 
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:44
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:42
 msgid "faster!"
 msgstr "швидше!"
 
@@ -278,7 +278,7 @@ msgstr "Безсмертний (99 помилок)"
 msgid "Invalid Sudoku"
 msgstr "Недійсний Судоку"
 
-#: src/screens/components/winner-screen/winner.screen.tsx:36
+#: src/screens/components/winner-screen/winner.screen.tsx:38
 msgid "It took you"
 msgstr "Вам знадобилося"
 
@@ -349,11 +349,11 @@ msgstr "від поточного рахунку"
 msgid "OK"
 msgstr "Гаразд"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:37
+#: src/screens/components/shared-screen/shared-screen.tsx:39
 msgid "Open puzzle"
 msgstr "Відкрити головоломку"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:34
+#: src/screens/components/shared-screen/shared-screen.tsx:36
 #: src/app/shared/[url].tsx:14
 msgid "Open shared puzzle?"
 msgstr "Відкрити спільну головоломку?"
@@ -458,9 +458,9 @@ msgstr "Показувати анімаційні ефекти при завер
 msgid "Show combo animation"
 msgstr "Показувати анімацію комбо"
 
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:44
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:42
 msgid "slower!"
-msgstr ""
+msgstr "повільніше!"
 
 #: src/settings/component/cell-margin-toggle/cell-margin-toggle.tsx:28
 msgid "small"
@@ -520,9 +520,9 @@ msgstr "Таймер"
 msgid "Tips for High Scores"
 msgstr "Поради для високих результатів"
 
-#: src/challenge/components/try-again-button/try-again-button.tsx:22
+#: src/challenge/components/challenge-try-again-button/challenge-try-again-button.tsx:25
 msgid "Try Again"
-msgstr ""
+msgstr "Спробувати ще раз"
 
 #: src/@generic/utils/get-difficulty-text.util.ts:17
 msgid "Unknown"
@@ -554,7 +554,7 @@ msgstr ""
 msgid "Win rate"
 msgstr "Рівень виграшу"
 
-#: src/screens/components/winner-screen/winner.screen.tsx:27
+#: src/screens/components/winner-screen/winner.screen.tsx:29
 msgid ""
 "Winners-winner, \n"
 " chicken dinner!"
@@ -574,7 +574,7 @@ msgstr "Виграно"
 msgid "Won without mistakes"
 msgstr "Виграно без помилок"
 
-#: src/screens/components/winner-screen/winner.screen.tsx:31
+#: src/screens/components/winner-screen/winner.screen.tsx:33
 msgid "You have scored"
 msgstr "Ви набрали"
 

@@ -88,7 +88,7 @@ msgstr "grande"
 msgid "Can you beat them?"
 msgstr "¿Puedes vencerlos?"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:38
+#: src/screens/components/shared-screen/shared-screen.tsx:40
 #: src/screens/components/game-screen/game.screen.tsx:93
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx:40
 msgid "Cancel"
@@ -104,7 +104,7 @@ msgstr "Desafiar a un amigo"
 
 #: src/challenge/components/challenge-back-button/challenge-back-button.tsx:24
 msgid "Challenge Back"
-msgstr ""
+msgstr "Desafiar de vuelta"
 
 #: src/app/challenge-lost.tsx:17
 msgid "Challenge Lost"
@@ -167,7 +167,7 @@ msgstr "Transcurrido"
 msgid "Extra points are awarded when your placement completes:"
 msgstr "Se otorgan puntos adicionales cuando tu colocación completa:"
 
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:44
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:42
 msgid "faster!"
 msgstr "¡más rápido!"
 
@@ -278,7 +278,7 @@ msgstr "Inmortal (99 errores)"
 msgid "Invalid Sudoku"
 msgstr "Sudoku inválido"
 
-#: src/screens/components/winner-screen/winner.screen.tsx:36
+#: src/screens/components/winner-screen/winner.screen.tsx:38
 msgid "It took you"
 msgstr "Te tomó"
 
@@ -349,11 +349,11 @@ msgstr "de la puntuación actual"
 msgid "OK"
 msgstr "OK"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:37
+#: src/screens/components/shared-screen/shared-screen.tsx:39
 msgid "Open puzzle"
 msgstr "Abrir rompecabezas"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:34
+#: src/screens/components/shared-screen/shared-screen.tsx:36
 #: src/app/shared/[url].tsx:14
 msgid "Open shared puzzle?"
 msgstr "¿Abrir rompecabezas compartido?"
@@ -458,9 +458,9 @@ msgstr "Mostrar efectos animados cuando se completa una cuadrícula, fila, colum
 msgid "Show combo animation"
 msgstr "Mostrar animación de combo"
 
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:44
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:42
 msgid "slower!"
-msgstr ""
+msgstr "¡más lento!"
 
 #: src/settings/component/cell-margin-toggle/cell-margin-toggle.tsx:28
 msgid "small"
@@ -520,9 +520,9 @@ msgstr "Temporizador"
 msgid "Tips for High Scores"
 msgstr "Consejos para Puntuaciones Altas"
 
-#: src/challenge/components/try-again-button/try-again-button.tsx:22
+#: src/challenge/components/challenge-try-again-button/challenge-try-again-button.tsx:25
 msgid "Try Again"
-msgstr ""
+msgstr "Intentar de nuevo"
 
 #: src/@generic/utils/get-difficulty-text.util.ts:17
 msgid "Unknown"
@@ -554,7 +554,7 @@ msgstr ""
 msgid "Win rate"
 msgstr "Tasa de victorias"
 
-#: src/screens/components/winner-screen/winner.screen.tsx:27
+#: src/screens/components/winner-screen/winner.screen.tsx:29
 msgid ""
 "Winners-winner, \n"
 " chicken dinner!"
@@ -574,7 +574,7 @@ msgstr "Ganado"
 msgid "Won without mistakes"
 msgstr "Ganado sin errores"
 
-#: src/screens/components/winner-screen/winner.screen.tsx:31
+#: src/screens/components/winner-screen/winner.screen.tsx:33
 msgid "You have scored"
 msgstr "Has conseguido"
 
