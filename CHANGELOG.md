@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.51.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.51.0...v1.51.1) (2025-12-01)
+
+### Bug Fixes
+
+- **app:** change url state sharing from get parameter to route parameter ([#138](https://github.com/vitalyiegorov/suuudokuuu/issues/138)) ([9a6d60e](https://github.com/vitalyiegorov/suuudokuuu/commit/9a6d60e48fd648b2afe8a8fdbfeab095b2ccd6cc))
+
 # [1.51.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.50.0...v1.51.0) (2025-11-30)
 
 ### Features
