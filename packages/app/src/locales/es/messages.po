@@ -68,7 +68,7 @@ msgstr "Mejor puntuación"
 msgid "Best time"
 msgstr "Mejor tiempo"
 
-#: src/screens/components/challenge-lost-screen/challenge-lost-screen.tsx:14
+#: src/screens/components/challenge-lost-screen/challenge-lost-screen.tsx:12
 msgid "Better luck next time!"
 msgstr "¡Mejor suerte la próxima vez!"
 
@@ -88,7 +88,7 @@ msgstr "grande"
 msgid "Can you beat them?"
 msgstr "¿Puedes vencerlos?"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:37
+#: src/screens/components/shared-screen/shared-screen.tsx:38
 #: src/screens/components/game-screen/game.screen.tsx:93
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx:40
 msgid "Cancel"
@@ -104,13 +104,13 @@ msgstr "Desafiar a un amigo"
 
 #: src/challenge/components/challenge-back-button/challenge-back-button.tsx:24
 msgid "Challenge Back"
-msgstr "Retar de vuelta"
+msgstr ""
 
 #: src/app/challenge-lost.tsx:12
 msgid "Challenge Lost"
 msgstr "Desafío perdido"
 
-#: src/screens/components/challenge-lost-screen/challenge-lost-screen.tsx:22
+#: src/screens/components/challenge-lost-screen/challenge-lost-screen.tsx:18
 msgid "Challenge lost!"
 msgstr "¡Desafío perdido!"
 
@@ -167,7 +167,7 @@ msgstr "Transcurrido"
 msgid "Extra points are awarded when your placement completes:"
 msgstr "Se otorgan puntos adicionales cuando tu colocación completa:"
 
-#: src/screens/components/challenge-won-screen/challenge-won-screen.tsx:16
+#: src/screens/components/challenge-won-screen/challenge-won-screen.tsx:12
 msgid "faster!"
 msgstr "¡más rápido!"
 
@@ -349,12 +349,12 @@ msgstr "de la puntuación actual"
 msgid "OK"
 msgstr "OK"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:36
+#: src/screens/components/shared-screen/shared-screen.tsx:37
 msgid "Open puzzle"
 msgstr "Abrir rompecabezas"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:33
-#: src/app/shared.tsx:12
+#: src/screens/components/shared-screen/shared-screen.tsx:34
+#: src/app/shared/[url].tsx:14
 msgid "Open shared puzzle?"
 msgstr "¿Abrir rompecabezas compartido?"
 
@@ -458,7 +458,7 @@ msgstr "Mostrar efectos animados cuando se completa una cuadrícula, fila, colum
 msgid "Show combo animation"
 msgstr "Mostrar animación de combo"
 
-#: src/screens/components/challenge-lost-screen/challenge-lost-screen.tsx:20
+#: src/screens/components/challenge-lost-screen/challenge-lost-screen.tsx:16
 msgid "slower"
 msgstr "más lento"
 
@@ -520,9 +520,9 @@ msgstr "Temporizador"
 msgid "Tips for High Scores"
 msgstr "Consejos para Puntuaciones Altas"
 
-#: src/challenge/components/try-again-button/try-again-button.tsx:51
+#: src/challenge/components/try-again-button/try-again-button.tsx:22
 msgid "Try Again"
-msgstr "Intentar de nuevo"
+msgstr ""
 
 #: src/@generic/utils/get-difficulty-text.util.ts:17
 msgid "Unknown"
@@ -602,7 +602,7 @@ msgstr ""
 "\n"
 "¡Cada donación de 1$ cuenta!"
 
-#: src/screens/components/challenge-won-screen/challenge-won-screen.tsx:17
+#: src/screens/components/challenge-won-screen/challenge-won-screen.tsx:13
 msgid "You won the challenge!"
 msgstr "¡Ganaste el desafío!"
 

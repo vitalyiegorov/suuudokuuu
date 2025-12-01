@@ -68,7 +68,7 @@ msgstr "Best score"
 msgid "Best time"
 msgstr "Best time"
 
-#: src/screens/components/challenge-lost-screen/challenge-lost-screen.tsx:14
+#: src/screens/components/challenge-lost-screen/challenge-lost-screen.tsx:12
 msgid "Better luck next time!"
 msgstr "Better luck next time!"
 
@@ -88,7 +88,7 @@ msgstr "big"
 msgid "Can you beat them?"
 msgstr "Can you beat them?"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:37
+#: src/screens/components/shared-screen/shared-screen.tsx:38
 #: src/screens/components/game-screen/game.screen.tsx:93
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx:40
 msgid "Cancel"
@@ -110,7 +110,7 @@ msgstr "Challenge Back"
 msgid "Challenge Lost"
 msgstr "Challenge Lost"
 
-#: src/screens/components/challenge-lost-screen/challenge-lost-screen.tsx:22
+#: src/screens/components/challenge-lost-screen/challenge-lost-screen.tsx:18
 msgid "Challenge lost!"
 msgstr "Challenge lost!"
 
@@ -167,7 +167,7 @@ msgstr "Elapsed"
 msgid "Extra points are awarded when your placement completes:"
 msgstr "Extra points are awarded when your placement completes:"
 
-#: src/screens/components/challenge-won-screen/challenge-won-screen.tsx:16
+#: src/screens/components/challenge-won-screen/challenge-won-screen.tsx:12
 msgid "faster!"
 msgstr "faster!"
 
@@ -349,12 +349,12 @@ msgstr "of current score"
 msgid "OK"
 msgstr "OK"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:36
+#: src/screens/components/shared-screen/shared-screen.tsx:37
 msgid "Open puzzle"
 msgstr "Open puzzle"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:33
-#: src/app/shared.tsx:12
+#: src/screens/components/shared-screen/shared-screen.tsx:34
+#: src/app/shared/[url].tsx:14
 msgid "Open shared puzzle?"
 msgstr "Open shared puzzle?"
 
@@ -458,7 +458,7 @@ msgstr "Show animated effects when a grid, row, column, block is completed"
 msgid "Show combo animation"
 msgstr "Show combo animation"
 
-#: src/screens/components/challenge-lost-screen/challenge-lost-screen.tsx:20
+#: src/screens/components/challenge-lost-screen/challenge-lost-screen.tsx:16
 msgid "slower"
 msgstr "slower"
 
@@ -520,7 +520,7 @@ msgstr "Timer"
 msgid "Tips for High Scores"
 msgstr "Tips for High Scores"
 
-#: src/challenge/components/try-again-button/try-again-button.tsx:51
+#: src/challenge/components/try-again-button/try-again-button.tsx:22
 msgid "Try Again"
 msgstr "Try Again"
 
@@ -602,7 +602,7 @@ msgstr ""
 "\n"
 "Every 1$ donation matters!"
 
-#: src/screens/components/challenge-won-screen/challenge-won-screen.tsx:17
+#: src/screens/components/challenge-won-screen/challenge-won-screen.tsx:13
 msgid "You won the challenge!"
 msgstr "You won the challenge!"
 

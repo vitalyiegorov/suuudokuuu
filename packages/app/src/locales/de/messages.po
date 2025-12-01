@@ -68,7 +68,7 @@ msgstr "Höchstpunktzahl"
 msgid "Best time"
 msgstr "Bestzeit"
 
-#: src/screens/components/challenge-lost-screen/challenge-lost-screen.tsx:14
+#: src/screens/components/challenge-lost-screen/challenge-lost-screen.tsx:12
 msgid "Better luck next time!"
 msgstr "Viel Glück beim nächsten Mal!"
 
@@ -88,7 +88,7 @@ msgstr "groß"
 msgid "Can you beat them?"
 msgstr "Kannst du sie schlagen?"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:37
+#: src/screens/components/shared-screen/shared-screen.tsx:38
 #: src/screens/components/game-screen/game.screen.tsx:93
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx:40
 msgid "Cancel"
@@ -104,13 +104,13 @@ msgstr "Einen Freund herausfordern"
 
 #: src/challenge/components/challenge-back-button/challenge-back-button.tsx:24
 msgid "Challenge Back"
-msgstr "Zurückfordern"
+msgstr ""
 
 #: src/app/challenge-lost.tsx:12
 msgid "Challenge Lost"
 msgstr "Herausforderung verloren"
 
-#: src/screens/components/challenge-lost-screen/challenge-lost-screen.tsx:22
+#: src/screens/components/challenge-lost-screen/challenge-lost-screen.tsx:18
 msgid "Challenge lost!"
 msgstr "Herausforderung verloren!"
 
@@ -167,7 +167,7 @@ msgstr "Verstrichen"
 msgid "Extra points are awarded when your placement completes:"
 msgstr "Zusätzliche Punkte werden vergeben, wenn deine Platzierung vervollständigt:"
 
-#: src/screens/components/challenge-won-screen/challenge-won-screen.tsx:16
+#: src/screens/components/challenge-won-screen/challenge-won-screen.tsx:12
 msgid "faster!"
 msgstr "schneller!"
 
@@ -349,12 +349,12 @@ msgstr "der aktuellen Punktzahl"
 msgid "OK"
 msgstr "OK"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:36
+#: src/screens/components/shared-screen/shared-screen.tsx:37
 msgid "Open puzzle"
 msgstr "Rätsel öffnen"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:33
-#: src/app/shared.tsx:12
+#: src/screens/components/shared-screen/shared-screen.tsx:34
+#: src/app/shared/[url].tsx:14
 msgid "Open shared puzzle?"
 msgstr "Geteilter Rätsel öffnen?"
 
@@ -458,7 +458,7 @@ msgstr "Animierte Effekte anzeigen, wenn ein Gitter, eine Zeile, eine Spalte ode
 msgid "Show combo animation"
 msgstr "Combo-Animation anzeigen"
 
-#: src/screens/components/challenge-lost-screen/challenge-lost-screen.tsx:20
+#: src/screens/components/challenge-lost-screen/challenge-lost-screen.tsx:16
 msgid "slower"
 msgstr "langsamer"
 
@@ -520,9 +520,9 @@ msgstr "Timer"
 msgid "Tips for High Scores"
 msgstr "Tipps für hohe Punktzahlen"
 
-#: src/challenge/components/try-again-button/try-again-button.tsx:51
+#: src/challenge/components/try-again-button/try-again-button.tsx:22
 msgid "Try Again"
-msgstr "Nochmal versuchen"
+msgstr ""
 
 #: src/@generic/utils/get-difficulty-text.util.ts:17
 msgid "Unknown"
@@ -602,7 +602,7 @@ msgstr ""
 "\n"
 "Jede $1-Spende zählt!"
 
-#: src/screens/components/challenge-won-screen/challenge-won-screen.tsx:17
+#: src/screens/components/challenge-won-screen/challenge-won-screen.tsx:13
 msgid "You won the challenge!"
 msgstr "Du hast die Herausforderung gewonnen!"
 

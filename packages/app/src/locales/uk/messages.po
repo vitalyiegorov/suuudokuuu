@@ -68,7 +68,7 @@ msgstr "Найкращий результат"
 msgid "Best time"
 msgstr "Найкращий час"
 
-#: src/screens/components/challenge-lost-screen/challenge-lost-screen.tsx:14
+#: src/screens/components/challenge-lost-screen/challenge-lost-screen.tsx:12
 msgid "Better luck next time!"
 msgstr "Більше пощастить наступного разу!"
 
@@ -88,7 +88,7 @@ msgstr "великий"
 msgid "Can you beat them?"
 msgstr "Чи зможете ви їх перемогти?"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:37
+#: src/screens/components/shared-screen/shared-screen.tsx:38
 #: src/screens/components/game-screen/game.screen.tsx:93
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx:40
 msgid "Cancel"
@@ -104,13 +104,13 @@ msgstr "Кинути виклик другу"
 
 #: src/challenge/components/challenge-back-button/challenge-back-button.tsx:24
 msgid "Challenge Back"
-msgstr "Кинути виклик у відповідь"
+msgstr ""
 
 #: src/app/challenge-lost.tsx:12
 msgid "Challenge Lost"
 msgstr "Виклик програно"
 
-#: src/screens/components/challenge-lost-screen/challenge-lost-screen.tsx:22
+#: src/screens/components/challenge-lost-screen/challenge-lost-screen.tsx:18
 msgid "Challenge lost!"
 msgstr "Виклик програно!"
 
@@ -167,7 +167,7 @@ msgstr "Минуло"
 msgid "Extra points are awarded when your placement completes:"
 msgstr "Додаткові бали нараховуються, коли ваше розміщення завершує:"
 
-#: src/screens/components/challenge-won-screen/challenge-won-screen.tsx:16
+#: src/screens/components/challenge-won-screen/challenge-won-screen.tsx:12
 msgid "faster!"
 msgstr "швидше!"
 
@@ -349,12 +349,12 @@ msgstr "від поточного рахунку"
 msgid "OK"
 msgstr "Гаразд"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:36
+#: src/screens/components/shared-screen/shared-screen.tsx:37
 msgid "Open puzzle"
 msgstr "Відкрити головоломку"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:33
-#: src/app/shared.tsx:12
+#: src/screens/components/shared-screen/shared-screen.tsx:34
+#: src/app/shared/[url].tsx:14
 msgid "Open shared puzzle?"
 msgstr "Відкрити спільну головоломку?"
 
@@ -458,7 +458,7 @@ msgstr "Показувати анімаційні ефекти при завер
 msgid "Show combo animation"
 msgstr "Показувати анімацію комбо"
 
-#: src/screens/components/challenge-lost-screen/challenge-lost-screen.tsx:20
+#: src/screens/components/challenge-lost-screen/challenge-lost-screen.tsx:16
 msgid "slower"
 msgstr "повільніше"
 
@@ -520,9 +520,9 @@ msgstr "Таймер"
 msgid "Tips for High Scores"
 msgstr "Поради для високих результатів"
 
-#: src/challenge/components/try-again-button/try-again-button.tsx:51
+#: src/challenge/components/try-again-button/try-again-button.tsx:22
 msgid "Try Again"
-msgstr "Спробувати ще раз"
+msgstr ""
 
 #: src/@generic/utils/get-difficulty-text.util.ts:17
 msgid "Unknown"
@@ -602,7 +602,7 @@ msgstr ""
 "\n"
 "Кожен долар важливий!"
 
-#: src/screens/components/challenge-won-screen/challenge-won-screen.tsx:17
+#: src/screens/components/challenge-won-screen/challenge-won-screen.tsx:13
 msgid "You won the challenge!"
 msgstr "Ви виграли виклик!"
 
