@@ -1,5 +1,4 @@
 import { useLingui } from '@lingui/react/macro';
-import { useLocalSearchParams } from 'expo-router';
 import { use } from 'react';
 import { View } from 'react-native';
 
@@ -11,17 +10,19 @@ import { urlToGameState } from '../../../game/store/game.state';
 
 import { SharedScreenStyles as styles } from './shared-screen.styles';
 
-export const SharedScreen = () => {
-    const stateObject = useLocalSearchParams<Record<string, string>>();
+interface Props {
+    stateString: string;
+}
 
+export const SharedScreen = ({ stateString }: Props) => {
     const { t } = useLingui();
     const { createFromState } = use(GameContext);
 
-    const [stateString] = Object.keys(stateObject);
-    const { isChallengeMode, opponentTotalTime } = urlToGameState(stateString);
+    const gameState = urlToGameState(stateString);
+    const { isChallengeMode, opponentTotalTime } = gameState;
 
     const handleOpenPuzzle = () => {
-        createFromState(stateString);
+        createFromState(gameState);
     };
 
     if (isChallengeMode) {

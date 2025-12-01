@@ -12,14 +12,14 @@ import { useAppSelector } from '../../@generic/hooks/use-app-selector.hook';
 import { settingsLanguageSelector } from '../../settings/store/settings.selectors';
 import { gameLoadAction, gameResetAction, gameResumeAction, gameStartAction } from '../store/game.actions';
 import { gameSudokuStringSelector } from '../store/game.selectors';
-import { urlToGameState } from '../store/game.state';
+import { GameState } from '../store/game.state';
 
 import type { DifficultyEnum } from '@suuudokuuu/generator';
 import type { ReactNode } from 'react';
 
 export const GameContext = createContext<{
     sudoku: Sudoku;
-    createFromState: (stateString: string) => void;
+    createFromState: (newState: GameState) => void;
     create: (difficulty: DifficultyEnum, maxMistakes: number) => void;
 }>({ sudoku: new Sudoku(defaultSudokuConfig), create: emptyFn, createFromState: emptyFn });
 
@@ -55,9 +55,8 @@ export const GameProvider = ({ children }: { readonly children: ReactNode }) => 
         return new Sudoku(defaultSudokuConfig);
     });
 
-    const createFromState = (stateString: string) => {
+    const createFromState = (newState: GameState) => {
         try {
-            const newState = urlToGameState(stateString);
             dispatch(gameLoadAction(newState));
 
             setSudoku(Sudoku.fromString(newState.sudokuString, defaultSudokuConfig));
