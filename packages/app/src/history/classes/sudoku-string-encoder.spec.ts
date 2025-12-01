@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers, lingui/no-unlocalized-strings */
 import { beforeEach, describe, expect, it } from '@jest/globals';
 
+import { SolutionTechniqueEnum } from '../enums/solution-technique.enum';
+
 import { SudokuStringEncoder } from './sudoku-string-encoder';
 
 describe('SudokuStringEncoder', () => {
@@ -60,8 +62,8 @@ describe('SudokuStringEncoder', () => {
 
             const sudokuString = `123456789${'.'.repeat(72)}`;
             const steps = [
-                { cellIndex: 0, value: 1, ts: 0 },
-                { cellIndex: 1, value: 2, ts: 10 }
+                { cellIndex: 0, value: 1, ts: 0, technique: SolutionTechniqueEnum.Guess },
+                { cellIndex: 1, value: 2, ts: 10, technique: SolutionTechniqueEnum.NakedSingle }
             ];
 
             const encodedWithSteps = encoder.encode(sudokuString, steps);
