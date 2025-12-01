@@ -46,10 +46,6 @@ msgstr "Уникайте помилок - вони коштують балів!"
 msgid "Back"
 msgstr "Назад"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:26
-msgid "Back to Home"
-msgstr "Назад на головну"
-
 #: src/scoring/components/scoring.screen.tsx:36
 msgid "Base Score"
 msgstr "Базовий рахунок"
@@ -92,7 +88,7 @@ msgstr "великий"
 msgid "Can you beat them?"
 msgstr "Чи зможете ви їх перемогти?"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:48
+#: src/screens/components/shared-screen/shared-screen.tsx:38
 #: src/screens/components/game-screen/game.screen.tsx:93
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx:40
 msgid "Cancel"
@@ -274,10 +270,6 @@ msgstr "Безсмертний"
 msgid "Immortal (99 mistakes)"
 msgstr "Безсмертний (99 помилок)"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:24
-msgid "Invalid or missing puzzle link."
-msgstr "Недійсне або відсутнє посилання на головоломку."
-
 #: src/game/context/game.context.tsx:35
 msgid "Invalid Sudoku"
 msgstr "Недійсний Судоку"
@@ -353,12 +345,12 @@ msgstr "від поточного рахунку"
 msgid "OK"
 msgstr "Гаразд"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:47
+#: src/screens/components/shared-screen/shared-screen.tsx:37
 msgid "Open puzzle"
 msgstr "Відкрити головоломку"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:44
-#: src/app/shared/[state].tsx:12
+#: src/screens/components/shared-screen/shared-screen.tsx:34
+#: src/app/shared/[url].tsx:14
 msgid "Open shared puzzle?"
 msgstr "Відкрити спільну головоломку?"
 

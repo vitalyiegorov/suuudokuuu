@@ -46,10 +46,6 @@ msgstr "Évitez les erreurs - elles vous coûtent des points !"
 msgid "Back"
 msgstr "Retour"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:26
-msgid "Back to Home"
-msgstr "Retour à l'accueil"
-
 #: src/scoring/components/scoring.screen.tsx:36
 msgid "Base Score"
 msgstr "Score de base"
@@ -92,7 +88,7 @@ msgstr "grand"
 msgid "Can you beat them?"
 msgstr "Pouvez-vous les battre ?"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:48
+#: src/screens/components/shared-screen/shared-screen.tsx:38
 #: src/screens/components/game-screen/game.screen.tsx:93
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx:40
 msgid "Cancel"
@@ -274,10 +270,6 @@ msgstr "Immortel"
 msgid "Immortal (99 mistakes)"
 msgstr "Immortel (99 erreurs)"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:24
-msgid "Invalid or missing puzzle link."
-msgstr "Lien de puzzle invalide ou manquant."
-
 #: src/game/context/game.context.tsx:35
 msgid "Invalid Sudoku"
 msgstr "Sudoku invalide"
@@ -353,12 +345,12 @@ msgstr "du score actuel"
 msgid "OK"
 msgstr "OK"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:47
+#: src/screens/components/shared-screen/shared-screen.tsx:37
 msgid "Open puzzle"
 msgstr "Ouvrir la grille"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:44
-#: src/app/shared/[state].tsx:12
+#: src/screens/components/shared-screen/shared-screen.tsx:34
+#: src/app/shared/[url].tsx:14
 msgid "Open shared puzzle?"
 msgstr "Ouvrir la grille partagée ?"
 
