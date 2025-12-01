@@ -15,7 +15,7 @@ export const useShare = (initialGameState?: GameState) => {
 
     return async () => {
         if (await Sharing.isAvailableAsync()) {
-            const shareUrl = `${window.location.origin}/shared?${gameStateToUrl(state, isChallenge)}`;
+            const shareUrl = `${window.location.origin}/shared/${gameStateToUrl(state, isChallenge)}`;
 
             await Share.share({ url: shareUrl });
         }
