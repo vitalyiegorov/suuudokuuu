@@ -1,4 +1,4 @@
-import type { SolutionTechniqueEnum } from '../enums/solution-technique.enum';
+import type { SolutionTechniqueEnum } from '@suuudokuuu/generator';
 
 export interface SolutionStepInterface {
     cellIndex: number;
