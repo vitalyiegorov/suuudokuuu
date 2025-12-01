@@ -3,14 +3,15 @@ import { BitInputStream, BitOutputStream } from '@thi.ng/bitstream';
 import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
 import { CELL_INDEX_BITS, VALUE_BITS } from '../constants/bit-encoding.constant';
-import { GRID_CELL_COUNT } from '../constants/grid.constant';
-import { SolutionStepInterface } from '../interfaces/solution-step.interface';
+import { EMPTY_CELL, GRID_CELL_COUNT } from '../constants/grid.constant';
 import { base64ToUint8Array } from '../util/base64-to-uint8array.util';
+import { getOriginalSudokuString } from '../util/get-original-sudoku-string.util';
 import { isValidCellIndex } from '../util/is-valid-cell-index.util';
 import { isValidCellValue } from '../util/is-valid-cell-value.util';
 
+import type { SolutionStepInterface } from '../interfaces/solution-step.interface';
+
 export class SudokuStringEncoder {
-    private readonly emptyCell = '.';
     private readonly bitsPerClue = CELL_INDEX_BITS + VALUE_BITS;
 
     encode(sudokuString: string, steps: SolutionStepInterface[] = []): string {
@@ -18,15 +19,12 @@ export class SudokuStringEncoder {
             return '';
         }
 
-        const initial = sudokuString.split('');
-        for (const step of steps) {
-            initial[step.cellIndex] = this.emptyCell;
-        }
+        const initial = getOriginalSudokuString(sudokuString, steps);
 
         const out = new BitOutputStream();
         for (let i = 0; i < initial.length; i += 1) {
             const char = initial[i];
-            if (char !== this.emptyCell) {
+            if (char !== EMPTY_CELL) {
                 out.write(i, CELL_INDEX_BITS);
                 out.write(parseInt(char, 10), VALUE_BITS);
             }
@@ -37,14 +35,14 @@ export class SudokuStringEncoder {
 
     decode(input: string): string {
         if (!isNotEmptyString(input)) {
-            return this.emptyCell.repeat(GRID_CELL_COUNT);
+            return EMPTY_CELL.repeat(GRID_CELL_COUNT);
         }
 
         const clues = this.getCluesFromInput(input);
 
         let result = '';
         for (let i = 0; i < GRID_CELL_COUNT; i += 1) {
-            result += isDefined(clues[i]) ? clues[i].toString() : this.emptyCell;
+            result += isDefined(clues[i]) ? clues[i].toString() : EMPTY_CELL;
         }
 
         return result;

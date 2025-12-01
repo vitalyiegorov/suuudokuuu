@@ -9,8 +9,8 @@ import { Header } from '../../../@generic/components/header/header';
 import { PlayAgainButton } from '../../../@generic/components/play-again-button/play-again-button';
 import { useResetGame } from '../../../@generic/hooks/use-reset-game.hook';
 import { getTimerText } from '../../../@generic/utils/get-timer-text.util';
-import { GameState } from '../../../game/store/game.state';
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { ChallengeResultContext } from '../../context/challenge-result.context';
 
 import { ChallengeResultScreenStyles as styles } from './challenge-result-screen.styles';
 
@@ -23,11 +23,11 @@ interface ChallengeResultScreenProps {
     readonly differenceLabel: string;
     readonly isWon: boolean;
     readonly extraContent?: ReactNode;
-    readonly renderActionButtons?: (gameState: GameState) => ReactNode;
+    readonly children?: ReactNode;
 }
 
 export const ChallengeResultScreen = (props: ChallengeResultScreenProps) => {
-    const { icon: Icon, headerText, differenceLabel, isWon, extraContent, renderActionButtons } = props;
+    const { icon: Icon, headerText, differenceLabel, isWon, extraContent, children } = props;
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
 
@@ -45,43 +45,45 @@ export const ChallengeResultScreen = (props: ChallengeResultScreenProps) => {
     const donationType = isWon ? 'winner' : 'loser';
 
     return (
-        <View style={styles.container}>
-            <Icon color={iconColor} size={64} style={styles.icon} />
+        <ChallengeResultContext value={gameState}>
+            <View style={styles.container}>
+                <Icon color={iconColor} size={64} style={styles.icon} />
 
-            <Header text={headerText} />
+                <Header text={headerText} />
 
-            <View style={styles.statsContainer}>
-                <BlackText>
-                    <Text>{t`Your time:`} </Text>
-                    <Text style={styles.boldText}>{getTimerText(elapsedTime)}</Text>
-                </BlackText>
-
-                <BlackText>
-                    <Text>{t`Opponent's time:`} </Text>
-                    <Text style={styles.boldText}>{getTimerText(opponentTotalTime)}</Text>
-                </BlackText>
-
-                <BlackText style={styles.differenceText}>
-                    <Text>{t`You were`} </Text>
-                    <Text style={differenceTimeTextStyle}>{getTimerText(timeDifference)}</Text>
-                    <Text> {differenceLabel}</Text>
-                </BlackText>
-
-                {isWon && (
-                    <BlackText style={styles.messageText}>
-                        <Text>{t`Score:`} </Text>
-                        <Text style={styles.boldText}>{score}</Text>
+                <View style={styles.statsContainer}>
+                    <BlackText>
+                        <Text>{t`Your time:`} </Text>
+                        <Text style={styles.boldText}>{getTimerText(elapsedTime)}</Text>
                     </BlackText>
-                )}
 
-                {extraContent}
+                    <BlackText>
+                        <Text>{t`Opponent's time:`} </Text>
+                        <Text style={styles.boldText}>{getTimerText(opponentTotalTime)}</Text>
+                    </BlackText>
+
+                    <BlackText style={styles.differenceText}>
+                        <Text>{t`You were`} </Text>
+                        <Text style={differenceTimeTextStyle}>{getTimerText(timeDifference)}</Text>
+                        <Text> {differenceLabel}</Text>
+                    </BlackText>
+
+                    {isWon && (
+                        <BlackText style={styles.messageText}>
+                            <Text>{t`Score:`} </Text>
+                            <Text style={styles.boldText}>{score}</Text>
+                        </BlackText>
+                    )}
+
+                    {extraContent}
+                </View>
+
+                <Donation type={donationType} />
+
+                {children}
+
+                <PlayAgainButton />
             </View>
-
-            <Donation type={donationType} />
-
-            {renderActionButtons?.(gameState)}
-
-            <PlayAgainButton />
-        </View>
+        </ChallengeResultContext>
     );
 };

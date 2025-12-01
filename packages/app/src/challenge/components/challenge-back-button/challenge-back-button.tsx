@@ -5,16 +5,12 @@ import { use } from 'react';
 import { BlackButton } from '../../../@generic/components/black-button/black-button';
 import { useShare } from '../../../game/hooks/use-share.hook';
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { ChallengeResultContext } from '../../context/challenge-result.context';
 import { ChallengeFriendButtonStyles as styles } from '../challenge-friend-button/challenge-friend-button.styles';
 
-import type { GameState } from '../../../game/store/game.state';
-
-interface Props {
-    readonly gameState: GameState;
-}
-
-export const ChallengeBackButton = ({ gameState }: Props) => {
+export const ChallengeBackButton = () => {
     const { theme } = use(ThemeContext);
+    const gameState = use(ChallengeResultContext);
 
     const handlePress = useShare(gameState);
 
