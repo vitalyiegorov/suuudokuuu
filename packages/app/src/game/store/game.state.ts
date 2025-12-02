@@ -1,11 +1,10 @@
+import { Solution, SudokuStringEncoder } from '@suuudokuuu/encoder';
 import { DifficultyEnum } from '@suuudokuuu/generator';
 
-import { Solution } from '../../history/classes/solution';
-import { SudokuStringEncoder } from '../../history/classes/sudoku-string-encoder';
 import { emptyGameHistory } from '../../history/interfaces/history-game.interface';
 
 import type { HistoryGameInterface } from '../../history/interfaces/history-game.interface';
-import type { SolutionStepInterface } from '../../history/interfaces/solution-step.interface';
+import type { SolutionStepInterface } from '@suuudokuuu/encoder';
 
 export type InputMode = 'normal' | 'candidate';
 

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-magic-numbers, lingui/no-unlocalized-strings */
+/* eslint-disable @typescript-eslint/no-magic-numbers */
 import { beforeEach, describe, expect, it } from '@jest/globals';
 
 import { Solution } from './solution';
