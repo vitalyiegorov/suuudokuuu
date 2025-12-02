@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import { use, useEffect } from 'react';
 import { View } from 'react-native';
 import Animated, { interpolate, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
@@ -38,6 +39,11 @@ export const ChallengeProgressBar = () => {
     useEffect(() => {
         playerProgressValue.value = withTiming(playerProgress, { duration: ANIMATION_DURATION_MS });
     }, [playerProgressValue, playerProgress]);
+    useEffect(() => {
+        if (opponentProgress >= 1) {
+            router.replace('challenge-lost');
+        }
+    }, [opponentProgress]);
 
     const opponentProgressAnimatedStyle = useAnimatedStyle(() => ({
         width: `${interpolate(challengeProgressValue.value, [0, 1], [0, 100])}%`
