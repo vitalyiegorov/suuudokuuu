@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.52.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.51.1...v1.52.0) (2025-12-02)
+
+### Features
+
+- **app:** add Try Again and Challenge Back buttons to challenge end screens ([#133](https://github.com/vitalyiegorov/suuudokuuu/issues/133)) ([f09ffc3](https://github.com/vitalyiegorov/suuudokuuu/commit/f09ffc3c9c737d06418fba5a6092f0b3928bdbeb))
+
 ## [1.51.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.51.0...v1.51.1) (2025-12-01)
 
 ### Bug Fixes
