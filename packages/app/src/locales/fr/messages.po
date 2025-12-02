@@ -84,6 +84,10 @@ msgstr ""
 msgid "big"
 msgstr "grand"
 
+#: src/game/hooks/use-share.hook.ts:19
+msgid "Can you beat me {elapsedTime}?"
+msgstr ""
+
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx:34
 msgid "Can you beat them?"
 msgstr "Pouvez-vous les battre ?"
@@ -488,6 +492,10 @@ msgstr "Statistiques"
 msgid "Stop current run?"
 msgstr "Arrêter la partie en cours ?"
 
+#: src/game/hooks/use-share.hook.ts:19
+msgid "Sudoku"
+msgstr ""
+
 #: src/@generic/components/support-ukraine-banner/support-ukraine-banner.tsx:22
 msgid "Support Ukraine"
 msgstr "Soutenir l'Ukraine"
@@ -520,7 +528,7 @@ msgstr "Chronomètre"
 msgid "Tips for High Scores"
 msgstr "Conseils pour obtenir des scores élevés"
 
-#: src/challenge/components/challenge-try-again-button/challenge-try-again-button.tsx:29
+#: src/challenge/components/challenge-try-again-button/challenge-try-again-button.tsx:30
 msgid "Try Again"
 msgstr "Réessayer"
 

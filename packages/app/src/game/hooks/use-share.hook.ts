@@ -1,3 +1,4 @@
+import { useLingui } from '@lingui/react/macro';
 import * as Sharing from 'expo-sharing';
 import { Share } from 'react-native';
 
@@ -10,15 +11,18 @@ import { gameStateToString } from '../utils/game-state-to-string.util';
 
 export const useShare = (initialGameState?: GameState) => {
     const currentState = useAppSelector(gameSelector);
+    const { t } = useLingui();
 
     const isChallenge = isDefined(initialGameState);
     const state = isChallenge ? initialGameState : currentState;
+    const { elapsedTime } = initialGameState ?? state;
+    const message = isChallenge ? t`Can you beat me ${elapsedTime}?` : t`Sudoku`;
 
     return async () => {
         if (await Sharing.isAvailableAsync()) {
             const shareUrl = `${window.location.origin}/shared/${gameStateToString(state, isChallenge)}`;
 
-            await Share.share({ url: shareUrl });
+            await Share.share({ url: shareUrl, message });
         }
     };
 };
