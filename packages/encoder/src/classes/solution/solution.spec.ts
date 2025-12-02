@@ -440,14 +440,14 @@ describe('Solution', () => {
         it('should handle rapid consecutive moves', () => {
             expect.assertions(5);
 
-            solution.addStep({ x: 0, y: 0, value: 1 }, 1000);
-            solution.addStep({ x: 1, y: 1, value: 2 }, 1001);
-            solution.addStep({ x: 2, y: 2, value: 3 }, 1002);
-            solution.addStep({ x: 3, y: 3, value: 4 }, 1003);
-            solution.addStep({ x: 4, y: 4, value: 5 }, 1004);
+            solution.addStep({ x: 0, y: 0, value: 1 }, 200);
+            solution.addStep({ x: 1, y: 1, value: 2 }, 201);
+            solution.addStep({ x: 2, y: 2, value: 3 }, 202);
+            solution.addStep({ x: 3, y: 3, value: 4 }, 203);
+            solution.addStep({ x: 4, y: 4, value: 5 }, 204);
 
             const steps = solution.getSteps();
-            expect(steps[0].ts).toBe(1000);
+            expect(steps[0].ts).toBe(200);
             expect(steps[1].ts).toBe(1);
             expect(steps[2].ts).toBe(1);
             expect(steps[3].ts).toBe(1);
