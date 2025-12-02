@@ -64,12 +64,12 @@ describe('Solution', () => {
 
             const cell = { x: 8, y: 8, value: 9 };
 
-            const result = solution.addStep(cell, 999);
+            const result = solution.addStep(cell, 255);
 
-            expect(result).toEqual({ cellIndex: 80, value: 9, ts: 999 });
+            expect(result).toEqual({ cellIndex: 80, value: 9, ts: 255 });
         });
 
-        it('should cap timestamp at 8191 when time difference exceeds maximum', () => {
+        it('should cap timestamp at 255 when time difference exceeds maximum', () => {
             expect.assertions(2);
 
             const cell1 = { x: 0, y: 0, value: 1 };
@@ -78,8 +78,8 @@ describe('Solution', () => {
             solution.addStep(cell1, 100);
             const result = solution.addStep(cell2, 10000);
 
-            expect(result.ts).toBe(8191);
-            expect(solution.getSteps()[1].ts).toBe(8191);
+            expect(result.ts).toBe(255);
+            expect(solution.getSteps()[1].ts).toBe(255);
         });
 
         it('should handle multiple steps with timestamps exceeding maximum', () => {
@@ -91,8 +91,8 @@ describe('Solution', () => {
 
             const steps = solution.getSteps();
             expect(steps[0].ts).toBe(0);
-            expect(steps[1].ts).toBe(8191);
-            expect(steps[2].ts).toBe(8191);
+            expect(steps[1].ts).toBe(255);
+            expect(steps[2].ts).toBe(255);
         });
     });
 
@@ -289,14 +289,14 @@ describe('Solution', () => {
     });
 
     describe('edge cases', () => {
-        it('should handle maximum timestamp value (8191)', () => {
+        it('should handle maximum timestamp value (255)', () => {
             expect.assertions(2);
 
-            solution.addStep({ x: 0, y: 0, value: 1 }, 8191);
+            solution.addStep({ x: 0, y: 0, value: 1 }, 255);
 
             const stringified = solution.stringify();
             const parsed = Solution.fromString(stringified);
-            expect(parsed.getSteps()).toEqual([{ cellIndex: 0, value: 1, ts: 8191 }]);
+            expect(parsed.getSteps()).toEqual([{ cellIndex: 0, value: 1, ts: 255 }]);
             expect(parsed.stringify()).toBe(stringified);
         });
 
@@ -326,36 +326,36 @@ describe('Solution', () => {
     });
 
     describe('timestamp overflow', () => {
-        it('should cap timestamps at 8191', () => {
+        it('should cap timestamps at 255', () => {
             expect.assertions(2);
 
             solution.addStep({ x: 0, y: 0, value: 1 }, 10000);
 
             const stringified = solution.stringify();
             expect(stringified.length).toBeGreaterThan(0);
-            expect(solution.getSteps()[0].ts).toBe(8191);
+            expect(solution.getSteps()[0].ts).toBe(255);
         });
 
-        it('should handle extreme time differences by capping at 8191', () => {
+        it('should handle extreme time differences by capping at 255', () => {
             expect.assertions(1);
 
             solution.addStep({ x: 0, y: 0, value: 1 }, 0);
             solution.addStep({ x: 1, y: 1, value: 2 }, 20000);
 
-            expect(solution.getSteps()[1].ts).toBe(8191);
+            expect(solution.getSteps()[1].ts).toBe(255);
         });
 
         it('should maintain data integrity with capped timestamps', () => {
             expect.assertions(2);
 
             solution.addStep({ x: 5, y: 5, value: 5 }, 100);
-            solution.addStep({ x: 6, y: 6, value: 6 }, 9000);
+            solution.addStep({ x: 6, y: 6, value: 6 }, 9001);
             solution.addStep({ x: 7, y: 7, value: 7 }, 9050);
 
             const steps = solution.getSteps();
 
-            expect(steps[1].ts).toBe(8191);
-            expect(steps[2].ts).toBe(759);
+            expect(steps[1].ts).toBe(255);
+            expect(steps[2].ts).toBe(255);
         });
     });
 
@@ -372,8 +372,8 @@ describe('Solution', () => {
 
             expect(parsed.getSteps()).toEqual([
                 { cellIndex: 0, value: 1, ts: 0 },
-                { cellIndex: 10, value: 2, ts: 8191 },
-                { cellIndex: 20, value: 3, ts: 909 }
+                { cellIndex: 10, value: 2, ts: 255 },
+                { cellIndex: 20, value: 3, ts: 255 }
             ]);
             expect(parsed.stringify()).toBe(stringified);
         });
@@ -409,7 +409,7 @@ describe('Solution', () => {
 
             const stringified = solution.stringify();
             const parsed = Solution.fromString(stringified);
-            expect(parsed.getSteps()[0].ts).toBe(8191);
+            expect(parsed.getSteps()[0].ts).toBe(255);
         });
 
         it('should encode 3 bytes per step', () => {
@@ -422,7 +422,7 @@ describe('Solution', () => {
     });
 
     describe('timestamp capping validation', () => {
-        it('should cap at exactly 8191 seconds (~136 minutes)', () => {
+        it('should cap at exactly 255 seconds (~4 minutes)', () => {
             expect.assertions(4);
 
             solution.addStep({ x: 0, y: 0, value: 1 }, 0);
@@ -432,9 +432,9 @@ describe('Solution', () => {
 
             const steps = solution.getSteps();
             expect(steps[0].ts).toBe(0);
-            expect(steps[1].ts).toBe(8191);
-            expect(steps[2].ts).toBe(1);
-            expect(steps[3].ts).toBe(8191);
+            expect(steps[1].ts).toBe(255);
+            expect(steps[2].ts).toBe(255);
+            expect(steps[3].ts).toBe(255);
         });
 
         it('should handle rapid consecutive moves', () => {
