@@ -118,6 +118,10 @@ msgstr "Défi perdu !"
 msgid "Challenge Won!"
 msgstr "Défi gagné !"
 
+#: src/game/hooks/use-share-puzzle.hook.ts:22
+msgid "Check out this Sudoku puzzle!"
+msgstr "Découvrez ce puzzle Sudoku !"
+
 #: src/game/components/mistakes-select/mistakes-select.tsx:27
 msgid "Choose your challenge"
 msgstr "Choisissez votre défi"
@@ -265,6 +269,10 @@ msgstr "Mettre en évidence les nombres candidats sélectionnés"
 #: src/app/scoring.tsx:12
 msgid "How Scoring Works"
 msgstr "Comment fonctionne le score"
+
+#: src/game/hooks/use-share-challenge.hook.ts:26
+msgid "I completed this Sudoku in {elapsedTimeString}. Can you beat me?"
+msgstr "J'ai complété ce Sudoku en {elapsedTimeString}. Pouvez-vous me battre ?"
 
 #: src/game/components/mistakes-select/mistakes-select.tsx:29
 msgid "Immortal"
@@ -496,6 +504,14 @@ msgstr "Soutenir l'Ukraine"
 msgid "SuuudokuuU"
 msgstr "SuuudokuuU"
 
+#: src/game/hooks/use-share-challenge.hook.ts:25
+msgid "SuuudokuuU Challenge"
+msgstr "SuuudokuuU Défi"
+
+#: src/game/hooks/use-share-puzzle.hook.ts:21
+msgid "SuuudokuuU Sudoku Puzzle"
+msgstr "SuuudokuuU Puzzle Sudoku"
+
 #: src/@generic/components/page-header/page-header.tsx:20
 msgid "SuuudokuuU The Game"
 msgstr "SuuudokuuU Le Jeu"
@@ -520,7 +536,7 @@ msgstr "Chronomètre"
 msgid "Tips for High Scores"
 msgstr "Conseils pour obtenir des scores élevés"
 
-#: src/challenge/components/challenge-try-again-button/challenge-try-again-button.tsx:29
+#: src/challenge/components/challenge-try-again-button/challenge-try-again-button.tsx:30
 msgid "Try Again"
 msgstr "Réessayer"
 
