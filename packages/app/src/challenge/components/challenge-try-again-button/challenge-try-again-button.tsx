@@ -4,7 +4,8 @@ import { use } from 'react';
 
 import { BlackButton } from '../../../@generic/components/black-button/black-button';
 import { GameContext } from '../../../game/context/game.context';
-import { GameState, urlToGameState } from '../../../game/store/game.state';
+import { GameState } from '../../../game/store/game.state';
+import { stringToGameState } from '../../../game/utils/string-to-game-state.util';
 import { ChallengeFriendButtonStyles as styles } from '../challenge-friend-button/challenge-friend-button.styles';
 
 interface Props {
@@ -17,7 +18,7 @@ export const ChallengeTryAgainButton = ({ gameState }: Props) => {
     const { t } = useLingui();
 
     const handleTryAgain = () => {
-        createFromState(urlToGameState(gameState.challengeState));
+        createFromState(stringToGameState(gameState.challengeState));
     };
 
     return (
