@@ -2,7 +2,7 @@ import { useLingui } from '@lingui/react/macro';
 import { LucideSwords } from 'lucide-react-native';
 
 import { BlackButton } from '../../../@generic/components/black-button/black-button';
-import { useShare } from '../../../game/hooks/use-share.hook';
+import { useShareChallenge } from '../../../game/hooks/use-share-challenge/use-share-challenge.hook';
 import { ChallengeFriendButtonStyles as styles } from '../challenge-friend-button/challenge-friend-button.styles';
 
 import type { GameState } from '../../../game/store/game.state';
@@ -14,7 +14,7 @@ interface Props {
 export const ChallengeBackButton = ({ gameState }: Props) => {
     const { t } = useLingui();
 
-    const handlePress = useShare(gameState);
+    const handlePress = useShareChallenge({ gameState });
 
     return <BlackButton onPress={handlePress} style={styles.button} icon={LucideSwords} text={t`Challenge Back`}></BlackButton>;
 };
