@@ -16,7 +16,7 @@ export const ChallengeProgressBarStyles = StyleSheet.create({
     playerProgress: {
         borderRadius: 2,
         bottom: 0,
-        height: 2,
+        height: 4,
         left: 0,
         position: 'absolute'
     },

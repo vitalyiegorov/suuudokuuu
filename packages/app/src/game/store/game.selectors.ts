@@ -29,3 +29,4 @@ export const gameIsStartedSelector = createSelector(gameSelector, state => isNot
 export const gameIsChallengeModeSelector = createSelector(gameSelector, state => isNotEmptyString(state.challengeState));
 export const gameChallengeStepsSelector = createSelector(gameSelector, state => state.challengeSteps);
 export const gameChallengeTimeSelector = createSelector(gameSelector, state => state.challengeTime);
+export const gameSolutionsStepsSelector = createSelector(gameSelector, state => state.solutionSteps);
