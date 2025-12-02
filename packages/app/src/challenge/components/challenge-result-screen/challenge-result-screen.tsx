@@ -51,30 +51,30 @@ export const ChallengeResultScreen = (props: ChallengeResultScreenProps) => {
 
             <Header text={headerText} />
 
-            <View style={styles.statsContainer}>
-                <BlackText>
-                    <Text>{t`Your time:`} </Text>
-                    <Text style={styles.boldText}>{getTimerText(elapsedTime)}</Text>
-                </BlackText>
+            {isWon && (
+                <View style={styles.statsContainer}>
+                    <BlackText>
+                        <Text>{t`Your time:`} </Text>
+                        <Text style={styles.boldText}>{getTimerText(elapsedTime)}</Text>
+                    </BlackText>
 
-                <BlackText>
-                    <Text>{t`Opponent's time:`} </Text>
-                    <Text style={styles.boldText}>{getTimerText(challengeTime)}</Text>
-                </BlackText>
+                    <BlackText>
+                        <Text>{t`Opponent's time:`} </Text>
+                        <Text style={styles.boldText}>{getTimerText(challengeTime)}</Text>
+                    </BlackText>
 
-                <BlackText style={styles.differenceText}>
-                    <Text>{t`You were`} </Text>
-                    <Text style={differenceTimeTextStyle}>{getTimerText(timeDifference)}</Text>
-                    <Text> {differenceLabel}</Text>
-                </BlackText>
+                    <BlackText style={styles.differenceText}>
+                        <Text>{t`You were`} </Text>
+                        <Text style={differenceTimeTextStyle}>{getTimerText(timeDifference)}</Text>
+                        <Text> {differenceLabel}</Text>
+                    </BlackText>
 
-                {isWon && (
                     <BlackText style={styles.messageText}>
                         <Text>{t`Score:`} </Text>
                         <Text style={styles.boldText}>{score}</Text>
                     </BlackText>
-                )}
-            </View>
+                </View>
+            )}
 
             <Donation type={donationType} />
 
