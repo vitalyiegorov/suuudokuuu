@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.54.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.53.1...v1.54.0) (2025-12-02)
+
+### Features
+
+- **app:** improve share message ([#143](https://github.com/vitalyiegorov/suuudokuuu/issues/143)) ([d9178ad](https://github.com/vitalyiegorov/suuudokuuu/commit/d9178ad9b319615ca9a9e5813f439ff84a771eb0)), closes [#144](https://github.com/vitalyiegorov/suuudokuuu/issues/144)
+
 ## [1.53.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.53.0...v1.53.1) (2025-12-02)
 
 ### Bug Fixes
