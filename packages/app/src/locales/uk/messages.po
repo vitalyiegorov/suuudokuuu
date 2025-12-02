@@ -84,10 +84,6 @@ msgstr ""
 msgid "big"
 msgstr "великий"
 
-#: src/game/hooks/use-share.hook.ts:19
-msgid "Can you beat me {elapsedTime}?"
-msgstr ""
-
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx:34
 msgid "Can you beat them?"
 msgstr "Чи зможете ви їх перемогти?"
@@ -121,6 +117,10 @@ msgstr "Виклик програно!"
 #: src/app/challenge-won.tsx:16
 msgid "Challenge Won!"
 msgstr "Виклик виграно!"
+
+#: src/game/hooks/use-share-puzzle.hook.ts:22
+msgid "Check out this Sudoku puzzle!"
+msgstr "Перегляньте цю головоломку Судоку!"
 
 #: src/game/components/mistakes-select/mistakes-select.tsx:27
 msgid "Choose your challenge"
@@ -269,6 +269,10 @@ msgstr "Підсвітити вибрані числа кандидатів"
 #: src/app/scoring.tsx:12
 msgid "How Scoring Works"
 msgstr "Як працює підрахунок балів"
+
+#: src/game/hooks/use-share-challenge.hook.ts:26
+msgid "I completed this Sudoku in {elapsedTimeString}. Can you beat me?"
+msgstr "Я розв'язав цю головоломку Судоку за {elapsedTimeString}. Зможеш мене обійти?"
 
 #: src/game/components/mistakes-select/mistakes-select.tsx:29
 msgid "Immortal"
@@ -492,10 +496,6 @@ msgstr "Статистика"
 msgid "Stop current run?"
 msgstr "Зупинити поточний прогрес?"
 
-#: src/game/hooks/use-share.hook.ts:19
-msgid "Sudoku"
-msgstr ""
-
 #: src/@generic/components/support-ukraine-banner/support-ukraine-banner.tsx:22
 msgid "Support Ukraine"
 msgstr "Підтримайте Україну"
@@ -503,6 +503,14 @@ msgstr "Підтримайте Україну"
 #: src/screens/components/home-screen/home.screen.tsx:73
 msgid "SuuudokuuU"
 msgstr "СууудокуУ"
+
+#: src/game/hooks/use-share-challenge.hook.ts:25
+msgid "SuuudokuuU Challenge"
+msgstr "СууудокуУ Виклик"
+
+#: src/game/hooks/use-share-puzzle.hook.ts:21
+msgid "SuuudokuuU Sudoku Puzzle"
+msgstr "СууудокуУ Головоломка Судоку"
 
 #: src/@generic/components/page-header/page-header.tsx:20
 msgid "SuuudokuuU The Game"
