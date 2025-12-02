@@ -1,5 +1,4 @@
 import { BitInputStream, BitOutputStream } from '@thi.ng/bitstream';
-import { compress, decompress } from 'lz-string';
 
 import { isNotEmptyString } from '@rnw-community/shared';
 
@@ -7,9 +6,9 @@ import { CELL_INDEX_BITS, TIMESTAMP_BITS, VALUE_BITS } from '../../constants/bit
 import { GRID_SIZE } from '../../constants/grid.constant';
 import { CellPositionInterface } from '../../interfaces/cell-position.interface';
 import { SolutionStepInterface } from '../../interfaces/solution-step.interface';
-import { base64ToUint8Array } from '../../util/base64-to-uint8array.util';
 import { isValidCellIndex } from '../../util/is-valid-cell-index.util';
 import { isValidCellValue } from '../../util/is-valid-cell-value.util';
+import { stringToUint8Array } from '../../util/string-to-uint8array.util';
 
 export class Solution {
     private readonly maxTimestamp = 2 ** TIMESTAMP_BITS - 1;
@@ -29,7 +28,7 @@ export class Solution {
             out.write(step.ts, TIMESTAMP_BITS);
         }
 
-        return compress(String.fromCharCode(...out.bytes()));
+        return String.fromCharCode(...out.bytes());
     }
 
     addStep(cell: CellPositionInterface, elapsedTime: number): SolutionStepInterface {
@@ -64,7 +63,7 @@ export class Solution {
         this.steps = [];
 
         try {
-            const input = new BitInputStream(base64ToUint8Array(decompress(inputString)));
+            const input = new BitInputStream(stringToUint8Array(inputString));
 
             while (input.position + this.bitsPerStep <= input.length) {
                 const index = input.read(CELL_INDEX_BITS);

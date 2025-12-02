@@ -1,11 +1,12 @@
 import { Solution, SudokuStringEncoder } from '@suuudokuuu/encoder';
+import { decompressFromEncodedURIComponent } from 'lz-string';
 
 import { SerializedGameState } from '../interfaces/serialized-game-state.interface';
 import { GameState, initialGameState } from '../store/game.state';
 
 export const stringToGameState = (gameStateString: string): GameState => {
     try {
-        const input = JSON.parse(atob(gameStateString)) as SerializedGameState;
+        const input = JSON.parse(decompressFromEncodedURIComponent(gameStateString)) as SerializedGameState;
 
         const sudokuEncoder = new SudokuStringEncoder();
         const solution = Solution.fromString(input.h ?? '');

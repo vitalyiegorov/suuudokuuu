@@ -1,13 +1,12 @@
 import { BitInputStream, BitOutputStream } from '@thi.ng/bitstream';
-import { compress, decompress } from 'lz-string';
 
 import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
 import { CELL_INDEX_BITS, VALUE_BITS } from '../../constants/bit-encoding.constant';
 import { GRID_CELL_COUNT, GRID_EMPTY_CELL } from '../../constants/grid.constant';
-import { base64ToUint8Array } from '../../util/base64-to-uint8array.util';
 import { isValidCellIndex } from '../../util/is-valid-cell-index.util';
 import { isValidCellValue } from '../../util/is-valid-cell-value.util';
+import { stringToUint8Array } from '../../util/string-to-uint8array.util';
 
 import type { SolutionStepInterface } from '../../interfaces/solution-step.interface';
 
@@ -30,7 +29,7 @@ export class SudokuStringEncoder {
             }
         }
 
-        return compress(String.fromCharCode(...out.bytes()));
+        return String.fromCharCode(...out.bytes());
     }
 
     decode(input: string): string {
@@ -60,7 +59,7 @@ export class SudokuStringEncoder {
 
     private getCluesFromInput(input: string): Record<number, number> {
         const clues: Record<number, number> = {};
-        const inputStream = new BitInputStream(base64ToUint8Array(decompress(input)));
+        const inputStream = new BitInputStream(stringToUint8Array(input));
 
         while (inputStream.position + this.bitsPerClue <= inputStream.length) {
             const index = inputStream.read(CELL_INDEX_BITS);
