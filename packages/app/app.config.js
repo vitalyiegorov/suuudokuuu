@@ -51,7 +51,7 @@ export default ({ config }) => ({
         config: {
             usesNonExemptEncryption: false
         },
-        associatedDomains: ['applinks:suuudokuuu.com']
+        associatedDomains: ['applinks:suuudokuuu.com', 'applinks:www.suuudokuuu.com']
     },
     android: {
         adaptiveIcon: {
