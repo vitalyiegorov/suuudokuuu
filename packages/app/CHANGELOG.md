@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.53.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.52.1...v1.53.0) (2025-12-02)
+
+### Features
+
+- **app:** added www.suuudokuuu.com domain for deep links ([#142](https://github.com/vitalyiegorov/suuudokuuu/issues/142)) ([a3a9289](https://github.com/vitalyiegorov/suuudokuuu/commit/a3a9289099402d4d3cd89929c634fca8f6f4768d))
+
 ## [1.52.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.52.0...v1.52.1) (2025-12-02)
 
 **Note:** Version bump only for package @suuudokuuu/app
