@@ -2,6 +2,8 @@ import { useLingui } from '@lingui/react/macro';
 import { Redirect } from 'expo-router';
 import { Text, View } from 'react-native';
 
+import { isNotEmptyString } from '@rnw-community/shared';
+
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { Donation } from '../../../@generic/components/donation/donation';
 import { Header } from '../../../@generic/components/header/header';
@@ -16,7 +18,7 @@ export const WinnerScreen = () => {
     const { t } = useLingui();
 
     const [isGameStarted, gameState] = useResetGame();
-    const { score, elapsedTime, isChallengeMode } = gameState;
+    const { score, elapsedTime, challengeState } = gameState;
 
     if (!isGameStarted && elapsedTime === 0) {
         return <Redirect href="/" />;
@@ -40,7 +42,7 @@ export const WinnerScreen = () => {
             <Donation type="winner" />
 
             <View style={WinnerScreenStyles.buttonsWrapper}>
-                {!isChallengeMode && <ChallengeFriendButton gameState={gameState} />}
+                {!isNotEmptyString(challengeState) && <ChallengeFriendButton gameState={gameState} />}
                 <PlayAgainButton />
             </View>
         </View>

@@ -7,7 +7,7 @@ import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { GameScreenSelectors } from '../../../screens/components/game-screen/game-screen.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { gameToggleAutoCandidatesAction } from '../../store/game.actions';
-import { gameShowAutoCandidatesSelector } from '../../store/game.selectors';
+import { gameSelector } from '../../store/game.selectors';
 
 import { AutoCandidatesButtonStyles } from './auto-candidates-button.styles';
 
@@ -15,7 +15,7 @@ export const AutoCandidatesButton = () => {
     const { theme } = use(ThemeContext);
 
     const dispatch = useAppDispatch();
-    const showAutoCandidates = useAppSelector(gameShowAutoCandidatesSelector);
+    const { showAutoCandidates } = useAppSelector(gameSelector);
 
     const handleCandidates = () => {
         dispatch(gameToggleAutoCandidatesAction());

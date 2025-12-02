@@ -2,6 +2,8 @@ import { useLingui } from '@lingui/react/macro';
 import { use } from 'react';
 import { View } from 'react-native';
 
+import { isNotEmptyString } from '@rnw-community/shared';
+
 import { BlackButton } from '../../../@generic/components/black-button/black-button';
 import { Header } from '../../../@generic/components/header/header';
 import { ChallengeAcceptScreen } from '../../../challenge/components/challenge-accept-screen/challenge-accept-screen';
@@ -19,14 +21,14 @@ export const SharedScreen = ({ stateString }: Props) => {
     const { createFromState } = use(GameContext);
 
     const gameState = urlToGameState(stateString);
-    const { isChallengeMode, opponentTotalTime } = gameState;
+    const { challengeState, challengeTime } = gameState;
 
     const handleOpenPuzzle = () => {
         createFromState(gameState);
     };
 
-    if (isChallengeMode) {
-        return <ChallengeAcceptScreen onAccept={handleOpenPuzzle} opponentTotalTime={opponentTotalTime} />;
+    if (isNotEmptyString(challengeState)) {
+        return <ChallengeAcceptScreen onAccept={handleOpenPuzzle} opponentTotalTime={challengeTime} />;
     }
 
     return (

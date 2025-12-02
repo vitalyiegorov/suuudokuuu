@@ -52,6 +52,10 @@ export class Solution {
         return this.steps;
     }
 
+    getElapsedTime(): number {
+        return this.steps.reduce((total, step) => total + step.ts, 0);
+    }
+
     private parse(inputString: string): SolutionStepInterface[] {
         if (!isNotEmptyString(inputString)) {
             return [];

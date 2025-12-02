@@ -32,12 +32,12 @@ import {
     gameToggleCellCandidateAction
 } from '../../../game/store/game.actions';
 import {
+    gameChallengeTimeSelector,
     gameElapsedTimeSelector,
     gameInputModeSelector,
     gameIsChallengeModeSelector,
     gameMaxMistakesSelector,
     gameMistakesSelector,
-    gameOpponentTotalTimeSelector,
     gameScoreSelector
 } from '../../../game/store/game.selectors';
 import { settingsKeySelector } from '../../../settings/store/settings.selectors';
@@ -72,7 +72,7 @@ export const GameScreen = () => {
     const hasTimer = useAppSelector(settingsKeySelector('hasTimer'));
     const inputMode = useAppSelector(gameInputModeSelector);
     const isChallengeMode = useAppSelector(gameIsChallengeModeSelector);
-    const opponentTotalTime = useAppSelector(gameOpponentTotalTimeSelector);
+    const challengeTime = useAppSelector(gameChallengeTimeSelector);
     const elapsedTime = useAppSelector(gameElapsedTimeSelector);
 
     const availableValuesRefs = useRef<Record<number, AvailableValuesItemRef | null>>({});
@@ -122,7 +122,7 @@ export const GameScreen = () => {
         // HINT: We need to wait for the animation to finish, animation finish event would fix it?
         setTimeout(() => {
             if (isChallengeMode) {
-                const wonChallenge = elapsedTime < opponentTotalTime;
+                const wonChallenge = elapsedTime < challengeTime;
                 router.replace(wonChallenge ? 'challenge-won' : 'challenge-lost');
             } else {
                 router.replace('winner');
