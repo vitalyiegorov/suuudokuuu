@@ -2,7 +2,7 @@ import { useLingui } from '@lingui/react/macro';
 import { LucideSwords } from 'lucide-react-native';
 
 import { BlackButton } from '../../../@generic/components/black-button/black-button';
-import { useShareChallenge } from '../../../game/hooks/use-share-challenge.hook';
+import { useShareChallenge } from '../../../game/hooks/use-share-challenge/use-share-challenge.hook';
 import { ChallengeFriendButtonStyles as styles } from '../challenge-friend-button/challenge-friend-button.styles';
 
 import type { GameState } from '../../../game/store/game.state';

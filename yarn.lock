@@ -5380,6 +5380,7 @@ __metadata:
     date-fns: "npm:^2.30.0"
     eas-build-cache-provider: "npm:^16.4.2"
     expo: "npm:~54.0.25"
+    expo-build-properties: "npm:~1.0.9"
     expo-constants: "npm:~18.0.10"
     expo-dev-client: "npm:~6.0.18"
     expo-device: "npm:~8.0.9"
@@ -9764,6 +9765,18 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: 10/28255c7ee0b21ba3e11f5dc5dc5eee0a00663bf9ed47033f6921e3894b4de3565820d965a00ec5c5bf20222222b9a26230525dd0ec92c56e360e3817fb025690
+  languageName: node
+  linkType: hard
+
+"expo-build-properties@npm:~1.0.9":
+  version: 1.0.9
+  resolution: "expo-build-properties@npm:1.0.9"
+  dependencies:
+    ajv: "npm:^8.11.0"
+    semver: "npm:^7.6.0"
+  peerDependencies:
+    expo: "*"
+  checksum: 10/ef146f80a6c969f8a31475351361ad3d4179880bcba56e8e6935815269db22363983f0a60e456c34674506e2b7e0a4ad4c0badaf2e3dcbf17b9c7fec1e4305d7
   languageName: node
   linkType: hard
 
