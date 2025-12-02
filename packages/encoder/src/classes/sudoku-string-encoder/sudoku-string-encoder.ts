@@ -22,7 +22,7 @@ export class SudokuStringEncoder {
 
         const out = new BitOutputStream();
         for (let i = 0; i < initial.length; i += 1) {
-            const char = initial[i];
+            const char = initial.charAt(i);
             if (char !== GRID_EMPTY_CELL) {
                 out.write(i, CELL_INDEX_BITS);
                 out.write(parseInt(char, 10), VALUE_BITS);
