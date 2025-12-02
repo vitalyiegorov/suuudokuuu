@@ -43,7 +43,7 @@ export const ChallengeProgressBar = () => {
 
     useEffect(() => {
         Animated.timing(progressAnim, { toValue: opponentProgress, duration: ANIMATION_DURATION_MS, useNativeDriver: false }).start();
-    }, [opponentProgress, progressAnim]);
+    }, [opponentProgress]);
 
     const progressWidth = progressAnim.interpolate({ inputRange: [0, 100], outputRange: ['0%', '100%'] });
     const trackStyle: StyleProp<ViewStyle> = [styles.track, { backgroundColor: theme.colors.black05 }];
