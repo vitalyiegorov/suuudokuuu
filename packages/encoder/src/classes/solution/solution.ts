@@ -11,7 +11,7 @@ import { isValidCellIndex } from '../../util/is-valid-cell-index.util';
 import { isValidCellValue } from '../../util/is-valid-cell-value.util';
 
 export class Solution {
-    private readonly maxTimestamp = 8191;
+    private readonly maxTimestamp = 2 ** TIMESTAMP_BITS - 1;
     private readonly bitsPerStep = CELL_INDEX_BITS + VALUE_BITS + TIMESTAMP_BITS;
 
     private steps: SolutionStepInterface[] = [];
