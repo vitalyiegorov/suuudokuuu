@@ -88,8 +88,17 @@ export default ({ config }) => ({
         url: 'https://u.expo.dev/4a70028a-5f9e-4ab6-9389-82d8b8b6c833'
     },
     plugins: [
+        'expo-build-properties',
         ['expo-router', { origin: 'https://www.suuudokuuu.com/' }],
-        ['expo-font', { fonts: ['../../node_modules/@expo-google-fonts/inter/Inter_900Black.ttf'] }]
+        ['expo-font', { fonts: ['../../node_modules/@expo-google-fonts/inter/Inter_900Black.ttf'] }],
+        [
+            'react-native-share',
+            {
+                ios: ['fb', 'instagram', 'twitter', 'tiktoksharesdk'],
+                android: ['com.facebook.katana', 'com.instagram.android', 'com.twitter.android', 'com.zhiliaoapp.musically'],
+                enableBase64ShareAndroid: true
+            }
+        ]
     ],
     experiments: {
         reactCompiler: true,
