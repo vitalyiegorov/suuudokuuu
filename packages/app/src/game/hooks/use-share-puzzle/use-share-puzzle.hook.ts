@@ -14,7 +14,7 @@ export const useSharePuzzle = () => {
             await Share.open({
                 title: t`SuuudokuuU Sudoku Puzzle`,
                 message: t`Check out this Sudoku puzzle!`,
-                url: `suuudokuuu://shared/${gameStateToString(state, false)}`
+                url: `https://suuudokuuu.com/shared/${gameStateToString(state, false)}`
             });
         } catch {
             // User dismissed the share sheet - this is expected behavior

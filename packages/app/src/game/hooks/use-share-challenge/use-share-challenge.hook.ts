@@ -20,7 +20,7 @@ export const useShareChallenge = ({ gameState }: Props) => {
             await Share.open({
                 title: t`SuuudokuuU Challenge`,
                 message: t`I completed this Sudoku in ${elapsedTimeString}. Can you beat me?`,
-                url: `suuudokuuu://shared/${gameStateToString(gameState, true)}`
+                url: `https://suuudokuuu.com/shared/${gameStateToString(gameState, true)}`
             });
         } catch {
             // User dismissed the share sheet - this is expected behavior
