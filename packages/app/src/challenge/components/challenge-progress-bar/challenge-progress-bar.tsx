@@ -39,9 +39,11 @@ export const ChallengeProgressBar = () => {
                 Animated.timing(pulseAnim, { toValue: 1, duration: PULSE_DURATION_MS, useNativeDriver: true })
             ]).start();
         }
+    }, [playerProgress, challengeSteps.length, progressAnim, pulseAnim]);
 
+    useEffect(() => {
         Animated.timing(progressAnim, { toValue: opponentProgress, duration: ANIMATION_DURATION_MS, useNativeDriver: false }).start();
-    }, [elapsedTime, opponentProgress, challengeSteps, pulseAnim]);
+    }, [opponentProgress, progressAnim]);
 
     const progressWidth = progressAnim.interpolate({ inputRange: [0, 100], outputRange: ['0%', '100%'] });
     const trackStyle: StyleProp<ViewStyle> = [styles.track, { backgroundColor: theme.colors.black05 }];
@@ -49,10 +51,11 @@ export const ChallengeProgressBar = () => {
         styles.playerProgress,
         { width: `${playerProgress}%`, backgroundColor: theme.colors.blue }
     ];
-    const opponentProgressStyle = [
+    const opponentProgressStyle: StyleProp<ViewStyle> = [
         styles.opponentProgress,
-        { width: progressWidth, backgroundColor: theme.colors.red, transform: [{ scaleY: pulseAnim }] }
+        { width: progressWidth, backgroundColor: theme.colors.red }
     ];
+    const pulseStyles = { transform: [{ scaleY: pulseAnim }], flex: 1 };
 
     const getStepIndicatorStyle = (position: number): StyleProp<ViewStyle> => [
         styles.stepIndicator,
@@ -62,7 +65,9 @@ export const ChallengeProgressBar = () => {
     return (
         <View style={styles.container}>
             <View style={trackStyle}>
-                <Animated.View style={opponentProgressStyle} />
+                <Animated.View style={opponentProgressStyle}>
+                    <Animated.View style={pulseStyles} />
+                </Animated.View>
                 <View style={playerProgressStyle} />
                 {stepIndicators.map((position, index) => (
                     <View key={`step-${index}`} style={getStepIndicatorStyle(position)} />
