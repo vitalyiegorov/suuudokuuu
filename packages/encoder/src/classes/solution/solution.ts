@@ -1,4 +1,5 @@
 import { BitInputStream, BitOutputStream } from '@thi.ng/bitstream';
+import { compress, decompress } from 'lz-string';
 
 import { isNotEmptyString } from '@rnw-community/shared';
 
@@ -28,7 +29,7 @@ export class Solution {
             out.write(step.ts, TIMESTAMP_BITS);
         }
 
-        return btoa(String.fromCharCode(...out.bytes()));
+        return compress(String.fromCharCode(...out.bytes()));
     }
 
     addStep(cell: CellPositionInterface, elapsedTime: number): SolutionStepInterface {
@@ -63,7 +64,7 @@ export class Solution {
         this.steps = [];
 
         try {
-            const input = new BitInputStream(base64ToUint8Array(inputString));
+            const input = new BitInputStream(base64ToUint8Array(decompress(inputString)));
 
             while (input.position + this.bitsPerStep <= input.length) {
                 const index = input.read(CELL_INDEX_BITS);

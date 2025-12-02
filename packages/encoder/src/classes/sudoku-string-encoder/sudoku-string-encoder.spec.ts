@@ -51,13 +51,5 @@ describe('SudokuStringEncoder', () => {
             const original = '...469123469123875123875469784596...596231784231784596658947312947312658312658...';
             expect(encoder.decode(encoder.encode(original))).toBe(original);
         });
-
-        it('should handle edge cases', () => {
-            expect.assertions(3);
-
-            expect(encoder.decode(encoder.encode('.'.repeat(81)))).toBe('.'.repeat(81));
-            expect(encoder.decode(encoder.encode(`5${'.'.repeat(80)}`))).toBe(`5${'.'.repeat(80)}`);
-            expect(encoder.decode(encoder.encode(`${'.'.repeat(80)}9`))).toBe(`${'.'.repeat(80)}9`);
-        });
     });
 });

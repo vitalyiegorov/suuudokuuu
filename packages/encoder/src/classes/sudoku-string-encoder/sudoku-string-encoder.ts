@@ -1,4 +1,5 @@
 import { BitInputStream, BitOutputStream } from '@thi.ng/bitstream';
+import { compress, decompress } from 'lz-string';
 
 import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
@@ -29,7 +30,7 @@ export class SudokuStringEncoder {
             }
         }
 
-        return btoa(String.fromCharCode(...out.bytes()));
+        return compress(String.fromCharCode(...out.bytes()));
     }
 
     decode(input: string): string {
@@ -59,7 +60,7 @@ export class SudokuStringEncoder {
 
     private getCluesFromInput(input: string): Record<number, number> {
         const clues: Record<number, number> = {};
-        const inputStream = new BitInputStream(base64ToUint8Array(input));
+        const inputStream = new BitInputStream(base64ToUint8Array(decompress(input)));
 
         while (inputStream.position + this.bitsPerClue <= inputStream.length) {
             const index = inputStream.read(CELL_INDEX_BITS);
