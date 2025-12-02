@@ -2,17 +2,16 @@ import { BitInputStream, BitOutputStream } from '@thi.ng/bitstream';
 
 import { isNotEmptyString } from '@rnw-community/shared';
 
-import { CELL_INDEX_BITS, TIMESTAMP_BITS, VALUE_BITS } from '../constants/bit-encoding.constant';
-import { GRID_SIZE } from '../constants/grid.constant';
-import { SolutionStepInterface } from '../interfaces/solution-step.interface';
-import { base64ToUint8Array } from '../util/base64-to-uint8array.util';
-import { isValidCellIndex } from '../util/is-valid-cell-index.util';
-import { isValidCellValue } from '../util/is-valid-cell-value.util';
-
-import type { CellInterface } from '@suuudokuuu/generator';
+import { CELL_INDEX_BITS, TIMESTAMP_BITS, VALUE_BITS } from '../../constants/bit-encoding.constant';
+import { GRID_SIZE } from '../../constants/grid.constant';
+import { CellPositionInterface } from '../../interfaces/cell-position.interface';
+import { SolutionStepInterface } from '../../interfaces/solution-step.interface';
+import { isValidCellIndex } from '../../util/is-valid-cell-index.util';
+import { isValidCellValue } from '../../util/is-valid-cell-value.util';
+import { stringToUint8Array } from '../../util/string-to-uint8array.util';
 
 export class Solution {
-    private readonly maxTimestamp = 8191;
+    private readonly maxTimestamp = 2 ** TIMESTAMP_BITS - 1;
     private readonly bitsPerStep = CELL_INDEX_BITS + VALUE_BITS + TIMESTAMP_BITS;
 
     private steps: SolutionStepInterface[] = [];
@@ -29,10 +28,10 @@ export class Solution {
             out.write(step.ts, TIMESTAMP_BITS);
         }
 
-        return btoa(String.fromCharCode(...out.bytes()));
+        return String.fromCharCode(...out.bytes());
     }
 
-    addStep(cell: Pick<CellInterface, 'x' | 'y' | 'value'>, elapsedTime: number): SolutionStepInterface {
+    addStep(cell: CellPositionInterface, elapsedTime: number): SolutionStepInterface {
         const totalElapsedTime = this.steps.reduce((total, step) => total + step.ts, 0);
         const timeDiff = elapsedTime - totalElapsedTime;
         const cappedTimeDiff = Math.min(timeDiff, this.maxTimestamp);
@@ -64,7 +63,7 @@ export class Solution {
         this.steps = [];
 
         try {
-            const input = new BitInputStream(base64ToUint8Array(inputString));
+            const input = new BitInputStream(stringToUint8Array(inputString));
 
             while (input.position + this.bitsPerStep <= input.length) {
                 const index = input.read(CELL_INDEX_BITS);

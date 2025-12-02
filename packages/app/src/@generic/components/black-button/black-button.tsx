@@ -1,7 +1,7 @@
 import { ImpactFeedbackStyle } from 'expo-haptics/src/Haptics.types';
 import { useRouter } from 'expo-router';
 import { LucideIcon } from 'lucide-react-native';
-import { type ComponentProps, use } from 'react';
+import { type ComponentProps, ReactNode, use } from 'react';
 import {
     ActivityIndicator,
     type GestureResponderEvent,
@@ -30,10 +30,24 @@ interface Props extends PressableProps {
     readonly href?: ComponentProps<typeof Link>['href'];
     readonly isLoading?: boolean;
     readonly isActive?: boolean;
+    readonly children?: ReactNode;
 }
 
 export const BlackButton = (props: Props) => {
-    const { text, style, href, replace, styleText, onPress, isActive = false, isLoading = false, icon: Icon, ...restProps } = props;
+    const {
+        text,
+        style,
+        href,
+        replace,
+        styleText,
+        onPress,
+        isActive = false,
+        isLoading = false,
+        icon: Icon,
+        children,
+        ...restProps
+    } = props;
+
     const router = useRouter();
     const { theme } = use(ThemeContext);
     const [, hapticImpact] = useVibration();
@@ -62,9 +76,11 @@ export const BlackButton = (props: Props) => {
 
     return (
         <Pressable onPress={handlePress} style={wrapperStyles} {...restProps}>
-            {isLoading ? (
-                <ActivityIndicator color={theme.colors.white} />
-            ) : (
+            {isLoading && <ActivityIndicator color={theme.colors.white} />}
+
+            {!isLoading && isDefined(children) && children}
+
+            {!isLoading && !isDefined(children) && (
                 <>
                     {isDefined(Icon) && <Icon color={iconColor} size={16} />}
                     <Text allowFontScaling={false} style={textStyles}>

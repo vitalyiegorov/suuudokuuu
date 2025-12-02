@@ -1,4 +1,4 @@
-import type { SolutionStepInterface } from '../../history/interfaces/solution-step.interface';
+import type { SolutionStepInterface } from '@suuudokuuu/encoder';
 
 export const getStepIndicators = (steps: SolutionStepInterface[], totalTime: number): number[] => {
     let cumulativeTime = 0;
