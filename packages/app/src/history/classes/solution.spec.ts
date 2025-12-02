@@ -152,6 +152,24 @@ describe('Solution', () => {
         });
     });
 
+    describe('getElapsedTime', () => {
+        it('should return 0 for empty solution', () => {
+            expect.assertions(1);
+
+            expect(solution.getElapsedTime()).toBe(0);
+        });
+
+        it('should return total elapsed time from all steps', () => {
+            expect.assertions(1);
+
+            solution.addStep({ x: 0, y: 0, value: 1 }, 100);
+            solution.addStep({ x: 1, y: 1, value: 2 }, 250);
+            solution.addStep({ x: 2, y: 2, value: 3 }, 400);
+
+            expect(solution.getElapsedTime()).toBe(400);
+        });
+    });
+
     describe('fromString', () => {
         it('should create empty solution from empty string', () => {
             expect.assertions(2);
