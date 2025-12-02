@@ -23,7 +23,7 @@ import { GameTimer } from '../../../game/components/game-timer/game-timer';
 import { InputModeButton } from '../../../game/components/input-mode-button/input-mode-button';
 import { GameContext } from '../../../game/context/game.context';
 import { useKeyboardControls } from '../../../game/hooks/use-keyboard-controls/use-keyboard-controls.hook';
-import { useShare } from '../../../game/hooks/use-share.hook';
+import { useSharePuzzle } from '../../../game/hooks/use-share-puzzle.hook';
 import {
     gameFinishAction,
     gameMistakeAction,
@@ -86,7 +86,7 @@ export const GameScreen = () => {
     // TODO: Is there a better way without using useEffect?
     useEffect(() => void setSharingAvailable(setHasSharing), []);
 
-    const handleShare = useShare();
+    const handleShare = useSharePuzzle();
 
     const handleExit = () => {
         Alert(t`Stop current run?`, t`All progress will be lost`, [
