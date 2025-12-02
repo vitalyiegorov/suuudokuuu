@@ -8,7 +8,7 @@ import { BlackButton } from '../../../@generic/components/black-button/black-but
 import { Header } from '../../../@generic/components/header/header';
 import { ChallengeAcceptScreen } from '../../../challenge/components/challenge-accept-screen/challenge-accept-screen';
 import { GameContext } from '../../../game/context/game.context';
-import { urlToGameState } from '../../../game/store/game.state';
+import { stringToGameState } from '../../../game/utils/string-to-game-state.util';
 
 import { SharedScreenStyles as styles } from './shared-screen.styles';
 
@@ -20,7 +20,7 @@ export const SharedScreen = ({ stateString }: Props) => {
     const { t } = useLingui();
     const { createFromState } = use(GameContext);
 
-    const gameState = urlToGameState(stateString);
+    const gameState = stringToGameState(stateString);
     const { challengeState, challengeTime } = gameState;
 
     const handleOpenPuzzle = () => {

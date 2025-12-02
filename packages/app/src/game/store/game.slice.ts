@@ -1,7 +1,7 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { Solution } from '@suuudokuuu/encoder';
 
 import { getCellKey } from '../../@generic/utils/get-cell-key.util';
-import { Solution } from '../../history/classes/solution';
 import { defaultScoringConfig } from '../../scoring/scoring-config.interface';
 import { SudokuScoring } from '../../scoring/sudoku-scoring';
 
