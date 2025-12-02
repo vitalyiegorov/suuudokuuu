@@ -39,7 +39,7 @@ export const ChallengeProgressBar = () => {
                 Animated.timing(pulseAnim, { toValue: 1, duration: PULSE_DURATION_MS, useNativeDriver: true })
             ]).start();
         }
-    }, [playerProgress, challengeSteps.length, progressAnim, pulseAnim]);
+    }, [playerProgress, challengeSteps.length, progressAnim, pulseAnim, opponentProgress]);
 
     useEffect(() => {
         Animated.timing(progressAnim, { toValue: opponentProgress, duration: ANIMATION_DURATION_MS, useNativeDriver: false }).start();
