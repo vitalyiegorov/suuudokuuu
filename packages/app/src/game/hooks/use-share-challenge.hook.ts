@@ -10,16 +10,13 @@ interface Props {
     readonly gameState: GameState;
 }
 
-const getShareUrl = (gameState: GameState): string =>
-    typeof window === 'undefined' ? '' : `${window.location.origin}/shared/${gameStateToString(gameState, true)}`;
-
 export const useShareChallenge = ({ gameState }: Props) => {
     const { t } = useLingui();
-    const elapsedTimeString = getTimerText(gameState.elapsedTime);
-
-    const shareUrl = getShareUrl(gameState);
 
     return async () => {
+        const shareUrl = typeof window === 'undefined' ? '' : `${window.location.origin}/shared/${gameStateToString(gameState, true)}`;
+        const elapsedTimeString = getTimerText(gameState.elapsedTime);
+
         try {
             await Share.open({
                 title: t`SuuudokuuU Challenge`,
