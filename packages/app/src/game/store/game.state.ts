@@ -6,8 +6,6 @@ import { emptyGameHistory } from '../../history/interfaces/history-game.interfac
 import type { HistoryGameInterface } from '../../history/interfaces/history-game.interface';
 import type { SolutionStepInterface } from '@suuudokuuu/encoder';
 
-export type InputMode = 'normal' | 'candidate';
-
 export interface GameState {
     sudokuString: string;
     score: number;
@@ -16,7 +14,7 @@ export interface GameState {
     elapsedTime: number;
     isPaused: boolean;
     showAutoCandidates: boolean;
-    inputMode: InputMode;
+    inputMode: 'normal' | 'candidate';
     candidates: Record<string, number[]>;
     solutionSteps: SolutionStepInterface[];
     historyByDifficulty: Record<DifficultyEnum, HistoryGameInterface>;
@@ -25,7 +23,7 @@ export interface GameState {
     challengeState: string;
 }
 
-export interface SerializedGameState {
+interface SerializedGameState {
     s: string;
     h?: string;
     m?: string;
