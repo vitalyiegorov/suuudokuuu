@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it } from '@jest/globals';
 
 import { Solution } from './solution';
 
-import type { SolutionStepInterface } from '../interfaces/solution-step.interface';
+import type { SolutionStepInterface } from '../../interfaces/solution-step.interface';
 
 describe('Solution', () => {
     let solution: Solution;

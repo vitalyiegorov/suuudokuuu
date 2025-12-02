@@ -2,13 +2,13 @@ import { BitInputStream, BitOutputStream } from '@thi.ng/bitstream';
 
 import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
-import { CELL_INDEX_BITS, VALUE_BITS } from '../constants/bit-encoding.constant';
-import { GRID_CELL_COUNT, GRID_EMPTY_CELL } from '../constants/grid.constant';
-import { base64ToUint8Array } from '../util/base64-to-uint8array.util';
-import { isValidCellIndex } from '../util/is-valid-cell-index.util';
-import { isValidCellValue } from '../util/is-valid-cell-value.util';
+import { CELL_INDEX_BITS, VALUE_BITS } from '../../constants/bit-encoding.constant';
+import { GRID_CELL_COUNT, GRID_EMPTY_CELL } from '../../constants/grid.constant';
+import { base64ToUint8Array } from '../../util/base64-to-uint8array.util';
+import { isValidCellIndex } from '../../util/is-valid-cell-index.util';
+import { isValidCellValue } from '../../util/is-valid-cell-value.util';
 
-import type { SolutionStepInterface } from '../interfaces/solution-step.interface';
+import type { SolutionStepInterface } from '../../interfaces/solution-step.interface';
 
 export class SudokuStringEncoder {
     private readonly bitsPerClue = CELL_INDEX_BITS + VALUE_BITS;
