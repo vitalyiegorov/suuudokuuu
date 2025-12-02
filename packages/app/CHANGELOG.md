@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.53.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.53.0...v1.53.1) (2025-12-02)
+
+### Bug Fixes
+
+- **app:** challenge animation bug ([#145](https://github.com/vitalyiegorov/suuudokuuu/issues/145)) ([b6a07ee](https://github.com/vitalyiegorov/suuudokuuu/commit/b6a07eef4a3cbe74b42e8daa91894c9844e2d468))
+
 # [1.53.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.52.1...v1.53.0) (2025-12-02)
 
 ### Features
