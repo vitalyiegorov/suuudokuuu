@@ -71,6 +71,11 @@ export default ({ config }) => ({
                         scheme: 'https',
                         host: '*.suuudokuuu.com',
                         pathPrefix: '/'
+                    },
+                    {
+                        scheme: 'https',
+                        host: 'suuudokuuu.com',
+                        pathPrefix: '/'
                     }
                 ],
                 category: ['BROWSABLE', 'DEFAULT']
