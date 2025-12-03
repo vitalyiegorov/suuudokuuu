@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.54.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.54.0...v1.54.1) (2025-12-03)
+
+### Bug Fixes
+
+- **app:** fix iOS native permission ([#146](https://github.com/vitalyiegorov/suuudokuuu/issues/146)) ([5b06c54](https://github.com/vitalyiegorov/suuudokuuu/commit/5b06c5454bb9df78afbd13c933127fa97fe0119a)), closes [#144](https://github.com/vitalyiegorov/suuudokuuu/issues/144)
+
 # [1.54.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.53.1...v1.54.0) (2025-12-02)
 
 ### Features
