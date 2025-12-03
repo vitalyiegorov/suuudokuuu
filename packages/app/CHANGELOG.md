@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.54.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.54.1...v1.54.2) (2025-12-03)
+
+### Bug Fixes
+
+- **app:** fix Android deeplinks ([#147](https://github.com/vitalyiegorov/suuudokuuu/issues/147)) ([a2216db](https://github.com/vitalyiegorov/suuudokuuu/commit/a2216dbd350f789ca42e0e05b5f39c62ce3096fc)), closes [#144](https://github.com/vitalyiegorov/suuudokuuu/issues/144)
+
 ## [1.54.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.54.0...v1.54.1) (2025-12-03)
 
 ### Bug Fixes
