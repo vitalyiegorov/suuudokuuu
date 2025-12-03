@@ -51,7 +51,10 @@ export default ({ config }) => ({
         config: {
             usesNonExemptEncryption: false
         },
-        associatedDomains: ['applinks:suuudokuuu.com', 'applinks:www.suuudokuuu.com']
+        associatedDomains: ['applinks:suuudokuuu.com', 'applinks:www.suuudokuuu.com'],
+        infoPlist: {
+            NSPhotoLibraryUsageDescription: 'This app needs access to your photo library to share game results and screenshots.'
+        }
     },
     android: {
         adaptiveIcon: {
