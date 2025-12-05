@@ -2,13 +2,40 @@ import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { Solution } from '@suuudokuuu/encoder';
 
 import { getCellKey } from '../../@generic/utils/get-cell-key.util';
+import { maxCompletedGamesPerDifficulty } from '../../history/interfaces/completed-game.interface';
 import { defaultScoringConfig } from '../../scoring/scoring-config.interface';
 import { SudokuScoring } from '../../scoring/sudoku-scoring';
+import { gameStateToString } from '../utils/game-state-to-string.util';
 
 import { initialGameState } from './game.state';
 
 import type { GameState } from './game.state';
+import type { CompletedGameInterface } from '../../history/interfaces/completed-game.interface';
+import type { HistoryGameInterface } from '../../history/interfaces/history-game.interface';
 import type { CellInterface, DifficultyEnum, ScoredCellsInterface, Sudoku } from '@suuudokuuu/generator';
+
+const updateWonStats = (history: HistoryGameInterface, state: GameState, isChallenge: boolean): void => {
+    history.gamesWon += 1;
+    history.gamesWonWithoutMistakes += state.mistakes === 0 ? 1 : 0;
+    history.hardcoreWon += state.maxMistakes === 0 ? 1 : 0;
+    history.challengesWon += isChallenge ? 1 : 0;
+
+    if (state.score > history.bestScore) {
+        history.bestScore = state.score;
+        history.bestTime = state.elapsedTime;
+    }
+};
+
+const createCompletedGame = (state: GameState, difficulty: DifficultyEnum, isWon: boolean, isChallenge: boolean): CompletedGameInterface => ({
+    encodedState: gameStateToString(state, isChallenge),
+    difficulty,
+    elapsedTime: state.elapsedTime,
+    score: state.score,
+    mistakes: state.mistakes,
+    maxMistakes: state.maxMistakes,
+    isWon,
+    completedAt: Date.now()
+});
 
 export const gameSlice = createSlice({
     name: 'game',
@@ -109,17 +136,13 @@ export const gameSlice = createSlice({
 
             history.gamesCompleted += 1;
             history.averageTime = (history.averageTime * history.gamesCompleted + state.elapsedTime) / history.gamesCompleted;
+            history.completedGames = [createCompletedGame(state, difficulty, isWon, isChallenge), ...history.completedGames].slice(
+                0,
+                maxCompletedGamesPerDifficulty
+            );
 
             if (isWon) {
-                history.gamesWon += 1;
-                history.gamesWonWithoutMistakes += state.mistakes === 0 ? 1 : 0;
-                history.hardcoreWon += state.maxMistakes === 0 ? 1 : 0;
-                history.challengesWon += isChallenge ? 1 : 0;
-
-                if (state.score > history.bestScore) {
-                    history.bestScore = state.score;
-                    history.bestTime = state.elapsedTime;
-                }
+                updateWonStats(history, state, isChallenge);
             } else {
                 history.gamesLost += 1;
                 history.challengesLost += isChallenge ? 1 : 0;

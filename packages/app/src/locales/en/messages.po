@@ -29,11 +29,11 @@ msgstr "All of a number (1-9)"
 msgid "All progress will be lost"
 msgstr "All progress will be lost"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx:56
+#: src/history/components/history-difficulty/history-difficulty.tsx:67
 msgid "Attempts"
 msgstr "Attempts"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx:53
+#: src/history/components/history-difficulty/history-difficulty.tsx:64
 msgid "Average time"
 msgstr "Average time"
 
@@ -59,12 +59,12 @@ msgid "Be wise, be smart, be quick..."
 msgstr "Be wise, be smart, be quick..."
 
 #: src/screens/components/home-screen/home.screen.tsx:117
-#: src/history/components/history-difficulty/history-difficulty.tsx:47
+#: src/history/components/history-difficulty/history-difficulty.tsx:58
 msgid "Best score"
 msgstr "Best score"
 
 #: src/screens/components/home-screen/home.screen.tsx:126
-#: src/history/components/history-difficulty/history-difficulty.tsx:50
+#: src/history/components/history-difficulty/history-difficulty.tsx:61
 msgid "Best time"
 msgstr "Best time"
 
@@ -118,11 +118,11 @@ msgstr "Challenge lost!"
 msgid "Challenge Won!"
 msgstr "Challenge Won!"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx:77
+#: src/history/components/history-difficulty/history-difficulty.tsx:88
 msgid "Challenges lost"
 msgstr "Challenges lost"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx:74
+#: src/history/components/history-difficulty/history-difficulty.tsx:85
 msgid "Challenges won"
 msgstr "Challenges won"
 
@@ -200,6 +200,10 @@ msgstr "Game localization"
 msgid "Game paused"
 msgstr "Game paused"
 
+#: src/app/replay/[difficulty]/[completedAt].tsx:22
+msgid "Game Replay"
+msgstr "Game Replay"
+
 #: src/settings/component/cell-margin-toggle/cell-margin-toggle.tsx:33
 msgid "Game screen cell margin"
 msgstr "Game screen cell margin"
@@ -233,13 +237,17 @@ msgstr "Hardcore"
 msgid "Hardcore (0 mistakes)"
 msgstr "Hardcore (0 mistakes)"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx:71
+#: src/history/components/history-difficulty/history-difficulty.tsx:82
 msgid "Hardcore won"
 msgstr "Hardcore won"
 
 #: src/@generic/components/donation/donation.tsx:41
 msgid "Help Ukraine win!"
 msgstr "Help Ukraine win!"
+
+#: src/history/components/history-difficulty/history-difficulty.tsx:51
+msgid "Hide recent games"
+msgstr "Hide recent games"
 
 #: src/screens/components/settings-screen/settings.screen.tsx:28
 msgid "Highlight areas"
@@ -306,7 +314,8 @@ msgstr "Language"
 msgid "Looooooser! =)"
 msgstr "Looooooser! =)"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx:65
+#: src/history/components/history-difficulty/history-difficulty.tsx:76
+#: src/history/components/completed-games-list/completed-game-item.tsx:41
 msgid "Lost"
 msgstr "Lost"
 
@@ -325,6 +334,7 @@ msgstr "Minimum Score"
 
 #: src/screens/components/game-screen/game.screen.tsx:202
 #: src/scoring/components/scoring.screen.tsx:127
+#: src/history/components/completed-games-list/completed-game-item.tsx:39
 msgid "Mistakes"
 msgstr "Mistakes"
 
@@ -341,6 +351,10 @@ msgstr "Nightmare"
 #: src/scoring/components/scoring.screen.tsx:85
 msgid "no bonus"
 msgstr "no bonus"
+
+#: src/history/components/completed-games-list/completed-games-list.tsx:24
+msgid "No completed games yet"
+msgstr "No completed games yet"
 
 #: src/scoring/components/scoring.screen.tsx:137
 msgid "No matter how many penalties, you always earn at least"
@@ -424,6 +438,10 @@ msgstr "points per correct placement."
 msgid "Privacy policy"
 msgstr "Privacy policy"
 
+#: src/screens/components/replay-screen/replay.screen.tsx:99
+msgid "Replay"
+msgstr "Replay"
+
 #: src/screens/components/home-screen/home.screen.tsx:136
 msgid "Report a bug"
 msgstr "Report a bug"
@@ -441,6 +459,7 @@ msgid "Row"
 msgstr "Row"
 
 #: src/screens/components/game-screen/game.screen.tsx:228
+#: src/history/components/completed-games-list/completed-game-item.tsx:31
 msgid "Score"
 msgstr "Score"
 
@@ -473,6 +492,10 @@ msgstr "Show animated effects when a grid, row, column, block is completed"
 #: src/screens/components/settings-screen/settings.screen.tsx:38
 msgid "Show combo animation"
 msgstr "Show combo animation"
+
+#: src/history/components/history-difficulty/history-difficulty.tsx:51
+msgid "Show recent games"
+msgstr "Show recent games"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:42
 msgid "slower!"
@@ -532,7 +555,9 @@ msgstr "Theme"
 msgid "This value is multiplied by the difficulty coefficient:"
 msgstr "This value is multiplied by the difficulty coefficient:"
 
+#: src/screens/components/replay-screen/replay.screen.tsx:106
 #: src/scoring/components/scoring.screen.tsx:124
+#: src/history/components/completed-games-list/completed-game-item.tsx:34
 msgid "Time"
 msgstr "Time"
 
@@ -574,7 +599,7 @@ msgstr ""
 "\n"
 "Every 1$ donation matters!"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx:68
+#: src/history/components/history-difficulty/history-difficulty.tsx:79
 msgid "Win rate"
 msgstr "Win rate"
 
@@ -590,11 +615,12 @@ msgstr ""
 msgid "Winners-winner, chicken dinner!"
 msgstr "Winners-winner, chicken dinner!"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx:59
+#: src/history/components/history-difficulty/history-difficulty.tsx:70
+#: src/history/components/completed-games-list/completed-game-item.tsx:41
 msgid "Won"
 msgstr "Won"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx:62
+#: src/history/components/history-difficulty/history-difficulty.tsx:73
 msgid "Won without mistakes"
 msgstr "Won without mistakes"
 
