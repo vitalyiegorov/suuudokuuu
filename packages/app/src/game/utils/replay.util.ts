@@ -1,36 +1,8 @@
 import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 
-import { stringToGameState } from './string-to-game-state.util';
-
 import type { SolutionStepInterface } from '@suuudokuuu/encoder';
 
 const GRID_SIZE = defaultSudokuConfig.fieldSize;
-
-interface ReplayState {
-    sudoku: Sudoku;
-    steps: SolutionStepInterface[];
-    currentStep: number;
-    totalSteps: number;
-    elapsedTime: number;
-}
-
-export const createReplayState = (encodedState: string): ReplayState | null => {
-    try {
-        const gameState = stringToGameState(encodedState);
-        const sudoku = Sudoku.fromString(gameState.sudokuString, defaultSudokuConfig);
-        const steps = gameState.solutionSteps;
-
-        return {
-            sudoku,
-            steps,
-            currentStep: 0,
-            totalSteps: steps.length,
-            elapsedTime: 0
-        };
-    } catch {
-        return null;
-    }
-};
 
 export const applySolutionStep = (sudoku: Sudoku, step: SolutionStepInterface): void => {
     const x = step.cellIndex % GRID_SIZE;
