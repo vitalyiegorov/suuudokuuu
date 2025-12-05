@@ -91,8 +91,16 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
 
     const { canGoBack, canGoForward } = getNavigationState(currentStep, gameState.solutionSteps.length);
     const { prevButtonColor, nextButtonColor } = getButtonColors(canGoBack, canGoForward, theme.colors.white, theme.colors.black05);
-    const handlePrevStep = () => void (canGoBack && setCurrentStep(currentStep - 1));
-    const handleNextStep = () => void (canGoForward && setCurrentStep(currentStep + 1));
+    const handlePrevStep = () => {
+        if (canGoBack) {
+            setCurrentStep(currentStep - 1);
+        }
+    };
+    const handleNextStep = () => {
+        if (canGoForward) {
+            setCurrentStep(currentStep + 1);
+        }
+    };
 
     return (
         <View style={styles.container}>
