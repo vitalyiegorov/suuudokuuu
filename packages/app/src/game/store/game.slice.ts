@@ -8,40 +8,7 @@ import { SudokuScoring } from '../../scoring/sudoku-scoring';
 import { initialGameState } from './game.state';
 
 import type { GameState } from './game.state';
-import type { HistoryGameInterface } from '../../history/interfaces/history-game.interface';
 import type { CellInterface, DifficultyEnum, ScoredCellsInterface, Sudoku } from '@suuudokuuu/generator';
-
-interface FinishGameParams {
-    history: HistoryGameInterface;
-    isWon: boolean;
-    isChallenge: boolean;
-    mistakes: number;
-    maxMistakes: number;
-    score: number;
-    elapsedTime: number;
-}
-
-const updateHistoryOnWin = (params: FinishGameParams): void => {
-    const { history, isChallenge, mistakes, maxMistakes, score, elapsedTime } = params;
-    history.gamesWon += 1;
-    if (mistakes === 0) {history.gamesWonWithoutMistakes += 1;}
-    if (maxMistakes === 0) {history.hardcoreWon += 1;}
-    if (score > history.bestScore) {
-        history.bestScore = score;
-        history.bestTime = elapsedTime;
-    }
-    if (isChallenge) {history.challengesWon += 1;}
-};
-
-const updateHistoryOnFinish = (params: FinishGameParams): void => {
-    const { history, isWon, isChallenge } = params;
-    if (isWon) {
-        updateHistoryOnWin(params);
-    } else {
-        history.gamesLost += 1;
-        if (isChallenge) {history.challengesLost += 1;}
-    }
-};
 
 export const gameSlice = createSlice({
     name: 'game',
@@ -143,15 +110,20 @@ export const gameSlice = createSlice({
             history.gamesCompleted += 1;
             history.averageTime = (history.averageTime * history.gamesCompleted + state.elapsedTime) / history.gamesCompleted;
 
-            updateHistoryOnFinish({
-                history,
-                isWon,
-                isChallenge,
-                mistakes: state.mistakes,
-                maxMistakes: state.maxMistakes,
-                score: state.score,
-                elapsedTime: state.elapsedTime
-            });
+            if (isWon) {
+                history.gamesWon += 1;
+                history.gamesWonWithoutMistakes += state.mistakes === 0 ? 1 : 0;
+                history.hardcoreWon += state.maxMistakes === 0 ? 1 : 0;
+                history.challengesWon += isChallenge ? 1 : 0;
+
+                if (state.score > history.bestScore) {
+                    history.bestScore = state.score;
+                    history.bestTime = state.elapsedTime;
+                }
+            } else {
+                history.gamesLost += 1;
+                history.challengesLost += isChallenge ? 1 : 0;
+            }
         }
     }
 });
