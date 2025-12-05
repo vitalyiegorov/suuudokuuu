@@ -1,7 +1,8 @@
 import { useLingui } from '@lingui/react/macro';
-import { use } from 'react';
+import { use, useState } from 'react';
 import { Text, View } from 'react-native';
 
+import { BlackButton } from '../../../@generic/components/black-button/black-button';
 import { BlackSubHeader } from '../../../@generic/components/black-sub-header/black-text';
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
@@ -9,6 +10,7 @@ import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.u
 import { getTimerText } from '../../../@generic/utils/get-timer-text.util';
 import { gameHistoryDifficultySelector } from '../../../game/store/game.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { CompletedGamesList } from '../completed-games-list/completed-games-list';
 
 import { HistoryDifficultyStyles as styles } from './history-difficulty.styles';
 
@@ -21,6 +23,7 @@ interface Props {
 export const HistoryDifficulty = ({ difficulty }: Props) => {
     const { theme } = use(ThemeContext);
     const { t } = useLingui();
+    const [showGames, setShowGames] = useState(false);
     const {
         bestScore,
         bestTime,
@@ -31,13 +34,21 @@ export const HistoryDifficulty = ({ difficulty }: Props) => {
         gamesWonWithoutMistakes = 0,
         hardcoreWon = 0,
         challengesWon = 0,
-        challengesLost = 0
+        challengesLost = 0,
+        completedGames = []
     } = useAppSelector(gameHistoryDifficultySelector(difficulty));
 
     const winRate = gamesWon > 0 ? Math.round((gamesWon / gamesCompleted) * 100) : 0;
+    const hasCompletedGames = completedGames.length > 0;
 
     const hardcoreWonTitleStyles = { color: theme.colors.red };
     const hardcoreWonStyles = [styles.boldText, { color: theme.colors.red }];
+
+    const handleToggleGames = () => {
+        setShowGames(!showGames);
+    };
+
+    const toggleButtonText = showGames ? t`Hide recent games` : t`Show recent games`;
 
     return (
         <View style={styles.container}>
@@ -76,6 +87,18 @@ export const HistoryDifficulty = ({ difficulty }: Props) => {
             <BlackText>
                 {t`Challenges lost`}: <Text style={styles.boldText}>{challengesLost}</Text>
             </BlackText>
+
+            {hasCompletedGames && (
+                <View style={styles.gamesSection}>
+                    <BlackButton
+                        isActive={showGames}
+                        onPress={handleToggleGames}
+                        style={styles.showGamesButton}
+                        text={toggleButtonText}
+                    />
+                    {showGames ? <CompletedGamesList difficulty={difficulty} /> : null}
+                </View>
+            )}
         </View>
     );
 };

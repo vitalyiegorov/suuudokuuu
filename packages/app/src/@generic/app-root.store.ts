@@ -9,6 +9,7 @@ import { settingsSlice } from '../settings/store/settings.slice';
 import { initialSettingsState } from '../settings/store/settings.state';
 
 import type { GameState } from '../game/store/game.state';
+import type { CompletedGameInterface } from '../history/interfaces/completed-game.interface';
 import type { MigrationManifest } from 'redux-persist/es/types';
 
 const resetBestScores = (state: RootState): RootState => {
@@ -34,8 +35,27 @@ const addChallengeStats = (state: RootState): RootState => {
         updatedHistory[key as keyof typeof updatedHistory] = {
             ...emptyGameHistory,
             ...historyEntry,
-            challengesWon: (historyEntry['challengesWon'] as number | undefined) ?? 0,
-            challengesLost: (historyEntry['challengesLost'] as number | undefined) ?? 0
+            challengesWon: (historyEntry.challengesWon as number | undefined) ?? 0,
+            challengesLost: (historyEntry.challengesLost as number | undefined) ?? 0
+        };
+    });
+
+    return {
+        ...state,
+        [gameSlice.name]: { ...gameState, historyByDifficulty: updatedHistory }
+    };
+};
+
+const addCompletedGames = (state: RootState): RootState => {
+    const gameState = state[gameSlice.name];
+    const updatedHistory = { ...gameState.historyByDifficulty };
+
+    Object.keys(updatedHistory).forEach(key => {
+        const historyEntry = updatedHistory[key as keyof typeof updatedHistory] as unknown as Record<string, unknown>;
+        updatedHistory[key as keyof typeof updatedHistory] = {
+            ...emptyGameHistory,
+            ...historyEntry,
+            completedGames: (historyEntry.completedGames as CompletedGameInterface[] | undefined) ?? []
         };
     });
 
@@ -62,7 +82,8 @@ const migrations: MigrationManifest<RootState> = {
     13: state => ({ ...state, [gameSlice.name]: { ...initialGameState, ...state[gameSlice.name] } }),
     14: state => ({ ...state, [settingsSlice.name]: { ...initialSettingsState, ...state[settingsSlice.name] } }),
     15: resetBestScores,
-    16: addChallengeStats
+    16: addChallengeStats,
+    17: addCompletedGames
 };
 
 const rootReducer = combineReducers({
@@ -74,7 +95,7 @@ const persistedReducer = persistReducer(
     {
         key: 'root',
         storage: AsyncStorage,
-        version: 16,
+        version: 17,
         migrate: createMigrate(migrations)
     },
     rootReducer
