@@ -109,20 +109,21 @@ export const GameScreen = () => {
     const handleLostGame = () => {
         hapticImpact(ImpactFeedbackStyle.Heavy);
 
-        dispatch(gameFinishAction({ difficulty: sudoku.Difficulty, isWon: false }));
+        dispatch(gameFinishAction({ difficulty: sudoku.Difficulty, isWon: false, isChallenge: isChallengeMode }));
 
-        router.replace('loser');
+        router.replace(isChallengeMode ? 'challenge-lost' : 'loser');
     };
 
     const handleWonGame = () => {
         hapticImpact(ImpactFeedbackStyle.Heavy);
 
-        dispatch(gameFinishAction({ difficulty: sudoku.Difficulty, isWon: true }));
+        const wonChallenge = isChallengeMode && elapsedTime < challengeTime;
+
+        dispatch(gameFinishAction({ difficulty: sudoku.Difficulty, isWon: true, isChallenge: wonChallenge }));
 
         // HINT: We need to wait for the animation to finish, animation finish event would fix it?
         setTimeout(() => {
             if (isChallengeMode) {
-                const wonChallenge = elapsedTime < challengeTime;
                 router.replace(wonChallenge ? 'challenge-won' : 'challenge-lost');
             } else {
                 router.replace('winner');

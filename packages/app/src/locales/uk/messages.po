@@ -29,11 +29,11 @@ msgstr "Усі клітинки числа (1-9)"
 msgid "All progress will be lost"
 msgstr "Всі досягнення будуть втрачені"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx:54
+#: src/history/components/history-difficulty/history-difficulty.tsx:56
 msgid "Attempts"
 msgstr "Спроби"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx:51
+#: src/history/components/history-difficulty/history-difficulty.tsx:53
 msgid "Average time"
 msgstr "Середній час"
 
@@ -59,12 +59,12 @@ msgid "Be wise, be smart, be quick..."
 msgstr "Будьте мудрими, розумними, швидкими..."
 
 #: src/screens/components/home-screen/home.screen.tsx:117
-#: src/history/components/history-difficulty/history-difficulty.tsx:45
+#: src/history/components/history-difficulty/history-difficulty.tsx:47
 msgid "Best score"
 msgstr "Найкращий результат"
 
 #: src/screens/components/home-screen/home.screen.tsx:126
-#: src/history/components/history-difficulty/history-difficulty.tsx:48
+#: src/history/components/history-difficulty/history-difficulty.tsx:50
 msgid "Best time"
 msgstr "Найкращий час"
 
@@ -118,7 +118,15 @@ msgstr "Виклик програно!"
 msgid "Challenge Won!"
 msgstr "Виклик виграно!"
 
-#: src/game/hooks/use-share-puzzle.hook.ts:22
+#: src/history/components/history-difficulty/history-difficulty.tsx:77
+msgid "Challenges lost"
+msgstr "Програно викликів"
+
+#: src/history/components/history-difficulty/history-difficulty.tsx:74
+msgid "Challenges won"
+msgstr "Виграно викликів"
+
+#: src/game/hooks/use-share-puzzle/use-share-puzzle.hook.ts:16
 msgid "Check out this Sudoku puzzle!"
 msgstr "Перегляньте цю головоломку Судоку!"
 
@@ -163,7 +171,7 @@ msgstr "Кожне правильне розміщення починаєтьс�
 msgid "Easy"
 msgstr "Легкий"
 
-#: src/screens/components/game-screen/game.screen.tsx:218
+#: src/screens/components/game-screen/game.screen.tsx:219
 msgid "Elapsed"
 msgstr "Минуло"
 
@@ -225,7 +233,7 @@ msgstr "Хардкор"
 msgid "Hardcore (0 mistakes)"
 msgstr "Хардкор (0 помилок)"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx:69
+#: src/history/components/history-difficulty/history-difficulty.tsx:71
 msgid "Hardcore won"
 msgstr "Хардкорів виграно"
 
@@ -270,7 +278,7 @@ msgstr "Підсвітити вибрані числа кандидатів"
 msgid "How Scoring Works"
 msgstr "Як працює підрахунок балів"
 
-#: src/game/hooks/use-share-challenge.hook.ts:26
+#: src/game/hooks/use-share-challenge/use-share-challenge.hook.ts:22
 msgid "I completed this Sudoku in {elapsedTimeString}. Can you beat me?"
 msgstr "Я розв'язав цю головоломку Судоку за {elapsedTimeString}. Зможеш мене обійти?"
 
@@ -298,7 +306,7 @@ msgstr "Мова"
 msgid "Looooooser! =)"
 msgstr "Лууууузер! =)"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx:63
+#: src/history/components/history-difficulty/history-difficulty.tsx:65
 msgid "Lost"
 msgstr "Програно"
 
@@ -315,7 +323,7 @@ msgstr "Середній"
 msgid "Minimum Score"
 msgstr "Мінімальний рахунок"
 
-#: src/screens/components/game-screen/game.screen.tsx:201
+#: src/screens/components/game-screen/game.screen.tsx:202
 #: src/scoring/components/scoring.screen.tsx:127
 msgid "Mistakes"
 msgstr "Помилки"
@@ -366,7 +374,7 @@ msgstr "Відкрити головоломку"
 msgid "Open shared puzzle?"
 msgstr "Відкрити спільну головоломку?"
 
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:61
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:62
 msgid "Opponent's time:"
 msgstr "Час суперника:"
 
@@ -432,7 +440,7 @@ msgstr "Повернутися"
 msgid "Row"
 msgstr "Рядок"
 
-#: src/screens/components/game-screen/game.screen.tsx:227
+#: src/screens/components/game-screen/game.screen.tsx:228
 msgid "Score"
 msgstr "Рахунок"
 
@@ -504,11 +512,11 @@ msgstr "Підтримайте Україну"
 msgid "SuuudokuuU"
 msgstr "СууудокуУ"
 
-#: src/game/hooks/use-share-challenge.hook.ts:25
+#: src/game/hooks/use-share-challenge/use-share-challenge.hook.ts:21
 msgid "SuuudokuuU Challenge"
 msgstr "СууудокуУ Виклик"
 
-#: src/game/hooks/use-share-puzzle.hook.ts:21
+#: src/game/hooks/use-share-puzzle/use-share-puzzle.hook.ts:15
 msgid "SuuudokuuU Sudoku Puzzle"
 msgstr "СууудокуУ Головоломка Судоку"
 
@@ -566,7 +574,7 @@ msgstr ""
 "\n"
 "Кожен долар важливий!"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx:66
+#: src/history/components/history-difficulty/history-difficulty.tsx:68
 msgid "Win rate"
 msgstr "Рівень виграшу"
 
@@ -582,11 +590,11 @@ msgstr ""
 msgid "Winners-winner, chicken dinner!"
 msgstr "Вигращ є - Можна поісти!"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx:57
+#: src/history/components/history-difficulty/history-difficulty.tsx:59
 msgid "Won"
 msgstr "Виграно"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx:60
+#: src/history/components/history-difficulty/history-difficulty.tsx:62
 msgid "Won without mistakes"
 msgstr "Виграно без помилок"
 
@@ -604,7 +612,7 @@ msgstr ""
 "\n"
 "Кожен долар важливий!"
 
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:66
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:67
 msgid "You were"
 msgstr "Ви були"
 
@@ -626,6 +634,6 @@ msgstr "Ви виграли виклик!"
 msgid "Your opponent completed this puzzle in"
 msgstr "Ваш суперник завершив цю головоломку за"
 
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:56
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:57
 msgid "Your time:"
 msgstr "Ваш час:"
