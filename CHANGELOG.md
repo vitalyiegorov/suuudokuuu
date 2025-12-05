@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.55.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.54.2...v1.55.0) (2025-12-05)
+
+### Features
+
+- **app:** fix history/statistics and add challenge statistics tracking ([#149](https://github.com/vitalyiegorov/suuudokuuu/issues/149)) ([993a00d](https://github.com/vitalyiegorov/suuudokuuu/commit/993a00d69fcd3845feec22b394d947056f39bcb6))
+
 ## [1.54.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.54.1...v1.54.2) (2025-12-03)
 
 ### Bug Fixes
