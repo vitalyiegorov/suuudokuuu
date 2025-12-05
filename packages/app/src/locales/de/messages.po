@@ -29,11 +29,11 @@ msgstr "Alle einer Zahl (1-9)"
 msgid "All progress will be lost"
 msgstr "Alle Fortschritte gehen verloren"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx:54
+#: src/history/components/history-difficulty/history-difficulty.tsx:56
 msgid "Attempts"
 msgstr "Versuche"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx:51
+#: src/history/components/history-difficulty/history-difficulty.tsx:53
 msgid "Average time"
 msgstr "Durchschnittszeit"
 
@@ -59,12 +59,12 @@ msgid "Be wise, be smart, be quick..."
 msgstr "Sei weise, sei schlau, sei schnell..."
 
 #: src/screens/components/home-screen/home.screen.tsx:117
-#: src/history/components/history-difficulty/history-difficulty.tsx:45
+#: src/history/components/history-difficulty/history-difficulty.tsx:47
 msgid "Best score"
 msgstr "Höchstpunktzahl"
 
 #: src/screens/components/home-screen/home.screen.tsx:126
-#: src/history/components/history-difficulty/history-difficulty.tsx:48
+#: src/history/components/history-difficulty/history-difficulty.tsx:50
 msgid "Best time"
 msgstr "Bestzeit"
 
@@ -118,7 +118,15 @@ msgstr "Herausforderung verloren!"
 msgid "Challenge Won!"
 msgstr "Herausforderung gewonnen!"
 
-#: src/game/hooks/use-share-puzzle.hook.ts:22
+#: src/history/components/history-difficulty/history-difficulty.tsx:77
+msgid "Challenges lost"
+msgstr "Herausforderungen verloren"
+
+#: src/history/components/history-difficulty/history-difficulty.tsx:74
+msgid "Challenges won"
+msgstr "Herausforderungen gewonnen"
+
+#: src/game/hooks/use-share-puzzle/use-share-puzzle.hook.ts:16
 msgid "Check out this Sudoku puzzle!"
 msgstr "Schau dir dieses Sudoku-Rätsel an!"
 
@@ -163,7 +171,7 @@ msgstr "Jede korrekte Platzierung beginnt mit einem Grundwert:"
 msgid "Easy"
 msgstr "Einfach"
 
-#: src/screens/components/game-screen/game.screen.tsx:218
+#: src/screens/components/game-screen/game.screen.tsx:219
 msgid "Elapsed"
 msgstr "Verstrichen"
 
@@ -225,7 +233,7 @@ msgstr "Hardcore"
 msgid "Hardcore (0 mistakes)"
 msgstr "Hardcore (0 Fehler)"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx:69
+#: src/history/components/history-difficulty/history-difficulty.tsx:71
 msgid "Hardcore won"
 msgstr "Hardcore gewonnen"
 
@@ -270,7 +278,7 @@ msgstr "Hervorheben ausgewählter Kandidatennummern"
 msgid "How Scoring Works"
 msgstr "Wie die Punktevergabe funktioniert"
 
-#: src/game/hooks/use-share-challenge.hook.ts:26
+#: src/game/hooks/use-share-challenge/use-share-challenge.hook.ts:22
 msgid "I completed this Sudoku in {elapsedTimeString}. Can you beat me?"
 msgstr "Ich habe dieses Sudoku in {elapsedTimeString} gelöst. Kannst du mich schlagen?"
 
@@ -298,7 +306,7 @@ msgstr "Sprache"
 msgid "Looooooser! =)"
 msgstr "Verlierer! =)"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx:63
+#: src/history/components/history-difficulty/history-difficulty.tsx:65
 msgid "Lost"
 msgstr "Verloren"
 
@@ -315,7 +323,7 @@ msgstr "Mittelschwer"
 msgid "Minimum Score"
 msgstr "Mindestpunktzahl"
 
-#: src/screens/components/game-screen/game.screen.tsx:201
+#: src/screens/components/game-screen/game.screen.tsx:202
 #: src/scoring/components/scoring.screen.tsx:127
 msgid "Mistakes"
 msgstr "Fehler"
@@ -366,7 +374,7 @@ msgstr "Rätsel öffnen"
 msgid "Open shared puzzle?"
 msgstr "Geteilter Rätsel öffnen?"
 
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:61
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:62
 msgid "Opponent's time:"
 msgstr "Zeit des Gegners:"
 
@@ -432,7 +440,7 @@ msgstr "Zurück"
 msgid "Row"
 msgstr "Zeile"
 
-#: src/screens/components/game-screen/game.screen.tsx:227
+#: src/screens/components/game-screen/game.screen.tsx:228
 msgid "Score"
 msgstr "Punktestand"
 
@@ -504,11 +512,11 @@ msgstr "Unterstütze die Ukraine"
 msgid "SuuudokuuU"
 msgstr "SuuudokuuU"
 
-#: src/game/hooks/use-share-challenge.hook.ts:25
+#: src/game/hooks/use-share-challenge/use-share-challenge.hook.ts:21
 msgid "SuuudokuuU Challenge"
 msgstr "SuuudokuuU Herausforderung"
 
-#: src/game/hooks/use-share-puzzle.hook.ts:21
+#: src/game/hooks/use-share-puzzle/use-share-puzzle.hook.ts:15
 msgid "SuuudokuuU Sudoku Puzzle"
 msgstr "SuuudokuuU Sudoku-Rätsel"
 
@@ -566,7 +574,7 @@ msgstr ""
 "\n"
 "Jede $1-Spende zählt!"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx:66
+#: src/history/components/history-difficulty/history-difficulty.tsx:68
 msgid "Win rate"
 msgstr "Gewinnquote"
 
@@ -582,11 +590,11 @@ msgstr ""
 msgid "Winners-winner, chicken dinner!"
 msgstr "Gewinner, Gewinner, Hähnchen-Dinner!"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx:57
+#: src/history/components/history-difficulty/history-difficulty.tsx:59
 msgid "Won"
 msgstr "Gewonnen"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx:60
+#: src/history/components/history-difficulty/history-difficulty.tsx:62
 msgid "Won without mistakes"
 msgstr "Gewonnen ohne Fehler"
 
@@ -604,7 +612,7 @@ msgstr ""
 "\n"
 "Jede $1-Spende zählt!"
 
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:66
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:67
 msgid "You were"
 msgstr "Du warst"
 
@@ -626,6 +634,6 @@ msgstr "Du hast die Herausforderung gewonnen!"
 msgid "Your opponent completed this puzzle in"
 msgstr "Dein Gegner hat dieses Rätsel in gelöst"
 
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:56
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:57
 msgid "Your time:"
 msgstr "Deine Zeit:"

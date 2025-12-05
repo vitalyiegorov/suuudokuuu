@@ -103,9 +103,8 @@ export const gameSlice = createSlice({
             }
         },
 
-        finish: (state, action: PayloadAction<{ difficulty: DifficultyEnum; isWon: boolean }>) => {
-            const { difficulty, isWon } = action.payload;
-
+        finish: (state, action: PayloadAction<{ difficulty: DifficultyEnum; isWon: boolean; isChallenge?: boolean }>) => {
+            const { difficulty, isWon, isChallenge = false } = action.payload;
             const history = state.historyByDifficulty[difficulty];
 
             history.gamesCompleted += 1;
@@ -113,14 +112,9 @@ export const gameSlice = createSlice({
 
             if (isWon) {
                 history.gamesWon += 1;
-
-                if (state.mistakes === 0) {
-                    history.gamesWonWithoutMistakes += 1;
-                }
-
-                if (state.maxMistakes === 0) {
-                    history.hardcoreWon += 1;
-                }
+                history.gamesWonWithoutMistakes += state.mistakes === 0 ? 1 : 0;
+                history.hardcoreWon += state.maxMistakes === 0 ? 1 : 0;
+                history.challengesWon += isChallenge ? 1 : 0;
 
                 if (state.score > history.bestScore) {
                     history.bestScore = state.score;
@@ -128,6 +122,7 @@ export const gameSlice = createSlice({
                 }
             } else {
                 history.gamesLost += 1;
+                history.challengesLost += isChallenge ? 1 : 0;
             }
         }
     }

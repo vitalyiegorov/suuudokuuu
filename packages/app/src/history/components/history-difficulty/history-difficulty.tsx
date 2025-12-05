@@ -29,7 +29,9 @@ export const HistoryDifficulty = ({ difficulty }: Props) => {
         gamesLost,
         averageTime = 0,
         gamesWonWithoutMistakes = 0,
-        hardcoreWon = 0
+        hardcoreWon = 0,
+        challengesWon = 0,
+        challengesLost = 0
     } = useAppSelector(gameHistoryDifficultySelector(difficulty));
 
     const winRate = gamesWon > 0 ? Math.round((gamesWon / gamesCompleted) * 100) : 0;
@@ -67,6 +69,12 @@ export const HistoryDifficulty = ({ difficulty }: Props) => {
             </BlackText>
             <BlackText>
                 <Text style={hardcoreWonTitleStyles}>{t`Hardcore won`}:</Text> <Text style={hardcoreWonStyles}>{hardcoreWon}</Text>
+            </BlackText>
+            <BlackText>
+                {t`Challenges won`}: <Text style={styles.boldText}>{challengesWon}</Text>
+            </BlackText>
+            <BlackText>
+                {t`Challenges lost`}: <Text style={styles.boldText}>{challengesLost}</Text>
             </BlackText>
         </View>
     );
