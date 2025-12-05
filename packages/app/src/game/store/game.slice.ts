@@ -8,7 +8,40 @@ import { SudokuScoring } from '../../scoring/sudoku-scoring';
 import { initialGameState } from './game.state';
 
 import type { GameState } from './game.state';
+import type { HistoryGameInterface } from '../../history/interfaces/history-game.interface';
 import type { CellInterface, DifficultyEnum, ScoredCellsInterface, Sudoku } from '@suuudokuuu/generator';
+
+interface FinishGameParams {
+    history: HistoryGameInterface;
+    isWon: boolean;
+    isChallenge: boolean;
+    mistakes: number;
+    maxMistakes: number;
+    score: number;
+    elapsedTime: number;
+}
+
+const updateHistoryOnWin = (params: FinishGameParams): void => {
+    const { history, isChallenge, mistakes, maxMistakes, score, elapsedTime } = params;
+    history.gamesWon += 1;
+    if (mistakes === 0) {history.gamesWonWithoutMistakes += 1;}
+    if (maxMistakes === 0) {history.hardcoreWon += 1;}
+    if (score > history.bestScore) {
+        history.bestScore = score;
+        history.bestTime = elapsedTime;
+    }
+    if (isChallenge) {history.challengesWon += 1;}
+};
+
+const updateHistoryOnFinish = (params: FinishGameParams): void => {
+    const { history, isWon, isChallenge } = params;
+    if (isWon) {
+        updateHistoryOnWin(params);
+    } else {
+        history.gamesLost += 1;
+        if (isChallenge) {history.challengesLost += 1;}
+    }
+};
 
 export const gameSlice = createSlice({
     name: 'game',
@@ -103,32 +136,22 @@ export const gameSlice = createSlice({
             }
         },
 
-        finish: (state, action: PayloadAction<{ difficulty: DifficultyEnum; isWon: boolean }>) => {
-            const { difficulty, isWon } = action.payload;
-
+        finish: (state, action: PayloadAction<{ difficulty: DifficultyEnum; isWon: boolean; isChallenge?: boolean }>) => {
+            const { difficulty, isWon, isChallenge = false } = action.payload;
             const history = state.historyByDifficulty[difficulty];
 
             history.gamesCompleted += 1;
             history.averageTime = (history.averageTime * history.gamesCompleted + state.elapsedTime) / history.gamesCompleted;
 
-            if (isWon) {
-                history.gamesWon += 1;
-
-                if (state.mistakes === 0) {
-                    history.gamesWonWithoutMistakes += 1;
-                }
-
-                if (state.maxMistakes === 0) {
-                    history.hardcoreWon += 1;
-                }
-
-                if (state.score > history.bestScore) {
-                    history.bestScore = state.score;
-                    history.bestTime = state.elapsedTime;
-                }
-            } else {
-                history.gamesLost += 1;
-            }
+            updateHistoryOnFinish({
+                history,
+                isWon,
+                isChallenge,
+                mistakes: state.mistakes,
+                maxMistakes: state.maxMistakes,
+                score: state.score,
+                elapsedTime: state.elapsedTime
+            });
         }
     }
 });
