@@ -111,7 +111,7 @@ export const GameScreen = () => {
 
         dispatch(gameFinishAction({ difficulty: sudoku.Difficulty, isWon: false }));
 
-        router.replace('loser');
+        router.replace(isChallengeMode ? 'challenge-lost' : 'loser');
     };
 
     const handleWonGame = () => {

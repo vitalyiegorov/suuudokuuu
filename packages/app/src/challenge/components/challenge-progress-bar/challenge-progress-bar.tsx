@@ -3,7 +3,10 @@ import { use, useEffect } from 'react';
 import { View } from 'react-native';
 import Animated, { interpolate, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
+import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
+import { GameContext } from '../../../game/context/game.context';
+import { gameFinishAction } from '../../../game/store/game.actions';
 import {
     gameChallengeStepsSelector,
     gameChallengeTimeSelector,
@@ -21,7 +24,9 @@ const ANIMATION_DURATION_MS = 300;
 
 export const ChallengeProgressBar = () => {
     const { theme } = use(ThemeContext);
+    const { sudoku } = use(GameContext);
 
+    const dispatch = useAppDispatch();
     const elapsedTime = useAppSelector(gameElapsedTimeSelector);
     const challengeSteps = useAppSelector(gameChallengeStepsSelector);
     const challengeTime = useAppSelector(gameChallengeTimeSelector);
@@ -41,9 +46,10 @@ export const ChallengeProgressBar = () => {
     }, [playerProgressValue, playerProgress]);
     useEffect(() => {
         if (opponentProgress >= 1) {
+            dispatch(gameFinishAction({ difficulty: sudoku.Difficulty, isWon: false }));
             router.replace('challenge-lost');
         }
-    }, [opponentProgress]);
+    }, [opponentProgress, dispatch, sudoku.Difficulty]);
 
     const opponentProgressAnimatedStyle = useAnimatedStyle(() => ({
         width: `${interpolate(challengeProgressValue.value, [0, 1], [0, 100])}%`
