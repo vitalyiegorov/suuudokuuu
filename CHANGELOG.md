@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.55.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.55.0...v1.55.1) (2025-12-06)
+
+### Bug Fixes
+
+- **app:** ensure nightmare difficulty records exist and correct averageTime calculation ([#153](https://github.com/vitalyiegorov/suuudokuuu/issues/153)) ([0bc8bda](https://github.com/vitalyiegorov/suuudokuuu/commit/0bc8bda6d1d92c8d272e890cd978d6c76b5b53f1))
+
 # [1.55.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.54.2...v1.55.0) (2025-12-05)
 
 ### Features
