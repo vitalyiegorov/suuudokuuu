@@ -13,9 +13,5 @@ module.exports = {
             functions: 100
         }
     },
-    transformIgnorePatterns: ['node_modules/(?!(@thi.ng/bitstream|@thi.ng/errors)/)'],
-    moduleNameMapper: {
-        '^@suuudokuuu/encoder$': '<rootDir>/../encoder/src',
-        '^@suuudokuuu/generator$': '<rootDir>/../generator/src'
-    }
+    transformIgnorePatterns: ['node_modules/(?!(@thi.ng/bitstream|@thi.ng/errors)/)']
 };
