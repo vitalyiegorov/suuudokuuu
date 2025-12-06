@@ -45,6 +45,21 @@ const addChallengeStats = (state: RootState): RootState => {
     };
 };
 
+const ensureAllDifficulties = (state: RootState): RootState => {
+    const gameState = state[gameSlice.name];
+    
+    return {
+        ...state,
+        [gameSlice.name]: {
+            ...gameState,
+            historyByDifficulty: {
+                ...initialGameState.historyByDifficulty,
+                ...gameState.historyByDifficulty
+            }
+        }
+    };
+};
+
 const migrations: MigrationManifest<RootState> = {
     12: state => ({
         ...state,
@@ -62,7 +77,8 @@ const migrations: MigrationManifest<RootState> = {
     13: state => ({ ...state, [gameSlice.name]: { ...initialGameState, ...state[gameSlice.name] } }),
     14: state => ({ ...state, [settingsSlice.name]: { ...initialSettingsState, ...state[settingsSlice.name] } }),
     15: resetBestScores,
-    16: addChallengeStats
+    16: addChallengeStats,
+    17: ensureAllDifficulties
 };
 
 const rootReducer = combineReducers({
@@ -74,7 +90,7 @@ const persistedReducer = persistReducer(
     {
         key: 'root',
         storage: AsyncStorage,
-        version: 16,
+        version: 17,
         migrate: createMigrate(migrations)
     },
     rootReducer
