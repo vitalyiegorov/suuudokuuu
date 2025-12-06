@@ -103,7 +103,6 @@ export const gameSlice = createSlice({
             }
         },
 
-        // eslint-disable-next-line max-statements
         finish: (state, action: PayloadAction<{ difficulty: DifficultyEnum; isWon: boolean; isChallenge?: boolean }>) => {
             const { difficulty, isWon, isChallenge = false } = action.payload;
             const history = state.historyByDifficulty[difficulty];
@@ -123,7 +122,6 @@ export const gameSlice = createSlice({
                 }
             } else {
                 history.gamesLost += 1;
-                history.hardcoreLost += state.maxMistakes === 0 ? 1 : 0;
                 history.challengesLost += isChallenge ? 1 : 0;
             }
         }
