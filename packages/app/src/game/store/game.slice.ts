@@ -2,7 +2,7 @@ import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { Solution } from '@suuudokuuu/encoder';
 
 import { getCellKey } from '../../@generic/utils/get-cell-key.util';
-import { maxCompletedGamesPerDifficulty } from '../../history/interfaces/completed-game.interface';
+import { maxCompletedGamesPerDifficulty } from '../../history/constants/max-completed-games-per-difficulty.constant';
 import { defaultScoringConfig } from '../../scoring/scoring-config.interface';
 import { SudokuScoring } from '../../scoring/sudoku-scoring';
 import { gameStateToString } from '../utils/game-state-to-string.util';
@@ -112,25 +112,24 @@ export const gameSlice = createSlice({
 
             history.averageTime = (history.averageTime * history.gamesCompleted + state.elapsedTime) / (history.gamesCompleted + 1);
             history.gamesCompleted += 1;
-            history.completedGames = [
-                {
-                    encodedState: gameStateToString(state, isChallenge),
-                    difficulty,
-                    elapsedTime: state.elapsedTime,
-                    score: state.score,
-                    mistakes: state.mistakes,
-                    maxMistakes: state.maxMistakes,
-                    isWon,
-                    completedAt: Date.now()
-                },
-                ...history.completedGames
-            ].slice(0, maxCompletedGamesPerDifficulty);
 
             if (isWon) {
                 history.gamesWon += 1;
                 history.gamesWonWithoutMistakes += state.mistakes === 0 ? 1 : 0;
                 history.hardcoreWon += state.maxMistakes === 0 ? 1 : 0;
                 history.challengesWon += isChallenge ? 1 : 0;
+                history.completedGames = [
+                    {
+                        difficulty,
+                        encodedState: gameStateToString(state, true),
+                        elapsedTime: state.elapsedTime,
+                        score: state.score,
+                        mistakes: state.mistakes,
+                        maxMistakes: state.maxMistakes,
+                        completedAt: Date.now()
+                    },
+                    ...history.completedGames
+                ].slice(0, maxCompletedGamesPerDifficulty);
 
                 if (state.score > history.bestScore) {
                     history.bestScore = state.score;

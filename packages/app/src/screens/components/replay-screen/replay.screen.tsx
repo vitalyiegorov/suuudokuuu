@@ -26,7 +26,7 @@ interface Props {
 const getSudokuAtStep = (gameState: GameState, currentStep: number) => {
     const sudoku = Sudoku.fromString(gameState.sudokuString, defaultSudokuConfig);
 
-    const steps = gameState.solutionSteps;
+    const steps = gameState.challengeSteps;
     let elapsedTime = 0;
     let highlightedCellKey = '';
 
@@ -57,7 +57,7 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
         }
     };
     const handleNextStep = () => {
-        if (currentStep < gameState.solutionSteps.length) {
+        if (currentStep < gameState.challengeSteps.length) {
             setCurrentStep(currentStep + 1);
         }
     };
@@ -76,7 +76,7 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
                 elapsedTime={elapsedTime}
                 onNextStep={handleNextStep}
                 onPrevStep={handlePrevStep}
-                totalSteps={gameState.solutionSteps.length}
+                totalSteps={gameState.challengeSteps.length}
             />
         </View>
     );
