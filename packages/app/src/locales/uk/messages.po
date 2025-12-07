@@ -200,7 +200,8 @@ msgstr "Локалізація гри"
 msgid "Game paused"
 msgstr "Гру призупинено"
 
-#: src/app/replay/[difficulty]/[completedAt].tsx:22
+#: src/app/history/[difficulty]/index.tsx:20
+#: src/app/history/[difficulty]/[completedAt].tsx:22
 msgid "Game Replay"
 msgstr "Повторення гри"
 
@@ -314,9 +315,7 @@ msgstr "Мова"
 msgid "Looooooser! =)"
 msgstr "Лууууузер! =)"
 
-#: src/screens/components/replay-screen/components/replay-header.tsx:19
 #: src/history/components/history-difficulty/history-difficulty.tsx:68
-#: src/history/components/completed-games-list/completed-game-item.tsx:41
 msgid "Lost"
 msgstr "Програно"
 
@@ -333,14 +332,14 @@ msgstr "Середній"
 msgid "Minimum Score"
 msgstr "Мінімальний рахунок"
 
-#: src/screens/components/replay-screen/components/replay-header.tsx:32
 #: src/screens/components/game-screen/game.screen.tsx:202
 #: src/scoring/components/scoring.screen.tsx:127
-#: src/history/components/completed-games-list/completed-game-item.tsx:39
+#: src/history/components/replay-header/replay-header.tsx:29
+#: src/history/components/completed-games-list/completed-game-item.tsx:36
 msgid "Mistakes"
 msgstr "Помилки"
 
-#: src/screens/components/replay-screen/components/replay-controls.tsx:47
+#: src/history/components/replay-controls/replay-controls.tsx:47
 msgid "moves"
 msgstr "ходів"
 
@@ -359,7 +358,6 @@ msgid "no bonus"
 msgstr "без бонусу"
 
 #: src/screens/components/history-games-screen/history-games.screen.tsx:33
-#: src/history/components/completed-games-list/completed-games-list.tsx:24
 msgid "No completed games yet"
 msgstr "Ще немає завершених ігор"
 
@@ -445,7 +443,7 @@ msgstr "балів за кожне правильне розміщення."
 msgid "Privacy policy"
 msgstr "Політика конфіденційності"
 
-#: src/screens/components/replay-screen/components/replay-top-bar.tsx:22
+#: src/history/components/replay-top-bar/replay-top-bar.tsx:22
 msgid "Replay"
 msgstr "Повторення"
 
@@ -465,9 +463,9 @@ msgstr "Повернутися"
 msgid "Row"
 msgstr "Рядок"
 
-#: src/screens/components/replay-screen/components/replay-header.tsx:29
 #: src/screens/components/game-screen/game.screen.tsx:228
-#: src/history/components/completed-games-list/completed-game-item.tsx:31
+#: src/history/components/replay-header/replay-header.tsx:26
+#: src/history/components/completed-games-list/completed-game-item.tsx:30
 msgid "Score"
 msgstr "Рахунок"
 
@@ -527,7 +525,7 @@ msgstr "Почати заново"
 msgid "Statistics"
 msgstr "Статистика"
 
-#: src/screens/components/replay-screen/components/replay-controls.tsx:32
+#: src/history/components/replay-controls/replay-controls.tsx:32
 msgid "Step time"
 msgstr "Час кроку"
 
@@ -563,9 +561,9 @@ msgstr "Тема"
 msgid "This value is multiplied by the difficulty coefficient:"
 msgstr "Це значення множиться на коефіцієнт складності:"
 
-#: src/screens/components/replay-screen/components/replay-header.tsx:35
 #: src/scoring/components/scoring.screen.tsx:124
-#: src/history/components/completed-games-list/completed-game-item.tsx:34
+#: src/history/components/replay-header/replay-header.tsx:35
+#: src/history/components/completed-games-list/completed-game-item.tsx:33
 msgid "Time"
 msgstr "Час"
 
@@ -627,9 +625,7 @@ msgstr ""
 msgid "Winners-winner, chicken dinner!"
 msgstr "Вигращ є - Можна поісти!"
 
-#: src/screens/components/replay-screen/components/replay-header.tsx:19
 #: src/history/components/history-difficulty/history-difficulty.tsx:62
-#: src/history/components/completed-games-list/completed-game-item.tsx:41
 msgid "Won"
 msgstr "Виграно"
 

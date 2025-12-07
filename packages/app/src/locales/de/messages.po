@@ -200,7 +200,8 @@ msgstr "Spiel-Lokalisierung"
 msgid "Game paused"
 msgstr "Spiel pausiert"
 
-#: src/app/replay/[difficulty]/[completedAt].tsx:22
+#: src/app/history/[difficulty]/index.tsx:20
+#: src/app/history/[difficulty]/[completedAt].tsx:22
 msgid "Game Replay"
 msgstr "Spielwiedergabe"
 
@@ -314,9 +315,7 @@ msgstr "Sprache"
 msgid "Looooooser! =)"
 msgstr "Verlierer! =)"
 
-#: src/screens/components/replay-screen/components/replay-header.tsx:19
 #: src/history/components/history-difficulty/history-difficulty.tsx:68
-#: src/history/components/completed-games-list/completed-game-item.tsx:41
 msgid "Lost"
 msgstr "Verloren"
 
@@ -333,14 +332,14 @@ msgstr "Mittelschwer"
 msgid "Minimum Score"
 msgstr "Mindestpunktzahl"
 
-#: src/screens/components/replay-screen/components/replay-header.tsx:32
 #: src/screens/components/game-screen/game.screen.tsx:202
 #: src/scoring/components/scoring.screen.tsx:127
-#: src/history/components/completed-games-list/completed-game-item.tsx:39
+#: src/history/components/replay-header/replay-header.tsx:29
+#: src/history/components/completed-games-list/completed-game-item.tsx:36
 msgid "Mistakes"
 msgstr "Fehler"
 
-#: src/screens/components/replay-screen/components/replay-controls.tsx:47
+#: src/history/components/replay-controls/replay-controls.tsx:47
 msgid "moves"
 msgstr "Züge"
 
@@ -359,7 +358,6 @@ msgid "no bonus"
 msgstr "kein Bonus"
 
 #: src/screens/components/history-games-screen/history-games.screen.tsx:33
-#: src/history/components/completed-games-list/completed-games-list.tsx:24
 msgid "No completed games yet"
 msgstr "Noch keine abgeschlossenen Spiele"
 
@@ -445,7 +443,7 @@ msgstr "Punkte pro korrekte Platzierung."
 msgid "Privacy policy"
 msgstr "Datenschutzerklärung"
 
-#: src/screens/components/replay-screen/components/replay-top-bar.tsx:22
+#: src/history/components/replay-top-bar/replay-top-bar.tsx:22
 msgid "Replay"
 msgstr "Wiedergabe"
 
@@ -465,9 +463,9 @@ msgstr "Zurück"
 msgid "Row"
 msgstr "Zeile"
 
-#: src/screens/components/replay-screen/components/replay-header.tsx:29
 #: src/screens/components/game-screen/game.screen.tsx:228
-#: src/history/components/completed-games-list/completed-game-item.tsx:31
+#: src/history/components/replay-header/replay-header.tsx:26
+#: src/history/components/completed-games-list/completed-game-item.tsx:30
 msgid "Score"
 msgstr "Punktestand"
 
@@ -527,7 +525,7 @@ msgstr "Neu starten"
 msgid "Statistics"
 msgstr "Statistiken"
 
-#: src/screens/components/replay-screen/components/replay-controls.tsx:32
+#: src/history/components/replay-controls/replay-controls.tsx:32
 msgid "Step time"
 msgstr "Schrittzeit"
 
@@ -563,9 +561,9 @@ msgstr "Thema"
 msgid "This value is multiplied by the difficulty coefficient:"
 msgstr "Dieser Wert wird mit dem Schwierigkeitskoeffizienten multipliziert:"
 
-#: src/screens/components/replay-screen/components/replay-header.tsx:35
 #: src/scoring/components/scoring.screen.tsx:124
-#: src/history/components/completed-games-list/completed-game-item.tsx:34
+#: src/history/components/replay-header/replay-header.tsx:35
+#: src/history/components/completed-games-list/completed-game-item.tsx:33
 msgid "Time"
 msgstr "Zeit"
 
@@ -627,9 +625,7 @@ msgstr ""
 msgid "Winners-winner, chicken dinner!"
 msgstr "Gewinner, Gewinner, Hähnchen-Dinner!"
 
-#: src/screens/components/replay-screen/components/replay-header.tsx:19
 #: src/history/components/history-difficulty/history-difficulty.tsx:62
-#: src/history/components/completed-games-list/completed-game-item.tsx:41
 msgid "Won"
 msgstr "Gewonnen"
 
