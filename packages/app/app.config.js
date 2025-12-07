@@ -97,6 +97,7 @@ export default ({ config }) => ({
     },
     plugins: [
         'expo-build-properties',
+        'expo-localization',
         ['expo-router', { origin: 'https://www.suuudokuuu.com/' }],
         ['expo-font', { fonts: ['../../node_modules/@expo-google-fonts/inter/Inter_900Black.ttf'] }],
         [

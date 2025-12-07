@@ -6,5 +6,12 @@ export const HistoryDifficultyStyles = StyleSheet.create({
     },
     container: {
         alignItems: 'center'
+    },
+    gamesSection: {
+        marginTop: 12,
+        width: '100%'
+    },
+    showGamesButton: {
+        alignSelf: 'center'
     }
 });

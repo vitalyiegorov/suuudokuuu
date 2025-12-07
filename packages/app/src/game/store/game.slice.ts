@@ -2,8 +2,10 @@ import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { Solution } from '@suuudokuuu/encoder';
 
 import { getCellKey } from '../../@generic/utils/get-cell-key.util';
+import { maxCompletedGamesPerDifficulty } from '../../history/constants/max-completed-games-per-difficulty.constant';
 import { defaultScoringConfig } from '../../scoring/scoring-config.interface';
 import { SudokuScoring } from '../../scoring/sudoku-scoring';
+import { gameStateToString } from '../utils/game-state-to-string.util';
 
 import { initialGameState } from './game.state';
 
@@ -103,6 +105,7 @@ export const gameSlice = createSlice({
             }
         },
 
+        // eslint-disable-next-line max-statements
         finish: (state, action: PayloadAction<{ difficulty: DifficultyEnum; isWon: boolean; isChallenge?: boolean }>) => {
             const { difficulty, isWon, isChallenge = false } = action.payload;
             const history = state.historyByDifficulty[difficulty];
@@ -115,6 +118,18 @@ export const gameSlice = createSlice({
                 history.gamesWonWithoutMistakes += state.mistakes === 0 ? 1 : 0;
                 history.hardcoreWon += state.maxMistakes === 0 ? 1 : 0;
                 history.challengesWon += isChallenge ? 1 : 0;
+                history.completedGames = [
+                    {
+                        difficulty,
+                        encodedState: gameStateToString(state, true),
+                        elapsedTime: state.elapsedTime,
+                        score: state.score,
+                        mistakes: state.mistakes,
+                        maxMistakes: state.maxMistakes,
+                        completedAt: Date.now()
+                    },
+                    ...history.completedGames
+                ].slice(0, maxCompletedGamesPerDifficulty);
 
                 if (state.score > history.bestScore) {
                     history.bestScore = state.score;

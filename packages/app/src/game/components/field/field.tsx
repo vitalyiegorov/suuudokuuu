@@ -7,11 +7,10 @@ import { scheduleOnRN } from 'react-native-worklets';
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { getCellKey } from '../../../@generic/utils/get-cell-key.util';
-import { settingsFontSizeMultiplierSelector } from '../../../settings/store/settings.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { GameContext } from '../../context/game.context';
+import { useCellFontSize } from '../../hooks/use-cell-font-size.hook';
 import { gameCandidatesSelector, gameShowAutoCandidatesSelector } from '../../store/game.selectors';
-import { CellFontSizeConstant } from '../constants/dimensions.contant';
 import { FieldCell } from '../field-cell/field-cell';
 import { FieldCellCandidates } from '../field-cell-candidates/field-cell-candidates';
 import { FieldCellText } from '../field-cell-text/field-cell-text';
@@ -53,8 +52,7 @@ export const Field = ({ selectedCell, onSelect, ref }: Props) => {
 
     const showAutoCandidates = useAppSelector(gameShowAutoCandidatesSelector);
     const candidates = useAppSelector(gameCandidatesSelector);
-    const fontSizeMultiplier = useAppSelector(settingsFontSizeMultiplierSelector);
-    const fontSize = CellFontSizeConstant * fontSizeMultiplier;
+    const fontSize = useCellFontSize();
 
     const [animatedCells, setAnimatedCells] = useState(new Set<string>());
 
