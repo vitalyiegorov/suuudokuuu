@@ -35,8 +35,8 @@ const addChallengeStats = (state: RootState): RootState => {
         updatedHistory[key as keyof typeof updatedHistory] = {
             ...emptyGameHistory,
             ...historyEntry,
-            challengesWon: (historyEntry.challengesWon as number | undefined) ?? 0,
-            challengesLost: (historyEntry.challengesLost as number | undefined) ?? 0
+            challengesWon: (historyEntry['challengesWon'] as number | undefined) ?? 0,
+            challengesLost: (historyEntry['challengesLost'] as number | undefined) ?? 0
         };
     });
 
@@ -55,7 +55,7 @@ const addCompletedGames = (state: RootState): RootState => {
         updatedHistory[key as keyof typeof updatedHistory] = {
             ...emptyGameHistory,
             ...historyEntry,
-            completedGames: (historyEntry.completedGames as CompletedGameInterface[] | undefined) ?? []
+            completedGames: (historyEntry['completedGames'] as CompletedGameInterface[] | undefined) ?? []
         };
     });
 
