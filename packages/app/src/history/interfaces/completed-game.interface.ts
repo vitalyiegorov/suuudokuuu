@@ -7,8 +7,5 @@ export interface CompletedGameInterface {
     score: number;
     mistakes: number;
     maxMistakes: number;
-    isWon: boolean;
     completedAt: number;
 }
-
-export const maxCompletedGamesPerDifficulty = 10;

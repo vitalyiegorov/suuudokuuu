@@ -9,17 +9,15 @@ export const stringToGameState = (gameStateString = ''): GameState => {
 
         const sudokuEncoder = new SudokuStringEncoder();
         const solution = Solution.fromString(steps);
-        const solutionSteps = solution.getSteps();
 
         return {
             ...initialGameState,
             sudokuString: sudokuEncoder.decode(field),
             maxMistakes: parseInt(maxMistakes, 10) || 0,
-            solutionSteps,
 
             ...(isChallenge === '1' && {
                 challengeState: gameStateString,
-                challengeSteps: solutionSteps,
+                challengeSteps: solution.getSteps(),
                 challengeTime: solution.getElapsedTime()
             })
         } satisfies GameState;
