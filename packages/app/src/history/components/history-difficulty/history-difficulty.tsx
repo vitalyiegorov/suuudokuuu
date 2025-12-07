@@ -2,6 +2,8 @@ import { useLingui } from '@lingui/react/macro';
 import { use } from 'react';
 import { Text, View } from 'react-native';
 
+import { isNotEmptyArray } from '@rnw-community/shared';
+
 import { BlackButton } from '../../../@generic/components/black-button/black-button';
 import { BlackSubHeader } from '../../../@generic/components/black-sub-header/black-text';
 import { BlackText } from '../../../@generic/components/black-text/black-text';
@@ -37,7 +39,7 @@ export const HistoryDifficulty = ({ difficulty }: Props) => {
     } = useAppSelector(gameHistoryDifficultySelector(difficulty));
 
     const winRate = gamesWon > 0 ? Math.round((gamesWon / gamesCompleted) * 100) : 0;
-    const hasCompletedGames = completedGames.length > 0;
+    const hasCompletedGames = isNotEmptyArray(completedGames);
 
     const hardcoreWonTitleStyles = { color: theme.colors.red };
     const hardcoreWonStyles = [styles.boldText, { color: theme.colors.red }];
@@ -85,7 +87,7 @@ export const HistoryDifficulty = ({ difficulty }: Props) => {
                     <BlackButton
                         href={`/history/${difficulty}`}
                         style={styles.showGamesButton}
-                        text={`${t`View games`  } (${completedGames.length})`}
+                        text={`${t`View games`} (${completedGames.length})`}
                     />
                 </View>
             )}

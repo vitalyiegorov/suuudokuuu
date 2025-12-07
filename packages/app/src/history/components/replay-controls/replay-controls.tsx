@@ -3,6 +3,8 @@ import { LucideChevronLeft, LucideChevronRight } from 'lucide-react-native';
 import { use } from 'react';
 import { Text, View } from 'react-native';
 
+import { isPositiveNumber } from '@rnw-community/shared';
+
 import { BlackButton } from '../../../@generic/components/black-button/black-button';
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { getTimerText } from '../../../@generic/utils/get-timer-text.util';
@@ -10,19 +12,21 @@ import { ThemeContext } from '../../../theme/context/theme.context';
 
 import { ReplayControlsStyles as styles } from './replay-controls.styles';
 
+import type { EmptyFn } from '@rnw-community/shared';
+
 interface Props {
     readonly currentStep: number;
     readonly totalSteps: number;
     readonly elapsedTime: number;
-    readonly onPrevStep: () => void;
-    readonly onNextStep: () => void;
+    readonly onPrevStep: EmptyFn;
+    readonly onNextStep: EmptyFn;
 }
 
 export const ReplayControls = ({ currentStep, totalSteps, elapsedTime, onPrevStep, onNextStep }: Props) => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
 
-    const canGoBack = currentStep > 0;
+    const canGoBack = isPositiveNumber(currentStep);
     const canGoForward = currentStep < totalSteps;
 
     return (

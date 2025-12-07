@@ -1,4 +1,4 @@
-import { DifficultyEnum, Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
+import { DifficultyEnum } from '@suuudokuuu/generator';
 import { Redirect } from 'expo-router';
 import { useState } from 'react';
 import { View } from 'react-native';
@@ -6,41 +6,20 @@ import { View } from 'react-native';
 import { isDefined } from '@rnw-community/shared';
 
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
-import { getCellKey } from '../../../@generic/utils/get-cell-key.util';
 import { gameCompletedGameByIdSelector } from '../../../game/store/game.selectors';
 import { stringToGameState } from '../../../game/utils/string-to-game-state.util';
 import { ReplayControls } from '../../../history/components/replay-controls/replay-controls';
 import { ReplayField } from '../../../history/components/replay-field/replay-field';
 import { ReplayHeader } from '../../../history/components/replay-header/replay-header';
 import { ReplayTopBar } from '../../../history/components/replay-top-bar/replay-top-bar';
+import { getSudokuAtStep } from '../../../history/utils/get-sudoku-at-step.util';
 
 import { ReplayScreenStyles as styles } from './replay-screen.styles';
-
-import type { GameState } from '../../../game/store/game.state';
 
 interface Props {
     readonly difficulty: DifficultyEnum;
     readonly completedAt: number;
 }
-
-const getSudokuAtStep = (gameState: GameState, currentStep: number) => {
-    const sudoku = Sudoku.fromString(gameState.sudokuString, defaultSudokuConfig);
-
-    const steps = gameState.challengeSteps;
-    let elapsedTime = 0;
-    let highlightedCellKey = '';
-
-    for (let i = 0; i < currentStep && i < steps.length; i += 1) {
-        const x = steps[i].cellIndex % defaultSudokuConfig.fieldSize;
-        const y = Math.floor(steps[i].cellIndex / defaultSudokuConfig.fieldSize);
-
-        sudoku.Field[y][x] = { ...sudoku.Field[y][x], value: steps[i].value };
-        elapsedTime += steps[i].ts;
-        highlightedCellKey = getCellKey({ x, y });
-    }
-
-    return { sudoku, highlightedCellKey, elapsedTime };
-};
 
 export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
     const completedGame = useAppSelector(gameCompletedGameByIdSelector(difficulty, completedAt));
