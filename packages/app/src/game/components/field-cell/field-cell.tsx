@@ -104,7 +104,7 @@ export const FieldCell = (props: Props) => {
 
     const cellStyles = [
         styles.container,
-        ...useCellBorderStyles({ sudoku, cell }),
+        ...useCellBorderStyles(sudoku, cell),
         { backgroundColor: cellBackgroundColor },
         cellAnimatedStyles,
         Platform.select({ web: { outline: 'none' } })

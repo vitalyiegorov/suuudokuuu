@@ -7,12 +7,7 @@ import { ThemeContext } from '../../theme/context/theme.context';
 import type { CellInterface, Sudoku } from '@suuudokuuu/generator';
 import type { StyleProp, ViewStyle } from 'react-native';
 
-interface UseCellBorderStylesParams {
-    sudoku: Sudoku;
-    cell: CellInterface;
-}
-
-export const useCellBorderStyles = ({ sudoku, cell }: UseCellBorderStylesParams): StyleProp<ViewStyle>[] => {
+export const useCellBorderStyles = (sudoku: Sudoku, cell: CellInterface): StyleProp<ViewStyle>[] => {
     const { theme } = use(ThemeContext);
 
     const cellMargin = useAppSelector(settingsCellMarginSelector);
