@@ -20,25 +20,28 @@ export const CompletedGameItem = ({ game }: Props) => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
 
-    const containerStyles = [styles.container, { backgroundColor: game.isWon ? theme.colors.black05 : theme.colors.red }];
-    const textStyles = game.isWon ? {} : styles.lostText;
+    const {isWon} = game;
+    const borderColor = isWon ? theme.colors.cell.active : theme.colors.red;
+
+    const containerStyles = [styles.container, { borderColor, borderWidth: 2 }];
+    const statusTextStyles = [styles.statusText, { color: isWon ? theme.colors.cell.active : theme.colors.red }];
 
     return (
         <View style={containerStyles}>
             <View style={styles.infoContainer}>
                 <View style={styles.row}>
-                    <BlackText style={textStyles}>
+                    <BlackText>
                         {t`Score`}: <Text style={styles.boldText}>{game.score}</Text>
                     </BlackText>
-                    <BlackText style={textStyles}>
+                    <BlackText>
                         {t`Time`}: <Text style={styles.boldText}>{getTimerText(game.elapsedTime)}</Text>
                     </BlackText>
                 </View>
                 <View style={styles.row}>
-                    <BlackText style={textStyles}>
+                    <BlackText>
                         {t`Mistakes`}: <Text style={styles.boldText}>{game.mistakes}/{game.maxMistakes}</Text>
                     </BlackText>
-                    <BlackText style={textStyles}>{game.isWon ? t`Won` : t`Lost`}</BlackText>
+                    <BlackText style={statusTextStyles}>{isWon ? t`Won` : t`Lost`}</BlackText>
                 </View>
             </View>
             <BlackButton

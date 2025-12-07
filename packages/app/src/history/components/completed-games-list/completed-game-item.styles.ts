@@ -2,8 +2,8 @@ import { StyleSheet } from 'react-native';
 
 export const CompletedGameItemStyles = StyleSheet.create({
     container: {
-        paddingVertical: 8,
-        paddingHorizontal: 12,
+        paddingVertical: 12,
+        paddingHorizontal: 16,
         borderRadius: 8,
         marginVertical: 4,
         flexDirection: 'row',
@@ -11,20 +11,21 @@ export const CompletedGameItemStyles = StyleSheet.create({
         alignItems: 'center'
     },
     infoContainer: {
-        flex: 1
+        flex: 1,
+        gap: 4
     },
     row: {
         flexDirection: 'row',
-        gap: 12
+        gap: 16
     },
     boldText: {
         fontWeight: 'bold'
     },
-    lostText: {
-        opacity: 0.7
+    statusText: {
+        fontWeight: 'bold'
     },
     replayButton: {
-        paddingVertical: 6,
-        paddingHorizontal: 12
+        paddingVertical: 8,
+        paddingHorizontal: 16
     }
 });
