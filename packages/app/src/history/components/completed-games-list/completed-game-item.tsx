@@ -20,7 +20,7 @@ export const CompletedGameItem = ({ game }: Props) => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
 
-    const containerStyles = [styles.container, { backgroundColor: game.isWon ? theme.colors.cell.highlighted : theme.colors.cell.error }];
+    const containerStyles = [styles.container, { backgroundColor: game.isWon ? theme.colors.cell.filled : theme.colors.red }];
     const textStyles = game.isWon ? {} : styles.lostText;
 
     return (
@@ -45,7 +45,7 @@ export const CompletedGameItem = ({ game }: Props) => {
                 href={`/replay/${game.difficulty}/${game.completedAt}`}
                 style={styles.replayButton}
             >
-                <LucidePlay color={theme.colors.white} size={16} />
+                <LucidePlay color={theme.colors.label.inverted} size={16} />
             </BlackButton>
         </View>
     );
