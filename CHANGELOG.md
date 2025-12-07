@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.55.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.55.1...v1.55.2) (2025-12-07)
+
+### Bug Fixes
+
+- **app:** fix statistics page ([#154](https://github.com/vitalyiegorov/suuudokuuu/issues/154)) ([d115c42](https://github.com/vitalyiegorov/suuudokuuu/commit/d115c4224848f6f68b46ec4e52ae770f5350ae3a))
+
+## [1.55.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.55.0...v1.55.1) (2025-12-06)
+
+### Bug Fixes
+
+- **app:** ensure nightmare difficulty records exist and correct averageTime calculation ([#153](https://github.com/vitalyiegorov/suuudokuuu/issues/153)) ([0bc8bda](https://github.com/vitalyiegorov/suuudokuuu/commit/0bc8bda6d1d92c8d272e890cd978d6c76b5b53f1))
+
+# [1.55.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.54.2...v1.55.0) (2025-12-05)
+
+### Features
+
+- **app:** fix history/statistics and add challenge statistics tracking ([#149](https://github.com/vitalyiegorov/suuudokuuu/issues/149)) ([993a00d](https://github.com/vitalyiegorov/suuudokuuu/commit/993a00d69fcd3845feec22b394d947056f39bcb6))
+
 ## [1.54.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.54.1...v1.54.2) (2025-12-03)
 
 ### Bug Fixes

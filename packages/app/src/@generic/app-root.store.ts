@@ -9,7 +9,6 @@ import { settingsSlice } from '../settings/store/settings.slice';
 import { initialSettingsState } from '../settings/store/settings.state';
 
 import type { GameState } from '../game/store/game.state';
-import type { CompletedGameInterface } from '../history/interfaces/completed-game.interface';
 import type { MigrationManifest } from 'redux-persist/es/types';
 
 const resetBestScores = (state: RootState): RootState => {
@@ -31,12 +30,14 @@ const addChallengeStats = (state: RootState): RootState => {
     const updatedHistory = { ...gameState.historyByDifficulty };
 
     Object.keys(updatedHistory).forEach(key => {
-        const historyEntry = updatedHistory[key as keyof typeof updatedHistory] as unknown as Record<string, unknown>;
+        const historyEntry = updatedHistory[key as keyof typeof updatedHistory];
         updatedHistory[key as keyof typeof updatedHistory] = {
             ...emptyGameHistory,
             ...historyEntry,
-            challengesWon: (historyEntry.challengesWon as number | undefined) ?? 0,
-            challengesLost: (historyEntry.challengesLost as number | undefined) ?? 0
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+            challengesWon: historyEntry.challengesWon ?? 0,
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+            challengesLost: historyEntry.challengesLost ?? 0
         };
     });
 
@@ -51,17 +52,33 @@ const addCompletedGames = (state: RootState): RootState => {
     const updatedHistory = { ...gameState.historyByDifficulty };
 
     Object.keys(updatedHistory).forEach(key => {
-        const historyEntry = updatedHistory[key as keyof typeof updatedHistory] as unknown as Record<string, unknown>;
+        const historyEntry = updatedHistory[key as keyof typeof updatedHistory];
         updatedHistory[key as keyof typeof updatedHistory] = {
             ...emptyGameHistory,
             ...historyEntry,
-            completedGames: (historyEntry.completedGames as CompletedGameInterface[] | undefined) ?? []
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+            completedGames: historyEntry.completedGames ?? []
         };
     });
 
     return {
         ...state,
         [gameSlice.name]: { ...gameState, historyByDifficulty: updatedHistory }
+    };
+};
+
+const ensureAllDifficulties = (state: RootState): RootState => {
+    const gameState = state[gameSlice.name];
+
+    return {
+        ...state,
+        [gameSlice.name]: {
+            ...gameState,
+            historyByDifficulty: {
+                ...initialGameState.historyByDifficulty,
+                ...gameState.historyByDifficulty
+            }
+        }
     };
 };
 
@@ -83,7 +100,8 @@ const migrations: MigrationManifest<RootState> = {
     14: state => ({ ...state, [settingsSlice.name]: { ...initialSettingsState, ...state[settingsSlice.name] } }),
     15: resetBestScores,
     16: addChallengeStats,
-    17: addCompletedGames
+    17: ensureAllDifficulties,
+    18: addCompletedGames
 };
 
 const rootReducer = combineReducers({
@@ -95,7 +113,7 @@ const persistedReducer = persistReducer(
     {
         key: 'root',
         storage: AsyncStorage,
-        version: 17,
+        version: 18,
         migrate: createMigrate(migrations)
     },
     rootReducer
