@@ -6,7 +6,7 @@ import { Page } from '../../../@generic/components/page/page';
 import { PageHeader } from '../../../@generic/components/page-header/page-header';
 import { ReplayScreen } from '../../../screens/components/replay-screen/replay.screen';
 
-export default function ReplayPage() {
+export default function ReplayGamePage() {
     const { t } = useLingui();
     const { difficulty = '', completedAt = '' } = useLocalSearchParams<{ difficulty?: string; completedAt?: string }>();
 
