@@ -39,6 +39,7 @@ export const HistoryGamesScreen = ({ difficulty }: Props) => {
                     keyExtractor={keyExtractor}
                     renderItem={renderItem}
                     showsVerticalScrollIndicator={false}
+                    style={styles.list}
                 />
             )}
             <ReturnButton />
