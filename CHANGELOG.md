@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.56.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.55.2...v1.56.0) (2025-12-07)
+
+### Features
+
+- **app:** add replay functionality for historical games ([#151](https://github.com/vitalyiegorov/suuudokuuu/issues/151)) ([6a94bad](https://github.com/vitalyiegorov/suuudokuuu/commit/6a94badf9b8d6f632181bc83be3a4d88a8c08252))
+
 ## [1.55.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.55.1...v1.55.2) (2025-12-07)
 
 ### Bug Fixes
