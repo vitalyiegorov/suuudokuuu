@@ -1,5 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
-import { use, useState } from 'react';
+import { use } from 'react';
 import { Text, View } from 'react-native';
 
 import { BlackButton } from '../../../@generic/components/black-button/black-button';
@@ -10,7 +10,6 @@ import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.u
 import { getTimerText } from '../../../@generic/utils/get-timer-text.util';
 import { gameHistoryDifficultySelector } from '../../../game/store/game.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
-import { CompletedGamesList } from '../completed-games-list/completed-games-list';
 
 import { HistoryDifficultyStyles as styles } from './history-difficulty.styles';
 
@@ -23,7 +22,6 @@ interface Props {
 export const HistoryDifficulty = ({ difficulty }: Props) => {
     const { theme } = use(ThemeContext);
     const { t } = useLingui();
-    const [showGames, setShowGames] = useState(false);
     const {
         bestScore,
         bestTime,
@@ -43,12 +41,6 @@ export const HistoryDifficulty = ({ difficulty }: Props) => {
 
     const hardcoreWonTitleStyles = { color: theme.colors.red };
     const hardcoreWonStyles = [styles.boldText, { color: theme.colors.red }];
-
-    const handleToggleGames = () => {
-        setShowGames(!showGames);
-    };
-
-    const toggleButtonText = showGames ? t`Hide recent games` : t`Show recent games`;
 
     return (
         <View style={styles.container}>
@@ -91,12 +83,10 @@ export const HistoryDifficulty = ({ difficulty }: Props) => {
             {hasCompletedGames && (
                 <View style={styles.gamesSection}>
                     <BlackButton
-                        isActive={showGames}
-                        onPress={handleToggleGames}
+                        href={`/history/${difficulty}`}
                         style={styles.showGamesButton}
-                        text={toggleButtonText}
+                        text={`${t`View games`  } (${completedGames.length})`}
                     />
-                    {showGames ? <CompletedGamesList difficulty={difficulty} /> : null}
                 </View>
             )}
         </View>
