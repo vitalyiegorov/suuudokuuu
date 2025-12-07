@@ -20,7 +20,7 @@ export const CompletedGameItem = ({ game }: Props) => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
 
-    const containerStyles = [styles.container, { backgroundColor: game.isWon ? theme.colors.cell.filled : theme.colors.red }];
+    const containerStyles = [styles.container, { backgroundColor: game.isWon ? theme.colors.black05 : theme.colors.red }];
     const textStyles = game.isWon ? {} : styles.lostText;
 
     return (
