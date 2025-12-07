@@ -3,7 +3,7 @@ import { decompressFromEncodedURIComponent } from 'lz-string';
 
 import { GameState, initialGameState } from '../store/game.state';
 
-export const stringToGameState = (gameStateString: string): GameState => {
+export const stringToGameState = (gameStateString = ''): GameState => {
     try {
         const [field, steps, maxMistakes, isChallenge] = decompressFromEncodedURIComponent(gameStateString).split('|');
 

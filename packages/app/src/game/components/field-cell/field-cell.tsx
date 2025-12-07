@@ -2,16 +2,17 @@ import { use } from 'react';
 import { Platform, Pressable } from 'react-native';
 import Reanimated, { interpolateColor, useAnimatedStyle, useDerivedValue, withTiming } from 'react-native-reanimated';
 
-import { type OnEventFn, cs } from '@rnw-community/shared';
+import { type OnEventFn } from '@rnw-community/shared';
 
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
-import { settingsCellMarginSelector, settingsKeySelector } from '../../../settings/store/settings.selectors';
+import { CellStyles as styles } from '../../../@generic/styles/cell.styles';
+import { settingsKeySelector } from '../../../settings/store/settings.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { GameContext } from '../../context/game.context';
+import { useCellBorderStyles } from '../../hooks/use-cell-border-styles.hook';
 
 import { FieldCellSelectors as selectors } from './field-cell.selectors';
-import { FieldCellStyles as styles } from './field-cell.styles';
 
 import type { BWDarkTheme } from '../../../theme/themes/bw.theme';
 import type { CellInterface } from '@suuudokuuu/generator';
@@ -79,7 +80,6 @@ export const FieldCell = (props: Props) => {
     const showAreas = useAppSelector(settingsKeySelector('showAreas'));
     const showIdenticalNumbers = useAppSelector(settingsKeySelector('showIdenticalNumbers'));
     const showFilledNumbers = useAppSelector(settingsKeySelector('showFilledNumbers'));
-    const cellMargin = useAppSelector(settingsCellMarginSelector);
 
     const cellBackgroundColor = getCellBgColor(
         theme,
@@ -104,11 +104,7 @@ export const FieldCell = (props: Props) => {
 
     const cellStyles = [
         styles.container,
-        { borderColor: theme.colors.black },
-        cs(sudoku.isLastInCellGroupX(cell), [styles.groupXEnd, { marginRight: cellMargin }]),
-        cs(sudoku.isLastInCellGroupY(cell), [styles.groupYEnd, { marginBottom: cellMargin }]),
-        cs(sudoku.isLastInRow(cell), styles.lastRow),
-        cs(sudoku.isLastInColumn(cell), styles.lastCol),
+        ...useCellBorderStyles(sudoku, cell),
         { backgroundColor: cellBackgroundColor },
         cellAnimatedStyles,
         Platform.select({ web: { outline: 'none' } })
