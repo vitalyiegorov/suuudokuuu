@@ -29,11 +29,11 @@ msgstr "Усі клітинки числа (1-9)"
 msgid "All progress will be lost"
 msgstr "Всі досягнення будуть втрачені"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx:56
+#: src/history/components/history-difficulty/history-difficulty.tsx:59
 msgid "Attempts"
 msgstr "Спроби"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx:53
+#: src/history/components/history-difficulty/history-difficulty.tsx:56
 msgid "Average time"
 msgstr "Середній час"
 
@@ -59,12 +59,12 @@ msgid "Be wise, be smart, be quick..."
 msgstr "Будьте мудрими, розумними, швидкими..."
 
 #: src/screens/components/home-screen/home.screen.tsx:117
-#: src/history/components/history-difficulty/history-difficulty.tsx:47
+#: src/history/components/history-difficulty/history-difficulty.tsx:50
 msgid "Best score"
 msgstr "Найкращий результат"
 
 #: src/screens/components/home-screen/home.screen.tsx:126
-#: src/history/components/history-difficulty/history-difficulty.tsx:50
+#: src/history/components/history-difficulty/history-difficulty.tsx:53
 msgid "Best time"
 msgstr "Найкращий час"
 
@@ -118,11 +118,11 @@ msgstr "Виклик програно!"
 msgid "Challenge Won!"
 msgstr "Виклик виграно!"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx:77
+#: src/history/components/history-difficulty/history-difficulty.tsx:80
 msgid "Challenges lost"
 msgstr "Програно викликів"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx:74
+#: src/history/components/history-difficulty/history-difficulty.tsx:77
 msgid "Challenges won"
 msgstr "Виграно викликів"
 
@@ -200,6 +200,11 @@ msgstr "Локалізація гри"
 msgid "Game paused"
 msgstr "Гру призупинено"
 
+#: src/app/history/[difficulty]/index.tsx:20
+#: src/app/history/[difficulty]/[completedAt].tsx:22
+msgid "Game Replay"
+msgstr "Повторення гри"
+
 #: src/settings/component/cell-margin-toggle/cell-margin-toggle.tsx:33
 msgid "Game screen cell margin"
 msgstr "Відступ клітинки на екрані гри"
@@ -207,6 +212,10 @@ msgstr "Відступ клітинки на екрані гри"
 #: src/settings/component/font-size-toggle/font-size-toggle.tsx:28
 msgid "Game screen font size"
 msgstr "Розмір шрифту на екрані гри"
+
+#: src/screens/components/history-games-screen/history-games.screen.tsx:30
+msgid "Games"
+msgstr "Ігри"
 
 #: src/settings/component/theme-toggle/theme-toggle.tsx:23
 msgid "gold"
@@ -233,7 +242,7 @@ msgstr "Хардкор"
 msgid "Hardcore (0 mistakes)"
 msgstr "Хардкор (0 помилок)"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx:71
+#: src/history/components/history-difficulty/history-difficulty.tsx:74
 msgid "Hardcore won"
 msgstr "Хардкорів виграно"
 
@@ -306,7 +315,7 @@ msgstr "Мова"
 msgid "Looooooser! =)"
 msgstr "Лууууузер! =)"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx:65
+#: src/history/components/history-difficulty/history-difficulty.tsx:68
 msgid "Lost"
 msgstr "Програно"
 
@@ -325,8 +334,14 @@ msgstr "Мінімальний рахунок"
 
 #: src/screens/components/game-screen/game.screen.tsx:202
 #: src/scoring/components/scoring.screen.tsx:127
+#: src/history/components/replay-header/replay-header.tsx:29
+#: src/history/components/completed-games-list/completed-game-item.tsx:36
 msgid "Mistakes"
 msgstr "Помилки"
+
+#: src/history/components/replay-controls/replay-controls.tsx:47
+msgid "moves"
+msgstr "ходів"
 
 #: src/scoring/components/scoring.screen.tsx:43
 #: src/@generic/utils/get-difficulty-text.util.ts:13
@@ -341,6 +356,10 @@ msgstr "Кошмар"
 #: src/scoring/components/scoring.screen.tsx:85
 msgid "no bonus"
 msgstr "без бонусу"
+
+#: src/screens/components/history-games-screen/history-games.screen.tsx:33
+msgid "No completed games yet"
+msgstr "Ще немає завершених ігор"
 
 #: src/scoring/components/scoring.screen.tsx:137
 msgid "No matter how many penalties, you always earn at least"
@@ -424,6 +443,10 @@ msgstr "балів за кожне правильне розміщення."
 msgid "Privacy policy"
 msgstr "Політика конфіденційності"
 
+#: src/history/components/replay-top-bar/replay-top-bar.tsx:22
+msgid "Replay"
+msgstr "Повторення"
+
 #: src/screens/components/home-screen/home.screen.tsx:136
 msgid "Report a bug"
 msgstr "Повідомити про помилку"
@@ -441,6 +464,8 @@ msgid "Row"
 msgstr "Рядок"
 
 #: src/screens/components/game-screen/game.screen.tsx:228
+#: src/history/components/replay-header/replay-header.tsx:26
+#: src/history/components/completed-games-list/completed-game-item.tsx:30
 msgid "Score"
 msgstr "Рахунок"
 
@@ -500,6 +525,10 @@ msgstr "Почати заново"
 msgid "Statistics"
 msgstr "Статистика"
 
+#: src/history/components/replay-controls/replay-controls.tsx:32
+msgid "Step time"
+msgstr "Час кроку"
+
 #: src/screens/components/game-screen/game.screen.tsx:92
 msgid "Stop current run?"
 msgstr "Зупинити поточний прогрес?"
@@ -533,6 +562,8 @@ msgid "This value is multiplied by the difficulty coefficient:"
 msgstr "Це значення множиться на коефіцієнт складності:"
 
 #: src/scoring/components/scoring.screen.tsx:124
+#: src/history/components/replay-header/replay-header.tsx:35
+#: src/history/components/completed-games-list/completed-game-item.tsx:33
 msgid "Time"
 msgstr "Час"
 
@@ -564,6 +595,10 @@ msgstr "В."
 msgid "Vibration"
 msgstr "Вібрація"
 
+#: src/history/components/history-difficulty/history-difficulty.tsx:88
+msgid "View games"
+msgstr "Дивитись ігри"
+
 #: src/@generic/components/donation/donation.tsx:25
 msgid ""
 "While you were away Ukraine continued its fight for freedom!\n"
@@ -574,7 +609,7 @@ msgstr ""
 "\n"
 "Кожен долар важливий!"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx:68
+#: src/history/components/history-difficulty/history-difficulty.tsx:71
 msgid "Win rate"
 msgstr "Рівень виграшу"
 
@@ -590,11 +625,11 @@ msgstr ""
 msgid "Winners-winner, chicken dinner!"
 msgstr "Вигращ є - Можна поісти!"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx:59
+#: src/history/components/history-difficulty/history-difficulty.tsx:62
 msgid "Won"
 msgstr "Виграно"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx:62
+#: src/history/components/history-difficulty/history-difficulty.tsx:65
 msgid "Won without mistakes"
 msgstr "Виграно без помилок"
 
