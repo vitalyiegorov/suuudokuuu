@@ -4,7 +4,7 @@ import type { SolutionStepInterface } from '@suuudokuuu/encoder';
 
 const GRID_SIZE = defaultSudokuConfig.fieldSize;
 
-export const applySolutionStep = (sudoku: Sudoku, step: SolutionStepInterface): void => {
+const applySolutionStep = (sudoku: Sudoku, step: SolutionStepInterface): void => {
     const x = step.cellIndex % GRID_SIZE;
     const y = Math.floor(step.cellIndex / GRID_SIZE);
     const cell = sudoku.Field[y][x];
