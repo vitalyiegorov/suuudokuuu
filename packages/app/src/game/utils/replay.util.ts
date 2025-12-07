@@ -9,7 +9,7 @@ const applySolutionStep = (sudoku: Sudoku, step: SolutionStepInterface): void =>
     const y = Math.floor(step.cellIndex / GRID_SIZE);
     const cell = sudoku.Field[y][x];
 
-    sudoku.setCellValue({ ...cell, value: step.value });
+    sudoku.Field[y][x] = { ...cell, value: step.value };
 };
 
 export const createSudokuAtStep = (originalSudokuString: string, steps: SolutionStepInterface[], targetStep: number): Sudoku => {
