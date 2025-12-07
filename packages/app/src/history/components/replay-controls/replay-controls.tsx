@@ -3,10 +3,10 @@ import { LucideChevronLeft, LucideChevronRight } from 'lucide-react-native';
 import { use } from 'react';
 import { Text, View } from 'react-native';
 
-import { BlackButton } from '../../../../@generic/components/black-button/black-button';
-import { BlackText } from '../../../../@generic/components/black-text/black-text';
-import { getTimerText } from '../../../../@generic/utils/get-timer-text.util';
-import { ThemeContext } from '../../../../theme/context/theme.context';
+import { BlackButton } from '../../../@generic/components/black-button/black-button';
+import { BlackText } from '../../../@generic/components/black-text/black-text';
+import { getTimerText } from '../../../@generic/utils/get-timer-text.util';
+import { ThemeContext } from '../../../theme/context/theme.context';
 
 import { ReplayControlsStyles as styles } from './replay-controls.styles';
 

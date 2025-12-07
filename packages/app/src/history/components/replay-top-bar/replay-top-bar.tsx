@@ -4,9 +4,9 @@ import { LucideX } from 'lucide-react-native';
 import { use } from 'react';
 import { View } from 'react-native';
 
-import { BlackButton } from '../../../../@generic/components/black-button/black-button';
-import { BlackText } from '../../../../@generic/components/black-text/black-text';
-import { ThemeContext } from '../../../../theme/context/theme.context';
+import { BlackButton } from '../../../@generic/components/black-button/black-button';
+import { BlackText } from '../../../@generic/components/black-text/black-text';
+import { ThemeContext } from '../../../theme/context/theme.context';
 
 import { ReplayTopBarStyles as styles } from './replay-top-bar.styles';
 

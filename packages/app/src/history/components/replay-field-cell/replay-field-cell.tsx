@@ -1,0 +1,38 @@
+import { use } from 'react';
+import { Text, View } from 'react-native';
+
+import { CellStyles as cellStyles } from '../../../@generic/styles/cell.styles';
+import { useCellBorderStyles } from '../../../game/hooks/use-cell-border-styles.hook';
+import { useCellFontSize } from '../../../game/hooks/use-cell-font-size.hook';
+import { ThemeContext } from '../../../theme/context/theme.context';
+
+import type { CellInterface, Sudoku } from '@suuudokuuu/generator';
+
+interface Props {
+    readonly sudoku: Sudoku;
+    readonly cell: CellInterface;
+    readonly isHighlighted: boolean;
+}
+
+export const ReplayFieldCell = ({ sudoku, cell, isHighlighted }: Props) => {
+    const { theme } = use(ThemeContext);
+    const fontSize = useCellFontSize();
+
+    const value = String(cell.value);
+    const isEmpty = sudoku.isBlankCell(cell);
+    const cellBackgroundColor = isHighlighted ? theme.colors.cell.active : theme.colors.white;
+
+    const containerStyles = [cellStyles.container, { backgroundColor: cellBackgroundColor }, ...useCellBorderStyles({ sudoku, cell })];
+
+    const textColor = isEmpty ? theme.colors.cell.emptyValueText : theme.colors.black;
+    const textStyles = [{ fontSize, color: textColor }];
+    const cellValue = isEmpty ? '' : value;
+
+    return (
+        <View key={`cell-${cell.y}-${cell.x}`} style={containerStyles}>
+            <Text allowFontScaling={false} style={textStyles}>
+                {cellValue}
+            </Text>
+        </View>
+    );
+};

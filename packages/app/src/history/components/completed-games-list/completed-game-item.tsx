@@ -20,11 +20,7 @@ export const CompletedGameItem = ({ game }: Props) => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
 
-    const {isWon} = game;
-    const borderColor = isWon ? theme.colors.cell.active : theme.colors.red;
-
-    const containerStyles = [styles.container, { borderColor, borderWidth: 2 }];
-    const statusTextStyles = [styles.statusText, { color: isWon ? theme.colors.cell.active : theme.colors.red }];
+    const containerStyles = [styles.container, { borderColor: theme.colors.cell.active, borderWidth: 2 }];
 
     return (
         <View style={containerStyles}>
@@ -36,18 +32,15 @@ export const CompletedGameItem = ({ game }: Props) => {
                     <BlackText>
                         {t`Time`}: <Text style={styles.boldText}>{getTimerText(game.elapsedTime)}</Text>
                     </BlackText>
-                </View>
-                <View style={styles.row}>
                     <BlackText>
-                        {t`Mistakes`}: <Text style={styles.boldText}>{game.mistakes}/{game.maxMistakes}</Text>
+                        {t`Mistakes`}:{' '}
+                        <Text style={styles.boldText}>
+                            {game.mistakes}/{game.maxMistakes}
+                        </Text>
                     </BlackText>
-                    <BlackText style={statusTextStyles}>{isWon ? t`Won` : t`Lost`}</BlackText>
                 </View>
             </View>
-            <BlackButton
-                href={`/replay/${game.difficulty}/${game.completedAt}`}
-                style={styles.replayButton}
-            >
+            <BlackButton href={`/history/${game.difficulty}/${game.completedAt}`} style={styles.replayButton}>
                 <LucidePlay color={theme.colors.label.inverted} size={16} />
             </BlackButton>
         </View>
