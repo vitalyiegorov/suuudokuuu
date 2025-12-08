@@ -1,6 +1,6 @@
-import { use, useEffect } from 'react';
+import { use } from 'react';
 import { Platform, Pressable } from 'react-native';
-import Reanimated, { interpolateColor, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import Reanimated, { interpolateColor, useAnimatedStyle, useDerivedValue, withTiming } from 'react-native-reanimated';
 
 import { type OnEventFn } from '@rnw-community/shared';
 
@@ -91,19 +91,11 @@ export const FieldCell = (props: Props) => {
         showIdenticalNumbers,
         showFilledNumbers
     );
-    const animation = useSharedValue(isActive ? 1 : 0);
+    const animation = useDerivedValue(() => withTiming(isActive ? 1 : 0, animationConfig));
 
-    useEffect(() => {
-        animation.value = withTiming(isActive ? 1 : 0, animationConfig);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isActive]);
-
-    const cellAnimatedStyles = useAnimatedStyle(
-        () => ({
-            backgroundColor: interpolateColor(animation.value, [0, 1], [cellBackgroundColor, theme.colors.cell.active])
-        }),
-        [cellBackgroundColor, theme.colors.cell.active]
-    );
+    const cellAnimatedStyles = useAnimatedStyle(() => ({
+        backgroundColor: interpolateColor(animation.value, [0, 1], [cellBackgroundColor, theme.colors.cell.active])
+    }));
 
     const handlePress = () => {
         // eslint-disable-next-line no-undefined
