@@ -2,10 +2,11 @@
 import { describe, expect, it } from '@jest/globals';
 import { DifficultyEnum, emptyScoredCells } from '@suuudokuuu/generator';
 
-import { defaultScoringConfig } from './scoring-config.interface';
+import { defaultScoringConfig } from '../interfaces/scoring-config.interface';
+
 import { SudokuScoring } from './sudoku-scoring';
 
-import type { ScoringConfigInterface } from './scoring-config.interface';
+import type { ScoringConfigInterface } from '../interfaces/scoring-config.interface';
 import type { ScoredCellsInterface } from '@suuudokuuu/generator';
 
 describe('SudokuScoring', () => {
