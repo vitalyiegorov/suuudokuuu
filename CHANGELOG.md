@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.56.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.56.1...v1.56.2) (2025-12-08)
+
+### Bug Fixes
+
+- **app:** add cellBackgroundColor to useAnimatedStyle dependencies ([4fc9d63](https://github.com/vitalyiegorov/suuudokuuu/commit/4fc9d6385f77c6b0748c5495957aa1b6d6d48ed0))
+- **app:** remove animation from useEffect deps and add eslint-disable ([f8ec530](https://github.com/vitalyiegorov/suuudokuuu/commit/f8ec530777aedca84feab032083c4ea038010275))
+- **app:** replace useDerivedValue with useSharedValue for cell animation ([fcb6b0f](https://github.com/vitalyiegorov/suuudokuuu/commit/fcb6b0fbeac5096c734e26c87db2c16e839f3204))
+- **app:** revert field-cell changes and fix available-values-item animation ([8e63960](https://github.com/vitalyiegorov/suuudokuuu/commit/8e6396090be9f7989fb8eb6f3bfb8228430b455a))
+
 ## [1.56.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.56.0...v1.56.1) (2025-12-08)
 
 ### Bug Fixes
