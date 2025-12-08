@@ -20,12 +20,20 @@ export class GameStateSerializer {
         return compressToEncodedURIComponent(packed);
     }
 
-    decode(gameStateString: string): [field: string, steps: SolutionStepInterface[], maxMistakes: number, isChallenge: boolean] {
+    decode(
+        gameStateString: string
+    ): [field: string, steps: SolutionStepInterface[], maxMistakes: number, isChallenge: boolean, elapsedTime: number] {
         const [field, steps, maxMistakes, isChallenge] = this.parseSegments(decompressFromEncodedURIComponent(gameStateString));
 
         const solution = Solution.fromString(steps);
 
-        return [this.sudokuEncoder.decode(field), solution.getSteps(), parseInt(maxMistakes, 10) || 0, isChallenge === '1'] as const;
+        return [
+            this.sudokuEncoder.decode(field),
+            solution.getSteps(),
+            parseInt(maxMistakes, 10) || 0,
+            isChallenge === '1',
+            solution.getElapsedTime()
+        ] as const;
     }
 
     private parseSegments(packed: string): string[] {
