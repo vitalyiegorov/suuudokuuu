@@ -98,9 +98,12 @@ export const FieldCell = (props: Props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isActive]);
 
-    const cellAnimatedStyles = useAnimatedStyle(() => ({
-        backgroundColor: interpolateColor(animation.value, [0, 1], [cellBackgroundColor, theme.colors.cell.active])
-    }));
+    const cellAnimatedStyles = useAnimatedStyle(
+        () => ({
+            backgroundColor: interpolateColor(animation.value, [0, 1], [cellBackgroundColor, theme.colors.cell.active])
+        }),
+        [cellBackgroundColor, theme.colors.cell.active]
+    );
 
     const handlePress = () => {
         // eslint-disable-next-line no-undefined
