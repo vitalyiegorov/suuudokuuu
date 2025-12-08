@@ -21,10 +21,16 @@ export class GameStateSerializer {
     }
 
     decode(gameStateString: string): [field: string, steps: SolutionStepInterface[], maxMistakes: number, isChallenge: boolean] {
-        const [field, steps, maxMistakes, isChallenge] = this.parseSegments(decompressFromEncodedURIComponent(gameStateString));
-
+        const decompressed = decompressFromEncodedURIComponent(gameStateString);
+        if (!decompressed) {
+            throw new Error('Failed to decompress game state');
+        }
+        const segments = this.parseSegments(decompressed);
+        if (segments.length < 4) {
+            throw new Error('Invalid game state format');
+        }
+        const [field, steps, maxMistakes, isChallenge] = segments;
         const solution = Solution.fromString(steps);
-
         return [this.sudokuEncoder.decode(field), solution.getSteps(), parseInt(maxMistakes, 10) || 0, isChallenge === '1'] as const;
     }
 
