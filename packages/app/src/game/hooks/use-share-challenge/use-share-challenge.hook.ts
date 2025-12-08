@@ -6,11 +6,7 @@ import { gameStateToString } from '../../utils/game-state-to-string.util';
 
 import type { GameState } from '../../store/game.state';
 
-interface Props {
-    readonly gameState: GameState;
-}
-
-export const useShareChallenge = ({ gameState }: Props) => {
+export const useShareChallenge = (gameState: GameState) => {
     const { t } = useLingui();
 
     return async () => {
