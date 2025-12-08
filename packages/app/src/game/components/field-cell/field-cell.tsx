@@ -95,7 +95,8 @@ export const FieldCell = (props: Props) => {
 
     useEffect(() => {
         animation.value = withTiming(isActive ? 1 : 0, animationConfig);
-    }, [isActive, animation]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isActive]);
 
     const cellAnimatedStyles = useAnimatedStyle(() => ({
         backgroundColor: interpolateColor(animation.value, [0, 1], [cellBackgroundColor, theme.colors.cell.active])
