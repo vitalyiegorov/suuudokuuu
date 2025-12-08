@@ -9,7 +9,6 @@ export const ReplayControlsStyles = StyleSheet.create({
         alignItems: 'center'
     },
     controlsRow: {
-        flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
         gap: 24

@@ -9,6 +9,7 @@ import { settingsSlice } from '../settings/store/settings.slice';
 import { initialSettingsState } from '../settings/store/settings.state';
 
 import type { GameState } from '../game/store/game.state';
+import type { CompletedGameInterface } from '../history/interfaces/completed-game.interface';
 import type { MigrationManifest } from 'redux-persist/es/types';
 
 const resetBestScores = (state: RootState): RootState => {
@@ -56,8 +57,7 @@ const addCompletedGames = (state: RootState): RootState => {
         updatedHistory[key as keyof typeof updatedHistory] = {
             ...emptyGameHistory,
             ...historyEntry,
-            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-            completedGames: historyEntry.completedGames ?? []
+            completedGames: (historyEntry.completedGames as CompletedGameInterface[] | undefined) ?? []
         };
     });
 

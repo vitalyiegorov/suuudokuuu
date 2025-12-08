@@ -6,7 +6,6 @@ export const CompletedGameItemStyles = StyleSheet.create({
         paddingHorizontal: 16,
         borderRadius: 8,
         marginVertical: 4,
-        flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center'
     },
@@ -15,7 +14,6 @@ export const CompletedGameItemStyles = StyleSheet.create({
         gap: 4
     },
     row: {
-        flexDirection: 'row',
         gap: 16
     },
     boldText: {
