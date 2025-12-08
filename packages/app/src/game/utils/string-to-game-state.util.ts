@@ -1,4 +1,4 @@
-import { GameStateSerializer, Solution } from '@suuudokuuu/encoder';
+import { GameStateSerializer } from '@suuudokuuu/encoder';
 
 import { GameState, initialGameState } from '../store/game.state';
 
@@ -6,9 +6,7 @@ const serializer = new GameStateSerializer();
 
 export const stringToGameState = (gameStateString = ''): GameState => {
     try {
-        const [sudokuString, challengeSteps, maxMistakes, isChallenge] = serializer.decode(gameStateString);
-
-        const solution = Solution.fromSteps(challengeSteps);
+        const [sudokuString, challengeSteps, maxMistakes, isChallenge, challengeTime] = serializer.decode(gameStateString);
 
         return {
             ...initialGameState,
@@ -17,8 +15,8 @@ export const stringToGameState = (gameStateString = ''): GameState => {
 
             ...(isChallenge && {
                 challengeSteps,
-                challengeState: gameStateString,
-                challengeTime: solution.getElapsedTime()
+                challengeTime,
+                challengeState: gameStateString
             })
         } satisfies GameState;
     } catch {

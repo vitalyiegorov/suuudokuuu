@@ -44,16 +44,93 @@ describe('GameStateSerializer', () => {
     });
 
     describe('decode', () => {
-        it('should return null for empty string', () => {
+        it('should throw error for empty string', () => {
             expect.assertions(1);
 
-            expect(() => serializer.decode('')).toThrow();
+            expect(() => serializer.decode('')).toThrow('Failed to decompress game state');
         });
 
         it('should throw error on invalid string', () => {
             expect.assertions(1);
 
-            expect(() => serializer.decode('invalid-gibberish-123')).toThrow();
+            expect(() => serializer.decode('invalid-gibberish-123')).toThrow('Failed to decompress game state');
+        });
+
+        it('should throw error for truncated data with less than 4 segments', () => {
+            expect.assertions(1);
+
+            const encoded = serializer.encode(validSudokuString, sampleSolutionSteps, 3, false);
+            const truncated = encoded.slice(0, Math.floor(encoded.length / 2));
+
+            expect(() => serializer.decode(truncated)).toThrow();
+        });
+    });
+
+    describe('elapsedTime', () => {
+        it('should return elapsedTime as the 5th element of the tuple', () => {
+            expect.assertions(2);
+
+            const encoded = serializer.encode(validSudokuString, sampleSolutionSteps, 3, false);
+            const decoded = serializer.decode(encoded);
+
+            expect(decoded.length).toBe(5);
+            expect(typeof decoded[4]).toBe('number');
+        });
+
+        it('should calculate elapsedTime as sum of all step timestamps', () => {
+            expect.assertions(1);
+
+            const stepsWithKnownTime: SolutionStepInterface[] = [
+                { cellIndex: 2, value: 4, ts: 50 },
+                { cellIndex: 5, value: 6, ts: 75 },
+                { cellIndex: 8, value: 2, ts: 100 }
+            ];
+            const expectedElapsedTime = 50 + 75 + 100;
+            const encoded = serializer.encode(validSudokuString, stepsWithKnownTime, 3, false);
+            const decoded = serializer.decode(encoded);
+
+            expect(decoded[4]).toBe(expectedElapsedTime);
+        });
+
+        it('should return zero elapsedTime for empty solution steps', () => {
+            expect.assertions(1);
+
+            const encoded = serializer.encode(validSudokuString, [], 3, false);
+            const decoded = serializer.decode(encoded);
+
+            expect(decoded[4]).toBe(0);
+        });
+
+        it('should calculate total elapsed time from multiple steps within 8-bit range', () => {
+            expect.assertions(1);
+
+            const step1Ts = 100;
+            const step2Ts = 150;
+            const step3Ts = 200;
+            const stepsWithTimeDiffs: SolutionStepInterface[] = [
+                { cellIndex: 0, value: 1, ts: step1Ts },
+                { cellIndex: 1, value: 2, ts: step2Ts },
+                { cellIndex: 2, value: 3, ts: step3Ts }
+            ];
+            const expectedTotal = step1Ts + step2Ts + step3Ts;
+            const encoded = serializer.encode(validSudokuString, stepsWithTimeDiffs, 3, false);
+            const decoded = serializer.decode(encoded);
+
+            expect(decoded[4]).toBe(expectedTotal);
+        });
+
+        it('should cap individual timestamps at 255 (8-bit max)', () => {
+            expect.assertions(1);
+
+            const maxTimestamp = 255;
+            const stepsWithMaxTimestamp: SolutionStepInterface[] = [
+                { cellIndex: 0, value: 1, ts: maxTimestamp },
+                { cellIndex: 1, value: 2, ts: maxTimestamp }
+            ];
+            const encoded = serializer.encode(validSudokuString, stepsWithMaxTimestamp, 3, false);
+            const decoded = serializer.decode(encoded);
+
+            expect(decoded[4]).toBe(maxTimestamp * 2);
         });
     });
 

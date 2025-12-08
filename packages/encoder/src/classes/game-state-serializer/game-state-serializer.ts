@@ -23,8 +23,17 @@ export class GameStateSerializer {
     decode(
         gameStateString: string
     ): [field: string, steps: SolutionStepInterface[], maxMistakes: number, isChallenge: boolean, elapsedTime: number] {
-        const [field, steps, maxMistakes, isChallenge] = this.parseSegments(decompressFromEncodedURIComponent(gameStateString));
+        const decompressed = decompressFromEncodedURIComponent(gameStateString);
+        if (!decompressed) {
+            throw new Error('Failed to decompress game state');
+        }
 
+        const segments = this.parseSegments(decompressed);
+        if (segments.length < 4) {
+            throw new Error('Invalid game state format');
+        }
+
+        const [field, steps, maxMistakes, isChallenge] = segments;
         const solution = Solution.fromString(steps);
 
         return [
@@ -47,6 +56,10 @@ export class GameStateSerializer {
             }
 
             const length = parseInt(packed.slice(position, colonIndex), 10);
+            if (isNaN(length) || length < 0) {
+                break;
+            }
+
             const start = colonIndex + 1;
 
             segments.push(packed.slice(start, start + length));
