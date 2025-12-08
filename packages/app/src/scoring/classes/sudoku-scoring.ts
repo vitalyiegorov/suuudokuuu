@@ -1,6 +1,6 @@
 import { emptyScoredCells } from '@suuudokuuu/generator';
 
-import type { ScoringConfigInterface } from './scoring-config.interface';
+import type { ScoringConfigInterface } from '../interfaces/scoring-config.interface';
 import type { DifficultyEnum, ScoredCellsInterface } from '@suuudokuuu/generator';
 
 interface CalculateScoreParams {

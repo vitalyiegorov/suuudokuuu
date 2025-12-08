@@ -31,12 +31,14 @@ const addChallengeStats = (state: RootState): RootState => {
     const updatedHistory = { ...gameState.historyByDifficulty };
 
     Object.keys(updatedHistory).forEach(key => {
-        const historyEntry = updatedHistory[key as keyof typeof updatedHistory] as unknown as Record<string, unknown>;
+        const historyEntry = updatedHistory[key as keyof typeof updatedHistory];
         updatedHistory[key as keyof typeof updatedHistory] = {
             ...emptyGameHistory,
             ...historyEntry,
-            challengesWon: (historyEntry['challengesWon'] as number | undefined) ?? 0,
-            challengesLost: (historyEntry['challengesLost'] as number | undefined) ?? 0
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+            challengesWon: historyEntry.challengesWon ?? 0,
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+            challengesLost: historyEntry.challengesLost ?? 0
         };
     });
 
@@ -51,11 +53,11 @@ const addCompletedGames = (state: RootState): RootState => {
     const updatedHistory = { ...gameState.historyByDifficulty };
 
     Object.keys(updatedHistory).forEach(key => {
-        const historyEntry = updatedHistory[key as keyof typeof updatedHistory] as unknown as Record<string, unknown>;
+        const historyEntry = updatedHistory[key as keyof typeof updatedHistory];
         updatedHistory[key as keyof typeof updatedHistory] = {
             ...emptyGameHistory,
             ...historyEntry,
-            completedGames: (historyEntry['completedGames'] as CompletedGameInterface[] | undefined) ?? []
+            completedGames: (historyEntry.completedGames as CompletedGameInterface[] | undefined) ?? []
         };
     });
 

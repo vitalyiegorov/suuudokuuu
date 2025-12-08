@@ -3,8 +3,8 @@ import { Solution } from '@suuudokuuu/encoder';
 
 import { getCellKey } from '../../@generic/utils/get-cell-key.util';
 import { maxCompletedGamesPerDifficulty } from '../../history/constants/max-completed-games-per-difficulty.constant';
-import { defaultScoringConfig } from '../../scoring/scoring-config.interface';
-import { SudokuScoring } from '../../scoring/sudoku-scoring';
+import { SudokuScoring } from '../../scoring/classes/sudoku-scoring';
+import { defaultScoringConfig } from '../../scoring/interfaces/scoring-config.interface';
 import { gameStateToString } from '../utils/game-state-to-string.util';
 
 import { initialGameState } from './game.state';

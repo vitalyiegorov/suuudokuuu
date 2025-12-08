@@ -4,8 +4,8 @@ import { Share } from 'react-native';
 import { GameState } from '../../store/game.state';
 import { gameStateToString } from '../../utils/game-state-to-string.util';
 
-export const useShareChallenge = (state: GameState) => async () => {
+export const useShareChallenge = (gameState: GameState) => async () => {
     if (await Sharing.isAvailableAsync()) {
-        await Share.share({ url: `${window.location.origin}/shared/${gameStateToString(state, true)}` });
+        await Share.share({ url: `${window.location.origin}/shared/${gameStateToString(gameState, true)}` });
     }
 };
