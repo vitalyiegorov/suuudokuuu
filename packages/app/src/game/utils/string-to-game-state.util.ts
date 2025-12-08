@@ -1,23 +1,23 @@
-import { Solution, SudokuStringEncoder } from '@suuudokuuu/encoder';
-import { decompressFromEncodedURIComponent } from 'lz-string';
+import { GameStateSerializer, Solution } from '@suuudokuuu/encoder';
 
 import { GameState, initialGameState } from '../store/game.state';
 
+const serializer = new GameStateSerializer();
+
 export const stringToGameState = (gameStateString = ''): GameState => {
     try {
-        const [field, steps, maxMistakes, isChallenge] = decompressFromEncodedURIComponent(gameStateString).split('|');
+        const [sudokuString, challengeSteps, maxMistakes, isChallenge] = serializer.decode(gameStateString);
 
-        const sudokuEncoder = new SudokuStringEncoder();
-        const solution = Solution.fromString(steps);
+        const solution = Solution.fromSteps(challengeSteps);
 
         return {
             ...initialGameState,
-            sudokuString: sudokuEncoder.decode(field),
-            maxMistakes: parseInt(maxMistakes, 10) || 0,
+            sudokuString,
+            maxMistakes,
 
-            ...(isChallenge === '1' && {
+            ...(isChallenge && {
+                challengeSteps,
                 challengeState: gameStateString,
-                challengeSteps: solution.getSteps(),
                 challengeTime: solution.getElapsedTime()
             })
         } satisfies GameState;

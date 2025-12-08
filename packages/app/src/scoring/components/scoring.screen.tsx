@@ -6,7 +6,7 @@ import { ScrollView, Text, View } from 'react-native';
 import { Header } from '../../@generic/components/header/header';
 import { ReturnButton } from '../../@generic/components/return-button/return-button';
 import { ThemeContext } from '../../theme/context/theme.context';
-import { defaultScoringConfig } from '../scoring-config.interface';
+import { defaultScoringConfig } from '../interfaces/scoring-config.interface';
 
 import { ListItem } from './list-item';
 import { ScoringScreenStyles as styles } from './scoring-screen.styles';
