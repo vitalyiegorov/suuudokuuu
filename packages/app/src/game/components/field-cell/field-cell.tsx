@@ -1,6 +1,6 @@
-import { use } from 'react';
+import { use, useEffect } from 'react';
 import { Platform, Pressable } from 'react-native';
-import Reanimated, { interpolateColor, useAnimatedStyle, useDerivedValue, withTiming } from 'react-native-reanimated';
+import Reanimated, { interpolateColor, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
 import { type OnEventFn } from '@rnw-community/shared';
 
@@ -91,7 +91,11 @@ export const FieldCell = (props: Props) => {
         showIdenticalNumbers,
         showFilledNumbers
     );
-    const animation = useDerivedValue(() => withTiming(isActive ? 1 : 0, animationConfig));
+    const animation = useSharedValue(isActive ? 1 : 0);
+
+    useEffect(() => {
+        animation.value = withTiming(isActive ? 1 : 0, animationConfig);
+    }, [isActive, animation]);
 
     const cellAnimatedStyles = useAnimatedStyle(() => ({
         backgroundColor: interpolateColor(animation.value, [0, 1], [cellBackgroundColor, theme.colors.cell.active])
