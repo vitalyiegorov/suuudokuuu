@@ -45,15 +45,18 @@ export const AvailableValuesItem = ({ value, onSelect, progress, correctValue, c
     const pressAnimatedBgColor = isCorrect ? theme.colors.cell.active : theme.colors.cell.error;
 
     const animated = useSharedValue(0);
-    const animatedStyles = useAnimatedStyle(() => ({
-        backgroundColor: interpolateColor(animated.value, [0, 1], [theme.colors.white, pressAnimatedBgColor]),
-        ...(!isCorrect && {
-            transform: [
-                { translateX: interpolate(animated.value, [0, 0.5, 1], [0, -10, 10]) },
-                { rotate: `${interpolate(animated.value, [0, 0.5, 1], [0, -20, 20])}deg` }
-            ]
-        })
-    }));
+    const animatedStyles = useAnimatedStyle(
+        () => ({
+            backgroundColor: interpolateColor(animated.value, [0, 1], [theme.colors.white, pressAnimatedBgColor]),
+            ...(!isCorrect && {
+                transform: [
+                    { translateX: interpolate(animated.value, [0, 0.5, 1], [0, -10, 10]) },
+                    { rotate: `${interpolate(animated.value, [0, 0.5, 1], [0, -20, 20])}deg` }
+                ]
+            })
+        }),
+        [pressAnimatedBgColor, isCorrect, theme.colors.white]
+    );
 
     const triggerAnimationFn = () => {
         // eslint-disable-next-line react-hooks/immutability
