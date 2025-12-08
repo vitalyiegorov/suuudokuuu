@@ -44,7 +44,7 @@ describe('GameStateSerializer', () => {
     });
 
     describe('decode', () => {
-        it('should return null for empty string', () => {
+        it('should throw error for empty string', () => {
             expect.assertions(1);
 
             expect(() => serializer.decode('')).toThrow();
