@@ -14,7 +14,7 @@ interface Props {
 export const ChallengeBackButton = ({ gameState }: Props) => {
     const { t } = useLingui();
 
-    const handlePress = useShareChallenge({ gameState });
+    const handlePress = useShareChallenge(gameState);
 
     return <BlackButton onPress={handlePress} style={styles.button} icon={LucideSwords} text={t`Challenge Back`}></BlackButton>;
 };

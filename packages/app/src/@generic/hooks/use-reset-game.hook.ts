@@ -12,6 +12,7 @@ export const useResetGame = (): [isGameStarted: boolean, gameState: GameState] =
 
     const gameState = useAppSelector(gameSelector);
     const isGameStarted = useAppSelector(gameIsStartedSelector);
+
     const memoizedData = useRef({ ...gameState });
 
     useEffect(() => void dispatch(gameResetAction()), [dispatch]);

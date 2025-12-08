@@ -4,5 +4,12 @@ import { GameState } from '../store/game.state';
 
 const serializer = new GameStateSerializer();
 
-export const gameStateToString = (gameState: GameState, isChallenge = false): string =>
-    serializer.encode(gameState.sudokuString, gameState.solutionSteps, gameState.maxMistakes, isChallenge);
+export const gameStateToString = (gameState: GameState, isChallenge = false): string => {
+    try {
+        const { sudokuString, solutionSteps, maxMistakes } = gameState;
+
+        return serializer.encode(sudokuString, solutionSteps, maxMistakes, isChallenge);
+    } catch {
+        return '';
+    }
+};
