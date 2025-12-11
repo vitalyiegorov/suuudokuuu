@@ -32,11 +32,11 @@ export const NewspaperLightTheme: ThemeInterface = {
             text: '#1a1a1a'
         },
         candidate: {
-            text: 'rgba(26, 26, 26, 0.5)',
+            text: 'rgba(26, 26, 26, 0.7)',
             textActive: '#1a1a1a',
             bgActive: '#dcdcdc',
             bg: '#ffffff',
-            border: 'rgba(26, 26, 26, 0.1)',
+            border: 'rgba(26, 26, 26, 0.2)',
             borderActive: '#1a1a1a'
         }
     }
@@ -74,11 +74,11 @@ export const NewspaperDarkTheme: ThemeInterface = {
             text: '#f0f0f0'
         },
         candidate: {
-            text: 'rgba(240, 240, 240, 0.5)',
+            text: 'rgba(240, 240, 240, 0.7)',
             textActive: '#ffffff',
             bgActive: '#444444',
             bg: '#1a1a1a',
-            border: 'rgba(240, 240, 240, 0.1)',
+            border: 'rgba(240, 240, 240, 0.2)',
             borderActive: '#ffffff'
         }
     }
