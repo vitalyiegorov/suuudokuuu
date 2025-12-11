@@ -108,7 +108,7 @@ export const GameScreen = () => {
 
     const handleDeselectCell = () => {
         // eslint-disable-next-line no-undefined
-        if (selectedCell) {setSelectedCell(undefined);}
+        setSelectedCell(undefined);
     };
 
     const handleStopPropagation = (event: { stopPropagation: () => void }) => void event.stopPropagation();
