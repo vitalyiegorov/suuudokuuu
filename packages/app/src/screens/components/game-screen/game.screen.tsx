@@ -5,7 +5,7 @@ import { Link, useRouter } from 'expo-router';
 import * as Sharing from 'expo-sharing';
 import { LucideLogOut, LucideSettings, LucideShare2 } from 'lucide-react-native';
 import { use, useEffect, useRef, useState } from 'react';
-import { Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 
 import { Alert } from '../../../@generic/components/alert/alert';
 import { BlackButton } from '../../../@generic/components/black-button/black-button';
@@ -106,6 +106,11 @@ export const GameScreen = () => {
         hapticImpact(ImpactFeedbackStyle.Light);
     };
 
+    const handleDeselectCell = () => {
+        // eslint-disable-next-line no-undefined
+        setSelectedCell(undefined);
+    };
+
     const handleLostGame = () => {
         hapticImpact(ImpactFeedbackStyle.Heavy);
 
@@ -195,7 +200,7 @@ export const GameScreen = () => {
     const hideAutoCandidates = maxMistakes === 0;
 
     return (
-        <View style={styles.container} testID={GameScreenSelectors.Root}>
+        <Pressable onPress={handleDeselectCell} style={styles.container} testID={GameScreenSelectors.Root}>
             {isChallengeMode && <ChallengeProgressBar />}
             <View style={styles.controls}>
                 <View style={styles.controlsWrapper}>
@@ -284,6 +289,6 @@ export const GameScreen = () => {
                     )}
                 </View>
             </View>
-        </View>
+        </Pressable>
     );
 };
