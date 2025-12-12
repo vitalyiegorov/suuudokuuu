@@ -111,8 +111,6 @@ export const GameScreen = () => {
         setSelectedCell(undefined);
     };
 
-    const handleStopPropagation = (event: { stopPropagation: () => void }) => void event.stopPropagation();
-
     const handleLostGame = () => {
         hapticImpact(ImpactFeedbackStyle.Heavy);
 
@@ -204,7 +202,7 @@ export const GameScreen = () => {
     return (
         <Pressable onPress={handleDeselectCell} style={styles.container} testID={GameScreenSelectors.Root}>
             {isChallengeMode && <ChallengeProgressBar />}
-            <Pressable onPress={handleStopPropagation} style={styles.controls}>
+            <View style={styles.controls}>
                 <View style={styles.controlsWrapper}>
                     <BlackText>{t`Mistakes`}</BlackText>
 
@@ -256,13 +254,13 @@ export const GameScreen = () => {
                         <LucideLogOut color={theme.colors.white} />
                     </BlackButton>
                 </View>
-            </Pressable>
+            </View>
 
-            <Pressable onPress={handleStopPropagation} style={styles.fieldWrapper}>
+            <View style={styles.fieldWrapper}>
                 <Field ref={fieldRef} onSelect={handleSelectCell} selectedCell={selectedCell} />
-            </Pressable>
+            </View>
 
-            <Pressable onPress={handleStopPropagation} style={styles.bottomContainer}>
+            <View style={styles.bottomContainer}>
                 <View style={styles.additionalControlsWrapper}>
                     <InputModeButton />
                     {hideAutoCandidates ? null : <AutoCandidatesButton />}
@@ -290,7 +288,7 @@ export const GameScreen = () => {
                         )
                     )}
                 </View>
-            </Pressable>
+            </View>
         </Pressable>
     );
 };
