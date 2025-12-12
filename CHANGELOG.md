@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.57.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.56.2...v1.57.0) (2025-12-12)
+
+### Features
+
+- **app:** implement losing active cell focus when tapping outside field ([2c6f745](https://github.com/vitalyiegorov/suuudokuuu/commit/2c6f7457a79438601a292bdb8f2e171f8b86d90e))
+- **app:** improve candidate and cell contrast with inverted colors ([b74c822](https://github.com/vitalyiegorov/suuudokuuu/commit/b74c82275d3f931ce6eccd382893280309fe928d))
+- **app:** improve newspaper theme candidate contrast ([67ad4a3](https://github.com/vitalyiegorov/suuudokuuu/commit/67ad4a32979142b7a8c89a745f45f52f8c704e8e))
+
 ## [1.56.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.56.1...v1.56.2) (2025-12-08)
 
 ### Bug Fixes
