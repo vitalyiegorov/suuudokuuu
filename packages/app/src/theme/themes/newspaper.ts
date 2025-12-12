@@ -15,7 +15,7 @@ export const NewspaperLightTheme: ThemeInterface = {
         red: '#990000',
         blue: '#000080',
         cell: {
-            active: '#dedede',
+            active: '#cccccc',
             activeText: '#1a1a1a',
             highlighted: '#eaeaea',
             highlightedText: '#1a1a1a',
@@ -33,8 +33,8 @@ export const NewspaperLightTheme: ThemeInterface = {
         },
         candidate: {
             text: 'rgba(26, 26, 26, 0.7)',
-            textActive: '#1a1a1a',
-            bgActive: '#dcdcdc',
+            textActive: '#ffffff',
+            bgActive: '#4d4d4d',
             bg: '#ffffff',
             border: 'rgba(26, 26, 26, 0.2)',
             borderActive: '#1a1a1a'
@@ -57,7 +57,7 @@ export const NewspaperDarkTheme: ThemeInterface = {
         red: '#ff4d4d',
         blue: '#5c5cff',
         cell: {
-            active: '#333333',
+            active: '#4d4d4d',
             activeText: '#f0f0f0',
             highlighted: '#2a2a2a',
             highlightedText: '#f0f0f0',
@@ -75,8 +75,8 @@ export const NewspaperDarkTheme: ThemeInterface = {
         },
         candidate: {
             text: 'rgba(240, 240, 240, 0.7)',
-            textActive: '#ffffff',
-            bgActive: '#444444',
+            textActive: '#1a1a1a',
+            bgActive: '#cccccc',
             bg: '#1a1a1a',
             border: 'rgba(240, 240, 240, 0.2)',
             borderActive: '#ffffff'
