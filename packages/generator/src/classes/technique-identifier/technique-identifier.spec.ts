@@ -3,25 +3,35 @@ import { describe, expect, it } from '@jest/globals';
 
 import { SolutionTechniqueEnum } from '../../enums/solution-technique.enum';
 import { defaultSudokuConfig } from '../../interfaces/sudoku-config.interface';
-import { createEmptyField } from '../../util/create-empty-field.util';
+import { SerializableSudoku } from '../serializable-sudoku/serializable-sudoku';
 
 import { TechniqueIdentifier } from './technique-identifier';
+
+import type { FieldInterface } from '../../interfaces/field.interface';
+
 
 describe('TechniqueIdentifier', () => {
     const identifier = new TechniqueIdentifier();
 
+    const createFieldFromString = (fieldString: string): FieldInterface => {
+        const [field] = SerializableSudoku.convertFieldFromString(fieldString, defaultSudokuConfig);
+        
+return field;
+    };
+
     describe('identify', () => {
         it('should identify NakedSingle when only one candidate exists', () => {
-            const field = createEmptyField(defaultSudokuConfig);
-
-            field[0][0].value = 1;
-            field[0][1].value = 2;
-            field[0][2].value = 3;
-            field[0][3].value = 4;
-            field[0][4].value = 5;
-            field[0][5].value = 6;
-            field[0][6].value = 7;
-            field[0][7].value = 8;
+            const field = createFieldFromString(
+                '12345678.' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........'
+            );
 
             const cell = field[0][8];
             const technique = identifier.identify(field, cell, 9);
@@ -30,26 +40,17 @@ describe('TechniqueIdentifier', () => {
         });
 
         it('should identify HiddenSingle when value can only go in one place in row', () => {
-            const field = createEmptyField(defaultSudokuConfig);
-
-            field[0][1].value = 1;
-            field[1][0].value = 2;
-            field[2][0].value = 3;
-
-            field[0][2].value = 4;
-            field[0][3].value = 5;
-            field[0][4].value = 6;
-            field[0][5].value = 7;
-            field[0][6].value = 8;
-
-            field[1][8].value = 9;
-            field[2][8].value = 9;
-            field[3][8].value = 9;
-            field[4][8].value = 9;
-            field[5][8].value = 9;
-            field[6][8].value = 9;
-            field[7][8].value = 9;
-            field[8][8].value = 9;
+            const field = createFieldFromString(
+                '.1.45678.' +
+                '2.......9' +
+                '3.......9' +
+                '........9' +
+                '........9' +
+                '........9' +
+                '........9' +
+                '........9' +
+                '........9'
+            );
 
             const cell = field[0][8];
             const technique = identifier.identify(field, cell, 9);
@@ -58,20 +59,17 @@ describe('TechniqueIdentifier', () => {
         });
 
         it('should identify NakedPair when two cells share exactly two candidates in a row', () => {
-            const field = createEmptyField(defaultSudokuConfig);
-
-            field[0][0].value = 3;
-            field[0][1].value = 4;
-            field[0][2].value = 5;
-            field[0][3].value = 6;
-            field[0][4].value = 7;
-            field[0][5].value = 8;
-            field[0][6].value = 9;
-
-            field[1][7].value = 3;
-            field[1][8].value = 4;
-            field[2][7].value = 5;
-            field[2][8].value = 6;
+            const field = createFieldFromString(
+                '3456789..' +
+                '.......34' +
+                '.......56' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........'
+            );
 
             const cell = field[0][7];
             const candidates = identifier.getCellCandidates(field, cell);
@@ -82,21 +80,17 @@ describe('TechniqueIdentifier', () => {
         });
 
         it('should identify NakedTriple when three cells share exactly three candidates', () => {
-            const field = createEmptyField(defaultSudokuConfig);
-
-            field[0][0].value = 4;
-            field[0][1].value = 5;
-            field[0][2].value = 6;
-            field[0][3].value = 7;
-            field[0][4].value = 8;
-            field[0][5].value = 9;
-
-            field[1][6].value = 4;
-            field[1][7].value = 5;
-            field[1][8].value = 6;
-            field[2][6].value = 7;
-            field[2][7].value = 8;
-            field[2][8].value = 9;
+            const field = createFieldFromString(
+                '456789...' +
+                '......456' +
+                '......789' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........'
+            );
 
             const cell = field[0][6];
             const candidates = identifier.getCellCandidates(field, cell);
@@ -107,22 +101,17 @@ describe('TechniqueIdentifier', () => {
         });
 
         it('should identify NakedQuad when four cells share exactly four candidates', () => {
-            const field = createEmptyField(defaultSudokuConfig);
-
-            field[0][0].value = 5;
-            field[0][1].value = 6;
-            field[0][2].value = 7;
-            field[0][3].value = 8;
-            field[0][4].value = 9;
-
-            field[1][5].value = 5;
-            field[1][6].value = 6;
-            field[1][7].value = 7;
-            field[1][8].value = 8;
-            field[2][5].value = 9;
-            field[2][6].value = 1;
-            field[2][7].value = 2;
-            field[2][8].value = 3;
+            const field = createFieldFromString(
+                '56789....' +
+                '.....5678' +
+                '.....9123' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........'
+            );
 
             const cell = field[0][5];
             const candidates = identifier.getCellCandidates(field, cell);
@@ -133,18 +122,17 @@ describe('TechniqueIdentifier', () => {
         });
 
         it('should handle PointingPair detection', () => {
-            const field = createEmptyField(defaultSudokuConfig);
-
-            field[0][0].value = 1;
-            field[0][1].value = 2;
-            field[1][0].value = 3;
-            field[1][1].value = 4;
-            field[2][0].value = 5;
-            field[2][1].value = 6;
-
-            field[0][3].value = 9;
-            field[0][4].value = 8;
-            field[0][5].value = 7;
+            const field = createFieldFromString(
+                '12..987..' +
+                '34.......' +
+                '56.......' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........'
+            );
 
             const cell = field[0][2];
             const technique = identifier.identify(field, cell, 9);
@@ -157,14 +145,17 @@ describe('TechniqueIdentifier', () => {
         });
 
         it('should handle BoxLineReduction detection', () => {
-            const field = createEmptyField(defaultSudokuConfig);
-
-            field[0][3].value = 9;
-            field[0][4].value = 8;
-            field[0][5].value = 7;
-            field[0][6].value = 6;
-            field[0][7].value = 5;
-            field[0][8].value = 4;
+            const field = createFieldFromString(
+                '...987654' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........'
+            );
 
             const cell = field[0][0];
             const technique = identifier.identify(field, cell, 1);
@@ -178,7 +169,17 @@ describe('TechniqueIdentifier', () => {
         });
 
         it('should handle XWing detection', () => {
-            const field = createEmptyField(defaultSudokuConfig);
+            const field = createFieldFromString(
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........'
+            );
 
             const cell = field[0][0];
             const technique = identifier.identify(field, cell, 1);
@@ -196,9 +197,17 @@ describe('TechniqueIdentifier', () => {
         });
 
         it('should return Guess when no specific technique is identified', () => {
-            const field = createEmptyField(defaultSudokuConfig);
-
-            field[0][0].value = 1;
+            const field = createFieldFromString(
+                '1........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........'
+            );
 
             const cell = field[1][1];
             const technique = identifier.identify(field, cell, 5);
@@ -209,16 +218,17 @@ describe('TechniqueIdentifier', () => {
 
     describe('findNakedSingles', () => {
         it('should find all naked singles in a field', () => {
-            const field = createEmptyField(defaultSudokuConfig);
-
-            field[0][0].value = 1;
-            field[0][1].value = 2;
-            field[0][2].value = 3;
-            field[0][3].value = 4;
-            field[0][4].value = 5;
-            field[0][5].value = 6;
-            field[0][6].value = 7;
-            field[0][7].value = 8;
+            const field = createFieldFromString(
+                '12345678.' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........'
+            );
 
             const results = identifier.findNakedSingles(field);
 
@@ -228,7 +238,17 @@ describe('TechniqueIdentifier', () => {
         });
 
         it('should return empty array when no naked singles exist', () => {
-            const field = createEmptyField(defaultSudokuConfig);
+            const field = createFieldFromString(
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........'
+            );
 
             const results = identifier.findNakedSingles(field);
 
@@ -238,16 +258,17 @@ describe('TechniqueIdentifier', () => {
 
     describe('findHiddenSingles', () => {
         it('should find hidden singles in a field', () => {
-            const field = createEmptyField(defaultSudokuConfig);
-
-            for (let x = 1; x < 9; x += 1) {
-                field[0][x].value = x;
-            }
-            for (let y = 1; y < 3; y += 1) {
-                for (let x = 0; x < 3; x += 1) {
-                    field[y][x].value = y * 3 + x + 1;
-                }
-            }
+            const field = createFieldFromString(
+                '.12345678' +
+                '456......' +
+                '789......' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........'
+            );
 
             const results = identifier.findHiddenSingles(field);
 
@@ -255,7 +276,17 @@ describe('TechniqueIdentifier', () => {
         });
 
         it('should return empty array when no hidden singles exist', () => {
-            const field = createEmptyField(defaultSudokuConfig);
+            const field = createFieldFromString(
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........'
+            );
 
             const results = identifier.findHiddenSingles(field);
 
@@ -265,20 +296,17 @@ describe('TechniqueIdentifier', () => {
 
     describe('findNakedPairs', () => {
         it('should find naked pairs in a field when they exist', () => {
-            const field = createEmptyField(defaultSudokuConfig);
-
-            field[0][0].value = 3;
-            field[0][1].value = 4;
-            field[0][2].value = 5;
-            field[0][3].value = 6;
-            field[0][4].value = 7;
-            field[0][5].value = 8;
-            field[0][6].value = 9;
-
-            field[1][7].value = 3;
-            field[1][8].value = 4;
-            field[2][7].value = 5;
-            field[2][8].value = 6;
+            const field = createFieldFromString(
+                '3456789..' +
+                '.......34' +
+                '.......56' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........'
+            );
 
             const results = identifier.findNakedPairs(field);
 
@@ -288,7 +316,17 @@ describe('TechniqueIdentifier', () => {
         });
 
         it('should return empty array when no naked pairs exist', () => {
-            const field = createEmptyField(defaultSudokuConfig);
+            const field = createFieldFromString(
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........'
+            );
 
             const results = identifier.findNakedPairs(field);
 
@@ -298,21 +336,17 @@ describe('TechniqueIdentifier', () => {
 
     describe('findNakedTriples', () => {
         it('should find naked triples in a field when they exist', () => {
-            const field = createEmptyField(defaultSudokuConfig);
-
-            field[0][0].value = 4;
-            field[0][1].value = 5;
-            field[0][2].value = 6;
-            field[0][3].value = 7;
-            field[0][4].value = 8;
-            field[0][5].value = 9;
-
-            field[1][6].value = 4;
-            field[1][7].value = 5;
-            field[1][8].value = 6;
-            field[2][6].value = 7;
-            field[2][7].value = 8;
-            field[2][8].value = 9;
+            const field = createFieldFromString(
+                '456789...' +
+                '......456' +
+                '......789' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........'
+            );
 
             const results = identifier.findNakedTriples(field);
 
@@ -322,7 +356,17 @@ describe('TechniqueIdentifier', () => {
         });
 
         it('should return empty array when no naked triples exist', () => {
-            const field = createEmptyField(defaultSudokuConfig);
+            const field = createFieldFromString(
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........'
+            );
 
             const results = identifier.findNakedTriples(field);
 
@@ -332,22 +376,17 @@ describe('TechniqueIdentifier', () => {
 
     describe('findNakedQuads', () => {
         it('should find naked quads in a field when they exist', () => {
-            const field = createEmptyField(defaultSudokuConfig);
-
-            field[0][0].value = 5;
-            field[0][1].value = 6;
-            field[0][2].value = 7;
-            field[0][3].value = 8;
-            field[0][4].value = 9;
-
-            field[1][5].value = 5;
-            field[1][6].value = 6;
-            field[1][7].value = 7;
-            field[1][8].value = 8;
-            field[2][5].value = 9;
-            field[2][6].value = 1;
-            field[2][7].value = 2;
-            field[2][8].value = 3;
+            const field = createFieldFromString(
+                '56789....' +
+                '.....5678' +
+                '.....9123' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........'
+            );
 
             const results = identifier.findNakedQuads(field);
 
@@ -357,7 +396,17 @@ describe('TechniqueIdentifier', () => {
         });
 
         it('should return empty array when no naked quads exist', () => {
-            const field = createEmptyField(defaultSudokuConfig);
+            const field = createFieldFromString(
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........'
+            );
 
             const results = identifier.findNakedQuads(field);
 
@@ -367,11 +416,17 @@ describe('TechniqueIdentifier', () => {
 
     describe('getCellCandidates', () => {
         it('should return all valid candidates for a cell', () => {
-            const field = createEmptyField(defaultSudokuConfig);
-
-            field[0][0].value = 1;
-            field[0][1].value = 2;
-            field[0][2].value = 3;
+            const field = createFieldFromString(
+                '123......' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........'
+            );
 
             const cell = field[0][3];
             const candidates = identifier.getCellCandidates(field, cell);
@@ -388,16 +443,17 @@ describe('TechniqueIdentifier', () => {
         });
 
         it('should return single candidate for naked single cell', () => {
-            const field = createEmptyField(defaultSudokuConfig);
-
-            field[0][0].value = 1;
-            field[0][1].value = 2;
-            field[0][2].value = 3;
-            field[0][3].value = 4;
-            field[0][4].value = 5;
-            field[0][5].value = 6;
-            field[0][6].value = 7;
-            field[0][7].value = 8;
+            const field = createFieldFromString(
+                '12345678.' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........'
+            );
 
             const cell = field[0][8];
             const candidates = identifier.getCellCandidates(field, cell);
@@ -406,9 +462,17 @@ describe('TechniqueIdentifier', () => {
         });
 
         it('should return empty array for filled cell', () => {
-            const field = createEmptyField(defaultSudokuConfig);
-
-            field[0][0].value = 1;
+            const field = createFieldFromString(
+                '1........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........'
+            );
 
             const cell = { ...field[0][0], value: 0 };
             const candidatesAfterFill = identifier.getCellCandidates(field, cell);
