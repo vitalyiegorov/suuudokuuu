@@ -28,6 +28,7 @@ export const FontSizeToggle = () => {
         <SettingsGroup description={t`Game screen font size`} hasAnotherRow title={t`Font size`}>
             <ToggleSelect
                 initialValue={fontSize}
+                itemsPerRow={2}
                 onChange={handleChange}
                 options={FontSizes}
                 toNumberFn={getFontSizeIndex}
