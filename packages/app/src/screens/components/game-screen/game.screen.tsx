@@ -108,10 +108,8 @@ export const GameScreen = () => {
     };
 
     const handleDeselectCell = () => {
-        if (!keepActiveCell) {
-            // eslint-disable-next-line no-undefined
-            setSelectedCell(undefined);
-        }
+        // eslint-disable-next-line no-undefined
+        setSelectedCell(undefined);
     };
 
     const handleLostGame = () => {
@@ -203,7 +201,7 @@ export const GameScreen = () => {
     const hideAutoCandidates = maxMistakes === 0;
 
     return (
-        <Pressable onPress={handleDeselectCell} style={styles.container} testID={GameScreenSelectors.Root}>
+        <Pressable {...(!keepActiveCell && { onPress: handleDeselectCell })} style={styles.container} testID={GameScreenSelectors.Root}>
             {isChallengeMode && <ChallengeProgressBar />}
             <View style={styles.controls}>
                 <View style={styles.controlsWrapper}>
