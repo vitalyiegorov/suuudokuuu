@@ -1,10 +1,23 @@
 import { SolutionTechniqueEnum } from '../../enums/solution-technique.enum';
 import { defaultSudokuConfig } from '../../interfaces/sudoku-config.interface';
 
+import { BoxLineReductionTechnique } from './box-line-reduction-technique';
 import { FullHouseTechnique } from './full-house-technique';
 import { GuessTechnique } from './guess-technique';
+import { HiddenPairTechnique } from './hidden-pair-technique';
+import { HiddenQuadTechnique } from './hidden-quad-technique';
 import { HiddenSingleTechnique } from './hidden-single-technique';
+import { HiddenTripleTechnique } from './hidden-triple-technique';
+import { JellyfishTechnique } from './jellyfish-technique';
+import { NakedPairTechnique } from './naked-pair-technique';
+import { NakedQuadTechnique } from './naked-quad-technique';
 import { NakedSingleTechnique } from './naked-single-technique';
+import { NakedTripleTechnique } from './naked-triple-technique';
+import { PointingPairTechnique } from './pointing-pair-technique';
+import { SwordfishTechnique } from './swordfish-technique';
+import { XWingTechnique } from './x-wing-technique';
+import { XYWingTechnique } from './xy-wing-technique';
+import { XYZWingTechnique } from './xyz-wing-technique';
 
 import type { CellInterface } from '../../interfaces/cell.interface';
 import type { FieldInterface } from '../../interfaces/field.interface';
@@ -21,6 +34,19 @@ export class TechniqueManager {
             new FullHouseTechnique(config),
             new NakedSingleTechnique(config),
             new HiddenSingleTechnique(config),
+            new NakedPairTechnique(config),
+            new HiddenPairTechnique(config),
+            new NakedTripleTechnique(config),
+            new HiddenTripleTechnique(config),
+            new NakedQuadTechnique(config),
+            new HiddenQuadTechnique(config),
+            new PointingPairTechnique(config),
+            new BoxLineReductionTechnique(config),
+            new XWingTechnique(config),
+            new SwordfishTechnique(config),
+            new JellyfishTechnique(config),
+            new XYWingTechnique(config),
+            new XYZWingTechnique(config),
             new GuessTechnique(config)
         ].sort((techniqueA, techniqueB) => techniqueA.difficulty - techniqueB.difficulty);
     }

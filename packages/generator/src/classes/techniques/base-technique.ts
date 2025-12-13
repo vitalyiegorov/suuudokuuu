@@ -75,6 +75,16 @@ export abstract class BaseTechnique implements TechniqueStrategyInterface {
         return emptyCells;
     }
 
+    protected forEachEmptyCell(field: FieldInterface, callback: (cell: CellInterface, candidates: number[]) => void): void {
+        const emptyCells = this.getEmptyCells(field);
+
+        for (const cell of emptyCells) {
+            const candidates = this.getCellCandidates(field, cell);
+
+            callback(cell, candidates);
+        }
+    }
+
     protected getRowCells(field: FieldInterface, rowIndex: number): CellInterface[] {
         return field[rowIndex];
     }
