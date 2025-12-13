@@ -1,34 +1,33 @@
 import { SolutionTechniqueEnum } from '../../enums/solution-technique.enum';
 import { defaultSudokuConfig } from '../../interfaces/sudoku-config.interface';
 
-import { BoxLineReductionTechnique } from './box-line-reduction-technique';
-import { FullHouseTechnique } from './full-house-technique';
-import { GuessTechnique } from './guess-technique';
-import { HiddenPairTechnique } from './hidden-pair-technique';
-import { HiddenQuadTechnique } from './hidden-quad-technique';
-import { HiddenSingleTechnique } from './hidden-single-technique';
-import { HiddenTripleTechnique } from './hidden-triple-technique';
-import { JellyfishTechnique } from './jellyfish-technique';
-import { NakedPairTechnique } from './naked-pair-technique';
-import { NakedQuadTechnique } from './naked-quad-technique';
-import { NakedSingleTechnique } from './naked-single-technique';
-import { NakedTripleTechnique } from './naked-triple-technique';
-import { PointingPairTechnique } from './pointing-pair-technique';
-import { SwordfishTechnique } from './swordfish-technique';
-import { XWingTechnique } from './x-wing-technique';
-import { XYWingTechnique } from './xy-wing-technique';
-import { XYZWingTechnique } from './xyz-wing-technique';
+import { BaseTechnique } from './base-technique';
+import { BoxLineReductionTechnique } from './box-line-reduction-technique/box-line-reduction.technique';
+import { FullHouseTechnique } from './full-house-technique/full-house.technique';
+import { GuessTechnique } from './guess-technique/guess-technique';
+import { HiddenPairTechnique } from './hidden-pair-technique/hidden-pair.technique';
+import { HiddenQuadTechnique } from './hidden-quad-technique/hidden-quad.technique';
+import { HiddenSingleTechnique } from './hidden-single-technique/hidden-single.technique';
+import { HiddenTripleTechnique } from './hidden-triple-technique/hidden-triple.technique';
+import { JellyfishTechnique } from './jellyfish-technique/jellyfish.technique';
+import { NakedPairTechnique } from './naked-pair-technique/naked-pair.technique';
+import { NakedQuadTechnique } from './naked-quad-technique/naked-quad.technique';
+import { NakedSingleTechnique } from './naked-single-technique/naked-single.technique';
+import { NakedTripleTechnique } from './naked-triple-technique/naked-triple.technique';
+import { PointingPairTechnique } from './pointing-pair-technique/pointing-pair.technique';
+import { SwordfishTechnique } from './swordfish-technique/swordfish.technique';
+import { XWingTechnique } from './x-wing-technique/x-wing.technique';
+import { XYWingTechnique } from './xy-wing-technique/xy-wing.technique';
+import { XYZWingTechnique } from './xyz-wing-technique/xyz-wing.technique';
 
 import type { CellInterface } from '../../interfaces/cell.interface';
 import type { FieldInterface } from '../../interfaces/field.interface';
 import type { SudokuConfigInterface } from '../../interfaces/sudoku-config.interface';
-import type { TechniqueStrategyInterface } from '../../interfaces/technique-strategy.interface';
 
 export class TechniqueManager {
-    private readonly techniques: TechniqueStrategyInterface[];
-    private readonly config: SudokuConfigInterface;
+    private readonly techniques: BaseTechnique[];
 
-    constructor(config: SudokuConfigInterface = defaultSudokuConfig) {
+    constructor(private readonly config: SudokuConfigInterface = defaultSudokuConfig) {
         this.config = config;
         this.techniques = [
             new FullHouseTechnique(config),
@@ -85,11 +84,11 @@ export class TechniqueManager {
     }
 
     private isValueValidInRow(field: FieldInterface, rowIndex: number, value: number): boolean {
-        return !field[rowIndex].some((cell) => cell.value === value);
+        return !field[rowIndex].some(cell => cell.value === value);
     }
 
     private isValueValidInCol(field: FieldInterface, colIndex: number, value: number): boolean {
-        return !field.some((row) => row[colIndex].value === value);
+        return !field.some(row => row[colIndex].value === value);
     }
 
     private isValueValidInGroup(field: FieldInterface, targetCell: CellInterface, value: number): boolean {

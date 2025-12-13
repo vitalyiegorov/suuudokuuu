@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-magic-numbers */
 export enum SolutionTechniqueEnum {
     Guess = 0,
     FullHouse = 1,
@@ -18,7 +17,6 @@ export enum SolutionTechniqueEnum {
     XYWing = 15,
     XYZWing = 16
 }
-/* eslint-enable @typescript-eslint/no-magic-numbers */
 
 export const TECHNIQUE_BITS = 5;
 

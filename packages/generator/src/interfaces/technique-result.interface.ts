@@ -1,0 +1,8 @@
+import type { CellInterface } from './cell.interface';
+import type { SolutionTechniqueEnum } from '../enums/solution-technique.enum';
+
+export interface TechniqueResultInterface {
+    technique: SolutionTechniqueEnum;
+    cell: CellInterface;
+    value: number;
+}
