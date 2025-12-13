@@ -16,6 +16,7 @@ export interface SettingsState {
     showComboAnimation: boolean;
     showFilledNumbers: boolean;
     showActiveCandidates: boolean;
+    keepActiveCell: boolean;
     fontSize: (typeof FontSizes)[number];
     language: (typeof Languages)[number];
     theme: (typeof Themes)[number];
@@ -31,6 +32,7 @@ export const initialSettingsState: SettingsState = {
     showComboAnimation: true,
     showFilledNumbers: true,
     showActiveCandidates: true,
+    keepActiveCell: false,
     fontSize: 'm',
     language: i18nGetOSLocale(),
     theme: ThemeEnum.BlackAndWhite,
