@@ -25,15 +25,15 @@ msgstr "Accepter le défi ?"
 msgid "All of a number (1-9)"
 msgstr "Tous les chiffres (1-9)"
 
-#: src/screens/components/game-screen/game.screen.tsx:92
+#: src/screens/components/game-screen/game.screen.tsx:93
 msgid "All progress will be lost"
 msgstr "Tous les progrès seront perdus"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx:59
+#: src/history/components/history-difficulty/history-difficulty.tsx:61
 msgid "Attempts"
 msgstr "Essais"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx:56
+#: src/history/components/history-difficulty/history-difficulty.tsx:58
 msgid "Average time"
 msgstr "Temps moyen"
 
@@ -59,12 +59,12 @@ msgid "Be wise, be smart, be quick..."
 msgstr "Soyez sage, soyez intelligent, soyez rapide..."
 
 #: src/screens/components/home-screen/home.screen.tsx:117
-#: src/history/components/history-difficulty/history-difficulty.tsx:50
+#: src/history/components/history-difficulty/history-difficulty.tsx:52
 msgid "Best score"
 msgstr "Meilleur score"
 
 #: src/screens/components/home-screen/home.screen.tsx:126
-#: src/history/components/history-difficulty/history-difficulty.tsx:53
+#: src/history/components/history-difficulty/history-difficulty.tsx:55
 msgid "Best time"
 msgstr "Meilleur temps"
 
@@ -89,7 +89,7 @@ msgid "Can you beat them?"
 msgstr "Pouvez-vous les battre ?"
 
 #: src/screens/components/shared-screen/shared-screen.tsx:40
-#: src/screens/components/game-screen/game.screen.tsx:93
+#: src/screens/components/game-screen/game.screen.tsx:94
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx:40
 msgid "Cancel"
 msgstr "Annuler"
@@ -118,11 +118,11 @@ msgstr "Défi perdu !"
 msgid "Challenge Won!"
 msgstr "Défi gagné !"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx:80
+#: src/history/components/history-difficulty/history-difficulty.tsx:82
 msgid "Challenges lost"
 msgstr "Défis perdus"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx:77
+#: src/history/components/history-difficulty/history-difficulty.tsx:79
 msgid "Challenges won"
 msgstr "Défis gagnés"
 
@@ -154,7 +154,7 @@ msgstr "Bonus de complétion"
 msgid "Continue"
 msgstr "Continuer"
 
-#: src/screens/components/settings-screen/settings.screen.tsx:51
+#: src/screens/components/settings-screen/settings.screen.tsx:56
 msgid "Dark/Light color schema"
 msgstr "Dark/Light schéma de couleurs"
 
@@ -171,7 +171,7 @@ msgstr "Chaque placement correct commence avec une valeur de base :"
 msgid "Easy"
 msgstr "Facile"
 
-#: src/screens/components/game-screen/game.screen.tsx:219
+#: src/screens/components/game-screen/game.screen.tsx:227
 msgid "Elapsed"
 msgstr "Écoulé"
 
@@ -242,7 +242,7 @@ msgstr "Hardcore"
 msgid "Hardcore (0 mistakes)"
 msgstr "Hardcore (0 erreur)"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx:74
+#: src/history/components/history-difficulty/history-difficulty.tsx:76
 msgid "Hardcore won"
 msgstr "Hardcore gagné"
 
@@ -287,7 +287,7 @@ msgstr "Mettre en évidence les nombres candidats sélectionnés"
 msgid "How Scoring Works"
 msgstr "Comment fonctionne le score"
 
-#: src/game/hooks/use-share-challenge/use-share-challenge.hook.ts:22
+#: src/game/hooks/use-share-challenge/use-share-challenge.hook.ts:18
 msgid "I completed this Sudoku in {elapsedTimeString}. Can you beat me?"
 msgstr "J'ai complété ce Sudoku en {elapsedTimeString}. Pouvez-vous me battre ?"
 
@@ -307,6 +307,14 @@ msgstr "Sudoku invalide"
 msgid "It took you"
 msgstr "Il vous a fallu"
 
+#: src/screens/components/settings-screen/settings.screen.tsx:53
+msgid "Keep active cell"
+msgstr ""
+
+#: src/screens/components/settings-screen/settings.screen.tsx:51
+msgid "Keep cell selected when clicking outside the grid"
+msgstr ""
+
 #: src/settings/component/language-toggle/language-toggle.tsx:29
 msgid "Language"
 msgstr "Langue"
@@ -315,7 +323,7 @@ msgstr "Langue"
 msgid "Looooooser! =)"
 msgstr "Perdant ! =)"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx:68
+#: src/history/components/history-difficulty/history-difficulty.tsx:70
 msgid "Lost"
 msgstr "Perdu"
 
@@ -332,14 +340,14 @@ msgstr "Moyen"
 msgid "Minimum Score"
 msgstr "Score minimum"
 
-#: src/screens/components/game-screen/game.screen.tsx:202
+#: src/screens/components/game-screen/game.screen.tsx:210
 #: src/scoring/components/scoring.screen.tsx:127
 #: src/history/components/replay-header/replay-header.tsx:29
 #: src/history/components/completed-games-list/completed-game-item.tsx:36
 msgid "Mistakes"
 msgstr "Erreurs"
 
-#: src/history/components/replay-controls/replay-controls.tsx:47
+#: src/history/components/replay-controls/replay-controls.tsx:51
 msgid "moves"
 msgstr "coups"
 
@@ -463,7 +471,7 @@ msgstr "Retour"
 msgid "Row"
 msgstr "Ligne"
 
-#: src/screens/components/game-screen/game.screen.tsx:228
+#: src/screens/components/game-screen/game.screen.tsx:236
 #: src/history/components/replay-header/replay-header.tsx:26
 #: src/history/components/completed-games-list/completed-game-item.tsx:30
 msgid "Score"
@@ -525,11 +533,11 @@ msgstr "Recommencer"
 msgid "Statistics"
 msgstr "Statistiques"
 
-#: src/history/components/replay-controls/replay-controls.tsx:32
+#: src/history/components/replay-controls/replay-controls.tsx:36
 msgid "Step time"
 msgstr "Temps du pas"
 
-#: src/screens/components/game-screen/game.screen.tsx:92
+#: src/screens/components/game-screen/game.screen.tsx:93
 msgid "Stop current run?"
 msgstr "Arrêter la partie en cours ?"
 
@@ -541,7 +549,7 @@ msgstr "Soutenir l'Ukraine"
 msgid "SuuudokuuU"
 msgstr "SuuudokuuU"
 
-#: src/game/hooks/use-share-challenge/use-share-challenge.hook.ts:21
+#: src/game/hooks/use-share-challenge/use-share-challenge.hook.ts:17
 msgid "SuuudokuuU Challenge"
 msgstr "SuuudokuuU Défi"
 
@@ -583,7 +591,7 @@ msgstr "Réessayer"
 msgid "Unknown"
 msgstr "Inconnu"
 
-#: src/screens/components/settings-screen/settings.screen.tsx:51
+#: src/screens/components/settings-screen/settings.screen.tsx:56
 msgid "Use dark mode"
 msgstr "Utiliser le mode sombre"
 
@@ -595,7 +603,7 @@ msgstr "V."
 msgid "Vibration"
 msgstr "Vibration"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx:88
+#: src/history/components/history-difficulty/history-difficulty.tsx:90
 msgid "View games"
 msgstr "Voir les parties"
 
@@ -609,7 +617,7 @@ msgstr ""
 "\n"
 "Chaque don de 1 $ compte !"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx:71
+#: src/history/components/history-difficulty/history-difficulty.tsx:73
 msgid "Win rate"
 msgstr "Taux de victoire"
 
@@ -625,11 +633,11 @@ msgstr ""
 msgid "Winners-winner, chicken dinner!"
 msgstr "Gagnant-gagnant, dîner de poulet !"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx:62
+#: src/history/components/history-difficulty/history-difficulty.tsx:64
 msgid "Won"
 msgstr "Gagné"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx:65
+#: src/history/components/history-difficulty/history-difficulty.tsx:67
 msgid "Won without mistakes"
 msgstr "Gagné sans erreurs"
 
