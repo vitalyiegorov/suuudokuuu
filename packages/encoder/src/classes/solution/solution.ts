@@ -1,14 +1,15 @@
-import { SolutionTechniqueEnum, TECHNIQUE_BITS, isValidTechnique } from '@suuudokuuu/generator';
+import { SolutionTechniqueEnum } from '@suuudokuuu/generator';
 import { BitInputStream, BitOutputStream } from '@thi.ng/bitstream';
 
 import { isNotEmptyString } from '@rnw-community/shared';
 
-import { CELL_INDEX_BITS, TIMESTAMP_BITS, VALUE_BITS } from '../../constants/bit-encoding.constant';
+import { CELL_INDEX_BITS, TECHNIQUE_BITS, TIMESTAMP_BITS, VALUE_BITS } from '../../constants/bit-encoding.constant';
 import { GRID_SIZE } from '../../constants/grid.constant';
 import { CellPositionInterface } from '../../interfaces/cell-position.interface';
 import { SolutionStepInterface } from '../../interfaces/solution-step.interface';
 import { isValidCellIndex } from '../../util/is-valid-cell-index.util';
 import { isValidCellValue } from '../../util/is-valid-cell-value.util';
+import { isValidTechnique } from '../../util/is-valid-technique.util';
 import { stringToUint8Array } from '../../util/string-to-uint8array.util';
 
 export class Solution {

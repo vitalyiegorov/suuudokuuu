@@ -8,7 +8,7 @@ export type { AvailableValuesType } from './types/available-values.type';
 export type { TechniqueResultInterface } from './interfaces/technique-result.interface';
 
 export { DifficultyEnum } from './enums/difficulty.enum';
-export { SolutionTechniqueEnum, TECHNIQUE_BITS, isValidTechnique } from './enums/solution-technique.enum';
+export { SolutionTechniqueEnum } from './enums/solution-technique.enum';
 
 export { Sudoku } from './classes/sudoku/sudoku';
 export { TechniqueManager } from './classes/techniques/technique-manager';
