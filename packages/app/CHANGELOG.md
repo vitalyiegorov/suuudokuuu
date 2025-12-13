@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.59.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.58.0...v1.59.0) (2025-12-13)
+
+### Features
+
+- **app:** add keepActiveCell setting to control cell deselection on click outside ([888782c](https://github.com/vitalyiegorov/suuudokuuu/commit/888782cd643bb6d3f63f90b36d23eb6d6c3c970e))
+
 # [1.58.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.57.0...v1.58.0) (2025-12-13)
 
 ### Features
