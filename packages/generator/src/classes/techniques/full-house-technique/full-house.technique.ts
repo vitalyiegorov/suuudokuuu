@@ -10,25 +10,21 @@ export class FullHouseTechnique extends BaseTechnique {
         super(SolutionTechniqueEnum.FullHouse, 1, config);
     }
 
-    canApply(field: FieldInterface, cell: CellInterface, value: number, candidates: number[]): boolean {
-        if (candidates.length !== 1 || candidates[0] !== value) {
+    canApply(field: FieldInterface, cell: CellInterface): boolean {
+        if (cell.value !== this.config.blankCellValue) {
             return false;
         }
 
-        const rowEmptyCells = this.getRowCells(field, cell.y).filter(cellItem => cellItem.value === 0);
+        const candidates = this.getCellCandidates(field, cell);
 
-        if (rowEmptyCells.length === 1) {
-            return true;
+        if (candidates.length !== 1) {
+            return false;
         }
 
-        const colEmptyCells = this.getColCells(field, cell.x).filter(cellItem => cellItem.value === 0);
-
-        if (colEmptyCells.length === 1) {
-            return true;
-        }
-
-        const groupEmptyCells = this.getGroupCells(field, cell).filter(cellItem => cellItem.value === 0);
-
-        return groupEmptyCells.length === 1;
+        return (
+            this.countEmptyCellsInRow(field, cell.y) === 1 ||
+            this.countEmptyCellsInCol(field, cell.x) === 1 ||
+            this.countEmptyCellsInGroup(field, cell) === 1
+        );
     }
 }

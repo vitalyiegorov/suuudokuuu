@@ -5,6 +5,12 @@ import type { CellInterface } from '../../interfaces/cell.interface';
 import type { FieldInterface } from '../../interfaces/field.interface';
 import type { SudokuConfigInterface } from '../../interfaces/sudoku-config.interface';
 
+export interface TechniqueHint {
+    technique: SolutionTechniqueEnum;
+    cell: CellInterface;
+    value: number;
+}
+
 export abstract class BaseTechnique {
     protected readonly fieldFillingValues: number[];
 
@@ -14,6 +20,26 @@ export abstract class BaseTechnique {
         protected readonly config: SudokuConfigInterface = defaultSudokuConfig
     ) {
         this.fieldFillingValues = Array.from({ length: this.config.fieldSize }, (_, idx) => idx + 1);
+    }
+
+    abstract canApply(field: FieldInterface, cell: CellInterface): boolean;
+
+    findHint(field: FieldInterface, cell: CellInterface): TechniqueHint | null {
+        if (cell.value !== this.config.blankCellValue || !this.canApply(field, cell)) {
+            return null;
+        }
+
+        const candidates = this.getCellCandidates(field, cell);
+
+        if (candidates.length === 0) {
+            return null;
+        }
+
+        return {
+            technique: this.type,
+            cell,
+            value: candidates[0]
+        };
     }
 
     protected getCellCandidates(field: FieldInterface, cell: CellInterface): number[] {
@@ -91,5 +117,15 @@ export abstract class BaseTechnique {
         return cells;
     }
 
-    abstract canApply(field: FieldInterface, cell: CellInterface, value: number, candidates: number[]): boolean;
+    protected countEmptyCellsInRow(field: FieldInterface, rowIndex: number): number {
+        return field[rowIndex].filter(cell => cell.value === this.config.blankCellValue).length;
+    }
+
+    protected countEmptyCellsInCol(field: FieldInterface, colIndex: number): number {
+        return field.filter(row => row[colIndex].value === this.config.blankCellValue).length;
+    }
+
+    protected countEmptyCellsInGroup(field: FieldInterface, cell: CellInterface): number {
+        return this.getGroupCells(field, cell).filter(groupCell => groupCell.value === this.config.blankCellValue).length;
+    }
 }

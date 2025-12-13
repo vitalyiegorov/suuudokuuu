@@ -10,7 +10,13 @@ export class GuessTechnique extends BaseTechnique {
         super(SolutionTechniqueEnum.Guess, 100, config);
     }
 
-    canApply(_field: FieldInterface, _cell: CellInterface, _value: number, _candidates: number[]): boolean {
-        return true;
+    canApply(field: FieldInterface, cell: CellInterface): boolean {
+        if (cell.value !== this.config.blankCellValue) {
+            return false;
+        }
+
+        const candidates = this.getCellCandidates(field, cell);
+
+        return candidates.length > 0;
     }
 }

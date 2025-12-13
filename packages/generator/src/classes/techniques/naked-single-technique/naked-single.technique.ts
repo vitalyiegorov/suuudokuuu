@@ -10,7 +10,13 @@ export class NakedSingleTechnique extends BaseTechnique {
         super(SolutionTechniqueEnum.NakedSingle, 2, config);
     }
 
-    canApply(_field: FieldInterface, _cell: CellInterface, value: number, candidates: number[]): boolean {
-        return candidates.length === 1 && candidates[0] === value;
+    canApply(field: FieldInterface, cell: CellInterface): boolean {
+        if (cell.value !== this.config.blankCellValue) {
+            return false;
+        }
+
+        const candidates = this.getCellCandidates(field, cell);
+
+        return candidates.length === 1;
     }
 }

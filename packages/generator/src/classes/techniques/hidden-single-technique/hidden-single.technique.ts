@@ -10,30 +10,49 @@ export class HiddenSingleTechnique extends BaseTechnique {
         super(SolutionTechniqueEnum.HiddenSingle, 3, config);
     }
 
-    canApply(field: FieldInterface, cell: CellInterface, value: number, _candidates: number[]): boolean {
-        const rowCells = this.getRowCells(field, cell.y).filter(
-            cellItem => cellItem.value === 0 && (cellItem.x !== cell.x || cellItem.y !== cell.y)
-        );
-        const canPlaceInRow = rowCells.every(cellItem => !this.isValueValid(field, cellItem, value));
-
-        if (canPlaceInRow) {
-            return true;
+    canApply(field: FieldInterface, cell: CellInterface): boolean {
+        if (cell.value !== this.config.blankCellValue) {
+            return false;
         }
 
-        const colCells = this.getColCells(field, cell.x).filter(
-            cellItem => cellItem.value === 0 && (cellItem.x !== cell.x || cellItem.y !== cell.y)
-        );
-        const canPlaceInCol = colCells.every(cellItem => !this.isValueValid(field, cellItem, value));
+        const candidates = this.getCellCandidates(field, cell);
 
-        if (canPlaceInCol) {
-            return true;
+        if (candidates.length === 0) {
+            return false;
         }
 
-        const groupCells = this.getGroupCells(field, cell).filter(
-            cellItem => cellItem.value === 0 && (cellItem.x !== cell.x || cellItem.y !== cell.y)
-        );
-        const canPlaceInGroup = groupCells.every(cellItem => !this.isValueValid(field, cellItem, value));
+        for (const value of candidates) {
+            if (this.isHiddenSingleInRow(field, cell, value) ||
+                this.isHiddenSingleInCol(field, cell, value) ||
+                this.isHiddenSingleInGroup(field, cell, value)) {
+                return true;
+            }
+        }
 
-        return canPlaceInGroup;
+        return false;
+    }
+
+    private isHiddenSingleInRow(field: FieldInterface, targetCell: CellInterface, value: number): boolean {
+        const rowCells = this.getRowCells(field, targetCell.y).filter(
+            cellItem => cellItem.value === this.config.blankCellValue && (cellItem.x !== targetCell.x || cellItem.y !== targetCell.y)
+        );
+
+        return rowCells.every(cellItem => !this.isValueValid(field, cellItem, value));
+    }
+
+    private isHiddenSingleInCol(field: FieldInterface, targetCell: CellInterface, value: number): boolean {
+        const colCells = this.getColCells(field, targetCell.x).filter(
+            cellItem => cellItem.value === this.config.blankCellValue && (cellItem.x !== targetCell.x || cellItem.y !== targetCell.y)
+        );
+
+        return colCells.every(cellItem => !this.isValueValid(field, cellItem, value));
+    }
+
+    private isHiddenSingleInGroup(field: FieldInterface, targetCell: CellInterface, value: number): boolean {
+        const groupCells = this.getGroupCells(field, targetCell).filter(
+            cellItem => cellItem.value === this.config.blankCellValue && (cellItem.x !== targetCell.x || cellItem.y !== targetCell.y)
+        );
+
+        return groupCells.every(cellItem => !this.isValueValid(field, cellItem, value));
     }
 }
