@@ -16,15 +16,12 @@ export class GuessTechnique extends BaseTechnique {
 
     findAll(field: FieldInterface): TechniqueResultInterface[] {
         const results: TechniqueResultInterface[] = [];
-        const emptyCells = this.getEmptyCells(field);
 
-        for (const cell of emptyCells) {
-            const candidates = this.getCellCandidates(field, cell);
-
+        this.forEachEmptyCell(field, (cell, candidates) => {
             for (const value of candidates) {
                 results.push({ technique: this.type, cell, value });
             }
-        }
+        });
 
         return results;
     }
