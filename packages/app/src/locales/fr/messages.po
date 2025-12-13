@@ -309,11 +309,11 @@ msgstr "Il vous a fallu"
 
 #: src/screens/components/settings-screen/settings.screen.tsx:53
 msgid "Keep active cell"
-msgstr ""
+msgstr "Garder la cellule active"
 
 #: src/screens/components/settings-screen/settings.screen.tsx:51
 msgid "Keep cell selected when clicking outside the grid"
-msgstr ""
+msgstr "Garder la cellule sélectionnée lors d'un clic en dehors de la grille"
 
 #: src/settings/component/language-toggle/language-toggle.tsx:29
 msgid "Language"
