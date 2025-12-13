@@ -5,12 +5,9 @@ import { defaultSudokuConfig } from '../../interfaces/sudoku-config.interface';
 import type { CellInterface } from '../../interfaces/cell.interface';
 import type { FieldInterface } from '../../interfaces/field.interface';
 import type { SudokuConfigInterface } from '../../interfaces/sudoku-config.interface';
+import type { TechniqueResultInterface as TechniqueResultInterfaceExport } from '../../interfaces/technique-strategy.interface';
 
-export interface TechniqueResultInterface {
-    technique: SolutionTechniqueEnum;
-    cell: CellInterface;
-    value: number;
-}
+export type TechniqueResultInterface = TechniqueResultInterfaceExport;
 
 export class TechniqueIdentifier {
     private readonly config: SudokuConfigInterface;
