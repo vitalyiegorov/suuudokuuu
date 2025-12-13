@@ -10,8 +10,14 @@ export class NakedPairTechnique extends BaseTechnique {
         super(SolutionTechniqueEnum.NakedPair, 4, config);
     }
 
-    canApply(field: FieldInterface, cell: CellInterface, value: number, candidates: number[]): boolean {
-        if (candidates.length !== 2 || !candidates.includes(value)) {
+    canApply(field: FieldInterface, cell: CellInterface): boolean {
+        if (cell.value !== this.config.blankCellValue) {
+            return false;
+        }
+
+        const candidates = this.getCellCandidates(field, cell);
+
+        if (candidates.length !== 2) {
             return false;
         }
 
@@ -30,7 +36,7 @@ export class NakedPairTechnique extends BaseTechnique {
         let pairCount = 0;
 
         for (const unitCell of unitCells) {
-            if (unitCell.value === 0 && !(unitCell.x === currentCell.x && unitCell.y === currentCell.y)) {
+            if (unitCell.value === this.config.blankCellValue && !(unitCell.x === currentCell.x && unitCell.y === currentCell.y)) {
                 const unitCandidates = this.getCellCandidates(field, unitCell);
 
                 if (unitCandidates.length === 2 && unitCandidates.every(candidate => candidates.includes(candidate))) {
