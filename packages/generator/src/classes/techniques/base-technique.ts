@@ -8,7 +8,7 @@ import type { SudokuConfigInterface } from '../../interfaces/sudoku-config.inter
 export abstract class BaseTechnique {
     protected readonly fieldFillingValues: number[];
 
-    constructor(
+    protected constructor(
         readonly type: SolutionTechniqueEnum,
         readonly difficulty: number,
         protected readonly config: SudokuConfigInterface = defaultSudokuConfig
@@ -62,7 +62,7 @@ export abstract class BaseTechnique {
     protected *getEmptyCells(field: FieldInterface) {
         for (const row of field) {
             for (const cell of row) {
-                if (cell.value === 0) {
+                if (cell.value === this.config.blankCellValue) {
                     yield cell;
                 }
             }
