@@ -3,13 +3,14 @@ import { StyleSheet } from 'react-native';
 export const ToggleSelectStyles = StyleSheet.create({
     button: {
         alignItems: 'center',
-        flex: 1,
         justifyContent: 'center',
+        paddingHorizontal: 8,
         zIndex: 1
     },
     label: {
-        fontSize: 16,
-        fontWeight: '500'
+        fontSize: 14,
+        fontWeight: '500',
+        textAlign: 'center'
     },
     selectedLabel: {
         fontWeight: '700'
@@ -25,6 +26,7 @@ export const ToggleSelectStyles = StyleSheet.create({
     toggleContainer: {
         borderRadius: 20,
         flexDirection: 'row',
+        flexWrap: 'wrap',
         marginTop: 10,
         overflow: 'hidden',
         position: 'relative'
