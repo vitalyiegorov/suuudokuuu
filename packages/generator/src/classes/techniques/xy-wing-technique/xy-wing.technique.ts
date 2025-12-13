@@ -1,16 +1,14 @@
-import { SolutionTechniqueEnum } from '../../enums/solution-technique.enum';
+import { SolutionTechniqueEnum } from '../../../enums/solution-technique.enum';
+import { SudokuConfigInterface, defaultSudokuConfig } from '../../../interfaces/sudoku-config.interface';
+import { BaseTechnique } from '../base-technique';
 
-import { BaseTechnique } from './base-technique';
-
-import type { CellInterface } from '../../interfaces/cell.interface';
-import type { FieldInterface } from '../../interfaces/field.interface';
-import type { TechniqueResultInterface } from '../../interfaces/technique-strategy.interface';
-
-const xyWingDifficulty = 15;
+import type { CellInterface } from '../../../interfaces/cell.interface';
+import type { FieldInterface } from '../../../interfaces/field.interface';
 
 export class XYWingTechnique extends BaseTechnique {
-    readonly type = SolutionTechniqueEnum.XYWing;
-    readonly difficulty = xyWingDifficulty;
+    constructor(config: SudokuConfigInterface = defaultSudokuConfig) {
+        super(SolutionTechniqueEnum.XYWing, 15, config);
+    }
 
     canApply(field: FieldInterface, cell: CellInterface, value: number, candidates: number[]): boolean {
         if (!candidates.includes(value)) {
@@ -20,23 +18,6 @@ export class XYWingTechnique extends BaseTechnique {
         return this.hasXYWingForValue(field, cell, value);
     }
 
-    findAll(field: FieldInterface): TechniqueResultInterface[] {
-        const results: TechniqueResultInterface[] = [];
-        const emptyCells = this.getEmptyCells(field);
-
-        for (const cell of emptyCells) {
-            const candidates = this.getCellCandidates(field, cell);
-
-            for (const value of candidates) {
-                if (this.canApply(field, cell, value, candidates)) {
-                    results.push({ technique: this.type, cell, value });
-                }
-            }
-        }
-
-        return results;
-    }
-
     private hasXYWingForValue(field: FieldInterface, cell: CellInterface, _value: number): boolean {
         const candidates = this.getCellCandidates(field, cell);
 
@@ -44,8 +25,8 @@ export class XYWingTechnique extends BaseTechnique {
             return false;
         }
 
-        const emptyCells = this.getEmptyCells(field);
-        const biValueCells = emptyCells.filter((checkCell) => {
+        const emptyCells = Array.from(this.getEmptyCells(field));
+        const biValueCells = emptyCells.filter(checkCell => {
             const checkCandidates = this.getCellCandidates(field, checkCell);
 
             return checkCandidates.length === 2 && !(checkCell.x === cell.x && checkCell.y === cell.y);
@@ -54,15 +35,15 @@ export class XYWingTechnique extends BaseTechnique {
         for (const pivotCell of biValueCells) {
             const pivotCandidates = this.getCellCandidates(field, pivotCell);
 
-            if (pivotCandidates.some((candidate) => candidates.includes(candidate))) {
-                const relatedCells = biValueCells.filter((relatedCell) => {
+            if (pivotCandidates.some(candidate => candidates.includes(candidate))) {
+                const relatedCells = biValueCells.filter(relatedCell => {
                     const relatedCandidates = this.getCellCandidates(field, relatedCell);
 
                     return (
                         !(relatedCell.x === pivotCell.x && relatedCell.y === pivotCell.y) &&
                         !(relatedCell.x === cell.x && relatedCell.y === cell.y) &&
                         (this.shareUnit(relatedCell, pivotCell) || this.shareUnit(relatedCell, cell)) &&
-                        relatedCandidates.some((candidate) => pivotCandidates.includes(candidate))
+                        relatedCandidates.some(candidate => pivotCandidates.includes(candidate))
                     );
                 });
 

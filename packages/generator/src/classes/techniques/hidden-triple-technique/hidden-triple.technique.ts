@@ -1,16 +1,14 @@
-import { SolutionTechniqueEnum } from '../../enums/solution-technique.enum';
+import { SolutionTechniqueEnum } from '../../../enums/solution-technique.enum';
+import { SudokuConfigInterface, defaultSudokuConfig } from '../../../interfaces/sudoku-config.interface';
+import { BaseTechnique } from '../base-technique';
 
-import { BaseTechnique } from './base-technique';
-
-import type { CellInterface } from '../../interfaces/cell.interface';
-import type { FieldInterface } from '../../interfaces/field.interface';
-import type { TechniqueResultInterface } from '../../interfaces/technique-strategy.interface';
-
-const hiddenTripleDifficulty = 7;
+import type { CellInterface } from '../../../interfaces/cell.interface';
+import type { FieldInterface } from '../../../interfaces/field.interface';
 
 export class HiddenTripleTechnique extends BaseTechnique {
-    readonly type = SolutionTechniqueEnum.HiddenTriple;
-    readonly difficulty = hiddenTripleDifficulty;
+    constructor(config: SudokuConfigInterface = defaultSudokuConfig) {
+        super(SolutionTechniqueEnum.HiddenTriple, 7, config);
+    }
 
     canApply(field: FieldInterface, cell: CellInterface, value: number, candidates: number[]): boolean {
         if (!candidates.includes(value)) {
@@ -28,29 +26,8 @@ export class HiddenTripleTechnique extends BaseTechnique {
         );
     }
 
-    findAll(field: FieldInterface): TechniqueResultInterface[] {
-        const results: TechniqueResultInterface[] = [];
-        const emptyCells = this.getEmptyCells(field);
-
-        for (const cell of emptyCells) {
-            const candidates = this.getCellCandidates(field, cell);
-
-            for (const value of candidates) {
-                if (this.canApply(field, cell, value, candidates)) {
-                    results.push({ technique: this.type, cell, value });
-                }
-            }
-        }
-
-        return results;
-    }
-
-    private hasHiddenTripleInUnit(
-        field: FieldInterface,
-        unitCells: CellInterface[],
-        value: number,
-        _currentCell: CellInterface
-    ): boolean {
+    // eslint-disable-next-line max-statements
+    private hasHiddenTripleInUnit(field: FieldInterface, unitCells: CellInterface[], value: number, _currentCell: CellInterface): boolean {
         const valueCandidateCells: CellInterface[] = [];
 
         for (const unitCell of unitCells) {
@@ -68,26 +45,26 @@ export class HiddenTripleTechnique extends BaseTechnique {
         }
 
         const allCandidates = new Set<number>();
-        
+
         for (const cell of valueCandidateCells) {
             const cellCandidates = this.getCellCandidates(field, cell);
-            
-            cellCandidates.forEach((candidate) => allCandidates.add(candidate));
+
+            cellCandidates.forEach(candidate => allCandidates.add(candidate));
         }
 
         const sharedValues: number[] = [];
-        
+
         for (const candidate of allCandidates) {
             let count = 0;
-            
+
             for (const cell of valueCandidateCells) {
                 const cellCandidates = this.getCellCandidates(field, cell);
-                
+
                 if (cellCandidates.includes(candidate)) {
                     count += 1;
                 }
             }
-            
+
             if (count === 3) {
                 sharedValues.push(candidate);
             }

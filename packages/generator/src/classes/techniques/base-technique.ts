@@ -4,17 +4,15 @@ import type { SolutionTechniqueEnum } from '../../enums/solution-technique.enum'
 import type { CellInterface } from '../../interfaces/cell.interface';
 import type { FieldInterface } from '../../interfaces/field.interface';
 import type { SudokuConfigInterface } from '../../interfaces/sudoku-config.interface';
-import type { TechniqueResultInterface, TechniqueStrategyInterface } from '../../interfaces/technique-strategy.interface';
 
-export abstract class BaseTechnique implements TechniqueStrategyInterface {
-    protected readonly config: SudokuConfigInterface;
+export abstract class BaseTechnique {
     protected readonly fieldFillingValues: number[];
 
-    abstract readonly type: SolutionTechniqueEnum;
-    abstract readonly difficulty: number;
-
-    constructor(config: SudokuConfigInterface = defaultSudokuConfig) {
-        this.config = config;
+    constructor(
+        readonly type: SolutionTechniqueEnum,
+        readonly difficulty: number,
+        protected readonly config: SudokuConfigInterface = defaultSudokuConfig
+    ) {
         this.fieldFillingValues = Array.from({ length: this.config.fieldSize }, (_, idx) => idx + 1);
     }
 
@@ -39,11 +37,11 @@ export abstract class BaseTechnique implements TechniqueStrategyInterface {
     }
 
     protected isValueValidInRow(field: FieldInterface, rowIndex: number, value: number): boolean {
-        return !field[rowIndex].some((cell) => cell.value === value);
+        return !field[rowIndex].some(cell => cell.value === value);
     }
 
     protected isValueValidInCol(field: FieldInterface, colIndex: number, value: number): boolean {
-        return !field.some((row) => row[colIndex].value === value);
+        return !field.some(row => row[colIndex].value === value);
     }
 
     protected isValueValidInGroup(field: FieldInterface, targetCell: CellInterface, value: number): boolean {
@@ -61,18 +59,14 @@ export abstract class BaseTechnique implements TechniqueStrategyInterface {
         return true;
     }
 
-    protected getEmptyCells(field: FieldInterface): CellInterface[] {
-        const emptyCells: CellInterface[] = [];
-
+    protected *getEmptyCells(field: FieldInterface) {
         for (const row of field) {
             for (const cell of row) {
                 if (cell.value === 0) {
-                    emptyCells.push(cell);
+                    yield cell;
                 }
             }
         }
-
-        return emptyCells;
     }
 
     protected forEachEmptyCell(field: FieldInterface, callback: (cell: CellInterface, candidates: number[]) => void): void {
@@ -90,7 +84,7 @@ export abstract class BaseTechnique implements TechniqueStrategyInterface {
     }
 
     protected getColCells(field: FieldInterface, colIndex: number): CellInterface[] {
-        return field.map((row) => row[colIndex]);
+        return field.map(row => row[colIndex]);
     }
 
     protected getGroupCells(field: FieldInterface, cell: CellInterface): CellInterface[] {
@@ -108,5 +102,4 @@ export abstract class BaseTechnique implements TechniqueStrategyInterface {
     }
 
     abstract canApply(field: FieldInterface, cell: CellInterface, value: number, candidates: number[]): boolean;
-    abstract findAll(field: FieldInterface): TechniqueResultInterface[];
 }

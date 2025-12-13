@@ -1,16 +1,14 @@
-import { SolutionTechniqueEnum } from '../../enums/solution-technique.enum';
+import { SolutionTechniqueEnum } from '../../../enums/solution-technique.enum';
+import { SudokuConfigInterface, defaultSudokuConfig } from '../../../interfaces/sudoku-config.interface';
+import { BaseTechnique } from '../base-technique';
 
-import { BaseTechnique } from './base-technique';
-
-import type { CellInterface } from '../../interfaces/cell.interface';
-import type { FieldInterface } from '../../interfaces/field.interface';
-import type { TechniqueResultInterface } from '../../interfaces/technique-strategy.interface';
-
-const hiddenPairDifficulty = 5;
+import type { CellInterface } from '../../../interfaces/cell.interface';
+import type { FieldInterface } from '../../../interfaces/field.interface';
 
 export class HiddenPairTechnique extends BaseTechnique {
-    readonly type = SolutionTechniqueEnum.HiddenPair;
-    readonly difficulty = hiddenPairDifficulty;
+    constructor(config: SudokuConfigInterface = defaultSudokuConfig) {
+        super(SolutionTechniqueEnum.HiddenPair, 5, config);
+    }
 
     canApply(field: FieldInterface, cell: CellInterface, value: number, candidates: number[]): boolean {
         if (!candidates.includes(value)) {
@@ -28,29 +26,7 @@ export class HiddenPairTechnique extends BaseTechnique {
         );
     }
 
-    findAll(field: FieldInterface): TechniqueResultInterface[] {
-        const results: TechniqueResultInterface[] = [];
-        const emptyCells = this.getEmptyCells(field);
-
-        for (const cell of emptyCells) {
-            const candidates = this.getCellCandidates(field, cell);
-
-            for (const value of candidates) {
-                if (this.canApply(field, cell, value, candidates)) {
-                    results.push({ technique: this.type, cell, value });
-                }
-            }
-        }
-
-        return results;
-    }
-
-    private hasHiddenPairInUnit(
-        field: FieldInterface,
-        unitCells: CellInterface[],
-        value: number,
-        _currentCell: CellInterface
-    ): boolean {
+    private hasHiddenPairInUnit(field: FieldInterface, unitCells: CellInterface[], value: number, _currentCell: CellInterface): boolean {
         const valueCandidateCells: CellInterface[] = [];
 
         for (const unitCell of unitCells) {
@@ -70,7 +46,7 @@ export class HiddenPairTechnique extends BaseTechnique {
         const cell1Candidates = this.getCellCandidates(field, valueCandidateCells[0]);
         const cell2Candidates = this.getCellCandidates(field, valueCandidateCells[1]);
 
-        const sharedValues = cell1Candidates.filter((candidate) => cell2Candidates.includes(candidate));
+        const sharedValues = cell1Candidates.filter(candidate => cell2Candidates.includes(candidate));
 
         return sharedValues.length === 2 && sharedValues.includes(value);
     }

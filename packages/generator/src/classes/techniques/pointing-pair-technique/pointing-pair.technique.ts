@@ -1,16 +1,14 @@
-import { SolutionTechniqueEnum } from '../../enums/solution-technique.enum';
+import { SolutionTechniqueEnum } from '../../../enums/solution-technique.enum';
+import { SudokuConfigInterface, defaultSudokuConfig } from '../../../interfaces/sudoku-config.interface';
+import { BaseTechnique } from '../base-technique';
 
-import { BaseTechnique } from './base-technique';
-
-import type { CellInterface } from '../../interfaces/cell.interface';
-import type { FieldInterface } from '../../interfaces/field.interface';
-import type { TechniqueResultInterface } from '../../interfaces/technique-strategy.interface';
-
-const pointingPairDifficulty = 10;
+import type { CellInterface } from '../../../interfaces/cell.interface';
+import type { FieldInterface } from '../../../interfaces/field.interface';
 
 export class PointingPairTechnique extends BaseTechnique {
-    readonly type = SolutionTechniqueEnum.PointingPair;
-    readonly difficulty = pointingPairDifficulty;
+    constructor(config: SudokuConfigInterface = defaultSudokuConfig) {
+        super(SolutionTechniqueEnum.PointingPair, 10, config);
+    }
 
     canApply(field: FieldInterface, cell: CellInterface, value: number, candidates: number[]): boolean {
         if (!candidates.includes(value)) {
@@ -18,23 +16,6 @@ export class PointingPairTechnique extends BaseTechnique {
         }
 
         return this.hasPointingPairForValue(field, cell, value);
-    }
-
-    findAll(field: FieldInterface): TechniqueResultInterface[] {
-        const results: TechniqueResultInterface[] = [];
-        const emptyCells = this.getEmptyCells(field);
-
-        for (const cell of emptyCells) {
-            const candidates = this.getCellCandidates(field, cell);
-
-            for (const value of candidates) {
-                if (this.canApply(field, cell, value, candidates)) {
-                    results.push({ technique: this.type, cell, value });
-                }
-            }
-        }
-
-        return results;
     }
 
     private hasPointingPairForValue(field: FieldInterface, cell: CellInterface, value: number): boolean {

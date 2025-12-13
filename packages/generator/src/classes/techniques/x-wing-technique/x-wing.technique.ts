@@ -1,16 +1,14 @@
-import { SolutionTechniqueEnum } from '../../enums/solution-technique.enum';
+import { SolutionTechniqueEnum } from '../../../enums/solution-technique.enum';
+import { SudokuConfigInterface, defaultSudokuConfig } from '../../../interfaces/sudoku-config.interface';
+import { BaseTechnique } from '../base-technique';
 
-import { BaseTechnique } from './base-technique';
-
-import type { CellInterface } from '../../interfaces/cell.interface';
-import type { FieldInterface } from '../../interfaces/field.interface';
-import type { TechniqueResultInterface } from '../../interfaces/technique-strategy.interface';
-
-const xWingDifficulty = 12;
+import type { CellInterface } from '../../../interfaces/cell.interface';
+import type { FieldInterface } from '../../../interfaces/field.interface';
 
 export class XWingTechnique extends BaseTechnique {
-    readonly type = SolutionTechniqueEnum.XWing;
-    readonly difficulty = xWingDifficulty;
+    constructor(config: SudokuConfigInterface = defaultSudokuConfig) {
+        super(SolutionTechniqueEnum.XWing, 12, config);
+    }
 
     canApply(field: FieldInterface, cell: CellInterface, value: number, candidates: number[]): boolean {
         if (!candidates.includes(value)) {
@@ -20,23 +18,7 @@ export class XWingTechnique extends BaseTechnique {
         return this.hasXWingForValue(field, cell, value);
     }
 
-    findAll(field: FieldInterface): TechniqueResultInterface[] {
-        const results: TechniqueResultInterface[] = [];
-        const emptyCells = this.getEmptyCells(field);
-
-        for (const cell of emptyCells) {
-            const candidates = this.getCellCandidates(field, cell);
-
-            for (const value of candidates) {
-                if (this.canApply(field, cell, value, candidates)) {
-                    results.push({ technique: this.type, cell, value });
-                }
-            }
-        }
-
-        return results;
-    }
-
+    // eslint-disable-next-line max-statements
     private hasXWingForValue(field: FieldInterface, cell: CellInterface, value: number): boolean {
         const rowsWithValue = this.findRowsWithExactlyCandidates(field, value, 2);
         const colsWithValue = this.findColsWithExactlyCandidates(field, value, 2);
@@ -48,6 +30,7 @@ export class XWingTechnique extends BaseTechnique {
                     const row2Positions = rowsWithValue[idx2];
 
                     if (row1Positions[0] === row2Positions[0] && row1Positions[1] === row2Positions[1]) {
+                        // eslint-disable-next-line max-depth
                         if (
                             (cell.y === row1Positions[0] || cell.y === row2Positions[0]) &&
                             (cell.x === row1Positions[0] || cell.x === row1Positions[1])
@@ -66,6 +49,7 @@ export class XWingTechnique extends BaseTechnique {
                     const col2Positions = colsWithValue[idx2];
 
                     if (col1Positions[0] === col2Positions[0] && col1Positions[1] === col2Positions[1]) {
+                        // eslint-disable-next-line max-depth
                         if (
                             (cell.x === col1Positions[0] || cell.x === col2Positions[0]) &&
                             (cell.y === col1Positions[0] || cell.y === col1Positions[1])
