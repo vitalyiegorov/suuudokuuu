@@ -1,0 +1,83 @@
+import { SolutionTechniqueEnum } from '../../enums/solution-technique.enum';
+import { defaultSudokuConfig } from '../../interfaces/sudoku-config.interface';
+
+import { FullHouseTechnique } from './full-house-technique';
+import { GuessTechnique } from './guess-technique';
+import { HiddenSingleTechnique } from './hidden-single-technique';
+import { NakedSingleTechnique } from './naked-single-technique';
+
+import type { CellInterface } from '../../interfaces/cell.interface';
+import type { FieldInterface } from '../../interfaces/field.interface';
+import type { SudokuConfigInterface } from '../../interfaces/sudoku-config.interface';
+import type { TechniqueStrategyInterface } from '../../interfaces/technique-strategy.interface';
+
+export class TechniqueManager {
+    private readonly techniques: TechniqueStrategyInterface[];
+    private readonly config: SudokuConfigInterface;
+
+    constructor(config: SudokuConfigInterface = defaultSudokuConfig) {
+        this.config = config;
+        this.techniques = [
+            new FullHouseTechnique(config),
+            new NakedSingleTechnique(config),
+            new HiddenSingleTechnique(config),
+            new GuessTechnique(config)
+        ].sort((techniqueA, techniqueB) => techniqueA.difficulty - techniqueB.difficulty);
+    }
+
+    identify(field: FieldInterface, cell: CellInterface, value: number): SolutionTechniqueEnum {
+        const candidates = this.getCellCandidates(field, cell);
+
+        for (const technique of this.techniques) {
+            if (technique.canApply(field, cell, value, candidates)) {
+                return technique.type;
+            }
+        }
+
+        return SolutionTechniqueEnum.Guess;
+    }
+
+    private getCellCandidates(field: FieldInterface, cell: CellInterface): number[] {
+        const candidates: number[] = [];
+        const fieldFillingValues = Array.from({ length: this.config.fieldSize }, (_, idx) => idx + 1);
+
+        for (const value of fieldFillingValues) {
+            if (this.isValueValid(field, cell, value)) {
+                candidates.push(value);
+            }
+        }
+
+        return candidates;
+    }
+
+    private isValueValid(field: FieldInterface, cell: CellInterface, value: number): boolean {
+        return (
+            this.isValueValidInRow(field, cell.y, value) &&
+            this.isValueValidInCol(field, cell.x, value) &&
+            this.isValueValidInGroup(field, cell, value)
+        );
+    }
+
+    private isValueValidInRow(field: FieldInterface, rowIndex: number, value: number): boolean {
+        return !field[rowIndex].some((cell) => cell.value === value);
+    }
+
+    private isValueValidInCol(field: FieldInterface, colIndex: number, value: number): boolean {
+        return !field.some((row) => row[colIndex].value === value);
+    }
+
+    private isValueValidInGroup(field: FieldInterface, targetCell: CellInterface, value: number): boolean {
+        const groupStartX = Math.floor(targetCell.x / this.config.fieldGroupWidth) * this.config.fieldGroupWidth;
+        const groupStartY = Math.floor(targetCell.y / this.config.fieldGroupHeight) * this.config.fieldGroupHeight;
+
+        for (let yCoord = groupStartY; yCoord < groupStartY + this.config.fieldGroupHeight; yCoord += 1) {
+            for (let xCoord = groupStartX; xCoord < groupStartX + this.config.fieldGroupWidth; xCoord += 1) {
+                if (field[yCoord][xCoord].value === value) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+}

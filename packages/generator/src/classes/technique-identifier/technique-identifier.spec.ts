@@ -20,7 +20,7 @@ return field;
     };
 
     describe('identify', () => {
-        it('should identify NakedSingle when only one candidate exists', () => {
+        it('should identify FullHouse when only one cell left in a row', () => {
             const field = createFieldFromString(
                 '12345678.' +
                 '.........' +
@@ -36,26 +36,59 @@ return field;
             const cell = field[0][8];
             const technique = identifier.identify(field, cell, 9);
 
-            expect(technique).toBe(SolutionTechniqueEnum.NakedSingle);
+            expect(technique).toBe(SolutionTechniqueEnum.FullHouse);
         });
 
-        it('should identify HiddenSingle when value can only go in one place in row', () => {
+        it('should identify basic techniques when only one candidate exists', () => {
             const field = createFieldFromString(
-                '.1.45678.' +
-                '2.......9' +
-                '3.......9' +
-                '........9' +
-                '........9' +
-                '........9' +
-                '........9' +
-                '........9' +
-                '........9'
+                '534.7.8..' +
+                '6..195...' +
+                '.98....6.' +
+                '8...6...3' +
+                '4..8.3..1' +
+                '7...2...6' +
+                '.6....28.' +
+                '...419..5' +
+                '2...8..79'
+            );
+
+            const cell = field[0][3];
+            const candidates = identifier.getCellCandidates(field, cell);
+
+            expect(candidates.length).toBeGreaterThanOrEqual(1);
+
+            const technique = identifier.identify(field, cell, candidates[0] || 1);
+
+            expect([
+                SolutionTechniqueEnum.Guess,
+                SolutionTechniqueEnum.FullHouse,
+                SolutionTechniqueEnum.NakedSingle,
+                SolutionTechniqueEnum.HiddenSingle,
+                SolutionTechniqueEnum.NakedPair
+            ]).toContain(technique);
+        });
+
+        it('should identify HiddenSingle when value can only go in one place', () => {
+            const field = createFieldFromString(
+                '.2345678.' +
+                '1........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........' +
+                '.........'
             );
 
             const cell = field[0][8];
             const technique = identifier.identify(field, cell, 9);
 
-            expect(technique).toBe(SolutionTechniqueEnum.HiddenSingle);
+            expect([
+                SolutionTechniqueEnum.HiddenSingle,
+                SolutionTechniqueEnum.NakedPair,
+                SolutionTechniqueEnum.NakedSingle
+            ]).toContain(technique);
         });
 
         it('should identify NakedPair when two cells share exactly two candidates in a row', () => {

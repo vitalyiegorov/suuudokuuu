@@ -26,6 +26,10 @@ export class TechniqueIdentifier {
         const candidates = this.getCellCandidates(field, cell);
 
         if (candidates.length === 1 && candidates[0] === value) {
+            if (this.isFullHouse(field, cell)) {
+                return SolutionTechniqueEnum.FullHouse;
+            }
+
             return SolutionTechniqueEnum.NakedSingle;
         }
 
@@ -162,6 +166,39 @@ export class TechniqueIdentifier {
                 results.push({ technique: SolutionTechniqueEnum.HiddenSingle, cell, value: val });
             }
         }
+    }
+
+    private isFullHouse(field: FieldInterface, cell: CellInterface): boolean {
+        const rowEmptyCells = field[cell.y].filter((cellItem) => cellItem.value === this.config.blankCellValue);
+
+        if (rowEmptyCells.length === 1) {
+            return true;
+        }
+
+        const colEmptyCells = field.filter((row) => row[cell.x].value === this.config.blankCellValue);
+
+        if (colEmptyCells.length === 1) {
+            return true;
+        }
+
+        const groupCells = this.getGroupCells(field, cell);
+        const groupEmptyCells = groupCells.filter((cellItem) => cellItem.value === this.config.blankCellValue);
+
+        return groupEmptyCells.length === 1;
+    }
+
+    private getGroupCells(field: FieldInterface, cell: CellInterface): CellInterface[] {
+        const boxStartY = cell.y - (cell.y % this.config.fieldGroupHeight);
+        const boxStartX = cell.x - (cell.x % this.config.fieldGroupWidth);
+        const cells: CellInterface[] = [];
+
+        for (let dy = 0; dy < this.config.fieldGroupHeight; dy += 1) {
+            for (let dx = 0; dx < this.config.fieldGroupWidth; dx += 1) {
+                cells.push(field[boxStartY + dy][boxStartX + dx]);
+            }
+        }
+
+        return cells;
     }
 
     private isHiddenSingle(field: FieldInterface, cell: CellInterface, value: number): boolean {

@@ -1,27 +1,28 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers */
 export enum SolutionTechniqueEnum {
     Guess = 0,
-    NakedSingle = 1,
-    HiddenSingle = 2,
-    NakedPair = 3,
-    HiddenPair = 4,
-    NakedTriple = 5,
-    HiddenTriple = 6,
-    NakedQuad = 7,
-    HiddenQuad = 8,
-    PointingPair = 9,
-    BoxLineReduction = 10,
-    XWing = 11,
-    Swordfish = 12,
-    Jellyfish = 13,
-    XYWing = 14,
-    XYZWing = 15
+    FullHouse = 1,
+    NakedSingle = 2,
+    HiddenSingle = 3,
+    NakedPair = 4,
+    HiddenPair = 5,
+    NakedTriple = 6,
+    HiddenTriple = 7,
+    NakedQuad = 8,
+    HiddenQuad = 9,
+    PointingPair = 10,
+    BoxLineReduction = 11,
+    XWing = 12,
+    Swordfish = 13,
+    Jellyfish = 14,
+    XYWing = 15,
+    XYZWing = 16
 }
 /* eslint-enable @typescript-eslint/no-magic-numbers */
 
-export const TECHNIQUE_BITS = 4;
+export const TECHNIQUE_BITS = 5;
 
-const techniqueMaxValue = 15;
+const techniqueMaxValue = 16;
 
 export const isValidTechnique = (technique: number): technique is SolutionTechniqueEnum =>
     technique >= 0 && technique <= techniqueMaxValue && Number.isInteger(technique);
