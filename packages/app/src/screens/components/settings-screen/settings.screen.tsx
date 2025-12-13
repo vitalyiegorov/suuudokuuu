@@ -47,6 +47,11 @@ export const SettingsScreen = () => {
                     setting="showActiveCandidates"
                     title={t`Highlight selected candidate numbers`}
                 />
+                <SettingsSwitch
+                    description={t`Keep cell selected when clicking outside the grid`}
+                    setting="keepActiveCell"
+                    title={t`Keep active cell`}
+                />
 
                 <SettingsSwitch description={t`Dark/Light color schema`} setting="isDarkColorSchema" title={t`Use dark mode`} />
                 <FontSizeToggle />

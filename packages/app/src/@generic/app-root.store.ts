@@ -101,7 +101,8 @@ const migrations: MigrationManifest<RootState> = {
     15: resetBestScores,
     16: addChallengeStats,
     17: ensureAllDifficulties,
-    18: addCompletedGames
+    18: addCompletedGames,
+    19: state => ({ ...state, [settingsSlice.name]: { ...initialSettingsState, ...state[settingsSlice.name] } })
 };
 
 const rootReducer = combineReducers({
@@ -113,7 +114,7 @@ const persistedReducer = persistReducer(
     {
         key: 'root',
         storage: AsyncStorage,
-        version: 18,
+        version: 19,
         migrate: createMigrate(migrations)
     },
     rootReducer

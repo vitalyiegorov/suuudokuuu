@@ -16,6 +16,7 @@ export const settingsKeySelector = (
         | 'isDarkColorSchema'
         | 'showFilledNumbers'
         | 'showActiveCandidates'
+        | 'keepActiveCell'
     >
 ) => createSelector(settingsSelector, state => state[key]);
 export const settingsFontSizeSelector = createSelector(settingsSelector, state => state.fontSize);
