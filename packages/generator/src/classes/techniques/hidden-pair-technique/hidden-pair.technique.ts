@@ -10,8 +10,8 @@ export class HiddenPairTechnique extends BaseTechnique {
         super(SolutionTechniqueEnum.HiddenPair, 5, config);
     }
 
-    canApply(field: FieldInterface, cell: CellInterface, value: number, candidates: number[]): boolean {
-        if (!candidates.includes(value)) {
+    canApply(field: FieldInterface, cell: CellInterface, candidates: number[]): boolean {
+        if (cell.value !== this.config.blankCellValue || candidates.length === 0) {
             return false;
         }
 
@@ -19,11 +19,15 @@ export class HiddenPairTechnique extends BaseTechnique {
         const colCells = this.getColCells(field, cell.x);
         const groupCells = this.getGroupCells(field, cell);
 
-        return (
-            this.hasHiddenPairInUnit(field, rowCells, value, cell) ||
-            this.hasHiddenPairInUnit(field, colCells, value, cell) ||
-            this.hasHiddenPairInUnit(field, groupCells, value, cell)
-        );
+        for (const value of candidates) {
+            if (this.hasHiddenPairInUnit(field, rowCells, value, cell) ||
+                this.hasHiddenPairInUnit(field, colCells, value, cell) ||
+                this.hasHiddenPairInUnit(field, groupCells, value, cell)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private hasHiddenPairInUnit(field: FieldInterface, unitCells: CellInterface[], value: number, _currentCell: CellInterface): boolean {

@@ -27,7 +27,7 @@ describe('NakedSingleTechnique', () => {
 
         const cell = field[0][2];
         const candidates = [4];
-        const result = technique.canApply(field, cell, 4, candidates);
+        const result = technique.canApply(field, cell, candidates);
 
         expect(result).toBe(true);
     });
@@ -37,7 +37,7 @@ describe('NakedSingleTechnique', () => {
 
         const cell = field[0][3];
         const candidates = [2, 6];
-        const result = technique.canApply(field, cell, 2, candidates);
+        const result = technique.canApply(field, cell, candidates);
 
         expect(result).toBe(false);
     });

@@ -10,12 +10,18 @@ export class PointingPairTechnique extends BaseTechnique {
         super(SolutionTechniqueEnum.PointingPair, 10, config);
     }
 
-    canApply(field: FieldInterface, cell: CellInterface, value: number, candidates: number[]): boolean {
-        if (!candidates.includes(value)) {
+    canApply(field: FieldInterface, cell: CellInterface, candidates: number[]): boolean {
+        if (cell.value !== this.config.blankCellValue || candidates.length === 0) {
             return false;
         }
 
-        return this.hasPointingPairForValue(field, cell, value);
+        for (const value of candidates) {
+            if (this.hasPointingPairForValue(field, cell, value)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private hasPointingPairForValue(field: FieldInterface, cell: CellInterface, value: number): boolean {

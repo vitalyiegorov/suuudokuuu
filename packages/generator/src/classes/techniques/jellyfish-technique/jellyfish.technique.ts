@@ -10,12 +10,18 @@ export class JellyfishTechnique extends BaseTechnique {
         super(SolutionTechniqueEnum.Jellyfish, 14, config);
     }
 
-    canApply(field: FieldInterface, cell: CellInterface, value: number, candidates: number[]): boolean {
-        if (!candidates.includes(value)) {
+    canApply(field: FieldInterface, cell: CellInterface, candidates: number[]): boolean {
+        if (cell.value !== this.config.blankCellValue || candidates.length === 0) {
             return false;
         }
 
-        return this.hasJellyfishForValue(field, cell, value);
+        for (const value of candidates) {
+            if (this.hasJellyfishForValue(field, cell, value)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private hasJellyfishForValue(field: FieldInterface, _cell: CellInterface, value: number): boolean {

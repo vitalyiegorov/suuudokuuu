@@ -10,12 +10,18 @@ export class BoxLineReductionTechnique extends BaseTechnique {
         super(SolutionTechniqueEnum.BoxLineReduction, 11, config);
     }
 
-    canApply(field: FieldInterface, cell: CellInterface, value: number, candidates: number[]): boolean {
-        if (!candidates.includes(value)) {
+    canApply(field: FieldInterface, cell: CellInterface, candidates: number[]): boolean {
+        if (cell.value !== this.config.blankCellValue || candidates.length === 0) {
             return false;
         }
 
-        return this.hasBoxLineReductionForValue(field, cell, value);
+        for (const value of candidates) {
+            if (this.hasBoxLineReductionForValue(field, cell, value)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     // eslint-disable-next-line max-statements

@@ -27,7 +27,7 @@ describe('HiddenSingleTechnique', () => {
 
         const cell = field[0][8];
         const candidates = [9];
-        const result = technique.canApply(field, cell, 9, candidates);
+        const result = technique.canApply(field, cell, candidates);
 
         expect(typeof result).toBe('boolean');
     });
@@ -37,7 +37,7 @@ describe('HiddenSingleTechnique', () => {
 
         const cell = field[0][0];
         const candidates = [9];
-        const result = technique.canApply(field, cell, 9, candidates);
+        const result = technique.canApply(field, cell, candidates);
 
         expect(result).toBe(true);
     });
@@ -47,7 +47,7 @@ describe('HiddenSingleTechnique', () => {
 
         const cell = field[0][3];
         const candidates = [9];
-        const result = technique.canApply(field, cell, 9, candidates);
+        const result = technique.canApply(field, cell, candidates);
 
         expect(typeof result).toBe('boolean');
     });

@@ -10,12 +10,18 @@ export class XYWingTechnique extends BaseTechnique {
         super(SolutionTechniqueEnum.XYWing, 15, config);
     }
 
-    canApply(field: FieldInterface, cell: CellInterface, value: number, candidates: number[]): boolean {
-        if (!candidates.includes(value)) {
+    canApply(field: FieldInterface, cell: CellInterface, candidates: number[]): boolean {
+        if (cell.value !== this.config.blankCellValue || candidates.length === 0) {
             return false;
         }
 
-        return this.hasXYWingForValue(field, cell, value);
+        for (const value of candidates) {
+            if (this.hasXYWingForValue(field, cell, value)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private hasXYWingForValue(field: FieldInterface, cell: CellInterface, _value: number): boolean {

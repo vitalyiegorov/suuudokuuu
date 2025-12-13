@@ -10,8 +10,8 @@ export class NakedQuadTechnique extends BaseTechnique {
         super(SolutionTechniqueEnum.NakedQuad, 8, config);
     }
 
-    canApply(field: FieldInterface, cell: CellInterface, value: number, candidates: number[]): boolean {
-        if (candidates.length < 2 || candidates.length > 4 || !candidates.includes(value)) {
+    canApply(field: FieldInterface, cell: CellInterface, candidates: number[]): boolean {
+        if (cell.value !== this.config.blankCellValue || candidates.length < 2 || candidates.length > 4) {
             return false;
         }
 

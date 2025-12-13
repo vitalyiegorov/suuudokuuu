@@ -1,7 +1,7 @@
 import { SolutionTechniqueEnum } from '../../enums/solution-technique.enum';
 import { defaultSudokuConfig } from '../../interfaces/sudoku-config.interface';
 
-import { BaseTechnique } from './base-technique';
+import { BaseTechnique, TechniqueHint } from './base-technique';
 import { BoxLineReductionTechnique } from './box-line-reduction-technique/box-line-reduction.technique';
 import { FullHouseTechnique } from './full-house-technique/full-house.technique';
 import { GuessTechnique } from './guess-technique/guess-technique';
@@ -50,16 +50,48 @@ export class TechniqueManager {
         ].sort((techniqueA, techniqueB) => techniqueA.difficulty - techniqueB.difficulty);
     }
 
-    identify(field: FieldInterface, cell: CellInterface, value: number): SolutionTechniqueEnum {
+    identify(field: FieldInterface, cell: CellInterface, _value: number): SolutionTechniqueEnum {
         const candidates = this.getCellCandidates(field, cell);
 
         for (const technique of this.techniques) {
-            if (technique.canApply(field, cell, value, candidates)) {
+            if (technique.canApply(field, cell, candidates)) {
                 return technique.type;
             }
         }
 
         return SolutionTechniqueEnum.Guess;
+    }
+
+    findNextStep(field: FieldInterface): TechniqueHint | null {
+        for (const technique of this.techniques) {
+            if (technique.type === SolutionTechniqueEnum.Guess) {
+                continue;
+            }
+
+            for (let y = 0; y < this.config.fieldSize; y += 1) {
+                for (let x = 0; x < this.config.fieldSize; x += 1) {
+                    const cell = field[y][x];
+
+                    if (cell.value !== this.config.blankCellValue) {
+                        continue;
+                    }
+
+                    const candidates = this.getCellCandidates(field, cell);
+
+                    if (candidates.length === 0) {
+                        continue;
+                    }
+
+                    const hint = technique.findHint(field, cell, candidates);
+
+                    if (hint) {
+                        return hint;
+                    }
+                }
+            }
+        }
+
+        return null;
     }
 
     private getCellCandidates(field: FieldInterface, cell: CellInterface): number[] {
