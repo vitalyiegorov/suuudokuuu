@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.58.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.57.0...v1.58.0) (2025-12-13)
+
+### Features
+
+- **app:** add multi-row support to ToggleSelect for scalable option layouts ([#165](https://github.com/vitalyiegorov/suuudokuuu/issues/165)) ([e96d970](https://github.com/vitalyiegorov/suuudokuuu/commit/e96d9708a03a4f4f4481109547e1db4ad483bc23))
+
 # [1.57.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.56.2...v1.57.0) (2025-12-12)
 
 ### Features
