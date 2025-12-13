@@ -35,7 +35,7 @@ export const ToggleSelect = <T extends unknown>(props: Props<T>) => {
         onChange(value);
         Animated.spring(animatedValue, {
             toValue: index,
-            useNativeDriver: false,
+            useNativeDriver: true,
             speed: 20,
             bounciness: 10
         }).start();

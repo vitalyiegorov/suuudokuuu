@@ -1,14 +1,20 @@
 import { StyleSheet } from 'react-native';
 
+const BUTTON_HORIZONTAL_PADDING = 8;
+const BUTTON_FONT_SIZE = 14;
+const SLIDER_BORDER_RADIUS = 40;
+const CONTAINER_BORDER_RADIUS = 20;
+const CONTAINER_MARGIN_TOP = 10;
+
 export const ToggleSelectStyles = StyleSheet.create({
     button: {
         alignItems: 'center',
         justifyContent: 'center',
-        paddingHorizontal: 8,
+        paddingHorizontal: BUTTON_HORIZONTAL_PADDING,
         zIndex: 1
     },
     label: {
-        fontSize: 14,
+        fontSize: BUTTON_FONT_SIZE,
         fontWeight: '500',
         textAlign: 'center'
     },
@@ -16,7 +22,7 @@ export const ToggleSelectStyles = StyleSheet.create({
         fontWeight: '700'
     },
     slider: {
-        borderRadius: 40,
+        borderRadius: SLIDER_BORDER_RADIUS,
         elevation: 3,
         position: 'absolute',
         shadowOffset: { width: 0, height: 2 },
@@ -24,10 +30,10 @@ export const ToggleSelectStyles = StyleSheet.create({
         shadowRadius: 2
     },
     toggleContainer: {
-        borderRadius: 20,
+        borderRadius: CONTAINER_BORDER_RADIUS,
         flexDirection: 'row',
         flexWrap: 'wrap',
-        marginTop: 10,
+        marginTop: CONTAINER_MARGIN_TOP,
         overflow: 'hidden',
         position: 'relative'
     }
