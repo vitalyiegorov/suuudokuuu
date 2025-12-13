@@ -5,7 +5,7 @@ import { BlackButton } from '../../../@generic/components/black-button/black-but
 import { Donation } from '../../../@generic/components/donation/donation';
 import { Header } from '../../../@generic/components/header/header';
 import { useResumeGame } from '../../../game/hooks/use-resume-game.hook';
-import { useShare } from '../../../game/hooks/use-share.hook';
+import { useSharePuzzle } from '../../../game/hooks/use-share-puzzle/use-share-puzzle.hook';
 
 import { PauseScreenStyles } from './pause-screen.styles';
 
@@ -13,7 +13,7 @@ export const PauseScreen = () => {
     const { t } = useLingui();
 
     const handleResume = useResumeGame();
-    const handleShare = useShare();
+    const handleShare = useSharePuzzle();
 
     return (
         <View style={PauseScreenStyles.container}>

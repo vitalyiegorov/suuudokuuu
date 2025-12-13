@@ -28,13 +28,13 @@ export const GameTimer = () => {
     const router = useRouter();
 
     const dispatch = useAppDispatch();
-    const savedTime = useAppSelector(gameElapsedTimeSelector);
-    const paused = useAppSelector(gamePausedSelector);
+    const elapsedTime = useAppSelector(gameElapsedTimeSelector);
+    const isPaused = useAppSelector(gamePausedSelector);
 
     const timerIntervalRef = useRef<SetIntervalRef>(null);
 
     useEffect(() => {
-        if (!paused) {
+        if (!isPaused) {
             stopTimer(timerIntervalRef);
             timerIntervalRef.current = setInterval(() => {
                 dispatch(gameTickAction());
@@ -42,7 +42,7 @@ export const GameTimer = () => {
         }
 
         return () => void stopTimer(timerIntervalRef);
-    }, [dispatch, paused]);
+    }, [dispatch, isPaused]);
 
     useAppStateChange(() => {
         stopTimer(timerIntervalRef);
@@ -50,5 +50,5 @@ export const GameTimer = () => {
         router.replace('pause');
     });
 
-    return <BlackText style={GameTimerStyles.text}>{getTimerText(savedTime)}</BlackText>;
+    return <BlackText style={GameTimerStyles.text}>{getTimerText(elapsedTime)}</BlackText>;
 };
