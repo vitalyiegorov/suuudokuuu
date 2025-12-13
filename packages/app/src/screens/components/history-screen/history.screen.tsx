@@ -14,7 +14,7 @@ export const HistoryScreen = () => {
     const { t } = useLingui();
     const historyByDifficulty = useAppSelector(gameHistoryByDifficultySelector);
 
-    const difficulties = Object.values(DifficultyEnum).filter(difficulty => historyByDifficulty[difficulty].bestScore > 0);
+    const difficulties = Object.values(DifficultyEnum).filter(difficulty => historyByDifficulty[difficulty].gamesCompleted > 0);
 
     return (
         <View style={HistoryScreenStyles.container}>

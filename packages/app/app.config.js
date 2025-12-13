@@ -51,7 +51,10 @@ export default ({ config }) => ({
         config: {
             usesNonExemptEncryption: false
         },
-        associatedDomains: ['applinks:suuudokuuu.com']
+        associatedDomains: ['applinks:suuudokuuu.com', 'applinks:www.suuudokuuu.com'],
+        infoPlist: {
+            NSPhotoLibraryUsageDescription: 'This app needs access to your photo library to share game results and screenshots.'
+        }
     },
     android: {
         adaptiveIcon: {
@@ -67,6 +70,11 @@ export default ({ config }) => ({
                     {
                         scheme: 'https',
                         host: '*.suuudokuuu.com',
+                        pathPrefix: '/'
+                    },
+                    {
+                        scheme: 'https',
+                        host: 'suuudokuuu.com',
                         pathPrefix: '/'
                     }
                 ],
@@ -88,8 +96,18 @@ export default ({ config }) => ({
         url: 'https://u.expo.dev/4a70028a-5f9e-4ab6-9389-82d8b8b6c833'
     },
     plugins: [
+        'expo-build-properties',
+        'expo-localization',
         ['expo-router', { origin: 'https://www.suuudokuuu.com/' }],
-        ['expo-font', { fonts: ['../../node_modules/@expo-google-fonts/inter/Inter_900Black.ttf'] }]
+        ['expo-font', { fonts: ['../../node_modules/@expo-google-fonts/inter/Inter_900Black.ttf'] }],
+        [
+            'react-native-share',
+            {
+                ios: ['fb', 'instagram', 'twitter', 'tiktoksharesdk'],
+                android: ['com.facebook.katana', 'com.instagram.android', 'com.twitter.android', 'com.zhiliaoapp.musically'],
+                enableBase64ShareAndroid: true
+            }
+        ]
     ],
     experiments: {
         reactCompiler: true,

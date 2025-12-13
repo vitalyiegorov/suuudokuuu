@@ -1,9 +1,11 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { Solution } from '@suuudokuuu/encoder';
 
 import { getCellKey } from '../../@generic/utils/get-cell-key.util';
-import { Solution } from '../../history/classes/solution';
-import { defaultScoringConfig } from '../../scoring/scoring-config.interface';
-import { SudokuScoring } from '../../scoring/sudoku-scoring';
+import { maxCompletedGamesPerDifficulty } from '../../history/constants/max-completed-games-per-difficulty.constant';
+import { SudokuScoring } from '../../scoring/classes/sudoku-scoring';
+import { defaultScoringConfig } from '../../scoring/interfaces/scoring-config.interface';
+import { gameStateToString } from '../utils/game-state-to-string.util';
 
 import { initialGameState } from './game.state';
 
@@ -102,25 +104,32 @@ export const gameSlice = createSlice({
                 state.candidates[key] = [...candidates, value];
             }
         },
-        // eslint-disable-next-line max-statements
-        finish: (state, action: PayloadAction<{ difficulty: DifficultyEnum; isWon: boolean }>) => {
-            const { difficulty, isWon } = action.payload;
 
+        // eslint-disable-next-line max-statements
+        finish: (state, action: PayloadAction<{ difficulty: DifficultyEnum; isWon: boolean; isChallenge?: boolean }>) => {
+            const { difficulty, isWon, isChallenge = false } = action.payload;
             const history = state.historyByDifficulty[difficulty];
 
+            history.averageTime = (history.averageTime * history.gamesCompleted + state.elapsedTime) / (history.gamesCompleted + 1);
             history.gamesCompleted += 1;
-            history.averageTime = (history.averageTime * history.gamesCompleted + state.elapsedTime) / history.gamesCompleted;
 
             if (isWon) {
                 history.gamesWon += 1;
-
-                if (state.mistakes === 0) {
-                    history.gamesWonWithoutMistakes += 1;
-                }
-
-                if (state.maxMistakes === 0) {
-                    history.hardcoreWon += 1;
-                }
+                history.gamesWonWithoutMistakes += state.mistakes === 0 ? 1 : 0;
+                history.hardcoreWon += state.maxMistakes === 0 ? 1 : 0;
+                history.challengesWon += isChallenge ? 1 : 0;
+                history.completedGames = [
+                    {
+                        difficulty,
+                        encodedState: gameStateToString(state, true),
+                        elapsedTime: state.elapsedTime,
+                        score: state.score,
+                        mistakes: state.mistakes,
+                        maxMistakes: state.maxMistakes,
+                        completedAt: Date.now()
+                    },
+                    ...history.completedGames
+                ].slice(0, maxCompletedGamesPerDifficulty);
 
                 if (state.score > history.bestScore) {
                     history.bestScore = state.score;
@@ -128,6 +137,7 @@ export const gameSlice = createSlice({
                 }
             } else {
                 history.gamesLost += 1;
+                history.challengesLost += isChallenge ? 1 : 0;
             }
         }
     }

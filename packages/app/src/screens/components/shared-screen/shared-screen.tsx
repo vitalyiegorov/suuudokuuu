@@ -1,31 +1,34 @@
 import { useLingui } from '@lingui/react/macro';
-import { useLocalSearchParams } from 'expo-router';
 import { use } from 'react';
 import { View } from 'react-native';
+
+import { isNotEmptyString } from '@rnw-community/shared';
 
 import { BlackButton } from '../../../@generic/components/black-button/black-button';
 import { Header } from '../../../@generic/components/header/header';
 import { ChallengeAcceptScreen } from '../../../challenge/components/challenge-accept-screen/challenge-accept-screen';
 import { GameContext } from '../../../game/context/game.context';
-import { urlToGameState } from '../../../game/store/game.state';
+import { stringToGameState } from '../../../game/utils/string-to-game-state.util';
 
 import { SharedScreenStyles as styles } from './shared-screen.styles';
 
-export const SharedScreen = () => {
-    const stateObject = useLocalSearchParams<Record<string, string>>();
+interface Props {
+    stateString: string;
+}
 
+export const SharedScreen = ({ stateString }: Props) => {
     const { t } = useLingui();
     const { createFromState } = use(GameContext);
 
-    const [stateString] = Object.keys(stateObject);
-    const { isChallengeMode, opponentTotalTime } = urlToGameState(stateString);
+    const gameState = stringToGameState(stateString);
+    const { challengeState, challengeTime } = gameState;
 
     const handleOpenPuzzle = () => {
-        createFromState(stateString);
+        createFromState(gameState);
     };
 
-    if (isChallengeMode) {
-        return <ChallengeAcceptScreen onAccept={handleOpenPuzzle} opponentTotalTime={opponentTotalTime} />;
+    if (isNotEmptyString(challengeState)) {
+        return <ChallengeAcceptScreen onAccept={handleOpenPuzzle} opponentTotalTime={challengeTime} />;
     }
 
     return (

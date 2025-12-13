@@ -1,57 +1,85 @@
-import { use, useMemo, useState } from 'react';
-import { Animated, View } from 'react-native';
+import { router } from 'expo-router';
+import { use, useEffect } from 'react';
+import { View } from 'react-native';
+import Animated, { interpolate, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
+import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
-import { gameElapsedTimeSelector, gameOpponentStepsSelector, gameOpponentTotalTimeSelector } from '../../../game/store/game.selectors';
+import { GameContext } from '../../../game/context/game.context';
+import { gameFinishAction } from '../../../game/store/game.actions';
+import {
+    gameChallengeStepsSelector,
+    gameChallengeTimeSelector,
+    gameElapsedTimeSelector,
+    gameSolutionsStepsSelector
+} from '../../../game/store/game.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
-import { useProgressAnimation } from '../../hooks/use-progress-animation.hook';
-import { usePulseAnimation } from '../../hooks/use-pulse-animation.hook';
-import { calculateOpponentProgress } from '../../utils/calculate-opponent-progress.util';
-import { getStepIndicators } from '../../utils/get-step-indicators.util';
+import { getChallengeProgress } from '../../utils/get-challenge-progress.util';
 
 import { ChallengeProgressBarStyles as styles } from './challenge-progress-bar.styles';
 
 import type { StyleProp, ViewStyle } from 'react-native';
 
- 
+const ANIMATION_DURATION_MS = 300;
+
 export const ChallengeProgressBar = () => {
     const { theme } = use(ThemeContext);
+    const { sudoku } = use(GameContext);
 
+    const dispatch = useAppDispatch();
     const elapsedTime = useAppSelector(gameElapsedTimeSelector);
-    const opponentSteps = useAppSelector(gameOpponentStepsSelector);
-    const opponentTotalTime = useAppSelector(gameOpponentTotalTimeSelector);
+    const challengeSteps = useAppSelector(gameChallengeStepsSelector);
+    const challengeTime = useAppSelector(gameChallengeTimeSelector);
+    const playerSteps = useAppSelector(gameSolutionsStepsSelector);
 
-    const [progressAnim] = useState(() => new Animated.Value(0));
-    const [pulseAnim] = useState(() => new Animated.Value(1));
+    const challengeProgressValue = useSharedValue(0);
+    const playerProgressValue = useSharedValue(0);
 
-    const opponentProgress = useMemo(() => calculateOpponentProgress(opponentSteps, elapsedTime), [opponentSteps, elapsedTime]);
-    const stepIndicators = useMemo(() => getStepIndicators(opponentSteps, opponentTotalTime), [opponentSteps, opponentTotalTime]);
-    const playerProgress = opponentTotalTime > 0 ? Math.min((elapsedTime / opponentTotalTime) * 100, 100) : 0;
+    const [stepIndicators, opponentProgress] = getChallengeProgress(challengeSteps, challengeTime, elapsedTime);
+    const playerProgress = playerSteps.length / challengeSteps.length;
 
-    useProgressAnimation(opponentProgress, progressAnim);
-    usePulseAnimation(opponentProgress, opponentSteps, elapsedTime, pulseAnim);
+    useEffect(() => {
+        challengeProgressValue.value = withTiming(opponentProgress, { duration: ANIMATION_DURATION_MS });
+    }, [opponentProgress, challengeProgressValue]);
+    useEffect(() => {
+        playerProgressValue.value = withTiming(playerProgress, { duration: ANIMATION_DURATION_MS });
+    }, [playerProgressValue, playerProgress]);
+    useEffect(() => {
+        if (opponentProgress >= 1) {
+            dispatch(gameFinishAction({ difficulty: sudoku.Difficulty, isWon: false, isChallenge: true }));
+            router.replace('challenge-lost');
+        }
+    }, [opponentProgress, dispatch, sudoku.Difficulty]);
 
-    const progressWidth = progressAnim.interpolate({ inputRange: [0, 100], outputRange: ['0%', '100%'] });
+    const opponentProgressAnimatedStyle = useAnimatedStyle(() => ({
+        width: `${interpolate(challengeProgressValue.value, [0, 1], [0, 100])}%`
+    }));
+    const playerProgressAnimatedStyle = useAnimatedStyle(() => ({
+        width: `${interpolate(playerProgressValue.value, [0, 1], [0, 100])}%`
+    }));
+
     const trackStyle: StyleProp<ViewStyle> = [styles.track, { backgroundColor: theme.colors.black05 }];
     const playerProgressStyle: StyleProp<ViewStyle> = [
         styles.playerProgress,
-        { width: `${playerProgress}%`, backgroundColor: theme.colors.blue }
+        { backgroundColor: theme.colors.black },
+        playerProgressAnimatedStyle
     ];
-    const opponentProgressStyle = [
+    const opponentProgressStyle: StyleProp<ViewStyle> = [
         styles.opponentProgress,
-        { width: progressWidth, backgroundColor: theme.colors.red, transform: [{ scaleY: pulseAnim }] }
+        { backgroundColor: theme.colors.red },
+        opponentProgressAnimatedStyle
     ];
 
     const getStepIndicatorStyle = (position: number): StyleProp<ViewStyle> => [
         styles.stepIndicator,
-        { left: `${position}%`, backgroundColor: position <= opponentProgress ? theme.colors.red : theme.colors.white05 }
+        { left: `${position}%`, backgroundColor: theme.colors.red }
     ];
 
     return (
         <View style={styles.container}>
             <View style={trackStyle}>
                 <Animated.View style={opponentProgressStyle} />
-                <View style={playerProgressStyle} />
+                <Animated.View style={playerProgressStyle} />
                 {stepIndicators.map((position, index) => (
                     <View key={`step-${index}`} style={getStepIndicatorStyle(position)} />
                 ))}

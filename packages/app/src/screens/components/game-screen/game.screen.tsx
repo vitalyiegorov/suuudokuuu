@@ -5,7 +5,7 @@ import { Link, useRouter } from 'expo-router';
 import * as Sharing from 'expo-sharing';
 import { LucideLogOut, LucideSettings, LucideShare2 } from 'lucide-react-native';
 import { use, useEffect, useRef, useState } from 'react';
-import { Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 
 import { Alert } from '../../../@generic/components/alert/alert';
 import { BlackButton } from '../../../@generic/components/black-button/black-button';
@@ -23,7 +23,7 @@ import { GameTimer } from '../../../game/components/game-timer/game-timer';
 import { InputModeButton } from '../../../game/components/input-mode-button/input-mode-button';
 import { GameContext } from '../../../game/context/game.context';
 import { useKeyboardControls } from '../../../game/hooks/use-keyboard-controls/use-keyboard-controls.hook';
-import { useShare } from '../../../game/hooks/use-share.hook';
+import { useSharePuzzle } from '../../../game/hooks/use-share-puzzle/use-share-puzzle.hook';
 import {
     gameFinishAction,
     gameMistakeAction,
@@ -32,12 +32,12 @@ import {
     gameToggleCellCandidateAction
 } from '../../../game/store/game.actions';
 import {
+    gameChallengeTimeSelector,
     gameElapsedTimeSelector,
     gameInputModeSelector,
     gameIsChallengeModeSelector,
     gameMaxMistakesSelector,
     gameMistakesSelector,
-    gameOpponentTotalTimeSelector,
     gameScoreSelector
 } from '../../../game/store/game.selectors';
 import { settingsKeySelector } from '../../../settings/store/settings.selectors';
@@ -70,9 +70,10 @@ export const GameScreen = () => {
     const mistakes = useAppSelector(gameMistakesSelector);
     const maxMistakes = useAppSelector(gameMaxMistakesSelector);
     const hasTimer = useAppSelector(settingsKeySelector('hasTimer'));
+    const keepActiveCell = useAppSelector(settingsKeySelector('keepActiveCell'));
     const inputMode = useAppSelector(gameInputModeSelector);
     const isChallengeMode = useAppSelector(gameIsChallengeModeSelector);
-    const opponentTotalTime = useAppSelector(gameOpponentTotalTimeSelector);
+    const challengeTime = useAppSelector(gameChallengeTimeSelector);
     const elapsedTime = useAppSelector(gameElapsedTimeSelector);
 
     const availableValuesRefs = useRef<Record<number, AvailableValuesItemRef | null>>({});
@@ -86,7 +87,7 @@ export const GameScreen = () => {
     // TODO: Is there a better way without using useEffect?
     useEffect(() => void setSharingAvailable(setHasSharing), []);
 
-    const handleShare = useShare();
+    const handleShare = useSharePuzzle();
 
     const handleExit = () => {
         Alert(t`Stop current run?`, t`All progress will be lost`, [
@@ -106,23 +107,29 @@ export const GameScreen = () => {
         hapticImpact(ImpactFeedbackStyle.Light);
     };
 
+    const handleDeselectCell = () => {
+        // eslint-disable-next-line no-undefined
+        setSelectedCell(undefined);
+    };
+
     const handleLostGame = () => {
         hapticImpact(ImpactFeedbackStyle.Heavy);
 
-        dispatch(gameFinishAction({ difficulty: sudoku.Difficulty, isWon: false }));
+        dispatch(gameFinishAction({ difficulty: sudoku.Difficulty, isWon: false, isChallenge: isChallengeMode }));
 
-        router.replace('loser');
+        router.replace(isChallengeMode ? 'challenge-lost' : 'loser');
     };
 
     const handleWonGame = () => {
         hapticImpact(ImpactFeedbackStyle.Heavy);
 
-        dispatch(gameFinishAction({ difficulty: sudoku.Difficulty, isWon: true }));
+        const wonChallenge = isChallengeMode && elapsedTime < challengeTime;
+
+        dispatch(gameFinishAction({ difficulty: sudoku.Difficulty, isWon: true, isChallenge: wonChallenge }));
 
         // HINT: We need to wait for the animation to finish, animation finish event would fix it?
         setTimeout(() => {
             if (isChallengeMode) {
-                const wonChallenge = elapsedTime < opponentTotalTime;
                 router.replace(wonChallenge ? 'challenge-won' : 'challenge-lost');
             } else {
                 router.replace('winner');
@@ -194,7 +201,7 @@ export const GameScreen = () => {
     const hideAutoCandidates = maxMistakes === 0;
 
     return (
-        <View style={styles.container} testID={GameScreenSelectors.Root}>
+        <Pressable {...(!keepActiveCell && { onPress: handleDeselectCell })} style={styles.container} testID={GameScreenSelectors.Root}>
             {isChallengeMode && <ChallengeProgressBar />}
             <View style={styles.controls}>
                 <View style={styles.controlsWrapper}>
@@ -283,6 +290,6 @@ export const GameScreen = () => {
                     )}
                 </View>
             </View>
-        </View>
+        </Pressable>
     );
 };

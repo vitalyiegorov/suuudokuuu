@@ -2,6 +2,9 @@ import { useLingui } from '@lingui/react/macro';
 import { use } from 'react';
 import { Text, View } from 'react-native';
 
+import { isNotEmptyArray } from '@rnw-community/shared';
+
+import { BlackButton } from '../../../@generic/components/black-button/black-button';
 import { BlackSubHeader } from '../../../@generic/components/black-sub-header/black-text';
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
@@ -29,10 +32,14 @@ export const HistoryDifficulty = ({ difficulty }: Props) => {
         gamesLost,
         averageTime = 0,
         gamesWonWithoutMistakes = 0,
-        hardcoreWon = 0
+        hardcoreWon = 0,
+        challengesWon = 0,
+        challengesLost = 0,
+        completedGames = []
     } = useAppSelector(gameHistoryDifficultySelector(difficulty));
 
     const winRate = gamesWon > 0 ? Math.round((gamesWon / gamesCompleted) * 100) : 0;
+    const hasCompletedGames = isNotEmptyArray(completedGames);
 
     const hardcoreWonTitleStyles = { color: theme.colors.red };
     const hardcoreWonStyles = [styles.boldText, { color: theme.colors.red }];
@@ -68,6 +75,22 @@ export const HistoryDifficulty = ({ difficulty }: Props) => {
             <BlackText>
                 <Text style={hardcoreWonTitleStyles}>{t`Hardcore won`}:</Text> <Text style={hardcoreWonStyles}>{hardcoreWon}</Text>
             </BlackText>
+            <BlackText>
+                {t`Challenges won`}: <Text style={styles.boldText}>{challengesWon}</Text>
+            </BlackText>
+            <BlackText>
+                {t`Challenges lost`}: <Text style={styles.boldText}>{challengesLost}</Text>
+            </BlackText>
+
+            {hasCompletedGames && (
+                <View style={styles.gamesSection}>
+                    <BlackButton
+                        href={`/history/${difficulty}`}
+                        style={styles.showGamesButton}
+                        text={`${t`View games`} (${completedGames.length})`}
+                    />
+                </View>
+            )}
         </View>
     );
 };

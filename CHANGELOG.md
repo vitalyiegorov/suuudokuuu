@@ -3,6 +3,111 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.59.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.58.0...v1.59.0) (2025-12-13)
+
+### Features
+
+- **app:** add keepActiveCell setting to control cell deselection on click outside ([888782c](https://github.com/vitalyiegorov/suuudokuuu/commit/888782cd643bb6d3f63f90b36d23eb6d6c3c970e))
+
+# [1.58.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.57.0...v1.58.0) (2025-12-13)
+
+### Features
+
+- **app:** add multi-row support to ToggleSelect for scalable option layouts ([#165](https://github.com/vitalyiegorov/suuudokuuu/issues/165)) ([e96d970](https://github.com/vitalyiegorov/suuudokuuu/commit/e96d9708a03a4f4f4481109547e1db4ad483bc23))
+
+# [1.57.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.56.2...v1.57.0) (2025-12-12)
+
+### Features
+
+- **app:** implement losing active cell focus when tapping outside field ([2c6f745](https://github.com/vitalyiegorov/suuudokuuu/commit/2c6f7457a79438601a292bdb8f2e171f8b86d90e))
+- **app:** improve candidate and cell contrast with inverted colors ([b74c822](https://github.com/vitalyiegorov/suuudokuuu/commit/b74c82275d3f931ce6eccd382893280309fe928d))
+- **app:** improve newspaper theme candidate contrast ([67ad4a3](https://github.com/vitalyiegorov/suuudokuuu/commit/67ad4a32979142b7a8c89a745f45f52f8c704e8e))
+
+## [1.56.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.56.1...v1.56.2) (2025-12-08)
+
+### Bug Fixes
+
+- **app:** add cellBackgroundColor to useAnimatedStyle dependencies ([4fc9d63](https://github.com/vitalyiegorov/suuudokuuu/commit/4fc9d6385f77c6b0748c5495957aa1b6d6d48ed0))
+- **app:** remove animation from useEffect deps and add eslint-disable ([f8ec530](https://github.com/vitalyiegorov/suuudokuuu/commit/f8ec530777aedca84feab032083c4ea038010275))
+- **app:** replace useDerivedValue with useSharedValue for cell animation ([fcb6b0f](https://github.com/vitalyiegorov/suuudokuuu/commit/fcb6b0fbeac5096c734e26c87db2c16e839f3204))
+- **app:** revert field-cell changes and fix available-values-item animation ([8e63960](https://github.com/vitalyiegorov/suuudokuuu/commit/8e6396090be9f7989fb8eb6f3bfb8228430b455a))
+
+## [1.56.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.56.0...v1.56.1) (2025-12-08)
+
+### Bug Fixes
+
+- **app,encoder:** fix malformed game state ([#155](https://github.com/vitalyiegorov/suuudokuuu/issues/155)) ([4523c4c](https://github.com/vitalyiegorov/suuudokuuu/commit/4523c4c3821289266d940b76f4c8140c6bf4445d))
+
+# [1.56.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.55.2...v1.56.0) (2025-12-07)
+
+### Features
+
+- **app:** add replay functionality for historical games ([#151](https://github.com/vitalyiegorov/suuudokuuu/issues/151)) ([6a94bad](https://github.com/vitalyiegorov/suuudokuuu/commit/6a94badf9b8d6f632181bc83be3a4d88a8c08252))
+
+## [1.55.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.55.1...v1.55.2) (2025-12-07)
+
+### Bug Fixes
+
+- **app:** fix statistics page ([#154](https://github.com/vitalyiegorov/suuudokuuu/issues/154)) ([d115c42](https://github.com/vitalyiegorov/suuudokuuu/commit/d115c4224848f6f68b46ec4e52ae770f5350ae3a))
+
+## [1.55.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.55.0...v1.55.1) (2025-12-06)
+
+### Bug Fixes
+
+- **app:** ensure nightmare difficulty records exist and correct averageTime calculation ([#153](https://github.com/vitalyiegorov/suuudokuuu/issues/153)) ([0bc8bda](https://github.com/vitalyiegorov/suuudokuuu/commit/0bc8bda6d1d92c8d272e890cd978d6c76b5b53f1))
+
+# [1.55.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.54.2...v1.55.0) (2025-12-05)
+
+### Features
+
+- **app:** fix history/statistics and add challenge statistics tracking ([#149](https://github.com/vitalyiegorov/suuudokuuu/issues/149)) ([993a00d](https://github.com/vitalyiegorov/suuudokuuu/commit/993a00d69fcd3845feec22b394d947056f39bcb6))
+
+## [1.54.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.54.1...v1.54.2) (2025-12-03)
+
+### Bug Fixes
+
+- **app:** fix Android deeplinks ([#147](https://github.com/vitalyiegorov/suuudokuuu/issues/147)) ([a2216db](https://github.com/vitalyiegorov/suuudokuuu/commit/a2216dbd350f789ca42e0e05b5f39c62ce3096fc)), closes [#144](https://github.com/vitalyiegorov/suuudokuuu/issues/144)
+
+## [1.54.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.54.0...v1.54.1) (2025-12-03)
+
+### Bug Fixes
+
+- **app:** fix iOS native permission ([#146](https://github.com/vitalyiegorov/suuudokuuu/issues/146)) ([5b06c54](https://github.com/vitalyiegorov/suuudokuuu/commit/5b06c5454bb9df78afbd13c933127fa97fe0119a)), closes [#144](https://github.com/vitalyiegorov/suuudokuuu/issues/144)
+
+# [1.54.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.53.1...v1.54.0) (2025-12-02)
+
+### Features
+
+- **app:** improve share message ([#143](https://github.com/vitalyiegorov/suuudokuuu/issues/143)) ([d9178ad](https://github.com/vitalyiegorov/suuudokuuu/commit/d9178ad9b319615ca9a9e5813f439ff84a771eb0)), closes [#144](https://github.com/vitalyiegorov/suuudokuuu/issues/144)
+
+## [1.53.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.53.0...v1.53.1) (2025-12-02)
+
+### Bug Fixes
+
+- **app:** challenge animation bug ([#145](https://github.com/vitalyiegorov/suuudokuuu/issues/145)) ([b6a07ee](https://github.com/vitalyiegorov/suuudokuuu/commit/b6a07eef4a3cbe74b42e8daa91894c9844e2d468))
+
+# [1.53.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.52.1...v1.53.0) (2025-12-02)
+
+### Features
+
+- **app:** added www.suuudokuuu.com domain for deep links ([#142](https://github.com/vitalyiegorov/suuudokuuu/issues/142)) ([a3a9289](https://github.com/vitalyiegorov/suuudokuuu/commit/a3a9289099402d4d3cd89929c634fca8f6f4768d))
+
+## [1.52.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.52.0...v1.52.1) (2025-12-02)
+
+**Note:** Version bump only for package @suuudokuuu/root
+
+# [1.52.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.51.1...v1.52.0) (2025-12-02)
+
+### Features
+
+- **app:** add Try Again and Challenge Back buttons to challenge end screens ([#133](https://github.com/vitalyiegorov/suuudokuuu/issues/133)) ([f09ffc3](https://github.com/vitalyiegorov/suuudokuuu/commit/f09ffc3c9c737d06418fba5a6092f0b3928bdbeb))
+
+## [1.51.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.51.0...v1.51.1) (2025-12-01)
+
+### Bug Fixes
+
+- **app:** change url state sharing from get parameter to route parameter ([#138](https://github.com/vitalyiegorov/suuudokuuu/issues/138)) ([9a6d60e](https://github.com/vitalyiegorov/suuudokuuu/commit/9a6d60e48fd648b2afe8a8fdbfeab095b2ccd6cc))
+
 # [1.51.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.50.0...v1.51.0) (2025-11-30)
 
 ### Features

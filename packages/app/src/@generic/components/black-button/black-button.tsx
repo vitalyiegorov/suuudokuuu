@@ -1,6 +1,7 @@
 import { ImpactFeedbackStyle } from 'expo-haptics/src/Haptics.types';
 import { useRouter } from 'expo-router';
-import { type ComponentProps, type ReactNode, use } from 'react';
+import { LucideIcon } from 'lucide-react-native';
+import { type ComponentProps, ReactNode, use } from 'react';
 import {
     ActivityIndicator,
     type GestureResponderEvent,
@@ -23,6 +24,7 @@ import type { Link } from 'expo-router';
 
 interface Props extends PressableProps {
     readonly text?: string;
+    readonly icon?: LucideIcon;
     readonly styleText?: TextProps['style'];
     readonly replace?: ComponentProps<typeof Link>['replace'];
     readonly href?: ComponentProps<typeof Link>['href'];
@@ -32,7 +34,20 @@ interface Props extends PressableProps {
 }
 
 export const BlackButton = (props: Props) => {
-    const { text, style, href, replace, styleText, onPress, children, isActive = false, isLoading = false, ...restProps } = props;
+    const {
+        text,
+        style,
+        href,
+        replace,
+        styleText,
+        onPress,
+        isActive = false,
+        isLoading = false,
+        icon: Icon,
+        children,
+        ...restProps
+    } = props;
+
     const router = useRouter();
     const { theme } = use(ThemeContext);
     const [, hapticImpact] = useVibration();
@@ -43,6 +58,7 @@ export const BlackButton = (props: Props) => {
         style
     ] as StyleProp<ViewStyle>;
     const textStyles = [styles.buttonText, { color: isActive ? theme.colors.label.main : theme.colors.label.inverted }, styleText];
+    const iconColor = isActive ? theme.colors.label.main : theme.colors.label.inverted;
 
     const handlePress = (event: GestureResponderEvent) => {
         onPress?.(event);
@@ -58,16 +74,20 @@ export const BlackButton = (props: Props) => {
         }
     };
 
-    const renderContent = () =>
-        children ?? (
-            <Text allowFontScaling={false} style={textStyles}>
-                {text}
-            </Text>
-        );
-
     return (
         <Pressable onPress={handlePress} style={wrapperStyles} {...restProps}>
-            {isLoading ? <ActivityIndicator color={theme.colors.white} /> : renderContent()}
+            {isLoading && <ActivityIndicator color={theme.colors.white} />}
+
+            {!isLoading && isDefined(children) && children}
+
+            {!isLoading && !isDefined(children) && (
+                <>
+                    {isDefined(Icon) && <Icon color={iconColor} size={16} />}
+                    <Text allowFontScaling={false} style={textStyles}>
+                        {text}
+                    </Text>
+                </>
+            )}
         </Pressable>
     );
 };
