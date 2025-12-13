@@ -70,6 +70,7 @@ export const GameScreen = () => {
     const mistakes = useAppSelector(gameMistakesSelector);
     const maxMistakes = useAppSelector(gameMaxMistakesSelector);
     const hasTimer = useAppSelector(settingsKeySelector('hasTimer'));
+    const keepActiveCell = useAppSelector(settingsKeySelector('keepActiveCell'));
     const inputMode = useAppSelector(gameInputModeSelector);
     const isChallengeMode = useAppSelector(gameIsChallengeModeSelector);
     const challengeTime = useAppSelector(gameChallengeTimeSelector);
@@ -107,8 +108,10 @@ export const GameScreen = () => {
     };
 
     const handleDeselectCell = () => {
-        // eslint-disable-next-line no-undefined
-        setSelectedCell(undefined);
+        if (!keepActiveCell) {
+            // eslint-disable-next-line no-undefined
+            setSelectedCell(undefined);
+        }
     };
 
     const handleLostGame = () => {
