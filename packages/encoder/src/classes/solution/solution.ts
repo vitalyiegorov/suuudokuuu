@@ -13,7 +13,7 @@ import { stringToUint8Array } from '../../util/string-to-uint8array.util';
 
 export class Solution {
     private readonly maxTimestamp = 2 ** TIMESTAMP_BITS - 1;
-    private readonly bitsPerStep = CELL_INDEX_BITS + VALUE_BITS + TIMESTAMP_BITS;
+    private readonly bitsPerStep = CELL_INDEX_BITS + VALUE_BITS + TIMESTAMP_BITS + TECHNIQUE_BITS;
 
     private steps: SolutionStepInterface[] = [];
 
