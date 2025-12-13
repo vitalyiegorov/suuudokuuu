@@ -6,7 +6,7 @@ import { cs } from '@rnw-community/shared';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { BlackText } from '../black-text/black-text';
 
-import { ToggleSelectStyles as styles } from './toggle-select.style';
+import { SLIDER_HORIZONTAL_MARGIN, ToggleSelectStyles as styles } from './toggle-select.style';
 
 import type { OnEventFn } from '@rnw-community/shared';
 
@@ -51,7 +51,7 @@ export const ToggleSelect = <T extends unknown>(props: Props<T>) => {
     // eslint-disable-next-line react-hooks/refs
     const translateX = animatedValue.interpolate({
         inputRange: options.map((_, index) => index),
-        outputRange: options.map((_, index) => (index % itemsInRow) * itemWidth)
+        outputRange: options.map((_, index) => (index % itemsInRow) * itemWidth + SLIDER_HORIZONTAL_MARGIN)
     });
 
     // eslint-disable-next-line react-hooks/refs
@@ -76,7 +76,7 @@ export const ToggleSelect = <T extends unknown>(props: Props<T>) => {
             transform: [{ translateX }, { translateY }],
             backgroundColor: theme.colors.white,
             shadowColor: theme.colors.black,
-            width: itemWidth,
+            width: itemWidth - SLIDER_HORIZONTAL_MARGIN * 2,
             height: sliderInnerHeight
         }
     ];

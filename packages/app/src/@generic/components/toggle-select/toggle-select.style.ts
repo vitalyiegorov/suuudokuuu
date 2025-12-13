@@ -2,9 +2,12 @@ import { StyleSheet } from 'react-native';
 
 const BUTTON_HORIZONTAL_PADDING = 8;
 const BUTTON_FONT_SIZE = 14;
-const SLIDER_BORDER_RADIUS = 40;
+const SLIDER_BORDER_RADIUS = 25;
+const SLIDER_HORIZONTAL_MARGIN = 4;
 const CONTAINER_BORDER_RADIUS = 20;
 const CONTAINER_MARGIN_TOP = 10;
+
+export { SLIDER_HORIZONTAL_MARGIN };
 
 export const ToggleSelectStyles = StyleSheet.create({
     button: {
