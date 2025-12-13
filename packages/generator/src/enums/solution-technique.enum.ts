@@ -17,10 +17,3 @@ export enum SolutionTechniqueEnum {
     XYWing = 15,
     XYZWing = 16
 }
-
-export const TECHNIQUE_BITS = 5;
-
-const techniqueMaxValue = 16;
-
-export const isValidTechnique = (technique: number): technique is SolutionTechniqueEnum =>
-    technique >= 0 && technique <= techniqueMaxValue && Number.isInteger(technique);
