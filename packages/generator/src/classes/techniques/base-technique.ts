@@ -22,14 +22,12 @@ export abstract class BaseTechnique {
         this.fieldFillingValues = Array.from({ length: this.config.fieldSize }, (_, idx) => idx + 1);
     }
 
-    abstract canApply(field: FieldInterface, cell: CellInterface): boolean;
+    abstract canApply(field: FieldInterface, cell: CellInterface, candidates: number[]): boolean;
 
-    findHint(field: FieldInterface, cell: CellInterface): TechniqueHint | null {
-        if (cell.value !== this.config.blankCellValue || !this.canApply(field, cell)) {
+    findHint(field: FieldInterface, cell: CellInterface, candidates: number[]): TechniqueHint | null {
+        if (cell.value !== this.config.blankCellValue || !this.canApply(field, cell, candidates)) {
             return null;
         }
-
-        const candidates = this.getCellCandidates(field, cell);
 
         if (candidates.length === 0) {
             return null;

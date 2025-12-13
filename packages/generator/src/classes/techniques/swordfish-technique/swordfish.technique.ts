@@ -10,12 +10,18 @@ export class SwordfishTechnique extends BaseTechnique {
         super(SolutionTechniqueEnum.Swordfish, 13, config);
     }
 
-    canApply(field: FieldInterface, cell: CellInterface, value: number, candidates: number[]): boolean {
-        if (!candidates.includes(value)) {
+    canApply(field: FieldInterface, cell: CellInterface, candidates: number[]): boolean {
+        if (cell.value !== this.config.blankCellValue || candidates.length === 0) {
             return false;
         }
 
-        return this.hasSwordfishForValue(field, cell, value);
+        for (const value of candidates) {
+            if (this.hasSwordfishForValue(field, cell, value)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private hasSwordfishForValue(field: FieldInterface, _cell: CellInterface, value: number): boolean {

@@ -10,12 +10,10 @@ export class HiddenSingleTechnique extends BaseTechnique {
         super(SolutionTechniqueEnum.HiddenSingle, 3, config);
     }
 
-    canApply(field: FieldInterface, cell: CellInterface): boolean {
+    canApply(field: FieldInterface, cell: CellInterface, candidates: number[]): boolean {
         if (cell.value !== this.config.blankCellValue) {
             return false;
         }
-
-        const candidates = this.getCellCandidates(field, cell);
 
         if (candidates.length === 0) {
             return false;

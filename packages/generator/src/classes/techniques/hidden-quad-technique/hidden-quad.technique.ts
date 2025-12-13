@@ -10,8 +10,8 @@ export class HiddenQuadTechnique extends BaseTechnique {
         super(SolutionTechniqueEnum.HiddenQuad, 9, config);
     }
 
-    canApply(field: FieldInterface, cell: CellInterface, value: number, candidates: number[]): boolean {
-        if (!candidates.includes(value)) {
+    canApply(field: FieldInterface, cell: CellInterface, candidates: number[]): boolean {
+        if (cell.value !== this.config.blankCellValue || candidates.length === 0) {
             return false;
         }
 
@@ -19,11 +19,15 @@ export class HiddenQuadTechnique extends BaseTechnique {
         const colCells = this.getColCells(field, cell.x);
         const groupCells = this.getGroupCells(field, cell);
 
-        return (
-            this.hasHiddenQuadInUnit(field, rowCells, value, cell) ||
-            this.hasHiddenQuadInUnit(field, colCells, value, cell) ||
-            this.hasHiddenQuadInUnit(field, groupCells, value, cell)
-        );
+        for (const value of candidates) {
+            if (this.hasHiddenQuadInUnit(field, rowCells, value, cell) ||
+                this.hasHiddenQuadInUnit(field, colCells, value, cell) ||
+                this.hasHiddenQuadInUnit(field, groupCells, value, cell)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     // eslint-disable-next-line max-statements

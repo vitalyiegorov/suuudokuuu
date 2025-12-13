@@ -10,12 +10,18 @@ export class XWingTechnique extends BaseTechnique {
         super(SolutionTechniqueEnum.XWing, 12, config);
     }
 
-    canApply(field: FieldInterface, cell: CellInterface, value: number, candidates: number[]): boolean {
-        if (!candidates.includes(value)) {
+    canApply(field: FieldInterface, cell: CellInterface, candidates: number[]): boolean {
+        if (cell.value !== this.config.blankCellValue || candidates.length === 0) {
             return false;
         }
 
-        return this.hasXWingForValue(field, cell, value);
+        for (const value of candidates) {
+            if (this.hasXWingForValue(field, cell, value)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     // eslint-disable-next-line max-statements

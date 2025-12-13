@@ -37,7 +37,7 @@ describe('GuessTechnique', () => {
 
         const cell = field[0][1];
         const candidates = [2, 3, 4, 5, 6, 7, 8, 9];
-        const result = technique.canApply(field, cell, 2, candidates);
+        const result = technique.canApply(field, cell, candidates);
 
         expect(result).toBe(true);
     });
@@ -57,7 +57,7 @@ describe('GuessTechnique', () => {
 
         const cell = field[0][0];
         const candidates: number[] = [];
-        const result = technique.canApply(field, cell, 1, candidates);
+        const result = technique.canApply(field, cell, candidates);
 
         expect(result).toBe(false);
     });

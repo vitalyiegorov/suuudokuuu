@@ -27,7 +27,7 @@ describe('NakedPairTechnique', () => {
 
         const cell = field[0][7];
         const candidates = [1, 2];
-        const result = technique.canApply(field, cell, 1, candidates);
+        const result = technique.canApply(field, cell, candidates);
 
         expect(typeof result).toBe('boolean');
     });
@@ -37,7 +37,7 @@ describe('NakedPairTechnique', () => {
 
         const cell = field[0][7];
         const candidates = [1, 2, 7];
-        const result = technique.canApply(field, cell, 1, candidates);
+        const result = technique.canApply(field, cell, candidates);
 
         expect(result).toBe(false);
     });

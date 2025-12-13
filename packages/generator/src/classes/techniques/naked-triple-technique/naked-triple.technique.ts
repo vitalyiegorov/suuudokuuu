@@ -10,8 +10,8 @@ export class NakedTripleTechnique extends BaseTechnique {
         super(SolutionTechniqueEnum.NakedTriple, 6, config);
     }
 
-    canApply(field: FieldInterface, cell: CellInterface, value: number, candidates: number[]): boolean {
-        if (candidates.length < 2 || candidates.length > 3 || !candidates.includes(value)) {
+    canApply(field: FieldInterface, cell: CellInterface, candidates: number[]): boolean {
+        if (cell.value !== this.config.blankCellValue || candidates.length < 2 || candidates.length > 3) {
             return false;
         }
 

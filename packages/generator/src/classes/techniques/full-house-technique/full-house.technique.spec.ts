@@ -27,7 +27,7 @@ describe('FullHouseTechnique', () => {
 
         const cell = field[0][8];
         const candidates = [9];
-        const result = technique.canApply(field, cell, 9, candidates);
+        const result = technique.canApply(field, cell, candidates);
 
         expect(result).toBe(true);
     });
@@ -37,7 +37,7 @@ describe('FullHouseTechnique', () => {
 
         const cell = field[8][0];
         const candidates = [9];
-        const result = technique.canApply(field, cell, 9, candidates);
+        const result = technique.canApply(field, cell, candidates);
 
         expect(result).toBe(true);
     });
@@ -47,7 +47,7 @@ describe('FullHouseTechnique', () => {
 
         const cell = field[2][4];
         const candidates = [9];
-        const result = technique.canApply(field, cell, 9, candidates);
+        const result = technique.canApply(field, cell, candidates);
 
         expect(typeof result).toBe('boolean');
     });
@@ -57,7 +57,7 @@ describe('FullHouseTechnique', () => {
 
         const cell = field[0][7];
         const candidates = [8, 9];
-        const result = technique.canApply(field, cell, 8, candidates);
+        const result = technique.canApply(field, cell, candidates);
 
         expect(typeof result).toBe('boolean');
     });
