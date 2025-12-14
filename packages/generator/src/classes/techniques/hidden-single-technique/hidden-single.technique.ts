@@ -9,45 +9,24 @@ export class HiddenSingleTechnique extends BaseTechnique {
         super(SolutionTechniqueEnum.HiddenSingle, 3, sudoku);
     }
 
-    canApply(cell: CellInterface, candidates: number[]): boolean {
-        if (cell.value !== this.config.blankCellValue) {
-            return false;
-        }
+    getSolution(cell: CellInterface): number | null {
+        const availableGroupCells = this.getGroupCells(cell).filter(
+            cellItem => this.sudoku.isBlankCell(cellItem) && cellItem.x !== cell.x && cellItem.y !== cell.y
+        );
 
-        if (candidates.length === 0) {
-            return false;
-        }
+        const groupRows = [...new Set(availableGroupCells.map(cellItem => cellItem.y))];
+        const groupCols = [...new Set(availableGroupCells.map(cellItem => cellItem.x))];
 
-        for (const value of candidates) {
-            if (this.isHiddenSingleInRow(cell, value) || this.isHiddenSingleInCol(cell, value) || this.isHiddenSingleInGroup(cell, value)) {
-                return true;
+        const results: number[] = [];
+        for (const candidate of this.getCellCandidates(cell)) {
+            const validRows = groupRows.filter(row => this.getRowCells(row).some(cell => cell.value === candidate));
+            const validCols = groupCols.filter(col => this.getColCells(col).some(cell => cell.value === candidate));
+
+            if (validRows.length === groupRows.length && validCols.length === groupCols.length) {
+                results.push(candidate);
             }
         }
 
-        return false;
-    }
-
-    private isHiddenSingleInRow(targetCell: CellInterface, value: number): boolean {
-        const rowCells = this.getRowCells(targetCell.y).filter(
-            cellItem => cellItem.value === this.config.blankCellValue && (cellItem.x !== targetCell.x || cellItem.y !== targetCell.y)
-        );
-
-        return rowCells.every(cellItem => !this.isValueValidInCell(cellItem, value));
-    }
-
-    private isHiddenSingleInCol(targetCell: CellInterface, value: number): boolean {
-        const colCells = this.getColCells(targetCell.x).filter(
-            cellItem => cellItem.value === this.config.blankCellValue && (cellItem.x !== targetCell.x || cellItem.y !== targetCell.y)
-        );
-
-        return colCells.every(cellItem => !this.isValueValidInCell(cellItem, value));
-    }
-
-    private isHiddenSingleInGroup(targetCell: CellInterface, value: number): boolean {
-        const groupCells = this.getGroupCells(targetCell).filter(
-            cellItem => cellItem.value === this.config.blankCellValue && (cellItem.x !== targetCell.x || cellItem.y !== targetCell.y)
-        );
-
-        return groupCells.every(cellItem => !this.isValueValidInCell(cellItem, value));
+        return results.length === 1 ? results[0] : null;
     }
 }
