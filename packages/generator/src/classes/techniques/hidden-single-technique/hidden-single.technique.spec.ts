@@ -26,69 +26,47 @@ describe('HiddenSingleTechnique', () => {
         expect(technique.difficulty).toBe(3);
     });
 
-    it('should detect HiddenSingle when value can only go in one place in row', () => {
+    it('should detect HiddenSingle other groups exclude', () => {
         const game = Sudoku.fromStrings(
             defaultSudokuConfig,
-            '.2345678.',
-            '1........',
+            '',
+            '.........',
+            '...5.....',
+            '.........',
+            '......5..',
+            '..5......',
             '.........',
             '.........',
-            '.........',
-            '.........',
-            '.........',
-            '.........',
+            '.....5...',
             '.........'
         );
         const technique = new HiddenSingleTechnique(game);
 
-        const cell = game.GameField[0][8];
-        const candidates = [9];
-        const result = technique.canApply(cell, candidates);
-
-        expect(typeof result).toBe('boolean');
+        expect(technique.getSolution(game.Field[6][4])).toBe(5);
     });
 
-    it('should detect HiddenSingle when value can only go in one place in column', () => {
+    it('should detect HiddenSingle when group other possible exluded', () => {
         const game = Sudoku.fromStrings(
             defaultSudokuConfig,
-            '.........',
-            '1........',
-            '2........',
-            '3........',
-            '4........',
-            '5........',
-            '6........',
-            '7........',
-            '8........'
+            '',
+            '238175649',
+            '6192..35.',
+            '754693...',
+            '165927834',
+            '983514726',
+            '472836..5',
+            '841..259.',
+            '326459.7.',
+            '5973814.2'
         );
         const technique = new HiddenSingleTechnique(game);
 
-        const cell = game.GameField[0][0];
-        const candidates = [9];
-        const result = technique.canApply(cell, candidates);
+        expect(technique.getSolution(game.Field[1][8])).toBe(7);
+        game.setCellValue({ ...game.Field[1][8], value: 7 });
 
-        expect(result).toBe(true);
-    });
+        expect(technique.getSolution(game.Field[6][8])).toBe(3);
+        game.setCellValue({ ...game.Field[6][8], value: 3 });
 
-    it('should detect HiddenSingle when value can only go in one place in box', () => {
-        const game = Sudoku.fromStrings(
-            defaultSudokuConfig,
-            '1........',
-            '2........',
-            '3........',
-            '4567.....',
-            '.........',
-            '.........',
-            '.........',
-            '.........',
-            '.........8'
-        );
-        const technique = new HiddenSingleTechnique(game);
-
-        const cell = game.GameField[0][3];
-        const candidates = [9];
-        const result = technique.canApply(cell, candidates);
-
-        expect(typeof result).toBe('boolean');
+        expect(technique.getSolution(game.Field[8][7])).toBe(6);
     });
 });

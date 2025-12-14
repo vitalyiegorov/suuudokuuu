@@ -84,5 +84,5 @@ export abstract class BaseTechnique {
         return this.getGroupCells(cell).filter(groupCell => groupCell.value === this.config.blankCellValue).length;
     }
 
-    abstract canApply(cell: CellInterface, candidates: number[]): boolean;
+    abstract getSolution(cell: CellInterface): number | null;
 }
