@@ -1,5 +1,6 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { Solution } from '@suuudokuuu/encoder';
+import { TechniqueManager } from '@suuudokuuu/generator';
 
 import { getCellKey } from '../../@generic/utils/get-cell-key.util';
 import { maxCompletedGamesPerDifficulty } from '../../history/constants/max-completed-games-per-difficulty.constant';
@@ -11,6 +12,8 @@ import { initialGameState } from './game.state';
 
 import type { GameState } from './game.state';
 import type { CellInterface, DifficultyEnum, ScoredCellsInterface, Sudoku } from '@suuudokuuu/generator';
+
+const techniqueManager = new TechniqueManager();
 
 export const gameSlice = createSlice({
     name: 'game',
@@ -42,8 +45,10 @@ export const gameSlice = createSlice({
                 maxMistakes: state.maxMistakes
             });
 
+            const technique = techniqueManager.identify(sudoku.Field, correctCell, correctCell.value);
+
             const solution = Solution.fromSteps(state.solutionSteps);
-            solution.addStep(correctCell, state.elapsedTime);
+            solution.addStep(correctCell, state.elapsedTime, technique);
             state.solutionSteps = solution.getSteps();
 
             state.candidates[getCellKey(correctCell)] = [];
