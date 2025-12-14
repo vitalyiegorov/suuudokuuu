@@ -21,7 +21,6 @@ import { XYWingTechnique } from './xy-wing-technique/xy-wing.technique';
 import { XYZWingTechnique } from './xyz-wing-technique/xyz-wing.technique';
 
 import type { CellInterface } from '../../interfaces/cell.interface';
-import type { FieldInterface } from '../../interfaces/field.interface';
 
 export class TechniqueManager {
     private readonly techniques: BaseTechnique[];
@@ -48,11 +47,11 @@ export class TechniqueManager {
         ].sort((techniqueA, techniqueB) => techniqueA.difficulty - techniqueB.difficulty);
     }
 
-    identify(field: FieldInterface, cell: CellInterface, _value: number): SolutionTechniqueEnum {
-        const candidates = this.sudoku.getCellCandidates(cell, field);
+    identify(cell: CellInterface, _value: number): SolutionTechniqueEnum {
+        const candidates = this.sudoku.getCellCandidates(cell);
 
         for (const technique of this.techniques) {
-            if (technique.canApply(field, cell, candidates)) {
+            if (technique.canApply(cell, candidates)) {
                 return technique.type;
             }
         }

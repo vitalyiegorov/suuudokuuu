@@ -3,26 +3,27 @@ import { Sudoku } from '../../sudoku/sudoku';
 import { BaseTechnique } from '../base-technique';
 
 import type { CellInterface } from '../../../interfaces/cell.interface';
-import type { FieldInterface } from '../../../interfaces/field.interface';
 
 export class HiddenPairTechnique extends BaseTechnique {
     constructor(sudoku: Sudoku) {
         super(SolutionTechniqueEnum.HiddenPair, 5, sudoku);
     }
 
-    canApply(field: FieldInterface, cell: CellInterface, candidates: number[]): boolean {
+    canApply(cell: CellInterface, candidates: number[]): boolean {
         if (cell.value !== this.config.blankCellValue || candidates.length === 0) {
             return false;
         }
 
-        const rowCells = this.getRowCells(field, cell.y);
-        const colCells = this.getColCells(field, cell.x);
-        const groupCells = this.getGroupCells(field, cell);
+        const rowCells = this.getRowCells(cell.y);
+        const colCells = this.getColCells(cell.x);
+        const groupCells = this.getGroupCells(cell);
 
         for (const value of candidates) {
-            if (this.hasHiddenPairInUnit(field, rowCells, value, cell) ||
-                this.hasHiddenPairInUnit(field, colCells, value, cell) ||
-                this.hasHiddenPairInUnit(field, groupCells, value, cell)) {
+            if (
+                this.hasHiddenPairInUnit(rowCells, value) ||
+                this.hasHiddenPairInUnit(colCells, value) ||
+                this.hasHiddenPairInUnit(groupCells, value)
+            ) {
                 return true;
             }
         }
@@ -30,12 +31,12 @@ export class HiddenPairTechnique extends BaseTechnique {
         return false;
     }
 
-    private hasHiddenPairInUnit(field: FieldInterface, unitCells: CellInterface[], value: number, _currentCell: CellInterface): boolean {
+    private hasHiddenPairInUnit(unitCells: CellInterface[], value: number): boolean {
         const valueCandidateCells: CellInterface[] = [];
 
         for (const unitCell of unitCells) {
             if (unitCell.value === 0) {
-                const candidates = this.getCellCandidates(unitCell, field);
+                const candidates = this.getCellCandidates(unitCell);
 
                 if (candidates.includes(value)) {
                     valueCandidateCells.push(unitCell);
@@ -47,8 +48,8 @@ export class HiddenPairTechnique extends BaseTechnique {
             return false;
         }
 
-        const cell1Candidates = this.getCellCandidates(valueCandidateCells[0], field);
-        const cell2Candidates = this.getCellCandidates(valueCandidateCells[1], field);
+        const cell1Candidates = this.getCellCandidates(valueCandidateCells[0]);
+        const cell2Candidates = this.getCellCandidates(valueCandidateCells[1]);
 
         const sharedValues = cell1Candidates.filter(candidate => cell2Candidates.includes(candidate));
 

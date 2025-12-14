@@ -2,44 +2,70 @@ import { describe, expect, it } from '@jest/globals';
 
 import { SolutionTechniqueEnum } from '../../../enums/solution-technique.enum';
 import { defaultSudokuConfig } from '../../../interfaces/sudoku-config.interface';
-import { SerializableSudoku } from '../../serializable-sudoku/serializable-sudoku';
 import { Sudoku } from '../../sudoku/sudoku';
 
 import { NakedSingleTechnique } from './naked-single.technique';
 
-import type { FieldInterface } from '../../../interfaces/field.interface';
-
 describe('NakedSingleTechnique', () => {
-    const sudoku = new Sudoku();
-    const technique = new NakedSingleTechnique(sudoku);
-
-    const createFieldFromString = (fieldString: string): FieldInterface => {
-        const [field] = SerializableSudoku.convertFieldFromString(fieldString, defaultSudokuConfig);
-
-        return field;
-    };
-
     it('should have correct type and difficulty', () => {
+        const game = Sudoku.fromStrings(
+            defaultSudokuConfig,
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........'
+        );
+        const technique = new NakedSingleTechnique(game);
+
         expect(technique.type).toBe(SolutionTechniqueEnum.NakedSingle);
         expect(technique.difficulty).toBe(2);
     });
 
     it('should detect NakedSingle when cell has only one candidate', () => {
-        const field = createFieldFromString(`53..7....6..195....98....6.8...6...34..8.3..17...2...6.6....28....419..5....8..79`);
+        const game = Sudoku.fromStrings(
+            defaultSudokuConfig,
+            '53..7....',
+            '6..195...',
+            '.98....6.',
+            '8...6...3',
+            '4..8.3..1',
+            '7...2...6',
+            '.6....28.',
+            '...419..5',
+            '....8..79'
+        );
+        const technique = new NakedSingleTechnique(game);
 
-        const cell = field[0][2];
+        const cell = game.GameField[0][2];
         const candidates = [4];
-        const result = technique.canApply(field, cell, candidates);
+        const result = technique.canApply(cell, candidates);
 
         expect(result).toBe(true);
     });
 
     it('should not detect NakedSingle when cell has multiple candidates', () => {
-        const field = createFieldFromString('53..7....6..195....98....6.8...6...34..8.3..17...2...6.6....28....419..5....8..79');
+        const game = Sudoku.fromStrings(
+            defaultSudokuConfig,
+            '53..7....',
+            '6..195...',
+            '.98....6.',
+            '8...6...3',
+            '4..8.3..1',
+            '7...2...6',
+            '.6....28.',
+            '...419..5',
+            '....8..79'
+        );
+        const technique = new NakedSingleTechnique(game);
 
-        const cell = field[0][3];
+        const cell = game.GameField[0][3];
         const candidates = [2, 6];
-        const result = technique.canApply(field, cell, candidates);
+        const result = technique.canApply(cell, candidates);
 
         expect(result).toBe(false);
     });

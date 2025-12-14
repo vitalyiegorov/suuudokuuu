@@ -3,36 +3,35 @@ import { Sudoku } from '../../sudoku/sudoku';
 import { BaseTechnique } from '../base-technique';
 
 import type { CellInterface } from '../../../interfaces/cell.interface';
-import type { FieldInterface } from '../../../interfaces/field.interface';
 
 export class NakedTripleTechnique extends BaseTechnique {
     constructor(sudoku: Sudoku) {
         super(SolutionTechniqueEnum.NakedTriple, 6, sudoku);
     }
 
-    canApply(field: FieldInterface, cell: CellInterface, candidates: number[]): boolean {
+    canApply(cell: CellInterface, candidates: number[]): boolean {
         if (cell.value !== this.config.blankCellValue || candidates.length < 2 || candidates.length > 3) {
             return false;
         }
 
-        const rowCells = this.getRowCells(field, cell.y);
-        const colCells = this.getColCells(field, cell.x);
-        const groupCells = this.getGroupCells(field, cell);
+        const rowCells = this.getRowCells(cell.y);
+        const colCells = this.getColCells(cell.x);
+        const groupCells = this.getGroupCells(cell);
 
         return (
-            this.hasTripleInUnit(field, rowCells, candidates, cell) ||
-            this.hasTripleInUnit(field, colCells, candidates, cell) ||
-            this.hasTripleInUnit(field, groupCells, candidates, cell)
+            this.hasTripleInUnit(rowCells, candidates, cell) ||
+            this.hasTripleInUnit(colCells, candidates, cell) ||
+            this.hasTripleInUnit(groupCells, candidates, cell)
         );
     }
 
-    private hasTripleInUnit(field: FieldInterface, unitCells: CellInterface[], candidates: number[], currentCell: CellInterface): boolean {
+    private hasTripleInUnit(unitCells: CellInterface[], candidates: number[], currentCell: CellInterface): boolean {
         const potentialTripleCells: CellInterface[] = [];
         const allCandidates = new Set(candidates);
 
         for (const unitCell of unitCells) {
             if (unitCell.value === 0 && !(unitCell.x === currentCell.x && unitCell.y === currentCell.y)) {
-                const unitCandidates = this.getCellCandidates(unitCell, field);
+                const unitCandidates = this.getCellCandidates(unitCell);
 
                 if (
                     unitCandidates.length >= 2 &&

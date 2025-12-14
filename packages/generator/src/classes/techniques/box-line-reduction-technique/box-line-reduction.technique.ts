@@ -3,20 +3,19 @@ import { Sudoku } from '../../sudoku/sudoku';
 import { BaseTechnique } from '../base-technique';
 
 import type { CellInterface } from '../../../interfaces/cell.interface';
-import type { FieldInterface } from '../../../interfaces/field.interface';
 
 export class BoxLineReductionTechnique extends BaseTechnique {
     constructor(sudoku: Sudoku) {
         super(SolutionTechniqueEnum.BoxLineReduction, 11, sudoku);
     }
 
-    canApply(field: FieldInterface, cell: CellInterface, candidates: number[]): boolean {
+    canApply(cell: CellInterface, candidates: number[]): boolean {
         if (cell.value !== this.config.blankCellValue || candidates.length === 0) {
             return false;
         }
 
         for (const value of candidates) {
-            if (this.hasBoxLineReductionForValue(field, cell, value)) {
+            if (this.hasBoxLineReductionForValue(cell, value)) {
                 return true;
             }
         }
@@ -24,15 +23,14 @@ export class BoxLineReductionTechnique extends BaseTechnique {
         return false;
     }
 
-    // eslint-disable-next-line max-statements
-    private hasBoxLineReductionForValue(field: FieldInterface, cell: CellInterface, value: number): boolean {
-        const rowCells = this.getRowCells(field, cell.y);
-        const colCells = this.getColCells(field, cell.x);
-        const groupCells = this.getGroupCells(field, cell);
+    private hasBoxLineReductionForValue(cell: CellInterface, value: number): boolean {
+        const rowCells = this.getRowCells(cell.y);
+        const colCells = this.getColCells(cell.x);
+        const groupCells = this.getGroupCells(cell);
 
         const groupCellsWithValue = groupCells.filter(groupCell => {
             if (groupCell.value === 0) {
-                const candidates = this.getCellCandidates(groupCell, field);
+                const candidates = this.getCellCandidates(groupCell);
 
                 return candidates.includes(value);
             }
@@ -50,7 +48,7 @@ export class BoxLineReductionTechnique extends BaseTechnique {
         if (allInSameRow) {
             const rowCellsWithValue = rowCells.filter(rowCell => {
                 if (rowCell.value === 0 && !groupCells.some(gc => gc.x === rowCell.x && gc.y === rowCell.y)) {
-                    const candidates = this.getCellCandidates(rowCell, field);
+                    const candidates = this.getCellCandidates(rowCell);
 
                     return candidates.includes(value);
                 }
@@ -64,7 +62,7 @@ export class BoxLineReductionTechnique extends BaseTechnique {
         if (allInSameCol) {
             const colCellsWithValue = colCells.filter(colCell => {
                 if (colCell.value === 0 && !groupCells.some(gc => gc.x === colCell.x && gc.y === colCell.y)) {
-                    const candidates = this.getCellCandidates(colCell, field);
+                    const candidates = this.getCellCandidates(colCell);
 
                     return candidates.includes(value);
                 }
