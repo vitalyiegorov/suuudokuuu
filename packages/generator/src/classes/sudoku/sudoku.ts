@@ -189,21 +189,6 @@ export class Sudoku extends SerializableSudoku {
         throw new Error('Cell value is wrong');
     }
 
-    private hasBlankCells(): [hasBlankCells: boolean, lastY: number, lastX: number] {
-        let y: number;
-        let x = 0;
-
-        for (y = 0; y < this.field.length; y += 1) {
-            for (x = 0; x < this.field[y].length; x += 1) {
-                if (this.field[y][x].value === this.config.blankCellValue) {
-                    return [true, y, x];
-                }
-            }
-        }
-
-        return [false, y, x];
-    }
-
     hasValueInRow(field: FieldInterface, cell: CellInterface): boolean {
         for (let x = 0; x < this.config.fieldSize; x += 1) {
             if (field[cell.y][x].value === cell.value) {
@@ -237,6 +222,21 @@ export class Sudoku extends SerializableSudoku {
         }
 
         return false;
+    }
+
+    private hasBlankCells(): [hasBlankCells: boolean, lastY: number, lastX: number] {
+        let y: number;
+        let x = 0;
+
+        for (y = 0; y < this.field.length; y += 1) {
+            for (x = 0; x < this.field[y].length; x += 1) {
+                if (this.field[y][x].value === this.config.blankCellValue) {
+                    return [true, y, x];
+                }
+            }
+        }
+
+        return [false, y, x];
     }
 
     /**
