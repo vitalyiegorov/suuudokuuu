@@ -310,10 +310,5 @@ export class Sudoku extends SerializableSudoku {
 
         return maxBlanks;
     }
-
-    // TODO: Can we avoid it and just use parent version with correct types?
-    static override fromString(fieldsString: string, config?: SudokuConfigInterface): Sudoku {
-        return super.fromString(fieldsString, config) as Sudoku;
-    }
 }
 /* eslint-enable max-lines */

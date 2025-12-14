@@ -118,8 +118,20 @@ export class SerializableSudoku {
         return [field, foundDifficulty] as const;
     }
 
+    static fromStrings<T extends typeof SerializableSudoku>(
+        this: T,
+        config: SudokuConfigInterface = defaultSudokuConfig,
+        ...fieldStrings: string[]
+    ): InstanceType<T> {
+        return this.fromString(fieldStrings.join(''), config);
+    }
+
     // eslint-disable-next-line max-statements
-    static fromString(fieldString: string, config: SudokuConfigInterface = defaultSudokuConfig): SerializableSudoku {
+    static fromString<T extends typeof SerializableSudoku>(
+        this: T,
+        fieldString: string,
+        config: SudokuConfigInterface = defaultSudokuConfig
+    ): InstanceType<T> {
         const game = new this(config);
 
         if (!isNotEmptyString(fieldString)) {
@@ -144,6 +156,6 @@ export class SerializableSudoku {
         game.config.difficulty = difficulty;
         game.calculateAvailableValues();
 
-        return game;
+        return game as InstanceType<T>;
     }
 }
