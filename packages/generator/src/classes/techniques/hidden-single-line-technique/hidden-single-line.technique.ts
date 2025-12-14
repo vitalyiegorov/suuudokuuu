@@ -21,7 +21,7 @@ export class HiddenSingleLineTechnique extends BaseTechnique {
         const rows = [...new Set(availableColCells.map(cellItem => cellItem.y))];
 
         const results: number[] = [];
-        for (const candidate of this.getCellCandidates(cell)) {
+        for (const candidate of this.sudoku.getCellCandidates(cell)) {
             const validCols = cols.filter(col => this.getColCells(col).some(cell => cell.value === candidate));
             const validRows = rows.filter(row => this.getRowCells(row).some(cell => cell.value === candidate));
 

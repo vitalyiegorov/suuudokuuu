@@ -13,8 +13,6 @@ import { initialGameState } from './game.state';
 import type { GameState } from './game.state';
 import type { CellInterface, DifficultyEnum, ScoredCellsInterface, Sudoku } from '@suuudokuuu/generator';
 
-const techniqueManager = new TechniqueManager();
-
 export const gameSlice = createSlice({
     name: 'game',
     initialState: initialGameState,
@@ -37,6 +35,8 @@ export const gameSlice = createSlice({
             state.sudokuString = sudoku.toString();
 
             const scoring = new SudokuScoring(defaultScoringConfig);
+            const techniqueManager = new TechniqueManager(sudoku);
+
             state.score += scoring.calculate({
                 scoredCells,
                 difficulty: sudoku.Difficulty,
@@ -45,10 +45,8 @@ export const gameSlice = createSlice({
                 maxMistakes: state.maxMistakes
             });
 
-            const technique = techniqueManager.identify(sudoku.Field, correctCell, correctCell.value);
-
             const solution = Solution.fromSteps(state.solutionSteps);
-            solution.addStep(correctCell, state.elapsedTime, technique);
+            solution.addStep(correctCell, state.elapsedTime, techniqueManager.identify(correctCell));
             state.solutionSteps = solution.getSteps();
 
             state.candidates[getCellKey(correctCell)] = [];
