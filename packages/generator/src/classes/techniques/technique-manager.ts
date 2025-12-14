@@ -49,7 +49,7 @@ export class TechniqueManager {
     }
 
     identify(field: FieldInterface, cell: CellInterface, _value: number): SolutionTechniqueEnum {
-        const candidates = this.sudoku.getCellCandidates(cell);
+        const candidates = this.sudoku.getCellCandidates(cell, field);
 
         for (const technique of this.techniques) {
             if (technique.canApply(field, cell, candidates)) {

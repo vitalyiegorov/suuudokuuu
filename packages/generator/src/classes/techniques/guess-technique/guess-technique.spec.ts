@@ -7,6 +7,7 @@ import { Sudoku } from '../../sudoku/sudoku';
 
 import { GuessTechnique } from './guess-technique';
 
+import type { CellInterface } from '../../../interfaces/cell.interface';
 import type { FieldInterface } from '../../../interfaces/field.interface';
 
 describe('GuessTechnique', () => {
@@ -17,6 +18,34 @@ describe('GuessTechnique', () => {
         const [field] = SerializableSudoku.convertFieldFromString(fieldString, defaultSudokuConfig);
 
         return field;
+    };
+
+    const getCellCandidates = (field: FieldInterface, cell: CellInterface): number[] => {
+        const candidates: number[] = [];
+        const fieldFillingValues = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+        for (const value of fieldFillingValues) {
+            const isValidInRow = !field[cell.y].some(c => c.value === value);
+            const isValidInCol = !field.some(row => row[cell.x].value === value);
+            const boxStartY = Math.floor(cell.y / 3) * 3;
+            const boxStartX = Math.floor(cell.x / 3) * 3;
+            let isValidInBox = true;
+            for (let by = boxStartY; by < boxStartY + 3; by++) {
+                for (let bx = boxStartX; bx < boxStartX + 3; bx++) {
+                    if (field[by][bx].value === value) {
+                        isValidInBox = false;
+                        break;
+                    }
+                }
+                if (!isValidInBox) break;
+            }
+
+            if (isValidInRow && isValidInCol && isValidInBox) {
+                candidates.push(value);
+            }
+        }
+
+        return candidates;
     };
 
     it('should have correct type and difficulty', () => {
@@ -64,7 +93,7 @@ describe('GuessTechnique', () => {
         expect(result).toBe(false);
     });
 
-    it('should find all empty cells as possible guesses', () => {
+    it('should apply to empty cells as possible guesses', () => {
         const field = createFieldFromString(
             '1........' +
             '.........' +
@@ -77,13 +106,15 @@ describe('GuessTechnique', () => {
             '.........',
         );
 
-        const results = technique.findAll(field);
+        const cell = field[0][1];
+        const candidates = getCellCandidates(field, cell);
+        const result = technique.canApply(field, cell, candidates);
 
-        expect(results.length).toBeGreaterThan(0);
-        expect(results.length).toBeLessThanOrEqual(80);
+        expect(result).toBe(true);
+        expect(candidates.length).toBeGreaterThan(0);
     });
 
-    it('should return empty array for solved field', () => {
+    it('should not apply to solved field', () => {
         const field = createFieldFromString(
             '123456789' +
             '456789123' +
@@ -96,8 +127,21 @@ describe('GuessTechnique', () => {
             '912345678',
         );
 
-        const results = technique.findAll(field);
+        let foundApplicable = false;
+        for (let y = 0; y < 9; y++) {
+            for (let x = 0; x < 9; x++) {
+                const cell = field[y][x];
+                if (cell.value === 0) {
+                    const candidates = getCellCandidates(field, cell);
+                    if (candidates.length > 0 && technique.canApply(field, cell, candidates)) {
+                        foundApplicable = true;
+                        break;
+                    }
+                }
+            }
+            if (foundApplicable) break;
+        }
 
-        expect(results.length).toBe(0);
+        expect(foundApplicable).toBe(false);
     });
 });

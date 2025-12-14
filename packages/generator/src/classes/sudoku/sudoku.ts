@@ -137,14 +137,15 @@ export class Sudoku extends SerializableSudoku {
         );
     }
 
-    getCellCandidates(cell: CellInterface): number[] {
+    getCellCandidates(cell: CellInterface, field?: FieldInterface): number[] {
+        const targetField = field || this.gameField;
         const candidates: number[] = [];
         for (const value of this.fieldFillingValues) {
             const candidateCell = { ...cell, value };
             if (
-                !this.hasValueInRow(this.gameField, candidateCell) &&
-                !this.hasValueInColumn(this.gameField, candidateCell) &&
-                !this.hasValueInGroup(this.gameField, candidateCell)
+                !this.hasValueInRow(targetField, candidateCell) &&
+                !this.hasValueInColumn(targetField, candidateCell) &&
+                !this.hasValueInGroup(targetField, candidateCell)
             ) {
                 candidates.push(value);
             }
