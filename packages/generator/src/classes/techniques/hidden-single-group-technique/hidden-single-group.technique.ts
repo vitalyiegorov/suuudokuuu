@@ -18,7 +18,7 @@ export class HiddenSingleGroupTechnique extends BaseTechnique {
         const groupCols = [...new Set(availableGroupCells.map(cellItem => cellItem.x))];
 
         const results: number[] = [];
-        for (const candidate of this.getCellCandidates(cell)) {
+        for (const candidate of this.sudoku.getCellCandidates(cell)) {
             const validRows = groupRows.filter(row => this.getRowCells(row).some(cell => cell.value === candidate));
             const validCols = groupCols.filter(col => this.getColCells(col).some(cell => cell.value === candidate));
 

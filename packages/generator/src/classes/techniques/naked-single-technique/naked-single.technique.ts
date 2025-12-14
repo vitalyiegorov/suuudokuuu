@@ -6,14 +6,12 @@ import type { CellInterface } from '../../../interfaces/cell.interface';
 
 export class NakedSingleTechnique extends BaseTechnique {
     constructor(sudoku: Sudoku) {
-        super(SolutionTechniqueEnum.NakedSingle, 2, sudoku);
+        super(SolutionTechniqueEnum.NakedSingle, 3, sudoku);
     }
 
-    canApply(cell: CellInterface, candidates: number[]): boolean {
-        if (cell.value !== this.config.blankCellValue) {
-            return false;
-        }
+    getSolution(cell: CellInterface): number | null {
+        const candidates = this.sudoku.getCellCandidates(cell);
 
-        return candidates.length === 1;
+        return candidates.length === 1 ? candidates[0] : null;
     }
 }

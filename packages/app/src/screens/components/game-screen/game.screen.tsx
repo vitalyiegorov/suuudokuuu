@@ -7,6 +7,8 @@ import { LucideLogOut, LucideSettings, LucideShare2 } from 'lucide-react-native'
 import { use, useEffect, useRef, useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
 
+import { isDefined } from '@rnw-community/shared';
+
 import { Alert } from '../../../@generic/components/alert/alert';
 import { BlackButton } from '../../../@generic/components/black-button/black-button';
 import { BlackText } from '../../../@generic/components/black-text/black-text';
@@ -180,7 +182,7 @@ export const GameScreen = () => {
     const handleSelectValue = (value: number) => {
         const isBlankCellSelected = sudoku.isBlankCell(selectedCell);
 
-        if (isBlankCellSelected) {
+        if (isBlankCellSelected && isDefined(selectedCell)) {
             availableValuesRefs.current[value]?.triggerAnimation();
 
             if (inputMode === 'candidate') {
