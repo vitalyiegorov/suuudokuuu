@@ -9,11 +9,7 @@ export class GuessTechnique extends BaseTechnique {
         super(SolutionTechniqueEnum.Guess, 100, sudoku);
     }
 
-    canApply(cell: CellInterface, candidates: number[]): boolean {
-        if (cell.value !== this.config.blankCellValue) {
-            return false;
-        }
-
-        return candidates.length > 0;
+    getSolution(_cell: CellInterface): number | null {
+        return 1;
     }
 }
