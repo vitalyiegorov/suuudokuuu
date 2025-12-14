@@ -1,8 +1,7 @@
 import { SolutionTechniqueEnum } from '../../enums/solution-technique.enum';
-import { defaultSudokuConfig } from '../../interfaces/sudoku-config.interface';
 import { Sudoku } from '../sudoku/sudoku';
 
-import { BaseTechnique, TechniqueHint } from './base-technique';
+import { BaseTechnique } from './base-technique';
 import { BoxLineReductionTechnique } from './box-line-reduction-technique/box-line-reduction.technique';
 import { FullHouseTechnique } from './full-house-technique/full-house.technique';
 import { GuessTechnique } from './guess-technique/guess-technique';
@@ -23,32 +22,29 @@ import { XYZWingTechnique } from './xyz-wing-technique/xyz-wing.technique';
 
 import type { CellInterface } from '../../interfaces/cell.interface';
 import type { FieldInterface } from '../../interfaces/field.interface';
-import type { SudokuConfigInterface } from '../../interfaces/sudoku-config.interface';
 
 export class TechniqueManager {
     private readonly techniques: BaseTechnique[];
-    private readonly sudoku: Sudoku;
 
-    constructor(config: SudokuConfigInterface = defaultSudokuConfig) {
-        this.sudoku = new Sudoku(config);
+    constructor(private readonly sudoku: Sudoku) {
         this.techniques = [
-            new FullHouseTechnique(this.sudoku),
-            new NakedSingleTechnique(this.sudoku),
-            new HiddenSingleTechnique(this.sudoku),
-            new NakedPairTechnique(this.sudoku),
-            new HiddenPairTechnique(this.sudoku),
-            new NakedTripleTechnique(this.sudoku),
-            new HiddenTripleTechnique(this.sudoku),
-            new NakedQuadTechnique(this.sudoku),
-            new HiddenQuadTechnique(this.sudoku),
-            new PointingPairTechnique(this.sudoku),
-            new BoxLineReductionTechnique(this.sudoku),
-            new XWingTechnique(this.sudoku),
-            new SwordfishTechnique(this.sudoku),
-            new JellyfishTechnique(this.sudoku),
-            new XYWingTechnique(this.sudoku),
-            new XYZWingTechnique(this.sudoku),
-            new GuessTechnique(this.sudoku)
+            new FullHouseTechnique(sudoku),
+            new NakedSingleTechnique(sudoku),
+            new HiddenSingleTechnique(sudoku),
+            new NakedPairTechnique(sudoku),
+            new HiddenPairTechnique(sudoku),
+            new NakedTripleTechnique(sudoku),
+            new HiddenTripleTechnique(sudoku),
+            new NakedQuadTechnique(sudoku),
+            new HiddenQuadTechnique(sudoku),
+            new PointingPairTechnique(sudoku),
+            new BoxLineReductionTechnique(sudoku),
+            new XWingTechnique(sudoku),
+            new SwordfishTechnique(sudoku),
+            new JellyfishTechnique(sudoku),
+            new XYWingTechnique(sudoku),
+            new XYZWingTechnique(sudoku),
+            new GuessTechnique(sudoku)
         ].sort((techniqueA, techniqueB) => techniqueA.difficulty - techniqueB.difficulty);
     }
 
@@ -62,40 +58,5 @@ export class TechniqueManager {
         }
 
         return SolutionTechniqueEnum.Guess;
-    }
-
-    findNextStep(field: FieldInterface): TechniqueHint | null {
-        const config = this.sudoku.Config;
-        for (const technique of this.techniques) {
-            if (technique.type === SolutionTechniqueEnum.Guess) {
-                continue;
-            }
-
-            for (let y = 0; y < config.fieldSize; y += 1) {
-                for (let x = 0; x < config.fieldSize; x += 1) {
-                    const cell = field[y][x];
-
-                    if (cell.value !== config.blankCellValue) {
-                        continue;
-                    }
-
-                    const candidates = this.sudoku.getCellCandidates(cell);
-
-                    if (candidates.length === 0) {
-                        continue;
-                    }
-
-                    if (technique.canApply(field, cell, candidates)) {
-                        return {
-                            technique: technique.type,
-                            cell,
-                            value: candidates[0]
-                        };
-                    }
-                }
-            }
-        }
-
-        return null;
     }
 }
