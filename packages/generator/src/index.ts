@@ -15,7 +15,7 @@ export { TechniqueManager } from './classes/techniques/technique-manager';
 export { BaseTechnique } from './classes/techniques/base-technique';
 export { FullHouseTechnique } from './classes/techniques/full-house-technique/full-house.technique';
 export { NakedSingleTechnique } from './classes/techniques/naked-single-technique/naked-single.technique';
-export { HiddenSingleTechnique } from './classes/techniques/hidden-single-technique/hidden-single.technique';
+export { HiddenSingleGroupTechnique } from './classes/techniques/hidden-single-group-technique/hidden-single-group.technique';
 export { NakedPairTechnique } from './classes/techniques/naked-pair-technique/naked-pair.technique';
 export { HiddenPairTechnique } from './classes/techniques/hidden-pair-technique/hidden-pair.technique';
 export { NakedTripleTechnique } from './classes/techniques/naked-triple-technique/naked-triple.technique';

@@ -4,9 +4,9 @@ import { BaseTechnique } from '../base-technique';
 
 import type { CellInterface } from '../../../interfaces/cell.interface';
 
-export class HiddenSingleTechnique extends BaseTechnique {
+export class HiddenSingleGroupTechnique extends BaseTechnique {
     constructor(sudoku: Sudoku) {
-        super(SolutionTechniqueEnum.HiddenSingle, 3, sudoku);
+        super(SolutionTechniqueEnum.HiddenSingleGroup, 3, sudoku);
     }
 
     getSolution(cell: CellInterface): number | null {
