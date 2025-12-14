@@ -26,13 +26,13 @@ export class NakedQuadTechnique extends BaseTechnique {
         );
     }
 
-    private hasQuadInUnit(_field: FieldInterface, unitCells: CellInterface[], candidates: number[], currentCell: CellInterface): boolean {
+    private hasQuadInUnit(field: FieldInterface, unitCells: CellInterface[], candidates: number[], currentCell: CellInterface): boolean {
         const potentialQuadCells: CellInterface[] = [];
         const allCandidates = new Set(candidates);
 
         for (const unitCell of unitCells) {
             if (unitCell.value === 0 && !(unitCell.x === currentCell.x && unitCell.y === currentCell.y)) {
-                const unitCandidates = this.getCellCandidates(unitCell);
+                const unitCandidates = this.getCellCandidates(unitCell, field);
 
                 if (
                     unitCandidates.length >= 2 &&

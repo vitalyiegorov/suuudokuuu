@@ -78,7 +78,7 @@ export class XWingTechnique extends BaseTechnique {
 
             for (let colIdx = 0; colIdx < this.config.fieldSize; colIdx += 1) {
                 if (field[rowIdx][colIdx].value === 0) {
-                    const candidates = this.getCellCandidates(field[rowIdx][colIdx]);
+                    const candidates = this.getCellCandidates(field[rowIdx][colIdx], field);
 
                     if (candidates.includes(value)) {
                         positions.push(colIdx);
@@ -102,7 +102,7 @@ export class XWingTechnique extends BaseTechnique {
 
             for (let rowIdx = 0; rowIdx < this.config.fieldSize; rowIdx += 1) {
                 if (field[rowIdx][colIdx].value === 0) {
-                    const candidates = this.getCellCandidates(field[rowIdx][colIdx]);
+                    const candidates = this.getCellCandidates(field[rowIdx][colIdx], field);
 
                     if (candidates.includes(value)) {
                         positions.push(rowIdx);
