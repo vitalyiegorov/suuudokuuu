@@ -9,17 +9,20 @@ export class FullHouseTechnique extends BaseTechnique {
         super(SolutionTechniqueEnum.FullHouse, 1, sudoku);
     }
 
-    canApply(cell: CellInterface, candidates: number[]): boolean {
+    getSolution(cell: CellInterface): number | null {
         if (cell.value !== this.config.blankCellValue) {
-            return false;
+            return null;
         }
+
+        const candidates = this.getCellCandidates(cell);
 
         if (candidates.length !== 1) {
-            return false;
+            return null;
         }
 
-        return (
-            this.countEmptyCellsInRow(cell.y) === 1 || this.countEmptyCellsInCol(cell.x) === 1 || this.countEmptyCellsInGroup(cell) === 1
-        );
+        const isFullHouse =
+            this.countEmptyCellsInRow(cell.y) === 1 || this.countEmptyCellsInCol(cell.x) === 1 || this.countEmptyCellsInGroup(cell) === 1;
+
+        return isFullHouse ? candidates[0] : null;
     }
 }
