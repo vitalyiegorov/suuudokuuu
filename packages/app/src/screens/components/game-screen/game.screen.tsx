@@ -1,4 +1,6 @@
+/* eslint-disable max-lines */
 import { useLingui } from '@lingui/react/macro';
+import { CellInterface, ScoredCellsInterface, SolutionTechniqueEnum, TechniqueManager } from '@suuudokuuu/generator';
 import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { Link, useRouter } from 'expo-router';
@@ -48,7 +50,6 @@ import { ThemeContext } from '../../../theme/context/theme.context';
 import { GameScreenSelectors } from './game-screen.selectors';
 import { GameScreenStyles as styles } from './game-screen.styles';
 
-import type { CellInterface, ScoredCellsInterface } from '@suuudokuuu/generator';
 import type { Dispatch, SetStateAction } from 'react';
 
 const setSharingAvailable = (setHasSharing: Dispatch<SetStateAction<boolean>>): void => {
@@ -64,6 +65,7 @@ export const GameScreen = () => {
 
     const { sudoku } = use(GameContext);
     const { theme } = use(ThemeContext);
+    const technique = new TechniqueManager(sudoku);
 
     const [hapticNotification, hapticImpact] = useVibration();
 
@@ -83,6 +85,7 @@ export const GameScreen = () => {
 
     const [selectedCell, setSelectedCell] = useState<CellInterface>();
     const [hasSharing, setHasSharing] = useState(false);
+    const [solutionTechnique, setSolutionTechnique] = useState<SolutionTechniqueEnum>();
 
     const maxMistakesReached = mistakes >= maxMistakes;
 
@@ -107,6 +110,13 @@ export const GameScreen = () => {
     const handleSelectCell = (cell: CellInterface | undefined) => {
         setSelectedCell(cell);
         hapticImpact(ImpactFeedbackStyle.Light);
+
+        if (isDefined(cell)) {
+            setSolutionTechnique(technique.identify(cell));
+        } else {
+            // eslint-disable-next-line no-undefined
+            setSolutionTechnique(undefined);
+        }
     };
 
     const handleDeselectCell = () => {
@@ -202,6 +212,14 @@ export const GameScreen = () => {
     const mistakesCountTextStyles = [styles.mistakesCountText, { color: maxMistakesReached ? theme.colors.red : theme.colors.label.main }];
     const hideAutoCandidates = maxMistakes === 0;
 
+    const techniqueText = {
+        [SolutionTechniqueEnum.Guess]: t`Guess`,
+        [SolutionTechniqueEnum.HiddenSingleGroup]: t`Hidden Single (Group)`,
+        [SolutionTechniqueEnum.HiddenSingleLine]: t`Hidden Single (Line)`,
+        [SolutionTechniqueEnum.NakedSingle]: t`Naked Single`,
+        [SolutionTechniqueEnum.LockedCandidate]: t`Locked Candidate`
+    };
+
     return (
         <Pressable {...(!keepActiveCell && { onPress: handleDeselectCell })} style={styles.container} testID={GameScreenSelectors.Root}>
             {isChallengeMode && <ChallengeProgressBar />}
@@ -256,6 +274,12 @@ export const GameScreen = () => {
                     <BlackButton onPress={handleExit} style={styles.button} testID={GameScreenSelectors.QuitButton}>
                         <LucideLogOut color={theme.colors.white} />
                     </BlackButton>
+
+                    {isDefined(solutionTechnique) && isDefined(selectedCell) && sudoku.isBlankCell(selectedCell) && (
+                        <BlackText>
+                            {techniqueText[solutionTechnique]} {technique.getSolution(selectedCell)}
+                        </BlackText>
+                    )}
                 </View>
             </View>
 

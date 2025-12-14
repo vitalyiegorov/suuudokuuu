@@ -1,3 +1,5 @@
+import { isDefined } from '@rnw-community/shared';
+
 import { SolutionTechniqueEnum } from '../../enums/solution-technique.enum';
 import { Sudoku } from '../sudoku/sudoku';
 
@@ -29,5 +31,17 @@ export class TechniqueManager {
         }
 
         return SolutionTechniqueEnum.Guess;
+    }
+
+    getSolution(cell: CellInterface): number | null {
+        for (const technique of this.techniques) {
+            const result = technique.getSolution(cell);
+
+            if (isDefined(result)) {
+                return result;
+            }
+        }
+
+        return null;
     }
 }
