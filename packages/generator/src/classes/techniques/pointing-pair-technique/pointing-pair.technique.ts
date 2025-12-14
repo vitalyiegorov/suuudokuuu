@@ -3,20 +3,19 @@ import { Sudoku } from '../../sudoku/sudoku';
 import { BaseTechnique } from '../base-technique';
 
 import type { CellInterface } from '../../../interfaces/cell.interface';
-import type { FieldInterface } from '../../../interfaces/field.interface';
 
 export class PointingPairTechnique extends BaseTechnique {
     constructor(sudoku: Sudoku) {
         super(SolutionTechniqueEnum.PointingPair, 10, sudoku);
     }
 
-    canApply(field: FieldInterface, cell: CellInterface, candidates: number[]): boolean {
+    canApply(cell: CellInterface, candidates: number[]): boolean {
         if (cell.value !== this.config.blankCellValue || candidates.length === 0) {
             return false;
         }
 
         for (const value of candidates) {
-            if (this.hasPointingPairForValue(field, cell, value)) {
+            if (this.hasPointingPairForValue(cell, value)) {
                 return true;
             }
         }
@@ -24,13 +23,13 @@ export class PointingPairTechnique extends BaseTechnique {
         return false;
     }
 
-    private hasPointingPairForValue(field: FieldInterface, cell: CellInterface, value: number): boolean {
-        const groupCells = this.getGroupCells(field, cell);
+    private hasPointingPairForValue(cell: CellInterface, value: number): boolean {
+        const groupCells = this.getGroupCells(cell);
         const cellsWithValue: CellInterface[] = [];
 
         for (const groupCell of groupCells) {
             if (groupCell.value === 0) {
-                const candidates = this.getCellCandidates(groupCell, field);
+                const candidates = this.getCellCandidates(groupCell);
 
                 if (candidates.includes(value)) {
                     cellsWithValue.push(groupCell);
