@@ -25,10 +25,10 @@ export class XYZWingTechnique extends BaseTechnique {
     }
 
     private hasXYZWingForValue(field: FieldInterface, cell: CellInterface, _value: number): boolean {
-        const candidates = this.getCellCandidates(cell);
+        const candidates = this.getCellCandidates(cell, field);
         const emptyCells = this.getEmptyCells(field);
         const biValueCells = emptyCells.filter(checkCell => {
-            const checkCandidates = this.getCellCandidates(checkCell);
+            const checkCandidates = this.getCellCandidates(checkCell, field);
 
             return checkCandidates.length === 2 && !(checkCell.x === cell.x && checkCell.y === cell.y) && this.shareUnit(checkCell, cell);
         });
@@ -36,7 +36,7 @@ export class XYZWingTechnique extends BaseTechnique {
         let matchingWingCells = 0;
 
         for (const wingCell of biValueCells) {
-            const wingCandidates = this.getCellCandidates(wingCell);
+            const wingCandidates = this.getCellCandidates(wingCell, field);
             const sharedCandidates = wingCandidates.filter(candidate => candidates.includes(candidate));
 
             if (sharedCandidates.length === 2) {

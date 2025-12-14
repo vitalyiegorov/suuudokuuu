@@ -32,7 +32,7 @@ export class BoxLineReductionTechnique extends BaseTechnique {
 
         const groupCellsWithValue = groupCells.filter(groupCell => {
             if (groupCell.value === 0) {
-                const candidates = this.getCellCandidates(groupCell);
+                const candidates = this.getCellCandidates(groupCell, field);
 
                 return candidates.includes(value);
             }
@@ -50,7 +50,7 @@ export class BoxLineReductionTechnique extends BaseTechnique {
         if (allInSameRow) {
             const rowCellsWithValue = rowCells.filter(rowCell => {
                 if (rowCell.value === 0 && !groupCells.some(gc => gc.x === rowCell.x && gc.y === rowCell.y)) {
-                    const candidates = this.getCellCandidates(rowCell);
+                    const candidates = this.getCellCandidates(rowCell, field);
 
                     return candidates.includes(value);
                 }
@@ -64,7 +64,7 @@ export class BoxLineReductionTechnique extends BaseTechnique {
         if (allInSameCol) {
             const colCellsWithValue = colCells.filter(colCell => {
                 if (colCell.value === 0 && !groupCells.some(gc => gc.x === colCell.x && gc.y === colCell.y)) {
-                    const candidates = this.getCellCandidates(colCell);
+                    const candidates = this.getCellCandidates(colCell, field);
 
                     return candidates.includes(value);
                 }

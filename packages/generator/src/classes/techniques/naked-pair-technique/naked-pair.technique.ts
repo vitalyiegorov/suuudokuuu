@@ -30,12 +30,12 @@ export class NakedPairTechnique extends BaseTechnique {
         );
     }
 
-    private hasPairInUnit(_field: FieldInterface, unitCells: CellInterface[], candidates: number[], currentCell: CellInterface): boolean {
+    private hasPairInUnit(field: FieldInterface, unitCells: CellInterface[], candidates: number[], currentCell: CellInterface): boolean {
         let pairCount = 0;
 
         for (const unitCell of unitCells) {
             if (unitCell.value === this.config.blankCellValue && !(unitCell.x === currentCell.x && unitCell.y === currentCell.y)) {
-                const unitCandidates = this.getCellCandidates(unitCell);
+                const unitCandidates = this.getCellCandidates(unitCell, field);
 
                 if (unitCandidates.length === 2 && unitCandidates.every(candidate => candidates.includes(candidate))) {
                     pairCount += 1;

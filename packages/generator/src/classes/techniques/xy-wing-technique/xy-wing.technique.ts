@@ -25,7 +25,7 @@ export class XYWingTechnique extends BaseTechnique {
     }
 
     private hasXYWingForValue(field: FieldInterface, cell: CellInterface, _value: number): boolean {
-        const candidates = this.getCellCandidates(cell);
+        const candidates = this.getCellCandidates(cell, field);
 
         if (candidates.length !== 2) {
             return false;
@@ -33,17 +33,17 @@ export class XYWingTechnique extends BaseTechnique {
 
         const emptyCells = Array.from(this.getEmptyCells(field));
         const biValueCells = emptyCells.filter(checkCell => {
-            const checkCandidates = this.getCellCandidates(checkCell);
+            const checkCandidates = this.getCellCandidates(checkCell, field);
 
             return checkCandidates.length === 2 && !(checkCell.x === cell.x && checkCell.y === cell.y);
         });
 
         for (const pivotCell of biValueCells) {
-            const pivotCandidates = this.getCellCandidates(pivotCell);
+            const pivotCandidates = this.getCellCandidates(pivotCell, field);
 
             if (pivotCandidates.some(candidate => candidates.includes(candidate))) {
                 const relatedCells = biValueCells.filter(relatedCell => {
-                    const relatedCandidates = this.getCellCandidates(relatedCell);
+                    const relatedCandidates = this.getCellCandidates(relatedCell, field);
 
                     return (
                         !(relatedCell.x === pivotCell.x && relatedCell.y === pivotCell.y) &&

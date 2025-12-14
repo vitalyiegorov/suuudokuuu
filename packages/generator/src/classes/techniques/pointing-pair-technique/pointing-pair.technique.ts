@@ -30,7 +30,7 @@ export class PointingPairTechnique extends BaseTechnique {
 
         for (const groupCell of groupCells) {
             if (groupCell.value === 0) {
-                const candidates = this.getCellCandidates(groupCell);
+                const candidates = this.getCellCandidates(groupCell, field);
 
                 if (candidates.includes(value)) {
                     cellsWithValue.push(groupCell);
