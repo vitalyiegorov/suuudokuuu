@@ -1,13 +1,13 @@
 import { SolutionTechniqueEnum } from '../../../enums/solution-technique.enum';
-import { SudokuConfigInterface, defaultSudokuConfig } from '../../../interfaces/sudoku-config.interface';
+import { Sudoku } from '../../sudoku/sudoku';
 import { BaseTechnique } from '../base-technique';
 
 import type { CellInterface } from '../../../interfaces/cell.interface';
 import type { FieldInterface } from '../../../interfaces/field.interface';
 
 export class NakedTripleTechnique extends BaseTechnique {
-    constructor(config: SudokuConfigInterface = defaultSudokuConfig) {
-        super(SolutionTechniqueEnum.NakedTriple, 6, config);
+    constructor(sudoku: Sudoku) {
+        super(SolutionTechniqueEnum.NakedTriple, 6, sudoku);
     }
 
     canApply(field: FieldInterface, cell: CellInterface, candidates: number[]): boolean {
@@ -26,13 +26,13 @@ export class NakedTripleTechnique extends BaseTechnique {
         );
     }
 
-    private hasTripleInUnit(field: FieldInterface, unitCells: CellInterface[], candidates: number[], currentCell: CellInterface): boolean {
+    private hasTripleInUnit(_field: FieldInterface, unitCells: CellInterface[], candidates: number[], currentCell: CellInterface): boolean {
         const potentialTripleCells: CellInterface[] = [];
         const allCandidates = new Set(candidates);
 
         for (const unitCell of unitCells) {
             if (unitCell.value === 0 && !(unitCell.x === currentCell.x && unitCell.y === currentCell.y)) {
-                const unitCandidates = this.getCellCandidates(field, unitCell);
+                const unitCandidates = this.getCellCandidates(unitCell);
 
                 if (
                     unitCandidates.length >= 2 &&

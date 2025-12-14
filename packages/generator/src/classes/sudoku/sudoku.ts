@@ -28,6 +28,10 @@ export class Sudoku extends SerializableSudoku {
         }
     }
 
+    get Config(): SudokuConfigInterface {
+        return this.config;
+    }
+
     create(difficulty: DifficultyEnum): void {
         this.config = { ...this.config, difficulty };
         const targetBlankCells = getBlankCellCountByConfig(this.config);
@@ -199,7 +203,7 @@ export class Sudoku extends SerializableSudoku {
         return [false, y, x];
     }
 
-    private hasValueInRow(field: FieldInterface, cell: CellInterface): boolean {
+    hasValueInRow(field: FieldInterface, cell: CellInterface): boolean {
         for (let x = 0; x < this.config.fieldSize; x += 1) {
             if (field[cell.y][x].value === cell.value) {
                 return true;
@@ -209,7 +213,7 @@ export class Sudoku extends SerializableSudoku {
         return false;
     }
 
-    private hasValueInColumn(field: FieldInterface, cell: CellInterface): boolean {
+    hasValueInColumn(field: FieldInterface, cell: CellInterface): boolean {
         for (const row of field) {
             if (row[cell.x].value === cell.value) {
                 return true;
@@ -219,7 +223,7 @@ export class Sudoku extends SerializableSudoku {
         return false;
     }
 
-    private hasValueInGroup(field: FieldInterface, cell: CellInterface): boolean {
+    hasValueInGroup(field: FieldInterface, cell: CellInterface): boolean {
         const boxStartY = cell.y - (cell.y % this.config.fieldGroupHeight);
         const boxStartX = cell.x - (cell.x % this.config.fieldGroupWidth);
 

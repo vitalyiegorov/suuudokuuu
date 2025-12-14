@@ -1,13 +1,13 @@
 import { SolutionTechniqueEnum } from '../../../enums/solution-technique.enum';
-import { SudokuConfigInterface, defaultSudokuConfig } from '../../../interfaces/sudoku-config.interface';
+import { Sudoku } from '../../sudoku/sudoku';
 import { BaseTechnique } from '../base-technique';
 
 import type { CellInterface } from '../../../interfaces/cell.interface';
 import type { FieldInterface } from '../../../interfaces/field.interface';
 
 export class XYZWingTechnique extends BaseTechnique {
-    constructor(config: SudokuConfigInterface = defaultSudokuConfig) {
-        super(SolutionTechniqueEnum.XYZWing, 16, config);
+    constructor(sudoku: Sudoku) {
+        super(SolutionTechniqueEnum.XYZWing, 16, sudoku);
     }
 
     canApply(field: FieldInterface, cell: CellInterface, candidates: number[]): boolean {
@@ -25,10 +25,10 @@ export class XYZWingTechnique extends BaseTechnique {
     }
 
     private hasXYZWingForValue(field: FieldInterface, cell: CellInterface, _value: number): boolean {
-        const candidates = this.getCellCandidates(field, cell);
+        const candidates = this.getCellCandidates(cell);
         const emptyCells = this.getEmptyCells(field);
         const biValueCells = emptyCells.filter(checkCell => {
-            const checkCandidates = this.getCellCandidates(field, checkCell);
+            const checkCandidates = this.getCellCandidates(checkCell);
 
             return checkCandidates.length === 2 && !(checkCell.x === cell.x && checkCell.y === cell.y) && this.shareUnit(checkCell, cell);
         });
@@ -36,7 +36,7 @@ export class XYZWingTechnique extends BaseTechnique {
         let matchingWingCells = 0;
 
         for (const wingCell of biValueCells) {
-            const wingCandidates = this.getCellCandidates(field, wingCell);
+            const wingCandidates = this.getCellCandidates(wingCell);
             const sharedCandidates = wingCandidates.filter(candidate => candidates.includes(candidate));
 
             if (sharedCandidates.length === 2) {

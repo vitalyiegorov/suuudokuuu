@@ -1,13 +1,13 @@
 import { SolutionTechniqueEnum } from '../../../enums/solution-technique.enum';
-import { SudokuConfigInterface, defaultSudokuConfig } from '../../../interfaces/sudoku-config.interface';
+import { Sudoku } from '../../sudoku/sudoku';
 import { BaseTechnique } from '../base-technique';
 
 import type { CellInterface } from '../../../interfaces/cell.interface';
 import type { FieldInterface } from '../../../interfaces/field.interface';
 
 export class PointingPairTechnique extends BaseTechnique {
-    constructor(config: SudokuConfigInterface = defaultSudokuConfig) {
-        super(SolutionTechniqueEnum.PointingPair, 10, config);
+    constructor(sudoku: Sudoku) {
+        super(SolutionTechniqueEnum.PointingPair, 10, sudoku);
     }
 
     canApply(field: FieldInterface, cell: CellInterface, candidates: number[]): boolean {
@@ -30,7 +30,7 @@ export class PointingPairTechnique extends BaseTechnique {
 
         for (const groupCell of groupCells) {
             if (groupCell.value === 0) {
-                const candidates = this.getCellCandidates(field, groupCell);
+                const candidates = this.getCellCandidates(groupCell);
 
                 if (candidates.includes(value)) {
                     cellsWithValue.push(groupCell);

@@ -3,13 +3,15 @@ import { describe, expect, it } from '@jest/globals';
 import { SolutionTechniqueEnum } from '../../../enums/solution-technique.enum';
 import { defaultSudokuConfig } from '../../../interfaces/sudoku-config.interface';
 import { SerializableSudoku } from '../../serializable-sudoku/serializable-sudoku';
+import { Sudoku } from '../../sudoku/sudoku';
 
 import { NakedTripleTechnique } from './naked-triple.technique';
 
 import type { FieldInterface } from '../../../interfaces/field.interface';
 
 describe('NakedTripleTechnique', () => {
-    const technique = new NakedTripleTechnique();
+    const sudoku = new Sudoku();
+    const technique = new NakedTripleTechnique(sudoku);
 
     const createFieldFromString = (fieldString: string): FieldInterface => {
         const [field] = SerializableSudoku.convertFieldFromString(fieldString, defaultSudokuConfig);

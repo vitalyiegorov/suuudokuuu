@@ -1,13 +1,13 @@
 import { SolutionTechniqueEnum } from '../../../enums/solution-technique.enum';
-import { SudokuConfigInterface, defaultSudokuConfig } from '../../../interfaces/sudoku-config.interface';
+import { Sudoku } from '../../sudoku/sudoku';
 import { BaseTechnique } from '../base-technique';
 
 import type { CellInterface } from '../../../interfaces/cell.interface';
 import type { FieldInterface } from '../../../interfaces/field.interface';
 
 export class HiddenSingleTechnique extends BaseTechnique {
-    constructor(config: SudokuConfigInterface = defaultSudokuConfig) {
-        super(SolutionTechniqueEnum.HiddenSingle, 3, config);
+    constructor(sudoku: Sudoku) {
+        super(SolutionTechniqueEnum.HiddenSingle, 3, sudoku);
     }
 
     canApply(field: FieldInterface, cell: CellInterface, candidates: number[]): boolean {
@@ -35,7 +35,7 @@ export class HiddenSingleTechnique extends BaseTechnique {
             cellItem => cellItem.value === this.config.blankCellValue && (cellItem.x !== targetCell.x || cellItem.y !== targetCell.y)
         );
 
-        return rowCells.every(cellItem => !this.isValueValid(field, cellItem, value));
+        return rowCells.every(cellItem => !this.isValueValidInCell(field, cellItem, value));
     }
 
     private isHiddenSingleInCol(field: FieldInterface, targetCell: CellInterface, value: number): boolean {
@@ -43,7 +43,7 @@ export class HiddenSingleTechnique extends BaseTechnique {
             cellItem => cellItem.value === this.config.blankCellValue && (cellItem.x !== targetCell.x || cellItem.y !== targetCell.y)
         );
 
-        return colCells.every(cellItem => !this.isValueValid(field, cellItem, value));
+        return colCells.every(cellItem => !this.isValueValidInCell(field, cellItem, value));
     }
 
     private isHiddenSingleInGroup(field: FieldInterface, targetCell: CellInterface, value: number): boolean {
@@ -51,6 +51,6 @@ export class HiddenSingleTechnique extends BaseTechnique {
             cellItem => cellItem.value === this.config.blankCellValue && (cellItem.x !== targetCell.x || cellItem.y !== targetCell.y)
         );
 
-        return groupCells.every(cellItem => !this.isValueValid(field, cellItem, value));
+        return groupCells.every(cellItem => !this.isValueValidInCell(field, cellItem, value));
     }
 }
