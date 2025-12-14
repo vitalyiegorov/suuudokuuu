@@ -31,12 +31,12 @@ export class HiddenTripleTechnique extends BaseTechnique {
     }
 
     // eslint-disable-next-line max-statements
-    private hasHiddenTripleInUnit(_field: FieldInterface, unitCells: CellInterface[], value: number, _currentCell: CellInterface): boolean {
+    private hasHiddenTripleInUnit(field: FieldInterface, unitCells: CellInterface[], value: number, _currentCell: CellInterface): boolean {
         const valueCandidateCells: CellInterface[] = [];
 
         for (const unitCell of unitCells) {
             if (unitCell.value === 0) {
-                const candidates = this.getCellCandidates(unitCell);
+                const candidates = this.getCellCandidates(unitCell, field);
 
                 if (candidates.includes(value)) {
                     valueCandidateCells.push(unitCell);
@@ -51,7 +51,7 @@ export class HiddenTripleTechnique extends BaseTechnique {
         const allCandidates = new Set<number>();
 
         for (const cell of valueCandidateCells) {
-            const cellCandidates = this.getCellCandidates(cell);
+            const cellCandidates = this.getCellCandidates(cell, field);
 
             cellCandidates.forEach(candidate => allCandidates.add(candidate));
         }
@@ -62,7 +62,7 @@ export class HiddenTripleTechnique extends BaseTechnique {
             let count = 0;
 
             for (const cell of valueCandidateCells) {
-                const cellCandidates = this.getCellCandidates(cell);
+                const cellCandidates = this.getCellCandidates(cell, field);
 
                 if (cellCandidates.includes(candidate)) {
                     count += 1;

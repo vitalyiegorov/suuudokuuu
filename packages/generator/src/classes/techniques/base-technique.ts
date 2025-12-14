@@ -24,8 +24,8 @@ export abstract class BaseTechnique {
 
     abstract canApply(field: FieldInterface, cell: CellInterface, candidates: number[]): boolean;
 
-    protected getCellCandidates(cell: CellInterface): number[] {
-        return this.sudoku.getCellCandidates(cell);
+    protected getCellCandidates(cell: CellInterface, field: FieldInterface): number[] {
+        return this.sudoku.getCellCandidates(cell, field);
     }
 
     protected isValueValidInCell(field: FieldInterface, cell: CellInterface, value: number): boolean {
