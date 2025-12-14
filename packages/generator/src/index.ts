@@ -23,7 +23,6 @@ export { HiddenTripleTechnique } from './classes/techniques/hidden-triple-techni
 export { NakedQuadTechnique } from './classes/techniques/naked-quad-technique/naked-quad.technique';
 export { HiddenQuadTechnique } from './classes/techniques/hidden-quad-technique/hidden-quad.technique';
 export { PointingPairTechnique } from './classes/techniques/pointing-pair-technique/pointing-pair.technique';
-export { BoxLineReductionTechnique } from './classes/techniques/box-line-reduction-technique/box-line-reduction.technique';
 export { XWingTechnique } from './classes/techniques/x-wing-technique/x-wing.technique';
 export { SwordfishTechnique } from './classes/techniques/swordfish-technique/swordfish.technique';
 export { JellyfishTechnique } from './classes/techniques/jellyfish-technique/jellyfish.technique';

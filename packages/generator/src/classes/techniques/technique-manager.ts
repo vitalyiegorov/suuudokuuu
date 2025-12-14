@@ -2,7 +2,6 @@ import { SolutionTechniqueEnum } from '../../enums/solution-technique.enum';
 import { Sudoku } from '../sudoku/sudoku';
 
 import { BaseTechnique } from './base-technique';
-import { BoxLineReductionTechnique } from './box-line-reduction-technique/box-line-reduction.technique';
 import { FullHouseTechnique } from './full-house-technique/full-house.technique';
 import { GuessTechnique } from './guess-technique/guess-technique';
 import { HiddenPairTechnique } from './hidden-pair-technique/hidden-pair.technique';
@@ -25,7 +24,7 @@ import type { CellInterface } from '../../interfaces/cell.interface';
 export class TechniqueManager {
     private readonly techniques: BaseTechnique[];
 
-    constructor(private readonly sudoku: Sudoku) {
+    constructor(sudoku: Sudoku) {
         this.techniques = [
             new FullHouseTechnique(sudoku),
             new NakedSingleTechnique(sudoku),
@@ -37,7 +36,6 @@ export class TechniqueManager {
             new NakedQuadTechnique(sudoku),
             new HiddenQuadTechnique(sudoku),
             new PointingPairTechnique(sudoku),
-            new BoxLineReductionTechnique(sudoku),
             new XWingTechnique(sudoku),
             new SwordfishTechnique(sudoku),
             new JellyfishTechnique(sudoku),
@@ -48,10 +46,8 @@ export class TechniqueManager {
     }
 
     identify(cell: CellInterface, _value: number): SolutionTechniqueEnum {
-        const candidates = this.sudoku.getCellCandidates(cell);
-
         for (const technique of this.techniques) {
-            if (technique.canApply(cell, candidates)) {
+            if (technique.getSolution(cell)) {
                 return technique.type;
             }
         }

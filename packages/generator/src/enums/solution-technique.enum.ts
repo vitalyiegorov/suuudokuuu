@@ -10,10 +10,9 @@ export enum SolutionTechniqueEnum {
     NakedQuad = 8,
     HiddenQuad = 9,
     PointingPair = 10,
-    BoxLineReduction = 11,
-    XWing = 12,
-    Swordfish = 13,
-    Jellyfish = 14,
-    XYWing = 15,
-    XYZWing = 16
+    XWing = 11,
+    Swordfish = 12,
+    Jellyfish = 13,
+    XYWing = 14,
+    XYZWing = 15
 }
