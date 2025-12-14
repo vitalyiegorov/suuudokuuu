@@ -1,13 +1,13 @@
 import { SolutionTechniqueEnum } from '../../../enums/solution-technique.enum';
-import { SudokuConfigInterface, defaultSudokuConfig } from '../../../interfaces/sudoku-config.interface';
+import { Sudoku } from '../../sudoku/sudoku';
 import { BaseTechnique } from '../base-technique';
 
 import type { CellInterface } from '../../../interfaces/cell.interface';
 import type { FieldInterface } from '../../../interfaces/field.interface';
 
 export class HiddenQuadTechnique extends BaseTechnique {
-    constructor(config: SudokuConfigInterface = defaultSudokuConfig) {
-        super(SolutionTechniqueEnum.HiddenQuad, 9, config);
+    constructor(sudoku: Sudoku) {
+        super(SolutionTechniqueEnum.HiddenQuad, 9, sudoku);
     }
 
     canApply(field: FieldInterface, cell: CellInterface, candidates: number[]): boolean {
@@ -31,12 +31,12 @@ export class HiddenQuadTechnique extends BaseTechnique {
     }
 
     // eslint-disable-next-line max-statements
-    private hasHiddenQuadInUnit(field: FieldInterface, unitCells: CellInterface[], value: number, _currentCell: CellInterface): boolean {
+    private hasHiddenQuadInUnit(_field: FieldInterface, unitCells: CellInterface[], value: number, _currentCell: CellInterface): boolean {
         const valueCandidateCells: CellInterface[] = [];
 
         for (const unitCell of unitCells) {
             if (unitCell.value === 0) {
-                const candidates = this.getCellCandidates(field, unitCell);
+                const candidates = this.getCellCandidates(unitCell);
 
                 if (candidates.includes(value)) {
                     valueCandidateCells.push(unitCell);
@@ -51,7 +51,7 @@ export class HiddenQuadTechnique extends BaseTechnique {
         const allCandidates = new Set<number>();
 
         for (const cell of valueCandidateCells) {
-            const cellCandidates = this.getCellCandidates(field, cell);
+            const cellCandidates = this.getCellCandidates(cell);
 
             cellCandidates.forEach(candidate => allCandidates.add(candidate));
         }
@@ -62,7 +62,7 @@ export class HiddenQuadTechnique extends BaseTechnique {
             let count = 0;
 
             for (const cell of valueCandidateCells) {
-                const cellCandidates = this.getCellCandidates(field, cell);
+                const cellCandidates = this.getCellCandidates(cell);
 
                 if (cellCandidates.includes(candidate)) {
                     count += 1;

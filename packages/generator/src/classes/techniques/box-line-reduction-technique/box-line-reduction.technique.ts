@@ -1,13 +1,13 @@
 import { SolutionTechniqueEnum } from '../../../enums/solution-technique.enum';
-import { SudokuConfigInterface, defaultSudokuConfig } from '../../../interfaces/sudoku-config.interface';
+import { Sudoku } from '../../sudoku/sudoku';
 import { BaseTechnique } from '../base-technique';
 
 import type { CellInterface } from '../../../interfaces/cell.interface';
 import type { FieldInterface } from '../../../interfaces/field.interface';
 
 export class BoxLineReductionTechnique extends BaseTechnique {
-    constructor(config: SudokuConfigInterface = defaultSudokuConfig) {
-        super(SolutionTechniqueEnum.BoxLineReduction, 11, config);
+    constructor(sudoku: Sudoku) {
+        super(SolutionTechniqueEnum.BoxLineReduction, 11, sudoku);
     }
 
     canApply(field: FieldInterface, cell: CellInterface, candidates: number[]): boolean {
@@ -32,7 +32,7 @@ export class BoxLineReductionTechnique extends BaseTechnique {
 
         const groupCellsWithValue = groupCells.filter(groupCell => {
             if (groupCell.value === 0) {
-                const candidates = this.getCellCandidates(field, groupCell);
+                const candidates = this.getCellCandidates(groupCell);
 
                 return candidates.includes(value);
             }
@@ -50,7 +50,7 @@ export class BoxLineReductionTechnique extends BaseTechnique {
         if (allInSameRow) {
             const rowCellsWithValue = rowCells.filter(rowCell => {
                 if (rowCell.value === 0 && !groupCells.some(gc => gc.x === rowCell.x && gc.y === rowCell.y)) {
-                    const candidates = this.getCellCandidates(field, rowCell);
+                    const candidates = this.getCellCandidates(rowCell);
 
                     return candidates.includes(value);
                 }
@@ -64,7 +64,7 @@ export class BoxLineReductionTechnique extends BaseTechnique {
         if (allInSameCol) {
             const colCellsWithValue = colCells.filter(colCell => {
                 if (colCell.value === 0 && !groupCells.some(gc => gc.x === colCell.x && gc.y === colCell.y)) {
-                    const candidates = this.getCellCandidates(field, colCell);
+                    const candidates = this.getCellCandidates(colCell);
 
                     return candidates.includes(value);
                 }

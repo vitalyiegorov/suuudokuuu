@@ -1,4 +1,4 @@
-import { defaultSudokuConfig } from '../../interfaces/sudoku-config.interface';
+import { Sudoku } from '../sudoku/sudoku';
 
 import type { SolutionTechniqueEnum } from '../../enums/solution-technique.enum';
 import type { CellInterface } from '../../interfaces/cell.interface';
@@ -12,75 +12,29 @@ export interface TechniqueHint {
 }
 
 export abstract class BaseTechnique {
-    protected readonly fieldFillingValues: number[];
+    protected readonly config: SudokuConfigInterface;
 
     protected constructor(
         readonly type: SolutionTechniqueEnum,
         readonly difficulty: number,
-        protected readonly config: SudokuConfigInterface = defaultSudokuConfig
+        protected readonly sudoku: Sudoku
     ) {
-        this.fieldFillingValues = Array.from({ length: this.config.fieldSize }, (_, idx) => idx + 1);
+        this.config = sudoku.Config;
     }
 
     abstract canApply(field: FieldInterface, cell: CellInterface, candidates: number[]): boolean;
 
-    findHint(field: FieldInterface, cell: CellInterface, candidates: number[]): TechniqueHint | null {
-        if (cell.value !== this.config.blankCellValue || !this.canApply(field, cell, candidates)) {
-            return null;
-        }
-
-        if (candidates.length === 0) {
-            return null;
-        }
-
-        return {
-            technique: this.type,
-            cell,
-            value: candidates[0]
-        };
+    protected getCellCandidates(cell: CellInterface): number[] {
+        return this.sudoku.getCellCandidates(cell);
     }
 
-    protected getCellCandidates(field: FieldInterface, cell: CellInterface): number[] {
-        const candidates: number[] = [];
-
-        for (const value of this.fieldFillingValues) {
-            if (this.isValueValid(field, cell, value)) {
-                candidates.push(value);
-            }
-        }
-
-        return candidates;
-    }
-
-    protected isValueValid(field: FieldInterface, cell: CellInterface, value: number): boolean {
+    protected isValueValidInCell(field: FieldInterface, cell: CellInterface, value: number): boolean {
+        const testCell = { ...cell, value };
         return (
-            this.isValueValidInRow(field, cell.y, value) &&
-            this.isValueValidInCol(field, cell.x, value) &&
-            this.isValueValidInGroup(field, cell, value)
+            !this.sudoku.hasValueInRow(field, testCell) &&
+            !this.sudoku.hasValueInColumn(field, testCell) &&
+            !this.sudoku.hasValueInGroup(field, testCell)
         );
-    }
-
-    protected isValueValidInRow(field: FieldInterface, rowIndex: number, value: number): boolean {
-        return !field[rowIndex].some(cell => cell.value === value);
-    }
-
-    protected isValueValidInCol(field: FieldInterface, colIndex: number, value: number): boolean {
-        return !field.some(row => row[colIndex].value === value);
-    }
-
-    protected isValueValidInGroup(field: FieldInterface, targetCell: CellInterface, value: number): boolean {
-        const groupStartX = Math.floor(targetCell.x / this.config.fieldGroupWidth) * this.config.fieldGroupWidth;
-        const groupStartY = Math.floor(targetCell.y / this.config.fieldGroupHeight) * this.config.fieldGroupHeight;
-
-        for (let yCoord = groupStartY; yCoord < groupStartY + this.config.fieldGroupHeight; yCoord += 1) {
-            for (let xCoord = groupStartX; xCoord < groupStartX + this.config.fieldGroupWidth; xCoord += 1) {
-                if (field[yCoord][xCoord].value === value) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
     }
 
     protected *getEmptyCells(field: FieldInterface) {

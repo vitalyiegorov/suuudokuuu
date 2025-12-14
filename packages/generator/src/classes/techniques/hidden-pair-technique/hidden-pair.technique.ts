@@ -1,13 +1,13 @@
 import { SolutionTechniqueEnum } from '../../../enums/solution-technique.enum';
-import { SudokuConfigInterface, defaultSudokuConfig } from '../../../interfaces/sudoku-config.interface';
+import { Sudoku } from '../../sudoku/sudoku';
 import { BaseTechnique } from '../base-technique';
 
 import type { CellInterface } from '../../../interfaces/cell.interface';
 import type { FieldInterface } from '../../../interfaces/field.interface';
 
 export class HiddenPairTechnique extends BaseTechnique {
-    constructor(config: SudokuConfigInterface = defaultSudokuConfig) {
-        super(SolutionTechniqueEnum.HiddenPair, 5, config);
+    constructor(sudoku: Sudoku) {
+        super(SolutionTechniqueEnum.HiddenPair, 5, sudoku);
     }
 
     canApply(field: FieldInterface, cell: CellInterface, candidates: number[]): boolean {
@@ -30,12 +30,12 @@ export class HiddenPairTechnique extends BaseTechnique {
         return false;
     }
 
-    private hasHiddenPairInUnit(field: FieldInterface, unitCells: CellInterface[], value: number, _currentCell: CellInterface): boolean {
+    private hasHiddenPairInUnit(_field: FieldInterface, unitCells: CellInterface[], value: number, _currentCell: CellInterface): boolean {
         const valueCandidateCells: CellInterface[] = [];
 
         for (const unitCell of unitCells) {
             if (unitCell.value === 0) {
-                const candidates = this.getCellCandidates(field, unitCell);
+                const candidates = this.getCellCandidates(unitCell);
 
                 if (candidates.includes(value)) {
                     valueCandidateCells.push(unitCell);
@@ -47,8 +47,8 @@ export class HiddenPairTechnique extends BaseTechnique {
             return false;
         }
 
-        const cell1Candidates = this.getCellCandidates(field, valueCandidateCells[0]);
-        const cell2Candidates = this.getCellCandidates(field, valueCandidateCells[1]);
+        const cell1Candidates = this.getCellCandidates(valueCandidateCells[0]);
+        const cell2Candidates = this.getCellCandidates(valueCandidateCells[1]);
 
         const sharedValues = cell1Candidates.filter(candidate => cell2Candidates.includes(candidate));
 

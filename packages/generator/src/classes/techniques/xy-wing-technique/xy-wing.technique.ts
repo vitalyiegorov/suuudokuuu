@@ -1,13 +1,13 @@
 import { SolutionTechniqueEnum } from '../../../enums/solution-technique.enum';
-import { SudokuConfigInterface, defaultSudokuConfig } from '../../../interfaces/sudoku-config.interface';
+import { Sudoku } from '../../sudoku/sudoku';
 import { BaseTechnique } from '../base-technique';
 
 import type { CellInterface } from '../../../interfaces/cell.interface';
 import type { FieldInterface } from '../../../interfaces/field.interface';
 
 export class XYWingTechnique extends BaseTechnique {
-    constructor(config: SudokuConfigInterface = defaultSudokuConfig) {
-        super(SolutionTechniqueEnum.XYWing, 15, config);
+    constructor(sudoku: Sudoku) {
+        super(SolutionTechniqueEnum.XYWing, 15, sudoku);
     }
 
     canApply(field: FieldInterface, cell: CellInterface, candidates: number[]): boolean {
@@ -25,7 +25,7 @@ export class XYWingTechnique extends BaseTechnique {
     }
 
     private hasXYWingForValue(field: FieldInterface, cell: CellInterface, _value: number): boolean {
-        const candidates = this.getCellCandidates(field, cell);
+        const candidates = this.getCellCandidates(cell);
 
         if (candidates.length !== 2) {
             return false;
@@ -33,17 +33,17 @@ export class XYWingTechnique extends BaseTechnique {
 
         const emptyCells = Array.from(this.getEmptyCells(field));
         const biValueCells = emptyCells.filter(checkCell => {
-            const checkCandidates = this.getCellCandidates(field, checkCell);
+            const checkCandidates = this.getCellCandidates(checkCell);
 
             return checkCandidates.length === 2 && !(checkCell.x === cell.x && checkCell.y === cell.y);
         });
 
         for (const pivotCell of biValueCells) {
-            const pivotCandidates = this.getCellCandidates(field, pivotCell);
+            const pivotCandidates = this.getCellCandidates(pivotCell);
 
             if (pivotCandidates.some(candidate => candidates.includes(candidate))) {
                 const relatedCells = biValueCells.filter(relatedCell => {
-                    const relatedCandidates = this.getCellCandidates(field, relatedCell);
+                    const relatedCandidates = this.getCellCandidates(relatedCell);
 
                     return (
                         !(relatedCell.x === pivotCell.x && relatedCell.y === pivotCell.y) &&

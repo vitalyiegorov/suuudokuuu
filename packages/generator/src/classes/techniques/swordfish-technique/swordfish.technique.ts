@@ -1,13 +1,13 @@
 import { SolutionTechniqueEnum } from '../../../enums/solution-technique.enum';
-import { SudokuConfigInterface, defaultSudokuConfig } from '../../../interfaces/sudoku-config.interface';
+import { Sudoku } from '../../sudoku/sudoku';
 import { BaseTechnique } from '../base-technique';
 
 import type { CellInterface } from '../../../interfaces/cell.interface';
 import type { FieldInterface } from '../../../interfaces/field.interface';
 
 export class SwordfishTechnique extends BaseTechnique {
-    constructor(config: SudokuConfigInterface = defaultSudokuConfig) {
-        super(SolutionTechniqueEnum.Swordfish, 13, config);
+    constructor(sudoku: Sudoku) {
+        super(SolutionTechniqueEnum.Swordfish, 13, sudoku);
     }
 
     canApply(field: FieldInterface, cell: CellInterface, candidates: number[]): boolean {
@@ -39,7 +39,7 @@ export class SwordfishTechnique extends BaseTechnique {
 
             for (let colIdx = 0; colIdx < this.config.fieldSize; colIdx += 1) {
                 if (field[rowIdx][colIdx].value === 0) {
-                    const candidates = this.getCellCandidates(field, field[rowIdx][colIdx]);
+                    const candidates = this.getCellCandidates(field[rowIdx][colIdx]);
 
                     if (candidates.includes(value)) {
                         positions.push(colIdx);
@@ -63,7 +63,7 @@ export class SwordfishTechnique extends BaseTechnique {
 
             for (let rowIdx = 0; rowIdx < this.config.fieldSize; rowIdx += 1) {
                 if (field[rowIdx][colIdx].value === 0) {
-                    const candidates = this.getCellCandidates(field, field[rowIdx][colIdx]);
+                    const candidates = this.getCellCandidates(field[rowIdx][colIdx]);
 
                     if (candidates.includes(value)) {
                         positions.push(rowIdx);

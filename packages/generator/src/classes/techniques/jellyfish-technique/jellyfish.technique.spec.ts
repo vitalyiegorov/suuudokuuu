@@ -3,13 +3,15 @@ import { describe, expect, it } from '@jest/globals';
 import { SolutionTechniqueEnum } from '../../../enums/solution-technique.enum';
 import { defaultSudokuConfig } from '../../../interfaces/sudoku-config.interface';
 import { SerializableSudoku } from '../../serializable-sudoku/serializable-sudoku';
+import { Sudoku } from '../../sudoku/sudoku';
 
 import { JellyfishTechnique } from './jellyfish.technique';
 
 import type { FieldInterface } from '../../../interfaces/field.interface';
 
 describe('JellyfishTechnique', () => {
-    const technique = new JellyfishTechnique();
+    const sudoku = new Sudoku();
+    const technique = new JellyfishTechnique(sudoku);
 
     const createFieldFromString = (fieldString: string): FieldInterface => {
         const [field] = SerializableSudoku.convertFieldFromString(fieldString, defaultSudokuConfig);
