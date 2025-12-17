@@ -10,41 +10,85 @@ export class LockedCandidateTechnique extends BaseTechnique {
     }
 
     getSolution(cell: CellInterface): number | null {
-        const availableGroupCells = this.getGroupCells(cell).filter(
-            cellItem => this.sudoku.isBlankCell(cellItem) && cellItem.x !== cell.x && cellItem.y !== cell.y
-        );
-
-        const availableRows = [...new Set(availableGroupCells.map(cellItem => cellItem.y))];
-        const availableCols = [...new Set(availableGroupCells.map(cellItem => cellItem.x))];
+        const candidates = this.sudoku.getCellCandidates(cell);
 
         const results = new Set<number>();
-        for (const candidate of this.sudoku.getCellCandidates(cell)) {
-            for (const row of availableRows) {
-                const lockedRowCells = this.getRowCells(row).filter(
-                    rowCell =>
-                        rowCell.group !== cell.group &&
-                        this.sudoku.isBlankCell(rowCell) &&
-                        this.sudoku.getCellCandidates(rowCell).includes(candidate)
-                );
-
-                if (lockedRowCells.length >= 2 && lockedRowCells.every(cell => cell.group === lockedRowCells[0].group)) {
-                    results.add(candidate);
-                }
-            }
-
-            for (const col of availableCols) {
-                const lockedColCells = this.getColCells(col).filter(
-                    colCell =>
-                        colCell.group !== cell.group &&
-                        this.sudoku.isBlankCell(colCell) &&
-                        this.sudoku.getCellCandidates(colCell).includes(candidate)
-                );
-                if (lockedColCells.length >= 2 && lockedColCells.every(cell => cell.group === lockedColCells[0].group)) {
-                    results.add(candidate);
-                }
+        for (const candidate of candidates) {
+            if (this.isCandidateEliminatedByPointing(cell, candidate)) {
+                results.add(candidate);
             }
         }
 
-        return results.size === 1 ? [...results.values()][0] : null;
+        return results.size === 1 ? [...results][0] : null;
+    }
+
+    private isCandidateEliminatedByPointing(cell: CellInterface, candidate: number): boolean {
+        const otherGroupCellsWithCandidate = this.getGroupCells(cell).filter(
+            groupCell =>
+                this.sudoku.isBlankCell(groupCell) &&
+                groupCell.x !== cell.x &&
+                groupCell.y !== cell.y &&
+                this.sudoku.getCellCandidates(groupCell).includes(candidate)
+        );
+
+        const eliminatedCells = new Set<CellInterface>();
+        for (const otherGroupCell of otherGroupCellsWithCandidate) {
+            const rowCells = this.getRowCells(otherGroupCell.y).filter(
+                rowCell =>
+                    rowCell.group !== cell.group && this.sudoku.isBlankCell(rowCell) && !this.sudoku.isSameCell(rowCell, otherGroupCell)
+            );
+
+            const eliminatingCandidateRowCells = rowCells.filter(rowCell => this.sudoku.getCellCandidates(rowCell).includes(candidate));
+
+            const colCells = this.getColCells(otherGroupCell.x).filter(
+                colCell =>
+                    colCell.group !== cell.group && this.sudoku.isBlankCell(colCell) && !this.sudoku.isSameCell(colCell, otherGroupCell)
+            );
+
+            const eliminatingCandidateColCells = colCells.filter(colCell => this.sudoku.getCellCandidates(colCell).includes(candidate));
+
+            if (
+                (!this.hasCandidatesInOtherCols(colCells, otherGroupCell.x, candidate) && eliminatingCandidateRowCells.length >= 2) ||
+                (!this.hasCandidatesInOtherRows(rowCells, otherGroupCell.y, candidate) && eliminatingCandidateColCells.length >= 2)
+            ) {
+                eliminatedCells.add(otherGroupCell);
+            }
+        }
+
+        return otherGroupCellsWithCandidate.length > 0 && otherGroupCellsWithCandidate.length === eliminatedCells.size;
+    }
+
+    private hasCandidatesInOtherRows(rowCells: CellInterface[], row: number, candidate: number): boolean {
+        for (const rowCell of rowCells) {
+            const otherRowsInRowGroupCells = this.getGroupCells(rowCell).filter(
+                rowGroupCell =>
+                    rowGroupCell.y !== row &&
+                    this.sudoku.isBlankCell(rowGroupCell) &&
+                    this.sudoku.getCellCandidates(rowGroupCell).includes(candidate)
+            );
+
+            if (otherRowsInRowGroupCells.length > 0) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private hasCandidatesInOtherCols(colCells: CellInterface[], col: number, candidate: number): boolean {
+        for (const colCell of colCells) {
+            const otherColsInColGroupCells = this.getGroupCells(colCell).filter(
+                colGroupCell =>
+                    colGroupCell.x !== col &&
+                    this.sudoku.isBlankCell(colGroupCell) &&
+                    this.sudoku.getCellCandidates(colGroupCell).includes(candidate)
+            );
+
+            if (otherColsInColGroupCells.length > 0) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
