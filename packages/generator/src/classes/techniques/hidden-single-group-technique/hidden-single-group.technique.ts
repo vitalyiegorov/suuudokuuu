@@ -10,23 +10,16 @@ export class HiddenSingleGroupTechnique extends BaseTechnique {
     }
 
     getSolution(cell: CellInterface): number | null {
-        const availableGroupCells = this.getGroupCells(cell).filter(
-            cellItem => this.sudoku.isBlankCell(cellItem) && cellItem.x !== cell.x && cellItem.y !== cell.y
+        const otherGroupCells = this.getGroupCells(cell).filter(
+            groupCell => this.sudoku.isBlankCell(groupCell) && !this.sudoku.isSameCell(groupCell, cell)
         );
 
-        const groupRows = [...new Set(availableGroupCells.map(cellItem => cellItem.y))];
-        const groupCols = [...new Set(availableGroupCells.map(cellItem => cellItem.x))];
-
-        const results: number[] = [];
         for (const candidate of this.sudoku.getCellCandidates(cell)) {
-            const validRows = groupRows.filter(row => this.getRowCells(row).some(cell => cell.value === candidate));
-            const validCols = groupCols.filter(col => this.getColCells(col).some(cell => cell.value === candidate));
-
-            if (validRows.length === groupRows.length && validCols.length === groupCols.length) {
-                results.push(candidate);
+            if (otherGroupCells.every(groupCell => !this.sudoku.getCellCandidates(groupCell).includes(candidate))) {
+                return candidate;
             }
         }
 
-        return results.length === 1 ? results[0] : null;
+        return null;
     }
 }

@@ -42,7 +42,7 @@ describe('HiddenSingleGroupTechnique', () => {
         );
         const technique = new HiddenSingleGroupTechnique(game);
 
-        expect(technique.getSolution(game.Field[6][4])).toBe(5);
+        expect(technique.getSolution(game.Field[5][4])).toBe(5);
     });
 
     it('should detect HiddenSingle when group other possible excluded', () => {
@@ -68,5 +68,24 @@ describe('HiddenSingleGroupTechnique', () => {
         game.setCellValue({ ...game.Field[6][8], value: 3 });
 
         expect(technique.getSolution(game.Field[8][7])).toBe(6);
+    });
+
+    it('should detect HiddenSingle when group other possible excluded 2', () => {
+        const game = Sudoku.fromStrings(
+            defaultSudokuConfig,
+            '',
+            '..6....2.',
+            '.9...3...',
+            '1........',
+            '5...89.4.',
+            '.8.6.....',
+            '7..4..6..',
+            '2....7..5',
+            '.....519.',
+            '..4.....6'
+        );
+        const technique = new HiddenSingleGroupTechnique(game);
+
+        expect(technique.getSolution(game.Field[4][0])).toBe(4);
     });
 });
