@@ -82,4 +82,24 @@ describe('LockedCandidateTechnique', () => {
 
         expect(technique.getSolution(game.Field[4][5])).toBe(4);
     });
+
+    it('should NOT find locked candidate', () => {
+        const game = Sudoku.fromStrings(
+            defaultSudokuConfig,
+            '',
+            '.6.7....5',
+            '1.9...8.6',
+            '......9.3',
+            '.18.4....',
+            '62.5.....',
+            '.34......',
+            '.8....561',
+            '..1687.4.',
+            '..6..1...'
+        );
+        const technique = new LockedCandidateTechnique(game);
+
+        expect(technique.getSolution(game.Field[1][3])).toBe(null);
+        expect(technique.getSolution(game.Field[1][4])).toBe(null);
+    });
 });

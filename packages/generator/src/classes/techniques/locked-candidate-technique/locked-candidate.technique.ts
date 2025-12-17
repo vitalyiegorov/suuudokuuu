@@ -10,11 +10,17 @@ export class LockedCandidateTechnique extends BaseTechnique {
     }
 
     getSolution(cell: CellInterface): number | null {
-        const candidates = this.sudoku.getCellCandidates(cell);
-
         const results = new Set<number>();
-        for (const candidate of candidates) {
-            if (this.isCandidateEliminatedByPointing(cell, candidate)) {
+        for (const candidate of this.sudoku.getCellCandidates(cell)) {
+            const otherGroupRowColCellsWithCandidate = this.getGroupCells(cell).filter(
+                groupCell =>
+                    this.sudoku.isBlankCell(groupCell) &&
+                    (groupCell.x === cell.x || groupCell.y === cell.y) &&
+                    !this.sudoku.isSameCell(groupCell, cell) &&
+                    this.sudoku.getCellCandidates(groupCell).includes(candidate)
+            );
+
+            if (this.isCandidateEliminatedByPointing(cell, candidate) && otherGroupRowColCellsWithCandidate.length <= 1) {
                 results.add(candidate);
             }
         }
