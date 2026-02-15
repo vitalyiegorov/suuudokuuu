@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.60.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.59.0...v1.60.0) (2026-02-15)
+
+### Features
+
+- **app:** increase InputModeButton hitSlop to 10px ([#167](https://github.com/vitalyiegorov/suuudokuuu/issues/167)) ([8745f22](https://github.com/vitalyiegorov/suuudokuuu/commit/8745f224d1ec0e1263a083ec7923ce020287007c))
+
 # [1.59.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.58.0...v1.59.0) (2025-12-13)
 
 ### Features
