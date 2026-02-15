@@ -171,7 +171,7 @@ msgstr "Each correct placement starts with a base value:"
 msgid "Easy"
 msgstr "Easy"
 
-#: src/screens/components/game-screen/game.screen.tsx:227
+#: src/screens/components/game-screen/game.screen.tsx:225
 msgid "Elapsed"
 msgstr "Elapsed"
 
@@ -311,10 +311,6 @@ msgstr "It took you"
 msgid "Keep active cell"
 msgstr "Keep active cell"
 
-#: src/screens/components/settings-screen/settings.screen.tsx:51
-msgid "Keep cell selected when clicking outside the grid"
-msgstr "Keep cell selected when clicking outside the grid"
-
 #: src/settings/component/language-toggle/language-toggle.tsx:29
 msgid "Language"
 msgstr "Language"
@@ -340,7 +336,7 @@ msgstr "Medium"
 msgid "Minimum Score"
 msgstr "Minimum Score"
 
-#: src/screens/components/game-screen/game.screen.tsx:210
+#: src/screens/components/game-screen/game.screen.tsx:208
 #: src/scoring/components/scoring.screen.tsx:127
 #: src/history/components/replay-header/replay-header.tsx:29
 #: src/history/components/completed-games-list/completed-game-item.tsx:36
@@ -445,6 +441,10 @@ msgstr "Points are deducted for:"
 msgid "points per correct placement."
 msgstr "points per correct placement."
 
+#: src/screens/components/settings-screen/settings.screen.tsx:51
+msgid "Prevents accidentally losing cell selection when clicking outside (useful on small screens)"
+msgstr "Prevents accidentally losing cell selection when clicking outside (useful on small screens)"
+
 #: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx:16
 #: src/screens/components/home-screen/home.screen.tsx:140
 #: src/app/privacy-policy.tsx:12
@@ -471,7 +471,7 @@ msgstr "Return"
 msgid "Row"
 msgstr "Row"
 
-#: src/screens/components/game-screen/game.screen.tsx:236
+#: src/screens/components/game-screen/game.screen.tsx:234
 #: src/history/components/replay-header/replay-header.tsx:26
 #: src/history/components/completed-games-list/completed-game-item.tsx:30
 msgid "Score"

@@ -171,7 +171,7 @@ msgstr "Cada colocación correcta comienza con un valor base:"
 msgid "Easy"
 msgstr "Fácil"
 
-#: src/screens/components/game-screen/game.screen.tsx:227
+#: src/screens/components/game-screen/game.screen.tsx:225
 msgid "Elapsed"
 msgstr "Transcurrido"
 
@@ -311,10 +311,6 @@ msgstr "Te tomó"
 msgid "Keep active cell"
 msgstr "Mantener celda activa"
 
-#: src/screens/components/settings-screen/settings.screen.tsx:51
-msgid "Keep cell selected when clicking outside the grid"
-msgstr "Mantener la celda seleccionada al hacer clic fuera de la cuadrícula"
-
 #: src/settings/component/language-toggle/language-toggle.tsx:29
 msgid "Language"
 msgstr "Idioma"
@@ -340,7 +336,7 @@ msgstr "Medio"
 msgid "Minimum Score"
 msgstr "Puntuación Mínima"
 
-#: src/screens/components/game-screen/game.screen.tsx:210
+#: src/screens/components/game-screen/game.screen.tsx:208
 #: src/scoring/components/scoring.screen.tsx:127
 #: src/history/components/replay-header/replay-header.tsx:29
 #: src/history/components/completed-games-list/completed-game-item.tsx:36
@@ -445,6 +441,10 @@ msgstr "Los puntos se deducen por:"
 msgid "points per correct placement."
 msgstr "puntos por colocación correcta."
 
+#: src/screens/components/settings-screen/settings.screen.tsx:51
+msgid "Prevents accidentally losing cell selection when clicking outside (useful on small screens)"
+msgstr ""
+
 #: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx:16
 #: src/screens/components/home-screen/home.screen.tsx:140
 #: src/app/privacy-policy.tsx:12
@@ -471,7 +471,7 @@ msgstr "Volver"
 msgid "Row"
 msgstr "Fila"
 
-#: src/screens/components/game-screen/game.screen.tsx:236
+#: src/screens/components/game-screen/game.screen.tsx:234
 #: src/history/components/replay-header/replay-header.tsx:26
 #: src/history/components/completed-games-list/completed-game-item.tsx:30
 msgid "Score"
