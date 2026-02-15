@@ -443,7 +443,7 @@ msgstr "Punkte pro korrekte Platzierung."
 
 #: src/screens/components/settings-screen/settings.screen.tsx:51
 msgid "Prevents accidentally losing cell selection when clicking outside (useful on small screens)"
-msgstr ""
+msgstr "Verhindert versehentliches Aufheben der Zellenauswahl beim Klicken außerhalb (nützlich auf kleinen Bildschirmen)"
 
 #: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx:16
 #: src/screens/components/home-screen/home.screen.tsx:140
