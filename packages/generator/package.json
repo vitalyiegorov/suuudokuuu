@@ -1,6 +1,6 @@
 {
     "name": "@suuudokuuu/generator",
-    "version": "1.52.1",
+    "version": "1.60.1",
     "private": true,
     "sideEffects": "false",
     "exports": {
