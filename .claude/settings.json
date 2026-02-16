@@ -1,0 +1,14 @@
+{
+    "statusLine": {
+        "type": "command",
+        "command": "python3 .claude/scripts/context-monitor.py"
+    },
+    "enabledPlugins": {
+        "code-simplifier@anthropic": true,
+        "context7@claude-plugins-official": true,
+        "superpowers@claude-plugins-official": true,
+        "react-native-best-practices@callstack-agent-skills": true,
+        "expo-deployment@expo-plugins": true,
+        "upgrading-expo@expo-plugins": true
+    }
+}
