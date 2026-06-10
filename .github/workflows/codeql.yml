@@ -23,7 +23,7 @@ on:
 jobs:
   analyze:
     name: Analyze
-    runs-on: ${{ (matrix.language == 'swift' && fromJSON('["self-hosted","macos","arm64"]')) || fromJSON('["self-hosted","linux","arm64"]') }}
+    runs-on: [self-hosted, macos, arm64]
     permissions:
       actions: read
       contents: read
