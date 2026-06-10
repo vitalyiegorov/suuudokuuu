@@ -275,7 +275,7 @@ jobs:
   e2e-android:
     needs: [ code-quality, eas-deploy ]
     name: E2E Tests on Android
-    runs-on: [self-hosted, linux, arm64]
+    runs-on: [self-hosted, macos, arm64]
     steps:
       - uses: actions/checkout@v4
 
