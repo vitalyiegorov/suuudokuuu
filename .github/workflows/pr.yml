@@ -219,10 +219,10 @@ jobs:
         working-directory: packages/app
         run: npx expo prebuild -p ios --clean
 
-      - name: Select Xcode 16.4
+      - name: Select Xcode 26.4
         uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: '16.4'
+          xcode-version: '26.4'
 
       - name: Cache Xcode DerivedData
         uses: actions/cache@v4
@@ -275,7 +275,7 @@ jobs:
   e2e-android:
     needs: [ code-quality, eas-deploy ]
     name: E2E Tests on Android
-    runs-on: [self-hosted, macos, arm64]
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
