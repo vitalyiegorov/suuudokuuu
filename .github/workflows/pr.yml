@@ -18,7 +18,7 @@ on: pull_request
 jobs:
   code-quality:
     name: Code quality checks
-    runs-on: [self-hosted, linux, arm64]
+    runs-on: [self-hosted, linux-burst]
     permissions:
       pull-requests: write
     steps:
@@ -58,7 +58,7 @@ jobs:
   eas-deploy:
     name: EAS Deploy
     needs: code-quality
-    runs-on: [self-hosted, linux, arm64]
+    runs-on: [self-hosted, linux-burst]
     permissions:
       contents: read
       pull-requests: write
@@ -195,7 +195,7 @@ jobs:
   e2e-ios:
     needs: [code-quality, eas-deploy]
     name: E2E Tests on iOS
-    runs-on: [self-hosted, macos, arm64]
+    runs-on: [self-hosted, macos, arm64, macos-tartelet]
     steps:
       - uses: actions/checkout@v4
 

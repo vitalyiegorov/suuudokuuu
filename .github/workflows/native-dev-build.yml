@@ -12,7 +12,7 @@ permissions:
 jobs:
   build:
     name: EAS Build
-    runs-on: [self-hosted, linux, arm64]
+    runs-on: [self-hosted, linux-burst]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
