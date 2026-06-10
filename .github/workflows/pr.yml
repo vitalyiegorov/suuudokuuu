@@ -18,7 +18,7 @@ on: pull_request
 jobs:
   code-quality:
     name: Code quality checks
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, arm64]
     permissions:
       pull-requests: write
     steps:
@@ -58,7 +58,7 @@ jobs:
   eas-deploy:
     name: EAS Deploy
     needs: code-quality
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, arm64]
     permissions:
       contents: read
       pull-requests: write
@@ -195,7 +195,7 @@ jobs:
   e2e-ios:
     needs: [code-quality, eas-deploy]
     name: E2E Tests on iOS
-    runs-on: macos-latest
+    runs-on: [self-hosted, macos, arm64]
     steps:
       - uses: actions/checkout@v4
 
@@ -275,7 +275,7 @@ jobs:
   e2e-android:
     needs: [ code-quality, eas-deploy ]
     name: E2E Tests on Android
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, arm64]
     steps:
       - uses: actions/checkout@v4
 
