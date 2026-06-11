@@ -19,7 +19,7 @@ permissions:
 jobs:
   release:
     name: Publish a release
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, arm64]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -58,7 +58,7 @@ jobs:
   web-deploy:
     name: Vercel deploy Web
     needs: release
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, arm64]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -92,7 +92,7 @@ jobs:
   eas-update:
     name: EAS Update
     needs: release
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, arm64]
     steps:
       - name: Check for EXPO_TOKEN
         run: |
