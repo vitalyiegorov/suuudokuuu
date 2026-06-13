@@ -58,7 +58,7 @@ jobs:
   eas-deploy:
     name: EAS Deploy
     needs: code-quality
-    runs-on: [self-hosted, linux-burst]
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       pull-requests: write
