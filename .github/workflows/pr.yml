@@ -195,7 +195,7 @@ jobs:
   e2e-ios:
     needs: [code-quality, eas-deploy]
     name: E2E Tests on iOS
-    runs-on: [self-hosted, macos, arm64, macos-tartelet]
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
 
