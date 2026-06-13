@@ -197,7 +197,7 @@ jobs:
   e2e-ios:
     needs: [code-quality, eas-deploy]
     name: E2E Tests on iOS
-    runs-on: macos-latest
+    runs-on: [self-hosted, macos-tartelet]
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
