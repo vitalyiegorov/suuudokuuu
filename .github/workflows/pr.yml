@@ -253,7 +253,14 @@ jobs:
         working-directory: packages/app
         run: |
           eas build --profile=e2e --platform ios --non-interactive --local --output app.ios.tar.gz
-          eas build:run --profile=e2e --platform ios --path app.ios.tar.gz
+          rm -rf ios-build
+          mkdir -p ios-build
+          tar -xzf app.ios.tar.gz -C ios-build
+          app_path="$(find ios-build -maxdepth 3 -name '*.app' -type d | head -n 1)"
+          test -n "$app_path"
+          xcrun simctl bootstatus booted -b
+          xcrun simctl install booted "$app_path"
+          xcrun simctl launch booted com.vitalyiegorov.suuudokuuu.preview
 
       - name: Install Maestro
         run: |
