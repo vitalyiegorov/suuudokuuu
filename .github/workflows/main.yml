@@ -92,7 +92,7 @@ jobs:
   eas-update:
     name: EAS Update
     needs: release
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux-burst]
     steps:
       - name: Check for EXPO_TOKEN
         run: |
