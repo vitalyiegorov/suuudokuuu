@@ -59,7 +59,7 @@ jobs:
   eas-deploy:
     name: EAS Deploy
     needs: code-quality
-    runs-on: [self-hosted, linux-burst]
+    runs-on: [self-hosted, macOS, ARM64, macos-tartelet]
     timeout-minutes: 30
     permissions:
       contents: read
@@ -197,7 +197,7 @@ jobs:
   e2e-ios:
     needs: [code-quality, eas-deploy]
     name: E2E Tests on iOS
-    runs-on: macos-latest
+    runs-on: [self-hosted, macOS, ARM64, macos-tartelet]
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
