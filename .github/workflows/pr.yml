@@ -13,7 +13,9 @@ concurrency:
   group: pr-${{ github.event.pull_request.number }}
   cancel-in-progress: true
 
-on: pull_request
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
 
 jobs:
   code-quality:
@@ -197,6 +199,7 @@ jobs:
   e2e-ios:
     needs: [code-quality, eas-deploy]
     name: E2E Tests on iOS
+    if: ${{ !github.event.pull_request.draft }}
     runs-on: [self-hosted, macOS, ARM64, macos-tartelet]
     timeout-minutes: 60
     steps:
