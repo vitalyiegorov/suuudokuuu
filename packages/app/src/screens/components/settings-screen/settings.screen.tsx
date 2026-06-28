@@ -48,7 +48,7 @@ export const SettingsScreen = () => {
                     title={t`Highlight selected candidate numbers`}
                 />
                 <SettingsSwitch
-                    description={t`Keep cell selected when clicking outside the grid`}
+                    description={t`Prevents accidentally losing cell selection when clicking outside (useful on small screens)`}
                     setting="keepActiveCell"
                     title={t`Keep active cell`}
                 />

@@ -32,7 +32,7 @@ export const initialSettingsState: SettingsState = {
     showComboAnimation: true,
     showFilledNumbers: true,
     showActiveCandidates: true,
-    keepActiveCell: false,
+    keepActiveCell: true,
     fontSize: 'm',
     language: i18nGetOSLocale(),
     theme: ThemeEnum.BlackAndWhite,
