@@ -171,7 +171,7 @@ msgstr "Jede korrekte Platzierung beginnt mit einem Grundwert:"
 msgid "Easy"
 msgstr "Einfach"
 
-#: src/screens/components/game-screen/game.screen.tsx:227
+#: src/screens/components/game-screen/game.screen.tsx:225
 msgid "Elapsed"
 msgstr "Verstrichen"
 
@@ -311,10 +311,6 @@ msgstr "Du hast gebraucht"
 msgid "Keep active cell"
 msgstr "Aktive Zelle beibehalten"
 
-#: src/screens/components/settings-screen/settings.screen.tsx:51
-msgid "Keep cell selected when clicking outside the grid"
-msgstr "Zelle ausgewählt lassen, wenn außerhalb des Rasters geklickt wird"
-
 #: src/settings/component/language-toggle/language-toggle.tsx:29
 msgid "Language"
 msgstr "Sprache"
@@ -340,7 +336,7 @@ msgstr "Mittelschwer"
 msgid "Minimum Score"
 msgstr "Mindestpunktzahl"
 
-#: src/screens/components/game-screen/game.screen.tsx:210
+#: src/screens/components/game-screen/game.screen.tsx:208
 #: src/scoring/components/scoring.screen.tsx:127
 #: src/history/components/replay-header/replay-header.tsx:29
 #: src/history/components/completed-games-list/completed-game-item.tsx:36
@@ -445,6 +441,10 @@ msgstr "Punkte werden abgezogen für:"
 msgid "points per correct placement."
 msgstr "Punkte pro korrekte Platzierung."
 
+#: src/screens/components/settings-screen/settings.screen.tsx:51
+msgid "Prevents accidentally losing cell selection when clicking outside (useful on small screens)"
+msgstr "Verhindert versehentliches Aufheben der Zellenauswahl beim Klicken außerhalb (nützlich auf kleinen Bildschirmen)"
+
 #: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx:16
 #: src/screens/components/home-screen/home.screen.tsx:140
 #: src/app/privacy-policy.tsx:12
@@ -471,7 +471,7 @@ msgstr "Zurück"
 msgid "Row"
 msgstr "Zeile"
 
-#: src/screens/components/game-screen/game.screen.tsx:236
+#: src/screens/components/game-screen/game.screen.tsx:234
 #: src/history/components/replay-header/replay-header.tsx:26
 #: src/history/components/completed-games-list/completed-game-item.tsx:30
 msgid "Score"
