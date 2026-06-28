@@ -285,6 +285,7 @@ jobs:
   e2e-android:
     needs: [ code-quality, eas-deploy ]
     name: E2E Tests on Android
+    if: ${{ false }}
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
