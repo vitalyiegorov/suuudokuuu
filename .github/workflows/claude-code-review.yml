@@ -3,6 +3,8 @@ name: Claude Code Review
 on:
   pull_request:
     types: [opened, synchronize, ready_for_review, reopened]
+    paths-ignore:
+      - ".github/workflows/**"
     # Optional: Only run on specific file changes
     # paths:
     #   - "src/**/*.ts"
@@ -40,4 +42,3 @@ jobs:
           plugins: 'code-review@claude-code-plugins'
           prompt: '/code-review:code-review ${{ github.repository }}/pull/${{ github.event.pull_request.number }}'
           use_sticky_comment: true
-
