@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.61.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.60.1...v1.61.0) (2026-06-28)
+
+### Features
+
+- **app:** enable keepActiveCell by default to prevent mistap deselection ([#171](https://github.com/vitalyiegorov/suuudokuuu/issues/171)) ([063f672](https://github.com/vitalyiegorov/suuudokuuu/commit/063f6728fbb81f797a98ca1a3039fc86ad1c3e01))
+
 ## [1.60.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.60.0...v1.60.1) (2026-02-16)
 
 **Note:** Version bump only for package @suuudokuuu/app
