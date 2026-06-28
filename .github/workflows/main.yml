@@ -92,7 +92,7 @@ jobs:
   eas-update:
     name: EAS Update
     needs: release
-    runs-on: [self-hosted, macOS, ARM64, macos-tartelet]
+    runs-on: [self-hosted, linux-burst]
     steps:
       - name: Check for EXPO_TOKEN
         run: |
