@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.60.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.60.0...v1.60.1) (2026-02-16)
+
+**Note:** Version bump only for package @suuudokuuu/encoder
+
 ## [1.56.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.56.0...v1.56.1) (2025-12-08)
 
 ### Bug Fixes

@@ -24,7 +24,13 @@ export const InputModeButton = () => {
     const iconColor = isCandidateMode ? theme.colors.white : theme.colors.black;
 
     return (
-        <BlackButton isActive={!isCandidateMode} onPress={handleToggle} style={InputModeButtonStyles.button} testID="input-mode-button">
+        <BlackButton
+            hitSlop={10}
+            isActive={!isCandidateMode}
+            onPress={handleToggle}
+            style={InputModeButtonStyles.button}
+            testID="input-mode-button"
+        >
             <LucidePencil color={iconColor} />
         </BlackButton>
     );

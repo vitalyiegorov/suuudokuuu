@@ -250,6 +250,7 @@ msgid "Group(3x3 cells)"
 msgstr "Groupe (3x3 cellules)"
 
 #: src/game/components/technique-hint/technique-hint.tsx:29
+#: src/game/components/technique-hint/technique-hint.tsx:57
 msgid "Guess"
 msgstr "Hypothèse"
 
@@ -354,10 +355,6 @@ msgstr "Jellyfish"
 #: src/screens/components/settings-screen/settings.screen.tsx:53
 msgid "Keep active cell"
 msgstr "Garder la cellule active"
-
-#: src/screens/components/settings-screen/settings.screen.tsx:51
-msgid "Keep cell selected when clicking outside the grid"
-msgstr "Garder la cellule sélectionnée lors d'un clic en dehors de la grille"
 
 #: src/settings/component/language-toggle/language-toggle.tsx:29
 msgid "Language"
@@ -512,6 +509,10 @@ msgstr "Des points sont déduits pour :"
 #: src/scoring/components/scoring.screen.tsx:138
 msgid "points per correct placement."
 msgstr "points par placement correct."
+
+#: src/screens/components/settings-screen/settings.screen.tsx:51
+msgid "Prevents accidentally losing cell selection when clicking outside (useful on small screens)"
+msgstr "Empêche de perdre accidentellement la sélection de cellule en cliquant à l'extérieur (utile sur les petits écrans)"
 
 #: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx:16
 #: src/screens/components/home-screen/home.screen.tsx:140
