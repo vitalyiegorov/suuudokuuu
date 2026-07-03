@@ -11,7 +11,7 @@ import { gameStateToString } from '../utils/game-state-to-string.util';
 import { initialGameState } from './game.state';
 
 import type { GameState } from './game.state';
-import type { CellInterface, DifficultyEnum, ScoredCellsInterface, Sudoku } from '@suuudokuuu/generator';
+import type { CellInterface, DifficultyEnum, ScoredCellsInterface, Sudoku, TechniqueResultInterface } from '@suuudokuuu/generator';
 
 export const gameSlice = createSlice({
     name: 'game',
@@ -29,13 +29,23 @@ export const gameSlice = createSlice({
         resume: state => {
             state.isPaused = false;
         },
-        save: (state, action: PayloadAction<{ sudoku: Sudoku; correctCell: CellInterface; scoredCells: ScoredCellsInterface }>) => {
+        save: (
+            state,
+            action: PayloadAction<{
+                sudoku: Sudoku;
+                correctCell: CellInterface;
+                scoredCells: ScoredCellsInterface;
+                techniqueResult?: Pick<TechniqueResultInterface, 'technique' | 'isGuessLike' | 'value'>;
+            }>
+        ) => {
             const { sudoku, correctCell, scoredCells } = action.payload;
 
             state.sudokuString = sudoku.toString();
 
             const scoring = new SudokuScoring(defaultScoringConfig);
             const techniqueManager = new TechniqueManager(sudoku);
+            const techniqueResult = action.payload.techniqueResult ?? techniqueManager.identifyMove(correctCell);
+            const solvedCell = { ...correctCell, value: techniqueResult.value };
 
             state.score += scoring.calculate({
                 scoredCells,
@@ -46,7 +56,7 @@ export const gameSlice = createSlice({
             });
 
             const solution = Solution.fromSteps(state.solutionSteps);
-            solution.addStep(correctCell, state.elapsedTime, techniqueManager.identify(correctCell));
+            solution.addStep(solvedCell, state.elapsedTime, techniqueResult.technique, techniqueResult.isGuessLike);
             state.solutionSteps = solution.getSteps();
 
             state.candidates[getCellKey(correctCell)] = [];

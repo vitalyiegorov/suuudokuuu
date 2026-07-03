@@ -1,5 +1,4 @@
 import { describe, expect, it } from '@jest/globals';
-import { SolutionTechniqueEnum } from '@suuudokuuu/generator';
 
 import { SolutionStepInterface } from '../../interfaces/solution-step.interface';
 
@@ -11,9 +10,9 @@ describe('GameStateSerializer', () => {
     const validSudokuString = '53..7....6..195....98....6.8...6...34..8.3..17...2...6.6....28....419..5....8..79';
 
     const sampleSolutionSteps: SolutionStepInterface[] = [
-        { cellIndex: 2, value: 4, ts: 100, technique: SolutionTechniqueEnum.Guess },
-        { cellIndex: 5, value: 6, ts: 150, technique: SolutionTechniqueEnum.Guess },
-        { cellIndex: 8, value: 2, ts: 200, technique: SolutionTechniqueEnum.Guess }
+        { cellIndex: 2, value: 4, ts: 100, technique: 0, isGuessLike: true },
+        { cellIndex: 5, value: 6, ts: 150, technique: 0, isGuessLike: true },
+        { cellIndex: 8, value: 2, ts: 200, technique: 0, isGuessLike: true }
     ];
 
     describe('encode', () => {
@@ -82,9 +81,9 @@ describe('GameStateSerializer', () => {
             expect.assertions(1);
 
             const stepsWithKnownTime: SolutionStepInterface[] = [
-                { cellIndex: 2, value: 4, ts: 50, technique: SolutionTechniqueEnum.Guess },
-                { cellIndex: 5, value: 6, ts: 75, technique: SolutionTechniqueEnum.Guess },
-                { cellIndex: 8, value: 2, ts: 100, technique: SolutionTechniqueEnum.Guess }
+                { cellIndex: 2, value: 4, ts: 50, technique: 0, isGuessLike: true },
+                { cellIndex: 5, value: 6, ts: 75, technique: 0, isGuessLike: true },
+                { cellIndex: 8, value: 2, ts: 100, technique: 0, isGuessLike: true }
             ];
             const expectedElapsedTime = 50 + 75 + 100;
             const encoded = serializer.encode(validSudokuString, stepsWithKnownTime, 3, false);
@@ -109,9 +108,9 @@ describe('GameStateSerializer', () => {
             const step2Ts = 150;
             const step3Ts = 200;
             const stepsWithTimeDiffs: SolutionStepInterface[] = [
-                { cellIndex: 0, value: 1, ts: step1Ts, technique: SolutionTechniqueEnum.Guess },
-                { cellIndex: 1, value: 2, ts: step2Ts, technique: SolutionTechniqueEnum.Guess },
-                { cellIndex: 2, value: 3, ts: step3Ts, technique: SolutionTechniqueEnum.Guess }
+                { cellIndex: 0, value: 1, ts: step1Ts, technique: 0, isGuessLike: true },
+                { cellIndex: 1, value: 2, ts: step2Ts, technique: 0, isGuessLike: true },
+                { cellIndex: 2, value: 3, ts: step3Ts, technique: 0, isGuessLike: true }
             ];
             const expectedTotal = step1Ts + step2Ts + step3Ts;
             const encoded = serializer.encode(validSudokuString, stepsWithTimeDiffs, 3, false);
@@ -125,8 +124,8 @@ describe('GameStateSerializer', () => {
 
             const maxTimestamp = 255;
             const stepsWithMaxTimestamp: SolutionStepInterface[] = [
-                { cellIndex: 0, value: 1, ts: maxTimestamp, technique: SolutionTechniqueEnum.Guess },
-                { cellIndex: 1, value: 2, ts: maxTimestamp, technique: SolutionTechniqueEnum.Guess }
+                { cellIndex: 0, value: 1, ts: maxTimestamp, technique: 0, isGuessLike: true },
+                { cellIndex: 1, value: 2, ts: maxTimestamp, technique: 0, isGuessLike: true }
             ];
             const encoded = serializer.encode(validSudokuString, stepsWithMaxTimestamp, 3, false);
             const decoded = serializer.decode(encoded);
@@ -212,9 +211,9 @@ describe('GameStateSerializer', () => {
             expect.assertions(3);
 
             const complexSteps: SolutionStepInterface[] = [
-                { cellIndex: 0, value: 1, ts: 255, technique: SolutionTechniqueEnum.Guess },
-                { cellIndex: 80, value: 9, ts: 255, technique: SolutionTechniqueEnum.Guess },
-                { cellIndex: 40, value: 5, ts: 128, technique: SolutionTechniqueEnum.Guess }
+                { cellIndex: 0, value: 1, ts: 255, technique: 0, isGuessLike: true },
+                { cellIndex: 80, value: 9, ts: 255, technique: 0, isGuessLike: true },
+                { cellIndex: 40, value: 5, ts: 128, technique: 0, isGuessLike: true }
             ];
             const encoded = serializer.encode(validSudokuString, complexSteps, 3, false);
             const decoded = serializer.decode(encoded);

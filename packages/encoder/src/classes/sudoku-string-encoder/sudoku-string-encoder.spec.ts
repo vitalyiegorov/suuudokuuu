@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers */
 import { beforeEach, describe, expect, it } from '@jest/globals';
-import { SolutionTechniqueEnum } from '@suuudokuuu/generator';
 
 import { SudokuStringEncoder } from './sudoku-string-encoder';
 
@@ -30,7 +29,7 @@ describe('SudokuStringEncoder', () => {
             expect.assertions(1);
 
             const sudokuString = `123456789${'.'.repeat(72)}`;
-            const steps = [{ cellIndex: 0, value: 1, ts: 0, technique: SolutionTechniqueEnum.Guess }];
+            const steps = [{ cellIndex: 0, value: 1, ts: 0, technique: 0, isGuessLike: true }];
 
             const decodedWithSteps = encoder.decode(encoder.encode(sudokuString, steps));
             expect(decodedWithSteps[0]).toBe('.');

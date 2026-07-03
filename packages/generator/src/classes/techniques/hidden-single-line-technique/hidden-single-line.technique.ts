@@ -6,7 +6,7 @@ import type { CellInterface } from '../../../interfaces/cell.interface';
 
 export class HiddenSingleLineTechnique extends BaseTechnique {
     constructor(sudoku: Sudoku) {
-        super(SolutionTechniqueEnum.HiddenSingleLine, 3, sudoku);
+        super(SolutionTechniqueEnum.HiddenSingle, 3, sudoku);
     }
 
     getSolution(cell: CellInterface): number | null {

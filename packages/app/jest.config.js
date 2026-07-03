@@ -3,6 +3,10 @@ module.exports = {
     reporters: ['default'],
     coveragePathIgnorePatterns: ['.mock.ts'],
     displayName: 'app',
+    moduleNameMapper: {
+        '^@suuudokuuu/encoder$': '<rootDir>/../encoder/src/index.ts',
+        '^@suuudokuuu/generator$': '<rootDir>/../generator/src/index.ts'
+    },
     testRegex: './src/.*\\.spec\\.(tsx?)$',
     testEnvironment: 'node',
     coverageThreshold: {

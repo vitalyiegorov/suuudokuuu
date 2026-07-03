@@ -6,7 +6,7 @@ import type { CellInterface } from '../../../interfaces/cell.interface';
 
 export class LockedCandidateTechnique extends BaseTechnique {
     constructor(sudoku: Sudoku) {
-        super(SolutionTechniqueEnum.LockedCandidate, 5, sudoku);
+        super(SolutionTechniqueEnum.PointingPair, 5, sudoku);
     }
 
     getSolution(cell: CellInterface): number | null {

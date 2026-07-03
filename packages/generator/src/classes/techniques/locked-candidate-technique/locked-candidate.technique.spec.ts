@@ -22,7 +22,7 @@ describe('LockedCandidateTechnique', () => {
         );
         const technique = new LockedCandidateTechnique(game);
 
-        expect(technique.type).toBe(SolutionTechniqueEnum.LockedCandidate);
+        expect(technique.type).toBe(SolutionTechniqueEnum.PointingPair);
         expect(technique.difficulty).toBe(5);
     });
 
