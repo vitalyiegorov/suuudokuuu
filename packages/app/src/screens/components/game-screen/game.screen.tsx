@@ -1,12 +1,12 @@
 /* eslint-disable max-lines */
 import { useLingui } from '@lingui/react/macro';
-import { CellInterface, ScoredCellsInterface, SolutionTechniqueEnum, TechniqueManager } from '@suuudokuuu/generator';
+import { CellInterface, ScoredCellsInterface, TechniqueManager } from '@suuudokuuu/generator';
 import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { Link, useRouter } from 'expo-router';
 import * as Sharing from 'expo-sharing';
 import { LucideLogOut, LucideSettings, LucideShare2 } from 'lucide-react-native';
-import { use, useEffect, useRef, useState } from 'react';
+import { use, useEffect, useMemo, useRef, useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
 
 import { isDefined } from '@rnw-community/shared';
@@ -25,6 +25,7 @@ import { CandidateInputItem } from '../../../game/components/candidate-input-ite
 import { Field, FieldRef } from '../../../game/components/field/field';
 import { GameTimer } from '../../../game/components/game-timer/game-timer';
 import { InputModeButton } from '../../../game/components/input-mode-button/input-mode-button';
+import { TechniqueHint } from '../../../game/components/technique-hint/technique-hint';
 import { GameContext } from '../../../game/context/game.context';
 import { useKeyboardControls } from '../../../game/hooks/use-keyboard-controls/use-keyboard-controls.hook';
 import { useSharePuzzle } from '../../../game/hooks/use-share-puzzle/use-share-puzzle.hook';
@@ -42,14 +43,17 @@ import {
     gameIsChallengeModeSelector,
     gameMaxMistakesSelector,
     gameMistakesSelector,
-    gameScoreSelector
+    gameScoreSelector,
+    gameSolutionsStepsSelector
 } from '../../../game/store/game.selectors';
+import { getSolutionTechniqueStats } from '../../../game/utils/get-solution-technique-stats.util';
 import { settingsKeySelector } from '../../../settings/store/settings.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
 
 import { GameScreenSelectors } from './game-screen.selectors';
 import { GameScreenStyles as styles } from './game-screen.styles';
 
+import type { TechniqueResultInterface } from '@suuudokuuu/generator';
 import type { Dispatch, SetStateAction } from 'react';
 
 const setSharingAvailable = (setHasSharing: Dispatch<SetStateAction<boolean>>): void => {
@@ -65,7 +69,7 @@ export const GameScreen = () => {
 
     const { sudoku } = use(GameContext);
     const { theme } = use(ThemeContext);
-    const technique = new TechniqueManager(sudoku);
+    const techniqueManager = useMemo(() => new TechniqueManager(sudoku), [sudoku]);
 
     const [hapticNotification, hapticImpact] = useVibration();
 
@@ -79,15 +83,17 @@ export const GameScreen = () => {
     const isChallengeMode = useAppSelector(gameIsChallengeModeSelector);
     const challengeTime = useAppSelector(gameChallengeTimeSelector);
     const elapsedTime = useAppSelector(gameElapsedTimeSelector);
+    const solutionSteps = useAppSelector(gameSolutionsStepsSelector);
 
     const availableValuesRefs = useRef<Record<number, AvailableValuesItemRef | null>>({});
     const fieldRef = useRef<FieldRef>(null);
 
     const [selectedCell, setSelectedCell] = useState<CellInterface>();
     const [hasSharing, setHasSharing] = useState(false);
-    const [solutionTechnique, setSolutionTechnique] = useState<SolutionTechniqueEnum>();
+    const [selectedTechniqueResult, setSelectedTechniqueResult] = useState<TechniqueResultInterface | null>(null);
 
     const maxMistakesReached = mistakes >= maxMistakes;
+    const techniqueStats = useMemo(() => getSolutionTechniqueStats(solutionSteps), [solutionSteps]);
 
     // TODO: Is there a better way without using useEffect?
     useEffect(() => void setSharingAvailable(setHasSharing), []);
@@ -112,10 +118,9 @@ export const GameScreen = () => {
         hapticImpact(ImpactFeedbackStyle.Light);
 
         if (isDefined(cell)) {
-            setSolutionTechnique(technique.identify(cell));
+            setSelectedTechniqueResult(techniqueManager.identifyMove(cell));
         } else {
-            // eslint-disable-next-line no-undefined
-            setSolutionTechnique(undefined);
+            setSelectedTechniqueResult(null);
         }
     };
 
@@ -149,8 +154,12 @@ export const GameScreen = () => {
         }, 10 * animationDurationConstant);
     };
 
-    const handleCorrectValue = (correctCell: CellInterface, newScoredCells: ScoredCellsInterface) => {
-        dispatch(gameSaveAction({ sudoku, scoredCells: newScoredCells, correctCell }));
+    const handleCorrectValue = (
+        correctCell: CellInterface,
+        newScoredCells: ScoredCellsInterface,
+        techniqueResult: TechniqueResultInterface
+    ) => {
+        dispatch(gameSaveAction({ sudoku, scoredCells: newScoredCells, correctCell, techniqueResult }));
 
         hapticNotification(Haptics.NotificationFeedbackType.Success);
 
@@ -177,9 +186,10 @@ export const GameScreen = () => {
     const handleNormalInput = (cell: CellInterface, value: number) => {
         const newValueCell = { ...cell, value };
         if (sudoku.isCorrectValue(newValueCell)) {
+            const techniqueResult = techniqueManager.identifyMove(newValueCell);
             const newScoredCells = sudoku.setCellValue(newValueCell);
 
-            handleCorrectValue(cell, newScoredCells);
+            handleCorrectValue(newValueCell, newScoredCells, techniqueResult);
 
             if (newScoredCells.isWon) {
                 handleWonGame();
@@ -211,14 +221,7 @@ export const GameScreen = () => {
 
     const mistakesCountTextStyles = [styles.mistakesCountText, { color: maxMistakesReached ? theme.colors.red : theme.colors.label.main }];
     const hideAutoCandidates = maxMistakes === 0;
-
-    const techniqueText = {
-        [SolutionTechniqueEnum.Guess]: t`Guess`,
-        [SolutionTechniqueEnum.HiddenSingleGroup]: t`Hidden Single (Group)`,
-        [SolutionTechniqueEnum.HiddenSingleLine]: t`Hidden Single (Line)`,
-        [SolutionTechniqueEnum.NakedSingle]: t`Naked Single`,
-        [SolutionTechniqueEnum.LockedCandidate]: t`Locked Candidate`
-    };
+    const showTechniqueHint = isDefined(selectedCell) && sudoku.isBlankCell(selectedCell);
 
     return (
         <Pressable {...(!keepActiveCell && { onPress: handleDeselectCell })} style={styles.container} testID={GameScreenSelectors.Root}>
@@ -275,11 +278,7 @@ export const GameScreen = () => {
                         <LucideLogOut color={theme.colors.white} />
                     </BlackButton>
 
-                    {isDefined(solutionTechnique) && isDefined(selectedCell) && sudoku.isBlankCell(selectedCell) && (
-                        <BlackText>
-                            {techniqueText[solutionTechnique]} {technique.getSolution(selectedCell)}
-                        </BlackText>
-                    )}
+                    {showTechniqueHint ? <TechniqueHint result={selectedTechniqueResult} stats={techniqueStats} /> : null}
                 </View>
             </View>
 

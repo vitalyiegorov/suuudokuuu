@@ -5397,7 +5397,6 @@ __metadata:
   resolution: "@suuudokuuu/encoder@workspace:packages/encoder"
   dependencies:
     "@rnw-community/shared": "npm:^1.3.0"
-    "@suuudokuuu/generator": "workspace:*"
     "@thi.ng/bitstream": "npm:^2.4.35"
     lz-string: "npm:^1.4.4"
   languageName: unknown

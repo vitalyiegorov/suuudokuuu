@@ -21,11 +21,15 @@ msgstr "Aceptar desafío"
 msgid "Accept challenge?"
 msgstr "¿Aceptar desafío?"
 
+#: src/game/components/technique-hint/technique-hint.tsx:55
+msgid "AIC"
+msgstr "AIC"
+
 #: src/scoring/components/scoring.screen.tsx:115
 msgid "All of a number (1-9)"
 msgstr "Todos de un número (1-9)"
 
-#: src/screens/components/game-screen/game.screen.tsx:93
+#: src/screens/components/game-screen/game.screen.tsx:104
 msgid "All progress will be lost"
 msgstr "Todo el progreso se perderá"
 
@@ -84,12 +88,16 @@ msgstr ""
 msgid "big"
 msgstr "grande"
 
+#: src/game/components/technique-hint/technique-hint.tsx:35
+msgid "Box-Line Reduction"
+msgstr "Reducción caja-línea"
+
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx:34
 msgid "Can you beat them?"
 msgstr "¿Puedes vencerlos?"
 
 #: src/screens/components/shared-screen/shared-screen.tsx:40
-#: src/screens/components/game-screen/game.screen.tsx:94
+#: src/screens/components/game-screen/game.screen.tsx:105
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx:40
 msgid "Cancel"
 msgstr "Cancelar"
@@ -171,7 +179,7 @@ msgstr "Cada colocación correcta comienza con un valor base:"
 msgid "Easy"
 msgstr "Fácil"
 
-#: src/screens/components/game-screen/game.screen.tsx:227
+#: src/screens/components/game-screen/game.screen.tsx:248
 msgid "Elapsed"
 msgstr "Transcurrido"
 
@@ -183,9 +191,21 @@ msgstr "Se otorgan puntos adicionales cuando tu colocación completa:"
 msgid "faster!"
 msgstr "¡más rápido!"
 
+#: src/game/components/technique-hint/technique-hint.tsx:46
+msgid "Finned Swordfish"
+msgstr "Swordfish con aleta"
+
+#: src/game/components/technique-hint/technique-hint.tsx:45
+msgid "Finned X-Wing"
+msgstr "X-Wing con aleta"
+
 #: src/settings/component/font-size-toggle/font-size-toggle.tsx:28
 msgid "Font size"
 msgstr "Tamaño de fuente"
+
+#: src/game/components/technique-hint/technique-hint.tsx:30
+msgid "Full House"
+msgstr "Última casilla"
 
 #: src/settings/component/theme-toggle/theme-toggle.tsx:29
 msgid "Game coloring and appearance"
@@ -229,6 +249,10 @@ msgstr "gris"
 msgid "Group(3x3 cells)"
 msgstr "Grupo (3x3 celdas)"
 
+#: src/game/components/technique-hint/technique-hint.tsx:29
+msgid "Guess"
+msgstr "Suposición"
+
 #: src/scoring/components/scoring.screen.tsx:64
 #: src/@generic/utils/get-difficulty-text.util.ts:11
 msgid "Hard"
@@ -249,6 +273,22 @@ msgstr "Hardcore ganado"
 #: src/@generic/components/donation/donation.tsx:41
 msgid "Help Ukraine win!"
 msgstr "¡Ayuda a Ucrania a ganar!"
+
+#: src/game/components/technique-hint/technique-hint.tsx:39
+msgid "Hidden Pair"
+msgstr "Par oculto"
+
+#: src/game/components/technique-hint/technique-hint.tsx:41
+msgid "Hidden Quad"
+msgstr "Cuádruple oculto"
+
+#: src/game/components/technique-hint/technique-hint.tsx:32
+msgid "Hidden Single"
+msgstr "Único oculto"
+
+#: src/game/components/technique-hint/technique-hint.tsx:40
+msgid "Hidden Triple"
+msgstr "Triple oculto"
 
 #: src/screens/components/settings-screen/settings.screen.tsx:28
 msgid "Highlight areas"
@@ -307,6 +347,10 @@ msgstr "Sudoku inválido"
 msgid "It took you"
 msgstr "Te tomó"
 
+#: src/game/components/technique-hint/technique-hint.tsx:44
+msgid "Jellyfish"
+msgstr "Jellyfish"
+
 #: src/screens/components/settings-screen/settings.screen.tsx:53
 msgid "Keep active cell"
 msgstr "Mantener celda activa"
@@ -340,7 +384,7 @@ msgstr "Medio"
 msgid "Minimum Score"
 msgstr "Puntuación Mínima"
 
-#: src/screens/components/game-screen/game.screen.tsx:210
+#: src/screens/components/game-screen/game.screen.tsx:231
 #: src/scoring/components/scoring.screen.tsx:127
 #: src/history/components/replay-header/replay-header.tsx:29
 #: src/history/components/completed-games-list/completed-game-item.tsx:36
@@ -350,6 +394,22 @@ msgstr "Errores"
 #: src/history/components/replay-controls/replay-controls.tsx:51
 msgid "moves"
 msgstr "movimientos"
+
+#: src/game/components/technique-hint/technique-hint.tsx:36
+msgid "Naked Pair"
+msgstr "Par desnudo"
+
+#: src/game/components/technique-hint/technique-hint.tsx:38
+msgid "Naked Quad"
+msgstr "Cuádruple desnudo"
+
+#: src/game/components/technique-hint/technique-hint.tsx:31
+msgid "Naked Single"
+msgstr "Único desnudo"
+
+#: src/game/components/technique-hint/technique-hint.tsx:37
+msgid "Naked Triple"
+msgstr "Triple desnudo"
 
 #: src/scoring/components/scoring.screen.tsx:43
 #: src/@generic/utils/get-difficulty-text.util.ts:13
@@ -437,6 +497,14 @@ msgstr "Juega en dificultades más altas para obtener multiplicadores mayores"
 msgid "Playing with fewer mistakes allowed gives you a score multiplier:"
 msgstr "Jugar con menos errores permitidos te da un multiplicador de puntuación:"
 
+#: src/game/components/technique-hint/technique-hint.tsx:33
+msgid "Pointing Pair"
+msgstr "Par apuntador"
+
+#: src/game/components/technique-hint/technique-hint.tsx:34
+msgid "Pointing Triple"
+msgstr "Triple apuntador"
+
 #: src/scoring/components/scoring.screen.tsx:122
 msgid "Points are deducted for:"
 msgstr "Los puntos se deducen por:"
@@ -471,7 +539,15 @@ msgstr "Volver"
 msgid "Row"
 msgstr "Fila"
 
-#: src/screens/components/game-screen/game.screen.tsx:236
+#: src/game/components/technique-hint/technique-hint.tsx:48
+msgid "Sashimi Swordfish"
+msgstr "Sashimi Swordfish"
+
+#: src/game/components/technique-hint/technique-hint.tsx:47
+msgid "Sashimi X-Wing"
+msgstr "Sashimi X-Wing"
+
+#: src/screens/components/game-screen/game.screen.tsx:257
 #: src/history/components/replay-header/replay-header.tsx:26
 #: src/history/components/completed-games-list/completed-game-item.tsx:30
 msgid "Score"
@@ -507,6 +583,10 @@ msgstr "Mostrar efectos animados cuando se completa una cuadrícula, fila, colum
 msgid "Show combo animation"
 msgstr "Mostrar animación de combo"
 
+#: src/game/components/technique-hint/technique-hint.tsx:54
+msgid "Simple Coloring"
+msgstr "Coloración simple"
+
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx:42
 msgid "slower!"
 msgstr "¡más lento!"
@@ -537,7 +617,7 @@ msgstr "Estadísticas"
 msgid "Step time"
 msgstr "Tiempo del paso"
 
-#: src/screens/components/game-screen/game.screen.tsx:93
+#: src/screens/components/game-screen/game.screen.tsx:104
 msgid "Stop current run?"
 msgstr "¿Detener la ejecución actual?"
 
@@ -560,6 +640,10 @@ msgstr "SuuudokuuU Rompecabezas de Sudoku"
 #: src/@generic/components/page-header/page-header.tsx:20
 msgid "SuuudokuuU The Game"
 msgstr "SuuudokuuU El Juego"
+
+#: src/game/components/technique-hint/technique-hint.tsx:43
+msgid "Swordfish"
+msgstr "Swordfish"
 
 #: src/settings/component/theme-toggle/theme-toggle.tsx:29
 msgid "Theme"
@@ -607,6 +691,10 @@ msgstr "Vibración"
 msgid "View games"
 msgstr "Ver juegos"
 
+#: src/game/components/technique-hint/technique-hint.tsx:51
+msgid "W-Wing"
+msgstr "W-Wing"
+
 #: src/@generic/components/donation/donation.tsx:25
 msgid ""
 "While you were away Ukraine continued its fight for freedom!\n"
@@ -640,6 +728,26 @@ msgstr "Ganado"
 #: src/history/components/history-difficulty/history-difficulty.tsx:67
 msgid "Won without mistakes"
 msgstr "Ganado sin errores"
+
+#: src/game/components/technique-hint/technique-hint.tsx:52
+msgid "X-Chain"
+msgstr "Cadena X"
+
+#: src/game/components/technique-hint/technique-hint.tsx:42
+msgid "X-Wing"
+msgstr "X-Wing"
+
+#: src/game/components/technique-hint/technique-hint.tsx:53
+msgid "XY-Chain"
+msgstr "Cadena XY"
+
+#: src/game/components/technique-hint/technique-hint.tsx:49
+msgid "XY-Wing"
+msgstr "XY-Wing"
+
+#: src/game/components/technique-hint/technique-hint.tsx:50
+msgid "XYZ-Wing"
+msgstr "XYZ-Wing"
 
 #: src/screens/components/winner-screen/winner.screen.tsx:33
 msgid "You have scored"

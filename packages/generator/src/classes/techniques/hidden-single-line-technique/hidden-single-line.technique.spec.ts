@@ -22,7 +22,7 @@ describe('HiddenSingleLineTechnique', () => {
         );
         const technique = new HiddenSingleLineTechnique(game);
 
-        expect(technique.type).toBe(SolutionTechniqueEnum.HiddenSingleLine);
+        expect(technique.type).toBe(SolutionTechniqueEnum.HiddenSingle);
         expect(technique.difficulty).toBe(3);
     });
 

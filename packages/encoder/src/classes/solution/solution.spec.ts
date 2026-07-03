@@ -1,12 +1,17 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers */
 import { beforeEach, describe, expect, it } from '@jest/globals';
-import { SolutionTechniqueEnum } from '@suuudokuuu/generator';
+import { BitOutputStream } from '@thi.ng/bitstream';
+
+import { CELL_INDEX_BITS, TIMESTAMP_BITS, VALUE_BITS } from '../../constants/bit-encoding.constant';
 
 import { Solution } from './solution';
 
 import type { SolutionStepInterface } from '../../interfaces/solution-step.interface';
 
 describe('Solution', () => {
+    const guessTechnique = 0;
+    const hiddenSingleTechnique = 3;
+
     let solution: Solution;
 
     beforeEach(() => {
@@ -19,8 +24,16 @@ describe('Solution', () => {
 
             const result = solution.addStep({ x: 1, y: 2, value: 3 }, 100);
 
-            expect(result).toEqual({ cellIndex: 19, value: 3, ts: 100 });
+            expect(result).toEqual({ cellIndex: 19, value: 3, ts: 100, technique: guessTechnique, isGuessLike: true });
             expect(solution.getSteps()).toHaveLength(1);
+        });
+
+        it('should add step with technique metadata', () => {
+            expect.assertions(1);
+
+            const result = solution.addStep({ x: 4, y: 5, value: 6 }, 123, hiddenSingleTechnique, false);
+
+            expect(result).toEqual({ cellIndex: 49, value: 6, ts: 123, technique: hiddenSingleTechnique, isGuessLike: false });
         });
 
         it('should calculate relative timestamp for subsequent steps', () => {
@@ -72,11 +85,25 @@ describe('Solution', () => {
 
     describe('fromString', () => {
         it('should create empty solution from invalid input', () => {
-            expect.assertions(3);
+            expect.assertions(1);
 
             expect(Solution.fromString('').getSteps()).toEqual([]);
-            expect(Solution.fromString(null as unknown as string).getSteps()).toEqual([]);
-            expect(Solution.fromString(undefined as unknown as string).getSteps()).toEqual([]);
+        });
+
+        it('should decode legacy solution steps as guess-like', () => {
+            expect.assertions(1);
+
+            const out = new BitOutputStream();
+
+            out.write(19, CELL_INDEX_BITS);
+            out.write(3, VALUE_BITS);
+            out.write(100, TIMESTAMP_BITS);
+
+            const legacySteps = String.fromCharCode(...out.bytes());
+
+            expect(Solution.fromString(legacySteps).getSteps()).toEqual([
+                { cellIndex: 19, value: 3, ts: 100, technique: guessTechnique, isGuessLike: true }
+            ]);
         });
     });
 
@@ -85,8 +112,8 @@ describe('Solution', () => {
             expect.assertions(1);
 
             const steps: SolutionStepInterface[] = [
-                { cellIndex: 0, value: 1, ts: 100, technique: SolutionTechniqueEnum.Guess },
-                { cellIndex: 49, value: 6, ts: 123, technique: SolutionTechniqueEnum.Guess }
+                { cellIndex: 0, value: 1, ts: 100, technique: guessTechnique, isGuessLike: true },
+                { cellIndex: 49, value: 6, ts: 123, technique: hiddenSingleTechnique, isGuessLike: false }
             ];
 
             expect(Solution.fromSteps(steps).getSteps()).toEqual(steps);

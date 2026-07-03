@@ -1,0 +1,9 @@
+import { TECHNIQUE_BITS } from './bit-encoding.constant';
+
+export const SOLUTION_GUESS_TECHNIQUE = 0;
+export const SOLUTION_MIN_TECHNIQUE = 0;
+export const SOLUTION_MAX_TECHNIQUE = 2 ** TECHNIQUE_BITS - 1;
+export const SOLUTION_FORMAT_VERSION_CELL_INDEX = 127;
+export const SOLUTION_FORMAT_VERSION_VALUE = 0;
+export const SOLUTION_FORMAT_VERSION_TIMESTAMP = 0;
+export const SOLUTION_FORMAT_VERSION_TECHNIQUE = 1;
