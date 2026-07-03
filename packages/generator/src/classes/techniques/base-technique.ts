@@ -19,8 +19,8 @@ export abstract class BaseTechnique {
         return this.sudoku.Field[rowIndex];
     }
 
-    protected getColCells(colIndex: number): CellInterface[] {
-        return this.sudoku.Field.map(row => row[colIndex]);
+    protected getColumnCells(columnIndex: number): CellInterface[] {
+        return this.sudoku.Field.map(row => row[columnIndex]);
     }
 
     protected getGroupCells(cell: CellInterface): CellInterface[] {

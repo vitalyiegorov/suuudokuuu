@@ -53,14 +53,15 @@ export class Solution {
     ): SolutionStepInterface {
         const totalElapsedTime = this.steps.reduce((total, step) => total + step.ts, 0);
         const timeDiff = elapsedTime - totalElapsedTime;
-        const cappedTimeDiff = Math.min(timeDiff, this.maxTimestamp);
+        const cappedTimeDiff = Math.max(0, Math.min(timeDiff, this.maxTimestamp));
+        const validTechnique = isValidTechnique(technique) ? technique : SOLUTION_GUESS_TECHNIQUE;
 
         const lastStep = {
             cellIndex: cell.y * GRID_SIZE + cell.x,
             value: cell.value,
             ts: cappedTimeDiff,
-            technique,
-            isGuessLike
+            technique: validTechnique,
+            isGuessLike: isGuessLike || validTechnique === SOLUTION_GUESS_TECHNIQUE
         };
 
         this.steps.push(lastStep);

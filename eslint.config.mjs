@@ -372,7 +372,6 @@ export default defineConfig(
             'jest/expect-expect': 'off',
             'jest/no-done-callback': 'off',
 
-            'prefer-destructuring': 'warn',
             'no-undef': 'off',
             'no-undefined': 'off',
             'max-classes-per-file': 'off',

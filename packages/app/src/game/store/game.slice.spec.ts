@@ -40,4 +40,29 @@ describe('gameSlice', () => {
             }
         ]);
     });
+
+    it('should identify fallback solution technique from the previous board', () => {
+        expect.assertions(1);
+
+        const sudoku = Sudoku.fromStrings(
+            defaultSudokuConfig,
+            '12345678.',
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........'
+        );
+        const sudokuString = sudoku.toString();
+        const correctCell = { ...sudoku.Field[0][8], value: 9 };
+        const scoredCells = sudoku.setCellValue(correctCell);
+        const state = { ...initialGameState, elapsedTime: 12, sudokuString };
+
+        const nextState = gameSlice.reducer(state, gameSlice.actions.save({ sudoku, correctCell, scoredCells }));
+
+        expect(nextState.solutionSteps[0]?.technique).toBe(SolutionTechniqueEnum.FullHouse);
+    });
 });

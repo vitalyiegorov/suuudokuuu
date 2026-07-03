@@ -1,6 +1,6 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { Solution } from '@suuudokuuu/encoder';
-import { TechniqueManager } from '@suuudokuuu/generator';
+import { Sudoku as SudokuModel, TechniqueManager } from '@suuudokuuu/generator';
 
 import { getCellKey } from '../../@generic/utils/get-cell-key.util';
 import { maxCompletedGamesPerDifficulty } from '../../history/constants/max-completed-games-per-difficulty.constant';
@@ -40,12 +40,13 @@ export const gameSlice = createSlice({
         ) => {
             const { sudoku, correctCell, scoredCells } = action.payload;
 
-            state.sudokuString = sudoku.toString();
-
             const scoring = new SudokuScoring(defaultScoringConfig);
-            const techniqueManager = new TechniqueManager(sudoku);
-            const techniqueResult = action.payload.techniqueResult ?? techniqueManager.identifyMove(correctCell);
+            const techniqueResult =
+                action.payload.techniqueResult ??
+                new TechniqueManager(SudokuModel.fromString(state.sudokuString, sudoku.Config)).identifyMove(correctCell);
             const solvedCell = { ...correctCell, value: techniqueResult.value };
+
+            state.sudokuString = sudoku.toString();
 
             state.score += scoring.calculate({
                 scoredCells,
