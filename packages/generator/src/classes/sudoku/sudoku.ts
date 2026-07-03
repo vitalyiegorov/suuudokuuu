@@ -311,5 +311,13 @@ export class Sudoku extends SerializableSudoku {
 
         return maxBlanks;
     }
+
+    static override fromStrings(config: SudokuConfigInterface = defaultSudokuConfig, ...fieldStrings: string[]): Sudoku {
+        return Sudoku.fromString(fieldStrings.join(''), config);
+    }
+
+    static override fromString(fieldString: string, config: SudokuConfigInterface = defaultSudokuConfig): Sudoku {
+        return Sudoku.populateFromString(new Sudoku(config), fieldString, config);
+    }
 }
 /* eslint-enable max-lines */

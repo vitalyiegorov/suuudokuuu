@@ -54,6 +54,23 @@ describe('Solution', () => {
 
             expect(result.ts).toBe(255);
         });
+
+        it('should clamp negative relative timestamp to zero', () => {
+            expect.assertions(1);
+
+            solution.addStep({ x: 0, y: 0, value: 1 }, 100);
+            const result = solution.addStep({ x: 1, y: 1, value: 2 }, 50);
+
+            expect(result.ts).toBe(0);
+        });
+
+        it('should store invalid technique as guess-like', () => {
+            expect.assertions(1);
+
+            const result = solution.addStep({ x: 0, y: 0, value: 1 }, 100, 99, false);
+
+            expect(result).toEqual({ cellIndex: 0, value: 1, ts: 100, technique: guessTechnique, isGuessLike: true });
+        });
     });
 
     describe('stringify', () => {

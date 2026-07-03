@@ -46,16 +46,20 @@ export class LockedCandidateTechnique extends BaseTechnique {
 
             const eliminatingCandidateRowCells = rowCells.filter(rowCell => this.sudoku.getCellCandidates(rowCell).includes(candidate));
 
-            const colCells = this.getColCells(otherGroupCell.x).filter(
-                colCell =>
-                    colCell.group !== cell.group && this.sudoku.isBlankCell(colCell) && !this.sudoku.isSameCell(colCell, otherGroupCell)
+            const columnCells = this.getColumnCells(otherGroupCell.x).filter(
+                columnCell =>
+                    columnCell.group !== cell.group &&
+                    this.sudoku.isBlankCell(columnCell) &&
+                    !this.sudoku.isSameCell(columnCell, otherGroupCell)
             );
 
-            const eliminatingCandidateColCells = colCells.filter(colCell => this.sudoku.getCellCandidates(colCell).includes(candidate));
+            const eliminatingCandidateColumnCells = columnCells.filter(columnCell =>
+                this.sudoku.getCellCandidates(columnCell).includes(candidate)
+            );
 
             if (
-                (!this.hasCandidatesInOtherCols(colCells, otherGroupCell.x, candidate) && eliminatingCandidateRowCells.length >= 2) ||
-                (!this.hasCandidatesInOtherRows(rowCells, otherGroupCell.y, candidate) && eliminatingCandidateColCells.length >= 2)
+                (!this.hasCandidatesInOtherColumns(columnCells, otherGroupCell.x, candidate) && eliminatingCandidateRowCells.length >= 2) ||
+                (!this.hasCandidatesInOtherRows(rowCells, otherGroupCell.y, candidate) && eliminatingCandidateColumnCells.length >= 2)
             ) {
                 eliminatedCells.add(otherGroupCell);
             }
@@ -81,16 +85,16 @@ export class LockedCandidateTechnique extends BaseTechnique {
         return false;
     }
 
-    private hasCandidatesInOtherCols(colCells: CellInterface[], col: number, candidate: number): boolean {
-        for (const colCell of colCells) {
-            const otherColsInColGroupCells = this.getGroupCells(colCell).filter(
-                colGroupCell =>
-                    colGroupCell.x !== col &&
-                    this.sudoku.isBlankCell(colGroupCell) &&
-                    this.sudoku.getCellCandidates(colGroupCell).includes(candidate)
+    private hasCandidatesInOtherColumns(columnCells: CellInterface[], column: number, candidate: number): boolean {
+        for (const columnCell of columnCells) {
+            const otherColumnsInColumnGroupCells = this.getGroupCells(columnCell).filter(
+                columnGroupCell =>
+                    columnGroupCell.x !== column &&
+                    this.sudoku.isBlankCell(columnGroupCell) &&
+                    this.sudoku.getCellCandidates(columnGroupCell).includes(candidate)
             );
 
-            if (otherColsInColGroupCells.length > 0) {
+            if (otherColumnsInColumnGroupCells.length > 0) {
                 return true;
             }
         }

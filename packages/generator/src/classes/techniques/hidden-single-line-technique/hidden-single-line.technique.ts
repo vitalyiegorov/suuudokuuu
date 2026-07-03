@@ -13,19 +13,19 @@ export class HiddenSingleLineTechnique extends BaseTechnique {
         const availableRowCells = this.getRowCells(cell.y).filter(
             cellItem => this.sudoku.isBlankCell(cellItem) && !this.sudoku.isSameCell(cellItem, cell)
         );
-        const availableColCells = this.getColCells(cell.x).filter(
+        const availableColumnCells = this.getColumnCells(cell.x).filter(
             cellItem => this.sudoku.isBlankCell(cellItem) && !this.sudoku.isSameCell(cellItem, cell)
         );
 
-        const cols = [...new Set(availableRowCells.map(cellItem => cellItem.x))];
-        const rows = [...new Set(availableColCells.map(cellItem => cellItem.y))];
+        const columns = [...new Set(availableRowCells.map(cellItem => cellItem.x))];
+        const rows = [...new Set(availableColumnCells.map(cellItem => cellItem.y))];
 
         const results: number[] = [];
         for (const candidate of this.sudoku.getCellCandidates(cell)) {
-            const validCols = cols.filter(col => this.getColCells(col).some(cell => cell.value === candidate));
+            const validColumns = columns.filter(column => this.getColumnCells(column).some(cell => cell.value === candidate));
             const validRows = rows.filter(row => this.getRowCells(row).some(cell => cell.value === candidate));
 
-            if (validCols.length === cols.length || validRows.length === rows.length) {
+            if (validColumns.length === columns.length || validRows.length === rows.length) {
                 results.push(candidate);
             }
         }

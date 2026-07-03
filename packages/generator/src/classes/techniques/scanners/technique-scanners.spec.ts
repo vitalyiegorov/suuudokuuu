@@ -167,6 +167,42 @@ describe('technique scanners', () => {
         expect(results.some(result => result.technique === SolutionTechniqueEnum.Jellyfish)).toBe(true);
     });
 
+    it('should find finned and sashimi fish eliminations', () => {
+        expect.assertions(2);
+
+        const field = createEmptyField(defaultSudokuConfig);
+        const finnedContext = createContext(field, [
+            [field[0][0], [5, 6]],
+            [field[0][1], [5, 7]],
+            [field[0][4], [5, 8]],
+            [field[1][0], [5, 6]],
+            [field[1][4], [5, 8]],
+            [field[2][0], [5, 9]]
+        ]);
+        const sashimiContext = createContext(field, [
+            [field[0][0], [5, 6]],
+            [field[0][1], [5, 7]],
+            [field[1][0], [5, 6]],
+            [field[1][4], [5, 8]],
+            [field[2][0], [5, 9]]
+        ]);
+        const finnedResults = new FishTechniqueScanner().find(finnedContext);
+        const sashimiResults = new FishTechniqueScanner().find(sashimiContext);
+
+        expect(finnedResults).toContainEqual(
+            expect.objectContaining({
+                technique: SolutionTechniqueEnum.FinnedXWing,
+                eliminations: [{ cell: field[2][0], value: 5 }]
+            })
+        );
+        expect(sashimiResults).toContainEqual(
+            expect.objectContaining({
+                technique: SolutionTechniqueEnum.SashimiXWing,
+                eliminations: [{ cell: field[2][0], value: 5 }]
+            })
+        );
+    });
+
     it('should find wing eliminations', () => {
         expect.assertions(3);
 
