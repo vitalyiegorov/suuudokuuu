@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.62.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.61.0...v1.62.0) (2026-07-04)
+
+### Features
+
+- **encoder,app:** compact v2 share link encoding with legacy decode support ([#191](https://github.com/vitalyiegorov/suuudokuuu/issues/191)) ([a5f2501](https://github.com/vitalyiegorov/suuudokuuu/commit/a5f2501765ba0eb575fa2b66593924d3d2b36784))
+
 ## [1.60.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.60.0...v1.60.1) (2026-02-16)
 
 **Note:** Version bump only for package @suuudokuuu/encoder
