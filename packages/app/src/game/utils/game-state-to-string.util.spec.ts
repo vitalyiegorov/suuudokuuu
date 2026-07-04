@@ -1,6 +1,6 @@
 /* eslint-disable lingui/no-unlocalized-strings */
 import { describe, expect, it } from '@jest/globals';
-import { SolutionTechniqueEnum, Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
+import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 
 import { initialGameState } from '../store/game.state';
 
@@ -16,7 +16,7 @@ describe('gameStateToString', () => {
         const gameState = {
             ...initialGameState,
             sudokuString: sudoku.toString(),
-            solutionSteps: [{ cellIndex: 0, value: 1, ts: 5, technique: SolutionTechniqueEnum.Guess, isGuessLike: true }]
+            solutionSteps: [{ cellIndex: 0, value: 1, ts: 5 }]
         };
 
         expect(gameStateToString(gameState, true).length).toBeGreaterThan(0);

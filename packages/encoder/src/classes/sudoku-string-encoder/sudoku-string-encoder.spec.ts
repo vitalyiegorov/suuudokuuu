@@ -29,7 +29,7 @@ describe('SudokuStringEncoder', () => {
             expect.assertions(1);
 
             const sudokuString = `123456789${'.'.repeat(72)}`;
-            const steps = [{ cellIndex: 0, value: 1, ts: 0, technique: 0, isGuessLike: true }];
+            const steps = [{ cellIndex: 0, value: 1, ts: 0 }];
 
             const decodedWithSteps = encoder.decode(encoder.encode(sudokuString, steps));
             expect(decodedWithSteps[0]).toBe('.');

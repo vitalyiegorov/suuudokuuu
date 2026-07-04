@@ -30,7 +30,7 @@ describe('TechniqueManager', () => {
     });
 
     it('should identify an exact player move', () => {
-        expect.assertions(2);
+        expect.assertions(1);
 
         const sudoku = Sudoku.fromStrings(
             defaultSudokuConfig,
@@ -48,7 +48,6 @@ describe('TechniqueManager', () => {
         const result = manager.identifyMove({ ...sudoku.Field[0][8], value: 9 });
 
         expect(result.technique).toBe(SolutionTechniqueEnum.FullHouse);
-        expect(result.isGuessLike).toBe(false);
     });
 
     it('should keep identify compatibility helper', () => {
@@ -71,8 +70,8 @@ describe('TechniqueManager', () => {
         expect(manager.identify(sudoku.Field[0][8])).toBe(SolutionTechniqueEnum.FullHouse);
     });
 
-    it('should mark unsupported moves as guess-like', () => {
-        expect.assertions(3);
+    it('should mark unsupported moves as guesses', () => {
+        expect.assertions(2);
 
         const sudoku = Sudoku.fromStrings(
             defaultSudokuConfig,
@@ -92,6 +91,5 @@ describe('TechniqueManager', () => {
 
         expect(result.technique).toBe(SolutionTechniqueEnum.Guess);
         expect(result.kind).toBe('guess');
-        expect(result.isGuessLike).toBe(true);
     });
 });

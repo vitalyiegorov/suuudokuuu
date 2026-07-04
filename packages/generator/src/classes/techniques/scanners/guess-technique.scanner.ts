@@ -14,8 +14,7 @@ export class GuessTechniqueScanner {
             value: this.sudoku.getCorrectValue(cell),
             kind: 'guess',
             eliminations: [],
-            reasonCells: [cell],
-            isGuessLike: true
+            reasonCells: [cell]
         };
     }
 }

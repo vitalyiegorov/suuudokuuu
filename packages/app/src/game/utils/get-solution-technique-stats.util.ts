@@ -1,24 +1,26 @@
-import type { SolutionTechniqueStatsInterface } from '../interface/solution-technique-stats.interface';
-import type { SolutionStepInterface } from '@suuudokuuu/encoder';
+import { SolutionTechniqueEnum } from '@suuudokuuu/generator';
 
-export const getSolutionTechniqueStats = (steps: SolutionStepInterface[]): SolutionTechniqueStatsInterface => {
-    const countsByTechnique: Record<number, number> = {};
+import type { SolutionTechniqueStatsInterface } from '../interface/solution-technique-stats.interface';
+import type { TechniqueResultInterface } from '@suuudokuuu/generator';
+
+export const getSolutionTechniqueStats = (results: TechniqueResultInterface[]): SolutionTechniqueStatsInterface => {
+    const countsByTechnique = new Map<number, number>();
     let guessLikeMoves = 0;
     let hardestTechnique = 0;
 
-    for (const step of steps) {
-        countsByTechnique[step.technique] = (countsByTechnique[step.technique] ?? 0) + 1;
-        hardestTechnique = Math.max(hardestTechnique, step.technique);
+    for (const result of results) {
+        countsByTechnique.set(result.technique, (countsByTechnique.get(result.technique) ?? 0) + 1);
+        hardestTechnique = Math.max(hardestTechnique, result.technique);
 
-        if (step.isGuessLike) {
+        if (result.technique === SolutionTechniqueEnum.Guess) {
             guessLikeMoves += 1;
         }
     }
 
     return {
-        countsByTechnique,
-        totalMoves: steps.length,
-        logicalMoves: steps.length - guessLikeMoves,
+        countsByTechnique: Object.fromEntries(countsByTechnique),
+        totalMoves: results.length,
+        logicalMoves: results.length - guessLikeMoves,
         guessLikeMoves,
         hardestTechnique
     };

@@ -10,5 +10,4 @@ export interface TechniqueResultInterface {
     kind: TechniqueResultKindType;
     eliminations: CandidateEliminationInterface[];
     reasonCells: CellInterface[];
-    isGuessLike: boolean;
 }
