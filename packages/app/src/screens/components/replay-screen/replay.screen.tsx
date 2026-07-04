@@ -24,8 +24,8 @@ interface Props {
 export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
     const completedGame = useAppSelector(gameCompletedGameByIdSelector(difficulty, completedAt));
     const [currentStep, setCurrentStep] = useState(0);
+    const [gameState] = useState(() => stringToGameState(completedGame?.encodedState));
 
-    const gameState = stringToGameState(completedGame?.encodedState);
     if (!isDefined(gameState) || !isDefined(completedGame)) {
         return <Redirect href="/history" />;
     }
