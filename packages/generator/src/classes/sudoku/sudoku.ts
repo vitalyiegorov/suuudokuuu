@@ -137,15 +137,14 @@ export class Sudoku extends SerializableSudoku {
         );
     }
 
-    getCellCandidates(cell: CellInterface, field?: FieldInterface): number[] {
-        const targetField = field || this.gameField;
+    getCellCandidates(cell: CellInterface): number[] {
         const candidates: number[] = [];
         for (const value of this.fieldFillingValues) {
             const candidateCell = { ...cell, value };
             if (
-                !this.hasValueInRow(targetField, candidateCell) &&
-                !this.hasValueInColumn(targetField, candidateCell) &&
-                !this.hasValueInGroup(targetField, candidateCell)
+                !this.hasValueInRow(this.gameField, candidateCell) &&
+                !this.hasValueInColumn(this.gameField, candidateCell) &&
+                !this.hasValueInGroup(this.gameField, candidateCell)
             ) {
                 candidates.push(value);
             }
@@ -189,7 +188,7 @@ export class Sudoku extends SerializableSudoku {
         throw new Error('Cell value is wrong');
     }
 
-    hasValueInRow(field: FieldInterface, cell: CellInterface): boolean {
+    private hasValueInRow(field: FieldInterface, cell: CellInterface): boolean {
         for (let x = 0; x < this.config.fieldSize; x += 1) {
             if (field[cell.y][x].value === cell.value) {
                 return true;
@@ -199,7 +198,7 @@ export class Sudoku extends SerializableSudoku {
         return false;
     }
 
-    hasValueInColumn(field: FieldInterface, cell: CellInterface): boolean {
+    private hasValueInColumn(field: FieldInterface, cell: CellInterface): boolean {
         for (const row of field) {
             if (row[cell.x].value === cell.value) {
                 return true;
@@ -209,7 +208,7 @@ export class Sudoku extends SerializableSudoku {
         return false;
     }
 
-    hasValueInGroup(field: FieldInterface, cell: CellInterface): boolean {
+    private hasValueInGroup(field: FieldInterface, cell: CellInterface): boolean {
         const boxStartY = cell.y - (cell.y % this.config.fieldGroupHeight);
         const boxStartX = cell.x - (cell.x % this.config.fieldGroupWidth);
 

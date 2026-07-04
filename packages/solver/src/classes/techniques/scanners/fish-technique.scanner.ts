@@ -1,4 +1,4 @@
-import { isDefined } from '@rnw-community/shared';
+import { isDefined, isEmptyArray, isNotEmptyArray } from '@rnw-community/shared';
 
 import { SolutionTechniqueEnum } from '../../../enums/solution-technique.enum';
 
@@ -8,23 +8,11 @@ import type { CandidateEliminationInterface } from '../../../interfaces/candidat
 import type { CandidateUnitInterface } from '../../../interfaces/candidate-unit.interface';
 import type { TechniqueResultInterface } from '../../../interfaces/technique-result.interface';
 import type { TechniqueScannerInterface } from '../../../interfaces/technique-scanner.interface';
+import type { FinnedFishBaseType } from '../../../types/finned-fish-base.type';
+import type { FinnedFishScanType } from '../../../types/finned-fish-scan.type';
+import type { LineType } from '../../../types/line.type';
 import type { CandidateContext } from '../candidate-context/candidate-context';
 import type { CellInterface } from '@suuudokuuu/generator';
-
-type FishLineType = 'row' | 'column';
-
-type FinnedFishBaseType = {
-    readonly units: CandidateUnitInterface[];
-    readonly baseType: FishLineType;
-    readonly coverType: FishLineType;
-};
-
-type FinnedFishScanType = FinnedFishBaseType & {
-    readonly bodyCells: CellInterface[];
-    readonly coverIndexes: number[];
-    readonly finCells: CellInterface[];
-    readonly value: number;
-};
 
 export class FishTechniqueScanner extends AbstractTechniqueScanner implements TechniqueScannerInterface {
     find(context: CandidateContext): TechniqueResultInterface[] {
@@ -43,7 +31,7 @@ export class FishTechniqueScanner extends AbstractTechniqueScanner implements Te
         return results;
     }
 
-    private findBasicFish(context: CandidateContext, size: number, baseType: FishLineType): TechniqueResultInterface[] {
+    private findBasicFish(context: CandidateContext, size: number, baseType: LineType): TechniqueResultInterface[] {
         const results: TechniqueResultInterface[] = [];
         const baseUnits = context.getUnits().filter(unit => unit.type === baseType);
         const coverType = baseType === 'row' ? 'column' : 'row';
@@ -76,7 +64,7 @@ export class FishTechniqueScanner extends AbstractTechniqueScanner implements Te
         return results;
     }
 
-    private findFinnedFish(context: CandidateContext, size: number, baseType: FishLineType): TechniqueResultInterface[] {
+    private findFinnedFish(context: CandidateContext, size: number, baseType: LineType): TechniqueResultInterface[] {
         const results: TechniqueResultInterface[] = [];
         const baseUnits = context.getUnits().filter(unit => unit.type === baseType);
         const coverType = baseType === 'row' ? 'column' : 'row';
@@ -133,7 +121,7 @@ export class FishTechniqueScanner extends AbstractTechniqueScanner implements Te
         return { ...base, bodyCells, coverIndexes, finCells, value };
     }
 
-    private getCoverIndexes(context: CandidateContext, unit: CandidateUnitInterface, value: number, coverType: FishLineType): number[] {
+    private getCoverIndexes(context: CandidateContext, unit: CandidateUnitInterface, value: number, coverType: LineType): number[] {
         return this.getUniqueValues(
             unit.cells.filter(cell => context.getCandidates(cell).includes(value)).map(cell => (coverType === 'row' ? cell.y : cell.x))
         );
@@ -143,7 +131,7 @@ export class FishTechniqueScanner extends AbstractTechniqueScanner implements Te
         context: CandidateContext,
         baseUnits: CandidateUnitInterface[],
         value: number,
-        coverType: FishLineType
+        coverType: LineType
     ): CandidateEliminationInterface[] {
         const baseIndexes = baseUnits.map(unit => unit.index);
         const coverIndexes = this.getUniqueValues(baseUnits.flatMap(unit => this.getCoverIndexes(context, unit, value, coverType)));
@@ -169,7 +157,7 @@ export class FishTechniqueScanner extends AbstractTechniqueScanner implements Te
         const baseIndexes = scan.units.map(unit => unit.index);
         const eliminations: CandidateEliminationInterface[] = [];
 
-        if (scan.finCells.length === 0 || !isDefined(finGroup)) {
+        if (isEmptyArray(scan.finCells) || !isDefined(finGroup)) {
             return [];
         }
 
@@ -192,7 +180,7 @@ export class FishTechniqueScanner extends AbstractTechniqueScanner implements Te
         const finGroups = this.getUniqueValues(scan.finCells.map(cell => cell.group));
 
         return (
-            scan.finCells.length > 0 &&
+            isNotEmptyArray(scan.finCells) &&
             finGroups.length === 1 &&
             scan.coverIndexes.every(coverIndex =>
                 scan.bodyCells.some(cell => this.getCellCoverIndex(cell, scan.coverType) === coverIndex)
@@ -207,11 +195,11 @@ export class FishTechniqueScanner extends AbstractTechniqueScanner implements Te
         );
     }
 
-    private getCellBaseIndex(cell: CellInterface, baseType: FishLineType): number {
+    private getCellBaseIndex(cell: CellInterface, baseType: LineType): number {
         return baseType === 'row' ? cell.y : cell.x;
     }
 
-    private getCellCoverIndex(cell: CellInterface, coverType: FishLineType): number {
+    private getCellCoverIndex(cell: CellInterface, coverType: LineType): number {
         return coverType === 'row' ? cell.y : cell.x;
     }
 
