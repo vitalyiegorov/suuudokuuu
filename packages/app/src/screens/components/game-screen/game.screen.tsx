@@ -25,7 +25,6 @@ import { CandidateInputItem } from '../../../game/components/candidate-input-ite
 import { Field, FieldRef } from '../../../game/components/field/field';
 import { GameTimer } from '../../../game/components/game-timer/game-timer';
 import { InputModeButton } from '../../../game/components/input-mode-button/input-mode-button';
-import { TechniqueHint } from '../../../game/components/technique-hint/technique-hint';
 import { GameContext } from '../../../game/context/game.context';
 import { useKeyboardControls } from '../../../game/hooks/use-keyboard-controls/use-keyboard-controls.hook';
 import { useSharePuzzle } from '../../../game/hooks/use-share-puzzle/use-share-puzzle.hook';
@@ -43,10 +42,8 @@ import {
     gameIsChallengeModeSelector,
     gameMaxMistakesSelector,
     gameMistakesSelector,
-    gameScoreSelector,
-    gameSolutionsStepsSelector
+    gameScoreSelector
 } from '../../../game/store/game.selectors';
-import { getSolutionTechniqueStats } from '../../../game/utils/get-solution-technique-stats.util';
 import { settingsKeySelector } from '../../../settings/store/settings.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
 
@@ -83,17 +80,14 @@ export const GameScreen = () => {
     const isChallengeMode = useAppSelector(gameIsChallengeModeSelector);
     const challengeTime = useAppSelector(gameChallengeTimeSelector);
     const elapsedTime = useAppSelector(gameElapsedTimeSelector);
-    const solutionSteps = useAppSelector(gameSolutionsStepsSelector);
 
     const availableValuesRefs = useRef<Record<number, AvailableValuesItemRef | null>>({});
     const fieldRef = useRef<FieldRef>(null);
 
     const [selectedCell, setSelectedCell] = useState<CellInterface>();
     const [hasSharing, setHasSharing] = useState(false);
-    const [selectedTechniqueResult, setSelectedTechniqueResult] = useState<TechniqueResultInterface | null>(null);
 
     const maxMistakesReached = mistakes >= maxMistakes;
-    const techniqueStats = useMemo(() => getSolutionTechniqueStats(solutionSteps), [solutionSteps]);
 
     // TODO: Is there a better way without using useEffect?
     useEffect(() => void setSharingAvailable(setHasSharing), []);
@@ -116,12 +110,6 @@ export const GameScreen = () => {
     const handleSelectCell = (cell: CellInterface | undefined) => {
         setSelectedCell(cell);
         hapticImpact(ImpactFeedbackStyle.Light);
-
-        if (isDefined(cell)) {
-            setSelectedTechniqueResult(techniqueManager.identifyMove(cell));
-        } else {
-            setSelectedTechniqueResult(null);
-        }
     };
 
     const handleDeselectCell = () => {
@@ -221,7 +209,6 @@ export const GameScreen = () => {
 
     const mistakesCountTextStyles = [styles.mistakesCountText, { color: maxMistakesReached ? theme.colors.red : theme.colors.label.main }];
     const hideAutoCandidates = maxMistakes === 0;
-    const showTechniqueHint = isDefined(selectedCell) && sudoku.isBlankCell(selectedCell);
 
     return (
         <Pressable {...(!keepActiveCell && { onPress: handleDeselectCell })} style={styles.container} testID={GameScreenSelectors.Root}>
@@ -277,8 +264,6 @@ export const GameScreen = () => {
                     <BlackButton onPress={handleExit} style={styles.button} testID={GameScreenSelectors.QuitButton}>
                         <LucideLogOut color={theme.colors.white} />
                     </BlackButton>
-
-                    {showTechniqueHint ? <TechniqueHint result={selectedTechniqueResult} stats={techniqueStats} /> : null}
                 </View>
             </View>
 

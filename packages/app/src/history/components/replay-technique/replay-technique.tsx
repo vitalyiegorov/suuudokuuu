@@ -1,27 +1,24 @@
 import { useLingui } from '@lingui/react/macro';
 import { SolutionTechniqueEnum } from '@suuudokuuu/generator';
 import { use } from 'react';
-
-import { isDefined } from '@rnw-community/shared';
+import { View } from 'react-native';
 
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { ThemeContext } from '../../../theme/context/theme.context';
 
-import { TechniqueHintStyles } from './technique-hint.styles';
+import { ReplayTechniqueStyles as styles } from './replay-technique.styles';
 
-import type { SolutionTechniqueStatsInterface } from '../../interface/solution-technique-stats.interface';
-import type { TechniqueResultInterface } from '@suuudokuuu/generator';
+import type { SolutionStepInterface } from '@suuudokuuu/encoder';
 
 interface Props {
-    result: TechniqueResultInterface | null;
-    stats: SolutionTechniqueStatsInterface;
+    readonly step: SolutionStepInterface | null;
 }
 
-export const TechniqueHint = ({ result, stats }: Props) => {
+export const ReplayTechnique = ({ step }: Props) => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
 
-    if (!isDefined(result)) {
+    if (step === null) {
         return null;
     }
 
@@ -55,15 +52,17 @@ export const TechniqueHint = ({ result, stats }: Props) => {
         [SolutionTechniqueEnum.AIC]: t`AIC`
     };
     const guessLabel = techniqueLabels[SolutionTechniqueEnum.Guess] ?? t`Guess`;
-    const techniqueLabel = techniqueLabels[result.technique] ?? guessLabel;
-    const guessStatsText = stats.guessLikeMoves > 0 ? `${guessLabel} ${stats.guessLikeMoves}` : '';
-    const content = guessStatsText.length > 0 ? `${techniqueLabel} ${result.value} ${guessStatsText}` : `${techniqueLabel} ${result.value}`;
+    const techniqueLabel = techniqueLabels[step.technique] ?? guessLabel;
     const textStyles = [
-        TechniqueHintStyles.text,
+        styles.text,
         {
-            color: result.isGuessLike ? theme.colors.red : theme.colors.label.main
+            color: step.isGuessLike ? theme.colors.red : theme.colors.label.main
         }
     ];
 
-    return <BlackText style={textStyles}>{content}</BlackText>;
+    return (
+        <View style={styles.container}>
+            <BlackText style={textStyles}>{`${techniqueLabel} ${step.value}`}</BlackText>
+        </View>
+    );
 };
