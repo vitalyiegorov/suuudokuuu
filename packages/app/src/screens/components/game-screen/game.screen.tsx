@@ -1,12 +1,11 @@
-/* eslint-disable max-lines */
 import { useLingui } from '@lingui/react/macro';
-import { CellInterface, ScoredCellsInterface, TechniqueManager } from '@suuudokuuu/generator';
+import { CellInterface, ScoredCellsInterface } from '@suuudokuuu/generator';
 import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { Link, useRouter } from 'expo-router';
 import * as Sharing from 'expo-sharing';
 import { LucideLogOut, LucideSettings, LucideShare2 } from 'lucide-react-native';
-import { use, useEffect, useMemo, useRef, useState } from 'react';
+import { use, useEffect, useRef, useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
 
 import { isDefined } from '@rnw-community/shared';
@@ -50,7 +49,6 @@ import { ThemeContext } from '../../../theme/context/theme.context';
 import { GameScreenSelectors } from './game-screen.selectors';
 import { GameScreenStyles as styles } from './game-screen.styles';
 
-import type { TechniqueResultInterface } from '@suuudokuuu/generator';
 import type { Dispatch, SetStateAction } from 'react';
 
 const setSharingAvailable = (setHasSharing: Dispatch<SetStateAction<boolean>>): void => {
@@ -66,7 +64,6 @@ export const GameScreen = () => {
 
     const { sudoku } = use(GameContext);
     const { theme } = use(ThemeContext);
-    const techniqueManager = useMemo(() => new TechniqueManager(sudoku), [sudoku]);
 
     const [hapticNotification, hapticImpact] = useVibration();
 
@@ -142,12 +139,8 @@ export const GameScreen = () => {
         }, 10 * animationDurationConstant);
     };
 
-    const handleCorrectValue = (
-        correctCell: CellInterface,
-        newScoredCells: ScoredCellsInterface,
-        techniqueResult: TechniqueResultInterface
-    ) => {
-        dispatch(gameSaveAction({ sudoku, scoredCells: newScoredCells, correctCell, techniqueResult }));
+    const handleCorrectValue = (correctCell: CellInterface, newScoredCells: ScoredCellsInterface) => {
+        dispatch(gameSaveAction({ sudoku, scoredCells: newScoredCells, correctCell }));
 
         hapticNotification(Haptics.NotificationFeedbackType.Success);
 
@@ -174,10 +167,9 @@ export const GameScreen = () => {
     const handleNormalInput = (cell: CellInterface, value: number) => {
         const newValueCell = { ...cell, value };
         if (sudoku.isCorrectValue(newValueCell)) {
-            const techniqueResult = techniqueManager.identifyMove(newValueCell);
             const newScoredCells = sudoku.setCellValue(newValueCell);
 
-            handleCorrectValue(newValueCell, newScoredCells, techniqueResult);
+            handleCorrectValue(newValueCell, newScoredCells);
 
             if (newScoredCells.isWon) {
                 handleWonGame();

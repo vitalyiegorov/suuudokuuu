@@ -1,6 +1,6 @@
 /* eslint-disable lingui/no-unlocalized-strings, @typescript-eslint/no-magic-numbers */
 import { afterEach, describe, expect, it, jest } from '@jest/globals';
-import { DifficultyEnum, SolutionTechniqueEnum, Sudoku, TechniqueManager, defaultSudokuConfig } from '@suuudokuuu/generator';
+import { DifficultyEnum, Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 
 import { gameSlice } from './game.slice';
 import { initialGameState } from './game.state';
@@ -27,7 +27,7 @@ describe('gameSlice', () => {
         jest.restoreAllMocks();
     });
 
-    it('should store solution technique metadata when saving a move', () => {
+    it('should store compact solution step when saving a move', () => {
         expect.assertions(2);
 
         const sudoku = Sudoku.fromStrings(
@@ -43,47 +43,13 @@ describe('gameSlice', () => {
             '.........'
         );
         const correctCell = { ...sudoku.Field[0][8], value: 9 };
-        const techniqueResult = new TechniqueManager(sudoku).identifyMove(correctCell);
         const scoredCells = sudoku.setCellValue(correctCell);
         const state = createState({ candidates: { '1-8': [1, 2, 9] }, elapsedTime: 12 });
 
-        const nextState = gameSlice.reducer(state, gameSlice.actions.save({ sudoku, correctCell, scoredCells, techniqueResult }));
-
-        expect(nextState.solutionSteps).toEqual([
-            {
-                cellIndex: 8,
-                value: 9,
-                ts: 12,
-                technique: SolutionTechniqueEnum.FullHouse,
-                isGuessLike: false
-            }
-        ]);
-        expect(nextState.candidates['1-8']).toEqual([1, 2]);
-    });
-
-    it('should identify fallback solution technique from the previous board', () => {
-        expect.assertions(1);
-
-        const sudoku = Sudoku.fromStrings(
-            defaultSudokuConfig,
-            '12345678.',
-            '.........',
-            '.........',
-            '.........',
-            '.........',
-            '.........',
-            '.........',
-            '.........',
-            '.........'
-        );
-        const sudokuString = sudoku.toString();
-        const correctCell = { ...sudoku.Field[0][8], value: 9 };
-        const scoredCells = sudoku.setCellValue(correctCell);
-        const state = createState({ elapsedTime: 12, sudokuString });
-
         const nextState = gameSlice.reducer(state, gameSlice.actions.save({ sudoku, correctCell, scoredCells }));
 
-        expect(nextState.solutionSteps[0]?.technique).toBe(SolutionTechniqueEnum.FullHouse);
+        expect(nextState.solutionSteps).toEqual([{ cellIndex: 8, value: 9, ts: 12 }]);
+        expect(nextState.candidates['1-8']).toEqual([1, 2]);
     });
 
     it('should update simple run state reducers', () => {
@@ -150,7 +116,7 @@ describe('gameSlice', () => {
                 elapsedTime: 30,
                 score: 200,
                 maxMistakes: 0,
-                solutionSteps: [{ cellIndex: 0, value: 1, ts: 5, technique: SolutionTechniqueEnum.Guess, isGuessLike: true }]
+                solutionSteps: [{ cellIndex: 0, value: 1, ts: 5 }]
             }),
             gameSlice.actions.finish({ difficulty: DifficultyEnum.Easy, isWon: true, isChallenge: true })
         );

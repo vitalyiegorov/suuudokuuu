@@ -9,9 +9,6 @@ import { Solution } from './solution';
 import type { SolutionStepInterface } from '../../interfaces/solution-step.interface';
 
 describe('Solution', () => {
-    const guessTechnique = 0;
-    const hiddenSingleTechnique = 3;
-
     let solution: Solution;
 
     beforeEach(() => {
@@ -24,16 +21,8 @@ describe('Solution', () => {
 
             const result = solution.addStep({ x: 1, y: 2, value: 3 }, 100);
 
-            expect(result).toEqual({ cellIndex: 19, value: 3, ts: 100, technique: guessTechnique, isGuessLike: true });
+            expect(result).toEqual({ cellIndex: 19, value: 3, ts: 100 });
             expect(solution.getSteps()).toHaveLength(1);
-        });
-
-        it('should add step with technique metadata', () => {
-            expect.assertions(1);
-
-            const result = solution.addStep({ x: 4, y: 5, value: 6 }, 123, hiddenSingleTechnique, false);
-
-            expect(result).toEqual({ cellIndex: 49, value: 6, ts: 123, technique: hiddenSingleTechnique, isGuessLike: false });
         });
 
         it('should calculate relative timestamp for subsequent steps', () => {
@@ -62,14 +51,6 @@ describe('Solution', () => {
             const result = solution.addStep({ x: 1, y: 1, value: 2 }, 50);
 
             expect(result.ts).toBe(0);
-        });
-
-        it('should store invalid technique as guess-like', () => {
-            expect.assertions(1);
-
-            const result = solution.addStep({ x: 0, y: 0, value: 1 }, 100, 99, false);
-
-            expect(result).toEqual({ cellIndex: 0, value: 1, ts: 100, technique: guessTechnique, isGuessLike: true });
         });
     });
 
@@ -107,7 +88,7 @@ describe('Solution', () => {
             expect(Solution.fromString('').getSteps()).toEqual([]);
         });
 
-        it('should decode legacy solution steps as guess-like', () => {
+        it('should decode solution steps', () => {
             expect.assertions(1);
 
             const out = new BitOutputStream();
@@ -116,11 +97,9 @@ describe('Solution', () => {
             out.write(3, VALUE_BITS);
             out.write(100, TIMESTAMP_BITS);
 
-            const legacySteps = String.fromCharCode(...out.bytes());
+            const steps = String.fromCharCode(...out.bytes());
 
-            expect(Solution.fromString(legacySteps).getSteps()).toEqual([
-                { cellIndex: 19, value: 3, ts: 100, technique: guessTechnique, isGuessLike: true }
-            ]);
+            expect(Solution.fromString(steps).getSteps()).toEqual([{ cellIndex: 19, value: 3, ts: 100 }]);
         });
     });
 
@@ -129,8 +108,8 @@ describe('Solution', () => {
             expect.assertions(1);
 
             const steps: SolutionStepInterface[] = [
-                { cellIndex: 0, value: 1, ts: 100, technique: guessTechnique, isGuessLike: true },
-                { cellIndex: 49, value: 6, ts: 123, technique: hiddenSingleTechnique, isGuessLike: false }
+                { cellIndex: 0, value: 1, ts: 100 },
+                { cellIndex: 49, value: 6, ts: 123 }
             ];
 
             expect(Solution.fromSteps(steps).getSteps()).toEqual(steps);

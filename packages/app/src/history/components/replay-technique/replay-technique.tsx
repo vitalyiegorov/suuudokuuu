@@ -8,17 +8,17 @@ import { ThemeContext } from '../../../theme/context/theme.context';
 
 import { ReplayTechniqueStyles as styles } from './replay-technique.styles';
 
-import type { SolutionStepInterface } from '@suuudokuuu/encoder';
+import type { TechniqueResultInterface } from '@suuudokuuu/generator';
 
 interface Props {
-    readonly step: SolutionStepInterface | null;
+    readonly result: Pick<TechniqueResultInterface, 'technique' | 'value'> | null;
 }
 
-export const ReplayTechnique = ({ step }: Props) => {
+export const ReplayTechnique = ({ result }: Props) => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
 
-    if (step === null) {
+    if (result === null) {
         return null;
     }
 
@@ -52,17 +52,17 @@ export const ReplayTechnique = ({ step }: Props) => {
         [SolutionTechniqueEnum.AIC]: t`AIC`
     };
     const guessLabel = techniqueLabels[SolutionTechniqueEnum.Guess] ?? t`Guess`;
-    const techniqueLabel = techniqueLabels[step.technique] ?? guessLabel;
+    const techniqueLabel = techniqueLabels[result.technique] ?? guessLabel;
     const textStyles = [
         styles.text,
         {
-            color: step.isGuessLike ? theme.colors.red : theme.colors.label.main
+            color: result.technique === SolutionTechniqueEnum.Guess ? theme.colors.red : theme.colors.label.main
         }
     ];
 
     return (
         <View style={styles.container}>
-            <BlackText style={textStyles}>{`${techniqueLabel} ${step.value}`}</BlackText>
+            <BlackText style={textStyles}>{`${techniqueLabel} ${result.value}`}</BlackText>
         </View>
     );
 };

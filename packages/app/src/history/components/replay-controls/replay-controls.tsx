@@ -14,18 +14,18 @@ import { ReplayTechnique } from '../replay-technique/replay-technique';
 import { ReplayControlsStyles as styles } from './replay-controls.styles';
 
 import type { EmptyFn } from '@rnw-community/shared';
-import type { SolutionStepInterface } from '@suuudokuuu/encoder';
+import type { TechniqueResultInterface } from '@suuudokuuu/generator';
 
 interface Props {
     readonly currentStep: number;
     readonly totalSteps: number;
     readonly elapsedTime: number;
-    readonly solutionStep: SolutionStepInterface | null;
+    readonly techniqueResult: TechniqueResultInterface | null;
     readonly onPrevStep: EmptyFn;
     readonly onNextStep: EmptyFn;
 }
 
-export const ReplayControls = ({ currentStep, totalSteps, elapsedTime, solutionStep, onPrevStep, onNextStep }: Props) => {
+export const ReplayControls = ({ currentStep, totalSteps, elapsedTime, techniqueResult, onPrevStep, onNextStep }: Props) => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
 
@@ -39,7 +39,7 @@ export const ReplayControls = ({ currentStep, totalSteps, elapsedTime, solutionS
                     {t`Step time`}: <Text style={styles.boldText}>{getTimerText(elapsedTime)}</Text>
                 </BlackText>
             </View>
-            <ReplayTechnique step={solutionStep} />
+            <ReplayTechnique result={techniqueResult} />
             <View style={styles.controlsRow}>
                 {canGoBack ? (
                     <BlackButton onPress={onPrevStep} style={styles.navButton}>

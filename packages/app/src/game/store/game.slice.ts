@@ -1,6 +1,5 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { Solution } from '@suuudokuuu/encoder';
-import { Sudoku as SudokuModel, TechniqueManager } from '@suuudokuuu/generator';
 
 import { getCellKey } from '../../@generic/utils/get-cell-key.util';
 import { maxCompletedGamesPerDifficulty } from '../../history/constants/max-completed-games-per-difficulty.constant';
@@ -11,7 +10,7 @@ import { gameStateToString } from '../utils/game-state-to-string.util';
 import { initialGameState } from './game.state';
 
 import type { GameState } from './game.state';
-import type { CellInterface, DifficultyEnum, ScoredCellsInterface, Sudoku, TechniqueResultInterface } from '@suuudokuuu/generator';
+import type { CellInterface, DifficultyEnum, ScoredCellsInterface, Sudoku } from '@suuudokuuu/generator';
 
 export const gameSlice = createSlice({
     name: 'game',
@@ -29,22 +28,10 @@ export const gameSlice = createSlice({
         resume: state => {
             state.isPaused = false;
         },
-        save: (
-            state,
-            action: PayloadAction<{
-                sudoku: Sudoku;
-                correctCell: CellInterface;
-                scoredCells: ScoredCellsInterface;
-                techniqueResult?: Pick<TechniqueResultInterface, 'technique' | 'isGuessLike' | 'value'>;
-            }>
-        ) => {
+        save: (state, action: PayloadAction<{ sudoku: Sudoku; correctCell: CellInterface; scoredCells: ScoredCellsInterface }>) => {
             const { sudoku, correctCell, scoredCells } = action.payload;
 
             const scoring = new SudokuScoring(defaultScoringConfig);
-            const techniqueResult =
-                action.payload.techniqueResult ??
-                new TechniqueManager(SudokuModel.fromString(state.sudokuString, sudoku.Config)).identifyMove(correctCell);
-            const solvedCell = { ...correctCell, value: techniqueResult.value };
 
             state.sudokuString = sudoku.toString();
 
@@ -57,7 +44,7 @@ export const gameSlice = createSlice({
             });
 
             const solution = Solution.fromSteps(state.solutionSteps);
-            solution.addStep(solvedCell, state.elapsedTime, techniqueResult.technique, techniqueResult.isGuessLike);
+            solution.addStep(correctCell, state.elapsedTime);
             state.solutionSteps = solution.getSteps();
 
             state.candidates[getCellKey(correctCell)] = [];

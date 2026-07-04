@@ -1,9 +1,10 @@
-import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
+import { Sudoku, TechniqueManager, defaultSudokuConfig } from '@suuudokuuu/generator';
 
 import { getCellKey } from '../../@generic/utils/get-cell-key.util';
 
 import type { GameState } from '../../game/store/game.state';
 import type { SolutionStepInterface } from '@suuudokuuu/encoder';
+import type { TechniqueResultInterface } from '@suuudokuuu/generator';
 
 export const getSudokuAtStep = (gameState: GameState, currentStep: number) => {
     const sudoku = Sudoku.fromString(gameState.sudokuString, defaultSudokuConfig);
@@ -12,16 +13,22 @@ export const getSudokuAtStep = (gameState: GameState, currentStep: number) => {
     let elapsedTime = 0;
     let highlightedCellKey = '';
     let solutionStep: SolutionStepInterface | null = null;
+    let techniqueResult: TechniqueResultInterface | null = null;
 
     for (let i = 0; i < currentStep && i < steps.length; i += 1) {
         const x = steps[i].cellIndex % defaultSudokuConfig.fieldSize;
         const y = Math.floor(steps[i].cellIndex / defaultSudokuConfig.fieldSize);
+        const cell = { ...sudoku.Field[y][x], value: steps[i].value };
 
-        sudoku.Field[y][x] = { ...sudoku.Field[y][x], value: steps[i].value };
+        if (i === currentStep - 1) {
+            techniqueResult = new TechniqueManager(sudoku).identifyMove(cell);
+        }
+
+        sudoku.Field[y][x] = cell;
         elapsedTime += steps[i].ts;
         highlightedCellKey = getCellKey({ x, y });
         solutionStep = steps[i];
     }
 
-    return { sudoku, highlightedCellKey, elapsedTime, solutionStep };
+    return { sudoku, highlightedCellKey, elapsedTime, solutionStep, techniqueResult };
 };

@@ -19,8 +19,7 @@ export abstract class AbstractTechniqueScanner {
             value,
             kind: 'placement',
             eliminations: [],
-            reasonCells,
-            isGuessLike: false
+            reasonCells
         };
     }
 
@@ -36,8 +35,7 @@ export abstract class AbstractTechniqueScanner {
             value: placement.value,
             kind: 'elimination' as const,
             eliminations,
-            reasonCells,
-            isGuessLike: false
+            reasonCells
         }));
 
         if (placementResults.length > 0) {
@@ -57,8 +55,7 @@ export abstract class AbstractTechniqueScanner {
                 value: firstElimination.value,
                 kind: 'elimination',
                 eliminations,
-                reasonCells,
-                isGuessLike: false
+                reasonCells
             }
         ];
     }
