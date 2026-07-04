@@ -5,6 +5,9 @@ module.exports = {
     displayName: 'app',
     testRegex: './src/.*\\.spec\\.(tsx?)$',
     testEnvironment: 'node',
+    moduleNameMapper: {
+        '^@suuudokuuu/encoder$': '<rootDir>/../encoder/src/index.ts'
+    },
     coverageThreshold: {
         global: {
             statements: 100,

@@ -19,21 +19,29 @@ yarn ts                # TypeScript check
 src/
 ├── classes/
 │   ├── sudoku-string-encoder/
-│   │   ├── sudoku-string-encoder.ts      # Encode/decode 81-char puzzle strings
+│   │   ├── sudoku-string-encoder.ts      # Legacy encode/decode of 81-char puzzle strings
 │   │   └── sudoku-string-encoder.spec.ts
 │   ├── solution/
 │   │   ├── solution.ts                   # Track and encode solution steps (moves)
 │   │   └── solution.spec.ts
+│   ├── game-state-binary-codec/
+│   │   ├── game-state-binary-codec.ts    # v2 bit-packed game state <-> base64url string
+│   │   └── game-state-binary-codec.spec.ts
 │   └── game-state-serializer/
-│       ├── game-state-serializer.ts      # Full game state -> LZ-compressed string
-│       └── game-state-serializer.spec.ts
+│       ├── game-state-serializer.ts      # Public API: v2 encode, v2 + legacy decode
+│       ├── game-state-serializer.spec.ts
+│       └── game-state-serializer-size.spec.ts  # Payload size characterization
 ├── constants/
-│   ├── bit-encoding.constant.ts          # CELL_INDEX_BITS=7, VALUE_BITS=4, TIMESTAMP_BITS=13
+│   ├── bit-encoding.constant.ts          # CELL_INDEX_BITS=7, VALUE_BITS=4, TIMESTAMP_BITS=8
+│   ├── binary-codec.constant.ts          # v2 format: version, prefix, base-9 packing bits
+│   ├── base64url.constant.ts             # Base64url alphabet
 │   └── grid.constant.ts                  # GRID_SIZE=9, GRID_CELL_COUNT=81
 ├── interfaces/
 │   ├── cell-position.interface.ts        # { x, y, value }
 │   └── solution-step.interface.ts        # { cellIndex, value, ts }
 └── util/
+    ├── base64url-to-bytes.util.ts
+    ├── bytes-to-base64url.util.ts
     ├── is-valid-cell-index.util.ts
     ├── is-valid-cell-value.util.ts
     └── string-to-uint8array.util.ts
@@ -73,16 +81,31 @@ Combines field + steps + metadata into shareable URL-safe string:
 
 ```typescript
 encode(field: string, steps: SolutionStepInterface[], maxMistakes: number, isChallenge: boolean): string
-// Output: LZ-compressed, URL-safe encoded string
+// Output: v2 bit-packed, base64url encoded string with '_' prefix
 
 decode(gameStateString: string): [field, steps, maxMistakes, isChallenge, elapsedTime]
+// Accepts both v2 ('_' prefix) and legacy (lz-string) formats
 ```
 
 ## Encoding Details
 
+### v2 format (current, emitted by encode)
+
+`'_' + base64url(bits)` — alphabet is `A-Za-z0-9-_` only (RFC 3986 unreserved). Bit layout:
+
+- Header: 4-bit version (=2) + 1-bit isChallenge + 3 reserved bits + 8-bit maxMistakes (clamped 0-255)
+- Field: 81-bit givens mask + given values base-9 packed (3 values per 10 bits, pair in 7 bits, single in 4 bits)
+- Steps (challenge only): 7-bit step count; per-step index into the shrinking remaining-empty-cells list
+  (adaptive bit width); step values base-9 packed; 8-bit timestamp deltas
+- Non-challenge shares omit steps entirely (the app ignores them for puzzle links)
+- Typical sizes: ~35 chars for a 30-given puzzle share, ~173 chars for a completed 51-step challenge
+
+### Legacy format (decode only)
+
 - **Field encoding:** 7-bit cell index + 4-bit value (11 bits per clue)
-- **Solution encoding:** 7-bit index + 4-bit value + 13-bit timestamp delta
+- **Solution encoding:** 7-bit index + 4-bit value + 8-bit timestamp delta
 - **Game state:** Length-prefixed segments, then LZ compression via `compressToEncodedURIComponent`
+- Detected by the absence of the `_` prefix (lz-string output never contains `_`)
 
 ## Testing
 

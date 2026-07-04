@@ -51,5 +51,28 @@ describe('SudokuStringEncoder', () => {
             const original = '...469123469123875123875469784596...596231784231784596658947312947312658312658...';
             expect(encoder.decode(encoder.encode(original))).toBe(original);
         });
+
+        it('should round-trip a fully filled grid', () => {
+            expect.assertions(1);
+
+            const original = '534678912672195348198342567859761423426853791713924856961537284287419635345286179';
+            expect(encoder.decode(encoder.encode(original))).toBe(original);
+        });
+
+        it('should round-trip a grid with a single clue at the last cell', () => {
+            expect.assertions(1);
+
+            const original = `${'.'.repeat(80)}9`;
+            expect(encoder.decode(encoder.encode(original))).toBe(original);
+        });
+
+        it('should ignore malformed clues with out-of-range values when decoding', () => {
+            expect.assertions(1);
+
+            const original = `1${'.'.repeat(80)}`;
+            const encoded = encoder.encode(original);
+
+            expect(encoder.decode(`${encoded}ÿÿ`)).toBe(original);
+        });
     });
 });
