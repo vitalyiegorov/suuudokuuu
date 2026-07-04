@@ -1,28 +1,27 @@
-import { compressToEncodedURIComponent, decompressFromEncodedURIComponent } from 'lz-string';
+import { decompressFromEncodedURIComponent } from 'lz-string';
 
+import { CODEC_PREFIX } from '../../constants/binary-codec.constant';
 import { SolutionStepInterface } from '../../interfaces/solution-step.interface';
+import { GameStateBinaryCodec } from '../game-state-binary-codec/game-state-binary-codec';
 import { Solution } from '../solution/solution';
 import { SudokuStringEncoder } from '../sudoku-string-encoder/sudoku-string-encoder';
 
 export class GameStateSerializer {
     private readonly sudokuEncoder = new SudokuStringEncoder();
 
+    private readonly binaryCodec = new GameStateBinaryCodec();
+
     encode(field: string, steps: SolutionStepInterface[], maxMistakes: number, isChallenge: boolean): string {
-        const segments = [
-            this.sudokuEncoder.encode(field, steps),
-            Solution.fromSteps(steps).stringify(),
-            String(maxMistakes),
-            isChallenge ? '1' : '0'
-        ];
-
-        const packed = segments.map(segment => `${segment.length}:${segment}`).join('');
-
-        return compressToEncodedURIComponent(packed);
+        return this.binaryCodec.encode(field, steps, maxMistakes, isChallenge);
     }
 
     decode(
         gameStateString: string
     ): [field: string, steps: SolutionStepInterface[], maxMistakes: number, isChallenge: boolean, elapsedTime: number] {
+        if (gameStateString.startsWith(CODEC_PREFIX)) {
+            return this.binaryCodec.decode(gameStateString.slice(CODEC_PREFIX.length));
+        }
+
         const decompressed = decompressFromEncodedURIComponent(gameStateString);
         if (!decompressed) {
             throw new Error('Failed to decompress game state');

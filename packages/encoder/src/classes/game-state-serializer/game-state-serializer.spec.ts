@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-magic-numbers */
 import { describe, expect, it } from '@jest/globals';
 
 import { SolutionStepInterface } from '../../interfaces/solution-step.interface';
@@ -34,12 +35,12 @@ describe('GameStateSerializer', () => {
             expect(encodedNormal).not.toBe(encodedChallenge);
         });
 
-        it('should produce URL-safe encoded string', () => {
+        it('should produce URL-safe encoded string without reserved characters', () => {
             expect.assertions(1);
 
             const encoded = serializer.encode(validSudokuString, sampleSolutionSteps, 3, false);
 
-            expect(encoded).toMatch(/^[A-Za-z0-9+\-$]*$/u);
+            expect(encoded).toMatch(/^_[\w-]*$/u);
         });
     });
 
@@ -86,7 +87,7 @@ describe('GameStateSerializer', () => {
                 { cellIndex: 8, value: 2, ts: 100 }
             ];
             const expectedElapsedTime = 50 + 75 + 100;
-            const encoded = serializer.encode(validSudokuString, stepsWithKnownTime, 3, false);
+            const encoded = serializer.encode(validSudokuString, stepsWithKnownTime, 3, true);
             const decoded = serializer.decode(encoded);
 
             expect(decoded[4]).toBe(expectedElapsedTime);
@@ -113,7 +114,7 @@ describe('GameStateSerializer', () => {
                 { cellIndex: 2, value: 3, ts: step3Ts }
             ];
             const expectedTotal = step1Ts + step2Ts + step3Ts;
-            const encoded = serializer.encode(validSudokuString, stepsWithTimeDiffs, 3, false);
+            const encoded = serializer.encode(validSudokuString, stepsWithTimeDiffs, 3, true);
             const decoded = serializer.decode(encoded);
 
             expect(decoded[4]).toBe(expectedTotal);
@@ -127,7 +128,7 @@ describe('GameStateSerializer', () => {
                 { cellIndex: 0, value: 1, ts: maxTimestamp },
                 { cellIndex: 1, value: 2, ts: maxTimestamp }
             ];
-            const encoded = serializer.encode(validSudokuString, stepsWithMaxTimestamp, 3, false);
+            const encoded = serializer.encode(validSudokuString, stepsWithMaxTimestamp, 3, true);
             const decoded = serializer.decode(encoded);
 
             expect(decoded[4]).toBe(maxTimestamp * 2);
@@ -171,13 +172,23 @@ describe('GameStateSerializer', () => {
             expect(decoded[3]).toBe(true);
         });
 
-        it('should preserve solution steps through encode/decode cycle', () => {
+        it('should preserve solution steps through encode/decode cycle for challenges', () => {
             expect.assertions(1);
+
+            const encoded = serializer.encode(validSudokuString, sampleSolutionSteps, 3, true);
+            const decoded = serializer.decode(encoded);
+
+            expect(decoded[1]).toEqual(sampleSolutionSteps);
+        });
+
+        it('should omit solution steps for non-challenge shares', () => {
+            expect.assertions(2);
 
             const encoded = serializer.encode(validSudokuString, sampleSolutionSteps, 3, false);
             const decoded = serializer.decode(encoded);
 
-            expect(decoded[1]).toEqual(sampleSolutionSteps);
+            expect(decoded[1]).toEqual([]);
+            expect(decoded[4]).toBe(0);
         });
 
         it('should handle empty solution steps', () => {
@@ -198,13 +209,22 @@ describe('GameStateSerializer', () => {
             expect(decoded[2]).toBe(0);
         });
 
-        it('should handle large maxMistakes value', () => {
+        it('should clamp maxMistakes above the encodable limit', () => {
             expect.assertions(1);
 
             const encoded = serializer.encode(validSudokuString, sampleSolutionSteps, 999, false);
             const decoded = serializer.decode(encoded);
 
-            expect(decoded[2]).toBe(999);
+            expect(decoded[2]).toBe(255);
+        });
+
+        it('should preserve the immortal maxMistakes preset', () => {
+            expect.assertions(1);
+
+            const encoded = serializer.encode(validSudokuString, sampleSolutionSteps, 99, false);
+            const decoded = serializer.decode(encoded);
+
+            expect(decoded[2]).toBe(99);
         });
 
         it('should handle solution steps with edge values', () => {
@@ -215,12 +235,38 @@ describe('GameStateSerializer', () => {
                 { cellIndex: 80, value: 9, ts: 255 },
                 { cellIndex: 40, value: 5, ts: 128 }
             ];
-            const encoded = serializer.encode(validSudokuString, complexSteps, 3, false);
+            const encoded = serializer.encode(validSudokuString, complexSteps, 3, true);
             const decoded = serializer.decode(encoded);
 
             expect(decoded).not.toBeNull();
             expect(decoded[1]).toEqual(complexSteps);
             expect(decoded[2]).toBe(3);
+        });
+    });
+
+    describe('legacy format compatibility', () => {
+        const legacyGivens = '53..7....6..195....98....6.8...6...34..8.3..17...2...6.6....28....419..5....8..79';
+        const legacyPuzzle = 'CwJgXAAABQMgxASIIYCCBsBxAlATiwMAA0AdgfABMAzARIGQAhgZMIGoBdBAVkoBuAHgHkARgCQAwgIwAyMABmEAe4BCAAQAMYCWADMWtUA';
+        const legacyChallenge =
+            'CwJgXAAABQMgxASIIYCCBsBxAlATiwMAA0AdgfABMAzARIGQAhgZMIGoBdBAVkoBuAHgHkARgCQAwgIwAyMABmEAe4BCAAQkhwAEACBAAIAbABgA0+fAASAAwCOAGAAIAwQFAAHAAMATQBgAeEgAQgARDABj8ACQg+gAy2wBNAGAAaHMkAFDvYABDgHCAFEMeMV8AByEAIFt0xIBEIIAjACVvGABBgCj8iQBlMRZzAFH6WwAegGHbAAkAYxFvAHMAQABY7oAWsVcggHGAKlsAC-GAXAAOmYAT7wA-AEFzexBksQBRdwAJgDGATHtxkRQcgAUu8ADS7swQKUxBAJGAAMzwiRAA';
+
+        it('should decode a legacy puzzle link', () => {
+            expect.assertions(1);
+
+            const decoded = serializer.decode(legacyPuzzle);
+
+            expect(decoded).toEqual([legacyGivens, [], 3, false, 0]);
+        });
+
+        it('should decode a legacy challenge link', () => {
+            expect.assertions(4);
+
+            const decoded = serializer.decode(legacyChallenge);
+
+            expect(decoded[0]).toBe(legacyGivens);
+            expect(decoded[1]).toHaveLength(51);
+            expect(decoded[3]).toBe(true);
+            expect(decoded[4]).toBe(612);
         });
     });
 

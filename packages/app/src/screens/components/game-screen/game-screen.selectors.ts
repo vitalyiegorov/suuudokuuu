@@ -5,5 +5,5 @@ export enum GameScreenSelectors {
     QuitButton = 'GameScreenSelectors.QuitButton',
     Score = 'GameScreenSelectors.Score',
     MaxMistakesAllowed = 'GameScreenSelectors.MaxMistakesAllowed',
-    MistakesCount = 'GameScreenSelectors.MistakesCount',
+    MistakesCount = 'GameScreenSelectors.MistakesCount'
 }
