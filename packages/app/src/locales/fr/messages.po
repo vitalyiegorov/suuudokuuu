@@ -21,7 +21,7 @@ msgstr "Accepter le défi"
 msgid "Accept challenge?"
 msgstr "Accepter le défi ?"
 
-#: src/game/components/technique-hint/technique-hint.tsx:55
+#: src/history/components/replay-technique/replay-technique.tsx:52
 msgid "AIC"
 msgstr "AIC"
 
@@ -29,7 +29,7 @@ msgstr "AIC"
 msgid "All of a number (1-9)"
 msgstr "Tous les chiffres (1-9)"
 
-#: src/screens/components/game-screen/game.screen.tsx:104
+#: src/screens/components/game-screen/game.screen.tsx:98
 msgid "All progress will be lost"
 msgstr "Tous les progrès seront perdus"
 
@@ -88,7 +88,7 @@ msgstr ""
 msgid "big"
 msgstr "grand"
 
-#: src/game/components/technique-hint/technique-hint.tsx:35
+#: src/history/components/replay-technique/replay-technique.tsx:32
 msgid "Box-Line Reduction"
 msgstr "Réduction boîte-ligne"
 
@@ -97,7 +97,7 @@ msgid "Can you beat them?"
 msgstr "Pouvez-vous les battre ?"
 
 #: src/screens/components/shared-screen/shared-screen.tsx:40
-#: src/screens/components/game-screen/game.screen.tsx:105
+#: src/screens/components/game-screen/game.screen.tsx:99
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx:40
 msgid "Cancel"
 msgstr "Annuler"
@@ -179,7 +179,7 @@ msgstr "Chaque placement correct commence avec une valeur de base :"
 msgid "Easy"
 msgstr "Facile"
 
-#: src/screens/components/game-screen/game.screen.tsx:248
+#: src/screens/components/game-screen/game.screen.tsx:235
 msgid "Elapsed"
 msgstr "Écoulé"
 
@@ -191,11 +191,11 @@ msgstr "Des points supplémentaires sont attribués lorsque votre placement comp
 msgid "faster!"
 msgstr "plus rapide !"
 
-#: src/game/components/technique-hint/technique-hint.tsx:46
+#: src/history/components/replay-technique/replay-technique.tsx:43
 msgid "Finned Swordfish"
 msgstr "Swordfish avec aileron"
 
-#: src/game/components/technique-hint/technique-hint.tsx:45
+#: src/history/components/replay-technique/replay-technique.tsx:42
 msgid "Finned X-Wing"
 msgstr "X-Wing avec aileron"
 
@@ -203,7 +203,7 @@ msgstr "X-Wing avec aileron"
 msgid "Font size"
 msgstr "Tailles de police"
 
-#: src/game/components/technique-hint/technique-hint.tsx:30
+#: src/history/components/replay-technique/replay-technique.tsx:27
 msgid "Full House"
 msgstr "Dernière case"
 
@@ -249,8 +249,8 @@ msgstr "gris"
 msgid "Group(3x3 cells)"
 msgstr "Groupe (3x3 cellules)"
 
-#: src/game/components/technique-hint/technique-hint.tsx:29
-#: src/game/components/technique-hint/technique-hint.tsx:57
+#: src/history/components/replay-technique/replay-technique.tsx:26
+#: src/history/components/replay-technique/replay-technique.tsx:54
 msgid "Guess"
 msgstr "Hypothèse"
 
@@ -275,19 +275,19 @@ msgstr "Hardcore gagné"
 msgid "Help Ukraine win!"
 msgstr "Aidez l'Ukraine à gagner !"
 
-#: src/game/components/technique-hint/technique-hint.tsx:39
+#: src/history/components/replay-technique/replay-technique.tsx:36
 msgid "Hidden Pair"
 msgstr "Paire cachée"
 
-#: src/game/components/technique-hint/technique-hint.tsx:41
+#: src/history/components/replay-technique/replay-technique.tsx:38
 msgid "Hidden Quad"
 msgstr "Quad caché"
 
-#: src/game/components/technique-hint/technique-hint.tsx:32
+#: src/history/components/replay-technique/replay-technique.tsx:29
 msgid "Hidden Single"
 msgstr "Single caché"
 
-#: src/game/components/technique-hint/technique-hint.tsx:40
+#: src/history/components/replay-technique/replay-technique.tsx:37
 msgid "Hidden Triple"
 msgstr "Triplet caché"
 
@@ -348,7 +348,7 @@ msgstr "Sudoku invalide"
 msgid "It took you"
 msgstr "Il vous a fallu"
 
-#: src/game/components/technique-hint/technique-hint.tsx:44
+#: src/history/components/replay-technique/replay-technique.tsx:41
 msgid "Jellyfish"
 msgstr "Jellyfish"
 
@@ -381,30 +381,30 @@ msgstr "Moyen"
 msgid "Minimum Score"
 msgstr "Score minimum"
 
-#: src/screens/components/game-screen/game.screen.tsx:231
+#: src/screens/components/game-screen/game.screen.tsx:218
 #: src/scoring/components/scoring.screen.tsx:127
 #: src/history/components/replay-header/replay-header.tsx:29
 #: src/history/components/completed-games-list/completed-game-item.tsx:36
 msgid "Mistakes"
 msgstr "Erreurs"
 
-#: src/history/components/replay-controls/replay-controls.tsx:51
+#: src/history/components/replay-controls/replay-controls.tsx:55
 msgid "moves"
 msgstr "coups"
 
-#: src/game/components/technique-hint/technique-hint.tsx:36
+#: src/history/components/replay-technique/replay-technique.tsx:33
 msgid "Naked Pair"
 msgstr "Paire nue"
 
-#: src/game/components/technique-hint/technique-hint.tsx:38
+#: src/history/components/replay-technique/replay-technique.tsx:35
 msgid "Naked Quad"
 msgstr "Quad nu"
 
-#: src/game/components/technique-hint/technique-hint.tsx:31
+#: src/history/components/replay-technique/replay-technique.tsx:28
 msgid "Naked Single"
 msgstr "Single nu"
 
-#: src/game/components/technique-hint/technique-hint.tsx:37
+#: src/history/components/replay-technique/replay-technique.tsx:34
 msgid "Naked Triple"
 msgstr "Triplet nu"
 
@@ -494,11 +494,11 @@ msgstr "Jouez à des difficultés plus élevées pour des multiplicateurs plus i
 msgid "Playing with fewer mistakes allowed gives you a score multiplier:"
 msgstr "Jouer avec moins d'erreurs autorisées vous donne un multiplicateur de score :"
 
-#: src/game/components/technique-hint/technique-hint.tsx:33
+#: src/history/components/replay-technique/replay-technique.tsx:30
 msgid "Pointing Pair"
 msgstr "Paire pointante"
 
-#: src/game/components/technique-hint/technique-hint.tsx:34
+#: src/history/components/replay-technique/replay-technique.tsx:31
 msgid "Pointing Triple"
 msgstr "Triplet pointant"
 
@@ -540,15 +540,15 @@ msgstr "Retour"
 msgid "Row"
 msgstr "Ligne"
 
-#: src/game/components/technique-hint/technique-hint.tsx:48
+#: src/history/components/replay-technique/replay-technique.tsx:45
 msgid "Sashimi Swordfish"
 msgstr "Sashimi Swordfish"
 
-#: src/game/components/technique-hint/technique-hint.tsx:47
+#: src/history/components/replay-technique/replay-technique.tsx:44
 msgid "Sashimi X-Wing"
 msgstr "Sashimi X-Wing"
 
-#: src/screens/components/game-screen/game.screen.tsx:257
+#: src/screens/components/game-screen/game.screen.tsx:244
 #: src/history/components/replay-header/replay-header.tsx:26
 #: src/history/components/completed-games-list/completed-game-item.tsx:30
 msgid "Score"
@@ -584,7 +584,7 @@ msgstr "Afficher les effets animés lorsqu'une grille, une ligne, une colonne, u
 msgid "Show combo animation"
 msgstr "Afficher l'animation de combo"
 
-#: src/game/components/technique-hint/technique-hint.tsx:54
+#: src/history/components/replay-technique/replay-technique.tsx:51
 msgid "Simple Coloring"
 msgstr "Coloriage simple"
 
@@ -614,11 +614,11 @@ msgstr "Recommencer"
 msgid "Statistics"
 msgstr "Statistiques"
 
-#: src/history/components/replay-controls/replay-controls.tsx:36
+#: src/history/components/replay-controls/replay-controls.tsx:39
 msgid "Step time"
 msgstr "Temps du pas"
 
-#: src/screens/components/game-screen/game.screen.tsx:104
+#: src/screens/components/game-screen/game.screen.tsx:98
 msgid "Stop current run?"
 msgstr "Arrêter la partie en cours ?"
 
@@ -642,7 +642,7 @@ msgstr "SuuudokuuU Puzzle Sudoku"
 msgid "SuuudokuuU The Game"
 msgstr "SuuudokuuU Le Jeu"
 
-#: src/game/components/technique-hint/technique-hint.tsx:43
+#: src/history/components/replay-technique/replay-technique.tsx:40
 msgid "Swordfish"
 msgstr "Swordfish"
 
@@ -692,7 +692,7 @@ msgstr "Vibration"
 msgid "View games"
 msgstr "Voir les parties"
 
-#: src/game/components/technique-hint/technique-hint.tsx:51
+#: src/history/components/replay-technique/replay-technique.tsx:48
 msgid "W-Wing"
 msgstr "W-Wing"
 
@@ -730,23 +730,23 @@ msgstr "Gagné"
 msgid "Won without mistakes"
 msgstr "Gagné sans erreurs"
 
-#: src/game/components/technique-hint/technique-hint.tsx:52
+#: src/history/components/replay-technique/replay-technique.tsx:49
 msgid "X-Chain"
 msgstr "Chaîne X"
 
-#: src/game/components/technique-hint/technique-hint.tsx:42
+#: src/history/components/replay-technique/replay-technique.tsx:39
 msgid "X-Wing"
 msgstr "X-Wing"
 
-#: src/game/components/technique-hint/technique-hint.tsx:53
+#: src/history/components/replay-technique/replay-technique.tsx:50
 msgid "XY-Chain"
 msgstr "Chaîne XY"
 
-#: src/game/components/technique-hint/technique-hint.tsx:49
+#: src/history/components/replay-technique/replay-technique.tsx:46
 msgid "XY-Wing"
 msgstr "XY-Wing"
 
-#: src/game/components/technique-hint/technique-hint.tsx:50
+#: src/history/components/replay-technique/replay-technique.tsx:47
 msgid "XYZ-Wing"
 msgstr "XYZ-Wing"
 

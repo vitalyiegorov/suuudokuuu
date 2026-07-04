@@ -9,20 +9,23 @@ import { BlackButton } from '../../../@generic/components/black-button/black-but
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { getTimerText } from '../../../@generic/utils/get-timer-text.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { ReplayTechnique } from '../replay-technique/replay-technique';
 
 import { ReplayControlsStyles as styles } from './replay-controls.styles';
 
 import type { EmptyFn } from '@rnw-community/shared';
+import type { SolutionStepInterface } from '@suuudokuuu/encoder';
 
 interface Props {
     readonly currentStep: number;
     readonly totalSteps: number;
     readonly elapsedTime: number;
+    readonly solutionStep: SolutionStepInterface | null;
     readonly onPrevStep: EmptyFn;
     readonly onNextStep: EmptyFn;
 }
 
-export const ReplayControls = ({ currentStep, totalSteps, elapsedTime, onPrevStep, onNextStep }: Props) => {
+export const ReplayControls = ({ currentStep, totalSteps, elapsedTime, solutionStep, onPrevStep, onNextStep }: Props) => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
 
@@ -36,6 +39,7 @@ export const ReplayControls = ({ currentStep, totalSteps, elapsedTime, onPrevSte
                     {t`Step time`}: <Text style={styles.boldText}>{getTimerText(elapsedTime)}</Text>
                 </BlackText>
             </View>
+            <ReplayTechnique step={solutionStep} />
             <View style={styles.controlsRow}>
                 {canGoBack ? (
                     <BlackButton onPress={onPrevStep} style={styles.navButton}>

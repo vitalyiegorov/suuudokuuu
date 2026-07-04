@@ -41,7 +41,7 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
         }
     };
 
-    const { sudoku, highlightedCellKey, elapsedTime } = getSudokuAtStep(gameState, currentStep);
+    const { sudoku, highlightedCellKey, elapsedTime, solutionStep } = getSudokuAtStep(gameState, currentStep);
 
     return (
         <View style={styles.container}>
@@ -55,6 +55,7 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
                 elapsedTime={elapsedTime}
                 onNextStep={handleNextStep}
                 onPrevStep={handlePrevStep}
+                solutionStep={solutionStep}
                 totalSteps={gameState.challengeSteps.length}
             />
         </View>
