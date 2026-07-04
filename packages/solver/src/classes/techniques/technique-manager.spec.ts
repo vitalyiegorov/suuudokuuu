@@ -69,6 +69,29 @@ describe('TechniqueManager', () => {
         expect(manager.identify(sudoku.Field[0][8])).toBe(SolutionTechniqueEnum.FullHouse);
     });
 
+    it('should prefer the simplest technique when several apply', () => {
+        expect.assertions(2);
+
+        const sudoku = Sudoku.fromStrings(
+            defaultSudokuConfig,
+            '12345678.',
+            '.........',
+            '.........',
+            '.....7...',
+            '2143.....',
+            '...8.....',
+            '.........',
+            '....6....',
+            '.........'
+        );
+        const manager = new TechniqueManager(sudoku);
+
+        expect(manager.findNextStep()).toEqual(
+            expect.objectContaining({ technique: SolutionTechniqueEnum.FullHouse, cell: sudoku.Field[0][8], value: 9 })
+        );
+        expect(manager.identifyMove({ ...sudoku.Field[4][4], value: 9 }).technique).toBe(SolutionTechniqueEnum.NakedSingle);
+    });
+
     it('should mark unsupported moves as guesses', () => {
         expect.assertions(2);
 

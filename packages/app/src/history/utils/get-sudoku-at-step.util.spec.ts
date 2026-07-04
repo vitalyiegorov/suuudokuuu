@@ -3,6 +3,7 @@ import { describe, expect, it } from '@jest/globals';
 import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { SolutionTechniqueEnum } from '@suuudokuuu/solver';
 
+import { getCellKey } from '../../@generic/utils/get-cell-key.util';
 import { initialGameState } from '../../game/store/game.state';
 
 import { getSudokuAtStep } from './get-sudoku-at-step.util';
@@ -41,6 +42,39 @@ describe('getSudokuAtStep', () => {
 
         expect(replayState.solutionStep).toEqual(logicalStep);
         expect(replayState.techniqueResult?.technique).toBe(SolutionTechniqueEnum.FullHouse);
+    });
+
+    it('should accumulate elapsed time and highlight through a multi-step replay', () => {
+        expect.assertions(3);
+
+        const multiStepSudoku = Sudoku.fromString(
+            '.'.repeat(defaultSudokuConfig.fieldSize * defaultSudokuConfig.fieldSize),
+            defaultSudokuConfig
+        );
+        const multiSteps = [0, 1, 2].map(cellIndex => ({
+            cellIndex,
+            value: multiStepSudoku.getCorrectValue(multiStepSudoku.Field[0][cellIndex]),
+            ts: cellIndex + 5
+        }));
+        const multiStepGameState = {
+            ...initialGameState,
+            sudokuString: multiStepSudoku.toString(),
+            challengeSteps: multiSteps
+        };
+        const replayState = getSudokuAtStep(multiStepGameState, 2);
+
+        expect(replayState.elapsedTime).toBe(multiSteps[0].ts + multiSteps[1].ts);
+        expect(replayState.highlightedCellKey).toBe(getCellKey({ x: 1, y: 0 }));
+        expect(replayState.solutionStep).toEqual(multiSteps[1]);
+    });
+
+    it('should clamp out-of-bounds steps to the full replay without throwing', () => {
+        expect.assertions(2);
+
+        const replayState = getSudokuAtStep(gameState, 5);
+
+        expect(replayState.solutionStep).toEqual(logicalStep);
+        expect(replayState.sudoku.Field[0][8].value).toBe(9);
     });
 
     it('should calculate guess technique for unsupported moves', () => {

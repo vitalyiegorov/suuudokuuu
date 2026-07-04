@@ -88,6 +88,12 @@ describe('Solution', () => {
             expect(Solution.fromString('').getSteps()).toEqual([]);
         });
 
+        it('should decode a hardcoded legacy-format literal', () => {
+            expect.assertions(1);
+
+            expect(Solution.fromString('&l\u0080').getSteps()).toEqual([{ cellIndex: 19, value: 3, ts: 100 }]);
+        });
+
         it('should decode solution steps', () => {
             expect.assertions(1);
 
