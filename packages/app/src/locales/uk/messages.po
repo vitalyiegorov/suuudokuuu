@@ -21,7 +21,7 @@ msgstr "Прийняти виклик"
 msgid "Accept challenge?"
 msgstr "Прийняти виклик?"
 
-#: src/history/components/replay-technique/replay-technique.tsx:52
+#: src/history/constants/technique-labels.constant.ts:33
 msgid "AIC"
 msgstr "AIC"
 
@@ -29,7 +29,7 @@ msgstr "AIC"
 msgid "All of a number (1-9)"
 msgstr "Усі клітинки числа (1-9)"
 
-#: src/screens/components/game-screen/game.screen.tsx:98
+#: src/screens/components/game-screen/game.screen.tsx:95
 msgid "All progress will be lost"
 msgstr "Всі досягнення будуть втрачені"
 
@@ -88,7 +88,7 @@ msgstr ""
 msgid "big"
 msgstr "великий"
 
-#: src/history/components/replay-technique/replay-technique.tsx:32
+#: src/history/constants/technique-labels.constant.ts:13
 msgid "Box-Line Reduction"
 msgstr "Скорочення блок-лінія"
 
@@ -97,7 +97,7 @@ msgid "Can you beat them?"
 msgstr "Чи зможете ви їх перемогти?"
 
 #: src/screens/components/shared-screen/shared-screen.tsx:40
-#: src/screens/components/game-screen/game.screen.tsx:99
+#: src/screens/components/game-screen/game.screen.tsx:96
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx:40
 msgid "Cancel"
 msgstr "Скасувати"
@@ -179,7 +179,7 @@ msgstr "Кожне правильне розміщення починаєтьс�
 msgid "Easy"
 msgstr "Легкий"
 
-#: src/screens/components/game-screen/game.screen.tsx:235
+#: src/screens/components/game-screen/game.screen.tsx:227
 msgid "Elapsed"
 msgstr "Минуло"
 
@@ -191,11 +191,11 @@ msgstr "Додаткові бали нараховуються, коли ваш�
 msgid "faster!"
 msgstr "швидше!"
 
-#: src/history/components/replay-technique/replay-technique.tsx:43
+#: src/history/constants/technique-labels.constant.ts:24
 msgid "Finned Swordfish"
 msgstr "Finned Swordfish"
 
-#: src/history/components/replay-technique/replay-technique.tsx:42
+#: src/history/constants/technique-labels.constant.ts:23
 msgid "Finned X-Wing"
 msgstr "Finned X-Wing"
 
@@ -203,9 +203,9 @@ msgstr "Finned X-Wing"
 msgid "Font size"
 msgstr "Розмір шрифту"
 
-#: src/history/components/replay-technique/replay-technique.tsx:27
+#: src/history/constants/technique-labels.constant.ts:8
 msgid "Full House"
-msgstr "Остання клітинка"
+msgstr "Full House"
 
 #: src/settings/component/theme-toggle/theme-toggle.tsx:29
 msgid "Game coloring and appearance"
@@ -249,8 +249,7 @@ msgstr "сірий"
 msgid "Group(3x3 cells)"
 msgstr "Блок (3x3 клітинки)"
 
-#: src/history/components/replay-technique/replay-technique.tsx:26
-#: src/history/components/replay-technique/replay-technique.tsx:54
+#: src/history/constants/technique-labels.constant.ts:7
 msgid "Guess"
 msgstr "Припущення"
 
@@ -275,19 +274,19 @@ msgstr "Хардкорів виграно"
 msgid "Help Ukraine win!"
 msgstr "Допоможіть Україні перемогти!"
 
-#: src/history/components/replay-technique/replay-technique.tsx:36
+#: src/history/constants/technique-labels.constant.ts:17
 msgid "Hidden Pair"
 msgstr "Прихована пара"
 
-#: src/history/components/replay-technique/replay-technique.tsx:38
+#: src/history/constants/technique-labels.constant.ts:19
 msgid "Hidden Quad"
 msgstr "Прихована четвірка"
 
-#: src/history/components/replay-technique/replay-technique.tsx:29
+#: src/history/constants/technique-labels.constant.ts:10
 msgid "Hidden Single"
 msgstr "Прихований одинак"
 
-#: src/history/components/replay-technique/replay-technique.tsx:37
+#: src/history/constants/technique-labels.constant.ts:18
 msgid "Hidden Triple"
 msgstr "Прихована трійка"
 
@@ -348,7 +347,7 @@ msgstr "Недійсний Судоку"
 msgid "It took you"
 msgstr "Вам знадобилося"
 
-#: src/history/components/replay-technique/replay-technique.tsx:41
+#: src/history/constants/technique-labels.constant.ts:22
 msgid "Jellyfish"
 msgstr "Jellyfish"
 
@@ -381,7 +380,7 @@ msgstr "Середній"
 msgid "Minimum Score"
 msgstr "Мінімальний рахунок"
 
-#: src/screens/components/game-screen/game.screen.tsx:218
+#: src/screens/components/game-screen/game.screen.tsx:210
 #: src/scoring/components/scoring.screen.tsx:127
 #: src/history/components/replay-header/replay-header.tsx:29
 #: src/history/components/completed-games-list/completed-game-item.tsx:36
@@ -392,19 +391,19 @@ msgstr "Помилки"
 msgid "moves"
 msgstr "ходів"
 
-#: src/history/components/replay-technique/replay-technique.tsx:33
+#: src/history/constants/technique-labels.constant.ts:14
 msgid "Naked Pair"
 msgstr "Гола пара"
 
-#: src/history/components/replay-technique/replay-technique.tsx:35
+#: src/history/constants/technique-labels.constant.ts:16
 msgid "Naked Quad"
 msgstr "Гола четвірка"
 
-#: src/history/components/replay-technique/replay-technique.tsx:28
+#: src/history/constants/technique-labels.constant.ts:9
 msgid "Naked Single"
 msgstr "Голий одинак"
 
-#: src/history/components/replay-technique/replay-technique.tsx:34
+#: src/history/constants/technique-labels.constant.ts:15
 msgid "Naked Triple"
 msgstr "Гола трійка"
 
@@ -494,11 +493,11 @@ msgstr "Грайте на вищих рівнях складності для б
 msgid "Playing with fewer mistakes allowed gives you a score multiplier:"
 msgstr "Гра з меншою кількістю дозволених помилок дає множник рахунку:"
 
-#: src/history/components/replay-technique/replay-technique.tsx:30
+#: src/history/constants/technique-labels.constant.ts:11
 msgid "Pointing Pair"
 msgstr "Вказівна пара"
 
-#: src/history/components/replay-technique/replay-technique.tsx:31
+#: src/history/constants/technique-labels.constant.ts:12
 msgid "Pointing Triple"
 msgstr "Вказівна трійка"
 
@@ -540,15 +539,15 @@ msgstr "Повернутися"
 msgid "Row"
 msgstr "Рядок"
 
-#: src/history/components/replay-technique/replay-technique.tsx:45
+#: src/history/constants/technique-labels.constant.ts:26
 msgid "Sashimi Swordfish"
 msgstr "Sashimi Swordfish"
 
-#: src/history/components/replay-technique/replay-technique.tsx:44
+#: src/history/constants/technique-labels.constant.ts:25
 msgid "Sashimi X-Wing"
 msgstr "Sashimi X-Wing"
 
-#: src/screens/components/game-screen/game.screen.tsx:244
+#: src/screens/components/game-screen/game.screen.tsx:236
 #: src/history/components/replay-header/replay-header.tsx:26
 #: src/history/components/completed-games-list/completed-game-item.tsx:30
 msgid "Score"
@@ -584,7 +583,7 @@ msgstr "Показувати анімаційні ефекти при завер
 msgid "Show combo animation"
 msgstr "Показувати анімацію комбо"
 
-#: src/history/components/replay-technique/replay-technique.tsx:51
+#: src/history/constants/technique-labels.constant.ts:32
 msgid "Simple Coloring"
 msgstr "Просте розфарбування"
 
@@ -618,7 +617,7 @@ msgstr "Статистика"
 msgid "Step time"
 msgstr "Час кроку"
 
-#: src/screens/components/game-screen/game.screen.tsx:98
+#: src/screens/components/game-screen/game.screen.tsx:95
 msgid "Stop current run?"
 msgstr "Зупинити поточний прогрес?"
 
@@ -642,7 +641,7 @@ msgstr "СууудокуУ Головоломка Судоку"
 msgid "SuuudokuuU The Game"
 msgstr "СууудокуУ Гра"
 
-#: src/history/components/replay-technique/replay-technique.tsx:40
+#: src/history/constants/technique-labels.constant.ts:21
 msgid "Swordfish"
 msgstr "Swordfish"
 
@@ -692,7 +691,7 @@ msgstr "Вібрація"
 msgid "View games"
 msgstr "Дивитись ігри"
 
-#: src/history/components/replay-technique/replay-technique.tsx:48
+#: src/history/constants/technique-labels.constant.ts:29
 msgid "W-Wing"
 msgstr "W-Wing"
 
@@ -730,23 +729,23 @@ msgstr "Виграно"
 msgid "Won without mistakes"
 msgstr "Виграно без помилок"
 
-#: src/history/components/replay-technique/replay-technique.tsx:49
+#: src/history/constants/technique-labels.constant.ts:30
 msgid "X-Chain"
 msgstr "X-ланцюг"
 
-#: src/history/components/replay-technique/replay-technique.tsx:39
+#: src/history/constants/technique-labels.constant.ts:20
 msgid "X-Wing"
 msgstr "X-Wing"
 
-#: src/history/components/replay-technique/replay-technique.tsx:50
+#: src/history/constants/technique-labels.constant.ts:31
 msgid "XY-Chain"
 msgstr "XY-ланцюг"
 
-#: src/history/components/replay-technique/replay-technique.tsx:46
+#: src/history/constants/technique-labels.constant.ts:27
 msgid "XY-Wing"
 msgstr "XY-Wing"
 
-#: src/history/components/replay-technique/replay-technique.tsx:47
+#: src/history/constants/technique-labels.constant.ts:28
 msgid "XYZ-Wing"
 msgstr "XYZ-Wing"
 

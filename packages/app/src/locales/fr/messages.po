@@ -21,7 +21,7 @@ msgstr "Accepter le défi"
 msgid "Accept challenge?"
 msgstr "Accepter le défi ?"
 
-#: src/history/components/replay-technique/replay-technique.tsx:52
+#: src/history/constants/technique-labels.constant.ts:33
 msgid "AIC"
 msgstr "AIC"
 
@@ -29,7 +29,7 @@ msgstr "AIC"
 msgid "All of a number (1-9)"
 msgstr "Tous les chiffres (1-9)"
 
-#: src/screens/components/game-screen/game.screen.tsx:98
+#: src/screens/components/game-screen/game.screen.tsx:95
 msgid "All progress will be lost"
 msgstr "Tous les progrès seront perdus"
 
@@ -88,7 +88,7 @@ msgstr ""
 msgid "big"
 msgstr "grand"
 
-#: src/history/components/replay-technique/replay-technique.tsx:32
+#: src/history/constants/technique-labels.constant.ts:13
 msgid "Box-Line Reduction"
 msgstr "Réduction boîte-ligne"
 
@@ -97,7 +97,7 @@ msgid "Can you beat them?"
 msgstr "Pouvez-vous les battre ?"
 
 #: src/screens/components/shared-screen/shared-screen.tsx:40
-#: src/screens/components/game-screen/game.screen.tsx:99
+#: src/screens/components/game-screen/game.screen.tsx:96
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx:40
 msgid "Cancel"
 msgstr "Annuler"
@@ -179,7 +179,7 @@ msgstr "Chaque placement correct commence avec une valeur de base :"
 msgid "Easy"
 msgstr "Facile"
 
-#: src/screens/components/game-screen/game.screen.tsx:235
+#: src/screens/components/game-screen/game.screen.tsx:227
 msgid "Elapsed"
 msgstr "Écoulé"
 
@@ -191,11 +191,11 @@ msgstr "Des points supplémentaires sont attribués lorsque votre placement comp
 msgid "faster!"
 msgstr "plus rapide !"
 
-#: src/history/components/replay-technique/replay-technique.tsx:43
+#: src/history/constants/technique-labels.constant.ts:24
 msgid "Finned Swordfish"
 msgstr "Swordfish avec aileron"
 
-#: src/history/components/replay-technique/replay-technique.tsx:42
+#: src/history/constants/technique-labels.constant.ts:23
 msgid "Finned X-Wing"
 msgstr "X-Wing avec aileron"
 
@@ -203,9 +203,9 @@ msgstr "X-Wing avec aileron"
 msgid "Font size"
 msgstr "Tailles de police"
 
-#: src/history/components/replay-technique/replay-technique.tsx:27
+#: src/history/constants/technique-labels.constant.ts:8
 msgid "Full House"
-msgstr "Dernière case"
+msgstr "Full House"
 
 #: src/settings/component/theme-toggle/theme-toggle.tsx:29
 msgid "Game coloring and appearance"
@@ -249,8 +249,7 @@ msgstr "gris"
 msgid "Group(3x3 cells)"
 msgstr "Groupe (3x3 cellules)"
 
-#: src/history/components/replay-technique/replay-technique.tsx:26
-#: src/history/components/replay-technique/replay-technique.tsx:54
+#: src/history/constants/technique-labels.constant.ts:7
 msgid "Guess"
 msgstr "Hypothèse"
 
@@ -275,19 +274,19 @@ msgstr "Hardcore gagné"
 msgid "Help Ukraine win!"
 msgstr "Aidez l'Ukraine à gagner !"
 
-#: src/history/components/replay-technique/replay-technique.tsx:36
+#: src/history/constants/technique-labels.constant.ts:17
 msgid "Hidden Pair"
 msgstr "Paire cachée"
 
-#: src/history/components/replay-technique/replay-technique.tsx:38
+#: src/history/constants/technique-labels.constant.ts:19
 msgid "Hidden Quad"
 msgstr "Quad caché"
 
-#: src/history/components/replay-technique/replay-technique.tsx:29
+#: src/history/constants/technique-labels.constant.ts:10
 msgid "Hidden Single"
 msgstr "Single caché"
 
-#: src/history/components/replay-technique/replay-technique.tsx:37
+#: src/history/constants/technique-labels.constant.ts:18
 msgid "Hidden Triple"
 msgstr "Triplet caché"
 
@@ -348,7 +347,7 @@ msgstr "Sudoku invalide"
 msgid "It took you"
 msgstr "Il vous a fallu"
 
-#: src/history/components/replay-technique/replay-technique.tsx:41
+#: src/history/constants/technique-labels.constant.ts:22
 msgid "Jellyfish"
 msgstr "Jellyfish"
 
@@ -381,7 +380,7 @@ msgstr "Moyen"
 msgid "Minimum Score"
 msgstr "Score minimum"
 
-#: src/screens/components/game-screen/game.screen.tsx:218
+#: src/screens/components/game-screen/game.screen.tsx:210
 #: src/scoring/components/scoring.screen.tsx:127
 #: src/history/components/replay-header/replay-header.tsx:29
 #: src/history/components/completed-games-list/completed-game-item.tsx:36
@@ -392,19 +391,19 @@ msgstr "Erreurs"
 msgid "moves"
 msgstr "coups"
 
-#: src/history/components/replay-technique/replay-technique.tsx:33
+#: src/history/constants/technique-labels.constant.ts:14
 msgid "Naked Pair"
 msgstr "Paire nue"
 
-#: src/history/components/replay-technique/replay-technique.tsx:35
+#: src/history/constants/technique-labels.constant.ts:16
 msgid "Naked Quad"
 msgstr "Quad nu"
 
-#: src/history/components/replay-technique/replay-technique.tsx:28
+#: src/history/constants/technique-labels.constant.ts:9
 msgid "Naked Single"
 msgstr "Single nu"
 
-#: src/history/components/replay-technique/replay-technique.tsx:34
+#: src/history/constants/technique-labels.constant.ts:15
 msgid "Naked Triple"
 msgstr "Triplet nu"
 
@@ -494,11 +493,11 @@ msgstr "Jouez à des difficultés plus élevées pour des multiplicateurs plus i
 msgid "Playing with fewer mistakes allowed gives you a score multiplier:"
 msgstr "Jouer avec moins d'erreurs autorisées vous donne un multiplicateur de score :"
 
-#: src/history/components/replay-technique/replay-technique.tsx:30
+#: src/history/constants/technique-labels.constant.ts:11
 msgid "Pointing Pair"
 msgstr "Paire pointante"
 
-#: src/history/components/replay-technique/replay-technique.tsx:31
+#: src/history/constants/technique-labels.constant.ts:12
 msgid "Pointing Triple"
 msgstr "Triplet pointant"
 
@@ -540,15 +539,15 @@ msgstr "Retour"
 msgid "Row"
 msgstr "Ligne"
 
-#: src/history/components/replay-technique/replay-technique.tsx:45
+#: src/history/constants/technique-labels.constant.ts:26
 msgid "Sashimi Swordfish"
 msgstr "Sashimi Swordfish"
 
-#: src/history/components/replay-technique/replay-technique.tsx:44
+#: src/history/constants/technique-labels.constant.ts:25
 msgid "Sashimi X-Wing"
 msgstr "Sashimi X-Wing"
 
-#: src/screens/components/game-screen/game.screen.tsx:244
+#: src/screens/components/game-screen/game.screen.tsx:236
 #: src/history/components/replay-header/replay-header.tsx:26
 #: src/history/components/completed-games-list/completed-game-item.tsx:30
 msgid "Score"
@@ -584,7 +583,7 @@ msgstr "Afficher les effets animés lorsqu'une grille, une ligne, une colonne, u
 msgid "Show combo animation"
 msgstr "Afficher l'animation de combo"
 
-#: src/history/components/replay-technique/replay-technique.tsx:51
+#: src/history/constants/technique-labels.constant.ts:32
 msgid "Simple Coloring"
 msgstr "Coloriage simple"
 
@@ -618,7 +617,7 @@ msgstr "Statistiques"
 msgid "Step time"
 msgstr "Temps du pas"
 
-#: src/screens/components/game-screen/game.screen.tsx:98
+#: src/screens/components/game-screen/game.screen.tsx:95
 msgid "Stop current run?"
 msgstr "Arrêter la partie en cours ?"
 
@@ -642,7 +641,7 @@ msgstr "SuuudokuuU Puzzle Sudoku"
 msgid "SuuudokuuU The Game"
 msgstr "SuuudokuuU Le Jeu"
 
-#: src/history/components/replay-technique/replay-technique.tsx:40
+#: src/history/constants/technique-labels.constant.ts:21
 msgid "Swordfish"
 msgstr "Swordfish"
 
@@ -692,7 +691,7 @@ msgstr "Vibration"
 msgid "View games"
 msgstr "Voir les parties"
 
-#: src/history/components/replay-technique/replay-technique.tsx:48
+#: src/history/constants/technique-labels.constant.ts:29
 msgid "W-Wing"
 msgstr "W-Wing"
 
@@ -730,23 +729,23 @@ msgstr "Gagné"
 msgid "Won without mistakes"
 msgstr "Gagné sans erreurs"
 
-#: src/history/components/replay-technique/replay-technique.tsx:49
+#: src/history/constants/technique-labels.constant.ts:30
 msgid "X-Chain"
 msgstr "Chaîne X"
 
-#: src/history/components/replay-technique/replay-technique.tsx:39
+#: src/history/constants/technique-labels.constant.ts:20
 msgid "X-Wing"
 msgstr "X-Wing"
 
-#: src/history/components/replay-technique/replay-technique.tsx:50
+#: src/history/constants/technique-labels.constant.ts:31
 msgid "XY-Chain"
 msgstr "Chaîne XY"
 
-#: src/history/components/replay-technique/replay-technique.tsx:46
+#: src/history/constants/technique-labels.constant.ts:27
 msgid "XY-Wing"
 msgstr "XY-Wing"
 
-#: src/history/components/replay-technique/replay-technique.tsx:47
+#: src/history/constants/technique-labels.constant.ts:28
 msgid "XYZ-Wing"
 msgstr "XYZ-Wing"
 

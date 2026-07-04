@@ -1,5 +1,4 @@
 import { useLingui } from '@lingui/react/macro';
-import { CellInterface, ScoredCellsInterface } from '@suuudokuuu/generator';
 import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { Link, useRouter } from 'expo-router';
@@ -49,6 +48,7 @@ import { ThemeContext } from '../../../theme/context/theme.context';
 import { GameScreenSelectors } from './game-screen.selectors';
 import { GameScreenStyles as styles } from './game-screen.styles';
 
+import type { CellInterface, ScoredCellsInterface } from '@suuudokuuu/generator';
 import type { Dispatch, SetStateAction } from 'react';
 
 const setSharingAvailable = (setHasSharing: Dispatch<SetStateAction<boolean>>): void => {
