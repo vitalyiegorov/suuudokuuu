@@ -62,7 +62,7 @@ jobs:
     needs: code-quality
     name: E2E Tests on iOS
     if: ${{ !github.event.pull_request.draft }}
-    runs-on: [self-hosted, macOS, ARM64, macos-tartelet]
+    runs-on: macos-latest
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
