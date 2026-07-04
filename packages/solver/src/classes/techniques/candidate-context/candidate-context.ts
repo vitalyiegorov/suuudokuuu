@@ -1,4 +1,4 @@
-import { isDefined } from '@rnw-community/shared';
+import { isDefined, isNotEmptyArray } from '@rnw-community/shared';
 
 import type { CandidateEliminationInterface } from '../../../interfaces/candidate-elimination.interface';
 import type { CandidatePlacementInterface } from '../../../interfaces/candidate-placement.interface';
@@ -42,7 +42,7 @@ export class CandidateContext {
     }
 
     getBlankCells(): CellInterface[] {
-        return this.getCells().filter(cell => this.getCandidates(cell).length > 0);
+        return this.getCells().filter(cell => isNotEmptyArray(this.getCandidates(cell)));
     }
 
     getValues(): number[] {

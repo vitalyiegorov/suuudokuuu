@@ -1,5 +1,6 @@
 import { isDefined } from '@rnw-community/shared';
 
+import { XY_CHAIN_MAX_CELLS, XY_CHAIN_MIN_CELLS, X_CHAIN_MAX_CELLS, X_CHAIN_MIN_CELLS } from '../../../constants/chain-scan.constant';
 import { SolutionTechniqueEnum } from '../../../enums/solution-technique.enum';
 import { CandidateContext } from '../candidate-context/candidate-context';
 
@@ -8,38 +9,22 @@ import { AbstractTechniqueScanner } from './abstract-technique.scanner';
 import type { CandidateEliminationInterface } from '../../../interfaces/candidate-elimination.interface';
 import type { TechniqueResultInterface } from '../../../interfaces/technique-result.interface';
 import type { TechniqueScannerInterface } from '../../../interfaces/technique-scanner.interface';
-import type { CandidateContext as CandidateContextType } from '../candidate-context/candidate-context';
 import type { CellInterface } from '@suuudokuuu/generator';
 
 export class ChainTechniqueScanner extends AbstractTechniqueScanner implements TechniqueScannerInterface {
-    find(context: CandidateContextType): TechniqueResultInterface[] {
+    find(context: CandidateContext): TechniqueResultInterface[] {
         return [...this.findXYChains(context), ...this.findXChains(context)];
     }
 
-    private findXYChains(context: CandidateContextType): TechniqueResultInterface[] {
+    private findXYChains(context: CandidateContext): TechniqueResultInterface[] {
         const results: TechniqueResultInterface[] = [];
-        const bivalueCells = context.getBlankCells().filter(cell => context.getCandidates(cell).length === 2);
 
-        for (const middleCell of bivalueCells) {
-            const peerBivalueCells = context.getPeers(middleCell).filter(cell => context.getCandidates(cell).length === 2);
+        for (const startCell of this.getBivalueCells(context)) {
+            for (const eliminationValue of context.getCandidates(startCell)) {
+                const linkValue = context.getCandidates(startCell).find(candidate => candidate !== eliminationValue);
 
-            for (const [firstCell, secondCell] of this.getCombinations(peerBivalueCells, 2)) {
-                const eliminationValue = this.getXYChainEliminationValue(context, firstCell, middleCell, secondCell);
-
-                if (isDefined(eliminationValue)) {
-                    const eliminations = this.getCommonPeerEliminations(context, [firstCell, secondCell], eliminationValue, [
-                        firstCell,
-                        middleCell,
-                        secondCell
-                    ]);
-
-                    results.push(
-                        ...this.createEliminationResults(context, SolutionTechniqueEnum.XYChain, eliminations, [
-                            firstCell,
-                            middleCell,
-                            secondCell
-                        ])
-                    );
+                if (isDefined(linkValue)) {
+                    results.push(...this.collectXYChainResults(context, [startCell], linkValue, eliminationValue));
                 }
             }
         }
@@ -47,7 +32,40 @@ export class ChainTechniqueScanner extends AbstractTechniqueScanner implements T
         return results;
     }
 
-    private findXChains(context: CandidateContextType): TechniqueResultInterface[] {
+    private collectXYChainResults(
+        context: CandidateContext,
+        path: CellInterface[],
+        linkValue: number,
+        eliminationValue: number
+    ): TechniqueResultInterface[] {
+        const results: TechniqueResultInterface[] = [];
+        const currentCell = path[path.length - 1];
+
+        if (!isDefined(currentCell) || path.length >= XY_CHAIN_MAX_CELLS) {
+            return results;
+        }
+
+        for (const nextCell of this.getNextXYChainCells(context, path, currentCell, linkValue)) {
+            const nextLinkValue = context.getCandidates(nextCell).find(candidate => candidate !== linkValue);
+
+            if (isDefined(nextLinkValue)) {
+                const nextPath = [...path, nextCell];
+
+                if (nextLinkValue === eliminationValue && nextPath.length >= XY_CHAIN_MIN_CELLS) {
+                    const [firstCell] = nextPath;
+                    const eliminations = this.getCommonPeerEliminations(context, [firstCell, nextCell], eliminationValue, nextPath);
+
+                    results.push(...this.createEliminationResults(context, SolutionTechniqueEnum.XYChain, eliminations, nextPath));
+                }
+
+                results.push(...this.collectXYChainResults(context, nextPath, nextLinkValue, eliminationValue));
+            }
+        }
+
+        return results;
+    }
+
+    private findXChains(context: CandidateContext): TechniqueResultInterface[] {
         const results: TechniqueResultInterface[] = [];
 
         for (const value of context.getValues()) {
@@ -62,8 +80,6 @@ export class ChainTechniqueScanner extends AbstractTechniqueScanner implements T
                     const eliminations = this.getCommonPeerEliminations(context, [firstCell, lastCell], value, path);
 
                     results.push(...this.createEliminationResults(context, SolutionTechniqueEnum.XChain, eliminations, path));
-                    results.push(...this.createEliminationResults(context, SolutionTechniqueEnum.SimpleColoring, eliminations, path));
-                    results.push(...this.createEliminationResults(context, SolutionTechniqueEnum.AIC, eliminations, path));
                 }
             }
         }
@@ -71,34 +87,28 @@ export class ChainTechniqueScanner extends AbstractTechniqueScanner implements T
         return results;
     }
 
-    private getXYChainEliminationValue(
-        context: CandidateContextType,
-        firstCell: CellInterface,
-        middleCell: CellInterface,
-        secondCell: CellInterface
-    ): number | null {
-        const firstCandidates = context.getCandidates(firstCell);
-        const middleCandidates = context.getCandidates(middleCell);
-        const secondCandidates = context.getCandidates(secondCell);
-        const firstMiddleShared = firstCandidates.filter(candidate => middleCandidates.includes(candidate));
-        const secondMiddleShared = secondCandidates.filter(candidate => middleCandidates.includes(candidate));
-        const endpointShared = firstCandidates.filter(candidate => secondCandidates.includes(candidate));
-        const [eliminationValue] = endpointShared;
-
-        if (
-            firstMiddleShared.length === 1 &&
-            secondMiddleShared.length === 1 &&
-            endpointShared.length === 1 &&
-            firstMiddleShared[0] !== secondMiddleShared[0] &&
-            isDefined(eliminationValue)
-        ) {
-            return eliminationValue;
-        }
-
-        return null;
+    private getNextXYChainCells(
+        context: CandidateContext,
+        path: CellInterface[],
+        currentCell: CellInterface,
+        linkValue: number
+    ): CellInterface[] {
+        return context
+            .getPeers(currentCell)
+            .filter(cell => this.isBivalueCell(context, cell))
+            .filter(cell => context.getCandidates(cell).includes(linkValue))
+            .filter(cell => !path.some(pathCell => this.isSameCell(pathCell, cell)));
     }
 
-    private getStrongLinks(context: CandidateContextType, value: number): [CellInterface, CellInterface][] {
+    private getBivalueCells(context: CandidateContext): CellInterface[] {
+        return context.getBlankCells().filter(cell => this.isBivalueCell(context, cell));
+    }
+
+    private isBivalueCell(context: CandidateContext, cell: CellInterface): boolean {
+        return context.getCandidates(cell).length === 2;
+    }
+
+    private getStrongLinks(context: CandidateContext, value: number): [CellInterface, CellInterface][] {
         const links: [CellInterface, CellInterface][] = [];
 
         for (const unit of context.getUnits()) {
@@ -131,9 +141,11 @@ export class ChainTechniqueScanner extends AbstractTechniqueScanner implements T
             return;
         }
 
-        if (path.length >= 4) {
-            paths.push(path);
+        if (path.length >= X_CHAIN_MIN_CELLS && path.length % 2 === 0) {
+            paths.push([...path]);
+        }
 
+        if (path.length >= X_CHAIN_MAX_CELLS) {
             return;
         }
 
@@ -161,7 +173,7 @@ export class ChainTechniqueScanner extends AbstractTechniqueScanner implements T
     }
 
     private getCommonPeerEliminations(
-        context: CandidateContextType,
+        context: CandidateContext,
         cells: CellInterface[],
         value: number,
         reasonCells: CellInterface[]

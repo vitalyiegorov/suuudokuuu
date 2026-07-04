@@ -7,6 +7,7 @@ import { AbstractTechniqueScanner } from './abstract-technique.scanner';
 import type { CandidateEliminationInterface } from '../../../interfaces/candidate-elimination.interface';
 import type { TechniqueResultInterface } from '../../../interfaces/technique-result.interface';
 import type { TechniqueScannerInterface } from '../../../interfaces/technique-scanner.interface';
+import type { LineType } from '../../../types/line.type';
 import type { CandidateContext } from '../candidate-context/candidate-context';
 import type { CellInterface } from '@suuudokuuu/generator';
 
@@ -65,7 +66,7 @@ export class IntersectionTechniqueScanner extends AbstractTechniqueScanner imple
         context: CandidateContext,
         cells: CellInterface[],
         value: number,
-        lineType: 'row' | 'column'
+        lineType: LineType
     ): CandidateEliminationInterface[] {
         const indexes = this.getUniqueValues(cells.map(cell => (lineType === 'row' ? cell.y : cell.x)));
         const [index] = indexes;

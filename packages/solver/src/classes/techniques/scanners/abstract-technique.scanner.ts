@@ -1,4 +1,4 @@
-import { isDefined } from '@rnw-community/shared';
+import { isDefined, isNotEmptyArray } from '@rnw-community/shared';
 
 import type { SolutionTechniqueEnum } from '../../../enums/solution-technique.enum';
 import type { CandidateEliminationInterface } from '../../../interfaces/candidate-elimination.interface';
@@ -38,7 +38,7 @@ export abstract class AbstractTechniqueScanner {
             reasonCells
         }));
 
-        if (placementResults.length > 0) {
+        if (isNotEmptyArray(placementResults)) {
             return placementResults;
         }
 

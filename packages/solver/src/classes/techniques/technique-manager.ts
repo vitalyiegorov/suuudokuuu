@@ -32,10 +32,13 @@ export class TechniqueManager {
 
     findNextStep(): TechniqueResultInterface | null {
         const context = CandidateContext.fromSudoku(this.sudoku);
-        const [logicalResult] = this.findLogicalResults(context);
 
-        if (isDefined(logicalResult)) {
-            return logicalResult;
+        for (const scanner of this.scanners) {
+            const [simplestResult] = this.sortByDifficulty(scanner.find(context));
+
+            if (isDefined(simplestResult)) {
+                return simplestResult;
+            }
         }
 
         const [blankCell] = context.getBlankCells();
@@ -47,9 +50,14 @@ export class TechniqueManager {
         const context = CandidateContext.fromSudoku(this.sudoku);
         const targetValue = this.getTargetValue(cell);
 
-        for (const result of this.findLogicalResults(context)) {
-            if (this.isSameCell(result.cell, cell) && result.value === targetValue) {
-                return result;
+        for (const scanner of this.scanners) {
+            const matchingResults = scanner
+                .find(context)
+                .filter(result => this.isSameCell(result.cell, cell) && result.value === targetValue);
+            const [simplestResult] = this.sortByDifficulty(matchingResults);
+
+            if (isDefined(simplestResult)) {
+                return simplestResult;
             }
         }
 
@@ -64,14 +72,8 @@ export class TechniqueManager {
         return this.identifyMove(cell).value;
     }
 
-    private findLogicalResults(context: CandidateContext): TechniqueResultInterface[] {
-        const results: TechniqueResultInterface[] = [];
-
-        for (const scanner of this.scanners) {
-            results.push(...scanner.find(context));
-        }
-
-        return results;
+    private sortByDifficulty(results: TechniqueResultInterface[]): TechniqueResultInterface[] {
+        return [...results].sort((firstResult, secondResult) => firstResult.technique - secondResult.technique);
     }
 
     private getTargetValue(cell: CellInterface): number {
