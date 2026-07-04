@@ -1,6 +1,7 @@
 /* eslint-disable lingui/no-unlocalized-strings */
 import { describe, expect, it } from '@jest/globals';
-import { SolutionTechniqueEnum, Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
+import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
+import { SolutionTechniqueEnum } from '@suuudokuuu/solver';
 
 import { initialGameState } from '../../game/store/game.state';
 

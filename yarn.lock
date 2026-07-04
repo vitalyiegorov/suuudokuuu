@@ -5438,6 +5438,7 @@ __metadata:
     "@rnw-community/shared": "npm:^1.3.0"
     "@suuudokuuu/encoder": "workspace:*"
     "@suuudokuuu/generator": "workspace:*"
+    "@suuudokuuu/solver": "workspace:*"
     "@types/react": "npm:~19.1.10"
     babel-plugin-macros: "npm:^3.1.0"
     babel-plugin-react-compiler: "npm:19.0.0-beta-af1b7da-20250417"
@@ -5527,6 +5528,15 @@ __metadata:
     turbo: "npm:^2.6.3"
     typescript: "npm:^5.9.3"
     typescript-eslint: "npm:^8.48.0"
+  languageName: unknown
+  linkType: soft
+
+"@suuudokuuu/solver@workspace:*, @suuudokuuu/solver@workspace:packages/solver":
+  version: 0.0.0-use.local
+  resolution: "@suuudokuuu/solver@workspace:packages/solver"
+  dependencies:
+    "@rnw-community/shared": "npm:^1.3.0"
+    "@suuudokuuu/generator": "workspace:*"
   languageName: unknown
   linkType: soft
 

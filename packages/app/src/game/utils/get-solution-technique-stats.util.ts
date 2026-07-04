@@ -1,7 +1,7 @@
-import { SolutionTechniqueEnum } from '@suuudokuuu/generator';
+import { SolutionTechniqueEnum } from '@suuudokuuu/solver';
 
 import type { SolutionTechniqueStatsInterface } from '../interface/solution-technique-stats.interface';
-import type { TechniqueResultInterface } from '@suuudokuuu/generator';
+import type { TechniqueResultInterface } from '@suuudokuuu/solver';
 
 export const getSolutionTechniqueStats = (results: TechniqueResultInterface[]): SolutionTechniqueStatsInterface => {
     const countsByTechnique = new Map<number, number>();

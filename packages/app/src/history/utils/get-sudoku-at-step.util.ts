@@ -1,10 +1,11 @@
-import { Sudoku, TechniqueManager, defaultSudokuConfig } from '@suuudokuuu/generator';
+import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
+import { TechniqueManager } from '@suuudokuuu/solver';
 
 import { getCellKey } from '../../@generic/utils/get-cell-key.util';
 
 import type { GameState } from '../../game/store/game.state';
 import type { SolutionStepInterface } from '@suuudokuuu/encoder';
-import type { TechniqueResultInterface } from '@suuudokuuu/generator';
+import type { TechniqueResultInterface } from '@suuudokuuu/solver';
 
 export const getSudokuAtStep = (gameState: GameState, currentStep: number) => {
     const sudoku = Sudoku.fromString(gameState.sudokuString, defaultSudokuConfig);

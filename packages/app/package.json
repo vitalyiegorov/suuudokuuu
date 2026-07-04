@@ -28,6 +28,7 @@
         "@rnw-community/shared": "^1.3.0",
         "@suuudokuuu/encoder": "workspace:*",
         "@suuudokuuu/generator": "workspace:*",
+        "@suuudokuuu/solver": "workspace:*",
         "date-fns": "^2.30.0",
         "expo": "~54.0.27",
         "expo-build-properties": "~1.0.10",
