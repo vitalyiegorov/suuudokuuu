@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Suuudokuuu is an open-source Sudoku game built with React Native/Expo. Monorepo with 3 core packages: app (React Native), generator (puzzle engine), and encoder (binary encoding for sharing).
+Suuudokuuu is an open-source Sudoku game built with React Native/Expo. Monorepo with 4 core packages: app (React Native), generator (puzzle engine), solver (technique detection), and encoder (binary encoding for sharing).
 
 ## Commands
 
@@ -34,6 +34,7 @@ yarn deps:dedupe                          # Deduplicate dependencies
 packages/
 ├── app/                # React Native (Expo 54) - main Sudoku game UI
 ├── generator/          # Sudoku puzzle generation & solving (DLX algorithm)
+├── solver/             # Solving-technique detection (singles, subsets, fish, chains)
 └── encoder/            # Binary encoding/decoding for puzzle sharing
 ```
 
@@ -229,6 +230,7 @@ After modifying user-facing text, run `yarn i18n:sync` and commit both file type
 |---------|-------|
 | **app** | Expo 54, React 19 + Compiler, Expo Router 6, Redux Toolkit, NativeWind 5, Lingui 5.7, Reanimated 4 |
 | **generator** | Pure TypeScript, DLX solver, backtracking algorithm |
+| **solver** | Pure TypeScript, technique scanners over candidate context |
 | **encoder** | @thi.ng/bitstream, lz-string compression |
 | **Build** | Yarn 4.12 (PnP), Node >= 22, Lerna 8, TurboRepo 2, TypeScript 5.9, ESLint 9 |
 
@@ -258,7 +260,7 @@ Format: `type(scope): description`
 | `i18n` | Translations | Patch |
 | `perf` | Performance improvement | Patch |
 
-**Scopes:** Use package names without prefix: `app`, `generator`, `encoder`
+**Scopes:** Use package names without prefix: `app`, `generator`, `solver`, `encoder`
 - For single package: `feat(app): add dark mode toggle`
 - For multiple packages, comma-separate scopes: `fix(generator,encoder): update shared interfaces`
 - For root config or non-package changes, omit the scope: `docs: add CLAUDE.md files`
