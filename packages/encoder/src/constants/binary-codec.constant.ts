@@ -1,0 +1,14 @@
+export const CODEC_PREFIX = '_';
+export const CODEC_VERSION = 2;
+export const CODEC_VERSION_BITS = 4;
+export const CODEC_RESERVED_BITS = 3;
+export const MAX_MISTAKES_BITS = 8;
+export const MAX_MISTAKES_LIMIT = 2 ** MAX_MISTAKES_BITS - 1;
+export const STEP_COUNT_BITS = 7;
+export const VALUE_BASE = 9;
+export const VALUE_BASE_SQUARED = VALUE_BASE * VALUE_BASE;
+export const VALUE_BASE_CUBED = VALUE_BASE * VALUE_BASE * VALUE_BASE;
+export const VALUE_TRIPLET_SIZE = 3;
+export const VALUE_TRIPLET_BITS = 10;
+export const VALUE_PAIR_SIZE = 2;
+export const VALUE_PAIR_BITS = 7;

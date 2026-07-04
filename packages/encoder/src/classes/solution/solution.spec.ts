@@ -116,6 +116,45 @@ describe('Solution', () => {
         });
     });
 
+    describe('parse validation', () => {
+        it('should skip steps with invalid cell values when parsing', () => {
+            expect.assertions(1);
+
+            const invalidValueSteps = Solution.fromSteps([
+                { cellIndex: 0, value: 0, ts: 10 },
+                { cellIndex: 1, value: 15, ts: 10 },
+                { cellIndex: 2, value: 5, ts: 10 }
+            ]);
+
+            const parsed = Solution.fromString(invalidValueSteps.stringify());
+
+            expect(parsed.getSteps()).toEqual([{ cellIndex: 2, value: 5, ts: 10 }]);
+        });
+
+        it('should skip steps with out-of-range cell indexes when parsing', () => {
+            expect.assertions(1);
+
+            const invalidIndexSteps = Solution.fromSteps([
+                { cellIndex: 81, value: 4, ts: 10 },
+                { cellIndex: 127, value: 4, ts: 10 },
+                { cellIndex: 80, value: 4, ts: 10 }
+            ]);
+
+            const parsed = Solution.fromString(invalidIndexSteps.stringify());
+
+            expect(parsed.getSteps()).toEqual([{ cellIndex: 80, value: 4, ts: 10 }]);
+        });
+
+        it('should ignore trailing bits that do not form a full step', () => {
+            expect.assertions(1);
+
+            solution.addStep({ x: 0, y: 0, value: 1 }, 10);
+            const truncated = solution.stringify().slice(0, 1);
+
+            expect(Solution.fromString(truncated).getSteps()).toEqual([]);
+        });
+    });
+
     describe('round-trip conversion', () => {
         it('should maintain data integrity through stringify and fromString', () => {
             expect.assertions(1);
