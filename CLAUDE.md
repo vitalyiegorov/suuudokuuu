@@ -227,7 +227,7 @@ After modifying user-facing text, run `yarn i18n:sync` and commit both file type
 
 | Package | Stack |
 |---------|-------|
-| **app** | Expo 54, React 19 + Compiler, Expo Router 6, Redux Toolkit, NativeWind 5, Lingui 5.7, Reanimated 4 |
+| **app** | Expo 54, React 19 + Compiler, Expo Router 6, Redux Toolkit, StyleSheet styling, Lingui 5.7, Reanimated 4 |
 | **generator** | Pure TypeScript, DLX solver, backtracking algorithm |
 | **encoder** | @thi.ng/bitstream, lz-string compression |
 | **Build** | Yarn 4.12 (PnP), Node >= 22, Lerna 8, TurboRepo 2, TypeScript 5.9, ESLint 9 |

@@ -1,6 +1,6 @@
 # App Package (React Native)
 
-Main Sudoku game application built with Expo 54, React 19 + Compiler, Expo Router 6, Redux Toolkit, NativeWind 5, Reanimated 4, and Lingui 5.7.
+Main Sudoku game application built with Expo 54, React 19 + Compiler, Expo Router 6, Redux Toolkit, Reanimated 4, and Lingui 5.7. Styling uses React Native `StyleSheet.create`.
 
 ## Commands
 
@@ -141,7 +141,7 @@ export const MyComponent = (props: Props) => {
 ```typescript
 // Good - Destructure in body for many props
 export const MyComponent = (props: Props) => {
-    const { className, header, footer, children, ...rest } = props;
+    const { style, header, footer, children, ...rest } = props;
 };
 
 // Good - Destructure in signature for few props
@@ -160,27 +160,59 @@ const handleClose = () => void ref.current?.close();
 <Button onPress={() => void ref.current?.close()} />
 ```
 
-## Styling (NativeWind + CVA)
+## Styling (StyleSheet)
 
-### CVA for Variants
+### Styles in Sibling Files
 
-Always use `class-variance-authority` for components with style variants:
+Each component's styles live in a sibling `.styles.ts` file, exported as a single `StyleSheet.create` constant named `<ComponentName>Styles`:
 
 ```typescript
-import { cva } from 'class-variance-authority';
+// game-timer.styles.ts
+import { StyleSheet } from 'react-native';
 
-const buttonVariants = cva('flex-row items-center gap-x-xl justify-center border', {
-    variants: { variant: { primary: '...', secondary: '...' } },
-    defaultVariants: { variant: 'primary' }
+export const GameTimerStyles = StyleSheet.create({
+    text: {
+        fontWeight: 'bold'
+    }
 });
 ```
 
-### Utility Function
-
-Use `cn()` for combining classes:
 ```typescript
-import { cn } from '../../utils/cn/cn';
-className={cn('base-classes', classNameFromProps)}
+// game-timer.tsx
+import { GameTimerStyles as styles } from './game-timer.styles';
+
+<BlackText style={styles.text}>...</BlackText>
+```
+
+Shared styles live in `src/@generic/styles/` (e.g. `cell.styles.ts`).
+
+### Conditional and Dynamic Styles
+
+Use `cs()` from `@rnw-community/shared` for conditional styles, combined with dynamic values in a style array:
+
+```typescript
+import { cs } from '@rnw-community/shared';
+
+const textStyles = [
+    { color: getCellTextColor() },
+    cs(isActive, styles.textActive),
+    { fontSize: CellFontSizeConstant * fontSizeMultiplier }
+];
+
+<Reanimated.Text style={textStyles}>{text}</Reanimated.Text>
+```
+
+### Theme Colors
+
+Never hardcode colors - read them from `ThemeContext`:
+
+```typescript
+import { use } from 'react';
+import { ThemeContext } from '../../../theme/context/theme.context';
+
+const { theme } = use(ThemeContext);
+
+const color = theme.colors.cell.activeText;
 ```
 
 ## State Management (Redux Toolkit)
