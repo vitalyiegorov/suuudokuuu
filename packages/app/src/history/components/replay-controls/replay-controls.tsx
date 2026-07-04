@@ -14,7 +14,7 @@ import { ReplayTechnique } from '../replay-technique/replay-technique';
 import { ReplayControlsStyles as styles } from './replay-controls.styles';
 
 import type { EmptyFn } from '@rnw-community/shared';
-import type { TechniqueResultInterface } from '@suuudokuuu/generator';
+import type { TechniqueResultInterface } from '@suuudokuuu/solver';
 
 interface Props {
     readonly currentStep: number;

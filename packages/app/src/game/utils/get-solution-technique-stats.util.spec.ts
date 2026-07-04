@@ -1,10 +1,10 @@
 /* eslint-disable lingui/no-unlocalized-strings */
 import { describe, expect, it } from '@jest/globals';
-import { SolutionTechniqueEnum } from '@suuudokuuu/generator';
+import { SolutionTechniqueEnum } from '@suuudokuuu/solver';
 
 import { getSolutionTechniqueStats } from './get-solution-technique-stats.util';
 
-import type { TechniqueResultInterface } from '@suuudokuuu/generator';
+import type { TechniqueResultInterface } from '@suuudokuuu/solver';
 
 describe('getSolutionTechniqueStats', () => {
     it('should aggregate technique counts and guess-like moves', () => {

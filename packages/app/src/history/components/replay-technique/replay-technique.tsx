@@ -1,5 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
-import { SolutionTechniqueEnum } from '@suuudokuuu/generator';
+import { SolutionTechniqueEnum } from '@suuudokuuu/solver';
 import { use } from 'react';
 import { View } from 'react-native';
 
@@ -8,7 +8,7 @@ import { ThemeContext } from '../../../theme/context/theme.context';
 
 import { ReplayTechniqueStyles as styles } from './replay-technique.styles';
 
-import type { TechniqueResultInterface } from '@suuudokuuu/generator';
+import type { TechniqueResultInterface } from '@suuudokuuu/solver';
 
 interface Props {
     readonly result: Pick<TechniqueResultInterface, 'technique' | 'value'> | null;

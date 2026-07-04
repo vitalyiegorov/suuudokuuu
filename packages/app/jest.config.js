@@ -5,7 +5,8 @@ module.exports = {
     displayName: 'app',
     moduleNameMapper: {
         '^@suuudokuuu/encoder$': '<rootDir>/../encoder/src/index.ts',
-        '^@suuudokuuu/generator$': '<rootDir>/../generator/src/index.ts'
+        '^@suuudokuuu/generator$': '<rootDir>/../generator/src/index.ts',
+        '^@suuudokuuu/solver$': '<rootDir>/../solver/src/index.ts'
     },
     testRegex: './src/.*\\.spec\\.(tsx?)$',
     testEnvironment: 'node',
