@@ -38,6 +38,28 @@ packages/
 └── encoder/            # Binary encoding/decoding for puzzle sharing
 ```
 
+### Non-App Package Structure
+
+Non-app packages use feature-based modules. Put reusable shared primitives in `src/@generic`, and put each feature at `src/<feature-name>/`. Create only the folders a module actually needs.
+
+```
+src/
+├── @generic/
+│   ├── classes/
+│   ├── constants/
+│   ├── enums/
+│   ├── interfaces/
+│   ├── types/
+│   └── utils/
+└── <feature-name>/
+    ├── classes/
+    ├── interfaces/
+    ├── types/
+    └── utils/
+```
+
+Examples: `src/xy-chain-technique/classes/xy-chain.technique.ts`, `src/game-state-serializer/classes/game-state-serializer.ts`, `src/sudoku/classes/sudoku.ts`.
+
 ## Critical Rules
 
 1. **No `any` type** - Everything properly typed

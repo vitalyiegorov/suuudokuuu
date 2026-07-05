@@ -18,23 +18,23 @@ yarn ts                # TypeScript check
 
 ```
 src/
-├── classes/techniques/
-│   ├── technique-manager.ts            # Public API: findNextStep, identifyMove, identify
-│   ├── abstract-technique.ts           # Shared result builders and small common helpers
-│   ├── abstract-*-technique.ts         # Family bases only when techniques share real mechanics
-│   ├── candidate-context/
-│   │   └── candidate-context.ts        # Immutable candidate map + unit/peer navigation
-│   └── *-technique/
-│       ├── *.technique.ts              # One strategy per named technique
-│       └── *.technique.spec.ts         # Focused positive/negative coverage
-├── constants/
-│   └── chain-scan.constant.ts          # Chain search depth bounds
-├── enums/
-│   └── solution-technique.enum.ts      # 27 techniques ordered by difficulty (Guess = 0)
-├── interfaces/                         # TechniqueResult, CandidateElimination, ...
-├── utils/
-│   └── create-technique-strategies.util.ts # Difficulty-ordered logical strategy registry
-└── types/                              # CandidateMapType, LineType, FinnedFish*, ...
+├── @generic/
+│   ├── classes/
+│   │   ├── technique-manager/          # Public API: findNextStep, identifyMove, identify
+│   │   ├── candidate-context/          # Immutable candidate map + unit/peer navigation
+│   │   └── abstract-*.ts               # Shared bases only when mechanics overlap
+│   ├── constants/
+│   │   └── chain-scan.constant.ts
+│   ├── enums/
+│   │   └── solution-technique.enum.ts  # Techniques ordered by difficulty (Guess = 0)
+│   ├── interfaces/                     # TechniqueResult, CandidateElimination, ...
+│   ├── types/                          # CandidateMapType, LineType, FinnedFish*, ...
+│   └── utils/
+│       └── create-technique-strategies.util.ts
+└── *-technique/
+    └── classes/
+        ├── *.technique.ts              # One strategy per named technique
+        └── *.technique.spec.ts         # Focused positive/negative coverage
 ```
 
 ## Key Concepts
@@ -62,7 +62,7 @@ Immutable snapshot of candidates per blank cell (`fromSudoku`), with unit/peer n
 
 - Technique detection must answer "which technique justifies value V in cell C", not "any technique anywhere"
 - New logical strategies must keep registry order aligned with `SolutionTechniqueEnum`
-- New techniques belong in their own `*-technique/` folder with a focused spec file
+- New techniques belong in their own `*-technique/classes/` folder with a focused spec file
 - Tests use realistic boards via `Sudoku.fromStrings(defaultSudokuConfig, ...)` + `CandidateContext.fromSudoku`; synthetic candidate maps only for patterns impractical to reach from a real board
 - Every technique needs a positive assertion; add negative coverage where false positives are plausible
 
