@@ -20,22 +20,20 @@ yarn ts                # TypeScript check
 src/
 ├── classes/techniques/
 │   ├── technique-manager.ts            # Public API: findNextStep, identifyMove, identify
+│   ├── abstract-technique.ts           # Shared result builders and small common helpers
+│   ├── abstract-*-technique.ts         # Family bases only when techniques share real mechanics
 │   ├── candidate-context/
 │   │   └── candidate-context.ts        # Immutable candidate map + unit/peer navigation
-│   └── scanners/
-│       ├── abstract-technique.scanner.ts   # Shared result builders, combinations helper
-│       ├── placement-technique.scanner.ts  # FullHouse, NakedSingle, HiddenSingle
-│       ├── intersection-technique.scanner.ts # PointingPair/Triple, BoxLineReduction
-│       ├── subset-technique.scanner.ts     # Naked/Hidden Pair, Triple, Quad
-│       ├── fish-technique.scanner.ts       # X-Wing, Swordfish, Jellyfish + finned/sashimi
-│       ├── wing-technique.scanner.ts       # XY-Wing, XYZ-Wing, W-Wing
-│       ├── chain-technique.scanner.ts      # XY-Chain (3-6 cells), X-Chain (4-6 cells)
-│       └── guess-technique.scanner.ts      # Fallback when no logical technique matches
+│   └── *-technique/
+│       ├── *.technique.ts              # One strategy per named technique
+│       └── *.technique.spec.ts         # Focused positive/negative coverage
 ├── constants/
 │   └── chain-scan.constant.ts          # Chain search depth bounds
 ├── enums/
 │   └── solution-technique.enum.ts      # 27 techniques ordered by difficulty (Guess = 0)
 ├── interfaces/                         # TechniqueResult, CandidateElimination, ...
+├── utils/
+│   └── create-technique-strategies.util.ts # Difficulty-ordered logical strategy registry
 └── types/                              # CandidateMapType, LineType, FinnedFish*, ...
 ```
 
@@ -50,22 +48,23 @@ identifyMove(cell: CellInterface): TechniqueResultInterface  // Technique justif
 identify(cell: CellInterface): SolutionTechniqueEnum
 ```
 
-Scanners run in difficulty order (placement -> intersection -> subset -> fish -> wing -> chain) with per-scanner early exit; within a scanner, matches are sorted by enum value so the simplest technique always wins. Scanner order must stay aligned with `SolutionTechniqueEnum` difficulty bands.
+Logical strategies run in `SolutionTechniqueEnum` difficulty order from `createTechniqueStrategies`. The manager exits at the first strategy that finds a result, and fallback `GuessTechnique` runs only when no supported logical technique matches.
 
 ### SolutionTechniqueEnum
 
-Enum values double as difficulty ranking (lower = simpler); `Guess = 0` is the fallback, never emitted by logical scanners. `SimpleColoring` and `AIC` are reserved names not yet produced by any scanner — do not assert them in tests until implemented.
+Enum values double as difficulty ranking (lower = simpler); `Guess = 0` is the fallback, never emitted by logical strategies. `SimpleColoring` and `AIC` are reserved names not yet produced by any strategy — do not assert them in tests until implemented.
 
 ### CandidateContext
 
-Immutable snapshot of candidates per blank cell (`fromSudoku`), with unit/peer navigation and `applyEliminations` returning a new context. All scanner logic works on this context, never on the Sudoku instance directly.
+Immutable snapshot of candidates per blank cell (`fromSudoku`), with unit/peer navigation and `applyEliminations` returning a new context. Logical strategies work on this context, never on the Sudoku instance directly.
 
 ## Rules
 
 - Technique detection must answer "which technique justifies value V in cell C", not "any technique anywhere"
-- New scanners must keep enum-band monotonicity with existing scanner order
+- New logical strategies must keep registry order aligned with `SolutionTechniqueEnum`
+- New techniques belong in their own `*-technique/` folder with a focused spec file
 - Tests use realistic boards via `Sudoku.fromStrings(defaultSudokuConfig, ...)` + `CandidateContext.fromSudoku`; synthetic candidate maps only for patterns impractical to reach from a real board
-- Every technique needs a positive assertion and each scanner family a negative test
+- Every technique needs a positive assertion; add negative coverage where false positives are plausible
 
 ## Testing
 
