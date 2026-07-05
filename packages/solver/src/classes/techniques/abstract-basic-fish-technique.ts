@@ -1,51 +1,41 @@
-import { AbstractTechnique } from './abstract-technique';
+import { AbstractFishTechnique } from './abstract-fish-technique';
 
 import type { CandidateContext } from './candidate-context/candidate-context';
-import type { SolutionTechniqueEnum } from '../../enums/solution-technique.enum';
 import type { CandidateEliminationInterface } from '../../interfaces/candidate-elimination.interface';
 import type { CandidateUnitInterface } from '../../interfaces/candidate-unit.interface';
 import type { TechniqueResultInterface } from '../../interfaces/technique-result.interface';
+import type { FinnedFishBaseType } from '../../types/finned-fish-base.type';
 import type { LineType } from '../../types/line.type';
 
-export abstract class AbstractBasicFishTechnique extends AbstractTechnique {
-    abstract readonly technique: SolutionTechniqueEnum;
-    protected abstract readonly size: number;
+export abstract class AbstractBasicFishTechnique extends AbstractFishTechnique {
+    protected override getCandidateUnits(
+        context: CandidateContext,
+        baseUnits: CandidateUnitInterface[],
+        value: number,
+        coverType: LineType
+    ): CandidateUnitInterface[] {
+        return baseUnits.filter(unit => {
+            const coverIndexes = this.getCoverIndexes(context, unit, value, coverType);
 
-    find(context: CandidateContext): TechniqueResultInterface[] {
-        return [...this.findByBaseType(context, 'row'), ...this.findByBaseType(context, 'column')];
+            return coverIndexes.length >= 2 && coverIndexes.length <= this.size;
+        });
     }
 
-    private findByBaseType(context: CandidateContext, baseType: LineType): TechniqueResultInterface[] {
-        const results: TechniqueResultInterface[] = [];
-        const baseUnits = context.getUnits().filter(unit => unit.type === baseType);
-        const coverType = baseType === 'row' ? 'column' : 'row';
+    protected findInUnits(context: CandidateContext, value: number, base: FinnedFishBaseType): TechniqueResultInterface[] {
+        const coverIndexes = this.getUniqueValues(base.units.flatMap(unit => this.getCoverIndexes(context, unit, value, base.coverType)));
 
-        for (const value of context.getValues()) {
-            const candidateUnits = baseUnits.filter(unit => {
-                const coverIndexes = this.getCoverIndexes(context, unit, value, coverType);
-
-                return coverIndexes.length >= 2 && coverIndexes.length <= this.size;
-            });
-
-            for (const units of this.getCombinations(candidateUnits, this.size)) {
-                const coverIndexes = this.getUniqueValues(units.flatMap(unit => this.getCoverIndexes(context, unit, value, coverType)));
-
-                if (coverIndexes.length === this.size) {
-                    const eliminations = this.getFishEliminations(context, units, value, coverType);
-
-                    results.push(
-                        ...this.createEliminationResults(
-                            context,
-                            this.technique,
-                            eliminations,
-                            units.flatMap(unit => unit.cells)
-                        )
-                    );
-                }
-            }
+        if (coverIndexes.length !== this.size) {
+            return [];
         }
 
-        return results;
+        const eliminations = this.getFishEliminations(context, base.units, value, base.coverType);
+
+        return this.createEliminationResults(
+            context,
+            this.technique,
+            eliminations,
+            base.units.flatMap(unit => unit.cells)
+        );
     }
 
     private getCoverIndexes(context: CandidateContext, unit: CandidateUnitInterface, value: number, coverType: LineType): number[] {
