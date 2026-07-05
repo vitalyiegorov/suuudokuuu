@@ -1,9 +1,8 @@
 import { isDefined, isEmptyArray, isNotEmptyArray } from '@rnw-community/shared';
 
-import { AbstractTechnique } from './abstract-technique';
+import { AbstractFishTechnique } from './abstract-fish-technique';
 
 import type { CandidateContext } from './candidate-context/candidate-context';
-import type { SolutionTechniqueEnum } from '../../enums/solution-technique.enum';
 import type { CandidateEliminationInterface } from '../../interfaces/candidate-elimination.interface';
 import type { TechniqueResultInterface } from '../../interfaces/technique-result.interface';
 import type { FinnedFishBaseType } from '../../types/finned-fish-base.type';
@@ -11,37 +10,14 @@ import type { FinnedFishScanType } from '../../types/finned-fish-scan.type';
 import type { LineType } from '../../types/line.type';
 import type { CellInterface } from '@suuudokuuu/generator';
 
-export abstract class AbstractFinnedFishTechnique extends AbstractTechnique {
-    abstract readonly technique: SolutionTechniqueEnum;
-    protected abstract readonly size: number;
-
-    find(context: CandidateContext): TechniqueResultInterface[] {
-        return [...this.findByBaseType(context, 'row'), ...this.findByBaseType(context, 'column')];
-    }
-
+export abstract class AbstractFinnedFishTechnique extends AbstractFishTechnique {
     protected isSashimiFish(scan: FinnedFishScanType): boolean {
         return scan.units.some(
             unit => scan.bodyCells.filter(cell => this.getCellBaseIndex(cell, scan.baseType) === unit.index).length === 1
         );
     }
 
-    private findByBaseType(context: CandidateContext, baseType: LineType): TechniqueResultInterface[] {
-        const results: TechniqueResultInterface[] = [];
-        const baseUnits = context.getUnits().filter(unit => unit.type === baseType);
-        const coverType = baseType === 'row' ? 'column' : 'row';
-
-        for (const value of context.getValues()) {
-            const candidateUnits = baseUnits.filter(unit => unit.cells.some(cell => context.getCandidates(cell).includes(value)));
-
-            for (const units of this.getCombinations(candidateUnits, this.size)) {
-                results.push(...this.findInUnits(context, value, { units, baseType, coverType }));
-            }
-        }
-
-        return results;
-    }
-
-    private findInUnits(context: CandidateContext, value: number, base: FinnedFishBaseType): TechniqueResultInterface[] {
+    protected findInUnits(context: CandidateContext, value: number, base: FinnedFishBaseType): TechniqueResultInterface[] {
         const results: TechniqueResultInterface[] = [];
         const candidateCells = base.units.flatMap(unit => unit.cells.filter(cell => context.getCandidates(cell).includes(value)));
         const possibleCoverIndexes = this.getUniqueValues(candidateCells.map(cell => this.getCellCoverIndex(cell, base.coverType)));

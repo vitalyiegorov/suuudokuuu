@@ -5,11 +5,10 @@ import { SolutionTechniqueEnum } from '../../../enums/solution-technique.enum';
 import { AbstractChainTechnique } from '../abstract-chain-technique';
 
 import type { TechniqueResultInterface } from '../../../interfaces/technique-result.interface';
-import type { TechniqueStrategyInterface } from '../../../interfaces/technique-strategy.interface';
 import type { CandidateContext } from '../candidate-context/candidate-context';
 import type { CellInterface } from '@suuudokuuu/generator';
 
-export class XYChainTechnique extends AbstractChainTechnique implements TechniqueStrategyInterface {
+export class XYChainTechnique extends AbstractChainTechnique {
     readonly technique = SolutionTechniqueEnum.XYChain;
 
     find(context: CandidateContext): TechniqueResultInterface[] {
