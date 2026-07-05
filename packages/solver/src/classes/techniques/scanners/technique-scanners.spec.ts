@@ -1,6 +1,8 @@
 import { describe, expect, it } from '@jest/globals';
 import { Sudoku, createEmptyField, defaultSudokuConfig } from '@suuudokuuu/generator';
 
+import { isNumber } from '@rnw-community/shared';
+
 import { SolutionTechniqueEnum } from '../../../enums/solution-technique.enum';
 import { CandidateContext } from '../candidate-context/candidate-context';
 
@@ -11,10 +13,60 @@ import { PlacementTechniqueScanner } from './placement-technique.scanner';
 import { SubsetTechniqueScanner } from './subset-technique.scanner';
 import { WingTechniqueScanner } from './wing-technique.scanner';
 
+import type { TechniqueResultInterface } from '../../../interfaces/technique-result.interface';
 import type { CandidateMapType } from '../../../types/candidate-map.type';
 import type { CellInterface, FieldInterface } from '@suuudokuuu/generator';
 
+const reservedTechniques = [SolutionTechniqueEnum.SimpleColoring, SolutionTechniqueEnum.AIC];
+
+const coveredTechniques = [
+    SolutionTechniqueEnum.Guess,
+    SolutionTechniqueEnum.FullHouse,
+    SolutionTechniqueEnum.NakedSingle,
+    SolutionTechniqueEnum.HiddenSingle,
+    SolutionTechniqueEnum.PointingPair,
+    SolutionTechniqueEnum.PointingTriple,
+    SolutionTechniqueEnum.BoxLineReduction,
+    SolutionTechniqueEnum.NakedPair,
+    SolutionTechniqueEnum.NakedTriple,
+    SolutionTechniqueEnum.NakedQuad,
+    SolutionTechniqueEnum.HiddenPair,
+    SolutionTechniqueEnum.HiddenTriple,
+    SolutionTechniqueEnum.HiddenQuad,
+    SolutionTechniqueEnum.XWing,
+    SolutionTechniqueEnum.Swordfish,
+    SolutionTechniqueEnum.Jellyfish,
+    SolutionTechniqueEnum.FinnedXWing,
+    SolutionTechniqueEnum.FinnedSwordfish,
+    SolutionTechniqueEnum.SashimiXWing,
+    SolutionTechniqueEnum.SashimiSwordfish,
+    SolutionTechniqueEnum.XYWing,
+    SolutionTechniqueEnum.XYZWing,
+    SolutionTechniqueEnum.WWing,
+    SolutionTechniqueEnum.XChain,
+    SolutionTechniqueEnum.XYChain
+];
+
 const getCellKey = (cell: CellInterface): string => CandidateContext.getCellKey(cell);
+
+const getSortedTechniques = (techniques: SolutionTechniqueEnum[]): SolutionTechniqueEnum[] =>
+    [...techniques].sort((firstTechnique, secondTechnique) => firstTechnique - secondTechnique);
+
+const getNonReservedTechniques = (): SolutionTechniqueEnum[] =>
+    Object.values(SolutionTechniqueEnum)
+        .filter(isNumber)
+        .filter(technique => !reservedTechniques.includes(technique));
+
+const expectTechniqueResult = (
+    results: TechniqueResultInterface[],
+    expectedResult: { technique: SolutionTechniqueEnum } & Record<string, unknown>
+): void => {
+    expect(results).toContainEqual(expect.objectContaining(expectedResult));
+};
+
+const expectNoTechnique = (results: TechniqueResultInterface[], technique: SolutionTechniqueEnum): void => {
+    expect(results.some(result => result.technique === technique)).toBe(false);
+};
 
 const createContext = (field: FieldInterface, entries: [CellInterface, number[]][]): CandidateContext => {
     const candidateMap: CandidateMapType = {};
@@ -31,6 +83,14 @@ const createRealContext = (...rows: string[]): CandidateContext => {
 
     return CandidateContext.fromSudoku(sudoku);
 };
+
+describe('technique coverage', () => {
+    it('should keep a positive test for every non-reserved technique', () => {
+        expect.assertions(1);
+
+        expect(getSortedTechniques(coveredTechniques)).toEqual(getSortedTechniques(getNonReservedTechniques()));
+    });
+});
 
 describe('PlacementTechniqueScanner', () => {
     it('should find a full house, a naked single and a hidden single on a real board', () => {
@@ -49,15 +109,17 @@ describe('PlacementTechniqueScanner', () => {
         );
         const results = new PlacementTechniqueScanner().find(context);
 
-        expect(results).toContainEqual(
-            expect.objectContaining({ technique: SolutionTechniqueEnum.FullHouse, cell: { x: 3, y: 1, value: 0, group: 4 }, value: 1 })
-        );
-        expect(results).toContainEqual(
-            expect.objectContaining({ technique: SolutionTechniqueEnum.NakedSingle, cell: { x: 0, y: 4, value: 0, group: 2 }, value: 4 })
-        );
-        expect(results).toContainEqual(
-            expect.objectContaining({ technique: SolutionTechniqueEnum.HiddenSingle, cell: { x: 0, y: 0, value: 0, group: 1 }, value: 5 })
-        );
+        expectTechniqueResult(results, { technique: SolutionTechniqueEnum.FullHouse, cell: { x: 3, y: 1, value: 0, group: 4 }, value: 1 });
+        expectTechniqueResult(results, {
+            technique: SolutionTechniqueEnum.NakedSingle,
+            cell: { x: 0, y: 4, value: 0, group: 2 },
+            value: 4
+        });
+        expectTechniqueResult(results, {
+            technique: SolutionTechniqueEnum.HiddenSingle,
+            cell: { x: 0, y: 0, value: 0, group: 1 },
+            value: 5
+        });
     });
 });
 
@@ -78,12 +140,10 @@ describe('IntersectionTechniqueScanner', () => {
         );
         const results = new IntersectionTechniqueScanner().find(context);
 
-        expect(results).toContainEqual(
-            expect.objectContaining({
-                technique: SolutionTechniqueEnum.PointingPair,
-                eliminations: expect.arrayContaining([{ cell: { x: 8, y: 5, value: 0, group: 8 }, value: 1 }])
-            })
-        );
+        expectTechniqueResult(results, {
+            technique: SolutionTechniqueEnum.PointingPair,
+            eliminations: expect.arrayContaining([{ cell: { x: 8, y: 5, value: 0, group: 8 }, value: 1 }])
+        });
     });
 
     it('should find a pointing triple elimination on a synthetic board', () => {
@@ -93,18 +153,15 @@ describe('IntersectionTechniqueScanner', () => {
         const context = createContext(field, [
             [field[0][0], [5, 6]],
             [field[0][1], [5, 7]],
-            [field[0][3], [5, 8]],
-            [field[1][0], [6, 7]],
-            [field[1][1], [6, 8]]
+            [field[0][2], [5, 8]],
+            [field[0][3], [5, 9]]
         ]);
         const results = new IntersectionTechniqueScanner().find(context);
 
-        expect(results).toContainEqual(
-            expect.objectContaining({
-                technique: SolutionTechniqueEnum.PointingPair,
-                eliminations: [{ cell: field[0][3], value: 5 }]
-            })
-        );
+        expectTechniqueResult(results, {
+            technique: SolutionTechniqueEnum.PointingTriple,
+            eliminations: [{ cell: field[0][3], value: 5 }]
+        });
     });
 
     it('should find a box-line reduction elimination on a real board', () => {
@@ -123,12 +180,10 @@ describe('IntersectionTechniqueScanner', () => {
         );
         const results = new IntersectionTechniqueScanner().find(context);
 
-        expect(results).toContainEqual(
-            expect.objectContaining({
-                technique: SolutionTechniqueEnum.BoxLineReduction,
-                eliminations: expect.arrayContaining([{ cell: { x: 2, y: 3, value: 0, group: 2 }, value: 4 }])
-            })
-        );
+        expectTechniqueResult(results, {
+            technique: SolutionTechniqueEnum.BoxLineReduction,
+            eliminations: expect.arrayContaining([{ cell: { x: 2, y: 3, value: 0, group: 2 }, value: 4 }])
+        });
     });
 
     it('should not find a pointing pair when candidates span two rows of the box', () => {
@@ -143,7 +198,7 @@ describe('IntersectionTechniqueScanner', () => {
         ]);
         const results = new IntersectionTechniqueScanner().find(context);
 
-        expect(results.some(result => result.technique === SolutionTechniqueEnum.PointingPair)).toBe(false);
+        expectNoTechnique(results, SolutionTechniqueEnum.PointingPair);
     });
 });
 
@@ -164,12 +219,10 @@ describe('SubsetTechniqueScanner', () => {
         );
         const results = new SubsetTechniqueScanner().find(context);
 
-        expect(results).toContainEqual(
-            expect.objectContaining({
-                technique: SolutionTechniqueEnum.NakedPair,
-                eliminations: expect.arrayContaining([{ cell: { x: 3, y: 0, value: 0, group: 4 }, value: 8 }])
-            })
-        );
+        expectTechniqueResult(results, {
+            technique: SolutionTechniqueEnum.NakedPair,
+            eliminations: expect.arrayContaining([{ cell: { x: 3, y: 0, value: 0, group: 4 }, value: 8 }])
+        });
     });
 
     it('should find a hidden pair elimination on a real board', () => {
@@ -188,12 +241,10 @@ describe('SubsetTechniqueScanner', () => {
         );
         const results = new SubsetTechniqueScanner().find(context);
 
-        expect(results).toContainEqual(
-            expect.objectContaining({
-                technique: SolutionTechniqueEnum.HiddenPair,
-                eliminations: expect.arrayContaining([{ cell: { x: 5, y: 1, value: 0, group: 4 }, value: 8 }])
-            })
-        );
+        expectTechniqueResult(results, {
+            technique: SolutionTechniqueEnum.HiddenPair,
+            eliminations: expect.arrayContaining([{ cell: { x: 5, y: 1, value: 0, group: 4 }, value: 8 }])
+        });
     });
 
     it('should find a naked triple elimination on a synthetic board', () => {
@@ -208,12 +259,10 @@ describe('SubsetTechniqueScanner', () => {
         ]);
         const results = new SubsetTechniqueScanner().find(context);
 
-        expect(results).toContainEqual(
-            expect.objectContaining({
-                technique: SolutionTechniqueEnum.NakedTriple,
-                eliminations: [{ cell: field[0][3], value: 1 }]
-            })
-        );
+        expectTechniqueResult(results, {
+            technique: SolutionTechniqueEnum.NakedTriple,
+            eliminations: [{ cell: field[0][3], value: 1 }]
+        });
     });
 
     it('should find a naked quad elimination on a real board', () => {
@@ -232,12 +281,10 @@ describe('SubsetTechniqueScanner', () => {
         );
         const results = new SubsetTechniqueScanner().find(context);
 
-        expect(results).toContainEqual(
-            expect.objectContaining({
-                technique: SolutionTechniqueEnum.NakedQuad,
-                eliminations: expect.arrayContaining([{ cell: { x: 6, y: 1, value: 0, group: 7 }, value: 5 }])
-            })
-        );
+        expectTechniqueResult(results, {
+            technique: SolutionTechniqueEnum.NakedQuad,
+            eliminations: expect.arrayContaining([{ cell: { x: 6, y: 1, value: 0, group: 7 }, value: 5 }])
+        });
     });
 
     it('should find a hidden triple elimination on a real board', () => {
@@ -256,12 +303,10 @@ describe('SubsetTechniqueScanner', () => {
         );
         const results = new SubsetTechniqueScanner().find(context);
 
-        expect(results).toContainEqual(
-            expect.objectContaining({
-                technique: SolutionTechniqueEnum.HiddenTriple,
-                eliminations: expect.arrayContaining([{ cell: { x: 1, y: 8, value: 0, group: 3 }, value: 9 }])
-            })
-        );
+        expectTechniqueResult(results, {
+            technique: SolutionTechniqueEnum.HiddenTriple,
+            eliminations: expect.arrayContaining([{ cell: { x: 1, y: 8, value: 0, group: 3 }, value: 9 }])
+        });
     });
 
     it('should find a hidden quad elimination on a real board', () => {
@@ -280,12 +325,10 @@ describe('SubsetTechniqueScanner', () => {
         );
         const results = new SubsetTechniqueScanner().find(context);
 
-        expect(results).toContainEqual(
-            expect.objectContaining({
-                technique: SolutionTechniqueEnum.HiddenQuad,
-                eliminations: expect.arrayContaining([{ cell: { x: 4, y: 3, value: 0, group: 5 }, value: 5 }])
-            })
-        );
+        expectTechniqueResult(results, {
+            technique: SolutionTechniqueEnum.HiddenQuad,
+            eliminations: expect.arrayContaining([{ cell: { x: 4, y: 3, value: 0, group: 5 }, value: 5 }])
+        });
     });
 
     it('should not find a naked pair when one cell gains a third candidate', () => {
@@ -299,7 +342,7 @@ describe('SubsetTechniqueScanner', () => {
         ]);
         const results = new SubsetTechniqueScanner().find(context);
 
-        expect(results.some(result => result.technique === SolutionTechniqueEnum.NakedPair)).toBe(false);
+        expectNoTechnique(results, SolutionTechniqueEnum.NakedPair);
     });
 });
 
@@ -320,12 +363,10 @@ describe('FishTechniqueScanner', () => {
         );
         const results = new FishTechniqueScanner().find(context);
 
-        expect(results).toContainEqual(
-            expect.objectContaining({
-                technique: SolutionTechniqueEnum.XWing,
-                eliminations: expect.arrayContaining([{ cell: { x: 1, y: 3, value: 0, group: 2 }, value: 6 }])
-            })
-        );
+        expectTechniqueResult(results, {
+            technique: SolutionTechniqueEnum.XWing,
+            eliminations: expect.arrayContaining([{ cell: { x: 1, y: 3, value: 0, group: 2 }, value: 6 }])
+        });
     });
 
     it('should find a Swordfish elimination on a synthetic board', () => {
@@ -344,7 +385,10 @@ describe('FishTechniqueScanner', () => {
         const context = createContext(field, entries);
         const results = new FishTechniqueScanner().find(context);
 
-        expect(results.some(result => result.technique === SolutionTechniqueEnum.Swordfish)).toBe(true);
+        expectTechniqueResult(results, {
+            technique: SolutionTechniqueEnum.Swordfish,
+            eliminations: expect.arrayContaining([{ cell: field[3][0], value: 5 }])
+        });
     });
 
     it('should find a Jellyfish elimination on a synthetic board', () => {
@@ -362,12 +406,10 @@ describe('FishTechniqueScanner', () => {
         const context = createContext(field, entries);
         const results = new FishTechniqueScanner().find(context);
 
-        expect(results).toContainEqual(
-            expect.objectContaining({
-                technique: SolutionTechniqueEnum.Jellyfish,
-                eliminations: [{ cell: field[4][0], value: 5 }]
-            })
-        );
+        expectTechniqueResult(results, {
+            technique: SolutionTechniqueEnum.Jellyfish,
+            eliminations: [{ cell: field[4][0], value: 5 }]
+        });
     });
 
     it('should find a finned X-Wing elimination on a synthetic board', () => {
@@ -384,12 +426,10 @@ describe('FishTechniqueScanner', () => {
         ]);
         const results = new FishTechniqueScanner().find(context);
 
-        expect(results).toContainEqual(
-            expect.objectContaining({
-                technique: SolutionTechniqueEnum.FinnedXWing,
-                eliminations: [{ cell: field[2][0], value: 5 }]
-            })
-        );
+        expectTechniqueResult(results, {
+            technique: SolutionTechniqueEnum.FinnedXWing,
+            eliminations: [{ cell: field[2][0], value: 5 }]
+        });
     });
 
     it('should find a sashimi X-Wing elimination on a synthetic board', () => {
@@ -405,12 +445,10 @@ describe('FishTechniqueScanner', () => {
         ]);
         const results = new FishTechniqueScanner().find(context);
 
-        expect(results).toContainEqual(
-            expect.objectContaining({
-                technique: SolutionTechniqueEnum.SashimiXWing,
-                eliminations: [{ cell: field[2][0], value: 5 }]
-            })
-        );
+        expectTechniqueResult(results, {
+            technique: SolutionTechniqueEnum.SashimiXWing,
+            eliminations: [{ cell: field[2][0], value: 5 }]
+        });
     });
 
     it('should find a finned Swordfish elimination on a synthetic board', () => {
@@ -432,12 +470,10 @@ describe('FishTechniqueScanner', () => {
         ]);
         const results = new FishTechniqueScanner().find(context);
 
-        expect(results).toContainEqual(
-            expect.objectContaining({
-                technique: SolutionTechniqueEnum.FinnedSwordfish,
-                eliminations: expect.arrayContaining([{ cell: field[4][6], value: 5 }])
-            })
-        );
+        expectTechniqueResult(results, {
+            technique: SolutionTechniqueEnum.FinnedSwordfish,
+            eliminations: expect.arrayContaining([{ cell: field[4][6], value: 5 }])
+        });
     });
 
     it('should find a sashimi Swordfish elimination on a synthetic board', () => {
@@ -456,12 +492,10 @@ describe('FishTechniqueScanner', () => {
         ]);
         const results = new FishTechniqueScanner().find(context);
 
-        expect(results).toContainEqual(
-            expect.objectContaining({
-                technique: SolutionTechniqueEnum.SashimiSwordfish,
-                eliminations: expect.arrayContaining([{ cell: field[4][6], value: 5 }])
-            })
-        );
+        expectTechniqueResult(results, {
+            technique: SolutionTechniqueEnum.SashimiSwordfish,
+            eliminations: expect.arrayContaining([{ cell: field[4][6], value: 5 }])
+        });
     });
 
     it('should not find an X-Wing when a base row gains a third occurrence', () => {
@@ -478,7 +512,7 @@ describe('FishTechniqueScanner', () => {
         ]);
         const results = new FishTechniqueScanner().find(context);
 
-        expect(results.some(result => result.technique === SolutionTechniqueEnum.XWing)).toBe(false);
+        expectNoTechnique(results, SolutionTechniqueEnum.XWing);
     });
 });
 
@@ -499,12 +533,10 @@ describe('WingTechniqueScanner', () => {
         );
         const results = new WingTechniqueScanner().find(context);
 
-        expect(results).toContainEqual(
-            expect.objectContaining({
-                technique: SolutionTechniqueEnum.XYWing,
-                eliminations: expect.arrayContaining([{ cell: { x: 3, y: 8, value: 0, group: 6 }, value: 6 }])
-            })
-        );
+        expectTechniqueResult(results, {
+            technique: SolutionTechniqueEnum.XYWing,
+            eliminations: expect.arrayContaining([{ cell: { x: 3, y: 8, value: 0, group: 6 }, value: 6 }])
+        });
     });
 
     it('should find an XYZ-Wing elimination on a synthetic board', () => {
@@ -519,12 +551,10 @@ describe('WingTechniqueScanner', () => {
         ]);
         const results = new WingTechniqueScanner().find(context);
 
-        expect(results).toContainEqual(
-            expect.objectContaining({
-                technique: SolutionTechniqueEnum.XYZWing,
-                eliminations: [{ cell: field[1][1], value: 3 }]
-            })
-        );
+        expectTechniqueResult(results, {
+            technique: SolutionTechniqueEnum.XYZWing,
+            eliminations: [{ cell: field[1][1], value: 3 }]
+        });
     });
 
     it('should find a W-Wing elimination on a synthetic board', () => {
@@ -540,12 +570,10 @@ describe('WingTechniqueScanner', () => {
         ]);
         const results = new WingTechniqueScanner().find(context);
 
-        expect(results).toContainEqual(
-            expect.objectContaining({
-                technique: SolutionTechniqueEnum.WWing,
-                eliminations: [{ cell: field[4][0], value: 2 }]
-            })
-        );
+        expectTechniqueResult(results, {
+            technique: SolutionTechniqueEnum.WWing,
+            eliminations: [{ cell: field[4][0], value: 2 }]
+        });
     });
 
     it('should not find an XY-Wing when a pincer no longer shares a unique pivot value', () => {
@@ -559,7 +587,7 @@ describe('WingTechniqueScanner', () => {
         ]);
         const results = new WingTechniqueScanner().find(context);
 
-        expect(results.some(result => result.technique === SolutionTechniqueEnum.XYWing)).toBe(false);
+        expectNoTechnique(results, SolutionTechniqueEnum.XYWing);
     });
 });
 
@@ -577,12 +605,10 @@ describe('ChainTechniqueScanner', () => {
         ]);
         const results = new ChainTechniqueScanner().find(context);
 
-        expect(results).toContainEqual(
-            expect.objectContaining({
-                technique: SolutionTechniqueEnum.XChain,
-                eliminations: [{ cell: field[2][2], value: 5 }]
-            })
-        );
+        expectTechniqueResult(results, {
+            technique: SolutionTechniqueEnum.XChain,
+            eliminations: [{ cell: field[2][2], value: 5 }]
+        });
     });
 
     it('should find an XY-Chain elimination on a synthetic board', () => {
@@ -597,12 +623,10 @@ describe('ChainTechniqueScanner', () => {
         ]);
         const results = new ChainTechniqueScanner().find(context);
 
-        expect(results).toContainEqual(
-            expect.objectContaining({
-                technique: SolutionTechniqueEnum.XYChain,
-                eliminations: [{ cell: field[2][2], value: 1 }]
-            })
-        );
+        expectTechniqueResult(results, {
+            technique: SolutionTechniqueEnum.XYChain,
+            eliminations: [{ cell: field[2][2], value: 1 }]
+        });
     });
 
     it('should not find an X-Chain when a strong link cell gains a third row occurrence', () => {
@@ -619,6 +643,6 @@ describe('ChainTechniqueScanner', () => {
         ]);
         const results = new ChainTechniqueScanner().find(context);
 
-        expect(results.some(result => result.technique === SolutionTechniqueEnum.XChain)).toBe(false);
+        expectNoTechnique(results, SolutionTechniqueEnum.XChain);
     });
 });
