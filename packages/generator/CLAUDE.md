@@ -18,33 +18,24 @@ yarn ts                # TypeScript check
 
 ```
 src/
-├── classes/
-│   ├── sudoku/
-│   │   ├── sudoku.ts                   # Main Sudoku class (extends SerializableSudoku)
-│   │   ├── sudoku.spec.ts
-│   │   └── sudoku-navigation.spec.ts
-│   ├── serializable-sudoku/
-│   │   ├── serializable-sudoku.ts      # Base class (serialization, field management)
-│   │   └── serializable-sudoku.spec.ts
-│   └── dlx/
-│       ├── dlx-solver.ts              # Dancing Links algorithm
-│       ├── dlx-column-node.ts         # DLX node structure
-│       ├── dlx-node.ts
-│       └── dlx-solver.spec.ts
-├── enums/
-│   └── difficulty.enum.ts             # Newbie, Easy, Medium, Hard, Nightmare
-├── interfaces/
-│   ├── cell.interface.ts              # { x, y, value, group }
-│   ├── field.interface.ts             # FieldInterface = CellInterface[][]
-│   ├── scored-cells.interface.ts      # { x, y, group, values[], isWon }
-│   ├── row-mapping.interface.ts
-│   └── sudoku-config.interface.ts     # Config with blank cell counts per difficulty
-├── types/
-│   └── available-values.type.ts       # Record<number, {count, progress}>
-└── util/
-    ├── clone-field.util.ts            # Deep clone 2D array
-    ├── create-empty-field.util.ts
-    └── shuffle.util.ts                # Fisher-Yates shuffle
+├── @generic/
+│   ├── enums/
+│   │   └── difficulty.enum.ts         # Newbie, Easy, Medium, Hard, Nightmare
+│   ├── interfaces/
+│   │   ├── cell.interface.ts          # { x, y, value, group }
+│   │   ├── field.interface.ts
+│   │   ├── scored-cells.interface.ts
+│   │   ├── row-mapping.interface.ts
+│   │   └── sudoku-config.interface.ts
+│   ├── types/
+│   │   └── available-values.type.ts
+│   └── utils/
+│       ├── clone-field.util.ts
+│       ├── create-empty-field.util.ts
+│       └── shuffle.util.ts
+├── sudoku/classes/                    # Main Sudoku class and specs
+├── serializable-sudoku/classes/       # Serialization and field management base
+└── dlx/classes/                       # Dancing Links algorithm and nodes
 ```
 
 ## Key Classes

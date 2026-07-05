@@ -17,34 +17,25 @@ yarn ts                # TypeScript check
 
 ```
 src/
-├── classes/
-│   ├── sudoku-string-encoder/
-│   │   ├── sudoku-string-encoder.ts      # Legacy encode/decode of 81-char puzzle strings
-│   │   └── sudoku-string-encoder.spec.ts
-│   ├── solution/
-│   │   ├── solution.ts                   # Track and encode solution steps (moves)
-│   │   └── solution.spec.ts
-│   ├── game-state-binary-codec/
-│   │   ├── game-state-binary-codec.ts    # v2 bit-packed game state <-> base64url string
-│   │   └── game-state-binary-codec.spec.ts
-│   └── game-state-serializer/
-│       ├── game-state-serializer.ts      # Public API: v2 encode, v2 + legacy decode
-│       ├── game-state-serializer.spec.ts
-│       └── game-state-serializer-size.spec.ts  # Payload size characterization
-├── constants/
-│   ├── bit-encoding.constant.ts          # CELL_INDEX_BITS=7, VALUE_BITS=4, TIMESTAMP_BITS=8
-│   ├── binary-codec.constant.ts          # v2 format: version, prefix, base-9 packing bits
-│   ├── base64url.constant.ts             # Base64url alphabet
-│   └── grid.constant.ts                  # GRID_SIZE=9, GRID_CELL_COUNT=81
-├── interfaces/
-│   ├── cell-position.interface.ts        # { x, y, value }
-│   └── solution-step.interface.ts        # { cellIndex, value, ts }
-└── util/
-    ├── base64url-to-bytes.util.ts
-    ├── bytes-to-base64url.util.ts
-    ├── is-valid-cell-index.util.ts
-    ├── is-valid-cell-value.util.ts
-    └── string-to-uint8array.util.ts
+├── @generic/
+│   ├── constants/
+│   │   ├── bit-encoding.constant.ts      # CELL_INDEX_BITS=7, VALUE_BITS=4, TIMESTAMP_BITS=8
+│   │   ├── binary-codec.constant.ts      # v2 format: version, prefix, base-9 packing bits
+│   │   ├── base64url.constant.ts
+│   │   └── grid.constant.ts
+│   ├── interfaces/
+│   │   ├── cell-position.interface.ts
+│   │   └── solution-step.interface.ts
+│   └── utils/
+│       ├── base64url-to-bytes.util.ts
+│       ├── bytes-to-base64url.util.ts
+│       ├── is-valid-cell-index.util.ts
+│       ├── is-valid-cell-value.util.ts
+│       └── string-to-uint8array.util.ts
+├── sudoku-string-encoder/classes/        # Legacy encode/decode of 81-char puzzle strings
+├── solution/classes/                     # Track and encode solution steps
+├── game-state-binary-codec/classes/      # v2 bit-packed game state <-> base64url string
+└── game-state-serializer/classes/        # Public API: v2 encode, v2 + legacy decode
 ```
 
 ## Key Classes
