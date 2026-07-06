@@ -1,36 +1,40 @@
 import { isDefined, isEmptyArray, isNotEmptyArray } from '@rnw-community/shared';
 
-import { AbstractFishTechnique } from './abstract-fish-technique';
+import { AbstractFishTechnique } from '../../@generic/classes/abstract-fish-technique';
+import { createEliminationResults } from '../../@generic/utils/create-elimination-results.util';
+import { getCombinations } from '../../@generic/utils/get-combinations.util';
+import { getUniqueValues } from '../../@generic/utils/get-unique-values.util';
 
-import type { CandidateContext } from './candidate-context/candidate-context';
-import type { CandidateEliminationInterface } from '../interfaces/candidate-elimination.interface';
-import type { TechniqueResultInterface } from '../interfaces/technique-result.interface';
-import type { FinnedFishBaseType } from '../types/finned-fish-base.type';
-import type { FinnedFishScanType } from '../types/finned-fish-scan.type';
-import type { LineType } from '../types/line.type';
+import type { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
+import type { CandidateEliminationInterface } from '../../@generic/interfaces/candidate-elimination.interface';
+import type { FinnedFishTechniqueDescriptorInterface } from '../../@generic/interfaces/finned-fish-technique-descriptor.interface';
+import type { TechniqueResultInterface } from '../../@generic/interfaces/technique-result.interface';
+import type { TechniqueStrategyInterface } from '../../@generic/interfaces/technique-strategy.interface';
+import type { FinnedFishBaseType } from '../../@generic/types/finned-fish-base.type';
+import type { FinnedFishScanType } from '../../@generic/types/finned-fish-scan.type';
+import type { LineType } from '../../@generic/types/line.type';
 import type { CellInterface } from '@suuudokuuu/generator';
 
-export abstract class AbstractFinnedFishTechnique extends AbstractFishTechnique {
-    protected isSashimiFish(scan: FinnedFishScanType): boolean {
-        return scan.units.some(
-            unit => scan.bodyCells.filter(cell => this.getCellBaseIndex(cell, scan.baseType) === unit.index).length === 1
-        );
+export class FinnedFishTechnique
+    extends AbstractFishTechnique<FinnedFishTechniqueDescriptorInterface>
+    implements TechniqueStrategyInterface
+{
+    private get sashimi(): boolean {
+        return this.descriptor.sashimi;
     }
 
     protected findInUnits(context: CandidateContext, value: number, base: FinnedFishBaseType): TechniqueResultInterface[] {
         const results: TechniqueResultInterface[] = [];
         const candidateCells = base.units.flatMap(unit => unit.cells.filter(cell => context.getCandidates(cell).includes(value)));
-        const possibleCoverIndexes = this.getUniqueValues(candidateCells.map(cell => this.getCellCoverIndex(cell, base.coverType)));
+        const possibleCoverIndexes = getUniqueValues(candidateCells.map(cell => this.getCellCoverIndex(cell, base.coverType)));
 
-        for (const coverIndexes of this.getCombinations(possibleCoverIndexes, this.size)) {
+        for (const coverIndexes of getCombinations(possibleCoverIndexes, this.size)) {
             const scan = this.createScan(candidateCells, coverIndexes, value, base);
 
             if (this.isFinnedFish(scan) && this.isMatchingScan(scan)) {
                 const eliminations = this.getFinnedFishEliminations(context, scan);
 
-                results.push(
-                    ...this.createEliminationResults(context, this.technique, eliminations, [...scan.bodyCells, ...scan.finCells])
-                );
+                results.push(...createEliminationResults(context, this.technique, eliminations, [...scan.bodyCells, ...scan.finCells]));
             }
         }
 
@@ -50,7 +54,7 @@ export abstract class AbstractFinnedFishTechnique extends AbstractFishTechnique 
     }
 
     private getFinnedFishEliminations(context: CandidateContext, scan: FinnedFishScanType): CandidateEliminationInterface[] {
-        const [finGroup] = this.getUniqueValues(scan.finCells.map(cell => cell.group));
+        const [finGroup] = getUniqueValues(scan.finCells.map(cell => cell.group));
         const baseIndexes = scan.units.map(unit => unit.index);
         const eliminations: CandidateEliminationInterface[] = [];
 
@@ -74,7 +78,7 @@ export abstract class AbstractFinnedFishTechnique extends AbstractFishTechnique 
     }
 
     private isFinnedFish(scan: FinnedFishScanType): boolean {
-        const finGroups = this.getUniqueValues(scan.finCells.map(cell => cell.group));
+        const finGroups = getUniqueValues(scan.finCells.map(cell => cell.group));
 
         return (
             isNotEmptyArray(scan.finCells) &&
@@ -86,6 +90,16 @@ export abstract class AbstractFinnedFishTechnique extends AbstractFishTechnique 
         );
     }
 
+    private isMatchingScan(scan: FinnedFishScanType): boolean {
+        return this.sashimi === this.isSashimiFish(scan);
+    }
+
+    private isSashimiFish(scan: FinnedFishScanType): boolean {
+        return scan.units.some(
+            unit => scan.bodyCells.filter(cell => this.getCellBaseIndex(cell, scan.baseType) === unit.index).length === 1
+        );
+    }
+
     private getCellBaseIndex(cell: CellInterface, baseType: LineType): number {
         return baseType === 'row' ? cell.y : cell.x;
     }
@@ -93,6 +107,4 @@ export abstract class AbstractFinnedFishTechnique extends AbstractFishTechnique 
     private getCellCoverIndex(cell: CellInterface, coverType: LineType): number {
         return coverType === 'row' ? cell.y : cell.x;
     }
-
-    protected abstract isMatchingScan(scan: FinnedFishScanType): boolean;
 }

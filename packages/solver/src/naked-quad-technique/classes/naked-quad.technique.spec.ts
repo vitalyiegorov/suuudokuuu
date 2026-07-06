@@ -3,8 +3,8 @@ import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 
 import { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
-
-import { NakedQuadTechnique } from './naked-quad.technique';
+import { expectTechniqueElimination } from '../../@generic/test-utils/expect-technique-elimination.spec.util';
+import { NakedSubsetTechnique } from '../../naked-subset-technique/classes/naked-subset.technique';
 
 describe('NakedQuadTechnique', () => {
     it('finds a quad whose candidates can be removed from peers', () => {
@@ -24,11 +24,11 @@ describe('NakedQuadTechnique', () => {
         );
         const context = CandidateContext.fromSudoku(sudoku);
 
-        expect(new NakedQuadTechnique().find(context)).toContainEqual(
-            expect.objectContaining({
-                technique: SolutionTechniqueEnum.NakedQuad,
-                eliminations: expect.arrayContaining([{ cell: { x: 6, y: 1, value: 0, group: 7 }, value: 5 }])
-            })
-        );
+        expectTechniqueElimination(new NakedSubsetTechnique({ technique: SolutionTechniqueEnum.NakedQuad, size: 4 }).find(context), {
+            technique: SolutionTechniqueEnum.NakedQuad,
+            rowIndex: 1,
+            columnIndex: 6,
+            value: 5
+        });
     });
 });

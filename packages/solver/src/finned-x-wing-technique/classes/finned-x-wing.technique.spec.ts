@@ -1,33 +1,26 @@
 import { describe, expect, it } from '@jest/globals';
-import { createEmptyField, defaultSudokuConfig } from '@suuudokuuu/generator';
 
-import { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
-
-import { FinnedXWingTechnique } from './finned-x-wing.technique';
-
-import type { CandidateMapType } from '../../@generic/types/candidate-map.type';
+import { createCandidateContextFromMap } from '../../@generic/test-utils/create-candidate-context-from-map.spec.util';
+import { expectTechniqueElimination } from '../../@generic/test-utils/expect-technique-elimination.spec.util';
+import { FinnedFishTechnique } from '../../finned-fish-technique/classes/finned-fish.technique';
 
 describe('FinnedXWingTechnique', () => {
     it('finds an X-Wing with a same-box fin', () => {
         expect.assertions(1);
 
-        const field = createEmptyField(defaultSudokuConfig);
-        const candidateMap: CandidateMapType = {
-            [CandidateContext.getCellKey(field[0][0])]: [5, 6],
-            [CandidateContext.getCellKey(field[0][1])]: [5, 7],
-            [CandidateContext.getCellKey(field[0][4])]: [5, 8],
-            [CandidateContext.getCellKey(field[1][0])]: [5, 6],
-            [CandidateContext.getCellKey(field[1][4])]: [5, 8],
-            [CandidateContext.getCellKey(field[2][0])]: [5, 9]
-        };
-        const context = new CandidateContext(defaultSudokuConfig, field, candidateMap);
+        const context = createCandidateContextFromMap(
+            [0, 0, [5, 6]],
+            [0, 1, [5, 7]],
+            [0, 4, [5, 8]],
+            [1, 0, [5, 6]],
+            [1, 4, [5, 8]],
+            [2, 0, [5, 9]]
+        );
 
-        expect(new FinnedXWingTechnique().find(context)).toContainEqual(
-            expect.objectContaining({
-                technique: SolutionTechniqueEnum.FinnedXWing,
-                eliminations: [{ cell: field[2][0], value: 5 }]
-            })
+        expectTechniqueElimination(
+            new FinnedFishTechnique({ technique: SolutionTechniqueEnum.FinnedXWing, size: 2, sashimi: false }).find(context),
+            { technique: SolutionTechniqueEnum.FinnedXWing, rowIndex: 2, columnIndex: 0, value: 5 }
         );
     });
 });

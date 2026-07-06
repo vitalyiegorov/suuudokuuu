@@ -1,26 +1,24 @@
-import { AbstractTechnique } from './abstract-technique';
-import { CandidateContext } from './candidate-context/candidate-context';
+import { AbstractSizedTechnique } from '../../@generic/classes/abstract-sized-technique';
+import { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
+import { createEliminationResults } from '../../@generic/utils/create-elimination-results.util';
+import { getCombinations } from '../../@generic/utils/get-combinations.util';
 
-import type { SolutionTechniqueEnum } from '../enums/solution-technique.enum';
-import type { CandidateEliminationInterface } from '../interfaces/candidate-elimination.interface';
-import type { TechniqueResultInterface } from '../interfaces/technique-result.interface';
+import type { CandidateEliminationInterface } from '../../@generic/interfaces/candidate-elimination.interface';
+import type { TechniqueResultInterface } from '../../@generic/interfaces/technique-result.interface';
 import type { CellInterface } from '@suuudokuuu/generator';
 
-export abstract class AbstractHiddenSubsetTechnique extends AbstractTechnique {
-    abstract readonly technique: SolutionTechniqueEnum;
-    protected abstract readonly size: number;
-
+export class HiddenSubsetTechnique extends AbstractSizedTechnique {
     find(context: CandidateContext): TechniqueResultInterface[] {
         const results: TechniqueResultInterface[] = [];
 
         for (const unit of context.getUnits()) {
-            for (const values of this.getCombinations(context.getValues(), this.size)) {
+            for (const values of getCombinations(context.getValues(), this.size)) {
                 const cells = this.getCellsForValues(context, unit.cells, values);
 
                 if (cells.length === this.size && this.hasEveryValue(context, cells, values)) {
                     const eliminations = this.getHiddenEliminations(context, cells, values);
 
-                    results.push(...this.createEliminationResults(context, this.technique, eliminations, cells));
+                    results.push(...createEliminationResults(context, this.technique, eliminations, cells));
                 }
             }
         }

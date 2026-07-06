@@ -1,8 +1,11 @@
 import { isDefined } from '@rnw-community/shared';
 
-import { AbstractChainTechnique } from '../../@generic/classes/abstract-chain-technique';
 import { X_CHAIN_MAX_CELLS, X_CHAIN_MIN_CELLS } from '../../@generic/constants/chain-scan.constant';
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
+import { createEliminationResults } from '../../@generic/utils/create-elimination-results.util';
+import { getCommonPeerEliminations } from '../../@generic/utils/get-common-peer-eliminations.util';
+import { getUniqueCells } from '../../@generic/utils/get-unique-cells.util';
+import { isSameCell } from '../../@generic/utils/is-same-cell.util';
 
 import type { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
 import type { TechniqueResultInterface } from '../../@generic/interfaces/technique-result.interface';
@@ -10,7 +13,7 @@ import type { CellInterface } from '@suuudokuuu/generator';
 
 type StrongLinkType = [CellInterface, CellInterface];
 
-export class XChainTechnique extends AbstractChainTechnique {
+export class XChainTechnique {
     readonly technique = SolutionTechniqueEnum.XChain;
 
     find(context: CandidateContext): TechniqueResultInterface[] {
@@ -25,9 +28,9 @@ export class XChainTechnique extends AbstractChainTechnique {
                 const [lastCell] = path.slice(-1);
 
                 if (isDefined(firstCell) && isDefined(lastCell)) {
-                    const eliminations = this.getCommonPeerEliminations(context, [firstCell, lastCell], value, path);
+                    const eliminations = getCommonPeerEliminations(context, [firstCell, lastCell], value, path);
 
-                    results.push(...this.createEliminationResults(context, this.technique, eliminations, path));
+                    results.push(...createEliminationResults(context, this.technique, eliminations, path));
                 }
             }
         }
@@ -52,7 +55,7 @@ export class XChainTechnique extends AbstractChainTechnique {
 
     private getStrongPaths(edges: StrongLinkType[]): CellInterface[][] {
         const paths: CellInterface[][] = [];
-        const cells = this.getUniqueCells(edges.flatMap(edge => edge));
+        const cells = getUniqueCells(edges.flatMap(edge => edge));
 
         for (const cell of cells) {
             this.collectStrongPaths(edges, [cell], paths);
@@ -77,7 +80,7 @@ export class XChainTechnique extends AbstractChainTechnique {
         }
 
         for (const neighbor of this.getNeighbors(edges, currentCell)) {
-            if (!path.some(cell => this.isSameCell(cell, neighbor))) {
+            if (!path.some(cell => isSameCell(cell, neighbor))) {
                 this.collectStrongPaths(edges, [...path, neighbor], paths);
             }
         }
@@ -87,15 +90,15 @@ export class XChainTechnique extends AbstractChainTechnique {
         const neighbors: CellInterface[] = [];
 
         for (const [firstCell, secondCell] of edges) {
-            if (this.isSameCell(firstCell, cell)) {
+            if (isSameCell(firstCell, cell)) {
                 neighbors.push(secondCell);
             }
 
-            if (this.isSameCell(secondCell, cell)) {
+            if (isSameCell(secondCell, cell)) {
                 neighbors.push(firstCell);
             }
         }
 
-        return this.getUniqueCells(neighbors);
+        return getUniqueCells(neighbors);
     }
 }

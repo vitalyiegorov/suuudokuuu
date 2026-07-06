@@ -1,48 +1,36 @@
 import { describe, expect, it } from '@jest/globals';
-import { createEmptyField, defaultSudokuConfig } from '@suuudokuuu/generator';
 
-import { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
+import { createCandidateContextFromMap } from '../../@generic/test-utils/create-candidate-context-from-map.spec.util';
+import { expectTechniqueElimination } from '../../@generic/test-utils/expect-technique-elimination.spec.util';
 
 import { XChainTechnique } from './x-chain.technique';
-
-import type { CandidateMapType } from '../../@generic/types/candidate-map.type';
 
 describe('XChainTechnique', () => {
     it('finds an alternating strong-link chain that removes the endpoint value', () => {
         expect.assertions(1);
 
-        const field = createEmptyField(defaultSudokuConfig);
-        const candidateMap: CandidateMapType = {
-            [CandidateContext.getCellKey(field[0][0])]: [5, 6],
-            [CandidateContext.getCellKey(field[0][3])]: [5, 7],
-            [CandidateContext.getCellKey(field[1][3])]: [5, 8],
-            [CandidateContext.getCellKey(field[1][1])]: [5, 9],
-            [CandidateContext.getCellKey(field[2][2])]: [5, 4]
-        };
-        const context = new CandidateContext(defaultSudokuConfig, field, candidateMap);
+        const context = createCandidateContextFromMap([0, 0, [5, 6]], [0, 3, [5, 7]], [1, 3, [5, 8]], [1, 1, [5, 9]], [2, 2, [5, 4]]);
 
-        expect(new XChainTechnique().find(context)).toContainEqual(
-            expect.objectContaining({
-                technique: SolutionTechniqueEnum.XChain,
-                eliminations: [{ cell: field[2][2], value: 5 }]
-            })
-        );
+        expectTechniqueElimination(new XChainTechnique().find(context), {
+            technique: SolutionTechniqueEnum.XChain,
+            rowIndex: 2,
+            columnIndex: 2,
+            value: 5
+        });
     });
 
     it('ignores a chain when a strong link gains a third occurrence', () => {
         expect.assertions(1);
 
-        const field = createEmptyField(defaultSudokuConfig);
-        const candidateMap: CandidateMapType = {
-            [CandidateContext.getCellKey(field[0][0])]: [5, 6],
-            [CandidateContext.getCellKey(field[0][3])]: [5, 7],
-            [CandidateContext.getCellKey(field[0][6])]: [5, 1],
-            [CandidateContext.getCellKey(field[1][3])]: [5, 8],
-            [CandidateContext.getCellKey(field[1][1])]: [5, 9],
-            [CandidateContext.getCellKey(field[2][2])]: [5, 4]
-        };
-        const context = new CandidateContext(defaultSudokuConfig, field, candidateMap);
+        const context = createCandidateContextFromMap(
+            [0, 0, [5, 6]],
+            [0, 3, [5, 7]],
+            [0, 6, [5, 1]],
+            [1, 3, [5, 8]],
+            [1, 1, [5, 9]],
+            [2, 2, [5, 4]]
+        );
         const results = new XChainTechnique().find(context);
 
         expect(results.some(result => result.technique === SolutionTechniqueEnum.XChain)).toBe(false);

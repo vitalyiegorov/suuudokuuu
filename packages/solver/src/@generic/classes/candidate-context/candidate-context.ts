@@ -7,11 +7,27 @@ import type { CandidateMapType } from '../../types/candidate-map.type';
 import type { CellInterface, FieldInterface, Sudoku, SudokuConfigInterface } from '@suuudokuuu/generator';
 
 export class CandidateContext {
+    private readonly cells: CellInterface[];
+    private readonly values: number[];
+    private readonly rowCells: CellInterface[][];
+    private readonly columnCells: CellInterface[][];
+    private readonly groupCellsByIndex: Record<number, CellInterface[]>;
+    private readonly units: CandidateUnitInterface[];
+    private readonly peersByCellKey: Record<string, CellInterface[]>;
+
     constructor(
         private readonly config: SudokuConfigInterface,
         private readonly field: FieldInterface,
         private readonly candidateMap: CandidateMapType = {}
-    ) {}
+    ) {
+        this.cells = this.field.flatMap(row => row);
+        this.values = Array.from({ length: this.config.fieldSize }, (_, index) => index + 1);
+        this.rowCells = this.field.map(row => [...row]);
+        this.columnCells = this.createColumnCells();
+        this.groupCellsByIndex = this.createGroupCellsByIndex();
+        this.units = this.createUnits();
+        this.peersByCellKey = this.createPeersByCellKey();
+    }
 
     getCandidateMap(): CandidateMapType {
         const candidateMap: CandidateMapType = {};
@@ -32,13 +48,7 @@ export class CandidateContext {
     }
 
     getCells(): CellInterface[] {
-        const cells: CellInterface[] = [];
-
-        for (const row of this.field) {
-            cells.push(...row);
-        }
-
-        return cells;
+        return [...this.cells];
     }
 
     getBlankCells(): CellInterface[] {
@@ -46,48 +56,27 @@ export class CandidateContext {
     }
 
     getValues(): number[] {
-        return Array.from({ length: this.config.fieldSize }, (_, index) => index + 1);
+        return [...this.values];
     }
 
     getRowCells(rowIndex: number): CellInterface[] {
-        return this.field[rowIndex];
+        return [...this.rowCells[rowIndex]];
     }
 
     getColumnCells(columnIndex: number): CellInterface[] {
-        return this.field.map(row => row[columnIndex]);
+        return [...this.columnCells[columnIndex]];
     }
 
     getGroupCells(cell: Pick<CellInterface, 'group'>): CellInterface[] {
-        return this.getCells().filter(currentCell => currentCell.group === cell.group);
+        return [...(this.groupCellsByIndex[cell.group] ?? [])];
     }
 
     getUnits(): CandidateUnitInterface[] {
-        const units: CandidateUnitInterface[] = [];
-
-        for (let index = 0; index < this.config.fieldSize; index += 1) {
-            units.push({ type: 'row', index, cells: this.getRowCells(index) });
-            units.push({ type: 'column', index, cells: this.getColumnCells(index) });
-        }
-
-        const groupIndexes = [...new Set(this.getCells().map(cell => cell.group))];
-
-        for (const groupIndex of groupIndexes) {
-            units.push({ type: 'group', index: groupIndex, cells: this.getGroupCells({ group: groupIndex }) });
-        }
-
-        return units;
+        return this.units.map(unit => ({ ...unit, cells: [...unit.cells] }));
     }
 
     getPeers(cell: CellInterface): CellInterface[] {
-        const peerMap: Record<string, CellInterface> = {};
-
-        for (const peer of [...this.getRowCells(cell.y), ...this.getColumnCells(cell.x), ...this.getGroupCells(cell)]) {
-            if (!this.isSameCell(peer, cell)) {
-                peerMap[CandidateContext.getCellKey(peer)] = peer;
-            }
-        }
-
-        return Object.values(peerMap);
+        return [...(this.peersByCellKey[CandidateContext.getCellKey(cell)] ?? [])];
     }
 
     getCommonPeers(cells: CellInterface[]): CellInterface[] {
@@ -145,6 +134,56 @@ export class CandidateContext {
         }
 
         return placements;
+    }
+
+    private createColumnCells(): CellInterface[][] {
+        return Array.from({ length: this.config.fieldSize }, (_, columnIndex) => this.field.map(row => row[columnIndex]));
+    }
+
+    private createGroupCellsByIndex(): Record<number, CellInterface[]> {
+        const groupCellsByIndex: Record<number, CellInterface[]> = {};
+
+        for (const cell of this.cells) {
+            const groupCells = groupCellsByIndex[cell.group] ?? [];
+
+            groupCells.push(cell);
+            groupCellsByIndex[cell.group] = groupCells;
+        }
+
+        return groupCellsByIndex;
+    }
+
+    private createUnits(): CandidateUnitInterface[] {
+        const units: CandidateUnitInterface[] = [];
+
+        for (let index = 0; index < this.config.fieldSize; index += 1) {
+            units.push({ type: 'row', index, cells: this.rowCells[index] });
+            units.push({ type: 'column', index, cells: this.columnCells[index] });
+        }
+
+        for (const groupIndex of Object.keys(this.groupCellsByIndex).map(Number)) {
+            units.push({ type: 'group', index: groupIndex, cells: this.groupCellsByIndex[groupIndex] });
+        }
+
+        return units;
+    }
+
+    private createPeersByCellKey(): Record<string, CellInterface[]> {
+        const peersByCellKey: Record<string, CellInterface[]> = {};
+
+        for (const cell of this.cells) {
+            const peerMap: Record<string, CellInterface> = {};
+
+            for (const peer of [...this.rowCells[cell.y], ...this.columnCells[cell.x], ...this.getGroupCells(cell)]) {
+                if (!this.isSameCell(peer, cell)) {
+                    peerMap[CandidateContext.getCellKey(peer)] = peer;
+                }
+            }
+
+            peersByCellKey[CandidateContext.getCellKey(cell)] = Object.values(peerMap);
+        }
+
+        return peersByCellKey;
     }
 
     private isSameCell(cell: CellInterface, otherCell: CellInterface): boolean {

@@ -1,14 +1,16 @@
 import { isDefined } from '@rnw-community/shared';
 
-import { AbstractWingTechnique } from '../../@generic/classes/abstract-wing-technique';
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
+import { createEliminationResults } from '../../@generic/utils/create-elimination-results.util';
+import { getCombinations } from '../../@generic/utils/get-combinations.util';
+import { getCommonPeerEliminations } from '../../@generic/utils/get-common-peer-eliminations.util';
 
 import type { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
 import type { TechniqueResultInterface } from '../../@generic/interfaces/technique-result.interface';
 import type { TechniqueStrategyInterface } from '../../@generic/interfaces/technique-strategy.interface';
 import type { CellInterface } from '@suuudokuuu/generator';
 
-export class XYWingTechnique extends AbstractWingTechnique implements TechniqueStrategyInterface {
+export class XYWingTechnique implements TechniqueStrategyInterface {
     readonly technique = SolutionTechniqueEnum.XYWing;
 
     find(context: CandidateContext): TechniqueResultInterface[] {
@@ -17,19 +19,14 @@ export class XYWingTechnique extends AbstractWingTechnique implements TechniqueS
         for (const pivot of context.getBlankCells().filter(cell => context.getCandidates(cell).length === 2)) {
             const pincers = context.getPeers(pivot).filter(cell => context.getCandidates(cell).length === 2);
 
-            for (const [firstPincer, secondPincer] of this.getCombinations(pincers, 2)) {
+            for (const [firstPincer, secondPincer] of getCombinations(pincers, 2)) {
                 const eliminationValue = this.getEliminationValue(context, pivot, firstPincer, secondPincer);
 
                 if (isDefined(eliminationValue)) {
                     const reasonCells = [pivot, firstPincer, secondPincer];
-                    const eliminations = this.getCommonPeerEliminations(
-                        context,
-                        [firstPincer, secondPincer],
-                        eliminationValue,
-                        reasonCells
-                    );
+                    const eliminations = getCommonPeerEliminations(context, [firstPincer, secondPincer], eliminationValue, reasonCells);
 
-                    results.push(...this.createEliminationResults(context, this.technique, eliminations, reasonCells));
+                    results.push(...createEliminationResults(context, this.technique, eliminations, reasonCells));
                 }
             }
         }

@@ -1,12 +1,11 @@
 import { describe, expect, it } from '@jest/globals';
-import { Sudoku, createEmptyField, defaultSudokuConfig } from '@suuudokuuu/generator';
+import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 
 import { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
-
-import { XWingTechnique } from './x-wing.technique';
-
-import type { CandidateMapType } from '../../@generic/types/candidate-map.type';
+import { createCandidateContextFromMap } from '../../@generic/test-utils/create-candidate-context-from-map.spec.util';
+import { expectTechniqueElimination } from '../../@generic/test-utils/expect-technique-elimination.spec.util';
+import { BasicFishTechnique } from '../../basic-fish-technique/classes/basic-fish.technique';
 
 describe('XWingTechnique', () => {
     it('finds a rectangular pair of strong fish lines', () => {
@@ -26,28 +25,26 @@ describe('XWingTechnique', () => {
         );
         const context = CandidateContext.fromSudoku(sudoku);
 
-        expect(new XWingTechnique().find(context)).toContainEqual(
-            expect.objectContaining({
-                technique: SolutionTechniqueEnum.XWing,
-                eliminations: expect.arrayContaining([{ cell: { x: 1, y: 3, value: 0, group: 2 }, value: 6 }])
-            })
-        );
+        expectTechniqueElimination(new BasicFishTechnique({ technique: SolutionTechniqueEnum.XWing, size: 2 }).find(context), {
+            technique: SolutionTechniqueEnum.XWing,
+            rowIndex: 3,
+            columnIndex: 1,
+            value: 6
+        });
     });
 
     it('ignores a base row with a third occurrence', () => {
         expect.assertions(1);
 
-        const field = createEmptyField(defaultSudokuConfig);
-        const candidateMap: CandidateMapType = {
-            [CandidateContext.getCellKey(field[0][0])]: [5, 6],
-            [CandidateContext.getCellKey(field[0][3])]: [5, 7],
-            [CandidateContext.getCellKey(field[0][5])]: [5, 8],
-            [CandidateContext.getCellKey(field[3][0])]: [5, 6],
-            [CandidateContext.getCellKey(field[3][3])]: [5, 7],
-            [CandidateContext.getCellKey(field[6][0])]: [5, 9]
-        };
-        const context = new CandidateContext(defaultSudokuConfig, field, candidateMap);
-        const results = new XWingTechnique().find(context);
+        const context = createCandidateContextFromMap(
+            [0, 0, [5, 6]],
+            [0, 3, [5, 7]],
+            [0, 5, [5, 8]],
+            [3, 0, [5, 6]],
+            [3, 3, [5, 7]],
+            [6, 0, [5, 9]]
+        );
+        const results = new BasicFishTechnique({ technique: SolutionTechniqueEnum.XWing, size: 2 }).find(context);
 
         expect(results.some(result => result.technique === SolutionTechniqueEnum.XWing)).toBe(false);
     });

@@ -3,8 +3,8 @@ import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 
 import { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
-
-import { HiddenPairTechnique } from './hidden-pair.technique';
+import { expectTechniqueElimination } from '../../@generic/test-utils/expect-technique-elimination.spec.util';
+import { HiddenSubsetTechnique } from '../../hidden-subset-technique/classes/hidden-subset.technique';
 
 describe('HiddenPairTechnique', () => {
     it('finds a pair hidden inside two cells', () => {
@@ -24,11 +24,11 @@ describe('HiddenPairTechnique', () => {
         );
         const context = CandidateContext.fromSudoku(sudoku);
 
-        expect(new HiddenPairTechnique().find(context)).toContainEqual(
-            expect.objectContaining({
-                technique: SolutionTechniqueEnum.HiddenPair,
-                eliminations: expect.arrayContaining([{ cell: { x: 5, y: 1, value: 0, group: 4 }, value: 8 }])
-            })
-        );
+        expectTechniqueElimination(new HiddenSubsetTechnique({ technique: SolutionTechniqueEnum.HiddenPair, size: 2 }).find(context), {
+            technique: SolutionTechniqueEnum.HiddenPair,
+            rowIndex: 1,
+            columnIndex: 5,
+            value: 8
+        });
     });
 });

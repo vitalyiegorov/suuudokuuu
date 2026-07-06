@@ -1,15 +1,15 @@
-import { AbstractTechnique } from './abstract-technique';
+import { AbstractSizedTechnique } from '../../@generic/classes/abstract-sized-technique';
+import { createEliminationResults } from '../../@generic/utils/create-elimination-results.util';
+import { getCombinations } from '../../@generic/utils/get-combinations.util';
+import { getUniqueValues } from '../../@generic/utils/get-unique-values.util';
+import { isSameCell } from '../../@generic/utils/is-same-cell.util';
 
-import type { CandidateContext } from './candidate-context/candidate-context';
-import type { SolutionTechniqueEnum } from '../enums/solution-technique.enum';
-import type { CandidateEliminationInterface } from '../interfaces/candidate-elimination.interface';
-import type { TechniqueResultInterface } from '../interfaces/technique-result.interface';
+import type { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
+import type { CandidateEliminationInterface } from '../../@generic/interfaces/candidate-elimination.interface';
+import type { TechniqueResultInterface } from '../../@generic/interfaces/technique-result.interface';
 import type { CellInterface } from '@suuudokuuu/generator';
 
-export abstract class AbstractNakedSubsetTechnique extends AbstractTechnique {
-    abstract readonly technique: SolutionTechniqueEnum;
-    protected abstract readonly size: number;
-
+export class NakedSubsetTechnique extends AbstractSizedTechnique {
     find(context: CandidateContext): TechniqueResultInterface[] {
         const results: TechniqueResultInterface[] = [];
 
@@ -20,13 +20,13 @@ export abstract class AbstractNakedSubsetTechnique extends AbstractTechnique {
                 return candidates.length > 1 && candidates.length <= this.size;
             });
 
-            for (const cells of this.getCombinations(candidateCells, this.size)) {
-                const values = this.getUniqueValues(cells.flatMap(cell => context.getCandidates(cell)));
+            for (const cells of getCombinations(candidateCells, this.size)) {
+                const values = getUniqueValues(cells.flatMap(cell => context.getCandidates(cell)));
 
                 if (values.length === this.size) {
                     const eliminations = this.getNakedEliminations(context, unit.cells, cells, values);
 
-                    results.push(...this.createEliminationResults(context, this.technique, eliminations, cells));
+                    results.push(...createEliminationResults(context, this.technique, eliminations, cells));
                 }
             }
         }
@@ -43,7 +43,7 @@ export abstract class AbstractNakedSubsetTechnique extends AbstractTechnique {
         const eliminations: CandidateEliminationInterface[] = [];
 
         for (const cell of unitCells) {
-            const isSubsetCell = subsetCells.some(subsetCell => this.isSameCell(subsetCell, cell));
+            const isSubsetCell = subsetCells.some(subsetCell => isSameCell(subsetCell, cell));
 
             if (!isSubsetCell) {
                 for (const value of values) {

@@ -1,12 +1,11 @@
 import { describe, expect, it } from '@jest/globals';
-import { Sudoku, createEmptyField, defaultSudokuConfig } from '@suuudokuuu/generator';
+import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 
 import { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
-
-import { PointingPairTechnique } from './pointing-pair.technique';
-
-import type { CandidateMapType } from '../../@generic/types/candidate-map.type';
+import { createCandidateContextFromMap } from '../../@generic/test-utils/create-candidate-context-from-map.spec.util';
+import { expectTechniqueElimination } from '../../@generic/test-utils/expect-technique-elimination.spec.util';
+import { PointingTechnique } from '../../pointing-technique/classes/pointing.technique';
 
 describe('PointingPairTechnique', () => {
     it('finds a box candidate pair confined to one line', () => {
@@ -26,26 +25,19 @@ describe('PointingPairTechnique', () => {
         );
         const context = CandidateContext.fromSudoku(sudoku);
 
-        expect(new PointingPairTechnique().find(context)).toContainEqual(
-            expect.objectContaining({
-                technique: SolutionTechniqueEnum.PointingPair,
-                eliminations: expect.arrayContaining([{ cell: { x: 8, y: 5, value: 0, group: 8 }, value: 1 }])
-            })
-        );
+        expectTechniqueElimination(new PointingTechnique({ technique: SolutionTechniqueEnum.PointingPair, size: 2 }).find(context), {
+            technique: SolutionTechniqueEnum.PointingPair,
+            rowIndex: 5,
+            columnIndex: 8,
+            value: 1
+        });
     });
 
     it('ignores candidates that span two rows in the box', () => {
         expect.assertions(1);
 
-        const field = createEmptyField(defaultSudokuConfig);
-        const candidateMap: CandidateMapType = {
-            [CandidateContext.getCellKey(field[0][0])]: [5, 6],
-            [CandidateContext.getCellKey(field[0][1])]: [5, 7],
-            [CandidateContext.getCellKey(field[1][2])]: [5, 8],
-            [CandidateContext.getCellKey(field[0][3])]: [5, 9]
-        };
-        const context = new CandidateContext(defaultSudokuConfig, field, candidateMap);
-        const results = new PointingPairTechnique().find(context);
+        const context = createCandidateContextFromMap([0, 0, [5, 6]], [0, 1, [5, 7]], [1, 2, [5, 8]], [0, 3, [5, 9]]);
+        const results = new PointingTechnique({ technique: SolutionTechniqueEnum.PointingPair, size: 2 }).find(context);
 
         expect(results.some(result => result.technique === SolutionTechniqueEnum.PointingPair)).toBe(false);
     });

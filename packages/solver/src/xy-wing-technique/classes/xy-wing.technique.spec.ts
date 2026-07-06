@@ -1,12 +1,12 @@
 import { describe, expect, it } from '@jest/globals';
-import { Sudoku, createEmptyField, defaultSudokuConfig } from '@suuudokuuu/generator';
+import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 
 import { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
+import { createCandidateContextFromMap } from '../../@generic/test-utils/create-candidate-context-from-map.spec.util';
+import { expectTechniqueElimination } from '../../@generic/test-utils/expect-technique-elimination.spec.util';
 
 import { XYWingTechnique } from './xy-wing.technique';
-
-import type { CandidateMapType } from '../../@generic/types/candidate-map.type';
 
 describe('XYWingTechnique', () => {
     it('finds two pincers that remove their shared outside value', () => {
@@ -26,24 +26,18 @@ describe('XYWingTechnique', () => {
         );
         const context = CandidateContext.fromSudoku(sudoku);
 
-        expect(new XYWingTechnique().find(context)).toContainEqual(
-            expect.objectContaining({
-                technique: SolutionTechniqueEnum.XYWing,
-                eliminations: expect.arrayContaining([{ cell: { x: 3, y: 8, value: 0, group: 6 }, value: 6 }])
-            })
-        );
+        expectTechniqueElimination(new XYWingTechnique().find(context), {
+            technique: SolutionTechniqueEnum.XYWing,
+            rowIndex: 8,
+            columnIndex: 3,
+            value: 6
+        });
     });
 
     it('ignores pincers without a unique pivot value split', () => {
         expect.assertions(1);
 
-        const field = createEmptyField(defaultSudokuConfig);
-        const candidateMap: CandidateMapType = {
-            [CandidateContext.getCellKey(field[0][0])]: [1, 2],
-            [CandidateContext.getCellKey(field[0][4])]: [1, 2],
-            [CandidateContext.getCellKey(field[4][0])]: [2, 3]
-        };
-        const context = new CandidateContext(defaultSudokuConfig, field, candidateMap);
+        const context = createCandidateContextFromMap([0, 0, [1, 2]], [0, 4, [1, 2]], [4, 0, [2, 3]]);
         const results = new XYWingTechnique().find(context);
 
         expect(results.some(result => result.technique === SolutionTechniqueEnum.XYWing)).toBe(false);

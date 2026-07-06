@@ -5,6 +5,13 @@ import { SolutionTechniqueEnum } from '../../enums/solution-technique.enum';
 
 import { TechniqueManager } from './technique-manager';
 
+import type { TechniqueStrategyInterface } from '../../interfaces/technique-strategy.interface';
+
+const createEmptyStrategy = (): TechniqueStrategyInterface => ({
+    find: () => [],
+    technique: SolutionTechniqueEnum.FullHouse
+});
+
 describe('TechniqueManager', () => {
     it('should find the easiest next logical step', () => {
         expect.assertions(1);
@@ -113,5 +120,47 @@ describe('TechniqueManager', () => {
 
         expect(result.technique).toBe(SolutionTechniqueEnum.Guess);
         expect(result.kind).toBe('guess');
+    });
+
+    it('should use a guess when no strategy finds a logical step', () => {
+        expect.assertions(2);
+
+        const sudoku = Sudoku.fromStrings(
+            defaultSudokuConfig,
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........'
+        );
+        const manager = new TechniqueManager(sudoku, [createEmptyStrategy()]);
+        const result = manager.findNextStep();
+
+        expect(result).toEqual(expect.objectContaining({ technique: SolutionTechniqueEnum.Guess }));
+        expect(result?.kind).toBe('guess');
+    });
+
+    it('should return null when the puzzle has no blank cells', () => {
+        expect.assertions(1);
+
+        const sudoku = Sudoku.fromStrings(
+            defaultSudokuConfig,
+            '123456789',
+            '456789123',
+            '789123456',
+            '214365897',
+            '365897214',
+            '897214365',
+            '531642978',
+            '642978531',
+            '978531642'
+        );
+        const manager = new TechniqueManager(sudoku, [createEmptyStrategy()]);
+
+        expect(manager.findNextStep()).toBeNull();
     });
 });
