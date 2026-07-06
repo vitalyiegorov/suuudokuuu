@@ -3,8 +3,8 @@ import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 
 import { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
-
-import { HiddenQuadTechnique } from './hidden-quad.technique';
+import { expectTechniqueElimination } from '../../@generic/test-utils/expect-technique-elimination.spec.util';
+import { HiddenSubsetTechnique } from '../../hidden-subset-technique/classes/hidden-subset.technique';
 
 describe('HiddenQuadTechnique', () => {
     it('finds a quad hidden inside four cells', () => {
@@ -24,11 +24,11 @@ describe('HiddenQuadTechnique', () => {
         );
         const context = CandidateContext.fromSudoku(sudoku);
 
-        expect(new HiddenQuadTechnique().find(context)).toContainEqual(
-            expect.objectContaining({
-                technique: SolutionTechniqueEnum.HiddenQuad,
-                eliminations: expect.arrayContaining([{ cell: { x: 4, y: 3, value: 0, group: 5 }, value: 5 }])
-            })
-        );
+        expectTechniqueElimination(new HiddenSubsetTechnique({ technique: SolutionTechniqueEnum.HiddenQuad, size: 4 }).find(context), {
+            technique: SolutionTechniqueEnum.HiddenQuad,
+            rowIndex: 3,
+            columnIndex: 4,
+            value: 5
+        });
     });
 });

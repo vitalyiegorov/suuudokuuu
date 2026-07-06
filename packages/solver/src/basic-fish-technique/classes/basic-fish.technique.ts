@@ -1,13 +1,16 @@
-import { AbstractFishTechnique } from './abstract-fish-technique';
+import { AbstractFishTechnique } from '../../@generic/classes/abstract-fish-technique';
+import { createEliminationResults } from '../../@generic/utils/create-elimination-results.util';
+import { getUniqueValues } from '../../@generic/utils/get-unique-values.util';
 
-import type { CandidateContext } from './candidate-context/candidate-context';
-import type { CandidateEliminationInterface } from '../interfaces/candidate-elimination.interface';
-import type { CandidateUnitInterface } from '../interfaces/candidate-unit.interface';
-import type { TechniqueResultInterface } from '../interfaces/technique-result.interface';
-import type { FinnedFishBaseType } from '../types/finned-fish-base.type';
-import type { LineType } from '../types/line.type';
+import type { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
+import type { CandidateEliminationInterface } from '../../@generic/interfaces/candidate-elimination.interface';
+import type { CandidateUnitInterface } from '../../@generic/interfaces/candidate-unit.interface';
+import type { TechniqueResultInterface } from '../../@generic/interfaces/technique-result.interface';
+import type { TechniqueStrategyInterface } from '../../@generic/interfaces/technique-strategy.interface';
+import type { FinnedFishBaseType } from '../../@generic/types/finned-fish-base.type';
+import type { LineType } from '../../@generic/types/line.type';
 
-export abstract class AbstractBasicFishTechnique extends AbstractFishTechnique {
+export class BasicFishTechnique extends AbstractFishTechnique implements TechniqueStrategyInterface {
     protected override getCandidateUnits(
         context: CandidateContext,
         baseUnits: CandidateUnitInterface[],
@@ -22,7 +25,7 @@ export abstract class AbstractBasicFishTechnique extends AbstractFishTechnique {
     }
 
     protected findInUnits(context: CandidateContext, value: number, base: FinnedFishBaseType): TechniqueResultInterface[] {
-        const coverIndexes = this.getUniqueValues(base.units.flatMap(unit => this.getCoverIndexes(context, unit, value, base.coverType)));
+        const coverIndexes = getUniqueValues(base.units.flatMap(unit => this.getCoverIndexes(context, unit, value, base.coverType)));
 
         if (coverIndexes.length !== this.size) {
             return [];
@@ -30,7 +33,7 @@ export abstract class AbstractBasicFishTechnique extends AbstractFishTechnique {
 
         const eliminations = this.getFishEliminations(context, base.units, value, base.coverType);
 
-        return this.createEliminationResults(
+        return createEliminationResults(
             context,
             this.technique,
             eliminations,
@@ -39,7 +42,7 @@ export abstract class AbstractBasicFishTechnique extends AbstractFishTechnique {
     }
 
     private getCoverIndexes(context: CandidateContext, unit: CandidateUnitInterface, value: number, coverType: LineType): number[] {
-        return this.getUniqueValues(
+        return getUniqueValues(
             unit.cells.filter(cell => context.getCandidates(cell).includes(value)).map(cell => (coverType === 'row' ? cell.y : cell.x))
         );
     }
@@ -51,7 +54,7 @@ export abstract class AbstractBasicFishTechnique extends AbstractFishTechnique {
         coverType: LineType
     ): CandidateEliminationInterface[] {
         const baseIndexes = baseUnits.map(unit => unit.index);
-        const coverIndexes = this.getUniqueValues(baseUnits.flatMap(unit => this.getCoverIndexes(context, unit, value, coverType)));
+        const coverIndexes = getUniqueValues(baseUnits.flatMap(unit => this.getCoverIndexes(context, unit, value, coverType)));
         const eliminations: CandidateEliminationInterface[] = [];
 
         for (const coverIndex of coverIndexes) {

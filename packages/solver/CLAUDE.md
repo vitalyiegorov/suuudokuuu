@@ -21,20 +21,20 @@ src/
 ├── @generic/
 │   ├── classes/
 │   │   ├── technique-manager/          # Public API: findNextStep, identifyMove, identify
-│   │   ├── candidate-context/          # Immutable candidate map + unit/peer navigation
-│   │   └── abstract-*.ts               # Shared bases only when mechanics overlap
+│   │   ├── candidate-context/          # Cached candidate map + unit/peer navigation
+│   │   ├── abstract-sized-technique.ts # Descriptor-backed family metadata only
+│   │   └── abstract-fish-technique.ts  # Shared fish scanning only
 │   ├── constants/
 │   │   └── chain-scan.constant.ts
 │   ├── enums/
 │   │   └── solution-technique.enum.ts  # Techniques ordered by difficulty (Guess = 0)
 │   ├── interfaces/                     # TechniqueResult, CandidateElimination, ...
 │   ├── types/                          # CandidateMapType, LineType, FinnedFish*, ...
-│   └── utils/
-│       └── create-technique-strategies.util.ts
+│   └── utils/                          # Pure result, cell, peer, and registry helpers
 └── *-technique/
     └── classes/
-        ├── *.technique.ts              # One strategy per named technique
-        └── *.technique.spec.ts         # Focused positive/negative coverage
+        ├── *.technique.ts              # Strategy class when behavior is unique
+        └── *.technique.spec.ts         # Focused named-technique coverage
 ```
 
 ## Key Concepts
@@ -48,7 +48,7 @@ identifyMove(cell: CellInterface): TechniqueResultInterface  // Technique justif
 identify(cell: CellInterface): SolutionTechniqueEnum
 ```
 
-Logical strategies run in `SolutionTechniqueEnum` difficulty order from `createTechniqueStrategies`. The manager exits at the first strategy that finds a result, and fallback `GuessTechnique` runs only when no supported logical technique matches.
+Logical strategies run in `SolutionTechniqueEnum` difficulty order from `createTechniqueStrategies`. The manager exits at the first strategy that finds a result, and fallback `GuessTechnique` runs only when no supported logical technique matches. Techniques that only differ by size/name use descriptor-backed family strategies instead of empty subclasses.
 
 ### SolutionTechniqueEnum
 
@@ -56,13 +56,13 @@ Enum values double as difficulty ranking (lower = simpler); `Guess = 0` is the f
 
 ### CandidateContext
 
-Immutable snapshot of candidates per blank cell (`fromSudoku`), with unit/peer navigation and `applyEliminations` returning a new context. Logical strategies work on this context, never on the Sudoku instance directly.
+Cached snapshot of candidates per blank cell (`fromSudoku`), with unit/peer navigation and `applyEliminations` returning a new context. Logical strategies work on this context, never on the Sudoku instance directly.
 
 ## Rules
 
 - Technique detection must answer "which technique justifies value V in cell C", not "any technique anywhere"
 - New logical strategies must keep registry order aligned with `SolutionTechniqueEnum`
-- New techniques belong in their own `*-technique/classes/` folder with a focused spec file
+- New algorithms belong in their own `*-technique/classes/` folder; parameter-only variants belong in descriptor-backed family strategies
 - Tests use realistic boards via `Sudoku.fromStrings(defaultSudokuConfig, ...)` + `CandidateContext.fromSudoku`; synthetic candidate maps only for patterns impractical to reach from a real board
 - Every technique needs a positive assertion; add negative coverage where false positives are plausible
 

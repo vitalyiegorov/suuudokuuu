@@ -1,18 +1,16 @@
 import { isDefined } from '@rnw-community/shared';
 
-import { AbstractTechnique } from './abstract-technique';
+import { AbstractSizedTechnique } from '../../@generic/classes/abstract-sized-technique';
+import { createEliminationResults } from '../../@generic/utils/create-elimination-results.util';
+import { getUniqueValues } from '../../@generic/utils/get-unique-values.util';
 
-import type { CandidateContext } from './candidate-context/candidate-context';
-import type { SolutionTechniqueEnum } from '../enums/solution-technique.enum';
-import type { CandidateEliminationInterface } from '../interfaces/candidate-elimination.interface';
-import type { TechniqueResultInterface } from '../interfaces/technique-result.interface';
-import type { LineType } from '../types/line.type';
+import type { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
+import type { CandidateEliminationInterface } from '../../@generic/interfaces/candidate-elimination.interface';
+import type { TechniqueResultInterface } from '../../@generic/interfaces/technique-result.interface';
+import type { LineType } from '../../@generic/types/line.type';
 import type { CellInterface } from '@suuudokuuu/generator';
 
-export abstract class AbstractPointingTechnique extends AbstractTechnique {
-    abstract readonly technique: SolutionTechniqueEnum;
-    protected abstract readonly size: number;
-
+export class PointingTechnique extends AbstractSizedTechnique {
     find(context: CandidateContext): TechniqueResultInterface[] {
         const results: TechniqueResultInterface[] = [];
         const groupUnits = context.getUnits().filter(unit => unit.type === 'group');
@@ -25,8 +23,8 @@ export abstract class AbstractPointingTechnique extends AbstractTechnique {
                     const rowEliminations = this.getLineEliminations(context, cells, value, 'row');
                     const columnEliminations = this.getLineEliminations(context, cells, value, 'column');
 
-                    results.push(...this.createEliminationResults(context, this.technique, rowEliminations, cells));
-                    results.push(...this.createEliminationResults(context, this.technique, columnEliminations, cells));
+                    results.push(...createEliminationResults(context, this.technique, rowEliminations, cells));
+                    results.push(...createEliminationResults(context, this.technique, columnEliminations, cells));
                 }
             }
         }
@@ -40,7 +38,7 @@ export abstract class AbstractPointingTechnique extends AbstractTechnique {
         value: number,
         lineType: LineType
     ): CandidateEliminationInterface[] {
-        const indexes = this.getUniqueValues(cells.map(cell => (lineType === 'row' ? cell.y : cell.x)));
+        const indexes = getUniqueValues(cells.map(cell => (lineType === 'row' ? cell.y : cell.x)));
         const [index] = indexes;
 
         if (indexes.length !== 1 || !isDefined(index)) {

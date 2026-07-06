@@ -1,13 +1,13 @@
 import { isDefined } from '@rnw-community/shared';
 
-import { AbstractTechnique } from '../../@generic/classes/abstract-technique';
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
+import { createPlacementResult } from '../../@generic/utils/create-placement-result.util';
 
 import type { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
 import type { TechniqueResultInterface } from '../../@generic/interfaces/technique-result.interface';
 import type { TechniqueStrategyInterface } from '../../@generic/interfaces/technique-strategy.interface';
 
-export class HiddenSingleTechnique extends AbstractTechnique implements TechniqueStrategyInterface {
+export class HiddenSingleTechnique implements TechniqueStrategyInterface {
     readonly technique = SolutionTechniqueEnum.HiddenSingle;
 
     find(context: CandidateContext): TechniqueResultInterface[] {
@@ -19,7 +19,7 @@ export class HiddenSingleTechnique extends AbstractTechnique implements Techniqu
                 const [targetCell] = cellsWithCandidate;
 
                 if (cellsWithCandidate.length === 1 && isDefined(targetCell) && context.getCandidates(targetCell).length > 1) {
-                    results.push(this.createPlacement(this.technique, targetCell, value, unit.cells));
+                    results.push(createPlacementResult(this.technique, targetCell, value, unit.cells));
                 }
             }
         }

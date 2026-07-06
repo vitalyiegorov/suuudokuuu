@@ -3,8 +3,8 @@ import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 
 import { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
-
-import { HiddenTripleTechnique } from './hidden-triple.technique';
+import { expectTechniqueElimination } from '../../@generic/test-utils/expect-technique-elimination.spec.util';
+import { HiddenSubsetTechnique } from '../../hidden-subset-technique/classes/hidden-subset.technique';
 
 describe('HiddenTripleTechnique', () => {
     it('finds a triple hidden inside three cells', () => {
@@ -24,11 +24,11 @@ describe('HiddenTripleTechnique', () => {
         );
         const context = CandidateContext.fromSudoku(sudoku);
 
-        expect(new HiddenTripleTechnique().find(context)).toContainEqual(
-            expect.objectContaining({
-                technique: SolutionTechniqueEnum.HiddenTriple,
-                eliminations: expect.arrayContaining([{ cell: { x: 1, y: 8, value: 0, group: 3 }, value: 9 }])
-            })
-        );
+        expectTechniqueElimination(new HiddenSubsetTechnique({ technique: SolutionTechniqueEnum.HiddenTriple, size: 3 }).find(context), {
+            technique: SolutionTechniqueEnum.HiddenTriple,
+            rowIndex: 8,
+            columnIndex: 1,
+            value: 9
+        });
     });
 });

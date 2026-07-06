@@ -1,16 +1,17 @@
-import { AbstractTechnique } from './abstract-technique';
+import { getCombinations } from '../utils/get-combinations.util';
+
+import { AbstractSizedTechnique } from './abstract-sized-technique';
 
 import type { CandidateContext } from './candidate-context/candidate-context';
-import type { SolutionTechniqueEnum } from '../enums/solution-technique.enum';
 import type { CandidateUnitInterface } from '../interfaces/candidate-unit.interface';
+import type { SizedTechniqueDescriptorInterface } from '../interfaces/sized-technique-descriptor.interface';
 import type { TechniqueResultInterface } from '../interfaces/technique-result.interface';
 import type { FinnedFishBaseType } from '../types/finned-fish-base.type';
 import type { LineType } from '../types/line.type';
 
-export abstract class AbstractFishTechnique extends AbstractTechnique {
-    abstract readonly technique: SolutionTechniqueEnum;
-    protected abstract readonly size: number;
-
+export abstract class AbstractFishTechnique<
+    TDescriptor extends SizedTechniqueDescriptorInterface = SizedTechniqueDescriptorInterface
+> extends AbstractSizedTechnique<TDescriptor> {
     find(context: CandidateContext): TechniqueResultInterface[] {
         return [...this.findByBaseType(context, 'row'), ...this.findByBaseType(context, 'column')];
     }
@@ -32,7 +33,7 @@ export abstract class AbstractFishTechnique extends AbstractTechnique {
         for (const value of context.getValues()) {
             const candidateUnits = this.getCandidateUnits(context, baseUnits, value, coverType);
 
-            for (const units of this.getCombinations(candidateUnits, this.size)) {
+            for (const units of getCombinations(candidateUnits, this.size)) {
                 results.push(...this.findInUnits(context, value, { units, baseType, coverType }));
             }
         }

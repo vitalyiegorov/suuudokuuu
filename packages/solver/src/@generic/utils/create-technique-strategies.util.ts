@@ -1,27 +1,18 @@
+import { BasicFishTechnique } from '../../basic-fish-technique/classes/basic-fish.technique';
 import { BoxLineReductionTechnique } from '../../box-line-reduction-technique/classes/box-line-reduction.technique';
-import { FinnedSwordfishTechnique } from '../../finned-swordfish-technique/classes/finned-swordfish.technique';
-import { FinnedXWingTechnique } from '../../finned-x-wing-technique/classes/finned-x-wing.technique';
+import { FinnedFishTechnique } from '../../finned-fish-technique/classes/finned-fish.technique';
 import { FullHouseTechnique } from '../../full-house-technique/classes/full-house.technique';
-import { HiddenPairTechnique } from '../../hidden-pair-technique/classes/hidden-pair.technique';
-import { HiddenQuadTechnique } from '../../hidden-quad-technique/classes/hidden-quad.technique';
 import { HiddenSingleTechnique } from '../../hidden-single-technique/classes/hidden-single.technique';
-import { HiddenTripleTechnique } from '../../hidden-triple-technique/classes/hidden-triple.technique';
-import { JellyfishTechnique } from '../../jellyfish-technique/classes/jellyfish.technique';
-import { NakedPairTechnique } from '../../naked-pair-technique/classes/naked-pair.technique';
-import { NakedQuadTechnique } from '../../naked-quad-technique/classes/naked-quad.technique';
+import { HiddenSubsetTechnique } from '../../hidden-subset-technique/classes/hidden-subset.technique';
 import { NakedSingleTechnique } from '../../naked-single-technique/classes/naked-single.technique';
-import { NakedTripleTechnique } from '../../naked-triple-technique/classes/naked-triple.technique';
-import { PointingPairTechnique } from '../../pointing-pair-technique/classes/pointing-pair.technique';
-import { PointingTripleTechnique } from '../../pointing-triple-technique/classes/pointing-triple.technique';
-import { SashimiSwordfishTechnique } from '../../sashimi-swordfish-technique/classes/sashimi-swordfish.technique';
-import { SashimiXWingTechnique } from '../../sashimi-x-wing-technique/classes/sashimi-x-wing.technique';
-import { SwordfishTechnique } from '../../swordfish-technique/classes/swordfish.technique';
+import { NakedSubsetTechnique } from '../../naked-subset-technique/classes/naked-subset.technique';
+import { PointingTechnique } from '../../pointing-technique/classes/pointing.technique';
 import { WWingTechnique } from '../../w-wing-technique/classes/w-wing.technique';
 import { XChainTechnique } from '../../x-chain-technique/classes/x-chain.technique';
-import { XWingTechnique } from '../../x-wing-technique/classes/x-wing.technique';
 import { XYChainTechnique } from '../../xy-chain-technique/classes/xy-chain.technique';
 import { XYWingTechnique } from '../../xy-wing-technique/classes/xy-wing.technique';
 import { XYZWingTechnique } from '../../xyz-wing-technique/classes/xyz-wing.technique';
+import { SolutionTechniqueEnum } from '../enums/solution-technique.enum';
 
 import type { TechniqueStrategyInterface } from '../interfaces/technique-strategy.interface';
 
@@ -29,22 +20,22 @@ export const createTechniqueStrategies = (): TechniqueStrategyInterface[] => [
     new FullHouseTechnique(),
     new NakedSingleTechnique(),
     new HiddenSingleTechnique(),
-    new PointingPairTechnique(),
-    new PointingTripleTechnique(),
+    new PointingTechnique({ technique: SolutionTechniqueEnum.PointingPair, size: 2 }),
+    new PointingTechnique({ technique: SolutionTechniqueEnum.PointingTriple, size: 3 }),
     new BoxLineReductionTechnique(),
-    new NakedPairTechnique(),
-    new NakedTripleTechnique(),
-    new NakedQuadTechnique(),
-    new HiddenPairTechnique(),
-    new HiddenTripleTechnique(),
-    new HiddenQuadTechnique(),
-    new XWingTechnique(),
-    new SwordfishTechnique(),
-    new JellyfishTechnique(),
-    new FinnedXWingTechnique(),
-    new FinnedSwordfishTechnique(),
-    new SashimiXWingTechnique(),
-    new SashimiSwordfishTechnique(),
+    new NakedSubsetTechnique({ technique: SolutionTechniqueEnum.NakedPair, size: 2 }),
+    new NakedSubsetTechnique({ technique: SolutionTechniqueEnum.NakedTriple, size: 3 }),
+    new NakedSubsetTechnique({ technique: SolutionTechniqueEnum.NakedQuad, size: 4 }),
+    new HiddenSubsetTechnique({ technique: SolutionTechniqueEnum.HiddenPair, size: 2 }),
+    new HiddenSubsetTechnique({ technique: SolutionTechniqueEnum.HiddenTriple, size: 3 }),
+    new HiddenSubsetTechnique({ technique: SolutionTechniqueEnum.HiddenQuad, size: 4 }),
+    new BasicFishTechnique({ technique: SolutionTechniqueEnum.XWing, size: 2 }),
+    new BasicFishTechnique({ technique: SolutionTechniqueEnum.Swordfish, size: 3 }),
+    new BasicFishTechnique({ technique: SolutionTechniqueEnum.Jellyfish, size: 4 }),
+    new FinnedFishTechnique({ technique: SolutionTechniqueEnum.FinnedXWing, size: 2, sashimi: false }),
+    new FinnedFishTechnique({ technique: SolutionTechniqueEnum.FinnedSwordfish, size: 3, sashimi: false }),
+    new FinnedFishTechnique({ technique: SolutionTechniqueEnum.SashimiXWing, size: 2, sashimi: true }),
+    new FinnedFishTechnique({ technique: SolutionTechniqueEnum.SashimiSwordfish, size: 3, sashimi: true }),
     new XYWingTechnique(),
     new XYZWingTechnique(),
     new WWingTechnique(),

@@ -2,6 +2,7 @@ import { isDefined } from '@rnw-community/shared';
 
 import { GuessTechnique } from '../../../guess-technique/classes/guess.technique';
 import { createTechniqueStrategies } from '../../utils/create-technique-strategies.util';
+import { isSameCell } from '../../utils/is-same-cell.util';
 import { CandidateContext } from '../candidate-context/candidate-context';
 
 import type { SolutionTechniqueEnum } from '../../enums/solution-technique.enum';
@@ -25,10 +26,10 @@ export class TechniqueManager {
         const context = CandidateContext.fromSudoku(this.sudoku);
 
         for (const strategy of this.strategies) {
-            const [simplestResult] = this.sortByDifficulty(strategy.find(context));
+            const [result] = strategy.find(context);
 
-            if (isDefined(simplestResult)) {
-                return simplestResult;
+            if (isDefined(result)) {
+                return result;
             }
         }
 
@@ -42,13 +43,11 @@ export class TechniqueManager {
         const targetValue = this.getTargetValue(cell);
 
         for (const strategy of this.strategies) {
-            const matchingResults = strategy
-                .find(context)
-                .filter(result => this.isSameCell(result.cell, cell) && result.value === targetValue);
-            const [simplestResult] = this.sortByDifficulty(matchingResults);
+            const matchingResults = strategy.find(context).filter(result => isSameCell(result.cell, cell) && result.value === targetValue);
+            const [result] = matchingResults;
 
-            if (isDefined(simplestResult)) {
-                return simplestResult;
+            if (isDefined(result)) {
+                return result;
             }
         }
 
@@ -59,19 +58,7 @@ export class TechniqueManager {
         return this.identifyMove(cell).technique;
     }
 
-    getSolution(cell: CellInterface): number | null {
-        return this.identifyMove(cell).value;
-    }
-
-    private sortByDifficulty(results: TechniqueResultInterface[]): TechniqueResultInterface[] {
-        return [...results].sort((firstResult, secondResult) => firstResult.technique - secondResult.technique);
-    }
-
     private getTargetValue(cell: CellInterface): number {
         return cell.value === this.sudoku.Config.blankCellValue ? this.sudoku.getCorrectValue(cell) : cell.value;
-    }
-
-    private isSameCell(cell: CellInterface, otherCell: CellInterface): boolean {
-        return cell.x === otherCell.x && cell.y === otherCell.y;
     }
 }
