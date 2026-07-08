@@ -30,6 +30,7 @@ const getCellSize = (screenMarginPercentage = 4): number => {
 export const CellSizeConstant = getCellSize();
 
 export const CellFontSizeConstant = CellSizeConstant / 2.5;
+export const GameNumberInputButtonSizeConstant = CellSizeConstant * 1.3;
 
 export const CellCandidateVerticalOffsetConstant = CellSizeConstant * 0.05;
 export const CellCandidateHorizontalOffsetConstant = CellSizeConstant * 0.05;

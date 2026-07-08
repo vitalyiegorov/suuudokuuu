@@ -1,0 +1,13 @@
+appId: ${APP_ID}
+---
+- runFlow: ../navigation/move-dev-tools-button-away-if-visible.flow.yaml
+- tapOn:
+    id: 'GameScreenSelectors.QuitButton'
+- extendedWaitUntil:
+    visible: 'Stop current run?'
+    timeout: 3000
+- tapOn: 'OK'
+- extendedWaitUntil:
+    visible:
+      id: 'HomeScreenSelectors.Root'
+    timeout: 3000

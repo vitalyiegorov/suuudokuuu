@@ -6,8 +6,11 @@ platform:
     disableAnimations: true
 
 executionOrder:
-  continueOnFailure: true
+  continueOnFailure: false
   flowsOrder:
     - 01.home-screen.flow
     - 02.game-screen-win.flow
-    - 03.game-screen-loose.flow
+    - 03.game-screen-lose.flow
+    - 04.statistics-screen.flow
+    - 05.settings-screen.flow
+    - 06.resume-game.flow

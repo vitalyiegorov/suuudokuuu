@@ -4,6 +4,8 @@ import { gameResetAction } from '../../../game/store/game.actions';
 import { useAppDispatch } from '../../hooks/use-app-dispatch.hook';
 import { BlackButton } from '../black-button/black-button';
 
+import { PlayAgainButtonSelectors } from './play-again-button.selectors';
+
 export const PlayAgainButton = () => {
     const { t } = useLingui();
 
@@ -11,5 +13,5 @@ export const PlayAgainButton = () => {
 
     const handlePlayAgain = () => void dispatch(gameResetAction());
 
-    return <BlackButton href="/" onPress={handlePlayAgain} replace text={t`Play again`} />;
+    return <BlackButton href="/" onPress={handlePlayAgain} replace testID={PlayAgainButtonSelectors.Root} text={t`Play again`} />;
 };

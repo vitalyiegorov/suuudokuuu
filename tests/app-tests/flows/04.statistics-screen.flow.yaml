@@ -1,0 +1,43 @@
+appId: ${APP_ID}
+---
+- startRecording:
+    path: '04.statistics-screen'
+    optional: true
+
+- runFlow: subflows/navigation/launch-home.flow.yaml
+- runFlow:
+    file: subflows/shared/complete-winning-shared-challenge.flow.yaml
+    env:
+      SHARED_CHALLENGE_LINK: suuudokuuu://shared/IzAMC4AAAKBEBQDAAHASfAwQAgM4AQAhgGQEUBoAQQASBWAcIAgBXrAE4BMAUgZICcAYgKpkAmAFdQAMQAGABYDZAYwBRYgPMBIAE8UAFAEMASAGIALFQCpAZEMA3AAoArgLL2A1ReUAWgOoApAGfpABr9VABmW34AFfl5AECcADoARIAdgB4AcwAqgE%2BAfYASgDAAIIAGgDiADAARgA8AZpqAYrq6bkMAMoBNIl6AWoAOAHOAWIAQcPAAGwAhAAGAJnAATjXgcGAgA
+- tapOn:
+    id: 'PlayAgainButtonSelectors.Root'
+- extendedWaitUntil:
+    visible:
+      id: 'HomeScreenSelectors.Root'
+    timeout: 3000
+- tapOn: 'Stats'
+- extendedWaitUntil:
+    visible:
+      id: 'HistoryScreenSelectors.Root'
+    timeout: 3000
+- assertVisible: 'Overview'
+- assertVisible: 'Games'
+- assertVisible: 'Newbie.*'
+- assertVisible: '.*completed game.*'
+- tapOn:
+    id: 'HistorySegmentedControlSelectors.GamesTab'
+- extendedWaitUntil:
+    visible:
+      id: 'CompletedGameItemSelectors.ReplayButton'
+    timeout: 3000
+- assertVisible: 'Score'
+- assertVisible: 'Time'
+- assertVisible: 'Mistakes'
+- tapOn:
+    id: 'CompletedGameItemSelectors.ReplayButton'
+- extendedWaitUntil:
+    visible: 'Step time.*'
+    timeout: 3000
+- assertVisible: '0 / 1'
+- assertVisible: 'Move'
+- stopApp

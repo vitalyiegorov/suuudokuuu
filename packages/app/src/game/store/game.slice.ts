@@ -1,6 +1,8 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { Solution } from '@suuudokuuu/encoder';
 
+import { isNotEmptyString } from '@rnw-community/shared';
+
 import { getCellKey } from '../../@generic/utils/get-cell-key.util';
 import { maxCompletedGamesPerDifficulty } from '../../history/constants/max-completed-games-per-difficulty.constant';
 import { SudokuScoring } from '../../scoring/classes/sudoku-scoring';
@@ -22,11 +24,17 @@ export const gameSlice = createSlice({
             state.sudokuString = action.payload.sudokuString;
             state.maxMistakes = action.payload.maxMistakes;
         },
-        pause: state => {
+        pause: (state, action: PayloadAction<{ shouldShowPauseScreen?: boolean } | undefined>) => {
+            const shouldShowPauseScreen = action.payload?.shouldShowPauseScreen ?? true;
+
             state.isPaused = true;
+            state.shouldShowPauseScreen = shouldShowPauseScreen;
+            state.shouldResumeOnFocus = !shouldShowPauseScreen;
         },
         resume: state => {
             state.isPaused = false;
+            state.shouldShowPauseScreen = false;
+            state.shouldResumeOnFocus = false;
         },
         save: (state, action: PayloadAction<{ sudoku: Sudoku; correctCell: CellInterface; scoredCells: ScoredCellsInterface }>) => {
             const { sudoku, correctCell, scoredCells } = action.payload;
@@ -72,7 +80,9 @@ export const gameSlice = createSlice({
             Object.assign(state, action.payload);
         },
         tick: state => {
-            state.elapsedTime += 1;
+            if (!state.isPaused && isNotEmptyString(state.sudokuString)) {
+                state.elapsedTime += 1;
+            }
         },
         reset: state => {
             Object.assign(state, { ...initialGameState, historyByDifficulty: state.historyByDifficulty });
@@ -139,6 +149,10 @@ export const gameSlice = createSlice({
                 history.gamesLost += 1;
                 history.challengesLost += isChallenge ? 1 : 0;
             }
+
+            state.isPaused = true;
+            state.shouldShowPauseScreen = false;
+            state.shouldResumeOnFocus = false;
         }
     }
 });

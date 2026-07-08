@@ -1,9 +1,10 @@
 import { useLingui } from '@lingui/react/macro';
-import { Text, View } from 'react-native';
+import { AppMetricStrip } from '@suuudokuuu/ui';
+import { use } from 'react';
 
-import { BlackText } from '../../../@generic/components/black-text/black-text';
+import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
-import { getTimerText } from '../../../@generic/utils/get-timer-text.util';
+import { ThemeContext } from '../../../theme/context/theme.context';
 
 import { ReplayHeaderStyles as styles } from './replay-header.styles';
 
@@ -13,28 +14,28 @@ interface Props {
     readonly game: CompletedGameInterface;
 }
 
+const RelaxedMistakeLimit = 99;
+
 export const ReplayHeader = ({ game }: Props) => {
+    const { theme } = use(ThemeContext);
     const { t } = useLingui();
+    const elapsedTimeText = useTimerText(game.elapsedTime);
+    const mistakesValue = game.maxMistakes >= RelaxedMistakeLimit ? `${game.mistakes}/∞` : `${game.mistakes}/${game.maxMistakes}`;
+    const items = [
+        { label: t`Level`, value: getDifficultyText(game.difficulty), width: 84 },
+        { label: t`Score`, value: String(game.score), valueColor: theme.colors.value.progressActive, width: 68 },
+        { label: t`Mistakes`, value: mistakesValue, width: 76 },
+        { label: t`Time`, value: elapsedTimeText, width: 86 }
+    ];
 
     return (
-        <View style={styles.container}>
-            <View style={styles.titleRow}>
-                <BlackText style={styles.difficultyText}>{getDifficultyText(game.difficulty)}</BlackText>
-            </View>
-            <View style={styles.statsRow}>
-                <BlackText>
-                    {t`Score`}: <Text style={styles.boldText}>{game.score}</Text>
-                </BlackText>
-                <BlackText>
-                    {t`Mistakes`}:{' '}
-                    <Text style={styles.boldText}>
-                        {game.mistakes}/{game.maxMistakes}
-                    </Text>
-                </BlackText>
-                <BlackText>
-                    {t`Time`}: <Text style={styles.boldText}>{getTimerText(game.elapsedTime)}</Text>
-                </BlackText>
-            </View>
-        </View>
+        <AppMetricStrip
+            itemStyle={styles.item}
+            items={items}
+            labelStyle={styles.label}
+            separatorStyle={styles.separator}
+            style={styles.container}
+            valueStyle={styles.value}
+        />
     );
 };

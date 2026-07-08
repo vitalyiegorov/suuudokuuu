@@ -1,6 +1,7 @@
 import rootPkg from './package.json';
 
 const APP_VARIANT = process.env.APP_VARIANT;
+const EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL = process.env.EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL;
 const IS_DEV = APP_VARIANT === 'development';
 const IS_PREVIEW = APP_VARIANT === 'preview';
 
@@ -29,6 +30,16 @@ const getAppName = () => {
 
     return 'suuudokuuu';
 };
+
+const getExpoDevClientConfig = () => ({
+    showMenuAtLaunch: false,
+    skipOnboarding: true,
+    toolsButton: false,
+    ...(EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL && {
+        defaultLaunchURL: EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL,
+        launchMode: 'most-recent'
+    })
+});
 
 export default ({ config }) => ({
     ...config,
@@ -98,8 +109,13 @@ export default ({ config }) => ({
     plugins: [
         'expo-build-properties',
         'expo-localization',
+        'expo-sharing',
+        'expo-splash-screen',
+        'expo-sqlite',
+        'expo-status-bar',
+        ['expo-dev-client', getExpoDevClientConfig()],
         ['expo-router', { origin: 'https://www.suuudokuuu.com/' }],
-        ['expo-font', { fonts: ['../../node_modules/@expo-google-fonts/inter/Inter_900Black.ttf'] }],
+        ['expo-font', { fonts: ['../../node_modules/@expo-google-fonts/inter/900Black/Inter_900Black.ttf'] }],
         [
             'react-native-share',
             {

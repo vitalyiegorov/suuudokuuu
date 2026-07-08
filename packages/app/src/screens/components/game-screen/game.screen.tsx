@@ -1,15 +1,13 @@
 import { useLingui } from '@lingui/react/macro';
 import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
-import { Link, useRouter } from 'expo-router';
-import * as Sharing from 'expo-sharing';
+import { useRouter } from 'expo-router';
 import { LucideLogOut, LucideSettings, LucideShare2 } from 'lucide-react-native';
 import { use, useEffect, useRef, useState } from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { Pressable, View } from 'react-native';
 
 import { Alert } from '../../../@generic/components/alert/alert';
-import { BlackButton } from '../../../@generic/components/black-button/black-button';
-import { BlackText } from '../../../@generic/components/black-text/black-text';
+import { BlackIconButton } from '../../../@generic/components/black-icon-button/black-icon-button';
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
@@ -19,10 +17,11 @@ import { AutoCandidatesButton } from '../../../game/components/auto-candidates-b
 import { AvailableValuesItem, AvailableValuesItemRef } from '../../../game/components/available-values-item/available-values-item';
 import { CandidateInputItem } from '../../../game/components/candidate-input-item/candidate-input-item';
 import { Field, FieldRef } from '../../../game/components/field/field';
-import { GameTimer } from '../../../game/components/game-timer/game-timer';
+import { GameTimerController } from '../../../game/components/game-timer-controller/game-timer-controller';
 import { InputModeButton } from '../../../game/components/input-mode-button/input-mode-button';
 import { GameContext } from '../../../game/context/game.context';
 import { useKeyboardControls } from '../../../game/hooks/use-keyboard-controls/use-keyboard-controls.hook';
+import { useResumeGameOnFocus } from '../../../game/hooks/use-resume-game-on-focus.hook';
 import { useSharePuzzle } from '../../../game/hooks/use-share-puzzle/use-share-puzzle.hook';
 import {
     gameFinishAction,
@@ -42,20 +41,17 @@ import {
 } from '../../../game/store/game.selectors';
 import { settingsKeySelector } from '../../../settings/store/settings.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { gameScreenSetSharingAvailable } from '../../utils/game-screen-set-sharing-available.util';
 
+import { GameScreenMetrics } from './game-screen-metrics/game-screen-metrics';
 import { GameScreenSelectors } from './game-screen.selectors';
 import { GameScreenStyles as styles } from './game-screen.styles';
+import { useOpenGameSettings } from './hooks/use-open-game-settings.hook';
+import { gameScreenExit } from './utils/game-screen-exit.util';
 
 import type { CellInterface, ScoredCellsInterface } from '@suuudokuuu/generator';
-import type { Dispatch, SetStateAction } from 'react';
 
-const setSharingAvailable = (setHasSharing: Dispatch<SetStateAction<boolean>>): void => {
-    Sharing.isAvailableAsync()
-        .then(result => void setHasSharing(result))
-        .catch(() => void setHasSharing(false));
-};
-
-// eslint-disable-next-line max-lines-per-function,max-statements
+// eslint-disable-next-line max-lines-per-function -- Game orchestration component requires many handlers and refs
 export const GameScreen = () => {
     const router = useRouter();
     const { t } = useLingui();
@@ -84,21 +80,20 @@ export const GameScreen = () => {
 
     const maxMistakesReached = mistakes >= maxMistakes;
 
-    // TODO: Is there a better way without using useEffect?
-    useEffect(() => void setSharingAvailable(setHasSharing), []);
+    useEffect(() => void gameScreenSetSharingAvailable(setHasSharing), []);
 
     const handleShare = useSharePuzzle();
+    const handleOpenSettings = useOpenGameSettings();
 
+    const handleConfirmedExit = () =>
+        void gameScreenExit(
+            () => dispatch(gameResetAction()),
+            homeHref => void router.dismissTo(homeHref)
+        );
     const handleExit = () => {
         Alert(t`Stop current run?`, t`All progress will be lost`, [
             { text: t`Cancel`, style: 'cancel' },
-            {
-                text: 'OK',
-                onPress: () => {
-                    dispatch(gameResetAction());
-                    router.replace('/');
-                }
-            }
+            { text: t`OK`, onPress: handleConfirmedExit }
         ]);
     };
 
@@ -196,64 +191,44 @@ export const GameScreen = () => {
     };
 
     useKeyboardControls(sudoku, selectedCell, handleSelectCell, handleSelectValue, handleExit);
+    useResumeGameOnFocus();
 
-    const mistakesCountTextStyles = [styles.mistakesCountText, { color: maxMistakesReached ? theme.colors.red : theme.colors.label.main }];
     const hideAutoCandidates = maxMistakes === 0;
+    const actionIconColor = theme.colors.label.main;
 
     return (
-        <Pressable {...(!keepActiveCell && { onPress: handleDeselectCell })} style={styles.container} testID={GameScreenSelectors.Root}>
+        <Pressable
+            accessible={false}
+            {...(!keepActiveCell && { onPress: handleDeselectCell })}
+            style={styles.container}
+            testID={GameScreenSelectors.Root}
+        >
+            <GameTimerController />
             {isChallengeMode && <ChallengeProgressBar />}
             <View style={styles.controls}>
-                <View style={styles.controlsWrapper}>
-                    <BlackText>{t`Mistakes`}</BlackText>
-
-                    <BlackText>
-                        <Text style={mistakesCountTextStyles} testID={GameScreenSelectors.MistakesCount}>
-                            {mistakes}
-                        </Text>
-
-                        <Text style={styles.mistakesSeparator}>/</Text>
-
-                        <BlackText style={styles.mistakesMaxText} testID={GameScreenSelectors.MaxMistakesAllowed}>
-                            {maxMistakes}
-                        </BlackText>
-                    </BlackText>
-                </View>
-
-                {hasTimer ? (
-                    <View style={styles.controlsWrapper}>
-                        <BlackText>{t`Elapsed`}</BlackText>
-
-                        <GameTimer />
-                    </View>
-                ) : null}
-
-                <View style={styles.scoreWrapper}>
-                    <Link href="/scoring">
-                        <View style={styles.controlsWrapper}>
-                            <BlackText>{t`Score`}</BlackText>
-
-                            <BlackText style={styles.scoreText} testID={GameScreenSelectors.Score}>
-                                {score}
-                            </BlackText>
-                        </View>
-                    </Link>
-                </View>
+                <GameScreenMetrics
+                    elapsedTime={elapsedTime}
+                    hasTimer={hasTimer}
+                    maxMistakes={maxMistakes}
+                    maxMistakesReached={maxMistakesReached}
+                    mistakes={mistakes}
+                    score={score}
+                />
 
                 <View style={styles.buttonsWrapper}>
                     {hasSharing ? (
-                        <BlackButton onPress={handleShare} style={styles.button} testID={GameScreenSelectors.ShareButton}>
-                            <LucideShare2 color={theme.colors.white} />
-                        </BlackButton>
+                        <BlackIconButton onPress={handleShare} testID={GameScreenSelectors.ShareButton} variant="secondary">
+                            <LucideShare2 color={actionIconColor} />
+                        </BlackIconButton>
                     ) : null}
 
-                    <BlackButton href="/settings" style={styles.button}>
-                        <LucideSettings color={theme.colors.white} />
-                    </BlackButton>
+                    <BlackIconButton onPress={handleOpenSettings} testID={GameScreenSelectors.SettingsButton} variant="secondary">
+                        <LucideSettings color={actionIconColor} />
+                    </BlackIconButton>
 
-                    <BlackButton onPress={handleExit} style={styles.button} testID={GameScreenSelectors.QuitButton}>
-                        <LucideLogOut color={theme.colors.white} />
-                    </BlackButton>
+                    <BlackIconButton onPress={handleExit} testID={GameScreenSelectors.QuitButton} variant="secondary">
+                        <LucideLogOut color={actionIconColor} />
+                    </BlackIconButton>
                 </View>
             </View>
 

@@ -1,0 +1,15 @@
+appId: ${APP_ID}
+---
+- extendedWaitUntil:
+    visible: 'Enter URL manually'
+    timeout: 3000
+    optional: true
+- runFlow:
+    when:
+      visible: 'Enter URL manually'
+    commands:
+      - tapOn: 'Enter URL manually'
+      - tapOn: 'http://'
+      - inputText: ${METRO_URL}
+      - pressKey: Enter
+      - waitForAnimationToEnd

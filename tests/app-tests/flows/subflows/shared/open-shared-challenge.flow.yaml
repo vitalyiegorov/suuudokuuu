@@ -1,0 +1,12 @@
+appId: ${APP_ID}
+---
+- openLink:
+    link: ${SHARED_CHALLENGE_LINK}
+- runFlow:
+    when:
+      visible: 'Open in.*'
+    commands:
+      - tapOn: 'Open'
+- extendedWaitUntil:
+    visible: 'Accept challenge?'
+    timeout: 10000

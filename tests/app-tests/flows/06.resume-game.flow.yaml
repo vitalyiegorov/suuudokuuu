@@ -1,0 +1,58 @@
+appId: ${APP_ID}
+---
+- startRecording:
+    path: '06.resume-game'
+    optional: true
+
+- runFlow: subflows/navigation/launch-home.flow.yaml
+- runFlow: subflows/game/start-new-game.flow.yaml
+- runFlow: subflows/game/open-settings-from-game.flow.yaml
+- tapOn:
+    id: 'HeaderBackButtonSelectors.Root'
+- extendedWaitUntil:
+    visible:
+      id: 'PauseScreenSelectors.Root'
+    timeout: 3000
+- assertVisible:
+    id: 'PauseScreenSelectors.ProgressValue'
+- assertVisible:
+    id: 'PauseScreenSelectors.TimeValue'
+- assertVisible:
+    id: 'PauseScreenSelectors.ScoreValue'
+- assertVisible:
+    id: 'PauseScreenSelectors.QuitButton'
+- assertNotVisible:
+    id: 'CellSelectors.Root'
+- tapOn:
+    id: 'PauseScreenSelectors.ResumeButton'
+- extendedWaitUntil:
+    visible:
+      id: 'GameScreenSelectors.Root'
+    timeout: 3000
+- assertVisible:
+    id: 'CellSelectors.Root'
+- runFlow: subflows/game/open-settings-from-game.flow.yaml
+- tapOn:
+    id: 'HeaderBackButtonSelectors.Root'
+- extendedWaitUntil:
+    visible:
+      id: 'PauseScreenSelectors.Root'
+    timeout: 3000
+- stopApp
+- runFlow: subflows/navigation/relaunch-home.flow.yaml
+- assertVisible:
+    id: 'HomeScreenSelectors.ResumeButton'
+- tapOn:
+    id: 'HomeScreenSelectors.ResumeButton'
+- extendedWaitUntil:
+    visible:
+      id: 'GameScreenSelectors.Root'
+    timeout: 30000
+- runFlow: subflows/navigation/close-dev-menu-if-visible.flow.yaml
+- runFlow: subflows/navigation/move-dev-tools-button-away-if-visible.flow.yaml
+- assertVisible:
+    id: 'CellSelectors.Root'
+- assertVisible:
+    id: 'AvailableValueItemSelectors.Button'
+- runFlow: subflows/game/quit-current-game.flow.yaml
+- stopApp

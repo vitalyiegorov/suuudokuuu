@@ -1,0 +1,8 @@
+appId: ${APP_ID}
+---
+- runFlow:
+    when:
+      visible: 'Close'
+    commands:
+      - tapOn: 'Close'
+      - waitForAnimationToEnd

@@ -1,0 +1,7 @@
+appId: ${APP_ID}
+---
+- runFlow: close-dev-menu-if-visible.flow.yaml
+- extendedWaitUntil:
+    visible:
+      id: 'HomeScreenSelectors.Root'
+    timeout: 30000

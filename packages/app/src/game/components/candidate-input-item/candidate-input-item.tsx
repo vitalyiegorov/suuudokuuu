@@ -1,6 +1,6 @@
-import { use, useEffect } from 'react';
+import { use } from 'react';
 import { Pressable, Text, View } from 'react-native';
-import Reanimated, { interpolateColor, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import Reanimated, { interpolateColor, useAnimatedStyle, useDerivedValue, withTiming } from 'react-native-reanimated';
 
 import { isDefined } from '@rnw-community/shared';
 
@@ -18,6 +18,9 @@ import type { CellInterface } from '@suuudokuuu/generator';
 
 const ReanimatedPressable = Reanimated.createAnimatedComponent(Pressable);
 
+const selectionFillAnimationDurationMs = 90;
+const selectionReleaseAnimationDurationMs = 40;
+
 interface Props {
     readonly selectedCell?: CellInterface;
     readonly value: number;
@@ -32,15 +35,16 @@ export const CandidateInputItem = ({ selectedCell, value, onSelect, canPress }: 
     const fontSizeMultiplier = useAppSelector(settingsFontSizeMultiplierSelector);
 
     const isSelected = isDefined(selectedCell) && (candidates[getCellKey(selectedCell)] ?? []).includes(value);
+    const selectionAnimationDuration = isSelected ? selectionFillAnimationDurationMs : selectionReleaseAnimationDurationMs;
 
-    const animated = useSharedValue(isSelected ? 1 : 0);
-
-    useEffect(() => {
-        animated.value = withTiming(isSelected ? 1 : 0, { duration: 200 });
-    }, [isSelected, animated]);
+    const selectionAnimation = useDerivedValue(() => withTiming(isSelected ? 1 : 0, { duration: selectionAnimationDuration }));
 
     const animatedStyles = useAnimatedStyle(() => ({
-        backgroundColor: interpolateColor(animated.value, [0, 1], [theme.colors.white, theme.colors.candidate.bgActive])
+        backgroundColor: interpolateColor(
+            selectionAnimation.value,
+            [0, 1],
+            [theme.colors.candidate.bg, theme.colors.candidate.bgActive]
+        )
     }));
 
     const handlePress = () => {

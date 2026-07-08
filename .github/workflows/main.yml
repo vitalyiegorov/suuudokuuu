@@ -19,7 +19,7 @@ permissions:
 jobs:
   release:
     name: Publish a release
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux-burst]
     timeout-minutes: 20
     steps:
       - name: Checkout repository
@@ -48,6 +48,20 @@ jobs:
           YARN_ENABLE_IMMUTABLE_INSTALLS: true
         run: yarn install
 
+      - name: Sync Lingui catalogs
+        run: yarn i18n:sync
+
+      - name: Commit Lingui catalog changes
+        run: |
+          if git diff --quiet HEAD -- packages/app/src/i18n/locales; then
+            echo "Lingui catalogs are up to date."
+            exit 0
+          fi
+
+          git add packages/app/src/i18n/locales
+          git commit -m "chore: sync lingui catalogs [skip ci]"
+          git push origin HEAD:main
+
       - name: Publish a release
         run: yarn release
 
@@ -59,7 +73,7 @@ jobs:
   web-deploy:
     name: Vercel deploy Web
     needs: release
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux-burst]
     timeout-minutes: 20
     steps:
       - name: Checkout repository
