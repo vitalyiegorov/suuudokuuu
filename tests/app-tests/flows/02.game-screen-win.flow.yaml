@@ -27,4 +27,3 @@ appId: ${APP_ID}
 - assertVisible: Help Ukraine win!
 - tapOn: 'Play again'
 - assertVisible: 'Start new'
-- stopApp
