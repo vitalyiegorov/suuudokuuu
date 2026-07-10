@@ -4,13 +4,20 @@ appId: ${APP_ID}
       path: '03.game-screen-loose'
       optional: true
 
-- openLink:
-      link: suuudokuuu://shared/_IAP3__7X7_7r____zMOSjkyv8nqM0LfkydkEBSLStwgSBis7M6rv28ZIIA
-- runFlow:
-      when:
-          visible: 'Open in.*'
+- repeat:
+      times: 3
+      while:
+          notVisible: 'Open puzzle'
       commands:
-          - tapOn: 'Open'
+          - openLink:
+                link: suuudokuuu://shared/_IAP3__7X7_7r____zMOSjkyv8nqM0LfkydkEBSLStwgSBis7M6rv28ZIIA
+          - runFlow:
+                when:
+                    visible: 'Open in.*'
+                commands:
+                    - tapOn: 'Open'
+          - waitForAnimationToEnd:
+                timeout: 3000
 
 - extendedWaitUntil:
       visible: 'Open puzzle'
