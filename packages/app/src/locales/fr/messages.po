@@ -171,7 +171,7 @@ msgstr "Chaque placement correct commence avec une valeur de base :"
 msgid "Easy"
 msgstr "Facile"
 
-#: src/screens/components/game-screen/game.screen.tsx:225
+#: src/screens/components/game-screen/game.screen.tsx:230
 msgid "Elapsed"
 msgstr "Écoulé"
 
@@ -336,7 +336,7 @@ msgstr "Moyen"
 msgid "Minimum Score"
 msgstr "Score minimum"
 
-#: src/screens/components/game-screen/game.screen.tsx:208
+#: src/screens/components/game-screen/game.screen.tsx:213
 #: src/scoring/components/scoring.screen.tsx:127
 #: src/history/components/replay-header/replay-header.tsx:29
 #: src/history/components/completed-games-list/completed-game-item.tsx:36
@@ -471,7 +471,7 @@ msgstr "Retour"
 msgid "Row"
 msgstr "Ligne"
 
-#: src/screens/components/game-screen/game.screen.tsx:234
+#: src/screens/components/game-screen/game.screen.tsx:239
 #: src/history/components/replay-header/replay-header.tsx:26
 #: src/history/components/completed-games-list/completed-game-item.tsx:30
 msgid "Score"
