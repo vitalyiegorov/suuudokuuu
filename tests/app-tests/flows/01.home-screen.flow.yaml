@@ -32,4 +32,3 @@ appId: ${APP_ID}
       id: 'CellSelectors.Root'
 - assertVisible:
       id: 'AvailableValueItemSelectors.Button'
-- stopApp
