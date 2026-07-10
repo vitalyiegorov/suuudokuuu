@@ -1,6 +1,5 @@
 appId: ${APP_ID}
 ---
-- runFlow: ../navigation/move-dev-tools-button-away-if-visible.flow.yaml
 - tapOn:
     id: 'GameScreenSelectors.SettingsButton'
 - extendedWaitUntil:
