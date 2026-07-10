@@ -24,6 +24,7 @@
     "peerDependencies": {
         "lucide-react-native": "^1.21.0",
         "react": "19.2.3",
-        "react-native": "0.86.0"
+        "react-native": "0.86.0",
+        "react-native-unistyles": "^3.2.5"
     }
 }
