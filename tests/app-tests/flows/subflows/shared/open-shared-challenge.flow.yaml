@@ -8,5 +8,6 @@ appId: ${APP_ID}
     commands:
       - tapOn: 'Open'
 - extendedWaitUntil:
-    visible: 'Accept challenge?'
+    visible:
+      id: 'ChallengeAcceptScreenSelectors.AcceptButton'
     timeout: 10000
