@@ -1,8 +1,8 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const ChallengeProgressBarStyles = StyleSheet.create({
+export const ChallengeProgressBarStyles = StyleSheet.create(theme => ({
     container: {
-        marginBottom: 8,
+        marginBottom: theme.spacing.sm,
         paddingHorizontal: 10,
         width: '100%'
     },
@@ -34,4 +34,4 @@ export const ChallengeProgressBarStyles = StyleSheet.create({
         position: 'relative',
         width: '100%'
     }
-});
+}));

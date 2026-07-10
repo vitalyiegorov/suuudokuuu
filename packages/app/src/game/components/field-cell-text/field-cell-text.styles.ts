@@ -1,7 +1,7 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const FieldCellTextStyles = StyleSheet.create({
+export const FieldCellTextStyles = StyleSheet.create(() => ({
     textActive: {
         fontWeight: 'bold'
     }
-});
+}));
