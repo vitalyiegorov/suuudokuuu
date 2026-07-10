@@ -1,13 +1,13 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const HistoryMetricStyles = StyleSheet.create({
+export const HistoryMetricStyles = StyleSheet.create(theme => ({
     container: {
         borderRadius: 14,
         borderWidth: StyleSheet.hairlineWidth,
         flex: 1,
         gap: 2,
         minHeight: 58,
-        paddingHorizontal: 12,
+        paddingHorizontal: theme.spacing.md,
         paddingVertical: 9
     },
     label: {
@@ -23,4 +23,4 @@ export const HistoryMetricStyles = StyleSheet.create({
         lineHeight: 22,
         textAlign: 'left'
     }
-});
+}));

@@ -1,9 +1,9 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const SettingsAppFooterStyles = StyleSheet.create({
+export const SettingsAppFooterStyles = StyleSheet.create(theme => ({
     action: {
         alignItems: 'center',
-        borderRadius: 999,
+        borderRadius: theme.radius.pill,
         borderWidth: StyleSheet.hairlineWidth,
         minHeight: 38,
         paddingHorizontal: 16,
@@ -35,21 +35,21 @@ export const SettingsAppFooterStyles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         minHeight: 66,
-        paddingHorizontal: 20,
+        paddingHorizontal: theme.spacing.lg,
         paddingVertical: 14,
         width: '100%'
     },
     supportText: {
         flex: 1,
-        fontSize: 20,
+        fontSize: theme.typography.size.lg,
         fontWeight: '900',
         lineHeight: 25,
         textAlign: 'left'
     },
     version: {
-        fontSize: 16,
+        fontSize: theme.typography.size.md,
         fontWeight: '900',
         lineHeight: 21,
         textAlign: 'center'
     }
-});
+}));

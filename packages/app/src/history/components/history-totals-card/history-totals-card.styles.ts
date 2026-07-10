@@ -1,16 +1,16 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const HistoryTotalsCardStyles = StyleSheet.create({
+export const HistoryTotalsCardStyles = StyleSheet.create(theme => ({
     container: {
         gap: 16,
         width: '100%'
     },
     detail: {
         alignItems: 'center',
-        borderRadius: 24,
+        borderRadius: theme.radius.lg,
         borderWidth: StyleSheet.hairlineWidth,
         flex: 1,
-        gap: 4,
+        gap: theme.spacing.xs,
         justifyContent: 'center',
         minHeight: 92,
         paddingHorizontal: 10,
@@ -29,7 +29,7 @@ export const HistoryTotalsCardStyles = StyleSheet.create({
         width: '100%'
     },
     detailValue: {
-        fontSize: 30,
+        fontSize: theme.typography.size.xxl,
         fontVariant: ['tabular-nums'],
         fontWeight: '800',
         lineHeight: 35,
@@ -44,7 +44,7 @@ export const HistoryTotalsCardStyles = StyleSheet.create({
         paddingVertical: 22
     },
     heroLabel: {
-        fontSize: 14,
+        fontSize: theme.typography.size.sm,
         fontWeight: '800',
         lineHeight: 19,
         opacity: 0.64,
@@ -77,6 +77,6 @@ export const HistoryTotalsCardStyles = StyleSheet.create({
     },
     titleGroup: {
         gap: 2,
-        paddingBottom: 12
+        paddingBottom: theme.spacing.md
     }
-});
+}));

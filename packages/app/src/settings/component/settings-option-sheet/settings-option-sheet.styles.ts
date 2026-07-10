@@ -1,13 +1,13 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const SettingsOptionSheetStyles = StyleSheet.create({
+export const SettingsOptionSheetStyles = StyleSheet.create(theme => ({
     container: {
         alignItems: 'stretch',
         flex: 1,
         paddingTop: 18
     },
     description: {
-        fontSize: 14,
+        fontSize: theme.typography.size.sm,
         lineHeight: 19,
         textAlign: 'left'
     },
@@ -40,4 +40,4 @@ export const SettingsOptionSheetStyles = StyleSheet.create({
         fontWeight: '700',
         textAlign: 'left'
     }
-});
+}));

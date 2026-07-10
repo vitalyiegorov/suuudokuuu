@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const SettingsOptionSheetRowStyles = StyleSheet.create({
+export const SettingsOptionSheetRowStyles = StyleSheet.create(theme => ({
     container: {
         alignItems: 'center',
         flexDirection: 'row',
@@ -12,10 +12,10 @@ export const SettingsOptionSheetRowStyles = StyleSheet.create({
     },
     content: {
         flex: 1,
-        gap: 4
+        gap: theme.spacing.xs
     },
     description: {
-        fontSize: 12,
+        fontSize: theme.typography.size.xs,
         lineHeight: 17,
         textAlign: 'left'
     },
@@ -23,8 +23,8 @@ export const SettingsOptionSheetRowStyles = StyleSheet.create({
         fontWeight: '700'
     },
     title: {
-        fontSize: 16,
+        fontSize: theme.typography.size.md,
         lineHeight: 22,
         textAlign: 'left'
     }
-});
+}));

@@ -1,16 +1,16 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const HistorySegmentedControlStyles = StyleSheet.create({
+export const HistorySegmentedControlStyles = StyleSheet.create(theme => ({
     container: {
         borderRadius: 18,
         borderWidth: StyleSheet.hairlineWidth,
         flexDirection: 'row',
-        gap: 4,
-        padding: 4,
+        gap: theme.spacing.xs,
+        padding: theme.spacing.xs,
         width: '100%'
     },
     label: {
-        fontSize: 14,
+        fontSize: theme.typography.size.sm,
         fontWeight: '800',
         lineHeight: 18,
         textAlign: 'center'
@@ -21,6 +21,6 @@ export const HistorySegmentedControlStyles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         minHeight: 42,
-        paddingHorizontal: 12
+        paddingHorizontal: theme.spacing.md
     }
-});
+}));

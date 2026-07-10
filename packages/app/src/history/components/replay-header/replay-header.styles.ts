@@ -1,17 +1,17 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const ReplayHeaderStyles = StyleSheet.create({
+export const ReplayHeaderStyles = StyleSheet.create(theme => ({
     container: {
         alignSelf: 'center',
         borderRadius: 34,
-        maxWidth: 396,
+        maxWidth: theme.contentWidth.narrow,
         minHeight: 68,
         paddingHorizontal: 18,
         paddingVertical: 10,
         width: '100%'
     },
     item: {
-        gap: 4
+        gap: theme.spacing.xs
     },
     label: {
         fontSize: 10,
@@ -26,4 +26,4 @@ export const ReplayHeaderStyles = StyleSheet.create({
         fontSize: 17,
         lineHeight: 20
     }
-});
+}));

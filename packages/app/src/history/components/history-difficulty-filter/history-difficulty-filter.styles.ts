@@ -1,10 +1,10 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const HistoryDifficultyFilterStyles = StyleSheet.create({
+export const HistoryDifficultyFilterStyles = StyleSheet.create(theme => ({
     container: {
         flexDirection: 'row',
         flexWrap: 'wrap',
-        gap: 8,
+        gap: theme.spacing.sm,
         width: '100%'
     }
-});
+}));

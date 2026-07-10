@@ -1,9 +1,9 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const HistoryDifficultyStyles = StyleSheet.create({
+export const HistoryDifficultyStyles = StyleSheet.create(theme => ({
     badge: {
         alignItems: 'center',
-        borderRadius: 999,
+        borderRadius: theme.radius.pill,
         justifyContent: 'center',
         minWidth: 64,
         paddingHorizontal: 14,
@@ -37,7 +37,7 @@ export const HistoryDifficultyStyles = StyleSheet.create({
         width: '100%'
     },
     chipValue: {
-        fontSize: 16,
+        fontSize: theme.typography.size.md,
         fontVariant: ['tabular-nums'],
         fontWeight: '800',
         lineHeight: 20,
@@ -54,7 +54,7 @@ export const HistoryDifficultyStyles = StyleSheet.create({
     header: {
         alignItems: 'center',
         flexDirection: 'row',
-        gap: 12,
+        gap: theme.spacing.md,
         justifyContent: 'space-between',
         width: '100%'
     },
@@ -79,4 +79,4 @@ export const HistoryDifficultyStyles = StyleSheet.create({
         flex: 1,
         gap: 2
     }
-});
+}));
