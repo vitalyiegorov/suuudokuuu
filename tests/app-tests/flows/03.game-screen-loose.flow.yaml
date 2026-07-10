@@ -4,7 +4,6 @@ appId: ${APP_ID}
       path: '03.game-screen-loose'
       optional: true
 
-- launchApp
 - openLink:
       link: suuudokuuu://shared/IwBmC4EAAAA0EQDBACAFQTAMOoIECQAggCIB0AY%2BAKoE4BxgRoAgAiAEwByAsgFLwDKAmhW4A2WgBUAzwHyAJHgAhARQBYASQBSASwC54ABQBQ5gEqAqgCaAQwC0A0oYL0RAGQCLAbYDUAdwAOAHIAhgALAN0A7EQAbwD6AMwAjzggAEYAyADCABIA0QAoAMf5PgAJAE4ASgDKdgCZAPEALADlACKJAAWd8eAAkMwAAxDxEMBAA
 - runFlow:
