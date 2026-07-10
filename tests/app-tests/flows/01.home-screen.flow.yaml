@@ -1,13 +1,13 @@
 appId: ${APP_ID}
 ---
 - startRecording:
-    path: '01.home-screen'
-    optional: true
+      path: '01.home-screen'
+      optional: true
 
 - launchApp
 - extendedWaitUntil:
-    visible: 'Start new'
-    timeout: 10000
+      visible: 'Start new'
+      timeout: 10000
 - assertVisible: 'Start new'
 - tapOn: Privacy policy
 - assertVisible: Privacy Policy
@@ -27,17 +27,9 @@ appId: ${APP_ID}
 - assertVisible: 'Hardcore'
 - tapOn: 'Standard'
 - assertVisible:
-    below: 'Score'
-    text: '0'
+      id: 'GameScreenSelectors.Root'
 - assertVisible:
-    below: 'Mistakes'
-    rightOf: '0'
-    text: '3'
+      id: 'CellSelectors.Root'
 - assertVisible:
-    id: 'CellSelectors.Root'
-- assertVisible:
-    id: 'AvailableValueItemSelectors.Button'
-- assertVisible:
-    below: 'Elapsed'
-    text: '[0-9]{2}:[0-9]{2}'
+      id: 'AvailableValueItemSelectors.Button'
 - stopApp

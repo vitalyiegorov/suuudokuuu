@@ -88,7 +88,7 @@ msgstr "grande"
 msgid "Can you beat them?"
 msgstr "¿Puedes vencerlos?"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:40
+#: src/screens/components/shared-screen/shared-screen.tsx:44
 #: src/screens/components/game-screen/game.screen.tsx:94
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx:40
 msgid "Cancel"
@@ -388,11 +388,11 @@ msgstr "de la puntuación actual"
 msgid "OK"
 msgstr "OK"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:39
+#: src/screens/components/shared-screen/shared-screen.tsx:43
 msgid "Open puzzle"
 msgstr "Abrir rompecabezas"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:36
+#: src/screens/components/shared-screen/shared-screen.tsx:40
 #: src/app/shared/[url].tsx:14
 msgid "Open shared puzzle?"
 msgstr "¿Abrir rompecabezas compartido?"
