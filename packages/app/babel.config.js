@@ -3,6 +3,17 @@ module.exports = function (api) {
 
     return {
         presets: ['babel-preset-expo'],
-        plugins: ['macros', '@lingui/babel-plugin-lingui-macro']
+        plugins: [
+            [
+                'react-native-unistyles/plugin',
+                {
+                    root: 'src',
+                    autoProcessPaths: ['../ui/src'],
+                    autoProcessImports: ['@suuudokuuu/ui']
+                }
+            ],
+            'macros',
+            '@lingui/babel-plugin-lingui-macro'
+        ]
     };
 };

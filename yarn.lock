@@ -253,14 +253,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/helper-string-parser@npm:^7.29.7":
+"@babel/helper-string-parser@npm:^7.27.1, @babel/helper-string-parser@npm:^7.29.7":
   version: 7.29.7
   resolution: "@babel/helper-string-parser@npm:7.29.7"
   checksum: 10/4d8ef0ef7105f3d9fe4361137c8f42e5b4c7a52b5380b962762f2a528a1ba89064e2c6236090716ce34b63707b886ae0ebf36b2c2fcc2851f27e652febfc3648
   languageName: node
   linkType: hard
 
-"@babel/helper-validator-identifier@npm:^7.25.9, @babel/helper-validator-identifier@npm:^7.29.7":
+"@babel/helper-validator-identifier@npm:^7.25.9, @babel/helper-validator-identifier@npm:^7.28.5, @babel/helper-validator-identifier@npm:^7.29.7":
   version: 7.29.7
   resolution: "@babel/helper-validator-identifier@npm:7.29.7"
   checksum: 10/2efa42701eb05babf26dff3332109c9e5e1a3400a71fb9e68ee27af28235036a2a72c2494c04bdab3f909075f42a58b2e8271074372bc7f8e79ec02bd364d7a7
@@ -1021,6 +1021,16 @@ __metadata:
     "@babel/types": "npm:^7.29.7"
     debug: "npm:^4.3.1"
   checksum: 10/ce24086a7dd8c408cbdb159437d3c8e02464a6d32b320d884fa742e2c5a3344b9342a923c7a371fc1789b4d82a59972a7008b5d8bbc1bc0c5ae42a39b28dc7f6
+  languageName: node
+  linkType: hard
+
+"@babel/types@npm:7.29.0":
+  version: 7.29.0
+  resolution: "@babel/types@npm:7.29.0"
+  dependencies:
+    "@babel/helper-string-parser": "npm:^7.27.1"
+    "@babel/helper-validator-identifier": "npm:^7.28.5"
+  checksum: 10/bfc2b211210f3894dcd7e6a33b2d1c32c93495dc1e36b547376aa33441abe551ab4bc1640d4154ee2acd8e46d3bbc925c7224caae02fcaf0e6a771e97fccc661
   languageName: node
   linkType: hard
 
@@ -4819,11 +4829,13 @@ __metadata:
     react-native: "npm:0.86.0"
     react-native-easing-gradient: "npm:^1.1.1"
     react-native-gesture-handler: "npm:~2.32.0"
+    react-native-nitro-modules: "npm:^0.36.1"
     react-native-reanimated: "npm:4.5.0"
     react-native-safe-area-context: "npm:~5.7.0"
     react-native-screens: "npm:4.25.2"
     react-native-share: "npm:^12.3.1"
     react-native-svg: "npm:15.15.4"
+    react-native-unistyles: "npm:^3.2.5"
     react-native-web: "npm:^0.21.2"
     react-native-worklets: "npm:0.10.0"
     react-redux: "npm:^9.3.0"
@@ -14679,6 +14691,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-nitro-modules@npm:^0.36.1":
+  version: 0.36.1
+  resolution: "react-native-nitro-modules@npm:0.36.1"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10/c5e253423fd768110d5f7a7cccb171c21742e3480473ac95575bb0e40848d338d76c9cdd0e843d39a7be294a5821d98f59f040e287647b820d2e81544340f95d
+  languageName: node
+  linkType: hard
+
 "react-native-reanimated@npm:4.5.0":
   version: 4.5.0
   resolution: "react-native-reanimated@npm:4.5.0"
@@ -14734,6 +14756,27 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: 10/07b1e9826533ecb4ad731602e720bb4208c18ba0a5f259a17f5ee3aa9b02b1006bb5ae59c81d9d49773c898578a0728724a1085d03939e64e8ddf4ef6c842fdf
+  languageName: node
+  linkType: hard
+
+"react-native-unistyles@npm:^3.2.5":
+  version: 3.2.5
+  resolution: "react-native-unistyles@npm:3.2.5"
+  dependencies:
+    "@babel/types": "npm:7.29.0"
+  peerDependencies:
+    "@react-native/normalize-colors": "*"
+    react: "*"
+    react-native: ">=0.76.0"
+    react-native-edge-to-edge: "*"
+    react-native-nitro-modules: "*"
+    react-native-reanimated: "*"
+  peerDependenciesMeta:
+    react-native-edge-to-edge:
+      optional: true
+    react-native-reanimated:
+      optional: true
+  checksum: 10/c8b598bd7b3ef031a3ec45b5bc3e5ab5222806262545c951191a645cfd913b2059fd34fabcc2623cf35a867f527c6401fb26954a42007c08077174c0f96efeba
   languageName: node
   linkType: hard
 
