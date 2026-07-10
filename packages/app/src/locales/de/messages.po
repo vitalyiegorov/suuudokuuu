@@ -171,7 +171,7 @@ msgstr "Jede korrekte Platzierung beginnt mit einem Grundwert:"
 msgid "Easy"
 msgstr "Einfach"
 
-#: src/screens/components/game-screen/game.screen.tsx:225
+#: src/screens/components/game-screen/game.screen.tsx:230
 msgid "Elapsed"
 msgstr "Verstrichen"
 
@@ -336,7 +336,7 @@ msgstr "Mittelschwer"
 msgid "Minimum Score"
 msgstr "Mindestpunktzahl"
 
-#: src/screens/components/game-screen/game.screen.tsx:208
+#: src/screens/components/game-screen/game.screen.tsx:213
 #: src/scoring/components/scoring.screen.tsx:127
 #: src/history/components/replay-header/replay-header.tsx:29
 #: src/history/components/completed-games-list/completed-game-item.tsx:36
@@ -471,7 +471,7 @@ msgstr "Zurück"
 msgid "Row"
 msgstr "Zeile"
 
-#: src/screens/components/game-screen/game.screen.tsx:234
+#: src/screens/components/game-screen/game.screen.tsx:239
 #: src/history/components/replay-header/replay-header.tsx:26
 #: src/history/components/completed-games-list/completed-game-item.tsx:30
 msgid "Score"
