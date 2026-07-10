@@ -4,22 +4,19 @@ const mockEncodedState = 'encoded-state';
 const mockEncodeCalls: unknown[][] = [];
 let mockShouldThrow = false;
 
-jest.mock(
-    '@suuudokuuu/encoder',
-    () => ({
-        GameStateSerializer: jest.fn(() => ({
-            encode: (...params: unknown[]) => {
-                mockEncodeCalls.push(params);
+jest.mock('@suuudokuuu/encoder', () => ({
+    GameStateSerializer: jest.fn(() => ({
+        encode: (...params: unknown[]) => {
+            mockEncodeCalls.push(params);
 
-                if (mockShouldThrow) {
-                    throw new Error('Encode failed');
-                }
-
-                return mockEncodedState;
+            if (mockShouldThrow) {
+                throw new Error('Encode failed');
             }
-        }))
-    })
-);
+
+            return mockEncodedState;
+        }
+    }))
+}));
 
 import { initialGameState } from '../store/game.state';
 

@@ -35,7 +35,13 @@ export const PauseScreenProgressCard = ({ sudoku, label, meta, progressPercent }
                     {label}
                 </BlackText>
 
-                <BlackText adjustsFontSizeToFit minimumFontScale={0.72} numberOfLines={1} style={valueStyles} testID={PauseScreenSelectors.ProgressValue}>
+                <BlackText
+                    adjustsFontSizeToFit
+                    minimumFontScale={0.72}
+                    numberOfLines={1}
+                    style={valueStyles}
+                    testID={PauseScreenSelectors.ProgressValue}
+                >
                     {percentText}
                 </BlackText>
 

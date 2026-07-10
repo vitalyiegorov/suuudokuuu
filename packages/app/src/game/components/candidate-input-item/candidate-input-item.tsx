@@ -40,11 +40,7 @@ export const CandidateInputItem = ({ selectedCell, value, onSelect, canPress }: 
     const selectionAnimation = useDerivedValue(() => withTiming(isSelected ? 1 : 0, { duration: selectionAnimationDuration }));
 
     const animatedStyles = useAnimatedStyle(() => ({
-        backgroundColor: interpolateColor(
-            selectionAnimation.value,
-            [0, 1],
-            [theme.colors.candidate.bg, theme.colors.candidate.bgActive]
-        )
+        backgroundColor: interpolateColor(selectionAnimation.value, [0, 1], [theme.colors.candidate.bg, theme.colors.candidate.bgActive])
     }));
 
     const handlePress = () => {

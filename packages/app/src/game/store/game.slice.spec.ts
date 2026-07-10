@@ -3,20 +3,17 @@ import { DifficultyEnum, Sudoku, emptyScoredCells } from '@suuudokuuu/generator'
 
 import { isDefined } from '@rnw-community/shared';
 
-jest.mock(
-    '@suuudokuuu/encoder',
-    () => ({
-        GameStateSerializer: jest.fn(() => ({
-            encode: jest.fn(() => '')
-        })),
-        Solution: {
-            fromSteps: jest.fn(() => ({
-                addStep: jest.fn(),
-                getSteps: jest.fn(() => [])
-            }))
-        }
-    })
-);
+jest.mock('@suuudokuuu/encoder', () => ({
+    GameStateSerializer: jest.fn(() => ({
+        encode: jest.fn(() => '')
+    })),
+    Solution: {
+        fromSteps: jest.fn(() => ({
+            addStep: jest.fn(),
+            getSteps: jest.fn(() => [])
+        }))
+    }
+}));
 
 import { getCellKey } from '../../@generic/utils/get-cell-key.util';
 
