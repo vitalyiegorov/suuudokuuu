@@ -1,12 +1,13 @@
 name: Pull Request
 env:
   MAESTRO_VERSION: '2.6.1'
-  MAESTRO_DRIVER_STARTUP_TIMEOUT: '120000'
+  MAESTRO_DRIVER_STARTUP_TIMEOUT: '300000'
   TURBO_TEAM: vitalyiegorov
   TURBO_TOKEN: ${{ secrets.VERCEL_TOKEN }}
   PR_NUMBER: ${{ github.event.pull_request.number }}
   PR_TITLE: ${{ github.event.pull_request.title }}
   MAESTRO_CLI_NO_ANALYTICS: true
+  MAESTRO_CLI_ANALYSIS_NOTIFICATION_DISABLED: true
   EXPO_NO_TELEMETRY: '1'
   EXPO_USE_PRECOMPILED_MODULES: '1'
   RCT_USE_PREBUILT_RNCORE: '1'
@@ -84,6 +85,15 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
+      - name: Validate Maestro suite
+        working-directory: tests/app-tests
+        run: |
+          flow_count=$(find flows -maxdepth 1 -type f -name '*.flow.yaml' | wc -l | tr -d ' ')
+          if [ "$flow_count" != "6" ]; then
+            echo "Expected 6 Maestro flows, found $flow_count"
+            exit 1
+          fi
+
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
@@ -96,6 +106,8 @@ jobs:
 
       - name: Resolve iOS Metro URL
         run: |
+          # Expo's localhost mode binds Metro to ::1 on current macOS runners.
+          # Advertise the hostname so curl and the Simulator resolve that listener.
           metro_host="localhost"
           metro_url="http://${metro_host}:${METRO_PORT}"
           dev_client_url="$(python3 - "$metro_url" <<'PY'
@@ -348,7 +360,7 @@ jobs:
           curl --verbose "http://localhost:${METRO_PORT}/status" || true
           curl --verbose "http://127.0.0.1:${METRO_PORT}/status" || true
           lsof -nP -iTCP:"${METRO_PORT}" -sTCP:LISTEN || true
-          pgrep -af 'expo|metro|node' || true
+          ps -ef | grep -E 'expo|metro|node' | grep -v grep || true
           cat tests/app-tests/metro.log
           exit 1
 
@@ -372,7 +384,10 @@ jobs:
         run: |
           xcrun simctl bootstatus "$BOOTED_SIMULATOR_UDID" -b
           xcrun simctl openurl "$BOOTED_SIMULATOR_UDID" "$EXPO_DEV_CLIENT_URL"
-          sleep 10
+          maestro test \
+            --udid "$BOOTED_SIMULATOR_UDID" \
+            -e APP_ID=com.vitalyiegorov.suuudokuuu.preview \
+            tests/app-tests/launch-dev-client.flow.yaml
 
       - name: Run Maestro UI tests
         timeout-minutes: 20
@@ -390,7 +405,7 @@ jobs:
             --config config.yaml \
             --debug-output ./artifacts/maestro \
             --test-output-dir ./artifacts/maestro \
-            flows 2>&1 | tee ./artifacts/maestro/maestro-console.log
+            . 2>&1 | tee ./artifacts/maestro/maestro-console.log
 
       - name: Stop iOS Simulator captures
         if: always()
