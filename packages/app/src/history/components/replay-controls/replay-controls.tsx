@@ -11,6 +11,7 @@ import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { replayGetStepProgress } from '../../utils/replay-get-step-progress.util';
 
+import { ReplayControlsSelectors } from './replay-controls.selectors';
 import { ReplayControlsStyles as styles } from './replay-controls.styles';
 
 import type { EmptyFn } from '@rnw-community/shared';
@@ -55,7 +56,7 @@ export const ReplayControls = ({ currentStep, totalSteps, elapsedTime, onPrevSte
     ];
 
     return (
-        <View style={styles.container}>
+        <View style={styles.container} testID={ReplayControlsSelectors.Root}>
             <View style={styles.metaRow}>
                 <BlackText style={styles.metaText}>
                     <Trans>Move</Trans> <Text style={styles.metaValue}>{currentStep}</Text> / {totalSteps}
@@ -71,11 +72,23 @@ export const ReplayControls = ({ currentStep, totalSteps, elapsedTime, onPrevSte
             </View>
 
             <View style={styles.controlsRow}>
-                <BlackIconButton disabled={!canGoBack} isActive onPress={onPrevStep} style={previousButtonStyles}>
+                <BlackIconButton
+                    disabled={!canGoBack}
+                    isActive
+                    onPress={onPrevStep}
+                    style={previousButtonStyles}
+                    testID={ReplayControlsSelectors.PreviousButton}
+                >
                     <LucideChevronLeft color={previousIconColor} size={30} />
                 </BlackIconButton>
 
-                <BlackIconButton disabled={!canGoForward} isActive onPress={onNextStep} style={nextButtonStyles}>
+                <BlackIconButton
+                    disabled={!canGoForward}
+                    isActive
+                    onPress={onNextStep}
+                    style={nextButtonStyles}
+                    testID={ReplayControlsSelectors.NextButton}
+                >
                     <LucideChevronRight color={nextIconColor} size={30} />
                 </BlackIconButton>
             </View>

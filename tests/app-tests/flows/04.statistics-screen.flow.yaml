@@ -36,8 +36,11 @@ appId: ${APP_ID}
 - tapOn:
     id: 'CompletedGameItemSelectors.ReplayButton'
 - extendedWaitUntil:
-    visible: 'Step time.*'
+    visible:
+      id: 'ReplayControlsSelectors.Root'
     timeout: 3000
-- assertVisible: '0 / 1'
-- assertVisible: 'Move'
+- tapOn:
+    id: 'ReplayControlsSelectors.NextButton'
+- tapOn:
+    id: 'ReplayControlsSelectors.PreviousButton'
 - stopApp
