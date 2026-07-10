@@ -107,7 +107,17 @@ export default ({ config }) => ({
         url: 'https://u.expo.dev/4a70028a-5f9e-4ab6-9389-82d8b8b6c833'
     },
     plugins: [
-        'expo-build-properties',
+        [
+            'expo-build-properties',
+            {
+                buildReactNativeFromSource: false,
+                useHermesV1: true,
+                ios: {
+                    ccacheEnabled: true,
+                    usePrecompiledModules: true
+                }
+            }
+        ],
         'expo-localization',
         'expo-sharing',
         'expo-splash-screen',
@@ -125,9 +135,9 @@ export default ({ config }) => ({
             }
         ]
     ],
+    buildCacheProvider: 'eas',
     experiments: {
-        reactCompiler: true,
-        buildCacheProvider: 'eas'
+        reactCompiler: true
     },
     runtimeVersion: {
         policy: 'fingerprint'

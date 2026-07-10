@@ -6,9 +6,11 @@ env:
   TURBO_TOKEN: ${{ secrets.VERCEL_TOKEN }}
   PR_NUMBER: ${{ github.event.pull_request.number }}
   PR_TITLE: ${{ github.event.pull_request.title }}
-  MAESTRO_CLI_NO_ANALYTICS: false
-  RCT_USE_PREBUILT_RNCORE: 1
-  RCT_USE_RN_DEP: 1
+  MAESTRO_CLI_NO_ANALYTICS: true
+  EXPO_NO_TELEMETRY: '1'
+  EXPO_USE_PRECOMPILED_MODULES: '1'
+  RCT_USE_PREBUILT_RNCORE: '1'
+  RCT_USE_RN_DEP: '1'
 
 concurrency:
   group: pr-${{ github.event.pull_request.number }}
@@ -62,7 +64,7 @@ jobs:
         run: yarn test:coverage
 
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v5
 
   e2e-ios:
     needs: code-quality
@@ -70,7 +72,15 @@ jobs:
     runs-on: macos-latest
     timeout-minutes: 90
     env:
+      APP_VARIANT: preview
+      CCACHE_BASEDIR: ${{ github.workspace }}
+      CCACHE_COMPRESS: 'true'
+      CCACHE_DIR: ${{ github.workspace }}/.ci-cache/ccache
+      CCACHE_MAXSIZE: 2G
+      CCACHE_NOHASHDIR: 'true'
+      IOS_DERIVED_DATA: ${{ github.workspace }}/.ci-cache/DerivedData/suuudokuuu-e2e
       METRO_PORT: '8082'
+      USE_CCACHE: '1'
     steps:
       - uses: actions/checkout@v5
 
@@ -86,7 +96,7 @@ jobs:
 
       - name: Resolve iOS Metro URL
         run: |
-          metro_host="127.0.0.1"
+          metro_host="localhost"
           metro_url="http://${metro_host}:${METRO_PORT}"
           dev_client_url="$(python3 - "$metro_url" <<'PY'
           import sys
@@ -99,32 +109,17 @@ jobs:
           PY
           )"
           echo "Resolved iOS Metro URL: $metro_url"
-          echo "METRO_HOST=$metro_host" >> "$GITHUB_ENV"
-          echo "METRO_URL=$metro_url" >> "$GITHUB_ENV"
-          echo "EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL=$metro_url" >> "$GITHUB_ENV"
-          echo "EXPO_DEV_CLIENT_URL=$dev_client_url" >> "$GITHUB_ENV"
-
-      - name: Setup EAS
-        uses: expo/expo-github-action@v8
-        with:
-          eas-version: latest
-          token: ${{ secrets.EXPO_TOKEN }}
-
-      - name: Expo Prebuild
-        working-directory: packages/app
-        run: npx expo prebuild -p ios --clean
+          {
+              echo "METRO_HOST=$metro_host"
+              echo "METRO_URL=$metro_url"
+              echo "EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL=$metro_url"
+              echo "EXPO_DEV_CLIENT_URL=$dev_client_url"
+          } >> "$GITHUB_ENV"
 
       - name: Select latest stable Xcode
         uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: latest-stable
-
-      - name: Cache Xcode DerivedData
-        uses: actions/cache@v4
-        with:
-          path: ~/Library/Developer/Xcode/DerivedData
-          key: xcode-deriveddata-${{ runner.os }}-${{ github.sha }}
-          restore-keys: xcode-deriveddata-${{ runner.os }}-
 
       - name: Cache iOS dependencies
         uses: actions/cache@v4
@@ -132,9 +127,38 @@ jobs:
           path: |
             ~/Library/Caches/CocoaPods
             ~/.cocoapods
-            packages/app/ios/Pods
-          key: pods-${{ runner.os }}-${{ github.sha }}
-          restore-keys: pods-${{ runner.os }}-
+          key: pods-${{ runner.os }}-xcode26-${{ hashFiles('yarn.lock', 'packages/app/package.json', 'packages/app/app.config.js') }}
+          restore-keys: |
+            pods-${{ runner.os }}-xcode26-
+            pods-${{ runner.os }}-
+
+      - name: Setup ccache
+        run: |
+          export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+          mkdir -p "$CCACHE_DIR" "$IOS_DERIVED_DATA"
+          if ! command -v ccache >/dev/null; then
+            HOMEBREW_NO_AUTO_UPDATE=1 brew install ccache
+          fi
+          echo "$(brew --prefix ccache)/libexec" >> "$GITHUB_PATH"
+          ccache --version
+          ccache --zero-stats || true
+
+      - name: Cache ccache
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.CCACHE_DIR }}
+          key: ccache-${{ runner.os }}-xcode26-e2e-${{ hashFiles('yarn.lock', 'packages/app/package.json', 'packages/app/app.config.js') }}
+          restore-keys: |
+            ccache-${{ runner.os }}-xcode26-e2e-
+            ccache-${{ runner.os }}-
+
+      - name: Expo Prebuild
+        working-directory: packages/app
+        run: npx expo prebuild -p ios --clean --no-install
+
+      - name: Sync CocoaPods
+        working-directory: packages/app/ios
+        run: pod install
 
       - name: Start iOS Simulator
         run: |
@@ -204,18 +228,35 @@ jobs:
       - name: Build app
         working-directory: packages/app
         run: |
-          eas build --profile=e2e --platform ios --non-interactive --local --output app.ios.tar.gz
+          cd ios
+          workspace="$(find . -maxdepth 1 -name '*.xcworkspace' -print -quit)"
+          scheme="$(basename "$workspace" .xcworkspace)"
+          test -n "$workspace"
+          test -n "$scheme"
+          echo "Building workspace $workspace with scheme $scheme"
+          xcodebuild build \
+            -workspace "$workspace" \
+            -scheme "$scheme" \
+            -sdk iphonesimulator \
+            -configuration Release \
+            -derivedDataPath "$IOS_DERIVED_DATA" \
+            -destination "generic/platform=iOS Simulator" \
+            -jobs "$(sysctl -n hw.ncpu)" \
+            CODE_SIGN_IDENTITY="-" \
+            AD_HOC_CODE_SIGNING_ALLOWED=YES \
+            PROVISIONING_PROFILE_SPECIFIER="" \
+            COMPILER_INDEX_STORE_ENABLE=NO \
+            ONLY_ACTIVE_ARCH=YES \
+            ARCHS=arm64 \
+            EXCLUDED_ARCHS=x86_64
+          ccache --show-stats || true
 
       - name: Prepare app artifact
-        working-directory: packages/app
         run: |
-          rm -rf ios-build
-          mkdir -p ios-build
-          tar -xzf app.ios.tar.gz -C ios-build
-          app_path="$(find "$PWD/ios-build" -name '*.app' -type d -print -quit)"
+          app_path="$(find "$IOS_DERIVED_DATA" -name '*.app' -path '*Release-iphonesimulator*' -type d -print -quit)"
           if [ -z "$app_path" ]; then
-            echo "No .app bundle found in app.ios.tar.gz"
-            find "$PWD/ios-build" -maxdepth 4 -print
+            echo "No .app bundle found in $IOS_DERIVED_DATA"
+            find "$IOS_DERIVED_DATA" -maxdepth 6 -name '*.app' -print
             exit 1
           fi
           echo "Prepared iOS app: $app_path"
@@ -307,7 +348,7 @@ jobs:
           curl --verbose "http://localhost:${METRO_PORT}/status" || true
           curl --verbose "http://127.0.0.1:${METRO_PORT}/status" || true
           lsof -nP -iTCP:"${METRO_PORT}" -sTCP:LISTEN || true
-          ps -ef | grep -E 'expo|metro|node' | grep -v grep || true
+          pgrep -af 'expo|metro|node' || true
           cat tests/app-tests/metro.log
           exit 1
 
