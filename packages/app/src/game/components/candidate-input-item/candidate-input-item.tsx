@@ -8,8 +8,8 @@ import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { getCellKey } from '../../../@generic/utils/get-cell-key.util';
 import { settingsFontSizeMultiplierSelector } from '../../../settings/store/settings.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { PanelControlSizeConstant } from '../../constant/panel-control-size.constant';
 import { gameCandidatesSelector } from '../../store/game.selectors';
-import { CellFontSizeConstant } from '../constants/dimensions.contant';
 
 import { CandidateInputItemStyles as styles } from './candidate-input-item.styles';
 
@@ -56,7 +56,7 @@ export const CandidateInputItem = ({ selectedCell, value, onSelect, canPress }: 
         animatedStyles
     ];
     const textStyles = [
-        { fontSize: CellFontSizeConstant * fontSizeMultiplier },
+        { fontSize: (PanelControlSizeConstant / 2.5) * fontSizeMultiplier },
         { color: isSelected ? theme.colors.candidate.textActive : theme.colors.candidate.text }
     ];
 

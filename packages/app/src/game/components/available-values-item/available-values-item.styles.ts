@@ -1,8 +1,8 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
 import { AvailableValueButtonSize } from './constant/available-value-button.constant';
 
-export const AvailableValuesItemStyles = StyleSheet.create({
+export const AvailableValuesItemStyles = StyleSheet.create(() => ({
     button: {
         alignItems: 'center',
         borderRadius: AvailableValueButtonSize / 2,
@@ -25,4 +25,4 @@ export const AvailableValuesItemStyles = StyleSheet.create({
     text: {
         zIndex: 1
     }
-});
+}));

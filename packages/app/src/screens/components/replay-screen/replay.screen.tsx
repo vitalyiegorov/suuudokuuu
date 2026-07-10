@@ -1,4 +1,5 @@
 import { DifficultyEnum } from '@suuudokuuu/generator';
+import { useAppLayout } from '@suuudokuuu/ui';
 import { Redirect } from 'expo-router';
 import { useState } from 'react';
 import { View } from 'react-native';
@@ -6,6 +7,7 @@ import { View } from 'react-native';
 import { isDefined } from '@rnw-community/shared';
 
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
+import { useBoardCellSize } from '../../../game/hooks/use-board-cell-size.hook';
 import { gameCompletedGameByIdSelector } from '../../../game/store/game.selectors';
 import { stringToGameState } from '../../../game/utils/string-to-game-state.util';
 import { ReplayControls } from '../../../history/components/replay-controls/replay-controls';
@@ -24,6 +26,8 @@ interface Props {
 export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
     const completedGame = useAppSelector(gameCompletedGameByIdSelector(difficulty, completedAt));
     const [currentStep, setCurrentStep] = useState(0);
+    const { width, height } = useAppLayout();
+    const boardCellSize = useBoardCellSize(width, height);
 
     const gameState = stringToGameState(completedGame?.encodedState);
     if (!isDefined(gameState) || !isDefined(completedGame)) {
@@ -48,7 +52,7 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
             <ReplayTopBar />
             <ReplayHeader game={completedGame} />
             <View style={styles.fieldWrapper}>
-                <ReplayField highlightedCellKey={highlightedCellKey} sudoku={sudoku} />
+                <ReplayField cellSize={boardCellSize} highlightedCellKey={highlightedCellKey} sudoku={sudoku} />
             </View>
             <ReplayControls
                 currentStep={currentStep}

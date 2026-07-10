@@ -13,7 +13,7 @@ import Svg, { Circle } from 'react-native-svg';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { settingsFontSizeMultiplierSelector } from '../../../settings/store/settings.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
-import { CellFontSizeConstant } from '../constants/dimensions.contant';
+import { PanelControlSizeConstant } from '../../constant/panel-control-size.constant';
 
 import { AvailableValueItemSelectors as selectors } from './available-value-item.selectors';
 import { AvailableValuesItemStyles as styles } from './available-values-item.styles';
@@ -82,7 +82,11 @@ export const AvailableValuesItem = ({ value, onSelect, progress, correctValue, c
     const buttonStyles = [styles.button, { backgroundColor: theme.colors.candidate.bg }, animatedStyles];
     const normalizedProgress = Math.min(100, Math.max(0, progress));
     const progressDashOffset = AvailableValueProgressCircumference * (1 - normalizedProgress / 100);
-    const textStyles = [styles.text, { fontSize: CellFontSizeConstant * fontSizeMultiplier }, { color: theme.colors.value.text }];
+    const textStyles = [
+        styles.text,
+        { fontSize: (PanelControlSizeConstant / 2.5) * fontSizeMultiplier },
+        { color: theme.colors.value.text }
+    ];
 
     return (
         <View style={styles.container} testID={selectors.Root}>

@@ -29,18 +29,19 @@ export interface FieldRef {
 }
 
 interface Props {
+    readonly cellSize: number;
     readonly selectedCell?: CellInterface;
     readonly onSelect: OnEventFn<CellInterface | undefined>;
     readonly ref: Ref<FieldRef>;
 }
 
-export const Field = ({ selectedCell, onSelect, ref }: Props) => {
+export const Field = ({ cellSize, selectedCell, onSelect, ref }: Props) => {
     const { sudoku } = use(GameContext);
     const { theme } = use(ThemeContext);
 
     const showAutoCandidates = useAppSelector(gameShowAutoCandidatesSelector);
     const candidates = useAppSelector(gameCandidatesSelector);
-    const fontSize = useCellFontSize();
+    const fontSize = useCellFontSize(cellSize);
 
     const [animatedCells, setAnimatedCells] = useState(new Set<string>());
 
@@ -91,6 +92,7 @@ export const Field = ({ selectedCell, onSelect, ref }: Props) => {
                         return (
                             <FieldCell
                                 cell={cell}
+                                cellSize={cellSize}
                                 isActive={isActive}
                                 isActiveValue={isActiveValue}
                                 isEmpty={isEmpty}
@@ -100,10 +102,15 @@ export const Field = ({ selectedCell, onSelect, ref }: Props) => {
                                 onSelect={onSelect}
                             >
                                 {shouldShowCandidates ? (
-                                    <FieldCellCandidates activeValue={selectedCell?.value} candidates={cellCandidates} />
+                                    <FieldCellCandidates
+                                        activeValue={selectedCell?.value}
+                                        candidates={cellCandidates}
+                                        cellSize={cellSize}
+                                    />
                                 ) : null}
                                 <FieldCellText
                                     cell={cell}
+                                    cellSize={cellSize}
                                     hasAnimation={animatedCells.has(getCellKey(cell))}
                                     isActive={isActive}
                                     isActiveValue={isActiveValue}

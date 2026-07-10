@@ -1,24 +1,24 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-import { GameNumberInputButtonSizeConstant } from '../constants/dimensions.contant';
+import { PanelControlSizeConstant } from '../../constant/panel-control-size.constant';
 
 const whiteColor = '#ffffff';
 
-export const CandidateInputItemStyles = StyleSheet.create({
+export const CandidateInputItemStyles = StyleSheet.create(() => ({
     button: {
         alignItems: 'center',
         backgroundColor: whiteColor,
-        borderRadius: GameNumberInputButtonSizeConstant / 2,
+        borderRadius: PanelControlSizeConstant / 2,
         borderWidth: 2,
-        height: GameNumberInputButtonSizeConstant,
+        height: PanelControlSizeConstant,
         justifyContent: 'center',
         outlineOffset: 0,
         outlineWidth: 0,
         overflow: 'visible',
         position: 'relative',
-        width: GameNumberInputButtonSizeConstant
+        width: PanelControlSizeConstant
     },
     container: {
         position: 'relative'
     }
-});
+}));

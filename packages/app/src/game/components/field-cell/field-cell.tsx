@@ -24,6 +24,7 @@ const animationConfig = { duration: animationDurationConstant };
 
 interface Props {
     readonly cell: CellInterface;
+    readonly cellSize: number;
     readonly onSelect: OnEventFn<CellInterface | undefined>;
     readonly isActive: boolean;
     readonly isEmpty: boolean;
@@ -34,7 +35,7 @@ interface Props {
 }
 
 export const FieldCell = (props: Props) => {
-    const { cell, onSelect, isActive, isActiveValue, isHighlighted, isWrong, isEmpty, children } = props;
+    const { cell, cellSize, onSelect, isActive, isActiveValue, isHighlighted, isWrong, isEmpty, children } = props;
 
     const { sudoku } = use(GameContext);
     const { theme } = use(ThemeContext);
@@ -65,7 +66,7 @@ export const FieldCell = (props: Props) => {
     };
 
     const cellStyles = [
-        styles.container,
+        styles.container(cellSize),
         ...useCellBorderStyles(sudoku, cell),
         { backgroundColor: cellBackgroundColor },
         cellAnimatedStyles,

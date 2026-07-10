@@ -1,19 +1,17 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-import { CellSizeConstant } from '../../game/components/constants/dimensions.contant';
-
-export const CellStyles = StyleSheet.create({
-    container: {
+export const CellStyles = StyleSheet.create(() => ({
+    container: (cellSize: number) => ({
         alignItems: 'center',
         borderLeftWidth: 1,
         borderStyle: 'solid',
         borderTopWidth: 1,
         fontFamily: 'Inter_500Medium',
-        height: CellSizeConstant,
+        height: cellSize,
         justifyContent: 'center',
         position: 'relative',
-        width: CellSizeConstant,
+        width: cellSize,
         outlineOffset: 0,
         outlineWidth: 0
-    }
-});
+    })
+}));

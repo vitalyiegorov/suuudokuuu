@@ -8,6 +8,8 @@ import { ThemeContext } from '../../../theme/context/theme.context';
 import { gameToggleInputModeAction } from '../../store/game.actions';
 import { gameInputModeSelector } from '../../store/game.selectors';
 
+import { InputModeButtonStyles as styles } from './input-mode-button.styles';
+
 export const InputModeButton = () => {
     const { theme } = use(ThemeContext);
 
@@ -22,7 +24,7 @@ export const InputModeButton = () => {
     const iconColor = isCandidateMode ? theme.colors.white : theme.colors.black;
 
     return (
-        <BlackIconButton hitSlop={10} isActive={!isCandidateMode} onPress={handleToggle} testID="input-mode-button">
+        <BlackIconButton hitSlop={10} isActive={!isCandidateMode} onPress={handleToggle} style={styles.button} testID="input-mode-button">
             <LucidePencil color={iconColor} />
         </BlackIconButton>
     );

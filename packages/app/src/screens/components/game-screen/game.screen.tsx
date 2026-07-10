@@ -1,4 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
+import { useAppLayout } from '@suuudokuuu/ui';
 import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { useRouter } from 'expo-router';
@@ -20,6 +21,7 @@ import { Field, FieldRef } from '../../../game/components/field/field';
 import { GameTimerController } from '../../../game/components/game-timer-controller/game-timer-controller';
 import { InputModeButton } from '../../../game/components/input-mode-button/input-mode-button';
 import { GameContext } from '../../../game/context/game.context';
+import { useBoardCellSize } from '../../../game/hooks/use-board-cell-size.hook';
 import { useKeyboardControls } from '../../../game/hooks/use-keyboard-controls/use-keyboard-controls.hook';
 import { useSharePuzzle } from '../../../game/hooks/use-share-puzzle/use-share-puzzle.hook';
 import {
@@ -59,6 +61,9 @@ export const GameScreen = () => {
     const { theme } = use(ThemeContext);
 
     const [hapticNotification, hapticImpact] = useVibration();
+
+    const { width, height } = useAppLayout();
+    const boardCellSize = useBoardCellSize(width, height);
 
     const dispatch = useAppDispatch();
     const score = useAppSelector(gameScoreSelector);
@@ -230,7 +235,7 @@ export const GameScreen = () => {
             </View>
 
             <View style={styles.fieldWrapper}>
-                <Field ref={fieldRef} onSelect={handleSelectCell} selectedCell={selectedCell} />
+                <Field cellSize={boardCellSize} onSelect={handleSelectCell} ref={fieldRef} selectedCell={selectedCell} />
             </View>
 
             <View style={styles.bottomContainer}>

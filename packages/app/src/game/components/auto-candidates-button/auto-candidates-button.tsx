@@ -9,6 +9,8 @@ import { ThemeContext } from '../../../theme/context/theme.context';
 import { gameToggleAutoCandidatesAction } from '../../store/game.actions';
 import { gameSelector } from '../../store/game.selectors';
 
+import { AutoCandidatesButtonStyles as styles } from './auto-candidates-button.styles';
+
 export const AutoCandidatesButton = () => {
     const { theme } = use(ThemeContext);
 
@@ -22,7 +24,12 @@ export const AutoCandidatesButton = () => {
     const iconColor = showAutoCandidates ? theme.colors.white : theme.colors.black;
 
     return (
-        <BlackIconButton isActive={!showAutoCandidates} onPress={handleCandidates} testID={GameScreenSelectors.TipsButton}>
+        <BlackIconButton
+            isActive={!showAutoCandidates}
+            onPress={handleCandidates}
+            style={styles.button}
+            testID={GameScreenSelectors.TipsButton}
+        >
             <LucideHandHelping color={iconColor} />
         </BlackIconButton>
     );
