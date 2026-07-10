@@ -350,7 +350,10 @@ jobs:
         run: |
           xcrun simctl bootstatus "$BOOTED_SIMULATOR_UDID" -b
           xcrun simctl openurl "$BOOTED_SIMULATOR_UDID" "$EXPO_DEV_CLIENT_URL"
-          sleep 10
+          maestro test \
+            --udid "$BOOTED_SIMULATOR_UDID" \
+            -e APP_ID=com.vitalyiegorov.suuudokuuu.preview \
+            tests/app-tests/launch-dev-client.flow.yaml
 
       - name: Run Maestro UI tests
         timeout-minutes: 20
