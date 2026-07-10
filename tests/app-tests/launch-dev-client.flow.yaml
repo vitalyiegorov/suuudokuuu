@@ -1,10 +1,19 @@
 appId: ${APP_ID}
 ---
-- runFlow:
-    when:
-      visible: 'Open in.*'
+- repeat:
+    times: 3
+    while:
+      notVisible: 'Start new'
     commands:
-      - tapOn: 'Open'
+      - runFlow:
+          when:
+            visible: 'Open in.*'
+          commands:
+            - tapOn:
+                text: 'Open'
+                retryTapIfNoChange: true
+      - waitForAnimationToEnd:
+          timeout: 5000
 
 - extendedWaitUntil:
     visible: 'Start new'
