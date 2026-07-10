@@ -88,7 +88,7 @@ msgstr "великий"
 msgid "Can you beat them?"
 msgstr "Чи зможете ви їх перемогти?"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:44
+#: src/screens/components/shared-screen/shared-screen.tsx:49
 #: src/screens/components/game-screen/game.screen.tsx:94
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx:40
 msgid "Cancel"
@@ -388,11 +388,11 @@ msgstr "від поточного рахунку"
 msgid "OK"
 msgstr "Гаразд"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:43
+#: src/screens/components/shared-screen/shared-screen.tsx:48
 msgid "Open puzzle"
 msgstr "Відкрити головоломку"
 
-#: src/screens/components/shared-screen/shared-screen.tsx:40
+#: src/screens/components/shared-screen/shared-screen.tsx:45
 #: src/app/shared/[url].tsx:14
 msgid "Open shared puzzle?"
 msgstr "Відкрити спільну головоломку?"
