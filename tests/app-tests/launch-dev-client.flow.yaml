@@ -1,12 +1,10 @@
 appId: ${APP_ID}
 ---
-- runFlow:
-    when:
-      visible: 'Open in.*'
+- retry:
+    maxRetries: 1
     commands:
-      - tapOn: 'Open'
-
-- extendedWaitUntil:
-    visible:
-      id: 'HomeScreenSelectors.Root'
-    timeout: 120000
+      - runFlow: flows/subflows/navigation/accept-open-link-prompt.flow.yaml
+      - extendedWaitUntil:
+          visible:
+            id: 'HomeScreenSelectors.Root'
+          timeout: 60000
