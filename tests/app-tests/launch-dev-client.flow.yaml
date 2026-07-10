@@ -1,10 +1,6 @@
 appId: ${APP_ID}
 ---
-- retry:
-    maxRetries: 1
-    commands:
-      - runFlow: flows/subflows/navigation/accept-open-link-prompt.flow.yaml
-      - extendedWaitUntil:
-          visible:
-            id: 'HomeScreenSelectors.Root'
-          timeout: 60000
+- extendedWaitUntil:
+    visible:
+      id: 'HomeScreenSelectors.StartButton'
+    timeout: 60000
