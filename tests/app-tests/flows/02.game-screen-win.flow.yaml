@@ -13,7 +13,7 @@ appId: ${APP_ID}
       - tapOn: 'Open'
 
 - extendedWaitUntil:
-    visible: 'Open shared puzzle?'
+    visible: 'Open puzzle'
     timeout: 10000
 - tapOn: 'Open puzzle'
 - tapOn:
