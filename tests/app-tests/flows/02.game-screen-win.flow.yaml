@@ -5,7 +5,7 @@ appId: ${APP_ID}
     optional: true
 
 - openLink:
-    link: suuudokuuu://shared/IzAMC4AAAKBEBQDAAHASfAwQAgM4AQAhgGQEUBoAQQASBWAcIAgBXrAE4BMAUgZICcAYgKpkAmAFdQAMQAGABYDZAYwBRYgPMBIAE8UAFAEMASAGIALFQCpAZEMA3AAoArgLL2A1ReUAWgOoApAGfpABr9VABmW34AFfl5AECcADoARIAdgB4AcwAqgE%2BAfYASgDAAIIAGgDiADAARgA8AZpqAYrq6bkMAMoBNIl6AWoAOAHOAWIAQcPAAGwAhAAGAJnAATjXgcGAgA
+    link: suuudokuuu://shared/_IGP________9____qXF6FFdMjBWGhJIN-CMqSm5omCUw0KFUm6-t2HxLUAuYMA
 - runFlow:
     when:
       visible: 'Open in.*'
