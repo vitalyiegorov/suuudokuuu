@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const AppMetricStripStyles = StyleSheet.create({
+export const AppMetricStripStyles = StyleSheet.create(() => ({
     item: {
         alignItems: 'center',
         gap: 2,
@@ -37,4 +37,4 @@ export const AppMetricStripStyles = StyleSheet.create({
         lineHeight: 20,
         textAlign: 'center'
     }
-});
+}));

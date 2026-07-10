@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
 import {
     AppTogglePressablePadding,
@@ -9,7 +9,7 @@ import {
     AppToggleTranslateX
 } from './constant/app-toggle-size.constant';
 
-export const AppToggleStyles = StyleSheet.create({
+export const AppToggleStyles = StyleSheet.create(() => ({
     pressable: {
         borderRadius: AppToggleTrackHeight / 2 + AppTogglePressablePadding,
         padding: AppTogglePressablePadding
@@ -33,4 +33,4 @@ export const AppToggleStyles = StyleSheet.create({
         padding: AppToggleTrackPadding,
         width: AppToggleTrackWidth
     }
-});
+}));

@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const AppMetricCardStyles = StyleSheet.create({
+export const AppMetricCardStyles = StyleSheet.create(theme => ({
     card: {
         alignItems: 'center',
         flex: 1,
@@ -17,11 +17,11 @@ export const AppMetricCardStyles = StyleSheet.create({
         textAlign: 'center'
     },
     labelCompact: {
-        fontSize: 12,
+        fontSize: theme.typography.size.xs,
         lineHeight: 16
     },
     labelRegular: {
-        fontSize: 14,
+        fontSize: theme.typography.size.sm,
         lineHeight: 18
     },
     value: {
@@ -36,6 +36,6 @@ export const AppMetricCardStyles = StyleSheet.create({
     valueRegular: {
         fontSize: 25,
         lineHeight: 30,
-        marginTop: 8
+        marginTop: theme.spacing.sm
     }
-});
+}));
