@@ -86,24 +86,7 @@ jobs:
 
       - name: Resolve iOS Metro URL
         run: |
-          metro_host="$(ipconfig getifaddr en0 || true)"
-          if [ -z "$metro_host" ]; then
-            metro_host="$(ipconfig getifaddr en1 || true)"
-          fi
-          if [ -z "$metro_host" ]; then
-            metro_host="$(python3 <<'PY'
-          import socket
-
-          with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as client:
-              client.connect(('8.8.8.8', 80))
-              print(client.getsockname()[0])
-          PY
-          )"
-          fi
-          if [ -z "$metro_host" ]; then
-            echo "Unable to resolve a Metro host reachable from the iOS simulator."
-            exit 1
-          fi
+          metro_host="127.0.0.1"
           metro_url="http://${metro_host}:${METRO_PORT}"
           dev_client_url="$(python3 - "$metro_url" <<'PY'
           import sys
@@ -308,7 +291,7 @@ jobs:
 
       - name: Start Metro dev server
         run: |
-          env -u CI EXPO_NO_TELEMETRY=1 REACT_NATIVE_PACKAGER_HOSTNAME="$METRO_HOST" yarn workspace @suuudokuuu/app expo start --dev-client --host lan --port "$METRO_PORT" > tests/app-tests/metro.log 2>&1 &
+          env -u CI EXPO_NO_TELEMETRY=1 REACT_NATIVE_PACKAGER_HOSTNAME="$METRO_HOST" yarn workspace @suuudokuuu/app expo start --dev-client --host localhost --port "$METRO_PORT" > tests/app-tests/metro.log 2>&1 &
           echo $! > tests/app-tests/metro.pid
           for attempt in {1..180}; do
             if curl --silent --fail "$METRO_URL/status" | grep --quiet 'packager-status:running'; then

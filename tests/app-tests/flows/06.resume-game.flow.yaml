@@ -17,6 +17,20 @@ appId: ${APP_ID}
     id: 'PauseScreenSelectors.ProgressValue'
 - assertVisible:
     id: 'PauseScreenSelectors.TimeValue'
+- copyTextFrom:
+    id: 'PauseScreenSelectors.TimeValue'
+- evalScript: ${output.firstPausedSeconds = Number(maestro.copiedText.split(':')[0]) * 60 + Number(maestro.copiedText.split(':')[1])}
+- extendedWaitUntil:
+    visible:
+      id: 'ResumeGameSelectors.IntentionalWaitTarget'
+    timeout: 2000
+    optional: true
+- copyTextFrom:
+    id: 'PauseScreenSelectors.TimeValue'
+- evalScript: ${output.secondPausedSeconds = Number(maestro.copiedText.split(':')[0]) * 60 + Number(maestro.copiedText.split(':')[1])}
+- assertTrue:
+    condition: ${output.secondPausedSeconds === output.firstPausedSeconds}
+    label: Timer stays unchanged while paused
 - assertVisible:
     id: 'PauseScreenSelectors.ScoreValue'
 - assertVisible:
@@ -31,6 +45,11 @@ appId: ${APP_ID}
     timeout: 3000
 - assertVisible:
     id: 'CellSelectors.Root'
+- extendedWaitUntil:
+    visible:
+      id: 'ResumeGameSelectors.IntentionalWaitTarget'
+    timeout: 2000
+    optional: true
 - runFlow: subflows/game/open-settings-from-game.flow.yaml
 - tapOn:
     id: 'HeaderBackButtonSelectors.Root'
@@ -38,6 +57,12 @@ appId: ${APP_ID}
     visible:
       id: 'PauseScreenSelectors.Root'
     timeout: 3000
+- copyTextFrom:
+    id: 'PauseScreenSelectors.TimeValue'
+- evalScript: ${output.resumedSeconds = Number(maestro.copiedText.split(':')[0]) * 60 + Number(maestro.copiedText.split(':')[1])}
+- assertTrue:
+    condition: ${output.resumedSeconds > output.firstPausedSeconds}
+    label: Timer advances after resuming gameplay
 - stopApp
 - runFlow: subflows/navigation/relaunch-home.flow.yaml
 - assertVisible:
