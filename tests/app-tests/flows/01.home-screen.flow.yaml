@@ -6,9 +6,9 @@ appId: ${APP_ID}
 
 - launchApp
 - extendedWaitUntil:
-    visible: 'SuuudokuuU'
+    visible: 'Start new'
     timeout: 10000
-- assertVisible: 'SuuudokuuU'
+- assertVisible: 'Start new'
 - tapOn: Privacy policy
 - assertVisible: Privacy Policy
 - tapOn: 'Return'
