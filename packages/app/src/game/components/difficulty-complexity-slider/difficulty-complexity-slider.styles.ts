@@ -1,17 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const DifficultyComplexitySliderStyles = StyleSheet.create({
-    difficultyName: {
-        fontSize: 24,
-        fontWeight: '800',
-        letterSpacing: 0,
-        lineHeight: 29,
-        textAlign: 'left'
-    },
-    difficultySummary: {
-        flex: 1,
-        gap: 4
-    },
+const DifficultyComplexitySliderStaticStyles = {
     header: {
         alignItems: 'flex-start',
         flexDirection: 'row',
@@ -58,17 +47,6 @@ export const DifficultyComplexitySliderStyles = StyleSheet.create({
         gap: 11,
         width: '100%'
     },
-    preview: {
-        alignItems: 'center',
-        borderRadius: 14,
-        borderWidth: StyleSheet.hairlineWidth,
-        flexDirection: 'row',
-        gap: 14,
-        minHeight: 104,
-        paddingHorizontal: 13,
-        paddingVertical: 12,
-        width: '100%'
-    },
     previewCell: {
         borderRadius: 3.5,
         height: 12,
@@ -80,36 +58,10 @@ export const DifficultyComplexitySliderStyles = StyleSheet.create({
         gap: 3,
         width: 72
     },
-    previewGridFrame: {
-        alignItems: 'center',
-        borderRadius: 12,
-        borderWidth: StyleSheet.hairlineWidth,
-        justifyContent: 'center',
-        padding: 8
-    },
-    previewMistakeBadge: {
-        borderRadius: 999,
-        borderWidth: StyleSheet.hairlineWidth,
-        paddingHorizontal: 9,
-        paddingVertical: 4
-    },
     previewMistakeBadgeText: {
         fontSize: 11,
         fontWeight: '800',
         lineHeight: 13
-    },
-    previewMistakeDescription: {
-        flex: 1,
-        fontSize: 12,
-        lineHeight: 16,
-        textAlign: 'left'
-    },
-    previewMistakeRow: {
-        alignItems: 'center',
-        flexDirection: 'row',
-        gap: 8,
-        paddingTop: 4,
-        width: '100%'
     },
     previewText: {
         flex: 1,
@@ -122,26 +74,10 @@ export const DifficultyComplexitySliderStyles = StyleSheet.create({
         lineHeight: 27,
         textAlign: 'left'
     },
-    sliderFill: {
-        borderRadius: 999,
-        height: 4,
-        left: 0,
-        position: 'absolute',
-        top: 18
-    },
     sliderRail: {
         height: 40,
         justifyContent: 'center',
         width: '100%'
-    },
-    sliderTrack: {
-        borderRadius: 999,
-        height: 4,
-        left: 0,
-        opacity: 0.35,
-        position: 'absolute',
-        right: 0,
-        top: 18
     },
     sliderThumb: {
         borderRadius: 13,
@@ -152,20 +88,88 @@ export const DifficultyComplexitySliderStyles = StyleSheet.create({
         top: 7,
         width: 26
     },
-    sliderWrap: {
-        gap: 4,
-        width: '100%'
-    },
     subtitle: {
         fontSize: 13,
         lineHeight: 18,
         textAlign: 'left'
+    }
+} as const;
+
+export const DifficultyComplexitySliderStyles = StyleSheet.create(theme => ({
+    ...DifficultyComplexitySliderStaticStyles,
+    difficultyName: {
+        fontSize: theme.typography.size.xl,
+        fontWeight: '800',
+        letterSpacing: 0,
+        lineHeight: 29,
+        textAlign: 'left'
+    },
+    difficultySummary: {
+        flex: 1,
+        gap: theme.spacing.xs
+    },
+    preview: {
+        alignItems: 'center',
+        borderRadius: 14,
+        borderWidth: StyleSheet.hairlineWidth,
+        flexDirection: 'row',
+        gap: 14,
+        minHeight: 104,
+        paddingHorizontal: 13,
+        paddingVertical: theme.spacing.md,
+        width: '100%'
+    },
+    previewGridFrame: {
+        alignItems: 'center',
+        borderRadius: 12,
+        borderWidth: StyleSheet.hairlineWidth,
+        justifyContent: 'center',
+        padding: theme.spacing.sm
+    },
+    previewMistakeBadge: {
+        borderRadius: theme.radius.pill,
+        borderWidth: StyleSheet.hairlineWidth,
+        paddingHorizontal: 9,
+        paddingVertical: theme.spacing.xs
+    },
+    previewMistakeDescription: {
+        flex: 1,
+        fontSize: theme.typography.size.xs,
+        lineHeight: 16,
+        textAlign: 'left'
+    },
+    previewMistakeRow: {
+        alignItems: 'center',
+        flexDirection: 'row',
+        gap: theme.spacing.sm,
+        paddingTop: theme.spacing.xs,
+        width: '100%'
+    },
+    sliderFill: {
+        borderRadius: theme.radius.pill,
+        height: 4,
+        left: 0,
+        position: 'absolute',
+        top: 18
+    },
+    sliderTrack: {
+        borderRadius: theme.radius.pill,
+        height: 4,
+        left: 0,
+        opacity: 0.35,
+        position: 'absolute',
+        right: 0,
+        top: 18
+    },
+    sliderWrap: {
+        gap: theme.spacing.xs,
+        width: '100%'
     },
     title: {
-        fontSize: 14,
+        fontSize: theme.typography.size.sm,
         fontWeight: '800',
         letterSpacing: 0,
         lineHeight: 18,
         textAlign: 'left'
     }
-});
+}));
