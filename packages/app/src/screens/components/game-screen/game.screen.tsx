@@ -21,7 +21,6 @@ import { GameTimerController } from '../../../game/components/game-timer-control
 import { InputModeButton } from '../../../game/components/input-mode-button/input-mode-button';
 import { GameContext } from '../../../game/context/game.context';
 import { useKeyboardControls } from '../../../game/hooks/use-keyboard-controls/use-keyboard-controls.hook';
-import { useResumeGameOnFocus } from '../../../game/hooks/use-resume-game-on-focus.hook';
 import { useSharePuzzle } from '../../../game/hooks/use-share-puzzle/use-share-puzzle.hook';
 import {
     gameFinishAction,
@@ -191,8 +190,6 @@ export const GameScreen = () => {
     };
 
     useKeyboardControls(sudoku, selectedCell, handleSelectCell, handleSelectValue, handleExit);
-    useResumeGameOnFocus();
-
     const hideAutoCandidates = maxMistakes === 0;
     const actionIconColor = theme.colors.label.main;
 
