@@ -1,5 +1,6 @@
 name: Pull Request
 env:
+  MAESTRO_VERSION: '2.6.1'
   MAESTRO_DRIVER_STARTUP_TIMEOUT: '120000'
   TURBO_TEAM: vitalyiegorov
   TURBO_TOKEN: ${{ secrets.VERCEL_TOKEN }}
@@ -285,8 +286,25 @@ jobs:
 
       - name: Install Maestro
         run: |
-          export MAESTRO_VERSION=2.0.3; curl -fsSL "https://get.maestro.mobile.dev" | bash
-          echo "$HOME/.maestro/bin" >> $GITHUB_PATH
+          export MAESTRO_VERSION
+          curl -fsSL "https://get.maestro.mobile.dev" | bash
+          export PATH="$HOME/.maestro/bin:$PATH"
+          installed_maestro_version="$(maestro --version)"
+          echo "Installed Maestro $installed_maestro_version"
+          test "$installed_maestro_version" = "$MAESTRO_VERSION"
+          echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
+
+      - name: Prepare iOS E2E artifact directories
+        run: |
+          mkdir -p tests/app-tests/artifacts/maestro
+          mkdir -p tests/app-tests/artifacts/simulator
+          mkdir -p tests/app-tests/artifacts/diagnostics
+
+      - name: Start iOS Simulator log capture
+        run: |
+          artifact_directory="$GITHUB_WORKSPACE/tests/app-tests/artifacts/simulator"
+          xcrun simctl spawn "$BOOTED_SIMULATOR_UDID" log stream --style compact --level debug > "$artifact_directory/simulator.log" 2>&1 &
+          echo $! > "$artifact_directory/simulator-log.pid"
 
       - name: Start Metro dev server
         run: |
@@ -335,8 +353,35 @@ jobs:
       - name: Run Maestro UI tests
         timeout-minutes: 20
         working-directory: tests/app-tests
+        shell: bash
         run: |
-          maestro test flows -e APP_ID=com.vitalyiegorov.suuudokuuu.preview -e DEV_CLIENT_LINK="$EXPO_DEV_CLIENT_URL" -e METRO_URL="$METRO_URL" --format junit --output report.xml --config config.yaml --debug-output ./
+          set -euo pipefail
+          maestro test \
+            --udid "$BOOTED_SIMULATOR_UDID" \
+            -e APP_ID=com.vitalyiegorov.suuudokuuu.preview \
+            -e DEV_CLIENT_LINK="$EXPO_DEV_CLIENT_URL" \
+            -e METRO_URL="$METRO_URL" \
+            --format junit \
+            --output ./artifacts/maestro/report.xml \
+            --config config.yaml \
+            --debug-output ./artifacts/maestro \
+            --test-output-dir ./artifacts/maestro \
+            flows 2>&1 | tee ./artifacts/maestro/maestro-console.log
+
+      - name: Stop iOS Simulator captures
+        if: always()
+        run: |
+          artifact_directory="$GITHUB_WORKSPACE/tests/app-tests/artifacts/simulator"
+          diagnostic_directory="$GITHUB_WORKSPACE/tests/app-tests/artifacts/diagnostics"
+          xcrun simctl io "$BOOTED_SIMULATOR_UDID" screenshot "$artifact_directory/final-screen.png" || true
+
+          if [ -f "$artifact_directory/simulator-log.pid" ]; then
+            kill "$(cat "$artifact_directory/simulator-log.pid")" || true
+          fi
+
+          find "$HOME/Library/Logs/DiagnosticReports" -maxdepth 1 -type f \
+            \( -name 'suuudokuuu*' -o -name 'Suuudokuuu*' -o -name 'maestro*' -o -name 'Maestro*' -o -name 'JetsamEvent*' \) \
+            -exec cp {} "$diagnostic_directory/" \; || true
 
       - name: Stop Metro dev server
         if: always()
@@ -352,8 +397,8 @@ jobs:
           name: maestro-ios-artifacts
           include-hidden-files: true
           path: |
+            tests/app-tests/artifacts/**
             tests/app-tests/.maestro/**
-            tests/app-tests/report.xml
             tests/app-tests/metro.log
             tests/app-tests/*.mp4
 
@@ -417,8 +462,9 @@ jobs:
 
       - name: Install Maestro
         run: |
-          export MAESTRO_VERSION=2.0.3; curl -fsSL "https://get.maestro.mobile.dev" | bash
-          echo "$HOME/.maestro/bin" >> $GITHUB_PATH
+          export MAESTRO_VERSION
+          curl -fsSL "https://get.maestro.mobile.dev" | bash
+          echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
 
       - name: Сreate AVD and generate snapshot for caching
         if: steps.avd-cache.outputs.cache-hit != 'true'
