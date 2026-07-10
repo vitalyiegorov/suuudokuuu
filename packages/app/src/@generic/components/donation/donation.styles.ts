@@ -1,9 +1,9 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const DonationStyles = StyleSheet.create({
+export const DonationStyles = StyleSheet.create(theme => ({
     donation: {
         borderWidth: 1,
-        marginVertical: 20,
+        marginVertical: theme.spacing.lg,
         paddingVertical: 10,
         width: 200
     },
@@ -12,4 +12,4 @@ export const DonationStyles = StyleSheet.create({
         marginBottom: 10,
         textAlign: 'center'
     }
-});
+}));

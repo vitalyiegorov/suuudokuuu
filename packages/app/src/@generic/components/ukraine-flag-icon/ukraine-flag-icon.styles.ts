@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const UkraineFlagIconStyles = StyleSheet.create({
+export const UkraineFlagIconStyles = StyleSheet.create(theme => ({
     blueStripe: {
         backgroundColor: '#005BBB',
         height: 8,
@@ -9,7 +9,7 @@ export const UkraineFlagIconStyles = StyleSheet.create({
     container: {
         borderRadius: 2,
         height: 16,
-        marginLeft: 8,
+        marginLeft: theme.spacing.sm,
         overflow: 'hidden',
         width: 26
     },
@@ -18,4 +18,4 @@ export const UkraineFlagIconStyles = StyleSheet.create({
         height: 8,
         width: '100%'
     }
-});
+}));

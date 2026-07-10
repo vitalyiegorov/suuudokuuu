@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const ScreenChromeProgressiveOverlayStyles = StyleSheet.create({
+export const ScreenChromeProgressiveOverlayStyles = StyleSheet.create(() => ({
     container: {
         bottom: 0,
         left: 0,
@@ -9,4 +9,4 @@ export const ScreenChromeProgressiveOverlayStyles = StyleSheet.create({
         top: 0,
         zIndex: 1
     }
-});
+}));

@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const BlurGradientStyles = StyleSheet.create({
+export const BlurGradientStyles = StyleSheet.create(() => ({
     bottom: {
         bottom: 0
     },
@@ -13,4 +13,4 @@ export const BlurGradientStyles = StyleSheet.create({
     top: {
         top: 0
     }
-});
+}));

@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
 import {
     ReturnableScreenHeaderLargeTitleVerticalOffset,
@@ -6,7 +6,7 @@ import {
     ReturnableScreenHeaderTitleSlotVerticalOffset
 } from './constant/returnable-screen-header.constant';
 
-export const ReturnableScreenHeaderStyles = StyleSheet.create({
+export const ReturnableScreenHeaderStyles = StyleSheet.create(theme => ({
     container: {
         width: '100%'
     },
@@ -15,7 +15,7 @@ export const ReturnableScreenHeaderStyles = StyleSheet.create({
         alignSelf: 'center',
         flexDirection: 'row',
         height: 56,
-        maxWidth: 640,
+        maxWidth: theme.contentWidth.standard,
         paddingHorizontal: 16,
         width: '100%',
         zIndex: 3
@@ -55,4 +55,4 @@ export const ReturnableScreenHeaderStyles = StyleSheet.create({
         height: 44,
         width: 44
     }
-});
+}));

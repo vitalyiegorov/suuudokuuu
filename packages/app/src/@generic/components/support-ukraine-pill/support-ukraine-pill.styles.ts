@@ -1,20 +1,20 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const SupportUkrainePillStyles = StyleSheet.create({
+export const SupportUkrainePillStyles = StyleSheet.create(theme => ({
     container: {
         alignItems: 'center',
-        borderRadius: 999,
+        borderRadius: theme.radius.pill,
         borderWidth: StyleSheet.hairlineWidth,
         flexDirection: 'row',
-        gap: 8,
+        gap: theme.spacing.sm,
         justifyContent: 'center',
         minHeight: 32,
-        paddingHorizontal: 12,
+        paddingHorizontal: theme.spacing.md,
         paddingVertical: 7
     },
     text: {
-        fontSize: 12,
+        fontSize: theme.typography.size.xs,
         fontWeight: '800',
         lineHeight: 15
     }
-});
+}));

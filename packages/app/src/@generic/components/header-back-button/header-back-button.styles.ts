@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const HeaderBackButtonStyles = StyleSheet.create({
+export const HeaderBackButtonStyles = StyleSheet.create(() => ({
     container: {
         alignItems: 'center',
         height: 44,
@@ -8,4 +8,4 @@ export const HeaderBackButtonStyles = StyleSheet.create({
         transform: [{ translateY: 2 }],
         width: 44
     }
-});
+}));

@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const ScreenChromeStyles = StyleSheet.create({
+export const ScreenChromeStyles = StyleSheet.create(theme => ({
     container: {
         flex: 1,
         position: 'relative'
@@ -13,9 +13,9 @@ export const ScreenChromeStyles = StyleSheet.create({
         alignItems: 'center',
         bottom: 0,
         left: 0,
-        paddingBottom: 8,
-        paddingHorizontal: 20,
-        paddingTop: 12,
+        paddingBottom: theme.spacing.sm,
+        paddingHorizontal: theme.spacing.lg,
+        paddingTop: theme.spacing.md,
         position: 'absolute',
         right: 0,
         zIndex: 4
@@ -23,12 +23,12 @@ export const ScreenChromeStyles = StyleSheet.create({
     header: {
         alignItems: 'center',
         left: 0,
-        paddingBottom: 12,
-        paddingHorizontal: 20,
-        paddingTop: 20,
+        paddingBottom: theme.spacing.md,
+        paddingHorizontal: theme.spacing.lg,
+        paddingTop: theme.spacing.lg,
         position: 'absolute',
         right: 0,
         top: 0,
         zIndex: 4
     }
-});
+}));
