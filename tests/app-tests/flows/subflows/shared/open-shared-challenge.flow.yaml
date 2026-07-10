@@ -1,13 +1,16 @@
 appId: ${APP_ID}
 ---
-- openLink:
-    link: ${SHARED_CHALLENGE_LINK}
-- runFlow:
-    when:
-      visible: 'Open in.*'
+- retry:
+    maxRetries: 1
     commands:
-      - tapOn: 'Open'
-- extendedWaitUntil:
-    visible:
-      id: 'ChallengeAcceptScreenSelectors.AcceptButton'
-    timeout: 10000
+      - openLink:
+          link: ${SHARED_CHALLENGE_LINK}
+      - runFlow:
+          when:
+            visible: 'Open in.*'
+          commands:
+            - tapOn: 'Open'
+      - extendedWaitUntil:
+          visible:
+            id: 'ChallengeAcceptScreenSelectors.AcceptButton'
+          timeout: 10000
