@@ -18,8 +18,7 @@ jest.mock(
                 return mockEncodedState;
             }
         }))
-    }),
-    { virtual: true }
+    })
 );
 
 import { initialGameState } from '../store/game.state';

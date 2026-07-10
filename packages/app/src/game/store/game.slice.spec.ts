@@ -15,8 +15,7 @@ jest.mock(
                 getSteps: jest.fn(() => [])
             }))
         }
-    }),
-    { virtual: true }
+    })
 );
 
 import { getCellKey } from '../../@generic/utils/get-cell-key.util';
