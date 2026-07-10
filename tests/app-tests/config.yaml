@@ -5,6 +5,9 @@ platform:
   android:
     disableAnimations: true
 
+flows:
+  - 'flows/*.flow.yaml'
+
 executionOrder:
   continueOnFailure: true
   flowsOrder:
