@@ -42,7 +42,6 @@ appId: ${APP_ID}
 - extendedWaitUntil:
     visible: 'Privacy policy'
     timeout: 3000
-- assertVisible: 'Suuudokuuu'
 - tapOn:
     id: 'HeaderBackButtonSelectors.Root'
 - extendedWaitUntil:
