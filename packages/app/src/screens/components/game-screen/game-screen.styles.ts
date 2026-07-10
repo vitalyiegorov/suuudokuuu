@@ -1,47 +1,23 @@
-import * as Device from 'expo-device';
-import { Platform, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-const GameScreenControlsGap = 8;
+import { GameSidePanelWidthConstant } from '../../../game/constant/board-cell-size.constant';
 
-export const GameScreenStyles = StyleSheet.create({
-    additionalControlsWrapper: {
-        flex: 1,
-        flexDirection: 'row',
-        gap: 10,
-        justifyContent: 'center',
-        marginBottom: 20
-    },
-    availableValuesWrapper: {
+export const GameScreenStyles = StyleSheet.create(theme => ({
+    container: (sizeClass: 'compact' | 'wide') => ({
         alignItems: 'center',
-        flex: 2,
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        gap: 10,
+        flex: 1,
+        flexDirection: sizeClass === 'wide' ? 'row' : 'column',
+        gap: theme.spacing.lg,
+        justifyContent: 'center',
+        padding: theme.spacing.sm,
+        paddingBottom: theme.spacing.lg
+    }),
+    boardArea: (sizeClass: 'compact' | 'wide') => ({
+        alignItems: 'center',
+        flex: sizeClass === 'wide' ? 0 : 1,
         justifyContent: 'center'
-    },
-    bottomContainer: {
-        flex: 1,
-        ...(Device.deviceType === Device.DeviceType.PHONE && Platform.select({ web: { flex: 1.3 } }))
-    },
-    buttonsWrapper: { flexDirection: 'row', flexShrink: 0, gap: GameScreenControlsGap },
-    container: {
-        alignItems: 'center',
-        flex: 1,
-        padding: 10,
-        paddingBottom: 20
-    },
-    controls: {
-        alignItems: 'center',
-        flexDirection: 'row',
-        gap: GameScreenControlsGap,
-        justifyContent: 'center',
-        marginBottom: 20,
-        maxWidth: 600,
-        width: '100%',
-
-        ...(Device.deviceType === Device.DeviceType.PHONE && Platform.select({ web: { height: 50 } }))
-    },
-    fieldWrapper: {
-        flex: 3
-    }
-});
+    }),
+    panelArea: (sizeClass: 'compact' | 'wide') => ({
+        width: sizeClass === 'wide' ? GameSidePanelWidthConstant : '100%'
+    })
+}));

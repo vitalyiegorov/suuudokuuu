@@ -20,5 +20,8 @@ export const CandidateInputItemStyles = StyleSheet.create(() => ({
     },
     container: {
         position: 'relative'
+    },
+    exhausted: {
+        opacity: 0.35
     }
 }));

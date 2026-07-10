@@ -2,7 +2,7 @@ import { use } from 'react';
 import { Pressable, Text, View } from 'react-native';
 import Reanimated, { interpolateColor, useAnimatedStyle, useDerivedValue, withTiming } from 'react-native-reanimated';
 
-import { isDefined } from '@rnw-community/shared';
+import { cs, isDefined } from '@rnw-community/shared';
 
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { getCellKey } from '../../../@generic/utils/get-cell-key.util';
@@ -25,10 +25,11 @@ interface Props {
     readonly selectedCell?: CellInterface;
     readonly value: number;
     readonly canPress: boolean;
+    readonly isExhausted: boolean;
     readonly onSelect: OnEventFn<number>;
 }
 
-export const CandidateInputItem = ({ selectedCell, value, onSelect, canPress }: Props) => {
+export const CandidateInputItem = ({ selectedCell, value, onSelect, canPress, isExhausted }: Props) => {
     const { theme } = use(ThemeContext);
 
     const candidates = useAppSelector(gameCandidatesSelector);
@@ -53,7 +54,8 @@ export const CandidateInputItem = ({ selectedCell, value, onSelect, canPress }: 
             borderColor: isSelected ? theme.colors.candidate.borderActive : theme.colors.candidate.border,
             backgroundColor: isSelected ? theme.colors.candidate.bgActive : theme.colors.candidate.bg
         },
-        animatedStyles
+        animatedStyles,
+        cs(isExhausted, styles.exhausted)
     ];
     const textStyles = [
         { fontSize: (PanelControlSizeConstant / 2.5) * fontSizeMultiplier },
@@ -62,7 +64,7 @@ export const CandidateInputItem = ({ selectedCell, value, onSelect, canPress }: 
 
     return (
         <View style={styles.container}>
-            <ReanimatedPressable style={buttonStyles} {...(canPress && { onPress: handlePress })}>
+            <ReanimatedPressable style={buttonStyles} {...(canPress && !isExhausted && { onPress: handlePress })}>
                 <Text allowFontScaling={false} style={textStyles}>
                     {value}
                 </Text>

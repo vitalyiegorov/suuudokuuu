@@ -17,6 +17,9 @@ export const AvailableValuesItemStyles = StyleSheet.create(() => ({
     container: {
         position: 'relative'
     },
+    exhausted: {
+        opacity: 0.35
+    },
     progressRing: {
         left: 0,
         top: 0,

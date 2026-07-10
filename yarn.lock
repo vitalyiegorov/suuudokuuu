@@ -4811,7 +4811,6 @@ __metadata:
     expo-build-properties: "npm:~57.0.3"
     expo-constants: "npm:~57.0.3"
     expo-dev-client: "npm:~57.0.5"
-    expo-device: "npm:~57.0.0"
     expo-font: "npm:~57.0.0"
     expo-haptics: "npm:~57.0.0"
     expo-linear-gradient: "npm:~57.0.0"
@@ -8728,17 +8727,6 @@ __metadata:
     expo: "*"
     react-native: "*"
   checksum: 10/50af8e5fa5ced4b72c62bcd37d3c0816efdb75704c0d67834a392af44ba19c8b14a2c295d3f268c2a281f5c9776a199d355803d86589c7d3cdeb587992f6cf07
-  languageName: node
-  linkType: hard
-
-"expo-device@npm:~57.0.0":
-  version: 57.0.0
-  resolution: "expo-device@npm:57.0.0"
-  dependencies:
-    ua-parser-js: "npm:^0.7.33"
-  peerDependencies:
-    expo: "*"
-  checksum: 10/d5e55092d3a7724eeab6181d5ae6c8dbd3722f27ec1928700b6f6ce5a7f1ab852b56af24a166ea3375d8ba28b448a5a9b7e548ce1cd79a1d480aafcf9f0f1d7f
   languageName: node
   linkType: hard
 
@@ -16936,7 +16924,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ua-parser-js@npm:^0.7.30, ua-parser-js@npm:^0.7.33":
+"ua-parser-js@npm:^0.7.30":
   version: 0.7.40
   resolution: "ua-parser-js@npm:0.7.40"
   bin:

@@ -10,6 +10,8 @@ import Reanimated, {
 } from 'react-native-reanimated';
 import Svg, { Circle } from 'react-native-svg';
 
+import { cs } from '@rnw-community/shared';
+
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { settingsFontSizeMultiplierSelector } from '../../../settings/store/settings.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
@@ -38,13 +40,14 @@ export interface AvailableValuesItemRef {
 interface Props {
     readonly value: number;
     readonly canPress: boolean;
+    readonly isExhausted: boolean;
     readonly progress: number;
     readonly correctValue?: number;
     readonly onSelect: OnEventFn<number>;
     readonly ref: Ref<AvailableValuesItemRef>;
 }
 
-export const AvailableValuesItem = ({ value, onSelect, progress, correctValue, canPress, ref }: Props) => {
+export const AvailableValuesItem = ({ value, onSelect, progress, correctValue, canPress, isExhausted, ref }: Props) => {
     const { theme } = use(ThemeContext);
 
     const fontSizeMultiplier = useAppSelector(settingsFontSizeMultiplierSelector);
@@ -79,7 +82,7 @@ export const AvailableValuesItem = ({ value, onSelect, progress, correctValue, c
         onSelect(value);
     };
 
-    const buttonStyles = [styles.button, { backgroundColor: theme.colors.candidate.bg }, animatedStyles];
+    const buttonStyles = [styles.button, { backgroundColor: theme.colors.candidate.bg }, animatedStyles, cs(isExhausted, styles.exhausted)];
     const normalizedProgress = Math.min(100, Math.max(0, progress));
     const progressDashOffset = AvailableValueProgressCircumference * (1 - normalizedProgress / 100);
     const textStyles = [
@@ -90,7 +93,12 @@ export const AvailableValuesItem = ({ value, onSelect, progress, correctValue, c
 
     return (
         <View style={styles.container} testID={selectors.Root}>
-            <ReanimatedPressable key={value} style={buttonStyles} testID={selectors.Button} {...(canPress && { onPress: handlePress })}>
+            <ReanimatedPressable
+                key={value}
+                style={buttonStyles}
+                testID={selectors.Button}
+                {...(canPress && !isExhausted && { onPress: handlePress })}
+            >
                 <Svg height={AvailableValueButtonSize} pointerEvents="none" style={styles.progressRing} width={AvailableValueButtonSize}>
                     <Circle
                         cx={AvailableValueProgressCenter}
