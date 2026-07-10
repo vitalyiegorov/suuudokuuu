@@ -7,5 +7,5 @@ appId: ${APP_ID}
       - tapOn: 'Open'
 
 - extendedWaitUntil:
-    visible: 'SuuudokuuU'
+    visible: 'Start new'
     timeout: 120000
