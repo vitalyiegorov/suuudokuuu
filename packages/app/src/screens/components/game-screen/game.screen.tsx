@@ -201,7 +201,12 @@ export const GameScreen = () => {
     const hideAutoCandidates = maxMistakes === 0;
 
     return (
-        <Pressable {...(!keepActiveCell && { onPress: handleDeselectCell })} style={styles.container} testID={GameScreenSelectors.Root}>
+        <Pressable
+            accessible={false}
+            {...(!keepActiveCell && { onPress: handleDeselectCell })}
+            style={styles.container}
+            testID={GameScreenSelectors.Root}
+        >
             {isChallengeMode && <ChallengeProgressBar />}
             <View style={styles.controls}>
                 <View style={styles.controlsWrapper}>
