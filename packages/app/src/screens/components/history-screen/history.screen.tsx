@@ -1,4 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
+import { useAppLayout } from '@suuudokuuu/ui';
 import { useState } from 'react';
 
 import { ReturnableScreenChromeCompactContentPreset } from '../../../@generic/components/returnable-screen-chrome/constant/returnable-screen-chrome.constant';
@@ -26,6 +27,7 @@ import type { DifficultyEnum } from '@suuudokuuu/generator';
 export const HistoryScreen = () => {
     const { t } = useLingui();
     const dispatch = useAppDispatch();
+    const { sizeClass } = useAppLayout();
     const historyByDifficulty = useAppSelector(gameHistoryByDifficultySelector);
     const lastStatsDifficulty = useAppSelector(settingsLastStatsDifficultySelector);
     const [selectedTab, setSelectedTab] = useState<HistoryScreenTab>(HistoryScreenStatsTab);
@@ -65,7 +67,7 @@ export const HistoryScreen = () => {
             <ReturnableScreenScrollView
                 contentContainerStyle={HistoryScreenStyles.scrollViewContainer}
                 showsVerticalScrollIndicator={false}
-                style={HistoryScreenStyles.scrollView}
+                style={HistoryScreenStyles.scrollView(sizeClass)}
                 testID={HistoryScreenSelectors.Root}
                 topContentPreset={ReturnableScreenChromeCompactContentPreset}
             >

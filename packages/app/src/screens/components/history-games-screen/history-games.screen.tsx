@@ -1,4 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
+import { useAppLayout } from '@suuudokuuu/ui';
 
 import { emptyFn } from '@rnw-community/shared';
 
@@ -20,6 +21,7 @@ interface Props {
 
 export const HistoryGamesScreen = ({ difficulty }: Props) => {
     const { t } = useLingui();
+    const { sizeClass } = useAppLayout();
     const completedGames = useAppSelector(gameCompletedGamesSelector(difficulty));
 
     const title = `${getDifficultyText(difficulty)} ${t`Games`}`;
@@ -30,7 +32,7 @@ export const HistoryGamesScreen = ({ difficulty }: Props) => {
             <ReturnableScreenScrollView
                 contentContainerStyle={styles.scrollViewContainer}
                 showsVerticalScrollIndicator={false}
-                style={styles.scrollView}
+                style={styles.scrollView(sizeClass)}
                 topContentPreset={ReturnableScreenChromeCompactContentPreset}
             >
                 <HistoryGamesList
