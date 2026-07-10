@@ -1,4 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
+import { useAppLayout } from '@suuudokuuu/ui';
 import { useRouter } from 'expo-router';
 import { use } from 'react';
 import { View } from 'react-native';
@@ -37,6 +38,7 @@ export const PauseScreen = () => {
     const { sudoku } = use(GameContext);
     const { theme } = use(ThemeContext);
     const { t } = useLingui();
+    const { sizeClass } = useAppLayout();
     const score = useAppSelector(gameScoreSelector);
     const mistakes = useAppSelector(gameMistakesSelector);
     const maxMistakes = useAppSelector(gameMaxMistakesSelector);
@@ -67,19 +69,23 @@ export const PauseScreen = () => {
     const timeText = useTimerText(elapsedTime);
     const scoreText = String(score);
     const mistakesText = `${mistakes} / ${maxMistakes}`;
-    const containerStyles = [styles.container, { backgroundColor: theme.colors.background }];
+    const containerStyles = [styles.container(sizeClass), { backgroundColor: theme.colors.background }];
 
     return (
         <View style={containerStyles} testID={PauseScreenSelectors.Root}>
-            <PauseScreenHeader detailsText={detailsText} />
+            <View style={styles.summaryColumn}>
+                <PauseScreenHeader detailsText={detailsText} />
 
-            <PauseScreenProgressCard label={t`Your progress`} meta={progressMeta} progressPercent={progress.percent} sudoku={sudoku} />
+                <PauseScreenProgressCard label={t`Your progress`} meta={progressMeta} progressPercent={progress.percent} sudoku={sudoku} />
 
-            <PauseScreenStats mistakesText={mistakesText} scoreText={scoreText} timeText={timeText} />
+                <PauseScreenStats mistakesText={mistakesText} scoreText={scoreText} timeText={timeText} />
+            </View>
 
-            <PauseScreenUkraineCard />
+            <View style={styles.actionsColumn}>
+                <PauseScreenUkraineCard />
 
-            <PauseScreenActions onQuit={handleQuit} onResume={handleResume} onShare={handleShare} />
+                <PauseScreenActions onQuit={handleQuit} onResume={handleResume} onShare={handleShare} />
+            </View>
         </View>
     );
 };

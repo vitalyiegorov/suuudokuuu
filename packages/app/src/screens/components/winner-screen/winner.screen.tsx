@@ -1,4 +1,5 @@
 import { Trans, useLingui } from '@lingui/react/macro';
+import { useAppLayout } from '@suuudokuuu/ui';
 import { Redirect } from 'expo-router';
 import { Text, View } from 'react-native';
 
@@ -12,10 +13,11 @@ import { useResetGame } from '../../../@generic/hooks/use-reset-game.hook';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { ChallengeShareButton } from '../../../challenge/components/challenge-share-button/challenge-share-button';
 
-import { WinnerScreenStyles } from './winner-screen.styles';
+import { WinnerScreenStyles as styles } from './winner-screen.styles';
 
 export const WinnerScreen = () => {
     const { t } = useLingui();
+    const { sizeClass } = useAppLayout();
 
     const [isGameStarted, gameState] = useResetGame();
     const { score, elapsedTime, challengeState } = gameState;
@@ -26,28 +28,30 @@ export const WinnerScreen = () => {
     }
 
     return (
-        <View style={WinnerScreenStyles.container}>
-            <Header text={t`Winners-winner, \n chicken dinner!`} />
+        <View style={styles.container(sizeClass)}>
+            <View style={styles.summaryColumn}>
+                <Header text={t`Winners-winner, \n chicken dinner!`} />
 
-            <View>
-                <BlackText adjustsFontSizeToFit minimumFontScale={0.68} numberOfLines={1}>
-                    <Text>
-                        <Trans>You have scored</Trans>{' '}
-                    </Text>
-                    <Text style={WinnerScreenStyles.boldText}>{score}</Text>{' '}
-                </BlackText>
+                <View>
+                    <BlackText adjustsFontSizeToFit minimumFontScale={0.68} numberOfLines={1}>
+                        <Text>
+                            <Trans>You have scored</Trans>{' '}
+                        </Text>
+                        <Text style={styles.boldText}>{score}</Text>{' '}
+                    </BlackText>
 
-                <BlackText adjustsFontSizeToFit minimumFontScale={0.68} numberOfLines={1}>
-                    <Text>
-                        <Trans>It took you</Trans>
-                    </Text>{' '}
-                    <Text style={WinnerScreenStyles.boldText}>{elapsedTimeText}</Text>
-                </BlackText>
+                    <BlackText adjustsFontSizeToFit minimumFontScale={0.68} numberOfLines={1}>
+                        <Text>
+                            <Trans>It took you</Trans>
+                        </Text>{' '}
+                        <Text style={styles.boldText}>{elapsedTimeText}</Text>
+                    </BlackText>
+                </View>
+
+                <Donation type="winner" />
             </View>
 
-            <Donation type="winner" />
-
-            <View style={WinnerScreenStyles.buttonsWrapper}>
+            <View style={styles.actionsColumn}>
                 {!isNotEmptyString(challengeState) && <ChallengeShareButton gameState={gameState} text={t`Challenge a Friend`} />}
                 <PlayAgainButton />
             </View>
