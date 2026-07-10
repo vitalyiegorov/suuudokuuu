@@ -7,5 +7,6 @@ appId: ${APP_ID}
       - tapOn: 'Open'
 
 - extendedWaitUntil:
-    visible: 'SuuudokuuU'
+    visible:
+      id: 'HomeScreenSelectors.Root'
     timeout: 120000
