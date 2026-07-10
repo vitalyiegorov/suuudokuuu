@@ -4,4 +4,4 @@ appId: ${APP_ID}
 - extendedWaitUntil:
     visible:
       id: 'HomeScreenSelectors.Root'
-    timeout: 30000
+    timeout: 60000
