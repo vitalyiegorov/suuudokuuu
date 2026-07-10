@@ -1,6 +1,5 @@
 import { type StyleProp, Text, View, type ViewStyle } from 'react-native';
-
-import { useUiTheme } from '../../theme/hooks/use-ui-theme.hook';
+import { useUnistyles } from 'react-native-unistyles';
 
 import { AppSettingsSectionStyles as styles } from './app-settings-section.styles';
 
@@ -13,7 +12,7 @@ interface Props {
 }
 
 export const AppSettingsSection = ({ children, style, title }: Props) => {
-    const { theme } = useUiTheme();
+    const { theme } = useUnistyles();
     const sectionStyles = [styles.section, style];
     const titleStyles = [styles.title, { color: theme.colors.label.hint }];
 

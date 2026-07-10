@@ -12,3 +12,5 @@ export const UnistylesThemesConstant = {
     newspaperLight: { colors: NewspaperLightTheme.colors, ...UnistylesSharedTokensConstant },
     newspaperDark: { colors: NewspaperDarkTheme.colors, ...UnistylesSharedTokensConstant }
 };
+
+export type UnistylesThemeNameType = keyof typeof UnistylesThemesConstant;

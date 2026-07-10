@@ -1,6 +1,6 @@
 import { Text } from 'react-native';
+import { useUnistyles } from 'react-native-unistyles';
 
-import { useUiTheme } from '../../theme/hooks/use-ui-theme.hook';
 import { AppSurfaceCard } from '../app-surface-card/app-surface-card';
 
 import { AppMetricCardStyles as styles } from './app-metric-card.styles';
@@ -17,7 +17,7 @@ interface Props {
 }
 
 export const AppMetricCard = ({ label, value, testID, size = 'regular', variant = 'default' }: Props) => {
-    const { theme } = useUiTheme();
+    const { theme } = useUnistyles();
     const surfaceVariant = variant === 'inverted' ? 'inverted' : 'muted';
     const labelColor = variant === 'inverted' ? theme.colors.label.inverted : theme.colors.label.hint;
     const valueColor = variant === 'inverted' ? theme.colors.label.inverted : theme.colors.label.main;

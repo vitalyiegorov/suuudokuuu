@@ -1,6 +1,7 @@
-import { UiThemeProvider } from '@suuudokuuu/ui';
 import { DarkTheme, DefaultTheme, ThemeProvider as NavigationThemeProvider } from 'expo-router';
+import { useLayoutEffect } from 'react';
 import { Appearance, Platform } from 'react-native';
+import { UnistylesRuntime } from 'react-native-unistyles';
 
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
@@ -9,6 +10,7 @@ import { settingsKeySelector, settingsThemeSelector } from '../../../settings/st
 import { ThemeContext } from '../../context/theme.context';
 import { ColorSchemaEnum } from '../../enum/color-schema.enum';
 import { getTheme } from '../../utils/get-theme.util';
+import { getUnistylesThemeName } from '../../utils/get-unistyles-theme-name.util';
 
 import type { SettingsState } from '../../../settings/store/settings.state';
 import type { ReactNode } from 'react';
@@ -23,6 +25,12 @@ export const ThemeProvider = ({ children }: Props) => {
     const isDarkColorSchema = useAppSelector(settingsKeySelector('isDarkColorSchema'));
 
     const colorScheme = isDarkColorSchema ? ColorSchemaEnum.Dark : ColorSchemaEnum.Light;
+    const unistylesThemeName = getUnistylesThemeName(selectedTheme, colorScheme);
+
+    useLayoutEffect(() => {
+        UnistylesRuntime.setAdaptiveThemes(false);
+        UnistylesRuntime.setTheme(unistylesThemeName);
+    }, [unistylesThemeName]);
 
     const changeTheme = (theme: SettingsState['theme']) => {
         dispatch(settingsSetAction({ theme }));
@@ -56,9 +64,7 @@ export const ThemeProvider = ({ children }: Props) => {
 
     return (
         <ThemeContext value={value}>
-            <UiThemeProvider theme={theme}>
-                <NavigationThemeProvider value={fullNavigationTheme}>{children}</NavigationThemeProvider>
-            </UiThemeProvider>
+            <NavigationThemeProvider value={fullNavigationTheme}>{children}</NavigationThemeProvider>
         </ThemeContext>
     );
 };

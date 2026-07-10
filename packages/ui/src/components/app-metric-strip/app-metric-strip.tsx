@@ -1,9 +1,8 @@
 import { Fragment } from 'react';
 import { type StyleProp, Text, type TextStyle, View, type ViewStyle } from 'react-native';
+import { useUnistyles } from 'react-native-unistyles';
 
 import { isDefined } from '@rnw-community/shared';
-
-import { useUiTheme } from '../../theme/hooks/use-ui-theme.hook';
 
 import { AppMetricStripStyles as styles } from './app-metric-strip.styles';
 
@@ -23,7 +22,7 @@ interface Props {
 }
 
 export const AppMetricStrip = ({ itemStyle, items, labelStyle, separatorStyle, style, testID, valueStyle, variant = 'primary' }: Props) => {
-    const { theme } = useUiTheme();
+    const { theme } = useUnistyles();
     const isSecondaryVariant = variant === 'secondary';
     const backgroundColor = isSecondaryVariant ? theme.colors.cell.highlighted : theme.colors.black;
     const borderColor = isSecondaryVariant ? theme.colors.value.border : theme.colors.black;

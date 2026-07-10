@@ -1,8 +1,7 @@
 import { type StyleProp, Text, View, type ViewStyle } from 'react-native';
+import { useUnistyles } from 'react-native-unistyles';
 
 import { isDefined, isNotEmptyString } from '@rnw-community/shared';
-
-import { useUiTheme } from '../../theme/hooks/use-ui-theme.hook';
 
 import { AppSettingsRowStyles as styles } from './app-settings-row.styles';
 
@@ -17,7 +16,7 @@ interface Props {
 }
 
 export const AppSettingsRow = ({ description, style, testID, title, trailing }: Props) => {
-    const { theme } = useUiTheme();
+    const { theme } = useUnistyles();
     const rowStyles = [
         styles.row,
         {

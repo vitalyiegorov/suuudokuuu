@@ -1,6 +1,5 @@
 import { type StyleProp, View, type ViewStyle } from 'react-native';
-
-import { useUiTheme } from '../../theme/hooks/use-ui-theme.hook';
+import { useUnistyles } from 'react-native-unistyles';
 
 import { AppProgressBarStyles as styles } from './app-progress-bar.styles';
 
@@ -13,7 +12,7 @@ interface Props {
 }
 
 export const AppProgressBar = ({ percent, size = 'regular', style }: Props) => {
-    const { theme } = useUiTheme();
+    const { theme } = useUnistyles();
     const boundedPercent = Math.max(0, Math.min(100, percent));
     const remainderPercent = 100 - boundedPercent;
     const trackStyles = [styles.track, styles[size], { backgroundColor: theme.colors.value.progress }, style];

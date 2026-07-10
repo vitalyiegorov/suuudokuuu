@@ -1,6 +1,5 @@
 import { Pressable, View } from 'react-native';
-
-import { useUiTheme } from '../../theme/hooks/use-ui-theme.hook';
+import { useUnistyles } from 'react-native-unistyles';
 
 import { AppToggleStyles as styles } from './app-toggle.styles';
 import { AppToggleDisabledOpacity } from './constant/app-toggle-disabled-opacity.constant';
@@ -13,7 +12,7 @@ interface Props {
 }
 
 export const AppToggle = ({ disabled = false, onValueChange, testID, value }: Props) => {
-    const { theme } = useUiTheme();
+    const { theme } = useUnistyles();
     const handlePress = () => {
         if (!disabled) {
             onValueChange(!value);
