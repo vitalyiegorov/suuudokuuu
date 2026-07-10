@@ -1,0 +1,11 @@
+appId: ${APP_ID}
+---
+- runFlow:
+    when:
+      visible: 'Open in.*'
+    commands:
+      - tapOn: 'Open'
+
+- extendedWaitUntil:
+    visible: 'SuuudokuuU'
+    timeout: 120000
