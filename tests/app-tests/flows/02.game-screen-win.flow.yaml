@@ -4,13 +4,20 @@ appId: ${APP_ID}
     path: '02.game-screen-win'
     optional: true
 
-- openLink:
-    link: suuudokuuu://shared/_IGP________9____qXF6FFdMjBWGhJIN-CMqSm5omCUw0KFUm6-t2HxLUAuYMA
-- runFlow:
-    when:
-      visible: 'Open in.*'
+- repeat:
+    times: 3
+    while:
+      notVisible: 'Open puzzle'
     commands:
-      - tapOn: 'Open'
+      - openLink:
+          link: suuudokuuu://shared/_IGP________9____qXF6FFdMjBWGhJIN-CMqSm5omCUw0KFUm6-t2HxLUAuYMA
+      - runFlow:
+          when:
+            visible: 'Open in.*'
+          commands:
+            - tapOn: 'Open'
+      - waitForAnimationToEnd:
+          timeout: 3000
 
 - extendedWaitUntil:
     visible: 'Open puzzle'
