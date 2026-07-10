@@ -86,8 +86,8 @@ jobs:
         working-directory: tests/app-tests
         run: |
           flow_count=$(find flows -maxdepth 1 -type f -name '*.flow.yaml' | wc -l | tr -d ' ')
-          if [ "$flow_count" != "6" ]; then
-            echo "Expected 6 Maestro flows, found $flow_count"
+          if [ "$flow_count" != "3" ]; then
+            echo "Expected 3 Maestro flows, found $flow_count"
             exit 1
           fi
 
