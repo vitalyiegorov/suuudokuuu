@@ -1,5 +1,6 @@
 import { useNavigation } from 'expo-router';
 import { useEffect } from 'react';
+import { InteractionManager } from 'react-native';
 
 import { useAppDispatch } from '../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../@generic/hooks/use-app-selector.hook';
@@ -17,7 +18,9 @@ export const useResumeGameOnSettingsExit = () => {
         () =>
             navigation.addListener('beforeRemove', () => {
                 if (hasStarted && isPaused && shouldResumeOnExit) {
-                    dispatch(gameResumeAction());
+                    void InteractionManager.runAfterInteractions(() => {
+                        dispatch(gameResumeAction());
+                    });
                 }
             }),
         [dispatch, hasStarted, isPaused, navigation, shouldResumeOnExit]
