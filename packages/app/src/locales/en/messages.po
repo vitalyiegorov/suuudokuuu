@@ -171,7 +171,7 @@ msgstr "Each correct placement starts with a base value:"
 msgid "Easy"
 msgstr "Easy"
 
-#: src/screens/components/game-screen/game.screen.tsx:225
+#: src/screens/components/game-screen/game.screen.tsx:230
 msgid "Elapsed"
 msgstr "Elapsed"
 
@@ -336,7 +336,7 @@ msgstr "Medium"
 msgid "Minimum Score"
 msgstr "Minimum Score"
 
-#: src/screens/components/game-screen/game.screen.tsx:208
+#: src/screens/components/game-screen/game.screen.tsx:213
 #: src/scoring/components/scoring.screen.tsx:127
 #: src/history/components/replay-header/replay-header.tsx:29
 #: src/history/components/completed-games-list/completed-game-item.tsx:36
@@ -471,7 +471,7 @@ msgstr "Return"
 msgid "Row"
 msgstr "Row"
 
-#: src/screens/components/game-screen/game.screen.tsx:234
+#: src/screens/components/game-screen/game.screen.tsx:239
 #: src/history/components/replay-header/replay-header.tsx:26
 #: src/history/components/completed-games-list/completed-game-item.tsx:30
 msgid "Score"
