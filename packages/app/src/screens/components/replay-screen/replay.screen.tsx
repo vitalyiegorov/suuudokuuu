@@ -26,7 +26,7 @@ interface Props {
 export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
     const completedGame = useAppSelector(gameCompletedGameByIdSelector(difficulty, completedAt));
     const [currentStep, setCurrentStep] = useState(0);
-    const { width, height } = useAppLayout();
+    const { width, height, sizeClass } = useAppLayout();
     const boardCellSize = useBoardCellSize(width, height);
 
     const gameState = stringToGameState(completedGame?.encodedState);
@@ -46,21 +46,33 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
     };
 
     const { sudoku, highlightedCellKey, elapsedTime } = getSudokuAtStep(gameState, currentStep);
+    const isWideLayout = sizeClass === 'wide';
+    const replayHeader = <ReplayHeader game={completedGame} />;
+    const replayControls = (
+        <ReplayControls
+            currentStep={currentStep}
+            elapsedTime={elapsedTime}
+            onNextStep={handleNextStep}
+            onPrevStep={handlePrevStep}
+            totalSteps={gameState.challengeSteps.length}
+        />
+    );
 
     return (
-        <View style={styles.container}>
+        <View style={styles.container(sizeClass)}>
             <ReplayTopBar />
-            <ReplayHeader game={completedGame} />
-            <View style={styles.fieldWrapper}>
+            {!isWideLayout && replayHeader}
+            <View style={styles.fieldWrapper(sizeClass)}>
                 <ReplayField cellSize={boardCellSize} highlightedCellKey={highlightedCellKey} sudoku={sudoku} />
             </View>
-            <ReplayControls
-                currentStep={currentStep}
-                elapsedTime={elapsedTime}
-                onNextStep={handleNextStep}
-                onPrevStep={handlePrevStep}
-                totalSteps={gameState.challengeSteps.length}
-            />
+            {isWideLayout ? (
+                <View style={styles.controlsColumn}>
+                    {replayHeader}
+                    {replayControls}
+                </View>
+            ) : (
+                replayControls
+            )}
         </View>
     );
 };
