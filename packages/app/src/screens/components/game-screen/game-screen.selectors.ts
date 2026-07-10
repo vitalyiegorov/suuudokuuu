@@ -4,6 +4,7 @@ export enum GameScreenSelectors {
     ShareButton = 'GameScreenSelectors.ShareButton',
     SettingsButton = 'GameScreenSelectors.SettingsButton',
     QuitButton = 'GameScreenSelectors.QuitButton',
+    Time = 'GameScreenSelectors.Time',
     Score = 'GameScreenSelectors.Score',
     MaxMistakesAllowed = 'GameScreenSelectors.MaxMistakesAllowed',
     MistakesCount = 'GameScreenSelectors.MistakesCount'

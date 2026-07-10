@@ -6,63 +6,67 @@ appId: ${APP_ID}
 
 - runFlow: subflows/navigation/launch-home.flow.yaml
 - runFlow: subflows/game/start-new-game.flow.yaml
-- runFlow: subflows/game/open-settings-from-game.flow.yaml
-- tapOn:
-    id: 'HeaderBackButtonSelectors.Root'
-- extendedWaitUntil:
-    visible:
-      id: 'PauseScreenSelectors.Root'
-    timeout: 3000
-- assertVisible:
-    id: 'PauseScreenSelectors.ProgressValue'
-- assertVisible:
-    id: 'PauseScreenSelectors.TimeValue'
 - copyTextFrom:
-    id: 'PauseScreenSelectors.TimeValue'
-- evalScript: ${output.firstPausedSeconds = Number(maestro.copiedText.split(':')[0]) * 60 + Number(maestro.copiedText.split(':')[1])}
+    id: 'GameScreenSelectors.Time'
+- evalScript: ${output.firstRunningSeconds = Number(maestro.copiedText.split(':')[0]) * 60 + Number(maestro.copiedText.split(':')[1])}
+- runFlow: subflows/game/open-settings-from-game.flow.yaml
 - extendedWaitUntil:
     visible:
       id: 'ResumeGameSelectors.IntentionalWaitTarget'
     timeout: 2000
     optional: true
-- copyTextFrom:
-    id: 'PauseScreenSelectors.TimeValue'
-- evalScript: ${output.secondPausedSeconds = Number(maestro.copiedText.split(':')[0]) * 60 + Number(maestro.copiedText.split(':')[1])}
-- assertTrue:
-    condition: ${output.secondPausedSeconds === output.firstPausedSeconds}
-    label: Timer stays unchanged while paused
-- assertVisible:
-    id: 'PauseScreenSelectors.ScoreValue'
-- assertVisible:
-    id: 'PauseScreenSelectors.QuitButton'
-- assertNotVisible:
-    id: 'CellSelectors.Root'
 - tapOn:
-    id: 'PauseScreenSelectors.ResumeButton'
+    id: 'HeaderBackButtonSelectors.Root'
 - extendedWaitUntil:
     visible:
       id: 'GameScreenSelectors.Root'
     timeout: 3000
-- assertVisible:
-    id: 'CellSelectors.Root'
+- copyTextFrom:
+    id: 'GameScreenSelectors.Time'
+- evalScript: ${output.firstReturnedSeconds = Number(maestro.copiedText.split(':')[0]) * 60 + Number(maestro.copiedText.split(':')[1])}
+- assertTrue:
+    condition: ${output.firstReturnedSeconds <= output.firstRunningSeconds + 1}
+    label: Timer stays paused while settings are open
 - extendedWaitUntil:
     visible:
       id: 'ResumeGameSelectors.IntentionalWaitTarget'
     timeout: 2000
     optional: true
+- copyTextFrom:
+    id: 'GameScreenSelectors.Time'
+- evalScript: ${output.firstResumedSeconds = Number(maestro.copiedText.split(':')[0]) * 60 + Number(maestro.copiedText.split(':')[1])}
+- assertTrue:
+    condition: ${output.firstResumedSeconds > output.firstReturnedSeconds}
+    label: Timer resumes after returning from settings
 - runFlow: subflows/game/open-settings-from-game.flow.yaml
+- extendedWaitUntil:
+    visible:
+      id: 'ResumeGameSelectors.IntentionalWaitTarget'
+    timeout: 2000
+    optional: true
 - tapOn:
     id: 'HeaderBackButtonSelectors.Root'
 - extendedWaitUntil:
     visible:
-      id: 'PauseScreenSelectors.Root'
+      id: 'GameScreenSelectors.Root'
     timeout: 3000
 - copyTextFrom:
-    id: 'PauseScreenSelectors.TimeValue'
-- evalScript: ${output.resumedSeconds = Number(maestro.copiedText.split(':')[0]) * 60 + Number(maestro.copiedText.split(':')[1])}
+    id: 'GameScreenSelectors.Time'
+- evalScript: ${output.secondReturnedSeconds = Number(maestro.copiedText.split(':')[0]) * 60 + Number(maestro.copiedText.split(':')[1])}
 - assertTrue:
-    condition: ${output.resumedSeconds > output.firstPausedSeconds}
-    label: Timer advances after resuming gameplay
+    condition: ${output.secondReturnedSeconds <= output.firstResumedSeconds + 1}
+    label: Timer stays paused during a second settings visit
+- extendedWaitUntil:
+    visible:
+      id: 'ResumeGameSelectors.IntentionalWaitTarget'
+    timeout: 2000
+    optional: true
+- copyTextFrom:
+    id: 'GameScreenSelectors.Time'
+- evalScript: ${output.secondResumedSeconds = Number(maestro.copiedText.split(':')[0]) * 60 + Number(maestro.copiedText.split(':')[1])}
+- assertTrue:
+    condition: ${output.secondResumedSeconds > output.secondReturnedSeconds}
+    label: Timer resumes after a second settings visit
 - stopApp
 - runFlow: subflows/navigation/relaunch-home.flow.yaml
 - assertVisible:

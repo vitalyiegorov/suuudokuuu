@@ -56,6 +56,7 @@ export const GameScreenMetrics = ({ elapsedTime, hasTimer, maxMistakes, maxMista
 
     const elapsedItem: AppMetricStripItemInterface = {
         label: t`Time`,
+        testID: GameScreenSelectors.Time,
         value: elapsedTimeText,
         width: GameScreenElapsedMetricWidth
     };
