@@ -1,11 +1,13 @@
 name: Pull Request
 env:
-  MAESTRO_DRIVER_STARTUP_TIMEOUT: "120000"
+  MAESTRO_VERSION: '2.6.1'
+  MAESTRO_DRIVER_STARTUP_TIMEOUT: '300000'
   TURBO_TEAM: vitalyiegorov
   TURBO_TOKEN: ${{ secrets.VERCEL_TOKEN }}
   PR_NUMBER: ${{ github.event.pull_request.number }}
   PR_TITLE: ${{ github.event.pull_request.title }}
-  MAESTRO_CLI_NO_ANALYTICS: false
+  MAESTRO_CLI_NO_ANALYTICS: true
+  MAESTRO_CLI_ANALYSIS_NOTIFICATION_DISABLED: true
   RCT_USE_PREBUILT_RNCORE: 1
   RCT_USE_RN_DEP: 1
 
@@ -26,10 +28,10 @@ jobs:
       pull-requests: write
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 22.x
           cache: yarn
@@ -37,20 +39,25 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
+      - name: Lingui catalogs are up to date
+        run: yarn i18n:check
+
       - name: Lint the PR Title
         run: echo "${{env.PR_TITLE}}" | node_modules/.bin/commitlint
 
       - name: Typescript checks
-        run: yarn turbo ts
+        run: yarn ts
 
       - name: ESLint checks
-        run: yarn turbo lint
+        run: yarn lint
 
       - name: Deadcode detection
-        run: yarn turbo deadcode
+        env:
+          KNIP_DISABLE_RAW_TRANSFER: '1'
+        run: yarn deadcode
 
       - name: Copy/Paste detection
-        run: yarn turbo cpd
+        run: yarn cpd
 
       - name: Unit tests
         run: yarn test:coverage
@@ -61,14 +68,24 @@ jobs:
   e2e-ios:
     needs: code-quality
     name: E2E Tests on iOS
-    if: ${{ !github.event.pull_request.draft }}
     runs-on: macos-latest
-    timeout-minutes: 60
+    timeout-minutes: 90
+    env:
+      METRO_PORT: '8082'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
+
+      - name: Validate Maestro suite
+        working-directory: tests/app-tests
+        run: |
+          flow_count=$(find flows -maxdepth 1 -type f -name '*.flow.yaml' | wc -l | tr -d ' ')
+          if [ "$flow_count" != "6" ]; then
+            echo "Expected 6 Maestro flows, found $flow_count"
+            exit 1
+          fi
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 22.x
           cache: yarn
@@ -76,6 +93,28 @@ jobs:
       - name: Install dependencies
         run: |
           yarn install
+
+      - name: Resolve iOS Metro URL
+        run: |
+          # Expo's localhost mode binds Metro to ::1 on current macOS runners.
+          # Advertise the hostname so curl and the Simulator resolve that listener.
+          metro_host="localhost"
+          metro_url="http://${metro_host}:${METRO_PORT}"
+          dev_client_url="$(python3 - "$metro_url" <<'PY'
+          import sys
+          import urllib.parse
+
+          print(
+              'exp+suuudokuuu://expo-development-client/?url='
+              + urllib.parse.quote(sys.argv[1], safe='')
+          )
+          PY
+          )"
+          echo "Resolved iOS Metro URL: $metro_url"
+          echo "METRO_HOST=$metro_host" >> "$GITHUB_ENV"
+          echo "METRO_URL=$metro_url" >> "$GITHUB_ENV"
+          echo "EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL=$metro_url" >> "$GITHUB_ENV"
+          echo "EXPO_DEV_CLIENT_URL=$dev_client_url" >> "$GITHUB_ENV"
 
       - name: Setup EAS
         uses: expo/expo-github-action@v8
@@ -96,7 +135,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/Library/Developer/Xcode/DerivedData
-          key: xcode-deriveddata-${{ runner.os }}-${{ github.sha }}
+          key: xcode-deriveddata-${{ runner.os }}-${{ hashFiles('yarn.lock', 'packages/app/ios/Podfile.lock', 'packages/app/app.config.js') }}
           restore-keys: xcode-deriveddata-${{ runner.os }}-
 
       - name: Cache iOS dependencies
@@ -105,37 +144,246 @@ jobs:
           path: |
             ~/Library/Caches/CocoaPods
             ~/.cocoapods
-            /packages/app/ios/Pods
-          key: pods-${{ runner.os }}-${{ github.sha }}
+            packages/app/ios/Pods
+          key: pods-${{ runner.os }}-${{ hashFiles('yarn.lock', 'packages/app/ios/Podfile.lock', 'packages/app/package.json') }}
           restore-keys: pods-${{ runner.os }}-
 
       - name: Start iOS Simulator
-        uses: futureware-tech/simulator-action@v4
-        with:
-          model: 'iPhone 17 Pro'
+        run: |
+          booted_simulator_udid="$(python3 <<'PY'
+          import json
+          import subprocess
 
-      - name: Build and install app
+          simulator_metadata = json.loads(
+              subprocess.check_output(['xcrun', 'simctl', 'list', '-j', 'devicetypes', 'runtimes'])
+          )
+
+          available_runtimes = [
+              runtime
+              for runtime in simulator_metadata['runtimes']
+              if runtime.get('isAvailable')
+              and runtime.get('identifier', '').startswith('com.apple.CoreSimulator.SimRuntime.iOS')
+          ]
+          available_runtimes.sort(key=lambda runtime: runtime.get('version', ''), reverse=True)
+
+          preferred_device_names = [
+              'iPhone 17',
+              'iPhone Air',
+              'iPhone 16',
+              'iPhone 15',
+              'iPhone 14',
+              'iPhone 17 Pro',
+          ]
+          device_types_by_name = {
+              device_type['name']: device_type['identifier']
+              for device_type in simulator_metadata['devicetypes']
+              if device_type.get('productFamily') == 'iPhone'
+          }
+          preferred_device_identifier = next(
+              (
+                  device_types_by_name[device_name]
+                  for device_name in preferred_device_names
+                  if device_name in device_types_by_name
+              ),
+              None,
+          )
+          fallback_device_identifier = next(
+              (
+                  device_type['identifier']
+                  for device_type in simulator_metadata['devicetypes']
+                  if device_type.get('productFamily') == 'iPhone'
+                  and 'Pro Max' not in device_type.get('name', '')
+              ),
+              None,
+          )
+
+          device_identifier = preferred_device_identifier or fallback_device_identifier
+          runtime_identifier = available_runtimes[0]['identifier']
+
+          print(
+              subprocess.check_output(
+                  ['xcrun', 'simctl', 'create', 'Suuudokuuu E2E', device_identifier, runtime_identifier],
+                  text=True,
+              ).strip()
+          )
+          PY
+          )"
+          echo "BOOTED_SIMULATOR_UDID=$booted_simulator_udid" >> "$GITHUB_ENV"
+          xcrun simctl boot "$booted_simulator_udid"
+          xcrun simctl bootstatus "$booted_simulator_udid" -b
+          xcrun simctl list devices booted
+
+      - name: Build app
         working-directory: packages/app
         run: |
           eas build --profile=e2e --platform ios --non-interactive --local --output app.ios.tar.gz
+
+      - name: Prepare app artifact
+        working-directory: packages/app
+        run: |
           rm -rf ios-build
           mkdir -p ios-build
           tar -xzf app.ios.tar.gz -C ios-build
-          app_path="$(find ios-build -maxdepth 3 -name '*.app' -type d | head -n 1)"
-          test -n "$app_path"
-          xcrun simctl bootstatus booted -b
-          xcrun simctl install booted "$app_path"
-          xcrun simctl launch booted com.vitalyiegorov.suuudokuuu.preview
+          app_path="$(find "$PWD/ios-build" -name '*.app' -type d -print -quit)"
+          if [ -z "$app_path" ]; then
+            echo "No .app bundle found in app.ios.tar.gz"
+            find "$PWD/ios-build" -maxdepth 4 -print
+            exit 1
+          fi
+          echo "Prepared iOS app: $app_path"
+          if default_url="$(/usr/libexec/PlistBuddy -c 'Print :DEV_CLIENT_DEFAULT_LAUNCHER_URL' "$app_path/Info.plist" 2>/dev/null)"; then
+            echo "Embedded dev client default URL: $default_url"
+            if [ "$default_url" != "$EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL" ]; then
+              echo "Embedded dev client default URL differs from explicit Maestro launch URL."
+              exit 1
+            fi
+          else
+            echo "Info.plist has no DEV_CLIENT_DEFAULT_LAUNCHER_URL; Maestro opens $EXPO_DEV_CLIENT_URL explicitly."
+          fi
+          echo "Expected explicit dev client URL: $EXPO_DEV_CLIENT_URL"
+          echo "IOS_APP_PATH=$app_path" >> "$GITHUB_ENV"
+
+      - name: Install app on iOS Simulator
+        timeout-minutes: 10
+        run: |
+          xcrun simctl list devices booted
+          booted_simulator_udid="$BOOTED_SIMULATOR_UDID"
+          test -n "$booted_simulator_udid"
+          xcrun simctl bootstatus "$booted_simulator_udid" -b
+          test -d "$IOS_APP_PATH"
+          install_app() {
+            python3 - "$booted_simulator_udid" "$IOS_APP_PATH" <<'PY'
+          import subprocess
+          import sys
+
+          simulator_udid = sys.argv[1]
+          app_path = sys.argv[2]
+
+          subprocess.run(
+              ['xcrun', 'simctl', 'install', simulator_udid, app_path],
+              check=True,
+              timeout=120,
+          )
+          PY
+          }
+          for attempt in 1 2 3; do
+            echo "Installing app on $booted_simulator_udid (${attempt}/3)"
+            if install_app; then
+              exit 0
+            fi
+            xcrun simctl uninstall "$booted_simulator_udid" com.vitalyiegorov.suuudokuuu.preview || true
+            xcrun simctl shutdown "$booted_simulator_udid" || true
+            xcrun simctl boot "$booted_simulator_udid"
+            xcrun simctl bootstatus "$booted_simulator_udid" -b
+            sleep 10
+          done
+          exit 1
 
       - name: Install Maestro
         run: |
-          export MAESTRO_VERSION=2.0.3; curl -fsSL "https://get.maestro.mobile.dev" | bash
-          echo "$HOME/.maestro/bin" >> $GITHUB_PATH
+          export MAESTRO_VERSION
+          curl -fsSL "https://get.maestro.mobile.dev" | bash
+          export PATH="$HOME/.maestro/bin:$PATH"
+          installed_maestro_version="$(maestro --version)"
+          echo "Installed Maestro $installed_maestro_version"
+          test "$installed_maestro_version" = "$MAESTRO_VERSION"
+          echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
+
+      - name: Prepare iOS E2E artifact directories
+        run: |
+          mkdir -p tests/app-tests/artifacts/maestro
+          mkdir -p tests/app-tests/artifacts/simulator
+          mkdir -p tests/app-tests/artifacts/diagnostics
+
+      - name: Start iOS Simulator log capture
+        run: |
+          artifact_directory="$GITHUB_WORKSPACE/tests/app-tests/artifacts/simulator"
+          xcrun simctl spawn "$BOOTED_SIMULATOR_UDID" log stream --style compact --level debug > "$artifact_directory/simulator.log" 2>&1 &
+          echo $! > "$artifact_directory/simulator-log.pid"
+
+      - name: Start Metro dev server
+        run: |
+          env -u CI EXPO_NO_TELEMETRY=1 REACT_NATIVE_PACKAGER_HOSTNAME="$METRO_HOST" yarn workspace @suuudokuuu/app expo start --dev-client --host localhost --port "$METRO_PORT" > tests/app-tests/metro.log 2>&1 &
+          echo $! > tests/app-tests/metro.pid
+          for attempt in {1..180}; do
+            if curl --silent --fail "$METRO_URL/status" | grep --quiet 'packager-status:running'; then
+              exit 0
+            fi
+            if (( attempt % 15 == 0 )); then
+              echo "Waiting for Metro at $METRO_URL (${attempt}/180)..."
+              tail -n 40 tests/app-tests/metro.log || true
+            fi
+            sleep 2
+          done
+          curl --verbose "$METRO_URL/status" || true
+          curl --verbose "http://localhost:${METRO_PORT}/status" || true
+          curl --verbose "http://127.0.0.1:${METRO_PORT}/status" || true
+          lsof -nP -iTCP:"${METRO_PORT}" -sTCP:LISTEN || true
+          ps -ef | grep -E 'expo|metro|node' | grep -v grep || true
+          cat tests/app-tests/metro.log
+          exit 1
+
+      - name: Prime iOS dev client bundle
+        run: |
+          curl --silent --fail --max-time 2 "$METRO_URL/status" | grep --quiet 'packager-status:running'
+          bundle_url="${METRO_URL}/packages/app/index.bundle?platform=ios&dev=true&hot=false&lazy=true&transform.engine=hermes&transform.bytecode=1&transform.routerRoot=src/app&transform.reactCompiler=true&unstable_transformProfile=hermes-stable"
+          for attempt in {1..5}; do
+            echo "Warming iOS bundle (${attempt}/5)..."
+            if curl --silent --show-error --fail --max-time 180 "$bundle_url" --output /tmp/suuudokuuu-ios.bundle; then
+              test -s /tmp/suuudokuuu-ios.bundle
+              break
+            fi
+            tail -n 80 tests/app-tests/metro.log || true
+            sleep 5
+          done
+          test -s /tmp/suuudokuuu-ios.bundle
+          tail -n 80 tests/app-tests/metro.log || true
+
+      - name: Launch iOS dev client project
+        run: |
+          xcrun simctl bootstatus "$BOOTED_SIMULATOR_UDID" -b
+          xcrun simctl openurl "$BOOTED_SIMULATOR_UDID" "$EXPO_DEV_CLIENT_URL"
+          sleep 10
 
       - name: Run Maestro UI tests
+        timeout-minutes: 20
         working-directory: tests/app-tests
+        shell: bash
         run: |
-          maestro test flows -e APP_ID=com.vitalyiegorov.suuudokuuu.preview --format junit  --config config.yaml --debug-output ./
+          set -euo pipefail
+          maestro test \
+            --udid "$BOOTED_SIMULATOR_UDID" \
+            -e APP_ID=com.vitalyiegorov.suuudokuuu.preview \
+            -e DEV_CLIENT_LINK="$EXPO_DEV_CLIENT_URL" \
+            -e METRO_URL="$METRO_URL" \
+            --format junit \
+            --output ./artifacts/maestro/report.xml \
+            --config config.yaml \
+            --debug-output ./artifacts/maestro \
+            --test-output-dir ./artifacts/maestro \
+            . 2>&1 | tee ./artifacts/maestro/maestro-console.log
+
+      - name: Stop iOS Simulator captures
+        if: always()
+        run: |
+          artifact_directory="$GITHUB_WORKSPACE/tests/app-tests/artifacts/simulator"
+          diagnostic_directory="$GITHUB_WORKSPACE/tests/app-tests/artifacts/diagnostics"
+          xcrun simctl io "$BOOTED_SIMULATOR_UDID" screenshot "$artifact_directory/final-screen.png" || true
+
+          if [ -f "$artifact_directory/simulator-log.pid" ]; then
+            kill "$(cat "$artifact_directory/simulator-log.pid")" || true
+          fi
+
+          find "$HOME/Library/Logs/DiagnosticReports" -maxdepth 1 -type f \
+            \( -name 'suuudokuuu*' -o -name 'Suuudokuuu*' -o -name 'maestro*' -o -name 'Maestro*' -o -name 'JetsamEvent*' \) \
+            -exec cp {} "$diagnostic_directory/" \; || true
+
+      - name: Stop Metro dev server
+        if: always()
+        run: |
+          if [ -f tests/app-tests/metro.pid ]; then
+            kill "$(cat tests/app-tests/metro.pid)" || true
+          fi
 
       - name: Upload Maestro artifacts (report, logs, videos, screenshots)
         if: always()
@@ -144,17 +392,19 @@ jobs:
           name: maestro-ios-artifacts
           include-hidden-files: true
           path: |
+            tests/app-tests/artifacts/**
             tests/app-tests/.maestro/**
+            tests/app-tests/metro.log
             tests/app-tests/*.mp4
 
   e2e-android:
     needs: code-quality
     name: E2E Tests on Android
     if: ${{ false }}
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux-burst]
     timeout-minutes: 60
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Enable KVM group perms
         run: |
@@ -163,7 +413,7 @@ jobs:
           sudo udevadm trigger --name-match=kvm
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 22.x
           cache: yarn
@@ -207,8 +457,9 @@ jobs:
 
       - name: Install Maestro
         run: |
-          export MAESTRO_VERSION=2.0.3; curl -fsSL "https://get.maestro.mobile.dev" | bash
-          echo "$HOME/.maestro/bin" >> $GITHUB_PATH
+          export MAESTRO_VERSION
+          curl -fsSL "https://get.maestro.mobile.dev" | bash
+          echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
 
       - name: Сreate AVD and generate snapshot for caching
         if: steps.avd-cache.outputs.cache-hit != 'true'
@@ -236,7 +487,11 @@ jobs:
           working-directory: tests/app-tests
           script: |
             cd ../../packages/app && eas build:run --platform android --path app.android.apk
-            maestro test flows -e APP_ID=com.vitaliiyehorov.suuudokuuu.preview --config config.yaml --format junit --output ./report.xml --debug-output ./ && killall -INT crashpad_handler
+            cd ../../tests/app-tests
+            maestro_status=0
+            maestro test . -e APP_ID=com.vitalyiegorov.suuudokuuu.preview --config config.yaml --format junit --output ./report.xml --debug-output ./ || maestro_status=$?
+            killall -INT crashpad_handler || true
+            exit "$maestro_status"
 
       - name: Upload Maestro artifacts (report, logs, videos, screenshots)
         if: always()

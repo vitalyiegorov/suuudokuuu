@@ -16,6 +16,10 @@ permissions:
   contents: write
   pull-requests: write
 
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
 jobs:
   release:
     name: Publish a release

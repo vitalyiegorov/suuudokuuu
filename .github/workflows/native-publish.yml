@@ -9,10 +9,14 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: suuudokuuu-native-publish
+  cancel-in-progress: false
+
 jobs:
   build-and-publish:
     name: Build & Submit iOS to App Store
-    runs-on: [self-hosted, macOS, ARM64, macos-tartelet]
+    runs-on: macos-latest
     timeout-minutes: 120
     steps:
       - name: Checkout repository
