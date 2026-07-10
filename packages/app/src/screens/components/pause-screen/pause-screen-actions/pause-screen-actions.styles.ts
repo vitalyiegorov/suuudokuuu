@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const PauseScreenActionsStyles = StyleSheet.create({
+export const PauseScreenActionsStyles = StyleSheet.create(() => ({
     container: {
         gap: 10,
         width: '100%'
@@ -27,4 +27,4 @@ export const PauseScreenActionsStyles = StyleSheet.create({
         fontSize: 15,
         lineHeight: 19
     }
-});
+}));

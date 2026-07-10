@@ -1,9 +1,9 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const PauseScreenHeaderStyles = StyleSheet.create({
+export const PauseScreenHeaderStyles = StyleSheet.create(theme => ({
     details: {
         flexShrink: 1,
-        fontSize: 14,
+        fontSize: theme.typography.size.sm,
         fontWeight: '800',
         lineHeight: 18,
         textAlign: 'right'
@@ -26,4 +26,4 @@ export const PauseScreenHeaderStyles = StyleSheet.create({
         flexShrink: 1,
         gap: 9
     }
-});
+}));

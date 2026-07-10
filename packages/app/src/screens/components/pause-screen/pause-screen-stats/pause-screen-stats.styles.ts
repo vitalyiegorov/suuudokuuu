@@ -1,9 +1,9 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const PauseScreenStatsStyles = StyleSheet.create({
+export const PauseScreenStatsStyles = StyleSheet.create(theme => ({
     container: {
         flexDirection: 'row',
-        gap: 8,
+        gap: theme.spacing.sm,
         width: '100%'
     }
-});
+}));

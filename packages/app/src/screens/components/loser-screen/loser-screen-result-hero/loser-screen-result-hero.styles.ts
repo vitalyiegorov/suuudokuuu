@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const LoserScreenResultHeroStyles = StyleSheet.create({
+export const LoserScreenResultHeroStyles = StyleSheet.create(theme => ({
     container: {
         alignItems: 'center',
         gap: 14,
@@ -8,10 +8,10 @@ export const LoserScreenResultHeroStyles = StyleSheet.create({
     },
     detailsPill: {
         borderCurve: 'continuous',
-        borderRadius: 999,
+        borderRadius: theme.radius.pill,
         maxWidth: '100%',
         paddingHorizontal: 18,
-        paddingVertical: 8
+        paddingVertical: theme.spacing.sm
     },
     detailsText: {
         fontSize: 15,
@@ -20,10 +20,10 @@ export const LoserScreenResultHeroStyles = StyleSheet.create({
         textAlign: 'center'
     },
     eyebrow: {
-        fontSize: 14,
+        fontSize: theme.typography.size.sm,
         fontWeight: '900',
         lineHeight: 18,
-        marginTop: 8,
+        marginTop: theme.spacing.sm,
         textAlign: 'center',
         textTransform: 'uppercase'
     },
@@ -44,12 +44,12 @@ export const LoserScreenResultHeroStyles = StyleSheet.create({
     reasonPill: {
         alignItems: 'center',
         borderCurve: 'continuous',
-        borderRadius: 999,
+        borderRadius: theme.radius.pill,
         borderWidth: StyleSheet.hairlineWidth,
         flexDirection: 'row',
-        gap: 8,
+        gap: theme.spacing.sm,
         paddingHorizontal: 16,
-        paddingVertical: 8
+        paddingVertical: theme.spacing.sm
     },
     reasonText: {
         fontSize: 15,
@@ -62,4 +62,4 @@ export const LoserScreenResultHeroStyles = StyleSheet.create({
         lineHeight: 39,
         textAlign: 'center'
     }
-});
+}));

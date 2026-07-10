@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const PauseScreenUkraineCardStyles = StyleSheet.create({
+export const PauseScreenUkraineCardStyles = StyleSheet.create(theme => ({
     button: {
         marginTop: 14,
         width: '100%'
@@ -13,10 +13,10 @@ export const PauseScreenUkraineCardStyles = StyleSheet.create({
         width: '100%'
     },
     description: {
-        fontSize: 14,
+        fontSize: theme.typography.size.sm,
         fontWeight: '700',
         lineHeight: 20,
-        marginTop: 12
+        marginTop: theme.spacing.md
     },
     flag: {
         marginLeft: 0,
@@ -33,4 +33,4 @@ export const PauseScreenUkraineCardStyles = StyleSheet.create({
         flexDirection: 'row',
         width: '100%'
     }
-});
+}));

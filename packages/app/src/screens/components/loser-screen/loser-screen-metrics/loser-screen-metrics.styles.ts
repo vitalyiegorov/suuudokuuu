@@ -1,9 +1,9 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const LoserScreenMetricsStyles = StyleSheet.create({
+export const LoserScreenMetricsStyles = StyleSheet.create(theme => ({
     container: {
         flexDirection: 'row',
-        gap: 12,
+        gap: theme.spacing.md,
         width: '100%'
     }
-});
+}));

@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const LoserScreenUkraineCardStyles = StyleSheet.create({
+export const LoserScreenUkraineCardStyles = StyleSheet.create(theme => ({
     button: {
         flexShrink: 0
     },
@@ -13,7 +13,7 @@ export const LoserScreenUkraineCardStyles = StyleSheet.create({
         gap: 14
     },
     description: {
-        fontSize: 14,
+        fontSize: theme.typography.size.sm,
         fontWeight: '800',
         lineHeight: 19,
         marginTop: 2
@@ -29,4 +29,4 @@ export const LoserScreenUkraineCardStyles = StyleSheet.create({
         fontWeight: '900',
         lineHeight: 24
     }
-});
+}));
