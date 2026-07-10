@@ -40,7 +40,14 @@ jobs:
         run: yarn install
 
       - name: Lingui catalogs are up to date
-        run: yarn i18n:check
+        run: |
+          yarn workspace @suuudokuuu/app i18n:sync
+
+          if ! git diff --quiet HEAD -- packages/app/src/locales; then
+            echo "::error::Lingui catalogs are stale. Run 'yarn workspace @suuudokuuu/app i18n:sync' and commit the generated files."
+            git diff --name-only HEAD -- packages/app/src/locales
+            exit 1
+          fi
 
       - name: Lint the PR Title
         run: echo "${{env.PR_TITLE}}" | node_modules/.bin/commitlint
