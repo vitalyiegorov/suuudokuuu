@@ -203,7 +203,8 @@ export const GameScreen = () => {
         availableValuesRefs.current[value] = ref;
     };
 
-    useKeyboardControls(sudoku, selectedCell, handleSelectCell, handleSelectValue, handleExit);
+    const keyboardControlsElement = useKeyboardControls(sudoku, selectedCell, handleSelectCell, handleSelectValue, handleExit);
+
     const hideAutoCandidates = maxMistakes === 0;
     const actionIconColor = theme.colors.label.main;
 
@@ -237,6 +238,7 @@ export const GameScreen = () => {
             testID={GameScreenSelectors.Root}
         >
             <GameTimerController />
+            {keyboardControlsElement}
             {isChallengeMode && <ChallengeProgressBar />}
             <View style={styles.boardArea(sizeClass)}>
                 <Field cellSize={boardCellSize} onSelect={handleSelectCell} ref={fieldRef} selectedCell={selectedCell} />
