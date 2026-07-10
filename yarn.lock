@@ -4787,6 +4787,7 @@ __metadata:
   dependencies:
     "@babel/core": "npm:^7.29.7"
     "@expo-google-fonts/inter": "npm:^0.4.2"
+    "@expo/config-plugins": "npm:~57.0.2"
     "@expo/fingerprint": "npm:~0.20.3"
     "@expo/ui": "npm:~57.0.4"
     "@formatjs/intl-pluralrules": "npm:^6.3.10"

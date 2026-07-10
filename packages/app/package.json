@@ -20,6 +20,7 @@
     },
     "dependencies": {
         "@expo-google-fonts/inter": "^0.4.2",
+        "@expo/config-plugins": "~57.0.2",
         "@expo/fingerprint": "~0.20.3",
         "@expo/ui": "~57.0.4",
         "@formatjs/intl-pluralrules": "^6.3.10",

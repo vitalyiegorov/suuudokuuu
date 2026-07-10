@@ -1,3 +1,5 @@
+import { withAndroidManifest } from '@expo/config-plugins';
+
 import rootPkg from './package.json';
 
 const APP_VARIANT = process.env.APP_VARIANT;
@@ -40,6 +42,19 @@ const getAppName = () => {
     return 'suuudokuuu';
 };
 
+const withPortraitLockedAndroid = config =>
+    withAndroidManifest(config, mod => {
+        const mainActivity = mod.modResults.manifest.application?.[0]?.activity?.find(
+            activity => activity.$['android:name'] === '.MainActivity'
+        );
+
+        if (mainActivity) {
+            mainActivity.$['android:screenOrientation'] = 'portrait';
+        }
+
+        return mod;
+    });
+
 const getExpoDevClientConfig = () => ({
     showMenuAtLaunch: false,
     skipOnboarding: true,
@@ -50,106 +65,113 @@ const getExpoDevClientConfig = () => ({
     })
 });
 
-export default ({ config }) => ({
-    ...config,
-    name: getAppName(),
-    slug: 'suuudokuuu',
-    scheme: 'suuudokuuu',
-    version: rootPkg.version,
-    orientation: 'portrait',
-    icon: './assets/icon.png',
-    userInterfaceStyle: 'automatic',
-    splash: {
-        image: './assets/splash.png',
-        resizeMode: 'contain',
-        backgroundColor: '#000000'
-    },
-    assetBundlePatterns: ['**/*'],
-    ios: {
-        supportsTablet: true,
-        bundleIdentifier: getUniqueIdentifier(false),
-        config: {
-            usesNonExemptEncryption: false
-        },
-        associatedDomains: ['applinks:suuudokuuu.com', 'applinks:www.suuudokuuu.com'],
-        infoPlist: {
-            NSPhotoLibraryUsageDescription: 'This app needs access to your photo library to share game results and screenshots.'
-        }
-    },
-    android: {
-        adaptiveIcon: {
-            foregroundImage: './assets/adaptive-icon.png',
+export default ({ config }) =>
+    withPortraitLockedAndroid({
+        ...config,
+        name: getAppName(),
+        slug: 'suuudokuuu',
+        scheme: 'suuudokuuu',
+        version: rootPkg.version,
+        icon: './assets/icon.png',
+        userInterfaceStyle: 'automatic',
+        splash: {
+            image: './assets/splash.png',
+            resizeMode: 'contain',
             backgroundColor: '#000000'
         },
-        package: getUniqueIdentifier(true),
-        intentFilters: [
-            {
-                action: 'VIEW',
-                autoVerify: true,
-                data: [
-                    {
-                        scheme: 'https',
-                        host: '*.suuudokuuu.com',
-                        pathPrefix: '/'
-                    },
-                    {
-                        scheme: 'https',
-                        host: 'suuudokuuu.com',
-                        pathPrefix: '/'
-                    }
-                ],
-                category: ['BROWSABLE', 'DEFAULT']
+        assetBundlePatterns: ['**/*'],
+        ios: {
+            supportsTablet: true,
+            bundleIdentifier: getUniqueIdentifier(false),
+            config: {
+                usesNonExemptEncryption: false
+            },
+            associatedDomains: ['applinks:suuudokuuu.com', 'applinks:www.suuudokuuu.com'],
+            infoPlist: {
+                NSPhotoLibraryUsageDescription: 'This app needs access to your photo library to share game results and screenshots.',
+                UISupportedInterfaceOrientations: ['UIInterfaceOrientationPortrait'],
+                'UISupportedInterfaceOrientations~ipad': [
+                    'UIInterfaceOrientationPortrait',
+                    'UIInterfaceOrientationPortraitUpsideDown',
+                    'UIInterfaceOrientationLandscapeLeft',
+                    'UIInterfaceOrientationLandscapeRight'
+                ]
             }
-        ]
-    },
-    web: {
-        favicon: './assets/favicon.png',
-        bundler: 'metro'
-    },
-    extra: {
-        eas: {
-            projectId: '4a70028a-5f9e-4ab6-9389-82d8b8b6c833'
-        }
-    },
-    owner: 'vitalyiegorov',
-    updates: {
-        enabled: !IS_E2E,
-        url: 'https://u.expo.dev/4a70028a-5f9e-4ab6-9389-82d8b8b6c833'
-    },
-    plugins: [
-        [
-            'expo-build-properties',
-            {
-                buildReactNativeFromSource: false,
-                useHermesV1: true,
-                ios: {
-                    ccacheEnabled: true,
-                    usePrecompiledModules: true
+        },
+        android: {
+            adaptiveIcon: {
+                foregroundImage: './assets/adaptive-icon.png',
+                backgroundColor: '#000000'
+            },
+            package: getUniqueIdentifier(true),
+            intentFilters: [
+                {
+                    action: 'VIEW',
+                    autoVerify: true,
+                    data: [
+                        {
+                            scheme: 'https',
+                            host: '*.suuudokuuu.com',
+                            pathPrefix: '/'
+                        },
+                        {
+                            scheme: 'https',
+                            host: 'suuudokuuu.com',
+                            pathPrefix: '/'
+                        }
+                    ],
+                    category: ['BROWSABLE', 'DEFAULT']
                 }
+            ]
+        },
+        web: {
+            favicon: './assets/favicon.png',
+            bundler: 'metro'
+        },
+        extra: {
+            eas: {
+                projectId: '4a70028a-5f9e-4ab6-9389-82d8b8b6c833'
             }
+        },
+        owner: 'vitalyiegorov',
+        updates: {
+            enabled: !IS_E2E,
+            url: 'https://u.expo.dev/4a70028a-5f9e-4ab6-9389-82d8b8b6c833'
+        },
+        plugins: [
+            [
+                'expo-build-properties',
+                {
+                    buildReactNativeFromSource: false,
+                    useHermesV1: true,
+                    ios: {
+                        ccacheEnabled: true,
+                        usePrecompiledModules: true
+                    }
+                }
+            ],
+            'expo-localization',
+            'expo-sharing',
+            'expo-splash-screen',
+            'expo-sqlite',
+            'expo-status-bar',
+            ['expo-dev-client', getExpoDevClientConfig()],
+            ['expo-router', { origin: 'https://www.suuudokuuu.com/' }],
+            ['expo-font', { fonts: ['../../node_modules/@expo-google-fonts/inter/900Black/Inter_900Black.ttf'] }],
+            [
+                'react-native-share',
+                {
+                    ios: ['fb', 'instagram', 'twitter', 'tiktoksharesdk'],
+                    android: ['com.facebook.katana', 'com.instagram.android', 'com.twitter.android', 'com.zhiliaoapp.musically'],
+                    enableBase64ShareAndroid: true
+                }
+            ]
         ],
-        'expo-localization',
-        'expo-sharing',
-        'expo-splash-screen',
-        'expo-sqlite',
-        'expo-status-bar',
-        ['expo-dev-client', getExpoDevClientConfig()],
-        ['expo-router', { origin: 'https://www.suuudokuuu.com/' }],
-        ['expo-font', { fonts: ['../../node_modules/@expo-google-fonts/inter/900Black/Inter_900Black.ttf'] }],
-        [
-            'react-native-share',
-            {
-                ios: ['fb', 'instagram', 'twitter', 'tiktoksharesdk'],
-                android: ['com.facebook.katana', 'com.instagram.android', 'com.twitter.android', 'com.zhiliaoapp.musically'],
-                enableBase64ShareAndroid: true
-            }
-        ]
-    ],
-    buildCacheProvider: 'eas',
-    experiments: {
-        reactCompiler: true
-    },
-    runtimeVersion: {
-        policy: 'fingerprint'
-    }
-});
+        buildCacheProvider: 'eas',
+        experiments: {
+            reactCompiler: true
+        },
+        runtimeVersion: {
+            policy: 'fingerprint'
+        }
+    });
