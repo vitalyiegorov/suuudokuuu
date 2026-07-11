@@ -3,6 +3,7 @@ import rootPkg from './package.json';
 const APP_VARIANT = process.env.APP_VARIANT;
 const EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL = process.env.EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL;
 const IS_DEV = APP_VARIANT === 'development';
+const IS_E2E = APP_VARIANT === 'e2e';
 const IS_PREVIEW = APP_VARIANT === 'preview';
 
 const getUniqueIdentifier = isAndroid => {
@@ -16,6 +17,10 @@ const getUniqueIdentifier = isAndroid => {
         return `${prefix}.preview`;
     }
 
+    if (IS_E2E) {
+        return `${prefix}.e2e`;
+    }
+
     return prefix;
 };
 
@@ -26,6 +31,10 @@ const getAppName = () => {
 
     if (IS_PREVIEW) {
         return 'suuudokuuu (Preview)';
+    }
+
+    if (IS_E2E) {
+        return 'suuudokuuu (E2E)';
     }
 
     return 'suuudokuuu';
@@ -104,6 +113,7 @@ export default ({ config }) => ({
     },
     owner: 'vitalyiegorov',
     updates: {
+        enabled: !IS_E2E,
         url: 'https://u.expo.dev/4a70028a-5f9e-4ab6-9389-82d8b8b6c833'
     },
     plugins: [
