@@ -5,12 +5,7 @@ appId: ${APP_ID}
     env:
       SHARED_CHALLENGE_LINK: ${SHARED_CHALLENGE_LINK}
 - assertVisible: 'Your opponent completed this puzzle in'
-- tapOn:
-    id: 'ChallengeAcceptScreenSelectors.AcceptButton'
-- extendedWaitUntil:
-    visible:
-      id: 'GameScreenSelectors.Root'
-    timeout: 10000
+- runFlow: accept-shared-challenge.flow.yaml
 - tapOn:
     id: 'CellSelectors.Root'
     index: 54

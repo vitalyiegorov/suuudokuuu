@@ -9,12 +9,7 @@ appId: ${APP_ID}
     file: subflows/shared/open-shared-challenge.flow.yaml
     env:
       SHARED_CHALLENGE_LINK: suuudokuuu://shared/IwBmC4EAAAA0EQDBACAFQTAMOoIECQAggCIB0AY%2BAKoE4BxgRoAgAiAEwByAsgFLwDKAmhW4A2WgBUAzwHyAJHgAhARQBYASQBSASwC54ABQBQ5gEqAqgCaAQwC0A0oYL0RAGQCLAbYDUAdwAOAHIAhgALAN0A7EQAbwD6AMwAjzggAEYAyADCABIA0QAoAMf5PgAJAE4ASgDKdgCZAPEALADlACKJAAWd8eAAkMwAAxDxEMBAA
-- tapOn:
-    id: 'ChallengeAcceptScreenSelectors.AcceptButton'
-- extendedWaitUntil:
-    visible:
-      id: 'GameScreenSelectors.Root'
-    timeout: 3000
+- runFlow: subflows/shared/accept-shared-challenge.flow.yaml
 - assertVisible: '0/3'
 - tapOn:
     id: 'CellSelectors.Root'
