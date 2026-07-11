@@ -21,7 +21,6 @@ recovery_flow_paths = %w[
   subflows/navigation/launch-home.flow.yaml
   subflows/navigation/move-dev-tools-button-away-if-visible.flow.yaml
   subflows/navigation/open-dev-client-url-manually-if-needed.flow.yaml
-  subflows/navigation/prime-deep-links.flow.yaml
   subflows/navigation/relaunch-home.flow.yaml
   subflows/navigation/reload-dev-client-project-if-needed.flow.yaml
 ]
