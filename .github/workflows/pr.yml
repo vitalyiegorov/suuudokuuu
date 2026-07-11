@@ -73,8 +73,9 @@ jobs:
         uses: codecov/codecov-action@v3
 
   e2e-ios:
+    if: ${{ false }} # Replaced by the embedded, two-shard workflow below.
     needs: code-quality
-    name: E2E Tests on iOS
+    name: Legacy dev-client E2E (disabled)
     runs-on: macos-latest
     timeout-minutes: 90
     env:
@@ -406,6 +407,11 @@ jobs:
             tests/app-tests/.maestro/**
             tests/app-tests/metro.log
             tests/app-tests/*.mp4
+
+  ios-maestro:
+    needs: code-quality
+    uses: ./.github/workflows/ios-maestro.yml
+    secrets: inherit
 
   e2e-android:
     needs: code-quality

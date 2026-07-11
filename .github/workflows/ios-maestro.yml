@@ -1,0 +1,203 @@
+name: iOS Maestro
+
+on:
+  workflow_call:
+
+env:
+  MAESTRO_VERSION: '2.6.1'
+  MAESTRO_DRIVER_STARTUP_TIMEOUT: '300000'
+  MAESTRO_CLI_NO_ANALYTICS: true
+  MAESTRO_CLI_ANALYSIS_NOTIFICATION_DISABLED: true
+
+jobs:
+  build:
+    name: Build embedded iOS E2E app
+    runs-on: [self-hosted, macOS, ARM64, macos-tartelet]
+    timeout-minutes: 90
+    env:
+      APP_VARIANT: e2e
+      RCT_USE_PREBUILT_RNCORE: '1'
+      RCT_USE_RN_DEP: '1'
+      IOS_DERIVED_DATA: ${{ github.workspace }}/.ci-cache/DerivedData/suuudokuuu-e2e
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22.x
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Select Xcode
+        run: |
+          if [ -d /Applications/Xcode_26.4.1.app ]; then
+            xcode_app=/Applications/Xcode_26.4.1.app
+          elif [ -d /Applications/Xcode.app ]; then
+            xcode_app=/Applications/Xcode.app
+          else
+            echo '::error::A supported Xcode installation was not found.'
+            exit 1
+          fi
+          echo "DEVELOPER_DIR=$xcode_app/Contents/Developer" >> "$GITHUB_ENV"
+          "$xcode_app/Contents/Developer/usr/bin/xcodebuild" -version
+
+      - name: Restore CocoaPods cache
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            ~/Library/Caches/CocoaPods
+            ~/.cocoapods
+          key: pods-${{ runner.os }}-e2e-${{ hashFiles('yarn.lock', 'packages/app/package.json', 'packages/app/app.config.js') }}
+          restore-keys: pods-${{ runner.os }}-
+
+      - name: Generate native project
+        working-directory: packages/app
+        run: npx expo prebuild -p ios --clean
+
+      - name: Install pods
+        working-directory: packages/app/ios
+        run: pod install
+
+      - name: Build embedded Release app
+        working-directory: packages/app/ios
+        run: |
+          workspace=$(find . -maxdepth 1 -name '*.xcworkspace' -print -quit)
+          scheme=$(basename "$workspace" .xcworkspace)
+          test -n "$workspace"
+          xcodebuild build \
+            -workspace "$workspace" \
+            -scheme "$scheme" \
+            -sdk iphonesimulator \
+            -configuration Release \
+            -derivedDataPath "$IOS_DERIVED_DATA" \
+            -destination 'generic/platform=iOS Simulator' \
+            -jobs 5 \
+            CODE_SIGN_IDENTITY='-' \
+            AD_HOC_CODE_SIGNING_ALLOWED=YES \
+            PROVISIONING_PROFILE_SPECIFIER='' \
+            COMPILER_INDEX_STORE_ENABLE=NO \
+            ONLY_ACTIVE_ARCH=YES \
+            ARCHS=arm64 \
+            EXCLUDED_ARCHS=x86_64
+
+      - name: Package and validate app artifact
+        run: |
+          app_path=$(find "$IOS_DERIVED_DATA" -name '*.app' -path '*Release-iphonesimulator*' -print -quit)
+          test -n "$app_path"
+          test "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$app_path/Info.plist")" = 'com.vitalyiegorov.suuudokuuu.e2e'
+          if /usr/libexec/PlistBuddy -c 'Print :DEV_CLIENT_DEFAULT_LAUNCHER_URL' "$app_path/Info.plist" >/dev/null 2>&1; then
+            echo '::error::E2E app unexpectedly contains a development-client launch URL.'
+            exit 1
+          fi
+          find "$app_path" -name 'main.jsbundle' -type f -print -quit | grep -q .
+          mkdir -p .ci-artifacts/ios-e2e-app
+          tar -C "$(dirname "$app_path")" -czf ".ci-artifacts/ios-e2e-app/$(basename "$app_path").tar.gz" "$(basename "$app_path")"
+
+      - uses: actions/upload-artifact@v6
+        with:
+          name: ios-e2e-app
+          path: .ci-artifacts/ios-e2e-app/*.tar.gz
+          if-no-files-found: error
+
+  test:
+    needs: build
+    name: Maestro shard ${{ matrix.shard-number }}/2
+    runs-on: [self-hosted, macOS, ARM64, macos-tartelet]
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - shard-index: 0
+            shard-number: 1
+          - shard-index: 1
+            shard-number: 2
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Select Xcode
+        run: |
+          if [ -d /Applications/Xcode_26.4.1.app ]; then
+            xcode_app=/Applications/Xcode_26.4.1.app
+          else
+            xcode_app=/Applications/Xcode.app
+          fi
+          echo "DEVELOPER_DIR=$xcode_app/Contents/Developer" >> "$GITHUB_ENV"
+
+      - name: Start isolated simulator
+        shell: bash
+        run: |
+          set -euo pipefail
+          xcrun simctl shutdown all || true
+          udid=$(xcrun simctl list devices available | sed -n '/iPhone 17 Pro (/ { s/.*(\([A-F0-9-]\{36\}\)).*/\1/; p; q; }')
+          test -n "$udid"
+          xcrun simctl boot "$udid" 2>/dev/null || true
+          xcrun simctl bootstatus "$udid" -b
+          echo "SIMULATOR_UDID=$udid" >> "$GITHUB_ENV"
+
+      - uses: actions/download-artifact@v6
+        with:
+          name: ios-e2e-app
+          path: .ci-artifacts/ios-e2e-app
+
+      - name: Install embedded app
+        run: |
+          mkdir -p .ci-artifacts/ios-e2e-app/extracted
+          tar -xzf "$(find .ci-artifacts/ios-e2e-app -name '*.tar.gz' -print -quit)" -C .ci-artifacts/ios-e2e-app/extracted
+          app_path=$(find .ci-artifacts/ios-e2e-app/extracted -name '*.app' -print -quit)
+          test -n "$app_path"
+          xcrun simctl install "$SIMULATOR_UDID" "$app_path"
+
+      - name: Install Maestro
+        run: |
+          maestro_bin="$HOME/.maestro/bin/maestro"
+          if [ ! -x "$maestro_bin" ] || [ "$("$maestro_bin" --version 2>/dev/null | tail -n 1 | tr -d '\r' || true)" != "$MAESTRO_VERSION" ]; then
+            curl -fsSL https://get.maestro.mobile.dev | env MAESTRO_VERSION="$MAESTRO_VERSION" bash
+          fi
+          echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
+
+      - name: Run deterministic Maestro shard
+        working-directory: tests/app-tests
+        shell: bash
+        env:
+          SHARD_INDEX: ${{ matrix.shard-index }}
+        run: |
+          set -euo pipefail
+          mapfile -t flows < <(find flows -maxdepth 1 -type f -name '*.flow.yaml' | sort)
+          selected=()
+          for index in "${!flows[@]}"; do
+            if (( index % 2 == SHARD_INDEX )); then
+              selected+=("${flows[$index]}")
+            fi
+          done
+          test "${#selected[@]}" -gt 0
+          printf 'Shard %s flows:\n%s\n' "$SHARD_INDEX" "${selected[*]}"
+          mkdir -p "artifacts/maestro-shard-$SHARD_INDEX"
+          maestro test \
+            --udid "$SIMULATOR_UDID" \
+            -e APP_ID=com.vitalyiegorov.suuudokuuu.e2e \
+            --format junit \
+            --output "./artifacts/maestro-shard-$SHARD_INDEX/report.xml" \
+            --config config.yaml \
+            --debug-output "./artifacts/maestro-shard-$SHARD_INDEX" \
+            --test-output-dir "./artifacts/maestro-shard-$SHARD_INDEX" \
+            "${selected[@]}" 2>&1 | tee "./artifacts/maestro-shard-$SHARD_INDEX/console.log"
+
+      - name: Capture final simulator state
+        if: always()
+        run: |
+          mkdir -p "tests/app-tests/artifacts/simulator-shard-${{ matrix.shard-index }}"
+          xcrun simctl io "$SIMULATOR_UDID" screenshot "tests/app-tests/artifacts/simulator-shard-${{ matrix.shard-index }}/final-screen.png" || true
+          xcrun simctl shutdown "$SIMULATOR_UDID" || true
+
+      - uses: actions/upload-artifact@v6
+        if: always()
+        with:
+          name: maestro-ios-shard-${{ matrix.shard-number }}
+          include-hidden-files: true
+          path: |
+            tests/app-tests/artifacts/maestro-shard-${{ matrix.shard-index }}/**
+            tests/app-tests/artifacts/simulator-shard-${{ matrix.shard-index }}/**
+          if-no-files-found: warn
