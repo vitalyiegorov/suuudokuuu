@@ -1,6 +1,9 @@
 appId: ${APP_ID}
 ---
 - runFlow: close-dev-menu-if-visible.flow.yaml
+- openLink:
+    link: suuudokuuu://
+- runFlow: accept-open-link-prompt.flow.yaml
 - extendedWaitUntil:
     visible:
       id: 'HomeScreenSelectors.Root'
