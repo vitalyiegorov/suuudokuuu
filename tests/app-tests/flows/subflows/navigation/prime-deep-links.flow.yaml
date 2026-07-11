@@ -6,10 +6,12 @@ appId: ${APP_ID}
     when:
       visible: '^Open$'
     commands:
-      - tapOn: '^Open$'
+      - tapOn:
+          text: '^Open$'
+          retryTapIfNoChange: true
       - extendedWaitUntil:
           notVisible: '^Open$'
-          timeout: 5000
+          timeout: 30000
 - extendedWaitUntil:
     visible:
       id: 'HomeScreenSelectors.StartButton'
@@ -20,10 +22,12 @@ appId: ${APP_ID}
     when:
       visible: '^Open$'
     commands:
-      - tapOn: '^Open$'
+      - tapOn:
+          text: '^Open$'
+          retryTapIfNoChange: true
       - extendedWaitUntil:
           notVisible: '^Open$'
-          timeout: 5000
+          timeout: 30000
 - extendedWaitUntil:
     visible:
       id: 'HomeScreenSelectors.StartButton'

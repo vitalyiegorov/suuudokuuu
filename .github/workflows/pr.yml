@@ -386,6 +386,8 @@ jobs:
             com.vitalyiegorov.suuudokuuu.preview
           maestro test \
             --udid "$BOOTED_SIMULATOR_UDID" \
+            --debug-output tests/app-tests/artifacts/maestro/launch \
+            --test-output-dir tests/app-tests/artifacts/maestro/launch \
             -e APP_ID=com.vitalyiegorov.suuudokuuu.preview \
             -e DEV_CLIENT_LINK="$EXPO_DEV_CLIENT_URL" \
             tests/app-tests/launch-dev-client.flow.yaml
