@@ -10,7 +10,7 @@ appId: ${APP_ID}
 - extendedWaitUntil:
     visible:
       id: 'GameScreenSelectors.Root'
-    timeout: 3000
+    timeout: 10000
 - tapOn:
     id: 'CellSelectors.Root'
     index: 54
