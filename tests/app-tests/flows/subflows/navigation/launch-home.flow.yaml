@@ -2,8 +2,7 @@ appId: ${APP_ID}
 ---
 - launchApp:
     clearState: false
-- tapOn:
-    id: 'MainTabLayoutSelectors.PlayTab'
+- tapOn: 'Play'
 - extendedWaitUntil:
     visible:
       id: 'HomeScreenSelectors.Root'
