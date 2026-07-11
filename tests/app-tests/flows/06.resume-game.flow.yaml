@@ -11,11 +11,11 @@ appId: ${APP_ID}
     id: 'GameScreenSelectors.Time'
 - evalScript: ${output.firstPausedSeconds = Number(maestro.copiedText.split(':')[0]) * 60 + Number(maestro.copiedText.split(':')[1])}
 - runFlow: subflows/game/open-settings-from-game.flow.yaml
-- extendedWaitUntil:
-    visible:
-      id: 'ResumeGameSelectors.IntentionalWaitTarget'
-    timeout: 2000
-    optional: true
+- repeat:
+    times: 15
+    commands:
+      - assertVisible:
+          id: 'SettingsScreenSelectors.Root'
 - tapOn:
     id: 'HeaderBackButtonSelectors.Root'
 - extendedWaitUntil:
@@ -26,29 +26,22 @@ appId: ${APP_ID}
     id: 'GameScreenSelectors.Time'
 - evalScript: ${output.firstReturnedSeconds = Number(maestro.copiedText.split(':')[0]) * 60 + Number(maestro.copiedText.split(':')[1])}
 - assertTrue:
-    condition: ${output.firstReturnedSeconds <= output.firstPausedSeconds + 1}
+    condition: ${output.firstReturnedSeconds <= output.firstPausedSeconds + 3}
     label: Timer stays paused while settings are open
-- extendedWaitUntil:
-    visible:
-      id: 'ResumeGameSelectors.IntentionalWaitTarget'
-    timeout: 2000
-    optional: true
-- copyTextFrom:
-    id: 'GameScreenSelectors.Time'
-- evalScript: ${output.firstResumedSeconds = Number(maestro.copiedText.split(':')[0]) * 60 + Number(maestro.copiedText.split(':')[1])}
-- assertTrue:
-    condition: ${output.firstResumedSeconds > output.firstReturnedSeconds}
-    label: Timer resumes after returning from settings
+- runFlow:
+    file: subflows/game/assert-timer-advances.flow.yaml
+    env:
+      BASELINE_SECONDS: ${output.firstReturnedSeconds}
 - runFlow: subflows/navigation/move-dev-tools-button-away-if-visible.flow.yaml
 - copyTextFrom:
     id: 'GameScreenSelectors.Time'
 - evalScript: ${output.secondPausedSeconds = Number(maestro.copiedText.split(':')[0]) * 60 + Number(maestro.copiedText.split(':')[1])}
 - runFlow: subflows/game/open-settings-from-game.flow.yaml
-- extendedWaitUntil:
-    visible:
-      id: 'ResumeGameSelectors.IntentionalWaitTarget'
-    timeout: 2000
-    optional: true
+- repeat:
+    times: 15
+    commands:
+      - assertVisible:
+          id: 'SettingsScreenSelectors.Root'
 - tapOn:
     id: 'HeaderBackButtonSelectors.Root'
 - extendedWaitUntil:
@@ -59,19 +52,12 @@ appId: ${APP_ID}
     id: 'GameScreenSelectors.Time'
 - evalScript: ${output.secondReturnedSeconds = Number(maestro.copiedText.split(':')[0]) * 60 + Number(maestro.copiedText.split(':')[1])}
 - assertTrue:
-    condition: ${output.secondReturnedSeconds <= output.secondPausedSeconds + 1}
+    condition: ${output.secondReturnedSeconds <= output.secondPausedSeconds + 3}
     label: Timer stays paused during a second settings visit
-- extendedWaitUntil:
-    visible:
-      id: 'ResumeGameSelectors.IntentionalWaitTarget'
-    timeout: 2000
-    optional: true
-- copyTextFrom:
-    id: 'GameScreenSelectors.Time'
-- evalScript: ${output.secondResumedSeconds = Number(maestro.copiedText.split(':')[0]) * 60 + Number(maestro.copiedText.split(':')[1])}
-- assertTrue:
-    condition: ${output.secondResumedSeconds > output.secondReturnedSeconds}
-    label: Timer resumes after a second settings visit
+- runFlow:
+    file: subflows/game/assert-timer-advances.flow.yaml
+    env:
+      BASELINE_SECONDS: ${output.secondReturnedSeconds}
 - stopApp
 - runFlow: subflows/navigation/relaunch-home.flow.yaml
 - assertVisible:

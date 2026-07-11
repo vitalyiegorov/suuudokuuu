@@ -1,0 +1,14 @@
+appId: ${APP_ID}
+---
+- evalScript: ${output.observedTimerSeconds = Number(BASELINE_SECONDS)}
+- repeat:
+    times: 10
+    while:
+      true: ${output.observedTimerSeconds <= Number(BASELINE_SECONDS)}
+    commands:
+      - copyTextFrom:
+          id: 'GameScreenSelectors.Time'
+      - evalScript: ${output.observedTimerSeconds = Number(maestro.copiedText.split(':')[0]) * 60 + Number(maestro.copiedText.split(':')[1])}
+- assertTrue:
+    condition: ${output.observedTimerSeconds > Number(BASELINE_SECONDS)}
+    label: Timer advances after returning from settings
