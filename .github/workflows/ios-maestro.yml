@@ -331,6 +331,7 @@ jobs:
           done
           test "${#selected[@]}" -gt 0
           printf 'Shard %s flows:\n%s\n' "$SHARD_INDEX" "${selected[*]}"
+          mkdir -p "./artifacts/maestro-shard-$SHARD_INDEX"
           ./scripts/run-maestro-suite.sh "${selected[@]}" \
             2>&1 | tee "./artifacts/maestro-shard-$SHARD_INDEX/console.log"
 
