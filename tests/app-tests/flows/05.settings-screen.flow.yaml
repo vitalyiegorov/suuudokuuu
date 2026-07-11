@@ -48,4 +48,10 @@ appId: ${APP_ID}
     visible:
       id: 'SettingsScreenSelectors.Root'
     timeout: 3000
+- tapOn:
+    id: 'HeaderBackButtonSelectors.Root'
+- extendedWaitUntil:
+    visible:
+      id: 'HomeScreenSelectors.Root'
+    timeout: 3000
 - stopApp

@@ -4,15 +4,15 @@ Maestro E2E flows for Suuudokuuu. Current coverage checks home start/quit, share
 
 ## Commands
 
-This package contains Maestro YAML flows and config only. Pass `APP_ID` for the installed app under test and `DEV_CLIENT_LINK` for the Expo dev-client project URL with Maestro's `-e` flag, for example:
+Pass `APP_ID` for the installed app under test. Run the dev-client bootstrap once, then use the suite runner so deep-link priming and per-flow XCTest isolation match CI:
 
 ```bash
 maestro test -e APP_ID=<installed-app-id> -e DEV_CLIENT_LINK='suuudokuuu://expo-development-client/?url=http%3A%2F%2Flocalhost%3A8082' tests/app-tests/launch-dev-client.flow.yaml
-maestro test --config tests/app-tests/config.yaml -e APP_ID=<installed-app-id> -e DEV_CLIENT_LINK='suuudokuuu://expo-development-client/?url=http%3A%2F%2Flocalhost%3A8082' tests/app-tests/flows
+APP_ID=<installed-app-id> SIMULATOR_UDID=<simulator-udid> tests/app-tests/scripts/run-maestro-suite.sh
 ```
 
 Use a freshly rebuilt and reinstalled app when validating code, selector, deep-link, app-config, or native changes.
-Always run `launch-dev-client.flow.yaml` once on a fresh simulator before the scenario suite. It proves the preloaded dev-client project reached Home without adding a second URL handoff to that Maestro/XCTest session. Every shared deep-link boundary must use `subflows/navigation/accept-open-link-prompt.flow.yaml` because iOS can request confirmation in the session that performs the handoff.
+Always run `launch-dev-client.flow.yaml` once on a fresh simulator before the scenario suite. The suite runner primes the iOS custom-scheme confirmation once in a separate Maestro session, then runs every numbered scenario in its own Maestro/XCTest session while preserving the installed app container.
 
 ## Robustness Rules
 
@@ -23,23 +23,23 @@ Always run `launch-dev-client.flow.yaml` once on a fresh simulator before the sc
 5. Use `3000` as the default `extendedWaitUntil` timeout. Increase only for clearly slow native work.
 6. If a step is expected in the happy path, do not hide it behind `runFlow when:`. Wait for it explicitly and fail there if it does not appear.
 7. Keep flows pinned to English. If a flow changes language, switch back to English before it ends.
-8. Do not use coordinate taps in committed flows. Add or fix app selectors instead. The only coordinate gesture exception is the shared Expo dev-client floating tools recovery, because that overlay is external native debug chrome and not app UI.
+8. Do not use coordinate taps in committed flows. Add or fix app selectors instead.
 9. Do not take screenshots or run `maestro hierarchy` during an active Maestro run. Inspect after failure or outside the run.
 10. Do not use `hideKeyboard` unless a specific native flow proves it is required.
 11. If a guard proves load-bearing, keep the smallest specific guard instead of reintroducing blanket waits.
 12. After `scrollUntilVisible` on a tappable card or button, settle once only if needed, then tap once. Do not retry normal taps.
-13. Dev-client recovery belongs in shared launch or deep-link subflows. Do not duplicate the recovery blocks in scenario flows.
-14. If the Expo dev menu is visible during local dev-client runs, close it through `subflows/navigation/close-dev-menu-if-visible.flow.yaml` before interacting with app UI.
-15. If the Expo floating tools button appears in local dev-client runs, move it away through `subflows/navigation/move-dev-tools-button-away-if-visible.flow.yaml` before tapping top-right game controls. Rebuilt clients should also set `toolsButton: false` in app config.
+13. Do not open the dev-client URL from business scenarios. Bootstrap owns project loading, and `setup/prime-deep-links.flow.yaml` owns the one-time native custom-scheme confirmation.
+14. Do not probe for native Open prompts in business flows. Those probes are slow and can deliver delayed confirmation dialogs into later app interactions.
+15. Keep Expo dev tools disabled in the test build. If external debug chrome appears, fix the build configuration instead of moving it with coordinates.
 
 ## Flow Design
 
-1. Keep numbered flows as user scenarios. Setup and native handoff recovery belongs in `flows/subflows`.
+1. Keep numbered flows as user scenarios. One-time native handoff setup belongs in `flows/setup`; reusable app interactions belong in `flows/subflows`.
 2. Keep navigation coverage in dedicated flows.
 3. Keep business flows focused on one behavior.
 4. Shared subflows must have one clear responsibility. Delete thin wrappers that only rename another subflow.
 5. Prefer plain step sequences over nested `runFlow` blocks when the steps are linear and expected.
-6. Use `subflows/navigation/launch-home.flow.yaml` for normal scenario launches and `subflows/navigation/relaunch-home.flow.yaml` when a stop-and-relaunch is the behavior under test. Neither launch subflow reinstalls the app. Scenarios must leave active gameplay through the shared teardown path. Keep home recovery in `subflows/navigation/ensure-home-visible.flow.yaml`, native confirmation handling in `subflows/navigation/accept-open-link-prompt.flow.yaml`, dev-menu recovery in `subflows/navigation/close-dev-menu-if-visible.flow.yaml`, and floating-tools recovery in `subflows/navigation/move-dev-tools-button-away-if-visible.flow.yaml`.
+6. Use `subflows/navigation/launch-home.flow.yaml` for normal scenario launches and `subflows/navigation/relaunch-home.flow.yaml` when stop-and-relaunch is the behavior under test. Both assert the Home contract without URL handoffs. Every scenario must leave the app at Home before stopping.
 7. Use `subflows/game/start-new-game.flow.yaml`, `subflows/game/open-settings-from-game.flow.yaml`, and `subflows/game/quit-current-game.flow.yaml` for repeated game setup and teardown.
 8. Use `subflows/shared/open-shared-challenge.flow.yaml` for shared links, `subflows/shared/accept-shared-challenge.flow.yaml` for the native accept transition, and `subflows/shared/complete-winning-shared-challenge.flow.yaml` when a flow needs a completed win as data setup.
 9. Deep-link fixtures should be stable and should decode through the same app path users hit.
@@ -62,3 +62,4 @@ Always run `launch-dev-client.flow.yaml` once on a fresh simulator before the sc
 3. Disable animations through Maestro config for deterministic tests.
 4. Re-run affected flows after changing app code, selectors, native config, deep-link encoding, score text, win/lose screens, or settings that affect startup state.
 5. Treat dev-client recovery as local convenience only. Valid release evidence comes from a freshly rebuilt and reinstalled app.
+6. Run numbered flows through `scripts/run-maestro-suite.sh`; it creates a fresh Maestro/XCTest session per flow and merges their JUnit reports.

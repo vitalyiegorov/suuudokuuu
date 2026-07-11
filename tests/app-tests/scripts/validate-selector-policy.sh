@@ -15,21 +15,15 @@ relative_path = lambda { |path| path.delete_prefix("#{flows_directory}/") }
 all_flow_paths = Dir.glob(File.join(flows_directory, '**/*.flow.yaml'))
 
 recovery_flow_paths = %w[
-  subflows/navigation/accept-open-link-prompt.flow.yaml
-  subflows/navigation/close-dev-menu-if-visible.flow.yaml
-  subflows/navigation/ensure-home-visible.flow.yaml
   subflows/navigation/launch-home.flow.yaml
-  subflows/navigation/move-dev-tools-button-away-if-visible.flow.yaml
-  subflows/navigation/open-dev-client-url-manually-if-needed.flow.yaml
   subflows/navigation/relaunch-home.flow.yaml
-  subflows/navigation/reload-dev-client-project-if-needed.flow.yaml
+  setup/prime-deep-links.flow.yaml
 ]
 
 native_boundary_text_selectors = {
   '04.statistics-screen.flow.yaml' => ['Stats'],
   '05.settings-screen.flow.yaml' => ['Settings'],
-  'subflows/game/quit-current-game.flow.yaml' => ['OK'],
-  'subflows/shared/open-shared-challenge.flow.yaml' => ['Open']
+  'subflows/game/quit-current-game.flow.yaml' => ['OK']
 }
 
 native_boundary_press_keys = {
@@ -93,6 +87,17 @@ end
 app_owned_flow_paths.each do |flow_path|
   flow_relative_path = relative_path.call(flow_path)
   load_yaml_documents.call(flow_path).each { |flow| walk.call(flow, flow_relative_path) }
+end
+
+%w[subflows/navigation/launch-home.flow.yaml subflows/navigation/relaunch-home.flow.yaml].each do |flow_path|
+  contents = File.read(File.join(flows_directory, flow_path))
+  violations << "#{flow_path}: launch flows must not open URLs" if contents.include?('openLink')
+end
+
+business_flow_paths = Dir.glob(File.join(flows_directory, '[0-9][0-9].*.flow.yaml'))
+business_flow_paths.each do |flow_path|
+  contents = File.read(flow_path)
+  violations << "#{relative_path.call(flow_path)}: native Open prompt handling belongs in setup/prime-deep-links.flow.yaml" if contents.match?(/visible:\s*['\"]?(?:\^)?Open/)
 end
 
 app_source = Dir.glob(File.join(app_source_directory, '**/*.{ts,tsx}')).map { |path| File.read(path) }.join("\n")

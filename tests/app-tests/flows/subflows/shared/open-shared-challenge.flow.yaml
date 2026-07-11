@@ -5,11 +5,6 @@ appId: ${APP_ID}
     commands:
       - openLink:
           link: ${SHARED_CHALLENGE_LINK}
-      - runFlow:
-          when:
-            visible: 'Open in.*'
-          commands:
-            - tapOn: 'Open'
       - extendedWaitUntil:
           visible:
             id: 'ChallengeAcceptScreenSelectors.AcceptButton'

@@ -8,6 +8,7 @@ import { BlackIconButton } from '../../../@generic/components/black-icon-button/
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { ThemeContext } from '../../../theme/context/theme.context';
 
+import { ReplayTopBarSelectors } from './replay-top-bar.selectors';
 import { ReplayTopBarStyles as styles } from './replay-top-bar.styles';
 
 export const ReplayTopBar = () => {
@@ -27,7 +28,12 @@ export const ReplayTopBar = () => {
                 </BlackText>
             </View>
 
-            <BlackIconButton accessibilityLabel={t`Back`} onPress={handleReturn} style={styles.closeButton}>
+            <BlackIconButton
+                accessibilityLabel={t`Back`}
+                onPress={handleReturn}
+                style={styles.closeButton}
+                testID={ReplayTopBarSelectors.CloseButton}
+            >
                 <LucideX color={theme.colors.label.inverted} size={20} />
             </BlackIconButton>
         </View>

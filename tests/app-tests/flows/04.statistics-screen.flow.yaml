@@ -43,4 +43,16 @@ appId: ${APP_ID}
     id: 'ReplayControlsSelectors.NextButton'
 - tapOn:
     id: 'ReplayControlsSelectors.PreviousButton'
+- tapOn:
+    id: 'ReplayTopBarSelectors.CloseButton'
+- extendedWaitUntil:
+    visible:
+      id: 'HistoryScreenSelectors.Root'
+    timeout: 3000
+- tapOn:
+    id: 'HeaderBackButtonSelectors.Root'
+- extendedWaitUntil:
+    visible:
+      id: 'HomeScreenSelectors.Root'
+    timeout: 3000
 - stopApp

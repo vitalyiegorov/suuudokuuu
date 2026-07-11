@@ -13,6 +13,7 @@ flows_directory = ARGV.fetch(1)
 config = YAML.safe_load(File.read(config_path), permitted_classes: [], aliases: false)
 configured_flows = config.dig('executionOrder', 'flowsOrder')
 actual_flows = Dir.glob(File.join(flows_directory, '*.flow.yaml')).map { |path| File.basename(path, '.yaml') }.sort
+flow_paths = Dir.glob(File.join(flows_directory, '*.flow.yaml')).sort
 
 unless configured_flows.is_a?(Array)
   abort "Expected executionOrder.flowsOrder to be an array in #{config_path}"
@@ -35,6 +36,17 @@ unless failures.empty?
 end
 
 puts "Validated #{actual_flows.length} top-level Maestro flows; each appears exactly once in executionOrder.flowsOrder."
+
+home_contract_failures = flow_paths.reject do |path|
+  contents = File.read(path)
+  contents.include?('HomeScreenSelectors.Root') || contents.include?('subflows/game/quit-current-game.flow.yaml')
+end
+unless home_contract_failures.empty?
+  relative_paths = home_contract_failures.map { |path| path.delete_prefix("#{flows_directory}/") }
+  abort "Top-level Maestro flows must assert the Home contract before stopping: #{relative_paths.join(', ')}"
+end
+
+puts 'Validated the Home teardown contract for every top-level Maestro flow.'
 
 reference_failures = []
 walk_references = lambda do |value, source_path|

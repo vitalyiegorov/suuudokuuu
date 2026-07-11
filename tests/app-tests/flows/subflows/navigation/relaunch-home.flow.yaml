@@ -2,8 +2,7 @@ appId: ${APP_ID}
 ---
 - launchApp:
     clearState: false
-- openLink:
-    link: ${DEV_CLIENT_LINK}
-- runFlow: open-dev-client-url-manually-if-needed.flow.yaml
-- runFlow: reload-dev-client-project-if-needed.flow.yaml
-- runFlow: ensure-home-visible.flow.yaml
+- extendedWaitUntil:
+    visible:
+      id: 'HomeScreenSelectors.Root'
+    timeout: 15000

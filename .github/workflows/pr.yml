@@ -396,19 +396,13 @@ jobs:
         timeout-minutes: 20
         working-directory: tests/app-tests
         shell: bash
+        env:
+          APP_ID: com.vitalyiegorov.suuudokuuu.preview
+          MAESTRO_DEBUG_OUTPUT_DIRECTORY: ${{ github.workspace }}/tests/app-tests/artifacts/maestro
+          MAESTRO_OUTPUT_PATH: ${{ github.workspace }}/tests/app-tests/artifacts/maestro/report.xml
         run: |
           set -euo pipefail
-          maestro test \
-            --udid "$BOOTED_SIMULATOR_UDID" \
-            -e APP_ID=com.vitalyiegorov.suuudokuuu.preview \
-            -e DEV_CLIENT_LINK="$EXPO_DEV_CLIENT_URL" \
-            -e METRO_URL="$METRO_URL" \
-            --format junit \
-            --output ./artifacts/maestro/report.xml \
-            --config config.yaml \
-            --debug-output ./artifacts/maestro \
-            --test-output-dir ./artifacts/maestro \
-            . 2>&1 | tee ./artifacts/maestro/maestro-console.log
+          SIMULATOR_UDID="$BOOTED_SIMULATOR_UDID" ./scripts/run-maestro-suite.sh 2>&1 | tee ./artifacts/maestro/maestro-console.log
 
       - name: Stop iOS Simulator captures
         if: always()
