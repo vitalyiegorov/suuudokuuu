@@ -3,13 +3,13 @@ import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
 import { enableFreeze, enableScreens } from 'react-native-screens';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 
 import { isDefined } from '@rnw-community/shared';
 
-import { appRootStore } from '../@generic/app-root.store';
+import { appRootPersistor, appRootStore } from '../@generic/app-root.store';
 import { LinguiDefaultComponent } from '../@generic/components/lingui-default-component/lingui-default-component';
 import { i18nGetOSLocale } from '../@generic/utils/i18n.util';
 import { GameProvider } from '../game/components/game-provider/game-provider';
@@ -33,30 +33,26 @@ const settingsOptionSheetOptions = {
 
 export default function RootLayout() {
     const [loaded, error] = useFonts({ Inter_500Medium: inter500Medium, Inter_700Bold: inter700Bold });
-    const isReady = loaded || isDefined(error);
+    const areFontsReady = loaded || isDefined(error);
 
-    useEffect(() => {
-        if (isReady) {
-            void SplashScreen.hideAsync();
-        }
-    }, [isReady]);
-
-    if (!isReady) {
+    if (!areFontsReady) {
         return null;
     }
 
     return (
         <Provider store={appRootStore}>
-            <ThemeProvider>
-                <I18nProvider i18n={i18n} defaultComponent={LinguiDefaultComponent}>
-                    <GameProvider>
-                        <Stack screenOptions={stackOptions}>
-                            <Stack.Screen name="game" options={gameOptions} />
-                            <Stack.Screen name="settings/[setting]" options={settingsOptionSheetOptions} />
-                        </Stack>
-                    </GameProvider>
-                </I18nProvider>
-            </ThemeProvider>
+            <PersistGate loading={null} persistor={appRootPersistor} onBeforeLift={SplashScreen.hideAsync}>
+                <ThemeProvider>
+                    <I18nProvider i18n={i18n} defaultComponent={LinguiDefaultComponent}>
+                        <GameProvider>
+                            <Stack screenOptions={stackOptions}>
+                                <Stack.Screen name="game" options={gameOptions} />
+                                <Stack.Screen name="settings/[setting]" options={settingsOptionSheetOptions} />
+                            </Stack>
+                        </GameProvider>
+                    </I18nProvider>
+                </ThemeProvider>
+            </PersistGate>
         </Provider>
     );
 }

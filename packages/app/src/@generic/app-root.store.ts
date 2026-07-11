@@ -94,7 +94,6 @@ const persistedReducer = persistReducer(
     {
         key: 'root',
         storage: AsyncStorage,
-        timeout: 0,
         version: 23,
         migrate: createMigrate(migrations)
     },
@@ -105,7 +104,7 @@ export const appRootStore = configureStore({
     reducer: persistedReducer,
     middleware: getDefaultMiddleware => getDefaultMiddleware({ serializableCheck: false })
 });
-persistStore(appRootStore);
+export const appRootPersistor = persistStore(appRootStore);
 
 export type RootState = ReturnType<typeof appRootStore.getState>;
 export type AppDispatch = typeof appRootStore.dispatch;
