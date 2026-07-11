@@ -2,14 +2,11 @@ appId: ${APP_ID}
 ---
 - copyTextFrom:
     id: 'GameScreenSelectors.Time'
-- evalScript: ${output.timerBaselineText = maestro.copiedText}
 - evalScript: ${output.timerBaselineSeconds = Number(maestro.copiedText.split(':')[0]) * 60 + Number(maestro.copiedText.split(':')[1])}
-- evalScript: ${output.timerChangedPattern = '^(?!' + output.timerBaselineText.replace(':', '\\:') + '$).+$'}
-- extendedWaitUntil:
-    visible:
-      id: 'GameScreenSelectors.Time'
-      text: ${output.timerChangedPattern}
-    timeout: 5000
+- runFlow:
+    file: ../shared/wait-observation-window.flow.yaml
+    env:
+      WAIT_MILLISECONDS: 2500
 - copyTextFrom:
     id: 'GameScreenSelectors.Time'
 - evalScript: ${output.observedTimerSeconds = Number(maestro.copiedText.split(':')[0]) * 60 + Number(maestro.copiedText.split(':')[1])}
