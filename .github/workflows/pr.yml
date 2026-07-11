@@ -408,7 +408,7 @@ jobs:
             --config config.yaml \
             --debug-output ./artifacts/maestro \
             --test-output-dir ./artifacts/maestro \
-            flows 2>&1 | tee ./artifacts/maestro/maestro-console.log
+            . 2>&1 | tee ./artifacts/maestro/maestro-console.log
 
       - name: Stop iOS Simulator captures
         if: always()
