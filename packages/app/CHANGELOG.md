@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.62.3](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.62.2...v1.62.3) (2026-07-11)
+
+### Bug Fixes
+
+- **app:** expose game controls to ui tests ([d0e7a67](https://github.com/vitalyiegorov/suuudokuuu/commit/d0e7a676762c0f78d187a31e4b66b161c0fdca59))
+
 ## [1.62.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.62.1...v1.62.2) (2026-07-10)
 
 **Note:** Version bump only for package @suuudokuuu/app
