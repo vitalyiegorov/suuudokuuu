@@ -1,8 +1,8 @@
-import { useResumeGameAfterSettingsClose } from '../game/hooks/use-resume-game-after-settings-close.hook';
+import { useResumeGameOnSettingsClose } from '../game/hooks/use-resume-game-on-settings-close.hook';
 import { SettingsPageContent } from '../settings/component/settings-page-content/settings-page-content';
 
 export default function GameSettingsPage() {
-    useResumeGameAfterSettingsClose();
+    useResumeGameOnSettingsClose();
 
     return <SettingsPageContent />;
 }
