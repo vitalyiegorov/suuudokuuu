@@ -10,6 +10,21 @@ output_path="${MAESTRO_OUTPUT_PATH:-$app_tests_directory/artifacts/maestro/repor
 debug_output_directory="${MAESTRO_DEBUG_OUTPUT_DIRECTORY:-$app_tests_directory/artifacts/maestro}"
 report_directory="$(dirname -- "$output_path")/.maestro-flow-reports"
 
+selected_flow_paths=()
+
+if [[ "$#" -gt 0 ]]; then
+    selected_flow_paths=("$@")
+else
+    shopt -s nullglob
+    selected_flow_paths=("$app_tests_directory"/flows/[0-9][0-9].*.flow.yaml)
+    shopt -u nullglob
+fi
+
+if [[ "${#selected_flow_paths[@]}" -eq 0 ]]; then
+    printf '%s\n' 'No Maestro flows selected.' >&2
+    exit 1
+fi
+
 rm -rf "$report_directory"
 mkdir -p "$report_directory" "$debug_output_directory"
 
@@ -26,7 +41,7 @@ maestro test \
     "$app_tests_directory/flows/setup/prime-deep-links.flow.yaml" \
     "${maestro_arguments[@]}" \
     --debug-output "$debug_output_directory/prime-deep-links" \
-    --test-output-dir "$debug_output_directory/prime-deep-links" || true
+    --test-output-dir "$debug_output_directory/prime-deep-links"
 
 reports=()
 flow_index=0
@@ -75,7 +90,7 @@ fs.writeFileSync(outputPath, mergedReport);
 EOF
 }
 
-for flow_path in "$app_tests_directory"/flows/[0-9][0-9].*.flow.yaml; do
+for flow_path in "${selected_flow_paths[@]}"; do
     flow_index=$((flow_index + 1))
     flow_name="$(basename -- "$flow_path" .flow.yaml)"
     flow_report_path="$report_directory/$flow_name.xml"

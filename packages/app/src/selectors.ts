@@ -1,4 +1,5 @@
 export * from './@generic/components/header-back-button/header-back-button.selectors';
+export * from './@generic/components/main-tab-layout/main-tab-layout.selectors';
 export * from './@generic/components/play-again-button/play-again-button.selectors';
 export * from './challenge/components/challenge-accept-screen/challenge-accept-screen.selectors';
 export * from './challenge/components/challenge-try-again-button/challenge-try-again-button.selectors';

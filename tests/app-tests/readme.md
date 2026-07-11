@@ -2,7 +2,7 @@
 
 Maestro scenarios cover home, game start/quit, win/loss, statistics and replay, settings, persisted resume, and background/foreground pause behavior.
 
-On a fresh simulator, run `launch-dev-client.flow.yaml` before the scenario suite. It proves the preloaded dev-client project reached Home. Then run `scripts/run-maestro-suite.sh` with `APP_ID` and `SIMULATOR_UDID`. The runner primes the iOS custom scheme once, starts each numbered flow in a fresh Maestro/XCTest session, preserves app data between flows, and merges JUnit output. Each scenario returns to Home before stopping; `relaunch-home.flow.yaml` covers explicit persistence behavior.
+CI installs an embedded Release E2E app and runs `scripts/run-maestro-suite.sh` with `APP_ID` and `SIMULATOR_UDID`; it does not depend on Metro or a development-client URL. For local dev-client testing, run `launch-dev-client.flow.yaml` once after loading the project. The suite runner primes the iOS custom scheme, starts each selected numbered flow in a fresh Maestro/XCTest session, preserves app data between flows, and merges JUnit output. Each scenario returns to the active Home tab before stopping; `relaunch-home.flow.yaml` covers explicit persistence behavior.
 
 ## TODO
 

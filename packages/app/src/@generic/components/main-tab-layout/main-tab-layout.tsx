@@ -4,7 +4,10 @@ import { use } from 'react';
 
 import { ThemeContext } from '../../../theme/context/theme.context';
 
+import { MainTabLayoutSelectors } from './main-tab-layout.selectors';
+
 const PlayIcon = { default: 'play', selected: 'play.fill' } as const;
+const PlayNativeProps = { tabBarItemTestID: MainTabLayoutSelectors.PlayTab };
 const StatsIcon = { default: 'chart.bar', selected: 'chart.bar.fill' } as const;
 const SettingsIcon = { default: 'gearshape', selected: 'gearshape.fill' } as const;
 
@@ -23,7 +26,7 @@ export const MainTabLayout = () => {
             minimizeBehavior="onScrollDown"
             tintColor={theme.colors.label.main}
         >
-            <NativeTabs.Trigger name="index">
+            <NativeTabs.Trigger name="index" unstable_nativeProps={PlayNativeProps}>
                 <NativeTabs.Trigger.Label>{t`Play`}</NativeTabs.Trigger.Label>
                 <NativeTabs.Trigger.Icon md="play_arrow" sf={PlayIcon} />
             </NativeTabs.Trigger>

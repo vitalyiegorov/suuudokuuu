@@ -4,15 +4,14 @@ Maestro E2E flows for Suuudokuuu. Current coverage checks home start/quit, share
 
 ## Commands
 
-Pass `APP_ID` for the installed app under test. Run the dev-client bootstrap once, then use the suite runner so deep-link priming and per-flow XCTest isolation match CI:
+Pass `APP_ID` for the installed app under test. For local dev-client testing, load the project once before running the suite:
 
 ```bash
 maestro test -e APP_ID=<installed-app-id> -e DEV_CLIENT_LINK='suuudokuuu://expo-development-client/?url=http%3A%2F%2Flocalhost%3A8082' tests/app-tests/launch-dev-client.flow.yaml
 APP_ID=<installed-app-id> SIMULATOR_UDID=<simulator-udid> tests/app-tests/scripts/run-maestro-suite.sh
 ```
 
-Use a freshly rebuilt and reinstalled app when validating code, selector, deep-link, app-config, or native changes.
-Always run `launch-dev-client.flow.yaml` once on a fresh simulator before the scenario suite. The suite runner primes the iOS custom-scheme confirmation once in a separate Maestro session, then runs every numbered scenario in its own Maestro/XCTest session while preserving the installed app container.
+Use a freshly rebuilt and reinstalled app when validating code, selector, deep-link, app-config, or native changes. CI installs an embedded Release E2E app, so it does not use `launch-dev-client.flow.yaml` or depend on Metro. The suite runner primes the iOS custom-scheme confirmation once in a separate Maestro session, then runs every selected numbered scenario in its own Maestro/XCTest session while preserving the installed app container.
 
 ## Robustness Rules
 
@@ -62,4 +61,4 @@ Always run `launch-dev-client.flow.yaml` once on a fresh simulator before the sc
 3. Disable animations through Maestro config for deterministic tests.
 4. Re-run affected flows after changing app code, selectors, native config, deep-link encoding, score text, win/lose screens, or settings that affect startup state.
 5. Treat dev-client recovery as local convenience only. Valid release evidence comes from a freshly rebuilt and reinstalled app.
-6. Run numbered flows through `scripts/run-maestro-suite.sh`; it creates a fresh Maestro/XCTest session per flow and merges their JUnit reports.
+6. Run numbered flows through `scripts/run-maestro-suite.sh`; it creates a fresh Maestro/XCTest session per flow and merges their JUnit reports. Pass explicit flow paths to run a CI shard or focused subset.
