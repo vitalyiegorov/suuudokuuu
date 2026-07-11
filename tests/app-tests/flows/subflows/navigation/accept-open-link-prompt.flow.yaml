@@ -2,11 +2,15 @@ appId: ${APP_ID}
 ---
 - extendedWaitUntil:
     visible: '^Open$'
-    timeout: 10000
+    timeout: 3000
     optional: true
 - runFlow:
     when:
       visible: '^Open$'
     commands:
-      - tapOn: '^Open$'
-      - waitForAnimationToEnd
+      - tapOn:
+          text: '^Open$'
+          retryTapIfNoChange: true
+      - extendedWaitUntil:
+          notVisible: '^Open$'
+          timeout: 30000

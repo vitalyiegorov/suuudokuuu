@@ -2,32 +2,14 @@ appId: ${APP_ID}
 ---
 - openLink:
     link: ${DEV_CLIENT_LINK}
-- runFlow:
-    when:
-      visible: '^Open$'
-    commands:
-      - tapOn:
-          text: '^Open$'
-          retryTapIfNoChange: true
-      - extendedWaitUntil:
-          notVisible: '^Open$'
-          timeout: 30000
+- runFlow: accept-open-link-prompt.flow.yaml
 - extendedWaitUntil:
     visible:
       id: 'HomeScreenSelectors.StartButton'
     timeout: 60000
 - openLink:
     link: suuudokuuu://
-- runFlow:
-    when:
-      visible: '^Open$'
-    commands:
-      - tapOn:
-          text: '^Open$'
-          retryTapIfNoChange: true
-      - extendedWaitUntil:
-          notVisible: '^Open$'
-          timeout: 30000
+- runFlow: accept-open-link-prompt.flow.yaml
 - extendedWaitUntil:
     visible:
       id: 'HomeScreenSelectors.StartButton'

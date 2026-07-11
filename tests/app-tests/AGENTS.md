@@ -12,7 +12,7 @@ maestro test --config tests/app-tests/config.yaml -e APP_ID=<installed-app-id> -
 ```
 
 Use a freshly rebuilt and reinstalled app when validating code, selector, deep-link, app-config, or native changes.
-Always run `launch-dev-client.flow.yaml` once on a fresh simulator before the scenario suite. It primes the iOS confirmations for both the dev-client and app URL schemes so delayed system prompts cannot interrupt scenarios.
+Always run `launch-dev-client.flow.yaml` once on a fresh simulator before the scenario suite. It loads the dev-client project and primes both URL schemes. Every shared deep-link boundary must still use `subflows/navigation/accept-open-link-prompt.flow.yaml` because iOS can request confirmation again from a new Maestro/XCTest session.
 
 ## Robustness Rules
 
@@ -39,7 +39,7 @@ Always run `launch-dev-client.flow.yaml` once on a fresh simulator before the sc
 3. Keep business flows focused on one behavior.
 4. Shared subflows must have one clear responsibility. Delete thin wrappers that only rename another subflow.
 5. Prefer plain step sequences over nested `runFlow` blocks when the steps are linear and expected.
-6. Use `subflows/navigation/launch-home.flow.yaml` for normal scenario launches and `subflows/navigation/relaunch-home.flow.yaml` when a stop-and-relaunch is the behavior under test. Neither launch subflow reinstalls the app: reinstalling invalidates the iOS URL-scheme confirmation primed at suite start. Scenarios must leave active gameplay through the shared teardown path. Keep home recovery in `subflows/navigation/ensure-home-visible.flow.yaml`, one-time URL-scheme priming in `subflows/navigation/prime-deep-links.flow.yaml`, dev-menu recovery in `subflows/navigation/close-dev-menu-if-visible.flow.yaml`, and floating-tools recovery in `subflows/navigation/move-dev-tools-button-away-if-visible.flow.yaml`.
+6. Use `subflows/navigation/launch-home.flow.yaml` for normal scenario launches and `subflows/navigation/relaunch-home.flow.yaml` when a stop-and-relaunch is the behavior under test. Neither launch subflow reinstalls the app. Scenarios must leave active gameplay through the shared teardown path. Keep home recovery in `subflows/navigation/ensure-home-visible.flow.yaml`, URL-scheme priming in `subflows/navigation/prime-deep-links.flow.yaml`, native confirmation handling in `subflows/navigation/accept-open-link-prompt.flow.yaml`, dev-menu recovery in `subflows/navigation/close-dev-menu-if-visible.flow.yaml`, and floating-tools recovery in `subflows/navigation/move-dev-tools-button-away-if-visible.flow.yaml`.
 7. Use `subflows/game/start-new-game.flow.yaml`, `subflows/game/open-settings-from-game.flow.yaml`, and `subflows/game/quit-current-game.flow.yaml` for repeated game setup and teardown.
 8. Use `subflows/shared/open-shared-challenge.flow.yaml` for shared links, `subflows/shared/accept-shared-challenge.flow.yaml` for the native accept transition, and `subflows/shared/complete-winning-shared-challenge.flow.yaml` when a flow needs a completed win as data setup.
 9. Deep-link fixtures should be stable and should decode through the same app path users hit.

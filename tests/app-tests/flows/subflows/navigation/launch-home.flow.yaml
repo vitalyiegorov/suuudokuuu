@@ -4,6 +4,7 @@ appId: ${APP_ID}
     clearState: false
 - openLink:
     link: ${DEV_CLIENT_LINK}
+- runFlow: accept-open-link-prompt.flow.yaml
 - runFlow: open-dev-client-url-manually-if-needed.flow.yaml
 - runFlow: reload-dev-client-project-if-needed.flow.yaml
 - runFlow: ensure-home-visible.flow.yaml
