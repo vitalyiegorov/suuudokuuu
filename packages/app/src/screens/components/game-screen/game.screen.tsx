@@ -112,7 +112,7 @@ export const GameScreen = () => {
 
         dispatch(gameFinishAction({ difficulty: sudoku.Difficulty, isWon: false, isChallenge: isChallengeMode }));
 
-        router.replace(isChallengeMode ? 'challenge-lost' : 'loser');
+        router.replace(isChallengeMode ? '/challenge-lost' : '/loser');
     };
 
     const handleWonGame = () => {
@@ -125,9 +125,9 @@ export const GameScreen = () => {
         // HINT: We need to wait for the animation to finish, animation finish event would fix it?
         setTimeout(() => {
             if (isChallengeMode) {
-                router.replace(wonChallenge ? 'challenge-won' : 'challenge-lost');
+                router.replace(wonChallenge ? '/challenge-won' : '/challenge-lost');
             } else {
-                router.replace('winner');
+                router.replace('/winner');
             }
         }, 10 * animationDurationConstant);
     };

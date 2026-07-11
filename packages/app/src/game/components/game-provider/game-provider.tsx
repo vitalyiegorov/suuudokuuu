@@ -62,7 +62,7 @@ export const GameProvider = ({ children }: Props) => {
 
             dispatch(gameResumeAction());
 
-            router.replace(`game`);
+            router.replace('/game');
 
             return true;
         } catch (error) {
@@ -80,7 +80,7 @@ export const GameProvider = ({ children }: Props) => {
 
         const sudokuString = newSudoku.toString();
         dispatch(gameStartAction({ maxMistakes, sudokuString }));
-        router.push(`game`);
+        router.push('/game');
     };
 
     useEffect(() => void i18n.activate(currentLanguage), [currentLanguage]);
