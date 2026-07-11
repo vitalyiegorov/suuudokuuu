@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { AppState } from 'react-native';
 
-import { gamePauseAction, gameResumeAction } from '../../store/game.actions';
+import { gamePauseAction, gameResumeAction, gameTickAction } from '../../store/game.actions';
 
 import { GameTimerController } from './game-timer-controller';
 
@@ -12,6 +12,7 @@ let capturedFocusEffect: FocusEffect | undefined;
 let mockHasStarted = false;
 let mockIsPaused = false;
 let mockShouldResumeOnFocus = false;
+let mockAppStateChangeListener: ((nextAppState: string) => void) | undefined;
 
 const mockUseFocusEffect = jest.fn();
 const mockUseCallback = jest.fn((effect: FocusEffect) => effect);
@@ -27,7 +28,14 @@ const mockDispatch = jest.fn((action: { type: string }) => {
         mockShouldResumeOnFocus = false;
     }
 });
-const mockAddEventListener = jest.fn(() => ({ remove: jest.fn() }));
+const mockSubscriptionRemove = jest.fn();
+const mockAddEventListener = jest.fn((_eventName: 'change', listener: (nextAppState: string) => void) => {
+    mockAppStateChangeListener = listener;
+
+    return {
+        remove: mockSubscriptionRemove
+    };
+});
 const mockReplace = jest.fn();
 const mockGameIsStartedSelector = jest.fn(() => mockHasStarted);
 const mockGamePausedSelector = jest.fn(() => mockIsPaused);
@@ -73,15 +81,18 @@ jest.mock('../../store/game.selectors', () => ({
 describe('GameTimerController', () => {
     beforeEach(() => {
         capturedFocusEffect = undefined;
+        mockAppStateChangeListener = undefined;
         mockHasStarted = true;
         mockIsPaused = false;
         mockShouldResumeOnFocus = false;
         Reflect.set(AppState, 'addEventListener', mockAddEventListener);
+        jest.useFakeTimers();
         mockDispatch.mockClear();
         mockUseFocusEffect.mockClear();
         mockUseCallback.mockClear();
         mockUseRef.mockClear();
         mockAddEventListener.mockClear();
+        mockSubscriptionRemove.mockClear();
         mockReplace.mockClear();
         mockGameIsStartedSelector.mockClear();
         mockGamePausedSelector.mockClear();
@@ -121,5 +132,42 @@ describe('GameTimerController', () => {
         expect(mockDispatch).toHaveBeenCalledWith(gameResumeAction());
 
         thirdFocusCleanup?.();
+
+        jest.useRealTimers();
+    });
+
+    it('ticks while focused, pauses and replaces on background once, and cleans up the timer listener', () => {
+        GameTimerController();
+
+        const focusCleanup = capturedFocusEffect?.();
+
+        jest.advanceTimersByTime(1000);
+
+        expect(mockDispatch).toHaveBeenCalledWith(gameTickAction());
+        expect(mockAddEventListener).toHaveBeenCalledTimes(1);
+
+        mockDispatch.mockClear();
+
+        mockAppStateChangeListener?.('background');
+
+        expect(mockDispatch).toHaveBeenCalledWith(gamePauseAction());
+        expect(mockReplace).toHaveBeenCalledWith('/pause');
+        expect(mockSubscriptionRemove).not.toHaveBeenCalled();
+
+        mockDispatch.mockClear();
+        mockReplace.mockClear();
+
+        mockAppStateChangeListener?.('inactive');
+        mockAppStateChangeListener?.('background');
+        mockAppStateChangeListener?.('active');
+
+        expect(mockDispatch).not.toHaveBeenCalledWith(gamePauseAction());
+        expect(mockReplace).not.toHaveBeenCalled();
+
+        focusCleanup?.();
+
+        expect(mockSubscriptionRemove).toHaveBeenCalledTimes(1);
+
+        jest.useRealTimers();
     });
 });
