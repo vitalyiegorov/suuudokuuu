@@ -61,23 +61,59 @@ jobs:
         uses: actions/cache/restore@v5
         with:
           path: .ci-cache/ios-native-app
-          key: ios-native-app-${{ runner.os }}-arm64-xcode26_4_1-${{ steps.fingerprint.outputs.hash }}
+          key: ios-native-v1-suuudokuuu-e2e-${{ runner.os }}-arm64-xcode26_4_1-17E202-${{ steps.fingerprint.outputs.hash }}
+
+      - name: Repack cached native app
+        id: repack
+        if: github.event_name != 'push' && steps.native-app-cache.outputs.cache-hit == 'true'
+        continue-on-error: true
+        working-directory: packages/app
+        shell: bash
+        run: |
+          set -euo pipefail
+          output_app="$GITHUB_WORKSPACE/.ci-artifacts/repacked/Suuudokuuu.app"
+          mkdir -p "$(dirname "$output_app")"
+          source_app=$(find "$GITHUB_WORKSPACE/.ci-cache/ios-native-app" -maxdepth 1 -name '*.app' -print -quit)
+          test -n "$source_app"
+          npx --yes "@expo/repack-app@$EXPO_REPACK_VERSION" . \
+            --platform ios \
+            --source-app "$source_app" \
+            --output "$output_app" \
+            --embed-bundle-assets
+          test "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$output_app/Info.plist")" = 'com.vitalyiegorov.suuudokuuu.e2e'
+          ! /usr/libexec/PlistBuddy -c 'Print :DEV_CLIENT_DEFAULT_LAUNCHER_URL' "$output_app/Info.plist" >/dev/null 2>&1
+          find "$output_app" -name 'main.jsbundle' -type f -print -quit | grep -q .
+
+      - name: Plan native build
+        id: native-plan
+        shell: bash
+        run: |
+          if [ "${{ steps.native-app-cache.outputs.cache-hit }}" != 'true' ] || \
+             { [ "${{ github.event_name }}" != 'push' ] && [ "${{ steps.repack.outcome }}" != 'success' ]; }; then
+            echo 'required=true' >> "$GITHUB_OUTPUT"
+            if [ "${{ steps.native-app-cache.outputs.cache-hit }}" = 'true' ]; then
+              echo '::warning::Repack failed validation; falling back to a full native build.'
+            fi
+          else
+            echo 'required=false' >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Select Xcode
+        if: steps.native-plan.outputs.required == 'true'
         run: |
-          if [ -d /Applications/Xcode_26.4.1.app ]; then
-            xcode_app=/Applications/Xcode_26.4.1.app
-          elif [ -d /Applications/Xcode.app ]; then
-            xcode_app=/Applications/Xcode.app
-          else
-            echo '::error::A supported Xcode installation was not found.'
+          xcode_app=/Applications/Xcode_26.4.1.app
+          if [ ! -d "$xcode_app" ]; then
+            echo '::error::Xcode 26.4.1 is not installed on this runner.'
             exit 1
           fi
           echo "DEVELOPER_DIR=$xcode_app/Contents/Developer" >> "$GITHUB_ENV"
-          "$xcode_app/Contents/Developer/usr/bin/xcodebuild" -version
+          xcode_version=$("$xcode_app/Contents/Developer/usr/bin/xcodebuild" -version)
+          printf '%s\n' "$xcode_version"
+          grep -qx 'Xcode 26.4.1' <<< "$xcode_version"
+          grep -qx 'Build version 17E202' <<< "$xcode_version"
 
       - name: Restore CocoaPods cache
-        if: steps.native-app-cache.outputs.cache-hit != 'true'
+        if: steps.native-plan.outputs.required == 'true'
         uses: actions/cache/restore@v5
         with:
           path: |
@@ -87,17 +123,17 @@ jobs:
           restore-keys: pods-${{ runner.os }}-
 
       - name: Generate native project
-        if: steps.native-app-cache.outputs.cache-hit != 'true'
+        if: steps.native-plan.outputs.required == 'true'
         working-directory: packages/app
         run: npx expo prebuild -p ios --clean
 
       - name: Install pods
-        if: steps.native-app-cache.outputs.cache-hit != 'true'
+        if: steps.native-plan.outputs.required == 'true'
         working-directory: packages/app/ios
         run: pod install
 
       - name: Build native Release base
-        if: steps.native-app-cache.outputs.cache-hit != 'true'
+        if: steps.native-plan.outputs.required == 'true'
         working-directory: packages/app/ios
         run: |
           workspace=$(find . -maxdepth 1 -name '*.xcworkspace' -print -quit)
@@ -120,7 +156,7 @@ jobs:
             EXCLUDED_ARCHS=x86_64
 
       - name: Package native base
-        if: steps.native-app-cache.outputs.cache-hit != 'true'
+        if: steps.native-plan.outputs.required == 'true'
         run: |
           set -euo pipefail
           app_path=$(find "$IOS_DERIVED_DATA" -name '*.app' -path '*Release-iphonesimulator*' -print -quit)
@@ -130,40 +166,27 @@ jobs:
             echo '::error::Native E2E base unexpectedly contains a development-client launch URL.'
             exit 1
           fi
+          find "$app_path" -name 'main.jsbundle' -type f -print -quit | grep -q .
           mkdir -p .ci-cache/ios-native-app
-          tar -C "$(dirname "$app_path")" -czf .ci-cache/ios-native-app/base.app.tar.gz "$(basename "$app_path")"
+          ditto "$app_path" .ci-cache/ios-native-app/Base.app
 
       - name: Save fingerprinted native app
         if: steps.native-app-cache.outputs.cache-hit != 'true'
         uses: actions/cache/save@v5
         with:
           path: .ci-cache/ios-native-app
-          key: ios-native-app-${{ runner.os }}-arm64-xcode26_4_1-${{ steps.fingerprint.outputs.hash }}
+          key: ios-native-v1-suuudokuuu-e2e-${{ runner.os }}-arm64-xcode26_4_1-17E202-${{ steps.fingerprint.outputs.hash }}
 
-      - name: Repack current JavaScript and assets
-        if: github.event_name != 'push'
-        working-directory: packages/app
-        shell: bash
-        run: |
-          set -euo pipefail
-          base_dir="$RUNNER_TEMP/ios-native-base"
-          output_app="$GITHUB_WORKSPACE/.ci-artifacts/repacked/Suuudokuuu.app"
-          mkdir -p "$base_dir" "$(dirname "$output_app")"
-          tar -xzf "$GITHUB_WORKSPACE/.ci-cache/ios-native-app/base.app.tar.gz" -C "$base_dir"
-          source_app=$(find "$base_dir" -maxdepth 1 -name '*.app' -print -quit)
-          test -n "$source_app"
-          npx --yes "@expo/repack-app@$EXPO_REPACK_VERSION" . \
-            --platform ios \
-            --source-app "$source_app" \
-            --output "$output_app" \
-            --embed-bundle-assets
-
-      - name: Validate and package repacked app
+      - name: Validate and package current app
         if: github.event_name != 'push'
         shell: bash
         run: |
           set -euo pipefail
-          app_path="$GITHUB_WORKSPACE/.ci-artifacts/repacked/Suuudokuuu.app"
+          if [ "${{ steps.repack.outcome }}" = 'success' ]; then
+            app_path="$GITHUB_WORKSPACE/.ci-artifacts/repacked/Suuudokuuu.app"
+          else
+            app_path=$(find "$IOS_DERIVED_DATA" -name '*.app' -path '*Release-iphonesimulator*' -print -quit)
+          fi
           test -d "$app_path"
           test "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$app_path/Info.plist")" = 'com.vitalyiegorov.suuudokuuu.e2e'
           if /usr/libexec/PlistBuddy -c 'Print :DEV_CLIENT_DEFAULT_LAUNCHER_URL' "$app_path/Info.plist" >/dev/null 2>&1; then
@@ -180,6 +203,8 @@ jobs:
           name: ios-e2e-app
           path: .ci-artifacts/ios-e2e-app/*.tar.gz
           if-no-files-found: error
+          compression-level: 0
+          retention-days: 3
 
   test:
     if: github.event_name != 'push'
@@ -200,11 +225,8 @@ jobs:
 
       - name: Select Xcode
         run: |
-          if [ -d /Applications/Xcode_26.4.1.app ]; then
-            xcode_app=/Applications/Xcode_26.4.1.app
-          else
-            xcode_app=/Applications/Xcode.app
-          fi
+          xcode_app=/Applications/Xcode_26.4.1.app
+          test -d "$xcode_app"
           echo "DEVELOPER_DIR=$xcode_app/Contents/Developer" >> "$GITHUB_ENV"
 
       - name: Start isolated simulator

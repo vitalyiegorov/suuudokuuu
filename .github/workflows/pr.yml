@@ -50,7 +50,7 @@ jobs:
           fi
 
       - name: Lint the PR Title
-        run: echo "${{env.PR_TITLE}}" | node_modules/.bin/commitlint
+        run: printf '%s\n' "$PR_TITLE" | node_modules/.bin/commitlint
 
       - name: Typescript checks
         run: yarn ts
