@@ -4,3 +4,7 @@ appId: ${APP_ID}
     visible:
       id: 'HomeScreenSelectors.StartButton'
     timeout: 60000
+- runFlow:
+    file: flows/subflows/navigation/prime-deep-links.flow.yaml
+    env:
+      DEV_CLIENT_LINK: ${DEV_CLIENT_LINK}

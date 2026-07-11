@@ -11,11 +11,12 @@ appId: ${APP_ID}
     id: 'GameScreenSelectors.Time'
 - evalScript: ${output.firstPausedSeconds = Number(maestro.copiedText.split(':')[0]) * 60 + Number(maestro.copiedText.split(':')[1])}
 - runFlow: subflows/game/open-settings-from-game.flow.yaml
-- repeat:
-    times: 15
-    commands:
-      - assertVisible:
-          id: 'SettingsScreenSelectors.Root'
+- runFlow:
+    file: subflows/shared/wait-observation-window.flow.yaml
+    env:
+      WAIT_MILLISECONDS: 4000
+- assertVisible:
+    id: 'SettingsScreenSelectors.Root'
 - tapOn:
     id: 'HeaderBackButtonSelectors.Root'
 - extendedWaitUntil:
@@ -26,22 +27,20 @@ appId: ${APP_ID}
     id: 'GameScreenSelectors.Time'
 - evalScript: ${output.firstReturnedSeconds = Number(maestro.copiedText.split(':')[0]) * 60 + Number(maestro.copiedText.split(':')[1])}
 - assertTrue:
-    condition: ${output.firstReturnedSeconds <= output.firstPausedSeconds + 3}
+    condition: ${output.firstReturnedSeconds <= output.firstPausedSeconds + 2}
     label: Timer stays paused while settings are open
-- runFlow:
-    file: subflows/game/assert-timer-advances.flow.yaml
-    env:
-      BASELINE_SECONDS: ${output.firstReturnedSeconds}
+- runFlow: subflows/game/assert-timer-advances.flow.yaml
 - runFlow: subflows/navigation/move-dev-tools-button-away-if-visible.flow.yaml
 - copyTextFrom:
     id: 'GameScreenSelectors.Time'
 - evalScript: ${output.secondPausedSeconds = Number(maestro.copiedText.split(':')[0]) * 60 + Number(maestro.copiedText.split(':')[1])}
 - runFlow: subflows/game/open-settings-from-game.flow.yaml
-- repeat:
-    times: 15
-    commands:
-      - assertVisible:
-          id: 'SettingsScreenSelectors.Root'
+- runFlow:
+    file: subflows/shared/wait-observation-window.flow.yaml
+    env:
+      WAIT_MILLISECONDS: 4000
+- assertVisible:
+    id: 'SettingsScreenSelectors.Root'
 - tapOn:
     id: 'HeaderBackButtonSelectors.Root'
 - extendedWaitUntil:
@@ -52,12 +51,14 @@ appId: ${APP_ID}
     id: 'GameScreenSelectors.Time'
 - evalScript: ${output.secondReturnedSeconds = Number(maestro.copiedText.split(':')[0]) * 60 + Number(maestro.copiedText.split(':')[1])}
 - assertTrue:
-    condition: ${output.secondReturnedSeconds <= output.secondPausedSeconds + 3}
+    condition: ${output.secondReturnedSeconds <= output.secondPausedSeconds + 2}
     label: Timer stays paused during a second settings visit
+- runFlow: subflows/game/assert-timer-advances.flow.yaml
+- runFlow: subflows/game/open-settings-from-game.flow.yaml
 - runFlow:
-    file: subflows/game/assert-timer-advances.flow.yaml
+    file: subflows/shared/wait-observation-window.flow.yaml
     env:
-      BASELINE_SECONDS: ${output.secondReturnedSeconds}
+      WAIT_MILLISECONDS: 1500
 - stopApp
 - runFlow: subflows/navigation/relaunch-home.flow.yaml
 - assertVisible:
@@ -68,6 +69,13 @@ appId: ${APP_ID}
     visible:
       id: 'GameScreenSelectors.Root'
     timeout: 30000
+- copyTextFrom:
+    id: 'GameScreenSelectors.Time'
+- evalScript: ${output.rehydratedSeconds = Number(maestro.copiedText.split(':')[0]) * 60 + Number(maestro.copiedText.split(':')[1])}
+- assertTrue:
+    condition: ${output.rehydratedSeconds >= output.secondReturnedSeconds}
+    label: Relaunch restores the persisted game timer
+- runFlow: subflows/game/assert-timer-advances.flow.yaml
 - runFlow: subflows/navigation/close-dev-menu-if-visible.flow.yaml
 - runFlow: subflows/navigation/move-dev-tools-button-away-if-visible.flow.yaml
 - assertVisible:

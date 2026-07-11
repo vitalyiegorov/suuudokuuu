@@ -17,3 +17,4 @@ executionOrder:
     - 04.statistics-screen.flow
     - 05.settings-screen.flow
     - 06.resume-game.flow
+    - 07.background-foreground-game.flow

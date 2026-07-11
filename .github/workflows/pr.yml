@@ -88,11 +88,8 @@ jobs:
       - name: Validate Maestro suite
         working-directory: tests/app-tests
         run: |
-          flow_count=$(find flows -maxdepth 1 -type f -name '*.flow.yaml' | wc -l | tr -d ' ')
-          if [ "$flow_count" != "6" ]; then
-            echo "Expected 6 Maestro flows, found $flow_count"
-            exit 1
-          fi
+          ./scripts/validate-flow-inventory.sh
+          ./scripts/validate-selector-policy.sh
 
       - name: Setup Node
         uses: actions/setup-node@v6
@@ -390,6 +387,7 @@ jobs:
           maestro test \
             --udid "$BOOTED_SIMULATOR_UDID" \
             -e APP_ID=com.vitalyiegorov.suuudokuuu.preview \
+            -e DEV_CLIENT_LINK="$EXPO_DEV_CLIENT_URL" \
             tests/app-tests/launch-dev-client.flow.yaml
 
       - name: Run Maestro UI tests
@@ -408,7 +406,7 @@ jobs:
             --config config.yaml \
             --debug-output ./artifacts/maestro \
             --test-output-dir ./artifacts/maestro \
-            . 2>&1 | tee ./artifacts/maestro/maestro-console.log
+            flows 2>&1 | tee ./artifacts/maestro/maestro-console.log
 
       - name: Stop iOS Simulator captures
         if: always()
@@ -443,6 +441,23 @@ jobs:
             tests/app-tests/.maestro/**
             tests/app-tests/metro.log
             tests/app-tests/*.mp4
+
+  required-ci:
+    if: ${{ always() }}
+    needs: [code-quality, e2e-ios]
+    name: Required CI
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Verify required jobs
+        env:
+          CODE_QUALITY_RESULT: ${{ needs.code-quality.result }}
+          E2E_IOS_RESULT: ${{ needs.e2e-ios.result }}
+        run: |
+          if [ "$CODE_QUALITY_RESULT" != 'success' ] || [ "$E2E_IOS_RESULT" != 'success' ]; then
+            echo "Required jobs did not pass: code-quality=$CODE_QUALITY_RESULT, e2e-ios=$E2E_IOS_RESULT"
+            exit 1
+          fi
 
   e2e-android:
     needs: code-quality

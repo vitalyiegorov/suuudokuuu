@@ -1,0 +1,30 @@
+appId: ${APP_ID}
+---
+- openLink:
+    link: ${DEV_CLIENT_LINK}
+- runFlow:
+    when:
+      visible: '^Open$'
+    commands:
+      - tapOn: '^Open$'
+      - extendedWaitUntil:
+          notVisible: '^Open$'
+          timeout: 5000
+- extendedWaitUntil:
+    visible:
+      id: 'HomeScreenSelectors.StartButton'
+    timeout: 60000
+- openLink:
+    link: suuudokuuu://
+- runFlow:
+    when:
+      visible: '^Open$'
+    commands:
+      - tapOn: '^Open$'
+      - extendedWaitUntil:
+          notVisible: '^Open$'
+          timeout: 5000
+- extendedWaitUntil:
+    visible:
+      id: 'HomeScreenSelectors.StartButton'
+    timeout: 60000
