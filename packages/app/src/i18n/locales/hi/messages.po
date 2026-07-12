@@ -18,6 +18,11 @@ msgstr ""
 msgid "{0, plural, one {# mistake} other {# mistakes}}"
 msgstr "{0, plural, one {# गलती} other {# गलतियाँ}}"
 
+#. placeholder {0}: challengeSteps.length
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "{0, plural, one {Opponent solved it in # attempt.} other {Opponent solved it in # attempts.}}"
+msgstr "{0, plural, one {प्रतिद्वंद्वी ने इसे # प्रयास में हल किया।} other {प्रतिद्वंद्वी ने इसे # प्रयासों में हल किया।}}"
+
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "{filledCells}/{totalCells} filled"
 msgstr "{filledCells}/{totalCells} भरे गए"
@@ -539,8 +544,12 @@ msgid "Open shared puzzle?"
 msgstr "साझा सुडोकू खोलें?"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Opponent's time:"
-msgstr "प्रतिद्वंद्वी का समय:"
+msgid "Opponent attempts"
+msgstr "प्रतिद्वंद्वी के प्रयास"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Opponent time"
+msgstr "प्रतिद्वंद्वी का समय"
 
 #: src/history/components/history-segmented-control/history-segmented-control.tsx
 msgid "Overview"
@@ -629,6 +638,7 @@ msgstr "बग रिपोर्ट करें"
 msgid "Row"
 msgstr "पंक्ति"
 
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
@@ -644,10 +654,6 @@ msgstr "स्कोर × गुणांक × संख्या"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 msgstr "हर सही भरी कोशिका का स्कोर कठिनाई, बोनस और दंड के आधार पर गणना होता है।"
-
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Score:"
-msgstr "स्कोर:"
 
 #: src/@generic/components/main-tab-layout/main-tab-layout.tsx
 #: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
@@ -992,8 +998,8 @@ msgid "Your sudoku journey"
 msgstr "आपकी सुडोकू यात्रा"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Your time:"
-msgstr "आपका समय:"
+msgid "Your time"
+msgstr "आपका समय"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Zero mistakes"

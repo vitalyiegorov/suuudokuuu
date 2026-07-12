@@ -1,4 +1,5 @@
-import { Trans, useLingui } from '@lingui/react/macro';
+import { Plural, Trans, useLingui } from '@lingui/react/macro';
+import { AppMetricCard } from '@suuudokuuu/ui';
 import { Redirect } from 'expo-router';
 import { LucideHeartCrack, LucideTrophy } from 'lucide-react-native';
 import { use } from 'react';
@@ -14,6 +15,7 @@ import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { GameState } from '../../../game/store/game.state';
 import { ThemeContext } from '../../../theme/context/theme.context';
 
+import { ChallengeResultScreenSelectors } from './challenge-result-screen.selectors';
 import { ChallengeResultScreenStyles as styles } from './challenge-result-screen.styles';
 
 import type { ReactNode } from 'react';
@@ -26,7 +28,7 @@ interface Props {
 
 export const ChallengeResultScreen = (props: Props) => {
     const { isWon, children, gameState } = props;
-    const { score, elapsedTime, challengeTime, sudokuString } = gameState;
+    const { score, elapsedTime, challengeSteps, challengeTime, sudokuString } = gameState;
 
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
@@ -34,6 +36,8 @@ export const ChallengeResultScreen = (props: Props) => {
     const challengeTimeText = useTimerText(challengeTime);
     const timeDifference = Math.abs(challengeTime - elapsedTime);
     const timeDifferenceText = useTimerText(timeDifference);
+    const opponentAttemptsText = String(challengeSteps.length);
+    const scoreText = String(score);
 
     if (!isNotEmptyString(sudokuString) && elapsedTime === 0) {
         return <Redirect href="/" />;
@@ -55,19 +59,38 @@ export const ChallengeResultScreen = (props: Props) => {
 
             {isWon && (
                 <View style={styles.statsContainer}>
-                    <BlackText>
-                        <Text>
-                            <Trans>Your time:</Trans>{' '}
-                        </Text>
-                        <Text style={styles.boldText}>{elapsedTimeText}</Text>
-                    </BlackText>
+                    <View style={styles.metricsGrid}>
+                        <View style={styles.metricsRow}>
+                            <AppMetricCard
+                                label={t`Your time`}
+                                size="compact"
+                                testID={ChallengeResultScreenSelectors.YourTimeValue}
+                                value={elapsedTimeText}
+                                variant="inverted"
+                            />
+                            <AppMetricCard
+                                label={t`Opponent time`}
+                                size="compact"
+                                testID={ChallengeResultScreenSelectors.OpponentTimeValue}
+                                value={challengeTimeText}
+                            />
+                        </View>
 
-                    <BlackText>
-                        <Text>
-                            <Trans>Opponent&apos;s time:</Trans>{' '}
-                        </Text>
-                        <Text style={styles.boldText}>{challengeTimeText}</Text>
-                    </BlackText>
+                        <View style={styles.metricsRow}>
+                            <AppMetricCard
+                                label={t`Opponent attempts`}
+                                size="compact"
+                                testID={ChallengeResultScreenSelectors.OpponentAttemptsValue}
+                                value={opponentAttemptsText}
+                            />
+                            <AppMetricCard
+                                label={t`Score`}
+                                size="compact"
+                                testID={ChallengeResultScreenSelectors.ScoreValue}
+                                value={scoreText}
+                            />
+                        </View>
+                    </View>
 
                     <BlackText style={styles.differenceText}>
                         <Text>
@@ -78,10 +101,11 @@ export const ChallengeResultScreen = (props: Props) => {
                     </BlackText>
 
                     <BlackText style={styles.messageText}>
-                        <Text>
-                            <Trans>Score:</Trans>{' '}
-                        </Text>
-                        <Text style={styles.boldText}>{score}</Text>
+                        <Plural
+                            value={challengeSteps.length}
+                            one="Opponent solved it in # attempt."
+                            other="Opponent solved it in # attempts."
+                        />
                     </BlackText>
                 </View>
             )}

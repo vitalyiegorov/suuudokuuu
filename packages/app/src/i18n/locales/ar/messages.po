@@ -18,6 +18,11 @@ msgstr ""
 msgid "{0, plural, one {# mistake} other {# mistakes}}"
 msgstr "{0, plural, zero {# أخطاء} one {# خطأ} two {# خطآن} few {# أخطاء} many {# خطأ} other {# خطأ}}"
 
+#. placeholder {0}: challengeSteps.length
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "{0, plural, one {Opponent solved it in # attempt.} other {Opponent solved it in # attempts.}}"
+msgstr "{0, plural, zero {حل الخصم ذلك في # محاولة.} one {حل الخصم ذلك في # محاولة.} two {حل الخصم ذلك في محاولتين.} few {حل الخصم ذلك في # محاولات.} many {حل الخصم ذلك في # محاولة.} other {حل الخصم ذلك في # محاولة.}}"
+
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "{filledCells}/{totalCells} filled"
 msgstr "{filledCells}/{totalCells} ممتلئة"
@@ -539,8 +544,12 @@ msgid "Open shared puzzle?"
 msgstr "فتح السودوكو المشترك؟"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Opponent's time:"
-msgstr "وقت المنافس:"
+msgid "Opponent attempts"
+msgstr "محاولات الخصم"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Opponent time"
+msgstr "وقت الخصم"
 
 #: src/history/components/history-segmented-control/history-segmented-control.tsx
 msgid "Overview"
@@ -629,6 +638,7 @@ msgstr "الإبلاغ عن خطأ"
 msgid "Row"
 msgstr "صف"
 
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
@@ -644,10 +654,6 @@ msgstr "النقاط × المعامل × العدد"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 msgstr "تُحسب النقاط لكل خانة صحيحة حسب الصعوبة والمكافآت والعقوبات."
-
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Score:"
-msgstr "النقاط:"
 
 #: src/@generic/components/main-tab-layout/main-tab-layout.tsx
 #: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
@@ -992,8 +998,8 @@ msgid "Your sudoku journey"
 msgstr "رحلتك في السودوكو"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Your time:"
-msgstr "وقتك:"
+msgid "Your time"
+msgstr "وقتك"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Zero mistakes"

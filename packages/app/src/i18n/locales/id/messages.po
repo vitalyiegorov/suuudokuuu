@@ -18,6 +18,11 @@ msgstr ""
 msgid "{0, plural, one {# mistake} other {# mistakes}}"
 msgstr "{0, plural, one {# kesalahan} other {# kesalahan}}"
 
+#. placeholder {0}: challengeSteps.length
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "{0, plural, one {Opponent solved it in # attempt.} other {Opponent solved it in # attempts.}}"
+msgstr "{0, plural, one {Lawan menyelesaikannya dalam # percobaan.} other {Lawan menyelesaikannya dalam # percobaan.}}"
+
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "{filledCells}/{totalCells} filled"
 msgstr "{filledCells}/{totalCells} terisi"
@@ -539,8 +544,12 @@ msgid "Open shared puzzle?"
 msgstr "Buka sudoku yang dibagikan?"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Opponent's time:"
-msgstr "Waktu lawan:"
+msgid "Opponent attempts"
+msgstr "Percobaan lawan"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Opponent time"
+msgstr "Waktu lawan"
 
 #: src/history/components/history-segmented-control/history-segmented-control.tsx
 msgid "Overview"
@@ -629,6 +638,7 @@ msgstr "Laporkan bug"
 msgid "Row"
 msgstr "Baris"
 
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
@@ -644,10 +654,6 @@ msgstr "skor × koefisien × jumlah"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 msgstr "Skor dihitung untuk setiap kotak benar berdasarkan tingkat kesulitan, bonus, dan penalti."
-
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Score:"
-msgstr "Skor:"
 
 #: src/@generic/components/main-tab-layout/main-tab-layout.tsx
 #: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
@@ -992,8 +998,8 @@ msgid "Your sudoku journey"
 msgstr "Perjalanan Sudoku Anda"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Your time:"
-msgstr "Waktumu:"
+msgid "Your time"
+msgstr "Waktu Anda"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Zero mistakes"

@@ -18,6 +18,11 @@ msgstr ""
 msgid "{0, plural, one {# mistake} other {# mistakes}}"
 msgstr "{0, plural, one {# 个错误} other {# 个错误}}"
 
+#. placeholder {0}: challengeSteps.length
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "{0, plural, one {Opponent solved it in # attempt.} other {Opponent solved it in # attempts.}}"
+msgstr "{0, plural, one {对手用了 # 次尝试完成。} other {对手用了 # 次尝试完成。}}"
+
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "{filledCells}/{totalCells} filled"
 msgstr "{filledCells}/{totalCells} 已填"
@@ -539,8 +544,12 @@ msgid "Open shared puzzle?"
 msgstr "打开分享的数独？"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Opponent's time:"
-msgstr "对手用时："
+msgid "Opponent attempts"
+msgstr "对手尝试"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Opponent time"
+msgstr "对手用时"
 
 #: src/history/components/history-segmented-control/history-segmented-control.tsx
 msgid "Overview"
@@ -629,6 +638,7 @@ msgstr "报告问题"
 msgid "Row"
 msgstr "行"
 
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
@@ -644,10 +654,6 @@ msgstr "分数 × 系数 × 数量"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 msgstr "每个正确填入的格子都会根据难度、奖励和惩罚计算分数。"
-
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Score:"
-msgstr "分数："
 
 #: src/@generic/components/main-tab-layout/main-tab-layout.tsx
 #: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
@@ -992,8 +998,8 @@ msgid "Your sudoku journey"
 msgstr "你的数独旅程"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Your time:"
-msgstr "你的时间："
+msgid "Your time"
+msgstr "你的用时"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Zero mistakes"
