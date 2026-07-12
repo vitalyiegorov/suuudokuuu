@@ -4,18 +4,10 @@ import { isDefined } from '@rnw-community/shared';
 
 import { CandidateContext } from '../classes/candidate-context/candidate-context';
 
-import type {
-    LegacyTechniqueResultExpectationInterface,
-    TechniqueResultExpectationInterface
-} from '../interfaces/technique-result-expectation.spec.interface';
+import type { TechniqueResultExpectationInterface } from '../interfaces/technique-result-expectation.spec.interface';
 import type { TechniqueResultInterface } from '../interfaces/technique-result.interface';
 import type { CandidateCoordinateSpecType } from '../types/candidate-coordinate.spec.type';
 import type { CellInterface } from '@suuudokuuu/generator';
-
-interface ExpectTechniqueResultsInterface {
-    (context: CandidateContext, results: TechniqueResultInterface[], expectations: TechniqueResultExpectationInterface[]): void;
-    (results: TechniqueResultInterface[], expectation: LegacyTechniqueResultExpectationInterface): void;
-}
 
 const sortCoordinates = <Coordinate extends number[]>(coordinates: Coordinate[]): Coordinate[] =>
     [...coordinates].sort((firstCoordinate, secondCoordinate) => {
@@ -60,37 +52,6 @@ const hasUniqueCoordinates = (coordinates: number[][]): boolean => {
     const coordinateKeys = coordinates.map(coordinate => coordinate.join(':'));
 
     return new Set(coordinateKeys).size === coordinateKeys.length;
-};
-
-const getUniqueCoordinates = (coordinates: CandidateCoordinateSpecType[]): CandidateCoordinateSpecType[] => {
-    const coordinatesByKey = new Map(coordinates.map(coordinate => [coordinate.join(':'), coordinate]));
-
-    return sortCoordinates([...coordinatesByKey.values()]);
-};
-
-const expectLegacyTechniqueResults = (
-    results: TechniqueResultInterface[],
-    expectation: LegacyTechniqueResultExpectationInterface
-): void => {
-    const techniques = [...new Set(results.map(result => result.technique))];
-    const kinds = [...new Set(results.map(result => result.kind))];
-    const normalizedResults = getUniqueCoordinates(results.map(result => normalizeCandidate(result.cell, result.value)));
-    const normalizedEliminations = getUniqueCoordinates(
-        results.flatMap(result => result.eliminations.map(elimination => normalizeCandidate(elimination.cell, elimination.value)))
-    );
-    const hasValidReasonCells = results.every(result => {
-        const reasonCells = result.reasonCells.map(cell => [cell.y, cell.x]);
-
-        return reasonCells.length > 0 && hasUniqueCoordinates(reasonCells);
-    });
-
-    expect({ techniques, kinds, hasValidReasonCells, results: normalizedResults, eliminations: normalizedEliminations }).toEqual({
-        techniques: [expectation.technique],
-        kinds: ['elimination'],
-        hasValidReasonCells: true,
-        results: getUniqueCoordinates(expectation.results),
-        eliminations: getUniqueCoordinates(expectation.eliminations)
-    });
 };
 
 const validateUniqueEliminations = (eliminations: CandidateCoordinateSpecType[]): void => {
@@ -144,28 +105,14 @@ const validateResults = (context: CandidateContext, results: TechniqueResultInte
     }
 };
 
-export const expectTechniqueResults: ExpectTechniqueResultsInterface = (
-    contextOrResults: CandidateContext | TechniqueResultInterface[],
-    resultsOrExpectation: TechniqueResultInterface[] | LegacyTechniqueResultExpectationInterface,
-    expectations?: TechniqueResultExpectationInterface[]
+export const expectTechniqueResults = (
+    context: CandidateContext,
+    results: TechniqueResultInterface[],
+    expectations: TechniqueResultExpectationInterface[]
 ): void => {
-    if (contextOrResults instanceof CandidateContext) {
-        if (!Array.isArray(resultsOrExpectation) || !isDefined(expectations)) {
-            throw new Error('Exact technique expectations require a context, results, and expectations');
-        }
+    validateResults(context, results);
 
-        validateResults(contextOrResults, resultsOrExpectation);
-
-        expect(sortResults(resultsOrExpectation.map(result => normalizeResult(result)))).toEqual(
-            sortResults(expectations.map(expectation => normalizeExpectation(expectation)))
-        );
-
-        return;
-    }
-
-    if (Array.isArray(resultsOrExpectation)) {
-        throw new Error('Legacy technique expectations require results and one aggregate expectation');
-    }
-
-    expectLegacyTechniqueResults(contextOrResults, resultsOrExpectation);
+    expect(sortResults(results.map(result => normalizeResult(result)))).toEqual(
+        sortResults(expectations.map(expectation => normalizeExpectation(expectation)))
+    );
 };

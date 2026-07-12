@@ -6,20 +6,17 @@ import { expectTechniqueResults } from '../../@generic/test-utils/expect-techniq
 
 import { XChainTechnique } from './x-chain.technique';
 
+import type { CandidateCellSpecType } from '../../@generic/types/candidate-cell-spec.spec.type';
+
+interface TargetChainFixtureInterface {
+    readonly name: string;
+    readonly candidateMap: CandidateCellSpecType[];
+    readonly target: [number, number, number];
+    readonly reasonCells: [number, number][];
+}
+
 describe('XChainTechnique', () => {
-    it('finds an alternating strong-link chain that removes the endpoint value', () => {
-        expect.assertions(1);
-
-        const context = createCandidateContextFromMap([0, 0, [5, 6]], [0, 3, [5, 7]], [1, 3, [5, 8]], [1, 1, [5, 9]], [2, 2, [5, 4]]);
-
-        expectTechniqueResults(new XChainTechnique().find(context), {
-            technique: SolutionTechniqueEnum.XChain,
-            results: [[2, 2, 5]],
-            eliminations: [[2, 2, 5]]
-        });
-    });
-
-    it('finds a chain with a weak-only middle link', () => {
+    it('canonicalizes reverse paths while preserving distinct weak-link deductions', () => {
         expect.assertions(1);
 
         const context = createCandidateContextFromMap(
@@ -31,47 +28,135 @@ describe('XChainTechnique', () => {
             [2, 2, [5, 4]]
         );
 
-        const normalizedResults = new XChainTechnique().find(context).map(result => ({
-            eliminations: result.eliminations.map(elimination => [elimination.cell.y, elimination.cell.x, elimination.value]),
-            reasonCells: result.reasonCells.map(cell => [cell.y, cell.x]).sort()
-        }));
+        expectTechniqueResults(context, new XChainTechnique().find(context), [
+            {
+                technique: SolutionTechniqueEnum.XChain,
+                kind: 'elimination',
+                result: [0, 0, 5],
+                eliminations: [[0, 0, 5]],
+                reasonCells: [
+                    [1, 1],
+                    [1, 4],
+                    [2, 2],
+                    [2, 4]
+                ]
+            },
+            {
+                technique: SolutionTechniqueEnum.XChain,
+                kind: 'elimination',
+                result: [0, 4, 5],
+                eliminations: [[0, 4, 5]],
+                reasonCells: [
+                    [1, 1],
+                    [1, 4],
+                    [2, 2],
+                    [2, 4]
+                ]
+            },
+            {
+                technique: SolutionTechniqueEnum.XChain,
+                kind: 'elimination',
+                result: [1, 1, 5],
+                eliminations: [[1, 1, 5]],
+                reasonCells: [
+                    [0, 0],
+                    [0, 4],
+                    [2, 2],
+                    [2, 4]
+                ]
+            },
+            {
+                technique: SolutionTechniqueEnum.XChain,
+                kind: 'elimination',
+                result: [1, 4, 5],
+                eliminations: [[1, 4, 5]],
+                reasonCells: [
+                    [0, 0],
+                    [0, 4],
+                    [2, 2],
+                    [2, 4]
+                ]
+            },
+            {
+                technique: SolutionTechniqueEnum.XChain,
+                kind: 'elimination',
+                result: [2, 2, 5],
+                eliminations: [[2, 2, 5]],
+                reasonCells: [
+                    [0, 0],
+                    [0, 4],
+                    [1, 1],
+                    [1, 4]
+                ]
+            },
+            {
+                technique: SolutionTechniqueEnum.XChain,
+                kind: 'elimination',
+                result: [2, 4, 5],
+                eliminations: [[2, 4, 5]],
+                reasonCells: [
+                    [0, 0],
+                    [0, 4],
+                    [1, 1],
+                    [1, 4]
+                ]
+            }
+        ]);
+    });
 
-        expect(normalizedResults).toContainEqual({
-            eliminations: [[2, 2, 5]],
+    const targetFixtures: TargetChainFixtureInterface[] = [
+        {
+            name: 'basic chain',
+            candidateMap: [
+                [0, 0, [5, 6]],
+                [0, 3, [5, 7]],
+                [1, 3, [5, 8]],
+                [1, 1, [5, 9]],
+                [2, 2, [5, 4]]
+            ],
+            target: [2, 2, 4],
+            reasonCells: [
+                [0, 0],
+                [0, 3],
+                [1, 1],
+                [1, 3]
+            ]
+        },
+        {
+            name: 'weak-link chain',
+            candidateMap: [
+                [0, 0, [5, 6]],
+                [0, 4, [5, 7]],
+                [1, 4, [5, 8]],
+                [1, 1, [5, 9]],
+                [2, 4, [5, 1]],
+                [2, 2, [5, 4]]
+            ],
+            target: [2, 2, 4],
             reasonCells: [
                 [0, 0],
                 [0, 4],
                 [1, 1],
                 [1, 4]
             ]
-        });
-    });
-
-    it('finds an alternating chain longer than six cells', () => {
-        expect.assertions(1);
-
-        const context = createCandidateContextFromMap(
-            [0, 0, [5, 1]],
-            [0, 3, [5, 2]],
-            [3, 3, [5, 3]],
-            [3, 6, [5, 4]],
-            [6, 6, [5, 6]],
-            [6, 8, [5, 7]],
-            [8, 8, [5, 8]],
-            [8, 0, [5, 9]],
-            [5, 3, [5, 1]],
-            [5, 6, [5, 2]],
-            [5, 8, [5, 3]],
-            [4, 0, [5, 4]]
-        );
-
-        const normalizedResults = new XChainTechnique().find(context).map(result => ({
-            eliminations: result.eliminations.map(elimination => [elimination.cell.y, elimination.cell.x, elimination.value]),
-            reasonCells: result.reasonCells.map(cell => [cell.y, cell.x]).sort()
-        }));
-
-        expect(normalizedResults).toContainEqual({
-            eliminations: [[4, 0, 5]],
+        },
+        {
+            name: 'long chain',
+            candidateMap: [
+                [0, 0, [5, 1]],
+                [0, 3, [5, 2]],
+                [3, 3, [5, 3]],
+                [3, 6, [5, 4]],
+                [6, 6, [5, 6]],
+                [6, 8, [5, 7]],
+                [8, 8, [5, 8]],
+                [8, 0, [5, 9]],
+                [5, 3, [5, 1]],
+                [5, 6, [5, 2]],
+                [5, 8, [5, 3]],
+                [4, 0, [5, 4]]
+            ],
+            target: [4, 0, 4],
             reasonCells: [
                 [0, 0],
                 [0, 3],
@@ -82,7 +167,24 @@ describe('XChainTechnique', () => {
                 [8, 0],
                 [8, 8]
             ]
-        });
+        }
+    ];
+
+    it.each(targetFixtures)('finds only the target elimination for the $name', ({ candidateMap, target, reasonCells }) => {
+        expect.assertions(1);
+
+        const context = createCandidateContextFromMap(...candidateMap);
+        const targetCell = context.getRowCells(target[0])[target[1]];
+
+        expectTechniqueResults(context, new XChainTechnique().find(context, { cell: targetCell, value: target[2] }), [
+            {
+                technique: SolutionTechniqueEnum.XChain,
+                kind: 'elimination',
+                result: [target[0], target[1], 5],
+                eliminations: [[target[0], target[1], 5]],
+                reasonCells
+            }
+        ]);
     });
 
     it('ignores a chain when a strong link gains a third occurrence', () => {
