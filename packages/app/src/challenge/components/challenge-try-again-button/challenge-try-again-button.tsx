@@ -6,7 +6,9 @@ import { BlackButton } from '../../../@generic/components/black-button/black-but
 import { GameContext } from '../../../game/context/game.context';
 import { GameState } from '../../../game/store/game.state';
 import { stringToGameState } from '../../../game/utils/string-to-game-state.util';
-import { ChallengeFriendButtonStyles as styles } from '../challenge-friend-button/challenge-friend-button.styles';
+import { ChallengeShareButtonStyles as styles } from '../challenge-share-button/challenge-share-button.styles';
+
+import { ChallengeTryAgainButtonSelectors } from './challenge-try-again-button.selectors';
 
 interface Props {
     readonly gameState: GameState;
@@ -27,6 +29,7 @@ export const ChallengeTryAgainButton = ({ gameState }: Props) => {
             onPress={handleTryAgain}
             replace
             style={styles.button}
+            testID={ChallengeTryAgainButtonSelectors.Root}
             text={t`Try Again`}
             icon={LucideRotateCcw}
         ></BlackButton>

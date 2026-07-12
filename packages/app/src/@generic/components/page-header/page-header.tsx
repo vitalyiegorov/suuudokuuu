@@ -18,12 +18,12 @@ export const PageHeader = ({ title = '' }: Props) => {
     const { t } = useLingui();
 
     const pageTitle = t`SuuudokuuU The Game`;
-    const fullTitle = isNotEmptyString(title) ? `${pageTitle} - ${title}` : pageTitle;
     const statusBarStyle = colorScheme === ColorSchemaEnum.Dark ? 'light' : 'dark';
+    const screenTitle = isNotEmptyString(title) ? title : pageTitle;
 
     useHtmlThemeColor(theme.colors.background);
 
-    const options = { title: fullTitle };
+    const options = { title: screenTitle };
 
     return (
         <>

@@ -1,0 +1,41 @@
+appId: ${APP_ID}
+---
+- startRecording:
+    path: '07.background-foreground-game'
+    optional: true
+
+- runFlow: subflows/navigation/launch-home.flow.yaml
+- runFlow: subflows/game/start-new-game.flow.yaml
+- runFlow: subflows/game/assert-timer-advances.flow.yaml
+- copyTextFrom:
+    id: 'GameScreenSelectors.Time'
+- evalScript: ${output.beforeBackgroundSeconds = Number(maestro.copiedText.split(':')[0]) * 60 + Number(maestro.copiedText.split(':')[1])}
+- pressKey: Home
+- runFlow:
+    file: subflows/shared/wait-observation-window.flow.yaml
+    env:
+      WAIT_MILLISECONDS: 3000
+- launchApp:
+    stopApp: false
+- extendedWaitUntil:
+    visible:
+      id: 'PauseScreenSelectors.Root'
+    timeout: 3000
+- assertVisible: 'Paused'
+- assertNotVisible:
+    id: 'GameScreenSelectors.Root'
+- copyTextFrom:
+    id: 'PauseScreenSelectors.TimeValue'
+- evalScript: ${output.pausedSeconds = Number(maestro.copiedText.split(':')[0]) * 60 + Number(maestro.copiedText.split(':')[1])}
+- assertTrue:
+    condition: ${output.pausedSeconds <= output.beforeBackgroundSeconds + 2}
+    label: Timer stays paused while the app is backgrounded
+- tapOn:
+    id: 'PauseScreenSelectors.ResumeButton'
+- extendedWaitUntil:
+    visible:
+      id: 'GameScreenSelectors.Root'
+    timeout: 3000
+- runFlow: subflows/game/assert-timer-advances.flow.yaml
+- runFlow: subflows/game/quit-current-game.flow.yaml
+- stopApp

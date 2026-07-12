@@ -17,7 +17,7 @@ concurrency:
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [opened, synchronize, reopened, ready_for_review]
 
 jobs:
   code-quality:
@@ -40,14 +40,7 @@ jobs:
         run: yarn install
 
       - name: Lingui catalogs are up to date
-        run: |
-          yarn workspace @suuudokuuu/app i18n:sync
-
-          if ! git diff --quiet HEAD -- packages/app/src/locales; then
-            echo "::error::Lingui catalogs are stale. Run 'yarn workspace @suuudokuuu/app i18n:sync' and commit the generated files."
-            git diff --name-only HEAD -- packages/app/src/locales
-            exit 1
-          fi
+        run: yarn i18n:check
 
       - name: Lint the PR Title
         run: printf '%s\n' "$PR_TITLE" | node_modules/.bin/commitlint
@@ -70,12 +63,29 @@ jobs:
         run: yarn test:coverage
 
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v5
 
   ios-maestro:
     needs: code-quality
     uses: ./.github/workflows/ios-maestro.yml
     secrets: inherit
+
+  required-ci:
+    if: ${{ always() }}
+    needs: [code-quality, ios-maestro]
+    name: Required CI
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Verify required jobs
+        env:
+          CODE_QUALITY_RESULT: ${{ needs.code-quality.result }}
+          IOS_MAESTRO_RESULT: ${{ needs.ios-maestro.result }}
+        run: |
+          if [ "$CODE_QUALITY_RESULT" != 'success' ] || [ "$IOS_MAESTRO_RESULT" != 'success' ]; then
+            echo "Required jobs did not pass: code-quality=$CODE_QUALITY_RESULT, ios-maestro=$IOS_MAESTRO_RESULT"
+            exit 1
+          fi
 
   e2e-android:
     needs: code-quality

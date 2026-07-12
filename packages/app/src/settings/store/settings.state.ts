@@ -1,3 +1,4 @@
+import { DifficultyEnum } from '@suuudokuuu/generator';
 import { Appearance } from 'react-native';
 
 import { i18nGetOSLocale } from '../../@generic/utils/i18n.util';
@@ -22,6 +23,9 @@ export interface SettingsState {
     theme: (typeof Themes)[number];
     isDarkColorSchema: boolean;
     cellMargin: (typeof CellMargin)[number];
+    lastGameDifficulty: DifficultyEnum;
+    lastGameMaxMistakes: number;
+    lastStatsDifficulty: DifficultyEnum;
 }
 
 export const initialSettingsState: SettingsState = {
@@ -37,5 +41,8 @@ export const initialSettingsState: SettingsState = {
     language: i18nGetOSLocale(),
     theme: ThemeEnum.BlackAndWhite,
     isDarkColorSchema: Appearance.getColorScheme() === 'dark',
-    cellMargin: 5
+    cellMargin: 5,
+    lastGameDifficulty: DifficultyEnum.Easy,
+    lastGameMaxMistakes: 3,
+    lastStatsDifficulty: DifficultyEnum.Easy
 };

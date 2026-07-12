@@ -17,7 +17,7 @@ env:
 jobs:
   build:
     name: Build embedded iOS E2E app
-    runs-on: [self-hosted, macOS, ARM64, macos-builder]
+    runs-on: macos-26
     timeout-minutes: 90
     env:
       APP_VARIANT: e2e
@@ -61,11 +61,11 @@ jobs:
         uses: actions/cache/restore@v5
         with:
           path: .ci-cache/ios-native-app
-          key: ios-native-v1-suuudokuuu-e2e-${{ runner.os }}-arm64-xcode26_4_1-17E202-${{ steps.fingerprint.outputs.hash }}
+          key: ios-native-v2-macos26-suuudokuuu-e2e-${{ runner.os }}-arm64-xcode26_4_1-17E202-${{ steps.fingerprint.outputs.hash }}
 
       - name: Repack cached native app
         id: repack
-        if: github.event_name != 'push' && steps.native-app-cache.outputs.cache-hit == 'true'
+        if: steps.native-app-cache.outputs.cache-hit == 'true'
         continue-on-error: true
         working-directory: packages/app
         shell: bash
@@ -81,7 +81,10 @@ jobs:
             --output "$output_app" \
             --embed-bundle-assets
           test "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$output_app/Info.plist")" = 'com.vitalyiegorov.suuudokuuu.e2e'
-          ! /usr/libexec/PlistBuddy -c 'Print :DEV_CLIENT_DEFAULT_LAUNCHER_URL' "$output_app/Info.plist" >/dev/null 2>&1
+          if /usr/libexec/PlistBuddy -c 'Print :DEV_CLIENT_DEFAULT_LAUNCHER_URL' "$output_app/Info.plist" >/dev/null 2>&1; then
+            echo '::error::Repacked E2E app unexpectedly contains a development-client launch URL.'
+            exit 1
+          fi
           find "$output_app" -name 'main.jsbundle' -type f -print -quit | grep -q .
 
       - name: Plan native build
@@ -89,7 +92,7 @@ jobs:
         shell: bash
         run: |
           if [ "${{ steps.native-app-cache.outputs.cache-hit }}" != 'true' ] || \
-             { [ "${{ github.event_name }}" != 'push' ] && [ "${{ steps.repack.outcome }}" != 'success' ]; }; then
+             [ "${{ steps.repack.outcome }}" != 'success' ]; then
             echo 'required=true' >> "$GITHUB_OUTPUT"
             if [ "${{ steps.native-app-cache.outputs.cache-hit }}" = 'true' ]; then
               echo '::warning::Repack failed validation; falling back to a full native build.'
@@ -175,10 +178,9 @@ jobs:
         uses: actions/cache/save@v5
         with:
           path: .ci-cache/ios-native-app
-          key: ios-native-v1-suuudokuuu-e2e-${{ runner.os }}-arm64-xcode26_4_1-17E202-${{ steps.fingerprint.outputs.hash }}
+          key: ios-native-v2-macos26-suuudokuuu-e2e-${{ runner.os }}-arm64-xcode26_4_1-17E202-${{ steps.fingerprint.outputs.hash }}
 
       - name: Validate and package current app
-        if: github.event_name != 'push'
         shell: bash
         run: |
           set -euo pipefail
@@ -198,7 +200,6 @@ jobs:
           tar -C "$(dirname "$app_path")" -czf ".ci-artifacts/ios-e2e-app/$(basename "$app_path").tar.gz" "$(basename "$app_path")"
 
       - uses: actions/upload-artifact@v6
-        if: github.event_name != 'push'
         with:
           name: ios-e2e-app
           path: .ci-artifacts/ios-e2e-app/*.tar.gz
@@ -207,10 +208,9 @@ jobs:
           retention-days: 3
 
   test:
-    if: github.event_name != 'push'
     needs: build
     name: Maestro shard ${{ matrix.shard-number }}/2
-    runs-on: [self-hosted, macOS, ARM64, macos-maestro]
+    runs-on: macos-26
     timeout-minutes: 45
     strategy:
       fail-fast: false
@@ -234,12 +234,59 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          xcrun simctl shutdown all || true
-          udid=$(xcrun simctl list devices available | sed -n '/iPhone 17 Pro (/ { s/.*(\([A-F0-9-]\{36\}\)).*/\1/; p; q; }')
-          test -n "$udid"
-          xcrun simctl boot "$udid" 2>/dev/null || true
-          xcrun simctl bootstatus "$udid" -b
-          echo "SIMULATOR_UDID=$udid" >> "$GITHUB_ENV"
+          simulator_udid=$(python3 <<'PY'
+          import json
+          import subprocess
+
+          simulator_metadata = json.loads(
+              subprocess.check_output(['xcrun', 'simctl', 'list', '-j', 'devicetypes', 'runtimes'])
+          )
+          available_runtimes = [
+              runtime
+              for runtime in simulator_metadata['runtimes']
+              if runtime.get('isAvailable')
+              and runtime.get('identifier', '').startswith('com.apple.CoreSimulator.SimRuntime.iOS')
+          ]
+          available_runtimes.sort(
+              key=lambda runtime: tuple(int(part) for part in runtime.get('version', '0').split('.')),
+              reverse=True,
+          )
+          device_types_by_name = {
+              device_type['name']: device_type['identifier']
+              for device_type in simulator_metadata['devicetypes']
+              if device_type.get('productFamily') == 'iPhone'
+          }
+          preferred_device_names = ['iPhone 17', 'iPhone Air', 'iPhone 16', 'iPhone 15']
+          device_type_identifier = next(
+              (
+                  device_types_by_name[device_name]
+                  for device_name in preferred_device_names
+                  if device_name in device_types_by_name
+              ),
+              None,
+          )
+
+          if not available_runtimes or not device_type_identifier:
+              raise SystemExit('No supported iOS runtime or iPhone simulator type is available.')
+
+          print(
+              subprocess.check_output(
+                  [
+                      'xcrun',
+                      'simctl',
+                      'create',
+                      'Suuudokuuu E2E',
+                      device_type_identifier,
+                      available_runtimes[0]['identifier'],
+                  ],
+                  text=True,
+              ).strip()
+          )
+          PY
+          )
+          xcrun simctl boot "$simulator_udid"
+          xcrun simctl bootstatus "$simulator_udid" -b
+          echo "SIMULATOR_UDID=$simulator_udid" >> "$GITHUB_ENV"
 
       - uses: actions/download-artifact@v6
         with:
@@ -266,6 +313,9 @@ jobs:
         working-directory: tests/app-tests
         shell: bash
         env:
+          APP_ID: com.vitalyiegorov.suuudokuuu.e2e
+          MAESTRO_DEBUG_OUTPUT_DIRECTORY: ${{ github.workspace }}/tests/app-tests/artifacts/maestro-shard-${{ matrix.shard-index }}
+          MAESTRO_OUTPUT_PATH: ${{ github.workspace }}/tests/app-tests/artifacts/maestro-shard-${{ matrix.shard-index }}/report.xml
           SHARD_INDEX: ${{ matrix.shard-index }}
         run: |
           set -euo pipefail
@@ -281,16 +331,9 @@ jobs:
           done
           test "${#selected[@]}" -gt 0
           printf 'Shard %s flows:\n%s\n' "$SHARD_INDEX" "${selected[*]}"
-          mkdir -p "artifacts/maestro-shard-$SHARD_INDEX"
-          maestro test \
-            --udid "$SIMULATOR_UDID" \
-            -e APP_ID=com.vitalyiegorov.suuudokuuu.e2e \
-            --format junit \
-            --output "./artifacts/maestro-shard-$SHARD_INDEX/report.xml" \
-            --config config.yaml \
-            --debug-output "./artifacts/maestro-shard-$SHARD_INDEX" \
-            --test-output-dir "./artifacts/maestro-shard-$SHARD_INDEX" \
-            "${selected[@]}" 2>&1 | tee "./artifacts/maestro-shard-$SHARD_INDEX/console.log"
+          mkdir -p "./artifacts/maestro-shard-$SHARD_INDEX"
+          ./scripts/run-maestro-suite.sh "${selected[@]}" \
+            2>&1 | tee "./artifacts/maestro-shard-$SHARD_INDEX/console.log"
 
       - name: Capture final simulator state
         if: always()
@@ -298,6 +341,7 @@ jobs:
           mkdir -p "tests/app-tests/artifacts/simulator-shard-${{ matrix.shard-index }}"
           xcrun simctl io "$SIMULATOR_UDID" screenshot "tests/app-tests/artifacts/simulator-shard-${{ matrix.shard-index }}/final-screen.png" || true
           xcrun simctl shutdown "$SIMULATOR_UDID" || true
+          xcrun simctl delete "$SIMULATOR_UDID" || true
 
       - uses: actions/upload-artifact@v6
         if: always()

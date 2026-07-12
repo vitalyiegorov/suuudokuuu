@@ -1,20 +1,16 @@
 import { StyleSheet } from 'react-native';
 
 export const ScoringScreenStyles = StyleSheet.create({
-    container: {
+    content: {
         alignItems: 'center',
-        flex: 1,
-        padding: 20,
         paddingHorizontal: 40
     },
     scrollView: {
-        marginBottom: 20,
         maxWidth: 600,
         width: '100%'
     },
     scrollViewContent: {
-        gap: 8,
-        paddingBottom: 20
+        gap: 8
     },
     listItem: {
         marginLeft: 12,

@@ -1,20 +1,6 @@
 appId: ${APP_ID}
 ---
-- repeat:
-    times: 3
-    while:
-      notVisible: 'Start new'
-    commands:
-      - runFlow:
-          when:
-            visible: 'Open in.*'
-          commands:
-            - tapOn:
-                text: 'Open'
-                retryTapIfNoChange: true
-      - waitForAnimationToEnd:
-          timeout: 5000
-
 - extendedWaitUntil:
-    visible: 'Start new'
-    timeout: 120000
+    visible:
+      id: 'HomeScreenSelectors.StartButton'
+    timeout: 60000
