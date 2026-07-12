@@ -9,23 +9,23 @@ import { techniqueLabelsConstant } from '../../constants/technique-labels.consta
 
 import { ReplayTechniqueStyles as styles } from './replay-technique.styles';
 
-import type { TechniqueResultInterface } from '@suuudokuuu/solver';
+import type { MoveClassificationInterface } from '@suuudokuuu/solver';
 
 interface Props {
-    readonly result: Pick<TechniqueResultInterface, 'technique' | 'value'> | null;
+    readonly classification: MoveClassificationInterface | null;
 }
 
-export const ReplayTechnique = ({ result }: Props) => {
+export const ReplayTechnique = ({ classification }: Props) => {
     const { _ } = useLingui();
     const { theme } = use(ThemeContext);
     let content = null;
 
-    if (result !== null) {
-        const techniqueLabel = _(techniqueLabelsConstant[result.technique]);
-        const textColor = result.technique === SolutionTechniqueEnum.Guess ? theme.colors.red : theme.colors.label.main;
+    if (classification !== null) {
+        const techniqueLabel = _(techniqueLabelsConstant[classification.technique]);
+        const textColor = classification.technique === SolutionTechniqueEnum.Guess ? theme.colors.red : theme.colors.label.main;
         const textStyles = [styles.text, { color: textColor }];
 
-        content = <BlackText numberOfLines={1} style={textStyles}>{`${techniqueLabel} ${result.value}`}</BlackText>;
+        content = <BlackText numberOfLines={1} style={textStyles}>{`${techniqueLabel} ${classification.value}`}</BlackText>;
     }
 
     return <View style={styles.container}>{content}</View>;

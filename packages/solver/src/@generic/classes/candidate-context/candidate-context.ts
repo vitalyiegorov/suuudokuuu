@@ -19,13 +19,16 @@ export class CandidateContext {
         private readonly field: FieldInterface,
         candidateMap: CandidateMapType = {}
     ) {
+        this.cells = this.field.flatMap(row => row);
         this.candidateMap = {};
 
-        for (const key of Object.keys(candidateMap)) {
-            this.candidateMap[key] = [...candidateMap[key]];
+        for (const cell of this.cells) {
+            const key = CandidateContext.getCellKey(cell);
+            const candidates = candidateMap[key];
+
+            this.candidateMap[key] = isDefined(candidates) ? [...candidates] : [];
         }
 
-        this.cells = this.field.flatMap(row => row);
         this.values = Array.from({ length: this.config.fieldSize }, (_, index) => index + 1);
         this.rowCells = this.field.map(row => [...row]);
         this.columnCells = this.createColumnCells();
@@ -35,7 +38,7 @@ export class CandidateContext {
     }
 
     getCandidates(cell: CellInterface): number[] {
-        return this.candidateMap[CandidateContext.getCellKey(cell)] ?? [];
+        return this.candidateMap[CandidateContext.getCellKey(cell)];
     }
 
     isBlankCell(cell: CellInterface): boolean {

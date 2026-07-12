@@ -53,7 +53,7 @@ describe('TechniqueManager', () => {
         const manager = new TechniqueManager(sudoku);
         const result = manager.identifyMove({ ...sudoku.Field[0][8], value: 9 });
 
-        expect(result.technique).toBe(SolutionTechniqueEnum.FullHouse);
+        expect(result).toEqual({ technique: SolutionTechniqueEnum.FullHouse, value: 9 });
     });
 
     it('should keep identify compatibility helper', () => {
@@ -100,7 +100,7 @@ describe('TechniqueManager', () => {
     });
 
     it('should mark unsupported moves as guesses', () => {
-        expect.assertions(2);
+        expect.assertions(1);
 
         const sudoku = Sudoku.fromStrings(
             defaultSudokuConfig,
@@ -118,12 +118,11 @@ describe('TechniqueManager', () => {
         const [[cell]] = sudoku.Field;
         const result = manager.identifyMove({ ...cell, value: sudoku.getCorrectValue(cell) });
 
-        expect(result.technique).toBe(SolutionTechniqueEnum.Guess);
-        expect(result.kind).toBe('guess');
+        expect(result).toEqual({ technique: SolutionTechniqueEnum.Guess, value: sudoku.getCorrectValue(cell) });
     });
 
     it('should preserve the supplied value when classifying a guess', () => {
-        expect.assertions(2);
+        expect.assertions(1);
 
         const sudoku = Sudoku.fromStrings(
             defaultSudokuConfig,
@@ -141,8 +140,7 @@ describe('TechniqueManager', () => {
         const suppliedValue = sudoku.getCorrectValue(cell) === 1 ? 2 : 1;
         const result = new TechniqueManager(sudoku).identifyMove({ ...cell, value: suppliedValue });
 
-        expect(result.technique).toBe(SolutionTechniqueEnum.Guess);
-        expect(result.value).toBe(suppliedValue);
+        expect(result).toEqual({ technique: SolutionTechniqueEnum.Guess, value: suppliedValue });
     });
 
     it('should use targeted strategy detection when available', () => {
@@ -217,7 +215,7 @@ describe('TechniqueManager', () => {
         expect(result.technique).toBe(SolutionTechniqueEnum.Guess);
     });
 
-    it('should attribute an elimination technique that leaves the played value', () => {
+    it('should classify an elimination deduction with the played value', () => {
         expect.assertions(1);
 
         const sudoku = Sudoku.fromString('.'.repeat(defaultSudokuConfig.fieldSize * defaultSudokuConfig.fieldSize), defaultSudokuConfig);
@@ -232,7 +230,7 @@ describe('TechniqueManager', () => {
                 {
                     technique: SolutionTechniqueEnum.XWing,
                     cell: targetCell,
-                    value: 1,
+                    value: 2,
                     kind: 'elimination',
                     eliminations,
                     reasonCells: []
@@ -242,7 +240,7 @@ describe('TechniqueManager', () => {
 
         const result = new TechniqueManager(sudoku, [strategy]).identifyMove({ ...targetCell, value: 1 });
 
-        expect(result.technique).toBe(SolutionTechniqueEnum.XWing);
+        expect(result).toEqual({ technique: SolutionTechniqueEnum.XWing, value: 1 });
     });
 
     it('should use a guess when no strategy finds a logical step', () => {

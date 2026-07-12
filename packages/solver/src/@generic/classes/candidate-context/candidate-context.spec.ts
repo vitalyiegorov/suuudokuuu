@@ -10,7 +10,7 @@ const getCellKey = (cell: CellInterface): string => `${cell.y}:${cell.x}`;
 
 describe('CandidateContext', () => {
     it('should return candidates from candidate map', () => {
-        expect.assertions(2);
+        expect.assertions(3);
 
         const field = createEmptyField(defaultSudokuConfig);
         const candidateMap: CandidateMapType = {
@@ -21,6 +21,7 @@ describe('CandidateContext', () => {
 
         expect(context.getCandidates(field[0][0])).toEqual([1, 2]);
         expect(context.getCandidates(field[1][1])).toEqual([]);
+        expect(context.getCandidates(field[1][1])).toBe(context.getCandidates(field[1][1]));
     });
 
     it('should preserve a snapshot when the supplied candidate map changes', () => {
