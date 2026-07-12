@@ -22,7 +22,7 @@ concurrency:
 jobs:
   build-and-publish:
     name: Build & Submit iOS to App Store
-    runs-on: macos-latest
+    runs-on: [self-hosted, macOS, ARM64, macos-builder]
     timeout-minutes: 120
     steps:
       - name: Checkout repository
