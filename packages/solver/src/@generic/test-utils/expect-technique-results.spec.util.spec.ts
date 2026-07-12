@@ -5,6 +5,7 @@ import { SolutionTechniqueEnum } from '../enums/solution-technique.enum';
 import { createCandidateContextFromMap } from './create-candidate-context-from-map.spec.util';
 import { expectTechniqueResults } from './expect-technique-results.spec.util';
 
+import type { TechniqueResultExpectationInterface } from '../interfaces/technique-result-expectation.spec.interface';
 import type { TechniqueResultInterface } from '../interfaces/technique-result.interface';
 
 describe('expectTechniqueResults', () => {
@@ -151,6 +152,112 @@ describe('expectTechniqueResults', () => {
                     }
                 ])
         ).toThrow();
+    });
+
+    it('rejects duplicate complete results when expectations repeat them', () => {
+        const context = createCandidateContextFromMap([2, 3, [4, 5]], [2, 4, [4, 6]]);
+        const [cell, reasonCell] = context.getRowCells(2).slice(3, 5);
+        const result: TechniqueResultInterface = {
+            technique: SolutionTechniqueEnum.XWing,
+            cell,
+            value: 5,
+            kind: 'elimination',
+            eliminations: [{ cell, value: 5 }],
+            reasonCells: [reasonCell]
+        };
+        const expectations: TechniqueResultExpectationInterface[] = [
+            {
+                technique: SolutionTechniqueEnum.XWing,
+                kind: 'elimination',
+                result: [2, 3, 5],
+                eliminations: [[2, 3, 5]],
+                reasonCells: [[2, 4]]
+            },
+            {
+                technique: SolutionTechniqueEnum.XWing,
+                kind: 'elimination',
+                result: [2, 3, 5],
+                eliminations: [[2, 3, 5]],
+                reasonCells: [[2, 4]]
+            }
+        ];
+
+        expect(() => void expectTechniqueResults(context, [result, result], expectations)).toThrow();
+    });
+
+    it('rejects duplicate eliminations when expectations repeat them', () => {
+        const context = createCandidateContextFromMap([2, 3, [4, 5]], [2, 4, [4, 6]]);
+        const [cell, reasonCell] = context.getRowCells(2).slice(3, 5);
+        const result: TechniqueResultInterface = {
+            technique: SolutionTechniqueEnum.XWing,
+            cell,
+            value: 5,
+            kind: 'elimination',
+            eliminations: [
+                { cell, value: 5 },
+                { cell, value: 5 }
+            ],
+            reasonCells: [reasonCell]
+        };
+
+        expect(
+            () =>
+                void expectTechniqueResults(
+                    context,
+                    [result],
+                    [
+                        {
+                            technique: SolutionTechniqueEnum.XWing,
+                            kind: 'elimination',
+                            result: [2, 3, 5],
+                            eliminations: [
+                                [2, 3, 5],
+                                [2, 3, 5]
+                            ],
+                            reasonCells: [[2, 4]]
+                        }
+                    ]
+                )
+        ).toThrow();
+    });
+
+    it('allows the same deduction with different reason paths', () => {
+        const context = createCandidateContextFromMap([1, 3, [4, 7]], [2, 3, [4, 5]], [2, 4, [4, 6]]);
+        const [firstReasonCell] = context.getRowCells(1).slice(3, 4);
+        const [cell, secondReasonCell] = context.getRowCells(2).slice(3, 5);
+        const firstResult: TechniqueResultInterface = {
+            technique: SolutionTechniqueEnum.XWing,
+            cell,
+            value: 5,
+            kind: 'elimination',
+            eliminations: [{ cell, value: 5 }],
+            reasonCells: [firstReasonCell]
+        };
+        const secondResult: TechniqueResultInterface = { ...firstResult, reasonCells: [secondReasonCell] };
+
+        expect(
+            () =>
+                void expectTechniqueResults(
+                    context,
+                    [firstResult, secondResult],
+                    [
+                        {
+                            technique: SolutionTechniqueEnum.XWing,
+                            kind: 'elimination',
+                            result: [2, 3, 5],
+                            eliminations: [[2, 3, 5]],
+                            reasonCells: [[1, 3]]
+                        },
+                        {
+                            technique: SolutionTechniqueEnum.XWing,
+                            kind: 'elimination',
+                            result: [2, 3, 5],
+                            eliminations: [[2, 3, 5]],
+                            reasonCells: [[2, 4]]
+                        }
+                    ]
+                )
+        ).not.toThrow();
     });
 
     it('asserts exact placement semantics', () => {
