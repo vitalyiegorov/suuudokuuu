@@ -7,7 +7,10 @@ export const SettingsAppFooterStyles = StyleSheet.create(theme => ({
         borderWidth: StyleSheet.hairlineWidth,
         minHeight: 38,
         paddingHorizontal: 16,
-        paddingVertical: 9
+        paddingVertical: 9,
+        _web: {
+            cursor: 'pointer'
+        }
     },
     actionText: {
         fontSize: 13,
@@ -37,7 +40,10 @@ export const SettingsAppFooterStyles = StyleSheet.create(theme => ({
         minHeight: 66,
         paddingHorizontal: theme.spacing.lg,
         paddingVertical: 14,
-        width: '100%'
+        width: '100%',
+        _web: {
+            cursor: 'pointer'
+        }
     },
     supportText: {
         flex: 1,

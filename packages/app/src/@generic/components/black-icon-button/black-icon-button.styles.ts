@@ -12,6 +12,9 @@ export const BlackIconButtonStyles = StyleSheet.create(() => ({
         minWidth: BlackIconButtonSize,
         paddingHorizontal: 0,
         paddingVertical: 0,
-        width: BlackIconButtonSize
+        width: BlackIconButtonSize,
+        _web: {
+            cursor: 'pointer'
+        }
     }
 }));

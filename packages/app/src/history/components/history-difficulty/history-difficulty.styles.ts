@@ -49,7 +49,10 @@ export const HistoryDifficultyStyles = StyleSheet.create(theme => ({
         gap: 17,
         paddingHorizontal: 18,
         paddingVertical: 19,
-        width: '100%'
+        width: '100%',
+        _web: {
+            cursor: 'pointer'
+        }
     },
     header: {
         alignItems: 'center',

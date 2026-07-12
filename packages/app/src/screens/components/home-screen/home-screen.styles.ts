@@ -30,7 +30,10 @@ const HomeScreenStaticStyles = {
         textTransform: 'uppercase'
     },
     bestRunLink: {
-        width: '100%'
+        width: '100%',
+        _web: {
+            cursor: 'pointer'
+        }
     },
     bestRunMetric: {
         alignItems: 'flex-end',
@@ -105,7 +108,10 @@ const HomeScreenStaticStyles = {
         borderRadius: 23,
         height: 56,
         overflow: 'hidden',
-        width: '100%'
+        width: '100%',
+        _web: {
+            cursor: 'pointer'
+        }
     },
     continueTitle: {
         flexShrink: 1,
@@ -146,7 +152,10 @@ const HomeScreenStaticStyles = {
         gap: 3,
         minHeight: 64,
         paddingHorizontal: 12,
-        paddingVertical: 11
+        paddingVertical: 11,
+        _web: {
+            cursor: 'pointer'
+        }
     },
     optionDescription: {
         fontSize: 12,

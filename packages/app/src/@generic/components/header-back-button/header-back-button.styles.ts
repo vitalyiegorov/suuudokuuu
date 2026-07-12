@@ -6,6 +6,9 @@ export const HeaderBackButtonStyles = StyleSheet.create(() => ({
         height: 44,
         justifyContent: 'center',
         transform: [{ translateY: 2 }],
-        width: 44
+        width: 44,
+        _web: {
+            cursor: 'pointer'
+        }
     }
 }));

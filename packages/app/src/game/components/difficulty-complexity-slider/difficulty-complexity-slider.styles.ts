@@ -32,7 +32,10 @@ const DifficultyComplexitySliderStaticStyles = {
         alignItems: 'center',
         flex: 1,
         minHeight: 30,
-        paddingTop: 6
+        paddingTop: 6,
+        _web: {
+            cursor: 'pointer'
+        }
     },
     optionTriggerCenter: {
         alignItems: 'center'

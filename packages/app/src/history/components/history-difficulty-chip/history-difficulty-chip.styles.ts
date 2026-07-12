@@ -9,7 +9,10 @@ export const HistoryDifficultyChipStyles = StyleSheet.create(theme => ({
         minHeight: 42,
         minWidth: 96,
         paddingHorizontal: 17,
-        paddingVertical: 10
+        paddingVertical: 10,
+        _web: {
+            cursor: 'pointer'
+        }
     },
     label: {
         fontSize: 15,

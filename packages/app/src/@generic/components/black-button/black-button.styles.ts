@@ -9,7 +9,18 @@ export const BlackButtonStyles = StyleSheet.create(theme => ({
         outlineOffset: 0,
         outlineWidth: 0,
         paddingHorizontal: theme.spacing.lg,
-        paddingVertical: 10
+        paddingVertical: 10,
+        _web: {
+            cursor: 'pointer',
+            transitionDuration: '120ms',
+            transitionProperty: 'opacity,transform',
+            _focusVisible: {
+                outlineColor: theme.colors.black,
+                outlineOffset: 2,
+                outlineStyle: 'solid',
+                outlineWidth: 2
+            }
+        }
     },
     buttonText: {
         textAlign: 'center'

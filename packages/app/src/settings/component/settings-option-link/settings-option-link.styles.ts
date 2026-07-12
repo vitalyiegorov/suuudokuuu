@@ -5,7 +5,10 @@ export const SettingsOptionLinkStyles = StyleSheet.create(theme => ({
         marginLeft: 10
     },
     pressable: {
-        width: '100%'
+        width: '100%',
+        _web: {
+            cursor: 'pointer'
+        }
     },
     value: {
         fontSize: 17,

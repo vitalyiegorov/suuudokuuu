@@ -12,7 +12,10 @@ import {
 export const AppToggleStyles = StyleSheet.create(() => ({
     pressable: {
         borderRadius: AppToggleTrackHeight / 2 + AppTogglePressablePadding,
-        padding: AppTogglePressablePadding
+        padding: AppTogglePressablePadding,
+        _web: {
+            cursor: 'pointer'
+        }
     },
     thumb: {
         borderRadius: AppToggleThumbSize / 2,

@@ -21,6 +21,9 @@ export const HistorySegmentedControlStyles = StyleSheet.create(theme => ({
         flex: 1,
         justifyContent: 'center',
         minHeight: 42,
-        paddingHorizontal: theme.spacing.md
+        paddingHorizontal: theme.spacing.md,
+        _web: {
+            cursor: 'pointer'
+        }
     }
 }));

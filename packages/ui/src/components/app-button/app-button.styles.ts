@@ -8,7 +8,10 @@ export const AppButtonStyles = StyleSheet.create(theme => ({
         flexDirection: 'row',
         gap: theme.spacing.sm,
         justifyContent: 'center',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        _web: {
+            cursor: 'pointer'
+        }
     },
     compact: {
         borderRadius: 22,

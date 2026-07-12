@@ -10,7 +10,10 @@ export const SupportUkrainePillStyles = StyleSheet.create(theme => ({
         justifyContent: 'center',
         minHeight: 32,
         paddingHorizontal: theme.spacing.md,
-        paddingVertical: 7
+        paddingVertical: 7,
+        _web: {
+            cursor: 'pointer'
+        }
     },
     text: {
         fontSize: theme.typography.size.xs,

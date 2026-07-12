@@ -1,5 +1,5 @@
 import { use } from 'react';
-import { Platform, Pressable } from 'react-native';
+import { Pressable } from 'react-native';
 import Reanimated, { interpolateColor, useAnimatedStyle, useDerivedValue, withTiming } from 'react-native-reanimated';
 
 import { type OnEventFn } from '@rnw-community/shared';
@@ -69,8 +69,7 @@ export const FieldCell = (props: Props) => {
         styles.container(cellSize),
         ...useCellBorderStyles(sudoku, cell),
         { backgroundColor: cellBackgroundColor },
-        cellAnimatedStyles,
-        Platform.select({ web: { outline: 'none' } })
+        cellAnimatedStyles
     ];
     const cellSelector = fieldCellGetSelector(isActive, isActiveValue, isHighlighted);
 

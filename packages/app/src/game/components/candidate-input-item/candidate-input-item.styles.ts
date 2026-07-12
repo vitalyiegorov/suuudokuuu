@@ -4,7 +4,7 @@ import { PanelControlSizeConstant } from '../../constant/panel-control-size.cons
 
 const whiteColor = '#ffffff';
 
-export const CandidateInputItemStyles = StyleSheet.create(() => ({
+export const CandidateInputItemStyles = StyleSheet.create(theme => ({
     button: {
         alignItems: 'center',
         backgroundColor: whiteColor,
@@ -16,7 +16,16 @@ export const CandidateInputItemStyles = StyleSheet.create(() => ({
         outlineWidth: 0,
         overflow: 'visible',
         position: 'relative',
-        width: PanelControlSizeConstant
+        width: PanelControlSizeConstant,
+        _web: {
+            cursor: 'pointer',
+            _focusVisible: {
+                outlineColor: theme.colors.black,
+                outlineOffset: 2,
+                outlineStyle: 'solid',
+                outlineWidth: 2
+            }
+        }
     },
     container: {
         position: 'relative'

@@ -8,7 +8,10 @@ export const SettingsOptionSheetRowStyles = StyleSheet.create(theme => ({
         minHeight: 68,
         paddingHorizontal: 28,
         paddingVertical: 11,
-        width: '100%'
+        width: '100%',
+        _web: {
+            cursor: 'pointer'
+        }
     },
     content: {
         flex: 1,

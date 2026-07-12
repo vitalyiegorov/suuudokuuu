@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native-unistyles';
 
 import { AvailableValueButtonSize } from './constant/available-value-button.constant';
 
-export const AvailableValuesItemStyles = StyleSheet.create(() => ({
+export const AvailableValuesItemStyles = StyleSheet.create(theme => ({
     button: {
         alignItems: 'center',
         borderRadius: AvailableValueButtonSize / 2,
@@ -12,7 +12,16 @@ export const AvailableValuesItemStyles = StyleSheet.create(() => ({
         outlineWidth: 0,
         overflow: 'visible',
         position: 'relative',
-        width: AvailableValueButtonSize
+        width: AvailableValueButtonSize,
+        _web: {
+            cursor: 'pointer',
+            _focusVisible: {
+                outlineColor: theme.colors.black,
+                outlineOffset: 2,
+                outlineStyle: 'solid',
+                outlineWidth: 2
+            }
+        }
     },
     container: {
         position: 'relative'
