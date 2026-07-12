@@ -68,12 +68,13 @@ describe('getSudokuAtStep', () => {
     });
 
     it('should clamp out-of-bounds steps to the full replay without throwing', () => {
-        expect.assertions(2);
+        expect.assertions(3);
 
         const replayState = getSudokuAtStep(gameState, 5);
 
         expect(replayState.solutionStep).toEqual(logicalStep);
         expect(replayState.sudoku.Field[0][8].value).toBe(9);
+        expect(replayState.moveClassification).toEqual({ technique: SolutionTechniqueEnum.FullHouse, value: 9 });
     });
 
     it('should calculate guess technique for unsupported moves', () => {
