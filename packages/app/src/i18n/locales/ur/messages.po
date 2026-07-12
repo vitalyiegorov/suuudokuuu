@@ -18,6 +18,11 @@ msgstr ""
 msgid "{0, plural, one {# mistake} other {# mistakes}}"
 msgstr "{0, plural, one {# غلطی} other {# غلطیاں}}"
 
+#. placeholder {0}: challengeSteps.length
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "{0, plural, one {Opponent solved it in # attempt.} other {Opponent solved it in # attempts.}}"
+msgstr "{0, plural, one {حریف نے اسے # کوشش میں حل کیا۔} other {حریف نے اسے # کوششوں میں حل کیا۔}}"
+
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "{filledCells}/{totalCells} filled"
 msgstr "{filledCells}/{totalCells} پُر"
@@ -539,8 +544,12 @@ msgid "Open shared puzzle?"
 msgstr "شیئر کیا گیا سوڈوکو کھولیں؟"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Opponent's time:"
-msgstr "حریف کا وقت:"
+msgid "Opponent attempts"
+msgstr "حریف کی کوششیں"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Opponent time"
+msgstr "حریف کا وقت"
 
 #: src/history/components/history-segmented-control/history-segmented-control.tsx
 msgid "Overview"
@@ -629,6 +638,7 @@ msgstr "بگ رپورٹ کریں"
 msgid "Row"
 msgstr "قطار"
 
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
@@ -644,10 +654,6 @@ msgstr "اسکور × کوفیشنٹ × تعداد"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 msgstr "ہر درست بھرے خانے کا اسکور مشکل سطح، بونس اور پنالٹیز کی بنیاد پر حساب ہوتا ہے۔"
-
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Score:"
-msgstr "اسکور:"
 
 #: src/@generic/components/main-tab-layout/main-tab-layout.tsx
 #: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
@@ -992,8 +998,8 @@ msgid "Your sudoku journey"
 msgstr "آپ کا سوڈوکو سفر"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Your time:"
-msgstr "آپ کا وقت:"
+msgid "Your time"
+msgstr "آپ کا وقت"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Zero mistakes"

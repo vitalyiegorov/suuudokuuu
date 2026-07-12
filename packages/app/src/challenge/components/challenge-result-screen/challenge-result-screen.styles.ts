@@ -11,16 +11,26 @@ export const ChallengeResultScreenStyles = StyleSheet.create({
         justifyContent: 'center'
     },
     differenceText: {
-        marginTop: 10
+        marginTop: 4
     },
     icon: {
         marginBottom: 10
     },
+    metricsGrid: {
+        gap: 10,
+        maxWidth: 360,
+        width: '100%'
+    },
+    metricsRow: {
+        flexDirection: 'row',
+        gap: 10
+    },
     messageText: {
-        marginTop: 10
+        marginTop: 2
     },
     statsContainer: {
         alignItems: 'center',
-        gap: 4
+        gap: 10,
+        width: '100%'
     }
 });
