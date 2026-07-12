@@ -12,7 +12,7 @@ export const ScoringScreenStyles = StyleSheet.create(theme => ({
     scrollViewContent: (sizeClass: 'compact' | 'wide') => ({
         flexDirection: sizeClass === 'wide' ? 'row' : 'column',
         flexWrap: 'wrap',
-        gap: theme.spacing.md
+        gap: theme.spacing.sm
     }),
     section: (sizeClass: 'compact' | 'wide') => ({
         marginBottom: 16,

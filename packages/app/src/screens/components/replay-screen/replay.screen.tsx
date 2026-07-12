@@ -61,18 +61,20 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
     return (
         <View style={styles.container(sizeClass)}>
             <ReplayTopBar />
-            {!isWideLayout && replayHeader}
-            <View style={styles.fieldWrapper(sizeClass)}>
-                <ReplayField cellSize={boardCellSize} highlightedCellKey={highlightedCellKey} sudoku={sudoku} />
-            </View>
-            {isWideLayout ? (
-                <View style={styles.controlsColumn}>
-                    {replayHeader}
-                    {replayControls}
+            <View style={styles.content(sizeClass)}>
+                {!isWideLayout && replayHeader}
+                <View style={styles.fieldWrapper(sizeClass)}>
+                    <ReplayField cellSize={boardCellSize} highlightedCellKey={highlightedCellKey} sudoku={sudoku} />
                 </View>
-            ) : (
-                replayControls
-            )}
+                {isWideLayout ? (
+                    <View style={styles.controlsColumn}>
+                        {replayHeader}
+                        {replayControls}
+                    </View>
+                ) : (
+                    replayControls
+                )}
+            </View>
         </View>
     );
 };

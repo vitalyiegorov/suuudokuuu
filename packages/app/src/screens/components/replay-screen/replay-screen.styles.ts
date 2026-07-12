@@ -6,13 +6,18 @@ export const ReplayScreenStyles = StyleSheet.create(theme => ({
     container: (sizeClass: 'compact' | 'wide') => ({
         alignSelf: 'center',
         flex: 1,
-        flexDirection: sizeClass === 'wide' ? 'row' : 'column',
+        flexDirection: 'column',
         gap: 18,
         maxWidth: sizeClass === 'wide' ? theme.contentWidth.standard * WideContentWidthMultiplierConstant : theme.contentWidth.standard,
         paddingBottom: 18,
         paddingHorizontal: 20,
         paddingTop: 18,
         width: '100%'
+    }),
+    content: (sizeClass: 'compact' | 'wide') => ({
+        flex: 1,
+        flexDirection: sizeClass === 'wide' ? 'row' : 'column',
+        gap: 18
     }),
     fieldWrapper: (sizeClass: 'compact' | 'wide') => ({
         alignItems: 'center',
