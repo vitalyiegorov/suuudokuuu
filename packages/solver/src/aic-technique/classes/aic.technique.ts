@@ -4,34 +4,17 @@ import { CandidateContext } from '../../@generic/classes/candidate-context/candi
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
 import { createEliminationResults } from '../../@generic/utils/create-elimination-results.util';
 import { getCombinations } from '../../@generic/utils/get-combinations.util';
+import { getUniqueCells } from '../../@generic/utils/get-unique-cells.util';
+import { AIC_MAX_LINK_VISITS, AIC_MIN_NODES } from '../constants/aic.constant';
 
 import type { CandidateEliminationInterface } from '../../@generic/interfaces/candidate-elimination.interface';
 import type { CandidateUnitInterface } from '../../@generic/interfaces/candidate-unit.interface';
 import type { TechniqueResultInterface } from '../../@generic/interfaces/technique-result.interface';
 import type { TechniqueStrategyInterface } from '../../@generic/interfaces/technique-strategy.interface';
+import type { AICScanInterface } from '../interfaces/aic-scan.interface';
+import type { CandidateLinkGraphInterface } from '../interfaces/candidate-link-graph.interface';
+import type { CandidateNodeInterface } from '../interfaces/candidate-node.interface';
 import type { CellInterface } from '@suuudokuuu/generator';
-
-const AIC_MAX_LINK_VISITS = 100_000;
-const AIC_MIN_NODES = 4;
-
-interface CandidateNodeInterface {
-    cell: CellInterface;
-    key: string;
-    value: number;
-}
-
-interface CandidateLinkGraphInterface {
-    nodesByKey: Map<string, CandidateNodeInterface>;
-    strongNeighborsByKey: Map<string, Set<string>>;
-    weakNeighborsByKey: Map<string, Set<string>>;
-}
-
-interface AICScanInterface {
-    context: CandidateContext;
-    graph: CandidateLinkGraphInterface;
-    resultKeys: Set<string>;
-    results: TechniqueResultInterface[];
-}
 
 export class AICTechnique implements TechniqueStrategyInterface {
     readonly technique = SolutionTechniqueEnum.AIC;
@@ -206,12 +189,7 @@ export class AICTechnique implements TechniqueStrategyInterface {
         if (eliminations.length > 0 && !scan.resultKeys.has(resultKey)) {
             scan.resultKeys.add(resultKey);
             scan.results.push(
-                ...createEliminationResults(
-                    scan.context,
-                    this.technique,
-                    eliminations,
-                    path.map(node => node.cell)
-                )
+                ...createEliminationResults(scan.context, this.technique, eliminations, getUniqueCells(path.map(node => node.cell)))
             );
         }
     }

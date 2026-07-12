@@ -7,21 +7,10 @@ import { createEliminationResults } from '../../@generic/utils/create-eliminatio
 import type { CandidateEliminationInterface } from '../../@generic/interfaces/candidate-elimination.interface';
 import type { TechniqueResultInterface } from '../../@generic/interfaces/technique-result.interface';
 import type { TechniqueStrategyInterface } from '../../@generic/interfaces/technique-strategy.interface';
+import type { ColoredComponentInterface } from '../interfaces/colored-component.interface';
+import type { ColoringScanInterface } from '../interfaces/coloring-scan.interface';
+import type { ColorType } from '../types/color.type';
 import type { CellInterface } from '@suuudokuuu/generator';
-
-type ColorType = 0 | 1;
-
-interface ColoredComponentInterface {
-    colorsByKey: Map<string, ColorType>;
-    cellsByKey: Map<string, CellInterface>;
-}
-
-interface ColoringScanInterface extends ColoredComponentInterface {
-    adjacencyByKey: Map<string, Set<string>>;
-    allCellsByKey: Map<string, CellInterface>;
-    pendingKeys: string[];
-    visitedKeys: Set<string>;
-}
 
 export class SimpleColoringTechnique implements TechniqueStrategyInterface {
     readonly technique = SolutionTechniqueEnum.SimpleColoring;

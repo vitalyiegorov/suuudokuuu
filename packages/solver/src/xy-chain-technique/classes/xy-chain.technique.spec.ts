@@ -18,4 +18,36 @@ describe('XYChainTechnique', () => {
             eliminations: [[2, 2, 1]]
         });
     });
+
+    it('finds chains longer than six cells', () => {
+        expect.assertions(1);
+
+        const context = createCandidateContextFromMap(
+            [0, 0, [1, 2]],
+            [0, 3, [2, 3]],
+            [3, 3, [3, 4]],
+            [3, 6, [4, 5]],
+            [6, 6, [5, 6]],
+            [6, 8, [6, 7]],
+            [8, 8, [1, 7]],
+            [0, 8, [1, 8, 9]]
+        );
+        const normalizedResults = new XYChainTechnique().find(context).map(result => ({
+            eliminations: result.eliminations.map(elimination => [elimination.cell.y, elimination.cell.x, elimination.value]),
+            reasonCells: result.reasonCells.map(cell => [cell.y, cell.x])
+        }));
+
+        expect(normalizedResults).toContainEqual({
+            eliminations: [[0, 8, 1]],
+            reasonCells: [
+                [0, 0],
+                [0, 3],
+                [3, 3],
+                [3, 6],
+                [6, 6],
+                [6, 8],
+                [8, 8]
+            ]
+        });
+    });
 });

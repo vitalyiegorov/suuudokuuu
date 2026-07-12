@@ -8,12 +8,22 @@ import type { SizedTechniqueDescriptorInterface } from '../interfaces/sized-tech
 import type { TechniqueResultInterface } from '../interfaces/technique-result.interface';
 import type { FinnedFishBaseType } from '../types/finned-fish-base.type';
 import type { LineType } from '../types/line.type';
+import type { CellInterface } from '@suuudokuuu/generator';
 
 export abstract class AbstractFishTechnique<
     TDescriptor extends SizedTechniqueDescriptorInterface = SizedTechniqueDescriptorInterface
 > extends AbstractSizedTechnique<TDescriptor> {
     find(context: CandidateContext): TechniqueResultInterface[] {
         return [...this.findByBaseType(context, 'row'), ...this.findByBaseType(context, 'column')];
+    }
+
+    findForMove(context: CandidateContext, cell: CellInterface, value: number): TechniqueResultInterface[] {
+        const eliminationValues = context.getCandidates(cell).filter(candidate => candidate !== value);
+
+        return [
+            ...this.findByBaseType(context, 'row', eliminationValues, cell),
+            ...this.findByBaseType(context, 'column', eliminationValues, cell)
+        ];
     }
 
     protected getCandidateUnits(
@@ -25,21 +35,37 @@ export abstract class AbstractFishTechnique<
         return baseUnits.filter(unit => unit.cells.some(cell => context.getCandidates(cell).includes(value)));
     }
 
-    private findByBaseType(context: CandidateContext, baseType: LineType): TechniqueResultInterface[] {
+    private findByBaseType(
+        context: CandidateContext,
+        baseType: LineType,
+        values: number[] = context.getValues(),
+        targetCell?: CellInterface
+    ): TechniqueResultInterface[] {
         const results: TechniqueResultInterface[] = [];
         const baseUnits = context.getUnits().filter(unit => unit.type === baseType);
         const coverType = baseType === 'row' ? 'column' : 'row';
 
-        for (const value of context.getValues()) {
-            const candidateUnits = this.getCandidateUnits(context, baseUnits, value, coverType);
+        for (const value of values) {
+            const candidateUnits = this.getCandidateUnits(context, baseUnits, value, coverType).filter(
+                unit => !this.isTargetBaseUnit(unit, targetCell)
+            );
 
             for (const units of getCombinations(candidateUnits, this.size)) {
-                results.push(...this.findInUnits(context, value, { units, baseType, coverType }));
+                results.push(...this.findInUnits(context, value, { units, baseType, coverType }, targetCell));
             }
         }
 
         return results;
     }
 
-    protected abstract findInUnits(context: CandidateContext, value: number, base: FinnedFishBaseType): TechniqueResultInterface[];
+    private isTargetBaseUnit(unit: CandidateUnitInterface, targetCell?: CellInterface): boolean {
+        return targetCell?.[unit.type === 'row' ? 'y' : 'x'] === unit.index;
+    }
+
+    protected abstract findInUnits(
+        context: CandidateContext,
+        value: number,
+        base: FinnedFishBaseType,
+        targetCell?: CellInterface
+    ): TechniqueResultInterface[];
 }

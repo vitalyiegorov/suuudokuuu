@@ -8,11 +8,11 @@ export class GuessTechnique {
 
     constructor(private readonly sudoku: Sudoku) {}
 
-    findForCell(cell: CellInterface): TechniqueResultInterface {
+    findForCell(cell: CellInterface, value: number = this.sudoku.getCorrectValue(cell)): TechniqueResultInterface {
         return {
             technique: this.technique,
             cell,
-            value: this.sudoku.getCorrectValue(cell),
+            value,
             kind: 'guess',
             eliminations: [],
             reasonCells: [cell]

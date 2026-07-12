@@ -21,12 +21,9 @@ const expectedChainResult = {
     eliminations: [[0, 4, 1]],
     reasonCells: [
         [0, 0],
-        [0, 0],
         [0, 3],
         [4, 3],
-        [4, 3],
         [7, 3],
-        [7, 4],
         [7, 4]
     ]
 };

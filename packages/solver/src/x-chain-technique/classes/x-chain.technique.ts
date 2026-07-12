@@ -1,6 +1,6 @@
 import { isDefined } from '@rnw-community/shared';
 
-import { X_CHAIN_MAX_CELLS, X_CHAIN_MIN_CELLS } from '../../@generic/constants/chain-scan.constant';
+import { X_CHAIN_MAX_VISITS_PER_ROOT, X_CHAIN_MIN_CELLS } from '../../@generic/constants/chain-scan.constant';
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
 import { createEliminationResults } from '../../@generic/utils/create-elimination-results.util';
 import { getCommonPeerEliminations } from '../../@generic/utils/get-common-peer-eliminations.util';
@@ -9,6 +9,7 @@ import { isSameCell } from '../../@generic/utils/is-same-cell.util';
 
 import type { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
 import type { TechniqueResultInterface } from '../../@generic/interfaces/technique-result.interface';
+import type { XChainScanStateInterface } from '../interfaces/x-chain-scan-state.interface';
 import type { CellInterface } from '@suuudokuuu/generator';
 
 type StrongLinkType = [CellInterface, CellInterface];
@@ -16,12 +17,14 @@ type StrongLinkType = [CellInterface, CellInterface];
 export class XChainTechnique {
     readonly technique = SolutionTechniqueEnum.XChain;
 
+    private scanVisits = 0;
+
     find(context: CandidateContext): TechniqueResultInterface[] {
         const results: TechniqueResultInterface[] = [];
 
         for (const value of context.getValues()) {
             const edges = this.getStrongLinks(context, value);
-            const paths = this.getStrongPaths(edges);
+            const paths = this.getAlternatingPaths(context, edges, value);
 
             for (const path of paths) {
                 const [firstCell] = path;
@@ -53,40 +56,45 @@ export class XChainTechnique {
         return links;
     }
 
-    private getStrongPaths(edges: StrongLinkType[]): CellInterface[][] {
+    private getAlternatingPaths(context: CandidateContext, edges: StrongLinkType[], value: number): CellInterface[][] {
         const paths: CellInterface[][] = [];
-        const cells = getUniqueCells(edges.flatMap(edge => edge));
+        const cells = context.getBlankCells().filter(cell => context.getCandidates(cell).includes(value));
 
         for (const cell of cells) {
-            this.collectStrongPaths(edges, [cell], paths);
+            this.scanVisits = 0;
+            this.collectAlternatingPaths({ context, edges, paths, value }, [cell], true);
         }
 
         return paths;
     }
 
-    private collectStrongPaths(edges: StrongLinkType[], path: CellInterface[], paths: CellInterface[][]): void {
+    private collectAlternatingPaths(state: XChainScanStateInterface, path: CellInterface[], requiresStrongLink: boolean): void {
         const currentCell = path[path.length - 1];
 
-        if (!isDefined(currentCell)) {
+        if (!isDefined(currentCell) || this.scanVisits >= X_CHAIN_MAX_VISITS_PER_ROOT) {
             return;
         }
 
-        if (path.length >= X_CHAIN_MIN_CELLS && path.length % 2 === 0) {
-            paths.push([...path]);
-        }
+        const neighbors = requiresStrongLink
+            ? this.getStrongNeighbors(state.edges, currentCell)
+            : state.context.getPeers(currentCell).filter(cell => state.context.getCandidates(cell).includes(state.value));
 
-        if (path.length >= X_CHAIN_MAX_CELLS) {
-            return;
-        }
-
-        for (const neighbor of this.getNeighbors(edges, currentCell)) {
+        for (const neighbor of neighbors) {
             if (!path.some(cell => isSameCell(cell, neighbor))) {
-                this.collectStrongPaths(edges, [...path, neighbor], paths);
+                this.scanVisits += 1;
+
+                const nextPath = [...path, neighbor];
+
+                if (requiresStrongLink && nextPath.length >= X_CHAIN_MIN_CELLS) {
+                    state.paths.push(nextPath);
+                }
+
+                this.collectAlternatingPaths(state, nextPath, !requiresStrongLink);
             }
         }
     }
 
-    private getNeighbors(edges: StrongLinkType[], cell: CellInterface): CellInterface[] {
+    private getStrongNeighbors(edges: StrongLinkType[], cell: CellInterface): CellInterface[] {
         const neighbors: CellInterface[] = [];
 
         for (const [firstCell, secondCell] of edges) {

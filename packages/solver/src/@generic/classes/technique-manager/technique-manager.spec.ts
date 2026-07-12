@@ -122,6 +122,129 @@ describe('TechniqueManager', () => {
         expect(result.kind).toBe('guess');
     });
 
+    it('should preserve the supplied value when classifying a guess', () => {
+        expect.assertions(2);
+
+        const sudoku = Sudoku.fromStrings(
+            defaultSudokuConfig,
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........'
+        );
+        const [[cell]] = sudoku.Field;
+        const suppliedValue = sudoku.getCorrectValue(cell) === 1 ? 2 : 1;
+        const result = new TechniqueManager(sudoku).identifyMove({ ...cell, value: suppliedValue });
+
+        expect(result.technique).toBe(SolutionTechniqueEnum.Guess);
+        expect(result.value).toBe(suppliedValue);
+    });
+
+    it('should use targeted strategy detection when available', () => {
+        expect.assertions(3);
+
+        const sudoku = Sudoku.fromStrings(
+            defaultSudokuConfig,
+            '12345678.',
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........'
+        );
+        const [targetCell] = sudoku.Field[0].slice(-1);
+        let broadFindCalls = 0;
+        let targetedFindCalls = 0;
+        const strategy = {
+            technique: SolutionTechniqueEnum.FullHouse,
+            find: () => {
+                broadFindCalls += 1;
+
+                return [];
+            },
+            findForMove: () => {
+                targetedFindCalls += 1;
+
+                return [
+                    {
+                        technique: SolutionTechniqueEnum.FullHouse,
+                        cell: targetCell,
+                        value: 9,
+                        kind: 'placement' as const,
+                        eliminations: [],
+                        reasonCells: [targetCell]
+                    }
+                ];
+            }
+        };
+
+        const result = new TechniqueManager(sudoku, [strategy]).identifyMove({ ...targetCell, value: 9 });
+
+        expect(result.technique).toBe(SolutionTechniqueEnum.FullHouse);
+        expect(targetedFindCalls).toBe(1);
+        expect(broadFindCalls).toBe(0);
+    });
+
+    it('should not treat an eliminated candidate as a justified placement', () => {
+        expect.assertions(1);
+
+        const sudoku = Sudoku.fromString('.'.repeat(defaultSudokuConfig.fieldSize * defaultSudokuConfig.fieldSize), defaultSudokuConfig);
+        const [[targetCell]] = sudoku.Field;
+        const strategy: TechniqueStrategyInterface = {
+            technique: SolutionTechniqueEnum.XWing,
+            find: () => [
+                {
+                    technique: SolutionTechniqueEnum.XWing,
+                    cell: targetCell,
+                    value: 1,
+                    kind: 'elimination',
+                    eliminations: [{ cell: targetCell, value: 1 }],
+                    reasonCells: []
+                }
+            ]
+        };
+
+        const result = new TechniqueManager(sudoku, [strategy]).identifyMove({ ...targetCell, value: 1 });
+
+        expect(result.technique).toBe(SolutionTechniqueEnum.Guess);
+    });
+
+    it('should attribute an elimination technique that leaves the played value', () => {
+        expect.assertions(1);
+
+        const sudoku = Sudoku.fromString('.'.repeat(defaultSudokuConfig.fieldSize * defaultSudokuConfig.fieldSize), defaultSudokuConfig);
+        const [[targetCell]] = sudoku.Field;
+        const eliminations = sudoku
+            .getCellCandidates(targetCell)
+            .filter(value => value !== 1)
+            .map(value => ({ cell: targetCell, value }));
+        const strategy: TechniqueStrategyInterface = {
+            technique: SolutionTechniqueEnum.XWing,
+            find: () => [
+                {
+                    technique: SolutionTechniqueEnum.XWing,
+                    cell: targetCell,
+                    value: 1,
+                    kind: 'elimination',
+                    eliminations,
+                    reasonCells: []
+                }
+            ]
+        };
+
+        const result = new TechniqueManager(sudoku, [strategy]).identifyMove({ ...targetCell, value: 1 });
+
+        expect(result.technique).toBe(SolutionTechniqueEnum.XWing);
+    });
+
     it('should use a guess when no strategy finds a logical step', () => {
         expect.assertions(2);
 
