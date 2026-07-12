@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native-unistyles';
 
 export const WinnerScreenStyles = StyleSheet.create(theme => ({
     actionsColumn: (sizeClass: 'compact' | 'wide') => ({
+        alignItems: 'center',
         gap: 10,
         ...(sizeClass === 'wide' ? { flex: 1 } : { width: '100%' })
     }),

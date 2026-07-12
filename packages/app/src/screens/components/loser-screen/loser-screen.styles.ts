@@ -4,6 +4,7 @@ import { WideContentWidthMultiplierConstant } from '../../constant/wide-content-
 
 export const LoserScreenStyles = StyleSheet.create(theme => ({
     actionsColumn: (sizeClass: 'compact' | 'wide') => ({
+        alignItems: 'center',
         gap: 18,
         ...(sizeClass === 'wide' ? { flex: 1 } : { width: '100%' })
     }),
