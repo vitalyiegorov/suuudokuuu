@@ -25,10 +25,17 @@ describe('BoxLineReductionTechnique', () => {
         );
         const context = CandidateContext.fromSudoku(sudoku);
 
-        expectTechniqueResults(new BoxLineReductionTechnique().find(context), {
-            technique: SolutionTechniqueEnum.BoxLineReduction,
-            results: [[3, 2, 4]],
-            eliminations: [[3, 2, 4]]
-        });
+        expectTechniqueResults(context, new BoxLineReductionTechnique().find(context), [
+            {
+                technique: SolutionTechniqueEnum.BoxLineReduction,
+                kind: 'elimination',
+                result: [3, 2, 4],
+                eliminations: [[3, 2, 4]],
+                reasonCells: [
+                    [4, 0],
+                    [4, 1]
+                ]
+            }
+        ]);
     });
 });

@@ -21,10 +21,31 @@ describe('JellyfishTechnique', () => {
 
         const context = createCandidateContextFromMap(...candidateSpecs, [4, 0, [5, 8]]);
 
-        expectTechniqueResults(new BasicFishTechnique({ technique: SolutionTechniqueEnum.Jellyfish, size: 4 }).find(context), {
-            technique: SolutionTechniqueEnum.Jellyfish,
-            results: [[4, 0, 5]],
-            eliminations: [[4, 0, 5]]
-        });
+        expectTechniqueResults(context, new BasicFishTechnique({ technique: SolutionTechniqueEnum.Jellyfish, size: 4 }).find(context), [
+            {
+                technique: SolutionTechniqueEnum.Jellyfish,
+                kind: 'elimination',
+                result: [4, 0, 5],
+                eliminations: [[4, 0, 5]],
+                reasonCells: [
+                    [0, 0],
+                    [0, 3],
+                    [0, 6],
+                    [0, 8],
+                    [1, 0],
+                    [1, 3],
+                    [1, 6],
+                    [1, 8],
+                    [2, 0],
+                    [2, 3],
+                    [2, 6],
+                    [2, 8],
+                    [3, 0],
+                    [3, 3],
+                    [3, 6],
+                    [3, 8]
+                ]
+            }
+        ]);
     });
 });

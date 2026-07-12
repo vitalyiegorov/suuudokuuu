@@ -26,11 +26,19 @@ describe('XYWingTechnique', () => {
         );
         const context = CandidateContext.fromSudoku(sudoku);
 
-        expectTechniqueResults(new XYWingTechnique().find(context), {
-            technique: SolutionTechniqueEnum.XYWing,
-            results: [[8, 3, 6]],
-            eliminations: [[8, 3, 6]]
-        });
+        expectTechniqueResults(context, new XYWingTechnique().find(context), [
+            {
+                technique: SolutionTechniqueEnum.XYWing,
+                kind: 'elimination',
+                result: [8, 3, 6],
+                eliminations: [[8, 3, 6]],
+                reasonCells: [
+                    [8, 0],
+                    [8, 5],
+                    [8, 8]
+                ]
+            }
+        ]);
     });
 
     it('ignores pincers without a unique pivot value split', () => {

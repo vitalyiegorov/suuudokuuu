@@ -24,10 +24,19 @@ describe('NakedQuadTechnique', () => {
         );
         const context = CandidateContext.fromSudoku(sudoku);
 
-        expectTechniqueResults(new NakedSubsetTechnique({ technique: SolutionTechniqueEnum.NakedQuad, size: 4 }).find(context), {
-            technique: SolutionTechniqueEnum.NakedQuad,
-            results: [[1, 6, 5]],
-            eliminations: [[1, 6, 5]]
-        });
+        expectTechniqueResults(context, new NakedSubsetTechnique({ technique: SolutionTechniqueEnum.NakedQuad, size: 4 }).find(context), [
+            {
+                technique: SolutionTechniqueEnum.NakedQuad,
+                kind: 'elimination',
+                result: [1, 6, 5],
+                eliminations: [[1, 6, 5]],
+                reasonCells: [
+                    [1, 7],
+                    [1, 8],
+                    [2, 6],
+                    [2, 8]
+                ]
+            }
+        ]);
     });
 });

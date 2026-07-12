@@ -3,6 +3,7 @@ import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 
 import { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
+import { expectTechniqueResults } from '../../@generic/test-utils/expect-technique-results.spec.util';
 
 import { HiddenSingleTechnique } from './hidden-single.technique';
 
@@ -24,12 +25,41 @@ describe('HiddenSingleTechnique', () => {
         );
         const context = CandidateContext.fromSudoku(sudoku);
 
-        expect(new HiddenSingleTechnique().find(context)).toContainEqual(
-            expect.objectContaining({
+        expectTechniqueResults(context, new HiddenSingleTechnique().find(context), [
+            {
                 technique: SolutionTechniqueEnum.HiddenSingle,
-                cell: { x: 0, y: 0, value: 0, group: 1 },
-                value: 5
-            })
-        );
+                kind: 'placement',
+                result: [0, 0, 5],
+                eliminations: [],
+                reasonCells: [
+                    [0, 0],
+                    [1, 0],
+                    [2, 0],
+                    [3, 0],
+                    [4, 0],
+                    [5, 0],
+                    [6, 0],
+                    [7, 0],
+                    [8, 0]
+                ]
+            },
+            {
+                technique: SolutionTechniqueEnum.HiddenSingle,
+                kind: 'placement',
+                result: [0, 2, 4],
+                eliminations: [],
+                reasonCells: [
+                    [0, 2],
+                    [1, 2],
+                    [2, 2],
+                    [3, 2],
+                    [4, 2],
+                    [5, 2],
+                    [6, 2],
+                    [7, 2],
+                    [8, 2]
+                ]
+            }
+        ]);
     });
 });

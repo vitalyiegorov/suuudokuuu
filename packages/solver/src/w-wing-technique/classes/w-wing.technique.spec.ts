@@ -12,10 +12,17 @@ describe('WWingTechnique', () => {
 
         const context = createCandidateContextFromMap([3, 0, [1, 2]], [4, 4, [1, 2]], [3, 8, [1, 5]], [4, 8, [1, 6]], [4, 0, [2, 9]]);
 
-        expectTechniqueResults(new WWingTechnique().find(context), {
-            technique: SolutionTechniqueEnum.WWing,
-            results: [[4, 0, 2]],
-            eliminations: [[4, 0, 2]]
-        });
+        expectTechniqueResults(context, new WWingTechnique().find(context), [
+            {
+                technique: SolutionTechniqueEnum.WWing,
+                kind: 'elimination',
+                result: [4, 0, 2],
+                eliminations: [[4, 0, 2]],
+                reasonCells: [
+                    [3, 0],
+                    [4, 4]
+                ]
+            }
+        ]);
     });
 });

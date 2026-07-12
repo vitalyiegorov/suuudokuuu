@@ -3,6 +3,14 @@ import type { CandidateCoordinateSpecType } from '../types/candidate-coordinate.
 
 export interface TechniqueResultExpectationInterface {
     technique: SolutionTechniqueEnum;
+    kind: 'placement' | 'elimination' | 'guess';
+    result: CandidateCoordinateSpecType;
+    eliminations: CandidateCoordinateSpecType[];
+    reasonCells: [number, number][];
+}
+
+export interface LegacyTechniqueResultExpectationInterface {
+    technique: SolutionTechniqueEnum;
     results: CandidateCoordinateSpecType[];
     eliminations: CandidateCoordinateSpecType[];
 }

@@ -21,18 +21,40 @@ describe('SashimiSwordfishTechnique', () => {
         );
 
         expectTechniqueResults(
+            context,
             new FinnedFishTechnique({ technique: SolutionTechniqueEnum.SashimiSwordfish, size: 3, sashimi: true }).find(context),
-            {
-                technique: SolutionTechniqueEnum.SashimiSwordfish,
-                results: [
-                    [3, 7, 5],
-                    [4, 6, 5]
-                ],
-                eliminations: [
-                    [3, 7, 5],
-                    [4, 6, 5]
-                ]
-            }
+            [
+                {
+                    technique: SolutionTechniqueEnum.SashimiSwordfish,
+                    kind: 'elimination',
+                    result: [4, 6, 5],
+                    eliminations: [[4, 6, 5]],
+                    reasonCells: [
+                        [0, 0],
+                        [1, 0],
+                        [1, 3],
+                        [3, 0],
+                        [3, 3],
+                        [3, 6],
+                        [3, 7]
+                    ]
+                },
+                {
+                    technique: SolutionTechniqueEnum.SashimiSwordfish,
+                    kind: 'elimination',
+                    result: [3, 7, 5],
+                    eliminations: [[3, 7, 5]],
+                    reasonCells: [
+                        [0, 0],
+                        [1, 0],
+                        [1, 3],
+                        [3, 0],
+                        [3, 3],
+                        [3, 6],
+                        [4, 6]
+                    ]
+                }
+            ]
         );
     });
 });

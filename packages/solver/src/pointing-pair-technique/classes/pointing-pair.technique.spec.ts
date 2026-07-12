@@ -25,11 +25,18 @@ describe('PointingPairTechnique', () => {
         );
         const context = CandidateContext.fromSudoku(sudoku);
 
-        expectTechniqueResults(new PointingTechnique({ technique: SolutionTechniqueEnum.PointingPair, size: 2 }).find(context), {
-            technique: SolutionTechniqueEnum.PointingPair,
-            results: [[5, 8, 1]],
-            eliminations: [[5, 8, 1]]
-        });
+        expectTechniqueResults(context, new PointingTechnique({ technique: SolutionTechniqueEnum.PointingPair, size: 2 }).find(context), [
+            {
+                technique: SolutionTechniqueEnum.PointingPair,
+                kind: 'elimination',
+                result: [5, 8, 1],
+                eliminations: [[5, 8, 1]],
+                reasonCells: [
+                    [5, 0],
+                    [5, 1]
+                ]
+            }
+        ]);
     });
 
     it('ignores candidates that span two rows in the box', () => {

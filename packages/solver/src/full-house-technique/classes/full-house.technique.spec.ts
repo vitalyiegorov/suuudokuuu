@@ -3,6 +3,7 @@ import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 
 import { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
+import { expectTechniqueResults } from '../../@generic/test-utils/expect-technique-results.spec.util';
 
 import { FullHouseTechnique } from './full-house.technique';
 
@@ -24,12 +25,24 @@ describe('FullHouseTechnique', () => {
         );
         const context = CandidateContext.fromSudoku(sudoku);
 
-        expect(new FullHouseTechnique().find(context)).toContainEqual(
-            expect.objectContaining({
+        expectTechniqueResults(context, new FullHouseTechnique().find(context), [
+            {
                 technique: SolutionTechniqueEnum.FullHouse,
-                cell: sudoku.Field[0][8],
-                value: 9
-            })
-        );
+                kind: 'placement',
+                result: [0, 8, 9],
+                eliminations: [],
+                reasonCells: [
+                    [0, 0],
+                    [0, 1],
+                    [0, 2],
+                    [0, 3],
+                    [0, 4],
+                    [0, 5],
+                    [0, 6],
+                    [0, 7],
+                    [0, 8]
+                ]
+            }
+        ]);
     });
 });
