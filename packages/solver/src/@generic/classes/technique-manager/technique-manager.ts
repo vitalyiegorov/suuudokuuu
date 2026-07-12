@@ -43,15 +43,15 @@ export class TechniqueManager {
         const targetValue = this.getTargetValue(cell);
 
         for (const strategy of this.strategies) {
-            const matchingResults = strategy.find(context).filter(result => isSameCell(result.cell, cell) && result.value === targetValue);
-            const [result] = matchingResults;
+            const results = strategy.findForMove?.(context, cell, targetValue) ?? strategy.find(context);
+            const result = results.find(candidate => this.isResultForMove(context, candidate, cell, targetValue));
 
             if (isDefined(result)) {
                 return result;
             }
         }
 
-        return this.guessTechnique.findForCell({ ...cell, value: targetValue });
+        return this.guessTechnique.findForCell({ ...cell, value: targetValue }, targetValue);
     }
 
     identify(cell: CellInterface): SolutionTechniqueEnum {
@@ -60,5 +60,19 @@ export class TechniqueManager {
 
     private getTargetValue(cell: CellInterface): number {
         return cell.value === this.sudoku.Config.blankCellValue ? this.sudoku.getCorrectValue(cell) : cell.value;
+    }
+
+    private isResultForMove(context: CandidateContext, result: TechniqueResultInterface, cell: CellInterface, value: number): boolean {
+        if (!isSameCell(result.cell, cell) || result.value !== value) {
+            return false;
+        }
+
+        if (result.kind === 'placement') {
+            return true;
+        }
+
+        return context
+            .getPlacementsFromEliminations(result.eliminations)
+            .some(placement => isSameCell(placement.cell, cell) && placement.value === value);
     }
 }

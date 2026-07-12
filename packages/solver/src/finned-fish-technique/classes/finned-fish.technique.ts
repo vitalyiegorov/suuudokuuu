@@ -4,6 +4,7 @@ import { AbstractFishTechnique } from '../../@generic/classes/abstract-fish-tech
 import { createEliminationResults } from '../../@generic/utils/create-elimination-results.util';
 import { getCombinations } from '../../@generic/utils/get-combinations.util';
 import { getUniqueValues } from '../../@generic/utils/get-unique-values.util';
+import { isSameCell } from '../../@generic/utils/is-same-cell.util';
 
 import type { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
 import type { CandidateEliminationInterface } from '../../@generic/interfaces/candidate-elimination.interface';
@@ -23,22 +24,38 @@ export class FinnedFishTechnique
         return this.descriptor.sashimi;
     }
 
-    protected findInUnits(context: CandidateContext, value: number, base: FinnedFishBaseType): TechniqueResultInterface[] {
+    protected findInUnits(
+        context: CandidateContext,
+        value: number,
+        base: FinnedFishBaseType,
+        targetCell?: CellInterface
+    ): TechniqueResultInterface[] {
         const results: TechniqueResultInterface[] = [];
         const candidateCells = base.units.flatMap(unit => unit.cells.filter(cell => context.getCandidates(cell).includes(value)));
         const possibleCoverIndexes = getUniqueValues(candidateCells.map(cell => this.getCellCoverIndex(cell, base.coverType)));
+        const targetCoverIndex = isDefined(targetCell) ? this.getCellCoverIndex(targetCell, base.coverType) : null;
 
         for (const coverIndexes of getCombinations(possibleCoverIndexes, this.size)) {
-            const scan = this.createScan(candidateCells, coverIndexes, value, base);
+            const canEliminateTarget = !isDefined(targetCoverIndex) || coverIndexes.includes(targetCoverIndex);
 
-            if (this.isFinnedFish(scan) && this.isMatchingScan(scan)) {
-                const eliminations = this.getFinnedFishEliminations(context, scan);
+            if (canEliminateTarget) {
+                const scan = this.createScan(candidateCells, coverIndexes, value, base);
 
-                results.push(...createEliminationResults(context, this.technique, eliminations, [...scan.bodyCells, ...scan.finCells]));
+                if (this.isTargetedScan(scan, targetCell) && this.isFinnedFish(scan) && this.isMatchingScan(scan)) {
+                    const eliminations = this.getFinnedFishEliminations(context, scan).filter(
+                        elimination => !isDefined(targetCell) || isSameCell(elimination.cell, targetCell)
+                    );
+
+                    results.push(...createEliminationResults(context, this.technique, eliminations, [...scan.bodyCells, ...scan.finCells]));
+                }
             }
         }
 
         return results;
+    }
+
+    private isTargetedScan(scan: FinnedFishScanType, targetCell?: CellInterface): boolean {
+        return !isDefined(targetCell) || scan.finCells.every(cell => cell.group === targetCell.group);
     }
 
     private createScan(

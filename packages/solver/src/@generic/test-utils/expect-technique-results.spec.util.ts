@@ -16,6 +16,13 @@ const getUniqueCoordinates = (coordinates: CandidateCoordinateSpecType[]): Candi
     return sortCoordinates([...coordinatesByKey.values()]);
 };
 
+const hasValidReasonCells = (results: TechniqueResultInterface[]): boolean =>
+    results.every(result => {
+        const reasonCellKeys = result.reasonCells.map(cell => `${cell.y}:${cell.x}`);
+
+        return reasonCellKeys.length > 0 && new Set(reasonCellKeys).size === reasonCellKeys.length;
+    });
+
 export const expectTechniqueResults = (results: TechniqueResultInterface[], expectation: TechniqueResultExpectationInterface): void => {
     const techniques = [...new Set(results.map(result => result.technique))];
     const kinds = [...new Set(results.map(result => result.kind))];
@@ -27,11 +34,13 @@ export const expectTechniqueResults = (results: TechniqueResultInterface[], expe
     expect({
         techniques,
         kinds,
+        hasValidReasonCells: hasValidReasonCells(results),
         results: normalizedResults,
         eliminations: normalizedEliminations
     }).toEqual({
         techniques: [expectation.technique],
         kinds: ['elimination'],
+        hasValidReasonCells: true,
         results: getUniqueCoordinates(expectation.results),
         eliminations: getUniqueCoordinates(expectation.eliminations)
     });

@@ -47,4 +47,18 @@ describe('XWingTechnique', () => {
 
         expect(results.some(result => result.technique === SolutionTechniqueEnum.XWing)).toBe(false);
     });
+
+    it('uses only fish pattern candidates as reason cells', () => {
+        expect.assertions(1);
+
+        const context = createCandidateContextFromMap([0, 0, [5, 6]], [0, 3, [5, 7]], [3, 0, [5, 6]], [3, 3, [5, 7]], [6, 0, [5, 9]]);
+        const [result] = new BasicFishTechnique({ technique: SolutionTechniqueEnum.XWing, size: 2 }).find(context);
+
+        expect(result.reasonCells.map(cell => [cell.y, cell.x]).sort()).toEqual([
+            [0, 0],
+            [0, 3],
+            [3, 0],
+            [3, 3]
+        ]);
+    });
 });
