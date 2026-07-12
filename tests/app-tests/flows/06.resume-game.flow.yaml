@@ -64,7 +64,6 @@ appId: ${APP_ID}
       id: 'HomeScreenSelectors.ResumeButton'
     direction: DOWN
     visibilityPercentage: 100
-    centerElement: true
     timeout: 3000
 - tapOn:
     id: 'HomeScreenSelectors.ResumeButton'
