@@ -44,7 +44,7 @@ msgstr "Ajuste os dígitos no tabuleiro de Sudoku"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "AIC"
-msgstr ""
+msgstr "AIC"
 
 #: src/history/components/history-difficulty-filter/history-difficulty-filter.tsx
 msgid "All"
@@ -127,7 +127,7 @@ msgstr "Cores do tabuleiro e aparência das telas"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Box-Line Reduction"
-msgstr ""
+msgstr "Redução caixa-linha"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Can you beat them?"
@@ -302,11 +302,11 @@ msgstr "Conclua um sudoku e ele aparecerá aqui."
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Finned Swordfish"
-msgstr ""
+msgstr "Swordfish com barbatana"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Finned X-Wing"
-msgstr ""
+msgstr "X-Wing com barbatana"
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Français"
@@ -314,7 +314,7 @@ msgstr "Français"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Full House"
-msgstr ""
+msgstr "Casa cheia"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Game"
@@ -348,7 +348,7 @@ msgstr "Bloco (3x3 casas)"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Guess"
-msgstr ""
+msgstr "Palpite"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Guidance"
@@ -384,19 +384,19 @@ msgstr "Ajude a Ucrânia a vencer!"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Hidden Pair"
-msgstr ""
+msgstr "Par oculto"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Hidden Quad"
-msgstr ""
+msgstr "Quadra oculto"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Hidden Single"
-msgstr ""
+msgstr "Single oculto"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Hidden Triple"
-msgstr ""
+msgstr "Trinca oculta"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Highlight areas"
@@ -437,7 +437,7 @@ msgstr "Você levou"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Jellyfish"
-msgstr ""
+msgstr "Jellyfish"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Keep cell selected"
@@ -517,19 +517,19 @@ msgstr "Jogada"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Naked Pair"
-msgstr ""
+msgstr "Par nu"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Naked Quad"
-msgstr ""
+msgstr "Quadra nu"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Naked Single"
-msgstr ""
+msgstr "Single nu"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Naked Triple"
-msgstr ""
+msgstr "Trinca nua"
 
 #: src/screens/components/home-screen/home-screen-section-header/home-screen-section-header.tsx
 msgid "New game"
@@ -651,11 +651,11 @@ msgstr "Menos erros permitidos dão um multiplicador de pontuação:"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Pointing Pair"
-msgstr ""
+msgstr "Par apontador"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Pointing Triple"
-msgstr ""
+msgstr "Trinca apontadora"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Points are deducted for:"
@@ -699,11 +699,11 @@ msgstr "Linha"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Sashimi Swordfish"
-msgstr ""
+msgstr "Sashimi Swordfish"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Sashimi X-Wing"
-msgstr ""
+msgstr "Sashimi X-Wing"
 
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
@@ -758,7 +758,7 @@ msgstr "Mostrar a linha, a coluna e o bloco da célula selecionada"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Simple Coloring"
-msgstr ""
+msgstr "Coloração simples"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "slower!"
@@ -859,7 +859,7 @@ msgstr "Svenska"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Swordfish"
-msgstr ""
+msgstr "Swordfish"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
@@ -987,7 +987,7 @@ msgstr "Vibração"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "W-Wing"
-msgstr ""
+msgstr "Ala W"
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Warm gold accents for a brighter board"
@@ -1029,23 +1029,23 @@ msgstr "Vencidas"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "X-Chain"
-msgstr ""
+msgstr "Cadeia X"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "X-Wing"
-msgstr ""
+msgstr "X-Wing"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "XY-Chain"
-msgstr ""
+msgstr "Cadeia XY"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "XY-Wing"
-msgstr ""
+msgstr "Ala XY"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "XYZ-Wing"
-msgstr ""
+msgstr "Ala XYZ"
 
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "You got to"
