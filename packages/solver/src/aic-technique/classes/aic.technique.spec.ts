@@ -75,4 +75,13 @@ describe('AICTechnique', () => {
             }
         ]);
     });
+
+    it('does not report a targeted elimination that leaves another alternative', () => {
+        expect.assertions(1);
+
+        const context = createCandidateContextFromMap([0, 0, [1, 2]], [0, 3, [1, 2]], [0, 4, [1, 5, 6]]);
+        const [targetCell] = context.getRowCells(0).slice(4, 5);
+
+        expect(new AICTechnique().find(context, { cell: targetCell, value: 6 })).toEqual([]);
+    });
 });

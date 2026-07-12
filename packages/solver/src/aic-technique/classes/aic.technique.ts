@@ -7,8 +7,9 @@ import { getCanonicalTechniqueResults } from '../../@generic/utils/get-canonical
 import { getCombinations } from '../../@generic/utils/get-combinations.util';
 import { getUniqueCells } from '../../@generic/utils/get-unique-cells.util';
 import { isSameCell } from '../../@generic/utils/is-same-cell.util';
-import { AIC_MAX_LINK_VISITS_PER_ROOT, AIC_MIN_NODES } from '../constants/aic.constant';
+import { AIC_MAX_LINK_VISITS, AIC_MIN_NODES } from '../constants/aic.constant';
 
+import type { CandidateEliminationInterface } from '../../@generic/interfaces/candidate-elimination.interface';
 import type { CandidateUnitInterface } from '../../@generic/interfaces/candidate-unit.interface';
 import type { TechniqueResultInterface } from '../../@generic/interfaces/technique-result.interface';
 import type { TechniqueSearchTargetInterface } from '../../@generic/interfaces/technique-search-target.interface';
@@ -26,17 +27,48 @@ export class AICTechnique implements TechniqueStrategyInterface {
         const results: TechniqueResultInterface[] = [];
         const startNodes = this.getStartNodes(graph, target);
 
+        if (target) {
+            return this.findTargetResults(graph, results, startNodes, target);
+        }
+
+        return this.findBroadResults(graph, results, startNodes);
+    }
+
+    private findTargetResults(
+        graph: CandidateLinkGraphInterface,
+        results: TechniqueResultInterface[],
+        startNodes: CandidateNodeInterface[],
+        target: TechniqueSearchTargetInterface
+    ): TechniqueResultInterface[] {
         for (const startNode of startNodes) {
             const scan: AICScanInterface = { graph, results, target, linkVisits: 0, hasTargetResult: false };
 
             this.collectResults(scan, [startNode], true);
 
             if (scan.hasTargetResult) {
+                return results;
+            }
+        }
+
+        return results;
+    }
+
+    private findBroadResults(
+        graph: CandidateLinkGraphInterface,
+        results: TechniqueResultInterface[],
+        startNodes: CandidateNodeInterface[]
+    ): TechniqueResultInterface[] {
+        const scan: AICScanInterface = { graph, results, linkVisits: 0, hasTargetResult: false };
+
+        for (const startNode of startNodes) {
+            this.collectResults(scan, [startNode], true);
+
+            if (scan.linkVisits >= AIC_MAX_LINK_VISITS) {
                 break;
             }
         }
 
-        return target ? results : getCanonicalTechniqueResults(results);
+        return getCanonicalTechniqueResults(results);
     }
 
     private getStartNodes(graph: CandidateLinkGraphInterface, target?: TechniqueSearchTargetInterface): CandidateNodeInterface[] {
@@ -153,7 +185,7 @@ export class AICTechnique implements TechniqueStrategyInterface {
     private collectResults(scan: AICScanInterface, path: CandidateNodeInterface[], requiresStrongLink: boolean): void {
         const currentNode = path[path.length - 1];
 
-        if (!isDefined(currentNode) || scan.hasTargetResult || scan.linkVisits >= AIC_MAX_LINK_VISITS_PER_ROOT) {
+        if (!isDefined(currentNode) || scan.hasTargetResult || scan.linkVisits >= AIC_MAX_LINK_VISITS) {
             return;
         }
 
@@ -162,7 +194,7 @@ export class AICTechnique implements TechniqueStrategyInterface {
             : scan.graph.weakNeighborsByKey.get(currentNode.key);
 
         for (const neighborKey of [...(neighborKeys ?? [])].sort()) {
-            if (scan.linkVisits >= AIC_MAX_LINK_VISITS_PER_ROOT) {
+            if (scan.linkVisits >= AIC_MAX_LINK_VISITS) {
                 return;
             }
 
@@ -205,8 +237,7 @@ export class AICTechnique implements TechniqueStrategyInterface {
 
         const eliminations = this.getEndpointEliminations(scan.graph, path, firstNode, lastNode);
         const { target } = scan;
-        const targetsMove =
-            !target || eliminations.some(elimination => isSameCell(elimination.cell, target.cell) && elimination.value !== target.value);
+        const targetsMove = !target || this.doesJustifyTargetValue(scan.graph, eliminations, target);
 
         if (eliminations.length > 0 && targetsMove) {
             scan.results.push(...createEliminationResults(this.technique, eliminations, getUniqueCells(path.map(node => node.cell))));
@@ -215,6 +246,20 @@ export class AICTechnique implements TechniqueStrategyInterface {
                 scan.hasTargetResult = true;
             }
         }
+    }
+
+    private doesJustifyTargetValue(
+        graph: CandidateLinkGraphInterface,
+        eliminations: CandidateEliminationInterface[],
+        target: TechniqueSearchTargetInterface
+    ): boolean {
+        const remainingCandidates = [...graph.nodesByKey.values()]
+            .filter(node => isSameCell(node.cell, target.cell))
+            .filter(
+                node => !eliminations.some(elimination => isSameCell(elimination.cell, target.cell) && elimination.value === node.value)
+            );
+
+        return remainingCandidates.length === 1 && remainingCandidates[0].value === target.value;
     }
 
     private getEndpointEliminations(

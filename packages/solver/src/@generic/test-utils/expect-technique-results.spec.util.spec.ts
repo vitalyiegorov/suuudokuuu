@@ -260,6 +260,45 @@ describe('expectTechniqueResults', () => {
         ).not.toThrow();
     });
 
+    it('sorts same-primary deductions by their full normalized content', () => {
+        const context = createCandidateContextFromMap([1, 3, [4, 7]], [2, 3, [4, 5]], [2, 4, [4, 6]]);
+        const [firstReasonCell] = context.getRowCells(1).slice(3, 4);
+        const [cell, secondReasonCell] = context.getRowCells(2).slice(3, 5);
+        const firstResult: TechniqueResultInterface = {
+            technique: SolutionTechniqueEnum.XWing,
+            cell,
+            value: 5,
+            kind: 'elimination',
+            eliminations: [{ cell, value: 5 }],
+            reasonCells: [firstReasonCell]
+        };
+        const secondResult: TechniqueResultInterface = { ...firstResult, reasonCells: [secondReasonCell] };
+
+        expect(
+            () =>
+                void expectTechniqueResults(
+                    context,
+                    [firstResult, secondResult],
+                    [
+                        {
+                            technique: SolutionTechniqueEnum.XWing,
+                            kind: 'elimination',
+                            result: [2, 3, 5],
+                            eliminations: [[2, 3, 5]],
+                            reasonCells: [[2, 4]]
+                        },
+                        {
+                            technique: SolutionTechniqueEnum.XWing,
+                            kind: 'elimination',
+                            result: [2, 3, 5],
+                            eliminations: [[2, 3, 5]],
+                            reasonCells: [[1, 3]]
+                        }
+                    ]
+                )
+        ).not.toThrow();
+    });
+
     it('asserts exact placement semantics', () => {
         const context = createCandidateContextFromMap([2, 3, [5]]);
         const [cell] = context.getRowCells(2).slice(3, 4);

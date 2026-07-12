@@ -40,13 +40,17 @@ const normalizeExpectation = (expectation: TechniqueResultExpectationInterface):
     reasonCells: sortCoordinates(expectation.reasonCells)
 });
 
-const sortResults = (results: TechniqueResultExpectationInterface[]): TechniqueResultExpectationInterface[] =>
-    [...results].sort((firstResult, secondResult) => {
-        const [firstRow, firstColumn, firstValue] = firstResult.result;
-        const [secondRow, secondColumn, secondValue] = secondResult.result;
+const getResultSortKey = (result: TechniqueResultExpectationInterface): string =>
+    [
+        result.technique,
+        result.kind,
+        result.result.join(':'),
+        result.eliminations.map(elimination => elimination.join(':')).join(','),
+        result.reasonCells.map(reasonCell => reasonCell.join(':')).join(',')
+    ].join('|');
 
-        return firstRow - secondRow || firstColumn - secondColumn || firstValue - secondValue;
-    });
+const sortResults = (results: TechniqueResultExpectationInterface[]): TechniqueResultExpectationInterface[] =>
+    [...results].sort((firstResult, secondResult) => getResultSortKey(firstResult).localeCompare(getResultSortKey(secondResult)));
 
 const hasUniqueCoordinates = (coordinates: number[][]): boolean => {
     const coordinateKeys = coordinates.map(coordinate => coordinate.join(':'));

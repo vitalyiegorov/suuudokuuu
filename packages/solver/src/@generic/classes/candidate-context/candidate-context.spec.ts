@@ -10,7 +10,7 @@ const getCellKey = (cell: CellInterface): string => `${cell.y}:${cell.x}`;
 
 describe('CandidateContext', () => {
     it('should return candidates from candidate map', () => {
-        expect.assertions(3);
+        expect.assertions(2);
 
         const field = Sudoku.fromString(
             '.'.repeat(defaultSudokuConfig.fieldSize * defaultSudokuConfig.fieldSize),
@@ -24,7 +24,6 @@ describe('CandidateContext', () => {
 
         expect(context.getCandidates(field[0][0])).toEqual([1, 2]);
         expect(context.getCandidates(field[1][1])).toEqual([]);
-        expect(context.getCandidates(field[1][1])).toBe(context.getCandidates(field[1][1]));
     });
 
     it('should preserve a snapshot when the supplied candidate map changes', () => {
@@ -42,6 +41,19 @@ describe('CandidateContext', () => {
 
         candidates.pop();
 
+        expect(context.getCandidates(field[0][0])).toEqual([1, 2]);
+    });
+
+    it('should not allow returned candidates to mutate the snapshot', () => {
+        expect.assertions(2);
+
+        const field = Sudoku.fromString(
+            '.'.repeat(defaultSudokuConfig.fieldSize * defaultSudokuConfig.fieldSize),
+            defaultSudokuConfig
+        ).Field;
+        const context = new CandidateContext(defaultSudokuConfig, field, { [getCellKey(field[0][0])]: [1, 2] });
+
+        expect(() => Object.defineProperty(context.getCandidates(field[0][0]), '0', { value: 9 })).toThrow();
         expect(context.getCandidates(field[0][0])).toEqual([1, 2]);
     });
 
