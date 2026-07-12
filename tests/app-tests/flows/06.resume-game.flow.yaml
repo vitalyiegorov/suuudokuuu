@@ -59,12 +59,10 @@ appId: ${APP_ID}
       WAIT_MILLISECONDS: 1500
 - stopApp
 - runFlow: subflows/navigation/relaunch-home.flow.yaml
-- scrollUntilVisible:
-    element:
-      id: 'HomeScreenSelectors.ResumeButton'
-    direction: DOWN
-    visibilityPercentage: 100
-    timeout: 3000
+- scroll
+- waitForAnimationToEnd
+- assertVisible:
+    id: 'HomeScreenSelectors.ResumeButton'
 - tapOn:
     id: 'HomeScreenSelectors.ResumeButton'
 - extendedWaitUntil:
