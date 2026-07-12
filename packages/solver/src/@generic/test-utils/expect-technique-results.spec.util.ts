@@ -93,6 +93,12 @@ const expectLegacyTechniqueResults = (
     });
 };
 
+const validateUniqueEliminations = (eliminations: CandidateCoordinateSpecType[]): void => {
+    if (!hasUniqueCoordinates(eliminations)) {
+        throw new Error('Technique results cannot report duplicate eliminations');
+    }
+};
+
 const validateResult = (context: CandidateContext, result: TechniqueResultInterface): void => {
     const reasonCells = result.reasonCells.map(cell => [cell.y, cell.x]);
     const eliminations = result.eliminations.map(elimination => normalizeCandidate(elimination.cell, elimination.value));
@@ -100,6 +106,8 @@ const validateResult = (context: CandidateContext, result: TechniqueResultInterf
     if (reasonCells.length === 0 || !hasUniqueCoordinates(reasonCells)) {
         throw new Error('Technique results must have non-empty unique reason cells');
     }
+
+    validateUniqueEliminations(eliminations);
 
     if (result.kind === 'placement' || result.kind === 'guess') {
         if (eliminations.length !== 0) {
@@ -126,6 +134,16 @@ const validateResult = (context: CandidateContext, result: TechniqueResultInterf
     }
 };
 
+const validateResults = (context: CandidateContext, results: TechniqueResultInterface[]): void => {
+    results.forEach(result => void validateResult(context, result));
+
+    const resultKeys = results.map(result => JSON.stringify(normalizeResult(result)));
+
+    if (new Set(resultKeys).size !== resultKeys.length) {
+        throw new Error('Technique results cannot contain exact duplicates');
+    }
+};
+
 export const expectTechniqueResults: ExpectTechniqueResultsInterface = (
     contextOrResults: CandidateContext | TechniqueResultInterface[],
     resultsOrExpectation: TechniqueResultInterface[] | LegacyTechniqueResultExpectationInterface,
@@ -136,7 +154,7 @@ export const expectTechniqueResults: ExpectTechniqueResultsInterface = (
             throw new Error('Exact technique expectations require a context, results, and expectations');
         }
 
-        resultsOrExpectation.forEach(result => void validateResult(contextOrResults, result));
+        validateResults(contextOrResults, resultsOrExpectation);
 
         expect(sortResults(resultsOrExpectation.map(result => normalizeResult(result)))).toEqual(
             sortResults(expectations.map(expectation => normalizeExpectation(expectation)))
