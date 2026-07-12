@@ -1,10 +1,10 @@
 import { StyleSheet } from 'react-native-unistyles';
 
 export const PauseScreenStyles = StyleSheet.create(theme => ({
-    actionsColumn: {
-        flex: 1,
-        gap: 10
-    },
+    actionsColumn: (sizeClass: 'compact' | 'wide') => ({
+        gap: 10,
+        ...(sizeClass === 'wide' ? { flex: 1 } : { width: '100%' })
+    }),
     container: (sizeClass: 'compact' | 'wide') => ({
         alignSelf: 'center',
         flex: 1,
@@ -17,8 +17,8 @@ export const PauseScreenStyles = StyleSheet.create(theme => ({
         width: '100%',
         ...(sizeClass === 'wide' && { maxWidth: theme.contentWidth.standard })
     }),
-    summaryColumn: {
-        flex: 1,
-        gap: 10
-    }
+    summaryColumn: (sizeClass: 'compact' | 'wide') => ({
+        gap: 10,
+        ...(sizeClass === 'wide' ? { flex: 1 } : { width: '100%' })
+    })
 }));

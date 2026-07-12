@@ -1,10 +1,10 @@
 import { StyleSheet } from 'react-native-unistyles';
 
 export const WinnerScreenStyles = StyleSheet.create(theme => ({
-    actionsColumn: {
-        flex: 1,
-        gap: 10
-    },
+    actionsColumn: (sizeClass: 'compact' | 'wide') => ({
+        gap: 10,
+        ...(sizeClass === 'wide' ? { flex: 1 } : { width: '100%' })
+    }),
     boldText: {
         fontWeight: 'bold'
     },
@@ -18,9 +18,9 @@ export const WinnerScreenStyles = StyleSheet.create(theme => ({
         width: '100%',
         ...(sizeClass === 'wide' && { maxWidth: theme.contentWidth.standard })
     }),
-    summaryColumn: {
+    summaryColumn: (sizeClass: 'compact' | 'wide') => ({
         alignItems: 'center',
-        flex: 1,
-        gap: 20
-    }
+        gap: 20,
+        ...(sizeClass === 'wide' ? { flex: 1 } : { width: '100%' })
+    })
 }));

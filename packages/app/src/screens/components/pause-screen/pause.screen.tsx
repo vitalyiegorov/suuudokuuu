@@ -73,7 +73,7 @@ export const PauseScreen = () => {
 
     return (
         <View style={containerStyles} testID={PauseScreenSelectors.Root}>
-            <View style={styles.summaryColumn}>
+            <View style={styles.summaryColumn(sizeClass)}>
                 <PauseScreenHeader detailsText={detailsText} />
 
                 <PauseScreenProgressCard label={t`Your progress`} meta={progressMeta} progressPercent={progress.percent} sudoku={sudoku} />
@@ -81,7 +81,7 @@ export const PauseScreen = () => {
                 <PauseScreenStats mistakesText={mistakesText} scoreText={scoreText} timeText={timeText} />
             </View>
 
-            <View style={styles.actionsColumn}>
+            <View style={styles.actionsColumn(sizeClass)}>
                 <PauseScreenUkraineCard />
 
                 <PauseScreenActions onQuit={handleQuit} onResume={handleResume} onShare={handleShare} />

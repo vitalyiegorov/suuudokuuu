@@ -29,7 +29,7 @@ export const WinnerScreen = () => {
 
     return (
         <View style={styles.container(sizeClass)}>
-            <View style={styles.summaryColumn}>
+            <View style={styles.summaryColumn(sizeClass)}>
                 <Header text={t`Winners-winner, \n chicken dinner!`} />
 
                 <View>
@@ -51,7 +51,7 @@ export const WinnerScreen = () => {
                 <Donation type="winner" />
             </View>
 
-            <View style={styles.actionsColumn}>
+            <View style={styles.actionsColumn(sizeClass)}>
                 {!isNotEmptyString(challengeState) && <ChallengeShareButton gameState={gameState} text={t`Challenge a Friend`} />}
                 <PlayAgainButton />
             </View>
