@@ -1,6 +1,10 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const HomeScreenStyles = StyleSheet.create({
+import { WideContentWidthMultiplierConstant } from '../../constant/wide-content-width.constant';
+
+import { HomeScreenContentStackCompactGap, HomeScreenContentStackWideGap } from './constant/home-screen.constant';
+
+const HomeScreenStaticStyles = {
     bestRun: {
         alignItems: 'center',
         borderRadius: 28,
@@ -45,10 +49,6 @@ export const HomeScreenStyles = StyleSheet.create({
     },
     content: {
         alignItems: 'stretch'
-    },
-    contentStack: {
-        gap: 56,
-        width: '100%'
     },
     continueContent: {
         alignItems: 'center',
@@ -161,10 +161,6 @@ export const HomeScreenStyles = StyleSheet.create({
     mistakeOptionCard: {
         flex: 1
     },
-    masthead: {
-        gap: 16,
-        width: '100%'
-    },
     optionTitle: {
         fontSize: 16,
         fontWeight: '700',
@@ -185,20 +181,8 @@ export const HomeScreenStyles = StyleSheet.create({
         paddingVertical: 12,
         width: '100%'
     },
-    scrollContent: {
-        alignItems: 'center',
-        alignSelf: 'center',
-        maxWidth: 540,
-        paddingBottom: 28,
-        paddingHorizontal: 20,
-        width: '100%'
-    },
     scrollView: {
         flex: 1,
-        width: '100%'
-    },
-    setupSection: {
-        gap: 15,
         width: '100%'
     },
     statsStrip: {
@@ -234,4 +218,30 @@ export const HomeScreenStyles = StyleSheet.create({
         minWidth: 0,
         textAlign: 'left'
     }
-});
+} as const;
+
+export const HomeScreenStyles = StyleSheet.create(theme => ({
+    ...HomeScreenStaticStyles,
+    contentStack: (sizeClass: 'compact' | 'wide') => ({
+        alignItems: sizeClass === 'wide' ? 'flex-start' : 'stretch',
+        flexDirection: sizeClass === 'wide' ? 'row' : 'column',
+        gap: sizeClass === 'wide' ? HomeScreenContentStackWideGap : HomeScreenContentStackCompactGap,
+        width: '100%'
+    }),
+    masthead: (sizeClass: 'compact' | 'wide') => ({
+        gap: 16,
+        ...(sizeClass === 'wide' ? { flex: 1 } : { width: '100%' })
+    }),
+    scrollContent: (sizeClass: 'compact' | 'wide') => ({
+        alignItems: 'center',
+        alignSelf: 'center',
+        maxWidth: sizeClass === 'wide' ? theme.contentWidth.standard * WideContentWidthMultiplierConstant : theme.contentWidth.standard,
+        paddingBottom: 28,
+        paddingHorizontal: 20,
+        width: '100%'
+    }),
+    setupSection: (sizeClass: 'compact' | 'wide') => ({
+        gap: 15,
+        ...(sizeClass === 'wide' ? { flex: 1 } : { width: '100%' })
+    })
+}));

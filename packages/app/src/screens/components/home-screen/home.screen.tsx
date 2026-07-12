@@ -1,5 +1,6 @@
 import { Trans, useLingui } from '@lingui/react/macro';
 import { DifficultyEnum, Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
+import { useAppLayout } from '@suuudokuuu/ui';
 import { Link } from 'expo-router';
 import { use, useState } from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
@@ -57,6 +58,7 @@ export const HomeScreen = () => {
     const { t } = useLingui();
     const dispatch = useAppDispatch();
     const insets = useSafeAreaInsets();
+    const { sizeClass } = useAppLayout();
     const [bestScore, bestTime] = useAppSelector(gameHistoryBestTimeSelector);
     const currentElapsedTime = useAppSelector(gameElapsedTimeSelector);
     const currentSolutionSteps = useAppSelector(gameSolutionsStepsSelector);
@@ -162,7 +164,7 @@ export const HomeScreen = () => {
     const bottomInset = insets.bottom + bottomScrollPadding;
     const topInsetStyles = { paddingTop: topInset };
     const bottomInsetStyles = { paddingBottom: bottomInset };
-    const scrollContentStyles = [styles.scrollContent, topInsetStyles, bottomInsetStyles];
+    const scrollContentStyles = [styles.scrollContent(sizeClass), topInsetStyles, bottomInsetStyles];
     const mistakeCards: HomeScreenOptionCardInterface[] = mistakeOptions.map(option => {
         const isSelected = option.maxMistakes === maxMistakes;
         const optionColorStyles = isSelected ? selectedOptionColorStyles : unselectedOptionColorStyles;
@@ -188,8 +190,8 @@ export const HomeScreen = () => {
                 style={styles.scrollView}
                 testID={HomeScreenSelectors.Root}
             >
-                <View style={styles.contentStack}>
-                    <View style={styles.masthead}>
+                <View style={styles.contentStack(sizeClass)}>
+                    <View style={styles.masthead(sizeClass)}>
                         <View style={styles.hero}>
                             <Header numberOfLines={1} style={styles.title} text={t`suuudokuuu`} />
                             <SupportUkrainePill />
@@ -230,7 +232,7 @@ export const HomeScreen = () => {
                         ) : null}
                     </View>
 
-                    <View style={styles.setupSection}>
+                    <View style={styles.setupSection(sizeClass)}>
                         <HomeScreenSectionHeader />
 
                         <DifficultyComplexitySlider difficulty={difficulty} onChange={handleDifficultyChange} />
