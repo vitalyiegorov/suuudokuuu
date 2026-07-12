@@ -10,7 +10,10 @@ export const AppButtonStyles = StyleSheet.create(theme => ({
         justifyContent: 'center',
         overflow: 'hidden',
         _web: {
-            cursor: 'pointer'
+            cursor: 'pointer',
+            _hover: {
+                opacity: 0.85
+            }
         }
     },
     compact: {

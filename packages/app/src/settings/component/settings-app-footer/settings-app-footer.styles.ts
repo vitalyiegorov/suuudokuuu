@@ -9,7 +9,10 @@ export const SettingsAppFooterStyles = StyleSheet.create(theme => ({
         paddingHorizontal: 16,
         paddingVertical: 9,
         _web: {
-            cursor: 'pointer'
+            cursor: 'pointer',
+            _hover: {
+                opacity: 0.85
+            }
         }
     },
     actionText: {
@@ -42,7 +45,10 @@ export const SettingsAppFooterStyles = StyleSheet.create(theme => ({
         paddingVertical: 14,
         width: '100%',
         _web: {
-            cursor: 'pointer'
+            cursor: 'pointer',
+            _hover: {
+                opacity: 0.85
+            }
         }
     },
     supportText: {

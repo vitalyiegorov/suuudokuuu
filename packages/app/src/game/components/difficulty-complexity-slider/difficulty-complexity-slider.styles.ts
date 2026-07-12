@@ -34,7 +34,10 @@ const DifficultyComplexitySliderStaticStyles = {
         minHeight: 30,
         paddingTop: 6,
         _web: {
-            cursor: 'pointer'
+            cursor: 'pointer',
+            _hover: {
+                opacity: 0.85
+            }
         }
     },
     optionTriggerCenter: {

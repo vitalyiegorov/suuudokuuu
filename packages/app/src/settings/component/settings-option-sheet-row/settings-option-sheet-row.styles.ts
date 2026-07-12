@@ -10,7 +10,10 @@ export const SettingsOptionSheetRowStyles = StyleSheet.create(theme => ({
         paddingVertical: 11,
         width: '100%',
         _web: {
-            cursor: 'pointer'
+            cursor: 'pointer',
+            _hover: {
+                opacity: 0.85
+            }
         }
     },
     content: {

@@ -23,7 +23,10 @@ export const HistorySegmentedControlStyles = StyleSheet.create(theme => ({
         minHeight: 42,
         paddingHorizontal: theme.spacing.md,
         _web: {
-            cursor: 'pointer'
+            cursor: 'pointer',
+            _hover: {
+                opacity: 0.85
+            }
         }
     }
 }));

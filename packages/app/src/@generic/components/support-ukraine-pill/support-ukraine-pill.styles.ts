@@ -12,7 +12,10 @@ export const SupportUkrainePillStyles = StyleSheet.create(theme => ({
         paddingHorizontal: theme.spacing.md,
         paddingVertical: 7,
         _web: {
-            cursor: 'pointer'
+            cursor: 'pointer',
+            _hover: {
+                opacity: 0.85
+            }
         }
     },
     text: {

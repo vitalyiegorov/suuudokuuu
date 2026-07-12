@@ -11,7 +11,10 @@ export const HistoryDifficultyChipStyles = StyleSheet.create(theme => ({
         paddingHorizontal: 17,
         paddingVertical: 10,
         _web: {
-            cursor: 'pointer'
+            cursor: 'pointer',
+            _hover: {
+                opacity: 0.85
+            }
         }
     },
     label: {

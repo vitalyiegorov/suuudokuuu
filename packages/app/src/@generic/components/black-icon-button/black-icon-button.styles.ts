@@ -14,7 +14,10 @@ export const BlackIconButtonStyles = StyleSheet.create(() => ({
         paddingVertical: 0,
         width: BlackIconButtonSize,
         _web: {
-            cursor: 'pointer'
+            cursor: 'pointer',
+            _hover: {
+                opacity: 0.85
+            }
         }
     }
 }));

@@ -32,7 +32,10 @@ const HomeScreenStaticStyles = {
     bestRunLink: {
         width: '100%',
         _web: {
-            cursor: 'pointer'
+            cursor: 'pointer',
+            _hover: {
+                opacity: 0.85
+            }
         }
     },
     bestRunMetric: {
@@ -110,7 +113,10 @@ const HomeScreenStaticStyles = {
         overflow: 'hidden',
         width: '100%',
         _web: {
-            cursor: 'pointer'
+            cursor: 'pointer',
+            _hover: {
+                opacity: 0.85
+            }
         }
     },
     continueTitle: {
@@ -154,7 +160,10 @@ const HomeScreenStaticStyles = {
         paddingHorizontal: 12,
         paddingVertical: 11,
         _web: {
-            cursor: 'pointer'
+            cursor: 'pointer',
+            _hover: {
+                opacity: 0.85
+            }
         }
     },
     optionDescription: {

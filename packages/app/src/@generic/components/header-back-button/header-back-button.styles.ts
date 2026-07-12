@@ -8,7 +8,10 @@ export const HeaderBackButtonStyles = StyleSheet.create(() => ({
         transform: [{ translateY: 2 }],
         width: 44,
         _web: {
-            cursor: 'pointer'
+            cursor: 'pointer',
+            _hover: {
+                opacity: 0.85
+            }
         }
     }
 }));

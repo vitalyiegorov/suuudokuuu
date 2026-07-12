@@ -7,7 +7,10 @@ export const SettingsOptionLinkStyles = StyleSheet.create(theme => ({
     pressable: {
         width: '100%',
         _web: {
-            cursor: 'pointer'
+            cursor: 'pointer',
+            _hover: {
+                opacity: 0.85
+            }
         }
     },
     value: {
