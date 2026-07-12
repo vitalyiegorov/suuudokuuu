@@ -5,6 +5,12 @@ import { defaultSudokuConfig } from '../../@generic/interfaces/sudoku-config.int
 
 import { SerializableSudoku } from './serializable-sudoku';
 
+class ExtendedSerializableSudoku extends SerializableSudoku {
+    get marker(): string {
+        return 'extended';
+    }
+}
+
 describe('SerializableSudoku - Basic Operations', () => {
     it('should create from string', () => {
         expect.assertions(5);
@@ -19,6 +25,16 @@ describe('SerializableSudoku - Basic Operations', () => {
         expect(sudoku.FullField[8][7].value).toBe(4);
 
         expect(sudoku.toString()).toStrictEqual(testFieldsString);
+    });
+
+    it('should preserve the static factory receiver', () => {
+        expect.assertions(2);
+
+        const field = '...469123469123875123875469784596...596231784231784596658947312947312658312658...';
+        const sudoku = ExtendedSerializableSudoku.fromString(field, defaultSudokuConfig);
+
+        expect(sudoku).toBeInstanceOf(ExtendedSerializableSudoku);
+        expect(sudoku.marker).toBe('extended');
     });
 
     it('should validate fields string length', () => {

@@ -8,7 +8,46 @@ import { Sudoku } from './sudoku';
 
 import type { CellInterface } from '../../@generic/interfaces/cell.interface';
 
+class ExtendedSudoku extends Sudoku {
+    get marker(): string {
+        return 'extended';
+    }
+}
+
 describe('Sudoku - Basic Operations', () => {
+    const testFieldsString = '...469123469123875123875469784596...596231784231784596658947312947312658312658...';
+
+    it('preserves subclass factories', () => {
+        expect.assertions(2);
+
+        const sudoku = ExtendedSudoku.fromString(testFieldsString);
+
+        expect(sudoku).toBeInstanceOf(ExtendedSudoku);
+        expect(sudoku.marker).toBe('extended');
+    });
+
+    it('does not expose mutable configuration', () => {
+        expect.assertions(1);
+
+        const config = { ...defaultSudokuConfig, difficultyBlankCells: { ...defaultSudokuConfig.difficultyBlankCells } };
+        const sudoku = new Sudoku(config);
+        const exposedConfig = sudoku.Config;
+
+        exposedConfig.blankCellValue = 9;
+
+        expect(sudoku.Config.blankCellValue).toBe(config.blankCellValue);
+    });
+
+    it('narrows blank cells', () => {
+        expect.assertions(1);
+
+        const sudoku = ExtendedSudoku.fromString(testFieldsString);
+        const cells: Array<CellInterface | undefined> = [sudoku.Field[0][0], undefined];
+        const blankCells: CellInterface[] = cells.filter(cell => sudoku.isBlankCell(cell));
+
+        expect(blankCells).toEqual([sudoku.Field[0][0]]);
+    });
+
     it.each(Object.values(DifficultyEnum))('puzzle creation with difficulty "%s"', difficulty => {
         const sudoku = new Sudoku();
         sudoku.create(difficulty);
