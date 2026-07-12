@@ -118,12 +118,20 @@ export class SerializableSudoku {
         return [field, foundDifficulty] as const;
     }
 
-    static fromStrings(config: SudokuConfigInterface = defaultSudokuConfig, ...fieldStrings: string[]): SerializableSudoku {
-        return SerializableSudoku.fromString(fieldStrings.join(''), config);
+    static fromStrings<T extends SerializableSudoku>(
+        this: new (config?: SudokuConfigInterface) => T,
+        config: SudokuConfigInterface = defaultSudokuConfig,
+        ...fieldStrings: string[]
+    ): T {
+        return SerializableSudoku.populateFromString(new this(config), fieldStrings.join(''), config);
     }
 
-    static fromString(fieldString: string, config: SudokuConfigInterface = defaultSudokuConfig): SerializableSudoku {
-        return SerializableSudoku.populateFromString(new SerializableSudoku(config), fieldString, config);
+    static fromString<T extends SerializableSudoku>(
+        this: new (config?: SudokuConfigInterface) => T,
+        fieldString: string,
+        config: SudokuConfigInterface = defaultSudokuConfig
+    ): T {
+        return SerializableSudoku.populateFromString(new this(config), fieldString, config);
     }
 
     protected static populateFromString<T extends SerializableSudoku>(game: T, fieldString: string, config: SudokuConfigInterface): T {
