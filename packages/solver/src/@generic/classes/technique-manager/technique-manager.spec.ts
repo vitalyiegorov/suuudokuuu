@@ -244,7 +244,7 @@ describe('TechniqueManager', () => {
     });
 
     it('should not match an elimination deduction that targets another cell', () => {
-        expect.assertions(1);
+        expect.assertions(2);
 
         const sudoku = Sudoku.fromStrings(
             defaultSudokuConfig,
@@ -268,7 +268,7 @@ describe('TechniqueManager', () => {
                     cell: otherCell,
                     value: 2,
                     kind: 'elimination',
-                    eliminations: [{ cell: otherCell, value: 1 }],
+                    eliminations: [{ cell: otherCell, value: 9 }],
                     reasonCells: []
                 }
             ]
@@ -276,6 +276,7 @@ describe('TechniqueManager', () => {
 
         const result = new TechniqueManager(sudoku, [strategy]).identifyMove({ ...targetCell, value: 9 });
 
+        expect(sudoku.getCellCandidates(otherCell)).toContain(9);
         expect(result.technique).toBe(SolutionTechniqueEnum.Guess);
     });
 
