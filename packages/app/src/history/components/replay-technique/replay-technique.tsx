@@ -18,18 +18,15 @@ interface Props {
 export const ReplayTechnique = ({ result }: Props) => {
     const { _ } = useLingui();
     const { theme } = use(ThemeContext);
+    let content = null;
 
-    if (result === null) {
-        return null;
+    if (result !== null) {
+        const techniqueLabel = _(techniqueLabelsConstant[result.technique]);
+        const textColor = result.technique === SolutionTechniqueEnum.Guess ? theme.colors.red : theme.colors.label.main;
+        const textStyles = [styles.text, { color: textColor }];
+
+        content = <BlackText numberOfLines={1} style={textStyles}>{`${techniqueLabel} ${result.value}`}</BlackText>;
     }
 
-    const techniqueLabel = _(techniqueLabelsConstant[result.technique]);
-    const textColor = result.technique === SolutionTechniqueEnum.Guess ? theme.colors.red : theme.colors.label.main;
-    const textStyles = [styles.text, { color: textColor }];
-
-    return (
-        <View style={styles.container}>
-            <BlackText numberOfLines={1} style={textStyles}>{`${techniqueLabel} ${result.value}`}</BlackText>
-        </View>
-    );
+    return <View style={styles.container}>{content}</View>;
 };
