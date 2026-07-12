@@ -243,6 +243,42 @@ describe('TechniqueManager', () => {
         expect(result).toEqual({ technique: SolutionTechniqueEnum.XWing, value: 1 });
     });
 
+    it('should not match an elimination deduction that targets another cell', () => {
+        expect.assertions(1);
+
+        const sudoku = Sudoku.fromStrings(
+            defaultSudokuConfig,
+            '12345678.',
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........'
+        );
+        const [targetCell] = sudoku.Field[0].slice(-1);
+        const [[otherCell]] = sudoku.Field.slice(1);
+        const strategy: TechniqueStrategyInterface = {
+            technique: SolutionTechniqueEnum.XWing,
+            find: () => [
+                {
+                    technique: SolutionTechniqueEnum.XWing,
+                    cell: otherCell,
+                    value: 2,
+                    kind: 'elimination',
+                    eliminations: [{ cell: otherCell, value: 1 }],
+                    reasonCells: []
+                }
+            ]
+        };
+
+        const result = new TechniqueManager(sudoku, [strategy]).identifyMove({ ...targetCell, value: 9 });
+
+        expect(result.technique).toBe(SolutionTechniqueEnum.Guess);
+    });
+
     it('should use a guess when no strategy finds a logical step', () => {
         expect.assertions(2);
 
