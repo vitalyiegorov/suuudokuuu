@@ -8,9 +8,3 @@ export interface TechniqueResultExpectationInterface {
     eliminations: CandidateCoordinateSpecType[];
     reasonCells: [number, number][];
 }
-
-export interface LegacyTechniqueResultExpectationInterface {
-    technique: SolutionTechniqueEnum;
-    results: CandidateCoordinateSpecType[];
-    eliminations: CandidateCoordinateSpecType[];
-}

@@ -3,42 +3,112 @@ import { isDefined } from '@rnw-community/shared';
 import { X_CHAIN_MAX_VISITS_PER_ROOT, X_CHAIN_MIN_CELLS } from '../../@generic/constants/chain-scan.constant';
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
 import { createEliminationResults } from '../../@generic/utils/create-elimination-results.util';
-import { getCommonPeerEliminations } from '../../@generic/utils/get-common-peer-eliminations.util';
+import { getCanonicalTechniqueResults } from '../../@generic/utils/get-canonical-technique-results.util';
+import { getChainEndpointEliminations } from '../../@generic/utils/get-chain-endpoint-eliminations.util';
+import { getSearchEliminationValues } from '../../@generic/utils/get-search-elimination-values.util';
+import { getTargetEliminations } from '../../@generic/utils/get-target-eliminations.util';
 import { getUniqueCells } from '../../@generic/utils/get-unique-cells.util';
 import { isSameCell } from '../../@generic/utils/is-same-cell.util';
 
 import type { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
 import type { TechniqueResultInterface } from '../../@generic/interfaces/technique-result.interface';
+import type { TechniqueSearchTargetInterface } from '../../@generic/interfaces/technique-search-target.interface';
+import type { TechniqueStrategyInterface } from '../../@generic/interfaces/technique-strategy.interface';
 import type { XChainScanStateInterface } from '../interfaces/x-chain-scan-state.interface';
 import type { CellInterface } from '@suuudokuuu/generator';
 
 type StrongLinkType = [CellInterface, CellInterface];
 
-export class XChainTechnique {
+const compareCells = (firstCell: CellInterface, secondCell: CellInterface): number =>
+    firstCell.y - secondCell.y || firstCell.x - secondCell.x;
+
+export class XChainTechnique implements TechniqueStrategyInterface {
     readonly technique = SolutionTechniqueEnum.XChain;
 
-    private scanVisits = 0;
-
-    find(context: CandidateContext): TechniqueResultInterface[] {
+    find(context: CandidateContext, target?: TechniqueSearchTargetInterface): TechniqueResultInterface[] {
         const results: TechniqueResultInterface[] = [];
+        const eliminationValues = getSearchEliminationValues(context, target);
 
-        for (const value of context.getValues()) {
-            const edges = this.getStrongLinks(context, value);
-            const paths = this.getAlternatingPaths(context, edges, value);
+        for (const eliminationValue of eliminationValues) {
+            const strongLinks = this.getStrongLinks(context, eliminationValue);
+            const roots = this.getRoots(context, eliminationValue, target);
+            const scan = {
+                context,
+                strongLinks,
+                value: eliminationValue,
+                results,
+                target,
+                linkVisits: 0,
+                resultsAtStart: results.length
+            };
 
-            for (const path of paths) {
-                const [firstCell] = path;
-                const [lastCell] = path.slice(-1);
-
-                if (isDefined(firstCell) && isDefined(lastCell)) {
-                    const eliminations = getCommonPeerEliminations(context, [firstCell, lastCell], value, path);
-
-                    results.push(...createEliminationResults(this.technique, eliminations, path));
-                }
-            }
+            this.collectResults(roots, scan);
         }
 
-        return results;
+        return target ? results : getCanonicalTechniqueResults(results);
+    }
+
+    private getRoots(context: CandidateContext, value: number, target?: TechniqueSearchTargetInterface): CellInterface[] {
+        return context
+            .getBlankCells()
+            .filter(cell => context.getCandidates(cell).includes(value))
+            .filter(cell => !target || (!isSameCell(cell, target.cell) && getTargetEliminations(context, cell, target, value).length > 0))
+            .sort(compareCells);
+    }
+
+    private collectResults(roots: CellInterface[], scan: XChainScanStateInterface): void {
+        for (const root of roots) {
+            scan.linkVisits = 0;
+            scan.resultsAtStart = scan.results.length;
+
+            this.collectAlternatingPaths(scan, [root], true);
+
+            if (scan.target && scan.results.length > scan.resultsAtStart) {
+                return;
+            }
+        }
+    }
+
+    private collectAlternatingPaths(scan: XChainScanStateInterface, path: CellInterface[], requiresStrongLink: boolean): void {
+        const currentCell = path[path.length - 1];
+
+        if (
+            !isDefined(currentCell) ||
+            (scan.target && scan.results.length > scan.resultsAtStart) ||
+            scan.linkVisits >= X_CHAIN_MAX_VISITS_PER_ROOT
+        ) {
+            return;
+        }
+
+        const neighbors = requiresStrongLink
+            ? this.getStrongNeighbors(scan.strongLinks, currentCell)
+            : scan.context
+                  .getPeers(currentCell)
+                  .filter(cell => scan.context.getCandidates(cell).includes(scan.value))
+                  .sort(compareCells);
+
+        for (const neighbor of neighbors) {
+            if ((scan.target && scan.results.length > scan.resultsAtStart) || scan.linkVisits >= X_CHAIN_MAX_VISITS_PER_ROOT) {
+                return;
+            }
+
+            if (!path.some(cell => isSameCell(cell, neighbor))) {
+                scan.linkVisits += 1;
+                const nextPath = [...path, neighbor];
+
+                if (requiresStrongLink && nextPath.length >= X_CHAIN_MIN_CELLS) {
+                    this.addEndpointResults(scan, nextPath);
+                }
+
+                this.collectAlternatingPaths(scan, nextPath, !requiresStrongLink);
+            }
+        }
+    }
+
+    private addEndpointResults(scan: XChainScanStateInterface, path: CellInterface[]): void {
+        const eliminations = getChainEndpointEliminations(scan.context, path, scan.value, scan.target);
+
+        scan.results.push(...createEliminationResults(this.technique, eliminations, path));
     }
 
     private getStrongLinks(context: CandidateContext, value: number): StrongLinkType[] {
@@ -56,48 +126,10 @@ export class XChainTechnique {
         return links;
     }
 
-    private getAlternatingPaths(context: CandidateContext, edges: StrongLinkType[], value: number): CellInterface[][] {
-        const paths: CellInterface[][] = [];
-        const cells = context.getBlankCells().filter(cell => context.getCandidates(cell).includes(value));
-
-        for (const cell of cells) {
-            this.scanVisits = 0;
-            this.collectAlternatingPaths({ context, edges, paths, value }, [cell], true);
-        }
-
-        return paths;
-    }
-
-    private collectAlternatingPaths(state: XChainScanStateInterface, path: CellInterface[], requiresStrongLink: boolean): void {
-        const currentCell = path[path.length - 1];
-
-        if (!isDefined(currentCell) || this.scanVisits >= X_CHAIN_MAX_VISITS_PER_ROOT) {
-            return;
-        }
-
-        const neighbors = requiresStrongLink
-            ? this.getStrongNeighbors(state.edges, currentCell)
-            : state.context.getPeers(currentCell).filter(cell => state.context.getCandidates(cell).includes(state.value));
-
-        for (const neighbor of neighbors) {
-            if (!path.some(cell => isSameCell(cell, neighbor))) {
-                this.scanVisits += 1;
-
-                const nextPath = [...path, neighbor];
-
-                if (requiresStrongLink && nextPath.length >= X_CHAIN_MIN_CELLS) {
-                    state.paths.push(nextPath);
-                }
-
-                this.collectAlternatingPaths(state, nextPath, !requiresStrongLink);
-            }
-        }
-    }
-
-    private getStrongNeighbors(edges: StrongLinkType[], cell: CellInterface): CellInterface[] {
+    private getStrongNeighbors(strongLinks: StrongLinkType[], cell: CellInterface): CellInterface[] {
         const neighbors: CellInterface[] = [];
 
-        for (const [firstCell, secondCell] of edges) {
+        for (const [firstCell, secondCell] of strongLinks) {
             if (isSameCell(firstCell, cell)) {
                 neighbors.push(secondCell);
             }
@@ -107,6 +139,6 @@ export class XChainTechnique {
             }
         }
 
-        return getUniqueCells(neighbors);
+        return getUniqueCells(neighbors).sort(compareCells);
     }
 }
