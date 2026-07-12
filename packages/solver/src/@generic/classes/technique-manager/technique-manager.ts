@@ -68,6 +68,12 @@ export class TechniqueManager {
             return isSameCell(result.cell, cell) && result.value === value;
         }
 
+        const targetsCell = result.eliminations.some(elimination => isSameCell(elimination.cell, cell));
+
+        if (!targetsCell) {
+            return false;
+        }
+
         const remainingCandidates = context
             .getCandidates(cell)
             .filter(
