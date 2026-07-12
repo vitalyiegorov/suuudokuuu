@@ -15,7 +15,7 @@ export const CellStyles = StyleSheet.create(theme => ({
         outlineWidth: 0,
         _web: {
             cursor: 'pointer',
-            _focusVisible: {
+            '_focus-visible': {
                 outlineColor: theme.colors.black,
                 outlineOffset: 2,
                 outlineStyle: 'solid',

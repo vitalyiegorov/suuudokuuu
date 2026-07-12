@@ -19,7 +19,7 @@ export const CandidateInputItemStyles = StyleSheet.create(theme => ({
         width: PanelControlSizeConstant,
         _web: {
             cursor: 'pointer',
-            _focusVisible: {
+            '_focus-visible': {
                 outlineColor: theme.colors.black,
                 outlineOffset: 2,
                 outlineStyle: 'solid',

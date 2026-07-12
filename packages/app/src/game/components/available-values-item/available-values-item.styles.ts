@@ -15,7 +15,7 @@ export const AvailableValuesItemStyles = StyleSheet.create(theme => ({
         width: AvailableValueButtonSize,
         _web: {
             cursor: 'pointer',
-            _focusVisible: {
+            '_focus-visible': {
                 outlineColor: theme.colors.black,
                 outlineOffset: 2,
                 outlineStyle: 'solid',

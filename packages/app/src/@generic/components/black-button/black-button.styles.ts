@@ -14,7 +14,7 @@ export const BlackButtonStyles = StyleSheet.create(theme => ({
             cursor: 'pointer',
             transitionDuration: '120ms',
             transitionProperty: 'opacity,transform',
-            _focusVisible: {
+            '_focus-visible': {
                 outlineColor: theme.colors.black,
                 outlineOffset: 2,
                 outlineStyle: 'solid',
