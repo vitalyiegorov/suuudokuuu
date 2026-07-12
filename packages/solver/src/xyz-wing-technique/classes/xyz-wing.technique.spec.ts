@@ -14,7 +14,7 @@ describe('XYZWingTechnique', () => {
 
         expectTechniqueResults(new XYZWingTechnique().find(context), {
             technique: SolutionTechniqueEnum.XYZWing,
-            results: [[1, 1, 4]],
+            results: [[1, 1, 3]],
             eliminations: [[1, 1, 3]]
         });
     });

@@ -28,7 +28,7 @@ describe('XYWingTechnique', () => {
 
         expectTechniqueResults(new XYWingTechnique().find(context), {
             technique: SolutionTechniqueEnum.XYWing,
-            results: [[8, 3, 2]],
+            results: [[8, 3, 6]],
             eliminations: [[8, 3, 6]]
         });
     });

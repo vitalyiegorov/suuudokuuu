@@ -33,7 +33,7 @@ export class XChainTechnique {
                 if (isDefined(firstCell) && isDefined(lastCell)) {
                     const eliminations = getCommonPeerEliminations(context, [firstCell, lastCell], value, path);
 
-                    results.push(...createEliminationResults(context, this.technique, eliminations, path));
+                    results.push(...createEliminationResults(this.technique, eliminations, path));
                 }
             }
         }

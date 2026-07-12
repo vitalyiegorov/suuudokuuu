@@ -63,16 +63,17 @@ export class TechniqueManager {
     }
 
     private isResultForMove(context: CandidateContext, result: TechniqueResultInterface, cell: CellInterface, value: number): boolean {
-        if (!isSameCell(result.cell, cell) || result.value !== value) {
-            return false;
-        }
-
         if (result.kind === 'placement') {
-            return true;
+            return isSameCell(result.cell, cell) && result.value === value;
         }
 
-        return context
-            .getPlacementsFromEliminations(result.eliminations)
-            .some(placement => isSameCell(placement.cell, cell) && placement.value === value);
+        const remainingCandidates = context
+            .getCandidates(cell)
+            .filter(
+                candidate => !result.eliminations.some(elimination => isSameCell(elimination.cell, cell) && elimination.value === candidate)
+            );
+        const [remainingValue] = remainingCandidates;
+
+        return remainingCandidates.length === 1 && remainingValue === value;
     }
 }

@@ -23,8 +23,8 @@ export class PointingTechnique extends AbstractSizedTechnique {
                     const rowEliminations = this.getLineEliminations(context, cells, value, 'row');
                     const columnEliminations = this.getLineEliminations(context, cells, value, 'column');
 
-                    results.push(...createEliminationResults(context, this.technique, rowEliminations, cells));
-                    results.push(...createEliminationResults(context, this.technique, columnEliminations, cells));
+                    results.push(...createEliminationResults(this.technique, rowEliminations, cells));
+                    results.push(...createEliminationResults(this.technique, columnEliminations, cells));
                 }
             }
         }

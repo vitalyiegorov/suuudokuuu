@@ -22,7 +22,7 @@ describe('SimpleColoringTechnique', () => {
 
         expectTechniqueResults(new SimpleColoringTechnique().find(context), {
             technique: SolutionTechniqueEnum.SimpleColoring,
-            results: [[4, 4, 6]],
+            results: [[4, 4, 5]],
             eliminations: [[4, 4, 5]]
         });
     });

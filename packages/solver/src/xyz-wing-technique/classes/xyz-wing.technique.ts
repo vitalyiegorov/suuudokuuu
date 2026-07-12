@@ -34,7 +34,7 @@ export class XYZWingTechnique implements TechniqueStrategyInterface {
                     const reasonCells = [pivot, firstPincer, secondPincer];
                     const eliminations = getCommonPeerEliminations(context, reasonCells, eliminationValue, reasonCells);
 
-                    results.push(...createEliminationResults(context, this.technique, eliminations, reasonCells));
+                    results.push(...createEliminationResults(this.technique, eliminations, reasonCells));
                 }
             }
         }

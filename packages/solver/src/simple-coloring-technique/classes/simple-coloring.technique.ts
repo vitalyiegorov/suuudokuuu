@@ -24,8 +24,8 @@ export class SimpleColoringTechnique implements TechniqueStrategyInterface {
                 const wrapEliminations = this.getColorWrapEliminations(context, value, component);
                 const trapEliminations = this.getColorTrapEliminations(context, value, component);
 
-                results.push(...createEliminationResults(context, this.technique, wrapEliminations, reasonCells));
-                results.push(...createEliminationResults(context, this.technique, trapEliminations, reasonCells));
+                results.push(...createEliminationResults(this.technique, wrapEliminations, reasonCells));
+                results.push(...createEliminationResults(this.technique, trapEliminations, reasonCells));
             }
         }
 

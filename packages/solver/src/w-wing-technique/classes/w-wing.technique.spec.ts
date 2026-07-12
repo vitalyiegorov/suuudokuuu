@@ -14,7 +14,7 @@ describe('WWingTechnique', () => {
 
         expectTechniqueResults(new WWingTechnique().find(context), {
             technique: SolutionTechniqueEnum.WWing,
-            results: [[4, 0, 9]],
+            results: [[4, 0, 2]],
             eliminations: [[4, 0, 2]]
         });
     });

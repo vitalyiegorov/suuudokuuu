@@ -26,7 +26,7 @@ describe('HiddenPairTechnique', () => {
 
         expectTechniqueResults(new HiddenSubsetTechnique({ technique: SolutionTechniqueEnum.HiddenPair, size: 2 }).find(context), {
             technique: SolutionTechniqueEnum.HiddenPair,
-            results: [[1, 5, 5]],
+            results: [[1, 5, 8]],
             eliminations: [[1, 5, 8]]
         });
     });

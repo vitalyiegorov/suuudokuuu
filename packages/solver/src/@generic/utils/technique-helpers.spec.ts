@@ -30,11 +30,11 @@ describe('technique helpers', () => {
             eliminations: [],
             reasonCells: [cell]
         });
-        expect(createEliminationResults(context, SolutionTechniqueEnum.NakedPair, [{ cell, value: 2 }], [cell])).toEqual([
+        expect(createEliminationResults(SolutionTechniqueEnum.NakedPair, [{ cell, value: 2 }], [cell])).toEqual([
             {
                 technique: SolutionTechniqueEnum.NakedPair,
                 cell,
-                value: 1,
+                value: 2,
                 kind: 'elimination',
                 eliminations: [{ cell, value: 2 }],
                 reasonCells: [cell]

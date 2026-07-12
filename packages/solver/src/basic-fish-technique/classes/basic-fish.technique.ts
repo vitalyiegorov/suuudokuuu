@@ -45,7 +45,6 @@ export class BasicFishTechnique extends AbstractFishTechnique implements Techniq
         );
 
         return createEliminationResults(
-            context,
             this.technique,
             eliminations,
             base.units.flatMap(unit => unit.cells.filter(cell => context.getCandidates(cell).includes(value)))

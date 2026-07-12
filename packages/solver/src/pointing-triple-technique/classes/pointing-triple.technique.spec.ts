@@ -13,7 +13,7 @@ describe('PointingTripleTechnique', () => {
 
         expectTechniqueResults(new PointingTechnique({ technique: SolutionTechniqueEnum.PointingTriple, size: 3 }).find(context), {
             technique: SolutionTechniqueEnum.PointingTriple,
-            results: [[0, 3, 9]],
+            results: [[0, 3, 5]],
             eliminations: [[0, 3, 5]]
         });
     });

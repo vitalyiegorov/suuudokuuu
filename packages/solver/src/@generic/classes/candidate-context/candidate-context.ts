@@ -1,7 +1,5 @@
 import { isDefined, isNotEmptyArray } from '@rnw-community/shared';
 
-import type { CandidateEliminationInterface } from '../../interfaces/candidate-elimination.interface';
-import type { CandidatePlacementInterface } from '../../interfaces/candidate-placement.interface';
 import type { CandidateUnitInterface } from '../../interfaces/candidate-unit.interface';
 import type { CandidateMapType } from '../../types/candidate-map.type';
 import type { CellInterface, FieldInterface, Sudoku, SudokuConfigInterface } from '@suuudokuuu/generator';
@@ -14,12 +12,19 @@ export class CandidateContext {
     private readonly groupCellsByIndex: Record<number, CellInterface[]>;
     private readonly units: CandidateUnitInterface[];
     private readonly peersByCellKey: Record<string, CellInterface[]>;
+    private readonly candidateMap: CandidateMapType;
 
     constructor(
         private readonly config: SudokuConfigInterface,
         private readonly field: FieldInterface,
-        private readonly candidateMap: CandidateMapType = {}
+        candidateMap: CandidateMapType = {}
     ) {
+        this.candidateMap = {};
+
+        for (const key of Object.keys(candidateMap)) {
+            this.candidateMap[key] = [...candidateMap[key]];
+        }
+
         this.cells = this.field.flatMap(row => row);
         this.values = Array.from({ length: this.config.fieldSize }, (_, index) => index + 1);
         this.rowCells = this.field.map(row => [...row]);
@@ -27,16 +32,6 @@ export class CandidateContext {
         this.groupCellsByIndex = this.createGroupCellsByIndex();
         this.units = this.createUnits();
         this.peersByCellKey = this.createPeersByCellKey();
-    }
-
-    getCandidateMap(): CandidateMapType {
-        const candidateMap: CandidateMapType = {};
-
-        for (const key of Object.keys(this.candidateMap)) {
-            candidateMap[key] = [...this.candidateMap[key]];
-        }
-
-        return candidateMap;
     }
 
     getCandidates(cell: CellInterface): number[] {
@@ -91,49 +86,6 @@ export class CandidateContext {
         return this.getPeers(firstCell).filter(peer =>
             otherCells.every(cell => this.getPeers(cell).some(otherPeer => this.isSameCell(peer, otherPeer)))
         );
-    }
-
-    applyEliminations(eliminations: CandidateEliminationInterface[]): CandidateContext {
-        const candidateMap = this.getCandidateMap();
-
-        for (const elimination of eliminations) {
-            const key = CandidateContext.getCellKey(elimination.cell);
-            const candidates = candidateMap[key] ?? [];
-
-            candidateMap[key] = candidates.filter(candidate => candidate !== elimination.value);
-        }
-
-        return new CandidateContext(this.config, this.field, candidateMap);
-    }
-
-    getPlacementFromEliminations(eliminations: CandidateEliminationInterface[]): CandidatePlacementInterface | null {
-        const placements = this.getPlacementsFromEliminations(eliminations);
-        const [placement] = placements;
-
-        return isDefined(placement) ? placement : null;
-    }
-
-    getPlacementsFromEliminations(eliminations: CandidateEliminationInterface[]): CandidatePlacementInterface[] {
-        const nextContext = this.applyEliminations(eliminations);
-        const seenCells: Record<string, boolean> = {};
-        const placements: CandidatePlacementInterface[] = [];
-
-        for (const elimination of eliminations) {
-            const key = CandidateContext.getCellKey(elimination.cell);
-
-            if (!seenCells[key]) {
-                seenCells[key] = true;
-
-                const candidates = nextContext.getCandidates(elimination.cell);
-                const [value] = candidates;
-
-                if (candidates.length === 1 && isDefined(value)) {
-                    placements.push({ cell: elimination.cell, value });
-                }
-            }
-        }
-
-        return placements;
     }
 
     private createColumnCells(): CellInterface[][] {

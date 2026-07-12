@@ -23,7 +23,7 @@ describe('JellyfishTechnique', () => {
 
         expectTechniqueResults(new BasicFishTechnique({ technique: SolutionTechniqueEnum.Jellyfish, size: 4 }).find(context), {
             technique: SolutionTechniqueEnum.Jellyfish,
-            results: [[4, 0, 8]],
+            results: [[4, 0, 5]],
             eliminations: [[4, 0, 5]]
         });
     });

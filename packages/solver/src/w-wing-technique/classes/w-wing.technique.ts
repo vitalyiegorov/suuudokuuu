@@ -33,7 +33,7 @@ export class WWingTechnique implements TechniqueStrategyInterface {
                             secondCell
                         ]);
 
-                        results.push(...createEliminationResults(context, this.technique, eliminations, [firstCell, secondCell]));
+                        results.push(...createEliminationResults(this.technique, eliminations, [firstCell, secondCell]));
                     }
                 }
             }

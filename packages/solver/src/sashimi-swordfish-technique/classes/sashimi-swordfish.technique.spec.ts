@@ -25,8 +25,8 @@ describe('SashimiSwordfishTechnique', () => {
             {
                 technique: SolutionTechniqueEnum.SashimiSwordfish,
                 results: [
-                    [3, 7, 9],
-                    [4, 6, 8]
+                    [3, 7, 5],
+                    [4, 6, 5]
                 ],
                 eliminations: [
                     [3, 7, 5],

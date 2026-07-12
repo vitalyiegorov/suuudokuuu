@@ -204,7 +204,7 @@ describe('TechniqueManager', () => {
                 {
                     technique: SolutionTechniqueEnum.XWing,
                     cell: targetCell,
-                    value: 1,
+                    value: 2,
                     kind: 'elimination',
                     eliminations: [{ cell: targetCell, value: 1 }],
                     reasonCells: []

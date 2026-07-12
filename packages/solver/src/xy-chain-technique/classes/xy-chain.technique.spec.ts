@@ -14,7 +14,7 @@ describe('XYChainTechnique', () => {
 
         expectTechniqueResults(new XYChainTechnique().find(context), {
             technique: SolutionTechniqueEnum.XYChain,
-            results: [[2, 2, 4]],
+            results: [[2, 2, 1]],
             eliminations: [[2, 2, 1]]
         });
     });

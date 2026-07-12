@@ -188,9 +188,7 @@ export class AICTechnique implements TechniqueStrategyInterface {
 
         if (eliminations.length > 0 && !scan.resultKeys.has(resultKey)) {
             scan.resultKeys.add(resultKey);
-            scan.results.push(
-                ...createEliminationResults(scan.context, this.technique, eliminations, getUniqueCells(path.map(node => node.cell)))
-            );
+            scan.results.push(...createEliminationResults(this.technique, eliminations, getUniqueCells(path.map(node => node.cell))));
         }
     }
 
