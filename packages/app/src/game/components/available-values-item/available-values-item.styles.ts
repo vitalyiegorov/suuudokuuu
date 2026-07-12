@@ -1,28 +1,28 @@
 import { StyleSheet } from 'react-native';
 
-import { CellSizeConstant } from '../constants/dimensions.contant';
-
-const progressHeight = 2;
-const buttonSize = CellSizeConstant * 1.3;
+import { AvailableValueButtonSize } from './constant/available-value-button.constant';
 
 export const AvailableValuesItemStyles = StyleSheet.create({
     button: {
         alignItems: 'center',
-        borderBottomWidth: progressHeight,
-        borderWidth: 1,
-        height: buttonSize,
+        borderRadius: AvailableValueButtonSize / 2,
+        height: AvailableValueButtonSize,
         justifyContent: 'center',
         outlineOffset: 0,
         outlineWidth: 0,
-        width: buttonSize
+        overflow: 'visible',
+        position: 'relative',
+        width: AvailableValueButtonSize
     },
     container: {
         position: 'relative'
     },
-    progress: {
-        height: progressHeight,
+    progressRing: {
         left: 0,
-        position: 'absolute',
-        top: buttonSize - progressHeight
+        top: 0,
+        position: 'absolute'
+    },
+    text: {
+        zIndex: 1
     }
 });

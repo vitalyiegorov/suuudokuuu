@@ -1,0 +1,15 @@
+appId: ${APP_ID}
+---
+- copyTextFrom:
+    id: 'GameScreenSelectors.Time'
+- evalScript: ${output.timerBaselineSeconds = Number(maestro.copiedText.split(':')[0]) * 60 + Number(maestro.copiedText.split(':')[1])}
+- runFlow:
+    file: ../shared/wait-observation-window.flow.yaml
+    env:
+      WAIT_MILLISECONDS: 2500
+- copyTextFrom:
+    id: 'GameScreenSelectors.Time'
+- evalScript: ${output.observedTimerSeconds = Number(maestro.copiedText.split(':')[0]) * 60 + Number(maestro.copiedText.split(':')[1])}
+- assertTrue:
+    condition: ${output.observedTimerSeconds > output.timerBaselineSeconds}
+    label: Timer advances after returning from settings

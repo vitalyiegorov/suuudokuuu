@@ -1,36 +1,78 @@
 import { useLingui } from '@lingui/react/macro';
-import { DifficultyEnum } from '@suuudokuuu/generator';
-import { ScrollView, View } from 'react-native';
+import { useState } from 'react';
 
-import { Header } from '../../../@generic/components/header/header';
-import { ReturnButton } from '../../../@generic/components/return-button/return-button';
+import { ReturnableScreenChromeCompactContentPreset } from '../../../@generic/components/returnable-screen-chrome/constant/returnable-screen-chrome.constant';
+import { ReturnableScreenChrome } from '../../../@generic/components/returnable-screen-chrome/returnable-screen-chrome';
+import { ReturnableScreenScrollView } from '../../../@generic/components/returnable-screen-scroll-view/returnable-screen-scroll-view';
+import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { gameHistoryByDifficultySelector } from '../../../game/store/game.selectors';
-import { HistoryDifficulty } from '../../../history/components/history-difficulty/history-difficulty';
+import { HistoryGamesList } from '../../../history/components/history-games-list/history-games-list';
+import { HistoryOverviewTab } from '../../../history/components/history-overview-tab/history-overview-tab';
+import { HistorySegmentedControl } from '../../../history/components/history-segmented-control/history-segmented-control';
+import { historyGetCompletedDifficulties } from '../../../history/utils/history-get-completed-difficulties.util';
+import { historyGetCompletedGames } from '../../../history/utils/history-get-completed-games.util';
+import { historyGetSelectedDifficulty } from '../../../history/utils/history-get-selected-difficulty.util';
+import { settingsSetAction } from '../../../settings/store/settings.actions';
+import { settingsLastStatsDifficultySelector } from '../../../settings/store/settings.selectors';
 
+import { HistoryScreenGamesTab, HistoryScreenStatsTab } from './constant/history-screen-tab.constant';
+import { HistoryScreenSelectors } from './history-screen.selectors';
 import { HistoryScreenStyles } from './history-screen.styles';
+
+import type { HistoryScreenTab } from './constant/history-screen-tab.constant';
+import type { DifficultyEnum } from '@suuudokuuu/generator';
 
 export const HistoryScreen = () => {
     const { t } = useLingui();
+    const dispatch = useAppDispatch();
     const historyByDifficulty = useAppSelector(gameHistoryByDifficultySelector);
+    const lastStatsDifficulty = useAppSelector(settingsLastStatsDifficultySelector);
+    const [selectedTab, setSelectedTab] = useState<HistoryScreenTab>(HistoryScreenStatsTab);
+    const [selectedGamesDifficulty, setSelectedGamesDifficulty] = useState<DifficultyEnum | null>(null);
 
-    const difficulties = Object.values(DifficultyEnum).filter(difficulty => historyByDifficulty[difficulty].gamesCompleted > 0);
+    const difficulties = historyGetCompletedDifficulties(historyByDifficulty);
+    const selectedStatsDifficulty = historyGetSelectedDifficulty(difficulties, lastStatsDifficulty);
+    const completedGames = historyGetCompletedGames(historyByDifficulty, difficulties);
+    const handleSelectStatsDifficulty = (difficulty: DifficultyEnum) => {
+        dispatch(settingsSetAction({ lastStatsDifficulty: difficulty }));
+    };
+    const handleShowGames = (difficulty: DifficultyEnum) => {
+        setSelectedGamesDifficulty(difficulty);
+        setSelectedTab(HistoryScreenGamesTab);
+    };
+    const content =
+        selectedTab === HistoryScreenStatsTab ? (
+            <HistoryOverviewTab
+                difficulties={difficulties}
+                historyByDifficulty={historyByDifficulty}
+                onSelectDifficulty={handleSelectStatsDifficulty}
+                onShowGames={handleShowGames}
+                selectedDifficulty={selectedStatsDifficulty}
+            />
+        ) : (
+            <HistoryGamesList
+                difficulties={difficulties}
+                games={completedGames}
+                onSelectDifficulty={setSelectedGamesDifficulty}
+                selectedDifficulty={selectedGamesDifficulty}
+                showFilters
+            />
+        );
 
     return (
-        <View style={HistoryScreenStyles.container}>
-            <Header text={t`Statistics`} />
-
-            <ScrollView
+        <ReturnableScreenChrome contentStyle={HistoryScreenStyles.content} title={t`Statistics`}>
+            <ReturnableScreenScrollView
                 contentContainerStyle={HistoryScreenStyles.scrollViewContainer}
                 showsVerticalScrollIndicator={false}
                 style={HistoryScreenStyles.scrollView}
+                testID={HistoryScreenSelectors.Root}
+                topContentPreset={ReturnableScreenChromeCompactContentPreset}
             >
-                {difficulties.map(difficulty => (
-                    <HistoryDifficulty difficulty={difficulty} key={difficulty} />
-                ))}
-            </ScrollView>
+                <HistorySegmentedControl selectedTab={selectedTab} onSelectTab={setSelectedTab} />
 
-            <ReturnButton />
-        </View>
+                {content}
+            </ReturnableScreenScrollView>
+        </ReturnableScreenChrome>
     );
 };

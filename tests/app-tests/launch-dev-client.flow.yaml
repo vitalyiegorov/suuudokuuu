@@ -1,0 +1,6 @@
+appId: ${APP_ID}
+---
+- extendedWaitUntil:
+    visible:
+      id: 'HomeScreenSelectors.StartButton'
+    timeout: 60000

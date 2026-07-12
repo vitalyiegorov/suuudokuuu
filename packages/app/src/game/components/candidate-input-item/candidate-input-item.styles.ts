@@ -1,20 +1,22 @@
 import { StyleSheet } from 'react-native';
 
-import { CellSizeConstant } from '../constants/dimensions.contant';
+import { GameNumberInputButtonSizeConstant } from '../constants/dimensions.contant';
 
-const buttonSize = CellSizeConstant * 1.3;
 const whiteColor = '#ffffff';
 
 export const CandidateInputItemStyles = StyleSheet.create({
     button: {
         alignItems: 'center',
         backgroundColor: whiteColor,
+        borderRadius: GameNumberInputButtonSizeConstant / 2,
         borderWidth: 2,
-        height: buttonSize,
+        height: GameNumberInputButtonSizeConstant,
         justifyContent: 'center',
         outlineOffset: 0,
         outlineWidth: 0,
-        width: buttonSize
+        overflow: 'visible',
+        position: 'relative',
+        width: GameNumberInputButtonSizeConstant
     },
     container: {
         position: 'relative'

@@ -12,51 +12,13 @@ import { ThemeContext } from '../../../theme/context/theme.context';
 import { GameContext } from '../../context/game.context';
 import { useCellBorderStyles } from '../../hooks/use-cell-border-styles.hook';
 
-import { FieldCellSelectors as selectors } from './field-cell.selectors';
+import { fieldCellGetBackgroundColor } from './utils/field-cell-get-background-color.util';
+import { fieldCellGetSelector } from './utils/field-cell-get-selector.util';
 
-import type { BWDarkTheme } from '../../../theme/themes/bw.theme';
 import type { CellInterface } from '@suuudokuuu/generator';
 import type { ReactNode } from 'react';
 
 const ReanimatedPressable = Reanimated.createAnimatedComponent(Pressable);
-
-const getCellBgColor = (
-    theme: typeof BWDarkTheme,
-    isActiveValue: boolean,
-    isCellHighlighted: boolean,
-    isWrong: boolean,
-    isEmpty: boolean,
-    showAreas: boolean,
-    showIdenticalNumbers: boolean,
-    showFilledNumbers: boolean
-    // eslint-disable-next-line @typescript-eslint/max-params
-) => {
-    if (isWrong) {
-        return theme.colors.cell.error;
-    } else if (isActiveValue && showIdenticalNumbers) {
-        return theme.colors.cell.activeValue;
-    } else if (isCellHighlighted && showAreas) {
-        return theme.colors.cell.highlighted;
-    } else if (isEmpty) {
-        return theme.colors.white;
-    } else if (showFilledNumbers) {
-        return theme.colors.cell.filled;
-    }
-
-    return theme.colors.white;
-};
-
-const getCellSelector = (props: Props): selectors => {
-    if (props.isActive) {
-        return selectors.Active;
-    } else if (props.isActiveValue) {
-        return selectors.ActiveValue;
-    } else if (props.isHighlighted) {
-        return selectors.Highlighted;
-    }
-
-    return selectors.Root;
-};
 
 const animationConfig = { duration: animationDurationConstant };
 
@@ -81,16 +43,16 @@ export const FieldCell = (props: Props) => {
     const showIdenticalNumbers = useAppSelector(settingsKeySelector('showIdenticalNumbers'));
     const showFilledNumbers = useAppSelector(settingsKeySelector('showFilledNumbers'));
 
-    const cellBackgroundColor = getCellBgColor(
-        theme,
+    const cellBackgroundColor = fieldCellGetBackgroundColor({
         isActiveValue,
-        isHighlighted,
-        isWrong,
+        isCellHighlighted: isHighlighted,
         isEmpty,
+        isWrong,
         showAreas,
+        showFilledNumbers,
         showIdenticalNumbers,
-        showFilledNumbers
-    );
+        theme
+    });
     const animation = useDerivedValue(() => withTiming(isActive ? 1 : 0, animationConfig));
 
     const cellAnimatedStyles = useAnimatedStyle(() => ({
@@ -109,9 +71,10 @@ export const FieldCell = (props: Props) => {
         cellAnimatedStyles,
         Platform.select({ web: { outline: 'none' } })
     ];
+    const cellSelector = fieldCellGetSelector(isActive, isActiveValue, isHighlighted);
 
     return (
-        <ReanimatedPressable onPress={handlePress} style={cellStyles} testID={getCellSelector(props)}>
+        <ReanimatedPressable onPress={handlePress} style={cellStyles} testID={cellSelector}>
             {children}
         </ReanimatedPressable>
     );

@@ -1,6 +1,6 @@
 {
     "cli": {
-        "version": ">= 13.3.0",
+        "version": ">= 20.5.1",
         "appVersionSource": "remote"
     },
     "build": {
@@ -9,7 +9,8 @@
             "distribution": "internal",
             "environment": "development",
             "env": {
-                "APP_VARIANT": "development"
+                "APP_VARIANT": "development",
+                "EAS_USE_CACHE": "1"
             },
             "channel": "development"
         },
@@ -23,12 +24,18 @@
             "distribution": "internal",
             "environment": "preview",
             "env": {
-                "APP_VARIANT": "preview"
+                "APP_VARIANT": "preview",
+                "EAS_USE_CACHE": "1"
             },
             "channel": "preview"
         },
         "e2e": {
             "extends": "preview",
+            "developmentClient": false,
+            "env": {
+                "APP_VARIANT": "e2e",
+                "EAS_USE_CACHE": "1"
+            },
             "ios": {
                 "simulator": true
             },
@@ -40,7 +47,8 @@
             "autoIncrement": true,
             "environment": "production",
             "env": {
-                "APP_VARIANT": "production"
+                "APP_VARIANT": "production",
+                "EAS_USE_CACHE": "1"
             },
             "channel": "production"
         }

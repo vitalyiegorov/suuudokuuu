@@ -1,10 +1,10 @@
-import { Trans, useLingui } from '@lingui/react/macro';
+import { Plural, Trans, useLingui } from '@lingui/react/macro';
 import { DifficultyEnum } from '@suuudokuuu/generator';
 import { use } from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 
-import { Header } from '../../@generic/components/header/header';
-import { ReturnButton } from '../../@generic/components/return-button/return-button';
+import { ReturnableScreenChrome } from '../../@generic/components/returnable-screen-chrome/returnable-screen-chrome';
+import { ReturnableScreenScrollView } from '../../@generic/components/returnable-screen-scroll-view/returnable-screen-scroll-view';
 import { ThemeContext } from '../../theme/context/theme.context';
 import { defaultScoringConfig } from '../interfaces/scoring-config.interface';
 
@@ -22,23 +22,29 @@ export const ScoringScreen = () => {
     const sectionStyle = { marginBottom: 16 };
 
     return (
-        <View style={styles.container}>
-            <Header text={t`How Scoring Works`} />
-
-            <ScrollView contentContainerStyle={styles.scrollViewContent} showsVerticalScrollIndicator={false} style={styles.scrollView}>
+        <ReturnableScreenChrome contentStyle={styles.content} title={t`How Scoring Works`}>
+            <ReturnableScreenScrollView
+                contentContainerStyle={styles.scrollViewContent}
+                showsVerticalScrollIndicator={false}
+                style={styles.scrollView}
+            >
                 <View style={sectionStyle}>
                     <Text style={textStyle}>
-                        {t`Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties.`}
+                        <Trans>Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties.</Trans>
                     </Text>
                 </View>
 
                 <View style={sectionStyle}>
-                    <Text style={headingStyle}>{t`Base Score`}</Text>
+                    <Text style={headingStyle}>
+                        <Trans>Base Score</Trans>
+                    </Text>
                     <Text style={textStyle}>
-                        {t`Each correct placement starts with a base value:`}{' '}
+                        <Trans>Each correct placement starts with a base value:</Trans>{' '}
                         <Text style={codeStyle}>{defaultScoringConfig.correctValue}</Text>
                     </Text>
-                    <Text style={textStyle}>{t`This value is multiplied by the difficulty coefficient:`}</Text>
+                    <Text style={textStyle}>
+                        <Trans>This value is multiplied by the difficulty coefficient:</Trans>
+                    </Text>
                     <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
                         • <Trans>Newbie</Trans>:{' '}
                         <Text style={codeStyle}>×{defaultScoringConfig.difficultyCoefficients[DifficultyEnum.Newbie]}</Text> ={' '}
@@ -77,27 +83,36 @@ export const ScoringScreen = () => {
                 </View>
 
                 <View style={sectionStyle}>
-                    <Text style={headingStyle}>{t`Max Mistakes bonus`}</Text>
-                    <Text style={textStyle}>{t`Playing with fewer mistakes allowed gives you a score multiplier:`}</Text>
+                    <Text style={headingStyle}>
+                        <Trans>Max Mistakes bonus</Trans>
+                    </Text>
+                    <Text style={textStyle}>
+                        <Trans>Playing with fewer mistakes allowed gives you a score multiplier:</Trans>
+                    </Text>
                     <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
-                        • <Trans>Immortal (99 mistakes)</Trans>:{' '}
+                        • <Trans>Immortal</Trans> (<Plural value={99} one="# mistake" other="# mistakes" />
+                        ):{' '}
                         <Text style={codeStyle}>
                             ×{defaultScoringConfig.maxMistakesCoefficients[99]}(<Trans>no bonus</Trans>)
                         </Text>
                     </ListItem>
                     <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
-                        • <Trans>Standard (3 mistakes)</Trans>:{' '}
-                        <Text style={codeStyle}>×{defaultScoringConfig.maxMistakesCoefficients[3]}</Text>
+                        • <Trans>Standard</Trans> (<Plural value={3} one="# mistake" other="# mistakes" />
+                        ): <Text style={codeStyle}>×{defaultScoringConfig.maxMistakesCoefficients[3]}</Text>
                     </ListItem>
                     <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
-                        • <Trans>Hardcore (0 mistakes)</Trans>:{' '}
-                        <Text style={codeStyle}>×{defaultScoringConfig.maxMistakesCoefficients[0]}</Text>
+                        • <Trans>Hardcore</Trans> (<Plural value={0} one="# mistake" other="# mistakes" />
+                        ): <Text style={codeStyle}>×{defaultScoringConfig.maxMistakesCoefficients[0]}</Text>
                     </ListItem>
                 </View>
 
                 <View style={sectionStyle}>
-                    <Text style={headingStyle}>{t`Completion Bonuses`}</Text>
-                    <Text style={textStyle}>{t`Extra points are awarded when your placement completes:`}</Text>
+                    <Text style={headingStyle}>
+                        <Trans>Completion Bonuses</Trans>
+                    </Text>
+                    <Text style={textStyle}>
+                        <Trans>Extra points are awarded when your placement completes:</Trans>
+                    </Text>
                     <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
                         • <Trans>Row</Trans>: <Text style={codeStyle}>×{defaultScoringConfig.lastInRowCoefficientConstant}</Text>{' '}
                         <Trans>of current score</Trans>
@@ -118,29 +133,42 @@ export const ScoringScreen = () => {
                 </View>
 
                 <View style={sectionStyle}>
-                    <Text style={headingStyle}>{t`Penalties`}</Text>
-                    <Text style={textStyle}>{t`Points are deducted for:`}</Text>
+                    <Text style={headingStyle}>
+                        <Trans>Penalties</Trans>
+                    </Text>
+                    <Text style={textStyle}>
+                        <Trans>Points are deducted for:</Trans>
+                    </Text>
                     <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
-                        • {t`Time`}: <Text style={codeStyle}>{defaultScoringConfig.elapsedCoefficient}</Text> {t`per second`}
+                        • <Trans>Time</Trans>: <Text style={codeStyle}>{defaultScoringConfig.elapsedCoefficient}</Text>{' '}
+                        <Trans>per second</Trans>
                     </ListItem>
                     <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
-                        • {t`Mistakes`}: <Text style={codeStyle}>{defaultScoringConfig.mistakesCoefficient}</Text> {t`per mistake`}
+                        • <Trans>Mistakes</Trans>: <Text style={codeStyle}>{defaultScoringConfig.mistakesCoefficient}</Text>{' '}
+                        <Trans>per mistake</Trans>
                     </ListItem>
                     <Text style={textStyle}>
-                        {t`Penalty formula`}: <Text style={codeStyle}>{t`score × coefficient × count`}</Text>
+                        <Trans>Penalty formula</Trans>:{' '}
+                        <Text style={codeStyle}>
+                            <Trans>score × coefficient × count</Trans>
+                        </Text>
                     </Text>
                 </View>
 
                 <View style={sectionStyle}>
-                    <Text style={headingStyle}>{t`Minimum Score`}</Text>
+                    <Text style={headingStyle}>
+                        <Trans>Minimum Score</Trans>
+                    </Text>
                     <Text style={textStyle}>
-                        {t`No matter how many penalties, you always earn at least`}{' '}
-                        <Text style={codeStyle}>{defaultScoringConfig.correctMinValue}</Text> {t`points per correct placement.`}
+                        <Trans>No matter how many penalties, you always earn at least</Trans>{' '}
+                        <Text style={codeStyle}>{defaultScoringConfig.correctMinValue}</Text> <Trans>points per correct placement.</Trans>
                     </Text>
                 </View>
 
                 <View style={sectionStyle}>
-                    <Text style={headingStyle}>{t`Tips for High Scores`}</Text>
+                    <Text style={headingStyle}>
+                        <Trans>Tips for High Scores</Trans>
+                    </Text>
                     <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
                         • <Trans>Play on higher difficulties for bigger multipliers</Trans>
                     </ListItem>
@@ -154,9 +182,7 @@ export const ScoringScreen = () => {
                         • <Trans>Avoid mistakes - they cost you points!</Trans>
                     </ListItem>
                 </View>
-            </ScrollView>
-
-            <ReturnButton />
-        </View>
+            </ReturnableScreenScrollView>
+        </ReturnableScreenChrome>
     );
 };

@@ -1,0 +1,1132 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language: \n"
+"Language-Team: \n"
+"Content-Type: \n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. placeholder {0}: 0
+#. placeholder {0}: 3
+#. placeholder {0}: 99
+#: src/scoring/components/scoring.screen.tsx
+msgid "{0, plural, one {# mistake} other {# mistakes}}"
+msgstr "{0, plural, zero {# أخطاء} one {# خطأ} two {# خطآن} few {# أخطاء} many {# خطأ} other {# خطأ}}"
+
+#: src/screens/components/pause-screen/pause.screen.tsx
+msgid "{filledCells}/{totalCells} filled"
+msgstr "{filledCells}/{totalCells} ممتلئة"
+
+#: src/history/components/history-difficulty/history-difficulty.tsx
+msgid "{gamesCompleted, plural, one {# completed game} other {# completed games}}"
+msgstr "{gamesCompleted, plural, one {# لعبة مكتملة} other {# ألعاب مكتملة}}"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "A little room between cells"
+msgstr "مسافة قليلة بين الخلايا"
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "Accept Challenge"
+msgstr "قبول التحدي"
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "Accept challenge?"
+msgstr "قبول التحدي؟"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Adjust the digits on the Sudoku board"
+msgstr "اضبط حجم الأرقام على لوحة السودوكو"
+
+#: src/history/constants/technique-labels.constant.ts
+msgid "AIC"
+msgstr ""
+
+#: src/history/components/history-difficulty-filter/history-difficulty-filter.tsx
+msgid "All"
+msgstr "الكل"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "All of a number (1-9)"
+msgstr "كل خانات رقم معين (1-9)"
+
+#: src/screens/components/game-screen/game.screen.tsx
+#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/pause-screen/pause.screen.tsx
+msgid "All progress will be lost"
+msgstr "سيضيع كل التقدم"
+
+#: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
+msgid "Animate completed rows, columns, and boxes"
+msgstr "تحريك الصفوف والأعمدة والمربعات المكتملة"
+
+#: src/history/components/history-difficulty/history-difficulty.tsx
+msgid "Average"
+msgstr "المتوسط"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Avoid mistakes - they cost you points!"
+msgstr "تجنب الأخطاء: فهي تخصم من نقاطك."
+
+#: src/@generic/components/header-back-button/header-back-button.tsx
+#: src/history/components/replay-top-bar/replay-top-bar.tsx
+msgid "Back"
+msgstr "رجوع"
+
+#: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
+msgid "Back to home"
+msgstr "العودة إلى الرئيسية"
+
+#: src/settings/constant/language-labels.constant.ts
+msgid "Bahasa Indonesia"
+msgstr "Bahasa Indonesia"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Balanced digits for most players"
+msgstr "أرقام متوازنة لمعظم اللاعبين"
+
+#: src/screens/components/home-screen/home.screen.tsx
+msgid "Balanced solve"
+msgstr "حل متوازن"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Base Score"
+msgstr "النقاط الأساسية"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Be fast to minimize time penalties"
+msgstr "العب بسرعة لتقليل عقوبات الوقت"
+
+#: src/app/game.tsx
+msgid "Be wise, be smart, be quick..."
+msgstr "فكر بذكاء والعب بسرعة..."
+
+#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-totals-card/history-totals-card.tsx
+msgid "Best score"
+msgstr "أفضل نتيجة"
+
+#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-totals-card/history-totals-card.tsx
+msgid "Best time"
+msgstr "أفضل وقت"
+
+#: src/app/challenge-lost.tsx
+#: src/app/loser.tsx
+#: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
+msgid "Better luck next time!"
+msgstr "حظًا أوفر في المرة القادمة!"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Board colors and screen appearance"
+msgstr "ألوان اللوحة ومظهر الشاشات"
+
+#: src/history/constants/technique-labels.constant.ts
+msgid "Box-Line Reduction"
+msgstr ""
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "Can you beat them?"
+msgstr "هل يمكنك التفوق عليهم؟"
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+#: src/screens/components/game-screen/game.screen.tsx
+#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/pause-screen/pause.screen.tsx
+#: src/screens/components/shared-screen/shared-screen.tsx
+msgid "Cancel"
+msgstr "إلغاء"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+#: src/settings/hooks/use-settings-option-sheet-config.hook.ts
+msgid "Cell spacing"
+msgstr "تباعد الخلايا"
+
+#: src/screens/components/winner-screen/winner.screen.tsx
+msgid "Challenge a Friend"
+msgstr "تحدَّ صديقًا"
+
+#: src/app/challenge-won.tsx
+msgid "Challenge Back"
+msgstr "رد التحدي"
+
+#: src/app/challenge-lost.tsx
+msgid "Challenge Lost"
+msgstr "خسرت التحدي"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Challenge lost!"
+msgstr "خسرت التحدي!"
+
+#: src/app/challenge-won.tsx
+msgid "Challenge Won!"
+msgstr "فزت بالتحدي!"
+
+#: src/history/components/history-difficulty/history-difficulty.tsx
+msgid "Challenges"
+msgstr "التحديات"
+
+#: src/game/hooks/use-share-puzzle/use-share-puzzle.hook.ts
+msgid "Check out this Sudoku puzzle!"
+msgstr "جرّب لغز السودوكو هذا!"
+
+#: src/settings/hooks/use-settings-option-sheet-config.hook.ts
+msgid "Choose how large board digits appear"
+msgstr "اختر حجم أرقام اللوحة"
+
+#: src/settings/hooks/use-settings-option-sheet-config.hook.ts
+msgid "Choose how much space appears between Sudoku cells"
+msgstr "اختر مقدار المسافة بين خلايا السودوكو"
+
+#: src/settings/hooks/use-settings-option-sheet-config.hook.ts
+msgid "Choose the color style for the board and app screens"
+msgstr "اختر نمط ألوان اللوحة وشاشات التطبيق"
+
+#: src/settings/hooks/use-settings-option-sheet-config.hook.ts
+msgid "Choose the language used for menus and game text"
+msgstr "اختر لغة القوائم ونصوص اللعبة"
+
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Classic"
+msgstr "كلاسيكي"
+
+#: src/history/components/history-difficulty/history-difficulty.tsx
+msgid "Clean"
+msgstr "بلا أخطاء"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Clean black-and-white board"
+msgstr "لوحة نظيفة بالأبيض والأسود"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Column"
+msgstr "عمود"
+
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Comfortable"
+msgstr "مريح"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Complete rows, columns, and blocks for huge bonuses"
+msgstr "أكمل الصفوف والأعمدة والمربعات لتحصل على مكافآت كبيرة"
+
+#: src/history/components/history-games-list/history-games-list.tsx
+msgid "Completed games will be ready for replay."
+msgstr "ستكون الألعاب المكتملة جاهزة للإعادة."
+
+#: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
+msgid "Completion animations"
+msgstr "حركات الإكمال"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Completion Bonuses"
+msgstr "مكافآت الإكمال"
+
+#: src/screens/components/home-screen/home-screen-play-actions/home-screen-play-actions.tsx
+#: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
+msgid "Continue"
+msgstr "متابعة"
+
+#: src/@generic/hooks/use-timer-text.hook.ts
+msgid "d"
+msgstr "d"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Dark mode"
+msgstr "الوضع الداكن"
+
+#: src/history/components/history-totals-card/history-totals-card.tsx
+msgid "Day streak"
+msgstr "سلسلة الأيام"
+
+#: src/screens/components/home-screen/home.screen.tsx
+msgid "Deep focus"
+msgstr "تركيز عميق"
+
+#: src/settings/constant/language-labels.constant.ts
+msgid "Deutsch"
+msgstr "Deutsch"
+
+#: src/game/components/difficulty-complexity-slider/difficulty-complexity-slider.tsx
+msgid "Difficulty"
+msgstr "مستوى الصعوبة"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Display"
+msgstr "العرض"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Each correct placement starts with a base value:"
+msgstr "كل إدخال صحيح يبدأ بقيمة أساسية:"
+
+#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/scoring/components/scoring.screen.tsx
+msgid "Easy"
+msgstr "سهل"
+
+#: src/settings/constant/language-labels.constant.ts
+msgid "English"
+msgstr "English"
+
+#: src/settings/constant/language-labels.constant.ts
+msgid "Español"
+msgstr "Español"
+
+#: src/screens/components/loser-screen/loser-screen-ukraine-card/loser-screen-ukraine-card.tsx
+msgid "Every $1 donation matters."
+msgstr "كل تبرع بقيمة 1 دولار مهم."
+
+#: src/screens/components/home-screen/home.screen.tsx
+msgid "Expert grid"
+msgstr "شبكة للخبراء"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Extra points are awarded when your placement completes:"
+msgstr "تحصل على نقاط إضافية عندما تكمل حركتك:"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "faster!"
+msgstr "أسرع!"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Feedback"
+msgstr "التنبيهات"
+
+#: src/history/components/history-empty-state/history-empty-state.tsx
+msgid "Finish a puzzle and it will appear here."
+msgstr "أكمل لغز سودوكو وسيظهر هنا."
+
+#: src/history/constants/technique-labels.constant.ts
+msgid "Finned Swordfish"
+msgstr ""
+
+#: src/history/constants/technique-labels.constant.ts
+msgid "Finned X-Wing"
+msgstr ""
+
+#: src/settings/constant/language-labels.constant.ts
+msgid "Français"
+msgstr "Français"
+
+#: src/history/constants/technique-labels.constant.ts
+msgid "Full House"
+msgstr ""
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Game"
+msgstr "اللعبة"
+
+#: src/app/game.tsx
+#: src/app/pause.tsx
+msgid "Game paused"
+msgstr "اللعبة متوقفة مؤقتًا"
+
+#: src/app/history/[difficulty]/index.tsx
+msgid "Game Replay"
+msgstr "إعادة اللعبة"
+
+#: src/history/components/history-segmented-control/history-segmented-control.tsx
+#: src/screens/components/history-games-screen/history-games.screen.tsx
+msgid "Games"
+msgstr "الألعاب"
+
+#: src/screens/components/home-screen/home.screen.tsx
+msgid "Gentle start"
+msgstr "بداية سهلة"
+
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Gold"
+msgstr "ذهبي"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Group(3x3 cells)"
+msgstr "مربع (3x3 خانات)"
+
+#: src/history/constants/technique-labels.constant.ts
+msgid "Guess"
+msgstr ""
+
+#: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
+msgid "Guidance"
+msgstr "المساعدة"
+
+#: src/@generic/hooks/use-timer-text.hook.ts
+msgid "h"
+msgstr "h"
+
+#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/scoring/components/scoring.screen.tsx
+msgid "Hard"
+msgstr "صعب"
+
+#: src/@generic/utils/get-mistakes-type-text.util.ts
+#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/scoring/components/scoring.screen.tsx
+#: src/screens/components/home-screen/home.screen.tsx
+msgid "Hardcore"
+msgstr "هاردكور"
+
+#: src/screens/components/loser-screen/loser-screen-ukraine-card/loser-screen-ukraine-card.tsx
+msgid "Help"
+msgstr "ساعد"
+
+#: src/screens/components/pause-screen/pause-screen-ukraine-card/pause-screen-ukraine-card.tsx
+msgid "Help Ukraine win"
+msgstr "ساعد أوكرانيا على الفوز"
+
+#: src/@generic/components/donation/donation.tsx
+msgid "Help Ukraine win!"
+msgstr "ساعد أوكرانيا على الفوز!"
+
+#: src/history/constants/technique-labels.constant.ts
+msgid "Hidden Pair"
+msgstr ""
+
+#: src/history/constants/technique-labels.constant.ts
+msgid "Hidden Quad"
+msgstr ""
+
+#: src/history/constants/technique-labels.constant.ts
+msgid "Hidden Single"
+msgstr ""
+
+#: src/history/constants/technique-labels.constant.ts
+msgid "Hidden Triple"
+msgstr ""
+
+#: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
+msgid "Highlight areas"
+msgstr "تمييز المناطق"
+
+#: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
+msgid "Highlight filled numbers"
+msgstr "تمييز الأرقام الموضوعة"
+
+#: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
+msgid "Highlight matching numbers"
+msgstr "تمييز الأرقام المطابقة"
+
+#: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
+msgid "Highlight pencil marks"
+msgstr "تمييز الملاحظات بالقلم"
+
+#: src/app/scoring.tsx
+#: src/scoring/components/scoring.screen.tsx
+msgid "How Scoring Works"
+msgstr "كيف يعمل احتساب النقاط"
+
+#: src/game/hooks/use-share-challenge/use-share-challenge.hook.ts
+msgid "I completed this Sudoku in {elapsedTimeString}. Can you beat me?"
+msgstr "أنهيت هذا السودوكو في {elapsedTimeString}. هل يمكنك التفوق علي؟"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Immortal"
+msgstr "خالد"
+
+#: src/game/components/game-provider/game-provider.tsx
+msgid "Invalid Sudoku"
+msgstr "سودوكو غير صالح"
+
+#: src/screens/components/winner-screen/winner.screen.tsx
+msgid "It took you"
+msgstr "استغرقت"
+
+#: src/history/constants/technique-labels.constant.ts
+msgid "Jellyfish"
+msgstr ""
+
+#: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
+msgid "Keep cell selected"
+msgstr "إبقاء الخلية محددة"
+
+#: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
+msgid "Keep selection after tapping outside the board"
+msgstr "الحفاظ على التحديد بعد النقر خارج اللوحة"
+
+#: src/screens/components/home-screen/home.screen.tsx
+msgid "Keep the streak"
+msgstr "حافظ على السلسلة"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+#: src/settings/hooks/use-settings-option-sheet-config.hook.ts
+msgid "Language"
+msgstr "اللغة"
+
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Large"
+msgstr "كبير"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Larger digits for easier reading"
+msgstr "أرقام أكبر لقراءة أسهل"
+
+#: src/history/components/replay-header/replay-header.tsx
+msgid "Level"
+msgstr "المستوى"
+
+#: src/screens/components/home-screen/home.screen.tsx
+msgid "Light warm-up"
+msgstr "إحماء خفيف"
+
+#: src/screens/components/loser-screen/loser.screen.tsx
+msgid "Loooooser =)"
+msgstr "خااااسر =)"
+
+#: src/history/components/history-difficulty/history-difficulty.tsx
+msgid "Lost"
+msgstr "خسائر"
+
+#: src/@generic/hooks/use-timer-text.hook.ts
+msgid "m"
+msgstr "m"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Max Mistakes bonus"
+msgstr "مكافأة الأخطاء المسموحة"
+
+#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/scoring/components/scoring.screen.tsx
+msgid "Medium"
+msgstr "متوسط"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Menus, settings, and game text"
+msgstr "القوائم والإعدادات ونصوص اللعبة"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Minimum Score"
+msgstr "الحد الأدنى للنقاط"
+
+#: src/history/components/completed-games-list/completed-game-item.tsx
+#: src/history/components/replay-header/replay-header.tsx
+#: src/scoring/components/scoring.screen.tsx
+#: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
+#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/loser-screen/loser-screen-metrics/loser-screen-metrics.tsx
+#: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
+msgid "Mistakes"
+msgstr "أخطاء"
+
+#: src/history/components/replay-controls/replay-controls.tsx
+msgid "Move"
+msgstr "النقلة"
+
+#: src/history/constants/technique-labels.constant.ts
+msgid "Naked Pair"
+msgstr ""
+
+#: src/history/constants/technique-labels.constant.ts
+msgid "Naked Quad"
+msgstr ""
+
+#: src/history/constants/technique-labels.constant.ts
+msgid "Naked Single"
+msgstr ""
+
+#: src/history/constants/technique-labels.constant.ts
+msgid "Naked Triple"
+msgstr ""
+
+#: src/screens/components/home-screen/home-screen-section-header/home-screen-section-header.tsx
+msgid "New game"
+msgstr "لعبة جديدة"
+
+#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/scoring/components/scoring.screen.tsx
+msgid "Newbie"
+msgstr "مبتدئ"
+
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Newspaper"
+msgstr "صحيفة"
+
+#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/scoring/components/scoring.screen.tsx
+msgid "Nightmare"
+msgstr "كابوس"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "no bonus"
+msgstr "لا مكافأة"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "No extra gaps between cells"
+msgstr "بدون مسافات إضافية بين الخلايا"
+
+#: src/history/components/history-games-list/history-games-list.tsx
+msgid "No games yet"
+msgstr "لا توجد ألعاب بعد"
+
+#: src/screens/components/home-screen/home.screen.tsx
+msgid "No limit"
+msgstr "بلا حد"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "No matter how many penalties, you always earn at least"
+msgstr "مهما بلغت العقوبات، ستحصل دائمًا على الأقل على"
+
+#: src/history/components/history-overview-tab/history-overview-tab.tsx
+msgid "No stats yet"
+msgstr "لا توجد إحصاءات بعد"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+#: src/settings/hooks/use-settings-option-sheet-config.hook.ts
+msgid "Number size"
+msgstr "حجم الأرقام"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "of current score"
+msgstr "من النتيجة الحالية"
+
+#: src/game/components/game-provider/game-provider.tsx
+#: src/screens/components/game-screen/game.screen.tsx
+#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/pause-screen/pause.screen.tsx
+msgid "OK"
+msgstr "حسنًا"
+
+#: src/screens/components/shared-screen/shared-screen.tsx
+msgid "Open puzzle"
+msgstr "فتح السودوكو"
+
+#: src/app/shared/[url].tsx
+#: src/screens/components/shared-screen/shared-screen.tsx
+msgid "Open shared puzzle?"
+msgstr "فتح السودوكو المشترك؟"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Opponent's time:"
+msgstr "وقت المنافس:"
+
+#: src/history/components/history-segmented-control/history-segmented-control.tsx
+msgid "Overview"
+msgstr "نظرة عامة"
+
+#: src/screens/components/pause-screen/pause-screen-header/pause-screen-header.tsx
+msgid "Paused"
+msgstr "متوقف مؤقتًا"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Penalties"
+msgstr "العقوبات"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Penalty formula"
+msgstr "معادلة العقوبة"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "per mistake"
+msgstr "لكل خطأ"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "per second"
+msgstr "لكل ثانية"
+
+#: src/@generic/components/main-tab-layout/main-tab-layout.tsx
+#: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
+#: src/app/(tabs)/index.tsx
+msgid "Play"
+msgstr "العب"
+
+#: src/@generic/components/play-again-button/play-again-button.tsx
+#: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
+msgid "Play again"
+msgstr "العب مرة أخرى"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Play on higher difficulties for bigger multipliers"
+msgstr "العب بمستويات أصعب لمضاعفات أكبر"
+
+#: src/history/components/history-totals-card/history-totals-card.tsx
+msgid "Played"
+msgstr "تم اللعب"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Playing with fewer mistakes allowed gives you a score multiplier:"
+msgstr "كلما قل عدد الأخطاء المسموحة زاد مضاعف النقاط:"
+
+#: src/history/constants/technique-labels.constant.ts
+msgid "Pointing Pair"
+msgstr ""
+
+#: src/history/constants/technique-labels.constant.ts
+msgid "Pointing Triple"
+msgstr ""
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Points are deducted for:"
+msgstr "تُخصم النقاط بسبب:"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "points per correct placement."
+msgstr "نقاط لكل إدخال صحيح."
+
+#: src/settings/constant/language-labels.constant.ts
+msgid "Português"
+msgstr "Português"
+
+#: src/app/privacy-policy.tsx
+#: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx
+#: src/settings/component/settings-app-footer/settings-app-footer.tsx
+msgid "Privacy policy"
+msgstr "سياسة الخصوصية"
+
+#: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
+msgid "Quit"
+msgstr "إنهاء"
+
+#: src/@generic/utils/get-mistakes-type-text.util.ts
+#: src/screens/components/home-screen/home.screen.tsx
+msgid "Relaxed"
+msgstr "مريح"
+
+#: src/history/components/completed-games-list/completed-game-item.tsx
+#: src/history/components/replay-top-bar/replay-top-bar.tsx
+msgid "Replay"
+msgstr "إعادة"
+
+#: src/settings/component/settings-app-footer/settings-app-footer.tsx
+msgid "Report a bug"
+msgstr "الإبلاغ عن خطأ"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Row"
+msgstr "صف"
+
+#: src/history/constants/technique-labels.constant.ts
+msgid "Sashimi Swordfish"
+msgstr ""
+
+#: src/history/constants/technique-labels.constant.ts
+msgid "Sashimi X-Wing"
+msgstr ""
+
+#: src/history/components/completed-games-list/completed-game-item.tsx
+#: src/history/components/replay-header/replay-header.tsx
+#: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
+#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
+msgid "Score"
+msgstr "النقاط"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "score × coefficient × count"
+msgstr "النقاط × المعامل × العدد"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
+msgstr "تُحسب النقاط لكل خانة صحيحة حسب الصعوبة والمكافآت والعقوبات."
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Score:"
+msgstr "النقاط:"
+
+#: src/@generic/components/main-tab-layout/main-tab-layout.tsx
+#: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
+#: src/screens/components/settings-screen/settings.screen.tsx
+#: src/settings/component/settings-page-content/settings-page-content.tsx
+msgid "Settings"
+msgstr "الإعدادات"
+
+#: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
+msgid "Shade cells that already have a number"
+msgstr "تظليل الخلايا التي تحتوي بالفعل على رقم"
+
+#: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
+msgid "Share puzzle"
+msgstr "مشاركة السودوكو"
+
+#: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
+msgid "Show cells with the same number as the selected cell"
+msgstr "إظهار الخلايا التي تحمل نفس رقم الخلية المحددة"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Show elapsed time while you play"
+msgstr "إظهار الوقت المنقضي أثناء اللعب"
+
+#: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
+msgid "Show matching notes for the selected cell"
+msgstr "إظهار الملاحظات المطابقة للخلية المحددة"
+
+#: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
+msgid "Show the row, column, and box for the selected cell"
+msgstr "إظهار الصف والعمود والمربع للخلية المحددة"
+
+#: src/history/constants/technique-labels.constant.ts
+msgid "Simple Coloring"
+msgstr ""
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "slower!"
+msgstr "أبطأ!"
+
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Small"
+msgstr "صغير"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Smaller digits for more board space"
+msgstr "أرقام أصغر لمساحة أكبر على اللوحة"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Smallest digits for compact boards"
+msgstr "أصغر أرقام للوحات المدمجة"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Soft gray board with a paper-like feel"
+msgstr "لوحة رمادية ناعمة بإحساس الورق"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Space between Sudoku cells"
+msgstr "المسافة بين خلايا السودوكو"
+
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Spacious"
+msgstr "واسع"
+
+#: src/@generic/utils/get-mistakes-type-text.util.ts
+#: src/scoring/components/scoring.screen.tsx
+#: src/screens/components/home-screen/home.screen.tsx
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Standard"
+msgstr "قياسي"
+
+#: src/screens/components/home-screen/home.screen.tsx
+msgid "Start new puzzle"
+msgstr "ابدأ لغزًا جديدًا"
+
+#: src/screens/components/home-screen/home.screen.tsx
+msgid "Start puzzle"
+msgstr "ابدأ اللغز"
+
+#: src/screens/components/history-screen/history.screen.tsx
+msgid "Statistics"
+msgstr "الإحصاءات"
+
+#: src/@generic/components/main-tab-layout/main-tab-layout.tsx
+#: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
+#: src/app/(tabs)/history.tsx
+#: src/history/components/history-totals-card/history-totals-card.tsx
+msgid "Stats"
+msgstr "الإحصاءات"
+
+#: src/history/components/replay-controls/replay-controls.tsx
+msgid "Step time"
+msgstr "وقت الحركة"
+
+#: src/screens/components/game-screen/game.screen.tsx
+#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/pause-screen/pause.screen.tsx
+msgid "Stop current run?"
+msgstr "إنهاء الجولة الحالية؟"
+
+#: src/@generic/components/support-ukraine-pill/support-ukraine-pill.tsx
+msgid "Support"
+msgstr "ادعم"
+
+#: src/@generic/components/support-ukraine-pill/support-ukraine-pill.tsx
+#: src/settings/component/settings-app-footer/settings-app-footer.tsx
+msgid "Support Ukraine"
+msgstr "دعم أوكرانيا"
+
+#: src/screens/components/home-screen/home.screen.tsx
+msgid "suuudokuuu"
+msgstr "suuudokuuu"
+
+#: src/settings/component/settings-app-footer/settings-app-footer.tsx
+msgid "suuudokuuu · v{version}"
+msgstr "suuudokuuu · v{version}"
+
+#: src/game/hooks/use-share-challenge/use-share-challenge.hook.ts
+msgid "SuuudokuuU Challenge"
+msgstr "تحدي SuuudokuuU"
+
+#: src/game/hooks/use-share-puzzle/use-share-puzzle.hook.ts
+msgid "SuuudokuuU Sudoku Puzzle"
+msgstr "سودوكو SuuudokuuU"
+
+#: src/@generic/components/page-header/page-header.tsx
+msgid "SuuudokuuU The Game"
+msgstr "SuuudokuuU: اللعبة"
+
+#: src/settings/constant/language-labels.constant.ts
+msgid "Svenska"
+msgstr "Svenska"
+
+#: src/history/constants/technique-labels.constant.ts
+msgid "Swordfish"
+msgstr ""
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+#: src/settings/hooks/use-settings-option-sheet-config.hook.ts
+msgid "Theme"
+msgstr "السمة"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "This value is multiplied by the difficulty coefficient:"
+msgstr "تُضرب هذه القيمة في معامل الصعوبة:"
+
+#: src/screens/components/home-screen/home.screen.tsx
+msgid "Three mistakes"
+msgstr "ثلاثة أخطاء"
+
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Tight"
+msgstr "متقارب"
+
+#: src/history/components/completed-games-list/completed-game-item.tsx
+#: src/history/components/replay-header/replay-header.tsx
+#: src/scoring/components/scoring.screen.tsx
+#: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
+#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/loser-screen/loser-screen-metrics/loser-screen-metrics.tsx
+#: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
+msgid "Time"
+msgstr "الوقت"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Timer"
+msgstr "المؤقت"
+
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Tiny"
+msgstr "صغير جدًا"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Tips for High Scores"
+msgstr "نصائح لنتائج أعلى"
+
+#: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
+msgid "Too many mistakes"
+msgstr "أخطاء كثيرة جدًا"
+
+#: src/challenge/components/challenge-try-again-button/challenge-try-again-button.tsx
+msgid "Try Again"
+msgstr "حاول مجددًا"
+
+#: src/screens/components/pause-screen/pause-screen-ukraine-card/pause-screen-ukraine-card.tsx
+msgid "Ukraine keeps fighting"
+msgstr "أوكرانيا تواصل القتال"
+
+#: src/screens/components/loser-screen/loser-screen-ukraine-card/loser-screen-ukraine-card.tsx
+msgid "Ukraine needs to win too"
+msgstr "أوكرانيا تحتاج إلى الفوز أيضًا"
+
+#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Unknown"
+msgstr "غير معروف"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Use a dark color scheme"
+msgstr "استخدام نظام ألوان داكن"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Use Arabic for app text"
+msgstr "استخدم العربية لنص التطبيق"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Use Bengali for app text"
+msgstr "استخدم البنغالية لنص التطبيق"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Use Chinese for app text"
+msgstr "استخدم الصينية لنص التطبيق"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Use English for app text"
+msgstr "استخدم الإنجليزية لنص التطبيق"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Use French for app text"
+msgstr "استخدم الفرنسية لنص التطبيق"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Use German for app text"
+msgstr "استخدم الألمانية لنص التطبيق"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Use Hindi for app text"
+msgstr "استخدم الهندية لنص التطبيق"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Use Indonesian for app text"
+msgstr "استخدم الإندونيسية لنص التطبيق"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Use Portuguese for app text"
+msgstr "استخدم البرتغالية لنص التطبيق"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Use Spanish for app text"
+msgstr "استخدم الإسبانية لنص التطبيق"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Use Swedish for app text"
+msgstr "استخدم السويدية لنص التطبيق"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Use Ukrainian for app text"
+msgstr "استخدم الأوكرانية لنص التطبيق"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Use Urdu for app text"
+msgstr "استخدم الأردية لنص التطبيق"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Vibrate on taps and game actions"
+msgstr "الاهتزاز عند النقر وإجراءات اللعب"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Vibration"
+msgstr "الاهتزاز"
+
+#: src/history/constants/technique-labels.constant.ts
+msgid "W-Wing"
+msgstr ""
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Warm gold accents for a brighter board"
+msgstr "لمسات ذهبية دافئة للوحة أكثر إشراقًا"
+
+#: src/@generic/utils/donation-get-text.util.ts
+msgid "While you were away Ukraine continued its fight for freedom!\n"
+"\n"
+"Every 1$ donation matters!"
+msgstr "أثناء غيابك واصلت أوكرانيا كفاحها من أجل الحرية!\n"
+"\n"
+"كل تبرع بقيمة 1 دولار مهم!"
+
+#: src/screens/components/pause-screen/pause-screen-ukraine-card/pause-screen-ukraine-card.tsx
+msgid "While you were away, the fight for freedom continued. Every $1 makes a difference."
+msgstr "بينما كنت بعيدًا، استمر الكفاح من أجل الحرية. كل تبرع بقيمة $1 يحدث فرقًا."
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Wider gaps for easier tapping"
+msgstr "مسافات أوسع لتسهيل الضغط"
+
+#: src/history/components/history-totals-card/history-totals-card.tsx
+msgid "Win rate"
+msgstr "معدل الفوز"
+
+#: src/screens/components/winner-screen/winner.screen.tsx
+msgid "Winners-winner, \n"
+" chicken dinner!"
+msgstr "فزت!\n"
+"حان وقت الاحتفال!"
+
+#: src/app/winner.tsx
+msgid "Winners-winner, chicken dinner!"
+msgstr "فزت! حان وقت الاحتفال!"
+
+#: src/history/components/history-difficulty/history-difficulty.tsx
+msgid "Won"
+msgstr "فوز"
+
+#: src/history/constants/technique-labels.constant.ts
+msgid "X-Chain"
+msgstr ""
+
+#: src/history/constants/technique-labels.constant.ts
+msgid "X-Wing"
+msgstr ""
+
+#: src/history/constants/technique-labels.constant.ts
+msgid "XY-Chain"
+msgstr ""
+
+#: src/history/constants/technique-labels.constant.ts
+msgid "XY-Wing"
+msgstr ""
+
+#: src/history/constants/technique-labels.constant.ts
+msgid "XYZ-Wing"
+msgstr ""
+
+#: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
+msgid "You got to"
+msgstr "وصلت إلى"
+
+#: src/screens/components/winner-screen/winner.screen.tsx
+msgid "You have scored"
+msgstr "لقد حققت"
+
+#: src/@generic/utils/donation-get-text.util.ts
+msgid "You lost but Ukraine must win!\n"
+"\n"
+"Every 1$ donation matters!"
+msgstr "لقد خسرت، لكن يجب أن تنتصر أوكرانيا!\n"
+"\n"
+"كل تبرع بقيمة 1 دولار مهم!"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "You were"
+msgstr "كنت"
+
+#: src/@generic/utils/donation-get-text.util.ts
+msgid "You won and Ukraine needs to!\n"
+"\n"
+"Every 1$ donation matters!"
+msgstr "لقد فزت، وأوكرانيا تحتاج إلى الفوز أيضًا!\n"
+"\n"
+"كل تبرع بقيمة 1 دولار مهم!"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "You won the challenge!"
+msgstr "فزت بالتحدي!"
+
+#: src/screens/components/home-screen/home.screen.tsx
+msgid "Your best run"
+msgstr "أفضل جولة لك"
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "Your opponent completed this puzzle in"
+msgstr "أنهى منافسك هذا السودوكو في"
+
+#: src/screens/components/pause-screen/pause.screen.tsx
+msgid "Your progress"
+msgstr "تقدمك"
+
+#: src/history/components/history-overview-tab/history-overview-tab.tsx
+msgid "Your stats will build as you finish puzzles."
+msgstr "ستتراكم إحصاءاتك كلما أنهيت ألغاز السودوكو."
+
+#: src/history/components/history-totals-card/history-totals-card.tsx
+msgid "Your sudoku journey"
+msgstr "رحلتك في السودوكو"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Your time:"
+msgstr "وقتك:"
+
+#: src/screens/components/home-screen/home.screen.tsx
+msgid "Zero mistakes"
+msgstr "صفر أخطاء"
+
+#: src/settings/constant/language-labels.constant.ts
+msgid "Українська"
+msgstr "Українська"
+
+#: src/settings/constant/language-labels.constant.ts
+msgid "اردو"
+msgstr "اردو"
+
+#: src/settings/constant/language-labels.constant.ts
+msgid "العربية"
+msgstr "العربية"
+
+#: src/settings/constant/language-labels.constant.ts
+msgid "हिन्दी"
+msgstr "हिन्दी"
+
+#: src/settings/constant/language-labels.constant.ts
+msgid "বাংলা"
+msgstr "বাংলা"
+
+#: src/settings/constant/language-labels.constant.ts
+msgid "中文"
+msgstr "中文"

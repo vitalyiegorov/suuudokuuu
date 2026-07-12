@@ -2,38 +2,63 @@ import { StyleSheet } from 'react-native';
 
 export const ReplayControlsStyles = StyleSheet.create({
     container: {
-        alignItems: 'center',
-        gap: 12
+        alignSelf: 'center',
+        gap: 16,
+        maxWidth: 380,
+        paddingBottom: 10,
+        width: '100%'
     },
-    timeContainer: {
-        alignItems: 'center'
+    metaRow: {
+        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: '100%'
+    },
+    metaText: {
+        fontSize: 14,
+        fontWeight: '800',
+        opacity: 0.48
+    },
+    metaValue: {
+        fontWeight: '900',
+        opacity: 1
+    },
+    scrubberTrack: {
+        borderRadius: 999,
+        height: 6,
+        position: 'relative',
+        width: '100%'
+    },
+    scrubberFill: {
+        borderRadius: 999,
+        bottom: 0,
+        left: 0,
+        position: 'absolute',
+        top: 0
+    },
+    scrubberThumb: {
+        borderRadius: 11,
+        borderWidth: 2,
+        height: 22,
+        marginLeft: -11,
+        position: 'absolute',
+        top: -8,
+        width: 22
     },
     controlsRow: {
-        justifyContent: 'center',
         alignItems: 'center',
-        gap: 24
+        flexDirection: 'row',
+        gap: 28,
+        justifyContent: 'center',
+        paddingTop: 4,
+        width: '100%'
     },
     navButton: {
-        paddingVertical: 12,
-        paddingHorizontal: 16
+        borderWidth: StyleSheet.hairlineWidth,
+        height: 58,
+        width: 58
     },
-    navButtonPlaceholder: {
-        width: 60,
-        height: 52
-    },
-    stepCounterContainer: {
-        alignItems: 'center',
-        minWidth: 80
-    },
-    stepCounter: {
-        fontSize: 18,
-        textAlign: 'center'
-    },
-    stepLabel: {
-        fontSize: 12,
-        opacity: 0.7
-    },
-    boldText: {
-        fontWeight: 'bold'
+    disabledButton: {
+        opacity: 0.42
     }
 });

@@ -1,0 +1,14 @@
+import '@formatjs/intl-pluralrules/polyfill-force.js';
+import '@formatjs/intl-pluralrules/locale-data/ar.js';
+import '@formatjs/intl-pluralrules/locale-data/bn.js';
+import '@formatjs/intl-pluralrules/locale-data/de.js';
+import '@formatjs/intl-pluralrules/locale-data/en.js';
+import '@formatjs/intl-pluralrules/locale-data/es.js';
+import '@formatjs/intl-pluralrules/locale-data/fr.js';
+import '@formatjs/intl-pluralrules/locale-data/hi.js';
+import '@formatjs/intl-pluralrules/locale-data/id.js';
+import '@formatjs/intl-pluralrules/locale-data/pt.js';
+import '@formatjs/intl-pluralrules/locale-data/sv.js';
+import '@formatjs/intl-pluralrules/locale-data/uk.js';
+import '@formatjs/intl-pluralrules/locale-data/ur.js';
+import '@formatjs/intl-pluralrules/locale-data/zh.js';

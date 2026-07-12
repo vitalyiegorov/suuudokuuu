@@ -1,4 +1,4 @@
-/* eslint-disable lingui/no-unlocalized-strings */
+ 
 import { describe, expect, it } from '@jest/globals';
 import { SolutionTechniqueEnum } from '@suuudokuuu/solver';
 
