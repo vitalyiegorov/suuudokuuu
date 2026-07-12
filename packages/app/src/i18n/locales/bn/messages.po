@@ -18,6 +18,11 @@ msgstr ""
 msgid "{0, plural, one {# mistake} other {# mistakes}}"
 msgstr "{0, plural, one {#টি ভুল} other {#টি ভুল}}"
 
+#. placeholder {0}: challengeSteps.length
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "{0, plural, one {Opponent solved it in # attempt.} other {Opponent solved it in # attempts.}}"
+msgstr "{0, plural, one {প্রতিপক্ষ # প্রচেষ্টায় সমাধান করেছে।} other {প্রতিপক্ষ # প্রচেষ্টায় সমাধান করেছে।}}"
+
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "{filledCells}/{totalCells} filled"
 msgstr "{filledCells}/{totalCells} পূরণ"
@@ -539,8 +544,12 @@ msgid "Open shared puzzle?"
 msgstr "শেয়ার করা সুডোকু খুলবেন?"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Opponent's time:"
-msgstr "প্রতিপক্ষের সময়:"
+msgid "Opponent attempts"
+msgstr "প্রতিপক্ষের প্রচেষ্টা"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Opponent time"
+msgstr "প্রতিপক্ষের সময়"
 
 #: src/history/components/history-segmented-control/history-segmented-control.tsx
 msgid "Overview"
@@ -629,6 +638,7 @@ msgstr "বাগ রিপোর্ট করুন"
 msgid "Row"
 msgstr "সারি"
 
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
@@ -644,10 +654,6 @@ msgstr "স্কোর × সহগ × সংখ্যা"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 msgstr "প্রতিটি সঠিকভাবে পূরণ করা ঘরের স্কোর কঠিনতা, বোনাস ও জরিমানার ভিত্তিতে হিসাব করা হয়।"
-
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Score:"
-msgstr "স্কোর:"
 
 #: src/@generic/components/main-tab-layout/main-tab-layout.tsx
 #: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
@@ -992,8 +998,8 @@ msgid "Your sudoku journey"
 msgstr "আপনার সুডোকু যাত্রা"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Your time:"
-msgstr "আপনার সময়:"
+msgid "Your time"
+msgstr "আপনার সময়"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Zero mistakes"

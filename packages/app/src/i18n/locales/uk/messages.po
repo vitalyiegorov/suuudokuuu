@@ -20,6 +20,11 @@ msgstr ""
 msgid "{0, plural, one {# mistake} other {# mistakes}}"
 msgstr "{0, plural, one {# помилка} few {# помилки} many {# помилок} other {# помилки}}"
 
+#. placeholder {0}: challengeSteps.length
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "{0, plural, one {Opponent solved it in # attempt.} other {Opponent solved it in # attempts.}}"
+msgstr "{0, plural, one {Суперник вирішив її за # спробу.} few {Суперник вирішив її за # спроби.} many {Суперник вирішив її за # спроб.} other {Суперник вирішив її за # спроби.}}"
+
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "{filledCells}/{totalCells} filled"
 msgstr "{filledCells}/{totalCells} заповнено"
@@ -541,8 +546,12 @@ msgid "Open shared puzzle?"
 msgstr "Відкрити спільне судоку?"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Opponent's time:"
-msgstr "Час суперника:"
+msgid "Opponent attempts"
+msgstr "Спроби суперника"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Opponent time"
+msgstr "Час суперника"
 
 #: src/history/components/history-segmented-control/history-segmented-control.tsx
 msgid "Overview"
@@ -631,6 +640,7 @@ msgstr "Повідомити про помилку"
 msgid "Row"
 msgstr "Рядок"
 
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
@@ -646,10 +656,6 @@ msgstr "бали × коефіцієнт × кількість"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 msgstr "Бали нараховуються за кожну правильно заповнену клітинку з урахуванням складності, бонусів і штрафів."
-
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Score:"
-msgstr "Бали:"
 
 #: src/@generic/components/main-tab-layout/main-tab-layout.tsx
 #: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
@@ -994,8 +1000,8 @@ msgid "Your sudoku journey"
 msgstr "Твій шлях у Sudoku"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Your time:"
-msgstr "Твій час:"
+msgid "Your time"
+msgstr "Твій час"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Zero mistakes"
