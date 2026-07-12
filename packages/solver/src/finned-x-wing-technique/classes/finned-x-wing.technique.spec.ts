@@ -2,7 +2,7 @@ import { describe, expect, it } from '@jest/globals';
 
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
 import { createCandidateContextFromMap } from '../../@generic/test-utils/create-candidate-context-from-map.spec.util';
-import { expectTechniqueElimination } from '../../@generic/test-utils/expect-technique-elimination.spec.util';
+import { expectTechniqueResults } from '../../@generic/test-utils/expect-technique-results.spec.util';
 import { FinnedFishTechnique } from '../../finned-fish-technique/classes/finned-fish.technique';
 
 describe('FinnedXWingTechnique', () => {
@@ -18,9 +18,19 @@ describe('FinnedXWingTechnique', () => {
             [2, 0, [5, 9]]
         );
 
-        expectTechniqueElimination(
+        expectTechniqueResults(
             new FinnedFishTechnique({ technique: SolutionTechniqueEnum.FinnedXWing, size: 2, sashimi: false }).find(context),
-            { technique: SolutionTechniqueEnum.FinnedXWing, rowIndex: 2, columnIndex: 0, value: 5 }
+            {
+                technique: SolutionTechniqueEnum.FinnedXWing,
+                results: [
+                    [0, 1, 7],
+                    [2, 0, 9]
+                ],
+                eliminations: [
+                    [0, 1, 5],
+                    [2, 0, 5]
+                ]
+            }
         );
     });
 });

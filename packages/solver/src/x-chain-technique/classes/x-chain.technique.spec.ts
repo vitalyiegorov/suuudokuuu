@@ -2,7 +2,7 @@ import { describe, expect, it } from '@jest/globals';
 
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
 import { createCandidateContextFromMap } from '../../@generic/test-utils/create-candidate-context-from-map.spec.util';
-import { expectTechniqueElimination } from '../../@generic/test-utils/expect-technique-elimination.spec.util';
+import { expectTechniqueResults } from '../../@generic/test-utils/expect-technique-results.spec.util';
 
 import { XChainTechnique } from './x-chain.technique';
 
@@ -12,11 +12,10 @@ describe('XChainTechnique', () => {
 
         const context = createCandidateContextFromMap([0, 0, [5, 6]], [0, 3, [5, 7]], [1, 3, [5, 8]], [1, 1, [5, 9]], [2, 2, [5, 4]]);
 
-        expectTechniqueElimination(new XChainTechnique().find(context), {
+        expectTechniqueResults(new XChainTechnique().find(context), {
             technique: SolutionTechniqueEnum.XChain,
-            rowIndex: 2,
-            columnIndex: 2,
-            value: 5
+            results: [[2, 2, 4]],
+            eliminations: [[2, 2, 5]]
         });
     });
 

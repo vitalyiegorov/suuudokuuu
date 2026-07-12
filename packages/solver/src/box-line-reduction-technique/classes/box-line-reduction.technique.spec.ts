@@ -3,6 +3,7 @@ import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 
 import { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
+import { expectTechniqueResults } from '../../@generic/test-utils/expect-technique-results.spec.util';
 
 import { BoxLineReductionTechnique } from './box-line-reduction.technique';
 
@@ -24,11 +25,10 @@ describe('BoxLineReductionTechnique', () => {
         );
         const context = CandidateContext.fromSudoku(sudoku);
 
-        expect(new BoxLineReductionTechnique().find(context)).toContainEqual(
-            expect.objectContaining({
-                technique: SolutionTechniqueEnum.BoxLineReduction,
-                eliminations: expect.arrayContaining([{ cell: { x: 2, y: 3, value: 0, group: 2 }, value: 4 }])
-            })
-        );
+        expectTechniqueResults(new BoxLineReductionTechnique().find(context), {
+            technique: SolutionTechniqueEnum.BoxLineReduction,
+            results: [[3, 2, 9]],
+            eliminations: [[3, 2, 4]]
+        });
     });
 });

@@ -3,7 +3,7 @@ import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 
 import { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
-import { expectTechniqueElimination } from '../../@generic/test-utils/expect-technique-elimination.spec.util';
+import { expectTechniqueResults } from '../../@generic/test-utils/expect-technique-results.spec.util';
 import { HiddenSubsetTechnique } from '../../hidden-subset-technique/classes/hidden-subset.technique';
 
 describe('HiddenQuadTechnique', () => {
@@ -24,11 +24,21 @@ describe('HiddenQuadTechnique', () => {
         );
         const context = CandidateContext.fromSudoku(sudoku);
 
-        expectTechniqueElimination(new HiddenSubsetTechnique({ technique: SolutionTechniqueEnum.HiddenQuad, size: 4 }).find(context), {
+        expectTechniqueResults(new HiddenSubsetTechnique({ technique: SolutionTechniqueEnum.HiddenQuad, size: 4 }).find(context), {
             technique: SolutionTechniqueEnum.HiddenQuad,
-            rowIndex: 3,
-            columnIndex: 4,
-            value: 5
+            results: [
+                [3, 4, 1],
+                [3, 4, 5],
+                [3, 4, 6],
+                [3, 5, 1],
+                [5, 3, 9]
+            ],
+            eliminations: [
+                [3, 4, 1],
+                [3, 4, 5],
+                [3, 5, 3],
+                [5, 3, 7]
+            ]
         });
     });
 });
