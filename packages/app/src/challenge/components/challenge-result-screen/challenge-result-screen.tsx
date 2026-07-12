@@ -1,4 +1,5 @@
 import { Trans, useLingui } from '@lingui/react/macro';
+import { useAppLayout } from '@suuudokuuu/ui';
 import { Redirect } from 'expo-router';
 import { LucideHeartCrack, LucideTrophy } from 'lucide-react-native';
 import { use } from 'react';
@@ -29,6 +30,7 @@ export const ChallengeResultScreen = (props: Props) => {
     const { score, elapsedTime, challengeTime, sudokuString } = gameState;
 
     const { t } = useLingui();
+    const { sizeClass } = useAppLayout();
     const { theme } = use(ThemeContext);
     const elapsedTimeText = useTimerText(elapsedTime);
     const challengeTimeText = useTimerText(challengeTime);
@@ -48,49 +50,53 @@ export const ChallengeResultScreen = (props: Props) => {
     const differenceTimeTextStyle = [styles.boldText, { color: isWon ? theme.colors.black : theme.colors.red }];
 
     return (
-        <View style={styles.container}>
-            <Icon color={iconColor} size={64} style={styles.icon} />
+        <View style={styles.container(sizeClass)}>
+            <View style={styles.summaryColumn(sizeClass)}>
+                <Icon color={iconColor} size={64} style={styles.icon} />
 
-            <Header text={headerText} />
+                <Header text={headerText} />
 
-            {isWon && (
-                <View style={styles.statsContainer}>
-                    <BlackText>
-                        <Text>
-                            <Trans>Your time:</Trans>{' '}
-                        </Text>
-                        <Text style={styles.boldText}>{elapsedTimeText}</Text>
-                    </BlackText>
+                {isWon && (
+                    <View style={styles.statsContainer}>
+                        <BlackText>
+                            <Text>
+                                <Trans>Your time:</Trans>{' '}
+                            </Text>
+                            <Text style={styles.boldText}>{elapsedTimeText}</Text>
+                        </BlackText>
 
-                    <BlackText>
-                        <Text>
-                            <Trans>Opponent&apos;s time:</Trans>{' '}
-                        </Text>
-                        <Text style={styles.boldText}>{challengeTimeText}</Text>
-                    </BlackText>
+                        <BlackText>
+                            <Text>
+                                <Trans>Opponent&apos;s time:</Trans>{' '}
+                            </Text>
+                            <Text style={styles.boldText}>{challengeTimeText}</Text>
+                        </BlackText>
 
-                    <BlackText style={styles.differenceText}>
-                        <Text>
-                            <Trans>You were</Trans>{' '}
-                        </Text>
-                        <Text style={differenceTimeTextStyle}>{timeDifferenceText}</Text>
-                        <Text> {differenceLabel}</Text>
-                    </BlackText>
+                        <BlackText style={styles.differenceText}>
+                            <Text>
+                                <Trans>You were</Trans>{' '}
+                            </Text>
+                            <Text style={differenceTimeTextStyle}>{timeDifferenceText}</Text>
+                            <Text> {differenceLabel}</Text>
+                        </BlackText>
 
-                    <BlackText style={styles.messageText}>
-                        <Text>
-                            <Trans>Score:</Trans>{' '}
-                        </Text>
-                        <Text style={styles.boldText}>{score}</Text>
-                    </BlackText>
-                </View>
-            )}
+                        <BlackText style={styles.messageText}>
+                            <Text>
+                                <Trans>Score:</Trans>{' '}
+                            </Text>
+                            <Text style={styles.boldText}>{score}</Text>
+                        </BlackText>
+                    </View>
+                )}
+            </View>
 
-            <Donation type={donationType} />
+            <View style={styles.actionsColumn(sizeClass)}>
+                <Donation type={donationType} />
 
-            {children}
+                {children}
 
-            <PlayAgainButton />
+                <PlayAgainButton />
+            </View>
         </View>
     );
 };
