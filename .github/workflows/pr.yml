@@ -22,7 +22,7 @@ on:
 jobs:
   code-quality:
     name: Code quality checks
-    runs-on: [self-hosted, linux-burst, linux-medium]
+    runs-on: [self-hosted, linux-tiered, linux-medium]
     timeout-minutes: 20
     permissions:
       pull-requests: write
@@ -74,7 +74,7 @@ jobs:
     if: ${{ always() }}
     needs: [code-quality, ios-maestro]
     name: Required CI
-    runs-on: [self-hosted, linux-burst, linux-small]
+    runs-on: [self-hosted, linux-tiered, linux-small]
     timeout-minutes: 5
     steps:
       - name: Verify required jobs
