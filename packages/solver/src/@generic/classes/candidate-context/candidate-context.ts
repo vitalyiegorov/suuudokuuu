@@ -26,7 +26,7 @@ export class CandidateContext {
             const key = CandidateContext.getCellKey(cell);
             const candidates = candidateMap[key];
 
-            this.candidateMap[key] = isDefined(candidates) ? [...candidates] : [];
+            this.candidateMap[key] = Object.freeze(isDefined(candidates) ? [...candidates] : []);
         }
 
         this.values = Array.from({ length: this.config.fieldSize }, (_, index) => index + 1);
@@ -37,7 +37,7 @@ export class CandidateContext {
         this.peersByCellKey = this.createPeersByCellKey();
     }
 
-    getCandidates(cell: CellInterface): number[] {
+    getCandidates(cell: CellInterface): readonly number[] {
         return this.candidateMap[CandidateContext.getCellKey(cell)];
     }
 

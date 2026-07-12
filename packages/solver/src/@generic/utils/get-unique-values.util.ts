@@ -1,2 +1,2 @@
-export const getUniqueValues = (values: number[]): number[] =>
+export const getUniqueValues = (values: readonly number[]): number[] =>
     [...new Set(values)].sort((firstValue, secondValue) => firstValue - secondValue);

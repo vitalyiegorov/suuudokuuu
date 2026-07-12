@@ -1,1 +1,1 @@
-export type CandidateMapType = Record<string, number[]>;
+export type CandidateMapType = Record<string, readonly number[]>;
