@@ -23,6 +23,21 @@ describe('CandidateContext', () => {
         expect(context.getCandidates(field[1][1])).toEqual([]);
     });
 
+    it('should preserve a snapshot when the supplied candidate map changes', () => {
+        expect.assertions(1);
+
+        const field = createEmptyField(defaultSudokuConfig);
+        const candidates = [1, 2];
+        const candidateMap: CandidateMapType = {
+            [getCellKey(field[0][0])]: candidates
+        };
+        const context = new CandidateContext(defaultSudokuConfig, field, candidateMap);
+
+        candidates.pop();
+
+        expect(context.getCandidates(field[0][0])).toEqual([1, 2]);
+    });
+
     it('should return row column and group cells', () => {
         expect.assertions(3);
 
@@ -70,57 +85,5 @@ describe('CandidateContext', () => {
         expect(context.getGroupCells(unknownCell)).toEqual([]);
         expect(context.getPeers(unknownCell)).toEqual([]);
         expect(context.getCommonPeers([])).toEqual([]);
-    });
-
-    it('should apply eliminations without mutating original context', () => {
-        expect.assertions(2);
-
-        const field = createEmptyField(defaultSudokuConfig);
-        const candidateMap: CandidateMapType = {
-            [getCellKey(field[0][0])]: [1, 2],
-            [getCellKey(field[0][1])]: [2, 3]
-        };
-        const context = new CandidateContext(defaultSudokuConfig, field, candidateMap);
-        const nextContext = context.applyEliminations([{ cell: field[0][0], value: 2 }]);
-
-        expect(context.getCandidates(field[0][0])).toEqual([1, 2]);
-        expect(nextContext.getCandidates(field[0][0])).toEqual([1]);
-    });
-
-    it('should ignore eliminations for cells without candidates', () => {
-        expect.assertions(1);
-
-        const field = createEmptyField(defaultSudokuConfig);
-        const context = new CandidateContext(defaultSudokuConfig, field);
-        const nextContext = context.applyEliminations([{ cell: field[0][0], value: 1 }]);
-
-        expect(nextContext.getCandidates(field[0][0])).toEqual([]);
-    });
-
-    it('should find placement unlocked by eliminations', () => {
-        expect.assertions(1);
-
-        const field = createEmptyField(defaultSudokuConfig);
-        const candidateMap: CandidateMapType = {
-            [getCellKey(field[0][0])]: [1, 2],
-            [getCellKey(field[0][1])]: [2, 3]
-        };
-        const context = new CandidateContext(defaultSudokuConfig, field, candidateMap);
-        const placement = context.getPlacementFromEliminations([{ cell: field[0][0], value: 2 }]);
-
-        expect(placement).toEqual({ cell: field[0][0], value: 1 });
-    });
-
-    it('should return null when eliminations do not unlock a placement', () => {
-        expect.assertions(1);
-
-        const field = createEmptyField(defaultSudokuConfig);
-        const candidateMap: CandidateMapType = {
-            [getCellKey(field[0][0])]: [1, 2, 3]
-        };
-        const context = new CandidateContext(defaultSudokuConfig, field, candidateMap);
-        const placement = context.getPlacementFromEliminations([{ cell: field[0][0], value: 3 }]);
-
-        expect(placement).toBeNull();
     });
 });

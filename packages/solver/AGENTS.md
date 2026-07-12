@@ -58,7 +58,7 @@ Enum values double as difficulty ranking (lower = simpler); `Guess = 0` is the f
 
 ### CandidateContext
 
-Cached snapshot of candidates per blank cell (`fromSudoku`), with unit/peer navigation and `applyEliminations` returning a new context. Logical strategies work on this context, never on the Sudoku instance directly.
+Cached snapshot of candidates per blank cell (`fromSudoku`), with unit/peer navigation. Logical strategies work on this context, never on the Sudoku instance directly.
 
 ## Rules
 
@@ -77,7 +77,7 @@ Cached snapshot of candidates per blank cell (`fromSudoku`), with unit/peer navi
 
 ```typescript
 export { SolutionTechniqueEnum, TechniqueManager };
-export type { TechniqueResultInterface, CandidateEliminationInterface, CandidatePlacementInterface, CandidateUnitInterface, CandidateMapType, TechniqueResultKindType };
+export type { TechniqueResultInterface, CandidateEliminationInterface, CandidateUnitInterface, CandidateMapType, TechniqueResultKindType };
 ```
 
 ## Build

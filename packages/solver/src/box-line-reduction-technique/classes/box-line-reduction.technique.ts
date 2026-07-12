@@ -29,7 +29,7 @@ export class BoxLineReductionTechnique implements TechniqueStrategyInterface {
                         .filter(cell => !this.hasCell(cells, cell) && context.getCandidates(cell).includes(value))
                         .map(cell => ({ cell, value }));
 
-                    results.push(...createEliminationResults(context, this.technique, eliminations, cells));
+                    results.push(...createEliminationResults(this.technique, eliminations, cells));
                 }
             }
         }

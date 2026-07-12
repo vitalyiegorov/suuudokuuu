@@ -28,8 +28,8 @@ describe('FinnedSwordfishTechnique', () => {
             {
                 technique: SolutionTechniqueEnum.FinnedSwordfish,
                 results: [
-                    [3, 7, 9],
-                    [4, 6, 8]
+                    [3, 7, 5],
+                    [4, 6, 5]
                 ],
                 eliminations: [
                     [3, 7, 5],
@@ -65,7 +65,7 @@ describe('FinnedSwordfishTechnique', () => {
             ),
             {
                 technique: SolutionTechniqueEnum.FinnedSwordfish,
-                results: [[4, 6, 8]],
+                results: [[4, 6, 5]],
                 eliminations: [[4, 6, 5]]
             }
         );

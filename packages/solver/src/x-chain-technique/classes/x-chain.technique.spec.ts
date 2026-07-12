@@ -14,7 +14,7 @@ describe('XChainTechnique', () => {
 
         expectTechniqueResults(new XChainTechnique().find(context), {
             technique: SolutionTechniqueEnum.XChain,
-            results: [[2, 2, 4]],
+            results: [[2, 2, 5]],
             eliminations: [[2, 2, 5]]
         });
     });

@@ -27,7 +27,7 @@ describe('NakedPairTechnique', () => {
 
         expectTechniqueResults(new NakedSubsetTechnique({ technique: SolutionTechniqueEnum.NakedPair, size: 2 }).find(context), {
             technique: SolutionTechniqueEnum.NakedPair,
-            results: [[0, 3, 6]],
+            results: [[0, 3, 8]],
             eliminations: [[0, 3, 8]]
         });
     });

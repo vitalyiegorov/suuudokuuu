@@ -26,7 +26,7 @@ describe('NakedQuadTechnique', () => {
 
         expectTechniqueResults(new NakedSubsetTechnique({ technique: SolutionTechniqueEnum.NakedQuad, size: 4 }).find(context), {
             technique: SolutionTechniqueEnum.NakedQuad,
-            results: [[1, 6, 3]],
+            results: [[1, 6, 5]],
             eliminations: [[1, 6, 5]]
         });
     });

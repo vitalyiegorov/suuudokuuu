@@ -27,7 +27,7 @@ describe('PointingPairTechnique', () => {
 
         expectTechniqueResults(new PointingTechnique({ technique: SolutionTechniqueEnum.PointingPair, size: 2 }).find(context), {
             technique: SolutionTechniqueEnum.PointingPair,
-            results: [[5, 8, 6]],
+            results: [[5, 8, 1]],
             eliminations: [[5, 8, 1]]
         });
     });

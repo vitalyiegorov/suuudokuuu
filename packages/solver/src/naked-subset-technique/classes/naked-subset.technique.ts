@@ -26,7 +26,7 @@ export class NakedSubsetTechnique extends AbstractSizedTechnique {
                 if (values.length === this.size) {
                     const eliminations = this.getNakedEliminations(context, unit.cells, cells, values);
 
-                    results.push(...createEliminationResults(context, this.technique, eliminations, cells));
+                    results.push(...createEliminationResults(this.technique, eliminations, cells));
                 }
             }
         }

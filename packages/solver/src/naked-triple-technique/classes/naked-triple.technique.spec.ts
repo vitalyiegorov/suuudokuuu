@@ -13,7 +13,7 @@ describe('NakedTripleTechnique', () => {
 
         expectTechniqueResults(new NakedSubsetTechnique({ technique: SolutionTechniqueEnum.NakedTriple, size: 3 }).find(context), {
             technique: SolutionTechniqueEnum.NakedTriple,
-            results: [[0, 3, 4]],
+            results: [[0, 3, 1]],
             eliminations: [[0, 3, 1]]
         });
     });

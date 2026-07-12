@@ -23,8 +23,8 @@ describe('FinnedXWingTechnique', () => {
             {
                 technique: SolutionTechniqueEnum.FinnedXWing,
                 results: [
-                    [0, 1, 7],
-                    [2, 0, 9]
+                    [0, 1, 5],
+                    [2, 0, 5]
                 ],
                 eliminations: [
                     [0, 1, 5],

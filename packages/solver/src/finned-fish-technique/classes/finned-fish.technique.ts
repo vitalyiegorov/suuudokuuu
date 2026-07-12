@@ -46,7 +46,7 @@ export class FinnedFishTechnique
                         elimination => !isDefined(targetCell) || isSameCell(elimination.cell, targetCell)
                     );
 
-                    results.push(...createEliminationResults(context, this.technique, eliminations, [...scan.bodyCells, ...scan.finCells]));
+                    results.push(...createEliminationResults(this.technique, eliminations, [...scan.bodyCells, ...scan.finCells]));
                 }
             }
         }

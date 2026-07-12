@@ -64,7 +64,7 @@ export class XYChainTechnique {
                 const [firstCell] = nextPath;
                 const eliminations = getCommonPeerEliminations(scan.context, [firstCell, nextCell], scan.eliminationValue, nextPath);
 
-                scan.results.push(...createEliminationResults(scan.context, this.technique, eliminations, nextPath));
+                scan.results.push(...createEliminationResults(this.technique, eliminations, nextPath));
             }
 
             this.collectXYChainResults(scan, nextPath, nextLinkValue);

@@ -27,7 +27,7 @@ describe('BoxLineReductionTechnique', () => {
 
         expectTechniqueResults(new BoxLineReductionTechnique().find(context), {
             technique: SolutionTechniqueEnum.BoxLineReduction,
-            results: [[3, 2, 9]],
+            results: [[3, 2, 4]],
             eliminations: [[3, 2, 4]]
         });
     });

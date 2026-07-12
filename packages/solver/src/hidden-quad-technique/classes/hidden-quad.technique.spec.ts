@@ -29,9 +29,7 @@ describe('HiddenQuadTechnique', () => {
             results: [
                 [3, 4, 1],
                 [3, 4, 5],
-                [3, 4, 6],
-                [3, 5, 1],
-                [5, 3, 9]
+                [3, 5, 3]
             ],
             eliminations: [
                 [3, 4, 1],

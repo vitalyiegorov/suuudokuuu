@@ -24,17 +24,10 @@ describe('SwordfishTechnique', () => {
         expectTechniqueResults(new BasicFishTechnique({ technique: SolutionTechniqueEnum.Swordfish, size: 3 }).find(context), {
             technique: SolutionTechniqueEnum.Swordfish,
             results: [
-                [0, 0, 9],
-                [0, 3, 9],
-                [0, 6, 9],
-                [1, 0, 9],
-                [1, 3, 9],
-                [1, 6, 9],
-                [2, 0, 9],
-                [2, 3, 9],
-                [2, 6, 9],
-                [3, 0, 8],
-                [3, 3, 7]
+                [0, 0, 5],
+                [1, 0, 5],
+                [2, 0, 5],
+                [3, 0, 5]
             ],
             eliminations: [
                 [0, 0, 5],

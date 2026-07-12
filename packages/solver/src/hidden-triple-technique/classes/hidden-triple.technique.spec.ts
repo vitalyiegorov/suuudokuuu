@@ -27,9 +27,9 @@ describe('HiddenTripleTechnique', () => {
         expectTechniqueResults(new HiddenSubsetTechnique({ technique: SolutionTechniqueEnum.HiddenTriple, size: 3 }).find(context), {
             technique: SolutionTechniqueEnum.HiddenTriple,
             results: [
-                [1, 8, 8],
-                [2, 1, 9],
-                [8, 1, 4]
+                [1, 8, 7],
+                [2, 1, 7],
+                [8, 1, 9]
             ],
             eliminations: [
                 [1, 8, 7],
