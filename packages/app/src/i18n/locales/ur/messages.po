@@ -44,7 +44,7 @@ msgstr "سوڈوکو بورڈ پر ہندسوں کا سائز بدلیں"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "AIC"
-msgstr ""
+msgstr "AIC"
 
 #: src/history/components/history-difficulty-filter/history-difficulty-filter.tsx
 msgid "All"
@@ -127,7 +127,7 @@ msgstr "بورڈ کے رنگ اور اسکرین کی شکل"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Box-Line Reduction"
-msgstr ""
+msgstr "خانہ-قطار کمی"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Can you beat them?"
@@ -302,11 +302,11 @@ msgstr "ایک سوڈوکو مکمل کریں، یہ یہاں دکھائی دے 
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Finned Swordfish"
-msgstr ""
+msgstr "فِن والا سوارڈفِش"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Finned X-Wing"
-msgstr ""
+msgstr "فِن والا X-Wing"
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Français"
@@ -314,7 +314,7 @@ msgstr "Français"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Full House"
-msgstr ""
+msgstr "مکمل گھر"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Game"
@@ -348,7 +348,7 @@ msgstr "بلاک (3x3 خانے)"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Guess"
-msgstr ""
+msgstr "قیاس"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Guidance"
@@ -384,19 +384,19 @@ msgstr "یوکرین کو جیتنے میں مدد دیں!"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Hidden Pair"
-msgstr ""
+msgstr "پوشیدہ جوڑا"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Hidden Quad"
-msgstr ""
+msgstr "پوشیدہ چوکڑی"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Hidden Single"
-msgstr ""
+msgstr "پوشیدہ واحد"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Hidden Triple"
-msgstr ""
+msgstr "پوشیدہ تینوں"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Highlight areas"
@@ -437,7 +437,7 @@ msgstr "آپ کا وقت"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Jellyfish"
-msgstr ""
+msgstr "جیلی فِش"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Keep cell selected"
@@ -517,19 +517,19 @@ msgstr "چال"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Naked Pair"
-msgstr ""
+msgstr "ننگا جوڑا"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Naked Quad"
-msgstr ""
+msgstr "ننگی چوکڑی"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Naked Single"
-msgstr ""
+msgstr "ننگا واحد"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Naked Triple"
-msgstr ""
+msgstr "ننگی تینوں"
 
 #: src/screens/components/home-screen/home-screen-section-header/home-screen-section-header.tsx
 msgid "New game"
@@ -651,11 +651,11 @@ msgstr "کم اجازت شدہ غلطیاں اسکور ملٹی پلائر دی�
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Pointing Pair"
-msgstr ""
+msgstr "اشاری جوڑا"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Pointing Triple"
-msgstr ""
+msgstr "اشاری تینوں"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Points are deducted for:"
@@ -699,11 +699,11 @@ msgstr "قطار"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Sashimi Swordfish"
-msgstr ""
+msgstr "ساشیمی سوارڈفِش"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Sashimi X-Wing"
-msgstr ""
+msgstr "ساشیمی X-Wing"
 
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
@@ -758,7 +758,7 @@ msgstr "منتخب خانے کی قطار، کالم اور باکس دکھائ�
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Simple Coloring"
-msgstr ""
+msgstr "سادہ رنگ کاری"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "slower!"
@@ -859,7 +859,7 @@ msgstr "Svenska"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Swordfish"
-msgstr ""
+msgstr "سوارڈفِش"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
@@ -987,7 +987,7 @@ msgstr "وائبریشن"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "W-Wing"
-msgstr ""
+msgstr "W-Wing"
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Warm gold accents for a brighter board"
@@ -1029,23 +1029,23 @@ msgstr "جیتے"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "X-Chain"
-msgstr ""
+msgstr "X-سلسلہ"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "X-Wing"
-msgstr ""
+msgstr "X-Wing"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "XY-Chain"
-msgstr ""
+msgstr "XY-سلسلہ"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "XY-Wing"
-msgstr ""
+msgstr "XY-Wing"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "XYZ-Wing"
-msgstr ""
+msgstr "XYZ-Wing"
 
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "You got to"

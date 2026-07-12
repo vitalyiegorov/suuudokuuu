@@ -44,7 +44,7 @@ msgstr "সুডোকু বোর্ডের সংখ্যাগুলো�
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "AIC"
-msgstr ""
+msgstr "AIC"
 
 #: src/history/components/history-difficulty-filter/history-difficulty-filter.tsx
 msgid "All"
@@ -127,7 +127,7 @@ msgstr "বোর্ডের রং ও স্ক্রিনের চেহ�
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Box-Line Reduction"
-msgstr ""
+msgstr "বক্স-লাইন হ্রাস"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Can you beat them?"
@@ -302,11 +302,11 @@ msgstr "একটি সুদোকু শেষ করলে এটি এখ�
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Finned Swordfish"
-msgstr ""
+msgstr "ফিনযুক্ত সোর্ডফিশ"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Finned X-Wing"
-msgstr ""
+msgstr "ফিনযুক্ত এক্স-উইং"
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Français"
@@ -314,7 +314,7 @@ msgstr "Français"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Full House"
-msgstr ""
+msgstr "পূর্ণ ঘর"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Game"
@@ -348,7 +348,7 @@ msgstr "ব্লক (3x3 ঘর)"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Guess"
-msgstr ""
+msgstr "অনুমান"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Guidance"
@@ -384,19 +384,19 @@ msgstr "ইউক্রেনকে জিততে সাহায্য কর
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Hidden Pair"
-msgstr ""
+msgstr "লুকানো জোড়া"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Hidden Quad"
-msgstr ""
+msgstr "লুকানো চতুষ্টয়"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Hidden Single"
-msgstr ""
+msgstr "লুকানো একক"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Hidden Triple"
-msgstr ""
+msgstr "লুকানো ত্রয়ী"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Highlight areas"
@@ -437,7 +437,7 @@ msgstr "আপনার সময় লেগেছে"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Jellyfish"
-msgstr ""
+msgstr "জেলিফিশ"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Keep cell selected"
@@ -517,19 +517,19 @@ msgstr "চাল"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Naked Pair"
-msgstr ""
+msgstr "নগ্ন জোড়া"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Naked Quad"
-msgstr ""
+msgstr "নগ্ন চতুষ্টয়"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Naked Single"
-msgstr ""
+msgstr "নগ্ন একক"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Naked Triple"
-msgstr ""
+msgstr "নগ্ন ত্রয়ী"
 
 #: src/screens/components/home-screen/home-screen-section-header/home-screen-section-header.tsx
 msgid "New game"
@@ -651,11 +651,11 @@ msgstr "কম ভুলের সুযোগ নিয়ে খেললে �
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Pointing Pair"
-msgstr ""
+msgstr "নির্দেশক জোড়া"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Pointing Triple"
-msgstr ""
+msgstr "নির্দেশক ত্রয়ী"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Points are deducted for:"
@@ -699,11 +699,11 @@ msgstr "সারি"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Sashimi Swordfish"
-msgstr ""
+msgstr "সাশিমি সোর্ডফিশ"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Sashimi X-Wing"
-msgstr ""
+msgstr "সাশিমি এক্স-উইং"
 
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
@@ -758,7 +758,7 @@ msgstr "নির্বাচিত ঘরের সারি, কলাম ও 
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Simple Coloring"
-msgstr ""
+msgstr "সরল রঙায়ন"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "slower!"
@@ -859,7 +859,7 @@ msgstr "Svenska"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Swordfish"
-msgstr ""
+msgstr "সোর্ডফিশ"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
@@ -987,7 +987,7 @@ msgstr "ভাইব্রেশন"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "W-Wing"
-msgstr ""
+msgstr "ডব্লিউ-উইং"
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Warm gold accents for a brighter board"
@@ -1029,23 +1029,23 @@ msgstr "জয়"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "X-Chain"
-msgstr ""
+msgstr "এক্স-চেইন"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "X-Wing"
-msgstr ""
+msgstr "এক্স-উইং"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "XY-Chain"
-msgstr ""
+msgstr "এক্সওয়াই-চেইন"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "XY-Wing"
-msgstr ""
+msgstr "এক্সওয়াই-উইং"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "XYZ-Wing"
-msgstr ""
+msgstr "এক্সওয়াইজেড-উইং"
 
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "You got to"
