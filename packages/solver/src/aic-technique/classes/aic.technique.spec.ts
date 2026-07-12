@@ -3,10 +3,22 @@ import { describe, expect, it } from '@jest/globals';
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
 import { createCandidateContextFromMap } from '../../@generic/test-utils/create-candidate-context-from-map.spec.util';
 import { expectTechniqueResults } from '../../@generic/test-utils/expect-technique-results.spec.util';
+import { AIC_MAX_LINK_VISITS } from '../constants/aic.constant';
 
 import { AICTechnique } from './aic.technique';
 
 import type { CandidateCellSpecType } from '../../@generic/types/candidate-cell-spec.spec.type';
+import type { AICScanInterface } from '../interfaces/aic-scan.interface';
+import type { CandidateNodeInterface } from '../interfaces/candidate-node.interface';
+
+class BudgetExhaustingAICTechnique extends AICTechnique {
+    readonly scans: AICScanInterface[] = [];
+
+    protected override collectResults(scan: AICScanInterface, _path: CandidateNodeInterface[], _requiresStrongLink: boolean): void {
+        this.scans.push(scan);
+        scan.linkVisits = AIC_MAX_LINK_VISITS;
+    }
+}
 
 const aicCandidateSpecs: CandidateCellSpecType[] = [
     [0, 0, [1, 2]],
@@ -83,5 +95,16 @@ describe('AICTechnique', () => {
         const [targetCell] = context.getRowCells(0).slice(4, 5);
 
         expect(new AICTechnique().find(context, { cell: targetCell, value: 6 })).toEqual([]);
+    });
+
+    it('uses one visit budget across all broad-search roots', () => {
+        expect.assertions(1);
+
+        const context = createCandidateContextFromMap([0, 0, [1]], [0, 1, [2]]);
+        const technique = new BudgetExhaustingAICTechnique();
+
+        technique.find(context);
+
+        expect(technique.scans).toHaveLength(1);
     });
 });
