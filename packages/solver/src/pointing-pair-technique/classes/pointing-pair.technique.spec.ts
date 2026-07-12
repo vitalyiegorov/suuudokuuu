@@ -4,7 +4,7 @@ import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
 import { createCandidateContextFromMap } from '../../@generic/test-utils/create-candidate-context-from-map.spec.util';
-import { expectTechniqueElimination } from '../../@generic/test-utils/expect-technique-elimination.spec.util';
+import { expectTechniqueResults } from '../../@generic/test-utils/expect-technique-results.spec.util';
 import { PointingTechnique } from '../../pointing-technique/classes/pointing.technique';
 
 describe('PointingPairTechnique', () => {
@@ -25,11 +25,10 @@ describe('PointingPairTechnique', () => {
         );
         const context = CandidateContext.fromSudoku(sudoku);
 
-        expectTechniqueElimination(new PointingTechnique({ technique: SolutionTechniqueEnum.PointingPair, size: 2 }).find(context), {
+        expectTechniqueResults(new PointingTechnique({ technique: SolutionTechniqueEnum.PointingPair, size: 2 }).find(context), {
             technique: SolutionTechniqueEnum.PointingPair,
-            rowIndex: 5,
-            columnIndex: 8,
-            value: 1
+            results: [[5, 8, 6]],
+            eliminations: [[5, 8, 1]]
         });
     });
 

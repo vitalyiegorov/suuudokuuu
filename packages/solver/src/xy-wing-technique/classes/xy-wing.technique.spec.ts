@@ -4,7 +4,7 @@ import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
 import { createCandidateContextFromMap } from '../../@generic/test-utils/create-candidate-context-from-map.spec.util';
-import { expectTechniqueElimination } from '../../@generic/test-utils/expect-technique-elimination.spec.util';
+import { expectTechniqueResults } from '../../@generic/test-utils/expect-technique-results.spec.util';
 
 import { XYWingTechnique } from './xy-wing.technique';
 
@@ -26,11 +26,10 @@ describe('XYWingTechnique', () => {
         );
         const context = CandidateContext.fromSudoku(sudoku);
 
-        expectTechniqueElimination(new XYWingTechnique().find(context), {
+        expectTechniqueResults(new XYWingTechnique().find(context), {
             technique: SolutionTechniqueEnum.XYWing,
-            rowIndex: 8,
-            columnIndex: 3,
-            value: 6
+            results: [[8, 3, 2]],
+            eliminations: [[8, 3, 6]]
         });
     });
 

@@ -4,7 +4,7 @@ import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
 import { createCandidateContextFromMap } from '../../@generic/test-utils/create-candidate-context-from-map.spec.util';
-import { expectTechniqueElimination } from '../../@generic/test-utils/expect-technique-elimination.spec.util';
+import { expectTechniqueResults } from '../../@generic/test-utils/expect-technique-results.spec.util';
 import { NakedSubsetTechnique } from '../../naked-subset-technique/classes/naked-subset.technique';
 
 describe('NakedPairTechnique', () => {
@@ -25,11 +25,10 @@ describe('NakedPairTechnique', () => {
         );
         const context = CandidateContext.fromSudoku(sudoku);
 
-        expectTechniqueElimination(new NakedSubsetTechnique({ technique: SolutionTechniqueEnum.NakedPair, size: 2 }).find(context), {
+        expectTechniqueResults(new NakedSubsetTechnique({ technique: SolutionTechniqueEnum.NakedPair, size: 2 }).find(context), {
             technique: SolutionTechniqueEnum.NakedPair,
-            rowIndex: 0,
-            columnIndex: 3,
-            value: 8
+            results: [[0, 3, 6]],
+            eliminations: [[0, 3, 8]]
         });
     });
 

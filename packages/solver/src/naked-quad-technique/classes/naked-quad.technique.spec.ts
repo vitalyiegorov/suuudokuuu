@@ -3,7 +3,7 @@ import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 
 import { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
-import { expectTechniqueElimination } from '../../@generic/test-utils/expect-technique-elimination.spec.util';
+import { expectTechniqueResults } from '../../@generic/test-utils/expect-technique-results.spec.util';
 import { NakedSubsetTechnique } from '../../naked-subset-technique/classes/naked-subset.technique';
 
 describe('NakedQuadTechnique', () => {
@@ -24,11 +24,10 @@ describe('NakedQuadTechnique', () => {
         );
         const context = CandidateContext.fromSudoku(sudoku);
 
-        expectTechniqueElimination(new NakedSubsetTechnique({ technique: SolutionTechniqueEnum.NakedQuad, size: 4 }).find(context), {
+        expectTechniqueResults(new NakedSubsetTechnique({ technique: SolutionTechniqueEnum.NakedQuad, size: 4 }).find(context), {
             technique: SolutionTechniqueEnum.NakedQuad,
-            rowIndex: 1,
-            columnIndex: 6,
-            value: 5
+            results: [[1, 6, 3]],
+            eliminations: [[1, 6, 5]]
         });
     });
 });

@@ -2,7 +2,7 @@ import { describe, expect, it } from '@jest/globals';
 
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
 import { createCandidateContextFromMap } from '../../@generic/test-utils/create-candidate-context-from-map.spec.util';
-import { expectTechniqueElimination } from '../../@generic/test-utils/expect-technique-elimination.spec.util';
+import { expectTechniqueResults } from '../../@generic/test-utils/expect-technique-results.spec.util';
 
 import { XYZWingTechnique } from './xyz-wing.technique';
 
@@ -12,11 +12,10 @@ describe('XYZWingTechnique', () => {
 
         const context = createCandidateContextFromMap([0, 0, [1, 2, 3]], [1, 1, [3, 4]], [0, 1, [1, 3]], [1, 0, [2, 3]]);
 
-        expectTechniqueElimination(new XYZWingTechnique().find(context), {
+        expectTechniqueResults(new XYZWingTechnique().find(context), {
             technique: SolutionTechniqueEnum.XYZWing,
-            rowIndex: 1,
-            columnIndex: 1,
-            value: 3
+            results: [[1, 1, 4]],
+            eliminations: [[1, 1, 3]]
         });
     });
 });

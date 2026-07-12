@@ -2,7 +2,7 @@ import { describe, expect, it } from '@jest/globals';
 
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
 import { createCandidateContextFromMap } from '../../@generic/test-utils/create-candidate-context-from-map.spec.util';
-import { expectTechniqueElimination } from '../../@generic/test-utils/expect-technique-elimination.spec.util';
+import { expectTechniqueResults } from '../../@generic/test-utils/expect-technique-results.spec.util';
 import { BasicFishTechnique } from '../../basic-fish-technique/classes/basic-fish.technique';
 
 import type { CandidateCellSpecType } from '../../@generic/types/candidate-cell-spec.spec.type';
@@ -21,11 +21,10 @@ describe('JellyfishTechnique', () => {
 
         const context = createCandidateContextFromMap(...candidateSpecs, [4, 0, [5, 8]]);
 
-        expectTechniqueElimination(new BasicFishTechnique({ technique: SolutionTechniqueEnum.Jellyfish, size: 4 }).find(context), {
+        expectTechniqueResults(new BasicFishTechnique({ technique: SolutionTechniqueEnum.Jellyfish, size: 4 }).find(context), {
             technique: SolutionTechniqueEnum.Jellyfish,
-            rowIndex: 4,
-            columnIndex: 0,
-            value: 5
+            results: [[4, 0, 8]],
+            eliminations: [[4, 0, 5]]
         });
     });
 });
