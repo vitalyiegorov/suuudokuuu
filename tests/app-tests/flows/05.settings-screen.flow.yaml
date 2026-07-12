@@ -1,0 +1,57 @@
+appId: ${APP_ID}
+---
+- startRecording:
+    path: '05.settings-screen'
+    optional: true
+
+- runFlow: subflows/navigation/launch-home.flow.yaml
+- tapOn: 'Settings'
+- extendedWaitUntil:
+    visible:
+      id: 'SettingsScreenSelectors.Root'
+    timeout: 3000
+- assertVisible: 'Game'
+- assertVisible: 'Language.*'
+- assertVisible: 'Number size.*'
+- assertVisible: 'Cell spacing.*'
+- assertVisible: 'Display'
+- assertVisible: 'Dark mode'
+- tapOn:
+    id: 'SettingsScreenSelectors.CellSpacingOption'
+- waitForAnimationToEnd
+- swipe:
+    direction: DOWN
+- extendedWaitUntil:
+    visible:
+      id: 'SettingsScreenSelectors.Root'
+    timeout: 3000
+- swipe:
+    direction: UP
+- swipe:
+    direction: UP
+- extendedWaitUntil:
+    visible:
+      id: 'SettingsAppFooterSelectors.PrivacyPolicyLink'
+    timeout: 3000
+- assertVisible:
+    id: 'SettingsAppFooterSelectors.ReportBugLink'
+- assertVisible:
+    id: 'SettingsAppFooterSelectors.PrivacyPolicyLink'
+- tapOn:
+    id: 'SettingsAppFooterSelectors.PrivacyPolicyLink'
+- extendedWaitUntil:
+    visible: 'Privacy policy'
+    timeout: 3000
+- tapOn:
+    id: 'HeaderBackButtonSelectors.Root'
+- extendedWaitUntil:
+    visible:
+      id: 'SettingsScreenSelectors.Root'
+    timeout: 3000
+- tapOn:
+    id: 'HeaderBackButtonSelectors.Root'
+- extendedWaitUntil:
+    visible:
+      id: 'HomeScreenSelectors.Root'
+    timeout: 3000
+- stopApp

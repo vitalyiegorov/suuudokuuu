@@ -1,14 +1,12 @@
 import { LucidePencil } from 'lucide-react-native';
 import { use } from 'react';
 
-import { BlackButton } from '../../../@generic/components/black-button/black-button';
+import { BlackIconButton } from '../../../@generic/components/black-icon-button/black-icon-button';
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { gameToggleInputModeAction } from '../../store/game.actions';
 import { gameInputModeSelector } from '../../store/game.selectors';
-
-import { InputModeButtonStyles } from './input-mode-button.styles';
 
 export const InputModeButton = () => {
     const { theme } = use(ThemeContext);
@@ -24,14 +22,8 @@ export const InputModeButton = () => {
     const iconColor = isCandidateMode ? theme.colors.white : theme.colors.black;
 
     return (
-        <BlackButton
-            hitSlop={10}
-            isActive={!isCandidateMode}
-            onPress={handleToggle}
-            style={InputModeButtonStyles.button}
-            testID="input-mode-button"
-        >
+        <BlackIconButton hitSlop={10} isActive={!isCandidateMode} onPress={handleToggle} testID="input-mode-button">
             <LucidePencil color={iconColor} />
-        </BlackButton>
+        </BlackIconButton>
     );
 };

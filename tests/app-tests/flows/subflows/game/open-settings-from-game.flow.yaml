@@ -1,0 +1,8 @@
+appId: ${APP_ID}
+---
+- tapOn:
+    id: 'GameScreenSelectors.SettingsButton'
+- extendedWaitUntil:
+    visible:
+      id: 'SettingsScreenSelectors.Root'
+    timeout: 3000

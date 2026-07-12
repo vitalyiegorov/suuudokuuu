@@ -1,17 +1,16 @@
 import { useLingui } from '@lingui/react/macro';
 import Share from 'react-native-share';
 
-import { getTimerText } from '../../../@generic/utils/get-timer-text.util';
+import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { gameStateToString } from '../../utils/game-state-to-string.util';
 
 import type { GameState } from '../../store/game.state';
 
 export const useShareChallenge = (gameState: GameState) => {
     const { t } = useLingui();
+    const elapsedTimeString = useTimerText(gameState.elapsedTime);
 
     return async () => {
-        const elapsedTimeString = getTimerText(gameState.elapsedTime);
-
         try {
             await Share.open({
                 title: t`SuuudokuuU Challenge`,

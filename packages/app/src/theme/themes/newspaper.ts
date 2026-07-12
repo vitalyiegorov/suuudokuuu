@@ -1,4 +1,4 @@
-import type { ThemeInterface } from '../interface/theme.interface';
+import type { ThemeInterface } from '@suuudokuuu/ui';
 
 export const NewspaperLightTheme: ThemeInterface = {
     colors: {

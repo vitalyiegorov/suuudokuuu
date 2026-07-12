@@ -1,13 +1,11 @@
-import { useLingui } from '@lingui/react/macro';
 import { DifficultyEnum } from '@suuudokuuu/generator';
 import { Redirect, useLocalSearchParams } from 'expo-router';
 
+import { PageAllSafeAreaEdges } from '../../../@generic/components/page/constant/page-safe-area-edges.constant';
 import { Page } from '../../../@generic/components/page/page';
-import { PageHeader } from '../../../@generic/components/page-header/page-header';
 import { ReplayScreen } from '../../../screens/components/replay-screen/replay.screen';
 
 export default function ReplayGamePage() {
-    const { t } = useLingui();
     const { difficulty = '', completedAt = '' } = useLocalSearchParams<{ difficulty?: string; completedAt?: string }>();
 
     const difficultyEnum = difficulty as DifficultyEnum;
@@ -18,9 +16,7 @@ export default function ReplayGamePage() {
     }
 
     return (
-        <Page>
-            <PageHeader title={t`Game Replay`} />
-
+        <Page edges={PageAllSafeAreaEdges}>
             <ReplayScreen completedAt={completedAtNumber} difficulty={difficultyEnum} />
         </Page>
     );

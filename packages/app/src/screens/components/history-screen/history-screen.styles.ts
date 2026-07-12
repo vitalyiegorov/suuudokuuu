@@ -1,16 +1,16 @@
 import { StyleSheet } from 'react-native';
 
 export const HistoryScreenStyles = StyleSheet.create({
-    container: {
+    content: {
         alignItems: 'center',
-        flex: 1,
-        padding: 20
+        paddingHorizontal: 18
     },
     scrollView: {
-        marginBottom: 20
+        maxWidth: 560,
+        width: '100%'
     },
     scrollViewContainer: {
-        gap: 20,
-        paddingHorizontal: 20
+        gap: 14,
+        paddingHorizontal: 2
     }
 });

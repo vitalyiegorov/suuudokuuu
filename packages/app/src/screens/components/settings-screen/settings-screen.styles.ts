@@ -1,18 +1,16 @@
 import { StyleSheet } from 'react-native';
 
 export const SettingsScreenStyles = StyleSheet.create({
-    container: {
+    content: {
         alignItems: 'center',
-        flex: 1,
-        padding: 20,
-        paddingHorizontal: 40
+        paddingHorizontal: 24
     },
     scrollView: {
-        marginBottom: 20,
-        maxWidth: 500,
+        maxWidth: 560,
         width: '100%'
     },
     scrollViewContent: {
-        gap: 20
+        gap: 22,
+        paddingBottom: 8
     }
 });

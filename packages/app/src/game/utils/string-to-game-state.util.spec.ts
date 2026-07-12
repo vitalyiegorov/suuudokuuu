@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-magic-numbers, lingui/no-unlocalized-strings */
+/* eslint-disable @typescript-eslint/no-magic-numbers */
 import { describe, expect, it } from '@jest/globals';
 
 import { initialGameState } from '../store/game.state';

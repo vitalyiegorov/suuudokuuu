@@ -1,151 +1,275 @@
-import { useLingui } from '@lingui/react/macro';
-import Constants from 'expo-constants';
+import { Trans, useLingui } from '@lingui/react/macro';
+import { DifficultyEnum, Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { Link } from 'expo-router';
-import { Info } from 'lucide-react-native';
 import { use, useState } from 'react';
-import { ActivityIndicator, Text, View } from 'react-native';
+import { Pressable, ScrollView, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { isDefined } from '@rnw-community/shared';
-
-import { BlackButton } from '../../../@generic/components/black-button/black-button';
+import { Alert } from '../../../@generic/components/alert/alert';
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { Header } from '../../../@generic/components/header/header';
-import { SupportUkraineBanner } from '../../../@generic/components/support-ukraine-banner/support-ukraine-banner';
-import { ThemeButton } from '../../../@generic/components/theme-button/theme-button';
+import { ScreenChrome } from '../../../@generic/components/screen-chrome/screen-chrome';
+import { ScreenChromeProgressiveOverlay } from '../../../@generic/components/screen-chrome-progressive-overlay/screen-chrome-progressive-overlay';
+import { SupportUkrainePill } from '../../../@generic/components/support-ukraine-pill/support-ukraine-pill';
+import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
-import { getTimerText } from '../../../@generic/utils/get-timer-text.util';
-import { DifficultySelect } from '../../../game/components/difficulty-select/difficulty-select';
-import { MistakesSelect } from '../../../game/components/mistakes-select/mistakes-select';
+import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
+import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
+import {
+    DifficultyComplexitySliderDifficulties,
+    DifficultyComplexitySliderInitialIndex
+} from '../../../game/components/difficulty-complexity-slider/constant/difficulty-complexity-slider.constant';
+import { DifficultyComplexityPreview } from '../../../game/components/difficulty-complexity-slider/difficulty-complexity-preview/difficulty-complexity-preview';
+import { DifficultyComplexitySlider } from '../../../game/components/difficulty-complexity-slider/difficulty-complexity-slider';
 import { GameContext } from '../../../game/context/game.context';
-import { useResumeGame } from '../../../game/hooks/use-resume-game.hook';
-import { gameHistoryBestTimeSelector, gameIsStartedSelector } from '../../../game/store/game.selectors';
+import {
+    gameElapsedTimeSelector,
+    gameHistoryBestTimeSelector,
+    gameIsStartedSelector,
+    gameSolutionsStepsSelector,
+    gameSudokuStringSelector
+} from '../../../game/store/game.selectors';
+import { settingsSetAction } from '../../../settings/store/settings.actions';
+import { settingsLastGameDifficultySelector, settingsLastGameMaxMistakesSelector } from '../../../settings/store/settings.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
 
+import {
+    HomeScreenBottomScrollPadding,
+    HomeScreenCurrentGameBottomScrollPadding,
+    HomeScreenTopContentPadding,
+    HomeScreenTopOverlayHeight,
+    HomeScreenTopOverlayIntensity
+} from './constant/home-screen.constant';
+import { HomeScreenOptionCard } from './home-screen-option-card/home-screen-option-card';
+import { HomeScreenPlayActions } from './home-screen-play-actions/home-screen-play-actions';
+import { HomeScreenSectionHeader } from './home-screen-section-header/home-screen-section-header';
 import { HomeScreenSelectors } from './home-screen.selectors';
 import { HomeScreenStyles as styles } from './home-screen.styles';
+import { type HomeScreenOptionCardInterface } from './interface/home-screen-option-card.interface';
+import { homeScreenGetCurrentGameProgress } from './utils/home-screen-get-current-game-progress.util';
 
-import type { DifficultyEnum } from '@suuudokuuu/generator';
+const RelaxedMistakeLimit = 99;
 
 // eslint-disable-next-line max-lines-per-function
 export const HomeScreen = () => {
     const { create } = use(GameContext);
     const { theme } = use(ThemeContext);
     const { t } = useLingui();
-
+    const dispatch = useAppDispatch();
+    const insets = useSafeAreaInsets();
     const [bestScore, bestTime] = useAppSelector(gameHistoryBestTimeSelector);
+    const currentElapsedTime = useAppSelector(gameElapsedTimeSelector);
+    const currentSolutionSteps = useAppSelector(gameSolutionsStepsSelector);
+    const currentSudokuString = useAppSelector(gameSudokuStringSelector);
+    const difficulty = useAppSelector(settingsLastGameDifficultySelector);
     const isGameStarted = useAppSelector(gameIsStartedSelector);
-
-    const handleContinue = useResumeGame();
-
-    const [state, setState] = useState<'initial' | 'difficulty' | 'mistakes'>('initial');
+    const maxMistakes = useAppSelector(settingsLastGameMaxMistakesSelector);
     const [isLoading, setIsLoading] = useState(false);
-    const [difficulty, setDifficulty] = useState<DifficultyEnum>();
-
-    const handleState = (newState: typeof state) => () => {
-        setState(newState);
-    };
-    const handleDifficulty = (newDifficulty: DifficultyEnum) => {
-        setDifficulty(newDifficulty);
-        setState('mistakes');
-    };
-    const handleStart = (maxMistakes: number) => {
+    const handleDifficultyChange = (newDifficulty: DifficultyEnum) => dispatch(settingsSetAction({ lastGameDifficulty: newDifficulty }));
+    const handleMaxMistakes = (newMaxMistakes: number) => () => dispatch(settingsSetAction({ lastGameMaxMistakes: newMaxMistakes }));
+    const startNewPuzzle = () => {
         setIsLoading(true);
 
-        if (isDefined(difficulty)) {
-            requestAnimationFrame(() => {
+        setTimeout(() => {
+            try {
                 create(difficulty, maxMistakes);
-                setState('initial');
+            } finally {
                 setIsLoading(false);
-            });
-        }
+            }
+        });
     };
 
-    const separatorStyles = [styles.separator, { borderColor: theme.colors.black }];
+    const handleStart = () => {
+        if (!isGameStarted) {
+            startNewPuzzle();
+
+            return;
+        }
+
+        Alert(t`Stop current run?`, t`All progress will be lost`, [
+            { text: t`Cancel`, style: 'cancel' },
+            { text: t`OK`, onPress: startNewPuzzle }
+        ]);
+    };
+
+    const selectedOptionColorStyles = { backgroundColor: theme.colors.black, borderColor: theme.colors.black };
+    const unselectedOptionColorStyles = {
+        backgroundColor: theme.colors.candidate.bg,
+        borderColor: theme.colors.candidate.border
+    };
+    const selectedOptionTitleStyles = [styles.optionTitle, { color: theme.colors.label.inverted }];
+    const unselectedOptionTitleStyles = [styles.optionTitle, { color: theme.colors.label.main }];
+    const selectedOptionDescriptionStyles = [styles.optionDescription, { color: theme.colors.label.inverted }];
+    const unselectedOptionDescriptionStyles = [styles.optionDescription, { color: theme.colors.label.hint }];
+    const hintTextStyles = [styles.hintText, { color: theme.colors.label.hint }];
+    const bestRunCardStyles = [
+        styles.bestRun,
+        { backgroundColor: theme.colors.cell.highlighted, borderColor: theme.colors.candidate.border }
+    ];
+    const bestRunValueStyles = [styles.historyValue, { color: theme.colors.label.main }];
+    const standardMistakesOption = {
+        description: t`Three mistakes`,
+        maxMistakes: 3,
+        title: t`Standard`
+    };
+    const mistakeOptions = [
+        {
+            description: t`No limit`,
+            maxMistakes: RelaxedMistakeLimit,
+            title: t`Relaxed`
+        },
+        standardMistakesOption,
+        {
+            description: t`Zero mistakes`,
+            maxMistakes: 0,
+            title: t`Hardcore`
+        }
+    ];
+    const selectedMistakesOption = mistakeOptions.find(option => option.maxMistakes === maxMistakes) ?? standardMistakesOption;
+    const selectedDifficultyIndexFromSettings = DifficultyComplexitySliderDifficulties.indexOf(difficulty);
+    const selectedDifficultyIndex =
+        selectedDifficultyIndexFromSettings < 0 ? DifficultyComplexitySliderInitialIndex : selectedDifficultyIndexFromSettings;
+    const selectedDifficulty = DifficultyComplexitySliderDifficulties[selectedDifficultyIndex] ?? difficulty;
+    const difficultyDescriptionsByDifficulty = {
+        [DifficultyEnum.Newbie]: t`Gentle start`,
+        [DifficultyEnum.Easy]: t`Light warm-up`,
+        [DifficultyEnum.Medium]: t`Balanced solve`,
+        [DifficultyEnum.Hard]: t`Deep focus`,
+        [DifficultyEnum.Nightmare]: t`Expert grid`
+    };
+    const selectedDifficultyLabel = getDifficultyText(difficulty);
+    const selectedDifficultyDescription = difficultyDescriptionsByDifficulty[selectedDifficulty];
+    const setupSummary = `${selectedDifficultyLabel} • ${selectedMistakesOption.title}`;
+    const currentSudokuStringHasFieldLength = currentSudokuString.length === defaultSudokuConfig.fieldSize * defaultSudokuConfig.fieldSize;
+    const currentGameDifficulty = currentSudokuStringHasFieldLength
+        ? Sudoku.convertFieldFromString(currentSudokuString, defaultSudokuConfig)[1]
+        : difficulty;
+    const currentGameDifficultyLabel = getDifficultyText(currentGameDifficulty);
+    const currentElapsedTimeText = useTimerText(currentElapsedTime);
+    const currentProgressPercent = homeScreenGetCurrentGameProgress(currentSudokuString, currentSolutionSteps.length);
+    const currentProgressText = `${currentProgressPercent}%`;
+    const bestTimeText = useTimerText(bestTime);
+    const bestRunMetrics = [
+        { label: t`Score`, testID: HomeScreenSelectors.BestScore, value: String(bestScore) },
+        { label: t`Time`, value: bestTimeText }
+    ];
+    const startButtonText = isGameStarted ? t`Start new puzzle` : t`Start puzzle`;
+    const topOverlay = (
+        <ScreenChromeProgressiveOverlay height={HomeScreenTopOverlayHeight} intensity={HomeScreenTopOverlayIntensity} position="top" />
+    );
+    const bottomScrollPadding = isGameStarted ? HomeScreenCurrentGameBottomScrollPadding : HomeScreenBottomScrollPadding;
+    const topInset = insets.top + HomeScreenTopContentPadding;
+    const bottomInset = insets.bottom + bottomScrollPadding;
+    const topInsetStyles = { paddingTop: topInset };
+    const bottomInsetStyles = { paddingBottom: bottomInset };
+    const scrollContentStyles = [styles.scrollContent, topInsetStyles, bottomInsetStyles];
+    const mistakeCards: HomeScreenOptionCardInterface[] = mistakeOptions.map(option => {
+        const isSelected = option.maxMistakes === maxMistakes;
+        const optionColorStyles = isSelected ? selectedOptionColorStyles : unselectedOptionColorStyles;
+        const titleStyles = isSelected ? selectedOptionTitleStyles : unselectedOptionTitleStyles;
+        const descriptionStyles = isSelected ? selectedOptionDescriptionStyles : unselectedOptionDescriptionStyles;
+
+        return {
+            cardStyles: [styles.optionCard, optionColorStyles, styles.mistakeOptionCard],
+            description: option.description,
+            descriptionStyles,
+            key: option.maxMistakes,
+            onPress: handleMaxMistakes(option.maxMistakes),
+            title: option.title,
+            titleStyles
+        };
+    });
 
     return (
-        <View style={styles.container}>
-            <ThemeButton style={styles.themeButton} />
-            <SupportUkraineBanner />
-
-            <View style={styles.centerContainer}>
-                {state === 'initial' && (
-                    <View style={styles.buttonWrapper}>
-                        <Header text={t`SuuudokuuU`} />
-
-                        {isGameStarted ? (
-                            <>
-                                <BlackButton onPress={handleContinue} text={t`Continue`} />
-                                <View style={separatorStyles} />
-                            </>
-                        ) : null}
-
-                        <BlackButton onPress={handleState('difficulty')} text={t`Start new`} />
-
-                        <Link asChild href="/history">
-                            <BlackButton text={t`Statistics`} />
-                        </Link>
-                        <Link asChild href="/settings">
-                            <BlackButton text={t`Settings`} />
-                        </Link>
-                    </View>
-                )}
-
-                {isLoading ? <ActivityIndicator color={theme.colors.black} /> : null}
-
-                {!isLoading && state === 'difficulty' ? (
-                    <>
-                        <DifficultySelect onSelect={handleDifficulty} />
-
-                        <BlackButton onPress={handleState('initial')} text={t`Back`} />
-                    </>
-                ) : null}
-
-                {!isLoading && state === 'mistakes' ? (
-                    <>
-                        <MistakesSelect onSelect={handleStart} />
-
-                        <BlackButton onPress={handleState('difficulty')} text={t`Back`} />
-                    </>
-                ) : null}
-            </View>
-
-            <View style={styles.historyContainer}>
-                {bestScore > 0 && (
-                    <>
-                        <Link href="/scoring">
-                            <View style={styles.historyGroup}>
-                                <BlackText icon={Info}>{t`Best score`}</BlackText>
-
-                                <BlackText style={styles.historyValue} testID={HomeScreenSelectors.BestScore}>
-                                    {bestScore}
-                                </BlackText>
-                            </View>
-                        </Link>
-
-                        <View style={styles.historyGroup}>
-                            <BlackText>{t`Best time`}</BlackText>
-
-                            <BlackText style={styles.historyValue}>{getTimerText(bestTime)}</BlackText>
+        <ScreenChrome contentStyle={styles.content} topOverlay={topOverlay}>
+            <ScrollView
+                contentContainerStyle={scrollContentStyles}
+                showsVerticalScrollIndicator={false}
+                style={styles.scrollView}
+                testID={HomeScreenSelectors.Root}
+            >
+                <View style={styles.contentStack}>
+                    <View style={styles.masthead}>
+                        <View style={styles.hero}>
+                            <Header numberOfLines={1} style={styles.title} text={t`suuudokuuu`} />
+                            <SupportUkrainePill />
                         </View>
-                    </>
-                )}
-            </View>
 
-            <View style={styles.bottomContainer}>
-                <Link asChild href="https://github.com/vitalyiegorov/suuudokuuu/issues/new">
-                    <BlackText numberOfLines={2} style={styles.infoLink}>{t`Report a bug`}</BlackText>
-                </Link>
+                        {bestScore > 0 ? (
+                            <Link asChild href="/scoring">
+                                <Pressable accessibilityRole="button" style={styles.bestRunLink}>
+                                    <View style={bestRunCardStyles}>
+                                        <View style={styles.bestRunCopy}>
+                                            <BlackText style={styles.bestRunLabel}>
+                                                <Trans>Your best run</Trans>
+                                            </BlackText>
+                                            <BlackText numberOfLines={1} style={styles.bestRunTitle}>
+                                                <Trans>Keep the streak</Trans>
+                                            </BlackText>
+                                        </View>
 
-                <Link asChild href="/privacy-policy">
-                    <BlackText numberOfLines={2} style={styles.infoLink}>{t`Privacy policy`}</BlackText>
-                </Link>
-            </View>
-            <View style={styles.bottomContainer}>
-                <BlackText>
-                    <Text>{t`V.`}</Text>
-                    {Constants.expoConfig?.version}
-                </BlackText>
-            </View>
-        </View>
+                                        <View style={styles.bestRunMetrics}>
+                                            {bestRunMetrics.map(metric => (
+                                                <View key={metric.label} style={styles.bestRunMetric}>
+                                                    <BlackText style={hintTextStyles}>{metric.label}</BlackText>
+                                                    <BlackText
+                                                        adjustsFontSizeToFit
+                                                        minimumFontScale={0.68}
+                                                        numberOfLines={1}
+                                                        style={bestRunValueStyles}
+                                                        testID={metric.testID}
+                                                    >
+                                                        {metric.value}
+                                                    </BlackText>
+                                                </View>
+                                            ))}
+                                        </View>
+                                    </View>
+                                </Pressable>
+                            </Link>
+                        ) : null}
+                    </View>
+
+                    <View style={styles.setupSection}>
+                        <HomeScreenSectionHeader />
+
+                        <DifficultyComplexitySlider difficulty={difficulty} onChange={handleDifficultyChange} />
+
+                        <View style={styles.fieldGroup}>
+                            <BlackText style={styles.fieldLabel}>
+                                <Trans>Mistakes</Trans>
+                            </BlackText>
+
+                            <View style={styles.mistakeGrid}>
+                                {mistakeCards.map(option => (
+                                    <HomeScreenOptionCard key={option.key} option={option} />
+                                ))}
+                            </View>
+                        </View>
+
+                        <DifficultyComplexityPreview
+                            maxMistakes={maxMistakes}
+                            selectedDifficultyDescription={selectedDifficultyDescription}
+                            selectedDifficultyLabel={selectedDifficultyLabel}
+                            selectedIndex={selectedDifficultyIndex}
+                            selectedMistakesDescription={selectedMistakesOption.description}
+                            selectedMistakesLabel={selectedMistakesOption.title}
+                        />
+
+                        <HomeScreenPlayActions
+                            currentElapsedTimeText={currentElapsedTimeText}
+                            currentGameDifficultyLabel={currentGameDifficultyLabel}
+                            currentProgressPercent={currentProgressPercent}
+                            currentProgressText={currentProgressText}
+                            isGameStarted={isGameStarted}
+                            isLoading={isLoading}
+                            onStart={handleStart}
+                            startButtonSubtitle={setupSummary}
+                            startButtonText={startButtonText}
+                        />
+                    </View>
+                </View>
+            </ScrollView>
+        </ScreenChrome>
     );
 };

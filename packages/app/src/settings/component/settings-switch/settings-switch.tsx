@@ -1,14 +1,9 @@
-import { use, useState } from 'react';
-import { Platform, Switch } from 'react-native';
+import { AppSettingsRow, AppToggle } from '@suuudokuuu/ui';
 
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
-import { ThemeContext } from '../../../theme/context/theme.context';
 import { settingsSetAction } from '../../store/settings.actions';
 import { settingsKeySelector } from '../../store/settings.selectors';
-import { SettingsGroup } from '../settings-group/settings-group';
-
-import { SettingsSwitchStyles as styles } from './settings-switch.styles';
 
 interface Props {
     readonly setting: Parameters<typeof settingsKeySelector>[0];
@@ -17,35 +12,12 @@ interface Props {
 }
 
 export const SettingsSwitch = ({ setting, title, description }: Props) => {
-    const { theme } = use(ThemeContext);
-
     const settingValue = useAppSelector(settingsKeySelector(setting));
     const dispatch = useAppDispatch();
-
-    const [isEnabled, setIsEnabled] = useState(settingValue);
-    const toggleSwitch = () => {
-        const newValue = !isEnabled;
-        setIsEnabled(newValue);
+    const handleValueChange = (newValue: boolean) => {
         dispatch(settingsSetAction({ [setting]: newValue }));
     };
+    const trailing = <AppToggle onValueChange={handleValueChange} value={settingValue} />;
 
-    const thumbColor = theme.colors.black;
-    const trackColor = { false: theme.colors.black05, true: theme.colors.black05 };
-
-    return (
-        <SettingsGroup description={description} title={title}>
-            <Switch
-                {...(Platform.OS === 'web' && {
-                    // HINT: https://necolas.github.io/react-native-web/docs/switch/
-                    activeTrackColor: theme.colors.black05,
-                    activeThumbColor: theme.colors.black
-                })}
-                onValueChange={toggleSwitch}
-                style={styles.switch}
-                thumbColor={thumbColor}
-                trackColor={trackColor}
-                value={isEnabled}
-            />
-        </SettingsGroup>
-    );
+    return <AppSettingsRow description={description} title={title} trailing={trailing} />;
 };

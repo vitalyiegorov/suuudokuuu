@@ -1,5 +1,5 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import AsyncStorage from 'expo-sqlite/kv-store';
 import { createMigrate, persistReducer, persistStore } from 'redux-persist';
 
 import { gameSlice } from '../game/store/game.slice';
@@ -9,7 +9,6 @@ import { settingsSlice } from '../settings/store/settings.slice';
 import { initialSettingsState } from '../settings/store/settings.state';
 
 import type { GameState } from '../game/store/game.state';
-import type { CompletedGameInterface } from '../history/interfaces/completed-game.interface';
 import type { MigrationManifest } from 'redux-persist/es/types';
 
 const resetBestScores = (state: RootState): RootState => {
@@ -26,7 +25,7 @@ const resetBestScores = (state: RootState): RootState => {
     };
 };
 
-const addChallengeStats = (state: RootState): RootState => {
+const ensureHistoryEntryDefaults = (state: RootState): RootState => {
     const gameState = state[gameSlice.name];
     const updatedHistory = { ...gameState.historyByDifficulty };
 
@@ -34,30 +33,7 @@ const addChallengeStats = (state: RootState): RootState => {
         const historyEntry = updatedHistory[key as keyof typeof updatedHistory];
         updatedHistory[key as keyof typeof updatedHistory] = {
             ...emptyGameHistory,
-            ...historyEntry,
-            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-            challengesWon: historyEntry.challengesWon ?? 0,
-            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-            challengesLost: historyEntry.challengesLost ?? 0
-        };
-    });
-
-    return {
-        ...state,
-        [gameSlice.name]: { ...gameState, historyByDifficulty: updatedHistory }
-    };
-};
-
-const addCompletedGames = (state: RootState): RootState => {
-    const gameState = state[gameSlice.name];
-    const updatedHistory = { ...gameState.historyByDifficulty };
-
-    Object.keys(updatedHistory).forEach(key => {
-        const historyEntry = updatedHistory[key as keyof typeof updatedHistory];
-        updatedHistory[key as keyof typeof updatedHistory] = {
-            ...emptyGameHistory,
-            ...historyEntry,
-            completedGames: (historyEntry.completedGames as CompletedGameInterface[] | undefined) ?? []
+            ...historyEntry
         };
     });
 
@@ -99,10 +75,14 @@ const migrations: MigrationManifest<RootState> = {
     13: state => ({ ...state, [gameSlice.name]: { ...initialGameState, ...state[gameSlice.name] } }),
     14: state => ({ ...state, [settingsSlice.name]: { ...initialSettingsState, ...state[settingsSlice.name] } }),
     15: resetBestScores,
-    16: addChallengeStats,
+    16: ensureHistoryEntryDefaults,
     17: ensureAllDifficulties,
-    18: addCompletedGames,
-    19: state => ({ ...state, [settingsSlice.name]: { ...initialSettingsState, ...state[settingsSlice.name] } })
+    18: ensureHistoryEntryDefaults,
+    19: state => ({ ...state, [settingsSlice.name]: { ...initialSettingsState, ...state[settingsSlice.name] } }),
+    20: state => ({ ...state, [settingsSlice.name]: { ...initialSettingsState, ...state[settingsSlice.name] } }),
+    21: state => ({ ...state, [settingsSlice.name]: { ...initialSettingsState, ...state[settingsSlice.name] } }),
+    22: state => ({ ...state, [gameSlice.name]: { ...initialGameState, ...state[gameSlice.name] } }),
+    23: state => ({ ...state, [gameSlice.name]: { ...initialGameState, ...state[gameSlice.name] } })
 };
 
 const rootReducer = combineReducers({
@@ -114,7 +94,7 @@ const persistedReducer = persistReducer(
     {
         key: 'root',
         storage: AsyncStorage,
-        version: 19,
+        version: 23,
         migrate: createMigrate(migrations)
     },
     rootReducer

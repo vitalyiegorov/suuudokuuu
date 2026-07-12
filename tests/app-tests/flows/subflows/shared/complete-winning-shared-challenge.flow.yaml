@@ -1,0 +1,17 @@
+appId: ${APP_ID}
+---
+- runFlow:
+    file: open-shared-challenge.flow.yaml
+    env:
+      SHARED_CHALLENGE_LINK: ${SHARED_CHALLENGE_LINK}
+- assertVisible: 'Your opponent completed this puzzle in'
+- runFlow: accept-shared-challenge.flow.yaml
+- tapOn:
+    id: 'CellSelectors.Root'
+    index: 54
+- tapOn:
+    id: 'AvailableValueItemSelectors.Button'
+    index: 0
+- extendedWaitUntil:
+    visible: 'You won the challenge!'
+    timeout: 5000

@@ -1,6 +1,8 @@
 import * as Device from 'expo-device';
 import { Platform, StyleSheet } from 'react-native';
 
+const GameScreenControlsGap = 8;
+
 export const GameScreenStyles = StyleSheet.create({
     additionalControlsWrapper: {
         flex: 1,
@@ -21,8 +23,7 @@ export const GameScreenStyles = StyleSheet.create({
         flex: 1,
         ...(Device.deviceType === Device.DeviceType.PHONE && Platform.select({ web: { flex: 1.3 } }))
     },
-    button: { paddingHorizontal: 10 },
-    buttonsWrapper: { flexDirection: 'row', gap: 5 },
+    buttonsWrapper: { flexDirection: 'row', flexShrink: 0, gap: GameScreenControlsGap },
     container: {
         alignItems: 'center',
         flex: 1,
@@ -32,32 +33,15 @@ export const GameScreenStyles = StyleSheet.create({
     controls: {
         alignItems: 'center',
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        gap: GameScreenControlsGap,
+        justifyContent: 'center',
         marginBottom: 20,
         maxWidth: 600,
-        minWidth: 345,
+        width: '100%',
 
         ...(Device.deviceType === Device.DeviceType.PHONE && Platform.select({ web: { height: 50 } }))
     },
-    controlsWrapper: {
-        alignItems: 'center'
-    },
     fieldWrapper: {
         flex: 3
-    },
-    mistakesCountText: {
-        fontWeight: 'bold'
-    },
-    mistakesMaxText: {
-        fontWeight: 'bold'
-    },
-    mistakesSeparator: {
-        marginHorizontal: 5
-    },
-    scoreText: {
-        fontWeight: 'bold'
-    },
-    scoreWrapper: {
-        alignItems: 'flex-end'
     }
 });

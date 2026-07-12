@@ -12,6 +12,8 @@ export interface GameState {
     maxMistakes: number;
     elapsedTime: number;
     isPaused: boolean;
+    shouldShowPauseScreen: boolean;
+    shouldResumeOnFocus: boolean;
     showAutoCandidates: boolean;
     inputMode: 'normal' | 'candidate';
     candidates: Record<string, number[]>;
@@ -24,6 +26,8 @@ export interface GameState {
 
 export const initialGameState: GameState = {
     isPaused: false,
+    shouldShowPauseScreen: false,
+    shouldResumeOnFocus: false,
     elapsedTime: 0,
     sudokuString: '',
     mistakes: 0,

@@ -1,0 +1,9 @@
+export const AppSettingsRowBorderRadius = 24;
+export const AppSettingsRowDescriptionFontSize = 14;
+export const AppSettingsRowDescriptionLineHeight = 18;
+export const AppSettingsRowGap = 12;
+export const AppSettingsRowHorizontalPadding = 20;
+export const AppSettingsRowMinHeight = 76;
+export const AppSettingsRowTitleFontSize = 18;
+export const AppSettingsRowTitleLineHeight = 22;
+export const AppSettingsRowVerticalPadding = 16;

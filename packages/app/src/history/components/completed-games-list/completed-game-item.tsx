@@ -1,13 +1,16 @@
-import { useLingui } from '@lingui/react/macro';
+import { Trans, useLingui } from '@lingui/react/macro';
 import { LucidePlay } from 'lucide-react-native';
 import { use } from 'react';
 import { Text, View } from 'react-native';
 
 import { BlackButton } from '../../../@generic/components/black-button/black-button';
 import { BlackText } from '../../../@generic/components/black-text/black-text';
-import { getTimerText } from '../../../@generic/utils/get-timer-text.util';
+import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
+import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { HistoryMetric } from '../history-metric/history-metric';
 
+import { CompletedGameItemSelectors } from './completed-game-item.selectors';
 import { CompletedGameItemStyles as styles } from './completed-game-item.styles';
 
 import type { CompletedGameInterface } from '../../interfaces/completed-game.interface';
@@ -17,32 +20,45 @@ interface Props {
 }
 
 export const CompletedGameItem = ({ game }: Props) => {
-    const { t } = useLingui();
     const { theme } = use(ThemeContext);
+    const { t } = useLingui();
 
-    const containerStyles = [styles.container, { borderColor: theme.colors.cell.active, borderWidth: 2 }];
+    const containerStyles = [styles.container, { backgroundColor: theme.colors.candidate.bg, borderColor: theme.colors.candidate.border }];
+    const eyebrowStyles = [styles.eyebrow, { color: theme.colors.label.hint }];
+    const difficultyStyles = [styles.difficulty, { color: theme.colors.label.main }];
+    const replayButtonStyles = [styles.replayButton, { backgroundColor: theme.colors.black }];
+    const iconColor = theme.colors.label.inverted;
+    const replayTextStyles = [styles.replayText, { color: iconColor }];
+    const completedDate = new Date(game.completedAt);
+    const completedDateText = completedDate.toLocaleDateString();
+    const mistakesValue = game.maxMistakes >= 99 ? String(game.mistakes) : `${game.mistakes}/${game.maxMistakes}`;
+    const elapsedTimeText = useTimerText(game.elapsedTime);
 
     return (
         <View style={containerStyles}>
-            <View style={styles.infoContainer}>
-                <View style={styles.row}>
-                    <BlackText>
-                        {t`Score`}: <Text style={styles.boldText}>{game.score}</Text>
-                    </BlackText>
-                    <BlackText>
-                        {t`Time`}: <Text style={styles.boldText}>{getTimerText(game.elapsedTime)}</Text>
-                    </BlackText>
-                    <BlackText>
-                        {t`Mistakes`}:{' '}
-                        <Text style={styles.boldText}>
-                            {game.mistakes}/{game.maxMistakes}
-                        </Text>
-                    </BlackText>
+            <View style={styles.header}>
+                <View style={styles.titleGroup}>
+                    <BlackText style={eyebrowStyles}>{completedDateText}</BlackText>
+                    <BlackText style={difficultyStyles}>{getDifficultyText(game.difficulty)}</BlackText>
                 </View>
+
+                <BlackButton
+                    href={`/history/${game.difficulty}/${game.completedAt}`}
+                    style={replayButtonStyles}
+                    testID={CompletedGameItemSelectors.ReplayButton}
+                >
+                    <LucidePlay color={iconColor} size={18} fill={iconColor} />
+                    <Text style={replayTextStyles}>
+                        <Trans>Replay</Trans>
+                    </Text>
+                </BlackButton>
             </View>
-            <BlackButton href={`/history/${game.difficulty}/${game.completedAt}`} style={styles.replayButton}>
-                <LucidePlay color={theme.colors.label.inverted} size={16} />
-            </BlackButton>
+
+            <View style={styles.metrics}>
+                <HistoryMetric label={t`Score`} value={String(game.score)} />
+                <HistoryMetric label={t`Time`} value={elapsedTimeText} />
+                <HistoryMetric label={t`Mistakes`} value={mistakesValue} />
+            </View>
         </View>
     );
 };

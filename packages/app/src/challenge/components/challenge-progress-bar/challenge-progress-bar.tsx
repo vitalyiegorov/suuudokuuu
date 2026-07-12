@@ -47,7 +47,7 @@ export const ChallengeProgressBar = () => {
     useEffect(() => {
         if (opponentProgress >= 1) {
             dispatch(gameFinishAction({ difficulty: sudoku.Difficulty, isWon: false, isChallenge: true }));
-            router.replace('challenge-lost');
+            router.replace('/challenge-lost');
         }
     }, [opponentProgress, dispatch, sudoku.Difficulty]);
 
@@ -59,16 +59,8 @@ export const ChallengeProgressBar = () => {
     }));
 
     const trackStyle: StyleProp<ViewStyle> = [styles.track, { backgroundColor: theme.colors.black05 }];
-    const playerProgressStyle: StyleProp<ViewStyle> = [
-        styles.playerProgress,
-        { backgroundColor: theme.colors.black },
-        playerProgressAnimatedStyle
-    ];
-    const opponentProgressStyle: StyleProp<ViewStyle> = [
-        styles.opponentProgress,
-        { backgroundColor: theme.colors.red },
-        opponentProgressAnimatedStyle
-    ];
+    const playerProgressStyle = [styles.playerProgress, { backgroundColor: theme.colors.black }, playerProgressAnimatedStyle];
+    const opponentProgressStyle = [styles.opponentProgress, { backgroundColor: theme.colors.red }, opponentProgressAnimatedStyle];
 
     const getStepIndicatorStyle = (position: number): StyleProp<ViewStyle> => [
         styles.stepIndicator,

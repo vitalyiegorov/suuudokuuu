@@ -1,34 +1,19 @@
 appId: ${APP_ID}
 ---
 - startRecording:
-      path: '01.home-screen'
-      optional: true
+    path: '01.home-screen'
+    optional: true
 
-- launchApp
-- extendedWaitUntil:
-      visible: 'Start new'
-      timeout: 10000
-- assertVisible: 'Start new'
-- tapOn: Privacy policy
-- assertVisible: Privacy Policy
-- tapOn: 'Return'
-- tapOn: 'Start new'
-- tapOn: 'Back'
-- assertVisible: 'Start new'
-- tapOn: 'Start new'
+- runFlow: subflows/navigation/launch-home.flow.yaml
+- assertVisible: 'Difficulty'
 - assertVisible: 'Newbie'
-- assertVisible: 'Easy'
-- assertVisible: 'Medium'
-- assertVisible: 'Hard'
-- assertVisible: 'Nightmare'
-- tapOn: 'Newbie'
-- assertVisible: 'Immortal'
-- assertVisible: 'Standard'
-- assertVisible: 'Hardcore'
-- tapOn: 'Standard'
+- assertVisible: 'Mistakes'
+- runFlow: subflows/game/start-new-game.flow.yaml
 - assertVisible:
-      id: 'GameScreenSelectors.Root'
+    id: 'GameScreenSelectors.Score'
+    text: '0'
+- assertVisible: '0/3'
+- runFlow: subflows/game/quit-current-game.flow.yaml
 - assertVisible:
-      id: 'CellSelectors.Root'
-- assertVisible:
-      id: 'AvailableValueItemSelectors.Button'
+    id: 'HomeScreenSelectors.StartButton'
+- stopApp

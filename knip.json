@@ -2,23 +2,18 @@
     "ignore": [
         "packages/app/lingui.config.js",
         "packages/app/fingerprint.config.js",
-        "index.js",
+        ".agents/skills/**",
+        ".claude/skills/**",
         "**/babel.config.js",
-        "**/*.web.ts",
-        "**/*.web.tsx",
-        "**/selectors.ts",
-        "tests/web-tests/**"
+        "**/selectors.ts"
     ],
     "ignoreDependencies": [
-        "husky",
+        "@babel/core",
         "@lingui/cli",
-        "@expo/metro-config",
+        "@lingui/format-po",
         "@expo/fingerprint",
-        "metro-minify-terser",
-        "react-compiler-runtime",
         "babel-jest",
         "babel-plugin-react-compiler",
-        "@lingui/babel-plugin-lingui-macro",
         "eas-build-cache-provider"
     ],
     "ignoreBinaries": ["run"]

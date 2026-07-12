@@ -1,0 +1,9 @@
+appId: ${APP_ID}
+---
+- launchApp:
+    clearState: false
+- tapOn: 'Play'
+- extendedWaitUntil:
+    visible:
+      id: 'HomeScreenSelectors.Root'
+    timeout: 15000

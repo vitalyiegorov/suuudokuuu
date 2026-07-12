@@ -9,7 +9,7 @@ export default function LoserPage() {
 
     return (
         <Page>
-            <PageHeader title={t`Looooooser! =)`} />
+            <PageHeader title={t`Better luck next time!`} />
 
             <LoserScreen />
         </Page>

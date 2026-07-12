@@ -1,0 +1,311 @@
+import { describe, expect, it, jest } from '@jest/globals';
+import { DifficultyEnum, Sudoku, emptyScoredCells } from '@suuudokuuu/generator';
+
+import { isDefined } from '@rnw-community/shared';
+
+jest.mock('@suuudokuuu/encoder', () => ({
+    GameStateSerializer: jest.fn(() => ({
+        encode: jest.fn(() => '')
+    })),
+    Solution: {
+        fromSteps: jest.fn(() => ({
+            addStep: jest.fn(),
+            getSteps: jest.fn(() => [])
+        }))
+    }
+}));
+
+import { getCellKey } from '../../@generic/utils/get-cell-key.util';
+
+import {
+    gameFinishAction,
+    gameLoadAction,
+    gameMistakeAction,
+    gamePauseAction,
+    gameResetAction,
+    gameResumeAction,
+    gameSaveAction,
+    gameStartAction,
+    gameTickAction,
+    gameToggleAutoCandidatesAction,
+    gameToggleCellCandidateAction,
+    gameToggleInputModeAction
+} from './game.actions';
+import { gameSlice } from './game.slice';
+import { initialGameState } from './game.state';
+
+const StartedSudokuString = 'started-sudoku';
+const InitialElapsedTime = 42;
+
+describe('gameSlice', () => {
+    it('starts a new puzzle while preserving completed history', () => {
+        const historyByDifficulty = {
+            ...initialGameState.historyByDifficulty,
+            [DifficultyEnum.Easy]: {
+                ...initialGameState.historyByDifficulty[DifficultyEnum.Easy],
+                gamesCompleted: 3
+            }
+        };
+        const dirtyState = {
+            ...initialGameState,
+            historyByDifficulty,
+            elapsedTime: InitialElapsedTime,
+            mistakes: 2,
+            score: 100,
+            showAutoCandidates: true,
+            inputMode: 'candidate' as const,
+            candidates: { '1-1': [1, 2] }
+        };
+
+        const nextState = gameSlice.reducer(dirtyState, gameStartAction({ sudokuString: StartedSudokuString, maxMistakes: 0 }));
+
+        expect(nextState).toMatchObject({
+            ...initialGameState,
+            historyByDifficulty,
+            sudokuString: StartedSudokuString,
+            maxMistakes: 0
+        });
+    });
+
+    it('loads partial game state, records mistakes, and resets active progress', () => {
+        const historyByDifficulty = {
+            ...initialGameState.historyByDifficulty,
+            [DifficultyEnum.Newbie]: {
+                ...initialGameState.historyByDifficulty[DifficultyEnum.Newbie],
+                gamesWon: 1
+            }
+        };
+        const loadedState = gameSlice.reducer(
+            { ...initialGameState, historyByDifficulty },
+            gameLoadAction({ elapsedTime: InitialElapsedTime, sudokuString: StartedSudokuString })
+        );
+        const mistakenState = gameSlice.reducer(loadedState, gameMistakeAction());
+        const resetState = gameSlice.reducer(mistakenState, gameResetAction());
+
+        expect(loadedState.elapsedTime).toBe(InitialElapsedTime);
+        expect(loadedState.sudokuString).toBe(StartedSudokuString);
+        expect(mistakenState.mistakes).toBe(1);
+        expect(resetState).toMatchObject({ ...initialGameState, historyByDifficulty });
+    });
+
+    it('keeps candidate and input modes mutually exclusive', () => {
+        const autoCandidateState = gameSlice.reducer(initialGameState, gameToggleAutoCandidatesAction());
+        const candidateInputState = gameSlice.reducer(autoCandidateState, gameToggleInputModeAction());
+        const normalInputState = gameSlice.reducer(candidateInputState, gameToggleInputModeAction());
+        const manualCandidateState = {
+            ...initialGameState,
+            showAutoCandidates: true
+        };
+        const disabledAutoCandidateState = gameSlice.reducer(manualCandidateState, gameToggleAutoCandidatesAction());
+
+        expect(autoCandidateState).toMatchObject({ showAutoCandidates: true, inputMode: 'normal' });
+        expect(candidateInputState).toMatchObject({ showAutoCandidates: false, inputMode: 'candidate' });
+        expect(normalInputState).toMatchObject({ showAutoCandidates: false, inputMode: 'normal' });
+        expect(disabledAutoCandidateState).toMatchObject({ showAutoCandidates: false, inputMode: 'normal' });
+    });
+
+    it('toggles pencil mark candidates per cell', () => {
+        const cell = { x: 2, y: 3, value: 5, group: 1 };
+        const cellKey = getCellKey(cell);
+        const addedCandidateState = gameSlice.reducer(initialGameState, gameToggleCellCandidateAction(cell));
+        const removedCandidateState = gameSlice.reducer(addedCandidateState, gameToggleCellCandidateAction(cell));
+
+        expect(addedCandidateState.candidates[cellKey]).toEqual([cell.value]);
+        expect(removedCandidateState.candidates[cellKey]).toEqual([]);
+    });
+
+    it('saves a correct cell and cleans stale candidates', () => {
+        const sudoku = new Sudoku();
+        sudoku.create(DifficultyEnum.Easy);
+
+        const blankCell = sudoku.Field.flat().find(cell => sudoku.isBlankCell(cell));
+
+        if (!isDefined(blankCell)) {
+            throw new Error('Expected generated puzzle to contain a blank cell');
+        }
+
+        const correctCell = { ...blankCell, value: sudoku.getCorrectValue(blankCell) };
+        const scoredCells = sudoku.setCellValue(correctCell);
+        const correctCellKey = getCellKey(correctCell);
+        const affectedBlankCell = sudoku.Field.flat().find(
+            cell => sudoku.isBlankCell(cell) && (cell.x === correctCell.x || cell.y === correctCell.y || cell.group === correctCell.group)
+        );
+
+        if (!isDefined(affectedBlankCell)) {
+            throw new Error('Expected generated puzzle to contain an affected blank peer cell');
+        }
+
+        const possibleCandidates = sudoku.getCellCandidates(affectedBlankCell);
+        const staleCandidate = Array.from({ length: 9 }, (_, index) => index + 1).find(
+            candidate => !possibleCandidates.includes(candidate)
+        );
+
+        if (!isDefined(staleCandidate)) {
+            throw new Error('Expected affected blank peer cell to reject at least one candidate');
+        }
+
+        const affectedCellKey = getCellKey(affectedBlankCell);
+        const state = {
+            ...initialGameState,
+            sudokuString: StartedSudokuString,
+            elapsedTime: 1,
+            candidates: {
+                [correctCellKey]: [correctCell.value],
+                [affectedCellKey]: [staleCandidate]
+            }
+        };
+
+        const savedState = gameSlice.reducer(
+            state,
+            gameSaveAction({ sudoku, correctCell, scoredCells: { ...emptyScoredCells, ...scoredCells, values: [correctCell.value] } })
+        );
+
+        expect(savedState.sudokuString).toBe(sudoku.toString());
+        expect(savedState.score).toBeGreaterThan(0);
+        expect(savedState.solutionSteps).toEqual([]);
+        expect(savedState.candidates[correctCellKey]).toEqual([]);
+        expect(savedState.candidates[affectedCellKey]).toEqual([]);
+    });
+
+    it('ticks only while a puzzle exists and the game is not paused', () => {
+        const runningState = {
+            ...initialGameState,
+            elapsedTime: InitialElapsedTime,
+            sudokuString: StartedSudokuString
+        };
+        const emptyState = {
+            ...initialGameState,
+            elapsedTime: InitialElapsedTime
+        };
+        const pausedState = gameSlice.reducer(runningState, gamePauseAction());
+
+        expect(gameSlice.reducer(runningState, gameTickAction()).elapsedTime).toBe(InitialElapsedTime + 1);
+        expect(gameSlice.reducer(emptyState, gameTickAction()).elapsedTime).toBe(InitialElapsedTime);
+        expect(gameSlice.reducer(pausedState, gameTickAction()).elapsedTime).toBe(InitialElapsedTime);
+    });
+
+    it('separates timer pause from pause screen presentation', () => {
+        const runningState = {
+            ...initialGameState,
+            elapsedTime: InitialElapsedTime,
+            sudokuString: StartedSudokuString
+        };
+
+        const visiblePauseState = gameSlice.reducer(runningState, gamePauseAction());
+        const silentPauseState = gameSlice.reducer(runningState, gamePauseAction({ shouldShowPauseScreen: false }));
+
+        expect(visiblePauseState.isPaused).toBe(true);
+        expect(visiblePauseState.shouldShowPauseScreen).toBe(true);
+        expect(visiblePauseState).toMatchObject({ shouldResumeOnFocus: false });
+        expect(silentPauseState.isPaused).toBe(true);
+        expect(silentPauseState.shouldShowPauseScreen).toBe(false);
+        expect(silentPauseState).toMatchObject({ shouldResumeOnFocus: true });
+        expect(gameSlice.reducer(silentPauseState, gameResumeAction())).toMatchObject({ shouldResumeOnFocus: false });
+    });
+
+    it('freezes timer updates when the game finishes', () => {
+        const finishedState = gameSlice.reducer(
+            {
+                ...initialGameState,
+                elapsedTime: InitialElapsedTime,
+                sudokuString: StartedSudokuString
+            },
+            gameFinishAction({ difficulty: DifficultyEnum.Easy, isWon: false })
+        );
+
+        expect(finishedState.isPaused).toBe(true);
+        expect(finishedState.shouldShowPauseScreen).toBe(false);
+        expect(finishedState).toMatchObject({ shouldResumeOnFocus: false });
+        expect(gameSlice.reducer(finishedState, gameTickAction()).elapsedTime).toBe(InitialElapsedTime);
+    });
+
+    it('records won games with best score, clean win, and challenge stats', () => {
+        const finishedState = gameSlice.reducer(
+            {
+                ...initialGameState,
+                elapsedTime: InitialElapsedTime,
+                maxMistakes: 0,
+                score: 250,
+                sudokuString: StartedSudokuString
+            },
+            gameFinishAction({ difficulty: DifficultyEnum.Newbie, isWon: true, isChallenge: true })
+        );
+        const history = finishedState.historyByDifficulty[DifficultyEnum.Newbie];
+        const [completedGame] = history.completedGames;
+
+        expect(history).toMatchObject({
+            averageTime: InitialElapsedTime,
+            bestScore: 250,
+            bestTime: InitialElapsedTime,
+            challengesWon: 1,
+            gamesCompleted: 1,
+            gamesWon: 1,
+            gamesWonWithoutMistakes: 1,
+            hardcoreWon: 1
+        });
+        expect(completedGame).toMatchObject({
+            difficulty: DifficultyEnum.Newbie,
+            elapsedTime: InitialElapsedTime,
+            maxMistakes: 0,
+            mistakes: 0,
+            score: 250
+        });
+        expect(finishedState).toMatchObject({ isPaused: true, shouldResumeOnFocus: false, shouldShowPauseScreen: false });
+    });
+
+    it('records ordinary wins without replacing a better score', () => {
+        const historyByDifficulty = {
+            ...initialGameState.historyByDifficulty,
+            [DifficultyEnum.Medium]: {
+                ...initialGameState.historyByDifficulty[DifficultyEnum.Medium],
+                bestScore: 500,
+                bestTime: 10
+            }
+        };
+        const finishedState = gameSlice.reducer(
+            {
+                ...initialGameState,
+                historyByDifficulty,
+                elapsedTime: InitialElapsedTime,
+                maxMistakes: 3,
+                mistakes: 1,
+                score: 250,
+                sudokuString: StartedSudokuString
+            },
+            gameFinishAction({ difficulty: DifficultyEnum.Medium, isWon: true })
+        );
+        const history = finishedState.historyByDifficulty[DifficultyEnum.Medium];
+
+        expect(history).toMatchObject({
+            bestScore: 500,
+            bestTime: 10,
+            challengesWon: 0,
+            gamesCompleted: 1,
+            gamesWon: 1,
+            gamesWonWithoutMistakes: 0,
+            hardcoreWon: 0
+        });
+        expect(history.completedGames).toHaveLength(1);
+    });
+
+    it('records challenge losses without creating replay history', () => {
+        const finishedState = gameSlice.reducer(
+            {
+                ...initialGameState,
+                elapsedTime: InitialElapsedTime,
+                mistakes: 3,
+                sudokuString: StartedSudokuString
+            },
+            gameFinishAction({ difficulty: DifficultyEnum.Hard, isWon: false, isChallenge: true })
+        );
+        const history = finishedState.historyByDifficulty[DifficultyEnum.Hard];
+
+        expect(history).toMatchObject({
+            averageTime: InitialElapsedTime,
+            challengesLost: 1,
+            gamesCompleted: 1,
+            gamesLost: 1
+        });
+        expect(history.completedGames).toEqual([]);
+    });
+});

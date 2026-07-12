@@ -1,5 +1,5 @@
 import * as Haptics from 'expo-haptics';
-import { ImpactFeedbackStyle, NotificationFeedbackType } from 'expo-haptics/src/Haptics.types';
+import { ImpactFeedbackStyle, NotificationFeedbackType } from 'expo-haptics';
 
 import { useAppSelector } from './use-app-selector.hook';
 

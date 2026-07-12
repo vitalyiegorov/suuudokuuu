@@ -4,33 +4,17 @@ appId: ${APP_ID}
     path: '02.game-screen-win'
     optional: true
 
-- repeat:
-    times: 3
-    while:
-      notVisible: 'Open puzzle'
-    commands:
-      - openLink:
-          link: suuudokuuu://shared/_IGP________9____qXF6FFdMjBWGhJIN-CMqSm5omCUw0KFUm6-t2HxLUAuYMA
-      - runFlow:
-          when:
-            visible: 'Open in.*'
-          commands:
-            - tapOn: 'Open'
-      - waitForAnimationToEnd:
-          timeout: 3000
-
+- runFlow: subflows/navigation/launch-home.flow.yaml
+- runFlow:
+    file: subflows/shared/complete-winning-shared-challenge.flow.yaml
+    env:
+      SHARED_CHALLENGE_LINK: suuudokuuu://shared/IzAMC4AAAKBEBQDAAHASfAwQAgM4AQAhgGQEUBoAQQASBWAcIAgBXrAE4BMAUgZICcAYgKpkAmAFdQAMQAGABYDZAYwBRYgPMBIAE8UAFAEMASAGIALFQCpAZEMA3AAoArgLL2A1ReUAWgOoApAGfpABr9VABmW34AFfl5AECcADoARIAdgB4AcwAqgE%2BAfYASgDAAIIAGgDiADAARgA8AZpqAYrq6bkMAMoBNIl6AWoAOAHOAWIAQcPAAGwAhAAGAJnAATjXgcGAgA
+- assertVisible: 'Score:.*'
+- assertVisible: 'Help Ukraine win!'
+- tapOn:
+    id: 'PlayAgainButtonSelectors.Root'
 - extendedWaitUntil:
-    visible: 'Open puzzle'
-    timeout: 10000
-- tapOn: 'Open puzzle'
-- tapOn:
-    id: 'CellSelectors.Root'
-    index: 54
-- tapOn:
-    id: 'AvailableValueItemSelectors.Button'
-    index: 0
-- assertVisible: Winners-winner, .*
-- assertVisible: You have scored.*
-- assertVisible: Help Ukraine win!
-- tapOn: 'Play again'
-- assertVisible: 'Start new'
+    visible:
+      id: 'HomeScreenSelectors.Root'
+    timeout: 3000
+- stopApp

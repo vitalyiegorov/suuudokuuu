@@ -1,4 +1,4 @@
-import type { ThemeInterface } from '../interface/theme.interface';
+import type { ThemeInterface } from '@suuudokuuu/ui';
 
 export const BWLightTheme: ThemeInterface = {
     colors: {
@@ -35,8 +35,8 @@ export const BWLightTheme: ThemeInterface = {
         },
         value: {
             border: 'rgba(0,0,0,0.15)',
-            progress: 'rgba(0, 255, 0, 0.3)',
-            progressActive: 'rgba(0, 255, 0, 1)',
+            progress: 'rgba(0, 0, 0, 0.12)',
+            progressActive: 'rgba(0, 0, 0, 0.72)',
             text: 'rgba(0, 0, 0,1)'
         }
     }
@@ -77,8 +77,8 @@ export const BWDarkTheme: ThemeInterface = {
         },
         value: {
             border: 'rgba(255,255,255,0.15)',
-            progress: 'rgba(0, 255, 0, 0.3)',
-            progressActive: 'rgba(0, 255, 0, 0.7)',
+            progress: 'rgba(255, 255, 255, 0.14)',
+            progressActive: 'rgba(255, 255, 255, 0.72)',
             text: 'rgba(255, 255, 255,1)'
         }
     }

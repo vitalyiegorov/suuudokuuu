@@ -1,0 +1,9 @@
+appId: ${APP_ID}
+---
+- tapOn:
+    id: 'ChallengeAcceptScreenSelectors.AcceptButton'
+    retryTapIfNoChange: true
+- extendedWaitUntil:
+    visible:
+      id: 'GameScreenSelectors.Root'
+    timeout: 10000

@@ -1,27 +1,16 @@
 import { StyleSheet } from 'react-native';
 
 export const HistoryGamesScreenStyles = StyleSheet.create({
-    container: {
+    content: {
         alignItems: 'center',
-        flex: 1,
-        padding: 20,
-        paddingHorizontal: 40
+        paddingHorizontal: 18
     },
-    list: {
-        marginBottom: 20,
-        maxWidth: 500,
+    scrollView: {
+        maxWidth: 560,
         width: '100%'
     },
-    listContent: {
-        gap: 8
-    },
-    emptyContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    emptyText: {
-        opacity: 0.6,
-        textAlign: 'center'
+    scrollViewContainer: {
+        gap: 14,
+        paddingHorizontal: 2
     }
 });
