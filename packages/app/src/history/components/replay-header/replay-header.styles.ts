@@ -2,38 +2,28 @@ import { StyleSheet } from 'react-native';
 
 export const ReplayHeaderStyles = StyleSheet.create({
     container: {
-        alignItems: 'center',
-        gap: 8,
-        maxWidth: 400,
-        width: '100%',
-        alignSelf: 'center'
+        alignSelf: 'center',
+        borderRadius: 34,
+        maxWidth: 396,
+        minHeight: 68,
+        paddingHorizontal: 18,
+        paddingVertical: 10,
+        width: '100%'
     },
-    titleRow: {
-        flexDirection: 'row',
-        gap: 16,
-        alignItems: 'center'
+    item: {
+        gap: 4
     },
-    difficultyText: {
-        fontSize: 18,
-        fontWeight: 'bold'
+    label: {
+        fontSize: 10,
+        letterSpacing: 0.5,
+        lineHeight: 12
     },
-    resultText: {
-        fontSize: 16,
-        fontWeight: 'bold'
+    separator: {
+        height: 36,
+        marginHorizontal: 2
     },
-    wonText: {
-        color: 'green'
-    },
-    lostText: {
-        color: 'red'
-    },
-    statsRow: {
-        flexDirection: 'row',
-        gap: 16,
-        justifyContent: 'center',
-        flexWrap: 'wrap'
-    },
-    boldText: {
-        fontWeight: 'bold'
+    value: {
+        fontSize: 17,
+        lineHeight: 20
     }
 });

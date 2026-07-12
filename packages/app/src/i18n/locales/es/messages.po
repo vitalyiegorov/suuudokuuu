@@ -1,0 +1,1026 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2025-07-24 14:45+0200\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: es\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#. placeholder {0}: 0
+#. placeholder {0}: 3
+#. placeholder {0}: 99
+#: src/scoring/components/scoring.screen.tsx
+msgid "{0, plural, one {# mistake} other {# mistakes}}"
+msgstr "{0, plural, one {# error} other {# errores}}"
+
+#: src/screens/components/pause-screen/pause.screen.tsx
+msgid "{filledCells}/{totalCells} filled"
+msgstr "{filledCells}/{totalCells} completadas"
+
+#: src/history/components/history-difficulty/history-difficulty.tsx
+msgid "{gamesCompleted, plural, one {# completed game} other {# completed games}}"
+msgstr "{gamesCompleted, plural, one {# partida completada} other {# partidas completadas}}"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "A little room between cells"
+msgstr "Un poco de espacio entre celdas"
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "Accept Challenge"
+msgstr "Aceptar reto"
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "Accept challenge?"
+msgstr "¿Aceptar el reto?"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Adjust the digits on the Sudoku board"
+msgstr "Ajusta los dígitos del tablero de sudoku"
+
+#: src/history/components/history-difficulty-filter/history-difficulty-filter.tsx
+msgid "All"
+msgstr "Todas"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "All of a number (1-9)"
+msgstr "Todas las casillas de un número (1-9)"
+
+#: src/screens/components/game-screen/game.screen.tsx
+#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/pause-screen/pause.screen.tsx
+msgid "All progress will be lost"
+msgstr "Se perderá todo el progreso"
+
+#: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
+msgid "Animate completed rows, columns, and boxes"
+msgstr "Animar filas, columnas y cuadros completados"
+
+#: src/history/components/history-difficulty/history-difficulty.tsx
+msgid "Average"
+msgstr "Promedio"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Avoid mistakes - they cost you points!"
+msgstr "Evita errores: te restan puntos."
+
+#: src/@generic/components/header-back-button/header-back-button.tsx
+#: src/history/components/replay-top-bar/replay-top-bar.tsx
+msgid "Back"
+msgstr "Atrás"
+
+#: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
+msgid "Back to home"
+msgstr "Volver al inicio"
+
+#: src/settings/constant/language-labels.constant.ts
+msgid "Bahasa Indonesia"
+msgstr "Bahasa Indonesia"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Balanced digits for most players"
+msgstr "Dígitos equilibrados para la mayoría de jugadores"
+
+#: src/screens/components/home-screen/home.screen.tsx
+msgid "Balanced solve"
+msgstr "Resolución equilibrada"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Base Score"
+msgstr "Puntuación base"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Be fast to minimize time penalties"
+msgstr "Sé rápido para minimizar las penalizaciones de tiempo"
+
+#: src/app/game.tsx
+msgid "Be wise, be smart, be quick..."
+msgstr "Piensa bien, juega rápido..."
+
+#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-totals-card/history-totals-card.tsx
+msgid "Best score"
+msgstr "Mejor puntuación"
+
+#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-totals-card/history-totals-card.tsx
+msgid "Best time"
+msgstr "Mejor tiempo"
+
+#: src/app/challenge-lost.tsx
+#: src/app/loser.tsx
+#: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
+msgid "Better luck next time!"
+msgstr "¡Mejor suerte la próxima vez!"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Board colors and screen appearance"
+msgstr "Colores del tablero y apariencia de la pantalla"
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "Can you beat them?"
+msgstr "¿Puedes superar su marca?"
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+#: src/screens/components/game-screen/game.screen.tsx
+#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/pause-screen/pause.screen.tsx
+#: src/screens/components/shared-screen/shared-screen.tsx
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+#: src/settings/hooks/use-settings-option-sheet-config.hook.ts
+msgid "Cell spacing"
+msgstr "Espaciado de celdas"
+
+#: src/screens/components/winner-screen/winner.screen.tsx
+msgid "Challenge a Friend"
+msgstr "Retar a un amigo"
+
+#: src/app/challenge-won.tsx
+msgid "Challenge Back"
+msgstr "Devolver el reto"
+
+#: src/app/challenge-lost.tsx
+msgid "Challenge Lost"
+msgstr "Reto perdido"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Challenge lost!"
+msgstr "¡Reto perdido!"
+
+#: src/app/challenge-won.tsx
+msgid "Challenge Won!"
+msgstr "¡Reto ganado!"
+
+#: src/history/components/history-difficulty/history-difficulty.tsx
+msgid "Challenges"
+msgstr "Desafíos"
+
+#: src/game/hooks/use-share-puzzle/use-share-puzzle.hook.ts
+msgid "Check out this Sudoku puzzle!"
+msgstr "¡Mira este sudoku!"
+
+#: src/settings/hooks/use-settings-option-sheet-config.hook.ts
+msgid "Choose how large board digits appear"
+msgstr "Elige el tamaño de los dígitos del tablero"
+
+#: src/settings/hooks/use-settings-option-sheet-config.hook.ts
+msgid "Choose how much space appears between Sudoku cells"
+msgstr "Elige cuánto espacio hay entre las celdas del Sudoku"
+
+#: src/settings/hooks/use-settings-option-sheet-config.hook.ts
+msgid "Choose the color style for the board and app screens"
+msgstr "Elige el estilo de color del tablero y de las pantallas de la app"
+
+#: src/settings/hooks/use-settings-option-sheet-config.hook.ts
+msgid "Choose the language used for menus and game text"
+msgstr "Elige el idioma de menús y textos del juego"
+
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Classic"
+msgstr "Clásico"
+
+#: src/history/components/history-difficulty/history-difficulty.tsx
+msgid "Clean"
+msgstr "Sin errores"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Clean black-and-white board"
+msgstr "Tablero limpio en blanco y negro"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Column"
+msgstr "Columna"
+
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Comfortable"
+msgstr "Cómodo"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Complete rows, columns, and blocks for huge bonuses"
+msgstr "Completa filas, columnas y bloques para obtener bonificaciones enormes"
+
+#: src/history/components/history-games-list/history-games-list.tsx
+msgid "Completed games will be ready for replay."
+msgstr "Las partidas completadas estarán listas para repetir."
+
+#: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
+msgid "Completion animations"
+msgstr "Animaciones de completado"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Completion Bonuses"
+msgstr "Bonificaciones por completar"
+
+#: src/screens/components/home-screen/home-screen-play-actions/home-screen-play-actions.tsx
+#: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
+msgid "Continue"
+msgstr "Continuar"
+
+#: src/@generic/hooks/use-timer-text.hook.ts
+msgid "d"
+msgstr "d"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Dark mode"
+msgstr "Modo oscuro"
+
+#: src/history/components/history-totals-card/history-totals-card.tsx
+msgid "Day streak"
+msgstr "Racha diaria"
+
+#: src/screens/components/home-screen/home.screen.tsx
+msgid "Deep focus"
+msgstr "Concentración intensa"
+
+#: src/settings/constant/language-labels.constant.ts
+msgid "Deutsch"
+msgstr "Deutsch"
+
+#: src/game/components/difficulty-complexity-slider/difficulty-complexity-slider.tsx
+msgid "Difficulty"
+msgstr "Dificultad"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Display"
+msgstr "Pantalla"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Each correct placement starts with a base value:"
+msgstr "Cada colocación correcta comienza con un valor base:"
+
+#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/scoring/components/scoring.screen.tsx
+msgid "Easy"
+msgstr "Fácil"
+
+#: src/settings/constant/language-labels.constant.ts
+msgid "English"
+msgstr "English"
+
+#: src/settings/constant/language-labels.constant.ts
+msgid "Español"
+msgstr "Español"
+
+#: src/screens/components/loser-screen/loser-screen-ukraine-card/loser-screen-ukraine-card.tsx
+msgid "Every $1 donation matters."
+msgstr "Cada donación de 1 $ cuenta."
+
+#: src/screens/components/home-screen/home.screen.tsx
+msgid "Expert grid"
+msgstr "Cuadrícula experta"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Extra points are awarded when your placement completes:"
+msgstr "Ganas puntos extra cuando tu jugada completa:"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "faster!"
+msgstr "¡más rápido!"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Feedback"
+msgstr "Respuesta"
+
+#: src/history/components/history-empty-state/history-empty-state.tsx
+msgid "Finish a puzzle and it will appear here."
+msgstr "Termina un sudoku y aparecerá aquí."
+
+#: src/settings/constant/language-labels.constant.ts
+msgid "Français"
+msgstr "Français"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Game"
+msgstr "Juego"
+
+#: src/app/game.tsx
+#: src/app/pause.tsx
+msgid "Game paused"
+msgstr "Juego en pausa"
+
+#: src/app/history/[difficulty]/index.tsx
+msgid "Game Replay"
+msgstr "Repetición de la partida"
+
+#: src/history/components/history-segmented-control/history-segmented-control.tsx
+#: src/screens/components/history-games-screen/history-games.screen.tsx
+msgid "Games"
+msgstr "Partidas"
+
+#: src/screens/components/home-screen/home.screen.tsx
+msgid "Gentle start"
+msgstr "Inicio suave"
+
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Gold"
+msgstr "Dorado"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Group(3x3 cells)"
+msgstr "Grupo (3x3 celdas)"
+
+#: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
+msgid "Guidance"
+msgstr "Ayudas"
+
+#: src/@generic/hooks/use-timer-text.hook.ts
+msgid "h"
+msgstr "h"
+
+#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/scoring/components/scoring.screen.tsx
+msgid "Hard"
+msgstr "Difícil"
+
+#: src/@generic/utils/get-mistakes-type-text.util.ts
+#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/scoring/components/scoring.screen.tsx
+#: src/screens/components/home-screen/home.screen.tsx
+msgid "Hardcore"
+msgstr "Hardcore"
+
+#: src/screens/components/loser-screen/loser-screen-ukraine-card/loser-screen-ukraine-card.tsx
+msgid "Help"
+msgstr "Ayudar"
+
+#: src/screens/components/pause-screen/pause-screen-ukraine-card/pause-screen-ukraine-card.tsx
+msgid "Help Ukraine win"
+msgstr "Ayuda a Ucrania a ganar"
+
+#: src/@generic/components/donation/donation.tsx
+msgid "Help Ukraine win!"
+msgstr "¡Ayuda a Ucrania a ganar!"
+
+#: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
+msgid "Highlight areas"
+msgstr "Resaltar áreas"
+
+#: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
+msgid "Highlight filled numbers"
+msgstr "Resaltar números colocados"
+
+#: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
+msgid "Highlight matching numbers"
+msgstr "Resaltar números coincidentes"
+
+#: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
+msgid "Highlight pencil marks"
+msgstr "Resaltar notas"
+
+#: src/app/scoring.tsx
+#: src/scoring/components/scoring.screen.tsx
+msgid "How Scoring Works"
+msgstr "Cómo funciona la puntuación"
+
+#: src/game/hooks/use-share-challenge/use-share-challenge.hook.ts
+msgid "I completed this Sudoku in {elapsedTimeString}. Can you beat me?"
+msgstr "He completado este sudoku en {elapsedTimeString}. ¿Puedes superarme?"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Immortal"
+msgstr "Inmortal"
+
+#: src/game/components/game-provider/game-provider.tsx
+msgid "Invalid Sudoku"
+msgstr "Sudoku no válido"
+
+#: src/screens/components/winner-screen/winner.screen.tsx
+msgid "It took you"
+msgstr "Has tardado"
+
+#: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
+msgid "Keep cell selected"
+msgstr "Mantener celda seleccionada"
+
+#: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
+msgid "Keep selection after tapping outside the board"
+msgstr "Mantener la selección al tocar fuera del tablero"
+
+#: src/screens/components/home-screen/home.screen.tsx
+msgid "Keep the streak"
+msgstr "Mantén la racha"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+#: src/settings/hooks/use-settings-option-sheet-config.hook.ts
+msgid "Language"
+msgstr "Idioma"
+
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Large"
+msgstr "Grande"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Larger digits for easier reading"
+msgstr "Dígitos más grandes para leer mejor"
+
+#: src/history/components/replay-header/replay-header.tsx
+msgid "Level"
+msgstr "Nivel"
+
+#: src/screens/components/home-screen/home.screen.tsx
+msgid "Light warm-up"
+msgstr "Calentamiento ligero"
+
+#: src/screens/components/loser-screen/loser.screen.tsx
+msgid "Loooooser =)"
+msgstr "Perdiste =)"
+
+#: src/history/components/history-difficulty/history-difficulty.tsx
+msgid "Lost"
+msgstr "Perdidas"
+
+#: src/@generic/hooks/use-timer-text.hook.ts
+msgid "m"
+msgstr "m"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Max Mistakes bonus"
+msgstr "Bonificación por errores permitidos"
+
+#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/scoring/components/scoring.screen.tsx
+msgid "Medium"
+msgstr "Intermedio"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Menus, settings, and game text"
+msgstr "Menús, ajustes y textos del juego"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Minimum Score"
+msgstr "Puntuación mínima"
+
+#: src/history/components/completed-games-list/completed-game-item.tsx
+#: src/history/components/replay-header/replay-header.tsx
+#: src/scoring/components/scoring.screen.tsx
+#: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
+#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/loser-screen/loser-screen-metrics/loser-screen-metrics.tsx
+#: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
+msgid "Mistakes"
+msgstr "Errores"
+
+#: src/history/components/replay-controls/replay-controls.tsx
+msgid "Move"
+msgstr "Movimiento"
+
+#: src/screens/components/home-screen/home-screen-section-header/home-screen-section-header.tsx
+msgid "New game"
+msgstr "Nueva partida"
+
+#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/scoring/components/scoring.screen.tsx
+msgid "Newbie"
+msgstr "Novato"
+
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Newspaper"
+msgstr "Periódico"
+
+#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/scoring/components/scoring.screen.tsx
+msgid "Nightmare"
+msgstr "Pesadilla"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "no bonus"
+msgstr "sin bonificación"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "No extra gaps between cells"
+msgstr "Sin espacios adicionales entre celdas"
+
+#: src/history/components/history-games-list/history-games-list.tsx
+msgid "No games yet"
+msgstr "Aún no hay partidas"
+
+#: src/screens/components/home-screen/home.screen.tsx
+msgid "No limit"
+msgstr "Sin límite"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "No matter how many penalties, you always earn at least"
+msgstr "Aunque acumules penalizaciones, siempre ganas al menos"
+
+#: src/history/components/history-overview-tab/history-overview-tab.tsx
+msgid "No stats yet"
+msgstr "Aún no hay estadísticas"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+#: src/settings/hooks/use-settings-option-sheet-config.hook.ts
+msgid "Number size"
+msgstr "Tamaño de números"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "of current score"
+msgstr "de la puntuación actual"
+
+#: src/game/components/game-provider/game-provider.tsx
+#: src/screens/components/game-screen/game.screen.tsx
+#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/pause-screen/pause.screen.tsx
+msgid "OK"
+msgstr "OK"
+
+#: src/screens/components/shared-screen/shared-screen.tsx
+msgid "Open puzzle"
+msgstr "Abrir sudoku"
+
+#: src/app/shared/[url].tsx
+#: src/screens/components/shared-screen/shared-screen.tsx
+msgid "Open shared puzzle?"
+msgstr "¿Abrir sudoku compartido?"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Opponent's time:"
+msgstr "Tiempo del rival:"
+
+#: src/history/components/history-segmented-control/history-segmented-control.tsx
+msgid "Overview"
+msgstr "Resumen"
+
+#: src/screens/components/pause-screen/pause-screen-header/pause-screen-header.tsx
+msgid "Paused"
+msgstr "En pausa"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Penalties"
+msgstr "Penalizaciones"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Penalty formula"
+msgstr "Fórmula de penalización"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "per mistake"
+msgstr "por error"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "per second"
+msgstr "por segundo"
+
+#: src/@generic/components/main-tab-layout/main-tab-layout.tsx
+#: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
+#: src/app/(tabs)/index.tsx
+msgid "Play"
+msgstr "Jugar"
+
+#: src/@generic/components/play-again-button/play-again-button.tsx
+#: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
+msgid "Play again"
+msgstr "Jugar de nuevo"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Play on higher difficulties for bigger multipliers"
+msgstr "Juega en dificultades más altas para obtener multiplicadores mayores"
+
+#: src/history/components/history-totals-card/history-totals-card.tsx
+msgid "Played"
+msgstr "Jugadas"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Playing with fewer mistakes allowed gives you a score multiplier:"
+msgstr "Jugar con menos errores permitidos te da un multiplicador de puntuación:"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Points are deducted for:"
+msgstr "Los puntos se deducen por:"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "points per correct placement."
+msgstr "puntos por cada número correcto."
+
+#: src/settings/constant/language-labels.constant.ts
+msgid "Português"
+msgstr "Português"
+
+#: src/app/privacy-policy.tsx
+#: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx
+#: src/settings/component/settings-app-footer/settings-app-footer.tsx
+msgid "Privacy policy"
+msgstr "Política de privacidad"
+
+#: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
+msgid "Quit"
+msgstr "Salir"
+
+#: src/@generic/utils/get-mistakes-type-text.util.ts
+#: src/screens/components/home-screen/home.screen.tsx
+msgid "Relaxed"
+msgstr "Relajado"
+
+#: src/history/components/completed-games-list/completed-game-item.tsx
+#: src/history/components/replay-top-bar/replay-top-bar.tsx
+msgid "Replay"
+msgstr "Repetición"
+
+#: src/settings/component/settings-app-footer/settings-app-footer.tsx
+msgid "Report a bug"
+msgstr "Informar de un error"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Row"
+msgstr "Fila"
+
+#: src/history/components/completed-games-list/completed-game-item.tsx
+#: src/history/components/replay-header/replay-header.tsx
+#: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
+#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
+msgid "Score"
+msgstr "Puntuación"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "score × coefficient × count"
+msgstr "puntuación × coeficiente × cantidad"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
+msgstr "La puntuación se calcula por cada número correcto según la dificultad, las bonificaciones y las penalizaciones."
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Score:"
+msgstr "Puntuación:"
+
+#: src/@generic/components/main-tab-layout/main-tab-layout.tsx
+#: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
+#: src/screens/components/settings-screen/settings.screen.tsx
+#: src/settings/component/settings-page-content/settings-page-content.tsx
+msgid "Settings"
+msgstr "Ajustes"
+
+#: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
+msgid "Shade cells that already have a number"
+msgstr "Sombrear celdas que ya tienen un número"
+
+#: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
+msgid "Share puzzle"
+msgstr "Compartir rompecabezas"
+
+#: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
+msgid "Show cells with the same number as the selected cell"
+msgstr "Mostrar celdas con el mismo número que la celda seleccionada"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Show elapsed time while you play"
+msgstr "Mostrar el tiempo transcurrido mientras juegas"
+
+#: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
+msgid "Show matching notes for the selected cell"
+msgstr "Mostrar notas coincidentes para la celda seleccionada"
+
+#: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
+msgid "Show the row, column, and box for the selected cell"
+msgstr "Mostrar la fila, columna y cuadro de la celda seleccionada"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "slower!"
+msgstr "¡más lento!"
+
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Small"
+msgstr "Pequeño"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Smaller digits for more board space"
+msgstr "Dígitos más pequeños para dejar más espacio al tablero"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Smallest digits for compact boards"
+msgstr "Dígitos mínimos para tableros compactos"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Soft gray board with a paper-like feel"
+msgstr "Tablero gris suave con aspecto de papel"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Space between Sudoku cells"
+msgstr "Espacio entre celdas de Sudoku"
+
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Spacious"
+msgstr "Amplio"
+
+#: src/@generic/utils/get-mistakes-type-text.util.ts
+#: src/scoring/components/scoring.screen.tsx
+#: src/screens/components/home-screen/home.screen.tsx
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Standard"
+msgstr "Estándar"
+
+#: src/screens/components/home-screen/home.screen.tsx
+msgid "Start new puzzle"
+msgstr "Empezar nuevo puzle"
+
+#: src/screens/components/home-screen/home.screen.tsx
+msgid "Start puzzle"
+msgstr "Iniciar sudoku"
+
+#: src/screens/components/history-screen/history.screen.tsx
+msgid "Statistics"
+msgstr "Estadísticas"
+
+#: src/@generic/components/main-tab-layout/main-tab-layout.tsx
+#: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
+#: src/app/(tabs)/history.tsx
+#: src/history/components/history-totals-card/history-totals-card.tsx
+msgid "Stats"
+msgstr "Estadísticas"
+
+#: src/history/components/replay-controls/replay-controls.tsx
+msgid "Step time"
+msgstr "Tiempo por jugada"
+
+#: src/screens/components/game-screen/game.screen.tsx
+#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/pause-screen/pause.screen.tsx
+msgid "Stop current run?"
+msgstr "¿Terminar la partida actual?"
+
+#: src/@generic/components/support-ukraine-pill/support-ukraine-pill.tsx
+msgid "Support"
+msgstr "Apoyar"
+
+#: src/@generic/components/support-ukraine-pill/support-ukraine-pill.tsx
+#: src/settings/component/settings-app-footer/settings-app-footer.tsx
+msgid "Support Ukraine"
+msgstr "Apoya a Ucrania"
+
+#: src/screens/components/home-screen/home.screen.tsx
+msgid "suuudokuuu"
+msgstr "suuudokuuu"
+
+#: src/settings/component/settings-app-footer/settings-app-footer.tsx
+msgid "suuudokuuu · v{version}"
+msgstr "suuudokuuu · v{version}"
+
+#: src/game/hooks/use-share-challenge/use-share-challenge.hook.ts
+msgid "SuuudokuuU Challenge"
+msgstr "Reto de SuuudokuuU"
+
+#: src/game/hooks/use-share-puzzle/use-share-puzzle.hook.ts
+msgid "SuuudokuuU Sudoku Puzzle"
+msgstr "Sudoku de SuuudokuuU"
+
+#: src/@generic/components/page-header/page-header.tsx
+msgid "SuuudokuuU The Game"
+msgstr "SuuudokuuU: el juego"
+
+#: src/settings/constant/language-labels.constant.ts
+msgid "Svenska"
+msgstr "Svenska"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+#: src/settings/hooks/use-settings-option-sheet-config.hook.ts
+msgid "Theme"
+msgstr "Tema"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "This value is multiplied by the difficulty coefficient:"
+msgstr "Este valor se multiplica por el coeficiente de dificultad:"
+
+#: src/screens/components/home-screen/home.screen.tsx
+msgid "Three mistakes"
+msgstr "Tres errores"
+
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Tight"
+msgstr "Ajustado"
+
+#: src/history/components/completed-games-list/completed-game-item.tsx
+#: src/history/components/replay-header/replay-header.tsx
+#: src/scoring/components/scoring.screen.tsx
+#: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
+#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/loser-screen/loser-screen-metrics/loser-screen-metrics.tsx
+#: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
+msgid "Time"
+msgstr "Tiempo"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Timer"
+msgstr "Temporizador"
+
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Tiny"
+msgstr "Muy pequeño"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Tips for High Scores"
+msgstr "Consejos para puntuaciones altas"
+
+#: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
+msgid "Too many mistakes"
+msgstr "Demasiados errores"
+
+#: src/challenge/components/challenge-try-again-button/challenge-try-again-button.tsx
+msgid "Try Again"
+msgstr "Intentar de nuevo"
+
+#: src/screens/components/pause-screen/pause-screen-ukraine-card/pause-screen-ukraine-card.tsx
+msgid "Ukraine keeps fighting"
+msgstr "Ucrania sigue luchando"
+
+#: src/screens/components/loser-screen/loser-screen-ukraine-card/loser-screen-ukraine-card.tsx
+msgid "Ukraine needs to win too"
+msgstr "Ucrania también necesita ganar"
+
+#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Unknown"
+msgstr "Desconocido"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Use a dark color scheme"
+msgstr "Usar un esquema de color oscuro"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Use Arabic for app text"
+msgstr "Usar árabe para el texto de la app"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Use Bengali for app text"
+msgstr "Usar bengalí para el texto de la app"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Use Chinese for app text"
+msgstr "Usar chino para el texto de la app"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Use English for app text"
+msgstr "Usar inglés para el texto de la app"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Use French for app text"
+msgstr "Usar francés para el texto de la app"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Use German for app text"
+msgstr "Usar alemán para el texto de la app"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Use Hindi for app text"
+msgstr "Usar hindi para el texto de la app"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Use Indonesian for app text"
+msgstr "Usar indonesio para el texto de la app"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Use Portuguese for app text"
+msgstr "Usar portugués para el texto de la app"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Use Spanish for app text"
+msgstr "Usar español para el texto de la app"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Use Swedish for app text"
+msgstr "Usar sueco para el texto de la app"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Use Ukrainian for app text"
+msgstr "Usar ucraniano para el texto de la app"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Use Urdu for app text"
+msgstr "Usar urdu para el texto de la app"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Vibrate on taps and game actions"
+msgstr "Vibrar al tocar y en acciones del juego"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Vibration"
+msgstr "Vibración"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Warm gold accents for a brighter board"
+msgstr "Acentos dorados cálidos para un tablero más luminoso"
+
+#: src/@generic/utils/donation-get-text.util.ts
+msgid "While you were away Ukraine continued its fight for freedom!\n"
+"\n"
+"Every 1$ donation matters!"
+msgstr "¡Mientras no estabas, Ucrania continuó su lucha por la libertad!\n"
+"\n"
+"¡Cada donación de 1 $ cuenta!"
+
+#: src/screens/components/pause-screen/pause-screen-ukraine-card/pause-screen-ukraine-card.tsx
+msgid "While you were away, the fight for freedom continued. Every $1 makes a difference."
+msgstr "Mientras estabas fuera, la lucha por la libertad continuó. Cada donación de 1 $ marca la diferencia."
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Wider gaps for easier tapping"
+msgstr "Espacios más amplios para tocar con más facilidad"
+
+#: src/history/components/history-totals-card/history-totals-card.tsx
+msgid "Win rate"
+msgstr "Porcentaje de victorias"
+
+#: src/screens/components/winner-screen/winner.screen.tsx
+msgid "Winners-winner, \n"
+" chicken dinner!"
+msgstr "¡Victoria redonda!\n"
+"¡A celebrarlo!"
+
+#: src/app/winner.tsx
+msgid "Winners-winner, chicken dinner!"
+msgstr "¡Victoria redonda! ¡A celebrarlo!"
+
+#: src/history/components/history-difficulty/history-difficulty.tsx
+msgid "Won"
+msgstr "Ganadas"
+
+#: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
+msgid "You got to"
+msgstr "Llegaste al"
+
+#: src/screens/components/winner-screen/winner.screen.tsx
+msgid "You have scored"
+msgstr "Has conseguido"
+
+#: src/@generic/utils/donation-get-text.util.ts
+msgid "You lost but Ukraine must win!\n"
+"\n"
+"Every 1$ donation matters!"
+msgstr "¡Perdiste, pero Ucrania debe ganar!\n"
+"\n"
+"¡Cada donación de 1 $ cuenta!"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "You were"
+msgstr "Fuiste"
+
+#: src/@generic/utils/donation-get-text.util.ts
+msgid "You won and Ukraine needs to!\n"
+"\n"
+"Every 1$ donation matters!"
+msgstr "¡Ganaste y Ucrania tiene que ganar!\n"
+"\n"
+"¡Cada donación de 1 $ cuenta!"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "You won the challenge!"
+msgstr "¡Ganaste el reto!"
+
+#: src/screens/components/home-screen/home.screen.tsx
+msgid "Your best run"
+msgstr "Tu mejor partida"
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "Your opponent completed this puzzle in"
+msgstr "Tu rival lo completó en"
+
+#: src/screens/components/pause-screen/pause.screen.tsx
+msgid "Your progress"
+msgstr "Tu progreso"
+
+#: src/history/components/history-overview-tab/history-overview-tab.tsx
+msgid "Your stats will build as you finish puzzles."
+msgstr "Tus estadísticas crecerán cuando termines sudokus."
+
+#: src/history/components/history-totals-card/history-totals-card.tsx
+msgid "Your sudoku journey"
+msgstr "Tu viaje de Sudoku"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Your time:"
+msgstr "Tu tiempo:"
+
+#: src/screens/components/home-screen/home.screen.tsx
+msgid "Zero mistakes"
+msgstr "Cero errores"
+
+#: src/settings/constant/language-labels.constant.ts
+msgid "Українська"
+msgstr "Українська"
+
+#: src/settings/constant/language-labels.constant.ts
+msgid "اردو"
+msgstr "اردو"
+
+#: src/settings/constant/language-labels.constant.ts
+msgid "العربية"
+msgstr "العربية"
+
+#: src/settings/constant/language-labels.constant.ts
+msgid "हिन्दी"
+msgstr "हिन्दी"
+
+#: src/settings/constant/language-labels.constant.ts
+msgid "বাংলা"
+msgstr "বাংলা"
+
+#: src/settings/constant/language-labels.constant.ts
+msgid "中文"
+msgstr "中文"

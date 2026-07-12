@@ -1,0 +1,53 @@
+import { Check } from 'lucide-react-native';
+import { use } from 'react';
+import { Pressable, View } from 'react-native';
+
+import { isNotEmptyString } from '@rnw-community/shared';
+
+import { BlackText } from '../../../@generic/components/black-text/black-text';
+import { ThemeContext } from '../../../theme/context/theme.context';
+import { SettingsOptionSheetSelectors } from '../settings-option-sheet/settings-option-sheet.selectors';
+
+import { SettingsOptionSheetRowStyles as styles } from './settings-option-sheet-row.styles';
+
+interface Props {
+    readonly description?: string;
+    readonly isSelected: boolean;
+    readonly label: string;
+    readonly onPress: () => void;
+}
+
+export const SettingsOptionSheetRow = ({ description = '', isSelected, label, onPress }: Props) => {
+    const { theme } = use(ThemeContext);
+
+    const containerStyles = [styles.container, { backgroundColor: theme.colors.candidate.bg }];
+    const titleStyles = [styles.title, isSelected ? styles.selectedTitle : null];
+    const descriptionStyles = [styles.description, { color: theme.colors.label.hint }];
+    const checkColor = theme.colors.label.main;
+    const check = isSelected ? <Check color={checkColor} height={22} strokeWidth={2.25} width={22} /> : null;
+    const accessibilityState = { selected: isSelected };
+    const accessibilityLabel = isNotEmptyString(description) ? `${label}, ${description}` : label;
+
+    return (
+        <Pressable
+            accessibilityLabel={accessibilityLabel}
+            accessibilityRole="button"
+            accessibilityState={accessibilityState}
+            onPress={onPress}
+            style={containerStyles}
+            testID={SettingsOptionSheetSelectors.Option}
+        >
+            <View style={styles.content}>
+                <BlackText numberOfLines={1} style={titleStyles}>
+                    {label}
+                </BlackText>
+                {isNotEmptyString(description) ? (
+                    <BlackText numberOfLines={1} style={descriptionStyles}>
+                        {description}
+                    </BlackText>
+                ) : null}
+            </View>
+            {check}
+        </Pressable>
+    );
+};

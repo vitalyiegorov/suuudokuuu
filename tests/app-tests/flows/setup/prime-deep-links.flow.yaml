@@ -1,0 +1,21 @@
+appId: ${APP_ID}
+---
+- launchApp:
+    clearState: false
+- extendedWaitUntil:
+    visible:
+      id: 'HomeScreenSelectors.Root'
+    timeout: 30000
+- openLink: 'suuudokuuu://'
+- runFlow:
+    when:
+      visible: '^Open$'
+    commands:
+      - tapOn: '^Open$'
+      - extendedWaitUntil:
+          notVisible: '^Open$'
+          timeout: 5000
+- extendedWaitUntil:
+    visible:
+      id: 'HomeScreenSelectors.Root'
+    timeout: 30000

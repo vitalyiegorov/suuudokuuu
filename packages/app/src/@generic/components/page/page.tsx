@@ -3,12 +3,15 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { ThemeContext } from '../../../theme/context/theme.context';
 
+import { PageSafeAreaEdges } from './constant/page-safe-area-edges.constant';
+
 import type { ComponentProps } from 'react';
 
 export const Page = (props: ComponentProps<typeof SafeAreaView>) => {
+    const { edges = PageSafeAreaEdges, style, ...restProps } = props;
     const { theme } = use(ThemeContext);
 
-    const style = [{ flex: 1 }, { backgroundColor: theme.colors.background }];
+    const containerStyle = [{ flex: 1 }, { backgroundColor: theme.colors.background }, style];
 
-    return <SafeAreaView style={style} {...props} />;
+    return <SafeAreaView edges={edges} style={containerStyle} {...restProps} />;
 };

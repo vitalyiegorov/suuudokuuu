@@ -1,4 +1,4 @@
-import { Sudoku, isEmptyScoredCells } from '@suuudokuuu/generator';
+import { isEmptyScoredCells } from '@suuudokuuu/generator';
 import { type Ref, use, useImperativeHandle, useState } from 'react';
 import { View } from 'react-native';
 import { interpolate, interpolateColor, useAnimatedStyle, useSharedValue, withSequence, withTiming } from 'react-native-reanimated';
@@ -11,6 +11,7 @@ import { ThemeContext } from '../../../theme/context/theme.context';
 import { GameContext } from '../../context/game.context';
 import { useCellFontSize } from '../../hooks/use-cell-font-size.hook';
 import { gameCandidatesSelector, gameShowAutoCandidatesSelector } from '../../store/game.selectors';
+import { gameGetCellKeysToAnimate } from '../../utils/game-get-cell-keys-to-animate.util';
 import { FieldCell } from '../field-cell/field-cell';
 import { FieldCellCandidates } from '../field-cell-candidates/field-cell-candidates';
 import { FieldCellText } from '../field-cell-text/field-cell-text';
@@ -26,19 +27,6 @@ const FONT_SIZE_MULTIPLIER = 1.5;
 export interface FieldRef {
     triggerAnimation: OnEventFn<ScoredCellsInterface>;
 }
-
-const getCellKeysToAnimate = (sudoku: Sudoku, scored: ScoredCellsInterface) => {
-    const newAnimatedCells = new Set<string>();
-    sudoku.Field.forEach(row => {
-        row.forEach(cell => {
-            if (sudoku.isScoredCell(cell, scored)) {
-                newAnimatedCells.add(getCellKey(cell));
-            }
-        });
-    });
-
-    return newAnimatedCells;
-};
 
 interface Props {
     readonly selectedCell?: CellInterface;
@@ -74,7 +62,7 @@ export const Field = ({ selectedCell, onSelect, ref }: Props) => {
             }
 
             const runAnimation = () => {
-                setAnimatedCells(getCellKeysToAnimate(sudoku, scoredCells));
+                setAnimatedCells(gameGetCellKeysToAnimate(sudoku, scoredCells));
 
                 textAnimation.value = withSequence(withTiming(1, textAnimationConfig), withTiming(0, { duration: 0 }));
             };
