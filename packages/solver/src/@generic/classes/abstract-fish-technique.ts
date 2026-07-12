@@ -6,6 +6,7 @@ import type { CandidateContext } from './candidate-context/candidate-context';
 import type { CandidateUnitInterface } from '../interfaces/candidate-unit.interface';
 import type { SizedTechniqueDescriptorInterface } from '../interfaces/sized-technique-descriptor.interface';
 import type { TechniqueResultInterface } from '../interfaces/technique-result.interface';
+import type { TechniqueSearchTargetInterface } from '../interfaces/technique-search-target.interface';
 import type { FinnedFishBaseType } from '../types/finned-fish-base.type';
 import type { LineType } from '../types/line.type';
 import type { CellInterface } from '@suuudokuuu/generator';
@@ -13,16 +14,15 @@ import type { CellInterface } from '@suuudokuuu/generator';
 export abstract class AbstractFishTechnique<
     TDescriptor extends SizedTechniqueDescriptorInterface = SizedTechniqueDescriptorInterface
 > extends AbstractSizedTechnique<TDescriptor> {
-    find(context: CandidateContext): TechniqueResultInterface[] {
-        return [...this.findByBaseType(context, 'row'), ...this.findByBaseType(context, 'column')];
-    }
-
-    findForMove(context: CandidateContext, cell: CellInterface, value: number): TechniqueResultInterface[] {
-        const eliminationValues = context.getCandidates(cell).filter(candidate => candidate !== value);
+    find(context: CandidateContext, target?: TechniqueSearchTargetInterface): TechniqueResultInterface[] {
+        const eliminationValues = target
+            ? context.getCandidates(target.cell).filter(candidate => candidate !== target.value)
+            : context.getValues();
+        const targetCell = target?.cell;
 
         return [
-            ...this.findByBaseType(context, 'row', eliminationValues, cell),
-            ...this.findByBaseType(context, 'column', eliminationValues, cell)
+            ...this.findByBaseType(context, 'row', eliminationValues, targetCell),
+            ...this.findByBaseType(context, 'column', eliminationValues, targetCell)
         ];
     }
 
