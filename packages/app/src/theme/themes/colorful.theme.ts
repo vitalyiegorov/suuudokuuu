@@ -1,4 +1,4 @@
-import type { ThemeInterface } from '@suuudokuuu/ui';
+import type { ThemeInterface } from '@suuudokuuu/ui/theme';
 
 export const ColorfulLightTheme: ThemeInterface = {
     colors: {

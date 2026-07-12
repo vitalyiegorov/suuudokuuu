@@ -1,4 +1,4 @@
-import { Breakpoints } from '@suuudokuuu/ui';
+import { Breakpoints } from '@suuudokuuu/ui/theme';
 import { StyleSheet } from 'react-native-unistyles';
 
 import { UnistylesThemesConstant } from './constant/unistyles-themes.constant';
