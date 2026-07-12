@@ -43,6 +43,10 @@ export class XChainTechnique implements TechniqueStrategyInterface {
             };
 
             this.collectResults(roots, scan);
+
+            if (target && results.length > 0) {
+                return results;
+            }
         }
 
         return target ? results : getCanonicalTechniqueResults(results);
@@ -66,6 +70,10 @@ export class XChainTechnique implements TechniqueStrategyInterface {
             if (scan.target && scan.results.length > scan.resultsAtStart) {
                 return;
             }
+
+            const canonicalResults = getCanonicalTechniqueResults(scan.results);
+
+            scan.results.splice(0, scan.results.length, ...canonicalResults);
         }
     }
 

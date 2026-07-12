@@ -29,9 +29,7 @@ export class XYChainTechnique implements TechniqueStrategyInterface {
         const eliminationValues = getSearchEliminationValues(context, target);
 
         for (const eliminationValue of eliminationValues) {
-            const roots = this.getRoots(context, eliminationValue, target);
-
-            for (const root of roots) {
+            for (const root of this.getRoots(context, eliminationValue, target)) {
                 const linkValue = context.getCandidates(root).find(candidate => candidate !== eliminationValue);
 
                 if (isDefined(linkValue)) {
@@ -49,7 +47,13 @@ export class XYChainTechnique implements TechniqueStrategyInterface {
                     if (scan.target && scan.results.length > scan.resultsAtStart) {
                         break;
                     }
+
+                    scan.results.splice(0, scan.results.length, ...getCanonicalTechniqueResults(scan.results));
                 }
+            }
+
+            if (target && results.length > 0) {
+                return results;
             }
         }
 

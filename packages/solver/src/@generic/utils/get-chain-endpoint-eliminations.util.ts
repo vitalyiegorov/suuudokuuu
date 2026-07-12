@@ -2,6 +2,7 @@ import { isDefined } from '@rnw-community/shared';
 
 import { getCommonPeerEliminations } from './get-common-peer-eliminations.util';
 import { getTargetEliminations } from './get-target-eliminations.util';
+import { isSameCell } from './is-same-cell.util';
 
 import type { CandidateContext } from '../classes/candidate-context/candidate-context';
 import type { CandidateEliminationInterface } from '../interfaces/candidate-elimination.interface';
@@ -18,6 +19,10 @@ export const getChainEndpointEliminations = (
     const lastCell = path[path.length - 1];
 
     if (!isDefined(firstCell) || !isDefined(lastCell)) {
+        return [];
+    }
+
+    if (target && path.some(cell => isSameCell(cell, target.cell))) {
         return [];
     }
 
