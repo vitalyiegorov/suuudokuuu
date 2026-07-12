@@ -1,4 +1,4 @@
-import { createEmptyField, defaultSudokuConfig } from '@suuudokuuu/generator';
+import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 
 import { CandidateContext } from '../classes/candidate-context/candidate-context';
 
@@ -6,7 +6,7 @@ import type { CandidateCellSpecType } from '../types/candidate-cell-spec.spec.ty
 import type { CandidateMapType } from '../types/candidate-map.type';
 
 export const createCandidateContextFromMap = (...candidateSpecs: CandidateCellSpecType[]): CandidateContext => {
-    const field = createEmptyField(defaultSudokuConfig);
+    const field = Sudoku.fromString('.'.repeat(defaultSudokuConfig.fieldSize * defaultSudokuConfig.fieldSize), defaultSudokuConfig).Field;
     const candidateMap: CandidateMapType = {};
 
     for (const [rowIndex, columnIndex, candidates] of candidateSpecs) {

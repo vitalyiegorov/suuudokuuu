@@ -1,5 +1,5 @@
 import { describe, expect, it } from '@jest/globals';
-import { createEmptyField, defaultSudokuConfig } from '@suuudokuuu/generator';
+import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 
 import { SolutionTechniqueEnum } from '../enums/solution-technique.enum';
 
@@ -7,7 +7,7 @@ import { getCanonicalTechniqueResults } from './get-canonical-technique-results.
 
 import type { TechniqueResultInterface } from '../interfaces/technique-result.interface';
 
-const field = createEmptyField(defaultSudokuConfig);
+const field = Sudoku.fromString('.'.repeat(defaultSudokuConfig.fieldSize * defaultSudokuConfig.fieldSize), defaultSudokuConfig).Field;
 const [firstCell, secondCell, thirdCell] = field[0].slice(0, 3);
 
 const createResult = (reasonCells: TechniqueResultInterface['reasonCells']): TechniqueResultInterface => ({

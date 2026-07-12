@@ -5,7 +5,6 @@ import { createTechniqueStrategies } from '../../utils/create-technique-strategi
 import { isSameCell } from '../../utils/is-same-cell.util';
 import { CandidateContext } from '../candidate-context/candidate-context';
 
-import type { SolutionTechniqueEnum } from '../../enums/solution-technique.enum';
 import type { MoveClassificationInterface } from '../../interfaces/move-classification.interface';
 import type { TechniqueResultInterface } from '../../interfaces/technique-result.interface';
 import type { TechniqueStrategyInterface } from '../../interfaces/technique-strategy.interface';
@@ -53,10 +52,6 @@ export class TechniqueManager {
         }
 
         return { technique: this.guessTechnique.technique, value: targetValue };
-    }
-
-    identify(cell: CellInterface): SolutionTechniqueEnum {
-        return this.identifyMove(cell).technique;
     }
 
     private getTargetValue(cell: CellInterface): number {

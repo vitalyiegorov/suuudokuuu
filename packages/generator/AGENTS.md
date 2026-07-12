@@ -64,3 +64,7 @@ yarn test && yarn ts && yarn lint && yarn build
 ```
 
 Run the root validation sequence before finishing.
+
+## Exports
+
+The public API is exported from `src/index.ts` and includes `Sudoku`, difficulty/config, field/cell, available-value, and scored-cell APIs. `createEmptyField` remains an internal utility.

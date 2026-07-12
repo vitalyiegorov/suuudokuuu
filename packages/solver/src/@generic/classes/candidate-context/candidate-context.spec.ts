@@ -1,5 +1,5 @@
 import { describe, expect, it } from '@jest/globals';
-import { createEmptyField, defaultSudokuConfig } from '@suuudokuuu/generator';
+import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 
 import { CandidateContext } from './candidate-context';
 
@@ -12,7 +12,10 @@ describe('CandidateContext', () => {
     it('should return candidates from candidate map', () => {
         expect.assertions(3);
 
-        const field = createEmptyField(defaultSudokuConfig);
+        const field = Sudoku.fromString(
+            '.'.repeat(defaultSudokuConfig.fieldSize * defaultSudokuConfig.fieldSize),
+            defaultSudokuConfig
+        ).Field;
         const candidateMap: CandidateMapType = {
             [getCellKey(field[0][0])]: [1, 2],
             [getCellKey(field[0][1])]: [3]
@@ -27,7 +30,10 @@ describe('CandidateContext', () => {
     it('should preserve a snapshot when the supplied candidate map changes', () => {
         expect.assertions(1);
 
-        const field = createEmptyField(defaultSudokuConfig);
+        const field = Sudoku.fromString(
+            '.'.repeat(defaultSudokuConfig.fieldSize * defaultSudokuConfig.fieldSize),
+            defaultSudokuConfig
+        ).Field;
         const candidates = [1, 2];
         const candidateMap: CandidateMapType = {
             [getCellKey(field[0][0])]: candidates
@@ -42,7 +48,10 @@ describe('CandidateContext', () => {
     it('should return row column and group cells', () => {
         expect.assertions(3);
 
-        const field = createEmptyField(defaultSudokuConfig);
+        const field = Sudoku.fromString(
+            '.'.repeat(defaultSudokuConfig.fieldSize * defaultSudokuConfig.fieldSize),
+            defaultSudokuConfig
+        ).Field;
         const context = new CandidateContext(defaultSudokuConfig, field);
 
         expect(context.getRowCells(1).map(getCellKey)).toEqual(['1:0', '1:1', '1:2', '1:3', '1:4', '1:5', '1:6', '1:7', '1:8']);
@@ -53,7 +62,10 @@ describe('CandidateContext', () => {
     it('should return unique peers without the source cell', () => {
         expect.assertions(3);
 
-        const field = createEmptyField(defaultSudokuConfig);
+        const field = Sudoku.fromString(
+            '.'.repeat(defaultSudokuConfig.fieldSize * defaultSudokuConfig.fieldSize),
+            defaultSudokuConfig
+        ).Field;
         const context = new CandidateContext(defaultSudokuConfig, field);
         const peers = context.getPeers(field[0][0]);
         const peerKeys = peers.map(getCellKey);
@@ -66,7 +78,10 @@ describe('CandidateContext', () => {
     it('should return common peers for multiple cells', () => {
         expect.assertions(3);
 
-        const field = createEmptyField(defaultSudokuConfig);
+        const field = Sudoku.fromString(
+            '.'.repeat(defaultSudokuConfig.fieldSize * defaultSudokuConfig.fieldSize),
+            defaultSudokuConfig
+        ).Field;
         const context = new CandidateContext(defaultSudokuConfig, field);
         const commonPeers = context.getCommonPeers([field[0][0], field[1][1]]);
         const commonPeerKeys = commonPeers.map(getCellKey);
@@ -79,7 +94,10 @@ describe('CandidateContext', () => {
     it('should return empty collections for cells outside the cached board', () => {
         expect.assertions(3);
 
-        const field = createEmptyField(defaultSudokuConfig);
+        const field = Sudoku.fromString(
+            '.'.repeat(defaultSudokuConfig.fieldSize * defaultSudokuConfig.fieldSize),
+            defaultSudokuConfig
+        ).Field;
         const context = new CandidateContext(defaultSudokuConfig, field);
         const unknownCell = { ...field[0][0], x: 99, y: 99, group: 99 };
 

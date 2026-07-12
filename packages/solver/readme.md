@@ -2,6 +2,10 @@
 
 Sudoku solving-technique detection package: identifies which named technique (Full House, Naked Single, X-Wing, XY-Chain, ...) justifies a move on a given board.
 
+## Public API
+
+The package exports `TechniqueManager`, `SolutionTechniqueEnum`, `TechniqueResultInterface`, and `MoveClassificationInterface`.
+
 ## References
 
 - https://sudoku.coach/en/learn
