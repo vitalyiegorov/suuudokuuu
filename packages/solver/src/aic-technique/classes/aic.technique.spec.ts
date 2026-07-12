@@ -27,16 +27,6 @@ const expectChainResult = (candidateSpecs: CandidateCellSpecType[]): void => {
                 [0, 0],
                 [0, 3]
             ]
-        },
-        {
-            technique: SolutionTechniqueEnum.AIC,
-            kind: 'elimination',
-            result: [0, 8, 1],
-            eliminations: [[0, 8, 1]],
-            reasonCells: [
-                [0, 0],
-                [0, 3]
-            ]
         }
     ]);
 };
@@ -64,5 +54,25 @@ describe('AICTechnique', () => {
         const results = new AICTechnique().find(context);
 
         expect(results).toEqual([]);
+    });
+
+    it('finds a targeted deduction that leaves the played value', () => {
+        expect.assertions(1);
+
+        const context = createCandidateContextFromMap([0, 0, [1, 2]], [0, 3, [1, 2]], [0, 4, [1, 6]]);
+        const [targetCell] = context.getRowCells(0).slice(4, 5);
+
+        expectTechniqueResults(context, new AICTechnique().find(context, { cell: targetCell, value: 6 }), [
+            {
+                technique: SolutionTechniqueEnum.AIC,
+                kind: 'elimination',
+                result: [0, 4, 1],
+                eliminations: [[0, 4, 1]],
+                reasonCells: [
+                    [0, 0],
+                    [0, 3]
+                ]
+            }
+        ]);
     });
 });

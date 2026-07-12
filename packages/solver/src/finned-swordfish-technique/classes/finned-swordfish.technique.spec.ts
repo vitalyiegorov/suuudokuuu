@@ -87,11 +87,10 @@ describe('FinnedSwordfishTechnique', () => {
 
         expectTechniqueResults(
             context,
-            new FinnedFishTechnique({ technique: SolutionTechniqueEnum.FinnedSwordfish, size: 3, sashimi: false }).findForMove(
-                context,
-                targetCell,
-                8
-            ),
+            new FinnedFishTechnique({ technique: SolutionTechniqueEnum.FinnedSwordfish, size: 3, sashimi: false }).find(context, {
+                cell: targetCell,
+                value: 8
+            }),
             [
                 {
                     technique: SolutionTechniqueEnum.FinnedSwordfish,

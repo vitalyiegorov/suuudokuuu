@@ -5,6 +5,7 @@ import { SolutionTechniqueEnum } from '../../enums/solution-technique.enum';
 
 import { TechniqueManager } from './technique-manager';
 
+import type { TechniqueSearchTargetInterface } from '../../interfaces/technique-search-target.interface';
 import type { TechniqueStrategyInterface } from '../../interfaces/technique-strategy.interface';
 
 const createEmptyStrategy = (): TechniqueStrategyInterface => ({
@@ -143,7 +144,7 @@ describe('TechniqueManager', () => {
         expect(result).toEqual({ technique: SolutionTechniqueEnum.Guess, value: suppliedValue });
     });
 
-    it('should use targeted strategy detection when available', () => {
+    it('passes the move target through the single strategy find method', () => {
         expect.assertions(3);
 
         const sudoku = Sudoku.fromStrings(
@@ -159,17 +160,13 @@ describe('TechniqueManager', () => {
             '.........'
         );
         const [targetCell] = sudoku.Field[0].slice(-1);
-        let broadFindCalls = 0;
-        let targetedFindCalls = 0;
-        const strategy = {
+        let findCalls = 0;
+        let receivedTarget: TechniqueSearchTargetInterface | undefined;
+        const strategy: TechniqueStrategyInterface = {
             technique: SolutionTechniqueEnum.FullHouse,
-            find: () => {
-                broadFindCalls += 1;
-
-                return [];
-            },
-            findForMove: () => {
-                targetedFindCalls += 1;
+            find: (_context, target) => {
+                findCalls += 1;
+                receivedTarget = target;
 
                 return [
                     {
@@ -184,11 +181,12 @@ describe('TechniqueManager', () => {
             }
         };
 
-        const result = new TechniqueManager(sudoku, [strategy]).identifyMove({ ...targetCell, value: 9 });
+        const targetMove = { ...targetCell, value: 9 };
+        const result = new TechniqueManager(sudoku, [strategy]).identifyMove(targetMove);
 
         expect(result.technique).toBe(SolutionTechniqueEnum.FullHouse);
-        expect(targetedFindCalls).toBe(1);
-        expect(broadFindCalls).toBe(0);
+        expect(findCalls).toBe(1);
+        expect(receivedTarget).toEqual({ cell: targetMove, value: 9 });
     });
 
     it('should not treat an eliminated candidate as a justified placement', () => {

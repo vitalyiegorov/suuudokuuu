@@ -44,7 +44,7 @@ export class TechniqueManager {
         const targetValue = this.getTargetValue(cell);
 
         for (const strategy of this.strategies) {
-            const results = strategy.findForMove?.(context, cell, targetValue) ?? strategy.find(context);
+            const results = strategy.find(context, { cell, value: targetValue });
             const result = results.find(candidate => this.isResultForMove(context, candidate, cell, targetValue));
 
             if (isDefined(result)) {
