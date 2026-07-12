@@ -31,10 +31,12 @@ src/
 │   ├── interfaces/                     # TechniqueResult, CandidateElimination, ...
 │   ├── types/                          # CandidateMapType, LineType, FinnedFish*, ...
 │   └── utils/                          # Pure result, cell, peer, and registry helpers
-└── *-technique/
-    └── classes/
-        ├── *.technique.ts              # Strategy class when behavior is unique
-        └── *.technique.spec.ts         # Focused named-technique coverage
+├── *-technique/                       # One feature folder per solving technique
+│   ├── classes/                        # Strategy and focused colocated tests
+│   ├── constants/                      # Feature-owned constants when needed
+│   ├── interfaces/                     # Feature-owned object contracts when needed
+│   ├── types/                          # Feature-owned type aliases when needed
+│   └── utils/                          # Reusable feature-owned pure helpers when needed
 ```
 
 ## Key Concepts
@@ -52,7 +54,7 @@ Logical strategies run in `SolutionTechniqueEnum` difficulty order from `createT
 
 ### SolutionTechniqueEnum
 
-Enum values double as difficulty ranking (lower = simpler); `Guess = 0` is the fallback, never emitted by logical strategies. `SimpleColoring` and `AIC` are reserved names not yet produced by any strategy — do not assert them in tests until implemented.
+Enum values double as difficulty ranking (lower = simpler); `Guess = 0` is the fallback, never emitted by logical strategies. `SimpleColoring` and `AIC` are represented by their own feature folders and are part of the technique registry; keep their enum names and labels aligned with those modules.
 
 ### CandidateContext
 

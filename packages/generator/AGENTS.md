@@ -18,14 +18,13 @@ yarn test:coverage
 
 ```text
 src/
-├── classes/
-│   ├── dlx/                   # Dancing Links exact-cover solver
-│   ├── serializable-sudoku/   # Base serialization and field state
-│   └── sudoku/                # Generation, gameplay, navigation, scoring hooks
-├── enums/                     # DifficultyEnum
-├── interfaces/                # Cell, field, config, scored-cell interfaces
-├── types/                     # Shared type aliases
-└── util/                      # Pure helper utilities
+├── @generic/                  # Shared enums, interfaces, types, and utilities
+├── dlx/                       # Dancing Links exact-cover solver feature
+│   └── classes/
+├── serializable-sudoku/       # Base serialization and field state feature
+│   └── classes/
+└── sudoku/                    # Generation, gameplay, navigation, and scoring feature
+    └── classes/
 ```
 
 ## Domain Rules
