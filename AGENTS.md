@@ -125,6 +125,14 @@ Use `.filter(isDefined)` only when the mapped array can actually contain nullish
 - Maestro E2E coverage lives under `tests/app-tests`.
 - Add or update tests when changing puzzle generation, solving, serialization, scoring, persistence migrations, or externally visible behavior.
 
+## Delegation And Model Economy
+
+- The primary agent owns architecture, ambiguous decisions, cross-package integration, and final verification.
+- Delegate only bounded, well-specified work with clear file ownership and acceptance tests.
+- Use the smallest capable worker for mechanical edits, translations, documentation, and routine test migration. A balanced worker with moderate reasoning is the default for ordinary implementation.
+- Reserve frontier-level workers and high reasoning effort for novel algorithms, high-risk debugging, architecture, and final review.
+- Keep delegated prompts narrow, avoid duplicate investigation, and verify every returned change independently before integration.
+
 ## Git Commits And Pull Requests
 
 Use Conventional Commits for commit messages and PR titles:

@@ -9,6 +9,5 @@ Sudoku solving-technique detection package: identifies which named technique (Fu
 
 ## TODO
 
-- [ ] Implement true alternating strong/weak link chains (AIC, Simple Coloring)
 - [ ] Extend fish detection to finned/sashimi Jellyfish
 - [ ] Benchmark full-board scans on nightmare puzzles
