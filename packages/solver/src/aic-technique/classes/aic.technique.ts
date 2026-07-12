@@ -34,6 +34,31 @@ export class AICTechnique implements TechniqueStrategyInterface {
         return this.findBroadResults(graph, results, startNodes);
     }
 
+    protected collectResults(scan: AICScanInterface, path: CandidateNodeInterface[], requiresStrongLink: boolean): void {
+        const currentNode = path[path.length - 1];
+
+        if (!isDefined(currentNode) || scan.hasTargetResult || scan.linkVisits >= AIC_MAX_LINK_VISITS) {
+            return;
+        }
+
+        const neighborKeys = requiresStrongLink
+            ? scan.graph.strongNeighborsByKey.get(currentNode.key)
+            : scan.graph.weakNeighborsByKey.get(currentNode.key);
+
+        for (const neighborKey of [...(neighborKeys ?? [])].sort()) {
+            if (scan.linkVisits >= AIC_MAX_LINK_VISITS) {
+                return;
+            }
+
+            scan.linkVisits += 1;
+            this.visitNeighbor(scan, path, requiresStrongLink, neighborKey);
+
+            if (scan.target && scan.results.length > 0) {
+                return;
+            }
+        }
+    }
+
     private findTargetResults(
         graph: CandidateLinkGraphInterface,
         results: TechniqueResultInterface[],
@@ -180,31 +205,6 @@ export class AICTechnique implements TechniqueStrategyInterface {
         secondNeighbors.add(firstNode.key);
         neighborsByKey.set(firstNode.key, firstNeighbors);
         neighborsByKey.set(secondNode.key, secondNeighbors);
-    }
-
-    private collectResults(scan: AICScanInterface, path: CandidateNodeInterface[], requiresStrongLink: boolean): void {
-        const currentNode = path[path.length - 1];
-
-        if (!isDefined(currentNode) || scan.hasTargetResult || scan.linkVisits >= AIC_MAX_LINK_VISITS) {
-            return;
-        }
-
-        const neighborKeys = requiresStrongLink
-            ? scan.graph.strongNeighborsByKey.get(currentNode.key)
-            : scan.graph.weakNeighborsByKey.get(currentNode.key);
-
-        for (const neighborKey of [...(neighborKeys ?? [])].sort()) {
-            if (scan.linkVisits >= AIC_MAX_LINK_VISITS) {
-                return;
-            }
-
-            scan.linkVisits += 1;
-            this.visitNeighbor(scan, path, requiresStrongLink, neighborKey);
-
-            if (scan.target && scan.results.length > 0) {
-                return;
-            }
-        }
     }
 
     private visitNeighbor(scan: AICScanInterface, path: CandidateNodeInterface[], requiresStrongLink: boolean, neighborKey: string): void {
