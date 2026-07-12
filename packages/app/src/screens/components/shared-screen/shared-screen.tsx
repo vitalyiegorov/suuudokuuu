@@ -20,7 +20,16 @@ export const SharedScreen = ({ stateString }: Props) => {
     const { t } = useLingui();
     const { createFromState } = use(GameContext);
 
+    if (!isNotEmptyString(stateString)) {
+        return null;
+    }
+
     const gameState = stringToGameState(stateString);
+
+    if (!isNotEmptyString(gameState.sudokuString)) {
+        return null;
+    }
+
     const { challengeState, challengeTime } = gameState;
 
     const handleOpenPuzzle = () => {

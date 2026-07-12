@@ -1,3 +1,6 @@
 export enum HomeScreenSelectors {
-    BestScore = 'HomeScreenSelectors.BestScore'
+    Root = 'HomeScreenSelectors.Root',
+    StartButton = 'HomeScreenSelectors.StartButton',
+    BestScore = 'HomeScreenSelectors.BestScore',
+    ResumeButton = 'HomeScreenSelectors.ResumeButton'
 }

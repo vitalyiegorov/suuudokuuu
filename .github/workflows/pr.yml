@@ -1,11 +1,13 @@
 name: Pull Request
 env:
-  MAESTRO_DRIVER_STARTUP_TIMEOUT: "120000"
+  MAESTRO_VERSION: '2.6.1'
+  MAESTRO_DRIVER_STARTUP_TIMEOUT: '300000'
   TURBO_TEAM: vitalyiegorov
   TURBO_TOKEN: ${{ secrets.VERCEL_TOKEN }}
   PR_NUMBER: ${{ github.event.pull_request.number }}
   PR_TITLE: ${{ github.event.pull_request.title }}
-  MAESTRO_CLI_NO_ANALYTICS: false
+  MAESTRO_CLI_NO_ANALYTICS: true
+  MAESTRO_CLI_ANALYSIS_NOTIFICATION_DISABLED: true
   RCT_USE_PREBUILT_RNCORE: 1
   RCT_USE_RN_DEP: 1
 
@@ -26,10 +28,10 @@ jobs:
       pull-requests: write
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 22.x
           cache: yarn
@@ -37,124 +39,62 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
+      - name: Lingui catalogs are up to date
+        run: yarn i18n:check
+
       - name: Lint the PR Title
-        run: echo "${{env.PR_TITLE}}" | node_modules/.bin/commitlint
+        run: printf '%s\n' "$PR_TITLE" | node_modules/.bin/commitlint
 
       - name: Typescript checks
-        run: yarn turbo ts
+        run: yarn ts
 
       - name: ESLint checks
-        run: yarn turbo lint
+        run: yarn lint
 
       - name: Deadcode detection
-        run: yarn turbo deadcode
+        env:
+          KNIP_DISABLE_RAW_TRANSFER: '1'
+        run: yarn deadcode
 
       - name: Copy/Paste detection
-        run: yarn turbo cpd
+        run: yarn cpd
 
       - name: Unit tests
         run: yarn test:coverage
 
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v5
 
-  e2e-ios:
+  ios-maestro:
     needs: code-quality
-    name: E2E Tests on iOS
-    if: ${{ !github.event.pull_request.draft }}
-    runs-on: macos-latest
-    timeout-minutes: 60
+    uses: ./.github/workflows/ios-maestro.yml
+    secrets: inherit
+
+  required-ci:
+    if: ${{ always() }}
+    needs: [code-quality, ios-maestro]
+    name: Required CI
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22.x
-          cache: yarn
-
-      - name: Install dependencies
+      - name: Verify required jobs
+        env:
+          CODE_QUALITY_RESULT: ${{ needs.code-quality.result }}
+          IOS_MAESTRO_RESULT: ${{ needs.ios-maestro.result }}
         run: |
-          yarn install
-
-      - name: Setup EAS
-        uses: expo/expo-github-action@v8
-        with:
-          eas-version: latest
-          token: ${{ secrets.EXPO_TOKEN }}
-
-      - name: Expo Prebuild
-        working-directory: packages/app
-        run: npx expo prebuild -p ios --clean
-
-      - name: Select latest stable Xcode
-        uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: latest-stable
-
-      - name: Cache Xcode DerivedData
-        uses: actions/cache@v4
-        with:
-          path: ~/Library/Developer/Xcode/DerivedData
-          key: xcode-deriveddata-${{ runner.os }}-${{ github.sha }}
-          restore-keys: xcode-deriveddata-${{ runner.os }}-
-
-      - name: Cache iOS dependencies
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/Library/Caches/CocoaPods
-            ~/.cocoapods
-            /packages/app/ios/Pods
-          key: pods-${{ runner.os }}-${{ github.sha }}
-          restore-keys: pods-${{ runner.os }}-
-
-      - name: Start iOS Simulator
-        uses: futureware-tech/simulator-action@v4
-        with:
-          model: 'iPhone 17 Pro'
-
-      - name: Build and install app
-        working-directory: packages/app
-        run: |
-          eas build --profile=e2e --platform ios --non-interactive --local --output app.ios.tar.gz
-          rm -rf ios-build
-          mkdir -p ios-build
-          tar -xzf app.ios.tar.gz -C ios-build
-          app_path="$(find ios-build -maxdepth 3 -name '*.app' -type d | head -n 1)"
-          test -n "$app_path"
-          xcrun simctl bootstatus booted -b
-          xcrun simctl install booted "$app_path"
-          xcrun simctl launch booted com.vitalyiegorov.suuudokuuu.preview
-
-      - name: Install Maestro
-        run: |
-          export MAESTRO_VERSION=2.0.3; curl -fsSL "https://get.maestro.mobile.dev" | bash
-          echo "$HOME/.maestro/bin" >> $GITHUB_PATH
-
-      - name: Run Maestro UI tests
-        working-directory: tests/app-tests
-        run: |
-          maestro test flows -e APP_ID=com.vitalyiegorov.suuudokuuu.preview --format junit  --config config.yaml --debug-output ./
-
-      - name: Upload Maestro artifacts (report, logs, videos, screenshots)
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: maestro-ios-artifacts
-          include-hidden-files: true
-          path: |
-            tests/app-tests/.maestro/**
-            tests/app-tests/*.mp4
+          if [ "$CODE_QUALITY_RESULT" != 'success' ] || [ "$IOS_MAESTRO_RESULT" != 'success' ]; then
+            echo "Required jobs did not pass: code-quality=$CODE_QUALITY_RESULT, ios-maestro=$IOS_MAESTRO_RESULT"
+            exit 1
+          fi
 
   e2e-android:
     needs: code-quality
     name: E2E Tests on Android
     if: ${{ false }}
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux-burst]
     timeout-minutes: 60
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Enable KVM group perms
         run: |
@@ -163,7 +103,7 @@ jobs:
           sudo udevadm trigger --name-match=kvm
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 22.x
           cache: yarn
@@ -207,8 +147,9 @@ jobs:
 
       - name: Install Maestro
         run: |
-          export MAESTRO_VERSION=2.0.3; curl -fsSL "https://get.maestro.mobile.dev" | bash
-          echo "$HOME/.maestro/bin" >> $GITHUB_PATH
+          export MAESTRO_VERSION
+          curl -fsSL "https://get.maestro.mobile.dev" | bash
+          echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
 
       - name: Сreate AVD and generate snapshot for caching
         if: steps.avd-cache.outputs.cache-hit != 'true'
@@ -236,7 +177,11 @@ jobs:
           working-directory: tests/app-tests
           script: |
             cd ../../packages/app && eas build:run --platform android --path app.android.apk
-            maestro test flows -e APP_ID=com.vitaliiyehorov.suuudokuuu.preview --config config.yaml --format junit --output ./report.xml --debug-output ./ && killall -INT crashpad_handler
+            cd ../../tests/app-tests
+            maestro_status=0
+            maestro test . -e APP_ID=com.vitalyiegorov.suuudokuuu.preview --config config.yaml --format junit --output ./report.xml --debug-output ./ || maestro_status=$?
+            killall -INT crashpad_handler || true
+            exit "$maestro_status"
 
       - name: Upload Maestro artifacts (report, logs, videos, screenshots)
         if: always()

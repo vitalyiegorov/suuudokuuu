@@ -361,6 +361,12 @@ export default defineConfig(
         }
     },
     {
+        files: ['packages/app/**/*.{ts,tsx}'],
+        rules: {
+            'react-hooks/immutability': 'off'
+        }
+    },
+    {
         files: ['**/*.spec.ts'],
         extends: [jestPlugin.configs['flat/recommended']],
         rules: {
@@ -371,6 +377,8 @@ export default defineConfig(
             'jest/unbound-method': 'off',
             'jest/expect-expect': 'off',
             'jest/no-done-callback': 'off',
+
+            'lingui/no-unlocalized-strings': 'off',
 
             'no-undef': 'off',
             'no-undefined': 'off',

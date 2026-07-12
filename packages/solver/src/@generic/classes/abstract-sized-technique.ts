@@ -3,9 +3,9 @@ import type { SizedTechniqueDescriptorInterface } from '../interfaces/sized-tech
 import type { TechniqueResultInterface } from '../interfaces/technique-result.interface';
 import type { TechniqueStrategyInterface } from '../interfaces/technique-strategy.interface';
 
-export abstract class AbstractSizedTechnique<TDescriptor extends SizedTechniqueDescriptorInterface = SizedTechniqueDescriptorInterface>
-    implements TechniqueStrategyInterface
-{
+export abstract class AbstractSizedTechnique<
+    TDescriptor extends SizedTechniqueDescriptorInterface = SizedTechniqueDescriptorInterface
+> implements TechniqueStrategyInterface {
     constructor(protected readonly descriptor: TDescriptor) {}
 
     get technique() {

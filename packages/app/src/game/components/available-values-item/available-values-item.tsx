@@ -8,6 +8,7 @@ import Reanimated, {
     withSequence,
     withTiming
 } from 'react-native-reanimated';
+import Svg, { Circle } from 'react-native-svg';
 
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { settingsFontSizeMultiplierSelector } from '../../../settings/store/settings.selectors';
@@ -16,10 +17,17 @@ import { CellFontSizeConstant } from '../constants/dimensions.contant';
 
 import { AvailableValueItemSelectors as selectors } from './available-value-item.selectors';
 import { AvailableValuesItemStyles as styles } from './available-values-item.styles';
+import {
+    AvailableValueButtonSize,
+    AvailableValueProgressCenter,
+    AvailableValueProgressCircumference,
+    AvailableValueProgressRadius,
+    AvailableValueProgressRingTransform,
+    AvailableValueProgressStrokeWidth
+} from './constant/available-value-button.constant';
 
 import type { OnEventFn } from '@rnw-community/shared';
 import type { Ref } from 'react';
-import type { StyleProp, ViewStyle } from 'react-native';
 
 const ReanimatedPressable = Reanimated.createAnimatedComponent(Pressable);
 
@@ -59,7 +67,6 @@ export const AvailableValuesItem = ({ value, onSelect, progress, correctValue, c
     );
 
     const triggerAnimationFn = () => {
-        // eslint-disable-next-line react-hooks/immutability
         animated.value = withSequence(withTiming(1, { duration: 200 }), withTiming(0, { duration: 200 }));
     };
 
@@ -72,27 +79,40 @@ export const AvailableValuesItem = ({ value, onSelect, progress, correctValue, c
         onSelect(value);
     };
 
-    const buttonStyles = [
-        styles.button,
-        { borderBottomColor: theme.colors.value.progress, borderColor: theme.colors.value.border },
-        animatedStyles
-    ];
-    const progressStyles = [
-        styles.progress,
-        { backgroundColor: theme.colors.cell.active },
-        { width: `${progress}%` }
-    ] as StyleProp<ViewStyle>;
-    const textStyles = [{ fontSize: CellFontSizeConstant * fontSizeMultiplier }, { color: theme.colors.value.text }];
+    const buttonStyles = [styles.button, { backgroundColor: theme.colors.candidate.bg }, animatedStyles];
+    const normalizedProgress = Math.min(100, Math.max(0, progress));
+    const progressDashOffset = AvailableValueProgressCircumference * (1 - normalizedProgress / 100);
+    const textStyles = [styles.text, { fontSize: CellFontSizeConstant * fontSizeMultiplier }, { color: theme.colors.value.text }];
 
     return (
         <View style={styles.container} testID={selectors.Root}>
             <ReanimatedPressable key={value} style={buttonStyles} testID={selectors.Button} {...(canPress && { onPress: handlePress })}>
+                <Svg height={AvailableValueButtonSize} pointerEvents="none" style={styles.progressRing} width={AvailableValueButtonSize}>
+                    <Circle
+                        cx={AvailableValueProgressCenter}
+                        cy={AvailableValueProgressCenter}
+                        fill="none"
+                        r={AvailableValueProgressRadius}
+                        stroke={theme.colors.value.progress}
+                        strokeWidth={AvailableValueProgressStrokeWidth}
+                    />
+                    <Circle
+                        cx={AvailableValueProgressCenter}
+                        cy={AvailableValueProgressCenter}
+                        fill="none"
+                        r={AvailableValueProgressRadius}
+                        stroke={theme.colors.value.progressActive}
+                        transform={AvailableValueProgressRingTransform}
+                        strokeDasharray={AvailableValueProgressCircumference}
+                        strokeDashoffset={progressDashOffset}
+                        strokeLinecap="round"
+                        strokeWidth={AvailableValueProgressStrokeWidth}
+                    />
+                </Svg>
                 <Text allowFontScaling={false} style={textStyles}>
                     {value}
                 </Text>
             </ReanimatedPressable>
-
-            <View style={progressStyles} />
         </View>
     );
 };

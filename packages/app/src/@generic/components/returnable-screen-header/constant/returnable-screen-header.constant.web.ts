@@ -1,0 +1,10 @@
+export const ReturnableScreenHeaderHeight = 64;
+export const ReturnableScreenHeaderProgressiveHeight = 108;
+export const ReturnableScreenHeaderScrollStart = 0;
+export const ReturnableScreenHeaderLargeTitleEnd = 60;
+export const ReturnableScreenHeaderSmallTitleStart = 40;
+export const ReturnableScreenHeaderScrollEnd = 80;
+export const ReturnableScreenHeaderLargeTitleVerticalOffset = 6;
+export const ReturnableScreenHeaderSmallTitleVerticalOffset = 7;
+export const ReturnableScreenHeaderTitleSlotVerticalOffset = -4;
+export const ReturnableScreenHeaderMaxBlurIntensity = 38;

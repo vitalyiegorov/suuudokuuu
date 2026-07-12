@@ -1,7 +1,7 @@
 module.exports = {
     coverageReporters: ['text-summary', 'lcov'],
     reporters: ['default'],
-    coveragePathIgnorePatterns: ['.mock.ts'],
+    coveragePathIgnorePatterns: ['.mock.ts', 'i18n-plural-rules.polyfill.ts', 'theme.enum.ts'],
     displayName: 'app',
     moduleNameMapper: {
         '^@suuudokuuu/encoder$': '<rootDir>/../encoder/src/index.ts',
@@ -18,5 +18,5 @@ module.exports = {
             functions: 100
         }
     },
-    transformIgnorePatterns: ['node_modules/(?!(@thi.ng/bitstream|@thi.ng/errors)/)']
+    transformIgnorePatterns: ['node_modules/(?!(@thi.ng/bitstream|@thi.ng/errors|@formatjs|@suuudokuuu/ui)/)']
 };

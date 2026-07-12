@@ -1,65 +1,82 @@
 import { useLingui } from '@lingui/react/macro';
-import { ScrollView, View } from 'react-native';
+import { AppSettingsSection } from '@suuudokuuu/ui';
+import Constants from 'expo-constants';
 
-import { Header } from '../../../@generic/components/header/header';
-import { ReturnButton } from '../../../@generic/components/return-button/return-button';
-import { CellMarginToggle } from '../../../settings/component/cell-margin-toggle/cell-margin-toggle';
-import { FontSizeToggle } from '../../../settings/component/font-size-toggle/font-size-toggle';
-import { LanguageToggle } from '../../../settings/component/language-toggle/language-toggle';
+import { ReturnableScreenChromeCompactBottomContentPreset } from '../../../@generic/components/returnable-screen-chrome/constant/returnable-screen-chrome.constant';
+import { ReturnableScreenChrome } from '../../../@generic/components/returnable-screen-chrome/returnable-screen-chrome';
+import { ReturnableScreenScrollView } from '../../../@generic/components/returnable-screen-scroll-view/returnable-screen-scroll-view';
+import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
+import { SettingsAppFooter } from '../../../settings/component/settings-app-footer/settings-app-footer';
+import { SettingsGuidanceSection } from '../../../settings/component/settings-guidance-section/settings-guidance-section';
+import { SettingsOptionLink } from '../../../settings/component/settings-option-link/settings-option-link';
 import { SettingsSwitch } from '../../../settings/component/settings-switch/settings-switch';
-import { ThemeToggle } from '../../../settings/component/theme-toggle/theme-toggle';
+import { useSettingsOptionLabels } from '../../../settings/hooks/use-settings-option-labels.hook';
+import {
+    settingsCellMarginSelector,
+    settingsFontSizeSelector,
+    settingsLanguageSelector,
+    settingsThemeSelector
+} from '../../../settings/store/settings.selectors';
 
+import { SettingsScreenSelectors } from './settings-screen.selectors';
 import { SettingsScreenStyles as styles } from './settings-screen.styles';
 
 export const SettingsScreen = () => {
     const { t } = useLingui();
+    const cellMargin = useAppSelector(settingsCellMarginSelector);
+    const fontSize = useAppSelector(settingsFontSizeSelector);
+    const language = useAppSelector(settingsLanguageSelector);
+    const theme = useAppSelector(settingsThemeSelector);
+    const { getCellMarginLabel, getFontSizeLabel, getLanguageLabel, getThemeLabel } = useSettingsOptionLabels();
+    const version = Constants.expoConfig?.version ?? t`Unknown`;
 
     return (
-        <View style={styles.container}>
-            <Header text={t`Settings`} />
+        <ReturnableScreenChrome contentStyle={styles.content} title={t`Settings`}>
+            <ReturnableScreenScrollView
+                bottomContentPreset={ReturnableScreenChromeCompactBottomContentPreset}
+                contentContainerStyle={styles.scrollViewContent}
+                style={styles.scrollView}
+                testID={SettingsScreenSelectors.Root}
+            >
+                <AppSettingsSection title={t`Game`}>
+                    <SettingsOptionLink
+                        description={t`Menus, settings, and game text`}
+                        href="/settings/language"
+                        title={t`Language`}
+                        value={getLanguageLabel(language)}
+                    />
+                    <SettingsOptionLink
+                        description={t`Adjust the digits on the Sudoku board`}
+                        href="/settings/font-size"
+                        title={t`Number size`}
+                        value={getFontSizeLabel(fontSize)}
+                    />
+                    <SettingsOptionLink
+                        description={t`Space between Sudoku cells`}
+                        href="/settings/cell-margin"
+                        testID={SettingsScreenSelectors.CellSpacingOption}
+                        title={t`Cell spacing`}
+                        value={getCellMarginLabel(cellMargin)}
+                    />
+                </AppSettingsSection>
+                <AppSettingsSection title={t`Display`}>
+                    <SettingsOptionLink
+                        description={t`Board colors and screen appearance`}
+                        href="/settings/theme"
+                        title={t`Theme`}
+                        value={getThemeLabel(theme)}
+                    />
+                    <SettingsSwitch description={t`Use a dark color scheme`} setting="isDarkColorSchema" title={t`Dark mode`} />
+                </AppSettingsSection>
+                <AppSettingsSection title={t`Feedback`}>
+                    <SettingsSwitch description={t`Show elapsed time while you play`} setting="hasTimer" title={t`Timer`} />
+                    <SettingsSwitch description={t`Vibrate on taps and game actions`} setting="hasVibration" title={t`Vibration`} />
+                </AppSettingsSection>
 
-            <ScrollView contentContainerStyle={styles.scrollViewContent} showsVerticalScrollIndicator={false} style={styles.scrollView}>
-                <LanguageToggle />
-                <SettingsSwitch description={t`Not timer - no stress`} setting="hasTimer" title={t`Timer`} />
-                <SettingsSwitch description={t`Phone vibration`} setting="hasVibration" title={t`Vibration`} />
-                <SettingsSwitch
-                    description={t`Highlight block, column, row for a selected cell`}
-                    setting="showAreas"
-                    title={t`Highlight areas`}
-                />
-                <SettingsSwitch
-                    description={t`Highlight repeated numbers in a block, column, row`}
-                    setting="showIdenticalNumbers"
-                    title={t`Highlight identical numbers`}
-                />
-                <SettingsSwitch
-                    description={t`Show animated effects when a grid, row, column, block is completed`}
-                    setting="showComboAnimation"
-                    title={t`Show combo animation`}
-                />
-                <SettingsSwitch
-                    description={t`Highlight cells with the number filled in`}
-                    setting="showFilledNumbers"
-                    title={t`Highlight filled numbers`}
-                />
-                <SettingsSwitch
-                    description={t`Highlight candidate numbers when a cell is selected`}
-                    setting="showActiveCandidates"
-                    title={t`Highlight selected candidate numbers`}
-                />
-                <SettingsSwitch
-                    description={t`Prevents accidentally losing cell selection when clicking outside (useful on small screens)`}
-                    setting="keepActiveCell"
-                    title={t`Keep active cell`}
-                />
+                <SettingsGuidanceSection />
 
-                <SettingsSwitch description={t`Dark/Light color schema`} setting="isDarkColorSchema" title={t`Use dark mode`} />
-                <FontSizeToggle />
-                <CellMarginToggle />
-                <ThemeToggle />
-            </ScrollView>
-
-            <ReturnButton />
-        </View>
+                <SettingsAppFooter version={version} />
+            </ReturnableScreenScrollView>
+        </ReturnableScreenChrome>
     );
 };

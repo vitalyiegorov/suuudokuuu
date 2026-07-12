@@ -1,4 +1,4 @@
-/* eslint-disable lingui/no-unlocalized-strings */
+ 
 import { describe, expect, it } from '@jest/globals';
 import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { SolutionTechniqueEnum } from '@suuudokuuu/solver';

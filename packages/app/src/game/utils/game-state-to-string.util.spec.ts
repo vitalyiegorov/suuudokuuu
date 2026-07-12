@@ -1,30 +1,50 @@
-/* eslint-disable lingui/no-unlocalized-strings */
-import { describe, expect, it } from '@jest/globals';
-import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
+import { beforeEach, describe, expect, it, jest } from '@jest/globals';
+
+const mockEncodedState = 'encoded-state';
+const mockEncodeCalls: unknown[][] = [];
+let mockShouldThrow = false;
+
+jest.mock('@suuudokuuu/encoder', () => ({
+    GameStateSerializer: jest.fn(() => ({
+        encode: (...params: unknown[]) => {
+            mockEncodeCalls.push(params);
+
+            if (mockShouldThrow) {
+                throw new Error('Encode failed');
+            }
+
+            return mockEncodedState;
+        }
+    }))
+}));
 
 import { initialGameState } from '../store/game.state';
 
 import { gameStateToString } from './game-state-to-string.util';
 
-import type { GameState } from '../store/game.state';
+const StartedSudokuString = 'started-sudoku';
 
 describe('gameStateToString', () => {
-    it('should encode a game state string', () => {
-        expect.assertions(1);
+    beforeEach(() => {
+        mockEncodeCalls.length = 0;
+        mockShouldThrow = false;
+    });
 
-        const sudoku = Sudoku.fromString('.'.repeat(defaultSudokuConfig.fieldSize * defaultSudokuConfig.fieldSize), defaultSudokuConfig);
+    it('encodes active game state with challenge metadata', () => {
         const gameState = {
             ...initialGameState,
-            sudokuString: sudoku.toString(),
+            maxMistakes: 0,
+            sudokuString: StartedSudokuString,
             solutionSteps: [{ cellIndex: 0, value: 1, ts: 5 }]
         };
 
-        expect(gameStateToString(gameState, true).length).toBeGreaterThan(0);
+        expect(gameStateToString(gameState, true)).toBe(mockEncodedState);
+        expect(mockEncodeCalls).toEqual([[StartedSudokuString, gameState.solutionSteps, 0, true]]);
     });
 
-    it('should return an empty string when encoding fails', () => {
-        expect.assertions(1);
+    it('returns an empty string when encoding fails', () => {
+        mockShouldThrow = true;
 
-        expect(gameStateToString(null as unknown as GameState)).toBe('');
+        expect(gameStateToString(initialGameState)).toBe('');
     });
 });

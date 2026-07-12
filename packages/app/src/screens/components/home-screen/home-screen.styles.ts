@@ -1,54 +1,237 @@
 import { StyleSheet } from 'react-native';
 
 export const HomeScreenStyles = StyleSheet.create({
-    bottomContainer: {
+    bestRun: {
+        alignItems: 'center',
+        borderRadius: 28,
+        borderWidth: StyleSheet.hairlineWidth,
+        flexDirection: 'row',
+        gap: 14,
+        justifyContent: 'space-between',
+        minHeight: 76,
+        paddingHorizontal: 18,
+        paddingVertical: 14,
+        width: '100%'
+    },
+    bestRunCopy: {
+        flex: 1,
+        gap: 3,
+        minWidth: 0
+    },
+    bestRunLabel: {
+        fontSize: 12,
+        fontWeight: '800',
+        opacity: 0.46,
+        textAlign: 'left',
+        textTransform: 'uppercase'
+    },
+    bestRunLink: {
+        width: '100%'
+    },
+    bestRunMetric: {
+        alignItems: 'flex-end',
+        minWidth: 66
+    },
+    bestRunMetrics: {
         alignItems: 'center',
         flexDirection: 'row',
-        justifyContent: 'space-evenly',
-        marginBottom: 20
+        gap: 20
     },
-    buttonWrapper: {
-        gap: 10
+    bestRunTitle: {
+        fontSize: 18,
+        fontWeight: '800',
+        lineHeight: 23,
+        textAlign: 'left'
     },
-    centerContainer: {
+    content: {
+        alignItems: 'stretch'
+    },
+    contentStack: {
+        gap: 56,
+        width: '100%'
+    },
+    continueContent: {
         alignItems: 'center',
-        flex: 3,
-        justifyContent: 'center'
-    },
-    container: {
-        flex: 1,
-        justifyContent: 'space-between'
-    },
-    historyContainer: {
-        alignItems: 'center',
+        bottom: 0,
         flexDirection: 'row',
-        flex: 1,
-        gap: 20,
-        justifyContent: 'center'
+        gap: 12,
+        left: 0,
+        paddingHorizontal: 14,
+        position: 'absolute',
+        right: 0,
+        top: 0
     },
-    historyGroup: {
-        maxWidth: 150,
-        alignItems: 'center'
-    },
-    historyValue: {
+    continueCopy: {
         alignItems: 'center',
-        fontWeight: 'bold'
+        flex: 1,
+        flexDirection: 'row',
+        gap: 12,
+        minWidth: 0
     },
-    infoLink: {
-        maxWidth: 125,
-        textAlign: 'center'
+    continueElapsed: {
+        fontSize: 15,
+        fontWeight: '800',
+        lineHeight: 19,
+        textAlign: 'left'
     },
-    separator: {
-        borderTopWidth: 1,
-        marginVertical: 10
-    },
-    themeButton: {
+    continueIcon: {
+        alignItems: 'center',
+        borderRadius: 24,
         height: 40,
         justifyContent: 'center',
+        width: 40
+    },
+    continueProgressFill: {
+        height: '100%'
+    },
+    continueProgressText: {
+        fontSize: 18,
+        fontWeight: '800',
+        lineHeight: 23,
+        minWidth: 44,
+        textAlign: 'right'
+    },
+    continueProgressTrack: {
+        borderRadius: 23,
+        bottom: 0,
+        flexDirection: 'row',
+        left: 0,
+        overflow: 'hidden',
         position: 'absolute',
-        right: 10,
-        top: 0,
-        width: 40,
-        zIndex: 99
+        right: 0,
+        top: 0
+    },
+    continueRow: {
+        borderRadius: 23,
+        height: 56,
+        overflow: 'hidden',
+        width: '100%'
+    },
+    continueTitle: {
+        flexShrink: 1,
+        fontSize: 18,
+        fontWeight: '800',
+        lineHeight: 23,
+        textAlign: 'left'
+    },
+    fieldGroup: {
+        gap: 9,
+        width: '100%'
+    },
+    fieldLabel: {
+        fontSize: 14,
+        fontWeight: '700',
+        textAlign: 'left'
+    },
+    hero: {
+        alignItems: 'center',
+        flexDirection: 'row',
+        gap: 14,
+        justifyContent: 'space-between',
+        width: '100%'
+    },
+    historyValue: {
+        fontSize: 19,
+        fontWeight: '800',
+        textAlign: 'right'
+    },
+    hintText: {
+        fontSize: 13,
+        lineHeight: 18,
+        textAlign: 'left'
+    },
+    optionCard: {
+        borderRadius: 18,
+        borderWidth: StyleSheet.hairlineWidth,
+        gap: 3,
+        minHeight: 64,
+        paddingHorizontal: 12,
+        paddingVertical: 11
+    },
+    optionDescription: {
+        fontSize: 12,
+        lineHeight: 16,
+        textAlign: 'left'
+    },
+    mistakeGrid: {
+        flexDirection: 'row',
+        gap: 8,
+        width: '100%'
+    },
+    mistakeOptionCard: {
+        flex: 1
+    },
+    masthead: {
+        gap: 16,
+        width: '100%'
+    },
+    optionTitle: {
+        fontSize: 16,
+        fontWeight: '700',
+        textAlign: 'left'
+    },
+    playActions: {
+        alignItems: 'center',
+        gap: 14,
+        paddingTop: 8,
+        width: '100%'
+    },
+    primaryButton: {
+        alignSelf: 'center',
+        borderRadius: 999,
+        maxWidth: '100%',
+        minHeight: 68,
+        paddingHorizontal: 24,
+        paddingVertical: 12,
+        width: '100%'
+    },
+    scrollContent: {
+        alignItems: 'center',
+        alignSelf: 'center',
+        maxWidth: 540,
+        paddingBottom: 28,
+        paddingHorizontal: 20,
+        width: '100%'
+    },
+    scrollView: {
+        flex: 1,
+        width: '100%'
+    },
+    setupSection: {
+        gap: 15,
+        width: '100%'
+    },
+    statsStrip: {
+        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: '100%'
+    },
+    startButtonContent: {
+        alignItems: 'center',
+        gap: 2,
+        justifyContent: 'center',
+        width: '100%'
+    },
+    startButtonSubtitle: {
+        fontSize: 13,
+        fontWeight: '700',
+        lineHeight: 17,
+        opacity: 0.72,
+        textAlign: 'center'
+    },
+    startButtonTitle: {
+        fontSize: 20,
+        fontWeight: '800',
+        lineHeight: 24,
+        textAlign: 'center'
+    },
+    title: {
+        flexShrink: 1,
+        fontSize: 30,
+        lineHeight: 36,
+        marginBottom: 0,
+        minWidth: 0,
+        textAlign: 'left'
     }
 });

@@ -1,7 +1,9 @@
 import rootPkg from './package.json';
 
 const APP_VARIANT = process.env.APP_VARIANT;
+const EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL = process.env.EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL;
 const IS_DEV = APP_VARIANT === 'development';
+const IS_E2E = APP_VARIANT === 'e2e';
 const IS_PREVIEW = APP_VARIANT === 'preview';
 
 const getUniqueIdentifier = isAndroid => {
@@ -13,6 +15,10 @@ const getUniqueIdentifier = isAndroid => {
 
     if (IS_PREVIEW) {
         return `${prefix}.preview`;
+    }
+
+    if (IS_E2E) {
+        return `${prefix}.e2e`;
     }
 
     return prefix;
@@ -27,8 +33,22 @@ const getAppName = () => {
         return 'suuudokuuu (Preview)';
     }
 
+    if (IS_E2E) {
+        return 'suuudokuuu (E2E)';
+    }
+
     return 'suuudokuuu';
 };
+
+const getExpoDevClientConfig = () => ({
+    showMenuAtLaunch: false,
+    skipOnboarding: true,
+    toolsButton: false,
+    ...(EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL && {
+        defaultLaunchURL: EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL,
+        launchMode: 'most-recent'
+    })
+});
 
 export default ({ config }) => ({
     ...config,
@@ -93,13 +113,29 @@ export default ({ config }) => ({
     },
     owner: 'vitalyiegorov',
     updates: {
+        enabled: !IS_E2E,
         url: 'https://u.expo.dev/4a70028a-5f9e-4ab6-9389-82d8b8b6c833'
     },
     plugins: [
-        'expo-build-properties',
+        [
+            'expo-build-properties',
+            {
+                buildReactNativeFromSource: false,
+                useHermesV1: true,
+                ios: {
+                    ccacheEnabled: true,
+                    usePrecompiledModules: true
+                }
+            }
+        ],
         'expo-localization',
+        'expo-sharing',
+        'expo-splash-screen',
+        'expo-sqlite',
+        'expo-status-bar',
+        ['expo-dev-client', getExpoDevClientConfig()],
         ['expo-router', { origin: 'https://www.suuudokuuu.com/' }],
-        ['expo-font', { fonts: ['../../node_modules/@expo-google-fonts/inter/Inter_900Black.ttf'] }],
+        ['expo-font', { fonts: ['../../node_modules/@expo-google-fonts/inter/900Black/Inter_900Black.ttf'] }],
         [
             'react-native-share',
             {
@@ -109,9 +145,9 @@ export default ({ config }) => ({
             }
         ]
     ],
+    buildCacheProvider: 'eas',
     experiments: {
-        reactCompiler: true,
-        buildCacheProvider: 'eas'
+        reactCompiler: true
     },
     runtimeVersion: {
         policy: 'fingerprint'
