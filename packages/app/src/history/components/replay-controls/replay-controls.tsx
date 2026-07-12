@@ -16,18 +16,18 @@ import { ReplayControlsSelectors } from './replay-controls.selectors';
 import { ReplayControlsStyles as styles } from './replay-controls.styles';
 
 import type { EmptyFn } from '@rnw-community/shared';
-import type { TechniqueResultInterface } from '@suuudokuuu/solver';
+import type { MoveClassificationInterface } from '@suuudokuuu/solver';
 
 interface Props {
     readonly currentStep: number;
     readonly totalSteps: number;
     readonly elapsedTime: number;
-    readonly techniqueResult: TechniqueResultInterface | null;
+    readonly moveClassification: MoveClassificationInterface | null;
     readonly onPrevStep: EmptyFn;
     readonly onNextStep: EmptyFn;
 }
 
-export const ReplayControls = ({ currentStep, totalSteps, elapsedTime, techniqueResult, onPrevStep, onNextStep }: Props) => {
+export const ReplayControls = ({ currentStep, totalSteps, elapsedTime, moveClassification, onPrevStep, onNextStep }: Props) => {
     const { theme } = use(ThemeContext);
     const elapsedTimeText = useTimerText(elapsedTime);
 
@@ -69,7 +69,7 @@ export const ReplayControls = ({ currentStep, totalSteps, elapsedTime, technique
                 </BlackText>
             </View>
 
-            <ReplayTechnique result={techniqueResult} />
+            <ReplayTechnique classification={moveClassification} />
 
             <View style={trackStyles}>
                 <View style={fillStyles} />

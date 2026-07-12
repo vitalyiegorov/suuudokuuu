@@ -6,6 +6,7 @@ import { isSameCell } from '../../utils/is-same-cell.util';
 import { CandidateContext } from '../candidate-context/candidate-context';
 
 import type { SolutionTechniqueEnum } from '../../enums/solution-technique.enum';
+import type { MoveClassificationInterface } from '../../interfaces/move-classification.interface';
 import type { TechniqueResultInterface } from '../../interfaces/technique-result.interface';
 import type { TechniqueStrategyInterface } from '../../interfaces/technique-strategy.interface';
 import type { CellInterface, Sudoku } from '@suuudokuuu/generator';
@@ -38,7 +39,7 @@ export class TechniqueManager {
         return isDefined(blankCell) ? this.guessTechnique.findForCell(blankCell) : null;
     }
 
-    identifyMove(cell: CellInterface): TechniqueResultInterface {
+    identifyMove(cell: CellInterface): MoveClassificationInterface {
         const context = CandidateContext.fromSudoku(this.sudoku);
         const targetValue = this.getTargetValue(cell);
 
@@ -47,11 +48,11 @@ export class TechniqueManager {
             const result = results.find(candidate => this.isResultForMove(context, candidate, cell, targetValue));
 
             if (isDefined(result)) {
-                return result;
+                return { technique: result.technique, value: targetValue };
             }
         }
 
-        return this.guessTechnique.findForCell({ ...cell, value: targetValue }, targetValue);
+        return { technique: this.guessTechnique.technique, value: targetValue };
     }
 
     identify(cell: CellInterface): SolutionTechniqueEnum {

@@ -31,7 +31,7 @@ describe('getSudokuAtStep', () => {
         expect.assertions(2);
 
         expect(getSudokuAtStep(gameState, 0).solutionStep).toBeNull();
-        expect(getSudokuAtStep(gameState, 0).techniqueResult).toBeNull();
+        expect(getSudokuAtStep(gameState, 0).moveClassification).toBeNull();
     });
 
     it('should expose the step and calculate technique for the replayed move', () => {
@@ -40,7 +40,7 @@ describe('getSudokuAtStep', () => {
         const replayState = getSudokuAtStep(gameState, 1);
 
         expect(replayState.solutionStep).toEqual(logicalStep);
-        expect(replayState.techniqueResult?.technique).toBe(SolutionTechniqueEnum.FullHouse);
+        expect(replayState.moveClassification).toEqual({ technique: SolutionTechniqueEnum.FullHouse, value: 9 });
     });
 
     it('should accumulate elapsed time and highlight through a multi-step replay', () => {
@@ -91,6 +91,9 @@ describe('getSudokuAtStep', () => {
             challengeSteps: [guessStep]
         };
 
-        expect(getSudokuAtStep(guessGameState, 1).techniqueResult?.technique).toBe(SolutionTechniqueEnum.Guess);
+        expect(getSudokuAtStep(guessGameState, 1).moveClassification).toEqual({
+            technique: SolutionTechniqueEnum.Guess,
+            value: guessStep.value
+        });
     });
 });

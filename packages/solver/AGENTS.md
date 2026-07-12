@@ -46,7 +46,7 @@ src/
 ```typescript
 constructor(sudoku: Sudoku)
 findNextStep(): TechniqueResultInterface | null     // Simplest available logical step, else guess
-identifyMove(cell: CellInterface): TechniqueResultInterface  // Technique justifying this exact cell/value
+identifyMove(cell: CellInterface): MoveClassificationInterface  // Technique and value for this exact move
 identify(cell: CellInterface): SolutionTechniqueEnum
 ```
 
@@ -77,7 +77,7 @@ Cached snapshot of candidates per blank cell (`fromSudoku`), with unit/peer navi
 
 ```typescript
 export { SolutionTechniqueEnum, TechniqueManager };
-export type { TechniqueResultInterface, CandidateEliminationInterface, CandidateUnitInterface, CandidateMapType, TechniqueResultKindType };
+export type { TechniqueResultInterface, MoveClassificationInterface, CandidateEliminationInterface, CandidateUnitInterface, CandidateMapType, TechniqueResultKindType };
 ```
 
 ## Build

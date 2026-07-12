@@ -1,4 +1,5 @@
 export type { TechniqueResultInterface } from './@generic/interfaces/technique-result.interface';
+export type { MoveClassificationInterface } from './@generic/interfaces/move-classification.interface';
 export type { CandidateEliminationInterface } from './@generic/interfaces/candidate-elimination.interface';
 export type { CandidateUnitInterface } from './@generic/interfaces/candidate-unit.interface';
 export type { CandidateMapType } from './@generic/types/candidate-map.type';
