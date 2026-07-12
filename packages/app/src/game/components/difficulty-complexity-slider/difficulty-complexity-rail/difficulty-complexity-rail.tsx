@@ -5,6 +5,7 @@ import { type GestureResponderEvent, type LayoutChangeEvent, View } from 'react-
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
 import { useVibration } from '../../../../@generic/hooks/use-vibration.hook';
+import { resolveUnistyleForAnimated } from '../../../../@generic/utils/resolve-unistyle-for-animated.util';
 import { ThemeContext } from '../../../../theme/context/theme.context';
 import {
     DifficultyComplexitySliderDifficulties,
@@ -34,8 +35,14 @@ export const DifficultyComplexityRail = (props: Props) => {
     const sliderTrackStyles = [styles.sliderTrack, { backgroundColor: theme.colors.label.main }];
     const sliderTrackPositionStyles = { left: DifficultyComplexitySliderThumbRadius, right: DifficultyComplexitySliderThumbRadius };
     const sliderTrackWithPositionStyles = [sliderTrackStyles, sliderTrackPositionStyles];
-    const sliderFillStyles = [styles.sliderFill, { backgroundColor: theme.colors.label.main, left: DifficultyComplexitySliderThumbRadius }];
-    const sliderThumbStyles = [styles.sliderThumb, { backgroundColor: theme.colors.label.main, borderColor: theme.colors.background }];
+    const sliderFillStyles = [
+        resolveUnistyleForAnimated(styles.sliderFill),
+        { backgroundColor: theme.colors.label.main, left: DifficultyComplexitySliderThumbRadius }
+    ];
+    const sliderThumbStyles = [
+        resolveUnistyleForAnimated(styles.sliderThumb),
+        { backgroundColor: theme.colors.label.main, borderColor: theme.colors.background }
+    ];
     const sliderFillAnimatedStyles = useAnimatedStyle(() => ({ width: difficultyProgressValue.value * sliderTrackWidth }));
     const sliderFillWithAnimatedStyles = [sliderFillStyles, sliderFillAnimatedStyles];
     const sliderThumbAnimatedStyles = useAnimatedStyle(() => ({

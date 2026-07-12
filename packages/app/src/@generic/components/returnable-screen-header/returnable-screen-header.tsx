@@ -2,6 +2,7 @@ import { View } from 'react-native';
 import Animated, { Extrapolation, interpolate, useAnimatedStyle } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { resolveUnistyleForAnimated } from '../../utils/resolve-unistyle-for-animated.util';
 import { Header } from '../header/header';
 import { HeaderBackButton } from '../header-back-button/header-back-button';
 
@@ -41,8 +42,9 @@ export const ReturnableScreenHeader = ({ scrollY, title }: Props) => {
         )
     }));
     const containerStyles = [styles.container, { height: insets.top + ReturnableScreenHeaderHeight, paddingTop: insets.top }];
-    const smallTitleStyles = [styles.titleLayer, styles.smallTitleLayer, smallTitleAnimatedStyle];
-    const largeTitleStyles = [styles.titleLayer, styles.largeTitleLayer, largeTitleAnimatedStyle];
+    const titleLayerStyle = resolveUnistyleForAnimated(styles.titleLayer);
+    const smallTitleStyles = [titleLayerStyle, resolveUnistyleForAnimated(styles.smallTitleLayer), smallTitleAnimatedStyle];
+    const largeTitleStyles = [titleLayerStyle, resolveUnistyleForAnimated(styles.largeTitleLayer), largeTitleAnimatedStyle];
 
     return (
         <View style={containerStyles}>

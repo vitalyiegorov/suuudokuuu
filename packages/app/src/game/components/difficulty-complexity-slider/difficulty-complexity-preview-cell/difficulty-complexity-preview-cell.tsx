@@ -1,6 +1,7 @@
 import { use } from 'react';
 import Animated, { LinearTransition } from 'react-native-reanimated';
 
+import { resolveUnistyleForAnimated } from '../../../../@generic/utils/resolve-unistyle-for-animated.util';
 import { ThemeContext } from '../../../../theme/context/theme.context';
 import {
     DifficultyComplexitySliderCellRankMultiplier,
@@ -67,7 +68,7 @@ export const DifficultyComplexityPreviewCell = (props: Props) => {
 
     const cellBorderColor = isHardcoreGuardCell ? theme.colors.label.main : cellBackgroundColor;
     const cellStyles = [
-        styles.previewCell,
+        resolveUnistyleForAnimated(styles.previewCell),
         {
             backgroundColor: cellBackgroundColor,
             borderColor: cellBorderColor,

@@ -5,6 +5,7 @@ import Animated, { interpolate, useAnimatedStyle, useSharedValue, withTiming } f
 
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
+import { resolveUnistyleForAnimated } from '../../../@generic/utils/resolve-unistyle-for-animated.util';
 import { GameContext } from '../../../game/context/game.context';
 import { gameFinishAction } from '../../../game/store/game.actions';
 import {
@@ -59,8 +60,16 @@ export const ChallengeProgressBar = () => {
     }));
 
     const trackStyle: StyleProp<ViewStyle> = [styles.track, { backgroundColor: theme.colors.black05 }];
-    const playerProgressStyle = [styles.playerProgress, { backgroundColor: theme.colors.black }, playerProgressAnimatedStyle];
-    const opponentProgressStyle = [styles.opponentProgress, { backgroundColor: theme.colors.red }, opponentProgressAnimatedStyle];
+    const playerProgressStyle = [
+        resolveUnistyleForAnimated(styles.playerProgress),
+        { backgroundColor: theme.colors.black },
+        playerProgressAnimatedStyle
+    ];
+    const opponentProgressStyle = [
+        resolveUnistyleForAnimated(styles.opponentProgress),
+        { backgroundColor: theme.colors.red },
+        opponentProgressAnimatedStyle
+    ];
 
     const getStepIndicatorStyle = (position: number): StyleProp<ViewStyle> => [
         styles.stepIndicator,

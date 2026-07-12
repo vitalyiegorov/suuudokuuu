@@ -1,5 +1,6 @@
 import Animated from 'react-native-reanimated';
 
+import { resolveUnistyleForAnimated } from '../../../utils/resolve-unistyle-for-animated.util';
 import { BlurGradient } from '../../blur-gradient/blur-gradient';
 import { ScreenChromeProgressiveOverlayStyles as styles } from '../screen-chrome-progressive-overlay.styles';
 
@@ -20,7 +21,7 @@ interface Props {
 }
 
 export const ScreenChromeProgressiveOverlayContent = ({ animatedBlurProps, edgeOffset, height, intensity, position, style }: Props) => {
-    const containerStyles = [styles.container, style];
+    const containerStyles = [resolveUnistyleForAnimated(styles.container), style];
 
     return (
         <Animated.View pointerEvents="none" style={containerStyles}>
