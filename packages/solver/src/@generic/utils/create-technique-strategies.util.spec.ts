@@ -6,7 +6,7 @@ import { SolutionTechniqueEnum } from '../enums/solution-technique.enum';
 
 import { createTechniqueStrategies } from './create-technique-strategies.util';
 
-const reservedTechniques = [SolutionTechniqueEnum.Guess, SolutionTechniqueEnum.SimpleColoring, SolutionTechniqueEnum.AIC];
+const nonStrategyTechniques: SolutionTechniqueEnum[] = [SolutionTechniqueEnum.Guess];
 
 const getSortedTechniques = (techniques: SolutionTechniqueEnum[]): SolutionTechniqueEnum[] =>
     [...techniques].sort((firstTechnique, secondTechnique) => firstTechnique - secondTechnique);
@@ -14,10 +14,10 @@ const getSortedTechniques = (techniques: SolutionTechniqueEnum[]): SolutionTechn
 const getLogicalTechniques = (): SolutionTechniqueEnum[] =>
     Object.values(SolutionTechniqueEnum)
         .filter(isNumber)
-        .filter(technique => !reservedTechniques.includes(technique));
+        .filter(technique => !nonStrategyTechniques.includes(technique));
 
 describe('createTechniqueStrategies', () => {
-    it('creates one ordered strategy for every supported logical technique', () => {
+    it('creates one ordered strategy for every logical technique', () => {
         expect.assertions(2);
 
         const strategies = createTechniqueStrategies();
