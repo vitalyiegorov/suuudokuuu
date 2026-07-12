@@ -57,26 +57,6 @@ describe('TechniqueManager', () => {
         expect(result).toEqual({ technique: SolutionTechniqueEnum.FullHouse, value: 9 });
     });
 
-    it('should keep identify compatibility helper', () => {
-        expect.assertions(1);
-
-        const sudoku = Sudoku.fromStrings(
-            defaultSudokuConfig,
-            '12345678.',
-            '.........',
-            '.........',
-            '.........',
-            '.........',
-            '.........',
-            '.........',
-            '.........',
-            '.........'
-        );
-        const manager = new TechniqueManager(sudoku);
-
-        expect(manager.identify(sudoku.Field[0][8])).toBe(SolutionTechniqueEnum.FullHouse);
-    });
-
     it('should prefer the simplest technique when several apply', () => {
         expect.assertions(2);
 

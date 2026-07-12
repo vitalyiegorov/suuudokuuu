@@ -10,4 +10,3 @@ export { DifficultyEnum } from './@generic/enums/difficulty.enum';
 export { Sudoku } from './sudoku/classes/sudoku';
 export { defaultSudokuConfig } from './@generic/interfaces/sudoku-config.interface';
 export { emptyScoredCells, isEmptyScoredCells } from './@generic/interfaces/scored-cells.interface';
-export { createEmptyField } from './@generic/utils/create-empty-field.util';

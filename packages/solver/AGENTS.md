@@ -20,7 +20,7 @@ yarn ts                # TypeScript check
 src/
 ├── @generic/
 │   ├── classes/
-│   │   ├── technique-manager/          # Public API: findNextStep, identifyMove, identify
+│   │   ├── technique-manager/          # Public API: findNextStep, identifyMove
 │   │   ├── candidate-context/          # Cached candidate map + unit/peer navigation
 │   │   ├── abstract-sized-technique.ts # Descriptor-backed family metadata only
 │   │   └── abstract-fish-technique.ts  # Shared fish scanning only
@@ -47,7 +47,6 @@ src/
 constructor(sudoku: Sudoku)
 findNextStep(): TechniqueResultInterface | null     // Simplest available logical step, else guess
 identifyMove(cell: CellInterface): MoveClassificationInterface  // Technique and value for this exact move
-identify(cell: CellInterface): SolutionTechniqueEnum
 ```
 
 Logical strategies run in `SolutionTechniqueEnum` difficulty order from `createTechniqueStrategies`. The manager exits at the first strategy that finds a result, and fallback `GuessTechnique` runs only when no supported logical technique matches. Techniques that only differ by size/name use descriptor-backed family strategies instead of empty subclasses.
@@ -77,7 +76,7 @@ Cached snapshot of candidates per blank cell (`fromSudoku`), with unit/peer navi
 
 ```typescript
 export { SolutionTechniqueEnum, TechniqueManager };
-export type { TechniqueResultInterface, MoveClassificationInterface, CandidateEliminationInterface, CandidateUnitInterface, CandidateMapType, TechniqueResultKindType };
+export type { TechniqueResultInterface, MoveClassificationInterface };
 ```
 
 ## Build
