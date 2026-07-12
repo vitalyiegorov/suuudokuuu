@@ -74,7 +74,7 @@ jobs:
     if: ${{ always() }}
     needs: [code-quality, ios-maestro]
     name: Required CI
-    runs-on: [self-hosted, linux-tiered, linux-small]
+    runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
       - name: Verify required jobs
