@@ -25,11 +25,18 @@ describe('NakedPairTechnique', () => {
         );
         const context = CandidateContext.fromSudoku(sudoku);
 
-        expectTechniqueResults(new NakedSubsetTechnique({ technique: SolutionTechniqueEnum.NakedPair, size: 2 }).find(context), {
-            technique: SolutionTechniqueEnum.NakedPair,
-            results: [[0, 3, 8]],
-            eliminations: [[0, 3, 8]]
-        });
+        expectTechniqueResults(context, new NakedSubsetTechnique({ technique: SolutionTechniqueEnum.NakedPair, size: 2 }).find(context), [
+            {
+                technique: SolutionTechniqueEnum.NakedPair,
+                kind: 'elimination',
+                result: [0, 3, 8],
+                eliminations: [[0, 3, 8]],
+                reasonCells: [
+                    [0, 5],
+                    [2, 5]
+                ]
+            }
+        ]);
     });
 
     it('ignores a pair when one cell has a third candidate', () => {

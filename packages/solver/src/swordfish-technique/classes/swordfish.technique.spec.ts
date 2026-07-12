@@ -21,27 +21,87 @@ describe('SwordfishTechnique', () => {
 
         const context = createCandidateContextFromMap(...candidateSpecs, [3, 0, [5, 8]], [3, 3, [5, 7]]);
 
-        expectTechniqueResults(new BasicFishTechnique({ technique: SolutionTechniqueEnum.Swordfish, size: 3 }).find(context), {
-            technique: SolutionTechniqueEnum.Swordfish,
-            results: [
-                [0, 0, 5],
-                [1, 0, 5],
-                [2, 0, 5],
-                [3, 0, 5]
-            ],
-            eliminations: [
-                [0, 0, 5],
-                [0, 3, 5],
-                [0, 6, 5],
-                [1, 0, 5],
-                [1, 3, 5],
-                [1, 6, 5],
-                [2, 0, 5],
-                [2, 3, 5],
-                [2, 6, 5],
-                [3, 0, 5],
-                [3, 3, 5]
-            ]
-        });
+        expectTechniqueResults(context, new BasicFishTechnique({ technique: SolutionTechniqueEnum.Swordfish, size: 3 }).find(context), [
+            {
+                technique: SolutionTechniqueEnum.Swordfish,
+                kind: 'elimination',
+                result: [3, 0, 5],
+                eliminations: [
+                    [3, 0, 5],
+                    [3, 3, 5]
+                ],
+                reasonCells: [
+                    [0, 0],
+                    [0, 3],
+                    [0, 6],
+                    [1, 0],
+                    [1, 3],
+                    [1, 6],
+                    [2, 0],
+                    [2, 3],
+                    [2, 6]
+                ]
+            },
+            {
+                technique: SolutionTechniqueEnum.Swordfish,
+                kind: 'elimination',
+                result: [2, 0, 5],
+                eliminations: [
+                    [2, 0, 5],
+                    [2, 3, 5],
+                    [2, 6, 5]
+                ],
+                reasonCells: [
+                    [0, 0],
+                    [0, 3],
+                    [0, 6],
+                    [1, 0],
+                    [1, 3],
+                    [1, 6],
+                    [3, 0],
+                    [3, 3]
+                ]
+            },
+            {
+                technique: SolutionTechniqueEnum.Swordfish,
+                kind: 'elimination',
+                result: [1, 0, 5],
+                eliminations: [
+                    [1, 0, 5],
+                    [1, 3, 5],
+                    [1, 6, 5]
+                ],
+                reasonCells: [
+                    [0, 0],
+                    [0, 3],
+                    [0, 6],
+                    [2, 0],
+                    [2, 3],
+                    [2, 6],
+                    [3, 0],
+                    [3, 3]
+                ]
+            },
+            {
+                technique: SolutionTechniqueEnum.Swordfish,
+                kind: 'elimination',
+                result: [0, 0, 5],
+                eliminations: [
+                    [0, 0, 5],
+                    [0, 3, 5],
+                    [0, 6, 5]
+                ],
+                reasonCells: [
+                    [1, 0],
+                    [1, 3],
+                    [1, 6],
+                    [2, 0],
+                    [2, 3],
+                    [2, 6],
+                    [3, 0],
+                    [3, 3]
+                ]
+            }
+        ]);
     });
 });

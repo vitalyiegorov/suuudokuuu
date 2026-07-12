@@ -25,11 +25,20 @@ describe('XWingTechnique', () => {
         );
         const context = CandidateContext.fromSudoku(sudoku);
 
-        expectTechniqueResults(new BasicFishTechnique({ technique: SolutionTechniqueEnum.XWing, size: 2 }).find(context), {
-            technique: SolutionTechniqueEnum.XWing,
-            results: [[3, 1, 6]],
-            eliminations: [[3, 1, 6]]
-        });
+        expectTechniqueResults(context, new BasicFishTechnique({ technique: SolutionTechniqueEnum.XWing, size: 2 }).find(context), [
+            {
+                technique: SolutionTechniqueEnum.XWing,
+                kind: 'elimination',
+                result: [3, 1, 6],
+                eliminations: [[3, 1, 6]],
+                reasonCells: [
+                    [3, 2],
+                    [3, 4],
+                    [4, 2],
+                    [4, 4]
+                ]
+            }
+        ]);
     });
 
     it('ignores a base row with a third occurrence', () => {
@@ -52,13 +61,19 @@ describe('XWingTechnique', () => {
         expect.assertions(1);
 
         const context = createCandidateContextFromMap([0, 0, [5, 6]], [0, 3, [5, 7]], [3, 0, [5, 6]], [3, 3, [5, 7]], [6, 0, [5, 9]]);
-        const [result] = new BasicFishTechnique({ technique: SolutionTechniqueEnum.XWing, size: 2 }).find(context);
-
-        expect(result.reasonCells.map(cell => [cell.y, cell.x]).sort()).toEqual([
-            [0, 0],
-            [0, 3],
-            [3, 0],
-            [3, 3]
+        expectTechniqueResults(context, new BasicFishTechnique({ technique: SolutionTechniqueEnum.XWing, size: 2 }).find(context), [
+            {
+                technique: SolutionTechniqueEnum.XWing,
+                kind: 'elimination',
+                result: [6, 0, 5],
+                eliminations: [[6, 0, 5]],
+                reasonCells: [
+                    [0, 0],
+                    [0, 3],
+                    [3, 0],
+                    [3, 3]
+                ]
+            }
         ]);
     });
 });

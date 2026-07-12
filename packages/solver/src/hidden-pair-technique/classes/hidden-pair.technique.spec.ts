@@ -24,10 +24,27 @@ describe('HiddenPairTechnique', () => {
         );
         const context = CandidateContext.fromSudoku(sudoku);
 
-        expectTechniqueResults(new HiddenSubsetTechnique({ technique: SolutionTechniqueEnum.HiddenPair, size: 2 }).find(context), {
-            technique: SolutionTechniqueEnum.HiddenPair,
-            results: [[1, 5, 8]],
-            eliminations: [[1, 5, 8]]
-        });
+        expectTechniqueResults(context, new HiddenSubsetTechnique({ technique: SolutionTechniqueEnum.HiddenPair, size: 2 }).find(context), [
+            {
+                technique: SolutionTechniqueEnum.HiddenPair,
+                kind: 'elimination',
+                result: [1, 5, 8],
+                eliminations: [[1, 5, 8]],
+                reasonCells: [
+                    [1, 5],
+                    [2, 4]
+                ]
+            },
+            {
+                technique: SolutionTechniqueEnum.HiddenPair,
+                kind: 'elimination',
+                result: [1, 5, 8],
+                eliminations: [[1, 5, 8]],
+                reasonCells: [
+                    [0, 4],
+                    [1, 5]
+                ]
+            }
+        ]);
     });
 });

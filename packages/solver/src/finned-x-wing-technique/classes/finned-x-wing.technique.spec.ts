@@ -19,18 +19,36 @@ describe('FinnedXWingTechnique', () => {
         );
 
         expectTechniqueResults(
+            context,
             new FinnedFishTechnique({ technique: SolutionTechniqueEnum.FinnedXWing, size: 2, sashimi: false }).find(context),
-            {
-                technique: SolutionTechniqueEnum.FinnedXWing,
-                results: [
-                    [0, 1, 5],
-                    [2, 0, 5]
-                ],
-                eliminations: [
-                    [0, 1, 5],
-                    [2, 0, 5]
-                ]
-            }
+            [
+                {
+                    technique: SolutionTechniqueEnum.FinnedXWing,
+                    kind: 'elimination',
+                    result: [2, 0, 5],
+                    eliminations: [[2, 0, 5]],
+                    reasonCells: [
+                        [0, 0],
+                        [0, 1],
+                        [0, 4],
+                        [1, 0],
+                        [1, 4]
+                    ]
+                },
+                {
+                    technique: SolutionTechniqueEnum.FinnedXWing,
+                    kind: 'elimination',
+                    result: [0, 1, 5],
+                    eliminations: [[0, 1, 5]],
+                    reasonCells: [
+                        [0, 0],
+                        [0, 4],
+                        [1, 0],
+                        [1, 4],
+                        [2, 0]
+                    ]
+                }
+            ]
         );
     });
 });

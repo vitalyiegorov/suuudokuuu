@@ -3,6 +3,7 @@ import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 
 import { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
+import { expectTechniqueResults } from '../../@generic/test-utils/expect-technique-results.spec.util';
 
 import { NakedSingleTechnique } from './naked-single.technique';
 
@@ -24,12 +25,15 @@ describe('NakedSingleTechnique', () => {
         );
         const context = CandidateContext.fromSudoku(sudoku);
 
-        expect(new NakedSingleTechnique().find(context)).toContainEqual(
-            expect.objectContaining({
-                technique: SolutionTechniqueEnum.NakedSingle,
-                cell: { x: 0, y: 4, value: 0, group: 2 },
-                value: 4
-            })
-        );
+        expectTechniqueResults(context, new NakedSingleTechnique().find(context), [
+            { technique: SolutionTechniqueEnum.NakedSingle, kind: 'placement', result: [1, 3, 1], eliminations: [], reasonCells: [[1, 3]] },
+            { technique: SolutionTechniqueEnum.NakedSingle, kind: 'placement', result: [2, 7, 6], eliminations: [], reasonCells: [[2, 7]] },
+            { technique: SolutionTechniqueEnum.NakedSingle, kind: 'placement', result: [3, 4, 6], eliminations: [], reasonCells: [[3, 4]] },
+            { technique: SolutionTechniqueEnum.NakedSingle, kind: 'placement', result: [3, 8, 3], eliminations: [], reasonCells: [[3, 8]] },
+            { technique: SolutionTechniqueEnum.NakedSingle, kind: 'placement', result: [4, 0, 4], eliminations: [], reasonCells: [[4, 0]] },
+            { technique: SolutionTechniqueEnum.NakedSingle, kind: 'placement', result: [4, 7, 9], eliminations: [], reasonCells: [[4, 7]] },
+            { technique: SolutionTechniqueEnum.NakedSingle, kind: 'placement', result: [5, 1, 1], eliminations: [], reasonCells: [[5, 1]] },
+            { technique: SolutionTechniqueEnum.NakedSingle, kind: 'placement', result: [8, 2, 5], eliminations: [], reasonCells: [[8, 2]] }
+        ]);
     });
 });

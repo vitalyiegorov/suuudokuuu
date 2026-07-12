@@ -20,33 +20,53 @@ describe('SimpleColoringTechnique', () => {
             [8, 4, [5, 8]]
         );
 
-        expectTechniqueResults(new SimpleColoringTechnique().find(context), {
-            technique: SolutionTechniqueEnum.SimpleColoring,
-            results: [[4, 4, 5]],
-            eliminations: [[4, 4, 5]]
-        });
+        expectTechniqueResults(context, new SimpleColoringTechnique().find(context), [
+            {
+                technique: SolutionTechniqueEnum.SimpleColoring,
+                kind: 'elimination',
+                result: [4, 4, 5],
+                eliminations: [[4, 4, 5]],
+                reasonCells: [
+                    [0, 0],
+                    [1, 1],
+                    [1, 4],
+                    [4, 0]
+                ]
+            }
+        ]);
     });
 
     it('uses a color wrap to eliminate every candidate with the contradictory color', () => {
         expect.assertions(1);
 
         const context = createCandidateContextFromMap([0, 0, [1, 5]], [0, 2, [2, 5]], [2, 2, [3, 5]], [1, 1, [4, 5]]);
-        const normalizedResults = new SimpleColoringTechnique().find(context).map(result => ({
-            eliminations: result.eliminations.map(elimination => [elimination.cell.y, elimination.cell.x, elimination.value]),
-            reasonCells: result.reasonCells.map(cell => [cell.y, cell.x])
-        }));
-
-        expect(normalizedResults).toContainEqual({
-            eliminations: [
-                [0, 0, 5],
-                [2, 2, 5]
-            ],
-            reasonCells: [
-                [0, 0],
-                [0, 2],
-                [2, 2]
-            ]
-        });
+        expectTechniqueResults(context, new SimpleColoringTechnique().find(context), [
+            {
+                technique: SolutionTechniqueEnum.SimpleColoring,
+                kind: 'elimination',
+                result: [0, 0, 5],
+                eliminations: [
+                    [0, 0, 5],
+                    [2, 2, 5]
+                ],
+                reasonCells: [
+                    [0, 0],
+                    [0, 2],
+                    [2, 2]
+                ]
+            },
+            {
+                technique: SolutionTechniqueEnum.SimpleColoring,
+                kind: 'elimination',
+                result: [1, 1, 5],
+                eliminations: [[1, 1, 5]],
+                reasonCells: [
+                    [0, 0],
+                    [0, 2],
+                    [2, 2]
+                ]
+            }
+        ]);
     });
 
     it('does not use a color trap after a conjugate link gains a third candidate', () => {

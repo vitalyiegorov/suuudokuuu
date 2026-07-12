@@ -11,10 +11,18 @@ describe('PointingTripleTechnique', () => {
 
         const context = createCandidateContextFromMap([0, 0, [5, 6]], [0, 1, [5, 7]], [0, 2, [5, 8]], [0, 3, [5, 9]]);
 
-        expectTechniqueResults(new PointingTechnique({ technique: SolutionTechniqueEnum.PointingTriple, size: 3 }).find(context), {
-            technique: SolutionTechniqueEnum.PointingTriple,
-            results: [[0, 3, 5]],
-            eliminations: [[0, 3, 5]]
-        });
+        expectTechniqueResults(context, new PointingTechnique({ technique: SolutionTechniqueEnum.PointingTriple, size: 3 }).find(context), [
+            {
+                technique: SolutionTechniqueEnum.PointingTriple,
+                kind: 'elimination',
+                result: [0, 3, 5],
+                eliminations: [[0, 3, 5]],
+                reasonCells: [
+                    [0, 0],
+                    [0, 1],
+                    [0, 2]
+                ]
+            }
+        ]);
     });
 });

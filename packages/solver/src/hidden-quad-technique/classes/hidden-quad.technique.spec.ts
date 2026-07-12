@@ -24,19 +24,182 @@ describe('HiddenQuadTechnique', () => {
         );
         const context = CandidateContext.fromSudoku(sudoku);
 
-        expectTechniqueResults(new HiddenSubsetTechnique({ technique: SolutionTechniqueEnum.HiddenQuad, size: 4 }).find(context), {
-            technique: SolutionTechniqueEnum.HiddenQuad,
-            results: [
-                [3, 4, 1],
-                [3, 4, 5],
-                [3, 5, 3]
-            ],
-            eliminations: [
-                [3, 4, 1],
-                [3, 4, 5],
-                [3, 5, 3],
-                [5, 3, 7]
-            ]
-        });
+        expectTechniqueResults(context, new HiddenSubsetTechnique({ technique: SolutionTechniqueEnum.HiddenQuad, size: 4 }).find(context), [
+            {
+                technique: SolutionTechniqueEnum.HiddenQuad,
+                kind: 'elimination',
+                result: [3, 4, 5],
+                eliminations: [[3, 4, 5]],
+                reasonCells: [
+                    [3, 3],
+                    [3, 4],
+                    [3, 5],
+                    [3, 8]
+                ]
+            },
+            {
+                technique: SolutionTechniqueEnum.HiddenQuad,
+                kind: 'elimination',
+                result: [3, 5, 3],
+                eliminations: [[3, 5, 3]],
+                reasonCells: [
+                    [3, 1],
+                    [3, 3],
+                    [3, 4],
+                    [3, 5]
+                ]
+            },
+            {
+                technique: SolutionTechniqueEnum.HiddenQuad,
+                kind: 'elimination',
+                result: [3, 4, 5],
+                eliminations: [[3, 4, 5]],
+                reasonCells: [
+                    [2, 4],
+                    [3, 4],
+                    [5, 4],
+                    [7, 4]
+                ]
+            },
+            {
+                technique: SolutionTechniqueEnum.HiddenQuad,
+                kind: 'elimination',
+                result: [3, 4, 1],
+                eliminations: [[3, 4, 1]],
+                reasonCells: [
+                    [2, 4],
+                    [3, 4],
+                    [4, 4],
+                    [5, 4]
+                ]
+            },
+            {
+                technique: SolutionTechniqueEnum.HiddenQuad,
+                kind: 'elimination',
+                result: [3, 4, 5],
+                eliminations: [[3, 4, 5]],
+                reasonCells: [
+                    [3, 4],
+                    [3, 5],
+                    [4, 5],
+                    [5, 4]
+                ]
+            },
+            {
+                technique: SolutionTechniqueEnum.HiddenQuad,
+                kind: 'elimination',
+                result: [3, 5, 3],
+                eliminations: [[3, 5, 3]],
+                reasonCells: [
+                    [3, 4],
+                    [3, 5],
+                    [4, 4],
+                    [5, 4]
+                ]
+            },
+            {
+                technique: SolutionTechniqueEnum.HiddenQuad,
+                kind: 'elimination',
+                result: [3, 4, 5],
+                eliminations: [
+                    [3, 4, 5],
+                    [3, 5, 3],
+                    [5, 3, 7]
+                ],
+                reasonCells: [
+                    [3, 4],
+                    [3, 5],
+                    [5, 3],
+                    [5, 4]
+                ]
+            },
+            {
+                technique: SolutionTechniqueEnum.HiddenQuad,
+                kind: 'elimination',
+                result: [3, 4, 5],
+                eliminations: [
+                    [3, 4, 5],
+                    [5, 3, 7]
+                ],
+                reasonCells: [
+                    [3, 4],
+                    [3, 5],
+                    [4, 5],
+                    [5, 3]
+                ]
+            },
+            {
+                technique: SolutionTechniqueEnum.HiddenQuad,
+                kind: 'elimination',
+                result: [3, 5, 3],
+                eliminations: [
+                    [3, 5, 3],
+                    [5, 3, 7]
+                ],
+                reasonCells: [
+                    [3, 4],
+                    [3, 5],
+                    [4, 4],
+                    [5, 3]
+                ]
+            },
+            {
+                technique: SolutionTechniqueEnum.HiddenQuad,
+                kind: 'elimination',
+                result: [3, 4, 5],
+                eliminations: [
+                    [3, 4, 5],
+                    [3, 5, 3]
+                ],
+                reasonCells: [
+                    [3, 3],
+                    [3, 4],
+                    [3, 5],
+                    [5, 3]
+                ]
+            },
+            {
+                technique: SolutionTechniqueEnum.HiddenQuad,
+                kind: 'elimination',
+                result: [3, 4, 1],
+                eliminations: [
+                    [3, 4, 1],
+                    [5, 3, 7]
+                ],
+                reasonCells: [
+                    [3, 4],
+                    [4, 4],
+                    [5, 3],
+                    [5, 4]
+                ]
+            },
+            {
+                technique: SolutionTechniqueEnum.HiddenQuad,
+                kind: 'elimination',
+                result: [3, 4, 1],
+                eliminations: [
+                    [3, 4, 1],
+                    [3, 4, 5]
+                ],
+                reasonCells: [
+                    [3, 3],
+                    [3, 4],
+                    [5, 3],
+                    [5, 4]
+                ]
+            },
+            {
+                technique: SolutionTechniqueEnum.HiddenQuad,
+                kind: 'elimination',
+                result: [3, 4, 1],
+                eliminations: [[3, 4, 1]],
+                reasonCells: [
+                    [3, 3],
+                    [3, 4],
+                    [4, 4],
+                    [5, 3]
+                ]
+            }
+        ]);
     });
 });

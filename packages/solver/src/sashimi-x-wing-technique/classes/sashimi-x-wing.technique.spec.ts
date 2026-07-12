@@ -12,18 +12,34 @@ describe('SashimiXWingTechnique', () => {
         const context = createCandidateContextFromMap([0, 0, [5, 6]], [0, 1, [5, 7]], [1, 0, [5, 6]], [1, 4, [5, 8]], [2, 0, [5, 9]]);
 
         expectTechniqueResults(
+            context,
             new FinnedFishTechnique({ technique: SolutionTechniqueEnum.SashimiXWing, size: 2, sashimi: true }).find(context),
-            {
-                technique: SolutionTechniqueEnum.SashimiXWing,
-                results: [
-                    [0, 1, 5],
-                    [2, 0, 5]
-                ],
-                eliminations: [
-                    [0, 1, 5],
-                    [2, 0, 5]
-                ]
-            }
+            [
+                {
+                    technique: SolutionTechniqueEnum.SashimiXWing,
+                    kind: 'elimination',
+                    result: [2, 0, 5],
+                    eliminations: [[2, 0, 5]],
+                    reasonCells: [
+                        [0, 0],
+                        [0, 1],
+                        [1, 0],
+                        [1, 4]
+                    ]
+                },
+                {
+                    technique: SolutionTechniqueEnum.SashimiXWing,
+                    kind: 'elimination',
+                    result: [0, 1, 5],
+                    eliminations: [[0, 1, 5]],
+                    reasonCells: [
+                        [0, 0],
+                        [1, 0],
+                        [1, 4],
+                        [2, 0]
+                    ]
+                }
+            ]
         );
     });
 });
