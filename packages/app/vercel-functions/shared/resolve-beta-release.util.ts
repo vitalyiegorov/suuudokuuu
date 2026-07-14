@@ -1,5 +1,6 @@
-import { DevelopmentReleaseApiUrl } from './beta-release.constant';
+import { DevelopmentReleaseApiUrl, MaximumChecksumsByteLength, UpstreamRequestTimeoutMilliseconds } from './beta-release.constant';
 import { parseChecksums } from './parse-checksums.util';
+import { readBoundedResponseText } from './read-bounded-response-text.util';
 import { parseBetaReleaseCandidates } from './select-beta-release.util';
 
 import type {
@@ -19,13 +20,30 @@ const createGithubHeaders = (githubToken: string | undefined) => ({
     'X-GitHub-Api-Version': '2022-11-28'
 });
 
+const cancelResponseBody = async (response: Response) => {
+    if (response.body === null) {
+        return true;
+    }
+
+    try {
+        await response.body.cancel();
+    } catch {
+        return false;
+    }
+
+    return true;
+};
+
 const requestGithubReleases = async (dependencies: ResolveBetaReleaseDependencies): Promise<GithubReleasesRequestResult> => {
     try {
         const response = await dependencies.fetch(DevelopmentReleaseApiUrl, {
             headers: createGithubHeaders(dependencies.githubToken),
-            method: 'GET'
+            method: 'GET',
+            signal: AbortSignal.timeout(UpstreamRequestTimeoutMilliseconds)
         });
         if (!response.ok) {
+            await cancelResponseBody(response);
+
             return { status: 'failure' };
         }
 
@@ -39,12 +57,19 @@ const requestGithubReleases = async (dependencies: ResolveBetaReleaseDependencie
 
 const requestChecksums = async (candidate: BetaReleaseCandidate, request: typeof fetch): Promise<ReleaseChecksums | null> => {
     try {
-        const response = await request(candidate.checksumsUrl);
+        const response = await request(candidate.checksumsUrl, {
+            signal: AbortSignal.timeout(UpstreamRequestTimeoutMilliseconds)
+        });
         if (!response.ok) {
+            await cancelResponseBody(response);
+
             return null;
         }
 
-        const checksumsText = await response.text();
+        const checksumsText = await readBoundedResponseText(response, MaximumChecksumsByteLength);
+        if (checksumsText === null) {
+            return null;
+        }
 
         return parseChecksums(checksumsText);
     } catch {

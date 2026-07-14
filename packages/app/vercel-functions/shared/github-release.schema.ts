@@ -12,7 +12,7 @@ export const githubReleaseSchema = z.object({
     draft: z.boolean(),
     name: z.string().nullable(),
     prerelease: z.boolean(),
-    published_at: z.string().nullable(),
+    published_at: z.iso.datetime({ offset: false }).nullable(),
     tag_name: z.string()
 });
 

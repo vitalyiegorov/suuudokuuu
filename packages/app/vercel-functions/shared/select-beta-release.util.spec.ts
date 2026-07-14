@@ -1,6 +1,11 @@
 import { describe, expect, it } from '@jest/globals';
 
-import { DevelopmentApkAssetName, DevelopmentChecksumsAssetName, DevelopmentIpaAssetName } from './beta-release.constant';
+import {
+    DevelopmentApkAssetName,
+    DevelopmentChecksumsAssetName,
+    DevelopmentIpaAssetName,
+    MaximumChecksumsByteLength
+} from './beta-release.constant';
 import { parseBetaReleaseCandidates, selectBetaReleaseCandidates } from './select-beta-release.util';
 
 const CommitSha = '0123456789abcdef0123456789abcdef01234567';
@@ -14,6 +19,7 @@ interface ReleaseOverrides {
     readonly body?: string | null;
     readonly draft?: boolean;
     readonly prerelease?: boolean;
+    readonly publishedAt?: string;
     readonly tagName?: string;
 }
 
@@ -51,7 +57,7 @@ const createRelease = (runNumber: number, overrides: ReleaseOverrides = {}) => {
         html_url: `https://github.com/vitalyiegorov/suuudokuuu/releases/tag/${tagName}`,
         name: `Development ${runNumber}`,
         prerelease: overrides.prerelease ?? true,
-        published_at: PublishedAt,
+        published_at: overrides.publishedAt ?? PublishedAt,
         tag_name: tagName
     };
 };
@@ -106,6 +112,14 @@ describe('selectBetaReleaseCandidates', () => {
                 createAsset('development-3', DevelopmentChecksumsAssetName)
             ]
         }),
+        createRelease(3, {
+            assets: [
+                createAsset('development-3', DevelopmentIpaAssetName),
+                createAsset('development-3', DevelopmentApkAssetName),
+                createAsset('development-3', DevelopmentChecksumsAssetName, MaximumChecksumsByteLength + 1)
+            ]
+        }),
+        createRelease(3, { publishedAt: '2026-07-14T10:30:00+02:00' }),
         createRelease(3, {
             assets: createAssets('development-3').map(asset => ({ ...asset, browser_download_url: `${asset.browser_download_url}?x=1` }))
         })

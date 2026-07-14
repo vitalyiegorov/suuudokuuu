@@ -3,7 +3,8 @@ import {
     DevelopmentChecksumsAssetName,
     DevelopmentIpaAssetName,
     DevelopmentReleaseAssetNames,
-    DevelopmentReleaseTagPattern
+    DevelopmentReleaseTagPattern,
+    MaximumChecksumsByteLength
 } from './beta-release.constant';
 import { githubReleaseSchema, githubReleasesSchema } from './github-release.schema';
 import { parseReleaseMetadata } from './parse-release-metadata.util';
@@ -43,7 +44,9 @@ const hasExactAssets = (release: GithubRelease) => {
         release.assets.length === DevelopmentReleaseAssetNames.length &&
         uniqueAssetNames.size === DevelopmentReleaseAssetNames.length &&
         hasExpectedAssetNames &&
-        release.assets.every(asset => asset.size > 0)
+        release.assets.every(
+            asset => asset.size > 0 && (asset.name !== DevelopmentChecksumsAssetName || asset.size <= MaximumChecksumsByteLength)
+        )
     );
 };
 

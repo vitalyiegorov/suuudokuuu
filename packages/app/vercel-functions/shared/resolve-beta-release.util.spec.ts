@@ -54,6 +54,19 @@ const createRelease = (runNumber: number) => {
 const createJsonResponse = (input: unknown, status = SuccessStatus) =>
     new Response(JSON.stringify(input), { headers: { 'Content-Type': 'application/json' }, status });
 
+const createBodyReadFailureResponse = () => {
+    const response = new Response(ValidChecksums);
+    if (response.body === null) {
+        throw new Error('Expected checksum response body');
+    }
+
+    const reader = response.body.getReader();
+    jest.spyOn(reader, 'read').mockRejectedValue(new Error('body read failure'));
+    jest.spyOn(response.body, 'getReader').mockReturnValue(reader);
+
+    return response;
+};
+
 describe('resolveBetaRelease', () => {
     it('returns a sanitized ready release and sends the authenticated GitHub request', async () => {
         const fetchMock = jest.fn<typeof fetch>();
@@ -69,11 +82,13 @@ describe('resolveBetaRelease', () => {
                 'User-Agent': 'suuudokuuu-development-release-resolver',
                 'X-GitHub-Api-Version': '2022-11-28'
             },
-            method: 'GET'
+            method: 'GET',
+            signal: expect.any(AbortSignal)
         });
         expect(fetchMock).toHaveBeenNthCalledWith(
             2,
-            'https://github.com/vitalyiegorov/suuudokuuu/releases/download/development-123/SHA256SUMS'
+            'https://github.com/vitalyiegorov/suuudokuuu/releases/download/development-123/SHA256SUMS',
+            { signal: expect.any(AbortSignal) }
         );
         expect(result).toEqual({
             release: {
@@ -107,7 +122,8 @@ describe('resolveBetaRelease', () => {
                 'User-Agent': 'suuudokuuu-development-release-resolver',
                 'X-GitHub-Api-Version': '2022-11-28'
             },
-            method: 'GET'
+            method: 'GET',
+            signal: expect.any(AbortSignal)
         });
     });
 
@@ -156,6 +172,21 @@ describe('resolveBetaRelease', () => {
         await expect(resolveBetaRelease({ fetch: fetchMock })).resolves.toEqual({ status: 'not-found' });
     });
 
+    it('rejects an oversized advertised checksum asset before fetching it', async () => {
+        const fetchMock = jest.fn<typeof fetch>();
+        const release = createRelease(CurrentRunNumber);
+        const oversizedRelease = {
+            ...release,
+            assets: release.assets.map(asset =>
+                asset.name === DevelopmentChecksumsAssetName ? { ...asset, size: MaximumChecksumsByteLength + 1 } : asset
+            )
+        };
+        fetchMock.mockResolvedValueOnce(createJsonResponse([oversizedRelease]));
+
+        await expect(resolveBetaRelease({ fetch: fetchMock })).resolves.toEqual({ status: 'not-found' });
+        expect(fetchMock).toHaveBeenCalledTimes(1);
+    });
+
     it.each([
         new Response('not found', { status: 404 }),
         new Response('invalid checksums'),
@@ -178,20 +209,16 @@ describe('resolveBetaRelease', () => {
 
     it('returns upstream-failure when the checksum response body cannot be read', async () => {
         const fetchMock = jest.fn<typeof fetch>();
-        const checksumResponse = new Response(ValidChecksums);
-        jest.spyOn(checksumResponse, 'text').mockRejectedValue(new Error('body read failure'));
         fetchMock.mockResolvedValueOnce(createJsonResponse([createRelease(CurrentRunNumber)]));
-        fetchMock.mockResolvedValueOnce(checksumResponse);
+        fetchMock.mockResolvedValueOnce(createBodyReadFailureResponse());
 
         await expect(resolveBetaRelease({ fetch: fetchMock })).resolves.toEqual({ status: 'upstream-failure' });
     });
 
     it('falls back after a checksum response body cannot be read', async () => {
         const fetchMock = jest.fn<typeof fetch>();
-        const checksumResponse = new Response(ValidChecksums);
-        jest.spyOn(checksumResponse, 'text').mockRejectedValue(new Error('body read failure'));
         fetchMock.mockResolvedValueOnce(createJsonResponse([createRelease(CurrentRunNumber), createRelease(PreviousRunNumber)]));
-        fetchMock.mockResolvedValueOnce(checksumResponse);
+        fetchMock.mockResolvedValueOnce(createBodyReadFailureResponse());
         fetchMock.mockResolvedValueOnce(new Response(ValidChecksums));
 
         const result = await resolveBetaRelease({ fetch: fetchMock });
@@ -209,6 +236,47 @@ describe('resolveBetaRelease', () => {
     it('returns upstream-failure for a non-successful GitHub response', async () => {
         const fetchMock = jest.fn<typeof fetch>();
         fetchMock.mockResolvedValueOnce(createJsonResponse({}, 500));
+
+        await expect(resolveBetaRelease({ fetch: fetchMock })).resolves.toEqual({ status: 'upstream-failure' });
+    });
+
+    it('cancels a non-successful GitHub response body', async () => {
+        const cancel = jest.fn<() => void>();
+        const fetchMock = jest.fn<typeof fetch>();
+        const response = new Response('failure', { status: 500 });
+        if (response.body === null) {
+            throw new Error('Expected GitHub response body');
+        }
+        jest.spyOn(response.body, 'cancel').mockImplementation(async () => void cancel());
+        fetchMock.mockResolvedValueOnce(response);
+
+        await expect(resolveBetaRelease({ fetch: fetchMock })).resolves.toEqual({ status: 'upstream-failure' });
+        expect(cancel).toHaveBeenCalledTimes(1);
+    });
+
+    it('cancels a non-successful checksum response body', async () => {
+        const cancel = jest.fn<() => void>();
+        const fetchMock = jest.fn<typeof fetch>();
+        const response = new Response('failure', { status: 500 });
+        if (response.body === null) {
+            throw new Error('Expected checksum response body');
+        }
+        jest.spyOn(response.body, 'cancel').mockImplementation(async () => void cancel());
+        fetchMock.mockResolvedValueOnce(createJsonResponse([createRelease(CurrentRunNumber)]));
+        fetchMock.mockResolvedValueOnce(response);
+
+        await expect(resolveBetaRelease({ fetch: fetchMock })).resolves.toEqual({ status: 'upstream-failure' });
+        expect(cancel).toHaveBeenCalledTimes(1);
+    });
+
+    it('maps a response cancellation failure to upstream-failure', async () => {
+        const fetchMock = jest.fn<typeof fetch>();
+        const response = new Response('failure', { status: 500 });
+        if (response.body === null) {
+            throw new Error('Expected GitHub response body');
+        }
+        jest.spyOn(response.body, 'cancel').mockRejectedValue(new Error('cancel failure'));
+        fetchMock.mockResolvedValueOnce(response);
 
         await expect(resolveBetaRelease({ fetch: fetchMock })).resolves.toEqual({ status: 'upstream-failure' });
     });
