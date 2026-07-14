@@ -2,16 +2,17 @@ import { StyleSheet } from 'react-native';
 
 export const BetaPlatformInstructionsStyles = StyleSheet.create({
     card: {
-        gap: 20,
+        gap: 7,
         width: '100%'
+    },
+    code: {
+        fontFamily: 'monospace',
+        fontWeight: '800'
     },
     heading: {
         fontSize: 19,
         fontWeight: '800',
         lineHeight: 25
-    },
-    section: {
-        gap: 7
     },
     text: {
         fontSize: 15,

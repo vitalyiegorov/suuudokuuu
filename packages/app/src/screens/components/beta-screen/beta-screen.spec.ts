@@ -3,6 +3,9 @@ import { join } from 'node:path';
 
 import { describe, expect, it } from '@jest/globals';
 
+const PlatformCardCount = 2;
+const InstallLinkCount = 2;
+
 const readSourceFiles = (directory: string): string =>
     readdirSync(directory, { withFileTypes: true })
         .flatMap(directoryEntry => {
@@ -27,11 +30,21 @@ const readSourceFiles = (directory: string): string =>
 describe('BetaScreen composition', () => {
     const betaSource = readSourceFiles(__dirname);
     const routeSource = readFileSync(join(__dirname, '../../../app/beta.tsx'), 'utf8');
+    const installActionsSource = readFileSync(join(__dirname, 'components/beta-install-actions/beta-install-actions.tsx'), 'utf8');
+    const platformInstructionsSource = readFileSync(
+        join(__dirname, 'components/beta-platform-instructions/beta-platform-instructions.tsx'),
+        'utf8'
+    );
+    const releaseDetailsSource = readFileSync(join(__dirname, 'components/beta-release-details/beta-release-details.tsx'), 'utf8');
 
     it('keeps the route thin and localized', () => {
         expect(routeSource).toContain('PageHorizontalSafeAreaEdges');
         expect(routeSource).toContain('PageHeader title={t`Development builds`}');
         expect(routeSource).toContain('<BetaScreen />');
+        expect(routeSource).not.toContain('fetchBetaRelease');
+        expect(routeSource).not.toContain('useBetaRelease');
+        expect(routeSource).not.toContain('state.status');
+        expect(routeSource).not.toContain('BetaReleaseDetails');
     });
 
     it('composes loading, empty, error, and ready states from focused components', () => {
@@ -50,6 +63,8 @@ describe('BetaScreen composition', () => {
         expect(betaSource).toContain('accessibilityHint=');
         expect(betaSource).toContain('AppLinkButton');
         expect(betaSource).toContain('accessibilityLiveRegion="polite" style={styles.readyContent}');
+        expect(installActionsSource.match(/accessibilityRole="link"/gu) ?? []).toHaveLength(InstallLinkCount);
+        expect(releaseDetailsSource).toContain('accessibilityRole="link"');
     });
 
     it('aborts stale requests and maps unexpected rejections to the generic error state', () => {
@@ -73,5 +88,13 @@ describe('BetaScreen composition', () => {
         expect(betaSource).toContain('AppSurfaceCard');
         expect(betaSource).not.toContain('dangerouslySetInnerHTML');
         expect(betaSource).not.toContain('Markdown');
+    });
+
+    it('shows separate platform cards and exact development client launch guidance', () => {
+        expect(platformInstructionsSource.match(/<AppSurfaceCard/gu)).toHaveLength(PlatformCardCount);
+        expect(platformInstructionsSource).toContain('EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL');
+        expect(platformInstructionsSource).toContain('<Trans>development</Trans>');
+        expect(platformInstructionsSource).toContain('Metro');
+        expect(platformInstructionsSource).toContain('does not publish an update');
     });
 });
