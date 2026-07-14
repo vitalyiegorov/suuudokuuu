@@ -27,10 +27,11 @@ releases_to_delete="$(jq -cer --argjson currentRun "$GITHUB_RUN_NUMBER" '
 
   development_releases
   | (
-      map(select(.draft == false and .runNumber < $currentRun))
+      map(select(.draft == false))
       | sort_by(.runNumber)
       | reverse
       | .[5:]
+      | map(select(.runNumber < $currentRun))
       | sort_by(.runNumber)
     ) as $oldPublished
   | (
