@@ -617,7 +617,7 @@ msgstr "Buka halaman ini di Safari pada iPhone atau iPad fisik. Perangkat harus 
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Opens the registered-device installation prompt"
-msgstr "Membuka perintah penginstalan untuk perangkat terdaftar"
+msgstr "Membuka dialog penginstalan untuk perangkat yang terdaftar"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Opens this commit on GitHub"
