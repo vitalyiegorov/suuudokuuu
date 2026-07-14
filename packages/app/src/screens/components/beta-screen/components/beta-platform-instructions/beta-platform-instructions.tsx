@@ -14,12 +14,13 @@ export const BetaPlatformInstructions = () => {
     const warningStyle = { borderLeftColor: theme.colors.red };
     const headingStyle = [styles.heading, textStyle];
     const copyStyle = [styles.text, hintStyle];
+    const codeStyle = [styles.code, textStyle];
     const warningContainerStyle = [styles.warning, warningStyle];
     const warningHeadingStyle = [styles.warningHeading, textStyle];
 
     return (
-        <AppSurfaceCard size="spacious" style={styles.card} variant="muted">
-            <View style={styles.section}>
+        <>
+            <AppSurfaceCard size="spacious" style={styles.card} variant="muted">
                 <Text selectable style={headingStyle}>
                     <Trans>iOS installation</Trans>
                 </Text>
@@ -29,9 +30,9 @@ export const BetaPlatformInstructions = () => {
                         provisioning profile.
                     </Trans>
                 </Text>
-            </View>
+            </AppSurfaceCard>
 
-            <View style={styles.section}>
+            <AppSurfaceCard size="spacious" style={styles.card} variant="muted">
                 <Text selectable style={headingStyle}>
                     <Trans>Android installation</Trans>
                 </Text>
@@ -41,19 +42,24 @@ export const BetaPlatformInstructions = () => {
                         warning before installation.
                     </Trans>
                 </Text>
-            </View>
+            </AppSurfaceCard>
 
             <View accessibilityRole="alert" style={warningContainerStyle}>
                 <Text selectable style={warningHeadingStyle}>
                     <Trans>Development client required</Trans>
                 </Text>
                 <Text selectable style={copyStyle}>
-                    <Trans>
-                        Development clients need Metro, the default launch URL, or a compatible development-channel update. This install
-                        flow does not publish an update.
-                    </Trans>
+                    <Trans>Development clients need Metro, the launch URL configured in</Trans>{' '}
+                    <Text selectable style={codeStyle}>
+                        EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL
+                    </Text>
+                    <Trans>, or a compatible update on the</Trans>{' '}
+                    <Text selectable style={codeStyle}>
+                        <Trans>development</Trans>
+                    </Text>{' '}
+                    <Trans>channel. This install flow does not publish an update.</Trans>
                 </Text>
             </View>
-        </AppSurfaceCard>
+        </>
     );
 };

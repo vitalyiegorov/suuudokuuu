@@ -3,6 +3,7 @@ import { describe, expect, it } from '@jest/globals';
 import { BetaReleaseSchema } from './beta-release.schema';
 
 const ChecksumLength = 64;
+const CommitShaLength = 40;
 const CommitShaSuffixLength = 33;
 
 const ValidRelease = {
@@ -34,7 +35,7 @@ describe('BetaReleaseSchema', () => {
 
     it.each([
         { ...ValidRelease, extra: true },
-        { ...ValidRelease, commitSha: 'A'.repeat(40) },
+        { ...ValidRelease, commitSha: 'A'.repeat(CommitShaLength) },
         { ...ValidRelease, commitShortSha: '081761b' },
         { ...ValidRelease, version: 'v1.62.5' },
         { ...ValidRelease, builtAt: '2026-07-14T12:00:00+02:00' },
@@ -46,4 +47,11 @@ describe('BetaReleaseSchema', () => {
     ])('rejects malformed or unexpected public data', release => {
         expect(BetaReleaseSchema.safeParse(release).success).toBe(false);
     });
+
+    it.each(['a'.repeat(CommitShaLength - 1), 'a'.repeat(CommitShaLength + 1)])(
+        'rejects a commit SHA that is not exactly 40 characters',
+        commitSha => {
+            expect(BetaReleaseSchema.safeParse({ ...ValidRelease, commitSha }).success).toBe(false);
+        }
+    );
 });

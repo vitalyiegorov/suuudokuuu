@@ -27,6 +27,7 @@ export const BetaInstallActions = () => {
             <AppLinkButton
                 accessibilityHint={t`Opens the registered-device installation prompt`}
                 accessibilityLabel={t`Install the iOS development build`}
+                accessibilityRole="link"
                 icon={LucideDownload}
                 onPress={handleIosPress}
                 style={styles.button}
@@ -36,6 +37,7 @@ export const BetaInstallActions = () => {
             <AppLinkButton
                 accessibilityHint={t`Downloads the Android development APK`}
                 accessibilityLabel={t`Download the Android development build`}
+                accessibilityRole="link"
                 icon={LucideDownload}
                 onPress={handleAndroidPress}
                 style={styles.button}
