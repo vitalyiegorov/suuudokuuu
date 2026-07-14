@@ -38,7 +38,8 @@ for variable_name in GITHUB_REPOSITORY GITHUB_RUN_ID GITHUB_RUN_NUMBER GITHUB_SH
 done
 
 [[ "$GITHUB_RUN_NUMBER" =~ ^[0-9]+$ ]] || fail 'GITHUB_RUN_NUMBER must be numeric.'
-[[ "$GITHUB_SHA" =~ ^[0-9a-fA-F]{40}$ ]] || fail 'GITHUB_SHA must be a full commit SHA.'
+[[ "$GITHUB_SHA" =~ ^[a-f0-9]{40}$ ]] || fail 'GITHUB_SHA does not match the development release metadata contract.'
+[[ "${#GITHUB_REF_NAME}" -le 255 && "$GITHUB_REF_NAME" =~ ^[A-Za-z0-9][A-Za-z0-9._/-]*$ ]] || fail 'GITHUB_REF_NAME does not match the development release metadata contract.'
 
 artifact_directory="$1"
 [[ -d "$artifact_directory" ]] || fail "Artifact directory does not exist: $artifact_directory"
@@ -52,10 +53,13 @@ verify_directory_entries "$artifact_directory" "$apk_name" "$ipa_name"
 [[ -s "$artifact_directory/$apk_name" ]] || fail "$apk_name is empty."
 
 tag_name="development-$GITHUB_RUN_NUMBER"
-version="$(jq -er '.version | select(type == "string" and length > 0)' packages/app/package.json)"
+version="$(jq -r '.version | if type == "string" then . else "" end' packages/app/package.json)"
+[[ "$version" =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]] || fail 'Application version does not match the development release metadata contract.'
 short_sha="${GITHUB_SHA:0:7}"
 built_at="$(date -u '+%Y-%m-%dT%H:%M:%SZ')"
+jq -en --arg builtAt "$built_at" '$builtAt | fromdateiso8601 | type == "number"' > /dev/null || fail 'UTC build time does not match the development release metadata contract.'
 workflow_url="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+[[ "$workflow_url" =~ ^https://github\.com/vitalyiegorov/suuudokuuu/actions/runs/[1-9][0-9]*$ ]] || fail 'Workflow URL does not match the development release metadata contract.'
 metadata="$(jq -cn \
   --arg branch "$GITHUB_REF_NAME" \
   --arg builtAt "$built_at" \
@@ -133,9 +137,10 @@ while IFS=$'\t' read -r asset_id asset_name; do
 done < <(jq -r '.assets | sort_by(.name)[] | [.id, .name] | @tsv' <<< "$draft_release")
 
 verify_directory_entries "$download_directory" "$checksums_name" "$apk_name" "$ipa_name"
+cmp "$artifact_directory/$checksums_name" "$download_directory/$checksums_name" || fail 'Downloaded checksum manifest does not match the local manifest.'
 (
   cd "$download_directory"
-  shasum -a 256 -c "$checksums_name"
+  shasum -a 256 -c "$artifact_directory/$checksums_name"
 )
 
 gh api \
