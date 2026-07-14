@@ -17,6 +17,8 @@ const CommitSha = '0123456789abcdef0123456789abcdef01234567';
 const SuccessStatus = 200;
 const CurrentRunNumber = 123;
 const PreviousRunNumber = 122;
+const MaximumReleasesByteLength = 4_194_304;
+const MaximumChecksumAttempts = 5;
 
 const createAsset = (runNumber: number, name: string) => ({
     browser_download_url: `https://github.com/vitalyiegorov/suuudokuuu/releases/download/development-${runNumber}/${name}`,
@@ -155,6 +157,34 @@ describe('resolveBetaRelease', () => {
         expect(result).toMatchObject({ release: { tagName: 'development-122' }, status: 'ready' });
     });
 
+    it('uses one request-wide abort signal across release and checksum fetches', async () => {
+        const fetchMock = jest.fn<typeof fetch>();
+        fetchMock.mockResolvedValueOnce(createJsonResponse([createRelease(CurrentRunNumber), createRelease(PreviousRunNumber)]));
+        fetchMock.mockResolvedValueOnce(new Response('invalid'));
+        fetchMock.mockResolvedValueOnce(new Response(ValidChecksums));
+
+        await resolveBetaRelease({ fetch: fetchMock });
+
+        const releasesSignal = fetchMock.mock.calls.at(0)?.[1]?.signal ?? null;
+        const firstChecksumSignal = fetchMock.mock.calls.at(1)?.[1]?.signal ?? null;
+        const secondChecksumSignal = fetchMock.mock.calls.at(2)?.[1]?.signal ?? null;
+        expect(releasesSignal).toBeInstanceOf(AbortSignal);
+        expect(firstChecksumSignal === releasesSignal).toBe(true);
+        expect(secondChecksumSignal === releasesSignal).toBe(true);
+    });
+
+    it('limits checksum fallback to five newest structural candidates', async () => {
+        const fetchMock = jest.fn<typeof fetch>();
+        const releases = Array.from({ length: 7 }, (_value, index) => createRelease(100 - index));
+        fetchMock.mockResolvedValueOnce(createJsonResponse(releases));
+        for (let attempt = 0; attempt < MaximumChecksumAttempts; attempt += 1) {
+            fetchMock.mockResolvedValueOnce(new Response('invalid'));
+        }
+
+        await expect(resolveBetaRelease({ fetch: fetchMock })).resolves.toEqual({ status: 'upstream-failure' });
+        expect(fetchMock).toHaveBeenCalledTimes(MaximumChecksumAttempts + 1);
+    });
+
     it('falls back past a malformed newest release', async () => {
         const fetchMock = jest.fn<typeof fetch>();
         fetchMock.mockResolvedValueOnce(createJsonResponse([{ tag_name: 'development-200' }, createRelease(PreviousRunNumber)]));
@@ -283,9 +313,36 @@ describe('resolveBetaRelease', () => {
 
     it('returns upstream-failure for invalid GitHub JSON', async () => {
         const fetchMock = jest.fn<typeof fetch>();
-        fetchMock.mockResolvedValueOnce(new Response('{', { status: SuccessStatus }));
+        const response = new Response('{', { status: SuccessStatus });
+        if (response.body === null) {
+            throw new Error('Expected GitHub response body');
+        }
+
+        const getReader = jest.spyOn(response.body, 'getReader');
+        fetchMock.mockResolvedValueOnce(response);
 
         await expect(resolveBetaRelease({ fetch: fetchMock })).resolves.toEqual({ status: 'upstream-failure' });
+        expect(getReader).toHaveBeenCalledTimes(1);
+    });
+
+    it('cancels an oversized chunked GitHub releases body immediately', async () => {
+        const fetchMock = jest.fn<typeof fetch>();
+        const response = new Response('placeholder');
+        if (response.body === null) {
+            throw new Error('Expected GitHub response body');
+        }
+
+        const reader = response.body.getReader();
+        const cancel = jest.spyOn(reader, 'cancel').mockResolvedValue();
+        jest.spyOn(reader, 'read')
+            .mockResolvedValueOnce({ done: false, value: new TextEncoder().encode('x'.repeat(MaximumReleasesByteLength)) })
+            .mockResolvedValueOnce({ done: false, value: new TextEncoder().encode('x') });
+        jest.spyOn(response.body, 'getReader').mockReturnValue(reader);
+        fetchMock.mockResolvedValueOnce(response);
+
+        await expect(resolveBetaRelease({ fetch: fetchMock })).resolves.toEqual({ status: 'upstream-failure' });
+        expect(cancel).toHaveBeenCalledTimes(1);
+        expect(response.headers.has('Content-Length')).toBe(false);
     });
 
     it('returns upstream-failure for an invalid GitHub response shape', async () => {

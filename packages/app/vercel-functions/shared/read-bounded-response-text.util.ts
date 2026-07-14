@@ -32,21 +32,26 @@ const cancelReader = async (reader: ResponseBodyReader) => {
     return true;
 };
 
-const readNextChunk = async (reader: ResponseBodyReader, textDecoder: TextDecoder, state: BoundedReadState): Promise<BoundedReadResult> => {
+const readNextChunk = async (
+    reader: ResponseBodyReader,
+    textDecoder: TextDecoder,
+    state: BoundedReadState,
+    signal: AbortSignal
+): Promise<BoundedReadResult> => {
+    if (signal.aborted) {
+        await cancelReader(reader);
+
+        return { status: 'failure' };
+    }
+
     const readResult = await reader.read();
     if (readResult.done) {
         return { status: 'success', text: state.text.concat(textDecoder.decode()) };
     }
 
     const chunk = readResult.value ?? null;
-    if (chunk === null) {
-        await cancelReader(reader);
-
-        return { status: 'failure' };
-    }
-
-    const nextByteLength = state.byteLength + chunk.byteLength;
-    if (nextByteLength > state.maximumByteLength) {
+    const nextByteLength = state.byteLength + (chunk?.byteLength ?? 0);
+    if (chunk === null || nextByteLength > state.maximumByteLength) {
         await cancelReader(reader);
 
         return { status: 'failure' };
@@ -58,21 +63,30 @@ const readNextChunk = async (reader: ResponseBodyReader, textDecoder: TextDecode
         text: state.text.concat(textDecoder.decode(chunk, { stream: true }))
     };
 
-    return readNextChunk(reader, textDecoder, nextState);
+    return readNextChunk(reader, textDecoder, nextState, signal);
 };
 
-export const readBoundedResponseText = async (response: BoundedTextResponse, maximumByteLength: number): Promise<string | null> => {
+export const readBoundedResponseText = async (
+    response: BoundedTextResponse,
+    maximumByteLength: number,
+    signal: AbortSignal
+): Promise<string | null> => {
     if (response.body === null) {
         return null;
     }
 
     const reader = response.body.getReader();
     try {
-        const readResult = await readNextChunk(reader, new TextDecoder('utf-8', { fatal: true }), {
-            byteLength: 0,
-            maximumByteLength,
-            text: ''
-        });
+        const readResult = await readNextChunk(
+            reader,
+            new TextDecoder('utf-8', { fatal: true }),
+            {
+                byteLength: 0,
+                maximumByteLength,
+                text: ''
+            },
+            signal
+        );
 
         return readResult.status === 'success' ? readResult.text : null;
     } catch {
