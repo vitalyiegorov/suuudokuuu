@@ -28,7 +28,6 @@ export const ThemeProvider = ({ children }: Props) => {
     const unistylesThemeName = getUnistylesThemeName(selectedTheme, colorScheme);
 
     useLayoutEffect(() => {
-        UnistylesRuntime.setAdaptiveThemes(false);
         UnistylesRuntime.setTheme(unistylesThemeName);
     }, [unistylesThemeName]);
 
