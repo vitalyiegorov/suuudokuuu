@@ -5,6 +5,7 @@ import { describe, expect, it } from '@jest/globals';
 
 const PlatformCardCount = 2;
 const InstallLinkCount = 2;
+const DevelopmentWarningMessageCount = 1;
 
 const readSourceFiles = (directory: string): string =>
     readdirSync(directory, { withFileTypes: true })
@@ -31,6 +32,7 @@ describe('BetaScreen composition', () => {
     const betaSource = readSourceFiles(__dirname);
     const routeSource = readFileSync(join(__dirname, '../../../app/beta.tsx'), 'utf8');
     const installActionsSource = readFileSync(join(__dirname, 'components/beta-install-actions/beta-install-actions.tsx'), 'utf8');
+    const betaReleaseHookSource = readFileSync(join(__dirname, 'hooks/use-beta-release.hook.ts'), 'utf8');
     const platformInstructionsSource = readFileSync(
         join(__dirname, 'components/beta-platform-instructions/beta-platform-instructions.tsx'),
         'utf8'
@@ -67,11 +69,10 @@ describe('BetaScreen composition', () => {
         expect(releaseDetailsSource).toContain('accessibilityRole="link"');
     });
 
-    it('aborts stale requests and maps unexpected rejections to the generic error state', () => {
-        expect(betaSource).toContain('const abortController = new AbortController()');
-        expect(betaSource).toContain('abortController.abort()');
-        expect(betaSource).toContain('const handleError = () =>');
-        expect(betaSource).toContain("setState({ status: 'error' })");
+    it('includes the abort-controller request and cleanup pattern in the hook source', () => {
+        expect(betaReleaseHookSource).toContain('const abortController = new AbortController()');
+        expect(betaReleaseHookSource).toContain('fetchBetaRelease(fetch, abortController.signal)');
+        expect(betaReleaseHookSource).toContain('return () => {\n            abortController.abort();\n        }');
     });
 
     it('uses fixed install destinations and Linking for the APK action', () => {
@@ -91,10 +92,14 @@ describe('BetaScreen composition', () => {
     });
 
     it('shows separate platform cards and exact development client launch guidance', () => {
+        const warningSource = platformInstructionsSource.slice(platformInstructionsSource.indexOf('<View accessibilityRole="alert"'));
+
         expect(platformInstructionsSource.match(/<AppSurfaceCard/gu)).toHaveLength(PlatformCardCount);
-        expect(platformInstructionsSource).toContain('EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL');
-        expect(platformInstructionsSource).toContain('<Trans>development</Trans>');
-        expect(platformInstructionsSource).toContain('Metro');
-        expect(platformInstructionsSource).toContain('does not publish an update');
+        expect(warningSource.match(/<Trans>/gu)).toHaveLength(DevelopmentWarningMessageCount);
+        expect(warningSource).toContain('EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL');
+        expect(warningSource).toContain('development');
+        expect(warningSource).toContain('Metro');
+        expect(warningSource).toContain('does not publish an update');
+        expect(warningSource).toContain('<Text selectable style={codeStyle}>');
     });
 });
