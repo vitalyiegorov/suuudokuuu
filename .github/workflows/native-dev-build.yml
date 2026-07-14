@@ -208,18 +208,10 @@ jobs:
       - name: Publish development release
         env:
           GH_TOKEN: ${{ github.token }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
-          RUN_ID: ${{ github.run_id }}
-          RUN_NUMBER: ${{ github.run_number }}
-          SHA: ${{ github.sha }}
-          REF_NAME: ${{ github.ref_name }}
-          SERVER_URL: ${{ github.server_url }}
         run: .github/scripts/publish-development-release.sh artifacts
 
       - name: Clean up old development releases
         continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
-          GITHUB_RUN_NUMBER: ${{ github.run_number }}
         run: .github/scripts/cleanup-development-releases.sh

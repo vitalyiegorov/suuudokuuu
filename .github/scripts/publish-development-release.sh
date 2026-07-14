@@ -33,12 +33,12 @@ verify_directory_entries() {
 
 [[ "$#" -eq 1 ]] || fail 'Usage: publish-development-release.sh <artifact-directory>'
 
-for variable_name in GITHUB_REPOSITORY RUN_ID RUN_NUMBER SHA REF_NAME SERVER_URL; do
+for variable_name in GITHUB_REPOSITORY GITHUB_RUN_ID GITHUB_RUN_NUMBER GITHUB_SHA GITHUB_REF_NAME GITHUB_SERVER_URL; do
   require_environment_variable "$variable_name"
 done
 
-[[ "$RUN_NUMBER" =~ ^[0-9]+$ ]] || fail 'RUN_NUMBER must be numeric.'
-[[ "$SHA" =~ ^[0-9a-fA-F]{40}$ ]] || fail 'SHA must be a full commit SHA.'
+[[ "$GITHUB_RUN_NUMBER" =~ ^[0-9]+$ ]] || fail 'GITHUB_RUN_NUMBER must be numeric.'
+[[ "$GITHUB_SHA" =~ ^[0-9a-fA-F]{40}$ ]] || fail 'GITHUB_SHA must be a full commit SHA.'
 
 artifact_directory="$1"
 [[ -d "$artifact_directory" ]] || fail "Artifact directory does not exist: $artifact_directory"
@@ -51,23 +51,25 @@ verify_directory_entries "$artifact_directory" "$apk_name" "$ipa_name"
 [[ -s "$artifact_directory/$ipa_name" ]] || fail "$ipa_name is empty."
 [[ -s "$artifact_directory/$apk_name" ]] || fail "$apk_name is empty."
 
-tag_name="development-$RUN_NUMBER"
+tag_name="development-$GITHUB_RUN_NUMBER"
 version="$(jq -er '.version | select(type == "string" and length > 0)' packages/app/package.json)"
-short_sha="${SHA:0:7}"
+short_sha="${GITHUB_SHA:0:7}"
 built_at="$(date -u '+%Y-%m-%dT%H:%M:%SZ')"
-workflow_url="$SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$RUN_ID"
+workflow_url="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
 metadata="$(jq -cn \
-  --arg branch "$REF_NAME" \
+  --arg branch "$GITHUB_REF_NAME" \
   --arg builtAt "$built_at" \
-  --arg commitSha "$SHA" \
+  --arg commitSha "$GITHUB_SHA" \
   --arg version "$version" \
   --arg workflowUrl "$workflow_url" \
   '{branch: $branch, builtAt: $builtAt, commitSha: $commitSha, version: $version, workflowUrl: $workflowUrl}')"
 release_title="suuudokuuu development v$version ($short_sha)"
-release_notes="$(printf "%s\n\nBuilt from \`%s\` at commit \`%s\`.\n\nWorkflow: %s" \
+release_notes="$(printf '%s\n\nVersion: %s\nCommit: %s\nBranch: %s\nBuilt at (UTC): %s\nWorkflow: %s' \
   "<!-- suuudokuuu-development-metadata $metadata -->" \
-  "$REF_NAME" \
-  "$SHA" \
+  "$version" \
+  "$GITHUB_SHA" \
+  "$GITHUB_REF_NAME" \
+  "$built_at" \
   "$workflow_url")"
 
 release_pages="$(gh api --paginate --slurp "repos/$GITHUB_REPOSITORY/releases?per_page=100")"
@@ -89,7 +91,7 @@ gh release create "$tag_name" \
   "$artifact_directory/$checksums_name" \
   --draft \
   --prerelease \
-  --target "$SHA" \
+  --target "$GITHUB_SHA" \
   --title "$release_title" \
   --notes "$release_notes"
 
@@ -102,7 +104,7 @@ draft_release="$(jq -cer --arg tag "$tag_name" '
 
 jq -e \
   --arg tag "$tag_name" \
-  --arg sha "$SHA" \
+  --arg sha "$GITHUB_SHA" \
   --arg ipa "$ipa_name" \
   --arg apk "$apk_name" \
   --arg checksums "$checksums_name" '
