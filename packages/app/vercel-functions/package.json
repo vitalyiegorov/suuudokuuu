@@ -1,0 +1,12 @@
+{
+    "name": "@suuudokuuu/vercel-functions",
+    "private": true,
+    "type": "module",
+    "packageManager": "yarn@4.17.0",
+    "engines": {
+        "node": ">=22.22.1"
+    },
+    "dependencies": {
+        "zod": "4.4.3"
+    }
+}
