@@ -5,7 +5,7 @@ import {
     DevelopmentReleaseAssetNames,
     DevelopmentReleaseTagPattern
 } from './beta-release.constant';
-import { githubReleasesSchema } from './github-release.schema';
+import { githubReleaseSchema, githubReleasesSchema } from './github-release.schema';
 import { parseReleaseMetadata } from './parse-release-metadata.util';
 import { validateReleaseAssetUrl } from './validate-release-asset-url.util';
 
@@ -14,17 +14,22 @@ import type { GithubRelease, GithubReleaseAsset } from './github-release.schema'
 
 interface NumberedBetaReleaseCandidate {
     readonly candidate: BetaReleaseCandidate;
-    readonly tagNumber: bigint;
+    readonly tagNumber: number;
 }
 
 export type BetaReleaseCandidatesParseResult =
     { readonly candidates: readonly BetaReleaseCandidate[]; readonly status: 'valid' } | { readonly status: 'invalid' };
 
-const parseTagNumber = (tagName: string): bigint | null => {
+const parseTagNumber = (tagName: string): number | null => {
     const tagMatch = DevelopmentReleaseTagPattern.exec(tagName);
-    const tagNumber = tagMatch?.at(1) ?? null;
+    const tagNumberText = tagMatch?.at(1) ?? null;
+    if (tagNumberText === null) {
+        return null;
+    }
 
-    return tagNumber === null ? null : BigInt(tagNumber);
+    const tagNumber = Number(tagNumberText);
+
+    return Number.isSafeInteger(tagNumber) ? tagNumber : null;
 };
 
 const findReleaseAsset = (release: GithubRelease, assetName: string): GithubReleaseAsset | null =>
@@ -52,7 +57,7 @@ const hasValidAssetUrls = (
     validateReleaseAssetUrl(apkAsset.browser_download_url, tagName, DevelopmentApkAssetName) &&
     validateReleaseAssetUrl(checksumsAsset.browser_download_url, tagName, DevelopmentChecksumsAssetName);
 
-const isEligibleRelease = (release: GithubRelease, tagNumber: bigint | null) =>
+const isEligibleRelease = (release: GithubRelease, tagNumber: number | null) =>
     !release.draft && release.prerelease && tagNumber !== null && release.body !== null && hasExactAssets(release);
 
 const createNumberedCandidate = (release: GithubRelease): NumberedBetaReleaseCandidate | null => {
@@ -84,6 +89,7 @@ const createNumberedCandidate = (release: GithubRelease): NumberedBetaReleaseCan
             name: release.name,
             publishedAt: release.published_at,
             releaseNotes: parsedMetadata.releaseNotes,
+            runNumber: tagNumber,
             tagName: release.tag_name
         },
         tagNumber
@@ -98,10 +104,16 @@ const compareCandidates = (first: NumberedBetaReleaseCandidate, second: Numbered
     return first.tagNumber > second.tagNumber ? -1 : 1;
 };
 
-const createCandidates = (releases: readonly GithubRelease[]): readonly BetaReleaseCandidate[] =>
+const parseNumberedCandidate = (input: unknown): NumberedBetaReleaseCandidate | null => {
+    const releaseResult = githubReleaseSchema.safeParse(input);
+
+    return releaseResult.success ? createNumberedCandidate(releaseResult.data) : null;
+};
+
+const createCandidates = (releases: readonly unknown[]): readonly BetaReleaseCandidate[] =>
     releases
-        .flatMap(release => {
-            const numberedCandidate = createNumberedCandidate(release);
+        .flatMap(input => {
+            const numberedCandidate = parseNumberedCandidate(input);
 
             return numberedCandidate === null ? [] : [numberedCandidate];
         })
