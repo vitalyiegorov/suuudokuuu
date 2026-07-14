@@ -211,6 +211,11 @@ jobs:
           distribution: temurin
           java-version: '17'
 
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v4
+        with:
+          packages: 'platform-tools platforms;android-36 build-tools;36.0.0 ndk;27.1.12297006'
+
       - name: Configure Android toolchain
         run: |
           test -d "$ANDROID_HOME" || {
@@ -219,7 +224,7 @@ jobs:
           }
 
           java -version
-          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --version
+          sdkmanager --version
 
       - name: Verify build credentials
         env:
