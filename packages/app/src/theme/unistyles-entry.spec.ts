@@ -1,6 +1,8 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
+import { describe, expect, it } from '@jest/globals';
+
 describe('Unistyles Expo Router entry', () => {
     it('registers Expo Router before configuring the native Unistyles runtime', () => {
         const source = readFileSync(join(__dirname, '../../index.ts'), 'utf8');
