@@ -27,7 +27,7 @@ releases_to_delete="$(jq -cer --argjson currentRun "$GITHUB_RUN_NUMBER" '
 
   development_releases
   | (
-      map(select(.draft == false))
+      map(select(.draft == false and .runNumber < $currentRun))
       | sort_by(.runNumber)
       | reverse
       | .[5:]
@@ -43,12 +43,14 @@ releases_to_delete="$(jq -cer --argjson currentRun "$GITHUB_RUN_NUMBER" '
 tag_reference_pages="$(gh api --paginate --slurp "repos/$GITHUB_REPOSITORY/git/matching-refs/tags/development-")"
 tag_references="$(jq -ce 'add' <<< "$tag_reference_pages")"
 
-while IFS=$'\t' read -r release_id tag_name; do
-  [[ -n "$release_id" && -n "$tag_name" ]] || continue
+while IFS=$'\t' read -r release_id tag_name is_draft; do
+  [[ -n "$release_id" && -n "$tag_name" && -n "$is_draft" ]] || continue
   gh api --method DELETE "repos/$GITHUB_REPOSITORY/releases/$release_id"
 
-  tag_reference_exists="$(jq -er --arg reference "refs/tags/$tag_name" 'any(.[]; .ref == $reference)' <<< "$tag_references")"
-  if [[ "$tag_reference_exists" == 'true' ]]; then
-    gh api --method DELETE "repos/$GITHUB_REPOSITORY/git/refs/tags/$tag_name"
+  if [[ "$is_draft" == 'false' ]]; then
+    tag_reference_exists="$(jq -r --arg reference "refs/tags/$tag_name" 'any(.[]; .ref == $reference)' <<< "$tag_references")"
+    if [[ "$tag_reference_exists" == 'true' ]]; then
+      gh api --method DELETE "repos/$GITHUB_REPOSITORY/git/refs/tags/$tag_name"
+    fi
   fi
-done < <(jq -r '.[] | [.id, .tag_name] | @tsv' <<< "$releases_to_delete")
+done < <(jq -r '.[] | [.id, .tag_name, .draft] | @tsv' <<< "$releases_to_delete")
