@@ -28,7 +28,7 @@ msgstr "{gamesCompleted, plural, one {# مکمل کھیل} other {# مکمل ک�
 
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "<0>Development client required</0><1>Development clients need Metro, the launch URL configured in <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2>, or a compatible update on the <3>development</3> channel. This install flow does not publish an update.</1>"
-msgstr ""
+msgstr "<0>ڈیولپمنٹ کلائنٹ درکار ہے</0><1>ڈیولپمنٹ کلائنٹس کو Metro، <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2> میں کنفیگر کردہ لانچ URL، یا <3>development</3> چینل پر کسی ہم آہنگ اپ ڈیٹ کی ضرورت ہوتی ہے۔ انسٹالیشن کا یہ عمل کوئی اپ ڈیٹ شائع نہیں کرتا۔</1>"
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "A little room between cells"
@@ -62,7 +62,7 @@ msgstr "تمام پیش رفت ضائع ہو جائے گی"
 
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "Android installation"
-msgstr ""
+msgstr "Android انسٹالیشن"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Animate completed rows, columns, and boxes"
@@ -70,7 +70,7 @@ msgstr "مکمل قطاروں، کالموں اور خانوں کو متحرک �
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Attempts to load the latest development build again"
-msgstr ""
+msgstr "تازہ ترین ڈیولپمنٹ بِلڈ دوبارہ لوڈ کرنے کی کوشش کرتا ہے"
 
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "Average"
@@ -135,7 +135,7 @@ msgstr "بورڈ کے رنگ اور اسکرین کی شکل"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Built:"
-msgstr ""
+msgstr "تیار کیا گیا:"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Can you beat them?"
@@ -220,7 +220,7 @@ msgstr "آرام دہ"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Commit {commitShortSha}"
-msgstr ""
+msgstr "کمیٹ {commitShortSha}"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Complete rows, columns, and blocks for huge bonuses"
@@ -265,12 +265,12 @@ msgstr "Deutsch"
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Development build unavailable"
-msgstr ""
+msgstr "ڈیولپمنٹ بِلڈ دستیاب نہیں"
 
 #: src/app/beta.tsx
 #: src/screens/components/beta-screen/beta.screen.tsx
 msgid "Development builds"
-msgstr ""
+msgstr "ڈیولپمنٹ بِلڈز"
 
 #: src/game/components/difficulty-complexity-slider/difficulty-complexity-slider.tsx
 msgid "Difficulty"
@@ -282,15 +282,15 @@ msgstr "ڈسپلے"
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Download for Android"
-msgstr ""
+msgstr "Android کے لیے ڈاؤن لوڈ کریں"
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Download the Android development build"
-msgstr ""
+msgstr "Android ڈیولپمنٹ بِلڈ ڈاؤن لوڈ کریں"
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Downloads the Android development APK"
-msgstr ""
+msgstr "Android ڈیولپمنٹ APK ڈاؤن لوڈ کرتا ہے"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Each correct placement starts with a base value:"
@@ -430,11 +430,11 @@ msgstr "لافانی"
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Install on iOS"
-msgstr ""
+msgstr "iOS پر انسٹال کریں"
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Install the iOS development build"
-msgstr ""
+msgstr "iOS ڈیولپمنٹ بِلڈ انسٹال کریں"
 
 #: src/game/components/game-provider/game-provider.tsx
 msgid "Invalid Sudoku"
@@ -442,7 +442,7 @@ msgstr "غلط سوڈوکو"
 
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "iOS installation"
-msgstr ""
+msgstr "iOS انسٹالیشن"
 
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "It took you"
@@ -483,11 +483,11 @@ msgstr "ہلکی وارم اَپ"
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Loading development build"
-msgstr ""
+msgstr "ڈیولپمنٹ بِلڈ لوڈ ہو رہا ہے"
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Loading the latest development build…"
-msgstr ""
+msgstr "تازہ ترین ڈیولپمنٹ بِلڈ لوڈ ہو رہا ہے…"
 
 #: src/screens/components/loser-screen/loser.screen.tsx
 msgid "Loooooser =)"
@@ -556,11 +556,11 @@ msgstr "کوئی بونس نہیں"
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "No complete development build has been published yet. Please check again later."
-msgstr ""
+msgstr "ابھی تک کوئی مکمل ڈیولپمنٹ بِلڈ شائع نہیں ہوا۔ براہ کرم بعد میں دوبارہ چیک کریں۔"
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "No development build is available"
-msgstr ""
+msgstr "کوئی ڈیولپمنٹ بِلڈ دستیاب نہیں"
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "No extra gaps between cells"
@@ -600,7 +600,7 @@ msgstr "ٹھیک ہے"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Open commit {commitShortSha} on GitHub"
-msgstr ""
+msgstr "GitHub پر کمیٹ {commitShortSha} کھولیں"
 
 #: src/screens/components/shared-screen/shared-screen.tsx
 msgid "Open puzzle"
@@ -613,15 +613,15 @@ msgstr "شیئر کیا گیا سوڈوکو کھولیں؟"
 
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "Open this page in Safari on a physical iPhone or iPad. The device must already be registered in the Ad Hoc provisioning profile."
-msgstr ""
+msgstr "یہ صفحہ کسی حقیقی iPhone یا iPad پر Safari میں کھولیں۔ ڈیوائس کا Ad Hoc پروویژننگ پروفائل میں پہلے سے رجسٹرڈ ہونا ضروری ہے۔"
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Opens the registered-device installation prompt"
-msgstr ""
+msgstr "رجسٹرڈ ڈیوائس کی انسٹالیشن پرامپٹ کھولتا ہے"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Opens this commit on GitHub"
-msgstr ""
+msgstr "اس کمیٹ کو GitHub پر کھولتا ہے"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Opponent's time:"
@@ -694,7 +694,7 @@ msgstr "پرائیویسی پالیسی"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Published:"
-msgstr ""
+msgstr "شائع شدہ:"
 
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Quit"
@@ -707,7 +707,7 @@ msgstr "آرام دہ"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Release notes"
-msgstr ""
+msgstr "ریلیز نوٹس"
 
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-top-bar/replay-top-bar.tsx
@@ -720,7 +720,7 @@ msgstr "بگ رپورٹ کریں"
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Retry loading development build"
-msgstr ""
+msgstr "ڈیولپمنٹ بِلڈ دوبارہ لوڈ کریں"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Row"
@@ -755,7 +755,7 @@ msgstr "سیٹنگز"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "SHA-256 checksums"
-msgstr ""
+msgstr "SHA-256 چیک سمز"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Shade cells that already have a number"
@@ -880,11 +880,11 @@ msgstr "Svenska"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
-msgstr ""
+msgstr "اس ڈیوائس پر کمیٹ کا لنک نہیں کھولا جا سکا۔"
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "The install link could not be opened. Check your browser settings and try again."
-msgstr ""
+msgstr "انسٹالیشن کا لنک نہیں کھولا جا سکا۔ اپنے براؤزر کی ترتیبات چیک کریں اور دوبارہ کوشش کریں۔"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
@@ -931,7 +931,7 @@ msgstr "بہت زیادہ غلطیاں"
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Try again"
-msgstr ""
+msgstr "دوبارہ کوشش کریں"
 
 #: src/challenge/components/challenge-try-again-button/challenge-try-again-button.tsx
 msgid "Try Again"
@@ -947,11 +947,11 @@ msgstr "یوکرین کو بھی جیتنا ہے"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Unable to open link"
-msgstr ""
+msgstr "لنک نہیں کھولا جا سکا"
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Unable to start installation"
-msgstr ""
+msgstr "انسٹالیشن شروع نہیں کی جا سکی"
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/screens/components/settings-screen/settings.screen.tsx
@@ -1028,7 +1028,7 @@ msgstr "زیادہ روشن بورڈ کے لیے گرم سنہری جھلکیا�
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "We could not load the latest development build. Please try again."
-msgstr ""
+msgstr "تازہ ترین ڈیولپمنٹ بِلڈ لوڈ نہیں کیا جا سکا۔ براہ کرم دوبارہ کوشش کریں۔"
 
 #: src/@generic/utils/donation-get-text.util.ts
 msgid "While you were away Ukraine continued its fight for freedom!\n"
@@ -1102,7 +1102,7 @@ msgstr "آپ کی بہترین گیم"
 
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "Your browser may ask for permission to install unknown apps. Android will also show an operating-system security warning before installation."
-msgstr ""
+msgstr "آپ کا براؤزر نامعلوم ایپس انسٹال کرنے کی اجازت مانگ سکتا ہے۔ انسٹالیشن سے پہلے Android آپریٹنگ سسٹم کی سیکیورٹی وارننگ بھی دکھائے گا۔"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Your opponent completed this puzzle in"
