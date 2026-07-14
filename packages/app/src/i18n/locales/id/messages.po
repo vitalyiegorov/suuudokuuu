@@ -28,7 +28,7 @@ msgstr "{gamesCompleted, plural, one {# game selesai} other {# game selesai}}"
 
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "<0>Development client required</0><1>Development clients need Metro, the launch URL configured in <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2>, or a compatible update on the <3>development</3> channel. This install flow does not publish an update.</1>"
-msgstr ""
+msgstr "<0>Klien pengembangan diperlukan</0><1>Klien pengembangan memerlukan Metro, URL peluncuran yang dikonfigurasi di <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2>, atau pembaruan kompatibel pada saluran <3>development</3>. Alur penginstalan ini tidak menerbitkan pembaruan.</1>"
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "A little room between cells"
@@ -62,7 +62,7 @@ msgstr "Semua progres akan hilang"
 
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "Android installation"
-msgstr ""
+msgstr "Penginstalan Android"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Animate completed rows, columns, and boxes"
@@ -70,7 +70,7 @@ msgstr "Animasikan baris, kolom, dan kotak yang selesai"
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Attempts to load the latest development build again"
-msgstr ""
+msgstr "Mencoba memuat kembali build pengembangan terbaru"
 
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "Average"
@@ -135,7 +135,7 @@ msgstr "Warna papan dan tampilan layar"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Built:"
-msgstr ""
+msgstr "Dibuat:"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Can you beat them?"
@@ -220,7 +220,7 @@ msgstr "Nyaman"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Commit {commitShortSha}"
-msgstr ""
+msgstr "Commit {commitShortSha}"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Complete rows, columns, and blocks for huge bonuses"
@@ -265,12 +265,12 @@ msgstr "Deutsch"
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Development build unavailable"
-msgstr ""
+msgstr "Build pengembangan tidak tersedia"
 
 #: src/app/beta.tsx
 #: src/screens/components/beta-screen/beta.screen.tsx
 msgid "Development builds"
-msgstr ""
+msgstr "Build pengembangan"
 
 #: src/game/components/difficulty-complexity-slider/difficulty-complexity-slider.tsx
 msgid "Difficulty"
@@ -282,15 +282,15 @@ msgstr "Tampilan"
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Download for Android"
-msgstr ""
+msgstr "Unduh untuk Android"
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Download the Android development build"
-msgstr ""
+msgstr "Unduh build pengembangan Android"
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Downloads the Android development APK"
-msgstr ""
+msgstr "Mengunduh APK pengembangan Android"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Each correct placement starts with a base value:"
@@ -430,11 +430,11 @@ msgstr "Abadi"
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Install on iOS"
-msgstr ""
+msgstr "Instal di iOS"
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Install the iOS development build"
-msgstr ""
+msgstr "Instal build pengembangan iOS"
 
 #: src/game/components/game-provider/game-provider.tsx
 msgid "Invalid Sudoku"
@@ -442,7 +442,7 @@ msgstr "Sudoku tidak valid"
 
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "iOS installation"
-msgstr ""
+msgstr "Penginstalan iOS"
 
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "It took you"
@@ -483,11 +483,11 @@ msgstr "Pemanasan ringan"
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Loading development build"
-msgstr ""
+msgstr "Memuat build pengembangan"
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Loading the latest development build…"
-msgstr ""
+msgstr "Memuat build pengembangan terbaru…"
 
 #: src/screens/components/loser-screen/loser.screen.tsx
 msgid "Loooooser =)"
@@ -556,11 +556,11 @@ msgstr "tanpa bonus"
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "No complete development build has been published yet. Please check again later."
-msgstr ""
+msgstr "Belum ada build pengembangan lengkap yang diterbitkan. Silakan periksa lagi nanti."
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "No development build is available"
-msgstr ""
+msgstr "Tidak ada build pengembangan yang tersedia"
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "No extra gaps between cells"
@@ -600,7 +600,7 @@ msgstr "OK"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Open commit {commitShortSha} on GitHub"
-msgstr ""
+msgstr "Buka commit {commitShortSha} di GitHub"
 
 #: src/screens/components/shared-screen/shared-screen.tsx
 msgid "Open puzzle"
@@ -613,15 +613,15 @@ msgstr "Buka sudoku yang dibagikan?"
 
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "Open this page in Safari on a physical iPhone or iPad. The device must already be registered in the Ad Hoc provisioning profile."
-msgstr ""
+msgstr "Buka halaman ini di Safari pada iPhone atau iPad fisik. Perangkat harus sudah terdaftar dalam profil provisioning Ad Hoc."
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Opens the registered-device installation prompt"
-msgstr ""
+msgstr "Membuka perintah penginstalan untuk perangkat terdaftar"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Opens this commit on GitHub"
-msgstr ""
+msgstr "Membuka commit ini di GitHub"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Opponent's time:"
@@ -694,7 +694,7 @@ msgstr "Kebijakan privasi"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Published:"
-msgstr ""
+msgstr "Diterbitkan:"
 
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Quit"
@@ -707,7 +707,7 @@ msgstr "Santai"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Release notes"
-msgstr ""
+msgstr "Catatan rilis"
 
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-top-bar/replay-top-bar.tsx
@@ -720,7 +720,7 @@ msgstr "Laporkan bug"
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Retry loading development build"
-msgstr ""
+msgstr "Coba lagi memuat build pengembangan"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Row"
@@ -755,7 +755,7 @@ msgstr "Pengaturan"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "SHA-256 checksums"
-msgstr ""
+msgstr "Checksum SHA-256"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Shade cells that already have a number"
@@ -880,11 +880,11 @@ msgstr "Svenska"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
-msgstr ""
+msgstr "Tautan commit tidak dapat dibuka di perangkat ini."
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "The install link could not be opened. Check your browser settings and try again."
-msgstr ""
+msgstr "Tautan penginstalan tidak dapat dibuka. Periksa pengaturan browser Anda dan coba lagi."
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
@@ -931,7 +931,7 @@ msgstr "Terlalu banyak kesalahan"
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Try again"
-msgstr ""
+msgstr "Coba lagi"
 
 #: src/challenge/components/challenge-try-again-button/challenge-try-again-button.tsx
 msgid "Try Again"
@@ -947,11 +947,11 @@ msgstr "Ukraina juga harus menang"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Unable to open link"
-msgstr ""
+msgstr "Tidak dapat membuka tautan"
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Unable to start installation"
-msgstr ""
+msgstr "Tidak dapat memulai penginstalan"
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/screens/components/settings-screen/settings.screen.tsx
@@ -1028,7 +1028,7 @@ msgstr "Aksen emas hangat untuk papan yang lebih cerah"
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "We could not load the latest development build. Please try again."
-msgstr ""
+msgstr "Build pengembangan terbaru tidak dapat dimuat. Silakan coba lagi."
 
 #: src/@generic/utils/donation-get-text.util.ts
 msgid "While you were away Ukraine continued its fight for freedom!\n"
@@ -1102,7 +1102,7 @@ msgstr "Permainan terbaikmu"
 
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "Your browser may ask for permission to install unknown apps. Android will also show an operating-system security warning before installation."
-msgstr ""
+msgstr "Browser Anda mungkin meminta izin untuk menginstal aplikasi dari sumber tidak dikenal. Android juga akan menampilkan peringatan keamanan sistem operasi sebelum penginstalan."
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Your opponent completed this puzzle in"
