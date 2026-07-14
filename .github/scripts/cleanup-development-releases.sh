@@ -55,3 +55,27 @@ while IFS=$'\t' read -r release_id tag_name is_draft; do
     fi
   fi
 done < <(jq -r '.[] | [.id, .tag_name, .draft] | @tsv' <<< "$releases_to_delete")
+
+release_tag_names="$(jq -ce 'add | map(.tag_name)' <<< "$release_pages")"
+orphan_tag_names="$(jq -cer \
+  --argjson currentRun "$GITHUB_RUN_NUMBER" \
+  --argjson releaseTagNames "$release_tag_names" '
+    map(
+      select(.ref | test("^refs/tags/development-[0-9]+$"))
+      | {
+          tagName: (.ref | sub("^refs/tags/"; "")),
+          runNumber: (.ref | sub("^refs/tags/development-"; "") | tonumber)
+        }
+    )
+    | map(
+        .tagName as $tagName
+        | select(.runNumber < $currentRun and ($releaseTagNames | index($tagName)) == null)
+      )
+    | sort_by(.runNumber)
+    | map(.tagName)
+  ' <<< "$tag_references")"
+
+while IFS= read -r tag_name; do
+  [[ -n "$tag_name" ]] || continue
+  gh api --method DELETE "repos/$GITHUB_REPOSITORY/git/refs/tags/$tag_name"
+done < <(jq -r '.[]' <<< "$orphan_tag_names")
