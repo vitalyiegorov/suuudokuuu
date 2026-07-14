@@ -7,7 +7,6 @@ interface ReleaseMetadata {
     readonly branch: string;
     readonly builtAt: string;
     readonly commitSha: string;
-    readonly runNumber: number;
     readonly version: string;
     readonly workflowUrl: string;
 }
@@ -24,6 +23,7 @@ export interface BetaReleaseCandidate extends ReleaseMetadata {
     readonly name: string;
     readonly publishedAt: string;
     readonly releaseNotes: string;
+    readonly runNumber: number;
     readonly tagName: string;
 }
 
@@ -34,6 +34,7 @@ export interface BetaRelease extends ReleaseMetadata {
     readonly name: string;
     readonly publishedAt: string;
     readonly releaseNotes: string;
+    readonly runNumber: number;
     readonly tagName: string;
 }
 
