@@ -1,4 +1,10 @@
-import { DevelopmentReleaseApiUrl, MaximumChecksumsByteLength, UpstreamRequestTimeoutMilliseconds } from './beta-release.constant';
+import {
+    DevelopmentReleaseApiUrl,
+    MaximumChecksumCandidateAttempts,
+    MaximumChecksumsByteLength,
+    MaximumGithubReleasesByteLength,
+    UpstreamRequestTimeoutMilliseconds
+} from './beta-release.constant';
 import { parseChecksums } from './parse-checksums.util';
 import { readBoundedResponseText } from './read-bounded-response-text.util';
 import { parseBetaReleaseCandidates } from './select-beta-release.util';
@@ -34,12 +40,15 @@ const cancelResponseBody = async (response: Response) => {
     return true;
 };
 
-const requestGithubReleases = async (dependencies: ResolveBetaReleaseDependencies): Promise<GithubReleasesRequestResult> => {
+const requestGithubReleases = async (
+    dependencies: ResolveBetaReleaseDependencies,
+    signal: AbortSignal
+): Promise<GithubReleasesRequestResult> => {
     try {
         const response = await dependencies.fetch(DevelopmentReleaseApiUrl, {
             headers: createGithubHeaders(dependencies.githubToken),
             method: 'GET',
-            signal: AbortSignal.timeout(UpstreamRequestTimeoutMilliseconds)
+            signal
         });
         if (!response.ok) {
             await cancelResponseBody(response);
@@ -47,7 +56,12 @@ const requestGithubReleases = async (dependencies: ResolveBetaReleaseDependencie
             return { status: 'failure' };
         }
 
-        const input: unknown = await response.json();
+        const releasesText = await readBoundedResponseText(response, MaximumGithubReleasesByteLength, signal);
+        if (releasesText === null) {
+            return { status: 'failure' };
+        }
+
+        const input: unknown = JSON.parse(releasesText);
 
         return { input, status: 'success' };
     } catch {
@@ -55,10 +69,14 @@ const requestGithubReleases = async (dependencies: ResolveBetaReleaseDependencie
     }
 };
 
-const requestChecksums = async (candidate: BetaReleaseCandidate, request: typeof fetch): Promise<ReleaseChecksums | null> => {
+const requestChecksums = async (
+    candidate: BetaReleaseCandidate,
+    request: typeof fetch,
+    signal: AbortSignal
+): Promise<ReleaseChecksums | null> => {
     try {
         const response = await request(candidate.checksumsUrl, {
-            signal: AbortSignal.timeout(UpstreamRequestTimeoutMilliseconds)
+            signal
         });
         if (!response.ok) {
             await cancelResponseBody(response);
@@ -66,7 +84,7 @@ const requestChecksums = async (candidate: BetaReleaseCandidate, request: typeof
             return null;
         }
 
-        const checksumsText = await readBoundedResponseText(response, MaximumChecksumsByteLength);
+        const checksumsText = await readBoundedResponseText(response, MaximumChecksumsByteLength, signal);
         if (checksumsText === null) {
             return null;
         }
@@ -96,23 +114,29 @@ const createBetaRelease = (candidate: BetaReleaseCandidate, checksums: ReleaseCh
 const resolveFirstValidCandidate = async (
     candidates: readonly BetaReleaseCandidate[],
     request: typeof fetch,
+    signal: AbortSignal,
     candidateIndex = 0
 ): Promise<BetaRelease | null> => {
+    if (candidateIndex >= MaximumChecksumCandidateAttempts) {
+        return null;
+    }
+
     const candidate = candidates.at(candidateIndex) ?? null;
     if (candidate === null) {
         return null;
     }
 
-    const checksums = await requestChecksums(candidate, request);
+    const checksums = await requestChecksums(candidate, request, signal);
     if (checksums === null) {
-        return resolveFirstValidCandidate(candidates, request, candidateIndex + 1);
+        return resolveFirstValidCandidate(candidates, request, signal, candidateIndex + 1);
     }
 
     return createBetaRelease(candidate, checksums);
 };
 
 export const resolveBetaRelease = async (dependencies: ResolveBetaReleaseDependencies = { fetch }): Promise<ResolveBetaReleaseResult> => {
-    const requestResult = await requestGithubReleases(dependencies);
+    const signal = AbortSignal.timeout(UpstreamRequestTimeoutMilliseconds);
+    const requestResult = await requestGithubReleases(dependencies, signal);
     if (requestResult.status === 'failure') {
         return { status: 'upstream-failure' };
     }
@@ -125,7 +149,7 @@ export const resolveBetaRelease = async (dependencies: ResolveBetaReleaseDepende
         return { status: 'not-found' };
     }
 
-    const release = await resolveFirstValidCandidate(parseResult.candidates, dependencies.fetch);
+    const release = await resolveFirstValidCandidate(parseResult.candidates, dependencies.fetch, signal);
 
     return release === null ? { status: 'upstream-failure' } : { release, status: 'ready' };
 };

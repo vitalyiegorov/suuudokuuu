@@ -35,7 +35,9 @@ describe('readBoundedResponseText', () => {
             headers
         };
 
-        await expect(readBoundedResponseText(response, MaximumChecksumsByteLength)).resolves.toBe(ValidChecksums);
+        await expect(readBoundedResponseText(response, MaximumChecksumsByteLength, new AbortController().signal)).resolves.toBe(
+            ValidChecksums
+        );
         expect(headers.has('Content-Length')).toBe(false);
     });
 
@@ -60,7 +62,7 @@ describe('readBoundedResponseText', () => {
             headers: new Headers()
         };
 
-        await expect(readBoundedResponseText(response, MaximumChecksumsByteLength)).resolves.toBeNull();
+        await expect(readBoundedResponseText(response, MaximumChecksumsByteLength, new AbortController().signal)).resolves.toBeNull();
         expect(cancel).toHaveBeenCalledTimes(1);
         expect(pulledChunkCount).toBe(2);
     });
@@ -78,7 +80,7 @@ describe('readBoundedResponseText', () => {
             headers: new Headers()
         };
 
-        await expect(readBoundedResponseText(response, MaximumChecksumsByteLength)).resolves.toBeNull();
+        await expect(readBoundedResponseText(response, MaximumChecksumsByteLength, new AbortController().signal)).resolves.toBeNull();
         expect(cancel).toHaveBeenCalledTimes(1);
     });
 
@@ -95,7 +97,9 @@ describe('readBoundedResponseText', () => {
             headers: new Headers()
         };
 
-        await expect(readBoundedResponseText(absentBodyResponse, MaximumChecksumsByteLength)).resolves.toBeNull();
-        await expect(readBoundedResponseText(failedResponse, MaximumChecksumsByteLength)).resolves.toBeNull();
+        await expect(
+            readBoundedResponseText(absentBodyResponse, MaximumChecksumsByteLength, new AbortController().signal)
+        ).resolves.toBeNull();
+        await expect(readBoundedResponseText(failedResponse, MaximumChecksumsByteLength, new AbortController().signal)).resolves.toBeNull();
     });
 });
