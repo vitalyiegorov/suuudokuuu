@@ -1,7 +1,8 @@
 import { z } from 'zod';
 
-const SemverPattern =
-    /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$/u;
+const VersionPattern = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/u;
+const BranchPattern = /^[A-Za-z0-9][A-Za-z0-9._/-]*$/u;
+const MaximumBranchLength = 255;
 const CommitShaPattern = /^[0-9a-f]{40}$/u;
 const CommitShortShaPattern = /^[0-9a-f]{7}$/u;
 const ChecksumPattern = /^[0-9a-f]{64}$/u;
@@ -10,7 +11,7 @@ const WorkflowUrlPattern = /^https:\/\/github\.com\/vitalyiegorov\/suuudokuuu\/a
 
 export const BetaReleaseSchema = z
     .strictObject({
-        branch: z.string().min(1),
+        branch: z.string().min(1).max(MaximumBranchLength).regex(BranchPattern),
         builtAt: z.iso.datetime(),
         checksums: z.strictObject({
             apk: z.string().regex(ChecksumPattern),
@@ -27,7 +28,7 @@ export const BetaReleaseSchema = z
         releaseNotes: z.string(),
         runNumber: z.number().int().positive(),
         tagName: z.string().regex(TagNamePattern),
-        version: z.string().regex(SemverPattern),
+        version: z.string().regex(VersionPattern),
         workflowUrl: z.string().regex(WorkflowUrlPattern)
     })
     .superRefine((release, context) => {

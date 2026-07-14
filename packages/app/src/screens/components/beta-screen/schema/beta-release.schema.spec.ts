@@ -5,6 +5,7 @@ import { BetaReleaseSchema } from './beta-release.schema';
 const ChecksumLength = 64;
 const CommitShaLength = 40;
 const CommitShaSuffixLength = 33;
+const MaximumBranchLength = 255;
 
 const ValidRelease = {
     branch: 'main',
@@ -52,6 +53,17 @@ describe('BetaReleaseSchema', () => {
         'rejects a commit SHA that is not exactly 40 characters',
         commitSha => {
             expect(BetaReleaseSchema.safeParse({ ...ValidRelease, commitSha }).success).toBe(false);
+        }
+    );
+
+    it.each(['1.62.5-beta.1', '1.62.5+build.1'])('rejects a version that is not exactly x.y.z', version => {
+        expect(BetaReleaseSchema.safeParse({ ...ValidRelease, version }).success).toBe(false);
+    });
+
+    it.each(['feature branch', 'feature@branch', 'a'.repeat(MaximumBranchLength + 1)])(
+        'rejects a branch outside the server contract',
+        branch => {
+            expect(BetaReleaseSchema.safeParse({ ...ValidRelease, branch }).success).toBe(false);
         }
     );
 });

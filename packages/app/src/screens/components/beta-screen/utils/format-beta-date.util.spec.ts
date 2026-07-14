@@ -1,8 +1,11 @@
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals';
 
+import { isString } from '@rnw-community/shared';
+
 import { formatBetaDate } from './format-beta-date.util';
 
 const TimestampNearMidnight = '2026-07-14T23:30:00Z';
+const OriginalTimezone: unknown = Reflect.get(process.env, 'TZ');
 
 describe('formatBetaDate', () => {
     beforeAll(() => {
@@ -10,7 +13,13 @@ describe('formatBetaDate', () => {
     });
 
     afterAll(() => {
-        Reflect.set(process.env, 'TZ', 'UTC');
+        if (isString(OriginalTimezone)) {
+            Reflect.set(process.env, 'TZ', OriginalTimezone);
+
+            return;
+        }
+
+        Reflect.deleteProperty(process.env, 'TZ');
     });
 
     it('formats a timestamp in the device timezone in English', () => {
