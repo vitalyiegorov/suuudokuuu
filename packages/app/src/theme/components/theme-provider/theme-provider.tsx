@@ -1,5 +1,5 @@
 import { DarkTheme, DefaultTheme, ThemeProvider as NavigationThemeProvider } from 'expo-router';
-import { useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 import { Appearance, Platform } from 'react-native';
 import { UnistylesRuntime } from 'react-native-unistyles';
 
@@ -11,6 +11,7 @@ import { ThemeContext } from '../../context/theme.context';
 import { ColorSchemaEnum } from '../../enum/color-schema.enum';
 import { getTheme } from '../../utils/get-theme.util';
 import { getUnistylesThemeName } from '../../utils/get-unistyles-theme-name.util';
+import { synchronizeUnistylesTheme } from '../../utils/synchronize-unistyles-theme.util';
 
 import type { SettingsState } from '../../../settings/store/settings.state';
 import type { ReactNode } from 'react';
@@ -27,8 +28,8 @@ export const ThemeProvider = ({ children }: Props) => {
     const colorScheme = isDarkColorSchema ? ColorSchemaEnum.Dark : ColorSchemaEnum.Light;
     const unistylesThemeName = getUnistylesThemeName(selectedTheme, colorScheme);
 
-    useLayoutEffect(() => {
-        UnistylesRuntime.setTheme(unistylesThemeName);
+    useEffect(() => {
+        synchronizeUnistylesTheme(UnistylesRuntime, unistylesThemeName);
     }, [unistylesThemeName]);
 
     const changeTheme = (theme: SettingsState['theme']) => {
