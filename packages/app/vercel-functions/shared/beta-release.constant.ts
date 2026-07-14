@@ -6,3 +6,4 @@ export const DevelopmentChecksumsAssetName = 'SHA256SUMS';
 export const DevelopmentReleaseAssetNames = [DevelopmentIpaAssetName, DevelopmentApkAssetName, DevelopmentChecksumsAssetName] as const;
 export const DevelopmentMetadataMarkerPrefix = '<!--'.concat(' ', 'suuudokuuu-development-metadata', ' ');
 export const MaximumChecksumsByteLength = 4096;
+export const UpstreamRequestTimeoutMilliseconds = 10000;
