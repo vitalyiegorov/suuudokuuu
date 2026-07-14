@@ -21,9 +21,8 @@ const createMetadata = (runNumber: number) => ({
     branch: 'main',
     builtAt: '2026-07-14T10:20:30.000Z',
     commitSha: CommitSha,
-    runNumber,
     version: '1.62.5',
-    workflowUrl: `https://github.com/vitalyiegorov/suuudokuuu/actions/runs/${runNumber}`
+    workflowUrl: `https://github.com/vitalyiegorov/suuudokuuu/actions/runs/${runNumber + 1000}`
 });
 
 const createAsset = (tagName: string, name: string, size = 100) => ({
@@ -73,7 +72,7 @@ describe('selectBetaReleaseCandidates', () => {
                 runNumber: 123,
                 tagName: 'development-123',
                 version: '1.62.5',
-                workflowUrl: 'https://github.com/vitalyiegorov/suuudokuuu/actions/runs/123'
+                workflowUrl: 'https://github.com/vitalyiegorov/suuudokuuu/actions/runs/1123'
             }
         ]);
     });
@@ -123,11 +122,21 @@ describe('selectBetaReleaseCandidates', () => {
         expect(candidates.map(candidate => candidate.tagName)).toEqual(['development-199']);
     });
 
-    it.each([{}, null, [{ tag_name: 'development-1' }], [{ ...createRelease(1), assets: 'invalid' }]])(
-        'returns no candidates for malformed GitHub JSON',
-        input => {
-            expect(selectBetaReleaseCandidates(input)).toEqual([]);
-            expect(parseBetaReleaseCandidates(input)).toEqual({ status: 'invalid' });
+    it('skips a malformed newest release and selects an older valid release', () => {
+        const candidates = selectBetaReleaseCandidates([{ tag_name: 'development-300' }, createRelease(OlderRunNumber)]);
+
+        expect(candidates.map(candidate => candidate.tagName)).toEqual(['development-199']);
+    });
+
+    it.each([{}, null])('returns no candidates for a malformed top-level GitHub response', input => {
+        expect(selectBetaReleaseCandidates(input)).toEqual([]);
+        expect(parseBetaReleaseCandidates(input)).toEqual({ status: 'invalid' });
+    });
+
+    it.each([{ input: [{ tag_name: 'development-1' }] }, { input: [{ ...createRelease(1), assets: 'invalid' }] }])(
+        'treats an array with malformed releases as a valid empty candidate set',
+        ({ input }) => {
+            expect(parseBetaReleaseCandidates(input)).toEqual({ candidates: [], status: 'valid' });
         }
     );
 

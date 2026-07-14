@@ -5,5 +5,4 @@ export const DevelopmentApkAssetName = 'suuudokuuu-development.apk';
 export const DevelopmentChecksumsAssetName = 'SHA256SUMS';
 export const DevelopmentReleaseAssetNames = [DevelopmentIpaAssetName, DevelopmentApkAssetName, DevelopmentChecksumsAssetName] as const;
 export const DevelopmentMetadataMarkerPrefix = '<!--'.concat(' ', 'suuudokuuu-development-metadata', ' ');
-export const DevelopmentWorkflowUrlPrefix = 'https://github.com/vitalyiegorov/suuudokuuu/actions/runs/';
 export const MaximumChecksumsByteLength = 4096;

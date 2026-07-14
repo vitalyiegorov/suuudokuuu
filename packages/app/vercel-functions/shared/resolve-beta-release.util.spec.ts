@@ -30,9 +30,8 @@ const createRelease = (runNumber: number) => {
         branch: 'main',
         builtAt: '2026-07-14T10:20:30.000Z',
         commitSha: CommitSha,
-        runNumber,
         version: '1.62.5',
-        workflowUrl: `https://github.com/vitalyiegorov/suuudokuuu/actions/runs/${runNumber}`
+        workflowUrl: `https://github.com/vitalyiegorov/suuudokuuu/actions/runs/${runNumber + 1000}`
     };
 
     return {
@@ -90,7 +89,7 @@ describe('resolveBetaRelease', () => {
                 runNumber: 123,
                 tagName: 'development-123',
                 version: '1.62.5',
-                workflowUrl: 'https://github.com/vitalyiegorov/suuudokuuu/actions/runs/123'
+                workflowUrl: 'https://github.com/vitalyiegorov/suuudokuuu/actions/runs/1123'
             },
             status: 'ready'
         });
@@ -140,6 +139,23 @@ describe('resolveBetaRelease', () => {
         expect(result).toMatchObject({ release: { tagName: 'development-122' }, status: 'ready' });
     });
 
+    it('falls back past a malformed newest release', async () => {
+        const fetchMock = jest.fn<typeof fetch>();
+        fetchMock.mockResolvedValueOnce(createJsonResponse([{ tag_name: 'development-200' }, createRelease(PreviousRunNumber)]));
+        fetchMock.mockResolvedValueOnce(new Response(ValidChecksums));
+
+        const result = await resolveBetaRelease({ fetch: fetchMock });
+
+        expect(result).toMatchObject({ release: { tagName: 'development-122' }, status: 'ready' });
+    });
+
+    it('returns not-found when every array item is malformed', async () => {
+        const fetchMock = jest.fn<typeof fetch>();
+        fetchMock.mockResolvedValueOnce(createJsonResponse([{ tag_name: 'development-200' }]));
+
+        await expect(resolveBetaRelease({ fetch: fetchMock })).resolves.toEqual({ status: 'not-found' });
+    });
+
     it.each([
         new Response('not found', { status: 404 }),
         new Response('invalid checksums'),
@@ -158,6 +174,29 @@ describe('resolveBetaRelease', () => {
         fetchMock.mockRejectedValueOnce(new Error('checksum network failure'));
 
         await expect(resolveBetaRelease({ fetch: fetchMock })).resolves.toEqual({ status: 'upstream-failure' });
+    });
+
+    it('returns upstream-failure when the checksum response body cannot be read', async () => {
+        const fetchMock = jest.fn<typeof fetch>();
+        const checksumResponse = new Response(ValidChecksums);
+        jest.spyOn(checksumResponse, 'text').mockRejectedValue(new Error('body read failure'));
+        fetchMock.mockResolvedValueOnce(createJsonResponse([createRelease(CurrentRunNumber)]));
+        fetchMock.mockResolvedValueOnce(checksumResponse);
+
+        await expect(resolveBetaRelease({ fetch: fetchMock })).resolves.toEqual({ status: 'upstream-failure' });
+    });
+
+    it('falls back after a checksum response body cannot be read', async () => {
+        const fetchMock = jest.fn<typeof fetch>();
+        const checksumResponse = new Response(ValidChecksums);
+        jest.spyOn(checksumResponse, 'text').mockRejectedValue(new Error('body read failure'));
+        fetchMock.mockResolvedValueOnce(createJsonResponse([createRelease(CurrentRunNumber), createRelease(PreviousRunNumber)]));
+        fetchMock.mockResolvedValueOnce(checksumResponse);
+        fetchMock.mockResolvedValueOnce(new Response(ValidChecksums));
+
+        const result = await resolveBetaRelease({ fetch: fetchMock });
+
+        expect(result).toMatchObject({ release: { tagName: 'development-122' }, status: 'ready' });
     });
 
     it('returns upstream-failure for a GitHub network failure', async () => {

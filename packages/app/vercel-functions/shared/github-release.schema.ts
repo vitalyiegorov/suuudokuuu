@@ -6,7 +6,7 @@ const githubReleaseAssetSchema = z.object({
     size: z.number()
 });
 
-const githubReleaseSchema = z.object({
+export const githubReleaseSchema = z.object({
     assets: z.array(githubReleaseAssetSchema),
     body: z.string().nullable(),
     draft: z.boolean(),
@@ -16,7 +16,7 @@ const githubReleaseSchema = z.object({
     tag_name: z.string()
 });
 
-export const githubReleasesSchema = z.array(githubReleaseSchema);
+export const githubReleasesSchema = z.array(z.unknown());
 
 export type GithubRelease = z.infer<typeof githubReleaseSchema>;
 export type GithubReleaseAsset = z.infer<typeof githubReleaseAssetSchema>;
