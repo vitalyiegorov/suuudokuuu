@@ -47,9 +47,21 @@ jobs:
           git config user.name "Vitalii Yehorov"
           git config user.email "vitalyiegorov@gmail.com"
           git remote rm origin
-          git remote add origin https://vitalyiegorov:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
-          git fetch origin main --tags
+          git remote add origin "https://vitalyiegorov:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git fetch --force --prune --tags origin +refs/heads/main:refs/remotes/origin/main
           git checkout -B main origin/main
+
+      - name: Verify release source
+        run: |
+          if [ "$(git branch --show-current)" != "main" ]; then
+            echo "Release must run from main."
+            exit 1
+          fi
+
+          if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/main)" ]; then
+            echo "Release checkout does not match origin/main."
+            exit 1
+          fi
 
       - name: Install dependencies
         env:
