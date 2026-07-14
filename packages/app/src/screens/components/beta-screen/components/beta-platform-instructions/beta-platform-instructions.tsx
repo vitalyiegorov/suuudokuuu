@@ -45,20 +45,22 @@ export const BetaPlatformInstructions = () => {
             </AppSurfaceCard>
 
             <View accessibilityRole="alert" style={warningContainerStyle}>
-                <Text selectable style={warningHeadingStyle}>
-                    <Trans>Development client required</Trans>
-                </Text>
-                <Text selectable style={copyStyle}>
-                    <Trans>Development clients need Metro, the launch URL configured in</Trans>{' '}
-                    <Text selectable style={codeStyle}>
-                        EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL
+                <Trans>
+                    <Text selectable style={warningHeadingStyle}>
+                        Development client required
                     </Text>
-                    <Trans>, or a compatible update on the</Trans>{' '}
-                    <Text selectable style={codeStyle}>
-                        <Trans>development</Trans>
-                    </Text>{' '}
-                    <Trans>channel. This install flow does not publish an update.</Trans>
-                </Text>
+                    <Text selectable style={copyStyle}>
+                        Development clients need Metro, the launch URL configured in{' '}
+                        <Text selectable style={codeStyle}>
+                            EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL
+                        </Text>
+                        , or a compatible update on the{' '}
+                        <Text selectable style={codeStyle}>
+                            development
+                        </Text>{' '}
+                        channel. This install flow does not publish an update.
+                    </Text>
+                </Trans>
             </View>
         </>
     );
