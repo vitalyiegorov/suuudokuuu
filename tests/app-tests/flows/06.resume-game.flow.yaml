@@ -9,7 +9,6 @@ appId: ${APP_ID}
 - copyTextFrom:
     id: 'GameScreenSelectors.Time'
 - evalScript: ${output.firstPausedSeconds = Number(maestro.copiedText.split(':')[0]) * 60 + Number(maestro.copiedText.split(':')[1])}
-- evalScript: ${output.firstPauseWallStartedAt = Date.now()}
 - runFlow: subflows/game/open-settings-from-game.flow.yaml
 - runFlow:
     file: subflows/shared/wait-observation-window.flow.yaml
@@ -26,15 +25,13 @@ appId: ${APP_ID}
 - copyTextFrom:
     id: 'GameScreenSelectors.Time'
 - evalScript: ${output.firstReturnedSeconds = Number(maestro.copiedText.split(':')[0]) * 60 + Number(maestro.copiedText.split(':')[1])}
-- evalScript: ${output.firstPauseWallElapsedSeconds = (Date.now() - output.firstPauseWallStartedAt) / 1000}
 - assertTrue:
-    condition: ${output.firstPauseWallElapsedSeconds - (output.firstReturnedSeconds - output.firstPausedSeconds) >= 3}
+    condition: ${output.firstReturnedSeconds <= output.firstPausedSeconds + 2}
     label: Timer stays paused while settings are open
 - runFlow: subflows/game/assert-timer-advances.flow.yaml
 - copyTextFrom:
     id: 'GameScreenSelectors.Time'
 - evalScript: ${output.secondPausedSeconds = Number(maestro.copiedText.split(':')[0]) * 60 + Number(maestro.copiedText.split(':')[1])}
-- evalScript: ${output.secondPauseWallStartedAt = Date.now()}
 - runFlow: subflows/game/open-settings-from-game.flow.yaml
 - runFlow:
     file: subflows/shared/wait-observation-window.flow.yaml
@@ -51,9 +48,8 @@ appId: ${APP_ID}
 - copyTextFrom:
     id: 'GameScreenSelectors.Time'
 - evalScript: ${output.secondReturnedSeconds = Number(maestro.copiedText.split(':')[0]) * 60 + Number(maestro.copiedText.split(':')[1])}
-- evalScript: ${output.secondPauseWallElapsedSeconds = (Date.now() - output.secondPauseWallStartedAt) / 1000}
 - assertTrue:
-    condition: ${output.secondPauseWallElapsedSeconds - (output.secondReturnedSeconds - output.secondPausedSeconds) >= 3}
+    condition: ${output.secondReturnedSeconds <= output.secondPausedSeconds + 2}
     label: Timer stays paused during a second settings visit
 - runFlow: subflows/game/assert-timer-advances.flow.yaml
 - runFlow: subflows/game/open-settings-from-game.flow.yaml
