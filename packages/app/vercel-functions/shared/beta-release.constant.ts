@@ -7,3 +7,16 @@ export const DevelopmentReleaseAssetNames = [DevelopmentIpaAssetName, Developmen
 export const DevelopmentMetadataMarkerPrefix = '<!--'.concat(' ', 'suuudokuuu-development-metadata', ' ');
 export const MaximumChecksumsByteLength = 4096;
 export const UpstreamRequestTimeoutMilliseconds = 10000;
+export const HttpOkStatus = 200;
+export const HttpFoundStatus = 302;
+export const HttpNotFoundStatus = 404;
+export const HttpMethodNotAllowedStatus = 405;
+export const HttpBadGatewayStatus = 502;
+export const BetaJsonContentType = ''.concat('application', '/', 'json', ';', ' ', 'charset', '=', 'utf', '-', '8');
+export const BetaSuccessCdnCacheControl = ''.concat('max-age=60', ',', ' ', 'stale-while-revalidate=300');
+export const BetaNotFoundErrorMessage = ''.concat('N', 'o', ' ', 'development', ' ', 'build', ' ', 'is', ' ', 'available');
+export const BetaUpstreamFailureErrorMessage = ''.concat('D', 'evelopment', ' ', 'build', ' ', 'service', ' ', 'is', ' ', 'unavailable');
+export const BetaMethodNotAllowedErrorMessage = ''.concat('M', 'ethod', ' ', 'not', ' ', 'allowed');
+export const BetaAllowedMethods = ''.concat('GET', ',', ' ', 'HEAD');
+export const BetaAllowHeaderName = ''.concat('A', 'l', 'low');
+export const GithubReleasesTokenEnvironmentVariable = 'GITHUB_RELEASES_TOKEN';
