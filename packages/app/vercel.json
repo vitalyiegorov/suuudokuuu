@@ -4,11 +4,7 @@
     "routes": [
         {
             "src": "/ota/manifest\\.plist",
-            "headers": {
-                "Content-Type": "text/xml",
-                "Cache-Control": "no-store"
-            },
-            "continue": true
+            "dest": "/api/beta/manifest"
         },
         {
             "src": "/beta/?",

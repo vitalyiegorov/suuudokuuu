@@ -5,6 +5,7 @@ export interface ReleaseChecksums {
 
 interface ReleaseMetadata {
     readonly branch: string;
+    readonly bundleVersion: string;
     readonly builtAt: string;
     readonly commitSha: string;
     readonly version: string;

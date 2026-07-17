@@ -2,6 +2,7 @@ import { describe, expect, it, jest } from '@jest/globals';
 
 import apkRoute from '../api/beta/apk';
 import ipaRoute from '../api/beta/ipa';
+import manifestRoute from '../api/beta/manifest';
 import releaseRoute from '../api/beta/release';
 
 import {
@@ -25,6 +26,7 @@ const ApkChecksum = 'b'.repeat(ChecksumLength);
 const ReadyRelease: BetaRelease = {
     apkUrl: ApkUrl,
     branch: 'main',
+    bundleVersion: '123.1',
     builtAt: '2026-07-14T10:20:30.000Z',
     checksums: { apk: ApkChecksum, ipa: IpaChecksum },
     commitSha: CommitSha,
@@ -38,7 +40,7 @@ const ReadyRelease: BetaRelease = {
     workflowUrl: 'https://github.com/vitalyiegorov/suuudokuuu/actions/runs/1123'
 };
 const ReadyResult: ResolveBetaReleaseResult = { release: ReadyRelease, status: 'ready' };
-const EndpointKinds = ['release', 'ipa', 'apk'] as const;
+const EndpointKinds = ['release', 'ipa', 'apk', 'manifest'] as const;
 const SuccessCacheHeaders = {
     'Cache-Control': 'no-cache',
     'Vercel-CDN-Cache-Control': 'max-age=60, stale-while-revalidate=300',
@@ -49,6 +51,38 @@ const ErrorCacheHeaders = {
     'Vercel-CDN-Cache-Control': 'no-store',
     'X-Content-Type-Options': 'nosniff'
 };
+const ManifestCacheHeaders = ErrorCacheHeaders;
+const ExpectedManifest = `<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>items</key>
+    <array>
+        <dict>
+            <key>assets</key>
+            <array>
+                <dict>
+                    <key>kind</key>
+                    <string>software-package</string>
+                    <key>url</key>
+                    <string>${IpaUrl}</string>
+                </dict>
+            </array>
+            <key>metadata</key>
+            <dict>
+                <key>bundle-identifier</key>
+                <string>com.vitalyiegorov.suuudokuuu.dev</string>
+                <key>bundle-version</key>
+                <string>123.1</string>
+                <key>kind</key>
+                <string>software</string>
+                <key>title</key>
+                <string>suuudokuuu (Dev)</string>
+            </dict>
+        </dict>
+    </array>
+</dict>
+</plist>`;
 
 const createResolver = (result: ResolveBetaReleaseResult) => jest.fn(async () => result);
 
@@ -97,6 +131,37 @@ describe('createBetaHandler', () => {
         expect(response.headers.get('Location')).toBe(destination);
         expectHeaders(response, SuccessCacheHeaders);
         await expect(response.text()).resolves.toBe('');
+    });
+
+    it('returns an atomic OTA manifest with the resolved bundle version and immutable IPA URL', async () => {
+        const resolver = createResolver(ReadyResult);
+        const handler = createBetaHandler('manifest', resolver);
+        const request = new Request(
+            'https://example.com/ota/manifest.plist?bundleVersion=999.9&ipaUrl=https%3A%2F%2Fattacker.example%2Fmalicious.ipa'
+        );
+
+        const response = await handler(request);
+        const responseBody = await response.text();
+
+        expect(response.status).toBe(HttpOkStatus);
+        expect(response.headers.get('Content-Type')).toBe('application/xml; charset=utf-8');
+        expectHeaders(response, ManifestCacheHeaders);
+        expect(responseBody).toBe(ExpectedManifest);
+        expect(responseBody).toContain(IpaUrl);
+        expect(responseBody).not.toContain('/api/beta/ipa');
+        expect(responseBody).not.toContain('attacker.example');
+        expect(responseBody).not.toContain('999.9');
+        expect(resolver).toHaveBeenCalledTimes(1);
+    });
+
+    it('escapes XML-sensitive resolved values in the OTA manifest', async () => {
+        const ipaUrlWithXmlCharacters = `${IpaUrl}?first=1&second=<value>`;
+        const release = { ...ReadyRelease, ipaUrl: ipaUrlWithXmlCharacters };
+        const handler = createBetaHandler('manifest', createResolver({ release, status: 'ready' }));
+
+        const response = await handler(new Request('https://example.com/ota/manifest.plist'));
+
+        await expect(response.text()).resolves.toContain(`${IpaUrl}?first=1&amp;second=&lt;value&gt;`);
     });
 
     it.each(EndpointKinds)('returns a hardened not-found response from the %s endpoint', async endpointKind => {
@@ -170,7 +235,8 @@ describe('Vercel route adapters', () => {
     it.each([
         { route: releaseRoute, routeName: 'release' },
         { route: ipaRoute, routeName: 'ipa' },
-        { route: apkRoute, routeName: 'apk' }
+        { route: apkRoute, routeName: 'apk' },
+        { route: manifestRoute, routeName: 'manifest' }
     ])('exports $routeName with a Web Fetch adapter object', ({ route }) => {
         expect(typeof route.fetch).toBe('function');
     });

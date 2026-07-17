@@ -10,12 +10,13 @@ import {
     HttpNotFoundStatus,
     HttpOkStatus
 } from './beta-release.constant';
-import { createBetaHeadResponse, createBetaJsonResponse, createBetaRedirectResponse } from './beta-response.util';
+import { createBetaHeadResponse, createBetaJsonResponse, createBetaRedirectResponse, createBetaXmlResponse } from './beta-response.util';
 import { resolveBetaRelease } from './resolve-beta-release.util';
+import { serializeOtaManifest } from './serialize-ota-manifest.util';
 
 import type { BetaRelease, ResolveBetaReleaseResult } from './beta-release.interface';
 
-type BetaEndpointKind = 'release' | 'ipa' | 'apk';
+type BetaEndpointKind = 'release' | 'ipa' | 'apk' | 'manifest';
 type BetaReleaseResolver = () => Promise<ResolveBetaReleaseResult>;
 export type BetaHandler = (request: Request) => Promise<Response>;
 
@@ -41,6 +42,9 @@ const createReadyResponse = (endpointKind: BetaEndpointKind, release: BetaReleas
     }
     if (endpointKind === 'ipa') {
         return createBetaRedirectResponse(release.ipaUrl);
+    }
+    if (endpointKind === 'manifest') {
+        return createBetaXmlResponse(serializeOtaManifest(release));
     }
 
     return createBetaRedirectResponse(release.apkUrl);

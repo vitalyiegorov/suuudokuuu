@@ -33,11 +33,12 @@ verify_directory_entries() {
 
 [[ "$#" -eq 1 ]] || fail 'Usage: publish-development-release.sh <artifact-directory>'
 
-for variable_name in GITHUB_REPOSITORY GITHUB_RUN_ID GITHUB_RUN_NUMBER GITHUB_SHA GITHUB_REF_NAME GITHUB_SERVER_URL; do
+for variable_name in GITHUB_REPOSITORY GITHUB_RUN_ID GITHUB_RUN_NUMBER GITHUB_RUN_ATTEMPT GITHUB_SHA GITHUB_REF_NAME GITHUB_SERVER_URL; do
   require_environment_variable "$variable_name"
 done
 
-[[ "$GITHUB_RUN_NUMBER" =~ ^[0-9]+$ ]] || fail 'GITHUB_RUN_NUMBER must be numeric.'
+[[ "$GITHUB_RUN_NUMBER" =~ ^[1-9][0-9]*$ ]] || fail 'GITHUB_RUN_NUMBER must be a positive decimal integer.'
+[[ "$GITHUB_RUN_ATTEMPT" =~ ^[1-9][0-9]*$ ]] || fail 'GITHUB_RUN_ATTEMPT must be a positive decimal integer.'
 [[ "$GITHUB_SHA" =~ ^[a-f0-9]{40}$ ]] || fail 'GITHUB_SHA does not match the development release metadata contract.'
 [[ "${#GITHUB_REF_NAME}" -le 255 && "$GITHUB_REF_NAME" =~ ^[A-Za-z0-9][A-Za-z0-9._/-]*$ ]] || fail 'GITHUB_REF_NAME does not match the development release metadata contract.'
 
@@ -53,6 +54,7 @@ verify_directory_entries "$artifact_directory" "$apk_name" "$ipa_name"
 [[ -s "$artifact_directory/$apk_name" ]] || fail "$apk_name is empty."
 
 tag_name="development-$GITHUB_RUN_NUMBER"
+bundle_version="$GITHUB_RUN_NUMBER.$GITHUB_RUN_ATTEMPT"
 version="$(jq -r '.version | if type == "string" then . else "" end' packages/app/package.json)"
 [[ "$version" =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]] || fail 'Application version does not match the development release metadata contract.'
 short_sha="${GITHUB_SHA:0:7}"
@@ -62,15 +64,17 @@ workflow_url="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
 [[ "$workflow_url" =~ ^https://github\.com/vitalyiegorov/suuudokuuu/actions/runs/[1-9][0-9]*$ ]] || fail 'Workflow URL does not match the development release metadata contract.'
 metadata="$(jq -cn \
   --arg branch "$GITHUB_REF_NAME" \
+  --arg bundleVersion "$bundle_version" \
   --arg builtAt "$built_at" \
   --arg commitSha "$GITHUB_SHA" \
   --arg version "$version" \
   --arg workflowUrl "$workflow_url" \
-  '{branch: $branch, builtAt: $builtAt, commitSha: $commitSha, version: $version, workflowUrl: $workflowUrl}')"
+  '{branch: $branch, bundleVersion: $bundleVersion, builtAt: $builtAt, commitSha: $commitSha, version: $version, workflowUrl: $workflowUrl}')"
 release_title="suuudokuuu development v$version ($short_sha)"
-release_notes="$(printf '%s\n\nVersion: %s\nCommit: %s\nBranch: %s\nBuilt at (UTC): %s\nWorkflow: %s' \
+release_notes="$(printf '%s\n\nVersion: %s\nBuild version: %s\nCommit: %s\nBranch: %s\nBuilt at (UTC): %s\nWorkflow: %s' \
   "<!-- suuudokuuu-development-metadata $metadata -->" \
   "$version" \
+  "$bundle_version" \
   "$GITHUB_SHA" \
   "$GITHUB_REF_NAME" \
   "$built_at" \
