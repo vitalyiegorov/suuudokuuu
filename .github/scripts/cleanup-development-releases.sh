@@ -21,22 +21,27 @@ releases_to_delete="$(jq -cer --argjson currentRun "$GITHUB_RUN_NUMBER" '
   def development_releases:
     add
     | map(
-        select(.tag_name | test("^development-[0-9]+$"))
-        | . + {runNumber: (.tag_name | sub("^development-"; "") | tonumber)}
+        select(.tag_name | test("^development-[1-9][0-9]*-[1-9][0-9]*-[1-9][0-9]*$"))
+        | (.tag_name | capture("^development-(?<runNumber>[1-9][0-9]*)-(?<artifactAttempt>[1-9][0-9]*)-(?<publishAttempt>[1-9][0-9]*)$")) as $tag
+        | . + {
+            artifactAttempt: ($tag.artifactAttempt | tonumber),
+            publishAttempt: ($tag.publishAttempt | tonumber),
+            runNumber: ($tag.runNumber | tonumber)
+          }
       );
 
   development_releases
   | (
       map(select(.draft == false))
-      | sort_by(.runNumber)
+      | sort_by([.runNumber, .artifactAttempt, .publishAttempt])
       | reverse
       | .[5:]
       | map(select(.runNumber < $currentRun))
-      | sort_by(.runNumber)
+      | sort_by([.runNumber, .artifactAttempt, .publishAttempt])
     ) as $oldPublished
   | (
       map(select(.draft == true and .runNumber < $currentRun))
-      | sort_by(.runNumber)
+      | sort_by([.runNumber, .artifactAttempt, .publishAttempt])
     ) as $staleDrafts
   | $oldPublished + $staleDrafts
 ' <<< "$release_pages")"
@@ -61,17 +66,20 @@ orphan_tag_names="$(jq -cer \
   --argjson currentRun "$GITHUB_RUN_NUMBER" \
   --argjson releaseTagNames "$release_tag_names" '
     map(
-      select(.ref | test("^refs/tags/development-[0-9]+$"))
+      select(.ref | test("^refs/tags/development-[1-9][0-9]*-[1-9][0-9]*-[1-9][0-9]*$"))
+      | (.ref | capture("^refs/tags/development-(?<runNumber>[1-9][0-9]*)-(?<artifactAttempt>[1-9][0-9]*)-(?<publishAttempt>[1-9][0-9]*)$")) as $tag
       | {
+          artifactAttempt: ($tag.artifactAttempt | tonumber),
+          publishAttempt: ($tag.publishAttempt | tonumber),
           tagName: (.ref | sub("^refs/tags/"; "")),
-          runNumber: (.ref | sub("^refs/tags/development-"; "") | tonumber)
+          runNumber: ($tag.runNumber | tonumber)
         }
     )
     | map(
         .tagName as $tagName
         | select(.runNumber < $currentRun and ($releaseTagNames | index($tagName)) == null)
       )
-    | sort_by(.runNumber)
+    | sort_by([.runNumber, .artifactAttempt, .publishAttempt])
     | map(.tagName)
   ' <<< "$tag_references")"
 

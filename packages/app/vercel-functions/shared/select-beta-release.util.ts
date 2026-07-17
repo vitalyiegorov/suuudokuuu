@@ -14,7 +14,9 @@ import type { BetaReleaseCandidate } from './beta-release.interface';
 import type { GithubRelease, GithubReleaseAsset } from './github-release.schema';
 
 interface NumberedBetaReleaseCandidate {
+    readonly artifactAttempt: number;
     readonly candidate: BetaReleaseCandidate;
+    readonly publishAttempt: number;
     readonly tagNumber: number;
 }
 
@@ -27,16 +29,22 @@ interface CandidateAssets {
 export type BetaReleaseCandidatesParseResult =
     { readonly candidates: readonly BetaReleaseCandidate[]; readonly status: 'valid' } | { readonly status: 'invalid' };
 
-const parseTagNumber = (tagName: string): number | null => {
+const parseTagNumber = (tagName: string): Pick<NumberedBetaReleaseCandidate, 'artifactAttempt' | 'publishAttempt' | 'tagNumber'> | null => {
     const tagMatch = DevelopmentReleaseTagPattern.exec(tagName);
     const tagNumberText = tagMatch?.at(1) ?? null;
-    if (tagNumberText === null) {
+    const artifactAttemptText = tagMatch?.at(2) ?? null;
+    const publishAttemptText = tagMatch?.at(3) ?? null;
+    if (tagNumberText === null || artifactAttemptText === null || publishAttemptText === null) {
         return null;
     }
 
     const tagNumber = Number(tagNumberText);
+    const artifactAttempt = Number(artifactAttemptText);
+    const publishAttempt = Number(publishAttemptText);
 
-    return Number.isSafeInteger(tagNumber) ? tagNumber : null;
+    return Number.isSafeInteger(tagNumber) && Number.isSafeInteger(artifactAttempt) && Number.isSafeInteger(publishAttempt)
+        ? { artifactAttempt, publishAttempt, tagNumber }
+        : null;
 };
 
 const findReleaseAsset = (release: GithubRelease, assetName: string): GithubReleaseAsset | null =>
@@ -66,12 +74,14 @@ const hasValidAssetUrls = (
     validateReleaseAssetUrl(apkAsset.browser_download_url, tagName, DevelopmentApkAssetName) &&
     validateReleaseAssetUrl(checksumsAsset.browser_download_url, tagName, DevelopmentChecksumsAssetName);
 
-const isEligibleRelease = (release: GithubRelease, tagNumber: number | null) =>
-    !release.draft && release.prerelease && tagNumber !== null && release.body !== null && hasExactAssets(release);
+const isEligibleRelease = (
+    release: GithubRelease,
+    tag: Pick<NumberedBetaReleaseCandidate, 'artifactAttempt' | 'publishAttempt' | 'tagNumber'> | null
+) => !release.draft && release.prerelease && tag !== null && release.body !== null && hasExactAssets(release);
 
 const createCandidate = (
     release: GithubRelease,
-    tagNumber: number,
+    tag: Pick<NumberedBetaReleaseCandidate, 'artifactAttempt' | 'tagNumber'>,
     assets: CandidateAssets,
     parsedMetadata: ReturnType<typeof parseReleaseMetadata>
 ): BetaReleaseCandidate | null => {
@@ -82,8 +92,7 @@ const createCandidate = (
         return null;
     }
 
-    const bundleRunNumber = Number(parsedMetadata.metadata.bundleVersion.split('.').at(0));
-    if (!Number.isSafeInteger(bundleRunNumber) || bundleRunNumber !== tagNumber) {
+    if (parsedMetadata.metadata.bundleVersion !== `${tag.tagNumber}.${tag.artifactAttempt}`) {
         return null;
     }
 
@@ -95,14 +104,14 @@ const createCandidate = (
         name: release.name,
         publishedAt: release.published_at,
         releaseNotes: parsedMetadata.releaseNotes,
-        runNumber: tagNumber,
+        runNumber: tag.tagNumber,
         tagName: release.tag_name
     };
 };
 
 const createNumberedCandidate = (release: GithubRelease): NumberedBetaReleaseCandidate | null => {
-    const tagNumber = parseTagNumber(release.tag_name);
-    if (!isEligibleRelease(release, tagNumber) || tagNumber === null || release.body === null) {
+    const tag = parseTagNumber(release.tag_name);
+    if (!isEligibleRelease(release, tag) || tag === null || release.body === null) {
         return null;
     }
 
@@ -115,23 +124,33 @@ const createNumberedCandidate = (release: GithubRelease): NumberedBetaReleaseCan
     }
 
     const assets = { apk: apkAsset, checksums: checksumsAsset, ipa: ipaAsset };
-    const candidate = createCandidate(release, tagNumber, assets, parsedMetadata);
+    const candidate = createCandidate(release, tag, assets, parsedMetadata);
     if (candidate === null) {
         return null;
     }
 
     return {
+        artifactAttempt: tag.artifactAttempt,
         candidate,
-        tagNumber
+        publishAttempt: tag.publishAttempt,
+        tagNumber: tag.tagNumber
     };
 };
 
 const compareCandidates = (first: NumberedBetaReleaseCandidate, second: NumberedBetaReleaseCandidate) => {
-    if (first.tagNumber === second.tagNumber) {
+    if (first.tagNumber !== second.tagNumber) {
+        return first.tagNumber > second.tagNumber ? -1 : 1;
+    }
+
+    if (first.artifactAttempt !== second.artifactAttempt) {
+        return first.artifactAttempt > second.artifactAttempt ? -1 : 1;
+    }
+
+    if (first.publishAttempt === second.publishAttempt) {
         return 0;
     }
 
-    return first.tagNumber > second.tagNumber ? -1 : 1;
+    return first.publishAttempt > second.publishAttempt ? -1 : 1;
 };
 
 const parseNumberedCandidate = (input: unknown): NumberedBetaReleaseCandidate | null => {

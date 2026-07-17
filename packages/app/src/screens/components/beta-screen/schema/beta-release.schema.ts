@@ -6,7 +6,7 @@ const MaximumBranchLength = 255;
 const CommitShaPattern = /^[0-9a-f]{40}$/u;
 const CommitShortShaPattern = /^[0-9a-f]{7}$/u;
 const ChecksumPattern = /^[0-9a-f]{64}$/u;
-const TagNamePattern = /^development-[1-9]\d*$/u;
+const TagNamePattern = /^development-[1-9]\d*-[1-9]\d*-[1-9]\d*$/u;
 const WorkflowUrlPattern = /^https:\/\/github\.com\/vitalyiegorov\/suuudokuuu\/actions\/runs\/[1-9]\d*$/u;
 
 export const BetaReleaseSchema = z
@@ -36,7 +36,7 @@ export const BetaReleaseSchema = z
             context.addIssue({ code: 'custom', path: ['commitShortSha'] });
         }
 
-        if (release.tagName !== `development-${release.runNumber}`) {
+        if (!release.tagName.startsWith(`development-${release.runNumber}-`)) {
             context.addIssue({ code: 'custom', path: ['tagName'] });
         }
     });

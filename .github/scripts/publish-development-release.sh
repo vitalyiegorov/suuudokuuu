@@ -34,69 +34,21 @@ verify_directory_entries() {
 validate_release_provenance() {
   local release="$1"
   local expected_draft="$2"
-  local bundle_version_mode="$3"
 
   jq -e \
-    --arg branch "$GITHUB_REF_NAME" \
-    --arg bundle_version "$bundle_version" \
-    --arg bundle_version_mode "$bundle_version_mode" \
+    --arg body "$release_notes" \
     --arg name "$release_title" \
-    --arg run_number "$GITHUB_RUN_NUMBER" \
     --arg sha "$GITHUB_SHA" \
     --arg tag "$tag_name" \
-    --arg version "$version" \
-    --arg workflow_url "$workflow_url" \
     --argjson expected_draft "$expected_draft" '
-      (.body | capture("^<!-- suuudokuuu-development-metadata (?<json>[^\\n]+) -->\\n\\n(?<details>(.|\\n)*)$")) as $content
-      | ($content.json | fromjson) as $metadata
-      | (.id | type == "number")
-        and .tag_name == $tag
-        and .target_commitish == $sha
-        and .name == $name
-        and .draft == $expected_draft
-        and .prerelease == true
-        and (($metadata | type) == "object")
-        and (($metadata | keys) == ["branch", "builtAt", "bundleVersion", "commitSha", "version", "workflowUrl"])
-        and $metadata.branch == $branch
-        and $metadata.commitSha == $sha
-        and $metadata.version == $version
-        and $metadata.workflowUrl == $workflow_url
-        and ($metadata.bundleVersion | type == "string")
-        and ($metadata.bundleVersion | test("^[1-9][0-9]{0,3}\\.[1-9][0-9]?$"))
-        and (($metadata.bundleVersion | split(".")[0]) == $run_number)
-        and ($bundle_version_mode == "run" or $metadata.bundleVersion == $bundle_version)
-        and ($metadata.builtAt | type == "string")
-        and ((try ($metadata.builtAt | fromdateiso8601) catch false) | type == "number")
-        and $content.details == (
-          "Version: " + $metadata.version
-          + "\nBuild version: " + $metadata.bundleVersion
-          + "\nCommit: " + $metadata.commitSha
-          + "\nBranch: " + $metadata.branch
-          + "\nBuilt at (UTC): " + $metadata.builtAt
-          + "\nWorkflow: " + $metadata.workflowUrl
-        )
+      (.id | type == "number")
+      and .tag_name == $tag
+      and .target_commitish == $sha
+      and .name == $name
+      and .body == $body
+      and .draft == $expected_draft
+      and .prerelease == true
     ' <<< "$release" > /dev/null
-}
-
-fetched_release=''
-fetched_release_etag=''
-
-fetch_release_with_etag() {
-  local release_id="$1"
-  local included_response
-  local normalized_response
-  local response_headers
-
-  included_response="$(gh api --include "repos/$GITHUB_REPOSITORY/releases/$release_id")" || return 1
-  normalized_response="${included_response//$'\r'/}"
-  [[ "$normalized_response" == *$'\n\n'* ]] || return 1
-  response_headers="${normalized_response%%$'\n\n'*}"
-  fetched_release="${normalized_response#*$'\n\n'}"
-  [[ "${response_headers%%$'\n'*}" =~ ^HTTP/[^[:space:]]+[[:space:]]+200([[:space:]]|$) ]] || return 1
-  fetched_release_etag="$(awk 'tolower($1) == "etag:" {sub(/^[^:]+:[[:space:]]*/, ""); print}' <<< "$response_headers")"
-  [[ -n "$fetched_release_etag" ]] || return 1
-  jq -en --arg etag "$fetched_release_etag" '$etag | test("^(W/)?\\\"[^\\\"]+\\\"$")' > /dev/null || return 1
-  jq -e 'type == "object"' <<< "$fetched_release" > /dev/null
 }
 
 verify_release_assets() {
@@ -147,7 +99,7 @@ verify_published_release() {
   local published_tag_pages
   local published_tag_references
 
-  validate_release_provenance "$release" false exact || fail 'Published release provenance validation failed.'
+  validate_release_provenance "$release" false || fail 'Published release provenance validation failed.'
   published_tag_pages="$(gh api --paginate --slurp "repos/$GITHUB_REPOSITORY/git/matching-refs/tags/development-")"
   published_tag_references="$(jq -cer --arg reference "refs/tags/$tag_name" 'add | map(select(.ref == $reference))' <<< "$published_tag_pages")"
   published_tag_count="$(jq -er 'length' <<< "$published_tag_references")"
@@ -157,73 +109,24 @@ verify_published_release() {
   verify_release_assets "$release"
 }
 
-accept_published_release_or_fail() {
-  local release_id="$1"
-  local failure_message="$2"
-
-  fetch_release_with_etag "$release_id" || fail "$failure_message"
-  jq -e --argjson id "$release_id" '.id == $id and .draft == false' <<< "$fetched_release" > /dev/null || fail "$failure_message"
-  verify_published_release "$fetched_release"
-  exit 0
-}
-
-refresh_current_draft_or_accept_published() {
-  local release_id="$1"
-
-  fetch_release_with_etag "$release_id" || fail 'Failed to refresh the reconciled release.'
-  jq -e --argjson id "$release_id" '.id == $id' <<< "$fetched_release" > /dev/null || fail 'Reconciled release ID changed unexpectedly.'
-  if jq -e '.draft == false' <<< "$fetched_release" > /dev/null; then
-    verify_published_release "$fetched_release"
-    exit 0
-  fi
-  validate_release_provenance "$fetched_release" true exact || fail 'Reconciled draft release provenance validation failed.'
-}
-
-created_draft_release_id=''
 download_directory=''
 
-cleanup() {
-  local exit_status="$1"
-
+cleanup_downloads() {
   if [[ -n "$download_directory" ]]; then
     rm -rf "$download_directory"
   fi
-  if [[ "$exit_status" -ne 0 && -n "$created_draft_release_id" ]]; then
-    if fetch_release_with_etag "$created_draft_release_id" 2> /dev/null &&
-      jq -e \
-        --arg body "$release_notes" \
-        --arg name "$release_title" \
-        --arg sha "$GITHUB_SHA" \
-        --arg tag "$tag_name" \
-        --argjson id "$created_draft_release_id" '
-          .id == $id
-          and .tag_name == $tag
-          and .target_commitish == $sha
-          and .name == $name
-          and .body == $body
-          and .draft == true
-          and .prerelease == true
-        ' <<< "$fetched_release" > /dev/null; then
-      gh api \
-        --method DELETE \
-        -H "If-Match: $fetched_release_etag" \
-        "repos/$GITHUB_REPOSITORY/releases/$created_draft_release_id" > /dev/null ||
-        printf 'Warning: failed to clean up draft release %s.\n' "$created_draft_release_id" >&2
-    else
-      printf 'Warning: draft release %s was not safe to clean up.\n' "$created_draft_release_id" >&2
-    fi
-  fi
 }
 
-trap 'exit_status=$?; trap - EXIT; cleanup "$exit_status"; exit "$exit_status"' EXIT
+trap cleanup_downloads EXIT
 
 [[ "$#" -eq 1 ]] || fail 'Usage: publish-development-release.sh <artifact-directory>'
 
-for variable_name in GITHUB_REPOSITORY GITHUB_RUN_ID GITHUB_RUN_NUMBER GITHUB_SHA GITHUB_REF_NAME GITHUB_SERVER_URL; do
+for variable_name in GITHUB_REPOSITORY GITHUB_RUN_ATTEMPT GITHUB_RUN_ID GITHUB_RUN_NUMBER GITHUB_SHA GITHUB_REF_NAME GITHUB_SERVER_URL; do
   require_environment_variable "$variable_name"
 done
 
 [[ "$GITHUB_RUN_NUMBER" =~ ^[1-9][0-9]{0,3}$ ]] || fail 'GITHUB_RUN_NUMBER must be between 1 and 9999.'
+[[ "$GITHUB_RUN_ATTEMPT" =~ ^[1-9][0-9]*$ ]] || fail 'GITHUB_RUN_ATTEMPT must be a positive integer.'
 [[ "$GITHUB_SHA" =~ ^[a-f0-9]{40}$ ]] || fail 'GITHUB_SHA does not match the development release metadata contract.'
 [[ "${#GITHUB_REF_NAME}" -le 255 && "$GITHUB_REF_NAME" =~ ^[A-Za-z0-9][A-Za-z0-9._/-]*$ ]] || fail 'GITHUB_REF_NAME does not match the development release metadata contract.'
 
@@ -261,7 +164,8 @@ identity_run_number="$(jq -er '.runNumber' <<< "$identity")"
 actual_ipa_sha256="$(shasum -a 256 "$artifact_directory/$ipa_name" | awk '{print $1}')"
 [[ "$actual_ipa_sha256" == "$identity_ipa_sha256" ]] || fail 'IPA SHA-256 does not match the verified iOS build identity.'
 
-tag_name="development-$GITHUB_RUN_NUMBER"
+artifact_attempt="${bundle_version#*.}"
+tag_name="development-$GITHUB_RUN_NUMBER-$artifact_attempt-$GITHUB_RUN_ATTEMPT"
 version="$(jq -r '.version | if type == "string" then . else "" end' packages/app/package.json)"
 [[ "$version" =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]] || fail 'Application version does not match the development release metadata contract.'
 short_sha="${GITHUB_SHA:0:7}"
@@ -295,84 +199,42 @@ release_notes="$(printf '%s\n\nVersion: %s\nBuild version: %s\nCommit: %s\nBranc
 release_pages="$(gh api --paginate --slurp "repos/$GITHUB_REPOSITORY/releases?per_page=100")"
 matching_releases="$(jq -cer --arg tag "$tag_name" 'add | map(select(.tag_name == $tag))' <<< "$release_pages")"
 existing_release_count="$(jq -er 'length' <<< "$matching_releases")"
-[[ "$existing_release_count" -le 1 ]] || fail "Multiple releases exist for tag $tag_name."
-
-release_id=''
-existing_release_is_draft=''
-if [[ "$existing_release_count" -eq 1 ]]; then
-  existing_release="$(jq -cer '.[0]' <<< "$matching_releases")"
-  release_id="$(jq -er '.id | select(type == "number")' <<< "$existing_release")"
-  existing_release_is_draft="$(jq -r '.draft | if type == "boolean" then tostring else error("Invalid draft state") end' <<< "$existing_release")"
-fi
+[[ "$existing_release_count" -eq 0 ]] || fail "Release already exists for tag $tag_name."
 
 tag_reference_pages="$(gh api --paginate --slurp "repos/$GITHUB_REPOSITORY/git/matching-refs/tags/development-")"
 matching_tag_references="$(jq -cer --arg reference "refs/tags/$tag_name" 'add | map(select(.ref == $reference))' <<< "$tag_reference_pages")"
 existing_tag_count="$(jq -er 'length' <<< "$matching_tag_references")"
-[[ "$existing_tag_count" -le 1 ]] || fail "Multiple Git tags exist for $tag_name."
-if [[ "$existing_tag_count" -eq 1 ]]; then
-  [[ -n "$release_id" ]] || fail "Git tag already exists without a matching release: $tag_name."
-  jq -e --arg sha "$GITHUB_SHA" '.[0].object.type == "commit" and .[0].object.sha == $sha' <<< "$matching_tag_references" > /dev/null ||
-    fail "Git tag for $tag_name does not match this workflow commit."
-fi
+[[ "$existing_tag_count" -eq 0 ]] || fail "Git tag already exists: $tag_name."
 
-if [[ -n "$release_id" && "$existing_release_is_draft" == false ]]; then
-  [[ "$existing_tag_count" -eq 1 ]] || fail "Published release is missing its Git tag: $tag_name."
-  fetch_release_with_etag "$release_id" || fail 'Failed to refresh the published release.'
-  jq -e --argjson id "$release_id" '.id == $id' <<< "$fetched_release" > /dev/null || fail 'Published release ID changed unexpectedly.'
-  verify_published_release "$fetched_release"
-  exit 0
-fi
+created_release="$(gh api \
+  --method POST \
+  -f tag_name="$tag_name" \
+  -f target_commitish="$GITHUB_SHA" \
+  -f name="$release_title" \
+  -f body="$release_notes" \
+  -F draft=true \
+  -F prerelease=true \
+  "repos/$GITHUB_REPOSITORY/releases")"
+validate_release_provenance "$created_release" true || fail 'Created draft release validation failed.'
+release_id="$(jq -er '.id | select(type == "number")' <<< "$created_release")"
 
-if [[ -n "$release_id" ]]; then
-  fetch_release_with_etag "$release_id" || fail 'Failed to refresh the existing draft release.'
-  jq -e --argjson id "$release_id" '.id == $id' <<< "$fetched_release" > /dev/null || fail 'Existing draft release ID changed unexpectedly.'
-  validate_release_provenance "$fetched_release" true run || fail "Existing release for $tag_name does not match this workflow run and commit."
-  if ! reconciled_release="$(gh api \
-    --method PATCH \
-    -H "If-Match: $fetched_release_etag" \
-    -f name="$release_title" \
-    -f body="$release_notes" \
-    -F prerelease=true \
-    "repos/$GITHUB_REPOSITORY/releases/$release_id")"; then
-    accept_published_release_or_fail "$release_id" 'Draft release changed during reconciliation.'
-  fi
-  jq -e --argjson id "$release_id" '.id == $id' <<< "$reconciled_release" > /dev/null || fail 'Reconciled release ID changed unexpectedly.'
-  validate_release_provenance "$reconciled_release" true exact || fail 'Reconciled draft release validation failed.'
-else
-  [[ "$existing_tag_count" -eq 0 ]] || fail "Git tag already exists: $tag_name."
-  created_release="$(gh api \
-    --method POST \
-    -f tag_name="$tag_name" \
-    -f target_commitish="$GITHUB_SHA" \
-    -f name="$release_title" \
-    -f body="$release_notes" \
-    -F draft=true \
-    -F prerelease=true \
-    "repos/$GITHUB_REPOSITORY/releases")"
-  validate_release_provenance "$created_release" true exact || fail 'Created draft release validation failed.'
-  created_draft_release_id="$(jq -er '.id | select(type == "number")' <<< "$created_release")"
-  release_id="$created_draft_release_id"
-fi
-
-refresh_current_draft_or_accept_published "$release_id"
-if ! gh release upload "$tag_name" \
+gh release upload "$tag_name" \
   "$artifact_directory/$ipa_name" \
   "$artifact_directory/$apk_name" \
-  "$artifact_directory/$checksums_name" \
-  --clobber; then
-  accept_published_release_or_fail "$release_id" 'Release asset upload failed before publication.'
-fi
+  "$artifact_directory/$checksums_name"
 
-refresh_current_draft_or_accept_published "$release_id"
-verify_release_assets "$fetched_release"
+draft_release="$(gh api "repos/$GITHUB_REPOSITORY/releases/$release_id")"
+jq -e --argjson id "$release_id" '.id == $id' <<< "$draft_release" > /dev/null || fail 'Draft release ID changed unexpectedly.'
+validate_release_provenance "$draft_release" true || fail 'Draft release provenance validation failed.'
+verify_release_assets "$draft_release"
 
-if ! published_release="$(gh api \
+published_release="$(gh api \
   --method PATCH \
-  -H "If-Match: $fetched_release_etag" \
   -F draft=false \
-  "repos/$GITHUB_REPOSITORY/releases/$release_id")"; then
-  accept_published_release_or_fail "$release_id" 'Draft release changed during publication.'
-fi
+  "repos/$GITHUB_REPOSITORY/releases/$release_id")"
 jq -e --argjson id "$release_id" '.id == $id' <<< "$published_release" > /dev/null || fail 'Published release ID changed unexpectedly.'
-verify_published_release "$published_release"
-created_draft_release_id=''
+validate_release_provenance "$published_release" false || fail 'Published release response validation failed.'
+
+published_release_state="$(gh api "repos/$GITHUB_REPOSITORY/releases/$release_id")"
+jq -e --argjson id "$release_id" '.id == $id' <<< "$published_release_state" > /dev/null || fail 'Published release state ID changed unexpectedly.'
+verify_published_release "$published_release_state"

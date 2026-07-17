@@ -19,8 +19,8 @@ import type { BetaRelease, ResolveBetaReleaseResult } from './beta-release.inter
 
 const CommitSha = '0123456789abcdef0123456789abcdef01234567';
 const ChecksumLength = 64;
-const IpaUrl = 'https://github.com/vitalyiegorov/suuudokuuu/releases/download/development-123/suuudokuuu-development.ipa';
-const ApkUrl = 'https://github.com/vitalyiegorov/suuudokuuu/releases/download/development-123/suuudokuuu-development.apk';
+const IpaUrl = 'https://github.com/vitalyiegorov/suuudokuuu/releases/download/development-123-1-1/suuudokuuu-development.ipa';
+const ApkUrl = 'https://github.com/vitalyiegorov/suuudokuuu/releases/download/development-123-1-1/suuudokuuu-development.apk';
 const IpaChecksum = 'a'.repeat(ChecksumLength);
 const ApkChecksum = 'b'.repeat(ChecksumLength);
 const ReadyRelease: BetaRelease = {
@@ -35,7 +35,7 @@ const ReadyRelease: BetaRelease = {
     publishedAt: '2026-07-14T10:30:00Z',
     releaseNotes: 'Release 123 notes',
     runNumber: 123,
-    tagName: 'development-123',
+    tagName: 'development-123-1-1',
     version: '1.62.5',
     workflowUrl: 'https://github.com/vitalyiegorov/suuudokuuu/actions/runs/1123'
 };
@@ -112,7 +112,7 @@ describe('createBetaHandler', () => {
             publishedAt: '2026-07-14T10:30:00Z',
             releaseNotes: 'Release 123 notes',
             runNumber: 123,
-            tagName: 'development-123',
+            tagName: 'development-123-1-1',
             version: '1.62.5',
             workflowUrl: 'https://github.com/vitalyiegorov/suuudokuuu/actions/runs/1123'
         });
