@@ -20,8 +20,10 @@ const PreviousRunNumber = 122;
 const MaximumReleasesByteLength = 4_194_304;
 const MaximumChecksumAttempts = 5;
 
+const createTagName = (runNumber: number) => `development-${runNumber}-1-1`;
+
 const createAsset = (runNumber: number, name: string) => ({
-    browser_download_url: `https://github.com/vitalyiegorov/suuudokuuu/releases/download/development-${runNumber}/${name}`,
+    browser_download_url: `https://github.com/vitalyiegorov/suuudokuuu/releases/download/${createTagName(runNumber)}/${name}`,
     id: runNumber,
     name,
     size: 100
@@ -49,7 +51,7 @@ const createRelease = (runNumber: number, bundleVersion: string | null = `${runN
         name: `Development ${runNumber}`,
         prerelease: true,
         published_at: '2026-07-14T10:30:00Z',
-        tag_name: `development-${runNumber}`,
+        tag_name: createTagName(runNumber),
         url: `https://api.github.com/releases/${runNumber}`
     };
 };
@@ -90,23 +92,23 @@ describe('resolveBetaRelease', () => {
         });
         expect(fetchMock).toHaveBeenNthCalledWith(
             2,
-            'https://github.com/vitalyiegorov/suuudokuuu/releases/download/development-123/SHA256SUMS',
+            'https://github.com/vitalyiegorov/suuudokuuu/releases/download/development-123-1-1/SHA256SUMS',
             { signal: expect.any(AbortSignal) }
         );
         expect(result).toEqual({
             release: {
-                apkUrl: 'https://github.com/vitalyiegorov/suuudokuuu/releases/download/development-123/suuudokuuu-development.apk',
+                apkUrl: 'https://github.com/vitalyiegorov/suuudokuuu/releases/download/development-123-1-1/suuudokuuu-development.apk',
                 branch: 'main',
                 bundleVersion: '123.1',
                 builtAt: '2026-07-14T10:20:30.000Z',
                 checksums: { apk: ApkChecksum, ipa: IpaChecksum },
                 commitSha: CommitSha,
-                ipaUrl: 'https://github.com/vitalyiegorov/suuudokuuu/releases/download/development-123/suuudokuuu-development.ipa',
+                ipaUrl: 'https://github.com/vitalyiegorov/suuudokuuu/releases/download/development-123-1-1/suuudokuuu-development.ipa',
                 name: 'Development 123',
                 publishedAt: '2026-07-14T10:30:00Z',
                 releaseNotes: 'Release 123 notes',
                 runNumber: 123,
-                tagName: 'development-123',
+                tagName: 'development-123-1-1',
                 version: '1.62.5',
                 workflowUrl: 'https://github.com/vitalyiegorov/suuudokuuu/actions/runs/1123'
             },
@@ -156,7 +158,7 @@ describe('resolveBetaRelease', () => {
 
         const result = await resolveBetaRelease({ fetch: fetchMock });
 
-        expect(result).toMatchObject({ release: { tagName: 'development-122' }, status: 'ready' });
+        expect(result).toMatchObject({ release: { tagName: 'development-122-1-1' }, status: 'ready' });
     });
 
     it('uses one request-wide abort signal across release and checksum fetches', async () => {
@@ -189,12 +191,12 @@ describe('resolveBetaRelease', () => {
 
     it('falls back past a malformed newest release', async () => {
         const fetchMock = jest.fn<typeof fetch>();
-        fetchMock.mockResolvedValueOnce(createJsonResponse([{ tag_name: 'development-200' }, createRelease(PreviousRunNumber)]));
+        fetchMock.mockResolvedValueOnce(createJsonResponse([{ tag_name: 'development-200-1-1' }, createRelease(PreviousRunNumber)]));
         fetchMock.mockResolvedValueOnce(new Response(ValidChecksums));
 
         const result = await resolveBetaRelease({ fetch: fetchMock });
 
-        expect(result).toMatchObject({ release: { tagName: 'development-122' }, status: 'ready' });
+        expect(result).toMatchObject({ release: { tagName: 'development-122-1-1' }, status: 'ready' });
     });
 
     it('falls back past a newest release without bundle-version metadata', async () => {
@@ -204,12 +206,12 @@ describe('resolveBetaRelease', () => {
 
         const result = await resolveBetaRelease({ fetch: fetchMock });
 
-        expect(result).toMatchObject({ release: { bundleVersion: '122.1', tagName: 'development-122' }, status: 'ready' });
+        expect(result).toMatchObject({ release: { bundleVersion: '122.1', tagName: 'development-122-1-1' }, status: 'ready' });
     });
 
     it('returns not-found when every array item is malformed', async () => {
         const fetchMock = jest.fn<typeof fetch>();
-        fetchMock.mockResolvedValueOnce(createJsonResponse([{ tag_name: 'development-200' }]));
+        fetchMock.mockResolvedValueOnce(createJsonResponse([{ tag_name: 'development-200-1-1' }]));
 
         await expect(resolveBetaRelease({ fetch: fetchMock })).resolves.toEqual({ status: 'not-found' });
     });
@@ -265,7 +267,7 @@ describe('resolveBetaRelease', () => {
 
         const result = await resolveBetaRelease({ fetch: fetchMock });
 
-        expect(result).toMatchObject({ release: { tagName: 'development-122' }, status: 'ready' });
+        expect(result).toMatchObject({ release: { tagName: 'development-122-1-1' }, status: 'ready' });
     });
 
     it('returns upstream-failure for a GitHub network failure', async () => {

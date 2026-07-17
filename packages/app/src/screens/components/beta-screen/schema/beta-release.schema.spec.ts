@@ -24,7 +24,7 @@ const ValidRelease = {
     publishedAt: '2026-07-14T12:30:00Z',
     releaseNotes: 'Development build metadata and notes.',
     runNumber: 241,
-    tagName: 'development-241',
+    tagName: 'development-241-1-1',
     version: '1.62.5',
     workflowUrl: 'https://github.com/vitalyiegorov/suuudokuuu/actions/runs/123456789'
 };
@@ -33,6 +33,13 @@ describe('BetaReleaseSchema', () => {
     it('accepts the exact public release contract', () => {
         expect(BetaReleaseSchema.parse(ValidRelease)).toEqual(ValidRelease);
     });
+
+    it.each(['development-241', 'development-241-0-1', 'development-241-1-0', 'development-241-1-1-extra'])(
+        'rejects a legacy or malformed development release tag',
+        tagName => {
+            expect(BetaReleaseSchema.safeParse({ ...ValidRelease, tagName }).success).toBe(false);
+        }
+    );
 
     it.each([
         { ...ValidRelease, extra: true },
