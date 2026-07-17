@@ -102,20 +102,19 @@ jobs:
           node-version: 22.x
           cache: yarn
 
-      - name: Install Vercel CLI
-        run: npm install --global vercel@latest
-
       - name: Install dependencies
         run: yarn install
 
       - name: Build expo web
         working-directory: packages/app
-        run: npx expo export --platform=web
+        run: yarn expo export --platform=web
+
+      - name: Stage Vercel project
+        run: .github/scripts/stage-vercel-project.sh
 
       - name: Deploy to Vercel
         working-directory: packages/app/dist
         run: |
           echo "!node_modules" > .vercelignore
-          cp ../vercel.json .
-          vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
-          vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
+          yarn dlx vercel@latest pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+          yarn dlx vercel@latest deploy --prod --token=${{ secrets.VERCEL_TOKEN }}

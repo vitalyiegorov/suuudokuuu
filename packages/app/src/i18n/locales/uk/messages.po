@@ -28,6 +28,10 @@ msgstr "{filledCells}/{totalCells} заповнено"
 msgid "{gamesCompleted, plural, one {# completed game} other {# completed games}}"
 msgstr "{gamesCompleted, plural, one {# завершена гра} other {# завершені ігри}}"
 
+#: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
+msgid "<0>Development client required</0><1>Development clients need Metro, the launch URL configured in <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2>, or a compatible update on the <3>development</3> channel. This install flow does not publish an update.</1>"
+msgstr "<0>Потрібен клієнт для розробки</0><1>Клієнтам для розробки потрібні Metro, URL-адреса запуску, налаштована в <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2>, або сумісне оновлення в каналі <3>development</3>. Цей процес інсталяції не публікує оновлення.</1>"
+
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "A little room between cells"
 msgstr "Трохи простору між клітинками"
@@ -58,9 +62,17 @@ msgstr "Усі клітинки числа (1-9)"
 msgid "All progress will be lost"
 msgstr "Увесь прогрес буде втрачено"
 
+#: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
+msgid "Android installation"
+msgstr "Інсталяція на Android"
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Animate completed rows, columns, and boxes"
 msgstr "Анімувати завершені рядки, стовпці та блоки"
+
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Attempts to load the latest development build again"
+msgstr "Намагається знову завантажити найновішу збірку для розробки"
 
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "Average"
@@ -122,6 +134,10 @@ msgstr "Наступного разу пощастить!"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Board colors and screen appearance"
 msgstr "Кольори дошки та вигляд екранів"
+
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Built:"
+msgstr "Зібрано:"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Can you beat them?"
@@ -204,6 +220,10 @@ msgstr "Стовпець"
 msgid "Comfortable"
 msgstr "Зручний"
 
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Commit {commitShortSha}"
+msgstr "Коміт {commitShortSha}"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Complete rows, columns, and blocks for huge bonuses"
 msgstr "Завершуй рядки, стовпці й блоки заради великих бонусів"
@@ -245,6 +265,15 @@ msgstr "Глибока концентрація"
 msgid "Deutsch"
 msgstr "Deutsch"
 
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Development build unavailable"
+msgstr "Збірка для розробки недоступна"
+
+#: src/app/beta.tsx
+#: src/screens/components/beta-screen/beta.screen.tsx
+msgid "Development builds"
+msgstr "Збірки для розробки"
+
 #: src/game/components/difficulty-complexity-slider/difficulty-complexity-slider.tsx
 msgid "Difficulty"
 msgstr "Складність"
@@ -252,6 +281,18 @@ msgstr "Складність"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Display"
 msgstr "Відображення"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Download for Android"
+msgstr "Завантажити для Android"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Download the Android development build"
+msgstr "Завантажити збірку для розробки на Android"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Downloads the Android development APK"
+msgstr "Завантажує APK збірки для розробки на Android"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Each correct placement starts with a base value:"
@@ -389,9 +430,21 @@ msgstr "Мій результат у цьому судоку: {elapsedTimeString
 msgid "Immortal"
 msgstr "Безсмертний"
 
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Install on iOS"
+msgstr "Інсталювати на iOS"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Install the iOS development build"
+msgstr "Інсталювати збірку для розробки на iOS"
+
 #: src/game/components/game-provider/game-provider.tsx
 msgid "Invalid Sudoku"
 msgstr "Некоректне судоку"
+
+#: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
+msgid "iOS installation"
+msgstr "Інсталяція на iOS"
 
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "It took you"
@@ -429,6 +482,14 @@ msgstr "Рівень"
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Light warm-up"
 msgstr "Легка розминка"
+
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Loading development build"
+msgstr "Завантаження збірки для розробки"
+
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Loading the latest development build…"
+msgstr "Завантаження найновішої збірки для розробки…"
 
 #: src/screens/components/loser-screen/loser.screen.tsx
 msgid "Loooooser =)"
@@ -495,6 +556,14 @@ msgstr "Кошмар"
 msgid "no bonus"
 msgstr "без бонусу"
 
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "No complete development build has been published yet. Please check again later."
+msgstr "Повну збірку для розробки ще не опубліковано. Перевірте пізніше."
+
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "No development build is available"
+msgstr "Немає доступних збірок для розробки"
+
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "No extra gaps between cells"
 msgstr "Без додаткових проміжків між клітинками"
@@ -531,6 +600,10 @@ msgstr "від поточного рахунку"
 msgid "OK"
 msgstr "Гаразд"
 
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Open commit {commitShortSha} on GitHub"
+msgstr "Відкрити коміт {commitShortSha} на GitHub"
+
 #: src/screens/components/shared-screen/shared-screen.tsx
 msgid "Open puzzle"
 msgstr "Відкрити судоку"
@@ -539,6 +612,18 @@ msgstr "Відкрити судоку"
 #: src/screens/components/shared-screen/shared-screen.tsx
 msgid "Open shared puzzle?"
 msgstr "Відкрити спільне судоку?"
+
+#: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
+msgid "Open this page in Safari on a physical iPhone or iPad. The device must already be registered in the Ad Hoc provisioning profile."
+msgstr "Відкрийте цю сторінку в Safari на фізичному iPhone або iPad. Пристрій має бути заздалегідь зареєстрований у профілі підготовки Ad Hoc."
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Opens the registered-device installation prompt"
+msgstr "Відкриває запит на інсталяцію для зареєстрованого пристрою"
+
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Opens this commit on GitHub"
+msgstr "Відкриває цей коміт на GitHub"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Opponent's time:"
@@ -609,6 +694,10 @@ msgstr "Português"
 msgid "Privacy policy"
 msgstr "Політика конфіденційності"
 
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Published:"
+msgstr "Опубліковано:"
+
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Quit"
 msgstr "Вийти"
@@ -618,6 +707,10 @@ msgstr "Вийти"
 msgid "Relaxed"
 msgstr "Спокійний режим"
 
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Release notes"
+msgstr "Примітки до випуску"
+
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-top-bar/replay-top-bar.tsx
 msgid "Replay"
@@ -626,6 +719,10 @@ msgstr "Повтор"
 #: src/settings/component/settings-app-footer/settings-app-footer.tsx
 msgid "Report a bug"
 msgstr "Повідомити про помилку"
+
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Retry loading development build"
+msgstr "Повторити завантаження збірки для розробки"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Row"
@@ -657,6 +754,10 @@ msgstr "Бали:"
 #: src/settings/component/settings-page-content/settings-page-content.tsx
 msgid "Settings"
 msgstr "Налаштування"
+
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "SHA-256 checksums"
+msgstr "Контрольні суми SHA-256"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Shade cells that already have a number"
@@ -779,6 +880,14 @@ msgstr "SuuudokuuU: гра"
 msgid "Svenska"
 msgstr "Svenska"
 
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "The commit link could not be opened on this device."
+msgstr "Не вдалося відкрити посилання на коміт на цьому пристрої."
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "The install link could not be opened. Check your browser settings and try again."
+msgstr "Не вдалося відкрити посилання для інсталяції. Перевірте налаштування браузера й повторіть спробу."
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Theme"
@@ -822,6 +931,10 @@ msgstr "Поради для високих результатів"
 msgid "Too many mistakes"
 msgstr "Забагато помилок"
 
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Try again"
+msgstr "Спробувати ще раз"
+
 #: src/challenge/components/challenge-try-again-button/challenge-try-again-button.tsx
 msgid "Try Again"
 msgstr "Спробувати ще раз"
@@ -833,6 +946,14 @@ msgstr "Україна продовжує боротися"
 #: src/screens/components/loser-screen/loser-screen-ukraine-card/loser-screen-ukraine-card.tsx
 msgid "Ukraine needs to win too"
 msgstr "Україна теж має перемогти"
+
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Unable to open link"
+msgstr "Не вдалося відкрити посилання"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Unable to start installation"
+msgstr "Не вдалося почати інсталяцію"
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/screens/components/settings-screen/settings.screen.tsx
@@ -907,6 +1028,10 @@ msgstr "Вібрація"
 msgid "Warm gold accents for a brighter board"
 msgstr "Теплі золоті акценти для яскравішої дошки"
 
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "We could not load the latest development build. Please try again."
+msgstr "Не вдалося завантажити найновішу збірку для розробки. Повторіть спробу."
+
 #: src/@generic/utils/donation-get-text.util.ts
 msgid "While you were away Ukraine continued its fight for freedom!\n"
 "\n"
@@ -976,6 +1101,10 @@ msgstr "Виклик виграно!"
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Your best run"
 msgstr "Твоя найкраща партія"
+
+#: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
+msgid "Your browser may ask for permission to install unknown apps. Android will also show an operating-system security warning before installation."
+msgstr "Браузер може запитати дозвіл на інсталяцію застосунків із невідомих джерел. Перед інсталяцією Android також покаже попередження безпеки операційної системи."
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Your opponent completed this puzzle in"

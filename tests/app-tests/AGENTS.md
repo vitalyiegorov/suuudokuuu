@@ -30,6 +30,9 @@ Use a freshly rebuilt and reinstalled app when validating code, selector, deep-l
 13. Do not open the dev-client URL from business scenarios. Bootstrap owns project loading, and `setup/prime-deep-links.flow.yaml` owns the one-time native custom-scheme confirmation.
 14. Do not probe for native Open prompts in business flows. Those probes are slow and can deliver delayed confirmation dialogs into later app interactions.
 15. Keep Expo dev tools disabled in the test build. If external debug chrome appears, fix the build configuration instead of moving it with coordinates.
+16. Do not change app behavior solely to satisfy E2E tests. Add selectors or accessibility metadata only when they preserve or improve real UI semantics; otherwise fix the Maestro flow, fixture, or harness.
+17. Before `inputText`, focus the actual input with `tapOn`. After selecting an option from a native sheet, wait for the sheet search field or root to disappear before interacting with the underlying form.
+18. Do not combine `optional: true` with an `extendedWaitUntil` timeout above `5000`, because absence silently consumes the full timeout.
 
 ## Flow Design
 

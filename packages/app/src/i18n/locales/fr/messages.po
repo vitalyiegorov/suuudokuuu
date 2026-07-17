@@ -28,6 +28,10 @@ msgstr "{filledCells}/{totalCells} remplies"
 msgid "{gamesCompleted, plural, one {# completed game} other {# completed games}}"
 msgstr "{gamesCompleted, plural, one {# partie terminée} other {# parties terminées}}"
 
+#: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
+msgid "<0>Development client required</0><1>Development clients need Metro, the launch URL configured in <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2>, or a compatible update on the <3>development</3> channel. This install flow does not publish an update.</1>"
+msgstr "<0>Client de développement requis</0><1>Les clients de développement nécessitent Metro, l’URL de lancement configurée dans <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2> ou une mise à jour compatible sur le canal <3>development</3>. Ce processus d’installation ne publie aucune mise à jour.</1>"
+
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "A little room between cells"
 msgstr "Un peu d’espace entre les cases"
@@ -58,9 +62,17 @@ msgstr "Toutes les cases d'un chiffre (1-9)"
 msgid "All progress will be lost"
 msgstr "Toute la progression sera perdue"
 
+#: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
+msgid "Android installation"
+msgstr "Installation sur Android"
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Animate completed rows, columns, and boxes"
 msgstr "Animer les lignes, colonnes et blocs terminés"
+
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Attempts to load the latest development build again"
+msgstr "Tente de charger à nouveau la dernière version de développement"
 
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "Average"
@@ -122,6 +134,10 @@ msgstr "Ce sera pour la prochaine fois !"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Board colors and screen appearance"
 msgstr "Couleurs de la grille et apparence des écrans"
+
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Built:"
+msgstr "Créée :"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Can you beat them?"
@@ -204,6 +220,10 @@ msgstr "Colonne"
 msgid "Comfortable"
 msgstr "Confortable"
 
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Commit {commitShortSha}"
+msgstr "Commit {commitShortSha}"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Complete rows, columns, and blocks for huge bonuses"
 msgstr "Complétez des lignes, colonnes et blocs pour de gros bonus"
@@ -245,6 +265,15 @@ msgstr "Concentration intense"
 msgid "Deutsch"
 msgstr "Deutsch"
 
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Development build unavailable"
+msgstr "Version de développement indisponible"
+
+#: src/app/beta.tsx
+#: src/screens/components/beta-screen/beta.screen.tsx
+msgid "Development builds"
+msgstr "Versions de développement"
+
 #: src/game/components/difficulty-complexity-slider/difficulty-complexity-slider.tsx
 msgid "Difficulty"
 msgstr "Difficulté"
@@ -252,6 +281,18 @@ msgstr "Difficulté"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Display"
 msgstr "Affichage"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Download for Android"
+msgstr "Télécharger pour Android"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Download the Android development build"
+msgstr "Télécharger la version de développement Android"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Downloads the Android development APK"
+msgstr "Télécharge l’APK de développement Android"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Each correct placement starts with a base value:"
@@ -389,9 +430,21 @@ msgstr "J'ai terminé ce sudoku en {elapsedTimeString}. Pouvez-vous faire mieux 
 msgid "Immortal"
 msgstr "Immortel"
 
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Install on iOS"
+msgstr "Installer sur iOS"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Install the iOS development build"
+msgstr "Installer la version de développement iOS"
+
 #: src/game/components/game-provider/game-provider.tsx
 msgid "Invalid Sudoku"
 msgstr "Sudoku non valide"
+
+#: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
+msgid "iOS installation"
+msgstr "Installation sur iOS"
 
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "It took you"
@@ -429,6 +482,14 @@ msgstr "Niveau"
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Light warm-up"
 msgstr "Échauffement léger"
+
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Loading development build"
+msgstr "Chargement de la version de développement"
+
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Loading the latest development build…"
+msgstr "Chargement de la dernière version de développement…"
 
 #: src/screens/components/loser-screen/loser.screen.tsx
 msgid "Loooooser =)"
@@ -495,6 +556,14 @@ msgstr "Cauchemar"
 msgid "no bonus"
 msgstr "pas de bonus"
 
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "No complete development build has been published yet. Please check again later."
+msgstr "Aucune version de développement complète n’a encore été publiée. Revenez plus tard."
+
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "No development build is available"
+msgstr "Aucune version de développement n’est disponible"
+
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "No extra gaps between cells"
 msgstr "Aucun espace supplémentaire entre les cellules"
@@ -531,6 +600,10 @@ msgstr "du score actuel"
 msgid "OK"
 msgstr "OK"
 
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Open commit {commitShortSha} on GitHub"
+msgstr "Ouvrir le commit {commitShortSha} sur GitHub"
+
 #: src/screens/components/shared-screen/shared-screen.tsx
 msgid "Open puzzle"
 msgstr "Ouvrir la grille"
@@ -539,6 +612,18 @@ msgstr "Ouvrir la grille"
 #: src/screens/components/shared-screen/shared-screen.tsx
 msgid "Open shared puzzle?"
 msgstr "Ouvrir la grille partagée ?"
+
+#: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
+msgid "Open this page in Safari on a physical iPhone or iPad. The device must already be registered in the Ad Hoc provisioning profile."
+msgstr "Ouvrez cette page dans Safari sur un iPhone ou iPad physique. L’appareil doit déjà être enregistré dans le profil de provisionnement Ad Hoc."
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Opens the registered-device installation prompt"
+msgstr "Ouvre l’invite d’installation pour l’appareil enregistré"
+
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Opens this commit on GitHub"
+msgstr "Ouvre ce commit sur GitHub"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Opponent's time:"
@@ -609,6 +694,10 @@ msgstr "Português"
 msgid "Privacy policy"
 msgstr "Politique de confidentialité"
 
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Published:"
+msgstr "Publiée :"
+
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Quit"
 msgstr "Quitter"
@@ -618,6 +707,10 @@ msgstr "Quitter"
 msgid "Relaxed"
 msgstr "Détendu"
 
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Release notes"
+msgstr "Notes de version"
+
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-top-bar/replay-top-bar.tsx
 msgid "Replay"
@@ -626,6 +719,10 @@ msgstr "Relecture"
 #: src/settings/component/settings-app-footer/settings-app-footer.tsx
 msgid "Report a bug"
 msgstr "Signaler un problème"
+
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Retry loading development build"
+msgstr "Recharger la version de développement"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Row"
@@ -657,6 +754,10 @@ msgstr "Score :"
 #: src/settings/component/settings-page-content/settings-page-content.tsx
 msgid "Settings"
 msgstr "Paramètres"
+
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "SHA-256 checksums"
+msgstr "Sommes de contrôle SHA-256"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Shade cells that already have a number"
@@ -779,6 +880,14 @@ msgstr "SuuudokuuU : le jeu"
 msgid "Svenska"
 msgstr "Svenska"
 
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "The commit link could not be opened on this device."
+msgstr "Impossible d’ouvrir le lien du commit sur cet appareil."
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "The install link could not be opened. Check your browser settings and try again."
+msgstr "Impossible d’ouvrir le lien d’installation. Vérifiez les réglages de votre navigateur et réessayez."
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Theme"
@@ -822,6 +931,10 @@ msgstr "Conseils pour de meilleurs scores"
 msgid "Too many mistakes"
 msgstr "Trop d’erreurs"
 
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Try again"
+msgstr "Réessayer"
+
 #: src/challenge/components/challenge-try-again-button/challenge-try-again-button.tsx
 msgid "Try Again"
 msgstr "Réessayer"
@@ -833,6 +946,14 @@ msgstr "L’Ukraine continue de se battre"
 #: src/screens/components/loser-screen/loser-screen-ukraine-card/loser-screen-ukraine-card.tsx
 msgid "Ukraine needs to win too"
 msgstr "L’Ukraine doit gagner aussi"
+
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Unable to open link"
+msgstr "Impossible d’ouvrir le lien"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Unable to start installation"
+msgstr "Impossible de démarrer l’installation"
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/screens/components/settings-screen/settings.screen.tsx
@@ -907,6 +1028,10 @@ msgstr "Vibration"
 msgid "Warm gold accents for a brighter board"
 msgstr "Accents dorés chaleureux pour une grille plus lumineuse"
 
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "We could not load the latest development build. Please try again."
+msgstr "Impossible de charger la dernière version de développement. Réessayez."
+
 #: src/@generic/utils/donation-get-text.util.ts
 msgid "While you were away Ukraine continued its fight for freedom!\n"
 "\n"
@@ -976,6 +1101,10 @@ msgstr "Vous avez gagné le défi !"
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Your best run"
 msgstr "Ta meilleure partie"
+
+#: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
+msgid "Your browser may ask for permission to install unknown apps. Android will also show an operating-system security warning before installation."
+msgstr "Votre navigateur peut demander l’autorisation d’installer des applications de source inconnue. Android affichera également un avertissement de sécurité du système d’exploitation avant l’installation."
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Your opponent completed this puzzle in"
