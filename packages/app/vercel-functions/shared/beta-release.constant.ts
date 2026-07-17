@@ -15,6 +15,7 @@ export const HttpNotFoundStatus = 404;
 export const HttpMethodNotAllowedStatus = 405;
 export const HttpBadGatewayStatus = 502;
 export const BetaJsonContentType = ''.concat('application', '/', 'json', ';', ' ', 'charset', '=', 'utf', '-', '8');
+export const BetaXmlContentType = ''.concat('application', '/', 'xml', ';', ' ', 'charset', '=', 'utf', '-', '8');
 export const BetaSuccessCdnCacheControl = ''.concat('max-age=60', ',', ' ', 'stale-while-revalidate=300');
 export const BetaNotFoundErrorMessage = ''.concat('N', 'o', ' ', 'development', ' ', 'build', ' ', 'is', ' ', 'available');
 export const BetaUpstreamFailureErrorMessage = ''.concat('D', 'evelopment', ' ', 'build', ' ', 'service', ' ', 'is', ' ', 'unavailable');

@@ -17,14 +17,16 @@ const OlderRunNumber = 199;
 interface ReleaseOverrides {
     readonly assets?: readonly unknown[];
     readonly body?: string | null;
+    readonly bundleVersion?: string;
     readonly draft?: boolean;
     readonly prerelease?: boolean;
     readonly publishedAt?: string;
     readonly tagName?: string;
 }
 
-const createMetadata = (runNumber: number) => ({
+const createMetadata = (runNumber: number, bundleVersion = `${runNumber}.1`) => ({
     branch: 'main',
+    bundleVersion,
     builtAt: '2026-07-14T10:20:30.000Z',
     commitSha: CommitSha,
     version: '1.62.5',
@@ -46,7 +48,7 @@ const createAssets = (tagName: string) => [
 
 const createRelease = (runNumber: number, overrides: ReleaseOverrides = {}) => {
     const tagName = overrides.tagName ?? `development-${runNumber}`;
-    const metadata = createMetadata(runNumber);
+    const metadata = createMetadata(runNumber, overrides.bundleVersion);
 
     return {
         assets: overrides.assets ?? createAssets(tagName),
@@ -68,6 +70,7 @@ describe('selectBetaReleaseCandidates', () => {
             {
                 apkUrl: 'https://github.com/vitalyiegorov/suuudokuuu/releases/download/development-123/suuudokuuu-development.apk',
                 branch: 'main',
+                bundleVersion: '123.1',
                 builtAt: '2026-07-14T10:20:30.000Z',
                 checksumsUrl: 'https://github.com/vitalyiegorov/suuudokuuu/releases/download/development-123/SHA256SUMS',
                 commitSha: CommitSha,
@@ -130,6 +133,19 @@ describe('selectBetaReleaseCandidates', () => {
     it('falls back past an invalid newest structural release', () => {
         const candidates = selectBetaReleaseCandidates([
             createRelease(InvalidNewestRunNumber, { body: 'invalid' }),
+            createRelease(OlderRunNumber)
+        ]);
+
+        expect(candidates.map(candidate => candidate.tagName)).toEqual(['development-199']);
+    });
+
+    it('rejects a bundle version whose run component differs from the release tag', () => {
+        expect(selectBetaReleaseCandidates([createRelease(CurrentRunNumber, { bundleVersion: '122.1' })])).toEqual([]);
+    });
+
+    it('falls back to an older release after a tag and bundle-version mismatch', () => {
+        const candidates = selectBetaReleaseCandidates([
+            createRelease(InvalidNewestRunNumber, { bundleVersion: '199.1' }),
             createRelease(OlderRunNumber)
         ]);
 

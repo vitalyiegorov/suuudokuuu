@@ -4,6 +4,7 @@ import { parseReleaseMetadata } from './parse-release-metadata.util';
 
 const ValidMetadata = {
     branch: 'main',
+    bundleVersion: '123.1',
     builtAt: '2026-07-14T10:20:30.000Z',
     commitSha: '0123456789abcdef0123456789abcdef01234567',
     version: '1.62.5',
@@ -21,6 +22,12 @@ describe('parseReleaseMetadata', () => {
         });
     });
 
+    it.each(['1', '123.1', '123.1.2'])('accepts a canonical one-to-three-component bundle version: %s', bundleVersion => {
+        expect(parseReleaseMetadata(createReleaseBody({ ...ValidMetadata, bundleVersion }))).toMatchObject({
+            metadata: { bundleVersion }
+        });
+    });
+
     it.each([
         'prefix <!-- suuudokuuu-development-metadata {} -->',
         '<!-- suuudokuuu-development-metadata invalid -->',
@@ -29,6 +36,20 @@ describe('parseReleaseMetadata', () => {
         createReleaseBody({ ...ValidMetadata, runNumber: 123 }),
         createReleaseBody({ ...ValidMetadata, commitSha: 'ABCDEF' }),
         createReleaseBody({ ...ValidMetadata, branch: '' }),
+        createReleaseBody({
+            branch: 'main',
+            builtAt: ValidMetadata.builtAt,
+            commitSha: ValidMetadata.commitSha,
+            version: ValidMetadata.version,
+            workflowUrl: ValidMetadata.workflowUrl
+        }),
+        createReleaseBody({ ...ValidMetadata, bundleVersion: '0' }),
+        createReleaseBody({ ...ValidMetadata, bundleVersion: '01' }),
+        createReleaseBody({ ...ValidMetadata, bundleVersion: '123.0' }),
+        createReleaseBody({ ...ValidMetadata, bundleVersion: '123.01' }),
+        createReleaseBody({ ...ValidMetadata, bundleVersion: '-1' }),
+        createReleaseBody({ ...ValidMetadata, bundleVersion: '123.beta' }),
+        createReleaseBody({ ...ValidMetadata, bundleVersion: '123.1.2.3' }),
         createReleaseBody({ ...ValidMetadata, version: 'latest' }),
         createReleaseBody({ ...ValidMetadata, builtAt: '2026-07-14T10:20:30+02:00' }),
         createReleaseBody({ ...ValidMetadata, workflowUrl: 'https://example.com/actions/runs/123' }),

@@ -21,6 +21,8 @@ jobs:
     runs-on: [self-hosted, macOS, ARM64, macos-builder]
     timeout-minutes: 120
     env:
+      APP_VARIANT: development
+      DEVELOPMENT_BUILD_NUMBER: ${{ github.run_number }}.${{ github.run_attempt }}
       EXPO_APPLE_TEAM_ID: 3R8589YV24
       EXPO_APPLE_TEAM_TYPE: INDIVIDUAL
       EXPO_USE_PRECOMPILED_MODULES: '1'
@@ -94,6 +96,36 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
+      - name: Configure deterministic iOS build version
+        working-directory: packages/app
+        run: |
+          node --input-type=module - <<'NODE'
+          import { readFileSync, writeFileSync } from 'node:fs';
+
+          const easConfiguration = JSON.parse(readFileSync('eas.json', 'utf8'));
+          easConfiguration.cli.appVersionSource = 'local';
+          writeFileSync('eas.json', `${JSON.stringify(easConfiguration, null, 4)}\n`);
+          NODE
+
+      - name: Preflight iOS development configuration
+        working-directory: packages/app
+        run: |
+          expo_config_path="$RUNNER_TEMP/expo-development-config.json"
+          yarn expo config --type public --json > "$expo_config_path"
+          node --input-type=module - "$expo_config_path" <<'NODE'
+          import { readFileSync } from 'node:fs';
+
+          const expoConfiguration = JSON.parse(readFileSync(process.argv[2], 'utf8'));
+          const easConfiguration = JSON.parse(readFileSync('eas.json', 'utf8'));
+          const expectedBuildNumber = process.env.DEVELOPMENT_BUILD_NUMBER;
+          if (expoConfiguration.ios?.buildNumber !== expectedBuildNumber) {
+              throw new Error('Expo config does not contain the expected iOS development build number.');
+          }
+          if (easConfiguration.cli?.appVersionSource !== 'local') {
+              throw new Error('The ephemeral iOS build must use the local app version source.');
+          }
+          NODE
+
       - name: Build iOS app locally
         working-directory: packages/app
         env:
@@ -103,6 +135,25 @@ jobs:
         run: |
           mkdir -p ../../artifacts
           eas build --platform ios --profile development --local --non-interactive --output ../../artifacts/suuudokuuu-development.ipa
+
+      - name: Verify embedded iOS build version
+        run: |
+          verification_directory="$(mktemp -d)"
+          trap 'rm -rf "$verification_directory"' EXIT
+          unzip -q artifacts/suuudokuuu-development.ipa -d "$verification_directory"
+          shopt -s nullglob
+          app_bundles=("$verification_directory"/Payload/*.app)
+          if [[ "${#app_bundles[@]}" -ne 1 || ! -d "${app_bundles[0]}" ]]; then
+            echo "::error::Expected exactly one top-level Payload/*.app bundle in the IPA."
+            find "$verification_directory/Payload" -maxdepth 2 -print || true
+            exit 1
+          fi
+
+          embedded_build_number="$(/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' "${app_bundles[0]}/Info.plist")"
+          if [[ "$embedded_build_number" != "$DEVELOPMENT_BUILD_NUMBER" ]]; then
+            echo "::error::Embedded CFBundleVersion does not match the expected development build number."
+            exit 1
+          fi
 
       - name: Upload iOS artifact
         uses: actions/upload-artifact@v6

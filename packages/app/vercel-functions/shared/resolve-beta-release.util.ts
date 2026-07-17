@@ -98,6 +98,7 @@ const requestChecksums = async (
 const createBetaRelease = (candidate: BetaReleaseCandidate, checksums: ReleaseChecksums): BetaRelease => ({
     apkUrl: candidate.apkUrl,
     branch: candidate.branch,
+    bundleVersion: candidate.bundleVersion,
     builtAt: candidate.builtAt,
     checksums,
     commitSha: candidate.commitSha,
