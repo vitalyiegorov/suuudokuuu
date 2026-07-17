@@ -18,7 +18,7 @@ const ValidRelease = {
     publishedAt: '2026-07-14T12:30:00Z',
     releaseNotes: 'Development build metadata and notes.',
     runNumber: 241,
-    tagName: 'development-241',
+    tagName: 'development-241-1-1',
     version: '1.62.5',
     workflowUrl: 'https://github.com/vitalyiegorov/suuudokuuu/actions/runs/123456789'
 };

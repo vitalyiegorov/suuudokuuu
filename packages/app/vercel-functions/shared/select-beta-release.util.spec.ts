@@ -15,12 +15,14 @@ const InvalidNewestRunNumber = 200;
 const OlderRunNumber = 199;
 
 interface ReleaseOverrides {
+    readonly artifactAttempt?: number;
     readonly assets?: readonly unknown[];
     readonly body?: string | null;
     readonly bundleVersion?: string;
     readonly draft?: boolean;
     readonly prerelease?: boolean;
     readonly publishedAt?: string;
+    readonly publishAttempt?: number;
     readonly tagName?: string;
 }
 
@@ -47,8 +49,10 @@ const createAssets = (tagName: string) => [
 ];
 
 const createRelease = (runNumber: number, overrides: ReleaseOverrides = {}) => {
-    const tagName = overrides.tagName ?? `development-${runNumber}`;
-    const metadata = createMetadata(runNumber, overrides.bundleVersion);
+    const artifactAttempt = overrides.artifactAttempt ?? 1;
+    const publishAttempt = overrides.publishAttempt ?? 1;
+    const tagName = overrides.tagName ?? `development-${runNumber}-${artifactAttempt}-${publishAttempt}`;
+    const metadata = createMetadata(runNumber, overrides.bundleVersion ?? `${runNumber}.${artifactAttempt}`);
 
     return {
         assets: overrides.assets ?? createAssets(tagName),
@@ -68,18 +72,18 @@ describe('selectBetaReleaseCandidates', () => {
     it('accepts real GitHub extra fields and returns sanitized candidates', () => {
         expect(selectBetaReleaseCandidates([createRelease(CurrentRunNumber)])).toEqual([
             {
-                apkUrl: 'https://github.com/vitalyiegorov/suuudokuuu/releases/download/development-123/suuudokuuu-development.apk',
+                apkUrl: 'https://github.com/vitalyiegorov/suuudokuuu/releases/download/development-123-1-1/suuudokuuu-development.apk',
                 branch: 'main',
                 bundleVersion: '123.1',
                 builtAt: '2026-07-14T10:20:30.000Z',
-                checksumsUrl: 'https://github.com/vitalyiegorov/suuudokuuu/releases/download/development-123/SHA256SUMS',
+                checksumsUrl: 'https://github.com/vitalyiegorov/suuudokuuu/releases/download/development-123-1-1/SHA256SUMS',
                 commitSha: CommitSha,
-                ipaUrl: 'https://github.com/vitalyiegorov/suuudokuuu/releases/download/development-123/suuudokuuu-development.ipa',
+                ipaUrl: 'https://github.com/vitalyiegorov/suuudokuuu/releases/download/development-123-1-1/suuudokuuu-development.ipa',
                 name: 'Development 123',
                 publishedAt: PublishedAt,
                 releaseNotes: 'Notes',
                 runNumber: 123,
-                tagName: 'development-123',
+                tagName: 'development-123-1-1',
                 version: '1.62.5',
                 workflowUrl: 'https://github.com/vitalyiegorov/suuudokuuu/actions/runs/1123'
             }
@@ -89,42 +93,64 @@ describe('selectBetaReleaseCandidates', () => {
     it('sorts valid candidates by numeric tag descending', () => {
         const candidates = selectBetaReleaseCandidates([createRelease(9), createRelease(100), createRelease(10)]);
 
-        expect(candidates.map(candidate => candidate.tagName)).toEqual(['development-100', 'development-10', 'development-9']);
+        expect(candidates.map(candidate => candidate.tagName)).toEqual(['development-100-1-1', 'development-10-1-1', 'development-9-1-1']);
+    });
+
+    it('sorts equal-run candidates by artifact and publish attempt descending', () => {
+        const candidates = selectBetaReleaseCandidates([
+            createRelease(CurrentRunNumber, { artifactAttempt: 2, publishAttempt: 1 }),
+            createRelease(CurrentRunNumber, { artifactAttempt: 1, publishAttempt: 2 }),
+            createRelease(CurrentRunNumber, { artifactAttempt: 2, publishAttempt: 2 })
+        ]);
+
+        expect(candidates.map(candidate => candidate.tagName)).toEqual([
+            'development-123-2-2',
+            'development-123-2-1',
+            'development-123-1-2'
+        ]);
     });
 
     it.each([
         createRelease(3, { draft: true }),
         createRelease(3, { prerelease: false }),
         createRelease(3, { tagName: 'development-latest' }),
-        createRelease(3, { tagName: 'development-3-extra' }),
+        createRelease(3, { tagName: 'development-3' }),
+        createRelease(3, { tagName: 'development-3-0-1' }),
+        createRelease(3, { tagName: 'development-3-1-0' }),
+        createRelease(3, { tagName: 'development-3-1-1-extra' }),
         createRelease(3, { body: null }),
         createRelease(3, { body: 'Notes without metadata' }),
-        createRelease(3, { assets: createAssets('development-3').slice(0, 2) }),
-        createRelease(3, { assets: [...createAssets('development-3'), createAsset('development-3', 'extra.txt')] }),
+        createRelease(3, { assets: createAssets('development-3-1-1').slice(0, 2) }),
+        createRelease(3, {
+            assets: [...createAssets('development-3-1-1'), createAsset('development-3-1-1', 'extra.txt')]
+        }),
         createRelease(3, {
             assets: [
-                createAsset('development-3', DevelopmentIpaAssetName),
-                createAsset('development-3', DevelopmentIpaAssetName),
-                createAsset('development-3', DevelopmentChecksumsAssetName)
+                createAsset('development-3-1-1', DevelopmentIpaAssetName),
+                createAsset('development-3-1-1', DevelopmentIpaAssetName),
+                createAsset('development-3-1-1', DevelopmentChecksumsAssetName)
             ]
         }),
         createRelease(3, {
             assets: [
-                createAsset('development-3', DevelopmentIpaAssetName, 0),
-                createAsset('development-3', DevelopmentApkAssetName),
-                createAsset('development-3', DevelopmentChecksumsAssetName)
+                createAsset('development-3-1-1', DevelopmentIpaAssetName, 0),
+                createAsset('development-3-1-1', DevelopmentApkAssetName),
+                createAsset('development-3-1-1', DevelopmentChecksumsAssetName)
             ]
         }),
         createRelease(3, {
             assets: [
-                createAsset('development-3', DevelopmentIpaAssetName),
-                createAsset('development-3', DevelopmentApkAssetName),
-                createAsset('development-3', DevelopmentChecksumsAssetName, MaximumChecksumsByteLength + 1)
+                createAsset('development-3-1-1', DevelopmentIpaAssetName),
+                createAsset('development-3-1-1', DevelopmentApkAssetName),
+                createAsset('development-3-1-1', DevelopmentChecksumsAssetName, MaximumChecksumsByteLength + 1)
             ]
         }),
         createRelease(3, { publishedAt: '2026-07-14T10:30:00+02:00' }),
         createRelease(3, {
-            assets: createAssets('development-3').map(asset => ({ ...asset, browser_download_url: `${asset.browser_download_url}?x=1` }))
+            assets: createAssets('development-3-1-1').map(asset => ({
+                ...asset,
+                browser_download_url: `${asset.browser_download_url}?x=1`
+            }))
         })
     ])('filters incomplete or ineligible releases', release => {
         expect(selectBetaReleaseCandidates([release])).toEqual([]);
@@ -136,7 +162,7 @@ describe('selectBetaReleaseCandidates', () => {
             createRelease(OlderRunNumber)
         ]);
 
-        expect(candidates.map(candidate => candidate.tagName)).toEqual(['development-199']);
+        expect(candidates.map(candidate => candidate.tagName)).toEqual(['development-199-1-1']);
     });
 
     it('rejects a bundle version whose run component differs from the release tag', () => {
@@ -149,13 +175,13 @@ describe('selectBetaReleaseCandidates', () => {
             createRelease(OlderRunNumber)
         ]);
 
-        expect(candidates.map(candidate => candidate.tagName)).toEqual(['development-199']);
+        expect(candidates.map(candidate => candidate.tagName)).toEqual(['development-199-1-1']);
     });
 
     it('skips a malformed newest release and selects an older valid release', () => {
-        const candidates = selectBetaReleaseCandidates([{ tag_name: 'development-300' }, createRelease(OlderRunNumber)]);
+        const candidates = selectBetaReleaseCandidates([{ tag_name: 'development-300-1-1' }, createRelease(OlderRunNumber)]);
 
-        expect(candidates.map(candidate => candidate.tagName)).toEqual(['development-199']);
+        expect(candidates.map(candidate => candidate.tagName)).toEqual(['development-199-1-1']);
     });
 
     it.each([{}, null])('returns no candidates for a malformed top-level GitHub response', input => {
@@ -163,7 +189,7 @@ describe('selectBetaReleaseCandidates', () => {
         expect(parseBetaReleaseCandidates(input)).toEqual({ status: 'invalid' });
     });
 
-    it.each([{ input: [{ tag_name: 'development-1' }] }, { input: [{ ...createRelease(1), assets: 'invalid' }] }])(
+    it.each([{ input: [{ tag_name: 'development-1-1-1' }] }, { input: [{ ...createRelease(1), assets: 'invalid' }] }])(
         'treats an array with malformed releases as a valid empty candidate set',
         ({ input }) => {
             expect(parseBetaReleaseCandidates(input)).toEqual({ candidates: [], status: 'valid' });
