@@ -20,6 +20,64 @@ on:
     types: [opened, synchronize, reopened, ready_for_review]
 
 jobs:
+  changes:
+    name: Detect mobile changes
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      mobile: ${{ steps.mobile.outputs.mobile }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Classify changed paths
+        id: mobile
+        shell: bash
+        run: |
+          set -euo pipefail
+          mobile=true
+          base_sha="${{ github.event.pull_request.base.sha }}"
+          head_sha="${{ github.event.pull_request.head.sha }}"
+
+          if [ -z "$base_sha" ] || [ -z "$head_sha" ]; then
+            echo '::warning::Missing pull request base or head SHA; Maestro remains required.'
+          elif changed_paths=$(git diff --name-only --no-renames "$base_sha" "$head_sha"); then
+            echo 'Changed paths:'
+            if [ -z "$changed_paths" ]; then
+              echo '(none)'
+              echo '::warning::Diff is empty; Maestro remains required.'
+            else
+              printf '%s\n' "$changed_paths"
+              only_documentation_changes=true
+              while IFS= read -r changed_path; do
+                case "$changed_path" in
+                  docs/*)
+                    ;;
+                  */*)
+                    only_documentation_changes=false
+                    ;;
+                  *.md)
+                    ;;
+                  *)
+                    only_documentation_changes=false
+                    ;;
+                esac
+              done <<< "$changed_paths"
+
+              if [ "$only_documentation_changes" = true ]; then
+                mobile=false
+              fi
+            fi
+          else
+            echo '::warning::Unable to compare pull request base to head; Maestro remains required.'
+          fi
+
+          echo "Mobile impact: $mobile"
+          echo "mobile=$mobile" >> "$GITHUB_OUTPUT"
+
   code-quality:
     name: Code quality checks
     runs-on: [self-hosted, linux-tiered, linux-medium]
@@ -66,23 +124,38 @@ jobs:
         uses: codecov/codecov-action@v5
 
   ios-maestro:
-    needs: code-quality
+    if: ${{ needs.changes.outputs.mobile == 'true' && needs.code-quality.result == 'success' }}
+    needs: [changes, code-quality]
     uses: ./.github/workflows/ios-maestro.yml
     secrets: inherit
 
   required-ci:
     if: ${{ always() }}
-    needs: [code-quality, ios-maestro]
+    needs: [changes, code-quality, ios-maestro]
     name: Required CI
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
       - name: Verify required jobs
         env:
+          CHANGES_RESULT: ${{ needs.changes.result }}
+          MOBILE_RESULT: ${{ needs.changes.outputs.mobile }}
           CODE_QUALITY_RESULT: ${{ needs.code-quality.result }}
           IOS_MAESTRO_RESULT: ${{ needs.ios-maestro.result }}
         run: |
-          if [ "$CODE_QUALITY_RESULT" != 'success' ] || [ "$IOS_MAESTRO_RESULT" != 'success' ]; then
-            echo "Required jobs did not pass: code-quality=$CODE_QUALITY_RESULT, ios-maestro=$IOS_MAESTRO_RESULT"
+          set -euo pipefail
+          if [ "$CHANGES_RESULT" != 'success' ] || [ "$CODE_QUALITY_RESULT" != 'success' ]; then
+            echo "Required jobs did not pass: changes=$CHANGES_RESULT, code-quality=$CODE_QUALITY_RESULT, mobile=$MOBILE_RESULT, ios-maestro=$IOS_MAESTRO_RESULT"
             exit 1
           fi
+
+          if [ "$MOBILE_RESULT" = 'true' ] && [ "$IOS_MAESTRO_RESULT" = 'success' ]; then
+            exit 0
+          fi
+
+          if [ "$MOBILE_RESULT" = 'false' ] && [ "$IOS_MAESTRO_RESULT" = 'skipped' ]; then
+            exit 0
+          fi
+
+          echo "Required jobs did not pass: changes=$CHANGES_RESULT, code-quality=$CODE_QUALITY_RESULT, mobile=$MOBILE_RESULT, ios-maestro=$IOS_MAESTRO_RESULT"
+          exit 1
