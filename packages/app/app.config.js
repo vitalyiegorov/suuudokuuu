@@ -3,13 +3,13 @@ import rootPkg from './package.json';
 const APP_VARIANT = process.env.APP_VARIANT;
 const DEVELOPMENT_BUILD_NUMBER = process.env.DEVELOPMENT_BUILD_NUMBER;
 const EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL = process.env.EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL;
-const DevelopmentBuildNumberPattern = /^[1-9]\d*(?:\.[1-9]\d*){0,2}$/u;
+const DevelopmentBuildNumberPattern = /^[1-9]\d{0,3}\.[1-9]\d?$/u;
 const IS_DEV = APP_VARIANT === 'development';
 const IS_E2E = APP_VARIANT === 'e2e';
 const IS_PREVIEW = APP_VARIANT === 'preview';
 
 if (DEVELOPMENT_BUILD_NUMBER !== undefined && !DevelopmentBuildNumberPattern.test(DEVELOPMENT_BUILD_NUMBER)) {
-    throw new Error('DEVELOPMENT_BUILD_NUMBER must contain one to three positive decimal integer components.');
+    throw new Error('DEVELOPMENT_BUILD_NUMBER must contain a 1-9999 run number and a 1-99 run attempt.');
 }
 
 const getUniqueIdentifier = isAndroid => {

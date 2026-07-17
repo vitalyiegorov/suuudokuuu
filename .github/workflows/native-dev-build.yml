@@ -34,6 +34,17 @@ jobs:
         with:
           ref: ${{ github.sha }}
 
+      - name: Validate development build identity
+        run: |
+          if [[ ! "$GITHUB_RUN_NUMBER" =~ ^[1-9][0-9]{0,3}$ ]]; then
+            echo "::error::GITHUB_RUN_NUMBER must be between 1 and 9999."
+            exit 1
+          fi
+          if [[ ! "$GITHUB_RUN_ATTEMPT" =~ ^[1-9][0-9]?$ ]]; then
+            echo "::error::GITHUB_RUN_ATTEMPT must be between 1 and 99."
+            exit 1
+          fi
+
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
@@ -155,11 +166,22 @@ jobs:
             exit 1
           fi
 
+          identity_path="artifacts/suuudokuuu-development.identity.json"
+          ipa_sha256="$(shasum -a 256 artifacts/suuudokuuu-development.ipa | awk '{print $1}')"
+          node --input-type=module - "$identity_path" "$embedded_build_number" "$ipa_sha256" "$GITHUB_RUN_NUMBER" <<'NODE'
+          import { writeFileSync } from 'node:fs';
+
+          const [identityPath, bundleVersion, ipaSha256, runNumber] = process.argv.slice(2);
+          writeFileSync(identityPath, `${JSON.stringify({ bundleVersion, ipaSha256, runNumber })}\n`, { flag: 'wx' });
+          NODE
+
       - name: Upload iOS artifact
         uses: actions/upload-artifact@v6
         with:
           name: suuudokuuu-development-ios
-          path: artifacts/suuudokuuu-development.ipa
+          path: |
+            artifacts/suuudokuuu-development.ipa
+            artifacts/suuudokuuu-development.identity.json
           if-no-files-found: error
           retention-days: 1
 

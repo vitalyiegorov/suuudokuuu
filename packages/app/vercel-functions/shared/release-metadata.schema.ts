@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 const BranchPattern = /^[A-Za-z0-9][A-Za-z0-9._/-]*$/u;
 const MaximumBranchLength = 255;
-const BundleVersionPattern = /^[1-9]\d*(?:\.[1-9]\d*){0,2}$/u;
+const BundleVersionPattern = /^[1-9]\d{0,3}(?:\.[1-9]\d?){0,2}$/u;
 const CommitShaPattern = /^[a-f0-9]{40}$/u;
 const VersionPattern = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/u;
 const WorkflowUrlPattern = /^https:\/\/github\.com\/vitalyiegorov\/suuudokuuu\/actions\/runs\/[1-9]\d*$/u;
