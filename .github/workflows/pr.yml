@@ -17,7 +17,7 @@ concurrency:
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened, ready_for_review]
+    types: [opened, synchronize, reopened, ready_for_review, edited]
 
 jobs:
   changes:
@@ -36,11 +36,13 @@ jobs:
       - name: Classify changed paths
         id: mobile
         shell: bash
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
         run: |
           set -euo pipefail
           mobile=true
-          base_sha="${{ github.event.pull_request.base.sha }}"
-          head_sha="${{ github.event.pull_request.head.sha }}"
+          base_sha="$BASE_SHA"
+          head_sha="$GITHUB_SHA"
 
           if [ -z "$base_sha" ] || [ -z "$head_sha" ]; then
             echo '::warning::Missing pull request base or head SHA; Maestro remains required.'
