@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.63.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.62.5...v1.63.0) (2026-07-17)
+
+### Bug Fixes
+
+- **app:** align development release metadata ([a8105d4](https://github.com/vitalyiegorov/suuudokuuu/commit/a8105d4dbf5672b70290f6e20f6a0a3ca5e3b6ac))
+- **app:** bind OTA manifest to development build ([35fbc0c](https://github.com/vitalyiegorov/suuudokuuu/commit/35fbc0c8e806a8ab5aa45bde0c724cc5fc7084a7))
+- **app:** bound development release resolution ([f52e867](https://github.com/vitalyiegorov/suuudokuuu/commit/f52e867557e3acf23fe8022ece7a021052fad64a))
+- **app:** bound development release responses ([77649cf](https://github.com/vitalyiegorov/suuudokuuu/commit/77649cf68d9feaf69408452f9790007a98d71a16))
+- **app:** clarify beta installation guidance ([72b29de](https://github.com/vitalyiegorov/suuudokuuu/commit/72b29de37cf4b819a9d9f1a7afa97c2f9304642b))
+- **app:** preserve beta guidance translation ([41b1130](https://github.com/vitalyiegorov/suuudokuuu/commit/41b1130faa87d7fc64aa3379b793537f6f3a6671))
+- **app:** preserve verified iOS build identity ([10a0a88](https://github.com/vitalyiegorov/suuudokuuu/commit/10a0a8828c989e72a51fcff2db7bbfef3b8d6255))
+- make development releases append-only ([dc829d9](https://github.com/vitalyiegorov/suuudokuuu/commit/dc829d929a73ae6648fce17bcfa8abb45b5ef2b6))
+
+### Features
+
+- **app:** add development build install page ([9c8d534](https://github.com/vitalyiegorov/suuudokuuu/commit/9c8d5346f5ce3c2be47382c3d7381cf84c0d0455))
+- **app:** add development build OTA route ([feae55b](https://github.com/vitalyiegorov/suuudokuuu/commit/feae55b66a38b948025786bfefb5bc5cfd5f3aab))
+- **app:** resolve development releases ([c128b62](https://github.com/vitalyiegorov/suuudokuuu/commit/c128b62081fd4f75633ca2369d8f585bdce4f269))
+- **app:** serve beta distribution endpoints ([7e3ab03](https://github.com/vitalyiegorov/suuudokuuu/commit/7e3ab0361b73eefd8eccc72b42efa607ec68c343))
+
 ## [1.62.5](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.62.4...v1.62.5) (2026-07-12)
 
 **Note:** Version bump only for package @suuudokuuu/app
