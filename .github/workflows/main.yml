@@ -26,12 +26,13 @@ concurrency:
 jobs:
   release:
     name: Publish a release
-    runs-on: [self-hosted, linux-burst]
+    runs-on: [self-hosted, linux-tiered, linux-medium]
     timeout-minutes: 20
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
+          ref: main
           persist-credentials: false
           fetch-depth: 0
 
@@ -46,9 +47,21 @@ jobs:
           git config user.name "Vitalii Yehorov"
           git config user.email "vitalyiegorov@gmail.com"
           git remote rm origin
-          git remote add origin https://vitalyiegorov:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
-          git fetch
-          git branch --set-upstream-to=origin/main main
+          git remote add origin "https://vitalyiegorov:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git fetch --force --prune --tags origin +refs/heads/main:refs/remotes/origin/main
+          git checkout -B main origin/main
+
+      - name: Verify release source
+        run: |
+          if [ "$(git branch --show-current)" != "main" ]; then
+            echo "Release must run from main."
+            exit 1
+          fi
+
+          if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/main)" ]; then
+            echo "Release checkout does not match origin/main."
+            exit 1
+          fi
 
       - name: Install dependencies
         env:
@@ -72,15 +85,10 @@ jobs:
       - name: Publish a release
         run: yarn release
 
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.PUSH_TO_PROTECTED_TOKEN }}
-
   web-deploy:
     name: Vercel deploy Web
     needs: release
-    runs-on: [self-hosted, linux-burst]
+    runs-on: [self-hosted, linux-tiered, linux-medium]
     timeout-minutes: 20
     steps:
       - name: Checkout repository
@@ -94,20 +102,19 @@ jobs:
           node-version: 22.x
           cache: yarn
 
-      - name: Install Vercel CLI
-        run: npm install --global vercel@latest
-
       - name: Install dependencies
         run: yarn install
 
       - name: Build expo web
         working-directory: packages/app
-        run: npx expo export --platform=web
+        run: yarn expo export --platform=web
+
+      - name: Stage Vercel project
+        run: .github/scripts/stage-vercel-project.sh
 
       - name: Deploy to Vercel
         working-directory: packages/app/dist
         run: |
           echo "!node_modules" > .vercelignore
-          cp ../vercel.json .
-          vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
-          vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
+          yarn dlx vercel@latest pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+          yarn dlx vercel@latest deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
