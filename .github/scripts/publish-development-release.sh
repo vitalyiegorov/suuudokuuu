@@ -31,6 +31,42 @@ verify_directory_entries() {
   done
 }
 
+created_draft_release_id=''
+download_directory=''
+
+cleanup() {
+  local exit_status="$1"
+
+  if [[ -n "$download_directory" ]]; then
+    rm -rf "$download_directory"
+  fi
+  if [[ "$exit_status" -ne 0 && -n "$created_draft_release_id" ]]; then
+    local cleanup_release
+    if cleanup_release="$(gh api "repos/$GITHUB_REPOSITORY/releases/$created_draft_release_id" 2> /dev/null)" &&
+      jq -e \
+        --arg body "$release_notes" \
+        --arg name "$release_title" \
+        --arg sha "$GITHUB_SHA" \
+        --arg tag "$tag_name" \
+        --argjson id "$created_draft_release_id" '
+          .id == $id
+          and .tag_name == $tag
+          and .target_commitish == $sha
+          and .name == $name
+          and .body == $body
+          and .draft == true
+          and .prerelease == true
+        ' <<< "$cleanup_release" > /dev/null; then
+      gh api --method DELETE "repos/$GITHUB_REPOSITORY/releases/$created_draft_release_id" > /dev/null ||
+        printf 'Warning: failed to clean up draft release %s.\n' "$created_draft_release_id" >&2
+    else
+      printf 'Warning: draft release %s was not safe to clean up.\n' "$created_draft_release_id" >&2
+    fi
+  fi
+}
+
+trap 'exit_status=$?; trap - EXIT; cleanup "$exit_status"; exit "$exit_status"' EXIT
+
 [[ "$#" -eq 1 ]] || fail 'Usage: publish-development-release.sh <artifact-directory>'
 
 for variable_name in GITHUB_REPOSITORY GITHUB_RUN_ID GITHUB_RUN_NUMBER GITHUB_SHA GITHUB_REF_NAME GITHUB_SERVER_URL; do
@@ -102,27 +138,81 @@ release_notes="$(printf '%s\n\nVersion: %s\nBuild version: %s\nCommit: %s\nBranc
   "$workflow_url")"
 
 release_pages="$(gh api --paginate --slurp "repos/$GITHUB_REPOSITORY/releases?per_page=100")"
-existing_release_count="$(jq -er --arg tag "$tag_name" 'add | map(select(.tag_name == $tag)) | length' <<< "$release_pages")"
-[[ "$existing_release_count" -eq 0 ]] || fail "Release already exists for tag $tag_name."
+matching_releases="$(jq -cer --arg tag "$tag_name" 'add | map(select(.tag_name == $tag))' <<< "$release_pages")"
+existing_release_count="$(jq -er 'length' <<< "$matching_releases")"
+[[ "$existing_release_count" -le 1 ]] || fail "Multiple releases exist for tag $tag_name."
+
+reconciled_draft_release_id=''
+if [[ "$existing_release_count" -eq 1 ]]; then
+  existing_release="$(jq -cer '.[0]' <<< "$matching_releases")"
+  jq -e \
+    --arg bundle_version "$bundle_version" \
+    --arg sha "$GITHUB_SHA" \
+    --arg workflow_url "$workflow_url" '
+      .draft == true
+      and .prerelease == true
+      and .target_commitish == $sha
+      and (.id | type == "number")
+      and (.body | type == "string")
+      and (
+        (.body | capture("^<!-- suuudokuuu-development-metadata (?<json>[^\\n]+) -->").json | fromjson) as $metadata
+        | $metadata.bundleVersion == $bundle_version
+          and $metadata.commitSha == $sha
+          and $metadata.workflowUrl == $workflow_url
+      )
+    ' <<< "$existing_release" > /dev/null || fail "Existing release for $tag_name does not match this workflow run and commit."
+  reconciled_draft_release_id="$(jq -er '.id' <<< "$existing_release")"
+fi
 
 tag_reference_pages="$(gh api --paginate --slurp "repos/$GITHUB_REPOSITORY/git/matching-refs/tags/development-")"
-existing_tag_count="$(jq -er --arg reference "refs/tags/$tag_name" 'add | map(select(.ref == $reference)) | length' <<< "$tag_reference_pages")"
-[[ "$existing_tag_count" -eq 0 ]] || fail "Git tag already exists: $tag_name."
+matching_tag_references="$(jq -cer --arg reference "refs/tags/$tag_name" 'add | map(select(.ref == $reference))' <<< "$tag_reference_pages")"
+existing_tag_count="$(jq -er 'length' <<< "$matching_tag_references")"
+[[ "$existing_tag_count" -le 1 ]] || fail "Multiple Git tags exist for $tag_name."
+if [[ "$existing_tag_count" -eq 1 ]]; then
+  [[ -n "$reconciled_draft_release_id" ]] || fail "Git tag already exists without a matching draft release: $tag_name."
+  jq -e --arg sha "$GITHUB_SHA" '.[0].object.type == "commit" and .[0].object.sha == $sha' <<< "$matching_tag_references" > /dev/null ||
+    fail "Git tag for $tag_name does not match this workflow commit."
+fi
+
+if [[ -n "$reconciled_draft_release_id" ]]; then
+  if [[ "$existing_tag_count" -eq 1 ]]; then
+    gh api --method DELETE "repos/$GITHUB_REPOSITORY/git/refs/tags/$tag_name" > /dev/null
+  fi
+  gh api --method DELETE "repos/$GITHUB_REPOSITORY/releases/$reconciled_draft_release_id" > /dev/null
+fi
 
 (
   cd "$artifact_directory"
   shasum -a 256 "$ipa_name" "$apk_name" > "$checksums_name"
 )
 
-gh release create "$tag_name" \
+created_release="$(gh api \
+  --method POST \
+  -f tag_name="$tag_name" \
+  -f target_commitish="$GITHUB_SHA" \
+  -f name="$release_title" \
+  -f body="$release_notes" \
+  -F draft=true \
+  -F prerelease=true \
+  "repos/$GITHUB_REPOSITORY/releases")"
+jq -e \
+  --arg body "$release_notes" \
+  --arg name "$release_title" \
+  --arg sha "$GITHUB_SHA" \
+  --arg tag "$tag_name" '
+    (.id | type == "number")
+    and .tag_name == $tag
+    and .target_commitish == $sha
+    and .name == $name
+    and .body == $body
+    and .draft == true
+    and .prerelease == true
+  ' <<< "$created_release" > /dev/null || fail 'Created draft release validation failed.'
+created_draft_release_id="$(jq -er '.id | select(type == "number")' <<< "$created_release")"
+gh release upload "$tag_name" \
   "$artifact_directory/$ipa_name" \
   "$artifact_directory/$apk_name" \
-  "$artifact_directory/$checksums_name" \
-  --draft \
-  --prerelease \
-  --target "$GITHUB_SHA" \
-  --title "$release_title" \
-  --notes "$release_notes"
+  "$artifact_directory/$checksums_name"
 
 release_pages="$(gh api --paginate --slurp "repos/$GITHUB_REPOSITORY/releases?per_page=100")"
 draft_release="$(jq -cer --arg tag "$tag_name" '
@@ -132,12 +222,14 @@ draft_release="$(jq -cer --arg tag "$tag_name" '
 ' <<< "$release_pages")"
 
 jq -e \
+  --argjson id "$created_draft_release_id" \
   --arg tag "$tag_name" \
   --arg sha "$GITHUB_SHA" \
   --arg ipa "$ipa_name" \
   --arg apk "$apk_name" \
   --arg checksums "$checksums_name" '
-    .tag_name == $tag
+    .id == $id
+    and .tag_name == $tag
     and .target_commitish == $sha
     and .draft == true
     and .prerelease == true
@@ -148,7 +240,6 @@ jq -e \
 
 release_id="$(jq -er '.id | select(type == "number")' <<< "$draft_release")"
 download_directory="$(mktemp -d)"
-trap 'rm -rf "$download_directory"' EXIT
 
 while IFS=$'\t' read -r asset_id asset_name; do
   case "$asset_name" in
@@ -168,7 +259,22 @@ cmp "$artifact_directory/$checksums_name" "$download_directory/$checksums_name" 
   shasum -a 256 -c "$artifact_directory/$checksums_name"
 )
 
-gh api \
+published_release="$(gh api \
   --method PATCH \
   -F draft=false \
-  "repos/$GITHUB_REPOSITORY/releases/$release_id" > /dev/null
+  "repos/$GITHUB_REPOSITORY/releases/$release_id")"
+jq -e \
+  --arg body "$release_notes" \
+  --argjson id "$created_draft_release_id" \
+  --arg name "$release_title" \
+  --arg sha "$GITHUB_SHA" \
+  --arg tag "$tag_name" '
+    .id == $id
+    and .tag_name == $tag
+    and .target_commitish == $sha
+    and .name == $name
+    and .body == $body
+    and .draft == false
+    and .prerelease == true
+  ' <<< "$published_release" > /dev/null || fail 'Published release validation failed.'
+created_draft_release_id=''
