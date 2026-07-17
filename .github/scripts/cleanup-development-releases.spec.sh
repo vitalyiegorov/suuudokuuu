@@ -46,6 +46,7 @@ PATH="$mock_binary_directory:$PATH" \
 expected_deletions="$(cat <<'EOF'
 api --method DELETE repos/vitalyiegorov/suuudokuuu/releases/101
 api --method DELETE repos/vitalyiegorov/suuudokuuu/git/refs/tags/development-10-1-1
+api --method DELETE repos/vitalyiegorov/suuudokuuu/git/refs/tags/development-11-1-1
 api --method DELETE repos/vitalyiegorov/suuudokuuu/git/refs/tags/development-19-1-1
 EOF
 )"
