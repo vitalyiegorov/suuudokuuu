@@ -33,12 +33,11 @@ verify_directory_entries() {
 
 [[ "$#" -eq 1 ]] || fail 'Usage: publish-development-release.sh <artifact-directory>'
 
-for variable_name in GITHUB_REPOSITORY GITHUB_RUN_ID GITHUB_RUN_NUMBER GITHUB_RUN_ATTEMPT GITHUB_SHA GITHUB_REF_NAME GITHUB_SERVER_URL; do
+for variable_name in GITHUB_REPOSITORY GITHUB_RUN_ID GITHUB_RUN_NUMBER GITHUB_SHA GITHUB_REF_NAME GITHUB_SERVER_URL; do
   require_environment_variable "$variable_name"
 done
 
-[[ "$GITHUB_RUN_NUMBER" =~ ^[1-9][0-9]*$ ]] || fail 'GITHUB_RUN_NUMBER must be a positive decimal integer.'
-[[ "$GITHUB_RUN_ATTEMPT" =~ ^[1-9][0-9]*$ ]] || fail 'GITHUB_RUN_ATTEMPT must be a positive decimal integer.'
+[[ "$GITHUB_RUN_NUMBER" =~ ^[1-9][0-9]{0,3}$ ]] || fail 'GITHUB_RUN_NUMBER must be between 1 and 9999.'
 [[ "$GITHUB_SHA" =~ ^[a-f0-9]{40}$ ]] || fail 'GITHUB_SHA does not match the development release metadata contract.'
 [[ "${#GITHUB_REF_NAME}" -le 255 && "$GITHUB_REF_NAME" =~ ^[A-Za-z0-9][A-Za-z0-9._/-]*$ ]] || fail 'GITHUB_REF_NAME does not match the development release metadata contract.'
 
@@ -48,13 +47,35 @@ artifact_directory="$(cd "$artifact_directory" && pwd)"
 
 ipa_name='suuudokuuu-development.ipa'
 apk_name='suuudokuuu-development.apk'
+identity_name='suuudokuuu-development.identity.json'
 checksums_name='SHA256SUMS'
-verify_directory_entries "$artifact_directory" "$apk_name" "$ipa_name"
+verify_directory_entries "$artifact_directory" "$apk_name" "$identity_name" "$ipa_name"
 [[ -s "$artifact_directory/$ipa_name" ]] || fail "$ipa_name is empty."
 [[ -s "$artifact_directory/$apk_name" ]] || fail "$apk_name is empty."
+[[ -s "$artifact_directory/$identity_name" ]] || fail "$identity_name is empty."
+
+identity="$(jq -cse '
+  if length == 1
+    and (.[0] | type == "object")
+    and ((.[0] | keys) == ["bundleVersion", "ipaSha256", "runNumber"])
+    and (.[0].bundleVersion | type == "string")
+    and (.[0].ipaSha256 | type == "string")
+    and (.[0].runNumber | type == "string")
+  then .[0]
+  else error("Invalid iOS build identity")
+  end
+' "$artifact_directory/$identity_name")" || fail 'iOS build identity does not match the required shape.'
+bundle_version="$(jq -er '.bundleVersion' <<< "$identity")"
+identity_ipa_sha256="$(jq -er '.ipaSha256' <<< "$identity")"
+identity_run_number="$(jq -er '.runNumber' <<< "$identity")"
+[[ "$bundle_version" =~ ^[1-9][0-9]{0,3}\.[1-9][0-9]?$ ]] || fail 'Verified bundle version must contain a 1-9999 run number and a 1-99 run attempt.'
+[[ "$identity_run_number" =~ ^[1-9][0-9]{0,3}$ ]] || fail 'Verified iOS run number must be between 1 and 9999.'
+[[ "${bundle_version%%.*}" == "$identity_run_number" && "$identity_run_number" == "$GITHUB_RUN_NUMBER" ]] || fail 'Verified iOS build identity does not match the release run number.'
+[[ "$identity_ipa_sha256" =~ ^[a-f0-9]{64}$ ]] || fail 'Verified IPA SHA-256 is invalid.'
+actual_ipa_sha256="$(shasum -a 256 "$artifact_directory/$ipa_name" | awk '{print $1}')"
+[[ "$actual_ipa_sha256" == "$identity_ipa_sha256" ]] || fail 'IPA SHA-256 does not match the verified iOS build identity.'
 
 tag_name="development-$GITHUB_RUN_NUMBER"
-bundle_version="$GITHUB_RUN_NUMBER.$GITHUB_RUN_ATTEMPT"
 version="$(jq -r '.version | if type == "string" then . else "" end' packages/app/package.json)"
 [[ "$version" =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]] || fail 'Application version does not match the development release metadata contract.'
 short_sha="${GITHUB_SHA:0:7}"

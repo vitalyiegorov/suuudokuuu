@@ -22,7 +22,7 @@ describe('parseReleaseMetadata', () => {
         });
     });
 
-    it.each(['1', '123.1', '123.1.2'])('accepts a canonical one-to-three-component bundle version: %s', bundleVersion => {
+    it.each(['1', '9999.99', '9999.99.99'])('accepts a bounded one-to-three-component bundle version: %s', bundleVersion => {
         expect(parseReleaseMetadata(createReleaseBody({ ...ValidMetadata, bundleVersion }))).toMatchObject({
             metadata: { bundleVersion }
         });
@@ -47,6 +47,8 @@ describe('parseReleaseMetadata', () => {
         createReleaseBody({ ...ValidMetadata, bundleVersion: '01' }),
         createReleaseBody({ ...ValidMetadata, bundleVersion: '123.0' }),
         createReleaseBody({ ...ValidMetadata, bundleVersion: '123.01' }),
+        createReleaseBody({ ...ValidMetadata, bundleVersion: '10000.1' }),
+        createReleaseBody({ ...ValidMetadata, bundleVersion: '1.100' }),
         createReleaseBody({ ...ValidMetadata, bundleVersion: '-1' }),
         createReleaseBody({ ...ValidMetadata, bundleVersion: '123.beta' }),
         createReleaseBody({ ...ValidMetadata, bundleVersion: '123.1.2.3' }),
