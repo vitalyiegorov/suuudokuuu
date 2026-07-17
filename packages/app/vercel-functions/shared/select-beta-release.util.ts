@@ -18,6 +18,12 @@ interface NumberedBetaReleaseCandidate {
     readonly tagNumber: number;
 }
 
+interface CandidateAssets {
+    readonly apk: GithubReleaseAsset;
+    readonly checksums: GithubReleaseAsset;
+    readonly ipa: GithubReleaseAsset;
+}
+
 export type BetaReleaseCandidatesParseResult =
     { readonly candidates: readonly BetaReleaseCandidate[]; readonly status: 'valid' } | { readonly status: 'invalid' };
 
@@ -63,6 +69,37 @@ const hasValidAssetUrls = (
 const isEligibleRelease = (release: GithubRelease, tagNumber: number | null) =>
     !release.draft && release.prerelease && tagNumber !== null && release.body !== null && hasExactAssets(release);
 
+const createCandidate = (
+    release: GithubRelease,
+    tagNumber: number,
+    assets: CandidateAssets,
+    parsedMetadata: ReturnType<typeof parseReleaseMetadata>
+): BetaReleaseCandidate | null => {
+    if (parsedMetadata === null || release.name === null || release.published_at === null) {
+        return null;
+    }
+    if (!hasValidAssetUrls(release.tag_name, assets.ipa, assets.apk, assets.checksums)) {
+        return null;
+    }
+
+    const bundleRunNumber = Number(parsedMetadata.metadata.bundleVersion.split('.').at(0));
+    if (!Number.isSafeInteger(bundleRunNumber) || bundleRunNumber !== tagNumber) {
+        return null;
+    }
+
+    return {
+        ...parsedMetadata.metadata,
+        apkUrl: assets.apk.browser_download_url,
+        checksumsUrl: assets.checksums.browser_download_url,
+        ipaUrl: assets.ipa.browser_download_url,
+        name: release.name,
+        publishedAt: release.published_at,
+        releaseNotes: parsedMetadata.releaseNotes,
+        runNumber: tagNumber,
+        tagName: release.tag_name
+    };
+};
+
 const createNumberedCandidate = (release: GithubRelease): NumberedBetaReleaseCandidate | null => {
     const tagNumber = parseTagNumber(release.tag_name);
     if (!isEligibleRelease(release, tagNumber) || tagNumber === null || release.body === null) {
@@ -73,28 +110,18 @@ const createNumberedCandidate = (release: GithubRelease): NumberedBetaReleaseCan
     const apkAsset = findReleaseAsset(release, DevelopmentApkAssetName);
     const checksumsAsset = findReleaseAsset(release, DevelopmentChecksumsAssetName);
     const parsedMetadata = parseReleaseMetadata(release.body);
-    if (ipaAsset === null || apkAsset === null || checksumsAsset === null || parsedMetadata === null) {
+    if (ipaAsset === null || apkAsset === null || checksumsAsset === null) {
         return null;
     }
-    if (release.name === null || release.published_at === null) {
-        return null;
-    }
-    if (!hasValidAssetUrls(release.tag_name, ipaAsset, apkAsset, checksumsAsset)) {
+
+    const assets = { apk: apkAsset, checksums: checksumsAsset, ipa: ipaAsset };
+    const candidate = createCandidate(release, tagNumber, assets, parsedMetadata);
+    if (candidate === null) {
         return null;
     }
 
     return {
-        candidate: {
-            ...parsedMetadata.metadata,
-            apkUrl: apkAsset.browser_download_url,
-            checksumsUrl: checksumsAsset.browser_download_url,
-            ipaUrl: ipaAsset.browser_download_url,
-            name: release.name,
-            publishedAt: release.published_at,
-            releaseNotes: parsedMetadata.releaseNotes,
-            runNumber: tagNumber,
-            tagName: release.tag_name
-        },
+        candidate,
         tagNumber
     };
 };

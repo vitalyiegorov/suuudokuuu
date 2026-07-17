@@ -1,4 +1,10 @@
-import { BetaJsonContentType, BetaSuccessCdnCacheControl, HttpFoundStatus } from './beta-release.constant';
+import {
+    BetaJsonContentType,
+    BetaSuccessCdnCacheControl,
+    BetaXmlContentType,
+    HttpFoundStatus,
+    HttpOkStatus
+} from './beta-release.constant';
 
 const NoStoreCacheControl = 'no-store';
 const SuccessCacheControl = 'no-cache';
@@ -24,6 +30,12 @@ export const createBetaRedirectResponse = (location: string) =>
     new Response(null, {
         headers: { ...createResponseHeaders(true), Location: location },
         status: HttpFoundStatus
+    });
+
+export const createBetaXmlResponse = (body: string) =>
+    new Response(body, {
+        headers: { ...createResponseHeaders(false), 'Content-Type': BetaXmlContentType },
+        status: HttpOkStatus
     });
 
 export const createBetaHeadResponse = (response: Response) =>

@@ -27,9 +27,10 @@ const createAsset = (runNumber: number, name: string) => ({
     size: 100
 });
 
-const createRelease = (runNumber: number) => {
+const createRelease = (runNumber: number, bundleVersion: string | null = `${runNumber}.1`) => {
     const metadata = {
         branch: 'main',
+        ...(bundleVersion !== null && { bundleVersion }),
         builtAt: '2026-07-14T10:20:30.000Z',
         commitSha: CommitSha,
         version: '1.62.5',
@@ -96,6 +97,7 @@ describe('resolveBetaRelease', () => {
             release: {
                 apkUrl: 'https://github.com/vitalyiegorov/suuudokuuu/releases/download/development-123/suuudokuuu-development.apk',
                 branch: 'main',
+                bundleVersion: '123.1',
                 builtAt: '2026-07-14T10:20:30.000Z',
                 checksums: { apk: ApkChecksum, ipa: IpaChecksum },
                 commitSha: CommitSha,
@@ -193,6 +195,16 @@ describe('resolveBetaRelease', () => {
         const result = await resolveBetaRelease({ fetch: fetchMock });
 
         expect(result).toMatchObject({ release: { tagName: 'development-122' }, status: 'ready' });
+    });
+
+    it('falls back past a newest release without bundle-version metadata', async () => {
+        const fetchMock = jest.fn<typeof fetch>();
+        fetchMock.mockResolvedValueOnce(createJsonResponse([createRelease(CurrentRunNumber, null), createRelease(PreviousRunNumber)]));
+        fetchMock.mockResolvedValueOnce(new Response(ValidChecksums));
+
+        const result = await resolveBetaRelease({ fetch: fetchMock });
+
+        expect(result).toMatchObject({ release: { bundleVersion: '122.1', tagName: 'development-122' }, status: 'ready' });
     });
 
     it('returns not-found when every array item is malformed', async () => {
