@@ -26,6 +26,10 @@ msgstr "{filledCells}/{totalCells} ممتلئة"
 msgid "{gamesCompleted, plural, one {# completed game} other {# completed games}}"
 msgstr "{gamesCompleted, plural, one {# لعبة مكتملة} other {# ألعاب مكتملة}}"
 
+#: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
+msgid "<0>Development client required</0><1>Development clients need Metro, the launch URL configured in <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2>, or a compatible update on the <3>development</3> channel. This install flow does not publish an update.</1>"
+msgstr "<0>يلزم تطبيق عميل للتطوير</0><1>تحتاج تطبيقات عميل التطوير إلى Metro أو إلى عنوان التشغيل المضبوط في <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2> أو إلى تحديث متوافق على قناة <3>development</3>. لا تنشر عملية التثبيت هذه أي تحديث.</1>"
+
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "A little room between cells"
 msgstr "مسافة قليلة بين الخلايا"
@@ -56,9 +60,17 @@ msgstr "كل خانات رقم معين (1-9)"
 msgid "All progress will be lost"
 msgstr "سيضيع كل التقدم"
 
+#: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
+msgid "Android installation"
+msgstr "تثبيت Android"
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Animate completed rows, columns, and boxes"
 msgstr "تحريك الصفوف والأعمدة والمربعات المكتملة"
+
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Attempts to load the latest development build again"
+msgstr "يحاول تحميل أحدث إصدار تطوير مرة أخرى"
 
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "Average"
@@ -120,6 +132,10 @@ msgstr "حظًا أوفر في المرة القادمة!"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Board colors and screen appearance"
 msgstr "ألوان اللوحة ومظهر الشاشات"
+
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Built:"
+msgstr "تم الإنشاء:"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Can you beat them?"
@@ -202,6 +218,10 @@ msgstr "عمود"
 msgid "Comfortable"
 msgstr "مريح"
 
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Commit {commitShortSha}"
+msgstr "الالتزام {commitShortSha}"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Complete rows, columns, and blocks for huge bonuses"
 msgstr "أكمل الصفوف والأعمدة والمربعات لتحصل على مكافآت كبيرة"
@@ -243,6 +263,15 @@ msgstr "تركيز عميق"
 msgid "Deutsch"
 msgstr "Deutsch"
 
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Development build unavailable"
+msgstr "إصدار التطوير غير متاح"
+
+#: src/app/beta.tsx
+#: src/screens/components/beta-screen/beta.screen.tsx
+msgid "Development builds"
+msgstr "إصدارات التطوير"
+
 #: src/game/components/difficulty-complexity-slider/difficulty-complexity-slider.tsx
 msgid "Difficulty"
 msgstr "مستوى الصعوبة"
@@ -250,6 +279,18 @@ msgstr "مستوى الصعوبة"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Display"
 msgstr "العرض"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Download for Android"
+msgstr "تنزيل لنظام Android"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Download the Android development build"
+msgstr "تنزيل إصدار التطوير لنظام Android"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Downloads the Android development APK"
+msgstr "ينزّل ملف APK لإصدار التطوير على Android"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Each correct placement starts with a base value:"
@@ -387,9 +428,21 @@ msgstr "أنهيت هذا السودوكو في {elapsedTimeString}. هل يمك
 msgid "Immortal"
 msgstr "خالد"
 
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Install on iOS"
+msgstr "التثبيت على iOS"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Install the iOS development build"
+msgstr "تثبيت إصدار التطوير لنظام iOS"
+
 #: src/game/components/game-provider/game-provider.tsx
 msgid "Invalid Sudoku"
 msgstr "سودوكو غير صالح"
+
+#: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
+msgid "iOS installation"
+msgstr "تثبيت iOS"
 
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "It took you"
@@ -427,6 +480,14 @@ msgstr "المستوى"
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Light warm-up"
 msgstr "إحماء خفيف"
+
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Loading development build"
+msgstr "جارٍ تحميل إصدار التطوير"
+
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Loading the latest development build…"
+msgstr "جارٍ تحميل أحدث إصدار تطوير…"
 
 #: src/screens/components/loser-screen/loser.screen.tsx
 msgid "Loooooser =)"
@@ -493,6 +554,14 @@ msgstr "كابوس"
 msgid "no bonus"
 msgstr "لا مكافأة"
 
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "No complete development build has been published yet. Please check again later."
+msgstr "لم يُنشر أي إصدار تطوير مكتمل بعد. يُرجى التحقق مرة أخرى لاحقًا."
+
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "No development build is available"
+msgstr "لا يتوفر إصدار تطوير"
+
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "No extra gaps between cells"
 msgstr "بدون مسافات إضافية بين الخلايا"
@@ -529,6 +598,10 @@ msgstr "من النتيجة الحالية"
 msgid "OK"
 msgstr "حسنًا"
 
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Open commit {commitShortSha} on GitHub"
+msgstr "فتح الالتزام {commitShortSha} على GitHub"
+
 #: src/screens/components/shared-screen/shared-screen.tsx
 msgid "Open puzzle"
 msgstr "فتح السودوكو"
@@ -537,6 +610,18 @@ msgstr "فتح السودوكو"
 #: src/screens/components/shared-screen/shared-screen.tsx
 msgid "Open shared puzzle?"
 msgstr "فتح السودوكو المشترك؟"
+
+#: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
+msgid "Open this page in Safari on a physical iPhone or iPad. The device must already be registered in the Ad Hoc provisioning profile."
+msgstr "افتح هذه الصفحة في Safari على جهاز iPhone أو iPad فعلي. يجب أن يكون الجهاز مسجّلًا مسبقًا في ملف تعريف توفير Ad Hoc."
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Opens the registered-device installation prompt"
+msgstr "يفتح مطالبة التثبيت للجهاز المسجّل"
+
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Opens this commit on GitHub"
+msgstr "يفتح هذا الالتزام على GitHub"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Opponent's time:"
@@ -607,6 +692,10 @@ msgstr "Português"
 msgid "Privacy policy"
 msgstr "سياسة الخصوصية"
 
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Published:"
+msgstr "نُشر:"
+
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Quit"
 msgstr "إنهاء"
@@ -616,6 +705,10 @@ msgstr "إنهاء"
 msgid "Relaxed"
 msgstr "مريح"
 
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Release notes"
+msgstr "ملاحظات الإصدار"
+
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-top-bar/replay-top-bar.tsx
 msgid "Replay"
@@ -624,6 +717,10 @@ msgstr "إعادة"
 #: src/settings/component/settings-app-footer/settings-app-footer.tsx
 msgid "Report a bug"
 msgstr "الإبلاغ عن خطأ"
+
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Retry loading development build"
+msgstr "إعادة محاولة تحميل إصدار التطوير"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Row"
@@ -655,6 +752,10 @@ msgstr "النقاط:"
 #: src/settings/component/settings-page-content/settings-page-content.tsx
 msgid "Settings"
 msgstr "الإعدادات"
+
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "SHA-256 checksums"
+msgstr "مجاميع تحقق SHA-256"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Shade cells that already have a number"
@@ -777,6 +878,14 @@ msgstr "SuuudokuuU: اللعبة"
 msgid "Svenska"
 msgstr "Svenska"
 
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "The commit link could not be opened on this device."
+msgstr "تعذّر فتح رابط الالتزام على هذا الجهاز."
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "The install link could not be opened. Check your browser settings and try again."
+msgstr "تعذّر فتح رابط التثبيت. تحقق من إعدادات المتصفح وحاول مرة أخرى."
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Theme"
@@ -820,6 +929,10 @@ msgstr "نصائح لنتائج أعلى"
 msgid "Too many mistakes"
 msgstr "أخطاء كثيرة جدًا"
 
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Try again"
+msgstr "إعادة المحاولة"
+
 #: src/challenge/components/challenge-try-again-button/challenge-try-again-button.tsx
 msgid "Try Again"
 msgstr "حاول مجددًا"
@@ -831,6 +944,14 @@ msgstr "أوكرانيا تواصل القتال"
 #: src/screens/components/loser-screen/loser-screen-ukraine-card/loser-screen-ukraine-card.tsx
 msgid "Ukraine needs to win too"
 msgstr "أوكرانيا تحتاج إلى الفوز أيضًا"
+
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Unable to open link"
+msgstr "تعذّر فتح الرابط"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Unable to start installation"
+msgstr "تعذّر بدء التثبيت"
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/screens/components/settings-screen/settings.screen.tsx
@@ -905,6 +1026,10 @@ msgstr "الاهتزاز"
 msgid "Warm gold accents for a brighter board"
 msgstr "لمسات ذهبية دافئة للوحة أكثر إشراقًا"
 
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "We could not load the latest development build. Please try again."
+msgstr "تعذّر تحميل أحدث إصدار تطوير. يُرجى المحاولة مرة أخرى."
+
 #: src/@generic/utils/donation-get-text.util.ts
 msgid "While you were away Ukraine continued its fight for freedom!\n"
 "\n"
@@ -974,6 +1099,10 @@ msgstr "فزت بالتحدي!"
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Your best run"
 msgstr "أفضل جولة لك"
+
+#: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
+msgid "Your browser may ask for permission to install unknown apps. Android will also show an operating-system security warning before installation."
+msgstr "قد يطلب متصفحك إذنًا لتثبيت تطبيقات من مصادر غير معروفة. سيعرض Android أيضًا تحذير أمان من نظام التشغيل قبل التثبيت."
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Your opponent completed this puzzle in"

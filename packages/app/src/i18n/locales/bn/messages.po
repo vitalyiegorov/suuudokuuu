@@ -26,6 +26,10 @@ msgstr "{filledCells}/{totalCells} পূরণ"
 msgid "{gamesCompleted, plural, one {# completed game} other {# completed games}}"
 msgstr "{gamesCompleted, plural, one {#টি সম্পন্ন খেলা} other {#টি সম্পন্ন খেলা}}"
 
+#: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
+msgid "<0>Development client required</0><1>Development clients need Metro, the launch URL configured in <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2>, or a compatible update on the <3>development</3> channel. This install flow does not publish an update.</1>"
+msgstr "<0>ডেভেলপমেন্ট ক্লায়েন্ট প্রয়োজন</0><1>ডেভেলপমেন্ট ক্লায়েন্ট চালাতে Metro, <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2>-এ কনফিগার করা লঞ্চ URL, অথবা <3>development</3> চ্যানেলে একটি সামঞ্জস্যপূর্ণ আপডেট প্রয়োজন। এই ইনস্টল প্রক্রিয়া কোনো আপডেট প্রকাশ করে না।</1>"
+
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "A little room between cells"
 msgstr "ঘরগুলোর মধ্যে সামান্য ফাঁকা জায়গা"
@@ -56,9 +60,17 @@ msgstr "একটি সংখ্যার সব ঘর (1-9)"
 msgid "All progress will be lost"
 msgstr "সব অগ্রগতি হারিয়ে যাবে"
 
+#: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
+msgid "Android installation"
+msgstr "Android ইনস্টলেশন"
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Animate completed rows, columns, and boxes"
 msgstr "সম্পূর্ণ সারি, কলাম ও বাক্সে অ্যানিমেশন দেখান"
+
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Attempts to load the latest development build again"
+msgstr "সর্বশেষ ডেভেলপমেন্ট বিল্ড আবার লোড করার চেষ্টা করে"
 
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "Average"
@@ -120,6 +132,10 @@ msgstr "পরের বার ভাগ্য ভালো হোক!"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Board colors and screen appearance"
 msgstr "বোর্ডের রং ও স্ক্রিনের চেহারা"
+
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Built:"
+msgstr "বিল্ড করা হয়েছে:"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Can you beat them?"
@@ -202,6 +218,10 @@ msgstr "কলাম"
 msgid "Comfortable"
 msgstr "আরামদায়ক"
 
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Commit {commitShortSha}"
+msgstr "কমিট {commitShortSha}"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Complete rows, columns, and blocks for huge bonuses"
 msgstr "বড় বোনাসের জন্য সারি, কলাম ও ব্লক পূর্ণ করুন"
@@ -243,6 +263,15 @@ msgstr "গভীর মনোযোগ"
 msgid "Deutsch"
 msgstr "Deutsch"
 
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Development build unavailable"
+msgstr "ডেভেলপমেন্ট বিল্ড উপলভ্য নয়"
+
+#: src/app/beta.tsx
+#: src/screens/components/beta-screen/beta.screen.tsx
+msgid "Development builds"
+msgstr "ডেভেলপমেন্ট বিল্ড"
+
 #: src/game/components/difficulty-complexity-slider/difficulty-complexity-slider.tsx
 msgid "Difficulty"
 msgstr "কঠিনতা"
@@ -250,6 +279,18 @@ msgstr "কঠিনতা"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Display"
 msgstr "ডিসপ্লে"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Download for Android"
+msgstr "Android-এর জন্য ডাউনলোড করুন"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Download the Android development build"
+msgstr "Android ডেভেলপমেন্ট বিল্ড ডাউনলোড করুন"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Downloads the Android development APK"
+msgstr "Android ডেভেলপমেন্ট APK ডাউনলোড করে"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Each correct placement starts with a base value:"
@@ -387,9 +428,21 @@ msgstr "আমি এই সুডোকু {elapsedTimeString}-এ শেষ �
 msgid "Immortal"
 msgstr "অমর"
 
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Install on iOS"
+msgstr "iOS-এ ইনস্টল করুন"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Install the iOS development build"
+msgstr "iOS ডেভেলপমেন্ট বিল্ড ইনস্টল করুন"
+
 #: src/game/components/game-provider/game-provider.tsx
 msgid "Invalid Sudoku"
 msgstr "অবৈধ সুডোকু"
+
+#: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
+msgid "iOS installation"
+msgstr "iOS ইনস্টলেশন"
 
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "It took you"
@@ -427,6 +480,14 @@ msgstr "স্তর"
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Light warm-up"
 msgstr "হালকা ওয়ার্ম-আপ"
+
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Loading development build"
+msgstr "ডেভেলপমেন্ট বিল্ড লোড হচ্ছে"
+
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Loading the latest development build…"
+msgstr "সর্বশেষ ডেভেলপমেন্ট বিল্ড লোড হচ্ছে…"
 
 #: src/screens/components/loser-screen/loser.screen.tsx
 msgid "Loooooser =)"
@@ -493,6 +554,14 @@ msgstr "দুঃস্বপ্ন"
 msgid "no bonus"
 msgstr "কোনো বোনাস নেই"
 
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "No complete development build has been published yet. Please check again later."
+msgstr "এখনো কোনো সম্পূর্ণ ডেভেলপমেন্ট বিল্ড প্রকাশিত হয়নি। পরে আবার দেখুন।"
+
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "No development build is available"
+msgstr "কোনো ডেভেলপমেন্ট বিল্ড উপলভ্য নেই"
+
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "No extra gaps between cells"
 msgstr "ঘরগুলোর মধ্যে অতিরিক্ত ফাঁক নেই"
@@ -529,6 +598,10 @@ msgstr "বর্তমান স্কোরের"
 msgid "OK"
 msgstr "ঠিক আছে"
 
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Open commit {commitShortSha} on GitHub"
+msgstr "GitHub-এ {commitShortSha} কমিট খুলুন"
+
 #: src/screens/components/shared-screen/shared-screen.tsx
 msgid "Open puzzle"
 msgstr "সুডোকু খুলুন"
@@ -537,6 +610,18 @@ msgstr "সুডোকু খুলুন"
 #: src/screens/components/shared-screen/shared-screen.tsx
 msgid "Open shared puzzle?"
 msgstr "শেয়ার করা সুডোকু খুলবেন?"
+
+#: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
+msgid "Open this page in Safari on a physical iPhone or iPad. The device must already be registered in the Ad Hoc provisioning profile."
+msgstr "বাস্তব iPhone বা iPad-এ Safari দিয়ে এই পৃষ্ঠাটি খুলুন। ডিভাইসটি আগে থেকেই Ad Hoc প্রভিশনিং প্রোফাইলে নিবন্ধিত থাকতে হবে।"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Opens the registered-device installation prompt"
+msgstr "নিবন্ধিত ডিভাইসের ইনস্টলেশন প্রম্পট খোলে"
+
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Opens this commit on GitHub"
+msgstr "GitHub-এ এই কমিটটি খোলে"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Opponent's time:"
@@ -607,6 +692,10 @@ msgstr "Português"
 msgid "Privacy policy"
 msgstr "গোপনীয়তা নীতি"
 
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Published:"
+msgstr "প্রকাশিত:"
+
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Quit"
 msgstr "ছাড়ুন"
@@ -616,6 +705,10 @@ msgstr "ছাড়ুন"
 msgid "Relaxed"
 msgstr "স্বচ্ছন্দ"
 
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Release notes"
+msgstr "রিলিজ নোট"
+
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-top-bar/replay-top-bar.tsx
 msgid "Replay"
@@ -624,6 +717,10 @@ msgstr "রিপ্লে"
 #: src/settings/component/settings-app-footer/settings-app-footer.tsx
 msgid "Report a bug"
 msgstr "বাগ রিপোর্ট করুন"
+
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Retry loading development build"
+msgstr "ডেভেলপমেন্ট বিল্ড আবার লোড করুন"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Row"
@@ -655,6 +752,10 @@ msgstr "স্কোর:"
 #: src/settings/component/settings-page-content/settings-page-content.tsx
 msgid "Settings"
 msgstr "সেটিংস"
+
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "SHA-256 checksums"
+msgstr "SHA-256 চেকসাম"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Shade cells that already have a number"
@@ -777,6 +878,14 @@ msgstr "SuuudokuuU: গেম"
 msgid "Svenska"
 msgstr "Svenska"
 
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "The commit link could not be opened on this device."
+msgstr "এই ডিভাইসে কমিটের লিংকটি খোলা যায়নি।"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "The install link could not be opened. Check your browser settings and try again."
+msgstr "ইনস্টল লিংকটি খোলা যায়নি। ব্রাউজারের সেটিংস পরীক্ষা করে আবার চেষ্টা করুন।"
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Theme"
@@ -820,6 +929,10 @@ msgstr "উচ্চ স্কোরের টিপস"
 msgid "Too many mistakes"
 msgstr "খুব বেশি ভুল"
 
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Try again"
+msgstr "আবার চেষ্টা করুন"
+
 #: src/challenge/components/challenge-try-again-button/challenge-try-again-button.tsx
 msgid "Try Again"
 msgstr "আবার চেষ্টা করুন"
@@ -831,6 +944,14 @@ msgstr "ইউক্রেন লড়াই চালিয়ে যাচ্
 #: src/screens/components/loser-screen/loser-screen-ukraine-card/loser-screen-ukraine-card.tsx
 msgid "Ukraine needs to win too"
 msgstr "ইউক্রেনেরও জয় দরকার"
+
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Unable to open link"
+msgstr "লিংক খোলা যায়নি"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Unable to start installation"
+msgstr "ইনস্টলেশন শুরু করা যায়নি"
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/screens/components/settings-screen/settings.screen.tsx
@@ -905,6 +1026,10 @@ msgstr "ভাইব্রেশন"
 msgid "Warm gold accents for a brighter board"
 msgstr "আরও উজ্জ্বল বোর্ডের জন্য উষ্ণ সোনালি আভা"
 
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "We could not load the latest development build. Please try again."
+msgstr "সর্বশেষ ডেভেলপমেন্ট বিল্ড লোড করা যায়নি। আবার চেষ্টা করুন।"
+
 #: src/@generic/utils/donation-get-text.util.ts
 msgid "While you were away Ukraine continued its fight for freedom!\n"
 "\n"
@@ -974,6 +1099,10 @@ msgstr "আপনি চ্যালেঞ্জ জিতেছেন!"
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Your best run"
 msgstr "আপনার সেরা খেলা"
+
+#: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
+msgid "Your browser may ask for permission to install unknown apps. Android will also show an operating-system security warning before installation."
+msgstr "আপনার ব্রাউজার অজানা উৎসের অ্যাপ ইনস্টল করার অনুমতি চাইতে পারে। ইনস্টলেশনের আগে Android অপারেটিং সিস্টেমের একটি নিরাপত্তা সতর্কতাও দেখাবে।"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Your opponent completed this puzzle in"
