@@ -3,7 +3,7 @@ module.exports = {
     reporters: ['default'],
     coveragePathIgnorePatterns: ['.mock.ts', 'i18n-plural-rules.polyfill.ts', 'theme.enum.ts'],
     displayName: 'app',
-    testRegex: './src/.*\\.spec\\.(tsx?)$',
+    testRegex: './(?:src|vercel-functions)/.*\\.spec\\.(tsx?)$',
     testEnvironment: 'node',
     moduleNameMapper: {
         '^@suuudokuuu/encoder$': '<rootDir>/../encoder/src/index.ts'
