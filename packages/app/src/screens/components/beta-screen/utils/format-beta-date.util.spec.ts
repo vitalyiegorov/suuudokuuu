@@ -1,25 +1,20 @@
-import { afterAll, beforeAll, describe, expect, it } from '@jest/globals';
-
-import { isString } from '@rnw-community/shared';
+import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals';
 
 import { formatBetaDate } from './format-beta-date.util';
 
 const TimestampNearMidnight = '2026-07-14T23:30:00Z';
-const OriginalTimezone: unknown = Reflect.get(process.env, 'TZ');
+const OriginalDateTimeFormat = Intl.DateTimeFormat;
+const Timezone = 'Europe/Vienna';
 
 describe('formatBetaDate', () => {
-    beforeAll(() => {
-        Reflect.set(process.env, 'TZ', 'Europe/Vienna');
+    beforeEach(() => {
+        jest.spyOn(Intl, 'DateTimeFormat').mockImplementation(
+            (locale, options) => new OriginalDateTimeFormat(locale, { timeZone: Timezone, ...options })
+        );
     });
 
-    afterAll(() => {
-        if (isString(OriginalTimezone)) {
-            Reflect.set(process.env, 'TZ', OriginalTimezone);
-
-            return;
-        }
-
-        Reflect.deleteProperty(process.env, 'TZ');
+    afterEach(() => {
+        jest.restoreAllMocks();
     });
 
     it('formats a timestamp in the device timezone in English', () => {
