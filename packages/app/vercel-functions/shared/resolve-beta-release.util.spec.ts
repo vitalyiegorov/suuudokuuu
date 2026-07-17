@@ -284,6 +284,13 @@ describe('resolveBetaRelease', () => {
         await expect(resolveBetaRelease({ fetch: fetchMock })).resolves.toEqual({ status: 'upstream-failure' });
     });
 
+    it('returns upstream-failure for a non-successful GitHub response without a body', async () => {
+        const fetchMock = jest.fn<typeof fetch>();
+        fetchMock.mockResolvedValueOnce(new Response(null, { status: 500 }));
+
+        await expect(resolveBetaRelease({ fetch: fetchMock })).resolves.toEqual({ status: 'upstream-failure' });
+    });
+
     it('cancels a non-successful GitHub response body', async () => {
         const cancel = jest.fn<() => void>();
         const fetchMock = jest.fn<typeof fetch>();

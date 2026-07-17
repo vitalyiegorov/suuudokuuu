@@ -84,6 +84,29 @@ describe('readBoundedResponseText', () => {
         expect(cancel).toHaveBeenCalledTimes(1);
     });
 
+    it('rejects an aborted response when cancellation fails', async () => {
+        const abortController = new AbortController();
+        const cancel = jest.fn<() => Promise<void>>().mockRejectedValue(new Error('cancel failure'));
+        const read = jest.fn<() => Promise<{ readonly done: boolean }>>();
+        const releaseLock = jest.fn<() => void>();
+        const response = {
+            body: {
+                getReader: () => ({
+                    cancel,
+                    read,
+                    releaseLock
+                })
+            },
+            headers: new Headers()
+        };
+        abortController.abort();
+
+        await expect(readBoundedResponseText(response, MaximumChecksumsByteLength, abortController.signal)).resolves.toBeNull();
+        expect(cancel).toHaveBeenCalledTimes(1);
+        expect(read).not.toHaveBeenCalled();
+        expect(releaseLock).toHaveBeenCalledTimes(1);
+    });
+
     it('rejects an absent or failed response body', async () => {
         const absentBodyResponse = { body: null, headers: new Headers() };
         const failedResponse = {
