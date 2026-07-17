@@ -1,11 +1,7 @@
 name: Build Development build
 env:
-  EXPO_APPLE_TEAM_TYPE: INDIVIDUAL
-  EXPO_APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
   EXPO_NO_TELEMETRY: '1'
-  EXPO_USE_PRECOMPILED_MODULES: '1'
-  RCT_USE_PREBUILT_RNCORE: '1'
-  RCT_USE_RN_DEP: '1'
+  EAS_CLI_VERSION: '20.5.1'
   TURBO_TEAM: vitalyiegorov
   TURBO_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
@@ -15,22 +11,71 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: development-build-release
+  cancel-in-progress: false
+
 jobs:
-  build:
+  ios-development-build:
     name: Local iOS Development Build
     runs-on: [self-hosted, macOS, ARM64, macos-builder]
     timeout-minutes: 120
+    env:
+      APP_VARIANT: development
+      DEVELOPMENT_BUILD_NUMBER: ${{ github.run_number }}.${{ github.run_attempt }}
+      EXPO_APPLE_TEAM_ID: 3R8589YV24
+      EXPO_APPLE_TEAM_TYPE: INDIVIDUAL
+      EXPO_USE_PRECOMPILED_MODULES: '1'
+      RCT_USE_PREBUILT_RNCORE: '1'
+      RCT_USE_RN_DEP: '1'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
         with:
-          ref: main
+          ref: ${{ github.sha }}
+
+      - name: Validate development build identity
+        run: |
+          if [[ ! "$GITHUB_RUN_NUMBER" =~ ^[1-9][0-9]{0,3}$ ]]; then
+            echo "::error::GITHUB_RUN_NUMBER must be between 1 and 9999."
+            exit 1
+          fi
+          if [[ ! "$GITHUB_RUN_ATTEMPT" =~ ^[1-9][0-9]?$ ]]; then
+            echo "::error::GITHUB_RUN_ATTEMPT must be between 1 and 99."
+            exit 1
+          fi
 
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
           node-version: 22.x
           cache: yarn
+
+      - name: Configure macOS toolchain
+        run: |
+          {
+            echo "$HOME/.rbenv/shims"
+            echo "/opt/homebrew/bin"
+            echo "/opt/homebrew/sbin"
+          } >> "$GITHUB_PATH"
+
+          export PATH="$HOME/.rbenv/shims:/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+          pod --version
+          fastlane --version
+
+      - name: Verify build credentials
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+          ASC_API_KEY: ${{ secrets.EXPO_IOS_ASC_API_KEY }}
+        run: |
+          test -n "$EXPO_TOKEN" || {
+            echo "::error::EXPO_TOKEN is not configured."
+            exit 1
+          }
+          test -n "$ASC_API_KEY" || {
+            echo "::error::EXPO_IOS_ASC_API_KEY is not configured."
+            exit 1
+          }
 
       - name: Select Xcode
         run: |
@@ -40,7 +85,7 @@ jobs:
             XCODE_APP=/Applications/Xcode.app
           else
             echo "::error::Xcode is not installed on this runner."
-            ls -1 /Applications | grep -i Xcode || true
+            find /Applications -maxdepth 1 -iname '*xcode*' -print
             exit 1
           fi
 
@@ -50,7 +95,7 @@ jobs:
       - name: Setup Expo and EAS
         uses: expo/expo-github-action@v8
         with:
-          eas-version: latest
+          eas-version: ${{ env.EAS_CLI_VERSION }}
           token: ${{ secrets.EXPO_TOKEN }}
 
       - name: ASC API Key file creation
@@ -62,16 +107,189 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
+      - name: Configure deterministic iOS build version
+        working-directory: packages/app
+        run: |
+          node --input-type=module - <<'NODE'
+          import { readFileSync, writeFileSync } from 'node:fs';
+
+          const easConfiguration = JSON.parse(readFileSync('eas.json', 'utf8'));
+          easConfiguration.cli.appVersionSource = 'local';
+          writeFileSync('eas.json', `${JSON.stringify(easConfiguration, null, 4)}\n`);
+          NODE
+
+      - name: Preflight iOS development configuration
+        working-directory: packages/app
+        run: |
+          expo_config_path="$RUNNER_TEMP/expo-development-config.json"
+          yarn expo config --type public --json > "$expo_config_path"
+          node --input-type=module - "$expo_config_path" <<'NODE'
+          import { readFileSync } from 'node:fs';
+
+          const expoConfiguration = JSON.parse(readFileSync(process.argv[2], 'utf8'));
+          const easConfiguration = JSON.parse(readFileSync('eas.json', 'utf8'));
+          const expectedBuildNumber = process.env.DEVELOPMENT_BUILD_NUMBER;
+          if (expoConfiguration.ios?.buildNumber !== expectedBuildNumber) {
+              throw new Error('Expo config does not contain the expected iOS development build number.');
+          }
+          if (easConfiguration.cli?.appVersionSource !== 'local') {
+              throw new Error('The ephemeral iOS build must use the local app version source.');
+          }
+          NODE
+
       - name: Build iOS app locally
         working-directory: packages/app
+        env:
+          EXPO_ASC_API_KEY_PATH: ${{ github.workspace }}/packages/app/asc_api_key.p8
+          EXPO_ASC_KEY_ID: LD57UK43J9
+          EXPO_ASC_ISSUER_ID: 76e76b40-770a-4a81-bcdc-1f8346aeed02
         run: |
           mkdir -p ../../artifacts
           eas build --platform ios --profile development --local --non-interactive --output ../../artifacts/suuudokuuu-development.ipa
+
+      - name: Verify embedded iOS build version
+        run: |
+          verification_directory="$(mktemp -d)"
+          trap 'rm -rf "$verification_directory"' EXIT
+          unzip -q artifacts/suuudokuuu-development.ipa -d "$verification_directory"
+          shopt -s nullglob
+          app_bundles=("$verification_directory"/Payload/*.app)
+          if [[ "${#app_bundles[@]}" -ne 1 || ! -d "${app_bundles[0]}" ]]; then
+            echo "::error::Expected exactly one top-level Payload/*.app bundle in the IPA."
+            find "$verification_directory/Payload" -maxdepth 2 -print || true
+            exit 1
+          fi
+
+          embedded_build_number="$(/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' "${app_bundles[0]}/Info.plist")"
+          if [[ "$embedded_build_number" != "$DEVELOPMENT_BUILD_NUMBER" ]]; then
+            echo "::error::Embedded CFBundleVersion does not match the expected development build number."
+            exit 1
+          fi
+
+          identity_path="artifacts/suuudokuuu-development.identity.json"
+          ipa_sha256="$(shasum -a 256 artifacts/suuudokuuu-development.ipa | awk '{print $1}')"
+          node --input-type=module - "$identity_path" "$embedded_build_number" "$ipa_sha256" "$GITHUB_RUN_NUMBER" <<'NODE'
+          import { writeFileSync } from 'node:fs';
+
+          const [identityPath, bundleVersion, ipaSha256, runNumber] = process.argv.slice(2);
+          writeFileSync(identityPath, `${JSON.stringify({ bundleVersion, ipaSha256, runNumber })}\n`, { flag: 'wx' });
+          NODE
 
       - name: Upload iOS artifact
         uses: actions/upload-artifact@v6
         with:
           name: suuudokuuu-development-ios
-          path: artifacts/suuudokuuu-development.ipa
+          path: |
+            artifacts/suuudokuuu-development.ipa
+            artifacts/suuudokuuu-development.identity.json
           if-no-files-found: error
-          retention-days: 14
+          retention-days: 1
+
+      - name: Remove App Store Connect key
+        if: always()
+        run: rm -f packages/app/asc_api_key.p8
+
+  android-development-build:
+    name: Local Android Development Build
+    runs-on: [self-hosted, macOS, ARM64, macos-builder]
+    timeout-minutes: 120
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ github.sha }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22.x
+          cache: yarn
+
+      - name: Setup Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v4
+        with:
+          packages: 'platform-tools platforms;android-36 build-tools;36.0.0 ndk;27.1.12297006'
+
+      - name: Configure Android toolchain
+        run: |
+          test -d "$ANDROID_HOME" || {
+            echo "::error::ANDROID_HOME does not point to an installed Android SDK."
+            exit 1
+          }
+
+          java -version
+          sdkmanager --version
+
+      - name: Verify build credentials
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+        run: |
+          test -n "$EXPO_TOKEN" || {
+            echo "::error::EXPO_TOKEN is not configured."
+            exit 1
+          }
+
+      - name: Setup Expo and EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: ${{ env.EAS_CLI_VERSION }}
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build Android app locally
+        working-directory: packages/app
+        run: |
+          mkdir -p ../../artifacts
+          eas build --platform android --profile development --local --non-interactive --output ../../artifacts/suuudokuuu-development.apk
+
+      - name: Upload Android artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: suuudokuuu-development-android
+          path: artifacts/suuudokuuu-development.apk
+          if-no-files-found: error
+          retention-days: 1
+
+  publish-development-release:
+    name: Publish Development Release
+    needs: [ios-development-build, android-development-build]
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ github.sha }}
+
+      - name: Download iOS artifact
+        uses: actions/download-artifact@v6
+        with:
+          name: suuudokuuu-development-ios
+          path: artifacts
+
+      - name: Download Android artifact
+        uses: actions/download-artifact@v6
+        with:
+          name: suuudokuuu-development-android
+          path: artifacts
+
+      - name: Publish development release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: .github/scripts/publish-development-release.sh artifacts
+
+      - name: Clean up old development releases
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: .github/scripts/cleanup-development-releases.sh

@@ -1,0 +1,15 @@
+{
+    "name": "@suuudokuuu/vercel-functions",
+    "private": true,
+    "type": "module",
+    "packageManager": "yarn@4.17.0",
+    "scripts": {
+        "build": "yarn node --input-type=module -e \"import { z } from 'zod'; z.string().parse('vercel-functions')\""
+    },
+    "engines": {
+        "node": ">=22.22.1"
+    },
+    "dependencies": {
+        "zod": "4.4.3"
+    }
+}

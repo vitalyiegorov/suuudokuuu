@@ -37,6 +37,12 @@ yarn format && yarn ts && yarn lint && yarn deadcode && yarn cpd
 
 Run `yarn test` when behavior, algorithms, serialization, persistence, scoring, or app flows change. Run package-specific tests when the blast radius is narrow.
 
+## Planning Artifacts
+
+- Working designs and implementation plans live only under `docs/plans/`.
+- `docs/plans/` is local-only and gitignored. Never stage or commit its contents.
+- `docs/superpowers/plans/` and `docs/superpowers/specs/` are prohibited legacy locations and remain gitignored.
+
 ## Structure
 
 ```text
@@ -162,5 +168,6 @@ Algorithm-heavy solver/generator exceptions require a short, human-readable just
 - Use `yarn`, never `npm`.
 - Do not modify `.jscpd.json`; fix duplication in source or restructure narrowly.
 - Do not edit generated Lingui `messages.ts` by hand.
-- Keep `docs/plans/` local-only; it is gitignored for working plans.
+- Keep working designs and plans under `docs/plans/`; they are local-only and must never be staged or committed.
+- Do not use the prohibited legacy locations `docs/superpowers/plans/` or `docs/superpowers/specs/`.
 - Prefer existing package patterns over importing Budgie rules that only made sense for finance, databases, AI services, bank sync, or Next.js landing pages.

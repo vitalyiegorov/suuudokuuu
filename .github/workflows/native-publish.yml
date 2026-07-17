@@ -1,11 +1,7 @@
 name: Build and Publish to Stores
 env:
-  EXPO_APPLE_TEAM_TYPE: INDIVIDUAL
-  EXPO_APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
   EXPO_NO_TELEMETRY: '1'
-  EXPO_USE_PRECOMPILED_MODULES: '1'
-  RCT_USE_PREBUILT_RNCORE: '1'
-  RCT_USE_RN_DEP: '1'
+  EAS_CLI_VERSION: '20.5.1'
   TURBO_TEAM: vitalyiegorov
   TURBO_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
@@ -20,10 +16,16 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build-and-publish:
+  ios-build-and-publish:
     name: Build & Submit iOS to App Store
     runs-on: [self-hosted, macOS, ARM64, macos-builder]
     timeout-minutes: 120
+    env:
+      EXPO_APPLE_TEAM_ID: 3R8589YV24
+      EXPO_APPLE_TEAM_TYPE: INDIVIDUAL
+      EXPO_USE_PRECOMPILED_MODULES: '1'
+      RCT_USE_PREBUILT_RNCORE: '1'
+      RCT_USE_RN_DEP: '1'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
@@ -36,6 +38,32 @@ jobs:
           node-version: 22.x
           cache: yarn
 
+      - name: Configure macOS toolchain
+        run: |
+          {
+            echo "$HOME/.rbenv/shims"
+            echo "/opt/homebrew/bin"
+            echo "/opt/homebrew/sbin"
+          } >> "$GITHUB_PATH"
+
+          export PATH="$HOME/.rbenv/shims:/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+          pod --version
+          fastlane --version
+
+      - name: Verify release credentials
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+          ASC_API_KEY: ${{ secrets.EXPO_IOS_ASC_API_KEY }}
+        run: |
+          test -n "$EXPO_TOKEN" || {
+            echo "::error::EXPO_TOKEN is not configured."
+            exit 1
+          }
+          test -n "$ASC_API_KEY" || {
+            echo "::error::EXPO_IOS_ASC_API_KEY is not configured."
+            exit 1
+          }
+
       - name: Select Xcode
         run: |
           if [ -d /Applications/Xcode_26.4.1.app ]; then
@@ -44,7 +72,7 @@ jobs:
             XCODE_APP=/Applications/Xcode.app
           else
             echo "::error::Xcode is not installed on this runner."
-            ls -1 /Applications | grep -i Xcode || true
+            find /Applications -maxdepth 1 -iname '*xcode*' -print
             exit 1
           fi
 
@@ -54,7 +82,7 @@ jobs:
       - name: Setup Expo and EAS
         uses: expo/expo-github-action@v8
         with:
-          eas-version: latest
+          eas-version: ${{ env.EAS_CLI_VERSION }}
           token: ${{ secrets.EXPO_TOKEN }}
 
       - name: ASC API Key file creation
@@ -68,6 +96,10 @@ jobs:
 
       - name: Build iOS app locally
         working-directory: packages/app
+        env:
+          EXPO_ASC_API_KEY_PATH: ${{ github.workspace }}/packages/app/asc_api_key.p8
+          EXPO_ASC_KEY_ID: LD57UK43J9
+          EXPO_ASC_ISSUER_ID: 76e76b40-770a-4a81-bcdc-1f8346aeed02
         run: |
           mkdir -p ../../artifacts
           eas build --platform ios --profile production --local --non-interactive --output ../../artifacts/suuudokuuu-production.ipa
@@ -83,3 +115,95 @@ jobs:
       - name: Submit iOS app
         working-directory: packages/app
         run: eas submit --platform ios --profile production --path ../../artifacts/suuudokuuu-production.ipa --non-interactive
+
+      - name: Remove App Store Connect key
+        if: always()
+        run: rm -f packages/app/asc_api_key.p8
+
+  android-build-and-publish:
+    name: Build & Submit Android to Google Play
+    runs-on: [self-hosted, macOS, ARM64, macos-builder]
+    timeout-minutes: 120
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          ref: main
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22.x
+          cache: yarn
+
+      - name: Setup Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v4
+        with:
+          packages: 'platform-tools platforms;android-36 build-tools;36.0.0 ndk;27.1.12297006'
+
+      - name: Configure Android toolchain
+        run: |
+          test -d "$ANDROID_HOME" || {
+            echo "::error::ANDROID_HOME does not point to an installed Android SDK."
+            exit 1
+          }
+
+          java -version
+          sdkmanager --version
+
+      - name: Verify release credentials
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+        run: |
+          test -n "$EXPO_TOKEN" || {
+            echo "::error::EXPO_TOKEN is not configured."
+            exit 1
+          }
+          test -n "$GOOGLE_SERVICE_ACCOUNT_JSON" || {
+            echo "::error::GOOGLE_SERVICE_ACCOUNT_JSON is not configured."
+            exit 1
+          }
+
+      - name: Setup Expo and EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: ${{ env.EAS_CLI_VERSION }}
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Google Play service account file creation
+        uses: MobileDevOps/secret-to-file-action@v1.0.0
+        with:
+          base64-encoded-secret: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+          filename: 'packages/app/google-service-account.json'
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build Android app locally
+        working-directory: packages/app
+        run: |
+          mkdir -p ../../artifacts
+          eas build --platform android --profile production --local --non-interactive --output ../../artifacts/suuudokuuu-production.aab
+
+      - name: Upload Android artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: suuudokuuu-production-android
+          path: artifacts/suuudokuuu-production.aab
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Submit Android app
+        working-directory: packages/app
+        run: eas submit --platform android --profile production --path ../../artifacts/suuudokuuu-production.aab --non-interactive
+
+      - name: Remove Google Play service account key
+        if: always()
+        run: rm -f packages/app/google-service-account.json

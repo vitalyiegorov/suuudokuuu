@@ -17,12 +17,72 @@ concurrency:
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened, ready_for_review]
+    types: [opened, synchronize, reopened, ready_for_review, edited]
 
 jobs:
+  changes:
+    name: Detect mobile changes
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      mobile: ${{ steps.mobile.outputs.mobile }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Classify changed paths
+        id: mobile
+        shell: bash
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          set -euo pipefail
+          mobile=true
+          base_sha="$BASE_SHA"
+          head_sha="$GITHUB_SHA"
+
+          if [ -z "$base_sha" ] || [ -z "$head_sha" ]; then
+            echo '::warning::Missing pull request base or head SHA; Maestro remains required.'
+          elif changed_paths=$(git diff --name-only --no-renames "$base_sha" "$head_sha"); then
+            echo 'Changed paths:'
+            if [ -z "$changed_paths" ]; then
+              echo '(none)'
+              echo '::warning::Diff is empty; Maestro remains required.'
+            else
+              printf '%s\n' "$changed_paths"
+              only_documentation_changes=true
+              while IFS= read -r changed_path; do
+                case "$changed_path" in
+                  docs/*)
+                    ;;
+                  */*)
+                    only_documentation_changes=false
+                    ;;
+                  *.md)
+                    ;;
+                  *)
+                    only_documentation_changes=false
+                    ;;
+                esac
+              done <<< "$changed_paths"
+
+              if [ "$only_documentation_changes" = true ]; then
+                mobile=false
+              fi
+            fi
+          else
+            echo '::warning::Unable to compare pull request base to head; Maestro remains required.'
+          fi
+
+          echo "Mobile impact: $mobile"
+          echo "mobile=$mobile" >> "$GITHUB_OUTPUT"
+
   code-quality:
     name: Code quality checks
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux-tiered, linux-medium]
     timeout-minutes: 20
     permissions:
       pull-requests: write
@@ -66,129 +126,38 @@ jobs:
         uses: codecov/codecov-action@v5
 
   ios-maestro:
-    needs: code-quality
+    if: ${{ needs.changes.outputs.mobile == 'true' && needs.code-quality.result == 'success' }}
+    needs: [changes, code-quality]
     uses: ./.github/workflows/ios-maestro.yml
     secrets: inherit
 
   required-ci:
     if: ${{ always() }}
-    needs: [code-quality, ios-maestro]
+    needs: [changes, code-quality, ios-maestro]
     name: Required CI
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
       - name: Verify required jobs
         env:
+          CHANGES_RESULT: ${{ needs.changes.result }}
+          MOBILE_RESULT: ${{ needs.changes.outputs.mobile }}
           CODE_QUALITY_RESULT: ${{ needs.code-quality.result }}
           IOS_MAESTRO_RESULT: ${{ needs.ios-maestro.result }}
         run: |
-          if [ "$CODE_QUALITY_RESULT" != 'success' ] || [ "$IOS_MAESTRO_RESULT" != 'success' ]; then
-            echo "Required jobs did not pass: code-quality=$CODE_QUALITY_RESULT, ios-maestro=$IOS_MAESTRO_RESULT"
+          set -euo pipefail
+          if [ "$CHANGES_RESULT" != 'success' ] || [ "$CODE_QUALITY_RESULT" != 'success' ]; then
+            echo "Required jobs did not pass: changes=$CHANGES_RESULT, code-quality=$CODE_QUALITY_RESULT, mobile=$MOBILE_RESULT, ios-maestro=$IOS_MAESTRO_RESULT"
             exit 1
           fi
 
-  e2e-android:
-    needs: code-quality
-    name: E2E Tests on Android
-    if: ${{ false }}
-    runs-on: [self-hosted, linux-burst]
-    timeout-minutes: 60
-    steps:
-      - uses: actions/checkout@v5
+          if [ "$MOBILE_RESULT" = 'true' ] && [ "$IOS_MAESTRO_RESULT" = 'success' ]; then
+            exit 0
+          fi
 
-      - name: Enable KVM group perms
-        run: |
-          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
-          sudo udevadm control --reload-rules
-          sudo udevadm trigger --name-match=kvm
+          if [ "$MOBILE_RESULT" = 'false' ] && [ "$IOS_MAESTRO_RESULT" = 'skipped' ]; then
+            exit 0
+          fi
 
-      - name: Setup Node
-        uses: actions/setup-node@v6
-        with:
-          node-version: 22.x
-          cache: yarn
-
-      - name: Setup EAS
-        uses: expo/expo-github-action@v8
-        with:
-          eas-version: latest
-          token: ${{ secrets.EXPO_TOKEN }}
-
-      - name: Install dependencies
-        run: |
-          yarn install
-
-      - name: Expo Prebuild
-        working-directory: packages/app
-        run: npx expo prebuild -p android --clean
-
-      - name: Cache Gradle
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('packages/app/android/**/*.gradle*', 'packages/app/android/gradle/wrapper/gradle-wrapper.properties') }}
-          restore-keys: ${{ runner.os }}-gradle-
-
-      - name: AVD cache
-        uses: actions/cache@v4
-        id: avd-cache
-        with:
-          path: |
-            ~/.android/avd/*
-            ~/.android/adb*
-          key: avd-34
-
-      - name: Build app
-        working-directory: packages/app
-        run: |
-          eas build --profile=e2e --platform android --non-interactive --local --output app.android.apk
-
-      - name: Install Maestro
-        run: |
-          export MAESTRO_VERSION
-          curl -fsSL "https://get.maestro.mobile.dev" | bash
-          echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
-
-      - name: Сreate AVD and generate snapshot for caching
-        if: steps.avd-cache.outputs.cache-hit != 'true'
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 34
-          target: aosp_atd
-          channel: canary
-          arch: x86_64
-          force-avd-creation: false
-          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          disable-animations: false
-          script: echo "Generated AVD snapshot for caching."
-
-      - name: Start emulator and run Maestro tests
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 34
-          target: aosp_atd
-          channel: canary
-          arch: x86_64
-          force-avd-creation: false
-          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          disable-animations: true
-          working-directory: tests/app-tests
-          script: |
-            cd ../../packages/app && eas build:run --platform android --path app.android.apk
-            cd ../../tests/app-tests
-            maestro_status=0
-            maestro test . -e APP_ID=com.vitalyiegorov.suuudokuuu.preview --config config.yaml --format junit --output ./report.xml --debug-output ./ || maestro_status=$?
-            killall -INT crashpad_handler || true
-            exit "$maestro_status"
-
-      - name: Upload Maestro artifacts (report, logs, videos, screenshots)
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: maestro-android-artifacts
-          include-hidden-files: true
-          path: |
-            tests/app-tests/.maestro/**
-            tests/app-tests/*.mp4
+          echo "Required jobs did not pass: changes=$CHANGES_RESULT, code-quality=$CODE_QUALITY_RESULT, mobile=$MOBILE_RESULT, ios-maestro=$IOS_MAESTRO_RESULT"
+          exit 1
