@@ -50,6 +50,17 @@ const parseTagNumber = (tagName: string): Pick<NumberedBetaReleaseCandidate, 'ar
 const findReleaseAsset = (release: GithubRelease, assetName: string): GithubReleaseAsset | null =>
     release.assets.find(asset => asset.name === assetName) ?? null;
 
+const getCandidateAssets = (release: GithubRelease): CandidateAssets | null => {
+    const ipaAsset = findReleaseAsset(release, DevelopmentIpaAssetName);
+    const apkAsset = findReleaseAsset(release, DevelopmentApkAssetName);
+    const checksumsAsset = findReleaseAsset(release, DevelopmentChecksumsAssetName);
+    if (ipaAsset === null || apkAsset === null || checksumsAsset === null) {
+        return null;
+    }
+
+    return { apk: apkAsset, checksums: checksumsAsset, ipa: ipaAsset };
+};
+
 const hasExactAssets = (release: GithubRelease) => {
     const uniqueAssetNames = new Set(release.assets.map(asset => asset.name));
     const hasExpectedAssetNames = DevelopmentReleaseAssetNames.every(assetName => uniqueAssetNames.has(assetName));
@@ -111,19 +122,13 @@ const createCandidate = (
 
 const createNumberedCandidate = (release: GithubRelease): NumberedBetaReleaseCandidate | null => {
     const tag = parseTagNumber(release.tag_name);
-    if (!isEligibleRelease(release, tag) || tag === null || release.body === null) {
+    const assets = getCandidateAssets(release);
+    if (!isEligibleRelease(release, tag) || tag === null || release.body === null || assets === null) {
         return null;
     }
 
-    const ipaAsset = findReleaseAsset(release, DevelopmentIpaAssetName);
-    const apkAsset = findReleaseAsset(release, DevelopmentApkAssetName);
-    const checksumsAsset = findReleaseAsset(release, DevelopmentChecksumsAssetName);
     const parsedMetadata = parseReleaseMetadata(release.body);
-    if (ipaAsset === null || apkAsset === null || checksumsAsset === null) {
-        return null;
-    }
 
-    const assets = { apk: apkAsset, checksums: checksumsAsset, ipa: ipaAsset };
     const candidate = createCandidate(release, tag, assets, parsedMetadata);
     if (candidate === null) {
         return null;

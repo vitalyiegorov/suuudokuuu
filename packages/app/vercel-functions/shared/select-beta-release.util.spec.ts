@@ -110,6 +110,15 @@ describe('selectBetaReleaseCandidates', () => {
         ]);
     });
 
+    it('preserves order for candidates with equal tag components', () => {
+        const candidates = selectBetaReleaseCandidates([
+            createRelease(CurrentRunNumber, { publishedAt: '2026-07-14T10:30:01Z' }),
+            createRelease(CurrentRunNumber, { publishedAt: '2026-07-14T10:30:02Z' })
+        ]);
+
+        expect(candidates.map(candidate => candidate.publishedAt)).toEqual(['2026-07-14T10:30:01Z', '2026-07-14T10:30:02Z']);
+    });
+
     it.each([
         createRelease(3, { draft: true }),
         createRelease(3, { prerelease: false }),
