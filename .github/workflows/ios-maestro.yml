@@ -30,7 +30,6 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: 22.x
-          cache: yarn
 
       - name: Install dependencies
         run: yarn install
@@ -199,6 +198,30 @@ jobs:
           mkdir -p .ci-artifacts/ios-e2e-app
           tar -C "$(dirname "$app_path")" -czf ".ci-artifacts/ios-e2e-app/$(basename "$app_path").tar.gz" "$(basename "$app_path")"
 
+      - name: Stage app in host-local CI handoff
+        shell: bash
+        run: |
+          set -euo pipefail
+          shared_root='/Volumes/My Shared Files/ci-shared'
+          if [ ! -d "$shared_root" ] || [ ! -w "$shared_root" ]; then
+            echo '::notice::Host-local CI handoff is unavailable; Maestro jobs will use the GitHub artifact.'
+            exit 0
+          fi
+
+          source_archive=$(find "$GITHUB_WORKSPACE/.ci-artifacts/ios-e2e-app" -maxdepth 1 -name '*.tar.gz' -print -quit)
+          test -n "$source_archive"
+          handoff_dir="$shared_root/$GITHUB_REPOSITORY/$GITHUB_RUN_ID/$GITHUB_RUN_ATTEMPT/ios-e2e-app"
+          mkdir -p "$handoff_dir"
+          archive_name=$(basename "$source_archive")
+          temporary_archive=$(mktemp "$handoff_dir/.${archive_name}.XXXXXX")
+          cp "$source_archive" "$temporary_archive"
+          mv -f "$temporary_archive" "$handoff_dir/$archive_name"
+          (
+            cd "$handoff_dir"
+            shasum -a 256 "$archive_name" > "$archive_name.sha256.tmp"
+            mv -f "$archive_name.sha256.tmp" "$archive_name.sha256"
+          )
+
       - uses: actions/upload-artifact@v6
         with:
           name: ios-e2e-app
@@ -230,65 +253,57 @@ jobs:
           test -d "$xcode_app"
           echo "DEVELOPER_DIR=$xcode_app/Contents/Developer" >> "$GITHUB_ENV"
 
+      - name: VM resource diagnostics
+        run: |
+          echo "Logical CPUs: $(sysctl -n hw.logicalcpu)"
+          sysctl -n vm.swapusage
+          memory_pressure -Q | tail -n 1
+          vm_stat
+
       - name: Start isolated simulator
         shell: bash
         run: |
           set -euo pipefail
-          simulator_udid=$(python3 <<'PY'
-          import json
-          import subprocess
-
-          simulator_metadata = json.loads(
-              subprocess.check_output(['xcrun', 'simctl', 'list', '-j', 'devicetypes', 'runtimes'])
+          simulator_udid=$(
+            xcrun simctl list devices available |
+              sed -n '/iPhone 17 Pro (/ { s/.*(\([A-F0-9-]\{36\}\)).*/\1/; p; q; }'
           )
-          available_runtimes = [
-              runtime
-              for runtime in simulator_metadata['runtimes']
-              if runtime.get('isAvailable')
-              and runtime.get('identifier', '').startswith('com.apple.CoreSimulator.SimRuntime.iOS')
-          ]
-          available_runtimes.sort(
-              key=lambda runtime: tuple(int(part) for part in runtime.get('version', '0').split('.')),
-              reverse=True,
-          )
-          device_types_by_name = {
-              device_type['name']: device_type['identifier']
-              for device_type in simulator_metadata['devicetypes']
-              if device_type.get('productFamily') == 'iPhone'
-          }
-          preferred_device_names = ['iPhone 17', 'iPhone Air', 'iPhone 16', 'iPhone 15']
-          device_type_identifier = next(
-              (
-                  device_types_by_name[device_name]
-                  for device_name in preferred_device_names
-                  if device_name in device_types_by_name
-              ),
-              None,
-          )
-
-          if not available_runtimes or not device_type_identifier:
-              raise SystemExit('No supported iOS runtime or iPhone simulator type is available.')
-
-          print(
-              subprocess.check_output(
-                  [
-                      'xcrun',
-                      'simctl',
-                      'create',
-                      'Suuudokuuu E2E',
-                      device_type_identifier,
-                      available_runtimes[0]['identifier'],
-                  ],
-                  text=True,
-              ).strip()
-          )
-          PY
-          )
+          if [ -z "$simulator_udid" ]; then
+            echo '::error::The prewarmed iPhone 17 Pro simulator is unavailable.'
+            xcrun simctl list devices available
+            exit 1
+          fi
+          xcrun simctl shutdown all || true
           xcrun simctl boot "$simulator_udid"
           xcrun simctl bootstatus "$simulator_udid" -b
           echo "SIMULATOR_UDID=$simulator_udid" >> "$GITHUB_ENV"
 
-      - uses: actions/download-artifact@v6
+      - name: Restore app from host-local CI handoff
+        id: local-handoff
+        shell: bash
+        run: |
+          set -euo pipefail
+          shared_root='/Volumes/My Shared Files/ci-shared'
+          handoff_dir="$shared_root/$GITHUB_REPOSITORY/$GITHUB_RUN_ID/$GITHUB_RUN_ATTEMPT/ios-e2e-app"
+          destination="$GITHUB_WORKSPACE/.ci-artifacts/ios-e2e-app"
+          archive=$(find "$handoff_dir" -maxdepth 1 -name '*.tar.gz' -print -quit 2>/dev/null || true)
+          if [ -z "$archive" ] || [ ! -f "$archive.sha256" ]; then
+            echo 'hit=false' >> "$GITHUB_OUTPUT"
+            echo '::notice::Host-local app is unavailable; downloading the GitHub artifact.'
+            exit 0
+          fi
+
+          mkdir -p "$destination"
+          cp "$archive" "$archive.sha256" "$destination/"
+          (
+            cd "$destination"
+            shasum -a 256 -c "$(basename "$archive").sha256"
+          )
+          echo 'hit=true' >> "$GITHUB_OUTPUT"
+
+      - name: Download iOS E2E app artifact
+        if: steps.local-handoff.outputs.hit != 'true'
+        uses: actions/download-artifact@v6
         with:
           name: ios-e2e-app
           path: .ci-artifacts/ios-e2e-app
@@ -341,7 +356,6 @@ jobs:
           mkdir -p "tests/app-tests/artifacts/simulator-shard-${{ matrix.shard-index }}"
           xcrun simctl io "$SIMULATOR_UDID" screenshot "tests/app-tests/artifacts/simulator-shard-${{ matrix.shard-index }}/final-screen.png" || true
           xcrun simctl shutdown "$SIMULATOR_UDID" || true
-          xcrun simctl delete "$SIMULATOR_UDID" || true
 
       - uses: actions/upload-artifact@v6
         if: always()
