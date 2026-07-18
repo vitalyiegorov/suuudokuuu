@@ -329,6 +329,7 @@ jobs:
         shell: bash
         env:
           APP_ID: com.vitalyiegorov.suuudokuuu.e2e
+          JAVA_TOOL_OPTIONS: -Djava.awt.headless=true
           MAESTRO_DEBUG_OUTPUT_DIRECTORY: ${{ github.workspace }}/tests/app-tests/artifacts/maestro-shard-${{ matrix.shard-index }}
           MAESTRO_OUTPUT_PATH: ${{ github.workspace }}/tests/app-tests/artifacts/maestro-shard-${{ matrix.shard-index }}/report.xml
           SHARD_INDEX: ${{ matrix.shard-index }}
