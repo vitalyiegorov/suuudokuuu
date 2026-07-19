@@ -1,36 +1,40 @@
 import { StyleSheet } from 'react-native';
 
 export const ChallengeResultScreenStyles = StyleSheet.create({
-    boldText: {
-        fontWeight: 'bold'
-    },
-    container: {
+    actions: {
         alignItems: 'center',
-        flex: 1,
-        gap: 20,
-        justifyContent: 'center'
-    },
-    differenceText: {
-        marginTop: 4
-    },
-    icon: {
-        marginBottom: 10
-    },
-    metricsGrid: {
         gap: 10,
-        maxWidth: 360,
+        maxWidth: 560,
         width: '100%'
     },
-    metricsRow: {
-        flexDirection: 'row',
-        gap: 10
+    chromeContent: {
+        alignItems: 'center'
     },
-    messageText: {
-        marginTop: 2
-    },
-    statsContainer: {
+    content: {
         alignItems: 'center',
-        gap: 10,
+        gap: 16,
+        maxWidth: 560,
+        width: '100%'
+    },
+    footerChrome: {
+        paddingBottom: 18,
+        paddingHorizontal: 18,
+        paddingTop: 12
+    },
+    headerChrome: {
+        paddingBottom: 0,
+        paddingHorizontal: 18,
+        paddingTop: 12
+    },
+    scrollContent: {
+        alignItems: 'center',
+        flexGrow: 1,
+        gap: 16,
+        paddingHorizontal: 18,
+        width: '100%'
+    },
+    scrollView: {
+        flex: 1,
         width: '100%'
     }
 });

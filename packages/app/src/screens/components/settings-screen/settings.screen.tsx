@@ -2,9 +2,7 @@ import { useLingui } from '@lingui/react/macro';
 import { AppSettingsSection } from '@suuudokuuu/ui';
 import Constants from 'expo-constants';
 
-import { ReturnableScreenChromeCompactBottomContentPreset } from '../../../@generic/components/returnable-screen-chrome/constant/returnable-screen-chrome.constant';
-import { ReturnableScreenChrome } from '../../../@generic/components/returnable-screen-chrome/returnable-screen-chrome';
-import { ReturnableScreenScrollView } from '../../../@generic/components/returnable-screen-scroll-view/returnable-screen-scroll-view';
+import { CollapsibleChromePage } from '../../../@generic/components/collapsible-chrome-page/collapsible-chrome-page';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { SettingsAppFooter } from '../../../settings/component/settings-app-footer/settings-app-footer';
 import { SettingsGuidanceSection } from '../../../settings/component/settings-guidance-section/settings-guidance-section';
@@ -31,52 +29,51 @@ export const SettingsScreen = () => {
     const version = Constants.expoConfig?.version ?? t`Unknown`;
 
     return (
-        <ReturnableScreenChrome contentStyle={styles.content} title={t`Settings`}>
-            <ReturnableScreenScrollView
-                bottomContentPreset={ReturnableScreenChromeCompactBottomContentPreset}
-                contentContainerStyle={styles.scrollViewContent}
-                style={styles.scrollView}
-                testID={SettingsScreenSelectors.Root}
-            >
-                <AppSettingsSection title={t`Game`}>
-                    <SettingsOptionLink
-                        description={t`Menus, settings, and game text`}
-                        href="/settings/language"
-                        title={t`Language`}
-                        value={getLanguageLabel(language)}
-                    />
-                    <SettingsOptionLink
-                        description={t`Adjust the digits on the Sudoku board`}
-                        href="/settings/font-size"
-                        title={t`Number size`}
-                        value={getFontSizeLabel(fontSize)}
-                    />
-                    <SettingsOptionLink
-                        description={t`Space between Sudoku cells`}
-                        href="/settings/cell-margin"
-                        testID={SettingsScreenSelectors.CellSpacingOption}
-                        title={t`Cell spacing`}
-                        value={getCellMarginLabel(cellMargin)}
-                    />
-                </AppSettingsSection>
-                <AppSettingsSection title={t`Display`}>
-                    <SettingsOptionLink
-                        description={t`Board colors and screen appearance`}
-                        href="/settings/theme"
-                        title={t`Theme`}
-                        value={getThemeLabel(theme)}
-                    />
-                    <SettingsSwitch description={t`Use a dark color scheme`} setting="isDarkColorSchema" title={t`Dark mode`} />
-                </AppSettingsSection>
-                <AppSettingsSection title={t`Feedback`}>
-                    <SettingsSwitch description={t`Show elapsed time while you play`} setting="hasTimer" title={t`Timer`} />
-                    <SettingsSwitch description={t`Vibrate on taps and game actions`} setting="hasVibration" title={t`Vibration`} />
-                </AppSettingsSection>
+        <CollapsibleChromePage
+            contentContainerStyle={styles.scrollViewContent}
+            contentStyle={styles.content}
+            style={styles.scrollView}
+            testID={SettingsScreenSelectors.Root}
+            title={t`Settings`}
+        >
+            <AppSettingsSection title={t`Game`}>
+                <SettingsOptionLink
+                    description={t`Menus, settings, and game text`}
+                    href="/settings/language"
+                    title={t`Language`}
+                    value={getLanguageLabel(language)}
+                />
+                <SettingsOptionLink
+                    description={t`Adjust the digits on the Sudoku board`}
+                    href="/settings/font-size"
+                    title={t`Number size`}
+                    value={getFontSizeLabel(fontSize)}
+                />
+                <SettingsOptionLink
+                    description={t`Space between Sudoku cells`}
+                    href="/settings/cell-margin"
+                    testID={SettingsScreenSelectors.CellSpacingOption}
+                    title={t`Cell spacing`}
+                    value={getCellMarginLabel(cellMargin)}
+                />
+            </AppSettingsSection>
+            <AppSettingsSection title={t`Display`}>
+                <SettingsOptionLink
+                    description={t`Board colors and screen appearance`}
+                    href="/settings/theme"
+                    title={t`Theme`}
+                    value={getThemeLabel(theme)}
+                />
+                <SettingsSwitch description={t`Use a dark color scheme`} setting="isDarkColorSchema" title={t`Dark mode`} />
+            </AppSettingsSection>
+            <AppSettingsSection title={t`Feedback`}>
+                <SettingsSwitch description={t`Show elapsed time while you play`} setting="hasTimer" title={t`Timer`} />
+                <SettingsSwitch description={t`Vibrate on taps and game actions`} setting="hasVibration" title={t`Vibration`} />
+            </AppSettingsSection>
 
-                <SettingsGuidanceSection />
+            <SettingsGuidanceSection />
 
-                <SettingsAppFooter version={version} />
-            </ReturnableScreenScrollView>
-        </ReturnableScreenChrome>
+            <SettingsAppFooter version={version} />
+        </CollapsibleChromePage>
     );
 };

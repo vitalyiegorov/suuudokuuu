@@ -4,15 +4,15 @@ import { join } from 'node:path';
 import { describe, expect, it } from '@jest/globals';
 
 describe('SettingsScreen', () => {
-    it('uses compact returnable bottom spacing so the footer does not float above dead space', () => {
+    it('uses the chrome page safe-area spacing without a legacy bottom preset', () => {
         const source = readFileSync(join(__dirname, 'settings.screen.tsx'), 'utf8');
 
-        expect(source).toContain('bottomContentPreset={ReturnableScreenChromeCompactBottomContentPreset}');
+        expect(source).not.toContain('bottomContentPreset');
     });
 
-    it('uses regular returnable top spacing so settings rows clear the header title', () => {
+    it('uses the shared chrome header clearance without a legacy top preset', () => {
         const source = readFileSync(join(__dirname, 'settings.screen.tsx'), 'utf8');
 
-        expect(source).not.toContain('topContentPreset={ReturnableScreenChromeCompactContentPreset}');
+        expect(source).not.toContain('topContentPreset');
     });
 });
