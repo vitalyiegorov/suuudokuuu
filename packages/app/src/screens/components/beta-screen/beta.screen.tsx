@@ -1,8 +1,7 @@
 import { useLingui } from '@lingui/react/macro';
 import { View } from 'react-native';
 
-import { ReturnableScreenChrome } from '../../../@generic/components/returnable-screen-chrome/returnable-screen-chrome';
-import { ReturnableScreenScrollView } from '../../../@generic/components/returnable-screen-scroll-view/returnable-screen-scroll-view';
+import { CollapsibleChromePage } from '../../../@generic/components/collapsible-chrome-page/collapsible-chrome-page';
 
 import { BetaScreenSelectors } from './beta-screen.selectors';
 import { BetaScreenStyles as styles } from './beta-screen.styles';
@@ -17,23 +16,23 @@ export const BetaScreen = () => {
     const { retry, state } = useBetaRelease();
 
     return (
-        <ReturnableScreenChrome contentStyle={styles.content} title={t`Development builds`}>
-            <ReturnableScreenScrollView
-                contentContainerStyle={styles.scrollContent}
-                style={styles.scrollView}
-                testID={BetaScreenSelectors.Root}
-            >
-                {state.status === 'loading' && <BetaStatus onRetry={retry} state={state} />}
-                {state.status === 'empty' && <BetaStatus onRetry={retry} state={state} />}
-                {state.status === 'error' && <BetaStatus onRetry={retry} state={state} />}
-                {state.status === 'ready' && (
-                    <View accessibilityLiveRegion="polite" style={styles.readyContent}>
-                        <BetaReleaseDetails release={state.release} />
-                        <BetaInstallActions />
-                        <BetaPlatformInstructions />
-                    </View>
-                )}
-            </ReturnableScreenScrollView>
-        </ReturnableScreenChrome>
+        <CollapsibleChromePage
+            contentContainerStyle={styles.scrollContent}
+            contentStyle={styles.content}
+            style={styles.scrollView}
+            testID={BetaScreenSelectors.Root}
+            title={t`Development builds`}
+        >
+            {state.status === 'loading' && <BetaStatus onRetry={retry} state={state} />}
+            {state.status === 'empty' && <BetaStatus onRetry={retry} state={state} />}
+            {state.status === 'error' && <BetaStatus onRetry={retry} state={state} />}
+            {state.status === 'ready' && (
+                <View accessibilityLiveRegion="polite" style={styles.readyContent}>
+                    <BetaReleaseDetails release={state.release} />
+                    <BetaInstallActions />
+                    <BetaPlatformInstructions />
+                </View>
+            )}
+        </CollapsibleChromePage>
     );
 };
