@@ -1,6 +1,6 @@
-import { Trans, useLingui } from '@lingui/react/macro';
+import { useLingui } from '@lingui/react/macro';
 
-import { BlackText } from '../@generic/components/black-text/black-text';
+import { PageHorizontalSafeAreaEdges } from '../@generic/components/page/constant/page-safe-area-edges.constant';
 import { Page } from '../@generic/components/page/page';
 import { PageHeader } from '../@generic/components/page-header/page-header';
 import { useResetGame } from '../@generic/hooks/use-reset-game.hook';
@@ -13,14 +13,10 @@ export default function ChallengeLostPage() {
     const [, gameState] = useResetGame();
 
     return (
-        <Page>
+        <Page edges={PageHorizontalSafeAreaEdges}>
             <PageHeader title={t`Challenge Lost`} />
 
-            <ChallengeResultScreen gameState={gameState} isWon={false}>
-                <BlackText>
-                    <Trans>Better luck next time!</Trans>
-                </BlackText>
-
+            <ChallengeResultScreen gameState={gameState}>
                 <ChallengeTryAgainButton gameState={gameState} />
             </ChallengeResultScreen>
         </Page>

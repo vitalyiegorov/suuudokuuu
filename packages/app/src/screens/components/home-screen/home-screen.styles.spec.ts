@@ -22,8 +22,8 @@ describe('HomeScreenStyles', () => {
         expect(source).not.toContain('paddingBottom: 120');
         expect(screenSource).toContain('HomeScreenBottomScrollPadding');
         expect(screenSource).toContain('HomeScreenCurrentGameBottomScrollPadding');
-        expect(screenSource).toContain('topOverlay=');
-        expect(screenSource).not.toContain('bottomOverlay=');
+        expect(screenSource).toContain('topEdgeFadeProps=');
+        expect(screenSource).not.toContain('footerEdgeFadeProps=');
         expect(screenSource).toContain('HomeScreenTopOverlayHeight');
         expect(screenSource).toContain('HomeScreenTopOverlayIntensity');
         expect(screenSource).not.toContain('HomeScreenBottomTabClearance');

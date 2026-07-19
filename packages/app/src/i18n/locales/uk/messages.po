@@ -20,10 +20,13 @@ msgstr ""
 msgid "{0, plural, one {# mistake} other {# mistakes}}"
 msgstr "{0, plural, one {# помилка} few {# помилки} many {# помилок} other {# помилки}}"
 
-#. placeholder {0}: challengeSteps.length
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "{0, plural, one {Opponent solved it in # attempt.} other {Opponent solved it in # attempts.}}"
-msgstr "{0, plural, one {Суперник вирішив її за # спробу.} few {Суперник вирішив її за # спроби.} many {Суперник вирішив її за # спроб.} other {Суперник вирішив її за # спроби.}}"
+#: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
+msgid "{durationText} faster"
+msgstr "{durationText} швидше"
+
+#: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
+msgid "{durationText} slower"
+msgstr "{durationText} повільніше"
 
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "{filledCells}/{totalCells} filled"
@@ -32,6 +35,22 @@ msgstr "{filledCells}/{totalCells} заповнено"
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "{gamesCompleted, plural, one {# completed game} other {# completed games}}"
 msgstr "{gamesCompleted, plural, one {# завершена гра} other {# завершені ігри}}"
+
+#: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
+msgid "{value, plural, one {# day} other {# days}}"
+msgstr "{value, plural, one {# день} few {# дні} many {# днів} other {# дня}}"
+
+#: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
+msgid "{value, plural, one {# hour} other {# hours}}"
+msgstr "{value, plural, one {# годину} few {# години} many {# годин} other {# години}}"
+
+#: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
+msgid "{value, plural, one {# minute} other {# minutes}}"
+msgstr "{value, plural, one {# хвилину} few {# хвилини} many {# хвилин} other {# хвилини}}"
+
+#: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
+msgid "{value, plural, one {# second} other {# seconds}}"
+msgstr "{value, plural, one {# секунду} few {# секунди} many {# секунд} other {# секунди}}"
 
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "<0>Development client required</0><1>Development clients need Metro, the launch URL configured in <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2>, or a compatible update on the <3>development</3> channel. This install flow does not publish an update.</1>"
@@ -92,10 +111,6 @@ msgstr "Уникай помилок: вони знімають бали."
 msgid "Back"
 msgstr "Назад"
 
-#: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
-msgid "Back to home"
-msgstr "На головну"
-
 #: src/settings/constant/language-labels.constant.ts
 msgid "Bahasa Indonesia"
 msgstr "Bahasa Indonesia"
@@ -130,7 +145,6 @@ msgstr "Найкращий результат"
 msgid "Best time"
 msgstr "Найкращий час"
 
-#: src/app/challenge-lost.tsx
 #: src/app/loser.tsx
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "Better luck next time!"
@@ -161,21 +175,25 @@ msgstr "Скасувати"
 msgid "Cell spacing"
 msgstr "Відступи клітинок"
 
-#: src/screens/components/winner-screen/winner.screen.tsx
-msgid "Challenge a Friend"
-msgstr "Кинути виклик другу"
+#: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
+msgid "Challenge"
+msgstr ""
 
 #: src/app/challenge-won.tsx
 msgid "Challenge Back"
 msgstr "Відповісти на виклик"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Challenge lost"
+msgstr "Виклик програно"
 
 #: src/app/challenge-lost.tsx
 msgid "Challenge Lost"
 msgstr "Виклик програно"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Challenge lost!"
-msgstr "Виклик програно!"
+msgid "Challenge won"
+msgstr "Виклик виграно"
 
 #: src/app/challenge-won.tsx
 msgid "Challenge Won!"
@@ -217,6 +235,10 @@ msgstr "Без помилок"
 msgid "Clean black-and-white board"
 msgstr "Чиста чорно-біла дошка"
 
+#: src/screens/components/winner-screen/winner.screen.tsx
+msgid "Clean win"
+msgstr ""
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Column"
 msgstr "Стовпець"
@@ -232,6 +254,10 @@ msgstr "Коміт {commitShortSha}"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Complete rows, columns, and blocks for huge bonuses"
 msgstr "Завершуй рядки, стовпці й блоки заради великих бонусів"
+
+#: src/screens/components/winner-screen/winner.screen.tsx
+msgid "Completed"
+msgstr ""
 
 #: src/history/components/history-games-list/history-games-list.tsx
 msgid "Completed games will be ready for replay."
@@ -261,6 +287,14 @@ msgstr "Темний режим"
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Day streak"
 msgstr "Денна серія"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Dead even"
+msgstr "Нічия"
+
+#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
+msgid "Dead heat"
+msgstr "Рівна боротьба"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Deep focus"
@@ -316,10 +350,6 @@ msgstr "English"
 msgid "Español"
 msgstr "Español"
 
-#: src/screens/components/loser-screen/loser-screen-ukraine-card/loser-screen-ukraine-card.tsx
-msgid "Every $1 donation matters."
-msgstr "Кожна пожертва в 1 $ важлива."
-
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Expert grid"
 msgstr "Сітка для експертів"
@@ -328,13 +358,13 @@ msgstr "Сітка для експертів"
 msgid "Extra points are awarded when your placement completes:"
 msgstr "Додаткові бали нараховуються, коли твій хід завершує:"
 
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "faster!"
-msgstr "швидше!"
-
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Feedback"
 msgstr "Зворотний зв'язок"
+
+#: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
+msgid "Final score"
+msgstr ""
 
 #: src/history/components/history-empty-state/history-empty-state.tsx
 msgid "Finish a puzzle and it will appear here."
@@ -394,17 +424,9 @@ msgstr "Важкий"
 msgid "Hardcore"
 msgstr "Хардкор"
 
-#: src/screens/components/loser-screen/loser-screen-ukraine-card/loser-screen-ukraine-card.tsx
-msgid "Help"
-msgstr "Допомогти"
-
-#: src/screens/components/pause-screen/pause-screen-ukraine-card/pause-screen-ukraine-card.tsx
+#: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Help Ukraine win"
 msgstr "Допоможи Україні перемогти"
-
-#: src/@generic/components/donation/donation.tsx
-msgid "Help Ukraine win!"
-msgstr "Допоможіть Україні перемогти!"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Highlight areas"
@@ -422,6 +444,11 @@ msgstr "Підсвічувати однакові числа"
 msgid "Highlight pencil marks"
 msgstr "Підсвічувати нотатки"
 
+#: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
+#: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
+msgid "Home"
+msgstr ""
+
 #: src/app/scoring.tsx
 #: src/scoring/components/scoring.screen.tsx
 msgid "How Scoring Works"
@@ -434,6 +461,10 @@ msgstr "Мій результат у цьому судоку: {elapsedTimeString
 #: src/scoring/components/scoring.screen.tsx
 msgid "Immortal"
 msgstr "Безсмертний"
+
+#: src/screens/components/loser-screen/loser.screen.tsx
+msgid "Incomplete"
+msgstr ""
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Install on iOS"
@@ -451,9 +482,9 @@ msgstr "Некоректне судоку"
 msgid "iOS installation"
 msgstr "Інсталяція на iOS"
 
-#: src/screens/components/winner-screen/winner.screen.tsx
-msgid "It took you"
-msgstr "Твій час"
+#: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
+msgid "It was a tie"
+msgstr "Була нічия"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Keep cell selected"
@@ -496,10 +527,6 @@ msgstr "Завантаження збірки для розробки"
 msgid "Loading the latest development build…"
 msgstr "Завантаження найновішої збірки для розробки…"
 
-#: src/screens/components/loser-screen/loser.screen.tsx
-msgid "Loooooser =)"
-msgstr "Програв =)"
-
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "Lost"
 msgstr "Поразки"
@@ -530,8 +557,9 @@ msgstr "Мінімальні бали"
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
 #: src/screens/components/home-screen/home.screen.tsx
-#: src/screens/components/loser-screen/loser-screen-metrics/loser-screen-metrics.tsx
+#: src/screens/components/loser-screen/loser.screen.tsx
 #: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
+#: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Mistakes"
 msgstr "Помилки"
 
@@ -542,6 +570,10 @@ msgstr "Хід"
 #: src/screens/components/home-screen/home-screen-section-header/home-screen-section-header.tsx
 msgid "New game"
 msgstr "Нова гра"
+
+#: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
+msgid "New personal best"
+msgstr ""
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -630,11 +662,7 @@ msgstr "Відкриває запит на інсталяцію для заре�
 msgid "Opens this commit on GitHub"
 msgstr "Відкриває цей коміт на GitHub"
 
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Opponent attempts"
-msgstr "Спроби суперника"
-
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
 msgid "Opponent time"
 msgstr "Час суперника"
 
@@ -737,7 +765,7 @@ msgstr "Повторити завантаження збірки для розр
 msgid "Row"
 msgstr "Рядок"
 
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+#: src/challenge/components/challenge-result-score/challenge-result-score.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
@@ -788,10 +816,6 @@ msgstr "Показувати відповідні нотатки для вибр
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show the row, column, and box for the selected cell"
 msgstr "Показувати рядок, стовпець і блок вибраної клітинки"
-
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "slower!"
-msgstr "повільніше!"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Small"
@@ -916,10 +940,15 @@ msgstr "Щільний"
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
 #: src/screens/components/home-screen/home.screen.tsx
-#: src/screens/components/loser-screen/loser-screen-metrics/loser-screen-metrics.tsx
+#: src/screens/components/loser-screen/loser.screen.tsx
 #: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
+#: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Time"
 msgstr "Час"
+
+#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
+msgid "Time behind"
+msgstr "Відставання в часі"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Timer"
@@ -945,13 +974,9 @@ msgstr "Спробувати ще раз"
 msgid "Try Again"
 msgstr "Спробувати ще раз"
 
-#: src/screens/components/pause-screen/pause-screen-ukraine-card/pause-screen-ukraine-card.tsx
+#: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Ukraine keeps fighting"
 msgstr "Україна продовжує боротися"
-
-#: src/screens/components/loser-screen/loser-screen-ukraine-card/loser-screen-ukraine-card.tsx
-msgid "Ukraine needs to win too"
-msgstr "Україна теж має перемогти"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Unable to open link"
@@ -1038,15 +1063,7 @@ msgstr "Теплі золоті акценти для яскравішої до�
 msgid "We could not load the latest development build. Please try again."
 msgstr "Не вдалося завантажити найновішу збірку для розробки. Повторіть спробу."
 
-#: src/@generic/utils/donation-get-text.util.ts
-msgid "While you were away Ukraine continued its fight for freedom!\n"
-"\n"
-"Every 1$ donation matters!"
-msgstr "Поки вас не було, Україна продовжувала свою боротьбу за свободу!\n"
-"\n"
-"Кожен донат від 1 $ важливий!"
-
-#: src/screens/components/pause-screen/pause-screen-ukraine-card/pause-screen-ukraine-card.tsx
+#: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "While you were away, the fight for freedom continued. Every $1 makes a difference."
 msgstr "Поки вас не було, боротьба за свободу тривала. Кожен донат у 1 $ має значення."
 
@@ -1058,15 +1075,17 @@ msgstr "Ширші проміжки для легших дотиків"
 msgid "Win rate"
 msgstr "Відсоток перемог"
 
-#: src/screens/components/winner-screen/winner.screen.tsx
-msgid "Winners-winner, \n"
-" chicken dinner!"
-msgstr "Перемога!\n"
-"Можна святкувати!"
+#: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
+msgid "Winner, winner!"
+msgstr ""
 
 #: src/app/winner.tsx
 msgid "Winners-winner, chicken dinner!"
 msgstr "Перемога! Можна святкувати!"
+
+#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
+msgid "Winning margin"
+msgstr "Перевага в часі"
 
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "Won"
@@ -1075,34 +1094,6 @@ msgstr "Перемоги"
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "You got to"
 msgstr "Ти дійшов до"
-
-#: src/screens/components/winner-screen/winner.screen.tsx
-msgid "You have scored"
-msgstr "Набрано"
-
-#: src/@generic/utils/donation-get-text.util.ts
-msgid "You lost but Ukraine must win!\n"
-"\n"
-"Every 1$ donation matters!"
-msgstr "Ви програли, але Україна має перемогти!\n"
-"\n"
-"Кожен донат від 1 $ важливий!"
-
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "You were"
-msgstr "Ти зіграв"
-
-#: src/@generic/utils/donation-get-text.util.ts
-msgid "You won and Ukraine needs to!\n"
-"\n"
-"Every 1$ donation matters!"
-msgstr "Ви виграли, а Україна має виграти!\n"
-"\n"
-"Кожен донат від 1 $ важливий!"
-
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "You won the challenge!"
-msgstr "Виклик виграно!"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Your best run"
@@ -1128,7 +1119,7 @@ msgstr "Статистика з’являтиметься, коли ви зав
 msgid "Your sudoku journey"
 msgstr "Твій шлях у Sudoku"
 
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
 msgid "Your time"
 msgstr "Твій час"
 

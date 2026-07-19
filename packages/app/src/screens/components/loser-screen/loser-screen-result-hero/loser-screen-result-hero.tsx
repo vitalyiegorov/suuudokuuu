@@ -1,9 +1,10 @@
-import { Trans } from '@lingui/react/macro';
-import { LucideCircleX, LucideTrophy } from 'lucide-react-native';
+import { Trans, useLingui } from '@lingui/react/macro';
+import { LucideCircleX } from 'lucide-react-native';
 import { use } from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 
 import { BlackText } from '../../../../@generic/components/black-text/black-text';
+import { GameResultHero } from '../../../../@generic/components/game-result-hero/game-result-hero';
 import { ThemeContext } from '../../../../theme/context/theme.context';
 import { LoserScreenSelectors } from '../loser-screen.selectors';
 
@@ -15,14 +16,8 @@ interface Props {
 }
 
 export const LoserScreenResultHero = ({ detailsText, progressPercent }: Props) => {
+    const { t } = useLingui();
     const { theme } = use(ThemeContext);
-    const iconTileStyles = [styles.iconTile, { backgroundColor: theme.colors.black }];
-    const trophyColor = theme.colors.red;
-    const titleStyles = [styles.title, { color: theme.colors.label.main }];
-    const detailsPillStyles = [styles.detailsPill, { backgroundColor: theme.colors.black }];
-    const detailsTextStyles = [styles.detailsText, { color: theme.colors.label.inverted }];
-    const eyebrowStyles = [styles.eyebrow, { color: theme.colors.label.hint }];
-    const percentStyles = [styles.percent, { color: theme.colors.label.main }];
     const reasonPillStyles = [
         styles.reasonPill,
         { backgroundColor: theme.colors.cell.highlighted, borderColor: theme.colors.value.border }
@@ -31,29 +26,14 @@ export const LoserScreenResultHero = ({ detailsText, progressPercent }: Props) =
     const progressPercentText = `${progressPercent}%`;
 
     return (
-        <View style={styles.container}>
-            <View style={iconTileStyles}>
-                <LucideTrophy color={trophyColor} size={42} strokeWidth={2.6} />
-            </View>
-
-            <BlackText style={titleStyles}>
-                <Trans>Better luck next time!</Trans>
-            </BlackText>
-
-            <View style={detailsPillStyles}>
-                <Text allowFontScaling={false} numberOfLines={1} style={detailsTextStyles}>
-                    {detailsText}
-                </Text>
-            </View>
-
-            <BlackText style={eyebrowStyles}>
-                <Trans>You got to</Trans>
-            </BlackText>
-
-            <BlackText style={percentStyles} testID={LoserScreenSelectors.ProgressValue}>
-                {progressPercentText}
-            </BlackText>
-
+        <GameResultHero
+            descriptorText={detailsText}
+            eyebrowText={t`You got to`}
+            icon={<LucideCircleX color={theme.colors.red} size={42} strokeWidth={2.6} />}
+            testID={LoserScreenSelectors.ProgressValue}
+            titleText={t`Better luck next time!`}
+            valueText={progressPercentText}
+        >
             <View style={reasonPillStyles}>
                 <LucideCircleX color={theme.colors.red} size={18} strokeWidth={2.6} />
 
@@ -61,6 +41,6 @@ export const LoserScreenResultHero = ({ detailsText, progressPercent }: Props) =
                     <Trans>Too many mistakes</Trans>
                 </BlackText>
             </View>
-        </View>
+        </GameResultHero>
     );
 };

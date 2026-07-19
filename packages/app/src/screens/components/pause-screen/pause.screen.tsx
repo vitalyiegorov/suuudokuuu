@@ -4,6 +4,7 @@ import { use } from 'react';
 import { View } from 'react-native';
 
 import { Alert } from '../../../@generic/components/alert/alert';
+import { UkraineSupportCard } from '../../../@generic/components/ukraine-support-card/ukraine-support-card';
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
@@ -26,7 +27,6 @@ import { PauseScreenActions } from './pause-screen-actions/pause-screen-actions'
 import { PauseScreenHeader } from './pause-screen-header/pause-screen-header';
 import { PauseScreenProgressCard } from './pause-screen-progress-card/pause-screen-progress-card';
 import { PauseScreenStats } from './pause-screen-stats/pause-screen-stats';
-import { PauseScreenUkraineCard } from './pause-screen-ukraine-card/pause-screen-ukraine-card';
 import { PauseScreenSelectors } from './pause-screen.selectors';
 import { PauseScreenStyles as styles } from './pause-screen.styles';
 import { pauseScreenGetProgress } from './utils/pause-screen-get-progress.util';
@@ -77,7 +77,7 @@ export const PauseScreen = () => {
 
             <PauseScreenStats mistakesText={mistakesText} scoreText={scoreText} timeText={timeText} />
 
-            <PauseScreenUkraineCard />
+            <UkraineSupportCard testID={PauseScreenSelectors.UkraineCta} />
 
             <PauseScreenActions onQuit={handleQuit} onResume={handleResume} onShare={handleShare} />
         </View>

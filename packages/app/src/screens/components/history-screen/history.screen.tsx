@@ -1,9 +1,7 @@
 import { useLingui } from '@lingui/react/macro';
 import { useState } from 'react';
 
-import { ReturnableScreenChromeCompactContentPreset } from '../../../@generic/components/returnable-screen-chrome/constant/returnable-screen-chrome.constant';
-import { ReturnableScreenChrome } from '../../../@generic/components/returnable-screen-chrome/returnable-screen-chrome';
-import { ReturnableScreenScrollView } from '../../../@generic/components/returnable-screen-scroll-view/returnable-screen-scroll-view';
+import { CollapsibleChromePage } from '../../../@generic/components/collapsible-chrome-page/collapsible-chrome-page';
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { gameHistoryByDifficultySelector } from '../../../game/store/game.selectors';
@@ -61,18 +59,17 @@ export const HistoryScreen = () => {
         );
 
     return (
-        <ReturnableScreenChrome contentStyle={HistoryScreenStyles.content} title={t`Statistics`}>
-            <ReturnableScreenScrollView
-                contentContainerStyle={HistoryScreenStyles.scrollViewContainer}
-                showsVerticalScrollIndicator={false}
-                style={HistoryScreenStyles.scrollView}
-                testID={HistoryScreenSelectors.Root}
-                topContentPreset={ReturnableScreenChromeCompactContentPreset}
-            >
-                <HistorySegmentedControl selectedTab={selectedTab} onSelectTab={setSelectedTab} />
+        <CollapsibleChromePage
+            contentContainerStyle={HistoryScreenStyles.scrollViewContainer}
+            contentStyle={HistoryScreenStyles.content}
+            showsVerticalScrollIndicator={false}
+            style={HistoryScreenStyles.scrollView}
+            testID={HistoryScreenSelectors.Root}
+            title={t`Statistics`}
+        >
+            <HistorySegmentedControl selectedTab={selectedTab} onSelectTab={setSelectedTab} />
 
-                {content}
-            </ReturnableScreenScrollView>
-        </ReturnableScreenChrome>
+            {content}
+        </CollapsibleChromePage>
     );
 };

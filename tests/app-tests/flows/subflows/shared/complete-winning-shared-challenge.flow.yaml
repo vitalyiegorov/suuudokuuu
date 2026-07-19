@@ -13,5 +13,6 @@ appId: ${APP_ID}
     id: 'AvailableValueItemSelectors.Button'
     index: 0
 - extendedWaitUntil:
-    visible: 'You won the challenge!'
+    visible:
+      id: 'ChallengeResultScreenSelectors.Root'
     timeout: 5000

@@ -2,9 +2,7 @@ import { useLingui } from '@lingui/react/macro';
 
 import { emptyFn } from '@rnw-community/shared';
 
-import { ReturnableScreenChromeCompactContentPreset } from '../../../@generic/components/returnable-screen-chrome/constant/returnable-screen-chrome.constant';
-import { ReturnableScreenChrome } from '../../../@generic/components/returnable-screen-chrome/returnable-screen-chrome';
-import { ReturnableScreenScrollView } from '../../../@generic/components/returnable-screen-scroll-view/returnable-screen-scroll-view';
+import { CollapsibleChromePage } from '../../../@generic/components/collapsible-chrome-page/collapsible-chrome-page';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
 import { gameCompletedGamesSelector } from '../../../game/store/game.selectors';
@@ -26,21 +24,20 @@ export const HistoryGamesScreen = ({ difficulty }: Props) => {
     const difficulties = [difficulty];
 
     return (
-        <ReturnableScreenChrome contentStyle={styles.content} title={title}>
-            <ReturnableScreenScrollView
-                contentContainerStyle={styles.scrollViewContainer}
-                showsVerticalScrollIndicator={false}
-                style={styles.scrollView}
-                topContentPreset={ReturnableScreenChromeCompactContentPreset}
-            >
-                <HistoryGamesList
-                    difficulties={difficulties}
-                    games={completedGames}
-                    onSelectDifficulty={emptyFn}
-                    selectedDifficulty={difficulty}
-                    showFilters={false}
-                />
-            </ReturnableScreenScrollView>
-        </ReturnableScreenChrome>
+        <CollapsibleChromePage
+            contentContainerStyle={styles.scrollViewContainer}
+            contentStyle={styles.content}
+            showsVerticalScrollIndicator={false}
+            style={styles.scrollView}
+            title={title}
+        >
+            <HistoryGamesList
+                difficulties={difficulties}
+                games={completedGames}
+                onSelectDifficulty={emptyFn}
+                selectedDifficulty={difficulty}
+                showFilters={false}
+            />
+        </CollapsibleChromePage>
     );
 };
