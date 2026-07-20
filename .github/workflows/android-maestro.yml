@@ -6,7 +6,7 @@ name: Android Maestro
 # arm64 speed over the binder kernel module — no virtualization inside the
 # guest at all. Requires the linux guest image to carry docker + the pulled
 # redroid image + the prewarmed /data volume (prewarm-redroid-linux.sh) and
-# the build SDK (prewarm-android-buildsdk-linux.sh); dispatch-only until the
+# the build SDK on macOS (prewarm-android-buildsdk-macos.sh); dispatch-only until the
 # image ships, then wired into pr.yml like ios-maestro.
 on:
   workflow_call:
@@ -139,7 +139,7 @@ jobs:
         working-directory: tests/app-tests
         shell: bash
         env:
-          APP_ID: com.vitalyiegorov.suuudokuuu.e2e
+          APP_ID: com.vitaliiyehorov.suuudokuuu.e2e  # android package prefix differs from iOS (app.config.js getUniqueIdentifier)
           JAVA_TOOL_OPTIONS: -Djava.awt.headless=true -Xmx1024m
           MAESTRO_DRIVER_STARTUP_TIMEOUT: '180000'
           MAESTRO_DEBUG_OUTPUT_DIRECTORY: ${{ github.workspace }}/tests/app-tests/artifacts/maestro-android-shard-${{ matrix.shard-index }}
