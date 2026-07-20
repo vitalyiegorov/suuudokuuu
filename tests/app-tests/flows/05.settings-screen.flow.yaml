@@ -26,21 +26,23 @@ appId: ${APP_ID}
     direction: DOWN
 - tapOn:
     id: 'SettingsScreenSelectors.CellSpacingOption'
-- waitForAnimationToEnd
-- swipe:
-    direction: DOWN
+# Dismiss the option sheet deterministically by re-selecting the current
+# value (closes on both platforms; a blind swipe races the animation), then
+# scroll to the footer instead of counting swipes — viewports differ.
 - extendedWaitUntil:
     visible:
-      id: 'SettingsScreenSelectors.Root'
+      id: 'SettingsOptionSheetSelectors.Root'
     timeout: 3000
-- swipe:
-    direction: UP
-- swipe:
-    direction: UP
+- tapOn:
+    text: 'Spacious.*'
 - extendedWaitUntil:
-    visible:
+    notVisible:
+      id: 'SettingsOptionSheetSelectors.Root'
+    timeout: 3000
+- scrollUntilVisible:
+    element:
       id: 'SettingsAppFooterSelectors.PrivacyPolicyLink'
-    timeout: 3000
+    direction: DOWN
 - assertVisible:
     id: 'SettingsAppFooterSelectors.ReportBugLink'
 - assertVisible:
