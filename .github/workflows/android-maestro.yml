@@ -1,10 +1,12 @@
 name: Android Maestro
 
-# Runs the Maestro suite against the prewarmed Android emulator on the macOS
-# maestro runners. Requires the guest image to carry the Android SDK and the
-# 'e2e' AVD (tests/app-tests/scripts/prewarm-android-emulator.sh) and the
-# fleet to start maestro VMs with nested virtualization; dispatch-only until
-# both prerequisites are live, then wired into pr.yml like ios-maestro.
+# Runs the Maestro suite against the prewarmed Android emulator on the LINUX
+# runners under nested KVM (Apple's Virtualization framework only nests Linux
+# guests, so Android cannot run accelerated inside the macOS VMs). Requires
+# the linux guest image to carry the Android SDK and the 'e2e' AVD
+# (ci-shared prewarm-android-emulator-linux.sh) and the fleet to boot linux
+# VMs with --nested (linuxNestedVirtualization); dispatch-only until both
+# prerequisites are live, then wired into pr.yml like ios-maestro.
 on:
   workflow_call:
   workflow_dispatch:
@@ -15,12 +17,12 @@ env:
 jobs:
   build:
     name: Build embedded Android E2E app
-    runs-on: [self-hosted, macOS, ARM64, macos-builder]
+    runs-on: [self-hosted, linux-tiered, linux-large]
     timeout-minutes: 90
     env:
       APP_VARIANT: e2e
-      ANDROID_SDK_ROOT: /Users/admin/Library/Android/sdk
-      ANDROID_HOME: /Users/admin/Library/Android/sdk
+      ANDROID_SDK_ROOT: /home/admin/Android/Sdk
+      ANDROID_HOME: /home/admin/Android/Sdk
     steps:
       - uses: actions/checkout@v5
 
@@ -32,7 +34,7 @@ jobs:
       - name: Verify Android SDK in guest image
         run: |
           test -x "$ANDROID_SDK_ROOT/platform-tools/adb" || {
-            echo '::error::The guest image lacks the Android SDK; rebuild the base with prewarm-android-emulator.sh.'
+            echo '::error::The guest image lacks the Android SDK; rebuild the base with prewarm-android-emulator-linux.sh.'
             exit 1
           }
 
@@ -74,7 +76,7 @@ jobs:
   test:
     needs: [build]
     name: Maestro Android shard ${{ matrix.shard-number }}/2
-    runs-on: [self-hosted, macOS, ARM64, macos-maestro]
+    runs-on: [self-hosted, linux-tiered, linux-large]
     timeout-minutes: 45
     strategy:
       fail-fast: false
@@ -86,8 +88,8 @@ jobs:
           - shard-index: 1
             shard-number: 2
     env:
-      ANDROID_SDK_ROOT: /Users/admin/Library/Android/sdk
-      ANDROID_HOME: /Users/admin/Library/Android/sdk
+      ANDROID_SDK_ROOT: /home/admin/Android/Sdk
+      ANDROID_HOME: /home/admin/Android/Sdk
     steps:
       - uses: actions/checkout@v5
 
@@ -95,12 +97,17 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          test -e /dev/kvm || {
+            echo '::error::/dev/kvm missing; the fleet must boot linux VMs with --nested (linuxNestedVirtualization).'
+            exit 1
+          }
           test -f "$HOME/.sudoku-ci/android-emulator.json" || {
-            echo '::error::The guest image lacks the prewarmed AVD; rebuild the base with prewarm-android-emulator.sh.'
+            echo '::error::The guest image lacks the prewarmed AVD; rebuild the base with prewarm-android-emulator-linux.sh.'
             exit 1
           }
           avd=$(python3 -c "import json; print(json.load(open('$HOME/.sudoku-ci/android-emulator.json'))['avd'])")
-          "$ANDROID_SDK_ROOT/emulator/emulator" -avd "$avd" -no-window -no-audio -no-boot-anim &
+          sudo chmod 666 /dev/kvm
+          "$ANDROID_SDK_ROOT/emulator/emulator" -avd "$avd" -no-window -no-audio -no-boot-anim -gpu swiftshader_indirect -accel on &
           adb="$ANDROID_SDK_ROOT/platform-tools/adb"
           "$adb" wait-for-device
           deadline=$(( $(date +%s) + 300 ))
