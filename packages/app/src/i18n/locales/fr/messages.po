@@ -552,14 +552,13 @@ msgstr "Menus, réglages et texte du jeu"
 msgid "Minimum Score"
 msgstr "Score minimum"
 
+#: src/@generic/components/completed-game-result-details/completed-game-result-details.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
 #: src/screens/components/home-screen/home.screen.tsx
-#: src/screens/components/loser-screen/loser.screen.tsx
 #: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
-#: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Mistakes"
 msgstr "Erreurs"
 
@@ -935,14 +934,13 @@ msgstr "Trois erreurs"
 msgid "Tight"
 msgstr "Serré"
 
+#: src/@generic/components/completed-game-result-details/completed-game-result-details.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
 #: src/screens/components/home-screen/home.screen.tsx
-#: src/screens/components/loser-screen/loser.screen.tsx
 #: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
-#: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Time"
 msgstr "Temps"
 
