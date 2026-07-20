@@ -230,62 +230,37 @@ jobs:
           test -d "$xcode_app"
           echo "DEVELOPER_DIR=$xcode_app/Contents/Developer" >> "$GITHUB_ENV"
 
-      - name: Start isolated simulator
+      - name: Start prewarmed simulator
         shell: bash
         run: |
           set -euo pipefail
+          # The maestro guest image ships two settled "iPhone 17 Pro" devices
+          # (~/.budgie-ci/simulators.json); using one avoids the iOS 26
+          # first-boot indexing storm that breaks the XCUITest driver.
           simulator_udid=$(python3 <<'PY'
           import json
           import subprocess
 
-          simulator_metadata = json.loads(
-              subprocess.check_output(['xcrun', 'simctl', 'list', '-j', 'devicetypes', 'runtimes'])
-          )
-          available_runtimes = [
-              runtime
-              for runtime in simulator_metadata['runtimes']
-              if runtime.get('isAvailable')
-              and runtime.get('identifier', '').startswith('com.apple.CoreSimulator.SimRuntime.iOS')
-          ]
-          available_runtimes.sort(
-              key=lambda runtime: tuple(int(part) for part in runtime.get('version', '0').split('.')),
-              reverse=True,
-          )
-          device_types_by_name = {
-              device_type['name']: device_type['identifier']
-              for device_type in simulator_metadata['devicetypes']
-              if device_type.get('productFamily') == 'iPhone'
-          }
-          preferred_device_names = ['iPhone 17', 'iPhone Air', 'iPhone 16', 'iPhone 15']
-          device_type_identifier = next(
-              (
-                  device_types_by_name[device_name]
-                  for device_name in preferred_device_names
-                  if device_name in device_types_by_name
-              ),
-              None,
-          )
-
-          if not available_runtimes or not device_type_identifier:
-              raise SystemExit('No supported iOS runtime or iPhone simulator type is available.')
-
-          print(
-              subprocess.check_output(
-                  [
-                      'xcrun',
-                      'simctl',
-                      'create',
-                      'Suuudokuuu E2E',
-                      device_type_identifier,
-                      available_runtimes[0]['identifier'],
-                  ],
-                  text=True,
-              ).strip()
-          )
+          inventory = json.loads(
+              subprocess.check_output(['xcrun', 'simctl', 'list', '-j', 'devices', 'available'])
+          )['devices']
+          for runtime in sorted(inventory, reverse=True):
+              for device in inventory[runtime]:
+                  if device.get('name') == 'iPhone 17 Pro' and device.get('isAvailable', True):
+                      print(device['udid'])
+                      raise SystemExit(0)
+          raise SystemExit('No prewarmed iPhone 17 Pro simulator is available in the guest image.')
           PY
           )
-          xcrun simctl boot "$simulator_udid"
-          xcrun simctl bootstatus "$simulator_udid" -b
+          for attempt in 1 2 3; do
+            echo "Booting simulator $simulator_udid (attempt $attempt/3)"
+            xcrun simctl boot "$simulator_udid" 2>/dev/null || true
+            if xcrun simctl bootstatus "$simulator_udid" -b; then
+              break
+            fi
+            xcrun simctl shutdown "$simulator_udid" 2>/dev/null || true
+            test "$attempt" != 3
+          done
           echo "SIMULATOR_UDID=$simulator_udid" >> "$GITHUB_ENV"
 
       - uses: actions/download-artifact@v6
@@ -314,6 +289,8 @@ jobs:
         shell: bash
         env:
           APP_ID: com.vitalyiegorov.suuudokuuu.e2e
+          JAVA_TOOL_OPTIONS: -Djava.awt.headless=true -Xmx1024m
+          MAESTRO_DRIVER_STARTUP_TIMEOUT: '180000' 
           MAESTRO_DEBUG_OUTPUT_DIRECTORY: ${{ github.workspace }}/tests/app-tests/artifacts/maestro-shard-${{ matrix.shard-index }}
           MAESTRO_OUTPUT_PATH: ${{ github.workspace }}/tests/app-tests/artifacts/maestro-shard-${{ matrix.shard-index }}/report.xml
           SHARD_INDEX: ${{ matrix.shard-index }}
@@ -335,13 +312,29 @@ jobs:
           ./scripts/run-maestro-suite.sh "${selected[@]}" \
             2>&1 | tee "./artifacts/maestro-shard-$SHARD_INDEX/console.log"
 
+      - name: Publish Maestro timing summary
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          timing_file="tests/app-tests/artifacts/maestro-shard-${{ matrix.shard-index }}/flow-timings.tsv"
+          if [ -f "$timing_file" ]; then
+            {
+              echo "### Maestro flow timings: shard ${{ matrix.shard-number }}"
+              echo
+              echo '| Flow | Status | Attempts | Seconds |'
+              echo '| --- | --- | ---: | ---: |'
+              tail -n +2 "$timing_file" |
+                awk -F '\t' '{ printf "| `%s` | %s | %s | %s |\n", $2, $3, $4, $5 }'
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
+
       - name: Capture final simulator state
         if: always()
         run: |
           mkdir -p "tests/app-tests/artifacts/simulator-shard-${{ matrix.shard-index }}"
           xcrun simctl io "$SIMULATOR_UDID" screenshot "tests/app-tests/artifacts/simulator-shard-${{ matrix.shard-index }}/final-screen.png" || true
           xcrun simctl shutdown "$SIMULATOR_UDID" || true
-          xcrun simctl delete "$SIMULATOR_UDID" || true
 
       - uses: actions/upload-artifact@v6
         if: always()
@@ -352,3 +345,4 @@ jobs:
             tests/app-tests/artifacts/maestro-shard-${{ matrix.shard-index }}/**
             tests/app-tests/artifacts/simulator-shard-${{ matrix.shard-index }}/**
           if-no-files-found: warn
+          retention-days: 7
