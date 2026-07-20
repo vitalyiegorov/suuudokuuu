@@ -189,7 +189,6 @@ export const HomeScreenStyles = StyleSheet.create({
         alignItems: 'center',
         alignSelf: 'center',
         maxWidth: 540,
-        paddingBottom: 28,
         paddingHorizontal: 20,
         width: '100%'
     },

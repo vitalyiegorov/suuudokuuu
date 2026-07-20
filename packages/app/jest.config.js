@@ -8,7 +8,7 @@ module.exports = {
         '^@suuudokuuu/generator$': '<rootDir>/../generator/src/index.ts',
         '^@suuudokuuu/solver$': '<rootDir>/../solver/src/index.ts'
     },
-    testRegex: './src/.*\\.spec\\.(tsx?)$',
+    testRegex: './(?:src|vercel-functions)/.*\\.spec\\.(tsx?)$',
     testEnvironment: 'node',
     coverageThreshold: {
         global: {

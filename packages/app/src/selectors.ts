@@ -13,6 +13,7 @@ export * from './screens/components/history-screen/history-screen.selectors';
 export * from './screens/components/home-screen/home-screen.selectors';
 export * from './screens/components/loser-screen/loser-screen.selectors';
 export * from './screens/components/pause-screen/pause-screen.selectors';
+export * from './screens/components/beta-screen/beta-screen.selectors';
 export * from './screens/components/settings-screen/settings-screen.selectors';
 export * from './settings/component/settings-app-footer/settings-app-footer.selectors';
 export * from './settings/component/settings-option-sheet/settings-option-sheet.selectors';

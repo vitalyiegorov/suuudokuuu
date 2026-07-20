@@ -1,0 +1,14 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "tsBuildInfoFile": "./node_modules/.cache/tsbuildinfo.json",
+        "jsx": "react-native",
+        "lib": ["ESNext"],
+        "module": "preserve",
+        "moduleDetection": "force",
+        "moduleResolution": "bundler",
+        "customConditions": ["react-native"]
+    },
+    "include": ["src"],
+    "exclude": ["node_modules", "dist"]
+}

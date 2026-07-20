@@ -1,56 +1,42 @@
-import { Trans, useLingui } from '@lingui/react/macro';
+import { useLingui } from '@lingui/react/macro';
 import { Redirect } from 'expo-router';
-import { Text, View } from 'react-native';
 
-import { isNotEmptyString } from '@rnw-community/shared';
+import { CompletedGameResultDetails } from '../../../@generic/components/completed-game-result-details/completed-game-result-details';
+import { GameResultPage } from '../../../@generic/components/game-result-page/game-result-page';
+import { useCompletedGameResult } from '../../../@generic/hooks/use-completed-game-result.hook';
 
-import { BlackText } from '../../../@generic/components/black-text/black-text';
-import { Donation } from '../../../@generic/components/donation/donation';
-import { Header } from '../../../@generic/components/header/header';
-import { PlayAgainButton } from '../../../@generic/components/play-again-button/play-again-button';
-import { useResetGame } from '../../../@generic/hooks/use-reset-game.hook';
-import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
-import { ChallengeShareButton } from '../../../challenge/components/challenge-share-button/challenge-share-button';
-
-import { WinnerScreenStyles } from './winner-screen.styles';
+import { WinnerResultHero } from './winner-result-hero/winner-result-hero';
+import { WinnerScreenActions } from './winner-screen-actions/winner-screen-actions';
+import { WinnerScreenSelectors } from './winner-screen.selectors';
 
 export const WinnerScreen = () => {
-    const { t } = useLingui();
+    const { i18n, t } = useLingui();
+    const completedGameResult = useCompletedGameResult();
 
-    const [isGameStarted, gameState] = useResetGame();
-    const { score, elapsedTime, challengeState } = gameState;
-    const elapsedTimeText = useTimerText(elapsedTime);
-
-    if (!isGameStarted && elapsedTime === 0) {
+    if (completedGameResult.kind === 'redirect') {
         return <Redirect href="/" />;
     }
 
+    const { gameState, sudoku, timeText } = completedGameResult;
+    const { hasNewPersonalBestScore, mistakes, score } = gameState;
+
+    const scoreText = i18n.number(score);
+    const isCleanWin = mistakes === 0;
+    const winDescriptor = isCleanWin ? t`Clean win` : t`Completed`;
+    const descriptorText = `${winDescriptor} • ${completedGameResult.difficultyText} • ${completedGameResult.mistakesTypeText}`;
+    const footer = <WinnerScreenActions difficulty={sudoku.Difficulty} gameState={gameState} />;
+
     return (
-        <View style={WinnerScreenStyles.container}>
-            <Header text={t`Winners-winner, \n chicken dinner!`} />
+        <GameResultPage footer={footer} testID={WinnerScreenSelectors.Root}>
+            <WinnerResultHero descriptorText={descriptorText} isPersonalBest={hasNewPersonalBestScore} scoreText={scoreText} />
 
-            <View>
-                <BlackText adjustsFontSizeToFit minimumFontScale={0.68} numberOfLines={1}>
-                    <Text>
-                        <Trans>You have scored</Trans>{' '}
-                    </Text>
-                    <Text style={WinnerScreenStyles.boldText}>{score}</Text>{' '}
-                </BlackText>
-
-                <BlackText adjustsFontSizeToFit minimumFontScale={0.68} numberOfLines={1}>
-                    <Text>
-                        <Trans>It took you</Trans>
-                    </Text>{' '}
-                    <Text style={WinnerScreenStyles.boldText}>{elapsedTimeText}</Text>
-                </BlackText>
-            </View>
-
-            <Donation type="winner" />
-
-            <View style={WinnerScreenStyles.buttonsWrapper}>
-                {!isNotEmptyString(challengeState) && <ChallengeShareButton gameState={gameState} text={t`Challenge a Friend`} />}
-                <PlayAgainButton />
-            </View>
-        </View>
+            <CompletedGameResultDetails
+                mistakes={mistakes}
+                mistakesTestID={WinnerScreenSelectors.MistakesValue}
+                timeTestID={WinnerScreenSelectors.TimeValue}
+                timeText={timeText}
+                ukraineSupportTestID={WinnerScreenSelectors.UkraineSupportCta}
+            />
+        </GameResultPage>
     );
 };

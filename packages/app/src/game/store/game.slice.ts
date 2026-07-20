@@ -120,6 +120,10 @@ export const gameSlice = createSlice({
         finish: (state, action: PayloadAction<{ difficulty: DifficultyEnum; isWon: boolean; isChallenge?: boolean }>) => {
             const { difficulty, isWon, isChallenge = false } = action.payload;
             const history = state.historyByDifficulty[difficulty];
+            const hasNewPersonalBestScore =
+                isWon && !isChallenge && !isNotEmptyString(state.challengeState) && state.score > history.bestScore;
+
+            state.hasNewPersonalBestScore = hasNewPersonalBestScore;
 
             history.averageTime = (history.averageTime * history.gamesCompleted + state.elapsedTime) / (history.gamesCompleted + 1);
             history.gamesCompleted += 1;

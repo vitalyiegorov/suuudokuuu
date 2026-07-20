@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Suuudokuuu is an open-source Sudoku game built with React Native and Expo. This monorepo has four core packages: `app` for the game UI, `generator` for Sudoku generation, `solver` for solving-technique detection, and `encoder` for compact shareable game-state encoding.
+Suuudokuuu is an open-source Sudoku game built with React Native and Expo. This monorepo has five core packages: `app` for the game UI, `generator` for Sudoku generation and solving, `solver` for solving-technique detection, `encoder` for compact shareable game-state encoding, and `screen-chrome` for generic screen chrome primitives.
 
 ## Canonical Agent Surfaces
 
@@ -44,7 +44,8 @@ packages/
 ├── app/                # Expo 57, React Native 0.86, React 19.2 game app
 ├── generator/          # Pure TypeScript Sudoku generator and DLX solver
 ├── solver/             # Pure TypeScript solving-technique detection
-└── encoder/            # Binary/LZ encoding for puzzle sharing and replay
+├── encoder/            # Binary/LZ encoding for puzzle sharing and replay
+└── screen-chrome/      # Raw TypeScript generic screen chrome, edge fades, and collapsible header
 tests/
 └── app-tests/          # Maestro E2E flows
 ```
@@ -55,6 +56,7 @@ tests/
 - Read `packages/generator/AGENTS.md` before changing Sudoku generation, validation, navigation, DLX solving, difficulty config, or puzzle interfaces.
 - Read `packages/solver/AGENTS.md` before changing solving techniques, candidate context, strategy ordering, or move classification.
 - Read `packages/encoder/AGENTS.md` before changing binary formats, solution-step encoding, URL serialization, compression, or decode error behavior.
+- Read `packages/screen-chrome/README.md` before changing `@suuudokuuu/screen-chrome`; preserve its generic, app-agnostic API.
 - Read `tests/app-tests/AGENTS.md` before changing Maestro flows, test IDs used by flows, deep-link fixtures, or E2E app assumptions.
 
 ## Engineering Rules
@@ -172,5 +174,4 @@ Algorithm-heavy solver/generator exceptions require a short, human-readable just
 - Use `yarn`, never `npm`.
 - Do not modify `.jscpd.json`; fix duplication in source or restructure narrowly.
 - Do not edit generated Lingui `messages.ts` by hand.
-- Keep `docs/plans/` local-only; it is gitignored for working plans.
 - Prefer existing package patterns over importing Budgie rules that only made sense for finance, databases, AI services, bank sync, or Next.js landing pages.

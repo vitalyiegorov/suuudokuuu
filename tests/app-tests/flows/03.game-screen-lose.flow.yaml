@@ -26,11 +26,27 @@ appId: ${APP_ID}
     id: 'AvailableValueItemSelectors.Button'
     index: 0
 - extendedWaitUntil:
-    visible: 'Challenge lost!'
+    visible:
+      id: 'ChallengeResultScreenSelectors.Root'
     timeout: 5000
-- assertVisible: 'Better luck next time!'
+- assertVisible:
+    id: 'ChallengeResultScreenSelectors.YourTimeValue'
+- assertVisible:
+    id: 'ChallengeResultScreenSelectors.OpponentTimeValue'
+- assertVisible:
+    id: 'ChallengeResultScreenSelectors.ScoreValue'
+- scrollUntilVisible:
+    element:
+      id: 'ChallengeTryAgainButtonSelectors.Root'
+    direction: DOWN
+    timeout: 3000
 - assertVisible:
     id: 'ChallengeTryAgainButtonSelectors.Root'
+- scrollUntilVisible:
+    element:
+      id: 'PlayAgainButtonSelectors.Root'
+    direction: DOWN
+    timeout: 3000
 - tapOn:
     id: 'PlayAgainButtonSelectors.Root'
 - extendedWaitUntil:

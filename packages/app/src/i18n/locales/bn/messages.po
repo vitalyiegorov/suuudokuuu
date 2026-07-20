@@ -18,6 +18,14 @@ msgstr ""
 msgid "{0, plural, one {# mistake} other {# mistakes}}"
 msgstr "{0, plural, one {#টি ভুল} other {#টি ভুল}}"
 
+#: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
+msgid "{durationText} faster"
+msgstr "{durationText} দ্রুততর"
+
+#: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
+msgid "{durationText} slower"
+msgstr "{durationText} ধীর"
+
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "{filledCells}/{totalCells} filled"
 msgstr "{filledCells}/{totalCells} পূরণ"
@@ -25,6 +33,26 @@ msgstr "{filledCells}/{totalCells} পূরণ"
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "{gamesCompleted, plural, one {# completed game} other {# completed games}}"
 msgstr "{gamesCompleted, plural, one {#টি সম্পন্ন খেলা} other {#টি সম্পন্ন খেলা}}"
+
+#: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
+msgid "{value, plural, one {# day} other {# days}}"
+msgstr "{value, plural, one {# দিন} other {# দিন}}"
+
+#: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
+msgid "{value, plural, one {# hour} other {# hours}}"
+msgstr "{value, plural, one {# ঘণ্টা} other {# ঘণ্টা}}"
+
+#: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
+msgid "{value, plural, one {# minute} other {# minutes}}"
+msgstr "{value, plural, one {# মিনিট} other {# মিনিট}}"
+
+#: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
+msgid "{value, plural, one {# second} other {# seconds}}"
+msgstr "{value, plural, one {# সেকেন্ড} other {# সেকেন্ড}}"
+
+#: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
+msgid "<0>Development client required</0><1>Development clients need Metro, the launch URL configured in <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2>, or a compatible update on the <3>development</3> channel. This install flow does not publish an update.</1>"
+msgstr "<0>ডেভেলপমেন্ট ক্লায়েন্ট প্রয়োজন</0><1>ডেভেলপমেন্ট ক্লায়েন্ট চালাতে Metro, <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2>-এ কনফিগার করা লঞ্চ URL, অথবা <3>development</3> চ্যানেলে একটি সামঞ্জস্যপূর্ণ আপডেট প্রয়োজন। এই ইনস্টল প্রক্রিয়া কোনো আপডেট প্রকাশ করে না।</1>"
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "A little room between cells"
@@ -44,7 +72,7 @@ msgstr "সুডোকু বোর্ডের সংখ্যাগুলো�
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "AIC"
-msgstr "AIC"
+msgstr ""
 
 #: src/history/components/history-difficulty-filter/history-difficulty-filter.tsx
 msgid "All"
@@ -60,9 +88,17 @@ msgstr "একটি সংখ্যার সব ঘর (1-9)"
 msgid "All progress will be lost"
 msgstr "সব অগ্রগতি হারিয়ে যাবে"
 
+#: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
+msgid "Android installation"
+msgstr "Android ইনস্টলেশন"
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Animate completed rows, columns, and boxes"
 msgstr "সম্পূর্ণ সারি, কলাম ও বাক্সে অ্যানিমেশন দেখান"
+
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Attempts to load the latest development build again"
+msgstr "সর্বশেষ ডেভেলপমেন্ট বিল্ড আবার লোড করার চেষ্টা করে"
 
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "Average"
@@ -76,10 +112,6 @@ msgstr "ভুল এড়িয়ে চলুন: এগুলো আপন�
 #: src/history/components/replay-top-bar/replay-top-bar.tsx
 msgid "Back"
 msgstr "ফিরে যান"
-
-#: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
-msgid "Back to home"
-msgstr "হোমে ফিরুন"
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Bahasa Indonesia"
@@ -115,7 +147,6 @@ msgstr "সেরা স্কোর"
 msgid "Best time"
 msgstr "সেরা সময়"
 
-#: src/app/challenge-lost.tsx
 #: src/app/loser.tsx
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "Better luck next time!"
@@ -127,7 +158,11 @@ msgstr "বোর্ডের রং ও স্ক্রিনের চেহ�
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Box-Line Reduction"
-msgstr "বক্স-লাইন হ্রাস"
+msgstr ""
+
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Built:"
+msgstr "বিল্ড করা হয়েছে:"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Can you beat them?"
@@ -146,21 +181,25 @@ msgstr "বাতিল"
 msgid "Cell spacing"
 msgstr "ঘরের ফাঁক"
 
-#: src/screens/components/winner-screen/winner.screen.tsx
-msgid "Challenge a Friend"
-msgstr "বন্ধুকে চ্যালেঞ্জ করুন"
+#: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
+msgid "Challenge"
+msgstr ""
 
 #: src/app/challenge-won.tsx
 msgid "Challenge Back"
 msgstr "পাল্টা চ্যালেঞ্জ"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Challenge lost"
+msgstr "চ্যালেঞ্জে হার"
 
 #: src/app/challenge-lost.tsx
 msgid "Challenge Lost"
 msgstr "চ্যালেঞ্জ হারা"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Challenge lost!"
-msgstr "চ্যালেঞ্জ হেরেছেন!"
+msgid "Challenge won"
+msgstr "চ্যালেঞ্জে জয়"
 
 #: src/app/challenge-won.tsx
 msgid "Challenge Won!"
@@ -202,6 +241,10 @@ msgstr "ভুল ছাড়া"
 msgid "Clean black-and-white board"
 msgstr "পরিষ্কার সাদা-কালো বোর্ড"
 
+#: src/screens/components/winner-screen/winner.screen.tsx
+msgid "Clean win"
+msgstr ""
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Column"
 msgstr "কলাম"
@@ -210,9 +253,17 @@ msgstr "কলাম"
 msgid "Comfortable"
 msgstr "আরামদায়ক"
 
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Commit {commitShortSha}"
+msgstr "কমিট {commitShortSha}"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Complete rows, columns, and blocks for huge bonuses"
 msgstr "বড় বোনাসের জন্য সারি, কলাম ও ব্লক পূর্ণ করুন"
+
+#: src/screens/components/winner-screen/winner.screen.tsx
+msgid "Completed"
+msgstr ""
 
 #: src/history/components/history-games-list/history-games-list.tsx
 msgid "Completed games will be ready for replay."
@@ -243,6 +294,14 @@ msgstr "ডার্ক মোড"
 msgid "Day streak"
 msgstr "দিনের ধারাবাহিকতা"
 
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Dead even"
+msgstr "পুরো সমতা"
+
+#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
+msgid "Dead heat"
+msgstr "সমানে সমান"
+
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Deep focus"
 msgstr "গভীর মনোযোগ"
@@ -251,6 +310,15 @@ msgstr "গভীর মনোযোগ"
 msgid "Deutsch"
 msgstr "Deutsch"
 
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Development build unavailable"
+msgstr "ডেভেলপমেন্ট বিল্ড উপলভ্য নয়"
+
+#: src/app/beta.tsx
+#: src/screens/components/beta-screen/beta.screen.tsx
+msgid "Development builds"
+msgstr "ডেভেলপমেন্ট বিল্ড"
+
 #: src/game/components/difficulty-complexity-slider/difficulty-complexity-slider.tsx
 msgid "Difficulty"
 msgstr "কঠিনতা"
@@ -258,6 +326,18 @@ msgstr "কঠিনতা"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Display"
 msgstr "ডিসপ্লে"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Download for Android"
+msgstr "Android-এর জন্য ডাউনলোড করুন"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Download the Android development build"
+msgstr "Android ডেভেলপমেন্ট বিল্ড ডাউনলোড করুন"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Downloads the Android development APK"
+msgstr "Android ডেভেলপমেন্ট APK ডাউনলোড করে"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Each correct placement starts with a base value:"
@@ -276,10 +356,6 @@ msgstr "English"
 msgid "Español"
 msgstr "Español"
 
-#: src/screens/components/loser-screen/loser-screen-ukraine-card/loser-screen-ukraine-card.tsx
-msgid "Every $1 donation matters."
-msgstr "প্রতিটি $1 অনুদান গুরুত্বপূর্ণ।"
-
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Expert grid"
 msgstr "বিশেষজ্ঞ গ্রিড"
@@ -288,13 +364,13 @@ msgstr "বিশেষজ্ঞ গ্রিড"
 msgid "Extra points are awarded when your placement completes:"
 msgstr "আপনার চাল সম্পূর্ণ করলে অতিরিক্ত পয়েন্ট পাবেন:"
 
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "faster!"
-msgstr "দ্রুত!"
-
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Feedback"
 msgstr "প্রতিক্রিয়া"
+
+#: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
+msgid "Final score"
+msgstr ""
 
 #: src/history/components/history-empty-state/history-empty-state.tsx
 msgid "Finish a puzzle and it will appear here."
@@ -302,11 +378,11 @@ msgstr "একটি সুদোকু শেষ করলে এটি এখ�
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Finned Swordfish"
-msgstr "ফিনযুক্ত সোর্ডফিশ"
+msgstr ""
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Finned X-Wing"
-msgstr "ফিনযুক্ত এক্স-উইং"
+msgstr ""
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Français"
@@ -314,7 +390,7 @@ msgstr "Français"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Full House"
-msgstr "পূর্ণ ঘর"
+msgstr ""
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Game"
@@ -348,7 +424,7 @@ msgstr "ব্লক (3x3 ঘর)"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Guess"
-msgstr "অনুমান"
+msgstr ""
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Guidance"
@@ -370,33 +446,25 @@ msgstr "কঠিন"
 msgid "Hardcore"
 msgstr "হার্ডকোর"
 
-#: src/screens/components/loser-screen/loser-screen-ukraine-card/loser-screen-ukraine-card.tsx
-msgid "Help"
-msgstr "সাহায্য"
-
-#: src/screens/components/pause-screen/pause-screen-ukraine-card/pause-screen-ukraine-card.tsx
+#: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Help Ukraine win"
 msgstr "ইউক্রেনকে জিততে সাহায্য করুন"
 
-#: src/@generic/components/donation/donation.tsx
-msgid "Help Ukraine win!"
-msgstr "ইউক্রেনকে জিততে সাহায্য করুন!"
-
 #: src/history/constants/technique-labels.constant.ts
 msgid "Hidden Pair"
-msgstr "লুকানো জোড়া"
+msgstr ""
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Hidden Quad"
-msgstr "লুকানো চতুষ্টয়"
+msgstr ""
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Hidden Single"
-msgstr "লুকানো একক"
+msgstr ""
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Hidden Triple"
-msgstr "লুকানো ত্রয়ী"
+msgstr ""
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Highlight areas"
@@ -414,6 +482,11 @@ msgstr "মিলে যাওয়া সংখ্যা হাইলাইট �
 msgid "Highlight pencil marks"
 msgstr "পেন্সিল নোট হাইলাইট করুন"
 
+#: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
+#: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
+msgid "Home"
+msgstr ""
+
 #: src/app/scoring.tsx
 #: src/scoring/components/scoring.screen.tsx
 msgid "How Scoring Works"
@@ -427,17 +500,33 @@ msgstr "আমি এই সুডোকু {elapsedTimeString}-এ শেষ �
 msgid "Immortal"
 msgstr "অমর"
 
+#: src/screens/components/loser-screen/loser.screen.tsx
+msgid "Incomplete"
+msgstr ""
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Install on iOS"
+msgstr "iOS-এ ইনস্টল করুন"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Install the iOS development build"
+msgstr "iOS ডেভেলপমেন্ট বিল্ড ইনস্টল করুন"
+
 #: src/game/components/game-provider/game-provider.tsx
 msgid "Invalid Sudoku"
 msgstr "অবৈধ সুডোকু"
 
-#: src/screens/components/winner-screen/winner.screen.tsx
-msgid "It took you"
-msgstr "আপনার সময় লেগেছে"
+#: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
+msgid "iOS installation"
+msgstr "iOS ইনস্টলেশন"
+
+#: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
+msgid "It was a tie"
+msgstr "এটি ড্র ছিল"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Jellyfish"
-msgstr "জেলিফিশ"
+msgstr ""
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Keep cell selected"
@@ -472,9 +561,13 @@ msgstr "স্তর"
 msgid "Light warm-up"
 msgstr "হালকা ওয়ার্ম-আপ"
 
-#: src/screens/components/loser-screen/loser.screen.tsx
-msgid "Loooooser =)"
-msgstr "হেরে গেলে =)"
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Loading development build"
+msgstr "ডেভেলপমেন্ট বিল্ড লোড হচ্ছে"
+
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Loading the latest development build…"
+msgstr "সর্বশেষ ডেভেলপমেন্ট বিল্ড লোড হচ্ছে…"
 
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "Lost"
@@ -501,12 +594,12 @@ msgstr "মেনু, সেটিংস ও গেমের লেখা"
 msgid "Minimum Score"
 msgstr "ন্যূনতম স্কোর"
 
+#: src/@generic/components/completed-game-result-details/completed-game-result-details.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
 #: src/screens/components/home-screen/home.screen.tsx
-#: src/screens/components/loser-screen/loser-screen-metrics/loser-screen-metrics.tsx
 #: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
 msgid "Mistakes"
 msgstr "ভুল"
@@ -517,23 +610,27 @@ msgstr "চাল"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Naked Pair"
-msgstr "নগ্ন জোড়া"
+msgstr ""
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Naked Quad"
-msgstr "নগ্ন চতুষ্টয়"
+msgstr ""
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Naked Single"
-msgstr "নগ্ন একক"
+msgstr ""
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Naked Triple"
-msgstr "নগ্ন ত্রয়ী"
+msgstr ""
 
 #: src/screens/components/home-screen/home-screen-section-header/home-screen-section-header.tsx
 msgid "New game"
 msgstr "নতুন খেলা"
+
+#: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
+msgid "New personal best"
+msgstr ""
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -552,6 +649,14 @@ msgstr "দুঃস্বপ্ন"
 #: src/scoring/components/scoring.screen.tsx
 msgid "no bonus"
 msgstr "কোনো বোনাস নেই"
+
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "No complete development build has been published yet. Please check again later."
+msgstr "এখনো কোনো সম্পূর্ণ ডেভেলপমেন্ট বিল্ড প্রকাশিত হয়নি। পরে আবার দেখুন।"
+
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "No development build is available"
+msgstr "কোনো ডেভেলপমেন্ট বিল্ড উপলভ্য নেই"
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "No extra gaps between cells"
@@ -589,6 +694,10 @@ msgstr "বর্তমান স্কোরের"
 msgid "OK"
 msgstr "ঠিক আছে"
 
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Open commit {commitShortSha} on GitHub"
+msgstr "GitHub-এ {commitShortSha} কমিট খুলুন"
+
 #: src/screens/components/shared-screen/shared-screen.tsx
 msgid "Open puzzle"
 msgstr "সুডোকু খুলুন"
@@ -598,9 +707,21 @@ msgstr "সুডোকু খুলুন"
 msgid "Open shared puzzle?"
 msgstr "শেয়ার করা সুডোকু খুলবেন?"
 
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Opponent's time:"
-msgstr "প্রতিপক্ষের সময়:"
+#: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
+msgid "Open this page in Safari on a physical iPhone or iPad. The device must already be registered in the Ad Hoc provisioning profile."
+msgstr "বাস্তব iPhone বা iPad-এ Safari দিয়ে এই পৃষ্ঠাটি খুলুন। ডিভাইসটি আগে থেকেই Ad Hoc প্রভিশনিং প্রোফাইলে নিবন্ধিত থাকতে হবে।"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Opens the registered-device installation prompt"
+msgstr "নিবন্ধিত ডিভাইসের ইনস্টলেশন প্রম্পট খোলে"
+
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Opens this commit on GitHub"
+msgstr "GitHub-এ এই কমিটটি খোলে"
+
+#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
+msgid "Opponent time"
+msgstr "প্রতিপক্ষের সময়"
 
 #: src/history/components/history-segmented-control/history-segmented-control.tsx
 msgid "Overview"
@@ -651,11 +772,11 @@ msgstr "কম ভুলের সুযোগ নিয়ে খেললে �
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Pointing Pair"
-msgstr "নির্দেশক জোড়া"
+msgstr ""
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Pointing Triple"
-msgstr "নির্দেশক ত্রয়ী"
+msgstr ""
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Points are deducted for:"
@@ -675,6 +796,10 @@ msgstr "Português"
 msgid "Privacy policy"
 msgstr "গোপনীয়তা নীতি"
 
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Published:"
+msgstr "প্রকাশিত:"
+
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Quit"
 msgstr "ছাড়ুন"
@@ -683,6 +808,10 @@ msgstr "ছাড়ুন"
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Relaxed"
 msgstr "স্বচ্ছন্দ"
+
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Release notes"
+msgstr "রিলিজ নোট"
 
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-top-bar/replay-top-bar.tsx
@@ -693,18 +822,23 @@ msgstr "রিপ্লে"
 msgid "Report a bug"
 msgstr "বাগ রিপোর্ট করুন"
 
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Retry loading development build"
+msgstr "ডেভেলপমেন্ট বিল্ড আবার লোড করুন"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Row"
 msgstr "সারি"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Sashimi Swordfish"
-msgstr "সাশিমি সোর্ডফিশ"
+msgstr ""
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Sashimi X-Wing"
-msgstr "সাশিমি এক্স-উইং"
+msgstr ""
 
+#: src/challenge/components/challenge-result-score/challenge-result-score.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
@@ -721,16 +855,16 @@ msgstr "স্কোর × সহগ × সংখ্যা"
 msgid "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 msgstr "প্রতিটি সঠিকভাবে পূরণ করা ঘরের স্কোর কঠিনতা, বোনাস ও জরিমানার ভিত্তিতে হিসাব করা হয়।"
 
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Score:"
-msgstr "স্কোর:"
-
 #: src/@generic/components/main-tab-layout/main-tab-layout.tsx
 #: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/component/settings-page-content/settings-page-content.tsx
 msgid "Settings"
 msgstr "সেটিংস"
+
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "SHA-256 checksums"
+msgstr "SHA-256 চেকসাম"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Shade cells that already have a number"
@@ -758,11 +892,7 @@ msgstr "নির্বাচিত ঘরের সারি, কলাম ও 
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Simple Coloring"
-msgstr "সরল রঙায়ন"
-
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "slower!"
-msgstr "ধীর!"
+msgstr ""
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Small"
@@ -859,7 +989,15 @@ msgstr "Svenska"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "Swordfish"
-msgstr "সোর্ডফিশ"
+msgstr ""
+
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "The commit link could not be opened on this device."
+msgstr "এই ডিভাইসে কমিটের লিংকটি খোলা যায়নি।"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "The install link could not be opened. Check your browser settings and try again."
+msgstr "ইনস্টল লিংকটি খোলা যায়নি। ব্রাউজারের সেটিংস পরীক্ষা করে আবার চেষ্টা করুন।"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
@@ -878,15 +1016,19 @@ msgstr "তিনটি ভুল"
 msgid "Tight"
 msgstr "ঘন"
 
+#: src/@generic/components/completed-game-result-details/completed-game-result-details.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
 #: src/screens/components/home-screen/home.screen.tsx
-#: src/screens/components/loser-screen/loser-screen-metrics/loser-screen-metrics.tsx
 #: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
 msgid "Time"
 msgstr "সময়"
+
+#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
+msgid "Time behind"
+msgstr "সময়ের ব্যবধান"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Timer"
@@ -904,17 +1046,25 @@ msgstr "উচ্চ স্কোরের টিপস"
 msgid "Too many mistakes"
 msgstr "খুব বেশি ভুল"
 
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Try again"
+msgstr "আবার চেষ্টা করুন"
+
 #: src/challenge/components/challenge-try-again-button/challenge-try-again-button.tsx
 msgid "Try Again"
 msgstr "আবার চেষ্টা করুন"
 
-#: src/screens/components/pause-screen/pause-screen-ukraine-card/pause-screen-ukraine-card.tsx
+#: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Ukraine keeps fighting"
 msgstr "ইউক্রেন লড়াই চালিয়ে যাচ্ছে"
 
-#: src/screens/components/loser-screen/loser-screen-ukraine-card/loser-screen-ukraine-card.tsx
-msgid "Ukraine needs to win too"
-msgstr "ইউক্রেনেরও জয় দরকার"
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Unable to open link"
+msgstr "লিংক খোলা যায়নি"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Unable to start installation"
+msgstr "ইনস্টলেশন শুরু করা যায়নি"
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/screens/components/settings-screen/settings.screen.tsx
@@ -987,21 +1137,17 @@ msgstr "ভাইব্রেশন"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "W-Wing"
-msgstr "ডব্লিউ-উইং"
+msgstr ""
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Warm gold accents for a brighter board"
 msgstr "আরও উজ্জ্বল বোর্ডের জন্য উষ্ণ সোনালি আভা"
 
-#: src/@generic/utils/donation-get-text.util.ts
-msgid "While you were away Ukraine continued its fight for freedom!\n"
-"\n"
-"Every 1$ donation matters!"
-msgstr "আপনি দূরে থাকাকালেও ইউক্রেন স্বাধীনতার জন্য লড়াই চালিয়ে গেছে!\n"
-"\n"
-"১ ডলারের প্রতিটি অনুদান গুরুত্বপূর্ণ!"
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "We could not load the latest development build. Please try again."
+msgstr "সর্বশেষ ডেভেলপমেন্ট বিল্ড লোড করা যায়নি। আবার চেষ্টা করুন।"
 
-#: src/screens/components/pause-screen/pause-screen-ukraine-card/pause-screen-ukraine-card.tsx
+#: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "While you were away, the fight for freedom continued. Every $1 makes a difference."
 msgstr "আপনি দূরে থাকলেও স্বাধীনতার লড়াই চলেছে। প্রতিটি $1 অনুদান গুরুত্বপূর্ণ।"
 
@@ -1013,15 +1159,17 @@ msgstr "সহজে ট্যাপ করার জন্য বেশি ফ�
 msgid "Win rate"
 msgstr "জয়ের হার"
 
-#: src/screens/components/winner-screen/winner.screen.tsx
-msgid "Winners-winner, \n"
-" chicken dinner!"
-msgstr "জয়!\n"
-"উদ্‌যাপন করুন!"
+#: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
+msgid "Winner, winner!"
+msgstr ""
 
 #: src/app/winner.tsx
 msgid "Winners-winner, chicken dinner!"
 msgstr "জয়! উদ্‌যাপন করুন!"
+
+#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
+msgid "Winning margin"
+msgstr "জয়ের ব্যবধান"
 
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "Won"
@@ -1029,59 +1177,35 @@ msgstr "জয়"
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "X-Chain"
-msgstr "এক্স-চেইন"
+msgstr ""
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "X-Wing"
-msgstr "এক্স-উইং"
+msgstr ""
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "XY-Chain"
-msgstr "এক্সওয়াই-চেইন"
+msgstr ""
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "XY-Wing"
-msgstr "এক্সওয়াই-উইং"
+msgstr ""
 
 #: src/history/constants/technique-labels.constant.ts
 msgid "XYZ-Wing"
-msgstr "এক্সওয়াইজেড-উইং"
+msgstr ""
 
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "You got to"
 msgstr "আপনি পৌঁছেছেন"
 
-#: src/screens/components/winner-screen/winner.screen.tsx
-msgid "You have scored"
-msgstr "আপনার স্কোর"
-
-#: src/@generic/utils/donation-get-text.util.ts
-msgid "You lost but Ukraine must win!\n"
-"\n"
-"Every 1$ donation matters!"
-msgstr "আপনি হেরেছেন, কিন্তু ইউক্রেনকে জিততেই হবে!\n"
-"\n"
-"১ ডলারের প্রতিটি অনুদান গুরুত্বপূর্ণ!"
-
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "You were"
-msgstr "আপনি ছিলেন"
-
-#: src/@generic/utils/donation-get-text.util.ts
-msgid "You won and Ukraine needs to!\n"
-"\n"
-"Every 1$ donation matters!"
-msgstr "আপনি জিতেছেন, আর ইউক্রেনেরও জেতা দরকার!\n"
-"\n"
-"১ ডলারের প্রতিটি অনুদান গুরুত্বপূর্ণ!"
-
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "You won the challenge!"
-msgstr "আপনি চ্যালেঞ্জ জিতেছেন!"
-
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Your best run"
 msgstr "আপনার সেরা খেলা"
+
+#: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
+msgid "Your browser may ask for permission to install unknown apps. Android will also show an operating-system security warning before installation."
+msgstr "আপনার ব্রাউজার অজানা উৎসের অ্যাপ ইনস্টল করার অনুমতি চাইতে পারে। ইনস্টলেশনের আগে Android অপারেটিং সিস্টেমের একটি নিরাপত্তা সতর্কতাও দেখাবে।"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Your opponent completed this puzzle in"
@@ -1099,9 +1223,9 @@ msgstr "আপনি সুদোকু শেষ করলে আপনার �
 msgid "Your sudoku journey"
 msgstr "আপনার সুডোকু যাত্রা"
 
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Your time:"
-msgstr "আপনার সময়:"
+#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
+msgid "Your time"
+msgstr "আপনার সময়"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Zero mistakes"

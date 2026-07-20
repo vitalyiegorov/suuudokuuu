@@ -1,5 +1,19 @@
 {
     "buildCommand": "",
     "outputDirectory": ".",
-    "rewrites": [{ "source": "/(.*)", "destination": "/" }]
+    "routes": [
+        {
+            "src": "/ota/manifest\\.plist",
+            "dest": "/api/beta/manifest"
+        },
+        {
+            "src": "/beta/?",
+            "headers": {
+                "X-Robots-Tag": "noindex, follow"
+            },
+            "continue": true
+        },
+        { "handle": "filesystem" },
+        { "src": "/.*", "dest": "/index.html" }
+    ]
 }
