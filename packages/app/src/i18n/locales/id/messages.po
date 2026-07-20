@@ -550,14 +550,13 @@ msgstr "Menu, pengaturan, dan teks permainan"
 msgid "Minimum Score"
 msgstr "Skor minimum"
 
+#: src/@generic/components/completed-game-result-details/completed-game-result-details.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
 #: src/screens/components/home-screen/home.screen.tsx
-#: src/screens/components/loser-screen/loser.screen.tsx
 #: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
-#: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Mistakes"
 msgstr "Kesalahan"
 
@@ -933,14 +932,13 @@ msgstr "Tiga kesalahan"
 msgid "Tight"
 msgstr "Rapat"
 
+#: src/@generic/components/completed-game-result-details/completed-game-result-details.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
 #: src/screens/components/home-screen/home.screen.tsx
-#: src/screens/components/loser-screen/loser.screen.tsx
 #: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
-#: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Time"
 msgstr "Waktu"
 
