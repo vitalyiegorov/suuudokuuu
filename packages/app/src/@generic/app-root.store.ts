@@ -82,7 +82,8 @@ const migrations: MigrationManifest<RootState> = {
     20: state => ({ ...state, [settingsSlice.name]: { ...initialSettingsState, ...state[settingsSlice.name] } }),
     21: state => ({ ...state, [settingsSlice.name]: { ...initialSettingsState, ...state[settingsSlice.name] } }),
     22: state => ({ ...state, [gameSlice.name]: { ...initialGameState, ...state[gameSlice.name] } }),
-    23: state => ({ ...state, [gameSlice.name]: { ...initialGameState, ...state[gameSlice.name] } })
+    23: state => ({ ...state, [gameSlice.name]: { ...initialGameState, ...state[gameSlice.name] } }),
+    24: state => ({ ...state, [gameSlice.name]: { ...initialGameState, ...state[gameSlice.name] } })
 };
 
 const rootReducer = combineReducers({
@@ -94,7 +95,7 @@ const persistedReducer = persistReducer(
     {
         key: 'root',
         storage: AsyncStorage,
-        version: 23,
+        version: 24,
         migrate: createMigrate(migrations)
     },
     rootReducer

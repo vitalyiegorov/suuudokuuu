@@ -1,96 +1,110 @@
-import { Trans, useLingui } from '@lingui/react/macro';
+import { useLingui } from '@lingui/react/macro';
+import { ScreenChromeScrollView } from '@suuudokuuu/screen-chrome';
 import { Redirect } from 'expo-router';
-import { LucideHeartCrack, LucideTrophy } from 'lucide-react-native';
+import { LucideFlag, LucideHeartCrack, LucideTrophy } from 'lucide-react-native';
 import { use } from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 
 import { isNotEmptyString } from '@rnw-community/shared';
 
-import { BlackText } from '../../../@generic/components/black-text/black-text';
-import { Donation } from '../../../@generic/components/donation/donation';
-import { Header } from '../../../@generic/components/header/header';
+import { ChromePage } from '../../../@generic/components/chrome-page/chrome-page';
 import { PlayAgainButton } from '../../../@generic/components/play-again-button/play-again-button';
+import { UkraineSupportCard } from '../../../@generic/components/ukraine-support-card/ukraine-support-card';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { GameState } from '../../../game/store/game.state';
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { ChallengeResult } from '../../interfaces/challenge-result.interface';
+import { getChallengeDurationParts } from '../../utils/get-challenge-duration-parts.util';
+import { getChallengeResult } from '../../utils/get-challenge-result.util';
+import { ChallengeResultHero } from '../challenge-result-hero/challenge-result-hero';
+import { ChallengeResultRaceCard } from '../challenge-result-race-card/challenge-result-race-card';
 
+import { ChallengeResultScreenSelectors } from './challenge-result-screen.selectors';
 import { ChallengeResultScreenStyles as styles } from './challenge-result-screen.styles';
+import { ChallengeResultScreenFooterHeight, ChallengeResultScreenHeaderHeight } from './constant/challenge-result-screen-chrome.constant';
 
 import type { ReactNode } from 'react';
 
 interface Props {
-    readonly isWon: boolean;
     readonly children?: ReactNode;
     readonly gameState: GameState;
 }
 
 export const ChallengeResultScreen = (props: Props) => {
-    const { isWon, children, gameState } = props;
+    const { children, gameState } = props;
     const { score, elapsedTime, challengeTime, sudokuString } = gameState;
 
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
     const elapsedTimeText = useTimerText(elapsedTime);
     const challengeTimeText = useTimerText(challengeTime);
-    const timeDifference = Math.abs(challengeTime - elapsedTime);
-    const timeDifferenceText = useTimerText(timeDifference);
+    const scoreText = String(score);
 
     if (!isNotEmptyString(sudokuString) && elapsedTime === 0) {
         return <Redirect href="/" />;
     }
 
-    const headerText = isWon ? t`You won the challenge!` : t`Challenge lost!`;
-    const Icon = isWon ? LucideTrophy : LucideHeartCrack;
-    const iconColor = isWon ? theme.colors.black : theme.colors.red;
-    const donationType = isWon ? 'winner' : 'loser';
-    const differenceLabel = isWon ? t`faster!` : t`slower!`;
+    const result = getChallengeResult(elapsedTime, challengeTime);
+    const marginSeconds = Math.abs(challengeTime - elapsedTime);
+    const durationParts = getChallengeDurationParts(marginSeconds);
+    const isWon = result === ChallengeResult.Won;
+    const isLost = result === ChallengeResult.Lost;
+    let headerText = t`Dead even`;
+    let Icon = LucideFlag;
+    let iconColor = theme.colors.label.inverted;
 
-    const differenceTimeTextStyle = [styles.boldText, { color: isWon ? theme.colors.black : theme.colors.red }];
+    if (isWon) {
+        headerText = t`Challenge won`;
+        Icon = LucideTrophy;
+    }
 
-    return (
-        <View style={styles.container}>
-            <Icon color={iconColor} size={64} style={styles.icon} />
+    if (isLost) {
+        headerText = t`Challenge lost`;
+        Icon = LucideHeartCrack;
+        iconColor = theme.colors.red;
+    }
 
-            <Header text={headerText} />
-
-            {isWon && (
-                <View style={styles.statsContainer}>
-                    <BlackText>
-                        <Text>
-                            <Trans>Your time:</Trans>{' '}
-                        </Text>
-                        <Text style={styles.boldText}>{elapsedTimeText}</Text>
-                    </BlackText>
-
-                    <BlackText>
-                        <Text>
-                            <Trans>Opponent&apos;s time:</Trans>{' '}
-                        </Text>
-                        <Text style={styles.boldText}>{challengeTimeText}</Text>
-                    </BlackText>
-
-                    <BlackText style={styles.differenceText}>
-                        <Text>
-                            <Trans>You were</Trans>{' '}
-                        </Text>
-                        <Text style={differenceTimeTextStyle}>{timeDifferenceText}</Text>
-                        <Text> {differenceLabel}</Text>
-                    </BlackText>
-
-                    <BlackText style={styles.messageText}>
-                        <Text>
-                            <Trans>Score:</Trans>{' '}
-                        </Text>
-                        <Text style={styles.boldText}>{score}</Text>
-                    </BlackText>
-                </View>
-            )}
-
-            <Donation type={donationType} />
-
+    const header = <ChallengeResultHero headerText={headerText} icon={Icon} iconColor={iconColor} scoreText={scoreText} />;
+    const footer = (
+        <View style={styles.actions}>
             {children}
-
             <PlayAgainButton />
         </View>
+    );
+    const topEdgeFadeProps = { height: ChallengeResultScreenHeaderHeight };
+    const footerEdgeFadeProps = { height: ChallengeResultScreenFooterHeight, intensity: 70 };
+
+    return (
+        <ChromePage
+            contentStyle={styles.chromeContent}
+            footer={footer}
+            footerEdgeFadeProps={footerEdgeFadeProps}
+            footerStyle={styles.footerChrome}
+            header={header}
+            headerStyle={styles.headerChrome}
+            testID={ChallengeResultScreenSelectors.Root}
+            topEdgeFadeProps={topEdgeFadeProps}
+        >
+            <ScreenChromeScrollView
+                alwaysBounceVertical
+                bounces
+                contentContainerStyle={styles.scrollContent}
+                contentInsetBottom={ChallengeResultScreenFooterHeight}
+                contentInsetTop={ChallengeResultScreenHeaderHeight}
+                showsVerticalScrollIndicator={false}
+                style={styles.scrollView}
+            >
+                <View style={styles.content}>
+                    <ChallengeResultRaceCard
+                        durationParts={durationParts}
+                        opponentTimeText={challengeTimeText}
+                        playerTimeText={elapsedTimeText}
+                        result={result}
+                    />
+
+                    <UkraineSupportCard testID={ChallengeResultScreenSelectors.UkraineSupportCta} />
+                </View>
+            </ScreenChromeScrollView>
+        </ChromePage>
     );
 };
