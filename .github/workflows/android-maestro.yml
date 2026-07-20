@@ -35,7 +35,7 @@ jobs:
       - name: Verify Android SDK in guest image
         run: |
           test -x "$ANDROID_SDK_ROOT/platform-tools/adb" || {
-            echo '::error::The guest image lacks the Android SDK; rebuild the base with prewarm-android-emulator-linux.sh.'
+            echo '::error::The guest image lacks the Android SDK; rebuild the base with prewarm-android-buildsdk-linux.sh.'
             exit 1
           }
 
