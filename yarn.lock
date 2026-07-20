@@ -8657,7 +8657,7 @@ __metadata:
     expo: "*"
     react: "*"
     react-native: "*"
-  checksum: 10/856bed56c491bf298be617a6c6da90d25c8be9afa1045915cbc28bc1834ed2ba97af9da29beed6c461e1a8e1667fb188
+  checksum: 10/856bed56c491bf298be617a6c6da90d25c8be9afa1045915cbc28bc9d29b03ba403038344fed39a7bca91bc1834ed2ba97af9da29beed6c461e1a8e1667fb188
   languageName: node
   linkType: hard
 
