@@ -17,7 +17,9 @@ appId: ${APP_ID}
 - tapOn:
     id: 'AvailableValueItemSelectors.Button'
     index: 0
-- assertVisible: '1/3'
+- extendedWaitUntil:
+    visible: '1/3'
+    timeout: 3000
 - tapOn:
     id: 'AvailableValueItemSelectors.Button'
     index: 0
