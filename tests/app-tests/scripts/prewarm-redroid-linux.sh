@@ -3,11 +3,13 @@
 # Google ships no emulator for arm64 Linux, and nested-KVM boots proved
 # unstable on this host, so Android runs as a container instead: native
 # arm64 speed, binder kernel module, no virtualization inside the guest.
+# Android 14 images hard-lock the 6.17 guest kernel and 13 never boots;
+# 15.0.0_64only is the verified-good tag (apps must ship arm64-v8a).
 # Bakes: docker + binder autoload + pulled image + a prewarmed /data volume
 # (first boot completed, animations off) + a manifest for CI jobs.
 set -euo pipefail
 
-REDROID_IMAGE='redroid/redroid:14.0.0-latest'
+REDROID_IMAGE='redroid/redroid:15.0.0_64only-latest'
 DATA_DIR="$HOME/redroid-data"
 MANIFEST_DIR="$HOME/.sudoku-ci"
 sudo apt-get update -qq
@@ -31,8 +33,8 @@ sudo docker run -d --name redroid-prewarm --privileged \
     -v "$DATA_DIR":/data -p 5555:5555 \
     "$REDROID_IMAGE" androidboot.redroid_gpu_mode=guest
 
-"$ADB" connect localhost:5555
 for _ in $(seq 1 120); do
+    "$ADB" connect localhost:5555 >/dev/null 2>&1 || true
     [ "$("$ADB" -s localhost:5555 shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')" = "1" ] && break
     sleep 5
 done
