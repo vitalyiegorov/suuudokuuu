@@ -15,11 +15,12 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq docker.io adb >/dev/n
 ADB=$(command -v adb)
 sudo usermod -aG docker "$USER"
 
-# binder must load on every boot; redroid 12+ needs no ashmem.
+# binder must load on every boot; redroid 12+ needs no ashmem. On binderfs
+# kernels (6.x) no /dev/binder appears on the host — the privileged container
+# mounts binderfs itself, so only the module needs to be present.
 echo binder_linux | sudo tee /etc/modules-load.d/redroid.conf >/dev/null
-echo 'options binder_linux devices=binder,hwbinder,vndbinder' | sudo tee /etc/modprobe.d/redroid.conf >/dev/null
-sudo modprobe binder_linux devices=binder,hwbinder,vndbinder
-ls /dev/binder >/dev/null
+sudo modprobe binder_linux
+test -d /sys/module/binder_linux
 
 sudo docker pull "$REDROID_IMAGE"
 
