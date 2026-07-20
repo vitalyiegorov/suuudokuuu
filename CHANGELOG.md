@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.64.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.63.0...v1.64.0) (2026-07-20)
+
+### Bug Fixes
+
+- **deps:** repair truncated expo-blur lockfile checksum ([97ad427](https://github.com/vitalyiegorov/suuudokuuu/commit/97ad427830d4ae0ea5e604d0a08a630b19100ef5))
+
+### Features
+
+- **app:** show challenge opponent attempts ([d6af397](https://github.com/vitalyiegorov/suuudokuuu/commit/d6af397441ef0b899c5b45e0c956da5422fff768))
+- **ci:** Android Maestro on the macOS maestro runners ([c72771d](https://github.com/vitalyiegorov/suuudokuuu/commit/c72771d017d360d4452b04c408ea7e0f3eda2732)), closes [tart-runner-fleet#70](https://github.com/tart-runner-fleet/issues/70)
+
 # [1.63.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.62.5...v1.63.0) (2026-07-17)
 
 ### Bug Fixes
