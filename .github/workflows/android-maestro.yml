@@ -46,6 +46,13 @@ jobs:
         working-directory: packages/app
         run: npx expo prebuild -p android --clean --no-install
 
+      - name: Use system cmake and ninja
+        run: |
+          # Google's sdkmanager cmake package is x86_64-only; on the arm64
+          # runners gradle must use the distro toolchain instead.
+          command -v cmake >/dev/null || sudo apt-get install -y -qq cmake ninja-build
+          echo "cmake.dir=/usr" >> packages/app/android/local.properties
+
       - name: Restore Gradle cache
         uses: actions/cache@v5
         with:

@@ -9,7 +9,8 @@ CMDLINE_TOOLS_VERSION='13114758'
 SDK_ROOT="$HOME/Android/Sdk"
 
 sudo apt-get update -qq
-sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq openjdk-17-jdk-headless unzip curl >/dev/null
+# cmake/ninja from the distro: Google's sdkmanager cmake package is x86_64-only.
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq openjdk-17-jdk-headless unzip curl cmake ninja-build >/dev/null
 
 if [ ! -d "$SDK_ROOT/cmdline-tools/latest" ]; then
     echo "Installing Android cmdline-tools $CMDLINE_TOOLS_VERSION"
@@ -27,7 +28,7 @@ export ANDROID_SDK_ROOT="$SDK_ROOT" ANDROID_HOME="$SDK_ROOT"
 # 'yes' dies of SIGPIPE when sdkmanager stops reading; don't let pipefail
 # turn that into a script failure — the install step below catches real errors.
 yes 2>/dev/null | "$SDKMANAGER" --licenses >/dev/null || true
-"$SDKMANAGER" --install 'platform-tools' 'platforms;android-35' 'build-tools;35.0.0' >/dev/null
+"$SDKMANAGER" --install 'platform-tools' 'platforms;android-35' 'build-tools;35.0.0' 'ndk;27.1.12297006' >/dev/null
 
 test -x "$SDK_ROOT/platform-tools/adb"
 echo "Android build SDK prewarm complete:"
