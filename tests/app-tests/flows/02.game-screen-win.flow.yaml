@@ -15,7 +15,11 @@ appId: ${APP_ID}
     id: 'ChallengeResultScreenSelectors.OpponentTimeValue'
 - assertVisible:
     id: 'ChallengeResultScreenSelectors.ScoreValue'
-- assertVisible: 'Help Ukraine win!'
+- scrollUntilVisible:
+    element:
+      id: 'ChallengeResultScreenSelectors.UkraineSupportCta'
+    direction: DOWN
+    timeout: 5000
 - scrollUntilVisible:
     element:
       id: 'PlayAgainButtonSelectors.Root'
