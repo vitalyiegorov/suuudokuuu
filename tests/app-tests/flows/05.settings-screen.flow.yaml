@@ -14,8 +14,16 @@ appId: ${APP_ID}
 - assertVisible: 'Language.*'
 - assertVisible: 'Number size.*'
 - assertVisible: 'Cell spacing.*'
-- assertVisible: 'Display'
-- assertVisible: 'Dark mode'
+# Scroll-tolerant: the Android viewport shows fewer rows than the iPhone,
+# so below-the-fold entries need a scroll (no-op when already visible).
+- scrollUntilVisible:
+    element:
+      text: 'Display'
+    direction: DOWN
+- scrollUntilVisible:
+    element:
+      text: 'Dark mode'
+    direction: DOWN
 - tapOn:
     id: 'SettingsScreenSelectors.CellSpacingOption'
 - waitForAnimationToEnd
