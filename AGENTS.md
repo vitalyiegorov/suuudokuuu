@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Suuudokuuu is an open-source Sudoku game built with React Native and Expo. This monorepo has three core packages: `app` for the game UI, `generator` for Sudoku generation and solving, and `encoder` for compact shareable game-state encoding.
+Suuudokuuu is an open-source Sudoku game built with React Native and Expo. This monorepo has four core packages: `app` for the game UI, `generator` for Sudoku generation and solving, `encoder` for compact shareable game-state encoding, and `screen-chrome` for generic screen chrome primitives.
 
 ## Canonical Agent Surfaces
 
@@ -37,19 +37,14 @@ yarn format && yarn ts && yarn lint && yarn deadcode && yarn cpd
 
 Run `yarn test` when behavior, algorithms, serialization, persistence, scoring, or app flows change. Run package-specific tests when the blast radius is narrow.
 
-## Planning Artifacts
-
-- Working designs and implementation plans live only under `docs/plans/`.
-- `docs/plans/` is local-only and gitignored. Never stage or commit its contents.
-- `docs/superpowers/plans/` and `docs/superpowers/specs/` are prohibited legacy locations and remain gitignored.
-
 ## Structure
 
 ```text
 packages/
 ├── app/                # Expo 57, React Native 0.86, React 19.2 game app
 ├── generator/          # Pure TypeScript Sudoku generator and DLX solver
-└── encoder/            # Binary/LZ encoding for puzzle sharing and replay
+├── encoder/            # Binary/LZ encoding for puzzle sharing and replay
+└── screen-chrome/      # Raw TypeScript generic screen chrome, edge fades, and collapsible header
 tests/
 └── app-tests/          # Maestro E2E flows
 ```
@@ -59,6 +54,7 @@ tests/
 - Read `packages/app/AGENTS.md` before changing Expo Router routes, React Native UI, Redux state, persistence, themes, Lingui text, deep links, sharing, or app assets.
 - Read `packages/generator/AGENTS.md` before changing Sudoku generation, validation, navigation, DLX solving, difficulty config, or puzzle interfaces.
 - Read `packages/encoder/AGENTS.md` before changing binary formats, solution-step encoding, URL serialization, compression, or decode error behavior.
+- Read `packages/screen-chrome/README.md` before changing `@suuudokuuu/screen-chrome`; preserve its generic, app-agnostic API.
 - Read `tests/app-tests/AGENTS.md` before changing Maestro flows, test IDs used by flows, deep-link fixtures, or E2E app assumptions.
 
 ## Engineering Rules
@@ -168,6 +164,4 @@ Algorithm-heavy solver/generator exceptions require a short, human-readable just
 - Use `yarn`, never `npm`.
 - Do not modify `.jscpd.json`; fix duplication in source or restructure narrowly.
 - Do not edit generated Lingui `messages.ts` by hand.
-- Keep working designs and plans under `docs/plans/`; they are local-only and must never be staged or committed.
-- Do not use the prohibited legacy locations `docs/superpowers/plans/` or `docs/superpowers/specs/`.
 - Prefer existing package patterns over importing Budgie rules that only made sense for finance, databases, AI services, bank sync, or Next.js landing pages.
