@@ -27,7 +27,11 @@ appId: ${APP_ID}
     timeout: 3000
 - assertVisible: 'Overview'
 - assertVisible: 'Games'
-- assertVisible: 'Newbie.*'
+# Scroll-tolerant: the rank card sits below the fold on the Android viewport.
+- scrollUntilVisible:
+    element:
+      text: 'Newbie.*'
+    direction: DOWN
 - assertVisible: '.*completed game.*'
 - tapOn:
     id: 'HistorySegmentedControlSelectors.GamesTab'
