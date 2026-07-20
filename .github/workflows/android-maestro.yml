@@ -17,13 +17,16 @@ env:
 
 jobs:
   build:
+    # The APK builds on macOS: Google ships no arm64-linux NDK (the linux
+    # package is x86_64-only), while the darwin NDK is arm64-native.
     name: Build embedded Android E2E app
-    runs-on: [self-hosted, linux-tiered, linux-large]
+    runs-on: [self-hosted, macOS, ARM64, macos-builder]
     timeout-minutes: 90
     env:
       APP_VARIANT: e2e
-      ANDROID_SDK_ROOT: /home/admin/Android/Sdk
-      ANDROID_HOME: /home/admin/Android/Sdk
+      ANDROID_SDK_ROOT: /Users/admin/Library/Android/sdk
+      ANDROID_HOME: /Users/admin/Library/Android/sdk
+      JAVA_HOME: /Library/Java/JavaVirtualMachines/temurin-17.jdk/Contents/Home
     steps:
       - uses: actions/checkout@v5
 
@@ -35,7 +38,7 @@ jobs:
       - name: Verify Android SDK in guest image
         run: |
           test -x "$ANDROID_SDK_ROOT/platform-tools/adb" || {
-            echo '::error::The guest image lacks the Android SDK; rebuild the base with prewarm-android-buildsdk-linux.sh.'
+            echo '::error::The guest image lacks the Android SDK; rebuild the base with prewarm-android-buildsdk-macos.sh.'
             exit 1
           }
 
@@ -45,13 +48,6 @@ jobs:
       - name: Generate native project
         working-directory: packages/app
         run: npx expo prebuild -p android --clean --no-install
-
-      - name: Use system cmake and ninja
-        run: |
-          # Google's sdkmanager cmake package is x86_64-only; on the arm64
-          # runners gradle must use the distro toolchain instead.
-          command -v cmake >/dev/null || sudo apt-get install -y -qq cmake ninja-build
-          echo "cmake.dir=/usr" >> packages/app/android/local.properties
 
       - name: Restore Gradle cache
         uses: actions/cache@v5
