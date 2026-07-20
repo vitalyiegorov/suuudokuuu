@@ -4,6 +4,8 @@ set -euo pipefail
 
 script_directory="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 app_tests_directory="$(dirname -- "$script_directory")"
+# shellcheck source=driver-failure-pattern.sh
+. "$script_directory/driver-failure-pattern.sh"
 app_id="${APP_ID:?APP_ID is required}"
 simulator_udid="${SIMULATOR_UDID:-}"
 output_path="${MAESTRO_OUTPUT_PATH:-$app_tests_directory/artifacts/maestro/report.xml}"
@@ -90,13 +92,14 @@ fs.writeFileSync(outputPath, mergedReport);
 EOF
 }
 
-for flow_path in "${selected_flow_paths[@]}"; do
-    flow_index=$((flow_index + 1))
-    flow_name="$(basename -- "$flow_path" .flow.yaml)"
-    flow_report_path="$report_directory/$flow_name.xml"
-    flow_debug_directory="$debug_output_directory/$flow_name"
+flow_timings_path="$(dirname -- "$output_path")/flow-timings.tsv"
+printf 'index\tflow\tstatus\tattempts\tduration_seconds\n' > "$flow_timings_path"
+suite_status=0
+failed_flow_names=""
 
-    echo "Running Maestro flow $flow_index: $flow_name"
+run_flow_attempt() {
+    local flow_path="$1" flow_report_path="$2" flow_debug_directory="$3" console_log="$4"
+    local status=0
 
     set +e
     maestro test \
@@ -105,16 +108,72 @@ for flow_path in "${selected_flow_paths[@]}"; do
         --format junit \
         --output "$flow_report_path" \
         --debug-output "$flow_debug_directory" \
-        --test-output-dir "$flow_debug_directory"
-    flow_status=$?
+        --test-output-dir "$flow_debug_directory" \
+        2>&1 | tee "$console_log"
+    status="${PIPESTATUS[0]}"
     set -e
+
+    return "$status"
+}
+
+reset_simulator_after_driver_failure() {
+    if [[ -z "$simulator_udid" ]]; then
+        return 0
+    fi
+    echo "Recoverable iOS driver failure detected; recycling the driver and rebooting simulator $simulator_udid"
+    "$script_directory/recycle-ios-driver.sh" "$simulator_udid"
+    xcrun simctl shutdown "$simulator_udid" 2>/dev/null || true
+    xcrun simctl boot "$simulator_udid" 2>/dev/null || true
+    xcrun simctl bootstatus "$simulator_udid" -b
+}
+
+for flow_path in "${selected_flow_paths[@]}"; do
+    flow_index=$((flow_index + 1))
+    flow_name="$(basename -- "$flow_path" .flow.yaml)"
+    flow_report_path="$report_directory/$flow_name.xml"
+    flow_debug_directory="$debug_output_directory/$flow_name"
+    flow_started_at="$(date +%s)"
+    attempts=1
+
+    echo "Running Maestro flow $flow_index: $flow_name"
+
+    flow_status=0
+    run_flow_attempt "$flow_path" "$flow_report_path" "$flow_debug_directory/attempt-1" \
+        "$flow_debug_directory-attempt-1.log" || flow_status=$?
+
+    # Retry once after recoverable driver failures (Maestro #3254/#3318 on
+    # iOS 26); plain assertion failures are real results and do not retry.
+    if [[ "$flow_status" -ne 0 ]] \
+        && grep -qE "$MAESTRO_RECOVERABLE_FAILURE_PATTERN" "$flow_debug_directory-attempt-1.log"; then
+        reset_simulator_after_driver_failure
+        attempts=2
+        flow_status=0
+        run_flow_attempt "$flow_path" "$flow_report_path" "$flow_debug_directory/attempt-2" \
+            "$flow_debug_directory-attempt-2.log" || flow_status=$?
+    fi
+
+    flow_result=success
+    if [[ "$flow_status" -ne 0 ]]; then
+        flow_result=failure
+        suite_status="$flow_status"
+        failed_flow_names="${failed_flow_names}${failed_flow_names:+, }${flow_name}"
+    fi
+    printf '%s\t%s\t%s\t%s\t%s\n' "$flow_index" "$flow_name" "$flow_result" "$attempts" \
+        "$(( $(date +%s) - flow_started_at ))" >> "$flow_timings_path"
 
     if [[ -f "$flow_report_path" ]]; then
         reports+=("$flow_report_path")
         merge_reports
     fi
 
+    # Keep running the remaining flows so one failure cannot hide the rest;
+    # the suite still exits non-zero below.
     if [[ "$flow_status" -ne 0 ]]; then
-        exit "$flow_status"
+        echo "Flow failed, continuing with remaining flows: $flow_name"
     fi
 done
+
+if [[ "$suite_status" -ne 0 ]]; then
+    echo "Maestro suite finished with failures: $failed_flow_names"
+    exit "$suite_status"
+fi

@@ -2,9 +2,11 @@
     "ignore": [
         "packages/app/lingui.config.js",
         "packages/app/fingerprint.config.js",
-        ".agents/skills/**",
-        ".claude/skills/**",
         "**/babel.config.js",
+        "**/*.web.ts",
+        "**/*.web.tsx",
+        "packages/screen-chrome/src/edge-fade/utils/edge-fade-get-backdrop-filter.util.ts",
+        "packages/screen-chrome/src/edge-fade/interface/web-edge-fade-style.interface.ts",
         "**/selectors.ts"
     ],
     "ignoreDependencies": [

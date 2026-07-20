@@ -9,8 +9,22 @@ appId: ${APP_ID}
     file: subflows/shared/complete-winning-shared-challenge.flow.yaml
     env:
       SHARED_CHALLENGE_LINK: suuudokuuu://shared/IzAMC4AAAKBEBQDAAHASfAwQAgM4AQAhgGQEUBoAQQASBWAcIAgBXrAE4BMAUgZICcAYgKpkAmAFdQAMQAGABYDZAYwBRYgPMBIAE8UAFAEMASAGIALFQCpAZEMA3AAoArgLL2A1ReUAWgOoApAGfpABr9VABmW34AFfl5AECcADoARIAdgB4AcwAqgE%2BAfYASgDAAIIAGgDiADAARgA8AZpqAYrq6bkMAMoBNIl6AWoAOAHOAWIAQcPAAGwAhAAGAJnAATjXgcGAgA
-- assertVisible: 'Score:.*'
-- assertVisible: 'Help Ukraine win!'
+- assertVisible:
+    id: 'ChallengeResultScreenSelectors.YourTimeValue'
+- assertVisible:
+    id: 'ChallengeResultScreenSelectors.OpponentTimeValue'
+- assertVisible:
+    id: 'ChallengeResultScreenSelectors.ScoreValue'
+- scrollUntilVisible:
+    element:
+      id: 'ChallengeResultScreenSelectors.UkraineSupportCta'
+    direction: DOWN
+    timeout: 5000
+- scrollUntilVisible:
+    element:
+      id: 'PlayAgainButtonSelectors.Root'
+    direction: DOWN
+    timeout: 3000
 - tapOn:
     id: 'PlayAgainButtonSelectors.Root'
 - extendedWaitUntil:

@@ -1,0 +1,191 @@
+name: Android Maestro
+
+# Runs the Maestro suite against the prewarmed Android emulator on the macOS
+# maestro runners. Requires the guest image to carry the Android SDK and the
+# 'e2e' AVD (tests/app-tests/scripts/prewarm-android-emulator.sh) and the
+# fleet to start maestro VMs with nested virtualization; dispatch-only until
+# both prerequisites are live, then wired into pr.yml like ios-maestro.
+on:
+  workflow_call:
+  workflow_dispatch:
+
+env:
+  MAESTRO_VERSION: '2.6.1'
+
+jobs:
+  build:
+    name: Build embedded Android E2E app
+    runs-on: [self-hosted, macOS, ARM64, macos-builder]
+    timeout-minutes: 90
+    env:
+      APP_VARIANT: e2e
+      ANDROID_SDK_ROOT: /Users/admin/Library/Android/sdk
+      ANDROID_HOME: /Users/admin/Library/Android/sdk
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22.x
+          cache: yarn
+
+      - name: Verify Android SDK in guest image
+        run: |
+          test -x "$ANDROID_SDK_ROOT/platform-tools/adb" || {
+            echo '::error::The guest image lacks the Android SDK; rebuild the base with prewarm-android-emulator.sh.'
+            exit 1
+          }
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Generate native project
+        working-directory: packages/app
+        run: npx expo prebuild -p android --clean --no-install
+
+      - name: Restore Gradle cache
+        uses: actions/cache@v5
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ runner.os }}-${{ hashFiles('packages/app/android/gradle/wrapper/gradle-wrapper.properties', 'yarn.lock') }}
+          restore-keys: gradle-${{ runner.os }}-
+
+      - name: Build release APK
+        working-directory: packages/app/android
+        run: ./gradlew :app:assembleRelease -x lint -x lintVitalAnalyzeRelease -x lintAnalyzeRelease --no-daemon
+
+      - name: Package APK artifact
+        run: |
+          apk=$(find packages/app/android/app/build/outputs/apk/release -name '*.apk' -print -quit)
+          test -n "$apk"
+          mkdir -p .ci-artifacts/android-e2e-app
+          cp "$apk" .ci-artifacts/android-e2e-app/suuudokuuu-e2e.apk
+
+      - uses: actions/upload-artifact@v6
+        with:
+          name: android-e2e-app
+          path: .ci-artifacts/android-e2e-app/*.apk
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 3
+
+  test:
+    needs: [build]
+    name: Maestro Android shard ${{ matrix.shard-number }}/2
+    runs-on: [self-hosted, macOS, ARM64, macos-maestro]
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        include:
+          - shard-index: 0
+            shard-number: 1
+          - shard-index: 1
+            shard-number: 2
+    env:
+      ANDROID_SDK_ROOT: /Users/admin/Library/Android/sdk
+      ANDROID_HOME: /Users/admin/Library/Android/sdk
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Start prewarmed Android emulator
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f "$HOME/.sudoku-ci/android-emulator.json" || {
+            echo '::error::The guest image lacks the prewarmed AVD; rebuild the base with prewarm-android-emulator.sh.'
+            exit 1
+          }
+          avd=$(python3 -c "import json; print(json.load(open('$HOME/.sudoku-ci/android-emulator.json'))['avd'])")
+          "$ANDROID_SDK_ROOT/emulator/emulator" -avd "$avd" -no-window -no-audio -no-boot-anim &
+          adb="$ANDROID_SDK_ROOT/platform-tools/adb"
+          "$adb" wait-for-device
+          deadline=$(( $(date +%s) + 300 ))
+          until [ "$("$adb" shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')" = "1" ]; do
+            test "$(date +%s)" -lt "$deadline"
+            sleep 5
+          done
+          serial=$("$adb" devices | awk '/emulator-/{print $1; exit}')
+          echo "ANDROID_SERIAL=$serial" >> "$GITHUB_ENV"
+          echo "$ANDROID_SDK_ROOT/platform-tools" >> "$GITHUB_PATH"
+
+      - uses: actions/download-artifact@v6
+        with:
+          name: android-e2e-app
+          path: .ci-artifacts/android-e2e-app
+
+      - name: Install APK
+        run: adb install -r .ci-artifacts/android-e2e-app/suuudokuuu-e2e.apk
+
+      - name: Install Maestro
+        run: |
+          maestro_bin="$HOME/.maestro/bin/maestro"
+          if [ ! -x "$maestro_bin" ] || [ "$("$maestro_bin" --version 2>/dev/null | tail -n 1 | tr -d '\r' || true)" != "$MAESTRO_VERSION" ]; then
+            curl -fsSL https://get.maestro.mobile.dev | env MAESTRO_VERSION="$MAESTRO_VERSION" bash
+          fi
+          echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
+
+      - name: Run deterministic Maestro shard
+        working-directory: tests/app-tests
+        shell: bash
+        env:
+          APP_ID: com.vitalyiegorov.suuudokuuu.e2e
+          JAVA_TOOL_OPTIONS: -Djava.awt.headless=true -Xmx1024m
+          MAESTRO_DRIVER_STARTUP_TIMEOUT: '180000'
+          MAESTRO_DEBUG_OUTPUT_DIRECTORY: ${{ github.workspace }}/tests/app-tests/artifacts/maestro-android-shard-${{ matrix.shard-index }}
+          MAESTRO_OUTPUT_PATH: ${{ github.workspace }}/tests/app-tests/artifacts/maestro-android-shard-${{ matrix.shard-index }}/report.xml
+          SHARD_INDEX: ${{ matrix.shard-index }}
+        run: |
+          set -euo pipefail
+          flows=()
+          while IFS= read -r flow; do
+            flows+=("$flow")
+          done < <(find flows -maxdepth 1 -type f -name '*.flow.yaml' | sort)
+          selected=()
+          for index in "${!flows[@]}"; do
+            if (( index % 2 == SHARD_INDEX )); then
+              selected+=("${flows[$index]}")
+            fi
+          done
+          test "${#selected[@]}" -gt 0
+          mkdir -p "./artifacts/maestro-android-shard-$SHARD_INDEX"
+          SIMULATOR_UDID="$ANDROID_SERIAL" ./scripts/run-maestro-suite.sh "${selected[@]}" \
+            2>&1 | tee "./artifacts/maestro-android-shard-$SHARD_INDEX/console.log"
+
+      - name: Publish Maestro timing summary
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          timing_file="tests/app-tests/artifacts/maestro-android-shard-${{ matrix.shard-index }}/flow-timings.tsv"
+          if [ -f "$timing_file" ]; then
+            {
+              echo "### Android Maestro flow timings: shard ${{ matrix.shard-number }}"
+              echo
+              echo '| Flow | Status | Attempts | Seconds |'
+              echo '| --- | --- | ---: | ---: |'
+              tail -n +2 "$timing_file" |
+                awk -F '\t' '{ printf "| `%s` | %s | %s | %s |\n", $2, $3, $4, $5 }'
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Capture final emulator state
+        if: always()
+        run: |
+          mkdir -p "tests/app-tests/artifacts/emulator-shard-${{ matrix.shard-index }}"
+          adb exec-out screencap -p > "tests/app-tests/artifacts/emulator-shard-${{ matrix.shard-index }}/final-screen.png" || true
+          adb emu kill || true
+
+      - uses: actions/upload-artifact@v6
+        if: always()
+        with:
+          name: maestro-android-shard-${{ matrix.shard-number }}
+          include-hidden-files: true
+          path: |
+            tests/app-tests/artifacts/maestro-android-shard-${{ matrix.shard-index }}/**
+            tests/app-tests/artifacts/emulator-shard-${{ matrix.shard-index }}/**
+          if-no-files-found: warn
+          retention-days: 7

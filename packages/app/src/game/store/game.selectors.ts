@@ -38,3 +38,4 @@ export const gameIsChallengeModeSelector = createSelector(gameSelector, state =>
 export const gameChallengeStepsSelector = createSelector(gameSelector, state => state.challengeSteps);
 export const gameChallengeTimeSelector = createSelector(gameSelector, state => state.challengeTime);
 export const gameSolutionsStepsSelector = createSelector(gameSelector, state => state.solutionSteps);
+export const gameHasNewPersonalBestScoreSelector = createSelector(gameSelector, state => state.hasNewPersonalBestScore);

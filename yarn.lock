@@ -4784,11 +4784,13 @@ __metadata:
     "@lingui/core": "npm:6.4.0"
     "@lingui/format-po": "npm:6.4.0"
     "@lingui/react": "npm:6.4.0"
+    "@react-native-masked-view/masked-view": "npm:^0.3.2"
     "@react-native/metro-config": "npm:0.86.0"
     "@reduxjs/toolkit": "npm:^2.12.0"
     "@rnw-community/shared": "npm:^2.2.0"
     "@suuudokuuu/encoder": "workspace:*"
     "@suuudokuuu/generator": "workspace:*"
+    "@suuudokuuu/screen-chrome": "workspace:*"
     "@suuudokuuu/ui": "workspace:*"
     "@types/react": "npm:~19.2.14"
     babel-plugin-macros: "npm:^3.1.0"
@@ -4817,7 +4819,6 @@ __metadata:
     react: "npm:19.2.3"
     react-dom: "npm:19.2.3"
     react-native: "npm:0.86.0"
-    react-native-easing-gradient: "npm:^1.1.1"
     react-native-gesture-handler: "npm:~2.32.0"
     react-native-reanimated: "npm:4.5.0"
     react-native-safe-area-context: "npm:~5.7.0"
@@ -4884,6 +4885,23 @@ __metadata:
     turbo: "npm:^2.10.0"
     typescript: "npm:^6.0.3"
     typescript-eslint: "npm:^8.62.0"
+  languageName: unknown
+  linkType: soft
+
+"@suuudokuuu/screen-chrome@workspace:*, @suuudokuuu/screen-chrome@workspace:packages/screen-chrome":
+  version: 0.0.0-use.local
+  resolution: "@suuudokuuu/screen-chrome@workspace:packages/screen-chrome"
+  dependencies:
+    "@rnw-community/shared": "npm:^2.2.0"
+    react-native-easing-gradient: "npm:^1.1.1"
+  peerDependencies:
+    "@react-native-masked-view/masked-view": ^0.3.2
+    expo-blur: ~57.0.0
+    expo-linear-gradient: ~57.0.0
+    react: 19.2.3
+    react-native: 0.86.0
+    react-native-reanimated: 4.5.0
+    react-native-safe-area-context: ~5.7.0
   languageName: unknown
   linkType: soft
 

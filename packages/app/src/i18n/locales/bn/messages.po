@@ -18,6 +18,14 @@ msgstr ""
 msgid "{0, plural, one {# mistake} other {# mistakes}}"
 msgstr "{0, plural, one {#টি ভুল} other {#টি ভুল}}"
 
+#: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
+msgid "{durationText} faster"
+msgstr "{durationText} দ্রুততর"
+
+#: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
+msgid "{durationText} slower"
+msgstr "{durationText} ধীর"
+
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "{filledCells}/{totalCells} filled"
 msgstr "{filledCells}/{totalCells} পূরণ"
@@ -25,6 +33,22 @@ msgstr "{filledCells}/{totalCells} পূরণ"
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "{gamesCompleted, plural, one {# completed game} other {# completed games}}"
 msgstr "{gamesCompleted, plural, one {#টি সম্পন্ন খেলা} other {#টি সম্পন্ন খেলা}}"
+
+#: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
+msgid "{value, plural, one {# day} other {# days}}"
+msgstr "{value, plural, one {# দিন} other {# দিন}}"
+
+#: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
+msgid "{value, plural, one {# hour} other {# hours}}"
+msgstr "{value, plural, one {# ঘণ্টা} other {# ঘণ্টা}}"
+
+#: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
+msgid "{value, plural, one {# minute} other {# minutes}}"
+msgstr "{value, plural, one {# মিনিট} other {# মিনিট}}"
+
+#: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
+msgid "{value, plural, one {# second} other {# seconds}}"
+msgstr "{value, plural, one {# সেকেন্ড} other {# সেকেন্ড}}"
 
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "<0>Development client required</0><1>Development clients need Metro, the launch URL configured in <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2>, or a compatible update on the <3>development</3> channel. This install flow does not publish an update.</1>"
@@ -85,10 +109,6 @@ msgstr "ভুল এড়িয়ে চলুন: এগুলো আপন�
 msgid "Back"
 msgstr "ফিরে যান"
 
-#: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
-msgid "Back to home"
-msgstr "হোমে ফিরুন"
-
 #: src/settings/constant/language-labels.constant.ts
 msgid "Bahasa Indonesia"
 msgstr "Bahasa Indonesia"
@@ -123,7 +143,6 @@ msgstr "সেরা স্কোর"
 msgid "Best time"
 msgstr "সেরা সময়"
 
-#: src/app/challenge-lost.tsx
 #: src/app/loser.tsx
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "Better luck next time!"
@@ -154,21 +173,25 @@ msgstr "বাতিল"
 msgid "Cell spacing"
 msgstr "ঘরের ফাঁক"
 
-#: src/screens/components/winner-screen/winner.screen.tsx
-msgid "Challenge a Friend"
-msgstr "বন্ধুকে চ্যালেঞ্জ করুন"
+#: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
+msgid "Challenge"
+msgstr ""
 
 #: src/app/challenge-won.tsx
 msgid "Challenge Back"
 msgstr "পাল্টা চ্যালেঞ্জ"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Challenge lost"
+msgstr "চ্যালেঞ্জে হার"
 
 #: src/app/challenge-lost.tsx
 msgid "Challenge Lost"
 msgstr "চ্যালেঞ্জ হারা"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Challenge lost!"
-msgstr "চ্যালেঞ্জ হেরেছেন!"
+msgid "Challenge won"
+msgstr "চ্যালেঞ্জে জয়"
 
 #: src/app/challenge-won.tsx
 msgid "Challenge Won!"
@@ -210,6 +233,10 @@ msgstr "ভুল ছাড়া"
 msgid "Clean black-and-white board"
 msgstr "পরিষ্কার সাদা-কালো বোর্ড"
 
+#: src/screens/components/winner-screen/winner.screen.tsx
+msgid "Clean win"
+msgstr ""
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Column"
 msgstr "কলাম"
@@ -225,6 +252,10 @@ msgstr "কমিট {commitShortSha}"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Complete rows, columns, and blocks for huge bonuses"
 msgstr "বড় বোনাসের জন্য সারি, কলাম ও ব্লক পূর্ণ করুন"
+
+#: src/screens/components/winner-screen/winner.screen.tsx
+msgid "Completed"
+msgstr ""
 
 #: src/history/components/history-games-list/history-games-list.tsx
 msgid "Completed games will be ready for replay."
@@ -254,6 +285,14 @@ msgstr "ডার্ক মোড"
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Day streak"
 msgstr "দিনের ধারাবাহিকতা"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Dead even"
+msgstr "পুরো সমতা"
+
+#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
+msgid "Dead heat"
+msgstr "সমানে সমান"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Deep focus"
@@ -309,10 +348,6 @@ msgstr "English"
 msgid "Español"
 msgstr "Español"
 
-#: src/screens/components/loser-screen/loser-screen-ukraine-card/loser-screen-ukraine-card.tsx
-msgid "Every $1 donation matters."
-msgstr "প্রতিটি $1 অনুদান গুরুত্বপূর্ণ।"
-
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Expert grid"
 msgstr "বিশেষজ্ঞ গ্রিড"
@@ -321,13 +356,13 @@ msgstr "বিশেষজ্ঞ গ্রিড"
 msgid "Extra points are awarded when your placement completes:"
 msgstr "আপনার চাল সম্পূর্ণ করলে অতিরিক্ত পয়েন্ট পাবেন:"
 
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "faster!"
-msgstr "দ্রুত!"
-
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Feedback"
 msgstr "প্রতিক্রিয়া"
+
+#: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
+msgid "Final score"
+msgstr ""
 
 #: src/history/components/history-empty-state/history-empty-state.tsx
 msgid "Finish a puzzle and it will appear here."
@@ -387,17 +422,9 @@ msgstr "কঠিন"
 msgid "Hardcore"
 msgstr "হার্ডকোর"
 
-#: src/screens/components/loser-screen/loser-screen-ukraine-card/loser-screen-ukraine-card.tsx
-msgid "Help"
-msgstr "সাহায্য"
-
-#: src/screens/components/pause-screen/pause-screen-ukraine-card/pause-screen-ukraine-card.tsx
+#: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Help Ukraine win"
 msgstr "ইউক্রেনকে জিততে সাহায্য করুন"
-
-#: src/@generic/components/donation/donation.tsx
-msgid "Help Ukraine win!"
-msgstr "ইউক্রেনকে জিততে সাহায্য করুন!"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Highlight areas"
@@ -415,6 +442,11 @@ msgstr "মিলে যাওয়া সংখ্যা হাইলাইট �
 msgid "Highlight pencil marks"
 msgstr "পেন্সিল নোট হাইলাইট করুন"
 
+#: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
+#: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
+msgid "Home"
+msgstr ""
+
 #: src/app/scoring.tsx
 #: src/scoring/components/scoring.screen.tsx
 msgid "How Scoring Works"
@@ -427,6 +459,10 @@ msgstr "আমি এই সুডোকু {elapsedTimeString}-এ শেষ �
 #: src/scoring/components/scoring.screen.tsx
 msgid "Immortal"
 msgstr "অমর"
+
+#: src/screens/components/loser-screen/loser.screen.tsx
+msgid "Incomplete"
+msgstr ""
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Install on iOS"
@@ -444,9 +480,9 @@ msgstr "অবৈধ সুডোকু"
 msgid "iOS installation"
 msgstr "iOS ইনস্টলেশন"
 
-#: src/screens/components/winner-screen/winner.screen.tsx
-msgid "It took you"
-msgstr "আপনার সময় লেগেছে"
+#: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
+msgid "It was a tie"
+msgstr "এটি ড্র ছিল"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Keep cell selected"
@@ -489,10 +525,6 @@ msgstr "ডেভেলপমেন্ট বিল্ড লোড হচ্ছ
 msgid "Loading the latest development build…"
 msgstr "সর্বশেষ ডেভেলপমেন্ট বিল্ড লোড হচ্ছে…"
 
-#: src/screens/components/loser-screen/loser.screen.tsx
-msgid "Loooooser =)"
-msgstr "হেরে গেলে =)"
-
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "Lost"
 msgstr "হার"
@@ -518,12 +550,12 @@ msgstr "মেনু, সেটিংস ও গেমের লেখা"
 msgid "Minimum Score"
 msgstr "ন্যূনতম স্কোর"
 
+#: src/@generic/components/completed-game-result-details/completed-game-result-details.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
 #: src/screens/components/home-screen/home.screen.tsx
-#: src/screens/components/loser-screen/loser-screen-metrics/loser-screen-metrics.tsx
 #: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
 msgid "Mistakes"
 msgstr "ভুল"
@@ -535,6 +567,10 @@ msgstr "চাল"
 #: src/screens/components/home-screen/home-screen-section-header/home-screen-section-header.tsx
 msgid "New game"
 msgstr "নতুন খেলা"
+
+#: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
+msgid "New personal best"
+msgstr ""
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -623,9 +659,9 @@ msgstr "নিবন্ধিত ডিভাইসের ইনস্টলে�
 msgid "Opens this commit on GitHub"
 msgstr "GitHub-এ এই কমিটটি খোলে"
 
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Opponent's time:"
-msgstr "প্রতিপক্ষের সময়:"
+#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
+msgid "Opponent time"
+msgstr "প্রতিপক্ষের সময়"
 
 #: src/history/components/history-segmented-control/history-segmented-control.tsx
 msgid "Overview"
@@ -726,6 +762,7 @@ msgstr "ডেভেলপমেন্ট বিল্ড আবার লোড
 msgid "Row"
 msgstr "সারি"
 
+#: src/challenge/components/challenge-result-score/challenge-result-score.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
@@ -741,10 +778,6 @@ msgstr "স্কোর × সহগ × সংখ্যা"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 msgstr "প্রতিটি সঠিকভাবে পূরণ করা ঘরের স্কোর কঠিনতা, বোনাস ও জরিমানার ভিত্তিতে হিসাব করা হয়।"
-
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Score:"
-msgstr "স্কোর:"
 
 #: src/@generic/components/main-tab-layout/main-tab-layout.tsx
 #: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
@@ -780,10 +813,6 @@ msgstr "নির্বাচিত ঘরের মিলে যাওয়া �
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show the row, column, and box for the selected cell"
 msgstr "নির্বাচিত ঘরের সারি, কলাম ও বাক্স দেখান"
-
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "slower!"
-msgstr "ধীর!"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Small"
@@ -903,15 +932,19 @@ msgstr "তিনটি ভুল"
 msgid "Tight"
 msgstr "ঘন"
 
+#: src/@generic/components/completed-game-result-details/completed-game-result-details.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
 #: src/screens/components/home-screen/home.screen.tsx
-#: src/screens/components/loser-screen/loser-screen-metrics/loser-screen-metrics.tsx
 #: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
 msgid "Time"
 msgstr "সময়"
+
+#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
+msgid "Time behind"
+msgstr "সময়ের ব্যবধান"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Timer"
@@ -937,13 +970,9 @@ msgstr "আবার চেষ্টা করুন"
 msgid "Try Again"
 msgstr "আবার চেষ্টা করুন"
 
-#: src/screens/components/pause-screen/pause-screen-ukraine-card/pause-screen-ukraine-card.tsx
+#: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Ukraine keeps fighting"
 msgstr "ইউক্রেন লড়াই চালিয়ে যাচ্ছে"
-
-#: src/screens/components/loser-screen/loser-screen-ukraine-card/loser-screen-ukraine-card.tsx
-msgid "Ukraine needs to win too"
-msgstr "ইউক্রেনেরও জয় দরকার"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Unable to open link"
@@ -1030,15 +1059,7 @@ msgstr "আরও উজ্জ্বল বোর্ডের জন্য উ�
 msgid "We could not load the latest development build. Please try again."
 msgstr "সর্বশেষ ডেভেলপমেন্ট বিল্ড লোড করা যায়নি। আবার চেষ্টা করুন।"
 
-#: src/@generic/utils/donation-get-text.util.ts
-msgid "While you were away Ukraine continued its fight for freedom!\n"
-"\n"
-"Every 1$ donation matters!"
-msgstr "আপনি দূরে থাকাকালেও ইউক্রেন স্বাধীনতার জন্য লড়াই চালিয়ে গেছে!\n"
-"\n"
-"১ ডলারের প্রতিটি অনুদান গুরুত্বপূর্ণ!"
-
-#: src/screens/components/pause-screen/pause-screen-ukraine-card/pause-screen-ukraine-card.tsx
+#: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "While you were away, the fight for freedom continued. Every $1 makes a difference."
 msgstr "আপনি দূরে থাকলেও স্বাধীনতার লড়াই চলেছে। প্রতিটি $1 অনুদান গুরুত্বপূর্ণ।"
 
@@ -1050,15 +1071,17 @@ msgstr "সহজে ট্যাপ করার জন্য বেশি ফ�
 msgid "Win rate"
 msgstr "জয়ের হার"
 
-#: src/screens/components/winner-screen/winner.screen.tsx
-msgid "Winners-winner, \n"
-" chicken dinner!"
-msgstr "জয়!\n"
-"উদ্‌যাপন করুন!"
+#: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
+msgid "Winner, winner!"
+msgstr ""
 
 #: src/app/winner.tsx
 msgid "Winners-winner, chicken dinner!"
 msgstr "জয়! উদ্‌যাপন করুন!"
+
+#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
+msgid "Winning margin"
+msgstr "জয়ের ব্যবধান"
 
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "Won"
@@ -1067,34 +1090,6 @@ msgstr "জয়"
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "You got to"
 msgstr "আপনি পৌঁছেছেন"
-
-#: src/screens/components/winner-screen/winner.screen.tsx
-msgid "You have scored"
-msgstr "আপনার স্কোর"
-
-#: src/@generic/utils/donation-get-text.util.ts
-msgid "You lost but Ukraine must win!\n"
-"\n"
-"Every 1$ donation matters!"
-msgstr "আপনি হেরেছেন, কিন্তু ইউক্রেনকে জিততেই হবে!\n"
-"\n"
-"১ ডলারের প্রতিটি অনুদান গুরুত্বপূর্ণ!"
-
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "You were"
-msgstr "আপনি ছিলেন"
-
-#: src/@generic/utils/donation-get-text.util.ts
-msgid "You won and Ukraine needs to!\n"
-"\n"
-"Every 1$ donation matters!"
-msgstr "আপনি জিতেছেন, আর ইউক্রেনেরও জেতা দরকার!\n"
-"\n"
-"১ ডলারের প্রতিটি অনুদান গুরুত্বপূর্ণ!"
-
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "You won the challenge!"
-msgstr "আপনি চ্যালেঞ্জ জিতেছেন!"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Your best run"
@@ -1120,9 +1115,9 @@ msgstr "আপনি সুদোকু শেষ করলে আপনার �
 msgid "Your sudoku journey"
 msgstr "আপনার সুডোকু যাত্রা"
 
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Your time:"
-msgstr "আপনার সময়:"
+#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
+msgid "Your time"
+msgstr "আপনার সময়"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Zero mistakes"
