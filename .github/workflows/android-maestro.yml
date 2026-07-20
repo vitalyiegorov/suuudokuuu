@@ -107,7 +107,10 @@ jobs:
           data=$(python3 -c "import json; print(json.load(open('$manifest'))['dataDir'])")
           sudo modprobe binder_linux devices=binder,hwbinder,vndbinder 2>/dev/null || true
           sudo docker rm -f redroid-e2e >/dev/null 2>&1 || true
+          # Cap the container: an unbounded Android guest can OOM the whole
+          # 8 GiB runner VM (lost-communication runner deaths).
           sudo docker run -d --name redroid-e2e --privileged \
+            --memory 3g --memory-swap 3g --cpus 3 \
             -v "$data":/data -p 5555:5555 \
             "$image" androidboot.redroid_gpu_mode=guest
           adb connect localhost:5555
