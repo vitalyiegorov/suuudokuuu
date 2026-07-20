@@ -34,7 +34,9 @@ SDKMANAGER="$SDK_ROOT/cmdline-tools/latest/bin/sdkmanager"
 AVDMANAGER="$SDK_ROOT/cmdline-tools/latest/bin/avdmanager"
 export ANDROID_SDK_ROOT="$SDK_ROOT" ANDROID_HOME="$SDK_ROOT"
 
-yes | "$SDKMANAGER" --licenses >/dev/null
+# 'yes' dies of SIGPIPE when sdkmanager stops reading; don't let pipefail
+# turn that into a script failure — the install step below catches real errors.
+yes 2>/dev/null | "$SDKMANAGER" --licenses >/dev/null || true
 "$SDKMANAGER" --install 'platform-tools' 'emulator' "$SYSTEM_IMAGE" 'platforms;android-35' >/dev/null
 
 echo "no" | "$AVDMANAGER" create avd --force --name "$AVD_NAME" --package "$SYSTEM_IMAGE" --device pixel_7 >/dev/null
