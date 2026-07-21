@@ -13,7 +13,6 @@ import { GameContext } from '../../context/game.context';
 import { useCellBorderStyles } from '../../hooks/use-cell-border-styles.hook';
 
 import { fieldCellGetBackgroundColor } from './utils/field-cell-get-background-color.util';
-import { fieldCellGetSelector } from './utils/field-cell-get-selector.util';
 
 import type { CellInterface } from '@suuudokuuu/generator';
 import type { ReactNode } from 'react';
@@ -71,7 +70,10 @@ export const FieldCell = (props: Props) => {
         cellAnimatedStyles,
         Platform.select({ web: { outline: 'none' } })
     ];
-    const cellSelector = fieldCellGetSelector(isActive, isActiveValue, isHighlighted);
+    // Stable, unique per-cell testID by board coordinate. Selection/highlight
+    // state must NOT change the testID: E2E flows target exact cells, and a
+    // state-dependent id makes positional selection diverge across platforms.
+    const cellSelector = `CellSelectors.Cell.${cell.y}-${cell.x}`;
 
     return (
         <ReanimatedPressable onPress={handlePress} style={cellStyles} testID={cellSelector}>
