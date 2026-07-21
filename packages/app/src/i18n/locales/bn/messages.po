@@ -39,7 +39,7 @@ msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
 msgstr ""
 
 #: src/challenge/components/challenge-technique-preview/challenge-technique-preview.tsx
-msgid "{sharpCount, plural, one {# sharp move on their timeline} other {# sharp moves on their timeline}}"
+msgid "{sharpCount, plural, one {# key move} other {# key moves}}"
 msgstr ""
 
 #: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
@@ -71,8 +71,8 @@ msgid "A little room between cells"
 msgstr "ঘরগুলোর মধ্যে সামান্য ফাঁকা জায়গা"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
-msgid "Accept Challenge"
-msgstr "চ্যালেঞ্জ গ্রহণ করুন"
+msgid "Accept challenge"
+msgstr ""
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Accept challenge?"
@@ -180,7 +180,6 @@ msgstr "বিল্ড করা হয়েছে:"
 msgid "Can you beat them?"
 msgstr "আপনি কি তাদের হারাতে পারবেন?"
 
-#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
@@ -370,6 +369,10 @@ msgstr "Español"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Evenly matched"
+msgstr ""
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "every technique"
 msgstr ""
 
 #: src/screens/components/home-screen/home.screen.tsx
@@ -596,6 +599,10 @@ msgstr "m"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Max Mistakes bonus"
 msgstr "অনুমোদিত ভুলের বোনাস"
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "Maybe later"
+msgstr ""
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -852,6 +859,14 @@ msgstr "ডেভেলপমেন্ট বিল্ড আবার লোড
 msgid "Rival"
 msgstr ""
 
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "Rival challenged you"
+msgstr ""
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "Rival's arsenal"
+msgstr ""
+
 #: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
 msgid "Rival's playbook"
 msgstr ""
@@ -1024,6 +1039,10 @@ msgstr "Svenska"
 msgid "Swordfish"
 msgstr ""
 
+#: src/challenge/components/challenge-technique-preview/challenge-technique-preview.tsx
+msgid "Taller marks = sharper techniques"
+msgstr ""
+
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
 msgstr "এই ডিভাইসে কমিটের লিংকটি খোলা যায়নি।"
@@ -1031,6 +1050,10 @@ msgstr "এই ডিভাইসে কমিটের লিংকটি খ�
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "The install link could not be opened. Check your browser settings and try again."
 msgstr "ইনস্টল লিংকটি খোলা যায়নি। ব্রাউজারের সেটিংস পরীক্ষা করে আবার চেষ্টা করুন।"
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "Their time to beat"
+msgstr ""
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
@@ -1251,10 +1274,6 @@ msgstr "আপনার সেরা খেলা"
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "Your browser may ask for permission to install unknown apps. Android will also show an operating-system security warning before installation."
 msgstr "আপনার ব্রাউজার অজানা উৎসের অ্যাপ ইনস্টল করার অনুমতি চাইতে পারে। ইনস্টলেশনের আগে Android অপারেটিং সিস্টেমের একটি নিরাপত্তা সতর্কতাও দেখাবে।"
-
-#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
-msgid "Your opponent completed this puzzle in"
-msgstr "আপনার প্রতিপক্ষ এই সুডোকু শেষ করেছে"
 
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Your progress"
