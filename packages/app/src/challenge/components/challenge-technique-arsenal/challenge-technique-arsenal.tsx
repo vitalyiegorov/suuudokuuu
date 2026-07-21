@@ -38,13 +38,10 @@ export const ChallengeTechniqueArsenal = ({ events }: Props) => {
 
                 return (
                     <View key={`arsenal-row-${rowIndex}`} style={styles.row}>
-                        {row.map((item, columnIndex) => {
-                            const isHero = rowIndex === 0 && columnIndex === 0;
+                        {row.map(item => {
                             const cardTestID = `${ChallengeTechniqueArsenalSelectors.Card}.${item.technique}`;
 
-                            return (
-                                <ChallengeTechniqueArsenalCard highlighted={isHero} item={item} key={item.technique} testID={cardTestID} />
-                            );
+                            return <ChallengeTechniqueArsenalCard item={item} key={item.technique} testID={cardTestID} />;
                         })}
                         {spacers}
                     </View>
