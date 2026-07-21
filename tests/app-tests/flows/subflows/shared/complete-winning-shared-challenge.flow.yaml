@@ -6,12 +6,12 @@ appId: ${APP_ID}
       SHARED_CHALLENGE_LINK: ${SHARED_CHALLENGE_LINK}
 - assertVisible: 'Your opponent completed this puzzle in'
 - runFlow: accept-shared-challenge.flow.yaml
+# The win fixture has exactly one empty cell (6-0); entering its value (2)
+# completes the puzzle and shows the challenge result.
 - tapOn:
-    id: 'CellSelectors.Root'
-    index: 54
+    id: 'CellSelectors.Cell.6-0'
 - tapOn:
-    id: 'AvailableValueItemSelectors.Button'
-    index: 0
+    id: 'AvailableValueItemSelectors.Button.2'
 - extendedWaitUntil:
     visible:
       id: 'ChallengeResultScreenSelectors.Root'

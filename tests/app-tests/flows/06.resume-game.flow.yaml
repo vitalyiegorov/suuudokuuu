@@ -81,8 +81,8 @@ appId: ${APP_ID}
     label: Relaunch restores the persisted game timer
 - runFlow: subflows/game/assert-timer-advances.flow.yaml
 - assertVisible:
-    id: 'CellSelectors.Root'
+    id: 'CellSelectors\.Cell\..*'
 - assertVisible:
-    id: 'AvailableValueItemSelectors.Button'
+    id: 'AvailableValueItemSelectors\.Button\..*'
 - runFlow: subflows/game/quit-current-game.flow.yaml
 - stopApp

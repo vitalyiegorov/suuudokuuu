@@ -51,7 +51,7 @@ Use a freshly rebuilt and reinstalled app when validating code, selector, deep-l
 
 1. Prefer selector constants from app `*.selectors.ts` files.
 2. When a flow needs a new selector, add it in the app next to the component or screen it targets.
-3. Keep selector names stable and descriptive, such as `CellSelectors.Root` or `GameScreenSelectors.Score`.
+3. Keep selector names stable and descriptive, such as `GameScreenSelectors.Score`. Prefer selectors that uniquely and stably identify an element over positional `index:` matches — a selection/highlight-dependent id (the board cells expose a stable `CellSelectors.Cell.<y>-<x>`, value buttons `AvailableValueItemSelectors.Button.<value>`) makes index-based selection diverge across platforms.
 4. Do not assert unrounded internal values when the UI renders rounded text.
 5. Export new selector files from `packages/app/src/selectors.ts` so test authors have one discoverable selector surface.
 6. Use selectors for app-owned pressable controls and screen roots. Text assertions are acceptable for user-visible copy that is itself the behavior under test.
