@@ -16,9 +16,10 @@ const GLYPH_GAP = 3;
 interface Props {
     readonly item: ChallengeTechniqueSummaryItemInterface;
     readonly highlighted: boolean;
+    readonly testID?: string;
 }
 
-export const ChallengeTechniqueArsenalCard = ({ item, highlighted }: Props) => {
+export const ChallengeTechniqueArsenalCard = ({ item, highlighted, testID }: Props) => {
     const { _ } = useLingui();
     const { theme } = use(ThemeContext);
 
@@ -43,7 +44,7 @@ export const ChallengeTechniqueArsenalCard = ({ item, highlighted }: Props) => {
     const nameStyle = [styles.name, { color: highlighted ? theme.colors.label.inverted : theme.colors.label.main }];
 
     return (
-        <View style={cardStyle}>
+        <View style={cardStyle} testID={testID}>
             <Text allowFontScaling={false} style={countStyle}>{`×${item.count}`}</Text>
             <View style={glyphBoxStyle}>
                 <TechniqueGlyph

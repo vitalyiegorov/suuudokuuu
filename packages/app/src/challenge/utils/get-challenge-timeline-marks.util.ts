@@ -10,11 +10,6 @@ export interface ChallengeTimelineMarkInterface {
 
 const PERCENT = 100;
 
-/**
- * Spreads the opponent's sharp (clever/advanced) moves across a fixed number of
- * evenly-spaced ticks. Ticks without a sharp move stay at complexity 0 (filler);
- * a tick keeps the sharpest move that lands on it.
- */
 export const getChallengeTimelineMarks = (
     events: ChallengeTechniqueEventInterface[],
     tickCount: number

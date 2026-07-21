@@ -86,7 +86,7 @@ export const ChallengeAcceptScreen = ({ opponentTotalTime, challengeState, onAcc
                         <Text allowFontScaling={false} style={timeLabelStyle}>
                             <Trans>Their time to beat</Trans>
                         </Text>
-                        <Text allowFontScaling={false} style={timeValueStyle}>
+                        <Text allowFontScaling={false} style={timeValueStyle} testID={ChallengeAcceptScreenSelectors.OpponentTime}>
                             {opponentTotalTimeText}
                         </Text>
                         <Text allowFontScaling={false} style={beatTextStyle}>
@@ -94,7 +94,7 @@ export const ChallengeAcceptScreen = ({ opponentTotalTime, challengeState, onAcc
                         </Text>
                     </View>
 
-                    <View style={styles.timelineWrap}>
+                    <View style={styles.timelineWrap} testID={ChallengeAcceptScreenSelectors.Timeline}>
                         <ChallengeTechniquePreview events={techniqueEvents} />
                     </View>
 
@@ -111,7 +111,12 @@ export const ChallengeAcceptScreen = ({ opponentTotalTime, challengeState, onAcc
 
                     <View style={styles.actions}>
                         <BlackButton onPress={onAccept} testID={ChallengeAcceptScreenSelectors.AcceptButton} text={t`Accept challenge`} />
-                        <BlackButton href="/" text={t`Maybe later`} variant="ghost" />
+                        <BlackButton
+                            href="/"
+                            testID={ChallengeAcceptScreenSelectors.MaybeLaterButton}
+                            text={t`Maybe later`}
+                            variant="ghost"
+                        />
                     </View>
                 </View>
             </ScreenChromeScrollView>

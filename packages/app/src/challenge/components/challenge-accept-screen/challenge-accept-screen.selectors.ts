@@ -1,4 +1,7 @@
 export enum ChallengeAcceptScreenSelectors {
     AcceptButton = 'ChallengeAcceptScreenSelectors.AcceptButton',
-    Root = 'ChallengeAcceptScreenSelectors.Root'
+    MaybeLaterButton = 'ChallengeAcceptScreenSelectors.MaybeLaterButton',
+    OpponentTime = 'ChallengeAcceptScreenSelectors.OpponentTime',
+    Root = 'ChallengeAcceptScreenSelectors.Root',
+    Timeline = 'ChallengeAcceptScreenSelectors.Timeline'
 }

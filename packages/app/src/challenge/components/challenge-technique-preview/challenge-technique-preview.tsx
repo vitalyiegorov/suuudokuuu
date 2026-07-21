@@ -40,8 +40,11 @@ export const ChallengeTechniquePreview = ({ events }: Props) => {
     const keyMovesText = plural(keyMoveCount, { one: '# key move', other: '# key moves' });
     const captionText = `${t`Taller marks = sharper techniques`} · ${keyMovesText}`;
 
+    const sharpestMark = marks.reduce((sharpest, mark) => (mark.complexity > sharpest.complexity ? mark : sharpest), marks[0]);
+    const markerColor = sharpestMark.tier === null ? theme.colors.label.hint : getTechniqueTierColor(sharpestMark.tier, theme, 'default');
+
     const trackStyle = [styles.track, { backgroundColor: theme.colors.black }];
-    const barStyle = [styles.bar, { backgroundColor: theme.colors.label.main }];
+    const barStyle = [styles.bar, { backgroundColor: markerColor }];
     const captionStyle = [styles.caption, { color: theme.colors.label.hint }];
 
     return (

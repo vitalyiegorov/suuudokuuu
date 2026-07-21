@@ -1,6 +1,7 @@
 export * from './@generic/components/header-back-button/header-back-button.selectors';
 export * from './@generic/components/play-again-button/play-again-button.selectors';
 export * from './challenge/components/challenge-accept-screen/challenge-accept-screen.selectors';
+export * from './challenge/components/challenge-technique-arsenal/challenge-technique-arsenal.selectors';
 export * from './challenge/components/challenge-try-again-button/challenge-try-again-button.selectors';
 export * from './game/components/available-values-item/available-value-item.selectors';
 export * from './history/components/completed-games-list/completed-game-item.selectors';

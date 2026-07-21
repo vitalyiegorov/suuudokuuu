@@ -3,8 +3,8 @@ import { StyleSheet } from 'react-native';
 export const ChallengeTechniquePreviewStyles = StyleSheet.create({
     bar: {
         borderRadius: 2,
-        height: 13,
-        width: 7
+        height: 15,
+        width: 3
     },
     caption: {
         fontFamily: 'Inter_500Medium',
