@@ -20,8 +20,7 @@ import { ChallengeAcceptScreenSelectors } from './challenge-accept-screen.select
 import { ChallengeAcceptScreenStyles as styles } from './challenge-accept-screen.styles';
 
 const MEDALLION_ICON_SIZE = 40;
-const FOOTER_HEIGHT = 150;
-const FOOTER_FADE_INTENSITY = 70;
+const BOTTOM_INSET = 24;
 const TOP_FADE_HEIGHT = 56;
 const RIVAL_INITIAL = 'R';
 
@@ -53,25 +52,13 @@ export const ChallengeAcceptScreen = ({ opponentTotalTime, challengeState, onAcc
     const arsenalLabelStyle = [styles.arsenalLabel, { color: theme.colors.label.hint }];
     const arsenalTagStyle = [styles.arsenalTag, { color: theme.colors.label.hint }];
 
-    const footer = (
-        <View style={styles.actions}>
-            <BlackButton onPress={onAccept} testID={ChallengeAcceptScreenSelectors.AcceptButton} text={t`Accept challenge`} />
-            <BlackButton href="/" text={t`Maybe later`} variant="ghost" />
-        </View>
-    );
-    const footerEdgeFadeProps = { height: FOOTER_HEIGHT, intensity: FOOTER_FADE_INTENSITY };
     const topEdgeFadeProps = { height: TOP_FADE_HEIGHT };
 
     return (
-        <ChromePage
-            contentStyle={styles.chromeContent}
-            footer={footer}
-            footerEdgeFadeProps={footerEdgeFadeProps}
-            topEdgeFadeProps={topEdgeFadeProps}
-        >
+        <ChromePage contentStyle={styles.chromeContent} testID={ChallengeAcceptScreenSelectors.Root} topEdgeFadeProps={topEdgeFadeProps}>
             <ScreenChromeScrollView
                 contentContainerStyle={styles.scrollContent}
-                contentInsetBottom={FOOTER_HEIGHT}
+                contentInsetBottom={BOTTOM_INSET}
                 showsVerticalScrollIndicator={false}
                 style={styles.scrollView}
             >
@@ -121,6 +108,11 @@ export const ChallengeAcceptScreen = ({ opponentTotalTime, challengeState, onAcc
                     </View>
 
                     <ChallengeTechniqueArsenal events={techniqueEvents} />
+
+                    <View style={styles.actions}>
+                        <BlackButton onPress={onAccept} testID={ChallengeAcceptScreenSelectors.AcceptButton} text={t`Accept challenge`} />
+                        <BlackButton href="/" text={t`Maybe later`} variant="ghost" />
+                    </View>
                 </View>
             </ScreenChromeScrollView>
         </ChromePage>
