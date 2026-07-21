@@ -14,10 +14,11 @@ export const ChallengeRaceRunnerStyles = StyleSheet.create({
     },
     runner: {
         alignItems: 'center',
+        bottom: 0,
         justifyContent: 'center',
         marginLeft: -9,
         position: 'absolute',
-        top: -5,
+        top: 0,
         width: 18
     }
 });
