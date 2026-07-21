@@ -12,16 +12,19 @@ import {
     gameElapsedTimeSelector,
     gameSolutionsStepsSelector
 } from '../../../game/store/game.selectors';
+import { ThemeContext } from '../../../theme/context/theme.context';
 import { ChallengeLossReason } from '../../enums/challenge-loss-reason.enum';
 import { useChallengeTechniqueEvents } from '../../hooks/use-challenge-technique-events.hook';
 import { getChallengeProgress } from '../../utils/get-challenge-progress.util';
-import { ChallengeProgressBar } from '../challenge-progress-bar/challenge-progress-bar';
-import { ChallengeTechniqueCallout } from '../challenge-technique-callout/challenge-technique-callout';
+import { ChallengeRaceBadge } from '../challenge-race-badge/challenge-race-badge';
+import { ChallengeRaceStatus } from '../challenge-race-status/challenge-race-status';
+import { ChallengeRaceTimeline } from '../challenge-race-timeline/challenge-race-timeline';
 
 import { ChallengeRaceHudStyles as styles } from './challenge-race-hud.styles';
 
 export const ChallengeRaceHud = () => {
     const { sudoku } = use(GameContext);
+    const { theme } = use(ThemeContext);
 
     const dispatch = useAppDispatch();
     const elapsedTime = useAppSelector(gameElapsedTimeSelector);
@@ -41,16 +44,16 @@ export const ChallengeRaceHud = () => {
         }
     }, [opponentProgress, dispatch, sudoku.Difficulty]);
 
+    const cardStyle = [styles.card, { backgroundColor: theme.colors.black }];
+
     return (
         <View style={styles.container}>
-            <ChallengeProgressBar
-                elapsedTime={elapsedTime}
-                events={events}
-                opponentProgress={opponentProgress}
-                playerProgress={playerProgress}
-            />
-            <View style={styles.calloutRow}>
-                <ChallengeTechniqueCallout elapsedTime={elapsedTime} events={events} />
+            <View style={cardStyle}>
+                <View style={styles.header}>
+                    <ChallengeRaceStatus opponentProgress={opponentProgress} playerProgress={playerProgress} />
+                    <ChallengeRaceBadge elapsedTime={elapsedTime} events={events} />
+                </View>
+                <ChallengeRaceTimeline events={events} opponentProgress={opponentProgress} playerProgress={playerProgress} />
             </View>
         </View>
     );

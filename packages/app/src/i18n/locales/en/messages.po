@@ -649,6 +649,10 @@ msgstr "Naked Single"
 msgid "Naked Triple"
 msgstr "Naked Triple"
 
+#: src/challenge/components/challenge-race-status/challenge-race-status.tsx
+msgid "neck and neck"
+msgstr "neck and neck"
+
 #: src/screens/components/home-screen/home-screen-section-header/home-screen-section-header.tsx
 msgid "New game"
 msgstr "New game"
@@ -856,14 +860,18 @@ msgstr "Result"
 msgid "Retry loading development build"
 msgstr "Retry loading development build"
 
+#: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 #: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
-#: src/challenge/components/challenge-technique-callout/challenge-technique-callout.tsx
 msgid "Rival"
 msgstr "Rival"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Rival challenged you"
 msgstr "Rival challenged you"
+
+#: src/challenge/components/challenge-race-status/challenge-race-status.tsx
+msgid "rival leads"
+msgstr "rival leads"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Rival's arsenal"
@@ -1268,6 +1276,10 @@ msgstr "You beat your rival"
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "You got to"
 msgstr "You got to"
+
+#: src/challenge/components/challenge-race-status/challenge-race-status.tsx
+msgid "you lead"
+msgstr "you lead"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Your best run"
