@@ -23,15 +23,16 @@ export const ChallengeTechniquePreviewStyles = StyleSheet.create({
     },
     tick: {
         borderRadius: 2,
-        bottom: 0,
-        marginLeft: -1.5,
-        position: 'absolute'
+        flex: 1
     },
     track: {
-        borderRadius: 12,
-        height: 34,
+        alignItems: 'center',
+        borderRadius: 16,
+        flexDirection: 'row',
+        gap: 3,
+        height: 52,
         overflow: 'hidden',
-        position: 'relative',
+        paddingHorizontal: 14,
         width: '100%'
     }
 });

@@ -1,3 +1,4 @@
 export enum ChallengeAcceptScreenSelectors {
-    AcceptButton = 'ChallengeAcceptScreenSelectors.AcceptButton'
+    AcceptButton = 'ChallengeAcceptScreenSelectors.AcceptButton',
+    Root = 'ChallengeAcceptScreenSelectors.Root'
 }

@@ -8,6 +8,7 @@ export const ChallengeTechniqueArsenalStyles = StyleSheet.create({
         borderWidth: 1.5,
         flex: 1,
         gap: 10,
+        minHeight: 116,
         overflow: 'hidden',
         paddingBottom: 12,
         paddingHorizontal: 8,
@@ -41,6 +42,8 @@ export const ChallengeTechniqueArsenalStyles = StyleSheet.create({
         fontFamily: 'Inter_700Bold',
         fontSize: 11,
         letterSpacing: -0.1,
+        lineHeight: 14,
+        minHeight: 28,
         textAlign: 'center'
     },
     row: {

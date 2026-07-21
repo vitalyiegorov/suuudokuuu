@@ -10,6 +10,7 @@ import { ChallengeTechniqueArsenalStyles as styles } from './challenge-technique
 import type { ChallengeTechniqueEventInterface } from '../../interfaces/challenge-technique-event.interface';
 
 const CARDS_PER_ROW = 3;
+const MAX_ARSENAL_CARDS = 6;
 
 interface Props {
     readonly events: ChallengeTechniqueEventInterface[];
@@ -20,7 +21,7 @@ export const ChallengeTechniqueArsenal = ({ events }: Props) => {
         return null;
     }
 
-    const summary = getChallengeTechniqueSummary(events);
+    const summary = getChallengeTechniqueSummary(events).slice(0, MAX_ARSENAL_CARDS);
     const rows = [];
     for (let index = 0; index < summary.length; index += CARDS_PER_ROW) {
         rows.push(summary.slice(index, index + CARDS_PER_ROW));

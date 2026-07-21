@@ -7,8 +7,7 @@ import Animated, { FadeIn } from 'react-native-reanimated';
 import { isEmptyArray } from '@rnw-community/shared';
 
 import { ThemeContext } from '../../../theme/context/theme.context';
-import { challengeTechniqueTierVisualConstant } from '../../constants/challenge-technique-tier-visual.constant';
-import { ChallengeTechniqueTierEnum } from '../../enums/challenge-technique-tier.enum';
+import { getChallengeTimelineMarks } from '../../utils/get-challenge-timeline-marks.util';
 import { getTechniqueTierColor } from '../../utils/get-technique-tier-color.util';
 
 import { ChallengeTechniquePreviewStyles as styles } from './challenge-technique-preview.styles';
@@ -16,8 +15,13 @@ import { ChallengeTechniquePreviewStyles as styles } from './challenge-technique
 import type { ChallengeTechniqueEventInterface } from '../../interfaces/challenge-technique-event.interface';
 import type { ViewStyle } from 'react-native';
 
-const TICK_STAGGER_MS = 18;
-const TICK_DURATION_MS = 260;
+const TICK_COUNT = 60;
+const MARK_BASE_HEIGHT = 9;
+const MARK_HEIGHT_STEP = 4;
+const FILLER_HEIGHT = 7;
+const FILLER_OPACITY = 0.3;
+const TICK_STAGGER_MS = 10;
+const TICK_DURATION_MS = 240;
 
 interface Props {
     readonly events: ChallengeTechniqueEventInterface[];
@@ -31,10 +35,9 @@ export const ChallengeTechniquePreview = ({ events }: Props) => {
         return null;
     }
 
-    const sharpCount = events.filter(
-        event => event.tier === ChallengeTechniqueTierEnum.Clever || event.tier === ChallengeTechniqueTierEnum.Advanced
-    ).length;
-    const keyMovesText = plural(sharpCount, { one: '# key move', other: '# key moves' });
+    const marks = getChallengeTimelineMarks(events, TICK_COUNT);
+    const keyMoveCount = marks.filter(mark => mark.complexity > 0).length;
+    const keyMovesText = plural(keyMoveCount, { one: '# key move', other: '# key moves' });
     const captionText = `${t`Taller marks = sharper techniques`} · ${keyMovesText}`;
 
     const trackStyle = [styles.track, { backgroundColor: theme.colors.black }];
@@ -44,18 +47,17 @@ export const ChallengeTechniquePreview = ({ events }: Props) => {
     return (
         <View style={styles.container}>
             <View style={trackStyle}>
-                {events.map((event, index) => {
-                    const { height, width } = challengeTechniqueTierVisualConstant[event.tier];
-                    const positionStyle: ViewStyle = {
-                        backgroundColor: getTechniqueTierColor(event.tier, theme, 'inverted'),
-                        height,
-                        left: `${event.positionPercent}%`,
-                        width
+                {marks.map((mark, index) => {
+                    const markColor = mark.tier === null ? theme.colors.white05 : getTechniqueTierColor(mark.tier, theme, 'inverted');
+                    const markStyle: ViewStyle = {
+                        backgroundColor: markColor,
+                        height: mark.tier === null ? FILLER_HEIGHT : MARK_BASE_HEIGHT + mark.complexity * MARK_HEIGHT_STEP,
+                        opacity: mark.tier === null ? FILLER_OPACITY : 1
                     };
-                    const tickStyle = [styles.tick, positionStyle];
+                    const tickStyle = [styles.tick, markStyle];
                     const enterAnimation = FadeIn.delay(index * TICK_STAGGER_MS).duration(TICK_DURATION_MS);
 
-                    return <Animated.View entering={enterAnimation} key={`preview-tick-${index}`} style={tickStyle} />;
+                    return <Animated.View entering={enterAnimation} key={`tick-${index}`} style={tickStyle} />;
                 })}
             </View>
             <View style={styles.captionRow}>

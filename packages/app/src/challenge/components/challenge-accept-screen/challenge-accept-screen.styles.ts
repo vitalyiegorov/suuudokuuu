@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native';
 export const ChallengeAcceptScreenStyles = StyleSheet.create({
     actions: {
         gap: 10,
+        marginTop: 24,
         width: '100%'
     },
     arsenalHeader: {
