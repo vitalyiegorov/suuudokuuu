@@ -1,1 +1,1 @@
-export const ScreenChromeContentInsetTop = 76;
+export const ScreenChromeContentInsetTop = 48;
