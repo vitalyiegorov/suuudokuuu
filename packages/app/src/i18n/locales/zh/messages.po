@@ -34,12 +34,12 @@ msgstr "{filledCells}/{totalCells} 已填"
 msgid "{gamesCompleted, plural, one {# completed game} other {# completed games}}"
 msgstr "{gamesCompleted, plural, one {# 局已完成} other {# 局已完成}}"
 
-#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
-msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
+#: src/challenge/components/challenge-technique-preview/challenge-technique-preview.tsx
+msgid "{keyMoveCount, plural, one {# key move} other {# key moves}}"
 msgstr ""
 
-#: src/challenge/components/challenge-technique-preview/challenge-technique-preview.tsx
-msgid "{sharpCount, plural, one {# key move} other {# key moves}}"
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
+msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
 msgstr ""
 
 #: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx

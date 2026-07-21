@@ -5,6 +5,7 @@ import { isEmptyArray } from '@rnw-community/shared';
 import { getChallengeTechniqueSummary } from '../../utils/get-challenge-technique-summary.util';
 import { ChallengeTechniqueArsenalCard } from '../challenge-technique-arsenal-card/challenge-technique-arsenal-card';
 
+import { ChallengeTechniqueArsenalSelectors } from './challenge-technique-arsenal.selectors';
 import { ChallengeTechniqueArsenalStyles as styles } from './challenge-technique-arsenal.styles';
 
 import type { ChallengeTechniqueEventInterface } from '../../interfaces/challenge-technique-event.interface';
@@ -28,7 +29,7 @@ export const ChallengeTechniqueArsenal = ({ events }: Props) => {
     }
 
     return (
-        <View style={styles.grid}>
+        <View style={styles.grid} testID={ChallengeTechniqueArsenalSelectors.Root}>
             {rows.map((row, rowIndex) => {
                 const spacerCount = CARDS_PER_ROW - row.length;
                 const spacers = Array.from({ length: spacerCount }, (_unused, spacerIndex) => (
@@ -39,8 +40,11 @@ export const ChallengeTechniqueArsenal = ({ events }: Props) => {
                     <View key={`arsenal-row-${rowIndex}`} style={styles.row}>
                         {row.map((item, columnIndex) => {
                             const isHero = rowIndex === 0 && columnIndex === 0;
+                            const cardTestID = `${ChallengeTechniqueArsenalSelectors.Card}.${item.technique}`;
 
-                            return <ChallengeTechniqueArsenalCard highlighted={isHero} item={item} key={item.technique} />;
+                            return (
+                                <ChallengeTechniqueArsenalCard highlighted={isHero} item={item} key={item.technique} testID={cardTestID} />
+                            );
                         })}
                         {spacers}
                     </View>

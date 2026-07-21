@@ -1,0 +1,39 @@
+appId: ${APP_ID}
+---
+- startRecording:
+      path: '08.challenge-accept-preview'
+      optional: true
+
+- runFlow: subflows/navigation/launch-home.flow.yaml
+- runFlow:
+      file: subflows/shared/open-shared-challenge.flow.yaml
+      env:
+          SHARED_CHALLENGE_LINK: suuudokuuu://shared/_KAOADKxQxGAEwAiG0eSR7tZLUwnibscwQ0-A5fIIKC45kkWcIIQQQRgYUgCGSyNYgAAAAAAAAAAAAASWSrfOcD6yrHa0SAMNhPEITYFvbWxiFMlBQUFBQUFBQUFBQUFBQUFCQkFAgICAgICBQIFCQIJCQUFCQkFAgICAgICAgICAgICAgICAgICAgICAgIA
+
+- assertVisible: '.*Nightmare.*'
+- assertVisible:
+      id: 'ChallengeAcceptScreenSelectors.OpponentTime'
+- assertVisible: '03:50'
+- assertVisible:
+      id: 'ChallengeAcceptScreenSelectors.Timeline'
+- assertVisible: '.*28 key moves.*'
+- assertVisible:
+      id: 'ChallengeTechniqueArsenalSelectors.Root'
+- assertVisible:
+      id: 'ChallengeTechniqueArsenalSelectors.Card.26'
+- assertVisible: 'AIC'
+- scrollUntilVisible:
+      element:
+          id: 'ChallengeAcceptScreenSelectors.MaybeLaterButton'
+      direction: DOWN
+      timeout: 5000
+- assertVisible:
+      id: 'ChallengeTechniqueArsenalSelectors.Card.10'
+- assertVisible: 'Hidden Pair'
+- tapOn:
+      id: 'ChallengeAcceptScreenSelectors.MaybeLaterButton'
+- extendedWaitUntil:
+      visible:
+          id: 'HomeScreenSelectors.Root'
+      timeout: 3000
+- stopApp
