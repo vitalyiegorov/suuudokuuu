@@ -33,6 +33,12 @@ appId: ${APP_ID}
       text: 'Newbie.*'
     direction: DOWN
 - assertVisible: '.*completed game.*'
+# The segmented-control tabs sit at the top; scrolling to the rank card above
+# pushed them off the shorter Android viewport, so scroll back up to reach it.
+- scrollUntilVisible:
+    element:
+      id: 'HistorySegmentedControlSelectors.GamesTab'
+    direction: UP
 - tapOn:
     id: 'HistorySegmentedControlSelectors.GamesTab'
 - extendedWaitUntil:
