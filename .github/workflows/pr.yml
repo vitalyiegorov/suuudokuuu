@@ -154,20 +154,17 @@ jobs:
         run: |
           set -euo pipefail
           summary="changes=$CHANGES_RESULT, code-quality=$CODE_QUALITY_RESULT, mobile=$MOBILE_RESULT, ios-maestro=$IOS_MAESTRO_RESULT, android-maestro=$ANDROID_MAESTRO_RESULT"
-          # android-maestro is reported for visibility but NOT yet gating: a few
-          # flows still diverge between iOS and Android. Promote it into the
-          # pass conditions below (mirroring ios-maestro) once it runs green.
           echo "CI summary: $summary"
           if [ "$CHANGES_RESULT" != 'success' ] || [ "$CODE_QUALITY_RESULT" != 'success' ]; then
             echo "Required jobs did not pass: $summary"
             exit 1
           fi
 
-          if [ "$MOBILE_RESULT" = 'true' ] && [ "$IOS_MAESTRO_RESULT" = 'success' ]; then
+          if [ "$MOBILE_RESULT" = 'true' ] && [ "$IOS_MAESTRO_RESULT" = 'success' ] && [ "$ANDROID_MAESTRO_RESULT" = 'success' ]; then
             exit 0
           fi
 
-          if [ "$MOBILE_RESULT" = 'false' ] && [ "$IOS_MAESTRO_RESULT" = 'skipped' ]; then
+          if [ "$MOBILE_RESULT" = 'false' ] && [ "$IOS_MAESTRO_RESULT" = 'skipped' ] && [ "$ANDROID_MAESTRO_RESULT" = 'skipped' ]; then
             exit 0
           fi
 
