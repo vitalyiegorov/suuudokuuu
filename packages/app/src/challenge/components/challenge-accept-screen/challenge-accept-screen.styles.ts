@@ -21,5 +21,11 @@ export const ChallengeAcceptScreenStyles = StyleSheet.create({
     opponentTime: {
         fontSize: 24,
         fontWeight: 'bold'
+    },
+    previewWrapper: {
+        alignItems: 'center',
+        marginBottom: 24,
+        marginTop: 8,
+        width: '100%'
     }
 });

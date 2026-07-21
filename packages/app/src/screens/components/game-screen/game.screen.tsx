@@ -14,7 +14,8 @@ import { animationDurationConstant } from '../../../@generic/constants/animation
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { useVibration } from '../../../@generic/hooks/use-vibration.hook';
-import { ChallengeProgressBar } from '../../../challenge/components/challenge-progress-bar/challenge-progress-bar';
+import { ChallengeRaceHud } from '../../../challenge/components/challenge-race-hud/challenge-race-hud';
+import { ChallengeLossReason } from '../../../challenge/enums/challenge-loss-reason.enum';
 import { AutoCandidatesButton } from '../../../game/components/auto-candidates-button/auto-candidates-button';
 import { AvailableValuesItem, AvailableValuesItemRef } from '../../../game/components/available-values-item/available-values-item';
 import { CandidateInputItem } from '../../../game/components/candidate-input-item/candidate-input-item';
@@ -113,7 +114,11 @@ export const GameScreen = () => {
 
         dispatch(gameFinishAction({ difficulty: sudoku.Difficulty, isWon: false, isChallenge: isChallengeMode }));
 
-        router.replace(isChallengeMode ? '/challenge-lost' : '/loser');
+        if (isChallengeMode) {
+            router.replace({ pathname: '/challenge-lost', params: { reason: ChallengeLossReason.Mistakes } });
+        } else {
+            router.replace('/loser');
+        }
     };
 
     const handleWonGame = () => {
@@ -125,8 +130,10 @@ export const GameScreen = () => {
 
         // HINT: We need to wait for the animation to finish, animation finish event would fix it?
         setTimeout(() => {
-            if (isChallengeMode) {
-                router.replace(wonChallenge ? '/challenge-won' : '/challenge-lost');
+            if (isChallengeMode && wonChallenge) {
+                router.replace('/challenge-won');
+            } else if (isChallengeMode) {
+                router.replace({ pathname: '/challenge-lost', params: { reason: ChallengeLossReason.Time } });
             } else {
                 router.replace('/winner');
             }
@@ -203,7 +210,7 @@ export const GameScreen = () => {
             testID={GameScreenSelectors.Root}
         >
             <GameTimerController />
-            {isChallengeMode && <ChallengeProgressBar />}
+            {isChallengeMode && <ChallengeRaceHud />}
             <View style={styles.controls}>
                 <GameScreenMetrics
                     elapsedTime={elapsedTime}
