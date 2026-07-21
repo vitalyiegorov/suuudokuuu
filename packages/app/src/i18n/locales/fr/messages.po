@@ -36,6 +36,18 @@ msgstr "{filledCells}/{totalCells} remplies"
 msgid "{gamesCompleted, plural, one {# completed game} other {# completed games}}"
 msgstr "{gamesCompleted, plural, one {# partie terminée} other {# parties terminées}}"
 
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
+msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
+msgstr ""
+
+#: src/challenge/components/challenge-technique-preview/challenge-technique-preview.tsx
+msgid "{sharpCount, plural, one {# sharp move on their timeline} other {# sharp moves on their timeline}}"
+msgstr ""
+
+#: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
+msgid "{sharpCount, plural, one {# sharp technique} other {# sharp techniques}}"
+msgstr ""
+
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
 msgstr "{value, plural, one {# jour} other {# jours}}"
@@ -72,7 +84,7 @@ msgstr "Accepter le défi ?"
 msgid "Adjust the digits on the Sudoku board"
 msgstr "Ajuster les chiffres sur la grille de sudoku"
 
-#: src/history/constants/technique-labels.constant.ts
+#: src/@generic/constants/technique-labels.constant.ts
 msgid "AIC"
 msgstr ""
 
@@ -158,7 +170,7 @@ msgstr "Ce sera pour la prochaine fois !"
 msgid "Board colors and screen appearance"
 msgstr "Couleurs de la grille et apparence des écrans"
 
-#: src/history/constants/technique-labels.constant.ts
+#: src/@generic/constants/technique-labels.constant.ts
 msgid "Box-Line Reduction"
 msgstr ""
 
@@ -300,10 +312,6 @@ msgstr "Série quotidienne"
 msgid "Dead even"
 msgstr "Parfaitement à égalité"
 
-#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
-msgid "Dead heat"
-msgstr "Arrivée serrée"
-
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Deep focus"
 msgstr "Concentration intense"
@@ -320,6 +328,10 @@ msgstr "Version de développement indisponible"
 #: src/screens/components/beta-screen/beta.screen.tsx
 msgid "Development builds"
 msgstr "Versions de développement"
+
+#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
+msgid "Did not finish the board"
+msgstr ""
 
 #: src/game/components/difficulty-complexity-slider/difficulty-complexity-slider.tsx
 msgid "Difficulty"
@@ -358,6 +370,10 @@ msgstr "English"
 msgid "Español"
 msgstr "Español"
 
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Evenly matched"
+msgstr ""
+
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Expert grid"
 msgstr "Grille experte"
@@ -378,11 +394,11 @@ msgstr ""
 msgid "Finish a puzzle and it will appear here."
 msgstr "Terminez une grille et elle apparaîtra ici."
 
-#: src/history/constants/technique-labels.constant.ts
+#: src/@generic/constants/technique-labels.constant.ts
 msgid "Finned Swordfish"
 msgstr ""
 
-#: src/history/constants/technique-labels.constant.ts
+#: src/@generic/constants/technique-labels.constant.ts
 msgid "Finned X-Wing"
 msgstr ""
 
@@ -390,7 +406,7 @@ msgstr ""
 msgid "Français"
 msgstr "Français"
 
-#: src/history/constants/technique-labels.constant.ts
+#: src/@generic/constants/technique-labels.constant.ts
 msgid "Full House"
 msgstr ""
 
@@ -424,7 +440,7 @@ msgstr "Or"
 msgid "Group(3x3 cells)"
 msgstr "Bloc (3x3 cases)"
 
-#: src/history/constants/technique-labels.constant.ts
+#: src/@generic/constants/technique-labels.constant.ts
 msgid "Guess"
 msgstr ""
 
@@ -452,19 +468,19 @@ msgstr "Hardcore"
 msgid "Help Ukraine win"
 msgstr "Aidez l’Ukraine à gagner"
 
-#: src/history/constants/technique-labels.constant.ts
+#: src/@generic/constants/technique-labels.constant.ts
 msgid "Hidden Pair"
 msgstr ""
 
-#: src/history/constants/technique-labels.constant.ts
+#: src/@generic/constants/technique-labels.constant.ts
 msgid "Hidden Quad"
 msgstr ""
 
-#: src/history/constants/technique-labels.constant.ts
+#: src/@generic/constants/technique-labels.constant.ts
 msgid "Hidden Single"
 msgstr ""
 
-#: src/history/constants/technique-labels.constant.ts
+#: src/@generic/constants/technique-labels.constant.ts
 msgid "Hidden Triple"
 msgstr ""
 
@@ -526,7 +542,7 @@ msgstr "Installation sur iOS"
 msgid "It was a tie"
 msgstr "C’était une égalité"
 
-#: src/history/constants/technique-labels.constant.ts
+#: src/@generic/constants/technique-labels.constant.ts
 msgid "Jellyfish"
 msgstr ""
 
@@ -610,19 +626,19 @@ msgstr "Erreurs"
 msgid "Move"
 msgstr "Coup"
 
-#: src/history/constants/technique-labels.constant.ts
+#: src/@generic/constants/technique-labels.constant.ts
 msgid "Naked Pair"
 msgstr ""
 
-#: src/history/constants/technique-labels.constant.ts
+#: src/@generic/constants/technique-labels.constant.ts
 msgid "Naked Quad"
 msgstr ""
 
-#: src/history/constants/technique-labels.constant.ts
+#: src/@generic/constants/technique-labels.constant.ts
 msgid "Naked Single"
 msgstr ""
 
-#: src/history/constants/technique-labels.constant.ts
+#: src/@generic/constants/technique-labels.constant.ts
 msgid "Naked Triple"
 msgstr ""
 
@@ -721,9 +737,10 @@ msgstr "Ouvre l’invite d’installation pour l’appareil enregistré"
 msgid "Opens this commit on GitHub"
 msgstr "Ouvre ce commit sur GitHub"
 
-#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
-msgid "Opponent time"
-msgstr "Temps adverse"
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Out of mistakes"
+msgstr ""
 
 #: src/history/components/history-segmented-control/history-segmented-control.tsx
 msgid "Overview"
@@ -772,11 +789,11 @@ msgstr "Parties jouées"
 msgid "Playing with fewer mistakes allowed gives you a score multiplier:"
 msgstr "Moins vous autorisez d'erreurs, plus le multiplicateur est élevé :"
 
-#: src/history/constants/technique-labels.constant.ts
+#: src/@generic/constants/technique-labels.constant.ts
 msgid "Pointing Pair"
 msgstr ""
 
-#: src/history/constants/technique-labels.constant.ts
+#: src/@generic/constants/technique-labels.constant.ts
 msgid "Pointing Triple"
 msgstr ""
 
@@ -824,23 +841,35 @@ msgstr "Relecture"
 msgid "Report a bug"
 msgstr "Signaler un problème"
 
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
+msgid "Result"
+msgstr ""
+
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Retry loading development build"
 msgstr "Recharger la version de développement"
+
+#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
+#: src/challenge/components/challenge-technique-callout/challenge-technique-callout.tsx
+msgid "Rival"
+msgstr ""
+
+#: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
+msgid "Rival's playbook"
+msgstr ""
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Row"
 msgstr "Ligne"
 
-#: src/history/constants/technique-labels.constant.ts
+#: src/@generic/constants/technique-labels.constant.ts
 msgid "Sashimi Swordfish"
 msgstr ""
 
-#: src/history/constants/technique-labels.constant.ts
+#: src/@generic/constants/technique-labels.constant.ts
 msgid "Sashimi X-Wing"
 msgstr ""
 
-#: src/challenge/components/challenge-result-score/challenge-result-score.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
@@ -892,7 +921,7 @@ msgstr "Afficher les notes correspondantes pour la case sélectionnée"
 msgid "Show the row, column, and box for the selected cell"
 msgstr "Afficher la ligne, la colonne et le bloc de la cellule sélectionnée"
 
-#: src/history/constants/technique-labels.constant.ts
+#: src/@generic/constants/technique-labels.constant.ts
 msgid "Simple Coloring"
 msgstr ""
 
@@ -911,6 +940,10 @@ msgstr "Chiffres les plus petits pour les grilles compactes"
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Soft gray board with a paper-like feel"
 msgstr "Grille grise douce avec un aspect papier"
+
+#: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
+msgid "Solved with the fundamentals"
+msgstr ""
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Space between Sudoku cells"
@@ -989,7 +1022,7 @@ msgstr "SuuudokuuU : le jeu"
 msgid "Svenska"
 msgstr "Svenska"
 
-#: src/history/constants/technique-labels.constant.ts
+#: src/@generic/constants/technique-labels.constant.ts
 msgid "Swordfish"
 msgstr ""
 
@@ -1028,7 +1061,7 @@ msgstr "Serré"
 msgid "Time"
 msgstr "Temps"
 
-#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "Time behind"
 msgstr "Retard de temps"
 
@@ -1137,7 +1170,11 @@ msgstr "Vibrer lors des touchers et des actions de jeu"
 msgid "Vibration"
 msgstr "Vibration"
 
-#: src/history/constants/technique-labels.constant.ts
+#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
+msgid "VS"
+msgstr ""
+
+#: src/@generic/constants/technique-labels.constant.ts
 msgid "W-Wing"
 msgstr ""
 
@@ -1169,7 +1206,7 @@ msgstr ""
 msgid "Winners-winner, chicken dinner!"
 msgstr "Victoire ! À vous le festin !"
 
-#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "Winning margin"
 msgstr "Marge de victoire"
 
@@ -1177,24 +1214,32 @@ msgstr "Marge de victoire"
 msgid "Won"
 msgstr "Gagnées"
 
-#: src/history/constants/technique-labels.constant.ts
+#: src/@generic/constants/technique-labels.constant.ts
 msgid "X-Chain"
 msgstr ""
 
-#: src/history/constants/technique-labels.constant.ts
+#: src/@generic/constants/technique-labels.constant.ts
 msgid "X-Wing"
 msgstr ""
 
-#: src/history/constants/technique-labels.constant.ts
+#: src/@generic/constants/technique-labels.constant.ts
 msgid "XY-Chain"
 msgstr ""
 
-#: src/history/constants/technique-labels.constant.ts
+#: src/@generic/constants/technique-labels.constant.ts
 msgid "XY-Wing"
 msgstr ""
 
-#: src/history/constants/technique-labels.constant.ts
+#: src/@generic/constants/technique-labels.constant.ts
 msgid "XYZ-Wing"
+msgstr ""
+
+#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
+msgid "You"
+msgstr ""
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "You beat your rival"
 msgstr ""
 
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
@@ -1217,6 +1262,10 @@ msgstr "Votre adversaire l'a terminée en"
 msgid "Your progress"
 msgstr "Votre progression"
 
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Your rival was faster"
+msgstr ""
+
 #: src/history/components/history-overview-tab/history-overview-tab.tsx
 msgid "Your stats will build as you finish puzzles."
 msgstr "Vos statistiques se construisent à mesure que vous terminez des grilles."
@@ -1224,10 +1273,6 @@ msgstr "Vos statistiques se construisent à mesure que vous terminez des grilles
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Your sudoku journey"
 msgstr "Votre parcours Sudoku"
-
-#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
-msgid "Your time"
-msgstr "Votre temps"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Zero mistakes"

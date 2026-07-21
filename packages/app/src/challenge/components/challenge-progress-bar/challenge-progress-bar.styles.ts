@@ -1,35 +1,30 @@
 import { StyleSheet } from 'react-native';
 
 export const ChallengeProgressBarStyles = StyleSheet.create({
-    container: {
-        marginBottom: 8,
-        paddingHorizontal: 10,
-        width: '100%'
-    },
-    opponentProgress: {
-        borderRadius: 2,
+    opponentFill: {
+        borderRadius: 4,
         height: '100%',
         left: 0,
         position: 'absolute',
         top: 0
     },
-    playerProgress: {
+    playerMarker: {
         borderRadius: 2,
-        bottom: 0,
-        height: 4,
-        left: 0,
-        position: 'absolute'
-    },
-    stepIndicator: {
-        borderRadius: 1,
-        height: 6,
-        marginTop: -1,
+        bottom: -4,
+        height: 16,
+        marginLeft: -1.5,
         position: 'absolute',
-        width: 2
+        width: 3
+    },
+    raceArea: {
+        height: 22,
+        justifyContent: 'flex-end',
+        position: 'relative',
+        width: '100%'
     },
     track: {
-        borderRadius: 2,
-        height: 4,
+        borderRadius: 4,
+        height: 8,
         overflow: 'visible',
         position: 'relative',
         width: '100%'

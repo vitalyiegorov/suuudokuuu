@@ -8,19 +8,23 @@ import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { Header } from '../../../@generic/components/header/header';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { getChallengeTechniqueEventsFromState } from '../../utils/get-challenge-technique-events-from-state.util';
+import { ChallengeTechniquePreview } from '../challenge-technique-preview/challenge-technique-preview';
 
 import { ChallengeAcceptScreenSelectors } from './challenge-accept-screen.selectors';
 import { ChallengeAcceptScreenStyles as styles } from './challenge-accept-screen.styles';
 
 interface Props {
     readonly opponentTotalTime: number;
+    readonly challengeState: string;
     readonly onAccept: () => void;
 }
 
-export const ChallengeAcceptScreen = ({ opponentTotalTime, onAccept }: Props) => {
+export const ChallengeAcceptScreen = ({ opponentTotalTime, challengeState, onAccept }: Props) => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
     const opponentTotalTimeText = useTimerText(opponentTotalTime);
+    const techniqueEvents = getChallengeTechniqueEventsFromState(challengeState);
 
     return (
         <View style={styles.container}>
@@ -39,6 +43,10 @@ export const ChallengeAcceptScreen = ({ opponentTotalTime, onAccept }: Props) =>
                         <Trans>Can you beat them?</Trans>
                     </Text>
                 </BlackText>
+            </View>
+
+            <View style={styles.previewWrapper}>
+                <ChallengeTechniquePreview events={techniqueEvents} />
             </View>
 
             <View style={styles.buttonsWrapper}>

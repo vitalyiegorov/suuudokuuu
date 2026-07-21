@@ -4,8 +4,8 @@ import { use } from 'react';
 import { View } from 'react-native';
 
 import { BlackText } from '../../../@generic/components/black-text/black-text';
+import { techniqueLabelsConstant } from '../../../@generic/constants/technique-labels.constant';
 import { ThemeContext } from '../../../theme/context/theme.context';
-import { techniqueLabelsConstant } from '../../constants/technique-labels.constant';
 
 import { ReplayTechniqueStyles as styles } from './replay-technique.styles';
 
