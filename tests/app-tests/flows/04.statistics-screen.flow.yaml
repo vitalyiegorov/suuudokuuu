@@ -27,8 +27,18 @@ appId: ${APP_ID}
     timeout: 3000
 - assertVisible: 'Overview'
 - assertVisible: 'Games'
-- assertVisible: 'Newbie.*'
+# Scroll-tolerant: the rank card sits below the fold on the Android viewport.
+- scrollUntilVisible:
+    element:
+      text: 'Newbie.*'
+    direction: DOWN
 - assertVisible: '.*completed game.*'
+# The segmented-control tabs sit at the top; scrolling to the rank card above
+# pushed them off the shorter Android viewport, so scroll back up to reach it.
+- scrollUntilVisible:
+    element:
+      id: 'HistorySegmentedControlSelectors.GamesTab'
+    direction: UP
 - tapOn:
     id: 'HistorySegmentedControlSelectors.GamesTab'
 - extendedWaitUntil:

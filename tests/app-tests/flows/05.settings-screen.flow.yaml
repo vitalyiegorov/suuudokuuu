@@ -14,18 +14,27 @@ appId: ${APP_ID}
 - assertVisible: 'Language.*'
 - assertVisible: 'Number size.*'
 - assertVisible: 'Cell spacing.*'
-- assertVisible: 'Display'
-- assertVisible: 'Dark mode'
+# Scroll-tolerant: the Android viewport shows fewer rows than the iPhone,
+# so below-the-fold entries need a scroll (no-op when already visible).
+- scrollUntilVisible:
+    element:
+      text: 'Display'
+    direction: DOWN
+- scrollUntilVisible:
+    element:
+      text: 'Dark mode'
+    direction: DOWN
 - tapOn:
     id: 'SettingsScreenSelectors.CellSpacingOption'
+# Dismiss the option sheet deterministically by re-selecting the current
+# value (closes on both platforms; a blind swipe races the animation), then
+# scroll to the footer instead of counting swipes — viewports differ.
 - extendedWaitUntil:
     visible:
       id: 'SettingsOptionSheetSelectors.Root'
     timeout: 3000
-# A blind swipe-down races the sheet animation and sometimes leaves the sheet
-# open, blocking every later scroll. Dismiss it explicitly and wait until gone.
 - tapOn:
-    id: 'PopoverDismissRegion'
+    text: 'Spacious.*'
 - extendedWaitUntil:
     notVisible:
       id: 'SettingsOptionSheetSelectors.Root'

@@ -1,10 +1,13 @@
 name: Android Maestro
 
-# Runs the Maestro suite against the prewarmed Android emulator on the macOS
-# maestro runners. Requires the guest image to carry the Android SDK and the
-# 'e2e' AVD (tests/app-tests/scripts/prewarm-android-emulator.sh) and the
-# fleet to start maestro VMs with nested virtualization; dispatch-only until
-# both prerequisites are live, then wired into pr.yml like ios-maestro.
+# Runs the Maestro suite against Redroid (Android-in-container) on the LINUX
+# runners. Google ships no emulator for arm64 linux and nested-KVM boots are
+# unstable on the host, so Android runs as a privileged container at native
+# arm64 speed over the binder kernel module — no virtualization inside the
+# guest at all. Requires the linux guest image to carry docker + the pulled
+# redroid image + the prewarmed /data volume (prewarm-redroid-linux.sh) and
+# the build SDK on macOS (prewarm-android-buildsdk-macos.sh); dispatch-only until the
+# image ships, then wired into pr.yml like ios-maestro.
 on:
   workflow_call:
   workflow_dispatch:
@@ -14,6 +17,8 @@ env:
 
 jobs:
   build:
+    # The APK builds on macOS: Google ships no arm64-linux NDK (the linux
+    # package is x86_64-only), while the darwin NDK is arm64-native.
     name: Build embedded Android E2E app
     runs-on: [self-hosted, macOS, ARM64, macos-builder]
     timeout-minutes: 90
@@ -21,6 +26,7 @@ jobs:
       APP_VARIANT: e2e
       ANDROID_SDK_ROOT: /Users/admin/Library/Android/sdk
       ANDROID_HOME: /Users/admin/Library/Android/sdk
+      JAVA_HOME: /Library/Java/JavaVirtualMachines/temurin-17.jdk/Contents/Home
     steps:
       - uses: actions/checkout@v5
 
@@ -32,7 +38,7 @@ jobs:
       - name: Verify Android SDK in guest image
         run: |
           test -x "$ANDROID_SDK_ROOT/platform-tools/adb" || {
-            echo '::error::The guest image lacks the Android SDK; rebuild the base with prewarm-android-emulator.sh.'
+            echo '::error::The guest image lacks the Android SDK; rebuild the base with prewarm-android-buildsdk-macos.sh.'
             exit 1
           }
 
@@ -73,44 +79,42 @@ jobs:
 
   test:
     needs: [build]
-    name: Maestro Android shard ${{ matrix.shard-number }}/2
-    runs-on: [self-hosted, macOS, ARM64, macos-maestro]
+    name: Maestro Android
+    # One job, all flows, on linux-xl (6 cpu / 12 GiB). Android can't run two
+    # 12 GiB VMs on the 24 GiB host, so sharding gained nothing here — a single
+    # job lets the Redroid container claim generous resources (6 GiB / 4 CPU)
+    # for stable boot and snappy interaction (the timed challenge flows race a
+    # fixed opponent time, so app speed matters).
+    runs-on: [self-hosted, linux-tiered, linux-xl]
     timeout-minutes: 45
-    strategy:
-      fail-fast: false
-      max-parallel: 2
-      matrix:
-        include:
-          - shard-index: 0
-            shard-number: 1
-          - shard-index: 1
-            shard-number: 2
-    env:
-      ANDROID_SDK_ROOT: /Users/admin/Library/Android/sdk
-      ANDROID_HOME: /Users/admin/Library/Android/sdk
     steps:
       - uses: actions/checkout@v5
 
-      - name: Start prewarmed Android emulator
+      - name: Start prewarmed Redroid container
         shell: bash
         run: |
           set -euo pipefail
-          test -f "$HOME/.sudoku-ci/android-emulator.json" || {
-            echo '::error::The guest image lacks the prewarmed AVD; rebuild the base with prewarm-android-emulator.sh.'
+          manifest="$HOME/.sudoku-ci/android-emulator.json"
+          test -f "$manifest" || {
+            echo '::error::The guest image lacks the Redroid prewarm; rebuild the base with prewarm-redroid-linux.sh.'
             exit 1
           }
-          avd=$(python3 -c "import json; print(json.load(open('$HOME/.sudoku-ci/android-emulator.json'))['avd'])")
-          "$ANDROID_SDK_ROOT/emulator/emulator" -avd "$avd" -no-window -no-audio -no-boot-anim &
-          adb="$ANDROID_SDK_ROOT/platform-tools/adb"
-          "$adb" wait-for-device
+          image=$(python3 -c "import json; print(json.load(open('$manifest'))['image'])")
+          data=$(python3 -c "import json; print(json.load(open('$manifest'))['dataDir'])")
+          sudo modprobe binder_linux devices=binder,hwbinder,vndbinder 2>/dev/null || true
+          sudo docker rm -f redroid-e2e >/dev/null 2>&1 || true
+          sudo docker run -d --name redroid-e2e --privileged \
+            --memory 6g --memory-swap 6g --cpus 4 \
+            -v "$data":/data -p 5555:5555 \
+            "$image" androidboot.redroid_gpu_mode=guest
+          adb connect localhost:5555
           deadline=$(( $(date +%s) + 300 ))
-          until [ "$("$adb" shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')" = "1" ]; do
+          until [ "$(adb -s localhost:5555 shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')" = "1" ]; do
             test "$(date +%s)" -lt "$deadline"
             sleep 5
+            adb connect localhost:5555 >/dev/null 2>&1 || true
           done
-          serial=$("$adb" devices | awk '/emulator-/{print $1; exit}')
-          echo "ANDROID_SERIAL=$serial" >> "$GITHUB_ENV"
-          echo "$ANDROID_SDK_ROOT/platform-tools" >> "$GITHUB_PATH"
+          echo "ANDROID_SERIAL=localhost:5555" >> "$GITHUB_ENV"
 
       - uses: actions/download-artifact@v6
         with:
@@ -118,7 +122,7 @@ jobs:
           path: .ci-artifacts/android-e2e-app
 
       - name: Install APK
-        run: adb install -r .ci-artifacts/android-e2e-app/suuudokuuu-e2e.apk
+        run: adb -s localhost:5555 install -r .ci-artifacts/android-e2e-app/suuudokuuu-e2e.apk
 
       - name: Install Maestro
         run: |
@@ -128,42 +132,35 @@ jobs:
           fi
           echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
 
-      - name: Run deterministic Maestro shard
+      - name: Run deterministic Maestro suite
         working-directory: tests/app-tests
         shell: bash
         env:
-          APP_ID: com.vitalyiegorov.suuudokuuu.e2e
-          JAVA_TOOL_OPTIONS: -Djava.awt.headless=true -Xmx1024m
+          APP_ID: com.vitaliiyehorov.suuudokuuu.e2e  # android package prefix differs from iOS (app.config.js getUniqueIdentifier)
+          JAVA_TOOL_OPTIONS: -Djava.awt.headless=true -Xmx2048m
           MAESTRO_DRIVER_STARTUP_TIMEOUT: '180000'
-          MAESTRO_DEBUG_OUTPUT_DIRECTORY: ${{ github.workspace }}/tests/app-tests/artifacts/maestro-android-shard-${{ matrix.shard-index }}
-          MAESTRO_OUTPUT_PATH: ${{ github.workspace }}/tests/app-tests/artifacts/maestro-android-shard-${{ matrix.shard-index }}/report.xml
-          SHARD_INDEX: ${{ matrix.shard-index }}
+          MAESTRO_DEBUG_OUTPUT_DIRECTORY: ${{ github.workspace }}/tests/app-tests/artifacts/maestro-android
+          MAESTRO_OUTPUT_PATH: ${{ github.workspace }}/tests/app-tests/artifacts/maestro-android/report.xml
         run: |
           set -euo pipefail
           flows=()
           while IFS= read -r flow; do
             flows+=("$flow")
           done < <(find flows -maxdepth 1 -type f -name '*.flow.yaml' | sort)
-          selected=()
-          for index in "${!flows[@]}"; do
-            if (( index % 2 == SHARD_INDEX )); then
-              selected+=("${flows[$index]}")
-            fi
-          done
-          test "${#selected[@]}" -gt 0
-          mkdir -p "./artifacts/maestro-android-shard-$SHARD_INDEX"
-          SIMULATOR_UDID="$ANDROID_SERIAL" ./scripts/run-maestro-suite.sh "${selected[@]}" \
-            2>&1 | tee "./artifacts/maestro-android-shard-$SHARD_INDEX/console.log"
+          test "${#flows[@]}" -gt 0
+          mkdir -p "./artifacts/maestro-android"
+          SIMULATOR_UDID="$ANDROID_SERIAL" ./scripts/run-maestro-suite.sh "${flows[@]}" \
+            2>&1 | tee "./artifacts/maestro-android/console.log"
 
       - name: Publish Maestro timing summary
         if: always()
         shell: bash
         run: |
           set -euo pipefail
-          timing_file="tests/app-tests/artifacts/maestro-android-shard-${{ matrix.shard-index }}/flow-timings.tsv"
+          timing_file="tests/app-tests/artifacts/maestro-android/flow-timings.tsv"
           if [ -f "$timing_file" ]; then
             {
-              echo "### Android Maestro flow timings: shard ${{ matrix.shard-number }}"
+              echo "### Android Maestro flow timings"
               echo
               echo '| Flow | Status | Attempts | Seconds |'
               echo '| --- | --- | ---: | ---: |'
@@ -172,20 +169,18 @@ jobs:
             } >> "$GITHUB_STEP_SUMMARY"
           fi
 
-      - name: Capture final emulator state
+      - name: Capture final device state
         if: always()
         run: |
-          mkdir -p "tests/app-tests/artifacts/emulator-shard-${{ matrix.shard-index }}"
-          adb exec-out screencap -p > "tests/app-tests/artifacts/emulator-shard-${{ matrix.shard-index }}/final-screen.png" || true
-          adb emu kill || true
+          mkdir -p "tests/app-tests/artifacts/maestro-android"
+          adb -s localhost:5555 exec-out screencap -p > "tests/app-tests/artifacts/maestro-android/final-screen.png" || true
+          sudo docker rm -f redroid-e2e || true
 
       - uses: actions/upload-artifact@v6
         if: always()
         with:
-          name: maestro-android-shard-${{ matrix.shard-number }}
+          name: maestro-android
           include-hidden-files: true
-          path: |
-            tests/app-tests/artifacts/maestro-android-shard-${{ matrix.shard-index }}/**
-            tests/app-tests/artifacts/emulator-shard-${{ matrix.shard-index }}/**
+          path: tests/app-tests/artifacts/maestro-android/**
           if-no-files-found: warn
           retention-days: 7

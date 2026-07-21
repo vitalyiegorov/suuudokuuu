@@ -86,7 +86,7 @@ export const AvailableValuesItem = ({ value, onSelect, progress, correctValue, c
 
     return (
         <View style={styles.container} testID={selectors.Root}>
-            <ReanimatedPressable key={value} style={buttonStyles} testID={selectors.Button} {...(canPress && { onPress: handlePress })}>
+            <ReanimatedPressable key={value} style={buttonStyles} testID={`${selectors.Button}.${value}`} {...(canPress && { onPress: handlePress })}>
                 <Svg height={AvailableValueButtonSize} pointerEvents="none" style={styles.progressRing} width={AvailableValueButtonSize}>
                     <Circle
                         cx={AvailableValueProgressCenter}

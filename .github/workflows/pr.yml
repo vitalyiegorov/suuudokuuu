@@ -134,9 +134,15 @@ jobs:
     uses: ./.github/workflows/ios-maestro.yml
     secrets: inherit
 
+  android-maestro:
+    if: ${{ needs.changes.outputs.mobile == 'true' && needs.code-quality.result == 'success' }}
+    needs: [changes, code-quality]
+    uses: ./.github/workflows/android-maestro.yml
+    secrets: inherit
+
   required-ci:
     if: ${{ always() }}
-    needs: [changes, code-quality, ios-maestro]
+    needs: [changes, code-quality, ios-maestro, android-maestro]
     name: Required CI
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -147,20 +153,23 @@ jobs:
           MOBILE_RESULT: ${{ needs.changes.outputs.mobile }}
           CODE_QUALITY_RESULT: ${{ needs.code-quality.result }}
           IOS_MAESTRO_RESULT: ${{ needs.ios-maestro.result }}
+          ANDROID_MAESTRO_RESULT: ${{ needs.android-maestro.result }}
         run: |
           set -euo pipefail
+          summary="changes=$CHANGES_RESULT, code-quality=$CODE_QUALITY_RESULT, mobile=$MOBILE_RESULT, ios-maestro=$IOS_MAESTRO_RESULT, android-maestro=$ANDROID_MAESTRO_RESULT"
+          echo "CI summary: $summary"
           if [ "$CHANGES_RESULT" != 'success' ] || [ "$CODE_QUALITY_RESULT" != 'success' ]; then
-            echo "Required jobs did not pass: changes=$CHANGES_RESULT, code-quality=$CODE_QUALITY_RESULT, mobile=$MOBILE_RESULT, ios-maestro=$IOS_MAESTRO_RESULT"
+            echo "Required jobs did not pass: $summary"
             exit 1
           fi
 
-          if [ "$MOBILE_RESULT" = 'true' ] && [ "$IOS_MAESTRO_RESULT" = 'success' ]; then
+          if [ "$MOBILE_RESULT" = 'true' ] && [ "$IOS_MAESTRO_RESULT" = 'success' ] && [ "$ANDROID_MAESTRO_RESULT" = 'success' ]; then
             exit 0
           fi
 
-          if [ "$MOBILE_RESULT" = 'false' ] && [ "$IOS_MAESTRO_RESULT" = 'skipped' ]; then
+          if [ "$MOBILE_RESULT" = 'false' ] && [ "$IOS_MAESTRO_RESULT" = 'skipped' ] && [ "$ANDROID_MAESTRO_RESULT" = 'skipped' ]; then
             exit 0
           fi
 
-          echo "Required jobs did not pass: changes=$CHANGES_RESULT, code-quality=$CODE_QUALITY_RESULT, mobile=$MOBILE_RESULT, ios-maestro=$IOS_MAESTRO_RESULT"
+          echo "Required jobs did not pass: $summary"
           exit 1
