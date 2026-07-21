@@ -41,8 +41,8 @@ msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
 msgstr "{mistakes, plural, one {# mistake} other {# mistakes}}"
 
 #: src/challenge/components/challenge-technique-preview/challenge-technique-preview.tsx
-msgid "{sharpCount, plural, one {# sharp move on their timeline} other {# sharp moves on their timeline}}"
-msgstr "{sharpCount, plural, one {# sharp move on their timeline} other {# sharp moves on their timeline}}"
+msgid "{sharpCount, plural, one {# key move} other {# key moves}}"
+msgstr "{sharpCount, plural, one {# key move} other {# key moves}}"
 
 #: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
 msgid "{sharpCount, plural, one {# sharp technique} other {# sharp techniques}}"
@@ -73,8 +73,8 @@ msgid "A little room between cells"
 msgstr "A little room between cells"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
-msgid "Accept Challenge"
-msgstr "Accept Challenge"
+msgid "Accept challenge"
+msgstr "Accept challenge"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Accept challenge?"
@@ -182,7 +182,6 @@ msgstr "Built:"
 msgid "Can you beat them?"
 msgstr "Can you beat them?"
 
-#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
@@ -373,6 +372,10 @@ msgstr "Español"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Evenly matched"
 msgstr "Evenly matched"
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "every technique"
+msgstr "every technique"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Expert grid"
@@ -598,6 +601,10 @@ msgstr "m"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Max Mistakes bonus"
 msgstr "Max Mistakes bonus"
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "Maybe later"
+msgstr "Maybe later"
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -854,6 +861,14 @@ msgstr "Retry loading development build"
 msgid "Rival"
 msgstr "Rival"
 
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "Rival challenged you"
+msgstr "Rival challenged you"
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "Rival's arsenal"
+msgstr "Rival's arsenal"
+
 #: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
 msgid "Rival's playbook"
 msgstr "Rival's playbook"
@@ -1026,6 +1041,10 @@ msgstr "Svenska"
 msgid "Swordfish"
 msgstr "Swordfish"
 
+#: src/challenge/components/challenge-technique-preview/challenge-technique-preview.tsx
+msgid "Taller marks = sharper techniques"
+msgstr "Taller marks = sharper techniques"
+
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
 msgstr "The commit link could not be opened on this device."
@@ -1033,6 +1052,10 @@ msgstr "The commit link could not be opened on this device."
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "The install link could not be opened. Check your browser settings and try again."
 msgstr "The install link could not be opened. Check your browser settings and try again."
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "Their time to beat"
+msgstr "Their time to beat"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
@@ -1253,10 +1276,6 @@ msgstr "Your best run"
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "Your browser may ask for permission to install unknown apps. Android will also show an operating-system security warning before installation."
 msgstr "Your browser may ask for permission to install unknown apps. Android will also show an operating-system security warning before installation."
-
-#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
-msgid "Your opponent completed this puzzle in"
-msgstr "Your opponent completed this puzzle in"
 
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Your progress"

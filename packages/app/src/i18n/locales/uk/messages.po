@@ -41,7 +41,7 @@ msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
 msgstr ""
 
 #: src/challenge/components/challenge-technique-preview/challenge-technique-preview.tsx
-msgid "{sharpCount, plural, one {# sharp move on their timeline} other {# sharp moves on their timeline}}"
+msgid "{sharpCount, plural, one {# key move} other {# key moves}}"
 msgstr ""
 
 #: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
@@ -73,8 +73,8 @@ msgid "A little room between cells"
 msgstr "Трохи простору між клітинками"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
-msgid "Accept Challenge"
-msgstr "Прийняти виклик"
+msgid "Accept challenge"
+msgstr ""
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Accept challenge?"
@@ -182,7 +182,6 @@ msgstr "Зібрано:"
 msgid "Can you beat them?"
 msgstr "Зможеш їх обіграти?"
 
-#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
@@ -372,6 +371,10 @@ msgstr "Español"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Evenly matched"
+msgstr ""
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "every technique"
 msgstr ""
 
 #: src/screens/components/home-screen/home.screen.tsx
@@ -598,6 +601,10 @@ msgstr "m"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Max Mistakes bonus"
 msgstr "Бонус за дозволені помилки"
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "Maybe later"
+msgstr ""
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -854,6 +861,14 @@ msgstr "Повторити завантаження збірки для розр
 msgid "Rival"
 msgstr ""
 
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "Rival challenged you"
+msgstr ""
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "Rival's arsenal"
+msgstr ""
+
 #: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
 msgid "Rival's playbook"
 msgstr ""
@@ -1026,6 +1041,10 @@ msgstr "Svenska"
 msgid "Swordfish"
 msgstr ""
 
+#: src/challenge/components/challenge-technique-preview/challenge-technique-preview.tsx
+msgid "Taller marks = sharper techniques"
+msgstr ""
+
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
 msgstr "Не вдалося відкрити посилання на коміт на цьому пристрої."
@@ -1033,6 +1052,10 @@ msgstr "Не вдалося відкрити посилання на коміт 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "The install link could not be opened. Check your browser settings and try again."
 msgstr "Не вдалося відкрити посилання для інсталяції. Перевірте налаштування браузера й повторіть спробу."
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "Their time to beat"
+msgstr ""
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
@@ -1253,10 +1276,6 @@ msgstr "Твоя найкраща партія"
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "Your browser may ask for permission to install unknown apps. Android will also show an operating-system security warning before installation."
 msgstr "Браузер може запитати дозвіл на інсталяцію застосунків із невідомих джерел. Перед інсталяцією Android також покаже попередження безпеки операційної системи."
-
-#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
-msgid "Your opponent completed this puzzle in"
-msgstr "Суперник розв'язав це судоку за"
 
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Your progress"

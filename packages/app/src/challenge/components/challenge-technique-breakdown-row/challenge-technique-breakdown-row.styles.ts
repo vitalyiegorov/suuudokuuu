@@ -6,11 +6,6 @@ export const ChallengeTechniqueBreakdownRowStyles = StyleSheet.create({
         fontSize: 14,
         fontVariant: ['tabular-nums']
     },
-    dot: {
-        borderRadius: 4,
-        height: 8,
-        width: 8
-    },
     label: {
         flex: 1,
         fontFamily: 'Inter_500Medium',

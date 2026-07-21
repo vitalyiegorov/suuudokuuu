@@ -1,4 +1,5 @@
 import { plural } from '@lingui/core/macro';
+import { useLingui } from '@lingui/react/macro';
 import { use } from 'react';
 import { Text, View } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
@@ -23,6 +24,7 @@ interface Props {
 }
 
 export const ChallengeTechniquePreview = ({ events }: Props) => {
+    const { t } = useLingui();
     const { theme } = use(ThemeContext);
 
     if (isEmptyArray(events)) {
@@ -32,12 +34,11 @@ export const ChallengeTechniquePreview = ({ events }: Props) => {
     const sharpCount = events.filter(
         event => event.tier === ChallengeTechniqueTierEnum.Clever || event.tier === ChallengeTechniqueTierEnum.Advanced
     ).length;
-    const captionText = plural(sharpCount, {
-        one: '# sharp move on their timeline',
-        other: '# sharp moves on their timeline'
-    });
+    const keyMovesText = plural(sharpCount, { one: '# key move', other: '# key moves' });
+    const captionText = `${t`Taller marks = sharper techniques`} · ${keyMovesText}`;
 
     const trackStyle = [styles.track, { backgroundColor: theme.colors.black }];
+    const barStyle = [styles.bar, { backgroundColor: theme.colors.label.main }];
     const captionStyle = [styles.caption, { color: theme.colors.label.hint }];
 
     return (
@@ -57,9 +58,12 @@ export const ChallengeTechniquePreview = ({ events }: Props) => {
                     return <Animated.View entering={enterAnimation} key={`preview-tick-${index}`} style={tickStyle} />;
                 })}
             </View>
-            <Text allowFontScaling={false} style={captionStyle}>
-                {captionText}
-            </Text>
+            <View style={styles.captionRow}>
+                <View style={barStyle} />
+                <Text allowFontScaling={false} style={captionStyle}>
+                    {captionText}
+                </Text>
+            </View>
         </View>
     );
 };

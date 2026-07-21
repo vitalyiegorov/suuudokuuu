@@ -41,7 +41,7 @@ msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
 msgstr ""
 
 #: src/challenge/components/challenge-technique-preview/challenge-technique-preview.tsx
-msgid "{sharpCount, plural, one {# sharp move on their timeline} other {# sharp moves on their timeline}}"
+msgid "{sharpCount, plural, one {# key move} other {# key moves}}"
 msgstr ""
 
 #: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
@@ -73,8 +73,8 @@ msgid "A little room between cells"
 msgstr "Un poco de espacio entre celdas"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
-msgid "Accept Challenge"
-msgstr "Aceptar reto"
+msgid "Accept challenge"
+msgstr ""
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Accept challenge?"
@@ -182,7 +182,6 @@ msgstr "Compilada:"
 msgid "Can you beat them?"
 msgstr "¿Puedes superar su marca?"
 
-#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
@@ -372,6 +371,10 @@ msgstr "Español"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Evenly matched"
+msgstr ""
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "every technique"
 msgstr ""
 
 #: src/screens/components/home-screen/home.screen.tsx
@@ -598,6 +601,10 @@ msgstr "m"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Max Mistakes bonus"
 msgstr "Bonificación por errores permitidos"
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "Maybe later"
+msgstr ""
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -854,6 +861,14 @@ msgstr "Volver a cargar la compilación de desarrollo"
 msgid "Rival"
 msgstr ""
 
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "Rival challenged you"
+msgstr ""
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "Rival's arsenal"
+msgstr ""
+
 #: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
 msgid "Rival's playbook"
 msgstr ""
@@ -1026,6 +1041,10 @@ msgstr "Svenska"
 msgid "Swordfish"
 msgstr ""
 
+#: src/challenge/components/challenge-technique-preview/challenge-technique-preview.tsx
+msgid "Taller marks = sharper techniques"
+msgstr ""
+
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
 msgstr "No se ha podido abrir el enlace del commit en este dispositivo."
@@ -1033,6 +1052,10 @@ msgstr "No se ha podido abrir el enlace del commit en este dispositivo."
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "The install link could not be opened. Check your browser settings and try again."
 msgstr "No se ha podido abrir el enlace de instalación. Comprueba la configuración del navegador e inténtalo de nuevo."
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "Their time to beat"
+msgstr ""
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
@@ -1253,10 +1276,6 @@ msgstr "Tu mejor partida"
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "Your browser may ask for permission to install unknown apps. Android will also show an operating-system security warning before installation."
 msgstr "Es posible que el navegador te pida permiso para instalar aplicaciones de origen desconocido. Android también mostrará una advertencia de seguridad del sistema operativo antes de la instalación."
-
-#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
-msgid "Your opponent completed this puzzle in"
-msgstr "Tu rival lo completó en"
 
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Your progress"
