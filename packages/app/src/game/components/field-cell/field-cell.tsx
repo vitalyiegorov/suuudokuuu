@@ -70,6 +70,7 @@ export const FieldCell = (props: Props) => {
         cellAnimatedStyles,
         Platform.select({ web: { outline: 'none' } })
     ];
+
     // Stable, unique per-cell testID by board coordinate. Selection/highlight
     // state must NOT change the testID: E2E flows target exact cells, and a
     // state-dependent id makes positional selection diverge across platforms.
