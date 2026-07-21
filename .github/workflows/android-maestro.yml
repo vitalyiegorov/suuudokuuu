@@ -79,21 +79,14 @@ jobs:
 
   test:
     needs: [build]
-    name: Maestro Android shard ${{ matrix.shard-number }}/2
-    # linux-xl (6 cpu / 12 GiB, one at a time): dockerd + Android 15 +
-    # Maestro's JVM starved the 8 GiB large tier — systemd-oomd stopped the
-    # runner mid-run and the app flaked under pressure.
+    name: Maestro Android
+    # One job, all flows, on linux-xl (6 cpu / 12 GiB). Android can't run two
+    # 12 GiB VMs on the 24 GiB host, so sharding gained nothing here — a single
+    # job lets the Redroid container claim generous resources (6 GiB / 4 CPU)
+    # for stable boot and snappy interaction (the timed challenge flows race a
+    # fixed opponent time, so app speed matters).
     runs-on: [self-hosted, linux-tiered, linux-xl]
     timeout-minutes: 45
-    strategy:
-      fail-fast: false
-      max-parallel: 1
-      matrix:
-        include:
-          - shard-index: 0
-            shard-number: 1
-          - shard-index: 1
-            shard-number: 2
     steps:
       - uses: actions/checkout@v5
 
@@ -110,10 +103,8 @@ jobs:
           data=$(python3 -c "import json; print(json.load(open('$manifest'))['dataDir'])")
           sudo modprobe binder_linux devices=binder,hwbinder,vndbinder 2>/dev/null || true
           sudo docker rm -f redroid-e2e >/dev/null 2>&1 || true
-          # Cap the container: an unbounded Android guest can OOM the whole
-          # 8 GiB runner VM (lost-communication runner deaths).
           sudo docker run -d --name redroid-e2e --privileged \
-            --memory 3g --memory-swap 3g --cpus 3 \
+            --memory 6g --memory-swap 6g --cpus 4 \
             -v "$data":/data -p 5555:5555 \
             "$image" androidboot.redroid_gpu_mode=guest
           adb connect localhost:5555
@@ -141,42 +132,35 @@ jobs:
           fi
           echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
 
-      - name: Run deterministic Maestro shard
+      - name: Run deterministic Maestro suite
         working-directory: tests/app-tests
         shell: bash
         env:
           APP_ID: com.vitaliiyehorov.suuudokuuu.e2e  # android package prefix differs from iOS (app.config.js getUniqueIdentifier)
-          JAVA_TOOL_OPTIONS: -Djava.awt.headless=true -Xmx1024m
+          JAVA_TOOL_OPTIONS: -Djava.awt.headless=true -Xmx2048m
           MAESTRO_DRIVER_STARTUP_TIMEOUT: '180000'
-          MAESTRO_DEBUG_OUTPUT_DIRECTORY: ${{ github.workspace }}/tests/app-tests/artifacts/maestro-android-shard-${{ matrix.shard-index }}
-          MAESTRO_OUTPUT_PATH: ${{ github.workspace }}/tests/app-tests/artifacts/maestro-android-shard-${{ matrix.shard-index }}/report.xml
-          SHARD_INDEX: ${{ matrix.shard-index }}
+          MAESTRO_DEBUG_OUTPUT_DIRECTORY: ${{ github.workspace }}/tests/app-tests/artifacts/maestro-android
+          MAESTRO_OUTPUT_PATH: ${{ github.workspace }}/tests/app-tests/artifacts/maestro-android/report.xml
         run: |
           set -euo pipefail
           flows=()
           while IFS= read -r flow; do
             flows+=("$flow")
           done < <(find flows -maxdepth 1 -type f -name '*.flow.yaml' | sort)
-          selected=()
-          for index in "${!flows[@]}"; do
-            if (( index % 2 == SHARD_INDEX )); then
-              selected+=("${flows[$index]}")
-            fi
-          done
-          test "${#selected[@]}" -gt 0
-          mkdir -p "./artifacts/maestro-android-shard-$SHARD_INDEX"
-          SIMULATOR_UDID="$ANDROID_SERIAL" ./scripts/run-maestro-suite.sh "${selected[@]}" \
-            2>&1 | tee "./artifacts/maestro-android-shard-$SHARD_INDEX/console.log"
+          test "${#flows[@]}" -gt 0
+          mkdir -p "./artifacts/maestro-android"
+          SIMULATOR_UDID="$ANDROID_SERIAL" ./scripts/run-maestro-suite.sh "${flows[@]}" \
+            2>&1 | tee "./artifacts/maestro-android/console.log"
 
       - name: Publish Maestro timing summary
         if: always()
         shell: bash
         run: |
           set -euo pipefail
-          timing_file="tests/app-tests/artifacts/maestro-android-shard-${{ matrix.shard-index }}/flow-timings.tsv"
+          timing_file="tests/app-tests/artifacts/maestro-android/flow-timings.tsv"
           if [ -f "$timing_file" ]; then
             {
-              echo "### Android Maestro flow timings: shard ${{ matrix.shard-number }}"
+              echo "### Android Maestro flow timings"
               echo
               echo '| Flow | Status | Attempts | Seconds |'
               echo '| --- | --- | ---: | ---: |'
@@ -188,17 +172,15 @@ jobs:
       - name: Capture final device state
         if: always()
         run: |
-          mkdir -p "tests/app-tests/artifacts/emulator-shard-${{ matrix.shard-index }}"
-          adb -s localhost:5555 exec-out screencap -p > "tests/app-tests/artifacts/emulator-shard-${{ matrix.shard-index }}/final-screen.png" || true
+          mkdir -p "tests/app-tests/artifacts/maestro-android"
+          adb -s localhost:5555 exec-out screencap -p > "tests/app-tests/artifacts/maestro-android/final-screen.png" || true
           sudo docker rm -f redroid-e2e || true
 
       - uses: actions/upload-artifact@v6
         if: always()
         with:
-          name: maestro-android-shard-${{ matrix.shard-number }}
+          name: maestro-android
           include-hidden-files: true
-          path: |
-            tests/app-tests/artifacts/maestro-android-shard-${{ matrix.shard-index }}/**
-            tests/app-tests/artifacts/emulator-shard-${{ matrix.shard-index }}/**
+          path: tests/app-tests/artifacts/maestro-android/**
           if-no-files-found: warn
           retention-days: 7
