@@ -73,10 +73,8 @@ export const FieldCell = (props: Props) => {
     // Stable, unique per-cell testID by board coordinate. Selection/highlight
     // state must NOT change the testID: E2E flows target exact cells, and a
     // state-dependent id makes positional selection diverge across platforms.
-    const cellSelector = `CellSelectors.Cell.${cell.y}-${cell.x}`;
-
     return (
-        <ReanimatedPressable onPress={handlePress} style={cellStyles} testID={cellSelector}>
+        <ReanimatedPressable onPress={handlePress} style={cellStyles} testID={`CellSelectors.Cell.${cell.y}-${cell.x}`}>
             {children}
         </ReanimatedPressable>
     );
