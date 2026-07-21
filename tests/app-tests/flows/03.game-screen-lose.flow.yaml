@@ -13,6 +13,7 @@ appId: ${APP_ID}
 - assertVisible: '0/3'
 # Cell 0-4's answer is not 4 in this fixture, so entering 4 three times
 # registers three mistakes (deterministic, well under the challenge timer).
+- tapOn:
       id: 'CellSelectors.Cell.0-4'
 - tapOn:
       id: 'AvailableValueItemSelectors.Button.4'
