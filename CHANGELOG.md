@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.65.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.64.0...v1.65.0) (2026-07-21)
+
+### Bug Fixes
+
+- **app:** drop deleted field-cell.selectors from the barrel + doc ([3066b5f](https://github.com/vitalyiegorov/suuudokuuu/commit/3066b5fcca0d582f809431559ae7be8d031263b2))
+- binderfs kernels expose no host /dev/binder; check the module instead ([09452ef](https://github.com/vitalyiegorov/suuudokuuu/commit/09452efba5934f3f977071131c09181bb0be9670))
+- **lint:** exclude testID from lingui unlocalized-strings check ([67c66e1](https://github.com/vitalyiegorov/suuudokuuu/commit/67c66e1702e030003594a26e2fa24e79f6e4d278))
+- pin redroid to 15.0.0_64only - the tag verified against kernel 6.17 ([8f4091d](https://github.com/vitalyiegorov/suuudokuuu/commit/8f4091d1e1a58d050824e1d984854bc443ca3f5d))
+- tolerate sdkmanager license SIGPIPE under pipefail ([5879ec0](https://github.com/vitalyiegorov/suuudokuuu/commit/5879ec001f2d27097f2122d20598a66d09baea59))
+- use distro cmake/ninja on arm64 and bake the NDK into the base ([8c1b1f8](https://github.com/vitalyiegorov/suuudokuuu/commit/8c1b1f855712d56755b563c9ff56c8f48fd83e1b))
+- use the Android application id for Maestro launches ([446d389](https://github.com/vitalyiegorov/suuudokuuu/commit/446d3891b92ccdefbbcfaf0a54c6a004391bcd15))
+
+### Features
+
+- **app:** stable per-cell and per-value E2E testIDs ([cd0a531](https://github.com/vitalyiegorov/suuudokuuu/commit/cd0a531566b230dedb24c1f868d6afb630cac27c))
+
 # [1.64.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.63.0...v1.64.0) (2026-07-20)
 
 ### Bug Fixes

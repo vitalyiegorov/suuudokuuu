@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.65.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.64.0...v1.65.0) (2026-07-21)
+
+### Bug Fixes
+
+- **app:** drop deleted field-cell.selectors from the barrel + doc ([3066b5f](https://github.com/vitalyiegorov/suuudokuuu/commit/3066b5fcca0d582f809431559ae7be8d031263b2))
+- **lint:** exclude testID from lingui unlocalized-strings check ([67c66e1](https://github.com/vitalyiegorov/suuudokuuu/commit/67c66e1702e030003594a26e2fa24e79f6e4d278))
+
+### Features
+
+- **app:** stable per-cell and per-value E2E testIDs ([cd0a531](https://github.com/vitalyiegorov/suuudokuuu/commit/cd0a531566b230dedb24c1f868d6afb630cac27c))
+
 # [1.64.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.63.0...v1.64.0) (2026-07-20)
 
 ### Features
