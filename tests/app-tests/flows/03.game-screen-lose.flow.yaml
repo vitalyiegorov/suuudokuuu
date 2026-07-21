@@ -1,56 +1,46 @@
 appId: ${APP_ID}
 ---
 - startRecording:
-    path: '03.game-screen-lose'
-    optional: true
+      path: '03.game-screen-lose'
+      optional: true
 
 - runFlow: subflows/navigation/launch-home.flow.yaml
 - runFlow:
-    file: subflows/shared/open-shared-challenge.flow.yaml
-    env:
-      SHARED_CHALLENGE_LINK: suuudokuuu://shared/IwBmC4EAAAA0EQDBACAFQTAMOoIECQAggCIB0AY%2BAKoE4BxgRoAgAiAEwByAsgFLwDKAmhW4A2WgBUAzwHyAJHgAhARQBYASQBSASwC54ABQBQ5gEqAqgCaAQwC0A0oYL0RAGQCLAbYDUAdwAOAHIAhgALAN0A7EQAbwD6AMwAjzggAEYAyADCABIA0QAoAMf5PgAJAE4ASgDKdgCZAPEALADlACKJAAWd8eAAkMwAAxDxEMBAA
+      file: subflows/shared/open-shared-challenge.flow.yaml
+      env:
+          SHARED_CHALLENGE_LINK: suuudokuuu://shared/_KAP3__7X7_7r____zMOSjkyv8nqM0LfkydkEBSLStwgSBis7M6rv28ZIIBEZAA
 - runFlow: subflows/shared/accept-shared-challenge.flow.yaml
 - assertVisible: '0/3'
 - tapOn:
-    id: 'CellSelectors.Root'
-    index: 4
+      id: 'CellSelectors.Root'
+      index: 4
 - tapOn:
-    id: 'AvailableValueItemSelectors.Button'
-    index: 0
+      id: 'AvailableValueItemSelectors.Button'
+      index: 0
 - assertVisible: '1/3'
 - tapOn:
-    id: 'AvailableValueItemSelectors.Button'
-    index: 0
+      id: 'AvailableValueItemSelectors.Button'
+      index: 0
 - assertVisible: '2/3'
 - tapOn:
-    id: 'AvailableValueItemSelectors.Button'
-    index: 0
+      id: 'AvailableValueItemSelectors.Button'
+      index: 0
 - extendedWaitUntil:
-    visible:
-      id: 'ChallengeResultScreenSelectors.Root'
-    timeout: 5000
+      visible:
+          id: 'ChallengeResultScreenSelectors.Root'
+      timeout: 5000
 - assertVisible:
-    id: 'ChallengeResultScreenSelectors.YourTimeValue'
+      id: 'ChallengeResultScreenSelectors.YourTimeValue'
 - assertVisible:
-    id: 'ChallengeResultScreenSelectors.OpponentTimeValue'
+      id: 'ChallengeResultScreenSelectors.OpponentTimeValue'
+- assertVisible: '.*Out of mistakes.*'
+- assertVisible: 'Did not finish the board'
 - assertVisible:
-    id: 'ChallengeResultScreenSelectors.ScoreValue'
-- scrollUntilVisible:
-    element:
       id: 'ChallengeTryAgainButtonSelectors.Root'
-    direction: DOWN
-    timeout: 3000
-- assertVisible:
-    id: 'ChallengeTryAgainButtonSelectors.Root'
-- scrollUntilVisible:
-    element:
-      id: 'PlayAgainButtonSelectors.Root'
-    direction: DOWN
-    timeout: 3000
 - tapOn:
-    id: 'PlayAgainButtonSelectors.Root'
+      id: 'PlayAgainButtonSelectors.Root'
 - extendedWaitUntil:
-    visible:
-      id: 'HomeScreenSelectors.Root'
-    timeout: 3000
+      visible:
+          id: 'HomeScreenSelectors.Root'
+      timeout: 3000
 - stopApp
