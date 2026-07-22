@@ -8,6 +8,7 @@ import {
     ChallengeChromeFooterExtraReserve,
     ChallengeChromeFooterFadeIntensity,
     ChallengeChromeFooterMinReserve,
+    ChallengeChromeTopContentInset,
     ChallengeChromeTopFadeHeight
 } from '../../constants/challenge-chrome.constant';
 
@@ -47,6 +48,7 @@ export const ChallengeChromePage = ({ children, footer, testID }: Props) => {
             <ScreenChromeScrollView
                 contentContainerStyle={styles.scrollContent}
                 contentInsetBottom={footerReserve}
+                contentInsetTop={ChallengeChromeTopContentInset}
                 showsVerticalScrollIndicator={false}
                 style={styles.scrollView}
             >

@@ -1,9 +1,11 @@
 import { Trans, useLingui } from '@lingui/react/macro';
-import { LucideSwords } from 'lucide-react-native';
+import { LucideSwords, LucideX } from 'lucide-react-native';
 import { use } from 'react';
 import { Text, View } from 'react-native';
 
 import { BlackButton } from '../../../@generic/components/black-button/black-button';
+import { BlackIconButton } from '../../../@generic/components/black-icon-button/black-icon-button';
+import { ScreenActionBar } from '../../../@generic/components/screen-action-bar/screen-action-bar';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
 import { getMistakesTypeText } from '../../../@generic/utils/get-mistakes-type-text.util';
@@ -49,11 +51,21 @@ export const ChallengeAcceptScreen = ({ opponentTotalTime, challengeState, onAcc
     const arsenalLabelStyle = [styles.arsenalLabel, { color: theme.colors.label.hint }];
     const arsenalTagStyle = [styles.arsenalTag, { color: theme.colors.label.hint }];
 
+    const maybeLaterButton = (
+        <BlackIconButton
+            accessibilityLabel={t`Maybe later`}
+            href="/"
+            testID={ChallengeAcceptScreenSelectors.MaybeLaterButton}
+            variant="ghost"
+        >
+            <LucideX color={theme.colors.label.main} />
+        </BlackIconButton>
+    );
+
     const footer = (
-        <View style={styles.actions}>
+        <ScreenActionBar right={maybeLaterButton}>
             <BlackButton onPress={onAccept} testID={ChallengeAcceptScreenSelectors.AcceptButton} text={t`Accept challenge`} />
-            <BlackButton href="/" testID={ChallengeAcceptScreenSelectors.MaybeLaterButton} text={t`Maybe later`} variant="ghost" />
-        </View>
+        </ScreenActionBar>
     );
 
     return (

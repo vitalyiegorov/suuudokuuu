@@ -1,16 +1,12 @@
 import { StyleSheet } from 'react-native';
 
 export const ChallengeAcceptScreenStyles = StyleSheet.create({
-    actions: {
-        gap: 10,
-        width: '100%'
-    },
     arsenalHeader: {
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginBottom: 10,
-        marginTop: 16,
+        marginTop: 30,
         paddingHorizontal: 2
     },
     arsenalLabel: {
