@@ -38,7 +38,7 @@ export const ChallengeRaceBadge = ({ events, elapsedTime }: Props) => {
 
     const badgeStyle = [styles.badge, { backgroundColor: theme.colors.white05, borderColor: theme.colors.white05 }];
     const labelStyle = [styles.label, { color: theme.colors.label.inverted }];
-    const countStyle = [styles.count, { color: theme.colors.label.hint }];
+    const countStyle = [styles.count, { color: theme.colors.label.inverted }];
 
     return (
         <Animated.View entering={FadeIn.duration(ENTER_DURATION_MS)} key={`${latestEvent.technique}-${techniqueCount}`} style={badgeStyle}>

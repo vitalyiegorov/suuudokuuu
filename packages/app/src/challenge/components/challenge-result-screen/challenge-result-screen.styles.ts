@@ -10,9 +10,6 @@ export const ChallengeResultScreenStyles = StyleSheet.create({
         gap: 10,
         width: '100%'
     },
-    chromeContent: {
-        alignItems: 'center'
-    },
     content: {
         alignItems: 'stretch',
         flexGrow: 1,
@@ -21,11 +18,6 @@ export const ChallengeResultScreenStyles = StyleSheet.create({
         paddingHorizontal: 18,
         paddingTop: 16,
         width: '100%'
-    },
-    footer: {
-        paddingBottom: 18,
-        paddingHorizontal: 18,
-        paddingTop: 12
     },
     pill: {
         alignItems: 'center',
@@ -39,15 +31,6 @@ export const ChallengeResultScreenStyles = StyleSheet.create({
         fontFamily: 'Inter_500Medium',
         fontSize: 12.5,
         textAlign: 'center'
-    },
-    scrollContent: {
-        alignItems: 'center',
-        flexGrow: 1,
-        width: '100%'
-    },
-    scrollView: {
-        flex: 1,
-        width: '100%'
     },
     title: {
         fontFamily: 'Inter_700Bold',

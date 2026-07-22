@@ -3,15 +3,14 @@ import { StyleSheet } from 'react-native';
 export const ChallengeAcceptScreenStyles = StyleSheet.create({
     actions: {
         gap: 10,
-        marginTop: 24,
         width: '100%'
     },
     arsenalHeader: {
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: 11,
-        marginTop: 22,
+        marginBottom: 10,
+        marginTop: 16,
         paddingHorizontal: 2
     },
     arsenalLabel: {
@@ -56,9 +55,6 @@ export const ChallengeAcceptScreenStyles = StyleSheet.create({
         fontFamily: 'Inter_700Bold',
         fontSize: 13
     },
-    chromeContent: {
-        alignItems: 'center'
-    },
     content: {
         alignItems: 'stretch',
         maxWidth: 560,
@@ -69,25 +65,16 @@ export const ChallengeAcceptScreenStyles = StyleSheet.create({
     medallion: {
         alignItems: 'center',
         alignSelf: 'center',
-        borderRadius: 26,
-        height: 84,
+        borderRadius: 22,
+        height: 72,
         justifyContent: 'center',
-        marginBottom: 16,
-        width: 84
-    },
-    scrollContent: {
-        alignItems: 'center',
-        flexGrow: 1,
-        width: '100%'
-    },
-    scrollView: {
-        flex: 1,
-        width: '100%'
+        marginBottom: 12,
+        width: 72
     },
     timeBlock: {
         alignItems: 'center',
         marginBottom: 4,
-        marginTop: 26
+        marginTop: 16
     },
     timeLabel: {
         fontFamily: 'Inter_500Medium',
@@ -95,13 +82,13 @@ export const ChallengeAcceptScreenStyles = StyleSheet.create({
     },
     timeValue: {
         fontFamily: 'Inter_700Bold',
-        fontSize: 56,
+        fontSize: 48,
         fontVariant: ['tabular-nums'],
         letterSpacing: -1.5,
         marginTop: 4
     },
     timelineWrap: {
-        marginTop: 22,
+        marginTop: 16,
         width: '100%'
     },
     title: {

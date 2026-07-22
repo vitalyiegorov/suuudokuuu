@@ -1,12 +1,10 @@
 import { useLingui } from '@lingui/react/macro';
-import { ScreenChromeScrollView } from '@suuudokuuu/screen-chrome';
 import { Redirect } from 'expo-router';
 import { use } from 'react';
 import { Text, View } from 'react-native';
 
 import { isNotEmptyString } from '@rnw-community/shared';
 
-import { ChromePage } from '../../../@generic/components/chrome-page/chrome-page';
 import { PlayAgainButton } from '../../../@generic/components/play-again-button/play-again-button';
 import { UkraineSupportCard } from '../../../@generic/components/ukraine-support-card/ukraine-support-card';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
@@ -19,18 +17,15 @@ import { ChallengeResult } from '../../interfaces/challenge-result.interface';
 import { getChallengeDifficulty } from '../../utils/get-challenge-difficulty.util';
 import { getChallengeDurationParts } from '../../utils/get-challenge-duration-parts.util';
 import { getChallengeTechniqueEventsFromState } from '../../utils/get-challenge-technique-events-from-state.util';
+import { ChallengeChromePage } from '../challenge-chrome-page/challenge-chrome-page';
 import { ChallengeResultMarginCard } from '../challenge-result-margin-card/challenge-result-margin-card';
 import { ChallengeResultMedallion } from '../challenge-result-medallion/challenge-result-medallion';
 import { ChallengeResultRaceCard } from '../challenge-result-race-card/challenge-result-race-card';
+import { ChallengeResultRivalTimeCard } from '../challenge-result-rival-time-card/challenge-result-rival-time-card';
 import { ChallengeTechniqueBreakdown } from '../challenge-technique-breakdown/challenge-technique-breakdown';
 
 import { ChallengeResultScreenSelectors } from './challenge-result-screen.selectors';
 import { ChallengeResultScreenStyles as styles } from './challenge-result-screen.styles';
-import {
-    ChallengeResultScreenFooterFadeIntensity,
-    ChallengeResultScreenFooterHeight,
-    ChallengeResultScreenTopFadeHeight
-} from './constant/challenge-result-screen-chrome.constant';
 
 import type { ReactNode } from 'react';
 
@@ -41,7 +36,6 @@ interface Props {
     readonly lossReason?: ChallengeLossReason;
 }
 
-// eslint-disable-next-line max-lines-per-function -- Layout/form component requires many lines
 export const ChallengeResultScreen = (props: Props) => {
     const { children, gameState, result, lossReason = ChallengeLossReason.Time } = props;
     const { elapsedTime, challengeTime, sudokuString, challengeState, solutionSteps, challengeSteps, mistakes, maxMistakes } = gameState;
@@ -90,37 +84,25 @@ export const ChallengeResultScreen = (props: Props) => {
             </View>
         </View>
     );
-    const footerEdgeFadeProps = { height: ChallengeResultScreenFooterHeight, intensity: ChallengeResultScreenFooterFadeIntensity };
-    const topEdgeFadeProps = { height: ChallengeResultScreenTopFadeHeight };
 
     return (
-        <ChromePage
-            contentStyle={styles.chromeContent}
-            footer={footer}
-            footerEdgeFadeProps={footerEdgeFadeProps}
-            footerStyle={styles.footer}
-            testID={ChallengeResultScreenSelectors.Root}
-            topEdgeFadeProps={topEdgeFadeProps}
-        >
-            <ScreenChromeScrollView
-                contentContainerStyle={styles.scrollContent}
-                contentInsetBottom={ChallengeResultScreenFooterHeight}
-                showsVerticalScrollIndicator={false}
-                style={styles.scrollView}
-            >
-                <View style={styles.content}>
-                    <ChallengeResultMedallion result={result} />
+        <ChallengeChromePage footer={footer} testID={ChallengeResultScreenSelectors.Root}>
+            <View style={styles.content}>
+                <ChallengeResultMedallion result={result} />
 
-                    <Text allowFontScaling={false} style={titleStyle}>
-                        {title}
+                <Text allowFontScaling={false} style={titleStyle}>
+                    {title}
+                </Text>
+
+                <View style={pillStyle}>
+                    <Text allowFontScaling={false} style={pillTextStyle} testID={ChallengeResultScreenSelectors.OutcomeValue}>
+                        {badgeText}
                     </Text>
+                </View>
 
-                    <View style={pillStyle}>
-                        <Text allowFontScaling={false} style={pillTextStyle} testID={ChallengeResultScreenSelectors.OutcomeValue}>
-                            {badgeText}
-                        </Text>
-                    </View>
-
+                {lostByTime ? (
+                    <ChallengeResultRivalTimeCard rivalTimeText={challengeTimeText} />
+                ) : (
                     <ChallengeResultRaceCard
                         lostByMistakes={lostByMistakes}
                         opponentSeconds={challengeTime}
@@ -130,21 +112,21 @@ export const ChallengeResultScreen = (props: Props) => {
                         playerSeconds={elapsedTime}
                         playerTimeText={elapsedTimeText}
                     />
+                )}
 
-                    {lostByTime ? null : (
-                        <ChallengeResultMarginCard
-                            durationParts={durationParts}
-                            lostByMistakes={lostByMistakes}
-                            mistakes={mistakes}
-                            result={result}
-                        />
-                    )}
+                {lostByTime ? null : (
+                    <ChallengeResultMarginCard
+                        durationParts={durationParts}
+                        lostByMistakes={lostByMistakes}
+                        mistakes={mistakes}
+                        result={result}
+                    />
+                )}
 
-                    <ChallengeTechniqueBreakdown events={techniqueEvents} />
+                <ChallengeTechniqueBreakdown events={techniqueEvents} />
 
-                    <UkraineSupportCard testID={ChallengeResultScreenSelectors.UkraineSupportCta} />
-                </View>
-            </ScreenChromeScrollView>
-        </ChromePage>
+                <UkraineSupportCard testID={ChallengeResultScreenSelectors.UkraineSupportCta} />
+            </View>
+        </ChallengeChromePage>
     );
 };
