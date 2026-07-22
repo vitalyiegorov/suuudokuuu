@@ -3,22 +3,22 @@ import { StyleSheet } from 'react-native';
 export const ChallengeRaceStatusStyles = StyleSheet.create({
     avatar: {
         alignItems: 'center',
-        borderRadius: 15,
-        height: 30,
+        borderRadius: 13,
+        height: 26,
         justifyContent: 'center',
-        width: 30
+        width: 26
     },
     container: {
         alignItems: 'center',
         flexDirection: 'row',
-        gap: 9
+        gap: 8
     },
     name: {
         fontFamily: 'Inter_700Bold',
-        fontSize: 15
+        fontSize: 14
     },
     status: {
         fontFamily: 'Inter_700Bold',
-        fontSize: 15
+        fontSize: 14
     }
 });

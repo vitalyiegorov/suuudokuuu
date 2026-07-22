@@ -31,6 +31,7 @@ export const ChallengeTechniqueArsenalCard = ({ item, testID }: Props) => {
         <View style={styles.column} testID={testID}>
             <View style={tileStyle}>
                 <TechniqueGlyph
+                    accentColor={theme.colors.red}
                     dimColor={theme.colors.white05}
                     gap={GLYPH_GAP}
                     litColor={getTechniqueTierColor(item.tier, theme, 'inverted')}

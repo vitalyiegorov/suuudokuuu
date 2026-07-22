@@ -3,13 +3,13 @@ import { StyleSheet } from 'react-native';
 export const ChallengeRaceHudStyles = StyleSheet.create({
     card: {
         borderCurve: 'continuous',
-        borderRadius: 22,
-        gap: 12,
-        padding: 14,
+        borderRadius: 20,
+        gap: 9,
+        padding: 12,
         width: '100%'
     },
     container: {
-        marginBottom: 16,
+        marginBottom: 10,
         paddingHorizontal: 10,
         width: '100%'
     },
@@ -18,6 +18,6 @@ export const ChallengeRaceHudStyles = StyleSheet.create({
         flexDirection: 'row',
         gap: 10,
         justifyContent: 'space-between',
-        minHeight: 34
+        minHeight: 30
     }
 });

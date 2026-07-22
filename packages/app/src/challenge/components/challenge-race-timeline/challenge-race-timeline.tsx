@@ -13,9 +13,9 @@ import type { ViewStyle } from 'react-native';
 
 const TICK_COUNT = 44;
 const TICK_CENTER_OFFSET = 0.5;
-const MARK_BASE_HEIGHT = 9;
-const MARK_HEIGHT_STEP = 3;
-const FILLER_HEIGHT = 6;
+const MARK_BASE_HEIGHT = 7;
+const MARK_HEIGHT_STEP = 2;
+const FILLER_HEIGHT = 5;
 const MOVE_PASSED_OPACITY = 0.7;
 const MOVE_UPCOMING_OPACITY = 0.26;
 const FILLER_PASSED_OPACITY = 0.3;
