@@ -4,11 +4,12 @@ import { use } from 'react';
 import { Text, View } from 'react-native';
 
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { ChallengeRaceAccent, ChallengeRaceAheadColor } from '../../constants/challenge-race-palette.constant';
 
 import { ChallengeRaceStatusStyles as styles } from './challenge-race-status.styles';
 
 const AVATAR_ICON_SIZE = 16;
-const LEAD_MARGIN = 0.01;
+const LEAD_MARGIN = 0.02;
 
 interface Props {
     readonly opponentProgress: number;
@@ -20,10 +21,10 @@ export const ChallengeRaceStatus = ({ opponentProgress, playerProgress }: Props)
     const { theme } = use(ThemeContext);
 
     const isPlayerLeading = playerProgress > opponentProgress + LEAD_MARGIN;
-    const isRivalLeading = opponentProgress > playerProgress + LEAD_MARGIN;
-    const leadingColor = isPlayerLeading ? theme.colors.blue : theme.colors.red;
-    const statusColor = isPlayerLeading || isRivalLeading ? leadingColor : theme.colors.label.hint;
-    const neutralStatusText = isRivalLeading ? t`rival leads` : t`neck and neck`;
+    const isRivalAhead = opponentProgress > playerProgress + LEAD_MARGIN;
+    const leadingColor = isPlayerLeading ? ChallengeRaceAccent : ChallengeRaceAheadColor;
+    const statusColor = isPlayerLeading || isRivalAhead ? leadingColor : theme.colors.label.hint;
+    const neutralStatusText = isRivalAhead ? t`is ahead` : t`neck & neck`;
     const statusText = isPlayerLeading ? t`you lead` : neutralStatusText;
 
     const avatarStyle = [styles.avatar, { backgroundColor: theme.colors.white05 }];

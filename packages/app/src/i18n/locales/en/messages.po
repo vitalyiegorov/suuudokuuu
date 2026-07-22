@@ -541,6 +541,10 @@ msgstr "Invalid Sudoku"
 msgid "iOS installation"
 msgstr "iOS installation"
 
+#: src/challenge/components/challenge-race-status/challenge-race-status.tsx
+msgid "is ahead"
+msgstr "is ahead"
+
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "It was a tie"
 msgstr "It was a tie"
@@ -650,8 +654,8 @@ msgid "Naked Triple"
 msgstr "Naked Triple"
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
-msgid "neck and neck"
-msgstr "neck and neck"
+msgid "neck & neck"
+msgstr "neck & neck"
 
 #: src/screens/components/home-screen/home-screen-section-header/home-screen-section-header.tsx
 msgid "New game"
@@ -868,10 +872,6 @@ msgstr "Rival"
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Rival challenged you"
 msgstr "Rival challenged you"
-
-#: src/challenge/components/challenge-race-status/challenge-race-status.tsx
-msgid "rival leads"
-msgstr "rival leads"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Rival's arsenal"

@@ -539,6 +539,10 @@ msgstr "अमान्य सुडोकू"
 msgid "iOS installation"
 msgstr "iOS इंस्टॉलेशन"
 
+#: src/challenge/components/challenge-race-status/challenge-race-status.tsx
+msgid "is ahead"
+msgstr ""
+
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "It was a tie"
 msgstr "यह बराबरी थी"
@@ -648,7 +652,7 @@ msgid "Naked Triple"
 msgstr ""
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
-msgid "neck and neck"
+msgid "neck & neck"
 msgstr ""
 
 #: src/screens/components/home-screen/home-screen-section-header/home-screen-section-header.tsx
@@ -865,10 +869,6 @@ msgstr ""
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Rival challenged you"
-msgstr ""
-
-#: src/challenge/components/challenge-race-status/challenge-race-status.tsx
-msgid "rival leads"
 msgstr ""
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx

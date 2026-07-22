@@ -4,17 +4,19 @@ export const ChallengeRaceBadgeStyles = StyleSheet.create({
     badge: {
         alignItems: 'center',
         borderRadius: 999,
+        borderWidth: 1,
         flexDirection: 'row',
-        gap: 8,
-        paddingHorizontal: 12,
-        paddingVertical: 7
+        gap: 7,
+        paddingLeft: 6,
+        paddingRight: 11,
+        paddingVertical: 4
     },
     count: {
         fontFamily: 'Inter_700Bold',
-        fontSize: 12
+        fontSize: 11
     },
     label: {
         fontFamily: 'Inter_700Bold',
-        fontSize: 13
+        fontSize: 12.5
     }
 });
