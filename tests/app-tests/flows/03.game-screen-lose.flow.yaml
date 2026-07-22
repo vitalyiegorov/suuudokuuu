@@ -10,6 +10,8 @@ appId: ${APP_ID}
       env:
           SHARED_CHALLENGE_LINK: suuudokuuu://shared/_KAP3__7X7_7r____zMOSjkyv8nqM0LfkydkEBSLStwgSBis7M6rv28ZIIBEZAA
 - runFlow: subflows/shared/accept-shared-challenge.flow.yaml
+- assertVisible:
+      id: 'ChallengeRaceHudSelectors.Root'
 - assertVisible: '0/3'
 # Cell 0-4's answer is not 4 in this fixture, so entering 4 three times
 # registers three mistakes (deterministic, well under the challenge timer).

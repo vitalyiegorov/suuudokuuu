@@ -10,6 +10,7 @@ export const ScreenActionBarStyles = StyleSheet.create({
         width: '100%'
     },
     main: {
+        alignItems: 'center',
         flex: 1
     },
     side: {

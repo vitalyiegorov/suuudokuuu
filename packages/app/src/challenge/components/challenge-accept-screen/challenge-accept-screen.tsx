@@ -4,7 +4,7 @@ import { use } from 'react';
 import { Text, View } from 'react-native';
 
 import { BlackButton } from '../../../@generic/components/black-button/black-button';
-import { BlackIconButton } from '../../../@generic/components/black-icon-button/black-icon-button';
+import { GlassIconButton } from '../../../@generic/components/glass-icon-button/glass-icon-button';
 import { ScreenActionBar } from '../../../@generic/components/screen-action-bar/screen-action-bar';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
@@ -52,14 +52,9 @@ export const ChallengeAcceptScreen = ({ opponentTotalTime, challengeState, onAcc
     const arsenalTagStyle = [styles.arsenalTag, { color: theme.colors.label.hint }];
 
     const maybeLaterButton = (
-        <BlackIconButton
-            accessibilityLabel={t`Maybe later`}
-            href="/"
-            testID={ChallengeAcceptScreenSelectors.MaybeLaterButton}
-            variant="ghost"
-        >
+        <GlassIconButton accessibilityLabel={t`Maybe later`} href="/" testID={ChallengeAcceptScreenSelectors.MaybeLaterButton}>
             <LucideX color={theme.colors.label.main} />
-        </BlackIconButton>
+        </GlassIconButton>
     );
 
     const footer = (

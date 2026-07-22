@@ -20,6 +20,7 @@ import { ChallengeRaceBadge } from '../challenge-race-badge/challenge-race-badge
 import { ChallengeRaceStatus } from '../challenge-race-status/challenge-race-status';
 import { ChallengeRaceTimeline } from '../challenge-race-timeline/challenge-race-timeline';
 
+import { ChallengeRaceHudSelectors } from './challenge-race-hud.selectors';
 import { ChallengeRaceHudStyles as styles } from './challenge-race-hud.styles';
 
 export const ChallengeRaceHud = () => {
@@ -47,7 +48,7 @@ export const ChallengeRaceHud = () => {
     const cardStyle = [styles.card, { backgroundColor: theme.colors.black }];
 
     return (
-        <View style={styles.container}>
+        <View style={styles.container} testID={ChallengeRaceHudSelectors.Root}>
             <View style={cardStyle}>
                 <View style={styles.header}>
                     <ChallengeRaceStatus opponentProgress={opponentProgress} playerProgress={playerProgress} />

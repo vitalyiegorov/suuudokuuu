@@ -40,6 +40,7 @@
         "expo-dev-client": "~57.0.5",
         "expo-device": "~57.0.0",
         "expo-font": "~57.0.0",
+        "expo-glass-effect": "~57.0.0",
         "expo-haptics": "~57.0.0",
         "expo-linear-gradient": "~57.0.0",
         "expo-linking": "~57.0.2",

@@ -1,4 +1,4 @@
-import { BlackIconButton } from '../../../@generic/components/black-icon-button/black-icon-button';
+import { GlassIconButton } from '../../../@generic/components/glass-icon-button/glass-icon-button';
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { gameResetAction } from '../../../game/store/game.actions';
 
@@ -15,8 +15,8 @@ export const ChallengeResultNavButton = ({ children, testID }: Props) => {
     const handlePress = () => void dispatch(gameResetAction());
 
     return (
-        <BlackIconButton href="/" onPress={handlePress} replace testID={testID} variant="inverted">
+        <GlassIconButton href="/" onPress={handlePress} replace testID={testID}>
             {children}
-        </BlackIconButton>
+        </GlassIconButton>
     );
 };

@@ -1,6 +1,6 @@
 import type { ThemeInterface } from '../../../theme/interface/theme.interface';
 
-export type AppButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger' | 'donation' | 'inverted';
+export type AppButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger' | 'donation' | 'inverted' | 'glass';
 
 export const appButtonGetColors = (theme: ThemeInterface, variant: AppButtonVariant) => {
     if (variant === 'primary') {
@@ -23,6 +23,14 @@ export const appButtonGetColors = (theme: ThemeInterface, variant: AppButtonVari
         return {
             backgroundColor: theme.colors.white,
             borderColor: theme.colors.value.border,
+            textColor: theme.colors.label.main
+        };
+    }
+
+    if (variant === 'glass') {
+        return {
+            backgroundColor: 'transparent',
+            borderColor: 'transparent',
             textColor: theme.colors.label.main
         };
     }

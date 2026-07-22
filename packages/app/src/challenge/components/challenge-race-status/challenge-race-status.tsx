@@ -9,6 +9,8 @@ import { ChallengeRaceStatusStyles as styles } from './challenge-race-status.sty
 
 const AVATAR_ICON_SIZE = 16;
 const LEAD_MARGIN = 0.02;
+const NEUTRAL_STATUS_OPACITY = 0.6;
+const LEADER_STATUS_OPACITY = 1;
 
 interface Props {
     readonly opponentProgress: number;
@@ -21,14 +23,16 @@ export const ChallengeRaceStatus = ({ opponentProgress, playerProgress }: Props)
 
     const isPlayerLeading = playerProgress > opponentProgress + LEAD_MARGIN;
     const isRivalAhead = opponentProgress > playerProgress + LEAD_MARGIN;
-    const leadingColor = isPlayerLeading ? theme.colors.blue : theme.colors.red;
-    const statusColor = isPlayerLeading || isRivalAhead ? leadingColor : theme.colors.label.hint;
+    const hasLeader = isPlayerLeading || isRivalAhead;
+    const leadingColor = isPlayerLeading ? theme.colors.label.inverted : theme.colors.red;
+    const statusColor = hasLeader ? leadingColor : theme.colors.label.inverted;
+    const statusOpacity = hasLeader ? LEADER_STATUS_OPACITY : NEUTRAL_STATUS_OPACITY;
     const neutralStatusText = isRivalAhead ? t`is ahead` : t`neck & neck`;
     const statusText = isPlayerLeading ? t`you lead` : neutralStatusText;
 
     const avatarStyle = [styles.avatar, { backgroundColor: theme.colors.white05 }];
     const nameStyle = [styles.name, { color: theme.colors.label.inverted }];
-    const statusStyle = [styles.status, { color: statusColor }];
+    const statusStyle = [styles.status, { color: statusColor, opacity: statusOpacity }];
 
     return (
         <View style={styles.container}>

@@ -6,6 +6,8 @@ import { ScreenActionBar } from '../../../@generic/components/screen-action-bar/
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { ChallengeResultNavButton } from '../challenge-result-nav-button/challenge-result-nav-button';
 
+import { ChallengeResultFooterSelectors } from './challenge-result-footer.selectors';
+
 import type { ReactNode } from 'react';
 
 interface Props {
@@ -21,7 +23,7 @@ export const ChallengeResultFooter = ({ children }: Props) => {
         </ChallengeResultNavButton>
     );
     const homeButton = (
-        <ChallengeResultNavButton>
+        <ChallengeResultNavButton testID={ChallengeResultFooterSelectors.HomeButton}>
             <LucideHouse color={theme.colors.label.main} />
         </ChallengeResultNavButton>
     );
