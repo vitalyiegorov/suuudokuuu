@@ -6,7 +6,7 @@ export const ChallengeRaceTimelineStyles = StyleSheet.create({
         height: 2,
         left: 0,
         marginTop: -1,
-        opacity: 0.55,
+        opacity: 0.22,
         position: 'absolute',
         top: '50%'
     },

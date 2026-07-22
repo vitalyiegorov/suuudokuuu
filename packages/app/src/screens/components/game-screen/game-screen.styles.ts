@@ -1,7 +1,10 @@
 import * as Device from 'expo-device';
 import { Platform, StyleSheet } from 'react-native';
 
-const GameScreenControlsGap = 8;
+const GameScreenControlsGap = 16;
+const GameScreenButtonGroupGap = 8;
+
+export const GameScreenBottomInset = 16;
 
 export const GameScreenStyles = StyleSheet.create({
     additionalControlsWrapper: {
@@ -23,7 +26,7 @@ export const GameScreenStyles = StyleSheet.create({
         flex: 1,
         ...(Device.deviceType === Device.DeviceType.PHONE && Platform.select({ web: { flex: 1.3 } }))
     },
-    buttonsWrapper: { flexDirection: 'row', flexShrink: 0, gap: GameScreenControlsGap },
+    buttonsWrapper: { flexDirection: 'row', flexShrink: 0, gap: GameScreenButtonGroupGap },
     container: {
         alignItems: 'center',
         flex: 1,

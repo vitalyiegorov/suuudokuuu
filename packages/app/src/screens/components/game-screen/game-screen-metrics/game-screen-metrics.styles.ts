@@ -2,18 +2,20 @@ import { StyleSheet } from 'react-native';
 
 export const GameScreenMetricsStyles = StyleSheet.create({
     container: {
-        borderRadius: 28,
+        borderRadius: 26,
         minHeight: 52,
         paddingHorizontal: 10,
         paddingVertical: 7
     },
     item: {
-        gap: 1
+        gap: 2
     },
     label: {
-        fontSize: 8,
-        letterSpacing: 0.8,
-        lineHeight: 10
+        fontSize: 8.5,
+        letterSpacing: 1,
+        lineHeight: 10,
+        opacity: 0.6,
+        textTransform: 'uppercase'
     },
     mistakesText: {
         fontVariant: ['tabular-nums'],
@@ -28,6 +30,8 @@ export const GameScreenMetricsStyles = StyleSheet.create({
     },
     value: {
         fontSize: 17,
+        fontVariant: ['tabular-nums'],
+        fontWeight: '900',
         lineHeight: 19
     }
 });
