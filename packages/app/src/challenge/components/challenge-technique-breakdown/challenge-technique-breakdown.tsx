@@ -9,14 +9,12 @@ import { isEmptyArray } from '@rnw-community/shared';
 
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { ChallengeTechniqueTierEnum } from '../../enums/challenge-technique-tier.enum';
-import { getChallengeTechniqueSummary } from '../../utils/get-challenge-technique-summary.util';
-import { ChallengeTechniqueBreakdownRow } from '../challenge-technique-breakdown-row/challenge-technique-breakdown-row';
+import { ChallengeTechniqueArsenal } from '../challenge-technique-arsenal/challenge-technique-arsenal';
 
 import { ChallengeTechniqueBreakdownStyles as styles } from './challenge-technique-breakdown.styles';
 
 import type { ChallengeTechniqueEventInterface } from '../../interfaces/challenge-technique-event.interface';
 
-const MAX_VISIBLE_TECHNIQUES = 6;
 const HEADER_ICON_SIZE = 19;
 
 interface Props {
@@ -31,8 +29,6 @@ export const ChallengeTechniqueBreakdown = ({ events }: Props) => {
         return null;
     }
 
-    const summary = getChallengeTechniqueSummary(events);
-    const visibleSummary = summary.slice(0, MAX_VISIBLE_TECHNIQUES);
     const sharpCount = events.filter(
         event => event.tier === ChallengeTechniqueTierEnum.Clever || event.tier === ChallengeTechniqueTierEnum.Advanced
     ).length;
@@ -58,9 +54,8 @@ export const ChallengeTechniqueBreakdown = ({ events }: Props) => {
                     <LucideSwords color={theme.colors.label.main} size={HEADER_ICON_SIZE} />
                 </View>
             </View>
-            {visibleSummary.map((item, index) => (
-                <ChallengeTechniqueBreakdownRow highlighted={index === 0} index={index} item={item} key={item.technique} />
-            ))}
+
+            <ChallengeTechniqueArsenal events={events} />
         </AppSurfaceCard>
     );
 };

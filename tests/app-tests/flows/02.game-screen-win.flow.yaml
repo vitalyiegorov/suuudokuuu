@@ -20,6 +20,7 @@ appId: ${APP_ID}
       element:
           id: 'ChallengeResultScreenSelectors.UkraineSupportCta'
       direction: DOWN
+      visibilityPercentage: 50
       timeout: 5000
 - tapOn:
       id: 'PlayAgainButtonSelectors.Root'
