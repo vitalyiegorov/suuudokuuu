@@ -1,17 +1,12 @@
 import { useLingui } from '@lingui/react';
+import { use } from 'react';
 import { Text } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
 
 import { isDefined } from '@rnw-community/shared';
 
 import { techniqueLabelsConstant } from '../../../@generic/constants/technique-labels.constant';
-import {
-    ChallengeRaceAccent,
-    ChallengeRaceAccentBorder,
-    ChallengeRaceAccentMuted,
-    ChallengeRaceAccentSurface,
-    ChallengeRaceFillerDim
-} from '../../constants/challenge-race-palette.constant';
+import { ThemeContext } from '../../../theme/context/theme.context';
 import { TechniqueGlyph } from '../technique-glyph/technique-glyph';
 
 import { ChallengeRaceBadgeStyles as styles } from './challenge-race-badge.styles';
@@ -29,6 +24,7 @@ interface Props {
 
 export const ChallengeRaceBadge = ({ events, elapsedTime }: Props) => {
     const { _ } = useLingui();
+    const { theme } = use(ThemeContext);
 
     const passedEvents = events.filter(event => event.cumulativeTime < elapsedTime);
     const latestEvent = passedEvents.at(-1);
@@ -40,16 +36,16 @@ export const ChallengeRaceBadge = ({ events, elapsedTime }: Props) => {
     const techniqueCount = passedEvents.filter(event => event.technique === latestEvent.technique).length;
     const techniqueLabel = _(techniqueLabelsConstant[latestEvent.technique]);
 
-    const badgeStyle = [styles.badge, { backgroundColor: ChallengeRaceAccentSurface, borderColor: ChallengeRaceAccentBorder }];
-    const labelStyle = [styles.label, { color: ChallengeRaceAccent }];
-    const countStyle = [styles.count, { color: ChallengeRaceAccentMuted }];
+    const badgeStyle = [styles.badge, { backgroundColor: theme.colors.white05, borderColor: theme.colors.white05 }];
+    const labelStyle = [styles.label, { color: theme.colors.label.inverted }];
+    const countStyle = [styles.count, { color: theme.colors.label.hint }];
 
     return (
         <Animated.View entering={FadeIn.duration(ENTER_DURATION_MS)} key={`${latestEvent.technique}-${techniqueCount}`} style={badgeStyle}>
             <TechniqueGlyph
-                dimColor={ChallengeRaceFillerDim}
+                dimColor={theme.colors.white05}
                 gap={GLYPH_GAP}
-                litColor={ChallengeRaceAccent}
+                litColor={theme.colors.label.inverted}
                 size={GLYPH_SIZE}
                 technique={latestEvent.technique}
             />

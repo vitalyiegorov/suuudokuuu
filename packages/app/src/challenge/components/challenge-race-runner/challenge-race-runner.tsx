@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
+import { use, useEffect } from 'react';
 import Animated, { Easing, interpolate, useAnimatedStyle, useSharedValue, withRepeat, withTiming } from 'react-native-reanimated';
 
-import { ChallengeRaceAccent, ChallengeRaceSurface } from '../../constants/challenge-race-palette.constant';
+import { ThemeContext } from '../../../theme/context/theme.context';
 
 import { ChallengeRaceRunnerStyles as styles } from './challenge-race-runner.styles';
 
@@ -18,6 +18,8 @@ interface Props {
 }
 
 export const ChallengeRaceRunner = ({ progress }: Props) => {
+    const { theme } = use(ThemeContext);
+
     const pulse = useSharedValue(0);
 
     useEffect(() => {
@@ -33,8 +35,8 @@ export const ChallengeRaceRunner = ({ progress }: Props) => {
     }));
 
     const runnerStyle = [styles.runner, runnerAnimatedStyle];
-    const haloStyle = [styles.halo, { backgroundColor: ChallengeRaceAccent }, haloAnimatedStyle];
-    const coreStyle = [styles.core, { backgroundColor: ChallengeRaceAccent, borderColor: ChallengeRaceSurface }];
+    const haloStyle = [styles.halo, { backgroundColor: theme.colors.red }, haloAnimatedStyle];
+    const coreStyle = [styles.core, { backgroundColor: theme.colors.red, borderColor: theme.colors.black }];
 
     return (
         <Animated.View pointerEvents="none" style={runnerStyle}>

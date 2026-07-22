@@ -5,6 +5,7 @@ import { useRouter } from 'expo-router';
 import { LucideLogOut, LucideSettings, LucideShare2 } from 'lucide-react-native';
 import { use, useEffect, useRef, useState } from 'react';
 import { Pressable, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { isDefined } from '@rnw-community/shared';
 
@@ -47,7 +48,7 @@ import { gameScreenSetSharingAvailable } from '../../utils/game-screen-set-shari
 
 import { GameScreenMetrics } from './game-screen-metrics/game-screen-metrics';
 import { GameScreenSelectors } from './game-screen.selectors';
-import { GameScreenStyles as styles } from './game-screen.styles';
+import { GameScreenBottomInset, GameScreenStyles as styles } from './game-screen.styles';
 import { useOpenGameSettings } from './hooks/use-open-game-settings.hook';
 import { gameScreenExit } from './utils/game-screen-exit.util';
 
@@ -199,18 +200,19 @@ export const GameScreen = () => {
     };
 
     useKeyboardControls(sudoku, selectedCell, handleSelectCell, handleSelectValue, handleExit);
+    const insets = useSafeAreaInsets();
     const hideAutoCandidates = maxMistakes === 0;
     const actionIconColor = theme.colors.label.main;
+    const containerStyle = [styles.container, { paddingBottom: insets.bottom + GameScreenBottomInset }];
 
     return (
         <Pressable
             accessible={false}
             {...(!keepActiveCell && { onPress: handleDeselectCell })}
-            style={styles.container}
+            style={containerStyle}
             testID={GameScreenSelectors.Root}
         >
             <GameTimerController />
-            {isChallengeMode && <ChallengeRaceHud />}
             <View style={styles.controls}>
                 <GameScreenMetrics
                     elapsedTime={elapsedTime}
@@ -223,20 +225,22 @@ export const GameScreen = () => {
 
                 <View style={styles.buttonsWrapper}>
                     {hasSharing ? (
-                        <BlackIconButton onPress={handleShare} testID={GameScreenSelectors.ShareButton} variant="secondary">
+                        <BlackIconButton onPress={handleShare} testID={GameScreenSelectors.ShareButton} variant="inverted">
                             <LucideShare2 color={actionIconColor} />
                         </BlackIconButton>
                     ) : null}
 
-                    <BlackIconButton onPress={handleOpenSettings} testID={GameScreenSelectors.SettingsButton} variant="secondary">
+                    <BlackIconButton onPress={handleOpenSettings} testID={GameScreenSelectors.SettingsButton} variant="inverted">
                         <LucideSettings color={actionIconColor} />
                     </BlackIconButton>
 
-                    <BlackIconButton onPress={handleExit} testID={GameScreenSelectors.QuitButton} variant="secondary">
+                    <BlackIconButton onPress={handleExit} testID={GameScreenSelectors.QuitButton} variant="inverted">
                         <LucideLogOut color={actionIconColor} />
                     </BlackIconButton>
                 </View>
             </View>
+
+            {isChallengeMode && <ChallengeRaceHud />}
 
             <View style={styles.fieldWrapper}>
                 <Field ref={fieldRef} onSelect={handleSelectCell} selectedCell={selectedCell} />

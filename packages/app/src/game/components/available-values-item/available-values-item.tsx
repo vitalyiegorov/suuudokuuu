@@ -31,6 +31,8 @@ import type { Ref } from 'react';
 
 const ReanimatedPressable = Reanimated.createAnimatedComponent(Pressable);
 
+const AvailableValueProgressOpacity = 0.65;
+
 export interface AvailableValuesItemRef {
     triggerAnimation: OnEventFn<void>;
 }
@@ -107,6 +109,7 @@ export const AvailableValuesItem = ({ value, onSelect, progress, correctValue, c
                         fill="none"
                         r={AvailableValueProgressRadius}
                         stroke={theme.colors.value.progressActive}
+                        strokeOpacity={AvailableValueProgressOpacity}
                         transform={AvailableValueProgressRingTransform}
                         strokeDasharray={AvailableValueProgressCircumference}
                         strokeDashoffset={progressDashOffset}
