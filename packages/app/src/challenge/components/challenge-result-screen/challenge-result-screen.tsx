@@ -1,11 +1,12 @@
 import { useLingui } from '@lingui/react/macro';
 import { Redirect } from 'expo-router';
+import { LucideHouse, LucideRotateCcw } from 'lucide-react-native';
 import { use } from 'react';
 import { Text, View } from 'react-native';
 
 import { isNotEmptyString } from '@rnw-community/shared';
 
-import { PlayAgainButton } from '../../../@generic/components/play-again-button/play-again-button';
+import { PlayAgainButtonSelectors } from '../../../@generic/components/play-again-button/play-again-button.selectors';
 import { UkraineSupportCard } from '../../../@generic/components/ukraine-support-card/ukraine-support-card';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
@@ -20,6 +21,7 @@ import { getChallengeTechniqueEventsFromState } from '../../utils/get-challenge-
 import { ChallengeChromePage } from '../challenge-chrome-page/challenge-chrome-page';
 import { ChallengeResultMarginCard } from '../challenge-result-margin-card/challenge-result-margin-card';
 import { ChallengeResultMedallion } from '../challenge-result-medallion/challenge-result-medallion';
+import { ChallengeResultNavButton } from '../challenge-result-nav-button/challenge-result-nav-button';
 import { ChallengeResultRaceCard } from '../challenge-result-race-card/challenge-result-race-card';
 import { ChallengeResultRivalTimeCard } from '../challenge-result-rival-time-card/challenge-result-rival-time-card';
 import { ChallengeTechniqueBreakdown } from '../challenge-technique-breakdown/challenge-technique-breakdown';
@@ -78,10 +80,13 @@ export const ChallengeResultScreen = (props: Props) => {
 
     const footer = (
         <View style={styles.actions}>
-            <View style={styles.actionSlot}>{children}</View>
-            <View style={styles.actionSlot}>
-                <PlayAgainButton />
-            </View>
+            <ChallengeResultNavButton testID={PlayAgainButtonSelectors.Root}>
+                <LucideRotateCcw color={theme.colors.label.main} />
+            </ChallengeResultNavButton>
+            <View style={styles.actionMain}>{children}</View>
+            <ChallengeResultNavButton>
+                <LucideHouse color={theme.colors.label.main} />
+            </ChallengeResultNavButton>
         </View>
     );
 
