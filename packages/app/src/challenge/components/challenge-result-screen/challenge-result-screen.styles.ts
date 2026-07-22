@@ -1,15 +1,6 @@
 import { StyleSheet } from 'react-native';
 
 export const ChallengeResultScreenStyles = StyleSheet.create({
-    actionMain: {
-        flex: 1
-    },
-    actions: {
-        alignItems: 'center',
-        flexDirection: 'row',
-        gap: 10,
-        width: '100%'
-    },
     content: {
         alignItems: 'stretch',
         flexGrow: 1,
