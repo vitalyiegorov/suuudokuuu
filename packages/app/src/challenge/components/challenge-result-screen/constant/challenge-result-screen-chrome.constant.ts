@@ -1,3 +1,3 @@
-export const ChallengeResultScreenFooterHeight = 104;
-export const ChallengeResultScreenTopFadeHeight = 56;
-export const ChallengeResultScreenFooterFadeIntensity = 70;
+export const ChallengeResultScreenFooterHeight = 148;
+export const ChallengeResultScreenTopFadeHeight = 72;
+export const ChallengeResultScreenFooterFadeIntensity = 80;

@@ -38,7 +38,13 @@ export const ChallengeTechniqueBreakdownRow = ({ item, index, highlighted }: Pro
 
     return (
         <Animated.View entering={enterAnimation} style={rowStyle}>
-            <TechniqueGlyph dimColor={glyphDimColor} litColor={glyphLitColor} size={GLYPH_SIZE} technique={item.technique} />
+            <TechniqueGlyph
+                accentColor={theme.colors.red}
+                dimColor={glyphDimColor}
+                litColor={glyphLitColor}
+                size={GLYPH_SIZE}
+                technique={item.technique}
+            />
             <Text allowFontScaling={false} numberOfLines={1} style={labelStyle}>
                 {_(techniqueLabelsConstant[item.technique])}
             </Text>

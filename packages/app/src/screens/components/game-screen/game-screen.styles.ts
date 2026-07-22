@@ -38,7 +38,7 @@ export const GameScreenStyles = StyleSheet.create({
         flexDirection: 'row',
         gap: GameScreenControlsGap,
         justifyContent: 'center',
-        marginBottom: 20,
+        marginBottom: 14,
         maxWidth: 600,
         width: '100%',
 

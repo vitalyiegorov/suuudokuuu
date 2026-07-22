@@ -16,12 +16,13 @@ interface Props {
     readonly technique: SolutionTechniqueEnum;
     readonly litColor: string;
     readonly dimColor: string;
+    readonly accentColor: string;
     readonly size: number;
     readonly gap?: number;
 }
 
-export const TechniqueGlyph = ({ technique, litColor, dimColor, size, gap = DEFAULT_GAP }: Props) => {
-    const pattern = techniqueGlyphConstant[technique];
+export const TechniqueGlyph = ({ technique, litColor, dimColor, accentColor, size, gap = DEFAULT_GAP }: Props) => {
+    const { primary, accent } = techniqueGlyphConstant[technique];
 
     const containerStyle: ViewStyle = { gap, height: size, width: size };
     const rowStyles = [styles.row, { gap }];
@@ -32,7 +33,8 @@ export const TechniqueGlyph = ({ technique, litColor, dimColor, size, gap = DEFA
                 <View key={row} style={rowStyles}>
                     {GRID_COLUMNS.map(column => {
                         const index = row * GRID_SIZE + column;
-                        const cellColor = pattern.includes(index) ? litColor : dimColor;
+                        const baseColor = primary.includes(index) ? litColor : dimColor;
+                        const cellColor = accent.includes(index) ? accentColor : baseColor;
                         const cellStyle = [styles.cell, { backgroundColor: cellColor }];
 
                         return <View key={column} style={cellStyle} />;

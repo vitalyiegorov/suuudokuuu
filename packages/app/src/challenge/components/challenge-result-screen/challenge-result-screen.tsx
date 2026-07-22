@@ -61,6 +61,7 @@ export const ChallengeResultScreen = (props: Props) => {
     const playerProgress = challengeSteps.length === 0 ? 0 : solutionSteps.length / challengeSteps.length;
     const playerFinished = playerProgress >= 1;
     const lostByMistakes = result === ChallengeResult.Lost && lossReason === ChallengeLossReason.Mistakes;
+    const lostByTime = result === ChallengeResult.Lost && lossReason === ChallengeLossReason.Time;
 
     let title = t`Dead even`;
     let flavorText = t`Evenly matched`;
@@ -130,12 +131,14 @@ export const ChallengeResultScreen = (props: Props) => {
                         playerTimeText={elapsedTimeText}
                     />
 
-                    <ChallengeResultMarginCard
-                        durationParts={durationParts}
-                        lostByMistakes={lostByMistakes}
-                        mistakes={mistakes}
-                        result={result}
-                    />
+                    {lostByTime ? null : (
+                        <ChallengeResultMarginCard
+                            durationParts={durationParts}
+                            lostByMistakes={lostByMistakes}
+                            mistakes={mistakes}
+                            result={result}
+                        />
+                    )}
 
                     <ChallengeTechniqueBreakdown events={techniqueEvents} />
 

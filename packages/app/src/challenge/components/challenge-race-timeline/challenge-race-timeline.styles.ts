@@ -19,10 +19,10 @@ export const ChallengeRaceTimelineStyles = StyleSheet.create({
     },
     playerMarker: {
         borderRadius: 2,
-        bottom: 6,
+        bottom: 5,
         marginLeft: -1.5,
         position: 'absolute',
-        top: 6,
+        top: 5,
         width: 3
     },
     tick: {
@@ -31,10 +31,10 @@ export const ChallengeRaceTimelineStyles = StyleSheet.create({
     },
     track: {
         alignItems: 'center',
-        borderRadius: 12,
+        borderRadius: 11,
         flexDirection: 'row',
         gap: 2,
-        height: 34,
+        height: 28,
         overflow: 'hidden',
         paddingHorizontal: 12,
         position: 'relative',

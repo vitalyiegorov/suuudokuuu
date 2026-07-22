@@ -43,6 +43,7 @@ export const ChallengeRaceBadge = ({ events, elapsedTime }: Props) => {
     return (
         <Animated.View entering={FadeIn.duration(ENTER_DURATION_MS)} key={`${latestEvent.technique}-${techniqueCount}`} style={badgeStyle}>
             <TechniqueGlyph
+                accentColor={theme.colors.red}
                 dimColor={theme.colors.white05}
                 gap={GLYPH_GAP}
                 litColor={theme.colors.label.inverted}
