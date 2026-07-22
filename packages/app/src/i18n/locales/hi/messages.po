@@ -879,6 +879,10 @@ msgstr ""
 msgid "Rival's playbook"
 msgstr ""
 
+#: src/challenge/components/challenge-result-rival-time-card/challenge-result-rival-time-card.tsx
+msgid "Rival's time to beat"
+msgstr ""
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Row"
 msgstr "पंक्ति"

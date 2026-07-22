@@ -881,6 +881,10 @@ msgstr "Rival's arsenal"
 msgid "Rival's playbook"
 msgstr "Rival's playbook"
 
+#: src/challenge/components/challenge-result-rival-time-card/challenge-result-rival-time-card.tsx
+msgid "Rival's time to beat"
+msgstr "Rival's time to beat"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Row"
 msgstr "Row"

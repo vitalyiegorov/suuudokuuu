@@ -44,6 +44,7 @@ export const ChallengeRaceTimeline = ({ events, opponentProgress, playerProgress
 
     const marks = getChallengeTimelineMarks(events, TICK_COUNT);
     const trackStyle = [styles.track, { backgroundColor: theme.colors.white05 }];
+    const baselineStyle = [styles.baseline, { backgroundColor: theme.colors.label.inverted }];
     const fillAnimatedStyle = useAnimatedStyle(() => ({ width: `${opponentProgressValue.value * PERCENT}%` }));
     const fillStyle = [styles.fill, { backgroundColor: theme.colors.label.inverted }, fillAnimatedStyle];
     const playerMarkerAnimatedStyle = useAnimatedStyle(() => ({ left: `${playerProgressValue.value * PERCENT}%` }));
@@ -51,6 +52,11 @@ export const ChallengeRaceTimeline = ({ events, opponentProgress, playerProgress
 
     return (
         <View style={trackStyle}>
+            <View pointerEvents="none" style={styles.baselineLayer}>
+                <View style={baselineStyle} />
+                <Animated.View style={fillStyle} />
+            </View>
+
             {marks.map((mark, index) => {
                 const markPercent = (index + TICK_CENTER_OFFSET) / TICK_COUNT;
                 const isPassed = opponentProgress >= markPercent;
@@ -69,7 +75,6 @@ export const ChallengeRaceTimeline = ({ events, opponentProgress, playerProgress
             })}
 
             <View pointerEvents="none" style={styles.overlay}>
-                <Animated.View style={fillStyle} />
                 <Animated.View style={playerMarkerStyle} />
                 <ChallengeRaceRunner progress={opponentProgressValue} />
             </View>
