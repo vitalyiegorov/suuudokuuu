@@ -4805,6 +4805,7 @@ __metadata:
     expo-dev-client: "npm:~57.0.5"
     expo-device: "npm:~57.0.0"
     expo-font: "npm:~57.0.0"
+    expo-glass-effect: "npm:~57.0.0"
     expo-haptics: "npm:~57.0.0"
     expo-linear-gradient: "npm:~57.0.0"
     expo-linking: "npm:~57.0.2"
@@ -8795,6 +8796,17 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: 10/0551785faf4801e50736e37d0fe42fe3be1107366276318d3e143f7fadbe1b9998f21d493149f03e10e03a5de9323c99d2e5fb57b3677ac49610045eab41cada
+  languageName: node
+  linkType: hard
+
+"expo-glass-effect@npm:~57.0.0":
+  version: 57.0.1
+  resolution: "expo-glass-effect@npm:57.0.1"
+  peerDependencies:
+    expo: "*"
+    react: "*"
+    react-native: "*"
+  checksum: 10/22b972c638c8262bd98c3cea79182d4fbc5a0d67fec1f293a687bdd34f96b9a1669da0f2e6f27b6ecf9d8b00d0dc6cd5f1dcc857e813fb589e79310f4ea0b178
   languageName: node
   linkType: hard
 

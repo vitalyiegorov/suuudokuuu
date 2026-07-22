@@ -43,18 +43,32 @@ export const ChallengeRaceTimeline = ({ events, opponentProgress, playerProgress
     }, [playerProgress, playerProgressValue]);
 
     const marks = getChallengeTimelineMarks(events, TICK_COUNT);
+    const isRivalAhead = opponentProgress > playerProgress;
+    const gapColor = isRivalAhead ? theme.colors.red : theme.colors.label.inverted;
     const trackStyle = [styles.track, { backgroundColor: theme.colors.white05 }];
     const baselineStyle = [styles.baseline, { backgroundColor: theme.colors.label.inverted }];
-    const fillAnimatedStyle = useAnimatedStyle(() => ({ width: `${opponentProgressValue.value * PERCENT}%` }));
+    const fillAnimatedStyle = useAnimatedStyle(() => ({
+        width: `${Math.min(opponentProgressValue.value, playerProgressValue.value) * PERCENT}%`
+    }));
     const fillStyle = [styles.fill, { backgroundColor: theme.colors.label.inverted }, fillAnimatedStyle];
+    const gapAnimatedStyle = useAnimatedStyle(() => ({
+        left: `${Math.min(opponentProgressValue.value, playerProgressValue.value) * PERCENT}%`,
+        width: `${Math.abs(opponentProgressValue.value - playerProgressValue.value) * PERCENT}%`
+    }));
+    const gapStyle = [styles.gap, { backgroundColor: gapColor }, gapAnimatedStyle];
     const playerMarkerAnimatedStyle = useAnimatedStyle(() => ({ left: `${playerProgressValue.value * PERCENT}%` }));
-    const playerMarkerStyle = [styles.playerMarker, { backgroundColor: theme.colors.label.inverted }, playerMarkerAnimatedStyle];
+    const playerDotStyle = [
+        styles.playerDot,
+        { backgroundColor: theme.colors.label.inverted, borderColor: theme.colors.black },
+        playerMarkerAnimatedStyle
+    ];
 
     return (
         <View style={trackStyle}>
             <View pointerEvents="none" style={styles.baselineLayer}>
                 <View style={baselineStyle} />
                 <Animated.View style={fillStyle} />
+                <Animated.View style={gapStyle} />
             </View>
 
             {marks.map((mark, index) => {
@@ -75,7 +89,7 @@ export const ChallengeRaceTimeline = ({ events, opponentProgress, playerProgress
             })}
 
             <View pointerEvents="none" style={styles.overlay}>
-                <Animated.View style={playerMarkerStyle} />
+                <Animated.View style={playerDotStyle} />
                 <ChallengeRaceRunner progress={opponentProgressValue} />
             </View>
         </View>

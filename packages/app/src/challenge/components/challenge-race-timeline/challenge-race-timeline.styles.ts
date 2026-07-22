@@ -27,6 +27,14 @@ export const ChallengeRaceTimelineStyles = StyleSheet.create({
         position: 'absolute',
         top: '50%'
     },
+    gap: {
+        borderRadius: 2,
+        height: 3,
+        marginTop: -1.5,
+        opacity: 0.85,
+        position: 'absolute',
+        top: '50%'
+    },
     overlay: {
         bottom: 0,
         left: 12,
@@ -34,13 +42,15 @@ export const ChallengeRaceTimelineStyles = StyleSheet.create({
         right: 12,
         top: 0
     },
-    playerMarker: {
-        borderRadius: 2,
-        bottom: 5,
-        marginLeft: -1.5,
+    playerDot: {
+        borderRadius: 6.5,
+        borderWidth: 2.5,
+        height: 13,
+        marginLeft: -6.5,
+        marginTop: -6.5,
         position: 'absolute',
-        top: 5,
-        width: 3
+        top: '50%',
+        width: 13
     },
     tick: {
         borderRadius: 2,

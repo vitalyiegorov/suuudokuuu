@@ -11,27 +11,29 @@ export const GameScreenMetricsStyles = StyleSheet.create({
         gap: 2
     },
     label: {
-        fontSize: 8.5,
-        letterSpacing: 1,
-        lineHeight: 10,
-        opacity: 0.6,
+        fontSize: 8,
+        letterSpacing: 0.8,
+        lineHeight: 9,
+        opacity: 0.55,
         textTransform: 'uppercase'
     },
     mistakesText: {
         fontVariant: ['tabular-nums'],
-        fontSize: 17,
-        fontWeight: '900',
-        lineHeight: 19,
+        fontSize: 14.5,
+        fontWeight: '800',
+        letterSpacing: -0.2,
+        lineHeight: 17,
         textAlign: 'center'
     },
     separator: {
-        height: 30,
+        height: 24,
         marginHorizontal: 1
     },
     value: {
-        fontSize: 17,
+        fontSize: 14.5,
         fontVariant: ['tabular-nums'],
-        fontWeight: '900',
-        lineHeight: 19
+        fontWeight: '800',
+        letterSpacing: -0.2,
+        lineHeight: 17
     }
 });

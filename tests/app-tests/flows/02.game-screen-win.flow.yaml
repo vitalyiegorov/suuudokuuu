@@ -23,7 +23,7 @@ appId: ${APP_ID}
       visibilityPercentage: 50
       timeout: 5000
 - tapOn:
-      id: 'PlayAgainButtonSelectors.Root'
+      id: 'ChallengeResultFooterSelectors.HomeButton'
 - extendedWaitUntil:
       visible:
           id: 'HomeScreenSelectors.Root'
