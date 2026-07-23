@@ -8,6 +8,7 @@ export { CollapsibleHeaderTrailing } from './collapsible-header-trailing/collaps
 export { EdgeFade } from './edge-fade/edge-fade';
 export type { EdgeFadePropsInterface } from './edge-fade/interface/edge-fade-props.interface';
 export type { EdgeFadeScrollAnimationInterface } from './edge-fade/interface/edge-fade-scroll-animation.interface';
+export { SCREEN_CHROME_DEFAULT_CONFIG } from './constant/screen-chrome-default-config.constant';
 export { ColorSchemeEnum } from './enum/color-scheme.enum';
 export { useScreenChromeScrollHandler } from './hook/use-screen-chrome-scroll-handler.hook';
 export { useScreenChrome } from './hook/use-screen-chrome.hook';
