@@ -25,11 +25,31 @@ export const gameSlice = createSlice({
             state.maxMistakes = action.payload.maxMistakes;
         },
         pause: (state, action: PayloadAction<{ shouldShowPauseScreen?: boolean } | undefined>) => {
+            if (isNotEmptyString(state.challengeState)) {
+                return;
+            }
+
             const shouldShowPauseScreen = action.payload?.shouldShowPauseScreen ?? true;
 
             state.isPaused = true;
             state.shouldShowPauseScreen = shouldShowPauseScreen;
             state.shouldResumeOnFocus = !shouldShowPauseScreen;
+        },
+        challengeClockSync: (state, action: PayloadAction<{ nowMs: number }>) => {
+            if (!isNotEmptyString(state.challengeState)) {
+                return;
+            }
+
+            if (state.challengeWallStartMs === 0) {
+                state.challengeWallStartMs = action.payload.nowMs - state.elapsedTime * 1000;
+
+                return;
+            }
+
+            const wallElapsedSeconds = Math.floor((action.payload.nowMs - state.challengeWallStartMs) / 1000);
+            if (wallElapsedSeconds > state.elapsedTime) {
+                state.elapsedTime = wallElapsedSeconds;
+            }
         },
         resume: state => {
             state.isPaused = false;

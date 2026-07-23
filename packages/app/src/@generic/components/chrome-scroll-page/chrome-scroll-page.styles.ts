@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-export const ChallengeChromePageStyles = StyleSheet.create({
+export const ChromeScrollPageStyles = StyleSheet.create({
     chromeContent: {
         alignItems: 'center'
     },

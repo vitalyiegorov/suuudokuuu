@@ -3,16 +3,16 @@ import { useState } from 'react';
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { ChromePage } from '../../../@generic/components/chrome-page/chrome-page';
 import {
-    ChallengeChromeFooterExtraReserve,
-    ChallengeChromeFooterFadeIntensity,
-    ChallengeChromeFooterMinReserve,
-    ChallengeChromeTopContentInset,
-    ChallengeChromeTopFadeHeight
-} from '../../constants/challenge-chrome.constant';
+    ChromeScrollPageContentInsetTop,
+    ChromeScrollPageFooterExtraReserve,
+    ChromeScrollPageFooterFadeIntensity,
+    ChromeScrollPageFooterMinReserve,
+    ChromeScrollPageTopFadeHeight
+} from '../../constants/chrome-scroll-page.constant';
+import { ChromePage } from '../chrome-page/chrome-page';
 
-import { ChallengeChromePageStyles as styles } from './challenge-chrome-page.styles';
+import { ChromeScrollPageStyles as styles } from './chrome-scroll-page.styles';
 
 import type { ReactNode } from 'react';
 import type { LayoutChangeEvent } from 'react-native';
@@ -23,7 +23,7 @@ interface Props {
     readonly testID?: string;
 }
 
-export const ChallengeChromePage = ({ children, footer, testID }: Props) => {
+export const ChromeScrollPage = ({ children, footer, testID }: Props) => {
     const insets = useSafeAreaInsets();
     const [footerHeight, setFooterHeight] = useState(0);
 
@@ -31,10 +31,10 @@ export const ChallengeChromePage = ({ children, footer, testID }: Props) => {
         setFooterHeight(event.nativeEvent.layout.height);
     };
 
-    const footerReserve = Math.max(ChallengeChromeFooterMinReserve, footerHeight + insets.bottom + ChallengeChromeFooterExtraReserve);
+    const footerReserve = Math.max(ChromeScrollPageFooterMinReserve, footerHeight + insets.bottom + ChromeScrollPageFooterExtraReserve);
     const footerNode = <View onLayout={handleFooterLayout}>{footer}</View>;
-    const footerEdgeFadeProps = { height: footerReserve, intensity: ChallengeChromeFooterFadeIntensity };
-    const topEdgeFadeProps = { height: ChallengeChromeTopFadeHeight };
+    const footerEdgeFadeProps = { height: footerReserve, intensity: ChromeScrollPageFooterFadeIntensity };
+    const topEdgeFadeProps = { height: ChromeScrollPageTopFadeHeight };
 
     return (
         <ChromePage
@@ -48,7 +48,7 @@ export const ChallengeChromePage = ({ children, footer, testID }: Props) => {
             <ScreenChromeScrollView
                 contentContainerStyle={styles.scrollContent}
                 contentInsetBottom={footerReserve}
-                contentInsetTop={ChallengeChromeTopContentInset}
+                contentInsetTop={ChromeScrollPageContentInsetTop}
                 showsVerticalScrollIndicator={false}
                 style={styles.scrollView}
             >

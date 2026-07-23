@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { AppState } from 'react-native';
 
-import { gamePauseAction, gameResumeAction, gameTickAction } from '../../store/game.actions';
+import { gameChallengeClockSyncAction, gamePauseAction, gameResumeAction, gameTickAction } from '../../store/game.actions';
 
 import { GameTimerController } from './game-timer-controller';
 
@@ -12,6 +12,7 @@ let capturedFocusEffect: FocusEffect | undefined;
 let mockHasStarted = false;
 let mockIsPaused = false;
 let mockShouldResumeOnFocus = false;
+let mockChallengeState = '';
 let mockAppStateChangeListener: ((nextAppState: string) => void) | undefined;
 
 const mockUseFocusEffect = jest.fn();
@@ -40,6 +41,7 @@ const mockReplace = jest.fn();
 const mockGameIsStartedSelector = jest.fn(() => mockHasStarted);
 const mockGamePausedSelector = jest.fn(() => mockIsPaused);
 const mockGameShouldResumeOnFocusSelector = jest.fn(() => mockShouldResumeOnFocus);
+const mockGameChallengeStateSelector = jest.fn(() => mockChallengeState);
 
 jest.mock('expo-router', () => ({
     useFocusEffect: (effect: FocusEffect) => {
@@ -73,6 +75,7 @@ jest.mock('../../../@generic/hooks/use-app-dispatch.hook', () => ({
 }));
 
 jest.mock('../../store/game.selectors', () => ({
+    gameChallengeStateSelector: () => mockGameChallengeStateSelector(),
     gameIsStartedSelector: () => mockGameIsStartedSelector(),
     gamePausedSelector: () => mockGamePausedSelector(),
     gameShouldResumeOnFocusSelector: () => mockGameShouldResumeOnFocusSelector()
@@ -85,6 +88,7 @@ describe('GameTimerController', () => {
         mockHasStarted = true;
         mockIsPaused = false;
         mockShouldResumeOnFocus = false;
+        mockChallengeState = '';
         Reflect.set(AppState, 'addEventListener', mockAddEventListener);
         jest.useFakeTimers();
         mockDispatch.mockClear();
@@ -167,6 +171,38 @@ describe('GameTimerController', () => {
         focusCleanup?.();
 
         expect(mockSubscriptionRemove).toHaveBeenCalledTimes(1);
+
+        jest.useRealTimers();
+    });
+
+    it('keeps the challenge clock running without pause across background trips', () => {
+        const countClockSyncDispatches = () =>
+            mockDispatch.mock.calls.filter(([action]) => action.type === gameChallengeClockSyncAction.type).length;
+
+        mockChallengeState = 'challenge-state';
+
+        GameTimerController();
+
+        const focusCleanup = capturedFocusEffect?.();
+
+        expect(countClockSyncDispatches()).toBe(1);
+
+        mockDispatch.mockClear();
+
+        mockAppStateChangeListener?.('background');
+
+        expect(mockDispatch).not.toHaveBeenCalledWith(gamePauseAction());
+        expect(mockReplace).not.toHaveBeenCalled();
+
+        mockAppStateChangeListener?.('active');
+
+        expect(countClockSyncDispatches()).toBe(1);
+
+        jest.advanceTimersByTime(1000);
+
+        expect(mockDispatch).toHaveBeenCalledWith(gameTickAction());
+
+        focusCleanup?.();
 
         jest.useRealTimers();
     });

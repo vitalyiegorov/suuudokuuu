@@ -5,6 +5,7 @@ import { Text, View } from 'react-native';
 
 import { isNotEmptyString } from '@rnw-community/shared';
 
+import { ChromeScrollPage } from '../../../@generic/components/chrome-scroll-page/chrome-scroll-page';
 import { UkraineSupportCard } from '../../../@generic/components/ukraine-support-card/ukraine-support-card';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
@@ -16,7 +17,6 @@ import { ChallengeResult } from '../../interfaces/challenge-result.interface';
 import { getChallengeDifficulty } from '../../utils/get-challenge-difficulty.util';
 import { getChallengeDurationParts } from '../../utils/get-challenge-duration-parts.util';
 import { getChallengeTechniqueEventsFromState } from '../../utils/get-challenge-technique-events-from-state.util';
-import { ChallengeChromePage } from '../challenge-chrome-page/challenge-chrome-page';
 import { ChallengeResultFooter } from '../challenge-result-footer/challenge-result-footer';
 import { ChallengeResultMarginCard } from '../challenge-result-margin-card/challenge-result-margin-card';
 import { ChallengeResultMedallion } from '../challenge-result-medallion/challenge-result-medallion';
@@ -77,7 +77,7 @@ export const ChallengeResultScreen = (props: Props) => {
     const pillTextStyle = [styles.pillText, { color: theme.colors.label.inverted }];
 
     return (
-        <ChallengeChromePage
+        <ChromeScrollPage
             footer={<ChallengeResultFooter challengeState={challengeState}>{children}</ChallengeResultFooter>}
             testID={ChallengeResultScreenSelectors.Root}
         >
@@ -121,6 +121,6 @@ export const ChallengeResultScreen = (props: Props) => {
 
                 <UkraineSupportCard testID={ChallengeResultScreenSelectors.UkraineSupportCta} />
             </View>
-        </ChallengeChromePage>
+        </ChromeScrollPage>
     );
 };

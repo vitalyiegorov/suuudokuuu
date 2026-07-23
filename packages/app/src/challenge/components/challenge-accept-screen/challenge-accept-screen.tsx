@@ -4,6 +4,7 @@ import { use } from 'react';
 import { Text, View } from 'react-native';
 
 import { BlackButton } from '../../../@generic/components/black-button/black-button';
+import { ChromeScrollPage } from '../../../@generic/components/chrome-scroll-page/chrome-scroll-page';
 import { GlassIconButton } from '../../../@generic/components/glass-icon-button/glass-icon-button';
 import { ScreenActionBar } from '../../../@generic/components/screen-action-bar/screen-action-bar';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
@@ -13,7 +14,6 @@ import { stringToGameState } from '../../../game/utils/string-to-game-state.util
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { getChallengeDifficulty } from '../../utils/get-challenge-difficulty.util';
 import { getChallengeTechniqueEventsFromState } from '../../utils/get-challenge-technique-events-from-state.util';
-import { ChallengeChromePage } from '../challenge-chrome-page/challenge-chrome-page';
 import { ChallengeTechniqueArsenal } from '../challenge-technique-arsenal/challenge-technique-arsenal';
 import { ChallengeTechniquePreview } from '../challenge-technique-preview/challenge-technique-preview';
 
@@ -64,7 +64,7 @@ export const ChallengeAcceptScreen = ({ opponentTotalTime, challengeState, onAcc
     );
 
     return (
-        <ChallengeChromePage footer={footer} testID={ChallengeAcceptScreenSelectors.Root}>
+        <ChromeScrollPage footer={footer} testID={ChallengeAcceptScreenSelectors.Root}>
             <View style={styles.content}>
                 <View style={medallionStyle}>
                     <LucideSwords color={theme.colors.label.inverted} size={MEDALLION_ICON_SIZE} strokeWidth={1.9} />
@@ -112,6 +112,6 @@ export const ChallengeAcceptScreen = ({ opponentTotalTime, challengeState, onAcc
 
                 <ChallengeTechniqueArsenal events={techniqueEvents} />
             </View>
-        </ChallengeChromePage>
+        </ChromeScrollPage>
     );
 };
