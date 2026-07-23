@@ -1,73 +1,73 @@
 appId: ${APP_ID}
 ---
 - startRecording:
-    path: '04.statistics-screen'
-    optional: true
+      path: '04.statistics-screen'
+      optional: true
 
 - runFlow: subflows/navigation/launch-home.flow.yaml
 - runFlow:
-    file: subflows/shared/complete-winning-shared-challenge.flow.yaml
-    env:
-      SHARED_CHALLENGE_LINK: suuudokuuu://shared/IzAMC4AAAKBEBQDAAHASfAwQAgM4AQAhgGQEUBoAQQASBWAcIAgBXrAE4BMAUgZICcAYgKpkAmAFdQAMQAGABYDZAYwBRYgPMBIAE8UAFAEMASAGIALFQCpAZEMA3AAoArgLL2A1ReUAWgOoApAGfpABr9VABmW34AFfl5AECcADoARIAdgB4AcwAqgE%2BAfYASgDAAIIAGgDiADAARgA8AZpqAYrq6bkMAMoBNIl6AWoAOAHOAWIAQcPAAGwAhAAGAJnAATjXgcGAgA
+      file: subflows/shared/complete-winning-shared-challenge.flow.yaml
+      env:
+          SHARED_CHALLENGE_LINK: suuudokuuu://shared/_KGP________9____qXF6FFdMjBWGhJIN-CMqSm5omCUw0KFUm6-t2HxLUAuYMCP-
 - scrollUntilVisible:
-    element:
-      id: 'PlayAgainButtonSelectors.Root'
-    direction: DOWN
-    timeout: 3000
+      element:
+          id: 'PlayAgainButtonSelectors.Root'
+      direction: DOWN
+      timeout: 3000
 - tapOn:
-    id: 'PlayAgainButtonSelectors.Root'
+      id: 'PlayAgainButtonSelectors.Root'
 - extendedWaitUntil:
-    visible:
-      id: 'HomeScreenSelectors.Root'
-    timeout: 3000
+      visible:
+          id: 'HomeScreenSelectors.Root'
+      timeout: 3000
 - tapOn: 'Stats'
 - extendedWaitUntil:
-    visible:
-      id: 'HistoryScreenSelectors.Root'
-    timeout: 3000
+      visible:
+          id: 'HistoryScreenSelectors.Root'
+      timeout: 3000
 - assertVisible: 'Overview'
 - assertVisible: 'Games'
 # Scroll-tolerant: the rank card sits below the fold on the Android viewport.
 - scrollUntilVisible:
-    element:
-      text: 'Newbie.*'
-    direction: DOWN
+      element:
+          text: 'Newbie.*'
+      direction: DOWN
 - assertVisible: '.*completed game.*'
 # The segmented-control tabs sit at the top; scrolling to the rank card above
 # pushed them off the shorter Android viewport, so scroll back up to reach it.
 - scrollUntilVisible:
-    element:
-      id: 'HistorySegmentedControlSelectors.GamesTab'
-    direction: UP
+      element:
+          id: 'HistorySegmentedControlSelectors.GamesTab'
+      direction: UP
 - tapOn:
-    id: 'HistorySegmentedControlSelectors.GamesTab'
+      id: 'HistorySegmentedControlSelectors.GamesTab'
 - extendedWaitUntil:
-    visible:
-      id: 'CompletedGameItemSelectors.ReplayButton'
-    timeout: 3000
+      visible:
+          id: 'CompletedGameItemSelectors.ReplayButton'
+      timeout: 3000
 - assertVisible: 'Score'
 - assertVisible: 'Time'
 - assertVisible: 'Mistakes'
 - tapOn:
-    id: 'CompletedGameItemSelectors.ReplayButton'
+      id: 'CompletedGameItemSelectors.ReplayButton'
 - extendedWaitUntil:
-    visible:
-      id: 'ReplayControlsSelectors.Root'
-    timeout: 3000
+      visible:
+          id: 'ReplayControlsSelectors.Root'
+      timeout: 3000
 - tapOn:
-    id: 'ReplayControlsSelectors.NextButton'
+      id: 'ReplayControlsSelectors.NextButton'
 - tapOn:
-    id: 'ReplayControlsSelectors.PreviousButton'
+      id: 'ReplayControlsSelectors.PreviousButton'
 - tapOn:
-    id: 'ReplayTopBarSelectors.CloseButton'
+      id: 'ReplayTopBarSelectors.CloseButton'
 - extendedWaitUntil:
-    visible:
-      id: 'HistoryScreenSelectors.Root'
-    timeout: 3000
+      visible:
+          id: 'HistoryScreenSelectors.Root'
+      timeout: 3000
 - tapOn:
-    id: 'HeaderBackButtonSelectors.Root'
+      id: 'HeaderBackButtonSelectors.Root'
 - extendedWaitUntil:
-    visible:
-      id: 'HomeScreenSelectors.Root'
-    timeout: 3000
+      visible:
+          id: 'HomeScreenSelectors.Root'
+      timeout: 3000
 - stopApp
