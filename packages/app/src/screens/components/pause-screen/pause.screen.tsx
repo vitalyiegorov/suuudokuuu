@@ -10,6 +10,7 @@ import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
 import { getMistakesTypeText } from '../../../@generic/utils/get-mistakes-type-text.util';
+import { ChallengeChromePage } from '../../../challenge/components/challenge-chrome-page/challenge-chrome-page';
 import { GameContext } from '../../../game/context/game.context';
 import { useResumeGame } from '../../../game/hooks/use-resume-game.hook';
 import { useSharePuzzle } from '../../../game/hooks/use-share-puzzle/use-share-puzzle.hook';
@@ -68,18 +69,26 @@ export const PauseScreen = () => {
     const scoreText = String(score);
     const mistakesText = `${mistakes} / ${maxMistakes}`;
     const containerStyles = [styles.container, { backgroundColor: theme.colors.background }];
+    const footer = <PauseScreenActions onQuit={handleQuit} onResume={handleResume} onShare={handleShare} />;
 
     return (
         <View style={containerStyles} testID={PauseScreenSelectors.Root}>
-            <PauseScreenHeader detailsText={detailsText} />
+            <ChallengeChromePage footer={footer}>
+                <View style={styles.content}>
+                    <PauseScreenHeader detailsText={detailsText} />
 
-            <PauseScreenProgressCard label={t`Your progress`} meta={progressMeta} progressPercent={progress.percent} sudoku={sudoku} />
+                    <PauseScreenProgressCard
+                        label={t`Your progress`}
+                        meta={progressMeta}
+                        progressPercent={progress.percent}
+                        sudoku={sudoku}
+                    />
 
-            <PauseScreenStats mistakesText={mistakesText} scoreText={scoreText} timeText={timeText} />
+                    <PauseScreenStats mistakesText={mistakesText} scoreText={scoreText} timeText={timeText} />
 
-            <UkraineSupportCard testID={PauseScreenSelectors.UkraineCta} />
-
-            <PauseScreenActions onQuit={handleQuit} onResume={handleResume} onShare={handleShare} />
+                    <UkraineSupportCard testID={PauseScreenSelectors.UkraineCta} />
+                </View>
+            </ChallengeChromePage>
         </View>
     );
 };
