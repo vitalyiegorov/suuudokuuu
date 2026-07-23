@@ -1,3 +1,4 @@
 export enum ChallengeResultFooterSelectors {
-    HomeButton = 'ChallengeResultFooterSelectors.HomeButton'
+    HomeButton = 'ChallengeResultFooterSelectors.HomeButton',
+    ReplayButton = 'ChallengeResultFooterSelectors.ReplayButton'
 }
