@@ -13,9 +13,9 @@ export const ChallengeRaceTimelineStyles = StyleSheet.create({
     },
     baselineLayer: {
         bottom: 0,
-        left: 12,
+        left: 8,
         position: 'absolute',
-        right: 12,
+        right: 8,
         top: 0
     },
     fill: {
@@ -37,9 +37,9 @@ export const ChallengeRaceTimelineStyles = StyleSheet.create({
     },
     overlay: {
         bottom: 0,
-        left: 12,
+        left: 8,
         position: 'absolute',
-        right: 12,
+        right: 8,
         top: 0
     },
     playerDot: {
@@ -58,12 +58,10 @@ export const ChallengeRaceTimelineStyles = StyleSheet.create({
     },
     track: {
         alignItems: 'center',
-        borderRadius: 11,
         flexDirection: 'row',
         gap: 2,
         height: 28,
-        overflow: 'hidden',
-        paddingHorizontal: 12,
+        paddingHorizontal: 8,
         position: 'relative',
         width: '100%'
     }

@@ -45,7 +45,7 @@ export const ChallengeRaceTimeline = ({ events, opponentProgress, playerProgress
     const marks = getChallengeTimelineMarks(events, TICK_COUNT);
     const isRivalAhead = opponentProgress > playerProgress;
     const gapColor = isRivalAhead ? theme.colors.red : theme.colors.label.main;
-    const trackStyle = [styles.track, { backgroundColor: theme.colors.black05 }];
+    const trackStyle = styles.track;
     const baselineStyle = [styles.baseline, { backgroundColor: theme.colors.label.main }];
     const fillAnimatedStyle = useAnimatedStyle(() => ({
         width: `${Math.min(opponentProgressValue.value, playerProgressValue.value) * PERCENT}%`
