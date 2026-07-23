@@ -16,7 +16,7 @@ export const ChallengeResultHomeButton = () => {
 
     return (
         <GlassIconButton href="/" onPress={handleGoHome} replace testID={ChallengeResultFooterSelectors.HomeButton}>
-            <LucideHouse color={theme.colors.label.main} />
+            <LucideHouse color={theme.colors.label.inverted} />
         </GlassIconButton>
     );
 };

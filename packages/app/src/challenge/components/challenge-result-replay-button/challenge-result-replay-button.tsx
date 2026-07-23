@@ -21,7 +21,7 @@ export const ChallengeResultReplayButton = ({ challengeState }: Props) => {
 
     return (
         <GlassIconButton href="/game" onPress={handleReplay} replace testID={ChallengeResultFooterSelectors.ReplayButton}>
-            <LucideRotateCcw color={theme.colors.label.main} />
+            <LucideRotateCcw color={theme.colors.label.inverted} />
         </GlassIconButton>
     );
 };

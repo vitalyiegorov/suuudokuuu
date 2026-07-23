@@ -53,7 +53,7 @@ export const ChallengeAcceptScreen = ({ opponentTotalTime, challengeState, onAcc
 
     const maybeLaterButton = (
         <GlassIconButton accessibilityLabel={t`Maybe later`} href="/" testID={ChallengeAcceptScreenSelectors.MaybeLaterButton}>
-            <LucideX color={theme.colors.label.main} />
+            <LucideX color={theme.colors.label.inverted} />
         </GlassIconButton>
     );
 
