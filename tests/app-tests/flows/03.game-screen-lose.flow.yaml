@@ -40,9 +40,10 @@ appId: ${APP_ID}
 - assertVisible:
       id: 'ChallengeTryAgainButtonSelectors.Root'
 - tapOn:
-      id: 'PlayAgainButtonSelectors.Root'
+      id: 'ChallengeResultFooterSelectors.ReplayButton'
 - extendedWaitUntil:
       visible:
-          id: 'HomeScreenSelectors.Root'
-      timeout: 3000
+          id: 'GameScreenSelectors.Root'
+      timeout: 5000
+- runFlow: subflows/game/quit-current-game.flow.yaml
 - stopApp

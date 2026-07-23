@@ -78,7 +78,7 @@ export const ChallengeResultScreen = (props: Props) => {
 
     return (
         <ChallengeChromePage
-            footer={<ChallengeResultFooter>{children}</ChallengeResultFooter>}
+            footer={<ChallengeResultFooter challengeState={challengeState}>{children}</ChallengeResultFooter>}
             testID={ChallengeResultScreenSelectors.Root}
         >
             <View style={styles.content}>

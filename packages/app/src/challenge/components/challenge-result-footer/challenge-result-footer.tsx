@@ -1,36 +1,16 @@
-import { LucideHouse, LucideRotateCcw } from 'lucide-react-native';
-import { use } from 'react';
-
-import { PlayAgainButtonSelectors } from '../../../@generic/components/play-again-button/play-again-button.selectors';
 import { ScreenActionBar } from '../../../@generic/components/screen-action-bar/screen-action-bar';
-import { ThemeContext } from '../../../theme/context/theme.context';
-import { ChallengeResultNavButton } from '../challenge-result-nav-button/challenge-result-nav-button';
-
-import { ChallengeResultFooterSelectors } from './challenge-result-footer.selectors';
+import { ChallengeResultHomeButton } from '../challenge-result-home-button/challenge-result-home-button';
+import { ChallengeResultReplayButton } from '../challenge-result-replay-button/challenge-result-replay-button';
 
 import type { ReactNode } from 'react';
 
 interface Props {
+    readonly challengeState: string;
     readonly children: ReactNode;
 }
 
-export const ChallengeResultFooter = ({ children }: Props) => {
-    const { theme } = use(ThemeContext);
-
-    const replayButton = (
-        <ChallengeResultNavButton testID={PlayAgainButtonSelectors.Root}>
-            <LucideRotateCcw color={theme.colors.label.main} />
-        </ChallengeResultNavButton>
-    );
-    const homeButton = (
-        <ChallengeResultNavButton testID={ChallengeResultFooterSelectors.HomeButton}>
-            <LucideHouse color={theme.colors.label.main} />
-        </ChallengeResultNavButton>
-    );
-
-    return (
-        <ScreenActionBar left={replayButton} right={homeButton}>
-            {children}
-        </ScreenActionBar>
-    );
-};
+export const ChallengeResultFooter = ({ challengeState, children }: Props) => (
+    <ScreenActionBar left={<ChallengeResultReplayButton challengeState={challengeState} />} right={<ChallengeResultHomeButton />}>
+        {children}
+    </ScreenActionBar>
+);
