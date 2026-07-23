@@ -1,21 +1,24 @@
 import { useLingui } from '@lingui/react/macro';
-import { useRouter } from 'expo-router';
+import { Redirect, useRouter } from 'expo-router';
 import { use } from 'react';
 import { View } from 'react-native';
 
+import { isNotEmptyString } from '@rnw-community/shared';
+
 import { Alert } from '../../../@generic/components/alert/alert';
+import { ChromeScrollPage } from '../../../@generic/components/chrome-scroll-page/chrome-scroll-page';
 import { UkraineSupportCard } from '../../../@generic/components/ukraine-support-card/ukraine-support-card';
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
 import { getMistakesTypeText } from '../../../@generic/utils/get-mistakes-type-text.util';
-import { ChallengeChromePage } from '../../../challenge/components/challenge-chrome-page/challenge-chrome-page';
 import { GameContext } from '../../../game/context/game.context';
 import { useResumeGame } from '../../../game/hooks/use-resume-game.hook';
 import { useSharePuzzle } from '../../../game/hooks/use-share-puzzle/use-share-puzzle.hook';
 import { gameResetAction } from '../../../game/store/game.actions';
 import {
+    gameChallengeStateSelector,
     gameElapsedTimeSelector,
     gameMaxMistakesSelector,
     gameMistakesSelector,
@@ -42,6 +45,7 @@ export const PauseScreen = () => {
     const mistakes = useAppSelector(gameMistakesSelector);
     const maxMistakes = useAppSelector(gameMaxMistakesSelector);
     const elapsedTime = useAppSelector(gameElapsedTimeSelector);
+    const challengeState = useAppSelector(gameChallengeStateSelector);
 
     const handleResume = useResumeGame();
     const handleShare = useSharePuzzle();
@@ -69,11 +73,15 @@ export const PauseScreen = () => {
     const scoreText = String(score);
     const mistakesText = `${mistakes} / ${maxMistakes}`;
     const containerStyles = [styles.container, { backgroundColor: theme.colors.background }];
+
+    if (isNotEmptyString(challengeState)) {
+        return <Redirect href="/game" />;
+    }
     const footer = <PauseScreenActions onQuit={handleQuit} onResume={handleResume} onShare={handleShare} />;
 
     return (
         <View style={containerStyles} testID={PauseScreenSelectors.Root}>
-            <ChallengeChromePage footer={footer}>
+            <ChromeScrollPage footer={footer}>
                 <View style={styles.content}>
                     <PauseScreenHeader detailsText={detailsText} />
 
@@ -88,7 +96,7 @@ export const PauseScreen = () => {
 
                     <UkraineSupportCard testID={PauseScreenSelectors.UkraineCta} />
                 </View>
-            </ChallengeChromePage>
+            </ChromeScrollPage>
         </View>
     );
 };

@@ -6,6 +6,7 @@ export const gameLoadAction = gameSlice.actions.load;
 export const gameResetAction = gameSlice.actions.reset;
 export const gamePauseAction = gameSlice.actions.pause;
 export const gameResumeAction = gameSlice.actions.resume;
+export const gameChallengeClockSyncAction = gameSlice.actions.challengeClockSync;
 export const gameTickAction = gameSlice.actions.tick;
 export const gameMistakeAction = gameSlice.actions.mistake;
 export const gameToggleAutoCandidatesAction = gameSlice.actions.toggleShowAutoCandidates;
