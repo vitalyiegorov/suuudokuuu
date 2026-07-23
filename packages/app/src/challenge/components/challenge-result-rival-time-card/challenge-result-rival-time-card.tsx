@@ -20,7 +20,7 @@ export const ChallengeResultRivalTimeCard = ({ rivalTimeText }: Props) => {
 
     const labelStyle = [styles.label, { color: theme.colors.white05 }];
     const valueStyle = [styles.value, { color: theme.colors.label.inverted }];
-    const iconWrapStyle = [styles.iconWrap, { backgroundColor: theme.colors.white05 }];
+    const iconWrapStyle = [styles.iconWrap, { backgroundColor: theme.colors.white }];
 
     return (
         <AppSurfaceCard style={styles.card} variant="inverted">
@@ -33,7 +33,7 @@ export const ChallengeResultRivalTimeCard = ({ rivalTimeText }: Props) => {
                 </Text>
             </View>
             <View style={iconWrapStyle}>
-                <LucideFlag color={theme.colors.label.inverted} size={ICON_SIZE} strokeWidth={2} />
+                <LucideFlag color={theme.colors.red} size={ICON_SIZE} strokeWidth={2} />
             </View>
         </AppSurfaceCard>
     );
