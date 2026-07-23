@@ -36,15 +36,15 @@ msgstr "{gamesCompleted, plural, one {# पूरी की गई गेम} ot
 
 #: src/challenge/components/challenge-technique-preview/challenge-technique-preview.tsx
 msgid "{keyMoveCount, plural, one {# key move} other {# key moves}}"
-msgstr ""
+msgstr "{keyMoveCount, plural, one {# मुख्य चाल} other {# मुख्य चालें}}"
 
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
-msgstr ""
+msgstr "{mistakes, plural, one {# गलती} other {# गलतियाँ}}"
 
 #: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
 msgid "{sharpCount, plural, one {# sharp technique} other {# sharp techniques}}"
-msgstr ""
+msgstr "{sharpCount, plural, one {# चतुर तकनीक} other {# चतुर तकनीकें}}"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
@@ -72,7 +72,7 @@ msgstr "सेलों के बीच थोड़ी जगह"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Accept challenge"
-msgstr ""
+msgstr "चुनौती स्वीकार करें"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Accept challenge?"
@@ -84,7 +84,7 @@ msgstr "सुडोकू बोर्ड पर अंकों का आक�
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "AIC"
-msgstr ""
+msgstr "AIC"
 
 #: src/history/components/history-difficulty-filter/history-difficulty-filter.tsx
 msgid "All"
@@ -170,7 +170,7 @@ msgstr "बोर्ड के रंग और स्क्रीन का र
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Box-Line Reduction"
-msgstr ""
+msgstr "बॉक्स-लाइन न्यूनीकरण"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Built:"
@@ -194,7 +194,7 @@ msgstr "सेल स्पेसिंग"
 
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Challenge"
-msgstr ""
+msgstr "चुनौती"
 
 #: src/app/challenge-won.tsx
 msgid "Challenge Back"
@@ -254,7 +254,7 @@ msgstr "साफ काला-सफेद बोर्ड"
 
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Clean win"
-msgstr ""
+msgstr "स्वच्छ जीत"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Column"
@@ -274,7 +274,7 @@ msgstr "बड़े बोनस के लिए पंक्तियाँ, 
 
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Completed"
-msgstr ""
+msgstr "पूर्ण"
 
 #: src/history/components/history-games-list/history-games-list.tsx
 msgid "Completed games will be ready for replay."
@@ -328,7 +328,7 @@ msgstr "डेवलपमेंट बिल्ड"
 
 #: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
 msgid "Did not finish the board"
-msgstr ""
+msgstr "बोर्ड पूरा नहीं हुआ"
 
 #: src/game/components/difficulty-complexity-slider/difficulty-complexity-slider.tsx
 msgid "Difficulty"
@@ -369,11 +369,11 @@ msgstr "Español"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Evenly matched"
-msgstr ""
+msgstr "बराबरी की टक्कर"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "every technique"
-msgstr ""
+msgstr "सभी तकनीकें"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Expert grid"
@@ -389,7 +389,7 @@ msgstr "प्रतिक्रिया"
 
 #: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
 msgid "Final score"
-msgstr ""
+msgstr "अंतिम स्कोर"
 
 #: src/history/components/history-empty-state/history-empty-state.tsx
 msgid "Finish a puzzle and it will appear here."
@@ -397,11 +397,11 @@ msgstr "एक सुडोकू पूरा करें और यह यह
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Finned Swordfish"
-msgstr ""
+msgstr "Finned Swordfish"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Finned X-Wing"
-msgstr ""
+msgstr "Finned X-Wing"
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Français"
@@ -409,7 +409,7 @@ msgstr "Français"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Full House"
-msgstr ""
+msgstr "अंतिम खाली कोशिका"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Game"
@@ -443,7 +443,7 @@ msgstr "ब्लॉक (3x3 कोशिकाएँ)"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Guess"
-msgstr ""
+msgstr "अनुमान"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Guidance"
@@ -471,19 +471,19 @@ msgstr "यूक्रेन को जीतने में मदद कर�
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Hidden Pair"
-msgstr ""
+msgstr "छिपा जोड़ा"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Hidden Quad"
-msgstr ""
+msgstr "छिपा चतुष्क"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Hidden Single"
-msgstr ""
+msgstr "छिपा एकल"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Hidden Triple"
-msgstr ""
+msgstr "छिपा त्रिक"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Highlight areas"
@@ -504,7 +504,7 @@ msgstr "पेंसिल नोट्स हाइलाइट करें"
 #: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Home"
-msgstr ""
+msgstr "होम"
 
 #: src/app/scoring.tsx
 #: src/scoring/components/scoring.screen.tsx
@@ -521,7 +521,7 @@ msgstr "अमर"
 
 #: src/screens/components/loser-screen/loser.screen.tsx
 msgid "Incomplete"
-msgstr ""
+msgstr "अधूरा"
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Install on iOS"
@@ -541,7 +541,7 @@ msgstr "iOS इंस्टॉलेशन"
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 msgid "is ahead"
-msgstr ""
+msgstr "आगे है"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "It was a tie"
@@ -549,7 +549,7 @@ msgstr "यह बराबरी थी"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Jellyfish"
-msgstr ""
+msgstr "Jellyfish"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Keep cell selected"
@@ -606,7 +606,7 @@ msgstr "अनुमत गलतियों का बोनस"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Maybe later"
-msgstr ""
+msgstr "शायद बाद में"
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -637,23 +637,23 @@ msgstr "चाल"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Naked Pair"
-msgstr ""
+msgstr "खुला जोड़ा"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Naked Quad"
-msgstr ""
+msgstr "खुला चतुष्क"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Naked Single"
-msgstr ""
+msgstr "खुला एकल"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Naked Triple"
-msgstr ""
+msgstr "खुला त्रिक"
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 msgid "neck & neck"
-msgstr ""
+msgstr "कांटे की टक्कर"
 
 #: src/screens/components/home-screen/home-screen-section-header/home-screen-section-header.tsx
 msgid "New game"
@@ -661,7 +661,7 @@ msgstr "नया गेम"
 
 #: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
 msgid "New personal best"
-msgstr ""
+msgstr "नया व्यक्तिगत सर्वश्रेष्ठ"
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -753,7 +753,7 @@ msgstr "इस कमिट को GitHub पर खोलता है"
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Out of mistakes"
-msgstr ""
+msgstr "गलतियों की सीमा समाप्त"
 
 #: src/history/components/history-segmented-control/history-segmented-control.tsx
 msgid "Overview"
@@ -804,11 +804,11 @@ msgstr "कम गलतियों की अनुमति से स्क�
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Pointing Pair"
-msgstr ""
+msgstr "संकेतक जोड़ा"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Pointing Triple"
-msgstr ""
+msgstr "संकेतक त्रिक"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Points are deducted for:"
@@ -856,7 +856,7 @@ msgstr "बग रिपोर्ट करें"
 
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "Result"
-msgstr ""
+msgstr "परिणाम"
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Retry loading development build"
@@ -865,23 +865,23 @@ msgstr "डेवलपमेंट बिल्ड फिर से लोड �
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 #: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
 msgid "Rival"
-msgstr ""
+msgstr "प्रतिद्वंद्वी"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Rival challenged you"
-msgstr ""
+msgstr "प्रतिद्वंद्वी ने आपको चुनौती दी"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Rival's arsenal"
-msgstr ""
+msgstr "प्रतिद्वंद्वी का शस्त्रागार"
 
 #: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
 msgid "Rival's playbook"
-msgstr ""
+msgstr "प्रतिद्वंद्वी की रणनीति"
 
 #: src/challenge/components/challenge-result-rival-time-card/challenge-result-rival-time-card.tsx
 msgid "Rival's time to beat"
-msgstr ""
+msgstr "प्रतिद्वंद्वी का समय जिसे पीछे छोड़ना है"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Row"
@@ -889,11 +889,11 @@ msgstr "पंक्ति"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Sashimi Swordfish"
-msgstr ""
+msgstr "Sashimi Swordfish"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Sashimi X-Wing"
-msgstr ""
+msgstr "Sashimi X-Wing"
 
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
@@ -948,7 +948,7 @@ msgstr "चुने हुए सेल की पंक्ति, कॉलम
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Simple Coloring"
-msgstr ""
+msgstr "सरल रंगाई"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Small"
@@ -968,7 +968,7 @@ msgstr "कागज़ जैसा महसूस होने वाला �
 
 #: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
 msgid "Solved with the fundamentals"
-msgstr ""
+msgstr "मूल तकनीकों से हल किया"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Space between Sudoku cells"
@@ -1049,11 +1049,11 @@ msgstr "Svenska"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Swordfish"
-msgstr ""
+msgstr "Swordfish"
 
 #: src/challenge/components/challenge-technique-preview/challenge-technique-preview.tsx
 msgid "Taller marks = sharper techniques"
-msgstr ""
+msgstr "ऊँचे निशान = तेज़ तकनीकें"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
@@ -1065,7 +1065,7 @@ msgstr "इंस्टॉल लिंक नहीं खोला जा स�
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Their time to beat"
-msgstr ""
+msgstr "उनका समय जिसे पीछे छोड़ना है"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
@@ -1205,11 +1205,11 @@ msgstr "कंपन"
 
 #: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
 msgid "VS"
-msgstr ""
+msgstr "VS"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "W-Wing"
-msgstr ""
+msgstr "W-Wing"
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Warm gold accents for a brighter board"
@@ -1233,7 +1233,7 @@ msgstr "जीत दर"
 
 #: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
 msgid "Winner, winner!"
-msgstr ""
+msgstr "आप जीत गए!"
 
 #: src/app/winner.tsx
 msgid "Winners-winner, chicken dinner!"
@@ -1249,31 +1249,31 @@ msgstr "जीते"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "X-Chain"
-msgstr ""
+msgstr "X-Chain"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "X-Wing"
-msgstr ""
+msgstr "X-Wing"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "XY-Chain"
-msgstr ""
+msgstr "XY-Chain"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "XY-Wing"
-msgstr ""
+msgstr "XY-Wing"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "XYZ-Wing"
-msgstr ""
+msgstr "XYZ-Wing"
 
 #: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
 msgid "You"
-msgstr ""
+msgstr "आप"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "You beat your rival"
-msgstr ""
+msgstr "आपने अपने प्रतिद्वंद्वी को हराया"
 
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "You got to"
@@ -1281,7 +1281,7 @@ msgstr "आप पहुँचे"
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 msgid "you lead"
-msgstr ""
+msgstr "आप आगे हैं"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Your best run"
@@ -1297,7 +1297,7 @@ msgstr "आपकी प्रगति"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Your rival was faster"
-msgstr ""
+msgstr "आपका प्रतिद्वंद्वी तेज़ था"
 
 #: src/history/components/history-overview-tab/history-overview-tab.tsx
 msgid "Your stats will build as you finish puzzles."

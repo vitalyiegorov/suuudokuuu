@@ -36,15 +36,15 @@ msgstr "{gamesCompleted, plural, one {# لعبة مكتملة} other {# ألعا
 
 #: src/challenge/components/challenge-technique-preview/challenge-technique-preview.tsx
 msgid "{keyMoveCount, plural, one {# key move} other {# key moves}}"
-msgstr ""
+msgstr "{keyMoveCount, plural, zero {# حركات رئيسية} one {# حركة رئيسية} two {# حركتان رئيسيتان} few {# حركات رئيسية} many {# حركة رئيسية} other {# حركة رئيسية}}"
 
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
-msgstr ""
+msgstr "{mistakes, plural, zero {# أخطاء} one {# خطأ} two {# خطآن} few {# أخطاء} many {# خطأ} other {# خطأ}}"
 
 #: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
 msgid "{sharpCount, plural, one {# sharp technique} other {# sharp techniques}}"
-msgstr ""
+msgstr "{sharpCount, plural, zero {# تقنيات بارعة} one {# تقنية بارعة} two {# تقنيتان بارعتان} few {# تقنيات بارعة} many {# تقنية بارعة} other {# تقنية بارعة}}"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
@@ -72,7 +72,7 @@ msgstr "مسافة قليلة بين الخلايا"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Accept challenge"
-msgstr ""
+msgstr "قبول التحدي"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Accept challenge?"
@@ -84,7 +84,7 @@ msgstr "اضبط حجم الأرقام على لوحة السودوكو"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "AIC"
-msgstr ""
+msgstr "AIC"
 
 #: src/history/components/history-difficulty-filter/history-difficulty-filter.tsx
 msgid "All"
@@ -170,7 +170,7 @@ msgstr "ألوان اللوحة ومظهر الشاشات"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Box-Line Reduction"
-msgstr ""
+msgstr "تخفيض الصندوق والخط"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Built:"
@@ -194,7 +194,7 @@ msgstr "تباعد الخلايا"
 
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Challenge"
-msgstr ""
+msgstr "التحدي"
 
 #: src/app/challenge-won.tsx
 msgid "Challenge Back"
@@ -254,7 +254,7 @@ msgstr "لوحة نظيفة بالأبيض والأسود"
 
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Clean win"
-msgstr ""
+msgstr "فوز نظيف"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Column"
@@ -274,7 +274,7 @@ msgstr "أكمل الصفوف والأعمدة والمربعات لتحصل ع�
 
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Completed"
-msgstr ""
+msgstr "مكتمل"
 
 #: src/history/components/history-games-list/history-games-list.tsx
 msgid "Completed games will be ready for replay."
@@ -328,7 +328,7 @@ msgstr "إصدارات التطوير"
 
 #: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
 msgid "Did not finish the board"
-msgstr ""
+msgstr "لم تُكمل اللوحة"
 
 #: src/game/components/difficulty-complexity-slider/difficulty-complexity-slider.tsx
 msgid "Difficulty"
@@ -369,11 +369,11 @@ msgstr "Español"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Evenly matched"
-msgstr ""
+msgstr "تعادل متقارب"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "every technique"
-msgstr ""
+msgstr "كل التقنيات"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Expert grid"
@@ -389,7 +389,7 @@ msgstr "التنبيهات"
 
 #: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
 msgid "Final score"
-msgstr ""
+msgstr "النتيجة النهائية"
 
 #: src/history/components/history-empty-state/history-empty-state.tsx
 msgid "Finish a puzzle and it will appear here."
@@ -397,11 +397,11 @@ msgstr "أكمل لغز سودوكو وسيظهر هنا."
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Finned Swordfish"
-msgstr ""
+msgstr "Finned Swordfish"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Finned X-Wing"
-msgstr ""
+msgstr "Finned X-Wing"
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Français"
@@ -409,7 +409,7 @@ msgstr "Français"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Full House"
-msgstr ""
+msgstr "آخر خانة فارغة"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Game"
@@ -443,7 +443,7 @@ msgstr "مربع (3x3 خانات)"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Guess"
-msgstr ""
+msgstr "تخمين"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Guidance"
@@ -471,19 +471,19 @@ msgstr "ساعد أوكرانيا على الفوز"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Hidden Pair"
-msgstr ""
+msgstr "زوج خفي"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Hidden Quad"
-msgstr ""
+msgstr "رباعي خفي"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Hidden Single"
-msgstr ""
+msgstr "مفرد خفي"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Hidden Triple"
-msgstr ""
+msgstr "ثلاثي خفي"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Highlight areas"
@@ -504,7 +504,7 @@ msgstr "تمييز الملاحظات بالقلم"
 #: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Home"
-msgstr ""
+msgstr "الرئيسية"
 
 #: src/app/scoring.tsx
 #: src/scoring/components/scoring.screen.tsx
@@ -521,7 +521,7 @@ msgstr "خالد"
 
 #: src/screens/components/loser-screen/loser.screen.tsx
 msgid "Incomplete"
-msgstr ""
+msgstr "غير مكتمل"
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Install on iOS"
@@ -541,7 +541,7 @@ msgstr "تثبيت iOS"
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 msgid "is ahead"
-msgstr ""
+msgstr "متقدم"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "It was a tie"
@@ -549,7 +549,7 @@ msgstr "كانت النتيجة تعادلاً"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Jellyfish"
-msgstr ""
+msgstr "Jellyfish"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Keep cell selected"
@@ -606,7 +606,7 @@ msgstr "مكافأة الأخطاء المسموحة"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Maybe later"
-msgstr ""
+msgstr "ربما لاحقًا"
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -637,23 +637,23 @@ msgstr "النقلة"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Naked Pair"
-msgstr ""
+msgstr "زوج مكشوف"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Naked Quad"
-msgstr ""
+msgstr "رباعي مكشوف"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Naked Single"
-msgstr ""
+msgstr "مفرد مكشوف"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Naked Triple"
-msgstr ""
+msgstr "ثلاثي مكشوف"
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 msgid "neck & neck"
-msgstr ""
+msgstr "رأسًا برأس"
 
 #: src/screens/components/home-screen/home-screen-section-header/home-screen-section-header.tsx
 msgid "New game"
@@ -661,7 +661,7 @@ msgstr "لعبة جديدة"
 
 #: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
 msgid "New personal best"
-msgstr ""
+msgstr "رقم قياسي شخصي جديد"
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -753,7 +753,7 @@ msgstr "يفتح هذا الالتزام على GitHub"
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Out of mistakes"
-msgstr ""
+msgstr "نفدت الأخطاء المسموحة"
 
 #: src/history/components/history-segmented-control/history-segmented-control.tsx
 msgid "Overview"
@@ -804,11 +804,11 @@ msgstr "كلما قل عدد الأخطاء المسموحة زاد مضاعف �
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Pointing Pair"
-msgstr ""
+msgstr "زوج موجّه"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Pointing Triple"
-msgstr ""
+msgstr "ثلاثي موجّه"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Points are deducted for:"
@@ -856,7 +856,7 @@ msgstr "الإبلاغ عن خطأ"
 
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "Result"
-msgstr ""
+msgstr "النتيجة"
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Retry loading development build"
@@ -865,23 +865,23 @@ msgstr "إعادة محاولة تحميل إصدار التطوير"
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 #: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
 msgid "Rival"
-msgstr ""
+msgstr "المنافس"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Rival challenged you"
-msgstr ""
+msgstr "تحداك المنافس"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Rival's arsenal"
-msgstr ""
+msgstr "ترسانة المنافس"
 
 #: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
 msgid "Rival's playbook"
-msgstr ""
+msgstr "أسلوب المنافس"
 
 #: src/challenge/components/challenge-result-rival-time-card/challenge-result-rival-time-card.tsx
 msgid "Rival's time to beat"
-msgstr ""
+msgstr "وقت المنافس الذي عليك التغلب عليه"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Row"
@@ -889,11 +889,11 @@ msgstr "صف"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Sashimi Swordfish"
-msgstr ""
+msgstr "Sashimi Swordfish"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Sashimi X-Wing"
-msgstr ""
+msgstr "Sashimi X-Wing"
 
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
@@ -948,7 +948,7 @@ msgstr "إظهار الصف والعمود والمربع للخلية المح�
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Simple Coloring"
-msgstr ""
+msgstr "تلوين بسيط"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Small"
@@ -968,7 +968,7 @@ msgstr "لوحة رمادية ناعمة بإحساس الورق"
 
 #: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
 msgid "Solved with the fundamentals"
-msgstr ""
+msgstr "حُلّت بالأساسيات"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Space between Sudoku cells"
@@ -1049,11 +1049,11 @@ msgstr "Svenska"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Swordfish"
-msgstr ""
+msgstr "Swordfish"
 
 #: src/challenge/components/challenge-technique-preview/challenge-technique-preview.tsx
 msgid "Taller marks = sharper techniques"
-msgstr ""
+msgstr "كلما ارتفعت العلامة زادت براعة التقنية"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
@@ -1065,7 +1065,7 @@ msgstr "تعذّر فتح رابط التثبيت. تحقق من إعدادات 
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Their time to beat"
-msgstr ""
+msgstr "وقتهم الذي عليك التغلب عليه"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
@@ -1205,11 +1205,11 @@ msgstr "الاهتزاز"
 
 #: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
 msgid "VS"
-msgstr ""
+msgstr "VS"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "W-Wing"
-msgstr ""
+msgstr "W-Wing"
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Warm gold accents for a brighter board"
@@ -1233,7 +1233,7 @@ msgstr "معدل الفوز"
 
 #: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
 msgid "Winner, winner!"
-msgstr ""
+msgstr "لقد فزت!"
 
 #: src/app/winner.tsx
 msgid "Winners-winner, chicken dinner!"
@@ -1249,31 +1249,31 @@ msgstr "فوز"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "X-Chain"
-msgstr ""
+msgstr "X-Chain"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "X-Wing"
-msgstr ""
+msgstr "X-Wing"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "XY-Chain"
-msgstr ""
+msgstr "XY-Chain"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "XY-Wing"
-msgstr ""
+msgstr "XY-Wing"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "XYZ-Wing"
-msgstr ""
+msgstr "XYZ-Wing"
 
 #: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
 msgid "You"
-msgstr ""
+msgstr "أنت"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "You beat your rival"
-msgstr ""
+msgstr "لقد هزمت منافسك"
 
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "You got to"
@@ -1281,7 +1281,7 @@ msgstr "وصلت إلى"
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 msgid "you lead"
-msgstr ""
+msgstr "أنت متقدم"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Your best run"
@@ -1297,7 +1297,7 @@ msgstr "تقدمك"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Your rival was faster"
-msgstr ""
+msgstr "كان منافسك أسرع"
 
 #: src/history/components/history-overview-tab/history-overview-tab.tsx
 msgid "Your stats will build as you finish puzzles."
