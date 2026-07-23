@@ -36,7 +36,7 @@ export const ChallengeRaceRunner = ({ progress }: Props) => {
 
     const runnerStyle = [styles.runner, runnerAnimatedStyle];
     const haloStyle = [styles.halo, { backgroundColor: theme.colors.red }, haloAnimatedStyle];
-    const coreStyle = [styles.core, { backgroundColor: theme.colors.red, borderColor: theme.colors.black }];
+    const coreStyle = [styles.core, { backgroundColor: theme.colors.red, borderColor: theme.colors.white }];
 
     return (
         <Animated.View pointerEvents="none" style={runnerStyle}>

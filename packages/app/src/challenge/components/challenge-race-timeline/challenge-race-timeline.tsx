@@ -44,13 +44,13 @@ export const ChallengeRaceTimeline = ({ events, opponentProgress, playerProgress
 
     const marks = getChallengeTimelineMarks(events, TICK_COUNT);
     const isRivalAhead = opponentProgress > playerProgress;
-    const gapColor = isRivalAhead ? theme.colors.red : theme.colors.label.inverted;
-    const trackStyle = [styles.track, { backgroundColor: theme.colors.white05 }];
-    const baselineStyle = [styles.baseline, { backgroundColor: theme.colors.label.inverted }];
+    const gapColor = isRivalAhead ? theme.colors.red : theme.colors.label.main;
+    const trackStyle = [styles.track, { backgroundColor: theme.colors.black05 }];
+    const baselineStyle = [styles.baseline, { backgroundColor: theme.colors.label.main }];
     const fillAnimatedStyle = useAnimatedStyle(() => ({
         width: `${Math.min(opponentProgressValue.value, playerProgressValue.value) * PERCENT}%`
     }));
-    const fillStyle = [styles.fill, { backgroundColor: theme.colors.label.inverted }, fillAnimatedStyle];
+    const fillStyle = [styles.fill, { backgroundColor: theme.colors.label.main }, fillAnimatedStyle];
     const gapAnimatedStyle = useAnimatedStyle(() => ({
         left: `${Math.min(opponentProgressValue.value, playerProgressValue.value) * PERCENT}%`,
         width: `${Math.abs(opponentProgressValue.value - playerProgressValue.value) * PERCENT}%`
@@ -59,7 +59,7 @@ export const ChallengeRaceTimeline = ({ events, opponentProgress, playerProgress
     const playerMarkerAnimatedStyle = useAnimatedStyle(() => ({ left: `${playerProgressValue.value * PERCENT}%` }));
     const playerDotStyle = [
         styles.playerDot,
-        { backgroundColor: theme.colors.label.inverted, borderColor: theme.colors.black },
+        { backgroundColor: theme.colors.label.main, borderColor: theme.colors.white },
         playerMarkerAnimatedStyle
     ];
 
@@ -79,7 +79,7 @@ export const ChallengeRaceTimeline = ({ events, opponentProgress, playerProgress
                 const fillerOpacity = isPassed ? FILLER_PASSED_OPACITY : FILLER_UPCOMING_OPACITY;
                 const markHeight = isMove ? MARK_BASE_HEIGHT + mark.complexity * MARK_HEIGHT_STEP : FILLER_HEIGHT;
                 const markStyle: ViewStyle = {
-                    backgroundColor: theme.colors.label.inverted,
+                    backgroundColor: theme.colors.label.main,
                     height: markHeight,
                     opacity: isMove ? moveOpacity : fillerOpacity
                 };
