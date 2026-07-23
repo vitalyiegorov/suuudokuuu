@@ -39,6 +39,14 @@ describe('appButtonGetColors', () => {
         expect(invertedColors.textColor).toBe(DefaultUiTheme.colors.label.main);
     });
 
+    it('keeps glass actions fully transparent for native glass surfaces', () => {
+        const glassColors = appButtonGetColors(DefaultUiTheme, 'glass');
+
+        expect(glassColors.backgroundColor).toBe('transparent');
+        expect(glassColors.borderColor).toBe('transparent');
+        expect(glassColors.textColor).toBe(DefaultUiTheme.colors.label.main);
+    });
+
     it('uses transparent page colors for ghost actions', () => {
         const ghostColors = appButtonGetColors(DefaultUiTheme, 'ghost');
 

@@ -45,7 +45,7 @@ export const ChallengeRaceHud = () => {
         }
     }, [opponentProgress, dispatch, sudoku.Difficulty]);
 
-    const cardStyle = [styles.card, { backgroundColor: theme.colors.black }];
+    const cardStyle = [styles.card, { backgroundColor: theme.colors.cell.highlighted }];
 
     return (
         <View style={styles.container} testID={ChallengeRaceHudSelectors.Root}>

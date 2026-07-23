@@ -11,6 +11,7 @@ interface Props {
 }
 
 const screenChromeConfig = {
+    headerTopInset: 10,
     intensity: 60,
     maxBlurIntensity: 72,
     topFadeHeight: 128,

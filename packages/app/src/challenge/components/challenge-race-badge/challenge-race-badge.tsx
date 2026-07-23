@@ -36,17 +36,17 @@ export const ChallengeRaceBadge = ({ events, elapsedTime }: Props) => {
     const techniqueCount = passedEvents.filter(event => event.technique === latestEvent.technique).length;
     const techniqueLabel = _(techniqueLabelsConstant[latestEvent.technique]);
 
-    const badgeStyle = [styles.badge, { backgroundColor: theme.colors.white05, borderColor: theme.colors.white05 }];
-    const labelStyle = [styles.label, { color: theme.colors.label.inverted }];
-    const countStyle = [styles.count, { color: theme.colors.label.inverted }];
+    const badgeStyle = [styles.badge, { backgroundColor: theme.colors.black05, borderColor: theme.colors.black05 }];
+    const labelStyle = [styles.label, { color: theme.colors.label.main }];
+    const countStyle = [styles.count, { color: theme.colors.label.main }];
 
     return (
         <Animated.View entering={FadeIn.duration(ENTER_DURATION_MS)} key={`${latestEvent.technique}-${techniqueCount}`} style={badgeStyle}>
             <TechniqueGlyph
                 accentColor={theme.colors.red}
-                dimColor={theme.colors.white05}
+                dimColor={theme.colors.black05}
                 gap={GLYPH_GAP}
-                litColor={theme.colors.label.inverted}
+                litColor={theme.colors.label.main}
                 size={GLYPH_SIZE}
                 technique={latestEvent.technique}
             />
