@@ -328,7 +328,7 @@ msgstr "Збірка для розробки недоступна"
 msgid "Development builds"
 msgstr "Збірки для розробки"
 
-#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "Did not finish the board"
 msgstr "Дошку не завершено"
 
@@ -865,7 +865,7 @@ msgid "Retry loading development build"
 msgstr "Повторити завантаження збірки для розробки"
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
-#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "Rival"
 msgstr "Суперник"
 
@@ -1205,10 +1205,6 @@ msgstr "Вібрувати під час торкань і дій у грі"
 msgid "Vibration"
 msgstr "Вібрація"
 
-#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
-msgid "VS"
-msgstr "VS"
-
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "W-Wing"
 msgstr "W-Wing"
@@ -1269,7 +1265,7 @@ msgstr "XY-Wing"
 msgid "XYZ-Wing"
 msgstr "XYZ-Wing"
 
-#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "You"
 msgstr "Ти"
 

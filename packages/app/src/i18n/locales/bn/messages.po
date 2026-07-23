@@ -326,7 +326,7 @@ msgstr "ডেভেলপমেন্ট বিল্ড উপলভ্য ন
 msgid "Development builds"
 msgstr "ডেভেলপমেন্ট বিল্ড"
 
-#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "Did not finish the board"
 msgstr "বোর্ড শেষ করেননি"
 
@@ -863,7 +863,7 @@ msgid "Retry loading development build"
 msgstr "ডেভেলপমেন্ট বিল্ড আবার লোড করুন"
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
-#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "Rival"
 msgstr "প্রতিদ্বন্দ্বী"
 
@@ -1203,10 +1203,6 @@ msgstr "ট্যাপ ও গেমের কাজে কম্পন দি�
 msgid "Vibration"
 msgstr "ভাইব্রেশন"
 
-#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
-msgid "VS"
-msgstr "VS"
-
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "W-Wing"
 msgstr "W-Wing"
@@ -1267,7 +1263,7 @@ msgstr "XY-Wing"
 msgid "XYZ-Wing"
 msgstr "XYZ-Wing"
 
-#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "You"
 msgstr "আপনি"
 

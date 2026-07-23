@@ -328,7 +328,7 @@ msgstr "Version de développement indisponible"
 msgid "Development builds"
 msgstr "Versions de développement"
 
-#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "Did not finish the board"
 msgstr "Grille non terminée"
 
@@ -865,7 +865,7 @@ msgid "Retry loading development build"
 msgstr "Recharger la version de développement"
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
-#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "Rival"
 msgstr "Rival"
 
@@ -1205,10 +1205,6 @@ msgstr "Vibrer lors des touchers et des actions de jeu"
 msgid "Vibration"
 msgstr "Vibration"
 
-#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
-msgid "VS"
-msgstr "VS"
-
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "W-Wing"
 msgstr "W-Wing"
@@ -1269,7 +1265,7 @@ msgstr "XY-Wing"
 msgid "XYZ-Wing"
 msgstr "XYZ-Wing"
 
-#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "You"
 msgstr "Toi"
 
