@@ -44,7 +44,7 @@ describe('appButtonGetColors', () => {
 
         expect(glassColors.backgroundColor).toBe('transparent');
         expect(glassColors.borderColor).toBe('transparent');
-        expect(glassColors.textColor).toBe(DefaultUiTheme.colors.label.main);
+        expect(glassColors.textColor).toBe(DefaultUiTheme.colors.label.inverted);
     });
 
     it('uses transparent page colors for ghost actions', () => {

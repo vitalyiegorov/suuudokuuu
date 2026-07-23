@@ -31,7 +31,7 @@ export const appButtonGetColors = (theme: ThemeInterface, variant: AppButtonVari
         return {
             backgroundColor: 'transparent',
             borderColor: 'transparent',
-            textColor: theme.colors.label.main
+            textColor: theme.colors.label.inverted
         };
     }
 
