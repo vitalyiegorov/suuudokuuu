@@ -1,5 +1,5 @@
 import { plural } from '@lingui/core/macro';
-import { useLingui } from '@lingui/react/macro';
+import { Trans, useLingui } from '@lingui/react/macro';
 import { AppSurfaceCard } from '@suuudokuuu/ui';
 import { LucideBan, LucideMinus, LucideTurtle, LucideZap } from 'lucide-react-native';
 import { use } from 'react';
@@ -22,9 +22,13 @@ interface Props {
     readonly result: ChallengeResult;
     readonly lostByMistakes: boolean;
     readonly mistakes: number;
+    readonly playerTimeText: string;
+    readonly opponentTimeText: string;
 }
 
-export const ChallengeResultMarginCard = ({ durationParts, result, lostByMistakes, mistakes }: Props) => {
+export const ChallengeResultMarginCard = (props: Props) => {
+    const { durationParts, result, lostByMistakes, mistakes, playerTimeText, opponentTimeText } = props;
+
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
 
@@ -48,18 +52,50 @@ export const ChallengeResultMarginCard = ({ durationParts, result, lostByMistake
 
     const labelStyle = [styles.label, { color: theme.colors.white05 }];
     const valueStyle = [styles.value, { color: theme.colors.label.inverted }];
+    const captionStyle = [styles.caption, { color: theme.colors.white05 }];
+    const dividerStyle = [styles.divider, { backgroundColor: theme.colors.white05 }];
+    const timeLabelStyle = [styles.timeLabel, { color: theme.colors.white05 }];
+    const timeValueStyle = [styles.timeValue, { color: theme.colors.label.inverted }];
 
     return (
         <AppSurfaceCard size="compact" style={styles.card} variant="inverted">
-            <View style={styles.textColumn}>
-                <Text allowFontScaling={false} style={labelStyle}>
-                    {labelText}
-                </Text>
-                <Text allowFontScaling={false} style={valueStyle} testID={ChallengeResultScreenSelectors.MarginValue}>
-                    {valueText}
-                </Text>
+            <View style={styles.header}>
+                <View style={styles.textColumn}>
+                    <Text allowFontScaling={false} style={labelStyle}>
+                        {labelText}
+                    </Text>
+                    <Text allowFontScaling={false} style={valueStyle} testID={ChallengeResultScreenSelectors.MarginValue}>
+                        {valueText}
+                    </Text>
+                    {lostByMistakes ? (
+                        <Text allowFontScaling={false} style={captionStyle}>
+                            <Trans>Did not finish the board</Trans>
+                        </Text>
+                    ) : null}
+                </View>
+                <Icon color={theme.colors.label.inverted} size={ICON_SIZE} strokeWidth={2} />
             </View>
-            <Icon color={theme.colors.label.inverted} size={ICON_SIZE} strokeWidth={2} />
+
+            <View style={dividerStyle} />
+
+            <View style={styles.timesRow}>
+                <View style={styles.timeSide}>
+                    <Text allowFontScaling={false} style={timeLabelStyle}>
+                        <Trans>You</Trans>
+                    </Text>
+                    <Text allowFontScaling={false} style={timeValueStyle} testID={ChallengeResultScreenSelectors.YourTimeValue}>
+                        {playerTimeText}
+                    </Text>
+                </View>
+                <View style={styles.timeSideEnd}>
+                    <Text allowFontScaling={false} style={timeLabelStyle}>
+                        <Trans>Rival</Trans>
+                    </Text>
+                    <Text allowFontScaling={false} style={timeValueStyle} testID={ChallengeResultScreenSelectors.OpponentTimeValue}>
+                        {opponentTimeText}
+                    </Text>
+                </View>
+            </View>
         </AppSurfaceCard>
     );
 };

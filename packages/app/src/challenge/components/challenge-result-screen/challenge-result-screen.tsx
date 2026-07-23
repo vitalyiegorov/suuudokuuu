@@ -20,7 +20,6 @@ import { getChallengeTechniqueEventsFromState } from '../../utils/get-challenge-
 import { ChallengeResultFooter } from '../challenge-result-footer/challenge-result-footer';
 import { ChallengeResultMarginCard } from '../challenge-result-margin-card/challenge-result-margin-card';
 import { ChallengeResultMedallion } from '../challenge-result-medallion/challenge-result-medallion';
-import { ChallengeResultRaceCard } from '../challenge-result-race-card/challenge-result-race-card';
 import { ChallengeResultRivalTimeCard } from '../challenge-result-rival-time-card/challenge-result-rival-time-card';
 import { ChallengeTechniqueBreakdown } from '../challenge-technique-breakdown/challenge-technique-breakdown';
 
@@ -38,7 +37,7 @@ interface Props {
 
 export const ChallengeResultScreen = (props: Props) => {
     const { children, gameState, result, lossReason = ChallengeLossReason.Time } = props;
-    const { elapsedTime, challengeTime, sudokuString, challengeState, solutionSteps, challengeSteps, mistakes, maxMistakes } = gameState;
+    const { elapsedTime, challengeTime, sudokuString, challengeState, mistakes, maxMistakes } = gameState;
 
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
@@ -52,8 +51,6 @@ export const ChallengeResultScreen = (props: Props) => {
     const marginSeconds = Math.abs(challengeTime - elapsedTime);
     const durationParts = getChallengeDurationParts(marginSeconds);
     const techniqueEvents = getChallengeTechniqueEventsFromState(challengeState);
-    const playerProgress = challengeSteps.length === 0 ? 0 : solutionSteps.length / challengeSteps.length;
-    const playerFinished = playerProgress >= 1;
     const lostByMistakes = result === ChallengeResult.Lost && lossReason === ChallengeLossReason.Mistakes;
     const lostByTime = result === ChallengeResult.Lost && lossReason === ChallengeLossReason.Time;
 
@@ -97,22 +94,12 @@ export const ChallengeResultScreen = (props: Props) => {
                 {lostByTime ? (
                     <ChallengeResultRivalTimeCard rivalTimeText={challengeTimeText} />
                 ) : (
-                    <ChallengeResultRaceCard
-                        lostByMistakes={lostByMistakes}
-                        opponentSeconds={challengeTime}
-                        opponentTimeText={challengeTimeText}
-                        playerFinished={playerFinished}
-                        playerProgress={playerProgress}
-                        playerSeconds={elapsedTime}
-                        playerTimeText={elapsedTimeText}
-                    />
-                )}
-
-                {lostByTime ? null : (
                     <ChallengeResultMarginCard
                         durationParts={durationParts}
                         lostByMistakes={lostByMistakes}
                         mistakes={mistakes}
+                        opponentTimeText={challengeTimeText}
+                        playerTimeText={elapsedTimeText}
                         result={result}
                     />
                 )}

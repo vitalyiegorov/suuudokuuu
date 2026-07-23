@@ -326,7 +326,7 @@ msgstr "Build pengembangan tidak tersedia"
 msgid "Development builds"
 msgstr "Build pengembangan"
 
-#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "Did not finish the board"
 msgstr "Papan belum selesai"
 
@@ -863,7 +863,7 @@ msgid "Retry loading development build"
 msgstr "Coba lagi memuat build pengembangan"
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
-#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "Rival"
 msgstr "Lawan"
 
@@ -1203,10 +1203,6 @@ msgstr "Bergetar saat mengetuk dan melakukan aksi game"
 msgid "Vibration"
 msgstr "Getaran"
 
-#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
-msgid "VS"
-msgstr "VS"
-
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "W-Wing"
 msgstr "W-Wing"
@@ -1267,7 +1263,7 @@ msgstr "XY-Wing"
 msgid "XYZ-Wing"
 msgstr "XYZ-Wing"
 
-#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "You"
 msgstr "Kamu"
 

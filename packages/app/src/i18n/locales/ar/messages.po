@@ -326,7 +326,7 @@ msgstr "إصدار التطوير غير متاح"
 msgid "Development builds"
 msgstr "إصدارات التطوير"
 
-#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "Did not finish the board"
 msgstr "لم تُكمل اللوحة"
 
@@ -863,7 +863,7 @@ msgid "Retry loading development build"
 msgstr "إعادة محاولة تحميل إصدار التطوير"
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
-#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "Rival"
 msgstr "المنافس"
 
@@ -1203,10 +1203,6 @@ msgstr "الاهتزاز عند النقر وإجراءات اللعب"
 msgid "Vibration"
 msgstr "الاهتزاز"
 
-#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
-msgid "VS"
-msgstr "VS"
-
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "W-Wing"
 msgstr "W-Wing"
@@ -1267,7 +1263,7 @@ msgstr "XY-Wing"
 msgid "XYZ-Wing"
 msgstr "XYZ-Wing"
 
-#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "You"
 msgstr "أنت"
 
