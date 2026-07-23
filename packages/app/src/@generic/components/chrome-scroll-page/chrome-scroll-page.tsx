@@ -1,7 +1,7 @@
 import { ScreenChromeScrollView } from '@suuudokuuu/screen-chrome';
 import { useState } from 'react';
 import { View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { initialWindowMetrics, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import {
     ChromeScrollPageContentInsetTop,
@@ -31,6 +31,9 @@ export const ChromeScrollPage = ({ children, footer, testID }: Props) => {
         setFooterHeight(event.nativeEvent.layout.height);
     };
 
+    const launchTopInset = initialWindowMetrics?.insets.top ?? 0;
+    const missingTopInset = Math.max(0, launchTopInset - insets.top);
+    const contentInsetTop = ChromeScrollPageContentInsetTop + missingTopInset;
     const footerReserve = Math.max(ChromeScrollPageFooterMinReserve, footerHeight + insets.bottom + ChromeScrollPageFooterExtraReserve);
     const footerNode = <View onLayout={handleFooterLayout}>{footer}</View>;
     const footerEdgeFadeProps = { height: footerReserve, intensity: ChromeScrollPageFooterFadeIntensity };
@@ -48,7 +51,7 @@ export const ChromeScrollPage = ({ children, footer, testID }: Props) => {
             <ScreenChromeScrollView
                 contentContainerStyle={styles.scrollContent}
                 contentInsetBottom={footerReserve}
-                contentInsetTop={ChromeScrollPageContentInsetTop}
+                contentInsetTop={contentInsetTop}
                 showsVerticalScrollIndicator={false}
                 style={styles.scrollView}
             >
