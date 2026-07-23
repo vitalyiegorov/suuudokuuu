@@ -1,9 +1,14 @@
 appId: ${APP_ID}
 ---
-- launchApp:
-    clearState: false
-- tapOn: 'Play'
-- extendedWaitUntil:
-    visible:
-      id: 'HomeScreenSelectors.Root'
-    timeout: 15000
+# Cold relaunch right after stopApp can race the process teardown on CI
+# simulators, so retry the native launch handoff once.
+- retry:
+      maxRetries: 1
+      commands:
+          - launchApp:
+                clearState: false
+          - tapOn: 'Play'
+          - extendedWaitUntil:
+                visible:
+                    id: 'HomeScreenSelectors.Root'
+                timeout: 15000
