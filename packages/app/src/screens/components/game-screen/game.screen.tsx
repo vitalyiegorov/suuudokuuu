@@ -146,6 +146,7 @@ export const GameScreen = () => {
 
         hapticNotification(Haptics.NotificationFeedbackType.Success);
 
+        fieldRef.current?.triggerCellSuccess(correctCell);
         fieldRef.current?.triggerAnimation(newScoredCells);
 
         setSelectedCell(() => ({ ...correctCell }));

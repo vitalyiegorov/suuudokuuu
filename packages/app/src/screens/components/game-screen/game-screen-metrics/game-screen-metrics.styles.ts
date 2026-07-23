@@ -2,9 +2,10 @@ import { StyleSheet } from 'react-native';
 
 export const GameScreenMetricsStyles = StyleSheet.create({
     container: {
-        borderRadius: 26,
+        backgroundColor: 'transparent',
+        borderColor: 'transparent',
         minHeight: 52,
-        paddingHorizontal: 10,
+        paddingHorizontal: 0,
         paddingVertical: 7
     },
     item: {
