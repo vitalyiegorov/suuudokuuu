@@ -19,9 +19,10 @@ export const getChallengeTimelineMarks = (
     for (const event of events) {
         const isSharp = event.tier === ChallengeTechniqueTierEnum.Clever || event.tier === ChallengeTechniqueTierEnum.Advanced;
         const slot = Math.min(tickCount - 1, Math.round((event.positionPercent / PERCENT) * (tickCount - 1)));
-        const complexity = techniqueComplexityConstant[event.technique];
+        const complexity = isSharp ? techniqueComplexityConstant[event.technique] : 0;
+        const existingMark = marks[slot];
 
-        if (isSharp && complexity > marks[slot].complexity) {
+        if (existingMark.tier === null || complexity > existingMark.complexity) {
             marks[slot] = { complexity, tier: event.tier };
         }
     }

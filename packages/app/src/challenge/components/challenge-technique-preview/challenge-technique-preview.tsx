@@ -16,10 +16,10 @@ import type { ChallengeTechniqueEventInterface } from '../../interfaces/challeng
 import type { ViewStyle } from 'react-native';
 
 const TICK_COUNT = 60;
-const MARK_BASE_HEIGHT = 9;
+const MARK_BASE_HEIGHT = 10;
 const MARK_HEIGHT_STEP = 4;
-const FILLER_HEIGHT = 7;
-const FILLER_OPACITY = 0.3;
+const FILLER_HEIGHT = 2.5;
+const FILLER_OPACITY = 0.18;
 const TICK_STAGGER_MS = 10;
 const TICK_DURATION_MS = 240;
 
