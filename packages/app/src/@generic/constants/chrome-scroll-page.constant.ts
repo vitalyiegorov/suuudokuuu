@@ -1,6 +1,7 @@
 import { AppScreenChromeConfig } from './screen-chrome-config.constant';
 
 export const ChromeScrollPageTopFadeHeight = 144;
+export const ChromeScrollPageContentGap = 12;
 export const ChromeScrollPageContentInsetTop = AppScreenChromeConfig.headerTopInset + 40;
 export const ChromeScrollPageFooterFadeIntensity = 80;
 export const ChromeScrollPageFooterMinReserve = 132;
