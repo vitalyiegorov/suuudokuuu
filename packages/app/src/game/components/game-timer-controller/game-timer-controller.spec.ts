@@ -206,4 +206,25 @@ describe('GameTimerController', () => {
 
         jest.useRealTimers();
     });
+
+    it('ignores app state changes when the timer should not run', () => {
+        mockHasStarted = false;
+
+        GameTimerController();
+
+        const focusCleanup = capturedFocusEffect?.();
+
+        expect(mockAddEventListener).toHaveBeenCalledTimes(1);
+
+        mockDispatch.mockClear();
+
+        mockAppStateChangeListener?.('background');
+
+        expect(mockDispatch).not.toHaveBeenCalled();
+        expect(mockReplace).not.toHaveBeenCalled();
+
+        focusCleanup?.();
+
+        jest.useRealTimers();
+    });
 });
