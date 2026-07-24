@@ -17,12 +17,10 @@ appId: ${APP_ID}
 - assertVisible:
       id: 'ChallengeAcceptScreenSelectors.Timeline'
 - assertVisible: '.*28 key moves.*'
-- assertVisible:
-      id: 'ChallengeTechniqueArsenalSelectors.Root'
 # The arsenal grid sits below the fold on the shorter Android viewport, dimmed behind
-# the floating accept/decline footer. The Root/Card ids report as partially visible
-# there, but the "AIC" label is fully off-screen, so scroll it into view before
-# asserting (iOS passes only because of its taller viewport).
+# the floating accept/decline footer, so its Root/Card ids are off-screen on entry.
+# Scroll the "AIC" label into view first (iOS passes only because of its taller
+# viewport), which also brings the arsenal Root on screen for the assertions below.
 - scrollUntilVisible:
       element:
           text: 'AIC'

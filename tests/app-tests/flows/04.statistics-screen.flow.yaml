@@ -55,6 +55,14 @@ appId: ${APP_ID}
       visible:
           id: 'ReplayControlsSelectors.Root'
       timeout: 3000
+# The replay board fills the shorter Android viewport, so the playback controls
+# scroll below the fold; scroll the step buttons above the navigation bar before
+# tapping (iOS passes only because its taller viewport keeps them on screen).
+- scrollUntilVisible:
+      element:
+          id: 'ReplayControlsSelectors.NextButton'
+      direction: DOWN
+      timeout: 5000
 - tapOn:
       id: 'ReplayControlsSelectors.NextButton'
 - tapOn:
