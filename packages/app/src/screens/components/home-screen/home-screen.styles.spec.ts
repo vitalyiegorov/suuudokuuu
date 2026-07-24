@@ -21,7 +21,7 @@ describe('HomeScreenStyles', () => {
         expect(screenSource).not.toContain('useWindowDimensions');
         expect(source).not.toContain('paddingBottom: 120');
         expect(screenSource).toContain('HomeScreenBottomScrollPadding');
-        expect(screenSource).toContain('HomeScreenCurrentGameBottomScrollPadding');
+        expect(screenSource).toContain('HomeScreenFloatingTabBarInset');
         expect(screenSource).toContain('topEdgeFadeProps=');
         expect(screenSource).not.toContain('footerEdgeFadeProps=');
         expect(screenSource).toContain('HomeScreenTopOverlayHeight');
@@ -40,11 +40,11 @@ describe('HomeScreenStyles', () => {
 
     it('reserves the floating native tab bar height for the resume strip so it clears the bar', () => {
         const source = readFileSync(join(__dirname, 'constant/home-screen.constant.ts'), 'utf8');
+        const screenSource = readFileSync(join(__dirname, 'home.screen.tsx'), 'utf8');
 
         expect(source).toContain('HomeScreenBottomScrollPadding = 32');
         expect(source).toContain('HomeScreenFloatingTabBarInset = 64');
-        expect(source).toContain(
-            'HomeScreenCurrentGameBottomScrollPadding = HomeScreenBottomScrollPadding + HomeScreenFloatingTabBarInset'
-        );
+        expect(screenSource).toContain('insets.bottom + HomeScreenFloatingTabBarInset');
+        expect(screenSource).toContain('paddingBottom: resumeStripTabBarClearance');
     });
 });
