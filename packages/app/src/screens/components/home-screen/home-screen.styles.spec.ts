@@ -38,13 +38,16 @@ describe('HomeScreenStyles', () => {
         expect(source).toContain('HomeScreenTopOverlayIntensity = 70');
     });
 
-    it('reserves the floating native tab bar height for the resume strip so it clears the bar', () => {
+    it('reserves the floating native tab bar height as scroll content inset so the resume strip clears the bar', () => {
         const source = readFileSync(join(__dirname, 'constant/home-screen.constant.ts'), 'utf8');
         const screenSource = readFileSync(join(__dirname, 'home.screen.tsx'), 'utf8');
 
         expect(source).toContain('HomeScreenBottomScrollPadding = 32');
         expect(source).toContain('HomeScreenFloatingTabBarInset = 64');
-        expect(screenSource).toContain('insets.bottom + HomeScreenFloatingTabBarInset');
-        expect(screenSource).toContain('paddingBottom: resumeStripTabBarClearance');
+        expect(screenSource).toContain('HomeScreenBottomScrollPadding + HomeScreenFloatingTabBarInset');
+        expect(screenSource).toContain('contentInsetBottom={contentInsetBottom}');
+        // The clearance must stay scroll content inset: container padding would clip the
+        // strip into an on-screen but unscrollable dead zone below the scroll viewport.
+        expect(screenSource).not.toContain('paddingBottom: resumeStripTabBarClearance');
     });
 });

@@ -55,3 +55,4 @@ build-*.tar.gz
 *.app
 *.apk
 app*.tar.gz
+tests/app-tests/artifacts
