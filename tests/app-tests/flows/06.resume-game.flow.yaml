@@ -63,14 +63,18 @@ appId: ${APP_ID}
       WAIT_MILLISECONDS: 1500
 - stopApp
 - runFlow: subflows/navigation/relaunch-home.flow.yaml
-# The resume strip sits at the end of the home scroll content, below the fold on
-# the shorter Android viewport, so scroll it into view instead of a single blind
-# swipe that stops short of it.
+# The resume strip sits at the end of the home scroll content: below the fold on
+# the shorter Android viewport, and on iOS pinned to the bottom under the floating
+# native tab bar, whose center overlaps the strip. A plain scrollUntilVisible
+# no-ops on iOS because the strip already reports visible, so the center tap lands
+# on the Stats tab instead. Center the strip to lift it clear of the tab bar and
+# to bring it above the fold on Android before tapping.
 - scrollUntilVisible:
     element:
       id: 'HomeScreenSelectors.ResumeButton'
     direction: DOWN
     timeout: 5000
+    centerElement: true
 - tapOn:
     id: 'HomeScreenSelectors.ResumeButton'
 - extendedWaitUntil:
