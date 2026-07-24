@@ -1,6 +1,5 @@
 import { plural } from '@lingui/core/macro';
 import { Trans, useLingui } from '@lingui/react/macro';
-import { AppSurfaceCard } from '@suuudokuuu/ui';
 import { LucideBan, LucideMinus, LucideTurtle, LucideZap } from 'lucide-react-native';
 import { use } from 'react';
 import { Text, View } from 'react-native';
@@ -50,15 +49,15 @@ export const ChallengeResultMarginCard = (props: Props) => {
         Icon = LucideTurtle;
     }
 
-    const labelStyle = [styles.label, { color: theme.colors.white05 }];
-    const valueStyle = [styles.value, { color: theme.colors.label.inverted }];
-    const captionStyle = [styles.caption, { color: theme.colors.white05 }];
-    const dividerStyle = [styles.divider, { backgroundColor: theme.colors.white05 }];
-    const timeLabelStyle = [styles.timeLabel, { color: theme.colors.white05 }];
-    const timeValueStyle = [styles.timeValue, { color: theme.colors.label.inverted }];
+    const labelStyle = [styles.label, { color: theme.colors.label.hint }];
+    const valueStyle = [styles.value, { color: theme.colors.label.main }];
+    const captionStyle = [styles.caption, { color: theme.colors.label.hint }];
+    const dividerStyle = [styles.divider, { backgroundColor: theme.colors.label.hint }];
+    const timeLabelStyle = [styles.timeLabel, { color: theme.colors.label.hint }];
+    const timeValueStyle = [styles.timeValue, { color: theme.colors.label.main }];
 
     return (
-        <AppSurfaceCard size="compact" style={styles.card} variant="inverted">
+        <View style={styles.card}>
             <View style={styles.header}>
                 <View style={styles.textColumn}>
                     <Text allowFontScaling={false} style={labelStyle}>
@@ -73,7 +72,7 @@ export const ChallengeResultMarginCard = (props: Props) => {
                         </Text>
                     ) : null}
                 </View>
-                <Icon color={theme.colors.label.inverted} size={ICON_SIZE} strokeWidth={2} />
+                <Icon color={theme.colors.label.main} size={ICON_SIZE} strokeWidth={2} />
             </View>
 
             <View style={dividerStyle} />
@@ -96,6 +95,6 @@ export const ChallengeResultMarginCard = (props: Props) => {
                     </Text>
                 </View>
             </View>
-        </AppSurfaceCard>
+        </View>
     );
 };

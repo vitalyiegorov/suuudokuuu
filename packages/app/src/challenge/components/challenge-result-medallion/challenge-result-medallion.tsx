@@ -22,6 +22,9 @@ const PULSE_INPUT = [0, 1];
 const RING_OPACITY_OUTPUT = [0.5, 0];
 const RING_SCALE_OUTPUT = [0.7, 1.8];
 const MEDAL_SCALE_OUTPUT = [0.5, 1];
+const MEDAL_PULSE_PEAK = 1 + 0.05;
+const MEDAL_PULSE_INPUT = [0, 0.5, 1];
+const MEDAL_PULSE_OUTPUT = [1, MEDAL_PULSE_PEAK, 1];
 const ICON_SIZE = 42;
 
 interface Props {
@@ -46,7 +49,11 @@ export const ChallengeResultMedallion = ({ result }: Props) => {
     }, [pulse, showRing]);
 
     const medalScale = useDerivedValue(() => interpolate(appear.value, PULSE_INPUT, MEDAL_SCALE_OUTPUT));
-    const medalAnimatedStyle = useAnimatedStyle(() => ({ transform: [{ scale: medalScale.value }] }));
+    const medalAnimatedStyle = useAnimatedStyle(() => {
+        const pulseScale = showRing ? interpolate(pulse.value, MEDAL_PULSE_INPUT, MEDAL_PULSE_OUTPUT) : 1;
+
+        return { transform: [{ scale: medalScale.value * pulseScale }] };
+    });
     const ringAnimatedStyle = useAnimatedStyle(() => ({
         opacity: interpolate(pulse.value, PULSE_INPUT, RING_OPACITY_OUTPUT),
         transform: [{ scale: interpolate(pulse.value, PULSE_INPUT, RING_SCALE_OUTPUT) }]

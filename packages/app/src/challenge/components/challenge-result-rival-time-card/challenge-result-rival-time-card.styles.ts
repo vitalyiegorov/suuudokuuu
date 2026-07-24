@@ -6,14 +6,17 @@ export const ChallengeResultRivalTimeCardStyles = StyleSheet.create({
         flexDirection: 'row',
         gap: 12,
         justifyContent: 'space-between',
+        paddingHorizontal: 4,
+        paddingVertical: 8,
         width: '100%'
     },
     iconWrap: {
         alignItems: 'center',
-        borderRadius: 14,
-        height: 44,
+        borderCurve: 'continuous',
+        borderRadius: 16,
+        height: 52,
         justifyContent: 'center',
-        width: 44
+        width: 52
     },
     label: {
         fontFamily: 'Inter_700Bold',
@@ -27,8 +30,8 @@ export const ChallengeResultRivalTimeCardStyles = StyleSheet.create({
     },
     value: {
         fontFamily: 'Inter_700Bold',
-        fontSize: 34,
+        fontSize: 44,
         fontVariant: ['tabular-nums'],
-        letterSpacing: -1
+        letterSpacing: -1.4
     }
 });

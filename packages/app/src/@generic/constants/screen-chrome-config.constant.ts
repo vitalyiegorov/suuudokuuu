@@ -8,6 +8,6 @@ export const AppScreenChromeConfig = {
     headerBackdropHeight: 240,
     colors: {
         [ScreenChromeColorSchemeEnum.LIGHT]: { solid: 'rgba(242,242,240,0.35)', wash: 'rgba(242,242,240,0)' },
-        [ScreenChromeColorSchemeEnum.DARK]: { solid: 'rgba(12,12,13,0.32)', wash: 'rgba(12,12,13,0)' }
+        [ScreenChromeColorSchemeEnum.DARK]: { solid: 'rgba(1,1,1,0.4)', wash: 'rgba(1,1,1,0)' }
     }
 };
