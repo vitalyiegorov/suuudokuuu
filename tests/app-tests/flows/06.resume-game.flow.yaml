@@ -63,10 +63,14 @@ appId: ${APP_ID}
       WAIT_MILLISECONDS: 1500
 - stopApp
 - runFlow: subflows/navigation/relaunch-home.flow.yaml
-- scroll
-- waitForAnimationToEnd
-- assertVisible:
-    id: 'HomeScreenSelectors.ResumeButton'
+# The resume strip sits at the end of the home scroll content, below the fold on
+# the shorter Android viewport, so scroll it into view instead of a single blind
+# swipe that stops short of it.
+- scrollUntilVisible:
+    element:
+      id: 'HomeScreenSelectors.ResumeButton'
+    direction: DOWN
+    timeout: 5000
 - tapOn:
     id: 'HomeScreenSelectors.ResumeButton'
 - extendedWaitUntil:
