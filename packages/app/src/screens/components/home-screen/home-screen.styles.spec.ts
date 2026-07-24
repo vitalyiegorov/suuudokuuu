@@ -38,10 +38,13 @@ describe('HomeScreenStyles', () => {
         expect(source).toContain('HomeScreenTopOverlayIntensity = 70');
     });
 
-    it('keeps home tab clearance compact because native tabs already reserve the main bottom area', () => {
+    it('reserves the floating native tab bar height for the resume strip so it clears the bar', () => {
         const source = readFileSync(join(__dirname, 'constant/home-screen.constant.ts'), 'utf8');
 
         expect(source).toContain('HomeScreenBottomScrollPadding = 32');
-        expect(source).toContain('HomeScreenCurrentGameBottomScrollPadding = 52');
+        expect(source).toContain('HomeScreenFloatingTabBarInset = 64');
+        expect(source).toContain(
+            'HomeScreenCurrentGameBottomScrollPadding = HomeScreenBottomScrollPadding + HomeScreenFloatingTabBarInset'
+        );
     });
 });
