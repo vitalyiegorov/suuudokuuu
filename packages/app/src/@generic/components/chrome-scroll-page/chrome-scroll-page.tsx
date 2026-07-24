@@ -4,8 +4,8 @@ import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import {
-    ChromeScrollPageContentGap,
     ChromeScrollPageContentInsetTop,
+    ChromeScrollPageContentTuck,
     ChromeScrollPageFooterExtraReserve,
     ChromeScrollPageFooterFadeIntensity,
     ChromeScrollPageFooterMinReserve,
@@ -32,7 +32,7 @@ export const ChromeScrollPage = ({ children, footer, testID }: Props) => {
         setFooterHeight(event.nativeEvent.layout.height);
     };
 
-    const bandClearanceInset = ChromeScrollPageTopFadeHeight + ChromeScrollPageContentGap - insets.top;
+    const bandClearanceInset = ChromeScrollPageTopFadeHeight - ChromeScrollPageContentTuck - insets.top;
     const contentInsetTop = Math.max(ChromeScrollPageContentInsetTop, bandClearanceInset);
     const footerReserve = Math.max(ChromeScrollPageFooterMinReserve, footerHeight + insets.bottom + ChromeScrollPageFooterExtraReserve);
     const footerNode = <View onLayout={handleFooterLayout}>{footer}</View>;
