@@ -1,40 +1,33 @@
 import { StyleSheet } from 'react-native';
 
 export const ChallengeResultScreenStyles = StyleSheet.create({
-    actions: {
-        alignItems: 'center',
-        gap: 10,
-        maxWidth: 560,
-        width: '100%'
-    },
-    chromeContent: {
-        alignItems: 'center'
-    },
     content: {
-        alignItems: 'center',
-        gap: 16,
-        maxWidth: 560,
-        width: '100%'
-    },
-    footerChrome: {
-        paddingBottom: 18,
-        paddingHorizontal: 18,
-        paddingTop: 12
-    },
-    headerChrome: {
-        paddingBottom: 0,
-        paddingHorizontal: 18,
-        paddingTop: 12
-    },
-    scrollContent: {
-        alignItems: 'center',
+        alignItems: 'stretch',
         flexGrow: 1,
-        gap: 16,
+        gap: 14,
+        maxWidth: 560,
         paddingHorizontal: 18,
+        paddingTop: 16,
         width: '100%'
     },
-    scrollView: {
-        flex: 1,
-        width: '100%'
+    pill: {
+        alignItems: 'center',
+        alignSelf: 'center',
+        borderRadius: 999,
+        maxWidth: '100%',
+        paddingHorizontal: 14,
+        paddingVertical: 7
+    },
+    pillText: {
+        fontFamily: 'Inter_500Medium',
+        fontSize: 12.5,
+        textAlign: 'center'
+    },
+    title: {
+        fontFamily: 'Inter_700Bold',
+        fontSize: 30,
+        letterSpacing: -0.8,
+        marginBottom: 2,
+        textAlign: 'center'
     }
 });

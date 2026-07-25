@@ -82,7 +82,10 @@ jobs:
 
   code-quality:
     name: Code quality checks
-    runs-on: [self-hosted, linux-tiered, linux-medium]
+    # linux-large: the workspace grew to 7 packages and turbo's parallel
+    # lint/test fan-out OOM-kills the 4 GiB linux-medium guests (exit 137,
+    # 'runner has received a shutdown signal').
+    runs-on: [self-hosted, linux-tiered, linux-large]
     timeout-minutes: 20
     permissions:
       pull-requests: write

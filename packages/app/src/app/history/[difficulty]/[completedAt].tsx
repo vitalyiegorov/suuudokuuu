@@ -1,7 +1,6 @@
 import { DifficultyEnum } from '@suuudokuuu/generator';
 import { Redirect, useLocalSearchParams } from 'expo-router';
 
-import { PageAllSafeAreaEdges } from '../../../@generic/components/page/constant/page-safe-area-edges.constant';
 import { Page } from '../../../@generic/components/page/page';
 import { ReplayScreen } from '../../../screens/components/replay-screen/replay.screen';
 
@@ -16,7 +15,7 @@ export default function ReplayGamePage() {
     }
 
     return (
-        <Page edges={PageAllSafeAreaEdges}>
+        <Page>
             <ReplayScreen completedAt={completedAtNumber} difficulty={difficultyEnum} />
         </Page>
     );

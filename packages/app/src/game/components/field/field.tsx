@@ -1,7 +1,7 @@
 import { isEmptyScoredCells } from '@suuudokuuu/generator';
 import { type Ref, use, useImperativeHandle, useState } from 'react';
 import { View } from 'react-native';
-import { interpolate, interpolateColor, useAnimatedStyle, useSharedValue, withSequence, withTiming } from 'react-native-reanimated';
+import { Easing, interpolate, interpolateColor, useAnimatedStyle, useSharedValue, withSequence, withTiming } from 'react-native-reanimated';
 import { scheduleOnRN } from 'react-native-worklets';
 
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
@@ -22,10 +22,12 @@ import type { OnEventFn } from '@rnw-community/shared';
 import type { CellInterface, ScoredCellsInterface } from '@suuudokuuu/generator';
 
 const textAnimationConfig = { duration: 6 * animationDurationConstant };
+const successAnimationConfig = { duration: 3 * animationDurationConstant, easing: Easing.out(Easing.cubic) };
 const FONT_SIZE_MULTIPLIER = 1.5;
 
 export interface FieldRef {
     triggerAnimation: OnEventFn<ScoredCellsInterface>;
+    triggerCellSuccess: OnEventFn<CellInterface>;
 }
 
 interface Props {
@@ -34,6 +36,7 @@ interface Props {
     readonly ref: Ref<FieldRef>;
 }
 
+// eslint-disable-next-line max-lines-per-function -- Layout/form component requires many lines
 export const Field = ({ selectedCell, onSelect, ref }: Props) => {
     const { sudoku } = use(GameContext);
     const { theme } = use(ThemeContext);
@@ -43,7 +46,9 @@ export const Field = ({ selectedCell, onSelect, ref }: Props) => {
     const fontSize = useCellFontSize();
 
     const [animatedCells, setAnimatedCells] = useState(new Set<string>());
+    const [successCellKey, setSuccessCellKey] = useState('');
 
+    const successAnimation = useSharedValue(0);
     const textAnimation = useSharedValue(0);
     const textAnimatedStyles = useAnimatedStyle(() => ({
         color: interpolateColor(
@@ -71,6 +76,17 @@ export const Field = ({ selectedCell, onSelect, ref }: Props) => {
             textAnimation.value = withTiming(0, { duration: 0 }, () => {
                 scheduleOnRN(runAnimation);
             });
+        },
+        triggerCellSuccess: (cell: CellInterface) => {
+            const runSuccessAnimation = () => {
+                setSuccessCellKey(getCellKey(cell));
+
+                successAnimation.value = withSequence(withTiming(1, successAnimationConfig), withTiming(0, { duration: 0 }));
+            };
+
+            successAnimation.value = withTiming(0, { duration: 0 }, () => {
+                scheduleOnRN(runSuccessAnimation);
+            });
         }
     }));
 
@@ -95,9 +111,11 @@ export const Field = ({ selectedCell, onSelect, ref }: Props) => {
                                 isActiveValue={isActiveValue}
                                 isEmpty={isEmpty}
                                 isHighlighted={isHighlighted}
+                                isSuccessPulse={successCellKey === getCellKey(cell)}
                                 isWrong={isWrong}
                                 key={`cell-${cell.y}-${cell.x}`}
                                 onSelect={onSelect}
+                                successAnimation={successAnimation}
                             >
                                 {shouldShowCandidates ? (
                                     <FieldCellCandidates activeValue={selectedCell?.value} candidates={cellCandidates} />

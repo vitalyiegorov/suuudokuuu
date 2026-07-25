@@ -18,14 +18,13 @@ yarn test:coverage
 
 ```text
 src/
-├── classes/
-│   ├── dlx/                   # Dancing Links exact-cover solver
-│   ├── serializable-sudoku/   # Base serialization and field state
-│   └── sudoku/                # Generation, gameplay, navigation, scoring hooks
-├── enums/                     # DifficultyEnum
-├── interfaces/                # Cell, field, config, scored-cell interfaces
-├── types/                     # Shared type aliases
-└── util/                      # Pure helper utilities
+├── @generic/                  # Shared enums, interfaces, types, and utilities
+├── dlx/                       # Dancing Links exact-cover solver feature
+│   └── classes/
+├── serializable-sudoku/       # Base serialization and field state feature
+│   └── classes/
+└── sudoku/                    # Generation, gameplay, navigation, and scoring feature
+    └── classes/
 ```
 
 ## Domain Rules
@@ -65,3 +64,7 @@ yarn test && yarn ts && yarn lint && yarn build
 ```
 
 Run the root validation sequence before finishing.
+
+## Exports
+
+The public API is exported from `src/index.ts` and includes `Sudoku`, difficulty/config, field/cell, available-value, and scored-cell APIs. `createEmptyField` remains an internal utility.

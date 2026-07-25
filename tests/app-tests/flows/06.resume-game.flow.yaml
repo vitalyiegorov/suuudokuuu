@@ -1,88 +1,95 @@
 appId: ${APP_ID}
 ---
 - startRecording:
-    path: '06.resume-game'
-    optional: true
+      path: '06.resume-game'
+      optional: true
 
 - runFlow: subflows/navigation/launch-home.flow.yaml
 - runFlow: subflows/game/start-new-game.flow.yaml
 - copyTextFrom:
-    id: 'GameScreenSelectors.Time'
+      id: 'GameScreenSelectors.Time'
 - evalScript: ${output.firstPausedSeconds = Number(maestro.copiedText.split(':')[0]) * 60 + Number(maestro.copiedText.split(':')[1])}
 - evalScript: ${output.firstPauseWallStartedAt = Date.now()}
 - runFlow: subflows/game/open-settings-from-game.flow.yaml
 - runFlow:
-    file: subflows/shared/wait-observation-window.flow.yaml
-    env:
-      WAIT_MILLISECONDS: 4000
+      file: subflows/shared/wait-observation-window.flow.yaml
+      env:
+          WAIT_MILLISECONDS: 4000
 - assertVisible:
-    id: 'SettingsScreenSelectors.Root'
+      id: 'SettingsScreenSelectors.Root'
 - tapOn:
-    id: 'HeaderBackButtonSelectors.Root'
+      id: 'HeaderBackButtonSelectors.Root'
 - extendedWaitUntil:
-    visible:
-      id: 'GameScreenSelectors.Root'
-    timeout: 3000
+      visible:
+          id: 'GameScreenSelectors.Root'
+      timeout: 3000
 - copyTextFrom:
-    id: 'GameScreenSelectors.Time'
+      id: 'GameScreenSelectors.Time'
 - evalScript: ${output.firstReturnedSeconds = Number(maestro.copiedText.split(':')[0]) * 60 + Number(maestro.copiedText.split(':')[1])}
 - evalScript: ${output.firstPauseWallElapsedSeconds = (Date.now() - output.firstPauseWallStartedAt) / 1000}
 - assertTrue:
-    condition: ${output.firstPauseWallElapsedSeconds - (output.firstReturnedSeconds - output.firstPausedSeconds) >= 3}
-    label: Timer stays paused while settings are open
+      condition: ${output.firstPauseWallElapsedSeconds - (output.firstReturnedSeconds - output.firstPausedSeconds) >= 3}
+      label: Timer stays paused while settings are open
 - runFlow: subflows/game/assert-timer-advances.flow.yaml
 - copyTextFrom:
-    id: 'GameScreenSelectors.Time'
+      id: 'GameScreenSelectors.Time'
 - evalScript: ${output.secondPausedSeconds = Number(maestro.copiedText.split(':')[0]) * 60 + Number(maestro.copiedText.split(':')[1])}
 - evalScript: ${output.secondPauseWallStartedAt = Date.now()}
 - runFlow: subflows/game/open-settings-from-game.flow.yaml
 - runFlow:
-    file: subflows/shared/wait-observation-window.flow.yaml
-    env:
-      WAIT_MILLISECONDS: 4000
+      file: subflows/shared/wait-observation-window.flow.yaml
+      env:
+          WAIT_MILLISECONDS: 4000
 - assertVisible:
-    id: 'SettingsScreenSelectors.Root'
+      id: 'SettingsScreenSelectors.Root'
 - tapOn:
-    id: 'HeaderBackButtonSelectors.Root'
+      id: 'HeaderBackButtonSelectors.Root'
 - extendedWaitUntil:
-    visible:
-      id: 'GameScreenSelectors.Root'
-    timeout: 3000
+      visible:
+          id: 'GameScreenSelectors.Root'
+      timeout: 3000
 - copyTextFrom:
-    id: 'GameScreenSelectors.Time'
+      id: 'GameScreenSelectors.Time'
 - evalScript: ${output.secondReturnedSeconds = Number(maestro.copiedText.split(':')[0]) * 60 + Number(maestro.copiedText.split(':')[1])}
 - evalScript: ${output.secondPauseWallElapsedSeconds = (Date.now() - output.secondPauseWallStartedAt) / 1000}
 - assertTrue:
-    condition: ${output.secondPauseWallElapsedSeconds - (output.secondReturnedSeconds - output.secondPausedSeconds) >= 3}
-    label: Timer stays paused during a second settings visit
+      condition: ${output.secondPauseWallElapsedSeconds - (output.secondReturnedSeconds - output.secondPausedSeconds) >= 3}
+      label: Timer stays paused during a second settings visit
 - runFlow: subflows/game/assert-timer-advances.flow.yaml
 - runFlow: subflows/game/open-settings-from-game.flow.yaml
 - runFlow:
-    file: subflows/shared/wait-observation-window.flow.yaml
-    env:
-      WAIT_MILLISECONDS: 1500
+      file: subflows/shared/wait-observation-window.flow.yaml
+      env:
+          WAIT_MILLISECONDS: 1500
 - stopApp
 - runFlow: subflows/navigation/relaunch-home.flow.yaml
-- scroll
-- waitForAnimationToEnd
-- assertVisible:
-    id: 'HomeScreenSelectors.ResumeButton'
+# The resume strip is the last item in the home scroll content, below the fold on the
+# shorter Android viewport. Maestro treats a partially visible element as visible
+# (mobile-dev-inc/Maestro#2411), so a plain scroll can stop while the strip still sits
+# under the floating native tab bar and the tap lands on a tab instead. Centering keeps
+# scrolling until the strip is more than 30% away from the viewport edge.
+- scrollUntilVisible:
+      element:
+          id: 'HomeScreenSelectors.ResumeButton'
+      direction: DOWN
+      centerElement: true
+      timeout: 5000
 - tapOn:
-    id: 'HomeScreenSelectors.ResumeButton'
+      id: 'HomeScreenSelectors.ResumeButton'
 - extendedWaitUntil:
-    visible:
-      id: 'GameScreenSelectors.Root'
-    timeout: 30000
+      visible:
+          id: 'GameScreenSelectors.Root'
+      timeout: 30000
 - copyTextFrom:
-    id: 'GameScreenSelectors.Time'
+      id: 'GameScreenSelectors.Time'
 - evalScript: ${output.rehydratedSeconds = Number(maestro.copiedText.split(':')[0]) * 60 + Number(maestro.copiedText.split(':')[1])}
 - assertTrue:
-    condition: ${output.rehydratedSeconds >= output.secondReturnedSeconds}
-    label: Relaunch restores the persisted game timer
+      condition: ${output.rehydratedSeconds >= output.secondReturnedSeconds}
+      label: Relaunch restores the persisted game timer
 - runFlow: subflows/game/assert-timer-advances.flow.yaml
 - assertVisible:
-    id: 'CellSelectors\.Cell\..*'
+      id: 'CellSelectors\.Cell\..*'
 - assertVisible:
-    id: 'AvailableValueItemSelectors\.Button\..*'
+      id: 'AvailableValueItemSelectors\.Button\..*'
 - runFlow: subflows/game/quit-current-game.flow.yaml
 - stopApp

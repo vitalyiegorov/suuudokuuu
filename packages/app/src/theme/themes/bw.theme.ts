@@ -50,7 +50,7 @@ export const BWDarkTheme: ThemeInterface = {
         black: 'rgb(255, 255, 255)',
         black05: 'rgba(255, 255, 255, 0.25)',
         red: 'rgba(255, 0, 0, 1)',
-        blue: 'rgba(0,0,255,0.28)',
+        blue: 'rgba(128, 138, 255, 0.9)',
         label: {
             main: 'rgba(255, 255, 255, 1)',
             inverted: 'rgba(0, 0, 0, 1)',

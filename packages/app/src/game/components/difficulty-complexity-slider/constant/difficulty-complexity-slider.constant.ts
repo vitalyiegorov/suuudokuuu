@@ -58,4 +58,3 @@ export const DifficultyComplexitySliderHardcoreGuardCells = [
 
 export const DifficultyComplexitySliderMaxIndex = DifficultyComplexitySliderDifficulties.length - 1;
 export const DifficultyComplexitySliderThumbRadius = 13;
-export const DifficultyComplexitySliderThumbDiameter = DifficultyComplexitySliderThumbRadius * 2;

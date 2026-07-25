@@ -3,21 +3,21 @@ import { DifficultyEnum, Sudoku, emptyScoredCells } from '@suuudokuuu/generator'
 
 import { isDefined } from '@rnw-community/shared';
 
-jest.mock('@suuudokuuu/encoder', () => ({
-    GameStateSerializer: jest.fn(() => ({
-        encode: jest.fn(() => '')
-    })),
-    Solution: {
-        fromSteps: jest.fn(() => ({
-            addStep: jest.fn(),
-            getSteps: jest.fn(() => [])
-        }))
-    }
-}));
+jest.mock('@suuudokuuu/encoder', () => {
+    const { Solution } = jest.requireActual<typeof import('@suuudokuuu/encoder')>('@suuudokuuu/encoder');
+
+    return {
+        GameStateSerializer: jest.fn(() => ({
+            encode: jest.fn(() => '')
+        })),
+        Solution
+    };
+});
 
 import { getCellKey } from '../../@generic/utils/get-cell-key.util';
 
 import {
+    gameChallengeClockSyncAction,
     gameFinishAction,
     gameLoadAction,
     gameMistakeAction,
@@ -165,7 +165,7 @@ describe('gameSlice', () => {
 
         expect(savedState.sudokuString).toBe(sudoku.toString());
         expect(savedState.score).toBeGreaterThan(0);
-        expect(savedState.solutionSteps).toEqual([]);
+        expect(savedState.solutionSteps).toEqual([{ cellIndex: correctCell.y * 9 + correctCell.x, value: correctCell.value, ts: 1 }]);
         expect(savedState.candidates[correctCellKey]).toEqual([]);
         expect(savedState.candidates[affectedCellKey]).toEqual([]);
     });
@@ -204,6 +204,58 @@ describe('gameSlice', () => {
         expect(silentPauseState.shouldShowPauseScreen).toBe(false);
         expect(silentPauseState).toMatchObject({ shouldResumeOnFocus: true });
         expect(gameSlice.reducer(silentPauseState, gameResumeAction())).toMatchObject({ shouldResumeOnFocus: false });
+    });
+
+    it('refuses to pause an active challenge run', () => {
+        const challengeRunningState = {
+            ...initialGameState,
+            challengeState: 'challenge-state',
+            elapsedTime: InitialElapsedTime,
+            sudokuString: StartedSudokuString
+        };
+
+        const afterPause = gameSlice.reducer(challengeRunningState, gamePauseAction());
+        const afterSilentPause = gameSlice.reducer(challengeRunningState, gamePauseAction({ shouldShowPauseScreen: false }));
+
+        expect(afterPause.isPaused).toBe(false);
+        expect(afterPause.shouldShowPauseScreen).toBe(false);
+        expect(afterSilentPause.isPaused).toBe(false);
+        expect(gameSlice.reducer(afterPause, gameTickAction()).elapsedTime).toBe(InitialElapsedTime + 1);
+    });
+
+    it('anchors and fast-forwards the challenge clock from wall time', () => {
+        const nowMs = 1_000_000_000;
+        const unanchoredState = {
+            ...initialGameState,
+            challengeState: 'challenge-state',
+            elapsedTime: InitialElapsedTime,
+            sudokuString: StartedSudokuString
+        };
+
+        const anchoredState = gameSlice.reducer(unanchoredState, gameChallengeClockSyncAction({ nowMs }));
+        expect(anchoredState.challengeWallStartMs).toBe(nowMs - InitialElapsedTime * 1000);
+        expect(anchoredState.elapsedTime).toBe(InitialElapsedTime);
+
+        const backgroundSeconds = 90;
+        const laterMs = nowMs + backgroundSeconds * 1000;
+        const fastForwardedState = gameSlice.reducer(anchoredState, gameChallengeClockSyncAction({ nowMs: laterMs }));
+        expect(fastForwardedState.elapsedTime).toBe(InitialElapsedTime + backgroundSeconds);
+
+        const rewoundState = gameSlice.reducer(fastForwardedState, gameChallengeClockSyncAction({ nowMs }));
+        expect(rewoundState.elapsedTime).toBe(InitialElapsedTime + backgroundSeconds);
+    });
+
+    it('ignores challenge clock sync outside challenge runs', () => {
+        const ordinaryState = {
+            ...initialGameState,
+            elapsedTime: InitialElapsedTime,
+            sudokuString: StartedSudokuString
+        };
+
+        const syncedState = gameSlice.reducer(ordinaryState, gameChallengeClockSyncAction({ nowMs: 1_000_000_000 }));
+
+        expect(syncedState.challengeWallStartMs).toBe(0);
+        expect(syncedState.elapsedTime).toBe(InitialElapsedTime);
     });
 
     it('freezes timer updates when the game finishes', () => {

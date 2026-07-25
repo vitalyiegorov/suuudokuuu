@@ -6,6 +6,7 @@ export const SCREEN_CHROME_SHARED_DEFAULT_CONFIG: Omit<
     'topFadeHeight' | 'bottomFadeHeight' | 'headerBackdropHeight' | 'maxBlurIntensity'
 > = {
     headerHeight: 64,
+    headerTopInset: 0,
     intensity: 20,
     collapseStart: 0,
     smallTitleStart: 40,

@@ -5,6 +5,9 @@ import { useRouter } from 'expo-router';
 import { LucideLogOut, LucideSettings, LucideShare2 } from 'lucide-react-native';
 import { use, useEffect, useRef, useState } from 'react';
 import { Pressable, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+import { isDefined } from '@rnw-community/shared';
 
 import { Alert } from '../../../@generic/components/alert/alert';
 import { BlackIconButton } from '../../../@generic/components/black-icon-button/black-icon-button';
@@ -12,7 +15,8 @@ import { animationDurationConstant } from '../../../@generic/constants/animation
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { useVibration } from '../../../@generic/hooks/use-vibration.hook';
-import { ChallengeProgressBar } from '../../../challenge/components/challenge-progress-bar/challenge-progress-bar';
+import { ChallengeRaceHud } from '../../../challenge/components/challenge-race-hud/challenge-race-hud';
+import { ChallengeLossReason } from '../../../challenge/enums/challenge-loss-reason.enum';
 import { AutoCandidatesButton } from '../../../game/components/auto-candidates-button/auto-candidates-button';
 import { AvailableValuesItem, AvailableValuesItemRef } from '../../../game/components/available-values-item/available-values-item';
 import { CandidateInputItem } from '../../../game/components/candidate-input-item/candidate-input-item';
@@ -44,7 +48,7 @@ import { gameScreenSetSharingAvailable } from '../../utils/game-screen-set-shari
 
 import { GameScreenMetrics } from './game-screen-metrics/game-screen-metrics';
 import { GameScreenSelectors } from './game-screen.selectors';
-import { GameScreenStyles as styles } from './game-screen.styles';
+import { GameScreenBottomInset, GameScreenStyles as styles } from './game-screen.styles';
 import { useOpenGameSettings } from './hooks/use-open-game-settings.hook';
 import { gameScreenExit } from './utils/game-screen-exit.util';
 
@@ -111,7 +115,11 @@ export const GameScreen = () => {
 
         dispatch(gameFinishAction({ difficulty: sudoku.Difficulty, isWon: false, isChallenge: isChallengeMode }));
 
-        router.replace(isChallengeMode ? '/challenge-lost' : '/loser');
+        if (isChallengeMode) {
+            router.replace({ pathname: '/challenge-lost', params: { reason: ChallengeLossReason.Mistakes } });
+        } else {
+            router.replace('/loser');
+        }
     };
 
     const handleWonGame = () => {
@@ -123,8 +131,10 @@ export const GameScreen = () => {
 
         // HINT: We need to wait for the animation to finish, animation finish event would fix it?
         setTimeout(() => {
-            if (isChallengeMode) {
-                router.replace(wonChallenge ? '/challenge-won' : '/challenge-lost');
+            if (isChallengeMode && wonChallenge) {
+                router.replace('/challenge-won');
+            } else if (isChallengeMode) {
+                router.replace({ pathname: '/challenge-lost', params: { reason: ChallengeLossReason.Time } });
             } else {
                 router.replace('/winner');
             }
@@ -136,6 +146,7 @@ export const GameScreen = () => {
 
         hapticNotification(Haptics.NotificationFeedbackType.Success);
 
+        fieldRef.current?.triggerCellSuccess(correctCell);
         fieldRef.current?.triggerAnimation(newScoredCells);
 
         setSelectedCell(() => ({ ...correctCell }));
@@ -161,7 +172,7 @@ export const GameScreen = () => {
         if (sudoku.isCorrectValue(newValueCell)) {
             const newScoredCells = sudoku.setCellValue(newValueCell);
 
-            handleCorrectValue(cell, newScoredCells);
+            handleCorrectValue(newValueCell, newScoredCells);
 
             if (newScoredCells.isWon) {
                 handleWonGame();
@@ -174,7 +185,7 @@ export const GameScreen = () => {
     const handleSelectValue = (value: number) => {
         const isBlankCellSelected = sudoku.isBlankCell(selectedCell);
 
-        if (isBlankCellSelected) {
+        if (isBlankCellSelected && isDefined(selectedCell)) {
             availableValuesRefs.current[value]?.triggerAnimation();
 
             if (inputMode === 'candidate') {
@@ -190,18 +201,19 @@ export const GameScreen = () => {
     };
 
     useKeyboardControls(sudoku, selectedCell, handleSelectCell, handleSelectValue, handleExit);
+    const insets = useSafeAreaInsets();
     const hideAutoCandidates = maxMistakes === 0;
     const actionIconColor = theme.colors.label.main;
+    const containerStyle = [styles.container, { paddingBottom: insets.bottom + GameScreenBottomInset }];
 
     return (
         <Pressable
             accessible={false}
             {...(!keepActiveCell && { onPress: handleDeselectCell })}
-            style={styles.container}
+            style={containerStyle}
             testID={GameScreenSelectors.Root}
         >
             <GameTimerController />
-            {isChallengeMode && <ChallengeProgressBar />}
             <View style={styles.controls}>
                 <GameScreenMetrics
                     elapsedTime={elapsedTime}
@@ -214,20 +226,22 @@ export const GameScreen = () => {
 
                 <View style={styles.buttonsWrapper}>
                     {hasSharing ? (
-                        <BlackIconButton onPress={handleShare} testID={GameScreenSelectors.ShareButton} variant="secondary">
+                        <BlackIconButton onPress={handleShare} testID={GameScreenSelectors.ShareButton} variant="inverted">
                             <LucideShare2 color={actionIconColor} />
                         </BlackIconButton>
                     ) : null}
 
-                    <BlackIconButton onPress={handleOpenSettings} testID={GameScreenSelectors.SettingsButton} variant="secondary">
+                    <BlackIconButton onPress={handleOpenSettings} testID={GameScreenSelectors.SettingsButton} variant="inverted">
                         <LucideSettings color={actionIconColor} />
                     </BlackIconButton>
 
-                    <BlackIconButton onPress={handleExit} testID={GameScreenSelectors.QuitButton} variant="secondary">
+                    <BlackIconButton onPress={handleExit} testID={GameScreenSelectors.QuitButton} variant="inverted">
                         <LucideLogOut color={actionIconColor} />
                     </BlackIconButton>
                 </View>
             </View>
+
+            {isChallengeMode && <ChallengeRaceHud />}
 
             <View style={styles.fieldWrapper}>
                 <Field ref={fieldRef} onSelect={handleSelectCell} selectedCell={selectedCell} />

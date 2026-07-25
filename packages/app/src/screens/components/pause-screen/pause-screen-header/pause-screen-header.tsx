@@ -8,29 +8,35 @@ import { ThemeContext } from '../../../../theme/context/theme.context';
 
 import { PauseScreenHeaderStyles as styles } from './pause-screen-header.styles';
 
+const MEDALLION_ICON_SIZE = 34;
+
 interface Props {
     readonly detailsText: string;
 }
 
 export const PauseScreenHeader = ({ detailsText }: Props) => {
     const { theme } = use(ThemeContext);
+
+    const medallionStyles = [styles.medallion, { backgroundColor: theme.colors.black }];
     const titleStyles = [styles.title, { color: theme.colors.label.main }];
-    const detailsStyles = [styles.details, { color: theme.colors.label.hint }];
-    const titleIconColor = theme.colors.label.main;
+    const chipStyles = [styles.chip, { backgroundColor: theme.colors.black }];
+    const chipTextStyles = [styles.chipText, { color: theme.colors.label.inverted }];
 
     return (
         <View style={styles.header}>
-            <View style={styles.titleRow}>
-                <LucidePause color={titleIconColor} size={22} strokeWidth={3.5} />
-
-                <BlackText adjustsFontSizeToFit minimumFontScale={0.72} numberOfLines={1} style={titleStyles}>
-                    <Trans>Paused</Trans>
-                </BlackText>
+            <View style={medallionStyles}>
+                <LucidePause color={theme.colors.label.inverted} size={MEDALLION_ICON_SIZE} strokeWidth={2.6} />
             </View>
 
-            <BlackText adjustsFontSizeToFit minimumFontScale={0.7} numberOfLines={1} style={detailsStyles}>
-                {detailsText}
+            <BlackText allowFontScaling={false} style={titleStyles}>
+                <Trans>Paused</Trans>
             </BlackText>
+
+            <View style={chipStyles}>
+                <BlackText allowFontScaling={false} numberOfLines={1} style={chipTextStyles}>
+                    {detailsText}
+                </BlackText>
+            </View>
         </View>
     );
 };

@@ -37,7 +37,7 @@ export const SharedScreen = ({ stateString }: Props) => {
     };
 
     if (isNotEmptyString(challengeState)) {
-        return <ChallengeAcceptScreen onAccept={handleOpenPuzzle} opponentTotalTime={challengeTime} />;
+        return <ChallengeAcceptScreen challengeState={challengeState} onAccept={handleOpenPuzzle} opponentTotalTime={challengeTime} />;
     }
 
     return (

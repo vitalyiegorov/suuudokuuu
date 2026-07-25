@@ -56,7 +56,8 @@ export const GameProvider = ({ children }: Props) => {
 
     const createFromState = (newState: GameState) => {
         try {
-            dispatch(gameLoadAction(newState));
+            const isChallenge = isNotEmptyString(newState.challengeState);
+            dispatch(gameLoadAction({ ...newState, ...(isChallenge && { challengeWallStartMs: Date.now() }) }));
 
             setSudoku(Sudoku.fromString(newState.sudokuString, defaultSudokuConfig));
 

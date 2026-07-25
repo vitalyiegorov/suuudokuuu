@@ -34,11 +34,12 @@ describe('gameStateToString', () => {
         const gameState = {
             ...initialGameState,
             maxMistakes: 0,
-            sudokuString: StartedSudokuString
+            sudokuString: StartedSudokuString,
+            solutionSteps: [{ cellIndex: 0, value: 1, ts: 5 }]
         };
 
         expect(gameStateToString(gameState, true)).toBe(mockEncodedState);
-        expect(mockEncodeCalls).toEqual([[StartedSudokuString, [], 0, true]]);
+        expect(mockEncodeCalls).toEqual([[StartedSudokuString, gameState.solutionSteps, 0, true]]);
     });
 
     it('returns an empty string when encoding fails', () => {

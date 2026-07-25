@@ -36,6 +36,18 @@ msgstr "{filledCells}/{totalCells} заповнено"
 msgid "{gamesCompleted, plural, one {# completed game} other {# completed games}}"
 msgstr "{gamesCompleted, plural, one {# завершена гра} other {# завершені ігри}}"
 
+#: src/challenge/components/challenge-technique-preview/challenge-technique-preview.tsx
+msgid "{keyMoveCount, plural, one {# key move} other {# key moves}}"
+msgstr "{keyMoveCount, plural, one {# ключовий хід} few {# ключові ходи} many {# ключових ходів} other {# ключові ходи}}"
+
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
+msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
+msgstr "{mistakes, plural, one {# помилка} few {# помилки} many {# помилок} other {# помилки}}"
+
+#: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
+msgid "{sharpCount, plural, one {# sharp technique} other {# sharp techniques}}"
+msgstr "{sharpCount, plural, one {# вишукана техніка} few {# вишукані техніки} many {# вишуканих технік} other {# вишукані техніки}}"
+
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
 msgstr "{value, plural, one {# день} few {# дні} many {# днів} other {# дня}}"
@@ -61,7 +73,7 @@ msgid "A little room between cells"
 msgstr "Трохи простору між клітинками"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
-msgid "Accept Challenge"
+msgid "Accept challenge"
 msgstr "Прийняти виклик"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
@@ -71,6 +83,10 @@ msgstr "Прийняти виклик?"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Adjust the digits on the Sudoku board"
 msgstr "Налаштуйте цифри на дошці судоку"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "AIC"
+msgstr "AIC"
 
 #: src/history/components/history-difficulty-filter/history-difficulty-filter.tsx
 msgid "All"
@@ -154,6 +170,10 @@ msgstr "Наступного разу пощастить!"
 msgid "Board colors and screen appearance"
 msgstr "Кольори дошки та вигляд екранів"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Box-Line Reduction"
+msgstr "Взаємодія блока і лінії"
+
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Built:"
 msgstr "Зібрано:"
@@ -162,7 +182,6 @@ msgstr "Зібрано:"
 msgid "Can you beat them?"
 msgstr "Зможеш їх обіграти?"
 
-#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
@@ -177,7 +196,7 @@ msgstr "Відступи клітинок"
 
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Challenge"
-msgstr ""
+msgstr "Виклик"
 
 #: src/app/challenge-won.tsx
 msgid "Challenge Back"
@@ -237,7 +256,7 @@ msgstr "Чиста чорно-біла дошка"
 
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Clean win"
-msgstr ""
+msgstr "Чиста перемога"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Column"
@@ -257,7 +276,7 @@ msgstr "Завершуй рядки, стовпці й блоки заради �
 
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Completed"
-msgstr ""
+msgstr "Завершено"
 
 #: src/history/components/history-games-list/history-games-list.tsx
 msgid "Completed games will be ready for replay."
@@ -292,10 +311,6 @@ msgstr "Денна серія"
 msgid "Dead even"
 msgstr "Нічия"
 
-#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
-msgid "Dead heat"
-msgstr "Рівна боротьба"
-
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Deep focus"
 msgstr "Глибока концентрація"
@@ -312,6 +327,10 @@ msgstr "Збірка для розробки недоступна"
 #: src/screens/components/beta-screen/beta.screen.tsx
 msgid "Development builds"
 msgstr "Збірки для розробки"
+
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
+msgid "Did not finish the board"
+msgstr "Дошку не завершено"
 
 #: src/game/components/difficulty-complexity-slider/difficulty-complexity-slider.tsx
 msgid "Difficulty"
@@ -350,6 +369,14 @@ msgstr "English"
 msgid "Español"
 msgstr "Español"
 
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Evenly matched"
+msgstr "Рівна боротьба"
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "every technique"
+msgstr "усі техніки"
+
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Expert grid"
 msgstr "Сітка для експертів"
@@ -364,15 +391,27 @@ msgstr "Зворотний зв'язок"
 
 #: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
 msgid "Final score"
-msgstr ""
+msgstr "Підсумкові бали"
 
 #: src/history/components/history-empty-state/history-empty-state.tsx
 msgid "Finish a puzzle and it will appear here."
 msgstr "Завершіть судоку, і воно з’явиться тут."
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Finned Swordfish"
+msgstr "Finned Swordfish"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Finned X-Wing"
+msgstr "Finned X-Wing"
+
 #: src/settings/constant/language-labels.constant.ts
 msgid "Français"
 msgstr "Français"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Full House"
+msgstr "Остання клітинка"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Game"
@@ -404,6 +443,10 @@ msgstr "Золота"
 msgid "Group(3x3 cells)"
 msgstr "Блок (3x3 клітинки)"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Guess"
+msgstr "Здогад"
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Guidance"
 msgstr "Підказки"
@@ -428,6 +471,22 @@ msgstr "Хардкор"
 msgid "Help Ukraine win"
 msgstr "Допоможи Україні перемогти"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Hidden Pair"
+msgstr "Прихована пара"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Hidden Quad"
+msgstr "Прихована четвірка"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Hidden Single"
+msgstr "Прихований одинак"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Hidden Triple"
+msgstr "Прихована трійка"
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Highlight areas"
 msgstr "Підсвічувати області"
@@ -447,7 +506,7 @@ msgstr "Підсвічувати нотатки"
 #: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Home"
-msgstr ""
+msgstr "Додому"
 
 #: src/app/scoring.tsx
 #: src/scoring/components/scoring.screen.tsx
@@ -464,7 +523,7 @@ msgstr "Безсмертний"
 
 #: src/screens/components/loser-screen/loser.screen.tsx
 msgid "Incomplete"
-msgstr ""
+msgstr "Незавершено"
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Install on iOS"
@@ -482,9 +541,17 @@ msgstr "Некоректне судоку"
 msgid "iOS installation"
 msgstr "Інсталяція на iOS"
 
+#: src/challenge/components/challenge-race-status/challenge-race-status.tsx
+msgid "is ahead"
+msgstr "попереду"
+
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "It was a tie"
 msgstr "Була нічия"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Jellyfish"
+msgstr "Jellyfish"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Keep cell selected"
@@ -539,6 +606,10 @@ msgstr "m"
 msgid "Max Mistakes bonus"
 msgstr "Бонус за дозволені помилки"
 
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "Maybe later"
+msgstr "Може, пізніше"
+
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Medium"
@@ -566,13 +637,33 @@ msgstr "Помилки"
 msgid "Move"
 msgstr "Хід"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Naked Pair"
+msgstr "Відкрита пара"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Naked Quad"
+msgstr "Відкрита четвірка"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Naked Single"
+msgstr "Відкритий одинак"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Naked Triple"
+msgstr "Відкрита трійка"
+
+#: src/challenge/components/challenge-race-status/challenge-race-status.tsx
+msgid "neck & neck"
+msgstr "майже нарівні"
+
 #: src/screens/components/home-screen/home-screen-section-header/home-screen-section-header.tsx
 msgid "New game"
 msgstr "Нова гра"
 
 #: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
 msgid "New personal best"
-msgstr ""
+msgstr "Новий особистий рекорд"
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -661,9 +752,10 @@ msgstr "Відкриває запит на інсталяцію для заре�
 msgid "Opens this commit on GitHub"
 msgstr "Відкриває цей коміт на GitHub"
 
-#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
-msgid "Opponent time"
-msgstr "Час суперника"
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Out of mistakes"
+msgstr "Вичерпано ліміт помилок"
 
 #: src/history/components/history-segmented-control/history-segmented-control.tsx
 msgid "Overview"
@@ -712,6 +804,14 @@ msgstr "Зіграно"
 msgid "Playing with fewer mistakes allowed gives you a score multiplier:"
 msgstr "Що менше помилок дозволено, то більший множник балів:"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Pointing Pair"
+msgstr "Вказівна пара"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Pointing Triple"
+msgstr "Вказівна трійка"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Points are deducted for:"
 msgstr "Бали віднімаються за:"
@@ -756,15 +856,47 @@ msgstr "Повтор"
 msgid "Report a bug"
 msgstr "Повідомити про помилку"
 
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
+msgid "Result"
+msgstr "Результат"
+
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Retry loading development build"
 msgstr "Повторити завантаження збірки для розробки"
+
+#: src/challenge/components/challenge-race-status/challenge-race-status.tsx
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
+msgid "Rival"
+msgstr "Суперник"
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "Rival challenged you"
+msgstr "Суперник кинув тобі виклик"
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "Rival's arsenal"
+msgstr "Арсенал суперника"
+
+#: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
+msgid "Rival's playbook"
+msgstr "Тактика суперника"
+
+#: src/challenge/components/challenge-result-rival-time-card/challenge-result-rival-time-card.tsx
+msgid "Rival's time to beat"
+msgstr "Час суперника, який треба побити"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Row"
 msgstr "Рядок"
 
-#: src/challenge/components/challenge-result-score/challenge-result-score.tsx
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Sashimi Swordfish"
+msgstr "Sashimi Swordfish"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Sashimi X-Wing"
+msgstr "Sashimi X-Wing"
+
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
@@ -816,6 +948,10 @@ msgstr "Показувати відповідні нотатки для вибр
 msgid "Show the row, column, and box for the selected cell"
 msgstr "Показувати рядок, стовпець і блок вибраної клітинки"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Simple Coloring"
+msgstr "Просте розфарбування"
+
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Small"
 msgstr "Малий"
@@ -831,6 +967,10 @@ msgstr "Найменші цифри для компактних дошок"
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Soft gray board with a paper-like feel"
 msgstr "М’яка сіра дошка з відчуттям паперу"
+
+#: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
+msgid "Solved with the fundamentals"
+msgstr "Розв'язано базовими техніками"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Space between Sudoku cells"
@@ -909,6 +1049,14 @@ msgstr "SuuudokuuU: гра"
 msgid "Svenska"
 msgstr "Svenska"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Swordfish"
+msgstr "Swordfish"
+
+#: src/challenge/components/challenge-technique-preview/challenge-technique-preview.tsx
+msgid "Taller marks = sharper techniques"
+msgstr "Вищі позначки = складніші техніки"
+
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
 msgstr "Не вдалося відкрити посилання на коміт на цьому пристрої."
@@ -916,6 +1064,10 @@ msgstr "Не вдалося відкрити посилання на коміт 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "The install link could not be opened. Check your browser settings and try again."
 msgstr "Не вдалося відкрити посилання для інсталяції. Перевірте налаштування браузера й повторіть спробу."
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "Their time to beat"
+msgstr "Їхній час, який треба побити"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
@@ -944,7 +1096,7 @@ msgstr "Щільний"
 msgid "Time"
 msgstr "Час"
 
-#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "Time behind"
 msgstr "Відставання в часі"
 
@@ -1053,6 +1205,10 @@ msgstr "Вібрувати під час торкань і дій у грі"
 msgid "Vibration"
 msgstr "Вібрація"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "W-Wing"
+msgstr "W-Wing"
+
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Warm gold accents for a brighter board"
 msgstr "Теплі золоті акценти для яскравішої дошки"
@@ -1075,13 +1231,13 @@ msgstr "Відсоток перемог"
 
 #: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
 msgid "Winner, winner!"
-msgstr ""
+msgstr "Перемога!"
 
 #: src/app/winner.tsx
 msgid "Winners-winner, chicken dinner!"
 msgstr "Перемога! Можна святкувати!"
 
-#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "Winning margin"
 msgstr "Перевага в часі"
 
@@ -1089,9 +1245,41 @@ msgstr "Перевага в часі"
 msgid "Won"
 msgstr "Перемоги"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "X-Chain"
+msgstr "X-Chain"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "X-Wing"
+msgstr "X-Wing"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "XY-Chain"
+msgstr "XY-Chain"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "XY-Wing"
+msgstr "XY-Wing"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "XYZ-Wing"
+msgstr "XYZ-Wing"
+
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
+msgid "You"
+msgstr "Ти"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "You beat your rival"
+msgstr "Суперника переможено"
+
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "You got to"
 msgstr "Ти дійшов до"
+
+#: src/challenge/components/challenge-race-status/challenge-race-status.tsx
+msgid "you lead"
+msgstr "ти лідируєш"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Your best run"
@@ -1101,13 +1289,13 @@ msgstr "Твоя найкраща партія"
 msgid "Your browser may ask for permission to install unknown apps. Android will also show an operating-system security warning before installation."
 msgstr "Браузер може запитати дозвіл на інсталяцію застосунків із невідомих джерел. Перед інсталяцією Android також покаже попередження безпеки операційної системи."
 
-#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
-msgid "Your opponent completed this puzzle in"
-msgstr "Суперник розв'язав це судоку за"
-
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Your progress"
 msgstr "Ваш прогрес"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Your rival was faster"
+msgstr "Суперник виявився швидшим"
 
 #: src/history/components/history-overview-tab/history-overview-tab.tsx
 msgid "Your stats will build as you finish puzzles."
@@ -1116,10 +1304,6 @@ msgstr "Статистика з’являтиметься, коли ви зав
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Your sudoku journey"
 msgstr "Твій шлях у Sudoku"
-
-#: src/challenge/components/challenge-result-race-card/challenge-result-race-card.tsx
-msgid "Your time"
-msgstr "Твій час"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Zero mistakes"

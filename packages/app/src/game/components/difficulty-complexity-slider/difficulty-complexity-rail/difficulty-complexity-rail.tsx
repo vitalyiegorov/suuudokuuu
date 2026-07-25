@@ -10,7 +10,6 @@ import {
     DifficultyComplexitySliderDifficulties,
     DifficultyComplexitySliderMaxIndex,
     DifficultyComplexitySliderProgressAnimationDurationMs,
-    DifficultyComplexitySliderThumbDiameter,
     DifficultyComplexitySliderThumbRadius
 } from '../constant/difficulty-complexity-slider.constant';
 import { DifficultyComplexityRailOption } from '../difficulty-complexity-rail-option/difficulty-complexity-rail-option';
@@ -28,25 +27,25 @@ export const DifficultyComplexityRail = (props: Props) => {
     const { theme } = use(ThemeContext);
     const [, hapticImpact] = useVibration();
     const [railWidth, setRailWidth] = useState(0);
-    const difficultyProgress = selectedIndex / DifficultyComplexitySliderMaxIndex;
-    const difficultyProgressValue = useSharedValue(difficultyProgress);
-    const sliderTrackWidth = Math.max(railWidth - DifficultyComplexitySliderThumbDiameter, 1);
+    const optionCount = DifficultyComplexitySliderDifficulties.length;
+    const difficultyStopFraction = (selectedIndex + 0.5) / optionCount;
+    const difficultyProgressValue = useSharedValue(difficultyStopFraction);
     const sliderTrackStyles = [styles.sliderTrack, { backgroundColor: theme.colors.label.main }];
-    const sliderTrackPositionStyles = { left: DifficultyComplexitySliderThumbRadius, right: DifficultyComplexitySliderThumbRadius };
-    const sliderTrackWithPositionStyles = [sliderTrackStyles, sliderTrackPositionStyles];
-    const sliderFillStyles = [styles.sliderFill, { backgroundColor: theme.colors.label.main, left: DifficultyComplexitySliderThumbRadius }];
+    const sliderFillStyles = [styles.sliderFill, { backgroundColor: theme.colors.label.main }];
     const sliderThumbStyles = [styles.sliderThumb, { backgroundColor: theme.colors.label.main, borderColor: theme.colors.background }];
-    const sliderFillAnimatedStyles = useAnimatedStyle(() => ({ width: difficultyProgressValue.value * sliderTrackWidth }));
+    const sliderFillAnimatedStyles = useAnimatedStyle(() => ({ width: difficultyProgressValue.value * railWidth }));
     const sliderFillWithAnimatedStyles = [sliderFillStyles, sliderFillAnimatedStyles];
     const sliderThumbAnimatedStyles = useAnimatedStyle(() => ({
         opacity: railWidth > 0 ? 1 : 0,
-        transform: [{ translateX: difficultyProgressValue.value * sliderTrackWidth }]
+        transform: [{ translateX: difficultyProgressValue.value * railWidth - DifficultyComplexitySliderThumbRadius }]
     }));
     const sliderThumbWithAnimatedStyles = [sliderThumbStyles, sliderThumbAnimatedStyles];
 
     useEffect(() => {
-        difficultyProgressValue.value = withTiming(difficultyProgress, { duration: DifficultyComplexitySliderProgressAnimationDurationMs });
-    }, [difficultyProgress, difficultyProgressValue]);
+        difficultyProgressValue.value = withTiming(difficultyStopFraction, {
+            duration: DifficultyComplexitySliderProgressAnimationDurationMs
+        });
+    }, [difficultyStopFraction, difficultyProgressValue]);
 
     const setSelectedDifficulty = (newDifficulty: DifficultyEnum) => {
         if (newDifficulty !== difficulty) {
@@ -60,8 +59,9 @@ export const DifficultyComplexityRail = (props: Props) => {
     };
 
     const updateDifficultyFromLocation = (locationX: number) => {
-        const clampedLocationX = Math.min(Math.max(locationX - DifficultyComplexitySliderThumbRadius, 0), sliderTrackWidth);
-        const newDifficultyIndex = Math.round((clampedLocationX / sliderTrackWidth) * DifficultyComplexitySliderMaxIndex);
+        const locationRatio = railWidth > 0 ? locationX / railWidth : 0;
+        const rawDifficultyIndex = Math.floor(locationRatio * optionCount);
+        const newDifficultyIndex = Math.min(Math.max(rawDifficultyIndex, 0), DifficultyComplexitySliderMaxIndex);
         const newDifficulty = DifficultyComplexitySliderDifficulties[newDifficultyIndex] ?? selectedDifficulty;
 
         setSelectedDifficulty(newDifficulty);
@@ -87,18 +87,17 @@ export const DifficultyComplexityRail = (props: Props) => {
                 onStartShouldSetResponder={handleShouldSetRailResponder}
                 style={styles.sliderRail}
             >
-                <View style={sliderTrackWithPositionStyles} />
+                <View style={sliderTrackStyles} />
                 <Animated.View style={sliderFillWithAnimatedStyles} />
                 <Animated.View style={sliderThumbWithAnimatedStyles} />
             </View>
 
             <View style={styles.optionRow}>
-                {DifficultyComplexitySliderDifficulties.map((optionDifficulty, optionIndex) => (
+                {DifficultyComplexitySliderDifficulties.map(optionDifficulty => (
                     <DifficultyComplexityRailOption
                         difficulty={optionDifficulty}
                         key={optionDifficulty}
                         onPress={handleDifficultyPress(optionDifficulty)}
-                        optionIndex={optionIndex}
                         selectedDifficulty={selectedDifficulty}
                     />
                 ))}

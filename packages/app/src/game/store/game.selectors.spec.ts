@@ -5,6 +5,7 @@ import { emptyGameHistory } from '../../history/interfaces/history-game.interfac
 
 import {
     gameCandidatesSelector,
+    gameChallengeStateSelector,
     gameChallengeStepsSelector,
     gameChallengeTimeSelector,
     gameCompletedGameByIdSelector,
@@ -90,6 +91,7 @@ describe('game selectors', () => {
         expect(gameCandidatesSelector.resultFunc(state)).toEqual({ a1: [1, 2] });
         expect(gameHistoryByDifficultySelector.resultFunc(state)).toBe(state.historyByDifficulty);
         expect(gameChallengeStepsSelector.resultFunc(state)).toBe(state.challengeSteps);
+        expect(gameChallengeStateSelector.resultFunc(state)).toBe('encoded');
         expect(gameChallengeTimeSelector.resultFunc(state)).toBe(30);
         expect(gameSolutionsStepsSelector.resultFunc(state)).toBe(state.solutionSteps);
         expect(gameHasNewPersonalBestScoreSelector.resultFunc(state)).toBe(true);

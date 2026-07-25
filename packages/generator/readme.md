@@ -2,6 +2,10 @@
 
 Sudoku puzzle generator package
 
+## Public API
+
+The package exports `Sudoku`, difficulty/config, field/cell, available-value, and scored-cell APIs. `createEmptyField` is an internal utility.
+
 > CS video Stanford Lecture: Don Knuth—"Dancing Links" (2018)www.youtube.com › watch
 
 ## References

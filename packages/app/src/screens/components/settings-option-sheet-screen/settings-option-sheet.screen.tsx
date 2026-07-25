@@ -3,7 +3,7 @@ import { Stack, router, useLocalSearchParams } from 'expo-router';
 import { use, useEffect } from 'react';
 import { useWindowDimensions } from 'react-native';
 
-import { isDefined } from '@rnw-community/shared';
+import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
 import { SettingsOptionSheet } from '../../../settings/component/settings-option-sheet/settings-option-sheet';
 import { useSettingsOptionSheetConfig } from '../../../settings/hooks/use-settings-option-sheet-config.hook';
@@ -21,10 +21,10 @@ export const SettingsOptionSheetScreen = () => {
     const config = useSettingsOptionSheetConfig(setting);
 
     useEffect(() => {
-        if (!isDefined(config)) {
+        if (isNotEmptyString(setting) && !isDefined(config)) {
             router.back();
         }
-    }, [config]);
+    }, [setting, config]);
 
     if (!isDefined(config)) {
         return null;

@@ -1,29 +1,37 @@
 import { StyleSheet } from 'react-native';
 
 export const PauseScreenHeaderStyles = StyleSheet.create({
-    details: {
-        flexShrink: 1,
-        fontSize: 14,
-        fontWeight: '800',
-        lineHeight: 18,
-        textAlign: 'right'
+    chip: {
+        alignItems: 'center',
+        alignSelf: 'center',
+        borderRadius: 999,
+        maxWidth: '100%',
+        paddingHorizontal: 14,
+        paddingVertical: 7
+    },
+    chipText: {
+        fontSize: 12.5,
+        fontWeight: '700',
+        textAlign: 'center'
     },
     header: {
         alignItems: 'center',
-        flexDirection: 'row',
-        gap: 10,
-        justifyContent: 'space-between',
+        gap: 12,
         width: '100%'
     },
-    title: {
-        fontSize: 26,
-        fontWeight: '900',
-        lineHeight: 30
-    },
-    titleRow: {
+    medallion: {
         alignItems: 'center',
-        flexDirection: 'row',
-        flexShrink: 1,
-        gap: 9
+        borderCurve: 'continuous',
+        borderRadius: 22,
+        height: 72,
+        justifyContent: 'center',
+        width: 72
+    },
+    title: {
+        fontSize: 30,
+        fontWeight: '900',
+        letterSpacing: -0.8,
+        lineHeight: 34,
+        textAlign: 'center'
     }
 });

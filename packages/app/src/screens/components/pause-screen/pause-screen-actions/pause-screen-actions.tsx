@@ -1,11 +1,13 @@
 import { useLingui } from '@lingui/react/macro';
-import { AppButton } from '@suuudokuuu/ui';
-import { LucidePlay, LucideShare2 } from 'lucide-react-native';
-import { type PressableProps, View } from 'react-native';
+import { LucideLogOut, LucidePlay, LucideShare2 } from 'lucide-react-native';
+import { use } from 'react';
+import { type PressableProps } from 'react-native';
 
+import { BlackButton } from '../../../../@generic/components/black-button/black-button';
+import { GlassIconButton } from '../../../../@generic/components/glass-icon-button/glass-icon-button';
+import { ScreenActionBar } from '../../../../@generic/components/screen-action-bar/screen-action-bar';
+import { ThemeContext } from '../../../../theme/context/theme.context';
 import { PauseScreenSelectors } from '../pause-screen.selectors';
-
-import { PauseScreenActionsStyles as styles } from './pause-screen-actions.styles';
 
 interface Props {
     readonly onQuit: NonNullable<PressableProps['onPress']>;
@@ -15,43 +17,22 @@ interface Props {
 
 export const PauseScreenActions = ({ onQuit, onResume, onShare }: Props) => {
     const { t } = useLingui();
+    const { theme } = use(ThemeContext);
+
+    const shareButton = (
+        <GlassIconButton accessibilityLabel={t`Share puzzle`} onPress={onShare} testID={PauseScreenSelectors.ShareButton}>
+            <LucideShare2 color={theme.colors.label.inverted} />
+        </GlassIconButton>
+    );
+    const quitButton = (
+        <GlassIconButton accessibilityLabel={t`Quit`} onPress={onQuit} testID={PauseScreenSelectors.QuitButton}>
+            <LucideLogOut color={theme.colors.red} />
+        </GlassIconButton>
+    );
 
     return (
-        <View style={styles.container}>
-            <View style={styles.secondaryActions}>
-                <AppButton
-                    icon={LucideShare2}
-                    iconSize={18}
-                    onPress={onShare}
-                    size="compact"
-                    style={styles.secondaryButton}
-                    testID={PauseScreenSelectors.ShareButton}
-                    text={t`Share puzzle`}
-                    textStyle={styles.secondaryButtonText}
-                    variant="secondary"
-                />
-
-                <AppButton
-                    onPress={onQuit}
-                    size="compact"
-                    style={styles.secondaryButton}
-                    testID={PauseScreenSelectors.QuitButton}
-                    text={t`Quit`}
-                    textStyle={styles.secondaryButtonText}
-                    variant="danger"
-                />
-            </View>
-
-            <AppButton
-                icon={LucidePlay}
-                iconSize={18}
-                onPress={onResume}
-                style={styles.primaryButton}
-                testID={PauseScreenSelectors.ResumeButton}
-                text={t`Continue`}
-                textStyle={styles.primaryButtonText}
-                variant="primary"
-            />
-        </View>
+        <ScreenActionBar left={shareButton} right={quitButton}>
+            <BlackButton icon={LucidePlay} onPress={onResume} testID={PauseScreenSelectors.ResumeButton} text={t`Continue`} />
+        </ScreenActionBar>
     );
 };

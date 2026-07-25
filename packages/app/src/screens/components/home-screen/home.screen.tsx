@@ -34,7 +34,7 @@ import { ThemeContext } from '../../../theme/context/theme.context';
 
 import {
     HomeScreenBottomScrollPadding,
-    HomeScreenCurrentGameBottomScrollPadding,
+    HomeScreenFloatingTabBarInset,
     HomeScreenTopContentPadding,
     HomeScreenTopOverlayHeight,
     HomeScreenTopOverlayIntensity
@@ -101,10 +101,7 @@ export const HomeScreen = () => {
     const selectedOptionDescriptionStyles = [styles.optionDescription, { color: theme.colors.label.inverted }];
     const unselectedOptionDescriptionStyles = [styles.optionDescription, { color: theme.colors.label.hint }];
     const hintTextStyles = [styles.hintText, { color: theme.colors.label.hint }];
-    const bestRunCardStyles = [
-        styles.bestRun,
-        { backgroundColor: theme.colors.cell.highlighted, borderColor: theme.colors.candidate.border }
-    ];
+    const bestRunCardStyles = styles.bestRun;
     const bestRunValueStyles = [styles.historyValue, { color: theme.colors.label.main }];
     const standardMistakesOption = {
         description: t`Three mistakes`,
@@ -153,7 +150,7 @@ export const HomeScreen = () => {
         { label: t`Time`, value: bestTimeText }
     ];
     const startButtonText = isGameStarted ? t`Start new puzzle` : t`Start puzzle`;
-    const bottomScrollPadding = isGameStarted ? HomeScreenCurrentGameBottomScrollPadding : HomeScreenBottomScrollPadding;
+    const contentInsetBottom = HomeScreenBottomScrollPadding + HomeScreenFloatingTabBarInset;
     const mistakeCards: HomeScreenOptionCardInterface[] = mistakeOptions.map(option => {
         const isSelected = option.maxMistakes === maxMistakes;
         const optionColorStyles = isSelected ? selectedOptionColorStyles : unselectedOptionColorStyles;
@@ -175,7 +172,7 @@ export const HomeScreen = () => {
         <ChromePage contentStyle={styles.content} topEdgeFadeProps={topEdgeFadeProps}>
             <ScreenChromeScrollView
                 contentContainerStyle={styles.scrollContent}
-                contentInsetBottom={bottomScrollPadding}
+                contentInsetBottom={contentInsetBottom}
                 contentInsetTop={HomeScreenTopContentPadding}
                 showsVerticalScrollIndicator={false}
                 style={styles.scrollView}
