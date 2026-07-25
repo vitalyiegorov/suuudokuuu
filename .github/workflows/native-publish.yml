@@ -120,8 +120,60 @@ jobs:
         if: always()
         run: rm -f packages/app/asc_api_key.p8
 
+  android-release-lint:
+    name: Android release lint gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          ref: main
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22.x
+          cache: yarn
+
+      - name: Setup Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v4
+        with:
+          packages: 'platform-tools platforms;android-36 build-tools;36.0.0'
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Generate Android project
+        working-directory: packages/app
+        env:
+          APP_VARIANT: production
+        run: ../../node_modules/.bin/expo prebuild --platform android --no-install --clean
+
+      - name: Run release lint
+        working-directory: packages/app/android
+        run: ./gradlew :app:lintVitalRelease -PreactNativeArchitectures=arm64-v8a --no-daemon
+
+      - name: Upload lint report
+        if: failure()
+        uses: actions/upload-artifact@v6
+        with:
+          name: suuudokuuu-production-android-lint
+          path: |
+            packages/app/android/app/build/reports/lint-results-*.html
+            packages/app/android/app/build/reports/lint-results-*.xml
+          if-no-files-found: ignore
+          retention-days: 14
+
   android-build-and-publish:
     name: Build & Submit Android to Google Play
+    needs: android-release-lint
     runs-on: [self-hosted, macOS, ARM64, macos-builder]
     timeout-minutes: 120
     steps:
@@ -145,7 +197,7 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v4
         with:
-          packages: 'platform-tools platforms;android-36 build-tools;36.0.0 ndk;27.1.12297006'
+          packages: 'platform-tools platforms;android-36 build-tools;36.0.0 ndk;27.1.12297006 ndk;27.0.12077973 cmake;3.22.1'
 
       - name: Configure Android toolchain
         run: |
@@ -153,6 +205,12 @@ jobs:
             echo "::error::ANDROID_HOME does not point to an installed Android SDK."
             exit 1
           }
+
+          for ndk_version in 27.1.12297006 27.0.12077973; do
+            test -d "$ANDROID_HOME/ndk/$ndk_version" || {
+              echo "::warning::NDK $ndk_version is not installed; Gradle will download it mid-build."
+            }
+          done
 
           java -version
           sdkmanager --version
@@ -191,6 +249,18 @@ jobs:
         run: |
           mkdir -p ../../artifacts
           eas build --platform android --profile production --local --non-interactive --output ../../artifacts/suuudokuuu-production.aab
+
+      - name: Verify packaged Android ABIs
+        run: |
+          aab=artifacts/suuudokuuu-production.aab
+          entries=$(unzip -Z1 "$aab" 'base/lib/*/*' || true)
+          abis=$(printf '%s\n' "$entries" | cut -d/ -f3 | sort -u | grep -v '^$' || true)
+          printf 'Packaged ABIs:\n%s\n' "$abis"
+
+          printf '%s\n' "$abis" | grep -qx arm64-v8a || {
+            echo "::error::arm64-v8a is missing from the bundle; Google Play requires a 64-bit ABI."
+            exit 1
+          }
 
       - name: Upload Android artifact
         uses: actions/upload-artifact@v6
