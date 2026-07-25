@@ -6,6 +6,7 @@ import { cs, isDefined } from '@rnw-community/shared';
 
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { getCellKey } from '../../../@generic/utils/get-cell-key.util';
+import { resolveUnistyleForAnimated } from '../../../@generic/utils/resolve-unistyle-for-animated.util';
 import { settingsFontSizeMultiplierSelector } from '../../../settings/store/settings.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { PanelControlSizeConstant } from '../../constant/panel-control-size.constant';
@@ -49,13 +50,13 @@ export const CandidateInputItem = ({ selectedCell, value, onSelect, canPress, is
     };
 
     const buttonStyles = [
-        styles.button,
+        resolveUnistyleForAnimated(styles.button),
         {
             borderColor: isSelected ? theme.colors.candidate.borderActive : theme.colors.candidate.border,
             backgroundColor: isSelected ? theme.colors.candidate.bgActive : theme.colors.candidate.bg
         },
         animatedStyles,
-        cs(isExhausted, styles.exhausted)
+        cs(isExhausted, resolveUnistyleForAnimated(styles.exhausted))
     ];
     const textStyles = [
         { fontSize: (PanelControlSizeConstant / 2.5) * fontSizeMultiplier },

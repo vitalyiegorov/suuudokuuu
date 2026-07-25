@@ -7,11 +7,6 @@ import { useTimerText } from '../../../../@generic/hooks/use-timer-text.hook';
 import { ThemeContext } from '../../../../theme/context/theme.context';
 import { GameScreenSelectors } from '../game-screen.selectors';
 
-import {
-    GameScreenElapsedMetricWidth,
-    GameScreenMistakesMetricWidth,
-    GameScreenScoreMetricWidth
-} from './constant/game-screen-metric-width.constant';
 import { GameScreenMetricsStyles as styles } from './game-screen-metrics.styles';
 
 import type { AppMetricStripItemInterface } from '@suuudokuuu/ui';
@@ -44,21 +39,18 @@ export const GameScreenMetrics = ({ elapsedTime, hasTimer, maxMistakes, maxMista
         label: t`Mistakes`,
         value: mistakesValue,
         valueContent: mistakesContent,
-        valueColor: mistakesColor,
-        width: GameScreenMistakesMetricWidth
+        valueColor: mistakesColor
     };
     const scoreItem: AppMetricStripItemInterface = {
         label: t`Score`,
         testID: GameScreenSelectors.Score,
-        value: scoreText,
-        width: GameScreenScoreMetricWidth
+        value: scoreText
     };
 
     const elapsedItem: AppMetricStripItemInterface = {
         label: t`Time`,
         testID: GameScreenSelectors.Time,
-        value: elapsedTimeText,
-        width: GameScreenElapsedMetricWidth
+        value: elapsedTimeText
     };
     let metricItems = [mistakeItem, scoreItem];
 
@@ -72,6 +64,7 @@ export const GameScreenMetrics = ({ elapsedTime, hasTimer, maxMistakes, maxMista
             items={metricItems}
             labelStyle={styles.label}
             separatorStyle={styles.separator}
+            autoShrinkText={false}
             style={styles.container}
             valueStyle={styles.value}
             variant="secondary"

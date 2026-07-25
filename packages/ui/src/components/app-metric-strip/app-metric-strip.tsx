@@ -11,6 +11,7 @@ import type { AppMetricStripItemInterface } from './interface/app-metric-strip-i
 type AppMetricStripVariant = 'primary' | 'secondary';
 
 interface Props {
+    readonly autoShrinkText?: boolean;
     readonly itemStyle?: StyleProp<ViewStyle>;
     readonly items: readonly AppMetricStripItemInterface[];
     readonly labelStyle?: StyleProp<TextStyle>;
@@ -21,7 +22,8 @@ interface Props {
     readonly variant?: AppMetricStripVariant;
 }
 
-export const AppMetricStrip = ({ itemStyle, items, labelStyle, separatorStyle, style, testID, valueStyle, variant = 'primary' }: Props) => {
+export const AppMetricStrip = (props: Props) => {
+    const { autoShrinkText = true, itemStyle, items, labelStyle, separatorStyle, style, testID, valueStyle, variant = 'primary' } = props;
     const { theme } = useUnistyles();
     const isSecondaryVariant = variant === 'secondary';
     const backgroundColor = isSecondaryVariant ? theme.colors.cell.highlighted : theme.colors.black;
@@ -37,6 +39,7 @@ export const AppMetricStrip = ({ itemStyle, items, labelStyle, separatorStyle, s
         style
     ];
     const labelStyles = [styles.label, { color: textColor }, labelStyle];
+    const shrinkProps = { ...(autoShrinkText && { adjustsFontSizeToFit: true, minimumFontScale: 0.74 }) };
     const separatorStyles = [styles.separator, { backgroundColor: separatorColor }, separatorStyle];
 
     return (
@@ -51,19 +54,13 @@ export const AppMetricStrip = ({ itemStyle, items, labelStyle, separatorStyle, s
                 return (
                     <Fragment key={item.label}>
                         <View style={itemStyles}>
-                            <Text
-                                adjustsFontSizeToFit
-                                allowFontScaling={false}
-                                minimumFontScale={0.74}
-                                numberOfLines={1}
-                                style={labelStyles}
-                            >
+                            <Text allowFontScaling={false} numberOfLines={1} style={labelStyles} {...shrinkProps}>
                                 {item.label}
                             </Text>
                             {isDefined(item.valueContent) ? (
                                 item.valueContent
                             ) : (
-                                <Text allowFontScaling={false} numberOfLines={1} style={valueStyles} testID={item.testID}>
+                                <Text allowFontScaling={false} numberOfLines={1} style={valueStyles} testID={item.testID} {...shrinkProps}>
                                     {item.value}
                                 </Text>
                             )}

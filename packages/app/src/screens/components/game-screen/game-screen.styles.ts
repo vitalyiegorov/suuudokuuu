@@ -28,6 +28,10 @@ export const GameScreenStyles = StyleSheet.create((theme, rt) => ({
         minHeight: 0,
         minWidth: 0
     },
+    boardSpacer: {
+        flexGrow: 1,
+        flexShrink: 1
+    },
     toolsSlot: {
         alignItems: 'center',
         flexGrow: 1,

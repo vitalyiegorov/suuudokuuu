@@ -72,11 +72,11 @@ export const BWDarkTheme: ThemeInterface = {
             textActive: 'rgba(255, 255, 255, 1)',
             bgActive: 'rgba(0, 255, 0, 0.5)',
             bg: 'rgb(0, 0, 0)',
-            border: 'rgba(255,255,255,0.15)',
+            border: 'rgba(255,255,255,0.3)',
             borderActive: 'rgba(0, 255, 0, 0.7)'
         },
         value: {
-            border: 'rgba(255,255,255,0.15)',
+            border: 'rgba(255,255,255,0.3)',
             progress: 'rgba(255, 255, 255, 0.14)',
             progressActive: 'rgba(255, 255, 255, 0.72)',
             text: 'rgba(255, 255, 255,1)'

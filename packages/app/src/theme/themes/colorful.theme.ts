@@ -72,11 +72,11 @@ export const ColorfulDarkTheme: ThemeInterface = {
             textActive: '#4B613A',
             bgActive: '#829B74',
             bg: '#2A3B4D',
-            border: 'rgba(68, 91, 122, 0.5)',
+            border: 'rgba(143, 168, 193, 0.55)',
             borderActive: '#4B613A'
         },
         value: {
-            border: 'rgba(68, 91, 122, 0.5)',
+            border: 'rgba(143, 168, 193, 0.55)',
             progress: '#F0AE1C',
             progressActive: '#A9A931',
             text: '#1b1b1a'

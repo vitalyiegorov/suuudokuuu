@@ -4,6 +4,7 @@ import Reanimated from 'react-native-reanimated';
 import { cs } from '@rnw-community/shared';
 
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
+import { resolveUnistyleForAnimated } from '../../../@generic/utils/resolve-unistyle-for-animated.util';
 import { settingsFontSizeMultiplierSelector, settingsKeySelector } from '../../../settings/store/settings.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
 
@@ -38,7 +39,7 @@ export const FieldCellCandidates = ({ candidates, activeValue, cellSize }: Props
         const isCandidateActive = candidate === activeValue;
 
         return [
-            styles.textCandidate(cellSize),
+            resolveUnistyleForAnimated(styles.textCandidate(cellSize)),
             {
                 fontSize: Math.min((cellSize / 3) * fontSizeMultiplier, cellSize / 3.7),
                 color: theme.colors.candidate.text
@@ -47,7 +48,7 @@ export const FieldCellCandidates = ({ candidates, activeValue, cellSize }: Props
                 backgroundColor: theme.colors.candidate.bgActive,
                 color: theme.colors.candidate.textActive
             }),
-            textCandidatePositionStyle(cellSize)
+            resolveUnistyleForAnimated(textCandidatePositionStyle(cellSize))
         ];
     };
 

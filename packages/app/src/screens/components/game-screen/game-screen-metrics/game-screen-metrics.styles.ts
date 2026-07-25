@@ -9,7 +9,9 @@ export const GameScreenMetricsStyles = StyleSheet.create(() => ({
         paddingVertical: 4
     },
     item: {
-        gap: 3
+        gap: 3,
+        paddingHorizontal: 6,
+        width: 'auto'
     },
     label: {
         fontSize: 10,
@@ -27,8 +29,8 @@ export const GameScreenMetricsStyles = StyleSheet.create(() => ({
         textAlign: 'center'
     },
     separator: {
-        height: 32,
-        marginHorizontal: 2
+        height: 28,
+        marginHorizontal: 0
     },
     value: {
         fontSize: 16,

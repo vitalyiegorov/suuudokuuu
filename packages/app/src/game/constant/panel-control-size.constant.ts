@@ -1,1 +1,1 @@
-export const PanelControlSizeConstant = 64;
+export const PanelControlSizeConstant = 56;

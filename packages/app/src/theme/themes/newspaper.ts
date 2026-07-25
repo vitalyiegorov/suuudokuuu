@@ -68,7 +68,7 @@ export const NewspaperDarkTheme: ThemeInterface = {
             filled: '#1a1a1a'
         },
         value: {
-            border: 'rgba(240, 240, 240, 0.1)',
+            border: 'rgba(240, 240, 240, 0.28)',
             progress: '#888888',
             progressActive: '#cccccc',
             text: '#f0f0f0'
@@ -78,7 +78,7 @@ export const NewspaperDarkTheme: ThemeInterface = {
             textActive: '#1a1a1a',
             bgActive: '#cccccc',
             bg: '#1a1a1a',
-            border: 'rgba(240, 240, 240, 0.2)',
+            border: 'rgba(240, 240, 240, 0.32)',
             borderActive: '#ffffff'
         }
     }
