@@ -9,16 +9,16 @@ export const GameScreenStyles = StyleSheet.create((theme, rt) => ({
         flex: 1,
         flexDirection: { xs: 'column', [WideLayoutMediaQuery]: 'row' },
         gap: theme.spacing.sm,
-        padding: theme.spacing.sm,
-        paddingBottom: rt.insets.bottom + theme.spacing.md,
-        paddingTop: rt.insets.top
+        paddingBottom: rt.insets.bottom / 2 + theme.spacing.xs,
+        paddingTop: theme.spacing.xs
     },
     topBar: {
         alignItems: 'flex-start',
         flexDirection: 'row',
         flexShrink: 0,
         gap: theme.spacing.md,
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        paddingHorizontal: theme.spacing.sm
     },
     boardArea: {
         alignItems: 'center',
@@ -28,10 +28,18 @@ export const GameScreenStyles = StyleSheet.create((theme, rt) => ({
         minHeight: 0,
         minWidth: 0
     },
+    toolsSlot: {
+        alignItems: 'center',
+        flexGrow: 1,
+        flexShrink: 1,
+        justifyContent: 'center',
+        minHeight: 0
+    },
     panelArea: {
         flexShrink: 0,
-        gap: theme.spacing.md,
+        gap: theme.spacing.sm,
         justifyContent: 'center',
+        paddingHorizontal: theme.spacing.sm,
         width: { xs: '100%', [WideLayoutMediaQuery]: GameSidePanelWidthConstant }
     }
 }));

@@ -34,7 +34,7 @@ export const GameScreenMetrics = ({ elapsedTime, hasTimer, maxMistakes, maxMista
     const elapsedTimeText = useTimerText(elapsedTime);
     const scoreText = String(score);
     const mistakesContent = (
-        <Text adjustsFontSizeToFit allowFontScaling={false} minimumFontScale={0.72} numberOfLines={1} style={mistakesTextStyles}>
+        <Text allowFontScaling={false} numberOfLines={1} style={mistakesTextStyles}>
             <Text testID={GameScreenSelectors.MistakesCount}>{mistakes}</Text>
             <Text>/</Text>
             <Text testID={GameScreenSelectors.MaxMistakesAllowed}>{maxMistakes}</Text>

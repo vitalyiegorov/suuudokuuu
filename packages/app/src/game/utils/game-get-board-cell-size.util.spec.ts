@@ -1,7 +1,7 @@
 import { describe, expect, it } from '@jest/globals';
 import { defaultSudokuConfig } from '@suuudokuuu/generator';
 
-import { BoardCellSizeCapConstant } from '../constant/board-cell-size.constant';
+import { BoardCellBorderWidthConstant, BoardCellSizeCapConstant } from '../constant/board-cell-size.constant';
 
 import { gameGetBoardCellSize } from './game-get-board-cell-size.util';
 
@@ -13,17 +13,19 @@ const NarrowAreaWidth = 360;
 const TallAreaHeight = 800;
 const CollapsedAreaWidth = -100;
 
+const getExpectedCellSize = (availableSize: number) => Math.floor((availableSize - fieldSize * BoardCellBorderWidthConstant) / fieldSize);
+
 describe('gameGetBoardCellSize', () => {
     it('sizes the board from the limiting dimension of the measured area', () => {
         const cellSize = gameGetBoardCellSize({ availableWidth: NarrowAreaWidth, availableHeight: TallAreaHeight, fieldSize });
 
-        expect(cellSize).toBe(Math.floor(NarrowAreaWidth / fieldSize));
+        expect(cellSize).toBe(getExpectedCellSize(NarrowAreaWidth));
     });
 
     it('sizes from height when the measured area is wider than it is tall', () => {
         const cellSize = gameGetBoardCellSize({ availableWidth: WideAreaWidth, availableHeight: ShortAreaHeight, fieldSize });
 
-        expect(cellSize).toBe(Math.floor(ShortAreaHeight / fieldSize));
+        expect(cellSize).toBe(getExpectedCellSize(ShortAreaHeight));
     });
 
     it('caps the cell size on very large areas', () => {

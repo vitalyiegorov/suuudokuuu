@@ -1,7 +1,6 @@
 import { plural } from '@lingui/core/macro';
 import { useLingui } from '@lingui/react/macro';
 import { AppSurfaceCard } from '@suuudokuuu/ui';
-import { LucideSwords } from 'lucide-react-native';
 import { use } from 'react';
 import { Text, View } from 'react-native';
 
@@ -14,8 +13,6 @@ import { ChallengeTechniqueArsenal } from '../challenge-technique-arsenal/challe
 import { ChallengeTechniqueBreakdownStyles as styles } from './challenge-technique-breakdown.styles';
 
 import type { ChallengeTechniqueEventInterface } from '../../interfaces/challenge-technique-event.interface';
-
-const HEADER_ICON_SIZE = 19;
 
 interface Props {
     readonly events: ChallengeTechniqueEventInterface[];
@@ -37,22 +34,16 @@ export const ChallengeTechniqueBreakdown = ({ events }: Props) => {
 
     const labelStyle = [styles.label, { color: theme.colors.label.hint }];
     const headlineStyle = [styles.headline, { color: theme.colors.label.main }];
-    const iconBoxStyle = [styles.iconBox, { backgroundColor: theme.colors.cell.highlighted }];
 
     return (
         <AppSurfaceCard size="compact" style={styles.container}>
             <View style={styles.header}>
-                <View style={styles.textColumn}>
-                    <Text allowFontScaling={false} style={labelStyle}>
-                        {t`Rival's playbook`}
-                    </Text>
-                    <Text allowFontScaling={false} style={headlineStyle}>
-                        {headlineText}
-                    </Text>
-                </View>
-                <View style={iconBoxStyle}>
-                    <LucideSwords color={theme.colors.label.main} size={HEADER_ICON_SIZE} />
-                </View>
+                <Text allowFontScaling={false} style={labelStyle}>
+                    {t`Rival's playbook`}
+                </Text>
+                <Text allowFontScaling={false} style={headlineStyle}>
+                    {headlineText}
+                </Text>
             </View>
 
             <ChallengeTechniqueArsenal events={events} />

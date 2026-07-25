@@ -63,14 +63,7 @@ export const AppMetricStrip = ({ itemStyle, items, labelStyle, separatorStyle, s
                             {isDefined(item.valueContent) ? (
                                 item.valueContent
                             ) : (
-                                <Text
-                                    adjustsFontSizeToFit
-                                    allowFontScaling={false}
-                                    minimumFontScale={0.72}
-                                    numberOfLines={1}
-                                    style={valueStyles}
-                                    testID={item.testID}
-                                >
+                                <Text allowFontScaling={false} numberOfLines={1} style={valueStyles} testID={item.testID}>
                                     {item.value}
                                 </Text>
                             )}

@@ -4,7 +4,7 @@ export const GameScreenMetricsStyles = StyleSheet.create(() => ({
     container: {
         backgroundColor: 'transparent',
         borderColor: 'transparent',
-        minHeight: 60,
+        minHeight: 52,
         paddingHorizontal: 0,
         paddingVertical: 4
     },
@@ -20,10 +20,10 @@ export const GameScreenMetricsStyles = StyleSheet.create(() => ({
     },
     mistakesText: {
         fontVariant: ['tabular-nums'],
-        fontSize: 20,
+        fontSize: 16,
         fontWeight: '800',
         letterSpacing: -0.2,
-        lineHeight: 24,
+        lineHeight: 20,
         textAlign: 'center'
     },
     separator: {
@@ -31,10 +31,10 @@ export const GameScreenMetricsStyles = StyleSheet.create(() => ({
         marginHorizontal: 2
     },
     value: {
-        fontSize: 20,
+        fontSize: 16,
         fontVariant: ['tabular-nums'],
         fontWeight: '800',
         letterSpacing: -0.2,
-        lineHeight: 24
+        lineHeight: 20
     }
 }));

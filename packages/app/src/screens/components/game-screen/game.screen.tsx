@@ -244,7 +244,6 @@ export const GameScreen = () => {
         >
             <GameTimerController />
             {keyboardControlsElement}
-            {isChallengeMode && <ChallengeRaceHud />}
 
             <Hide mq={WideLayoutMediaQuery}>
                 <View style={styles.topBar}>
@@ -253,14 +252,24 @@ export const GameScreen = () => {
                 </View>
             </Hide>
 
+            {isChallengeMode ? <ChallengeRaceHud /> : null}
+
             <View onLayout={onBoardAreaLayout} style={styles.boardArea}>
                 <Field cellSize={boardCellSize} onSelect={handleSelectCell} ref={fieldRef} selectedCell={selectedCell} />
             </View>
 
+            <Hide mq={WideLayoutMediaQuery}>
+                <View style={styles.toolsSlot}>
+                    <GameInputTools hideAutoCandidates={hideAutoCandidates} />
+                </View>
+            </Hide>
+
             <View style={styles.panelArea}>
                 <Display mq={WideLayoutMediaQuery}>{statusBlock}</Display>
 
-                <GameInputTools hideAutoCandidates={hideAutoCandidates} />
+                <Display mq={WideLayoutMediaQuery}>
+                    <GameInputTools hideAutoCandidates={hideAutoCandidates} />
+                </Display>
 
                 <GameNumpad availableValuesRefsHandler={handleAvailableRef} onSelectValue={handleSelectValue} selectedCell={selectedCell} />
 

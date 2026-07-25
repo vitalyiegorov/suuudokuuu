@@ -17,14 +17,26 @@ interface Props {
 export const GameActions = ({ actionIconColor, hasSharing, onExit, onOpenSettings, onShare }: Props) => (
     <View style={styles.actions}>
         {hasSharing ? (
-            <BlackIconButton onPress={onShare} testID={GameScreenSelectors.ShareButton} variant="secondary">
+            <BlackIconButton
+                hitSlop={10}
+                onPress={onShare}
+                style={styles.button}
+                testID={GameScreenSelectors.ShareButton}
+                variant="inverted"
+            >
                 <LucideShare2 color={actionIconColor} />
             </BlackIconButton>
         ) : null}
-        <BlackIconButton onPress={onOpenSettings} testID={GameScreenSelectors.SettingsButton} variant="secondary">
+        <BlackIconButton
+            hitSlop={10}
+            onPress={onOpenSettings}
+            style={styles.button}
+            testID={GameScreenSelectors.SettingsButton}
+            variant="inverted"
+        >
             <LucideSettings color={actionIconColor} />
         </BlackIconButton>
-        <BlackIconButton onPress={onExit} testID={GameScreenSelectors.QuitButton} variant="secondary">
+        <BlackIconButton hitSlop={10} onPress={onExit} style={styles.button} testID={GameScreenSelectors.QuitButton} variant="inverted">
             <LucideLogOut color={actionIconColor} />
         </BlackIconButton>
     </View>
