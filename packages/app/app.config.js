@@ -7,6 +7,8 @@ const DevelopmentBuildNumberPattern = /^[1-9]\d{0,3}\.[1-9]\d?$/u;
 const IS_DEV = APP_VARIANT === 'development';
 const IS_E2E = APP_VARIANT === 'e2e';
 const IS_PREVIEW = APP_VARIANT === 'preview';
+const IS_PRODUCTION = APP_VARIANT === 'production';
+const StoreBuildArchs = ['armeabi-v7a', 'arm64-v8a'];
 
 if (DEVELOPMENT_BUILD_NUMBER !== undefined && !DevelopmentBuildNumberPattern.test(DEVELOPMENT_BUILD_NUMBER)) {
     throw new Error('DEVELOPMENT_BUILD_NUMBER must contain a 1-9999 run number and a 1-99 run attempt.');
@@ -129,6 +131,7 @@ export default ({ config }) => ({
             {
                 buildReactNativeFromSource: false,
                 useHermesV1: true,
+                ...(IS_PRODUCTION && { android: { buildArchs: StoreBuildArchs } }),
                 ios: {
                     ccacheEnabled: true,
                     usePrecompiledModules: true
