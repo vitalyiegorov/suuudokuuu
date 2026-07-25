@@ -1,11 +1,12 @@
 import { DifficultyEnum } from '@suuudokuuu/generator';
-import { useAppLayout } from '@suuudokuuu/ui';
 import { Redirect } from 'expo-router';
 import { useState } from 'react';
 import { View } from 'react-native';
+import { Display, Hide } from 'react-native-unistyles';
 
 import { isDefined } from '@rnw-community/shared';
 
+import { WideLayoutMediaQuery } from '../../../@generic/constants/layout-media-query.constant';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { useBoardCellSize } from '../../../game/hooks/use-board-cell-size.hook';
 import { gameCompletedGameByIdSelector } from '../../../game/store/game.selectors';
@@ -27,8 +28,7 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
     const completedGame = useAppSelector(gameCompletedGameByIdSelector(difficulty, completedAt));
     const [currentStep, setCurrentStep] = useState(0);
     const [gameState] = useState(() => stringToGameState(completedGame?.encodedState));
-    const { width, height, sizeClass } = useAppLayout();
-    const boardCellSize = useBoardCellSize(width, height);
+    const { cellSize: boardCellSize, onBoardAreaLayout } = useBoardCellSize();
 
     if (!isDefined(gameState) || !isDefined(completedGame)) {
         return <Redirect href="/history" />;
@@ -46,7 +46,6 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
     };
 
     const { sudoku, highlightedCellKey, elapsedTime, moveClassification } = getSudokuAtStep(gameState, currentStep);
-    const isWideLayout = sizeClass === 'wide';
     const replayHeader = <ReplayHeader game={completedGame} />;
     const replayControls = (
         <ReplayControls
@@ -60,21 +59,20 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
     );
 
     return (
-        <View style={styles.container(sizeClass)}>
+        <View style={styles.container}>
             <ReplayTopBar />
-            <View style={styles.content(sizeClass)}>
-                {!isWideLayout && replayHeader}
-                <View style={styles.fieldWrapper(sizeClass)}>
+            <View style={styles.content}>
+                <Hide mq={WideLayoutMediaQuery}>{replayHeader}</Hide>
+
+                <View onLayout={onBoardAreaLayout} style={styles.fieldWrapper}>
                     <ReplayField cellSize={boardCellSize} highlightedCellKey={highlightedCellKey} sudoku={sudoku} />
                 </View>
-                {isWideLayout ? (
-                    <View style={styles.controlsColumn}>
-                        {replayHeader}
-                        {replayControls}
-                    </View>
-                ) : (
-                    replayControls
-                )}
+
+                <View style={styles.controlsColumn}>
+                    <Display mq={WideLayoutMediaQuery}>{replayHeader}</Display>
+
+                    {replayControls}
+                </View>
             </View>
         </View>
     );

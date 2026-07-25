@@ -1,32 +1,39 @@
 import { StyleSheet } from 'react-native-unistyles';
 
+import { WideLayoutMediaQuery } from '../../../@generic/constants/layout-media-query.constant';
 import { WideContentWidthMultiplierConstant } from '../../constant/wide-content-width.constant';
 
 export const ReplayScreenStyles = StyleSheet.create(theme => ({
-    container: (sizeClass: 'compact' | 'wide') => ({
+    container: {
         alignSelf: 'center',
         flex: 1,
         flexDirection: 'column',
         gap: 18,
-        maxWidth: sizeClass === 'wide' ? theme.contentWidth.standard * WideContentWidthMultiplierConstant : theme.contentWidth.standard,
+        maxWidth: {
+            xs: theme.contentWidth.standard,
+            [WideLayoutMediaQuery]: theme.contentWidth.standard * WideContentWidthMultiplierConstant
+        },
         paddingBottom: 18,
         paddingHorizontal: 20,
         paddingTop: 18,
         width: '100%'
-    }),
-    content: (sizeClass: 'compact' | 'wide') => ({
+    },
+    content: {
         flex: 1,
-        flexDirection: sizeClass === 'wide' ? 'row' : 'column',
+        flexDirection: { xs: 'column', [WideLayoutMediaQuery]: 'row' },
         gap: 18
-    }),
-    fieldWrapper: (sizeClass: 'compact' | 'wide') => ({
+    },
+    fieldWrapper: {
         alignItems: 'center',
-        flex: sizeClass === 'wide' ? 2 : 1,
+        flexGrow: 1,
+        flexShrink: 1,
         justifyContent: 'center',
-        minHeight: 260
-    }),
+        minHeight: 0,
+        minWidth: 0
+    },
     controlsColumn: {
-        flex: 1,
+        flexGrow: { xs: 0, [WideLayoutMediaQuery]: 1 },
+        flexShrink: 0,
         gap: 18,
         justifyContent: 'center'
     }

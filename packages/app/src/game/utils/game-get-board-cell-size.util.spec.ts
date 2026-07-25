@@ -1,68 +1,46 @@
 import { describe, expect, it } from '@jest/globals';
+import { defaultSudokuConfig } from '@suuudokuuu/generator';
 
-import { BoardCellSizeCapConstant, GameSidePanelGutterConstant, GameSidePanelWidthConstant } from '../constant/board-cell-size.constant';
+import { BoardCellSizeCapConstant } from '../constant/board-cell-size.constant';
 
 import { gameGetBoardCellSize } from './game-get-board-cell-size.util';
 
+const { fieldSize } = defaultSudokuConfig;
+const WideAreaWidth = 900;
+const ShortAreaHeight = 420;
+const LargeAreaSize = 1600;
+const NarrowAreaWidth = 360;
+const TallAreaHeight = 800;
+const CollapsedAreaWidth = -100;
+
 describe('gameGetBoardCellSize', () => {
-    it('sizes from the limiting dimension in compact layout', () => {
-        const cellSize = gameGetBoardCellSize({
-            availableWidth: 360,
-            availableHeight: 800,
-            sizeClass: 'compact',
-            panelWidth: GameSidePanelWidthConstant,
-            gutter: GameSidePanelGutterConstant
-        });
+    it('sizes the board from the limiting dimension of the measured area', () => {
+        const cellSize = gameGetBoardCellSize({ availableWidth: NarrowAreaWidth, availableHeight: TallAreaHeight, fieldSize });
 
-        expect(cellSize).toBe(Math.floor(360 / 9));
+        expect(cellSize).toBe(Math.floor(NarrowAreaWidth / fieldSize));
     });
 
-    it('subtracts the panel width and gutter from available width in wide layout', () => {
-        const cellSize = gameGetBoardCellSize({
-            availableWidth: 1200,
-            availableHeight: 800,
-            sizeClass: 'wide',
-            panelWidth: GameSidePanelWidthConstant,
-            gutter: GameSidePanelGutterConstant
-        });
+    it('sizes from height when the measured area is wider than it is tall', () => {
+        const cellSize = gameGetBoardCellSize({ availableWidth: WideAreaWidth, availableHeight: ShortAreaHeight, fieldSize });
 
-        expect(cellSize).toBe(Math.floor(Math.min(800, 1200 - GameSidePanelWidthConstant - GameSidePanelGutterConstant) / 9));
+        expect(cellSize).toBe(Math.floor(ShortAreaHeight / fieldSize));
     });
 
-    it('caps the cell size on very large containers', () => {
-        const cellSize = gameGetBoardCellSize({
-            availableWidth: 960,
-            availableHeight: 960,
-            sizeClass: 'compact',
-            panelWidth: GameSidePanelWidthConstant,
-            gutter: GameSidePanelGutterConstant
-        });
+    it('caps the cell size on very large areas', () => {
+        const cellSize = gameGetBoardCellSize({ availableWidth: LargeAreaSize, availableHeight: LargeAreaSize, fieldSize });
 
         expect(cellSize).toBe(BoardCellSizeCapConstant);
     });
 
-    it('never returns a negative size for a panel wider than the container', () => {
-        const cellSize = gameGetBoardCellSize({
-            availableWidth: 300,
-            availableHeight: 800,
-            sizeClass: 'wide',
-            panelWidth: GameSidePanelWidthConstant,
-            gutter: GameSidePanelGutterConstant
-        });
+    it('returns zero before the area has been measured', () => {
+        const cellSize = gameGetBoardCellSize({ availableWidth: 0, availableHeight: 0, fieldSize });
 
-        expect(cellSize).toBeGreaterThanOrEqual(0);
+        expect(cellSize).toBe(0);
     });
 
-    it('pins the compact phone cell size for a 390x844 window using the GameScreen interim wiring', () => {
-        const expectedCompactPhoneCellSize = 43;
-        const cellSize = gameGetBoardCellSize({
-            availableWidth: 390,
-            availableHeight: 844,
-            sizeClass: 'compact',
-            panelWidth: GameSidePanelWidthConstant,
-            gutter: GameSidePanelGutterConstant
-        });
+    it('never returns a negative size for a collapsed area', () => {
+        const cellSize = gameGetBoardCellSize({ availableWidth: CollapsedAreaWidth, availableHeight: TallAreaHeight, fieldSize });
 
-        expect(cellSize).toBe(expectedCompactPhoneCellSize);
+        expect(cellSize).toBeGreaterThanOrEqual(0);
     });
 });

@@ -1,16 +1,16 @@
 import { useLingui } from '@lingui/react/macro';
-import { useAppLayout } from '@suuudokuuu/ui';
 import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { useRouter } from 'expo-router';
 import { use, useEffect, useRef, useState } from 'react';
 import { Pressable, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Display, Hide } from 'react-native-unistyles';
 
 import { isDefined } from '@rnw-community/shared';
 
 import { Alert } from '../../../@generic/components/alert/alert';
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
+import { WideLayoutMediaQuery } from '../../../@generic/constants/layout-media-query.constant';
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { useVibration } from '../../../@generic/hooks/use-vibration.hook';
@@ -43,15 +43,17 @@ import { settingsKeySelector } from '../../../settings/store/settings.selectors'
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { gameScreenSetSharingAvailable } from '../../utils/game-screen-set-sharing-available.util';
 
+import { GameActions } from './game-actions/game-actions';
+import { GameInputTools } from './game-input-tools/game-input-tools';
+import { GameNumpad } from './game-numpad/game-numpad';
 import { GameScreenSelectors } from './game-screen.selectors';
-import { GameScreenBottomInset, GameScreenStyles as styles } from './game-screen.styles';
-import { GameSidePanel } from './game-side-panel/game-side-panel';
+import { GameScreenStyles as styles } from './game-screen.styles';
+import { GameStatusBlock } from './game-status-block/game-status-block';
 import { useOpenGameSettings } from './hooks/use-open-game-settings.hook';
 import { gameScreenExit } from './utils/game-screen-exit.util';
 
 import type { AvailableValuesItemRef } from '../../../game/components/available-values-item/available-values-item';
 import type { CellInterface, ScoredCellsInterface } from '@suuudokuuu/generator';
-import type { LayoutChangeEvent } from 'react-native';
 
 // eslint-disable-next-line max-lines-per-function -- Game orchestration component requires many handlers and refs
 export const GameScreen = () => {
@@ -63,10 +65,7 @@ export const GameScreen = () => {
 
     const [hapticNotification, hapticImpact] = useVibration();
 
-    const insets = useSafeAreaInsets();
-    const { sizeClass } = useAppLayout();
-    const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
-    const boardCellSize = useBoardCellSize(containerSize.width, containerSize.height);
+    const { cellSize: boardCellSize, onBoardAreaLayout } = useBoardCellSize();
 
     const dispatch = useAppDispatch();
     const score = useAppSelector(gameScoreSelector);
@@ -112,12 +111,6 @@ export const GameScreen = () => {
     const handleDeselectCell = () => {
         // eslint-disable-next-line no-undefined
         setSelectedCell(undefined);
-    };
-
-    const handleContainerLayout = (event: LayoutChangeEvent) => {
-        const { width, height } = event.nativeEvent.layout;
-
-        setContainerSize({ width, height });
     };
 
     const handlePause = () => {
@@ -219,26 +212,26 @@ export const GameScreen = () => {
 
     const hideAutoCandidates = maxMistakes === 0;
     const actionIconColor = theme.colors.label.main;
-    const containerStyles = [styles.container(sizeClass), { paddingBottom: insets.bottom + GameScreenBottomInset }];
 
-    const sidePanel = (
-        <GameSidePanel
+    const statusBlock = (
+        <GameStatusBlock
             actionIconColor={actionIconColor}
-            availableValuesRefsHandler={handleAvailableRef}
             elapsedTime={elapsedTime}
-            hasSharing={hasSharing}
             hasTimer={hasTimer}
-            hideAutoCandidates={hideAutoCandidates}
             maxMistakes={maxMistakes}
             maxMistakesReached={maxMistakesReached}
             mistakes={mistakes}
+            onPause={handlePause}
+            score={score}
+        />
+    );
+    const gameActions = (
+        <GameActions
+            actionIconColor={actionIconColor}
+            hasSharing={hasSharing}
             onExit={handleExit}
             onOpenSettings={handleOpenSettings}
-            onPause={handlePause}
-            onSelectValue={handleSelectValue}
             onShare={handleShare}
-            score={score}
-            selectedCell={selectedCell}
         />
     );
 
@@ -246,17 +239,33 @@ export const GameScreen = () => {
         <Pressable
             accessible={false}
             {...(!keepActiveCell && { onPress: handleDeselectCell })}
-            onLayout={handleContainerLayout}
-            style={containerStyles}
+            style={styles.container}
             testID={GameScreenSelectors.Root}
         >
             <GameTimerController />
             {keyboardControlsElement}
             {isChallengeMode && <ChallengeRaceHud />}
-            <View style={styles.boardArea(sizeClass)}>
+
+            <Hide mq={WideLayoutMediaQuery}>
+                <View style={styles.topBar}>
+                    {statusBlock}
+                    {gameActions}
+                </View>
+            </Hide>
+
+            <View onLayout={onBoardAreaLayout} style={styles.boardArea}>
                 <Field cellSize={boardCellSize} onSelect={handleSelectCell} ref={fieldRef} selectedCell={selectedCell} />
             </View>
-            <View style={styles.panelArea(sizeClass)}>{sidePanel}</View>
+
+            <View style={styles.panelArea}>
+                <Display mq={WideLayoutMediaQuery}>{statusBlock}</Display>
+
+                <GameNumpad availableValuesRefsHandler={handleAvailableRef} onSelectValue={handleSelectValue} selectedCell={selectedCell} />
+
+                <GameInputTools hideAutoCandidates={hideAutoCandidates} />
+
+                <Display mq={WideLayoutMediaQuery}>{gameActions}</Display>
+            </View>
         </Pressable>
     );
 };
