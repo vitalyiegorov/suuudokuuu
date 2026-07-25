@@ -25,15 +25,6 @@ export const DifficultyComplexitySliderStyles = StyleSheet.create({
         lineHeight: 13,
         textAlign: 'center'
     },
-    optionLabelCenter: {
-        textAlign: 'center'
-    },
-    optionLabelEnd: {
-        textAlign: 'right'
-    },
-    optionLabelStart: {
-        textAlign: 'left'
-    },
     optionRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -44,15 +35,6 @@ export const DifficultyComplexitySliderStyles = StyleSheet.create({
         flex: 1,
         minHeight: 30,
         paddingTop: 6
-    },
-    optionTriggerCenter: {
-        alignItems: 'center'
-    },
-    optionTriggerEnd: {
-        alignItems: 'flex-end'
-    },
-    optionTriggerStart: {
-        alignItems: 'flex-start'
     },
     panel: {
         gap: 11,

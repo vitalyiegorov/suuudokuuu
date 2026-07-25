@@ -17,14 +17,15 @@ yarn test:coverage
 
 ```text
 src/
-├── classes/
-│   ├── game-state-binary-codec/  # v2 bit-packed game-state codec
-│   ├── game-state-serializer/    # Public v2 encode, v2 and legacy decode API
-│   ├── solution/               # Timed solution-step encoding
-│   └── sudoku-string-encoder/  # 81-cell clue encoding
-├── constants/                  # Bit widths, grid, base64url, and binary codec constants
-├── interfaces/                 # Cell and solution-step interfaces
-└── util/                       # Validation and byte/string utilities
+├── @generic/                   # Shared constants, interfaces, and utilities
+├── game-state-binary-codec/    # v2 bit-packed game-state codec feature
+│   └── classes/
+├── game-state-serializer/      # Public v2 encode, v2 and legacy decode API feature
+│   └── classes/
+├── solution/                   # Timed solution-step encoding feature
+│   └── classes/
+└── sudoku-string-encoder/      # 81-cell clue encoding feature
+    └── classes/
 ```
 
 ## Binary Format Rules

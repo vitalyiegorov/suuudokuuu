@@ -1,73 +1,82 @@
 appId: ${APP_ID}
 ---
 - startRecording:
-    path: '04.statistics-screen'
-    optional: true
+      path: '04.statistics-screen'
+      optional: true
 
 - runFlow: subflows/navigation/launch-home.flow.yaml
 - runFlow:
-    file: subflows/shared/complete-winning-shared-challenge.flow.yaml
-    env:
-      SHARED_CHALLENGE_LINK: suuudokuuu://shared/IzAMC4AAAKBEBQDAAHASfAwQAgM4AQAhgGQEUBoAQQASBWAcIAgBXrAE4BMAUgZICcAYgKpkAmAFdQAMQAGABYDZAYwBRYgPMBIAE8UAFAEMASAGIALFQCpAZEMA3AAoArgLL2A1ReUAWgOoApAGfpABr9VABmW34AFfl5AECcADoARIAdgB4AcwAqgE%2BAfYASgDAAIIAGgDiADAARgA8AZpqAYrq6bkMAMoBNIl6AWoAOAHOAWIAQcPAAGwAhAAGAJnAATjXgcGAgA
+      file: subflows/shared/complete-winning-shared-challenge.flow.yaml
+      env:
+          SHARED_CHALLENGE_LINK: suuudokuuu://shared/_KGP________9____qXF6FFdMjBWGhJIN-CMqSm5omCUw0KFUm6-t2HxLUAuYMCP-
 - scrollUntilVisible:
-    element:
-      id: 'PlayAgainButtonSelectors.Root'
-    direction: DOWN
-    timeout: 3000
+      element:
+          id: 'ChallengeResultFooterSelectors.HomeButton'
+      direction: DOWN
+      timeout: 3000
 - tapOn:
-    id: 'PlayAgainButtonSelectors.Root'
+      id: 'ChallengeResultFooterSelectors.HomeButton'
 - extendedWaitUntil:
-    visible:
-      id: 'HomeScreenSelectors.Root'
-    timeout: 3000
+      visible:
+          id: 'HomeScreenSelectors.Root'
+      timeout: 3000
 - tapOn: 'Stats'
 - extendedWaitUntil:
-    visible:
-      id: 'HistoryScreenSelectors.Root'
-    timeout: 3000
+      visible:
+          id: 'HistoryScreenSelectors.Root'
+      timeout: 3000
 - assertVisible: 'Overview'
 - assertVisible: 'Games'
-# Scroll-tolerant: the rank card sits below the fold on the Android viewport.
+# Scroll-tolerant: the rank card sits below the fold on the Android viewport,
+# so scroll to its deepest line before asserting the rank title above it.
 - scrollUntilVisible:
-    element:
-      text: 'Newbie.*'
-    direction: DOWN
-- assertVisible: '.*completed game.*'
+      element:
+          text: '.*completed game.*'
+      direction: DOWN
+- assertVisible: 'Newbie.*'
 # The segmented-control tabs sit at the top; scrolling to the rank card above
 # pushed them off the shorter Android viewport, so scroll back up to reach it.
 - scrollUntilVisible:
-    element:
-      id: 'HistorySegmentedControlSelectors.GamesTab'
-    direction: UP
+      element:
+          id: 'HistorySegmentedControlSelectors.GamesTab'
+      direction: UP
 - tapOn:
-    id: 'HistorySegmentedControlSelectors.GamesTab'
+      id: 'HistorySegmentedControlSelectors.GamesTab'
 - extendedWaitUntil:
-    visible:
-      id: 'CompletedGameItemSelectors.ReplayButton'
-    timeout: 3000
+      visible:
+          id: 'CompletedGameItemSelectors.ReplayButton'
+      timeout: 3000
 - assertVisible: 'Score'
 - assertVisible: 'Time'
 - assertVisible: 'Mistakes'
 - tapOn:
-    id: 'CompletedGameItemSelectors.ReplayButton'
+      id: 'CompletedGameItemSelectors.ReplayButton'
 - extendedWaitUntil:
-    visible:
-      id: 'ReplayControlsSelectors.Root'
-    timeout: 3000
+      visible:
+          id: 'ReplayControlsSelectors.Root'
+      timeout: 3000
+# The replay board fills the shorter Android viewport, so the playback controls
+# scroll below the fold; scroll the step buttons above the navigation bar before
+# tapping (iOS passes only because its taller viewport keeps them on screen).
+- scrollUntilVisible:
+      element:
+          id: 'ReplayControlsSelectors.NextButton'
+      direction: DOWN
+      timeout: 5000
 - tapOn:
-    id: 'ReplayControlsSelectors.NextButton'
+      id: 'ReplayControlsSelectors.NextButton'
 - tapOn:
-    id: 'ReplayControlsSelectors.PreviousButton'
+      id: 'ReplayControlsSelectors.PreviousButton'
 - tapOn:
-    id: 'ReplayTopBarSelectors.CloseButton'
+      id: 'ReplayTopBarSelectors.CloseButton'
 - extendedWaitUntil:
-    visible:
-      id: 'HistoryScreenSelectors.Root'
-    timeout: 3000
+      visible:
+          id: 'HistoryScreenSelectors.Root'
+      timeout: 3000
 - tapOn:
-    id: 'HeaderBackButtonSelectors.Root'
+      id: 'HeaderBackButtonSelectors.Root'
 - extendedWaitUntil:
-    visible:
-      id: 'HomeScreenSelectors.Root'
-    timeout: 3000
+      visible:
+          id: 'HomeScreenSelectors.Root'
+      timeout: 3000
 - stopApp

@@ -15,7 +15,8 @@ export const CollapsibleHeader = ({ children, style }: Props): ReactNode => {
     const { config } = useScreenChrome();
     const insets = useSafeAreaInsets();
 
-    const containerStyle = { paddingTop: insets.top, height: insets.top + config.headerHeight };
+    const headerTop = insets.top + config.headerTopInset;
+    const containerStyle = { paddingTop: headerTop, height: headerTop + config.headerHeight };
     const combinedContainerStyle = [collapsibleHeaderStyles.container, containerStyle, style];
 
     return (

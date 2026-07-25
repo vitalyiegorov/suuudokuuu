@@ -19,13 +19,13 @@ interface Props {
 
 export const PauseScreenProgressCard = ({ sudoku, label, meta, progressPercent }: Props) => {
     const { theme } = use(ThemeContext);
-    const labelStyles = [styles.label, { color: theme.colors.label.hint }];
-    const valueStyles = [styles.value, { color: theme.colors.label.main }];
-    const metaStyles = [styles.meta, { color: theme.colors.label.hint }];
+    const labelStyles = [styles.label, { color: theme.colors.white05 }];
+    const valueStyles = [styles.value, { color: theme.colors.label.inverted }];
+    const metaStyles = [styles.meta, { color: theme.colors.white05 }];
     const percentText = `${progressPercent}%`;
 
     return (
-        <AppSurfaceCard size="compact" style={styles.container} variant="muted">
+        <AppSurfaceCard size="compact" style={styles.container} variant="inverted">
             <View style={styles.board}>
                 <PauseScreenBoardPreview sudoku={sudoku} />
             </View>
@@ -45,7 +45,7 @@ export const PauseScreenProgressCard = ({ sudoku, label, meta, progressPercent }
                     {percentText}
                 </BlackText>
 
-                <AppProgressBar percent={progressPercent} size="compact" style={styles.progress} />
+                <AppProgressBar percent={progressPercent} size="compact" style={styles.progress} variant="inverted" />
 
                 <BlackText adjustsFontSizeToFit minimumFontScale={0.72} numberOfLines={1} style={metaStyles}>
                     {meta}

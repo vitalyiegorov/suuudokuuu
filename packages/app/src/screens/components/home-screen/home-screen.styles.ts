@@ -3,14 +3,11 @@ import { StyleSheet } from 'react-native';
 export const HomeScreenStyles = StyleSheet.create({
     bestRun: {
         alignItems: 'center',
-        borderRadius: 28,
-        borderWidth: StyleSheet.hairlineWidth,
         flexDirection: 'row',
         gap: 14,
         justifyContent: 'space-between',
-        minHeight: 76,
-        paddingHorizontal: 18,
-        paddingVertical: 14,
+        paddingHorizontal: 2,
+        paddingVertical: 8,
         width: '100%'
     },
     bestRunCopy: {

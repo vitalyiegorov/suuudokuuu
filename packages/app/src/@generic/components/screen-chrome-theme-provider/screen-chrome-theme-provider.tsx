@@ -3,6 +3,7 @@ import { use } from 'react';
 
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { ColorSchemaEnum } from '../../../theme/enum/color-schema.enum';
+import { AppScreenChromeConfig } from '../../constants/screen-chrome-config.constant';
 
 import type { ReactNode } from 'react';
 
@@ -16,5 +17,9 @@ export const ScreenChromeThemeProvider = ({ children }: Props) => {
     const screenChromeColorScheme =
         colorScheme === ColorSchemaEnum.Dark ? ScreenChromeColorSchemeEnum.DARK : ScreenChromeColorSchemeEnum.LIGHT;
 
-    return <ScreenChromeProvider colorScheme={screenChromeColorScheme}>{children}</ScreenChromeProvider>;
+    return (
+        <ScreenChromeProvider colorScheme={screenChromeColorScheme} config={AppScreenChromeConfig}>
+            {children}
+        </ScreenChromeProvider>
+    );
 };
