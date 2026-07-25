@@ -260,9 +260,9 @@ export const GameScreen = () => {
             <View style={styles.panelArea}>
                 <Display mq={WideLayoutMediaQuery}>{statusBlock}</Display>
 
-                <GameNumpad availableValuesRefsHandler={handleAvailableRef} onSelectValue={handleSelectValue} selectedCell={selectedCell} />
-
                 <GameInputTools hideAutoCandidates={hideAutoCandidates} />
+
+                <GameNumpad availableValuesRefsHandler={handleAvailableRef} onSelectValue={handleSelectValue} selectedCell={selectedCell} />
 
                 <Display mq={WideLayoutMediaQuery}>{gameActions}</Display>
             </View>

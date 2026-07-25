@@ -1,40 +1,40 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const GameScreenMetricsStyles = StyleSheet.create({
+export const GameScreenMetricsStyles = StyleSheet.create(() => ({
     container: {
         backgroundColor: 'transparent',
         borderColor: 'transparent',
-        minHeight: 52,
+        minHeight: 60,
         paddingHorizontal: 0,
-        paddingVertical: 7
+        paddingVertical: 4
     },
     item: {
-        gap: 2
+        gap: 3
     },
     label: {
-        fontSize: 8,
-        letterSpacing: 0.8,
-        lineHeight: 9,
+        fontSize: 10,
+        letterSpacing: 0.9,
+        lineHeight: 12,
         opacity: 0.55,
         textTransform: 'uppercase'
     },
     mistakesText: {
         fontVariant: ['tabular-nums'],
-        fontSize: 14.5,
+        fontSize: 20,
         fontWeight: '800',
         letterSpacing: -0.2,
-        lineHeight: 17,
+        lineHeight: 24,
         textAlign: 'center'
     },
     separator: {
-        height: 24,
-        marginHorizontal: 1
+        height: 32,
+        marginHorizontal: 2
     },
     value: {
-        fontSize: 14.5,
+        fontSize: 20,
         fontVariant: ['tabular-nums'],
         fontWeight: '800',
         letterSpacing: -0.2,
-        lineHeight: 17
+        lineHeight: 24
     }
-});
+}));

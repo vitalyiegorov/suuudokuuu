@@ -8,13 +8,13 @@ export const GameScreenStyles = StyleSheet.create((theme, rt) => ({
         alignItems: 'stretch',
         flex: 1,
         flexDirection: { xs: 'column', [WideLayoutMediaQuery]: 'row' },
-        gap: theme.spacing.md,
+        gap: theme.spacing.sm,
         padding: theme.spacing.sm,
         paddingBottom: rt.insets.bottom + theme.spacing.md,
         paddingTop: rt.insets.top
     },
     topBar: {
-        alignItems: 'center',
+        alignItems: 'flex-start',
         flexDirection: 'row',
         flexShrink: 0,
         gap: theme.spacing.md,
