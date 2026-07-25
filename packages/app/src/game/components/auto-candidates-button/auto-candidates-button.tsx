@@ -21,15 +21,11 @@ export const AutoCandidatesButton = () => {
         dispatch(gameToggleAutoCandidatesAction());
     };
 
-    const iconColor = showAutoCandidates ? theme.colors.white : theme.colors.black;
+    const isActive = !showAutoCandidates;
+    const iconColor = isActive ? theme.colors.surface.raisedText : theme.colors.label.inverted;
 
     return (
-        <BlackIconButton
-            isActive={!showAutoCandidates}
-            onPress={handleCandidates}
-            style={styles.button}
-            testID={GameScreenSelectors.TipsButton}
-        >
+        <BlackIconButton isActive={isActive} onPress={handleCandidates} style={styles.button} testID={GameScreenSelectors.TipsButton}>
             <LucideHandHelping color={iconColor} />
         </BlackIconButton>
     );

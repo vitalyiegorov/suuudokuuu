@@ -7,7 +7,8 @@ export const ColorfulLightTheme: ThemeInterface = {
         white05: 'rgba(255, 255, 255, 0.5)',
         black: '#000000',
         black05: 'rgba(0, 0, 0, 0.25)',
-        red: '#C24641',
+        red: '#B23D38',
+        redFillText: '#FFFFFF',
         blue: '#8FA8C1',
         label: {
             main: '#2A3B4D',
@@ -38,6 +39,13 @@ export const ColorfulLightTheme: ThemeInterface = {
             progress: '#F6DA99',
             progressActive: '#FFFD74',
             text: '#2A3B4D'
+        },
+        surface: {
+            raised: '#FFFFFF',
+            raisedText: '#2A3B4D',
+            subtle: '#D0C7B8',
+            subtleHint: 'rgba(42, 59, 77, 0.85)',
+            subtleText: '#2A3B4D'
         }
     }
 };
@@ -49,7 +57,8 @@ export const ColorfulDarkTheme: ThemeInterface = {
         white05: 'rgba(255, 255, 255, 0.5)',
         black: '#000000',
         black05: 'rgba(0, 0, 0, 0.25)',
-        red: '#91111E',
+        red: '#FF8566',
+        redFillText: '#2A3B4D',
         blue: '#445B7A',
         label: {
             inverted: '#7fafef',
@@ -80,6 +89,13 @@ export const ColorfulDarkTheme: ThemeInterface = {
             progress: '#F0AE1C',
             progressActive: '#A9A931',
             text: '#1b1b1a'
+        },
+        surface: {
+            raised: '#FFFFFF',
+            raisedText: '#2A3B4D',
+            subtle: '#8FA8C1',
+            subtleHint: '#2A3B4D',
+            subtleText: '#2A3B4D'
         }
     }
 };

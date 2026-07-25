@@ -26,9 +26,9 @@ export const AppMetricStrip = (props: Props) => {
     const { autoShrinkText = true, itemStyle, items, labelStyle, separatorStyle, style, testID, valueStyle, variant = 'primary' } = props;
     const { theme } = useUnistyles();
     const isSecondaryVariant = variant === 'secondary';
-    const backgroundColor = isSecondaryVariant ? theme.colors.cell.highlighted : theme.colors.black;
+    const backgroundColor = isSecondaryVariant ? theme.colors.surface.subtle : theme.colors.black;
     const borderColor = isSecondaryVariant ? theme.colors.value.border : theme.colors.black;
-    const textColor = isSecondaryVariant ? theme.colors.label.main : theme.colors.label.inverted;
+    const textColor = isSecondaryVariant ? theme.colors.surface.subtleText : theme.colors.label.inverted;
     const separatorColor = isSecondaryVariant ? theme.colors.value.border : theme.colors.white05;
     const stripStyles = [
         styles.strip,

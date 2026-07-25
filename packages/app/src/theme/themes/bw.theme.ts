@@ -12,7 +12,8 @@ export const BWLightTheme: ThemeInterface = {
         white05: 'rgba(255, 255, 255, 0.5)',
         black: 'rgb(0, 0, 0)',
         black05: 'rgba(0, 0, 0, 0.25)',
-        red: 'rgba(255, 0, 0, 1)',
+        red: 'rgba(212, 0, 0, 1)',
+        redFillText: 'rgba(255, 255, 255, 1)',
         blue: 'rgba(0,0,255,0.28)',
         cell: {
             active: 'rgba(0, 255, 0, 1)',
@@ -38,6 +39,13 @@ export const BWLightTheme: ThemeInterface = {
             progress: 'rgba(0, 0, 0, 0.12)',
             progressActive: 'rgba(0, 0, 0, 0.72)',
             text: 'rgba(0, 0, 0,1)'
+        },
+        surface: {
+            raised: 'rgb(255, 255, 255)',
+            raisedText: 'rgba(0, 0, 0, 1)',
+            subtle: 'rgba(0,0,0,0.1)',
+            subtleHint: 'rgba(0, 0, 0, 0.65)',
+            subtleText: 'rgba(0, 0, 0, 1)'
         }
     }
 };
@@ -49,7 +57,8 @@ export const BWDarkTheme: ThemeInterface = {
         white05: 'rgba(0, 0, 0, 0.5)',
         black: 'rgb(255, 255, 255)',
         black05: 'rgba(255, 255, 255, 0.25)',
-        red: 'rgba(255, 0, 0, 1)',
+        red: 'rgba(237, 0, 0, 1)',
+        redFillText: 'rgba(255, 255, 255, 1)',
         blue: 'rgba(128, 138, 255, 0.9)',
         label: {
             main: 'rgba(255, 255, 255, 1)',
@@ -80,6 +89,13 @@ export const BWDarkTheme: ThemeInterface = {
             progress: 'rgba(255, 255, 255, 0.14)',
             progressActive: 'rgba(255, 255, 255, 0.72)',
             text: 'rgba(255, 255, 255,1)'
+        },
+        surface: {
+            raised: 'rgb(0, 0, 0)',
+            raisedText: 'rgba(255, 255, 255, 1)',
+            subtle: 'rgba(255,255,255,0.35)',
+            subtleHint: 'rgba(255, 255, 255, 0.75)',
+            subtleText: 'rgba(255, 255, 255, 1)'
         }
     }
 };

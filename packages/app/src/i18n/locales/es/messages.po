@@ -20,6 +20,10 @@ msgstr ""
 msgid "{0, plural, one {# mistake} other {# mistakes}}"
 msgstr "{0, plural, one {# error} other {# errores}}"
 
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
+msgstr ""
+
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} faster"
 msgstr "{durationText} más rápido"
@@ -376,10 +380,6 @@ msgstr "Español"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Evenly matched"
 msgstr "Empate reñido"
-
-#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
-msgid "every technique"
-msgstr "todas las técnicas"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Expert grid"

@@ -13,6 +13,7 @@ export const NewspaperLightTheme: ThemeInterface = {
         black: '#1a1a1a',
         black05: 'rgba(26, 26, 26, 0.25)',
         red: '#990000',
+        redFillText: '#FFFFFF',
         blue: '#000080',
         cell: {
             active: '#cccccc',
@@ -38,6 +39,13 @@ export const NewspaperLightTheme: ThemeInterface = {
             bg: '#ffffff',
             border: 'rgba(26, 26, 26, 0.2)',
             borderActive: '#1a1a1a'
+        },
+        surface: {
+            raised: '#ffffff',
+            raisedText: '#1a1a1a',
+            subtle: '#eaeaea',
+            subtleHint: 'rgba(26, 26, 26, 0.65)',
+            subtleText: '#1a1a1a'
         }
     }
 };
@@ -55,6 +63,7 @@ export const NewspaperDarkTheme: ThemeInterface = {
         black: '#f0f0f0',
         black05: 'rgba(240, 240, 240, 0.25)',
         red: '#ff4d4d',
+        redFillText: '#1a1a1a',
         blue: '#5c5cff',
         cell: {
             active: '#4d4d4d',
@@ -80,6 +89,13 @@ export const NewspaperDarkTheme: ThemeInterface = {
             bg: '#1a1a1a',
             border: 'rgba(240, 240, 240, 0.32)',
             borderActive: '#ffffff'
+        },
+        surface: {
+            raised: '#000000',
+            raisedText: '#f0f0f0',
+            subtle: '#2a2a2a',
+            subtleHint: 'rgba(240, 240, 240, 0.65)',
+            subtleText: '#f0f0f0'
         }
     }
 };

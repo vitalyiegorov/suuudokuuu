@@ -211,11 +211,12 @@ export const GameScreen = () => {
     const keyboardControlsElement = useKeyboardControls(sudoku, selectedCell, handleSelectCell, handleSelectValue, handleExit);
 
     const hideAutoCandidates = maxMistakes === 0;
-    const actionIconColor = theme.colors.label.main;
+    const statusBlockIconColor = theme.colors.surface.subtleText;
+    const gameActionsIconColor = theme.colors.surface.raisedText;
 
     const statusBlock = (
         <GameStatusBlock
-            actionIconColor={actionIconColor}
+            actionIconColor={statusBlockIconColor}
             elapsedTime={elapsedTime}
             hasTimer={hasTimer}
             maxMistakes={maxMistakes}
@@ -227,7 +228,7 @@ export const GameScreen = () => {
     );
     const gameActions = (
         <GameActions
-            actionIconColor={actionIconColor}
+            actionIconColor={gameActionsIconColor}
             hasSharing={hasSharing}
             onExit={handleExit}
             onOpenSettings={handleOpenSettings}

@@ -20,13 +20,13 @@ export const AppSettingsRow = ({ description, style, testID, title, trailing }: 
     const rowStyles = [
         styles.row,
         {
-            backgroundColor: theme.colors.cell.highlighted,
+            backgroundColor: theme.colors.surface.subtle,
             borderColor: theme.colors.value.border
         },
         style
     ];
-    const titleStyles = [styles.title, { color: theme.colors.label.main }];
-    const descriptionStyles = [styles.description, { color: theme.colors.label.hint }];
+    const titleStyles = [styles.title, { color: theme.colors.surface.subtleText }];
+    const descriptionStyles = [styles.description, { color: theme.colors.surface.subtleHint }];
     const hasDescription = isNotEmptyString(description);
 
     return (

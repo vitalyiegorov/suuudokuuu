@@ -2,12 +2,11 @@ import { StyleSheet } from 'react-native-unistyles';
 
 export const ChallengeTechniqueBreakdownStyles = StyleSheet.create(theme => ({
     container: {
-        gap: theme.spacing.xs,
+        gap: theme.spacing.lg,
         width: '100%'
     },
     header: {
-        alignItems: 'center',
-        marginBottom: theme.spacing.xs
+        alignItems: 'center'
     },
     headline: {
         fontFamily: 'Inter_700Bold',
@@ -20,7 +19,6 @@ export const ChallengeTechniqueBreakdownStyles = StyleSheet.create(theme => ({
         fontFamily: 'Inter_700Bold',
         fontSize: 11,
         letterSpacing: 1.2,
-        opacity: 0.68,
         textAlign: 'center',
         textTransform: 'uppercase'
     }

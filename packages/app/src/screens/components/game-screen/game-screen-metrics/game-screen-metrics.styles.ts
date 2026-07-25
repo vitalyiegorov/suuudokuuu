@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-export const GameScreenMetricsStyles = StyleSheet.create(() => ({
+export const GameScreenMetricsStyles = StyleSheet.create(theme => ({
     container: {
         backgroundColor: 'transparent',
         borderColor: 'transparent',
@@ -14,6 +14,7 @@ export const GameScreenMetricsStyles = StyleSheet.create(() => ({
         width: 'auto'
     },
     label: {
+        color: theme.colors.label.main,
         fontSize: 10,
         letterSpacing: 0.9,
         lineHeight: 12,
@@ -33,6 +34,7 @@ export const GameScreenMetricsStyles = StyleSheet.create(() => ({
         marginHorizontal: 0
     },
     value: {
+        color: theme.colors.label.main,
         fontSize: 16,
         fontVariant: ['tabular-nums'],
         fontWeight: '800',

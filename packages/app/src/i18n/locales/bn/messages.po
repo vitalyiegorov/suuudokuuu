@@ -18,6 +18,10 @@ msgstr ""
 msgid "{0, plural, one {# mistake} other {# mistakes}}"
 msgstr "{0, plural, one {#টি ভুল} other {#টি ভুল}}"
 
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
+msgstr ""
+
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} faster"
 msgstr "{durationText} দ্রুততর"
@@ -374,10 +378,6 @@ msgstr "Español"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Evenly matched"
 msgstr "সমানে সমান"
-
-#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
-msgid "every technique"
-msgstr "সব কৌশল"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Expert grid"

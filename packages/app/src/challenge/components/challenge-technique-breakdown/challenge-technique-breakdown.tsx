@@ -1,6 +1,5 @@
 import { plural } from '@lingui/core/macro';
 import { useLingui } from '@lingui/react/macro';
-import { AppSurfaceCard } from '@suuudokuuu/ui';
 import { use } from 'react';
 import { Text, View } from 'react-native';
 
@@ -36,7 +35,7 @@ export const ChallengeTechniqueBreakdown = ({ events }: Props) => {
     const headlineStyle = [styles.headline, { color: theme.colors.label.main }];
 
     return (
-        <AppSurfaceCard size="compact" style={styles.container}>
+        <View style={styles.container}>
             <View style={styles.header}>
                 <Text allowFontScaling={false} style={labelStyle}>
                     {t`Rival's playbook`}
@@ -47,6 +46,6 @@ export const ChallengeTechniqueBreakdown = ({ events }: Props) => {
             </View>
 
             <ChallengeTechniqueArsenal events={events} />
-        </AppSurfaceCard>
+        </View>
     );
 };

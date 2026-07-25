@@ -21,9 +21,9 @@ export const appButtonGetColors = (theme: ThemeInterface, variant: AppButtonVari
 
     if (variant === 'donation' || variant === 'inverted') {
         return {
-            backgroundColor: theme.colors.white,
+            backgroundColor: theme.colors.surface.raised,
             borderColor: theme.colors.value.border,
-            textColor: theme.colors.label.main
+            textColor: theme.colors.surface.raisedText
         };
     }
 
@@ -44,8 +44,8 @@ export const appButtonGetColors = (theme: ThemeInterface, variant: AppButtonVari
     }
 
     return {
-        backgroundColor: theme.colors.cell.highlighted,
+        backgroundColor: theme.colors.surface.subtle,
         borderColor: theme.colors.value.border,
-        textColor: theme.colors.label.main
+        textColor: theme.colors.surface.subtleText
     };
 };

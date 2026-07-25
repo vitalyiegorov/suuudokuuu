@@ -6,6 +6,7 @@ export interface ThemeInterface {
         black: string;
         black05: string;
         red: string;
+        redFillText: string;
         blue: string;
         label: {
             main: string;
@@ -36,6 +37,13 @@ export interface ThemeInterface {
             progress: string;
             progressActive: string;
             text: string;
+        };
+        surface: {
+            raised: string;
+            raisedText: string;
+            subtle: string;
+            subtleText: string;
+            subtleHint: string;
         };
     };
 }
