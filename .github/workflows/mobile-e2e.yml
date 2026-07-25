@@ -1,0 +1,30 @@
+name: Mobile E2E
+
+# Ordering exists to fit the fleet host: one `macos-builder` VM (max 1 active)
+# and at most 2 concurrent macOS guests in total. Both embedded apps are built
+# first, back-to-back on that single builder; only then do the macOS Maestro
+# shards claim both macOS slots. Test suites still run in parallel across
+# platforms (iOS shards on macos-maestro, Android on the linux guest).
+on:
+    workflow_call:
+    workflow_dispatch:
+    push:
+        branches: [main]
+
+concurrency:
+    group: mobile-e2e-${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: ${{ github.event_name == 'push' }}
+
+jobs:
+    build:
+        name: Mobile builds
+        uses: ./.github/workflows/mobile-build.yml
+        secrets: inherit
+
+    ios:
+        needs: [build]
+        uses: ./.github/workflows/ios-maestro.yml
+
+    android:
+        needs: [build]
+        uses: ./.github/workflows/android-maestro.yml

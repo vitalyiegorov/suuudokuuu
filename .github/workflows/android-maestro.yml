@@ -5,80 +5,16 @@ name: Android Maestro
 # unstable on the host, so Android runs as a privileged container at native
 # arm64 speed over the binder kernel module — no virtualization inside the
 # guest at all. Requires the linux guest image to carry docker + the pulled
-# redroid image + the prewarmed /data volume (prewarm-redroid-linux.sh) and
-# the build SDK on macOS (prewarm-android-buildsdk-macos.sh); dispatch-only until the
-# image ships, then wired into pr.yml like ios-maestro.
+# redroid image + the prewarmed /data volume (prewarm-redroid-linux.sh).
+# Tests only: the APK is produced by mobile-build.yml (see mobile-e2e.yml).
 on:
     workflow_call:
-    workflow_dispatch:
 
 env:
     MAESTRO_VERSION: '2.6.1'
 
 jobs:
-    build:
-        # The APK builds on macOS: Google ships no arm64-linux NDK (the linux
-        # package is x86_64-only), while the darwin NDK is arm64-native.
-        name: Build embedded Android E2E app
-        runs-on: [self-hosted, macOS, ARM64, macos-builder]
-        timeout-minutes: 90
-        env:
-            APP_VARIANT: e2e
-            ANDROID_SDK_ROOT: /Users/admin/Library/Android/sdk
-            ANDROID_HOME: /Users/admin/Library/Android/sdk
-            JAVA_HOME: /Library/Java/JavaVirtualMachines/temurin-17.jdk/Contents/Home
-        steps:
-            - uses: actions/checkout@v5
-
-            - uses: actions/setup-node@v6
-              with:
-                  node-version: 22.x
-                  cache: yarn
-
-            - name: Verify Android SDK in guest image
-              run: |
-                  test -x "$ANDROID_SDK_ROOT/platform-tools/adb" || {
-                    echo '::error::The guest image lacks the Android SDK; rebuild the base with prewarm-android-buildsdk-macos.sh.'
-                    exit 1
-                  }
-
-            - name: Install dependencies
-              run: yarn install
-
-            - name: Generate native project
-              working-directory: packages/app
-              run: npx expo prebuild -p android --clean --no-install
-
-            - name: Restore Gradle cache
-              uses: actions/cache@v5
-              with:
-                  path: |
-                      ~/.gradle/caches
-                      ~/.gradle/wrapper
-                  key: gradle-${{ runner.os }}-${{ hashFiles('packages/app/android/gradle/wrapper/gradle-wrapper.properties', 'yarn.lock') }}
-                  restore-keys: gradle-${{ runner.os }}-
-
-            - name: Build release APK
-              working-directory: packages/app/android
-              run: ./gradlew :app:assembleRelease -x lint -x lintVitalAnalyzeRelease -x lintAnalyzeRelease --no-daemon
-
-            - name: Package APK artifact
-              run: |
-                  apk=$(find packages/app/android/app/build/outputs/apk/release -name '*.apk' -print -quit)
-                  test -n "$apk"
-                  mkdir -p .ci-artifacts/android-e2e-app
-                  cp "$apk" .ci-artifacts/android-e2e-app/suuudokuuu-e2e.apk
-
-            - uses: actions/upload-artifact@v6
-              with:
-                  name: android-e2e-app
-                  path: .ci-artifacts/android-e2e-app/*.apk
-                  if-no-files-found: error
-                  compression-level: 0
-                  retention-days: 3
-
     test:
-        needs: [build]
         name: Maestro Android
         # One job, all flows, on linux-xl (6 cpu / 12 GiB). Android can't run two
         # 12 GiB VMs on the 24 GiB host, so sharding gained nothing here — a single
