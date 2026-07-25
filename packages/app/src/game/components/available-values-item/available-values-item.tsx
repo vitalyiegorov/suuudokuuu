@@ -13,6 +13,7 @@ import Svg, { Circle } from 'react-native-svg';
 import { cs } from '@rnw-community/shared';
 
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
+import { resolveUnistyleForAnimated } from '../../../@generic/utils/resolve-unistyle-for-animated.util';
 import { settingsFontSizeMultiplierSelector } from '../../../settings/store/settings.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { PanelControlSizeConstant } from '../../constant/panel-control-size.constant';
@@ -84,7 +85,12 @@ export const AvailableValuesItem = ({ value, onSelect, progress, correctValue, c
         onSelect(value);
     };
 
-    const buttonStyles = [styles.button, { backgroundColor: theme.colors.candidate.bg }, animatedStyles, cs(isExhausted, styles.exhausted)];
+    const buttonStyles = [
+        resolveUnistyleForAnimated(styles.button),
+        { backgroundColor: theme.colors.candidate.bg },
+        animatedStyles,
+        cs(isExhausted, resolveUnistyleForAnimated(styles.exhausted))
+    ];
     const normalizedProgress = Math.min(100, Math.max(0, progress));
     const progressDashOffset = AvailableValueProgressCircumference * (1 - normalizedProgress / 100);
     const textStyles = [

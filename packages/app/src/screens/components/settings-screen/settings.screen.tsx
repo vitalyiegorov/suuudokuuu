@@ -5,6 +5,7 @@ import { View } from 'react-native';
 
 import { CollapsibleChromePage } from '../../../@generic/components/collapsible-chrome-page/collapsible-chrome-page';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
+import { resolveUnistyleForAnimated } from '../../../@generic/utils/resolve-unistyle-for-animated.util';
 import { SettingsAppFooter } from '../../../settings/component/settings-app-footer/settings-app-footer';
 import { SettingsGuidanceSection } from '../../../settings/component/settings-guidance-section/settings-guidance-section';
 import { SettingsOptionLink } from '../../../settings/component/settings-option-link/settings-option-link';
@@ -32,9 +33,9 @@ export const SettingsScreen = () => {
 
     return (
         <CollapsibleChromePage
-            contentContainerStyle={styles.scrollViewContent(sizeClass)}
+            contentContainerStyle={resolveUnistyleForAnimated(styles.scrollViewContent(sizeClass))}
             contentStyle={styles.content}
-            style={styles.scrollView(sizeClass)}
+            style={resolveUnistyleForAnimated(styles.scrollView(sizeClass))}
             testID={SettingsScreenSelectors.Root}
             title={t`Settings`}
         >

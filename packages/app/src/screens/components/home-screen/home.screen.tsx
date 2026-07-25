@@ -15,6 +15,7 @@ import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
+import { resolveUnistyleForAnimated } from '../../../@generic/utils/resolve-unistyle-for-animated.util';
 import {
     DifficultyComplexitySliderDifficulties,
     DifficultyComplexitySliderInitialIndex
@@ -180,7 +181,7 @@ export const HomeScreen = () => {
                 contentInsetBottom={contentInsetBottom}
                 contentInsetTop={HomeScreenTopContentPadding}
                 showsVerticalScrollIndicator={false}
-                style={styles.scrollView}
+                style={resolveUnistyleForAnimated(styles.scrollView)}
                 testID={HomeScreenSelectors.Root}
             >
                 <View style={styles.contentStack(sizeClass)}>

@@ -1,6 +1,7 @@
 import { use, useEffect } from 'react';
 import Animated, { Easing, interpolate, useAnimatedStyle, useSharedValue, withRepeat, withTiming } from 'react-native-reanimated';
 
+import { resolveUnistyleForAnimated } from '../../../@generic/utils/resolve-unistyle-for-animated.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
 
 import { ChallengeRaceRunnerStyles as styles } from './challenge-race-runner.styles';
@@ -34,8 +35,8 @@ export const ChallengeRaceRunner = ({ progress }: Props) => {
         transform: [{ scale: interpolate(pulse.value, PULSE_INPUT, HALO_SCALE_OUTPUT) }]
     }));
 
-    const runnerStyle = [styles.runner, runnerAnimatedStyle];
-    const haloStyle = [styles.halo, { backgroundColor: theme.colors.red }, haloAnimatedStyle];
+    const runnerStyle = [resolveUnistyleForAnimated(styles.runner), runnerAnimatedStyle];
+    const haloStyle = [resolveUnistyleForAnimated(styles.halo), { backgroundColor: theme.colors.red }, haloAnimatedStyle];
     const coreStyle = [styles.core, { backgroundColor: theme.colors.red, borderColor: theme.colors.white }];
 
     return (

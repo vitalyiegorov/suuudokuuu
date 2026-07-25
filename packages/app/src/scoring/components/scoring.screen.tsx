@@ -5,6 +5,7 @@ import { use } from 'react';
 import { Text, View } from 'react-native';
 
 import { CollapsibleChromePage } from '../../@generic/components/collapsible-chrome-page/collapsible-chrome-page';
+import { resolveUnistyleForAnimated } from '../../@generic/utils/resolve-unistyle-for-animated.util';
 import { ThemeContext } from '../../theme/context/theme.context';
 import { defaultScoringConfig } from '../interfaces/scoring-config.interface';
 
@@ -23,10 +24,10 @@ export const ScoringScreen = () => {
 
     return (
         <CollapsibleChromePage
-            contentContainerStyle={styles.scrollViewContent(sizeClass)}
+            contentContainerStyle={resolveUnistyleForAnimated(styles.scrollViewContent(sizeClass))}
             contentStyle={styles.content}
             showsVerticalScrollIndicator={false}
-            style={styles.scrollView}
+            style={resolveUnistyleForAnimated(styles.scrollView)}
             title={t`How Scoring Works`}
         >
             <View style={styles.section(sizeClass)}>

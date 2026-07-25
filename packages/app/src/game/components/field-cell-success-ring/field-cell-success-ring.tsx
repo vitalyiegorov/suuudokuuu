@@ -1,6 +1,7 @@
 import { use } from 'react';
 import Reanimated, { interpolate, useAnimatedStyle } from 'react-native-reanimated';
 
+import { resolveUnistyleForAnimated } from '../../../@generic/utils/resolve-unistyle-for-animated.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
 
 import { FieldCellSuccessRingStyles as styles } from './field-cell-success-ring.styles';
@@ -23,7 +24,7 @@ export const FieldCellSuccessRing = ({ animation }: Props) => {
         opacity: interpolate(animation.value, OPACITY_INPUT, OPACITY_OUTPUT),
         transform: [{ scale: interpolate(animation.value, SCALE_INPUT, SCALE_OUTPUT) }]
     }));
-    const ringStyle = [styles.ring, { borderColor: theme.colors.cell.active }, ringAnimatedStyle];
+    const ringStyle = [resolveUnistyleForAnimated(styles.ring), { borderColor: theme.colors.cell.active }, ringAnimatedStyle];
 
     return <Reanimated.View pointerEvents="none" style={ringStyle} />;
 };

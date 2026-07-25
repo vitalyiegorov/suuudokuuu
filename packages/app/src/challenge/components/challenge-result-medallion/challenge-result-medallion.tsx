@@ -12,6 +12,7 @@ import Animated, {
     withTiming
 } from 'react-native-reanimated';
 
+import { resolveUnistyleForAnimated } from '../../../@generic/utils/resolve-unistyle-for-animated.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { ChallengeResult } from '../../interfaces/challenge-result.interface';
 
@@ -69,8 +70,8 @@ export const ChallengeResultMedallion = ({ result }: Props) => {
         iconColor = theme.colors.red;
     }
 
-    const ringStyle = [styles.ring, { backgroundColor: theme.colors.black }, ringAnimatedStyle];
-    const medalStyle = [styles.medal, { backgroundColor: theme.colors.black }, medalAnimatedStyle];
+    const ringStyle = [resolveUnistyleForAnimated(styles.ring), { backgroundColor: theme.colors.black }, ringAnimatedStyle];
+    const medalStyle = [resolveUnistyleForAnimated(styles.medal), { backgroundColor: theme.colors.black }, medalAnimatedStyle];
 
     return (
         <View style={styles.wrap}>

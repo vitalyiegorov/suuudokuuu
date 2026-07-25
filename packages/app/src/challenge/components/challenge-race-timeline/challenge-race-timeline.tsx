@@ -2,6 +2,7 @@ import { use, useEffect } from 'react';
 import { View } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
+import { resolveUnistyleForAnimated } from '../../../@generic/utils/resolve-unistyle-for-animated.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { getChallengeTimelineMarks } from '../../utils/get-challenge-timeline-marks.util';
 import { ChallengeRaceRunner } from '../challenge-race-runner/challenge-race-runner';
@@ -50,12 +51,12 @@ export const ChallengeRaceTimeline = ({ events, opponentProgress, playerProgress
     const fillAnimatedStyle = useAnimatedStyle(() => ({
         width: `${Math.min(opponentProgressValue.value, playerProgressValue.value) * PERCENT}%`
     }));
-    const fillStyle = [styles.fill, { backgroundColor: theme.colors.label.main }, fillAnimatedStyle];
+    const fillStyle = [resolveUnistyleForAnimated(styles.fill), { backgroundColor: theme.colors.label.main }, fillAnimatedStyle];
     const gapAnimatedStyle = useAnimatedStyle(() => ({
         left: `${Math.min(opponentProgressValue.value, playerProgressValue.value) * PERCENT}%`,
         width: `${Math.abs(opponentProgressValue.value - playerProgressValue.value) * PERCENT}%`
     }));
-    const gapStyle = [styles.gap, { backgroundColor: gapColor }, gapAnimatedStyle];
+    const gapStyle = [resolveUnistyleForAnimated(styles.gap), { backgroundColor: gapColor }, gapAnimatedStyle];
     const playerMarkerAnimatedStyle = useAnimatedStyle(() => ({ left: `${playerProgressValue.value * PERCENT}%` }));
     const playerDotStyle = [
         styles.playerDot,
