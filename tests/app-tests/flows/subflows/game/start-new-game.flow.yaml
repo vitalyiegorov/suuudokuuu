@@ -1,19 +1,19 @@
 appId: ${APP_ID}
 ---
 - scrollUntilVisible:
-    element:
-      id: 'HomeScreenSelectors.StartButton'
-    direction: DOWN
-    timeout: 3000
+      element:
+          id: 'HomeScreenSelectors.StartButton'
+      direction: DOWN
+      timeout: 3000
 - tapOn:
-    id: 'HomeScreenSelectors.StartButton'
+      id: 'HomeScreenSelectors.StartButton'
 - extendedWaitUntil:
-    visible:
-      id: 'GameScreenSelectors.Root'
-    timeout: 15000
+      visible:
+          id: 'GameScreenSelectors.Root'
+      timeout: 15000
 - assertNotVisible:
-    id: 'HomeScreenSelectors.Root'
+      id: 'HomeScreenSelectors.Root'
 - assertVisible:
-    id: 'CellSelectors.Root'
+      id: 'CellSelectors\.Cell\..*'
 - assertVisible:
-    id: 'AvailableValueItemSelectors.Button'
+      id: 'AvailableValueItemSelectors\.Button\..*'

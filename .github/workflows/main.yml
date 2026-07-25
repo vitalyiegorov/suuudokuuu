@@ -1,121 +1,120 @@
 name: Deploy production
 env:
-  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-  EXPO_APPLE_TEAM_TYPE: INDIVIDUAL
-  EXPO_APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
-  EXPO_NO_TELEMETRY: '1'
-  GH_TOKEN: ${{ secrets.PUSH_TO_PROTECTED_TOKEN }}
-  TURBO_TEAM: vitalyiegorov
-  TURBO_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+    VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+    VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+    EXPO_APPLE_TEAM_TYPE: INDIVIDUAL
+    EXPO_APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
+    EXPO_NO_TELEMETRY: '1'
+    GH_TOKEN: ${{ secrets.PUSH_TO_PROTECTED_TOKEN }}
+    TURBO_TEAM: vitalyiegorov
+    TURBO_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
 on:
-  workflow_dispatch:
-  push:
-    branches:
-      - main
+    workflow_dispatch:
+    push:
+        branches:
+            - main
 
 permissions:
-  contents: write
-  pull-requests: write
+    contents: write
+    pull-requests: write
 
 concurrency:
-  group: deploy-production
-  cancel-in-progress: false
+    group: deploy-production
+    cancel-in-progress: false
 
 jobs:
-  release:
-    name: Publish a release
-    runs-on: [self-hosted, linux-tiered, linux-medium]
-    timeout-minutes: 20
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          ref: main
-          persist-credentials: false
-          fetch-depth: 0
+    release:
+        name: Publish a release
+        runs-on: [self-hosted, linux-tiered, linux-medium]
+        timeout-minutes: 20
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+              with:
+                  ref: main
+                  persist-credentials: false
+                  fetch-depth: 0
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22.x
-          cache: yarn
+            - name: Setup Node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 22.x
+                  cache: yarn
 
-      - name: Setup Git user
-        run: |
-          git config user.name "Vitalii Yehorov"
-          git config user.email "vitalyiegorov@gmail.com"
-          git remote rm origin
-          git remote add origin "https://vitalyiegorov:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-          git fetch --force --prune --tags origin +refs/heads/main:refs/remotes/origin/main
-          git checkout -B main origin/main
+            - name: Setup Git user
+              run: |
+                  git config user.name "Vitalii Yehorov"
+                  git config user.email "vitalyiegorov@gmail.com"
+                  git remote rm origin
+                  git remote add origin "https://vitalyiegorov:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+                  git fetch --force --prune --tags origin +refs/heads/main:refs/remotes/origin/main
+                  git checkout -B main origin/main
 
-      - name: Verify release source
-        run: |
-          if [ "$(git branch --show-current)" != "main" ]; then
-            echo "Release must run from main."
-            exit 1
-          fi
+            - name: Verify release source
+              run: |
+                  if [ "$(git branch --show-current)" != "main" ]; then
+                    echo "Release must run from main."
+                    exit 1
+                  fi
 
-          if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/main)" ]; then
-            echo "Release checkout does not match origin/main."
-            exit 1
-          fi
+                  if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/main)" ]; then
+                    echo "Release checkout does not match origin/main."
+                    exit 1
+                  fi
 
-      - name: Install dependencies
-        env:
-          YARN_ENABLE_IMMUTABLE_INSTALLS: true
-        run: yarn install
+            - name: Install dependencies
+              env:
+                  YARN_ENABLE_IMMUTABLE_INSTALLS: true
+              run: yarn install
 
-      - name: Sync Lingui catalogs
-        run: yarn i18n:sync
+            - name: Sync Lingui catalogs
+              run: yarn i18n:sync
 
-      - name: Commit Lingui catalog changes
-        run: |
-          if git diff --quiet HEAD -- packages/app/src/i18n/locales; then
-            echo "Lingui catalogs are up to date."
-            exit 0
-          fi
+            - name: Commit Lingui catalog changes
+              run: |
+                  if git diff --quiet HEAD -- packages/app/src/i18n/locales; then
+                    echo "Lingui catalogs are up to date."
+                    exit 0
+                  fi
 
-          git add packages/app/src/i18n/locales
-          git commit -m "chore: sync lingui catalogs [skip ci]"
-          git push origin HEAD:main
+                  git add packages/app/src/i18n/locales
+                  git commit -m "chore: sync lingui catalogs [skip ci]"
+                  git push origin HEAD:main
 
-      - name: Publish a release
-        run: yarn release
+            - name: Publish a release
+              run: yarn release
 
-  web-deploy:
-    name: Vercel deploy Web
-    needs: release
-    runs-on: [self-hosted, linux-tiered, linux-medium]
-    timeout-minutes: 20
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          ref: main
+    web-deploy:
+        name: Vercel deploy Web
+        needs: release
+        runs-on: [self-hosted, linux-tiered, linux-medium]
+        timeout-minutes: 20
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+              with:
+                  ref: main
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22.x
-          cache: yarn
+            - name: Setup Node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 22.x
+                  cache: yarn
 
-      - name: Install Vercel CLI
-        run: npm install --global vercel@latest
+            - name: Install dependencies
+              run: yarn install
 
-      - name: Install dependencies
-        run: yarn install
+            - name: Build expo web
+              working-directory: packages/app
+              run: yarn expo export --platform=web
 
-      - name: Build expo web
-        working-directory: packages/app
-        run: npx expo export --platform=web
+            - name: Stage Vercel project
+              run: .github/scripts/stage-vercel-project.sh
 
-      - name: Deploy to Vercel
-        working-directory: packages/app/dist
-        run: |
-          echo "!node_modules" > .vercelignore
-          cp ../vercel.json .
-          vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
-          vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
+            - name: Deploy to Vercel
+              working-directory: packages/app/dist
+              run: |
+                  echo "!node_modules" > .vercelignore
+                  yarn dlx vercel@latest pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+                  yarn dlx vercel@latest deploy --prod --token=${{ secrets.VERCEL_TOKEN }}

@@ -33,6 +33,8 @@ import type { Ref } from 'react';
 
 const ReanimatedPressable = Reanimated.createAnimatedComponent(Pressable);
 
+const AvailableValueProgressOpacity = 0.65;
+
 export interface AvailableValuesItemRef {
     triggerAnimation: OnEventFn<void>;
 }
@@ -96,7 +98,7 @@ export const AvailableValuesItem = ({ value, onSelect, progress, correctValue, c
             <ReanimatedPressable
                 key={value}
                 style={buttonStyles}
-                testID={selectors.Button}
+                testID={`${selectors.Button}.${value}`}
                 {...(canPress && !isExhausted && { onPress: handlePress })}
             >
                 <Svg height={AvailableValueButtonSize} pointerEvents="none" style={styles.progressRing} width={AvailableValueButtonSize}>
@@ -114,6 +116,7 @@ export const AvailableValuesItem = ({ value, onSelect, progress, correctValue, c
                         fill="none"
                         r={AvailableValueProgressRadius}
                         stroke={theme.colors.value.progressActive}
+                        strokeOpacity={AvailableValueProgressOpacity}
                         transform={AvailableValueProgressRingTransform}
                         strokeDasharray={AvailableValueProgressCircumference}
                         strokeDashoffset={progressDashOffset}

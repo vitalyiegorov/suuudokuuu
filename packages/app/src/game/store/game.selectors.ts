@@ -36,5 +36,7 @@ export const gameCompletedGameByIdSelector = (difficulty: DifficultyEnum, comple
 export const gameIsStartedSelector = createSelector(gameSelector, state => isNotEmptyString(state.sudokuString));
 export const gameIsChallengeModeSelector = createSelector(gameSelector, state => isNotEmptyString(state.challengeState));
 export const gameChallengeStepsSelector = createSelector(gameSelector, state => state.challengeSteps);
+export const gameChallengeStateSelector = createSelector(gameSelector, state => state.challengeState);
 export const gameChallengeTimeSelector = createSelector(gameSelector, state => state.challengeTime);
 export const gameSolutionsStepsSelector = createSelector(gameSelector, state => state.solutionSteps);
+export const gameHasNewPersonalBestScoreSelector = createSelector(gameSelector, state => state.hasNewPersonalBestScore);

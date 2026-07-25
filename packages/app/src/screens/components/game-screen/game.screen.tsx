@@ -5,13 +5,17 @@ import { ImpactFeedbackStyle } from 'expo-haptics';
 import { useRouter } from 'expo-router';
 import { use, useEffect, useRef, useState } from 'react';
 import { Pressable, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+import { isDefined } from '@rnw-community/shared';
 
 import { Alert } from '../../../@generic/components/alert/alert';
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { useVibration } from '../../../@generic/hooks/use-vibration.hook';
-import { ChallengeProgressBar } from '../../../challenge/components/challenge-progress-bar/challenge-progress-bar';
+import { ChallengeRaceHud } from '../../../challenge/components/challenge-race-hud/challenge-race-hud';
+import { ChallengeLossReason } from '../../../challenge/enums/challenge-loss-reason.enum';
 import { Field, FieldRef } from '../../../game/components/field/field';
 import { GameTimerController } from '../../../game/components/game-timer-controller/game-timer-controller';
 import { GameContext } from '../../../game/context/game.context';
@@ -40,7 +44,7 @@ import { ThemeContext } from '../../../theme/context/theme.context';
 import { gameScreenSetSharingAvailable } from '../../utils/game-screen-set-sharing-available.util';
 
 import { GameScreenSelectors } from './game-screen.selectors';
-import { GameScreenStyles as styles } from './game-screen.styles';
+import { GameScreenBottomInset, GameScreenStyles as styles } from './game-screen.styles';
 import { GameSidePanel } from './game-side-panel/game-side-panel';
 import { useOpenGameSettings } from './hooks/use-open-game-settings.hook';
 import { gameScreenExit } from './utils/game-screen-exit.util';
@@ -59,6 +63,7 @@ export const GameScreen = () => {
 
     const [hapticNotification, hapticImpact] = useVibration();
 
+    const insets = useSafeAreaInsets();
     const { sizeClass } = useAppLayout();
     const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
     const boardCellSize = useBoardCellSize(containerSize.width, containerSize.height);
@@ -125,7 +130,11 @@ export const GameScreen = () => {
 
         dispatch(gameFinishAction({ difficulty: sudoku.Difficulty, isWon: false, isChallenge: isChallengeMode }));
 
-        router.replace(isChallengeMode ? '/challenge-lost' : '/loser');
+        if (isChallengeMode) {
+            router.replace({ pathname: '/challenge-lost', params: { reason: ChallengeLossReason.Mistakes } });
+        } else {
+            router.replace('/loser');
+        }
     };
 
     const handleWonGame = () => {
@@ -137,8 +146,10 @@ export const GameScreen = () => {
 
         // HINT: We need to wait for the animation to finish, animation finish event would fix it?
         setTimeout(() => {
-            if (isChallengeMode) {
-                router.replace(wonChallenge ? '/challenge-won' : '/challenge-lost');
+            if (isChallengeMode && wonChallenge) {
+                router.replace('/challenge-won');
+            } else if (isChallengeMode) {
+                router.replace({ pathname: '/challenge-lost', params: { reason: ChallengeLossReason.Time } });
             } else {
                 router.replace('/winner');
             }
@@ -150,6 +161,7 @@ export const GameScreen = () => {
 
         hapticNotification(Haptics.NotificationFeedbackType.Success);
 
+        fieldRef.current?.triggerCellSuccess(correctCell);
         fieldRef.current?.triggerAnimation(newScoredCells);
 
         setSelectedCell(() => ({ ...correctCell }));
@@ -175,7 +187,7 @@ export const GameScreen = () => {
         if (sudoku.isCorrectValue(newValueCell)) {
             const newScoredCells = sudoku.setCellValue(newValueCell);
 
-            handleCorrectValue(cell, newScoredCells);
+            handleCorrectValue(newValueCell, newScoredCells);
 
             if (newScoredCells.isWon) {
                 handleWonGame();
@@ -188,7 +200,7 @@ export const GameScreen = () => {
     const handleSelectValue = (value: number) => {
         const isBlankCellSelected = sudoku.isBlankCell(selectedCell);
 
-        if (isBlankCellSelected) {
+        if (isBlankCellSelected && isDefined(selectedCell)) {
             availableValuesRefs.current[value]?.triggerAnimation();
 
             if (inputMode === 'candidate') {
@@ -207,6 +219,7 @@ export const GameScreen = () => {
 
     const hideAutoCandidates = maxMistakes === 0;
     const actionIconColor = theme.colors.label.main;
+    const containerStyles = [styles.container(sizeClass), { paddingBottom: insets.bottom + GameScreenBottomInset }];
 
     const sidePanel = (
         <GameSidePanel
@@ -234,12 +247,12 @@ export const GameScreen = () => {
             accessible={false}
             {...(!keepActiveCell && { onPress: handleDeselectCell })}
             onLayout={handleContainerLayout}
-            style={styles.container(sizeClass)}
+            style={containerStyles}
             testID={GameScreenSelectors.Root}
         >
             <GameTimerController />
             {keyboardControlsElement}
-            {isChallengeMode && <ChallengeProgressBar />}
+            {isChallengeMode && <ChallengeRaceHud />}
             <View style={styles.boardArea(sizeClass)}>
                 <Field cellSize={boardCellSize} onSelect={handleSelectCell} ref={fieldRef} selectedCell={selectedCell} />
             </View>

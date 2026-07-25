@@ -1,17 +1,18 @@
 appId: ${APP_ID}
 ---
 - runFlow:
-    file: open-shared-challenge.flow.yaml
-    env:
-      SHARED_CHALLENGE_LINK: ${SHARED_CHALLENGE_LINK}
-- assertVisible: 'Your opponent completed this puzzle in'
+      file: open-shared-challenge.flow.yaml
+      env:
+          SHARED_CHALLENGE_LINK: ${SHARED_CHALLENGE_LINK}
+- assertVisible: 'Their time to beat'
 - runFlow: accept-shared-challenge.flow.yaml
+# The win fixture has exactly one empty cell (6-0); entering its value (2)
+# completes the puzzle and shows the challenge result.
 - tapOn:
-    id: 'CellSelectors.Root'
-    index: 54
+      id: 'CellSelectors.Cell.6-0'
 - tapOn:
-    id: 'AvailableValueItemSelectors.Button'
-    index: 0
+      id: 'AvailableValueItemSelectors.Button.2'
 - extendedWaitUntil:
-    visible: 'You won the challenge!'
-    timeout: 5000
+      visible:
+          id: 'ChallengeResultScreenSelectors.Root'
+      timeout: 5000

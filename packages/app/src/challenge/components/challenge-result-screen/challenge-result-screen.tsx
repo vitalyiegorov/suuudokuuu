@@ -1,102 +1,113 @@
-import { Trans, useLingui } from '@lingui/react/macro';
-import { useAppLayout } from '@suuudokuuu/ui';
+import { useLingui } from '@lingui/react/macro';
 import { Redirect } from 'expo-router';
-import { LucideHeartCrack, LucideTrophy } from 'lucide-react-native';
 import { use } from 'react';
 import { Text, View } from 'react-native';
 
 import { isNotEmptyString } from '@rnw-community/shared';
 
-import { BlackText } from '../../../@generic/components/black-text/black-text';
-import { Donation } from '../../../@generic/components/donation/donation';
-import { Header } from '../../../@generic/components/header/header';
-import { PlayAgainButton } from '../../../@generic/components/play-again-button/play-again-button';
+import { ChromeScrollPage } from '../../../@generic/components/chrome-scroll-page/chrome-scroll-page';
+import { UkraineSupportCard } from '../../../@generic/components/ukraine-support-card/ukraine-support-card';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
+import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
+import { getMistakesTypeText } from '../../../@generic/utils/get-mistakes-type-text.util';
 import { GameState } from '../../../game/store/game.state';
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { ChallengeLossReason } from '../../enums/challenge-loss-reason.enum';
+import { ChallengeResult } from '../../interfaces/challenge-result.interface';
+import { getChallengeDifficulty } from '../../utils/get-challenge-difficulty.util';
+import { getChallengeDurationParts } from '../../utils/get-challenge-duration-parts.util';
+import { getChallengeTechniqueEventsFromState } from '../../utils/get-challenge-technique-events-from-state.util';
+import { ChallengeResultFooter } from '../challenge-result-footer/challenge-result-footer';
+import { ChallengeResultMarginCard } from '../challenge-result-margin-card/challenge-result-margin-card';
+import { ChallengeResultMedallion } from '../challenge-result-medallion/challenge-result-medallion';
+import { ChallengeResultRivalTimeCard } from '../challenge-result-rival-time-card/challenge-result-rival-time-card';
+import { ChallengeTechniqueBreakdown } from '../challenge-technique-breakdown/challenge-technique-breakdown';
 
+import { ChallengeResultScreenSelectors } from './challenge-result-screen.selectors';
 import { ChallengeResultScreenStyles as styles } from './challenge-result-screen.styles';
 
 import type { ReactNode } from 'react';
 
 interface Props {
-    readonly isWon: boolean;
     readonly children?: ReactNode;
     readonly gameState: GameState;
+    readonly result: ChallengeResult;
+    readonly lossReason?: ChallengeLossReason;
 }
 
 export const ChallengeResultScreen = (props: Props) => {
-    const { isWon, children, gameState } = props;
-    const { score, elapsedTime, challengeTime, sudokuString } = gameState;
+    const { children, gameState, result, lossReason = ChallengeLossReason.Time } = props;
+    const { elapsedTime, challengeTime, sudokuString, challengeState, mistakes, maxMistakes } = gameState;
 
     const { t } = useLingui();
-    const { sizeClass } = useAppLayout();
     const { theme } = use(ThemeContext);
     const elapsedTimeText = useTimerText(elapsedTime);
     const challengeTimeText = useTimerText(challengeTime);
-    const timeDifference = Math.abs(challengeTime - elapsedTime);
-    const timeDifferenceText = useTimerText(timeDifference);
 
     if (!isNotEmptyString(sudokuString) && elapsedTime === 0) {
         return <Redirect href="/" />;
     }
 
-    const headerText = isWon ? t`You won the challenge!` : t`Challenge lost!`;
-    const Icon = isWon ? LucideTrophy : LucideHeartCrack;
-    const iconColor = isWon ? theme.colors.black : theme.colors.red;
-    const donationType = isWon ? 'winner' : 'loser';
-    const differenceLabel = isWon ? t`faster!` : t`slower!`;
+    const marginSeconds = Math.abs(challengeTime - elapsedTime);
+    const durationParts = getChallengeDurationParts(marginSeconds);
+    const techniqueEvents = getChallengeTechniqueEventsFromState(challengeState);
+    const lostByMistakes = result === ChallengeResult.Lost && lossReason === ChallengeLossReason.Mistakes;
+    const lostByTime = result === ChallengeResult.Lost && lossReason === ChallengeLossReason.Time;
 
-    const differenceTimeTextStyle = [styles.boldText, { color: isWon ? theme.colors.black : theme.colors.red }];
+    let title = t`Dead even`;
+    let flavorText = t`Evenly matched`;
+    if (result === ChallengeResult.Won) {
+        title = t`Challenge won`;
+        flavorText = t`You beat your rival`;
+    }
+    if (result === ChallengeResult.Lost) {
+        title = t`Challenge lost`;
+        flavorText = lostByMistakes ? t`Out of mistakes` : t`Your rival was faster`;
+    }
+
+    const difficultyText = getDifficultyText(getChallengeDifficulty(challengeState));
+    const mistakesText = getMistakesTypeText(maxMistakes);
+    const badgeText = `${flavorText} · ${difficultyText} · ${mistakesText}`;
+
+    const titleStyle = [styles.title, { color: theme.colors.label.main }];
+    const pillStyle = [styles.pill, { backgroundColor: theme.colors.black }];
+    const pillTextStyle = [styles.pillText, { color: theme.colors.label.inverted }];
 
     return (
-        <View style={styles.container(sizeClass)}>
-            <View style={styles.summaryColumn(sizeClass)}>
-                <Icon color={iconColor} size={64} style={styles.icon} />
+        <ChromeScrollPage
+            footer={<ChallengeResultFooter challengeState={challengeState}>{children}</ChallengeResultFooter>}
+            testID={ChallengeResultScreenSelectors.Root}
+        >
+            <View style={styles.content}>
+                <ChallengeResultMedallion result={result} />
 
-                <Header text={headerText} />
+                <Text allowFontScaling={false} style={titleStyle}>
+                    {title}
+                </Text>
 
-                {isWon && (
-                    <View style={styles.statsContainer}>
-                        <BlackText>
-                            <Text>
-                                <Trans>Your time:</Trans>{' '}
-                            </Text>
-                            <Text style={styles.boldText}>{elapsedTimeText}</Text>
-                        </BlackText>
+                <View style={pillStyle}>
+                    <Text allowFontScaling={false} style={pillTextStyle} testID={ChallengeResultScreenSelectors.OutcomeValue}>
+                        {badgeText}
+                    </Text>
+                </View>
 
-                        <BlackText>
-                            <Text>
-                                <Trans>Opponent&apos;s time:</Trans>{' '}
-                            </Text>
-                            <Text style={styles.boldText}>{challengeTimeText}</Text>
-                        </BlackText>
-
-                        <BlackText style={styles.differenceText}>
-                            <Text>
-                                <Trans>You were</Trans>{' '}
-                            </Text>
-                            <Text style={differenceTimeTextStyle}>{timeDifferenceText}</Text>
-                            <Text> {differenceLabel}</Text>
-                        </BlackText>
-
-                        <BlackText style={styles.messageText}>
-                            <Text>
-                                <Trans>Score:</Trans>{' '}
-                            </Text>
-                            <Text style={styles.boldText}>{score}</Text>
-                        </BlackText>
-                    </View>
+                {lostByTime ? (
+                    <ChallengeResultRivalTimeCard rivalTimeText={challengeTimeText} />
+                ) : (
+                    <ChallengeResultMarginCard
+                        durationParts={durationParts}
+                        lostByMistakes={lostByMistakes}
+                        mistakes={mistakes}
+                        opponentTimeText={challengeTimeText}
+                        playerTimeText={elapsedTimeText}
+                        result={result}
+                    />
                 )}
+
+                <ChallengeTechniqueBreakdown events={techniqueEvents} />
+
+                <UkraineSupportCard testID={ChallengeResultScreenSelectors.UkraineSupportCta} />
             </View>
-
-            <View style={styles.actionsColumn(sizeClass)}>
-                <Donation type={donationType} />
-
-                {children}
-
-                <PlayAgainButton />
-            </View>
-        </View>
+        </ChromeScrollPage>
     );
 };

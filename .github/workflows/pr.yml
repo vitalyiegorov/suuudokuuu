@@ -1,88 +1,175 @@
 name: Pull Request
 env:
-  MAESTRO_VERSION: '2.6.1'
-  MAESTRO_DRIVER_STARTUP_TIMEOUT: '300000'
-  TURBO_TEAM: vitalyiegorov
-  TURBO_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-  PR_NUMBER: ${{ github.event.pull_request.number }}
-  PR_TITLE: ${{ github.event.pull_request.title }}
-  MAESTRO_CLI_NO_ANALYTICS: true
-  MAESTRO_CLI_ANALYSIS_NOTIFICATION_DISABLED: true
-  RCT_USE_PREBUILT_RNCORE: 1
-  RCT_USE_RN_DEP: 1
+    MAESTRO_VERSION: '2.6.1'
+    MAESTRO_DRIVER_STARTUP_TIMEOUT: '300000'
+    TURBO_TEAM: vitalyiegorov
+    TURBO_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+    PR_NUMBER: ${{ github.event.pull_request.number }}
+    PR_TITLE: ${{ github.event.pull_request.title }}
+    MAESTRO_CLI_NO_ANALYTICS: true
+    MAESTRO_CLI_ANALYSIS_NOTIFICATION_DISABLED: true
+    RCT_USE_PREBUILT_RNCORE: 1
+    RCT_USE_RN_DEP: 1
 
 concurrency:
-  group: pr-${{ github.event.pull_request.number }}
-  cancel-in-progress: true
+    group: pr-${{ github.event.pull_request.number }}
+    cancel-in-progress: true
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened, ready_for_review]
+    pull_request:
+        types: [opened, synchronize, reopened, ready_for_review, edited]
 
 jobs:
-  code-quality:
-    name: Code quality checks
-    runs-on: [self-hosted, linux-tiered, linux-medium]
-    timeout-minutes: 20
-    permissions:
-      pull-requests: write
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v5
+    changes:
+        name: Detect mobile changes
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+        outputs:
+            mobile: ${{ steps.mobile.outputs.mobile }}
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v5
+              with:
+                  fetch-depth: 0
 
-      - name: Setup Node
-        uses: actions/setup-node@v6
-        with:
-          node-version: 22.x
-          cache: yarn
+            - name: Classify changed paths
+              id: mobile
+              shell: bash
+              env:
+                  BASE_SHA: ${{ github.event.pull_request.base.sha }}
+              run: |
+                  set -euo pipefail
+                  mobile=true
+                  base_sha="$BASE_SHA"
+                  head_sha="$GITHUB_SHA"
 
-      - name: Install dependencies
-        run: yarn install
+                  if [ -z "$base_sha" ] || [ -z "$head_sha" ]; then
+                    echo '::warning::Missing pull request base or head SHA; Maestro remains required.'
+                  elif changed_paths=$(git diff --name-only --no-renames "$base_sha" "$head_sha"); then
+                    echo 'Changed paths:'
+                    if [ -z "$changed_paths" ]; then
+                      echo '(none)'
+                      echo '::warning::Diff is empty; Maestro remains required.'
+                    else
+                      printf '%s\n' "$changed_paths"
+                      only_documentation_changes=true
+                      while IFS= read -r changed_path; do
+                        case "$changed_path" in
+                          docs/*)
+                            ;;
+                          */*)
+                            only_documentation_changes=false
+                            ;;
+                          *.md)
+                            ;;
+                          *)
+                            only_documentation_changes=false
+                            ;;
+                        esac
+                      done <<< "$changed_paths"
 
-      - name: Lingui catalogs are up to date
-        run: yarn i18n:check
+                      if [ "$only_documentation_changes" = true ]; then
+                        mobile=false
+                      fi
+                    fi
+                  else
+                    echo '::warning::Unable to compare pull request base to head; Maestro remains required.'
+                  fi
 
-      - name: Lint the PR Title
-        run: printf '%s\n' "$PR_TITLE" | node_modules/.bin/commitlint
+                  echo "Mobile impact: $mobile"
+                  echo "mobile=$mobile" >> "$GITHUB_OUTPUT"
 
-      - name: Typescript checks
-        run: yarn ts
+    code-quality:
+        name: Code quality checks
+        # linux-large: the workspace grew to 7 packages and turbo's parallel
+        # lint/test fan-out OOM-kills the 4 GiB linux-medium guests (exit 137,
+        # 'runner has received a shutdown signal').
+        runs-on: [self-hosted, linux-tiered, linux-large]
+        timeout-minutes: 20
+        permissions:
+            pull-requests: write
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v5
 
-      - name: ESLint checks
-        run: yarn lint
+            - name: Setup Node
+              uses: actions/setup-node@v6
+              with:
+                  node-version: 22.x
+                  cache: yarn
 
-      - name: Deadcode detection
-        env:
-          KNIP_DISABLE_RAW_TRANSFER: '1'
-        run: yarn deadcode
+            - name: Install dependencies
+              run: yarn install
 
-      - name: Copy/Paste detection
-        run: yarn cpd
+            - name: Lingui catalogs are up to date
+              run: yarn i18n:check
 
-      - name: Unit tests
-        run: yarn test:coverage
+            - name: Lint the PR Title
+              run: printf '%s\n' "$PR_TITLE" | node_modules/.bin/commitlint
 
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v5
+            - name: Typescript checks
+              run: yarn ts
 
-  ios-maestro:
-    needs: code-quality
-    uses: ./.github/workflows/ios-maestro.yml
-    secrets: inherit
+            - name: ESLint checks
+              run: yarn lint
 
-  required-ci:
-    if: ${{ always() }}
-    needs: [code-quality, ios-maestro]
-    name: Required CI
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - name: Verify required jobs
-        env:
-          CODE_QUALITY_RESULT: ${{ needs.code-quality.result }}
-          IOS_MAESTRO_RESULT: ${{ needs.ios-maestro.result }}
-        run: |
-          if [ "$CODE_QUALITY_RESULT" != 'success' ] || [ "$IOS_MAESTRO_RESULT" != 'success' ]; then
-            echo "Required jobs did not pass: code-quality=$CODE_QUALITY_RESULT, ios-maestro=$IOS_MAESTRO_RESULT"
-            exit 1
-          fi
+            - name: Deadcode detection
+              env:
+                  KNIP_DISABLE_RAW_TRANSFER: '1'
+              run: yarn deadcode
+
+            - name: Copy/Paste detection
+              run: yarn cpd
+
+            - name: Unit tests
+              run: yarn test:coverage
+
+            - name: Upload coverage reports to Codecov
+              uses: codecov/codecov-action@v5
+
+    ios-maestro:
+        if: ${{ needs.changes.outputs.mobile == 'true' && needs.code-quality.result == 'success' }}
+        needs: [changes, code-quality]
+        uses: ./.github/workflows/ios-maestro.yml
+        secrets: inherit
+
+    android-maestro:
+        if: ${{ needs.changes.outputs.mobile == 'true' && needs.code-quality.result == 'success' }}
+        needs: [changes, code-quality]
+        uses: ./.github/workflows/android-maestro.yml
+        secrets: inherit
+
+    required-ci:
+        if: ${{ always() }}
+        needs: [changes, code-quality, ios-maestro, android-maestro]
+        name: Required CI
+        runs-on: ubuntu-latest
+        timeout-minutes: 5
+        steps:
+            - name: Verify required jobs
+              env:
+                  CHANGES_RESULT: ${{ needs.changes.result }}
+                  MOBILE_RESULT: ${{ needs.changes.outputs.mobile }}
+                  CODE_QUALITY_RESULT: ${{ needs.code-quality.result }}
+                  IOS_MAESTRO_RESULT: ${{ needs.ios-maestro.result }}
+                  ANDROID_MAESTRO_RESULT: ${{ needs.android-maestro.result }}
+              run: |
+                  set -euo pipefail
+                  summary="changes=$CHANGES_RESULT, code-quality=$CODE_QUALITY_RESULT, mobile=$MOBILE_RESULT, ios-maestro=$IOS_MAESTRO_RESULT, android-maestro=$ANDROID_MAESTRO_RESULT"
+                  echo "CI summary: $summary"
+                  if [ "$CHANGES_RESULT" != 'success' ] || [ "$CODE_QUALITY_RESULT" != 'success' ]; then
+                    echo "Required jobs did not pass: $summary"
+                    exit 1
+                  fi
+
+                  if [ "$MOBILE_RESULT" = 'true' ] && [ "$IOS_MAESTRO_RESULT" = 'success' ] && [ "$ANDROID_MAESTRO_RESULT" = 'success' ]; then
+                    exit 0
+                  fi
+
+                  if [ "$MOBILE_RESULT" = 'false' ] && [ "$IOS_MAESTRO_RESULT" = 'skipped' ] && [ "$ANDROID_MAESTRO_RESULT" = 'skipped' ]; then
+                    exit 0
+                  fi
+
+                  echo "Required jobs did not pass: $summary"
+                  exit 1

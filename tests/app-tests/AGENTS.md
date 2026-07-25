@@ -30,6 +30,9 @@ Use a freshly rebuilt and reinstalled app when validating code, selector, deep-l
 13. Do not open the dev-client URL from business scenarios. Bootstrap owns project loading, and `setup/prime-deep-links.flow.yaml` owns the one-time native custom-scheme confirmation.
 14. Do not probe for native Open prompts in business flows. Those probes are slow and can deliver delayed confirmation dialogs into later app interactions.
 15. Keep Expo dev tools disabled in the test build. If external debug chrome appears, fix the build configuration instead of moving it with coordinates.
+16. Do not change app behavior solely to satisfy E2E tests. Add selectors or accessibility metadata only when they preserve or improve real UI semantics; otherwise fix the Maestro flow, fixture, or harness.
+17. Before `inputText`, focus the actual input with `tapOn`. After selecting an option from a native sheet, wait for the sheet search field or root to disappear before interacting with the underlying form.
+18. Do not combine `optional: true` with an `extendedWaitUntil` timeout above `5000`, because absence silently consumes the full timeout.
 
 ## Flow Design
 
@@ -48,7 +51,7 @@ Use a freshly rebuilt and reinstalled app when validating code, selector, deep-l
 
 1. Prefer selector constants from app `*.selectors.ts` files.
 2. When a flow needs a new selector, add it in the app next to the component or screen it targets.
-3. Keep selector names stable and descriptive, such as `CellSelectors.Root` or `GameScreenSelectors.Score`.
+3. Keep selector names stable and descriptive, such as `GameScreenSelectors.Score`. Prefer selectors that uniquely and stably identify an element over positional `index:` matches — a selection/highlight-dependent id (the board cells expose a stable `CellSelectors.Cell.<y>-<x>`, value buttons `AvailableValueItemSelectors.Button.<value>`) makes index-based selection diverge across platforms.
 4. Do not assert unrounded internal values when the UI renders rounded text.
 5. Export new selector files from `packages/app/src/selectors.ts` so test authors have one discoverable selector surface.
 6. Use selectors for app-owned pressable controls and screen roots. Text assertions are acceptable for user-visible copy that is itself the behavior under test.

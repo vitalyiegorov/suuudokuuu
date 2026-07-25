@@ -2,6 +2,8 @@ import { StyleSheet } from 'react-native-unistyles';
 
 import { GameSidePanelWidthConstant } from '../../../game/constant/board-cell-size.constant';
 
+export const GameScreenBottomInset = 16;
+
 export const GameScreenStyles = StyleSheet.create(theme => ({
     container: (sizeClass: 'compact' | 'wide') => ({
         alignItems: 'center',

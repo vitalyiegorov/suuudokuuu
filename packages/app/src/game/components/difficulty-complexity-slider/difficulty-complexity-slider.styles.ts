@@ -14,15 +14,6 @@ const DifficultyComplexitySliderStaticStyles = {
         lineHeight: 13,
         textAlign: 'center'
     },
-    optionLabelCenter: {
-        textAlign: 'center'
-    },
-    optionLabelEnd: {
-        textAlign: 'right'
-    },
-    optionLabelStart: {
-        textAlign: 'left'
-    },
     optionRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -39,15 +30,6 @@ const DifficultyComplexitySliderStaticStyles = {
                 opacity: 0.85
             }
         }
-    },
-    optionTriggerCenter: {
-        alignItems: 'center'
-    },
-    optionTriggerEnd: {
-        alignItems: 'flex-end'
-    },
-    optionTriggerStart: {
-        alignItems: 'flex-start'
     },
     panel: {
         gap: 11,

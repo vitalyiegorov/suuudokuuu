@@ -20,6 +20,14 @@ msgstr ""
 msgid "{0, plural, one {# mistake} other {# mistakes}}"
 msgstr "{0, plural, one {# mistake} other {# mistakes}}"
 
+#: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
+msgid "{durationText} faster"
+msgstr "{durationText} faster"
+
+#: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
+msgid "{durationText} slower"
+msgstr "{durationText} slower"
+
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "{filledCells}/{totalCells} filled"
 msgstr "{filledCells}/{totalCells} filled"
@@ -28,13 +36,45 @@ msgstr "{filledCells}/{totalCells} filled"
 msgid "{gamesCompleted, plural, one {# completed game} other {# completed games}}"
 msgstr "{gamesCompleted, plural, one {# completed game} other {# completed games}}"
 
+#: src/challenge/components/challenge-technique-preview/challenge-technique-preview.tsx
+msgid "{keyMoveCount, plural, one {# key move} other {# key moves}}"
+msgstr "{keyMoveCount, plural, one {# key move} other {# key moves}}"
+
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
+msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
+msgstr "{mistakes, plural, one {# mistake} other {# mistakes}}"
+
+#: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
+msgid "{sharpCount, plural, one {# sharp technique} other {# sharp techniques}}"
+msgstr "{sharpCount, plural, one {# sharp technique} other {# sharp techniques}}"
+
+#: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
+msgid "{value, plural, one {# day} other {# days}}"
+msgstr "{value, plural, one {# day} other {# days}}"
+
+#: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
+msgid "{value, plural, one {# hour} other {# hours}}"
+msgstr "{value, plural, one {# hour} other {# hours}}"
+
+#: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
+msgid "{value, plural, one {# minute} other {# minutes}}"
+msgstr "{value, plural, one {# minute} other {# minutes}}"
+
+#: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
+msgid "{value, plural, one {# second} other {# seconds}}"
+msgstr "{value, plural, one {# second} other {# seconds}}"
+
+#: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
+msgid "<0>Development client required</0><1>Development clients need Metro, the launch URL configured in <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2>, or a compatible update on the <3>development</3> channel. This install flow does not publish an update.</1>"
+msgstr "<0>Development client required</0><1>Development clients need Metro, the launch URL configured in <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2>, or a compatible update on the <3>development</3> channel. This install flow does not publish an update.</1>"
+
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "A little room between cells"
 msgstr "A little room between cells"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
-msgid "Accept Challenge"
-msgstr "Accept Challenge"
+msgid "Accept challenge"
+msgstr "Accept challenge"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Accept challenge?"
@@ -43,6 +83,10 @@ msgstr "Accept challenge?"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Adjust the digits on the Sudoku board"
 msgstr "Adjust the digits on the Sudoku board"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "AIC"
+msgstr "AIC"
 
 #: src/history/components/history-difficulty-filter/history-difficulty-filter.tsx
 msgid "All"
@@ -58,9 +102,17 @@ msgstr "All of a number (1-9)"
 msgid "All progress will be lost"
 msgstr "All progress will be lost"
 
+#: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
+msgid "Android installation"
+msgstr "Android installation"
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Animate completed rows, columns, and boxes"
 msgstr "Animate completed rows, columns, and boxes"
+
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Attempts to load the latest development build again"
+msgstr "Attempts to load the latest development build again"
 
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "Average"
@@ -74,10 +126,6 @@ msgstr "Avoid mistakes - they cost you points!"
 #: src/history/components/replay-top-bar/replay-top-bar.tsx
 msgid "Back"
 msgstr "Back"
-
-#: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
-msgid "Back to home"
-msgstr "Back to home"
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Bahasa Indonesia"
@@ -113,7 +161,6 @@ msgstr "Best score"
 msgid "Best time"
 msgstr "Best time"
 
-#: src/app/challenge-lost.tsx
 #: src/app/loser.tsx
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "Better luck next time!"
@@ -123,11 +170,18 @@ msgstr "Better luck next time!"
 msgid "Board colors and screen appearance"
 msgstr "Board colors and screen appearance"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Box-Line Reduction"
+msgstr "Box-Line Reduction"
+
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Built:"
+msgstr "Built:"
+
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Can you beat them?"
 msgstr "Can you beat them?"
 
-#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
@@ -140,21 +194,25 @@ msgstr "Cancel"
 msgid "Cell spacing"
 msgstr "Cell spacing"
 
-#: src/screens/components/winner-screen/winner.screen.tsx
-msgid "Challenge a Friend"
-msgstr "Challenge a Friend"
+#: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
+msgid "Challenge"
+msgstr "Challenge"
 
 #: src/app/challenge-won.tsx
 msgid "Challenge Back"
 msgstr "Challenge Back"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Challenge lost"
+msgstr "Challenge lost"
 
 #: src/app/challenge-lost.tsx
 msgid "Challenge Lost"
 msgstr "Challenge Lost"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Challenge lost!"
-msgstr "Challenge lost!"
+msgid "Challenge won"
+msgstr "Challenge won"
 
 #: src/app/challenge-won.tsx
 msgid "Challenge Won!"
@@ -196,6 +254,10 @@ msgstr "Clean"
 msgid "Clean black-and-white board"
 msgstr "Clean black-and-white board"
 
+#: src/screens/components/winner-screen/winner.screen.tsx
+msgid "Clean win"
+msgstr "Clean win"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Column"
 msgstr "Column"
@@ -204,9 +266,17 @@ msgstr "Column"
 msgid "Comfortable"
 msgstr "Comfortable"
 
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Commit {commitShortSha}"
+msgstr "Commit {commitShortSha}"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Complete rows, columns, and blocks for huge bonuses"
 msgstr "Complete rows, columns, and blocks for huge bonuses"
+
+#: src/screens/components/winner-screen/winner.screen.tsx
+msgid "Completed"
+msgstr "Completed"
 
 #: src/history/components/history-games-list/history-games-list.tsx
 msgid "Completed games will be ready for replay."
@@ -237,6 +307,10 @@ msgstr "Dark mode"
 msgid "Day streak"
 msgstr "Day streak"
 
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Dead even"
+msgstr "Dead even"
+
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Deep focus"
 msgstr "Deep focus"
@@ -245,6 +319,19 @@ msgstr "Deep focus"
 msgid "Deutsch"
 msgstr "Deutsch"
 
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Development build unavailable"
+msgstr "Development build unavailable"
+
+#: src/app/beta.tsx
+#: src/screens/components/beta-screen/beta.screen.tsx
+msgid "Development builds"
+msgstr "Development builds"
+
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
+msgid "Did not finish the board"
+msgstr "Did not finish the board"
+
 #: src/game/components/difficulty-complexity-slider/difficulty-complexity-slider.tsx
 msgid "Difficulty"
 msgstr "Difficulty"
@@ -252,6 +339,18 @@ msgstr "Difficulty"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Display"
 msgstr "Display"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Download for Android"
+msgstr "Download for Android"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Download the Android development build"
+msgstr "Download the Android development build"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Downloads the Android development APK"
+msgstr "Downloads the Android development APK"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Each correct placement starts with a base value:"
@@ -270,9 +369,13 @@ msgstr "English"
 msgid "Español"
 msgstr "Español"
 
-#: src/screens/components/loser-screen/loser-screen-ukraine-card/loser-screen-ukraine-card.tsx
-msgid "Every $1 donation matters."
-msgstr "Every $1 donation matters."
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Evenly matched"
+msgstr "Evenly matched"
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "every technique"
+msgstr "every technique"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Expert grid"
@@ -282,21 +385,33 @@ msgstr "Expert grid"
 msgid "Extra points are awarded when your placement completes:"
 msgstr "Extra points are awarded when your placement completes:"
 
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "faster!"
-msgstr "faster!"
-
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Feedback"
 msgstr "Feedback"
+
+#: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
+msgid "Final score"
+msgstr "Final score"
 
 #: src/history/components/history-empty-state/history-empty-state.tsx
 msgid "Finish a puzzle and it will appear here."
 msgstr "Finish a puzzle and it will appear here."
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Finned Swordfish"
+msgstr "Finned Swordfish"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Finned X-Wing"
+msgstr "Finned X-Wing"
+
 #: src/settings/constant/language-labels.constant.ts
 msgid "Français"
 msgstr "Français"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Full House"
+msgstr "Full House"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Game"
@@ -328,6 +443,10 @@ msgstr "Gold"
 msgid "Group(3x3 cells)"
 msgstr "Group(3x3 cells)"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Guess"
+msgstr "Guess"
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Guidance"
 msgstr "Guidance"
@@ -348,17 +467,25 @@ msgstr "Hard"
 msgid "Hardcore"
 msgstr "Hardcore"
 
-#: src/screens/components/loser-screen/loser-screen-ukraine-card/loser-screen-ukraine-card.tsx
-msgid "Help"
-msgstr "Help"
-
-#: src/screens/components/pause-screen/pause-screen-ukraine-card/pause-screen-ukraine-card.tsx
+#: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Help Ukraine win"
 msgstr "Help Ukraine win"
 
-#: src/@generic/components/donation/donation.tsx
-msgid "Help Ukraine win!"
-msgstr "Help Ukraine win!"
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Hidden Pair"
+msgstr "Hidden Pair"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Hidden Quad"
+msgstr "Hidden Quad"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Hidden Single"
+msgstr "Hidden Single"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Hidden Triple"
+msgstr "Hidden Triple"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Highlight areas"
@@ -376,6 +503,11 @@ msgstr "Highlight matching numbers"
 msgid "Highlight pencil marks"
 msgstr "Highlight pencil marks"
 
+#: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
+#: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
+msgid "Home"
+msgstr "Home"
+
 #: src/app/scoring.tsx
 #: src/scoring/components/scoring.screen.tsx
 msgid "How Scoring Works"
@@ -389,13 +521,37 @@ msgstr "I completed this Sudoku in {elapsedTimeString}. Can you beat me?"
 msgid "Immortal"
 msgstr "Immortal"
 
+#: src/screens/components/loser-screen/loser.screen.tsx
+msgid "Incomplete"
+msgstr "Incomplete"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Install on iOS"
+msgstr "Install on iOS"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Install the iOS development build"
+msgstr "Install the iOS development build"
+
 #: src/game/components/game-provider/game-provider.tsx
 msgid "Invalid Sudoku"
 msgstr "Invalid Sudoku"
 
-#: src/screens/components/winner-screen/winner.screen.tsx
-msgid "It took you"
-msgstr "It took you"
+#: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
+msgid "iOS installation"
+msgstr "iOS installation"
+
+#: src/challenge/components/challenge-race-status/challenge-race-status.tsx
+msgid "is ahead"
+msgstr "is ahead"
+
+#: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
+msgid "It was a tie"
+msgstr "It was a tie"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Jellyfish"
+msgstr "Jellyfish"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Keep cell selected"
@@ -430,9 +586,13 @@ msgstr "Level"
 msgid "Light warm-up"
 msgstr "Light warm-up"
 
-#: src/screens/components/loser-screen/loser.screen.tsx
-msgid "Loooooser =)"
-msgstr "Loooooser =)"
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Loading development build"
+msgstr "Loading development build"
+
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Loading the latest development build…"
+msgstr "Loading the latest development build…"
 
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "Lost"
@@ -445,6 +605,10 @@ msgstr "m"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Max Mistakes bonus"
 msgstr "Max Mistakes bonus"
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "Maybe later"
+msgstr "Maybe later"
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -459,12 +623,12 @@ msgstr "Menus, settings, and game text"
 msgid "Minimum Score"
 msgstr "Minimum Score"
 
+#: src/@generic/components/completed-game-result-details/completed-game-result-details.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
 #: src/screens/components/home-screen/home.screen.tsx
-#: src/screens/components/loser-screen/loser-screen-metrics/loser-screen-metrics.tsx
 #: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
 msgid "Mistakes"
 msgstr "Mistakes"
@@ -473,9 +637,33 @@ msgstr "Mistakes"
 msgid "Move"
 msgstr "Move"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Naked Pair"
+msgstr "Naked Pair"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Naked Quad"
+msgstr "Naked Quad"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Naked Single"
+msgstr "Naked Single"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Naked Triple"
+msgstr "Naked Triple"
+
+#: src/challenge/components/challenge-race-status/challenge-race-status.tsx
+msgid "neck & neck"
+msgstr "neck & neck"
+
 #: src/screens/components/home-screen/home-screen-section-header/home-screen-section-header.tsx
 msgid "New game"
 msgstr "New game"
+
+#: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
+msgid "New personal best"
+msgstr "New personal best"
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -494,6 +682,14 @@ msgstr "Nightmare"
 #: src/scoring/components/scoring.screen.tsx
 msgid "no bonus"
 msgstr "no bonus"
+
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "No complete development build has been published yet. Please check again later."
+msgstr "No complete development build has been published yet. Please check again later."
+
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "No development build is available"
+msgstr "No development build is available"
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "No extra gaps between cells"
@@ -531,6 +727,10 @@ msgstr "of current score"
 msgid "OK"
 msgstr "OK"
 
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Open commit {commitShortSha} on GitHub"
+msgstr "Open commit {commitShortSha} on GitHub"
+
 #: src/screens/components/shared-screen/shared-screen.tsx
 msgid "Open puzzle"
 msgstr "Open puzzle"
@@ -540,9 +740,22 @@ msgstr "Open puzzle"
 msgid "Open shared puzzle?"
 msgstr "Open shared puzzle?"
 
+#: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
+msgid "Open this page in Safari on a physical iPhone or iPad. The device must already be registered in the Ad Hoc provisioning profile."
+msgstr "Open this page in Safari on a physical iPhone or iPad. The device must already be registered in the Ad Hoc provisioning profile."
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Opens the registered-device installation prompt"
+msgstr "Opens the registered-device installation prompt"
+
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Opens this commit on GitHub"
+msgstr "Opens this commit on GitHub"
+
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Opponent's time:"
-msgstr "Opponent's time:"
+msgid "Out of mistakes"
+msgstr "Out of mistakes"
 
 #: src/history/components/history-segmented-control/history-segmented-control.tsx
 msgid "Overview"
@@ -591,6 +804,14 @@ msgstr "Played"
 msgid "Playing with fewer mistakes allowed gives you a score multiplier:"
 msgstr "Playing with fewer mistakes allowed gives you a score multiplier:"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Pointing Pair"
+msgstr "Pointing Pair"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Pointing Triple"
+msgstr "Pointing Triple"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Points are deducted for:"
 msgstr "Points are deducted for:"
@@ -609,6 +830,10 @@ msgstr "Português"
 msgid "Privacy policy"
 msgstr "Privacy policy"
 
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Published:"
+msgstr "Published:"
+
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Quit"
 msgstr "Quit"
@@ -617,6 +842,10 @@ msgstr "Quit"
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Relaxed"
 msgstr "Relaxed"
+
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Release notes"
+msgstr "Release notes"
 
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-top-bar/replay-top-bar.tsx
@@ -627,9 +856,46 @@ msgstr "Replay"
 msgid "Report a bug"
 msgstr "Report a bug"
 
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
+msgid "Result"
+msgstr "Result"
+
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Retry loading development build"
+msgstr "Retry loading development build"
+
+#: src/challenge/components/challenge-race-status/challenge-race-status.tsx
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
+msgid "Rival"
+msgstr "Rival"
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "Rival challenged you"
+msgstr "Rival challenged you"
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "Rival's arsenal"
+msgstr "Rival's arsenal"
+
+#: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
+msgid "Rival's playbook"
+msgstr "Rival's playbook"
+
+#: src/challenge/components/challenge-result-rival-time-card/challenge-result-rival-time-card.tsx
+msgid "Rival's time to beat"
+msgstr "Rival's time to beat"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Row"
 msgstr "Row"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Sashimi Swordfish"
+msgstr "Sashimi Swordfish"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Sashimi X-Wing"
+msgstr "Sashimi X-Wing"
 
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
@@ -647,16 +913,16 @@ msgstr "score × coefficient × count"
 msgid "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 msgstr "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Score:"
-msgstr "Score:"
-
 #: src/@generic/components/main-tab-layout/main-tab-layout.tsx
 #: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/component/settings-page-content/settings-page-content.tsx
 msgid "Settings"
 msgstr "Settings"
+
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "SHA-256 checksums"
+msgstr "SHA-256 checksums"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Shade cells that already have a number"
@@ -682,9 +948,9 @@ msgstr "Show matching notes for the selected cell"
 msgid "Show the row, column, and box for the selected cell"
 msgstr "Show the row, column, and box for the selected cell"
 
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "slower!"
-msgstr "slower!"
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Simple Coloring"
+msgstr "Simple Coloring"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Small"
@@ -701,6 +967,10 @@ msgstr "Smallest digits for compact boards"
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Soft gray board with a paper-like feel"
 msgstr "Soft gray board with a paper-like feel"
+
+#: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
+msgid "Solved with the fundamentals"
+msgstr "Solved with the fundamentals"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Space between Sudoku cells"
@@ -779,6 +1049,26 @@ msgstr "SuuudokuuU The Game"
 msgid "Svenska"
 msgstr "Svenska"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Swordfish"
+msgstr "Swordfish"
+
+#: src/challenge/components/challenge-technique-preview/challenge-technique-preview.tsx
+msgid "Taller marks = sharper techniques"
+msgstr "Taller marks = sharper techniques"
+
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "The commit link could not be opened on this device."
+msgstr "The commit link could not be opened on this device."
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "The install link could not be opened. Check your browser settings and try again."
+msgstr "The install link could not be opened. Check your browser settings and try again."
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "Their time to beat"
+msgstr "Their time to beat"
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Theme"
@@ -796,15 +1086,19 @@ msgstr "Three mistakes"
 msgid "Tight"
 msgstr "Tight"
 
+#: src/@generic/components/completed-game-result-details/completed-game-result-details.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
 #: src/screens/components/home-screen/home.screen.tsx
-#: src/screens/components/loser-screen/loser-screen-metrics/loser-screen-metrics.tsx
 #: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
 msgid "Time"
 msgstr "Time"
+
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
+msgid "Time behind"
+msgstr "Time behind"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Timer"
@@ -822,17 +1116,25 @@ msgstr "Tips for High Scores"
 msgid "Too many mistakes"
 msgstr "Too many mistakes"
 
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Try again"
+msgstr "Try again"
+
 #: src/challenge/components/challenge-try-again-button/challenge-try-again-button.tsx
 msgid "Try Again"
 msgstr "Try Again"
 
-#: src/screens/components/pause-screen/pause-screen-ukraine-card/pause-screen-ukraine-card.tsx
+#: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Ukraine keeps fighting"
 msgstr "Ukraine keeps fighting"
 
-#: src/screens/components/loser-screen/loser-screen-ukraine-card/loser-screen-ukraine-card.tsx
-msgid "Ukraine needs to win too"
-msgstr "Ukraine needs to win too"
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Unable to open link"
+msgstr "Unable to open link"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Unable to start installation"
+msgstr "Unable to start installation"
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/screens/components/settings-screen/settings.screen.tsx
@@ -903,19 +1205,19 @@ msgstr "Vibrate on taps and game actions"
 msgid "Vibration"
 msgstr "Vibration"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "W-Wing"
+msgstr "W-Wing"
+
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Warm gold accents for a brighter board"
 msgstr "Warm gold accents for a brighter board"
 
-#: src/@generic/utils/donation-get-text.util.ts
-msgid "While you were away Ukraine continued its fight for freedom!\n"
-"\n"
-"Every 1$ donation matters!"
-msgstr "While you were away Ukraine continued its fight for freedom!\n"
-"\n"
-"Every 1$ donation matters!"
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "We could not load the latest development build. Please try again."
+msgstr "We could not load the latest development build. Please try again."
 
-#: src/screens/components/pause-screen/pause-screen-ukraine-card/pause-screen-ukraine-card.tsx
+#: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "While you were away, the fight for freedom continued. Every $1 makes a difference."
 msgstr "While you were away, the fight for freedom continued. Every $1 makes a difference."
 
@@ -927,63 +1229,73 @@ msgstr "Wider gaps for easier tapping"
 msgid "Win rate"
 msgstr "Win rate"
 
-#: src/screens/components/winner-screen/winner.screen.tsx
-msgid "Winners-winner, \n"
-" chicken dinner!"
-msgstr "Winners-winner, \n"
-" chicken dinner!"
+#: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
+msgid "Winner, winner!"
+msgstr "Winner, winner!"
 
 #: src/app/winner.tsx
 msgid "Winners-winner, chicken dinner!"
 msgstr "Winners-winner, chicken dinner!"
 
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
+msgid "Winning margin"
+msgstr "Winning margin"
+
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "Won"
 msgstr "Won"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "X-Chain"
+msgstr "X-Chain"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "X-Wing"
+msgstr "X-Wing"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "XY-Chain"
+msgstr "XY-Chain"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "XY-Wing"
+msgstr "XY-Wing"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "XYZ-Wing"
+msgstr "XYZ-Wing"
+
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
+msgid "You"
+msgstr "You"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "You beat your rival"
+msgstr "You beat your rival"
 
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "You got to"
 msgstr "You got to"
 
-#: src/screens/components/winner-screen/winner.screen.tsx
-msgid "You have scored"
-msgstr "You have scored"
-
-#: src/@generic/utils/donation-get-text.util.ts
-msgid "You lost but Ukraine must win!\n"
-"\n"
-"Every 1$ donation matters!"
-msgstr "You lost but Ukraine must win!\n"
-"\n"
-"Every 1$ donation matters!"
-
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "You were"
-msgstr "You were"
-
-#: src/@generic/utils/donation-get-text.util.ts
-msgid "You won and Ukraine needs to!\n"
-"\n"
-"Every 1$ donation matters!"
-msgstr "You won and Ukraine needs to!\n"
-"\n"
-"Every 1$ donation matters!"
-
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "You won the challenge!"
-msgstr "You won the challenge!"
+#: src/challenge/components/challenge-race-status/challenge-race-status.tsx
+msgid "you lead"
+msgstr "you lead"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Your best run"
 msgstr "Your best run"
 
-#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
-msgid "Your opponent completed this puzzle in"
-msgstr "Your opponent completed this puzzle in"
+#: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
+msgid "Your browser may ask for permission to install unknown apps. Android will also show an operating-system security warning before installation."
+msgstr "Your browser may ask for permission to install unknown apps. Android will also show an operating-system security warning before installation."
 
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Your progress"
 msgstr "Your progress"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Your rival was faster"
+msgstr "Your rival was faster"
 
 #: src/history/components/history-overview-tab/history-overview-tab.tsx
 msgid "Your stats will build as you finish puzzles."
@@ -992,10 +1304,6 @@ msgstr "Your stats will build as you finish puzzles."
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Your sudoku journey"
 msgstr "Your sudoku journey"
-
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Your time:"
-msgstr "Your time:"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Zero mistakes"

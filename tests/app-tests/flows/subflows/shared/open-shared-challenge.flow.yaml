@@ -1,11 +1,11 @@
 appId: ${APP_ID}
 ---
 - retry:
-    maxRetries: 1
-    commands:
-      - openLink:
-          link: ${SHARED_CHALLENGE_LINK}
-      - extendedWaitUntil:
-          visible:
-            id: 'ChallengeAcceptScreenSelectors.AcceptButton'
-          timeout: 10000
+      maxRetries: 1
+      commands:
+          - openLink:
+                link: ${SHARED_CHALLENGE_LINK}
+          - extendedWaitUntil:
+                visible:
+                    id: 'ChallengeAcceptScreenSelectors.Root'
+                timeout: 10000

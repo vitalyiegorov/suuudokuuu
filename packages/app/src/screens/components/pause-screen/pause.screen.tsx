@@ -1,10 +1,14 @@
 import { useLingui } from '@lingui/react/macro';
 import { useAppLayout } from '@suuudokuuu/ui';
-import { useRouter } from 'expo-router';
+import { Redirect, useRouter } from 'expo-router';
 import { use } from 'react';
 import { View } from 'react-native';
 
+import { isNotEmptyString } from '@rnw-community/shared';
+
 import { Alert } from '../../../@generic/components/alert/alert';
+import { ChromeScrollPage } from '../../../@generic/components/chrome-scroll-page/chrome-scroll-page';
+import { UkraineSupportCard } from '../../../@generic/components/ukraine-support-card/ukraine-support-card';
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
@@ -15,6 +19,7 @@ import { useResumeGame } from '../../../game/hooks/use-resume-game.hook';
 import { useSharePuzzle } from '../../../game/hooks/use-share-puzzle/use-share-puzzle.hook';
 import { gameResetAction } from '../../../game/store/game.actions';
 import {
+    gameChallengeStateSelector,
     gameElapsedTimeSelector,
     gameMaxMistakesSelector,
     gameMistakesSelector,
@@ -27,7 +32,6 @@ import { PauseScreenActions } from './pause-screen-actions/pause-screen-actions'
 import { PauseScreenHeader } from './pause-screen-header/pause-screen-header';
 import { PauseScreenProgressCard } from './pause-screen-progress-card/pause-screen-progress-card';
 import { PauseScreenStats } from './pause-screen-stats/pause-screen-stats';
-import { PauseScreenUkraineCard } from './pause-screen-ukraine-card/pause-screen-ukraine-card';
 import { PauseScreenSelectors } from './pause-screen.selectors';
 import { PauseScreenStyles as styles } from './pause-screen.styles';
 import { pauseScreenGetProgress } from './utils/pause-screen-get-progress.util';
@@ -43,6 +47,7 @@ export const PauseScreen = () => {
     const mistakes = useAppSelector(gameMistakesSelector);
     const maxMistakes = useAppSelector(gameMaxMistakesSelector);
     const elapsedTime = useAppSelector(gameElapsedTimeSelector);
+    const challengeState = useAppSelector(gameChallengeStateSelector);
 
     const handleResume = useResumeGame();
     const handleShare = useSharePuzzle();
@@ -69,23 +74,35 @@ export const PauseScreen = () => {
     const timeText = useTimerText(elapsedTime);
     const scoreText = String(score);
     const mistakesText = `${mistakes} / ${maxMistakes}`;
-    const containerStyles = [styles.container(sizeClass), { backgroundColor: theme.colors.background }];
+    const containerStyles = [styles.container, { backgroundColor: theme.colors.background }];
+
+    if (isNotEmptyString(challengeState)) {
+        return <Redirect href="/game" />;
+    }
+    const footer = <PauseScreenActions onQuit={handleQuit} onResume={handleResume} onShare={handleShare} />;
 
     return (
         <View style={containerStyles} testID={PauseScreenSelectors.Root}>
-            <View style={styles.summaryColumn(sizeClass)}>
-                <PauseScreenHeader detailsText={detailsText} />
+            <ChromeScrollPage footer={footer}>
+                <View style={styles.content(sizeClass)}>
+                    <View style={styles.summaryColumn(sizeClass)}>
+                        <PauseScreenHeader detailsText={detailsText} />
 
-                <PauseScreenProgressCard label={t`Your progress`} meta={progressMeta} progressPercent={progress.percent} sudoku={sudoku} />
+                        <PauseScreenProgressCard
+                            label={t`Your progress`}
+                            meta={progressMeta}
+                            progressPercent={progress.percent}
+                            sudoku={sudoku}
+                        />
 
-                <PauseScreenStats mistakesText={mistakesText} scoreText={scoreText} timeText={timeText} />
-            </View>
+                        <PauseScreenStats mistakesText={mistakesText} scoreText={scoreText} timeText={timeText} />
+                    </View>
 
-            <View style={styles.actionsColumn(sizeClass)}>
-                <PauseScreenUkraineCard />
-
-                <PauseScreenActions onQuit={handleQuit} onResume={handleResume} onShare={handleShare} />
-            </View>
+                    <View style={styles.asideColumn(sizeClass)}>
+                        <UkraineSupportCard testID={PauseScreenSelectors.UkraineCta} />
+                    </View>
+                </View>
+            </ChromeScrollPage>
         </View>
     );
 };

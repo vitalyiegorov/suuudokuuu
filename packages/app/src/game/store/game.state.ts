@@ -22,6 +22,8 @@ export interface GameState {
     challengeSteps: SolutionStepInterface[];
     challengeTime: number;
     challengeState: string;
+    challengeWallStartMs: number;
+    hasNewPersonalBestScore: boolean;
 }
 
 export const initialGameState: GameState = {
@@ -46,5 +48,7 @@ export const initialGameState: GameState = {
     solutionSteps: [],
     challengeSteps: [],
     challengeTime: 0,
-    challengeState: ''
+    challengeState: '',
+    challengeWallStartMs: 0,
+    hasNewPersonalBestScore: false
 };

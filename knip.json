@@ -2,9 +2,11 @@
     "ignore": [
         "packages/app/lingui.config.js",
         "packages/app/fingerprint.config.js",
-        ".agents/skills/**",
-        ".claude/skills/**",
         "**/babel.config.js",
+        "**/*.web.ts",
+        "**/*.web.tsx",
+        "packages/screen-chrome/src/edge-fade/utils/edge-fade-get-backdrop-filter.util.ts",
+        "packages/screen-chrome/src/edge-fade/interface/web-edge-fade-style.interface.ts",
         "**/selectors.ts"
     ],
     "ignoreDependencies": [
@@ -16,5 +18,10 @@
         "babel-plugin-react-compiler",
         "eas-build-cache-provider"
     ],
-    "ignoreBinaries": ["run"]
+    "ignoreBinaries": ["run"],
+    "workspaces": {
+        "packages/app": {
+            "entry": ["{index,cli,main}.{js,mjs,cjs,jsx,ts,tsx,mts,cts}!", "vercel-functions/api/**/*.ts!"]
+        }
+    }
 }

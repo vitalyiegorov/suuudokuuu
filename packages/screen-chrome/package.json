@@ -1,0 +1,36 @@
+{
+    "name": "@suuudokuuu/screen-chrome",
+    "version": "1.66.0",
+    "private": true,
+    "description": "Generic scroll edge fade, blur chrome and collapsible header",
+    "sideEffects": false,
+    "exports": {
+        ".": {
+            "types": "./src/index.ts",
+            "react-native": "./src/index.ts",
+            "default": "./src/index.ts"
+        },
+        "./package.json": "./package.json"
+    },
+    "main": "./src/index.ts",
+    "types": "./src/index.ts",
+    "scripts": {
+        "clear": "yarn run -T rimraf node_modules/.cache .turbo",
+        "format": "run -T prettier --write src",
+        "lint": "run -T eslint --fix src",
+        "ts": "run -T tsc -p ."
+    },
+    "dependencies": {
+        "@rnw-community/shared": "^2.2.0",
+        "react-native-easing-gradient": "^1.1.1"
+    },
+    "peerDependencies": {
+        "@react-native-masked-view/masked-view": "^0.3.2",
+        "expo-blur": "~57.0.0",
+        "expo-linear-gradient": "~57.0.0",
+        "react": "19.2.3",
+        "react-native": "0.86.0",
+        "react-native-reanimated": "4.5.0",
+        "react-native-safe-area-context": "~5.7.0"
+    }
+}

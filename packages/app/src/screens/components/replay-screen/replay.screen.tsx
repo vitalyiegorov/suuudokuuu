@@ -26,10 +26,10 @@ interface Props {
 export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
     const completedGame = useAppSelector(gameCompletedGameByIdSelector(difficulty, completedAt));
     const [currentStep, setCurrentStep] = useState(0);
+    const [gameState] = useState(() => stringToGameState(completedGame?.encodedState));
     const { width, height, sizeClass } = useAppLayout();
     const boardCellSize = useBoardCellSize(width, height);
 
-    const gameState = stringToGameState(completedGame?.encodedState);
     if (!isDefined(gameState) || !isDefined(completedGame)) {
         return <Redirect href="/history" />;
     }
@@ -45,13 +45,14 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
         }
     };
 
-    const { sudoku, highlightedCellKey, elapsedTime } = getSudokuAtStep(gameState, currentStep);
+    const { sudoku, highlightedCellKey, elapsedTime, moveClassification } = getSudokuAtStep(gameState, currentStep);
     const isWideLayout = sizeClass === 'wide';
     const replayHeader = <ReplayHeader game={completedGame} />;
     const replayControls = (
         <ReplayControls
             currentStep={currentStep}
             elapsedTime={elapsedTime}
+            moveClassification={moveClassification}
             onNextStep={handleNextStep}
             onPrevStep={handlePrevStep}
             totalSteps={gameState.challengeSteps.length}

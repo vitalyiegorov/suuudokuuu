@@ -18,6 +18,14 @@ msgstr ""
 msgid "{0, plural, one {# mistake} other {# mistakes}}"
 msgstr "{0, plural, one {# 个错误} other {# 个错误}}"
 
+#: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
+msgid "{durationText} faster"
+msgstr "快 {durationText}"
+
+#: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
+msgid "{durationText} slower"
+msgstr "慢 {durationText}"
+
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "{filledCells}/{totalCells} filled"
 msgstr "{filledCells}/{totalCells} 已填"
@@ -26,12 +34,44 @@ msgstr "{filledCells}/{totalCells} 已填"
 msgid "{gamesCompleted, plural, one {# completed game} other {# completed games}}"
 msgstr "{gamesCompleted, plural, one {# 局已完成} other {# 局已完成}}"
 
+#: src/challenge/components/challenge-technique-preview/challenge-technique-preview.tsx
+msgid "{keyMoveCount, plural, one {# key move} other {# key moves}}"
+msgstr "{keyMoveCount, plural, one {# 个关键步} other {# 个关键步}}"
+
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
+msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
+msgstr "{mistakes, plural, one {# 个错误} other {# 个错误}}"
+
+#: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
+msgid "{sharpCount, plural, one {# sharp technique} other {# sharp techniques}}"
+msgstr "{sharpCount, plural, one {# 个精妙技巧} other {# 个精妙技巧}}"
+
+#: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
+msgid "{value, plural, one {# day} other {# days}}"
+msgstr "{value, plural, other {# 天}}"
+
+#: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
+msgid "{value, plural, one {# hour} other {# hours}}"
+msgstr "{value, plural, other {# 小时}}"
+
+#: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
+msgid "{value, plural, one {# minute} other {# minutes}}"
+msgstr "{value, plural, other {# 分钟}}"
+
+#: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
+msgid "{value, plural, one {# second} other {# seconds}}"
+msgstr "{value, plural, other {# 秒}}"
+
+#: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
+msgid "<0>Development client required</0><1>Development clients need Metro, the launch URL configured in <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2>, or a compatible update on the <3>development</3> channel. This install flow does not publish an update.</1>"
+msgstr "<0>需要开发客户端</0><1>开发客户端需要 Metro、在 <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2> 中配置的启动 URL，或 <3>development</3> 渠道上的兼容更新。此安装流程不会发布更新。</1>"
+
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "A little room between cells"
 msgstr "单元格之间留出少量间距"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
-msgid "Accept Challenge"
+msgid "Accept challenge"
 msgstr "接受挑战"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
@@ -41,6 +81,10 @@ msgstr "接受挑战？"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Adjust the digits on the Sudoku board"
 msgstr "调整数独棋盘上的数字大小"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "AIC"
+msgstr "AIC"
 
 #: src/history/components/history-difficulty-filter/history-difficulty-filter.tsx
 msgid "All"
@@ -56,9 +100,17 @@ msgstr "某个数字的所有格（1-9）"
 msgid "All progress will be lost"
 msgstr "所有进度都会丢失"
 
+#: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
+msgid "Android installation"
+msgstr "Android 安装"
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Animate completed rows, columns, and boxes"
 msgstr "为完成的行、列和宫格显示动画"
+
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Attempts to load the latest development build again"
+msgstr "再次尝试加载最新开发版本"
 
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "Average"
@@ -72,10 +124,6 @@ msgstr "避免错误：它们会扣分。"
 #: src/history/components/replay-top-bar/replay-top-bar.tsx
 msgid "Back"
 msgstr "返回"
-
-#: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
-msgid "Back to home"
-msgstr "返回首页"
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Bahasa Indonesia"
@@ -111,7 +159,6 @@ msgstr "最高分"
 msgid "Best time"
 msgstr "最佳时间"
 
-#: src/app/challenge-lost.tsx
 #: src/app/loser.tsx
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "Better luck next time!"
@@ -121,11 +168,18 @@ msgstr "下次好运！"
 msgid "Board colors and screen appearance"
 msgstr "棋盘颜色和界面外观"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Box-Line Reduction"
+msgstr "宫线消解"
+
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Built:"
+msgstr "构建于："
+
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Can you beat them?"
 msgstr "你能超过他们吗？"
 
-#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
@@ -138,21 +192,25 @@ msgstr "取消"
 msgid "Cell spacing"
 msgstr "单元格间距"
 
-#: src/screens/components/winner-screen/winner.screen.tsx
-msgid "Challenge a Friend"
-msgstr "挑战好友"
+#: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
+msgid "Challenge"
+msgstr "挑战"
 
 #: src/app/challenge-won.tsx
 msgid "Challenge Back"
 msgstr "回敬挑战"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Challenge lost"
+msgstr "挑战失败"
 
 #: src/app/challenge-lost.tsx
 msgid "Challenge Lost"
 msgstr "挑战失败"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Challenge lost!"
-msgstr "挑战失败！"
+msgid "Challenge won"
+msgstr "挑战获胜"
 
 #: src/app/challenge-won.tsx
 msgid "Challenge Won!"
@@ -194,6 +252,10 @@ msgstr "零失误"
 msgid "Clean black-and-white board"
 msgstr "清爽的黑白棋盘"
 
+#: src/screens/components/winner-screen/winner.screen.tsx
+msgid "Clean win"
+msgstr "完胜"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Column"
 msgstr "列"
@@ -202,9 +264,17 @@ msgstr "列"
 msgid "Comfortable"
 msgstr "舒适"
 
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Commit {commitShortSha}"
+msgstr "提交 {commitShortSha}"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Complete rows, columns, and blocks for huge bonuses"
 msgstr "完成行、列和宫可获得高额奖励"
+
+#: src/screens/components/winner-screen/winner.screen.tsx
+msgid "Completed"
+msgstr "已完成"
 
 #: src/history/components/history-games-list/history-games-list.tsx
 msgid "Completed games will be ready for replay."
@@ -235,6 +305,10 @@ msgstr "深色模式"
 msgid "Day streak"
 msgstr "每日连续"
 
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Dead even"
+msgstr "完全平局"
+
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Deep focus"
 msgstr "深度专注"
@@ -243,6 +317,19 @@ msgstr "深度专注"
 msgid "Deutsch"
 msgstr "Deutsch"
 
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Development build unavailable"
+msgstr "开发版本不可用"
+
+#: src/app/beta.tsx
+#: src/screens/components/beta-screen/beta.screen.tsx
+msgid "Development builds"
+msgstr "开发版本"
+
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
+msgid "Did not finish the board"
+msgstr "未完成棋盘"
+
 #: src/game/components/difficulty-complexity-slider/difficulty-complexity-slider.tsx
 msgid "Difficulty"
 msgstr "难度"
@@ -250,6 +337,18 @@ msgstr "难度"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Display"
 msgstr "显示"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Download for Android"
+msgstr "下载 Android 版"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Download the Android development build"
+msgstr "下载 Android 开发版本"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Downloads the Android development APK"
+msgstr "下载 Android 开发版 APK"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Each correct placement starts with a base value:"
@@ -268,9 +367,13 @@ msgstr "English"
 msgid "Español"
 msgstr "Español"
 
-#: src/screens/components/loser-screen/loser-screen-ukraine-card/loser-screen-ukraine-card.tsx
-msgid "Every $1 donation matters."
-msgstr "每 1 美元捐款都很重要。"
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Evenly matched"
+msgstr "势均力敌"
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "every technique"
+msgstr "所有技巧"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Expert grid"
@@ -280,21 +383,33 @@ msgstr "专家棋盘"
 msgid "Extra points are awarded when your placement completes:"
 msgstr "当你的落子完成以下内容时可获得额外分数："
 
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "faster!"
-msgstr "更快！"
-
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Feedback"
 msgstr "反馈"
+
+#: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
+msgid "Final score"
+msgstr "最终分数"
 
 #: src/history/components/history-empty-state/history-empty-state.tsx
 msgid "Finish a puzzle and it will appear here."
 msgstr "完成一局数独后会显示在这里。"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Finned Swordfish"
+msgstr "Finned Swordfish"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Finned X-Wing"
+msgstr "Finned X-Wing"
+
 #: src/settings/constant/language-labels.constant.ts
 msgid "Français"
 msgstr "Français"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Full House"
+msgstr "最后余格"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Game"
@@ -326,6 +441,10 @@ msgstr "金色"
 msgid "Group(3x3 cells)"
 msgstr "宫（3x3 格）"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Guess"
+msgstr "猜测"
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Guidance"
 msgstr "辅助"
@@ -346,17 +465,25 @@ msgstr "困难"
 msgid "Hardcore"
 msgstr "硬核"
 
-#: src/screens/components/loser-screen/loser-screen-ukraine-card/loser-screen-ukraine-card.tsx
-msgid "Help"
-msgstr "帮助"
-
-#: src/screens/components/pause-screen/pause-screen-ukraine-card/pause-screen-ukraine-card.tsx
+#: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Help Ukraine win"
 msgstr "帮助乌克兰获胜"
 
-#: src/@generic/components/donation/donation.tsx
-msgid "Help Ukraine win!"
-msgstr "帮助乌克兰获胜！"
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Hidden Pair"
+msgstr "隐性数对"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Hidden Quad"
+msgstr "隐性四数组"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Hidden Single"
+msgstr "隐性单数"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Hidden Triple"
+msgstr "隐性三数组"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Highlight areas"
@@ -374,6 +501,11 @@ msgstr "高亮匹配数字"
 msgid "Highlight pencil marks"
 msgstr "高亮笔记"
 
+#: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
+#: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
+msgid "Home"
+msgstr "首页"
+
 #: src/app/scoring.tsx
 #: src/scoring/components/scoring.screen.tsx
 msgid "How Scoring Works"
@@ -387,13 +519,37 @@ msgstr "我用 {elapsedTimeString} 完成了这道数独。你能超过我吗？
 msgid "Immortal"
 msgstr "不朽"
 
+#: src/screens/components/loser-screen/loser.screen.tsx
+msgid "Incomplete"
+msgstr "未完成"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Install on iOS"
+msgstr "在 iOS 上安装"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Install the iOS development build"
+msgstr "安装 iOS 开发版本"
+
 #: src/game/components/game-provider/game-provider.tsx
 msgid "Invalid Sudoku"
 msgstr "无效数独"
 
-#: src/screens/components/winner-screen/winner.screen.tsx
-msgid "It took you"
-msgstr "你的用时"
+#: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
+msgid "iOS installation"
+msgstr "iOS 安装"
+
+#: src/challenge/components/challenge-race-status/challenge-race-status.tsx
+msgid "is ahead"
+msgstr "领先"
+
+#: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
+msgid "It was a tie"
+msgstr "平局"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Jellyfish"
+msgstr "Jellyfish"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Keep cell selected"
@@ -428,9 +584,13 @@ msgstr "级别"
 msgid "Light warm-up"
 msgstr "轻度热身"
 
-#: src/screens/components/loser-screen/loser.screen.tsx
-msgid "Loooooser =)"
-msgstr "输啦 =)"
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Loading development build"
+msgstr "正在加载开发版本"
+
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Loading the latest development build…"
+msgstr "正在加载最新开发版本…"
 
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "Lost"
@@ -443,6 +603,10 @@ msgstr "m"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Max Mistakes bonus"
 msgstr "允许错误奖励"
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "Maybe later"
+msgstr "以后再说"
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -457,12 +621,12 @@ msgstr "菜单、设置和游戏文字"
 msgid "Minimum Score"
 msgstr "最低分"
 
+#: src/@generic/components/completed-game-result-details/completed-game-result-details.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
 #: src/screens/components/home-screen/home.screen.tsx
-#: src/screens/components/loser-screen/loser-screen-metrics/loser-screen-metrics.tsx
 #: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
 msgid "Mistakes"
 msgstr "错误"
@@ -471,9 +635,33 @@ msgstr "错误"
 msgid "Move"
 msgstr "步"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Naked Pair"
+msgstr "显性数对"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Naked Quad"
+msgstr "显性四数组"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Naked Single"
+msgstr "显性单数"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Naked Triple"
+msgstr "显性三数组"
+
+#: src/challenge/components/challenge-race-status/challenge-race-status.tsx
+msgid "neck & neck"
+msgstr "不相上下"
+
 #: src/screens/components/home-screen/home-screen-section-header/home-screen-section-header.tsx
 msgid "New game"
 msgstr "新游戏"
+
+#: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
+msgid "New personal best"
+msgstr "新的个人最佳"
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -492,6 +680,14 @@ msgstr "噩梦"
 #: src/scoring/components/scoring.screen.tsx
 msgid "no bonus"
 msgstr "无奖励"
+
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "No complete development build has been published yet. Please check again later."
+msgstr "尚未发布完整的开发版本，请稍后再来查看。"
+
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "No development build is available"
+msgstr "暂无可用的开发版本"
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "No extra gaps between cells"
@@ -529,6 +725,10 @@ msgstr "当前分数的"
 msgid "OK"
 msgstr "确定"
 
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Open commit {commitShortSha} on GitHub"
+msgstr "在 GitHub 上打开提交 {commitShortSha}"
+
 #: src/screens/components/shared-screen/shared-screen.tsx
 msgid "Open puzzle"
 msgstr "打开数独"
@@ -538,9 +738,22 @@ msgstr "打开数独"
 msgid "Open shared puzzle?"
 msgstr "打开分享的数独？"
 
+#: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
+msgid "Open this page in Safari on a physical iPhone or iPad. The device must already be registered in the Ad Hoc provisioning profile."
+msgstr "请在实体 iPhone 或 iPad 上使用 Safari 打开此页面。该设备必须已注册到 Ad Hoc 配置描述文件中。"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Opens the registered-device installation prompt"
+msgstr "打开已注册设备的安装提示"
+
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Opens this commit on GitHub"
+msgstr "在 GitHub 上打开此提交"
+
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Opponent's time:"
-msgstr "对手用时："
+msgid "Out of mistakes"
+msgstr "错误次数已用完"
 
 #: src/history/components/history-segmented-control/history-segmented-control.tsx
 msgid "Overview"
@@ -589,6 +802,14 @@ msgstr "已玩"
 msgid "Playing with fewer mistakes allowed gives you a score multiplier:"
 msgstr "允许错误越少，分数倍率越高："
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Pointing Pair"
+msgstr "指向数对"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Pointing Triple"
+msgstr "指向三数组"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Points are deducted for:"
 msgstr "扣分项："
@@ -607,6 +828,10 @@ msgstr "Português"
 msgid "Privacy policy"
 msgstr "隐私政策"
 
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Published:"
+msgstr "发布于："
+
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Quit"
 msgstr "退出"
@@ -615,6 +840,10 @@ msgstr "退出"
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Relaxed"
 msgstr "轻松"
+
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Release notes"
+msgstr "发行说明"
 
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-top-bar/replay-top-bar.tsx
@@ -625,9 +854,46 @@ msgstr "回放"
 msgid "Report a bug"
 msgstr "报告问题"
 
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
+msgid "Result"
+msgstr "结果"
+
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Retry loading development build"
+msgstr "重新加载开发版本"
+
+#: src/challenge/components/challenge-race-status/challenge-race-status.tsx
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
+msgid "Rival"
+msgstr "对手"
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "Rival challenged you"
+msgstr "对手向你发起了挑战"
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "Rival's arsenal"
+msgstr "对手的技巧库"
+
+#: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
+msgid "Rival's playbook"
+msgstr "对手的解题套路"
+
+#: src/challenge/components/challenge-result-rival-time-card/challenge-result-rival-time-card.tsx
+msgid "Rival's time to beat"
+msgstr "需要超越的对手时间"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Row"
 msgstr "行"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Sashimi Swordfish"
+msgstr "Sashimi Swordfish"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Sashimi X-Wing"
+msgstr "Sashimi X-Wing"
 
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
@@ -645,16 +911,16 @@ msgstr "分数 × 系数 × 数量"
 msgid "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 msgstr "每个正确填入的格子都会根据难度、奖励和惩罚计算分数。"
 
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Score:"
-msgstr "分数："
-
 #: src/@generic/components/main-tab-layout/main-tab-layout.tsx
 #: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/component/settings-page-content/settings-page-content.tsx
 msgid "Settings"
 msgstr "设置"
+
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "SHA-256 checksums"
+msgstr "SHA-256 校验和"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Shade cells that already have a number"
@@ -680,9 +946,9 @@ msgstr "显示所选单元格的匹配笔记"
 msgid "Show the row, column, and box for the selected cell"
 msgstr "显示所选单元格所在的行、列和宫格"
 
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "slower!"
-msgstr "更慢！"
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Simple Coloring"
+msgstr "简单染色"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Small"
@@ -699,6 +965,10 @@ msgstr "最小数字，适合紧凑棋盘"
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Soft gray board with a paper-like feel"
 msgstr "柔和灰色棋盘，带纸张质感"
+
+#: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
+msgid "Solved with the fundamentals"
+msgstr "仅用基础技巧解出"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Space between Sudoku cells"
@@ -777,6 +1047,26 @@ msgstr "SuuudokuuU：游戏"
 msgid "Svenska"
 msgstr "Svenska"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Swordfish"
+msgstr "Swordfish"
+
+#: src/challenge/components/challenge-technique-preview/challenge-technique-preview.tsx
+msgid "Taller marks = sharper techniques"
+msgstr "标记越高，技巧越精妙"
+
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "The commit link could not be opened on this device."
+msgstr "无法在此设备上打开提交链接。"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "The install link could not be opened. Check your browser settings and try again."
+msgstr "无法打开安装链接。请检查浏览器设置后重试。"
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "Their time to beat"
+msgstr "需要超越的时间"
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Theme"
@@ -794,15 +1084,19 @@ msgstr "三次错误"
 msgid "Tight"
 msgstr "紧凑"
 
+#: src/@generic/components/completed-game-result-details/completed-game-result-details.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
 #: src/screens/components/home-screen/home.screen.tsx
-#: src/screens/components/loser-screen/loser-screen-metrics/loser-screen-metrics.tsx
 #: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
 msgid "Time"
 msgstr "时间"
+
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
+msgid "Time behind"
+msgstr "落后时间"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Timer"
@@ -820,17 +1114,25 @@ msgstr "高分技巧"
 msgid "Too many mistakes"
 msgstr "错误太多"
 
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Try again"
+msgstr "重试"
+
 #: src/challenge/components/challenge-try-again-button/challenge-try-again-button.tsx
 msgid "Try Again"
 msgstr "重试"
 
-#: src/screens/components/pause-screen/pause-screen-ukraine-card/pause-screen-ukraine-card.tsx
+#: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Ukraine keeps fighting"
 msgstr "乌克兰仍在战斗"
 
-#: src/screens/components/loser-screen/loser-screen-ukraine-card/loser-screen-ukraine-card.tsx
-msgid "Ukraine needs to win too"
-msgstr "乌克兰也需要胜利"
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Unable to open link"
+msgstr "无法打开链接"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Unable to start installation"
+msgstr "无法开始安装"
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/screens/components/settings-screen/settings.screen.tsx
@@ -901,19 +1203,19 @@ msgstr "点按和游戏操作时振动"
 msgid "Vibration"
 msgstr "振动"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "W-Wing"
+msgstr "W-Wing"
+
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Warm gold accents for a brighter board"
 msgstr "温暖金色点缀，让棋盘更明亮"
 
-#: src/@generic/utils/donation-get-text.util.ts
-msgid "While you were away Ukraine continued its fight for freedom!\n"
-"\n"
-"Every 1$ donation matters!"
-msgstr "你离开时，乌克兰仍在为自由而战！\n"
-"\n"
-"每一笔 1 美元的捐款都很重要！"
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "We could not load the latest development build. Please try again."
+msgstr "无法加载最新开发版本，请重试。"
 
-#: src/screens/components/pause-screen/pause-screen-ukraine-card/pause-screen-ukraine-card.tsx
+#: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "While you were away, the fight for freedom continued. Every $1 makes a difference."
 msgstr "当你离开时，争取自由的战斗仍在继续。每 1 美元捐款都有意义。"
 
@@ -925,63 +1227,73 @@ msgstr "更宽的间距，便于点击"
 msgid "Win rate"
 msgstr "胜率"
 
-#: src/screens/components/winner-screen/winner.screen.tsx
-msgid "Winners-winner, \n"
-" chicken dinner!"
-msgstr "胜利！\n"
-"庆祝一下！"
+#: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
+msgid "Winner, winner!"
+msgstr "获胜了！"
 
 #: src/app/winner.tsx
 msgid "Winners-winner, chicken dinner!"
 msgstr "胜利！庆祝一下！"
 
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
+msgid "Winning margin"
+msgstr "获胜差距"
+
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "Won"
 msgstr "胜利"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "X-Chain"
+msgstr "X-Chain"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "X-Wing"
+msgstr "X-Wing"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "XY-Chain"
+msgstr "XY-Chain"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "XY-Wing"
+msgstr "XY-Wing"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "XYZ-Wing"
+msgstr "XYZ-Wing"
+
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
+msgid "You"
+msgstr "你"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "You beat your rival"
+msgstr "你击败了对手"
 
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "You got to"
 msgstr "你完成了"
 
-#: src/screens/components/winner-screen/winner.screen.tsx
-msgid "You have scored"
-msgstr "你的得分"
-
-#: src/@generic/utils/donation-get-text.util.ts
-msgid "You lost but Ukraine must win!\n"
-"\n"
-"Every 1$ donation matters!"
-msgstr "你输了，但乌克兰必须赢！\n"
-"\n"
-"每一笔 1 美元的捐款都很重要！"
-
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "You were"
-msgstr "你"
-
-#: src/@generic/utils/donation-get-text.util.ts
-msgid "You won and Ukraine needs to!\n"
-"\n"
-"Every 1$ donation matters!"
-msgstr "你赢了，乌克兰也需要赢！\n"
-"\n"
-"每一笔 1 美元的捐款都很重要！"
-
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "You won the challenge!"
-msgstr "你赢得了挑战！"
+#: src/challenge/components/challenge-race-status/challenge-race-status.tsx
+msgid "you lead"
+msgstr "你领先"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Your best run"
 msgstr "你的最佳战绩"
 
-#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
-msgid "Your opponent completed this puzzle in"
-msgstr "你的对手完成这道数独用时"
+#: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
+msgid "Your browser may ask for permission to install unknown apps. Android will also show an operating-system security warning before installation."
+msgstr "浏览器可能会请求安装未知来源应用的权限。安装前，Android 还会显示操作系统安全警告。"
 
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Your progress"
 msgstr "你的进度"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Your rival was faster"
+msgstr "对手比你快"
 
 #: src/history/components/history-overview-tab/history-overview-tab.tsx
 msgid "Your stats will build as you finish puzzles."
@@ -990,10 +1302,6 @@ msgstr "完成数独后，统计数据会在这里累积。"
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Your sudoku journey"
 msgstr "你的数独旅程"
-
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Your time:"
-msgstr "你的时间："
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Zero mistakes"

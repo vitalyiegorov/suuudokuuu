@@ -1,20 +1,31 @@
 appId: ${APP_ID}
 ---
 - startRecording:
-    path: '02.game-screen-win'
-    optional: true
+      path: '02.game-screen-win'
+      optional: true
 
 - runFlow: subflows/navigation/launch-home.flow.yaml
 - runFlow:
-    file: subflows/shared/complete-winning-shared-challenge.flow.yaml
-    env:
-      SHARED_CHALLENGE_LINK: suuudokuuu://shared/IzAMC4AAAKBEBQDAAHASfAwQAgM4AQAhgGQEUBoAQQASBWAcIAgBXrAE4BMAUgZICcAYgKpkAmAFdQAMQAGABYDZAYwBRYgPMBIAE8UAFAEMASAGIALFQCpAZEMA3AAoArgLL2A1ReUAWgOoApAGfpABr9VABmW34AFfl5AECcADoARIAdgB4AcwAqgE%2BAfYASgDAAIIAGgDiADAARgA8AZpqAYrq6bkMAMoBNIl6AWoAOAHOAWIAQcPAAGwAhAAGAJnAATjXgcGAgA
-- assertVisible: 'Score:.*'
-- assertVisible: 'Help Ukraine win!'
+      file: subflows/shared/complete-winning-shared-challenge.flow.yaml
+      env:
+          SHARED_CHALLENGE_LINK: suuudokuuu://shared/_KGP________9____qXF6FFdMjBWGhJIN-CMqSm5omCUw0KFUm6-t2HxLUAuYMCP-
+- assertVisible:
+      id: 'ChallengeResultScreenSelectors.YourTimeValue'
+- assertVisible:
+      id: 'ChallengeResultScreenSelectors.OpponentTimeValue'
+- assertVisible: '.*You beat your rival.*'
+- assertVisible:
+      id: 'ChallengeResultScreenSelectors.MarginValue'
+- scrollUntilVisible:
+      element:
+          id: 'ChallengeResultScreenSelectors.UkraineSupportCta'
+      direction: DOWN
+      visibilityPercentage: 50
+      timeout: 5000
 - tapOn:
-    id: 'PlayAgainButtonSelectors.Root'
+      id: 'ChallengeResultFooterSelectors.HomeButton'
 - extendedWaitUntil:
-    visible:
-      id: 'HomeScreenSelectors.Root'
-    timeout: 3000
+      visible:
+          id: 'HomeScreenSelectors.Root'
+      timeout: 3000
 - stopApp

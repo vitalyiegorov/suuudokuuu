@@ -17,26 +17,30 @@ export const PauseScreenProgressCardStyles = StyleSheet.create(theme => ({
         justifyContent: 'center'
     },
     label: {
-        fontSize: 13,
-        fontWeight: '800',
-        lineHeight: 17,
-        textAlign: 'center'
+        fontSize: 11,
+        fontWeight: '700',
+        letterSpacing: 1,
+        lineHeight: 15,
+        textAlign: 'center',
+        textTransform: 'uppercase'
     },
     meta: {
-        fontSize: 13,
-        fontWeight: '800',
-        lineHeight: 17,
-        marginTop: 6,
+        fontSize: 12.5,
+        fontWeight: '700',
+        lineHeight: 16,
+        marginTop: 7,
         textAlign: 'center'
     },
     progress: {
-        marginTop: 9,
+        marginTop: 10,
         width: '100%'
     },
     value: {
-        fontSize: 32,
+        fontSize: 34,
+        fontVariant: ['tabular-nums'],
         fontWeight: '900',
-        lineHeight: 36,
+        letterSpacing: -1,
+        lineHeight: 38,
         marginTop: 3,
         textAlign: 'center'
     }

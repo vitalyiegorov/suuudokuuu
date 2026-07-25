@@ -1,40 +1,33 @@
-import { StyleSheet } from 'react-native-unistyles';
+import { StyleSheet } from 'react-native';
 
-export const ChallengeResultScreenStyles = StyleSheet.create(theme => ({
-    actionsColumn: (sizeClass: 'compact' | 'wide') => ({
-        alignItems: 'center',
-        gap: 20,
-        ...(sizeClass === 'wide' ? { flex: 1 } : { width: '100%' })
-    }),
-    boldText: {
-        fontWeight: 'bold'
+export const ChallengeResultScreenStyles = StyleSheet.create({
+    content: {
+        alignItems: 'stretch',
+        flexGrow: 1,
+        gap: 14,
+        maxWidth: 560,
+        paddingHorizontal: 18,
+        paddingTop: 16,
+        width: '100%'
     },
-    container: (sizeClass: 'compact' | 'wide') => ({
+    pill: {
         alignItems: 'center',
         alignSelf: 'center',
-        flex: 1,
-        flexDirection: sizeClass === 'wide' ? 'row' : 'column',
-        gap: theme.spacing.lg,
-        justifyContent: 'center',
-        width: '100%',
-        ...(sizeClass === 'wide' && { maxWidth: theme.contentWidth.standard })
-    }),
-    differenceText: {
-        marginTop: 10
+        borderRadius: 999,
+        maxWidth: '100%',
+        paddingHorizontal: 14,
+        paddingVertical: 7
     },
-    icon: {
-        marginBottom: 10
+    pillText: {
+        fontFamily: 'Inter_500Medium',
+        fontSize: 12.5,
+        textAlign: 'center'
     },
-    messageText: {
-        marginTop: 10
-    },
-    statsContainer: {
-        alignItems: 'center',
-        gap: 4
-    },
-    summaryColumn: (sizeClass: 'compact' | 'wide') => ({
-        alignItems: 'center',
-        gap: 20,
-        ...(sizeClass === 'wide' ? { flex: 1 } : { width: '100%' })
-    })
-}));
+    title: {
+        fontFamily: 'Inter_700Bold',
+        fontSize: 30,
+        letterSpacing: -0.8,
+        marginBottom: 2,
+        textAlign: 'center'
+    }
+});

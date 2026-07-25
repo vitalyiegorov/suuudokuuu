@@ -1,6 +1,6 @@
 {
     "name": "@suuudokuuu/app",
-    "version": "1.62.5",
+    "version": "1.66.0",
     "private": true,
     "main": "index.ts",
     "scripts": {
@@ -10,7 +10,7 @@
         "i18n:sync": "yarn i18n:extract && yarn i18n:compile",
         "ios": "expo run:ios",
         "ios:device": "expo run:ios --device",
-        "lint": "run -T eslint --fix src",
+        "lint": "run -T eslint --fix src vercel-functions",
         "prebuild": "expo prebuild --clean",
         "start": "expo start --dev-client -c",
         "test": "run -T jest",
@@ -26,10 +26,13 @@
         "@formatjs/intl-pluralrules": "^6.3.10",
         "@lingui/core": "6.4.0",
         "@lingui/react": "6.4.0",
+        "@react-native-masked-view/masked-view": "^0.3.2",
         "@reduxjs/toolkit": "^2.12.0",
         "@rnw-community/shared": "^2.2.0",
         "@suuudokuuu/encoder": "workspace:*",
         "@suuudokuuu/generator": "workspace:*",
+        "@suuudokuuu/screen-chrome": "workspace:*",
+        "@suuudokuuu/solver": "workspace:*",
         "@suuudokuuu/ui": "workspace:*",
         "date-fns": "^4.4.0",
         "expo": "~57.0.4",
@@ -38,6 +41,7 @@
         "expo-constants": "~57.0.3",
         "expo-dev-client": "~57.0.5",
         "expo-font": "~57.0.0",
+        "expo-glass-effect": "~57.0.0",
         "expo-haptics": "~57.0.0",
         "expo-linear-gradient": "~57.0.0",
         "expo-linking": "~57.0.2",
@@ -53,7 +57,6 @@
         "react": "19.2.3",
         "react-dom": "19.2.3",
         "react-native": "0.86.0",
-        "react-native-easing-gradient": "^1.1.1",
         "react-native-gesture-handler": "~2.32.0",
         "react-native-nitro-modules": "^0.36.1",
         "react-native-reanimated": "4.5.0",
@@ -66,7 +69,8 @@
         "react-native-worklets": "0.10.0",
         "react-redux": "^9.3.0",
         "redux": "^5.0.1",
-        "redux-persist": "^6.0.0"
+        "redux-persist": "^6.0.0",
+        "zod": "4.4.3"
     },
     "devDependencies": {
         "@babel/core": "^7.29.7",

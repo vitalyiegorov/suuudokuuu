@@ -18,6 +18,14 @@ msgstr ""
 msgid "{0, plural, one {# mistake} other {# mistakes}}"
 msgstr "{0, plural, zero {# أخطاء} one {# خطأ} two {# خطآن} few {# أخطاء} many {# خطأ} other {# خطأ}}"
 
+#: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
+msgid "{durationText} faster"
+msgstr "{durationText} أسرع"
+
+#: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
+msgid "{durationText} slower"
+msgstr "{durationText} أبطأ"
+
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "{filledCells}/{totalCells} filled"
 msgstr "{filledCells}/{totalCells} ممتلئة"
@@ -26,12 +34,44 @@ msgstr "{filledCells}/{totalCells} ممتلئة"
 msgid "{gamesCompleted, plural, one {# completed game} other {# completed games}}"
 msgstr "{gamesCompleted, plural, one {# لعبة مكتملة} other {# ألعاب مكتملة}}"
 
+#: src/challenge/components/challenge-technique-preview/challenge-technique-preview.tsx
+msgid "{keyMoveCount, plural, one {# key move} other {# key moves}}"
+msgstr "{keyMoveCount, plural, zero {# حركات رئيسية} one {# حركة رئيسية} two {# حركتان رئيسيتان} few {# حركات رئيسية} many {# حركة رئيسية} other {# حركة رئيسية}}"
+
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
+msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
+msgstr "{mistakes, plural, zero {# أخطاء} one {# خطأ} two {# خطآن} few {# أخطاء} many {# خطأ} other {# خطأ}}"
+
+#: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
+msgid "{sharpCount, plural, one {# sharp technique} other {# sharp techniques}}"
+msgstr "{sharpCount, plural, zero {# تقنيات بارعة} one {# تقنية بارعة} two {# تقنيتان بارعتان} few {# تقنيات بارعة} many {# تقنية بارعة} other {# تقنية بارعة}}"
+
+#: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
+msgid "{value, plural, one {# day} other {# days}}"
+msgstr "{value, plural, zero {# يوم} one {# يوم} two {# يومين} few {# أيام} many {# يومًا} other {# يوم}}"
+
+#: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
+msgid "{value, plural, one {# hour} other {# hours}}"
+msgstr "{value, plural, zero {# ساعة} one {# ساعة} two {# ساعتين} few {# ساعات} many {# ساعة} other {# ساعة}}"
+
+#: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
+msgid "{value, plural, one {# minute} other {# minutes}}"
+msgstr "{value, plural, zero {# دقيقة} one {# دقيقة} two {# دقيقتين} few {# دقائق} many {# دقيقة} other {# دقيقة}}"
+
+#: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
+msgid "{value, plural, one {# second} other {# seconds}}"
+msgstr "{value, plural, zero {# ثانية} one {# ثانية} two {# ثانيتين} few {# ثوانٍ} many {# ثانية} other {# ثانية}}"
+
+#: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
+msgid "<0>Development client required</0><1>Development clients need Metro, the launch URL configured in <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2>, or a compatible update on the <3>development</3> channel. This install flow does not publish an update.</1>"
+msgstr "<0>يلزم تطبيق عميل للتطوير</0><1>تحتاج تطبيقات عميل التطوير إلى Metro أو إلى عنوان التشغيل المضبوط في <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2> أو إلى تحديث متوافق على قناة <3>development</3>. لا تنشر عملية التثبيت هذه أي تحديث.</1>"
+
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "A little room between cells"
 msgstr "مسافة قليلة بين الخلايا"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
-msgid "Accept Challenge"
+msgid "Accept challenge"
 msgstr "قبول التحدي"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
@@ -41,6 +81,10 @@ msgstr "قبول التحدي؟"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Adjust the digits on the Sudoku board"
 msgstr "اضبط حجم الأرقام على لوحة السودوكو"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "AIC"
+msgstr "AIC"
 
 #: src/history/components/history-difficulty-filter/history-difficulty-filter.tsx
 msgid "All"
@@ -56,9 +100,17 @@ msgstr "كل خانات رقم معين (1-9)"
 msgid "All progress will be lost"
 msgstr "سيضيع كل التقدم"
 
+#: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
+msgid "Android installation"
+msgstr "تثبيت Android"
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Animate completed rows, columns, and boxes"
 msgstr "تحريك الصفوف والأعمدة والمربعات المكتملة"
+
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Attempts to load the latest development build again"
+msgstr "يحاول تحميل أحدث إصدار تطوير مرة أخرى"
 
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "Average"
@@ -72,10 +124,6 @@ msgstr "تجنب الأخطاء: فهي تخصم من نقاطك."
 #: src/history/components/replay-top-bar/replay-top-bar.tsx
 msgid "Back"
 msgstr "رجوع"
-
-#: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
-msgid "Back to home"
-msgstr "العودة إلى الرئيسية"
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Bahasa Indonesia"
@@ -111,7 +159,6 @@ msgstr "أفضل نتيجة"
 msgid "Best time"
 msgstr "أفضل وقت"
 
-#: src/app/challenge-lost.tsx
 #: src/app/loser.tsx
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "Better luck next time!"
@@ -121,11 +168,18 @@ msgstr "حظًا أوفر في المرة القادمة!"
 msgid "Board colors and screen appearance"
 msgstr "ألوان اللوحة ومظهر الشاشات"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Box-Line Reduction"
+msgstr "تخفيض الصندوق والخط"
+
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Built:"
+msgstr "تم الإنشاء:"
+
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Can you beat them?"
 msgstr "هل يمكنك التفوق عليهم؟"
 
-#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
@@ -138,21 +192,25 @@ msgstr "إلغاء"
 msgid "Cell spacing"
 msgstr "تباعد الخلايا"
 
-#: src/screens/components/winner-screen/winner.screen.tsx
-msgid "Challenge a Friend"
-msgstr "تحدَّ صديقًا"
+#: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
+msgid "Challenge"
+msgstr "التحدي"
 
 #: src/app/challenge-won.tsx
 msgid "Challenge Back"
 msgstr "رد التحدي"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Challenge lost"
+msgstr "خسرت التحدي"
 
 #: src/app/challenge-lost.tsx
 msgid "Challenge Lost"
 msgstr "خسرت التحدي"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Challenge lost!"
-msgstr "خسرت التحدي!"
+msgid "Challenge won"
+msgstr "فزت بالتحدي"
 
 #: src/app/challenge-won.tsx
 msgid "Challenge Won!"
@@ -194,6 +252,10 @@ msgstr "بلا أخطاء"
 msgid "Clean black-and-white board"
 msgstr "لوحة نظيفة بالأبيض والأسود"
 
+#: src/screens/components/winner-screen/winner.screen.tsx
+msgid "Clean win"
+msgstr "فوز نظيف"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Column"
 msgstr "عمود"
@@ -202,9 +264,17 @@ msgstr "عمود"
 msgid "Comfortable"
 msgstr "مريح"
 
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Commit {commitShortSha}"
+msgstr "الالتزام {commitShortSha}"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Complete rows, columns, and blocks for huge bonuses"
 msgstr "أكمل الصفوف والأعمدة والمربعات لتحصل على مكافآت كبيرة"
+
+#: src/screens/components/winner-screen/winner.screen.tsx
+msgid "Completed"
+msgstr "مكتمل"
 
 #: src/history/components/history-games-list/history-games-list.tsx
 msgid "Completed games will be ready for replay."
@@ -235,6 +305,10 @@ msgstr "الوضع الداكن"
 msgid "Day streak"
 msgstr "سلسلة الأيام"
 
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Dead even"
+msgstr "تعادل تام"
+
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Deep focus"
 msgstr "تركيز عميق"
@@ -243,6 +317,19 @@ msgstr "تركيز عميق"
 msgid "Deutsch"
 msgstr "Deutsch"
 
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Development build unavailable"
+msgstr "إصدار التطوير غير متاح"
+
+#: src/app/beta.tsx
+#: src/screens/components/beta-screen/beta.screen.tsx
+msgid "Development builds"
+msgstr "إصدارات التطوير"
+
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
+msgid "Did not finish the board"
+msgstr "لم تُكمل اللوحة"
+
 #: src/game/components/difficulty-complexity-slider/difficulty-complexity-slider.tsx
 msgid "Difficulty"
 msgstr "مستوى الصعوبة"
@@ -250,6 +337,18 @@ msgstr "مستوى الصعوبة"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Display"
 msgstr "العرض"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Download for Android"
+msgstr "تنزيل لنظام Android"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Download the Android development build"
+msgstr "تنزيل إصدار التطوير لنظام Android"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Downloads the Android development APK"
+msgstr "ينزّل ملف APK لإصدار التطوير على Android"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Each correct placement starts with a base value:"
@@ -268,9 +367,13 @@ msgstr "English"
 msgid "Español"
 msgstr "Español"
 
-#: src/screens/components/loser-screen/loser-screen-ukraine-card/loser-screen-ukraine-card.tsx
-msgid "Every $1 donation matters."
-msgstr "كل تبرع بقيمة 1 دولار مهم."
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Evenly matched"
+msgstr "تعادل متقارب"
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "every technique"
+msgstr "كل التقنيات"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Expert grid"
@@ -280,21 +383,33 @@ msgstr "شبكة للخبراء"
 msgid "Extra points are awarded when your placement completes:"
 msgstr "تحصل على نقاط إضافية عندما تكمل حركتك:"
 
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "faster!"
-msgstr "أسرع!"
-
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Feedback"
 msgstr "التنبيهات"
+
+#: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
+msgid "Final score"
+msgstr "النتيجة النهائية"
 
 #: src/history/components/history-empty-state/history-empty-state.tsx
 msgid "Finish a puzzle and it will appear here."
 msgstr "أكمل لغز سودوكو وسيظهر هنا."
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Finned Swordfish"
+msgstr "Finned Swordfish"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Finned X-Wing"
+msgstr "Finned X-Wing"
+
 #: src/settings/constant/language-labels.constant.ts
 msgid "Français"
 msgstr "Français"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Full House"
+msgstr "آخر خانة فارغة"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Game"
@@ -326,6 +441,10 @@ msgstr "ذهبي"
 msgid "Group(3x3 cells)"
 msgstr "مربع (3x3 خانات)"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Guess"
+msgstr "تخمين"
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Guidance"
 msgstr "المساعدة"
@@ -346,17 +465,25 @@ msgstr "صعب"
 msgid "Hardcore"
 msgstr "هاردكور"
 
-#: src/screens/components/loser-screen/loser-screen-ukraine-card/loser-screen-ukraine-card.tsx
-msgid "Help"
-msgstr "ساعد"
-
-#: src/screens/components/pause-screen/pause-screen-ukraine-card/pause-screen-ukraine-card.tsx
+#: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Help Ukraine win"
 msgstr "ساعد أوكرانيا على الفوز"
 
-#: src/@generic/components/donation/donation.tsx
-msgid "Help Ukraine win!"
-msgstr "ساعد أوكرانيا على الفوز!"
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Hidden Pair"
+msgstr "زوج خفي"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Hidden Quad"
+msgstr "رباعي خفي"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Hidden Single"
+msgstr "مفرد خفي"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Hidden Triple"
+msgstr "ثلاثي خفي"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Highlight areas"
@@ -374,6 +501,11 @@ msgstr "تمييز الأرقام المطابقة"
 msgid "Highlight pencil marks"
 msgstr "تمييز الملاحظات بالقلم"
 
+#: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
+#: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
+msgid "Home"
+msgstr "الرئيسية"
+
 #: src/app/scoring.tsx
 #: src/scoring/components/scoring.screen.tsx
 msgid "How Scoring Works"
@@ -387,13 +519,37 @@ msgstr "أنهيت هذا السودوكو في {elapsedTimeString}. هل يمك
 msgid "Immortal"
 msgstr "خالد"
 
+#: src/screens/components/loser-screen/loser.screen.tsx
+msgid "Incomplete"
+msgstr "غير مكتمل"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Install on iOS"
+msgstr "التثبيت على iOS"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Install the iOS development build"
+msgstr "تثبيت إصدار التطوير لنظام iOS"
+
 #: src/game/components/game-provider/game-provider.tsx
 msgid "Invalid Sudoku"
 msgstr "سودوكو غير صالح"
 
-#: src/screens/components/winner-screen/winner.screen.tsx
-msgid "It took you"
-msgstr "استغرقت"
+#: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
+msgid "iOS installation"
+msgstr "تثبيت iOS"
+
+#: src/challenge/components/challenge-race-status/challenge-race-status.tsx
+msgid "is ahead"
+msgstr "متقدم"
+
+#: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
+msgid "It was a tie"
+msgstr "كانت النتيجة تعادلاً"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Jellyfish"
+msgstr "Jellyfish"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Keep cell selected"
@@ -428,9 +584,13 @@ msgstr "المستوى"
 msgid "Light warm-up"
 msgstr "إحماء خفيف"
 
-#: src/screens/components/loser-screen/loser.screen.tsx
-msgid "Loooooser =)"
-msgstr "خااااسر =)"
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Loading development build"
+msgstr "جارٍ تحميل إصدار التطوير"
+
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Loading the latest development build…"
+msgstr "جارٍ تحميل أحدث إصدار تطوير…"
 
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "Lost"
@@ -443,6 +603,10 @@ msgstr "m"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Max Mistakes bonus"
 msgstr "مكافأة الأخطاء المسموحة"
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "Maybe later"
+msgstr "ربما لاحقًا"
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -457,12 +621,12 @@ msgstr "القوائم والإعدادات ونصوص اللعبة"
 msgid "Minimum Score"
 msgstr "الحد الأدنى للنقاط"
 
+#: src/@generic/components/completed-game-result-details/completed-game-result-details.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
 #: src/screens/components/home-screen/home.screen.tsx
-#: src/screens/components/loser-screen/loser-screen-metrics/loser-screen-metrics.tsx
 #: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
 msgid "Mistakes"
 msgstr "أخطاء"
@@ -471,9 +635,33 @@ msgstr "أخطاء"
 msgid "Move"
 msgstr "النقلة"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Naked Pair"
+msgstr "زوج مكشوف"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Naked Quad"
+msgstr "رباعي مكشوف"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Naked Single"
+msgstr "مفرد مكشوف"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Naked Triple"
+msgstr "ثلاثي مكشوف"
+
+#: src/challenge/components/challenge-race-status/challenge-race-status.tsx
+msgid "neck & neck"
+msgstr "رأسًا برأس"
+
 #: src/screens/components/home-screen/home-screen-section-header/home-screen-section-header.tsx
 msgid "New game"
 msgstr "لعبة جديدة"
+
+#: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
+msgid "New personal best"
+msgstr "رقم قياسي شخصي جديد"
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -492,6 +680,14 @@ msgstr "كابوس"
 #: src/scoring/components/scoring.screen.tsx
 msgid "no bonus"
 msgstr "لا مكافأة"
+
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "No complete development build has been published yet. Please check again later."
+msgstr "لم يُنشر أي إصدار تطوير مكتمل بعد. يُرجى التحقق مرة أخرى لاحقًا."
+
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "No development build is available"
+msgstr "لا يتوفر إصدار تطوير"
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "No extra gaps between cells"
@@ -529,6 +725,10 @@ msgstr "من النتيجة الحالية"
 msgid "OK"
 msgstr "حسنًا"
 
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Open commit {commitShortSha} on GitHub"
+msgstr "فتح الالتزام {commitShortSha} على GitHub"
+
 #: src/screens/components/shared-screen/shared-screen.tsx
 msgid "Open puzzle"
 msgstr "فتح السودوكو"
@@ -538,9 +738,22 @@ msgstr "فتح السودوكو"
 msgid "Open shared puzzle?"
 msgstr "فتح السودوكو المشترك؟"
 
+#: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
+msgid "Open this page in Safari on a physical iPhone or iPad. The device must already be registered in the Ad Hoc provisioning profile."
+msgstr "افتح هذه الصفحة في Safari على جهاز iPhone أو iPad فعلي. يجب أن يكون الجهاز مسجّلًا مسبقًا في ملف تعريف توفير Ad Hoc."
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Opens the registered-device installation prompt"
+msgstr "يفتح مطالبة التثبيت للجهاز المسجّل"
+
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Opens this commit on GitHub"
+msgstr "يفتح هذا الالتزام على GitHub"
+
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Opponent's time:"
-msgstr "وقت المنافس:"
+msgid "Out of mistakes"
+msgstr "نفدت الأخطاء المسموحة"
 
 #: src/history/components/history-segmented-control/history-segmented-control.tsx
 msgid "Overview"
@@ -589,6 +802,14 @@ msgstr "تم اللعب"
 msgid "Playing with fewer mistakes allowed gives you a score multiplier:"
 msgstr "كلما قل عدد الأخطاء المسموحة زاد مضاعف النقاط:"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Pointing Pair"
+msgstr "زوج موجّه"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Pointing Triple"
+msgstr "ثلاثي موجّه"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Points are deducted for:"
 msgstr "تُخصم النقاط بسبب:"
@@ -607,6 +828,10 @@ msgstr "Português"
 msgid "Privacy policy"
 msgstr "سياسة الخصوصية"
 
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Published:"
+msgstr "نُشر:"
+
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Quit"
 msgstr "إنهاء"
@@ -615,6 +840,10 @@ msgstr "إنهاء"
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Relaxed"
 msgstr "مريح"
+
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Release notes"
+msgstr "ملاحظات الإصدار"
 
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-top-bar/replay-top-bar.tsx
@@ -625,9 +854,46 @@ msgstr "إعادة"
 msgid "Report a bug"
 msgstr "الإبلاغ عن خطأ"
 
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
+msgid "Result"
+msgstr "النتيجة"
+
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Retry loading development build"
+msgstr "إعادة محاولة تحميل إصدار التطوير"
+
+#: src/challenge/components/challenge-race-status/challenge-race-status.tsx
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
+msgid "Rival"
+msgstr "المنافس"
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "Rival challenged you"
+msgstr "تحداك المنافس"
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "Rival's arsenal"
+msgstr "ترسانة المنافس"
+
+#: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
+msgid "Rival's playbook"
+msgstr "أسلوب المنافس"
+
+#: src/challenge/components/challenge-result-rival-time-card/challenge-result-rival-time-card.tsx
+msgid "Rival's time to beat"
+msgstr "وقت المنافس الذي عليك التغلب عليه"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Row"
 msgstr "صف"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Sashimi Swordfish"
+msgstr "Sashimi Swordfish"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Sashimi X-Wing"
+msgstr "Sashimi X-Wing"
 
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
@@ -645,16 +911,16 @@ msgstr "النقاط × المعامل × العدد"
 msgid "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 msgstr "تُحسب النقاط لكل خانة صحيحة حسب الصعوبة والمكافآت والعقوبات."
 
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Score:"
-msgstr "النقاط:"
-
 #: src/@generic/components/main-tab-layout/main-tab-layout.tsx
 #: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/component/settings-page-content/settings-page-content.tsx
 msgid "Settings"
 msgstr "الإعدادات"
+
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "SHA-256 checksums"
+msgstr "مجاميع تحقق SHA-256"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Shade cells that already have a number"
@@ -680,9 +946,9 @@ msgstr "إظهار الملاحظات المطابقة للخلية المحدد
 msgid "Show the row, column, and box for the selected cell"
 msgstr "إظهار الصف والعمود والمربع للخلية المحددة"
 
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "slower!"
-msgstr "أبطأ!"
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Simple Coloring"
+msgstr "تلوين بسيط"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Small"
@@ -699,6 +965,10 @@ msgstr "أصغر أرقام للوحات المدمجة"
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Soft gray board with a paper-like feel"
 msgstr "لوحة رمادية ناعمة بإحساس الورق"
+
+#: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
+msgid "Solved with the fundamentals"
+msgstr "حُلّت بالأساسيات"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Space between Sudoku cells"
@@ -777,6 +1047,26 @@ msgstr "SuuudokuuU: اللعبة"
 msgid "Svenska"
 msgstr "Svenska"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Swordfish"
+msgstr "Swordfish"
+
+#: src/challenge/components/challenge-technique-preview/challenge-technique-preview.tsx
+msgid "Taller marks = sharper techniques"
+msgstr "كلما ارتفعت العلامة زادت براعة التقنية"
+
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "The commit link could not be opened on this device."
+msgstr "تعذّر فتح رابط الالتزام على هذا الجهاز."
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "The install link could not be opened. Check your browser settings and try again."
+msgstr "تعذّر فتح رابط التثبيت. تحقق من إعدادات المتصفح وحاول مرة أخرى."
+
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "Their time to beat"
+msgstr "وقتهم الذي عليك التغلب عليه"
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Theme"
@@ -794,15 +1084,19 @@ msgstr "ثلاثة أخطاء"
 msgid "Tight"
 msgstr "متقارب"
 
+#: src/@generic/components/completed-game-result-details/completed-game-result-details.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
 #: src/screens/components/home-screen/home.screen.tsx
-#: src/screens/components/loser-screen/loser-screen-metrics/loser-screen-metrics.tsx
 #: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
 msgid "Time"
 msgstr "الوقت"
+
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
+msgid "Time behind"
+msgstr "فارق الوقت"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Timer"
@@ -820,17 +1114,25 @@ msgstr "نصائح لنتائج أعلى"
 msgid "Too many mistakes"
 msgstr "أخطاء كثيرة جدًا"
 
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "Try again"
+msgstr "إعادة المحاولة"
+
 #: src/challenge/components/challenge-try-again-button/challenge-try-again-button.tsx
 msgid "Try Again"
 msgstr "حاول مجددًا"
 
-#: src/screens/components/pause-screen/pause-screen-ukraine-card/pause-screen-ukraine-card.tsx
+#: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Ukraine keeps fighting"
 msgstr "أوكرانيا تواصل القتال"
 
-#: src/screens/components/loser-screen/loser-screen-ukraine-card/loser-screen-ukraine-card.tsx
-msgid "Ukraine needs to win too"
-msgstr "أوكرانيا تحتاج إلى الفوز أيضًا"
+#: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
+msgid "Unable to open link"
+msgstr "تعذّر فتح الرابط"
+
+#: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
+msgid "Unable to start installation"
+msgstr "تعذّر بدء التثبيت"
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/screens/components/settings-screen/settings.screen.tsx
@@ -901,19 +1203,19 @@ msgstr "الاهتزاز عند النقر وإجراءات اللعب"
 msgid "Vibration"
 msgstr "الاهتزاز"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "W-Wing"
+msgstr "W-Wing"
+
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Warm gold accents for a brighter board"
 msgstr "لمسات ذهبية دافئة للوحة أكثر إشراقًا"
 
-#: src/@generic/utils/donation-get-text.util.ts
-msgid "While you were away Ukraine continued its fight for freedom!\n"
-"\n"
-"Every 1$ donation matters!"
-msgstr "أثناء غيابك واصلت أوكرانيا كفاحها من أجل الحرية!\n"
-"\n"
-"كل تبرع بقيمة 1 دولار مهم!"
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+msgid "We could not load the latest development build. Please try again."
+msgstr "تعذّر تحميل أحدث إصدار تطوير. يُرجى المحاولة مرة أخرى."
 
-#: src/screens/components/pause-screen/pause-screen-ukraine-card/pause-screen-ukraine-card.tsx
+#: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "While you were away, the fight for freedom continued. Every $1 makes a difference."
 msgstr "بينما كنت بعيدًا، استمر الكفاح من أجل الحرية. كل تبرع بقيمة $1 يحدث فرقًا."
 
@@ -925,63 +1227,73 @@ msgstr "مسافات أوسع لتسهيل الضغط"
 msgid "Win rate"
 msgstr "معدل الفوز"
 
-#: src/screens/components/winner-screen/winner.screen.tsx
-msgid "Winners-winner, \n"
-" chicken dinner!"
-msgstr "فزت!\n"
-"حان وقت الاحتفال!"
+#: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
+msgid "Winner, winner!"
+msgstr "لقد فزت!"
 
 #: src/app/winner.tsx
 msgid "Winners-winner, chicken dinner!"
 msgstr "فزت! حان وقت الاحتفال!"
 
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
+msgid "Winning margin"
+msgstr "هامش الفوز"
+
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "Won"
 msgstr "فوز"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "X-Chain"
+msgstr "X-Chain"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "X-Wing"
+msgstr "X-Wing"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "XY-Chain"
+msgstr "XY-Chain"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "XY-Wing"
+msgstr "XY-Wing"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "XYZ-Wing"
+msgstr "XYZ-Wing"
+
+#: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
+msgid "You"
+msgstr "أنت"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "You beat your rival"
+msgstr "لقد هزمت منافسك"
 
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "You got to"
 msgstr "وصلت إلى"
 
-#: src/screens/components/winner-screen/winner.screen.tsx
-msgid "You have scored"
-msgstr "لقد حققت"
-
-#: src/@generic/utils/donation-get-text.util.ts
-msgid "You lost but Ukraine must win!\n"
-"\n"
-"Every 1$ donation matters!"
-msgstr "لقد خسرت، لكن يجب أن تنتصر أوكرانيا!\n"
-"\n"
-"كل تبرع بقيمة 1 دولار مهم!"
-
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "You were"
-msgstr "كنت"
-
-#: src/@generic/utils/donation-get-text.util.ts
-msgid "You won and Ukraine needs to!\n"
-"\n"
-"Every 1$ donation matters!"
-msgstr "لقد فزت، وأوكرانيا تحتاج إلى الفوز أيضًا!\n"
-"\n"
-"كل تبرع بقيمة 1 دولار مهم!"
-
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "You won the challenge!"
-msgstr "فزت بالتحدي!"
+#: src/challenge/components/challenge-race-status/challenge-race-status.tsx
+msgid "you lead"
+msgstr "أنت متقدم"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Your best run"
 msgstr "أفضل جولة لك"
 
-#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
-msgid "Your opponent completed this puzzle in"
-msgstr "أنهى منافسك هذا السودوكو في"
+#: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
+msgid "Your browser may ask for permission to install unknown apps. Android will also show an operating-system security warning before installation."
+msgstr "قد يطلب متصفحك إذنًا لتثبيت تطبيقات من مصادر غير معروفة. سيعرض Android أيضًا تحذير أمان من نظام التشغيل قبل التثبيت."
 
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Your progress"
 msgstr "تقدمك"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Your rival was faster"
+msgstr "كان منافسك أسرع"
 
 #: src/history/components/history-overview-tab/history-overview-tab.tsx
 msgid "Your stats will build as you finish puzzles."
@@ -990,10 +1302,6 @@ msgstr "ستتراكم إحصاءاتك كلما أنهيت ألغاز السو�
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Your sudoku journey"
 msgstr "رحلتك في السودوكو"
-
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Your time:"
-msgstr "وقتك:"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Zero mistakes"

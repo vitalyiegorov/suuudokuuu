@@ -25,11 +25,31 @@ export const gameSlice = createSlice({
             state.maxMistakes = action.payload.maxMistakes;
         },
         pause: (state, action: PayloadAction<{ shouldShowPauseScreen?: boolean } | undefined>) => {
+            if (isNotEmptyString(state.challengeState)) {
+                return;
+            }
+
             const shouldShowPauseScreen = action.payload?.shouldShowPauseScreen ?? true;
 
             state.isPaused = true;
             state.shouldShowPauseScreen = shouldShowPauseScreen;
             state.shouldResumeOnFocus = !shouldShowPauseScreen;
+        },
+        challengeClockSync: (state, action: PayloadAction<{ nowMs: number }>) => {
+            if (!isNotEmptyString(state.challengeState)) {
+                return;
+            }
+
+            if (state.challengeWallStartMs === 0) {
+                state.challengeWallStartMs = action.payload.nowMs - state.elapsedTime * 1000;
+
+                return;
+            }
+
+            const wallElapsedSeconds = Math.floor((action.payload.nowMs - state.challengeWallStartMs) / 1000);
+            if (wallElapsedSeconds > state.elapsedTime) {
+                state.elapsedTime = wallElapsedSeconds;
+            }
         },
         resume: state => {
             state.isPaused = false;
@@ -39,9 +59,10 @@ export const gameSlice = createSlice({
         save: (state, action: PayloadAction<{ sudoku: Sudoku; correctCell: CellInterface; scoredCells: ScoredCellsInterface }>) => {
             const { sudoku, correctCell, scoredCells } = action.payload;
 
+            const scoring = new SudokuScoring(defaultScoringConfig);
+
             state.sudokuString = sudoku.toString();
 
-            const scoring = new SudokuScoring(defaultScoringConfig);
             state.score += scoring.calculate({
                 scoredCells,
                 difficulty: sudoku.Difficulty,
@@ -119,6 +140,10 @@ export const gameSlice = createSlice({
         finish: (state, action: PayloadAction<{ difficulty: DifficultyEnum; isWon: boolean; isChallenge?: boolean }>) => {
             const { difficulty, isWon, isChallenge = false } = action.payload;
             const history = state.historyByDifficulty[difficulty];
+            const hasNewPersonalBestScore =
+                isWon && !isChallenge && !isNotEmptyString(state.challengeState) && state.score > history.bestScore;
+
+            state.hasNewPersonalBestScore = hasNewPersonalBestScore;
 
             history.averageTime = (history.averageTime * history.gamesCompleted + state.elapsedTime) / (history.gamesCompleted + 1);
             history.gamesCompleted += 1;

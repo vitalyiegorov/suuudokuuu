@@ -1,16 +1,15 @@
 import { Trans, useLingui } from '@lingui/react/macro';
 import { DifficultyEnum, Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
+import { ScreenChromeScrollView } from '@suuudokuuu/screen-chrome';
 import { useAppLayout } from '@suuudokuuu/ui';
 import { Link } from 'expo-router';
 import { use, useState } from 'react';
-import { Pressable, ScrollView, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Pressable, View } from 'react-native';
 
 import { Alert } from '../../../@generic/components/alert/alert';
 import { BlackText } from '../../../@generic/components/black-text/black-text';
+import { ChromePage } from '../../../@generic/components/chrome-page/chrome-page';
 import { Header } from '../../../@generic/components/header/header';
-import { ScreenChrome } from '../../../@generic/components/screen-chrome/screen-chrome';
-import { ScreenChromeProgressiveOverlay } from '../../../@generic/components/screen-chrome-progressive-overlay/screen-chrome-progressive-overlay';
 import { SupportUkrainePill } from '../../../@generic/components/support-ukraine-pill/support-ukraine-pill';
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
@@ -36,7 +35,7 @@ import { ThemeContext } from '../../../theme/context/theme.context';
 
 import {
     HomeScreenBottomScrollPadding,
-    HomeScreenCurrentGameBottomScrollPadding,
+    HomeScreenFloatingTabBarInset,
     HomeScreenTopContentPadding,
     HomeScreenTopOverlayHeight,
     HomeScreenTopOverlayIntensity
@@ -50,6 +49,7 @@ import { type HomeScreenOptionCardInterface } from './interface/home-screen-opti
 import { homeScreenGetCurrentGameProgress } from './utils/home-screen-get-current-game-progress.util';
 
 const RelaxedMistakeLimit = 99;
+const topEdgeFadeProps = { height: HomeScreenTopOverlayHeight, intensity: HomeScreenTopOverlayIntensity };
 
 // eslint-disable-next-line max-lines-per-function
 export const HomeScreen = () => {
@@ -57,7 +57,6 @@ export const HomeScreen = () => {
     const { theme } = use(ThemeContext);
     const { t } = useLingui();
     const dispatch = useAppDispatch();
-    const insets = useSafeAreaInsets();
     const { sizeClass } = useAppLayout();
     const [bestScore, bestTime] = useAppSelector(gameHistoryBestTimeSelector);
     const currentElapsedTime = useAppSelector(gameElapsedTimeSelector);
@@ -156,15 +155,7 @@ export const HomeScreen = () => {
         { label: t`Time`, value: bestTimeText }
     ];
     const startButtonText = isGameStarted ? t`Start new puzzle` : t`Start puzzle`;
-    const topOverlay = (
-        <ScreenChromeProgressiveOverlay height={HomeScreenTopOverlayHeight} intensity={HomeScreenTopOverlayIntensity} position="top" />
-    );
-    const bottomScrollPadding = isGameStarted ? HomeScreenCurrentGameBottomScrollPadding : HomeScreenBottomScrollPadding;
-    const topInset = insets.top + HomeScreenTopContentPadding;
-    const bottomInset = insets.bottom + bottomScrollPadding;
-    const topInsetStyles = { paddingTop: topInset };
-    const bottomInsetStyles = { paddingBottom: bottomInset };
-    const scrollContentStyles = [styles.scrollContent(sizeClass), topInsetStyles, bottomInsetStyles];
+    const contentInsetBottom = HomeScreenBottomScrollPadding + HomeScreenFloatingTabBarInset;
     const mistakeCards: HomeScreenOptionCardInterface[] = mistakeOptions.map(option => {
         const isSelected = option.maxMistakes === maxMistakes;
         const optionColorStyles = isSelected ? selectedOptionColorStyles : unselectedOptionColorStyles;
@@ -183,9 +174,11 @@ export const HomeScreen = () => {
     });
 
     return (
-        <ScreenChrome contentStyle={styles.content} topOverlay={topOverlay}>
-            <ScrollView
-                contentContainerStyle={scrollContentStyles}
+        <ChromePage contentStyle={styles.content} topEdgeFadeProps={topEdgeFadeProps}>
+            <ScreenChromeScrollView
+                contentContainerStyle={styles.scrollContent(sizeClass)}
+                contentInsetBottom={contentInsetBottom}
+                contentInsetTop={HomeScreenTopContentPadding}
                 showsVerticalScrollIndicator={false}
                 style={styles.scrollView}
                 testID={HomeScreenSelectors.Root}
@@ -271,7 +264,7 @@ export const HomeScreen = () => {
                         />
                     </View>
                 </View>
-            </ScrollView>
-        </ScreenChrome>
+            </ScreenChromeScrollView>
+        </ChromePage>
     );
 };

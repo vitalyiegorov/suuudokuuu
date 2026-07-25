@@ -1,4 +1,8 @@
 node_modules/
+/docs/plans/
+/docs/superpowers/plans/
+/docs/superpowers/specs/
+
 packages/app/.expo/
 dist/
 npm-debug.*
@@ -51,3 +55,4 @@ build-*.tar.gz
 *.app
 *.apk
 app*.tar.gz
+tests/app-tests/artifacts
