@@ -32,6 +32,6 @@ export const SCREEN_CHROME_SHARED_DEFAULT_CONFIG: Omit<
     },
     blurIntensityScale: {
         [ColorSchemeEnum.LIGHT]: 1,
-        [ColorSchemeEnum.DARK]: 0
+        [ColorSchemeEnum.DARK]: 1
     }
 };

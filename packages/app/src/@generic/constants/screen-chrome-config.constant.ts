@@ -1,4 +1,4 @@
-export const AppScreenChromeSolidAlpha = 0.4;
+export const AppScreenChromeSolidAlpha = 1;
 export const AppScreenChromeWashAlpha = 0;
 
 export const AppScreenChromeConfig = {

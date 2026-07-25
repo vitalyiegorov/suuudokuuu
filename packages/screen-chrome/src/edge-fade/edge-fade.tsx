@@ -84,8 +84,8 @@ export const EdgeFade = ({
                     />
                 }
             >
-                <LinearGradient colors={washColors} start={GRADIENT_START} end={GRADIENT_END} style={edgeFadeStyles.fill} />
-                <AnimatedBlurView style={StyleSheet.absoluteFill} tint={tint} blurMethod={blurMethod} {...blurIntensityProps} />
+                <AnimatedBlurView style={edgeFadeStyles.fill} tint={tint} blurMethod={blurMethod} {...blurIntensityProps} />
+                <LinearGradient colors={washColors} start={GRADIENT_START} end={GRADIENT_END} style={StyleSheet.absoluteFill} />
             </MaskedView>
         </Animated.View>
     );
