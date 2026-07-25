@@ -22,7 +22,7 @@ msgstr "{0, plural, one {# Fehler} other {# Fehler}}"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
-msgstr ""
+msgstr "{arsenalCardCount, plural, one {# Technik} other {# Techniken}}"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} faster"
@@ -158,7 +158,7 @@ msgstr "Denk klug, spiel schnell..."
 #: src/history/components/history-difficulty/history-difficulty.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Best score"
-msgstr "Höchstpunktzahl"
+msgstr "Highscore"
 
 #: src/history/components/history-difficulty/history-difficulty.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
@@ -200,7 +200,7 @@ msgstr "Zellenabstand"
 
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Challenge"
-msgstr "Herausforderung"
+msgstr "Duell"
 
 #: src/app/challenge-won.tsx
 msgid "Challenge Back"
@@ -208,7 +208,7 @@ msgstr "Revanche fordern"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Challenge lost"
-msgstr "Herausforderung verloren"
+msgstr "Duell verloren"
 
 #: src/app/challenge-lost.tsx
 msgid "Challenge Lost"
@@ -216,7 +216,7 @@ msgstr "Duell verloren"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Challenge won"
-msgstr "Herausforderung gewonnen"
+msgstr "Duell gewonnen"
 
 #: src/app/challenge-won.tsx
 msgid "Challenge Won!"
@@ -342,7 +342,7 @@ msgstr "Schwierigkeit"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Dim a completed digit in the numpad instead of removing it"
-msgstr ""
+msgstr "Abgeschlossene Zahl im Nummernblock abdunkeln statt sie zu entfernen"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Display"
@@ -563,7 +563,7 @@ msgstr "Zelle ausgewählt lassen"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Keep completed digits"
-msgstr ""
+msgstr "Abgeschlossene Zahlen behalten"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Keep selection after tapping outside the board"
@@ -1026,7 +1026,7 @@ msgstr "Aktuelle Partie beenden?"
 
 #: src/@generic/components/support-ukraine-pill/support-ukraine-pill.tsx
 msgid "Support"
-msgstr "Unterstützen"
+msgstr "Spenden"
 
 #: src/@generic/components/support-ukraine-pill/support-ukraine-pill.tsx
 #: src/settings/component/settings-app-footer/settings-app-footer.tsx

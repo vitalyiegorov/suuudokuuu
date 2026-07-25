@@ -20,7 +20,7 @@ msgstr "{0, plural, one {# غلطی} other {# غلطیاں}}"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
-msgstr ""
+msgstr "{arsenalCardCount, plural, one {# تکنیک} other {# تکنیکیں}}"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} faster"
@@ -340,7 +340,7 @@ msgstr "مشکل"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Dim a completed digit in the numpad instead of removing it"
-msgstr ""
+msgstr "مکمل ہندسے کو ہٹانے کے بجائے نمبر پیڈ میں دھندلا کریں"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Display"
@@ -561,7 +561,7 @@ msgstr "خانہ منتخب رکھیں"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Keep completed digits"
-msgstr ""
+msgstr "مکمل ہندسے رکھیں"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Keep selection after tapping outside the board"
@@ -715,7 +715,7 @@ msgstr "پنالٹیز کتنی بھی ہوں، آپ کو ہمیشہ کم از �
 
 #: src/history/components/history-overview-tab/history-overview-tab.tsx
 msgid "No stats yet"
-msgstr "ابھی کوئی اعداد و شمار نہیں"
+msgstr "ابھی کوئی شماریات نہیں"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
@@ -1010,7 +1010,7 @@ msgstr "اعدادوشمار"
 #: src/app/(tabs)/history.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Stats"
-msgstr "اعداد و شمار"
+msgstr "شماریات"
 
 #: src/history/components/replay-controls/replay-controls.tsx
 msgid "Step time"
@@ -1112,7 +1112,7 @@ msgstr "ٹائمر"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Tiny"
-msgstr "بہت چھوٹا"
+msgstr "ننھا"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Tips for High Scores"

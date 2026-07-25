@@ -20,7 +20,7 @@ msgstr "{0, plural, one {# 个错误} other {# 个错误}}"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
-msgstr ""
+msgstr "{arsenalCardCount, plural, one {# 个技巧} other {# 个技巧}}"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} faster"
@@ -340,7 +340,7 @@ msgstr "难度"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Dim a completed digit in the numpad instead of removing it"
-msgstr ""
+msgstr "让数字键盘中已完成的数字变暗，而不是移除它"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Display"
@@ -561,7 +561,7 @@ msgstr "保持单元格选中"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Keep completed digits"
-msgstr ""
+msgstr "保留已完成数字"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Keep selection after tapping outside the board"

@@ -20,7 +20,7 @@ msgstr "{0, plural, one {# गलती} other {# गलतियाँ}}"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
-msgstr ""
+msgstr "{arsenalCardCount, plural, one {# तकनीक} other {# तकनीकें}}"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} faster"
@@ -156,12 +156,12 @@ msgstr "समझदारी से सोचें, तेज़ चलें.
 #: src/history/components/history-difficulty/history-difficulty.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Best score"
-msgstr "सर्वश्रेष्ठ स्कोर"
+msgstr "बेस्ट स्कोर"
 
 #: src/history/components/history-difficulty/history-difficulty.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Best time"
-msgstr "सर्वश्रेष्ठ समय"
+msgstr "बेस्ट समय"
 
 #: src/app/loser.tsx
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
@@ -206,7 +206,7 @@ msgstr "वापस चुनौती दें"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Challenge lost"
-msgstr "चुनौती हार गए"
+msgstr "चुनौती हारी"
 
 #: src/app/challenge-lost.tsx
 msgid "Challenge Lost"
@@ -214,7 +214,7 @@ msgstr "चुनौती हारी"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Challenge won"
-msgstr "चुनौती जीत गए"
+msgstr "चुनौती जीती"
 
 #: src/app/challenge-won.tsx
 msgid "Challenge Won!"
@@ -340,7 +340,7 @@ msgstr "कठिनाई"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Dim a completed digit in the numpad instead of removing it"
-msgstr ""
+msgstr "पूर्ण अंक को नंबर पैड से हटाने के बजाय धुंधला करें"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Display"
@@ -561,7 +561,7 @@ msgstr "सेल चयनित रखें"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Keep completed digits"
-msgstr ""
+msgstr "पूर्ण अंक रखें"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Keep selection after tapping outside the board"
@@ -873,23 +873,23 @@ msgstr "डेवलपमेंट बिल्ड फिर से लोड �
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "Rival"
-msgstr "प्रतिद्वंद्वी"
+msgstr "विरोधी"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Rival challenged you"
-msgstr "प्रतिद्वंद्वी ने आपको चुनौती दी"
+msgstr "विरोधी ने आपको चुनौती दी"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Rival's arsenal"
-msgstr "प्रतिद्वंद्वी का शस्त्रागार"
+msgstr "विरोधी का शस्त्रागार"
 
 #: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
 msgid "Rival's playbook"
-msgstr "प्रतिद्वंद्वी की रणनीति"
+msgstr "विरोधी की रणनीति"
 
 #: src/challenge/components/challenge-result-rival-time-card/challenge-result-rival-time-card.tsx
 msgid "Rival's time to beat"
-msgstr "प्रतिद्वंद्वी का समय जिसे पीछे छोड़ना है"
+msgstr "विरोधी का समय जिसे पीछे छोड़ना है"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Row"
@@ -1112,7 +1112,7 @@ msgstr "टाइमर"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Tiny"
-msgstr "बहुत छोटा"
+msgstr "नन्हा"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Tips for High Scores"
@@ -1124,7 +1124,7 @@ msgstr "बहुत ज़्यादा गलतियाँ"
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Try again"
-msgstr "फिर से कोशिश करें"
+msgstr "फिर कोशिश करें"
 
 #: src/challenge/components/challenge-try-again-button/challenge-try-again-button.tsx
 msgid "Try Again"
@@ -1277,7 +1277,7 @@ msgstr "आप"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "You beat your rival"
-msgstr "आपने अपने प्रतिद्वंद्वी को हराया"
+msgstr "आपने अपने विरोधी को हराया"
 
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "You got to"
@@ -1301,7 +1301,7 @@ msgstr "आपकी प्रगति"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Your rival was faster"
-msgstr "आपका प्रतिद्वंद्वी तेज़ था"
+msgstr "आपका विरोधी तेज़ था"
 
 #: src/history/components/history-overview-tab/history-overview-tab.tsx
 msgid "Your stats will build as you finish puzzles."

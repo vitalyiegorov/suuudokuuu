@@ -22,7 +22,7 @@ msgstr "{0, plural, one {# error} other {# errores}}"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
-msgstr ""
+msgstr "{arsenalCardCount, plural, one {# técnica} other {# técnicas}}"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} faster"
@@ -208,7 +208,7 @@ msgstr "Devolver el reto"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Challenge lost"
-msgstr "Desafío perdido"
+msgstr "Reto perdido"
 
 #: src/app/challenge-lost.tsx
 msgid "Challenge Lost"
@@ -216,7 +216,7 @@ msgstr "Reto perdido"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Challenge won"
-msgstr "Desafío ganado"
+msgstr "Reto ganado"
 
 #: src/app/challenge-won.tsx
 msgid "Challenge Won!"
@@ -342,7 +342,7 @@ msgstr "Dificultad"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Dim a completed digit in the numpad instead of removing it"
-msgstr ""
+msgstr "Atenuar un número completado en el teclado numérico en vez de eliminarlo"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Display"
@@ -563,7 +563,7 @@ msgstr "Mantener celda seleccionada"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Keep completed digits"
-msgstr ""
+msgstr "Mantener números completados"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Keep selection after tapping outside the board"
@@ -643,7 +643,7 @@ msgstr "Errores"
 
 #: src/history/components/replay-controls/replay-controls.tsx
 msgid "Move"
-msgstr "Movimiento"
+msgstr "Jugada"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Naked Pair"
@@ -1114,7 +1114,7 @@ msgstr "Temporizador"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Tiny"
-msgstr "Muy pequeño"
+msgstr "Diminuto"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Tips for High Scores"
@@ -1126,7 +1126,7 @@ msgstr "Demasiados errores"
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Try again"
-msgstr "Intentarlo de nuevo"
+msgstr "Intentar de nuevo"
 
 #: src/challenge/components/challenge-try-again-button/challenge-try-again-button.tsx
 msgid "Try Again"
@@ -1235,7 +1235,7 @@ msgstr "Espacios más amplios para tocar con más facilidad"
 
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Win rate"
-msgstr "Porcentaje de victorias"
+msgstr "Victorias"
 
 #: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
 msgid "Winner, winner!"

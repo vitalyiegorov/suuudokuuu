@@ -20,7 +20,7 @@ msgstr "{0, plural, one {# erro} other {# erros}}"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
-msgstr ""
+msgstr "{arsenalCardCount, plural, one {# técnica} other {# técnicas}}"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} faster"
@@ -340,7 +340,7 @@ msgstr "Dificuldade"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Dim a completed digit in the numpad instead of removing it"
-msgstr ""
+msgstr "Esmaecer um número completo no teclado numérico em vez de removê-lo"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Display"
@@ -561,7 +561,7 @@ msgstr "Manter célula selecionada"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Keep completed digits"
-msgstr ""
+msgstr "Manter números completos"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Keep selection after tapping outside the board"
@@ -1112,7 +1112,7 @@ msgstr "Cronômetro"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Tiny"
-msgstr "Muito pequeno"
+msgstr "Minúsculo"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Tips for High Scores"
@@ -1124,7 +1124,7 @@ msgstr "Erros demais"
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Try again"
-msgstr "Tentar novamente"
+msgstr "Tentar de novo"
 
 #: src/challenge/components/challenge-try-again-button/challenge-try-again-button.tsx
 msgid "Try Again"
@@ -1233,7 +1233,7 @@ msgstr "Espaços maiores para tocar com mais facilidade"
 
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Win rate"
-msgstr "Taxa de vitória"
+msgstr "Vitórias"
 
 #: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
 msgid "Winner, winner!"
@@ -1285,7 +1285,7 @@ msgstr "Você chegou a"
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 msgid "you lead"
-msgstr "você está à frente"
+msgstr "você lidera"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Your best run"

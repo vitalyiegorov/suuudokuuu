@@ -22,7 +22,7 @@ msgstr "{0, plural, one {# помилка} few {# помилки} many {# пом
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
-msgstr ""
+msgstr "{arsenalCardCount, plural, one {# техніка} few {# техніки} many {# технік} other {# техніки}}"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} faster"
@@ -120,7 +120,7 @@ msgstr "Намагається знову завантажити найнові�
 
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "Average"
-msgstr "Середній"
+msgstr "Середнє"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Avoid mistakes - they cost you points!"
@@ -158,7 +158,7 @@ msgstr "Думай мудро, грай швидко..."
 #: src/history/components/history-difficulty/history-difficulty.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Best score"
-msgstr "Найкращий результат"
+msgstr "Рекорд"
 
 #: src/history/components/history-difficulty/history-difficulty.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
@@ -342,7 +342,7 @@ msgstr "Складність"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Dim a completed digit in the numpad instead of removing it"
-msgstr ""
+msgstr "Затемнювати завершену цифру в панелі цифр замість того, щоб її прибирати"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Display"
@@ -563,7 +563,7 @@ msgstr "Залишати клітинку вибраною"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Keep completed digits"
-msgstr ""
+msgstr "Залишати завершені цифри"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Keep selection after tapping outside the board"
@@ -849,7 +849,7 @@ msgstr "Вийти"
 #: src/@generic/utils/get-mistakes-type-text.util.ts
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Relaxed"
-msgstr "Спокійний режим"
+msgstr "Спокійний"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Release notes"
@@ -1114,7 +1114,7 @@ msgstr "Таймер"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Tiny"
-msgstr "Дуже малий"
+msgstr "Крихітний"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Tips for High Scores"
@@ -1235,7 +1235,7 @@ msgstr "Ширші проміжки для легших дотиків"
 
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Win rate"
-msgstr "Відсоток перемог"
+msgstr "Перемоги"
 
 #: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
 msgid "Winner, winner!"

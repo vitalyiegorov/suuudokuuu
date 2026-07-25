@@ -20,7 +20,7 @@ msgstr "{0, plural, zero {# أخطاء} one {# خطأ} two {# خطآن} few {# �
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
-msgstr ""
+msgstr "{arsenalCardCount, plural, zero {# تقنيات} one {# تقنية} two {# تقنيتان} few {# تقنيات} many {# تقنية} other {# تقنية}}"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} faster"
@@ -118,7 +118,7 @@ msgstr "يحاول تحميل أحدث إصدار تطوير مرة أخرى"
 
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "Average"
-msgstr "المتوسط"
+msgstr "المعدل"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Avoid mistakes - they cost you points!"
@@ -340,7 +340,7 @@ msgstr "مستوى الصعوبة"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Dim a completed digit in the numpad instead of removing it"
-msgstr ""
+msgstr "تعتيم الرقم المكتمل في لوحة الأرقام بدلاً من إزالته"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Display"
@@ -561,7 +561,7 @@ msgstr "إبقاء الخلية محددة"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Keep completed digits"
-msgstr ""
+msgstr "إبقاء الأرقام المكتملة"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Keep selection after tapping outside the board"
@@ -1124,7 +1124,7 @@ msgstr "أخطاء كثيرة جدًا"
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Try again"
-msgstr "إعادة المحاولة"
+msgstr "حاول مجددًا"
 
 #: src/challenge/components/challenge-try-again-button/challenge-try-again-button.tsx
 msgid "Try Again"

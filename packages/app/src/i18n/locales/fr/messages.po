@@ -22,7 +22,7 @@ msgstr "{0, plural, one {# erreur} other {# erreurs}}"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
-msgstr ""
+msgstr "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} faster"
@@ -313,7 +313,7 @@ msgstr "Série quotidienne"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Dead even"
-msgstr "Parfaitement à égalité"
+msgstr "Égalité parfaite"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Deep focus"
@@ -342,7 +342,7 @@ msgstr "Difficulté"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Dim a completed digit in the numpad instead of removing it"
-msgstr ""
+msgstr "Estomper un chiffre complété dans le clavier numérique plutôt que de le supprimer"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Display"
@@ -391,7 +391,7 @@ msgstr "Vous gagnez des points supplémentaires quand votre coup complète :"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Feedback"
-msgstr "Retour"
+msgstr "Retours"
 
 #: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
 msgid "Final score"
@@ -563,7 +563,7 @@ msgstr "Garder la case sélectionnée"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Keep completed digits"
-msgstr ""
+msgstr "Garder les chiffres complétés"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Keep selection after tapping outside the board"
@@ -705,7 +705,7 @@ msgstr "Aucun espace supplémentaire entre les cellules"
 
 #: src/history/components/history-games-list/history-games-list.tsx
 msgid "No games yet"
-msgstr "Aucune partie pour le moment"
+msgstr "Pas encore de parties"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "No limit"
@@ -717,7 +717,7 @@ msgstr "Même avec des pénalités, vous gagnez toujours au moins"
 
 #: src/history/components/history-overview-tab/history-overview-tab.tsx
 msgid "No stats yet"
-msgstr "Aucune statistique pour le moment"
+msgstr "Pas encore de stats"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
@@ -767,7 +767,7 @@ msgstr "Erreurs épuisées"
 
 #: src/history/components/history-segmented-control/history-segmented-control.tsx
 msgid "Overview"
-msgstr "Vue d’ensemble"
+msgstr "Aperçu"
 
 #: src/screens/components/pause-screen/pause-screen-header/pause-screen-header.tsx
 msgid "Paused"
@@ -806,7 +806,7 @@ msgstr "Jouez à des niveaux plus difficiles pour obtenir de meilleurs multiplic
 
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Played"
-msgstr "Parties jouées"
+msgstr "Jouées"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Playing with fewer mistakes allowed gives you a score multiplier:"
@@ -1114,7 +1114,7 @@ msgstr "Chronomètre"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Tiny"
-msgstr "Très petit"
+msgstr "Minuscule"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Tips for High Scores"
@@ -1235,7 +1235,7 @@ msgstr "Espaces plus larges pour toucher plus facilement"
 
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Win rate"
-msgstr "Taux de victoire"
+msgstr "Victoires"
 
 #: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
 msgid "Winner, winner!"

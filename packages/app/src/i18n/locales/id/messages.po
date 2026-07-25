@@ -20,7 +20,7 @@ msgstr "{0, plural, one {# kesalahan} other {# kesalahan}}"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
-msgstr ""
+msgstr "{arsenalCardCount, plural, one {# teknik} other {# teknik}}"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} faster"
@@ -340,7 +340,7 @@ msgstr "Tingkat kesulitan"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Dim a completed digit in the numpad instead of removing it"
-msgstr ""
+msgstr "Redupkan angka yang sudah lengkap di numpad, bukan menghapusnya"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Display"
@@ -561,7 +561,7 @@ msgstr "Biarkan sel tetap dipilih"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Keep completed digits"
-msgstr ""
+msgstr "Simpan angka lengkap"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Keep selection after tapping outside the board"
@@ -1108,11 +1108,11 @@ msgstr "Selisih waktu"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Timer"
-msgstr "Pengatur waktu"
+msgstr "Timer"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Tiny"
-msgstr "Sangat kecil"
+msgstr "Mini"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Tips for High Scores"
@@ -1233,7 +1233,7 @@ msgstr "Jarak lebih lebar agar lebih mudah diketuk"
 
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Win rate"
-msgstr "Tingkat menang"
+msgstr "Menang"
 
 #: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
 msgid "Winner, winner!"
