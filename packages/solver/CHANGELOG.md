@@ -8,7 +8,3 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Features
 
 - **app,solver:** challenge mode revamp with replay technique insights ([#135](https://github.com/vitalyiegorov/suuudokuuu/issues/135)) ([0d3dae6](https://github.com/vitalyiegorov/suuudokuuu/commit/0d3dae6ef2b7df10530932108381d71123d09a14))
-
-## [1.62.5](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.62.4...v1.62.5) (2026-07-12)
-
-**Note:** Version bump only for package @suuudokuuu/ui
