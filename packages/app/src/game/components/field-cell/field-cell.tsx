@@ -1,6 +1,16 @@
-import { use } from 'react';
+import { use, useEffect, useState } from 'react';
 import { Pressable } from 'react-native';
-import Reanimated, { interpolate, interpolateColor, useAnimatedStyle, useDerivedValue, withTiming } from 'react-native-reanimated';
+import Reanimated, {
+    Easing,
+    interpolate,
+    interpolateColor,
+    useAnimatedStyle,
+    useDerivedValue,
+    useSharedValue,
+    withSequence,
+    withTiming
+} from 'react-native-reanimated';
+import { scheduleOnRN } from 'react-native-worklets';
 
 import { type OnEventFn } from '@rnw-community/shared';
 
@@ -18,11 +28,11 @@ import { fieldCellGetBackgroundColor } from './utils/field-cell-get-background-c
 
 import type { CellInterface } from '@suuudokuuu/generator';
 import type { ReactNode } from 'react';
-import type { SharedValue } from 'react-native-reanimated';
 
 const ReanimatedPressable = Reanimated.createAnimatedComponent(Pressable);
 
 const animationConfig = { duration: animationDurationConstant };
+const successAnimationConfig = { duration: 3 * animationDurationConstant, easing: Easing.out(Easing.cubic) };
 const SUCCESS_POP_PEAK = 1 + 0.1;
 const SUCCESS_POP_DIP = 1 - 0.05;
 const SUCCESS_POP_INPUT = [0, 0.5, 0.8, 1];
@@ -37,8 +47,8 @@ interface Props {
     readonly isActiveValue: boolean;
     readonly isHighlighted: boolean;
     readonly isWrong: boolean;
-    readonly isSuccessPulse: boolean;
-    readonly successAnimation: SharedValue<number>;
+    readonly isSuccessTarget: boolean;
+    readonly successGeneration: number;
     readonly children?: ReactNode;
 }
 
@@ -52,8 +62,8 @@ export const FieldCell = (props: Props) => {
         isHighlighted,
         isWrong,
         isEmpty,
-        isSuccessPulse,
-        successAnimation,
+        isSuccessTarget,
+        successGeneration,
         children
     } = props;
 
@@ -63,6 +73,19 @@ export const FieldCell = (props: Props) => {
     const showAreas = useAppSelector(settingsKeySelector('showAreas'));
     const showIdenticalNumbers = useAppSelector(settingsKeySelector('showIdenticalNumbers'));
     const showFilledNumbers = useAppSelector(settingsKeySelector('showFilledNumbers'));
+
+    const [isSuccessPulsing, setIsSuccessPulsing] = useState(false);
+    const [seenSuccessGeneration, setSeenSuccessGeneration] = useState(successGeneration);
+
+    const successAnimation = useSharedValue(0);
+
+    if (successGeneration !== seenSuccessGeneration) {
+        setSeenSuccessGeneration(successGeneration);
+
+        if (isSuccessTarget) {
+            setIsSuccessPulsing(true);
+        }
+    }
 
     const cellBackgroundColor = fieldCellGetBackgroundColor({
         isActiveValue,
@@ -80,7 +103,7 @@ export const FieldCell = (props: Props) => {
         backgroundColor: interpolateColor(animation.value, [0, 1], [cellBackgroundColor, theme.colors.cell.active])
     }));
     const successPopAnimatedStyles = useAnimatedStyle(() => {
-        if (!isSuccessPulse) {
+        if (!isSuccessPulsing) {
             return { transform: [{ scale: 1 }], zIndex: 0 };
         }
 
@@ -89,6 +112,21 @@ export const FieldCell = (props: Props) => {
             zIndex: 2
         };
     });
+
+    useEffect(() => {
+        if (!isSuccessTarget || successGeneration === 0) {
+            return;
+        }
+
+        successAnimation.value = withSequence(
+            withTiming(1, successAnimationConfig),
+            withTiming(0, { duration: 0 }, finished => {
+                if (finished) {
+                    scheduleOnRN(setIsSuccessPulsing, false);
+                }
+            })
+        );
+    }, [successGeneration, isSuccessTarget, successAnimation]);
 
     const handlePress = () => {
         // eslint-disable-next-line no-undefined
@@ -108,7 +146,7 @@ export const FieldCell = (props: Props) => {
     // state-dependent id makes positional selection diverge across platforms.
     return (
         <ReanimatedPressable onPress={handlePress} style={cellStyles} testID={`CellSelectors.Cell.${cell.y}-${cell.x}`}>
-            {isSuccessPulse ? <FieldCellSuccessRing animation={successAnimation} /> : null}
+            {isSuccessPulsing ? <FieldCellSuccessRing animation={successAnimation} /> : null}
             {children}
         </ReanimatedPressable>
     );

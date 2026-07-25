@@ -1,8 +1,17 @@
-import { use } from 'react';
-import Reanimated from 'react-native-reanimated';
+import { use, useEffect, useState } from 'react';
+import Reanimated, {
+    interpolate,
+    interpolateColor,
+    useAnimatedStyle,
+    useSharedValue,
+    withSequence,
+    withTiming
+} from 'react-native-reanimated';
+import { scheduleOnRN } from 'react-native-worklets';
 
 import { cs } from '@rnw-community/shared';
 
+import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { resolveUnistyleForAnimated } from '../../../@generic/utils/resolve-unistyle-for-animated.util';
 import { settingsFontSizeMultiplierSelector, settingsKeySelector } from '../../../settings/store/settings.selectors';
@@ -11,29 +20,69 @@ import { ThemeContext } from '../../../theme/context/theme.context';
 import { FieldCellTextStyles as styles } from './field-cell-text.styles';
 
 import type { CellInterface } from '@suuudokuuu/generator';
-import type { useAnimatedStyle } from 'react-native-reanimated';
+
+const comboAnimationConfig = { duration: 6 * animationDurationConstant };
+const FONT_SIZE_MULTIPLIER = 1.5;
 
 interface Props {
     readonly cell: CellInterface;
     readonly cellSize: number;
+    readonly comboAnimationGeneration: number;
     readonly isActive: boolean;
     readonly isActiveValue: boolean;
     readonly isHighlighted: boolean;
     readonly showAutoCandidates: boolean;
-    readonly hasAnimation: boolean;
     readonly isEmpty: boolean;
-    readonly textAnimatedStyle: ReturnType<typeof useAnimatedStyle>;
 }
 
 export const FieldCellText = (props: Props) => {
-    const { cell, cellSize, isActive, isActiveValue, isHighlighted, isEmpty, showAutoCandidates, hasAnimation, textAnimatedStyle } = props;
+    const { cell, cellSize, comboAnimationGeneration, isActive, isActiveValue, isHighlighted, isEmpty, showAutoCandidates } = props;
 
     const { theme } = use(ThemeContext);
 
-    const hasTextAnimation = useAppSelector(settingsKeySelector('showComboAnimation'));
+    const hasComboAnimation = useAppSelector(settingsKeySelector('showComboAnimation'));
     const showAreas = useAppSelector(settingsKeySelector('showAreas'));
     const showIdenticalNumbers = useAppSelector(settingsKeySelector('showIdenticalNumbers'));
     const fontSizeMultiplier = useAppSelector(settingsFontSizeMultiplierSelector);
+
+    const [isComboAnimating, setIsComboAnimating] = useState(false);
+    const [seenComboAnimationGeneration, setSeenComboAnimationGeneration] = useState(comboAnimationGeneration);
+
+    const comboAnimation = useSharedValue(0);
+
+    if (comboAnimationGeneration !== seenComboAnimationGeneration) {
+        setSeenComboAnimationGeneration(comboAnimationGeneration);
+
+        if (comboAnimationGeneration > 0) {
+            setIsComboAnimating(true);
+        }
+    }
+
+    const fontSize = (cellSize / 2.5) * fontSizeMultiplier;
+    const comboAnimatedStyle = useAnimatedStyle(() => ({
+        color: interpolateColor(
+            comboAnimation.value,
+            [0, 0.5, 1],
+            [theme.colors.black, theme.colors.cell.highlightedText, theme.colors.black]
+        ),
+        fontSize: interpolate(comboAnimation.value, [0, 0.5, 1], [fontSize, fontSize * FONT_SIZE_MULTIPLIER, fontSize]),
+        transform: [{ rotate: `${interpolate(comboAnimation.value, [0, 1], [0, 360])}deg` }]
+    }));
+
+    useEffect(() => {
+        if (comboAnimationGeneration === 0) {
+            return;
+        }
+
+        comboAnimation.value = withSequence(
+            withTiming(1, comboAnimationConfig),
+            withTiming(0, { duration: 0 }, finished => {
+                if (finished) {
+                    scheduleOnRN(setIsComboAnimating, false);
+                }
+            })
+        );
+    }, [comboAnimationGeneration, comboAnimation]);
 
     const getCellTextColor = () => {
         if (isActive) {
@@ -60,8 +109,8 @@ export const FieldCellText = (props: Props) => {
     const textStyles = [
         { color: getCellTextColor() },
         cs(isActive, resolveUnistyleForAnimated(styles.textActive)),
-        cs(hasAnimation && hasTextAnimation, textAnimatedStyle),
-        { fontSize: (cellSize / 2.5) * fontSizeMultiplier }
+        cs(isComboAnimating && hasComboAnimation, comboAnimatedStyle),
+        { fontSize }
     ];
 
     return (
