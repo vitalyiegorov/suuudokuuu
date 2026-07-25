@@ -22,9 +22,13 @@ export interface ScreenChromeConfigInterface {
     readonly snapToCollapse: boolean;
     readonly colors: Record<ColorSchemeEnum, ScreenChromeColorSetInterface>;
     readonly maskStops: Record<EdgeFadePosition, Record<number, { readonly color: string }>>;
+    readonly blurIntensityScale: Record<ColorSchemeEnum, number>;
 }
 
-export interface ScreenChromeConfigOverridesInterface extends Partial<Omit<ScreenChromeConfigInterface, 'colors' | 'maskStops'>> {
+export interface ScreenChromeConfigOverridesInterface extends Partial<
+    Omit<ScreenChromeConfigInterface, 'colors' | 'maskStops' | 'blurIntensityScale'>
+> {
     readonly colors?: Partial<Record<ColorSchemeEnum, Partial<ScreenChromeColorSetInterface>>>;
     readonly maskStops?: Partial<Record<EdgeFadePosition, Record<number, { readonly color: string }>>>;
+    readonly blurIntensityScale?: Partial<Record<ColorSchemeEnum, number>>;
 }

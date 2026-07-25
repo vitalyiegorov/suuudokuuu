@@ -4,9 +4,8 @@ import { use } from 'react';
 
 import { AppLinkButton } from '../../../../@generic/components/app-link-button/app-link-button';
 import { GameResultActionsLayout } from '../../../../@generic/components/game-result-actions-layout/game-result-actions-layout';
-import { useAppDispatch } from '../../../../@generic/hooks/use-app-dispatch.hook';
+import { GameResultHomeButton } from '../../../../@generic/components/game-result-home-button/game-result-home-button';
 import { GameContext } from '../../../../game/context/game.context';
-import { gameResetAction } from '../../../../game/store/game.actions';
 import { LoserScreenSelectors } from '../loser-screen.selectors';
 
 import { LoserScreenActionsStyles as styles } from './loser-screen-actions.styles';
@@ -22,13 +21,12 @@ interface Props {
 export const LoserScreenActions = ({ difficulty, gameState }: Props) => {
     const { t } = useLingui();
     const { create } = use(GameContext);
-    const dispatch = useAppDispatch();
 
     const handlePlayAgain = () => void create(difficulty, gameState.maxMistakes);
-    const handleGoHome = () => void dispatch(gameResetAction());
+    const homeAction = <GameResultHomeButton accessibilityLabel={t`Home`} testID={LoserScreenSelectors.BackHomeButton} />;
 
     return (
-        <GameResultActionsLayout>
+        <GameResultActionsLayout homeAction={homeAction}>
             <AppLinkButton
                 icon={LucideRotateCcw}
                 onPress={handlePlayAgain}
@@ -37,17 +35,6 @@ export const LoserScreenActions = ({ difficulty, gameState }: Props) => {
                 testID={LoserScreenSelectors.PlayAgainButton}
                 text={t`Play again`}
                 variant="primary"
-            />
-
-            <AppLinkButton
-                href="/"
-                onPress={handleGoHome}
-                replace
-                size="large"
-                style={styles.secondaryButton}
-                testID={LoserScreenSelectors.BackHomeButton}
-                text={t`Home`}
-                variant="ghost"
             />
         </GameResultActionsLayout>
     );

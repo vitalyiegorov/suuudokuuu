@@ -17,6 +17,7 @@ import { useEdgeFadeBlurProps } from './hook/use-edge-fade-blur-props.hook';
 import { useEdgeFadeOpacityStyle } from './hook/use-edge-fade-opacity-style.hook';
 import { EdgeFadePropsInterface } from './interface/edge-fade-props.interface';
 import { getEdgeFadeBandMetrics } from './utils/edge-fade-get-band-metrics.util';
+import { getEdgeFadeIntensityConfig } from './utils/edge-fade-get-intensity-config.util';
 import { getEdgeFadeMaskStops } from './utils/edge-fade-get-mask-stops.util';
 import { getBlurTint } from './utils/get-blur-tint.util';
 
@@ -48,20 +49,20 @@ export const EdgeFade = ({
     const { config, colorScheme } = useScreenChrome();
     const insets = useSafeAreaInsets();
 
-    const resolvedIntensity = isDefined(intensity) ? intensity : config.intensity;
     const { washColors, maskGradient, tint } = getEdgeFadeVisuals(position, colorScheme, config);
-
-    const opacityInputRange = scrollAnimation?.opacityInputRange;
-    const intensityInputRange = scrollAnimation?.intensityInputRange;
-    const scrollMaxIntensity = scrollAnimation?.maxIntensity;
-    const resolvedMaxIntensity = isDefined(scrollMaxIntensity) ? scrollMaxIntensity : config.maxBlurIntensity;
+    const { opacityInputRange, intensityInputRange, scaledIntensity, scaledMaxIntensity } = getEdgeFadeIntensityConfig(
+        intensity,
+        scrollAnimation,
+        config,
+        colorScheme
+    );
 
     const containerAnimatedStyle = useEdgeFadeOpacityStyle(opacityInputRange);
-    const animatedBlurProps = useEdgeFadeBlurProps(intensityInputRange, resolvedMaxIntensity, resolvedIntensity);
+    const animatedBlurProps = useEdgeFadeBlurProps(intensityInputRange, scaledMaxIntensity, scaledIntensity);
 
     const positionalStyle = getEdgeFadeBandMetrics(position, height, config, insets);
     const bandStyle = [edgeFadeStyles.band, positionalStyle, containerAnimatedStyle, style];
-    const blurIntensityProps = isDefined(scrollAnimation) ? { animatedProps: animatedBlurProps } : { intensity: resolvedIntensity };
+    const blurIntensityProps = isDefined(scrollAnimation) ? { animatedProps: animatedBlurProps } : { intensity: scaledIntensity };
 
     return (
         <Animated.View

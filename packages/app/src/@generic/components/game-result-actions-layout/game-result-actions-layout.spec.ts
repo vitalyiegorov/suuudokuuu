@@ -4,11 +4,11 @@ import { join } from 'node:path';
 import { describe, expect, it } from '@jest/globals';
 
 describe('GameResultActionsLayout', () => {
-    it('uses the theme background as an opaque action band behind fixed footer actions', () => {
+    it('docks a persistent home action beside the primary actions, matching the challenge footer chrome', () => {
         const source = readFileSync(join(__dirname, 'game-result-actions-layout.tsx'), 'utf8');
 
-        expect(source).toContain('use(ThemeContext)');
-        expect(source).toContain('backgroundColor: theme.colors.background');
-        expect(source).toContain('<View style={actionBandStyles}>{children}</View>');
+        expect(source).toContain('ScreenActionBar');
+        expect(source).toContain('right={homeAction}');
+        expect(source).toContain('<ScreenActionBar right={homeAction}>{children}</ScreenActionBar>');
     });
 });

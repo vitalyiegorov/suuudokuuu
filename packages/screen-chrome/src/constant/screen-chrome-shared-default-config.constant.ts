@@ -29,5 +29,9 @@ export const SCREEN_CHROME_SHARED_DEFAULT_CONFIG: Omit<
             0.5: { color: '#000000' },
             1: { color: 'rgba(0,0,0,0.99)' }
         }
+    },
+    blurIntensityScale: {
+        [ColorSchemeEnum.LIGHT]: 1,
+        [ColorSchemeEnum.DARK]: 0
     }
 };

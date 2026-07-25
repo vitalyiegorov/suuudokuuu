@@ -3,7 +3,6 @@ export type { AppButtonProps, AppButtonSize } from './components/app-button/app-
 export type { AppButtonVariant } from './components/app-button/utils/app-button-get-colors.util';
 export { AppMetricStrip } from './components/app-metric-strip/app-metric-strip';
 export type { AppMetricStripItemInterface } from './components/app-metric-strip/interface/app-metric-strip-item.interface';
-export { AppMetricCard } from './components/app-metric-card/app-metric-card';
 export { AppProgressBar } from './components/app-progress-bar/app-progress-bar';
 export { AppSettingsRow } from './components/app-settings-row/app-settings-row';
 export { AppSettingsSection } from './components/app-settings-section/app-settings-section';
