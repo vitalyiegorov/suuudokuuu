@@ -21,7 +21,7 @@ describe('HomeScreenStyles', () => {
         expect(screenSource).not.toContain('useWindowDimensions');
         expect(source).not.toContain('paddingBottom: 120');
         expect(screenSource).toContain('HomeScreenBottomScrollPadding');
-        expect(screenSource).toContain('HomeScreenCurrentGameBottomScrollPadding');
+        expect(screenSource).toContain('HomeScreenFloatingTabBarInset');
         expect(screenSource).toContain('topEdgeFadeProps=');
         expect(screenSource).not.toContain('footerEdgeFadeProps=');
         expect(screenSource).toContain('HomeScreenTopOverlayHeight');
@@ -38,10 +38,16 @@ describe('HomeScreenStyles', () => {
         expect(source).toContain('HomeScreenTopOverlayIntensity = 70');
     });
 
-    it('keeps home tab clearance compact because native tabs already reserve the main bottom area', () => {
+    it('reserves the floating native tab bar height as scroll content inset so the resume strip clears the bar', () => {
         const source = readFileSync(join(__dirname, 'constant/home-screen.constant.ts'), 'utf8');
+        const screenSource = readFileSync(join(__dirname, 'home.screen.tsx'), 'utf8');
 
         expect(source).toContain('HomeScreenBottomScrollPadding = 32');
-        expect(source).toContain('HomeScreenCurrentGameBottomScrollPadding = 52');
+        expect(source).toContain('HomeScreenFloatingTabBarInset = 64');
+        expect(screenSource).toContain('HomeScreenBottomScrollPadding + HomeScreenFloatingTabBarInset');
+        expect(screenSource).toContain('contentInsetBottom={contentInsetBottom}');
+        // The clearance must stay scroll content inset: container padding would clip the
+        // strip into an on-screen but unscrollable dead zone below the scroll viewport.
+        expect(screenSource).not.toContain('paddingBottom: resumeStripTabBarClearance');
     });
 });

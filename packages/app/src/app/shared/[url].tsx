@@ -1,6 +1,7 @@
 import { useLingui } from '@lingui/react/macro';
 import { useLocalSearchParams } from 'expo-router';
 
+import { PageHorizontalSafeAreaEdges } from '../../@generic/components/page/constant/page-safe-area-edges.constant';
 import { Page } from '../../@generic/components/page/page';
 import { PageHeader } from '../../@generic/components/page-header/page-header';
 import { SharedScreen } from '../../screens/components/shared-screen/shared-screen';
@@ -10,7 +11,7 @@ export default function SharedPage() {
     const { url = '' } = useLocalSearchParams<{ url?: string }>();
 
     return (
-        <Page>
+        <Page edges={PageHorizontalSafeAreaEdges}>
             <PageHeader title={t`Open shared puzzle?`} />
 
             <SharedScreen stateString={url} />

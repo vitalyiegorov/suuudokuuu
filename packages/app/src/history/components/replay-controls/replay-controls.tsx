@@ -10,21 +10,24 @@ import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { replayGetStepProgress } from '../../utils/replay-get-step-progress.util';
+import { ReplayTechnique } from '../replay-technique/replay-technique';
 
 import { ReplayControlsSelectors } from './replay-controls.selectors';
 import { ReplayControlsStyles as styles } from './replay-controls.styles';
 
 import type { EmptyFn } from '@rnw-community/shared';
+import type { MoveClassificationInterface } from '@suuudokuuu/solver';
 
 interface Props {
     readonly currentStep: number;
     readonly totalSteps: number;
     readonly elapsedTime: number;
+    readonly moveClassification: MoveClassificationInterface | null;
     readonly onPrevStep: EmptyFn;
     readonly onNextStep: EmptyFn;
 }
 
-export const ReplayControls = ({ currentStep, totalSteps, elapsedTime, onPrevStep, onNextStep }: Props) => {
+export const ReplayControls = ({ currentStep, totalSteps, elapsedTime, moveClassification, onPrevStep, onNextStep }: Props) => {
     const { theme } = use(ThemeContext);
     const elapsedTimeText = useTimerText(elapsedTime);
 
@@ -65,6 +68,8 @@ export const ReplayControls = ({ currentStep, totalSteps, elapsedTime, onPrevSte
                     <Trans>Step time</Trans> <Text style={styles.metaValue}>{elapsedTimeText}</Text>
                 </BlackText>
             </View>
+
+            <ReplayTechnique classification={moveClassification} />
 
             <View style={trackStyles}>
                 <View style={fillStyles} />

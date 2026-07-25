@@ -8,6 +8,7 @@ export interface ScreenChromeColorSetInterface {
 }
 export interface ScreenChromeConfigInterface {
     readonly headerHeight: number;
+    readonly headerTopInset: number;
     readonly topFadeHeight: number;
     readonly bottomFadeHeight: number;
     readonly headerBackdropHeight: number;
