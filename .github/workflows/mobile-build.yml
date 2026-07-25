@@ -1,0 +1,387 @@
+name: Mobile E2E builds
+
+# Both embedded E2E apps are produced here so they finish before any Maestro
+# job starts. The fleet host runs a single `macos-builder` VM (max 1 active)
+# and Apple's Virtualization framework caps the host at 2 concurrent macOS
+# guests, so a build queued behind the two `macos-maestro` test VMs starves
+# for the whole test phase. Keeping both builds in one workflow lets the
+# callers gate every test job on "all mobile builds done".
+on:
+  workflow_call:
+  workflow_dispatch:
+
+env:
+  EAS_CLI_VERSION: '20.5.1'
+  EXPO_REPACK_VERSION: '0.7.2'
+
+jobs:
+  ios:
+    name: Build embedded iOS E2E app
+    runs-on: [self-hosted, macOS, ARM64, macos-builder]
+    timeout-minutes: 90
+    env:
+      APP_VARIANT: e2e
+      RCT_USE_PREBUILT_RNCORE: '1'
+      RCT_USE_RN_DEP: '1'
+      IOS_DERIVED_DATA: ${{ github.workspace }}/.ci-cache/DerivedData/suuudokuuu-e2e
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22.x
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Setup EAS CLI
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: ${{ env.EAS_CLI_VERSION }}
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Generate native fingerprint
+        id: fingerprint
+        working-directory: packages/app
+        shell: bash
+        run: |
+          set -euo pipefail
+          eas fingerprint:generate \
+            --build-profile e2e \
+            --platform ios \
+            --json \
+            --non-interactive > "$RUNNER_TEMP/ios-fingerprint.json"
+          hash=$(jq -er '.hash' "$RUNNER_TEMP/ios-fingerprint.json")
+          echo "hash=$hash" >> "$GITHUB_OUTPUT"
+          echo "Native fingerprint: $hash"
+
+      - name: Restore fingerprinted native app
+        id: native-app-cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .ci-cache/ios-native-app
+          key: ios-native-v2-macos26-suuudokuuu-e2e-${{ runner.os }}-arm64-xcode26_4_1-17E202-${{ steps.fingerprint.outputs.hash }}
+
+      - name: Repack cached native app
+        id: repack
+        if: steps.native-app-cache.outputs.cache-hit == 'true'
+        continue-on-error: true
+        working-directory: packages/app
+        shell: bash
+        run: |
+          set -euo pipefail
+          output_app="$GITHUB_WORKSPACE/.ci-artifacts/repacked/Suuudokuuu.app"
+          mkdir -p "$(dirname "$output_app")"
+          source_app=$(find "$GITHUB_WORKSPACE/.ci-cache/ios-native-app" -maxdepth 1 -name '*.app' -print -quit)
+          test -n "$source_app"
+          npx --yes "@expo/repack-app@$EXPO_REPACK_VERSION" . \
+            --platform ios \
+            --source-app "$source_app" \
+            --output "$output_app" \
+            --embed-bundle-assets
+          test "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$output_app/Info.plist")" = 'com.vitalyiegorov.suuudokuuu.e2e'
+          if /usr/libexec/PlistBuddy -c 'Print :DEV_CLIENT_DEFAULT_LAUNCHER_URL' "$output_app/Info.plist" >/dev/null 2>&1; then
+            echo '::error::Repacked E2E app unexpectedly contains a development-client launch URL.'
+            exit 1
+          fi
+          find "$output_app" -name 'main.jsbundle' -type f -print -quit | grep -q .
+
+      - name: Plan native build
+        id: native-plan
+        shell: bash
+        run: |
+          if [ "${{ steps.native-app-cache.outputs.cache-hit }}" != 'true' ] || \
+             [ "${{ steps.repack.outcome }}" != 'success' ]; then
+            echo 'required=true' >> "$GITHUB_OUTPUT"
+            if [ "${{ steps.native-app-cache.outputs.cache-hit }}" = 'true' ]; then
+              echo '::warning::Repack failed validation; falling back to a full native build.'
+            fi
+          else
+            echo 'required=false' >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Select Xcode
+        if: steps.native-plan.outputs.required == 'true'
+        run: |
+          xcode_app=/Applications/Xcode_26.4.1.app
+          if [ ! -d "$xcode_app" ]; then
+            echo '::error::Xcode 26.4.1 is not installed on this runner.'
+            exit 1
+          fi
+          echo "DEVELOPER_DIR=$xcode_app/Contents/Developer" >> "$GITHUB_ENV"
+          xcode_version=$("$xcode_app/Contents/Developer/usr/bin/xcodebuild" -version)
+          printf '%s\n' "$xcode_version"
+          grep -qx 'Xcode 26.4.1' <<< "$xcode_version"
+          grep -qx 'Build version 17E202' <<< "$xcode_version"
+
+      - name: Restore CocoaPods cache
+        if: steps.native-plan.outputs.required == 'true'
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            ~/Library/Caches/CocoaPods
+            ~/.cocoapods
+          key: pods-${{ runner.os }}-e2e-${{ hashFiles('yarn.lock', 'packages/app/package.json', 'packages/app/app.config.js') }}
+          restore-keys: pods-${{ runner.os }}-
+
+      - name: Generate native project
+        if: steps.native-plan.outputs.required == 'true'
+        working-directory: packages/app
+        run: npx expo prebuild -p ios --clean --no-install
+
+      - name: Install pods
+        if: steps.native-plan.outputs.required == 'true'
+        working-directory: packages/app/ios
+        run: pod install
+
+      - name: Build native Release base
+        if: steps.native-plan.outputs.required == 'true'
+        working-directory: packages/app/ios
+        run: |
+          workspace=$(find . -maxdepth 1 -name '*.xcworkspace' -print -quit)
+          scheme=$(basename "$workspace" .xcworkspace)
+          test -n "$workspace"
+          xcodebuild build \
+            -workspace "$workspace" \
+            -scheme "$scheme" \
+            -sdk iphonesimulator \
+            -configuration Release \
+            -derivedDataPath "$IOS_DERIVED_DATA" \
+            -destination 'generic/platform=iOS Simulator' \
+            -jobs 5 \
+            CODE_SIGN_IDENTITY='-' \
+            AD_HOC_CODE_SIGNING_ALLOWED=YES \
+            PROVISIONING_PROFILE_SPECIFIER='' \
+            COMPILER_INDEX_STORE_ENABLE=NO \
+            ONLY_ACTIVE_ARCH=YES \
+            ARCHS=arm64 \
+            EXCLUDED_ARCHS=x86_64
+
+      - name: Package native base
+        if: steps.native-plan.outputs.required == 'true'
+        run: |
+          set -euo pipefail
+          app_path=$(find "$IOS_DERIVED_DATA" -name '*.app' -path '*Release-iphonesimulator*' -print -quit)
+          test -n "$app_path"
+          test "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$app_path/Info.plist")" = 'com.vitalyiegorov.suuudokuuu.e2e'
+          if /usr/libexec/PlistBuddy -c 'Print :DEV_CLIENT_DEFAULT_LAUNCHER_URL' "$app_path/Info.plist" >/dev/null 2>&1; then
+            echo '::error::Native E2E base unexpectedly contains a development-client launch URL.'
+            exit 1
+          fi
+          find "$app_path" -name 'main.jsbundle' -type f -print -quit | grep -q .
+          mkdir -p .ci-cache/ios-native-app
+          ditto "$app_path" .ci-cache/ios-native-app/Base.app
+
+      - name: Save fingerprinted native app
+        if: steps.native-app-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v5
+        with:
+          path: .ci-cache/ios-native-app
+          key: ios-native-v2-macos26-suuudokuuu-e2e-${{ runner.os }}-arm64-xcode26_4_1-17E202-${{ steps.fingerprint.outputs.hash }}
+
+      - name: Validate and package current app
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ "${{ steps.repack.outcome }}" = 'success' ]; then
+            app_path="$GITHUB_WORKSPACE/.ci-artifacts/repacked/Suuudokuuu.app"
+          else
+            app_path=$(find "$IOS_DERIVED_DATA" -name '*.app' -path '*Release-iphonesimulator*' -print -quit)
+          fi
+          test -d "$app_path"
+          test "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$app_path/Info.plist")" = 'com.vitalyiegorov.suuudokuuu.e2e'
+          if /usr/libexec/PlistBuddy -c 'Print :DEV_CLIENT_DEFAULT_LAUNCHER_URL' "$app_path/Info.plist" >/dev/null 2>&1; then
+            echo '::error::E2E app unexpectedly contains a development-client launch URL.'
+            exit 1
+          fi
+          find "$app_path" -name 'main.jsbundle' -type f -print -quit | grep -q .
+          mkdir -p .ci-artifacts/ios-e2e-app
+          tar -C "$(dirname "$app_path")" -czf ".ci-artifacts/ios-e2e-app/$(basename "$app_path").tar.gz" "$(basename "$app_path")"
+
+      - uses: actions/upload-artifact@v6
+        with:
+          name: ios-e2e-app
+          path: .ci-artifacts/ios-e2e-app/*.tar.gz
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 3
+
+  android:
+    # The APK builds on macOS: Google ships no arm64-linux NDK (the linux
+    # package is x86_64-only), while the darwin NDK is arm64-native.
+    name: Build embedded Android E2E app
+    runs-on: [self-hosted, macOS, ARM64, macos-builder]
+    timeout-minutes: 90
+    env:
+      APP_VARIANT: e2e
+      ANDROID_SDK_ROOT: /Users/admin/Library/Android/sdk
+      ANDROID_HOME: /Users/admin/Library/Android/sdk
+      JAVA_HOME: /Library/Java/JavaVirtualMachines/temurin-17.jdk/Contents/Home
+      # Redroid runs on the arm64 linux guest, so the other three ABIs only
+      # added CMake work (2m47s of the old 6m26s build) and artifact weight.
+      ANDROID_E2E_ABI: arm64-v8a
+      ANDROID_E2E_PACKAGE: com.vitaliiyehorov.suuudokuuu.e2e
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22.x
+          cache: yarn
+
+      - name: Verify Android SDK in guest image
+        run: |
+          test -x "$ANDROID_SDK_ROOT/platform-tools/adb" || {
+            echo '::error::The guest image lacks the Android SDK; rebuild the base with prewarm-android-buildsdk-macos.sh.'
+            exit 1
+          }
+
+      - name: Resolve Android build tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          build_tools=$(find "$ANDROID_SDK_ROOT/build-tools" -maxdepth 1 -mindepth 1 -type d 2>/dev/null | sort -V | tail -n 1 || true)
+          if [ -z "$build_tools" ] || [ ! -x "$build_tools/apksigner" ] || [ ! -x "$build_tools/aapt2" ]; then
+            echo '::error::The guest image lacks Android build-tools with apksigner and aapt2; rebuild the base with prewarm-android-buildsdk-macos.sh.'
+            exit 1
+          fi
+          echo "ANDROID_BUILD_TOOLS_DIR=$build_tools" >> "$GITHUB_ENV"
+          echo "Using Android build tools: $build_tools"
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Setup EAS CLI
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: ${{ env.EAS_CLI_VERSION }}
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Generate native fingerprint
+        id: fingerprint
+        working-directory: packages/app
+        shell: bash
+        run: |
+          set -euo pipefail
+          eas fingerprint:generate \
+            --build-profile e2e \
+            --platform android \
+            --json \
+            --non-interactive > "$RUNNER_TEMP/android-fingerprint.json"
+          hash=$(jq -er '.hash' "$RUNNER_TEMP/android-fingerprint.json")
+          echo "hash=$hash" >> "$GITHUB_OUTPUT"
+          echo "Native fingerprint: $hash"
+
+      - name: Restore fingerprinted native APK
+        id: native-apk-cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .ci-cache/android-native-apk
+          key: android-native-v1-suuudokuuu-e2e-${{ runner.os }}-${{ env.ANDROID_E2E_ABI }}-${{ steps.fingerprint.outputs.hash }}
+
+      - name: Repack cached native APK
+        id: repack
+        if: steps.native-apk-cache.outputs.cache-hit == 'true'
+        continue-on-error: true
+        working-directory: packages/app
+        shell: bash
+        run: |
+          set -euo pipefail
+          source_apk=$(find "$GITHUB_WORKSPACE/.ci-cache/android-native-apk" -maxdepth 1 -name '*.apk' -print -quit)
+          test -n "$source_apk"
+          output_apk="$GITHUB_WORKSPACE/.ci-artifacts/repacked/suuudokuuu-e2e.apk"
+          mkdir -p "$(dirname "$output_apk")"
+          npx --yes "@expo/repack-app@$EXPO_REPACK_VERSION" . \
+            --platform android \
+            --source-app "$source_apk" \
+            --android-build-tools-dir "$ANDROID_BUILD_TOOLS_DIR" \
+            --output "$output_apk" \
+            --embed-bundle-assets
+          test "$("$ANDROID_BUILD_TOOLS_DIR/aapt2" dump packagename "$output_apk" | tr -d '\r')" = "$ANDROID_E2E_PACKAGE"
+          test -n "$(unzip -Z1 "$output_apk" 'assets/index.android.bundle' 2>/dev/null)"
+          repacked_abis=$(unzip -Z1 "$output_apk" 'lib/*/*' | cut -d/ -f2 | sort -u)
+          grep -qx "$ANDROID_E2E_ABI" <<< "$repacked_abis"
+          "$ANDROID_BUILD_TOOLS_DIR/apksigner" verify "$output_apk"
+
+      - name: Plan native build
+        id: native-plan
+        shell: bash
+        run: |
+          if [ "${{ steps.native-apk-cache.outputs.cache-hit }}" != 'true' ] || \
+             [ "${{ steps.repack.outcome }}" != 'success' ]; then
+            echo 'required=true' >> "$GITHUB_OUTPUT"
+            if [ "${{ steps.native-apk-cache.outputs.cache-hit }}" = 'true' ]; then
+              echo '::warning::Repack failed validation; falling back to a full native build.'
+            fi
+          else
+            echo 'required=false' >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Generate native project
+        if: steps.native-plan.outputs.required == 'true'
+        working-directory: packages/app
+        run: npx expo prebuild -p android --clean --no-install
+
+      - name: Restore Gradle cache
+        if: steps.native-plan.outputs.required == 'true'
+        uses: actions/cache@v5
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-v2-${{ runner.os }}-${{ env.ANDROID_E2E_ABI }}-${{ hashFiles('packages/app/android/gradle/wrapper/gradle-wrapper.properties', 'yarn.lock') }}
+          restore-keys: gradle-v2-${{ runner.os }}-${{ env.ANDROID_E2E_ABI }}-
+
+      - name: Build release APK
+        if: steps.native-plan.outputs.required == 'true'
+        working-directory: packages/app/android
+        run: |
+          ./gradlew :app:assembleRelease \
+            -x lint -x lintVitalAnalyzeRelease -x lintAnalyzeRelease \
+            --no-daemon \
+            "-PreactNativeArchitectures=$ANDROID_E2E_ABI"
+
+      - name: Package native base
+        if: steps.native-plan.outputs.required == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          apk=$(find packages/app/android/app/build/outputs/apk/release -name '*.apk' -print -quit)
+          test -n "$apk"
+          mkdir -p .ci-cache/android-native-apk
+          cp "$apk" .ci-cache/android-native-apk/base.apk
+
+      - name: Save fingerprinted native APK
+        if: steps.native-apk-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v5
+        with:
+          path: .ci-cache/android-native-apk
+          key: android-native-v1-suuudokuuu-e2e-${{ runner.os }}-${{ env.ANDROID_E2E_ABI }}-${{ steps.fingerprint.outputs.hash }}
+
+      - name: Validate and package current app
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ "${{ steps.repack.outcome }}" = 'success' ]; then
+            apk="$GITHUB_WORKSPACE/.ci-artifacts/repacked/suuudokuuu-e2e.apk"
+          else
+            apk=$(find packages/app/android/app/build/outputs/apk/release -name '*.apk' -print -quit)
+          fi
+          test -n "$apk"
+          test -f "$apk"
+          test "$("$ANDROID_BUILD_TOOLS_DIR/aapt2" dump packagename "$apk" | tr -d '\r')" = "$ANDROID_E2E_PACKAGE"
+          test -n "$(unzip -Z1 "$apk" 'assets/index.android.bundle' 2>/dev/null)"
+          abis=$(unzip -Z1 "$apk" 'lib/*/*' | cut -d/ -f2 | sort -u)
+          printf 'Packaged ABIs:\n%s\n' "$abis"
+          grep -qx "$ANDROID_E2E_ABI" <<< "$abis"
+          mkdir -p .ci-artifacts/android-e2e-app
+          cp "$apk" .ci-artifacts/android-e2e-app/suuudokuuu-e2e.apk
+
+      - uses: actions/upload-artifact@v6
+        with:
+          name: android-e2e-app
+          path: .ci-artifacts/android-e2e-app/*.apk
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 3

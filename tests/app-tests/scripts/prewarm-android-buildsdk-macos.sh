@@ -40,9 +40,14 @@ export ANDROID_SDK_ROOT="$SDK_ROOT" ANDROID_HOME="$SDK_ROOT"
 # 'yes' dies of SIGPIPE when sdkmanager stops reading; don't let pipefail
 # turn that into a script failure — the install step below catches real errors.
 yes 2>/dev/null | "$SDKMANAGER" --licenses >/dev/null || true
-"$SDKMANAGER" --install 'platform-tools' 'platforms;android-35' 'build-tools;35.0.0' "ndk;$NDK_VERSION" 'cmake;3.22.1' >/dev/null
+# Match the compileSdk/buildTools that Expo 57 resolves (android-36 /
+# 36.0.0), otherwise Gradle stops to download both mid-build. The same
+# package carries the apksigner/aapt2 that sign and verify repacked E2E APKs.
+"$SDKMANAGER" --install 'platform-tools' 'platforms;android-36' 'build-tools;36.0.0' "ndk;$NDK_VERSION" 'cmake;3.22.1' >/dev/null
 
 test -x "$SDK_ROOT/platform-tools/adb"
+test -x "$SDK_ROOT/build-tools/36.0.0/apksigner"
+test -x "$SDK_ROOT/build-tools/36.0.0/aapt2"
 test -x "$SDK_ROOT/ndk/$NDK_VERSION/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang" || \
   test -x "$SDK_ROOT/ndk/$NDK_VERSION/toolchains/llvm/prebuilt/darwin-arm64/bin/clang"
 echo "ANDROID-BUILDSDK-MACOS-OK"
