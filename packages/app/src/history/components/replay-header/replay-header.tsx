@@ -1,10 +1,8 @@
 import { useLingui } from '@lingui/react/macro';
-import { AppMetricStrip } from '@suuudokuuu/ui';
-import { use } from 'react';
+import { AppMetricStrip, AppMetricStripItem } from '@suuudokuuu/ui';
 
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
-import { ThemeContext } from '../../../theme/context/theme.context';
 
 import { ReplayHeaderStyles as styles } from './replay-header.styles';
 
@@ -17,25 +15,40 @@ interface Props {
 const RelaxedMistakeLimit = 99;
 
 export const ReplayHeader = ({ game }: Props) => {
-    const { theme } = use(ThemeContext);
     const { t } = useLingui();
     const elapsedTimeText = useTimerText(game.elapsedTime);
     const mistakesValue = game.maxMistakes >= RelaxedMistakeLimit ? `${game.mistakes}/∞` : `${game.mistakes}/${game.maxMistakes}`;
-    const items = [
-        { label: t`Level`, value: getDifficultyText(game.difficulty), width: 84 },
-        { label: t`Score`, value: String(game.score), valueColor: theme.colors.value.progressActive, width: 68 },
-        { label: t`Mistakes`, value: mistakesValue, width: 76 },
-        { label: t`Time`, value: elapsedTimeText, width: 86 }
-    ];
 
     return (
-        <AppMetricStrip
-            itemStyle={styles.item}
-            items={items}
-            labelStyle={styles.label}
-            separatorStyle={styles.separator}
-            style={styles.container}
-            valueStyle={styles.value}
-        />
+        <AppMetricStrip separatorStyle={styles.separator} style={styles.container} variant="primary">
+            <AppMetricStripItem
+                label={t`Level`}
+                labelStyle={styles.label}
+                style={styles.itemLevel}
+                value={getDifficultyText(game.difficulty)}
+                valueStyle={styles.value}
+            />
+            <AppMetricStripItem
+                label={t`Score`}
+                labelStyle={styles.label}
+                style={styles.itemScore}
+                value={String(game.score)}
+                valueStyle={styles.value}
+            />
+            <AppMetricStripItem
+                label={t`Mistakes`}
+                labelStyle={styles.label}
+                style={styles.itemMistakes}
+                value={mistakesValue}
+                valueStyle={styles.value}
+            />
+            <AppMetricStripItem
+                label={t`Time`}
+                labelStyle={styles.label}
+                style={styles.itemTime}
+                value={elapsedTimeText}
+                valueStyle={styles.value}
+            />
+        </AppMetricStrip>
     );
 };

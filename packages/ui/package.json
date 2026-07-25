@@ -11,6 +11,10 @@
         "./theme": {
             "import": "./src/theme/index.ts",
             "types": "./src/theme/index.ts"
+        },
+        "./app-metric-strip-get-colors": {
+            "import": "./src/components/app-metric-strip/utils/app-metric-strip-get-colors.util.ts",
+            "types": "./src/components/app-metric-strip/utils/app-metric-strip-get-colors.util.ts"
         }
     },
     "main": "src/index.ts",

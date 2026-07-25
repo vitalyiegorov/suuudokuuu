@@ -17,8 +17,6 @@ export const PauseScreenStatsStyles = StyleSheet.create(() => ({
         marginHorizontal: 1
     },
     strip: {
-        backgroundColor: 'transparent',
-        borderColor: 'transparent',
         paddingHorizontal: 0,
         paddingVertical: 6,
         width: '100%'

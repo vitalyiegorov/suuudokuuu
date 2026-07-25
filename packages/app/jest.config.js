@@ -6,7 +6,9 @@ module.exports = {
     moduleNameMapper: {
         '^@suuudokuuu/encoder$': '<rootDir>/../encoder/src/index.ts',
         '^@suuudokuuu/generator$': '<rootDir>/../generator/src/index.ts',
-        '^@suuudokuuu/solver$': '<rootDir>/../solver/src/index.ts'
+        '^@suuudokuuu/solver$': '<rootDir>/../solver/src/index.ts',
+        '^@suuudokuuu/ui/app-metric-strip-get-colors$':
+            '<rootDir>/../ui/src/components/app-metric-strip/utils/app-metric-strip-get-colors.util.ts'
     },
     testRegex: './(?:src|vercel-functions)/.*\\.spec\\.(tsx?)$',
     testEnvironment: 'node',

@@ -10,8 +10,21 @@ export const ReplayHeaderStyles = StyleSheet.create(theme => ({
         paddingVertical: 10,
         width: '100%'
     },
-    item: {
-        gap: theme.spacing.xs
+    itemLevel: {
+        gap: theme.spacing.xs,
+        width: 84
+    },
+    itemMistakes: {
+        gap: theme.spacing.xs,
+        width: 76
+    },
+    itemScore: {
+        gap: theme.spacing.xs,
+        width: 68
+    },
+    itemTime: {
+        gap: theme.spacing.xs,
+        width: 86
     },
     label: {
         fontSize: 10,

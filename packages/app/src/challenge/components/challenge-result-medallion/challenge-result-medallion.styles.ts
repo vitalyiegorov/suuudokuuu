@@ -8,19 +8,8 @@ export const ChallengeResultMedallionStyles = StyleSheet.create({
         justifyContent: 'center',
         width: 92
     },
-    ring: {
-        borderRadius: 46,
-        height: 92,
-        position: 'absolute',
-        width: 92
-    },
     wrap: {
-        alignItems: 'center',
         alignSelf: 'center',
-        height: 92,
-        justifyContent: 'center',
-        marginBottom: 18,
-        position: 'relative',
-        width: 92
+        marginBottom: 18
     }
 });

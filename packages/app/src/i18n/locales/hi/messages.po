@@ -334,6 +334,7 @@ msgstr "डेवलपमेंट बिल्ड"
 msgid "Did not finish the board"
 msgstr "बोर्ड पूरा नहीं हुआ"
 
+#: src/game/components/difficulty-complexity-slider/difficulty-complexity-rail/difficulty-complexity-rail.tsx
 #: src/game/components/difficulty-complexity-slider/difficulty-complexity-slider.tsx
 msgid "Difficulty"
 msgstr "कठिनाई"
@@ -795,6 +796,7 @@ msgstr "खेलें"
 
 #: src/@generic/components/play-again-button/play-again-button.tsx
 #: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
+#: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Play again"
 msgstr "फिर खेलें"
 
@@ -1080,6 +1082,10 @@ msgstr "उनका समय जिसे पीछे छोड़ना ह�
 msgid "Theme"
 msgstr "थीम"
 
+#: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
+msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
+msgstr "इस बार यह बोर्ड पूरा नहीं हुआ। यूक्रेन में आज़ादी की लड़ाई जारी है। हर $1 दान मायने रखता है।"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "This value is multiplied by the difficulty coefficient:"
 msgstr "यह मान कठिनाई गुणांक से गुणा होता है:"
@@ -1278,6 +1284,10 @@ msgstr "आप"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "You beat your rival"
 msgstr "आपने अपने विरोधी को हराया"
+
+#: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
+msgid "You finished your puzzle. The fight for freedom in Ukraine continues. Every $1 makes a difference."
+msgstr "आपने अपना सुडोकू पूरा कर लिया। यूक्रेन में आज़ादी की लड़ाई जारी है। हर $1 दान मायने रखता है।"
 
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "You got to"

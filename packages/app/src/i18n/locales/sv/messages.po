@@ -334,6 +334,7 @@ msgstr "Utvecklingsversioner"
 msgid "Did not finish the board"
 msgstr "Brädet slutfördes inte"
 
+#: src/game/components/difficulty-complexity-slider/difficulty-complexity-rail/difficulty-complexity-rail.tsx
 #: src/game/components/difficulty-complexity-slider/difficulty-complexity-slider.tsx
 msgid "Difficulty"
 msgstr "Svårighetsgrad"
@@ -795,6 +796,7 @@ msgstr "Spela"
 
 #: src/@generic/components/play-again-button/play-again-button.tsx
 #: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
+#: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Play again"
 msgstr "Spela igen"
 
@@ -1080,6 +1082,10 @@ msgstr "Deras tid att slå"
 msgid "Theme"
 msgstr "Tema"
 
+#: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
+msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
+msgstr "Det här brädet blev inte klart den här gången. Kampen för frihet i Ukraina fortsätter. Varje donation på 1 $ gör skillnad."
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "This value is multiplied by the difficulty coefficient:"
 msgstr "Det här värdet multipliceras med svårighetskoefficienten:"
@@ -1278,6 +1284,10 @@ msgstr "Du"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "You beat your rival"
 msgstr "Du besegrade din rival"
+
+#: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
+msgid "You finished your puzzle. The fight for freedom in Ukraine continues. Every $1 makes a difference."
+msgstr "Du blev klar med ditt sudoku. Kampen för frihet i Ukraina fortsätter. Varje donation på 1 $ gör skillnad."
 
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "You got to"

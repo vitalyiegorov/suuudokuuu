@@ -336,6 +336,7 @@ msgstr "Development builds"
 msgid "Did not finish the board"
 msgstr "Did not finish the board"
 
+#: src/game/components/difficulty-complexity-slider/difficulty-complexity-rail/difficulty-complexity-rail.tsx
 #: src/game/components/difficulty-complexity-slider/difficulty-complexity-slider.tsx
 msgid "Difficulty"
 msgstr "Difficulty"
@@ -797,6 +798,7 @@ msgstr "Play"
 
 #: src/@generic/components/play-again-button/play-again-button.tsx
 #: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
+#: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Play again"
 msgstr "Play again"
 
@@ -1082,6 +1084,10 @@ msgstr "Their time to beat"
 msgid "Theme"
 msgstr "Theme"
 
+#: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
+msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
+msgstr "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "This value is multiplied by the difficulty coefficient:"
 msgstr "This value is multiplied by the difficulty coefficient:"
@@ -1280,6 +1286,10 @@ msgstr "You"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "You beat your rival"
 msgstr "You beat your rival"
+
+#: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
+msgid "You finished your puzzle. The fight for freedom in Ukraine continues. Every $1 makes a difference."
+msgstr "You finished your puzzle. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "You got to"

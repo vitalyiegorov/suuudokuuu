@@ -334,6 +334,7 @@ msgstr "إصدارات التطوير"
 msgid "Did not finish the board"
 msgstr "لم تُكمل اللوحة"
 
+#: src/game/components/difficulty-complexity-slider/difficulty-complexity-rail/difficulty-complexity-rail.tsx
 #: src/game/components/difficulty-complexity-slider/difficulty-complexity-slider.tsx
 msgid "Difficulty"
 msgstr "مستوى الصعوبة"
@@ -795,6 +796,7 @@ msgstr "العب"
 
 #: src/@generic/components/play-again-button/play-again-button.tsx
 #: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
+#: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Play again"
 msgstr "العب مرة أخرى"
 
@@ -1080,6 +1082,10 @@ msgstr "وقتهم الذي عليك التغلب عليه"
 msgid "Theme"
 msgstr "السمة"
 
+#: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
+msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
+msgstr "لم تكتمل هذه اللوحة هذه المرة. يستمر الكفاح من أجل الحرية في أوكرانيا. كل تبرع بقيمة $1 يحدث فرقًا."
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "This value is multiplied by the difficulty coefficient:"
 msgstr "تُضرب هذه القيمة في معامل الصعوبة:"
@@ -1278,6 +1284,10 @@ msgstr "أنت"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "You beat your rival"
 msgstr "لقد هزمت منافسك"
+
+#: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
+msgid "You finished your puzzle. The fight for freedom in Ukraine continues. Every $1 makes a difference."
+msgstr "أكملت لغزك. يستمر الكفاح من أجل الحرية في أوكرانيا. كل تبرع بقيمة $1 يحدث فرقًا."
 
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "You got to"

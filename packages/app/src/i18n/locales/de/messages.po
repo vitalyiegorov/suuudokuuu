@@ -336,6 +336,7 @@ msgstr "Entwicklungs-Builds"
 msgid "Did not finish the board"
 msgstr "Feld nicht vollendet"
 
+#: src/game/components/difficulty-complexity-slider/difficulty-complexity-rail/difficulty-complexity-rail.tsx
 #: src/game/components/difficulty-complexity-slider/difficulty-complexity-slider.tsx
 msgid "Difficulty"
 msgstr "Schwierigkeit"
@@ -797,6 +798,7 @@ msgstr "Spielen"
 
 #: src/@generic/components/play-again-button/play-again-button.tsx
 #: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
+#: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Play again"
 msgstr "Erneut spielen"
 
@@ -1082,6 +1084,10 @@ msgstr "Ihre Zeit, die es zu schlagen gilt"
 msgid "Theme"
 msgstr "Thema"
 
+#: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
+msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
+msgstr "Dieses Feld hat diesmal nicht geklappt. Der Kampf für die Freiheit in der Ukraine geht weiter. Jeder 1-$-Beitrag macht einen Unterschied."
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "This value is multiplied by the difficulty coefficient:"
 msgstr "Dieser Wert wird mit dem Schwierigkeitskoeffizienten multipliziert:"
@@ -1280,6 +1286,10 @@ msgstr "Du"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "You beat your rival"
 msgstr "Du hast deinen Rivalen besiegt"
+
+#: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
+msgid "You finished your puzzle. The fight for freedom in Ukraine continues. Every $1 makes a difference."
+msgstr "Du hast dein Sudoku beendet. Der Kampf für die Freiheit in der Ukraine geht weiter. Jeder 1-$-Beitrag macht einen Unterschied."
 
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "You got to"

@@ -1,15 +1,11 @@
 import { useLingui } from '@lingui/react/macro';
-import { AppMetricStrip } from '@suuudokuuu/ui';
-import { use } from 'react';
-import { Text } from 'react-native';
+import { AppMetricStrip, AppMetricStripItem } from '@suuudokuuu/ui';
 
 import { useTimerText } from '../../../../@generic/hooks/use-timer-text.hook';
-import { ThemeContext } from '../../../../theme/context/theme.context';
+import { GameScreenMistakesValue } from '../game-screen-mistakes-value/game-screen-mistakes-value';
 import { GameScreenSelectors } from '../game-screen.selectors';
 
 import { GameScreenMetricsStyles as styles } from './game-screen-metrics.styles';
-
-import type { AppMetricStripItemInterface } from '@suuudokuuu/ui';
 
 interface Props {
     readonly elapsedTime: number;
@@ -22,52 +18,34 @@ interface Props {
 
 export const GameScreenMetrics = ({ elapsedTime, hasTimer, maxMistakes, maxMistakesReached, mistakes, score }: Props) => {
     const { t } = useLingui();
-    const { theme } = use(ThemeContext);
-    const mistakesColor = maxMistakesReached ? theme.colors.red : theme.colors.label.main;
-    const mistakesTextStyles = [styles.mistakesText, { color: mistakesColor }];
-    const mistakesValue = `${mistakes}/${maxMistakes}`;
     const elapsedTimeText = useTimerText(elapsedTime);
     const scoreText = String(score);
-    const mistakesContent = (
-        <Text allowFontScaling={false} numberOfLines={1} style={mistakesTextStyles}>
-            <Text testID={GameScreenSelectors.MistakesCount}>{mistakes}</Text>
-            <Text>/</Text>
-            <Text testID={GameScreenSelectors.MaxMistakesAllowed}>{maxMistakes}</Text>
-        </Text>
-    );
-    const mistakeItem: AppMetricStripItemInterface = {
-        label: t`Mistakes`,
-        value: mistakesValue,
-        valueContent: mistakesContent,
-        valueColor: mistakesColor
-    };
-    const scoreItem: AppMetricStripItemInterface = {
-        label: t`Score`,
-        testID: GameScreenSelectors.Score,
-        value: scoreText
-    };
-
-    const elapsedItem: AppMetricStripItemInterface = {
-        label: t`Time`,
-        testID: GameScreenSelectors.Time,
-        value: elapsedTimeText
-    };
-    let metricItems = [mistakeItem, scoreItem];
-
-    if (hasTimer) {
-        metricItems = [mistakeItem, elapsedItem, scoreItem];
-    }
 
     return (
-        <AppMetricStrip
-            itemStyle={styles.item}
-            items={metricItems}
-            labelStyle={styles.label}
-            separatorStyle={styles.separator}
-            autoShrinkText={false}
-            style={styles.container}
-            valueStyle={styles.value}
-            variant="secondary"
-        />
+        <AppMetricStrip separatorStyle={styles.separator} style={styles.container} variant="ghost">
+            <AppMetricStripItem label={t`Mistakes`} labelStyle={styles.label} style={styles.item}>
+                <GameScreenMistakesValue maxMistakes={maxMistakes} maxMistakesReached={maxMistakesReached} mistakes={mistakes} />
+            </AppMetricStripItem>
+
+            {hasTimer && (
+                <AppMetricStripItem
+                    label={t`Time`}
+                    labelStyle={styles.label}
+                    style={styles.item}
+                    testID={GameScreenSelectors.Time}
+                    value={elapsedTimeText}
+                    valueStyle={styles.value}
+                />
+            )}
+
+            <AppMetricStripItem
+                label={t`Score`}
+                labelStyle={styles.label}
+                style={styles.item}
+                testID={GameScreenSelectors.Score}
+                value={scoreText}
+                valueStyle={styles.value}
+            />
+        </AppMetricStrip>
     );
 };
