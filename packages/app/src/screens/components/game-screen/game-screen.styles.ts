@@ -37,7 +37,8 @@ export const GameScreenStyles = StyleSheet.create((theme, rt) => ({
         flexGrow: 1,
         flexShrink: 1,
         justifyContent: 'center',
-        minHeight: 0
+        minHeight: 0,
+        paddingTop: theme.spacing.sm
     },
     panelArea: {
         flexShrink: 0,

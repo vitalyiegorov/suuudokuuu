@@ -60,6 +60,11 @@ export const SettingsScreen = () => {
                         title={t`Cell spacing`}
                         value={getCellMarginLabel(cellMargin)}
                     />
+                    <SettingsSwitch
+                        description={t`Dim a completed digit in the numpad instead of removing it`}
+                        setting="keepExhaustedDigits"
+                        title={t`Keep completed digits`}
+                    />
                 </AppSettingsSection>
                 <AppSettingsSection title={t`Display`}>
                     <SettingsOptionLink

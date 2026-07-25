@@ -7,6 +7,7 @@ import { CandidateInputItem } from '../../../../game/components/candidate-input-
 import { GameNumpadDigitsConstant } from '../../../../game/constant/game-numpad-digits.constant';
 import { GameContext } from '../../../../game/context/game.context';
 import { gameInputModeSelector } from '../../../../game/store/game.selectors';
+import { settingsKeySelector } from '../../../../settings/store/settings.selectors';
 
 import { GameNumpadStyles as styles } from './game-numpad.styles';
 
@@ -22,11 +23,13 @@ interface Props {
 export const GameNumpad = ({ availableValuesRefsHandler, onSelectValue, selectedCell }: Props) => {
     const { sudoku } = use(GameContext);
     const inputMode = useAppSelector(gameInputModeSelector);
+    const keepExhaustedDigits = useAppSelector(settingsKeySelector('keepExhaustedDigits'));
     const canPress = sudoku.isBlankCell(selectedCell);
+    const numpadDigits = keepExhaustedDigits ? GameNumpadDigitsConstant : sudoku.PossibleValues;
 
     return (
         <View style={styles.numpad}>
-            {GameNumpadDigitsConstant.map(value => {
+            {numpadDigits.map(value => {
                 const isExhausted = !sudoku.PossibleValues.includes(value);
 
                 return inputMode === 'candidate' ? (

@@ -38,4 +38,14 @@ describe('settingsSlice', () => {
         expect(initialSettingsState.lastGameMaxMistakes).toBe(DefaultMaxMistakes);
         expect(initialSettingsState.lastStatsDifficulty).toBe(DifficultyEnum.Easy);
     });
+
+    it('defaults to keeping completed digits dimmed in the numpad', () => {
+        expect(initialSettingsState.keepExhaustedDigits).toBe(true);
+    });
+
+    it('updates keepExhaustedDigits when the setting is toggled off', () => {
+        const nextState = settingsSlice.reducer(initialSettingsState, settingsSetAction({ keepExhaustedDigits: false }));
+
+        expect(nextState.keepExhaustedDigits).toBe(false);
+    });
 });

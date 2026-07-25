@@ -17,6 +17,7 @@ export const settingsKeySelector = (
         | 'showFilledNumbers'
         | 'showActiveCandidates'
         | 'keepActiveCell'
+        | 'keepExhaustedDigits'
     >
 ) => createSelector(settingsSelector, state => state[key]);
 export const settingsFontSizeSelector = createSelector(settingsSelector, state => state.fontSize);

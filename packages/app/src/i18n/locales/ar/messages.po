@@ -335,6 +335,10 @@ msgid "Difficulty"
 msgstr "مستوى الصعوبة"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Dim a completed digit in the numpad instead of removing it"
+msgstr ""
+
+#: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Display"
 msgstr "العرض"
 
@@ -554,6 +558,10 @@ msgstr "Jellyfish"
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Keep cell selected"
 msgstr "إبقاء الخلية محددة"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Keep completed digits"
+msgstr ""
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Keep selection after tapping outside the board"
