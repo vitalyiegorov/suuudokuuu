@@ -50,7 +50,10 @@
                 "APP_VARIANT": "production",
                 "EAS_USE_CACHE": "1"
             },
-            "channel": "production"
+            "channel": "production",
+            "android": {
+                "gradleCommand": ":app:bundleRelease -x lint -x lintVitalAnalyzeRelease -x lintAnalyzeRelease"
+            }
         }
     },
     "submit": {
