@@ -43,6 +43,7 @@ export const DefaultUiTheme: ThemeInterface = {
             border: '#d8d8d8',
             progress: '#e5e5e5',
             progressActive: '#7a7a7a',
+            progressActiveText: '#ffffff',
             text: '#000000'
         },
         white: '#ffffff',

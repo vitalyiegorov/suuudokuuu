@@ -42,6 +42,7 @@ import {
     HomeScreenTopOverlayIntensity
 } from './constant/home-screen.constant';
 import { HomeScreenOptionCard } from './home-screen-option-card/home-screen-option-card';
+import { homeScreenOptionCardGetColors } from './home-screen-option-card/utils/home-screen-option-card-get-colors.util';
 import { HomeScreenPlayActions } from './home-screen-play-actions/home-screen-play-actions';
 import { HomeScreenSectionHeader } from './home-screen-section-header/home-screen-section-header';
 import { HomeScreenSelectors } from './home-screen.selectors';
@@ -94,15 +95,6 @@ export const HomeScreen = () => {
         ]);
     };
 
-    const selectedOptionColorStyles = { backgroundColor: theme.colors.black, borderColor: theme.colors.black };
-    const unselectedOptionColorStyles = {
-        backgroundColor: theme.colors.candidate.bg,
-        borderColor: theme.colors.candidate.border
-    };
-    const selectedOptionTitleStyles = [styles.optionTitle, { color: theme.colors.label.inverted }];
-    const unselectedOptionTitleStyles = [styles.optionTitle, { color: theme.colors.label.main }];
-    const selectedOptionDescriptionStyles = [styles.optionDescription, { color: theme.colors.label.inverted }];
-    const unselectedOptionDescriptionStyles = [styles.optionDescription, { color: theme.colors.label.hint }];
     const hintTextStyles = [styles.hintText, { color: theme.colors.label.hint }];
     const bestRunCardStyles = styles.bestRun;
     const bestRunValueStyles = [styles.historyValue, { color: theme.colors.label.main }];
@@ -156,9 +148,10 @@ export const HomeScreen = () => {
     const contentInsetBottom = HomeScreenBottomScrollPadding + HomeScreenFloatingTabBarInset;
     const mistakeCards: HomeScreenOptionCardInterface[] = mistakeOptions.map(option => {
         const isSelected = option.maxMistakes === maxMistakes;
-        const optionColorStyles = isSelected ? selectedOptionColorStyles : unselectedOptionColorStyles;
-        const titleStyles = isSelected ? selectedOptionTitleStyles : unselectedOptionTitleStyles;
-        const descriptionStyles = isSelected ? selectedOptionDescriptionStyles : unselectedOptionDescriptionStyles;
+        const optionColors = homeScreenOptionCardGetColors(theme, isSelected);
+        const optionColorStyles = { backgroundColor: optionColors.backgroundColor, borderColor: optionColors.borderColor };
+        const titleStyles = [styles.optionTitle, { color: optionColors.titleColor }];
+        const descriptionStyles = [styles.optionDescription, { color: optionColors.descriptionColor }];
 
         return {
             cardStyles: [styles.optionCard, optionColorStyles, styles.mistakeOptionCard],

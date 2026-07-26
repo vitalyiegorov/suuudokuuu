@@ -1,9 +1,6 @@
 import { StyleSheet } from 'react-native-unistyles';
 
 export const SettingsOptionLinkStyles = StyleSheet.create(theme => ({
-    chevron: {
-        marginLeft: 10
-    },
     pressable: {
         width: '100%',
         _web: {
@@ -15,13 +12,9 @@ export const SettingsOptionLinkStyles = StyleSheet.create(theme => ({
     },
     value: {
         fontSize: 15,
-        fontWeight: theme.typography.weight.medium,
+        fontWeight: theme.typography.weight.bold,
         lineHeight: 22,
         maxWidth: theme.contentWidth.narrow,
         textAlign: 'right'
-    },
-    valueContainer: {
-        alignItems: 'center',
-        flexDirection: 'row'
     }
 }));

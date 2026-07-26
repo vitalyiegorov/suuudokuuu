@@ -751,6 +751,10 @@ msgstr "فتح السودوكو المشترك؟"
 msgid "Open this page in Safari on a physical iPhone or iPad. The device must already be registered in the Ad Hoc provisioning profile."
 msgstr "افتح هذه الصفحة في Safari على جهاز iPhone أو iPad فعلي. يجب أن يكون الجهاز مسجّلًا مسبقًا في ملف تعريف توفير Ad Hoc."
 
+#: src/settings/component/settings-option-link/settings-option-link.tsx
+msgid "Opens a picker to change this setting"
+msgstr ""
+
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Opens the registered-device installation prompt"
 msgstr "يفتح مطالبة التثبيت للجهاز المسجّل"

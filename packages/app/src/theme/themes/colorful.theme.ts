@@ -38,6 +38,7 @@ export const ColorfulLightTheme: ThemeInterface = {
             border: 'rgba(193, 182, 164, 0.5)',
             progress: '#F6DA99',
             progressActive: '#FFFD74',
+            progressActiveText: '#2A3B4D',
             text: '#2A3B4D'
         },
         surface: {
@@ -88,6 +89,7 @@ export const ColorfulDarkTheme: ThemeInterface = {
             border: 'rgba(143, 168, 193, 0.55)',
             progress: '#F0AE1C',
             progressActive: '#A9A931',
+            progressActiveText: '#1b1b1a',
             text: '#1b1b1a'
         },
         surface: {

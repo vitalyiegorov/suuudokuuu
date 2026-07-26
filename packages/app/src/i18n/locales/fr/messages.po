@@ -753,6 +753,10 @@ msgstr "Ouvrir la grille partagée ?"
 msgid "Open this page in Safari on a physical iPhone or iPad. The device must already be registered in the Ad Hoc provisioning profile."
 msgstr "Ouvrez cette page dans Safari sur un iPhone ou iPad physique. L’appareil doit déjà être enregistré dans le profil de provisionnement Ad Hoc."
 
+#: src/settings/component/settings-option-link/settings-option-link.tsx
+msgid "Opens a picker to change this setting"
+msgstr ""
+
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Opens the registered-device installation prompt"
 msgstr "Ouvre l’invite d’installation pour l’appareil enregistré"

@@ -36,6 +36,7 @@ export interface ThemeInterface {
             border: string;
             progress: string;
             progressActive: string;
+            progressActiveText: string;
             text: string;
         };
         surface: {

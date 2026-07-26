@@ -15,6 +15,10 @@
         "./app-metric-strip-get-colors": {
             "import": "./src/components/app-metric-strip/utils/app-metric-strip-get-colors.util.ts",
             "types": "./src/components/app-metric-strip/utils/app-metric-strip-get-colors.util.ts"
+        },
+        "./app-toggle-get-colors": {
+            "import": "./src/components/app-toggle/utils/app-toggle-get-colors.util.ts",
+            "types": "./src/components/app-toggle/utils/app-toggle-get-colors.util.ts"
         }
     },
     "main": "src/index.ts",
@@ -33,6 +37,7 @@
         "lucide-react-native": "^1.21.0",
         "react": "19.2.3",
         "react-native": "0.86.0",
+        "react-native-reanimated": "4.5.0",
         "react-native-unistyles": "^3.2.5"
     }
 }

@@ -30,6 +30,7 @@ export const NewspaperLightTheme: ThemeInterface = {
             border: 'rgba(26, 26, 26, 0.1)',
             progress: '#cccccc',
             progressActive: '#4d4d4d',
+            progressActiveText: '#ffffff',
             text: '#1a1a1a'
         },
         candidate: {
@@ -80,6 +81,7 @@ export const NewspaperDarkTheme: ThemeInterface = {
             border: 'rgba(240, 240, 240, 0.28)',
             progress: '#888888',
             progressActive: '#cccccc',
+            progressActiveText: '#000000',
             text: '#f0f0f0'
         },
         candidate: {

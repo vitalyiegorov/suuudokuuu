@@ -751,6 +751,10 @@ msgstr "Abrir sudoku compartilhado?"
 msgid "Open this page in Safari on a physical iPhone or iPad. The device must already be registered in the Ad Hoc provisioning profile."
 msgstr "Abra esta página no Safari em um iPhone ou iPad físico. O dispositivo já deve estar registrado no perfil de provisionamento Ad Hoc."
 
+#: src/settings/component/settings-option-link/settings-option-link.tsx
+msgid "Opens a picker to change this setting"
+msgstr ""
+
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Opens the registered-device installation prompt"
 msgstr "Abre a solicitação de instalação para o dispositivo registrado"

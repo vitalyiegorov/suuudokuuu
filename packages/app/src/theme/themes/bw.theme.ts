@@ -38,6 +38,7 @@ export const BWLightTheme: ThemeInterface = {
             border: 'rgba(0,0,0,0.15)',
             progress: 'rgba(0, 0, 0, 0.12)',
             progressActive: 'rgba(0, 0, 0, 0.72)',
+            progressActiveText: 'rgb(255, 255, 255)',
             text: 'rgba(0, 0, 0,1)'
         },
         surface: {
@@ -88,6 +89,7 @@ export const BWDarkTheme: ThemeInterface = {
             border: 'rgba(255,255,255,0.3)',
             progress: 'rgba(255, 255, 255, 0.14)',
             progressActive: 'rgba(255, 255, 255, 0.72)',
+            progressActiveText: 'rgb(0, 0, 0)',
             text: 'rgba(255, 255, 255,1)'
         },
         surface: {

@@ -11,6 +11,7 @@ export { AppSettingsRow } from './components/app-settings-row/app-settings-row';
 export { AppSettingsSection } from './components/app-settings-section/app-settings-section';
 export { AppSurfaceCard } from './components/app-surface-card/app-surface-card';
 export { AppToggle } from './components/app-toggle/app-toggle';
+export { appToggleGetColors } from './components/app-toggle/utils/app-toggle-get-colors.util';
 export { DefaultUiTheme } from './theme/constant/default-ui-theme.constant';
 export type { ThemeInterface } from './theme/interface/theme.interface';
 export type { UnistylesThemeInterface } from './theme/interface/unistyles-theme.interface';

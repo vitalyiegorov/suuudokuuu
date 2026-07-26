@@ -753,6 +753,10 @@ msgstr "Geteiltes Rätsel öffnen?"
 msgid "Open this page in Safari on a physical iPhone or iPad. The device must already be registered in the Ad Hoc provisioning profile."
 msgstr "Öffne diese Seite auf einem physischen iPhone oder iPad in Safari. Das Gerät muss bereits im Ad Hoc-Bereitstellungsprofil registriert sein."
 
+#: src/settings/component/settings-option-link/settings-option-link.tsx
+msgid "Opens a picker to change this setting"
+msgstr ""
+
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Opens the registered-device installation prompt"
 msgstr "Öffnet die Installationsabfrage für das registrierte Gerät"

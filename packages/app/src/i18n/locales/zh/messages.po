@@ -751,6 +751,10 @@ msgstr "打开分享的数独？"
 msgid "Open this page in Safari on a physical iPhone or iPad. The device must already be registered in the Ad Hoc provisioning profile."
 msgstr "请在实体 iPhone 或 iPad 上使用 Safari 打开此页面。该设备必须已注册到 Ad Hoc 配置描述文件中。"
 
+#: src/settings/component/settings-option-link/settings-option-link.tsx
+msgid "Opens a picker to change this setting"
+msgstr ""
+
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Opens the registered-device installation prompt"
 msgstr "打开已注册设备的安装提示"

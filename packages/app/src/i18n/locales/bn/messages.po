@@ -751,6 +751,10 @@ msgstr "শেয়ার করা সুডোকু খুলবেন?"
 msgid "Open this page in Safari on a physical iPhone or iPad. The device must already be registered in the Ad Hoc provisioning profile."
 msgstr "বাস্তব iPhone বা iPad-এ Safari দিয়ে এই পৃষ্ঠাটি খুলুন। ডিভাইসটি আগে থেকেই Ad Hoc প্রভিশনিং প্রোফাইলে নিবন্ধিত থাকতে হবে।"
 
+#: src/settings/component/settings-option-link/settings-option-link.tsx
+msgid "Opens a picker to change this setting"
+msgstr ""
+
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Opens the registered-device installation prompt"
 msgstr "নিবন্ধিত ডিভাইসের ইনস্টলেশন প্রম্পট খোলে"
