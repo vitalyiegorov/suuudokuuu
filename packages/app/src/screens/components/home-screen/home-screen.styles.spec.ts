@@ -18,7 +18,8 @@ describe('HomeScreenStyles', () => {
         expect(source).not.toContain('flexGrow: 1');
         expect(scrollContentSource).not.toContain("justifyContent: 'space-between'");
         expect(contentStackSource).not.toContain("justifyContent: 'space-between'");
-        expect(source).toContain('WideLayoutMediaQuery');
+        expect(contentStackSource).toContain("flexDirection: 'column'");
+        expect(contentStackSource).not.toContain("flexDirection: 'row'");
         expect(screenSource).not.toContain('sizeClass');
         expect(source).not.toContain('paddingBottom: 120');
         expect(screenSource).toContain('HomeScreenBottomScrollPadding');

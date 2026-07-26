@@ -1,9 +1,6 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-import { WideLayoutMediaQuery } from '../../../@generic/constants/layout-media-query.constant';
-import { WideContentWidthMultiplierConstant } from '../../constant/wide-content-width.constant';
-
-import { HomeScreenContentStackCompactGap, HomeScreenContentStackWideGap } from './constant/home-screen.constant';
+import { HomeScreenContentStackCompactGap } from './constant/home-screen.constant';
 
 const HomeScreenStaticStyles = {
     bestRun: {
@@ -239,32 +236,25 @@ const HomeScreenStaticStyles = {
 export const HomeScreenStyles = StyleSheet.create(theme => ({
     ...HomeScreenStaticStyles,
     contentStack: {
-        alignItems: { xs: 'stretch', [WideLayoutMediaQuery]: 'flex-start' },
-        flexDirection: { xs: 'column', [WideLayoutMediaQuery]: 'row' },
-        gap: { xs: HomeScreenContentStackCompactGap, [WideLayoutMediaQuery]: HomeScreenContentStackWideGap },
+        alignItems: 'stretch',
+        flexDirection: 'column',
+        gap: HomeScreenContentStackCompactGap,
         width: '100%'
     },
     masthead: {
-        flexGrow: { xs: 0, [WideLayoutMediaQuery]: 1 },
-        flexShrink: 1,
         gap: 16,
-        width: { xs: '100%', [WideLayoutMediaQuery]: 'auto' }
+        width: '100%'
     },
     scrollContent: {
         alignItems: 'center',
         alignSelf: 'center',
-        maxWidth: {
-            xs: theme.contentWidth.standard,
-            [WideLayoutMediaQuery]: theme.contentWidth.standard * WideContentWidthMultiplierConstant
-        },
+        maxWidth: theme.contentWidth.standard,
         paddingBottom: 28,
         paddingHorizontal: 20,
         width: '100%'
     },
     setupSection: {
-        flexGrow: { xs: 0, [WideLayoutMediaQuery]: 1 },
-        flexShrink: 1,
         gap: 15,
-        width: { xs: '100%', [WideLayoutMediaQuery]: 'auto' }
+        width: '100%'
     }
 }));
