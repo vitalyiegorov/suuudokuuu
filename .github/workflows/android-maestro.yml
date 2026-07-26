@@ -37,6 +37,7 @@ jobs:
                   }
                   image=$(python3 -c "import json; print(json.load(open('$manifest'))['image'])")
                   data=$(python3 -c "import json; print(json.load(open('$manifest'))['dataDir'])")
+                  echo "REDROID_PREWARM_OK image=$image dataDir=$data"
                   sudo modprobe binder_linux devices=binder,hwbinder,vndbinder 2>/dev/null || true
                   sudo docker rm -f redroid-e2e >/dev/null 2>&1 || true
                   sudo docker run -d --name redroid-e2e --privileged \
@@ -108,8 +109,14 @@ jobs:
             - name: Capture final device state
               if: always()
               run: |
-                  mkdir -p "tests/app-tests/artifacts/maestro-android"
-                  adb -s localhost:5555 exec-out screencap -p > "tests/app-tests/artifacts/maestro-android/final-screen.png" || true
+                  out="tests/app-tests/artifacts/maestro-android"
+                  mkdir -p "$out"
+                  adb -s localhost:5555 exec-out screencap -p > "$out/final-screen.png" || true
+                  adb -s localhost:5555 logcat -d > "$out/logcat-full.txt" 2>&1 || true
+                  adb -s localhost:5555 logcat -d -b crash > "$out/logcat-crash.txt" 2>&1 || true
+                  adb -s localhost:5555 logcat -d ReactNative:V ReactNativeJS:V AndroidRuntime:E Unistyles:V NativeModule:V '*:E' \
+                    > "$out/logcat-app.txt" 2>&1 || true
+                  adb -s localhost:5555 shell dumpsys activity top > "$out/activity-top.txt" 2>&1 || true
                   sudo docker rm -f redroid-e2e || true
 
             - uses: actions/upload-artifact@v6
