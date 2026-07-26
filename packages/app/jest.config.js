@@ -18,5 +18,9 @@ module.exports = {
             functions: 100
         }
     },
-    transformIgnorePatterns: ['node_modules/(?!(@thi.ng/bitstream|@thi.ng/errors|@formatjs|@suuudokuuu/ui)/)']
+    setupFiles: ['<rootDir>/jest.setup.ts'],
+    transform: { '^.+\\.(js|jsx|ts|tsx|mjs)$': 'babel-jest' },
+    transformIgnorePatterns: [
+        'node_modules/(?!(@thi.ng/bitstream|@thi.ng/errors|@formatjs|@lingui|@messageformat|expo-localization|@suuudokuuu/ui)/)'
+    ]
 };
