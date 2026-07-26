@@ -17,6 +17,7 @@ module.exports = {
         '^@suuudokuuu/generator$': '<rootDir>/../generator/src/index.ts',
         '^@suuudokuuu/solver$': '<rootDir>/../solver/src/index.ts',
         '^@suuudokuuu/ui/theme$': '<rootDir>/../ui/src/theme/index.ts',
+        '^@suuudokuuu/ui/app-button-get-colors$': '<rootDir>/../ui/src/components/app-button/utils/app-button-get-colors.util.ts',
         '^@suuudokuuu/ui/app-metric-strip-get-colors$':
             '<rootDir>/../ui/src/components/app-metric-strip/utils/app-metric-strip-get-colors.util.ts',
         '^@suuudokuuu/ui/app-toggle-get-colors$': '<rootDir>/../ui/src/components/app-toggle/utils/app-toggle-get-colors.util.ts',
