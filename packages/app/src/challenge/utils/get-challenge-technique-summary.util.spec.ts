@@ -43,4 +43,19 @@ describe('getChallengeTechniqueSummary', () => {
     it('returns an empty summary for no events', () => {
         expect(getChallengeTechniqueSummary([])).toEqual([]);
     });
+
+    it('orders the more frequent technique first when two share a tier', () => {
+        expect.assertions(2);
+
+        const events = [
+            buildEvent(SolutionTechniqueEnum.HiddenPair, ChallengeTechniqueTierEnum.Clever),
+            buildEvent(SolutionTechniqueEnum.NakedPair, ChallengeTechniqueTierEnum.Clever),
+            buildEvent(SolutionTechniqueEnum.NakedPair, ChallengeTechniqueTierEnum.Clever)
+        ];
+
+        const [first, second] = getChallengeTechniqueSummary(events);
+
+        expect(first.technique).toBe(SolutionTechniqueEnum.NakedPair);
+        expect(second.technique).toBe(SolutionTechniqueEnum.HiddenPair);
+    });
 });

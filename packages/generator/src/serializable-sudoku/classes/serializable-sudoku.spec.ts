@@ -136,4 +136,59 @@ describe('SerializableSudoku - Error Handling', () => {
             SerializableSudoku.fromString('', defaultSudokuConfig);
         }).toThrow('Invalid string format: Empty string passed');
     });
+
+    it('should reject a field string that has no solution', () => {
+        expect.assertions(1);
+
+        const duplicatedGivens = '11';
+        const contradictoryField = duplicatedGivens.padEnd(defaultSudokuConfig.fieldSize * defaultSudokuConfig.fieldSize, '.');
+
+        expect(() => SerializableSudoku.fromString(contradictoryField, defaultSudokuConfig)).toThrow(
+            'Invalid string format: No solution found for the given field'
+        );
+    });
+});
+
+describe('SerializableSudoku - fromStrings', () => {
+    const testFieldsString = '...469123469123875123875469784596...596231784231784596658947312947312658312658...';
+
+    it('should join the passed chunks into a single field', () => {
+        expect.assertions(1);
+
+        const chunkSize = 27;
+        const chunks = [
+            testFieldsString.slice(0, chunkSize),
+            testFieldsString.slice(chunkSize, chunkSize * 2),
+            testFieldsString.slice(chunkSize * 2)
+        ];
+
+        const sudoku = SerializableSudoku.fromStrings(defaultSudokuConfig, ...chunks);
+
+        expect(sudoku.toString()).toStrictEqual(testFieldsString);
+    });
+
+    it('should preserve the static factory receiver', () => {
+        expect.assertions(2);
+
+        const sudoku = ExtendedSerializableSudoku.fromStrings(defaultSudokuConfig, testFieldsString);
+
+        expect(sudoku).toBeInstanceOf(ExtendedSerializableSudoku);
+        expect(sudoku.marker).toBe('extended');
+    });
+
+    it('should fall back to the default config and reject an empty chunk list', () => {
+        expect.assertions(1);
+
+        expect(() => SerializableSudoku.fromStrings()).toThrow('Invalid string format: Empty string passed');
+    });
+});
+
+describe('SerializableSudoku - default config', () => {
+    it('should adopt the default difficulty when no config is passed', () => {
+        expect.assertions(1);
+
+        const sudoku = new SerializableSudoku();
+
+        expect(sudoku.Difficulty).toStrictEqual(defaultSudokuConfig.difficulty);
+    });
 });

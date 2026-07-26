@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers */
 import { describe, expect, it } from '@jest/globals';
+import { compressToEncodedURIComponent } from 'lz-string';
 
 import { SolutionStepInterface } from '../../@generic/interfaces/solution-step.interface';
+import { SudokuStringEncoder } from '../../sudoku-string-encoder/classes/sudoku-string-encoder';
 
 import { GameStateSerializer } from './game-state-serializer';
 
@@ -267,6 +269,52 @@ describe('GameStateSerializer', () => {
             expect(decoded[1]).toHaveLength(51);
             expect(decoded[3]).toBe(true);
             expect(decoded[4]).toBe(612);
+        });
+
+        it('should throw when a legacy payload has no length delimiter', () => {
+            expect.assertions(1);
+
+            const payload = compressToEncodedURIComponent('no-delimiter-here');
+
+            expect(() => serializer.decode(payload)).toThrow('Invalid game state format');
+        });
+
+        it('should throw when a legacy segment length is not a number', () => {
+            expect.assertions(1);
+
+            const payload = compressToEncodedURIComponent('xx:abc');
+
+            expect(() => serializer.decode(payload)).toThrow('Invalid game state format');
+        });
+
+        it('should throw when a legacy segment length is negative', () => {
+            expect.assertions(1);
+
+            const payload = compressToEncodedURIComponent('-1:abc');
+
+            expect(() => serializer.decode(payload)).toThrow('Invalid game state format');
+        });
+
+        it('should throw when a legacy payload has fewer than four segments', () => {
+            expect.assertions(1);
+
+            const payload = compressToEncodedURIComponent('2:ab3:cde');
+
+            expect(() => serializer.decode(payload)).toThrow('Invalid game state format');
+        });
+
+        it('should fall back to zero when a legacy max mistakes segment is not numeric', () => {
+            expect.assertions(2);
+
+            const fieldSegment = new SudokuStringEncoder().encode(legacyGivens);
+            const segments = ['', 'not-a-number', '0'].reduce(
+                (packed, segment) => `${packed}${segment.length}:${segment}`,
+                `${fieldSegment.length}:${fieldSegment}`
+            );
+            const decoded = serializer.decode(compressToEncodedURIComponent(segments));
+
+            expect(decoded[0]).toBe(legacyGivens);
+            expect(decoded[2]).toBe(0);
         });
     });
 
