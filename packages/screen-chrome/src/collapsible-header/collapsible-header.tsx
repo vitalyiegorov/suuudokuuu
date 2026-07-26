@@ -18,10 +18,12 @@ export const CollapsibleHeader = ({ children, style }: Props): ReactNode => {
     const headerTop = insets.top + config.headerTopInset;
     const containerStyle = { paddingTop: headerTop, height: headerTop + config.headerHeight };
     const combinedContainerStyle = [collapsibleHeaderStyles.container, containerStyle, style];
+    const rowCapStyle = config.contentMaxWidth > 0 ? { alignSelf: 'center' as const, maxWidth: config.contentMaxWidth } : null;
+    const combinedRowStyle = [collapsibleHeaderStyles.row, rowCapStyle];
 
     return (
         <View style={combinedContainerStyle} pointerEvents="box-none">
-            <View style={collapsibleHeaderStyles.row} pointerEvents="box-none">
+            <View style={combinedRowStyle} pointerEvents="box-none">
                 {children}
             </View>
         </View>
