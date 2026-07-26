@@ -1,0 +1,47 @@
+appId: ${APP_ID}
+---
+- startRecording:
+      path: '09.challenge-mode-run'
+      optional: true
+
+- runFlow: subflows/navigation/launch-home.flow.yaml
+- runFlow: subflows/game/enable-challenge-mode.flow.yaml
+- runFlow: subflows/game/start-new-game.flow.yaml
+
+- assertNotVisible:
+      id: 'GameScreenSelectors.PauseButton'
+
+- copyTextFrom:
+      id: 'GameScreenSelectors.Time'
+- evalScript: ${output.beforeBackgroundSeconds = Number(maestro.copiedText.split(':')[0]) * 60 + Number(maestro.copiedText.split(':')[1])}
+- pressKey: Home
+- runFlow:
+      file: subflows/shared/wait-observation-window.flow.yaml
+      env:
+          WAIT_MILLISECONDS: 3000
+- launchApp:
+      stopApp: false
+
+- extendedWaitUntil:
+      visible:
+          id: 'GameScreenSelectors.Root'
+      timeout: 3000
+- assertNotVisible:
+      id: 'PauseScreenSelectors.Root'
+
+- copyTextFrom:
+      id: 'GameScreenSelectors.Time'
+- evalScript: ${output.afterBackgroundSeconds = Number(maestro.copiedText.split(':')[0]) * 60 + Number(maestro.copiedText.split(':')[1])}
+- assertTrue:
+      condition: ${output.afterBackgroundSeconds > output.beforeBackgroundSeconds}
+      label: Challenge clock keeps running while the app is backgrounded
+
+- runFlow: subflows/game/quit-current-game.flow.yaml
+
+- tapOn:
+      id: 'ChallengeModeSwitchSelectors.Root'
+- extendedWaitUntil:
+      notVisible:
+          id: 'ChallengeConditionsRowSelectors.Root'
+      timeout: 3000
+- stopApp

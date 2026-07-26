@@ -1,0 +1,13 @@
+appId: ${APP_ID}
+---
+- scrollUntilVisible:
+      element:
+          id: 'ChallengeModeSwitchSelectors.Root'
+      direction: DOWN
+      timeout: 3000
+- tapOn:
+      id: 'ChallengeModeSwitchSelectors.Root'
+- extendedWaitUntil:
+      visible:
+          id: 'ChallengeConditionsRowSelectors.Root'
+      timeout: 3000

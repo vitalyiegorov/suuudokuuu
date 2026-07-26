@@ -6,6 +6,7 @@ import { useUnistyles } from 'react-native-unistyles';
 
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 
+import { ChallengeConditionsRowSelectors } from './challenge-conditions-row.selectors';
 import { ChallengeConditionsRowStyles as styles } from './challenge-conditions-row.styles';
 
 const GlyphSize = 12;
@@ -21,7 +22,12 @@ export const ChallengeConditionsRow = () => {
     const conditions = [t`no pause`, t`recorded`, t`shareable`].join(' · ');
 
     return (
-        <Animated.View entering={FadeIn.duration(EnterDurationMs)} exiting={FadeOut.duration(ExitDurationMs)} style={rowStyles}>
+        <Animated.View
+            entering={FadeIn.duration(EnterDurationMs)}
+            exiting={FadeOut.duration(ExitDurationMs)}
+            style={rowStyles}
+            testID={ChallengeConditionsRowSelectors.Root}
+        >
             <Zap color={theme.colors.label.main} fill={theme.colors.label.main} size={GlyphSize} strokeWidth={2.4} />
 
             <BlackText numberOfLines={1} style={textStyles}>

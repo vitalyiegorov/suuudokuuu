@@ -1,3 +1,3 @@
 export enum ChallengeModeSwitchSelectors {
-    Root = 'ChallengeModeSwitch/Root'
+    Root = 'ChallengeModeSwitchSelectors.Root'
 }
