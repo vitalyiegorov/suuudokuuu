@@ -8,6 +8,8 @@ import { MainTabIcon } from '../main-tab-icon/main-tab-icon';
 
 import type { ColorValue } from 'react-native';
 
+const MainTabLayoutActivePillRadius = 18;
+
 interface TabBarIconInput {
     readonly color: ColorValue;
     readonly size: number;
@@ -20,11 +22,18 @@ export const MainTabLayout = () => {
         backgroundColor: theme.colors.background,
         borderTopColor: theme.colors.candidate.border
     };
+    const tabBarItemStyle = {
+        borderRadius: MainTabLayoutActivePillRadius,
+        marginHorizontal: 8,
+        marginVertical: 0
+    };
     const screenOptions = {
         headerShown: false,
+        tabBarActiveBackgroundColor: theme.colors.surface.subtle,
         tabBarActiveTintColor: theme.colors.label.main,
         tabBarHideOnKeyboard: true,
         tabBarInactiveTintColor: theme.colors.label.hint,
+        tabBarItemStyle,
         tabBarStyle
     };
     const playLabel = t`Play`;
