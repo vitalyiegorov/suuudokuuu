@@ -9,6 +9,7 @@ import { MainTabIcon } from '../main-tab-icon/main-tab-icon';
 import type { ColorValue } from 'react-native';
 
 const MainTabLayoutActivePillRadius = 18;
+const MainTabLayoutMaxWidth = 520;
 
 interface TabBarIconInput {
     readonly color: ColorValue;
@@ -19,8 +20,11 @@ export const MainTabLayout = () => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
     const tabBarStyle = {
+        alignSelf: 'center' as const,
         backgroundColor: theme.colors.background,
-        borderTopColor: theme.colors.candidate.border
+        borderTopColor: theme.colors.candidate.border,
+        maxWidth: MainTabLayoutMaxWidth,
+        width: '100%' as const
     };
     const tabBarItemStyle = {
         borderRadius: MainTabLayoutActivePillRadius,

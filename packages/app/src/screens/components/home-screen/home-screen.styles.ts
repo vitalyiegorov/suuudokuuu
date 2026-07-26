@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native-unistyles';
 
+import { WideLayoutMediaQuery } from '../../../@generic/constants/layout-media-query.constant';
 import { WideContentWidthMultiplierConstant } from '../../constant/wide-content-width.constant';
 
 import { HomeScreenContentStackCompactGap, HomeScreenContentStackWideGap } from './constant/home-screen.constant';
@@ -237,26 +238,33 @@ const HomeScreenStaticStyles = {
 
 export const HomeScreenStyles = StyleSheet.create(theme => ({
     ...HomeScreenStaticStyles,
-    contentStack: (sizeClass: 'compact' | 'wide') => ({
-        alignItems: sizeClass === 'wide' ? 'flex-start' : 'stretch',
-        flexDirection: sizeClass === 'wide' ? 'row' : 'column',
-        gap: sizeClass === 'wide' ? HomeScreenContentStackWideGap : HomeScreenContentStackCompactGap,
+    contentStack: {
+        alignItems: { xs: 'stretch', [WideLayoutMediaQuery]: 'flex-start' },
+        flexDirection: { xs: 'column', [WideLayoutMediaQuery]: 'row' },
+        gap: { xs: HomeScreenContentStackCompactGap, [WideLayoutMediaQuery]: HomeScreenContentStackWideGap },
         width: '100%'
-    }),
-    masthead: (sizeClass: 'compact' | 'wide') => ({
+    },
+    masthead: {
+        flexGrow: { xs: 0, [WideLayoutMediaQuery]: 1 },
+        flexShrink: 1,
         gap: 16,
-        ...(sizeClass === 'wide' ? { flex: 1 } : { width: '100%' })
-    }),
-    scrollContent: (sizeClass: 'compact' | 'wide') => ({
+        width: { xs: '100%', [WideLayoutMediaQuery]: 'auto' }
+    },
+    scrollContent: {
         alignItems: 'center',
         alignSelf: 'center',
-        maxWidth: sizeClass === 'wide' ? theme.contentWidth.standard * WideContentWidthMultiplierConstant : theme.contentWidth.standard,
+        maxWidth: {
+            xs: theme.contentWidth.standard,
+            [WideLayoutMediaQuery]: theme.contentWidth.standard * WideContentWidthMultiplierConstant
+        },
         paddingBottom: 28,
         paddingHorizontal: 20,
         width: '100%'
-    }),
-    setupSection: (sizeClass: 'compact' | 'wide') => ({
+    },
+    setupSection: {
+        flexGrow: { xs: 0, [WideLayoutMediaQuery]: 1 },
+        flexShrink: 1,
         gap: 15,
-        ...(sizeClass === 'wide' ? { flex: 1 } : { width: '100%' })
-    })
+        width: { xs: '100%', [WideLayoutMediaQuery]: 'auto' }
+    }
 }));

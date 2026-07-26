@@ -12,6 +12,7 @@ export const PauseScreenStyles = StyleSheet.create(theme => ({
         alignItems: 'stretch',
         flexGrow: 1,
         gap: 14,
+        justifyContent: 'space-between',
         paddingHorizontal: 18,
         paddingTop: 16,
         width: '100%',

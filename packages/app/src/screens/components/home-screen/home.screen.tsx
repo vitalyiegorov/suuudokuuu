@@ -1,7 +1,7 @@
 import { Trans, useLingui } from '@lingui/react/macro';
 import { DifficultyEnum, Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { ScreenChromeScrollView } from '@suuudokuuu/screen-chrome';
-import { resolveUnistyleForAnimated, useAppLayout } from '@suuudokuuu/ui';
+import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { Link } from 'expo-router';
 import { use, useState } from 'react';
 import { Pressable, View } from 'react-native';
@@ -58,7 +58,6 @@ export const HomeScreen = () => {
     const { theme } = use(ThemeContext);
     const { t } = useLingui();
     const dispatch = useAppDispatch();
-    const { sizeClass } = useAppLayout();
     const [bestScore, bestTime] = useAppSelector(gameHistoryBestTimeSelector);
     const currentElapsedTime = useAppSelector(gameElapsedTimeSelector);
     const currentSolutionSteps = useAppSelector(gameSolutionsStepsSelector);
@@ -166,15 +165,15 @@ export const HomeScreen = () => {
     return (
         <ChromePage contentStyle={styles.content} topEdgeFadeProps={topEdgeFadeProps}>
             <ScreenChromeScrollView
-                contentContainerStyle={styles.scrollContent(sizeClass)}
+                contentContainerStyle={styles.scrollContent}
                 contentInsetBottom={contentInsetBottom}
                 contentInsetTop={HomeScreenTopContentPadding}
                 showsVerticalScrollIndicator={false}
                 style={resolveUnistyleForAnimated(styles.scrollView)}
                 testID={HomeScreenSelectors.Root}
             >
-                <View style={styles.contentStack(sizeClass)}>
-                    <View style={styles.masthead(sizeClass)}>
+                <View style={styles.contentStack}>
+                    <View style={styles.masthead}>
                         <View style={styles.hero}>
                             <Header numberOfLines={1} style={styles.title} text={t`suuudokuuu`} />
                             <SupportUkrainePill />
@@ -215,7 +214,7 @@ export const HomeScreen = () => {
                         ) : null}
                     </View>
 
-                    <View style={styles.setupSection(sizeClass)}>
+                    <View style={styles.setupSection}>
                         <HomeScreenSectionHeader />
 
                         <DifficultyComplexitySlider difficulty={difficulty} onChange={handleDifficultyChange} />
