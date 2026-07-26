@@ -1,6 +1,6 @@
 {
     "name": "@suuudokuuu/encoder",
-    "version": "1.66.0",
+    "version": "1.66.2",
     "private": true,
     "sideEffects": "false",
     "exports": {
