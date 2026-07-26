@@ -4,7 +4,7 @@ import { describe, expect, it } from '@jest/globals';
 import { SharedPayloadKindEnum } from '../../@generic/enums/shared-payload-kind.enum';
 import { TimelineEventKindEnum } from '../../@generic/enums/timeline-event-kind.enum';
 
-import { GameStateBinaryCodecV3 } from './game-state-binary-codec-v3';
+import { type EncodableGameStateInterface, GameStateBinaryCodecV3 } from './game-state-binary-codec-v3';
 
 import type { TimelineEventInterface } from '../../@generic/interfaces/timeline-event.interface';
 
@@ -234,5 +234,101 @@ describe('GameStateBinaryCodecV3 challenge payloads', () => {
         expect.assertions(1);
 
         expect(codec.decode(encodeChallenge(codec, [])).isChallengeRun).toBe(true);
+    });
+});
+
+const encodeHandoff = (codec: GameStateBinaryCodecV3, overrides: Partial<EncodableGameStateInterface>): string =>
+    codec.encode({
+        field: givens,
+        timelineEvents: [],
+        kind: SharedPayloadKindEnum.Handoff,
+        maxMistakes: 3,
+        isChallengeRun: false,
+        score: 0,
+        candidates: {},
+        anchorSeconds: 0,
+        ...overrides
+    });
+
+describe('GameStateBinaryCodecV3 handoff payloads', () => {
+    const codec = new GameStateBinaryCodecV3();
+
+    it.each([0, 1, 4095, 4096, 100000])('should round-trip a score of %s', score => {
+        expect.assertions(1);
+
+        expect(codec.decode(encodeHandoff(codec, { score })).score).toBe(score);
+    });
+
+    it('should round-trip an empty candidate map', () => {
+        expect.assertions(1);
+
+        expect(codec.decode(encodeHandoff(codec, { candidates: {} })).candidates).toStrictEqual({});
+    });
+
+    it('should round-trip a single pencilled cell', () => {
+        expect.assertions(1);
+
+        const candidates = { '2,0': [1, 5, 9] };
+
+        expect(codec.decode(encodeHandoff(codec, { candidates })).candidates).toStrictEqual(candidates);
+    });
+
+    it('should drop cells whose candidate list is empty', () => {
+        expect.assertions(1);
+
+        const candidates = { '2,0': [1], '3,0': [] };
+
+        expect(codec.decode(encodeHandoff(codec, { candidates })).candidates).toStrictEqual({ '2,0': [1] });
+    });
+
+    it('should round-trip a full nine value candidate mask', () => {
+        expect.assertions(1);
+
+        const candidates = { '8,8': [1, 2, 3, 4, 5, 6, 7, 8, 9] };
+
+        expect(codec.decode(encodeHandoff(codec, { candidates })).candidates).toStrictEqual(candidates);
+    });
+
+    it('should round-trip candidates alongside timeline events', () => {
+        expect.assertions(2);
+
+        const candidates = { '4,4': [2, 6] };
+        const timelineEvents = buildCellEvents(3, 8);
+        const decoded = codec.decode(encodeHandoff(codec, { candidates, timelineEvents }));
+
+        expect(decoded.timelineEvents).toStrictEqual(timelineEvents);
+        expect(decoded.candidates).toStrictEqual(candidates);
+    });
+
+    it('should omit the anchor for a non challenge run handoff', () => {
+        expect.assertions(1);
+
+        expect(codec.decode(encodeHandoff(codec, { isChallengeRun: false, anchorSeconds: 12345 })).anchorSeconds).toBe(0);
+    });
+
+    it('should carry the anchor for a challenge run handoff', () => {
+        expect.assertions(1);
+
+        expect(codec.decode(encodeHandoff(codec, { isChallengeRun: true, anchorSeconds: 1800000000 })).anchorSeconds).toBe(1800000000);
+    });
+
+    it('should not carry handoff extras on a challenge payload', () => {
+        expect.assertions(2);
+
+        const decoded = codec.decode(
+            codec.encode({
+                field: givens,
+                timelineEvents: [],
+                kind: SharedPayloadKindEnum.Challenge,
+                maxMistakes: 3,
+                isChallengeRun: true,
+                score: 900,
+                candidates: { '2,0': [1] },
+                anchorSeconds: 5
+            })
+        );
+
+        expect(decoded.score).toBe(0);
+        expect(decoded.candidates).toStrictEqual({});
     });
 });
