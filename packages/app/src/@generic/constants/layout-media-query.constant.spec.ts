@@ -17,8 +17,10 @@ const collectSourceFiles = (directory: string): string[] =>
         return entryPath.endsWith('.ts') || entryPath.endsWith('.tsx') ? [entryPath] : [];
     });
 
+const boardScreenDirectories = ['game-screen', 'replay-screen'];
+
 describe('WideLayoutMediaQuery', () => {
-    it('stays scoped to the game screen so every other screen keeps one column', () => {
+    it('stays scoped to the board screens so every other screen keeps one column', () => {
         const consumers = collectSourceFiles(sourceRoot)
             .filter(filePath => !filePath.endsWith('layout-media-query.constant.ts'))
             .filter(filePath => !filePath.endsWith('layout-media-query.constant.spec.ts'))
@@ -27,7 +29,7 @@ describe('WideLayoutMediaQuery', () => {
 
         expect(consumers).not.toHaveLength(0);
         consumers.forEach(consumer => {
-            expect(consumer).toContain('game-screen');
+            expect(boardScreenDirectories.some(directory => consumer.includes(directory))).toBe(true);
         });
     });
 
