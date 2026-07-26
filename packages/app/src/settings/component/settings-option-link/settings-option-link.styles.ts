@@ -14,8 +14,8 @@ export const SettingsOptionLinkStyles = StyleSheet.create(theme => ({
         }
     },
     value: {
-        fontSize: 17,
-        fontWeight: '700',
+        fontSize: 15,
+        fontWeight: theme.typography.weight.medium,
         lineHeight: 22,
         maxWidth: theme.contentWidth.narrow,
         textAlign: 'right'

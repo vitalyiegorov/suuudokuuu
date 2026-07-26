@@ -20,7 +20,7 @@ export const AppSettingsRowStyles = StyleSheet.create(theme => ({
     },
     description: {
         fontSize: AppSettingsRowDescriptionFontSize,
-        fontWeight: '700',
+        fontWeight: theme.typography.weight.regular,
         lineHeight: AppSettingsRowDescriptionLineHeight
     },
     row: {
@@ -38,7 +38,7 @@ export const AppSettingsRowStyles = StyleSheet.create(theme => ({
     },
     title: {
         fontSize: AppSettingsRowTitleFontSize,
-        fontWeight: '900',
+        fontWeight: theme.typography.weight.bold,
         lineHeight: AppSettingsRowTitleLineHeight
     },
     trailing: {

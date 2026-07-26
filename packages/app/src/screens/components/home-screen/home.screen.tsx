@@ -104,10 +104,7 @@ export const HomeScreen = () => {
     const selectedOptionDescriptionStyles = [styles.optionDescription, { color: theme.colors.label.inverted }];
     const unselectedOptionDescriptionStyles = [styles.optionDescription, { color: theme.colors.label.hint }];
     const hintTextStyles = [styles.hintText, { color: theme.colors.label.hint }];
-    const bestRunCardStyles = [
-        styles.bestRun,
-        { backgroundColor: theme.colors.cell.highlighted, borderColor: theme.colors.candidate.border }
-    ];
+    const bestRunCardStyles = styles.bestRun;
     const bestRunValueStyles = [styles.historyValue, { color: theme.colors.label.main }];
     const standardMistakesOption = {
         description: t`Three mistakes`,
