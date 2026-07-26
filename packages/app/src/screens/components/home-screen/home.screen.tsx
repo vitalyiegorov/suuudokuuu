@@ -1,7 +1,7 @@
 import { Trans, useLingui } from '@lingui/react/macro';
 import { DifficultyEnum, Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { ScreenChromeScrollView } from '@suuudokuuu/screen-chrome';
-import { useAppLayout } from '@suuudokuuu/ui';
+import { resolveUnistyleForAnimated, useAppLayout } from '@suuudokuuu/ui';
 import { Link } from 'expo-router';
 import { use, useState } from 'react';
 import { Pressable, View } from 'react-native';
@@ -15,7 +15,6 @@ import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
-import { resolveUnistyleForAnimated } from '../../../@generic/utils/resolve-unistyle-for-animated.util';
 import {
     DifficultyComplexitySliderDifficulties,
     DifficultyComplexitySliderInitialIndex

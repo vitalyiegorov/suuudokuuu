@@ -1,10 +1,10 @@
+import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { use } from 'react';
 import Reanimated from 'react-native-reanimated';
 
 import { cs } from '@rnw-community/shared';
 
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
-import { resolveUnistyleForAnimated } from '../../../@generic/utils/resolve-unistyle-for-animated.util';
 import { settingsFontSizeMultiplierSelector, settingsKeySelector } from '../../../settings/store/settings.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
 

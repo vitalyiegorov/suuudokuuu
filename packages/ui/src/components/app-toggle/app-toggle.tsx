@@ -4,13 +4,13 @@ import Animated, { interpolate, interpolateColor, useAnimatedStyle, useSharedVal
 import { useUnistyles } from 'react-native-unistyles';
 
 import { useReduceMotionEnabled } from '../../hooks/use-reduce-motion-enabled.hook';
+import { resolveUnistyleForAnimated } from '../../utils/resolve-unistyle-for-animated.util';
 
 import { AppToggleStyles as styles } from './app-toggle.styles';
 import { AppTogglePressTimingConfig, AppTogglePressedScale, AppToggleSpringConfig } from './constant/app-toggle-animation.constant';
 import { AppToggleDisabledOpacity } from './constant/app-toggle-disabled-opacity.constant';
 import { AppToggleTranslateX } from './constant/app-toggle-size.constant';
 import { appToggleGetColors } from './utils/app-toggle-get-colors.util';
-import { resolveUnistyleForAnimated } from './utils/resolve-unistyle-for-animated.util';
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 

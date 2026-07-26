@@ -1,3 +1,4 @@
+import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { use, useImperativeHandle } from 'react';
 import { Pressable, Text, View } from 'react-native';
 import Reanimated, {
@@ -13,7 +14,6 @@ import Svg, { Circle } from 'react-native-svg';
 import { cs } from '@rnw-community/shared';
 
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
-import { resolveUnistyleForAnimated } from '../../../@generic/utils/resolve-unistyle-for-animated.util';
 import { settingsFontSizeMultiplierSelector } from '../../../settings/store/settings.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { PanelControlSizeConstant } from '../../constant/panel-control-size.constant';

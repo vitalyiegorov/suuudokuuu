@@ -1,11 +1,10 @@
 import { Plural, Trans, useLingui } from '@lingui/react/macro';
 import { DifficultyEnum } from '@suuudokuuu/generator';
-import { useAppLayout } from '@suuudokuuu/ui';
+import { resolveUnistyleForAnimated, useAppLayout } from '@suuudokuuu/ui';
 import { use } from 'react';
 import { Text, View } from 'react-native';
 
 import { CollapsibleChromePage } from '../../@generic/components/collapsible-chrome-page/collapsible-chrome-page';
-import { resolveUnistyleForAnimated } from '../../@generic/utils/resolve-unistyle-for-animated.util';
 import { ThemeContext } from '../../theme/context/theme.context';
 import { defaultScoringConfig } from '../interfaces/scoring-config.interface';
 

@@ -22,3 +22,4 @@ export { ContentWidthConstant } from './theme/constant/content-width.constant';
 export { Breakpoints } from './theme/constant/breakpoints.constant';
 export type { AppLayoutInterface } from './interface/app-layout.interface';
 export { useAppLayout } from './hooks/use-app-layout.hook';
+export { resolveUnistyleForAnimated } from './utils/resolve-unistyle-for-animated.util';

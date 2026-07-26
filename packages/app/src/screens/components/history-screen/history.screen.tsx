@@ -1,11 +1,10 @@
 import { useLingui } from '@lingui/react/macro';
-import { useAppLayout } from '@suuudokuuu/ui';
+import { resolveUnistyleForAnimated, useAppLayout } from '@suuudokuuu/ui';
 import { useState } from 'react';
 
 import { CollapsibleChromePage } from '../../../@generic/components/collapsible-chrome-page/collapsible-chrome-page';
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
-import { resolveUnistyleForAnimated } from '../../../@generic/utils/resolve-unistyle-for-animated.util';
 import { gameHistoryByDifficultySelector } from '../../../game/store/game.selectors';
 import { HistoryGamesList } from '../../../history/components/history-games-list/history-games-list';
 import { HistoryOverviewTab } from '../../../history/components/history-overview-tab/history-overview-tab';

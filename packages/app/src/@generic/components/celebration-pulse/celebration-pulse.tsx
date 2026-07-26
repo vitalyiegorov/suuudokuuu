@@ -1,3 +1,4 @@
+import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { useEffect } from 'react';
 import { View } from 'react-native';
 import Animated, {
@@ -10,8 +11,6 @@ import Animated, {
     withSpring,
     withTiming
 } from 'react-native-reanimated';
-
-import { resolveUnistyleForAnimated } from '../../utils/resolve-unistyle-for-animated.util';
 
 import { CelebrationPulseStyles as styles } from './celebration-pulse.styles';
 

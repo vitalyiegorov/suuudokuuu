@@ -1,7 +1,7 @@
+import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { use, useEffect } from 'react';
 import Animated, { Easing, interpolate, useAnimatedStyle, useSharedValue, withRepeat, withTiming } from 'react-native-reanimated';
 
-import { resolveUnistyleForAnimated } from '../../../@generic/utils/resolve-unistyle-for-animated.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
 
 import { ChallengeRaceRunnerStyles as styles } from './challenge-race-runner.styles';

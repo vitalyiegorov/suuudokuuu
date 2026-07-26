@@ -1,5 +1,6 @@
 import { useLingui } from '@lingui/react/macro';
 import { DifficultyEnum } from '@suuudokuuu/generator';
+import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { use } from 'react';
 import { View } from 'react-native';
@@ -8,7 +9,6 @@ import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 
 import { useVibration } from '../../../../@generic/hooks/use-vibration.hook';
 import { getDifficultyText } from '../../../../@generic/utils/get-difficulty-text.util';
-import { resolveUnistyleForAnimated } from '../../../../@generic/utils/resolve-unistyle-for-animated.util';
 import { ThemeContext } from '../../../../theme/context/theme.context';
 import {
     DifficultyComplexitySliderDifficulties,

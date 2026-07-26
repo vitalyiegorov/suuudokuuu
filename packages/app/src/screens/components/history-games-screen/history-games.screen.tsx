@@ -1,12 +1,11 @@
 import { useLingui } from '@lingui/react/macro';
-import { useAppLayout } from '@suuudokuuu/ui';
+import { resolveUnistyleForAnimated, useAppLayout } from '@suuudokuuu/ui';
 
 import { emptyFn } from '@rnw-community/shared';
 
 import { CollapsibleChromePage } from '../../../@generic/components/collapsible-chrome-page/collapsible-chrome-page';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
-import { resolveUnistyleForAnimated } from '../../../@generic/utils/resolve-unistyle-for-animated.util';
 import { gameCompletedGamesSelector } from '../../../game/store/game.selectors';
 import { HistoryGamesList } from '../../../history/components/history-games-list/history-games-list';
 

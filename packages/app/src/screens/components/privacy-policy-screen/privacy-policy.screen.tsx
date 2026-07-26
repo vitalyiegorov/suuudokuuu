@@ -1,9 +1,8 @@
 import { useLingui } from '@lingui/react/macro';
-import { useAppLayout } from '@suuudokuuu/ui';
+import { resolveUnistyleForAnimated, useAppLayout } from '@suuudokuuu/ui';
 
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { CollapsibleChromePage } from '../../../@generic/components/collapsible-chrome-page/collapsible-chrome-page';
-import { resolveUnistyleForAnimated } from '../../../@generic/utils/resolve-unistyle-for-animated.util';
 
 import { PrivacyPolicyScreenStyles } from './privacy-policy-screen.styles';
 import { privacyPolicyConstant } from './privacy-policy.constant';

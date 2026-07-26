@@ -1,8 +1,8 @@
+import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { use, useEffect } from 'react';
 import { View } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
-import { resolveUnistyleForAnimated } from '../../../@generic/utils/resolve-unistyle-for-animated.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { getChallengeTimelineMarks } from '../../utils/get-challenge-timeline-marks.util';
 import { ChallengeRaceRunner } from '../challenge-race-runner/challenge-race-runner';

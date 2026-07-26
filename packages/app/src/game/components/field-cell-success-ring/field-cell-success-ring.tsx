@@ -1,7 +1,7 @@
+import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { use } from 'react';
 import Reanimated, { interpolate, useAnimatedStyle } from 'react-native-reanimated';
 
-import { resolveUnistyleForAnimated } from '../../../@generic/utils/resolve-unistyle-for-animated.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
 
 import { FieldCellSuccessRingStyles as styles } from './field-cell-success-ring.styles';

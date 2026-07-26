@@ -1,10 +1,10 @@
+import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { LucideFlag, LucideHeartCrack, LucideTrophy } from 'lucide-react-native';
 import { use, useEffect } from 'react';
 import { View } from 'react-native';
 import Animated, { interpolate, useAnimatedStyle, useDerivedValue, useSharedValue, withSpring } from 'react-native-reanimated';
 
 import { CelebrationPulse } from '../../../@generic/components/celebration-pulse/celebration-pulse';
-import { resolveUnistyleForAnimated } from '../../../@generic/utils/resolve-unistyle-for-animated.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { ChallengeResult } from '../../interfaces/challenge-result.interface';
 

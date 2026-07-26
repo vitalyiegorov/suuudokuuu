@@ -1,3 +1,4 @@
+import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { use, useEffect, useState } from 'react';
 import { Pressable } from 'react-native';
 import Reanimated, {
@@ -17,7 +18,6 @@ import { type OnEventFn } from '@rnw-community/shared';
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { CellStyles as styles } from '../../../@generic/styles/cell.styles';
-import { resolveUnistyleForAnimated } from '../../../@generic/utils/resolve-unistyle-for-animated.util';
 import { settingsKeySelector } from '../../../settings/store/settings.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { GameContext } from '../../context/game.context';
