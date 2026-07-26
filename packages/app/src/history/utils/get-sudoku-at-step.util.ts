@@ -2,6 +2,7 @@ import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { TechniqueManager } from '@suuudokuuu/solver';
 
 import { getCellKey } from '../../@generic/utils/get-cell-key.util';
+import { getTimelineCellSteps } from '../../game/utils/get-timeline-cell-steps.util';
 
 import type { GameState } from '../../game/store/game.state';
 import type { SolutionStepInterface } from '@suuudokuuu/encoder';
@@ -10,7 +11,7 @@ import type { MoveClassificationInterface } from '@suuudokuuu/solver';
 export const getSudokuAtStep = (gameState: GameState, currentStep: number) => {
     const sudoku = Sudoku.fromString(gameState.sudokuString, defaultSudokuConfig);
 
-    const steps = gameState.challengeSteps;
+    const steps = getTimelineCellSteps(gameState.challengeTimelineEvents);
     const effectiveStep = Math.min(currentStep, steps.length);
     let elapsedTime = 0;
     let highlightedCellKey = '';

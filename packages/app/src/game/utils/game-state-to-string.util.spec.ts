@@ -1,50 +1,129 @@
-import { beforeEach, describe, expect, it, jest } from '@jest/globals';
-
-const mockEncodedState = 'encoded-state';
-const mockEncodeCalls: unknown[][] = [];
-let mockShouldThrow = false;
-
-jest.mock('@suuudokuuu/encoder', () => ({
-    GameStateSerializer: jest.fn(() => ({
-        encode: (...params: unknown[]) => {
-            mockEncodeCalls.push(params);
-
-            if (mockShouldThrow) {
-                throw new Error('Encode failed');
-            }
-
-            return mockEncodedState;
-        }
-    }))
-}));
+/* eslint-disable @typescript-eslint/no-magic-numbers */
+import { describe, expect, it } from '@jest/globals';
+import { GameStateSerializer, SharedPayloadKindEnum, TimelineEventKindEnum } from '@suuudokuuu/encoder';
+import { SolutionTechniqueEnum } from '@suuudokuuu/solver';
 
 import { initialGameState } from '../store/game.state';
 
 import { gameStateToString } from './game-state-to-string.util';
 
-const StartedSudokuString = 'started-sudoku';
+import type { GameTimelineEventInterface } from '../interface/game-timeline-event.interface';
+import type { GameState } from '../store/game.state';
+
+const solvedBoard = '534678912672195348198342567859761423426853791713924856961537284287419635345286179';
+const givensMask = '53..7....6..195....98....6.8...6...34..8.3..17...2...6.6....28....419..5....8..79';
+const BlankCell = '.';
+
+const buildCellEvents = (count: number): GameTimelineEventInterface[] => {
+    const events: GameTimelineEventInterface[] = [];
+
+    for (let cellIndex = 0; cellIndex < givensMask.length && events.length < count; cellIndex += 1) {
+        if (givensMask.charAt(cellIndex) === BlankCell) {
+            events.push({
+                kind: TimelineEventKindEnum.Cell,
+                cellIndex,
+                value: parseInt(solvedBoard.charAt(cellIndex), 10),
+                ts: 10
+            });
+        }
+    }
+
+    return events;
+};
+
+const buildGameState = (timelineEvents: GameTimelineEventInterface[], overrides: Partial<GameState> = {}): GameState => ({
+    ...initialGameState,
+    sudokuString: solvedBoard,
+    maxMistakes: 3,
+    timelineEvents,
+    ...overrides
+});
 
 describe('gameStateToString', () => {
-    beforeEach(() => {
-        mockEncodeCalls.length = 0;
-        mockShouldThrow = false;
-    });
+    const serializer = new GameStateSerializer();
 
-    it('encodes active game state with challenge metadata', () => {
-        const gameState = {
-            ...initialGameState,
-            maxMistakes: 0,
-            sudokuString: StartedSudokuString,
-            solutionSteps: [{ cellIndex: 0, value: 1, ts: 5 }]
-        };
-
-        expect(gameStateToString(gameState, true)).toBe(mockEncodedState);
-        expect(mockEncodeCalls).toEqual([[StartedSudokuString, gameState.solutionSteps, 0, true]]);
-    });
-
-    it('returns an empty string when encoding fails', () => {
-        mockShouldThrow = true;
+    it('should return an empty string when the field cannot be encoded', () => {
+        expect.assertions(1);
 
         expect(gameStateToString(initialGameState)).toBe('');
+    });
+
+    it('should strip the played values from a puzzle share', () => {
+        expect.assertions(2);
+
+        const encoded = gameStateToString(buildGameState(buildCellEvents(5)), SharedPayloadKindEnum.Puzzle);
+        const decoded = serializer.decodeState(encoded);
+
+        expect(decoded.kind).toBe(SharedPayloadKindEnum.Puzzle);
+        expect(decoded.timelineEvents).toStrictEqual([]);
+    });
+
+    it('should carry cell events in a challenge share', () => {
+        expect.assertions(2);
+
+        const events = buildCellEvents(4);
+        const decoded = serializer.decodeState(gameStateToString(buildGameState(events), SharedPayloadKindEnum.Challenge));
+
+        expect(decoded.kind).toBe(SharedPayloadKindEnum.Challenge);
+        expect(decoded.timelineEvents).toStrictEqual(events);
+    });
+
+    it('should carry away and return markers in a challenge share', () => {
+        expect.assertions(1);
+
+        const events: GameTimelineEventInterface[] = [
+            ...buildCellEvents(1),
+            { kind: TimelineEventKindEnum.Away, ts: 2 },
+            { kind: TimelineEventKindEnum.Return, ts: 400 }
+        ];
+        const decoded = serializer.decodeState(gameStateToString(buildGameState(events), SharedPayloadKindEnum.Challenge));
+
+        expect(decoded.timelineEvents).toStrictEqual(events);
+    });
+
+    it('should drop the local only event kinds from the payload', () => {
+        expect.assertions(1);
+
+        const events: GameTimelineEventInterface[] = [
+            ...buildCellEvents(1),
+            { kind: TimelineEventKindEnum.Pencil, cellIndex: 3, value: 7, ts: 1 },
+            { kind: TimelineEventKindEnum.InputMode, ts: 1 },
+            { kind: TimelineEventKindEnum.Pause, ts: 1 },
+            { kind: TimelineEventKindEnum.Resume, ts: 1 }
+        ];
+        const decoded = serializer.decodeState(gameStateToString(buildGameState(events), SharedPayloadKindEnum.Challenge));
+
+        expect(decoded.timelineEvents).toStrictEqual(buildCellEvents(1));
+    });
+
+    it('should keep the auto candidates assist marker in the payload', () => {
+        expect.assertions(1);
+
+        const events: GameTimelineEventInterface[] = [{ kind: TimelineEventKindEnum.AutoCandidates, ts: 4 }];
+        const decoded = serializer.decodeState(gameStateToString(buildGameState(events), SharedPayloadKindEnum.Challenge));
+
+        expect(decoded.timelineEvents).toStrictEqual(events);
+    });
+
+    it('should not carry the locally derived technique into the payload', () => {
+        expect.assertions(1);
+
+        const events: GameTimelineEventInterface[] = [
+            { kind: TimelineEventKindEnum.Cell, cellIndex: 2, value: 4, ts: 10, technique: SolutionTechniqueEnum.NakedSingle }
+        ];
+        const decoded = serializer.decodeState(gameStateToString(buildGameState(events), SharedPayloadKindEnum.Challenge));
+
+        expect(Object.keys(decoded.timelineEvents[0])).toStrictEqual(['kind', 'cellIndex', 'value', 'ts']);
+    });
+
+    it('should carry score and pencil marks in a handoff share', () => {
+        expect.assertions(2);
+
+        const candidates = { '4,4': [2, 6] };
+        const state = buildGameState(buildCellEvents(2), { score: 4820, candidates });
+        const decoded = serializer.decodeState(gameStateToString(state, SharedPayloadKindEnum.Handoff));
+
+        expect(decoded.score).toBe(4820);
+        expect(decoded.candidates).toStrictEqual(candidates);
     });
 });

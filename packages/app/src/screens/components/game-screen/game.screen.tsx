@@ -15,7 +15,6 @@ import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { useVibration } from '../../../@generic/hooks/use-vibration.hook';
 import { ChallengeRaceHud } from '../../../challenge/components/challenge-race-hud/challenge-race-hud';
-import { ChallengeLossReason } from '../../../challenge/enums/challenge-loss-reason.enum';
 import { Field, FieldRef } from '../../../game/components/field/field';
 import { GameTimerController } from '../../../game/components/game-timer-controller/game-timer-controller';
 import { GameContext } from '../../../game/context/game.context';
@@ -33,8 +32,9 @@ import {
 import {
     gameChallengeTimeSelector,
     gameElapsedTimeSelector,
+    gameHasRivalSelector,
     gameInputModeSelector,
-    gameIsChallengeModeSelector,
+    gameIsChallengeRunSelector,
     gameMaxMistakesSelector,
     gameMistakesSelector,
     gameScoreSelector
@@ -51,6 +51,7 @@ import { GameScreenStyles as styles } from './game-screen.styles';
 import { GameStatusBlock } from './game-status-block/game-status-block';
 import { useOpenGameSettings } from './hooks/use-open-game-settings.hook';
 import { gameScreenExit } from './utils/game-screen-exit.util';
+import { gameScreenGetLostRoute, gameScreenGetWonRoute } from './utils/game-screen-get-result-route.util';
 
 import type { AvailableValuesItemRef } from '../../../game/components/available-values-item/available-values-item';
 import type { CellInterface, ScoredCellsInterface } from '@suuudokuuu/generator';
@@ -75,7 +76,8 @@ export const GameScreen = () => {
     const keepActiveCell = useAppSelector(settingsKeySelector('keepActiveCell'));
     const isLeftHanded = useAppSelector(settingsKeySelector('isLeftHanded'));
     const inputMode = useAppSelector(gameInputModeSelector);
-    const isChallengeMode = useAppSelector(gameIsChallengeModeSelector);
+    const hasRival = useAppSelector(gameHasRivalSelector);
+    const isChallengeRun = useAppSelector(gameIsChallengeRunSelector);
     const challengeTime = useAppSelector(gameChallengeTimeSelector);
     const elapsedTime = useAppSelector(gameElapsedTimeSelector);
 
@@ -122,32 +124,20 @@ export const GameScreen = () => {
     const handleLostGame = () => {
         hapticImpact(ImpactFeedbackStyle.Heavy);
 
-        dispatch(gameFinishAction({ difficulty: sudoku.Difficulty, isWon: false, isChallenge: isChallengeMode }));
+        dispatch(gameFinishAction({ difficulty: sudoku.Difficulty, isWon: false, isChallenge: hasRival }));
 
-        if (isChallengeMode) {
-            router.replace({ pathname: '/challenge-lost', params: { reason: ChallengeLossReason.Mistakes } });
-        } else {
-            router.replace('/loser');
-        }
+        router.replace(gameScreenGetLostRoute(hasRival));
     };
 
     const handleWonGame = () => {
         hapticImpact(ImpactFeedbackStyle.Heavy);
 
-        const wonChallenge = isChallengeMode && elapsedTime < challengeTime;
+        const wonChallenge = hasRival && elapsedTime < challengeTime;
 
         dispatch(gameFinishAction({ difficulty: sudoku.Difficulty, isWon: true, isChallenge: wonChallenge }));
 
         // HINT: We need to wait for the animation to finish, animation finish event would fix it?
-        setTimeout(() => {
-            if (isChallengeMode && wonChallenge) {
-                router.replace('/challenge-won');
-            } else if (isChallengeMode) {
-                router.replace({ pathname: '/challenge-lost', params: { reason: ChallengeLossReason.Time } });
-            } else {
-                router.replace('/winner');
-            }
-        }, 10 * animationDurationConstant);
+        setTimeout(() => void router.replace(gameScreenGetWonRoute(hasRival, wonChallenge)), 10 * animationDurationConstant);
     };
 
     const handleCorrectValue = (correctCell: CellInterface, newScoredCells: ScoredCellsInterface) => {
@@ -161,8 +151,8 @@ export const GameScreen = () => {
         setSelectedCell(() => ({ ...correctCell }));
     };
 
-    const handleWrongValue = () => {
-        dispatch(gameMistakeAction());
+    const handleWrongValue = (wrongCell: CellInterface) => {
+        dispatch(gameMistakeAction(wrongCell));
 
         if (mistakes + 1 >= maxMistakes) {
             handleLostGame();
@@ -187,7 +177,7 @@ export const GameScreen = () => {
                 handleWonGame();
             }
         } else {
-            handleWrongValue();
+            handleWrongValue(newValueCell);
         }
     };
 
@@ -239,10 +229,12 @@ export const GameScreen = () => {
             hasSharing={hasSharing}
             onExit={handleExit}
             onOpenSettings={handleOpenSettings}
-            onPause={handlePause}
+            {...(!isChallengeRun && { onPause: handlePause })}
             onShare={handleShare}
         />
     );
+
+    const challengeHud = hasRival ? <ChallengeRaceHud /> : null;
 
     return (
         <Pressable
@@ -261,7 +253,7 @@ export const GameScreen = () => {
                 </View>
             </Hide>
 
-            {isChallengeMode ? <ChallengeRaceHud /> : null}
+            {challengeHud}
 
             <View onLayout={onBoardAreaLayout} style={styles.boardArea}>
                 <Hide mq={WideLayoutMediaQuery}>

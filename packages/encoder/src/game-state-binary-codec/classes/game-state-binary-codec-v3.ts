@@ -37,11 +37,11 @@ export class GameStateBinaryCodecV3 {
             throw new Error('Invalid sudoku field length');
         }
 
-        const events = state.kind === SharedPayloadKindEnum.Puzzle ? [] : state.timelineEvents;
-        if (events.length > EVENT_COUNT_LIMIT) {
+        if (state.timelineEvents.length > EVENT_COUNT_LIMIT) {
             throw new Error('Too many timeline events');
         }
 
+        const events = state.kind === SharedPayloadKindEnum.Puzzle ? [] : state.timelineEvents;
         const hasTagStream = hasNonCellEvents(events);
         const out = new BitOutputStream();
 
@@ -93,7 +93,7 @@ export class GameStateBinaryCodecV3 {
         events: TimelineEventInterface[],
         hasTagStream: boolean
     ): void {
-        const givens = removeCellEventsFromField(state.field, events);
+        const givens = removeCellEventsFromField(state.field, state.timelineEvents);
 
         writeGivens(out, givens);
 

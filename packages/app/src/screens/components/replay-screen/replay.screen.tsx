@@ -40,7 +40,7 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
         }
     };
     const handleNextStep = () => {
-        if (currentStep < gameState.challengeSteps.length) {
+        if (currentStep < gameState.challengeTimelineEvents.length) {
             setCurrentStep(currentStep + 1);
         }
     };
@@ -54,7 +54,7 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
             moveClassification={moveClassification}
             onNextStep={handleNextStep}
             onPrevStep={handlePrevStep}
-            totalSteps={gameState.challengeSteps.length}
+            totalSteps={gameState.challengeTimelineEvents.length}
         />
     );
 

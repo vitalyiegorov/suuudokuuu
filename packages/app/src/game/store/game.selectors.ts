@@ -2,6 +2,8 @@ import { createSelector } from '@reduxjs/toolkit';
 
 import { isNotEmptyString } from '@rnw-community/shared';
 
+import { getTimelineCellSteps } from '../utils/get-timeline-cell-steps.util';
+
 import type { RootState } from '../../@generic/app-root.store';
 import type { DifficultyEnum } from '@suuudokuuu/generator';
 
@@ -34,9 +36,10 @@ export const gameCompletedGameByIdSelector = (difficulty: DifficultyEnum, comple
         state.historyByDifficulty[difficulty].completedGames.find(game => game.completedAt === completedAt)
     );
 export const gameIsStartedSelector = createSelector(gameSelector, state => isNotEmptyString(state.sudokuString));
-export const gameIsChallengeModeSelector = createSelector(gameSelector, state => isNotEmptyString(state.challengeState));
-export const gameChallengeStepsSelector = createSelector(gameSelector, state => state.challengeSteps);
+export const gameHasRivalSelector = createSelector(gameSelector, state => isNotEmptyString(state.challengeState));
+export const gameIsChallengeRunSelector = createSelector(gameSelector, state => state.isChallengeRun);
+export const gameChallengeStepsSelector = createSelector(gameSelector, state => getTimelineCellSteps(state.challengeTimelineEvents));
 export const gameChallengeStateSelector = createSelector(gameSelector, state => state.challengeState);
 export const gameChallengeTimeSelector = createSelector(gameSelector, state => state.challengeTime);
-export const gameSolutionsStepsSelector = createSelector(gameSelector, state => state.solutionSteps);
+export const gameSolutionsStepsSelector = createSelector(gameSelector, state => getTimelineCellSteps(state.timelineEvents));
 export const gameHasNewPersonalBestScoreSelector = createSelector(gameSelector, state => state.hasNewPersonalBestScore);

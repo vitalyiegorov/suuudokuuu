@@ -1,4 +1,5 @@
 import { describe, expect, it } from '@jest/globals';
+import { TimelineEventKindEnum } from '@suuudokuuu/encoder';
 import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { SolutionTechniqueEnum } from '@suuudokuuu/solver';
 
@@ -24,7 +25,7 @@ describe('getSudokuAtStep', () => {
     const gameState = {
         ...initialGameState,
         sudokuString: sudoku.toString(),
-        challengeSteps: [logicalStep]
+        challengeTimelineEvents: [{ kind: TimelineEventKindEnum.Cell, ...logicalStep }]
     };
 
     it('should expose no solution step before replaying the first move', () => {
@@ -58,7 +59,7 @@ describe('getSudokuAtStep', () => {
         const multiStepGameState = {
             ...initialGameState,
             sudokuString: multiStepSudoku.toString(),
-            challengeSteps: multiSteps
+            challengeTimelineEvents: multiSteps.map(step => ({ kind: TimelineEventKindEnum.Cell, ...step }))
         };
         const replayState = getSudokuAtStep(multiStepGameState, 2);
 
@@ -89,7 +90,7 @@ describe('getSudokuAtStep', () => {
         const guessGameState = {
             ...initialGameState,
             sudokuString: guessSudoku.toString(),
-            challengeSteps: [guessStep]
+            challengeTimelineEvents: [{ kind: TimelineEventKindEnum.Cell, ...guessStep }]
         };
 
         expect(getSudokuAtStep(guessGameState, 1).moveClassification).toEqual({

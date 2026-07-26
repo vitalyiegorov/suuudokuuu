@@ -1,3 +1,4 @@
+import { SharedPayloadKindEnum } from '@suuudokuuu/encoder';
 import * as Sharing from 'expo-sharing';
 import { Share } from 'react-native';
 
@@ -10,7 +11,7 @@ export const useSharePuzzle = () => {
 
     return async () => {
         if (await Sharing.isAvailableAsync()) {
-            const shareUrl = `${window.location.origin}/shared/${gameStateToString(state, false)}`;
+            const shareUrl = `${window.location.origin}/shared/${gameStateToString(state, SharedPayloadKindEnum.Puzzle)}`;
 
             await Share.share({ url: shareUrl });
         }

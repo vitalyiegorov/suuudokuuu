@@ -1,16 +1,17 @@
 import { describe, expect, it, jest } from '@jest/globals';
+import { TimelineEventKindEnum } from '@suuudokuuu/encoder';
 import { DifficultyEnum, Sudoku, emptyScoredCells } from '@suuudokuuu/generator';
 
 import { isDefined } from '@rnw-community/shared';
 
 jest.mock('@suuudokuuu/encoder', () => {
-    const { Solution } = jest.requireActual<typeof import('@suuudokuuu/encoder')>('@suuudokuuu/encoder');
+    const actual = jest.requireActual<typeof import('@suuudokuuu/encoder')>('@suuudokuuu/encoder');
 
     return {
+        ...actual,
         GameStateSerializer: jest.fn(() => ({
-            encode: jest.fn(() => '')
-        })),
-        Solution
+            encodeState: jest.fn(() => '')
+        }))
     };
 });
 
@@ -58,7 +59,10 @@ describe('gameSlice', () => {
             candidates: { '1-1': [1, 2] }
         };
 
-        const nextState = gameSlice.reducer(dirtyState, gameStartAction({ sudokuString: StartedSudokuString, maxMistakes: 0 }));
+        const nextState = gameSlice.reducer(
+            dirtyState,
+            gameStartAction({ sudokuString: StartedSudokuString, maxMistakes: 0, isChallengeRun: false })
+        );
 
         expect(nextState).toMatchObject({
             ...initialGameState,
@@ -81,7 +85,7 @@ describe('gameSlice', () => {
             { ...initialGameState, historyByDifficulty },
             gameLoadAction({ elapsedTime: InitialElapsedTime, hasNewPersonalBestScore: true, sudokuString: StartedSudokuString })
         );
-        const mistakenState = gameSlice.reducer(loadedState, gameMistakeAction());
+        const mistakenState = gameSlice.reducer(loadedState, gameMistakeAction({ x: 0, y: 0, value: 5, group: 0 }));
         const resetState = gameSlice.reducer(mistakenState, gameResetAction());
 
         expect(loadedState.elapsedTime).toBe(InitialElapsedTime);
@@ -165,7 +169,9 @@ describe('gameSlice', () => {
 
         expect(savedState.sudokuString).toBe(sudoku.toString());
         expect(savedState.score).toBeGreaterThan(0);
-        expect(savedState.solutionSteps).toEqual([{ cellIndex: correctCell.y * 9 + correctCell.x, value: correctCell.value, ts: 1 }]);
+        expect(savedState.timelineEvents).toEqual([
+            { kind: TimelineEventKindEnum.Cell, cellIndex: correctCell.y * 9 + correctCell.x, value: correctCell.value, ts: 1 }
+        ]);
         expect(savedState.candidates[correctCellKey]).toEqual([]);
         expect(savedState.candidates[affectedCellKey]).toEqual([]);
     });
@@ -210,6 +216,7 @@ describe('gameSlice', () => {
         const challengeRunningState = {
             ...initialGameState,
             challengeState: 'challenge-state',
+            isChallengeRun: true,
             elapsedTime: InitialElapsedTime,
             sudokuString: StartedSudokuString
         };
@@ -228,12 +235,13 @@ describe('gameSlice', () => {
         const unanchoredState = {
             ...initialGameState,
             challengeState: 'challenge-state',
+            isChallengeRun: true,
             elapsedTime: InitialElapsedTime,
             sudokuString: StartedSudokuString
         };
 
         const anchoredState = gameSlice.reducer(unanchoredState, gameChallengeClockSyncAction({ nowMs }));
-        expect(anchoredState.challengeWallStartMs).toBe(nowMs - InitialElapsedTime * 1000);
+        expect(anchoredState.wallClockStartMs).toBe(nowMs - InitialElapsedTime * 1000);
         expect(anchoredState.elapsedTime).toBe(InitialElapsedTime);
 
         const backgroundSeconds = 90;
@@ -254,7 +262,7 @@ describe('gameSlice', () => {
 
         const syncedState = gameSlice.reducer(ordinaryState, gameChallengeClockSyncAction({ nowMs: 1_000_000_000 }));
 
-        expect(syncedState.challengeWallStartMs).toBe(0);
+        expect(syncedState.wallClockStartMs).toBe(0);
         expect(syncedState.elapsedTime).toBe(InitialElapsedTime);
     });
 
@@ -363,6 +371,7 @@ describe('gameSlice', () => {
             {
                 ...initialGameState,
                 challengeState: 'challenge-state',
+                isChallengeRun: true,
                 historyByDifficulty,
                 score: 251,
                 sudokuString: StartedSudokuString

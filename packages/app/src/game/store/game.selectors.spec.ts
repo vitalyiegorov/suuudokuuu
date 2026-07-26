@@ -12,11 +12,11 @@ import {
     gameCompletedGamesSelector,
     gameElapsedTimeSelector,
     gameHasNewPersonalBestScoreSelector,
+    gameHasRivalSelector,
     gameHistoryBestTimeSelector,
     gameHistoryByDifficultySelector,
     gameHistoryDifficultySelector,
     gameInputModeSelector,
-    gameIsChallengeModeSelector,
     gameIsStartedSelector,
     gameMaxMistakesSelector,
     gameMistakesSelector,
@@ -90,18 +90,18 @@ describe('game selectors', () => {
         expect(gameInputModeSelector.resultFunc(state)).toBe('candidate');
         expect(gameCandidatesSelector.resultFunc(state)).toEqual({ a1: [1, 2] });
         expect(gameHistoryByDifficultySelector.resultFunc(state)).toBe(state.historyByDifficulty);
-        expect(gameChallengeStepsSelector.resultFunc(state)).toBe(state.challengeSteps);
+        expect(gameChallengeStepsSelector.resultFunc(state)).toStrictEqual([]);
         expect(gameChallengeStateSelector.resultFunc(state)).toBe('encoded');
         expect(gameChallengeTimeSelector.resultFunc(state)).toBe(30);
-        expect(gameSolutionsStepsSelector.resultFunc(state)).toBe(state.solutionSteps);
+        expect(gameSolutionsStepsSelector.resultFunc(state)).toStrictEqual([]);
         expect(gameHasNewPersonalBestScoreSelector.resultFunc(state)).toBe(true);
     });
 
     it('derives game and challenge activity from non-empty strings', () => {
         expect(gameIsStartedSelector.resultFunc(state)).toBe(true);
         expect(gameIsStartedSelector.resultFunc(initialGameState)).toBe(false);
-        expect(gameIsChallengeModeSelector.resultFunc(state)).toBe(true);
-        expect(gameIsChallengeModeSelector.resultFunc(initialGameState)).toBe(false);
+        expect(gameHasRivalSelector.resultFunc(state)).toBe(true);
+        expect(gameHasRivalSelector.resultFunc(initialGameState)).toBe(false);
     });
 
     it('finds the best score and time across difficulties', () => {

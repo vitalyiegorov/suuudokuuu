@@ -58,6 +58,12 @@ const ensureAllDifficulties = (state: RootState): RootState => {
     };
 };
 
+const migrateSolutionStepsToTimelineEvents = (state: RootState): RootState => ({
+    ...state,
+    [gameSlice.name]: { ...initialGameState, ...state[gameSlice.name], timelineEvents: [], challengeTimelineEvents: [] },
+    [settingsSlice.name]: { ...initialSettingsState, ...state[settingsSlice.name] }
+});
+
 const migrations: MigrationManifest<RootState> = {
     12: state => ({
         ...state,
@@ -86,7 +92,8 @@ const migrations: MigrationManifest<RootState> = {
     24: state => ({ ...state, [gameSlice.name]: { ...initialGameState, ...state[gameSlice.name] } }),
     25: state => ({ ...state, [gameSlice.name]: { ...initialGameState, ...state[gameSlice.name] } }),
     26: state => ({ ...state, [settingsSlice.name]: { ...initialSettingsState, ...state[settingsSlice.name] } }),
-    27: state => ({ ...state, [settingsSlice.name]: { ...initialSettingsState, ...state[settingsSlice.name] } })
+    27: state => ({ ...state, [settingsSlice.name]: { ...initialSettingsState, ...state[settingsSlice.name] } }),
+    28: migrateSolutionStepsToTimelineEvents
 };
 
 const rootReducer = combineReducers({
@@ -98,7 +105,7 @@ const persistedReducer = persistReducer(
     {
         key: 'root',
         storage: AsyncStorage,
-        version: 27,
+        version: 28,
         migrate: createMigrate(migrations)
     },
     rootReducer

@@ -1,4 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
+import { SharedPayloadKindEnum } from '@suuudokuuu/encoder';
 import Share from 'react-native-share';
 
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
@@ -14,7 +15,7 @@ export const useSharePuzzle = () => {
             await Share.open({
                 title: t`SuuudokuuU Sudoku Puzzle`,
                 message: t`Check out this Sudoku puzzle!`,
-                url: `https://suuudokuuu.com/shared/${gameStateToString(state, false)}`
+                url: `https://suuudokuuu.com/shared/${gameStateToString(state, SharedPayloadKindEnum.Puzzle)}`
             });
         } catch {
             // User dismissed the share sheet - this is expected behavior
