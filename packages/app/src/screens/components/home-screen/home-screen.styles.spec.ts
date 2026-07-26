@@ -23,7 +23,7 @@ describe('HomeScreenStyles', () => {
         expect(screenSource).not.toContain('sizeClass');
         expect(source).not.toContain('paddingBottom: 120');
         expect(screenSource).toContain('HomeScreenBottomScrollPadding');
-        expect(screenSource).toContain('HomeScreenFloatingTabBarInset');
+        expect(screenSource).toContain('FloatingTabBarInsetContext');
         expect(screenSource).toContain('topEdgeFadeProps=');
         expect(screenSource).not.toContain('footerEdgeFadeProps=');
         expect(screenSource).toContain('HomeScreenTopOverlayHeight');
@@ -45,8 +45,7 @@ describe('HomeScreenStyles', () => {
         const screenSource = readFileSync(join(__dirname, 'home.screen.tsx'), 'utf8');
 
         expect(source).toContain('HomeScreenBottomScrollPadding = 32');
-        expect(source).toContain('HomeScreenFloatingTabBarInset = 64');
-        expect(screenSource).toContain('HomeScreenBottomScrollPadding + HomeScreenFloatingTabBarInset');
+        expect(screenSource).toContain('HomeScreenBottomScrollPadding + floatingTabBarInset');
         expect(screenSource).toContain('contentInsetBottom={contentInsetBottom}');
         // The clearance must stay scroll content inset: container padding would clip the
         // strip into an on-screen but unscrollable dead zone below the scroll viewport.

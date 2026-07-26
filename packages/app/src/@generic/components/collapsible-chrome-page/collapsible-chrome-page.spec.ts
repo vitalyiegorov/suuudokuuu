@@ -17,7 +17,14 @@ describe('CollapsibleChromePage', () => {
     it('adds footer clearance only when a footer is rendered', () => {
         const source = readFileSync(join(__dirname, 'collapsible-chrome-page.tsx'), 'utf8');
 
-        expect(source).toContain('const contentInsetBottom = isDefined(footer) ? CollapsibleChromePageFooterContentInset : 0');
+        expect(source).toContain('const footerInset = isDefined(footer) ? CollapsibleChromePageFooterContentInset : 0');
+    });
+
+    it('reserves the floating tab bar height so tab screens can scroll past the bar', () => {
+        const source = readFileSync(join(__dirname, 'collapsible-chrome-page.tsx'), 'utf8');
+
+        expect(source).toContain('const floatingTabBarInset = use(FloatingTabBarInsetContext)');
+        expect(source).toContain('const contentInsetBottom = footerInset + floatingTabBarInset');
     });
 
     it('renders the small title above the full header row rather than inside the title slot', () => {

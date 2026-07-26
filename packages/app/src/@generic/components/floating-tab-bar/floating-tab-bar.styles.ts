@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native-unistyles';
 
+import { FloatingTabBarRowPadding } from './constant/floating-tab-bar.constant';
+
 export const FloatingTabBarStyles = StyleSheet.create(theme => ({
     anchor: {
         alignItems: 'center',
@@ -12,6 +14,6 @@ export const FloatingTabBarStyles = StyleSheet.create(theme => ({
     row: {
         flexDirection: 'row',
         gap: theme.spacing.xs,
-        padding: theme.spacing.xs
+        padding: FloatingTabBarRowPadding
     }
 }));

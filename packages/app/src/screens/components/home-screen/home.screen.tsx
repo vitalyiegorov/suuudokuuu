@@ -10,6 +10,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Alert } from '../../../@generic/components/alert/alert';
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { ChromePage } from '../../../@generic/components/chrome-page/chrome-page';
+import { FloatingTabBarInsetContext } from '../../../@generic/components/floating-tab-bar/context/floating-tab-bar-inset.context';
 import { Header } from '../../../@generic/components/header/header';
 import { SupportUkrainePill } from '../../../@generic/components/support-ukraine-pill/support-ukraine-pill';
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
@@ -34,12 +35,7 @@ import { settingsSetAction } from '../../../settings/store/settings.actions';
 import { settingsLastGameDifficultySelector, settingsLastGameMaxMistakesSelector } from '../../../settings/store/settings.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
 
-import {
-    HomeScreenBottomScrollPadding,
-    HomeScreenFloatingTabBarInset,
-    HomeScreenTopOverlayHeight,
-    HomeScreenTopOverlayIntensity
-} from './constant/home-screen.constant';
+import { HomeScreenBottomScrollPadding, HomeScreenTopOverlayHeight, HomeScreenTopOverlayIntensity } from './constant/home-screen.constant';
 import { HomeScreenOptionCard } from './home-screen-option-card/home-screen-option-card';
 import { homeScreenOptionCardGetColors } from './home-screen-option-card/utils/home-screen-option-card-get-colors.util';
 import { HomeScreenPlayActions } from './home-screen-play-actions/home-screen-play-actions';
@@ -59,6 +55,7 @@ export const HomeScreen = () => {
     const { theme } = use(ThemeContext);
     const { t } = useLingui();
     const safeAreaInsets = useSafeAreaInsets();
+    const floatingTabBarInset = use(FloatingTabBarInsetContext);
     const dispatch = useAppDispatch();
     const [bestScore, bestTime] = useAppSelector(gameHistoryBestTimeSelector);
     const currentElapsedTime = useAppSelector(gameElapsedTimeSelector);
@@ -145,7 +142,7 @@ export const HomeScreen = () => {
         { label: t`Time`, value: bestTimeText }
     ];
     const startButtonText = isGameStarted ? t`Start new puzzle` : t`Start puzzle`;
-    const contentInsetBottom = HomeScreenBottomScrollPadding + HomeScreenFloatingTabBarInset;
+    const contentInsetBottom = HomeScreenBottomScrollPadding + floatingTabBarInset;
     const contentInsetTop = homeScreenGetContentInsetTop(safeAreaInsets.top);
     const mistakeCards: HomeScreenOptionCardInterface[] = mistakeOptions.map(option => {
         const isSelected = option.maxMistakes === maxMistakes;
