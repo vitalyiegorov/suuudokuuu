@@ -17,6 +17,7 @@ import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
+import { ChallengeModeSwitch } from '../../../challenge/components/challenge-mode-switch/challenge-mode-switch';
 import {
     DifficultyComplexitySliderDifficulties,
     DifficultyComplexitySliderInitialIndex
@@ -32,7 +33,11 @@ import {
     gameSudokuStringSelector
 } from '../../../game/store/game.selectors';
 import { settingsSetAction } from '../../../settings/store/settings.actions';
-import { settingsLastGameDifficultySelector, settingsLastGameMaxMistakesSelector } from '../../../settings/store/settings.selectors';
+import {
+    settingsLastGameChallengeModeSelector,
+    settingsLastGameDifficultySelector,
+    settingsLastGameMaxMistakesSelector
+} from '../../../settings/store/settings.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
 
 import { HomeScreenBottomScrollPadding, HomeScreenTopOverlayHeight, HomeScreenTopOverlayIntensity } from './constant/home-screen.constant';
@@ -64,6 +69,7 @@ export const HomeScreen = () => {
     const difficulty = useAppSelector(settingsLastGameDifficultySelector);
     const isGameStarted = useAppSelector(gameIsStartedSelector);
     const maxMistakes = useAppSelector(settingsLastGameMaxMistakesSelector);
+    const isChallengeMode = useAppSelector(settingsLastGameChallengeModeSelector);
     const [isLoading, setIsLoading] = useState(false);
     const handleDifficultyChange = (newDifficulty: DifficultyEnum) => dispatch(settingsSetAction({ lastGameDifficulty: newDifficulty }));
     const handleMaxMistakes = (newMaxMistakes: number) => () => dispatch(settingsSetAction({ lastGameMaxMistakes: newMaxMistakes }));
@@ -72,7 +78,7 @@ export const HomeScreen = () => {
 
         setTimeout(() => {
             try {
-                create(difficulty, maxMistakes);
+                create(difficulty, maxMistakes, isChallengeMode);
             } finally {
                 setIsLoading(false);
             }
@@ -127,7 +133,8 @@ export const HomeScreen = () => {
     };
     const selectedDifficultyLabel = getDifficultyText(difficulty);
     const selectedDifficultyDescription = difficultyDescriptionsByDifficulty[selectedDifficulty];
-    const setupSummary = `${selectedDifficultyLabel} • ${selectedMistakesOption.title}`;
+    const challengeSummarySuffix = isChallengeMode ? ` • ${t`Challenge`}` : '';
+    const setupSummary = `${selectedDifficultyLabel} • ${selectedMistakesOption.title}${challengeSummarySuffix}`;
     const currentSudokuStringHasFieldLength = currentSudokuString.length === defaultSudokuConfig.fieldSize * defaultSudokuConfig.fieldSize;
     const currentGameDifficulty = currentSudokuStringHasFieldLength
         ? Sudoku.convertFieldFromString(currentSudokuString, defaultSudokuConfig)[1]
@@ -215,7 +222,9 @@ export const HomeScreen = () => {
                     </View>
 
                     <View style={styles.setupSection}>
-                        <HomeScreenSectionHeader />
+                        <HomeScreenSectionHeader>
+                            <ChallengeModeSwitch />
+                        </HomeScreenSectionHeader>
 
                         <DifficultyComplexitySlider difficulty={difficulty} onChange={handleDifficultyChange} />
 
@@ -232,6 +241,7 @@ export const HomeScreen = () => {
                         </View>
 
                         <DifficultyComplexityPreview
+                            isChallengeMode={isChallengeMode}
                             maxMistakes={maxMistakes}
                             selectedDifficultyDescription={selectedDifficultyDescription}
                             selectedDifficultyLabel={selectedDifficultyLabel}

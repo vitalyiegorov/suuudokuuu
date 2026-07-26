@@ -29,6 +29,7 @@ export const settingsFontSizeMultiplierSelector = createSelector(
 );
 export const settingsCellMarginSelector = createSelector(settingsSelector, state => state.cellMargin);
 export const settingsLastGameDifficultySelector = createSelector(settingsSelector, state => state.lastGameDifficulty);
+export const settingsLastGameChallengeModeSelector = createSelector(settingsSelector, state => state.lastGameChallengeMode);
 export const settingsLastGameMaxMistakesSelector = createSelector(settingsSelector, state => state.lastGameMaxMistakes);
 export const settingsLanguageSelector = createSelector(settingsSelector, state => state.language);
 export const settingsThemeSelector = createSelector(settingsSelector, state => state.theme);

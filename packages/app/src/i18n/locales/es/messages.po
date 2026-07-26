@@ -198,6 +198,8 @@ msgstr "Cancelar"
 msgid "Cell spacing"
 msgstr "Espaciado de celdas"
 
+#: src/challenge/components/challenge-mode-switch/challenge-mode-switch.tsx
+#: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Challenge"
 msgstr "Desafío"
@@ -213,6 +215,14 @@ msgstr "Reto perdido"
 #: src/app/challenge-lost.tsx
 msgid "Challenge Lost"
 msgstr "Reto perdido"
+
+#: src/challenge/components/challenge-mode-switch/challenge-mode-switch.tsx
+msgid "Challenge mode"
+msgstr ""
+
+#: src/challenge/components/challenge-mode-switch/challenge-mode-switch.tsx
+msgid "Challenge runs cannot be paused and record when you leave the app"
+msgstr ""
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Challenge won"
@@ -720,6 +730,10 @@ msgstr "Sin límite"
 msgid "No matter how many penalties, you always earn at least"
 msgstr "Aunque acumules penalizaciones, siempre ganas al menos"
 
+#: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
+msgid "no pause"
+msgstr ""
+
 #: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
 msgstr "Aún no hay estadísticas"
@@ -856,6 +870,10 @@ msgstr "Publicada:"
 msgid "Quit"
 msgstr "Salir"
 
+#: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
+msgid "recorded"
+msgstr ""
+
 #: src/@generic/utils/get-mistakes-type-text.util.ts
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Relaxed"
@@ -949,6 +967,10 @@ msgstr "Sombrear celdas que ya tienen un número"
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Share puzzle"
 msgstr "Compartir rompecabezas"
+
+#: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
+msgid "shareable"
+msgstr ""
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show cells with the same number as the selected cell"

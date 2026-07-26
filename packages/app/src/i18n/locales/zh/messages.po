@@ -196,6 +196,8 @@ msgstr "取消"
 msgid "Cell spacing"
 msgstr "单元格间距"
 
+#: src/challenge/components/challenge-mode-switch/challenge-mode-switch.tsx
+#: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Challenge"
 msgstr "挑战"
@@ -211,6 +213,14 @@ msgstr "挑战失败"
 #: src/app/challenge-lost.tsx
 msgid "Challenge Lost"
 msgstr "挑战失败"
+
+#: src/challenge/components/challenge-mode-switch/challenge-mode-switch.tsx
+msgid "Challenge mode"
+msgstr ""
+
+#: src/challenge/components/challenge-mode-switch/challenge-mode-switch.tsx
+msgid "Challenge runs cannot be paused and record when you leave the app"
+msgstr ""
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Challenge won"
@@ -718,6 +728,10 @@ msgstr "无限制"
 msgid "No matter how many penalties, you always earn at least"
 msgstr "无论有多少惩罚，你至少都会获得"
 
+#: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
+msgid "no pause"
+msgstr ""
+
 #: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
 msgstr "还没有统计"
@@ -854,6 +868,10 @@ msgstr "发布于："
 msgid "Quit"
 msgstr "退出"
 
+#: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
+msgid "recorded"
+msgstr ""
+
 #: src/@generic/utils/get-mistakes-type-text.util.ts
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Relaxed"
@@ -947,6 +965,10 @@ msgstr "为已有数字的单元格添加阴影"
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Share puzzle"
 msgstr "分享数独"
+
+#: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
+msgid "shareable"
+msgstr ""
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show cells with the same number as the selected cell"

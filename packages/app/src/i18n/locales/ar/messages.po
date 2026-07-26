@@ -196,6 +196,8 @@ msgstr "إلغاء"
 msgid "Cell spacing"
 msgstr "تباعد الخلايا"
 
+#: src/challenge/components/challenge-mode-switch/challenge-mode-switch.tsx
+#: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Challenge"
 msgstr "التحدي"
@@ -211,6 +213,14 @@ msgstr "خسرت التحدي"
 #: src/app/challenge-lost.tsx
 msgid "Challenge Lost"
 msgstr "خسرت التحدي"
+
+#: src/challenge/components/challenge-mode-switch/challenge-mode-switch.tsx
+msgid "Challenge mode"
+msgstr ""
+
+#: src/challenge/components/challenge-mode-switch/challenge-mode-switch.tsx
+msgid "Challenge runs cannot be paused and record when you leave the app"
+msgstr ""
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Challenge won"
@@ -718,6 +728,10 @@ msgstr "بلا حد"
 msgid "No matter how many penalties, you always earn at least"
 msgstr "مهما بلغت العقوبات، ستحصل دائمًا على الأقل على"
 
+#: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
+msgid "no pause"
+msgstr ""
+
 #: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
 msgstr "لا توجد إحصاءات بعد"
@@ -854,6 +868,10 @@ msgstr "نُشر:"
 msgid "Quit"
 msgstr "إنهاء"
 
+#: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
+msgid "recorded"
+msgstr ""
+
 #: src/@generic/utils/get-mistakes-type-text.util.ts
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Relaxed"
@@ -947,6 +965,10 @@ msgstr "تظليل الخلايا التي تحتوي بالفعل على رقم
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Share puzzle"
 msgstr "مشاركة السودوكو"
+
+#: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
+msgid "shareable"
+msgstr ""
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show cells with the same number as the selected cell"

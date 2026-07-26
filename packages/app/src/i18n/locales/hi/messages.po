@@ -196,6 +196,8 @@ msgstr "रद्द करें"
 msgid "Cell spacing"
 msgstr "सेल स्पेसिंग"
 
+#: src/challenge/components/challenge-mode-switch/challenge-mode-switch.tsx
+#: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Challenge"
 msgstr "चुनौती"
@@ -211,6 +213,14 @@ msgstr "चुनौती हारी"
 #: src/app/challenge-lost.tsx
 msgid "Challenge Lost"
 msgstr "चुनौती हारी"
+
+#: src/challenge/components/challenge-mode-switch/challenge-mode-switch.tsx
+msgid "Challenge mode"
+msgstr ""
+
+#: src/challenge/components/challenge-mode-switch/challenge-mode-switch.tsx
+msgid "Challenge runs cannot be paused and record when you leave the app"
+msgstr ""
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Challenge won"
@@ -718,6 +728,10 @@ msgstr "कोई सीमा नहीं"
 msgid "No matter how many penalties, you always earn at least"
 msgstr "दंड चाहे जितने हों, आपको हमेशा कम से कम मिलते हैं"
 
+#: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
+msgid "no pause"
+msgstr ""
+
 #: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
 msgstr "अभी कोई आँकड़े नहीं"
@@ -854,6 +868,10 @@ msgstr "प्रकाशित:"
 msgid "Quit"
 msgstr "छोड़ें"
 
+#: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
+msgid "recorded"
+msgstr ""
+
 #: src/@generic/utils/get-mistakes-type-text.util.ts
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Relaxed"
@@ -947,6 +965,10 @@ msgstr "जिन सेलों में पहले से अंक है
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Share puzzle"
 msgstr "सुडोकू साझा करें"
+
+#: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
+msgid "shareable"
+msgstr ""
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show cells with the same number as the selected cell"
