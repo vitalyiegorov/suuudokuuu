@@ -1,11 +1,14 @@
+import { useLingui } from '@lingui/react/macro';
 import { AppSettingsRow } from '@suuudokuuu/ui';
 import { Link } from 'expo-router';
-import { ChevronRight } from 'lucide-react-native';
 import { use } from 'react';
-import { Pressable, View } from 'react-native';
+import { Pressable } from 'react-native';
+
+import { isNotEmptyString } from '@rnw-community/shared';
 
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { settingsOptionLinkGetColors } from '../../utils/settings-option-link-get-colors.util';
 
 import { SettingsOptionLinkStyles as styles } from './settings-option-link.styles';
 
@@ -21,20 +24,28 @@ interface Props {
 
 export const SettingsOptionLink = ({ description, href, testID, title, value }: Props) => {
     const { theme } = use(ThemeContext);
+    const { t } = useLingui();
 
-    const chevronColor = theme.colors.label.hint;
+    const valueStyles = [styles.value, { color: settingsOptionLinkGetColors(theme).valueColor }];
     const trailing = (
-        <View style={styles.valueContainer}>
-            <BlackText numberOfLines={1} style={styles.value}>
-                {value}
-            </BlackText>
-            <ChevronRight color={chevronColor} height={20} style={styles.chevron} width={20} />
-        </View>
+        <BlackText numberOfLines={1} style={valueStyles}>
+            {value}
+        </BlackText>
     );
+    const accessibilityLabel = isNotEmptyString(description) ? `${title}, ${description}` : title;
+    const accessibilityHint = t`Opens a picker to change this setting`;
+    const accessibilityValue = { text: value };
 
     return (
         <Link asChild href={href}>
-            <Pressable accessibilityRole="button" style={styles.pressable} testID={testID}>
+            <Pressable
+                accessibilityHint={accessibilityHint}
+                accessibilityLabel={accessibilityLabel}
+                accessibilityRole="button"
+                accessibilityValue={accessibilityValue}
+                style={styles.pressable}
+                testID={testID}
+            >
                 <AppSettingsRow description={description} title={title} trailing={trailing} />
             </Pressable>
         </Link>

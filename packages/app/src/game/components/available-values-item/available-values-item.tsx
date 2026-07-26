@@ -1,3 +1,4 @@
+import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { use, useImperativeHandle } from 'react';
 import { Pressable, Text, View } from 'react-native';
 import Reanimated, {
@@ -10,24 +11,25 @@ import Reanimated, {
 } from 'react-native-reanimated';
 import Svg, { Circle } from 'react-native-svg';
 
-import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
-import { settingsFontSizeMultiplierSelector } from '../../../settings/store/settings.selectors';
+import { cs } from '@rnw-community/shared';
+
 import { ThemeContext } from '../../../theme/context/theme.context';
-import { CellFontSizeConstant } from '../constants/dimensions.contant';
+import { DigitButtonStyles } from '../../styles/digit-button.styles';
 
 import { AvailableValueItemSelectors as selectors } from './available-value-item.selectors';
 import { AvailableValuesItemStyles as styles } from './available-values-item.styles';
 import {
-    AvailableValueButtonSize,
     AvailableValueProgressCenter,
     AvailableValueProgressCircumference,
     AvailableValueProgressRadius,
     AvailableValueProgressRingTransform,
-    AvailableValueProgressStrokeWidth
+    AvailableValueProgressStrokeWidth,
+    AvailableValueProgressViewBox
 } from './constant/available-value-button.constant';
 
 import type { OnEventFn } from '@rnw-community/shared';
 import type { Ref } from 'react';
+import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
 const ReanimatedPressable = Reanimated.createAnimatedComponent(Pressable);
 
@@ -40,16 +42,19 @@ export interface AvailableValuesItemRef {
 interface Props {
     readonly value: number;
     readonly canPress: boolean;
+    readonly isExhausted: boolean;
     readonly progress: number;
     readonly correctValue?: number;
     readonly onSelect: OnEventFn<number>;
     readonly ref: Ref<AvailableValuesItemRef>;
+    readonly sizeStyle: StyleProp<ViewStyle>;
+    readonly digitTextStyle: StyleProp<TextStyle>;
 }
 
-export const AvailableValuesItem = ({ value, onSelect, progress, correctValue, canPress, ref }: Props) => {
-    const { theme } = use(ThemeContext);
+export const AvailableValuesItem = (props: Props) => {
+    const { value, onSelect, progress, correctValue, canPress, isExhausted, ref, sizeStyle, digitTextStyle } = props;
 
-    const fontSizeMultiplier = useAppSelector(settingsFontSizeMultiplierSelector);
+    const { theme } = use(ThemeContext);
 
     const isCorrect = value === correctValue;
     const pressAnimatedBgColor = isCorrect ? theme.colors.cell.active : theme.colors.cell.error;
@@ -81,20 +86,26 @@ export const AvailableValuesItem = ({ value, onSelect, progress, correctValue, c
         onSelect(value);
     };
 
-    const buttonStyles = [styles.button, { backgroundColor: theme.colors.candidate.bg }, animatedStyles];
+    const buttonStyles = [
+        resolveUnistyleForAnimated(DigitButtonStyles.button),
+        { backgroundColor: theme.colors.candidate.bg },
+        animatedStyles,
+        cs(isExhausted, resolveUnistyleForAnimated(DigitButtonStyles.exhausted))
+    ];
     const normalizedProgress = Math.min(100, Math.max(0, progress));
     const progressDashOffset = AvailableValueProgressCircumference * (1 - normalizedProgress / 100);
-    const textStyles = [styles.text, { fontSize: CellFontSizeConstant * fontSizeMultiplier }, { color: theme.colors.value.text }];
+    const textStyles = [styles.text, digitTextStyle, { color: theme.colors.value.text }];
+    const containerStyles = [DigitButtonStyles.container, sizeStyle];
 
     return (
-        <View style={styles.container} testID={selectors.Root}>
+        <View style={containerStyles} testID={selectors.Root}>
             <ReanimatedPressable
                 key={value}
                 style={buttonStyles}
                 testID={`${selectors.Button}.${value}`}
-                {...(canPress && { onPress: handlePress })}
+                {...(canPress && !isExhausted && { onPress: handlePress })}
             >
-                <Svg height={AvailableValueButtonSize} pointerEvents="none" style={styles.progressRing} width={AvailableValueButtonSize}>
+                <Svg height="100%" pointerEvents="none" style={styles.progressRing} viewBox={AvailableValueProgressViewBox} width="100%">
                     <Circle
                         cx={AvailableValueProgressCenter}
                         cy={AvailableValueProgressCenter}

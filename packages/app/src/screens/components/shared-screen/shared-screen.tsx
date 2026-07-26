@@ -42,7 +42,9 @@ export const SharedScreen = ({ stateString }: Props) => {
 
     return (
         <View style={styles.container}>
-            <Header text={t`Open shared puzzle?`} />
+            <View style={styles.headerColumn}>
+                <Header text={t`Open shared puzzle?`} />
+            </View>
 
             <View style={styles.buttonsWrapper}>
                 <BlackButton onPress={handleOpenPuzzle} text={t`Open puzzle`} />

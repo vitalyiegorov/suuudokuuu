@@ -40,7 +40,7 @@ appId: ${APP_ID}
 - assertVisible:
       id: 'ChallengeTryAgainButtonSelectors.Root'
 - tapOn:
-      id: 'ChallengeResultFooterSelectors.ReplayButton'
+      id: 'ChallengeTryAgainButtonSelectors.Root'
 - extendedWaitUntil:
       visible:
           id: 'GameScreenSelectors.Root'

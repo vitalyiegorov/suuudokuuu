@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const PauseScreenStatsStyles = StyleSheet.create({
+export const PauseScreenStatsStyles = StyleSheet.create(() => ({
     item: {
         flex: 1,
         gap: 3
@@ -17,8 +17,6 @@ export const PauseScreenStatsStyles = StyleSheet.create({
         marginHorizontal: 1
     },
     strip: {
-        backgroundColor: 'transparent',
-        borderColor: 'transparent',
         paddingHorizontal: 0,
         paddingVertical: 6,
         width: '100%'
@@ -30,4 +28,4 @@ export const PauseScreenStatsStyles = StyleSheet.create({
         letterSpacing: -0.2,
         lineHeight: 22
     }
-});
+}));

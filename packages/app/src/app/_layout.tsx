@@ -4,13 +4,11 @@ import { I18nProvider } from '@lingui/react';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { enableFreeze, enableScreens } from 'react-native-screens';
-import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
 
 import { isDefined } from '@rnw-community/shared';
 
-import { appRootPersistor, appRootStore } from '../@generic/app-root.store';
 import { LinguiDefaultComponent } from '../@generic/components/lingui-default-component/lingui-default-component';
+import { RootProviders } from '../@generic/components/root-providers/root-providers';
 import { i18nGetOSLocale } from '../@generic/utils/i18n.util';
 import { GameProvider } from '../game/components/game-provider/game-provider';
 import { ThemeProvider } from '../theme/components/theme-provider/theme-provider';
@@ -40,19 +38,17 @@ export default function RootLayout() {
     }
 
     return (
-        <Provider store={appRootStore}>
-            <PersistGate loading={null} persistor={appRootPersistor} onBeforeLift={SplashScreen.hideAsync}>
-                <ThemeProvider>
-                    <I18nProvider i18n={i18n} defaultComponent={LinguiDefaultComponent}>
-                        <GameProvider>
-                            <Stack screenOptions={stackOptions}>
-                                <Stack.Screen name="game" options={gameOptions} />
-                                <Stack.Screen name="settings/[setting]" options={settingsOptionSheetOptions} />
-                            </Stack>
-                        </GameProvider>
-                    </I18nProvider>
-                </ThemeProvider>
-            </PersistGate>
-        </Provider>
+        <RootProviders>
+            <ThemeProvider>
+                <I18nProvider i18n={i18n} defaultComponent={LinguiDefaultComponent}>
+                    <GameProvider>
+                        <Stack screenOptions={stackOptions}>
+                            <Stack.Screen name="game" options={gameOptions} />
+                            <Stack.Screen name="settings/[setting]" options={settingsOptionSheetOptions} />
+                        </Stack>
+                    </GameProvider>
+                </I18nProvider>
+            </ThemeProvider>
+        </RootProviders>
     );
 }

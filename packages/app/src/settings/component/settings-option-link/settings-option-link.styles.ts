@@ -1,21 +1,20 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const SettingsOptionLinkStyles = StyleSheet.create({
-    chevron: {
-        marginLeft: 10
-    },
+export const SettingsOptionLinkStyles = StyleSheet.create(theme => ({
     pressable: {
-        width: '100%'
+        width: '100%',
+        _web: {
+            cursor: 'pointer',
+            _hover: {
+                opacity: 0.85
+            }
+        }
     },
     value: {
-        fontSize: 17,
-        fontWeight: '700',
+        fontSize: 15,
+        fontWeight: theme.typography.weight.bold,
         lineHeight: 22,
-        maxWidth: 140,
+        maxWidth: theme.contentWidth.narrow,
         textAlign: 'right'
-    },
-    valueContainer: {
-        alignItems: 'center',
-        flexDirection: 'row'
     }
-});
+}));

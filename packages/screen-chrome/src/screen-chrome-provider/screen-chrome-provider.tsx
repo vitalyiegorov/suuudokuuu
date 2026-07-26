@@ -27,6 +27,8 @@ const mergeConfig = (overrides: ScreenChromeConfigOverridesInterface | undefined
 
     const colorsOverrides = overrides.colors;
     const maskStopsOverrides = overrides.maskStops;
+    const lightBlurIntensityScaleOverride = overrides.blurIntensityScale?.[ColorSchemeEnum.LIGHT];
+    const darkBlurIntensityScaleOverride = overrides.blurIntensityScale?.[ColorSchemeEnum.DARK];
 
     return {
         ...SCREEN_CHROME_DEFAULT_CONFIG,
@@ -44,6 +46,14 @@ const mergeConfig = (overrides: ScreenChromeConfigOverridesInterface | undefined
         maskStops: {
             top: { ...SCREEN_CHROME_DEFAULT_CONFIG.maskStops.top, ...maskStopsOverrides?.top },
             bottom: { ...SCREEN_CHROME_DEFAULT_CONFIG.maskStops.bottom, ...maskStopsOverrides?.bottom }
+        },
+        blurIntensityScale: {
+            [ColorSchemeEnum.LIGHT]: isDefined(lightBlurIntensityScaleOverride)
+                ? lightBlurIntensityScaleOverride
+                : SCREEN_CHROME_DEFAULT_CONFIG.blurIntensityScale[ColorSchemeEnum.LIGHT],
+            [ColorSchemeEnum.DARK]: isDefined(darkBlurIntensityScaleOverride)
+                ? darkBlurIntensityScaleOverride
+                : SCREEN_CHROME_DEFAULT_CONFIG.blurIntensityScale[ColorSchemeEnum.DARK]
         }
     };
 };

@@ -1,6 +1,6 @@
 ---
 name: analyze
-description: "Read-only analysis of Suuudokuuu code, packages, or monorepo behavior"
+description: 'Read-only analysis of Suuudokuuu code, packages, or monorepo behavior'
 model: opus
 color: blue
 tools: Read, Grep, Glob, Task

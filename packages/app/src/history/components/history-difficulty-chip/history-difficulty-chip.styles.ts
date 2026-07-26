@@ -1,15 +1,21 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const HistoryDifficultyChipStyles = StyleSheet.create({
+export const HistoryDifficultyChipStyles = StyleSheet.create(theme => ({
     container: {
         alignItems: 'center',
-        borderRadius: 999,
+        borderRadius: theme.radius.pill,
         borderWidth: StyleSheet.hairlineWidth,
         justifyContent: 'center',
         minHeight: 42,
         minWidth: 96,
         paddingHorizontal: 17,
-        paddingVertical: 10
+        paddingVertical: 10,
+        _web: {
+            cursor: 'pointer',
+            _hover: {
+                opacity: 0.85
+            }
+        }
     },
     label: {
         fontSize: 15,
@@ -17,4 +23,4 @@ export const HistoryDifficultyChipStyles = StyleSheet.create({
         lineHeight: 19,
         textAlign: 'center'
     }
-});
+}));

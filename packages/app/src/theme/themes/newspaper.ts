@@ -1,4 +1,4 @@
-import type { ThemeInterface } from '@suuudokuuu/ui';
+import type { ThemeInterface } from '@suuudokuuu/ui/theme';
 
 export const NewspaperLightTheme: ThemeInterface = {
     colors: {
@@ -13,6 +13,7 @@ export const NewspaperLightTheme: ThemeInterface = {
         black: '#1a1a1a',
         black05: 'rgba(26, 26, 26, 0.25)',
         red: '#990000',
+        redFillText: '#FFFFFF',
         blue: '#000080',
         cell: {
             active: '#cccccc',
@@ -29,6 +30,7 @@ export const NewspaperLightTheme: ThemeInterface = {
             border: 'rgba(26, 26, 26, 0.1)',
             progress: '#cccccc',
             progressActive: '#4d4d4d',
+            progressActiveText: '#ffffff',
             text: '#1a1a1a'
         },
         candidate: {
@@ -38,6 +40,13 @@ export const NewspaperLightTheme: ThemeInterface = {
             bg: '#ffffff',
             border: 'rgba(26, 26, 26, 0.2)',
             borderActive: '#1a1a1a'
+        },
+        surface: {
+            raised: '#ffffff',
+            raisedText: '#1a1a1a',
+            subtle: '#eaeaea',
+            subtleHint: 'rgba(26, 26, 26, 0.65)',
+            subtleText: '#1a1a1a'
         }
     }
 };
@@ -55,6 +64,7 @@ export const NewspaperDarkTheme: ThemeInterface = {
         black: '#f0f0f0',
         black05: 'rgba(240, 240, 240, 0.25)',
         red: '#ff4d4d',
+        redFillText: '#1a1a1a',
         blue: '#5c5cff',
         cell: {
             active: '#4d4d4d',
@@ -68,9 +78,10 @@ export const NewspaperDarkTheme: ThemeInterface = {
             filled: '#1a1a1a'
         },
         value: {
-            border: 'rgba(240, 240, 240, 0.1)',
+            border: 'rgba(240, 240, 240, 0.28)',
             progress: '#888888',
             progressActive: '#cccccc',
+            progressActiveText: '#000000',
             text: '#f0f0f0'
         },
         candidate: {
@@ -78,8 +89,15 @@ export const NewspaperDarkTheme: ThemeInterface = {
             textActive: '#1a1a1a',
             bgActive: '#cccccc',
             bg: '#1a1a1a',
-            border: 'rgba(240, 240, 240, 0.2)',
+            border: 'rgba(240, 240, 240, 0.32)',
             borderActive: '#ffffff'
+        },
+        surface: {
+            raised: '#000000',
+            raisedText: '#f0f0f0',
+            subtle: '#2a2a2a',
+            subtleHint: 'rgba(240, 240, 240, 0.65)',
+            subtleText: '#f0f0f0'
         }
     }
 };

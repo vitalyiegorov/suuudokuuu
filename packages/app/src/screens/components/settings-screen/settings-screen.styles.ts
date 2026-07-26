@@ -1,16 +1,26 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const SettingsScreenStyles = StyleSheet.create({
+import { PageHorizontalPaddingConstant } from '../../../@generic/constants/page-horizontal-padding.constant';
+import { pageColumnScrollViewStyle } from '../../utils/page-column-screen-styles.util';
+
+export const SettingsScreenStyles = StyleSheet.create(theme => ({
     content: {
         alignItems: 'center',
-        paddingHorizontal: 24
+        paddingHorizontal: PageHorizontalPaddingConstant
     },
-    scrollView: {
-        maxWidth: 560,
+    scrollView: pageColumnScrollViewStyle(theme),
+    scrollViewContent: {
+        alignItems: 'stretch',
+        flexDirection: 'column',
+        gap: theme.spacing.xl,
+        paddingBottom: theme.spacing.sm
+    },
+    primaryColumn: {
+        gap: theme.spacing.xl,
         width: '100%'
     },
-    scrollViewContent: {
-        gap: 22,
-        paddingBottom: 8
+    secondaryColumn: {
+        gap: theme.spacing.xl,
+        width: '100%'
     }
-});
+}));

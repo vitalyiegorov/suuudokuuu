@@ -18,6 +18,10 @@ msgstr ""
 msgid "{0, plural, one {# mistake} other {# mistakes}}"
 msgstr "{0, plural, zero {# أخطاء} one {# خطأ} two {# خطآن} few {# أخطاء} many {# خطأ} other {# خطأ}}"
 
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
+msgstr "{arsenalCardCount, plural, zero {# تقنيات} one {# تقنية} two {# تقنيتان} few {# تقنيات} many {# تقنية} other {# تقنية}}"
+
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} faster"
 msgstr "{durationText} أسرع"
@@ -114,7 +118,7 @@ msgstr "يحاول تحميل أحدث إصدار تطوير مرة أخرى"
 
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "Average"
-msgstr "المتوسط"
+msgstr "المعدل"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Avoid mistakes - they cost you points!"
@@ -330,9 +334,14 @@ msgstr "إصدارات التطوير"
 msgid "Did not finish the board"
 msgstr "لم تُكمل اللوحة"
 
+#: src/game/components/difficulty-complexity-slider/difficulty-complexity-rail/difficulty-complexity-rail.tsx
 #: src/game/components/difficulty-complexity-slider/difficulty-complexity-slider.tsx
 msgid "Difficulty"
 msgstr "مستوى الصعوبة"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Dim a completed digit in the numpad instead of removing it"
+msgstr "تعتيم الرقم المكتمل في لوحة الأرقام بدلاً من إزالته"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Display"
@@ -370,10 +379,6 @@ msgstr "Español"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Evenly matched"
 msgstr "تعادل متقارب"
-
-#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
-msgid "every technique"
-msgstr "كل التقنيات"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Expert grid"
@@ -421,10 +426,6 @@ msgid "Game paused"
 msgstr "اللعبة متوقفة مؤقتًا"
 
 #: src/app/history/[difficulty]/index.tsx
-msgid "Game Replay"
-msgstr "إعادة اللعبة"
-
-#: src/history/components/history-segmented-control/history-segmented-control.tsx
 #: src/screens/components/history-games-screen/history-games.screen.tsx
 msgid "Games"
 msgstr "الألعاب"
@@ -555,6 +556,10 @@ msgstr "Jellyfish"
 msgid "Keep cell selected"
 msgstr "إبقاء الخلية محددة"
 
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Keep completed digits"
+msgstr "إبقاء الأرقام المكتملة"
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Keep selection after tapping outside the board"
 msgstr "الحفاظ على التحديد بعد النقر خارج اللوحة"
@@ -575,6 +580,10 @@ msgstr "كبير"
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Larger digits for easier reading"
 msgstr "أرقام أكبر لقراءة أسهل"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Left-handed layout"
+msgstr "تخطيط لليد اليسرى"
 
 #: src/history/components/replay-header/replay-header.tsx
 msgid "Level"
@@ -634,6 +643,10 @@ msgstr "أخطاء"
 #: src/history/components/replay-controls/replay-controls.tsx
 msgid "Move"
 msgstr "النقلة"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Move the landscape controls panel to the left of the board"
+msgstr "انقل لوحة التحكم إلى يسار اللوحة في الوضع الأفقي"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Naked Pair"
@@ -705,7 +718,7 @@ msgstr "بلا حد"
 msgid "No matter how many penalties, you always earn at least"
 msgstr "مهما بلغت العقوبات، ستحصل دائمًا على الأقل على"
 
-#: src/history/components/history-overview-tab/history-overview-tab.tsx
+#: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
 msgstr "لا توجد إحصاءات بعد"
 
@@ -742,6 +755,14 @@ msgstr "فتح السودوكو المشترك؟"
 msgid "Open this page in Safari on a physical iPhone or iPad. The device must already be registered in the Ad Hoc provisioning profile."
 msgstr "افتح هذه الصفحة في Safari على جهاز iPhone أو iPad فعلي. يجب أن يكون الجهاز مسجّلًا مسبقًا في ملف تعريف توفير Ad Hoc."
 
+#: src/settings/component/settings-option-link/settings-option-link.tsx
+msgid "Opens a picker to change this setting"
+msgstr "يفتح قائمة لتغيير هذا الإعداد"
+
+#: src/history/components/history-difficulty/history-difficulty.tsx
+msgid "Opens the completed games for this difficulty"
+msgstr "يفتح المباريات المكتملة لهذا المستوى"
+
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Opens the registered-device installation prompt"
 msgstr "يفتح مطالبة التثبيت للجهاز المسجّل"
@@ -754,10 +775,6 @@ msgstr "يفتح هذا الالتزام على GitHub"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Out of mistakes"
 msgstr "نفدت الأخطاء المسموحة"
-
-#: src/history/components/history-segmented-control/history-segmented-control.tsx
-msgid "Overview"
-msgstr "نظرة عامة"
 
 #: src/screens/components/pause-screen/pause-screen-header/pause-screen-header.tsx
 msgid "Paused"
@@ -779,14 +796,15 @@ msgstr "لكل خطأ"
 msgid "per second"
 msgstr "لكل ثانية"
 
-#: src/@generic/components/main-tab-layout/main-tab-layout.tsx
-#: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
+#: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
+#: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/index.tsx
 msgid "Play"
 msgstr "العب"
 
 #: src/@generic/components/play-again-button/play-again-button.tsx
 #: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
+#: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Play again"
 msgstr "العب مرة أخرى"
 
@@ -911,8 +929,8 @@ msgstr "النقاط × المعامل × العدد"
 msgid "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 msgstr "تُحسب النقاط لكل خانة صحيحة حسب الصعوبة والمكافآت والعقوبات."
 
-#: src/@generic/components/main-tab-layout/main-tab-layout.tsx
-#: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
+#: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
+#: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/component/settings-page-content/settings-page-content.tsx
 msgid "Settings"
@@ -997,10 +1015,9 @@ msgstr "ابدأ اللغز"
 msgid "Statistics"
 msgstr "الإحصاءات"
 
-#: src/@generic/components/main-tab-layout/main-tab-layout.tsx
-#: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
+#: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
+#: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/history.tsx
-#: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Stats"
 msgstr "الإحصاءات"
 
@@ -1072,6 +1089,10 @@ msgstr "وقتهم الذي عليك التغلب عليه"
 msgid "Theme"
 msgstr "السمة"
 
+#: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
+msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
+msgstr "لم تكتمل هذه اللوحة هذه المرة. يستمر الكفاح من أجل الحرية في أوكرانيا. كل تبرع بقيمة $1 يحدث فرقًا."
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "This value is multiplied by the difficulty coefficient:"
 msgstr "تُضرب هذه القيمة في معامل الصعوبة:"
@@ -1116,7 +1137,7 @@ msgstr "أخطاء كثيرة جدًا"
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Try again"
-msgstr "إعادة المحاولة"
+msgstr "حاول مجددًا"
 
 #: src/challenge/components/challenge-try-again-button/challenge-try-again-button.tsx
 msgid "Try Again"
@@ -1223,6 +1244,7 @@ msgstr "بينما كنت بعيدًا، استمر الكفاح من أجل ا�
 msgid "Wider gaps for easier tapping"
 msgstr "مسافات أوسع لتسهيل الضغط"
 
+#: src/history/components/history-difficulty/history-difficulty.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Win rate"
 msgstr "معدل الفوز"
@@ -1271,6 +1293,10 @@ msgstr "أنت"
 msgid "You beat your rival"
 msgstr "لقد هزمت منافسك"
 
+#: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
+msgid "You finished your puzzle. The fight for freedom in Ukraine continues. Every $1 makes a difference."
+msgstr "أكملت لغزك. يستمر الكفاح من أجل الحرية في أوكرانيا. كل تبرع بقيمة $1 يحدث فرقًا."
+
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "You got to"
 msgstr "وصلت إلى"
@@ -1295,13 +1321,9 @@ msgstr "تقدمك"
 msgid "Your rival was faster"
 msgstr "كان منافسك أسرع"
 
-#: src/history/components/history-overview-tab/history-overview-tab.tsx
+#: src/history/components/history-overview/history-overview.tsx
 msgid "Your stats will build as you finish puzzles."
 msgstr "ستتراكم إحصاءاتك كلما أنهيت ألغاز السودوكو."
-
-#: src/history/components/history-totals-card/history-totals-card.tsx
-msgid "Your sudoku journey"
-msgstr "رحلتك في السودوكو"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Zero mistakes"

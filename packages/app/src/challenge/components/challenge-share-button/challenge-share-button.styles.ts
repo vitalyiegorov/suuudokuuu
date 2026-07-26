@@ -1,8 +1,8 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const ChallengeShareButtonStyles = StyleSheet.create({
+export const ChallengeShareButtonStyles = StyleSheet.create(theme => ({
     button: {
         flexDirection: 'row',
-        gap: 8
+        gap: theme.spacing.sm
     }
-});
+}));

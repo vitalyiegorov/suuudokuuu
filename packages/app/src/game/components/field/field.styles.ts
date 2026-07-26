@@ -1,16 +1,12 @@
-import * as Device from 'expo-device';
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const FieldStyles = StyleSheet.create({
+export const FieldStyles = StyleSheet.create(() => ({
     row: {
         flexDirection: 'row'
     },
     wrapper: {
         alignItems: 'center',
         flexDirection: 'column',
-        justifyContent: 'center',
-        margin: 'auto',
-        zIndex: 99,
-        ...(Device.deviceType === Device.DeviceType.DESKTOP ? { flex: 4 } : { flex: 3 })
+        justifyContent: 'center'
     }
-});
+}));

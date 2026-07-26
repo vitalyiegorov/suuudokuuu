@@ -18,16 +18,15 @@ interface Props {
 
 export const GameResultHero = ({ children, descriptorText, eyebrowText, icon, testID, titleText, valueText }: Props) => {
     const { theme } = use(ThemeContext);
-    const iconTileStyles = [styles.iconTile, { backgroundColor: theme.colors.black }];
     const titleStyles = [styles.title, { color: theme.colors.label.main }];
-    const descriptorPillStyles = [styles.descriptorPill, { backgroundColor: theme.colors.black }];
-    const descriptorTextStyles = [styles.descriptorText, { color: theme.colors.label.inverted }];
+    const descriptorPillStyles = [styles.descriptorPill, { borderColor: theme.colors.candidate.border }];
+    const descriptorTextStyles = [styles.descriptorText, { color: theme.colors.label.main }];
     const eyebrowStyles = [styles.eyebrow, { color: theme.colors.label.hint }];
     const valueStyles = [styles.value, { color: theme.colors.label.main }];
 
     return (
         <View style={styles.container}>
-            <View style={iconTileStyles}>{icon}</View>
+            {icon}
 
             <BlackText style={titleStyles}>{titleText}</BlackText>
 

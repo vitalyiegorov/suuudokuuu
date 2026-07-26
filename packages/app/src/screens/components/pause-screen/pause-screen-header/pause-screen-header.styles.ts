@@ -1,10 +1,10 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const PauseScreenHeaderStyles = StyleSheet.create({
+export const PauseScreenHeaderStyles = StyleSheet.create(theme => ({
     chip: {
         alignItems: 'center',
         alignSelf: 'center',
-        borderRadius: 999,
+        borderRadius: theme.radius.pill,
         maxWidth: '100%',
         paddingHorizontal: 14,
         paddingVertical: 7
@@ -16,7 +16,7 @@ export const PauseScreenHeaderStyles = StyleSheet.create({
     },
     header: {
         alignItems: 'center',
-        gap: 12,
+        gap: theme.spacing.md,
         width: '100%'
     },
     medallion: {
@@ -28,10 +28,10 @@ export const PauseScreenHeaderStyles = StyleSheet.create({
         width: 72
     },
     title: {
-        fontSize: 30,
+        fontSize: theme.typography.size.xxl,
         fontWeight: '900',
         letterSpacing: -0.8,
         lineHeight: 34,
         textAlign: 'center'
     }
-});
+}));

@@ -1,26 +1,22 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const HistoryMetricStyles = StyleSheet.create({
-    container: {
-        borderRadius: 14,
-        borderWidth: StyleSheet.hairlineWidth,
+export const HistoryMetricStyles = StyleSheet.create(() => ({
+    item: {
         flex: 1,
-        gap: 2,
-        minHeight: 58,
-        paddingHorizontal: 12,
-        paddingVertical: 9
+        gap: 3,
+        paddingHorizontal: 2
     },
     label: {
-        fontSize: 11,
-        fontWeight: '700',
-        lineHeight: 15,
-        textAlign: 'left'
+        fontSize: 10,
+        letterSpacing: 0.9,
+        opacity: 0.55,
+        textTransform: 'uppercase'
     },
     value: {
-        fontSize: 18,
+        fontSize: 16,
         fontVariant: ['tabular-nums'],
-        fontWeight: '800',
-        lineHeight: 22,
-        textAlign: 'left'
+        fontWeight: '700',
+        letterSpacing: -0.2,
+        lineHeight: 20
     }
-});
+}));

@@ -1,20 +1,28 @@
 import { describe, expect, it } from '@jest/globals';
 
 import { BWDarkTheme, BWLightTheme } from '../../theme/themes/bw.theme';
+import { ColorfulDarkTheme, ColorfulLightTheme } from '../../theme/themes/colorful.theme';
+import { NewspaperDarkTheme, NewspaperLightTheme } from '../../theme/themes/newspaper';
 
 import { settingsAppFooterGetSupportLinkColors } from './settings-app-footer-get-support-link-colors.util';
 
+const allThemes = [BWLightTheme, BWDarkTheme, ColorfulLightTheme, ColorfulDarkTheme, NewspaperLightTheme, NewspaperDarkTheme];
+
 describe('settingsAppFooterGetSupportLinkColors', () => {
-    it('uses inverted foreground colors so the support link stays visible in light and dark themes', () => {
-        expect(settingsAppFooterGetSupportLinkColors(BWLightTheme)).toEqual({
-            backgroundColor: BWLightTheme.colors.black,
-            borderColor: BWLightTheme.colors.black,
-            textColor: BWLightTheme.colors.label.inverted
+    it('pairs the raised surface with its own on-surface text colour in every theme', () => {
+        allThemes.forEach(theme => {
+            const colors = settingsAppFooterGetSupportLinkColors(theme);
+
+            expect(colors.backgroundColor).toBe(theme.colors.surface.raised);
+            expect(colors.textColor).toBe(theme.colors.surface.raisedText);
         });
-        expect(settingsAppFooterGetSupportLinkColors(BWDarkTheme)).toEqual({
-            backgroundColor: BWDarkTheme.colors.black,
-            borderColor: BWDarkTheme.colors.black,
-            textColor: BWDarkTheme.colors.label.inverted
+    });
+
+    it('never paints the support link text in the same colour as its background', () => {
+        allThemes.forEach(theme => {
+            const colors = settingsAppFooterGetSupportLinkColors(theme);
+
+            expect(colors.textColor).not.toBe(colors.backgroundColor);
         });
     });
 });
