@@ -428,10 +428,6 @@ msgid "Game paused"
 msgstr "Jeu en pause"
 
 #: src/app/history/[difficulty]/index.tsx
-msgid "Game Replay"
-msgstr "Relecture de la partie"
-
-#: src/history/components/history-segmented-control/history-segmented-control.tsx
 #: src/screens/components/history-games-screen/history-games.screen.tsx
 msgid "Games"
 msgstr "Parties"
@@ -716,7 +712,7 @@ msgstr "Aucune limite"
 msgid "No matter how many penalties, you always earn at least"
 msgstr "Même avec des pénalités, vous gagnez toujours au moins"
 
-#: src/history/components/history-overview-tab/history-overview-tab.tsx
+#: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
 msgstr "Pas encore de stats"
 
@@ -755,7 +751,11 @@ msgstr "Ouvrez cette page dans Safari sur un iPhone ou iPad physique. L’appare
 
 #: src/settings/component/settings-option-link/settings-option-link.tsx
 msgid "Opens a picker to change this setting"
-msgstr ""
+msgstr "Ouvre un sélecteur pour modifier ce réglage"
+
+#: src/history/components/history-difficulty/history-difficulty.tsx
+msgid "Opens the completed games for this difficulty"
+msgstr "Ouvre les parties terminées de cette difficulté"
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Opens the registered-device installation prompt"
@@ -769,10 +769,6 @@ msgstr "Ouvre ce commit sur GitHub"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Out of mistakes"
 msgstr "Erreurs épuisées"
-
-#: src/history/components/history-segmented-control/history-segmented-control.tsx
-msgid "Overview"
-msgstr "Aperçu"
 
 #: src/screens/components/pause-screen/pause-screen-header/pause-screen-header.tsx
 msgid "Paused"
@@ -1016,7 +1012,6 @@ msgstr "Statistiques"
 #: src/@generic/components/main-tab-layout/main-tab-layout.tsx
 #: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
 #: src/app/(tabs)/history.tsx
-#: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Stats"
 msgstr "Stats"
 
@@ -1243,6 +1238,7 @@ msgstr "Pendant votre absence, le combat pour la liberté a continué. Chaque do
 msgid "Wider gaps for easier tapping"
 msgstr "Espaces plus larges pour toucher plus facilement"
 
+#: src/history/components/history-difficulty/history-difficulty.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Win rate"
 msgstr "Victoires"
@@ -1319,13 +1315,9 @@ msgstr "Votre progression"
 msgid "Your rival was faster"
 msgstr "Ton rival a été plus rapide"
 
-#: src/history/components/history-overview-tab/history-overview-tab.tsx
+#: src/history/components/history-overview/history-overview.tsx
 msgid "Your stats will build as you finish puzzles."
 msgstr "Vos statistiques se construisent à mesure que vous terminez des grilles."
-
-#: src/history/components/history-totals-card/history-totals-card.tsx
-msgid "Your sudoku journey"
-msgstr "Votre parcours Sudoku"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Zero mistakes"

@@ -428,10 +428,6 @@ msgid "Game paused"
 msgstr "Game paused"
 
 #: src/app/history/[difficulty]/index.tsx
-msgid "Game Replay"
-msgstr "Game Replay"
-
-#: src/history/components/history-segmented-control/history-segmented-control.tsx
 #: src/screens/components/history-games-screen/history-games.screen.tsx
 msgid "Games"
 msgstr "Games"
@@ -716,7 +712,7 @@ msgstr "No limit"
 msgid "No matter how many penalties, you always earn at least"
 msgstr "No matter how many penalties, you always earn at least"
 
-#: src/history/components/history-overview-tab/history-overview-tab.tsx
+#: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
 msgstr "No stats yet"
 
@@ -757,6 +753,10 @@ msgstr "Open this page in Safari on a physical iPhone or iPad. The device must a
 msgid "Opens a picker to change this setting"
 msgstr "Opens a picker to change this setting"
 
+#: src/history/components/history-difficulty/history-difficulty.tsx
+msgid "Opens the completed games for this difficulty"
+msgstr "Opens the completed games for this difficulty"
+
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Opens the registered-device installation prompt"
 msgstr "Opens the registered-device installation prompt"
@@ -769,10 +769,6 @@ msgstr "Opens this commit on GitHub"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Out of mistakes"
 msgstr "Out of mistakes"
-
-#: src/history/components/history-segmented-control/history-segmented-control.tsx
-msgid "Overview"
-msgstr "Overview"
 
 #: src/screens/components/pause-screen/pause-screen-header/pause-screen-header.tsx
 msgid "Paused"
@@ -1016,7 +1012,6 @@ msgstr "Statistics"
 #: src/@generic/components/main-tab-layout/main-tab-layout.tsx
 #: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
 #: src/app/(tabs)/history.tsx
-#: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Stats"
 msgstr "Stats"
 
@@ -1243,6 +1238,7 @@ msgstr "While you were away, the fight for freedom continued. Every $1 makes a d
 msgid "Wider gaps for easier tapping"
 msgstr "Wider gaps for easier tapping"
 
+#: src/history/components/history-difficulty/history-difficulty.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Win rate"
 msgstr "Win rate"
@@ -1319,13 +1315,9 @@ msgstr "Your progress"
 msgid "Your rival was faster"
 msgstr "Your rival was faster"
 
-#: src/history/components/history-overview-tab/history-overview-tab.tsx
+#: src/history/components/history-overview/history-overview.tsx
 msgid "Your stats will build as you finish puzzles."
 msgstr "Your stats will build as you finish puzzles."
-
-#: src/history/components/history-totals-card/history-totals-card.tsx
-msgid "Your sudoku journey"
-msgstr "Your sudoku journey"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Zero mistakes"

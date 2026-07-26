@@ -426,10 +426,6 @@ msgid "Game paused"
 msgstr "اللعبة متوقفة مؤقتًا"
 
 #: src/app/history/[difficulty]/index.tsx
-msgid "Game Replay"
-msgstr "إعادة اللعبة"
-
-#: src/history/components/history-segmented-control/history-segmented-control.tsx
 #: src/screens/components/history-games-screen/history-games.screen.tsx
 msgid "Games"
 msgstr "الألعاب"
@@ -714,7 +710,7 @@ msgstr "بلا حد"
 msgid "No matter how many penalties, you always earn at least"
 msgstr "مهما بلغت العقوبات، ستحصل دائمًا على الأقل على"
 
-#: src/history/components/history-overview-tab/history-overview-tab.tsx
+#: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
 msgstr "لا توجد إحصاءات بعد"
 
@@ -753,7 +749,11 @@ msgstr "افتح هذه الصفحة في Safari على جهاز iPhone أو iPa
 
 #: src/settings/component/settings-option-link/settings-option-link.tsx
 msgid "Opens a picker to change this setting"
-msgstr ""
+msgstr "يفتح قائمة لتغيير هذا الإعداد"
+
+#: src/history/components/history-difficulty/history-difficulty.tsx
+msgid "Opens the completed games for this difficulty"
+msgstr "يفتح المباريات المكتملة لهذا المستوى"
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Opens the registered-device installation prompt"
@@ -767,10 +767,6 @@ msgstr "يفتح هذا الالتزام على GitHub"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Out of mistakes"
 msgstr "نفدت الأخطاء المسموحة"
-
-#: src/history/components/history-segmented-control/history-segmented-control.tsx
-msgid "Overview"
-msgstr "نظرة عامة"
 
 #: src/screens/components/pause-screen/pause-screen-header/pause-screen-header.tsx
 msgid "Paused"
@@ -1014,7 +1010,6 @@ msgstr "الإحصاءات"
 #: src/@generic/components/main-tab-layout/main-tab-layout.tsx
 #: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
 #: src/app/(tabs)/history.tsx
-#: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Stats"
 msgstr "الإحصاءات"
 
@@ -1241,6 +1236,7 @@ msgstr "بينما كنت بعيدًا، استمر الكفاح من أجل ا�
 msgid "Wider gaps for easier tapping"
 msgstr "مسافات أوسع لتسهيل الضغط"
 
+#: src/history/components/history-difficulty/history-difficulty.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Win rate"
 msgstr "معدل الفوز"
@@ -1317,13 +1313,9 @@ msgstr "تقدمك"
 msgid "Your rival was faster"
 msgstr "كان منافسك أسرع"
 
-#: src/history/components/history-overview-tab/history-overview-tab.tsx
+#: src/history/components/history-overview/history-overview.tsx
 msgid "Your stats will build as you finish puzzles."
 msgstr "ستتراكم إحصاءاتك كلما أنهيت ألغاز السودوكو."
-
-#: src/history/components/history-totals-card/history-totals-card.tsx
-msgid "Your sudoku journey"
-msgstr "رحلتك في السودوكو"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Zero mistakes"

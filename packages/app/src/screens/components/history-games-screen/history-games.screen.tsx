@@ -9,6 +9,7 @@ import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.u
 import { gameCompletedGamesSelector } from '../../../game/store/game.selectors';
 import { HistoryGamesList } from '../../../history/components/history-games-list/history-games-list';
 
+import { HistoryGamesScreenSelectors } from './history-games-screen.selectors';
 import { HistoryGamesScreenStyles as styles } from './history-games-screen.styles';
 
 import type { DifficultyEnum } from '@suuudokuuu/generator';
@@ -31,6 +32,7 @@ export const HistoryGamesScreen = ({ difficulty }: Props) => {
             contentStyle={styles.content}
             showsVerticalScrollIndicator={false}
             style={resolveUnistyleForAnimated(styles.scrollView(sizeClass))}
+            testID={HistoryGamesScreenSelectors.Root}
             title={title}
         >
             <HistoryGamesList

@@ -428,10 +428,6 @@ msgid "Game paused"
 msgstr "Гру призупинено"
 
 #: src/app/history/[difficulty]/index.tsx
-msgid "Game Replay"
-msgstr "Перегляд партії"
-
-#: src/history/components/history-segmented-control/history-segmented-control.tsx
 #: src/screens/components/history-games-screen/history-games.screen.tsx
 msgid "Games"
 msgstr "Партії"
@@ -716,7 +712,7 @@ msgstr "Без обмежень"
 msgid "No matter how many penalties, you always earn at least"
 msgstr "Попри штрафи, ти завжди отримуєш щонайменше"
 
-#: src/history/components/history-overview-tab/history-overview-tab.tsx
+#: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
 msgstr "Статистики ще немає"
 
@@ -755,7 +751,11 @@ msgstr "Відкрийте цю сторінку в Safari на фізичном
 
 #: src/settings/component/settings-option-link/settings-option-link.tsx
 msgid "Opens a picker to change this setting"
-msgstr ""
+msgstr "Відкриває список, щоб змінити це налаштування"
+
+#: src/history/components/history-difficulty/history-difficulty.tsx
+msgid "Opens the completed games for this difficulty"
+msgstr "Відкриває завершені ігри цього рівня"
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Opens the registered-device installation prompt"
@@ -769,10 +769,6 @@ msgstr "Відкриває цей коміт на GitHub"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Out of mistakes"
 msgstr "Вичерпано ліміт помилок"
-
-#: src/history/components/history-segmented-control/history-segmented-control.tsx
-msgid "Overview"
-msgstr "Огляд"
 
 #: src/screens/components/pause-screen/pause-screen-header/pause-screen-header.tsx
 msgid "Paused"
@@ -1016,7 +1012,6 @@ msgstr "Статистика"
 #: src/@generic/components/main-tab-layout/main-tab-layout.tsx
 #: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
 #: src/app/(tabs)/history.tsx
-#: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Stats"
 msgstr "Статистика"
 
@@ -1243,6 +1238,7 @@ msgstr "Поки вас не було, боротьба за свободу тр
 msgid "Wider gaps for easier tapping"
 msgstr "Ширші проміжки для легших дотиків"
 
+#: src/history/components/history-difficulty/history-difficulty.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Win rate"
 msgstr "Перемоги"
@@ -1319,13 +1315,9 @@ msgstr "Ваш прогрес"
 msgid "Your rival was faster"
 msgstr "Суперник виявився швидшим"
 
-#: src/history/components/history-overview-tab/history-overview-tab.tsx
+#: src/history/components/history-overview/history-overview.tsx
 msgid "Your stats will build as you finish puzzles."
 msgstr "Статистика з’являтиметься, коли ви завершуватимете судоку."
-
-#: src/history/components/history-totals-card/history-totals-card.tsx
-msgid "Your sudoku journey"
-msgstr "Твій шлях у Sudoku"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Zero mistakes"

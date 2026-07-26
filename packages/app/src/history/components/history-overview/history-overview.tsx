@@ -2,11 +2,10 @@ import { useLingui } from '@lingui/react/macro';
 import { View } from 'react-native';
 
 import { HistoryDifficulty } from '../history-difficulty/history-difficulty';
-import { HistoryDifficultySelector } from '../history-difficulty-selector/history-difficulty-selector';
 import { HistoryEmptyState } from '../history-empty-state/history-empty-state';
 import { HistoryTotalsCard } from '../history-totals-card/history-totals-card';
 
-import { HistoryOverviewTabStyles as styles } from './history-overview-tab.styles';
+import { HistoryOverviewStyles as styles } from './history-overview.styles';
 
 import type { HistoryGameInterface } from '../../interfaces/history-game.interface';
 import type { DifficultyEnum } from '@suuudokuuu/generator';
@@ -14,12 +13,9 @@ import type { DifficultyEnum } from '@suuudokuuu/generator';
 interface Props {
     readonly difficulties: readonly DifficultyEnum[];
     readonly historyByDifficulty: Record<DifficultyEnum, HistoryGameInterface>;
-    readonly onSelectDifficulty: (difficulty: DifficultyEnum) => void;
-    readonly onShowGames: (difficulty: DifficultyEnum) => void;
-    readonly selectedDifficulty: DifficultyEnum;
 }
 
-export const HistoryOverviewTab = ({ difficulties, historyByDifficulty, onSelectDifficulty, onShowGames, selectedDifficulty }: Props) => {
+export const HistoryOverview = ({ difficulties, historyByDifficulty }: Props) => {
     const { t } = useLingui();
 
     if (difficulties.length === 0) {
@@ -31,12 +27,9 @@ export const HistoryOverviewTab = ({ difficulties, historyByDifficulty, onSelect
             <HistoryTotalsCard historyByDifficulty={historyByDifficulty} />
 
             <View style={styles.difficultySection}>
-                <HistoryDifficultySelector
-                    difficulties={difficulties}
-                    onSelectDifficulty={onSelectDifficulty}
-                    selectedDifficulty={selectedDifficulty}
-                />
-                <HistoryDifficulty difficulty={selectedDifficulty} onShowGames={onShowGames} />
+                {difficulties.map(difficulty => (
+                    <HistoryDifficulty difficulty={difficulty} key={difficulty} />
+                ))}
             </View>
         </View>
     );

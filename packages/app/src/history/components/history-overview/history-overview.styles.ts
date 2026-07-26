@@ -1,12 +1,12 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-export const HistoryOverviewTabStyles = StyleSheet.create(() => ({
+export const HistoryOverviewStyles = StyleSheet.create(() => ({
     container: {
-        gap: 22,
+        gap: 20,
         width: '100%'
     },
     difficultySection: {
-        gap: 13,
+        gap: 12,
         width: '100%'
     }
 }));

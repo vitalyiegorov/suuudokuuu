@@ -426,10 +426,6 @@ msgid "Game paused"
 msgstr "游戏已暂停"
 
 #: src/app/history/[difficulty]/index.tsx
-msgid "Game Replay"
-msgstr "对局回放"
-
-#: src/history/components/history-segmented-control/history-segmented-control.tsx
 #: src/screens/components/history-games-screen/history-games.screen.tsx
 msgid "Games"
 msgstr "对局"
@@ -714,7 +710,7 @@ msgstr "无限制"
 msgid "No matter how many penalties, you always earn at least"
 msgstr "无论有多少惩罚，你至少都会获得"
 
-#: src/history/components/history-overview-tab/history-overview-tab.tsx
+#: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
 msgstr "还没有统计"
 
@@ -753,7 +749,11 @@ msgstr "请在实体 iPhone 或 iPad 上使用 Safari 打开此页面。该设�
 
 #: src/settings/component/settings-option-link/settings-option-link.tsx
 msgid "Opens a picker to change this setting"
-msgstr ""
+msgstr "打开选择器以更改此设置"
+
+#: src/history/components/history-difficulty/history-difficulty.tsx
+msgid "Opens the completed games for this difficulty"
+msgstr "打开该难度已完成的对局"
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Opens the registered-device installation prompt"
@@ -767,10 +767,6 @@ msgstr "在 GitHub 上打开此提交"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Out of mistakes"
 msgstr "错误次数已用完"
-
-#: src/history/components/history-segmented-control/history-segmented-control.tsx
-msgid "Overview"
-msgstr "概览"
 
 #: src/screens/components/pause-screen/pause-screen-header/pause-screen-header.tsx
 msgid "Paused"
@@ -1014,7 +1010,6 @@ msgstr "统计"
 #: src/@generic/components/main-tab-layout/main-tab-layout.tsx
 #: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
 #: src/app/(tabs)/history.tsx
-#: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Stats"
 msgstr "统计"
 
@@ -1241,6 +1236,7 @@ msgstr "当你离开时，争取自由的战斗仍在继续。每 1 美元捐款
 msgid "Wider gaps for easier tapping"
 msgstr "更宽的间距，便于点击"
 
+#: src/history/components/history-difficulty/history-difficulty.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Win rate"
 msgstr "胜率"
@@ -1317,13 +1313,9 @@ msgstr "你的进度"
 msgid "Your rival was faster"
 msgstr "对手比你快"
 
-#: src/history/components/history-overview-tab/history-overview-tab.tsx
+#: src/history/components/history-overview/history-overview.tsx
 msgid "Your stats will build as you finish puzzles."
 msgstr "完成数独后，统计数据会在这里累积。"
-
-#: src/history/components/history-totals-card/history-totals-card.tsx
-msgid "Your sudoku journey"
-msgstr "你的数独旅程"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Zero mistakes"
