@@ -211,18 +211,15 @@ export const GameScreen = () => {
     const keyboardControlsElement = useKeyboardControls(sudoku, selectedCell, handleSelectCell, handleSelectValue, handleExit);
 
     const hideAutoCandidates = maxMistakes === 0;
-    const statusBlockIconColor = theme.colors.surface.subtleText;
     const gameActionsIconColor = theme.colors.surface.raisedText;
 
     const statusBlock = (
         <GameStatusBlock
-            actionIconColor={statusBlockIconColor}
             elapsedTime={elapsedTime}
             hasTimer={hasTimer}
             maxMistakes={maxMistakes}
             maxMistakesReached={maxMistakesReached}
             mistakes={mistakes}
-            onPause={handlePause}
             score={score}
         />
     );
@@ -232,6 +229,16 @@ export const GameScreen = () => {
             hasSharing={hasSharing}
             onExit={handleExit}
             onOpenSettings={handleOpenSettings}
+            onShare={handleShare}
+        />
+    );
+    const gameActionsWithPause = (
+        <GameActions
+            actionIconColor={gameActionsIconColor}
+            hasSharing={hasSharing}
+            onExit={handleExit}
+            onOpenSettings={handleOpenSettings}
+            onPause={handlePause}
             onShare={handleShare}
         />
     );
@@ -276,9 +283,9 @@ export const GameScreen = () => {
                     <GameInputTools hideAutoCandidates={hideAutoCandidates} />
                 </Display>
 
-                <GameNumpad availableValuesRefsHandler={handleAvailableRef} onSelectValue={handleSelectValue} selectedCell={selectedCell} />
+                <Display mq={WideLayoutMediaQuery}>{gameActionsWithPause}</Display>
 
-                <Display mq={WideLayoutMediaQuery}>{gameActions}</Display>
+                <GameNumpad availableValuesRefsHandler={handleAvailableRef} onSelectValue={handleSelectValue} selectedCell={selectedCell} />
             </View>
         </Pressable>
     );

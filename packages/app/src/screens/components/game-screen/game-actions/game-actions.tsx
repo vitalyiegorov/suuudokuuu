@@ -1,5 +1,7 @@
-import { LucideLogOut, LucideSettings, LucideShare2 } from 'lucide-react-native';
+import { LucideLogOut, LucidePause, LucideSettings, LucideShare2 } from 'lucide-react-native';
 import { View } from 'react-native';
+
+import { isDefined } from '@rnw-community/shared';
 
 import { BlackIconButton } from '../../../../@generic/components/black-icon-button/black-icon-button';
 import { GameScreenSelectors } from '../game-screen.selectors';
@@ -11,11 +13,23 @@ interface Props {
     readonly hasSharing: boolean;
     readonly onExit: () => void;
     readonly onOpenSettings: () => void;
+    readonly onPause?: () => void;
     readonly onShare: () => void;
 }
 
-export const GameActions = ({ actionIconColor, hasSharing, onExit, onOpenSettings, onShare }: Props) => (
+export const GameActions = ({ actionIconColor, hasSharing, onExit, onOpenSettings, onPause, onShare }: Props) => (
     <View style={styles.actions}>
+        {isDefined(onPause) ? (
+            <BlackIconButton
+                hitSlop={10}
+                onPress={onPause}
+                style={styles.button}
+                testID={GameScreenSelectors.PauseButton}
+                variant="inverted"
+            >
+                <LucidePause color={actionIconColor} />
+            </BlackIconButton>
+        ) : null}
         {hasSharing ? (
             <BlackIconButton
                 hitSlop={10}
