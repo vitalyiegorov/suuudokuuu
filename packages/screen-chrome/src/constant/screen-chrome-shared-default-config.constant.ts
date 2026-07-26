@@ -5,6 +5,7 @@ export const SCREEN_CHROME_SHARED_DEFAULT_CONFIG: Omit<
     ScreenChromeConfigInterface,
     'topFadeHeight' | 'bottomFadeHeight' | 'headerBackdropHeight' | 'maxBlurIntensity'
 > = {
+    contentHorizontalPadding: 16,
     contentMaxWidth: 0,
     headerHeight: 64,
     headerTopInset: 0,

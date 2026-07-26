@@ -1,3 +1,5 @@
+import { PageHorizontalPaddingConstant } from '../../@generic/constants/page-horizontal-padding.constant';
+
 import { pageColumnScrollViewStyle } from './page-column-screen-styles.util';
 
 import type { UnistylesThemeInterface } from '@suuudokuuu/ui';
@@ -5,7 +7,7 @@ import type { UnistylesThemeInterface } from '@suuudokuuu/ui';
 export const historyContentScreenStyles = (theme: UnistylesThemeInterface) => ({
     content: {
         alignItems: 'center' as const,
-        paddingHorizontal: 18
+        paddingHorizontal: PageHorizontalPaddingConstant
     },
     scrollView: pageColumnScrollViewStyle(theme),
     scrollViewContainer: {

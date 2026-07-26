@@ -7,6 +7,7 @@ export interface ScreenChromeColorSetInterface {
     readonly wash: string;
 }
 export interface ScreenChromeConfigInterface {
+    readonly contentHorizontalPadding: number;
     readonly contentMaxWidth: number;
     readonly headerHeight: number;
     readonly headerTopInset: number;
