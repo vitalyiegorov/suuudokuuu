@@ -5,8 +5,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useScreenChromeScrollHandler } from '../hook/use-screen-chrome-scroll-handler.hook';
 import { useScreenChrome } from '../hook/use-screen-chrome.hook';
+import { getScrollContentInsetStyle } from '../utils/get-scroll-content-inset-style.util';
 import { mergeRefs } from '../utils/merge-refs.util';
-import { mergeScrollContentInset } from '../utils/merge-scroll-content-inset.util';
 
 interface Props extends ComponentProps<typeof ScrollView> {
     readonly contentInsetTop?: number;
@@ -25,9 +25,13 @@ export const ScreenChromeScrollView = ({
     const insets = useSafeAreaInsets();
     const onScroll = useScreenChromeScrollHandler();
     const mergedRef = useMemo(() => mergeRefs(scrollRef, ref), [scrollRef, ref]);
-    const mergedContentContainerStyle = useMemo(
-        () => mergeScrollContentInset(insets, contentInsetTop, contentInsetBottom, contentContainerStyle),
+    const contentInsetStyle = useMemo(
+        () => getScrollContentInsetStyle(insets, contentInsetTop, contentInsetBottom, contentContainerStyle),
         [insets, contentInsetTop, contentInsetBottom, contentContainerStyle]
+    );
+    const mergedContentContainerStyle = useMemo(
+        () => [contentContainerStyle, contentInsetStyle],
+        [contentContainerStyle, contentInsetStyle]
     );
 
     return (
