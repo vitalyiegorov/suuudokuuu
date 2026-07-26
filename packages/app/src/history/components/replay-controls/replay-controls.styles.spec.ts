@@ -1,17 +1,13 @@
-import { readFileSync } from 'node:fs';
-import { join } from 'node:path';
-
 import { describe, expect, it } from '@jest/globals';
 
-describe('ReplayControlsStyles', () => {
-    it('keeps replay navigation controls in a horizontal row', () => {
-        const source = readFileSync(join(__dirname, 'replay-controls.styles.ts'), 'utf8');
-        const controlsRowStartIndex = source.indexOf('controlsRow: {');
-        const controlsRowEndIndex = source.indexOf('navButton: {');
-        const controlsRowSource = source.slice(controlsRowStartIndex, controlsRowEndIndex);
+import { ReplayControlsStyles } from './replay-controls.styles';
 
-        expect(controlsRowSource).toContain("flexDirection: 'row'");
-        expect(controlsRowSource).toContain("alignItems: 'center'");
-        expect(controlsRowSource).toContain("justifyContent: 'center'");
+describe('ReplayControlsStyles', () => {
+    it('should lay the replay navigation controls out in a centred horizontal row', () => {
+        expect.assertions(3);
+
+        expect(ReplayControlsStyles.controlsRow.flexDirection).toBe('row');
+        expect(ReplayControlsStyles.controlsRow.alignItems).toBe('center');
+        expect(ReplayControlsStyles.controlsRow.justifyContent).toBe('center');
     });
 });

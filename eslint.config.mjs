@@ -367,7 +367,7 @@ export default defineConfig(
         }
     },
     {
-        files: ['**/*.spec.ts'],
+        files: ['**/*.spec.ts', '**/*.spec.tsx'],
         extends: [jestPlugin.configs['flat/recommended']],
         rules: {
             'no-await-in-loop': 'off',
