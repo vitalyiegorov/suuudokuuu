@@ -4,12 +4,12 @@ import { join } from 'node:path';
 import { describe, expect, it } from '@jest/globals';
 
 describe('Unistyles Expo Router entry', () => {
-    it('registers Expo Router before configuring the native Unistyles runtime', () => {
+    it('configures the Unistyles runtime before registering Expo Router', () => {
         const source = readFileSync(join(__dirname, '../../index.ts'), 'utf8');
         const routerEntryIndex = source.indexOf("import 'expo-router/entry';");
         const unistylesConfigIndex = source.indexOf("import './src/theme/unistyles.config';");
 
-        expect(routerEntryIndex).toBeGreaterThanOrEqual(0);
-        expect(unistylesConfigIndex).toBeGreaterThan(routerEntryIndex);
+        expect(unistylesConfigIndex).toBeGreaterThanOrEqual(0);
+        expect(routerEntryIndex).toBeGreaterThan(unistylesConfigIndex);
     });
 });
