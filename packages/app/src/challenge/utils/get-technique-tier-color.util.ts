@@ -3,25 +3,25 @@ import { ChallengeTechniqueTierEnum } from '../enums/challenge-technique-tier.en
 import type { ThemeInterface } from '@suuudokuuu/ui';
 
 type TierColorSurface = 'default' | 'inverted';
+type TierColorResolver = (theme: ThemeInterface) => string;
+
+const tierColorResolvers: Record<TierColorSurface, Record<ChallengeTechniqueTierEnum, TierColorResolver>> = {
+    default: {
+        [ChallengeTechniqueTierEnum.Guess]: theme => theme.colors.red,
+        [ChallengeTechniqueTierEnum.Advanced]: theme => theme.colors.blue,
+        [ChallengeTechniqueTierEnum.Clever]: theme => theme.colors.label.main,
+        [ChallengeTechniqueTierEnum.Basic]: theme => theme.colors.label.hint
+    },
+    inverted: {
+        [ChallengeTechniqueTierEnum.Guess]: theme => theme.colors.red,
+        [ChallengeTechniqueTierEnum.Advanced]: theme => theme.colors.blue,
+        [ChallengeTechniqueTierEnum.Clever]: theme => theme.colors.label.inverted,
+        [ChallengeTechniqueTierEnum.Basic]: theme => theme.colors.white05
+    }
+};
 
 export const getTechniqueTierColor = (
     tier: ChallengeTechniqueTierEnum,
     theme: ThemeInterface,
     surface: TierColorSurface = 'default'
-): string => {
-    const isInverted = surface === 'inverted';
-
-    if (tier === ChallengeTechniqueTierEnum.Guess) {
-        return theme.colors.red;
-    }
-
-    if (tier === ChallengeTechniqueTierEnum.Advanced) {
-        return theme.colors.blue;
-    }
-
-    if (tier === ChallengeTechniqueTierEnum.Clever) {
-        return isInverted ? theme.colors.label.inverted : theme.colors.label.main;
-    }
-
-    return isInverted ? theme.colors.white05 : theme.colors.label.hint;
-};
+): string => tierColorResolvers[surface][tier](theme);

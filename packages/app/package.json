@@ -1,6 +1,6 @@
 {
     "name": "@suuudokuuu/app",
-    "version": "1.66.1",
+    "version": "1.66.2",
     "private": true,
     "main": "index.ts",
     "scripts": {
@@ -76,10 +76,13 @@
         "@babel/core": "^7.29.7",
         "@lingui/babel-plugin-lingui-macro": "6.4.0",
         "@lingui/format-po": "6.4.0",
+        "@react-native/jest-preset": "0.86.1",
         "@react-native/metro-config": "0.86.0",
+        "@testing-library/react-native": "^14.0.1",
         "@types/react": "~19.2.14",
         "babel-plugin-macros": "^3.1.0",
         "babel-plugin-react-compiler": "^1.0.0",
-        "eas-build-cache-provider": "^20.0.0"
+        "eas-build-cache-provider": "^20.0.0",
+        "test-renderer": "^1.2.0"
     }
 }

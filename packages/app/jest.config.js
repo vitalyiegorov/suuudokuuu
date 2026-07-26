@@ -1,15 +1,26 @@
+const path = require('node:path');
+
+const reactNativeRoot = path.dirname(require.resolve('react-native'));
+
 module.exports = {
     coverageReporters: ['text-summary', 'lcov'],
     reporters: ['default'],
     coveragePathIgnorePatterns: ['.mock.ts', 'i18n-plural-rules.polyfill.ts', 'theme.enum.ts'],
     displayName: 'app',
+    haste: {
+        defaultPlatform: 'ios',
+        platforms: ['android', 'ios', 'native']
+    },
+    resolver: require.resolve('@react-native/jest-preset/jest/resolver.js'),
     moduleNameMapper: {
         '^@suuudokuuu/encoder$': '<rootDir>/../encoder/src/index.ts',
         '^@suuudokuuu/generator$': '<rootDir>/../generator/src/index.ts',
         '^@suuudokuuu/solver$': '<rootDir>/../solver/src/index.ts',
+        '^@suuudokuuu/ui/theme$': '<rootDir>/../ui/src/theme/index.ts',
         '^@suuudokuuu/ui/app-metric-strip-get-colors$':
             '<rootDir>/../ui/src/components/app-metric-strip/utils/app-metric-strip-get-colors.util.ts',
-        '^@suuudokuuu/ui/app-toggle-get-colors$': '<rootDir>/../ui/src/components/app-toggle/utils/app-toggle-get-colors.util.ts'
+        '^@suuudokuuu/ui/app-toggle-get-colors$': '<rootDir>/../ui/src/components/app-toggle/utils/app-toggle-get-colors.util.ts',
+        '^react-native($|/.*)': `${reactNativeRoot}/$1`
     },
     testRegex: './(?:src|vercel-functions)/.*\\.spec\\.(tsx?)$',
     testEnvironment: 'node',
@@ -21,5 +32,18 @@ module.exports = {
             functions: 100
         }
     },
-    transformIgnorePatterns: ['node_modules/(?!(@thi.ng/bitstream|@thi.ng/errors|@formatjs|@suuudokuuu/ui)/)']
+    globals: { __DEV__: true },
+    setupFiles: [
+        '@react-native/jest-preset/jest/setup.js',
+        'react-native-unistyles/mocks',
+        '<rootDir>/src/theme/unistyles.config.ts',
+        '<rootDir>/jest.setup.ts'
+    ],
+    transform: {
+        '^.+\\.(js|jsx|ts|tsx|mjs)$': 'babel-jest',
+        '^.+\\.(bmp|gif|jpg|jpeg|mp4|png|psd|svg|webp)$': require.resolve('@react-native/jest-preset/jest/assetFileTransformer.js')
+    },
+    transformIgnorePatterns: [
+        'node_modules/(?!(@thi.ng/bitstream|@thi.ng/errors|@formatjs|@lingui|@messageformat|expo-localization|react-native|@react-native|@testing-library/react-native|test-renderer|@suuudokuuu/ui)/)'
+    ]
 };
