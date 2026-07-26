@@ -156,6 +156,15 @@ jobs:
                   APP_VARIANT: production
               run: ../../node_modules/.bin/expo prebuild --platform android --no-install --clean
 
+            - name: Cache Gradle
+              uses: actions/cache@v5
+              with:
+                  path: |
+                      ~/.gradle/caches
+                      ~/.gradle/wrapper
+                  key: gradle-lint-v1-${{ runner.os }}-arm64-v8a-${{ hashFiles('packages/app/android/gradle/wrapper/gradle-wrapper.properties', 'yarn.lock') }}
+                  restore-keys: gradle-lint-v1-${{ runner.os }}-arm64-v8a-
+
             - name: Run release lint
               working-directory: packages/app/android
               run: ./gradlew :app:lintVitalRelease -PreactNativeArchitectures=arm64-v8a --no-daemon
