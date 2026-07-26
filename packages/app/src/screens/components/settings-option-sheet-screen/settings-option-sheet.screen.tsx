@@ -1,6 +1,6 @@
 import BottomSheet, { BottomSheetView } from '@expo/ui/community/bottom-sheet';
 import { Stack, router, useLocalSearchParams } from 'expo-router';
-import { use, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useWindowDimensions } from 'react-native';
 
 import { isDefined, isNotEmptyString } from '@rnw-community/shared';
@@ -9,12 +9,10 @@ import { SettingsOptionSheet } from '../../../settings/component/settings-option
 import { useSettingsOptionSheetConfig } from '../../../settings/hooks/use-settings-option-sheet-config.hook';
 import { settingsOptionSheetGetAllowedDetents } from '../../../settings/utils/settings-option-sheet-get-allowed-detents.util';
 import { settingsOptionSheetGetSnapPoint } from '../../../settings/utils/settings-option-sheet-get-snap-point.util';
-import { ThemeContext } from '../../../theme/context/theme.context';
 
 import { SettingsOptionSheetScreenStyles as styles } from './settings-option-sheet-screen.styles';
 
 export const SettingsOptionSheetScreen = () => {
-    const { theme } = use(ThemeContext);
     const { height } = useWindowDimensions();
     const params = useLocalSearchParams<{ setting?: string | string[] }>();
     const setting = Array.isArray(params.setting) ? null : (params.setting ?? null);
@@ -31,14 +29,13 @@ export const SettingsOptionSheetScreen = () => {
     }
 
     const sheetAllowedDetents = settingsOptionSheetGetAllowedDetents(config.items.length, height);
-    const sheetBackgroundStyles = [styles.sheetBackground, { backgroundColor: theme.colors.candidate.bg }];
     const sheetSnapPoints = sheetAllowedDetents.map(settingsOptionSheetGetSnapPoint);
 
     return (
         <>
             <Stack.Screen />
             <BottomSheet
-                backgroundStyle={sheetBackgroundStyles}
+                backgroundStyle={styles.sheetBackground}
                 enableDynamicSizing={false}
                 enablePanDownToClose
                 index={0}

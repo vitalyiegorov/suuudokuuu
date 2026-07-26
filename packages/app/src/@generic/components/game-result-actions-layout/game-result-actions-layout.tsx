@@ -1,17 +1,12 @@
-import { type ReactNode, use } from 'react';
-import { View } from 'react-native';
+import { ScreenActionBar } from '../screen-action-bar/screen-action-bar';
 
-import { ThemeContext } from '../../../theme/context/theme.context';
-
-import { GameResultActionsLayoutStyles as styles } from './game-result-actions-layout.styles';
+import type { ReactNode } from 'react';
 
 interface Props {
     readonly children: ReactNode;
+    readonly homeAction: ReactNode;
 }
 
-export const GameResultActionsLayout = ({ children }: Props): ReactNode => {
-    const { theme } = use(ThemeContext);
-    const actionBandStyles = [styles.actions, { backgroundColor: theme.colors.background }];
-
-    return <View style={actionBandStyles}>{children}</View>;
-};
+export const GameResultActionsLayout = ({ children, homeAction }: Props): ReactNode => (
+    <ScreenActionBar right={homeAction}>{children}</ScreenActionBar>
+);

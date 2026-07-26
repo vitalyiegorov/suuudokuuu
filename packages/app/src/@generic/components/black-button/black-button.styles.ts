@@ -1,17 +1,31 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const BlackButtonStyles = StyleSheet.create({
+export const BlackButtonStyles = StyleSheet.create(theme => ({
     button: {
         alignItems: 'center',
         borderWidth: 0,
         justifyContent: 'center',
-        maxWidth: 200,
+        maxWidth: theme.contentWidth.narrow,
         outlineOffset: 0,
         outlineWidth: 0,
-        paddingHorizontal: 20,
-        paddingVertical: 10
+        paddingHorizontal: theme.spacing.lg,
+        paddingVertical: 10,
+        _web: {
+            cursor: 'pointer',
+            transitionDuration: '120ms',
+            transitionProperty: 'opacity,transform',
+            _hover: {
+                opacity: 0.85
+            },
+            '_focus-visible': {
+                outlineColor: theme.colors.black,
+                outlineOffset: 2,
+                outlineStyle: 'solid',
+                outlineWidth: 2
+            }
+        }
     },
     buttonText: {
         textAlign: 'center'
     }
-});
+}));

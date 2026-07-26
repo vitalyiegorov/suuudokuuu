@@ -1,86 +1,38 @@
-import { Fragment } from 'react';
-import { type StyleProp, Text, type TextStyle, View, type ViewStyle } from 'react-native';
-
-import { isDefined } from '@rnw-community/shared';
-
-import { useUiTheme } from '../../theme/hooks/use-ui-theme.hook';
+import { Children } from 'react';
+import { type StyleProp, View, type ViewStyle } from 'react-native';
+import { useUnistyles } from 'react-native-unistyles';
 
 import { AppMetricStripStyles as styles } from './app-metric-strip.styles';
+import { AppMetricStripContext } from './context/app-metric-strip.context';
+import { appMetricStripGetColors } from './utils/app-metric-strip-get-colors.util';
 
-import type { AppMetricStripItemInterface } from './interface/app-metric-strip-item.interface';
-
-type AppMetricStripVariant = 'primary' | 'secondary';
+import type { AppMetricStripVariant } from './utils/app-metric-strip-get-colors.util';
+import type { ReactNode } from 'react';
 
 interface Props {
-    readonly itemStyle?: StyleProp<ViewStyle>;
-    readonly items: readonly AppMetricStripItemInterface[];
-    readonly labelStyle?: StyleProp<TextStyle>;
+    readonly children: ReactNode;
     readonly separatorStyle?: StyleProp<ViewStyle>;
     readonly style?: StyleProp<ViewStyle>;
     readonly testID?: string;
-    readonly valueStyle?: StyleProp<TextStyle>;
-    readonly variant?: AppMetricStripVariant;
+    readonly variant: AppMetricStripVariant;
 }
 
-export const AppMetricStrip = ({ itemStyle, items, labelStyle, separatorStyle, style, testID, valueStyle, variant = 'primary' }: Props) => {
-    const { theme } = useUiTheme();
-    const isSecondaryVariant = variant === 'secondary';
-    const backgroundColor = isSecondaryVariant ? theme.colors.cell.highlighted : theme.colors.black;
-    const borderColor = isSecondaryVariant ? theme.colors.value.border : theme.colors.black;
-    const textColor = isSecondaryVariant ? theme.colors.label.main : theme.colors.label.inverted;
-    const separatorColor = isSecondaryVariant ? theme.colors.value.border : theme.colors.white05;
-    const stripStyles = [
-        styles.strip,
-        {
-            backgroundColor,
-            borderColor
-        },
-        style
-    ];
-    const labelStyles = [styles.label, { color: textColor }, labelStyle];
-    const separatorStyles = [styles.separator, { backgroundColor: separatorColor }, separatorStyle];
+export const AppMetricStrip = ({ children, separatorStyle, style, testID, variant }: Props) => {
+    const { theme } = useUnistyles();
+    const { backgroundColor, borderColor, separatorColor, textColor } = appMetricStripGetColors(theme, variant);
+    const stripStyles = [styles.strip, style, { backgroundColor, borderColor }];
+    const separatorStyles = [styles.separator, separatorStyle, { backgroundColor: separatorColor }];
+    const items = Children.toArray(children);
+    const itemsWithSeparators = items.flatMap((item, index) =>
+        index < items.length - 1 ? [item, <View key={`${index}-separator`} style={separatorStyles} />] : [item]
+    );
+    const contextValue = { textColor };
 
     return (
-        <View style={stripStyles} testID={testID}>
-            {items.map((item, index) => {
-                const valueColor = item.valueColor ?? textColor;
-                const baseItemStyles = isDefined(item.width) ? [styles.item, { width: item.width }] : styles.item;
-                const itemStyles = [baseItemStyles, itemStyle];
-                const valueStyles = [styles.value, { color: valueColor }, valueStyle];
-                const hasSeparator = index < items.length - 1;
-
-                return (
-                    <Fragment key={item.label}>
-                        <View style={itemStyles}>
-                            <Text
-                                adjustsFontSizeToFit
-                                allowFontScaling={false}
-                                minimumFontScale={0.74}
-                                numberOfLines={1}
-                                style={labelStyles}
-                            >
-                                {item.label}
-                            </Text>
-                            {isDefined(item.valueContent) ? (
-                                item.valueContent
-                            ) : (
-                                <Text
-                                    adjustsFontSizeToFit
-                                    allowFontScaling={false}
-                                    minimumFontScale={0.72}
-                                    numberOfLines={1}
-                                    style={valueStyles}
-                                    testID={item.testID}
-                                >
-                                    {item.value}
-                                </Text>
-                            )}
-                        </View>
-
-                        {hasSeparator && <View style={separatorStyles} />}
-                    </Fragment>
-                );
-            })}
-        </View>
+        <AppMetricStripContext value={contextValue}>
+            <View style={stripStyles} testID={testID}>
+                {itemsWithSeparators}
+            </View>
+        </AppMetricStripContext>
     );
 };

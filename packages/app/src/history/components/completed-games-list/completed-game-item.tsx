@@ -1,4 +1,5 @@
 import { Trans, useLingui } from '@lingui/react/macro';
+import { AppMetricStrip } from '@suuudokuuu/ui';
 import { LucidePlay } from 'lucide-react-native';
 import { use } from 'react';
 import { Text, View } from 'react-native';
@@ -54,11 +55,11 @@ export const CompletedGameItem = ({ game }: Props) => {
                 </BlackButton>
             </View>
 
-            <View style={styles.metrics}>
+            <AppMetricStrip style={styles.metrics} variant="ghost">
                 <HistoryMetric label={t`Score`} value={String(game.score)} />
                 <HistoryMetric label={t`Time`} value={elapsedTimeText} />
                 <HistoryMetric label={t`Mistakes`} value={mistakesValue} />
-            </View>
+            </AppMetricStrip>
         </View>
     );
 };

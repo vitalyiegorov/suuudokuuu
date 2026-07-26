@@ -1,10 +1,10 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const ReplayControlsStyles = StyleSheet.create({
+export const ReplayControlsStyles = StyleSheet.create(theme => ({
     container: {
         alignSelf: 'center',
         gap: 16,
-        maxWidth: 380,
+        maxWidth: theme.contentWidth.narrow,
         paddingBottom: 10,
         width: '100%'
     },
@@ -15,7 +15,7 @@ export const ReplayControlsStyles = StyleSheet.create({
         width: '100%'
     },
     metaText: {
-        fontSize: 14,
+        fontSize: theme.typography.size.sm,
         fontWeight: '800',
         opacity: 0.48
     },
@@ -24,13 +24,13 @@ export const ReplayControlsStyles = StyleSheet.create({
         opacity: 1
     },
     scrubberTrack: {
-        borderRadius: 999,
+        borderRadius: theme.radius.pill,
         height: 6,
         position: 'relative',
         width: '100%'
     },
     scrubberFill: {
-        borderRadius: 999,
+        borderRadius: theme.radius.pill,
         bottom: 0,
         left: 0,
         position: 'absolute',
@@ -50,7 +50,7 @@ export const ReplayControlsStyles = StyleSheet.create({
         flexDirection: 'row',
         gap: 28,
         justifyContent: 'center',
-        paddingTop: 4,
+        paddingTop: theme.spacing.xs,
         width: '100%'
     },
     navButton: {
@@ -61,4 +61,4 @@ export const ReplayControlsStyles = StyleSheet.create({
     disabledButton: {
         opacity: 0.42
     }
-});
+}));

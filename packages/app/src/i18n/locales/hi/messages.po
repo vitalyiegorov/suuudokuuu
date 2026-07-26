@@ -18,6 +18,10 @@ msgstr ""
 msgid "{0, plural, one {# mistake} other {# mistakes}}"
 msgstr "{0, plural, one {# गलती} other {# गलतियाँ}}"
 
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
+msgstr "{arsenalCardCount, plural, one {# तकनीक} other {# तकनीकें}}"
+
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} faster"
 msgstr "{durationText} तेज़"
@@ -152,12 +156,12 @@ msgstr "समझदारी से सोचें, तेज़ चलें.
 #: src/history/components/history-difficulty/history-difficulty.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Best score"
-msgstr "सर्वश्रेष्ठ स्कोर"
+msgstr "बेस्ट स्कोर"
 
 #: src/history/components/history-difficulty/history-difficulty.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Best time"
-msgstr "सर्वश्रेष्ठ समय"
+msgstr "बेस्ट समय"
 
 #: src/app/loser.tsx
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
@@ -202,7 +206,7 @@ msgstr "वापस चुनौती दें"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Challenge lost"
-msgstr "चुनौती हार गए"
+msgstr "चुनौती हारी"
 
 #: src/app/challenge-lost.tsx
 msgid "Challenge Lost"
@@ -210,7 +214,7 @@ msgstr "चुनौती हारी"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Challenge won"
-msgstr "चुनौती जीत गए"
+msgstr "चुनौती जीती"
 
 #: src/app/challenge-won.tsx
 msgid "Challenge Won!"
@@ -330,9 +334,14 @@ msgstr "डेवलपमेंट बिल्ड"
 msgid "Did not finish the board"
 msgstr "बोर्ड पूरा नहीं हुआ"
 
+#: src/game/components/difficulty-complexity-slider/difficulty-complexity-rail/difficulty-complexity-rail.tsx
 #: src/game/components/difficulty-complexity-slider/difficulty-complexity-slider.tsx
 msgid "Difficulty"
 msgstr "कठिनाई"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Dim a completed digit in the numpad instead of removing it"
+msgstr "पूर्ण अंक को नंबर पैड से हटाने के बजाय धुंधला करें"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Display"
@@ -370,10 +379,6 @@ msgstr "Español"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Evenly matched"
 msgstr "बराबरी की टक्कर"
-
-#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
-msgid "every technique"
-msgstr "सभी तकनीकें"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Expert grid"
@@ -421,10 +426,6 @@ msgid "Game paused"
 msgstr "गेम रुका हुआ है"
 
 #: src/app/history/[difficulty]/index.tsx
-msgid "Game Replay"
-msgstr "गेम रीप्ले"
-
-#: src/history/components/history-segmented-control/history-segmented-control.tsx
 #: src/screens/components/history-games-screen/history-games.screen.tsx
 msgid "Games"
 msgstr "गेम"
@@ -555,6 +556,10 @@ msgstr "Jellyfish"
 msgid "Keep cell selected"
 msgstr "सेल चयनित रखें"
 
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Keep completed digits"
+msgstr "पूर्ण अंक रखें"
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Keep selection after tapping outside the board"
 msgstr "बोर्ड के बाहर टैप करने के बाद भी चयन बनाए रखें"
@@ -575,6 +580,10 @@ msgstr "बड़ा"
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Larger digits for easier reading"
 msgstr "आसान पढ़ने के लिए बड़े अंक"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Left-handed layout"
+msgstr "बाएँ हाथ का लेआउट"
 
 #: src/history/components/replay-header/replay-header.tsx
 msgid "Level"
@@ -634,6 +643,10 @@ msgstr "गलतियाँ"
 #: src/history/components/replay-controls/replay-controls.tsx
 msgid "Move"
 msgstr "चाल"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Move the landscape controls panel to the left of the board"
+msgstr "लैंडस्केप में नियंत्रण पैनल को बोर्ड के बाईं ओर ले जाएँ"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Naked Pair"
@@ -705,7 +718,7 @@ msgstr "कोई सीमा नहीं"
 msgid "No matter how many penalties, you always earn at least"
 msgstr "दंड चाहे जितने हों, आपको हमेशा कम से कम मिलते हैं"
 
-#: src/history/components/history-overview-tab/history-overview-tab.tsx
+#: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
 msgstr "अभी कोई आँकड़े नहीं"
 
@@ -742,6 +755,14 @@ msgstr "साझा सुडोकू खोलें?"
 msgid "Open this page in Safari on a physical iPhone or iPad. The device must already be registered in the Ad Hoc provisioning profile."
 msgstr "इस पेज को किसी वास्तविक iPhone या iPad पर Safari में खोलें। डिवाइस पहले से Ad Hoc प्रोविज़निंग प्रोफ़ाइल में पंजीकृत होना चाहिए।"
 
+#: src/settings/component/settings-option-link/settings-option-link.tsx
+msgid "Opens a picker to change this setting"
+msgstr "यह सेटिंग बदलने के लिए सूची खोलता है"
+
+#: src/history/components/history-difficulty/history-difficulty.tsx
+msgid "Opens the completed games for this difficulty"
+msgstr "इस स्तर के पूरे हुए गेम खोलता है"
+
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Opens the registered-device installation prompt"
 msgstr "पंजीकृत डिवाइस का इंस्टॉलेशन प्रॉम्प्ट खोलता है"
@@ -754,10 +775,6 @@ msgstr "इस कमिट को GitHub पर खोलता है"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Out of mistakes"
 msgstr "गलतियों की सीमा समाप्त"
-
-#: src/history/components/history-segmented-control/history-segmented-control.tsx
-msgid "Overview"
-msgstr "सारांश"
 
 #: src/screens/components/pause-screen/pause-screen-header/pause-screen-header.tsx
 msgid "Paused"
@@ -779,14 +796,15 @@ msgstr "प्रति गलती"
 msgid "per second"
 msgstr "प्रति सेकंड"
 
-#: src/@generic/components/main-tab-layout/main-tab-layout.tsx
-#: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
+#: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
+#: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/index.tsx
 msgid "Play"
 msgstr "खेलें"
 
 #: src/@generic/components/play-again-button/play-again-button.tsx
 #: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
+#: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Play again"
 msgstr "फिर खेलें"
 
@@ -865,23 +883,23 @@ msgstr "डेवलपमेंट बिल्ड फिर से लोड �
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "Rival"
-msgstr "प्रतिद्वंद्वी"
+msgstr "विरोधी"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Rival challenged you"
-msgstr "प्रतिद्वंद्वी ने आपको चुनौती दी"
+msgstr "विरोधी ने आपको चुनौती दी"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Rival's arsenal"
-msgstr "प्रतिद्वंद्वी का शस्त्रागार"
+msgstr "विरोधी का शस्त्रागार"
 
 #: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
 msgid "Rival's playbook"
-msgstr "प्रतिद्वंद्वी की रणनीति"
+msgstr "विरोधी की रणनीति"
 
 #: src/challenge/components/challenge-result-rival-time-card/challenge-result-rival-time-card.tsx
 msgid "Rival's time to beat"
-msgstr "प्रतिद्वंद्वी का समय जिसे पीछे छोड़ना है"
+msgstr "विरोधी का समय जिसे पीछे छोड़ना है"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Row"
@@ -911,8 +929,8 @@ msgstr "स्कोर × गुणांक × संख्या"
 msgid "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 msgstr "हर सही भरी कोशिका का स्कोर कठिनाई, बोनस और दंड के आधार पर गणना होता है।"
 
-#: src/@generic/components/main-tab-layout/main-tab-layout.tsx
-#: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
+#: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
+#: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/component/settings-page-content/settings-page-content.tsx
 msgid "Settings"
@@ -997,10 +1015,9 @@ msgstr "पहेली शुरू करें"
 msgid "Statistics"
 msgstr "आँकड़े"
 
-#: src/@generic/components/main-tab-layout/main-tab-layout.tsx
-#: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
+#: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
+#: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/history.tsx
-#: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Stats"
 msgstr "आंकड़े"
 
@@ -1072,6 +1089,10 @@ msgstr "उनका समय जिसे पीछे छोड़ना ह�
 msgid "Theme"
 msgstr "थीम"
 
+#: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
+msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
+msgstr "इस बार यह बोर्ड पूरा नहीं हुआ। यूक्रेन में आज़ादी की लड़ाई जारी है। हर $1 दान मायने रखता है।"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "This value is multiplied by the difficulty coefficient:"
 msgstr "यह मान कठिनाई गुणांक से गुणा होता है:"
@@ -1104,7 +1125,7 @@ msgstr "टाइमर"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Tiny"
-msgstr "बहुत छोटा"
+msgstr "नन्हा"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Tips for High Scores"
@@ -1116,7 +1137,7 @@ msgstr "बहुत ज़्यादा गलतियाँ"
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Try again"
-msgstr "फिर से कोशिश करें"
+msgstr "फिर कोशिश करें"
 
 #: src/challenge/components/challenge-try-again-button/challenge-try-again-button.tsx
 msgid "Try Again"
@@ -1223,6 +1244,7 @@ msgstr "जब आप दूर थे, आज़ादी की लड़ा�
 msgid "Wider gaps for easier tapping"
 msgstr "आसान टैपिंग के लिए बड़े अंतर"
 
+#: src/history/components/history-difficulty/history-difficulty.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Win rate"
 msgstr "जीत दर"
@@ -1269,7 +1291,11 @@ msgstr "आप"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "You beat your rival"
-msgstr "आपने अपने प्रतिद्वंद्वी को हराया"
+msgstr "आपने अपने विरोधी को हराया"
+
+#: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
+msgid "You finished your puzzle. The fight for freedom in Ukraine continues. Every $1 makes a difference."
+msgstr "आपने अपना सुडोकू पूरा कर लिया। यूक्रेन में आज़ादी की लड़ाई जारी है। हर $1 दान मायने रखता है।"
 
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "You got to"
@@ -1293,15 +1319,11 @@ msgstr "आपकी प्रगति"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Your rival was faster"
-msgstr "आपका प्रतिद्वंद्वी तेज़ था"
+msgstr "आपका विरोधी तेज़ था"
 
-#: src/history/components/history-overview-tab/history-overview-tab.tsx
+#: src/history/components/history-overview/history-overview.tsx
 msgid "Your stats will build as you finish puzzles."
 msgstr "सुडोकू पूरा करते ही आपके आँकड़े बढ़ेंगे।"
-
-#: src/history/components/history-totals-card/history-totals-card.tsx
-msgid "Your sudoku journey"
-msgstr "आपकी सुडोकू यात्रा"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Zero mistakes"

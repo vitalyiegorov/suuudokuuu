@@ -1,6 +1,5 @@
 import { type StyleProp, View, type ViewStyle } from 'react-native';
-
-import { useUiTheme } from '../../theme/hooks/use-ui-theme.hook';
+import { useUnistyles } from 'react-native-unistyles';
 
 import { AppSurfaceCardStyles as styles } from './app-surface-card.styles';
 
@@ -18,7 +17,7 @@ interface Props {
 }
 
 export const AppSurfaceCard = ({ children, size = 'regular', style, testID, variant = 'default' }: Props) => {
-    const { theme } = useUiTheme();
+    const { theme } = useUnistyles();
     let backgroundColor = theme.colors.candidate.bg;
     let borderColor = theme.colors.value.border;
 

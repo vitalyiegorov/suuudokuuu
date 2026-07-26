@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const AppSurfaceCardStyles = StyleSheet.create({
+export const AppSurfaceCardStyles = StyleSheet.create(theme => ({
     card: {
         borderCurve: 'continuous',
         borderWidth: StyleSheet.hairlineWidth,
@@ -18,8 +18,8 @@ export const AppSurfaceCardStyles = StyleSheet.create({
         paddingVertical: 18
     },
     spacious: {
-        borderRadius: 24,
-        paddingHorizontal: 20,
-        paddingVertical: 20
+        borderRadius: theme.radius.lg,
+        paddingHorizontal: theme.spacing.lg,
+        paddingVertical: theme.spacing.lg
     }
-});
+}));

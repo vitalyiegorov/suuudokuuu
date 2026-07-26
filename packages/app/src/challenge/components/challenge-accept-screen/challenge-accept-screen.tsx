@@ -1,3 +1,4 @@
+import { plural } from '@lingui/core/macro';
 import { Trans, useLingui } from '@lingui/react/macro';
 import { LucideSwords, LucideX } from 'lucide-react-native';
 import { use } from 'react';
@@ -14,7 +15,8 @@ import { stringToGameState } from '../../../game/utils/string-to-game-state.util
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { getChallengeDifficulty } from '../../utils/get-challenge-difficulty.util';
 import { getChallengeTechniqueEventsFromState } from '../../utils/get-challenge-technique-events-from-state.util';
-import { ChallengeTechniqueArsenal } from '../challenge-technique-arsenal/challenge-technique-arsenal';
+import { getChallengeTechniqueSummary } from '../../utils/get-challenge-technique-summary.util';
+import { ChallengeTechniqueArsenal, MAX_ARSENAL_CARDS } from '../challenge-technique-arsenal/challenge-technique-arsenal';
 import { ChallengeTechniquePreview } from '../challenge-technique-preview/challenge-technique-preview';
 
 import { ChallengeAcceptScreenSelectors } from './challenge-accept-screen.selectors';
@@ -38,6 +40,8 @@ export const ChallengeAcceptScreen = ({ opponentTotalTime, challengeState, onAcc
     const difficultyText = getDifficultyText(getChallengeDifficulty(challengeState));
     const mistakesText = getMistakesTypeText(stringToGameState(challengeState).maxMistakes);
     const chipText = `${t`Rival challenged you`} · ${difficultyText} · ${mistakesText}`;
+    const arsenalCardCount = Math.min(getChallengeTechniqueSummary(techniqueEvents).length, MAX_ARSENAL_CARDS);
+    const arsenalTagText = plural(arsenalCardCount, { one: '# technique', other: '# techniques' });
 
     const medallionStyle = [styles.medallion, { backgroundColor: theme.colors.black }];
     const titleStyle = [styles.title, { color: theme.colors.label.main }];
@@ -106,7 +110,7 @@ export const ChallengeAcceptScreen = ({ opponentTotalTime, challengeState, onAcc
                         {t`Rival's arsenal`}
                     </Text>
                     <Text allowFontScaling={false} style={arsenalTagStyle}>
-                        <Trans>every technique</Trans>
+                        {arsenalTagText}
                     </Text>
                 </View>
 

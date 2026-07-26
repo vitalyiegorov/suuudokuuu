@@ -7,10 +7,11 @@ export * from './challenge/components/challenge-technique-arsenal/challenge-tech
 export * from './challenge/components/challenge-try-again-button/challenge-try-again-button.selectors';
 export * from './game/components/available-values-item/available-value-item.selectors';
 export * from './history/components/completed-games-list/completed-game-item.selectors';
-export * from './history/components/history-segmented-control/history-segmented-control.selectors';
+export * from './history/components/history-difficulty/history-difficulty.selectors';
 export * from './history/components/replay-controls/replay-controls.selectors';
 export * from './history/components/replay-top-bar/replay-top-bar.selectors';
 export * from './screens/components/game-screen/game-screen.selectors';
+export * from './screens/components/history-games-screen/history-games-screen.selectors';
 export * from './screens/components/history-screen/history-screen.selectors';
 export * from './screens/components/home-screen/home-screen.selectors';
 export * from './screens/components/loser-screen/loser-screen.selectors';

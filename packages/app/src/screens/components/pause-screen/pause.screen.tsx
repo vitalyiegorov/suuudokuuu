@@ -83,18 +83,22 @@ export const PauseScreen = () => {
         <View style={containerStyles} testID={PauseScreenSelectors.Root}>
             <ChromeScrollPage footer={footer}>
                 <View style={styles.content}>
-                    <PauseScreenHeader detailsText={detailsText} />
+                    <View style={styles.summaryColumn}>
+                        <PauseScreenHeader detailsText={detailsText} />
 
-                    <PauseScreenProgressCard
-                        label={t`Your progress`}
-                        meta={progressMeta}
-                        progressPercent={progress.percent}
-                        sudoku={sudoku}
-                    />
+                        <PauseScreenProgressCard
+                            label={t`Your progress`}
+                            meta={progressMeta}
+                            progressPercent={progress.percent}
+                            sudoku={sudoku}
+                        />
 
-                    <PauseScreenStats mistakesText={mistakesText} scoreText={scoreText} timeText={timeText} />
+                        <PauseScreenStats mistakesText={mistakesText} scoreText={scoreText} timeText={timeText} />
+                    </View>
 
-                    <UkraineSupportCard testID={PauseScreenSelectors.UkraineCta} />
+                    <View style={styles.asideColumn}>
+                        <UkraineSupportCard testID={PauseScreenSelectors.UkraineCta} />
+                    </View>
                 </View>
             </ChromeScrollPage>
         </View>

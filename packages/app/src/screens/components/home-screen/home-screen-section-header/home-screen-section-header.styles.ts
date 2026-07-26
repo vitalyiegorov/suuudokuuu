@@ -1,10 +1,10 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const HomeScreenSectionHeaderStyles = StyleSheet.create({
+export const HomeScreenSectionHeaderStyles = StyleSheet.create(theme => ({
     container: {
         alignItems: 'center',
         flexDirection: 'row',
-        gap: 12,
+        gap: theme.spacing.md,
         width: '100%'
     },
     label: {
@@ -18,4 +18,4 @@ export const HomeScreenSectionHeaderStyles = StyleSheet.create({
         flex: 1,
         height: StyleSheet.hairlineWidth
     }
-});
+}));

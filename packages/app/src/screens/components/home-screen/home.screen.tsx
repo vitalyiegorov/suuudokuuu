@@ -1,14 +1,17 @@
 import { Trans, useLingui } from '@lingui/react/macro';
 import { DifficultyEnum, Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { ScreenChromeScrollView } from '@suuudokuuu/screen-chrome';
+import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { Link } from 'expo-router';
 import { use, useState } from 'react';
 import { Pressable, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Alert } from '../../../@generic/components/alert/alert';
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { ChromePage } from '../../../@generic/components/chrome-page/chrome-page';
 import { Header } from '../../../@generic/components/header/header';
+import { TabBarInsetContext } from '../../../@generic/components/main-tab-layout/context/tab-bar-inset.context';
 import { SupportUkrainePill } from '../../../@generic/components/support-ukraine-pill/support-ukraine-pill';
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
@@ -32,19 +35,15 @@ import { settingsSetAction } from '../../../settings/store/settings.actions';
 import { settingsLastGameDifficultySelector, settingsLastGameMaxMistakesSelector } from '../../../settings/store/settings.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
 
-import {
-    HomeScreenBottomScrollPadding,
-    HomeScreenFloatingTabBarInset,
-    HomeScreenTopContentPadding,
-    HomeScreenTopOverlayHeight,
-    HomeScreenTopOverlayIntensity
-} from './constant/home-screen.constant';
+import { HomeScreenBottomScrollPadding, HomeScreenTopOverlayHeight, HomeScreenTopOverlayIntensity } from './constant/home-screen.constant';
 import { HomeScreenOptionCard } from './home-screen-option-card/home-screen-option-card';
+import { homeScreenOptionCardGetColors } from './home-screen-option-card/utils/home-screen-option-card-get-colors.util';
 import { HomeScreenPlayActions } from './home-screen-play-actions/home-screen-play-actions';
 import { HomeScreenSectionHeader } from './home-screen-section-header/home-screen-section-header';
 import { HomeScreenSelectors } from './home-screen.selectors';
 import { HomeScreenStyles as styles } from './home-screen.styles';
 import { type HomeScreenOptionCardInterface } from './interface/home-screen-option-card.interface';
+import { homeScreenGetContentInsetTop } from './utils/home-screen-get-content-inset-top.util';
 import { homeScreenGetCurrentGameProgress } from './utils/home-screen-get-current-game-progress.util';
 
 const RelaxedMistakeLimit = 99;
@@ -55,6 +54,8 @@ export const HomeScreen = () => {
     const { create } = use(GameContext);
     const { theme } = use(ThemeContext);
     const { t } = useLingui();
+    const safeAreaInsets = useSafeAreaInsets();
+    const tabBarInset = use(TabBarInsetContext);
     const dispatch = useAppDispatch();
     const [bestScore, bestTime] = useAppSelector(gameHistoryBestTimeSelector);
     const currentElapsedTime = useAppSelector(gameElapsedTimeSelector);
@@ -91,15 +92,6 @@ export const HomeScreen = () => {
         ]);
     };
 
-    const selectedOptionColorStyles = { backgroundColor: theme.colors.black, borderColor: theme.colors.black };
-    const unselectedOptionColorStyles = {
-        backgroundColor: theme.colors.candidate.bg,
-        borderColor: theme.colors.candidate.border
-    };
-    const selectedOptionTitleStyles = [styles.optionTitle, { color: theme.colors.label.inverted }];
-    const unselectedOptionTitleStyles = [styles.optionTitle, { color: theme.colors.label.main }];
-    const selectedOptionDescriptionStyles = [styles.optionDescription, { color: theme.colors.label.inverted }];
-    const unselectedOptionDescriptionStyles = [styles.optionDescription, { color: theme.colors.label.hint }];
     const hintTextStyles = [styles.hintText, { color: theme.colors.label.hint }];
     const bestRunCardStyles = styles.bestRun;
     const bestRunValueStyles = [styles.historyValue, { color: theme.colors.label.main }];
@@ -150,12 +142,14 @@ export const HomeScreen = () => {
         { label: t`Time`, value: bestTimeText }
     ];
     const startButtonText = isGameStarted ? t`Start new puzzle` : t`Start puzzle`;
-    const contentInsetBottom = HomeScreenBottomScrollPadding + HomeScreenFloatingTabBarInset;
+    const contentInsetBottom = HomeScreenBottomScrollPadding + tabBarInset;
+    const contentInsetTop = homeScreenGetContentInsetTop(safeAreaInsets.top);
     const mistakeCards: HomeScreenOptionCardInterface[] = mistakeOptions.map(option => {
         const isSelected = option.maxMistakes === maxMistakes;
-        const optionColorStyles = isSelected ? selectedOptionColorStyles : unselectedOptionColorStyles;
-        const titleStyles = isSelected ? selectedOptionTitleStyles : unselectedOptionTitleStyles;
-        const descriptionStyles = isSelected ? selectedOptionDescriptionStyles : unselectedOptionDescriptionStyles;
+        const optionColors = homeScreenOptionCardGetColors(theme, isSelected);
+        const optionColorStyles = { backgroundColor: optionColors.backgroundColor, borderColor: optionColors.borderColor };
+        const titleStyles = [styles.optionTitle, { color: optionColors.titleColor }];
+        const descriptionStyles = [styles.optionDescription, { color: optionColors.descriptionColor }];
 
         return {
             cardStyles: [styles.optionCard, optionColorStyles, styles.mistakeOptionCard],
@@ -173,9 +167,9 @@ export const HomeScreen = () => {
             <ScreenChromeScrollView
                 contentContainerStyle={styles.scrollContent}
                 contentInsetBottom={contentInsetBottom}
-                contentInsetTop={HomeScreenTopContentPadding}
+                contentInsetTop={contentInsetTop}
                 showsVerticalScrollIndicator={false}
-                style={styles.scrollView}
+                style={resolveUnistyleForAnimated(styles.scrollView)}
                 testID={HomeScreenSelectors.Root}
             >
                 <View style={styles.contentStack}>

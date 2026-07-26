@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const PauseScreenBoardPreviewStyles = StyleSheet.create({
+export const PauseScreenBoardPreviewStyles = StyleSheet.create(() => ({
     cell: {
         borderRadius: 2.25,
         height: 7.5,
@@ -16,4 +16,4 @@ export const PauseScreenBoardPreviewStyles = StyleSheet.create({
         flexDirection: 'row',
         gap: 1.75
     }
-});
+}));

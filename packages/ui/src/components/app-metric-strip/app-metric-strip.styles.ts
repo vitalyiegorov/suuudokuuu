@@ -1,18 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const AppMetricStripStyles = StyleSheet.create({
-    item: {
-        alignItems: 'center',
-        gap: 2,
-        width: 62
-    },
-    label: {
-        fontSize: 9,
-        fontWeight: '900',
-        letterSpacing: 0.3,
-        lineHeight: 11,
-        textTransform: 'uppercase'
-    },
+export const AppMetricStripStyles = StyleSheet.create(() => ({
     separator: {
         height: 30,
         marginHorizontal: 3,
@@ -29,12 +17,5 @@ export const AppMetricStripStyles = StyleSheet.create({
         minHeight: 52,
         paddingHorizontal: 10,
         paddingVertical: 6
-    },
-    value: {
-        fontVariant: ['tabular-nums'],
-        fontSize: 18,
-        fontWeight: '900',
-        lineHeight: 20,
-        textAlign: 'center'
     }
-});
+}));

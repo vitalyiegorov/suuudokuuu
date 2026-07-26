@@ -1,11 +1,12 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const PrivacyPolicyScreenStyles = StyleSheet.create({
+import { PageHorizontalPaddingConstant } from '../../../@generic/constants/page-horizontal-padding.constant';
+import { pageColumnScrollViewStyle } from '../../utils/page-column-screen-styles.util';
+
+export const PrivacyPolicyScreenStyles = StyleSheet.create(theme => ({
     content: {
         alignItems: 'center',
-        paddingHorizontal: 20
+        paddingHorizontal: PageHorizontalPaddingConstant
     },
-    scrollView: {
-        width: '100%'
-    }
-});
+    scrollView: pageColumnScrollViewStyle(theme)
+}));

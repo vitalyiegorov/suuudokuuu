@@ -7,8 +7,10 @@ export const GameResultHeroStyles = StyleSheet.create({
         width: '100%'
     },
     descriptorPill: {
+        backgroundColor: 'transparent',
         borderCurve: 'continuous',
         borderRadius: 999,
+        borderWidth: StyleSheet.hairlineWidth,
         maxWidth: '100%',
         paddingHorizontal: 18,
         paddingVertical: 8
@@ -26,14 +28,6 @@ export const GameResultHeroStyles = StyleSheet.create({
         marginTop: 8,
         textAlign: 'center',
         textTransform: 'uppercase'
-    },
-    iconTile: {
-        alignItems: 'center',
-        borderCurve: 'continuous',
-        borderRadius: 26,
-        height: 96,
-        justifyContent: 'center',
-        width: 96
     },
     title: {
         fontSize: 34,

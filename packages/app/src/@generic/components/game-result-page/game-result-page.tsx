@@ -1,11 +1,10 @@
-import { ScreenChromeScrollView } from '@suuudokuuu/screen-chrome';
-import { ReactNode } from 'react';
 import { View } from 'react-native';
 
-import { ChromePage } from '../chrome-page/chrome-page';
+import { ChromeScrollPage } from '../chrome-scroll-page/chrome-scroll-page';
 
-import { GameResultFooterFadeIntensity, GameResultFooterHeight } from './constant/game-result-page.constant';
 import { GameResultPageStyles as styles } from './game-result-page.styles';
+
+import type { ReactNode } from 'react';
 
 interface Props {
     readonly children: ReactNode;
@@ -13,19 +12,8 @@ interface Props {
     readonly testID: string;
 }
 
-export const GameResultPage = ({ children, footer, testID }: Props): ReactNode => {
-    const footerEdgeFadeProps = { height: GameResultFooterHeight, intensity: GameResultFooterFadeIntensity };
-
-    return (
-        <ChromePage contentStyle={styles.chromeContent} footer={footer} footerEdgeFadeProps={footerEdgeFadeProps} testID={testID}>
-            <ScreenChromeScrollView
-                contentContainerStyle={styles.scrollContent}
-                contentInsetBottom={GameResultFooterHeight}
-                showsVerticalScrollIndicator={false}
-                style={styles.scrollView}
-            >
-                <View style={styles.content}>{children}</View>
-            </ScreenChromeScrollView>
-        </ChromePage>
-    );
-};
+export const GameResultPage = ({ children, footer, testID }: Props): ReactNode => (
+    <ChromeScrollPage footer={footer} testID={testID}>
+        <View style={styles.content}>{children}</View>
+    </ChromeScrollPage>
+);

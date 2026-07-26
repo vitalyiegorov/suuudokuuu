@@ -12,7 +12,7 @@ export const GlassIconButton = (props: Props) => {
     const { theme } = use(ThemeContext);
 
     if (!isLiquidGlassAvailable()) {
-        return <BlackIconButton variant="inverted" {...props} />;
+        return <BlackIconButton variant="primary" {...props} />;
     }
 
     return (

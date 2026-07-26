@@ -32,12 +32,12 @@ export const SettingsAppFooter = ({ version }: Props) => {
     const actionStyle = StyleSheet.flatten([
         styles.action,
         {
-            backgroundColor: theme.colors.white05,
+            backgroundColor: theme.colors.surface.subtle,
             borderColor: theme.colors.candidate.border
         }
     ]);
     const supportTextStyles = [styles.supportText, { color: supportLinkColors.textColor }];
-    const actionTextStyles = [styles.actionText, { color: theme.colors.label.main }];
+    const actionTextStyles = [styles.actionText, { color: theme.colors.surface.subtleText }];
     const versionStyles = [styles.version, { color: theme.colors.label.hint }];
 
     return (

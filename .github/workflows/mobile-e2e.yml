@@ -6,25 +6,25 @@ name: Mobile E2E
 # shards claim both macOS slots. Test suites still run in parallel across
 # platforms (iOS shards on macos-maestro, Android on the linux guest).
 on:
-  workflow_call:
-  workflow_dispatch:
-  push:
-    branches: [main]
+    workflow_call:
+    workflow_dispatch:
+    push:
+        branches: [main]
 
 concurrency:
-  group: mobile-e2e-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: ${{ github.event_name == 'push' }}
+    group: mobile-e2e-${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: ${{ github.event_name == 'push' }}
 
 jobs:
-  build:
-    name: Mobile builds
-    uses: ./.github/workflows/mobile-build.yml
-    secrets: inherit
+    build:
+        name: Mobile builds
+        uses: ./.github/workflows/mobile-build.yml
+        secrets: inherit
 
-  ios:
-    needs: [build]
-    uses: ./.github/workflows/ios-maestro.yml
+    ios:
+        needs: [build]
+        uses: ./.github/workflows/ios-maestro.yml
 
-  android:
-    needs: [build]
-    uses: ./.github/workflows/android-maestro.yml
+    android:
+        needs: [build]
+        uses: ./.github/workflows/android-maestro.yml

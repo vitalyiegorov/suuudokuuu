@@ -18,6 +18,10 @@ msgstr ""
 msgid "{0, plural, one {# mistake} other {# mistakes}}"
 msgstr "{0, plural, one {#টি ভুল} other {#টি ভুল}}"
 
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
+msgstr "{arsenalCardCount, plural, one {#টি কৌশল} other {#টি কৌশল}}"
+
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} faster"
 msgstr "{durationText} দ্রুততর"
@@ -202,7 +206,7 @@ msgstr "পাল্টা চ্যালেঞ্জ"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Challenge lost"
-msgstr "চ্যালেঞ্জে হার"
+msgstr "চ্যালেঞ্জ হারা"
 
 #: src/app/challenge-lost.tsx
 msgid "Challenge Lost"
@@ -210,7 +214,7 @@ msgstr "চ্যালেঞ্জ হারা"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Challenge won"
-msgstr "চ্যালেঞ্জে জয়"
+msgstr "চ্যালেঞ্জ জয়"
 
 #: src/app/challenge-won.tsx
 msgid "Challenge Won!"
@@ -330,9 +334,14 @@ msgstr "ডেভেলপমেন্ট বিল্ড"
 msgid "Did not finish the board"
 msgstr "বোর্ড শেষ করেননি"
 
+#: src/game/components/difficulty-complexity-slider/difficulty-complexity-rail/difficulty-complexity-rail.tsx
 #: src/game/components/difficulty-complexity-slider/difficulty-complexity-slider.tsx
 msgid "Difficulty"
 msgstr "কঠিনতা"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Dim a completed digit in the numpad instead of removing it"
+msgstr "নম্বর প্যাডে সম্পূর্ণ সংখ্যা মুছে ফেলার পরিবর্তে ম্লান করে দিন"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Display"
@@ -370,10 +379,6 @@ msgstr "Español"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Evenly matched"
 msgstr "সমানে সমান"
-
-#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
-msgid "every technique"
-msgstr "সব কৌশল"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Expert grid"
@@ -421,10 +426,6 @@ msgid "Game paused"
 msgstr "গেম বিরতিতে"
 
 #: src/app/history/[difficulty]/index.tsx
-msgid "Game Replay"
-msgstr "গেম রিপ্লে"
-
-#: src/history/components/history-segmented-control/history-segmented-control.tsx
 #: src/screens/components/history-games-screen/history-games.screen.tsx
 msgid "Games"
 msgstr "খেলা"
@@ -555,6 +556,10 @@ msgstr "Jellyfish"
 msgid "Keep cell selected"
 msgstr "ঘর নির্বাচিত রাখুন"
 
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Keep completed digits"
+msgstr "সম্পূর্ণ সংখ্যা রাখুন"
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Keep selection after tapping outside the board"
 msgstr "বোর্ডের বাইরে ট্যাপ করলেও নির্বাচন রাখুন"
@@ -575,6 +580,10 @@ msgstr "বড়"
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Larger digits for easier reading"
 msgstr "সহজে পড়ার জন্য বড় সংখ্যা"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Left-handed layout"
+msgstr "বাঁ-হাতি বিন্যাস"
 
 #: src/history/components/replay-header/replay-header.tsx
 msgid "Level"
@@ -634,6 +643,10 @@ msgstr "ভুল"
 #: src/history/components/replay-controls/replay-controls.tsx
 msgid "Move"
 msgstr "চাল"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Move the landscape controls panel to the left of the board"
+msgstr "ল্যান্ডস্কেপ মোডে নিয়ন্ত্রণ প্যানেল বোর্ডের বাঁ পাশে সরান"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Naked Pair"
@@ -705,7 +718,7 @@ msgstr "কোনো সীমা নেই"
 msgid "No matter how many penalties, you always earn at least"
 msgstr "জরিমানা যতই হোক, আপনি অন্তত পাবেন"
 
-#: src/history/components/history-overview-tab/history-overview-tab.tsx
+#: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
 msgstr "এখনও কোনো পরিসংখ্যান নেই"
 
@@ -742,6 +755,14 @@ msgstr "শেয়ার করা সুডোকু খুলবেন?"
 msgid "Open this page in Safari on a physical iPhone or iPad. The device must already be registered in the Ad Hoc provisioning profile."
 msgstr "বাস্তব iPhone বা iPad-এ Safari দিয়ে এই পৃষ্ঠাটি খুলুন। ডিভাইসটি আগে থেকেই Ad Hoc প্রভিশনিং প্রোফাইলে নিবন্ধিত থাকতে হবে।"
 
+#: src/settings/component/settings-option-link/settings-option-link.tsx
+msgid "Opens a picker to change this setting"
+msgstr "এই সেটিং পরিবর্তন করতে একটি তালিকা খোলে"
+
+#: src/history/components/history-difficulty/history-difficulty.tsx
+msgid "Opens the completed games for this difficulty"
+msgstr "এই স্তরের সম্পন্ন গেমগুলি খোলে"
+
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Opens the registered-device installation prompt"
 msgstr "নিবন্ধিত ডিভাইসের ইনস্টলেশন প্রম্পট খোলে"
@@ -754,10 +775,6 @@ msgstr "GitHub-এ এই কমিটটি খোলে"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Out of mistakes"
 msgstr "ভুলের সীমা শেষ"
-
-#: src/history/components/history-segmented-control/history-segmented-control.tsx
-msgid "Overview"
-msgstr "সারাংশ"
 
 #: src/screens/components/pause-screen/pause-screen-header/pause-screen-header.tsx
 msgid "Paused"
@@ -779,14 +796,15 @@ msgstr "প্রতি ভুলে"
 msgid "per second"
 msgstr "প্রতি সেকেন্ডে"
 
-#: src/@generic/components/main-tab-layout/main-tab-layout.tsx
-#: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
+#: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
+#: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/index.tsx
 msgid "Play"
 msgstr "খেলুন"
 
 #: src/@generic/components/play-again-button/play-again-button.tsx
 #: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
+#: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Play again"
 msgstr "আবার খেলুন"
 
@@ -865,23 +883,23 @@ msgstr "ডেভেলপমেন্ট বিল্ড আবার লোড
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "Rival"
-msgstr "প্রতিদ্বন্দ্বী"
+msgstr "প্রতিপক্ষ"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Rival challenged you"
-msgstr "প্রতিদ্বন্দ্বী আপনাকে চ্যালেঞ্জ করেছে"
+msgstr "প্রতিপক্ষ আপনাকে চ্যালেঞ্জ করেছে"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Rival's arsenal"
-msgstr "প্রতিদ্বন্দ্বীর অস্ত্রভাণ্ডার"
+msgstr "প্রতিপক্ষের অস্ত্রভাণ্ডার"
 
 #: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
 msgid "Rival's playbook"
-msgstr "প্রতিদ্বন্দ্বীর কৌশলপত্র"
+msgstr "প্রতিপক্ষের কৌশলপত্র"
 
 #: src/challenge/components/challenge-result-rival-time-card/challenge-result-rival-time-card.tsx
 msgid "Rival's time to beat"
-msgstr "প্রতিদ্বন্দ্বীর হারাতে হবে এমন সময়"
+msgstr "প্রতিপক্ষের হারাতে হবে এমন সময়"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Row"
@@ -911,8 +929,8 @@ msgstr "স্কোর × সহগ × সংখ্যা"
 msgid "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 msgstr "প্রতিটি সঠিকভাবে পূরণ করা ঘরের স্কোর কঠিনতা, বোনাস ও জরিমানার ভিত্তিতে হিসাব করা হয়।"
 
-#: src/@generic/components/main-tab-layout/main-tab-layout.tsx
-#: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
+#: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
+#: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/component/settings-page-content/settings-page-content.tsx
 msgid "Settings"
@@ -997,10 +1015,9 @@ msgstr "ধাঁধা শুরু করুন"
 msgid "Statistics"
 msgstr "পরিসংখ্যান"
 
-#: src/@generic/components/main-tab-layout/main-tab-layout.tsx
-#: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
+#: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
+#: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/history.tsx
-#: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Stats"
 msgstr "পরিসংখ্যান"
 
@@ -1072,6 +1089,10 @@ msgstr "তাদের হারাতে হবে এমন সময়"
 msgid "Theme"
 msgstr "থিম"
 
+#: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
+msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
+msgstr "এই বোর্ডটি এবার শেষ হয়নি। ইউক্রেনে স্বাধীনতার লড়াই চলছে। প্রতিটি $1 অনুদান গুরুত্বপূর্ণ।"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "This value is multiplied by the difficulty coefficient:"
 msgstr "এই মানটি কঠিনতার সহগ দিয়ে গুণ করা হয়:"
@@ -1104,7 +1125,7 @@ msgstr "টাইমার"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Tiny"
-msgstr "খুব ছোট"
+msgstr "ক্ষুদ্র"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Tips for High Scores"
@@ -1223,6 +1244,7 @@ msgstr "আপনি দূরে থাকলেও স্বাধীনতা
 msgid "Wider gaps for easier tapping"
 msgstr "সহজে ট্যাপ করার জন্য বেশি ফাঁক"
 
+#: src/history/components/history-difficulty/history-difficulty.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Win rate"
 msgstr "জয়ের হার"
@@ -1269,7 +1291,11 @@ msgstr "আপনি"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "You beat your rival"
-msgstr "আপনি আপনার প্রতিদ্বন্দ্বীকে হারিয়েছেন"
+msgstr "আপনি আপনার প্রতিপক্ষকে হারিয়েছেন"
+
+#: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
+msgid "You finished your puzzle. The fight for freedom in Ukraine continues. Every $1 makes a difference."
+msgstr "আপনি আপনার সুদোকু শেষ করেছেন। ইউক্রেনে স্বাধীনতার লড়াই চলছে। প্রতিটি $1 অনুদান গুরুত্বপূর্ণ।"
 
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "You got to"
@@ -1293,15 +1319,11 @@ msgstr "আপনার অগ্রগতি"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Your rival was faster"
-msgstr "আপনার প্রতিদ্বন্দ্বী দ্রুততর ছিল"
+msgstr "আপনার প্রতিপক্ষ দ্রুততর ছিল"
 
-#: src/history/components/history-overview-tab/history-overview-tab.tsx
+#: src/history/components/history-overview/history-overview.tsx
 msgid "Your stats will build as you finish puzzles."
 msgstr "আপনি সুদোকু শেষ করলে আপনার পরিসংখ্যান বাড়বে।"
-
-#: src/history/components/history-totals-card/history-totals-card.tsx
-msgid "Your sudoku journey"
-msgstr "আপনার সুডোকু যাত্রা"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Zero mistakes"

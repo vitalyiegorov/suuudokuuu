@@ -1,3 +1,4 @@
+import { ContentWidthConstant } from '@suuudokuuu/ui';
 import { StyleSheet } from 'react-native';
 
 export const StickyFooterBandStyles = StyleSheet.create({
@@ -9,6 +10,9 @@ export const StickyFooterBandStyles = StyleSheet.create({
         zIndex: 3
     },
     content: {
+        alignSelf: 'center',
+        maxWidth: ContentWidthConstant.standard,
+        width: '100%',
         zIndex: 3
     }
 });

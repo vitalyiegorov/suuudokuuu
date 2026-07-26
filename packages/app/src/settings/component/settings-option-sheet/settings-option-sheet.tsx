@@ -4,6 +4,7 @@ import { View } from 'react-native';
 
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { settingsOptionSheetGetColors } from '../../utils/settings-option-sheet-get-colors.util';
 import { SettingsOptionSheetItem } from '../settings-option-sheet-item/settings-option-sheet-item';
 
 import { SettingsOptionSheetSelectors } from './settings-option-sheet.selectors';
@@ -20,14 +21,15 @@ interface Props {
 export const SettingsOptionSheet = ({ description, items, title }: Props) => {
     const { theme } = use(ThemeContext);
 
-    const containerStyles = [styles.container, { backgroundColor: theme.colors.candidate.bg }];
+    const sheetColors = settingsOptionSheetGetColors(theme);
+    const containerStyles = [styles.container, { backgroundColor: sheetColors.panelBackground }];
     const groupStyles = [
         styles.group,
         {
-            backgroundColor: theme.colors.candidate.bg
+            backgroundColor: sheetColors.panelBackground
         }
     ];
-    const descriptionStyles = [styles.description, { color: theme.colors.label.hint }];
+    const descriptionStyles = [styles.description, { color: sheetColors.descriptionColor }];
 
     return (
         <View style={containerStyles} testID={SettingsOptionSheetSelectors.Root}>

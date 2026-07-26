@@ -4,9 +4,7 @@ import { useAppDispatch } from '../../../../@generic/hooks/use-app-dispatch.hook
 import { gamePauseAction } from '../../../../game/store/game.actions';
 import { gameScreenOpenSettings } from '../utils/game-screen-open-settings.util';
 
-import type { OnEventFn } from '@rnw-community/shared';
-
-export const useOpenGameSettings = (): OnEventFn => {
+export const useOpenGameSettings = (): (() => void) => {
     const dispatch = useAppDispatch();
     const router = useRouter();
 

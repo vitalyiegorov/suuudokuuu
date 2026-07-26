@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const CompletedGameItemStyles = StyleSheet.create({
+export const CompletedGameItemStyles = StyleSheet.create(theme => ({
     container: {
         borderRadius: 22,
         borderWidth: StyleSheet.hairlineWidth,
@@ -16,7 +16,7 @@ export const CompletedGameItemStyles = StyleSheet.create({
         textAlign: 'left'
     },
     eyebrow: {
-        fontSize: 12,
+        fontSize: theme.typography.size.xs,
         fontWeight: '700',
         lineHeight: 16,
         textAlign: 'left'
@@ -24,17 +24,17 @@ export const CompletedGameItemStyles = StyleSheet.create({
     header: {
         alignItems: 'center',
         flexDirection: 'row',
-        gap: 12,
+        gap: theme.spacing.md,
         justifyContent: 'space-between',
         width: '100%'
     },
     metrics: {
         flexDirection: 'row',
-        gap: 8,
+        gap: theme.spacing.sm,
         width: '100%'
     },
     replayButton: {
-        borderRadius: 999,
+        borderRadius: theme.radius.pill,
         flexDirection: 'row',
         gap: 6,
         minHeight: 42,
@@ -42,7 +42,7 @@ export const CompletedGameItemStyles = StyleSheet.create({
         paddingVertical: 9
     },
     replayText: {
-        fontSize: 14,
+        fontSize: theme.typography.size.sm,
         fontWeight: '800',
         lineHeight: 18
     },
@@ -50,4 +50,4 @@ export const CompletedGameItemStyles = StyleSheet.create({
         flex: 1,
         gap: 2
     }
-});
+}));

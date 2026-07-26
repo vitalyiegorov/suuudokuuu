@@ -1,17 +1,7 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const WinnerScreenActionsStyles = StyleSheet.create({
-    playAgainButton: {
-        maxWidth: '100%',
+export const WinnerScreenActionsStyles = StyleSheet.create(() => ({
+    button: {
         width: '100%'
-    },
-    secondaryActions: {
-        flexDirection: 'row',
-        gap: 10,
-        width: '100%'
-    },
-    secondaryButton: {
-        flex: 1,
-        maxWidth: '100%'
     }
-});
+}));

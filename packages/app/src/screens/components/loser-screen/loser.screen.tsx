@@ -30,6 +30,7 @@ export const LoserScreen = () => {
             <LoserScreenResultHero detailsText={detailsText} progressPercent={progress.percent} />
 
             <CompletedGameResultDetails
+                resultContext="loser"
                 mistakes={mistakes}
                 mistakesTestID={LoserScreenSelectors.MistakesValue}
                 timeTestID={LoserScreenSelectors.TimeValue}

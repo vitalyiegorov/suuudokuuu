@@ -1,20 +1,20 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const ReplayTopBarStyles = StyleSheet.create({
+export const ReplayTopBarStyles = StyleSheet.create(theme => ({
     container: {
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingVertical: 4,
+        paddingVertical: theme.spacing.xs,
         width: '100%'
     },
     titleRow: {
         alignItems: 'center',
         flexDirection: 'row',
-        gap: 12
+        gap: theme.spacing.md
     },
     accent: {
-        borderRadius: 999,
+        borderRadius: theme.radius.pill,
         height: 30,
         width: 10
     },
@@ -27,4 +27,4 @@ export const ReplayTopBarStyles = StyleSheet.create({
         height: 52,
         width: 52
     }
-});
+}));

@@ -10,7 +10,7 @@ describe('appButtonGetColors', () => {
         const donationColors = appButtonGetColors(DefaultUiTheme, 'donation');
 
         expect(primaryColors.backgroundColor).toBe(DefaultUiTheme.colors.black);
-        expect(donationColors.backgroundColor).toBe(DefaultUiTheme.colors.white);
+        expect(donationColors.backgroundColor).toBe(DefaultUiTheme.colors.surface.raised);
         expect(primaryColors.backgroundColor).not.toBe(DefaultUiTheme.colors.value.progressActive);
         expect(donationColors.backgroundColor).not.toBe(DefaultUiTheme.colors.value.progressActive);
     });
@@ -18,9 +18,9 @@ describe('appButtonGetColors', () => {
     it('uses calm themed surfaces for secondary actions', () => {
         const secondaryColors = appButtonGetColors(DefaultUiTheme, 'secondary');
 
-        expect(secondaryColors.backgroundColor).toBe(DefaultUiTheme.colors.cell.highlighted);
+        expect(secondaryColors.backgroundColor).toBe(DefaultUiTheme.colors.surface.subtle);
         expect(secondaryColors.borderColor).toBe(DefaultUiTheme.colors.value.border);
-        expect(secondaryColors.textColor).toBe(DefaultUiTheme.colors.label.main);
+        expect(secondaryColors.textColor).toBe(DefaultUiTheme.colors.surface.subtleText);
     });
 
     it('uses destructive text without filling danger actions', () => {
@@ -34,9 +34,9 @@ describe('appButtonGetColors', () => {
     it('keeps inverted actions on readable light surfaces', () => {
         const invertedColors = appButtonGetColors(DefaultUiTheme, 'inverted');
 
-        expect(invertedColors.backgroundColor).toBe(DefaultUiTheme.colors.white);
+        expect(invertedColors.backgroundColor).toBe(DefaultUiTheme.colors.surface.raised);
         expect(invertedColors.borderColor).toBe(DefaultUiTheme.colors.value.border);
-        expect(invertedColors.textColor).toBe(DefaultUiTheme.colors.label.main);
+        expect(invertedColors.textColor).toBe(DefaultUiTheme.colors.surface.raisedText);
     });
 
     it('keeps glass actions fully transparent for native glass surfaces', () => {

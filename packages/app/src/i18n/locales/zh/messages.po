@@ -18,6 +18,10 @@ msgstr ""
 msgid "{0, plural, one {# mistake} other {# mistakes}}"
 msgstr "{0, plural, one {# 个错误} other {# 个错误}}"
 
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
+msgstr "{arsenalCardCount, plural, one {# 个技巧} other {# 个技巧}}"
+
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} faster"
 msgstr "快 {durationText}"
@@ -330,9 +334,14 @@ msgstr "开发版本"
 msgid "Did not finish the board"
 msgstr "未完成棋盘"
 
+#: src/game/components/difficulty-complexity-slider/difficulty-complexity-rail/difficulty-complexity-rail.tsx
 #: src/game/components/difficulty-complexity-slider/difficulty-complexity-slider.tsx
 msgid "Difficulty"
 msgstr "难度"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Dim a completed digit in the numpad instead of removing it"
+msgstr "让数字键盘中已完成的数字变暗，而不是移除它"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Display"
@@ -370,10 +379,6 @@ msgstr "Español"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Evenly matched"
 msgstr "势均力敌"
-
-#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
-msgid "every technique"
-msgstr "所有技巧"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Expert grid"
@@ -421,10 +426,6 @@ msgid "Game paused"
 msgstr "游戏已暂停"
 
 #: src/app/history/[difficulty]/index.tsx
-msgid "Game Replay"
-msgstr "对局回放"
-
-#: src/history/components/history-segmented-control/history-segmented-control.tsx
 #: src/screens/components/history-games-screen/history-games.screen.tsx
 msgid "Games"
 msgstr "对局"
@@ -555,6 +556,10 @@ msgstr "Jellyfish"
 msgid "Keep cell selected"
 msgstr "保持单元格选中"
 
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Keep completed digits"
+msgstr "保留已完成数字"
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Keep selection after tapping outside the board"
 msgstr "点按棋盘外后仍保持选择"
@@ -575,6 +580,10 @@ msgstr "大"
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Larger digits for easier reading"
 msgstr "更大的数字，更易阅读"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Left-handed layout"
+msgstr "左手布局"
 
 #: src/history/components/replay-header/replay-header.tsx
 msgid "Level"
@@ -634,6 +643,10 @@ msgstr "错误"
 #: src/history/components/replay-controls/replay-controls.tsx
 msgid "Move"
 msgstr "步"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Move the landscape controls panel to the left of the board"
+msgstr "横屏时将控制面板移到棋盘左侧"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Naked Pair"
@@ -705,7 +718,7 @@ msgstr "无限制"
 msgid "No matter how many penalties, you always earn at least"
 msgstr "无论有多少惩罚，你至少都会获得"
 
-#: src/history/components/history-overview-tab/history-overview-tab.tsx
+#: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
 msgstr "还没有统计"
 
@@ -742,6 +755,14 @@ msgstr "打开分享的数独？"
 msgid "Open this page in Safari on a physical iPhone or iPad. The device must already be registered in the Ad Hoc provisioning profile."
 msgstr "请在实体 iPhone 或 iPad 上使用 Safari 打开此页面。该设备必须已注册到 Ad Hoc 配置描述文件中。"
 
+#: src/settings/component/settings-option-link/settings-option-link.tsx
+msgid "Opens a picker to change this setting"
+msgstr "打开选择器以更改此设置"
+
+#: src/history/components/history-difficulty/history-difficulty.tsx
+msgid "Opens the completed games for this difficulty"
+msgstr "打开该难度已完成的对局"
+
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Opens the registered-device installation prompt"
 msgstr "打开已注册设备的安装提示"
@@ -754,10 +775,6 @@ msgstr "在 GitHub 上打开此提交"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Out of mistakes"
 msgstr "错误次数已用完"
-
-#: src/history/components/history-segmented-control/history-segmented-control.tsx
-msgid "Overview"
-msgstr "概览"
 
 #: src/screens/components/pause-screen/pause-screen-header/pause-screen-header.tsx
 msgid "Paused"
@@ -779,14 +796,15 @@ msgstr "每个错误"
 msgid "per second"
 msgstr "每秒"
 
-#: src/@generic/components/main-tab-layout/main-tab-layout.tsx
-#: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
+#: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
+#: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/index.tsx
 msgid "Play"
 msgstr "开始"
 
 #: src/@generic/components/play-again-button/play-again-button.tsx
 #: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
+#: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Play again"
 msgstr "再玩一次"
 
@@ -911,8 +929,8 @@ msgstr "分数 × 系数 × 数量"
 msgid "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 msgstr "每个正确填入的格子都会根据难度、奖励和惩罚计算分数。"
 
-#: src/@generic/components/main-tab-layout/main-tab-layout.tsx
-#: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
+#: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
+#: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/component/settings-page-content/settings-page-content.tsx
 msgid "Settings"
@@ -997,10 +1015,9 @@ msgstr "开始谜题"
 msgid "Statistics"
 msgstr "统计"
 
-#: src/@generic/components/main-tab-layout/main-tab-layout.tsx
-#: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
+#: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
+#: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/history.tsx
-#: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Stats"
 msgstr "统计"
 
@@ -1071,6 +1088,10 @@ msgstr "需要超越的时间"
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Theme"
 msgstr "主题"
+
+#: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
+msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
+msgstr "这次未能完成棋盘。乌克兰争取自由的战斗仍在继续。每 1 美元捐款都有意义。"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "This value is multiplied by the difficulty coefficient:"
@@ -1223,6 +1244,7 @@ msgstr "当你离开时，争取自由的战斗仍在继续。每 1 美元捐款
 msgid "Wider gaps for easier tapping"
 msgstr "更宽的间距，便于点击"
 
+#: src/history/components/history-difficulty/history-difficulty.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Win rate"
 msgstr "胜率"
@@ -1271,6 +1293,10 @@ msgstr "你"
 msgid "You beat your rival"
 msgstr "你击败了对手"
 
+#: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
+msgid "You finished your puzzle. The fight for freedom in Ukraine continues. Every $1 makes a difference."
+msgstr "你完成了这局数独。乌克兰争取自由的战斗仍在继续。每 1 美元捐款都有意义。"
+
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "You got to"
 msgstr "你完成了"
@@ -1295,13 +1321,9 @@ msgstr "你的进度"
 msgid "Your rival was faster"
 msgstr "对手比你快"
 
-#: src/history/components/history-overview-tab/history-overview-tab.tsx
+#: src/history/components/history-overview/history-overview.tsx
 msgid "Your stats will build as you finish puzzles."
 msgstr "完成数独后，统计数据会在这里累积。"
-
-#: src/history/components/history-totals-card/history-totals-card.tsx
-msgid "Your sudoku journey"
-msgstr "你的数独旅程"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Zero mistakes"

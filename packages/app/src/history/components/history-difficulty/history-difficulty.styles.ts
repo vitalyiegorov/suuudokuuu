@@ -1,82 +1,49 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const HistoryDifficultyStyles = StyleSheet.create({
-    badge: {
-        alignItems: 'center',
-        borderRadius: 999,
-        justifyContent: 'center',
-        minWidth: 64,
-        paddingHorizontal: 14,
-        paddingVertical: 10
-    },
-    badgeText: {
-        fontSize: 18,
-        fontVariant: ['tabular-nums'],
-        fontWeight: '800',
-        lineHeight: 22,
-        textAlign: 'center'
-    },
-    chip: {
-        borderRadius: 18,
-        borderWidth: StyleSheet.hairlineWidth,
-        gap: 2,
-        minWidth: 102,
-        paddingHorizontal: 14,
-        paddingVertical: 11
-    },
-    chipLabel: {
-        fontSize: 11,
-        fontWeight: '700',
-        lineHeight: 15,
-        textAlign: 'left'
-    },
-    chipRow: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        gap: 10,
-        width: '100%'
-    },
-    chipValue: {
-        fontSize: 16,
-        fontVariant: ['tabular-nums'],
-        fontWeight: '800',
-        lineHeight: 20,
-        textAlign: 'left'
-    },
+export const HistoryDifficultyStyles = StyleSheet.create(theme => ({
     container: {
-        borderRadius: 30,
+        borderRadius: 24,
         borderWidth: StyleSheet.hairlineWidth,
-        gap: 17,
-        paddingHorizontal: 18,
-        paddingVertical: 19,
-        width: '100%'
+        gap: 14,
+        paddingHorizontal: 16,
+        paddingVertical: 16,
+        width: '100%',
+        _web: {
+            cursor: 'pointer',
+            _hover: { opacity: 0.85 }
+        }
     },
     header: {
         alignItems: 'center',
         flexDirection: 'row',
-        gap: 12,
+        gap: theme.spacing.sm,
         justifyContent: 'space-between',
         width: '100%'
     },
-    metricRow: {
-        flexDirection: 'row',
-        gap: 10,
+    separator: {
+        height: 26,
+        marginHorizontal: 0
+    },
+    strip: {
+        paddingHorizontal: 0,
+        paddingVertical: 0,
         width: '100%'
     },
     subtitle: {
-        fontSize: 15,
-        fontWeight: '700',
-        lineHeight: 20,
+        fontSize: 13,
+        fontWeight: '600',
+        lineHeight: 17,
         textAlign: 'left'
     },
     title: {
-        fontSize: 34,
+        fontSize: 22,
         fontWeight: '800',
-        lineHeight: 39,
+        letterSpacing: -0.5,
+        lineHeight: 26,
         textAlign: 'left'
     },
     titleGroup: {
         flex: 1,
         gap: 2
     }
-});
+}));

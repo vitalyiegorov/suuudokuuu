@@ -31,6 +31,7 @@ export const WinnerScreen = () => {
             <WinnerResultHero descriptorText={descriptorText} isPersonalBest={hasNewPersonalBestScore} scoreText={scoreText} />
 
             <CompletedGameResultDetails
+                resultContext="winner"
                 mistakes={mistakes}
                 mistakesTestID={WinnerScreenSelectors.MistakesValue}
                 timeTestID={WinnerScreenSelectors.TimeValue}

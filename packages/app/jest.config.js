@@ -16,6 +16,11 @@ module.exports = {
         '^@suuudokuuu/encoder$': '<rootDir>/../encoder/src/index.ts',
         '^@suuudokuuu/generator$': '<rootDir>/../generator/src/index.ts',
         '^@suuudokuuu/solver$': '<rootDir>/../solver/src/index.ts',
+        '^@suuudokuuu/ui/theme$': '<rootDir>/../ui/src/theme/index.ts',
+        '^@suuudokuuu/ui/app-button-get-colors$': '<rootDir>/../ui/src/components/app-button/utils/app-button-get-colors.util.ts',
+        '^@suuudokuuu/ui/app-metric-strip-get-colors$':
+            '<rootDir>/../ui/src/components/app-metric-strip/utils/app-metric-strip-get-colors.util.ts',
+        '^@suuudokuuu/ui/app-toggle-get-colors$': '<rootDir>/../ui/src/components/app-toggle/utils/app-toggle-get-colors.util.ts',
         '^react-native($|/.*)': `${reactNativeRoot}/$1`
     },
     testRegex: './(?:src|vercel-functions)/.*\\.spec\\.(tsx?)$',
@@ -29,7 +34,12 @@ module.exports = {
         }
     },
     globals: { __DEV__: true },
-    setupFiles: ['@react-native/jest-preset/jest/setup.js', '<rootDir>/jest.setup.ts'],
+    setupFiles: [
+        '@react-native/jest-preset/jest/setup.js',
+        'react-native-unistyles/mocks',
+        '<rootDir>/src/theme/unistyles.config.ts',
+        '<rootDir>/jest.setup.ts'
+    ],
     transform: {
         '^.+\\.(js|jsx|ts|tsx|mjs)$': 'babel-jest',
         '^.+\\.(bmp|gif|jpg|jpeg|mp4|png|psd|svg|webp)$': require.resolve('@react-native/jest-preset/jest/assetFileTransformer.js')

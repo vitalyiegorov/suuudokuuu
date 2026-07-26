@@ -1,62 +1,17 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-import {
-    CellCandidateHorizontalOffsetConstant,
-    CellCandidateVerticalOffsetConstant,
-    CellSizeConstant
-} from '../constants/dimensions.contant';
-
-export const FieldCellCandidateStyles = StyleSheet.create({
-    textCandidate: {
-        paddingHorizontal: CellCandidateHorizontalOffsetConstant,
+export const FieldCellCandidateStyles = StyleSheet.create(() => ({
+    textCandidate: (cellSize: number) => ({
+        paddingHorizontal: cellSize * 0.05,
         position: 'absolute'
-    },
-    textCandidatePosition1: {
-        left: CellCandidateHorizontalOffsetConstant,
-        top: CellCandidateVerticalOffsetConstant
-    },
-    textCandidatePosition2: {
-        left: CellCandidateHorizontalOffsetConstant / 2 + CellSizeConstant / 3,
-        top: CellCandidateVerticalOffsetConstant
-    },
-    textCandidatePosition3: {
-        right: CellCandidateHorizontalOffsetConstant,
-        top: CellCandidateVerticalOffsetConstant
-    },
-    textCandidatePosition4: {
-        left: CellCandidateHorizontalOffsetConstant,
-        top: CellSizeConstant / 3
-    },
-    textCandidatePosition5: {
-        left: CellCandidateHorizontalOffsetConstant / 2 + CellSizeConstant / 3,
-        top: CellSizeConstant / 3
-    },
-    textCandidatePosition6: {
-        right: CellCandidateHorizontalOffsetConstant,
-        top: CellSizeConstant / 3
-    },
-    textCandidatePosition7: {
-        bottom: CellCandidateVerticalOffsetConstant,
-        left: CellCandidateHorizontalOffsetConstant
-    },
-    textCandidatePosition8: {
-        bottom: CellCandidateVerticalOffsetConstant,
-        left: CellCandidateHorizontalOffsetConstant / 2 + CellSizeConstant / 3
-    },
-    textCandidatePosition9: {
-        bottom: CellCandidateVerticalOffsetConstant,
-        right: CellCandidateHorizontalOffsetConstant
-    }
-});
-
-export const textCandidatePositionStyles = {
-    1: FieldCellCandidateStyles.textCandidatePosition1,
-    2: FieldCellCandidateStyles.textCandidatePosition2,
-    3: FieldCellCandidateStyles.textCandidatePosition3,
-    4: FieldCellCandidateStyles.textCandidatePosition4,
-    5: FieldCellCandidateStyles.textCandidatePosition5,
-    6: FieldCellCandidateStyles.textCandidatePosition6,
-    7: FieldCellCandidateStyles.textCandidatePosition7,
-    8: FieldCellCandidateStyles.textCandidatePosition8,
-    9: FieldCellCandidateStyles.textCandidatePosition9
-};
+    }),
+    textCandidatePosition1: (cellSize: number) => ({ left: cellSize * 0.05, top: cellSize * 0.05 }),
+    textCandidatePosition2: (cellSize: number) => ({ left: (cellSize * 0.05) / 2 + cellSize / 3, top: cellSize * 0.05 }),
+    textCandidatePosition3: (cellSize: number) => ({ right: cellSize * 0.05, top: cellSize * 0.05 }),
+    textCandidatePosition4: (cellSize: number) => ({ left: cellSize * 0.05, top: cellSize / 3 }),
+    textCandidatePosition5: (cellSize: number) => ({ left: (cellSize * 0.05) / 2 + cellSize / 3, top: cellSize / 3 }),
+    textCandidatePosition6: (cellSize: number) => ({ right: cellSize * 0.05, top: cellSize / 3 }),
+    textCandidatePosition7: (cellSize: number) => ({ bottom: cellSize * 0.05, left: cellSize * 0.05 }),
+    textCandidatePosition8: (cellSize: number) => ({ bottom: cellSize * 0.05, left: (cellSize * 0.05) / 2 + cellSize / 3 }),
+    textCandidatePosition9: (cellSize: number) => ({ bottom: cellSize * 0.05, right: cellSize * 0.05 })
+}));

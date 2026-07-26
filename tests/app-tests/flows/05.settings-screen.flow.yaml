@@ -1,15 +1,15 @@
 appId: ${APP_ID}
 ---
 - startRecording:
-    path: '05.settings-screen'
-    optional: true
+      path: '05.settings-screen'
+      optional: true
 
 - runFlow: subflows/navigation/launch-home.flow.yaml
 - tapOn: 'Settings'
 - extendedWaitUntil:
-    visible:
-      id: 'SettingsScreenSelectors.Root'
-    timeout: 3000
+      visible:
+          id: 'SettingsScreenSelectors.Root'
+      timeout: 3000
 - assertVisible: 'Game'
 - assertVisible: 'Language.*'
 - assertVisible: 'Number size.*'
@@ -17,51 +17,51 @@ appId: ${APP_ID}
 # Scroll-tolerant: the Android viewport shows fewer rows than the iPhone,
 # so below-the-fold entries need a scroll (no-op when already visible).
 - scrollUntilVisible:
-    element:
-      text: 'Display'
-    direction: DOWN
+      element:
+          text: 'Display'
+      direction: DOWN
 - scrollUntilVisible:
-    element:
-      text: 'Dark mode'
-    direction: DOWN
+      element:
+          text: 'Dark mode'
+      direction: DOWN
 - tapOn:
-    id: 'SettingsScreenSelectors.CellSpacingOption'
+      id: 'SettingsScreenSelectors.CellSpacingOption'
 # Dismiss the option sheet deterministically by re-selecting the current
 # value (closes on both platforms; a blind swipe races the animation), then
 # scroll to the footer instead of counting swipes — viewports differ.
 - extendedWaitUntil:
-    visible:
-      id: 'SettingsOptionSheetSelectors.Root'
-    timeout: 3000
+      visible:
+          id: 'SettingsOptionSheetSelectors.Root'
+      timeout: 3000
 - tapOn:
-    text: 'Spacious.*'
+      text: 'Spacious.*'
 - extendedWaitUntil:
-    notVisible:
-      id: 'SettingsOptionSheetSelectors.Root'
-    timeout: 3000
+      notVisible:
+          id: 'SettingsOptionSheetSelectors.Root'
+      timeout: 3000
 - scrollUntilVisible:
-    element:
+      element:
+          id: 'SettingsAppFooterSelectors.PrivacyPolicyLink'
+      direction: DOWN
+- assertVisible:
+      id: 'SettingsAppFooterSelectors.ReportBugLink'
+- assertVisible:
       id: 'SettingsAppFooterSelectors.PrivacyPolicyLink'
-    direction: DOWN
-- assertVisible:
-    id: 'SettingsAppFooterSelectors.ReportBugLink'
-- assertVisible:
-    id: 'SettingsAppFooterSelectors.PrivacyPolicyLink'
 - tapOn:
-    id: 'SettingsAppFooterSelectors.PrivacyPolicyLink'
+      id: 'SettingsAppFooterSelectors.PrivacyPolicyLink'
 - extendedWaitUntil:
-    visible: 'Privacy policy'
-    timeout: 3000
+      visible: 'Privacy policy'
+      timeout: 3000
 - tapOn:
-    id: 'HeaderBackButtonSelectors.Root'
+      id: 'HeaderBackButtonSelectors.Root'
 - extendedWaitUntil:
-    visible:
-      id: 'SettingsScreenSelectors.Root'
-    timeout: 3000
+      visible:
+          id: 'SettingsScreenSelectors.Root'
+      timeout: 3000
 - tapOn:
-    id: 'HeaderBackButtonSelectors.Root'
+      id: 'HeaderBackButtonSelectors.Root'
 - extendedWaitUntil:
-    visible:
-      id: 'HomeScreenSelectors.Root'
-    timeout: 3000
+      visible:
+          id: 'HomeScreenSelectors.Root'
+      timeout: 3000
 - stopApp

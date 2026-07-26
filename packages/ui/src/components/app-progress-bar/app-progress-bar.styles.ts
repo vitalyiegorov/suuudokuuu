@@ -1,11 +1,11 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const AppProgressBarStyles = StyleSheet.create({
+export const AppProgressBarStyles = StyleSheet.create(theme => ({
     compact: {
         height: 6
     },
     fill: {
-        borderRadius: 999,
+        borderRadius: theme.radius.pill,
         height: '100%'
     },
     regular: {
@@ -15,9 +15,9 @@ export const AppProgressBarStyles = StyleSheet.create({
         height: '100%'
     },
     track: {
-        borderRadius: 999,
+        borderRadius: theme.radius.pill,
         flexDirection: 'row',
         overflow: 'hidden',
         width: '100%'
     }
-});
+}));

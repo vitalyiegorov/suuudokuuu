@@ -20,6 +20,10 @@ msgstr ""
 msgid "{0, plural, one {# mistake} other {# mistakes}}"
 msgstr "{0, plural, one {# mistake} other {# mistakes}}"
 
+#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+msgid "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
+msgstr "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
+
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} faster"
 msgstr "{durationText} faster"
@@ -332,9 +336,14 @@ msgstr "Development builds"
 msgid "Did not finish the board"
 msgstr "Did not finish the board"
 
+#: src/game/components/difficulty-complexity-slider/difficulty-complexity-rail/difficulty-complexity-rail.tsx
 #: src/game/components/difficulty-complexity-slider/difficulty-complexity-slider.tsx
 msgid "Difficulty"
 msgstr "Difficulty"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Dim a completed digit in the numpad instead of removing it"
+msgstr "Dim a completed digit in the numpad instead of removing it"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Display"
@@ -372,10 +381,6 @@ msgstr "Español"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Evenly matched"
 msgstr "Evenly matched"
-
-#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
-msgid "every technique"
-msgstr "every technique"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Expert grid"
@@ -423,10 +428,6 @@ msgid "Game paused"
 msgstr "Game paused"
 
 #: src/app/history/[difficulty]/index.tsx
-msgid "Game Replay"
-msgstr "Game Replay"
-
-#: src/history/components/history-segmented-control/history-segmented-control.tsx
 #: src/screens/components/history-games-screen/history-games.screen.tsx
 msgid "Games"
 msgstr "Games"
@@ -557,6 +558,10 @@ msgstr "Jellyfish"
 msgid "Keep cell selected"
 msgstr "Keep cell selected"
 
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Keep completed digits"
+msgstr "Keep completed digits"
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Keep selection after tapping outside the board"
 msgstr "Keep selection after tapping outside the board"
@@ -577,6 +582,10 @@ msgstr "Large"
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Larger digits for easier reading"
 msgstr "Larger digits for easier reading"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Left-handed layout"
+msgstr "Left-handed layout"
 
 #: src/history/components/replay-header/replay-header.tsx
 msgid "Level"
@@ -636,6 +645,10 @@ msgstr "Mistakes"
 #: src/history/components/replay-controls/replay-controls.tsx
 msgid "Move"
 msgstr "Move"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Move the landscape controls panel to the left of the board"
+msgstr "Move the landscape controls panel to the left of the board"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Naked Pair"
@@ -707,7 +720,7 @@ msgstr "No limit"
 msgid "No matter how many penalties, you always earn at least"
 msgstr "No matter how many penalties, you always earn at least"
 
-#: src/history/components/history-overview-tab/history-overview-tab.tsx
+#: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
 msgstr "No stats yet"
 
@@ -744,6 +757,14 @@ msgstr "Open shared puzzle?"
 msgid "Open this page in Safari on a physical iPhone or iPad. The device must already be registered in the Ad Hoc provisioning profile."
 msgstr "Open this page in Safari on a physical iPhone or iPad. The device must already be registered in the Ad Hoc provisioning profile."
 
+#: src/settings/component/settings-option-link/settings-option-link.tsx
+msgid "Opens a picker to change this setting"
+msgstr "Opens a picker to change this setting"
+
+#: src/history/components/history-difficulty/history-difficulty.tsx
+msgid "Opens the completed games for this difficulty"
+msgstr "Opens the completed games for this difficulty"
+
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Opens the registered-device installation prompt"
 msgstr "Opens the registered-device installation prompt"
@@ -756,10 +777,6 @@ msgstr "Opens this commit on GitHub"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Out of mistakes"
 msgstr "Out of mistakes"
-
-#: src/history/components/history-segmented-control/history-segmented-control.tsx
-msgid "Overview"
-msgstr "Overview"
 
 #: src/screens/components/pause-screen/pause-screen-header/pause-screen-header.tsx
 msgid "Paused"
@@ -781,14 +798,15 @@ msgstr "per mistake"
 msgid "per second"
 msgstr "per second"
 
-#: src/@generic/components/main-tab-layout/main-tab-layout.tsx
-#: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
+#: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
+#: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/index.tsx
 msgid "Play"
 msgstr "Play"
 
 #: src/@generic/components/play-again-button/play-again-button.tsx
 #: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
+#: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Play again"
 msgstr "Play again"
 
@@ -913,8 +931,8 @@ msgstr "score × coefficient × count"
 msgid "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 msgstr "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 
-#: src/@generic/components/main-tab-layout/main-tab-layout.tsx
-#: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
+#: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
+#: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/component/settings-page-content/settings-page-content.tsx
 msgid "Settings"
@@ -999,10 +1017,9 @@ msgstr "Start puzzle"
 msgid "Statistics"
 msgstr "Statistics"
 
-#: src/@generic/components/main-tab-layout/main-tab-layout.tsx
-#: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
+#: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
+#: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/history.tsx
-#: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Stats"
 msgstr "Stats"
 
@@ -1073,6 +1090,10 @@ msgstr "Their time to beat"
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Theme"
 msgstr "Theme"
+
+#: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
+msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
+msgstr "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "This value is multiplied by the difficulty coefficient:"
@@ -1225,6 +1246,7 @@ msgstr "While you were away, the fight for freedom continued. Every $1 makes a d
 msgid "Wider gaps for easier tapping"
 msgstr "Wider gaps for easier tapping"
 
+#: src/history/components/history-difficulty/history-difficulty.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Win rate"
 msgstr "Win rate"
@@ -1273,6 +1295,10 @@ msgstr "You"
 msgid "You beat your rival"
 msgstr "You beat your rival"
 
+#: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
+msgid "You finished your puzzle. The fight for freedom in Ukraine continues. Every $1 makes a difference."
+msgstr "You finished your puzzle. The fight for freedom in Ukraine continues. Every $1 makes a difference."
+
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "You got to"
 msgstr "You got to"
@@ -1297,13 +1323,9 @@ msgstr "Your progress"
 msgid "Your rival was faster"
 msgstr "Your rival was faster"
 
-#: src/history/components/history-overview-tab/history-overview-tab.tsx
+#: src/history/components/history-overview/history-overview.tsx
 msgid "Your stats will build as you finish puzzles."
 msgstr "Your stats will build as you finish puzzles."
-
-#: src/history/components/history-totals-card/history-totals-card.tsx
-msgid "Your sudoku journey"
-msgstr "Your sudoku journey"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Zero mistakes"

@@ -1,3 +1,4 @@
+import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { use } from 'react';
 import Animated, { LinearTransition } from 'react-native-reanimated';
 
@@ -67,7 +68,7 @@ export const DifficultyComplexityPreviewCell = (props: Props) => {
 
     const cellBorderColor = isHardcoreGuardCell ? theme.colors.label.main : cellBackgroundColor;
     const cellStyles = [
-        styles.previewCell,
+        resolveUnistyleForAnimated(styles.previewCell),
         {
             backgroundColor: cellBackgroundColor,
             borderColor: cellBorderColor,

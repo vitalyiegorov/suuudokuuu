@@ -1,9 +1,8 @@
 import { useAppSelector } from '../../@generic/hooks/use-app-selector.hook';
 import { settingsFontSizeMultiplierSelector } from '../../settings/store/settings.selectors';
-import { CellFontSizeConstant } from '../components/constants/dimensions.contant';
 
-export const useCellFontSize = () => {
+export const useCellFontSize = (boardCellSize: number) => {
     const fontSizeMultiplier = useAppSelector(settingsFontSizeMultiplierSelector);
 
-    return CellFontSizeConstant * fontSizeMultiplier;
+    return (boardCellSize / 2.5) * fontSizeMultiplier;
 };

@@ -1,13 +1,18 @@
 import { Trans, useLingui } from '@lingui/react/macro';
 import { AppSurfaceCard } from '@suuudokuuu/ui';
-import { LucideTrophy } from 'lucide-react-native';
+import { LucideSparkles, LucideTrophy } from 'lucide-react-native';
 import { use } from 'react';
 import { Text } from 'react-native';
 
+import { CelebrationPulse } from '../../../../@generic/components/celebration-pulse/celebration-pulse';
+import { GameResultHeroIconSize } from '../../../../@generic/components/game-result-hero/constant/game-result-hero-icon-size.constant';
 import { GameResultHero } from '../../../../@generic/components/game-result-hero/game-result-hero';
 import { ThemeContext } from '../../../../theme/context/theme.context';
 
 import { WinnerResultHeroStyles as styles } from './winner-result-hero.styles';
+
+const HeroPulseSize = 96;
+const PersonalBestIconSize = 20;
 
 interface Props {
     readonly descriptorText: string;
@@ -18,19 +23,28 @@ interface Props {
 export const WinnerResultHero = ({ descriptorText, isPersonalBest, scoreText }: Props) => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
-    const statusTextStyles = [styles.statusText, { color: theme.colors.label.main }];
+    const personalBestCardStyles = [
+        styles.personalBestCard,
+        { backgroundColor: 'transparent', borderColor: theme.colors.candidate.border }
+    ];
+    const personalBestTextStyles = [styles.personalBestText, { color: theme.colors.label.main }];
 
     return (
         <GameResultHero
             descriptorText={descriptorText}
             eyebrowText={t`Final score`}
-            icon={<LucideTrophy color={theme.colors.label.inverted} size={42} strokeWidth={2.6} />}
+            icon={
+                <CelebrationPulse color={theme.colors.label.main} size={HeroPulseSize}>
+                    <LucideTrophy color={theme.colors.label.main} size={GameResultHeroIconSize} strokeWidth={2.2} />
+                </CelebrationPulse>
+            }
             titleText={t`Winner, winner!`}
             valueText={scoreText}
         >
             {isPersonalBest ? (
-                <AppSurfaceCard size="compact" style={styles.statusPill} variant="muted">
-                    <Text style={statusTextStyles}>
+                <AppSurfaceCard size="compact" style={personalBestCardStyles}>
+                    <LucideSparkles color={theme.colors.label.main} size={PersonalBestIconSize} strokeWidth={2.2} />
+                    <Text style={personalBestTextStyles}>
                         <Trans>New personal best</Trans>
                     </Text>
                 </AppSurfaceCard>

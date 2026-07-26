@@ -1,8 +1,7 @@
 import { ActivityIndicator, Pressable, type PressableProps, type StyleProp, Text, type TextProps, type ViewStyle } from 'react-native';
+import { useUnistyles } from 'react-native-unistyles';
 
 import { isDefined, isNotEmptyString } from '@rnw-community/shared';
-
-import { useUiTheme } from '../../theme/hooks/use-ui-theme.hook';
 
 import { AppButtonStyles as styles } from './app-button.styles';
 import { AppButtonDefaultIconSize } from './constant/app-button-default-icon-size.constant';
@@ -38,7 +37,7 @@ export const AppButton = ({
     variant = 'primary',
     ...restProps
 }: AppButtonProps) => {
-    const { theme } = useUiTheme();
+    const { theme } = useUnistyles();
     const colors = appButtonGetColors(theme, variant);
     const buttonStyles = [styles.button, styles[size], { backgroundColor: colors.backgroundColor, borderColor: colors.borderColor }, style];
     let textSizeStyles = styles.textRegular;

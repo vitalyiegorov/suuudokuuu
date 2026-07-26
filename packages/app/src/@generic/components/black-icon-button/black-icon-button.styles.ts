@@ -1,8 +1,8 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
 import { BlackIconButtonSize } from './constant/black-icon-button-size.constant';
 
-export const BlackIconButtonStyles = StyleSheet.create({
+export const BlackIconButtonStyles = StyleSheet.create(() => ({
     button: {
         borderRadius: BlackIconButtonSize / 2,
         height: BlackIconButtonSize,
@@ -12,6 +12,12 @@ export const BlackIconButtonStyles = StyleSheet.create({
         minWidth: BlackIconButtonSize,
         paddingHorizontal: 0,
         paddingVertical: 0,
-        width: BlackIconButtonSize
+        width: BlackIconButtonSize,
+        _web: {
+            cursor: 'pointer',
+            _hover: {
+                opacity: 0.85
+            }
+        }
     }
-});
+}));

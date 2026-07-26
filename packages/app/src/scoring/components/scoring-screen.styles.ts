@@ -1,19 +1,26 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const ScoringScreenStyles = StyleSheet.create({
+import { PageHorizontalPaddingConstant } from '../../@generic/constants/page-horizontal-padding.constant';
+
+export const ScoringScreenStyles = StyleSheet.create(theme => ({
     content: {
         alignItems: 'center',
-        paddingHorizontal: 40
+        paddingHorizontal: PageHorizontalPaddingConstant
     },
     scrollView: {
-        maxWidth: 600,
+        maxWidth: theme.contentWidth.standard,
         width: '100%'
     },
     scrollViewContent: {
-        gap: 8
+        flexDirection: 'column',
+        gap: theme.spacing.sm
+    },
+    section: {
+        marginBottom: 16,
+        width: '100%'
     },
     listItem: {
         marginLeft: 12,
         marginVertical: 4
     }
-});
+}));

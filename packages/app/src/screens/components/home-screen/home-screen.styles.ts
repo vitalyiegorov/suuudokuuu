@@ -1,6 +1,8 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const HomeScreenStyles = StyleSheet.create({
+import { HomeScreenContentStackCompactGap } from './constant/home-screen.constant';
+
+const HomeScreenStaticStyles = {
     bestRun: {
         alignItems: 'center',
         flexDirection: 'row',
@@ -23,7 +25,13 @@ export const HomeScreenStyles = StyleSheet.create({
         textTransform: 'uppercase'
     },
     bestRunLink: {
-        width: '100%'
+        width: '100%',
+        _web: {
+            cursor: 'pointer',
+            _hover: {
+                opacity: 0.85
+            }
+        }
     },
     bestRunMetric: {
         alignItems: 'flex-end',
@@ -42,10 +50,6 @@ export const HomeScreenStyles = StyleSheet.create({
     },
     content: {
         alignItems: 'stretch'
-    },
-    contentStack: {
-        gap: 56,
-        width: '100%'
     },
     continueContent: {
         alignItems: 'center',
@@ -102,7 +106,13 @@ export const HomeScreenStyles = StyleSheet.create({
         borderRadius: 23,
         height: 56,
         overflow: 'hidden',
-        width: '100%'
+        width: '100%',
+        _web: {
+            cursor: 'pointer',
+            _hover: {
+                opacity: 0.85
+            }
+        }
     },
     continueTitle: {
         flexShrink: 1,
@@ -143,7 +153,13 @@ export const HomeScreenStyles = StyleSheet.create({
         gap: 3,
         minHeight: 64,
         paddingHorizontal: 12,
-        paddingVertical: 11
+        paddingVertical: 11,
+        _web: {
+            cursor: 'pointer',
+            _hover: {
+                opacity: 0.85
+            }
+        }
     },
     optionDescription: {
         fontSize: 12,
@@ -157,10 +173,6 @@ export const HomeScreenStyles = StyleSheet.create({
     },
     mistakeOptionCard: {
         flex: 1
-    },
-    masthead: {
-        gap: 16,
-        width: '100%'
     },
     optionTitle: {
         fontSize: 16,
@@ -182,19 +194,8 @@ export const HomeScreenStyles = StyleSheet.create({
         paddingVertical: 12,
         width: '100%'
     },
-    scrollContent: {
-        alignItems: 'center',
-        alignSelf: 'center',
-        maxWidth: 540,
-        paddingHorizontal: 20,
-        width: '100%'
-    },
     scrollView: {
         flex: 1,
-        width: '100%'
-    },
-    setupSection: {
-        gap: 15,
         width: '100%'
     },
     statsStrip: {
@@ -230,4 +231,30 @@ export const HomeScreenStyles = StyleSheet.create({
         minWidth: 0,
         textAlign: 'left'
     }
-});
+} as const;
+
+export const HomeScreenStyles = StyleSheet.create(theme => ({
+    ...HomeScreenStaticStyles,
+    contentStack: {
+        alignItems: 'stretch',
+        flexDirection: 'column',
+        gap: HomeScreenContentStackCompactGap,
+        width: '100%'
+    },
+    masthead: {
+        gap: 16,
+        width: '100%'
+    },
+    scrollContent: {
+        alignItems: 'center',
+        alignSelf: 'center',
+        maxWidth: theme.contentWidth.standard,
+        paddingBottom: 28,
+        paddingHorizontal: 20,
+        width: '100%'
+    },
+    setupSection: {
+        gap: 15,
+        width: '100%'
+    }
+}));

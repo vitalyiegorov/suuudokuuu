@@ -13,6 +13,8 @@ import {
 import { DifficultyComplexityPreviewCell } from '../difficulty-complexity-preview-cell/difficulty-complexity-preview-cell';
 import { DifficultyComplexitySliderStyles as styles } from '../difficulty-complexity-slider.styles';
 
+import { difficultyComplexityPreviewGetColors } from './utils/difficulty-complexity-preview-get-colors.util';
+
 interface Props {
     readonly maxMistakes: number;
     readonly selectedDifficultyDescription: string;
@@ -35,7 +37,8 @@ export const DifficultyComplexityPreview = (props: Props) => {
     const activeCellCount = DifficultyComplexitySliderActiveCellBaseCount + selectedIndex * DifficultyComplexitySliderActiveCellStep;
     const activeCellOpacity =
         DifficultyComplexitySliderPreviewCellBaseOpacity + selectedIndex * DifficultyComplexitySliderPreviewCellOpacityStep;
-    const previewStyles = [styles.preview, { backgroundColor: theme.colors.candidate.bg, borderColor: theme.colors.label.main }];
+    const previewColors = difficultyComplexityPreviewGetColors(theme);
+    const previewStyles = [styles.preview, { backgroundColor: previewColors.backgroundColor, borderColor: previewColors.borderColor }];
     const previewGridFrameStyles = [styles.previewGridFrame, { borderColor: theme.colors.candidate.border }];
     const titleStyles = [styles.previewTitle, { color: theme.colors.label.main }];
     const subtitleStyles = [styles.subtitle, { color: theme.colors.label.hint }];

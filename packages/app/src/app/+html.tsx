@@ -1,3 +1,5 @@
+import '../theme/unistyles.config';
+
 import { ScrollViewStyleReset } from 'expo-router/html';
 
 import type { PropsWithChildren } from 'react';

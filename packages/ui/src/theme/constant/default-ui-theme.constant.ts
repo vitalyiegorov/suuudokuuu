@@ -30,11 +30,20 @@ export const DefaultUiTheme: ThemeInterface = {
             inverted: '#ffffff',
             main: '#000000'
         },
-        red: '#ff2d2d',
+        red: '#D40000',
+        redFillText: '#ffffff',
+        surface: {
+            raised: '#ffffff',
+            raisedText: '#000000',
+            subtle: '#f2f2f2',
+            subtleHint: 'rgba(0, 0, 0, 0.65)',
+            subtleText: '#000000'
+        },
         value: {
             border: '#d8d8d8',
             progress: '#e5e5e5',
             progressActive: '#7a7a7a',
+            progressActiveText: '#ffffff',
             text: '#000000'
         },
         white: '#ffffff',

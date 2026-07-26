@@ -18,7 +18,7 @@ export default function HistoryGamesPage() {
 
     return (
         <Page edges={PageHorizontalSafeAreaEdges}>
-            <PageHeader title={t`Game Replay`} />
+            <PageHeader title={t`Games`} />
 
             <HistoryGamesScreen difficulty={difficulty} />
         </Page>

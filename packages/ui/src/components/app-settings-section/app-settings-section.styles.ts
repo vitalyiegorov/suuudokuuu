@@ -1,20 +1,20 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const AppSettingsSectionStyles = StyleSheet.create({
+export const AppSettingsSectionStyles = StyleSheet.create(theme => ({
     rows: {
-        gap: 12,
+        gap: theme.spacing.md,
         width: '100%'
     },
     section: {
-        gap: 12,
+        gap: theme.spacing.md,
         width: '100%'
     },
     title: {
-        fontSize: 13,
-        fontWeight: '900',
+        fontSize: theme.typography.size.xs,
+        fontWeight: theme.typography.weight.bold,
         letterSpacing: 0.2,
-        lineHeight: 17,
-        paddingHorizontal: 4,
+        lineHeight: 16,
+        paddingHorizontal: theme.spacing.xs,
         textTransform: 'uppercase'
     }
-});
+}));

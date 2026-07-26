@@ -1,4 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
+import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { CollapsibleChromePage } from '../../../@generic/components/collapsible-chrome-page/collapsible-chrome-page';
@@ -13,7 +14,7 @@ export const PrivacyPolicyScreen = () => {
         <CollapsibleChromePage
             contentStyle={PrivacyPolicyScreenStyles.content}
             showsVerticalScrollIndicator={false}
-            style={PrivacyPolicyScreenStyles.scrollView}
+            style={resolveUnistyleForAnimated(PrivacyPolicyScreenStyles.scrollView)}
             title={t`Privacy policy`}
         >
             <BlackText>{privacyPolicyConstant}</BlackText>
