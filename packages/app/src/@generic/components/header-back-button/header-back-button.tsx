@@ -6,6 +6,7 @@ import { Pressable } from 'react-native';
 
 import { ThemeContext } from '../../../theme/context/theme.context';
 
+import { HeaderBackButtonGlyphSize } from './constant/header-back-button.constant';
 import { HeaderBackButtonSelectors } from './header-back-button.selectors';
 import { HeaderBackButtonStyles as styles } from './header-back-button.styles';
 
@@ -31,7 +32,7 @@ export const HeaderBackButton = () => {
             style={styles.container}
             testID={HeaderBackButtonSelectors.Root}
         >
-            <ChevronLeft color={theme.colors.label.main} size={30} strokeWidth={2.5} />
+            <ChevronLeft color={theme.colors.label.main} size={HeaderBackButtonGlyphSize} strokeWidth={2.5} />
         </Pressable>
     );
 };

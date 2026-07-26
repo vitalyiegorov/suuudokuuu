@@ -5,6 +5,7 @@ import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { Link } from 'expo-router';
 import { use, useState } from 'react';
 import { Pressable, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Alert } from '../../../@generic/components/alert/alert';
 import { BlackText } from '../../../@generic/components/black-text/black-text';
@@ -36,7 +37,6 @@ import { ThemeContext } from '../../../theme/context/theme.context';
 import {
     HomeScreenBottomScrollPadding,
     HomeScreenFloatingTabBarInset,
-    HomeScreenTopContentPadding,
     HomeScreenTopOverlayHeight,
     HomeScreenTopOverlayIntensity
 } from './constant/home-screen.constant';
@@ -47,6 +47,7 @@ import { HomeScreenSectionHeader } from './home-screen-section-header/home-scree
 import { HomeScreenSelectors } from './home-screen.selectors';
 import { HomeScreenStyles as styles } from './home-screen.styles';
 import { type HomeScreenOptionCardInterface } from './interface/home-screen-option-card.interface';
+import { homeScreenGetContentInsetTop } from './utils/home-screen-get-content-inset-top.util';
 import { homeScreenGetCurrentGameProgress } from './utils/home-screen-get-current-game-progress.util';
 
 const RelaxedMistakeLimit = 99;
@@ -57,6 +58,7 @@ export const HomeScreen = () => {
     const { create } = use(GameContext);
     const { theme } = use(ThemeContext);
     const { t } = useLingui();
+    const safeAreaInsets = useSafeAreaInsets();
     const dispatch = useAppDispatch();
     const [bestScore, bestTime] = useAppSelector(gameHistoryBestTimeSelector);
     const currentElapsedTime = useAppSelector(gameElapsedTimeSelector);
@@ -144,6 +146,7 @@ export const HomeScreen = () => {
     ];
     const startButtonText = isGameStarted ? t`Start new puzzle` : t`Start puzzle`;
     const contentInsetBottom = HomeScreenBottomScrollPadding + HomeScreenFloatingTabBarInset;
+    const contentInsetTop = homeScreenGetContentInsetTop(safeAreaInsets.top);
     const mistakeCards: HomeScreenOptionCardInterface[] = mistakeOptions.map(option => {
         const isSelected = option.maxMistakes === maxMistakes;
         const optionColors = homeScreenOptionCardGetColors(theme, isSelected);
@@ -167,7 +170,7 @@ export const HomeScreen = () => {
             <ScreenChromeScrollView
                 contentContainerStyle={styles.scrollContent}
                 contentInsetBottom={contentInsetBottom}
-                contentInsetTop={HomeScreenTopContentPadding}
+                contentInsetTop={contentInsetTop}
                 showsVerticalScrollIndicator={false}
                 style={resolveUnistyleForAnimated(styles.scrollView)}
                 testID={HomeScreenSelectors.Root}

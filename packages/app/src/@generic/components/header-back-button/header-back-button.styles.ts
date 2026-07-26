@@ -1,12 +1,15 @@
 import { StyleSheet } from 'react-native-unistyles';
 
+import { HeaderBackButtonGlyphOpticalInset, HeaderBackButtonSize } from './constant/header-back-button.constant';
+
 export const HeaderBackButtonStyles = StyleSheet.create(() => ({
     container: {
-        alignItems: 'center',
-        height: 44,
+        alignItems: 'flex-start',
+        height: HeaderBackButtonSize,
         justifyContent: 'center',
+        marginLeft: -HeaderBackButtonGlyphOpticalInset,
         transform: [{ translateY: 2 }],
-        width: 44,
+        width: HeaderBackButtonSize,
         _web: {
             cursor: 'pointer',
             _hover: {
