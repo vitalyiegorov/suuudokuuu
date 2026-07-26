@@ -798,8 +798,8 @@ msgstr "par erreur"
 msgid "per second"
 msgstr "par seconde"
 
-#: src/@generic/components/main-tab-layout/main-tab-layout.tsx
-#: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
+#: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
+#: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/index.tsx
 msgid "Play"
 msgstr "Jouer"
@@ -931,8 +931,8 @@ msgstr "score × coefficient × nombre"
 msgid "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 msgstr "Le score est calculé pour chaque chiffre bien placé selon la difficulté, les bonus et les pénalités."
 
-#: src/@generic/components/main-tab-layout/main-tab-layout.tsx
-#: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
+#: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
+#: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/component/settings-page-content/settings-page-content.tsx
 msgid "Settings"
@@ -1017,8 +1017,8 @@ msgstr "Lancer la grille"
 msgid "Statistics"
 msgstr "Statistiques"
 
-#: src/@generic/components/main-tab-layout/main-tab-layout.tsx
-#: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
+#: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
+#: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/history.tsx
 msgid "Stats"
 msgstr "Stats"

@@ -796,8 +796,8 @@ msgstr "per kesalahan"
 msgid "per second"
 msgstr "per detik"
 
-#: src/@generic/components/main-tab-layout/main-tab-layout.tsx
-#: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
+#: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
+#: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/index.tsx
 msgid "Play"
 msgstr "Main"
@@ -929,8 +929,8 @@ msgstr "skor × koefisien × jumlah"
 msgid "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 msgstr "Skor dihitung untuk setiap kotak benar berdasarkan tingkat kesulitan, bonus, dan penalti."
 
-#: src/@generic/components/main-tab-layout/main-tab-layout.tsx
-#: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
+#: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
+#: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/component/settings-page-content/settings-page-content.tsx
 msgid "Settings"
@@ -1015,8 +1015,8 @@ msgstr "Mulai teka-teki"
 msgid "Statistics"
 msgstr "Statistik"
 
-#: src/@generic/components/main-tab-layout/main-tab-layout.tsx
-#: src/@generic/components/main-tab-layout/main-tab-layout.web.tsx
+#: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
+#: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/history.tsx
 msgid "Stats"
 msgstr "Statistik"
