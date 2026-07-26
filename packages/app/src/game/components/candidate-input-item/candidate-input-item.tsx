@@ -1,20 +1,21 @@
+import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { use } from 'react';
 import { Pressable, Text, View } from 'react-native';
 import Reanimated, { interpolateColor, useAnimatedStyle, useDerivedValue, withTiming } from 'react-native-reanimated';
 
-import { isDefined } from '@rnw-community/shared';
+import { cs, isDefined } from '@rnw-community/shared';
 
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { getCellKey } from '../../../@generic/utils/get-cell-key.util';
-import { settingsFontSizeMultiplierSelector } from '../../../settings/store/settings.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { gameCandidatesSelector } from '../../store/game.selectors';
-import { CellFontSizeConstant } from '../constants/dimensions.contant';
+import { DigitButtonStyles } from '../../styles/digit-button.styles';
 
 import { CandidateInputItemStyles as styles } from './candidate-input-item.styles';
 
 import type { OnEventFn } from '@rnw-community/shared';
 import type { CellInterface } from '@suuudokuuu/generator';
+import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
 const ReanimatedPressable = Reanimated.createAnimatedComponent(Pressable);
 
@@ -25,14 +26,18 @@ interface Props {
     readonly selectedCell?: CellInterface;
     readonly value: number;
     readonly canPress: boolean;
+    readonly isExhausted: boolean;
     readonly onSelect: OnEventFn<number>;
+    readonly sizeStyle: StyleProp<ViewStyle>;
+    readonly digitTextStyle: StyleProp<TextStyle>;
 }
 
-export const CandidateInputItem = ({ selectedCell, value, onSelect, canPress }: Props) => {
+export const CandidateInputItem = (props: Props) => {
+    const { selectedCell, value, onSelect, canPress, isExhausted, sizeStyle, digitTextStyle } = props;
+
     const { theme } = use(ThemeContext);
 
     const candidates = useAppSelector(gameCandidatesSelector);
-    const fontSizeMultiplier = useAppSelector(settingsFontSizeMultiplierSelector);
 
     const isSelected = isDefined(selectedCell) && (candidates[getCellKey(selectedCell)] ?? []).includes(value);
     const selectionAnimationDuration = isSelected ? selectionFillAnimationDurationMs : selectionReleaseAnimationDurationMs;
@@ -48,21 +53,21 @@ export const CandidateInputItem = ({ selectedCell, value, onSelect, canPress }: 
     };
 
     const buttonStyles = [
-        styles.button,
+        resolveUnistyleForAnimated(DigitButtonStyles.button),
+        resolveUnistyleForAnimated(styles.button),
         {
             borderColor: isSelected ? theme.colors.candidate.borderActive : theme.colors.candidate.border,
             backgroundColor: isSelected ? theme.colors.candidate.bgActive : theme.colors.candidate.bg
         },
-        animatedStyles
+        animatedStyles,
+        cs(isExhausted, resolveUnistyleForAnimated(DigitButtonStyles.exhausted))
     ];
-    const textStyles = [
-        { fontSize: CellFontSizeConstant * fontSizeMultiplier },
-        { color: isSelected ? theme.colors.candidate.textActive : theme.colors.candidate.text }
-    ];
+    const textStyles = [digitTextStyle, { color: isSelected ? theme.colors.candidate.textActive : theme.colors.candidate.text }];
+    const containerStyles = [DigitButtonStyles.container, sizeStyle];
 
     return (
-        <View style={styles.container}>
-            <ReanimatedPressable style={buttonStyles} {...(canPress && { onPress: handlePress })}>
+        <View style={containerStyles}>
+            <ReanimatedPressable style={buttonStyles} {...(canPress && !isExhausted && { onPress: handlePress })}>
                 <Text allowFontScaling={false} style={textStyles}>
                     {value}
                 </Text>

@@ -2,33 +2,30 @@ import { useLingui } from '@lingui/react/macro';
 import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { useRouter } from 'expo-router';
-import { LucideLogOut, LucideSettings, LucideShare2 } from 'lucide-react-native';
 import { use, useEffect, useRef, useState } from 'react';
 import { Pressable, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Display, Hide } from 'react-native-unistyles';
 
 import { isDefined } from '@rnw-community/shared';
 
 import { Alert } from '../../../@generic/components/alert/alert';
-import { BlackIconButton } from '../../../@generic/components/black-icon-button/black-icon-button';
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
+import { WideLayoutMediaQuery } from '../../../@generic/constants/layout-media-query.constant';
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { useVibration } from '../../../@generic/hooks/use-vibration.hook';
 import { ChallengeRaceHud } from '../../../challenge/components/challenge-race-hud/challenge-race-hud';
 import { ChallengeLossReason } from '../../../challenge/enums/challenge-loss-reason.enum';
-import { AutoCandidatesButton } from '../../../game/components/auto-candidates-button/auto-candidates-button';
-import { AvailableValuesItem, AvailableValuesItemRef } from '../../../game/components/available-values-item/available-values-item';
-import { CandidateInputItem } from '../../../game/components/candidate-input-item/candidate-input-item';
 import { Field, FieldRef } from '../../../game/components/field/field';
 import { GameTimerController } from '../../../game/components/game-timer-controller/game-timer-controller';
-import { InputModeButton } from '../../../game/components/input-mode-button/input-mode-button';
 import { GameContext } from '../../../game/context/game.context';
+import { useBoardCellSize } from '../../../game/hooks/use-board-cell-size.hook';
 import { useKeyboardControls } from '../../../game/hooks/use-keyboard-controls/use-keyboard-controls.hook';
 import { useSharePuzzle } from '../../../game/hooks/use-share-puzzle/use-share-puzzle.hook';
 import {
     gameFinishAction,
     gameMistakeAction,
+    gamePauseAction,
     gameResetAction,
     gameSaveAction,
     gameToggleCellCandidateAction
@@ -46,12 +43,16 @@ import { settingsKeySelector } from '../../../settings/store/settings.selectors'
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { gameScreenSetSharingAvailable } from '../../utils/game-screen-set-sharing-available.util';
 
-import { GameScreenMetrics } from './game-screen-metrics/game-screen-metrics';
+import { GameActions } from './game-actions/game-actions';
+import { GameInputTools } from './game-input-tools/game-input-tools';
+import { GameNumpad } from './game-numpad/game-numpad';
 import { GameScreenSelectors } from './game-screen.selectors';
-import { GameScreenBottomInset, GameScreenStyles as styles } from './game-screen.styles';
+import { GameScreenStyles as styles } from './game-screen.styles';
+import { GameStatusBlock } from './game-status-block/game-status-block';
 import { useOpenGameSettings } from './hooks/use-open-game-settings.hook';
 import { gameScreenExit } from './utils/game-screen-exit.util';
 
+import type { AvailableValuesItemRef } from '../../../game/components/available-values-item/available-values-item';
 import type { CellInterface, ScoredCellsInterface } from '@suuudokuuu/generator';
 
 // eslint-disable-next-line max-lines-per-function -- Game orchestration component requires many handlers and refs
@@ -64,12 +65,15 @@ export const GameScreen = () => {
 
     const [hapticNotification, hapticImpact] = useVibration();
 
+    const { cellSize: boardCellSize, boardSize, onBoardAreaLayout } = useBoardCellSize();
+
     const dispatch = useAppDispatch();
     const score = useAppSelector(gameScoreSelector);
     const mistakes = useAppSelector(gameMistakesSelector);
     const maxMistakes = useAppSelector(gameMaxMistakesSelector);
     const hasTimer = useAppSelector(settingsKeySelector('hasTimer'));
     const keepActiveCell = useAppSelector(settingsKeySelector('keepActiveCell'));
+    const isLeftHanded = useAppSelector(settingsKeySelector('isLeftHanded'));
     const inputMode = useAppSelector(gameInputModeSelector);
     const isChallengeMode = useAppSelector(gameIsChallengeModeSelector);
     const challengeTime = useAppSelector(gameChallengeTimeSelector);
@@ -108,6 +112,11 @@ export const GameScreen = () => {
     const handleDeselectCell = () => {
         // eslint-disable-next-line no-undefined
         setSelectedCell(undefined);
+    };
+
+    const handlePause = () => {
+        dispatch(gamePauseAction());
+        router.replace('/pause');
     };
 
     const handleLostGame = () => {
@@ -200,81 +209,90 @@ export const GameScreen = () => {
         availableValuesRefs.current[value] = ref;
     };
 
-    useKeyboardControls(sudoku, selectedCell, handleSelectCell, handleSelectValue, handleExit);
-    const insets = useSafeAreaInsets();
+    const keyboardControlsElement = useKeyboardControls(sudoku, selectedCell, handleSelectCell, handleSelectValue, handleExit);
+
     const hideAutoCandidates = maxMistakes === 0;
-    const actionIconColor = theme.colors.label.main;
-    const containerStyle = [styles.container, { paddingBottom: insets.bottom + GameScreenBottomInset }];
+    const gameActionsIconColor = theme.colors.surface.raisedText;
+
+    const statusBlock = (
+        <GameStatusBlock
+            elapsedTime={elapsedTime}
+            hasTimer={hasTimer}
+            maxMistakes={maxMistakes}
+            maxMistakesReached={maxMistakesReached}
+            mistakes={mistakes}
+            score={score}
+        />
+    );
+    const gameActions = (
+        <GameActions
+            actionIconColor={gameActionsIconColor}
+            hasSharing={hasSharing}
+            onExit={handleExit}
+            onOpenSettings={handleOpenSettings}
+            onShare={handleShare}
+        />
+    );
+    const gameActionsWithPause = (
+        <GameActions
+            actionIconColor={gameActionsIconColor}
+            hasSharing={hasSharing}
+            onExit={handleExit}
+            onOpenSettings={handleOpenSettings}
+            onPause={handlePause}
+            onShare={handleShare}
+        />
+    );
 
     return (
         <Pressable
             accessible={false}
             {...(!keepActiveCell && { onPress: handleDeselectCell })}
-            style={containerStyle}
+            style={styles.container(isLeftHanded)}
             testID={GameScreenSelectors.Root}
         >
             <GameTimerController />
-            <View style={styles.controls}>
-                <GameScreenMetrics
-                    elapsedTime={elapsedTime}
-                    hasTimer={hasTimer}
-                    maxMistakes={maxMistakes}
-                    maxMistakesReached={maxMistakesReached}
-                    mistakes={mistakes}
-                    score={score}
-                />
+            {keyboardControlsElement}
 
-                <View style={styles.buttonsWrapper}>
-                    {hasSharing ? (
-                        <BlackIconButton onPress={handleShare} testID={GameScreenSelectors.ShareButton} variant="inverted">
-                            <LucideShare2 color={actionIconColor} />
-                        </BlackIconButton>
-                    ) : null}
-
-                    <BlackIconButton onPress={handleOpenSettings} testID={GameScreenSelectors.SettingsButton} variant="inverted">
-                        <LucideSettings color={actionIconColor} />
-                    </BlackIconButton>
-
-                    <BlackIconButton onPress={handleExit} testID={GameScreenSelectors.QuitButton} variant="inverted">
-                        <LucideLogOut color={actionIconColor} />
-                    </BlackIconButton>
+            <Hide mq={WideLayoutMediaQuery}>
+                <View style={styles.topBar}>
+                    {statusBlock}
+                    {gameActions}
                 </View>
+            </Hide>
+
+            {isChallengeMode ? <ChallengeRaceHud /> : null}
+
+            <View onLayout={onBoardAreaLayout} style={styles.boardArea}>
+                <Hide mq={WideLayoutMediaQuery}>
+                    <View style={styles.boardSpacer} />
+                </Hide>
+
+                <Field cellSize={boardCellSize} onSelect={handleSelectCell} ref={fieldRef} selectedCell={selectedCell} />
+
+                <Hide mq={WideLayoutMediaQuery}>
+                    <View style={styles.toolsSlot}>
+                        <GameInputTools hideAutoCandidates={hideAutoCandidates} />
+                    </View>
+                </Hide>
             </View>
 
-            {isChallengeMode && <ChallengeRaceHud />}
+            <View style={styles.panelArea(boardSize)}>
+                <Display mq={WideLayoutMediaQuery}>{statusBlock}</Display>
 
-            <View style={styles.fieldWrapper}>
-                <Field ref={fieldRef} onSelect={handleSelectCell} selectedCell={selectedCell} />
-            </View>
+                <View style={styles.panelInputArea}>
+                    <GameNumpad
+                        availableValuesRefsHandler={handleAvailableRef}
+                        onSelectValue={handleSelectValue}
+                        selectedCell={selectedCell}
+                    />
 
-            <View style={styles.bottomContainer}>
-                <View style={styles.additionalControlsWrapper}>
-                    <InputModeButton />
-                    {hideAutoCandidates ? null : <AutoCandidatesButton />}
+                    <Display mq={WideLayoutMediaQuery}>
+                        <GameInputTools hideAutoCandidates={hideAutoCandidates} />
+                    </Display>
                 </View>
-                <View style={styles.availableValuesWrapper}>
-                    {sudoku.PossibleValues.map(value =>
-                        inputMode === 'candidate' ? (
-                            <CandidateInputItem
-                                canPress={sudoku.isBlankCell(selectedCell)}
-                                key={`candidate-value-${value}`}
-                                onSelect={handleSelectValue}
-                                selectedCell={selectedCell}
-                                value={value}
-                            />
-                        ) : (
-                            <AvailableValuesItem
-                                canPress={sudoku.isBlankCell(selectedCell)}
-                                correctValue={sudoku.getCorrectValue(selectedCell)}
-                                key={`possible-value-${value}`}
-                                onSelect={handleSelectValue}
-                                progress={sudoku.getValueProgress(value)}
-                                ref={handleAvailableRef(value)}
-                                value={value}
-                            />
-                        )
-                    )}
-                </View>
+
+                <Display mq={WideLayoutMediaQuery}>{gameActionsWithPause}</Display>
             </View>
         </Pressable>
     );

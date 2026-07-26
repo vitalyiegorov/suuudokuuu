@@ -10,12 +10,14 @@ import {
     ScreenChromeFrame,
     ScreenChromeScrollView
 } from '@suuudokuuu/screen-chrome';
+import { use } from 'react';
 
 import { isDefined } from '@rnw-community/shared';
 
 import { ScreenChromeContentInsetTop } from '../../constants/screen-chrome-content-inset.constant';
 import { Header } from '../header/header';
 import { HeaderBackButton } from '../header-back-button/header-back-button';
+import { TabBarInsetContext } from '../main-tab-layout/context/tab-bar-inset.context';
 import { ScreenChromeThemeProvider } from '../screen-chrome-theme-provider/screen-chrome-theme-provider';
 import { StickyFooterBand } from '../sticky-footer-band/sticky-footer-band';
 
@@ -53,7 +55,9 @@ export const CollapsibleChromePage = (props: Props) => {
         ...scrollViewProps
     } = props;
 
-    const contentInsetBottom = isDefined(footer) ? CollapsibleChromePageFooterContentInset : 0;
+    const tabBarInset = use(TabBarInsetContext);
+    const footerInset = isDefined(footer) ? CollapsibleChromePageFooterContentInset : 0;
+    const contentInsetBottom = footerInset + tabBarInset;
     const leadingContent = isDefined(leading) ? leading : <HeaderBackButton />;
     const trailingContent = isDefined(trailing) ? (
         <CollapsibleHeaderTrailing>{trailing}</CollapsibleHeaderTrailing>

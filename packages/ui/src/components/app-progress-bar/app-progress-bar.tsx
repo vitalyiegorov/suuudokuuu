@@ -1,6 +1,5 @@
 import { type StyleProp, View, type ViewStyle } from 'react-native';
-
-import { useUiTheme } from '../../theme/hooks/use-ui-theme.hook';
+import { useUnistyles } from 'react-native-unistyles';
 
 import { AppProgressBarStyles as styles } from './app-progress-bar.styles';
 
@@ -15,7 +14,7 @@ interface Props {
 }
 
 export const AppProgressBar = ({ percent, size = 'regular', style, variant = 'default' }: Props) => {
-    const { theme } = useUiTheme();
+    const { theme } = useUnistyles();
     const isInvertedVariant = variant === 'inverted';
     const trackColor = isInvertedVariant ? theme.colors.white05 : theme.colors.value.progress;
     const fillColor = isInvertedVariant ? theme.colors.label.inverted : theme.colors.value.progressActive;

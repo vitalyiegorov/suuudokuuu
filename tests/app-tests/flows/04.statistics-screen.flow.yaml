@@ -25,23 +25,15 @@ appId: ${APP_ID}
       visible:
           id: 'HistoryScreenSelectors.Root'
       timeout: 3000
-- assertVisible: 'Overview'
-- assertVisible: 'Games'
-# Scroll-tolerant: the rank card sits below the fold on the Android viewport,
-# so scroll to its deepest line before asserting the rank title above it.
+# Scroll-tolerant: the difficulty card sits below the fold on the Android
+# viewport, so scroll to its deepest line before asserting the title above it.
 - scrollUntilVisible:
       element:
           text: '.*completed game.*'
       direction: DOWN
 - assertVisible: 'Newbie.*'
-# The segmented-control tabs sit at the top; scrolling to the rank card above
-# pushed them off the shorter Android viewport, so scroll back up to reach it.
-- scrollUntilVisible:
-      element:
-          id: 'HistorySegmentedControlSelectors.GamesTab'
-      direction: UP
 - tapOn:
-      id: 'HistorySegmentedControlSelectors.GamesTab'
+      id: 'HistoryDifficultySelectors.Card.Newbie'
 - extendedWaitUntil:
       visible:
           id: 'CompletedGameItemSelectors.ReplayButton'
@@ -69,6 +61,12 @@ appId: ${APP_ID}
       id: 'ReplayControlsSelectors.PreviousButton'
 - tapOn:
       id: 'ReplayTopBarSelectors.CloseButton'
+- extendedWaitUntil:
+      visible:
+          id: 'HistoryGamesScreenSelectors.Root'
+      timeout: 3000
+- tapOn:
+      id: 'HeaderBackButtonSelectors.Root'
 - extendedWaitUntil:
       visible:
           id: 'HistoryScreenSelectors.Root'

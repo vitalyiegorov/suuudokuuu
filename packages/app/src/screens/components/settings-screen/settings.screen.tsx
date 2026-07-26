@@ -1,6 +1,7 @@
 import { useLingui } from '@lingui/react/macro';
-import { AppSettingsSection } from '@suuudokuuu/ui';
+import { AppSettingsSection, resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import Constants from 'expo-constants';
+import { View } from 'react-native';
 
 import { CollapsibleChromePage } from '../../../@generic/components/collapsible-chrome-page/collapsible-chrome-page';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
@@ -30,50 +31,64 @@ export const SettingsScreen = () => {
 
     return (
         <CollapsibleChromePage
-            contentContainerStyle={styles.scrollViewContent}
+            contentContainerStyle={resolveUnistyleForAnimated(styles.scrollViewContent)}
             contentStyle={styles.content}
-            style={styles.scrollView}
+            style={resolveUnistyleForAnimated(styles.scrollView)}
             testID={SettingsScreenSelectors.Root}
             title={t`Settings`}
         >
-            <AppSettingsSection title={t`Game`}>
-                <SettingsOptionLink
-                    description={t`Menus, settings, and game text`}
-                    href="/settings/language"
-                    title={t`Language`}
-                    value={getLanguageLabel(language)}
-                />
-                <SettingsOptionLink
-                    description={t`Adjust the digits on the Sudoku board`}
-                    href="/settings/font-size"
-                    title={t`Number size`}
-                    value={getFontSizeLabel(fontSize)}
-                />
-                <SettingsOptionLink
-                    description={t`Space between Sudoku cells`}
-                    href="/settings/cell-margin"
-                    testID={SettingsScreenSelectors.CellSpacingOption}
-                    title={t`Cell spacing`}
-                    value={getCellMarginLabel(cellMargin)}
-                />
-            </AppSettingsSection>
-            <AppSettingsSection title={t`Display`}>
-                <SettingsOptionLink
-                    description={t`Board colors and screen appearance`}
-                    href="/settings/theme"
-                    title={t`Theme`}
-                    value={getThemeLabel(theme)}
-                />
-                <SettingsSwitch description={t`Use a dark color scheme`} setting="isDarkColorSchema" title={t`Dark mode`} />
-            </AppSettingsSection>
-            <AppSettingsSection title={t`Feedback`}>
-                <SettingsSwitch description={t`Show elapsed time while you play`} setting="hasTimer" title={t`Timer`} />
-                <SettingsSwitch description={t`Vibrate on taps and game actions`} setting="hasVibration" title={t`Vibration`} />
-            </AppSettingsSection>
+            <View style={styles.primaryColumn}>
+                <AppSettingsSection title={t`Game`}>
+                    <SettingsOptionLink
+                        description={t`Menus, settings, and game text`}
+                        href="/settings/language"
+                        title={t`Language`}
+                        value={getLanguageLabel(language)}
+                    />
+                    <SettingsOptionLink
+                        description={t`Adjust the digits on the Sudoku board`}
+                        href="/settings/font-size"
+                        title={t`Number size`}
+                        value={getFontSizeLabel(fontSize)}
+                    />
+                    <SettingsOptionLink
+                        description={t`Space between Sudoku cells`}
+                        href="/settings/cell-margin"
+                        testID={SettingsScreenSelectors.CellSpacingOption}
+                        title={t`Cell spacing`}
+                        value={getCellMarginLabel(cellMargin)}
+                    />
+                    <SettingsSwitch
+                        description={t`Dim a completed digit in the numpad instead of removing it`}
+                        setting="keepExhaustedDigits"
+                        title={t`Keep completed digits`}
+                    />
+                </AppSettingsSection>
+                <AppSettingsSection title={t`Display`}>
+                    <SettingsOptionLink
+                        description={t`Board colors and screen appearance`}
+                        href="/settings/theme"
+                        title={t`Theme`}
+                        value={getThemeLabel(theme)}
+                    />
+                    <SettingsSwitch description={t`Use a dark color scheme`} setting="isDarkColorSchema" title={t`Dark mode`} />
+                    <SettingsSwitch
+                        description={t`Move the landscape controls panel to the left of the board`}
+                        setting="isLeftHanded"
+                        title={t`Left-handed layout`}
+                    />
+                </AppSettingsSection>
+                <AppSettingsSection title={t`Feedback`}>
+                    <SettingsSwitch description={t`Show elapsed time while you play`} setting="hasTimer" title={t`Timer`} />
+                    <SettingsSwitch description={t`Vibrate on taps and game actions`} setting="hasVibration" title={t`Vibration`} />
+                </AppSettingsSection>
+            </View>
 
-            <SettingsGuidanceSection />
+            <View style={styles.secondaryColumn}>
+                <SettingsGuidanceSection />
 
-            <SettingsAppFooter version={version} />
+                <SettingsAppFooter version={version} />
+            </View>
         </CollapsibleChromePage>
     );
 };

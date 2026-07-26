@@ -8,7 +8,13 @@ import { ThemeContext } from '../../../theme/context/theme.context';
 import { gameToggleInputModeAction } from '../../store/game.actions';
 import { gameInputModeSelector } from '../../store/game.selectors';
 
-export const InputModeButton = () => {
+import type { StyleProp, ViewStyle } from 'react-native';
+
+interface Props {
+    readonly sizeStyle: StyleProp<ViewStyle>;
+}
+
+export const InputModeButton = ({ sizeStyle }: Props) => {
     const { theme } = use(ThemeContext);
 
     const dispatch = useAppDispatch();
@@ -19,10 +25,11 @@ export const InputModeButton = () => {
     };
 
     const isCandidateMode = inputMode === 'candidate';
-    const iconColor = isCandidateMode ? theme.colors.white : theme.colors.black;
+    const isActive = !isCandidateMode;
+    const iconColor = isActive ? theme.colors.surface.raisedText : theme.colors.label.inverted;
 
     return (
-        <BlackIconButton hitSlop={10} isActive={!isCandidateMode} onPress={handleToggle} testID="input-mode-button">
+        <BlackIconButton hitSlop={10} isActive={isActive} onPress={handleToggle} style={sizeStyle} testID="input-mode-button">
             <LucidePencil color={iconColor} />
         </BlackIconButton>
     );

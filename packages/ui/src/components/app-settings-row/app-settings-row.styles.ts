@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
 import {
     AppSettingsRowBorderRadius,
@@ -12,15 +12,15 @@ import {
     AppSettingsRowVerticalPadding
 } from './constant/app-settings-row-size.constant';
 
-export const AppSettingsRowStyles = StyleSheet.create({
+export const AppSettingsRowStyles = StyleSheet.create(theme => ({
     content: {
         flex: 1,
-        gap: 4,
+        gap: theme.spacing.xs,
         minWidth: 0
     },
     description: {
         fontSize: AppSettingsRowDescriptionFontSize,
-        fontWeight: '700',
+        fontWeight: theme.typography.weight.regular,
         lineHeight: AppSettingsRowDescriptionLineHeight
     },
     row: {
@@ -38,7 +38,7 @@ export const AppSettingsRowStyles = StyleSheet.create({
     },
     title: {
         fontSize: AppSettingsRowTitleFontSize,
-        fontWeight: '900',
+        fontWeight: theme.typography.weight.bold,
         lineHeight: AppSettingsRowTitleLineHeight
     },
     trailing: {
@@ -47,4 +47,4 @@ export const AppSettingsRowStyles = StyleSheet.create({
         flexShrink: 0,
         justifyContent: 'center'
     }
-});
+}));

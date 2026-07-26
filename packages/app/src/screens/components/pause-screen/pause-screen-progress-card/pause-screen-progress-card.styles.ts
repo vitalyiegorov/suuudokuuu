@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const PauseScreenProgressCardStyles = StyleSheet.create({
+export const PauseScreenProgressCardStyles = StyleSheet.create(theme => ({
     board: {
         alignSelf: 'center',
         flexShrink: 0
@@ -8,7 +8,7 @@ export const PauseScreenProgressCardStyles = StyleSheet.create({
     container: {
         alignItems: 'center',
         flexDirection: 'row',
-        gap: 12,
+        gap: theme.spacing.md,
         minHeight: 112
     },
     content: {
@@ -44,4 +44,4 @@ export const PauseScreenProgressCardStyles = StyleSheet.create({
         marginTop: 3,
         textAlign: 'center'
     }
-});
+}));

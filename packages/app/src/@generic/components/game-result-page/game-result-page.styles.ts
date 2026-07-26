@@ -1,26 +1,13 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const GameResultPageStyles = StyleSheet.create({
-    chromeContent: {
-        alignItems: 'center'
-    },
+export const GameResultPageStyles = StyleSheet.create(theme => ({
     content: {
-        alignItems: 'center',
+        alignItems: 'stretch',
         flexGrow: 1,
-        gap: 14,
-        justifyContent: 'space-between',
-        maxWidth: 560,
-        paddingHorizontal: 18,
-        paddingTop: 34,
-        width: '100%'
-    },
-    scrollContent: {
-        alignItems: 'center',
-        flexGrow: 1,
-        width: '100%'
-    },
-    scrollView: {
-        flex: 1,
+        gap: theme.spacing.md,
+        maxWidth: theme.contentWidth.standard,
+        paddingHorizontal: theme.spacing.lg,
+        paddingTop: theme.spacing.md,
         width: '100%'
     }
-});
+}));

@@ -1,26 +1,12 @@
 import { StyleSheet } from 'react-native';
 
-import { AvailableValueButtonSize } from './constant/available-value-button.constant';
-
 export const AvailableValuesItemStyles = StyleSheet.create({
-    button: {
-        alignItems: 'center',
-        borderRadius: AvailableValueButtonSize / 2,
-        height: AvailableValueButtonSize,
-        justifyContent: 'center',
-        outlineOffset: 0,
-        outlineWidth: 0,
-        overflow: 'visible',
-        position: 'relative',
-        width: AvailableValueButtonSize
-    },
-    container: {
-        position: 'relative'
-    },
     progressRing: {
+        bottom: 0,
         left: 0,
-        top: 0,
-        position: 'absolute'
+        position: 'absolute',
+        right: 0,
+        top: 0
     },
     text: {
         zIndex: 1

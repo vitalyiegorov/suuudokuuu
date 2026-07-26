@@ -11,18 +11,23 @@ import type { CellInterface, Sudoku } from '@suuudokuuu/generator';
 interface Props {
     readonly sudoku: Sudoku;
     readonly cell: CellInterface;
+    readonly cellSize: number;
     readonly isHighlighted: boolean;
 }
 
-export const ReplayFieldCell = ({ sudoku, cell, isHighlighted }: Props) => {
+export const ReplayFieldCell = ({ sudoku, cell, cellSize, isHighlighted }: Props) => {
     const { theme } = use(ThemeContext);
-    const fontSize = useCellFontSize();
+    const fontSize = useCellFontSize(cellSize);
 
     const value = String(cell.value);
     const isEmpty = sudoku.isBlankCell(cell);
     const cellBackgroundColor = isHighlighted ? theme.colors.cell.active : theme.colors.white;
 
-    const containerStyles = [cellStyles.container, { backgroundColor: cellBackgroundColor }, ...useCellBorderStyles(sudoku, cell)];
+    const containerStyles = [
+        cellStyles.container(cellSize),
+        { backgroundColor: cellBackgroundColor },
+        ...useCellBorderStyles(sudoku, cell)
+    ];
 
     const textColor = isEmpty ? theme.colors.cell.emptyValueText : theme.colors.black;
     const textStyles = [{ fontSize, color: textColor }];

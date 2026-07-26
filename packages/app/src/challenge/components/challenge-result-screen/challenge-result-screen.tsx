@@ -74,10 +74,7 @@ export const ChallengeResultScreen = (props: Props) => {
     const pillTextStyle = [styles.pillText, { color: theme.colors.label.inverted }];
 
     return (
-        <ChromeScrollPage
-            footer={<ChallengeResultFooter challengeState={challengeState}>{children}</ChallengeResultFooter>}
-            testID={ChallengeResultScreenSelectors.Root}
-        >
+        <ChromeScrollPage footer={<ChallengeResultFooter>{children}</ChallengeResultFooter>} testID={ChallengeResultScreenSelectors.Root}>
             <View style={styles.content}>
                 <ChallengeResultMedallion result={result} />
 

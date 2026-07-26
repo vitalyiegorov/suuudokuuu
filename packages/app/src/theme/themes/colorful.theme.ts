@@ -1,4 +1,4 @@
-import type { ThemeInterface } from '@suuudokuuu/ui';
+import type { ThemeInterface } from '@suuudokuuu/ui/theme';
 
 export const ColorfulLightTheme: ThemeInterface = {
     colors: {
@@ -7,7 +7,8 @@ export const ColorfulLightTheme: ThemeInterface = {
         white05: 'rgba(255, 255, 255, 0.5)',
         black: '#000000',
         black05: 'rgba(0, 0, 0, 0.25)',
-        red: '#C24641',
+        red: '#B23D38',
+        redFillText: '#FFFFFF',
         blue: '#8FA8C1',
         label: {
             main: '#2A3B4D',
@@ -37,7 +38,15 @@ export const ColorfulLightTheme: ThemeInterface = {
             border: 'rgba(193, 182, 164, 0.5)',
             progress: '#F6DA99',
             progressActive: '#FFFD74',
+            progressActiveText: '#2A3B4D',
             text: '#2A3B4D'
+        },
+        surface: {
+            raised: '#FFFFFF',
+            raisedText: '#2A3B4D',
+            subtle: '#D0C7B8',
+            subtleHint: 'rgba(42, 59, 77, 0.85)',
+            subtleText: '#2A3B4D'
         }
     }
 };
@@ -49,7 +58,8 @@ export const ColorfulDarkTheme: ThemeInterface = {
         white05: 'rgba(255, 255, 255, 0.5)',
         black: '#000000',
         black05: 'rgba(0, 0, 0, 0.25)',
-        red: '#91111E',
+        red: '#FF8566',
+        redFillText: '#2A3B4D',
         blue: '#445B7A',
         label: {
             inverted: '#7fafef',
@@ -72,14 +82,22 @@ export const ColorfulDarkTheme: ThemeInterface = {
             textActive: '#4B613A',
             bgActive: '#829B74',
             bg: '#2A3B4D',
-            border: 'rgba(68, 91, 122, 0.5)',
+            border: 'rgba(143, 168, 193, 0.55)',
             borderActive: '#4B613A'
         },
         value: {
-            border: 'rgba(68, 91, 122, 0.5)',
+            border: 'rgba(143, 168, 193, 0.55)',
             progress: '#F0AE1C',
             progressActive: '#A9A931',
+            progressActiveText: '#1b1b1a',
             text: '#1b1b1a'
+        },
+        surface: {
+            raised: '#FFFFFF',
+            raisedText: '#2A3B4D',
+            subtle: '#8FA8C1',
+            subtleHint: '#2A3B4D',
+            subtleText: '#2A3B4D'
         }
     }
 };

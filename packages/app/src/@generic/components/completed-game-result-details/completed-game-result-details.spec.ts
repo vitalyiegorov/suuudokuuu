@@ -7,8 +7,7 @@ describe('CompletedGameResultDetails', () => {
     it('keeps result metrics and the Ukraine support card together while accepting explicit test selectors', () => {
         const source = readFileSync(join(__dirname, 'completed-game-result-details.tsx'), 'utf8');
 
-        expect(source).toContain('GameResultMetrics');
-        expect(source).toContain('AppMetricCard');
+        expect(source).toContain('AppMetricStrip');
         expect(source).toContain('UkraineSupportCard');
         expect(source).toContain('timeTestID');
         expect(source).toContain('mistakesTestID');

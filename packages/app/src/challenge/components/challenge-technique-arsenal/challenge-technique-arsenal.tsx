@@ -11,7 +11,8 @@ import { ChallengeTechniqueArsenalStyles as styles } from './challenge-technique
 import type { ChallengeTechniqueEventInterface } from '../../interfaces/challenge-technique-event.interface';
 
 const CARDS_PER_ROW = 3;
-const MAX_ARSENAL_CARDS = 6;
+
+export const MAX_ARSENAL_CARDS = 6;
 
 interface Props {
     readonly events: ChallengeTechniqueEventInterface[];

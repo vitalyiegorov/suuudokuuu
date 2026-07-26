@@ -1,50 +1,62 @@
-import * as Device from 'expo-device';
-import { Platform, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-const GameScreenControlsGap = 16;
-const GameScreenButtonGroupGap = 8;
+import { WideLayoutMediaQuery } from '../../../@generic/constants/layout-media-query.constant';
+import { GameSidePanelWidthConstant } from '../../../game/constant/board-cell-size.constant';
 
-export const GameScreenBottomInset = 16;
-
-export const GameScreenStyles = StyleSheet.create({
-    additionalControlsWrapper: {
+export const GameScreenStyles = StyleSheet.create((theme, rt) => ({
+    container: (isLeftHanded: boolean) => ({
+        alignItems: 'stretch',
         flex: 1,
+        flexDirection: { xs: 'column', [WideLayoutMediaQuery]: isLeftHanded ? 'row-reverse' : 'row' },
+        gap: { xs: theme.spacing.sm, [WideLayoutMediaQuery]: theme.spacing.lg },
+        justifyContent: { xs: 'flex-start', [WideLayoutMediaQuery]: 'center' },
+        paddingBottom: rt.insets.bottom / 2 + theme.spacing.xs,
+        paddingTop: theme.spacing.xs
+    }),
+    topBar: {
+        alignItems: 'flex-start',
         flexDirection: 'row',
-        gap: 10,
+        flexShrink: 0,
+        gap: theme.spacing.md,
+        justifyContent: 'space-between',
+        paddingHorizontal: theme.spacing.sm
+    },
+    boardArea: {
+        alignItems: 'center',
+        aspectRatio: { xs: 'auto', [WideLayoutMediaQuery]: 1 },
+        flexGrow: { xs: 1, [WideLayoutMediaQuery]: 0 },
+        flexShrink: 1,
+        height: { xs: 'auto', [WideLayoutMediaQuery]: '100%' },
         justifyContent: 'center',
-        marginBottom: 20
+        minHeight: 0,
+        minWidth: 0
     },
-    availableValuesWrapper: {
+    boardSpacer: {
+        flexGrow: 1,
+        flexShrink: 1
+    },
+    toolsSlot: {
         alignItems: 'center',
-        flex: 2,
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        gap: 10,
-        justifyContent: 'center'
-    },
-    bottomContainer: {
-        flex: 1,
-        ...(Device.deviceType === Device.DeviceType.PHONE && Platform.select({ web: { flex: 1.3 } }))
-    },
-    buttonsWrapper: { flexDirection: 'row', flexShrink: 0, gap: GameScreenButtonGroupGap },
-    container: {
-        alignItems: 'center',
-        flex: 1,
-        padding: 10,
-        paddingBottom: 20
-    },
-    controls: {
-        alignItems: 'center',
-        flexDirection: 'row',
-        gap: GameScreenControlsGap,
+        flexGrow: 1,
+        flexShrink: 1,
         justifyContent: 'center',
-        marginBottom: 14,
-        maxWidth: 600,
-        width: '100%',
-
-        ...(Device.deviceType === Device.DeviceType.PHONE && Platform.select({ web: { height: 50 } }))
+        minHeight: 0,
+        paddingTop: theme.spacing.sm
     },
-    fieldWrapper: {
-        flex: 3
+    panelArea: (boardSize: number) => ({
+        alignSelf: 'center',
+        flexShrink: 0,
+        gap: theme.spacing.sm,
+        height: { xs: 'auto', [WideLayoutMediaQuery]: boardSize > 0 ? boardSize : '100%' },
+        justifyContent: { xs: 'center', [WideLayoutMediaQuery]: 'space-between' },
+        paddingHorizontal: theme.spacing.sm,
+        width: { xs: '100%', [WideLayoutMediaQuery]: GameSidePanelWidthConstant }
+    }),
+    panelInputArea: {
+        alignItems: 'center',
+        flexShrink: 1,
+        gap: { xs: theme.spacing.sm, [WideLayoutMediaQuery]: theme.spacing.xl },
+        justifyContent: 'center',
+        minHeight: 0
     }
-});
+}));

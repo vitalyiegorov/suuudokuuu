@@ -1,12 +1,14 @@
 import { DifficultyEnum } from '@suuudokuuu/generator';
 import { Redirect } from 'expo-router';
 import { useState } from 'react';
-import { ScrollView, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { View } from 'react-native';
+import { Display, Hide } from 'react-native-unistyles';
 
 import { isDefined } from '@rnw-community/shared';
 
+import { WideLayoutMediaQuery } from '../../../@generic/constants/layout-media-query.constant';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
+import { useBoardCellSize } from '../../../game/hooks/use-board-cell-size.hook';
 import { gameCompletedGameByIdSelector } from '../../../game/store/game.selectors';
 import { stringToGameState } from '../../../game/utils/string-to-game-state.util';
 import { ReplayControls } from '../../../history/components/replay-controls/replay-controls';
@@ -15,7 +17,7 @@ import { ReplayHeader } from '../../../history/components/replay-header/replay-h
 import { ReplayTopBar } from '../../../history/components/replay-top-bar/replay-top-bar';
 import { getSudokuAtStep } from '../../../history/utils/get-sudoku-at-step.util';
 
-import { ReplayScreenBottomInset, ReplayScreenStyles as styles } from './replay-screen.styles';
+import { ReplayScreenStyles as styles } from './replay-screen.styles';
 
 interface Props {
     readonly difficulty: DifficultyEnum;
@@ -26,7 +28,7 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
     const completedGame = useAppSelector(gameCompletedGameByIdSelector(difficulty, completedAt));
     const [currentStep, setCurrentStep] = useState(0);
     const [gameState] = useState(() => stringToGameState(completedGame?.encodedState));
-    const insets = useSafeAreaInsets();
+    const { cellSize: boardCellSize, onBoardAreaLayout } = useBoardCellSize();
 
     if (!isDefined(gameState) || !isDefined(completedGame)) {
         return <Redirect href="/history" />;
@@ -44,25 +46,34 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
     };
 
     const { sudoku, highlightedCellKey, elapsedTime, moveClassification } = getSudokuAtStep(gameState, currentStep);
-    const scrollContentStyles = [styles.scrollContent, { paddingBottom: insets.bottom + ReplayScreenBottomInset }];
+    const replayHeader = <ReplayHeader game={completedGame} />;
+    const replayControls = (
+        <ReplayControls
+            currentStep={currentStep}
+            elapsedTime={elapsedTime}
+            moveClassification={moveClassification}
+            onNextStep={handleNextStep}
+            onPrevStep={handlePrevStep}
+            totalSteps={gameState.challengeSteps.length}
+        />
+    );
 
     return (
         <View style={styles.container}>
             <ReplayTopBar />
-            <ScrollView contentContainerStyle={scrollContentStyles} showsVerticalScrollIndicator={false} style={styles.scroll}>
-                <ReplayHeader game={completedGame} />
-                <View style={styles.fieldWrapper}>
-                    <ReplayField highlightedCellKey={highlightedCellKey} sudoku={sudoku} />
+            <View style={styles.content}>
+                <Hide mq={WideLayoutMediaQuery}>{replayHeader}</Hide>
+
+                <View onLayout={onBoardAreaLayout} style={styles.fieldWrapper}>
+                    <ReplayField cellSize={boardCellSize} highlightedCellKey={highlightedCellKey} sudoku={sudoku} />
                 </View>
-                <ReplayControls
-                    currentStep={currentStep}
-                    elapsedTime={elapsedTime}
-                    moveClassification={moveClassification}
-                    onNextStep={handleNextStep}
-                    onPrevStep={handlePrevStep}
-                    totalSteps={gameState.challengeSteps.length}
-                />
-            </ScrollView>
+
+                <View style={styles.controlsColumn}>
+                    <Display mq={WideLayoutMediaQuery}>{replayHeader}</Display>
+
+                    {replayControls}
+                </View>
+            </View>
         </View>
     );
 };

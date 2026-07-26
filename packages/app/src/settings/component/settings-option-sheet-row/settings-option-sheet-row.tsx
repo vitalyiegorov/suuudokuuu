@@ -6,6 +6,7 @@ import { isNotEmptyString } from '@rnw-community/shared';
 
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { settingsOptionSheetGetColors } from '../../utils/settings-option-sheet-get-colors.util';
 import { SettingsOptionSheetSelectors } from '../settings-option-sheet/settings-option-sheet.selectors';
 
 import { SettingsOptionSheetRowStyles as styles } from './settings-option-sheet-row.styles';
@@ -20,10 +21,11 @@ interface Props {
 export const SettingsOptionSheetRow = ({ description = '', isSelected, label, onPress }: Props) => {
     const { theme } = use(ThemeContext);
 
-    const containerStyles = [styles.container, { backgroundColor: theme.colors.candidate.bg }];
+    const sheetColors = settingsOptionSheetGetColors(theme);
+    const containerStyles = [styles.container, { backgroundColor: sheetColors.panelBackground }];
     const titleStyles = [styles.title, isSelected ? styles.selectedTitle : null];
-    const descriptionStyles = [styles.description, { color: theme.colors.label.hint }];
-    const checkColor = theme.colors.label.main;
+    const descriptionStyles = [styles.description, { color: sheetColors.descriptionColor }];
+    const checkColor = sheetColors.panelText;
     const check = isSelected ? <Check color={checkColor} height={22} strokeWidth={2.25} width={22} /> : null;
     const accessibilityState = { selected: isSelected };
     const accessibilityLabel = isNotEmptyString(description) ? `${label}, ${description}` : label;

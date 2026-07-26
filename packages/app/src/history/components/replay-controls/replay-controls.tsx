@@ -35,16 +35,16 @@ export const ReplayControls = ({ currentStep, totalSteps, elapsedTime, moveClass
     const canGoForward = currentStep < totalSteps;
     const stepProgress = replayGetStepProgress(currentStep, totalSteps);
     const stepProgressPercent: `${number}%` = `${stepProgress * 100}%`;
-    const previousIconColor = canGoBack ? theme.colors.label.main : theme.colors.label.hint;
-    const nextIconColor = canGoForward ? theme.colors.label.main : theme.colors.label.hint;
+    const previousIconColor = canGoBack ? theme.colors.surface.raisedText : theme.colors.label.hint;
+    const nextIconColor = canGoForward ? theme.colors.surface.raisedText : theme.colors.label.hint;
     const previousButtonStyles = [
         styles.navButton,
-        { backgroundColor: theme.colors.white, borderColor: theme.colors.value.border },
+        { backgroundColor: theme.colors.surface.raised, borderColor: theme.colors.value.border },
         !canGoBack && styles.disabledButton
     ];
     const nextButtonStyles = [
         styles.navButton,
-        { backgroundColor: theme.colors.white, borderColor: theme.colors.value.border },
+        { backgroundColor: theme.colors.surface.raised, borderColor: theme.colors.value.border },
         !canGoForward && styles.disabledButton
     ];
     const trackStyles = [styles.scrubberTrack, { backgroundColor: theme.colors.value.progress }];
@@ -52,7 +52,7 @@ export const ReplayControls = ({ currentStep, totalSteps, elapsedTime, moveClass
     const thumbStyles = [
         styles.scrubberThumb,
         {
-            backgroundColor: theme.colors.white,
+            backgroundColor: theme.colors.surface.raised,
             borderColor: theme.colors.value.border,
             left: stepProgressPercent
         }

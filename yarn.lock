@@ -253,14 +253,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/helper-string-parser@npm:^7.29.7":
+"@babel/helper-string-parser@npm:^7.27.1, @babel/helper-string-parser@npm:^7.29.7":
   version: 7.29.7
   resolution: "@babel/helper-string-parser@npm:7.29.7"
   checksum: 10/4d8ef0ef7105f3d9fe4361137c8f42e5b4c7a52b5380b962762f2a528a1ba89064e2c6236090716ce34b63707b886ae0ebf36b2c2fcc2851f27e652febfc3648
   languageName: node
   linkType: hard
 
-"@babel/helper-validator-identifier@npm:^7.25.9, @babel/helper-validator-identifier@npm:^7.29.7":
+"@babel/helper-validator-identifier@npm:^7.25.9, @babel/helper-validator-identifier@npm:^7.28.5, @babel/helper-validator-identifier@npm:^7.29.7":
   version: 7.29.7
   resolution: "@babel/helper-validator-identifier@npm:7.29.7"
   checksum: 10/2efa42701eb05babf26dff3332109c9e5e1a3400a71fb9e68ee27af28235036a2a72c2494c04bdab3f909075f42a58b2e8271074372bc7f8e79ec02bd364d7a7
@@ -1021,6 +1021,16 @@ __metadata:
     "@babel/types": "npm:^7.29.7"
     debug: "npm:^4.3.1"
   checksum: 10/ce24086a7dd8c408cbdb159437d3c8e02464a6d32b320d884fa742e2c5a3344b9342a923c7a371fc1789b4d82a59972a7008b5d8bbc1bc0c5ae42a39b28dc7f6
+  languageName: node
+  linkType: hard
+
+"@babel/types@npm:7.29.0":
+  version: 7.29.0
+  resolution: "@babel/types@npm:7.29.0"
+  dependencies:
+    "@babel/helper-string-parser": "npm:^7.27.1"
+    "@babel/helper-validator-identifier": "npm:^7.28.5"
+  checksum: 10/bfc2b211210f3894dcd7e6a33b2d1c32c93495dc1e36b547376aa33441abe551ab4bc1640d4154ee2acd8e46d3bbc925c7224caae02fcaf0e6a771e97fccc661
   languageName: node
   linkType: hard
 
@@ -4866,6 +4876,7 @@ __metadata:
   dependencies:
     "@babel/core": "npm:^7.29.7"
     "@expo-google-fonts/inter": "npm:^0.4.2"
+    "@expo/config-plugins": "npm:~57.0.2"
     "@expo/fingerprint": "npm:~0.20.3"
     "@expo/ui": "npm:~57.0.4"
     "@formatjs/intl-pluralrules": "npm:^6.3.10"
@@ -4894,7 +4905,6 @@ __metadata:
     expo-build-properties: "npm:~57.0.3"
     expo-constants: "npm:~57.0.3"
     expo-dev-client: "npm:~57.0.5"
-    expo-device: "npm:~57.0.0"
     expo-font: "npm:~57.0.0"
     expo-glass-effect: "npm:~57.0.0"
     expo-haptics: "npm:~57.0.0"
@@ -4913,11 +4923,13 @@ __metadata:
     react-dom: "npm:19.2.3"
     react-native: "npm:0.86.0"
     react-native-gesture-handler: "npm:~2.32.0"
+    react-native-nitro-modules: "npm:^0.36.1"
     react-native-reanimated: "npm:4.5.0"
     react-native-safe-area-context: "npm:~5.7.0"
     react-native-screens: "npm:4.25.2"
     react-native-share: "npm:^12.3.1"
     react-native-svg: "npm:15.15.4"
+    react-native-unistyles: "npm:^3.2.5"
     react-native-web: "npm:^0.21.2"
     react-native-worklets: "npm:0.10.0"
     react-redux: "npm:^9.3.0"
@@ -5017,6 +5029,8 @@ __metadata:
     lucide-react-native: ^1.21.0
     react: 19.2.3
     react-native: 0.86.0
+    react-native-reanimated: 4.5.0
+    react-native-unistyles: ^3.2.5
   languageName: unknown
   linkType: soft
 
@@ -8937,17 +8951,6 @@ __metadata:
     expo: "*"
     react-native: "*"
   checksum: 10/50af8e5fa5ced4b72c62bcd37d3c0816efdb75704c0d67834a392af44ba19c8b14a2c295d3f268c2a281f5c9776a199d355803d86589c7d3cdeb587992f6cf07
-  languageName: node
-  linkType: hard
-
-"expo-device@npm:~57.0.0":
-  version: 57.0.0
-  resolution: "expo-device@npm:57.0.0"
-  dependencies:
-    ua-parser-js: "npm:^0.7.33"
-  peerDependencies:
-    expo: "*"
-  checksum: 10/d5e55092d3a7724eeab6181d5ae6c8dbd3722f27ec1928700b6f6ce5a7f1ab852b56af24a166ea3375d8ba28b448a5a9b7e548ce1cd79a1d480aafcf9f0f1d7f
   languageName: node
   linkType: hard
 
@@ -14998,6 +15001,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-nitro-modules@npm:^0.36.1":
+  version: 0.36.1
+  resolution: "react-native-nitro-modules@npm:0.36.1"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10/c5e253423fd768110d5f7a7cccb171c21742e3480473ac95575bb0e40848d338d76c9cdd0e843d39a7be294a5821d98f59f040e287647b820d2e81544340f95d
+  languageName: node
+  linkType: hard
+
 "react-native-reanimated@npm:4.5.0":
   version: 4.5.0
   resolution: "react-native-reanimated@npm:4.5.0"
@@ -15053,6 +15066,27 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: 10/07b1e9826533ecb4ad731602e720bb4208c18ba0a5f259a17f5ee3aa9b02b1006bb5ae59c81d9d49773c898578a0728724a1085d03939e64e8ddf4ef6c842fdf
+  languageName: node
+  linkType: hard
+
+"react-native-unistyles@npm:^3.2.5":
+  version: 3.3.0
+  resolution: "react-native-unistyles@npm:3.3.0"
+  dependencies:
+    "@babel/types": "npm:7.29.0"
+  peerDependencies:
+    "@react-native/normalize-colors": "*"
+    react: "*"
+    react-native: ">=0.76.0"
+    react-native-edge-to-edge: "*"
+    react-native-nitro-modules: "*"
+    react-native-reanimated: "*"
+  peerDependenciesMeta:
+    react-native-edge-to-edge:
+      optional: true
+    react-native-reanimated:
+      optional: true
+  checksum: 10/7cbec0ac6b1e50e689cca53861cf9d499c9e748e83aad970143b7da77f8b1b2d6c036492877d9d93a0bb60dfa1e36bf77774b514cbe1d2cca0409dcf7618a247
   languageName: node
   linkType: hard
 
@@ -17233,7 +17267,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ua-parser-js@npm:^0.7.30, ua-parser-js@npm:^0.7.33":
+"ua-parser-js@npm:^0.7.30":
   version: 0.7.40
   resolution: "ua-parser-js@npm:0.7.40"
   bin:

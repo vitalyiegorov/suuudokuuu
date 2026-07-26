@@ -4,6 +4,7 @@ import { use } from 'react';
 import { View } from 'react-native';
 
 import { BlackText } from '../../../../@generic/components/black-text/black-text';
+import { GameResultHeroIconSize } from '../../../../@generic/components/game-result-hero/constant/game-result-hero-icon-size.constant';
 import { GameResultHero } from '../../../../@generic/components/game-result-hero/game-result-hero';
 import { ThemeContext } from '../../../../theme/context/theme.context';
 import { LoserScreenSelectors } from '../loser-screen.selectors';
@@ -29,7 +30,7 @@ export const LoserScreenResultHero = ({ detailsText, progressPercent }: Props) =
         <GameResultHero
             descriptorText={detailsText}
             eyebrowText={t`You got to`}
-            icon={<LucideCircleX color={theme.colors.red} size={42} strokeWidth={2.6} />}
+            icon={<LucideCircleX color={theme.colors.red} size={GameResultHeroIconSize} strokeWidth={2.2} />}
             testID={LoserScreenSelectors.ProgressValue}
             titleText={t`Better luck next time!`}
             valueText={progressPercentText}

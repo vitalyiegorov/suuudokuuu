@@ -1,8 +1,7 @@
 import { type StyleProp, Text, View, type ViewStyle } from 'react-native';
+import { useUnistyles } from 'react-native-unistyles';
 
 import { isDefined, isNotEmptyString } from '@rnw-community/shared';
-
-import { useUiTheme } from '../../theme/hooks/use-ui-theme.hook';
 
 import { AppSettingsRowStyles as styles } from './app-settings-row.styles';
 
@@ -17,17 +16,17 @@ interface Props {
 }
 
 export const AppSettingsRow = ({ description, style, testID, title, trailing }: Props) => {
-    const { theme } = useUiTheme();
+    const { theme } = useUnistyles();
     const rowStyles = [
         styles.row,
         {
-            backgroundColor: theme.colors.cell.highlighted,
+            backgroundColor: theme.colors.surface.subtle,
             borderColor: theme.colors.value.border
         },
         style
     ];
-    const titleStyles = [styles.title, { color: theme.colors.label.main }];
-    const descriptionStyles = [styles.description, { color: theme.colors.label.hint }];
+    const titleStyles = [styles.title, { color: theme.colors.surface.subtleText }];
+    const descriptionStyles = [styles.description, { color: theme.colors.surface.subtleHint }];
     const hasDescription = isNotEmptyString(description);
 
     return (

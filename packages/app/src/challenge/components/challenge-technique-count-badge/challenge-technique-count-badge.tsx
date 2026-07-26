@@ -13,7 +13,7 @@ export const ChallengeTechniqueCountBadge = ({ count }: Props) => {
     const { theme } = use(ThemeContext);
 
     const badgeStyle = [styles.badge, { backgroundColor: theme.colors.red, borderColor: theme.colors.background }];
-    const countStyle = [styles.count, { color: theme.colors.white }];
+    const countStyle = [styles.count, { color: theme.colors.redFillText }];
 
     return (
         <View style={badgeStyle}>

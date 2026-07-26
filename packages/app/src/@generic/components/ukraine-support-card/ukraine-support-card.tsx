@@ -11,19 +11,41 @@ import { UkraineFlagIcon } from '../ukraine-flag-icon/ukraine-flag-icon';
 
 import { UkraineSupportCardStyles as styles } from './ukraine-support-card.styles';
 
+export type UkraineSupportCardContext = 'neutral' | 'winner' | 'loser';
+type UkraineSupportCardVariant = 'bordered' | 'filled';
+
 interface Props {
-    testID: string;
+    readonly context?: UkraineSupportCardContext;
+    readonly testID: string;
+    readonly variant?: UkraineSupportCardVariant;
 }
 
-export const UkraineSupportCard = ({ testID }: Props) => {
+export const UkraineSupportCard = ({ context = 'neutral', testID, variant = 'filled' }: Props) => {
     const { theme } = use(ThemeContext);
     const { t } = useLingui();
-    const titleStyles = [styles.title, { color: theme.colors.label.inverted }];
-    const descriptionStyles = [styles.description, { color: theme.colors.label.inverted }];
+    const isBordered = variant === 'bordered';
+    const textColor = isBordered ? theme.colors.label.main : theme.colors.label.inverted;
+    const cardVariant = isBordered ? 'default' : 'inverted';
+    const cardColorStyles = isBordered ? { backgroundColor: 'transparent', borderColor: theme.colors.candidate.border } : null;
+    const containerStyles = [styles.container, cardColorStyles];
+    const titleStyles = [styles.title, { color: textColor }];
+    const descriptionStyles = [styles.description, { color: textColor }];
     const flagStyles = [styles.flag];
 
+    let description = <Trans>While you were away, the fight for freedom continued. Every $1 makes a difference.</Trans>;
+
+    if (context === 'winner') {
+        description = <Trans>You finished your puzzle. The fight for freedom in Ukraine continues. Every $1 makes a difference.</Trans>;
+    }
+
+    if (context === 'loser') {
+        description = (
+            <Trans>This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference.</Trans>
+        );
+    }
+
     return (
-        <AppSurfaceCard size="compact" style={styles.container} variant="inverted">
+        <AppSurfaceCard size="compact" style={containerStyles} variant={cardVariant}>
             <View style={styles.titleRow}>
                 <View style={flagStyles}>
                     <UkraineFlagIcon />
@@ -35,7 +57,7 @@ export const UkraineSupportCard = ({ testID }: Props) => {
             </View>
 
             <Text adjustsFontSizeToFit allowFontScaling={false} minimumFontScale={0.78} numberOfLines={3} style={descriptionStyles}>
-                <Trans>While you were away, the fight for freedom continued. Every $1 makes a difference.</Trans>
+                {description}
             </Text>
 
             <AppLinkButton

@@ -8,9 +8,9 @@ describe('HomeScreenStyles', () => {
         const source = readFileSync(join(__dirname, 'home-screen.styles.ts'), 'utf8');
         const screenSource = readFileSync(join(__dirname, 'home.screen.tsx'), 'utf8');
         const scrollContentStartIndex = source.indexOf('scrollContent: {');
-        const scrollContentEndIndex = source.indexOf('scrollView: {');
+        const scrollContentEndIndex = source.indexOf('setupSection: {');
         const contentStackStartIndex = source.indexOf('contentStack: {');
-        const contentStackEndIndex = source.indexOf('continueContent: {');
+        const contentStackEndIndex = source.indexOf('masthead: {');
         const scrollContentSource = source.slice(scrollContentStartIndex, scrollContentEndIndex);
         const contentStackSource = source.slice(contentStackStartIndex, contentStackEndIndex);
 
@@ -18,10 +18,12 @@ describe('HomeScreenStyles', () => {
         expect(source).not.toContain('flexGrow: 1');
         expect(scrollContentSource).not.toContain("justifyContent: 'space-between'");
         expect(contentStackSource).not.toContain("justifyContent: 'space-between'");
-        expect(screenSource).not.toContain('useWindowDimensions');
+        expect(contentStackSource).toContain("flexDirection: 'column'");
+        expect(contentStackSource).not.toContain("flexDirection: 'row'");
+        expect(screenSource).not.toContain('sizeClass');
         expect(source).not.toContain('paddingBottom: 120');
         expect(screenSource).toContain('HomeScreenBottomScrollPadding');
-        expect(screenSource).toContain('HomeScreenFloatingTabBarInset');
+        expect(screenSource).toContain('TabBarInsetContext');
         expect(screenSource).toContain('topEdgeFadeProps=');
         expect(screenSource).not.toContain('footerEdgeFadeProps=');
         expect(screenSource).toContain('HomeScreenTopOverlayHeight');
@@ -43,8 +45,7 @@ describe('HomeScreenStyles', () => {
         const screenSource = readFileSync(join(__dirname, 'home.screen.tsx'), 'utf8');
 
         expect(source).toContain('HomeScreenBottomScrollPadding = 32');
-        expect(source).toContain('HomeScreenFloatingTabBarInset = 64');
-        expect(screenSource).toContain('HomeScreenBottomScrollPadding + HomeScreenFloatingTabBarInset');
+        expect(screenSource).toContain('HomeScreenBottomScrollPadding + tabBarInset');
         expect(screenSource).toContain('contentInsetBottom={contentInsetBottom}');
         // The clearance must stay scroll content inset: container padding would clip the
         // strip into an on-screen but unscrollable dead zone below the scroll viewport.

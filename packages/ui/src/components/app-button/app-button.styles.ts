@@ -1,14 +1,20 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const AppButtonStyles = StyleSheet.create({
+export const AppButtonStyles = StyleSheet.create(theme => ({
     button: {
         alignItems: 'center',
         borderCurve: 'continuous',
         borderWidth: StyleSheet.hairlineWidth,
         flexDirection: 'row',
-        gap: 8,
+        gap: theme.spacing.sm,
         justifyContent: 'center',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        _web: {
+            cursor: 'pointer',
+            _hover: {
+                opacity: 0.85
+            }
+        }
     },
     compact: {
         borderRadius: 22,
@@ -33,11 +39,11 @@ export const AppButtonStyles = StyleSheet.create({
         lineHeight: 20
     },
     textLarge: {
-        fontSize: 20,
+        fontSize: theme.typography.size.lg,
         lineHeight: 26
     },
     textRegular: {
         fontSize: 17,
         lineHeight: 22
     }
-});
+}));

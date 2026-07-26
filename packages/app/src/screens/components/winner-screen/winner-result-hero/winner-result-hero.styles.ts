@@ -1,16 +1,15 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const WinnerResultHeroStyles = StyleSheet.create({
-    statusPill: {
-        alignSelf: 'center',
-        borderRadius: 999,
-        paddingHorizontal: 16,
-        paddingVertical: 8
+export const WinnerResultHeroStyles = StyleSheet.create(theme => ({
+    personalBestCard: {
+        alignItems: 'center',
+        flexDirection: 'row',
+        gap: theme.spacing.md
     },
-    statusText: {
+    personalBestText: {
+        flexShrink: 1,
         fontSize: 15,
         fontWeight: '900',
-        lineHeight: 20,
-        textAlign: 'center'
+        lineHeight: 20
     }
-});
+}));
