@@ -1,5 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
-import { resolveUnistyleForAnimated, useAppLayout } from '@suuudokuuu/ui';
+import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 
 import { CollapsibleChromePage } from '../../../@generic/components/collapsible-chrome-page/collapsible-chrome-page';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
@@ -12,7 +12,6 @@ import { HistoryScreenStyles } from './history-screen.styles';
 
 export const HistoryScreen = () => {
     const { t } = useLingui();
-    const { sizeClass } = useAppLayout();
     const historyByDifficulty = useAppSelector(gameHistoryByDifficultySelector);
 
     const difficulties = historyGetCompletedDifficulties(historyByDifficulty);
@@ -22,7 +21,7 @@ export const HistoryScreen = () => {
             contentContainerStyle={resolveUnistyleForAnimated(HistoryScreenStyles.scrollViewContainer)}
             contentStyle={HistoryScreenStyles.content}
             showsVerticalScrollIndicator={false}
-            style={resolveUnistyleForAnimated(HistoryScreenStyles.scrollView(sizeClass))}
+            style={resolveUnistyleForAnimated(HistoryScreenStyles.scrollView)}
             testID={HistoryScreenSelectors.Root}
             title={t`Statistics`}
         >

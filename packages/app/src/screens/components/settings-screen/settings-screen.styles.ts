@@ -1,28 +1,25 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-import { WideContentWidthMultiplierConstant } from '../../constant/wide-content-width.constant';
+import { pageColumnScrollViewStyle } from '../../utils/page-column-screen-styles.util';
 
 export const SettingsScreenStyles = StyleSheet.create(theme => ({
     content: {
         alignItems: 'center',
         paddingHorizontal: theme.spacing.xl
     },
-    scrollView: (sizeClass: 'compact' | 'wide') => ({
-        maxWidth: sizeClass === 'wide' ? theme.contentWidth.standard * WideContentWidthMultiplierConstant : theme.contentWidth.standard,
-        width: '100%'
-    }),
-    scrollViewContent: (sizeClass: 'compact' | 'wide') => ({
-        flexDirection: sizeClass === 'wide' ? 'row' : 'column',
-        alignItems: sizeClass === 'wide' ? 'flex-start' : 'stretch',
+    scrollView: pageColumnScrollViewStyle(theme),
+    scrollViewContent: {
+        alignItems: 'stretch',
+        flexDirection: 'column',
         gap: theme.spacing.xl,
         paddingBottom: theme.spacing.sm
-    }),
-    primaryColumn: {
-        flex: 2,
-        gap: theme.spacing.xl
     },
-    secondaryColumn: (sizeClass: 'compact' | 'wide') => ({
+    primaryColumn: {
         gap: theme.spacing.xl,
-        ...(sizeClass === 'wide' ? { flex: 1 } : { width: '100%' })
-    })
+        width: '100%'
+    },
+    secondaryColumn: {
+        gap: theme.spacing.xl,
+        width: '100%'
+    }
 }));

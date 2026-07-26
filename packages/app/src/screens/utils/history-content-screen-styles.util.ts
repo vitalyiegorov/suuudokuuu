@@ -1,4 +1,4 @@
-import { WideContentWidthMultiplierConstant } from '../constant/wide-content-width.constant';
+import { pageColumnScrollViewStyle } from './page-column-screen-styles.util';
 
 import type { UnistylesThemeInterface } from '@suuudokuuu/ui';
 
@@ -7,10 +7,7 @@ export const historyContentScreenStyles = (theme: UnistylesThemeInterface) => ({
         alignItems: 'center' as const,
         paddingHorizontal: 18
     },
-    scrollView: (sizeClass: 'compact' | 'wide') => ({
-        maxWidth: sizeClass === 'wide' ? theme.contentWidth.standard * WideContentWidthMultiplierConstant : theme.contentWidth.standard,
-        width: '100%' as const
-    }),
+    scrollView: pageColumnScrollViewStyle(theme),
     scrollViewContainer: {
         gap: 14,
         paddingHorizontal: 2

@@ -1,18 +1,12 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-import { WideLayoutMediaQuery } from '../../../@generic/constants/layout-media-query.constant';
-import { WideContentWidthMultiplierConstant } from '../../constant/wide-content-width.constant';
-
 export const ReplayScreenStyles = StyleSheet.create(theme => ({
     container: {
         alignSelf: 'center',
         flex: 1,
         flexDirection: 'column',
         gap: 18,
-        maxWidth: {
-            xs: theme.contentWidth.standard,
-            [WideLayoutMediaQuery]: theme.contentWidth.standard * WideContentWidthMultiplierConstant
-        },
+        maxWidth: theme.contentWidth.standard,
         paddingBottom: 18,
         paddingHorizontal: 20,
         paddingTop: 18,
@@ -20,7 +14,7 @@ export const ReplayScreenStyles = StyleSheet.create(theme => ({
     },
     content: {
         flex: 1,
-        flexDirection: { xs: 'column', [WideLayoutMediaQuery]: 'row' },
+        flexDirection: 'column',
         gap: 18
     },
     fieldWrapper: {
@@ -32,7 +26,7 @@ export const ReplayScreenStyles = StyleSheet.create(theme => ({
         minWidth: 0
     },
     controlsColumn: {
-        flexGrow: { xs: 0, [WideLayoutMediaQuery]: 1 },
+        flexGrow: 0,
         flexShrink: 0,
         gap: 18,
         justifyContent: 'center'

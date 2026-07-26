@@ -1,25 +1,29 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-export const PauseScreenStyles = StyleSheet.create(theme => ({
-    asideColumn: (sizeClass: 'compact' | 'wide') => ({
+const PauseScreenContentMaxWidth = 560;
+
+export const PauseScreenStyles = StyleSheet.create(() => ({
+    asideColumn: {
         gap: 14,
-        ...(sizeClass === 'wide' ? { flex: 1 } : { width: '100%' })
-    }),
+        width: '100%'
+    },
     container: {
         flex: 1
     },
-    content: (sizeClass: 'compact' | 'wide') => ({
+    content: {
         alignItems: 'stretch',
+        alignSelf: 'center',
+        flexDirection: 'column',
         flexGrow: 1,
         gap: 14,
         justifyContent: 'space-between',
+        maxWidth: PauseScreenContentMaxWidth,
         paddingHorizontal: 18,
         paddingTop: 16,
-        width: '100%',
-        ...(sizeClass === 'wide' ? { alignSelf: 'center', flexDirection: 'row', maxWidth: theme.contentWidth.standard } : { maxWidth: 560 })
-    }),
-    summaryColumn: (sizeClass: 'compact' | 'wide') => ({
+        width: '100%'
+    },
+    summaryColumn: {
         gap: 14,
-        ...(sizeClass === 'wide' ? { flex: 1 } : { width: '100%' })
-    })
+        width: '100%'
+    }
 }));

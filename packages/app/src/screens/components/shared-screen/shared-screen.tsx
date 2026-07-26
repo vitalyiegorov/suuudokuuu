@@ -1,5 +1,4 @@
 import { useLingui } from '@lingui/react/macro';
-import { useAppLayout } from '@suuudokuuu/ui';
 import { use } from 'react';
 import { View } from 'react-native';
 
@@ -19,7 +18,6 @@ interface Props {
 
 export const SharedScreen = ({ stateString }: Props) => {
     const { t } = useLingui();
-    const { sizeClass } = useAppLayout();
     const { createFromState } = use(GameContext);
 
     if (!isNotEmptyString(stateString)) {
@@ -43,12 +41,12 @@ export const SharedScreen = ({ stateString }: Props) => {
     }
 
     return (
-        <View style={styles.container(sizeClass)}>
-            <View style={styles.headerColumn(sizeClass)}>
+        <View style={styles.container}>
+            <View style={styles.headerColumn}>
                 <Header text={t`Open shared puzzle?`} />
             </View>
 
-            <View style={styles.buttonsWrapper(sizeClass)}>
+            <View style={styles.buttonsWrapper}>
                 <BlackButton onPress={handleOpenPuzzle} text={t`Open puzzle`} />
                 <BlackButton href="/" text={t`Cancel`} />
             </View>

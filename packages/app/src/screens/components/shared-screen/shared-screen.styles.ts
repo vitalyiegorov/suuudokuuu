@@ -1,24 +1,24 @@
 import { StyleSheet } from 'react-native-unistyles';
 
 export const SharedScreenStyles = StyleSheet.create(theme => ({
-    buttonsWrapper: (sizeClass: 'compact' | 'wide') => ({
+    buttonsWrapper: {
         alignItems: 'center',
         gap: 10,
-        ...(sizeClass === 'wide' ? { flex: 1 } : { width: '100%' })
-    }),
-    container: (sizeClass: 'compact' | 'wide') => ({
+        width: '100%'
+    },
+    container: {
         alignItems: 'center',
         alignSelf: 'center',
         flex: 1,
-        flexDirection: sizeClass === 'wide' ? 'row' : 'column',
+        flexDirection: 'column',
         gap: theme.spacing.xl,
         justifyContent: 'center',
+        maxWidth: theme.contentWidth.standard,
         padding: 10,
-        width: '100%',
-        ...(sizeClass === 'wide' && { maxWidth: theme.contentWidth.standard })
-    }),
-    headerColumn: (sizeClass: 'compact' | 'wide') => ({
+        width: '100%'
+    },
+    headerColumn: {
         alignItems: 'center',
-        ...(sizeClass === 'wide' ? { flex: 1 } : { width: '100%' })
-    })
+        width: '100%'
+    }
 }));

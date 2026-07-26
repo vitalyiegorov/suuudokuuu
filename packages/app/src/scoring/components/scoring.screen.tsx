@@ -1,6 +1,6 @@
 import { Plural, Trans, useLingui } from '@lingui/react/macro';
 import { DifficultyEnum } from '@suuudokuuu/generator';
-import { resolveUnistyleForAnimated, useAppLayout } from '@suuudokuuu/ui';
+import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { use } from 'react';
 import { Text, View } from 'react-native';
 
@@ -15,7 +15,6 @@ import { ScoringScreenStyles as styles } from './scoring-screen.styles';
 export const ScoringScreen = () => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
-    const { sizeClass } = useAppLayout();
 
     const textStyle = { color: theme.colors.label.main };
     const headingStyle = { color: theme.colors.label.main, fontWeight: 'bold' as const, fontSize: 16, marginTop: 16, marginBottom: 8 };
@@ -23,19 +22,19 @@ export const ScoringScreen = () => {
 
     return (
         <CollapsibleChromePage
-            contentContainerStyle={resolveUnistyleForAnimated(styles.scrollViewContent(sizeClass))}
+            contentContainerStyle={resolveUnistyleForAnimated(styles.scrollViewContent)}
             contentStyle={styles.content}
             showsVerticalScrollIndicator={false}
             style={resolveUnistyleForAnimated(styles.scrollView)}
             title={t`How Scoring Works`}
         >
-            <View style={styles.section(sizeClass)}>
+            <View style={styles.section}>
                 <Text style={textStyle}>
                     <Trans>Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties.</Trans>
                 </Text>
             </View>
 
-            <View style={styles.section(sizeClass)}>
+            <View style={styles.section}>
                 <Text style={headingStyle}>
                     <Trans>Base Score</Trans>
                 </Text>
@@ -83,7 +82,7 @@ export const ScoringScreen = () => {
                 </ListItem>
             </View>
 
-            <View style={styles.section(sizeClass)}>
+            <View style={styles.section}>
                 <Text style={headingStyle}>
                     <Trans>Max Mistakes bonus</Trans>
                 </Text>
@@ -107,7 +106,7 @@ export const ScoringScreen = () => {
                 </ListItem>
             </View>
 
-            <View style={styles.section(sizeClass)}>
+            <View style={styles.section}>
                 <Text style={headingStyle}>
                     <Trans>Completion Bonuses</Trans>
                 </Text>
@@ -132,7 +131,7 @@ export const ScoringScreen = () => {
                 </ListItem>
             </View>
 
-            <View style={styles.section(sizeClass)}>
+            <View style={styles.section}>
                 <Text style={headingStyle}>
                     <Trans>Penalties</Trans>
                 </Text>
@@ -155,7 +154,7 @@ export const ScoringScreen = () => {
                 </Text>
             </View>
 
-            <View style={styles.section(sizeClass)}>
+            <View style={styles.section}>
                 <Text style={headingStyle}>
                     <Trans>Minimum Score</Trans>
                 </Text>
@@ -165,7 +164,7 @@ export const ScoringScreen = () => {
                 </Text>
             </View>
 
-            <View style={styles.section(sizeClass)}>
+            <View style={styles.section}>
                 <Text style={headingStyle}>
                     <Trans>Tips for High Scores</Trans>
                 </Text>

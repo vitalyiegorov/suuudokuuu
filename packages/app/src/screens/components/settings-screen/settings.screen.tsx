@@ -1,5 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
-import { AppSettingsSection, resolveUnistyleForAnimated, useAppLayout } from '@suuudokuuu/ui';
+import { AppSettingsSection, resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import Constants from 'expo-constants';
 import { View } from 'react-native';
 
@@ -27,14 +27,13 @@ export const SettingsScreen = () => {
     const language = useAppSelector(settingsLanguageSelector);
     const theme = useAppSelector(settingsThemeSelector);
     const { getCellMarginLabel, getFontSizeLabel, getLanguageLabel, getThemeLabel } = useSettingsOptionLabels();
-    const { sizeClass } = useAppLayout();
     const version = Constants.expoConfig?.version ?? t`Unknown`;
 
     return (
         <CollapsibleChromePage
-            contentContainerStyle={resolveUnistyleForAnimated(styles.scrollViewContent(sizeClass))}
+            contentContainerStyle={resolveUnistyleForAnimated(styles.scrollViewContent)}
             contentStyle={styles.content}
-            style={resolveUnistyleForAnimated(styles.scrollView(sizeClass))}
+            style={resolveUnistyleForAnimated(styles.scrollView)}
             testID={SettingsScreenSelectors.Root}
             title={t`Settings`}
         >
@@ -80,7 +79,7 @@ export const SettingsScreen = () => {
                 </AppSettingsSection>
             </View>
 
-            <View style={styles.secondaryColumn(sizeClass)}>
+            <View style={styles.secondaryColumn}>
                 <SettingsGuidanceSection />
 
                 <SettingsAppFooter version={version} />

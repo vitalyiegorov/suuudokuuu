@@ -1,5 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
-import { resolveUnistyleForAnimated, useAppLayout } from '@suuudokuuu/ui';
+import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 
 import { emptyFn } from '@rnw-community/shared';
 
@@ -20,7 +20,6 @@ interface Props {
 
 export const HistoryGamesScreen = ({ difficulty }: Props) => {
     const { t } = useLingui();
-    const { sizeClass } = useAppLayout();
     const completedGames = useAppSelector(gameCompletedGamesSelector(difficulty));
 
     const title = `${getDifficultyText(difficulty)} ${t`Games`}`;
@@ -31,7 +30,7 @@ export const HistoryGamesScreen = ({ difficulty }: Props) => {
             contentContainerStyle={resolveUnistyleForAnimated(styles.scrollViewContainer)}
             contentStyle={styles.content}
             showsVerticalScrollIndicator={false}
-            style={resolveUnistyleForAnimated(styles.scrollView(sizeClass))}
+            style={resolveUnistyleForAnimated(styles.scrollView)}
             testID={HistoryGamesScreenSelectors.Root}
             title={title}
         >

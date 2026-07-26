@@ -1,5 +1,4 @@
 import { useLingui } from '@lingui/react/macro';
-import { useAppLayout } from '@suuudokuuu/ui';
 import { Redirect, useRouter } from 'expo-router';
 import { use } from 'react';
 import { View } from 'react-native';
@@ -42,7 +41,6 @@ export const PauseScreen = () => {
     const { sudoku } = use(GameContext);
     const { theme } = use(ThemeContext);
     const { t } = useLingui();
-    const { sizeClass } = useAppLayout();
     const score = useAppSelector(gameScoreSelector);
     const mistakes = useAppSelector(gameMistakesSelector);
     const maxMistakes = useAppSelector(gameMaxMistakesSelector);
@@ -84,8 +82,8 @@ export const PauseScreen = () => {
     return (
         <View style={containerStyles} testID={PauseScreenSelectors.Root}>
             <ChromeScrollPage footer={footer}>
-                <View style={styles.content(sizeClass)}>
-                    <View style={styles.summaryColumn(sizeClass)}>
+                <View style={styles.content}>
+                    <View style={styles.summaryColumn}>
                         <PauseScreenHeader detailsText={detailsText} />
 
                         <PauseScreenProgressCard
@@ -98,7 +96,7 @@ export const PauseScreen = () => {
                         <PauseScreenStats mistakesText={mistakesText} scoreText={scoreText} timeText={timeText} />
                     </View>
 
-                    <View style={styles.asideColumn(sizeClass)}>
+                    <View style={styles.asideColumn}>
                         <UkraineSupportCard testID={PauseScreenSelectors.UkraineCta} />
                     </View>
                 </View>

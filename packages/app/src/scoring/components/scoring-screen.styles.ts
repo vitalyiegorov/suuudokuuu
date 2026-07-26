@@ -9,15 +9,14 @@ export const ScoringScreenStyles = StyleSheet.create(theme => ({
         maxWidth: theme.contentWidth.standard,
         width: '100%'
     },
-    scrollViewContent: (sizeClass: 'compact' | 'wide') => ({
-        flexDirection: sizeClass === 'wide' ? 'row' : 'column',
-        flexWrap: 'wrap',
+    scrollViewContent: {
+        flexDirection: 'column',
         gap: theme.spacing.sm
-    }),
-    section: (sizeClass: 'compact' | 'wide') => ({
+    },
+    section: {
         marginBottom: 16,
-        width: sizeClass === 'wide' ? '48%' : '100%'
-    }),
+        width: '100%'
+    },
     listItem: {
         marginLeft: 12,
         marginVertical: 4
