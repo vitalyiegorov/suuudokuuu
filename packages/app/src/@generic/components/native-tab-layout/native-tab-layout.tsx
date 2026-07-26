@@ -3,6 +3,9 @@ import { NativeTabs } from 'expo-router/unstable-native-tabs';
 import { use } from 'react';
 
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { TabBarInsetContext } from '../main-tab-layout/context/tab-bar-inset.context';
+
+import { NativeTabBarOccupiedHeight } from './constant/native-tab-layout.constant';
 
 const PlayIcon = { default: 'play', selected: 'play.fill' } as const;
 const StatsIcon = { default: 'chart.bar', selected: 'chart.bar.fill' } as const;
@@ -14,29 +17,31 @@ export const NativeTabLayout = () => {
     const labelStyle = { color: theme.colors.label.hint };
 
     return (
-        <NativeTabs
-            backgroundColor={theme.colors.background}
-            blurEffect="systemChromeMaterial"
-            disableTransparentOnScrollEdge
-            iconColor={theme.colors.label.hint}
-            labelStyle={labelStyle}
-            minimizeBehavior="onScrollDown"
-            tintColor={theme.colors.label.main}
-        >
-            <NativeTabs.Trigger name="index">
-                <NativeTabs.Trigger.Label>{t`Play`}</NativeTabs.Trigger.Label>
-                <NativeTabs.Trigger.Icon md="play_arrow" sf={PlayIcon} />
-            </NativeTabs.Trigger>
+        <TabBarInsetContext value={NativeTabBarOccupiedHeight}>
+            <NativeTabs
+                backgroundColor={theme.colors.background}
+                blurEffect="systemChromeMaterial"
+                disableTransparentOnScrollEdge
+                iconColor={theme.colors.label.hint}
+                labelStyle={labelStyle}
+                minimizeBehavior="onScrollDown"
+                tintColor={theme.colors.label.main}
+            >
+                <NativeTabs.Trigger name="index">
+                    <NativeTabs.Trigger.Label>{t`Play`}</NativeTabs.Trigger.Label>
+                    <NativeTabs.Trigger.Icon md="play_arrow" sf={PlayIcon} />
+                </NativeTabs.Trigger>
 
-            <NativeTabs.Trigger name="history">
-                <NativeTabs.Trigger.Label>{t`Stats`}</NativeTabs.Trigger.Label>
-                <NativeTabs.Trigger.Icon md="bar_chart" sf={StatsIcon} />
-            </NativeTabs.Trigger>
+                <NativeTabs.Trigger name="history">
+                    <NativeTabs.Trigger.Label>{t`Stats`}</NativeTabs.Trigger.Label>
+                    <NativeTabs.Trigger.Icon md="bar_chart" sf={StatsIcon} />
+                </NativeTabs.Trigger>
 
-            <NativeTabs.Trigger name="settings">
-                <NativeTabs.Trigger.Label>{t`Settings`}</NativeTabs.Trigger.Label>
-                <NativeTabs.Trigger.Icon md="settings" sf={SettingsIcon} />
-            </NativeTabs.Trigger>
-        </NativeTabs>
+                <NativeTabs.Trigger name="settings">
+                    <NativeTabs.Trigger.Label>{t`Settings`}</NativeTabs.Trigger.Label>
+                    <NativeTabs.Trigger.Icon md="settings" sf={SettingsIcon} />
+                </NativeTabs.Trigger>
+            </NativeTabs>
+        </TabBarInsetContext>
     );
 };

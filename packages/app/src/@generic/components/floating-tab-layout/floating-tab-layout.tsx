@@ -3,9 +3,9 @@ import { Tabs } from 'expo-router';
 import { BarChart3, Play, Settings } from 'lucide-react-native';
 
 import { FloatingTabBarOccupiedHeight } from '../floating-tab-bar/constant/floating-tab-bar.constant';
-import { FloatingTabBarInsetContext } from '../floating-tab-bar/context/floating-tab-bar-inset.context';
 import { FloatingTabBar } from '../floating-tab-bar/floating-tab-bar';
 import { MainTabIcon } from '../main-tab-icon/main-tab-icon';
+import { TabBarInsetContext } from '../main-tab-layout/context/tab-bar-inset.context';
 
 import type { BottomTabBarProps } from 'expo-router/tabs';
 import type { ColorValue } from 'react-native';
@@ -35,12 +35,12 @@ export const FloatingTabLayout = () => {
     };
 
     return (
-        <FloatingTabBarInsetContext value={FloatingTabBarOccupiedHeight}>
+        <TabBarInsetContext value={FloatingTabBarOccupiedHeight}>
             <Tabs backBehavior="none" screenOptions={screenOptions} tabBar={renderTabBar}>
                 <Tabs.Screen name="index" options={playOptions} />
                 <Tabs.Screen name="history" options={statsOptions} />
                 <Tabs.Screen name="settings" options={settingsOptions} />
             </Tabs>
-        </FloatingTabBarInsetContext>
+        </TabBarInsetContext>
     );
 };

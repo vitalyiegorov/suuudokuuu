@@ -20,11 +20,11 @@ describe('CollapsibleChromePage', () => {
         expect(source).toContain('const footerInset = isDefined(footer) ? CollapsibleChromePageFooterContentInset : 0');
     });
 
-    it('reserves the floating tab bar height so tab screens can scroll past the bar', () => {
+    it('reserves the tab bar height so tab screens can scroll past the bar', () => {
         const source = readFileSync(join(__dirname, 'collapsible-chrome-page.tsx'), 'utf8');
 
-        expect(source).toContain('const floatingTabBarInset = use(FloatingTabBarInsetContext)');
-        expect(source).toContain('const contentInsetBottom = footerInset + floatingTabBarInset');
+        expect(source).toContain('const tabBarInset = use(TabBarInsetContext)');
+        expect(source).toContain('const contentInsetBottom = footerInset + tabBarInset');
     });
 
     it('renders the small title above the full header row rather than inside the title slot', () => {
