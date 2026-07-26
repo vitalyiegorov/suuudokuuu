@@ -4,14 +4,15 @@ import { WideLayoutMediaQuery } from '../../../@generic/constants/layout-media-q
 import { GameSidePanelWidthConstant } from '../../../game/constant/board-cell-size.constant';
 
 export const GameScreenStyles = StyleSheet.create((theme, rt) => ({
-    container: {
+    container: (isLeftHanded: boolean) => ({
         alignItems: 'stretch',
         flex: 1,
-        flexDirection: { xs: 'column', [WideLayoutMediaQuery]: 'row' },
-        gap: theme.spacing.sm,
+        flexDirection: { xs: 'column', [WideLayoutMediaQuery]: isLeftHanded ? 'row-reverse' : 'row' },
+        gap: { xs: theme.spacing.sm, [WideLayoutMediaQuery]: theme.spacing.lg },
+        justifyContent: { xs: 'flex-start', [WideLayoutMediaQuery]: 'center' },
         paddingBottom: rt.insets.bottom / 2 + theme.spacing.xs,
         paddingTop: theme.spacing.xs
-    },
+    }),
     topBar: {
         alignItems: 'flex-start',
         flexDirection: 'row',
@@ -22,8 +23,10 @@ export const GameScreenStyles = StyleSheet.create((theme, rt) => ({
     },
     boardArea: {
         alignItems: 'center',
-        flexGrow: 1,
+        aspectRatio: { xs: 'auto', [WideLayoutMediaQuery]: 1 },
+        flexGrow: { xs: 1, [WideLayoutMediaQuery]: 0 },
         flexShrink: 1,
+        height: { xs: 'auto', [WideLayoutMediaQuery]: '100%' },
         justifyContent: 'center',
         minHeight: 0,
         minWidth: 0
@@ -40,11 +43,20 @@ export const GameScreenStyles = StyleSheet.create((theme, rt) => ({
         minHeight: 0,
         paddingTop: theme.spacing.sm
     },
-    panelArea: {
+    panelArea: (boardSize: number) => ({
+        alignSelf: 'center',
         flexShrink: 0,
         gap: theme.spacing.sm,
-        justifyContent: 'center',
+        height: { xs: 'auto', [WideLayoutMediaQuery]: boardSize > 0 ? boardSize : '100%' },
+        justifyContent: { xs: 'center', [WideLayoutMediaQuery]: 'space-between' },
         paddingHorizontal: theme.spacing.sm,
         width: { xs: '100%', [WideLayoutMediaQuery]: GameSidePanelWidthConstant }
+    }),
+    panelInputArea: {
+        alignItems: 'center',
+        flexShrink: 1,
+        gap: { xs: theme.spacing.sm, [WideLayoutMediaQuery]: theme.spacing.xl },
+        justifyContent: 'center',
+        minHeight: 0
     }
 }));

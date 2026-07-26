@@ -581,6 +581,10 @@ msgstr "بڑا"
 msgid "Larger digits for easier reading"
 msgstr "آسان پڑھنے کے لیے بڑے ہندسے"
 
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Left-handed layout"
+msgstr "بائیں ہاتھ کا لے آؤٹ"
+
 #: src/history/components/replay-header/replay-header.tsx
 msgid "Level"
 msgstr "سطح"
@@ -639,6 +643,10 @@ msgstr "غلطیاں"
 #: src/history/components/replay-controls/replay-controls.tsx
 msgid "Move"
 msgstr "چال"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Move the landscape controls panel to the left of the board"
+msgstr "لینڈ اسکیپ میں کنٹرول پینل کو بورڈ کے بائیں جانب منتقل کریں"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Naked Pair"

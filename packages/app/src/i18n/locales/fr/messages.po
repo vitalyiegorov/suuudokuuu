@@ -583,6 +583,10 @@ msgstr "Grand"
 msgid "Larger digits for easier reading"
 msgstr "Chiffres plus grands pour une lecture plus facile"
 
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Left-handed layout"
+msgstr "Disposition pour gaucher"
+
 #: src/history/components/replay-header/replay-header.tsx
 msgid "Level"
 msgstr "Niveau"
@@ -641,6 +645,10 @@ msgstr "Erreurs"
 #: src/history/components/replay-controls/replay-controls.tsx
 msgid "Move"
 msgstr "Coup"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Move the landscape controls panel to the left of the board"
+msgstr "Placer le panneau de commandes à gauche de la grille en mode paysage"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Naked Pair"

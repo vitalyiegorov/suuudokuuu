@@ -7,7 +7,7 @@ import { CandidateInputItem } from '../../../../game/components/candidate-input-
 import { GameNumpadDigitsConstant } from '../../../../game/constant/game-numpad-digits.constant';
 import { GameContext } from '../../../../game/context/game.context';
 import { gameInputModeSelector } from '../../../../game/store/game.selectors';
-import { settingsKeySelector } from '../../../../settings/store/settings.selectors';
+import { settingsFontSizeMultiplierSelector, settingsKeySelector } from '../../../../settings/store/settings.selectors';
 
 import { GameNumpadStyles as styles } from './game-numpad.styles';
 
@@ -26,8 +26,10 @@ export const GameNumpad = ({ availableValuesRefsHandler, onSelectValue, selected
     const { sudoku } = use(GameContext);
     const inputMode = useAppSelector(gameInputModeSelector);
     const keepExhaustedDigits = useAppSelector(settingsKeySelector('keepExhaustedDigits'));
+    const fontSizeMultiplier = useAppSelector(settingsFontSizeMultiplierSelector);
     const canPress = sudoku.isBlankCell(selectedCell);
     const numpadDigits = keepExhaustedDigits ? GameNumpadDigitsConstant : sudoku.PossibleValues;
+    const digitTextStyle = styles.digitText(fontSizeMultiplier);
 
     return (
         <View style={styles.numpad}>
@@ -38,21 +40,25 @@ export const GameNumpad = ({ availableValuesRefsHandler, onSelectValue, selected
                 return inputMode === 'candidate' ? (
                     <CandidateInputItem
                         canPress={canPress}
+                        digitTextStyle={digitTextStyle}
                         isExhausted={isExhausted}
                         key={`candidate-value-${value}`}
                         onSelect={onSelectValue}
                         selectedCell={selectedCell}
+                        sizeStyle={styles.digit}
                         value={value}
                     />
                 ) : (
                     <AvailableValuesItem
                         canPress={canPress}
                         correctValue={sudoku.getCorrectValue(selectedCell)}
+                        digitTextStyle={digitTextStyle}
                         isExhausted={isExhausted}
                         key={`possible-value-${value}`}
                         onSelect={onSelectValue}
                         progress={valueProgress}
                         ref={availableValuesRefsHandler(value)}
+                        sizeStyle={styles.digit}
                         value={value}
                     />
                 );

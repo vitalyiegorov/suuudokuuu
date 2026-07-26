@@ -65,7 +65,7 @@ export const GameScreen = () => {
 
     const [hapticNotification, hapticImpact] = useVibration();
 
-    const { cellSize: boardCellSize, onBoardAreaLayout } = useBoardCellSize();
+    const { cellSize: boardCellSize, boardSize, onBoardAreaLayout } = useBoardCellSize();
 
     const dispatch = useAppDispatch();
     const score = useAppSelector(gameScoreSelector);
@@ -73,6 +73,7 @@ export const GameScreen = () => {
     const maxMistakes = useAppSelector(gameMaxMistakesSelector);
     const hasTimer = useAppSelector(settingsKeySelector('hasTimer'));
     const keepActiveCell = useAppSelector(settingsKeySelector('keepActiveCell'));
+    const isLeftHanded = useAppSelector(settingsKeySelector('isLeftHanded'));
     const inputMode = useAppSelector(gameInputModeSelector);
     const isChallengeMode = useAppSelector(gameIsChallengeModeSelector);
     const challengeTime = useAppSelector(gameChallengeTimeSelector);
@@ -247,7 +248,7 @@ export const GameScreen = () => {
         <Pressable
             accessible={false}
             {...(!keepActiveCell && { onPress: handleDeselectCell })}
-            style={styles.container}
+            style={styles.container(isLeftHanded)}
             testID={GameScreenSelectors.Root}
         >
             <GameTimerController />
@@ -276,16 +277,22 @@ export const GameScreen = () => {
                 </Hide>
             </View>
 
-            <View style={styles.panelArea}>
+            <View style={styles.panelArea(boardSize)}>
                 <Display mq={WideLayoutMediaQuery}>{statusBlock}</Display>
 
-                <Display mq={WideLayoutMediaQuery}>
-                    <GameInputTools hideAutoCandidates={hideAutoCandidates} />
-                </Display>
+                <View style={styles.panelInputArea}>
+                    <GameNumpad
+                        availableValuesRefsHandler={handleAvailableRef}
+                        onSelectValue={handleSelectValue}
+                        selectedCell={selectedCell}
+                    />
+
+                    <Display mq={WideLayoutMediaQuery}>
+                        <GameInputTools hideAutoCandidates={hideAutoCandidates} />
+                    </Display>
+                </View>
 
                 <Display mq={WideLayoutMediaQuery}>{gameActionsWithPause}</Display>
-
-                <GameNumpad availableValuesRefsHandler={handleAvailableRef} onSelectValue={handleSelectValue} selectedCell={selectedCell} />
             </View>
         </Pressable>
     );

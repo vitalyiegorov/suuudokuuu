@@ -581,6 +581,10 @@ msgstr "বড়"
 msgid "Larger digits for easier reading"
 msgstr "সহজে পড়ার জন্য বড় সংখ্যা"
 
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Left-handed layout"
+msgstr "বাঁ-হাতি বিন্যাস"
+
 #: src/history/components/replay-header/replay-header.tsx
 msgid "Level"
 msgstr "স্তর"
@@ -639,6 +643,10 @@ msgstr "ভুল"
 #: src/history/components/replay-controls/replay-controls.tsx
 msgid "Move"
 msgstr "চাল"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Move the landscape controls panel to the left of the board"
+msgstr "ল্যান্ডস্কেপ মোডে নিয়ন্ত্রণ প্যানেল বোর্ডের বাঁ পাশে সরান"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Naked Pair"

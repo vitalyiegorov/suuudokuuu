@@ -581,6 +581,10 @@ msgstr "Stor"
 msgid "Larger digits for easier reading"
 msgstr "Större siffror för enklare läsning"
 
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Left-handed layout"
+msgstr "Vänsterhänt layout"
+
 #: src/history/components/replay-header/replay-header.tsx
 msgid "Level"
 msgstr "Nivå"
@@ -639,6 +643,10 @@ msgstr "Misstag"
 #: src/history/components/replay-controls/replay-controls.tsx
 msgid "Move"
 msgstr "Drag"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Move the landscape controls panel to the left of the board"
+msgstr "Flytta kontrollpanelen till vänster om brädet i liggande läge"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Naked Pair"

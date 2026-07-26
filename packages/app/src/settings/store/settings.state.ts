@@ -19,6 +19,7 @@ export interface SettingsState {
     showActiveCandidates: boolean;
     keepActiveCell: boolean;
     keepExhaustedDigits: boolean;
+    isLeftHanded: boolean;
     fontSize: (typeof FontSizes)[number];
     language: (typeof Languages)[number];
     theme: (typeof Themes)[number];
@@ -39,6 +40,7 @@ export const initialSettingsState: SettingsState = {
     showActiveCandidates: true,
     keepActiveCell: true,
     keepExhaustedDigits: true,
+    isLeftHanded: false,
     fontSize: 'm',
     language: i18nGetOSLocale(),
     theme: ThemeEnum.BlackAndWhite,

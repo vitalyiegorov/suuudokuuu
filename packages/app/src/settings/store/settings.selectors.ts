@@ -18,6 +18,7 @@ export const settingsKeySelector = (
         | 'showActiveCandidates'
         | 'keepActiveCell'
         | 'keepExhaustedDigits'
+        | 'isLeftHanded'
     >
 ) => createSelector(settingsSelector, state => state[key]);
 export const settingsFontSizeSelector = createSelector(settingsSelector, state => state.fontSize);

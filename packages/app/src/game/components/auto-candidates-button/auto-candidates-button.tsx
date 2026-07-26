@@ -9,9 +9,13 @@ import { ThemeContext } from '../../../theme/context/theme.context';
 import { gameToggleAutoCandidatesAction } from '../../store/game.actions';
 import { gameSelector } from '../../store/game.selectors';
 
-import { AutoCandidatesButtonStyles as styles } from './auto-candidates-button.styles';
+import type { StyleProp, ViewStyle } from 'react-native';
 
-export const AutoCandidatesButton = () => {
+interface Props {
+    readonly sizeStyle: StyleProp<ViewStyle>;
+}
+
+export const AutoCandidatesButton = ({ sizeStyle }: Props) => {
     const { theme } = use(ThemeContext);
 
     const dispatch = useAppDispatch();
@@ -25,7 +29,7 @@ export const AutoCandidatesButton = () => {
     const iconColor = isActive ? theme.colors.surface.raisedText : theme.colors.label.inverted;
 
     return (
-        <BlackIconButton isActive={isActive} onPress={handleCandidates} style={styles.button} testID={GameScreenSelectors.TipsButton}>
+        <BlackIconButton isActive={isActive} onPress={handleCandidates} style={sizeStyle} testID={GameScreenSelectors.TipsButton}>
             <LucideHandHelping color={iconColor} />
         </BlackIconButton>
     );

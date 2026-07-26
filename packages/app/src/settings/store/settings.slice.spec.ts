@@ -48,4 +48,14 @@ describe('settingsSlice', () => {
 
         expect(nextState.keepExhaustedDigits).toBe(false);
     });
+
+    it('defaults to the right-handed landscape layout', () => {
+        expect(initialSettingsState.isLeftHanded).toBe(false);
+    });
+
+    it('updates isLeftHanded when the setting is toggled on', () => {
+        const nextState = settingsSlice.reducer(initialSettingsState, settingsSetAction({ isLeftHanded: true }));
+
+        expect(nextState.isLeftHanded).toBe(true);
+    });
 });

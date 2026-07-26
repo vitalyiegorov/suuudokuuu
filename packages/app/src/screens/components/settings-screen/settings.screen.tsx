@@ -72,6 +72,11 @@ export const SettingsScreen = () => {
                         value={getThemeLabel(theme)}
                     />
                     <SettingsSwitch description={t`Use a dark color scheme`} setting="isDarkColorSchema" title={t`Dark mode`} />
+                    <SettingsSwitch
+                        description={t`Move the landscape controls panel to the left of the board`}
+                        setting="isLeftHanded"
+                        title={t`Left-handed layout`}
+                    />
                 </AppSettingsSection>
                 <AppSettingsSection title={t`Feedback`}>
                     <SettingsSwitch description={t`Show elapsed time while you play`} setting="hasTimer" title={t`Timer`} />

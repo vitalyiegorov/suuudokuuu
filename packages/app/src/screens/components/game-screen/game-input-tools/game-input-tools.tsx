@@ -11,7 +11,7 @@ interface Props {
 
 export const GameInputTools = ({ hideAutoCandidates }: Props) => (
     <View style={styles.inputControls}>
-        <InputModeButton />
-        {hideAutoCandidates ? null : <AutoCandidatesButton />}
+        <InputModeButton sizeStyle={styles.toolButton} />
+        {hideAutoCandidates ? null : <AutoCandidatesButton sizeStyle={styles.toolButton} />}
     </View>
 );

@@ -581,6 +581,10 @@ msgstr "大"
 msgid "Larger digits for easier reading"
 msgstr "更大的数字，更易阅读"
 
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Left-handed layout"
+msgstr "左手布局"
+
 #: src/history/components/replay-header/replay-header.tsx
 msgid "Level"
 msgstr "级别"
@@ -639,6 +643,10 @@ msgstr "错误"
 #: src/history/components/replay-controls/replay-controls.tsx
 msgid "Move"
 msgstr "步"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Move the landscape controls panel to the left of the board"
+msgstr "横屏时将控制面板移到棋盘左侧"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Naked Pair"

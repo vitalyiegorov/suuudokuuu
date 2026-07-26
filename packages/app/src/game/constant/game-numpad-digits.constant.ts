@@ -1,3 +1,5 @@
 export const GameNumpadDigitsConstant = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 export const GameNumpadWideColumnsConstant = 3;
+
+export const GameNumpadWideDigitSizeConstant = 80;

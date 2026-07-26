@@ -583,6 +583,10 @@ msgstr "Великий"
 msgid "Larger digits for easier reading"
 msgstr "Більші цифри для легшого читання"
 
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Left-handed layout"
+msgstr "Розкладка для шульги"
+
 #: src/history/components/replay-header/replay-header.tsx
 msgid "Level"
 msgstr "Рівень"
@@ -641,6 +645,10 @@ msgstr "Помилки"
 #: src/history/components/replay-controls/replay-controls.tsx
 msgid "Move"
 msgstr "Хід"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "Move the landscape controls panel to the left of the board"
+msgstr "Перемістити панель керування ліворуч від дошки в альбомній орієнтації"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Naked Pair"
