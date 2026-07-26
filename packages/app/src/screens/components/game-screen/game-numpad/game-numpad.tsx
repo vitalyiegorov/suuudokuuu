@@ -14,6 +14,8 @@ import { GameNumpadStyles as styles } from './game-numpad.styles';
 import type { AvailableValuesItemRef } from '../../../../game/components/available-values-item/available-values-item';
 import type { CellInterface } from '@suuudokuuu/generator';
 
+const GameNumpadExhaustedProgress = 100;
+
 interface Props {
     readonly availableValuesRefsHandler: (value: number) => (ref: AvailableValuesItemRef | null) => void;
     readonly onSelectValue: (value: number) => void;
@@ -31,6 +33,7 @@ export const GameNumpad = ({ availableValuesRefsHandler, onSelectValue, selected
         <View style={styles.numpad}>
             {numpadDigits.map(value => {
                 const isExhausted = !sudoku.PossibleValues.includes(value);
+                const valueProgress = isExhausted ? GameNumpadExhaustedProgress : sudoku.getValueProgress(value);
 
                 return inputMode === 'candidate' ? (
                     <CandidateInputItem
@@ -48,7 +51,7 @@ export const GameNumpad = ({ availableValuesRefsHandler, onSelectValue, selected
                         isExhausted={isExhausted}
                         key={`possible-value-${value}`}
                         onSelect={onSelectValue}
-                        progress={sudoku.getValueProgress(value)}
+                        progress={valueProgress}
                         ref={availableValuesRefsHandler(value)}
                         value={value}
                     />
