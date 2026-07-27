@@ -1,29 +1,30 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-export const ChallengeRecordTapeStyles = StyleSheet.create({
+export const ChallengeTimelineTrackStyles = StyleSheet.create({
     track: {
         alignItems: 'center',
         flexDirection: 'row',
         gap: 2,
-        height: 24,
+        height: 28,
+        paddingHorizontal: 8,
         position: 'relative',
         width: '100%'
     },
     baseline: {
         borderRadius: 1,
         height: 1.5,
-        left: 0,
+        left: 8,
         marginTop: -0.75,
         opacity: 0.13,
         position: 'absolute',
-        right: 0,
+        right: 8,
         top: '50%'
     },
     tick: {
         borderRadius: 2,
         flex: 1
     },
-    awaySlot: {
+    awayTick: {
         alignSelf: 'stretch',
         borderRadius: 2,
         flex: 1,

@@ -22,15 +22,12 @@ const buildEmptyMarks = (tickCount: number): ChallengeTapeMarkInterface[] =>
 const getSlot = (cumulativeTime: number, elapsedTime: number, tickCount: number): number =>
     Math.min(tickCount - 1, Math.max(0, Math.floor((cumulativeTime / elapsedTime) * tickCount)));
 
-const isSharpTier = (tier: ChallengeTechniqueTierEnum): boolean =>
-    tier === ChallengeTechniqueTierEnum.Clever || tier === ChallengeTechniqueTierEnum.Advanced;
-
-const getPlacementComplexity = (technique: SolutionTechniqueEnum | undefined, tier: ChallengeTechniqueTierEnum): number =>
-    isDefined(technique) && isSharpTier(tier) ? techniqueComplexityConstant[technique] : 0;
+const getPlacementComplexity = (technique: SolutionTechniqueEnum | undefined): number =>
+    isDefined(technique) ? techniqueComplexityConstant[technique] : 0;
 
 const markPlacement = (marks: ChallengeTapeMarkInterface[], slot: number, technique: SolutionTechniqueEnum | undefined): void => {
     const tier = isDefined(technique) ? getTechniqueTier(technique) : ChallengeTechniqueTierEnum.Basic;
-    const complexity = getPlacementComplexity(technique, tier);
+    const complexity = getPlacementComplexity(technique);
     const existingMark = marks[slot];
 
     if (existingMark.tier === null || complexity > existingMark.complexity) {

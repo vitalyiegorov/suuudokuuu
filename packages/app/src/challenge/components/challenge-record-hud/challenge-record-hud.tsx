@@ -8,13 +8,19 @@ import { useUnistyles } from 'react-native-unistyles';
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { gameElapsedTimeSelector, gameTimelineEventsSelector } from '../../../game/store/game.selectors';
-import { ChallengeRecordTape } from '../challenge-record-tape/challenge-record-tape';
+import { getChallengeTapeMarks } from '../../utils/get-challenge-tape-marks.util';
+import { getTapeTechniqueEvents } from '../../utils/get-tape-technique-events.util';
+import { ChallengeRaceBadge } from '../challenge-race-badge/challenge-race-badge';
+import { ChallengeTimelineTrack } from '../challenge-timeline-track/challenge-timeline-track';
 
 import { ChallengeRecordHudSelectors } from './challenge-record-hud.selectors';
 import { ChallengeRecordHudStyles as styles } from './challenge-record-hud.styles';
 
+const TickCount = 44;
 const PulseDurationMs = 900;
 const PulseMinOpacity = 0.25;
+const FullProgress = 1;
+const BadgeLookaheadSeconds = 1;
 
 export const ChallengeRecordHud = () => {
     const { t } = useLingui();
@@ -31,7 +37,9 @@ export const ChallengeRecordHud = () => {
     const dotAnimatedStyles = useAnimatedStyle(() => ({ opacity: pulse.value }));
     const dotStyles = [resolveUnistyleForAnimated(styles.recordDot), { backgroundColor: theme.colors.red }, dotAnimatedStyles];
     const badgeStyles = [styles.badge, { color: theme.colors.label.main }];
-    const techniqueStyles = [styles.technique, { color: theme.colors.label.hint }];
+    const marks = getChallengeTapeMarks(timelineEvents, elapsedTime, TickCount);
+    const techniqueEvents = getTapeTechniqueEvents(timelineEvents, elapsedTime);
+    const badgeElapsedTime = elapsedTime + BadgeLookaheadSeconds;
 
     return (
         <View style={styles.container} testID={ChallengeRecordHudSelectors.Root}>
@@ -40,12 +48,12 @@ export const ChallengeRecordHud = () => {
 
                 <BlackText style={badgeStyles}>{t`Recording`}</BlackText>
 
-                <BlackText numberOfLines={1} style={techniqueStyles}>
-                    {t`Challenge run`}
-                </BlackText>
+                <View style={styles.badgeSlot}>
+                    <ChallengeRaceBadge elapsedTime={badgeElapsedTime} events={techniqueEvents} />
+                </View>
             </View>
 
-            <ChallengeRecordTape elapsedTime={elapsedTime} timelineEvents={timelineEvents} />
+            <ChallengeTimelineTrack marks={marks} progress={FullProgress} />
         </View>
     );
 };

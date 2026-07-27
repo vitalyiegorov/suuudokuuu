@@ -218,10 +218,6 @@ msgstr "Desafio perdido"
 msgid "Challenge mode"
 msgstr ""
 
-#: src/challenge/components/challenge-record-hud/challenge-record-hud.tsx
-msgid "Challenge run"
-msgstr ""
-
 #: src/challenge/components/challenge-mode-switch/challenge-mode-switch.tsx
 msgid "Challenge runs cannot be paused and record when you leave the app"
 msgstr ""

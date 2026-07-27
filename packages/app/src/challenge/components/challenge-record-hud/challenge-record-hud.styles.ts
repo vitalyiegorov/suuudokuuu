@@ -10,7 +10,9 @@ export const ChallengeRecordHudStyles = StyleSheet.create(theme => ({
         alignItems: 'center',
         flexDirection: 'row',
         gap: theme.spacing.xs,
+        minHeight: 28,
         paddingBottom: 2,
+        paddingHorizontal: theme.spacing.sm,
         width: '100%'
     },
     badge: {
@@ -19,11 +21,9 @@ export const ChallengeRecordHudStyles = StyleSheet.create(theme => ({
         letterSpacing: 0.4,
         textTransform: 'uppercase'
     },
-    technique: {
-        flex: 1,
-        fontSize: 10,
-        fontWeight: '700',
-        textAlign: 'right'
+    badgeSlot: {
+        alignItems: 'flex-end',
+        flex: 1
     },
     recordDot: {
         borderRadius: 3,
