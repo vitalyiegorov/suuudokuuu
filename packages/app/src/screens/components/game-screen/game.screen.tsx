@@ -218,23 +218,18 @@ export const GameScreen = () => {
             score={score}
         />
     );
+    const shareAction = { ...(hasSharing && !isChallengeRun && { onShare: handleShare }) };
+    const pauseAction = { ...(!isChallengeRun && { onPause: handlePause }) };
     const gameActions = (
-        <GameActions
-            actionIconColor={gameActionsIconColor}
-            hasSharing={hasSharing}
-            onExit={handleExit}
-            onOpenSettings={handleOpenSettings}
-            onShare={handleShare}
-        />
+        <GameActions actionIconColor={gameActionsIconColor} onExit={handleExit} onOpenSettings={handleOpenSettings} {...shareAction} />
     );
     const gameActionsWithPause = (
         <GameActions
             actionIconColor={gameActionsIconColor}
-            hasSharing={hasSharing}
             onExit={handleExit}
             onOpenSettings={handleOpenSettings}
-            {...(!isChallengeRun && { onPause: handlePause })}
-            onShare={handleShare}
+            {...pauseAction}
+            {...shareAction}
         />
     );
 
