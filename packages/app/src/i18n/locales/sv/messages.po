@@ -11,6 +11,11 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
+#. placeholder {0}: ranges.length
+#: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
+msgid "{0, plural, one {# break} other {# breaks}}"
+msgstr "{0, plural, one {# avbrott} other {# avbrott}}"
+
 #. placeholder {0}: 0
 #. placeholder {0}: 3
 #. placeholder {0}: 99
@@ -21,6 +26,10 @@ msgstr "{0, plural, one {# misstag} other {# misstag}}"
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
 msgstr "{arsenalCardCount, plural, one {# teknik} other {# tekniker}}"
+
+#: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
+msgid "{awaySeconds}s away"
+msgstr "{awaySeconds}s borta"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} faster"
@@ -184,6 +193,7 @@ msgstr "Byggd:"
 msgid "Can you beat them?"
 msgstr "Kan du slå dem?"
 
+#: src/game/hooks/use-share-game.hook.ts
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
@@ -196,6 +206,8 @@ msgstr "Avbryt"
 msgid "Cell spacing"
 msgstr "Rutavstånd"
 
+#: src/challenge/components/challenge-mode-switch/challenge-mode-switch.tsx
+#: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Challenge"
 msgstr "Utmaning"
@@ -212,6 +224,14 @@ msgstr "Utmaning förlorad"
 msgid "Challenge Lost"
 msgstr "Utmaning förlorad"
 
+#: src/challenge/components/challenge-mode-switch/challenge-mode-switch.tsx
+msgid "Challenge mode"
+msgstr "Utmaningsläge"
+
+#: src/challenge/components/challenge-mode-switch/challenge-mode-switch.tsx
+msgid "Challenge runs cannot be paused and record when you leave the app"
+msgstr "Utmaningsrundor kan inte pausas och registrerar när du lämnar appen"
+
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Challenge won"
 msgstr "Utmaning vunnen"
@@ -224,7 +244,7 @@ msgstr "Utmaning vunnen!"
 msgid "Challenges"
 msgstr "Utmaningar"
 
-#: src/game/hooks/use-share-puzzle/use-share-puzzle.hook.ts
+#: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "Check out this Sudoku puzzle!"
 msgstr "Kolla in detta sudoku!"
 
@@ -296,6 +316,14 @@ msgstr "Bonusar för slutförande"
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Continue"
 msgstr "Fortsätt"
+
+#: src/game/hooks/use-share-game.hook.ts
+msgid "Continue elsewhere"
+msgstr "Fortsätt någon annanstans"
+
+#: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
+msgid "Continue this Sudoku exactly where I left off!"
+msgstr "Fortsätt detta sudoku precis där jag slutade!"
 
 #: src/@generic/hooks/use-timer-text.hook.ts
 msgid "d"
@@ -718,6 +746,10 @@ msgstr "Ingen gräns"
 msgid "No matter how many penalties, you always earn at least"
 msgstr "Oavsett straff får du alltid minst"
 
+#: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
+msgid "no pause"
+msgstr "ingen paus"
+
 #: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
 msgstr "Ingen statistik än"
@@ -854,6 +886,14 @@ msgstr "Publicerad:"
 msgid "Quit"
 msgstr "Avsluta"
 
+#: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
+msgid "recorded"
+msgstr "registreras"
+
+#: src/challenge/components/challenge-record-hud/challenge-record-hud.tsx
+msgid "Recording"
+msgstr "Spelar in"
+
 #: src/@generic/utils/get-mistakes-type-text.util.ts
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Relaxed"
@@ -876,6 +916,14 @@ msgstr "Rapportera ett fel"
 msgid "Result"
 msgstr "Resultat"
 
+#: src/screens/components/shared-screen/shared-screen.tsx
+msgid "Resume game"
+msgstr "Återuppta spelet"
+
+#: src/screens/components/shared-screen/shared-screen.tsx
+msgid "Resume this game?"
+msgstr "Återuppta det här spelet?"
+
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Retry loading development build"
 msgstr "Försök läsa in utvecklingsversionen igen"
@@ -896,6 +944,10 @@ msgstr "Rivalens arsenal"
 #: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
 msgid "Rival's playbook"
 msgstr "Rivalens taktik"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Rival's run"
+msgstr "Motståndarens runda"
 
 #: src/challenge/components/challenge-result-rival-time-card/challenge-result-rival-time-card.tsx
 msgid "Rival's time to beat"
@@ -929,6 +981,10 @@ msgstr "poäng × koefficient × antal"
 msgid "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 msgstr "Poängen beräknas för varje korrekt ifylld ruta utifrån svårighetsgrad, bonusar och straff."
 
+#: src/game/hooks/use-share-game.hook.ts
+msgid "Send the puzzle to solve from scratch, or hand off your run to continue elsewhere."
+msgstr "Skicka sudokut för att lösas från början, eller lämna över din runda för att fortsätta någon annanstans."
+
 #: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/screens/components/settings-screen/settings.screen.tsx
@@ -944,9 +1000,19 @@ msgstr "SHA-256-kontrollsummor"
 msgid "Shade cells that already have a number"
 msgstr "Skugga rutor som redan har en siffra"
 
+#: src/game/hooks/use-share-game.hook.ts
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
+#: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Share puzzle"
 msgstr "Dela sudoku"
+
+#: src/game/hooks/use-share-game.hook.ts
+msgid "Share this game"
+msgstr "Dela det här spelet"
+
+#: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
+msgid "shareable"
+msgstr "delbar"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show cells with the same number as the selected cell"
@@ -1052,7 +1118,11 @@ msgstr "suuudokuuu · v{version}"
 msgid "SuuudokuuU Challenge"
 msgstr "SuuudokuuU-utmaning"
 
-#: src/game/hooks/use-share-puzzle/use-share-puzzle.hook.ts
+#: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
+msgid "SuuudokuuU game handoff"
+msgstr "SuuudokuuU spelöverlämning"
+
+#: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "SuuudokuuU Sudoku Puzzle"
 msgstr "SuuudokuuU-sudoku"
 
@@ -1154,6 +1224,10 @@ msgstr "Det går inte att öppna länken"
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Unable to start installation"
 msgstr "Det går inte att starta installationen"
+
+#: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
+msgid "Uninterrupted run"
+msgstr "Runda utan avbrott"
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/screens/components/settings-screen/settings.screen.tsx
@@ -1320,6 +1394,10 @@ msgstr "Din utveckling"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Your rival was faster"
 msgstr "Din rival var snabbare"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Your run"
+msgstr "Din runda"
 
 #: src/history/components/history-overview/history-overview.tsx
 msgid "Your stats will build as you finish puzzles."

@@ -1,6 +1,13 @@
 import { StyleSheet } from 'react-native';
 
 export const ChallengeTechniquePreviewStyles = StyleSheet.create({
+    bandsInset: {
+        bottom: 0,
+        left: 14,
+        position: 'absolute',
+        right: 14,
+        top: 0
+    },
     bar: {
         borderRadius: 2,
         height: 15,

@@ -8,6 +8,7 @@ import { isPositiveNumber } from '@rnw-community/shared';
 import { BlackIconButton } from '../../../@generic/components/black-icon-button/black-icon-button';
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
+import { ChallengeAwayBands } from '../../../challenge/components/challenge-away-bands/challenge-away-bands';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { replayGetStepProgress } from '../../utils/replay-get-step-progress.util';
 import { ReplayTechnique } from '../replay-technique/replay-technique';
@@ -15,10 +16,12 @@ import { ReplayTechnique } from '../replay-technique/replay-technique';
 import { ReplayControlsSelectors } from './replay-controls.selectors';
 import { ReplayControlsStyles as styles } from './replay-controls.styles';
 
+import type { ChallengeAwayRangeInterface } from '../../../challenge/interfaces/challenge-away-range.interface';
 import type { EmptyFn } from '@rnw-community/shared';
 import type { MoveClassificationInterface } from '@suuudokuuu/solver';
 
 interface Props {
+    readonly awayRanges: ChallengeAwayRangeInterface[];
     readonly currentStep: number;
     readonly totalSteps: number;
     readonly elapsedTime: number;
@@ -27,7 +30,9 @@ interface Props {
     readonly onNextStep: EmptyFn;
 }
 
-export const ReplayControls = ({ currentStep, totalSteps, elapsedTime, moveClassification, onPrevStep, onNextStep }: Props) => {
+export const ReplayControls = (props: Props) => {
+    const { awayRanges, currentStep, totalSteps, elapsedTime, moveClassification, onPrevStep, onNextStep } = props;
+
     const { theme } = use(ThemeContext);
     const elapsedTimeText = useTimerText(elapsedTime);
 
@@ -73,6 +78,7 @@ export const ReplayControls = ({ currentStep, totalSteps, elapsedTime, moveClass
 
             <View style={trackStyles}>
                 <View style={fillStyles} />
+                <ChallengeAwayBands ranges={awayRanges} variant="default" />
                 <View style={thumbStyles} />
             </View>
 

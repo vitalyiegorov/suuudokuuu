@@ -56,8 +56,8 @@ export const GameProvider = ({ children }: Props) => {
 
     const createFromState = (newState: GameState) => {
         try {
-            const isChallenge = isNotEmptyString(newState.challengeState);
-            dispatch(gameLoadAction({ ...newState, ...(isChallenge && { challengeWallStartMs: Date.now() }) }));
+            const needsWallClock = isNotEmptyString(newState.challengeState) || newState.isChallengeRun;
+            dispatch(gameLoadAction({ ...newState, ...(needsWallClock && { wallClockStartMs: Date.now() }) }));
 
             setSudoku(Sudoku.fromString(newState.sudokuString, defaultSudokuConfig));
 
@@ -73,14 +73,14 @@ export const GameProvider = ({ children }: Props) => {
         }
     };
 
-    const create = (difficulty: DifficultyEnum, maxMistakes: number) => {
+    const create = (difficulty: DifficultyEnum, maxMistakes: number, isChallengeRun = false) => {
         const newSudoku = new Sudoku(defaultSudokuConfig);
 
         newSudoku.create(difficulty);
         setSudoku(newSudoku);
 
         const sudokuString = newSudoku.toString();
-        dispatch(gameStartAction({ maxMistakes, sudokuString }));
+        dispatch(gameStartAction({ maxMistakes, sudokuString, isChallengeRun }));
         router.push('/game');
     };
 

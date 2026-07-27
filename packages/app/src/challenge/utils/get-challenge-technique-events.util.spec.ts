@@ -12,7 +12,6 @@ const givens = '53..7....6..195....98....6.8...6...34..8.3..17...2...6.6....28..
 const BlankCell = '.';
 const StepCount = 5;
 const StepDuration = 10;
-const TotalTime = 100;
 
 const buildSteps = (count: number): SolutionStepInterface[] => {
     const steps: SolutionStepInterface[] = [];
@@ -30,26 +29,19 @@ describe('getChallengeTechniqueEvents', () => {
     it('should return no events for an empty sudoku string', () => {
         expect.assertions(1);
 
-        expect(getChallengeTechniqueEvents('', buildSteps(StepCount), TotalTime)).toStrictEqual([]);
+        expect(getChallengeTechniqueEvents('', buildSteps(StepCount))).toStrictEqual([]);
     });
 
     it('should return no events for an empty step list', () => {
         expect.assertions(1);
 
-        expect(getChallengeTechniqueEvents(givens, [], TotalTime)).toStrictEqual([]);
-    });
-
-    it('should return no events when the total time is not positive', () => {
-        expect.assertions(2);
-
-        expect(getChallengeTechniqueEvents(givens, buildSteps(StepCount), 0)).toStrictEqual([]);
-        expect(getChallengeTechniqueEvents(givens, buildSteps(StepCount), -1)).toStrictEqual([]);
+        expect(getChallengeTechniqueEvents(givens, [])).toStrictEqual([]);
     });
 
     it('should produce one event per step', () => {
         expect.assertions(1);
 
-        const events = getChallengeTechniqueEvents(givens, buildSteps(StepCount), TotalTime);
+        const events = getChallengeTechniqueEvents(givens, buildSteps(StepCount));
 
         expect(events).toHaveLength(StepCount);
     });
@@ -57,23 +49,15 @@ describe('getChallengeTechniqueEvents', () => {
     it('should accumulate step durations into the cumulative time', () => {
         expect.assertions(1);
 
-        const events = getChallengeTechniqueEvents(givens, buildSteps(StepCount), TotalTime);
+        const events = getChallengeTechniqueEvents(givens, buildSteps(StepCount));
 
         expect(events.map(event => event.cumulativeTime)).toStrictEqual([10, 20, 30, 40, 50]);
-    });
-
-    it('should express the position as the cumulative share of the total time', () => {
-        expect.assertions(1);
-
-        const events = getChallengeTechniqueEvents(givens, buildSteps(StepCount), TotalTime);
-
-        expect(events.map(event => event.positionPercent)).toStrictEqual([10, 20, 30, 40, 50]);
     });
 
     it('should classify every step into a known technique and tier', () => {
         expect.assertions(2);
 
-        const events = getChallengeTechniqueEvents(givens, buildSteps(StepCount), TotalTime);
+        const events = getChallengeTechniqueEvents(givens, buildSteps(StepCount));
         const knownTiers = Object.values(ChallengeTechniqueTierEnum);
 
         expect(events.every(event => knownTiers.includes(event.tier))).toBe(true);

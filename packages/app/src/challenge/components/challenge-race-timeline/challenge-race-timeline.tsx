@@ -5,32 +5,28 @@ import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-na
 
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { getChallengeTimelineMarks } from '../../utils/get-challenge-timeline-marks.util';
+import { ChallengeAwayBands } from '../challenge-away-bands/challenge-away-bands';
 import { ChallengeRaceRunner } from '../challenge-race-runner/challenge-race-runner';
+import { ChallengeTimelineTrack } from '../challenge-timeline-track/challenge-timeline-track';
 
 import { ChallengeRaceTimelineStyles as styles } from './challenge-race-timeline.styles';
 
+import type { ChallengeAwayRangeInterface } from '../../interfaces/challenge-away-range.interface';
 import type { ChallengeTechniqueEventInterface } from '../../interfaces/challenge-technique-event.interface';
-import type { ViewStyle } from 'react-native';
 
 const TICK_COUNT = 44;
-const TICK_CENTER_OFFSET = 0.5;
-const MARK_BASE_HEIGHT = 7;
-const MARK_HEIGHT_STEP = 2;
-const FILLER_HEIGHT = 5;
-const MOVE_PASSED_OPACITY = 0.7;
-const MOVE_UPCOMING_OPACITY = 0.26;
-const FILLER_PASSED_OPACITY = 0.3;
-const FILLER_UPCOMING_OPACITY = 0.14;
 const PERCENT = 100;
 const ANIMATION_DURATION_MS = 300;
 
 interface Props {
+    readonly awayRanges: ChallengeAwayRangeInterface[];
     readonly events: ChallengeTechniqueEventInterface[];
     readonly opponentProgress: number;
     readonly playerProgress: number;
+    readonly totalTime: number;
 }
 
-export const ChallengeRaceTimeline = ({ events, opponentProgress, playerProgress }: Props) => {
+export const ChallengeRaceTimeline = ({ awayRanges, events, opponentProgress, playerProgress, totalTime }: Props) => {
     const { theme } = use(ThemeContext);
 
     const opponentProgressValue = useSharedValue(opponentProgress);
@@ -43,11 +39,9 @@ export const ChallengeRaceTimeline = ({ events, opponentProgress, playerProgress
         playerProgressValue.value = withTiming(playerProgress, { duration: ANIMATION_DURATION_MS });
     }, [playerProgress, playerProgressValue]);
 
-    const marks = getChallengeTimelineMarks(events, TICK_COUNT);
+    const marks = getChallengeTimelineMarks(events, TICK_COUNT, totalTime).map(mark => ({ ...mark, isAway: false }));
     const isRivalAhead = opponentProgress > playerProgress;
     const gapColor = isRivalAhead ? theme.colors.red : theme.colors.label.main;
-    const trackStyle = styles.track;
-    const baselineStyle = [styles.baseline, { backgroundColor: theme.colors.label.main }];
     const fillAnimatedStyle = useAnimatedStyle(() => ({
         width: `${Math.min(opponentProgressValue.value, playerProgressValue.value) * PERCENT}%`
     }));
@@ -65,34 +59,18 @@ export const ChallengeRaceTimeline = ({ events, opponentProgress, playerProgress
     ];
 
     return (
-        <View style={trackStyle}>
+        <ChallengeTimelineTrack marks={marks} progress={opponentProgress}>
+            <ChallengeAwayBands ranges={awayRanges} variant="default" />
+
             <View pointerEvents="none" style={styles.baselineLayer}>
-                <View style={baselineStyle} />
                 <Animated.View style={fillStyle} />
                 <Animated.View style={gapStyle} />
             </View>
-
-            {marks.map((mark, index) => {
-                const markPercent = (index + TICK_CENTER_OFFSET) / TICK_COUNT;
-                const isPassed = opponentProgress >= markPercent;
-                const isMove = mark.tier !== null;
-                const moveOpacity = isPassed ? MOVE_PASSED_OPACITY : MOVE_UPCOMING_OPACITY;
-                const fillerOpacity = isPassed ? FILLER_PASSED_OPACITY : FILLER_UPCOMING_OPACITY;
-                const markHeight = isMove ? MARK_BASE_HEIGHT + mark.complexity * MARK_HEIGHT_STEP : FILLER_HEIGHT;
-                const markStyle: ViewStyle = {
-                    backgroundColor: theme.colors.label.main,
-                    height: markHeight,
-                    opacity: isMove ? moveOpacity : fillerOpacity
-                };
-                const tickStyle = [styles.tick, markStyle];
-
-                return <View key={`race-tick-${index}`} style={tickStyle} />;
-            })}
 
             <View pointerEvents="none" style={styles.overlay}>
                 <Animated.View style={playerDotStyle} />
                 <ChallengeRaceRunner progress={opponentProgressValue} />
             </View>
-        </View>
+        </ChallengeTimelineTrack>
     );
 };

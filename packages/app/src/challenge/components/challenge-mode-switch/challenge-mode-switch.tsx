@@ -1,0 +1,85 @@
+import { useLingui } from '@lingui/react/macro';
+import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
+import { ImpactFeedbackStyle } from 'expo-haptics';
+import { Zap } from 'lucide-react-native';
+import { useEffect } from 'react';
+import { Pressable } from 'react-native';
+import Animated, { interpolate, interpolateColor, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import { useUnistyles } from 'react-native-unistyles';
+
+import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
+import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
+import { useVibration } from '../../../@generic/hooks/use-vibration.hook';
+import { settingsSetAction } from '../../../settings/store/settings.actions';
+import { settingsLastGameChallengeModeSelector } from '../../../settings/store/settings.selectors';
+
+import { ChallengeModeSwitchSelectors } from './challenge-mode-switch.selectors';
+import { ChallengeModeSwitchStyles as styles } from './challenge-mode-switch.styles';
+
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
+
+const GlyphSize = 11;
+const PressedScale = 0.94;
+const ColorDurationMs = 180;
+const PressDurationMs = 90;
+
+export const ChallengeModeSwitch = () => {
+    const { t } = useLingui();
+    const { theme } = useUnistyles();
+    const dispatch = useAppDispatch();
+    const [, hapticImpact] = useVibration();
+    const isChallengeMode = useAppSelector(settingsLastGameChallengeModeSelector);
+
+    const progress = useSharedValue(isChallengeMode ? 1 : 0);
+    const pressed = useSharedValue(0);
+
+    useEffect(() => {
+        progress.value = withTiming(isChallengeMode ? 1 : 0, { duration: ColorDurationMs });
+    }, [isChallengeMode, progress]);
+
+    const handlePress = () => {
+        hapticImpact(ImpactFeedbackStyle.Light);
+        dispatch(settingsSetAction({ lastGameChallengeMode: !isChallengeMode }));
+    };
+    const handlePressIn = () => {
+        pressed.value = withTiming(1, { duration: PressDurationMs });
+    };
+    const handlePressOut = () => {
+        pressed.value = withTiming(0, { duration: PressDurationMs });
+    };
+
+    const chipAnimatedStyles = useAnimatedStyle(() => ({
+        backgroundColor: interpolateColor(progress.value, [0, 1], ['rgba(0, 0, 0, 0)', theme.colors.black]),
+        borderColor: interpolateColor(progress.value, [0, 1], [theme.colors.candidate.border, theme.colors.black]),
+        transform: [{ scale: interpolate(pressed.value, [0, 1], [1, PressedScale]) }]
+    }));
+    const contentAnimatedStyles = useAnimatedStyle(() => ({
+        color: interpolateColor(progress.value, [0, 1], [theme.colors.label.hint, theme.colors.label.inverted])
+    }));
+
+    const chipStyles = [resolveUnistyleForAnimated(styles.chip), chipAnimatedStyles];
+    const labelStyles = [resolveUnistyleForAnimated(styles.label), contentAnimatedStyles];
+    const glyphColor = isChallengeMode ? theme.colors.label.inverted : theme.colors.label.hint;
+    const glyphFill = isChallengeMode ? glyphColor : 'transparent';
+    const accessibilityState = { checked: isChallengeMode };
+
+    return (
+        <AnimatedPressable
+            accessibilityHint={t`Challenge runs cannot be paused and record when you leave the app`}
+            accessibilityLabel={t`Challenge mode`}
+            accessibilityRole="switch"
+            accessibilityState={accessibilityState}
+            onPress={handlePress}
+            onPressIn={handlePressIn}
+            onPressOut={handlePressOut}
+            style={chipStyles}
+            testID={ChallengeModeSwitchSelectors.Root}
+        >
+            <Zap color={glyphColor} fill={glyphFill} size={GlyphSize} strokeWidth={2.6} />
+
+            <Animated.Text allowFontScaling={false} style={labelStyles}>
+                {t`Challenge`}
+            </Animated.Text>
+        </AnimatedPressable>
+    );
+};

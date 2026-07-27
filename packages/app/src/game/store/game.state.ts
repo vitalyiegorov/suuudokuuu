@@ -3,7 +3,7 @@ import { DifficultyEnum } from '@suuudokuuu/generator';
 import { emptyGameHistory } from '../../history/interfaces/history-game.interface';
 
 import type { HistoryGameInterface } from '../../history/interfaces/history-game.interface';
-import type { SolutionStepInterface } from '@suuudokuuu/encoder';
+import type { GameTimelineEventInterface } from '../interface/game-timeline-event.interface';
 
 export interface GameState {
     sudokuString: string;
@@ -17,12 +17,13 @@ export interface GameState {
     showAutoCandidates: boolean;
     inputMode: 'normal' | 'candidate';
     candidates: Record<string, number[]>;
-    solutionSteps: SolutionStepInterface[];
+    timelineEvents: GameTimelineEventInterface[];
     historyByDifficulty: Record<DifficultyEnum, HistoryGameInterface>;
-    challengeSteps: SolutionStepInterface[];
+    challengeTimelineEvents: GameTimelineEventInterface[];
     challengeTime: number;
     challengeState: string;
-    challengeWallStartMs: number;
+    wallClockStartMs: number;
+    isChallengeRun: boolean;
     hasNewPersonalBestScore: boolean;
 }
 
@@ -45,10 +46,11 @@ export const initialGameState: GameState = {
         [DifficultyEnum.Hard]: { ...emptyGameHistory, difficulty: DifficultyEnum.Hard },
         [DifficultyEnum.Nightmare]: { ...emptyGameHistory, difficulty: DifficultyEnum.Nightmare }
     },
-    solutionSteps: [],
-    challengeSteps: [],
+    timelineEvents: [],
+    challengeTimelineEvents: [],
     challengeTime: 0,
     challengeState: '',
-    challengeWallStartMs: 0,
+    wallClockStartMs: 0,
+    isChallengeRun: false,
     hasNewPersonalBestScore: false
 };

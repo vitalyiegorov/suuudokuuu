@@ -11,6 +11,11 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
+#. placeholder {0}: ranges.length
+#: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
+msgid "{0, plural, one {# break} other {# breaks}}"
+msgstr "{0, plural, one {انقطاع واحد} other {# انقطاعات}}"
+
 #. placeholder {0}: 0
 #. placeholder {0}: 3
 #. placeholder {0}: 99
@@ -21,6 +26,10 @@ msgstr "{0, plural, zero {# أخطاء} one {# خطأ} two {# خطآن} few {# �
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
 msgstr "{arsenalCardCount, plural, zero {# تقنيات} one {# تقنية} two {# تقنيتان} few {# تقنيات} many {# تقنية} other {# تقنية}}"
+
+#: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
+msgid "{awaySeconds}s away"
+msgstr "غياب {awaySeconds} ثانية"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} faster"
@@ -184,6 +193,7 @@ msgstr "تم الإنشاء:"
 msgid "Can you beat them?"
 msgstr "هل يمكنك التفوق عليهم؟"
 
+#: src/game/hooks/use-share-game.hook.ts
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
@@ -196,6 +206,8 @@ msgstr "إلغاء"
 msgid "Cell spacing"
 msgstr "تباعد الخلايا"
 
+#: src/challenge/components/challenge-mode-switch/challenge-mode-switch.tsx
+#: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Challenge"
 msgstr "التحدي"
@@ -212,6 +224,14 @@ msgstr "خسرت التحدي"
 msgid "Challenge Lost"
 msgstr "خسرت التحدي"
 
+#: src/challenge/components/challenge-mode-switch/challenge-mode-switch.tsx
+msgid "Challenge mode"
+msgstr "وضع التحدي"
+
+#: src/challenge/components/challenge-mode-switch/challenge-mode-switch.tsx
+msgid "Challenge runs cannot be paused and record when you leave the app"
+msgstr "لا يمكن إيقاف جولات التحدي مؤقتًا، وهي تسجّل خروجك من التطبيق"
+
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Challenge won"
 msgstr "فزت بالتحدي"
@@ -224,7 +244,7 @@ msgstr "فزت بالتحدي!"
 msgid "Challenges"
 msgstr "التحديات"
 
-#: src/game/hooks/use-share-puzzle/use-share-puzzle.hook.ts
+#: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "Check out this Sudoku puzzle!"
 msgstr "جرّب لغز السودوكو هذا!"
 
@@ -296,6 +316,14 @@ msgstr "مكافآت الإكمال"
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Continue"
 msgstr "متابعة"
+
+#: src/game/hooks/use-share-game.hook.ts
+msgid "Continue elsewhere"
+msgstr "المتابعة في مكان آخر"
+
+#: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
+msgid "Continue this Sudoku exactly where I left off!"
+msgstr "أكمل هذا السودوكو من حيث توقفت تمامًا!"
 
 #: src/@generic/hooks/use-timer-text.hook.ts
 msgid "d"
@@ -718,6 +746,10 @@ msgstr "بلا حد"
 msgid "No matter how many penalties, you always earn at least"
 msgstr "مهما بلغت العقوبات، ستحصل دائمًا على الأقل على"
 
+#: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
+msgid "no pause"
+msgstr "بلا إيقاف"
+
 #: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
 msgstr "لا توجد إحصاءات بعد"
@@ -854,6 +886,14 @@ msgstr "نُشر:"
 msgid "Quit"
 msgstr "إنهاء"
 
+#: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
+msgid "recorded"
+msgstr "مسجَّل"
+
+#: src/challenge/components/challenge-record-hud/challenge-record-hud.tsx
+msgid "Recording"
+msgstr "جارٍ التسجيل"
+
 #: src/@generic/utils/get-mistakes-type-text.util.ts
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Relaxed"
@@ -876,6 +916,14 @@ msgstr "الإبلاغ عن خطأ"
 msgid "Result"
 msgstr "النتيجة"
 
+#: src/screens/components/shared-screen/shared-screen.tsx
+msgid "Resume game"
+msgstr "متابعة اللعبة"
+
+#: src/screens/components/shared-screen/shared-screen.tsx
+msgid "Resume this game?"
+msgstr "متابعة هذه اللعبة؟"
+
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Retry loading development build"
 msgstr "إعادة محاولة تحميل إصدار التطوير"
@@ -896,6 +944,10 @@ msgstr "ترسانة المنافس"
 #: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
 msgid "Rival's playbook"
 msgstr "أسلوب المنافس"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Rival's run"
+msgstr "جولة المنافس"
 
 #: src/challenge/components/challenge-result-rival-time-card/challenge-result-rival-time-card.tsx
 msgid "Rival's time to beat"
@@ -929,6 +981,10 @@ msgstr "النقاط × المعامل × العدد"
 msgid "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 msgstr "تُحسب النقاط لكل خانة صحيحة حسب الصعوبة والمكافآت والعقوبات."
 
+#: src/game/hooks/use-share-game.hook.ts
+msgid "Send the puzzle to solve from scratch, or hand off your run to continue elsewhere."
+msgstr "أرسل اللغز ليُحل من البداية، أو سلّم جولتك لمتابعتها في مكان آخر."
+
 #: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/screens/components/settings-screen/settings.screen.tsx
@@ -944,9 +1000,19 @@ msgstr "مجاميع تحقق SHA-256"
 msgid "Shade cells that already have a number"
 msgstr "تظليل الخلايا التي تحتوي بالفعل على رقم"
 
+#: src/game/hooks/use-share-game.hook.ts
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
+#: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Share puzzle"
 msgstr "مشاركة السودوكو"
+
+#: src/game/hooks/use-share-game.hook.ts
+msgid "Share this game"
+msgstr "مشاركة هذه اللعبة"
+
+#: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
+msgid "shareable"
+msgstr "قابل للمشاركة"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show cells with the same number as the selected cell"
@@ -1052,7 +1118,11 @@ msgstr "suuudokuuu · v{version}"
 msgid "SuuudokuuU Challenge"
 msgstr "تحدي SuuudokuuU"
 
-#: src/game/hooks/use-share-puzzle/use-share-puzzle.hook.ts
+#: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
+msgid "SuuudokuuU game handoff"
+msgstr "تسليم لعبة SuuudokuuU"
+
+#: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "SuuudokuuU Sudoku Puzzle"
 msgstr "سودوكو SuuudokuuU"
 
@@ -1154,6 +1224,10 @@ msgstr "تعذّر فتح الرابط"
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Unable to start installation"
 msgstr "تعذّر بدء التثبيت"
+
+#: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
+msgid "Uninterrupted run"
+msgstr "جولة بلا انقطاع"
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/screens/components/settings-screen/settings.screen.tsx
@@ -1320,6 +1394,10 @@ msgstr "تقدمك"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Your rival was faster"
 msgstr "كان منافسك أسرع"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Your run"
+msgstr "جولتك"
 
 #: src/history/components/history-overview/history-overview.tsx
 msgid "Your stats will build as you finish puzzles."

@@ -5,6 +5,7 @@ const reactNativeRoot = path.dirname(require.resolve('react-native'));
 module.exports = {
     coverageReporters: ['text-summary', 'lcov'],
     reporters: ['default'],
+    collectCoverageFrom: ['src/**/*.{ts,tsx}', '!src/**/*.spec.{ts,tsx}', '!src/i18n/locales/**'],
     coveragePathIgnorePatterns: ['.mock.ts', 'i18n-plural-rules.polyfill.ts', 'theme.enum.ts'],
     displayName: 'app',
     haste: {
@@ -16,6 +17,7 @@ module.exports = {
         '^@suuudokuuu/encoder$': '<rootDir>/../encoder/src/index.ts',
         '^@suuudokuuu/generator$': '<rootDir>/../generator/src/index.ts',
         '^@suuudokuuu/solver$': '<rootDir>/../solver/src/index.ts',
+        '^@suuudokuuu/ui$': '<rootDir>/../ui/src/index.ts',
         '^@suuudokuuu/ui/theme$': '<rootDir>/../ui/src/theme/index.ts',
         '^@suuudokuuu/ui/app-button-get-colors$': '<rootDir>/../ui/src/components/app-button/utils/app-button-get-colors.util.ts',
         '^@suuudokuuu/ui/app-metric-strip-get-colors$':
@@ -26,11 +28,23 @@ module.exports = {
     testRegex: './(?:src|vercel-functions)/.*\\.spec\\.(tsx?)$',
     testEnvironment: 'node',
     coverageThreshold: {
-        global: {
+        'src/**/*.util.ts': {
             statements: 100,
-            branches: 90,
+            branches: 95,
             lines: 100,
             functions: 100
+        },
+        'src/**/store/*.ts': {
+            statements: 100,
+            branches: 95,
+            lines: 100,
+            functions: 100
+        },
+        global: {
+            statements: 4,
+            branches: 2,
+            lines: 4,
+            functions: 3
         }
     },
     globals: { __DEV__: true },
@@ -45,6 +59,6 @@ module.exports = {
         '^.+\\.(bmp|gif|jpg|jpeg|mp4|png|psd|svg|webp)$': require.resolve('@react-native/jest-preset/jest/assetFileTransformer.js')
     },
     transformIgnorePatterns: [
-        'node_modules/(?!(@thi.ng/bitstream|@thi.ng/errors|@formatjs|@lingui|@messageformat|expo-localization|react-native|@react-native|@testing-library/react-native|test-renderer|@suuudokuuu/ui)/)'
+        'node_modules/(?!(@thi.ng/bitstream|@thi.ng/errors|@formatjs|@lingui|@messageformat|expo-localization|react-native|react-native-reanimated|react-native-worklets|@react-native|@testing-library/react-native|test-renderer|@suuudokuuu/ui)/)'
     ]
 };

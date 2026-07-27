@@ -8,15 +8,17 @@ import {
     gameChallengeStateSelector,
     gameChallengeStepsSelector,
     gameChallengeTimeSelector,
+    gameChallengeTimelineEventsSelector,
     gameCompletedGameByIdSelector,
     gameCompletedGamesSelector,
     gameElapsedTimeSelector,
     gameHasNewPersonalBestScoreSelector,
+    gameHasRivalSelector,
     gameHistoryBestTimeSelector,
     gameHistoryByDifficultySelector,
     gameHistoryDifficultySelector,
     gameInputModeSelector,
-    gameIsChallengeModeSelector,
+    gameIsChallengeRunSelector,
     gameIsStartedSelector,
     gameMaxMistakesSelector,
     gameMistakesSelector,
@@ -27,7 +29,8 @@ import {
     gameShouldShowPauseScreenSelector,
     gameShowAutoCandidatesSelector,
     gameSolutionsStepsSelector,
-    gameSudokuStringSelector
+    gameSudokuStringSelector,
+    gameTimelineEventsSelector
 } from './game.selectors';
 import { initialGameState } from './game.state';
 
@@ -90,18 +93,26 @@ describe('game selectors', () => {
         expect(gameInputModeSelector.resultFunc(state)).toBe('candidate');
         expect(gameCandidatesSelector.resultFunc(state)).toEqual({ a1: [1, 2] });
         expect(gameHistoryByDifficultySelector.resultFunc(state)).toBe(state.historyByDifficulty);
-        expect(gameChallengeStepsSelector.resultFunc(state)).toBe(state.challengeSteps);
+        expect(gameChallengeStepsSelector.resultFunc(state)).toStrictEqual([]);
         expect(gameChallengeStateSelector.resultFunc(state)).toBe('encoded');
         expect(gameChallengeTimeSelector.resultFunc(state)).toBe(30);
-        expect(gameSolutionsStepsSelector.resultFunc(state)).toBe(state.solutionSteps);
+        expect(gameSolutionsStepsSelector.resultFunc(state)).toStrictEqual([]);
+        expect(gameTimelineEventsSelector.resultFunc(state)).toBe(state.timelineEvents);
+        expect(gameChallengeTimelineEventsSelector.resultFunc(state)).toBe(state.challengeTimelineEvents);
         expect(gameHasNewPersonalBestScoreSelector.resultFunc(state)).toBe(true);
     });
 
     it('derives game and challenge activity from non-empty strings', () => {
         expect(gameIsStartedSelector.resultFunc(state)).toBe(true);
         expect(gameIsStartedSelector.resultFunc(initialGameState)).toBe(false);
-        expect(gameIsChallengeModeSelector.resultFunc(state)).toBe(true);
-        expect(gameIsChallengeModeSelector.resultFunc(initialGameState)).toBe(false);
+        expect(gameHasRivalSelector.resultFunc(state)).toBe(true);
+        expect(gameHasRivalSelector.resultFunc(initialGameState)).toBe(false);
+    });
+
+    it('separates a challenge run from the presence of a rival', () => {
+        expect(gameIsChallengeRunSelector.resultFunc({ ...initialGameState, isChallengeRun: true })).toBe(true);
+        expect(gameIsChallengeRunSelector.resultFunc(initialGameState)).toBe(false);
+        expect(gameHasRivalSelector.resultFunc({ ...initialGameState, isChallengeRun: true })).toBe(false);
     });
 
     it('finds the best score and time across difficulties', () => {

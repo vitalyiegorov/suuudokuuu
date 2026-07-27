@@ -11,10 +11,10 @@ const getNextCellForArrowKey = (key: string, sudoku: Sudoku, selectedCell: CellI
     const lastColIndex = sudoku.Field[currentCell.y].length - 1;
 
     const cellByArrowKey: Record<string, CellInterface | undefined> = {
-        ArrowUp: sudoku.getCellUp(currentCell) ?? sudoku.Field[lastRowIndex][currentCell.x],
-        ArrowDown: sudoku.getCellDown(currentCell) ?? sudoku.Field[0][currentCell.x],
-        ArrowLeft: sudoku.getCellLeft(currentCell) ?? sudoku.Field[currentCell.y][lastColIndex],
-        ArrowRight: sudoku.getCellRight(currentCell) ?? sudoku.Field[currentCell.y][0]
+        ArrowUp: currentCell.y > 0 ? sudoku.getCellUp(currentCell) : sudoku.Field[lastRowIndex][currentCell.x],
+        ArrowDown: currentCell.y < lastRowIndex ? sudoku.getCellDown(currentCell) : sudoku.Field[0][currentCell.x],
+        ArrowLeft: currentCell.x > 0 ? sudoku.getCellLeft(currentCell) : sudoku.Field[currentCell.y][lastColIndex],
+        ArrowRight: currentCell.x < lastColIndex ? sudoku.getCellRight(currentCell) : sudoku.Field[currentCell.y][0]
     };
 
     return cellByArrowKey[key];

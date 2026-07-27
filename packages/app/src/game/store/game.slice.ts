@@ -1,31 +1,38 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { Solution } from '@suuudokuuu/encoder';
+import { SharedPayloadKindEnum, TimelineEventKindEnum } from '@suuudokuuu/encoder';
+import { defaultSudokuConfig } from '@suuudokuuu/generator';
 
-import { isNotEmptyString } from '@rnw-community/shared';
+import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
 import { getCellKey } from '../../@generic/utils/get-cell-key.util';
 import { maxCompletedGamesPerDifficulty } from '../../history/constants/max-completed-games-per-difficulty.constant';
 import { SudokuScoring } from '../../scoring/classes/sudoku-scoring';
 import { defaultScoringConfig } from '../../scoring/interfaces/scoring-config.interface';
 import { gameStateToString } from '../utils/game-state-to-string.util';
+import { getTimelineTimestampDelta } from '../utils/get-timeline-timestamp-delta.util';
+import { isLastTimelineEventAway } from '../utils/is-last-timeline-event-away.util';
 
 import { initialGameState } from './game.state';
 
 import type { GameState } from './game.state';
 import type { CellInterface, DifficultyEnum, ScoredCellsInterface, Sudoku } from '@suuudokuuu/generator';
+import type { SolutionTechniqueEnum } from '@suuudokuuu/solver';
+
+const MillisecondsPerSecond = 1000;
 
 export const gameSlice = createSlice({
     name: 'game',
     initialState: initialGameState,
     reducers: {
-        start: (state, action: PayloadAction<Pick<GameState, 'sudokuString' | 'maxMistakes'>>) => {
+        start: (state, action: PayloadAction<Pick<GameState, 'sudokuString' | 'maxMistakes' | 'isChallengeRun'>>) => {
             Object.assign(state, { ...initialGameState, historyByDifficulty: state.historyByDifficulty });
 
             state.sudokuString = action.payload.sudokuString;
             state.maxMistakes = action.payload.maxMistakes;
+            state.isChallengeRun = action.payload.isChallengeRun;
         },
         pause: (state, action: PayloadAction<{ shouldShowPauseScreen?: boolean } | undefined>) => {
-            if (isNotEmptyString(state.challengeState)) {
+            if (state.isChallengeRun) {
                 return;
             }
 
@@ -36,28 +43,61 @@ export const gameSlice = createSlice({
             state.shouldResumeOnFocus = !shouldShowPauseScreen;
         },
         challengeClockSync: (state, action: PayloadAction<{ nowMs: number }>) => {
-            if (!isNotEmptyString(state.challengeState)) {
+            if (!state.isChallengeRun) {
                 return;
             }
 
-            if (state.challengeWallStartMs === 0) {
-                state.challengeWallStartMs = action.payload.nowMs - state.elapsedTime * 1000;
+            if (state.wallClockStartMs === 0) {
+                state.wallClockStartMs = action.payload.nowMs - state.elapsedTime * MillisecondsPerSecond;
 
                 return;
             }
 
-            const wallElapsedSeconds = Math.floor((action.payload.nowMs - state.challengeWallStartMs) / 1000);
+            const wallElapsedSeconds = Math.floor((action.payload.nowMs - state.wallClockStartMs) / MillisecondsPerSecond);
             if (wallElapsedSeconds > state.elapsedTime) {
                 state.elapsedTime = wallElapsedSeconds;
             }
+        },
+        timelineAway: state => {
+            if (!state.isChallengeRun || isLastTimelineEventAway(state.timelineEvents)) {
+                return;
+            }
+
+            state.timelineEvents.push({
+                kind: TimelineEventKindEnum.Away,
+                ts: getTimelineTimestampDelta(state.timelineEvents, state.elapsedTime)
+            });
+        },
+        timelineReturn: state => {
+            if (!isLastTimelineEventAway(state.timelineEvents)) {
+                return;
+            }
+
+            const ts = getTimelineTimestampDelta(state.timelineEvents, state.elapsedTime);
+
+            if (ts === 0) {
+                state.timelineEvents.pop();
+
+                return;
+            }
+
+            state.timelineEvents.push({ kind: TimelineEventKindEnum.Return, ts });
         },
         resume: state => {
             state.isPaused = false;
             state.shouldShowPauseScreen = false;
             state.shouldResumeOnFocus = false;
         },
-        save: (state, action: PayloadAction<{ sudoku: Sudoku; correctCell: CellInterface; scoredCells: ScoredCellsInterface }>) => {
-            const { sudoku, correctCell, scoredCells } = action.payload;
+        save: (
+            state,
+            action: PayloadAction<{
+                sudoku: Sudoku;
+                correctCell: CellInterface;
+                scoredCells: ScoredCellsInterface;
+                technique?: SolutionTechniqueEnum;
+            }>
+        ) => {
+            const { sudoku, correctCell, scoredCells, technique } = action.payload;
 
             const scoring = new SudokuScoring(defaultScoringConfig);
 
@@ -71,9 +111,13 @@ export const gameSlice = createSlice({
                 maxMistakes: state.maxMistakes
             });
 
-            const solution = Solution.fromSteps(state.solutionSteps);
-            solution.addStep(correctCell, state.elapsedTime);
-            state.solutionSteps = solution.getSteps();
+            state.timelineEvents.push({
+                kind: TimelineEventKindEnum.Cell,
+                cellIndex: correctCell.y * defaultSudokuConfig.fieldSize + correctCell.x,
+                value: correctCell.value,
+                ts: getTimelineTimestampDelta(state.timelineEvents, state.elapsedTime),
+                ...(isDefined(technique) && { technique })
+            });
 
             state.candidates[getCellKey(correctCell)] = [];
 
@@ -94,8 +138,15 @@ export const gameSlice = createSlice({
                     })
             );
         },
-        mistake: state => {
+        mistake: (state, action: PayloadAction<CellInterface>) => {
             state.mistakes += 1;
+
+            state.timelineEvents.push({
+                kind: TimelineEventKindEnum.Mistake,
+                cellIndex: action.payload.y * defaultSudokuConfig.fieldSize + action.payload.x,
+                value: action.payload.value,
+                ts: getTimelineTimestampDelta(state.timelineEvents, state.elapsedTime)
+            });
         },
         load: (state, action: PayloadAction<Partial<GameState>>) => {
             Object.assign(state, action.payload);
@@ -113,6 +164,15 @@ export const gameSlice = createSlice({
 
             if (state.showAutoCandidates) {
                 state.inputMode = 'normal';
+
+                const hasRecordedAssist = state.timelineEvents.some(event => event.kind === TimelineEventKindEnum.AutoCandidates);
+
+                if (!hasRecordedAssist) {
+                    state.timelineEvents.push({
+                        kind: TimelineEventKindEnum.AutoCandidates,
+                        ts: getTimelineTimestampDelta(state.timelineEvents, state.elapsedTime)
+                    });
+                }
             }
         },
         toggleInputMode: state => {
@@ -156,7 +216,7 @@ export const gameSlice = createSlice({
                 history.completedGames = [
                     {
                         difficulty,
-                        encodedState: gameStateToString(state, true),
+                        encodedState: gameStateToString(state, SharedPayloadKindEnum.Handoff),
                         elapsedTime: state.elapsedTime,
                         score: state.score,
                         mistakes: state.mistakes,

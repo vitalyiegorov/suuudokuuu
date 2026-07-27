@@ -5,8 +5,9 @@ import Reanimated from 'react-native-reanimated';
 import { cs } from '@rnw-community/shared';
 
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
-import { settingsFontSizeMultiplierSelector, settingsKeySelector } from '../../../settings/store/settings.selectors';
+import { settingsKeySelector } from '../../../settings/store/settings.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { useCandidateFontSize } from '../../hooks/use-candidate-font-size.hook';
 
 import { FieldCellCandidateStyles as styles } from './field-cell-candidate.styles';
 
@@ -31,7 +32,7 @@ const textCandidatePositionStyles = {
 export const FieldCellCandidates = ({ candidates, activeValue, cellSize }: Props) => {
     const { theme } = use(ThemeContext);
 
-    const fontSizeMultiplier = useAppSelector(settingsFontSizeMultiplierSelector);
+    const fontSize = useCandidateFontSize(cellSize);
     const showActiveCandidates = useAppSelector(settingsKeySelector('showActiveCandidates'));
 
     const getCandidateTextStyles = (candidate: number) => {
@@ -41,7 +42,7 @@ export const FieldCellCandidates = ({ candidates, activeValue, cellSize }: Props
         return [
             resolveUnistyleForAnimated(styles.textCandidate(cellSize)),
             {
-                fontSize: Math.min((cellSize / 3) * fontSizeMultiplier, cellSize / 3.7),
+                fontSize,
                 color: theme.colors.candidate.text
             },
             cs(isCandidateActive && showActiveCandidates, {

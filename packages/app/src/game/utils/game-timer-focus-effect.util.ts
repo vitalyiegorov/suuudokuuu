@@ -1,11 +1,16 @@
 import { AppState } from 'react-native';
 
-import { isNotEmptyString } from '@rnw-community/shared';
-
 import { appRootStore } from '../../@generic/app-root.store';
-import { gameChallengeClockSyncAction, gamePauseAction, gameResumeAction, gameTickAction } from '../store/game.actions';
 import {
-    gameChallengeStateSelector,
+    gameChallengeClockSyncAction,
+    gamePauseAction,
+    gameResumeAction,
+    gameTickAction,
+    gameTimelineAwayAction,
+    gameTimelineReturnAction
+} from '../store/game.actions';
+import {
+    gameIsChallengeRunSelector,
     gameIsStartedSelector,
     gamePausedSelector,
     gameShouldResumeOnFocusSelector
@@ -29,7 +34,7 @@ const getGameTimerSnapshot = () => {
     const state = appRootStore.getState();
     const hasStarted = gameIsStartedSelector(state);
     const isPaused = gamePausedSelector(state);
-    const isChallenge = isNotEmptyString(gameChallengeStateSelector(state));
+    const isChallenge = gameIsChallengeRunSelector(state);
     const shouldResumeTimerOnFocus = hasStarted && isPaused && gameShouldResumeOnFocusSelector(state);
     const shouldRunTimer = hasStarted && (!isPaused || shouldResumeTimerOnFocus);
 
@@ -48,7 +53,10 @@ const createGameTimerAppStateListener = (
 
         if (nextAppState === 'active') {
             dispatch(gameChallengeClockSyncAction({ nowMs: Date.now() }));
+            dispatch(gameTimelineReturnAction());
             startTimer();
+        } else {
+            dispatch(gameTimelineAwayAction());
         }
     };
 
@@ -85,6 +93,7 @@ export const gameTimerRunFocusEffect = (dependencies: GameTimerFocusDependencies
 
     if (snapshot.isChallenge && snapshot.hasStarted) {
         dispatch(gameChallengeClockSyncAction({ nowMs: Date.now() }));
+        dispatch(gameTimelineReturnAction());
     }
 
     const startTimer = () => {

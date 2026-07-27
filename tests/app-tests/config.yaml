@@ -1,20 +1,22 @@
 platform:
-  ios:
-    snapshotKeyHonorModalViews: false
-    disableAnimations: true
-  android:
-    disableAnimations: true
+    ios:
+        snapshotKeyHonorModalViews: false
+        disableAnimations: true
+    android:
+        disableAnimations: true
 
 flows:
-  - 'flows/*.flow.yaml'
+    - 'flows/*.flow.yaml'
 
 executionOrder:
-  continueOnFailure: false
-  flowsOrder:
-    - 01.home-screen.flow
-    - 02.game-screen-win.flow
-    - 03.game-screen-lose.flow
-    - 04.statistics-screen.flow
-    - 05.settings-screen.flow
-    - 06.resume-game.flow
-    - 07.background-foreground-game.flow
+    continueOnFailure: false
+    flowsOrder:
+        - 01.home-screen.flow
+        - 02.game-screen-win.flow
+        - 03.game-screen-lose.flow
+        - 04.statistics-screen.flow
+        - 05.settings-screen.flow
+        - 06.resume-game.flow
+        - 07.background-foreground-game.flow
+        - 08.challenge-accept-preview.flow
+        - 09.challenge-mode-run.flow
