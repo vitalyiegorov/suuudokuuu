@@ -184,6 +184,7 @@ msgstr "বিল্ড করা হয়েছে:"
 msgid "Can you beat them?"
 msgstr "আপনি কি তাদের হারাতে পারবেন?"
 
+#: src/game/hooks/use-share-game.hook.ts
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
@@ -216,11 +217,11 @@ msgstr "চ্যালেঞ্জ হারা"
 
 #: src/challenge/components/challenge-mode-switch/challenge-mode-switch.tsx
 msgid "Challenge mode"
-msgstr ""
+msgstr "চ্যালেঞ্জ মোড"
 
 #: src/challenge/components/challenge-mode-switch/challenge-mode-switch.tsx
 msgid "Challenge runs cannot be paused and record when you leave the app"
-msgstr ""
+msgstr "চ্যালেঞ্জ রান থামানো যায় না এবং আপনি অ্যাপ ছাড়লে তা রেকর্ড হয়"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Challenge won"
@@ -234,7 +235,7 @@ msgstr "চ্যালেঞ্জ জয়!"
 msgid "Challenges"
 msgstr "চ্যালেঞ্জ"
 
-#: src/game/hooks/use-share-puzzle/use-share-puzzle.hook.ts
+#: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "Check out this Sudoku puzzle!"
 msgstr "এই সুডোকুটি দেখুন!"
 
@@ -306,6 +307,14 @@ msgstr "সম্পূর্ণ করার বোনাস"
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Continue"
 msgstr "চালিয়ে যান"
+
+#: src/game/hooks/use-share-game.hook.ts
+msgid "Continue elsewhere"
+msgstr "অন্য জায়গায় চালিয়ে যান"
+
+#: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
+msgid "Continue this Sudoku exactly where I left off!"
+msgstr "আমি যেখানে থেমেছি ঠিক সেখান থেকে এই সুডোকু চালিয়ে যাও!"
 
 #: src/@generic/hooks/use-timer-text.hook.ts
 msgid "d"
@@ -730,7 +739,7 @@ msgstr "জরিমানা যতই হোক, আপনি অন্তত 
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "no pause"
-msgstr ""
+msgstr "বিরতি নেই"
 
 #: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
@@ -870,11 +879,11 @@ msgstr "ছাড়ুন"
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"
-msgstr ""
+msgstr "রেকর্ড হচ্ছে"
 
 #: src/challenge/components/challenge-record-hud/challenge-record-hud.tsx
 msgid "Recording"
-msgstr ""
+msgstr "রেকর্ডিং"
 
 #: src/@generic/utils/get-mistakes-type-text.util.ts
 #: src/screens/components/home-screen/home.screen.tsx
@@ -897,6 +906,14 @@ msgstr "বাগ রিপোর্ট করুন"
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "Result"
 msgstr "ফলাফল"
+
+#: src/screens/components/shared-screen/shared-screen.tsx
+msgid "Resume game"
+msgstr "খেলা চালিয়ে যান"
+
+#: src/screens/components/shared-screen/shared-screen.tsx
+msgid "Resume this game?"
+msgstr "এই খেলা চালিয়ে যাবেন?"
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Retry loading development build"
@@ -951,6 +968,10 @@ msgstr "স্কোর × সহগ × সংখ্যা"
 msgid "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 msgstr "প্রতিটি সঠিকভাবে পূরণ করা ঘরের স্কোর কঠিনতা, বোনাস ও জরিমানার ভিত্তিতে হিসাব করা হয়।"
 
+#: src/game/hooks/use-share-game.hook.ts
+msgid "Send the puzzle to solve from scratch, or hand off your run to continue elsewhere."
+msgstr "শুরু থেকে সমাধানের জন্য পাজলটি পাঠান, বা অন্য জায়গায় চালিয়ে যেতে আপনার রান হস্তান্তর করুন।"
+
 #: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/screens/components/settings-screen/settings.screen.tsx
@@ -966,13 +987,19 @@ msgstr "SHA-256 চেকসাম"
 msgid "Shade cells that already have a number"
 msgstr "যে ঘরগুলোতে ইতিমধ্যে সংখ্যা আছে সেগুলো শেড করুন"
 
+#: src/game/hooks/use-share-game.hook.ts
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
+#: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Share puzzle"
 msgstr "সুডোকু শেয়ার করুন"
 
+#: src/game/hooks/use-share-game.hook.ts
+msgid "Share this game"
+msgstr "এই খেলা শেয়ার করুন"
+
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "shareable"
-msgstr ""
+msgstr "শেয়ারযোগ্য"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show cells with the same number as the selected cell"
@@ -1078,7 +1105,11 @@ msgstr "suuudokuuu · v{version}"
 msgid "SuuudokuuU Challenge"
 msgstr "SuuudokuuU চ্যালেঞ্জ"
 
-#: src/game/hooks/use-share-puzzle/use-share-puzzle.hook.ts
+#: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
+msgid "SuuudokuuU game handoff"
+msgstr "SuuudokuuU খেলা হস্তান্তর"
+
+#: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "SuuudokuuU Sudoku Puzzle"
 msgstr "SuuudokuuU সুডোকু"
 

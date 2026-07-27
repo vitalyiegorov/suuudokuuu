@@ -119,11 +119,10 @@ describe('gameStateToString', () => {
     it('should carry score and pencil marks in a handoff share', () => {
         expect.assertions(2);
 
-        const candidates = { '4,4': [2, 6] };
-        const state = buildGameState(buildCellEvents(2), { score: 4820, candidates });
+        const state = buildGameState(buildCellEvents(2), { score: 4820, candidates: { '4-4': [2, 6] } });
         const decoded = serializer.decodeState(gameStateToString(state, SharedPayloadKindEnum.Handoff));
 
         expect(decoded.score).toBe(4820);
-        expect(decoded.candidates).toStrictEqual(candidates);
+        expect(decoded.candidates).toStrictEqual({ 40: [2, 6] });
     });
 });

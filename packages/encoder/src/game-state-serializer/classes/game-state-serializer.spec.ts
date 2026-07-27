@@ -302,7 +302,7 @@ describe('GameStateSerializer', () => {
         it('should decode a v3 handoff payload with score and pencil marks', () => {
             expect.assertions(3);
 
-            const candidates = { '4,4': [2, 6] };
+            const candidates = { 40: [2, 6] };
             const decoded = serializer.decodeState(
                 serializer.encodeState({
                     field: validSudokuString,

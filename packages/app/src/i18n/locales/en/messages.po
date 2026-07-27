@@ -186,6 +186,7 @@ msgstr "Built:"
 msgid "Can you beat them?"
 msgstr "Can you beat them?"
 
+#: src/game/hooks/use-share-game.hook.ts
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
@@ -236,7 +237,7 @@ msgstr "Challenge Won!"
 msgid "Challenges"
 msgstr "Challenges"
 
-#: src/game/hooks/use-share-puzzle/use-share-puzzle.hook.ts
+#: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "Check out this Sudoku puzzle!"
 msgstr "Check out this Sudoku puzzle!"
 
@@ -308,6 +309,14 @@ msgstr "Completion Bonuses"
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Continue"
 msgstr "Continue"
+
+#: src/game/hooks/use-share-game.hook.ts
+msgid "Continue elsewhere"
+msgstr "Continue elsewhere"
+
+#: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
+msgid "Continue this Sudoku exactly where I left off!"
+msgstr "Continue this Sudoku exactly where I left off!"
 
 #: src/@generic/hooks/use-timer-text.hook.ts
 msgid "d"
@@ -900,6 +909,14 @@ msgstr "Report a bug"
 msgid "Result"
 msgstr "Result"
 
+#: src/screens/components/shared-screen/shared-screen.tsx
+msgid "Resume game"
+msgstr "Resume game"
+
+#: src/screens/components/shared-screen/shared-screen.tsx
+msgid "Resume this game?"
+msgstr "Resume this game?"
+
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Retry loading development build"
 msgstr "Retry loading development build"
@@ -953,6 +970,10 @@ msgstr "score × coefficient × count"
 msgid "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 msgstr "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 
+#: src/game/hooks/use-share-game.hook.ts
+msgid "Send the puzzle to solve from scratch, or hand off your run to continue elsewhere."
+msgstr "Send the puzzle to solve from scratch, or hand off your run to continue elsewhere."
+
 #: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/screens/components/settings-screen/settings.screen.tsx
@@ -968,9 +989,15 @@ msgstr "SHA-256 checksums"
 msgid "Shade cells that already have a number"
 msgstr "Shade cells that already have a number"
 
+#: src/game/hooks/use-share-game.hook.ts
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
+#: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Share puzzle"
 msgstr "Share puzzle"
+
+#: src/game/hooks/use-share-game.hook.ts
+msgid "Share this game"
+msgstr "Share this game"
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "shareable"
@@ -1080,7 +1107,11 @@ msgstr "suuudokuuu · v{version}"
 msgid "SuuudokuuU Challenge"
 msgstr "SuuudokuuU Challenge"
 
-#: src/game/hooks/use-share-puzzle/use-share-puzzle.hook.ts
+#: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
+msgid "SuuudokuuU game handoff"
+msgstr "SuuudokuuU game handoff"
+
+#: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "SuuudokuuU Sudoku Puzzle"
 msgstr "SuuudokuuU Sudoku Puzzle"
 

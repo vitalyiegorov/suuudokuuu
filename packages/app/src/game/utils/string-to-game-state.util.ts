@@ -1,6 +1,9 @@
-import { GameStateSerializer, SharedPayloadKindEnum } from '@suuudokuuu/encoder';
+import { GameStateSerializer, SharedPayloadKindEnum, applyCellEventsToField } from '@suuudokuuu/encoder';
 
 import { GameState, initialGameState } from '../store/game.state';
+
+import { getKeyedCandidates } from './get-keyed-candidates.util';
+import { getTimelineMistakesCount } from './get-timeline-mistakes-count.util';
 
 const serializer = new GameStateSerializer();
 
@@ -23,10 +26,12 @@ export const stringToGameState = (gameStateString = ''): GameState => {
             }),
 
             ...(isHandoff && {
+                sudokuString: applyCellEventsToField(decoded.field, decoded.timelineEvents),
                 timelineEvents: decoded.timelineEvents,
                 elapsedTime: decoded.elapsedTime,
                 score: decoded.score,
-                candidates: decoded.candidates,
+                mistakes: getTimelineMistakesCount(decoded.timelineEvents),
+                candidates: getKeyedCandidates(decoded.candidates),
                 isChallengeRun: decoded.isChallengeRun,
                 wallClockStartMs: decoded.anchorSeconds * 1000
             })

@@ -17,14 +17,6 @@ export type HandoffExtrasInterface = Pick<DecodedGameStateInterface, 'anchorSeco
 
 const CANDIDATE_BIT_BASE = 2;
 
-const getCellKey = (cellIndex: number): string => `${cellIndex % GRID_SIZE},${Math.floor(cellIndex / GRID_SIZE)}`;
-
-const getCellIndexFromKey = (key: string): number => {
-    const [x, y] = key.split(',').map(part => parseInt(part, 10));
-
-    return y * GRID_SIZE + x;
-};
-
 const getCandidateMask = (values: number[]): number => values.reduce((mask, value) => mask + CANDIDATE_BIT_BASE ** (value - 1), 0);
 
 const getCandidateValues = (mask: number): number[] => {
@@ -48,8 +40,8 @@ export const writeHandoffExtras = (out: BitOutputStream, extras: HandoffExtrasIn
 
     out.write(filledEntries.length, CANDIDATE_COUNT_BITS);
 
-    for (const [key, values] of filledEntries) {
-        out.write(getCellIndexFromKey(key), CELL_INDEX_BITS_ABSOLUTE);
+    for (const [cellIndex, values] of filledEntries) {
+        out.write(parseInt(cellIndex, 10), CELL_INDEX_BITS_ABSOLUTE);
         out.write(getCandidateMask(values), CANDIDATE_MASK_BITS);
     }
 
@@ -61,12 +53,12 @@ export const writeHandoffExtras = (out: BitOutputStream, extras: HandoffExtrasIn
 export const readHandoffExtras = (input: BitInputStream, isChallengeRun: boolean): HandoffExtrasInterface => {
     const score = readVarint(input, SCORE_SMALL_BITS, SCORE_LARGE_BITS);
     const candidateCount = input.read(CANDIDATE_COUNT_BITS);
-    const candidates: Record<string, number[]> = {};
+    const candidates: Record<number, number[]> = {};
 
     for (let entryIndex = 0; entryIndex < candidateCount; entryIndex += 1) {
         const cellIndex = input.read(CELL_INDEX_BITS_ABSOLUTE);
 
-        candidates[getCellKey(cellIndex)] = getCandidateValues(input.read(CANDIDATE_MASK_BITS));
+        candidates[cellIndex] = getCandidateValues(input.read(CANDIDATE_MASK_BITS));
     }
 
     const anchorSeconds = isChallengeRun ? input.read(ANCHOR_SECONDS_BITS) : 0;

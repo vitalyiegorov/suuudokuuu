@@ -2,6 +2,8 @@ import { GameStateSerializer, SharedPayloadKindEnum, TimelineEventKindEnum } fro
 
 import { GameState } from '../store/game.state';
 
+import { getIndexedCandidates } from './get-indexed-candidates.util';
+
 import type { GameTimelineEventInterface } from '../interface/game-timeline-event.interface';
 import type { TimelineEventInterface } from '@suuudokuuu/encoder';
 
@@ -29,7 +31,7 @@ export const gameStateToString = (gameState: GameState, kind = SharedPayloadKind
             maxMistakes: gameState.maxMistakes,
             isChallengeRun: gameState.isChallengeRun,
             score: gameState.score,
-            candidates: gameState.candidates,
+            candidates: getIndexedCandidates(gameState.candidates),
             anchorSeconds: Math.floor(gameState.wallClockStartMs / 1000)
         });
     } catch {

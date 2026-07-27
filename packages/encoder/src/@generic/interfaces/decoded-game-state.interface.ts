@@ -9,6 +9,6 @@ export interface DecodedGameStateInterface {
     elapsedTime: number;
     isChallengeRun: boolean;
     score: number;
-    candidates: Record<string, number[]>;
+    candidates: Record<number, number[]>;
     anchorSeconds: number;
 }

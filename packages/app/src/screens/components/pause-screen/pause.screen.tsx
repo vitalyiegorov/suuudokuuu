@@ -15,7 +15,7 @@ import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.u
 import { getMistakesTypeText } from '../../../@generic/utils/get-mistakes-type-text.util';
 import { GameContext } from '../../../game/context/game.context';
 import { useResumeGame } from '../../../game/hooks/use-resume-game.hook';
-import { useSharePuzzle } from '../../../game/hooks/use-share-puzzle/use-share-puzzle.hook';
+import { useShareGame } from '../../../game/hooks/use-share-game.hook';
 import { gameResetAction } from '../../../game/store/game.actions';
 import {
     gameChallengeStateSelector,
@@ -48,7 +48,7 @@ export const PauseScreen = () => {
     const challengeState = useAppSelector(gameChallengeStateSelector);
 
     const handleResume = useResumeGame();
-    const handleShare = useSharePuzzle();
+    const handleShare = useShareGame();
     const handleConfirmedQuit = () =>
         void gameScreenExit(
             () => dispatch(gameResetAction()),

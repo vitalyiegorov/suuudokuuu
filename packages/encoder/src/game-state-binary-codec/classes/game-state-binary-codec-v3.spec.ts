@@ -268,7 +268,7 @@ describe('GameStateBinaryCodecV3 handoff payloads', () => {
     it('should round-trip a single pencilled cell', () => {
         expect.assertions(1);
 
-        const candidates = { '2,0': [1, 5, 9] };
+        const candidates = { 2: [1, 5, 9] };
 
         expect(codec.decode(encodeHandoff(codec, { candidates })).candidates).toStrictEqual(candidates);
     });
@@ -276,15 +276,15 @@ describe('GameStateBinaryCodecV3 handoff payloads', () => {
     it('should drop cells whose candidate list is empty', () => {
         expect.assertions(1);
 
-        const candidates = { '2,0': [1], '3,0': [] };
+        const candidates = { 2: [1], 3: [] };
 
-        expect(codec.decode(encodeHandoff(codec, { candidates })).candidates).toStrictEqual({ '2,0': [1] });
+        expect(codec.decode(encodeHandoff(codec, { candidates })).candidates).toStrictEqual({ 2: [1] });
     });
 
     it('should round-trip a full nine value candidate mask', () => {
         expect.assertions(1);
 
-        const candidates = { '8,8': [1, 2, 3, 4, 5, 6, 7, 8, 9] };
+        const candidates = { 80: [1, 2, 3, 4, 5, 6, 7, 8, 9] };
 
         expect(codec.decode(encodeHandoff(codec, { candidates })).candidates).toStrictEqual(candidates);
     });
@@ -292,7 +292,7 @@ describe('GameStateBinaryCodecV3 handoff payloads', () => {
     it('should round-trip candidates alongside timeline events', () => {
         expect.assertions(2);
 
-        const candidates = { '4,4': [2, 6] };
+        const candidates = { 40: [2, 6] };
         const timelineEvents = buildCellEvents(3, 8);
         const decoded = codec.decode(encodeHandoff(codec, { candidates, timelineEvents }));
 
@@ -323,7 +323,7 @@ describe('GameStateBinaryCodecV3 handoff payloads', () => {
                 maxMistakes: 3,
                 isChallengeRun: true,
                 score: 900,
-                candidates: { '2,0': [1] },
+                candidates: { 2: [1] },
                 anchorSeconds: 5
             })
         );

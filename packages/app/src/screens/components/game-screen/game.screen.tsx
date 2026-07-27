@@ -22,7 +22,7 @@ import { GameTimerController } from '../../../game/components/game-timer-control
 import { GameContext } from '../../../game/context/game.context';
 import { useBoardCellSize } from '../../../game/hooks/use-board-cell-size.hook';
 import { useKeyboardControls } from '../../../game/hooks/use-keyboard-controls/use-keyboard-controls.hook';
-import { useSharePuzzle } from '../../../game/hooks/use-share-puzzle/use-share-puzzle.hook';
+import { useShareGame } from '../../../game/hooks/use-share-game.hook';
 import {
     gameFinishAction,
     gameMistakeAction,
@@ -94,7 +94,7 @@ export const GameScreen = () => {
 
     useEffect(() => void gameScreenSetSharingAvailable(setHasSharing), []);
 
-    const handleShare = useSharePuzzle();
+    const handleShare = useShareGame();
     const handleOpenSettings = useOpenGameSettings();
 
     const handleConfirmedExit = () =>

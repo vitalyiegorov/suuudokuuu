@@ -186,6 +186,7 @@ msgstr "Erstellt:"
 msgid "Can you beat them?"
 msgstr "Kannst du sie schlagen?"
 
+#: src/game/hooks/use-share-game.hook.ts
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
@@ -218,11 +219,11 @@ msgstr "Duell verloren"
 
 #: src/challenge/components/challenge-mode-switch/challenge-mode-switch.tsx
 msgid "Challenge mode"
-msgstr ""
+msgstr "Duellmodus"
 
 #: src/challenge/components/challenge-mode-switch/challenge-mode-switch.tsx
 msgid "Challenge runs cannot be paused and record when you leave the app"
-msgstr ""
+msgstr "Duell-Runden lassen sich nicht pausieren und halten fest, wenn du die App verlässt"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Challenge won"
@@ -236,7 +237,7 @@ msgstr "Duell gewonnen!"
 msgid "Challenges"
 msgstr "Herausforderungen"
 
-#: src/game/hooks/use-share-puzzle/use-share-puzzle.hook.ts
+#: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "Check out this Sudoku puzzle!"
 msgstr "Schau dir dieses Sudoku-Rätsel an!"
 
@@ -308,6 +309,14 @@ msgstr "Abschlussboni"
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Continue"
 msgstr "Fortsetzen"
+
+#: src/game/hooks/use-share-game.hook.ts
+msgid "Continue elsewhere"
+msgstr "Woanders fortsetzen"
+
+#: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
+msgid "Continue this Sudoku exactly where I left off!"
+msgstr "Setze dieses Sudoku genau dort fort, wo ich aufgehört habe!"
 
 #: src/@generic/hooks/use-timer-text.hook.ts
 msgid "d"
@@ -732,7 +741,7 @@ msgstr "Egal wie viele Abzüge es gibt, du bekommst mindestens"
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "no pause"
-msgstr ""
+msgstr "keine Pause"
 
 #: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
@@ -872,11 +881,11 @@ msgstr "Beenden"
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"
-msgstr ""
+msgstr "aufgezeichnet"
 
 #: src/challenge/components/challenge-record-hud/challenge-record-hud.tsx
 msgid "Recording"
-msgstr ""
+msgstr "Aufnahme"
 
 #: src/@generic/utils/get-mistakes-type-text.util.ts
 #: src/screens/components/home-screen/home.screen.tsx
@@ -899,6 +908,14 @@ msgstr "Fehler melden"
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "Result"
 msgstr "Ergebnis"
+
+#: src/screens/components/shared-screen/shared-screen.tsx
+msgid "Resume game"
+msgstr "Spiel fortsetzen"
+
+#: src/screens/components/shared-screen/shared-screen.tsx
+msgid "Resume this game?"
+msgstr "Dieses Spiel fortsetzen?"
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Retry loading development build"
@@ -953,6 +970,10 @@ msgstr "Punktzahl × Koeffizient × Anzahl"
 msgid "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 msgstr "Die Punktzahl wird für jede korrekt gesetzte Zahl anhand von Schwierigkeit, Boni und Abzügen berechnet."
 
+#: src/game/hooks/use-share-game.hook.ts
+msgid "Send the puzzle to solve from scratch, or hand off your run to continue elsewhere."
+msgstr "Sende das Rätsel zum Lösen von Anfang an oder übergib deine Runde, um woanders weiterzuspielen."
+
 #: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/screens/components/settings-screen/settings.screen.tsx
@@ -968,13 +989,19 @@ msgstr "SHA-256-Prüfsummen"
 msgid "Shade cells that already have a number"
 msgstr "Zellen schattieren, die bereits eine Zahl enthalten"
 
+#: src/game/hooks/use-share-game.hook.ts
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
+#: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Share puzzle"
 msgstr "Rätsel teilen"
 
+#: src/game/hooks/use-share-game.hook.ts
+msgid "Share this game"
+msgstr "Dieses Spiel teilen"
+
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "shareable"
-msgstr ""
+msgstr "teilbar"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show cells with the same number as the selected cell"
@@ -1080,7 +1107,11 @@ msgstr "suuudokuuu · v{version}"
 msgid "SuuudokuuU Challenge"
 msgstr "SuuudokuuU-Duell"
 
-#: src/game/hooks/use-share-puzzle/use-share-puzzle.hook.ts
+#: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
+msgid "SuuudokuuU game handoff"
+msgstr "SuuudokuuU Spielübergabe"
+
+#: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "SuuudokuuU Sudoku Puzzle"
 msgstr "SuuudokuuU Sudoku-Rätsel"
 

@@ -56,6 +56,41 @@ describe('stringToGameState', () => {
         expect(restored.challengeState).toBe('');
     });
 
+    it('should restore a handoff share with the played board, score, mistakes and pencil marks', () => {
+        expect.assertions(6);
+
+        const playedCellIndex = 2;
+        const playedState: GameState = {
+            ...initialGameState,
+            sudokuString: `53${solvedBoard.charAt(playedCellIndex)}${solvedBoard.slice(3)}`,
+            timelineEvents: [
+                { kind: TimelineEventKindEnum.Cell, cellIndex: playedCellIndex, value: 4, ts: 12 },
+                { kind: TimelineEventKindEnum.Mistake, cellIndex: playedCellIndex, value: 9, ts: 3 }
+            ],
+            candidates: { '0-1': [2, 7] },
+            score: 1234,
+            maxMistakes: 3
+        };
+
+        const restored = stringToGameState(gameStateToString(playedState, SharedPayloadKindEnum.Handoff));
+
+        expect(restored.sudokuString).toBe(playedState.sudokuString);
+        expect(restored.score).toBe(1234);
+        expect(restored.mistakes).toBe(1);
+        expect(restored.candidates).toEqual({ '0-1': [2, 7] });
+        expect(restored.elapsedTime).toBe(15);
+        expect(restored.challengeState).toBe('');
+    });
+
+    it('should keep the challenge run flag of a handed off challenge run', () => {
+        expect.assertions(1);
+
+        const challengeRunState = { ...buildGameState(), isChallengeRun: true };
+        const restored = stringToGameState(gameStateToString(challengeRunState, SharedPayloadKindEnum.Handoff));
+
+        expect(restored.isChallengeRun).toBe(true);
+    });
+
     it('should fall back to the initial state for an undecodable link', () => {
         expect.assertions(1);
 

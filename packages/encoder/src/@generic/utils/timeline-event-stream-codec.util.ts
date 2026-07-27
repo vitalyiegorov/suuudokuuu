@@ -17,20 +17,30 @@ import { collectEmptyCells, getPositionBits, readPackedValues, writePackedValues
 import { readVarint, writeVarint } from './varint.util';
 
 import type { TimelineEventStreamsInterface } from '../interfaces/timeline-event-streams.interface';
-import type { TimelineEventInterface } from '../interfaces/timeline-event.interface';
+import type { CellTimelineEventInterface, TimelineEventInterface } from '../interfaces/timeline-event.interface';
 import type { BitInputStream, BitOutputStream } from '@thi.ng/bitstream';
 
-export const removeCellEventsFromField = (field: string, events: TimelineEventInterface[]): string => {
+const writeCellCharsToField = (
+    field: string,
+    events: TimelineEventInterface[],
+    getCellChar: (event: CellTimelineEventInterface) => string
+): string => {
     const chars = field.split('');
 
     for (const event of events) {
         if (event.kind === TimelineEventKindEnum.Cell) {
-            chars[event.cellIndex] = GRID_EMPTY_CELL;
+            chars[event.cellIndex] = getCellChar(event);
         }
     }
 
     return chars.join('');
 };
+
+export const removeCellEventsFromField = (field: string, events: TimelineEventInterface[]): string =>
+    writeCellCharsToField(field, events, () => GRID_EMPTY_CELL);
+
+export const applyCellEventsToField = (field: string, events: TimelineEventInterface[]): string =>
+    writeCellCharsToField(field, events, event => String(event.value));
 
 export const hasNonCellEvents = (events: TimelineEventInterface[]): boolean =>
     events.some(event => event.kind !== TimelineEventKindEnum.Cell);

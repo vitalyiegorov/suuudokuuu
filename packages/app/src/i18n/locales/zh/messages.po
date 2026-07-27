@@ -184,6 +184,7 @@ msgstr "构建于："
 msgid "Can you beat them?"
 msgstr "你能超过他们吗？"
 
+#: src/game/hooks/use-share-game.hook.ts
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
@@ -216,11 +217,11 @@ msgstr "挑战失败"
 
 #: src/challenge/components/challenge-mode-switch/challenge-mode-switch.tsx
 msgid "Challenge mode"
-msgstr ""
+msgstr "挑战模式"
 
 #: src/challenge/components/challenge-mode-switch/challenge-mode-switch.tsx
 msgid "Challenge runs cannot be paused and record when you leave the app"
-msgstr ""
+msgstr "挑战对局无法暂停，并会记录你离开应用的时刻"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Challenge won"
@@ -234,7 +235,7 @@ msgstr "挑战获胜！"
 msgid "Challenges"
 msgstr "挑战"
 
-#: src/game/hooks/use-share-puzzle/use-share-puzzle.hook.ts
+#: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "Check out this Sudoku puzzle!"
 msgstr "看看这道数独！"
 
@@ -306,6 +307,14 @@ msgstr "完成奖励"
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Continue"
 msgstr "继续"
+
+#: src/game/hooks/use-share-game.hook.ts
+msgid "Continue elsewhere"
+msgstr "在别处继续"
+
+#: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
+msgid "Continue this Sudoku exactly where I left off!"
+msgstr "从我停下的地方继续这道数独！"
 
 #: src/@generic/hooks/use-timer-text.hook.ts
 msgid "d"
@@ -730,7 +739,7 @@ msgstr "无论有多少惩罚，你至少都会获得"
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "no pause"
-msgstr ""
+msgstr "无暂停"
 
 #: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
@@ -870,11 +879,11 @@ msgstr "退出"
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"
-msgstr ""
+msgstr "已记录"
 
 #: src/challenge/components/challenge-record-hud/challenge-record-hud.tsx
 msgid "Recording"
-msgstr ""
+msgstr "记录中"
 
 #: src/@generic/utils/get-mistakes-type-text.util.ts
 #: src/screens/components/home-screen/home.screen.tsx
@@ -897,6 +906,14 @@ msgstr "报告问题"
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "Result"
 msgstr "结果"
+
+#: src/screens/components/shared-screen/shared-screen.tsx
+msgid "Resume game"
+msgstr "继续对局"
+
+#: src/screens/components/shared-screen/shared-screen.tsx
+msgid "Resume this game?"
+msgstr "继续这局游戏？"
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Retry loading development build"
@@ -951,6 +968,10 @@ msgstr "分数 × 系数 × 数量"
 msgid "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 msgstr "每个正确填入的格子都会根据难度、奖励和惩罚计算分数。"
 
+#: src/game/hooks/use-share-game.hook.ts
+msgid "Send the puzzle to solve from scratch, or hand off your run to continue elsewhere."
+msgstr "发送数独让对方从零开始解题，或交接你的对局以在别处继续。"
+
 #: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/screens/components/settings-screen/settings.screen.tsx
@@ -966,13 +987,19 @@ msgstr "SHA-256 校验和"
 msgid "Shade cells that already have a number"
 msgstr "为已有数字的单元格添加阴影"
 
+#: src/game/hooks/use-share-game.hook.ts
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
+#: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Share puzzle"
 msgstr "分享数独"
 
+#: src/game/hooks/use-share-game.hook.ts
+msgid "Share this game"
+msgstr "分享这局游戏"
+
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "shareable"
-msgstr ""
+msgstr "可分享"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show cells with the same number as the selected cell"
@@ -1078,7 +1105,11 @@ msgstr "suuudokuuu · v{version}"
 msgid "SuuudokuuU Challenge"
 msgstr "SuuudokuuU 挑战"
 
-#: src/game/hooks/use-share-puzzle/use-share-puzzle.hook.ts
+#: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
+msgid "SuuudokuuU game handoff"
+msgstr "SuuudokuuU 对局交接"
+
+#: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "SuuudokuuU Sudoku Puzzle"
 msgstr "SuuudokuuU 数独"
 
