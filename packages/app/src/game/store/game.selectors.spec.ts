@@ -17,6 +17,7 @@ import {
     gameHistoryByDifficultySelector,
     gameHistoryDifficultySelector,
     gameInputModeSelector,
+    gameIsChallengeRunSelector,
     gameIsStartedSelector,
     gameMaxMistakesSelector,
     gameMistakesSelector,
@@ -102,6 +103,12 @@ describe('game selectors', () => {
         expect(gameIsStartedSelector.resultFunc(initialGameState)).toBe(false);
         expect(gameHasRivalSelector.resultFunc(state)).toBe(true);
         expect(gameHasRivalSelector.resultFunc(initialGameState)).toBe(false);
+    });
+
+    it('separates a challenge run from the presence of a rival', () => {
+        expect(gameIsChallengeRunSelector.resultFunc({ ...initialGameState, isChallengeRun: true })).toBe(true);
+        expect(gameIsChallengeRunSelector.resultFunc(initialGameState)).toBe(false);
+        expect(gameHasRivalSelector.resultFunc({ ...initialGameState, isChallengeRun: true })).toBe(false);
     });
 
     it('finds the best score and time across difficulties', () => {
