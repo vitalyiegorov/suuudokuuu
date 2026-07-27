@@ -220,6 +220,10 @@ msgstr "Challenge Lost"
 msgid "Challenge mode"
 msgstr "Challenge mode"
 
+#: src/challenge/components/challenge-record-hud/challenge-record-hud.tsx
+msgid "Challenge run"
+msgstr "Challenge run"
+
 #: src/challenge/components/challenge-mode-switch/challenge-mode-switch.tsx
 msgid "Challenge runs cannot be paused and record when you leave the app"
 msgstr "Challenge runs cannot be paused and record when you leave the app"
@@ -873,6 +877,10 @@ msgstr "Quit"
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"
 msgstr "recorded"
+
+#: src/challenge/components/challenge-record-hud/challenge-record-hud.tsx
+msgid "Recording"
+msgstr "Recording"
 
 #: src/@generic/utils/get-mistakes-type-text.util.ts
 #: src/screens/components/home-screen/home.screen.tsx

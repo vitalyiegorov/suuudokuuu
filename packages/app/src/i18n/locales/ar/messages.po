@@ -218,6 +218,10 @@ msgstr "خسرت التحدي"
 msgid "Challenge mode"
 msgstr ""
 
+#: src/challenge/components/challenge-record-hud/challenge-record-hud.tsx
+msgid "Challenge run"
+msgstr ""
+
 #: src/challenge/components/challenge-mode-switch/challenge-mode-switch.tsx
 msgid "Challenge runs cannot be paused and record when you leave the app"
 msgstr ""
@@ -870,6 +874,10 @@ msgstr "إنهاء"
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"
+msgstr ""
+
+#: src/challenge/components/challenge-record-hud/challenge-record-hud.tsx
+msgid "Recording"
 msgstr ""
 
 #: src/@generic/utils/get-mistakes-type-text.util.ts

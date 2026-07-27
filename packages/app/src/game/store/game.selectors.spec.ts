@@ -28,7 +28,8 @@ import {
     gameShouldShowPauseScreenSelector,
     gameShowAutoCandidatesSelector,
     gameSolutionsStepsSelector,
-    gameSudokuStringSelector
+    gameSudokuStringSelector,
+    gameTimelineEventsSelector
 } from './game.selectors';
 import { initialGameState } from './game.state';
 
@@ -95,6 +96,7 @@ describe('game selectors', () => {
         expect(gameChallengeStateSelector.resultFunc(state)).toBe('encoded');
         expect(gameChallengeTimeSelector.resultFunc(state)).toBe(30);
         expect(gameSolutionsStepsSelector.resultFunc(state)).toStrictEqual([]);
+        expect(gameTimelineEventsSelector.resultFunc(state)).toBe(state.timelineEvents);
         expect(gameHasNewPersonalBestScoreSelector.resultFunc(state)).toBe(true);
     });
 

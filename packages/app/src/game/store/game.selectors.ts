@@ -41,5 +41,6 @@ export const gameIsChallengeRunSelector = createSelector(gameSelector, state => 
 export const gameChallengeStepsSelector = createSelector(gameSelector, state => getTimelineCellSteps(state.challengeTimelineEvents));
 export const gameChallengeStateSelector = createSelector(gameSelector, state => state.challengeState);
 export const gameChallengeTimeSelector = createSelector(gameSelector, state => state.challengeTime);
+export const gameTimelineEventsSelector = createSelector(gameSelector, state => state.timelineEvents);
 export const gameSolutionsStepsSelector = createSelector(gameSelector, state => getTimelineCellSteps(state.timelineEvents));
 export const gameHasNewPersonalBestScoreSelector = createSelector(gameSelector, state => state.hasNewPersonalBestScore);

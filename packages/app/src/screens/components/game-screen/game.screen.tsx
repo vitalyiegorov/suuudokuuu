@@ -15,6 +15,8 @@ import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { useVibration } from '../../../@generic/hooks/use-vibration.hook';
 import { ChallengeRaceHud } from '../../../challenge/components/challenge-race-hud/challenge-race-hud';
+import { ChallengeRecordHud } from '../../../challenge/components/challenge-record-hud/challenge-record-hud';
+import { classifyTimelineMove } from '../../../challenge/utils/classify-timeline-move.util';
 import { Field, FieldRef } from '../../../game/components/field/field';
 import { GameTimerController } from '../../../game/components/game-timer-controller/game-timer-controller';
 import { GameContext } from '../../../game/context/game.context';
@@ -55,6 +57,7 @@ import { gameScreenGetLostRoute, gameScreenGetWonRoute } from './utils/game-scre
 
 import type { AvailableValuesItemRef } from '../../../game/components/available-values-item/available-values-item';
 import type { CellInterface, ScoredCellsInterface } from '@suuudokuuu/generator';
+import type { SolutionTechniqueEnum } from '@suuudokuuu/solver';
 
 // eslint-disable-next-line max-lines-per-function -- Game orchestration component requires many handlers and refs
 export const GameScreen = () => {
@@ -140,8 +143,8 @@ export const GameScreen = () => {
         setTimeout(() => void router.replace(gameScreenGetWonRoute(hasRival, wonChallenge)), 10 * animationDurationConstant);
     };
 
-    const handleCorrectValue = (correctCell: CellInterface, newScoredCells: ScoredCellsInterface) => {
-        dispatch(gameSaveAction({ sudoku, scoredCells: newScoredCells, correctCell }));
+    const handleCorrectValue = (correctCell: CellInterface, newScoredCells: ScoredCellsInterface, technique: SolutionTechniqueEnum) => {
+        dispatch(gameSaveAction({ sudoku, scoredCells: newScoredCells, correctCell, technique }));
 
         hapticNotification(Haptics.NotificationFeedbackType.Success);
 
@@ -169,9 +172,10 @@ export const GameScreen = () => {
     const handleNormalInput = (cell: CellInterface, value: number) => {
         const newValueCell = { ...cell, value };
         if (sudoku.isCorrectValue(newValueCell)) {
+            const technique = classifyTimelineMove(sudoku, newValueCell);
             const newScoredCells = sudoku.setCellValue(newValueCell);
 
-            handleCorrectValue(newValueCell, newScoredCells);
+            handleCorrectValue(newValueCell, newScoredCells, technique);
 
             if (newScoredCells.isWon) {
                 handleWonGame();
@@ -234,7 +238,7 @@ export const GameScreen = () => {
         />
     );
 
-    const challengeHud = hasRival ? <ChallengeRaceHud /> : null;
+    const challengeHud = hasRival ? <ChallengeRaceHud /> : <ChallengeRecordHud />;
 
     return (
         <Pressable
@@ -253,7 +257,7 @@ export const GameScreen = () => {
                 </View>
             </Hide>
 
-            {challengeHud}
+            {isChallengeRun ? challengeHud : null}
 
             <View onLayout={onBoardAreaLayout} style={styles.boardArea}>
                 <Hide mq={WideLayoutMediaQuery}>
