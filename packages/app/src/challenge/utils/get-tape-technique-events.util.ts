@@ -7,9 +7,9 @@ import { getTechniqueTier } from './get-technique-tier.util';
 import type { GameTimelineEventInterface } from '../../game/interface/game-timeline-event.interface';
 import type { ChallengeTechniqueEventInterface } from '../interfaces/challenge-technique-event.interface';
 
-const PercentBase = 100;
+const PassedPositionPercent = 100;
 
-export const getTapeTechniqueEvents = (events: GameTimelineEventInterface[], elapsedTime: number): ChallengeTechniqueEventInterface[] => {
+export const getTapeTechniqueEvents = (events: GameTimelineEventInterface[]): ChallengeTechniqueEventInterface[] => {
     const techniqueEvents: ChallengeTechniqueEventInterface[] = [];
     let cumulativeTime = 0;
 
@@ -19,7 +19,7 @@ export const getTapeTechniqueEvents = (events: GameTimelineEventInterface[], ela
         if (event.kind === TimelineEventKindEnum.Cell && isDefined(event.technique)) {
             techniqueEvents.push({
                 cumulativeTime,
-                positionPercent: elapsedTime > 0 ? (cumulativeTime / elapsedTime) * PercentBase : 0,
+                positionPercent: PassedPositionPercent,
                 technique: event.technique,
                 tier: getTechniqueTier(event.technique)
             });
