@@ -12,7 +12,7 @@ export type { EncodableGameStateInterface } from './game-state-binary-codec/clas
 export { SharedPayloadKindEnum } from './@generic/enums/shared-payload-kind.enum';
 export { TimelineEventKindEnum } from './@generic/enums/timeline-event-kind.enum';
 
-export { applyCellEventsToField } from './@generic/utils/timeline-event-stream-codec.util';
+export { applyCellEventsToField, removeCellEventsFromField } from './@generic/utils/timeline-event-stream-codec.util';
 
 export { Solution } from './solution/classes/solution';
 export { SudokuStringEncoder } from './sudoku-string-encoder/classes/sudoku-string-encoder';

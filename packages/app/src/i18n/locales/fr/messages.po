@@ -13,6 +13,11 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#. placeholder {0}: ranges.length
+#: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
+msgid "{0, plural, one {# break} other {# breaks}}"
+msgstr "{0, plural, one {# pause} other {# pauses}}"
+
 #. placeholder {0}: 0
 #. placeholder {0}: 3
 #. placeholder {0}: 99
@@ -23,6 +28,10 @@ msgstr "{0, plural, one {# erreur} other {# erreurs}}"
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
 msgstr "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
+
+#: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
+msgid "{awaySeconds}s away"
+msgstr "{awaySeconds}s absent"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} faster"
@@ -938,6 +947,10 @@ msgstr "Arsenal du rival"
 msgid "Rival's playbook"
 msgstr "Stratégie du rival"
 
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Rival's run"
+msgstr "Partie de l’adversaire"
+
 #: src/challenge/components/challenge-result-rival-time-card/challenge-result-rival-time-card.tsx
 msgid "Rival's time to beat"
 msgstr "Temps du rival à battre"
@@ -1214,6 +1227,10 @@ msgstr "Impossible d’ouvrir le lien"
 msgid "Unable to start installation"
 msgstr "Impossible de démarrer l’installation"
 
+#: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
+msgid "Uninterrupted run"
+msgstr "Partie sans interruption"
+
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Unknown"
@@ -1379,6 +1396,10 @@ msgstr "Votre progression"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Your rival was faster"
 msgstr "Ton rival a été plus rapide"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Your run"
+msgstr "Votre partie"
 
 #: src/history/components/history-overview/history-overview.tsx
 msgid "Your stats will build as you finish puzzles."

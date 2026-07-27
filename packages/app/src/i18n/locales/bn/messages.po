@@ -11,6 +11,11 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
+#. placeholder {0}: ranges.length
+#: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
+msgid "{0, plural, one {# break} other {# breaks}}"
+msgstr "{0, plural, one {# বিরতি} other {# বিরতি}}"
+
 #. placeholder {0}: 0
 #. placeholder {0}: 3
 #. placeholder {0}: 99
@@ -21,6 +26,10 @@ msgstr "{0, plural, one {#টি ভুল} other {#টি ভুল}}"
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
 msgstr "{arsenalCardCount, plural, one {#টি কৌশল} other {#টি কৌশল}}"
+
+#: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
+msgid "{awaySeconds}s away"
+msgstr "{awaySeconds}s অনুপস্থিত"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} faster"
@@ -936,6 +945,10 @@ msgstr "প্রতিপক্ষের অস্ত্রভাণ্ডা�
 msgid "Rival's playbook"
 msgstr "প্রতিপক্ষের কৌশলপত্র"
 
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Rival's run"
+msgstr "প্রতিদ্বন্দ্বীর রান"
+
 #: src/challenge/components/challenge-result-rival-time-card/challenge-result-rival-time-card.tsx
 msgid "Rival's time to beat"
 msgstr "প্রতিপক্ষের হারাতে হবে এমন সময়"
@@ -1212,6 +1225,10 @@ msgstr "লিংক খোলা যায়নি"
 msgid "Unable to start installation"
 msgstr "ইনস্টলেশন শুরু করা যায়নি"
 
+#: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
+msgid "Uninterrupted run"
+msgstr "নিরবচ্ছিন্ন রান"
+
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Unknown"
@@ -1377,6 +1394,10 @@ msgstr "আপনার অগ্রগতি"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Your rival was faster"
 msgstr "আপনার প্রতিপক্ষ দ্রুততর ছিল"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Your run"
+msgstr "আপনার রান"
 
 #: src/history/components/history-overview/history-overview.tsx
 msgid "Your stats will build as you finish puzzles."

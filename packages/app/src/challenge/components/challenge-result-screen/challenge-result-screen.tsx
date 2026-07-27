@@ -11,16 +11,20 @@ import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
 import { getMistakesTypeText } from '../../../@generic/utils/get-mistakes-type-text.util';
 import { GameState } from '../../../game/store/game.state';
+import { stringToGameState } from '../../../game/utils/string-to-game-state.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { ChallengeLossReason } from '../../enums/challenge-loss-reason.enum';
 import { ChallengeResult } from '../../interfaces/challenge-result.interface';
+import { getChallengeAwayRanges } from '../../utils/get-challenge-away-ranges.util';
 import { getChallengeDifficulty } from '../../utils/get-challenge-difficulty.util';
 import { getChallengeDurationParts } from '../../utils/get-challenge-duration-parts.util';
 import { getChallengeTechniqueEventsFromState } from '../../utils/get-challenge-technique-events-from-state.util';
+import { getTapeTechniqueEvents } from '../../utils/get-tape-technique-events.util';
 import { ChallengeResultFooter } from '../challenge-result-footer/challenge-result-footer';
 import { ChallengeResultMarginCard } from '../challenge-result-margin-card/challenge-result-margin-card';
 import { ChallengeResultMedallion } from '../challenge-result-medallion/challenge-result-medallion';
 import { ChallengeResultRivalTimeCard } from '../challenge-result-rival-time-card/challenge-result-rival-time-card';
+import { ChallengeRunTape } from '../challenge-run-tape/challenge-run-tape';
 import { ChallengeTechniqueBreakdown } from '../challenge-technique-breakdown/challenge-technique-breakdown';
 
 import { ChallengeResultScreenSelectors } from './challenge-result-screen.selectors';
@@ -37,7 +41,7 @@ interface Props {
 
 export const ChallengeResultScreen = (props: Props) => {
     const { children, gameState, result, lossReason = ChallengeLossReason.Time } = props;
-    const { elapsedTime, challengeTime, sudokuString, challengeState, mistakes, maxMistakes } = gameState;
+    const { elapsedTime, challengeTime, sudokuString, challengeState, mistakes, maxMistakes, timelineEvents } = gameState;
 
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
@@ -51,6 +55,9 @@ export const ChallengeResultScreen = (props: Props) => {
     const marginSeconds = Math.abs(challengeTime - elapsedTime);
     const durationParts = getChallengeDurationParts(marginSeconds);
     const techniqueEvents = getChallengeTechniqueEventsFromState(challengeState);
+    const rivalAwayRanges = getChallengeAwayRanges(stringToGameState(challengeState).challengeTimelineEvents, challengeTime);
+    const playerTechniqueEvents = getTapeTechniqueEvents(timelineEvents);
+    const playerAwayRanges = getChallengeAwayRanges(timelineEvents, elapsedTime);
     const lostByMistakes = result === ChallengeResult.Lost && lossReason === ChallengeLossReason.Mistakes;
     const lostByTime = result === ChallengeResult.Lost && lossReason === ChallengeLossReason.Time;
 
@@ -100,6 +107,15 @@ export const ChallengeResultScreen = (props: Props) => {
                         result={result}
                     />
                 )}
+
+                <ChallengeRunTape
+                    awayRanges={playerAwayRanges}
+                    events={playerTechniqueEvents}
+                    label={t`Your run`}
+                    totalTime={elapsedTime}
+                />
+
+                <ChallengeRunTape awayRanges={rivalAwayRanges} events={techniqueEvents} label={t`Rival's run`} totalTime={challengeTime} />
 
                 <ChallengeTechniqueBreakdown events={techniqueEvents} />
 

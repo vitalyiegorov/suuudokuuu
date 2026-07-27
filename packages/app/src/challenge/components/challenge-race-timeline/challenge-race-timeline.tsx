@@ -5,11 +5,13 @@ import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-na
 
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { getChallengeTimelineMarks } from '../../utils/get-challenge-timeline-marks.util';
+import { ChallengeAwayBands } from '../challenge-away-bands/challenge-away-bands';
 import { ChallengeRaceRunner } from '../challenge-race-runner/challenge-race-runner';
 import { ChallengeTimelineTrack } from '../challenge-timeline-track/challenge-timeline-track';
 
 import { ChallengeRaceTimelineStyles as styles } from './challenge-race-timeline.styles';
 
+import type { ChallengeAwayRangeInterface } from '../../interfaces/challenge-away-range.interface';
 import type { ChallengeTechniqueEventInterface } from '../../interfaces/challenge-technique-event.interface';
 
 const TICK_COUNT = 44;
@@ -17,12 +19,14 @@ const PERCENT = 100;
 const ANIMATION_DURATION_MS = 300;
 
 interface Props {
+    readonly awayRanges: ChallengeAwayRangeInterface[];
     readonly events: ChallengeTechniqueEventInterface[];
     readonly opponentProgress: number;
     readonly playerProgress: number;
+    readonly totalTime: number;
 }
 
-export const ChallengeRaceTimeline = ({ events, opponentProgress, playerProgress }: Props) => {
+export const ChallengeRaceTimeline = ({ awayRanges, events, opponentProgress, playerProgress, totalTime }: Props) => {
     const { theme } = use(ThemeContext);
 
     const opponentProgressValue = useSharedValue(opponentProgress);
@@ -35,7 +39,7 @@ export const ChallengeRaceTimeline = ({ events, opponentProgress, playerProgress
         playerProgressValue.value = withTiming(playerProgress, { duration: ANIMATION_DURATION_MS });
     }, [playerProgress, playerProgressValue]);
 
-    const marks = getChallengeTimelineMarks(events, TICK_COUNT).map(mark => ({ ...mark, isAway: false }));
+    const marks = getChallengeTimelineMarks(events, TICK_COUNT, totalTime).map(mark => ({ ...mark, isAway: false }));
     const isRivalAhead = opponentProgress > playerProgress;
     const gapColor = isRivalAhead ? theme.colors.red : theme.colors.label.main;
     const fillAnimatedStyle = useAnimatedStyle(() => ({
@@ -56,6 +60,8 @@ export const ChallengeRaceTimeline = ({ events, opponentProgress, playerProgress
 
     return (
         <ChallengeTimelineTrack marks={marks} progress={opponentProgress}>
+            <ChallengeAwayBands ranges={awayRanges} variant="default" />
+
             <View pointerEvents="none" style={styles.baselineLayer}>
                 <Animated.View style={fillStyle} />
                 <Animated.View style={gapStyle} />

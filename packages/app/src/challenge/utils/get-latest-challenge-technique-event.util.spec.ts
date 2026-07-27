@@ -9,7 +9,6 @@ import type { ChallengeTechniqueEventInterface } from '../interfaces/challenge-t
 
 const buildEvent = (cumulativeTime: number, technique: SolutionTechniqueEnum): ChallengeTechniqueEventInterface => ({
     cumulativeTime,
-    positionPercent: cumulativeTime,
     technique,
     tier: ChallengeTechniqueTierEnum.Basic
 });

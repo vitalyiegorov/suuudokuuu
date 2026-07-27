@@ -9,11 +9,13 @@ import { gameFinishAction } from '../../../game/store/game.actions';
 import {
     gameChallengeStepsSelector,
     gameChallengeTimeSelector,
+    gameChallengeTimelineEventsSelector,
     gameElapsedTimeSelector,
     gameSolutionsStepsSelector
 } from '../../../game/store/game.selectors';
 import { ChallengeLossReason } from '../../enums/challenge-loss-reason.enum';
 import { useChallengeTechniqueEvents } from '../../hooks/use-challenge-technique-events.hook';
+import { getChallengeAwayRanges } from '../../utils/get-challenge-away-ranges.util';
 import { getChallengeProgress } from '../../utils/get-challenge-progress.util';
 import { ChallengeRaceBadge } from '../challenge-race-badge/challenge-race-badge';
 import { ChallengeRaceStatus } from '../challenge-race-status/challenge-race-status';
@@ -30,9 +32,11 @@ export const ChallengeRaceHud = () => {
     const challengeSteps = useAppSelector(gameChallengeStepsSelector);
     const challengeTime = useAppSelector(gameChallengeTimeSelector);
     const playerSteps = useAppSelector(gameSolutionsStepsSelector);
+    const challengeTimelineEvents = useAppSelector(gameChallengeTimelineEventsSelector);
 
     const events = useChallengeTechniqueEvents();
 
+    const awayRanges = getChallengeAwayRanges(challengeTimelineEvents, challengeTime);
     const [, opponentProgress] = getChallengeProgress(challengeSteps, challengeTime, elapsedTime);
     const playerProgress = challengeSteps.length === 0 ? 0 : playerSteps.length / challengeSteps.length;
 
@@ -50,7 +54,13 @@ export const ChallengeRaceHud = () => {
                     <ChallengeRaceStatus opponentProgress={opponentProgress} playerProgress={playerProgress} />
                     <ChallengeRaceBadge elapsedTime={elapsedTime} events={events} />
                 </View>
-                <ChallengeRaceTimeline events={events} opponentProgress={opponentProgress} playerProgress={playerProgress} />
+                <ChallengeRaceTimeline
+                    awayRanges={awayRanges}
+                    events={events}
+                    opponentProgress={opponentProgress}
+                    playerProgress={playerProgress}
+                    totalTime={challengeTime}
+                />
             </View>
         </View>
     );

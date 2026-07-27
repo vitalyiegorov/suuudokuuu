@@ -13,9 +13,11 @@ import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.u
 import { getMistakesTypeText } from '../../../@generic/utils/get-mistakes-type-text.util';
 import { stringToGameState } from '../../../game/utils/string-to-game-state.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { getChallengeAwayRanges } from '../../utils/get-challenge-away-ranges.util';
 import { getChallengeDifficulty } from '../../utils/get-challenge-difficulty.util';
 import { getChallengeTechniqueEventsFromState } from '../../utils/get-challenge-technique-events-from-state.util';
 import { getChallengeTechniqueSummary } from '../../utils/get-challenge-technique-summary.util';
+import { ChallengeIntegrityBadge } from '../challenge-integrity-badge/challenge-integrity-badge';
 import { ChallengeTechniqueArsenal, MAX_ARSENAL_CARDS } from '../challenge-technique-arsenal/challenge-technique-arsenal';
 import { ChallengeTechniquePreview } from '../challenge-technique-preview/challenge-technique-preview';
 
@@ -36,9 +38,11 @@ export const ChallengeAcceptScreen = ({ opponentTotalTime, challengeState, onAcc
     const { theme } = use(ThemeContext);
     const opponentTotalTimeText = useTimerText(opponentTotalTime);
 
+    const rivalGameState = stringToGameState(challengeState);
     const techniqueEvents = getChallengeTechniqueEventsFromState(challengeState);
+    const awayRanges = getChallengeAwayRanges(rivalGameState.challengeTimelineEvents, opponentTotalTime);
     const difficultyText = getDifficultyText(getChallengeDifficulty(challengeState));
-    const mistakesText = getMistakesTypeText(stringToGameState(challengeState).maxMistakes);
+    const mistakesText = getMistakesTypeText(rivalGameState.maxMistakes);
     const chipText = `${t`Rival challenged you`} · ${difficultyText} · ${mistakesText}`;
     const arsenalCardCount = Math.min(getChallengeTechniqueSummary(techniqueEvents).length, MAX_ARSENAL_CARDS);
     const arsenalTagText = plural(arsenalCardCount, { one: '# technique', other: '# techniques' });
@@ -89,6 +93,8 @@ export const ChallengeAcceptScreen = ({ opponentTotalTime, challengeState, onAcc
                     </Text>
                 </View>
 
+                <ChallengeIntegrityBadge ranges={awayRanges} />
+
                 <View style={styles.timeBlock}>
                     <Text allowFontScaling={false} style={timeLabelStyle}>
                         <Trans>Their time to beat</Trans>
@@ -102,7 +108,7 @@ export const ChallengeAcceptScreen = ({ opponentTotalTime, challengeState, onAcc
                 </View>
 
                 <View style={styles.timelineWrap} testID={ChallengeAcceptScreenSelectors.Timeline}>
-                    <ChallengeTechniquePreview events={techniqueEvents} />
+                    <ChallengeTechniquePreview awayRanges={awayRanges} events={techniqueEvents} totalTime={opponentTotalTime} />
                 </View>
 
                 <View style={styles.arsenalHeader}>

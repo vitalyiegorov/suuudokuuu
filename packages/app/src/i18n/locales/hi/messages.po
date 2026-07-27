@@ -11,6 +11,11 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
+#. placeholder {0}: ranges.length
+#: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
+msgid "{0, plural, one {# break} other {# breaks}}"
+msgstr "{0, plural, one {# ब्रेक} other {# ब्रेक}}"
+
 #. placeholder {0}: 0
 #. placeholder {0}: 3
 #. placeholder {0}: 99
@@ -21,6 +26,10 @@ msgstr "{0, plural, one {# गलती} other {# गलतियाँ}}"
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
 msgstr "{arsenalCardCount, plural, one {# तकनीक} other {# तकनीकें}}"
+
+#: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
+msgid "{awaySeconds}s away"
+msgstr "{awaySeconds}s बाहर"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} faster"
@@ -936,6 +945,10 @@ msgstr "विरोधी का शस्त्रागार"
 msgid "Rival's playbook"
 msgstr "विरोधी की रणनीति"
 
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Rival's run"
+msgstr "प्रतिद्वंद्वी का गेम"
+
 #: src/challenge/components/challenge-result-rival-time-card/challenge-result-rival-time-card.tsx
 msgid "Rival's time to beat"
 msgstr "विरोधी का समय जिसे पीछे छोड़ना है"
@@ -1212,6 +1225,10 @@ msgstr "लिंक नहीं खोला जा सका"
 msgid "Unable to start installation"
 msgstr "इंस्टॉलेशन शुरू नहीं किया जा सका"
 
+#: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
+msgid "Uninterrupted run"
+msgstr "बिना रुकावट गेम"
+
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Unknown"
@@ -1377,6 +1394,10 @@ msgstr "आपकी प्रगति"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Your rival was faster"
 msgstr "आपका विरोधी तेज़ था"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Your run"
+msgstr "आपका गेम"
 
 #: src/history/components/history-overview/history-overview.tsx
 msgid "Your stats will build as you finish puzzles."

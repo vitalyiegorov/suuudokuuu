@@ -33,11 +33,10 @@ describe('getChallengeTechniqueEventsFromState', () => {
 
         const steps = buildSteps(StepCount);
         const challengeState = serializer.encode(givens, steps, StandardMaxMistakes, true);
-        const totalTime = steps.reduce((total, step) => total + step.ts, 0);
         const events = getChallengeTechniqueEventsFromState(challengeState);
 
         expect(events).toHaveLength(StepCount);
-        expect(events).toStrictEqual(getChallengeTechniqueEvents(givens, steps, totalTime));
+        expect(events).toStrictEqual(getChallengeTechniqueEvents(givens, steps));
     });
 
     it('should return no events for an undecodable state', () => {

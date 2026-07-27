@@ -9,9 +9,11 @@ import { isEmptyArray } from '@rnw-community/shared';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { getChallengeTimelineMarks } from '../../utils/get-challenge-timeline-marks.util';
 import { getTechniqueTierColor } from '../../utils/get-technique-tier-color.util';
+import { ChallengeAwayBands } from '../challenge-away-bands/challenge-away-bands';
 
 import { ChallengeTechniquePreviewStyles as styles } from './challenge-technique-preview.styles';
 
+import type { ChallengeAwayRangeInterface } from '../../interfaces/challenge-away-range.interface';
 import type { ChallengeTechniqueEventInterface } from '../../interfaces/challenge-technique-event.interface';
 import type { ViewStyle } from 'react-native';
 
@@ -24,10 +26,12 @@ const TICK_STAGGER_MS = 10;
 const TICK_DURATION_MS = 240;
 
 interface Props {
+    readonly awayRanges?: ChallengeAwayRangeInterface[];
     readonly events: ChallengeTechniqueEventInterface[];
+    readonly totalTime: number;
 }
 
-export const ChallengeTechniquePreview = ({ events }: Props) => {
+export const ChallengeTechniquePreview = ({ awayRanges = [], events, totalTime }: Props) => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
 
@@ -35,7 +39,7 @@ export const ChallengeTechniquePreview = ({ events }: Props) => {
         return null;
     }
 
-    const marks = getChallengeTimelineMarks(events, TICK_COUNT);
+    const marks = getChallengeTimelineMarks(events, TICK_COUNT, totalTime);
     const keyMoveCount = marks.filter(mark => mark.complexity > 0).length;
     const keyMovesText = plural(keyMoveCount, { one: '# key move', other: '# key moves' });
     const captionText = `${t`Taller marks = sharper techniques`} · ${keyMovesText}`;
@@ -50,6 +54,10 @@ export const ChallengeTechniquePreview = ({ events }: Props) => {
     return (
         <View style={styles.container}>
             <View style={trackStyle}>
+                <View pointerEvents="none" style={styles.bandsInset}>
+                    <ChallengeAwayBands ranges={awayRanges} variant="inverted" />
+                </View>
+
                 {marks.map((mark, index) => {
                     const markColor = mark.tier === null ? theme.colors.white05 : getTechniqueTierColor(mark.tier, theme, 'inverted');
                     const markStyle: ViewStyle = {

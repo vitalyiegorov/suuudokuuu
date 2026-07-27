@@ -11,6 +11,11 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
+#. placeholder {0}: ranges.length
+#: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
+msgid "{0, plural, one {# break} other {# breaks}}"
+msgstr "{0, plural, other {# jeda}}"
+
 #. placeholder {0}: 0
 #. placeholder {0}: 3
 #. placeholder {0}: 99
@@ -21,6 +26,10 @@ msgstr "{0, plural, one {# kesalahan} other {# kesalahan}}"
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
 msgstr "{arsenalCardCount, plural, one {# teknik} other {# teknik}}"
+
+#: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
+msgid "{awaySeconds}s away"
+msgstr "{awaySeconds}s di luar aplikasi"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} faster"
@@ -936,6 +945,10 @@ msgstr "Senjata lawan"
 msgid "Rival's playbook"
 msgstr "Strategi lawan"
 
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Rival's run"
+msgstr "Permainan lawan"
+
 #: src/challenge/components/challenge-result-rival-time-card/challenge-result-rival-time-card.tsx
 msgid "Rival's time to beat"
 msgstr "Waktu lawan yang harus dikalahkan"
@@ -1212,6 +1225,10 @@ msgstr "Tidak dapat membuka tautan"
 msgid "Unable to start installation"
 msgstr "Tidak dapat memulai penginstalan"
 
+#: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
+msgid "Uninterrupted run"
+msgstr "Permainan tanpa jeda"
+
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Unknown"
@@ -1377,6 +1394,10 @@ msgstr "Progres Anda"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Your rival was faster"
 msgstr "Lawanmu lebih cepat"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Your run"
+msgstr "Permainanmu"
 
 #: src/history/components/history-overview/history-overview.tsx
 msgid "Your stats will build as you finish puzzles."

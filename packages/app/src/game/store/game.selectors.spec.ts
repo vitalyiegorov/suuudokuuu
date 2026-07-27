@@ -8,6 +8,7 @@ import {
     gameChallengeStateSelector,
     gameChallengeStepsSelector,
     gameChallengeTimeSelector,
+    gameChallengeTimelineEventsSelector,
     gameCompletedGameByIdSelector,
     gameCompletedGamesSelector,
     gameElapsedTimeSelector,
@@ -97,6 +98,7 @@ describe('game selectors', () => {
         expect(gameChallengeTimeSelector.resultFunc(state)).toBe(30);
         expect(gameSolutionsStepsSelector.resultFunc(state)).toStrictEqual([]);
         expect(gameTimelineEventsSelector.resultFunc(state)).toBe(state.timelineEvents);
+        expect(gameChallengeTimelineEventsSelector.resultFunc(state)).toBe(state.challengeTimelineEvents);
         expect(gameHasNewPersonalBestScoreSelector.resultFunc(state)).toBe(true);
     });
 

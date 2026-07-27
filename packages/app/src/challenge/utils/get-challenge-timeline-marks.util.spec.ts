@@ -9,18 +9,19 @@ import { getChallengeTimelineMarks } from './get-challenge-timeline-marks.util';
 import type { ChallengeTechniqueEventInterface } from '../interfaces/challenge-technique-event.interface';
 
 const TickCount = 10;
+const TotalTime = 100;
 
 const buildEvent = (
     technique: SolutionTechniqueEnum,
     tier: ChallengeTechniqueTierEnum,
-    positionPercent: number
-): ChallengeTechniqueEventInterface => ({ cumulativeTime: 1, positionPercent, technique, tier });
+    cumulativeTime: number
+): ChallengeTechniqueEventInterface => ({ cumulativeTime, technique, tier });
 
 describe('getChallengeTimelineMarks', () => {
     it('should return a full set of empty marks when there are no events', () => {
         expect.assertions(2);
 
-        const marks = getChallengeTimelineMarks([], TickCount);
+        const marks = getChallengeTimelineMarks([], TickCount, TotalTime);
 
         expect(marks).toHaveLength(TickCount);
         expect(marks.every(mark => mark.tier === null && mark.complexity === 0)).toBe(true);
@@ -31,11 +32,24 @@ describe('getChallengeTimelineMarks', () => {
 
         const marks = getChallengeTimelineMarks(
             [buildEvent(SolutionTechniqueEnum.XWing, ChallengeTechniqueTierEnum.Advanced, 0)],
-            TickCount
+            TickCount,
+            TotalTime
         );
 
         expect(marks[0].tier).toBe(ChallengeTechniqueTierEnum.Advanced);
         expect(marks[0].complexity).toBe(techniqueComplexityConstant[SolutionTechniqueEnum.XWing]);
+    });
+
+    it('should return empty marks for a run without a reported time', () => {
+        expect.assertions(1);
+
+        const marks = getChallengeTimelineMarks(
+            [buildEvent(SolutionTechniqueEnum.XWing, ChallengeTechniqueTierEnum.Advanced, 50)],
+            TickCount,
+            0
+        );
+
+        expect(marks.every(mark => mark.tier === null)).toBe(true);
     });
 
     it('should clamp an event at full position into the last slot', () => {
@@ -43,7 +57,8 @@ describe('getChallengeTimelineMarks', () => {
 
         const marks = getChallengeTimelineMarks(
             [buildEvent(SolutionTechniqueEnum.XWing, ChallengeTechniqueTierEnum.Advanced, 100)],
-            TickCount
+            TickCount,
+            TotalTime
         );
 
         expect(marks[TickCount - 1].tier).toBe(ChallengeTechniqueTierEnum.Advanced);
@@ -54,7 +69,8 @@ describe('getChallengeTimelineMarks', () => {
 
         const marks = getChallengeTimelineMarks(
             [buildEvent(SolutionTechniqueEnum.NakedSingle, ChallengeTechniqueTierEnum.Basic, 0)],
-            TickCount
+            TickCount,
+            TotalTime
         );
 
         expect(marks[0].tier).toBe(ChallengeTechniqueTierEnum.Basic);
@@ -69,7 +85,8 @@ describe('getChallengeTimelineMarks', () => {
                 buildEvent(SolutionTechniqueEnum.NakedSingle, ChallengeTechniqueTierEnum.Basic, 0),
                 buildEvent(SolutionTechniqueEnum.XWing, ChallengeTechniqueTierEnum.Advanced, 0)
             ],
-            TickCount
+            TickCount,
+            TotalTime
         );
 
         expect(marks[0].tier).toBe(ChallengeTechniqueTierEnum.Advanced);
@@ -84,7 +101,8 @@ describe('getChallengeTimelineMarks', () => {
                 buildEvent(SolutionTechniqueEnum.XWing, ChallengeTechniqueTierEnum.Advanced, 0),
                 buildEvent(SolutionTechniqueEnum.NakedSingle, ChallengeTechniqueTierEnum.Basic, 0)
             ],
-            TickCount
+            TickCount,
+            TotalTime
         );
 
         expect(marks[0].tier).toBe(ChallengeTechniqueTierEnum.Advanced);

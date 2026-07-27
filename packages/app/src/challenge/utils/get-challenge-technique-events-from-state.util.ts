@@ -8,9 +8,5 @@ import type { ChallengeTechniqueEventInterface } from '../interfaces/challenge-t
 export const getChallengeTechniqueEventsFromState = (challengeState: string): ChallengeTechniqueEventInterface[] => {
     const gameState = stringToGameState(challengeState);
 
-    return getChallengeTechniqueEvents(
-        gameState.sudokuString,
-        getTimelineCellSteps(gameState.challengeTimelineEvents),
-        gameState.challengeTime
-    );
+    return getChallengeTechniqueEvents(gameState.sudokuString, getTimelineCellSteps(gameState.challengeTimelineEvents));
 };
