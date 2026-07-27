@@ -9,7 +9,7 @@ appId: ${APP_ID}
 - extendedWaitUntil:
       visible:
           id: 'SettingsScreenSelectors.Root'
-      timeout: 10000
+      timeout: 3000
 - assertVisible: 'Game'
 - assertVisible: 'Language.*'
 - assertVisible: 'Number size.*'
@@ -57,7 +57,7 @@ appId: ${APP_ID}
 - extendedWaitUntil:
       visible:
           id: 'SettingsScreenSelectors.Root'
-      timeout: 3000
+      timeout: 10000
 - tapOn:
       id: 'HeaderBackButtonSelectors.Root'
 - extendedWaitUntil:
