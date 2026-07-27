@@ -7,7 +7,8 @@ appId: ${APP_ID}
       timeout: 3000
 - tapOn:
       id: 'ChallengeModeSwitchSelectors.Root'
-- extendedWaitUntil:
-      visible:
+- scrollUntilVisible:
+      element:
           id: 'ChallengeConditionsRowSelectors.Root'
+      direction: DOWN
       timeout: 3000

@@ -38,6 +38,11 @@ appId: ${APP_ID}
 
 - runFlow: subflows/game/quit-current-game.flow.yaml
 
+- scrollUntilVisible:
+      element:
+          id: 'ChallengeModeSwitchSelectors.Root'
+      direction: DOWN
+      timeout: 3000
 - tapOn:
       id: 'ChallengeModeSwitchSelectors.Root'
 - extendedWaitUntil:
