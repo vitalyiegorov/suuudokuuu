@@ -10,14 +10,13 @@ import { GameActionsStyles as styles } from './game-actions.styles';
 
 interface Props {
     readonly actionIconColor: string;
-    readonly hasSharing: boolean;
     readonly onExit: () => void;
     readonly onOpenSettings: () => void;
     readonly onPause?: () => void;
-    readonly onShare: () => void;
+    readonly onShare?: () => void;
 }
 
-export const GameActions = ({ actionIconColor, hasSharing, onExit, onOpenSettings, onPause, onShare }: Props) => (
+export const GameActions = ({ actionIconColor, onExit, onOpenSettings, onPause, onShare }: Props) => (
     <View style={styles.actions}>
         {isDefined(onPause) ? (
             <BlackIconButton
@@ -30,7 +29,7 @@ export const GameActions = ({ actionIconColor, hasSharing, onExit, onOpenSetting
                 <LucidePause color={actionIconColor} />
             </BlackIconButton>
         ) : null}
-        {hasSharing ? (
+        {isDefined(onShare) ? (
             <BlackIconButton
                 hitSlop={10}
                 onPress={onShare}

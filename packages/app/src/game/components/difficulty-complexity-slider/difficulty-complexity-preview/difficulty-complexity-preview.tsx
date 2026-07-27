@@ -2,6 +2,7 @@ import { use } from 'react';
 import { View } from 'react-native';
 
 import { BlackText } from '../../../../@generic/components/black-text/black-text';
+import { ChallengeConditionsRow } from '../../../../challenge/components/challenge-conditions-row/challenge-conditions-row';
 import { ThemeContext } from '../../../../theme/context/theme.context';
 import {
     DifficultyComplexitySliderActiveCellBaseCount,
@@ -16,6 +17,7 @@ import { DifficultyComplexitySliderStyles as styles } from '../difficulty-comple
 import { difficultyComplexityPreviewGetColors } from './utils/difficulty-complexity-preview-get-colors.util';
 
 interface Props {
+    readonly isChallengeMode: boolean;
     readonly maxMistakes: number;
     readonly selectedDifficultyDescription: string;
     readonly selectedDifficultyLabel: string;
@@ -26,6 +28,7 @@ interface Props {
 
 export const DifficultyComplexityPreview = (props: Props) => {
     const {
+        isChallengeMode,
         maxMistakes,
         selectedDifficultyDescription,
         selectedDifficultyLabel,
@@ -38,7 +41,9 @@ export const DifficultyComplexityPreview = (props: Props) => {
     const activeCellOpacity =
         DifficultyComplexitySliderPreviewCellBaseOpacity + selectedIndex * DifficultyComplexitySliderPreviewCellOpacityStep;
     const previewColors = difficultyComplexityPreviewGetColors(theme);
-    const previewStyles = [styles.preview, { backgroundColor: previewColors.backgroundColor, borderColor: previewColors.borderColor }];
+    const previewBorderColor = isChallengeMode ? theme.colors.label.main : previewColors.borderColor;
+    const previewStyles = [styles.preview, { backgroundColor: previewColors.backgroundColor, borderColor: previewBorderColor }];
+    const challengeConditions = isChallengeMode ? <ChallengeConditionsRow /> : null;
     const previewGridFrameStyles = [styles.previewGridFrame, { borderColor: theme.colors.candidate.border }];
     const titleStyles = [styles.previewTitle, { color: theme.colors.label.main }];
     const subtitleStyles = [styles.subtitle, { color: theme.colors.label.hint }];
@@ -77,6 +82,8 @@ export const DifficultyComplexityPreview = (props: Props) => {
                         {selectedMistakesDescription}
                     </BlackText>
                 </View>
+
+                {challengeConditions}
             </View>
         </View>
     );

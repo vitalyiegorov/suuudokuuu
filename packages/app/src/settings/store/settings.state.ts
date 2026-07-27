@@ -27,6 +27,7 @@ export interface SettingsState {
     cellMargin: (typeof CellMargin)[number];
     lastGameDifficulty: DifficultyEnum;
     lastGameMaxMistakes: number;
+    lastGameChallengeMode: boolean;
     lastStatsDifficulty: DifficultyEnum;
 }
 
@@ -48,5 +49,6 @@ export const initialSettingsState: SettingsState = {
     cellMargin: 5,
     lastGameDifficulty: DifficultyEnum.Easy,
     lastGameMaxMistakes: 3,
+    lastGameChallengeMode: false,
     lastStatsDifficulty: DifficultyEnum.Easy
 };

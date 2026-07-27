@@ -13,6 +13,7 @@ let mockHasStarted = false;
 let mockIsPaused = false;
 let mockShouldResumeOnFocus = false;
 let mockChallengeState = '';
+let mockIsChallengeRun = false;
 let mockAppStateChangeListener: ((nextAppState: string) => void) | undefined;
 
 const mockUseFocusEffect = jest.fn();
@@ -42,6 +43,7 @@ const mockGameIsStartedSelector = jest.fn(() => mockHasStarted);
 const mockGamePausedSelector = jest.fn(() => mockIsPaused);
 const mockGameShouldResumeOnFocusSelector = jest.fn(() => mockShouldResumeOnFocus);
 const mockGameChallengeStateSelector = jest.fn(() => mockChallengeState);
+const mockGameIsChallengeRunSelector = jest.fn(() => mockIsChallengeRun);
 
 jest.mock('expo-router', () => ({
     useFocusEffect: (effect: FocusEffect) => {
@@ -76,6 +78,7 @@ jest.mock('../../../@generic/hooks/use-app-dispatch.hook', () => ({
 
 jest.mock('../../store/game.selectors', () => ({
     gameChallengeStateSelector: () => mockGameChallengeStateSelector(),
+    gameIsChallengeRunSelector: () => mockGameIsChallengeRunSelector(),
     gameIsStartedSelector: () => mockGameIsStartedSelector(),
     gamePausedSelector: () => mockGamePausedSelector(),
     gameShouldResumeOnFocusSelector: () => mockGameShouldResumeOnFocusSelector()
@@ -89,6 +92,7 @@ describe('GameTimerController', () => {
         mockIsPaused = false;
         mockShouldResumeOnFocus = false;
         mockChallengeState = '';
+        mockIsChallengeRun = false;
         Reflect.set(AppState, 'addEventListener', mockAddEventListener);
         jest.useFakeTimers();
         mockDispatch.mockClear();
@@ -180,6 +184,7 @@ describe('GameTimerController', () => {
             mockDispatch.mock.calls.filter(([action]) => action.type === gameChallengeClockSyncAction.type).length;
 
         mockChallengeState = 'challenge-state';
+        mockIsChallengeRun = true;
 
         GameTimerController();
 

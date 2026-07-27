@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers */
 import { describe, expect, it } from '@jest/globals';
+import { SharedPayloadKindEnum, TimelineEventKindEnum } from '@suuudokuuu/encoder';
 
 import { initialGameState } from '../store/game.state';
 
@@ -27,7 +28,7 @@ const buildSteps = (): SolutionStepInterface[] => {
 const buildGameState = (): GameState => ({
     ...initialGameState,
     sudokuString: solvedBoard,
-    solutionSteps: buildSteps(),
+    timelineEvents: buildSteps().map(step => ({ kind: TimelineEventKindEnum.Cell, ...step })),
     maxMistakes: 0
 });
 
@@ -35,11 +36,11 @@ describe('stringToGameState', () => {
     it('should restore a challenge share with steps and elapsed time', () => {
         expect.assertions(4);
 
-        const encoded = gameStateToString(buildGameState(), true);
+        const encoded = gameStateToString(buildGameState(), SharedPayloadKindEnum.Challenge);
         const restored = stringToGameState(encoded);
 
         expect(restored.sudokuString).toBe(givensMask);
-        expect(restored.challengeSteps).toHaveLength(51);
+        expect(restored.challengeTimelineEvents).toHaveLength(51);
         expect(restored.challengeTime).toBe(510);
         expect(restored.challengeState).toBe(encoded);
     });
@@ -47,12 +48,47 @@ describe('stringToGameState', () => {
     it('should restore a puzzle share without challenge data', () => {
         expect.assertions(3);
 
-        const encoded = gameStateToString(buildGameState(), false);
+        const encoded = gameStateToString(buildGameState(), SharedPayloadKindEnum.Puzzle);
         const restored = stringToGameState(encoded);
 
         expect(restored.sudokuString).toBe(givensMask);
-        expect(restored.challengeSteps).toEqual([]);
+        expect(restored.challengeTimelineEvents).toEqual([]);
         expect(restored.challengeState).toBe('');
+    });
+
+    it('should restore a handoff share with the played board, score, mistakes and pencil marks', () => {
+        expect.assertions(6);
+
+        const playedCellIndex = 2;
+        const playedState: GameState = {
+            ...initialGameState,
+            sudokuString: `53${solvedBoard.charAt(playedCellIndex)}${solvedBoard.slice(3)}`,
+            timelineEvents: [
+                { kind: TimelineEventKindEnum.Cell, cellIndex: playedCellIndex, value: 4, ts: 12 },
+                { kind: TimelineEventKindEnum.Mistake, cellIndex: playedCellIndex, value: 9, ts: 3 }
+            ],
+            candidates: { '0-1': [2, 7] },
+            score: 1234,
+            maxMistakes: 3
+        };
+
+        const restored = stringToGameState(gameStateToString(playedState, SharedPayloadKindEnum.Handoff));
+
+        expect(restored.sudokuString).toBe(playedState.sudokuString);
+        expect(restored.score).toBe(1234);
+        expect(restored.mistakes).toBe(1);
+        expect(restored.candidates).toEqual({ '0-1': [2, 7] });
+        expect(restored.elapsedTime).toBe(15);
+        expect(restored.challengeState).toBe('');
+    });
+
+    it('should keep the challenge run flag of a handed off challenge run', () => {
+        expect.assertions(1);
+
+        const challengeRunState = { ...buildGameState(), isChallengeRun: true };
+        const restored = stringToGameState(gameStateToString(challengeRunState, SharedPayloadKindEnum.Handoff));
+
+        expect(restored.isChallengeRun).toBe(true);
     });
 
     it('should fall back to the initial state for an undecodable link', () => {
@@ -64,7 +100,7 @@ describe('stringToGameState', () => {
     it('should fall back to the initial state for a truncated share link', () => {
         expect.assertions(1);
 
-        const encoded = gameStateToString(buildGameState(), true);
+        const encoded = gameStateToString(buildGameState(), SharedPayloadKindEnum.Challenge);
         const truncated = encoded.slice(0, Math.floor(encoded.length / 3));
 
         expect(stringToGameState(truncated)).toEqual(initialGameState);
@@ -81,7 +117,7 @@ describe('gameStateToString', () => {
     it('should produce a payload that survives URL encoding unchanged', () => {
         expect.assertions(1);
 
-        const encoded = gameStateToString(buildGameState(), true);
+        const encoded = gameStateToString(buildGameState(), SharedPayloadKindEnum.Challenge);
 
         expect(encodeURIComponent(encoded)).toBe(encoded);
     });
@@ -91,6 +127,6 @@ describe('gameStateToString', () => {
 
         const invalidState = { ...buildGameState(), sudokuString: '123' };
 
-        expect(gameStateToString(invalidState, true)).toBe('');
+        expect(gameStateToString(invalidState, SharedPayloadKindEnum.Challenge)).toBe('');
     });
 });

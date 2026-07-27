@@ -14,8 +14,9 @@ import { cs } from '@rnw-community/shared';
 
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
-import { settingsFontSizeMultiplierSelector, settingsKeySelector } from '../../../settings/store/settings.selectors';
+import { settingsKeySelector } from '../../../settings/store/settings.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { useCellFontSize } from '../../hooks/use-cell-font-size.hook';
 
 import { FieldCellTextStyles as styles } from './field-cell-text.styles';
 
@@ -43,7 +44,7 @@ export const FieldCellText = (props: Props) => {
     const hasComboAnimation = useAppSelector(settingsKeySelector('showComboAnimation'));
     const showAreas = useAppSelector(settingsKeySelector('showAreas'));
     const showIdenticalNumbers = useAppSelector(settingsKeySelector('showIdenticalNumbers'));
-    const fontSizeMultiplier = useAppSelector(settingsFontSizeMultiplierSelector);
+    const fontSize = useCellFontSize(cellSize);
 
     const [isComboAnimating, setIsComboAnimating] = useState(false);
     const [seenComboAnimationGeneration, setSeenComboAnimationGeneration] = useState(comboAnimationGeneration);
@@ -58,7 +59,6 @@ export const FieldCellText = (props: Props) => {
         }
     }
 
-    const fontSize = (cellSize / 2.5) * fontSizeMultiplier;
     const comboAnimatedStyle = useAnimatedStyle(() => ({
         color: interpolateColor(
             comboAnimation.value,

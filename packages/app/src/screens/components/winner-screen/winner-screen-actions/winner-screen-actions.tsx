@@ -10,6 +10,7 @@ import { GlassIconButton } from '../../../../@generic/components/glass-icon-butt
 import { PlayAgainButton } from '../../../../@generic/components/play-again-button/play-again-button';
 import { ScreenActionBar } from '../../../../@generic/components/screen-action-bar/screen-action-bar';
 import { ChallengeShareButton } from '../../../../challenge/components/challenge-share-button/challenge-share-button';
+import { PuzzleShareButton } from '../../../../game/components/puzzle-share-button/puzzle-share-button';
 import { GameContext } from '../../../../game/context/game.context';
 import { ThemeContext } from '../../../../theme/context/theme.context';
 import { WinnerScreenSelectors } from '../winner-screen.selectors';
@@ -29,20 +30,27 @@ export const WinnerScreenActions = ({ difficulty, gameState }: Props) => {
     const { create } = use(GameContext);
     const { theme } = use(ThemeContext);
 
-    const isChallengeShareable = !isNotEmptyString(gameState.challengeState);
+    const hasRival = isNotEmptyString(gameState.challengeState);
+    const isChallengeShareable = gameState.isChallengeRun && !hasRival;
+    const isPuzzleShareable = !gameState.isChallengeRun && !hasRival;
     const handlePlayAgain = () => void create(difficulty, gameState.maxMistakes);
     const homeAction = <GameResultHomeButton accessibilityLabel={t`Home`} testID={WinnerScreenSelectors.HomeButton} />;
 
-    if (isChallengeShareable) {
+    if (isChallengeShareable || isPuzzleShareable) {
         const playAgainAction = (
             <GlassIconButton accessibilityLabel={t`Play again`} onPress={handlePlayAgain} testID={WinnerScreenSelectors.PlayAgainButton}>
                 <LucideRotateCcw color={theme.colors.label.inverted} />
             </GlassIconButton>
         );
+        const shareAction = isChallengeShareable ? (
+            <ChallengeShareButton gameState={gameState} text={t`Challenge`} />
+        ) : (
+            <PuzzleShareButton text={t`Share puzzle`} />
+        );
 
         return (
             <ScreenActionBar left={playAgainAction} right={homeAction}>
-                <ChallengeShareButton gameState={gameState} text={t`Challenge`} />
+                {shareAction}
             </ScreenActionBar>
         );
     }

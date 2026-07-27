@@ -12,6 +12,25 @@ const createSudoku = () => {
 
 const getMiddleTestCell = (sudoku: Sudoku) => sudoku.Field[4][4];
 
+describe('keyboardKeyToAction wrap around', () => {
+    it.each([
+        { key: 'ArrowUp', from: [0, 0], to: [8, 0] },
+        { key: 'ArrowDown', from: [8, 0], to: [0, 0] },
+        { key: 'ArrowLeft', from: [0, 0], to: [0, 8] },
+        { key: 'ArrowRight', from: [0, 8], to: [0, 0] }
+    ])('should wrap $key around the board edge', ({ key, from, to }) => {
+        expect.assertions(2);
+
+        const [fromY, fromX] = from;
+        const [toY, toX] = to;
+        const sudoku = createSudoku();
+        const action = keyboardKeyToAction(key, sudoku, sudoku.Field[fromY][fromX]);
+
+        expect(action.type).toBe('select-cell');
+        expect(action.type === 'select-cell' ? action.cell : null).toBe(sudoku.Field[toY][toX]);
+    });
+});
+
 describe('keyboardKeyToAction', () => {
     it('maps digits 1-9 to a select-value action when a cell is selected', () => {
         const sudoku = createSudoku();

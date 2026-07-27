@@ -114,3 +114,20 @@ yarn ts && yarn lint
 ```
 
 Run `yarn test` when scoring, reducers, persistence, or deterministic app logic changes. Run Maestro flows from `tests/app-tests` when routes, selectors, deep links, sharing, or end screens change.
+
+## Running On A Local Simulator
+
+1. JavaScript and TypeScript changes need only Metro. Do not run `expo run:ios` for them.
+2. Start Metro from the worktree you are editing, then confirm the port it actually bound. It does not always land on 8081, and the dev client remembers whatever port it used last. A port mismatch looks exactly like "my changes did nothing", so check the port before suspecting the build or the worktree.
+3. Verify Metro is serving before debugging the app: `curl -s -o /dev/null -w '%{http_code}' http://localhost:<port>/status` returns 200.
+4. Both the release and dev builds register the `suuudokuuu` scheme, so `simctl openurl` with the dev-launcher URL is ambiguous and may reach the wrong app. The reliable route is to launch the dev client directly and use its own UI:
+
+```bash
+xcrun simctl terminate booted com.vitalyiegorov.suuudokuuu
+xcrun simctl launch booted com.vitalyiegorov.suuudokuuu.dev
+```
+
+Then tap **Enter URL manually**, type `http://localhost:<port>`, and tap **Connect**. The launcher's "Recently opened" list shows which port the client used previously.
+
+5. The dev client resumes a cached bundle when launched plain, so an unchanged screen does not prove Metro is unreachable. Metro logging no bundle request is the signal that nothing fetched.
+6. Native rebuilds are currently blocked on this machine: CocoaPods 1.16.2 under Ruby 4.0.1 fails `pod install` with `Unicode Normalization not appropriate for ASCII-8BIT`, which then fails `xcodebuild` with "sandbox is not in sync with the Podfile.lock". Only native dependency or app-config changes need that path.

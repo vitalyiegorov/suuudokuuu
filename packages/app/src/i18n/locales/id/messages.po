@@ -11,6 +11,11 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
+#. placeholder {0}: ranges.length
+#: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
+msgid "{0, plural, one {# break} other {# breaks}}"
+msgstr "{0, plural, other {# jeda}}"
+
 #. placeholder {0}: 0
 #. placeholder {0}: 3
 #. placeholder {0}: 99
@@ -21,6 +26,10 @@ msgstr "{0, plural, one {# kesalahan} other {# kesalahan}}"
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
 msgstr "{arsenalCardCount, plural, one {# teknik} other {# teknik}}"
+
+#: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
+msgid "{awaySeconds}s away"
+msgstr "{awaySeconds}s di luar aplikasi"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} faster"
@@ -184,6 +193,7 @@ msgstr "Dibuat:"
 msgid "Can you beat them?"
 msgstr "Bisakah kamu mengalahkannya?"
 
+#: src/game/hooks/use-share-game.hook.ts
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
@@ -196,6 +206,8 @@ msgstr "Batal"
 msgid "Cell spacing"
 msgstr "Jarak sel"
 
+#: src/challenge/components/challenge-mode-switch/challenge-mode-switch.tsx
+#: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Challenge"
 msgstr "Tantangan"
@@ -212,6 +224,14 @@ msgstr "Tantangan kalah"
 msgid "Challenge Lost"
 msgstr "Tantangan kalah"
 
+#: src/challenge/components/challenge-mode-switch/challenge-mode-switch.tsx
+msgid "Challenge mode"
+msgstr "Mode tantangan"
+
+#: src/challenge/components/challenge-mode-switch/challenge-mode-switch.tsx
+msgid "Challenge runs cannot be paused and record when you leave the app"
+msgstr "Permainan tantangan tidak bisa dijeda dan mencatat saat kamu meninggalkan aplikasi"
+
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Challenge won"
 msgstr "Tantangan menang"
@@ -224,7 +244,7 @@ msgstr "Tantangan menang!"
 msgid "Challenges"
 msgstr "Tantangan"
 
-#: src/game/hooks/use-share-puzzle/use-share-puzzle.hook.ts
+#: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "Check out this Sudoku puzzle!"
 msgstr "Coba sudoku ini!"
 
@@ -296,6 +316,14 @@ msgstr "Bonus penyelesaian"
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Continue"
 msgstr "Lanjutkan"
+
+#: src/game/hooks/use-share-game.hook.ts
+msgid "Continue elsewhere"
+msgstr "Lanjutkan di tempat lain"
+
+#: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
+msgid "Continue this Sudoku exactly where I left off!"
+msgstr "Lanjutkan Sudoku ini tepat di tempat aku berhenti!"
 
 #: src/@generic/hooks/use-timer-text.hook.ts
 msgid "d"
@@ -718,6 +746,10 @@ msgstr "Tanpa batas"
 msgid "No matter how many penalties, you always earn at least"
 msgstr "Berapa pun penaltinya, kamu selalu mendapat setidaknya"
 
+#: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
+msgid "no pause"
+msgstr "tanpa jeda"
+
 #: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
 msgstr "Belum ada statistik"
@@ -854,6 +886,14 @@ msgstr "Diterbitkan:"
 msgid "Quit"
 msgstr "Keluar"
 
+#: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
+msgid "recorded"
+msgstr "terekam"
+
+#: src/challenge/components/challenge-record-hud/challenge-record-hud.tsx
+msgid "Recording"
+msgstr "Merekam"
+
 #: src/@generic/utils/get-mistakes-type-text.util.ts
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Relaxed"
@@ -876,6 +916,14 @@ msgstr "Laporkan bug"
 msgid "Result"
 msgstr "Hasil"
 
+#: src/screens/components/shared-screen/shared-screen.tsx
+msgid "Resume game"
+msgstr "Lanjutkan permainan"
+
+#: src/screens/components/shared-screen/shared-screen.tsx
+msgid "Resume this game?"
+msgstr "Lanjutkan permainan ini?"
+
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Retry loading development build"
 msgstr "Coba lagi memuat build pengembangan"
@@ -896,6 +944,10 @@ msgstr "Senjata lawan"
 #: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
 msgid "Rival's playbook"
 msgstr "Strategi lawan"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Rival's run"
+msgstr "Permainan lawan"
 
 #: src/challenge/components/challenge-result-rival-time-card/challenge-result-rival-time-card.tsx
 msgid "Rival's time to beat"
@@ -929,6 +981,10 @@ msgstr "skor × koefisien × jumlah"
 msgid "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 msgstr "Skor dihitung untuk setiap kotak benar berdasarkan tingkat kesulitan, bonus, dan penalti."
 
+#: src/game/hooks/use-share-game.hook.ts
+msgid "Send the puzzle to solve from scratch, or hand off your run to continue elsewhere."
+msgstr "Kirim teka-teki untuk diselesaikan dari awal, atau serahkan permainanmu untuk dilanjutkan di tempat lain."
+
 #: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/screens/components/settings-screen/settings.screen.tsx
@@ -944,9 +1000,19 @@ msgstr "Checksum SHA-256"
 msgid "Shade cells that already have a number"
 msgstr "Beri bayangan pada sel yang sudah berisi angka"
 
+#: src/game/hooks/use-share-game.hook.ts
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
+#: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Share puzzle"
 msgstr "Bagikan sudoku"
+
+#: src/game/hooks/use-share-game.hook.ts
+msgid "Share this game"
+msgstr "Bagikan permainan ini"
+
+#: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
+msgid "shareable"
+msgstr "bisa dibagikan"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show cells with the same number as the selected cell"
@@ -1052,7 +1118,11 @@ msgstr "suuudokuuu · v{version}"
 msgid "SuuudokuuU Challenge"
 msgstr "Tantangan SuuudokuuU"
 
-#: src/game/hooks/use-share-puzzle/use-share-puzzle.hook.ts
+#: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
+msgid "SuuudokuuU game handoff"
+msgstr "Serah terima permainan SuuudokuuU"
+
+#: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "SuuudokuuU Sudoku Puzzle"
 msgstr "Sudoku SuuudokuuU"
 
@@ -1154,6 +1224,10 @@ msgstr "Tidak dapat membuka tautan"
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Unable to start installation"
 msgstr "Tidak dapat memulai penginstalan"
+
+#: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
+msgid "Uninterrupted run"
+msgstr "Permainan tanpa jeda"
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/screens/components/settings-screen/settings.screen.tsx
@@ -1320,6 +1394,10 @@ msgstr "Progres Anda"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Your rival was faster"
 msgstr "Lawanmu lebih cepat"
+
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
+msgid "Your run"
+msgstr "Permainanmu"
 
 #: src/history/components/history-overview/history-overview.tsx
 msgid "Your stats will build as you finish puzzles."

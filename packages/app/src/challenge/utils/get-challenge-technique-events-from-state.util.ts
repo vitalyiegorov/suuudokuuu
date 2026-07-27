@@ -1,3 +1,4 @@
+import { getTimelineCellSteps } from '../../game/utils/get-timeline-cell-steps.util';
 import { stringToGameState } from '../../game/utils/string-to-game-state.util';
 
 import { getChallengeTechniqueEvents } from './get-challenge-technique-events.util';
@@ -7,5 +8,5 @@ import type { ChallengeTechniqueEventInterface } from '../interfaces/challenge-t
 export const getChallengeTechniqueEventsFromState = (challengeState: string): ChallengeTechniqueEventInterface[] => {
     const gameState = stringToGameState(challengeState);
 
-    return getChallengeTechniqueEvents(gameState.sudokuString, gameState.challengeSteps, gameState.challengeTime);
+    return getChallengeTechniqueEvents(gameState.sudokuString, getTimelineCellSteps(gameState.challengeTimelineEvents));
 };

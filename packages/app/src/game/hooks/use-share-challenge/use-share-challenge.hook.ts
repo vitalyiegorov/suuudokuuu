@@ -1,4 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
+import { SharedPayloadKindEnum } from '@suuudokuuu/encoder';
 import Share from 'react-native-share';
 
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
@@ -15,7 +16,7 @@ export const useShareChallenge = (gameState: GameState) => {
             await Share.open({
                 title: t`SuuudokuuU Challenge`,
                 message: t`I completed this Sudoku in ${elapsedTimeString}. Can you beat me?`,
-                url: `https://suuudokuuu.com/shared/${gameStateToString(gameState, true)}`
+                url: `https://suuudokuuu.com/shared/${gameStateToString(gameState, SharedPayloadKindEnum.Challenge)}`
             });
         } catch {
             // User dismissed the share sheet - this is expected behavior

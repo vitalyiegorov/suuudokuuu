@@ -3,7 +3,6 @@ import type { SolutionTechniqueEnum } from '@suuudokuuu/solver';
 
 export interface ChallengeTechniqueEventInterface {
     cumulativeTime: number;
-    positionPercent: number;
     technique: SolutionTechniqueEnum;
     tier: ChallengeTechniqueTierEnum;
 }

@@ -2,10 +2,14 @@
 import { describe, expect, it } from '@jest/globals';
 import { compressToEncodedURIComponent } from 'lz-string';
 
+import { SharedPayloadKindEnum } from '../../@generic/enums/shared-payload-kind.enum';
+import { TimelineEventKindEnum } from '../../@generic/enums/timeline-event-kind.enum';
 import { SolutionStepInterface } from '../../@generic/interfaces/solution-step.interface';
 import { SudokuStringEncoder } from '../../sudoku-string-encoder/classes/sudoku-string-encoder';
 
 import { GameStateSerializer } from './game-state-serializer';
+
+import type { TimelineEventInterface } from '../../@generic/interfaces/timeline-event.interface';
 
 describe('GameStateSerializer', () => {
     const serializer = new GameStateSerializer();
@@ -243,6 +247,104 @@ describe('GameStateSerializer', () => {
             expect(decoded).not.toBeNull();
             expect(decoded[1]).toEqual(complexSteps);
             expect(decoded[2]).toBe(3);
+        });
+    });
+
+    describe('decodeState', () => {
+        const legacyGivensField = '53..7....6..195....98....6.8...6...34..8.3..17...2...6.6....28....419..5....8..79';
+        const legacyPuzzlePayload =
+            'CwJgXAAABQMgxASIIYCCBsBxAlATiwMAA0AdgfABMAzARIGQAhgZMIGoBdBAVkoBuAHgHkARgCQAwgIwAyMABmEAe4BCAAQAMYCWADMWtUA';
+
+        it('should map a v2 challenge payload to cell timeline events', () => {
+            expect.assertions(3);
+
+            const decoded = serializer.decodeState(serializer.encode(validSudokuString, sampleSolutionSteps, 3, true));
+
+            expect(decoded.kind).toBe(SharedPayloadKindEnum.Challenge);
+            expect(decoded.timelineEvents).toHaveLength(sampleSolutionSteps.length);
+            expect(decoded.timelineEvents.every(event => event.kind === TimelineEventKindEnum.Cell)).toBe(true);
+        });
+
+        it('should map a v2 non challenge payload to a puzzle kind with no events', () => {
+            expect.assertions(2);
+
+            const decoded = serializer.decodeState(serializer.encode(validSudokuString, sampleSolutionSteps, 3, false));
+
+            expect(decoded.kind).toBe(SharedPayloadKindEnum.Puzzle);
+            expect(decoded.timelineEvents).toStrictEqual([]);
+        });
+
+        it('should decode a v3 challenge payload round-tripped through encodeState', () => {
+            expect.assertions(2);
+
+            const timelineEvents: TimelineEventInterface[] = [
+                { kind: TimelineEventKindEnum.Cell, cellIndex: 2, value: 4, ts: 10 },
+                { kind: TimelineEventKindEnum.Away, ts: 3 },
+                { kind: TimelineEventKindEnum.Return, ts: 400 }
+            ];
+            const decoded = serializer.decodeState(
+                serializer.encodeState({
+                    field: validSudokuString,
+                    timelineEvents,
+                    kind: SharedPayloadKindEnum.Challenge,
+                    maxMistakes: 3,
+                    isChallengeRun: true,
+                    score: 0,
+                    candidates: {},
+                    anchorSeconds: 0
+                })
+            );
+
+            expect(decoded.timelineEvents).toStrictEqual(timelineEvents);
+            expect(decoded.elapsedTime).toBe(413);
+        });
+
+        it('should decode a v3 handoff payload with score and pencil marks', () => {
+            expect.assertions(3);
+
+            const candidates = { 40: [2, 6] };
+            const decoded = serializer.decodeState(
+                serializer.encodeState({
+                    field: validSudokuString,
+                    timelineEvents: [],
+                    kind: SharedPayloadKindEnum.Handoff,
+                    maxMistakes: 3,
+                    isChallengeRun: true,
+                    score: 4820,
+                    candidates,
+                    anchorSeconds: 1800000000
+                })
+            );
+
+            expect(decoded.score).toBe(4820);
+            expect(decoded.candidates).toStrictEqual(candidates);
+            expect(decoded.anchorSeconds).toBe(1800000000);
+        });
+
+        it('should decode a legacy payload as a puzzle kind', () => {
+            expect.assertions(2);
+
+            const decoded = serializer.decodeState(legacyPuzzlePayload);
+
+            expect(decoded.kind).toBe(SharedPayloadKindEnum.Puzzle);
+            expect(decoded.field).toBe(legacyGivensField);
+        });
+
+        it('should keep v3 payloads prefixed and url path safe', () => {
+            expect.assertions(1);
+
+            const encoded = serializer.encodeState({
+                field: validSudokuString,
+                timelineEvents: [],
+                kind: SharedPayloadKindEnum.Puzzle,
+                maxMistakes: 3,
+                isChallengeRun: false,
+                score: 0,
+                candidates: {},
+                anchorSeconds: 0
+            });
+
+            expect(encoded).toMatch(/^_[\w-]*$/u);
         });
     });
 

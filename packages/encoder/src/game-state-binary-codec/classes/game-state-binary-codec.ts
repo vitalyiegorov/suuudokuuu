@@ -7,20 +7,20 @@ import {
     CODEC_VERSION_BITS,
     MAX_MISTAKES_BITS,
     MAX_MISTAKES_LIMIT,
-    STEP_COUNT_BITS,
-    VALUE_BASE,
-    VALUE_BASE_CUBED,
-    VALUE_BASE_SQUARED,
-    VALUE_PAIR_BITS,
-    VALUE_PAIR_SIZE,
-    VALUE_TRIPLET_BITS,
-    VALUE_TRIPLET_SIZE
+    STEP_COUNT_BITS
 } from '../../@generic/constants/binary-codec.constant';
-import { TIMESTAMP_BITS, VALUE_BITS } from '../../@generic/constants/bit-encoding.constant';
+import { TIMESTAMP_BITS } from '../../@generic/constants/bit-encoding.constant';
 import { GRID_CELL_COUNT, GRID_EMPTY_CELL } from '../../@generic/constants/grid.constant';
 import { base64urlToBytes } from '../../@generic/utils/base64url-to-bytes.util';
 import { bytesToBase64url } from '../../@generic/utils/bytes-to-base64url.util';
-import { isValidCellValue } from '../../@generic/utils/is-valid-cell-value.util';
+import {
+    collectEmptyCells,
+    getPositionBits,
+    readGivens,
+    readPackedValues,
+    writeGivens,
+    writePackedValues
+} from '../../@generic/utils/givens-codec.util';
 
 import type { SolutionStepInterface } from '../../@generic/interfaces/solution-step.interface';
 
@@ -40,7 +40,7 @@ export class GameStateBinaryCodec {
         out.write(0, CODEC_RESERVED_BITS);
         out.write(this.clampMaxMistakes(maxMistakes), MAX_MISTAKES_BITS);
 
-        this.writeGivens(out, givens);
+        writeGivens(out, givens);
 
         if (isChallenge) {
             this.writeSteps(out, givens, steps);
@@ -61,7 +61,7 @@ export class GameStateBinaryCodec {
         input.read(CODEC_RESERVED_BITS);
 
         const maxMistakes = input.read(MAX_MISTAKES_BITS);
-        const field = this.readGivens(input);
+        const field = readGivens(input);
         const steps = isChallenge ? this.readSteps(input, field) : [];
         const elapsedTime = steps.reduce((total, step) => total + step.ts, 0);
 
@@ -86,72 +86,8 @@ export class GameStateBinaryCodec {
         return chars.join('');
     }
 
-    private collectEmptyCells(field: string): number[] {
-        const emptyCells: number[] = [];
-
-        for (let cellIndex = 0; cellIndex < GRID_CELL_COUNT; cellIndex += 1) {
-            if (field.charAt(cellIndex) === GRID_EMPTY_CELL) {
-                emptyCells.push(cellIndex);
-            }
-        }
-
-        return emptyCells;
-    }
-
-    private getPositionBits(length: number): number {
-        let bits = 0;
-        let capacity = 1;
-
-        while (capacity < length) {
-            bits += 1;
-            capacity *= 2;
-        }
-
-        return bits;
-    }
-
-    private writeGivens(out: BitOutputStream, givens: string): void {
-        const values: number[] = [];
-
-        for (let cellIndex = 0; cellIndex < GRID_CELL_COUNT; cellIndex += 1) {
-            const char = givens.charAt(cellIndex);
-            const isGiven = char !== GRID_EMPTY_CELL;
-
-            out.write(isGiven ? 1 : 0, 1);
-
-            if (isGiven) {
-                values.push(parseInt(char, 10));
-            }
-        }
-
-        this.writeValues(out, values);
-    }
-
-    private readGivens(input: BitInputStream): string {
-        const mask: boolean[] = [];
-
-        for (let cellIndex = 0; cellIndex < GRID_CELL_COUNT; cellIndex += 1) {
-            mask.push(input.read(1) === 1);
-        }
-
-        const values = this.readValues(input, mask.filter(Boolean).length);
-
-        let result = '';
-        let valueIndex = 0;
-        for (const isGiven of mask) {
-            if (isGiven) {
-                result += values[valueIndex].toString();
-                valueIndex += 1;
-            } else {
-                result += GRID_EMPTY_CELL;
-            }
-        }
-
-        return result;
-    }
-
     private writeSteps(out: BitOutputStream, givens: string, steps: SolutionStepInterface[]): void {
-        const emptyCells = this.collectEmptyCells(givens);
+        const emptyCells = collectEmptyCells(givens);
         if (steps.length > emptyCells.length) {
             throw new Error('Too many solution steps');
         }
@@ -159,7 +95,7 @@ export class GameStateBinaryCodec {
         out.write(steps.length, STEP_COUNT_BITS);
 
         this.writeStepPositions(out, emptyCells, steps);
-        this.writeValues(
+        writePackedValues(
             out,
             steps.map(step => step.value)
         );
@@ -176,7 +112,7 @@ export class GameStateBinaryCodec {
                 throw new Error('Invalid solution step cell');
             }
 
-            const width = this.getPositionBits(emptyCells.length);
+            const width = getPositionBits(emptyCells.length);
             if (width > 0) {
                 out.write(position, width);
             }
@@ -186,7 +122,7 @@ export class GameStateBinaryCodec {
     }
 
     private readSteps(input: BitInputStream, field: string): SolutionStepInterface[] {
-        const emptyCells = this.collectEmptyCells(field);
+        const emptyCells = collectEmptyCells(field);
 
         const count = input.read(STEP_COUNT_BITS);
         if (count > emptyCells.length) {
@@ -194,7 +130,7 @@ export class GameStateBinaryCodec {
         }
 
         const cellIndexes = this.readStepCellIndexes(input, emptyCells, count);
-        const values = this.readValues(input, count);
+        const values = readPackedValues(input, count);
 
         const timestamps: number[] = [];
         for (let stepIndex = 0; stepIndex < count; stepIndex += 1) {
@@ -212,7 +148,7 @@ export class GameStateBinaryCodec {
         const cellIndexes: number[] = [];
 
         for (let stepIndex = 0; stepIndex < count; stepIndex += 1) {
-            const width = this.getPositionBits(emptyCells.length);
+            const width = getPositionBits(emptyCells.length);
             const position = width > 0 ? input.read(width) : 0;
 
             if (position >= emptyCells.length) {
@@ -224,67 +160,5 @@ export class GameStateBinaryCodec {
         }
 
         return cellIndexes;
-    }
-
-    private writeValues(out: BitOutputStream, values: number[]): void {
-        for (const value of values) {
-            if (!isValidCellValue(value)) {
-                throw new Error('Invalid sudoku cell value');
-            }
-        }
-
-        let index = 0;
-        while (values.length - index >= VALUE_TRIPLET_SIZE) {
-            const packed = (values[index] - 1) * VALUE_BASE_SQUARED + (values[index + 1] - 1) * VALUE_BASE + (values[index + 2] - 1);
-
-            out.write(packed, VALUE_TRIPLET_BITS);
-            index += VALUE_TRIPLET_SIZE;
-        }
-
-        const remaining = values.length - index;
-        if (remaining === VALUE_PAIR_SIZE) {
-            out.write((values[index] - 1) * VALUE_BASE + (values[index + 1] - 1), VALUE_PAIR_BITS);
-        } else if (remaining === 1) {
-            out.write(values[index] - 1, VALUE_BITS);
-        }
-    }
-
-    private readValues(input: BitInputStream, count: number): number[] {
-        const values: number[] = [];
-
-        while (count - values.length >= VALUE_TRIPLET_SIZE) {
-            const packed = input.read(VALUE_TRIPLET_BITS);
-            if (packed >= VALUE_BASE_CUBED) {
-                throw new Error('Invalid packed cell values');
-            }
-
-            values.push(
-                Math.floor(packed / VALUE_BASE_SQUARED) + 1,
-                (Math.floor(packed / VALUE_BASE) % VALUE_BASE) + 1,
-                (packed % VALUE_BASE) + 1
-            );
-        }
-
-        this.readRemainingValues(input, count - values.length, values);
-
-        return values;
-    }
-
-    private readRemainingValues(input: BitInputStream, remaining: number, values: number[]): void {
-        if (remaining === VALUE_PAIR_SIZE) {
-            const packed = input.read(VALUE_PAIR_BITS);
-            if (packed >= VALUE_BASE_SQUARED) {
-                throw new Error('Invalid packed cell values');
-            }
-
-            values.push(Math.floor(packed / VALUE_BASE) + 1, (packed % VALUE_BASE) + 1);
-        } else if (remaining === 1) {
-            const packed = input.read(VALUE_BITS);
-            if (packed >= VALUE_BASE) {
-                throw new Error('Invalid packed cell values');
-            }
-
-            values.push(packed + 1);
-        }
     }
 }

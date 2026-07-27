@@ -1,4 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
+import { SharedPayloadKindEnum } from '@suuudokuuu/encoder';
 import { use } from 'react';
 import { View } from 'react-native';
 
@@ -6,9 +7,10 @@ import { isNotEmptyString } from '@rnw-community/shared';
 
 import { BlackButton } from '../../../@generic/components/black-button/black-button';
 import { Header } from '../../../@generic/components/header/header';
+import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { ChallengeAcceptScreen } from '../../../challenge/components/challenge-accept-screen/challenge-accept-screen';
 import { GameContext } from '../../../game/context/game.context';
-import { stringToGameState } from '../../../game/utils/string-to-game-state.util';
+import { decodeSharedGameState } from '../../../game/utils/decode-shared-game-state.util';
 
 import { SharedScreenStyles as styles } from './shared-screen.styles';
 
@@ -20,13 +22,10 @@ export const SharedScreen = ({ stateString }: Props) => {
     const { t } = useLingui();
     const { createFromState } = use(GameContext);
 
-    if (!isNotEmptyString(stateString)) {
-        return null;
-    }
+    const { gameState, isReadable, kind } = decodeSharedGameState(stateString);
+    const resumeTimeText = useTimerText(gameState.elapsedTime);
 
-    const gameState = stringToGameState(stateString);
-
-    if (!isNotEmptyString(gameState.sudokuString)) {
+    if (!isReadable || !isNotEmptyString(gameState.sudokuString)) {
         return null;
     }
 
@@ -36,18 +35,25 @@ export const SharedScreen = ({ stateString }: Props) => {
         createFromState(gameState);
     };
 
-    if (isNotEmptyString(challengeState)) {
+    if (kind === SharedPayloadKindEnum.Challenge && isNotEmptyString(challengeState)) {
         return <ChallengeAcceptScreen challengeState={challengeState} onAccept={handleOpenPuzzle} opponentTotalTime={challengeTime} />;
     }
+
+    const isHandoff = kind === SharedPayloadKindEnum.Handoff;
+    const headerText = isHandoff ? t`Resume this game?` : t`Open shared puzzle?`;
+    const confirmText = isHandoff ? t`Resume game` : t`Open puzzle`;
+    const resumeSummary = `${resumeTimeText} · ${String(gameState.score)}`;
 
     return (
         <View style={styles.container}>
             <View style={styles.headerColumn}>
-                <Header text={t`Open shared puzzle?`} />
+                <Header text={headerText} />
+
+                {isHandoff ? <Header text={resumeSummary} /> : null}
             </View>
 
             <View style={styles.buttonsWrapper}>
-                <BlackButton onPress={handleOpenPuzzle} text={t`Open puzzle`} />
+                <BlackButton onPress={handleOpenPuzzle} text={confirmText} />
                 <BlackButton href="/" text={t`Cancel`} />
             </View>
         </View>

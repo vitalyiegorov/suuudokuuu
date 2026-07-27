@@ -1,19 +1,15 @@
 import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { TechniqueManager } from '@suuudokuuu/solver';
 
-import { isEmptyArray, isNotEmptyString, isPositiveNumber } from '@rnw-community/shared';
+import { isEmptyArray, isNotEmptyString } from '@rnw-community/shared';
 
 import { getTechniqueTier } from './get-technique-tier.util';
 
 import type { ChallengeTechniqueEventInterface } from '../interfaces/challenge-technique-event.interface';
 import type { SolutionStepInterface } from '@suuudokuuu/encoder';
 
-export const getChallengeTechniqueEvents = (
-    sudokuString: string,
-    steps: SolutionStepInterface[],
-    totalTime: number
-): ChallengeTechniqueEventInterface[] => {
-    if (!isNotEmptyString(sudokuString) || isEmptyArray(steps) || !isPositiveNumber(totalTime)) {
+export const getChallengeTechniqueEvents = (sudokuString: string, steps: SolutionStepInterface[]): ChallengeTechniqueEventInterface[] => {
+    if (!isNotEmptyString(sudokuString) || isEmptyArray(steps)) {
         return [];
     }
 
@@ -32,7 +28,6 @@ export const getChallengeTechniqueEvents = (
 
         events.push({
             cumulativeTime,
-            positionPercent: (cumulativeTime / totalTime) * 100,
             technique: classification.technique,
             tier: getTechniqueTier(classification.technique)
         });

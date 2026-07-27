@@ -102,7 +102,7 @@ export const DifficultyComplexitySliderStyles = StyleSheet.create(theme => ({
         borderWidth: StyleSheet.hairlineWidth,
         flexDirection: 'row',
         gap: 14,
-        minHeight: 104,
+        minHeight: 132,
         paddingHorizontal: 13,
         paddingVertical: theme.spacing.md,
         width: '100%'

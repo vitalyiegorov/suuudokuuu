@@ -1,4 +1,4 @@
-import { describe, expect, it } from '@jest/globals';
+import { describe, expect, it, jest } from '@jest/globals';
 
 import { fetchBetaRelease } from './fetch-beta-release.util';
 
@@ -48,6 +48,32 @@ describe('fetchBetaRelease', () => {
         await expect(fetchBetaRelease(request)).resolves.toEqual({ release: ValidRelease, status: 'ready' });
         expect(requestUrl.endsWith('/api/beta/release')).toBe(true);
         expect(requestMethod).toBe('GET');
+    });
+
+    it('forwards an abort signal when one is given', async () => {
+        expect.assertions(1);
+
+        const controller = new AbortController();
+        let forwardedSignal: AbortSignal | null | undefined = null;
+        const request: typeof fetch = async (_input, init) => {
+            forwardedSignal = init?.signal;
+
+            return new Response(JSON.stringify(ValidRelease), { status: 200 });
+        };
+
+        await fetchBetaRelease(request, controller.signal);
+
+        expect(forwardedSignal).toBe(controller.signal);
+    });
+
+    it('falls back to the global fetch when no request is given', async () => {
+        expect.assertions(1);
+
+        const fetchSpy = jest.spyOn(globalThis, 'fetch').mockResolvedValue(new Response(JSON.stringify(ValidRelease), { status: 200 }));
+
+        await expect(fetchBetaRelease()).resolves.toEqual({ release: ValidRelease, status: 'ready' });
+
+        fetchSpy.mockRestore();
     });
 
     it('returns empty for a 404 response', async () => {
