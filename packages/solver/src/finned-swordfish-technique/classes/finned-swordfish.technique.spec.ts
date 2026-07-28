@@ -89,7 +89,8 @@ describe('FinnedSwordfishTechnique', () => {
             context,
             new FinnedFishTechnique({ technique: SolutionTechniqueEnum.FinnedSwordfish, size: 3, sashimi: false }).find(context, {
                 cell: targetCell,
-                value: 8
+                value: 8,
+                intent: 'direct'
             }),
             [
                 {

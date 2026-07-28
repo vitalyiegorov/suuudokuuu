@@ -5,6 +5,7 @@ import { CandidateContext } from '../../@generic/classes/candidate-context/candi
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
 import { createCandidateContextFromMap } from '../../@generic/test-utils/create-candidate-context-from-map.spec.util';
 import { expectTechniqueResults } from '../../@generic/test-utils/expect-technique-results.spec.util';
+import { isForcedPlacement } from '../../@generic/utils/is-forced-placement.util';
 import { BasicFishTechnique } from '../../basic-fish-technique/classes/basic-fish.technique';
 
 describe('XWingTechnique', () => {
@@ -39,6 +40,41 @@ describe('XWingTechnique', () => {
                 ]
             }
         ]);
+    });
+
+    it('forces a hidden single one elimination step away', () => {
+        expect.assertions(3);
+
+        const sudoku = Sudoku.fromStrings(
+            defaultSudokuConfig,
+            '.1.36..4.',
+            '.3..5....',
+            '24.9....8',
+            '829..5..6',
+            '453.26...',
+            '761.39...',
+            '68.29...1',
+            '.925.....',
+            '.746..9..'
+        );
+        const context = CandidateContext.fromSudoku(sudoku);
+        const [targetCell] = sudoku.Field[6].slice(5);
+        const results = new BasicFishTechnique({ technique: SolutionTechniqueEnum.XWing, size: 2 }).find(context);
+        const baseRowFish = results.find(result => result.reasonCells.every(cell => cell.y === 2 || cell.y === 3));
+
+        expect(baseRowFish?.reasonCells.map(cell => [cell.y, cell.x])).toEqual([
+            [2, 6],
+            [2, 7],
+            [3, 6],
+            [3, 7]
+        ]);
+        expect(baseRowFish?.eliminations.map(elimination => [elimination.cell.y, elimination.cell.x, elimination.value])).toEqual(
+            expect.arrayContaining([
+                [6, 6, 3],
+                [6, 7, 3]
+            ])
+        );
+        expect(isForcedPlacement(context.withEliminations(baseRowFish?.eliminations ?? []), targetCell, 3)).toBe(true);
     });
 
     it('ignores a base row with a third occurrence', () => {

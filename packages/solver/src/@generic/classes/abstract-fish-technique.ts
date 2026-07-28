@@ -1,4 +1,5 @@
 import { getCombinations } from '../utils/get-combinations.util';
+import { getSearchScope } from '../utils/get-search-scope.util';
 
 import { AbstractSizedTechnique } from './abstract-sized-technique';
 
@@ -15,14 +16,11 @@ export abstract class AbstractFishTechnique<
     TDescriptor extends SizedTechniqueDescriptorInterface = SizedTechniqueDescriptorInterface
 > extends AbstractSizedTechnique<TDescriptor> {
     find(context: CandidateContext, target?: TechniqueSearchTargetInterface): TechniqueResultInterface[] {
-        const eliminationValues = target
-            ? context.getCandidates(target.cell).filter(candidate => candidate !== target.value)
-            : context.getValues();
-        const targetCell = target?.cell;
+        const { eliminationValues, directTarget } = getSearchScope(context, target);
 
         return [
-            ...this.findByBaseType(context, 'row', eliminationValues, targetCell),
-            ...this.findByBaseType(context, 'column', eliminationValues, targetCell)
+            ...this.findByBaseType(context, 'row', eliminationValues, directTarget?.cell),
+            ...this.findByBaseType(context, 'column', eliminationValues, directTarget?.cell)
         ];
     }
 

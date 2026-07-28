@@ -5,6 +5,7 @@ import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.e
 import { createEliminationResults } from '../../@generic/utils/create-elimination-results.util';
 import { getCanonicalTechniqueResults } from '../../@generic/utils/get-canonical-technique-results.util';
 import { getCombinations } from '../../@generic/utils/get-combinations.util';
+import { getSearchScope } from '../../@generic/utils/get-search-scope.util';
 import { getUniqueCells } from '../../@generic/utils/get-unique-cells.util';
 import { isSameCell } from '../../@generic/utils/is-same-cell.util';
 import { AIC_MAX_LINK_VISITS, AIC_MIN_NODES } from '../constants/aic.constant';
@@ -22,9 +23,10 @@ import type { CellInterface } from '@suuudokuuu/generator';
 export class AICTechnique implements TechniqueStrategyInterface {
     readonly technique = SolutionTechniqueEnum.AIC;
 
-    find(context: CandidateContext, target?: TechniqueSearchTargetInterface): TechniqueResultInterface[] {
+    find(context: CandidateContext, searchTarget?: TechniqueSearchTargetInterface): TechniqueResultInterface[] {
         const graph = this.createGraph(context);
         const results: TechniqueResultInterface[] = [];
+        const { directTarget: target } = getSearchScope(context, searchTarget);
         const startNodes = this.getStartNodes(graph, target);
 
         if (target) {

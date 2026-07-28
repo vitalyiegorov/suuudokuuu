@@ -2,6 +2,7 @@ import { describe, expect, it } from '@jest/globals';
 import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 
 import { SolutionTechniqueEnum } from '../../enums/solution-technique.enum';
+import { CandidateContext } from '../candidate-context/candidate-context';
 
 import { TechniqueManager } from './technique-manager';
 
@@ -12,6 +13,30 @@ const createEmptyStrategy = (): TechniqueStrategyInterface => ({
     find: () => [],
     technique: SolutionTechniqueEnum.FullHouse
 });
+
+const xWingEnabledBoard = [
+    '...6.....',
+    '..6......',
+    '57.3.1.86',
+    '125973648',
+    '698.1.732',
+    '437268.5.',
+    '86..5..1.',
+    '.5182649.',
+    '.4.13.865'
+];
+
+const boxLineEnabledBoard = [
+    '.1.36..4.',
+    '.3..5....',
+    '24.9....8',
+    '829..5..6',
+    '453.26...',
+    '761.39...',
+    '68.29...1',
+    '.925.....',
+    '.746..9..'
+];
 
 describe('TechniqueManager', () => {
     it('should find the easiest next logical step', () => {
@@ -78,6 +103,62 @@ describe('TechniqueManager', () => {
             expect.objectContaining({ technique: SolutionTechniqueEnum.FullHouse, cell: sudoku.Field[0][8], value: 9 })
         );
         expect(manager.identifyMove({ ...sudoku.Field[4][4], value: 9 }).technique).toBe(SolutionTechniqueEnum.NakedSingle);
+    });
+
+    it('should classify a placement enabled by an x-wing elimination', () => {
+        expect.assertions(1);
+
+        const sudoku = Sudoku.fromStrings(defaultSudokuConfig, ...xWingEnabledBoard);
+        const [[targetCell]] = sudoku.Field.slice(8);
+        const result = new TechniqueManager(sudoku).identifyMove({ ...targetCell, value: 2 });
+
+        expect(result).toEqual({ technique: SolutionTechniqueEnum.XWing, value: 2 });
+    });
+
+    it('should not attribute an x-wing that does not force the played cell', () => {
+        expect.assertions(1);
+
+        const sudoku = Sudoku.fromStrings(defaultSudokuConfig, ...xWingEnabledBoard);
+        const [[targetCell]] = sudoku.Field;
+        const result = new TechniqueManager(sudoku).identifyMove({ ...targetCell, value: 3 });
+
+        expect(result).toEqual({ technique: SolutionTechniqueEnum.Guess, value: 3 });
+    });
+
+    it('should prefer the simplest enabling technique for a forced placement', () => {
+        expect.assertions(1);
+
+        const sudoku = Sudoku.fromStrings(defaultSudokuConfig, ...boxLineEnabledBoard);
+        const [targetCell] = sudoku.Field[6].slice(5);
+        const result = new TechniqueManager(sudoku).identifyMove({ ...targetCell, value: 3 });
+
+        expect(result).toEqual({ technique: SolutionTechniqueEnum.BoxLineReduction, value: 3 });
+    });
+
+    it('should never justify a value that contradicts the solution', () => {
+        expect.assertions(1);
+
+        const justifiedWrongMoves: string[] = [];
+
+        for (const board of [xWingEnabledBoard, boxLineEnabledBoard]) {
+            const sudoku = Sudoku.fromStrings(defaultSudokuConfig, ...board);
+            const context = CandidateContext.fromSudoku(sudoku);
+            const manager = new TechniqueManager(sudoku);
+
+            for (const cell of context.getBlankCells().slice(0, 6)) {
+                const correctValue = sudoku.getCorrectValue(cell);
+
+                for (const value of context.getCandidates(cell).filter(candidate => candidate !== correctValue)) {
+                    const { technique } = manager.identifyMove({ ...cell, value });
+
+                    if (technique !== SolutionTechniqueEnum.Guess) {
+                        justifiedWrongMoves.push(`r${cell.y + 1}c${cell.x + 1}=${value} as ${SolutionTechniqueEnum[technique]}`);
+                    }
+                }
+            }
+        }
+
+        expect(justifiedWrongMoves).toEqual([]);
     });
 
     it('should mark unsupported moves as guesses', () => {
@@ -166,7 +247,7 @@ describe('TechniqueManager', () => {
 
         expect(result.technique).toBe(SolutionTechniqueEnum.FullHouse);
         expect(findCalls).toBe(1);
-        expect(receivedTarget).toEqual({ cell: targetMove, value: 9 });
+        expect(receivedTarget).toEqual({ cell: targetMove, value: 9, intent: 'direct' });
     });
 
     it('should not treat an eliminated candidate as a justified placement', () => {

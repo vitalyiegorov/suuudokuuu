@@ -6,6 +6,10 @@ export const getSearchEliminationValues = (context: CandidateContext, target?: T
         return context.getValues();
     }
 
+    if (target.intent === 'enabling') {
+        return [target.value];
+    }
+
     return context
         .getCandidates(target.cell)
         .filter(value => value !== target.value)
