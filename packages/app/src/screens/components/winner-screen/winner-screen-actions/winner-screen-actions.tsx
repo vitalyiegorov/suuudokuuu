@@ -10,6 +10,7 @@ import { GlassIconButton } from '../../../../@generic/components/glass-icon-butt
 import { PlayAgainButton } from '../../../../@generic/components/play-again-button/play-again-button';
 import { ScreenActionBar } from '../../../../@generic/components/screen-action-bar/screen-action-bar';
 import { ChallengeShareButton } from '../../../../challenge/components/challenge-share-button/challenge-share-button';
+import { isChallengeRecording } from '../../../../challenge/utils/is-challenge-recording.util';
 import { PuzzleShareButton } from '../../../../game/components/puzzle-share-button/puzzle-share-button';
 import { GameContext } from '../../../../game/context/game.context';
 import { ThemeContext } from '../../../../theme/context/theme.context';
@@ -31,7 +32,7 @@ export const WinnerScreenActions = ({ difficulty, gameState }: Props) => {
     const { theme } = use(ThemeContext);
 
     const hasRival = isNotEmptyString(gameState.challengeState);
-    const isChallengeShareable = gameState.isChallengeRun && !hasRival;
+    const isChallengeShareable = isChallengeRecording(gameState);
     const isPuzzleShareable = !gameState.isChallengeRun && !hasRival;
     const handlePlayAgain = () => void create(difficulty, gameState.maxMistakes);
     const homeAction = <GameResultHomeButton accessibilityLabel={t`Home`} testID={WinnerScreenSelectors.HomeButton} />;

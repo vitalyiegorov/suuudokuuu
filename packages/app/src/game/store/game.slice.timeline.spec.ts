@@ -13,7 +13,9 @@ const buildChallengeRun = (overrides: Partial<GameState> = {}): GameState => ({
     ...overrides
 });
 
-const { timelineAway, timelineReturn, toggleShowAutoCandidates, pause } = gameSlice.actions;
+const { timelineAway, timelineReturn, toggleShowAutoCandidates, toggleCellCandidate, pause } = gameSlice.actions;
+
+const candidateCell = { x: 3, y: 2, value: 7, group: 1 };
 
 describe('gameSlice timeline events', () => {
     describe('away', () => {
@@ -105,6 +107,48 @@ describe('gameSlice timeline events', () => {
             const state = gameSlice.reducer(buildChallengeRun({ isChallengeRun: false }), pause());
 
             expect(state.isPaused).toBe(true);
+        });
+    });
+
+    describe('pencil actions', () => {
+        it('should record a pencil action with the think time before it', () => {
+            expect.assertions(1);
+
+            const state = gameSlice.reducer(buildChallengeRun({ elapsedTime: 18 }), toggleCellCandidate(candidateCell));
+
+            expect(state.timelineEvents).toStrictEqual([{ kind: TimelineEventKindEnum.Pencil, cellIndex: 21, value: 7, ts: 18 }]);
+        });
+
+        it('should record erasing a candidate as another pencil action', () => {
+            expect.assertions(1);
+
+            const penciled = gameSlice.reducer(buildChallengeRun({ elapsedTime: 18 }), toggleCellCandidate(candidateCell));
+            const erased = gameSlice.reducer({ ...penciled, elapsedTime: 25 }, toggleCellCandidate(candidateCell));
+
+            expect(erased.timelineEvents).toStrictEqual([
+                { kind: TimelineEventKindEnum.Pencil, cellIndex: 21, value: 7, ts: 18 },
+                { kind: TimelineEventKindEnum.Pencil, cellIndex: 21, value: 7, ts: 7 }
+            ]);
+        });
+
+        it('should still toggle the candidate it records', () => {
+            expect.assertions(1);
+
+            const state = gameSlice.reducer(buildChallengeRun({ elapsedTime: 18 }), toggleCellCandidate(candidateCell));
+
+            expect(state.candidates['2-3']).toStrictEqual([7]);
+        });
+
+        it('should not record pencil actions outside a challenge run', () => {
+            expect.assertions(2);
+
+            const state = gameSlice.reducer(
+                buildChallengeRun({ isChallengeRun: false, elapsedTime: 18 }),
+                toggleCellCandidate(candidateCell)
+            );
+
+            expect(state.timelineEvents).toStrictEqual([]);
+            expect(state.candidates['2-3']).toStrictEqual([7]);
         });
     });
 
