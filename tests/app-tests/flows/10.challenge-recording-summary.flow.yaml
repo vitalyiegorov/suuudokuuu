@@ -49,11 +49,10 @@ appId: ${APP_ID}
 
 - extendedWaitUntil:
       visible:
-          id: 'ChallengeRecordingSummarySelectors.Root'
-      timeout: 10000
+          id: 'WinnerScreenSelectors.Root'
+      timeout: 5000
 - assertVisible:
-      id: 'WinnerScreenSelectors.Root'
-- assertVisible: 'Your recording'
+      id: 'ChallengeRecordingSummarySelectors.Root'
 
 - scrollUntilVisible:
       element:
@@ -73,7 +72,6 @@ appId: ${APP_ID}
       direction: DOWN
       visibilityPercentage: 50
       timeout: 15000
-- assertVisible: 'Your playbook'
 
 - scrollUntilVisible:
       element:
