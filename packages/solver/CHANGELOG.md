@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.68.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.68.0...v1.68.1) (2026-07-28)
+
+### Bug Fixes
+
+- **solver,app:** classify technique-enabled placements instead of Guess ([#229](https://github.com/vitalyiegorov/suuudokuuu/issues/229)) ([26a7981](https://github.com/vitalyiegorov/suuudokuuu/commit/26a7981d128e5861535bb1962039e22ed1bcc09a))
+
 # [1.67.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.66.2...v1.67.0) (2026-07-26)
 
 ### Features
