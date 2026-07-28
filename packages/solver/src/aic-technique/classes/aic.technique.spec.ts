@@ -74,7 +74,7 @@ describe('AICTechnique', () => {
         const context = createCandidateContextFromMap([0, 0, [1, 2]], [0, 3, [1, 2]], [0, 4, [1, 6]]);
         const [targetCell] = context.getRowCells(0).slice(4, 5);
 
-        expectTechniqueResults(context, new AICTechnique().find(context, { cell: targetCell, value: 6 }), [
+        expectTechniqueResults(context, new AICTechnique().find(context, { cell: targetCell, value: 6, intent: 'direct' }), [
             {
                 technique: SolutionTechniqueEnum.AIC,
                 kind: 'elimination',
@@ -94,7 +94,7 @@ describe('AICTechnique', () => {
         const context = createCandidateContextFromMap([0, 0, [1, 2]], [0, 3, [1, 2]], [0, 4, [1, 5, 6]]);
         const [targetCell] = context.getRowCells(0).slice(4, 5);
 
-        expect(new AICTechnique().find(context, { cell: targetCell, value: 6 })).toEqual([]);
+        expect(new AICTechnique().find(context, { cell: targetCell, value: 6, intent: 'direct' })).toEqual([]);
     });
 
     it('uses one visit budget across all broad-search roots', () => {

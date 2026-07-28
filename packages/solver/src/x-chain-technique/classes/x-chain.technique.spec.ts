@@ -176,7 +176,7 @@ describe('XChainTechnique', () => {
         const context = createCandidateContextFromMap(...candidateMap);
         const targetCell = context.getRowCells(target[0])[target[1]];
 
-        expectTechniqueResults(context, new XChainTechnique().find(context, { cell: targetCell, value: target[2] }), [
+        expectTechniqueResults(context, new XChainTechnique().find(context, { cell: targetCell, value: target[2], intent: 'direct' }), [
             {
                 technique: SolutionTechniqueEnum.XChain,
                 kind: 'elimination',
@@ -230,7 +230,7 @@ describe('XChainTechnique', () => {
         const context = createCandidateContextFromMap([0, 0, [5, 6]], [0, 1, [5, 7]], [1, 1, [5, 4]], [1, 4, [5, 8]]);
         const [, targetCell] = context.getRowCells(1);
 
-        expectTechniqueResults(context, new XChainTechnique().find(context, { cell: targetCell, value: 4 }), []);
+        expectTechniqueResults(context, new XChainTechnique().find(context, { cell: targetCell, value: 4, intent: 'direct' }), []);
     });
 
     it('stops after the first deterministic target deduction', () => {
@@ -249,7 +249,7 @@ describe('XChainTechnique', () => {
         );
         const [, , , , targetCell] = context.getRowCells(4);
 
-        expectTechniqueResults(context, new XChainTechnique().find(context, { cell: targetCell, value: 9 }), [
+        expectTechniqueResults(context, new XChainTechnique().find(context, { cell: targetCell, value: 9, intent: 'direct' }), [
             {
                 technique: SolutionTechniqueEnum.XChain,
                 kind: 'elimination',

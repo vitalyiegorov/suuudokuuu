@@ -57,6 +57,27 @@ describe('CandidateContext', () => {
         expect(context.getCandidates(field[0][0])).toEqual([1, 2]);
     });
 
+    it('should return a snapshot without the eliminated candidates', () => {
+        expect.assertions(3);
+
+        const field = Sudoku.fromString(
+            '.'.repeat(defaultSudokuConfig.fieldSize * defaultSudokuConfig.fieldSize),
+            defaultSudokuConfig
+        ).Field;
+        const context = new CandidateContext(defaultSudokuConfig, field, {
+            [getCellKey(field[0][0])]: [1, 2, 3],
+            [getCellKey(field[0][1])]: [1, 2]
+        });
+        const reducedContext = context.withEliminations([
+            { cell: field[0][0], value: 2 },
+            { cell: field[0][0], value: 3 }
+        ]);
+
+        expect(reducedContext.getCandidates(field[0][0])).toEqual([1]);
+        expect(reducedContext.getCandidates(field[0][1])).toEqual([1, 2]);
+        expect(context.getCandidates(field[0][0])).toEqual([1, 2, 3]);
+    });
+
     it('should return row column and group cells', () => {
         expect.assertions(3);
 

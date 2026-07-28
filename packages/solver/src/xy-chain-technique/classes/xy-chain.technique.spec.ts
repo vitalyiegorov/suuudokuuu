@@ -63,7 +63,7 @@ describe('XYChainTechnique', () => {
         const context = createCandidateContextFromMap(...candidateMap);
         const targetCell = context.getRowCells(target[0])[target[1]];
 
-        expectTechniqueResults(context, new XYChainTechnique().find(context, { cell: targetCell, value: target[2] }), [
+        expectTechniqueResults(context, new XYChainTechnique().find(context, { cell: targetCell, value: target[2], intent: 'direct' }), [
             {
                 technique: SolutionTechniqueEnum.XYChain,
                 kind: 'elimination',
@@ -99,7 +99,7 @@ describe('XYChainTechnique', () => {
         const context = createCandidateContextFromMap([0, 0, [1, 2]], [1, 1, [1, 2]], [1, 4, [1, 3]], [1, 7, [1, 3]]);
         const [, targetCell] = context.getRowCells(1);
 
-        expectTechniqueResults(context, new XYChainTechnique().find(context, { cell: targetCell, value: 2 }), []);
+        expectTechniqueResults(context, new XYChainTechnique().find(context, { cell: targetCell, value: 2, intent: 'direct' }), []);
     });
 
     it('stops after the first deterministic target deduction', () => {
@@ -116,7 +116,7 @@ describe('XYChainTechnique', () => {
         );
         const [, , , , targetCell] = context.getRowCells(4);
 
-        expectTechniqueResults(context, new XYChainTechnique().find(context, { cell: targetCell, value: 9 }), [
+        expectTechniqueResults(context, new XYChainTechnique().find(context, { cell: targetCell, value: 9, intent: 'direct' }), [
             {
                 technique: SolutionTechniqueEnum.XYChain,
                 kind: 'elimination',
