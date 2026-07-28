@@ -12,7 +12,7 @@ module.exports = {
         defaultPlatform: 'ios',
         platforms: ['android', 'ios', 'native']
     },
-    resolver: require.resolve('@react-native/jest-preset/jest/resolver.js'),
+    resolver: require.resolve('./jest.resolver.js'),
     moduleNameMapper: {
         '^@suuudokuuu/encoder$': '<rootDir>/../encoder/src/index.ts',
         '^@suuudokuuu/generator$': '<rootDir>/../generator/src/index.ts',
@@ -52,6 +52,7 @@ module.exports = {
         '@react-native/jest-preset/jest/setup.js',
         'react-native-unistyles/mocks',
         '<rootDir>/src/theme/unistyles.config.ts',
+        '<rootDir>/jest.native-mocks.js',
         '<rootDir>/jest.setup.ts'
     ],
     transform: {

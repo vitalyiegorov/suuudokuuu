@@ -6,6 +6,7 @@ export interface HomeScreenOptionCardInterface {
     readonly descriptionStyles: StyleProp<TextStyle>;
     readonly key: number | string;
     readonly onPress: () => void;
+    readonly testID: string;
     readonly title: string;
     readonly titleStyles: StyleProp<TextStyle>;
 }

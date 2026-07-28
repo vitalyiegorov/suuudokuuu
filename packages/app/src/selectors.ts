@@ -8,6 +8,7 @@ export * from './challenge/components/challenge-result-footer/challenge-result-f
 export * from './challenge/components/challenge-technique-arsenal/challenge-technique-arsenal.selectors';
 export * from './challenge/components/challenge-try-again-button/challenge-try-again-button.selectors';
 export * from './game/components/available-values-item/available-value-item.selectors';
+export * from './game/components/difficulty-complexity-slider/difficulty-complexity-option/difficulty-complexity-option.selectors';
 export * from './history/components/completed-games-list/completed-game-item.selectors';
 export * from './history/components/history-difficulty/history-difficulty.selectors';
 export * from './history/components/replay-controls/replay-controls.selectors';
@@ -20,5 +21,7 @@ export * from './screens/components/loser-screen/loser-screen.selectors';
 export * from './screens/components/pause-screen/pause-screen.selectors';
 export * from './screens/components/beta-screen/beta-screen.selectors';
 export * from './screens/components/settings-screen/settings-screen.selectors';
+export * from './screens/components/shared-screen/shared-screen.selectors';
+export * from './screens/components/winner-screen/winner-screen.selectors';
 export * from './settings/component/settings-app-footer/settings-app-footer.selectors';
 export * from './settings/component/settings-option-sheet/settings-option-sheet.selectors';

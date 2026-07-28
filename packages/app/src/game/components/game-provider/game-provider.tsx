@@ -14,8 +14,8 @@ import { GameContext } from '../../context/game.context';
 import { gameLoadAction, gameResetAction, gameResumeAction, gameStartAction } from '../../store/game.actions';
 import { gameSudokuStringSelector } from '../../store/game.selectors';
 
+import type { GameSetupInterface } from '../../interface/game-setup.interface';
 import type { GameState } from '../../store/game.state';
-import type { DifficultyEnum } from '@suuudokuuu/generator';
 import type { ReactNode } from 'react';
 
 interface Props {
@@ -73,14 +73,14 @@ export const GameProvider = ({ children }: Props) => {
         }
     };
 
-    const create = (difficulty: DifficultyEnum, maxMistakes: number, isChallengeRun = false) => {
+    const create = ({ difficulty, isChallengeRun, maxMistakes }: GameSetupInterface) => {
         const newSudoku = new Sudoku(defaultSudokuConfig);
 
         newSudoku.create(difficulty);
         setSudoku(newSudoku);
 
         const sudokuString = newSudoku.toString();
-        dispatch(gameStartAction({ maxMistakes, sudokuString, isChallengeRun }));
+        dispatch(gameStartAction({ difficulty, isChallengeRun, maxMistakes, sudokuString }));
         router.push('/game');
     };
 

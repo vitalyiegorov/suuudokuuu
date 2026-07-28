@@ -16,7 +16,6 @@ import { ThemeContext } from '../../../theme/context/theme.context';
 import { ChallengeLossReason } from '../../enums/challenge-loss-reason.enum';
 import { ChallengeResult } from '../../interfaces/challenge-result.interface';
 import { getChallengeAwayRanges } from '../../utils/get-challenge-away-ranges.util';
-import { getChallengeDifficulty } from '../../utils/get-challenge-difficulty.util';
 import { getChallengeDurationParts } from '../../utils/get-challenge-duration-parts.util';
 import { getChallengeTechniqueEventsFromState } from '../../utils/get-challenge-technique-events-from-state.util';
 import { getTapeTechniqueEvents } from '../../utils/get-tape-technique-events.util';
@@ -55,7 +54,8 @@ export const ChallengeResultScreen = (props: Props) => {
     const marginSeconds = Math.abs(challengeTime - elapsedTime);
     const durationParts = getChallengeDurationParts(marginSeconds);
     const techniqueEvents = getChallengeTechniqueEventsFromState(challengeState);
-    const rivalAwayRanges = getChallengeAwayRanges(stringToGameState(challengeState).challengeTimelineEvents, challengeTime);
+    const rivalGameState = stringToGameState(challengeState);
+    const rivalAwayRanges = getChallengeAwayRanges(rivalGameState.challengeTimelineEvents, challengeTime);
     const playerTechniqueEvents = getTapeTechniqueEvents(timelineEvents);
     const playerAwayRanges = getChallengeAwayRanges(timelineEvents, elapsedTime);
     const lostByMistakes = result === ChallengeResult.Lost && lossReason === ChallengeLossReason.Mistakes;
@@ -72,7 +72,7 @@ export const ChallengeResultScreen = (props: Props) => {
         flavorText = lostByMistakes ? t`Out of mistakes` : t`Your rival was faster`;
     }
 
-    const difficultyText = getDifficultyText(getChallengeDifficulty(challengeState));
+    const difficultyText = getDifficultyText(rivalGameState.difficulty);
     const mistakesText = getMistakesTypeText(maxMistakes);
     const badgeText = `${flavorText} · ${difficultyText} · ${mistakesText}`;
 

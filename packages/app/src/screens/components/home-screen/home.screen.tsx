@@ -1,5 +1,5 @@
 import { Trans, useLingui } from '@lingui/react/macro';
-import { DifficultyEnum, Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
+import { DifficultyEnum } from '@suuudokuuu/generator';
 import { ScreenChromeScrollView } from '@suuudokuuu/screen-chrome';
 import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { Link } from 'expo-router';
@@ -78,7 +78,7 @@ export const HomeScreen = () => {
 
         setTimeout(() => {
             try {
-                create(difficulty, maxMistakes, isChallengeMode);
+                create({ difficulty, isChallengeRun: isChallengeMode, maxMistakes });
             } finally {
                 setIsLoading(false);
             }
@@ -135,11 +135,6 @@ export const HomeScreen = () => {
     const selectedDifficultyDescription = difficultyDescriptionsByDifficulty[selectedDifficulty];
     const challengeSummarySuffix = isChallengeMode ? ` • ${t`Challenge`}` : '';
     const setupSummary = `${selectedDifficultyLabel} • ${selectedMistakesOption.title}${challengeSummarySuffix}`;
-    const currentSudokuStringHasFieldLength = currentSudokuString.length === defaultSudokuConfig.fieldSize * defaultSudokuConfig.fieldSize;
-    const currentGameDifficulty = currentSudokuStringHasFieldLength
-        ? Sudoku.convertFieldFromString(currentSudokuString, defaultSudokuConfig)[1]
-        : difficulty;
-    const currentGameDifficultyLabel = getDifficultyText(currentGameDifficulty);
     const currentElapsedTimeText = useTimerText(currentElapsedTime);
     const currentProgressPercent = homeScreenGetCurrentGameProgress(currentSudokuString, currentSolutionSteps.length);
     const currentProgressText = `${currentProgressPercent}%`;
@@ -164,6 +159,7 @@ export const HomeScreen = () => {
             descriptionStyles,
             key: option.maxMistakes,
             onPress: handleMaxMistakes(option.maxMistakes),
+            testID: `${HomeScreenSelectors.MistakeOption}.${option.maxMistakes}`,
             title: option.title,
             titleStyles
         };
@@ -252,7 +248,6 @@ export const HomeScreen = () => {
 
                         <HomeScreenPlayActions
                             currentElapsedTimeText={currentElapsedTimeText}
-                            currentGameDifficultyLabel={currentGameDifficultyLabel}
                             currentProgressPercent={currentProgressPercent}
                             currentProgressText={currentProgressText}
                             isGameStarted={isGameStarted}

@@ -1,0 +1,77 @@
+appId: ${APP_ID}
+---
+- startRecording:
+      path: '10.play-again-setup'
+      optional: true
+
+# Both fixtures are Hard handoff payloads with `maxMistakes: 0` and exactly two blank
+# cells left, so one wrong digit ends the run deterministically.
+# Normal fixture: cell 4-7 needs 7, so 5 is a mistake.
+# Challenge fixture: cell 4-1 needs 1, so 5 is a mistake.
+
+- runFlow: subflows/navigation/launch-home.flow.yaml
+
+# 1. A normal Hard + Hardcore run retries as Hard + Hardcore with pause still available.
+- runFlow:
+      file: subflows/shared/open-shared-handoff.flow.yaml
+      env:
+          SHARED_HANDOFF_LINK: suuudokuuu://shared/_NABHQzBFw6RglyoiRQQUouMgjrAma5QGGoYAggggggggggggggggghCEIQiEIQhCEIREREREklQL1IJUTJSvlHjqmsZOolrdPSOtkgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgAAAA
+- assertVisible: '0/0'
+- assertVisible:
+      id: 'GameScreenSelectors.PauseButton'
+- assertNotVisible:
+      id: 'ChallengeRecordHudSelectors.Root'
+- tapOn:
+      id: 'CellSelectors.Cell.4-7'
+- tapOn:
+      id: 'AvailableValueItemSelectors.Button.5'
+- extendedWaitUntil:
+      visible:
+          id: 'loser-screen'
+      timeout: 5000
+- assertVisible: '.*Hard.*Hardcore.*'
+- tapOn:
+      id: 'loser-screen-play-again-button'
+- extendedWaitUntil:
+      visible:
+          id: 'GameScreenSelectors.Root'
+      timeout: 15000
+- assertVisible: '0/0'
+- assertVisible:
+      id: 'GameScreenSelectors.PauseButton'
+- assertNotVisible:
+      id: 'ChallengeRecordHudSelectors.Root'
+- runFlow: subflows/game/quit-current-game.flow.yaml
+
+# 2. A self-authored challenge run retries as a challenge run with no pause control.
+- runFlow:
+      file: subflows/shared/open-shared-handoff.flow.yaml
+      env:
+          SHARED_HANDOFF_LINK: suuudokuuu://shared/_NQAAB2wJqDtYxGE6y8YRKh82MBHPRMFSeYYAAgggggggggggggggghCEIQiEIQhCEIREREREklQiINYhMte9UhI-rk0UUjE1sxT1bAQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgAAAAAAAAA
+- assertVisible:
+      id: 'ChallengeRecordHudSelectors.Root'
+- assertNotVisible:
+      id: 'GameScreenSelectors.PauseButton'
+- tapOn:
+      id: 'CellSelectors.Cell.4-1'
+- tapOn:
+      id: 'AvailableValueItemSelectors.Button.5'
+- extendedWaitUntil:
+      visible:
+          id: 'loser-screen'
+      timeout: 5000
+- assertVisible: '.*Hard.*Hardcore.*'
+- tapOn:
+      id: 'loser-screen-play-again-button'
+- extendedWaitUntil:
+      visible:
+          id: 'GameScreenSelectors.Root'
+      timeout: 15000
+- assertVisible: '0/0'
+- assertVisible:
+      id: 'ChallengeRecordHudSelectors.Root'
+- assertNotVisible:
+      id: 'GameScreenSelectors.PauseButton'
+- runFlow: subflows/game/quit-current-game.flow.yaml
+
+- stopApp
