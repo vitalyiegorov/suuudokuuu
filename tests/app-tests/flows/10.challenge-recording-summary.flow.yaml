@@ -28,16 +28,22 @@ appId: ${APP_ID}
       id: 'ChallengeRecordHudSelectors.Root'
 
 - tapOn:
-      id: 'InputModeButtonSelectors.Root'
-- tapOn:
       id: 'CellSelectors.Cell.6-0'
 - tapOn:
-      id: 'AvailableValueItemSelectors.Button.2'
+      id: 'InputModeButtonSelectors.Root'
+- extendedWaitUntil:
+      visible:
+          id: 'CandidateInputItemSelectors.Button.2'
+      timeout: 3000
+- tapOn:
+      id: 'CandidateInputItemSelectors.Button.2'
 
 - tapOn:
       id: 'InputModeButtonSelectors.Root'
-- tapOn:
-      id: 'CellSelectors.Cell.6-0'
+- extendedWaitUntil:
+      visible:
+          id: 'AvailableValueItemSelectors.Button.2'
+      timeout: 3000
 - tapOn:
       id: 'AvailableValueItemSelectors.Button.2'
 

@@ -10,6 +10,7 @@ export * from './challenge/components/challenge-result-footer/challenge-result-f
 export * from './challenge/components/challenge-technique-arsenal/challenge-technique-arsenal.selectors';
 export * from './challenge/components/challenge-try-again-button/challenge-try-again-button.selectors';
 export * from './game/components/available-values-item/available-value-item.selectors';
+export * from './game/components/candidate-input-item/candidate-input-item.selectors';
 export * from './game/components/input-mode-button/input-mode-button.selectors';
 export * from './history/components/completed-games-list/completed-game-item.selectors';
 export * from './history/components/history-difficulty/history-difficulty.selectors';
