@@ -1,5 +1,6 @@
 import { isDefined, isNotEmptyArray } from '@rnw-community/shared';
 
+import type { CandidateEliminationInterface } from '../../interfaces/candidate-elimination.interface';
 import type { CandidateUnitInterface } from '../../interfaces/candidate-unit.interface';
 import type { CandidateMapType } from '../../types/candidate-map.type';
 import type { CellInterface, FieldInterface, Sudoku, SudokuConfigInterface } from '@suuudokuuu/generator';
@@ -39,6 +40,27 @@ export class CandidateContext {
 
     getCandidates(cell: CellInterface): readonly number[] {
         return this.candidateMap[CandidateContext.getCellKey(cell)];
+    }
+
+    withEliminations(eliminations: CandidateEliminationInterface[]): CandidateContext {
+        const eliminatedValuesByCellKey: Record<string, number[]> = {};
+
+        for (const elimination of eliminations) {
+            const key = CandidateContext.getCellKey(elimination.cell);
+
+            eliminatedValuesByCellKey[key] = [...(eliminatedValuesByCellKey[key] ?? []), elimination.value];
+        }
+
+        const candidateMap: CandidateMapType = {};
+
+        for (const cell of this.cells) {
+            const key = CandidateContext.getCellKey(cell);
+            const eliminatedValues = eliminatedValuesByCellKey[key] ?? [];
+
+            candidateMap[key] = this.candidateMap[key].filter(candidate => !eliminatedValues.includes(candidate));
+        }
+
+        return new CandidateContext(this.config, this.field, candidateMap);
     }
 
     isBlankCell(cell: CellInterface): boolean {

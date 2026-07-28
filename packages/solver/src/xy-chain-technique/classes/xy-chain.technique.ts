@@ -2,11 +2,12 @@ import { isDefined } from '@rnw-community/shared';
 
 import { XY_CHAIN_MAX_VISITS_PER_ROOT, XY_CHAIN_MIN_CELLS } from '../../@generic/constants/chain-scan.constant';
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
+import { collectChainResults } from '../../@generic/utils/collect-chain-results.util';
 import { createEliminationResults } from '../../@generic/utils/create-elimination-results.util';
 import { getBivalueCells } from '../../@generic/utils/get-bivalue-cells.util';
 import { getCanonicalTechniqueResults } from '../../@generic/utils/get-canonical-technique-results.util';
 import { getChainEndpointEliminations } from '../../@generic/utils/get-chain-endpoint-eliminations.util';
-import { getSearchEliminationValues } from '../../@generic/utils/get-search-elimination-values.util';
+import { getSearchScope } from '../../@generic/utils/get-search-scope.util';
 import { getTargetEliminations } from '../../@generic/utils/get-target-eliminations.util';
 import { isBivalueCell } from '../../@generic/utils/is-bivalue-cell.util';
 import { isSameCell } from '../../@generic/utils/is-same-cell.util';
@@ -24,40 +25,38 @@ const compareCells = (firstCell: CellInterface, secondCell: CellInterface): numb
 export class XYChainTechnique implements TechniqueStrategyInterface {
     readonly technique = SolutionTechniqueEnum.XYChain;
 
-    find(context: CandidateContext, target?: TechniqueSearchTargetInterface): TechniqueResultInterface[] {
-        const results: TechniqueResultInterface[] = [];
-        const eliminationValues = getSearchEliminationValues(context, target);
+    find(context: CandidateContext, searchTarget?: TechniqueSearchTargetInterface): TechniqueResultInterface[] {
+        const scope = getSearchScope(context, searchTarget);
 
-        for (const eliminationValue of eliminationValues) {
+        return collectChainResults(scope, (eliminationValue, results) => {
+            const target = scope.directTarget;
+
             for (const root of this.getRoots(context, eliminationValue, target)) {
-                const linkValue = context.getCandidates(root).find(candidate => candidate !== eliminationValue);
+                const scan = { context, eliminationValue, results, target, linkVisits: 0, resultsAtStart: results.length };
 
-                if (isDefined(linkValue)) {
-                    const scan = {
-                        context,
-                        eliminationValue,
-                        results,
-                        target,
-                        linkVisits: 0,
-                        resultsAtStart: results.length
-                    };
-
-                    this.collectXYChainResults(scan, [root], linkValue);
-
-                    if (scan.target && scan.results.length > scan.resultsAtStart) {
-                        break;
-                    }
-
-                    scan.results.splice(0, scan.results.length, ...getCanonicalTechniqueResults(scan.results));
+                if (this.collectRootResults(scan, root)) {
+                    return;
                 }
             }
+        });
+    }
 
-            if (target && results.length > 0) {
-                return results;
-            }
+    private collectRootResults(scan: XYChainScanInterface, root: CellInterface): boolean {
+        const linkValue = scan.context.getCandidates(root).find(candidate => candidate !== scan.eliminationValue);
+
+        if (!isDefined(linkValue)) {
+            return false;
         }
 
-        return target ? results : getCanonicalTechniqueResults(results);
+        this.collectXYChainResults(scan, [root], linkValue);
+
+        if (scan.target && scan.results.length > scan.resultsAtStart) {
+            return true;
+        }
+
+        scan.results.splice(0, scan.results.length, ...getCanonicalTechniqueResults(scan.results));
+
+        return false;
     }
 
     private getRoots(context: CandidateContext, eliminationValue: number, target?: TechniqueSearchTargetInterface): CellInterface[] {

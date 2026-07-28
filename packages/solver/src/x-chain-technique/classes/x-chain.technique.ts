@@ -2,10 +2,11 @@ import { isDefined } from '@rnw-community/shared';
 
 import { X_CHAIN_MAX_VISITS_PER_ROOT, X_CHAIN_MIN_CELLS } from '../../@generic/constants/chain-scan.constant';
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
+import { collectChainResults } from '../../@generic/utils/collect-chain-results.util';
 import { createEliminationResults } from '../../@generic/utils/create-elimination-results.util';
 import { getCanonicalTechniqueResults } from '../../@generic/utils/get-canonical-technique-results.util';
 import { getChainEndpointEliminations } from '../../@generic/utils/get-chain-endpoint-eliminations.util';
-import { getSearchEliminationValues } from '../../@generic/utils/get-search-elimination-values.util';
+import { getSearchScope } from '../../@generic/utils/get-search-scope.util';
 import { getTargetEliminations } from '../../@generic/utils/get-target-eliminations.util';
 import { getUniqueCells } from '../../@generic/utils/get-unique-cells.util';
 import { isSameCell } from '../../@generic/utils/is-same-cell.util';
@@ -25,16 +26,14 @@ const compareCells = (firstCell: CellInterface, secondCell: CellInterface): numb
 export class XChainTechnique implements TechniqueStrategyInterface {
     readonly technique = SolutionTechniqueEnum.XChain;
 
-    find(context: CandidateContext, target?: TechniqueSearchTargetInterface): TechniqueResultInterface[] {
-        const results: TechniqueResultInterface[] = [];
-        const eliminationValues = getSearchEliminationValues(context, target);
+    find(context: CandidateContext, searchTarget?: TechniqueSearchTargetInterface): TechniqueResultInterface[] {
+        const scope = getSearchScope(context, searchTarget);
 
-        for (const eliminationValue of eliminationValues) {
-            const strongLinks = this.getStrongLinks(context, eliminationValue);
-            const roots = this.getRoots(context, eliminationValue, target);
+        return collectChainResults(scope, (eliminationValue, results) => {
+            const target = scope.directTarget;
             const scan = {
                 context,
-                strongLinks,
+                strongLinks: this.getStrongLinks(context, eliminationValue),
                 value: eliminationValue,
                 results,
                 target,
@@ -42,14 +41,8 @@ export class XChainTechnique implements TechniqueStrategyInterface {
                 resultsAtStart: results.length
             };
 
-            this.collectResults(roots, scan);
-
-            if (target && results.length > 0) {
-                return results;
-            }
-        }
-
-        return target ? results : getCanonicalTechniqueResults(results);
+            this.collectResults(this.getRoots(context, eliminationValue, target), scan);
+        });
     }
 
     private getRoots(context: CandidateContext, value: number, target?: TechniqueSearchTargetInterface): CellInterface[] {
