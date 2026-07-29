@@ -17,8 +17,8 @@ export const ChallengeStatCountBadge = ({ count, testID }: Props) => {
     const countStyle = [styles.count, { color: theme.colors.redFillText }];
 
     return (
-        <View style={badgeStyle} testID={testID}>
-            <Text allowFontScaling={false} style={countStyle}>
+        <View style={badgeStyle}>
+            <Text allowFontScaling={false} style={countStyle} testID={testID}>
                 {count}
             </Text>
         </View>

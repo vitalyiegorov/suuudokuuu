@@ -63,19 +63,16 @@ appId: ${APP_ID}
 - assertVisible: 'Pencil marks'
 # This flow pencils the candidate 2 in once before placing the value, so the run
 # records exactly one pencil action.
-- copyTextFrom:
+- assertVisible:
       id: 'ChallengeRunStatsSelectors.PencilTile.Count'
-- assertTrue:
-      condition: ${maestro.copiedText === '1'}
-      label: Penciling a single candidate counts as exactly one pencil action
+      text: '1'
 - assertVisible:
       id: 'ChallengeRunStatsSelectors.ExitsTile'
 - assertVisible: '.*20s away.*'
-- copyTextFrom:
+# The fixture holds a single background period, so the exit badge stays at one.
+- assertVisible:
       id: 'ChallengeRunStatsSelectors.ExitsTile.Count'
-- assertTrue:
-      condition: ${maestro.copiedText === '1'}
-      label: The single recorded background period counts as exactly one exit
+      text: '1'
 - assertNotVisible:
       id: 'ChallengeRunStatsSelectors.CleanRunTile'
 - assertNotVisible:
