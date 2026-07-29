@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.69.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.69.1...v1.69.2) (2026-07-29)
+
+### Bug Fixes
+
+- **app:** preserve the complete game setup when playing again ([#231](https://github.com/vitalyiegorov/suuudokuuu/issues/231)) ([4779504](https://github.com/vitalyiegorov/suuudokuuu/commit/47795042002038f66092d1e0ea2d876d04787fec))
+
 ## [1.69.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.69.0...v1.69.1) (2026-07-29)
 
 ### Bug Fixes
