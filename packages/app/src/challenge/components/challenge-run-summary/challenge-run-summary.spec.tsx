@@ -95,7 +95,13 @@ describe('ChallengeRunSummary', () => {
     it('should report the pencil marks of the recorded run', async () => {
         await renderRecordedRun(interruptedRunEvents, 60);
 
-        expect(screen.getByTestId(ChallengeRunStatsSelectors.PencilTile)).toHaveTextContent(/Pencil marks/u);
+        expect(screen.getByTestId(`${ChallengeRunStatsSelectors.PencilTile}.Count`)).toHaveTextContent('1');
+    });
+
+    it('should spell out a run solved without a single pencil mark', async () => {
+        await renderRecordedRun(cleanRunEvents, 40);
+
+        expect(screen.getByTestId(`${ChallengeRunStatsSelectors.PencilTile}.Count`)).toHaveTextContent('0');
     });
 
     it('should report screenshots taken during the run', async () => {
