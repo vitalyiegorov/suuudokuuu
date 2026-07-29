@@ -12,6 +12,7 @@ import { ChallengeAcceptScreen } from '../../../challenge/components/challenge-a
 import { GameContext } from '../../../game/context/game.context';
 import { decodeSharedGameState } from '../../../game/utils/decode-shared-game-state.util';
 
+import { SharedScreenSelectors } from './shared-screen.selectors';
 import { SharedScreenStyles as styles } from './shared-screen.styles';
 
 interface Props {
@@ -45,7 +46,7 @@ export const SharedScreen = ({ stateString }: Props) => {
     const resumeSummary = `${resumeTimeText} · ${String(gameState.score)}`;
 
     return (
-        <View style={styles.container}>
+        <View style={styles.container} testID={SharedScreenSelectors.Root}>
             <View style={styles.headerColumn}>
                 <Header text={headerText} />
 
@@ -53,7 +54,7 @@ export const SharedScreen = ({ stateString }: Props) => {
             </View>
 
             <View style={styles.buttonsWrapper}>
-                <BlackButton onPress={handleOpenPuzzle} text={confirmText} />
+                <BlackButton onPress={handleOpenPuzzle} testID={SharedScreenSelectors.ConfirmButton} text={confirmText} />
                 <BlackButton href="/" text={t`Cancel`} />
             </View>
         </View>

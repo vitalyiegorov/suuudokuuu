@@ -11,6 +11,7 @@ import { ThemeContext } from '../../../theme/context/theme.context';
 import { gameCandidatesSelector } from '../../store/game.selectors';
 import { DigitButtonStyles } from '../../styles/digit-button.styles';
 
+import { CandidateInputItemSelectors as selectors } from './candidate-input-item.selectors';
 import { CandidateInputItemStyles as styles } from './candidate-input-item.styles';
 
 import type { OnEventFn } from '@rnw-community/shared';
@@ -66,8 +67,12 @@ export const CandidateInputItem = (props: Props) => {
     const containerStyles = [DigitButtonStyles.container, sizeStyle];
 
     return (
-        <View style={containerStyles}>
-            <ReanimatedPressable style={buttonStyles} {...(canPress && !isExhausted && { onPress: handlePress })}>
+        <View style={containerStyles} testID={selectors.Root}>
+            <ReanimatedPressable
+                style={buttonStyles}
+                testID={`${selectors.Button}.${value}`}
+                {...(canPress && !isExhausted && { onPress: handlePress })}
+            >
                 <Text allowFontScaling={false} style={textStyles}>
                     {value}
                 </Text>

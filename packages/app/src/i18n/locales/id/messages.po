@@ -28,6 +28,7 @@ msgid "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
 msgstr "{arsenalCardCount, plural, one {# teknik} other {# teknik}}"
 
 #: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
+#: src/challenge/components/challenge-recording-stats/challenge-recording-stats.tsx
 msgid "{awaySeconds}s away"
 msgstr "{awaySeconds}s di luar aplikasi"
 
@@ -38,6 +39,10 @@ msgstr "{durationText} lebih cepat"
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} slower"
 msgstr "{durationText} lebih lambat"
+
+#: src/challenge/components/challenge-recording-stats/challenge-recording-stats.tsx
+msgid "{exitCount, plural, one {# exit} other {# exits}}"
+msgstr "{exitCount, plural, other {# kali keluar}}"
 
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "{filledCells}/{totalCells} filled"
@@ -54,6 +59,10 @@ msgstr "{keyMoveCount, plural, one {# langkah kunci} other {# langkah kunci}}"
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
 msgstr "{mistakes, plural, one {# kesalahan} other {# kesalahan}}"
+
+#: src/challenge/components/challenge-recording-stats/challenge-recording-stats.tsx
+msgid "{pencilCount, plural, one {# pencil action} other {# pencil actions}}"
+msgstr "{pencilCount, plural, other {# catatan pensil}}"
 
 #: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
 msgid "{sharpCount, plural, one {# sharp technique} other {# sharp techniques}}"
@@ -941,7 +950,7 @@ msgstr "Lawan menantangmu"
 msgid "Rival's arsenal"
 msgstr "Senjata lawan"
 
-#: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Rival's playbook"
 msgstr "Strategi lawan"
 
@@ -1387,9 +1396,17 @@ msgstr "Permainan terbaikmu"
 msgid "Your browser may ask for permission to install unknown apps. Android will also show an operating-system security warning before installation."
 msgstr "Browser Anda mungkin meminta izin untuk menginstal aplikasi dari sumber tidak dikenal. Android juga akan menampilkan peringatan keamanan sistem operasi sebelum penginstalan."
 
+#: src/challenge/components/challenge-recording-summary/challenge-recording-summary.tsx
+msgid "Your playbook"
+msgstr "Strategimu"
+
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Your progress"
 msgstr "Progres Anda"
+
+#: src/challenge/components/challenge-recording-summary/challenge-recording-summary.tsx
+msgid "Your recording"
+msgstr "Rekamanmu"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Your rival was faster"

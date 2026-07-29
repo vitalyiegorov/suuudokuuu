@@ -15,9 +15,10 @@ import type { ChallengeTechniqueEventInterface } from '../../interfaces/challeng
 
 interface Props {
     readonly events: ChallengeTechniqueEventInterface[];
+    readonly label: string;
 }
 
-export const ChallengeTechniqueBreakdown = ({ events }: Props) => {
+export const ChallengeTechniqueBreakdown = ({ events, label }: Props) => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
 
@@ -38,7 +39,7 @@ export const ChallengeTechniqueBreakdown = ({ events }: Props) => {
         <View style={styles.container}>
             <View style={styles.header}>
                 <Text allowFontScaling={false} style={labelStyle}>
-                    {t`Rival's playbook`}
+                    {label}
                 </Text>
                 <Text allowFontScaling={false} style={headlineStyle}>
                     {headlineText}

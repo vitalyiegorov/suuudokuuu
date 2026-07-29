@@ -28,6 +28,7 @@ msgid "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
 msgstr "{arsenalCardCount, plural, one {# तकनीक} other {# तकनीकें}}"
 
 #: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
+#: src/challenge/components/challenge-recording-stats/challenge-recording-stats.tsx
 msgid "{awaySeconds}s away"
 msgstr "{awaySeconds}s बाहर"
 
@@ -38,6 +39,10 @@ msgstr "{durationText} तेज़"
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} slower"
 msgstr "{durationText} धीमा"
+
+#: src/challenge/components/challenge-recording-stats/challenge-recording-stats.tsx
+msgid "{exitCount, plural, one {# exit} other {# exits}}"
+msgstr "{exitCount, plural, one {# बार ऐप छोड़ा} other {# बार ऐप छोड़ा}}"
 
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "{filledCells}/{totalCells} filled"
@@ -54,6 +59,10 @@ msgstr "{keyMoveCount, plural, one {# मुख्य चाल} other {# मु
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
 msgstr "{mistakes, plural, one {# गलती} other {# गलतियाँ}}"
+
+#: src/challenge/components/challenge-recording-stats/challenge-recording-stats.tsx
+msgid "{pencilCount, plural, one {# pencil action} other {# pencil actions}}"
+msgstr "{pencilCount, plural, one {# पेंसिल नोट} other {# पेंसिल नोट}}"
 
 #: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
 msgid "{sharpCount, plural, one {# sharp technique} other {# sharp techniques}}"
@@ -941,7 +950,7 @@ msgstr "विरोधी ने आपको चुनौती दी"
 msgid "Rival's arsenal"
 msgstr "विरोधी का शस्त्रागार"
 
-#: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Rival's playbook"
 msgstr "विरोधी की रणनीति"
 
@@ -1387,9 +1396,17 @@ msgstr "आपकी सर्वश्रेष्ठ पारी"
 msgid "Your browser may ask for permission to install unknown apps. Android will also show an operating-system security warning before installation."
 msgstr "आपका ब्राउज़र अज्ञात स्रोतों के ऐप इंस्टॉल करने की अनुमति माँग सकता है। इंस्टॉल करने से पहले Android ऑपरेटिंग सिस्टम की सुरक्षा चेतावनी भी दिखाएगा।"
 
+#: src/challenge/components/challenge-recording-summary/challenge-recording-summary.tsx
+msgid "Your playbook"
+msgstr "आपकी रणनीति"
+
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Your progress"
 msgstr "आपकी प्रगति"
+
+#: src/challenge/components/challenge-recording-summary/challenge-recording-summary.tsx
+msgid "Your recording"
+msgstr "आपकी रिकॉर्डिंग"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Your rival was faster"

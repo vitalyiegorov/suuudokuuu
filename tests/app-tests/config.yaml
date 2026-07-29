@@ -20,3 +20,4 @@ executionOrder:
         - 07.background-foreground-game.flow
         - 08.challenge-accept-preview.flow
         - 09.challenge-mode-run.flow
+        - 10.challenge-recording-summary.flow

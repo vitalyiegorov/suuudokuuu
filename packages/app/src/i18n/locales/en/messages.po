@@ -30,6 +30,7 @@ msgid "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
 msgstr "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
 
 #: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
+#: src/challenge/components/challenge-recording-stats/challenge-recording-stats.tsx
 msgid "{awaySeconds}s away"
 msgstr "{awaySeconds}s away"
 
@@ -40,6 +41,10 @@ msgstr "{durationText} faster"
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} slower"
 msgstr "{durationText} slower"
+
+#: src/challenge/components/challenge-recording-stats/challenge-recording-stats.tsx
+msgid "{exitCount, plural, one {# exit} other {# exits}}"
+msgstr "{exitCount, plural, one {# exit} other {# exits}}"
 
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "{filledCells}/{totalCells} filled"
@@ -56,6 +61,10 @@ msgstr "{keyMoveCount, plural, one {# key move} other {# key moves}}"
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
 msgstr "{mistakes, plural, one {# mistake} other {# mistakes}}"
+
+#: src/challenge/components/challenge-recording-stats/challenge-recording-stats.tsx
+msgid "{pencilCount, plural, one {# pencil action} other {# pencil actions}}"
+msgstr "{pencilCount, plural, one {# pencil action} other {# pencil actions}}"
 
 #: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
 msgid "{sharpCount, plural, one {# sharp technique} other {# sharp techniques}}"
@@ -943,7 +952,7 @@ msgstr "Rival challenged you"
 msgid "Rival's arsenal"
 msgstr "Rival's arsenal"
 
-#: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Rival's playbook"
 msgstr "Rival's playbook"
 
@@ -1389,9 +1398,17 @@ msgstr "Your best run"
 msgid "Your browser may ask for permission to install unknown apps. Android will also show an operating-system security warning before installation."
 msgstr "Your browser may ask for permission to install unknown apps. Android will also show an operating-system security warning before installation."
 
+#: src/challenge/components/challenge-recording-summary/challenge-recording-summary.tsx
+msgid "Your playbook"
+msgstr "Your playbook"
+
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Your progress"
 msgstr "Your progress"
+
+#: src/challenge/components/challenge-recording-summary/challenge-recording-summary.tsx
+msgid "Your recording"
+msgstr "Your recording"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Your rival was faster"

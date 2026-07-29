@@ -30,6 +30,7 @@ msgid "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
 msgstr "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
 
 #: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
+#: src/challenge/components/challenge-recording-stats/challenge-recording-stats.tsx
 msgid "{awaySeconds}s away"
 msgstr "{awaySeconds}s absent"
 
@@ -40,6 +41,10 @@ msgstr "{durationText} plus rapide"
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} slower"
 msgstr "{durationText} plus lent"
+
+#: src/challenge/components/challenge-recording-stats/challenge-recording-stats.tsx
+msgid "{exitCount, plural, one {# exit} other {# exits}}"
+msgstr "{exitCount, plural, one {# sortie} other {# sorties}}"
 
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "{filledCells}/{totalCells} filled"
@@ -56,6 +61,10 @@ msgstr "{keyMoveCount, plural, one {# coup clé} other {# coups clés}}"
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
 msgstr "{mistakes, plural, one {# erreur} other {# erreurs}}"
+
+#: src/challenge/components/challenge-recording-stats/challenge-recording-stats.tsx
+msgid "{pencilCount, plural, one {# pencil action} other {# pencil actions}}"
+msgstr "{pencilCount, plural, one {# annotation} other {# annotations}}"
 
 #: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
 msgid "{sharpCount, plural, one {# sharp technique} other {# sharp techniques}}"
@@ -943,7 +952,7 @@ msgstr "Le rival t'a défié"
 msgid "Rival's arsenal"
 msgstr "Arsenal du rival"
 
-#: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Rival's playbook"
 msgstr "Stratégie du rival"
 
@@ -1389,9 +1398,17 @@ msgstr "Ta meilleure partie"
 msgid "Your browser may ask for permission to install unknown apps. Android will also show an operating-system security warning before installation."
 msgstr "Votre navigateur peut demander l’autorisation d’installer des applications de source inconnue. Android affichera également un avertissement de sécurité du système d’exploitation avant l’installation."
 
+#: src/challenge/components/challenge-recording-summary/challenge-recording-summary.tsx
+msgid "Your playbook"
+msgstr "Votre stratégie"
+
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Your progress"
 msgstr "Votre progression"
+
+#: src/challenge/components/challenge-recording-summary/challenge-recording-summary.tsx
+msgid "Your recording"
+msgstr "Votre enregistrement"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Your rival was faster"
