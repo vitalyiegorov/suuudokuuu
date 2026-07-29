@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.69.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.68.1...v1.69.0) (2026-07-29)
+
+### Features
+
+- **app:** show a recorded challenge summary before sharing ([#230](https://github.com/vitalyiegorov/suuudokuuu/issues/230)) ([7f7c18e](https://github.com/vitalyiegorov/suuudokuuu/commit/7f7c18ee987b8fea17d944b30501c88c93782d79))
+
 ## [1.68.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.68.0...v1.68.1) (2026-07-28)
 
 ### Bug Fixes
