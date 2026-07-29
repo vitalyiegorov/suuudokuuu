@@ -61,9 +61,13 @@ appId: ${APP_ID}
       visibilityPercentage: 50
       timeout: 15000
 - assertVisible: 'Pencil marks'
-# The fixture records no pencil marks, so the tile carries its label without a count badge.
-- assertNotVisible:
+# This flow pencils the candidate 2 in once before placing the value, so the run
+# records exactly one pencil action.
+- copyTextFrom:
       id: 'ChallengeRunStatsSelectors.PencilTile.Count'
+- assertTrue:
+      condition: ${maestro.copiedText === '1'}
+      label: Penciling a single candidate counts as exactly one pencil action
 - assertVisible:
       id: 'ChallengeRunStatsSelectors.ExitsTile'
 - assertVisible: '.*20s away.*'

@@ -16,7 +16,7 @@ appId: ${APP_ID}
 - assertVisible: '03:50'
 - assertVisible:
       id: 'ChallengeAcceptScreenSelectors.Timeline'
-- assertVisible: '.*28 key moves.*'
+- assertVisible: 'Taller marks = sharper techniques'
 # The arsenal grid sits below the fold on the shorter Android viewport, dimmed behind
 # the floating accept/decline footer, so its Root/Card ids are off-screen on entry.
 # Scroll the "AIC" label into view first (iOS passes only because of its taller
