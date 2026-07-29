@@ -37,6 +37,9 @@
     "dependencies": {
         "@rnw-community/shared": "^2.2.0"
     },
+    "devDependencies": {
+        "@testing-library/react-native": "^14.0.1"
+    },
     "peerDependencies": {
         "lucide-react-native": "^1.21.0",
         "react": "19.2.3",

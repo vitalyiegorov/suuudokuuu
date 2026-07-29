@@ -5025,6 +5025,7 @@ __metadata:
   resolution: "@suuudokuuu/ui@workspace:packages/ui"
   dependencies:
     "@rnw-community/shared": "npm:^2.2.0"
+    "@testing-library/react-native": "npm:^14.0.1"
   peerDependencies:
     lucide-react-native: ^1.21.0
     react: 19.2.3

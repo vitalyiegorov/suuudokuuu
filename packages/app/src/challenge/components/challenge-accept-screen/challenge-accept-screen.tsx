@@ -30,10 +30,11 @@ const RIVAL_INITIAL = 'R';
 interface Props {
     readonly opponentTotalTime: number;
     readonly challengeState: string;
+    readonly isLoading: boolean;
     readonly onAccept: () => void;
 }
 
-export const ChallengeAcceptScreen = ({ opponentTotalTime, challengeState, onAccept }: Props) => {
+export const ChallengeAcceptScreen = ({ opponentTotalTime, challengeState, isLoading, onAccept }: Props) => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
     const opponentTotalTimeText = useTimerText(opponentTotalTime);
@@ -67,7 +68,12 @@ export const ChallengeAcceptScreen = ({ opponentTotalTime, challengeState, onAcc
 
     const footer = (
         <ScreenActionBar right={maybeLaterButton}>
-            <BlackButton onPress={onAccept} testID={ChallengeAcceptScreenSelectors.AcceptButton} text={t`Accept challenge`} />
+            <BlackButton
+                isLoading={isLoading}
+                onPress={onAccept}
+                testID={ChallengeAcceptScreenSelectors.AcceptButton}
+                text={t`Accept challenge`}
+            />
         </ScreenActionBar>
     );
 
