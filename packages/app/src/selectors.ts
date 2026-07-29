@@ -10,6 +10,7 @@ export * from './challenge/components/challenge-result-footer/challenge-result-f
 export * from './challenge/components/challenge-try-again-button/challenge-try-again-button.selectors';
 export * from './game/components/available-values-item/available-value-item.selectors';
 export * from './game/components/candidate-input-item/candidate-input-item.selectors';
+export * from './game/components/difficulty-complexity-slider/difficulty-complexity-option/difficulty-complexity-option.selectors';
 export * from './game/components/input-mode-button/input-mode-button.selectors';
 export * from './history/components/completed-games-list/completed-game-item.selectors';
 export * from './history/components/history-difficulty/history-difficulty.selectors';
@@ -21,6 +22,7 @@ export * from './screens/components/history-screen/history-screen.selectors';
 export * from './screens/components/home-screen/home-screen.selectors';
 export * from './screens/components/loser-screen/loser-screen.selectors';
 export * from './screens/components/pause-screen/pause-screen.selectors';
+export * from './screens/components/privacy-policy-screen/privacy-policy-screen.selectors';
 export * from './screens/components/beta-screen/beta-screen.selectors';
 export * from './screens/components/settings-screen/settings-screen.selectors';
 export * from './screens/components/shared-screen/shared-screen.selectors';

@@ -34,6 +34,7 @@ import {
 } from '../../../game/store/game.actions';
 import {
     gameChallengeTimeSelector,
+    gameDifficultySelector,
     gameElapsedTimeSelector,
     gameHasRivalSelector,
     gameInputModeSelector,
@@ -83,6 +84,7 @@ export const GameScreen = () => {
     const hasRival = useAppSelector(gameHasRivalSelector);
     const isChallengeRun = useAppSelector(gameIsChallengeRunSelector);
     const challengeTime = useAppSelector(gameChallengeTimeSelector);
+    const difficulty = useAppSelector(gameDifficultySelector);
     const elapsedTime = useAppSelector(gameElapsedTimeSelector);
 
     const availableValuesRefs = useRef<Record<number, AvailableValuesItemRef | null>>({});
@@ -128,7 +130,7 @@ export const GameScreen = () => {
     const handleLostGame = () => {
         hapticImpact(ImpactFeedbackStyle.Heavy);
 
-        dispatch(gameFinishAction({ difficulty: sudoku.Difficulty, isWon: false, isChallenge: hasRival }));
+        dispatch(gameFinishAction({ difficulty, isWon: false, isChallenge: hasRival }));
 
         router.replace(gameScreenGetLostRoute(hasRival));
     };
@@ -138,7 +140,7 @@ export const GameScreen = () => {
 
         const wonChallenge = hasRival && elapsedTime < challengeTime;
 
-        dispatch(gameFinishAction({ difficulty: sudoku.Difficulty, isWon: true, isChallenge: wonChallenge }));
+        dispatch(gameFinishAction({ difficulty, isWon: true, isChallenge: wonChallenge }));
 
         // HINT: We need to wait for the animation to finish, animation finish event would fix it?
         setTimeout(() => void router.replace(gameScreenGetWonRoute(hasRival, wonChallenge)), 10 * animationDurationConstant);

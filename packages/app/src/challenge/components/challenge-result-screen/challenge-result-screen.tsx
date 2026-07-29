@@ -11,10 +11,10 @@ import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
 import { getMistakesTypeText } from '../../../@generic/utils/get-mistakes-type-text.util';
 import { GameState } from '../../../game/store/game.state';
+import { stringToGameState } from '../../../game/utils/string-to-game-state.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { ChallengeLossReason } from '../../enums/challenge-loss-reason.enum';
 import { ChallengeResult } from '../../interfaces/challenge-result.interface';
-import { getChallengeDifficulty } from '../../utils/get-challenge-difficulty.util';
 import { getChallengeDurationParts } from '../../utils/get-challenge-duration-parts.util';
 import { getChallengeRecordingSummary } from '../../utils/get-challenge-recording-summary.util';
 import { getChallengeRivalRunSummary } from '../../utils/get-challenge-rival-run-summary.util';
@@ -53,6 +53,7 @@ export const ChallengeResultScreen = (props: Props) => {
     const durationParts = getChallengeDurationParts(marginSeconds);
     const playerSummary = getChallengeRecordingSummary(timelineEvents, elapsedTime);
     const rivalSummary = getChallengeRivalRunSummary(challengeState, challengeTime);
+    const rivalGameState = stringToGameState(challengeState);
     const lostByMistakes = result === ChallengeResult.Lost && lossReason === ChallengeLossReason.Mistakes;
     const lostByTime = result === ChallengeResult.Lost && lossReason === ChallengeLossReason.Time;
 
@@ -67,7 +68,7 @@ export const ChallengeResultScreen = (props: Props) => {
         flavorText = lostByMistakes ? t`Out of mistakes` : t`Your rival was faster`;
     }
 
-    const difficultyText = getDifficultyText(getChallengeDifficulty(challengeState));
+    const difficultyText = getDifficultyText(rivalGameState.difficulty);
     const mistakesText = getMistakesTypeText(maxMistakes);
     const badgeText = `${flavorText} · ${difficultyText} · ${mistakesText}`;
 

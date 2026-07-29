@@ -68,7 +68,9 @@ describe('WinnerScreen', () => {
 
     it('starts the same completed-game setup without returning to game setup', () => {
         expect(source).toContain('GameContext');
-        expect(source).toContain('create(difficulty, gameState.maxMistakes)');
+        expect(source).toContain('create(retrySetup)');
+        expect(source).toContain('retrySetup={retrySetup}');
         expect(source).toContain('<PlayAgainButton isLoading={isCreatingGame} onPress={handlePlayAgain}');
+        expect(source).not.toContain('sudoku.Difficulty');
     });
 });

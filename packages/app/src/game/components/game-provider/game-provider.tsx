@@ -1,7 +1,7 @@
 import { i18n } from '@lingui/core';
 import { useLingui } from '@lingui/react/macro';
 import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
-import { useRouter } from 'expo-router';
+import { usePathname, useRouter } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
 
 import { getErrorMessage, isNotEmptyString } from '@rnw-community/shared';
@@ -14,8 +14,8 @@ import { GameContext } from '../../context/game.context';
 import { gameLoadAction, gameResetAction, gameResumeAction, gameStartAction } from '../../store/game.actions';
 import { gameSudokuStringSelector } from '../../store/game.selectors';
 
+import type { GameSetupInterface } from '../../interface/game-setup.interface';
 import type { GameState } from '../../store/game.state';
-import type { DifficultyEnum } from '@suuudokuuu/generator';
 import type { ReactNode } from 'react';
 
 interface Props {
@@ -27,7 +27,9 @@ export const GameProvider = ({ children }: Props) => {
     const router = useRouter();
     const { t } = useLingui();
 
+    const pathname = usePathname();
     const isCreatingGameRef = useRef(false);
+    const creationPathnameRef = useRef(pathname);
     const [isCreatingGame, setIsCreatingGame] = useState(false);
 
     const currentGameString = useAppSelector(gameSudokuStringSelector);
@@ -57,12 +59,18 @@ export const GameProvider = ({ children }: Props) => {
         return new Sudoku(defaultSudokuConfig);
     });
 
+    const finishGameCreation = () => {
+        isCreatingGameRef.current = false;
+        setIsCreatingGame(false);
+    };
+
     const runGameCreation = (operation: () => void) => {
         if (isCreatingGameRef.current) {
             return;
         }
 
         isCreatingGameRef.current = true;
+        creationPathnameRef.current = pathname;
         setIsCreatingGame(true);
 
         requestAnimationFrame(() =>
@@ -70,10 +78,8 @@ export const GameProvider = ({ children }: Props) => {
                 try {
                     operation();
                 } catch (error: unknown) {
+                    finishGameCreation();
                     showAlert(error);
-                } finally {
-                    isCreatingGameRef.current = false;
-                    setIsCreatingGame(false);
                 }
             })
         );
@@ -91,7 +97,7 @@ export const GameProvider = ({ children }: Props) => {
             router.replace('/game');
         });
 
-    const create = (difficulty: DifficultyEnum, maxMistakes: number, isChallengeRun = false) =>
+    const create = ({ difficulty, isChallengeRun, maxMistakes }: GameSetupInterface) =>
         void runGameCreation(() => {
             const newSudoku = new Sudoku(defaultSudokuConfig);
 
@@ -99,9 +105,15 @@ export const GameProvider = ({ children }: Props) => {
             setSudoku(newSudoku);
 
             const sudokuString = newSudoku.toString();
-            dispatch(gameStartAction({ maxMistakes, sudokuString, isChallengeRun }));
+            dispatch(gameStartAction({ difficulty, isChallengeRun, maxMistakes, sudokuString }));
             router.push('/game');
         });
+
+    useEffect(() => {
+        if (isCreatingGameRef.current && pathname !== creationPathnameRef.current) {
+            finishGameCreation();
+        }
+    }, [pathname]);
 
     useEffect(() => void i18n.activate(currentLanguage), [currentLanguage]);
 

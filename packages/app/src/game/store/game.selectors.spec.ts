@@ -11,6 +11,7 @@ import {
     gameChallengeTimelineEventsSelector,
     gameCompletedGameByIdSelector,
     gameCompletedGamesSelector,
+    gameDifficultySelector,
     gameElapsedTimeSelector,
     gameHasNewPersonalBestScoreSelector,
     gameHasRivalSelector,
@@ -53,6 +54,7 @@ const completedGame: CompletedGameInterface = {
 const state: GameState = {
     ...initialGameState,
     sudokuString: '123',
+    difficulty: DifficultyEnum.Hard,
     score: 7,
     mistakes: 1,
     maxMistakes: 5,
@@ -82,6 +84,7 @@ describe('game selectors', () => {
     it('projects every plain field from the game slice', () => {
         expect(gameSelector({ game: state } as never)).toBe(state);
         expect(gameSudokuStringSelector.resultFunc(state)).toBe('123');
+        expect(gameDifficultySelector.resultFunc(state)).toBe(DifficultyEnum.Hard);
         expect(gameScoreSelector.resultFunc(state)).toBe(7);
         expect(gameMistakesSelector.resultFunc(state)).toBe(1);
         expect(gameMaxMistakesSelector.resultFunc(state)).toBe(5);

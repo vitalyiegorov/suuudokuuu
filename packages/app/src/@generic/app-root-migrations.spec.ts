@@ -88,6 +88,21 @@ describe('appRootMigrations', () => {
         );
     });
 
+    it('should backfill the run difficulty of a resumed board', () => {
+        expect.assertions(1);
+
+        const nightmareGivens = '53..7....6..195....98....6.8...6...34..8.3..17...2...6.6....28....419..5....8..79';
+        const state = buildState({ game: { ...initialGameState, sudokuString: nightmareGivens } });
+
+        expect(runMigration(29, state).game.difficulty).toBe(DifficultyEnum.Nightmare);
+    });
+
+    it('should leave the default difficulty in place when no board is stored', () => {
+        expect.assertions(1);
+
+        expect(runMigration(29, buildState()).game.difficulty).toBe(initialGameState.difficulty);
+    });
+
     it('should drop stored timelines and fill new state defaults', () => {
         expect.assertions(3);
 
