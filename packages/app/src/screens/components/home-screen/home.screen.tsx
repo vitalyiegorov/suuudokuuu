@@ -4,7 +4,7 @@ import { ScreenChromeScrollView } from '@suuudokuuu/screen-chrome';
 import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { Link } from 'expo-router';
 import { use, useState } from 'react';
-import { Pressable, View } from 'react-native';
+import { Platform, Pressable, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Alert } from '../../../@generic/components/alert/alert';
@@ -145,7 +145,8 @@ export const HomeScreen = () => {
     ];
     const startButtonText = isGameStarted ? t`Start new puzzle` : t`Start puzzle`;
     const contentInsetBottom = HomeScreenBottomScrollPadding + tabBarInset;
-    const contentInsetTop = homeScreenGetContentInsetTop(safeAreaInsets.top);
+    const platformInsetTop = Platform.OS === 'ios' ? safeAreaInsets.top : 0;
+    const contentInsetTop = homeScreenGetContentInsetTop(safeAreaInsets.top, platformInsetTop);
     const mistakeCards: HomeScreenOptionCardInterface[] = mistakeOptions.map(option => {
         const isSelected = option.maxMistakes === maxMistakes;
         const optionColors = homeScreenOptionCardGetColors(theme, isSelected);
