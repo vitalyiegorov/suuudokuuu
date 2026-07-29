@@ -1,10 +1,16 @@
 appId: ${APP_ID}
 ---
+# The Android floating tab bar is drawn over the scroll content and Maestro
+# stops scrolling as soon as an element is on screen, so the button can still
+# sit under the bar and lose the tap to it. Scrolling once more settles the
+# content at its end, where the reserved bottom inset clears the bar. Centering
+# instead would hang on viewports tall enough that the content cannot scroll.
 - scrollUntilVisible:
       element:
           id: 'HomeScreenSelectors.StartButton'
       direction: DOWN
       timeout: 3000
+- scroll
 - tapOn:
       id: 'HomeScreenSelectors.StartButton'
 - extendedWaitUntil:

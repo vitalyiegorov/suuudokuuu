@@ -39,14 +39,15 @@ appId: ${APP_ID}
       notVisible:
           id: 'SettingsOptionSheetSelectors.Root'
       timeout: 3000
-# Center the footer link: the Android floating tab bar overlays the scroll
-# content, so a link that is merely on screen can still sit under the bar
-# and lose the tap to it.
+# The Android floating tab bar overlays the scroll content, so a link that is
+# merely on screen can still sit under the bar and lose the tap to it. Scrolling
+# once more settles the content at its end, where the reserved bottom inset
+# clears the bar.
 - scrollUntilVisible:
       element:
           id: 'SettingsAppFooterSelectors.PrivacyPolicyLink'
       direction: DOWN
-      centerElement: true
+- scroll
 - assertVisible:
       id: 'SettingsAppFooterSelectors.ReportBugLink'
 - assertVisible:
