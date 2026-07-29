@@ -16,6 +16,7 @@ const placement = (ts: number, technique: SolutionTechniqueEnum): GameTimelineEv
     technique
 });
 const pencil = (ts: number): GameTimelineEventInterface => ({ kind: TimelineEventKindEnum.Pencil, cellIndex: 3, value: 7, ts });
+const screenshot = (ts: number): GameTimelineEventInterface => ({ kind: TimelineEventKindEnum.Screenshot, ts });
 
 describe('getChallengeRecordingSummary', () => {
     describe('techniques', () => {
@@ -128,6 +129,37 @@ describe('getChallengeRecordingSummary', () => {
             const events: GameTimelineEventInterface[] = [{ kind: TimelineEventKindEnum.Mistake, cellIndex: 2, value: 5, ts: 5 }];
 
             expect(getChallengeRecordingSummary(events, 60).pencilCount).toBe(0);
+        });
+    });
+
+    describe('screenshots', () => {
+        it('should report no screenshots when the player never captured the board', () => {
+            expect.assertions(1);
+
+            expect(getChallengeRecordingSummary([placement(10, SolutionTechniqueEnum.NakedSingle)], 60).screenshotCount).toBe(0);
+        });
+
+        it('should count a single screenshot', () => {
+            expect.assertions(1);
+
+            expect(getChallengeRecordingSummary([screenshot(10)], 60).screenshotCount).toBe(1);
+        });
+
+        it('should count every screenshot of the recording', () => {
+            expect.assertions(1);
+
+            const events = [screenshot(5), placement(5, SolutionTechniqueEnum.NakedSingle), screenshot(5), screenshot(5)];
+
+            expect(getChallengeRecordingSummary(events, 60).screenshotCount).toBe(3);
+        });
+
+        it('should keep screenshots separate from pencil actions', () => {
+            expect.assertions(2);
+
+            const summary = getChallengeRecordingSummary([screenshot(5), pencil(5)], 60);
+
+            expect(summary.screenshotCount).toBe(1);
+            expect(summary.pencilCount).toBe(1);
         });
     });
 });

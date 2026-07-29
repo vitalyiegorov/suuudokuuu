@@ -56,7 +56,7 @@ export const UkraineSupportCard = ({ context = 'neutral', testID, variant = 'fil
                 </BlackText>
             </View>
 
-            <Text adjustsFontSizeToFit allowFontScaling={false} minimumFontScale={0.78} numberOfLines={3} style={descriptionStyles}>
+            <Text allowFontScaling={false} style={descriptionStyles}>
                 {description}
             </Text>
 

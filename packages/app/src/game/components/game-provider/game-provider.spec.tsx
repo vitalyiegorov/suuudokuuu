@@ -40,6 +40,8 @@ const GameProviderWrapper = ({ children }: Props) => (
 
 const renderGameContext = () => renderHook(() => use(GameContext), { wrapper: GameProviderWrapper });
 
+const newbieGameOptions = { difficulty: DifficultyEnum.Newbie, isChallengeRun: false, maxMistakes };
+
 const buildChallengeState = () => {
     const sudoku = new Sudoku(defaultSudokuConfig);
 
@@ -61,9 +63,9 @@ describe('GameProvider', () => {
         const { result } = await renderGameContext();
 
         await act(() => {
-            result.current.create({ difficulty: DifficultyEnum.Newbie, isChallengeRun: false, maxMistakes });
-            result.current.create({ difficulty: DifficultyEnum.Newbie, isChallengeRun: false, maxMistakes });
-            result.current.create({ difficulty: DifficultyEnum.Newbie, isChallengeRun: false, maxMistakes });
+            result.current.create(newbieGameOptions);
+            result.current.create(newbieGameOptions);
+            result.current.create(newbieGameOptions);
         });
 
         await waitFor(() => void expect(mockPush).toHaveBeenCalledTimes(1));
@@ -75,7 +77,7 @@ describe('GameProvider', () => {
     it('should report itself as creating before the deferred generation runs', async () => {
         const { result, rerender } = await renderGameContext();
 
-        await act(() => void result.current.create({ difficulty: DifficultyEnum.Newbie, isChallengeRun: false, maxMistakes }));
+        await act(() => void result.current.create(newbieGameOptions));
 
         expect(result.current.isCreatingGame).toBe(true);
         expect(createSpy).not.toHaveBeenCalled();
@@ -91,10 +93,10 @@ describe('GameProvider', () => {
     it('should stay engaged until the requested screen takes over', async () => {
         const { result } = await renderGameContext();
 
-        await act(() => void result.current.create({ difficulty: DifficultyEnum.Newbie, isChallengeRun: false, maxMistakes }));
+        await act(() => void result.current.create(newbieGameOptions));
         await waitFor(() => void expect(mockPush).toHaveBeenCalledTimes(1));
 
-        await act(() => void result.current.create({ difficulty: DifficultyEnum.Newbie, isChallengeRun: false, maxMistakes }));
+        await act(() => void result.current.create(newbieGameOptions));
 
         expect(result.current.isCreatingGame).toBe(true);
         expect(createSpy).toHaveBeenCalledTimes(1);
@@ -125,14 +127,14 @@ describe('GameProvider', () => {
             throw new Error('generation failed');
         });
 
-        await act(() => void result.current.create({ difficulty: DifficultyEnum.Newbie, isChallengeRun: false, maxMistakes }));
+        await act(() => void result.current.create(newbieGameOptions));
 
         await waitFor(() => void expect(mockAlert).toHaveBeenCalledTimes(1));
 
         expect(result.current.isCreatingGame).toBe(false);
         expect(mockPush).not.toHaveBeenCalled();
 
-        await act(() => void result.current.create({ difficulty: DifficultyEnum.Newbie, isChallengeRun: false, maxMistakes }));
+        await act(() => void result.current.create(newbieGameOptions));
 
         await waitFor(() => void expect(mockPush).toHaveBeenCalledTimes(1));
     });

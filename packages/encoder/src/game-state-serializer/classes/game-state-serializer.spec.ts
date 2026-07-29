@@ -291,7 +291,9 @@ describe('GameStateSerializer', () => {
                     isChallengeRun: true,
                     score: 0,
                     candidates: {},
-                    anchorSeconds: 0
+                    anchorSeconds: 0,
+                    pencilCount: 0,
+                    screenshotCount: 0
                 })
             );
 
@@ -312,7 +314,9 @@ describe('GameStateSerializer', () => {
                     isChallengeRun: true,
                     score: 4820,
                     candidates,
-                    anchorSeconds: 1800000000
+                    anchorSeconds: 1800000000,
+                    pencilCount: 0,
+                    screenshotCount: 0
                 })
             );
 
@@ -341,7 +345,9 @@ describe('GameStateSerializer', () => {
                 isChallengeRun: false,
                 score: 0,
                 candidates: {},
-                anchorSeconds: 0
+                anchorSeconds: 0,
+                pencilCount: 0,
+                screenshotCount: 0
             });
 
             expect(encoded).toMatch(/^_[\w-]*$/u);

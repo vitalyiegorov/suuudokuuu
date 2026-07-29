@@ -11,11 +11,6 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#. placeholder {0}: ranges.length
-#: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
-msgid "{0, plural, one {# break} other {# breaks}}"
-msgstr "{0, plural, one {# বিরতি} other {# বিরতি}}"
-
 #. placeholder {0}: 0
 #. placeholder {0}: 3
 #. placeholder {0}: 99
@@ -27,8 +22,7 @@ msgstr "{0, plural, one {#টি ভুল} other {#টি ভুল}}"
 msgid "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
 msgstr "{arsenalCardCount, plural, one {#টি কৌশল} other {#টি কৌশল}}"
 
-#: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
-#: src/challenge/components/challenge-recording-stats/challenge-recording-stats.tsx
+#: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
 msgid "{awaySeconds}s away"
 msgstr "{awaySeconds}s অনুপস্থিত"
 
@@ -40,10 +34,6 @@ msgstr "{durationText} দ্রুততর"
 msgid "{durationText} slower"
 msgstr "{durationText} ধীর"
 
-#: src/challenge/components/challenge-recording-stats/challenge-recording-stats.tsx
-msgid "{exitCount, plural, one {# exit} other {# exits}}"
-msgstr "{exitCount, plural, one {# বার প্রস্থান} other {# বার প্রস্থান}}"
-
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "{filledCells}/{totalCells} filled"
 msgstr "{filledCells}/{totalCells} পূরণ"
@@ -52,19 +42,11 @@ msgstr "{filledCells}/{totalCells} পূরণ"
 msgid "{gamesCompleted, plural, one {# completed game} other {# completed games}}"
 msgstr "{gamesCompleted, plural, one {#টি সম্পন্ন খেলা} other {#টি সম্পন্ন খেলা}}"
 
-#: src/challenge/components/challenge-technique-preview/challenge-technique-preview.tsx
-msgid "{keyMoveCount, plural, one {# key move} other {# key moves}}"
-msgstr "{keyMoveCount, plural, one {#টি মূল চাল} other {#টি মূল চাল}}"
-
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
 msgstr "{mistakes, plural, one {#টি ভুল} other {#টি ভুল}}"
 
-#: src/challenge/components/challenge-recording-stats/challenge-recording-stats.tsx
-msgid "{pencilCount, plural, one {# pencil action} other {# pencil actions}}"
-msgstr "{pencilCount, plural, one {# পেনসিল নোট} other {# পেনসিল নোট}}"
-
-#: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
+#: src/challenge/components/challenge-run-summary/challenge-run-summary.tsx
 msgid "{sharpCount, plural, one {# sharp technique} other {# sharp techniques}}"
 msgstr "{sharpCount, plural, one {#টি চৌকস কৌশল} other {#টি চৌকস কৌশল}}"
 
@@ -284,6 +266,10 @@ msgstr "ভুল ছাড়া"
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Clean black-and-white board"
 msgstr "পরিষ্কার সাদা-কালো বোর্ড"
+
+#: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
+msgid "Clean run"
+msgstr "পরিষ্কার খেলা"
 
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Clean win"
@@ -829,6 +815,10 @@ msgstr "জরিমানা"
 msgid "Penalty formula"
 msgstr "জরিমানার সূত্র"
 
+#: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
+msgid "Pencil marks"
+msgstr "পেন্সিল চিহ্ন"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "per mistake"
 msgstr "প্রতি ভুলে"
@@ -951,10 +941,6 @@ msgid "Rival's arsenal"
 msgstr "প্রতিপক্ষের অস্ত্রভাণ্ডার"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Rival's playbook"
-msgstr "প্রতিপক্ষের কৌশলপত্র"
-
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Rival's run"
 msgstr "প্রতিদ্বন্দ্বীর রান"
 
@@ -989,6 +975,10 @@ msgstr "স্কোর × সহগ × সংখ্যা"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 msgstr "প্রতিটি সঠিকভাবে পূরণ করা ঘরের স্কোর কঠিনতা, বোনাস ও জরিমানার ভিত্তিতে হিসাব করা হয়।"
+
+#: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
+msgid "Screenshots"
+msgstr "স্ক্রিনশট"
 
 #: src/game/hooks/use-share-game.hook.ts
 msgid "Send the puzzle to solve from scratch, or hand off your run to continue elsewhere."
@@ -1059,7 +1049,7 @@ msgstr "কমপ্যাক্ট বোর্ডের জন্য সবচ
 msgid "Soft gray board with a paper-like feel"
 msgstr "কাগজের অনুভূতি সহ নরম ধূসর বোর্ড"
 
-#: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
+#: src/challenge/components/challenge-run-summary/challenge-run-summary.tsx
 msgid "Solved with the fundamentals"
 msgstr "মৌলিক কৌশলে সমাধান হয়েছে"
 
@@ -1234,10 +1224,6 @@ msgstr "লিংক খোলা যায়নি"
 msgid "Unable to start installation"
 msgstr "ইনস্টলেশন শুরু করা যায়নি"
 
-#: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
-msgid "Uninterrupted run"
-msgstr "নিরবচ্ছিন্ন রান"
-
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Unknown"
@@ -1396,15 +1382,11 @@ msgstr "আপনার সেরা খেলা"
 msgid "Your browser may ask for permission to install unknown apps. Android will also show an operating-system security warning before installation."
 msgstr "আপনার ব্রাউজার অজানা উৎসের অ্যাপ ইনস্টল করার অনুমতি চাইতে পারে। ইনস্টলেশনের আগে Android অপারেটিং সিস্টেমের একটি নিরাপত্তা সতর্কতাও দেখাবে।"
 
-#: src/challenge/components/challenge-recording-summary/challenge-recording-summary.tsx
-msgid "Your playbook"
-msgstr "আপনার কৌশলপত্র"
-
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Your progress"
 msgstr "আপনার অগ্রগতি"
 
-#: src/challenge/components/challenge-recording-summary/challenge-recording-summary.tsx
+#: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Your recording"
 msgstr "আপনার রেকর্ডিং"
 

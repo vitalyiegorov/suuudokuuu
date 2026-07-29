@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-export const ChallengeTechniqueArsenalStyles = StyleSheet.create({
+export const ChallengeRunStatsStyles = StyleSheet.create({
     grid: {
         gap: 20,
         width: '100%'
