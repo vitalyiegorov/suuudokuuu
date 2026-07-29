@@ -27,7 +27,7 @@ appId: ${APP_ID}
       direction: DOWN
       timeout: 5000
 - assertVisible:
-      id: 'ChallengeTechniqueArsenalSelectors.Card.26'
+      id: 'ChallengeRunStatsSelectors.TechniqueTile.26'
 - assertVisible: 'AIC'
 # The arsenal's second row sits at the very bottom of the scroll content, behind the
 # sticky accept/decline footer. Scrolling to the card stops as soon as its top edge
@@ -39,7 +39,7 @@ appId: ${APP_ID}
       direction: DOWN
       timeout: 5000
 - assertVisible:
-      id: 'ChallengeTechniqueArsenalSelectors.Card.10'
+      id: 'ChallengeRunStatsSelectors.TechniqueTile.10'
 - assertVisible: 'Hidden Pair'
 - tapOn:
       id: 'ChallengeAcceptScreenSelectors.MaybeLaterButton'

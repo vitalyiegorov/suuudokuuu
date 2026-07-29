@@ -1,4 +1,3 @@
-import { plural } from '@lingui/core/macro';
 import { useLingui } from '@lingui/react/macro';
 import { use } from 'react';
 import { Text, View } from 'react-native';
@@ -40,9 +39,7 @@ export const ChallengeTechniquePreview = ({ awayRanges = [], events, totalTime }
     }
 
     const marks = getChallengeTimelineMarks(events, TICK_COUNT, totalTime);
-    const keyMoveCount = marks.filter(mark => mark.complexity > 0).length;
-    const keyMovesText = plural(keyMoveCount, { one: '# key move', other: '# key moves' });
-    const captionText = `${t`Taller marks = sharper techniques`} · ${keyMovesText}`;
+    const captionText = t`Taller marks = sharper techniques`;
 
     const sharpestMark = marks.reduce((sharpest, mark) => (mark.complexity > sharpest.complexity ? mark : sharpest), marks[0]);
     const markerColor = sharpestMark.tier === null ? theme.colors.label.hint : getTechniqueTierColor(sharpestMark.tier, theme, 'default');

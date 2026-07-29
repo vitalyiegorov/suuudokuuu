@@ -13,12 +13,14 @@ describe('ChallengeResultScreen', () => {
         expect(source).toContain('<ChallengeResultRivalTimeCard');
     });
 
-    it('keeps an integrity badge composed into every rival comparison tape', () => {
-        expect(source).toContain('<ChallengeIntegrityBadge ranges={playerAwayRanges} />');
-        expect(source).toContain('<ChallengeIntegrityBadge ranges={rivalAwayRanges} />');
+    it('renders both runs through the shared run summary block', () => {
+        expect(source).toContain('summary={playerSummary}');
+        expect(source).toContain('summary={rivalSummary}');
+        expect(source).not.toContain('ChallengeIntegrityBadge');
     });
 
-    it('labels the technique breakdown as the rival playbook', () => {
-        expect(source).toContain("label={t`Rival's playbook`}");
+    it('derives the rival summary from a single decode of the challenge state', () => {
+        expect(source).toContain('getChallengeRivalRunSummary(challengeState, challengeTime)');
+        expect(source).not.toContain('getChallengeTechniqueEventsFromState');
     });
 });

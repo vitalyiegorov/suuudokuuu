@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-export const ChallengeTechniqueCountBadgeStyles = StyleSheet.create({
+export const ChallengeStatCountBadgeStyles = StyleSheet.create({
     badge: {
         alignItems: 'center',
         borderRadius: 999,

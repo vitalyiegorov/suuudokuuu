@@ -16,6 +16,7 @@ import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { useVibration } from '../../../@generic/hooks/use-vibration.hook';
 import { ChallengeRaceHud } from '../../../challenge/components/challenge-race-hud/challenge-race-hud';
 import { ChallengeRecordHud } from '../../../challenge/components/challenge-record-hud/challenge-record-hud';
+import { ChallengeScreenshotRecorder } from '../../../challenge/components/challenge-screenshot-recorder/challenge-screenshot-recorder';
 import { classifyTimelineMove } from '../../../challenge/utils/classify-timeline-move.util';
 import { Field, FieldRef } from '../../../game/components/field/field';
 import { GameTimerController } from '../../../game/components/game-timer-controller/game-timer-controller';
@@ -233,7 +234,12 @@ export const GameScreen = () => {
         />
     );
 
-    const challengeHud = hasRival ? <ChallengeRaceHud /> : <ChallengeRecordHud />;
+    const challengeRunElements = isChallengeRun ? (
+        <>
+            <ChallengeScreenshotRecorder />
+            {hasRival ? <ChallengeRaceHud /> : <ChallengeRecordHud />}
+        </>
+    ) : null;
 
     return (
         <Pressable
@@ -252,7 +258,7 @@ export const GameScreen = () => {
                 </View>
             </Hide>
 
-            {isChallengeRun ? challengeHud : null}
+            {challengeRunElements}
 
             <View onLayout={onBoardAreaLayout} style={styles.boardArea}>
                 <Hide mq={WideLayoutMediaQuery}>

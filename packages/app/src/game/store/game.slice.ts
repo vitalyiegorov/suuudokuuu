@@ -204,6 +204,16 @@ export const gameSlice = createSlice({
                 });
             }
         },
+        screenshot: state => {
+            if (!state.isChallengeRun) {
+                return;
+            }
+
+            state.timelineEvents.push({
+                kind: TimelineEventKindEnum.Screenshot,
+                ts: getTimelineTimestampDelta(state.timelineEvents, state.elapsedTime)
+            });
+        },
 
         // eslint-disable-next-line max-statements
         finish: (state, action: PayloadAction<{ difficulty: DifficultyEnum; isWon: boolean; isChallenge?: boolean }>) => {

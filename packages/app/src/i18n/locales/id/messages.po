@@ -11,11 +11,6 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#. placeholder {0}: ranges.length
-#: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
-msgid "{0, plural, one {# break} other {# breaks}}"
-msgstr "{0, plural, other {# jeda}}"
-
 #. placeholder {0}: 0
 #. placeholder {0}: 3
 #. placeholder {0}: 99
@@ -27,8 +22,7 @@ msgstr "{0, plural, one {# kesalahan} other {# kesalahan}}"
 msgid "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
 msgstr "{arsenalCardCount, plural, one {# teknik} other {# teknik}}"
 
-#: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
-#: src/challenge/components/challenge-recording-stats/challenge-recording-stats.tsx
+#: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
 msgid "{awaySeconds}s away"
 msgstr "{awaySeconds}s di luar aplikasi"
 
@@ -40,10 +34,6 @@ msgstr "{durationText} lebih cepat"
 msgid "{durationText} slower"
 msgstr "{durationText} lebih lambat"
 
-#: src/challenge/components/challenge-recording-stats/challenge-recording-stats.tsx
-msgid "{exitCount, plural, one {# exit} other {# exits}}"
-msgstr "{exitCount, plural, other {# kali keluar}}"
-
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "{filledCells}/{totalCells} filled"
 msgstr "{filledCells}/{totalCells} terisi"
@@ -52,19 +42,11 @@ msgstr "{filledCells}/{totalCells} terisi"
 msgid "{gamesCompleted, plural, one {# completed game} other {# completed games}}"
 msgstr "{gamesCompleted, plural, one {# game selesai} other {# game selesai}}"
 
-#: src/challenge/components/challenge-technique-preview/challenge-technique-preview.tsx
-msgid "{keyMoveCount, plural, one {# key move} other {# key moves}}"
-msgstr "{keyMoveCount, plural, one {# langkah kunci} other {# langkah kunci}}"
-
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
 msgstr "{mistakes, plural, one {# kesalahan} other {# kesalahan}}"
 
-#: src/challenge/components/challenge-recording-stats/challenge-recording-stats.tsx
-msgid "{pencilCount, plural, one {# pencil action} other {# pencil actions}}"
-msgstr "{pencilCount, plural, other {# catatan pensil}}"
-
-#: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
+#: src/challenge/components/challenge-run-summary/challenge-run-summary.tsx
 msgid "{sharpCount, plural, one {# sharp technique} other {# sharp techniques}}"
 msgstr "{sharpCount, plural, one {# teknik jitu} other {# teknik jitu}}"
 
@@ -284,6 +266,10 @@ msgstr "Tanpa salah"
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Clean black-and-white board"
 msgstr "Papan hitam-putih yang bersih"
+
+#: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
+msgid "Clean run"
+msgstr "Permainan bersih"
 
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Clean win"
@@ -829,6 +815,10 @@ msgstr "Penalti"
 msgid "Penalty formula"
 msgstr "Rumus penalti"
 
+#: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
+msgid "Pencil marks"
+msgstr "Tanda pensil"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "per mistake"
 msgstr "per kesalahan"
@@ -951,10 +941,6 @@ msgid "Rival's arsenal"
 msgstr "Senjata lawan"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Rival's playbook"
-msgstr "Strategi lawan"
-
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Rival's run"
 msgstr "Permainan lawan"
 
@@ -989,6 +975,10 @@ msgstr "skor × koefisien × jumlah"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 msgstr "Skor dihitung untuk setiap kotak benar berdasarkan tingkat kesulitan, bonus, dan penalti."
+
+#: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
+msgid "Screenshots"
+msgstr "Tangkapan layar"
 
 #: src/game/hooks/use-share-game.hook.ts
 msgid "Send the puzzle to solve from scratch, or hand off your run to continue elsewhere."
@@ -1059,7 +1049,7 @@ msgstr "Angka paling kecil untuk papan yang padat"
 msgid "Soft gray board with a paper-like feel"
 msgstr "Papan abu-abu lembut seperti kertas"
 
-#: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
+#: src/challenge/components/challenge-run-summary/challenge-run-summary.tsx
 msgid "Solved with the fundamentals"
 msgstr "Diselesaikan dengan teknik dasar"
 
@@ -1234,10 +1224,6 @@ msgstr "Tidak dapat membuka tautan"
 msgid "Unable to start installation"
 msgstr "Tidak dapat memulai penginstalan"
 
-#: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
-msgid "Uninterrupted run"
-msgstr "Permainan tanpa jeda"
-
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Unknown"
@@ -1396,15 +1382,11 @@ msgstr "Permainan terbaikmu"
 msgid "Your browser may ask for permission to install unknown apps. Android will also show an operating-system security warning before installation."
 msgstr "Browser Anda mungkin meminta izin untuk menginstal aplikasi dari sumber tidak dikenal. Android juga akan menampilkan peringatan keamanan sistem operasi sebelum penginstalan."
 
-#: src/challenge/components/challenge-recording-summary/challenge-recording-summary.tsx
-msgid "Your playbook"
-msgstr "Strategimu"
-
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Your progress"
 msgstr "Progres Anda"
 
-#: src/challenge/components/challenge-recording-summary/challenge-recording-summary.tsx
+#: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Your recording"
 msgstr "Rekamanmu"
 

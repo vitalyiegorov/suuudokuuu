@@ -20,7 +20,8 @@ export type MarkerTimelineEventKindType =
     | TimelineEventKindEnum.Away
     | TimelineEventKindEnum.Return
     | TimelineEventKindEnum.Pause
-    | TimelineEventKindEnum.Resume;
+    | TimelineEventKindEnum.Resume
+    | TimelineEventKindEnum.Screenshot;
 
 export interface MarkerTimelineEventInterface {
     kind: MarkerTimelineEventKindType;

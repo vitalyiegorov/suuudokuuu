@@ -97,7 +97,9 @@ export class GameStateSerializer {
             isChallengeRun: isChallenge,
             score: 0,
             candidates: {},
-            anchorSeconds: 0
+            anchorSeconds: 0,
+            pencilCount: null,
+            screenshotCount: null
         };
     }
 

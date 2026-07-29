@@ -52,23 +52,26 @@ appId: ${APP_ID}
           id: 'WinnerScreenSelectors.Root'
       timeout: 5000
 - assertVisible:
-      id: 'ChallengeRecordingSummarySelectors.Root'
+      id: 'ChallengeRunSummarySelectors.Root'
 
 - scrollUntilVisible:
       element:
-          id: 'ChallengeRecordingStatsSelectors.PencilValue'
+          id: 'ChallengeRunStatsSelectors.PencilTile'
       direction: DOWN
       visibilityPercentage: 50
       timeout: 15000
-- assertVisible: '.*1 pencil action.*'
+- assertVisible: 'Pencil marks'
 - assertVisible:
-      id: 'ChallengeRecordingStatsSelectors.ExitsValue'
-- assertVisible: '.*1 exit.*'
-- assertNotVisible: 'Uninterrupted run'
+      id: 'ChallengeRunStatsSelectors.ExitsTile'
+- assertVisible: '.*20s away.*'
+- assertNotVisible:
+      id: 'ChallengeRunStatsSelectors.CleanRunTile'
+- assertNotVisible:
+      id: 'ChallengeRunStatsSelectors.ScreenshotsTile'
 
 - scrollUntilVisible:
       element:
-          id: 'ChallengeTechniqueArsenalSelectors.Root'
+          id: 'ChallengeRunStatsSelectors.Root'
       direction: DOWN
       visibilityPercentage: 50
       timeout: 15000
