@@ -1,7 +1,7 @@
 appId: ${APP_ID}
 ---
 - startRecording:
-      path: '10.play-again-setup'
+      path: '11.play-again-setup'
       optional: true
 
 # Both fixtures are Hard handoff payloads with `maxMistakes: 0` and exactly two blank
@@ -18,7 +18,7 @@ appId: ${APP_ID}
           SHARED_HANDOFF_LINK: suuudokuuu://shared/_NABHQzBFw6RglyoiRQQUouMgjrAma5QGGoYAggggggggggggggggghCEIQiEIQhCEIREREREklQL1IJUTJSvlHjqmsZOolrdPSOtkgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgAAAA
 - assertVisible: '0/0'
 - assertVisible:
-      id: 'GameScreenSelectors.PauseButton'
+      id: 'GameScreenSelectors.ShareButton'
 - assertNotVisible:
       id: 'ChallengeRecordHudSelectors.Root'
 - tapOn:
@@ -38,7 +38,7 @@ appId: ${APP_ID}
       timeout: 15000
 - assertVisible: '0/0'
 - assertVisible:
-      id: 'GameScreenSelectors.PauseButton'
+      id: 'GameScreenSelectors.ShareButton'
 - assertNotVisible:
       id: 'ChallengeRecordHudSelectors.Root'
 - runFlow: subflows/game/quit-current-game.flow.yaml
@@ -51,7 +51,7 @@ appId: ${APP_ID}
 - assertVisible:
       id: 'ChallengeRecordHudSelectors.Root'
 - assertNotVisible:
-      id: 'GameScreenSelectors.PauseButton'
+      id: 'GameScreenSelectors.ShareButton'
 - tapOn:
       id: 'CellSelectors.Cell.4-1'
 - tapOn:
@@ -71,7 +71,7 @@ appId: ${APP_ID}
 - assertVisible:
       id: 'ChallengeRecordHudSelectors.Root'
 - assertNotVisible:
-      id: 'GameScreenSelectors.PauseButton'
+      id: 'GameScreenSelectors.ShareButton'
 - runFlow: subflows/game/quit-current-game.flow.yaml
 
 - stopApp
