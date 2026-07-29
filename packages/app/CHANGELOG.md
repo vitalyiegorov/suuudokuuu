@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.70.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.69.2...v1.70.0) (2026-07-29)
+
+### Features
+
+- **app,encoder:** unify challenge run analytics into stat tiles ([#233](https://github.com/vitalyiegorov/suuudokuuu/issues/233)) ([9d24d80](https://github.com/vitalyiegorov/suuudokuuu/commit/9d24d80b7ec88dbd0c44c7485ad35eaae4f74e7a))
+
 ## [1.69.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.69.1...v1.69.2) (2026-07-29)
 
 ### Bug Fixes
