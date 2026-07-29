@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.69.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.69.0...v1.69.1) (2026-07-29)
+
+### Bug Fixes
+
+- **app,ui:** make game generation single-flight across start and retry actions ([#232](https://github.com/vitalyiegorov/suuudokuuu/issues/232)) ([90881f2](https://github.com/vitalyiegorov/suuudokuuu/commit/90881f2691593d87a091c6ed39bdbfbcaeee25b5)), closes [#224](https://github.com/vitalyiegorov/suuudokuuu/issues/224)
+
 # [1.69.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.68.1...v1.69.0) (2026-07-29)
 
 ### Features
