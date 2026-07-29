@@ -1,7 +1,7 @@
 import { use } from 'react';
 import { Text, View } from 'react-native';
 
-import { isDefined } from '@rnw-community/shared';
+import { isPositiveNumber } from '@rnw-community/shared';
 
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { ChallengeStatCountBadge } from '../challenge-stat-count-badge/challenge-stat-count-badge';
@@ -22,7 +22,7 @@ export const ChallengeStatTile = ({ children, count, label, testID }: Props) => 
 
     const tileStyle = [styles.tile, { backgroundColor: theme.colors.black }];
     const labelStyle = [styles.label, { color: theme.colors.label.main }];
-    const countBadge = isDefined(count) ? <ChallengeStatCountBadge count={count} /> : null;
+    const countBadge = isPositiveNumber(count) ? <ChallengeStatCountBadge count={count} testID={`${testID}.Count`} /> : null;
 
     return (
         <View style={styles.column} testID={testID}>

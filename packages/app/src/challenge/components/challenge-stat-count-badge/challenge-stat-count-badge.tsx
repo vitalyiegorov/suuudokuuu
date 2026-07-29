@@ -7,16 +7,17 @@ import { ChallengeStatCountBadgeStyles as styles } from './challenge-stat-count-
 
 interface Props {
     readonly count: number;
+    readonly testID?: string;
 }
 
-export const ChallengeStatCountBadge = ({ count }: Props) => {
+export const ChallengeStatCountBadge = ({ count, testID }: Props) => {
     const { theme } = use(ThemeContext);
 
     const badgeStyle = [styles.badge, { backgroundColor: theme.colors.red, borderColor: theme.colors.background }];
     const countStyle = [styles.count, { color: theme.colors.redFillText }];
 
     return (
-        <View style={badgeStyle}>
+        <View style={badgeStyle} testID={testID}>
             <Text allowFontScaling={false} style={countStyle}>
                 {count}
             </Text>

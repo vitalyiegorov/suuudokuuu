@@ -61,9 +61,17 @@ appId: ${APP_ID}
       visibilityPercentage: 50
       timeout: 15000
 - assertVisible: 'Pencil marks'
+# The fixture records no pencil marks, so the tile carries its label without a count badge.
+- assertNotVisible:
+      id: 'ChallengeRunStatsSelectors.PencilTile.Count'
 - assertVisible:
       id: 'ChallengeRunStatsSelectors.ExitsTile'
 - assertVisible: '.*20s away.*'
+- copyTextFrom:
+      id: 'ChallengeRunStatsSelectors.ExitsTile.Count'
+- assertTrue:
+      condition: ${maestro.copiedText === '1'}
+      label: The single recorded background period counts as exactly one exit
 - assertNotVisible:
       id: 'ChallengeRunStatsSelectors.CleanRunTile'
 - assertNotVisible:

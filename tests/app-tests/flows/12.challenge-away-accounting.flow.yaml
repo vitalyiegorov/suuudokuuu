@@ -1,0 +1,76 @@
+appId: ${APP_ID}
+---
+- startRecording:
+      path: '12.challenge-away-accounting'
+      optional: true
+
+- runFlow: subflows/navigation/launch-home.flow.yaml
+
+# The handoff fixture restores a challenge recording that already holds one background
+# period (40s in, 20s away) and exactly one empty cell (6-0) whose value is 2. This flow
+# adds exactly one live background trip on top of it, so the recorded exit count must
+# land on two and never on a higher number.
+- retry:
+      maxRetries: 1
+      commands:
+          - openLink:
+                link: suuudokuuu://shared/_N2P________9____qXF6FFdMjBWGhJIN-CMqSm5omCUw0KFUm6-t2HxLUAuYMAqVUFCWAAAAAAAA
+          - extendedWaitUntil:
+                visible:
+                    id: 'SharedScreenSelectors.Root'
+                timeout: 10000
+
+- tapOn:
+      id: 'SharedScreenSelectors.ConfirmButton'
+- extendedWaitUntil:
+      visible:
+          id: 'GameScreenSelectors.Root'
+      timeout: 10000
+
+- pressKey: Home
+- runFlow:
+      file: subflows/shared/wait-observation-window.flow.yaml
+      env:
+          WAIT_MILLISECONDS: 3000
+- launchApp:
+      stopApp: false
+- extendedWaitUntil:
+      visible:
+          id: 'GameScreenSelectors.Root'
+      timeout: 10000
+
+- tapOn:
+      id: 'CellSelectors.Cell.6-0'
+- extendedWaitUntil:
+      visible:
+          id: 'AvailableValueItemSelectors.Button.2'
+      timeout: 3000
+- tapOn:
+      id: 'AvailableValueItemSelectors.Button.2'
+
+- extendedWaitUntil:
+      visible:
+          id: 'WinnerScreenSelectors.Root'
+      timeout: 5000
+
+- scrollUntilVisible:
+      element:
+          id: 'ChallengeRunStatsSelectors.ExitsTile'
+      direction: DOWN
+      visibilityPercentage: 50
+      timeout: 15000
+- copyTextFrom:
+      id: 'ChallengeRunStatsSelectors.ExitsTile.Count'
+- assertTrue:
+      condition: ${maestro.copiedText === '2'}
+      label: One live background trip adds exactly one exit to the recorded period
+- assertNotVisible:
+      id: 'ChallengeRunStatsSelectors.CleanRunTile'
+
+- tapOn:
+      id: 'WinnerScreenSelectors.HomeButton'
+- extendedWaitUntil:
+      visible:
+          id: 'HomeScreenSelectors.Root'
+      timeout: 3000
+- stopApp
