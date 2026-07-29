@@ -50,8 +50,9 @@ appId: ${APP_ID}
 - tapOn:
       id: 'SettingsAppFooterSelectors.PrivacyPolicyLink'
 - extendedWaitUntil:
-      visible: 'Privacy policy'
-      timeout: 3000
+      visible:
+          id: 'PrivacyPolicyScreenSelectors.Root'
+      timeout: 10000
 - tapOn:
       id: 'HeaderBackButtonSelectors.Root'
 - extendedWaitUntil:

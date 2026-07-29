@@ -23,6 +23,7 @@ export * from './screens/components/history-screen/history-screen.selectors';
 export * from './screens/components/home-screen/home-screen.selectors';
 export * from './screens/components/loser-screen/loser-screen.selectors';
 export * from './screens/components/pause-screen/pause-screen.selectors';
+export * from './screens/components/privacy-policy-screen/privacy-policy-screen.selectors';
 export * from './screens/components/beta-screen/beta-screen.selectors';
 export * from './screens/components/settings-screen/settings-screen.selectors';
 export * from './screens/components/shared-screen/shared-screen.selectors';
