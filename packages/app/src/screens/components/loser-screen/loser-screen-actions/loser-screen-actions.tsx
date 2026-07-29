@@ -20,7 +20,7 @@ interface Props {
 
 export const LoserScreenActions = ({ difficulty, gameState }: Props) => {
     const { t } = useLingui();
-    const { create } = use(GameContext);
+    const { create, isCreatingGame } = use(GameContext);
 
     const handlePlayAgain = () => void create(difficulty, gameState.maxMistakes);
     const homeAction = <GameResultHomeButton accessibilityLabel={t`Home`} testID={LoserScreenSelectors.BackHomeButton} />;
@@ -29,6 +29,7 @@ export const LoserScreenActions = ({ difficulty, gameState }: Props) => {
         <GameResultActionsLayout homeAction={homeAction}>
             <AppLinkButton
                 icon={LucideRotateCcw}
+                isLoading={isCreatingGame}
                 onPress={handlePlayAgain}
                 size="large"
                 style={styles.primaryButton}

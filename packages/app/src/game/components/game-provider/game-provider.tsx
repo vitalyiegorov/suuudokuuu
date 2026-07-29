@@ -2,7 +2,7 @@ import { i18n } from '@lingui/core';
 import { useLingui } from '@lingui/react/macro';
 import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { useRouter } from 'expo-router';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { getErrorMessage, isNotEmptyString } from '@rnw-community/shared';
 
@@ -26,6 +26,9 @@ export const GameProvider = ({ children }: Props) => {
     const dispatch = useAppDispatch();
     const router = useRouter();
     const { t } = useLingui();
+
+    const isCreatingGameRef = useRef(false);
+    const [isCreatingGame, setIsCreatingGame] = useState(false);
 
     const currentGameString = useAppSelector(gameSudokuStringSelector);
     const currentLanguage = useAppSelector(settingsLanguageSelector);
@@ -54,8 +57,30 @@ export const GameProvider = ({ children }: Props) => {
         return new Sudoku(defaultSudokuConfig);
     });
 
-    const createFromState = (newState: GameState) => {
-        try {
+    const runGameCreation = (operation: () => void) => {
+        if (isCreatingGameRef.current) {
+            return;
+        }
+
+        isCreatingGameRef.current = true;
+        setIsCreatingGame(true);
+
+        requestAnimationFrame(() =>
+            requestAnimationFrame(() => {
+                try {
+                    operation();
+                } catch (error: unknown) {
+                    showAlert(error);
+                } finally {
+                    isCreatingGameRef.current = false;
+                    setIsCreatingGame(false);
+                }
+            })
+        );
+    };
+
+    const createFromState = (newState: GameState) =>
+        void runGameCreation(() => {
             const needsWallClock = isNotEmptyString(newState.challengeState) || newState.isChallengeRun;
             dispatch(gameLoadAction({ ...newState, ...(needsWallClock && { wallClockStartMs: Date.now() }) }));
 
@@ -64,29 +89,23 @@ export const GameProvider = ({ children }: Props) => {
             dispatch(gameResumeAction());
 
             router.replace('/game');
+        });
 
-            return true;
-        } catch (error) {
-            showAlert(error);
+    const create = (difficulty: DifficultyEnum, maxMistakes: number, isChallengeRun = false) =>
+        void runGameCreation(() => {
+            const newSudoku = new Sudoku(defaultSudokuConfig);
 
-            return false;
-        }
-    };
+            newSudoku.create(difficulty);
+            setSudoku(newSudoku);
 
-    const create = (difficulty: DifficultyEnum, maxMistakes: number, isChallengeRun = false) => {
-        const newSudoku = new Sudoku(defaultSudokuConfig);
-
-        newSudoku.create(difficulty);
-        setSudoku(newSudoku);
-
-        const sudokuString = newSudoku.toString();
-        dispatch(gameStartAction({ maxMistakes, sudokuString, isChallengeRun }));
-        router.push('/game');
-    };
+            const sudokuString = newSudoku.toString();
+            dispatch(gameStartAction({ maxMistakes, sudokuString, isChallengeRun }));
+            router.push('/game');
+        });
 
     useEffect(() => void i18n.activate(currentLanguage), [currentLanguage]);
 
-    const value = { create, createFromState, sudoku };
+    const value = { create, createFromState, isCreatingGame, sudoku };
 
     return <GameContext value={value}>{children}</GameContext>;
 };
