@@ -12,7 +12,6 @@ import { HomeScreenStyles as styles } from '../home-screen.styles';
 
 interface Props {
     readonly currentElapsedTimeText: string;
-    readonly currentGameDifficultyLabel: string;
     readonly currentProgressPercent: number;
     readonly currentProgressText: string;
     readonly isGameStarted: boolean;

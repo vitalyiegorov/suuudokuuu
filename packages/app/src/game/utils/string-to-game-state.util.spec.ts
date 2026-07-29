@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers */
 import { describe, expect, it } from '@jest/globals';
 import { SharedPayloadKindEnum, TimelineEventKindEnum } from '@suuudokuuu/encoder';
+import { DifficultyEnum, Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 
 import { initialGameState } from '../store/game.state';
 
@@ -89,6 +90,23 @@ describe('stringToGameState', () => {
         const restored = stringToGameState(gameStateToString(challengeRunState, SharedPayloadKindEnum.Handoff));
 
         expect(restored.isChallengeRun).toBe(true);
+    });
+
+    it('should decode the puzzle difficulty from the pristine givens', () => {
+        expect.assertions(1);
+
+        const encoded = gameStateToString(buildGameState(), SharedPayloadKindEnum.Challenge);
+
+        expect(stringToGameState(encoded).difficulty).toBe(DifficultyEnum.Nightmare);
+    });
+
+    it('should keep the pristine difficulty of a handed off run that is already solved', () => {
+        expect.assertions(2);
+
+        const restored = stringToGameState(gameStateToString(buildGameState(), SharedPayloadKindEnum.Handoff));
+
+        expect(Sudoku.convertFieldFromString(restored.sudokuString, defaultSudokuConfig)[1]).toBe(DifficultyEnum.Newbie);
+        expect(restored.difficulty).toBe(DifficultyEnum.Nightmare);
     });
 
     it('should fall back to the initial state for an undecodable link', () => {

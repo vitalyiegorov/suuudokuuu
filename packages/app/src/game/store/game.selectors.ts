@@ -10,6 +10,7 @@ import type { DifficultyEnum } from '@suuudokuuu/generator';
 export const gameSelector = (state: RootState) => state.game;
 
 export const gameSudokuStringSelector = createSelector(gameSelector, state => state.sudokuString);
+export const gameDifficultySelector = createSelector(gameSelector, state => state.difficulty);
 export const gameScoreSelector = createSelector(gameSelector, state => state.score);
 export const gameMistakesSelector = createSelector(gameSelector, state => state.mistakes);
 export const gameMaxMistakesSelector = createSelector(gameSelector, state => state.maxMistakes);

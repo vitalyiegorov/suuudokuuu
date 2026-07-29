@@ -1,5 +1,7 @@
 import { View } from 'react-native';
 
+import type { ComponentType } from 'react';
+
 const enteringAnimation = {
     delay: () => enteringAnimation,
     duration: () => enteringAnimation
@@ -7,4 +9,6 @@ const enteringAnimation = {
 
 export const FadeIn = enteringAnimation;
 
-export default { View };
+const createAnimatedComponent = <Props,>(component: ComponentType<Props>): ComponentType<Props> => component;
+
+export default { View, createAnimatedComponent };

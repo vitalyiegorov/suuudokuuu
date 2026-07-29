@@ -17,7 +17,9 @@ const mockReplace = jest.fn();
 const mockDispatch = jest.fn();
 const mockAlert = jest.fn();
 
-jest.mock('expo-router', () => ({ useRouter: () => ({ push: mockPush, replace: mockReplace }) }));
+let mockPathname = '/';
+
+jest.mock('expo-router', () => ({ usePathname: () => mockPathname, useRouter: () => ({ push: mockPush, replace: mockReplace }) }));
 jest.mock('../../../@generic/components/alert/alert', () => ({ Alert: (title: string) => mockAlert(title) }));
 jest.mock('../../../@generic/hooks/use-app-dispatch.hook', () => ({ useAppDispatch: () => mockDispatch }));
 jest.mock('../../../@generic/hooks/use-app-selector.hook', () => ({ useAppSelector: (selector: () => unknown) => selector() }));
@@ -50,6 +52,7 @@ describe('GameProvider', () => {
     let createSpy = jest.spyOn(Sudoku.prototype, 'create');
 
     beforeEach(() => {
+        mockPathname = '/';
         jest.clearAllMocks();
         createSpy = jest.spyOn(Sudoku.prototype, 'create');
     });
@@ -58,9 +61,9 @@ describe('GameProvider', () => {
         const { result } = await renderGameContext();
 
         await act(() => {
-            result.current.create(DifficultyEnum.Newbie, maxMistakes);
-            result.current.create(DifficultyEnum.Newbie, maxMistakes);
-            result.current.create(DifficultyEnum.Newbie, maxMistakes);
+            result.current.create({ difficulty: DifficultyEnum.Newbie, isChallengeRun: false, maxMistakes });
+            result.current.create({ difficulty: DifficultyEnum.Newbie, isChallengeRun: false, maxMistakes });
+            result.current.create({ difficulty: DifficultyEnum.Newbie, isChallengeRun: false, maxMistakes });
         });
 
         await waitFor(() => void expect(mockPush).toHaveBeenCalledTimes(1));
@@ -70,16 +73,32 @@ describe('GameProvider', () => {
     });
 
     it('should report itself as creating before the deferred generation runs', async () => {
-        const { result } = await renderGameContext();
+        const { result, rerender } = await renderGameContext();
 
-        await act(() => void result.current.create(DifficultyEnum.Newbie, maxMistakes));
+        await act(() => void result.current.create({ difficulty: DifficultyEnum.Newbie, isChallengeRun: false, maxMistakes }));
 
         expect(result.current.isCreatingGame).toBe(true);
         expect(createSpy).not.toHaveBeenCalled();
 
-        await waitFor(() => void expect(result.current.isCreatingGame).toBe(false));
+        await waitFor(() => void expect(createSpy).toHaveBeenCalledTimes(1));
 
+        mockPathname = '/game';
+        await act(() => void rerender(undefined));
+
+        expect(result.current.isCreatingGame).toBe(false);
+    });
+
+    it('should stay engaged until the requested screen takes over', async () => {
+        const { result } = await renderGameContext();
+
+        await act(() => void result.current.create({ difficulty: DifficultyEnum.Newbie, isChallengeRun: false, maxMistakes }));
+        await waitFor(() => void expect(mockPush).toHaveBeenCalledTimes(1));
+
+        await act(() => void result.current.create({ difficulty: DifficultyEnum.Newbie, isChallengeRun: false, maxMistakes }));
+
+        expect(result.current.isCreatingGame).toBe(true);
         expect(createSpy).toHaveBeenCalledTimes(1);
+        expect(mockPush).toHaveBeenCalledTimes(1);
     });
 
     it('should load and navigate once for repeated createFromState calls', async () => {
@@ -106,14 +125,14 @@ describe('GameProvider', () => {
             throw new Error('generation failed');
         });
 
-        await act(() => void result.current.create(DifficultyEnum.Newbie, maxMistakes));
+        await act(() => void result.current.create({ difficulty: DifficultyEnum.Newbie, isChallengeRun: false, maxMistakes }));
 
         await waitFor(() => void expect(mockAlert).toHaveBeenCalledTimes(1));
 
         expect(result.current.isCreatingGame).toBe(false);
         expect(mockPush).not.toHaveBeenCalled();
 
-        await act(() => void result.current.create(DifficultyEnum.Newbie, maxMistakes));
+        await act(() => void result.current.create({ difficulty: DifficultyEnum.Newbie, isChallengeRun: false, maxMistakes }));
 
         await waitFor(() => void expect(mockPush).toHaveBeenCalledTimes(1));
     });

@@ -1,3 +1,5 @@
+import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
+
 import { gameSlice } from '../game/store/game.slice';
 import { initialGameState } from '../game/store/game.state';
 import { emptyGameHistory } from '../history/interfaces/history-game.interface';
@@ -13,7 +15,7 @@ export interface AppRootPersistedStateInterface {
     [settingsSlice.name]: SettingsState;
 }
 
-export const appRootPersistVersion = 28;
+export const appRootPersistVersion = 29;
 
 const resetBestScores = (state: AppRootPersistedStateInterface): AppRootPersistedStateInterface => {
     const gameState = state[gameSlice.name];
@@ -68,6 +70,20 @@ const migrateSolutionStepsToTimelineEvents = (state: AppRootPersistedStateInterf
     [settingsSlice.name]: { ...initialSettingsState, ...state[settingsSlice.name] }
 });
 
+const backfillRunDifficulty = (state: AppRootPersistedStateInterface): AppRootPersistedStateInterface => {
+    const gameState = { ...initialGameState, ...state[gameSlice.name] };
+    const fieldLength = defaultSudokuConfig.fieldSize * defaultSudokuConfig.fieldSize;
+    const difficulty =
+        gameState.sudokuString.length === fieldLength
+            ? Sudoku.convertFieldFromString(gameState.sudokuString, defaultSudokuConfig)[1]
+            : initialGameState.difficulty;
+
+    return {
+        ...state,
+        [gameSlice.name]: { ...gameState, difficulty }
+    };
+};
+
 export const appRootMigrations: MigrationManifest<AppRootPersistedStateInterface> = {
     12: state => ({
         ...state,
@@ -97,5 +113,6 @@ export const appRootMigrations: MigrationManifest<AppRootPersistedStateInterface
     25: state => ({ ...state, [gameSlice.name]: { ...initialGameState, ...state[gameSlice.name] } }),
     26: state => ({ ...state, [settingsSlice.name]: { ...initialSettingsState, ...state[settingsSlice.name] } }),
     27: state => ({ ...state, [settingsSlice.name]: { ...initialSettingsState, ...state[settingsSlice.name] } }),
-    28: migrateSolutionStepsToTimelineEvents
+    28: migrateSolutionStepsToTimelineEvents,
+    29: backfillRunDifficulty
 };

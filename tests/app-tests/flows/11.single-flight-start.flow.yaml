@@ -10,6 +10,7 @@ appId: ${APP_ID}
           id: 'HomeScreenSelectors.StartButton'
       direction: DOWN
       timeout: 3000
+- scroll
 - tapOn:
       id: 'HomeScreenSelectors.StartButton'
       repeat: 5

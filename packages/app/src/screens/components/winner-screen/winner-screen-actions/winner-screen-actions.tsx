@@ -18,15 +18,15 @@ import { WinnerScreenSelectors } from '../winner-screen.selectors';
 
 import { WinnerScreenActionsStyles as styles } from './winner-screen-actions.styles';
 
+import type { GameSetupInterface } from '../../../../game/interface/game-setup.interface';
 import type { GameState } from '../../../../game/store/game.state';
-import type { DifficultyEnum } from '@suuudokuuu/generator';
 
 interface Props {
-    readonly difficulty: DifficultyEnum;
     readonly gameState: GameState;
+    readonly retrySetup: GameSetupInterface;
 }
 
-export const WinnerScreenActions = ({ difficulty, gameState }: Props) => {
+export const WinnerScreenActions = ({ gameState, retrySetup }: Props) => {
     const { t } = useLingui();
     const { create, isCreatingGame } = use(GameContext);
     const { theme } = use(ThemeContext);
@@ -34,7 +34,7 @@ export const WinnerScreenActions = ({ difficulty, gameState }: Props) => {
     const hasRival = isNotEmptyString(gameState.challengeState);
     const isChallengeShareable = isChallengeRecording(gameState);
     const isPuzzleShareable = !gameState.isChallengeRun && !hasRival;
-    const handlePlayAgain = () => void create(difficulty, gameState.maxMistakes);
+    const handlePlayAgain = () => void create(retrySetup);
     const homeAction = <GameResultHomeButton accessibilityLabel={t`Home`} testID={WinnerScreenSelectors.HomeButton} />;
 
     if (isChallengeShareable || isPuzzleShareable) {

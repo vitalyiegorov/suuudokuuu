@@ -1,6 +1,6 @@
 # App Tests Package
 
-Maestro E2E flows for Suuudokuuu. Current coverage checks home start/quit, shared-puzzle win, shared-puzzle loss, statistics with replay, settings navigation, resume-after-settings persistence, and background/foreground pause behavior.
+Maestro E2E flows for Suuudokuuu. Current coverage checks home start/quit, shared-puzzle win, shared-puzzle loss, statistics with replay, settings navigation, resume-after-settings persistence, background/foreground pause behavior, and `Play again` setup preservation.
 
 ## Commands
 
@@ -43,7 +43,7 @@ Use a freshly rebuilt and reinstalled app when validating code, selector, deep-l
 5. Prefer plain step sequences over nested `runFlow` blocks when the steps are linear and expected.
 6. Use `subflows/navigation/launch-home.flow.yaml` for normal scenario launches and `subflows/navigation/relaunch-home.flow.yaml` when stop-and-relaunch is the behavior under test. Both assert the Home contract without URL handoffs. Every scenario must leave the app at Home before stopping.
 7. Use `subflows/game/start-new-game.flow.yaml`, `subflows/game/open-settings-from-game.flow.yaml`, and `subflows/game/quit-current-game.flow.yaml` for repeated game setup and teardown.
-8. Use `subflows/shared/open-shared-challenge.flow.yaml` for shared links, `subflows/shared/accept-shared-challenge.flow.yaml` for the native accept transition, and `subflows/shared/complete-winning-shared-challenge.flow.yaml` when a flow needs a completed win as data setup.
+8. Use `subflows/shared/open-shared-challenge.flow.yaml` for shared links, `subflows/shared/accept-shared-challenge.flow.yaml` for the native accept transition, `subflows/shared/open-shared-handoff.flow.yaml` when a flow needs a handoff payload to land straight on the game screen, and `subflows/shared/complete-winning-shared-challenge.flow.yaml` when a flow needs a completed win as data setup.
 9. Deep-link fixtures should be stable and should decode through the same app path users hit.
 10. Do not merge win, loss, settings, stats, and resume flows into one giant flow. Merge only duplicated setup through subflows.
 

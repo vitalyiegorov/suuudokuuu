@@ -22,3 +22,4 @@ executionOrder:
         - 09.challenge-mode-run.flow
         - 10.challenge-recording-summary.flow
         - 11.single-flight-start.flow
+        - 12.play-again-setup.flow

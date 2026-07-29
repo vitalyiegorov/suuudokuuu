@@ -1,10 +1,10 @@
 import { Trans, useLingui } from '@lingui/react/macro';
-import { DifficultyEnum, Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
+import { DifficultyEnum } from '@suuudokuuu/generator';
 import { ScreenChromeScrollView } from '@suuudokuuu/screen-chrome';
 import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { Link } from 'expo-router';
 import { use } from 'react';
-import { Pressable, View } from 'react-native';
+import { Platform, Pressable, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Alert } from '../../../@generic/components/alert/alert';
@@ -72,7 +72,7 @@ export const HomeScreen = () => {
     const isChallengeMode = useAppSelector(settingsLastGameChallengeModeSelector);
     const handleDifficultyChange = (newDifficulty: DifficultyEnum) => dispatch(settingsSetAction({ lastGameDifficulty: newDifficulty }));
     const handleMaxMistakes = (newMaxMistakes: number) => () => dispatch(settingsSetAction({ lastGameMaxMistakes: newMaxMistakes }));
-    const startNewPuzzle = () => void create(difficulty, maxMistakes, isChallengeMode);
+    const startNewPuzzle = () => void create({ difficulty, isChallengeRun: isChallengeMode, maxMistakes });
 
     const handleStart = () => {
         if (!isGameStarted) {
@@ -124,11 +124,6 @@ export const HomeScreen = () => {
     const selectedDifficultyDescription = difficultyDescriptionsByDifficulty[selectedDifficulty];
     const challengeSummarySuffix = isChallengeMode ? ` • ${t`Challenge`}` : '';
     const setupSummary = `${selectedDifficultyLabel} • ${selectedMistakesOption.title}${challengeSummarySuffix}`;
-    const currentSudokuStringHasFieldLength = currentSudokuString.length === defaultSudokuConfig.fieldSize * defaultSudokuConfig.fieldSize;
-    const currentGameDifficulty = currentSudokuStringHasFieldLength
-        ? Sudoku.convertFieldFromString(currentSudokuString, defaultSudokuConfig)[1]
-        : difficulty;
-    const currentGameDifficultyLabel = getDifficultyText(currentGameDifficulty);
     const currentElapsedTimeText = useTimerText(currentElapsedTime);
     const currentProgressPercent = homeScreenGetCurrentGameProgress(currentSudokuString, currentSolutionSteps.length);
     const currentProgressText = `${currentProgressPercent}%`;
@@ -139,7 +134,8 @@ export const HomeScreen = () => {
     ];
     const startButtonText = isGameStarted ? t`Start new puzzle` : t`Start puzzle`;
     const contentInsetBottom = HomeScreenBottomScrollPadding + tabBarInset;
-    const contentInsetTop = homeScreenGetContentInsetTop(safeAreaInsets.top);
+    const platformInsetTop = Platform.OS === 'ios' ? safeAreaInsets.top : 0;
+    const contentInsetTop = homeScreenGetContentInsetTop(safeAreaInsets.top, platformInsetTop);
     const mistakeCards: HomeScreenOptionCardInterface[] = mistakeOptions.map(option => {
         const isSelected = option.maxMistakes === maxMistakes;
         const optionColors = homeScreenOptionCardGetColors(theme, isSelected);
@@ -153,6 +149,7 @@ export const HomeScreen = () => {
             descriptionStyles,
             key: option.maxMistakes,
             onPress: handleMaxMistakes(option.maxMistakes),
+            testID: `${HomeScreenSelectors.MistakeOption}.${option.maxMistakes}`,
             title: option.title,
             titleStyles
         };
@@ -241,7 +238,6 @@ export const HomeScreen = () => {
 
                         <HomeScreenPlayActions
                             currentElapsedTimeText={currentElapsedTimeText}
-                            currentGameDifficultyLabel={currentGameDifficultyLabel}
                             currentProgressPercent={currentProgressPercent}
                             currentProgressText={currentProgressText}
                             isGameStarted={isGameStarted}

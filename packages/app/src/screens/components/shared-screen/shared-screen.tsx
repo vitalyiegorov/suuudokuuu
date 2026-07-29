@@ -67,7 +67,7 @@ export const SharedScreen = ({ stateString }: Props) => {
                     testID={SharedScreenSelectors.ConfirmButton}
                     text={confirmText}
                 />
-                <BlackButton href="/" text={t`Cancel`} />
+                <BlackButton href="/" testID={SharedScreenSelectors.CancelButton} text={t`Cancel`} />
             </View>
         </View>
     );

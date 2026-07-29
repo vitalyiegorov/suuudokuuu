@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const HomeScreenOptionCard = ({ option }: Props) => (
-    <Pressable onPress={option.onPress} style={option.cardStyles}>
+    <Pressable onPress={option.onPress} style={option.cardStyles} testID={option.testID}>
         <BlackText numberOfLines={1} style={option.titleStyles}>
             {option.title}
         </BlackText>

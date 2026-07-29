@@ -44,5 +44,8 @@ describe('LoserScreen', () => {
         expect(loserScreenSource).toContain('Too many mistakes');
         expect(loserScreenSource).toContain('Play again');
         expect(loserScreenSource).toContain('Home');
+        expect(loserScreenSource).toContain('retrySetup={retrySetup}');
+        expect(loserScreenSource).toContain('create(retrySetup)');
+        expect(loserScreenSource).not.toContain('sudoku.Difficulty');
     });
 });

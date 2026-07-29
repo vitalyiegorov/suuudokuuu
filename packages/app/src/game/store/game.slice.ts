@@ -24,10 +24,11 @@ export const gameSlice = createSlice({
     name: 'game',
     initialState: initialGameState,
     reducers: {
-        start: (state, action: PayloadAction<Pick<GameState, 'sudokuString' | 'maxMistakes' | 'isChallengeRun'>>) => {
+        start: (state, action: PayloadAction<Pick<GameState, 'sudokuString' | 'difficulty' | 'maxMistakes' | 'isChallengeRun'>>) => {
             Object.assign(state, { ...initialGameState, historyByDifficulty: state.historyByDifficulty });
 
             state.sudokuString = action.payload.sudokuString;
+            state.difficulty = action.payload.difficulty;
             state.maxMistakes = action.payload.maxMistakes;
             state.isChallengeRun = action.payload.isChallengeRun;
         },

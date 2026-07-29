@@ -1,4 +1,5 @@
 import { GameStateSerializer, SharedPayloadKindEnum, applyCellEventsToField } from '@suuudokuuu/encoder';
+import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 
 import { GameState, initialGameState } from '../store/game.state';
 
@@ -16,6 +17,7 @@ export const stringToGameState = (gameStateString = ''): GameState => {
         return {
             ...initialGameState,
             sudokuString: decoded.field,
+            difficulty: Sudoku.convertFieldFromString(decoded.field, defaultSudokuConfig)[1],
             maxMistakes: decoded.maxMistakes,
 
             ...(isChallenge && {

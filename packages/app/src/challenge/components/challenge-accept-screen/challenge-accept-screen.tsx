@@ -14,7 +14,6 @@ import { getMistakesTypeText } from '../../../@generic/utils/get-mistakes-type-t
 import { stringToGameState } from '../../../game/utils/string-to-game-state.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { getChallengeAwayRanges } from '../../utils/get-challenge-away-ranges.util';
-import { getChallengeDifficulty } from '../../utils/get-challenge-difficulty.util';
 import { getChallengeTechniqueEventsFromState } from '../../utils/get-challenge-technique-events-from-state.util';
 import { getChallengeTechniqueSummary } from '../../utils/get-challenge-technique-summary.util';
 import { ChallengeIntegrityBadge } from '../challenge-integrity-badge/challenge-integrity-badge';
@@ -42,7 +41,7 @@ export const ChallengeAcceptScreen = ({ opponentTotalTime, challengeState, isLoa
     const rivalGameState = stringToGameState(challengeState);
     const techniqueEvents = getChallengeTechniqueEventsFromState(challengeState);
     const awayRanges = getChallengeAwayRanges(rivalGameState.challengeTimelineEvents, opponentTotalTime);
-    const difficultyText = getDifficultyText(getChallengeDifficulty(challengeState));
+    const difficultyText = getDifficultyText(rivalGameState.difficulty);
     const mistakesText = getMistakesTypeText(rivalGameState.maxMistakes);
     const chipText = `${t`Rival challenged you`} · ${difficultyText} · ${mistakesText}`;
     const arsenalCardCount = Math.min(getChallengeTechniqueSummary(techniqueEvents).length, MAX_ARSENAL_CARDS);

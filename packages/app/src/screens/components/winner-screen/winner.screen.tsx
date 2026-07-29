@@ -19,14 +19,14 @@ export const WinnerScreen = () => {
         return <Redirect href="/" />;
     }
 
-    const { gameState, sudoku, timeText } = completedGameResult;
+    const { gameState, retrySetup, timeText } = completedGameResult;
     const { hasNewPersonalBestScore, mistakes, score } = gameState;
 
     const scoreText = i18n.number(score);
     const isCleanWin = mistakes === 0;
     const winDescriptor = isCleanWin ? t`Clean win` : t`Completed`;
     const descriptorText = `${winDescriptor} • ${completedGameResult.difficultyText} • ${completedGameResult.mistakesTypeText}`;
-    const footer = <WinnerScreenActions difficulty={sudoku.Difficulty} gameState={gameState} />;
+    const footer = <WinnerScreenActions gameState={gameState} retrySetup={retrySetup} />;
     const recordingSummary = isChallengeRecording(gameState) ? (
         <ChallengeRecordingSummary elapsedTime={gameState.elapsedTime} timelineEvents={gameState.timelineEvents} />
     ) : null;
