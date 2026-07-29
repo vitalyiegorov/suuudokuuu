@@ -3,6 +3,8 @@ import { Pressable } from 'react-native';
 import { BlackText } from '../../../../@generic/components/black-text/black-text';
 import { getDifficultyText } from '../../../../@generic/utils/get-difficulty-text.util';
 
+import { DifficultyComplexityOptionSelectors } from './difficulty-complexity-option.selectors';
+
 import type { DifficultyEnum } from '@suuudokuuu/generator';
 import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
@@ -14,7 +16,12 @@ interface Props {
 }
 
 export const DifficultyComplexityOption = ({ difficulty, labelStyle, onPress, style }: Props) => (
-    <Pressable accessibilityRole="button" onPress={onPress} style={style}>
+    <Pressable
+        accessibilityRole="button"
+        onPress={onPress}
+        style={style}
+        testID={`${DifficultyComplexityOptionSelectors.Option}.${difficulty}`}
+    >
         <BlackText numberOfLines={1} style={labelStyle}>
             {getDifficultyText(difficulty)}
         </BlackText>

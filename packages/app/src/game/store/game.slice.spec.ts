@@ -61,16 +61,62 @@ describe('gameSlice', () => {
 
         const nextState = gameSlice.reducer(
             dirtyState,
-            gameStartAction({ sudokuString: StartedSudokuString, maxMistakes: 0, isChallengeRun: false })
+            gameStartAction({
+                sudokuString: StartedSudokuString,
+                difficulty: DifficultyEnum.Hard,
+                maxMistakes: 0,
+                isChallengeRun: false
+            })
         );
 
         expect(nextState).toMatchObject({
             ...initialGameState,
             historyByDifficulty,
             sudokuString: StartedSudokuString,
+            difficulty: DifficultyEnum.Hard,
             maxMistakes: 0
         });
         expect(nextState.hasNewPersonalBestScore).toBe(false);
+    });
+
+    it.each([
+        { difficulty: DifficultyEnum.Easy, isChallengeRun: false, maxMistakes: 3 },
+        { difficulty: DifficultyEnum.Hard, isChallengeRun: false, maxMistakes: 0 },
+        { difficulty: DifficultyEnum.Nightmare, isChallengeRun: false, maxMistakes: 99 },
+        { difficulty: DifficultyEnum.Nightmare, isChallengeRun: true, maxMistakes: 0 }
+    ])('keeps $difficulty with $maxMistakes mistakes and challenge $isChallengeRun while resetting per-attempt state', setup => {
+        const completedState = {
+            ...initialGameState,
+            candidates: { '1-1': [1, 2] },
+            challengeState: 'rival-payload',
+            challengeTime: 120,
+            challengeTimelineEvents: [{ kind: TimelineEventKindEnum.Away as const, ts: 1 }],
+            difficulty: DifficultyEnum.Newbie,
+            elapsedTime: InitialElapsedTime,
+            hasNewPersonalBestScore: true,
+            isChallengeRun: !setup.isChallengeRun,
+            maxMistakes: 1,
+            mistakes: 5,
+            score: 4200,
+            timelineEvents: [{ kind: TimelineEventKindEnum.Away as const, ts: 2 }],
+            wallClockStartMs: 1234
+        };
+
+        const nextState = gameSlice.reducer(completedState, gameStartAction({ ...setup, sudokuString: StartedSudokuString }));
+
+        expect(nextState).toMatchObject({ ...setup, sudokuString: StartedSudokuString });
+        expect(nextState).toMatchObject({
+            candidates: {},
+            challengeState: '',
+            challengeTime: 0,
+            challengeTimelineEvents: [],
+            elapsedTime: 0,
+            hasNewPersonalBestScore: false,
+            mistakes: 0,
+            score: 0,
+            timelineEvents: [],
+            wallClockStartMs: 0
+        });
     });
 
     it('loads partial game state, records mistakes, and resets active progress', () => {
