@@ -1,90 +1,120 @@
-import { describe, expect, it } from '@jest/globals';
+import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
-import { TimelineEventKindEnum } from '@suuudokuuu/encoder';
 import { DifficultyEnum, Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
-import { fireEvent, render, screen } from '@testing-library/react-native';
+import { act, renderHook, waitFor } from '@testing-library/react-native';
 import { use } from 'react';
-import { Pressable } from 'react-native';
-import { Provider } from 'react-redux';
 
-import { createAppTestStore } from '../../../@generic/utils/create-app-test-store.mock';
 import { GameContext } from '../../context/game.context';
+import { initialGameState } from '../../store/game.state';
 
 import { GameProvider } from './game-provider';
 
-import type { GameSetupInterface } from '../../interface/game-setup.interface';
+import type { ReactNode } from 'react';
 
-const createTriggerTestID = 'game-provider-create-trigger';
+const mockPush = jest.fn();
+const mockReplace = jest.fn();
+const mockDispatch = jest.fn();
+const mockAlert = jest.fn();
 
-const abandonedAttempt = {
-    candidates: { '1-1': [1, 2] },
-    challengeState: 'rival-payload',
-    challengeTime: 300,
-    difficulty: DifficultyEnum.Newbie,
-    elapsedTime: 250,
-    hasNewPersonalBestScore: true,
-    isChallengeRun: false,
-    maxMistakes: 99,
-    mistakes: 4,
-    score: 5000,
-    timelineEvents: [{ kind: TimelineEventKindEnum.Away as const, ts: 3 }]
-};
+jest.mock('expo-router', () => ({ useRouter: () => ({ push: mockPush, replace: mockReplace }) }));
+jest.mock('../../../@generic/components/alert/alert', () => ({ Alert: (title: string) => mockAlert(title) }));
+jest.mock('../../../@generic/hooks/use-app-dispatch.hook', () => ({ useAppDispatch: () => mockDispatch }));
+jest.mock('../../../@generic/hooks/use-app-selector.hook', () => ({ useAppSelector: (selector: () => unknown) => selector() }));
+jest.mock('../../store/game.selectors', () => ({ gameSudokuStringSelector: () => '' }));
+jest.mock('../../../settings/store/settings.selectors', () => ({ settingsLanguageSelector: () => 'en' }));
+
+const maxMistakes = 3;
 
 interface Props {
-    readonly setup: GameSetupInterface;
+    readonly children: ReactNode;
 }
 
-const CreateTrigger = ({ setup }: Props) => {
-    const { create } = use(GameContext);
+const GameProviderWrapper = ({ children }: Props) => (
+    <I18nProvider i18n={i18n}>
+        <GameProvider>{children}</GameProvider>
+    </I18nProvider>
+);
 
-    const handlePress = () => void create(setup);
+const renderGameContext = () => renderHook(() => use(GameContext), { wrapper: GameProviderWrapper });
 
-    return <Pressable onPress={handlePress} testID={createTriggerTestID} />;
-};
+const buildChallengeState = () => {
+    const sudoku = new Sudoku(defaultSudokuConfig);
 
-const startGame = async (setup: GameSetupInterface) => {
-    const store = createAppTestStore({ game: abandonedAttempt });
+    sudoku.create(DifficultyEnum.Newbie);
 
-    await render(
-        <Provider store={store}>
-            <I18nProvider i18n={i18n}>
-                <GameProvider>
-                    <CreateTrigger setup={setup} />
-                </GameProvider>
-            </I18nProvider>
-        </Provider>
-    );
-
-    await fireEvent.press(screen.getByTestId(createTriggerTestID));
-
-    return store.getState().game;
+    return { ...initialGameState, sudokuString: sudoku.toString() };
 };
 
 describe('GameProvider', () => {
-    it('starts a Hardcore challenge retry with the requested setup and a clean board', async () => {
-        const gameState = await startGame({ difficulty: DifficultyEnum.Hard, isChallengeRun: true, maxMistakes: 0 });
+    let createSpy = jest.spyOn(Sudoku.prototype, 'create');
 
-        expect(gameState).toMatchObject({
-            candidates: {},
-            challengeState: '',
-            challengeTime: 0,
-            difficulty: DifficultyEnum.Hard,
-            elapsedTime: 0,
-            hasNewPersonalBestScore: false,
-            isChallengeRun: true,
-            maxMistakes: 0,
-            mistakes: 0,
-            score: 0,
-            timelineEvents: []
-        });
-        expect(Sudoku.fromString(gameState.sudokuString, defaultSudokuConfig).Difficulty).toBe(DifficultyEnum.Hard);
+    beforeEach(() => {
+        jest.clearAllMocks();
+        createSpy = jest.spyOn(Sudoku.prototype, 'create');
     });
 
-    it('starts a normal retry without inheriting challenge identity', async () => {
-        const gameState = await startGame({ difficulty: DifficultyEnum.Easy, isChallengeRun: false, maxMistakes: 3 });
+    it('should generate, dispatch, and navigate once for repeated create calls', async () => {
+        const { result } = await renderGameContext();
 
-        expect(gameState).toMatchObject({ difficulty: DifficultyEnum.Easy, isChallengeRun: false, maxMistakes: 3 });
-        expect(Sudoku.fromString(gameState.sudokuString, defaultSudokuConfig).Difficulty).toBe(DifficultyEnum.Easy);
+        await act(() => {
+            result.current.create({ difficulty: DifficultyEnum.Newbie, isChallengeRun: false, maxMistakes });
+            result.current.create({ difficulty: DifficultyEnum.Newbie, isChallengeRun: false, maxMistakes });
+            result.current.create({ difficulty: DifficultyEnum.Newbie, isChallengeRun: false, maxMistakes });
+        });
+
+        await waitFor(() => void expect(mockPush).toHaveBeenCalledTimes(1));
+
+        expect(createSpy).toHaveBeenCalledTimes(1);
+        expect(mockDispatch).toHaveBeenCalledTimes(1);
+    });
+
+    it('should report itself as creating before the deferred generation runs', async () => {
+        const { result } = await renderGameContext();
+
+        await act(() => void result.current.create({ difficulty: DifficultyEnum.Newbie, isChallengeRun: false, maxMistakes }));
+
+        expect(result.current.isCreatingGame).toBe(true);
+        expect(createSpy).not.toHaveBeenCalled();
+
+        await waitFor(() => void expect(result.current.isCreatingGame).toBe(false));
+
+        expect(createSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it('should load and navigate once for repeated createFromState calls', async () => {
+        const challengeState = buildChallengeState();
+        const { result } = await renderGameContext();
+
+        createSpy.mockClear();
+
+        await act(() => {
+            result.current.createFromState(challengeState);
+            result.current.createFromState(challengeState);
+        });
+
+        await waitFor(() => void expect(mockReplace).toHaveBeenCalledTimes(1));
+
+        expect(mockDispatch).toHaveBeenCalledTimes(2);
+        expect(mockPush).not.toHaveBeenCalled();
+    });
+
+    it('should surface the alert and allow a retry when generation fails', async () => {
+        const { result } = await renderGameContext();
+
+        createSpy.mockImplementationOnce(() => {
+            throw new Error('generation failed');
+        });
+
+        await act(() => void result.current.create({ difficulty: DifficultyEnum.Newbie, isChallengeRun: false, maxMistakes }));
+
+        await waitFor(() => void expect(mockAlert).toHaveBeenCalledTimes(1));
+
+        expect(result.current.isCreatingGame).toBe(false);
+        expect(mockPush).not.toHaveBeenCalled();
+
+        await act(() => void result.current.create({ difficulty: DifficultyEnum.Newbie, isChallengeRun: false, maxMistakes }));
+
+        await waitFor(() => void expect(mockPush).toHaveBeenCalledTimes(1));
     });
 });

@@ -1,7 +1,7 @@
 appId: ${APP_ID}
 ---
 - startRecording:
-      path: '11.play-again-setup'
+      path: '12.play-again-setup'
       optional: true
 
 # Both fixtures are Hard handoff payloads with `maxMistakes: 0` and exactly two blank

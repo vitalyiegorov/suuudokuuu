@@ -71,7 +71,7 @@ describe('WinnerScreen', () => {
         expect(source).toContain('GameContext');
         expect(source).toContain('create(retrySetup)');
         expect(source).toContain('retrySetup={retrySetup}');
-        expect(source).toContain('<PlayAgainButton onPress={handlePlayAgain}');
+        expect(source).toContain('<PlayAgainButton isLoading={isCreatingGame} onPress={handlePlayAgain}');
         expect(source).not.toContain('sudoku.Difficulty');
     });
 });

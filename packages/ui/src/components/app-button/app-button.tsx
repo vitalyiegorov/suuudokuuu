@@ -5,6 +5,7 @@ import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
 import { AppButtonStyles as styles } from './app-button.styles';
 import { AppButtonDefaultIconSize } from './constant/app-button-default-icon-size.constant';
+import { AppButtonLoaderTestId } from './constant/app-button-loader-test-id.constant';
 import { type AppButtonVariant, appButtonGetColors } from './utils/app-button-get-colors.util';
 
 import type { LucideIcon } from 'lucide-react-native';
@@ -31,6 +32,7 @@ export const AppButton = ({
     onPress,
     iconSize = AppButtonDefaultIconSize,
     isLoading = false,
+    disabled,
     icon: Icon,
     children,
     size = 'regular',
@@ -49,10 +51,12 @@ export const AppButton = ({
     }
     const textStyles = [styles.text, textSizeStyles, { color: colors.textColor }, textStyle];
     const shouldShowText = isNotEmptyString(text);
+    const isDisabled = isLoading || disabled === true;
+    const accessibilityState = { busy: isLoading, disabled: isDisabled };
 
     return (
-        <Pressable onPress={onPress} style={buttonStyles} {...restProps}>
-            {isLoading && <ActivityIndicator color={colors.textColor} />}
+        <Pressable onPress={onPress} style={buttonStyles} {...restProps} accessibilityState={accessibilityState} disabled={isDisabled}>
+            {isLoading && <ActivityIndicator color={colors.textColor} testID={AppButtonLoaderTestId} />}
 
             {!isLoading && isDefined(children) && children}
 

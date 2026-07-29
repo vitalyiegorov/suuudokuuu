@@ -3,7 +3,7 @@ import { DifficultyEnum } from '@suuudokuuu/generator';
 import { ScreenChromeScrollView } from '@suuudokuuu/screen-chrome';
 import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { Link } from 'expo-router';
-import { use, useState } from 'react';
+import { use } from 'react';
 import { Platform, Pressable, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -56,7 +56,7 @@ const topEdgeFadeProps = { height: HomeScreenTopOverlayHeight, intensity: HomeSc
 
 // eslint-disable-next-line max-lines-per-function
 export const HomeScreen = () => {
-    const { create } = use(GameContext);
+    const { create, isCreatingGame } = use(GameContext);
     const { theme } = use(ThemeContext);
     const { t } = useLingui();
     const safeAreaInsets = useSafeAreaInsets();
@@ -70,20 +70,9 @@ export const HomeScreen = () => {
     const isGameStarted = useAppSelector(gameIsStartedSelector);
     const maxMistakes = useAppSelector(settingsLastGameMaxMistakesSelector);
     const isChallengeMode = useAppSelector(settingsLastGameChallengeModeSelector);
-    const [isLoading, setIsLoading] = useState(false);
     const handleDifficultyChange = (newDifficulty: DifficultyEnum) => dispatch(settingsSetAction({ lastGameDifficulty: newDifficulty }));
     const handleMaxMistakes = (newMaxMistakes: number) => () => dispatch(settingsSetAction({ lastGameMaxMistakes: newMaxMistakes }));
-    const startNewPuzzle = () => {
-        setIsLoading(true);
-
-        setTimeout(() => {
-            try {
-                create({ difficulty, isChallengeRun: isChallengeMode, maxMistakes });
-            } finally {
-                setIsLoading(false);
-            }
-        });
-    };
+    const startNewPuzzle = () => void create({ difficulty, isChallengeRun: isChallengeMode, maxMistakes });
 
     const handleStart = () => {
         if (!isGameStarted) {
@@ -252,7 +241,7 @@ export const HomeScreen = () => {
                             currentProgressPercent={currentProgressPercent}
                             currentProgressText={currentProgressText}
                             isGameStarted={isGameStarted}
-                            isLoading={isLoading}
+                            isLoading={isCreatingGame}
                             onStart={handleStart}
                             startButtonSubtitle={setupSummary}
                             startButtonText={startButtonText}

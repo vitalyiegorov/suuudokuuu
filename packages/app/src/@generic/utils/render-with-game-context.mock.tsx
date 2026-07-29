@@ -17,6 +17,7 @@ import type { ReactElement } from 'react';
 interface RenderWithGameContextOptions {
     readonly create?: GameContextValueInterface['create'];
     readonly createFromState?: GameContextValueInterface['createFromState'];
+    readonly isCreatingGame?: boolean;
     readonly settings?: Partial<SettingsState>;
 }
 
@@ -24,6 +25,7 @@ export const renderWithGameContext = (ui: ReactElement, options: RenderWithGameC
     const gameContextValue: GameContextValueInterface = {
         create: options.create ?? emptyFn,
         createFromState: options.createFromState ?? emptyFn,
+        isCreatingGame: options.isCreatingGame ?? false,
         sudoku: new Sudoku(defaultSudokuConfig)
     };
 

@@ -21,7 +21,7 @@ interface Props {
 
 export const SharedScreen = ({ stateString }: Props) => {
     const { t } = useLingui();
-    const { createFromState } = use(GameContext);
+    const { createFromState, isCreatingGame } = use(GameContext);
 
     const { gameState, isReadable, kind } = decodeSharedGameState(stateString);
     const resumeTimeText = useTimerText(gameState.elapsedTime);
@@ -37,7 +37,14 @@ export const SharedScreen = ({ stateString }: Props) => {
     };
 
     if (kind === SharedPayloadKindEnum.Challenge && isNotEmptyString(challengeState)) {
-        return <ChallengeAcceptScreen challengeState={challengeState} onAccept={handleOpenPuzzle} opponentTotalTime={challengeTime} />;
+        return (
+            <ChallengeAcceptScreen
+                challengeState={challengeState}
+                isLoading={isCreatingGame}
+                onAccept={handleOpenPuzzle}
+                opponentTotalTime={challengeTime}
+            />
+        );
     }
 
     const isHandoff = kind === SharedPayloadKindEnum.Handoff;
@@ -54,7 +61,12 @@ export const SharedScreen = ({ stateString }: Props) => {
             </View>
 
             <View style={styles.buttonsWrapper}>
-                <BlackButton onPress={handleOpenPuzzle} testID={SharedScreenSelectors.ConfirmButton} text={confirmText} />
+                <BlackButton
+                    isLoading={isCreatingGame}
+                    onPress={handleOpenPuzzle}
+                    testID={SharedScreenSelectors.ConfirmButton}
+                    text={confirmText}
+                />
                 <BlackButton href="/" testID={SharedScreenSelectors.CancelButton} text={t`Cancel`} />
             </View>
         </View>

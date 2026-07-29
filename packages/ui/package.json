@@ -1,6 +1,6 @@
 {
     "name": "@suuudokuuu/ui",
-    "version": "1.67.0",
+    "version": "1.69.1",
     "private": true,
     "sideEffects": "false",
     "exports": {
@@ -36,6 +36,9 @@
     },
     "dependencies": {
         "@rnw-community/shared": "^2.2.0"
+    },
+    "devDependencies": {
+        "@testing-library/react-native": "^14.0.1"
     },
     "peerDependencies": {
         "lucide-react-native": "^1.21.0",
