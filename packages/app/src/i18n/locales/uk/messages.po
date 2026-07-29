@@ -30,6 +30,7 @@ msgid "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
 msgstr "{arsenalCardCount, plural, one {# техніка} few {# техніки} many {# технік} other {# техніки}}"
 
 #: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
+#: src/challenge/components/challenge-recording-stats/challenge-recording-stats.tsx
 msgid "{awaySeconds}s away"
 msgstr "{awaySeconds}с поза грою"
 
@@ -40,6 +41,10 @@ msgstr "{durationText} швидше"
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} slower"
 msgstr "{durationText} повільніше"
+
+#: src/challenge/components/challenge-recording-stats/challenge-recording-stats.tsx
+msgid "{exitCount, plural, one {# exit} other {# exits}}"
+msgstr "{exitCount, plural, one {# вихід} few {# виходи} many {# виходів} other {# виходи}}"
 
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "{filledCells}/{totalCells} filled"
@@ -56,6 +61,10 @@ msgstr "{keyMoveCount, plural, one {# ключовий хід} few {# ключо
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
 msgstr "{mistakes, plural, one {# помилка} few {# помилки} many {# помилок} other {# помилки}}"
+
+#: src/challenge/components/challenge-recording-stats/challenge-recording-stats.tsx
+msgid "{pencilCount, plural, one {# pencil action} other {# pencil actions}}"
+msgstr "{pencilCount, plural, one {# олівцева нотатка} few {# олівцеві нотатки} many {# олівцевих нотаток} other {# олівцеві нотатки}}"
 
 #: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
 msgid "{sharpCount, plural, one {# sharp technique} other {# sharp techniques}}"
@@ -943,7 +952,7 @@ msgstr "Суперник кинув тобі виклик"
 msgid "Rival's arsenal"
 msgstr "Арсенал суперника"
 
-#: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
+#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Rival's playbook"
 msgstr "Тактика суперника"
 
@@ -1389,9 +1398,17 @@ msgstr "Твоя найкраща партія"
 msgid "Your browser may ask for permission to install unknown apps. Android will also show an operating-system security warning before installation."
 msgstr "Браузер може запитати дозвіл на інсталяцію застосунків із невідомих джерел. Перед інсталяцією Android також покаже попередження безпеки операційної системи."
 
+#: src/challenge/components/challenge-recording-summary/challenge-recording-summary.tsx
+msgid "Your playbook"
+msgstr "Твоя тактика"
+
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Your progress"
 msgstr "Ваш прогрес"
+
+#: src/challenge/components/challenge-recording-summary/challenge-recording-summary.tsx
+msgid "Your recording"
+msgstr "Твій запис"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Your rival was faster"

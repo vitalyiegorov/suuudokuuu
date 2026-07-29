@@ -195,6 +195,15 @@ export const gameSlice = createSlice({
             } else {
                 state.candidates[key] = [...candidates, value];
             }
+
+            if (state.isChallengeRun) {
+                state.timelineEvents.push({
+                    kind: TimelineEventKindEnum.Pencil,
+                    cellIndex: action.payload.y * defaultSudokuConfig.fieldSize + action.payload.x,
+                    value,
+                    ts: getTimelineTimestampDelta(state.timelineEvents, state.elapsedTime)
+                });
+            }
         },
 
         // eslint-disable-next-line max-statements

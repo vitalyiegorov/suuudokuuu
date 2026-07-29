@@ -19,6 +19,7 @@ import { getChallengeAwayRanges } from '../../utils/get-challenge-away-ranges.ut
 import { getChallengeDurationParts } from '../../utils/get-challenge-duration-parts.util';
 import { getChallengeTechniqueEventsFromState } from '../../utils/get-challenge-technique-events-from-state.util';
 import { getTapeTechniqueEvents } from '../../utils/get-tape-technique-events.util';
+import { ChallengeIntegrityBadge } from '../challenge-integrity-badge/challenge-integrity-badge';
 import { ChallengeResultFooter } from '../challenge-result-footer/challenge-result-footer';
 import { ChallengeResultMarginCard } from '../challenge-result-margin-card/challenge-result-margin-card';
 import { ChallengeResultMedallion } from '../challenge-result-medallion/challenge-result-medallion';
@@ -108,16 +109,15 @@ export const ChallengeResultScreen = (props: Props) => {
                     />
                 )}
 
-                <ChallengeRunTape
-                    awayRanges={playerAwayRanges}
-                    events={playerTechniqueEvents}
-                    label={t`Your run`}
-                    totalTime={elapsedTime}
-                />
+                <ChallengeRunTape awayRanges={playerAwayRanges} events={playerTechniqueEvents} label={t`Your run`} totalTime={elapsedTime}>
+                    <ChallengeIntegrityBadge ranges={playerAwayRanges} />
+                </ChallengeRunTape>
 
-                <ChallengeRunTape awayRanges={rivalAwayRanges} events={techniqueEvents} label={t`Rival's run`} totalTime={challengeTime} />
+                <ChallengeRunTape awayRanges={rivalAwayRanges} events={techniqueEvents} label={t`Rival's run`} totalTime={challengeTime}>
+                    <ChallengeIntegrityBadge ranges={rivalAwayRanges} />
+                </ChallengeRunTape>
 
-                <ChallengeTechniqueBreakdown events={techniqueEvents} />
+                <ChallengeTechniqueBreakdown events={techniqueEvents} label={t`Rival's playbook`} />
 
                 <UkraineSupportCard testID={ChallengeResultScreenSelectors.UkraineSupportCta} />
             </View>

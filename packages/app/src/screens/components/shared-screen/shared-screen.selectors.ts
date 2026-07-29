@@ -1,5 +1,5 @@
 export enum SharedScreenSelectors {
-    Root = 'SharedScreenSelectors.Root',
+    CancelButton = 'SharedScreenSelectors.CancelButton',
     ConfirmButton = 'SharedScreenSelectors.ConfirmButton',
-    CancelButton = 'SharedScreenSelectors.CancelButton'
+    Root = 'SharedScreenSelectors.Root'
 }
