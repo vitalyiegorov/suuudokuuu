@@ -28,7 +28,7 @@ interface Props {
 
 export const WinnerScreenActions = ({ difficulty, gameState }: Props) => {
     const { t } = useLingui();
-    const { create } = use(GameContext);
+    const { create, isCreatingGame } = use(GameContext);
     const { theme } = use(ThemeContext);
 
     const hasRival = isNotEmptyString(gameState.challengeState);
@@ -39,7 +39,12 @@ export const WinnerScreenActions = ({ difficulty, gameState }: Props) => {
 
     if (isChallengeShareable || isPuzzleShareable) {
         const playAgainAction = (
-            <GlassIconButton accessibilityLabel={t`Play again`} onPress={handlePlayAgain} testID={WinnerScreenSelectors.PlayAgainButton}>
+            <GlassIconButton
+                accessibilityLabel={t`Play again`}
+                isLoading={isCreatingGame}
+                onPress={handlePlayAgain}
+                testID={WinnerScreenSelectors.PlayAgainButton}
+            >
                 <LucideRotateCcw color={theme.colors.label.inverted} />
             </GlassIconButton>
         );
@@ -58,7 +63,7 @@ export const WinnerScreenActions = ({ difficulty, gameState }: Props) => {
 
     return (
         <GameResultActionsLayout homeAction={homeAction}>
-            <PlayAgainButton onPress={handlePlayAgain} style={styles.button} />
+            <PlayAgainButton isLoading={isCreatingGame} onPress={handlePlayAgain} style={styles.button} />
         </GameResultActionsLayout>
     );
 };

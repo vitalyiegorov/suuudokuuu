@@ -15,7 +15,7 @@ interface Props {
 }
 
 export const ChallengeTryAgainButton = ({ gameState }: Props) => {
-    const { createFromState } = use(GameContext);
+    const { createFromState, isCreatingGame } = use(GameContext);
 
     const { t } = useLingui();
 
@@ -25,13 +25,12 @@ export const ChallengeTryAgainButton = ({ gameState }: Props) => {
 
     return (
         <BlackButton
-            href="/game"
+            icon={LucideRotateCcw}
+            isLoading={isCreatingGame}
             onPress={handleTryAgain}
-            replace
             style={styles.button}
             testID={ChallengeTryAgainButtonSelectors.Root}
             text={t`Try Again`}
-            icon={LucideRotateCcw}
-        ></BlackButton>
+        />
     );
 };
