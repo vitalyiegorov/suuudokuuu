@@ -11,11 +11,6 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#. placeholder {0}: ranges.length
-#: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
-msgid "{0, plural, one {# break} other {# breaks}}"
-msgstr "{0, plural, one {# pausa} other {# pausas}}"
-
 #. placeholder {0}: 0
 #. placeholder {0}: 3
 #. placeholder {0}: 99
@@ -27,8 +22,7 @@ msgstr "{0, plural, one {# erro} other {# erros}}"
 msgid "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
 msgstr "{arsenalCardCount, plural, one {# técnica} other {# técnicas}}"
 
-#: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
-#: src/challenge/components/challenge-recording-stats/challenge-recording-stats.tsx
+#: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
 msgid "{awaySeconds}s away"
 msgstr "{awaySeconds}s ausente"
 
@@ -40,10 +34,6 @@ msgstr "{durationText} mais rápido"
 msgid "{durationText} slower"
 msgstr "{durationText} mais lento"
 
-#: src/challenge/components/challenge-recording-stats/challenge-recording-stats.tsx
-msgid "{exitCount, plural, one {# exit} other {# exits}}"
-msgstr "{exitCount, plural, one {# saída} other {# saídas}}"
-
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "{filledCells}/{totalCells} filled"
 msgstr "{filledCells}/{totalCells} preenchidas"
@@ -52,19 +42,11 @@ msgstr "{filledCells}/{totalCells} preenchidas"
 msgid "{gamesCompleted, plural, one {# completed game} other {# completed games}}"
 msgstr "{gamesCompleted, plural, one {# jogo concluído} other {# jogos concluídos}}"
 
-#: src/challenge/components/challenge-technique-preview/challenge-technique-preview.tsx
-msgid "{keyMoveCount, plural, one {# key move} other {# key moves}}"
-msgstr "{keyMoveCount, plural, one {# jogada-chave} other {# jogadas-chave}}"
-
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
 msgstr "{mistakes, plural, one {# erro} other {# erros}}"
 
-#: src/challenge/components/challenge-recording-stats/challenge-recording-stats.tsx
-msgid "{pencilCount, plural, one {# pencil action} other {# pencil actions}}"
-msgstr "{pencilCount, plural, one {# anotação} other {# anotações}}"
-
-#: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
+#: src/challenge/components/challenge-run-summary/challenge-run-summary.tsx
 msgid "{sharpCount, plural, one {# sharp technique} other {# sharp techniques}}"
 msgstr "{sharpCount, plural, one {# técnica engenhosa} other {# técnicas engenhosas}}"
 
@@ -284,6 +266,10 @@ msgstr "Sem erros"
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Clean black-and-white board"
 msgstr "Tabuleiro limpo em preto e branco"
+
+#: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
+msgid "Clean run"
+msgstr "Partida limpa"
 
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Clean win"
@@ -829,6 +815,10 @@ msgstr "Penalidades"
 msgid "Penalty formula"
 msgstr "Fórmula de penalidade"
 
+#: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
+msgid "Pencil marks"
+msgstr "Anotações"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "per mistake"
 msgstr "por erro"
@@ -951,10 +941,6 @@ msgid "Rival's arsenal"
 msgstr "Arsenal do rival"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Rival's playbook"
-msgstr "Estratégia do rival"
-
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Rival's run"
 msgstr "Partida do rival"
 
@@ -989,6 +975,10 @@ msgstr "pontuação × coeficiente × quantidade"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 msgstr "A pontuação é calculada para cada casa correta com base na dificuldade, bônus e penalidades."
+
+#: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
+msgid "Screenshots"
+msgstr "Capturas de tela"
 
 #: src/game/hooks/use-share-game.hook.ts
 msgid "Send the puzzle to solve from scratch, or hand off your run to continue elsewhere."
@@ -1059,7 +1049,7 @@ msgstr "Dígitos mínimos para tabuleiros compactos"
 msgid "Soft gray board with a paper-like feel"
 msgstr "Tabuleiro cinza suave com sensação de papel"
 
-#: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
+#: src/challenge/components/challenge-run-summary/challenge-run-summary.tsx
 msgid "Solved with the fundamentals"
 msgstr "Resolvido com o básico"
 
@@ -1234,10 +1224,6 @@ msgstr "Não foi possível abrir o link"
 msgid "Unable to start installation"
 msgstr "Não foi possível iniciar a instalação"
 
-#: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
-msgid "Uninterrupted run"
-msgstr "Partida sem interrupções"
-
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Unknown"
@@ -1396,15 +1382,11 @@ msgstr "Sua melhor partida"
 msgid "Your browser may ask for permission to install unknown apps. Android will also show an operating-system security warning before installation."
 msgstr "Seu navegador pode pedir permissão para instalar apps de fontes desconhecidas. O Android também exibirá um aviso de segurança do sistema operacional antes da instalação."
 
-#: src/challenge/components/challenge-recording-summary/challenge-recording-summary.tsx
-msgid "Your playbook"
-msgstr "Sua estratégia"
-
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Your progress"
 msgstr "Seu progresso"
 
-#: src/challenge/components/challenge-recording-summary/challenge-recording-summary.tsx
+#: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Your recording"
 msgstr "Sua gravação"
 

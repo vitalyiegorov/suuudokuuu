@@ -13,7 +13,7 @@ const buildChallengeRun = (overrides: Partial<GameState> = {}): GameState => ({
     ...overrides
 });
 
-const { timelineAway, timelineReturn, toggleShowAutoCandidates, toggleCellCandidate, pause } = gameSlice.actions;
+const { timelineAway, timelineReturn, toggleShowAutoCandidates, toggleCellCandidate, pause, screenshot } = gameSlice.actions;
 
 const candidateCell = { x: 3, y: 2, value: 7, group: 1 };
 
@@ -149,6 +149,36 @@ describe('gameSlice timeline events', () => {
 
             expect(state.timelineEvents).toStrictEqual([]);
             expect(state.candidates['2-3']).toStrictEqual([7]);
+        });
+    });
+
+    describe('screenshots', () => {
+        it('should record a screenshot with the think time before it', () => {
+            expect.assertions(1);
+
+            const state = gameSlice.reducer(buildChallengeRun({ elapsedTime: 33 }), screenshot());
+
+            expect(state.timelineEvents).toStrictEqual([{ kind: TimelineEventKindEnum.Screenshot, ts: 33 }]);
+        });
+
+        it('should record every screenshot of a challenge run', () => {
+            expect.assertions(1);
+
+            const first = gameSlice.reducer(buildChallengeRun({ elapsedTime: 33 }), screenshot());
+            const second = gameSlice.reducer({ ...first, elapsedTime: 51 }, screenshot());
+
+            expect(second.timelineEvents).toStrictEqual([
+                { kind: TimelineEventKindEnum.Screenshot, ts: 33 },
+                { kind: TimelineEventKindEnum.Screenshot, ts: 18 }
+            ]);
+        });
+
+        it('should not record screenshots outside a challenge run', () => {
+            expect.assertions(1);
+
+            const state = gameSlice.reducer(buildChallengeRun({ isChallengeRun: false, elapsedTime: 33 }), screenshot());
+
+            expect(state.timelineEvents).toStrictEqual([]);
         });
     });
 

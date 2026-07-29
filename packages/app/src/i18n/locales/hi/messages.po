@@ -11,11 +11,6 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#. placeholder {0}: ranges.length
-#: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
-msgid "{0, plural, one {# break} other {# breaks}}"
-msgstr "{0, plural, one {# ब्रेक} other {# ब्रेक}}"
-
 #. placeholder {0}: 0
 #. placeholder {0}: 3
 #. placeholder {0}: 99
@@ -27,8 +22,7 @@ msgstr "{0, plural, one {# गलती} other {# गलतियाँ}}"
 msgid "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
 msgstr "{arsenalCardCount, plural, one {# तकनीक} other {# तकनीकें}}"
 
-#: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
-#: src/challenge/components/challenge-recording-stats/challenge-recording-stats.tsx
+#: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
 msgid "{awaySeconds}s away"
 msgstr "{awaySeconds}s बाहर"
 
@@ -40,10 +34,6 @@ msgstr "{durationText} तेज़"
 msgid "{durationText} slower"
 msgstr "{durationText} धीमा"
 
-#: src/challenge/components/challenge-recording-stats/challenge-recording-stats.tsx
-msgid "{exitCount, plural, one {# exit} other {# exits}}"
-msgstr "{exitCount, plural, one {# बार ऐप छोड़ा} other {# बार ऐप छोड़ा}}"
-
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "{filledCells}/{totalCells} filled"
 msgstr "{filledCells}/{totalCells} भरे गए"
@@ -52,19 +42,11 @@ msgstr "{filledCells}/{totalCells} भरे गए"
 msgid "{gamesCompleted, plural, one {# completed game} other {# completed games}}"
 msgstr "{gamesCompleted, plural, one {# पूरी की गई गेम} other {# पूरी की गई गेम}}"
 
-#: src/challenge/components/challenge-technique-preview/challenge-technique-preview.tsx
-msgid "{keyMoveCount, plural, one {# key move} other {# key moves}}"
-msgstr "{keyMoveCount, plural, one {# मुख्य चाल} other {# मुख्य चालें}}"
-
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
 msgstr "{mistakes, plural, one {# गलती} other {# गलतियाँ}}"
 
-#: src/challenge/components/challenge-recording-stats/challenge-recording-stats.tsx
-msgid "{pencilCount, plural, one {# pencil action} other {# pencil actions}}"
-msgstr "{pencilCount, plural, one {# पेंसिल नोट} other {# पेंसिल नोट}}"
-
-#: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
+#: src/challenge/components/challenge-run-summary/challenge-run-summary.tsx
 msgid "{sharpCount, plural, one {# sharp technique} other {# sharp techniques}}"
 msgstr "{sharpCount, plural, one {# चतुर तकनीक} other {# चतुर तकनीकें}}"
 
@@ -284,6 +266,10 @@ msgstr "बिना गलती"
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Clean black-and-white board"
 msgstr "साफ काला-सफेद बोर्ड"
+
+#: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
+msgid "Clean run"
+msgstr "साफ़ खेल"
 
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Clean win"
@@ -829,6 +815,10 @@ msgstr "दंड"
 msgid "Penalty formula"
 msgstr "दंड सूत्र"
 
+#: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
+msgid "Pencil marks"
+msgstr "पेंसिल निशान"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "per mistake"
 msgstr "प्रति गलती"
@@ -951,10 +941,6 @@ msgid "Rival's arsenal"
 msgstr "विरोधी का शस्त्रागार"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
-msgid "Rival's playbook"
-msgstr "विरोधी की रणनीति"
-
-#: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Rival's run"
 msgstr "प्रतिद्वंद्वी का गेम"
 
@@ -989,6 +975,10 @@ msgstr "स्कोर × गुणांक × संख्या"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 msgstr "हर सही भरी कोशिका का स्कोर कठिनाई, बोनस और दंड के आधार पर गणना होता है।"
+
+#: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
+msgid "Screenshots"
+msgstr "स्क्रीनशॉट"
 
 #: src/game/hooks/use-share-game.hook.ts
 msgid "Send the puzzle to solve from scratch, or hand off your run to continue elsewhere."
@@ -1059,7 +1049,7 @@ msgstr "कॉम्पैक्ट बोर्ड के लिए सबस�
 msgid "Soft gray board with a paper-like feel"
 msgstr "कागज़ जैसा महसूस होने वाला हल्का ग्रे बोर्ड"
 
-#: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
+#: src/challenge/components/challenge-run-summary/challenge-run-summary.tsx
 msgid "Solved with the fundamentals"
 msgstr "मूल तकनीकों से हल किया"
 
@@ -1234,10 +1224,6 @@ msgstr "लिंक नहीं खोला जा सका"
 msgid "Unable to start installation"
 msgstr "इंस्टॉलेशन शुरू नहीं किया जा सका"
 
-#: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
-msgid "Uninterrupted run"
-msgstr "बिना रुकावट गेम"
-
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Unknown"
@@ -1396,15 +1382,11 @@ msgstr "आपकी सर्वश्रेष्ठ पारी"
 msgid "Your browser may ask for permission to install unknown apps. Android will also show an operating-system security warning before installation."
 msgstr "आपका ब्राउज़र अज्ञात स्रोतों के ऐप इंस्टॉल करने की अनुमति माँग सकता है। इंस्टॉल करने से पहले Android ऑपरेटिंग सिस्टम की सुरक्षा चेतावनी भी दिखाएगा।"
 
-#: src/challenge/components/challenge-recording-summary/challenge-recording-summary.tsx
-msgid "Your playbook"
-msgstr "आपकी रणनीति"
-
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Your progress"
 msgstr "आपकी प्रगति"
 
-#: src/challenge/components/challenge-recording-summary/challenge-recording-summary.tsx
+#: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Your recording"
 msgstr "आपकी रिकॉर्डिंग"
 

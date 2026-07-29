@@ -17,6 +17,9 @@ const shareableEventKinds: TimelineEventKindEnum[] = [
     TimelineEventKindEnum.Return
 ];
 
+const countEventsOfKind = (events: GameTimelineEventInterface[], kind: TimelineEventKindEnum): number =>
+    events.filter(event => event.kind === kind).length;
+
 const toShareableEvent = (event: GameTimelineEventInterface): TimelineEventInterface =>
     event.kind === TimelineEventKindEnum.Cell ? { kind: event.kind, cellIndex: event.cellIndex, value: event.value, ts: event.ts } : event;
 
@@ -32,7 +35,9 @@ export const gameStateToString = (gameState: GameState, kind = SharedPayloadKind
             isChallengeRun: gameState.isChallengeRun,
             score: gameState.score,
             candidates: getIndexedCandidates(gameState.candidates),
-            anchorSeconds: Math.floor(gameState.wallClockStartMs / 1000)
+            anchorSeconds: Math.floor(gameState.wallClockStartMs / 1000),
+            pencilCount: countEventsOfKind(gameState.timelineEvents, TimelineEventKindEnum.Pencil),
+            screenshotCount: countEventsOfKind(gameState.timelineEvents, TimelineEventKindEnum.Screenshot)
         });
     } catch {
         return '';

@@ -15,17 +15,14 @@ import { stringToGameState } from '../../../game/utils/string-to-game-state.util
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { ChallengeLossReason } from '../../enums/challenge-loss-reason.enum';
 import { ChallengeResult } from '../../interfaces/challenge-result.interface';
-import { getChallengeAwayRanges } from '../../utils/get-challenge-away-ranges.util';
 import { getChallengeDurationParts } from '../../utils/get-challenge-duration-parts.util';
-import { getChallengeTechniqueEventsFromState } from '../../utils/get-challenge-technique-events-from-state.util';
-import { getTapeTechniqueEvents } from '../../utils/get-tape-technique-events.util';
-import { ChallengeIntegrityBadge } from '../challenge-integrity-badge/challenge-integrity-badge';
+import { getChallengeRecordingSummary } from '../../utils/get-challenge-recording-summary.util';
+import { getChallengeRivalRunSummary } from '../../utils/get-challenge-rival-run-summary.util';
 import { ChallengeResultFooter } from '../challenge-result-footer/challenge-result-footer';
 import { ChallengeResultMarginCard } from '../challenge-result-margin-card/challenge-result-margin-card';
 import { ChallengeResultMedallion } from '../challenge-result-medallion/challenge-result-medallion';
 import { ChallengeResultRivalTimeCard } from '../challenge-result-rival-time-card/challenge-result-rival-time-card';
-import { ChallengeRunTape } from '../challenge-run-tape/challenge-run-tape';
-import { ChallengeTechniqueBreakdown } from '../challenge-technique-breakdown/challenge-technique-breakdown';
+import { ChallengeRunSummary } from '../challenge-run-summary/challenge-run-summary';
 
 import { ChallengeResultScreenSelectors } from './challenge-result-screen.selectors';
 import { ChallengeResultScreenStyles as styles } from './challenge-result-screen.styles';
@@ -54,11 +51,9 @@ export const ChallengeResultScreen = (props: Props) => {
 
     const marginSeconds = Math.abs(challengeTime - elapsedTime);
     const durationParts = getChallengeDurationParts(marginSeconds);
-    const techniqueEvents = getChallengeTechniqueEventsFromState(challengeState);
+    const playerSummary = getChallengeRecordingSummary(timelineEvents, elapsedTime);
+    const rivalSummary = getChallengeRivalRunSummary(challengeState, challengeTime);
     const rivalGameState = stringToGameState(challengeState);
-    const rivalAwayRanges = getChallengeAwayRanges(rivalGameState.challengeTimelineEvents, challengeTime);
-    const playerTechniqueEvents = getTapeTechniqueEvents(timelineEvents);
-    const playerAwayRanges = getChallengeAwayRanges(timelineEvents, elapsedTime);
     const lostByMistakes = result === ChallengeResult.Lost && lossReason === ChallengeLossReason.Mistakes;
     const lostByTime = result === ChallengeResult.Lost && lossReason === ChallengeLossReason.Time;
 
@@ -109,15 +104,19 @@ export const ChallengeResultScreen = (props: Props) => {
                     />
                 )}
 
-                <ChallengeRunTape awayRanges={playerAwayRanges} events={playerTechniqueEvents} label={t`Your run`} totalTime={elapsedTime}>
-                    <ChallengeIntegrityBadge ranges={playerAwayRanges} />
-                </ChallengeRunTape>
+                <ChallengeRunSummary
+                    label={t`Your run`}
+                    summary={playerSummary}
+                    testID={ChallengeResultScreenSelectors.PlayerRun}
+                    totalTime={elapsedTime}
+                />
 
-                <ChallengeRunTape awayRanges={rivalAwayRanges} events={techniqueEvents} label={t`Rival's run`} totalTime={challengeTime}>
-                    <ChallengeIntegrityBadge ranges={rivalAwayRanges} />
-                </ChallengeRunTape>
-
-                <ChallengeTechniqueBreakdown events={techniqueEvents} label={t`Rival's playbook`} />
+                <ChallengeRunSummary
+                    label={t`Rival's run`}
+                    summary={rivalSummary}
+                    testID={ChallengeResultScreenSelectors.RivalRun}
+                    totalTime={challengeTime}
+                />
 
                 <UkraineSupportCard testID={ChallengeResultScreenSelectors.UkraineSupportCta} />
             </View>

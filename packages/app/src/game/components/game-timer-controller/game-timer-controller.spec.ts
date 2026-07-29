@@ -1,7 +1,13 @@
 import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { AppState } from 'react-native';
 
-import { gameChallengeClockSyncAction, gamePauseAction, gameResumeAction, gameTickAction } from '../../store/game.actions';
+import {
+    gameChallengeClockSyncAction,
+    gamePauseAction,
+    gameResumeAction,
+    gameTickAction,
+    gameTimelineAwayAction
+} from '../../store/game.actions';
 
 import { GameTimerController } from './game-timer-controller';
 
@@ -206,6 +212,35 @@ describe('GameTimerController', () => {
         jest.advanceTimersByTime(1000);
 
         expect(mockDispatch).toHaveBeenCalledWith(gameTickAction());
+
+        focusCleanup?.();
+
+        jest.useRealTimers();
+    });
+
+    it('records an away period only when the challenge run actually reaches the background', () => {
+        const countAwayDispatches = () => mockDispatch.mock.calls.filter(([action]) => action.type === gameTimelineAwayAction.type).length;
+
+        mockChallengeState = 'challenge-state';
+        mockIsChallengeRun = true;
+
+        GameTimerController();
+
+        const focusCleanup = capturedFocusEffect?.();
+
+        mockDispatch.mockClear();
+
+        mockAppStateChangeListener?.('inactive');
+        mockAppStateChangeListener?.('active');
+
+        expect(countAwayDispatches()).toBe(0);
+
+        mockAppStateChangeListener?.('inactive');
+        mockAppStateChangeListener?.('background');
+        mockAppStateChangeListener?.('inactive');
+        mockAppStateChangeListener?.('active');
+
+        expect(countAwayDispatches()).toBe(1);
 
         focusCleanup?.();
 

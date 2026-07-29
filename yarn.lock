@@ -4912,6 +4912,7 @@ __metadata:
     expo-linking: "npm:~57.0.2"
     expo-localization: "npm:~57.0.0"
     expo-router: "npm:~57.0.4"
+    expo-screen-capture: "npm:~57.0.0"
     expo-sharing: "npm:~57.0.3"
     expo-splash-screen: "npm:~57.0.2"
     expo-sqlite: "npm:~57.0.0"
@@ -9184,6 +9185,16 @@ __metadata:
     react-server-dom-webpack:
       optional: true
   checksum: 10/fe39bf02602d9111f2ade1609bb32874e9af4427131483c6981440de30ea88cad5ae38db1d600c782798e1602fbca2d4274a9cec5fb75e617181b359fb573b9f
+  languageName: node
+  linkType: hard
+
+"expo-screen-capture@npm:~57.0.0":
+  version: 57.0.1
+  resolution: "expo-screen-capture@npm:57.0.1"
+  peerDependencies:
+    expo: "*"
+    react: "*"
+  checksum: 10/f76a68fb2e070f202c18f5b19eac3912de8f06394ce528c3df4a3b31658cde609757995aebc88cf9876fe136aefa31a46eb1f129759ff9fbc20de03111fecea0
   languageName: node
   linkType: hard
 

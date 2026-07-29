@@ -19,7 +19,9 @@ const encodePuzzle = (codec: GameStateBinaryCodecV3, maxMistakes: number, timeli
         isChallengeRun: false,
         score: 0,
         candidates: {},
-        anchorSeconds: 0
+        anchorSeconds: 0,
+        pencilCount: 0,
+        screenshotCount: 0
     });
 
 describe('GameStateBinaryCodecV3 puzzle payloads', () => {
@@ -67,7 +69,9 @@ describe('GameStateBinaryCodecV3 puzzle payloads', () => {
                 isChallengeRun: false,
                 score: 0,
                 candidates: {},
-                anchorSeconds: 0
+                anchorSeconds: 0,
+                pencilCount: 0,
+                screenshotCount: 0
             })
         ).toThrow('Invalid sudoku field length');
     });
@@ -103,7 +107,9 @@ const encodeChallenge = (codec: GameStateBinaryCodecV3, timelineEvents: Timeline
         isChallengeRun: true,
         score: 0,
         candidates: {},
-        anchorSeconds: 0
+        anchorSeconds: 0,
+        pencilCount: 0,
+        screenshotCount: 0
     });
 
 describe('GameStateBinaryCodecV3 challenge payloads', () => {
@@ -247,6 +253,8 @@ const encodeHandoff = (codec: GameStateBinaryCodecV3, overrides: Partial<Encodab
         score: 0,
         candidates: {},
         anchorSeconds: 0,
+        pencilCount: 0,
+        screenshotCount: 0,
         ...overrides
     });
 
@@ -324,7 +332,9 @@ describe('GameStateBinaryCodecV3 handoff payloads', () => {
                 isChallengeRun: true,
                 score: 900,
                 candidates: { 2: [1] },
-                anchorSeconds: 5
+                anchorSeconds: 5,
+                pencilCount: 0,
+                screenshotCount: 0
             })
         );
 

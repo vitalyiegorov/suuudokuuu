@@ -7,5 +7,6 @@ export enum TimelineEventKindEnum {
     Away = 5,
     Return = 6,
     Pause = 7,
-    Resume = 8
+    Resume = 8,
+    Screenshot = 9
 }

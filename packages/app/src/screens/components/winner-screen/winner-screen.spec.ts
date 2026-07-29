@@ -51,9 +51,8 @@ describe('WinnerScreen', () => {
 
     it('shows the recorded challenge summary before sharing only for a self-authored challenge run', () => {
         expect(source).toContain('isChallengeRecording(gameState)');
-        expect(source).toContain(
-            '<ChallengeRecordingSummary elapsedTime={gameState.elapsedTime} timelineEvents={gameState.timelineEvents} />'
-        );
+        expect(source).toContain('<ChallengeRunSummary');
+        expect(source).toContain('summary={getChallengeRecordingSummary(gameState.timelineEvents, gameState.elapsedTime)}');
         expect(source).toContain('{recordingSummary}');
         expect(source).toContain('const isChallengeShareable = isChallengeRecording(gameState);');
     });

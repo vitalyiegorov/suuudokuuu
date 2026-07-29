@@ -52,23 +52,35 @@ appId: ${APP_ID}
           id: 'WinnerScreenSelectors.Root'
       timeout: 5000
 - assertVisible:
-      id: 'ChallengeRecordingSummarySelectors.Root'
+      id: 'ChallengeRunSummarySelectors.Root'
 
 - scrollUntilVisible:
       element:
-          id: 'ChallengeRecordingStatsSelectors.PencilValue'
+          id: 'ChallengeRunStatsSelectors.PencilTile'
       direction: DOWN
       visibilityPercentage: 50
       timeout: 15000
-- assertVisible: '.*1 pencil action.*'
+- assertVisible: 'Pencil marks'
+# This flow pencils the candidate 2 in once before placing the value, so the run
+# records exactly one pencil action.
 - assertVisible:
-      id: 'ChallengeRecordingStatsSelectors.ExitsValue'
-- assertVisible: '.*1 exit.*'
-- assertNotVisible: 'Uninterrupted run'
+      id: 'ChallengeRunStatsSelectors.PencilTile.Count'
+      text: '1'
+- assertVisible:
+      id: 'ChallengeRunStatsSelectors.ExitsTile'
+- assertVisible: '.*20s away.*'
+# The fixture holds a single background period, so the exit badge stays at one.
+- assertVisible:
+      id: 'ChallengeRunStatsSelectors.ExitsTile.Count'
+      text: '1'
+- assertNotVisible:
+      id: 'ChallengeRunStatsSelectors.CleanRunTile'
+- assertNotVisible:
+      id: 'ChallengeRunStatsSelectors.ScreenshotsTile'
 
 - scrollUntilVisible:
       element:
-          id: 'ChallengeTechniqueArsenalSelectors.Root'
+          id: 'ChallengeRunStatsSelectors.Root'
       direction: DOWN
       visibilityPercentage: 50
       timeout: 15000

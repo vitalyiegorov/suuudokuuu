@@ -55,7 +55,11 @@ const createGameTimerAppStateListener = (
             dispatch(gameChallengeClockSyncAction({ nowMs: Date.now() }));
             dispatch(gameTimelineReturnAction());
             startTimer();
-        } else {
+
+            return;
+        }
+
+        if (nextAppState === 'background') {
             dispatch(gameTimelineAwayAction());
         }
     };

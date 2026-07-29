@@ -4,7 +4,8 @@ import { Redirect } from 'expo-router';
 import { CompletedGameResultDetails } from '../../../@generic/components/completed-game-result-details/completed-game-result-details';
 import { GameResultPage } from '../../../@generic/components/game-result-page/game-result-page';
 import { useCompletedGameResult } from '../../../@generic/hooks/use-completed-game-result.hook';
-import { ChallengeRecordingSummary } from '../../../challenge/components/challenge-recording-summary/challenge-recording-summary';
+import { ChallengeRunSummary } from '../../../challenge/components/challenge-run-summary/challenge-run-summary';
+import { getChallengeRecordingSummary } from '../../../challenge/utils/get-challenge-recording-summary.util';
 import { isChallengeRecording } from '../../../challenge/utils/is-challenge-recording.util';
 
 import { WinnerResultHero } from './winner-result-hero/winner-result-hero';
@@ -28,7 +29,11 @@ export const WinnerScreen = () => {
     const descriptorText = `${winDescriptor} • ${completedGameResult.difficultyText} • ${completedGameResult.mistakesTypeText}`;
     const footer = <WinnerScreenActions gameState={gameState} retrySetup={retrySetup} />;
     const recordingSummary = isChallengeRecording(gameState) ? (
-        <ChallengeRecordingSummary elapsedTime={gameState.elapsedTime} timelineEvents={gameState.timelineEvents} />
+        <ChallengeRunSummary
+            label={t`Your recording`}
+            summary={getChallengeRecordingSummary(gameState.timelineEvents, gameState.elapsedTime)}
+            totalTime={gameState.elapsedTime}
+        />
     ) : null;
 
     return (

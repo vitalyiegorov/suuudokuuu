@@ -4,10 +4,9 @@ export * from './challenge/components/challenge-accept-screen/challenge-accept-s
 export * from './challenge/components/challenge-conditions-row/challenge-conditions-row.selectors';
 export * from './challenge/components/challenge-mode-switch/challenge-mode-switch.selectors';
 export * from './challenge/components/challenge-race-hud/challenge-race-hud.selectors';
-export * from './challenge/components/challenge-recording-stats/challenge-recording-stats.selectors';
-export * from './challenge/components/challenge-recording-summary/challenge-recording-summary.selectors';
+export * from './challenge/components/challenge-run-stats/challenge-run-stats.selectors';
+export * from './challenge/components/challenge-run-summary/challenge-run-summary.selectors';
 export * from './challenge/components/challenge-result-footer/challenge-result-footer.selectors';
-export * from './challenge/components/challenge-technique-arsenal/challenge-technique-arsenal.selectors';
 export * from './challenge/components/challenge-try-again-button/challenge-try-again-button.selectors';
 export * from './game/components/available-values-item/available-value-item.selectors';
 export * from './game/components/candidate-input-item/candidate-input-item.selectors';

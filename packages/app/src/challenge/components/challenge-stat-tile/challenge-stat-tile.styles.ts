@@ -1,12 +1,12 @@
 import { StyleSheet } from 'react-native';
 
-export const ChallengeTechniqueArsenalCardStyles = StyleSheet.create({
+export const ChallengeStatTileStyles = StyleSheet.create({
     column: {
         alignItems: 'center',
         flex: 1,
         gap: 10
     },
-    name: {
+    label: {
         fontFamily: 'Inter_700Bold',
         fontSize: 11,
         letterSpacing: -0.1,
