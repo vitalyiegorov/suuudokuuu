@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-export const ChallengeIntegrityBadgeStyles = StyleSheet.create({
-    badge: {
+export const ChallengeStatChipStyles = StyleSheet.create({
+    chip: {
         alignItems: 'center',
         borderRadius: 999,
         borderWidth: StyleSheet.hairlineWidth,

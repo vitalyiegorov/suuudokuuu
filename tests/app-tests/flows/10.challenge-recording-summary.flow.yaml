@@ -1,0 +1,94 @@
+appId: ${APP_ID}
+---
+- startRecording:
+      path: '10.challenge-recording-summary'
+      optional: true
+
+- runFlow: subflows/navigation/launch-home.flow.yaml
+
+# The handoff fixture restores a challenge recording with one background period
+# (40s in, 20s away) and exactly one empty cell (6-0) whose value is 2.
+- retry:
+      maxRetries: 1
+      commands:
+          - openLink:
+                link: suuudokuuu://shared/_N2P________9____qXF6FFdMjBWGhJIN-CMqSm5omCUw0KFUm6-t2HxLUAuYMAqVUFCWAAAAAAAA
+          - extendedWaitUntil:
+                visible:
+                    id: 'SharedScreenSelectors.Root'
+                timeout: 10000
+
+- tapOn:
+      id: 'SharedScreenSelectors.ConfirmButton'
+- extendedWaitUntil:
+      visible:
+          id: 'GameScreenSelectors.Root'
+      timeout: 10000
+- assertVisible:
+      id: 'ChallengeRecordHudSelectors.Root'
+
+- tapOn:
+      id: 'CellSelectors.Cell.6-0'
+- tapOn:
+      id: 'InputModeButtonSelectors.Root'
+- extendedWaitUntil:
+      visible:
+          id: 'CandidateInputItemSelectors.Button.2'
+      timeout: 3000
+- tapOn:
+      id: 'CandidateInputItemSelectors.Button.2'
+
+- tapOn:
+      id: 'InputModeButtonSelectors.Root'
+- extendedWaitUntil:
+      visible:
+          id: 'AvailableValueItemSelectors.Button.2'
+      timeout: 3000
+- tapOn:
+      id: 'AvailableValueItemSelectors.Button.2'
+
+- extendedWaitUntil:
+      visible:
+          id: 'WinnerScreenSelectors.Root'
+      timeout: 5000
+- assertVisible:
+      id: 'ChallengeRecordingSummarySelectors.Root'
+
+- scrollUntilVisible:
+      element:
+          id: 'ChallengeRecordingStatsSelectors.PencilValue'
+      direction: DOWN
+      visibilityPercentage: 50
+      timeout: 15000
+- assertVisible: '.*1 pencil action.*'
+- assertVisible:
+      id: 'ChallengeRecordingStatsSelectors.ExitsValue'
+- assertVisible: '.*1 exit.*'
+- assertNotVisible: 'Uninterrupted run'
+
+- scrollUntilVisible:
+      element:
+          id: 'ChallengeTechniqueArsenalSelectors.Root'
+      direction: DOWN
+      visibilityPercentage: 50
+      timeout: 15000
+
+- scrollUntilVisible:
+      element:
+          id: 'WinnerScreenSelectors.TimeValue'
+      direction: DOWN
+      visibilityPercentage: 50
+      timeout: 15000
+- assertVisible:
+      id: 'WinnerScreenSelectors.MistakesValue'
+- assertVisible: 'Challenge'
+- assertVisible:
+      id: 'WinnerScreenSelectors.PlayAgainButton'
+
+- tapOn:
+      id: 'WinnerScreenSelectors.HomeButton'
+- extendedWaitUntil:
+      visible:
+          id: 'HomeScreenSelectors.Root'
+      timeout: 3000
+- stopApp

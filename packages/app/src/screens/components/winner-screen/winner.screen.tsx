@@ -4,6 +4,8 @@ import { Redirect } from 'expo-router';
 import { CompletedGameResultDetails } from '../../../@generic/components/completed-game-result-details/completed-game-result-details';
 import { GameResultPage } from '../../../@generic/components/game-result-page/game-result-page';
 import { useCompletedGameResult } from '../../../@generic/hooks/use-completed-game-result.hook';
+import { ChallengeRecordingSummary } from '../../../challenge/components/challenge-recording-summary/challenge-recording-summary';
+import { isChallengeRecording } from '../../../challenge/utils/is-challenge-recording.util';
 
 import { WinnerResultHero } from './winner-result-hero/winner-result-hero';
 import { WinnerScreenActions } from './winner-screen-actions/winner-screen-actions';
@@ -25,10 +27,15 @@ export const WinnerScreen = () => {
     const winDescriptor = isCleanWin ? t`Clean win` : t`Completed`;
     const descriptorText = `${winDescriptor} • ${completedGameResult.difficultyText} • ${completedGameResult.mistakesTypeText}`;
     const footer = <WinnerScreenActions difficulty={sudoku.Difficulty} gameState={gameState} />;
+    const recordingSummary = isChallengeRecording(gameState) ? (
+        <ChallengeRecordingSummary elapsedTime={gameState.elapsedTime} timelineEvents={gameState.timelineEvents} />
+    ) : null;
 
     return (
         <GameResultPage footer={footer} testID={WinnerScreenSelectors.Root}>
             <WinnerResultHero descriptorText={descriptorText} isPersonalBest={hasNewPersonalBestScore} scoreText={scoreText} />
+
+            {recordingSummary}
 
             <CompletedGameResultDetails
                 resultContext="winner"
