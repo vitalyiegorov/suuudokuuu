@@ -1,21 +1,13 @@
 import { useLingui } from '@lingui/react/macro';
 import { router } from 'expo-router';
-import { use } from 'react';
 
 import { useAppDispatch } from '../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../@generic/hooks/use-app-selector.hook';
-import { Themes } from '../../theme/constant/themes.constant';
-import { ThemeContext } from '../../theme/context/theme.context';
 import { CellMargin } from '../constant/cell-margin.constant';
 import { FontSizes } from '../constant/font-sizes.constant';
 import { Languages } from '../constant/languages.constant';
 import { settingsSetAction } from '../store/settings.actions';
-import {
-    settingsCellMarginSelector,
-    settingsFontSizeSelector,
-    settingsLanguageSelector,
-    settingsThemeSelector
-} from '../store/settings.selectors';
+import { settingsCellMarginSelector, settingsFontSizeSelector, settingsLanguageSelector } from '../store/settings.selectors';
 
 import { useSettingsOptionDescriptions } from './use-settings-option-descriptions.hook';
 import { useSettingsOptionLabels } from './use-settings-option-labels.hook';
@@ -31,15 +23,12 @@ type SettingsOptionSheetConfig = {
 
 export const useSettingsOptionSheetConfig = (setting: string | null): SettingsOptionSheetConfig | null => {
     const { i18n, t } = useLingui();
-    const { changeTheme } = use(ThemeContext);
     const dispatch = useAppDispatch();
     const currentCellMargin = useAppSelector(settingsCellMarginSelector);
     const currentFontSize = useAppSelector(settingsFontSizeSelector);
     const currentLanguage = useAppSelector(settingsLanguageSelector);
-    const currentTheme = useAppSelector(settingsThemeSelector);
-    const { getCellMarginDescription, getFontSizeDescription, getLanguageDescription, getThemeDescription } =
-        useSettingsOptionDescriptions();
-    const { getCellMarginLabel, getFontSizeLabel, getLanguageLabel, getThemeLabel } = useSettingsOptionLabels();
+    const { getCellMarginDescription, getFontSizeDescription, getLanguageDescription } = useSettingsOptionDescriptions();
+    const { getCellMarginLabel, getFontSizeLabel, getLanguageLabel } = useSettingsOptionLabels();
 
     const selectCellMargin = (cellMargin: SettingsState['cellMargin']) => {
         dispatch(settingsSetAction({ cellMargin }));
@@ -52,10 +41,6 @@ export const useSettingsOptionSheetConfig = (setting: string | null): SettingsOp
     const selectLanguage = (language: SettingsState['language']) => {
         dispatch(settingsSetAction({ language }));
         i18n.activate(language);
-        router.back();
-    };
-    const selectTheme = (theme: SettingsState['theme']) => {
-        changeTheme(theme);
         router.back();
     };
 
@@ -76,12 +61,6 @@ export const useSettingsOptionSheetConfig = (setting: string | null): SettingsOp
         isSelected: language === currentLanguage,
         label: getLanguageLabel(language),
         onPress: () => void selectLanguage(language)
-    }));
-    const themeItems = Themes.map(theme => ({
-        description: getThemeDescription(theme),
-        isSelected: theme === currentTheme,
-        label: getThemeLabel(theme),
-        onPress: () => void selectTheme(theme)
     }));
 
     if (setting === 'cell-margin') {
@@ -105,14 +84,6 @@ export const useSettingsOptionSheetConfig = (setting: string | null): SettingsOp
             description: t`Choose the language used for menus and game text`,
             items: languageItems,
             title: t`Language`
-        };
-    }
-
-    if (setting === 'theme') {
-        return {
-            description: t`Choose the color style for the board and app screens`,
-            items: themeItems,
-            title: t`Theme`
         };
     }
 
