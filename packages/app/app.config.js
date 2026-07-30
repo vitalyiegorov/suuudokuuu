@@ -1,5 +1,6 @@
 import { withAndroidManifest } from '@expo/config-plugins';
 
+import { brandConfig } from './brand.config';
 import rootPkg from './package.json';
 
 const APP_VARIANT = process.env.APP_VARIANT;
@@ -17,7 +18,7 @@ if (DEVELOPMENT_BUILD_NUMBER !== undefined && !DevelopmentBuildNumberPattern.tes
 }
 
 const getUniqueIdentifier = isAndroid => {
-    const prefix = isAndroid ? 'com.vitaliiyehorov.suuudokuuu' : 'com.vitalyiegorov.suuudokuuu';
+    const prefix = isAndroid ? brandConfig.androidPackage : brandConfig.iosBundleIdentifier;
 
     if (IS_DEV) {
         return `${prefix}.dev`;
@@ -36,19 +37,21 @@ const getUniqueIdentifier = isAndroid => {
 
 const getAppName = () => {
     if (IS_DEV) {
-        return 'suuudokuuu (Dev)';
+        return `${brandConfig.appName} (Dev)`;
     }
 
     if (IS_PREVIEW) {
-        return 'suuudokuuu (Preview)';
+        return `${brandConfig.appName} (Preview)`;
     }
 
     if (IS_E2E) {
-        return 'suuudokuuu (E2E)';
+        return `${brandConfig.appName} (E2E)`;
     }
 
-    return 'suuudokuuu';
+    return brandConfig.appName;
 };
+
+const getApexAssociatedDomain = () => brandConfig.associatedDomains.find(domain => !domain.startsWith('www.'));
 
 const withPortraitLockedAndroid = config =>
     withAndroidManifest(config, mod => {
@@ -77,15 +80,15 @@ export default ({ config }) =>
     withPortraitLockedAndroid({
         ...config,
         name: getAppName(),
-        slug: 'suuudokuuu',
-        scheme: 'suuudokuuu',
+        slug: brandConfig.slug,
+        scheme: brandConfig.scheme,
         version: rootPkg.version,
-        icon: './assets/icon.png',
+        icon: brandConfig.assets.icon,
         userInterfaceStyle: 'automatic',
         splash: {
-            image: './assets/splash.png',
+            image: brandConfig.assets.splash,
             resizeMode: 'contain',
-            backgroundColor: '#000000'
+            backgroundColor: brandConfig.splashBackgroundColor
         },
         assetBundlePatterns: ['**/*'],
         ios: {
@@ -95,7 +98,7 @@ export default ({ config }) =>
             config: {
                 usesNonExemptEncryption: false
             },
-            associatedDomains: ['applinks:suuudokuuu.com', 'applinks:www.suuudokuuu.com'],
+            associatedDomains: brandConfig.associatedDomains.map(domain => `applinks:${domain}`),
             infoPlist: {
                 NSPhotoLibraryUsageDescription: 'This app needs access to your photo library to share game results and screenshots.',
                 UISupportedInterfaceOrientations: ['UIInterfaceOrientationPortrait'],
@@ -109,8 +112,8 @@ export default ({ config }) =>
         },
         android: {
             adaptiveIcon: {
-                foregroundImage: './assets/adaptive-icon.png',
-                backgroundColor: '#000000'
+                foregroundImage: brandConfig.assets.adaptiveIcon,
+                backgroundColor: brandConfig.splashBackgroundColor
             },
             package: getUniqueIdentifier(true),
             intentFilters: [
@@ -120,12 +123,12 @@ export default ({ config }) =>
                     data: [
                         {
                             scheme: 'https',
-                            host: '*.suuudokuuu.com',
+                            host: `*.${getApexAssociatedDomain()}`,
                             pathPrefix: '/'
                         },
                         {
                             scheme: 'https',
-                            host: 'suuudokuuu.com',
+                            host: getApexAssociatedDomain(),
                             pathPrefix: '/'
                         }
                     ],
@@ -134,12 +137,17 @@ export default ({ config }) =>
             ]
         },
         web: {
-            favicon: './assets/favicon.png',
+            favicon: brandConfig.assets.favicon,
             bundler: 'metro'
         },
         extra: {
             eas: {
                 projectId: '4a70028a-5f9e-4ab6-9389-82d8b8b6c833'
+            },
+            brand: {
+                appName: brandConfig.appName,
+                defaultTheme: brandConfig.defaultTheme,
+                links: brandConfig.links
             }
         },
         owner: 'vitalyiegorov',
@@ -166,7 +174,7 @@ export default ({ config }) =>
             'expo-sqlite',
             'expo-status-bar',
             ['expo-dev-client', getExpoDevClientConfig()],
-            ['expo-router', { origin: 'https://www.suuudokuuu.com/' }],
+            ['expo-router', { origin: brandConfig.webOrigin }],
             ['expo-font', { fonts: ['../../node_modules/@expo-google-fonts/inter/900Black/Inter_900Black.ttf'] }],
             [
                 'react-native-share',
