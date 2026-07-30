@@ -1,5 +1,5 @@
 import { describe, expect, it } from '@jest/globals';
-import { SolutionTechniqueEnum } from '@suuudokuuu/solver';
+import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { ChallengeTechniqueTierEnum } from '../enums/challenge-technique-tier.enum';
 

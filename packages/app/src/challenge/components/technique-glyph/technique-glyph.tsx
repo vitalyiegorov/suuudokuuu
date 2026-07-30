@@ -4,7 +4,7 @@ import { techniqueGlyphConstant } from '../../constants/technique-glyph.constant
 
 import { TechniqueGlyphStyles as styles } from './technique-glyph.styles';
 
-import type { SolutionTechniqueEnum } from '@suuudokuuu/solver';
+import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 import type { ViewStyle } from 'react-native';
 
 const GRID_ROWS = [0, 1, 2];

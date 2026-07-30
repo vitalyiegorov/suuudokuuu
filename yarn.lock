@@ -4892,7 +4892,7 @@ __metadata:
     "@suuudokuuu/encoder": "workspace:*"
     "@suuudokuuu/generator": "workspace:*"
     "@suuudokuuu/screen-chrome": "workspace:*"
-    "@suuudokuuu/solver": "workspace:*"
+    "@suuudokuuu/techniques": "workspace:*"
     "@suuudokuuu/ui": "workspace:*"
     "@testing-library/react-native": "npm:^14.0.1"
     "@types/react": "npm:~19.2.14"
@@ -5013,9 +5013,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@suuudokuuu/solver@workspace:*, @suuudokuuu/solver@workspace:packages/solver":
+"@suuudokuuu/techniques@workspace:*, @suuudokuuu/techniques@workspace:packages/techniques":
   version: 0.0.0-use.local
-  resolution: "@suuudokuuu/solver@workspace:packages/solver"
+  resolution: "@suuudokuuu/techniques@workspace:packages/techniques"
   dependencies:
     "@rnw-community/shared": "npm:^2.2.0"
     "@suuudokuuu/generator": "workspace:*"

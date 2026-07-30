@@ -8,7 +8,7 @@ import { ChallengeTechniqueTierEnum } from '../enums/challenge-technique-tier.en
 import { getTechniqueTier } from './get-technique-tier.util';
 
 import type { GameTimelineEventInterface } from '../../game/interface/game-timeline-event.interface';
-import type { SolutionTechniqueEnum } from '@suuudokuuu/solver';
+import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 export interface ChallengeTapeMarkInterface {
     complexity: number;
