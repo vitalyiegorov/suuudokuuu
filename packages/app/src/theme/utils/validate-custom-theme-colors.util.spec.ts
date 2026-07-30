@@ -2,10 +2,12 @@ import { describe, expect, it } from '@jest/globals';
 
 import { ColorSchemaEnum } from '../enum/color-schema.enum';
 import { ThemeEnum } from '../enum/theme.enum';
-import { BWLightTheme } from '../themes/bw.theme';
+import { BWDarkTheme, BWLightTheme } from '../themes/bw.theme';
 
 import { getTheme } from './get-theme.util';
 import { validateCustomThemeColors } from './validate-custom-theme-colors.util';
+
+const OpaqueWhiteContrastRatio = 1;
 
 describe('validateCustomThemeColors', () => {
     it('reports no issues for any preset in any variant', () => {
@@ -36,5 +38,37 @@ describe('validateCustomThemeColors', () => {
         const issues = validateCustomThemeColors(colors);
 
         expect(issues.some(issue => issue.foregroundKey === 'cell.highlightedText')).toBe(true);
+    });
+
+    it('skips a contrast pair when its foreground token cannot be parsed', () => {
+        const colors = {
+            ...BWLightTheme.colors,
+            surface: { ...BWLightTheme.colors.surface, raisedText: 'not-a-color' }
+        };
+
+        expect(() => validateCustomThemeColors(colors)).not.toThrow();
+
+        const issues = validateCustomThemeColors(colors);
+
+        expect(issues.find(issue => issue.foregroundKey === 'surface.raisedText')).toBeUndefined();
+    });
+
+    it('skips a contrast pair when its background token cannot be parsed', () => {
+        const colors = {
+            ...BWLightTheme.colors,
+            cell: { ...BWLightTheme.colors.cell, active: 'not-a-color' }
+        };
+        const issues = validateCustomThemeColors(colors);
+
+        expect(issues.find(issue => issue.foregroundKey === 'cell.activeText')).toBeUndefined();
+    });
+
+    it('falls back to opaque white for compositing when the page background cannot be parsed', () => {
+        const colors = { ...BWDarkTheme.colors, background: 'not-a-color' };
+        const issues = validateCustomThemeColors(colors);
+        const highlightedIssue = issues.find(issue => issue.foregroundKey === 'cell.highlightedText');
+
+        expect(highlightedIssue).toBeDefined();
+        expect(highlightedIssue?.contrastRatio).toBe(OpaqueWhiteContrastRatio);
     });
 });

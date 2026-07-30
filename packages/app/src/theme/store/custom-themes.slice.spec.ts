@@ -21,6 +21,12 @@ const sampleTheme: CustomThemeInterface = {
     updatedAt: 1
 };
 
+const otherTheme: CustomThemeInterface = {
+    ...sampleTheme,
+    id: 'custom-other',
+    name: 'Other'
+};
+
 describe('customThemesSlice', () => {
     it('adds a new theme on upsert', () => {
         const state = customThemesSlice.reducer(initialCustomThemesState, customThemesUpsertAction(sampleTheme));
@@ -34,6 +40,15 @@ describe('customThemesSlice', () => {
         const state = customThemesSlice.reducer(seeded, customThemesUpsertAction(renamed));
 
         expect(state.themes).toEqual([renamed]);
+    });
+
+    it('replaces only the matching theme when multiple themes are stored', () => {
+        const seededOnce = customThemesSlice.reducer(initialCustomThemesState, customThemesUpsertAction(sampleTheme));
+        const seededTwice = customThemesSlice.reducer(seededOnce, customThemesUpsertAction(otherTheme));
+        const renamedOther = { ...otherTheme, name: 'Renamed Other', updatedAt: 2 };
+        const state = customThemesSlice.reducer(seededTwice, customThemesUpsertAction(renamedOther));
+
+        expect(state.themes).toEqual([sampleTheme, renamedOther]);
     });
 
     it('removes a theme by id', () => {
