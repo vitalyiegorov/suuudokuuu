@@ -40,4 +40,14 @@ describe('parseColor', () => {
         expect(parseColor('rgba(0,0)')).toBeNull();
         expect(parseColor('')).toBeNull();
     });
+
+    it('returns null when a channel exceeds the maximum byte value', () => {
+        expect(parseColor('rgb(300, 0, 0)')).toBeNull();
+        expect(parseColor('rgb(0, 300, 0)')).toBeNull();
+        expect(parseColor('rgb(0, 0, 300)')).toBeNull();
+    });
+
+    it('returns null when alpha exceeds 1', () => {
+        expect(parseColor('rgba(0, 0, 0, 1.5)')).toBeNull();
+    });
 });
