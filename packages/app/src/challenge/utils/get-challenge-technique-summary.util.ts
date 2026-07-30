@@ -3,7 +3,7 @@ import { isDefined } from '@rnw-community/shared';
 import { ChallengeTechniqueTierEnum } from '../enums/challenge-technique-tier.enum';
 
 import type { ChallengeTechniqueEventInterface } from '../interfaces/challenge-technique-event.interface';
-import type { SolutionTechniqueEnum } from '@suuudokuuu/solver';
+import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 export interface ChallengeTechniqueSummaryItemInterface {
     technique: SolutionTechniqueEnum;

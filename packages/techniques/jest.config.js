@@ -3,7 +3,7 @@ module.exports = {
     reporters: ['default'],
     coveragePathIgnorePatterns: ['.mock.ts'],
     collectCoverageFrom: ['src/**/*.ts', '!src/**/*.spec.ts', '!src/**/*.spec.util.ts', '!src/index.ts'],
-    displayName: 'solver',
+    displayName: 'techniques',
     moduleNameMapper: {
         '^@suuudokuuu/generator$': '<rootDir>/../generator/src/index.ts'
     },

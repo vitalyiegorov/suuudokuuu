@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Suuudokuuu is an open-source Sudoku game built with React Native and Expo. This monorepo has five core packages: `app` for the game UI, `generator` for Sudoku generation and solving, `solver` for solving-technique detection, `encoder` for compact shareable game-state encoding, and `screen-chrome` for generic screen chrome primitives.
+Suuudokuuu is an open-source Sudoku game built with React Native and Expo. This monorepo has five core packages: `app` for the game UI, `generator` for Sudoku generation and solving, `techniques` for solving-technique detection, `encoder` for compact shareable game-state encoding, and `screen-chrome` for generic screen chrome primitives.
 
 ## Canonical Agent Surfaces
 
@@ -43,7 +43,7 @@ Run `yarn test` when behavior, algorithms, serialization, persistence, scoring, 
 packages/
 ├── app/                # Expo 57, React Native 0.86, React 19.2 game app
 ├── generator/          # Pure TypeScript Sudoku generator and DLX solver
-├── solver/             # Pure TypeScript solving-technique detection
+├── techniques/         # Pure TypeScript solving-technique detection
 ├── encoder/            # Binary/LZ encoding for puzzle sharing and replay
 └── screen-chrome/      # Raw TypeScript generic screen chrome, edge fades, and collapsible header
 tests/
@@ -54,7 +54,7 @@ tests/
 
 - Read `packages/app/AGENTS.md` before changing Expo Router routes, React Native UI, Redux state, persistence, themes, Lingui text, deep links, sharing, or app assets.
 - Read `packages/generator/AGENTS.md` before changing Sudoku generation, validation, navigation, DLX solving, difficulty config, or puzzle interfaces.
-- Read `packages/solver/AGENTS.md` before changing solving techniques, candidate context, strategy ordering, or move classification.
+- Read `packages/techniques/AGENTS.md` before changing solving techniques, candidate context, strategy ordering, or move classification.
 - Read `packages/encoder/AGENTS.md` before changing binary formats, solution-step encoding, URL serialization, compression, or decode error behavior.
 - Read `packages/screen-chrome/README.md` before changing `@suuudokuuu/screen-chrome`; preserve its generic, app-agnostic API.
 - Read `tests/app-tests/AGENTS.md` before changing Maestro flows, test IDs used by flows, deep-link fixtures, or E2E app assumptions.
@@ -143,7 +143,7 @@ Use Conventional Commits for commit messages and PR titles:
 type(scope): short description
 ```
 
-Scopes are `app`, `generator`, `solver`, and `encoder`. Omit the scope for repo-wide docs, tooling, skills, or workspace configuration.
+Scopes are `app`, `generator`, `techniques`, and `encoder`. Omit the scope for repo-wide docs, tooling, skills, or workspace configuration.
 
 Use these types: `feat`, `fix`, `refactor`, `chore`, `docs`, `ci`, `test`, `i18n`, `perf`, and `build`.
 
@@ -167,7 +167,7 @@ Do not add disable comments casually. These are the only pre-approved shapes:
 // eslint-disable-next-line max-lines-per-function -- Layout/form component requires many lines
 ```
 
-Algorithm-heavy solver/generator exceptions require a short, human-readable justification and should stay local to the narrow method.
+Algorithm-heavy techniques/generator exceptions require a short, human-readable justification and should stay local to the narrow method.
 
 ## Important Notes
 

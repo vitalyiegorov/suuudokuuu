@@ -1,4 +1,4 @@
-# Suuudokuuu Solver
+# Suuudokuuu Techniques
 
 Sudoku solving-technique detection package: identifies which named technique (Full House, Naked Single, X-Wing, XY-Chain, ...) justifies a move on a given board.
 

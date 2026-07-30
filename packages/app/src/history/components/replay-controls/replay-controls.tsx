@@ -18,7 +18,7 @@ import { ReplayControlsStyles as styles } from './replay-controls.styles';
 
 import type { ChallengeAwayRangeInterface } from '../../../challenge/interfaces/challenge-away-range.interface';
 import type { EmptyFn } from '@rnw-community/shared';
-import type { MoveClassificationInterface } from '@suuudokuuu/solver';
+import type { MoveClassificationInterface } from '@suuudokuuu/techniques';
 
 interface Props {
     readonly awayRanges: ChallengeAwayRangeInterface[];

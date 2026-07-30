@@ -32,7 +32,7 @@
         "@suuudokuuu/encoder": "workspace:*",
         "@suuudokuuu/generator": "workspace:*",
         "@suuudokuuu/screen-chrome": "workspace:*",
-        "@suuudokuuu/solver": "workspace:*",
+        "@suuudokuuu/techniques": "workspace:*",
         "@suuudokuuu/ui": "workspace:*",
         "date-fns": "^4.4.0",
         "expo": "~57.0.4",

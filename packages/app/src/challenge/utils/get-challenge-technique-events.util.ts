@@ -1,5 +1,5 @@
 import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
-import { TechniqueManager } from '@suuudokuuu/solver';
+import { TechniqueManager } from '@suuudokuuu/techniques';
 
 import { isEmptyArray, isNotEmptyString } from '@rnw-community/shared';
 
