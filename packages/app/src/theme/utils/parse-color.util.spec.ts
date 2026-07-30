@@ -22,6 +22,10 @@ describe('parseColor', () => {
         expect(parseColor('rgb(255, 255, 255)')).toEqual({ red: 255, green: 255, blue: 255, alpha: 1 });
     });
 
+    it('parses uppercase RGB()', () => {
+        expect(parseColor('RGB(255, 0, 0)')).toEqual({ red: 255, green: 0, blue: 0, alpha: 1 });
+    });
+
     it('parses rgba() with fractional alpha', () => {
         expect(parseColor('rgba(0, 0, 0, 0.25)')).toEqual({ red: 0, green: 0, blue: 0, alpha: 0.25 });
     });
