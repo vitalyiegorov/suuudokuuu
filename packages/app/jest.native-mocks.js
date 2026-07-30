@@ -2,6 +2,8 @@
 // Component specs render real screens, so these stubs keep the module graph loadable.
 jest.mock('expo-localization', () => ({ getLocales: () => [{ languageCode: 'en' }] }));
 
+jest.mock('expo-constants', () => ({ default: { expoConfig: null } }));
+
 jest.mock('expo-haptics', () => ({
     ImpactFeedbackStyle: { Heavy: 'heavy', Light: 'light', Medium: 'medium' },
     NotificationFeedbackType: { Error: 'error', Success: 'success', Warning: 'warning' },
