@@ -5,12 +5,13 @@ import { GameSidePanelWidthConstant } from '../../../game/constant/board-cell-si
 
 export const GameScreenStyles = StyleSheet.create((theme, rt) => ({
     container: (isLeftHanded: boolean) => ({
-        alignItems: 'stretch',
+        alignItems: { xs: 'stretch', [WideLayoutMediaQuery]: 'center' },
         flex: 1,
         flexDirection: { xs: 'column', [WideLayoutMediaQuery]: isLeftHanded ? 'row-reverse' : 'row' },
         gap: { xs: theme.spacing.sm, [WideLayoutMediaQuery]: theme.spacing.lg },
         justifyContent: { xs: 'flex-start', [WideLayoutMediaQuery]: 'center' },
         paddingBottom: rt.insets.bottom / 2 + theme.spacing.xs,
+        paddingHorizontal: { xs: 0, [WideLayoutMediaQuery]: theme.spacing.md },
         paddingTop: theme.spacing.xs
     }),
     topBar: {

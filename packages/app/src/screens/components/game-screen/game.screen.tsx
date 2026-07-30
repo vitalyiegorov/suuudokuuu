@@ -21,7 +21,7 @@ import { classifyTimelineMove } from '../../../challenge/utils/classify-timeline
 import { Field, FieldRef } from '../../../game/components/field/field';
 import { GameTimerController } from '../../../game/components/game-timer-controller/game-timer-controller';
 import { GameContext } from '../../../game/context/game.context';
-import { useBoardCellSize } from '../../../game/hooks/use-board-cell-size.hook';
+import { useBoardGeometry } from '../../../game/hooks/use-board-geometry.hook';
 import { useKeyboardControls } from '../../../game/hooks/use-keyboard-controls/use-keyboard-controls.hook';
 import { useShareGame } from '../../../game/hooks/use-share-game.hook';
 import {
@@ -71,7 +71,7 @@ export const GameScreen = () => {
 
     const [hapticNotification, hapticImpact] = useVibration();
 
-    const { cellSize: boardCellSize, boardSize, onBoardAreaLayout } = useBoardCellSize();
+    const { cellSize: boardCellSize, boardSize, onBoardAreaLayout } = useBoardGeometry();
 
     const dispatch = useAppDispatch();
     const score = useAppSelector(gameScoreSelector);

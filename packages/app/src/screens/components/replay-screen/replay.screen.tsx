@@ -9,7 +9,7 @@ import { isDefined } from '@rnw-community/shared';
 import { WideLayoutMediaQuery } from '../../../@generic/constants/layout-media-query.constant';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { getChallengeAwayRanges } from '../../../challenge/utils/get-challenge-away-ranges.util';
-import { useBoardCellSize } from '../../../game/hooks/use-board-cell-size.hook';
+import { useBoardGeometry } from '../../../game/hooks/use-board-geometry.hook';
 import { gameCompletedGameByIdSelector } from '../../../game/store/game.selectors';
 import { getTimelineCellSteps } from '../../../game/utils/get-timeline-cell-steps.util';
 import { stringToGameState } from '../../../game/utils/string-to-game-state.util';
@@ -31,7 +31,7 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
     const completedGame = useAppSelector(gameCompletedGameByIdSelector(difficulty, completedAt));
     const [currentStep, setCurrentStep] = useState(0);
     const [gameState] = useState(() => stringToGameState(completedGame?.encodedState));
-    const { cellSize: boardCellSize, onBoardAreaLayout } = useBoardCellSize();
+    const { cellSize: boardCellSize, onBoardAreaLayout } = useBoardGeometry();
 
     if (!isDefined(gameState) || !isDefined(completedGame)) {
         return <Redirect href="/history" />;
