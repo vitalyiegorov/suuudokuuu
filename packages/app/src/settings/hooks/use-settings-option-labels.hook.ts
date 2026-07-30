@@ -1,6 +1,7 @@
 import { useLingui } from '@lingui/react/macro';
 
 import { ThemeEnum } from '../../theme/enum/theme.enum';
+import { isCustomThemeId } from '../../theme/type-guard/is-custom-theme-id.type-guard';
 import { LanguageLabels } from '../constant/language-labels.constant';
 
 import type { SettingsState } from '../store/settings.state';
@@ -30,12 +31,17 @@ export const useSettingsOptionLabels = () => {
         return t`Large`;
     };
     const getLanguageLabel = (language: SettingsState['language']) => i18n._(LanguageLabels[language]);
-    const getThemeLabel = (theme: SettingsState['theme']) =>
-        ({
+    const getThemeLabel = (theme: SettingsState['theme']) => {
+        if (isCustomThemeId(theme)) {
+            return t`Custom`;
+        }
+
+        return {
             [ThemeEnum.BlackAndWhite]: t`Classic`,
             [ThemeEnum.Colorful]: t`Gold`,
             [ThemeEnum.Newspaper]: t`Newspaper`
-        })[theme];
+        }[theme];
+    };
 
     return { getCellMarginLabel, getFontSizeLabel, getLanguageLabel, getThemeLabel };
 };
