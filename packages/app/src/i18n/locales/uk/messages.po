@@ -96,10 +96,6 @@ msgstr "Прийняти виклик"
 msgid "Accept challenge?"
 msgstr "Прийняти виклик?"
 
-#: src/settings/component/theme-list-row/theme-list-row.tsx
-msgid "Active"
-msgstr "Активний"
-
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Active candidate background"
 msgstr "Фон активного варіанта"

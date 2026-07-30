@@ -94,10 +94,6 @@ msgstr "চ্যালেঞ্জ গ্রহণ করুন"
 msgid "Accept challenge?"
 msgstr "চ্যালেঞ্জ গ্রহণ করবেন?"
 
-#: src/settings/component/theme-list-row/theme-list-row.tsx
-msgid "Active"
-msgstr "সক্রিয়"
-
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Active candidate background"
 msgstr "সক্রিয় প্রার্থীর ব্যাকগ্রাউন্ড"
