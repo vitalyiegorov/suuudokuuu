@@ -1,5 +1,5 @@
 import { AppButton, AppSettingsRow } from '@suuudokuuu/ui';
-import { Check } from 'lucide-react-native';
+import { Check, Pencil } from 'lucide-react-native';
 import { use } from 'react';
 import { Pressable, View } from 'react-native';
 
@@ -13,7 +13,7 @@ import type { OnEventFn } from '@rnw-community/shared';
 
 interface Props {
     readonly description?: string;
-    readonly editLabel: string;
+    readonly editAccessibilityLabel: string;
     readonly isSelected: boolean;
     readonly onEdit?: OnEventFn;
     readonly onPress: OnEventFn;
@@ -21,7 +21,7 @@ interface Props {
     readonly title: string;
 }
 
-export const ThemeListRow = ({ description, editLabel, isSelected, onEdit, onPress, testID, title }: Props) => {
+export const ThemeListRow = ({ description, editAccessibilityLabel, isSelected, onEdit, onPress, testID, title }: Props) => {
     const { theme } = use(ThemeContext);
 
     const hasEditAction = isDefined(onEdit);
@@ -34,7 +34,9 @@ export const ThemeListRow = ({ description, editLabel, isSelected, onEdit, onPre
             <View style={styles.checkSlot}>
                 {isSelected && <Check color={theme.colors.surface.subtleText} height={22} strokeWidth={2.25} width={22} />}
             </View>
-            {hasEditAction && <AppButton onPress={onEdit} size="compact" text={editLabel} variant="secondary" />}
+            {hasEditAction && (
+                <AppButton accessibilityLabel={editAccessibilityLabel} icon={Pencil} onPress={onEdit} size="compact" variant="secondary" />
+            )}
         </View>
     );
 
