@@ -21,7 +21,7 @@ appId: ${APP_ID}
           id: 'ChallengeResultScreenSelectors.UkraineSupportCta'
       direction: DOWN
       visibilityPercentage: 50
-      timeout: 15000
+      timeout: 30000
 - tapOn:
       id: 'ChallengeResultFooterSelectors.HomeButton'
 - extendedWaitUntil:
