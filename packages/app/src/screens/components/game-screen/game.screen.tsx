@@ -1,16 +1,15 @@
 import { useLingui } from '@lingui/react/macro';
+import { useAppLayout } from '@suuudokuuu/ui';
 import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { useRouter } from 'expo-router';
 import { use, useEffect, useRef, useState } from 'react';
 import { Pressable, View } from 'react-native';
-import { Display, Hide } from 'react-native-unistyles';
 
 import { isDefined } from '@rnw-community/shared';
 
 import { Alert } from '../../../@generic/components/alert/alert';
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
-import { WideLayoutMediaQuery } from '../../../@generic/constants/layout-media-query.constant';
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { useVibration } from '../../../@generic/hooks/use-vibration.hook';
@@ -72,6 +71,9 @@ export const GameScreen = () => {
     const [hapticNotification, hapticImpact] = useVibration();
 
     const { cellSize: boardCellSize, boardSize, onBoardAreaLayout } = useBoardGeometry();
+
+    const { sizeClass } = useAppLayout();
+    const isWideLayout = sizeClass === 'wide';
 
     const dispatch = useAppDispatch();
     const score = useAppSelector(gameScoreSelector);
@@ -253,32 +255,30 @@ export const GameScreen = () => {
             <GameTimerController />
             {keyboardControlsElement}
 
-            <Hide mq={WideLayoutMediaQuery}>
+            {isWideLayout ? null : (
                 <View style={styles.topBar}>
                     {statusBlock}
                     {gameActions}
                 </View>
-            </Hide>
+            )}
 
             {challengeRunElements}
 
             <View style={styles.gameRow(isLeftHanded)}>
                 <View onLayout={onBoardAreaLayout} style={styles.boardArea}>
-                    <Hide mq={WideLayoutMediaQuery}>
-                        <View style={styles.boardSpacer} />
-                    </Hide>
+                    {isWideLayout ? null : <View style={styles.boardSpacer} />}
 
                     <Field cellSize={boardCellSize} onSelect={handleSelectCell} ref={fieldRef} selectedCell={selectedCell} />
 
-                    <Hide mq={WideLayoutMediaQuery}>
+                    {isWideLayout ? null : (
                         <View style={styles.toolsSlot}>
                             <GameInputTools hideAutoCandidates={hideAutoCandidates} />
                         </View>
-                    </Hide>
+                    )}
                 </View>
 
                 <View style={styles.panelArea(boardSize)}>
-                    <Display mq={WideLayoutMediaQuery}>{statusBlock}</Display>
+                    {isWideLayout ? statusBlock : null}
 
                     <View style={styles.panelInputArea}>
                         <GameNumpad
@@ -287,12 +287,10 @@ export const GameScreen = () => {
                             selectedCell={selectedCell}
                         />
 
-                        <Display mq={WideLayoutMediaQuery}>
-                            <GameInputTools hideAutoCandidates={hideAutoCandidates} />
-                        </Display>
+                        {isWideLayout ? <GameInputTools hideAutoCandidates={hideAutoCandidates} /> : null}
                     </View>
 
-                    <Display mq={WideLayoutMediaQuery}>{gameActionsWithPause}</Display>
+                    {isWideLayout ? gameActionsWithPause : null}
                 </View>
             </View>
         </Pressable>

@@ -1,6 +1,6 @@
+import { appLayoutScreenIsWide } from '@suuudokuuu/ui';
 import { StyleSheet } from 'react-native-unistyles';
 
-import { WideLayoutMediaQuery } from '../../../@generic/constants/layout-media-query.constant';
 import { GameSidePanelWidthConstant } from '../../../game/constant/board-cell-size.constant';
 
 export const GameScreenStyles = StyleSheet.create((theme, rt) => ({
@@ -11,18 +11,23 @@ export const GameScreenStyles = StyleSheet.create((theme, rt) => ({
         gap: theme.spacing.sm,
         justifyContent: 'flex-start',
         paddingBottom: rt.insets.bottom / 2 + theme.spacing.xs,
-        paddingHorizontal: { xs: 0, [WideLayoutMediaQuery]: theme.spacing.md },
+        paddingHorizontal: appLayoutScreenIsWide(rt.screen) ? theme.spacing.md : 0,
         paddingTop: theme.spacing.xs
     },
-    gameRow: (isLeftHanded: boolean) => ({
-        alignItems: { xs: 'stretch', [WideLayoutMediaQuery]: 'center' },
-        flexDirection: { xs: 'column', [WideLayoutMediaQuery]: isLeftHanded ? 'row-reverse' : 'row' },
-        flexGrow: 1,
-        flexShrink: 1,
-        gap: { xs: theme.spacing.sm, [WideLayoutMediaQuery]: theme.spacing.lg },
-        justifyContent: { xs: 'flex-start', [WideLayoutMediaQuery]: 'center' },
-        minHeight: 0
-    }),
+    gameRow: (isLeftHanded: boolean) => {
+        const isWideLayout = appLayoutScreenIsWide(rt.screen);
+        const wideGameRowFlexDirection = isLeftHanded ? 'row-reverse' : 'row';
+
+        return {
+            alignItems: isWideLayout ? 'center' : 'stretch',
+            flexDirection: isWideLayout ? wideGameRowFlexDirection : 'column',
+            flexGrow: 1,
+            flexShrink: 1,
+            gap: isWideLayout ? theme.spacing.lg : theme.spacing.sm,
+            justifyContent: isWideLayout ? 'center' : 'flex-start',
+            minHeight: 0
+        };
+    },
     topBar: {
         alignItems: 'flex-start',
         flexDirection: 'row',
@@ -33,10 +38,10 @@ export const GameScreenStyles = StyleSheet.create((theme, rt) => ({
     },
     boardArea: {
         alignItems: 'center',
-        aspectRatio: { xs: 'auto', [WideLayoutMediaQuery]: 1 },
-        flexGrow: { xs: 1, [WideLayoutMediaQuery]: 0 },
+        aspectRatio: appLayoutScreenIsWide(rt.screen) ? 1 : 'auto',
+        flexGrow: appLayoutScreenIsWide(rt.screen) ? 0 : 1,
         flexShrink: 1,
-        height: { xs: 'auto', [WideLayoutMediaQuery]: '100%' },
+        height: appLayoutScreenIsWide(rt.screen) ? '100%' : 'auto',
         justifyContent: 'center',
         minHeight: 0,
         minWidth: 0
@@ -53,19 +58,24 @@ export const GameScreenStyles = StyleSheet.create((theme, rt) => ({
         minHeight: 0,
         paddingTop: theme.spacing.sm
     },
-    panelArea: (boardSize: number) => ({
-        alignSelf: 'center',
-        flexShrink: 0,
-        gap: theme.spacing.sm,
-        height: { xs: 'auto', [WideLayoutMediaQuery]: boardSize > 0 ? boardSize : '100%' },
-        justifyContent: { xs: 'center', [WideLayoutMediaQuery]: 'space-between' },
-        paddingHorizontal: theme.spacing.sm,
-        width: { xs: '100%', [WideLayoutMediaQuery]: GameSidePanelWidthConstant }
-    }),
+    panelArea: (boardSize: number) => {
+        const isWideLayout = appLayoutScreenIsWide(rt.screen);
+        const widePanelAreaHeight = boardSize > 0 ? boardSize : '100%';
+
+        return {
+            alignSelf: 'center',
+            flexShrink: 0,
+            gap: theme.spacing.sm,
+            height: isWideLayout ? widePanelAreaHeight : 'auto',
+            justifyContent: isWideLayout ? 'space-between' : 'center',
+            paddingHorizontal: theme.spacing.sm,
+            width: isWideLayout ? GameSidePanelWidthConstant : '100%'
+        };
+    },
     panelInputArea: {
         alignItems: 'center',
         flexShrink: 1,
-        gap: { xs: theme.spacing.sm, [WideLayoutMediaQuery]: theme.spacing.xl },
+        gap: appLayoutScreenIsWide(rt.screen) ? theme.spacing.xl : theme.spacing.sm,
         justifyContent: 'center',
         minHeight: 0
     }

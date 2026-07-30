@@ -1,20 +1,19 @@
+import { appLayoutScreenIsWide } from '@suuudokuuu/ui';
 import { StyleSheet } from 'react-native-unistyles';
-
-import { WideLayoutMediaQuery } from '../../../../@generic/constants/layout-media-query.constant';
 
 const CompactStripHeight = 52;
 const CompactStripPaddingVertical = 4;
 const WideStripMinHeight = 0;
 const WideStripPaddingVertical = 0;
 
-export const GameScreenMetricsStyles = StyleSheet.create(() => ({
+export const GameScreenMetricsStyles = StyleSheet.create((_theme, rt) => ({
     container: {
-        alignSelf: { xs: 'flex-start', [WideLayoutMediaQuery]: 'stretch' },
-        flexGrow: { xs: 0, [WideLayoutMediaQuery]: 1 },
-        justifyContent: { xs: 'flex-start', [WideLayoutMediaQuery]: 'space-between' },
-        minHeight: { xs: CompactStripHeight, [WideLayoutMediaQuery]: WideStripMinHeight },
+        alignSelf: appLayoutScreenIsWide(rt.screen) ? 'stretch' : 'flex-start',
+        flexGrow: appLayoutScreenIsWide(rt.screen) ? 1 : 0,
+        justifyContent: appLayoutScreenIsWide(rt.screen) ? 'space-between' : 'flex-start',
+        minHeight: appLayoutScreenIsWide(rt.screen) ? WideStripMinHeight : CompactStripHeight,
         paddingHorizontal: 0,
-        paddingVertical: { xs: CompactStripPaddingVertical, [WideLayoutMediaQuery]: WideStripPaddingVertical }
+        paddingVertical: appLayoutScreenIsWide(rt.screen) ? WideStripPaddingVertical : CompactStripPaddingVertical
     },
     item: {
         gap: 3,

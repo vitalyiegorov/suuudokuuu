@@ -1,15 +1,15 @@
+import { appLayoutScreenIsWide } from '@suuudokuuu/ui';
 import { StyleSheet } from 'react-native-unistyles';
 
-import { WideLayoutMediaQuery } from '../../../../@generic/constants/layout-media-query.constant';
 import { PanelControlSizeConstant } from '../../../../game/constant/panel-control-size.constant';
 
-export const GameActionsStyles = StyleSheet.create(theme => ({
+export const GameActionsStyles = StyleSheet.create((theme, rt) => ({
     actions: {
         alignItems: 'center',
         flexDirection: 'row',
         flexShrink: 0,
         gap: theme.spacing.sm,
-        justifyContent: { xs: 'center', [WideLayoutMediaQuery]: 'space-between' }
+        justifyContent: appLayoutScreenIsWide(rt.screen) ? 'space-between' : 'center'
     },
     button: {
         borderRadius: PanelControlSizeConstant / 2,
