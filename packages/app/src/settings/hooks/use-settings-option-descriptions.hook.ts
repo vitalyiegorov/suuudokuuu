@@ -1,6 +1,7 @@
 import { useLingui } from '@lingui/react/macro';
 
 import { ThemeEnum } from '../../theme/enum/theme.enum';
+import { isCustomThemeId } from '../../theme/type-guard/is-custom-theme-id.type-guard';
 
 import type { SettingsState } from '../store/settings.state';
 
@@ -44,12 +45,17 @@ export const useSettingsOptionDescriptions = () => {
             ur: t`Use Urdu for app text`,
             zh: t`Use Chinese for app text`
         })[language];
-    const getThemeDescription = (theme: SettingsState['theme']) =>
-        ({
+    const getThemeDescription = (theme: SettingsState['theme']) => {
+        if (isCustomThemeId(theme)) {
+            return t`Your custom colors`;
+        }
+
+        return {
             [ThemeEnum.BlackAndWhite]: t`Clean black-and-white board`,
             [ThemeEnum.Colorful]: t`Warm gold accents for a brighter board`,
             [ThemeEnum.Newspaper]: t`Soft gray board with a paper-like feel`
-        })[theme];
+        }[theme];
+    };
 
     return {
         getCellMarginDescription,
