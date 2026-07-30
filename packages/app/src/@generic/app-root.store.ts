@@ -4,12 +4,14 @@ import { createMigrate, persistReducer, persistStore } from 'redux-persist';
 
 import { gameSlice } from '../game/store/game.slice';
 import { settingsSlice } from '../settings/store/settings.slice';
+import { customThemesSlice } from '../theme/store/custom-themes.slice';
 
 import { appRootMigrations, appRootPersistVersion } from './app-root-migrations';
 
 const rootReducer = combineReducers({
     [gameSlice.name]: gameSlice.reducer,
-    [settingsSlice.name]: settingsSlice.reducer
+    [settingsSlice.name]: settingsSlice.reducer,
+    [customThemesSlice.name]: customThemesSlice.reducer
 });
 
 const persistedReducer = persistReducer(

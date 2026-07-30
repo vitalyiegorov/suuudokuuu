@@ -5,6 +5,8 @@ import { DifficultyEnum } from '@suuudokuuu/generator';
 import { initialGameState } from '../game/store/game.state';
 import { emptyGameHistory } from '../history/interfaces/history-game.interface';
 import { initialSettingsState } from '../settings/store/settings.state';
+import { ThemeEnum } from '../theme/enum/theme.enum';
+import { initialCustomThemesState } from '../theme/store/custom-themes.state';
 
 import { appRootMigrations, appRootPersistVersion } from './app-root-migrations';
 
@@ -25,6 +27,7 @@ const migrationVersions = Object.keys(appRootMigrations).map(Number);
 const buildState = (overrides: Partial<AppRootPersistedStateInterface> = {}): AppRootPersistedStateInterface => ({
     game: initialGameState,
     settings: initialSettingsState,
+    customThemes: initialCustomThemesState,
     ...overrides
 });
 
@@ -112,5 +115,17 @@ describe('appRootMigrations', () => {
         expect(migrated.game.timelineEvents).toStrictEqual([]);
         expect(migrated.game.challengeTimelineEvents).toStrictEqual([]);
         expect(migrated.game.score).toBe(700);
+    });
+
+    it('should introduce an empty custom themes slice and keep existing settings', () => {
+        expect.assertions(2);
+
+        const state = buildState({
+            settings: { ...initialSettingsState, theme: ThemeEnum.Newspaper, hasTimer: false }
+        });
+        const migrated = runMigration(30, state);
+
+        expect(migrated.customThemes).toStrictEqual(initialCustomThemesState);
+        expect(migrated.settings).toMatchObject({ theme: ThemeEnum.Newspaper, hasTimer: false });
     });
 });
