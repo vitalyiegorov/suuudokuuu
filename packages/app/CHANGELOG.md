@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.70.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.70.1...v1.70.2) (2026-07-30)
+
+### Bug Fixes
+
+- **app,ui:** gate the wide layout by aspect ratio instead of a viewport height cap ([79c17a0](https://github.com/vitalyiegorov/suuudokuuu/commit/79c17a0a81de2646cae92748b9a705539903cb29))
+
 ## [1.70.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.70.0...v1.70.1) (2026-07-30)
 
 ### Bug Fixes
