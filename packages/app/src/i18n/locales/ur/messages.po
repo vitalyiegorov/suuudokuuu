@@ -28,7 +28,7 @@ msgstr "{awaySeconds}s غیر حاضر"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "{draftThemeName} copy"
-msgstr ""
+msgstr "{draftThemeName} (کاپی)"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} faster"
@@ -44,7 +44,7 @@ msgstr "{filledCells}/{totalCells} پُر"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "{foregroundLabel} on {backgroundLabel}: {contrastRatioText} — minimum {minimumRatio}"
-msgstr ""
+msgstr "{backgroundLabel} پر {foregroundLabel}: {contrastRatioText} — کم از کم {minimumRatio}"
 
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "{gamesCompleted, plural, one {# completed game} other {# completed games}}"
@@ -92,27 +92,27 @@ msgstr "چیلنج قبول کریں؟"
 
 #: src/settings/component/theme-list-row/theme-list-row.tsx
 msgid "Active"
-msgstr ""
+msgstr "فعال"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Active candidate background"
-msgstr ""
+msgstr "فعال امکان کا پس منظر"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Active candidate border"
-msgstr ""
+msgstr "فعال امکان کا بارڈر"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Active candidate text"
-msgstr ""
+msgstr "فعال امکان کا متن"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Active cell"
-msgstr ""
+msgstr "فعال خانہ"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Active cell text"
-msgstr ""
+msgstr "فعال خانے کا متن"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Adjust the digits on the Sudoku board"
@@ -146,7 +146,7 @@ msgstr "مکمل قطاروں، کالموں اور خانوں کو متحرک �
 
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Apply"
-msgstr ""
+msgstr "لاگو کریں"
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Attempts to load the latest development build again"
@@ -179,19 +179,19 @@ msgstr "متوازن حل"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Base dark color"
-msgstr ""
+msgstr "بنیادی ڈارک رنگ"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Base dark color (translucent)"
-msgstr ""
+msgstr "بنیادی ڈارک رنگ (شفاف)"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Base light color"
-msgstr ""
+msgstr "بنیادی لائٹ رنگ"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Base light color (translucent)"
-msgstr ""
+msgstr "بنیادی لائٹ رنگ (شفاف)"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Base Score"
@@ -222,7 +222,7 @@ msgstr "اگلی بار قسمت بہتر ہو!"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Board cells"
-msgstr ""
+msgstr "بورڈ کے خانے"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Board colors and screen appearance"
@@ -252,19 +252,19 @@ msgstr "منسوخ کریں"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Candidate background"
-msgstr ""
+msgstr "امکان کا پس منظر"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Candidate border"
-msgstr ""
+msgstr "امکان کا بارڈر"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Candidate text"
-msgstr ""
+msgstr "امکان کا متن"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Candidates"
-msgstr ""
+msgstr "امکانات"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
@@ -392,15 +392,15 @@ msgstr "اس سوڈوکو کو بالکل وہیں سے جاری رکھو جہا
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Create theme"
-msgstr ""
+msgstr "تھیم بنائیں"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Custom theme"
-msgstr ""
+msgstr "اپنی مرضی کی تھیم"
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Customize"
-msgstr ""
+msgstr "مرضی کے مطابق بنائیں"
 
 #: src/@generic/hooks/use-timer-text.hook.ts
 msgid "d"
@@ -408,7 +408,7 @@ msgstr "d"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Dark"
-msgstr ""
+msgstr "ڈارک"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Dark mode"
@@ -428,11 +428,11 @@ msgstr "گہری توجہ"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Delete"
-msgstr ""
+msgstr "حذف کریں"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Delete theme"
-msgstr ""
+msgstr "تھیم حذف کریں"
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Deutsch"
@@ -478,7 +478,7 @@ msgstr "Android ڈیولپمنٹ APK ڈاؤن لوڈ کرتا ہے"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Duplicate"
-msgstr ""
+msgstr "نقل بنائیں"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Each correct placement starts with a base value:"
@@ -491,11 +491,11 @@ msgstr "آسان"
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Edit"
-msgstr ""
+msgstr "ترمیم کریں"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Empty cell text"
-msgstr ""
+msgstr "خالی خانے کا متن"
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "English"
@@ -503,15 +503,15 @@ msgstr "English"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Enter a theme name"
-msgstr ""
+msgstr "تھیم کا نام درج کریں"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Error accent"
-msgstr ""
+msgstr "خرابی کا ایکسنٹ"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Error cell"
-msgstr ""
+msgstr "خرابی والا خانہ"
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Español"
@@ -535,7 +535,7 @@ msgstr "فیڈبیک"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Filled cell"
-msgstr ""
+msgstr "بھرا ہوا خانہ"
 
 #: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
 msgid "Final score"
@@ -577,7 +577,7 @@ msgstr "گیمز"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "General"
-msgstr ""
+msgstr "عمومی"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Gentle start"
@@ -653,15 +653,15 @@ msgstr "پینسل نوٹس نمایاں کریں"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Highlighted cell"
-msgstr ""
+msgstr "نمایاں خانہ"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Highlighted cell text"
-msgstr ""
+msgstr "نمایاں خانے کا متن"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Hint text"
-msgstr ""
+msgstr "اشارے کا متن"
 
 #: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
@@ -687,7 +687,7 @@ msgstr "نامکمل"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Info accent"
-msgstr ""
+msgstr "معلومات کا ایکسنٹ"
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Install on iOS"
@@ -703,7 +703,7 @@ msgstr "غلط سوڈوکو"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Inverted text"
-msgstr ""
+msgstr "الٹا متن"
 
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "iOS installation"
@@ -760,7 +760,7 @@ msgstr "سطح"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Light"
-msgstr ""
+msgstr "لائٹ"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Light warm-up"
@@ -780,7 +780,7 @@ msgstr "ہارے"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Low contrast"
-msgstr ""
+msgstr "کم کنٹراسٹ"
 
 #: src/@generic/hooks/use-timer-text.hook.ts
 msgid "m"
@@ -788,11 +788,11 @@ msgstr "m"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Matching value cell"
-msgstr ""
+msgstr "مماثل قدر کا خانہ"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Matching value text"
-msgstr ""
+msgstr "مماثل قدر کا متن"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Max Mistakes bonus"
@@ -835,11 +835,11 @@ msgstr "لینڈ اسکیپ میں کنٹرول پینل کو بورڈ کے با
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "My theme"
-msgstr ""
+msgstr "میری تھیم"
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "My themes"
-msgstr ""
+msgstr "میری تھیمز"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Naked Pair"
@@ -921,7 +921,7 @@ msgstr "ابھی کوئی شماریات نہیں"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Number pad"
-msgstr ""
+msgstr "نمبر پیڈ"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
@@ -930,23 +930,23 @@ msgstr "ہندسوں کا سائز"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Numpad border"
-msgstr ""
+msgstr "نمبر پیڈ کا بارڈر"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Numpad progress"
-msgstr ""
+msgstr "نمبر پیڈ کی پیش رفت"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Numpad progress (active)"
-msgstr ""
+msgstr "نمبر پیڈ کی پیش رفت (فعال)"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Numpad progress text"
-msgstr ""
+msgstr "نمبر پیڈ کی پیش رفت کا متن"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Numpad text"
-msgstr ""
+msgstr "نمبر پیڈ کا متن"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "of current score"
@@ -978,7 +978,7 @@ msgstr "یہ صفحہ کسی حقیقی iPhone یا iPad پر Safari میں کھ
 
 #: src/settings/component/theme-editor-color-row/theme-editor-color-row.tsx
 msgid "Opens a color picker for this token"
-msgstr ""
+msgstr "اس آئٹم کے لیے کلر پکر کھولتا ہے"
 
 #: src/settings/component/settings-option-link/settings-option-link.tsx
 msgid "Opens a picker to change this setting"
@@ -1071,11 +1071,11 @@ msgstr "Português"
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Presets"
-msgstr ""
+msgstr "پری سیٹس"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Primary text"
-msgstr ""
+msgstr "بنیادی متن"
 
 #: src/app/privacy-policy.tsx
 #: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx
@@ -1093,11 +1093,11 @@ msgstr "چھوڑیں"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Raised surface"
-msgstr ""
+msgstr "ابھری ہوئی سطح"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Raised surface text"
-msgstr ""
+msgstr "ابھری ہوئی سطح کا متن"
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"
@@ -1127,7 +1127,7 @@ msgstr "بگ رپورٹ کریں"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Reset"
-msgstr ""
+msgstr "ری سیٹ کریں"
 
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "Result"
@@ -1180,11 +1180,11 @@ msgstr "Sashimi X-Wing"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Save"
-msgstr ""
+msgstr "محفوظ کریں"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Save anyway"
-msgstr ""
+msgstr "پھر بھی محفوظ کریں"
 
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
@@ -1285,7 +1285,7 @@ msgstr "بنیادی تکنیکوں سے حل ہوا"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Some color combinations are hard to read. Save anyway?"
-msgstr ""
+msgstr "کچھ رنگوں کے مجموعے پڑھنے میں مشکل ہیں۔ پھر بھی محفوظ کریں؟"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Space between Sudoku cells"
@@ -1332,15 +1332,15 @@ msgstr "موجودہ گیم ختم کریں؟"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Subtle surface"
-msgstr ""
+msgstr "ہلکی سطح"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Subtle surface hint"
-msgstr ""
+msgstr "ہلکی سطح کا اشارہ"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Subtle surface text"
-msgstr ""
+msgstr "ہلکی سطح کا متن"
 
 #: src/@generic/components/support-ukraine-pill/support-ukraine-pill.tsx
 msgid "Support"
@@ -1353,7 +1353,7 @@ msgstr "یوکرین کی حمایت کریں"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Surfaces"
-msgstr ""
+msgstr "سطحیں"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "suuudokuuu"
@@ -1393,11 +1393,11 @@ msgstr "اونچے نشان = تیز تکنیکیں"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text and labels"
-msgstr ""
+msgstr "متن اور لیبل"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text on error accent"
-msgstr ""
+msgstr "خرابی کے ایکسنٹ پر متن"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
@@ -1418,11 +1418,11 @@ msgstr "تھیم"
 
 #: src/app/settings/themes/editor.tsx
 msgid "Theme editor"
-msgstr ""
+msgstr "تھیم ایڈیٹر"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Theme name"
-msgstr ""
+msgstr "تھیم کا نام"
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
@@ -1430,7 +1430,7 @@ msgstr "اس بار یہ بورڈ مکمل نہیں ہوا۔ یوکرین میں
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "This theme will be removed permanently."
-msgstr ""
+msgstr "یہ تھیم مستقل طور پر ہٹا دی جائے گی۔"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "This value is multiplied by the difficulty coefficient:"
@@ -1654,7 +1654,7 @@ msgstr "آپ کا براؤزر نامعلوم ایپس انسٹال کرنے ک�
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Your custom colors"
-msgstr ""
+msgstr "آپ کے مخصوص رنگ"
 
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Your progress"

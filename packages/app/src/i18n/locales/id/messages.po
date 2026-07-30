@@ -28,7 +28,7 @@ msgstr "{awaySeconds}s di luar aplikasi"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "{draftThemeName} copy"
-msgstr ""
+msgstr "{draftThemeName} (salinan)"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} faster"
@@ -44,7 +44,7 @@ msgstr "{filledCells}/{totalCells} terisi"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "{foregroundLabel} on {backgroundLabel}: {contrastRatioText} — minimum {minimumRatio}"
-msgstr ""
+msgstr "{foregroundLabel} pada {backgroundLabel}: {contrastRatioText} — minimum {minimumRatio}"
 
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "{gamesCompleted, plural, one {# completed game} other {# completed games}}"
@@ -92,27 +92,27 @@ msgstr "Terima tantangan?"
 
 #: src/settings/component/theme-list-row/theme-list-row.tsx
 msgid "Active"
-msgstr ""
+msgstr "Aktif"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Active candidate background"
-msgstr ""
+msgstr "Latar belakang kandidat aktif"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Active candidate border"
-msgstr ""
+msgstr "Batas kandidat aktif"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Active candidate text"
-msgstr ""
+msgstr "Teks kandidat aktif"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Active cell"
-msgstr ""
+msgstr "Sel aktif"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Active cell text"
-msgstr ""
+msgstr "Teks sel aktif"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Adjust the digits on the Sudoku board"
@@ -146,7 +146,7 @@ msgstr "Animasikan baris, kolom, dan kotak yang selesai"
 
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Apply"
-msgstr ""
+msgstr "Terapkan"
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Attempts to load the latest development build again"
@@ -179,19 +179,19 @@ msgstr "Penyelesaian seimbang"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Base dark color"
-msgstr ""
+msgstr "Warna gelap dasar"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Base dark color (translucent)"
-msgstr ""
+msgstr "Warna gelap dasar (transparan)"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Base light color"
-msgstr ""
+msgstr "Warna terang dasar"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Base light color (translucent)"
-msgstr ""
+msgstr "Warna terang dasar (transparan)"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Base Score"
@@ -222,7 +222,7 @@ msgstr "Semoga lebih beruntung lain kali!"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Board cells"
-msgstr ""
+msgstr "Sel papan"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Board colors and screen appearance"
@@ -252,19 +252,19 @@ msgstr "Batal"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Candidate background"
-msgstr ""
+msgstr "Latar belakang kandidat"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Candidate border"
-msgstr ""
+msgstr "Batas kandidat"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Candidate text"
-msgstr ""
+msgstr "Teks kandidat"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Candidates"
-msgstr ""
+msgstr "Kandidat"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
@@ -392,15 +392,15 @@ msgstr "Lanjutkan Sudoku ini tepat di tempat aku berhenti!"
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Create theme"
-msgstr ""
+msgstr "Buat tema"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Custom theme"
-msgstr ""
+msgstr "Tema khusus"
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Customize"
-msgstr ""
+msgstr "Sesuaikan"
 
 #: src/@generic/hooks/use-timer-text.hook.ts
 msgid "d"
@@ -408,7 +408,7 @@ msgstr "d"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Dark"
-msgstr ""
+msgstr "Gelap"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Dark mode"
@@ -428,11 +428,11 @@ msgstr "Fokus mendalam"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Delete"
-msgstr ""
+msgstr "Hapus"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Delete theme"
-msgstr ""
+msgstr "Hapus tema"
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Deutsch"
@@ -478,7 +478,7 @@ msgstr "Mengunduh APK pengembangan Android"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Duplicate"
-msgstr ""
+msgstr "Duplikat"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Each correct placement starts with a base value:"
@@ -491,11 +491,11 @@ msgstr "Mudah"
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Edit"
-msgstr ""
+msgstr "Edit"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Empty cell text"
-msgstr ""
+msgstr "Teks sel kosong"
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "English"
@@ -503,15 +503,15 @@ msgstr "English"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Enter a theme name"
-msgstr ""
+msgstr "Masukkan nama tema"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Error accent"
-msgstr ""
+msgstr "Aksen kesalahan"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Error cell"
-msgstr ""
+msgstr "Sel kesalahan"
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Español"
@@ -535,7 +535,7 @@ msgstr "Umpan balik"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Filled cell"
-msgstr ""
+msgstr "Sel terisi"
 
 #: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
 msgid "Final score"
@@ -577,7 +577,7 @@ msgstr "Permainan"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "General"
-msgstr ""
+msgstr "Umum"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Gentle start"
@@ -653,15 +653,15 @@ msgstr "Sorot catatan pensil"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Highlighted cell"
-msgstr ""
+msgstr "Sel disorot"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Highlighted cell text"
-msgstr ""
+msgstr "Teks sel disorot"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Hint text"
-msgstr ""
+msgstr "Teks petunjuk"
 
 #: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
@@ -687,7 +687,7 @@ msgstr "Belum selesai"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Info accent"
-msgstr ""
+msgstr "Aksen info"
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Install on iOS"
@@ -703,7 +703,7 @@ msgstr "Sudoku tidak valid"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Inverted text"
-msgstr ""
+msgstr "Teks terbalik"
 
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "iOS installation"
@@ -760,7 +760,7 @@ msgstr "Level"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Light"
-msgstr ""
+msgstr "Terang"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Light warm-up"
@@ -780,7 +780,7 @@ msgstr "Kalah"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Low contrast"
-msgstr ""
+msgstr "Kontras rendah"
 
 #: src/@generic/hooks/use-timer-text.hook.ts
 msgid "m"
@@ -788,11 +788,11 @@ msgstr "m"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Matching value cell"
-msgstr ""
+msgstr "Sel nilai cocok"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Matching value text"
-msgstr ""
+msgstr "Teks nilai cocok"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Max Mistakes bonus"
@@ -835,11 +835,11 @@ msgstr "Pindahkan panel kontrol ke sebelah kiri papan saat mode lanskap"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "My theme"
-msgstr ""
+msgstr "Tema saya"
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "My themes"
-msgstr ""
+msgstr "Tema saya"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Naked Pair"
@@ -921,7 +921,7 @@ msgstr "Belum ada statistik"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Number pad"
-msgstr ""
+msgstr "Numpad"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
@@ -930,23 +930,23 @@ msgstr "Ukuran angka"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Numpad border"
-msgstr ""
+msgstr "Batas numpad"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Numpad progress"
-msgstr ""
+msgstr "Kemajuan numpad"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Numpad progress (active)"
-msgstr ""
+msgstr "Kemajuan numpad (aktif)"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Numpad progress text"
-msgstr ""
+msgstr "Teks kemajuan numpad"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Numpad text"
-msgstr ""
+msgstr "Teks numpad"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "of current score"
@@ -978,7 +978,7 @@ msgstr "Buka halaman ini di Safari pada iPhone atau iPad fisik. Perangkat harus 
 
 #: src/settings/component/theme-editor-color-row/theme-editor-color-row.tsx
 msgid "Opens a color picker for this token"
-msgstr ""
+msgstr "Membuka pemilih warna untuk item ini"
 
 #: src/settings/component/settings-option-link/settings-option-link.tsx
 msgid "Opens a picker to change this setting"
@@ -1071,11 +1071,11 @@ msgstr "Português"
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Presets"
-msgstr ""
+msgstr "Preset"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Primary text"
-msgstr ""
+msgstr "Teks utama"
 
 #: src/app/privacy-policy.tsx
 #: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx
@@ -1093,11 +1093,11 @@ msgstr "Keluar"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Raised surface"
-msgstr ""
+msgstr "Permukaan terangkat"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Raised surface text"
-msgstr ""
+msgstr "Teks permukaan terangkat"
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"
@@ -1127,7 +1127,7 @@ msgstr "Laporkan bug"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Reset"
-msgstr ""
+msgstr "Atur ulang"
 
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "Result"
@@ -1180,11 +1180,11 @@ msgstr "Sashimi X-Wing"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Save"
-msgstr ""
+msgstr "Simpan"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Save anyway"
-msgstr ""
+msgstr "Simpan saja"
 
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
@@ -1285,7 +1285,7 @@ msgstr "Diselesaikan dengan teknik dasar"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Some color combinations are hard to read. Save anyway?"
-msgstr ""
+msgstr "Beberapa kombinasi warna sulit dibaca. Simpan saja?"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Space between Sudoku cells"
@@ -1332,15 +1332,15 @@ msgstr "Hentikan permainan saat ini?"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Subtle surface"
-msgstr ""
+msgstr "Permukaan halus"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Subtle surface hint"
-msgstr ""
+msgstr "Petunjuk permukaan halus"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Subtle surface text"
-msgstr ""
+msgstr "Teks permukaan halus"
 
 #: src/@generic/components/support-ukraine-pill/support-ukraine-pill.tsx
 msgid "Support"
@@ -1353,7 +1353,7 @@ msgstr "Dukung Ukraina"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Surfaces"
-msgstr ""
+msgstr "Permukaan"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "suuudokuuu"
@@ -1393,11 +1393,11 @@ msgstr "Tanda lebih tinggi = teknik lebih tajam"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text and labels"
-msgstr ""
+msgstr "Teks dan label"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text on error accent"
-msgstr ""
+msgstr "Teks pada aksen kesalahan"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
@@ -1418,11 +1418,11 @@ msgstr "Tema"
 
 #: src/app/settings/themes/editor.tsx
 msgid "Theme editor"
-msgstr ""
+msgstr "Editor tema"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Theme name"
-msgstr ""
+msgstr "Nama tema"
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
@@ -1430,7 +1430,7 @@ msgstr "Papan ini belum selesai kali ini. Perjuangan untuk kebebasan di Ukraina 
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "This theme will be removed permanently."
-msgstr ""
+msgstr "Tema ini akan dihapus secara permanen."
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "This value is multiplied by the difficulty coefficient:"
@@ -1654,7 +1654,7 @@ msgstr "Browser Anda mungkin meminta izin untuk menginstal aplikasi dari sumber 
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Your custom colors"
-msgstr ""
+msgstr "Warna khusus Anda"
 
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Your progress"
