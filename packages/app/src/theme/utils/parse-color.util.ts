@@ -10,7 +10,7 @@ export interface ParsedColorInterface {
 const MaxColorChannelValue = 255;
 
 const HexPattern = /^#([0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})$/iu;
-const RgbPattern = /^rgba?\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*(?:,\s*(\d*\.?\d+)\s*)?\)$/u;
+const RgbPattern = /^rgba?\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*(?:,\s*(\d*\.?\d+)\s*)?\)$/iu;
 
 const parseHexColor = (hex: string): ParsedColorInterface => {
     if (hex.length === 3) {
