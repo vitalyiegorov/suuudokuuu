@@ -52,7 +52,7 @@ appId: ${APP_ID}
       visible:
           id: 'SettingsScreenSelectors.Root'
       timeout: 3000
-- assertVisible: 'Theme.*Maestro theme.*'
+- assertVisible: 'Maestro theme'
 - tapOn:
       id: 'HeaderBackButtonSelectors.Root'
 - extendedWaitUntil:
