@@ -50,7 +50,7 @@ export const ThemesScreen = () => {
                     return (
                         <ThemeListRow
                             description={getThemeDescription(presetTheme)}
-                            editLabel={t`Customize`}
+                            editAccessibilityLabel={t`Customize`}
                             isSelected={isPresetSelected}
                             key={presetTheme}
                             onEdit={handlePresetEdit}
@@ -71,7 +71,7 @@ export const ThemesScreen = () => {
 
                         return (
                             <ThemeListRow
-                                editLabel={t`Edit`}
+                                editAccessibilityLabel={t`Edit`}
                                 isSelected={isCustomThemeSelected}
                                 key={customTheme.id}
                                 onEdit={handleCustomThemeEdit}
