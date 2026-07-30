@@ -1409,10 +1409,12 @@ msgstr "需要超越的时间"
 
 #: src/app/settings/themes/index.tsx
 #: src/screens/components/settings-screen/settings.screen.tsx
+#: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Theme"
 msgstr "主题"
 
 #: src/app/settings/themes/editor.tsx
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Theme editor"
 msgstr "主题编辑器"
 

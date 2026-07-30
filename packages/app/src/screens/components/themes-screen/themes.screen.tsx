@@ -1,11 +1,11 @@
 import { useLingui } from '@lingui/react/macro';
-import { AppButton, AppSettingsSection } from '@suuudokuuu/ui';
+import { AppButton, AppSettingsSection, resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { router } from 'expo-router';
 import { use } from 'react';
-import { ScrollView } from 'react-native';
 
 import { isNotEmptyArray } from '@rnw-community/shared';
 
+import { CollapsibleChromePage } from '../../../@generic/components/collapsible-chrome-page/collapsible-chrome-page';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { ThemeListRow } from '../../../settings/component/theme-list-row/theme-list-row';
 import { useSettingsOptionDescriptions } from '../../../settings/hooks/use-settings-option-descriptions.hook';
@@ -31,7 +31,11 @@ export const ThemesScreen = () => {
     };
 
     return (
-        <ScrollView contentContainerStyle={styles.scrollContent} testID={ThemesScreenSelectors.Root}>
+        <CollapsibleChromePage
+            contentContainerStyle={resolveUnistyleForAnimated(styles.scrollContent)}
+            testID={ThemesScreenSelectors.Root}
+            title={t`Theme`}
+        >
             <AppSettingsSection title={t`Presets`}>
                 {Themes.map(presetTheme => {
                     const handlePresetPress = () => void changeTheme(presetTheme);
@@ -76,6 +80,6 @@ export const ThemesScreen = () => {
             )}
 
             <AppButton onPress={handleCreate} size="large" testID={ThemesScreenSelectors.CreateButton} text={t`Create theme`} />
-        </ScrollView>
+        </CollapsibleChromePage>
     );
 };

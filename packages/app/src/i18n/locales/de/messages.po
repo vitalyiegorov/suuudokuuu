@@ -1411,10 +1411,12 @@ msgstr "Ihre Zeit, die es zu schlagen gilt"
 
 #: src/app/settings/themes/index.tsx
 #: src/screens/components/settings-screen/settings.screen.tsx
+#: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Theme"
 msgstr "Thema"
 
 #: src/app/settings/themes/editor.tsx
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Theme editor"
 msgstr "Themeneditor"
 
