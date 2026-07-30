@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.70.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.70.0...v1.70.1) (2026-07-30)
+
+### Bug Fixes
+
+- **app:** align the landscape side panel and keep the challenge HUD out of the board row ([#235](https://github.com/vitalyiegorov/suuudokuuu/issues/235)) ([25aac67](https://github.com/vitalyiegorov/suuudokuuu/commit/25aac67e481717d5fc587dd4679729d6b6bbce35))
+- **app:** force a UTF-8 locale for native builds ([#234](https://github.com/vitalyiegorov/suuudokuuu/issues/234)) ([8de04fb](https://github.com/vitalyiegorov/suuudokuuu/commit/8de04fbfa66e8bb861eedfad8272c9c4bf59bb1d))
+
 # [1.70.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.69.2...v1.70.0) (2026-07-29)
 
 ### Features
