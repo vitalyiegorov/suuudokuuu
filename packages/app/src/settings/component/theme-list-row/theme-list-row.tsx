@@ -31,7 +31,9 @@ export const ThemeListRow = ({ description, editLabel, isSelected, onEdit, onPre
 
     const trailing = (
         <View style={styles.trailing}>
-            {isSelected && <Check color={theme.colors.surface.subtleText} height={22} strokeWidth={2.25} width={22} />}
+            <View style={styles.checkSlot}>
+                {isSelected && <Check color={theme.colors.surface.subtleText} height={22} strokeWidth={2.25} width={22} />}
+            </View>
             {hasEditAction && <AppButton onPress={onEdit} size="compact" text={editLabel} variant="secondary" />}
         </View>
     );

@@ -1,6 +1,7 @@
 import { useLingui } from '@lingui/react/macro';
 import { AppButton, AppSettingsSection, resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { router, useLocalSearchParams } from 'expo-router';
+import { RotateCcw } from 'lucide-react-native';
 import { use, useState } from 'react';
 import { Alert, TextInput, View } from 'react-native';
 
@@ -150,10 +151,24 @@ export const ThemeEditorScreen = () => {
     const editedTokenLabel = isDefined(editedToken) ? getTokenLabel(editedToken.key) : '';
     const lightVariantButtonVariant = variant === ColorSchemaEnum.Light ? 'primary' : 'secondary';
     const darkVariantButtonVariant = variant === ColorSchemaEnum.Dark ? 'primary' : 'secondary';
+    const footer = (
+        <>
+            <AppButton accessibilityLabel={t`Reset`} icon={RotateCcw} onPress={handleReset} size="large" variant="secondary" />
+            <AppButton
+                onPress={handleSave}
+                size="large"
+                style={styles.saveButton}
+                testID={ThemeEditorScreenSelectors.SaveButton}
+                text={t`Save`}
+            />
+        </>
+    );
 
     return (
         <CollapsibleChromePage
             contentContainerStyle={resolveUnistyleForAnimated(styles.scrollContent)}
+            footer={footer}
+            footerStyle={styles.footer}
             testID={ThemeEditorScreenSelectors.Root}
             title={t`Theme editor`}
         >
@@ -218,9 +233,8 @@ export const ThemeEditorScreen = () => {
                 </AppSettingsSection>
             ))}
 
-            <View style={styles.actionsRow}>
-                <AppButton onPress={handleReset} size="compact" style={styles.actionButton} text={t`Reset`} variant="secondary" />
-                {isExistingTheme && (
+            {isExistingTheme && (
+                <View style={styles.actionsRow}>
                     <AppButton
                         onPress={handleDuplicate}
                         size="compact"
@@ -228,8 +242,6 @@ export const ThemeEditorScreen = () => {
                         text={t`Duplicate`}
                         variant="secondary"
                     />
-                )}
-                {isExistingTheme && (
                     <AppButton
                         onPress={handleDelete}
                         size="compact"
@@ -238,9 +250,8 @@ export const ThemeEditorScreen = () => {
                         text={t`Delete`}
                         variant="secondary"
                     />
-                )}
-            </View>
-            <AppButton onPress={handleSave} size="large" testID={ThemeEditorScreenSelectors.SaveButton} text={t`Save`} />
+                </View>
+            )}
 
             {isDefined(editedToken) && (
                 <ThemeEditorColorSheet
