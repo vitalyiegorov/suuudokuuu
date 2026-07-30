@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { isString } from '@rnw-community/shared';
+import { isNotEmptyString, isString } from '@rnw-community/shared';
 
 import { ColorSchemaEnum } from '../enum/color-schema.enum';
 import { ThemeEnum } from '../enum/theme.enum';
@@ -69,7 +69,7 @@ export const CustomThemeSchema: z.ZodType<CustomThemeInterface> = z.strictObject
     name: z
         .string()
         .max(CustomThemeNameMaxLength)
-        .refine(value => value.trim().length > 0),
+        .refine(value => isNotEmptyString(value.trim())),
     schemaVersion: z.literal(CustomThemeSchemaVersion),
     sourceTheme: z.enum(ThemeEnum),
     colors: z.strictObject({
