@@ -30,9 +30,13 @@ export const ThemesScreen = () => {
         router.push({ pathname: '/settings/themes/editor', params: { sourceThemeId: activeThemeId } });
     };
 
+    const footer = <AppButton onPress={handleCreate} size="large" testID={ThemesScreenSelectors.CreateButton} text={t`Create theme`} />;
+
     return (
         <CollapsibleChromePage
             contentContainerStyle={resolveUnistyleForAnimated(styles.scrollContent)}
+            footer={footer}
+            footerStyle={styles.footer}
             testID={ThemesScreenSelectors.Root}
             title={t`Theme`}
         >
@@ -78,8 +82,6 @@ export const ThemesScreen = () => {
                     })}
                 </AppSettingsSection>
             )}
-
-            <AppButton onPress={handleCreate} size="large" testID={ThemesScreenSelectors.CreateButton} text={t`Create theme`} />
         </CollapsibleChromePage>
     );
 };

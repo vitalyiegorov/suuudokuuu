@@ -94,10 +94,6 @@ msgstr "接受挑战"
 msgid "Accept challenge?"
 msgstr "接受挑战？"
 
-#: src/settings/component/theme-list-row/theme-list-row.tsx
-msgid "Active"
-msgstr "活跃"
-
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Active candidate background"
 msgstr "活跃候选数字背景"

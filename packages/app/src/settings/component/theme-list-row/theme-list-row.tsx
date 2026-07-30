@@ -1,11 +1,10 @@
-import { useLingui } from '@lingui/react/macro';
 import { AppButton, AppSettingsRow } from '@suuudokuuu/ui';
+import { Check } from 'lucide-react-native';
 import { use } from 'react';
 import { Pressable, View } from 'react-native';
 
 import { isDefined } from '@rnw-community/shared';
 
-import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { ThemeContext } from '../../../theme/context/theme.context';
 
 import { ThemeListRowStyles as styles } from './theme-list-row.styles';
@@ -24,15 +23,15 @@ interface Props {
 
 export const ThemeListRow = ({ description, editLabel, isSelected, onEdit, onPress, testID, title }: Props) => {
     const { theme } = use(ThemeContext);
-    const { t } = useLingui();
 
-    const activeLabelStyle = { color: theme.colors.surface.subtleText };
     const hasEditAction = isDefined(onEdit);
     const accessibilityState = { selected: isSelected };
+    const rowBorderColor = isSelected ? theme.colors.label.main : theme.colors.value.border;
+    const rowStyle = { borderColor: rowBorderColor, borderWidth: 2 };
 
     const trailing = (
         <View style={styles.trailing}>
-            {isSelected && <BlackText style={activeLabelStyle}>{t`Active`}</BlackText>}
+            {isSelected && <Check color={theme.colors.surface.subtleText} height={22} strokeWidth={2.25} width={22} />}
             {hasEditAction && <AppButton onPress={onEdit} size="compact" text={editLabel} variant="secondary" />}
         </View>
     );
@@ -46,7 +45,7 @@ export const ThemeListRow = ({ description, editLabel, isSelected, onEdit, onPre
             style={styles.pressable}
             testID={testID}
         >
-            <AppSettingsRow description={description} title={title} trailing={trailing} />
+            <AppSettingsRow description={description} style={rowStyle} title={title} trailing={trailing} />
         </Pressable>
     );
 };

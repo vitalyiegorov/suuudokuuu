@@ -21,10 +21,10 @@ appId: ${APP_ID}
           id: 'themes-screen'
       timeout: 3000
 - assertVisible: 'Presets'
-- scrollUntilVisible:
-      element:
+- extendedWaitUntil:
+      visible:
           id: 'themes-screen-create-button'
-      direction: DOWN
+      timeout: 3000
 - tapOn:
       id: 'themes-screen-create-button'
 - extendedWaitUntil:

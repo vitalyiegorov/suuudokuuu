@@ -94,10 +94,6 @@ msgstr "چیلنج قبول کریں"
 msgid "Accept challenge?"
 msgstr "چیلنج قبول کریں؟"
 
-#: src/settings/component/theme-list-row/theme-list-row.tsx
-msgid "Active"
-msgstr "فعال"
-
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Active candidate background"
 msgstr "فعال امکان کا پس منظر"
