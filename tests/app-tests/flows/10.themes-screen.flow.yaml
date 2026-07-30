@@ -35,10 +35,10 @@ appId: ${APP_ID}
       id: 'theme-editor-screen-name-input'
 - eraseText
 - inputText: 'Maestro theme'
-- scrollUntilVisible:
-      element:
+- extendedWaitUntil:
+      visible:
           id: 'theme-editor-screen-save-button'
-      direction: DOWN
+      timeout: 3000
 - tapOn:
       id: 'theme-editor-screen-save-button'
 - extendedWaitUntil:
