@@ -35,6 +35,10 @@ appId: ${APP_ID}
       id: 'theme-editor-screen-name-input'
 - eraseText
 - inputText: 'Maestro theme'
+# The soft keyboard covers the sticky-footer Save button on both platforms
+# (proven by identical iOS/Android failures), so dismiss it before asserting
+# footer chrome.
+- hideKeyboard
 - extendedWaitUntil:
       visible:
           id: 'theme-editor-screen-save-button'
