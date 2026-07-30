@@ -21,7 +21,7 @@ import { classifyTimelineMove } from '../../../challenge/utils/classify-timeline
 import { Field, FieldRef } from '../../../game/components/field/field';
 import { GameTimerController } from '../../../game/components/game-timer-controller/game-timer-controller';
 import { GameContext } from '../../../game/context/game.context';
-import { useBoardCellSize } from '../../../game/hooks/use-board-cell-size.hook';
+import { useBoardGeometry } from '../../../game/hooks/use-board-geometry.hook';
 import { useKeyboardControls } from '../../../game/hooks/use-keyboard-controls/use-keyboard-controls.hook';
 import { useShareGame } from '../../../game/hooks/use-share-game.hook';
 import {
@@ -71,7 +71,7 @@ export const GameScreen = () => {
 
     const [hapticNotification, hapticImpact] = useVibration();
 
-    const { cellSize: boardCellSize, boardSize, onBoardAreaLayout } = useBoardCellSize();
+    const { cellSize: boardCellSize, boardSize, onBoardAreaLayout } = useBoardGeometry();
 
     const dispatch = useAppDispatch();
     const score = useAppSelector(gameScoreSelector);
@@ -247,7 +247,7 @@ export const GameScreen = () => {
         <Pressable
             accessible={false}
             {...(!keepActiveCell && { onPress: handleDeselectCell })}
-            style={styles.container(isLeftHanded)}
+            style={styles.container}
             testID={GameScreenSelectors.Root}
         >
             <GameTimerController />
@@ -262,36 +262,38 @@ export const GameScreen = () => {
 
             {challengeRunElements}
 
-            <View onLayout={onBoardAreaLayout} style={styles.boardArea}>
-                <Hide mq={WideLayoutMediaQuery}>
-                    <View style={styles.boardSpacer} />
-                </Hide>
+            <View style={styles.gameRow(isLeftHanded)}>
+                <View onLayout={onBoardAreaLayout} style={styles.boardArea}>
+                    <Hide mq={WideLayoutMediaQuery}>
+                        <View style={styles.boardSpacer} />
+                    </Hide>
 
-                <Field cellSize={boardCellSize} onSelect={handleSelectCell} ref={fieldRef} selectedCell={selectedCell} />
+                    <Field cellSize={boardCellSize} onSelect={handleSelectCell} ref={fieldRef} selectedCell={selectedCell} />
 
-                <Hide mq={WideLayoutMediaQuery}>
-                    <View style={styles.toolsSlot}>
-                        <GameInputTools hideAutoCandidates={hideAutoCandidates} />
-                    </View>
-                </Hide>
-            </View>
-
-            <View style={styles.panelArea(boardSize)}>
-                <Display mq={WideLayoutMediaQuery}>{statusBlock}</Display>
-
-                <View style={styles.panelInputArea}>
-                    <GameNumpad
-                        availableValuesRefsHandler={handleAvailableRef}
-                        onSelectValue={handleSelectValue}
-                        selectedCell={selectedCell}
-                    />
-
-                    <Display mq={WideLayoutMediaQuery}>
-                        <GameInputTools hideAutoCandidates={hideAutoCandidates} />
-                    </Display>
+                    <Hide mq={WideLayoutMediaQuery}>
+                        <View style={styles.toolsSlot}>
+                            <GameInputTools hideAutoCandidates={hideAutoCandidates} />
+                        </View>
+                    </Hide>
                 </View>
 
-                <Display mq={WideLayoutMediaQuery}>{gameActionsWithPause}</Display>
+                <View style={styles.panelArea(boardSize)}>
+                    <Display mq={WideLayoutMediaQuery}>{statusBlock}</Display>
+
+                    <View style={styles.panelInputArea}>
+                        <GameNumpad
+                            availableValuesRefsHandler={handleAvailableRef}
+                            onSelectValue={handleSelectValue}
+                            selectedCell={selectedCell}
+                        />
+
+                        <Display mq={WideLayoutMediaQuery}>
+                            <GameInputTools hideAutoCandidates={hideAutoCandidates} />
+                        </Display>
+                    </View>
+
+                    <Display mq={WideLayoutMediaQuery}>{gameActionsWithPause}</Display>
+                </View>
             </View>
         </Pressable>
     );
