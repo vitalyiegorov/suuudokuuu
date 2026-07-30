@@ -69,7 +69,7 @@ src/
 1. This app uses React Native `StyleSheet` modules, not NativeWind or CVA.
 2. Keep style objects in nearby `*.styles.ts` files when the style is owned by a component.
 3. Use theme tokens from `theme/` and shared generic styles instead of duplicating raw colors.
-4. Preserve the existing theme contract in `theme/interface/theme.interface.ts`.
+4. Preserve the existing theme contract in `ThemeInterface` from `@suuudokuuu/ui` (`packages/ui/src/theme/interface/theme.interface.ts`).
 5. Keep test selectors in nearby `*.selectors.ts` files when a screen or component is targeted by Maestro.
 
 ## State And Persistence
