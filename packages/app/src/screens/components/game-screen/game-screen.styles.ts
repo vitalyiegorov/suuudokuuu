@@ -4,14 +4,24 @@ import { WideLayoutMediaQuery } from '../../../@generic/constants/layout-media-q
 import { GameSidePanelWidthConstant } from '../../../game/constant/board-cell-size.constant';
 
 export const GameScreenStyles = StyleSheet.create((theme, rt) => ({
-    container: (isLeftHanded: boolean) => ({
+    container: {
         alignItems: 'stretch',
         flex: 1,
+        flexDirection: 'column',
+        gap: theme.spacing.sm,
+        justifyContent: 'flex-start',
+        paddingBottom: rt.insets.bottom / 2 + theme.spacing.xs,
+        paddingHorizontal: { xs: 0, [WideLayoutMediaQuery]: theme.spacing.md },
+        paddingTop: theme.spacing.xs
+    },
+    gameRow: (isLeftHanded: boolean) => ({
+        alignItems: { xs: 'stretch', [WideLayoutMediaQuery]: 'center' },
         flexDirection: { xs: 'column', [WideLayoutMediaQuery]: isLeftHanded ? 'row-reverse' : 'row' },
+        flexGrow: 1,
+        flexShrink: 1,
         gap: { xs: theme.spacing.sm, [WideLayoutMediaQuery]: theme.spacing.lg },
         justifyContent: { xs: 'flex-start', [WideLayoutMediaQuery]: 'center' },
-        paddingBottom: rt.insets.bottom / 2 + theme.spacing.xs,
-        paddingTop: theme.spacing.xs
+        minHeight: 0
     }),
     topBar: {
         alignItems: 'flex-start',

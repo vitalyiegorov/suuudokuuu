@@ -1,18 +1,20 @@
 import { StyleSheet } from 'react-native-unistyles';
 
 import { WideLayoutMediaQuery } from '../../../../@generic/constants/layout-media-query.constant';
-import { PanelControlSizeConstant } from '../../../../game/constant/panel-control-size.constant';
 
 const CompactStripHeight = 52;
+const CompactStripPaddingVertical = 4;
+const WideStripMinHeight = 0;
+const WideStripPaddingVertical = 0;
 
 export const GameScreenMetricsStyles = StyleSheet.create(() => ({
     container: {
         alignSelf: { xs: 'flex-start', [WideLayoutMediaQuery]: 'stretch' },
         flexGrow: { xs: 0, [WideLayoutMediaQuery]: 1 },
         justifyContent: { xs: 'flex-start', [WideLayoutMediaQuery]: 'space-between' },
-        minHeight: { xs: CompactStripHeight, [WideLayoutMediaQuery]: PanelControlSizeConstant },
+        minHeight: { xs: CompactStripHeight, [WideLayoutMediaQuery]: WideStripMinHeight },
         paddingHorizontal: 0,
-        paddingVertical: 4
+        paddingVertical: { xs: CompactStripPaddingVertical, [WideLayoutMediaQuery]: WideStripPaddingVertical }
     },
     item: {
         gap: 3,
