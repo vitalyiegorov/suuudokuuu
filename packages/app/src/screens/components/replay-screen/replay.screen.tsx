@@ -1,12 +1,11 @@
 import { DifficultyEnum } from '@suuudokuuu/generator';
+import { useAppLayout } from '@suuudokuuu/ui';
 import { Redirect } from 'expo-router';
 import { useState } from 'react';
 import { View } from 'react-native';
-import { Display, Hide } from 'react-native-unistyles';
 
 import { isDefined } from '@rnw-community/shared';
 
-import { WideLayoutMediaQuery } from '../../../@generic/constants/layout-media-query.constant';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { getChallengeAwayRanges } from '../../../challenge/utils/get-challenge-away-ranges.util';
 import { useBoardGeometry } from '../../../game/hooks/use-board-geometry.hook';
@@ -28,6 +27,9 @@ interface Props {
 }
 
 export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
+    const { sizeClass } = useAppLayout();
+    const isWideLayout = sizeClass === 'wide';
+
     const completedGame = useAppSelector(gameCompletedGameByIdSelector(difficulty, completedAt));
     const [currentStep, setCurrentStep] = useState(0);
     const [gameState] = useState(() => stringToGameState(completedGame?.encodedState));
@@ -70,14 +72,14 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
         <View style={styles.container}>
             <ReplayTopBar />
             <View style={styles.content}>
-                <Hide mq={WideLayoutMediaQuery}>{replayHeader}</Hide>
+                {isWideLayout ? null : replayHeader}
 
                 <View onLayout={onBoardAreaLayout} style={styles.fieldWrapper}>
                     <ReplayField cellSize={boardCellSize} highlightedCellKey={highlightedCellKey} sudoku={sudoku} />
                 </View>
 
                 <View style={styles.controlsColumn}>
-                    <Display mq={WideLayoutMediaQuery}>{replayHeader}</Display>
+                    {isWideLayout ? replayHeader : null}
 
                     {replayControls}
                 </View>
