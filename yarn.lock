@@ -4934,6 +4934,7 @@ __metadata:
     react-native-web: "npm:^0.21.2"
     react-native-worklets: "npm:0.10.0"
     react-redux: "npm:^9.3.0"
+    reanimated-color-picker: "npm:^5.1.2"
     redux: "npm:^5.0.1"
     redux-persist: "npm:^6.0.0"
     test-renderer: "npm:^1.2.0"
@@ -15389,6 +15390,22 @@ __metadata:
   version: 5.0.0
   resolution: "readdirp@npm:5.0.0"
   checksum: 10/a17a591b51d8b912083660df159e8bd17305dc1a9ef27c869c818bd95ff59e3a6496f97e91e724ef433e789d559d24e39496ea1698822eb5719606dc9c1a923d
+  languageName: node
+  linkType: hard
+
+"reanimated-color-picker@npm:^5.1.2":
+  version: 5.1.2
+  resolution: "reanimated-color-picker@npm:5.1.2"
+  peerDependencies:
+    expo: ">=44.0.0"
+    react: "*"
+    react-native: "*"
+    react-native-gesture-handler: ">=2.0.0"
+    react-native-reanimated: ">=2.0.0"
+  peerDependenciesMeta:
+    expo:
+      optional: true
+  checksum: 10/9fe9741203e50d312669c717668f735b6c7da1edd36d4c1dd88e8fb1792eadc73cb58096cca741127cc25a8010e53f89dcad3d0cc5a5445bf3ec7d6639c4d47f
   languageName: node
   linkType: hard
 
