@@ -26,6 +26,10 @@ msgstr "{arsenalCardCount, plural, one {# تکنیک} other {# تکنیکیں}}"
 msgid "{awaySeconds}s away"
 msgstr "{awaySeconds}s غیر حاضر"
 
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "{draftThemeName} copy"
+msgstr ""
+
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} faster"
 msgstr "{durationText} تیز تر"
@@ -37,6 +41,10 @@ msgstr "{durationText} سست"
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "{filledCells}/{totalCells} filled"
 msgstr "{filledCells}/{totalCells} پُر"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "{foregroundLabel} on {backgroundLabel}: {contrastRatioText} — minimum {minimumRatio}"
+msgstr ""
 
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "{gamesCompleted, plural, one {# completed game} other {# completed games}}"
@@ -82,6 +90,30 @@ msgstr "چیلنج قبول کریں"
 msgid "Accept challenge?"
 msgstr "چیلنج قبول کریں؟"
 
+#: src/settings/component/theme-list-row/theme-list-row.tsx
+msgid "Active"
+msgstr ""
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Active candidate background"
+msgstr ""
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Active candidate border"
+msgstr ""
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Active candidate text"
+msgstr ""
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Active cell"
+msgstr ""
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Active cell text"
+msgstr ""
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Adjust the digits on the Sudoku board"
 msgstr "سوڈوکو بورڈ پر ہندسوں کا سائز بدلیں"
@@ -112,6 +144,10 @@ msgstr "Android انسٹالیشن"
 msgid "Animate completed rows, columns, and boxes"
 msgstr "مکمل قطاروں، کالموں اور خانوں کو متحرک کریں"
 
+#: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
+msgid "Apply"
+msgstr ""
+
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Attempts to load the latest development build again"
 msgstr "تازہ ترین ڈیولپمنٹ بِلڈ دوبارہ لوڈ کرنے کی کوشش کرتا ہے"
@@ -141,6 +177,22 @@ msgstr "زیادہ تر کھلاڑیوں کے لیے متوازن ہندسے"
 msgid "Balanced solve"
 msgstr "متوازن حل"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Base dark color"
+msgstr ""
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Base dark color (translucent)"
+msgstr ""
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Base light color"
+msgstr ""
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Base light color (translucent)"
+msgstr ""
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Base Score"
 msgstr "بنیادی اسکور"
@@ -168,6 +220,10 @@ msgstr "بہترین وقت"
 msgid "Better luck next time!"
 msgstr "اگلی بار قسمت بہتر ہو!"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Board cells"
+msgstr ""
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Board colors and screen appearance"
 msgstr "بورڈ کے رنگ اور اسکرین کی شکل"
@@ -189,8 +245,26 @@ msgstr "کیا آپ انہیں ہرا سکتے ہیں؟"
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 #: src/screens/components/shared-screen/shared-screen.tsx
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+#: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Cancel"
 msgstr "منسوخ کریں"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Candidate background"
+msgstr ""
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Candidate border"
+msgstr ""
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Candidate text"
+msgstr ""
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Candidates"
+msgstr ""
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
@@ -246,10 +320,6 @@ msgstr "منتخب کریں کہ بورڈ کے ہندسے کتنے بڑے دکھ
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Choose how much space appears between Sudoku cells"
 msgstr "منتخب کریں کہ سوڈوکو خانوں کے درمیان کتنی جگہ ہو"
-
-#: src/settings/hooks/use-settings-option-sheet-config.hook.ts
-msgid "Choose the color style for the board and app screens"
-msgstr "بورڈ اور ایپ اسکرینز کے لیے رنگوں کا انداز منتخب کریں"
 
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Choose the language used for menus and game text"
@@ -320,9 +390,25 @@ msgstr "کہیں اور جاری رکھیں"
 msgid "Continue this Sudoku exactly where I left off!"
 msgstr "اس سوڈوکو کو بالکل وہیں سے جاری رکھو جہاں میں نے چھوڑا تھا!"
 
+#: src/screens/components/themes-screen/themes.screen.tsx
+msgid "Create theme"
+msgstr ""
+
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Custom theme"
+msgstr ""
+
+#: src/screens/components/themes-screen/themes.screen.tsx
+msgid "Customize"
+msgstr ""
+
 #: src/@generic/hooks/use-timer-text.hook.ts
 msgid "d"
 msgstr "d"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Dark"
+msgstr ""
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Dark mode"
@@ -339,6 +425,14 @@ msgstr "مکمل برابری"
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Deep focus"
 msgstr "گہری توجہ"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Delete"
+msgstr ""
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Delete theme"
+msgstr ""
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Deutsch"
@@ -382,6 +476,10 @@ msgstr "Android ڈیولپمنٹ بِلڈ ڈاؤن لوڈ کریں"
 msgid "Downloads the Android development APK"
 msgstr "Android ڈیولپمنٹ APK ڈاؤن لوڈ کرتا ہے"
 
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Duplicate"
+msgstr ""
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Each correct placement starts with a base value:"
 msgstr "ہر درست جگہ پر رکھنے کی بنیادی قدر ہوتی ہے:"
@@ -391,9 +489,29 @@ msgstr "ہر درست جگہ پر رکھنے کی بنیادی قدر ہوتی �
 msgid "Easy"
 msgstr "آسان"
 
+#: src/screens/components/themes-screen/themes.screen.tsx
+msgid "Edit"
+msgstr ""
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Empty cell text"
+msgstr ""
+
 #: src/settings/constant/language-labels.constant.ts
 msgid "English"
 msgstr "English"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Enter a theme name"
+msgstr ""
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Error accent"
+msgstr ""
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Error cell"
+msgstr ""
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Español"
@@ -414,6 +532,10 @@ msgstr "آپ کی چال مکمل کرے تو اضافی پوائنٹس ملتے
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Feedback"
 msgstr "فیڈبیک"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Filled cell"
+msgstr ""
 
 #: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
 msgid "Final score"
@@ -452,6 +574,10 @@ msgstr "گیم موقوف ہے"
 #: src/screens/components/history-games-screen/history-games.screen.tsx
 msgid "Games"
 msgstr "گیمز"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "General"
+msgstr ""
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Gentle start"
@@ -525,6 +651,18 @@ msgstr "ملتے جلتے نمبرز نمایاں کریں"
 msgid "Highlight pencil marks"
 msgstr "پینسل نوٹس نمایاں کریں"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Highlighted cell"
+msgstr ""
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Highlighted cell text"
+msgstr ""
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Hint text"
+msgstr ""
+
 #: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Home"
@@ -547,6 +685,10 @@ msgstr "لافانی"
 msgid "Incomplete"
 msgstr "نامکمل"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Info accent"
+msgstr ""
+
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Install on iOS"
 msgstr "iOS پر انسٹال کریں"
@@ -558,6 +700,10 @@ msgstr "iOS ڈیولپمنٹ بِلڈ انسٹال کریں"
 #: src/game/components/game-provider/game-provider.tsx
 msgid "Invalid Sudoku"
 msgstr "غلط سوڈوکو"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Inverted text"
+msgstr ""
 
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "iOS installation"
@@ -612,6 +758,10 @@ msgstr "بائیں ہاتھ کا لے آؤٹ"
 msgid "Level"
 msgstr "سطح"
 
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Light"
+msgstr ""
+
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Light warm-up"
 msgstr "ہلکی وارم اَپ"
@@ -628,9 +778,21 @@ msgstr "تازہ ترین ڈیولپمنٹ بِلڈ لوڈ ہو رہا ہے…"
 msgid "Lost"
 msgstr "ہارے"
 
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Low contrast"
+msgstr ""
+
 #: src/@generic/hooks/use-timer-text.hook.ts
 msgid "m"
 msgstr "m"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Matching value cell"
+msgstr ""
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Matching value text"
+msgstr ""
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Max Mistakes bonus"
@@ -670,6 +832,14 @@ msgstr "چال"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Move the landscape controls panel to the left of the board"
 msgstr "لینڈ اسکیپ میں کنٹرول پینل کو بورڈ کے بائیں جانب منتقل کریں"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "My theme"
+msgstr ""
+
+#: src/screens/components/themes-screen/themes.screen.tsx
+msgid "My themes"
+msgstr ""
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Naked Pair"
@@ -749,10 +919,34 @@ msgstr "کوئی وقفہ نہیں"
 msgid "No stats yet"
 msgstr "ابھی کوئی شماریات نہیں"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Number pad"
+msgstr ""
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Number size"
 msgstr "ہندسوں کا سائز"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Numpad border"
+msgstr ""
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Numpad progress"
+msgstr ""
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Numpad progress (active)"
+msgstr ""
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Numpad progress text"
+msgstr ""
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Numpad text"
+msgstr ""
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "of current score"
@@ -781,6 +975,10 @@ msgstr "شیئر کیا گیا سوڈوکو کھولیں؟"
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "Open this page in Safari on a physical iPhone or iPad. The device must already be registered in the Ad Hoc provisioning profile."
 msgstr "یہ صفحہ کسی حقیقی iPhone یا iPad پر Safari میں کھولیں۔ ڈیوائس کا Ad Hoc پروویژننگ پروفائل میں پہلے سے رجسٹرڈ ہونا ضروری ہے۔"
+
+#: src/settings/component/theme-editor-color-row/theme-editor-color-row.tsx
+msgid "Opens a color picker for this token"
+msgstr ""
 
 #: src/settings/component/settings-option-link/settings-option-link.tsx
 msgid "Opens a picker to change this setting"
@@ -871,6 +1069,14 @@ msgstr "ہر درست جگہ پر پوائنٹس۔"
 msgid "Português"
 msgstr "Português"
 
+#: src/screens/components/themes-screen/themes.screen.tsx
+msgid "Presets"
+msgstr ""
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Primary text"
+msgstr ""
+
 #: src/app/privacy-policy.tsx
 #: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx
 #: src/settings/component/settings-app-footer/settings-app-footer.tsx
@@ -884,6 +1090,14 @@ msgstr "شائع شدہ:"
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Quit"
 msgstr "چھوڑیں"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Raised surface"
+msgstr ""
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Raised surface text"
+msgstr ""
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"
@@ -910,6 +1124,10 @@ msgstr "ری پلے"
 #: src/settings/component/settings-app-footer/settings-app-footer.tsx
 msgid "Report a bug"
 msgstr "بگ رپورٹ کریں"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Reset"
+msgstr ""
 
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "Result"
@@ -960,6 +1178,14 @@ msgstr "Sashimi Swordfish"
 msgid "Sashimi X-Wing"
 msgstr "Sashimi X-Wing"
 
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Save"
+msgstr ""
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Save anyway"
+msgstr ""
+
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
@@ -975,6 +1201,10 @@ msgstr "اسکور × کوفیشنٹ × تعداد"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 msgstr "ہر درست بھرے خانے کا اسکور مشکل سطح، بونس اور پنالٹیز کی بنیاد پر حساب ہوتا ہے۔"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Screen background"
+msgstr "اسکرین کا پس منظر"
 
 #: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
 msgid "Screenshots"
@@ -1053,6 +1283,10 @@ msgstr "کاغذ جیسا احساس رکھنے والا نرم سرمئی بو�
 msgid "Solved with the fundamentals"
 msgstr "بنیادی تکنیکوں سے حل ہوا"
 
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Some color combinations are hard to read. Save anyway?"
+msgstr ""
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Space between Sudoku cells"
 msgstr "سوڈوکو خانوں کے درمیان فاصلہ"
@@ -1096,6 +1330,18 @@ msgstr "چال کا وقت"
 msgid "Stop current run?"
 msgstr "موجودہ گیم ختم کریں؟"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Subtle surface"
+msgstr ""
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Subtle surface hint"
+msgstr ""
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Subtle surface text"
+msgstr ""
+
 #: src/@generic/components/support-ukraine-pill/support-ukraine-pill.tsx
 msgid "Support"
 msgstr "حمایت"
@@ -1104,6 +1350,10 @@ msgstr "حمایت"
 #: src/settings/component/settings-app-footer/settings-app-footer.tsx
 msgid "Support Ukraine"
 msgstr "یوکرین کی حمایت کریں"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Surfaces"
+msgstr ""
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "suuudokuuu"
@@ -1141,6 +1391,14 @@ msgstr "Swordfish"
 msgid "Taller marks = sharper techniques"
 msgstr "اونچے نشان = تیز تکنیکیں"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Text and labels"
+msgstr ""
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Text on error accent"
+msgstr ""
+
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
 msgstr "اس ڈیوائس پر کمیٹ کا لنک نہیں کھولا جا سکا۔"
@@ -1153,14 +1411,26 @@ msgstr "انسٹالیشن کا لنک نہیں کھولا جا سکا۔ اپن�
 msgid "Their time to beat"
 msgstr "ان کا وقت جسے پیچھے چھوڑنا ہے"
 
+#: src/app/settings/themes/index.tsx
 #: src/screens/components/settings-screen/settings.screen.tsx
-#: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Theme"
 msgstr "تھیم"
+
+#: src/app/settings/themes/editor.tsx
+msgid "Theme editor"
+msgstr ""
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Theme name"
+msgstr ""
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "اس بار یہ بورڈ مکمل نہیں ہوا۔ یوکرین میں آزادی کی جنگ جاری ہے۔ ہر $1 عطیہ معنی رکھتا ہے۔"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "This theme will be removed permanently."
+msgstr ""
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "This value is multiplied by the difficulty coefficient:"
@@ -1381,6 +1651,10 @@ msgstr "آپ کی بہترین گیم"
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "Your browser may ask for permission to install unknown apps. Android will also show an operating-system security warning before installation."
 msgstr "آپ کا براؤزر نامعلوم ایپس انسٹال کرنے کی اجازت مانگ سکتا ہے۔ انسٹالیشن سے پہلے Android آپریٹنگ سسٹم کی سیکیورٹی وارننگ بھی دکھائے گا۔"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Your custom colors"
+msgstr ""
 
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Your progress"
