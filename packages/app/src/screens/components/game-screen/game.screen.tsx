@@ -247,7 +247,7 @@ export const GameScreen = () => {
         <Pressable
             accessible={false}
             {...(!keepActiveCell && { onPress: handleDeselectCell })}
-            style={styles.container(isLeftHanded)}
+            style={styles.container}
             testID={GameScreenSelectors.Root}
         >
             <GameTimerController />
@@ -262,36 +262,38 @@ export const GameScreen = () => {
 
             {challengeRunElements}
 
-            <View onLayout={onBoardAreaLayout} style={styles.boardArea}>
-                <Hide mq={WideLayoutMediaQuery}>
-                    <View style={styles.boardSpacer} />
-                </Hide>
+            <View style={styles.gameRow(isLeftHanded)}>
+                <View onLayout={onBoardAreaLayout} style={styles.boardArea}>
+                    <Hide mq={WideLayoutMediaQuery}>
+                        <View style={styles.boardSpacer} />
+                    </Hide>
 
-                <Field cellSize={boardCellSize} onSelect={handleSelectCell} ref={fieldRef} selectedCell={selectedCell} />
+                    <Field cellSize={boardCellSize} onSelect={handleSelectCell} ref={fieldRef} selectedCell={selectedCell} />
 
-                <Hide mq={WideLayoutMediaQuery}>
-                    <View style={styles.toolsSlot}>
-                        <GameInputTools hideAutoCandidates={hideAutoCandidates} />
-                    </View>
-                </Hide>
-            </View>
-
-            <View style={styles.panelArea(boardSize)}>
-                <Display mq={WideLayoutMediaQuery}>{statusBlock}</Display>
-
-                <View style={styles.panelInputArea}>
-                    <GameNumpad
-                        availableValuesRefsHandler={handleAvailableRef}
-                        onSelectValue={handleSelectValue}
-                        selectedCell={selectedCell}
-                    />
-
-                    <Display mq={WideLayoutMediaQuery}>
-                        <GameInputTools hideAutoCandidates={hideAutoCandidates} />
-                    </Display>
+                    <Hide mq={WideLayoutMediaQuery}>
+                        <View style={styles.toolsSlot}>
+                            <GameInputTools hideAutoCandidates={hideAutoCandidates} />
+                        </View>
+                    </Hide>
                 </View>
 
-                <Display mq={WideLayoutMediaQuery}>{gameActionsWithPause}</Display>
+                <View style={styles.panelArea(boardSize)}>
+                    <Display mq={WideLayoutMediaQuery}>{statusBlock}</Display>
+
+                    <View style={styles.panelInputArea}>
+                        <GameNumpad
+                            availableValuesRefsHandler={handleAvailableRef}
+                            onSelectValue={handleSelectValue}
+                            selectedCell={selectedCell}
+                        />
+
+                        <Display mq={WideLayoutMediaQuery}>
+                            <GameInputTools hideAutoCandidates={hideAutoCandidates} />
+                        </Display>
+                    </View>
+
+                    <Display mq={WideLayoutMediaQuery}>{gameActionsWithPause}</Display>
+                </View>
             </View>
         </Pressable>
     );
