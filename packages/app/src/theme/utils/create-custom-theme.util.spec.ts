@@ -20,6 +20,8 @@ describe('createCustomTheme', () => {
         expect(theme.sourceTheme).toBe(ThemeEnum.Colorful);
         expect(theme.colors[ColorSchemaEnum.Light]).toEqual(ColorfulLightTheme.colors);
         expect(theme.colors[ColorSchemaEnum.Dark]).toEqual(ColorfulDarkTheme.colors);
+        expect(theme.colors[ColorSchemaEnum.Light]).not.toBe(ColorfulLightTheme.colors);
+        expect(theme.colors[ColorSchemaEnum.Light].cell).not.toBe(ColorfulLightTheme.colors.cell);
         expect(theme.createdAt).toBe(firstCreatedAt);
     });
 
@@ -30,6 +32,7 @@ describe('createCustomTheme', () => {
         expect(duplicate.id).not.toBe(original.id);
         expect(duplicate.colors[ColorSchemaEnum.Light]).toEqual(original.colors[ColorSchemaEnum.Light]);
         expect(duplicate.colors[ColorSchemaEnum.Light]).not.toBe(original.colors[ColorSchemaEnum.Light]);
+        expect(duplicate.colors[ColorSchemaEnum.Light].cell).not.toBe(original.colors[ColorSchemaEnum.Light].cell);
         expect(duplicate.sourceTheme).toBe(ThemeEnum.Colorful);
     });
 
