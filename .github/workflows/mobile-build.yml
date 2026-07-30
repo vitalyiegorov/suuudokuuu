@@ -13,6 +13,8 @@ on:
 env:
     EAS_CLI_VERSION: '20.5.1'
     EXPO_REPACK_VERSION: '0.7.2'
+    LANG: en_US.UTF-8
+    LC_ALL: en_US.UTF-8
 
 jobs:
     ios:
