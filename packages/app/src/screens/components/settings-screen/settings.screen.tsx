@@ -67,7 +67,8 @@ export const SettingsScreen = () => {
                 <AppSettingsSection title={t`Display`}>
                     <SettingsOptionLink
                         description={t`Board colors and screen appearance`}
-                        href="/settings/theme"
+                        href="/settings/themes"
+                        testID={SettingsScreenSelectors.ThemeOption}
                         title={t`Theme`}
                         value={getThemeLabel(theme)}
                     />
