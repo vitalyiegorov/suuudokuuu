@@ -96,10 +96,6 @@ msgstr "Aceptar el reto"
 msgid "Accept challenge?"
 msgstr "¿Aceptar el reto?"
 
-#: src/settings/component/theme-list-row/theme-list-row.tsx
-msgid "Active"
-msgstr "Activo"
-
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Active candidate background"
 msgstr "Fondo del candidato activo"

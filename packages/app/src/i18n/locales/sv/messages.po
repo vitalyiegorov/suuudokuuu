@@ -94,10 +94,6 @@ msgstr "Anta utmaningen"
 msgid "Accept challenge?"
 msgstr "Anta utmaningen?"
 
-#: src/settings/component/theme-list-row/theme-list-row.tsx
-msgid "Active"
-msgstr "Aktiv"
-
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Active candidate background"
 msgstr "Bakgrund för aktiv kandidat"
