@@ -26,6 +26,8 @@ export * from './screens/components/privacy-policy-screen/privacy-policy-screen.
 export * from './screens/components/beta-screen/beta-screen.selectors';
 export * from './screens/components/settings-screen/settings-screen.selectors';
 export * from './screens/components/shared-screen/shared-screen.selectors';
+export * from './screens/components/theme-editor-screen/theme-editor-screen.selectors';
+export * from './screens/components/themes-screen/themes-screen.selectors';
 export * from './screens/components/winner-screen/winner-screen.selectors';
 export * from './settings/component/settings-app-footer/settings-app-footer.selectors';
 export * from './settings/component/settings-option-sheet/settings-option-sheet.selectors';
