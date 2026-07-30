@@ -1,0 +1,62 @@
+appId: ${APP_ID}
+---
+- startRecording:
+      path: '10.themes-screen'
+      optional: true
+
+- runFlow: subflows/navigation/launch-home.flow.yaml
+- tapOn: 'Settings'
+- extendedWaitUntil:
+      visible:
+          id: 'SettingsScreenSelectors.Root'
+      timeout: 3000
+- scrollUntilVisible:
+      element:
+          id: 'SettingsScreenSelectors.ThemeOption'
+      direction: DOWN
+- tapOn:
+      id: 'SettingsScreenSelectors.ThemeOption'
+- extendedWaitUntil:
+      visible:
+          id: 'themes-screen'
+      timeout: 3000
+- assertVisible: 'Presets'
+- scrollUntilVisible:
+      element:
+          id: 'themes-screen-create-button'
+      direction: DOWN
+- tapOn:
+      id: 'themes-screen-create-button'
+- extendedWaitUntil:
+      visible:
+          id: 'theme-editor-screen'
+      timeout: 3000
+- tapOn:
+      id: 'theme-editor-screen-name-input'
+- eraseText
+- inputText: 'Maestro theme'
+- scrollUntilVisible:
+      element:
+          id: 'theme-editor-screen-save-button'
+      direction: DOWN
+- tapOn:
+      id: 'theme-editor-screen-save-button'
+- extendedWaitUntil:
+      visible:
+          id: 'themes-screen'
+      timeout: 3000
+- assertVisible: 'Maestro theme'
+- tapOn:
+      id: 'HeaderBackButtonSelectors.Root'
+- extendedWaitUntil:
+      visible:
+          id: 'SettingsScreenSelectors.Root'
+      timeout: 3000
+- assertVisible: 'Theme.*Maestro theme.*'
+- tapOn:
+      id: 'HeaderBackButtonSelectors.Root'
+- extendedWaitUntil:
+      visible:
+          id: 'HomeScreenSelectors.Root'
+      timeout: 3000
+- stopApp
