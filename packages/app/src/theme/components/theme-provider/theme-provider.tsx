@@ -9,8 +9,9 @@ import { settingsSetAction } from '../../../settings/store/settings.actions';
 import { settingsKeySelector, settingsThemeSelector } from '../../../settings/store/settings.selectors';
 import { ThemeContext } from '../../context/theme.context';
 import { ColorSchemaEnum } from '../../enum/color-schema.enum';
-import { getTheme } from '../../utils/get-theme.util';
+import { customThemesSelector } from '../../store/custom-themes.selectors';
 import { getUnistylesThemeName } from '../../utils/get-unistyles-theme-name.util';
+import { resolveTheme } from '../../utils/resolve-theme.util';
 import { synchronizeUnistylesTheme } from '../../utils/synchronize-unistyles-theme.util';
 
 import type { SettingsState } from '../../../settings/store/settings.state';
@@ -24,6 +25,7 @@ export const ThemeProvider = ({ children }: Props) => {
     const dispatch = useAppDispatch();
     const selectedTheme = useAppSelector(settingsThemeSelector);
     const isDarkColorSchema = useAppSelector(settingsKeySelector('isDarkColorSchema'));
+    const customThemes = useAppSelector(customThemesSelector);
 
     const colorScheme = isDarkColorSchema ? ColorSchemaEnum.Dark : ColorSchemaEnum.Light;
     const unistylesThemeName = getUnistylesThemeName(selectedTheme, colorScheme);
@@ -50,7 +52,7 @@ export const ThemeProvider = ({ children }: Props) => {
         }
     };
 
-    const theme = getTheme(selectedTheme, colorScheme);
+    const theme = resolveTheme(selectedTheme, colorScheme, customThemes);
     const navigationTheme = colorScheme === ColorSchemaEnum.Light ? DefaultTheme : DarkTheme;
     const fullNavigationTheme = {
         ...navigationTheme,

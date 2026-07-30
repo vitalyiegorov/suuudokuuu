@@ -1,7 +1,9 @@
 import { ColorSchemaEnum } from '../enum/color-schema.enum';
 import { ThemeEnum } from '../enum/theme.enum';
+import { isCustomThemeId } from '../type-guard/is-custom-theme-id.type-guard';
 
 import type { UnistylesThemeNameType } from '../constant/unistyles-themes.constant';
+import type { ThemeIdType } from '../types/theme-id.type';
 
 const unistylesThemeNamesByThemeAndSchema: Record<ThemeEnum, Record<ColorSchemaEnum, UnistylesThemeNameType>> = {
     [ThemeEnum.BlackAndWhite]: {
@@ -18,5 +20,10 @@ const unistylesThemeNamesByThemeAndSchema: Record<ThemeEnum, Record<ColorSchemaE
     }
 };
 
-export const getUnistylesThemeName = (theme: ThemeEnum, colorSchema: ColorSchemaEnum): UnistylesThemeNameType =>
-    unistylesThemeNamesByThemeAndSchema[theme][colorSchema];
+export const getUnistylesThemeName = (themeId: ThemeIdType, colorSchema: ColorSchemaEnum): UnistylesThemeNameType => {
+    if (isCustomThemeId(themeId)) {
+        return colorSchema === ColorSchemaEnum.Dark ? 'customDark' : 'customLight';
+    }
+
+    return unistylesThemeNamesByThemeAndSchema[themeId][colorSchema];
+};
