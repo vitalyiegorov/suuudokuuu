@@ -5,17 +5,21 @@ import { initialGameState } from '../game/store/game.state';
 import { emptyGameHistory } from '../history/interfaces/history-game.interface';
 import { settingsSlice } from '../settings/store/settings.slice';
 import { initialSettingsState } from '../settings/store/settings.state';
+import { customThemesSlice } from '../theme/store/custom-themes.slice';
+import { initialCustomThemesState } from '../theme/store/custom-themes.state';
 
 import type { GameState } from '../game/store/game.state';
 import type { SettingsState } from '../settings/store/settings.state';
+import type { CustomThemesState } from '../theme/store/custom-themes.state';
 import type { MigrationManifest } from 'redux-persist/es/types';
 
 export interface AppRootPersistedStateInterface {
     [gameSlice.name]: GameState;
     [settingsSlice.name]: SettingsState;
+    [customThemesSlice.name]: CustomThemesState;
 }
 
-export const appRootPersistVersion = 29;
+export const appRootPersistVersion = 30;
 
 const resetBestScores = (state: AppRootPersistedStateInterface): AppRootPersistedStateInterface => {
     const gameState = state[gameSlice.name];
@@ -84,6 +88,12 @@ const backfillRunDifficulty = (state: AppRootPersistedStateInterface): AppRootPe
     };
 };
 
+const introduceCustomThemes = (state: AppRootPersistedStateInterface): AppRootPersistedStateInterface => ({
+    ...state,
+    [customThemesSlice.name]: { ...initialCustomThemesState, ...state[customThemesSlice.name] },
+    [settingsSlice.name]: { ...initialSettingsState, ...state[settingsSlice.name] }
+});
+
 export const appRootMigrations: MigrationManifest<AppRootPersistedStateInterface> = {
     12: state => ({
         ...state,
@@ -114,5 +124,6 @@ export const appRootMigrations: MigrationManifest<AppRootPersistedStateInterface
     26: state => ({ ...state, [settingsSlice.name]: { ...initialSettingsState, ...state[settingsSlice.name] } }),
     27: state => ({ ...state, [settingsSlice.name]: { ...initialSettingsState, ...state[settingsSlice.name] } }),
     28: migrateSolutionStepsToTimelineEvents,
-    29: backfillRunDifficulty
+    29: backfillRunDifficulty,
+    30: introduceCustomThemes
 };
