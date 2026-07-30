@@ -5,5 +5,13 @@ module.exports = {
     collectCoverageFrom: ['src/**/*.ts', '!src/**/*.spec.ts', '!src/index.ts'],
     displayName: 'solver-core',
     testRegex: './src/.*\\.spec\\.(tsx?)$',
-    testEnvironment: 'node'
+    testEnvironment: 'node',
+    coverageThreshold: {
+        global: {
+            statements: 99,
+            branches: 97,
+            lines: 99,
+            functions: 100
+        }
+    }
 };
