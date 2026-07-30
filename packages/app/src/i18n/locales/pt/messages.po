@@ -18,6 +18,10 @@ msgstr ""
 msgid "{0, plural, one {# mistake} other {# mistakes}}"
 msgstr "{0, plural, one {# erro} other {# erros}}"
 
+#: src/settings/component/settings-app-footer/settings-app-footer.tsx
+msgid "{appName} · v{version}"
+msgstr "{appName} · v{version}"
+
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
 msgstr "{arsenalCardCount, plural, one {# técnica} other {# técnicas}}"
@@ -1354,14 +1358,6 @@ msgstr "Apoiar a Ucrânia"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Surfaces"
 msgstr "Superfícies"
-
-#: src/screens/components/home-screen/home.screen.tsx
-msgid "suuudokuuu"
-msgstr "suuudokuuu"
-
-#: src/settings/component/settings-app-footer/settings-app-footer.tsx
-msgid "suuudokuuu · v{version}"
-msgstr "suuudokuuu · v{version}"
 
 #: src/game/hooks/use-share-challenge/use-share-challenge.hook.ts
 msgid "SuuudokuuU Challenge"

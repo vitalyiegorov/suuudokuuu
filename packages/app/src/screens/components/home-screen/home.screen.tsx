@@ -16,6 +16,7 @@ import { SupportUkrainePill } from '../../../@generic/components/support-ukraine
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
+import { getBrand } from '../../../@generic/utils/get-brand.util';
 import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
 import { ChallengeModeSwitch } from '../../../challenge/components/challenge-mode-switch/challenge-mode-switch';
 import {
@@ -168,7 +169,7 @@ export const HomeScreen = () => {
                 <View style={styles.contentStack}>
                     <View style={styles.masthead}>
                         <View style={styles.hero}>
-                            <Header numberOfLines={1} style={styles.title} text={t`suuudokuuu`} />
+                            <Header numberOfLines={1} style={styles.title} text={getBrand().appName} />
                             <SupportUkrainePill />
                         </View>
 
