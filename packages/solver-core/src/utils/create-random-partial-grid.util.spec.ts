@@ -15,12 +15,12 @@ describe('createRandomPartialGrid', () => {
     });
 
     it('fills at most the requested number of cells with valid digits', () => {
-        const givensCount = 20;
-        const grid = createRandomPartialGrid(createSeededRandom(SEED), givensCount);
+        const targetGivensCount = 20;
+        const grid = createRandomPartialGrid(createSeededRandom(SEED), targetGivensCount);
 
         const filledCellValues = Array.from(grid).filter(value => value !== GRID_BLANK_VALUE);
 
-        expect(filledCellValues.length).toBeLessThanOrEqual(givensCount);
+        expect(filledCellValues.length).toBeLessThanOrEqual(targetGivensCount);
         for (const value of filledCellValues) {
             expect(value).toBeGreaterThanOrEqual(1);
             expect(value).toBeLessThanOrEqual(GRID_SIZE);

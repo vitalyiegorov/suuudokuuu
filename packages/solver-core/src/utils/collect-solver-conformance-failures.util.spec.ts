@@ -2,23 +2,34 @@ import { describe, expect, it } from '@jest/globals';
 
 import { isDefined } from '@rnw-community/shared';
 
-import { UNIQUENESS_COUNT_LIMIT } from '../constants/solver-conformance-cases.constant';
+import { UNIQUENESS_COUNT_LIMIT, solverConformanceCases } from '../constants/solver-conformance-cases.constant';
 
 import { collectSolverConformanceFailures } from './collect-solver-conformance-failures.util';
 import { formatGridString } from './format-grid-string.util';
 import { parseGridString } from './parse-grid-string.util';
 
+import type { SolverConformanceCaseInterface } from '../interfaces/solver-conformance-case.interface';
 import type { SolverInterface } from '../interfaces/solver.interface';
 
-const VALID_FULL_GRID = '123456789456789123789123456214365897365897214897214365531642978642978531978531642';
-const ROYLE_17_PUZZLE = '000000010400000000020000000000050407008000300001090000300400200050100000000806000';
+const findConformanceCase = (name: string): SolverConformanceCaseInterface => {
+    const conformanceCase = solverConformanceCases.find(candidate => candidate.name === name);
+    if (!isDefined(conformanceCase)) {
+        throw new Error(`Missing conformance case fixture: ${name}`);
+    }
+
+    return conformanceCase;
+};
+
+const VALID_FULL_GRID = findConformanceCase('complete valid grid has exactly one solution').puzzle;
+const ROYLE_17_PUZZLE = findConformanceCase('17-given minimal puzzle has exactly one solution').puzzle;
+const MULTI_SOLUTION_PUZZLE = findConformanceCase('minimal puzzle with a removed given has two-plus solutions').puzzle;
+const INVALID_GIVENS_PUZZLE = findConformanceCase('contradictory givens have zero solutions').puzzle;
+const EMPTY_GIVENS_PUZZLE = findConformanceCase('empty grid hits the count limit').puzzle;
+
 const ROYLE_17_SOLUTION = '693784512487512936125963874932651487568247391741398625319475268856129743274836159';
 const ROYLE_17_MISMATCHING_SOLUTION = '693784521487521936215963874931652487568147392742398615329475168856219743174836259';
-const MULTI_SOLUTION_PUZZLE = ROYLE_17_PUZZLE.replace('1', '0');
 const MULTI_SOLUTION_ANSWER = '865942173493761852127583964639258417548617329271394586386475291754129638912836745';
 const INCOMPLETE_MULTI_SOLUTION_ANSWER = `0${MULTI_SOLUTION_ANSWER.slice(1)}`;
-const INVALID_GIVENS_PUZZLE = '55'.padEnd(VALID_FULL_GRID.length, '0');
-const EMPTY_GIVENS_PUZZLE = '0'.repeat(VALID_FULL_GRID.length);
 const EMPTY_GRID_SOLUTION = '123456789456789123789123456231674895875912364694538217317265948542897631968341572';
 
 const solutionByPuzzle: Record<string, string | null> = {
@@ -70,7 +81,7 @@ describe('collectSolverConformanceFailures', () => {
         };
 
         expect(collectSolverConformanceFailures(solverMissingRoyleSolution)).toEqual([
-            '17-given minimal puzzle has exactly one solution: solve() must return a valid completion of the givens'
+            '17-given minimal puzzle has exactly one solution: solve() returned null'
         ]);
     });
 
@@ -85,7 +96,7 @@ describe('collectSolverConformanceFailures', () => {
         };
 
         expect(collectSolverConformanceFailures(solverWithIncompleteMultiSolutionAnswer)).toEqual([
-            'minimal puzzle with a removed given has two-plus solutions: solve() must return a valid completion of the givens'
+            'minimal puzzle with a removed given has two-plus solutions: solve() returned an incomplete or invalid grid'
         ]);
     });
 
@@ -98,7 +109,7 @@ describe('collectSolverConformanceFailures', () => {
         };
 
         expect(collectSolverConformanceFailures(solverWithMismatchingRoyleSolution)).toEqual([
-            '17-given minimal puzzle has exactly one solution: solve() must return a valid completion of the givens'
+            '17-given minimal puzzle has exactly one solution: solve() result does not match the puzzle givens'
         ]);
     });
 

@@ -1,10 +1,6 @@
 import { GRID_CELL_COUNT } from './grid.constant';
 
-export interface SolverConformanceCaseInterface {
-    readonly name: string;
-    readonly puzzle: string;
-    readonly expectedCount: number;
-}
+import type { SolverConformanceCaseInterface } from '../interfaces/solver-conformance-case.interface';
 
 export const UNIQUENESS_COUNT_LIMIT = 2;
 
