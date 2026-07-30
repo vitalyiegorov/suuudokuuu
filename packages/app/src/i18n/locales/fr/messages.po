@@ -1411,10 +1411,12 @@ msgstr "Leur temps à battre"
 
 #: src/app/settings/themes/index.tsx
 #: src/screens/components/settings-screen/settings.screen.tsx
+#: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Theme"
 msgstr "Thème"
 
 #: src/app/settings/themes/editor.tsx
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Theme editor"
 msgstr "Éditeur de thème"
 

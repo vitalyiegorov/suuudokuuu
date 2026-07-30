@@ -1,12 +1,13 @@
 import { useLingui } from '@lingui/react/macro';
-import { AppButton, AppSettingsSection } from '@suuudokuuu/ui';
+import { AppButton, AppSettingsSection, resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { router, useLocalSearchParams } from 'expo-router';
 import { use, useState } from 'react';
-import { Alert, ScrollView, TextInput, View } from 'react-native';
+import { Alert, TextInput, View } from 'react-native';
 
 import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
 import { BlackText } from '../../../@generic/components/black-text/black-text';
+import { CollapsibleChromePage } from '../../../@generic/components/collapsible-chrome-page/collapsible-chrome-page';
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { ThemeEditorColorRow } from '../../../settings/component/theme-editor-color-row/theme-editor-color-row';
@@ -151,7 +152,11 @@ export const ThemeEditorScreen = () => {
     const darkVariantButtonVariant = variant === ColorSchemaEnum.Dark ? 'primary' : 'secondary';
 
     return (
-        <ScrollView contentContainerStyle={styles.scrollContent} testID={ThemeEditorScreenSelectors.Root}>
+        <CollapsibleChromePage
+            contentContainerStyle={resolveUnistyleForAnimated(styles.scrollContent)}
+            testID={ThemeEditorScreenSelectors.Root}
+            title={t`Theme editor`}
+        >
             <TextInput
                 maxLength={CustomThemeNameMaxLength}
                 onChangeText={handleNameChange}
@@ -246,6 +251,6 @@ export const ThemeEditorScreen = () => {
                     onConfirm={handleTokenConfirm}
                 />
             )}
-        </ScrollView>
+        </CollapsibleChromePage>
     );
 };
