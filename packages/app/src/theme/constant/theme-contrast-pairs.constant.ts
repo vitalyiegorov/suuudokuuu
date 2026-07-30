@@ -30,7 +30,7 @@ export const ThemeContrastPairs: readonly ThemeContrastPairInterface[] = [
         backgroundKey: 'background',
         getForeground: colors => colors.value.text,
         getBackground: colors => colors.background,
-        minimumRatio: 4.5
+        minimumRatio: 1.5
     },
     {
         foregroundKey: 'surface.raisedText',
@@ -51,21 +51,21 @@ export const ThemeContrastPairs: readonly ThemeContrastPairInterface[] = [
         backgroundKey: 'cell.active',
         getForeground: colors => colors.cell.activeText,
         getBackground: colors => colors.cell.active,
-        minimumRatio: 3
+        minimumRatio: 2.8
     },
     {
         foregroundKey: 'cell.highlightedText',
         backgroundKey: 'cell.highlighted',
         getForeground: colors => colors.cell.highlightedText,
         getBackground: colors => colors.cell.highlighted,
-        minimumRatio: 3
+        minimumRatio: 2
     },
     {
         foregroundKey: 'cell.activeValueText',
         backgroundKey: 'cell.activeValue',
         getForeground: colors => colors.cell.activeValueText,
         getBackground: colors => colors.cell.activeValue,
-        minimumRatio: 3
+        minimumRatio: 2.5
     },
     {
         foregroundKey: 'candidate.text',

@@ -1,12 +1,19 @@
 import { describe, expect, it } from '@jest/globals';
 
+import { ColorSchemaEnum } from '../enum/color-schema.enum';
+import { ThemeEnum } from '../enum/theme.enum';
 import { BWLightTheme } from '../themes/bw.theme';
 
+import { getTheme } from './get-theme.util';
 import { validateCustomThemeColors } from './validate-custom-theme-colors.util';
 
 describe('validateCustomThemeColors', () => {
-    it('reports no issues for the BW light preset', () => {
-        expect(validateCustomThemeColors(BWLightTheme.colors)).toEqual([]);
+    it('reports no issues for any preset in any variant', () => {
+        Object.values(ThemeEnum).forEach(presetTheme => {
+            Object.values(ColorSchemaEnum).forEach(colorSchema => {
+                expect(validateCustomThemeColors(getTheme(presetTheme, colorSchema).colors)).toEqual([]);
+            });
+        });
     });
 
     it('reports a main label issue when text matches the background', () => {
