@@ -42,4 +42,11 @@ describe('customThemesSlice', () => {
 
         expect(state.themes).toEqual([]);
     });
+
+    it('leaves the state unchanged when removing a non-existent id', () => {
+        const seeded = customThemesSlice.reducer(initialCustomThemesState, customThemesUpsertAction(sampleTheme));
+        const state = customThemesSlice.reducer(seeded, customThemesRemoveAction({ id: 'custom-missing' }));
+
+        expect(state.themes).toEqual(seeded.themes);
+    });
 });
