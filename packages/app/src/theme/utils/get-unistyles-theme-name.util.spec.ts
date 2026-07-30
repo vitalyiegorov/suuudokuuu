@@ -17,4 +17,9 @@ describe('getUnistylesThemeName', () => {
     it('maps newspaper light to newspaperLight', () => {
         expect(getUnistylesThemeName(ThemeEnum.Newspaper, ColorSchemaEnum.Light)).toBe('newspaperLight');
     });
+
+    it('maps any custom id to the custom slots', () => {
+        expect(getUnistylesThemeName('custom-abc', ColorSchemaEnum.Light)).toBe('customLight');
+        expect(getUnistylesThemeName('custom-abc', ColorSchemaEnum.Dark)).toBe('customDark');
+    });
 });

@@ -10,7 +10,9 @@ export const UnistylesThemesConstant = {
     colorfulLight: { colors: ColorfulLightTheme.colors, ...UnistylesSharedTokensConstant },
     colorfulDark: { colors: ColorfulDarkTheme.colors, ...UnistylesSharedTokensConstant },
     newspaperLight: { colors: NewspaperLightTheme.colors, ...UnistylesSharedTokensConstant },
-    newspaperDark: { colors: NewspaperDarkTheme.colors, ...UnistylesSharedTokensConstant }
+    newspaperDark: { colors: NewspaperDarkTheme.colors, ...UnistylesSharedTokensConstant },
+    customLight: { colors: BWLightTheme.colors, ...UnistylesSharedTokensConstant },
+    customDark: { colors: BWDarkTheme.colors, ...UnistylesSharedTokensConstant }
 };
 
 export type UnistylesThemeNameType = keyof typeof UnistylesThemesConstant;
