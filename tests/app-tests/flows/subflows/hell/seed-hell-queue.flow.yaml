@@ -1,0 +1,17 @@
+appId: ${APP_ID}
+---
+- retry:
+      maxRetries: 1
+      commands:
+          - openLink: 'suuudokuuu://e2e/seed-hell-queue'
+          - extendedWaitUntil:
+                visible:
+                    id: 'HomeScreenSelectors.Root'
+                timeout: 10000
+- extendedWaitUntil:
+      visible:
+          id: 'HomeScreenHellCardSelectors.Root'
+      timeout: 5000
+- assertVisible:
+      id: 'HomeScreenHellCardSelectors.Count'
+      text: '1 puzzle ready'
