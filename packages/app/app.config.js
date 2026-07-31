@@ -148,7 +148,8 @@ export default ({ config }) =>
                 appName: brandConfig.appName,
                 defaultTheme: brandConfig.defaultTheme,
                 links: brandConfig.links
-            }
+            },
+            e2eSeedingEnabled: IS_DEV || IS_E2E
         },
         owner: 'vitalyiegorov',
         updates: {
