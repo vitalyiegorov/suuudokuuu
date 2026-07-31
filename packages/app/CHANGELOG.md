@@ -3,6 +3,39 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.71.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.70.2...v1.71.0) (2026-07-31)
+
+### Bug Fixes
+
+- **app:** calibrate contrast minimums against all theme presets ([47f4e95](https://github.com/vitalyiegorov/suuudokuuu/commit/47f4e950fe9363c4d5fad5b4b05f94a3e03d1645))
+- **app:** correct colorful dark overlay inversion and highlight contrast ([62ab280](https://github.com/vitalyiegorov/suuudokuuu/commit/62ab280d526acf680a27ca94df941508fa1f3b2e))
+- **app:** keep theme rows stable and anchor editor actions in footer ([1e51b2c](https://github.com/vitalyiegorov/suuudokuuu/commit/1e51b2cab43277e4571750de68c288420d558042))
+- **app:** parse uppercase rgb color strings ([830690d](https://github.com/vitalyiegorov/suuudokuuu/commit/830690dafeea9c73bb88b1f43325dd2804f31814))
+- **app:** render themes pages with collapsible page chrome ([fdb659f](https://github.com/vitalyiegorov/suuudokuuu/commit/fdb659fda1bdbd8b01607c7ce12fb3ec316d22ec))
+
+### Features
+
+- **app:** add color string parsing utility ([db93e54](https://github.com/vitalyiegorov/suuudokuuu/commit/db93e5477f15e7059d14876955ac739efba7c67b))
+- **app:** add contrast validation for custom theme colors ([5d09e3a](https://github.com/vitalyiegorov/suuudokuuu/commit/5d09e3aafe3a1029cc25630305587a6212ccece4))
+- **app:** add custom theme editor screen ([e24cef2](https://github.com/vitalyiegorov/suuudokuuu/commit/e24cef2761adfdbbc1f53071ccc23bc73462113e))
+- **app:** add custom theme id type and type guard ([1b7fa5c](https://github.com/vitalyiegorov/suuudokuuu/commit/1b7fa5c9e954b23fa2a8d4ed9612df42d4aff680))
+- **app:** add custom themes slice with factory utilities ([552657d](https://github.com/vitalyiegorov/suuudokuuu/commit/552657d852cf8e622f604c8ba5db81cd4b82b4e3))
+- **app:** add live theme preview board ([97b0716](https://github.com/vitalyiegorov/suuudokuuu/commit/97b0716fe1b6cf8c29c02c2fd901391d4a3140f3))
+- **app:** add theme editor color row and picker sheet ([1712f80](https://github.com/vitalyiegorov/suuudokuuu/commit/1712f80a42598539ffd933822822f2a9d110ffb7))
+- **app:** add theme editor token descriptors and labels ([ce194ef](https://github.com/vitalyiegorov/suuudokuuu/commit/ce194ef6ec63a743725bc30793140bdc52ae9864))
+- **app:** add themes list page with preset and custom sections ([de950a0](https://github.com/vitalyiegorov/suuudokuuu/commit/de950a03064ef21dbdb2d2a7c3e115e872a0eb40))
+- **app:** add unistyles custom theme slots with runtime application ([2c9479e](https://github.com/vitalyiegorov/suuudokuuu/commit/2c9479e16ce3a45a49c00115593ae4999ad24927))
+- **app:** add versioned custom theme schema and interface ([705ac42](https://github.com/vitalyiegorov/suuudokuuu/commit/705ac42df98236f203905ab0593f5830ec59dc49))
+- **app:** add WCAG contrast ratio and alpha compositing utilities ([50fb38a](https://github.com/vitalyiegorov/suuudokuuu/commit/50fb38afd56aa298a9f689842eb8c7a849dd6b93))
+- **app:** expose validated runtime brand configuration with docs ([062ee0c](https://github.com/vitalyiegorov/suuudokuuu/commit/062ee0ce4731c19310a896902b308f3c40b83294))
+- **app:** persist custom themes with redux-persist migration v29 ([1342966](https://github.com/vitalyiegorov/suuudokuuu/commit/13429663c8586b723d302c41b27db2ca968d476b))
+- **app:** polish themes page with active highlight and sticky create button ([a8b0cc3](https://github.com/vitalyiegorov/suuudokuuu/commit/a8b0cc363939057dc6dd7070d931bc453068eac9))
+- **app:** resolve custom themes in theme provider ([7025b90](https://github.com/vitalyiegorov/suuudokuuu/commit/7025b9062b9a80e259d62690c7eb7086bc54ff45))
+- **app:** route theme setting to the new themes page ([365d011](https://github.com/vitalyiegorov/suuudokuuu/commit/365d011cb166c76274cedcc96088f7045ea489f3))
+- **app:** seed initial theme from brand configuration ([6dc8c38](https://github.com/vitalyiegorov/suuudokuuu/commit/6dc8c38e47b9e6b471c286edfae859a34cbd1d57))
+- **app:** unify theme row actions into a pencil icon button ([9fe6006](https://github.com/vitalyiegorov/suuudokuuu/commit/9fe6006714ec64ecf630a99613a4bdbc58a35d05))
+- **app:** widen theme setting to support custom theme ids ([e96c053](https://github.com/vitalyiegorov/suuudokuuu/commit/e96c0534529ee03277406e1ddf4f3885c4a4df03))
+
 ## [1.70.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.70.1...v1.70.2) (2026-07-30)
 
 ### Bug Fixes
