@@ -1,6 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 
-import { parseReleaseMetadata } from './parse-release-metadata.util';
+import { parseReleaseMetadata } from './parse-release-metadata.util.js';
 
 const ValidMetadata = {
     branch: 'main',

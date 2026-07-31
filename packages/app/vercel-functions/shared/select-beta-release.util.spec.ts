@@ -5,8 +5,8 @@ import {
     DevelopmentChecksumsAssetName,
     DevelopmentIpaAssetName,
     MaximumChecksumsByteLength
-} from './beta-release.constant';
-import { parseBetaReleaseCandidates, selectBetaReleaseCandidates } from './select-beta-release.util';
+} from './beta-release.constant.js';
+import { parseBetaReleaseCandidates, selectBetaReleaseCandidates } from './select-beta-release.util.js';
 
 const CommitSha = '0123456789abcdef0123456789abcdef01234567';
 const PublishedAt = '2026-07-14T10:30:00Z';

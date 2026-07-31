@@ -4,10 +4,10 @@ import {
     MaximumChecksumsByteLength,
     MaximumGithubReleasesByteLength,
     UpstreamRequestTimeoutMilliseconds
-} from './beta-release.constant';
-import { parseChecksums } from './parse-checksums.util';
-import { readBoundedResponseText } from './read-bounded-response-text.util';
-import { parseBetaReleaseCandidates } from './select-beta-release.util';
+} from './beta-release.constant.js';
+import { parseChecksums } from './parse-checksums.util.js';
+import { readBoundedResponseText } from './read-bounded-response-text.util.js';
+import { parseBetaReleaseCandidates } from './select-beta-release.util.js';
 
 import type {
     BetaRelease,
@@ -15,7 +15,7 @@ import type {
     ReleaseChecksums,
     ResolveBetaReleaseDependencies,
     ResolveBetaReleaseResult
-} from './beta-release.interface';
+} from './beta-release.interface.js';
 
 type GithubReleasesRequestResult = { readonly input: unknown; readonly status: 'success' } | { readonly status: 'failure' };
 
