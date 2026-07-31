@@ -24,6 +24,18 @@ describe('HellQueueEntrySchema', () => {
         expect(HellQueueEntrySchema.safeParse({ ...validHellQueueEntry, puzzle: '123' }).success).toBe(false);
     });
 
+    it('rejects an 80-character puzzle string', () => {
+        const eightyDigitField = '1'.repeat(HellQueueFieldStringLength - 1);
+
+        expect(HellQueueEntrySchema.safeParse({ ...validHellQueueEntry, puzzle: eightyDigitField }).success).toBe(false);
+    });
+
+    it('rejects an 82-character puzzle string', () => {
+        const eightyTwoDigitField = '1'.repeat(HellQueueFieldStringLength + 1);
+
+        expect(HellQueueEntrySchema.safeParse({ ...validHellQueueEntry, puzzle: eightyTwoDigitField }).success).toBe(false);
+    });
+
     it('rejects a solution string containing non-digit characters', () => {
         const solutionWithLetters = `${'1'.repeat(HellQueueFieldStringLength - 1)}x`;
 
@@ -46,6 +58,12 @@ describe('HellQueueEntrySchema', () => {
         const unknownSchemaVersion = 99;
 
         expect(HellQueueEntrySchema.safeParse({ ...validHellQueueEntry, schemaVersion: unknownSchemaVersion }).success).toBe(false);
+    });
+
+    it('rejects the next schema version as not yet supported', () => {
+        const nextSchemaVersion = HellQueueEntrySchemaVersion + 1;
+
+        expect(HellQueueEntrySchema.safeParse({ ...validHellQueueEntry, schemaVersion: nextSchemaVersion }).success).toBe(false);
     });
 
     it('rejects an id that does not match the puzzle', () => {

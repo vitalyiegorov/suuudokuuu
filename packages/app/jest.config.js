@@ -16,6 +16,7 @@ module.exports = {
     moduleNameMapper: {
         '^@suuudokuuu/encoder$': '<rootDir>/../encoder/src/index.ts',
         '^@suuudokuuu/generator$': '<rootDir>/../generator/src/index.ts',
+        '^@suuudokuuu/solver-bitmask$': '<rootDir>/../solver-bitmask/src/index.ts',
         '^@suuudokuuu/techniques$': '<rootDir>/../techniques/src/index.ts',
         '^@suuudokuuu/ui$': '<rootDir>/../ui/src/index.ts',
         '^@suuudokuuu/ui/theme$': '<rootDir>/../ui/src/theme/index.ts',
