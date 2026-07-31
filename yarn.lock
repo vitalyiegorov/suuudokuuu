@@ -4957,8 +4957,8 @@ __metadata:
   resolution: "@suuudokuuu/generator@workspace:packages/generator"
   dependencies:
     "@rnw-community/shared": "npm:^2.2.0"
+    "@suuudokuuu/solver-bitmask": "workspace:*"
     "@suuudokuuu/solver-core": "workspace:*"
-    "@suuudokuuu/solver-dlx": "workspace:*"
   languageName: unknown
   linkType: soft
 
@@ -5015,7 +5015,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@suuudokuuu/solver-bitmask@workspace:packages/solver-bitmask":
+"@suuudokuuu/solver-bitmask@workspace:*, @suuudokuuu/solver-bitmask@workspace:packages/solver-bitmask":
   version: 0.0.0-use.local
   resolution: "@suuudokuuu/solver-bitmask@workspace:packages/solver-bitmask"
   dependencies:
