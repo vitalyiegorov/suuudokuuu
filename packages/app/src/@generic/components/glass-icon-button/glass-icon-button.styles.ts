@@ -1,12 +1,12 @@
 import { StyleSheet } from 'react-native';
 
-import { BlackIconButtonSize } from '../black-icon-button/constant/black-icon-button-size.constant';
+import { AppIconButtonSize } from '../app-icon-button/constant/app-icon-button-size.constant';
 
 export const GlassIconButtonStyles = StyleSheet.create({
     glass: {
-        borderRadius: BlackIconButtonSize / 2,
-        height: BlackIconButtonSize,
+        borderRadius: AppIconButtonSize / 2,
+        height: AppIconButtonSize,
         overflow: 'hidden',
-        width: BlackIconButtonSize
+        width: AppIconButtonSize
     }
 });

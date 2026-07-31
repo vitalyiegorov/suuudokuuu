@@ -4,7 +4,7 @@ import { LucidePlay } from 'lucide-react-native';
 import { use } from 'react';
 import { Text, View } from 'react-native';
 
-import { BlackButton } from '../../../@generic/components/black-button/black-button';
+import { AppLinkButton } from '../../../@generic/components/app-link-button/app-link-button';
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
@@ -43,7 +43,7 @@ export const CompletedGameItem = ({ game }: Props) => {
                     <BlackText style={difficultyStyles}>{getDifficultyText(game.difficulty)}</BlackText>
                 </View>
 
-                <BlackButton
+                <AppLinkButton
                     href={`/history/${game.difficulty}/${game.completedAt}`}
                     style={replayButtonStyles}
                     testID={CompletedGameItemSelectors.ReplayButton}
@@ -52,7 +52,7 @@ export const CompletedGameItem = ({ game }: Props) => {
                     <Text style={replayTextStyles}>
                         <Trans>Replay</Trans>
                     </Text>
-                </BlackButton>
+                </AppLinkButton>
             </View>
 
             <AppMetricStrip style={styles.metrics} variant="ghost">

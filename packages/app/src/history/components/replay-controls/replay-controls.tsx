@@ -5,7 +5,7 @@ import { Text, View } from 'react-native';
 
 import { isPositiveNumber } from '@rnw-community/shared';
 
-import { BlackIconButton } from '../../../@generic/components/black-icon-button/black-icon-button';
+import { AppIconButton } from '../../../@generic/components/app-icon-button/app-icon-button';
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { ChallengeAwayBands } from '../../../challenge/components/challenge-away-bands/challenge-away-bands';
@@ -83,25 +83,25 @@ export const ReplayControls = (props: Props) => {
             </View>
 
             <View style={styles.controlsRow}>
-                <BlackIconButton
+                <AppIconButton
                     disabled={!canGoBack}
-                    isActive
                     onPress={onPrevStep}
                     style={previousButtonStyles}
                     testID={ReplayControlsSelectors.PreviousButton}
+                    variant="inverted"
                 >
                     <LucideChevronLeft color={previousIconColor} size={30} />
-                </BlackIconButton>
+                </AppIconButton>
 
-                <BlackIconButton
+                <AppIconButton
                     disabled={!canGoForward}
-                    isActive
                     onPress={onNextStep}
                     style={nextButtonStyles}
                     testID={ReplayControlsSelectors.NextButton}
+                    variant="inverted"
                 >
                     <LucideChevronRight color={nextIconColor} size={30} />
-                </BlackIconButton>
+                </AppIconButton>
             </View>
         </View>
     );
