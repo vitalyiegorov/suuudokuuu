@@ -132,10 +132,15 @@ export class HellGenerator {
 
     private mutateCurrentPuzzle(puzzle: Uint8Array): void {
         const mutatedGrid = Uint8Array.from(puzzle);
-        const blankedGivenCell = this.blankRandomGivenCell(mutatedGrid);
-        const otherBlankCell = this.pickOtherBlankCell(mutatedGrid, blankedGivenCell);
+        const digitTargetCell = this.pickMutationTargetCell(mutatedGrid);
 
-        this.assignSatisfiableDigit(mutatedGrid, otherBlankCell);
+        if (digitTargetCell === null) {
+            this.registerMutationFailure();
+
+            return;
+        }
+
+        this.assignSatisfiableDigit(mutatedGrid, digitTargetCell);
 
         const isUniquelySolvable = this.solver.countSolutions(mutatedGrid, UNIQUENESS_COUNT_LIMIT) === SINGLE_SOLUTION_COUNT;
 
@@ -156,19 +161,33 @@ export class HellGenerator {
         }
     }
 
-    private blankRandomGivenCell(grid: Uint8Array): number {
-        const givenCells = shuffledCellIndexes(this.random).filter(cell => grid[cell] !== GRID_BLANK_VALUE);
-        const [chosenCell] = givenCells;
+    private pickMutationTargetCell(grid: Uint8Array): number | null {
+        const blankedGivenCell = this.blankRandomGivenCell(grid);
 
+        if (blankedGivenCell === null) {
+            return null;
+        }
+
+        return this.pickOtherBlankCell(grid, blankedGivenCell);
+    }
+
+    private blankRandomGivenCell(grid: Uint8Array): number | null {
+        const givenCells = shuffledCellIndexes(this.random).filter(cell => grid[cell] !== GRID_BLANK_VALUE);
+
+        if (givenCells.length === 0) {
+            return null;
+        }
+
+        const [chosenCell] = givenCells;
         grid[chosenCell] = GRID_BLANK_VALUE;
 
         return chosenCell;
     }
 
-    private pickOtherBlankCell(grid: Uint8Array, excludedCell: number): number {
+    private pickOtherBlankCell(grid: Uint8Array, excludedCell: number): number | null {
         const blankCells = shuffledCellIndexes(this.random).filter(cell => cell !== excludedCell && grid[cell] === GRID_BLANK_VALUE);
 
-        return blankCells[0];
+        return blankCells.length === 0 ? null : blankCells[0];
     }
 
     private assignSatisfiableDigit(grid: Uint8Array, cell: number): void {
