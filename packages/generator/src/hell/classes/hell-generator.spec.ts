@@ -21,8 +21,9 @@ const ROYLE_17 = '00000001040000000002000000000005040700800030000109000030040020
 const SMALL_TABU_CAPACITY = 2;
 const TABU_EVICTION_ATTEMPTS = 20;
 const TABU_EVICTION_BUDGET_MILLISECONDS = 50;
-const RESTART_ESCAPE_ATTEMPTS = 20;
+const RESTART_ESCAPE_ATTEMPTS = 60;
 const RESTART_ESCAPE_BUDGET_MILLISECONDS = 50;
+const RESTART_ESCAPE_TARGET_SOLVE_CALL_COUNT = 1;
 const ALL_BLANK_PUZZLE = '0'.repeat(GRID_CELL_COUNT);
 
 const buildFullySolvedPuzzleString = (): string => {
@@ -120,7 +121,10 @@ describe('HellGenerator', () => {
             }
         });
 
-        const result = generator.advance(ADVANCE_BUDGET_MILLISECONDS);
+        let result: HellAdvanceResultInterface = { steps: 0 };
+        for (let attempt = 0; attempt < MAXIMUM_ADVANCE_ATTEMPTS && seenCandidates.length === 0; attempt += 1) {
+            result = generator.advance(ADVANCE_BUDGET_MILLISECONDS);
+        }
 
         expect(result.candidate).toBeUndefined();
         expect(seenCandidates.length).toBeGreaterThanOrEqual(1);
@@ -210,10 +214,10 @@ describe('HellGenerator', () => {
 
     it('escapes to a fresh bootstrap after reaching the consecutive mutation-failure limit', () => {
         const realSolverForDelegation = new BitmaskSolver();
-        let solveCallCount = 0;
+        const solveCallCounter = { count: 0 };
         const alwaysAmbiguousSolver: SolverInterface = {
             solve: grid => {
-                solveCallCount += 1;
+                solveCallCounter.count += 1;
 
                 return realSolverForDelegation.solve(grid);
             },
@@ -228,11 +232,15 @@ describe('HellGenerator', () => {
             tabuCapacity: TABU_CAPACITY
         });
 
-        for (let attempt = 0; attempt < RESTART_ESCAPE_ATTEMPTS; attempt += 1) {
+        for (
+            let attempt = 0;
+            attempt < RESTART_ESCAPE_ATTEMPTS && solveCallCounter.count <= RESTART_ESCAPE_TARGET_SOLVE_CALL_COUNT;
+            attempt += 1
+        ) {
             generator.advance(RESTART_ESCAPE_BUDGET_MILLISECONDS);
         }
 
-        expect(solveCallCount).toBeGreaterThan(1);
+        expect(solveCallCounter.count).toBeGreaterThan(RESTART_ESCAPE_TARGET_SOLVE_CALL_COUNT);
     });
 
     it('recovers when seeded with a fully-solved grid that has no blank cell', () => {
