@@ -1,5 +1,5 @@
+import { BitmaskSolver } from '@suuudokuuu/solver-bitmask';
 import { GRID_SIZE } from '@suuudokuuu/solver-core';
-import { DLXSolver } from '@suuudokuuu/solver-dlx';
 
 import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
@@ -151,7 +151,7 @@ export class SerializableSudoku {
         }
 
         const [gameField, difficulty] = SerializableSudoku.convertFieldFromString(fieldString, config);
-        const solvedGrid = new DLXSolver().solve(fieldToGrid(gameField));
+        const solvedGrid = new BitmaskSolver().solve(fieldToGrid(gameField));
         if (!isDefined(solvedGrid)) {
             throw new Error('Invalid string format: No solution found for the given field');
         }

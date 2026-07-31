@@ -1,6 +1,6 @@
 /* eslint-disable max-lines */
+import { BitmaskSolver } from '@suuudokuuu/solver-bitmask';
 import { GRID_SIZE, UNIQUENESS_COUNT_LIMIT } from '@suuudokuuu/solver-core';
-import { DLXSolver } from '@suuudokuuu/solver-dlx';
 
 import { isDefined } from '@rnw-community/shared';
 
@@ -19,7 +19,7 @@ import type { SudokuConfigInterface } from '../../@generic/interfaces/sudoku-con
 export class Sudoku extends SerializableSudoku {
     private readonly fieldFillingValues: number[];
     private readonly coordinates: { x: number; y: number }[] = [];
-    private readonly solver = new DLXSolver();
+    private readonly solver = new BitmaskSolver();
 
     constructor(config: SudokuConfigInterface = defaultSudokuConfig) {
         super(config);
