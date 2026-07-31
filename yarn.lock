@@ -4892,6 +4892,7 @@ __metadata:
     "@suuudokuuu/encoder": "workspace:*"
     "@suuudokuuu/generator": "workspace:*"
     "@suuudokuuu/screen-chrome": "workspace:*"
+    "@suuudokuuu/solver-bitmask": "workspace:*"
     "@suuudokuuu/techniques": "workspace:*"
     "@suuudokuuu/ui": "workspace:*"
     "@testing-library/react-native": "npm:^14.0.1"

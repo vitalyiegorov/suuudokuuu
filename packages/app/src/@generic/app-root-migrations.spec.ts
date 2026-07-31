@@ -38,6 +38,13 @@ const buildState = (overrides: Partial<AppRootPersistedStateInterface> = {}): Ap
 const runMigration = (version: number, state: AppRootPersistedStateInterface): AppRootPersistedStateInterface =>
     appRootMigrations[version](state);
 
+const withoutKeyAtRuntime = <T extends object>(value: T, key: keyof T): T => {
+    const clone = { ...value };
+    Reflect.deleteProperty(clone, key);
+
+    return clone;
+};
+
 const validHellQueueEntry: HellQueueEntryInterface = {
     id: '000000010400000000020000000000050407008000300001090000300400200050100000000806000',
     puzzle: '000000010400000000020000000000050407008000300001090000300400200050100000000806000',
@@ -169,5 +176,19 @@ describe('appRootMigrations', () => {
         const state = buildState({ hellQueue: { entries: [invalidHellQueueEntry] } });
 
         expect(runMigration(31, state).hellQueue).toStrictEqual(initialHellQueueState);
+    });
+
+    it('should backfill both the hell queue and the missing Hell history entry when hell predates the persisted state entirely', () => {
+        expect.assertions(2);
+
+        const legacyHistoryByDifficulty = withoutKeyAtRuntime(initialGameState.historyByDifficulty, DifficultyEnum.Hell);
+        const legacyState = withoutKeyAtRuntime(
+            buildState({ game: { ...initialGameState, historyByDifficulty: legacyHistoryByDifficulty } }),
+            'hellQueue'
+        );
+        const migrated = runMigration(31, legacyState);
+
+        expect(Object.keys(migrated.game.historyByDifficulty)).toStrictEqual(Object.keys(initialGameState.historyByDifficulty));
+        expect(migrated.hellQueue).toStrictEqual(initialHellQueueState);
     });
 });

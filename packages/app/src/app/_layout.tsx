@@ -11,6 +11,7 @@ import { LinguiDefaultComponent } from '../@generic/components/lingui-default-co
 import { RootProviders } from '../@generic/components/root-providers/root-providers';
 import { i18nGetOSLocale } from '../@generic/utils/i18n.util';
 import { GameProvider } from '../game/components/game-provider/game-provider';
+import { HellQueueRefillController } from '../hell-queue/components/hell-queue-refill-controller/hell-queue-refill-controller';
 import { ThemeProvider } from '../theme/components/theme-provider/theme-provider';
 
 enableScreens();
@@ -46,6 +47,7 @@ export default function RootLayout() {
                             <Stack.Screen name="game" options={gameOptions} />
                             <Stack.Screen name="settings/[setting]" options={settingsOptionSheetOptions} />
                         </Stack>
+                        <HellQueueRefillController />
                     </GameProvider>
                 </I18nProvider>
             </ThemeProvider>
