@@ -1,7 +1,7 @@
 import { describe, expect, it } from '@jest/globals';
 
-import { DevelopmentIpaAssetName } from './beta-release.constant';
-import { validateReleaseAssetUrl } from './validate-release-asset-url.util';
+import { DevelopmentIpaAssetName } from './beta-release.constant.js';
+import { validateReleaseAssetUrl } from './validate-release-asset-url.util.js';
 
 const TagName = 'development-123-1-1';
 const ValidUrl = 'https://github.com/vitalyiegorov/suuudokuuu/releases/download/development-123-1-1/suuudokuuu-development.ipa';
