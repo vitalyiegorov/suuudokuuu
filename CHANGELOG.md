@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.71.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.71.0...v1.71.1) (2026-07-31)
+
+### Bug Fixes
+
+- **app:** use explicit ESM import extensions in Vercel beta functions ([4abefc8](https://github.com/vitalyiegorov/suuudokuuu/commit/4abefc8d35f69fc0a1b83b62e83711661e34fccb))
+
 # [1.71.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.70.2...v1.71.0) (2026-07-31)
 
 ### Bug Fixes
