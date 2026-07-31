@@ -20,6 +20,7 @@ const mockAlert = jest.fn();
 let mockPathname = '/';
 
 jest.mock('expo-router', () => ({ usePathname: () => mockPathname, useRouter: () => ({ push: mockPush, replace: mockReplace }) }));
+jest.mock('../../../@generic/app-root.store', () => ({ appRootStore: { dispatch: jest.fn(), getState: jest.fn() } }));
 jest.mock('../../../@generic/components/alert/alert', () => ({ Alert: (title: string) => mockAlert(title) }));
 jest.mock('../../../@generic/hooks/use-app-dispatch.hook', () => ({ useAppDispatch: () => mockDispatch }));
 jest.mock('../../../@generic/hooks/use-app-selector.hook', () => ({ useAppSelector: (selector: () => unknown) => selector() }));

@@ -11,12 +11,14 @@ import { GameContext } from '../../game/context/game.context';
 import { createAppTestStore } from './create-app-test-store.mock';
 
 import type { GameContextValueInterface } from '../../game/interface/game-context-value.interface';
+import type { HellQueueState } from '../../hell-queue/store/hell-queue.state';
 import type { SettingsState } from '../../settings/store/settings.state';
 import type { ReactElement } from 'react';
 
 interface RenderWithGameContextOptions {
     readonly create?: GameContextValueInterface['create'];
     readonly createFromState?: GameContextValueInterface['createFromState'];
+    readonly hellQueue?: Partial<HellQueueState>;
     readonly isCreatingGame?: boolean;
     readonly settings?: Partial<SettingsState>;
 }
@@ -30,7 +32,7 @@ export const renderWithGameContext = (ui: ReactElement, options: RenderWithGameC
     };
 
     return render(
-        <Provider store={createAppTestStore({ settings: options.settings })}>
+        <Provider store={createAppTestStore({ hellQueue: options.hellQueue, settings: options.settings })}>
             <I18nProvider i18n={i18n}>
                 <GameContext value={gameContextValue}>{ui}</GameContext>
             </I18nProvider>

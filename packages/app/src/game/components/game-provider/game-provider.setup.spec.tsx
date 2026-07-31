@@ -1,4 +1,4 @@
-import { describe, expect, it } from '@jest/globals';
+import { describe, expect, it, jest } from '@jest/globals';
 import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
 import { TimelineEventKindEnum } from '@suuudokuuu/encoder';
@@ -14,6 +14,8 @@ import { GameContext } from '../../context/game.context';
 import { GameProvider } from './game-provider';
 
 import type { GameSetupInterface } from '../../interface/game-setup.interface';
+
+jest.mock('../../../@generic/app-root.store', () => ({ appRootStore: { dispatch: jest.fn(), getState: jest.fn() } }));
 
 const createTriggerTestID = 'game-provider-create-trigger';
 

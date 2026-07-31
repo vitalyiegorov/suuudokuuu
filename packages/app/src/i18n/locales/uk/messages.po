@@ -56,6 +56,10 @@ msgstr "{foregroundLabel} на {backgroundLabel}: {contrastRatioText} — мін
 msgid "{gamesCompleted, plural, one {# completed game} other {# completed games}}"
 msgstr "{gamesCompleted, plural, one {# завершена гра} other {# завершені ігри}}"
 
+#: src/screens/components/home-screen/home-screen-hell-card/home-screen-hell-card.tsx
+msgid "{hellQueueCount, plural, one {# puzzle ready} other {# puzzles ready}}"
+msgstr "{hellQueueCount, plural, one {# судоку готове} few {# судоку готові} many {# судоку готових} other {# судоку готові}}"
+
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
 msgstr "{mistakes, plural, one {# помилка} few {# помилки} many {# помилок} other {# помилки}}"
@@ -619,6 +623,7 @@ msgstr "Хардкор"
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/scoring/components/scoring.screen.tsx
+#: src/screens/components/home-screen/home-screen-hell-card/home-screen-hell-card.tsx
 msgid "Hell"
 msgstr "Пекло"
 
@@ -909,6 +914,10 @@ msgstr "Без додаткових проміжків між клітинкам
 #: src/history/components/history-games-list/history-games-list.tsx
 msgid "No games yet"
 msgstr "Ігор ще немає"
+
+#: src/game/utils/game-provider-create-hell-game.util.ts
+msgid "No Hell puzzles are ready yet"
+msgstr "Пекельні судоку ще не готові"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "No limit"
