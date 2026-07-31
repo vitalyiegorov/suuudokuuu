@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.72.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.71.1...v1.72.0) (2026-07-31)
+
+### Features
+
+- **app:** bump the custom theme schema to v2 with a persist migration ([b39caaa](https://github.com/vitalyiegorov/suuudokuuu/commit/b39caaa7e529a0f71b4d2d4a0f2dfc4c51aac944))
+
 ## [1.71.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.71.0...v1.71.1) (2026-07-31)
 
 ### Bug Fixes

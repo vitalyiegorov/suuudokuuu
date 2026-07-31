@@ -1,6 +1,6 @@
 {
     "name": "@suuudokuuu/ui",
-    "version": "1.70.2",
+    "version": "1.72.0",
     "private": true,
     "sideEffects": "false",
     "exports": {
