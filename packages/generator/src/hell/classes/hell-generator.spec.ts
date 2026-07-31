@@ -1,6 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 import { BitmaskSolver } from '@suuudokuuu/solver-bitmask';
-import { GRID_BLANK_VALUE, GRID_CELL_COUNT, UNIQUENESS_COUNT_LIMIT, parseGridString } from '@suuudokuuu/solver-core';
+import { GRID_BLANK_VALUE, GRID_CELL_COUNT, UNIQUENESS_COUNT_LIMIT, formatGridString, parseGridString } from '@suuudokuuu/solver-core';
 
 import { isDefined } from '@rnw-community/shared';
 
@@ -23,6 +23,17 @@ const TABU_EVICTION_ATTEMPTS = 20;
 const TABU_EVICTION_BUDGET_MILLISECONDS = 50;
 const RESTART_ESCAPE_ATTEMPTS = 20;
 const RESTART_ESCAPE_BUDGET_MILLISECONDS = 50;
+const ALL_BLANK_PUZZLE = '0'.repeat(GRID_CELL_COUNT);
+
+const buildFullySolvedPuzzleString = (): string => {
+    const solvedGrid = new BitmaskSolver().solve(new Uint8Array(GRID_CELL_COUNT));
+
+    if (solvedGrid === null) {
+        throw new Error('Expected a solvable blank grid for the test fixture');
+    }
+
+    return formatGridString(solvedGrid);
+};
 
 const defaultOptions: HellGeneratorOptionsInterface = {
     randomSeed: RANDOM_SEED,
@@ -222,5 +233,26 @@ describe('HellGenerator', () => {
         }
 
         expect(solveCallCount).toBeGreaterThan(1);
+    });
+
+    it('recovers when seeded with a fully-solved grid that has no blank cell', () => {
+        const generator = new HellGenerator(new BitmaskSolver(), defaultOptions);
+        const fullySolvedPuzzleString = buildFullySolvedPuzzleString();
+
+        expect(() => void generator.seedWith([fullySolvedPuzzleString])).not.toThrow();
+
+        const candidate = advanceUntilCandidate(generator, MAXIMUM_ADVANCE_ATTEMPTS, ADVANCE_BUDGET_MILLISECONDS);
+
+        expect(candidate).toBeDefined();
+    });
+
+    it('recovers when seeded with a fully-blank grid that has no given cell', () => {
+        const generator = new HellGenerator(new BitmaskSolver(), defaultOptions);
+
+        expect(() => void generator.seedWith([ALL_BLANK_PUZZLE])).not.toThrow();
+
+        const candidate = advanceUntilCandidate(generator, MAXIMUM_ADVANCE_ATTEMPTS, ADVANCE_BUDGET_MILLISECONDS);
+
+        expect(candidate).toBeDefined();
     });
 });
