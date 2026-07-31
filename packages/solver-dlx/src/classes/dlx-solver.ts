@@ -76,7 +76,7 @@ export class DLXSolver implements SolverInterface {
                     const cellValue = grid[row * GRID_SIZE + col];
                     const isNumberConflicting = cellValue !== GRID_BLANK_VALUE && cellValue !== num;
                     if (isNumberConflicting) {
-                        // eslint-disable-next-line no-continue
+                        // eslint-disable-next-line no-continue -- wrapping the remaining build in an if-block would exceed max-depth inside this triple loop
                         continue;
                     }
 
