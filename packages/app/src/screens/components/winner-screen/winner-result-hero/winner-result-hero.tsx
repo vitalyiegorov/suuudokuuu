@@ -23,19 +23,16 @@ interface Props {
 export const WinnerResultHero = ({ descriptorText, isPersonalBest, scoreText }: Props) => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
-    const personalBestCardStyles = [
-        styles.personalBestCard,
-        { backgroundColor: 'transparent', borderColor: theme.colors.candidate.border }
-    ];
-    const personalBestTextStyles = [styles.personalBestText, { color: theme.colors.label.main }];
+    const personalBestCardStyles = [styles.personalBestCard, { backgroundColor: 'transparent', borderColor: theme.colors.surface.border }];
+    const personalBestTextStyles = [styles.personalBestText, { color: theme.colors.text.primary }];
 
     return (
         <GameResultHero
             descriptorText={descriptorText}
             eyebrowText={t`Final score`}
             icon={
-                <CelebrationPulse color={theme.colors.label.main} size={HeroPulseSize}>
-                    <LucideTrophy color={theme.colors.label.main} size={GameResultHeroIconSize} strokeWidth={2.2} />
+                <CelebrationPulse color={theme.colors.text.primary} size={HeroPulseSize}>
+                    <LucideTrophy color={theme.colors.text.primary} size={GameResultHeroIconSize} strokeWidth={2.2} />
                 </CelebrationPulse>
             }
             titleText={t`Winner, winner!`}
@@ -43,7 +40,7 @@ export const WinnerResultHero = ({ descriptorText, isPersonalBest, scoreText }: 
         >
             {isPersonalBest ? (
                 <AppSurfaceCard size="compact" style={personalBestCardStyles}>
-                    <LucideSparkles color={theme.colors.label.main} size={PersonalBestIconSize} strokeWidth={2.2} />
+                    <LucideSparkles color={theme.colors.text.primary} size={PersonalBestIconSize} strokeWidth={2.2} />
                     <Text style={personalBestTextStyles}>
                         <Trans>New personal best</Trans>
                     </Text>

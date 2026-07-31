@@ -20,7 +20,7 @@ export const ThemeEditorColorRow = ({ label, onPress, testID, value }: Props) =>
     const { theme } = use(ThemeContext);
     const { t } = useLingui();
 
-    const swatchFrameStyles = [styles.swatchFrame, { borderColor: theme.colors.value.border }];
+    const swatchFrameStyles = [styles.swatchFrame, { borderColor: theme.colors.surface.border }];
     const swatchStyles = [styles.swatch, { backgroundColor: value }];
     const accessibilityValue = { text: value };
     const trailing = (

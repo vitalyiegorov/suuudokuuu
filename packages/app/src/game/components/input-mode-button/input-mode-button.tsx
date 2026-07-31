@@ -28,7 +28,7 @@ export const InputModeButton = ({ sizeStyle }: Props) => {
 
     const isCandidateMode = inputMode === 'candidate';
     const isActive = !isCandidateMode;
-    const iconColor = isActive ? theme.colors.surface.raisedText : theme.colors.label.inverted;
+    const iconColor = isActive ? theme.colors.surface.raisedText : theme.colors.inkText;
 
     return (
         <BlackIconButton hitSlop={10} isActive={isActive} onPress={handleToggle} style={sizeStyle} testID={InputModeButtonSelectors.Root}>

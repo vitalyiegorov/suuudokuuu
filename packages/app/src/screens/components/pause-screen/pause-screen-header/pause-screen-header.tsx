@@ -17,15 +17,15 @@ interface Props {
 export const PauseScreenHeader = ({ detailsText }: Props) => {
     const { theme } = use(ThemeContext);
 
-    const medallionStyles = [styles.medallion, { backgroundColor: theme.colors.black }];
-    const titleStyles = [styles.title, { color: theme.colors.label.main }];
-    const chipStyles = [styles.chip, { backgroundColor: theme.colors.black }];
-    const chipTextStyles = [styles.chipText, { color: theme.colors.label.inverted }];
+    const medallionStyles = [styles.medallion, { backgroundColor: theme.colors.ink }];
+    const titleStyles = [styles.title, { color: theme.colors.text.primary }];
+    const chipStyles = [styles.chip, { backgroundColor: theme.colors.ink }];
+    const chipTextStyles = [styles.chipText, { color: theme.colors.inkText }];
 
     return (
         <View style={styles.header}>
             <View style={medallionStyles}>
-                <LucidePause color={theme.colors.label.inverted} size={MEDALLION_ICON_SIZE} strokeWidth={2.6} />
+                <LucidePause color={theme.colors.inkText} size={MEDALLION_ICON_SIZE} strokeWidth={2.6} />
             </View>
 
             <BlackText allowFontScaling={false} style={titleStyles}>

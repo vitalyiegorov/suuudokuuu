@@ -17,7 +17,7 @@ export const ReplayTopBar = () => {
     const router = useRouter();
 
     const handleReturn = () => (router.canGoBack() ? void router.back() : void router.replace('/history'));
-    const accentStyles = [styles.accent, { backgroundColor: theme.colors.value.progressActive }];
+    const accentStyles = [styles.accent, { backgroundColor: theme.colors.numpad.trackFilled }];
 
     return (
         <View style={styles.container}>
@@ -34,7 +34,7 @@ export const ReplayTopBar = () => {
                 style={styles.closeButton}
                 testID={ReplayTopBarSelectors.CloseButton}
             >
-                <LucideX color={theme.colors.label.inverted} size={20} />
+                <LucideX color={theme.colors.inkText} size={20} />
             </BlackIconButton>
         </View>
     );

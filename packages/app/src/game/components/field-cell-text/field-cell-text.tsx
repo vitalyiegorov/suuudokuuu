@@ -60,11 +60,7 @@ export const FieldCellText = (props: Props) => {
     }
 
     const comboAnimatedStyle = useAnimatedStyle(() => ({
-        color: interpolateColor(
-            comboAnimation.value,
-            [0, 0.5, 1],
-            [theme.colors.black, theme.colors.cell.highlightedText, theme.colors.black]
-        ),
+        color: interpolateColor(comboAnimation.value, [0, 0.5, 1], [theme.colors.ink, theme.colors.surface.subtleText, theme.colors.ink]),
         fontSize: interpolate(comboAnimation.value, [0, 0.5, 1], [fontSize, fontSize * FONT_SIZE_MULTIPLIER, fontSize]),
         transform: [{ rotate: `${interpolate(comboAnimation.value, [0, 1], [0, 360])}deg` }]
     }));
@@ -86,16 +82,16 @@ export const FieldCellText = (props: Props) => {
 
     const getCellTextColor = () => {
         if (isActive) {
-            return theme.colors.cell.activeText;
+            return theme.colors.board.selectedText;
         } else if (isActiveValue && showIdenticalNumbers) {
-            return theme.colors.cell.activeValueText;
+            return theme.colors.board.sameValueText;
         } else if (isHighlighted && showAreas) {
-            return theme.colors.cell.highlightedText;
+            return theme.colors.surface.subtleText;
         } else if (isEmpty) {
-            return theme.colors.cell.emptyValueText;
+            return theme.colors.board.emptyText;
         }
 
-        return theme.colors.black;
+        return theme.colors.ink;
     };
 
     const getText = (): string => {

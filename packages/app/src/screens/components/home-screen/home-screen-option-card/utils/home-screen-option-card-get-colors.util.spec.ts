@@ -22,10 +22,10 @@ describe('homeScreenOptionCardGetColors', () => {
         allThemes.forEach(theme => {
             const colors = homeScreenOptionCardGetColors(theme, true);
 
-            expect(colors.backgroundColor).toBe(theme.colors.black);
-            expect(colors.borderColor).toBe(theme.colors.black);
-            expect(colors.titleColor).toBe(theme.colors.label.inverted);
-            expect(colors.descriptionColor).toBe(theme.colors.label.inverted);
+            expect(colors.backgroundColor).toBe(theme.colors.ink);
+            expect(colors.borderColor).toBe(theme.colors.ink);
+            expect(colors.titleColor).toBe(theme.colors.inkText);
+            expect(colors.descriptionColor).toBe(theme.colors.inkText);
         });
     });
 
@@ -34,9 +34,9 @@ describe('homeScreenOptionCardGetColors', () => {
             const colors = homeScreenOptionCardGetColors(theme, false);
 
             expect(colors.backgroundColor).toBe('transparent');
-            expect(colors.borderColor).toBe(theme.colors.candidate.border);
-            expect(colors.titleColor).toBe(theme.colors.label.main);
-            expect(colors.descriptionColor).toBe(theme.colors.label.hint);
+            expect(colors.borderColor).toBe(theme.colors.surface.border);
+            expect(colors.titleColor).toBe(theme.colors.text.primary);
+            expect(colors.descriptionColor).toBe(theme.colors.text.hint);
         });
     });
 

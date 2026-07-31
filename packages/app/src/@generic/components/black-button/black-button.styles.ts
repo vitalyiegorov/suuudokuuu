@@ -18,7 +18,7 @@ export const BlackButtonStyles = StyleSheet.create(theme => ({
                 opacity: 0.85
             },
             '_focus-visible': {
-                outlineColor: theme.colors.black,
+                outlineColor: theme.colors.ink,
                 outlineOffset: 2,
                 outlineStyle: 'solid',
                 outlineWidth: 2

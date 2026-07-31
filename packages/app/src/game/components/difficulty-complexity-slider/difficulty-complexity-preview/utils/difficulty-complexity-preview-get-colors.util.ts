@@ -2,5 +2,5 @@ import type { ThemeInterface } from '@suuudokuuu/ui/theme';
 
 export const difficultyComplexityPreviewGetColors = (theme: ThemeInterface) => ({
     backgroundColor: 'transparent',
-    borderColor: theme.colors.candidate.border
+    borderColor: theme.colors.surface.border
 });

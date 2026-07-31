@@ -5,10 +5,10 @@ export type AppMetricStripVariant = 'primary' | 'secondary' | 'ghost';
 export const appMetricStripGetColors = (theme: ThemeInterface, variant: AppMetricStripVariant) => {
     if (variant === 'primary') {
         return {
-            backgroundColor: theme.colors.black,
-            borderColor: theme.colors.black,
-            separatorColor: theme.colors.white05,
-            textColor: theme.colors.label.inverted
+            backgroundColor: theme.colors.ink,
+            borderColor: theme.colors.ink,
+            separatorColor: theme.colors.overlayDark,
+            textColor: theme.colors.inkText
         };
     }
 
@@ -16,15 +16,15 @@ export const appMetricStripGetColors = (theme: ThemeInterface, variant: AppMetri
         return {
             backgroundColor: theme.colors.background,
             borderColor: 'transparent',
-            separatorColor: theme.colors.value.border,
-            textColor: theme.colors.label.main
+            separatorColor: theme.colors.surface.border,
+            textColor: theme.colors.text.primary
         };
     }
 
     return {
         backgroundColor: theme.colors.surface.subtle,
-        borderColor: theme.colors.value.border,
-        separatorColor: theme.colors.value.border,
+        borderColor: theme.colors.surface.border,
+        separatorColor: theme.colors.surface.border,
         textColor: theme.colors.surface.subtleText
     };
 };

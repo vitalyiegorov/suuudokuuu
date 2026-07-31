@@ -1,42 +1,37 @@
 export interface ThemeInterface {
     colors: {
         background: string;
-        white: string;
-        white05: string;
-        black: string;
-        black05: string;
-        red: string;
-        redFillText: string;
-        blue: string;
-        label: {
-            main: string;
-            inverted: string;
+        ink: string;
+        inkText: string;
+        overlayLight: string;
+        overlayDark: string;
+        danger: string;
+        dangerText: string;
+        accent: string;
+        text: {
+            primary: string;
             hint: string;
         };
-        candidate: {
-            border: string;
-            borderActive: string;
-            text: string;
-            textActive: string;
-            bg: string;
-            bgActive: string;
-        };
-        cell: {
-            active: string;
-            activeText: string;
-            highlighted: string;
-            highlightedText: string;
-            activeValue: string;
-            activeValueText: string;
+        board: {
+            selected: string;
+            selectedText: string;
+            sameValue: string;
+            sameValueText: string;
             error: string;
-            emptyValueText: string;
             filled: string;
+            emptyText: string;
         };
-        value: {
-            border: string;
-            progress: string;
-            progressActive: string;
-            progressActiveText: string;
+        candidate: {
+            text: string;
+            textSelected: string;
+            fill: string;
+            fillSelected: string;
+            borderSelected: string;
+        };
+        numpad: {
+            track: string;
+            trackFilled: string;
+            trackFilledText: string;
             text: string;
         };
         surface: {
@@ -45,6 +40,7 @@ export interface ThemeInterface {
             subtle: string;
             subtleText: string;
             subtleHint: string;
+            border: string;
         };
     };
 }

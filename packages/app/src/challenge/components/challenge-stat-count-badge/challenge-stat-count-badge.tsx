@@ -13,8 +13,8 @@ interface Props {
 export const ChallengeStatCountBadge = ({ count, testID }: Props) => {
     const { theme } = use(ThemeContext);
 
-    const badgeStyle = [styles.badge, { backgroundColor: theme.colors.red, borderColor: theme.colors.background }];
-    const countStyle = [styles.count, { color: theme.colors.redFillText }];
+    const badgeStyle = [styles.badge, { backgroundColor: theme.colors.danger, borderColor: theme.colors.background }];
+    const countStyle = [styles.count, { color: theme.colors.dangerText }];
 
     return (
         <View style={badgeStyle}>

@@ -32,7 +32,7 @@ export const ThemeEditorColorSheet = ({ initialValue, isVisible, label, onCancel
         onConfirm(selectedColor);
     };
 
-    const backdropStyles = [styles.backdrop, { backgroundColor: applyColorAlpha(theme.colors.black, 0.5) }];
+    const backdropStyles = [styles.backdrop, { backgroundColor: applyColorAlpha(theme.colors.ink, 0.5) }];
     const cardStyles = [styles.card, { backgroundColor: theme.colors.surface.raised }];
     const titleStyles = [styles.title, { color: theme.colors.surface.raisedText }];
 

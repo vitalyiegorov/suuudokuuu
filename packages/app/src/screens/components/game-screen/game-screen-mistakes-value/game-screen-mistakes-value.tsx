@@ -15,7 +15,7 @@ interface Props {
 export const GameScreenMistakesValue = ({ maxMistakes, maxMistakesReached, mistakes }: Props) => {
     const { theme } = use(ThemeContext);
     const { textColor } = useAppMetricStripColor();
-    const mistakesColor = maxMistakesReached ? theme.colors.red : textColor;
+    const mistakesColor = maxMistakesReached ? theme.colors.danger : textColor;
     const mistakesTextStyles = [styles.value, { color: mistakesColor, textAlign: 'center' as const }];
 
     return (

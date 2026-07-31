@@ -3,50 +3,46 @@ import type { ThemeInterface } from '../interface/theme.interface';
 export const DefaultUiTheme: ThemeInterface = {
     colors: {
         background: '#ffffff',
-        black: '#000000',
-        black05: 'rgba(0, 0, 0, 0.05)',
-        blue: '#0057b8',
-        candidate: {
-            bg: '#ffffff',
-            bgActive: '#000000',
-            border: '#d8d8d8',
-            borderActive: '#000000',
-            text: '#000000',
-            textActive: '#ffffff'
+        ink: '#000000',
+        inkText: '#ffffff',
+        overlayLight: 'rgba(0, 0, 0, 0.05)',
+        overlayDark: 'rgba(255, 255, 255, 0.05)',
+        danger: '#D40000',
+        dangerText: '#ffffff',
+        accent: '#0057b8',
+        text: {
+            primary: '#000000',
+            hint: '#8f8f8f'
         },
-        cell: {
-            active: '#000000',
-            activeText: '#ffffff',
-            activeValue: '#000000',
-            activeValueText: '#ffffff',
-            emptyValueText: '#000000',
+        board: {
+            selected: '#000000',
+            selectedText: '#ffffff',
+            sameValue: '#000000',
+            sameValueText: '#ffffff',
             error: '#ff2d2d',
             filled: '#d9d9d9',
-            highlighted: '#f2f2f2',
-            highlightedText: '#000000'
+            emptyText: '#000000'
         },
-        label: {
-            hint: '#8f8f8f',
-            inverted: '#ffffff',
-            main: '#000000'
+        candidate: {
+            text: '#000000',
+            textSelected: '#ffffff',
+            fill: '#ffffff',
+            fillSelected: '#000000',
+            borderSelected: '#000000'
         },
-        red: '#D40000',
-        redFillText: '#ffffff',
+        numpad: {
+            track: '#e5e5e5',
+            trackFilled: '#7a7a7a',
+            trackFilledText: '#ffffff',
+            text: '#000000'
+        },
         surface: {
             raised: '#ffffff',
             raisedText: '#000000',
             subtle: '#f2f2f2',
+            subtleText: '#000000',
             subtleHint: 'rgba(0, 0, 0, 0.65)',
-            subtleText: '#000000'
-        },
-        value: {
-            border: '#d8d8d8',
-            progress: '#e5e5e5',
-            progressActive: '#7a7a7a',
-            progressActiveText: '#ffffff',
-            text: '#000000'
-        },
-        white: '#ffffff',
-        white05: 'rgba(255, 255, 255, 0.05)'
+            border: '#d8d8d8'
+        }
     }
 };

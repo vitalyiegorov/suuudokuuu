@@ -20,11 +20,11 @@ const allVariants: readonly AppMetricStripVariant[] = ['primary', 'secondary', '
 
 const expectedTextColorFor = (theme: ThemeInterface, variant: AppMetricStripVariant) => {
     if (variant === 'primary') {
-        return theme.colors.label.inverted;
+        return theme.colors.inkText;
     }
 
     if (variant === 'ghost') {
-        return theme.colors.label.main;
+        return theme.colors.text.primary;
     }
 
     return theme.colors.surface.subtleText;

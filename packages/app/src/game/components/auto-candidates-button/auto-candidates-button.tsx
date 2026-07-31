@@ -26,7 +26,7 @@ export const AutoCandidatesButton = ({ sizeStyle }: Props) => {
     };
 
     const isActive = !showAutoCandidates;
-    const iconColor = isActive ? theme.colors.surface.raisedText : theme.colors.label.inverted;
+    const iconColor = isActive ? theme.colors.surface.raisedText : theme.colors.inkText;
 
     return (
         <BlackIconButton isActive={isActive} onPress={handleCandidates} style={sizeStyle} testID={GameScreenSelectors.TipsButton}>

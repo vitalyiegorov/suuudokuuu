@@ -24,20 +24,20 @@ export const ChallengeRaceStatus = ({ opponentProgress, playerProgress }: Props)
     const isPlayerLeading = playerProgress > opponentProgress + LEAD_MARGIN;
     const isRivalAhead = opponentProgress > playerProgress + LEAD_MARGIN;
     const hasLeader = isPlayerLeading || isRivalAhead;
-    const leadingColor = isPlayerLeading ? theme.colors.label.main : theme.colors.red;
-    const statusColor = hasLeader ? leadingColor : theme.colors.label.main;
+    const leadingColor = isPlayerLeading ? theme.colors.text.primary : theme.colors.danger;
+    const statusColor = hasLeader ? leadingColor : theme.colors.text.primary;
     const statusOpacity = hasLeader ? LEADER_STATUS_OPACITY : NEUTRAL_STATUS_OPACITY;
     const neutralStatusText = isRivalAhead ? t`is ahead` : t`neck & neck`;
     const statusText = isPlayerLeading ? t`you lead` : neutralStatusText;
 
-    const avatarStyle = [styles.avatar, { backgroundColor: theme.colors.black05 }];
-    const nameStyle = [styles.name, { color: theme.colors.label.main }];
+    const avatarStyle = [styles.avatar, { backgroundColor: theme.colors.overlayLight }];
+    const nameStyle = [styles.name, { color: theme.colors.text.primary }];
     const statusStyle = [styles.status, { color: statusColor, opacity: statusOpacity }];
 
     return (
         <View style={styles.container}>
             <View style={avatarStyle}>
-                <LucideUser color={theme.colors.label.main} size={AVATAR_ICON_SIZE} strokeWidth={2.2} />
+                <LucideUser color={theme.colors.text.primary} size={AVATAR_ICON_SIZE} strokeWidth={2.2} />
             </View>
             <Text allowFontScaling={false} style={nameStyle}>
                 {t`Rival`}

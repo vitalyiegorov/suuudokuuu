@@ -14,8 +14,8 @@ export const ChallengeResultRivalTimeCard = ({ rivalTimeText }: Props) => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
 
-    const labelStyle = [styles.label, { color: theme.colors.label.hint }];
-    const valueStyle = [styles.value, { color: theme.colors.label.main }];
+    const labelStyle = [styles.label, { color: theme.colors.text.hint }];
+    const valueStyle = [styles.value, { color: theme.colors.text.primary }];
 
     return (
         <View style={styles.card}>

@@ -142,11 +142,11 @@ export const ThemeEditorScreen = () => {
         styles.nameInput,
         {
             backgroundColor: theme.colors.surface.raised,
-            borderColor: hasNameError ? theme.colors.red : theme.colors.value.border,
+            borderColor: hasNameError ? theme.colors.danger : theme.colors.surface.border,
             color: theme.colors.surface.raisedText
         }
     ];
-    const warningTextStyles = [styles.warning, { color: theme.colors.red }];
+    const warningTextStyles = [styles.warning, { color: theme.colors.danger }];
     const editedTokenValue = isDefined(editedToken) ? editedToken.getValue(draftColors) : '';
     const editedTokenLabel = isDefined(editedToken) ? getTokenLabel(editedToken.key) : '';
     const lightVariantButtonVariant = variant === ColorSchemaEnum.Light ? 'primary' : 'secondary';
@@ -176,7 +176,7 @@ export const ThemeEditorScreen = () => {
                 maxLength={CustomThemeNameMaxLength}
                 onChangeText={handleNameChange}
                 placeholder={t`Theme name`}
-                placeholderTextColor={theme.colors.label.hint}
+                placeholderTextColor={theme.colors.text.hint}
                 style={nameInputStyles}
                 testID={ThemeEditorScreenSelectors.NameInput}
                 value={draftTheme.name}

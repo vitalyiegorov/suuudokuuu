@@ -49,12 +49,12 @@ export const ChallengeResultMarginCard = (props: Props) => {
         Icon = LucideTurtle;
     }
 
-    const labelStyle = [styles.label, { color: theme.colors.label.hint }];
-    const valueStyle = [styles.value, { color: theme.colors.label.main }];
-    const captionStyle = [styles.caption, { color: theme.colors.label.hint }];
-    const dividerStyle = [styles.divider, { backgroundColor: theme.colors.label.hint }];
-    const timeLabelStyle = [styles.timeLabel, { color: theme.colors.label.hint }];
-    const timeValueStyle = [styles.timeValue, { color: theme.colors.label.main }];
+    const labelStyle = [styles.label, { color: theme.colors.text.hint }];
+    const valueStyle = [styles.value, { color: theme.colors.text.primary }];
+    const captionStyle = [styles.caption, { color: theme.colors.text.hint }];
+    const dividerStyle = [styles.divider, { backgroundColor: theme.colors.text.hint }];
+    const timeLabelStyle = [styles.timeLabel, { color: theme.colors.text.hint }];
+    const timeValueStyle = [styles.timeValue, { color: theme.colors.text.primary }];
 
     return (
         <View style={styles.card}>
@@ -72,7 +72,7 @@ export const ChallengeResultMarginCard = (props: Props) => {
                         </Text>
                     ) : null}
                 </View>
-                <Icon color={theme.colors.label.main} size={ICON_SIZE} strokeWidth={2} />
+                <Icon color={theme.colors.text.primary} size={ICON_SIZE} strokeWidth={2} />
             </View>
 
             <View style={dividerStyle} />

@@ -57,12 +57,12 @@ export const AvailableValuesItem = (props: Props) => {
     const { theme } = use(ThemeContext);
 
     const isCorrect = value === correctValue;
-    const pressAnimatedBgColor = isCorrect ? theme.colors.cell.active : theme.colors.cell.error;
+    const pressAnimatedBgColor = isCorrect ? theme.colors.board.selected : theme.colors.board.error;
 
     const animated = useSharedValue(0);
     const animatedStyles = useAnimatedStyle(
         () => ({
-            backgroundColor: interpolateColor(animated.value, [0, 1], [theme.colors.white, pressAnimatedBgColor]),
+            backgroundColor: interpolateColor(animated.value, [0, 1], [theme.colors.surface.raised, pressAnimatedBgColor]),
             ...(!isCorrect && {
                 transform: [
                     { translateX: interpolate(animated.value, [0, 0.5, 1], [0, -10, 10]) },
@@ -70,7 +70,7 @@ export const AvailableValuesItem = (props: Props) => {
                 ]
             })
         }),
-        [pressAnimatedBgColor, isCorrect, theme.colors.white]
+        [pressAnimatedBgColor, isCorrect, theme.colors.surface.raised]
     );
 
     const triggerAnimationFn = () => {
@@ -88,13 +88,13 @@ export const AvailableValuesItem = (props: Props) => {
 
     const buttonStyles = [
         resolveUnistyleForAnimated(DigitButtonStyles.button),
-        { backgroundColor: theme.colors.candidate.bg },
+        { backgroundColor: theme.colors.candidate.fill },
         animatedStyles,
         cs(isExhausted, resolveUnistyleForAnimated(DigitButtonStyles.exhausted))
     ];
     const normalizedProgress = Math.min(100, Math.max(0, progress));
     const progressDashOffset = AvailableValueProgressCircumference * (1 - normalizedProgress / 100);
-    const textStyles = [styles.text, digitTextStyle, { color: theme.colors.value.text }];
+    const textStyles = [styles.text, digitTextStyle, { color: theme.colors.numpad.text }];
     const containerStyles = [DigitButtonStyles.container, sizeStyle];
 
     return (
@@ -111,7 +111,7 @@ export const AvailableValuesItem = (props: Props) => {
                         cy={AvailableValueProgressCenter}
                         fill="none"
                         r={AvailableValueProgressRadius}
-                        stroke={theme.colors.value.progress}
+                        stroke={theme.colors.numpad.track}
                         strokeWidth={AvailableValueProgressStrokeWidth}
                     />
                     <Circle
@@ -119,7 +119,7 @@ export const AvailableValuesItem = (props: Props) => {
                         cy={AvailableValueProgressCenter}
                         fill="none"
                         r={AvailableValueProgressRadius}
-                        stroke={theme.colors.value.progressActive}
+                        stroke={theme.colors.numpad.trackFilled}
                         strokeOpacity={AvailableValueProgressOpacity}
                         transform={AvailableValueProgressRingTransform}
                         strokeDasharray={AvailableValueProgressCircumference}

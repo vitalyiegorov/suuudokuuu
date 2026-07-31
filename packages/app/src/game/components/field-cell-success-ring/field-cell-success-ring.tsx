@@ -24,7 +24,7 @@ export const FieldCellSuccessRing = ({ animation }: Props) => {
         opacity: interpolate(animation.value, OPACITY_INPUT, OPACITY_OUTPUT),
         transform: [{ scale: interpolate(animation.value, SCALE_INPUT, SCALE_OUTPUT) }]
     }));
-    const ringStyle = [resolveUnistyleForAnimated(styles.ring), { borderColor: theme.colors.cell.active }, ringAnimatedStyle];
+    const ringStyle = [resolveUnistyleForAnimated(styles.ring), { borderColor: theme.colors.board.selected }, ringAnimatedStyle];
 
     return <Reanimated.View pointerEvents="none" style={ringStyle} />;
 };

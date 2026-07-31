@@ -20,8 +20,8 @@ interface Props {
 export const ChallengeStatTile = ({ children, count, label, testID }: Props) => {
     const { theme } = use(ThemeContext);
 
-    const tileStyle = [styles.tile, { backgroundColor: theme.colors.black }];
-    const labelStyle = [styles.label, { color: theme.colors.label.main }];
+    const tileStyle = [styles.tile, { backgroundColor: theme.colors.ink }];
+    const labelStyle = [styles.label, { color: theme.colors.text.primary }];
     const countBadge = isDefined(count) ? <ChallengeStatCountBadge count={count} testID={`${testID}.Count`} /> : null;
 
     return (
