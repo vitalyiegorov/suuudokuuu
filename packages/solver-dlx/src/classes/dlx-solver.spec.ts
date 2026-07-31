@@ -6,6 +6,10 @@ import { DLXSolver } from './dlx-solver';
 const EASY_PUZZLE = '530070000600195000098000060800060003400803001700020006060000280000419005000080079';
 const UNSOLVABLE_PUZZLE = '130070000600195000098000060800060003400803001700020006060000280000419005000080079';
 const TWENTY_SOLUTIONS_PUZZLE = '000000000000000000000000067859761423426853791713924856961537284287419605345286179';
+const SIBLING_BUDGET_OVERSHOOT_PUZZLE = '000006000006000100700100050000000000800010000090000000000260900002000600000301500';
+const SIBLING_BUDGET_LIMIT = 2;
+const SIBLING_BUDGET_EXPECTED_COUNT = 2;
+const TWENTY_SOLUTIONS_LIMIT_BELOW_TOTAL = 7;
 
 describe('DLXSolver', () => {
     it('passes the shared solver conformance cases', () => {
@@ -34,6 +38,28 @@ describe('DLXSolver', () => {
         const solver = new DLXSolver();
 
         expect(solver.countSolutions(parseGridString(TWENTY_SOLUTIONS_PUZZLE), 100)).toBe(20);
+    });
+
+    it('does not overshoot the limit when sibling branches each have solutions', () => {
+        const solver = new DLXSolver();
+
+        expect(solver.countSolutions(parseGridString(SIBLING_BUDGET_OVERSHOOT_PUZZLE), SIBLING_BUDGET_LIMIT)).toBe(
+            SIBLING_BUDGET_EXPECTED_COUNT
+        );
+    });
+
+    it('caps the twenty-solution fixture at a limit of two', () => {
+        const solver = new DLXSolver();
+
+        expect(solver.countSolutions(parseGridString(TWENTY_SOLUTIONS_PUZZLE), SIBLING_BUDGET_LIMIT)).toBe(SIBLING_BUDGET_LIMIT);
+    });
+
+    it('caps the twenty-solution fixture at a limit of seven', () => {
+        const solver = new DLXSolver();
+
+        expect(solver.countSolutions(parseGridString(TWENTY_SOLUTIONS_PUZZLE), TWENTY_SOLUTIONS_LIMIT_BELOW_TOTAL)).toBe(
+            TWENTY_SOLUTIONS_LIMIT_BELOW_TOTAL
+        );
     });
 
     it('reuses the same instance across solve and countSolutions calls for different grids', () => {

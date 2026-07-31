@@ -163,7 +163,7 @@ export class DLXSolver implements SolverInterface {
                 this.cover(node.column);
             }
 
-            const result = this.search(step + 1, limit);
+            const result = this.search(step + 1, limit - count);
 
             count += result;
 
