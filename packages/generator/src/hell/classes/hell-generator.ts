@@ -131,16 +131,13 @@ export class HellGenerator {
     }
 
     private mutateCurrentPuzzle(puzzle: Uint8Array): void {
-        const mutatedGrid = Uint8Array.from(puzzle);
-        const digitTargetCell = this.pickMutationTargetCell(mutatedGrid);
+        const mutatedGrid = this.buildMutationCandidate(puzzle);
 
-        if (digitTargetCell === null) {
+        if (mutatedGrid === null) {
             this.registerMutationFailure();
 
             return;
         }
-
-        this.assignSatisfiableDigit(mutatedGrid, digitTargetCell);
 
         const isUniquelySolvable = this.solver.countSolutions(mutatedGrid, UNIQUENESS_COUNT_LIMIT) === SINGLE_SOLUTION_COUNT;
 
@@ -151,6 +148,17 @@ export class HellGenerator {
         } else {
             this.registerMutationFailure();
         }
+    }
+
+    private buildMutationCandidate(puzzle: Uint8Array): Uint8Array | null {
+        const mutatedGrid = Uint8Array.from(puzzle);
+        const digitTargetCell = this.pickMutationTargetCell(mutatedGrid);
+
+        if (digitTargetCell === null) {
+            return null;
+        }
+
+        return this.assignSatisfiableDigit(mutatedGrid, digitTargetCell) ? mutatedGrid : null;
     }
 
     private registerMutationFailure(): void {
@@ -190,14 +198,22 @@ export class HellGenerator {
         return blankCells.length === 0 ? null : blankCells[0];
     }
 
-    private assignSatisfiableDigit(grid: Uint8Array, cell: number): void {
+    private assignSatisfiableDigit(grid: Uint8Array, cell: number): boolean {
         const satisfiableDigits = this.rotatedDigitOrder().filter(digit => {
             grid[cell] = digit;
 
             return this.solver.countSolutions(grid, SATISFIABILITY_CHECK_LIMIT) === SINGLE_SOLUTION_COUNT;
         });
 
+        if (satisfiableDigits.length === 0) {
+            grid[cell] = GRID_BLANK_VALUE;
+
+            return false;
+        }
+
         [grid[cell]] = satisfiableDigits;
+
+        return true;
     }
 
     private rotatedDigitOrder(): number[] {

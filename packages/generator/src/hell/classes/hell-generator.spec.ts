@@ -255,4 +255,21 @@ describe('HellGenerator', () => {
 
         expect(candidate).toBeDefined();
     });
+
+    it('restores the target cell to blank and recovers when no digit is satisfiable during a mutation', () => {
+        const realSolverForDelegation = new BitmaskSolver();
+        const noSatisfiableDigitSolver: SolverInterface = {
+            solve: grid => realSolverForDelegation.solve(grid),
+            countSolutions: (grid, limit) => (limit === UNIQUENESS_COUNT_LIMIT ? realSolverForDelegation.countSolutions(grid, limit) : 0)
+        };
+
+        const generator = new HellGenerator(noSatisfiableDigitSolver, defaultOptions);
+        generator.seedWith([ROYLE_17]);
+
+        expect(() => generator.advance(ADVANCE_BUDGET_MILLISECONDS)).not.toThrow();
+
+        const candidate = advanceUntilCandidate(generator, MAXIMUM_ADVANCE_ATTEMPTS, ADVANCE_BUDGET_MILLISECONDS);
+
+        expect(candidate).toBeDefined();
+    });
 });
