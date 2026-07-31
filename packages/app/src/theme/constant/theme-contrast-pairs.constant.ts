@@ -4,10 +4,9 @@ type ThemeColorsType = ThemeInterface['colors'];
 
 const ReadingTextMinimumRatio = 4.5;
 const BoardGlyphMinimumRatio = 3;
-const ValueTextOnBackgroundMinimumRatio = 1.4;
-const ActiveCellTextMinimumRatio = 2.7;
-const HighlightedCellTextMinimumRatio = 1.9;
-const ActiveValueCellTextMinimumRatio = 2.4;
+const NumpadTextMinimumRatio = 1.4;
+const SelectedCellTextMinimumRatio = 2.7;
+const SameValueCellTextMinimumRatio = 2.4;
 
 export interface ThemeContrastPairInterface {
     readonly foregroundKey: string;
@@ -19,25 +18,25 @@ export interface ThemeContrastPairInterface {
 
 export const ThemeContrastPairs: readonly ThemeContrastPairInterface[] = [
     {
-        foregroundKey: 'label.main',
+        foregroundKey: 'text.primary',
         backgroundKey: 'background',
-        getForeground: colors => colors.label.main,
+        getForeground: colors => colors.text.primary,
         getBackground: colors => colors.background,
         minimumRatio: ReadingTextMinimumRatio
     },
     {
-        foregroundKey: 'label.hint',
+        foregroundKey: 'text.hint',
         backgroundKey: 'background',
-        getForeground: colors => colors.label.hint,
+        getForeground: colors => colors.text.hint,
         getBackground: colors => colors.background,
         minimumRatio: BoardGlyphMinimumRatio
     },
     {
-        foregroundKey: 'value.text',
+        foregroundKey: 'numpad.text',
         backgroundKey: 'background',
-        getForeground: colors => colors.value.text,
+        getForeground: colors => colors.numpad.text,
         getBackground: colors => colors.background,
-        minimumRatio: ValueTextOnBackgroundMinimumRatio
+        minimumRatio: NumpadTextMinimumRatio
     },
     {
         foregroundKey: 'surface.raisedText',
@@ -54,38 +53,31 @@ export const ThemeContrastPairs: readonly ThemeContrastPairInterface[] = [
         minimumRatio: ReadingTextMinimumRatio
     },
     {
-        foregroundKey: 'cell.activeText',
-        backgroundKey: 'cell.active',
-        getForeground: colors => colors.cell.activeText,
-        getBackground: colors => colors.cell.active,
-        minimumRatio: ActiveCellTextMinimumRatio
+        foregroundKey: 'board.selectedText',
+        backgroundKey: 'board.selected',
+        getForeground: colors => colors.board.selectedText,
+        getBackground: colors => colors.board.selected,
+        minimumRatio: SelectedCellTextMinimumRatio
     },
     {
-        foregroundKey: 'cell.highlightedText',
-        backgroundKey: 'cell.highlighted',
-        getForeground: colors => colors.cell.highlightedText,
-        getBackground: colors => colors.cell.highlighted,
-        minimumRatio: HighlightedCellTextMinimumRatio
-    },
-    {
-        foregroundKey: 'cell.activeValueText',
-        backgroundKey: 'cell.activeValue',
-        getForeground: colors => colors.cell.activeValueText,
-        getBackground: colors => colors.cell.activeValue,
-        minimumRatio: ActiveValueCellTextMinimumRatio
+        foregroundKey: 'board.sameValueText',
+        backgroundKey: 'board.sameValue',
+        getForeground: colors => colors.board.sameValueText,
+        getBackground: colors => colors.board.sameValue,
+        minimumRatio: SameValueCellTextMinimumRatio
     },
     {
         foregroundKey: 'candidate.text',
-        backgroundKey: 'candidate.bg',
+        backgroundKey: 'candidate.fill',
         getForeground: colors => colors.candidate.text,
-        getBackground: colors => colors.candidate.bg,
+        getBackground: colors => colors.candidate.fill,
         minimumRatio: BoardGlyphMinimumRatio
     },
     {
-        foregroundKey: 'redFillText',
-        backgroundKey: 'red',
-        getForeground: colors => colors.redFillText,
-        getBackground: colors => colors.red,
+        foregroundKey: 'dangerText',
+        backgroundKey: 'danger',
+        getForeground: colors => colors.dangerText,
+        getBackground: colors => colors.danger,
         minimumRatio: BoardGlyphMinimumRatio
     }
 ];

@@ -12,7 +12,7 @@ export const useCellBorderStyles = (sudoku: Sudoku, cell: CellInterface): StyleP
 
     const cellMargin = useAppSelector(settingsCellMarginSelector);
 
-    const styles: StyleProp<ViewStyle>[] = [{ borderColor: theme.colors.black }];
+    const styles: StyleProp<ViewStyle>[] = [{ borderColor: theme.colors.ink }];
     if (sudoku.isLastInCellGroupX(cell)) {
         styles.push([{ borderRightWidth: 1, marginRight: cellMargin }]);
     }

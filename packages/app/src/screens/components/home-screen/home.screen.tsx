@@ -88,9 +88,9 @@ export const HomeScreen = () => {
         ]);
     };
 
-    const hintTextStyles = [styles.hintText, { color: theme.colors.label.hint }];
+    const hintTextStyles = [styles.hintText, { color: theme.colors.text.hint }];
     const bestRunCardStyles = styles.bestRun;
-    const bestRunValueStyles = [styles.historyValue, { color: theme.colors.label.main }];
+    const bestRunValueStyles = [styles.historyValue, { color: theme.colors.text.primary }];
     const standardMistakesOption = {
         description: t`Three mistakes`,
         maxMistakes: 3,

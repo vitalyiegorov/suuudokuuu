@@ -35,12 +35,12 @@ export const SettingsAppFooter = ({ version }: Props) => {
         styles.action,
         {
             backgroundColor: theme.colors.surface.subtle,
-            borderColor: theme.colors.candidate.border
+            borderColor: theme.colors.surface.border
         }
     ]);
     const supportTextStyles = [styles.supportText, { color: supportLinkColors.textColor }];
     const actionTextStyles = [styles.actionText, { color: theme.colors.surface.subtleText }];
-    const versionStyles = [styles.version, { color: theme.colors.label.hint }];
+    const versionStyles = [styles.version, { color: theme.colors.text.hint }];
 
     return (
         <View style={styles.container}>

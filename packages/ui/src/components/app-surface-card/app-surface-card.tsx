@@ -18,16 +18,16 @@ interface Props {
 
 export const AppSurfaceCard = ({ children, size = 'regular', style, testID, variant = 'default' }: Props) => {
     const { theme } = useUnistyles();
-    let backgroundColor = theme.colors.candidate.bg;
-    let borderColor = theme.colors.value.border;
+    let backgroundColor = theme.colors.candidate.fill;
+    let borderColor = theme.colors.surface.border;
 
     if (variant === 'muted') {
-        backgroundColor = theme.colors.cell.highlighted;
+        backgroundColor = theme.colors.surface.subtle;
     }
 
     if (variant === 'inverted') {
-        backgroundColor = theme.colors.black;
-        borderColor = theme.colors.black;
+        backgroundColor = theme.colors.ink;
+        borderColor = theme.colors.ink;
     }
 
     const cardStyles = [styles.card, styles[size], { backgroundColor, borderColor }, style];

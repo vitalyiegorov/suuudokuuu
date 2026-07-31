@@ -14,7 +14,7 @@ interface Props {
 export const AppSettingsSection = ({ children, style, title }: Props) => {
     const { theme } = useUnistyles();
     const sectionStyles = [styles.section, style];
-    const titleStyles = [styles.title, { color: theme.colors.label.hint }];
+    const titleStyles = [styles.title, { color: theme.colors.text.hint }];
 
     return (
         <View style={sectionStyles}>

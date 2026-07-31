@@ -54,8 +54,8 @@ describe('CustomThemeSchema', () => {
     });
 
     it('rejects a missing token group', () => {
-        const { cell: _unusedCell, ...withoutCell } = BWLightTheme.colors;
-        const brokenColors = { ...validCustomTheme.colors, [ColorSchemaEnum.Light]: withoutCell };
+        const { board: _unusedBoard, ...withoutBoard } = BWLightTheme.colors;
+        const brokenColors = { ...validCustomTheme.colors, [ColorSchemaEnum.Light]: withoutBoard };
         expect(CustomThemeSchema.safeParse({ ...validCustomTheme, colors: brokenColors }).success).toBe(false);
     });
 

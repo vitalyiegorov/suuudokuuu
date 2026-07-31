@@ -21,37 +21,37 @@ describe('fieldCellGetBackgroundColor', () => {
     it('should flag a wrong value before anything else', () => {
         expect.assertions(1);
 
-        expect(fieldCellGetBackgroundColor({ ...baseParams, isWrong: true, isActiveValue: true })).toBe(BWLightTheme.colors.cell.error);
+        expect(fieldCellGetBackgroundColor({ ...baseParams, isWrong: true, isActiveValue: true })).toBe(BWLightTheme.colors.board.error);
     });
 
     it('should highlight an identical value when that setting is on', () => {
         expect.assertions(2);
 
-        expect(fieldCellGetBackgroundColor({ ...baseParams, isActiveValue: true })).toBe(BWLightTheme.colors.cell.activeValue);
+        expect(fieldCellGetBackgroundColor({ ...baseParams, isActiveValue: true })).toBe(BWLightTheme.colors.board.sameValue);
         expect(fieldCellGetBackgroundColor({ ...baseParams, isActiveValue: true, showIdenticalNumbers: false })).not.toBe(
-            BWLightTheme.colors.cell.activeValue
+            BWLightTheme.colors.board.sameValue
         );
     });
 
     it('should highlight the row, column and box only when areas are shown', () => {
         expect.assertions(2);
 
-        expect(fieldCellGetBackgroundColor({ ...baseParams, isCellHighlighted: true })).toBe(BWLightTheme.colors.cell.highlighted);
+        expect(fieldCellGetBackgroundColor({ ...baseParams, isCellHighlighted: true })).toBe(BWLightTheme.colors.surface.subtle);
         expect(fieldCellGetBackgroundColor({ ...baseParams, isCellHighlighted: true, showAreas: false })).not.toBe(
-            BWLightTheme.colors.cell.highlighted
+            BWLightTheme.colors.surface.subtle
         );
     });
 
     it('should leave an empty cell plain', () => {
         expect.assertions(1);
 
-        expect(fieldCellGetBackgroundColor({ ...baseParams, isEmpty: true })).toBe(BWLightTheme.colors.white);
+        expect(fieldCellGetBackgroundColor({ ...baseParams, isEmpty: true })).toBe(BWLightTheme.colors.surface.raised);
     });
 
     it('should tint a filled cell only when filled numbers are shown', () => {
         expect.assertions(2);
 
-        expect(fieldCellGetBackgroundColor(baseParams)).toBe(BWLightTheme.colors.cell.filled);
-        expect(fieldCellGetBackgroundColor({ ...baseParams, showFilledNumbers: false })).toBe(BWLightTheme.colors.white);
+        expect(fieldCellGetBackgroundColor(baseParams)).toBe(BWLightTheme.colors.board.filled);
+        expect(fieldCellGetBackgroundColor({ ...baseParams, showFilledNumbers: false })).toBe(BWLightTheme.colors.surface.raised);
     });
 });

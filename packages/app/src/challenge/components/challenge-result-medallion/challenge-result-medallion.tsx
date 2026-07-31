@@ -32,16 +32,16 @@ export const ChallengeResultMedallion = ({ result }: Props) => {
     const appearAnimatedStyle = useAnimatedStyle(() => ({ transform: [{ scale: appearScale.value }] }));
 
     let Icon = LucideFlag;
-    let iconColor = theme.colors.label.inverted;
+    let iconColor = theme.colors.inkText;
     if (result === ChallengeResult.Won) {
         Icon = LucideTrophy;
     }
     if (result === ChallengeResult.Lost) {
         Icon = LucideHeartCrack;
-        iconColor = theme.colors.red;
+        iconColor = theme.colors.danger;
     }
 
-    const medalStyle = [resolveUnistyleForAnimated(styles.medal), { backgroundColor: theme.colors.black }];
+    const medalStyle = [resolveUnistyleForAnimated(styles.medal), { backgroundColor: theme.colors.ink }];
     const medal = (
         <View style={medalStyle}>
             <Icon color={iconColor} size={IconSize} strokeWidth={1.8} />
@@ -51,7 +51,7 @@ export const ChallengeResultMedallion = ({ result }: Props) => {
     if (result === ChallengeResult.Won) {
         return (
             <View style={styles.wrap}>
-                <CelebrationPulse color={theme.colors.black} size={MedallionSize}>
+                <CelebrationPulse color={theme.colors.ink} size={MedallionSize}>
                     {medal}
                 </CelebrationPulse>
             </View>

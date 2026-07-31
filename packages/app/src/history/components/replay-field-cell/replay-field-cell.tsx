@@ -21,7 +21,7 @@ export const ReplayFieldCell = ({ sudoku, cell, cellSize, isHighlighted }: Props
 
     const value = String(cell.value);
     const isEmpty = sudoku.isBlankCell(cell);
-    const cellBackgroundColor = isHighlighted ? theme.colors.cell.active : theme.colors.white;
+    const cellBackgroundColor = isHighlighted ? theme.colors.board.selected : theme.colors.surface.raised;
 
     const containerStyles = [
         cellStyles.container(cellSize),
@@ -29,7 +29,7 @@ export const ReplayFieldCell = ({ sudoku, cell, cellSize, isHighlighted }: Props
         ...useCellBorderStyles(sudoku, cell)
     ];
 
-    const textColor = isEmpty ? theme.colors.cell.emptyValueText : theme.colors.black;
+    const textColor = isEmpty ? theme.colors.board.emptyText : theme.colors.ink;
     const textStyles = [{ fontSize, color: textColor }];
     const cellValue = isEmpty ? '' : value;
 

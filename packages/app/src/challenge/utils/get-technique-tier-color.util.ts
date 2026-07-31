@@ -7,16 +7,16 @@ type TierColorResolver = (theme: ThemeInterface) => string;
 
 const tierColorResolvers: Record<TierColorSurface, Record<ChallengeTechniqueTierEnum, TierColorResolver>> = {
     default: {
-        [ChallengeTechniqueTierEnum.Guess]: theme => theme.colors.red,
-        [ChallengeTechniqueTierEnum.Advanced]: theme => theme.colors.blue,
-        [ChallengeTechniqueTierEnum.Clever]: theme => theme.colors.label.main,
-        [ChallengeTechniqueTierEnum.Basic]: theme => theme.colors.label.hint
+        [ChallengeTechniqueTierEnum.Guess]: theme => theme.colors.danger,
+        [ChallengeTechniqueTierEnum.Advanced]: theme => theme.colors.accent,
+        [ChallengeTechniqueTierEnum.Clever]: theme => theme.colors.text.primary,
+        [ChallengeTechniqueTierEnum.Basic]: theme => theme.colors.text.hint
     },
     inverted: {
-        [ChallengeTechniqueTierEnum.Guess]: theme => theme.colors.red,
-        [ChallengeTechniqueTierEnum.Advanced]: theme => theme.colors.blue,
-        [ChallengeTechniqueTierEnum.Clever]: theme => theme.colors.label.inverted,
-        [ChallengeTechniqueTierEnum.Basic]: theme => theme.colors.white05
+        [ChallengeTechniqueTierEnum.Guess]: theme => theme.colors.danger,
+        [ChallengeTechniqueTierEnum.Advanced]: theme => theme.colors.accent,
+        [ChallengeTechniqueTierEnum.Clever]: theme => theme.colors.inkText,
+        [ChallengeTechniqueTierEnum.Basic]: theme => theme.colors.overlayDark
     }
 };
 

@@ -24,8 +24,8 @@ export const ChallengeTechniqueTile = ({ item, testID }: Props) => {
     return (
         <ChallengeStatTile count={item.count} label={_(techniqueLabelsConstant[item.technique])} testID={testID}>
             <TechniqueGlyph
-                accentColor={theme.colors.red}
-                dimColor={theme.colors.white05}
+                accentColor={theme.colors.danger}
+                dimColor={theme.colors.overlayDark}
                 gap={GLYPH_GAP}
                 litColor={getTechniqueTierColor(item.tier, theme, 'inverted')}
                 size={GLYPH_SIZE}

@@ -23,7 +23,7 @@ export const DifficultyComplexitySlider = ({ difficulty, onChange }: Props) => {
     const selectedDifficultyIndex = DifficultyComplexitySliderDifficulties.indexOf(difficulty);
     const selectedIndex = selectedDifficultyIndex < 0 ? DifficultyComplexitySliderInitialIndex : selectedDifficultyIndex;
     const selectedDifficulty = DifficultyComplexitySliderDifficulties[selectedIndex] ?? DifficultyEnum.Easy;
-    const titleStyles = [styles.title, { color: theme.colors.label.main }];
+    const titleStyles = [styles.title, { color: theme.colors.text.primary }];
 
     return (
         <View style={styles.panel}>

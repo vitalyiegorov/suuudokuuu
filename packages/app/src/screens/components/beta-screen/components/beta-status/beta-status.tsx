@@ -19,8 +19,8 @@ interface Props {
 export const BetaStatus = ({ onRetry, state }: Props) => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
-    const textStyle = { color: theme.colors.label.main };
-    const hintStyle = { color: theme.colors.label.hint };
+    const textStyle = { color: theme.colors.text.primary };
+    const hintStyle = { color: theme.colors.text.hint };
     const messageStyle = [styles.message, textStyle];
     const hintMessageStyle = [styles.message, hintStyle];
     const titleStyle = [styles.title, textStyle];
@@ -31,7 +31,7 @@ export const BetaStatus = ({ onRetry, state }: Props) => {
                 <ActivityIndicator
                     accessibilityLabel={t`Loading development build`}
                     accessibilityRole="progressbar"
-                    color={theme.colors.blue}
+                    color={theme.colors.accent}
                     size="large"
                 />
                 <Text selectable style={messageStyle}>

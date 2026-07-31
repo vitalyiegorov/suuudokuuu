@@ -23,8 +23,8 @@ describe('settingsOptionSheetGetColors', () => {
             const colors = settingsOptionSheetGetColors(theme);
 
             expect(colors.panelBackground).toBe(theme.colors.background);
-            expect(colors.panelText).toBe(theme.colors.label.main);
-            expect(colors.descriptionColor).toBe(theme.colors.label.hint);
+            expect(colors.panelText).toBe(theme.colors.text.primary);
+            expect(colors.descriptionColor).toBe(theme.colors.text.hint);
         });
     });
 

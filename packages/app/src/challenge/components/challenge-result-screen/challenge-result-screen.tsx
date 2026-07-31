@@ -72,9 +72,9 @@ export const ChallengeResultScreen = (props: Props) => {
     const mistakesText = getMistakesTypeText(maxMistakes);
     const badgeText = `${flavorText} · ${difficultyText} · ${mistakesText}`;
 
-    const titleStyle = [styles.title, { color: theme.colors.label.main }];
-    const pillStyle = [styles.pill, { backgroundColor: theme.colors.black }];
-    const pillTextStyle = [styles.pillText, { color: theme.colors.label.inverted }];
+    const titleStyle = [styles.title, { color: theme.colors.text.primary }];
+    const pillStyle = [styles.pill, { backgroundColor: theme.colors.ink }];
+    const pillTextStyle = [styles.pillText, { color: theme.colors.inkText }];
 
     return (
         <ChromeScrollPage footer={<ChallengeResultFooter>{children}</ChallengeResultFooter>} testID={ChallengeResultScreenSelectors.Root}>

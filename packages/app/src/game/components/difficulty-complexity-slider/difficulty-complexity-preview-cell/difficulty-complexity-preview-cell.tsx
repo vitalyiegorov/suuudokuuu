@@ -41,12 +41,12 @@ export const DifficultyComplexityPreviewCell = (props: Props) => {
     const isDecoratedCell = isMistakeCell || isRelaxedAccentCell || isHardcoreGuardCell;
     let cellOpacity = DifficultyComplexitySliderPreviewInactiveCellOpacity;
     let cellScale = DifficultyComplexitySliderPreviewInactiveCellScale;
-    let cellBackgroundColor = theme.colors.label.hint;
+    let cellBackgroundColor = theme.colors.text.hint;
 
     if (isActive) {
         cellOpacity = activeCellOpacity;
         cellScale = DifficultyComplexitySliderPreviewActiveCellScale;
-        cellBackgroundColor = theme.colors.label.main;
+        cellBackgroundColor = theme.colors.text.primary;
     }
 
     if (isDecoratedCell) {
@@ -55,18 +55,18 @@ export const DifficultyComplexityPreviewCell = (props: Props) => {
     }
 
     if (isHardcoreGuardCell) {
-        cellBackgroundColor = theme.colors.candidate.bg;
+        cellBackgroundColor = theme.colors.candidate.fill;
     }
 
     if (isRelaxedAccentCell) {
-        cellBackgroundColor = theme.colors.blue;
+        cellBackgroundColor = theme.colors.accent;
     }
 
     if (isMistakeCell) {
-        cellBackgroundColor = theme.colors.red;
+        cellBackgroundColor = theme.colors.danger;
     }
 
-    const cellBorderColor = isHardcoreGuardCell ? theme.colors.label.main : cellBackgroundColor;
+    const cellBorderColor = isHardcoreGuardCell ? theme.colors.text.primary : cellBackgroundColor;
     const cellStyles = [
         resolveUnistyleForAnimated(styles.previewCell),
         {
