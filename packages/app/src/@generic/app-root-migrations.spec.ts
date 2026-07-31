@@ -5,8 +5,12 @@ import { DifficultyEnum } from '@suuudokuuu/generator';
 import { initialGameState } from '../game/store/game.state';
 import { emptyGameHistory } from '../history/interfaces/history-game.interface';
 import { initialSettingsState } from '../settings/store/settings.state';
+import { ColorSchemaEnum } from '../theme/enum/color-schema.enum';
 import { ThemeEnum } from '../theme/enum/theme.enum';
+import { CustomThemeSchemaVersion } from '../theme/schema/custom-theme.schema';
 import { initialCustomThemesState } from '../theme/store/custom-themes.state';
+import { ColorfulDarkTheme, ColorfulLightTheme } from '../theme/themes/colorful.theme';
+import { createCustomTheme } from '../theme/utils/create-custom-theme.util';
 
 import { appRootMigrations, appRootPersistVersion } from './app-root-migrations';
 
@@ -127,5 +131,24 @@ describe('appRootMigrations', () => {
 
         expect(migrated.customThemes).toStrictEqual(initialCustomThemesState);
         expect(migrated.settings).toMatchObject({ theme: ThemeEnum.Newspaper, hasTimer: false });
+    });
+
+    it('should migrate stored custom themes to the semantic token vocabulary', () => {
+        expect.assertions(4);
+
+        const storedTheme = createCustomTheme('Legacy', ThemeEnum.Colorful, [], 1700000000000);
+        const state = buildState({ customThemes: { themes: [storedTheme] } });
+        const [migrated] = runMigration(31, state).customThemes.themes;
+
+        expect(migrated.schemaVersion).toBe(CustomThemeSchemaVersion);
+        expect(migrated.colors[ColorSchemaEnum.Light]).toStrictEqual(ColorfulLightTheme.colors);
+        expect(migrated.colors[ColorSchemaEnum.Dark]).toStrictEqual(ColorfulDarkTheme.colors);
+        expect(migrated.name).toBe('Legacy');
+    });
+
+    it('should keep an empty custom themes slice unchanged at the semantic token migration', () => {
+        expect.assertions(1);
+
+        expect(runMigration(31, buildState()).customThemes).toStrictEqual(initialCustomThemesState);
     });
 });
