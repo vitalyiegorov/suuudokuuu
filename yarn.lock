@@ -5015,6 +5015,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@suuudokuuu/solver-bitmask@workspace:packages/solver-bitmask":
+  version: 0.0.0-use.local
+  resolution: "@suuudokuuu/solver-bitmask@workspace:packages/solver-bitmask"
+  dependencies:
+    "@suuudokuuu/solver-core": "workspace:*"
+    "@suuudokuuu/solver-dlx": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
 "@suuudokuuu/solver-core@workspace:*, @suuudokuuu/solver-core@workspace:packages/solver-core":
   version: 0.0.0-use.local
   resolution: "@suuudokuuu/solver-core@workspace:packages/solver-core"
