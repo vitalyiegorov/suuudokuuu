@@ -54,6 +54,10 @@ msgstr "{backgroundLabel} पर {foregroundLabel}: {contrastRatioText} — न�
 msgid "{gamesCompleted, plural, one {# completed game} other {# completed games}}"
 msgstr "{gamesCompleted, plural, one {# पूरी की गई गेम} other {# पूरी की गई गेम}}"
 
+#: src/screens/components/home-screen/home-screen-hell-card/home-screen-hell-card.tsx
+msgid "{hellQueueCount, plural, one {# puzzle ready} other {# puzzles ready}}"
+msgstr "{hellQueueCount, plural, one {# सुडोकू तैयार} other {# सुडोकू तैयार}}"
+
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
 msgstr "{mistakes, plural, one {# गलती} other {# गलतियाँ}}"
@@ -617,6 +621,7 @@ msgstr "हार्डकोर"
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/scoring/components/scoring.screen.tsx
+#: src/screens/components/home-screen/home-screen-hell-card/home-screen-hell-card.tsx
 msgid "Hell"
 msgstr "नरक"
 
@@ -907,6 +912,10 @@ msgstr "सेलों के बीच कोई अतिरिक्त अ�
 #: src/history/components/history-games-list/history-games-list.tsx
 msgid "No games yet"
 msgstr "अभी कोई गेम नहीं"
+
+#: src/game/utils/game-provider-create-hell-game.util.ts
+msgid "No Hell puzzles are ready yet"
+msgstr "अभी कोई नरक सुडोकू तैयार नहीं है"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "No limit"

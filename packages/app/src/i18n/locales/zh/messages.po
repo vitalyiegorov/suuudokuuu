@@ -54,6 +54,10 @@ msgstr "{backgroundLabel}上的{foregroundLabel}：{contrastRatioText} — 最�
 msgid "{gamesCompleted, plural, one {# completed game} other {# completed games}}"
 msgstr "{gamesCompleted, plural, one {# 局已完成} other {# 局已完成}}"
 
+#: src/screens/components/home-screen/home-screen-hell-card/home-screen-hell-card.tsx
+msgid "{hellQueueCount, plural, one {# puzzle ready} other {# puzzles ready}}"
+msgstr "{hellQueueCount, plural, one {# 个数独就绪} other {# 个数独就绪}}"
+
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
 msgstr "{mistakes, plural, one {# 个错误} other {# 个错误}}"
@@ -617,6 +621,7 @@ msgstr "硬核"
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/scoring/components/scoring.screen.tsx
+#: src/screens/components/home-screen/home-screen-hell-card/home-screen-hell-card.tsx
 msgid "Hell"
 msgstr "地狱"
 
@@ -907,6 +912,10 @@ msgstr "单元格之间不添加额外间距"
 #: src/history/components/history-games-list/history-games-list.tsx
 msgid "No games yet"
 msgstr "还没有游戏"
+
+#: src/game/utils/game-provider-create-hell-game.util.ts
+msgid "No Hell puzzles are ready yet"
+msgstr "暂无已就绪的地狱数独"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "No limit"

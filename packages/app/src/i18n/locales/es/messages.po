@@ -56,6 +56,10 @@ msgstr "{foregroundLabel} sobre {backgroundLabel}: {contrastRatioText} — míni
 msgid "{gamesCompleted, plural, one {# completed game} other {# completed games}}"
 msgstr "{gamesCompleted, plural, one {# partida completada} other {# partidas completadas}}"
 
+#: src/screens/components/home-screen/home-screen-hell-card/home-screen-hell-card.tsx
+msgid "{hellQueueCount, plural, one {# puzzle ready} other {# puzzles ready}}"
+msgstr "{hellQueueCount, plural, one {# sudoku listo} other {# sudokus listos}}"
+
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
 msgstr "{mistakes, plural, one {# error} other {# errores}}"
@@ -619,6 +623,7 @@ msgstr "Hardcore"
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/scoring/components/scoring.screen.tsx
+#: src/screens/components/home-screen/home-screen-hell-card/home-screen-hell-card.tsx
 msgid "Hell"
 msgstr "Infierno"
 
@@ -909,6 +914,10 @@ msgstr "Sin espacios adicionales entre celdas"
 #: src/history/components/history-games-list/history-games-list.tsx
 msgid "No games yet"
 msgstr "Aún no hay partidas"
+
+#: src/game/utils/game-provider-create-hell-game.util.ts
+msgid "No Hell puzzles are ready yet"
+msgstr "Aún no hay sudokus de Infierno listos"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "No limit"

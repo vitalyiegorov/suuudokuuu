@@ -54,6 +54,10 @@ msgstr "{foregroundLabel} på {backgroundLabel}: {contrastRatioText} — minst {
 msgid "{gamesCompleted, plural, one {# completed game} other {# completed games}}"
 msgstr "{gamesCompleted, plural, one {# slutfört spel} other {# slutförda spel}}"
 
+#: src/screens/components/home-screen/home-screen-hell-card/home-screen-hell-card.tsx
+msgid "{hellQueueCount, plural, one {# puzzle ready} other {# puzzles ready}}"
+msgstr "{hellQueueCount, plural, one {# sudoku klart} other {# sudoku klara}}"
+
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
 msgstr "{mistakes, plural, one {# misstag} other {# misstag}}"
@@ -617,6 +621,7 @@ msgstr "Hardcore"
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/scoring/components/scoring.screen.tsx
+#: src/screens/components/home-screen/home-screen-hell-card/home-screen-hell-card.tsx
 msgid "Hell"
 msgstr "Helvete"
 
@@ -907,6 +912,10 @@ msgstr "Inga extra mellanrum mellan rutorna"
 #: src/history/components/history-games-list/history-games-list.tsx
 msgid "No games yet"
 msgstr "Inga spel än"
+
+#: src/game/utils/game-provider-create-hell-game.util.ts
+msgid "No Hell puzzles are ready yet"
+msgstr "Inga Helvete-sudoku klara ännu"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "No limit"

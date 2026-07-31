@@ -42,6 +42,7 @@ import {
 import { ThemeContext } from '../../../theme/context/theme.context';
 
 import { HomeScreenBottomScrollPadding, HomeScreenTopOverlayHeight, HomeScreenTopOverlayIntensity } from './constant/home-screen.constant';
+import { HomeScreenHellCard } from './home-screen-hell-card/home-screen-hell-card';
 import { HomeScreenOptionCard } from './home-screen-option-card/home-screen-option-card';
 import { homeScreenOptionCardGetColors } from './home-screen-option-card/utils/home-screen-option-card-get-colors.util';
 import { HomeScreenPlayActions } from './home-screen-play-actions/home-screen-play-actions';
@@ -241,6 +242,8 @@ export const HomeScreen = () => {
                             startButtonSubtitle={setupSummary}
                             startButtonText={startButtonText}
                         />
+
+                        <HomeScreenHellCard />
                     </View>
                 </View>
             </ScreenChromeScrollView>

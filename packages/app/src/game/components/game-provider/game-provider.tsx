@@ -1,6 +1,6 @@
 import { i18n } from '@lingui/core';
 import { useLingui } from '@lingui/react/macro';
-import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
+import { DifficultyEnum, Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { usePathname, useRouter } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
 
@@ -13,6 +13,7 @@ import { settingsLanguageSelector } from '../../../settings/store/settings.selec
 import { GameContext } from '../../context/game.context';
 import { gameLoadAction, gameResetAction, gameResumeAction, gameStartAction } from '../../store/game.actions';
 import { gameSudokuStringSelector } from '../../store/game.selectors';
+import { gameProviderCreateHellGame } from '../../utils/game-provider-create-hell-game.util';
 
 import type { GameSetupInterface } from '../../interface/game-setup.interface';
 import type { GameState } from '../../store/game.state';
@@ -99,6 +100,14 @@ export const GameProvider = ({ children }: Props) => {
 
     const create = ({ difficulty, isChallengeRun, maxMistakes }: GameSetupInterface) =>
         void runGameCreation(() => {
+            if (difficulty === DifficultyEnum.Hell) {
+                const pushToGame = () => void router.push('/game');
+
+                gameProviderCreateHellGame({ difficulty, isChallengeRun, maxMistakes }, { dispatch, pushToGame, setSudoku });
+
+                return;
+            }
+
             const newSudoku = new Sudoku(defaultSudokuConfig);
 
             newSudoku.create(difficulty);
