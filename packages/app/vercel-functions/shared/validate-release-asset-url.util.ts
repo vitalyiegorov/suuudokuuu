@@ -1,4 +1,4 @@
-import { DevelopmentReleaseAssetNames, DevelopmentReleaseTagPattern } from './beta-release.constant';
+import { DevelopmentReleaseAssetNames, DevelopmentReleaseTagPattern } from './beta-release.constant.js';
 
 const ReleaseDownloadUrlPrefix = 'https://github.com/vitalyiegorov/suuudokuuu/releases/download/';
 const AllowedAssetNames = new Set<string>(DevelopmentReleaseAssetNames);

@@ -45,7 +45,7 @@ export const WinnerScreenActions = ({ gameState, retrySetup }: Props) => {
                 onPress={handlePlayAgain}
                 testID={WinnerScreenSelectors.PlayAgainButton}
             >
-                <LucideRotateCcw color={theme.colors.label.inverted} />
+                <LucideRotateCcw color={theme.colors.inkText} />
             </GlassIconButton>
         );
         const shareAction = isChallengeShareable ? (

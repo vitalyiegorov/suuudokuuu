@@ -13,8 +13,8 @@ interface Props {
 
 export const HomeScreenSectionHeader = ({ children }: Props) => {
     const { theme } = use(ThemeContext);
-    const labelStyles = [styles.label, { color: theme.colors.label.main }];
-    const lineStyles = [styles.line, { backgroundColor: theme.colors.candidate.border }];
+    const labelStyles = [styles.label, { color: theme.colors.text.primary }];
+    const lineStyles = [styles.line, { backgroundColor: theme.colors.surface.border }];
 
     return (
         <View style={styles.container}>

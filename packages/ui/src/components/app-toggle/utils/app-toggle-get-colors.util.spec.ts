@@ -8,8 +8,8 @@ describe('appToggleGetColors', () => {
     it('fills the track with the active accent and its paired foreground when checked', () => {
         const colors = appToggleGetColors(DefaultUiTheme, true);
 
-        expect(colors.trackColor).toBe(DefaultUiTheme.colors.value.progressActive);
-        expect(colors.knobColor).toBe(DefaultUiTheme.colors.value.progressActiveText);
+        expect(colors.trackColor).toBe(DefaultUiTheme.colors.numpad.trackFilled);
+        expect(colors.knobColor).toBe(DefaultUiTheme.colors.numpad.trackFilledText);
     });
 
     it('empties the track and outlines it with a hairline border when unchecked', () => {

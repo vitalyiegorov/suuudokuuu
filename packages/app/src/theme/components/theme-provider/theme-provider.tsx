@@ -65,10 +65,9 @@ export const ThemeProvider = ({ children }: Props) => {
     const navigationTheme = colorScheme === ColorSchemaEnum.Light ? DefaultTheme : DarkTheme;
     const fullNavigationTheme = {
         ...navigationTheme,
-        ...theme,
         colors: {
             ...navigationTheme.colors,
-            ...theme.colors
+            background: theme.colors.background
         }
     };
     const value = { changeTheme, colorScheme, theme, toggleColorSchema };

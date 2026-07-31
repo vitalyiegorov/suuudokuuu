@@ -92,6 +92,10 @@ msgstr "<0>Entwicklungsclient erforderlich</0><1>Entwicklungsclients benötigen 
 msgid "A little room between cells"
 msgstr "Etwas Abstand zwischen den Zellen"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Accent"
+msgstr "Akzent"
+
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Accept challenge"
 msgstr "Herausforderung annehmen"
@@ -99,26 +103,6 @@ msgstr "Herausforderung annehmen"
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Accept challenge?"
 msgstr "Herausforderung annehmen?"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Active candidate background"
-msgstr "Hintergrund des aktiven Kandidaten"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Active candidate border"
-msgstr "Rahmen des aktiven Kandidaten"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Active candidate text"
-msgstr "Text des aktiven Kandidaten"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Active cell"
-msgstr "Aktive Zelle"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Active cell text"
-msgstr "Text der aktiven Zelle"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Adjust the digits on the Sudoku board"
@@ -183,22 +167,6 @@ msgstr "Ausgewogene Zahlen für die meisten Spieler"
 msgid "Balanced solve"
 msgstr "Ausgewogenes Spiel"
 
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Base dark color"
-msgstr "Dunkle Basisfarbe"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Base dark color (translucent)"
-msgstr "Dunkle Basisfarbe (durchscheinend)"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Base light color"
-msgstr "Helle Basisfarbe"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Base light color (translucent)"
-msgstr "Helle Basisfarbe (durchscheinend)"
-
 #: src/scoring/components/scoring.screen.tsx
 msgid "Base Score"
 msgstr "Grundpunktzahl"
@@ -259,10 +227,6 @@ msgstr "Abbrechen"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Candidate background"
 msgstr "Hintergrund des Kandidaten"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Candidate border"
-msgstr "Rahmen des Kandidaten"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Candidate text"
@@ -412,6 +376,10 @@ msgstr "Anpassen"
 msgid "d"
 msgstr "d"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Danger accent"
+msgstr "Gefahrenakzent"
+
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Dark"
 msgstr "Dunkel"
@@ -419,6 +387,10 @@ msgstr "Dunkel"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Dark mode"
 msgstr "Dunkelmodus"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Dark overlay"
+msgstr "Dunkle Überlagerung"
 
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Day streak"
@@ -510,10 +482,6 @@ msgstr "English"
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Enter a theme name"
 msgstr "Gib einen Themennamen ein"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Error accent"
-msgstr "Fehlerakzent"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Error cell"
@@ -664,14 +632,6 @@ msgid "Highlight pencil marks"
 msgstr "Notizen hervorheben"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Highlighted cell"
-msgstr "Hervorgehobene Zelle"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Highlighted cell text"
-msgstr "Text der hervorgehobenen Zelle"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Hint text"
 msgstr "Hinweistext"
 
@@ -698,8 +658,8 @@ msgid "Incomplete"
 msgstr "Unvollständig"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Info accent"
-msgstr "Info-Akzent"
+msgid "Ink"
+msgstr "Tinte"
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Install on iOS"
@@ -712,10 +672,6 @@ msgstr "iOS-Entwicklungs-Build installieren"
 #: src/game/components/game-provider/game-provider.tsx
 msgid "Invalid Sudoku"
 msgstr "Ungültiges Sudoku"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Inverted text"
-msgstr "Invertierter Text"
 
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "iOS installation"
@@ -774,6 +730,10 @@ msgstr "Stufe"
 msgid "Light"
 msgstr "Hell"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Light overlay"
+msgstr "Helle Überlagerung"
+
 #: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Light warm-up"
 msgstr "Leichtes Aufwärmen"
@@ -797,14 +757,6 @@ msgstr "Geringer Kontrast"
 #: src/@generic/hooks/use-timer-text.hook.ts
 msgid "m"
 msgstr "m"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Matching value cell"
-msgstr "Zelle mit übereinstimmendem Wert"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Matching value text"
-msgstr "Text mit übereinstimmendem Wert"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Max Mistakes bonus"
@@ -945,24 +897,16 @@ msgid "Number size"
 msgstr "Zahlengröße"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Numpad border"
-msgstr "Rahmen der Zifferntastatur"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Numpad progress"
-msgstr "Fortschritt der Zifferntastatur"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Numpad progress (active)"
-msgstr "Fortschritt der Zifferntastatur (aktiv)"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Numpad progress text"
-msgstr "Text des Zifferntastatur-Fortschritts"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Numpad text"
 msgstr "Text der Zifferntastatur"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Numpad track"
+msgstr "Leiste der Zifferntastatur"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Numpad track (filled)"
+msgstr "Leiste der Zifferntastatur (gefüllt)"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "of current score"
@@ -1186,6 +1130,14 @@ msgstr "Zeit des Rivalen, die es zu schlagen gilt"
 msgid "Row"
 msgstr "Zeile"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Same-value cell"
+msgstr "Zelle mit gleichem Wert"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Same-value cell text"
+msgstr "Text der Zelle mit gleichem Wert"
+
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Sashimi Swordfish"
 msgstr "Sashimi Swordfish"
@@ -1225,6 +1177,26 @@ msgstr "Bildschirmhintergrund"
 #: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
 msgid "Screenshots"
 msgstr "Screenshots"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Selected candidate background"
+msgstr "Hintergrund des ausgewählten Kandidaten"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Selected candidate border"
+msgstr "Rahmen des ausgewählten Kandidaten"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Selected candidate text"
+msgstr "Text des ausgewählten Kandidaten"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Selected cell"
+msgstr "Ausgewählte Zelle"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Selected cell text"
+msgstr "Text der ausgewählten Zelle"
 
 #: src/game/hooks/use-share-game.hook.ts
 msgid "Send the puzzle to solve from scratch, or hand off your run to continue elsewhere."
@@ -1368,6 +1340,10 @@ msgid "Support Ukraine"
 msgstr "Ukraine unterstützen"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Surface border"
+msgstr "Rahmen der Oberfläche"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Surfaces"
 msgstr "Oberflächen"
 
@@ -1404,8 +1380,16 @@ msgid "Text and labels"
 msgstr "Text und Beschriftungen"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Text on error accent"
-msgstr "Text auf dem Fehlerakzent"
+msgid "Text on danger accent"
+msgstr "Text auf Gefahrenakzent"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Text on filled numpad track"
+msgstr "Text auf gefüllter Leiste der Zifferntastatur"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Text on ink"
+msgstr "Text auf Tinte"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."

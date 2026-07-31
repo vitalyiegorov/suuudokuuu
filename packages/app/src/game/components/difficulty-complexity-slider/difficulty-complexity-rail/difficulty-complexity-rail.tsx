@@ -57,11 +57,11 @@ export const DifficultyComplexityRail = (props: Props) => {
         optionCount
     });
 
-    const sliderTrackStyles = [styles.sliderTrack, { backgroundColor: theme.colors.label.main }];
-    const sliderFillStyles = [resolveUnistyleForAnimated(styles.sliderFill), { backgroundColor: theme.colors.label.main }];
+    const sliderTrackStyles = [styles.sliderTrack, { backgroundColor: theme.colors.text.primary }];
+    const sliderFillStyles = [resolveUnistyleForAnimated(styles.sliderFill), { backgroundColor: theme.colors.text.primary }];
     const sliderThumbStyles = [
         resolveUnistyleForAnimated(styles.sliderThumb),
-        { backgroundColor: theme.colors.label.main, borderColor: theme.colors.background }
+        { backgroundColor: theme.colors.text.primary, borderColor: theme.colors.background }
     ];
     const sliderFillAnimatedStyles = useAnimatedStyle(() => ({ width: difficultyProgressValue.value * railWidth }));
     const sliderFillWithAnimatedStyles = [sliderFillStyles, sliderFillAnimatedStyles];

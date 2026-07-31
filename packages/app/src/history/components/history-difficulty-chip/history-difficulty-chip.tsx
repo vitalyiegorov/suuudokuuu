@@ -18,11 +18,11 @@ export const HistoryDifficultyChip = ({ isSelected, label, onPress }: Props) => 
     const containerStyles = [
         styles.container,
         {
-            backgroundColor: isSelected ? theme.colors.black : theme.colors.candidate.bg,
-            borderColor: isSelected ? theme.colors.black : theme.colors.candidate.border
+            backgroundColor: isSelected ? theme.colors.ink : theme.colors.candidate.fill,
+            borderColor: isSelected ? theme.colors.ink : theme.colors.surface.border
         }
     ];
-    const labelStyles = [styles.label, { color: isSelected ? theme.colors.label.inverted : theme.colors.label.hint }];
+    const labelStyles = [styles.label, { color: isSelected ? theme.colors.inkText : theme.colors.text.hint }];
 
     return (
         <Pressable accessibilityRole="button" onPress={onPress} style={containerStyles}>

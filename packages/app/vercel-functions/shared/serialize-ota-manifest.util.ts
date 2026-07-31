@@ -1,4 +1,4 @@
-import type { BetaRelease } from './beta-release.interface';
+import type { BetaRelease } from './beta-release.interface.js';
 
 const DevelopmentAppTitle = ''.concat('suuudokuuu', ' ', '(', 'D', 'ev', ')');
 const XmlDeclaration = ''.concat('<?', 'xml', ' ', 'version="1.0"', ' ', 'encoding="UTF-8"', '?>');

@@ -29,7 +29,7 @@ export const ChallengeRunStats = ({ summary }: Props) => {
 
     const { awaySeconds, exitCount, pencilCount, screenshotCount, techniqueEvents } = summary;
 
-    const iconColor = theme.colors.label.inverted;
+    const iconColor = theme.colors.inkText;
     const hasExits = isPositiveNumber(exitCount);
     const hasScreenshots = isPositiveNumber(screenshotCount);
 

@@ -21,7 +21,7 @@ describe('appButtonGetColors', () => {
         allThemes.forEach(theme => {
             const colors = appButtonGetColors(theme, 'primary');
 
-            expect(colors.textColor).toBe(theme.colors.label.inverted);
+            expect(colors.textColor).toBe(theme.colors.inkText);
             expect(colors.backgroundColor).not.toBe(colors.textColor);
         });
     });
@@ -39,7 +39,7 @@ describe('appButtonGetColors', () => {
             const colors = appButtonGetColors(theme, 'glass');
 
             expect(colors.backgroundColor).toBe('transparent');
-            expect(colors.textColor).toBe(theme.colors.label.inverted);
+            expect(colors.textColor).toBe(theme.colors.inkText);
         });
     });
 

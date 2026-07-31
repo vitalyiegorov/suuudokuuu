@@ -49,17 +49,17 @@ export const ChallengeModeSwitch = () => {
     };
 
     const chipAnimatedStyles = useAnimatedStyle(() => ({
-        backgroundColor: interpolateColor(progress.value, [0, 1], ['rgba(0, 0, 0, 0)', theme.colors.black]),
-        borderColor: interpolateColor(progress.value, [0, 1], [theme.colors.candidate.border, theme.colors.black]),
+        backgroundColor: interpolateColor(progress.value, [0, 1], ['rgba(0, 0, 0, 0)', theme.colors.ink]),
+        borderColor: interpolateColor(progress.value, [0, 1], [theme.colors.surface.border, theme.colors.ink]),
         transform: [{ scale: interpolate(pressed.value, [0, 1], [1, PressedScale]) }]
     }));
     const contentAnimatedStyles = useAnimatedStyle(() => ({
-        color: interpolateColor(progress.value, [0, 1], [theme.colors.label.hint, theme.colors.label.inverted])
+        color: interpolateColor(progress.value, [0, 1], [theme.colors.text.hint, theme.colors.inkText])
     }));
 
     const chipStyles = [resolveUnistyleForAnimated(styles.chip), chipAnimatedStyles];
     const labelStyles = [resolveUnistyleForAnimated(styles.label), contentAnimatedStyles];
-    const glyphColor = isChallengeMode ? theme.colors.label.inverted : theme.colors.label.hint;
+    const glyphColor = isChallengeMode ? theme.colors.inkText : theme.colors.text.hint;
     const glyphFill = isChallengeMode ? glyphColor : 'transparent';
     const accessibilityState = { checked: isChallengeMode };
 

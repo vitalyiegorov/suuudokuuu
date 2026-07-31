@@ -23,7 +23,7 @@ describe('difficultyComplexityPreviewGetColors', () => {
             const colors = difficultyComplexityPreviewGetColors(theme);
 
             expect(colors.backgroundColor).toBe('transparent');
-            expect(colors.borderColor).toBe(theme.colors.candidate.border);
+            expect(colors.borderColor).toBe(theme.colors.surface.border);
         });
     });
 

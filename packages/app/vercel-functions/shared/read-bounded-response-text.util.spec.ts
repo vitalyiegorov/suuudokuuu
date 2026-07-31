@@ -1,7 +1,7 @@
 import { describe, expect, it, jest } from '@jest/globals';
 
-import { MaximumChecksumsByteLength } from './beta-release.constant';
-import { readBoundedResponseText } from './read-bounded-response-text.util';
+import { MaximumChecksumsByteLength } from './beta-release.constant.js';
+import { readBoundedResponseText } from './read-bounded-response-text.util.js';
 
 const ChecksumLength = 64;
 const IpaChecksum = 'a'.repeat(ChecksumLength);

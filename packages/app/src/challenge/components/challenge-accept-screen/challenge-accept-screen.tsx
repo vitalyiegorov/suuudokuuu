@@ -4,7 +4,7 @@ import { LucideSwords, LucideX } from 'lucide-react-native';
 import { use } from 'react';
 import { Text, View } from 'react-native';
 
-import { BlackButton } from '../../../@generic/components/black-button/black-button';
+import { AppLinkButton } from '../../../@generic/components/app-link-button/app-link-button';
 import { ChromeScrollPage } from '../../../@generic/components/chrome-scroll-page/chrome-scroll-page';
 import { GlassIconButton } from '../../../@generic/components/glass-icon-button/glass-icon-button';
 import { ScreenActionBar } from '../../../@generic/components/screen-action-bar/screen-action-bar';
@@ -46,27 +46,27 @@ export const ChallengeAcceptScreen = ({ opponentTotalTime, challengeState, isLoa
     const arsenalCardCount = Math.min(getChallengeTechniqueSummary(techniqueEvents).length, MAX_TECHNIQUE_TILES);
     const arsenalTagText = plural(arsenalCardCount, { one: '# technique', other: '# techniques' });
 
-    const medallionStyle = [styles.medallion, { backgroundColor: theme.colors.black }];
-    const titleStyle = [styles.title, { color: theme.colors.label.main }];
-    const chipStyle = [styles.chip, { backgroundColor: theme.colors.black }];
-    const chipAvatarStyle = [styles.chipAvatar, { backgroundColor: theme.colors.white05 }];
-    const chipAvatarTextStyle = [styles.chipAvatarText, { color: theme.colors.label.inverted }];
-    const chipTextStyle = [styles.chipText, { color: theme.colors.label.inverted }];
-    const timeLabelStyle = [styles.timeLabel, { color: theme.colors.label.hint }];
-    const timeValueStyle = [styles.timeValue, { color: theme.colors.label.main }];
-    const beatTextStyle = [styles.beatText, { color: theme.colors.label.main }];
-    const arsenalLabelStyle = [styles.arsenalLabel, { color: theme.colors.label.hint }];
-    const arsenalTagStyle = [styles.arsenalTag, { color: theme.colors.label.hint }];
+    const medallionStyle = [styles.medallion, { backgroundColor: theme.colors.ink }];
+    const titleStyle = [styles.title, { color: theme.colors.text.primary }];
+    const chipStyle = [styles.chip, { backgroundColor: theme.colors.ink }];
+    const chipAvatarStyle = [styles.chipAvatar, { backgroundColor: theme.colors.overlayDark }];
+    const chipAvatarTextStyle = [styles.chipAvatarText, { color: theme.colors.inkText }];
+    const chipTextStyle = [styles.chipText, { color: theme.colors.inkText }];
+    const timeLabelStyle = [styles.timeLabel, { color: theme.colors.text.hint }];
+    const timeValueStyle = [styles.timeValue, { color: theme.colors.text.primary }];
+    const beatTextStyle = [styles.beatText, { color: theme.colors.text.primary }];
+    const arsenalLabelStyle = [styles.arsenalLabel, { color: theme.colors.text.hint }];
+    const arsenalTagStyle = [styles.arsenalTag, { color: theme.colors.text.hint }];
 
     const maybeLaterButton = (
         <GlassIconButton accessibilityLabel={t`Maybe later`} href="/" testID={ChallengeAcceptScreenSelectors.MaybeLaterButton}>
-            <LucideX color={theme.colors.label.inverted} />
+            <LucideX color={theme.colors.inkText} />
         </GlassIconButton>
     );
 
     const footer = (
         <ScreenActionBar right={maybeLaterButton}>
-            <BlackButton
+            <AppLinkButton
                 isLoading={isLoading}
                 onPress={onAccept}
                 testID={ChallengeAcceptScreenSelectors.AcceptButton}
@@ -79,7 +79,7 @@ export const ChallengeAcceptScreen = ({ opponentTotalTime, challengeState, isLoa
         <ChromeScrollPage footer={footer} testID={ChallengeAcceptScreenSelectors.Root}>
             <View style={styles.content}>
                 <View style={medallionStyle}>
-                    <LucideSwords color={theme.colors.label.inverted} size={MEDALLION_ICON_SIZE} strokeWidth={1.9} />
+                    <LucideSwords color={theme.colors.inkText} size={MEDALLION_ICON_SIZE} strokeWidth={1.9} />
                 </View>
 
                 <Text allowFontScaling={false} style={titleStyle}>

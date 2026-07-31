@@ -8,8 +8,8 @@ describe('appMetricStripGetColors', () => {
     it('uses an inverted black surface for the primary variant', () => {
         const colors = appMetricStripGetColors(DefaultUiTheme, 'primary');
 
-        expect(colors.backgroundColor).toBe(DefaultUiTheme.colors.black);
-        expect(colors.textColor).toBe(DefaultUiTheme.colors.label.inverted);
+        expect(colors.backgroundColor).toBe(DefaultUiTheme.colors.ink);
+        expect(colors.textColor).toBe(DefaultUiTheme.colors.inkText);
     });
 
     it('uses the calm subtle surface for the secondary variant', () => {
@@ -23,7 +23,7 @@ describe('appMetricStripGetColors', () => {
         const colors = appMetricStripGetColors(DefaultUiTheme, 'ghost');
 
         expect(colors.backgroundColor).toBe(DefaultUiTheme.colors.background);
-        expect(colors.textColor).toBe(DefaultUiTheme.colors.label.main);
+        expect(colors.textColor).toBe(DefaultUiTheme.colors.text.primary);
     });
 
     it('never pairs a resolved surface with its own colour as text', () => {

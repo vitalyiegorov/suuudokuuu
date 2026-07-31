@@ -90,6 +90,10 @@ msgstr "<0>ডেভেলপমেন্ট ক্লায়েন্ট প�
 msgid "A little room between cells"
 msgstr "ঘরগুলোর মধ্যে সামান্য ফাঁকা জায়গা"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Accent"
+msgstr "অ্যাকসেন্ট রং"
+
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Accept challenge"
 msgstr "চ্যালেঞ্জ গ্রহণ করুন"
@@ -97,26 +101,6 @@ msgstr "চ্যালেঞ্জ গ্রহণ করুন"
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Accept challenge?"
 msgstr "চ্যালেঞ্জ গ্রহণ করবেন?"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Active candidate background"
-msgstr "সক্রিয় প্রার্থীর ব্যাকগ্রাউন্ড"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Active candidate border"
-msgstr "সক্রিয় প্রার্থীর বর্ডার"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Active candidate text"
-msgstr "সক্রিয় প্রার্থীর লেখা"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Active cell"
-msgstr "সক্রিয় ঘর"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Active cell text"
-msgstr "সক্রিয় ঘরের লেখা"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Adjust the digits on the Sudoku board"
@@ -181,22 +165,6 @@ msgstr "বেশির ভাগ খেলোয়াড়ের জন্য ভ�
 msgid "Balanced solve"
 msgstr "সুষম সমাধান"
 
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Base dark color"
-msgstr "মূল ডার্ক রং"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Base dark color (translucent)"
-msgstr "মূল ডার্ক রং (স্বচ্ছ)"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Base light color"
-msgstr "মূল লাইট রং"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Base light color (translucent)"
-msgstr "মূল লাইট রং (স্বচ্ছ)"
-
 #: src/scoring/components/scoring.screen.tsx
 msgid "Base Score"
 msgstr "মূল স্কোর"
@@ -257,10 +225,6 @@ msgstr "বাতিল"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Candidate background"
 msgstr "প্রার্থীর ব্যাকগ্রাউন্ড"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Candidate border"
-msgstr "প্রার্থীর বর্ডার"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Candidate text"
@@ -410,6 +374,10 @@ msgstr "কাস্টমাইজ করুন"
 msgid "d"
 msgstr "d"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Danger accent"
+msgstr "বিপদের অ্যাকসেন্ট রং"
+
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Dark"
 msgstr "ডার্ক"
@@ -417,6 +385,10 @@ msgstr "ডার্ক"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Dark mode"
 msgstr "ডার্ক মোড"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Dark overlay"
+msgstr "গাঢ় ওভারলে"
 
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Day streak"
@@ -508,10 +480,6 @@ msgstr "English"
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Enter a theme name"
 msgstr "থিমের নাম লিখুন"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Error accent"
-msgstr "ত্রুটির অ্যাকসেন্ট"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Error cell"
@@ -662,14 +630,6 @@ msgid "Highlight pencil marks"
 msgstr "পেন্সিল নোট হাইলাইট করুন"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Highlighted cell"
-msgstr "হাইলাইট করা ঘর"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Highlighted cell text"
-msgstr "হাইলাইট করা ঘরের লেখা"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Hint text"
 msgstr "সংকেতের লেখা"
 
@@ -696,8 +656,8 @@ msgid "Incomplete"
 msgstr "অসম্পূর্ণ"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Info accent"
-msgstr "তথ্যের অ্যাকসেন্ট"
+msgid "Ink"
+msgstr "কালি"
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Install on iOS"
@@ -710,10 +670,6 @@ msgstr "iOS ডেভেলপমেন্ট বিল্ড ইনস্টল
 #: src/game/components/game-provider/game-provider.tsx
 msgid "Invalid Sudoku"
 msgstr "অবৈধ সুডোকু"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Inverted text"
-msgstr "বিপরীত লেখা"
 
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "iOS installation"
@@ -772,6 +728,10 @@ msgstr "স্তর"
 msgid "Light"
 msgstr "লাইট"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Light overlay"
+msgstr "হালকা ওভারলে"
+
 #: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Light warm-up"
 msgstr "হালকা ওয়ার্ম-আপ"
@@ -795,14 +755,6 @@ msgstr "কম কনট্রাস্ট"
 #: src/@generic/hooks/use-timer-text.hook.ts
 msgid "m"
 msgstr "m"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Matching value cell"
-msgstr "মিলে যাওয়া মানের ঘর"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Matching value text"
-msgstr "মিলে যাওয়া মানের লেখা"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Max Mistakes bonus"
@@ -943,24 +895,16 @@ msgid "Number size"
 msgstr "সংখ্যার আকার"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Numpad border"
-msgstr "নম্বর প্যাডের বর্ডার"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Numpad progress"
-msgstr "নম্বর প্যাডের অগ্রগতি"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Numpad progress (active)"
-msgstr "নম্বর প্যাডের অগ্রগতি (সক্রিয়)"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Numpad progress text"
-msgstr "নম্বর প্যাডের অগ্রগতির লেখা"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Numpad text"
 msgstr "নম্বর প্যাডের লেখা"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Numpad track"
+msgstr "নম্বর প্যাডের ট্র্যাক"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Numpad track (filled)"
+msgstr "নম্বর প্যাডের ট্র্যাক (পূর্ণ)"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "of current score"
@@ -1184,6 +1128,14 @@ msgstr "প্রতিপক্ষের হারাতে হবে এমন
 msgid "Row"
 msgstr "সারি"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Same-value cell"
+msgstr "একই মানের ঘর"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Same-value cell text"
+msgstr "একই মানের ঘরের লেখা"
+
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Sashimi Swordfish"
 msgstr "Sashimi Swordfish"
@@ -1223,6 +1175,26 @@ msgstr "স্ক্রিনের ব্যাকগ্রাউন্ড"
 #: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
 msgid "Screenshots"
 msgstr "স্ক্রিনশট"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Selected candidate background"
+msgstr "নির্বাচিত প্রার্থীর ব্যাকগ্রাউন্ড"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Selected candidate border"
+msgstr "নির্বাচিত প্রার্থীর সীমানা"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Selected candidate text"
+msgstr "নির্বাচিত প্রার্থীর লেখা"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Selected cell"
+msgstr "নির্বাচিত ঘর"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Selected cell text"
+msgstr "নির্বাচিত ঘরের লেখা"
 
 #: src/game/hooks/use-share-game.hook.ts
 msgid "Send the puzzle to solve from scratch, or hand off your run to continue elsewhere."
@@ -1366,6 +1338,10 @@ msgid "Support Ukraine"
 msgstr "ইউক্রেনকে সমর্থন করুন"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Surface border"
+msgstr "পৃষ্ঠের সীমানা"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Surfaces"
 msgstr "পৃষ্ঠতল"
 
@@ -1402,8 +1378,16 @@ msgid "Text and labels"
 msgstr "লেখা ও লেবেল"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Text on error accent"
-msgstr "ত্রুটির অ্যাকসেন্টের উপর লেখা"
+msgid "Text on danger accent"
+msgstr "বিপদের অ্যাকসেন্ট রঙের উপরের লেখা"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Text on filled numpad track"
+msgstr "পূর্ণ নম্বর প্যাড ট্র্যাকের উপরের লেখা"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Text on ink"
+msgstr "কালির উপরের লেখা"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."

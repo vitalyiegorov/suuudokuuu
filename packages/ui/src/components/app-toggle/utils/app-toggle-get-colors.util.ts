@@ -3,9 +3,9 @@ import type { ThemeInterface } from '../../../theme/interface/theme.interface';
 export const appToggleGetColors = (theme: ThemeInterface, checked: boolean) => {
     if (checked) {
         return {
-            knobColor: theme.colors.value.progressActiveText,
+            knobColor: theme.colors.numpad.trackFilledText,
             trackBorderColor: 'transparent',
-            trackColor: theme.colors.value.progressActive
+            trackColor: theme.colors.numpad.trackFilled
         };
     }
 

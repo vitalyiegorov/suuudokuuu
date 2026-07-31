@@ -2,11 +2,10 @@ import { useLingui } from '@lingui/react/macro';
 import { LucideRotateCcw } from 'lucide-react-native';
 import { use } from 'react';
 
-import { BlackButton } from '../../../@generic/components/black-button/black-button';
+import { AppLinkButton } from '../../../@generic/components/app-link-button/app-link-button';
 import { GameContext } from '../../../game/context/game.context';
 import { GameState } from '../../../game/store/game.state';
 import { stringToGameState } from '../../../game/utils/string-to-game-state.util';
-import { ChallengeShareButtonStyles as styles } from '../challenge-share-button/challenge-share-button.styles';
 
 import { ChallengeTryAgainButtonSelectors } from './challenge-try-again-button.selectors';
 
@@ -24,11 +23,10 @@ export const ChallengeTryAgainButton = ({ gameState }: Props) => {
     };
 
     return (
-        <BlackButton
+        <AppLinkButton
             icon={LucideRotateCcw}
             isLoading={isCreatingGame}
             onPress={handleTryAgain}
-            style={styles.button}
             testID={ChallengeTryAgainButtonSelectors.Root}
             text={t`Try Again`}
         />

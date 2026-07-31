@@ -13,8 +13,8 @@ interface Props {
 export const PauseScreenBoardPreview = ({ sudoku }: Props) => {
     const { theme } = use(ThemeContext);
     const containerStyles = [styles.container, { backgroundColor: theme.colors.background }];
-    const filledCellStyles = [styles.cell, { backgroundColor: theme.colors.black }];
-    const emptyCellStyles = [styles.cell, { backgroundColor: theme.colors.cell.highlighted }];
+    const filledCellStyles = [styles.cell, { backgroundColor: theme.colors.ink }];
+    const emptyCellStyles = [styles.cell, { backgroundColor: theme.colors.surface.subtle }];
 
     return (
         <View accessibilityElementsHidden importantForAccessibility="no" style={containerStyles}>

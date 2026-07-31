@@ -19,9 +19,9 @@ interface Props {
 
 export const PauseScreenProgressCard = ({ sudoku, label, meta, progressPercent }: Props) => {
     const { theme } = use(ThemeContext);
-    const labelStyles = [styles.label, { color: theme.colors.white05 }];
-    const valueStyles = [styles.value, { color: theme.colors.label.inverted }];
-    const metaStyles = [styles.meta, { color: theme.colors.white05 }];
+    const labelStyles = [styles.label, { color: theme.colors.overlayDark }];
+    const valueStyles = [styles.value, { color: theme.colors.inkText }];
+    const metaStyles = [styles.meta, { color: theme.colors.overlayDark }];
     const percentText = `${progressPercent}%`;
 
     return (

@@ -25,7 +25,7 @@ export const FloatingTabBarItem = (props: Props) => {
 
     const focusedSegmentStyle = { backgroundColor: theme.colors.surface.subtle };
     const segmentStyles = [styles.segment, cs(isFocused, focusedSegmentStyle)];
-    const labelColor = isFocused ? theme.colors.label.main : theme.colors.label.hint;
+    const labelColor = isFocused ? theme.colors.text.primary : theme.colors.text.hint;
     const labelStyles = [styles.label, { color: labelColor }];
     const selectedState = { selected: isFocused };
 

@@ -21,8 +21,8 @@ describe('appToggleGetColors', () => {
         allThemes.forEach(theme => {
             const colors = appToggleGetColors(theme, true);
 
-            expect(colors.trackColor).toBe(theme.colors.value.progressActive);
-            expect(colors.knobColor).toBe(theme.colors.value.progressActiveText);
+            expect(colors.trackColor).toBe(theme.colors.numpad.trackFilled);
+            expect(colors.knobColor).toBe(theme.colors.numpad.trackFilledText);
         });
     });
 

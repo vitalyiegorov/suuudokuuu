@@ -21,10 +21,10 @@ describe('validateCustomThemeColors', () => {
     it('reports a main label issue when text matches the background', () => {
         const colors = {
             ...BWLightTheme.colors,
-            label: { ...BWLightTheme.colors.label, main: '#f2f2f2' }
+            text: { ...BWLightTheme.colors.text, primary: '#f2f2f2' }
         };
         const issues = validateCustomThemeColors(colors);
-        const labelIssue = issues.find(issue => issue.foregroundKey === 'label.main');
+        const labelIssue = issues.find(issue => issue.foregroundKey === 'text.primary');
 
         expect(labelIssue).toBeDefined();
         expect(labelIssue?.contrastRatio).toBeLessThan(labelIssue?.minimumRatio ?? 0);
@@ -33,11 +33,11 @@ describe('validateCustomThemeColors', () => {
     it('composites translucent backgrounds over the page background', () => {
         const colors = {
             ...BWLightTheme.colors,
-            cell: { ...BWLightTheme.colors.cell, highlightedText: 'rgba(255,255,255,1)' }
+            surface: { ...BWLightTheme.colors.surface, subtleText: 'rgba(255,255,255,1)' }
         };
         const issues = validateCustomThemeColors(colors);
 
-        expect(issues.some(issue => issue.foregroundKey === 'cell.highlightedText')).toBe(true);
+        expect(issues.some(issue => issue.foregroundKey === 'surface.subtleText')).toBe(true);
     });
 
     it('skips a contrast pair when its foreground token cannot be parsed', () => {
@@ -56,17 +56,17 @@ describe('validateCustomThemeColors', () => {
     it('skips a contrast pair when its background token cannot be parsed', () => {
         const colors = {
             ...BWLightTheme.colors,
-            cell: { ...BWLightTheme.colors.cell, active: 'not-a-color' }
+            board: { ...BWLightTheme.colors.board, selected: 'not-a-color' }
         };
         const issues = validateCustomThemeColors(colors);
 
-        expect(issues.find(issue => issue.foregroundKey === 'cell.activeText')).toBeUndefined();
+        expect(issues.find(issue => issue.foregroundKey === 'board.selectedText')).toBeUndefined();
     });
 
     it('falls back to opaque white for compositing when the page background cannot be parsed', () => {
         const colors = { ...BWDarkTheme.colors, background: 'not-a-color' };
         const issues = validateCustomThemeColors(colors);
-        const highlightedIssue = issues.find(issue => issue.foregroundKey === 'cell.highlightedText');
+        const highlightedIssue = issues.find(issue => issue.foregroundKey === 'surface.subtleText');
 
         expect(highlightedIssue).toBeDefined();
         expect(highlightedIssue?.contrastRatio).toBe(OpaqueWhiteContrastRatio);

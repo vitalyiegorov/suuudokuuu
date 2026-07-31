@@ -22,7 +22,7 @@ export const ReplayTechnique = ({ classification }: Props) => {
 
     if (classification !== null) {
         const techniqueLabel = _(techniqueLabelsConstant[classification.technique]);
-        const textColor = classification.technique === SolutionTechniqueEnum.Guess ? theme.colors.red : theme.colors.label.main;
+        const textColor = classification.technique === SolutionTechniqueEnum.Guess ? theme.colors.danger : theme.colors.text.primary;
         const textStyles = [styles.text, { color: textColor }];
 
         content = <BlackText numberOfLines={1} style={textStyles}>{`${techniqueLabel} ${classification.value}`}</BlackText>;

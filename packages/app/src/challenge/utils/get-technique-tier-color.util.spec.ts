@@ -10,10 +10,10 @@ const theme = BWLightTheme;
 describe('getTechniqueTierColor', () => {
     describe('on the default surface', () => {
         it.each([
-            [ChallengeTechniqueTierEnum.Guess, theme.colors.red],
-            [ChallengeTechniqueTierEnum.Advanced, theme.colors.blue],
-            [ChallengeTechniqueTierEnum.Clever, theme.colors.label.main],
-            [ChallengeTechniqueTierEnum.Basic, theme.colors.label.hint]
+            [ChallengeTechniqueTierEnum.Guess, theme.colors.danger],
+            [ChallengeTechniqueTierEnum.Advanced, theme.colors.accent],
+            [ChallengeTechniqueTierEnum.Clever, theme.colors.text.primary],
+            [ChallengeTechniqueTierEnum.Basic, theme.colors.text.hint]
         ])('should colour the %s tier', (tier, expected) => {
             expect.assertions(1);
 
@@ -23,10 +23,10 @@ describe('getTechniqueTierColor', () => {
 
     describe('on the inverted surface', () => {
         it.each([
-            [ChallengeTechniqueTierEnum.Guess, theme.colors.red],
-            [ChallengeTechniqueTierEnum.Advanced, theme.colors.blue],
-            [ChallengeTechniqueTierEnum.Clever, theme.colors.label.inverted],
-            [ChallengeTechniqueTierEnum.Basic, theme.colors.white05]
+            [ChallengeTechniqueTierEnum.Guess, theme.colors.danger],
+            [ChallengeTechniqueTierEnum.Advanced, theme.colors.accent],
+            [ChallengeTechniqueTierEnum.Clever, theme.colors.inkText],
+            [ChallengeTechniqueTierEnum.Basic, theme.colors.overlayDark]
         ])('should colour the %s tier', (tier, expected) => {
             expect.assertions(1);
 

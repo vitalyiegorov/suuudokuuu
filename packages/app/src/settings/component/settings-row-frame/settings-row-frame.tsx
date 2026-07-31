@@ -16,7 +16,7 @@ interface Props {
 export const SettingsRowFrame = ({ children, dividerStyle, hasDivider, itemStyle }: Props) => {
     const { theme } = use(ThemeContext);
 
-    const dividerStyles = [dividerStyle, { backgroundColor: theme.colors.candidate.border }];
+    const dividerStyles = [dividerStyle, { backgroundColor: theme.colors.surface.border }];
 
     return (
         <View style={itemStyle}>

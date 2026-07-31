@@ -33,7 +33,7 @@ export const ChallengeRunSummary = ({ label, summary, testID = ChallengeRunSumma
     ).length;
     const headlineText =
         sharpCount > 0 ? plural(sharpCount, { one: '# sharp technique', other: '# sharp techniques' }) : t`Solved with the fundamentals`;
-    const headlineStyle = [styles.headline, { color: theme.colors.label.main }];
+    const headlineStyle = [styles.headline, { color: theme.colors.text.primary }];
     const headline = isEmptyArray(techniqueEvents) ? null : (
         <Text allowFontScaling={false} style={headlineStyle}>
             {headlineText}

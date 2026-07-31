@@ -7,8 +7,12 @@ import { HellQueueEntrySchemaVersion } from '../hell-queue/schema/hell-queue-ent
 import { initialHellQueueState } from '../hell-queue/store/hell-queue.state';
 import { emptyGameHistory } from '../history/interfaces/history-game.interface';
 import { initialSettingsState } from '../settings/store/settings.state';
+import { ColorSchemaEnum } from '../theme/enum/color-schema.enum';
 import { ThemeEnum } from '../theme/enum/theme.enum';
+import { CustomThemeSchemaVersion } from '../theme/schema/custom-theme.schema';
 import { initialCustomThemesState } from '../theme/store/custom-themes.state';
+import { ColorfulDarkTheme, ColorfulLightTheme } from '../theme/themes/colorful.theme';
+import { createCustomTheme } from '../theme/utils/create-custom-theme.util';
 
 import { appRootMigrations, appRootPersistVersion } from './app-root-migrations';
 
@@ -152,12 +156,31 @@ describe('appRootMigrations', () => {
         expect(migrated.settings).toMatchObject({ theme: ThemeEnum.Newspaper, hasTimer: false });
     });
 
-    it('should keep the Hell difficulty entry in the history after migration 31', () => {
+    it('should migrate stored custom themes to the semantic token vocabulary', () => {
+        expect.assertions(4);
+
+        const storedTheme = createCustomTheme('Legacy', ThemeEnum.Colorful, [], 1700000000000);
+        const state = buildState({ customThemes: { themes: [storedTheme] } });
+        const [migrated] = runMigration(31, state).customThemes.themes;
+
+        expect(migrated.schemaVersion).toBe(CustomThemeSchemaVersion);
+        expect(migrated.colors[ColorSchemaEnum.Light]).toStrictEqual(ColorfulLightTheme.colors);
+        expect(migrated.colors[ColorSchemaEnum.Dark]).toStrictEqual(ColorfulDarkTheme.colors);
+        expect(migrated.name).toBe('Legacy');
+    });
+
+    it('should keep an empty custom themes slice unchanged at the semantic token migration', () => {
+        expect.assertions(1);
+
+        expect(runMigration(31, buildState()).customThemes).toStrictEqual(initialCustomThemesState);
+    });
+
+    it('should keep the Hell difficulty entry in the history after migration 32', () => {
         expect.assertions(1);
 
         const state = buildState();
 
-        expect(Object.keys(runMigration(31, state).game.historyByDifficulty)).toStrictEqual(
+        expect(Object.keys(runMigration(32, state).game.historyByDifficulty)).toStrictEqual(
             Object.keys(initialGameState.historyByDifficulty)
         );
     });
@@ -167,7 +190,7 @@ describe('appRootMigrations', () => {
 
         const state = buildState({ hellQueue: { entries: [validHellQueueEntry, invalidHellQueueEntry] } });
 
-        expect(runMigration(31, state).hellQueue.entries).toStrictEqual([validHellQueueEntry]);
+        expect(runMigration(32, state).hellQueue.entries).toStrictEqual([validHellQueueEntry]);
     });
 
     it('should default the hell queue to its initial state when nothing valid is stored', () => {
@@ -175,7 +198,7 @@ describe('appRootMigrations', () => {
 
         const state = buildState({ hellQueue: { entries: [invalidHellQueueEntry] } });
 
-        expect(runMigration(31, state).hellQueue).toStrictEqual(initialHellQueueState);
+        expect(runMigration(32, state).hellQueue).toStrictEqual(initialHellQueueState);
     });
 
     it('should backfill both the hell queue and the missing Hell history entry when hell predates the persisted state entirely', () => {
@@ -186,7 +209,7 @@ describe('appRootMigrations', () => {
             buildState({ game: { ...initialGameState, historyByDifficulty: legacyHistoryByDifficulty } }),
             'hellQueue'
         );
-        const migrated = runMigration(31, legacyState);
+        const migrated = runMigration(32, legacyState);
 
         expect(Object.keys(migrated.game.historyByDifficulty)).toStrictEqual(Object.keys(initialGameState.historyByDifficulty));
         expect(migrated.hellQueue).toStrictEqual(initialHellQueueState);

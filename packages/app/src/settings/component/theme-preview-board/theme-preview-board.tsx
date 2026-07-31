@@ -11,24 +11,24 @@ interface Props {
 
 export const ThemePreviewBoard = ({ colors, testID }: Props) => {
     const sampleCells = [
-        { backgroundColor: colors.cell.filled, color: colors.value.text, value: '5' },
-        { backgroundColor: colors.cell.highlighted, color: colors.cell.highlightedText, value: '3' },
-        { backgroundColor: colors.cell.active, color: colors.cell.activeText, value: '7' },
-        { backgroundColor: colors.cell.activeValue, color: colors.cell.activeValueText, value: '7' },
-        { backgroundColor: colors.cell.error, color: colors.redFillText, value: '1' }
+        { backgroundColor: colors.board.filled, color: colors.numpad.text, value: '5' },
+        { backgroundColor: colors.surface.subtle, color: colors.surface.subtleText, value: '3' },
+        { backgroundColor: colors.board.selected, color: colors.board.selectedText, value: '7' },
+        { backgroundColor: colors.board.sameValue, color: colors.board.sameValueText, value: '7' },
+        { backgroundColor: colors.board.error, color: colors.dangerText, value: '1' }
     ];
     const sampleNumpadChips = [
-        { backgroundColor: colors.value.progress, color: colors.value.text, value: '2' },
-        { backgroundColor: colors.value.progressActive, color: colors.value.progressActiveText, value: '7' }
+        { backgroundColor: colors.numpad.track, color: colors.numpad.text, value: '2' },
+        { backgroundColor: colors.numpad.trackFilled, color: colors.numpad.trackFilledText, value: '7' }
     ];
     const containerStyles = [styles.container, { backgroundColor: colors.background }];
-    const candidateCellStyles = [styles.cell, { backgroundColor: colors.candidate.bg, borderColor: colors.candidate.border }];
+    const candidateCellStyles = [styles.cell, { backgroundColor: colors.candidate.fill, borderColor: colors.surface.border }];
 
     return (
         <View style={containerStyles} testID={testID}>
             <View style={styles.row}>
                 {sampleCells.map((cell, cellIndex) => {
-                    const cellStyles = [styles.cell, { backgroundColor: cell.backgroundColor, borderColor: colors.value.border }];
+                    const cellStyles = [styles.cell, { backgroundColor: cell.backgroundColor, borderColor: colors.surface.border }];
                     const cellTextStyles = [styles.cellText, { color: cell.color }];
 
                     return (
@@ -56,7 +56,7 @@ export const ThemePreviewBoard = ({ colors, testID }: Props) => {
 
             <View style={styles.row}>
                 {sampleNumpadChips.map(chip => {
-                    const chipStyles = [styles.numpadChip, { backgroundColor: chip.backgroundColor, borderColor: colors.value.border }];
+                    const chipStyles = [styles.numpadChip, { backgroundColor: chip.backgroundColor, borderColor: colors.surface.border }];
                     const chipTextStyles = [styles.cellText, { color: chip.color }];
 
                     return (

@@ -25,7 +25,7 @@ export const ChallengeAwayBands = ({ ranges, variant }: Props) => {
         return null;
     }
 
-    const bandColor = variant === 'inverted' ? theme.colors.label.inverted : theme.colors.label.main;
+    const bandColor = variant === 'inverted' ? theme.colors.inkText : theme.colors.text.primary;
 
     return (
         <View pointerEvents="none" style={styles.container} testID={ChallengeAwayBandsSelectors.Root}>

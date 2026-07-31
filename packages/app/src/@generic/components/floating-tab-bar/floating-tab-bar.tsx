@@ -26,7 +26,7 @@ export const FloatingTabBar = ({ state, descriptors, navigation }: BottomTabBarP
                     {state.routes.map((route, index) => {
                         const { options } = descriptors[route.key];
                         const isFocused = state.index === index;
-                        const iconColor = isFocused ? theme.colors.label.main : theme.colors.label.hint;
+                        const iconColor = isFocused ? theme.colors.text.primary : theme.colors.text.hint;
                         const label = isNotEmptyString(options.title) ? options.title : route.name;
 
                         const handlePress = () => {

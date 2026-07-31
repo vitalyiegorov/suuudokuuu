@@ -20,14 +20,14 @@ export const BlackText = ({ style, icon: Icon, ...props }: Props) => {
     const textStyles = [
         BlackTextStyles.text,
         {
-            color: theme.colors.label.main,
+            color: theme.colors.text.primary,
             ...(isDefined(Icon) && Platform.select({ web: { flexBasis: 0 } }))
         },
         style
     ];
 
     if (isDefined(Icon)) {
-        const iconStyles = [{ color: theme.colors.label.main, marginLeft: 4 }];
+        const iconStyles = [{ color: theme.colors.text.primary, marginLeft: 4 }];
 
         return (
             <View style={BlackTextStyles.container}>

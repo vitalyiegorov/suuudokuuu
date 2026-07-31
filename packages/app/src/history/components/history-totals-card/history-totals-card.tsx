@@ -24,12 +24,12 @@ export const HistoryTotalsCard = ({ historyByDifficulty }: Props) => {
     const totals = historyGetTotals(historyByDifficulty);
     const bestTimeText = useTimerText(totals.bestTime);
 
-    const scoreCardStyles = [styles.heroCard, { backgroundColor: theme.colors.value.progress }];
-    const scoreLabelStyles = [styles.heroLabel, { color: theme.colors.value.text }];
-    const scoreValueStyles = [styles.heroValue, { color: theme.colors.value.text }];
-    const timeCardStyles = [styles.heroCard, { backgroundColor: theme.colors.black }];
-    const timeLabelStyles = [styles.heroLabel, { color: theme.colors.label.inverted }];
-    const timeValueStyles = [styles.heroValue, { color: theme.colors.label.inverted }];
+    const scoreCardStyles = [styles.heroCard, { backgroundColor: theme.colors.numpad.track }];
+    const scoreLabelStyles = [styles.heroLabel, { color: theme.colors.numpad.text }];
+    const scoreValueStyles = [styles.heroValue, { color: theme.colors.numpad.text }];
+    const timeCardStyles = [styles.heroCard, { backgroundColor: theme.colors.ink }];
+    const timeLabelStyles = [styles.heroLabel, { color: theme.colors.inkText }];
+    const timeValueStyles = [styles.heroValue, { color: theme.colors.inkText }];
 
     const winRateText = `${totals.winRate}%`;
 

@@ -10,49 +10,44 @@ import { parseColor } from '../utils/parse-color.util';
 import type { CustomThemeInterface } from '../interface/custom-theme.interface';
 import type { CustomThemeIdType } from '../types/theme-id.type';
 
-export const CustomThemeSchemaVersion = 1;
+export const CustomThemeSchemaVersion = 2;
 export const CustomThemeNameMaxLength = 24;
 
 const ColorValueSchema = z.string().refine(value => parseColor(value) !== null);
 
 const ThemeColorsSchema = z.strictObject({
     background: ColorValueSchema,
-    white: ColorValueSchema,
-    white05: ColorValueSchema,
-    black: ColorValueSchema,
-    black05: ColorValueSchema,
-    red: ColorValueSchema,
-    redFillText: ColorValueSchema,
-    blue: ColorValueSchema,
-    label: z.strictObject({
-        main: ColorValueSchema,
-        inverted: ColorValueSchema,
+    ink: ColorValueSchema,
+    inkText: ColorValueSchema,
+    overlayLight: ColorValueSchema,
+    overlayDark: ColorValueSchema,
+    danger: ColorValueSchema,
+    dangerText: ColorValueSchema,
+    accent: ColorValueSchema,
+    text: z.strictObject({
+        primary: ColorValueSchema,
         hint: ColorValueSchema
     }),
-    candidate: z.strictObject({
-        border: ColorValueSchema,
-        borderActive: ColorValueSchema,
-        text: ColorValueSchema,
-        textActive: ColorValueSchema,
-        bg: ColorValueSchema,
-        bgActive: ColorValueSchema
-    }),
-    cell: z.strictObject({
-        active: ColorValueSchema,
-        activeText: ColorValueSchema,
-        highlighted: ColorValueSchema,
-        highlightedText: ColorValueSchema,
-        activeValue: ColorValueSchema,
-        activeValueText: ColorValueSchema,
+    board: z.strictObject({
+        selected: ColorValueSchema,
+        selectedText: ColorValueSchema,
+        sameValue: ColorValueSchema,
+        sameValueText: ColorValueSchema,
         error: ColorValueSchema,
-        emptyValueText: ColorValueSchema,
-        filled: ColorValueSchema
+        filled: ColorValueSchema,
+        emptyText: ColorValueSchema
     }),
-    value: z.strictObject({
-        border: ColorValueSchema,
-        progress: ColorValueSchema,
-        progressActive: ColorValueSchema,
-        progressActiveText: ColorValueSchema,
+    candidate: z.strictObject({
+        text: ColorValueSchema,
+        textSelected: ColorValueSchema,
+        fill: ColorValueSchema,
+        fillSelected: ColorValueSchema,
+        borderSelected: ColorValueSchema
+    }),
+    numpad: z.strictObject({
+        track: ColorValueSchema,
+        trackFilled: ColorValueSchema,
+        trackFilledText: ColorValueSchema,
         text: ColorValueSchema
     }),
     surface: z.strictObject({
@@ -60,7 +55,8 @@ const ThemeColorsSchema = z.strictObject({
         raisedText: ColorValueSchema,
         subtle: ColorValueSchema,
         subtleText: ColorValueSchema,
-        subtleHint: ColorValueSchema
+        subtleHint: ColorValueSchema,
+        border: ColorValueSchema
     })
 });
 
