@@ -9,6 +9,7 @@ const TWENTY_SOLUTIONS_PUZZLE = '00000000000000000000000006785976142342685379171
 const SIBLING_BUDGET_OVERSHOOT_PUZZLE = '000006000006000100700100050000000000800010000090000000000260900002000600000301500';
 const SIBLING_BUDGET_LIMIT = 2;
 const SIBLING_BUDGET_EXPECTED_COUNT = 2;
+const TWENTY_SOLUTIONS_SMALL_LIMIT = 2;
 const TWENTY_SOLUTIONS_LIMIT_BELOW_TOTAL = 7;
 
 describe('DLXSolver', () => {
@@ -48,10 +49,12 @@ describe('DLXSolver', () => {
         );
     });
 
-    it('caps the twenty-solution fixture at a limit of two', () => {
+    it('stops at a small limit within a fixture that has many solutions', () => {
         const solver = new DLXSolver();
 
-        expect(solver.countSolutions(parseGridString(TWENTY_SOLUTIONS_PUZZLE), SIBLING_BUDGET_LIMIT)).toBe(SIBLING_BUDGET_LIMIT);
+        expect(solver.countSolutions(parseGridString(TWENTY_SOLUTIONS_PUZZLE), TWENTY_SOLUTIONS_SMALL_LIMIT)).toBe(
+            TWENTY_SOLUTIONS_SMALL_LIMIT
+        );
     });
 
     it('caps the twenty-solution fixture at a limit of seven', () => {

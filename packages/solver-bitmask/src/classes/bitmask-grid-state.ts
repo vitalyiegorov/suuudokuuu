@@ -5,7 +5,7 @@ import { bitForDigit, digitForBit } from '../utils/digit-bit.util';
 
 const NO_CANDIDATES = 0;
 
-const buildUnitMasksByType = (rowMasks: Uint16Array, columnMasks: Uint16Array, boxMasks: Uint16Array): Uint16Array[] => {
+const createUnitMasksByType = (rowMasks: Uint16Array, columnMasks: Uint16Array, boxMasks: Uint16Array): Uint16Array[] => {
     const unitMasksByType: Uint16Array[] = [];
     unitMasksByType[ROW_UNIT_TYPE] = rowMasks;
     unitMasksByType[COLUMN_UNIT_TYPE] = columnMasks;
@@ -20,7 +20,7 @@ export class BitmaskGridState {
     private readonly boxMasks = new Uint16Array(GRID_SIZE);
     private readonly cells = new Uint8Array(GRID_CELL_COUNT);
     private readonly assignmentTrail = new Uint8Array(GRID_CELL_COUNT);
-    private readonly unitMasksByType = buildUnitMasksByType(this.rowMasks, this.columnMasks, this.boxMasks);
+    private readonly unitMasksByType = createUnitMasksByType(this.rowMasks, this.columnMasks, this.boxMasks);
     private trailLengthValue = 0;
 
     get trailLength(): number {
