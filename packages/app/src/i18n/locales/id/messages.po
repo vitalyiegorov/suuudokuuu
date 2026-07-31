@@ -90,6 +90,10 @@ msgstr "<0>Klien pengembangan diperlukan</0><1>Klien pengembangan memerlukan Met
 msgid "A little room between cells"
 msgstr "Sedikit ruang antar sel"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Accent"
+msgstr "Warna aksen"
+
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Accept challenge"
 msgstr "Terima tantangan"
@@ -97,26 +101,6 @@ msgstr "Terima tantangan"
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Accept challenge?"
 msgstr "Terima tantangan?"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Active candidate background"
-msgstr "Latar belakang kandidat aktif"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Active candidate border"
-msgstr "Batas kandidat aktif"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Active candidate text"
-msgstr "Teks kandidat aktif"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Active cell"
-msgstr "Sel aktif"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Active cell text"
-msgstr "Teks sel aktif"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Adjust the digits on the Sudoku board"
@@ -181,22 +165,6 @@ msgstr "Angka seimbang untuk sebagian besar pemain"
 msgid "Balanced solve"
 msgstr "Penyelesaian seimbang"
 
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Base dark color"
-msgstr "Warna gelap dasar"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Base dark color (translucent)"
-msgstr "Warna gelap dasar (transparan)"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Base light color"
-msgstr "Warna terang dasar"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Base light color (translucent)"
-msgstr "Warna terang dasar (transparan)"
-
 #: src/scoring/components/scoring.screen.tsx
 msgid "Base Score"
 msgstr "Skor dasar"
@@ -257,10 +225,6 @@ msgstr "Batal"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Candidate background"
 msgstr "Latar belakang kandidat"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Candidate border"
-msgstr "Batas kandidat"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Candidate text"
@@ -410,6 +374,10 @@ msgstr "Sesuaikan"
 msgid "d"
 msgstr "d"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Danger accent"
+msgstr "Aksen bahaya"
+
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Dark"
 msgstr "Gelap"
@@ -417,6 +385,10 @@ msgstr "Gelap"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Dark mode"
 msgstr "Mode gelap"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Dark overlay"
+msgstr "Lapisan gelap"
 
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Day streak"
@@ -508,10 +480,6 @@ msgstr "English"
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Enter a theme name"
 msgstr "Masukkan nama tema"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Error accent"
-msgstr "Aksen kesalahan"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Error cell"
@@ -662,14 +630,6 @@ msgid "Highlight pencil marks"
 msgstr "Sorot catatan pensil"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Highlighted cell"
-msgstr "Sel disorot"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Highlighted cell text"
-msgstr "Teks sel disorot"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Hint text"
 msgstr "Teks petunjuk"
 
@@ -696,8 +656,8 @@ msgid "Incomplete"
 msgstr "Belum selesai"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Info accent"
-msgstr "Aksen info"
+msgid "Ink"
+msgstr "Tinta"
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Install on iOS"
@@ -710,10 +670,6 @@ msgstr "Instal build pengembangan iOS"
 #: src/game/components/game-provider/game-provider.tsx
 msgid "Invalid Sudoku"
 msgstr "Sudoku tidak valid"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Inverted text"
-msgstr "Teks terbalik"
 
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "iOS installation"
@@ -772,6 +728,10 @@ msgstr "Level"
 msgid "Light"
 msgstr "Terang"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Light overlay"
+msgstr "Lapisan terang"
+
 #: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Light warm-up"
 msgstr "Pemanasan ringan"
@@ -795,14 +755,6 @@ msgstr "Kontras rendah"
 #: src/@generic/hooks/use-timer-text.hook.ts
 msgid "m"
 msgstr "m"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Matching value cell"
-msgstr "Sel nilai cocok"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Matching value text"
-msgstr "Teks nilai cocok"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Max Mistakes bonus"
@@ -943,24 +895,16 @@ msgid "Number size"
 msgstr "Ukuran angka"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Numpad border"
-msgstr "Batas numpad"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Numpad progress"
-msgstr "Kemajuan numpad"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Numpad progress (active)"
-msgstr "Kemajuan numpad (aktif)"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Numpad progress text"
-msgstr "Teks kemajuan numpad"
-
-#: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Numpad text"
 msgstr "Teks numpad"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Numpad track"
+msgstr "Bilah numpad"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Numpad track (filled)"
+msgstr "Bilah numpad (terisi)"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "of current score"
@@ -1184,6 +1128,14 @@ msgstr "Waktu lawan yang harus dikalahkan"
 msgid "Row"
 msgstr "Baris"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Same-value cell"
+msgstr "Sel bernilai sama"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Same-value cell text"
+msgstr "Teks sel bernilai sama"
+
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Sashimi Swordfish"
 msgstr "Sashimi Swordfish"
@@ -1223,6 +1175,26 @@ msgstr "Latar belakang layar"
 #: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
 msgid "Screenshots"
 msgstr "Tangkapan layar"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Selected candidate background"
+msgstr "Latar belakang kandidat terpilih"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Selected candidate border"
+msgstr "Garis tepi kandidat terpilih"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Selected candidate text"
+msgstr "Teks kandidat terpilih"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Selected cell"
+msgstr "Sel terpilih"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Selected cell text"
+msgstr "Teks sel terpilih"
 
 #: src/game/hooks/use-share-game.hook.ts
 msgid "Send the puzzle to solve from scratch, or hand off your run to continue elsewhere."
@@ -1366,6 +1338,10 @@ msgid "Support Ukraine"
 msgstr "Dukung Ukraina"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Surface border"
+msgstr "Garis tepi permukaan"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Surfaces"
 msgstr "Permukaan"
 
@@ -1402,8 +1378,16 @@ msgid "Text and labels"
 msgstr "Teks dan label"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
-msgid "Text on error accent"
-msgstr "Teks pada aksen kesalahan"
+msgid "Text on danger accent"
+msgstr "Teks pada aksen bahaya"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Text on filled numpad track"
+msgstr "Teks pada bilah numpad terisi"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Text on ink"
+msgstr "Teks pada tinta"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."

@@ -28,8 +28,8 @@ export const ChallengeRecordHud = () => {
 
     const isDotLit = elapsedTime % BlinkPeriodSeconds === 0;
     const dotOpacity = isDotLit ? 1 : DimDotOpacity;
-    const dotStyles = [styles.recordDot, { backgroundColor: theme.colors.red, opacity: dotOpacity }];
-    const badgeStyles = [styles.badge, { color: theme.colors.label.main }];
+    const dotStyles = [styles.recordDot, { backgroundColor: theme.colors.danger, opacity: dotOpacity }];
+    const badgeStyles = [styles.badge, { color: theme.colors.text.primary }];
     const axisTime = getTapeAxisTime(elapsedTime, TickCount);
     const marks = getChallengeTapeMarks(timelineEvents, axisTime, TickCount);
     const techniqueEvents = getTapeTechniqueEvents(timelineEvents);

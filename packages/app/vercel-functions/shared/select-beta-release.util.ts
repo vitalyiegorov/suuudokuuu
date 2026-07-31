@@ -5,13 +5,13 @@ import {
     DevelopmentReleaseAssetNames,
     DevelopmentReleaseTagPattern,
     MaximumChecksumsByteLength
-} from './beta-release.constant';
-import { githubReleaseSchema, githubReleasesSchema } from './github-release.schema';
-import { parseReleaseMetadata } from './parse-release-metadata.util';
-import { validateReleaseAssetUrl } from './validate-release-asset-url.util';
+} from './beta-release.constant.js';
+import { githubReleaseSchema, githubReleasesSchema } from './github-release.schema.js';
+import { parseReleaseMetadata } from './parse-release-metadata.util.js';
+import { validateReleaseAssetUrl } from './validate-release-asset-url.util.js';
 
-import type { BetaReleaseCandidate } from './beta-release.interface';
-import type { GithubRelease, GithubReleaseAsset } from './github-release.schema';
+import type { BetaReleaseCandidate } from './beta-release.interface.js';
+import type { GithubRelease, GithubReleaseAsset } from './github-release.schema.js';
 
 interface NumberedBetaReleaseCandidate {
     readonly artifactAttempt: number;

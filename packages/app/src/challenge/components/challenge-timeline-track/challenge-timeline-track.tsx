@@ -25,7 +25,7 @@ interface Props {
 export const ChallengeTimelineTrack = ({ children, marks, progress }: Props) => {
     const { theme } = use(ThemeContext);
 
-    const baselineStyle = [styles.baseline, { backgroundColor: theme.colors.label.main }];
+    const baselineStyle = [styles.baseline, { backgroundColor: theme.colors.text.primary }];
 
     return (
         <View style={styles.track}>
@@ -38,11 +38,11 @@ export const ChallengeTimelineTrack = ({ children, marks, progress }: Props) => 
                 const markOpacity = isPassed ? MarkPassedOpacity : MarkUpcomingOpacity;
                 const fillerOpacity = isPassed ? FillerPassedOpacity : FillerUpcomingOpacity;
                 const markStyle: ViewStyle = {
-                    backgroundColor: theme.colors.label.main,
+                    backgroundColor: theme.colors.text.primary,
                     height: isMark ? MarkBaseHeight + mark.complexity * MarkHeightStep : FillerHeight,
                     opacity: isMark ? markOpacity : fillerOpacity
                 };
-                const awayStyle = [styles.awayTick, { backgroundColor: theme.colors.label.main }];
+                const awayStyle = [styles.awayTick, { backgroundColor: theme.colors.text.primary }];
                 const tickStyle = mark.isAway ? awayStyle : [styles.tick, markStyle];
                 const tickKey = `timeline-tick-${index}`;
 

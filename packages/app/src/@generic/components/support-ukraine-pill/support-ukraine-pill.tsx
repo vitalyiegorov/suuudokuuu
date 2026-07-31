@@ -15,9 +15,9 @@ export const SupportUkrainePill = () => {
     const { t } = useLingui();
     const containerStyles = StyleSheet.flatten([
         styles.container,
-        { backgroundColor: theme.colors.candidate.bg, borderColor: theme.colors.candidate.border }
+        { backgroundColor: theme.colors.candidate.fill, borderColor: theme.colors.surface.border }
     ]);
-    const textStyles = [styles.text, { color: theme.colors.label.main }];
+    const textStyles = [styles.text, { color: theme.colors.text.primary }];
 
     return (
         <Link asChild href={donationLinkConstant}>

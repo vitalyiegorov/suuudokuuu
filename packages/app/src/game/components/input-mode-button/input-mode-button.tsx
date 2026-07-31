@@ -1,7 +1,7 @@
 import { LucidePencil } from 'lucide-react-native';
 import { use } from 'react';
 
-import { BlackIconButton } from '../../../@generic/components/black-icon-button/black-icon-button';
+import { AppIconButton } from '../../../@generic/components/app-icon-button/app-icon-button';
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { ThemeContext } from '../../../theme/context/theme.context';
@@ -28,11 +28,12 @@ export const InputModeButton = ({ sizeStyle }: Props) => {
 
     const isCandidateMode = inputMode === 'candidate';
     const isActive = !isCandidateMode;
-    const iconColor = isActive ? theme.colors.surface.raisedText : theme.colors.label.inverted;
+    const buttonVariant = isActive ? 'inverted' : 'primary';
+    const iconColor = isActive ? theme.colors.surface.raisedText : theme.colors.inkText;
 
     return (
-        <BlackIconButton hitSlop={10} isActive={isActive} onPress={handleToggle} style={sizeStyle} testID={InputModeButtonSelectors.Root}>
+        <AppIconButton hitSlop={10} onPress={handleToggle} style={sizeStyle} testID={InputModeButtonSelectors.Root} variant={buttonVariant}>
             <LucidePencil color={iconColor} />
-        </BlackIconButton>
+        </AppIconButton>
     );
 };

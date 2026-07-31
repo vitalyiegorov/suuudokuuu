@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { BlackIconButtonSize } from '../black-icon-button/constant/black-icon-button-size.constant';
+import { AppIconButtonSize } from '../app-icon-button/constant/app-icon-button-size.constant';
 
 export const ScreenActionBarStyles = StyleSheet.create({
     container: {
@@ -16,6 +16,6 @@ export const ScreenActionBarStyles = StyleSheet.create({
     side: {
         alignItems: 'center',
         justifyContent: 'center',
-        width: BlackIconButtonSize
+        width: AppIconButtonSize
     }
 });

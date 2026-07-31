@@ -31,10 +31,10 @@ export const HomeScreenHellCard = () => {
     const handlePress = () => void create({ difficulty: DifficultyEnum.Hell, isChallengeRun: isChallengeMode, maxMistakes });
     const countText = plural(hellQueueCount, { one: '# puzzle ready', other: '# puzzles ready' });
     const cardOpacity = isCreatingGame ? DisabledCardOpacity : EnabledCardOpacity;
-    const cardStyles = [styles.card, { backgroundColor: theme.colors.black, borderColor: theme.colors.red, opacity: cardOpacity }];
-    const titleStyles = [styles.title, { color: theme.colors.label.inverted }];
-    const badgeStyles = [styles.badge, { backgroundColor: theme.colors.red }];
-    const badgeTextStyles = [styles.badgeText, { color: theme.colors.redFillText }];
+    const cardStyles = [styles.card, { backgroundColor: theme.colors.ink, borderColor: theme.colors.danger, opacity: cardOpacity }];
+    const titleStyles = [styles.title, { color: theme.colors.inkText }];
+    const badgeStyles = [styles.badge, { backgroundColor: theme.colors.danger }];
+    const badgeTextStyles = [styles.badgeText, { color: theme.colors.dangerText }];
 
     return (
         <View style={styles.container} testID={HomeScreenHellCardSelectors.Root}>

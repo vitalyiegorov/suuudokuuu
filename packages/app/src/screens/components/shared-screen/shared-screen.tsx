@@ -5,7 +5,7 @@ import { View } from 'react-native';
 
 import { isNotEmptyString } from '@rnw-community/shared';
 
-import { BlackButton } from '../../../@generic/components/black-button/black-button';
+import { AppLinkButton } from '../../../@generic/components/app-link-button/app-link-button';
 import { Header } from '../../../@generic/components/header/header';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { ChallengeAcceptScreen } from '../../../challenge/components/challenge-accept-screen/challenge-accept-screen';
@@ -61,13 +61,13 @@ export const SharedScreen = ({ stateString }: Props) => {
             </View>
 
             <View style={styles.buttonsWrapper}>
-                <BlackButton
+                <AppLinkButton
                     isLoading={isCreatingGame}
                     onPress={handleOpenPuzzle}
                     testID={SharedScreenSelectors.ConfirmButton}
                     text={confirmText}
                 />
-                <BlackButton href="/" testID={SharedScreenSelectors.CancelButton} text={t`Cancel`} />
+                <AppLinkButton href="/" testID={SharedScreenSelectors.CancelButton} text={t`Cancel`} />
             </View>
         </View>
     );

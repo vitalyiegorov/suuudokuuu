@@ -9,9 +9,9 @@ import { BetaPlatformInstructionsStyles as styles } from './beta-platform-instru
 
 export const BetaPlatformInstructions = () => {
     const { theme } = use(ThemeContext);
-    const textStyle = { color: theme.colors.label.main };
-    const hintStyle = { color: theme.colors.label.hint };
-    const warningStyle = { borderLeftColor: theme.colors.red };
+    const textStyle = { color: theme.colors.text.primary };
+    const hintStyle = { color: theme.colors.text.hint };
+    const warningStyle = { borderLeftColor: theme.colors.danger };
     const headingStyle = [styles.heading, textStyle];
     const copyStyle = [styles.text, hintStyle];
     const codeStyle = [styles.code, textStyle];

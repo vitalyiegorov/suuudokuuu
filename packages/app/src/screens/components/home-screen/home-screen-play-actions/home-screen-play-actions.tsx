@@ -33,18 +33,18 @@ export const HomeScreenPlayActions = ({
 }: Props) => {
     const { theme } = use(ThemeContext);
     const handleContinue = useResumeGame();
-    const startButtonTitleStyles = [styles.startButtonTitle, { color: theme.colors.label.inverted }];
-    const startButtonSubtitleStyles = [styles.startButtonSubtitle, { color: theme.colors.label.inverted }];
-    const continueRowStyles = [styles.continueRow, { backgroundColor: theme.colors.cell.highlighted }];
+    const startButtonTitleStyles = [styles.startButtonTitle, { color: theme.colors.inkText }];
+    const startButtonSubtitleStyles = [styles.startButtonSubtitle, { color: theme.colors.inkText }];
+    const continueRowStyles = [styles.continueRow, { backgroundColor: theme.colors.surface.subtle }];
     const continueProgressFillStyles = [
         styles.continueProgressFill,
-        { backgroundColor: theme.colors.value.progress, flex: currentProgressPercent }
+        { backgroundColor: theme.colors.numpad.track, flex: currentProgressPercent }
     ];
     const continueProgressRemainderStyles = { flex: 100 - currentProgressPercent };
-    const continueIconStyles = [styles.continueIcon, { backgroundColor: theme.colors.black }];
-    const continueTitleStyles = [styles.continueTitle, { color: theme.colors.label.main }];
-    const continueElapsedStyles = [styles.continueElapsed, { color: theme.colors.label.hint }];
-    const continueProgressTextStyles = [styles.continueProgressText, { color: theme.colors.label.main }];
+    const continueIconStyles = [styles.continueIcon, { backgroundColor: theme.colors.ink }];
+    const continueTitleStyles = [styles.continueTitle, { color: theme.colors.text.primary }];
+    const continueElapsedStyles = [styles.continueElapsed, { color: theme.colors.text.hint }];
+    const continueProgressTextStyles = [styles.continueProgressText, { color: theme.colors.text.primary }];
 
     return (
         <View style={styles.playActions}>
@@ -76,7 +76,7 @@ export const HomeScreenPlayActions = ({
 
                     <View style={styles.continueContent}>
                         <View style={continueIconStyles}>
-                            <Play color={theme.colors.label.inverted} fill={theme.colors.label.inverted} size={18} />
+                            <Play color={theme.colors.inkText} fill={theme.colors.inkText} size={18} />
                         </View>
 
                         <View style={styles.continueCopy}>

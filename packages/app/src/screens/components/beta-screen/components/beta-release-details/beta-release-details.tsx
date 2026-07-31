@@ -22,8 +22,8 @@ interface Props {
 export const BetaReleaseDetails = ({ release }: Props) => {
     const { i18n, t } = useLingui();
     const { theme } = use(ThemeContext);
-    const textStyle = { color: theme.colors.label.main };
-    const hintStyle = { color: theme.colors.label.hint };
+    const textStyle = { color: theme.colors.text.primary };
+    const hintStyle = { color: theme.colors.text.hint };
     const builtAt = formatBetaDate(release.builtAt, i18n.locale);
     const publishedAt = formatBetaDate(release.publishedAt, i18n.locale);
     const commitUrl = `${BetaCommitUrlPrefix}${release.commitSha}`;

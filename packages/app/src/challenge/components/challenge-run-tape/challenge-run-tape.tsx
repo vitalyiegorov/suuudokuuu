@@ -19,7 +19,7 @@ interface Props {
 export const ChallengeRunTape = ({ awayRanges, events, label, totalTime }: Props) => {
     const { theme } = use(ThemeContext);
 
-    const labelStyle = [styles.label, { color: theme.colors.label.hint }];
+    const labelStyle = [styles.label, { color: theme.colors.text.hint }];
 
     return (
         <View style={styles.container}>

@@ -1,9 +1,7 @@
 import { LucideSwords } from 'lucide-react-native';
 
-import { BlackButton } from '../../../@generic/components/black-button/black-button';
+import { AppLinkButton } from '../../../@generic/components/app-link-button/app-link-button';
 import { useShareChallenge } from '../../../game/hooks/use-share-challenge/use-share-challenge.hook';
-
-import { ChallengeShareButtonStyles as styles } from './challenge-share-button.styles';
 
 import type { GameState } from '../../../game/store/game.state';
 import type { StyleProp, ViewStyle } from 'react-native';
@@ -16,7 +14,6 @@ interface Props {
 
 export const ChallengeShareButton = ({ gameState, style, text }: Props) => {
     const handlePress = useShareChallenge(gameState);
-    const buttonStyles = [styles.button, style];
 
-    return <BlackButton icon={LucideSwords} onPress={handlePress} style={buttonStyles} text={text}></BlackButton>;
+    return <AppLinkButton icon={LucideSwords} onPress={handlePress} style={style} text={text} />;
 };

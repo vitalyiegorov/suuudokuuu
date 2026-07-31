@@ -32,7 +32,7 @@ export const HeaderBackButton = () => {
             style={styles.container}
             testID={HeaderBackButtonSelectors.Root}
         >
-            <ChevronLeft color={theme.colors.label.main} size={HeaderBackButtonGlyphSize} strokeWidth={2.5} />
+            <ChevronLeft color={theme.colors.text.primary} size={HeaderBackButtonGlyphSize} strokeWidth={2.5} />
         </Pressable>
     );
 };

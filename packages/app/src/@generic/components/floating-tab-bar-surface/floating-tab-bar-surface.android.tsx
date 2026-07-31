@@ -14,7 +14,7 @@ interface Props {
 export const FloatingTabBarSurface = ({ children }: Props) => {
     const { theme } = use(ThemeContext);
 
-    const surfaceStyles = [styles.pill, { backgroundColor: theme.colors.surface.raised, borderColor: theme.colors.value.border }];
+    const surfaceStyles = [styles.pill, { backgroundColor: theme.colors.surface.raised, borderColor: theme.colors.surface.border }];
 
     return <View style={surfaceStyles}>{children}</View>;
 };
