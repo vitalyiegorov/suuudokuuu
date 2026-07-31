@@ -1,9 +1,13 @@
+import { GRID_SIZE } from '@suuudokuuu/solver-core';
+import { DLXSolver } from '@suuudokuuu/solver-dlx';
+
 import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
 import { DifficultyEnum } from '../../@generic/enums/difficulty.enum';
 import { defaultSudokuConfig } from '../../@generic/interfaces/sudoku-config.interface';
+import { cloneField } from '../../@generic/utils/clone-field.util';
 import { createEmptyField } from '../../@generic/utils/create-empty-field.util';
-import { DLXSolver } from '../../dlx/classes/dlx-solver';
+import { fieldToGrid } from '../../@generic/utils/field-to-grid.util';
 
 import type { CellInterface } from '../../@generic/interfaces/cell.interface';
 import type { FieldInterface } from '../../@generic/interfaces/field.interface';
@@ -147,16 +151,28 @@ export class SerializableSudoku {
         }
 
         const [gameField, difficulty] = SerializableSudoku.convertFieldFromString(fieldString, config);
-        const field = new DLXSolver().solve(gameField);
-        if (!isDefined(field)) {
+        const solvedGrid = new DLXSolver().solve(fieldToGrid(gameField));
+        if (!isDefined(solvedGrid)) {
             throw new Error('Invalid string format: No solution found for the given field');
         }
 
-        game.field = field;
+        game.field = SerializableSudoku.applySolvedGrid(gameField, solvedGrid);
         game.gameField = gameField;
         game.config.difficulty = difficulty;
         game.calculateAvailableValues();
 
         return game;
+    }
+
+    private static applySolvedGrid(field: FieldInterface, grid: Uint8Array): FieldInterface {
+        const solvedField = cloneField(field);
+
+        for (let y = 0; y < GRID_SIZE; y += 1) {
+            for (let x = 0; x < GRID_SIZE; x += 1) {
+                solvedField[y][x].value = grid[y * GRID_SIZE + x];
+            }
+        }
+
+        return solvedField;
     }
 }

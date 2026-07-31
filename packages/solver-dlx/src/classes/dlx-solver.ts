@@ -1,16 +1,14 @@
-import { isDefined } from '@rnw-community/shared';
+import { GRID_BLANK_VALUE, GRID_BOX_SIZE, GRID_CELL_COUNT, GRID_SIZE } from '@suuudokuuu/solver-core';
 
-import { defaultSudokuConfig } from '../../@generic/interfaces/sudoku-config.interface';
-import { createEmptyField } from '../../@generic/utils/create-empty-field.util';
+import { isDefined } from '@rnw-community/shared';
 
 import { DLXColumnNode } from './dlx-column-node';
 import { DLXNode } from './dlx-node';
 
-import type { FieldInterface } from '../../@generic/interfaces/field.interface';
-import type { RowMappingInterface } from '../../@generic/interfaces/row-mapping.interface';
+import type { RowMappingInterface } from '../interfaces/row-mapping.interface';
+import type { SolverInterface } from '@suuudokuuu/solver-core';
 
-// TODO: Make algorithm generic to support different grid sizes
-export class DLXSolver {
+export class DLXSolver implements SolverInterface {
     private header: DLXColumnNode = new DLXColumnNode('header');
     private solution: DLXNode[] = [];
     private rowMapping: RowMappingInterface[] = [];
@@ -19,19 +17,17 @@ export class DLXSolver {
         this.reset();
     }
 
-    solve(field: FieldInterface): FieldInterface | null {
+    solve(grid: Uint8Array): Uint8Array | null {
         this.reset();
 
-        this.buildExactCover(field);
+        this.buildExactCover(grid);
 
         if (this.search(0, 1) > 0) {
-            const result = createEmptyField(defaultSudokuConfig);
-            for (const node of this.solution) {
-                if (isDefined(node.rowIndex)) {
-                    const { row, col, num } = this.rowMapping[node.rowIndex];
+            const result = new Uint8Array(GRID_CELL_COUNT);
+            for (const rowIndex of this.solution.map(node => node.rowIndex).filter(isDefined)) {
+                const { row, col, num } = this.rowMapping[rowIndex];
 
-                    result[row][col].value = num;
-                }
+                result[row * GRID_SIZE + col] = num;
             }
 
             return result;
@@ -40,10 +36,10 @@ export class DLXSolver {
         return null;
     }
 
-    count(field: FieldInterface, limit = Number.POSITIVE_INFINITY): number {
+    countSolutions(grid: Uint8Array, limit: number): number {
         this.reset();
 
-        this.buildExactCover(field);
+        this.buildExactCover(grid);
 
         return this.search(0, limit);
     }
@@ -57,11 +53,10 @@ export class DLXSolver {
         this.rowMapping = [];
     }
 
-    // eslint-disable-next-line max-statements
-    private buildExactCover(grid: FieldInterface): void {
-        const cellCount = 81;
+    // eslint-disable-next-line max-statements -- exact-cover matrix construction needs one pass building cell/row/column/box constraint columns and nodes
+    private buildExactCover(grid: Uint8Array): void {
         const constraintsCount = 4;
-        const columnCountWithConstraints = cellCount * constraintsCount;
+        const columnCountWithConstraints = GRID_CELL_COUNT * constraintsCount;
 
         const columns: DLXColumnNode[] = [];
         for (let i = 0; i < columnCountWithConstraints; i += 1) {
@@ -75,10 +70,11 @@ export class DLXSolver {
             this.header.left = col;
         }
 
-        for (let row = 0; row < 9; row += 1) {
-            for (let col = 0; col < 9; col += 1) {
-                for (let num = 1; num <= 9; num += 1) {
-                    const isNumberConflicting = grid[row][col].value !== 0 && grid[row][col].value !== num;
+        for (let row = 0; row < GRID_SIZE; row += 1) {
+            for (let col = 0; col < GRID_SIZE; col += 1) {
+                for (let num = 1; num <= GRID_SIZE; num += 1) {
+                    const cellValue = grid[row * GRID_SIZE + col];
+                    const isNumberConflicting = cellValue !== GRID_BLANK_VALUE && cellValue !== num;
                     if (isNumberConflicting) {
                         // eslint-disable-next-line no-continue
                         continue;
@@ -87,11 +83,11 @@ export class DLXSolver {
                     const mapIndex = this.rowMapping.length;
                     this.rowMapping.push({ row, col, num });
 
-                    const cellCon = row * 9 + col;
-                    const rowCon = cellCount + row * 9 + (num - 1);
-                    const colCon = 2 * cellCount + col * 9 + (num - 1);
-                    const box = Math.floor(row / 3) * 3 + Math.floor(col / 3);
-                    const boxCon = 3 * cellCount + box * 9 + (num - 1);
+                    const cellCon = row * GRID_SIZE + col;
+                    const rowCon = GRID_CELL_COUNT + row * GRID_SIZE + (num - 1);
+                    const colCon = 2 * GRID_CELL_COUNT + col * GRID_SIZE + (num - 1);
+                    const box = Math.floor(row / GRID_BOX_SIZE) * GRID_BOX_SIZE + Math.floor(col / GRID_BOX_SIZE);
+                    const boxCon = 3 * GRID_CELL_COUNT + box * GRID_SIZE + (num - 1);
 
                     const rowNodes: DLXNode[] = [];
                     for (const colIndex of [cellCon, rowCon, colCon, boxCon]) {
@@ -100,7 +96,6 @@ export class DLXSolver {
                         node.column = colNode;
                         node.rowIndex = mapIndex;
 
-                        // Link vertically
                         node.down = colNode;
                         node.up = colNode.up;
                         colNode.up.down = node;
@@ -110,7 +105,6 @@ export class DLXSolver {
                         rowNodes.push(node);
                     }
 
-                    // Link horizontally
                     for (let i = 0; i < rowNodes.length; i += 1) {
                         rowNodes[i].right = rowNodes[(i + 1) % rowNodes.length];
                         rowNodes[i].left = rowNodes[(i + rowNodes.length - 1) % rowNodes.length];
@@ -145,7 +139,7 @@ export class DLXSolver {
         col.left.right = col;
     }
 
-    // eslint-disable-next-line max-statements
+    // eslint-disable-next-line max-statements -- DLX search picks the smallest column, then covers/recurses/uncovers within one bounded backtracking step
     private search(step: number, limit: number): number {
         if (this.header.right === this.header) {
             return 1;

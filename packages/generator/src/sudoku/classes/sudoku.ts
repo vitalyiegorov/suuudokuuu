@@ -1,11 +1,14 @@
 /* eslint-disable max-lines */
+import { GRID_SIZE, UNIQUENESS_COUNT_LIMIT } from '@suuudokuuu/solver-core';
+import { DLXSolver } from '@suuudokuuu/solver-dlx';
+
 import { isDefined } from '@rnw-community/shared';
 
 import { type ScoredCellsInterface, emptyScoredCells } from '../../@generic/interfaces/scored-cells.interface';
 import { defaultSudokuConfig, getBlankCellCountByConfig } from '../../@generic/interfaces/sudoku-config.interface';
 import { cloneField } from '../../@generic/utils/clone-field.util';
+import { fieldToGrid } from '../../@generic/utils/field-to-grid.util';
 import { shuffle } from '../../@generic/utils/shuffle.util';
-import { DLXSolver } from '../../dlx/classes/dlx-solver';
 import { SerializableSudoku } from '../../serializable-sudoku/classes/serializable-sudoku';
 
 import type { DifficultyEnum } from '../../@generic/enums/difficulty.enum';
@@ -16,6 +19,7 @@ import type { SudokuConfigInterface } from '../../@generic/interfaces/sudoku-con
 export class Sudoku extends SerializableSudoku {
     private readonly fieldFillingValues: number[];
     private readonly coordinates: { x: number; y: number }[] = [];
+    private readonly solver = new DLXSolver();
 
     constructor(config: SudokuConfigInterface = defaultSudokuConfig) {
         super(config);
@@ -279,15 +283,18 @@ export class Sudoku extends SerializableSudoku {
 
         for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
             this.gameField = cloneField(this.field);
+            const grid = fieldToGrid(this.gameField);
 
             let blankCells = 0;
             for (const { x, y } of shuffle(this.coordinates)) {
-                const backup = this.gameField[y][x].value;
+                const backup = grid[y * GRID_SIZE + x];
                 this.gameField[y][x].value = this.config.blankCellValue;
+                grid[y * GRID_SIZE + x] = this.config.blankCellValue;
                 blankCells += 1;
 
-                if (new DLXSolver().count(this.gameField, 2) !== 1) {
+                if (this.solver.countSolutions(grid, UNIQUENESS_COUNT_LIMIT) !== 1) {
                     this.gameField[y][x].value = backup;
+                    grid[y * GRID_SIZE + x] = backup;
                     blankCells -= 1;
                 }
 

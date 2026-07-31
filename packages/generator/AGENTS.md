@@ -1,6 +1,6 @@
 # Generator Package
 
-Pure TypeScript Sudoku generation and solving engine. It exports the `Sudoku` class, difficulty config, field/cell interfaces, scored-cell helpers, and the DLX uniqueness solver used by the app.
+Pure TypeScript Sudoku generation and solving engine. It exports the `Sudoku` class, difficulty config, field/cell interfaces, and scored-cell helpers; machine solving lives in the `@suuudokuuu/solver-*` packages.
 
 ## Commands
 
@@ -19,8 +19,6 @@ yarn test:coverage
 ```text
 src/
 ├── @generic/                  # Shared enums, interfaces, types, and utilities
-├── dlx/                       # Dancing Links exact-cover solver feature
-│   └── classes/
 ├── serializable-sudoku/       # Base serialization and field state feature
 │   └── classes/
 └── sudoku/                    # Generation, gameplay, navigation, and scoring feature
@@ -33,7 +31,7 @@ src/
 2. `field` is the solved grid; `gameField` is the playable grid; `emptyField` is the blank template.
 3. A cell uses `x`, `y`, `value`, and `group`. Keep coordinate semantics consistent across app, generator, and encoder.
 4. Blank cells use the configured blank value, currently `0`.
-5. Puzzle generation must keep a unique solution. Use `DLXSolver.count(..., 2)` or equivalent uniqueness checks before accepting clue removal.
+5. Puzzle generation must keep a unique solution. Use `SolverInterface.countSolutions(grid, UNIQUENESS_COUNT_LIMIT)` or equivalent uniqueness checks before accepting clue removal.
 6. `DifficultyEnum` values are serialized into app history and UI. Changing names or values requires app migrations, i18n updates, and tests.
 
 ## Algorithm Rules
