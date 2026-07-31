@@ -27,7 +27,8 @@ export const defaultScoringConfig: ScoringConfigInterface = {
         [DifficultyEnum.Easy]: 2,
         [DifficultyEnum.Medium]: 3,
         [DifficultyEnum.Hard]: 4,
-        [DifficultyEnum.Nightmare]: 5
+        [DifficultyEnum.Nightmare]: 5,
+        [DifficultyEnum.Hell]: 6
     },
     maxMistakesCoefficients: {
         0: 5,

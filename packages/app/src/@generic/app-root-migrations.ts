@@ -1,7 +1,12 @@
 import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 
+import { isDefined } from '@rnw-community/shared';
+
 import { gameSlice } from '../game/store/game.slice';
 import { initialGameState } from '../game/store/game.state';
+import { HellQueueEntrySchema } from '../hell-queue/schema/hell-queue-entry.schema';
+import { hellQueueSlice } from '../hell-queue/store/hell-queue.slice';
+import { initialHellQueueState } from '../hell-queue/store/hell-queue.state';
 import { emptyGameHistory } from '../history/interfaces/history-game.interface';
 import { settingsSlice } from '../settings/store/settings.slice';
 import { initialSettingsState } from '../settings/store/settings.state';
@@ -9,6 +14,7 @@ import { customThemesSlice } from '../theme/store/custom-themes.slice';
 import { initialCustomThemesState } from '../theme/store/custom-themes.state';
 
 import type { GameState } from '../game/store/game.state';
+import type { HellQueueState } from '../hell-queue/store/hell-queue.state';
 import type { SettingsState } from '../settings/store/settings.state';
 import type { CustomThemesState } from '../theme/store/custom-themes.state';
 import type { MigrationManifest } from 'redux-persist/es/types';
@@ -17,9 +23,10 @@ export interface AppRootPersistedStateInterface {
     [gameSlice.name]: GameState;
     [settingsSlice.name]: SettingsState;
     [customThemesSlice.name]: CustomThemesState;
+    [hellQueueSlice.name]: HellQueueState;
 }
 
-export const appRootPersistVersion = 30;
+export const appRootPersistVersion = 31;
 
 const resetBestScores = (state: AppRootPersistedStateInterface): AppRootPersistedStateInterface => {
     const gameState = state[gameSlice.name];
@@ -94,6 +101,25 @@ const introduceCustomThemes = (state: AppRootPersistedStateInterface): AppRootPe
     [settingsSlice.name]: { ...initialSettingsState, ...state[settingsSlice.name] }
 });
 
+const introduceHellDifficultyAndQueue = (state: AppRootPersistedStateInterface): AppRootPersistedStateInterface => {
+    const gameState = state[gameSlice.name];
+    const rawHellQueueState = state[hellQueueSlice.name];
+    const rawEntries = isDefined(rawHellQueueState) && Array.isArray(rawHellQueueState.entries) ? rawHellQueueState.entries : [];
+    const validEntries = rawEntries.filter(entry => HellQueueEntrySchema.safeParse(entry).success);
+
+    return {
+        ...state,
+        [gameSlice.name]: {
+            ...gameState,
+            historyByDifficulty: {
+                ...initialGameState.historyByDifficulty,
+                ...gameState.historyByDifficulty
+            }
+        },
+        [hellQueueSlice.name]: { ...initialHellQueueState, entries: validEntries }
+    };
+};
+
 export const appRootMigrations: MigrationManifest<AppRootPersistedStateInterface> = {
     12: state => ({
         ...state,
@@ -125,5 +151,6 @@ export const appRootMigrations: MigrationManifest<AppRootPersistedStateInterface
     27: state => ({ ...state, [settingsSlice.name]: { ...initialSettingsState, ...state[settingsSlice.name] } }),
     28: migrateSolutionStepsToTimelineEvents,
     29: backfillRunDifficulty,
-    30: introduceCustomThemes
+    30: introduceCustomThemes,
+    31: introduceHellDifficultyAndQueue
 };
