@@ -3,10 +3,9 @@ module.exports = {
     reporters: ['default'],
     coveragePathIgnorePatterns: ['.mock.ts'],
     collectCoverageFrom: ['src/**/*.ts', '!src/**/*.spec.ts', '!src/index.ts'],
-    displayName: 'generator',
+    displayName: 'solver-dlx',
     moduleNameMapper: {
-        '^@suuudokuuu/solver-core$': '<rootDir>/../solver-core/src/index.ts',
-        '^@suuudokuuu/solver-dlx$': '<rootDir>/../solver-dlx/src/index.ts'
+        '^@suuudokuuu/solver-core$': '<rootDir>/../solver-core/src/index.ts'
     },
     testRegex: './src/.*\\.spec\\.(tsx?)$',
     testEnvironment: 'node',

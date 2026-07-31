@@ -1,6 +1,6 @@
 {
-    "name": "@suuudokuuu/generator",
-    "version": "1.66.2",
+    "name": "@suuudokuuu/solver-dlx",
+    "version": "1.0.0",
     "private": true,
     "sideEffects": "false",
     "exports": {
@@ -26,7 +26,6 @@
     },
     "dependencies": {
         "@rnw-community/shared": "^2.2.0",
-        "@suuudokuuu/solver-core": "workspace:*",
-        "@suuudokuuu/solver-dlx": "workspace:*"
+        "@suuudokuuu/solver-core": "workspace:*"
     }
 }
