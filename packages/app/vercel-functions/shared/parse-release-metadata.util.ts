@@ -1,7 +1,7 @@
-import { DevelopmentMetadataMarkerPrefix } from './beta-release.constant';
-import { releaseMetadataSchema } from './release-metadata.schema';
+import { DevelopmentMetadataMarkerPrefix } from './beta-release.constant.js';
+import { releaseMetadataSchema } from './release-metadata.schema.js';
 
-import type { ParsedReleaseMetadata } from './beta-release.interface';
+import type { ParsedReleaseMetadata } from './beta-release.interface.js';
 
 const MetadataMarkerPattern = /^<!-- suuudokuuu-development-metadata (.+?) -->/u;
 

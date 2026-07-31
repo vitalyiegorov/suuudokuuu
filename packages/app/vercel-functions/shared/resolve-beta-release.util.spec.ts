@@ -6,8 +6,8 @@ import {
     DevelopmentIpaAssetName,
     DevelopmentReleaseApiUrl,
     MaximumChecksumsByteLength
-} from './beta-release.constant';
-import { resolveBetaRelease } from './resolve-beta-release.util';
+} from './beta-release.constant.js';
+import { resolveBetaRelease } from './resolve-beta-release.util.js';
 
 const ChecksumLength = 64;
 const IpaChecksum = 'a'.repeat(ChecksumLength);

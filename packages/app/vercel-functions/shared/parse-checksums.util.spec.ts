@@ -1,7 +1,7 @@
 import { describe, expect, it } from '@jest/globals';
 
-import { MaximumChecksumsByteLength } from './beta-release.constant';
-import { parseChecksums } from './parse-checksums.util';
+import { MaximumChecksumsByteLength } from './beta-release.constant.js';
+import { parseChecksums } from './parse-checksums.util.js';
 
 const ChecksumLength = 64;
 const IpaChecksum = 'a'.repeat(ChecksumLength);

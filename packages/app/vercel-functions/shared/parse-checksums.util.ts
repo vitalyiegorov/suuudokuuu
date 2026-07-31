@@ -1,6 +1,6 @@
-import { MaximumChecksumsByteLength } from './beta-release.constant';
+import { MaximumChecksumsByteLength } from './beta-release.constant.js';
 
-import type { ReleaseChecksums } from './beta-release.interface';
+import type { ReleaseChecksums } from './beta-release.interface.js';
 
 const ChecksumsPattern = /^([a-f0-9]{64}) {2}suuudokuuu-development\.ipa\n([a-f0-9]{64}) {2}suuudokuuu-development\.apk\n$/u;
 

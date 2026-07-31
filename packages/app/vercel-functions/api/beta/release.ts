@@ -1,4 +1,4 @@
-import { createBetaHandler } from '../../shared/create-beta-handler.util';
+import { createBetaHandler } from '../../shared/create-beta-handler.util.js';
 
 const handler = createBetaHandler('release');
 

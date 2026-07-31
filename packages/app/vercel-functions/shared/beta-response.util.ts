@@ -4,7 +4,7 @@ import {
     BetaXmlContentType,
     HttpFoundStatus,
     HttpOkStatus
-} from './beta-release.constant';
+} from './beta-release.constant.js';
 
 const NoStoreCacheControl = 'no-store';
 const SuccessCacheControl = 'no-cache';
