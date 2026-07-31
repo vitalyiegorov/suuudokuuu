@@ -2,8 +2,6 @@ import { HellGenerator } from '@suuudokuuu/generator';
 import { BitmaskSolver } from '@suuudokuuu/solver-bitmask';
 import { AppState } from 'react-native';
 
-import { getErrorMessage } from '@rnw-community/shared';
-
 import { appRootStore } from '../../@generic/app-root.store';
 import {
     HellQueueCapacity,
@@ -14,7 +12,7 @@ import {
 } from '../constants/hell-queue.constant';
 import { HellQueueEntrySchemaVersion } from '../schema/hell-queue-entry.schema';
 import { hellQueueEnqueueAction } from '../store/hell-queue.actions';
-import { hellQueueCountSelector, hellQueueEntriesSelector } from '../store/hell-queue.selectors';
+import { hellQueueCountSelector, hellQueueEntriesSelector, hellQueueIsBelowLowWaterMarkSelector } from '../store/hell-queue.selectors';
 
 import { createHellCandidateGate } from './hell-candidate-gate.util';
 import { runHellRefill } from './hell-refill-scheduler.util';
@@ -22,11 +20,12 @@ import { runHellRefill } from './hell-refill-scheduler.util';
 import type { HellQueueRefillDependenciesInterface } from '../interfaces/hell-queue-refill-dependencies.interface';
 
 const isBelowHellQueueCapacity = (): boolean => hellQueueCountSelector(appRootStore.getState()) < HellQueueCapacity;
+const isBelowHellQueueLowWaterMark = (): boolean => hellQueueIsBelowLowWaterMarkSelector(appRootStore.getState());
 
 const attemptHellQueueRefillRun = (dependencies: HellQueueRefillDependenciesInterface): void => {
     const { dispatch, isCancelledRef, isRunningRef } = dependencies;
 
-    if (isRunningRef.current || !isBelowHellQueueCapacity()) {
+    if (isRunningRef.current || !isBelowHellQueueLowWaterMark()) {
         return;
     }
 
@@ -44,11 +43,6 @@ const attemptHellQueueRefillRun = (dependencies: HellQueueRefillDependenciesInte
 
     const finishRun = (): void => {
         isRunningRef.current = false;
-    };
-
-    const handleRunError = (error: unknown): void => {
-        finishRun();
-        getErrorMessage(error);
     };
 
     runHellRefill({
@@ -69,7 +63,7 @@ const attemptHellQueueRefillRun = (dependencies: HellQueueRefillDependenciesInte
         shouldContinue: () => !isCancelledRef.current && isBelowHellQueueCapacity()
     })
         .then(finishRun)
-        .catch(handleRunError);
+        .catch(finishRun);
 };
 
 export const hellQueueRunRefillEffect = (dependencies: HellQueueRefillDependenciesInterface): (() => void) => {

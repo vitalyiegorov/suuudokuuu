@@ -6,7 +6,8 @@ import {
     HellQueueGeneratorMaximumGivens,
     HellQueueGeneratorMinimumGivens,
     HellQueueGeneratorTabuCapacity,
-    HellQueueGeneratorVersion
+    HellQueueGeneratorVersion,
+    HellQueueLowWaterMark
 } from '../../constants/hell-queue.constant';
 import { HellQueueEntrySchemaVersion } from '../../schema/hell-queue-entry.schema';
 import { hellQueueEnqueueAction } from '../../store/hell-queue.actions';
@@ -115,7 +116,7 @@ describe('HellQueueRefillController', () => {
         mockAdvance.mockImplementation(() => ({}));
     });
 
-    it('starts a refill run on mount when below capacity, seeding with existing entries and enqueuing discovered candidates', async () => {
+    it('starts a refill run on mount when below the low-water mark, seeding with existing entries and enqueuing discovered candidates', async () => {
         expect.assertions(6);
 
         mockEntries = [buildEntry({ id: 'seed-puzzle', puzzle: 'seed-puzzle' })];
@@ -182,20 +183,48 @@ describe('HellQueueRefillController', () => {
         await flush();
     });
 
-    it('stops once the queue reaches capacity', async () => {
-        expect.assertions(2);
+    it('starts a refill run when the queue is below the low-water mark', () => {
+        expect.assertions(1);
 
-        mockEntries = Array.from({ length: HellQueueCapacity - 1 }, (_, index) =>
+        mockEntries = Array.from({ length: HellQueueLowWaterMark - 1 }, (_, index) =>
             buildEntry({ id: `existing-${index}`, puzzle: `existing-${index}` })
         );
-        const fillingCandidate = { givensCount: 19, puzzle: 't'.repeat(PuzzleStringLength), solution: 'u'.repeat(PuzzleStringLength) };
-        mockAdvance.mockImplementationOnce(() => ({ candidate: fillingCandidate }));
 
         mountController();
-        await flush();
 
-        expect(mockAdvance).toHaveBeenCalledTimes(1);
-        expect(mockDispatch).toHaveBeenCalledTimes(1);
+        expect(mockHellGeneratorConstructor).toHaveBeenCalledTimes(1);
+    });
+
+    it('does not start a refill run once the queue reaches the low-water mark', () => {
+        expect.assertions(1);
+
+        mockEntries = Array.from({ length: HellQueueLowWaterMark + 2 }, (_, index) =>
+            buildEntry({ id: `existing-${index}`, puzzle: `existing-${index}` })
+        );
+
+        mountController();
+
+        expect(mockHellGeneratorConstructor).not.toHaveBeenCalled();
+    });
+
+    it('keeps refilling past the low-water mark until the queue reaches capacity', async () => {
+        expect.assertions(2);
+
+        mockEntries = Array.from({ length: HellQueueLowWaterMark - 1 }, (_, index) =>
+            buildEntry({ id: `existing-${index}`, puzzle: `existing-${index}` })
+        );
+        let dispatchedCount = 0;
+        mockAdvance.mockImplementation(() => {
+            dispatchedCount += 1;
+
+            return { candidate: { givensCount: 19, puzzle: `filling-${dispatchedCount}`, solution: `solved-${dispatchedCount}` } };
+        });
+
+        mountController();
+        await flush(HellQueueCapacity * 3);
+
+        expect(mockEntries).toHaveLength(HellQueueCapacity);
+        expect(mockDispatch).toHaveBeenCalledTimes(HellQueueCapacity - (HellQueueLowWaterMark - 1));
     });
 
     it('does not start a run when the queue is already at capacity', () => {
