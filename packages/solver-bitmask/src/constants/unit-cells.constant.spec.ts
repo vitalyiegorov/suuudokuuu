@@ -1,0 +1,51 @@
+import { describe, expect, it } from '@jest/globals';
+import { GRID_CELL_COUNT, GRID_SIZE } from '@suuudokuuu/solver-core';
+
+import { ALL_UNIT_CELLS, BOX_BY_CELL, BOX_CELLS, COLUMN_CELLS, ROW_CELLS } from './unit-cells.constant';
+
+const sortedNumbers = (values: Uint8Array): number[] => Array.from(values).sort((left, right) => left - right);
+
+describe('unit-cells constant', () => {
+    it('groups every cell into nine row units of nine unique cells each', () => {
+        for (const rowCells of ROW_CELLS) {
+            expect(rowCells.length).toBe(GRID_SIZE);
+            expect(new Set(rowCells).size).toBe(GRID_SIZE);
+        }
+    });
+
+    it('groups every cell into nine column units of nine unique cells each', () => {
+        for (const columnCells of COLUMN_CELLS) {
+            expect(columnCells.length).toBe(GRID_SIZE);
+            expect(new Set(columnCells).size).toBe(GRID_SIZE);
+        }
+    });
+
+    it('groups every cell into nine box units of nine unique cells each', () => {
+        for (const boxCells of BOX_CELLS) {
+            expect(boxCells.length).toBe(GRID_SIZE);
+            expect(new Set(boxCells).size).toBe(GRID_SIZE);
+        }
+    });
+
+    it('assigns every cell index exactly once across row units', () => {
+        const allRowCells = ROW_CELLS.flatMap(rowCells => Array.from(rowCells));
+
+        expect(sortedNumbers(Uint8Array.from(allRowCells))).toEqual(Array.from({ length: GRID_CELL_COUNT }, (_, cell) => cell));
+    });
+
+    it('maps the corners of the grid to the expected box indices', () => {
+        expect(BOX_BY_CELL[0]).toBe(0);
+        expect(BOX_BY_CELL[GRID_CELL_COUNT - 1]).toBe(GRID_SIZE - 1);
+    });
+
+    it('places box-mates within the same box unit', () => {
+        const topLeftCell = 0;
+        const boxOfTopLeftCell = BOX_BY_CELL[topLeftCell];
+
+        expect(Array.from(BOX_CELLS[boxOfTopLeftCell])).toContain(topLeftCell);
+    });
+
+    it('exposes row, column, and box units in a fixed order', () => {
+        expect(ALL_UNIT_CELLS).toEqual([ROW_CELLS, COLUMN_CELLS, BOX_CELLS]);
+    });
+});

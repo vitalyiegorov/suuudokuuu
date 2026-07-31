@@ -45,6 +45,7 @@ packages/
 ├── generator/          # Pure TypeScript Sudoku generator and DLX solver
 ├── solver-core/        # Shared solver contract, grid constants, and conformance-test helpers
 ├── solver-dlx/         # Dancing Links (DLX) exact-cover Sudoku solver
+├── solver-bitmask/     # Typed-array bitmask MRV Sudoku solver
 ├── techniques/         # Pure TypeScript solving-technique detection
 ├── encoder/            # Binary/LZ encoding for puzzle sharing and replay
 └── screen-chrome/      # Raw TypeScript generic screen chrome, edge fades, and collapsible header
