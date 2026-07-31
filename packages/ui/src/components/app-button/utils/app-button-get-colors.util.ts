@@ -5,24 +5,24 @@ export type AppButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger' | 'd
 export const appButtonGetColors = (theme: ThemeInterface, variant: AppButtonVariant) => {
     if (variant === 'primary') {
         return {
-            backgroundColor: theme.colors.black,
-            borderColor: theme.colors.black,
-            textColor: theme.colors.label.inverted
+            backgroundColor: theme.colors.ink,
+            borderColor: theme.colors.ink,
+            textColor: theme.colors.inkText
         };
     }
 
     if (variant === 'danger') {
         return {
             backgroundColor: theme.colors.background,
-            borderColor: theme.colors.value.border,
-            textColor: theme.colors.red
+            borderColor: theme.colors.surface.border,
+            textColor: theme.colors.danger
         };
     }
 
     if (variant === 'donation' || variant === 'inverted') {
         return {
             backgroundColor: theme.colors.surface.raised,
-            borderColor: theme.colors.value.border,
+            borderColor: theme.colors.surface.border,
             textColor: theme.colors.surface.raisedText
         };
     }
@@ -31,21 +31,21 @@ export const appButtonGetColors = (theme: ThemeInterface, variant: AppButtonVari
         return {
             backgroundColor: 'transparent',
             borderColor: 'transparent',
-            textColor: theme.colors.label.inverted
+            textColor: theme.colors.inkText
         };
     }
 
     if (variant === 'ghost') {
         return {
             backgroundColor: theme.colors.background,
-            borderColor: theme.colors.value.border,
-            textColor: theme.colors.label.main
+            borderColor: theme.colors.surface.border,
+            textColor: theme.colors.text.primary
         };
     }
 
     return {
         backgroundColor: theme.colors.surface.subtle,
-        borderColor: theme.colors.value.border,
+        borderColor: theme.colors.surface.border,
         textColor: theme.colors.surface.subtleText
     };
 };

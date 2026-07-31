@@ -41,15 +41,15 @@ export const DifficultyComplexityPreview = (props: Props) => {
     const activeCellOpacity =
         DifficultyComplexitySliderPreviewCellBaseOpacity + selectedIndex * DifficultyComplexitySliderPreviewCellOpacityStep;
     const previewColors = difficultyComplexityPreviewGetColors(theme);
-    const previewBorderColor = isChallengeMode ? theme.colors.label.main : previewColors.borderColor;
+    const previewBorderColor = isChallengeMode ? theme.colors.text.primary : previewColors.borderColor;
     const previewStyles = [styles.preview, { backgroundColor: previewColors.backgroundColor, borderColor: previewBorderColor }];
     const challengeConditions = isChallengeMode ? <ChallengeConditionsRow /> : null;
-    const previewGridFrameStyles = [styles.previewGridFrame, { borderColor: theme.colors.candidate.border }];
-    const titleStyles = [styles.previewTitle, { color: theme.colors.label.main }];
-    const subtitleStyles = [styles.subtitle, { color: theme.colors.label.hint }];
-    const mistakeBadgeStyles = [styles.previewMistakeBadge, { backgroundColor: theme.colors.black, borderColor: theme.colors.black }];
-    const mistakeBadgeTextStyles = [styles.previewMistakeBadgeText, { color: theme.colors.label.inverted }];
-    const mistakeDescriptionStyles = [styles.previewMistakeDescription, { color: theme.colors.label.hint }];
+    const previewGridFrameStyles = [styles.previewGridFrame, { borderColor: theme.colors.surface.border }];
+    const titleStyles = [styles.previewTitle, { color: theme.colors.text.primary }];
+    const subtitleStyles = [styles.subtitle, { color: theme.colors.text.hint }];
+    const mistakeBadgeStyles = [styles.previewMistakeBadge, { backgroundColor: theme.colors.ink, borderColor: theme.colors.ink }];
+    const mistakeBadgeTextStyles = [styles.previewMistakeBadgeText, { color: theme.colors.inkText }];
+    const mistakeDescriptionStyles = [styles.previewMistakeDescription, { color: theme.colors.text.hint }];
     const isRelaxedMistakes = maxMistakes > 3;
     const isStandardMistakes = maxMistakes === 3;
     const isHardcoreMistakes = maxMistakes === 0;

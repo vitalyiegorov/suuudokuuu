@@ -42,11 +42,11 @@ export const ChallengeTechniquePreview = ({ awayRanges = [], events, totalTime }
     const captionText = t`Taller marks = sharper techniques`;
 
     const sharpestMark = marks.reduce((sharpest, mark) => (mark.complexity > sharpest.complexity ? mark : sharpest), marks[0]);
-    const markerColor = sharpestMark.tier === null ? theme.colors.label.hint : getTechniqueTierColor(sharpestMark.tier, theme, 'default');
+    const markerColor = sharpestMark.tier === null ? theme.colors.text.hint : getTechniqueTierColor(sharpestMark.tier, theme, 'default');
 
-    const trackStyle = [styles.track, { backgroundColor: theme.colors.black }];
+    const trackStyle = [styles.track, { backgroundColor: theme.colors.ink }];
     const barStyle = [styles.bar, { backgroundColor: markerColor }];
-    const captionStyle = [styles.caption, { color: theme.colors.label.hint }];
+    const captionStyle = [styles.caption, { color: theme.colors.text.hint }];
 
     return (
         <View style={styles.container}>
@@ -56,7 +56,7 @@ export const ChallengeTechniquePreview = ({ awayRanges = [], events, totalTime }
                 </View>
 
                 {marks.map((mark, index) => {
-                    const markColor = mark.tier === null ? theme.colors.white05 : getTechniqueTierColor(mark.tier, theme, 'inverted');
+                    const markColor = mark.tier === null ? theme.colors.overlayDark : getTechniqueTierColor(mark.tier, theme, 'inverted');
                     const markStyle: ViewStyle = {
                         backgroundColor: markColor,
                         height: mark.tier === null ? FILLER_HEIGHT : MARK_BASE_HEIGHT + mark.complexity * MARK_HEIGHT_STEP,

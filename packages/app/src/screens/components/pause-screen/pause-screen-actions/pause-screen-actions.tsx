@@ -21,12 +21,12 @@ export const PauseScreenActions = ({ onQuit, onResume, onShare }: Props) => {
 
     const shareButton = (
         <GlassIconButton accessibilityLabel={t`Share puzzle`} onPress={onShare} testID={PauseScreenSelectors.ShareButton}>
-            <LucideShare2 color={theme.colors.label.inverted} />
+            <LucideShare2 color={theme.colors.inkText} />
         </GlassIconButton>
     );
     const quitButton = (
         <GlassIconButton accessibilityLabel={t`Quit`} onPress={onQuit} testID={PauseScreenSelectors.QuitButton}>
-            <LucideLogOut color={theme.colors.red} />
+            <LucideLogOut color={theme.colors.danger} />
         </GlassIconButton>
     );
 

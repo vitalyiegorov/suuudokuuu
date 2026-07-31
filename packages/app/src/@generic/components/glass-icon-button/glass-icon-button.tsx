@@ -16,7 +16,7 @@ export const GlassIconButton = (props: Props) => {
     }
 
     return (
-        <GlassView glassEffectStyle="regular" style={styles.glass} tintColor={theme.colors.black}>
+        <GlassView glassEffectStyle="regular" style={styles.glass} tintColor={theme.colors.ink}>
             <BlackIconButton {...props} variant="glass" />
         </GlassView>
     );

@@ -2,6 +2,6 @@ import type { ThemeInterface } from '@suuudokuuu/ui';
 
 export const settingsAppFooterGetSupportLinkColors = (theme: ThemeInterface) => ({
     backgroundColor: theme.colors.surface.raised,
-    borderColor: theme.colors.candidate.border,
+    borderColor: theme.colors.surface.border,
     textColor: theme.colors.surface.raisedText
 });

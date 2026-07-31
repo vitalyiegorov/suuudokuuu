@@ -40,25 +40,25 @@ export const ReplayControls = (props: Props) => {
     const canGoForward = currentStep < totalSteps;
     const stepProgress = replayGetStepProgress(currentStep, totalSteps);
     const stepProgressPercent: `${number}%` = `${stepProgress * 100}%`;
-    const previousIconColor = canGoBack ? theme.colors.surface.raisedText : theme.colors.label.hint;
-    const nextIconColor = canGoForward ? theme.colors.surface.raisedText : theme.colors.label.hint;
+    const previousIconColor = canGoBack ? theme.colors.surface.raisedText : theme.colors.text.hint;
+    const nextIconColor = canGoForward ? theme.colors.surface.raisedText : theme.colors.text.hint;
     const previousButtonStyles = [
         styles.navButton,
-        { backgroundColor: theme.colors.surface.raised, borderColor: theme.colors.value.border },
+        { backgroundColor: theme.colors.surface.raised, borderColor: theme.colors.surface.border },
         !canGoBack && styles.disabledButton
     ];
     const nextButtonStyles = [
         styles.navButton,
-        { backgroundColor: theme.colors.surface.raised, borderColor: theme.colors.value.border },
+        { backgroundColor: theme.colors.surface.raised, borderColor: theme.colors.surface.border },
         !canGoForward && styles.disabledButton
     ];
-    const trackStyles = [styles.scrubberTrack, { backgroundColor: theme.colors.value.progress }];
-    const fillStyles = [styles.scrubberFill, { backgroundColor: theme.colors.value.progressActive, width: stepProgressPercent }];
+    const trackStyles = [styles.scrubberTrack, { backgroundColor: theme.colors.numpad.track }];
+    const fillStyles = [styles.scrubberFill, { backgroundColor: theme.colors.numpad.trackFilled, width: stepProgressPercent }];
     const thumbStyles = [
         styles.scrubberThumb,
         {
             backgroundColor: theme.colors.surface.raised,
-            borderColor: theme.colors.value.border,
+            borderColor: theme.colors.surface.border,
             left: stepProgressPercent
         }
     ];

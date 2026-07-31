@@ -18,7 +18,7 @@ export const ChallengeConditionsRow = () => {
     const { theme } = useUnistyles();
 
     const rowStyles = resolveUnistyleForAnimated(styles.row);
-    const textStyles = [styles.text, { color: theme.colors.label.main }];
+    const textStyles = [styles.text, { color: theme.colors.text.primary }];
     const conditions = [t`no pause`, t`recorded`, t`shareable`].join(' · ');
 
     return (
@@ -28,7 +28,7 @@ export const ChallengeConditionsRow = () => {
             style={rowStyles}
             testID={ChallengeConditionsRowSelectors.Root}
         >
-            <Zap color={theme.colors.label.main} fill={theme.colors.label.main} size={GlyphSize} strokeWidth={2.4} />
+            <Zap color={theme.colors.text.primary} fill={theme.colors.text.primary} size={GlyphSize} strokeWidth={2.4} />
 
             <BlackText numberOfLines={1} style={textStyles}>
                 {conditions}

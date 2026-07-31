@@ -21,7 +21,7 @@ export const AppSettingsRow = ({ description, style, testID, title, trailing }: 
         styles.row,
         {
             backgroundColor: theme.colors.surface.subtle,
-            borderColor: theme.colors.value.border
+            borderColor: theme.colors.surface.border
         },
         style
     ];

@@ -41,11 +41,11 @@ export const ChallengeRaceTimeline = ({ awayRanges, events, opponentProgress, pl
 
     const marks = getChallengeTimelineMarks(events, TICK_COUNT, totalTime).map(mark => ({ ...mark, isAway: false }));
     const isRivalAhead = opponentProgress > playerProgress;
-    const gapColor = isRivalAhead ? theme.colors.red : theme.colors.label.main;
+    const gapColor = isRivalAhead ? theme.colors.danger : theme.colors.text.primary;
     const fillAnimatedStyle = useAnimatedStyle(() => ({
         width: `${Math.min(opponentProgressValue.value, playerProgressValue.value) * PERCENT}%`
     }));
-    const fillStyle = [resolveUnistyleForAnimated(styles.fill), { backgroundColor: theme.colors.label.main }, fillAnimatedStyle];
+    const fillStyle = [resolveUnistyleForAnimated(styles.fill), { backgroundColor: theme.colors.text.primary }, fillAnimatedStyle];
     const gapAnimatedStyle = useAnimatedStyle(() => ({
         left: `${Math.min(opponentProgressValue.value, playerProgressValue.value) * PERCENT}%`,
         width: `${Math.abs(opponentProgressValue.value - playerProgressValue.value) * PERCENT}%`
@@ -54,7 +54,7 @@ export const ChallengeRaceTimeline = ({ awayRanges, events, opponentProgress, pl
     const playerMarkerAnimatedStyle = useAnimatedStyle(() => ({ left: `${playerProgressValue.value * PERCENT}%` }));
     const playerDotStyle = [
         styles.playerDot,
-        { backgroundColor: theme.colors.label.main, borderColor: theme.colors.white },
+        { backgroundColor: theme.colors.text.primary, borderColor: theme.colors.surface.raised },
         playerMarkerAnimatedStyle
     ];
 

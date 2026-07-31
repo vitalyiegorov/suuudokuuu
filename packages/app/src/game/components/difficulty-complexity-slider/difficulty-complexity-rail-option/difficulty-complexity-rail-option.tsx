@@ -17,7 +17,7 @@ export const DifficultyComplexityRailOption = (props: Props) => {
     const { theme } = use(ThemeContext);
     const isSelected = difficulty === selectedDifficulty;
 
-    const optionLabelStyles = [styles.optionLabel, { color: isSelected ? theme.colors.label.main : theme.colors.label.hint }];
+    const optionLabelStyles = [styles.optionLabel, { color: isSelected ? theme.colors.text.primary : theme.colors.text.hint }];
 
     return (
         <DifficultyComplexityOption difficulty={difficulty} labelStyle={optionLabelStyles} onPress={onPress} style={styles.optionTrigger} />

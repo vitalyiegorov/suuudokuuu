@@ -2,9 +2,9 @@ import type { ThemeInterface } from '@suuudokuuu/ui/theme';
 
 export const cloneThemeColors = (colors: ThemeInterface['colors']): ThemeInterface['colors'] => ({
     ...colors,
-    label: { ...colors.label },
+    text: { ...colors.text },
+    board: { ...colors.board },
     candidate: { ...colors.candidate },
-    cell: { ...colors.cell },
-    value: { ...colors.value },
+    numpad: { ...colors.numpad },
     surface: { ...colors.surface }
 });

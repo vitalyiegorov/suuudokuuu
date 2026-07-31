@@ -24,11 +24,11 @@ export const CompletedGameItem = ({ game }: Props) => {
     const { theme } = use(ThemeContext);
     const { t } = useLingui();
 
-    const containerStyles = [styles.container, { backgroundColor: theme.colors.candidate.bg, borderColor: theme.colors.candidate.border }];
-    const eyebrowStyles = [styles.eyebrow, { color: theme.colors.label.hint }];
-    const difficultyStyles = [styles.difficulty, { color: theme.colors.label.main }];
-    const replayButtonStyles = [styles.replayButton, { backgroundColor: theme.colors.black }];
-    const iconColor = theme.colors.label.inverted;
+    const containerStyles = [styles.container, { backgroundColor: theme.colors.candidate.fill, borderColor: theme.colors.surface.border }];
+    const eyebrowStyles = [styles.eyebrow, { color: theme.colors.text.hint }];
+    const difficultyStyles = [styles.difficulty, { color: theme.colors.text.primary }];
+    const replayButtonStyles = [styles.replayButton, { backgroundColor: theme.colors.ink }];
+    const iconColor = theme.colors.inkText;
     const replayTextStyles = [styles.replayText, { color: iconColor }];
     const completedDate = new Date(game.completedAt);
     const completedDateText = completedDate.toLocaleDateString();

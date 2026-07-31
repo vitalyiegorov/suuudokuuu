@@ -26,7 +26,7 @@ export const ThemeListRow = ({ description, editAccessibilityLabel, isSelected, 
 
     const hasEditAction = isDefined(onEdit);
     const accessibilityState = { selected: isSelected };
-    const rowBorderColor = isSelected ? theme.colors.label.main : theme.colors.value.border;
+    const rowBorderColor = isSelected ? theme.colors.text.primary : theme.colors.surface.border;
     const rowStyle = { borderColor: rowBorderColor, borderWidth: 2 };
 
     const trailing = (

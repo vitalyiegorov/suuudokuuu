@@ -17,7 +17,7 @@ export const FloatingTabBarSurface = ({ children }: Props) => {
     const { colorScheme, theme } = use(ThemeContext);
 
     const blurTint = colorScheme === ColorSchemaEnum.Dark ? 'dark' : 'light';
-    const surfaceStyles = [styles.pill, { borderColor: theme.colors.value.border }];
+    const surfaceStyles = [styles.pill, { borderColor: theme.colors.surface.border }];
 
     return (
         <BlurView intensity={FloatingTabBarBlurIntensity} style={surfaceStyles} tint={blurTint}>

@@ -46,8 +46,8 @@ export const FieldCellCandidates = ({ candidates, activeValue, cellSize }: Props
                 color: theme.colors.candidate.text
             },
             cs(isCandidateActive && showActiveCandidates, {
-                backgroundColor: theme.colors.candidate.bgActive,
-                color: theme.colors.candidate.textActive
+                backgroundColor: theme.colors.candidate.fillSelected,
+                color: theme.colors.candidate.textSelected
             }),
             resolveUnistyleForAnimated(textCandidatePositionStyle(cellSize))
         ];
