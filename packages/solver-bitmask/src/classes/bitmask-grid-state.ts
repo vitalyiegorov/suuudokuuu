@@ -1,9 +1,18 @@
 import { GRID_BLANK_VALUE, GRID_CELL_COUNT, GRID_DIGIT_MASK, GRID_SIZE } from '@suuudokuuu/solver-core';
 
-import { BOX_BY_CELL, COLUMN_BY_CELL, ROW_BY_CELL } from '../constants/unit-cells.constant';
+import { BOX_BY_CELL, BOX_UNIT_TYPE, COLUMN_BY_CELL, COLUMN_UNIT_TYPE, ROW_BY_CELL, ROW_UNIT_TYPE } from '../constants/unit-cells.constant';
 import { bitForDigit, digitForBit } from '../utils/digit-bit.util';
 
 const NO_CANDIDATES = 0;
+
+const buildUnitMasksByType = (rowMasks: Uint16Array, columnMasks: Uint16Array, boxMasks: Uint16Array): Uint16Array[] => {
+    const unitMasksByType: Uint16Array[] = [];
+    unitMasksByType[ROW_UNIT_TYPE] = rowMasks;
+    unitMasksByType[COLUMN_UNIT_TYPE] = columnMasks;
+    unitMasksByType[BOX_UNIT_TYPE] = boxMasks;
+
+    return unitMasksByType;
+};
 
 export class BitmaskGridState {
     private readonly rowMasks = new Uint16Array(GRID_SIZE);
@@ -11,7 +20,7 @@ export class BitmaskGridState {
     private readonly boxMasks = new Uint16Array(GRID_SIZE);
     private readonly cells = new Uint8Array(GRID_CELL_COUNT);
     private readonly assignmentTrail = new Uint8Array(GRID_CELL_COUNT);
-    private readonly unitMasksByType = [this.rowMasks, this.columnMasks, this.boxMasks];
+    private readonly unitMasksByType = buildUnitMasksByType(this.rowMasks, this.columnMasks, this.boxMasks);
     private trailLengthValue = 0;
 
     get trailLength(): number {

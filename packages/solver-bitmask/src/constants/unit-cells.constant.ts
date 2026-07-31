@@ -1,5 +1,9 @@
 import { GRID_BOX_SIZE, GRID_CELL_COUNT, GRID_SIZE } from '@suuudokuuu/solver-core';
 
+export const ROW_UNIT_TYPE = 0;
+export const COLUMN_UNIT_TYPE = 1;
+export const BOX_UNIT_TYPE = 2;
+
 const boxIndexForCell = (cell: number): number => {
     const row = Math.floor(cell / GRID_SIZE);
     const column = cell % GRID_SIZE;
@@ -89,10 +93,19 @@ const createBoxCells = (boxByCell: Uint8Array): Uint8Array[] => {
     return boxCells;
 };
 
+const createAllUnitCells = (rowCells: Uint8Array[], columnCells: Uint8Array[], boxCells: Uint8Array[]): Uint8Array[][] => {
+    const allUnitCells: Uint8Array[][] = [];
+    allUnitCells[ROW_UNIT_TYPE] = rowCells;
+    allUnitCells[COLUMN_UNIT_TYPE] = columnCells;
+    allUnitCells[BOX_UNIT_TYPE] = boxCells;
+
+    return allUnitCells;
+};
+
 export const BOX_BY_CELL = createBoxByCell();
 export const ROW_BY_CELL = createRowByCell();
 export const COLUMN_BY_CELL = createColumnByCell();
 export const ROW_CELLS = createRowCells();
 export const COLUMN_CELLS = createColumnCells();
 export const BOX_CELLS = createBoxCells(BOX_BY_CELL);
-export const ALL_UNIT_CELLS = [ROW_CELLS, COLUMN_CELLS, BOX_CELLS] as const;
+export const ALL_UNIT_CELLS = createAllUnitCells(ROW_CELLS, COLUMN_CELLS, BOX_CELLS);

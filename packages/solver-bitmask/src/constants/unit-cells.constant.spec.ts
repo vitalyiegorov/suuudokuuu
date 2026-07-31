@@ -1,7 +1,18 @@
 import { describe, expect, it } from '@jest/globals';
 import { GRID_CELL_COUNT, GRID_SIZE } from '@suuudokuuu/solver-core';
 
-import { ALL_UNIT_CELLS, BOX_BY_CELL, BOX_CELLS, COLUMN_BY_CELL, COLUMN_CELLS, ROW_BY_CELL, ROW_CELLS } from './unit-cells.constant';
+import {
+    ALL_UNIT_CELLS,
+    BOX_BY_CELL,
+    BOX_CELLS,
+    BOX_UNIT_TYPE,
+    COLUMN_BY_CELL,
+    COLUMN_CELLS,
+    COLUMN_UNIT_TYPE,
+    ROW_BY_CELL,
+    ROW_CELLS,
+    ROW_UNIT_TYPE
+} from './unit-cells.constant';
 
 const sortedNumbers = (values: Uint8Array): number[] => Array.from(values).sort((left, right) => left - right);
 
@@ -47,6 +58,15 @@ describe('unit-cells constant', () => {
 
     it('exposes row, column, and box units in a fixed order', () => {
         expect(ALL_UNIT_CELLS).toEqual([ROW_CELLS, COLUMN_CELLS, BOX_CELLS]);
+    });
+
+    it('pins each unit type constant to its matching index in ALL_UNIT_CELLS', () => {
+        expect(ROW_UNIT_TYPE).toBe(0);
+        expect(COLUMN_UNIT_TYPE).toBe(1);
+        expect(BOX_UNIT_TYPE).toBe(2);
+        expect(ALL_UNIT_CELLS[ROW_UNIT_TYPE]).toBe(ROW_CELLS);
+        expect(ALL_UNIT_CELLS[COLUMN_UNIT_TYPE]).toBe(COLUMN_CELLS);
+        expect(ALL_UNIT_CELLS[BOX_UNIT_TYPE]).toBe(BOX_CELLS);
     });
 
     it('agrees with ROW_CELLS on the row index of every cell', () => {
