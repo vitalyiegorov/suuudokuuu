@@ -3,7 +3,7 @@ import { LucideLogOut, LucidePlay, LucideShare2 } from 'lucide-react-native';
 import { use } from 'react';
 import { type PressableProps } from 'react-native';
 
-import { BlackButton } from '../../../../@generic/components/black-button/black-button';
+import { AppLinkButton } from '../../../../@generic/components/app-link-button/app-link-button';
 import { GlassIconButton } from '../../../../@generic/components/glass-icon-button/glass-icon-button';
 import { ScreenActionBar } from '../../../../@generic/components/screen-action-bar/screen-action-bar';
 import { ThemeContext } from '../../../../theme/context/theme.context';
@@ -32,7 +32,7 @@ export const PauseScreenActions = ({ onQuit, onResume, onShare }: Props) => {
 
     return (
         <ScreenActionBar left={shareButton} right={quitButton}>
-            <BlackButton icon={LucidePlay} onPress={onResume} testID={PauseScreenSelectors.ResumeButton} text={t`Continue`} />
+            <AppLinkButton icon={LucidePlay} onPress={onResume} testID={PauseScreenSelectors.ResumeButton} text={t`Continue`} />
         </ScreenActionBar>
     );
 };

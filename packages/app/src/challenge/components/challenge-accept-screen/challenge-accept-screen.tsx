@@ -4,7 +4,7 @@ import { LucideSwords, LucideX } from 'lucide-react-native';
 import { use } from 'react';
 import { Text, View } from 'react-native';
 
-import { BlackButton } from '../../../@generic/components/black-button/black-button';
+import { AppLinkButton } from '../../../@generic/components/app-link-button/app-link-button';
 import { ChromeScrollPage } from '../../../@generic/components/chrome-scroll-page/chrome-scroll-page';
 import { GlassIconButton } from '../../../@generic/components/glass-icon-button/glass-icon-button';
 import { ScreenActionBar } from '../../../@generic/components/screen-action-bar/screen-action-bar';
@@ -66,7 +66,7 @@ export const ChallengeAcceptScreen = ({ opponentTotalTime, challengeState, isLoa
 
     const footer = (
         <ScreenActionBar right={maybeLaterButton}>
-            <BlackButton
+            <AppLinkButton
                 isLoading={isLoading}
                 onPress={onAccept}
                 testID={ChallengeAcceptScreenSelectors.AcceptButton}

@@ -1,7 +1,7 @@
 import { LucideHandHelping } from 'lucide-react-native';
 import { use } from 'react';
 
-import { BlackIconButton } from '../../../@generic/components/black-icon-button/black-icon-button';
+import { AppIconButton } from '../../../@generic/components/app-icon-button/app-icon-button';
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { GameScreenSelectors } from '../../../screens/components/game-screen/game-screen.selectors';
@@ -26,11 +26,12 @@ export const AutoCandidatesButton = ({ sizeStyle }: Props) => {
     };
 
     const isActive = !showAutoCandidates;
+    const buttonVariant = isActive ? 'inverted' : 'primary';
     const iconColor = isActive ? theme.colors.surface.raisedText : theme.colors.inkText;
 
     return (
-        <BlackIconButton isActive={isActive} onPress={handleCandidates} style={sizeStyle} testID={GameScreenSelectors.TipsButton}>
+        <AppIconButton onPress={handleCandidates} style={sizeStyle} testID={GameScreenSelectors.TipsButton} variant={buttonVariant}>
             <LucideHandHelping color={iconColor} />
-        </BlackIconButton>
+        </AppIconButton>
     );
 };
