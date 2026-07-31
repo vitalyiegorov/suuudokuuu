@@ -17,6 +17,26 @@ const createBoxByCell = (): Uint8Array => {
     return boxByCell;
 };
 
+const createRowByCell = (): Uint8Array => {
+    const rowByCell = new Uint8Array(GRID_CELL_COUNT);
+
+    for (let cell = 0; cell < GRID_CELL_COUNT; cell += 1) {
+        rowByCell[cell] = Math.floor(cell / GRID_SIZE);
+    }
+
+    return rowByCell;
+};
+
+const createColumnByCell = (): Uint8Array => {
+    const columnByCell = new Uint8Array(GRID_CELL_COUNT);
+
+    for (let cell = 0; cell < GRID_CELL_COUNT; cell += 1) {
+        columnByCell[cell] = cell % GRID_SIZE;
+    }
+
+    return columnByCell;
+};
+
 const createRowCells = (): Uint8Array[] => {
     const rowCells: Uint8Array[] = [];
 
@@ -70,6 +90,8 @@ const createBoxCells = (boxByCell: Uint8Array): Uint8Array[] => {
 };
 
 export const BOX_BY_CELL = createBoxByCell();
+export const ROW_BY_CELL = createRowByCell();
+export const COLUMN_BY_CELL = createColumnByCell();
 export const ROW_CELLS = createRowCells();
 export const COLUMN_CELLS = createColumnCells();
 export const BOX_CELLS = createBoxCells(BOX_BY_CELL);

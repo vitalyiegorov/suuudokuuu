@@ -1,13 +1,9 @@
 import { GRID_BLANK_VALUE, GRID_CELL_COUNT, GRID_DIGIT_MASK, GRID_SIZE } from '@suuudokuuu/solver-core';
 
-import { BOX_BY_CELL } from '../constants/unit-cells.constant';
+import { BOX_BY_CELL, COLUMN_BY_CELL, ROW_BY_CELL } from '../constants/unit-cells.constant';
 import { bitForDigit, digitForBit } from '../utils/digit-bit.util';
 
 const NO_CANDIDATES = 0;
-
-type UnitIndices = readonly [row: number, column: number, box: number];
-
-const unitIndicesFor = (cell: number): UnitIndices => [Math.floor(cell / GRID_SIZE), cell % GRID_SIZE, BOX_BY_CELL[cell]];
 
 export class BitmaskGridState {
     private readonly rowMasks = new Uint16Array(GRID_SIZE);
@@ -39,14 +35,18 @@ export class BitmaskGridState {
     }
 
     candidatesFor(cell: number): number {
-        const [row, column, box] = unitIndicesFor(cell);
+        const row = ROW_BY_CELL[cell];
+        const column = COLUMN_BY_CELL[cell];
+        const box = BOX_BY_CELL[cell];
 
         // eslint-disable-next-line no-bitwise -- combines row/column/box used-digit masks into the cell's remaining candidate mask
         return ~(this.rowMasks[row] | this.columnMasks[column] | this.boxMasks[box]) & GRID_DIGIT_MASK;
     }
 
     place(cell: number, bit: number): void {
-        const [row, column, box] = unitIndicesFor(cell);
+        const row = ROW_BY_CELL[cell];
+        const column = COLUMN_BY_CELL[cell];
+        const box = BOX_BY_CELL[cell];
 
         this.cells[cell] = digitForBit(bit);
         /* eslint-disable no-bitwise -- marks the digit bit as used in its row, column, and box masks */
@@ -57,7 +57,9 @@ export class BitmaskGridState {
     }
 
     remove(cell: number, bit: number): void {
-        const [row, column, box] = unitIndicesFor(cell);
+        const row = ROW_BY_CELL[cell];
+        const column = COLUMN_BY_CELL[cell];
+        const box = BOX_BY_CELL[cell];
 
         this.cells[cell] = GRID_BLANK_VALUE;
         /* eslint-disable no-bitwise -- clears the digit bit from its row, column, and box masks */

@@ -1,7 +1,7 @@
 import { describe, expect, it } from '@jest/globals';
 import { GRID_CELL_COUNT, GRID_SIZE } from '@suuudokuuu/solver-core';
 
-import { ALL_UNIT_CELLS, BOX_BY_CELL, BOX_CELLS, COLUMN_CELLS, ROW_CELLS } from './unit-cells.constant';
+import { ALL_UNIT_CELLS, BOX_BY_CELL, BOX_CELLS, COLUMN_BY_CELL, COLUMN_CELLS, ROW_BY_CELL, ROW_CELLS } from './unit-cells.constant';
 
 const sortedNumbers = (values: Uint8Array): number[] => Array.from(values).sort((left, right) => left - right);
 
@@ -47,5 +47,28 @@ describe('unit-cells constant', () => {
 
     it('exposes row, column, and box units in a fixed order', () => {
         expect(ALL_UNIT_CELLS).toEqual([ROW_CELLS, COLUMN_CELLS, BOX_CELLS]);
+    });
+
+    it('agrees with ROW_CELLS on the row index of every cell', () => {
+        for (let row = 0; row < GRID_SIZE; row += 1) {
+            for (const cell of ROW_CELLS[row]) {
+                expect(ROW_BY_CELL[cell]).toBe(row);
+            }
+        }
+    });
+
+    it('agrees with COLUMN_CELLS on the column index of every cell', () => {
+        for (let column = 0; column < GRID_SIZE; column += 1) {
+            for (const cell of COLUMN_CELLS[column]) {
+                expect(COLUMN_BY_CELL[cell]).toBe(column);
+            }
+        }
+    });
+
+    it('maps the corners of the grid to the expected row and column indices', () => {
+        expect(ROW_BY_CELL[0]).toBe(0);
+        expect(COLUMN_BY_CELL[0]).toBe(0);
+        expect(ROW_BY_CELL[GRID_CELL_COUNT - 1]).toBe(GRID_SIZE - 1);
+        expect(COLUMN_BY_CELL[GRID_CELL_COUNT - 1]).toBe(GRID_SIZE - 1);
     });
 });
