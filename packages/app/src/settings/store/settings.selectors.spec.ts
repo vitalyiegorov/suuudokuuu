@@ -3,6 +3,7 @@ import { describe, expect, it, jest } from '@jest/globals';
 import { DifficultyEnum } from '@suuudokuuu/generator';
 
 import { initialGameState } from '../../game/store/game.state';
+import { initialHellQueueState } from '../../hell-queue/store/hell-queue.state';
 import { ThemeEnum } from '../../theme/enum/theme.enum';
 import { initialCustomThemesState } from '../../theme/store/custom-themes.state';
 
@@ -49,7 +50,12 @@ describe('settings selectors', () => {
     it('should read the settings slice out of the root state', () => {
         expect.assertions(1);
 
-        const rootState: RootState = { game: initialGameState, settings: state, customThemes: initialCustomThemesState };
+        const rootState: RootState = {
+            game: initialGameState,
+            settings: state,
+            customThemes: initialCustomThemesState,
+            hellQueue: initialHellQueueState
+        };
 
         expect(settingsThemeSelector(rootState)).toBe(ThemeEnum.Newspaper);
     });

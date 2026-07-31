@@ -80,6 +80,13 @@ export const ScoringScreen = () => {
                         {defaultScoringConfig.correctValue * defaultScoringConfig.difficultyCoefficients[DifficultyEnum.Nightmare]}
                     </Text>
                 </ListItem>
+                <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
+                    • <Trans>Hell</Trans>:{' '}
+                    <Text style={codeStyle}>×{defaultScoringConfig.difficultyCoefficients[DifficultyEnum.Hell]}</Text> ={' '}
+                    <Text style={codeStyle}>
+                        {defaultScoringConfig.correctValue * defaultScoringConfig.difficultyCoefficients[DifficultyEnum.Hell]}
+                    </Text>
+                </ListItem>
             </View>
 
             <View style={styles.section}>

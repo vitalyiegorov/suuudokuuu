@@ -9,7 +9,8 @@ describe('getDifficultyText', () => {
         [DifficultyEnum.Easy, 'Easy'],
         [DifficultyEnum.Medium, 'Medium'],
         [DifficultyEnum.Hard, 'Hard'],
-        [DifficultyEnum.Nightmare, 'Nightmare']
+        [DifficultyEnum.Nightmare, 'Nightmare'],
+        [DifficultyEnum.Hell, 'Hell']
     ])('should map %s to its label', (difficulty, expected) => {
         expect.assertions(1);
 

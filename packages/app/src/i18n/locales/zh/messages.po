@@ -173,7 +173,7 @@ msgstr "Bahasa Indonesia"
 msgid "Balanced digits for most players"
 msgstr "适合大多数玩家的均衡数字大小"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Balanced solve"
 msgstr "均衡解题"
 
@@ -422,7 +422,7 @@ msgstr "每日连续"
 msgid "Dead even"
 msgstr "完全平局"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Deep focus"
 msgstr "深度专注"
 
@@ -521,7 +521,7 @@ msgstr "Español"
 msgid "Evenly matched"
 msgstr "势均力敌"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Expert grid"
 msgstr "专家棋盘"
 
@@ -579,7 +579,7 @@ msgstr "对局"
 msgid "General"
 msgstr "通用"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Gentle start"
 msgstr "轻松开始"
 
@@ -614,6 +614,11 @@ msgstr "困难"
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Hardcore"
 msgstr "硬核"
+
+#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/scoring/components/scoring.screen.tsx
+msgid "Hell"
+msgstr "地狱"
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Help Ukraine win"
@@ -762,7 +767,7 @@ msgstr "级别"
 msgid "Light"
 msgstr "浅色"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Light warm-up"
 msgstr "轻度热身"
 

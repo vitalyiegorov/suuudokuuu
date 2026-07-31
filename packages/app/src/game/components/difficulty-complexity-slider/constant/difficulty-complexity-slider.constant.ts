@@ -1,12 +1,12 @@
 import { DifficultyEnum } from '@suuudokuuu/generator';
 
-export const DifficultyComplexitySliderDifficulties = [
+export const DifficultyComplexitySliderDifficulties: readonly DifficultyEnum[] = [
     DifficultyEnum.Newbie,
     DifficultyEnum.Easy,
     DifficultyEnum.Medium,
     DifficultyEnum.Hard,
     DifficultyEnum.Nightmare
-] as const;
+];
 
 export const DifficultyComplexitySliderInitialIndex = 1;
 const DifficultyComplexitySliderPreviewColumnCount = 5;

@@ -51,6 +51,7 @@ import { HomeScreenStyles as styles } from './home-screen.styles';
 import { type HomeScreenOptionCardInterface } from './interface/home-screen-option-card.interface';
 import { homeScreenGetContentInsetTop } from './utils/home-screen-get-content-inset-top.util';
 import { homeScreenGetCurrentGameProgress } from './utils/home-screen-get-current-game-progress.util';
+import { homeScreenGetDifficultyDescription } from './utils/home-screen-get-difficulty-description.util';
 
 const RelaxedMistakeLimit = 99;
 const topEdgeFadeProps = { height: HomeScreenTopOverlayHeight, intensity: HomeScreenTopOverlayIntensity };
@@ -114,15 +115,8 @@ export const HomeScreen = () => {
     const selectedDifficultyIndex =
         selectedDifficultyIndexFromSettings < 0 ? DifficultyComplexitySliderInitialIndex : selectedDifficultyIndexFromSettings;
     const selectedDifficulty = DifficultyComplexitySliderDifficulties[selectedDifficultyIndex] ?? difficulty;
-    const difficultyDescriptionsByDifficulty = {
-        [DifficultyEnum.Newbie]: t`Gentle start`,
-        [DifficultyEnum.Easy]: t`Light warm-up`,
-        [DifficultyEnum.Medium]: t`Balanced solve`,
-        [DifficultyEnum.Hard]: t`Deep focus`,
-        [DifficultyEnum.Nightmare]: t`Expert grid`
-    };
     const selectedDifficultyLabel = getDifficultyText(difficulty);
-    const selectedDifficultyDescription = difficultyDescriptionsByDifficulty[selectedDifficulty];
+    const selectedDifficultyDescription = homeScreenGetDifficultyDescription(selectedDifficulty);
     const challengeSummarySuffix = isChallengeMode ? ` • ${t`Challenge`}` : '';
     const setupSummary = `${selectedDifficultyLabel} • ${selectedMistakesOption.title}${challengeSummarySuffix}`;
     const currentElapsedTimeText = useTimerText(currentElapsedTime);

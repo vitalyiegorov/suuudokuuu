@@ -173,7 +173,7 @@ msgstr "Bahasa Indonesia"
 msgid "Balanced digits for most players"
 msgstr "अधिकतर खिलाड़ियों के लिए संतुलित अंक"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Balanced solve"
 msgstr "संतुलित हल"
 
@@ -422,7 +422,7 @@ msgstr "दैनिक स्ट्रीक"
 msgid "Dead even"
 msgstr "पूरा बराबर"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Deep focus"
 msgstr "गहरा फ़ोकस"
 
@@ -521,7 +521,7 @@ msgstr "Español"
 msgid "Evenly matched"
 msgstr "बराबरी की टक्कर"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Expert grid"
 msgstr "विशेषज्ञ ग्रिड"
 
@@ -579,7 +579,7 @@ msgstr "गेम"
 msgid "General"
 msgstr "सामान्य"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Gentle start"
 msgstr "आरामदायक शुरुआत"
 
@@ -614,6 +614,11 @@ msgstr "कठिन"
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Hardcore"
 msgstr "हार्डकोर"
+
+#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/scoring/components/scoring.screen.tsx
+msgid "Hell"
+msgstr "नरक"
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Help Ukraine win"
@@ -762,7 +767,7 @@ msgstr "स्तर"
 msgid "Light"
 msgstr "लाइट"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Light warm-up"
 msgstr "हल्का वार्म-अप"
 

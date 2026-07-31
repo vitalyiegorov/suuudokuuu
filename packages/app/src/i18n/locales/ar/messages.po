@@ -173,7 +173,7 @@ msgstr "Bahasa Indonesia"
 msgid "Balanced digits for most players"
 msgstr "أرقام متوازنة لمعظم اللاعبين"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Balanced solve"
 msgstr "حل متوازن"
 
@@ -422,7 +422,7 @@ msgstr "سلسلة الأيام"
 msgid "Dead even"
 msgstr "تعادل تام"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Deep focus"
 msgstr "تركيز عميق"
 
@@ -521,7 +521,7 @@ msgstr "Español"
 msgid "Evenly matched"
 msgstr "تعادل متقارب"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Expert grid"
 msgstr "شبكة للخبراء"
 
@@ -579,7 +579,7 @@ msgstr "الألعاب"
 msgid "General"
 msgstr "عام"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Gentle start"
 msgstr "بداية سهلة"
 
@@ -614,6 +614,11 @@ msgstr "صعب"
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Hardcore"
 msgstr "هاردكور"
+
+#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/scoring/components/scoring.screen.tsx
+msgid "Hell"
+msgstr "جحيم"
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Help Ukraine win"
@@ -762,7 +767,7 @@ msgstr "المستوى"
 msgid "Light"
 msgstr "فاتح"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Light warm-up"
 msgstr "إحماء خفيف"
 
