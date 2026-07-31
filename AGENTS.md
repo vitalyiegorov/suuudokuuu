@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Suuudokuuu is an open-source Sudoku game built with React Native and Expo. This monorepo has five core packages: `app` for the game UI, `generator` for Sudoku generation and solving, `techniques` for solving-technique detection, `encoder` for compact shareable game-state encoding, and `screen-chrome` for generic screen chrome primitives.
+Suuudokuuu is an open-source Sudoku game built with React Native and Expo. This monorepo has eight core packages: `app` for the game UI, `generator` for Sudoku generation and solving, `solver-core` for the shared solver contract, grid utilities, and conformance helpers, `solver-dlx` for the Dancing Links exact-cover solver, `solver-bitmask` for the typed-array bitmask solver, `techniques` for solving-technique detection, `encoder` for compact shareable game-state encoding, and `screen-chrome` for generic screen chrome primitives.
 
 ## Canonical Agent Surfaces
 
@@ -146,7 +146,7 @@ Use Conventional Commits for commit messages and PR titles:
 type(scope): short description
 ```
 
-Scopes are `app`, `generator`, `techniques`, and `encoder`. Omit the scope for repo-wide docs, tooling, skills, or workspace configuration.
+Scopes are `app`, `generator`, `solver-core`, `solver-dlx`, `solver-bitmask`, `techniques`, and `encoder`. Omit the scope for repo-wide docs, tooling, skills, or workspace configuration.
 
 Use these types: `feat`, `fix`, `refactor`, `chore`, `docs`, `ci`, `test`, `i18n`, `perf`, and `build`.
 
