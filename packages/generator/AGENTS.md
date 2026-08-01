@@ -19,10 +19,6 @@ yarn test:coverage
 ```text
 src/
 ├── @generic/                  # Shared enums, interfaces, types, and utilities
-├── hell/                      # Hell-difficulty generation: bootstrap, neighborhood walk, minimality reduction
-│   ├── classes/
-│   ├── interfaces/
-│   └── utils/
 ├── serializable-sudoku/       # Base serialization and field state feature
 │   └── classes/
 └── sudoku/                    # Generation, gameplay, navigation, and scoring feature
@@ -40,7 +36,7 @@ src/
 
 ## Algorithm Rules
 
-1. Treat the Hell generator's walk state (bootstrap, mutation, minimality reduction) as invariant-heavy code. Small readability refactors are fine; broad rewrites need focused tests first.
+1. Treat the generator's clue-removal loop and its solver-backed uniqueness checks as invariant-heavy code. Small readability refactors are fine; broad rewrites need focused tests first.
 2. Keep solver methods deterministic for a given field. Randomness belongs in generation and shuffle steps.
 3. Do not replace structured field/cell operations with ad hoc string parsing inside the generator.
 4. Use constants or config values for grid dimensions when touching generic Sudoku logic.
