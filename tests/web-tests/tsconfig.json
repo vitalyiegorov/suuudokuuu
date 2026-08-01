@@ -1,0 +1,9 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "tsBuildInfoFile": "./node_modules/.cache/tsbuildinfo.json",
+        "types": ["node"]
+    },
+    "include": ["./specs", "./src", "./playwright.config.ts"],
+    "exclude": ["node_modules"]
+}
