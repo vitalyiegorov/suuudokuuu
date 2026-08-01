@@ -11,11 +11,6 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#. placeholder {0}: ranges.length
-#: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
-msgid "{0, plural, one {# break} other {# breaks}}"
-msgstr "{0, plural, other {# 次离开}}"
-
 #. placeholder {0}: 0
 #. placeholder {0}: 3
 #. placeholder {0}: 99
@@ -23,13 +18,21 @@ msgstr "{0, plural, other {# 次离开}}"
 msgid "{0, plural, one {# mistake} other {# mistakes}}"
 msgstr "{0, plural, one {# 个错误} other {# 个错误}}"
 
+#: src/settings/component/settings-app-footer/settings-app-footer.tsx
+msgid "{appName} · v{version}"
+msgstr "{appName} · v{version}"
+
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
 msgstr "{arsenalCardCount, plural, one {# 个技巧} other {# 个技巧}}"
 
-#: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
+#: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
 msgid "{awaySeconds}s away"
 msgstr "离开 {awaySeconds} 秒"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "{draftThemeName} copy"
+msgstr "{draftThemeName}副本"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} faster"
@@ -43,19 +46,19 @@ msgstr "慢 {durationText}"
 msgid "{filledCells}/{totalCells} filled"
 msgstr "{filledCells}/{totalCells} 已填"
 
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "{foregroundLabel} on {backgroundLabel}: {contrastRatioText} — minimum {minimumRatio}"
+msgstr "{backgroundLabel}上的{foregroundLabel}：{contrastRatioText} — 最低 {minimumRatio}"
+
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "{gamesCompleted, plural, one {# completed game} other {# completed games}}"
 msgstr "{gamesCompleted, plural, one {# 局已完成} other {# 局已完成}}"
-
-#: src/challenge/components/challenge-technique-preview/challenge-technique-preview.tsx
-msgid "{keyMoveCount, plural, one {# key move} other {# key moves}}"
-msgstr "{keyMoveCount, plural, one {# 个关键步} other {# 个关键步}}"
 
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
 msgstr "{mistakes, plural, one {# 个错误} other {# 个错误}}"
 
-#: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
+#: src/challenge/components/challenge-run-summary/challenge-run-summary.tsx
 msgid "{sharpCount, plural, one {# sharp technique} other {# sharp techniques}}"
 msgstr "{sharpCount, plural, one {# 个精妙技巧} other {# 个精妙技巧}}"
 
@@ -82,6 +85,10 @@ msgstr "<0>需要开发客户端</0><1>开发客户端需要 Metro、在 <2>EXPO
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "A little room between cells"
 msgstr "单元格之间留出少量间距"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Accent"
+msgstr "强调色"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Accept challenge"
@@ -121,6 +128,10 @@ msgstr "Android 安装"
 msgid "Animate completed rows, columns, and boxes"
 msgstr "为完成的行、列和宫格显示动画"
 
+#: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
+msgid "Apply"
+msgstr "应用"
+
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Attempts to load the latest development build again"
 msgstr "再次尝试加载最新开发版本"
@@ -146,7 +157,7 @@ msgstr "Bahasa Indonesia"
 msgid "Balanced digits for most players"
 msgstr "适合大多数玩家的均衡数字大小"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Balanced solve"
 msgstr "均衡解题"
 
@@ -177,6 +188,10 @@ msgstr "最佳时间"
 msgid "Better luck next time!"
 msgstr "下次好运！"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Board cells"
+msgstr "棋盘单元格"
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Board colors and screen appearance"
 msgstr "棋盘颜色和界面外观"
@@ -198,8 +213,22 @@ msgstr "你能超过他们吗？"
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 #: src/screens/components/shared-screen/shared-screen.tsx
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+#: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Cancel"
 msgstr "取消"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Candidate background"
+msgstr "候选数字背景"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Candidate text"
+msgstr "候选数字文字"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Candidates"
+msgstr "候选数字"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
@@ -257,10 +286,6 @@ msgid "Choose how much space appears between Sudoku cells"
 msgstr "选择数独单元格之间的间距"
 
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
-msgid "Choose the color style for the board and app screens"
-msgstr "选择棋盘和应用界面的配色风格"
-
-#: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Choose the language used for menus and game text"
 msgstr "选择菜单和游戏文字使用的语言"
 
@@ -275,6 +300,10 @@ msgstr "零失误"
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Clean black-and-white board"
 msgstr "清爽的黑白棋盘"
+
+#: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
+msgid "Clean run"
+msgstr "干净对局"
 
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Clean win"
@@ -325,13 +354,37 @@ msgstr "在别处继续"
 msgid "Continue this Sudoku exactly where I left off!"
 msgstr "从我停下的地方继续这道数独！"
 
+#: src/screens/components/themes-screen/themes.screen.tsx
+msgid "Create theme"
+msgstr "创建主题"
+
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Custom theme"
+msgstr "自定义主题"
+
+#: src/screens/components/themes-screen/themes.screen.tsx
+msgid "Customize"
+msgstr "自定义"
+
 #: src/@generic/hooks/use-timer-text.hook.ts
 msgid "d"
 msgstr "d"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Danger accent"
+msgstr "危险强调色"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Dark"
+msgstr "深色"
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Dark mode"
 msgstr "深色模式"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Dark overlay"
+msgstr "深色叠加层"
 
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Day streak"
@@ -341,9 +394,17 @@ msgstr "每日连续"
 msgid "Dead even"
 msgstr "完全平局"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Deep focus"
 msgstr "深度专注"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Delete"
+msgstr "删除"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Delete theme"
+msgstr "删除主题"
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Deutsch"
@@ -387,6 +448,10 @@ msgstr "下载 Android 开发版本"
 msgid "Downloads the Android development APK"
 msgstr "下载 Android 开发版 APK"
 
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Duplicate"
+msgstr "复制"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Each correct placement starts with a base value:"
 msgstr "每次正确填入都会从基础值开始："
@@ -396,9 +461,25 @@ msgstr "每次正确填入都会从基础值开始："
 msgid "Easy"
 msgstr "简单"
 
+#: src/screens/components/themes-screen/themes.screen.tsx
+msgid "Edit"
+msgstr "编辑"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Empty cell text"
+msgstr "空单元格文字"
+
 #: src/settings/constant/language-labels.constant.ts
 msgid "English"
 msgstr "English"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Enter a theme name"
+msgstr "请输入主题名称"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Error cell"
+msgstr "错误单元格"
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Español"
@@ -408,7 +489,7 @@ msgstr "Español"
 msgid "Evenly matched"
 msgstr "势均力敌"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Expert grid"
 msgstr "专家棋盘"
 
@@ -419,6 +500,10 @@ msgstr "当你的落子完成以下内容时可获得额外分数："
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Feedback"
 msgstr "反馈"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Filled cell"
+msgstr "已填单元格"
 
 #: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
 msgid "Final score"
@@ -458,7 +543,11 @@ msgstr "游戏已暂停"
 msgid "Games"
 msgstr "对局"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "General"
+msgstr "通用"
+
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Gentle start"
 msgstr "轻松开始"
 
@@ -493,6 +582,11 @@ msgstr "困难"
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Hardcore"
 msgstr "硬核"
+
+#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/scoring/components/scoring.screen.tsx
+msgid "Hell"
+msgstr "地狱"
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Help Ukraine win"
@@ -530,6 +624,10 @@ msgstr "高亮匹配数字"
 msgid "Highlight pencil marks"
 msgstr "高亮笔记"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Hint text"
+msgstr "提示文字"
+
 #: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Home"
@@ -552,6 +650,10 @@ msgstr "不朽"
 msgid "Incomplete"
 msgstr "未完成"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Ink"
+msgstr "墨色"
+
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Install on iOS"
 msgstr "在 iOS 上安装"
@@ -560,7 +662,7 @@ msgstr "在 iOS 上安装"
 msgid "Install the iOS development build"
 msgstr "安装 iOS 开发版本"
 
-#: src/game/components/game-provider/game-provider.tsx
+#: src/game/hooks/use-game-creation-runner.hook.ts
 msgid "Invalid Sudoku"
 msgstr "无效数独"
 
@@ -617,7 +719,15 @@ msgstr "左手布局"
 msgid "Level"
 msgstr "级别"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Light"
+msgstr "浅色"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Light overlay"
+msgstr "浅色叠加层"
+
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Light warm-up"
 msgstr "轻度热身"
 
@@ -632,6 +742,10 @@ msgstr "正在加载最新开发版本…"
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "Lost"
 msgstr "失败"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Low contrast"
+msgstr "低对比度"
 
 #: src/@generic/hooks/use-timer-text.hook.ts
 msgid "m"
@@ -654,6 +768,10 @@ msgstr "中等"
 msgid "Menus, settings, and game text"
 msgstr "菜单、设置和游戏文字"
 
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
+msgid "Minimum clues"
+msgstr "最少提示"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Minimum Score"
 msgstr "最低分"
@@ -675,6 +793,14 @@ msgstr "步"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Move the landscape controls panel to the left of the board"
 msgstr "横屏时将控制面板移到棋盘左侧"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "My theme"
+msgstr "我的主题"
+
+#: src/screens/components/themes-screen/themes.screen.tsx
+msgid "My themes"
+msgstr "我的主题"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Naked Pair"
@@ -754,16 +880,32 @@ msgstr "无暂停"
 msgid "No stats yet"
 msgstr "还没有统计"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Number pad"
+msgstr "数字键盘"
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Number size"
 msgstr "数字大小"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Numpad text"
+msgstr "数字键盘文字"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Numpad track"
+msgstr "数字键盘进度条"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Numpad track (filled)"
+msgstr "数字键盘进度条（已填充）"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "of current score"
 msgstr "当前分数的"
 
-#: src/game/components/game-provider/game-provider.tsx
+#: src/game/hooks/use-game-creation-runner.hook.ts
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
@@ -786,6 +928,10 @@ msgstr "打开分享的数独？"
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "Open this page in Safari on a physical iPhone or iPad. The device must already be registered in the Ad Hoc provisioning profile."
 msgstr "请在实体 iPhone 或 iPad 上使用 Safari 打开此页面。该设备必须已注册到 Ad Hoc 配置描述文件中。"
+
+#: src/settings/component/theme-editor-color-row/theme-editor-color-row.tsx
+msgid "Opens a color picker for this token"
+msgstr "为该项打开颜色选择器"
 
 #: src/settings/component/settings-option-link/settings-option-link.tsx
 msgid "Opens a picker to change this setting"
@@ -819,6 +965,10 @@ msgstr "惩罚"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Penalty formula"
 msgstr "惩罚公式"
+
+#: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
+msgid "Pencil marks"
+msgstr "笔记标记"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "per mistake"
@@ -872,6 +1022,14 @@ msgstr "每次正确填入的分数。"
 msgid "Português"
 msgstr "Português"
 
+#: src/screens/components/themes-screen/themes.screen.tsx
+msgid "Presets"
+msgstr "预设"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Primary text"
+msgstr "主要文字"
+
 #: src/app/privacy-policy.tsx
 #: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx
 #: src/settings/component/settings-app-footer/settings-app-footer.tsx
@@ -885,6 +1043,14 @@ msgstr "发布于："
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Quit"
 msgstr "退出"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Raised surface"
+msgstr "凸起表面"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Raised surface text"
+msgstr "凸起表面文字"
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"
@@ -911,6 +1077,10 @@ msgstr "回放"
 #: src/settings/component/settings-app-footer/settings-app-footer.tsx
 msgid "Report a bug"
 msgstr "报告问题"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Reset"
+msgstr "重置"
 
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "Result"
@@ -941,10 +1111,6 @@ msgstr "对手向你发起了挑战"
 msgid "Rival's arsenal"
 msgstr "对手的技巧库"
 
-#: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
-msgid "Rival's playbook"
-msgstr "对手的解题套路"
-
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Rival's run"
 msgstr "对手的对局"
@@ -957,6 +1123,14 @@ msgstr "需要超越的对手时间"
 msgid "Row"
 msgstr "行"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Same-value cell"
+msgstr "相同数值单元格"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Same-value cell text"
+msgstr "相同数值单元格文字"
+
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Sashimi Swordfish"
 msgstr "Sashimi Swordfish"
@@ -964,6 +1138,14 @@ msgstr "Sashimi Swordfish"
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Sashimi X-Wing"
 msgstr "Sashimi X-Wing"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Save"
+msgstr "保存"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Save anyway"
+msgstr "仍要保存"
 
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
@@ -980,6 +1162,34 @@ msgstr "分数 × 系数 × 数量"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 msgstr "每个正确填入的格子都会根据难度、奖励和惩罚计算分数。"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Screen background"
+msgstr "屏幕背景"
+
+#: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
+msgid "Screenshots"
+msgstr "截屏"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Selected candidate background"
+msgstr "选中候选数字背景"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Selected candidate border"
+msgstr "选中候选数字边框"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Selected candidate text"
+msgstr "选中候选数字文字"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Selected cell"
+msgstr "选中单元格"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Selected cell text"
+msgstr "选中单元格文字"
 
 #: src/game/hooks/use-share-game.hook.ts
 msgid "Send the puzzle to solve from scratch, or hand off your run to continue elsewhere."
@@ -1050,9 +1260,13 @@ msgstr "最小数字，适合紧凑棋盘"
 msgid "Soft gray board with a paper-like feel"
 msgstr "柔和灰色棋盘，带纸张质感"
 
-#: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
+#: src/challenge/components/challenge-run-summary/challenge-run-summary.tsx
 msgid "Solved with the fundamentals"
 msgstr "仅用基础技巧解出"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Some color combinations are hard to read. Save anyway?"
+msgstr "部分颜色组合难以辨认。仍要保存吗？"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Space between Sudoku cells"
@@ -1097,6 +1311,18 @@ msgstr "步时"
 msgid "Stop current run?"
 msgstr "结束当前对局？"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Subtle surface"
+msgstr "淡色表面"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Subtle surface hint"
+msgstr "淡色表面提示"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Subtle surface text"
+msgstr "淡色表面文字"
+
 #: src/@generic/components/support-ukraine-pill/support-ukraine-pill.tsx
 msgid "Support"
 msgstr "支持"
@@ -1106,13 +1332,13 @@ msgstr "支持"
 msgid "Support Ukraine"
 msgstr "支持乌克兰"
 
-#: src/screens/components/home-screen/home.screen.tsx
-msgid "suuudokuuu"
-msgstr "suuudokuuu"
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Surface border"
+msgstr "表面边框"
 
-#: src/settings/component/settings-app-footer/settings-app-footer.tsx
-msgid "suuudokuuu · v{version}"
-msgstr "suuudokuuu · v{version}"
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Surfaces"
+msgstr "表面"
 
 #: src/game/hooks/use-share-challenge/use-share-challenge.hook.ts
 msgid "SuuudokuuU Challenge"
@@ -1142,6 +1368,22 @@ msgstr "Swordfish"
 msgid "Taller marks = sharper techniques"
 msgstr "标记越高，技巧越精妙"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Text and labels"
+msgstr "文字与标签"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Text on danger accent"
+msgstr "危险强调色上的文字"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Text on filled numpad track"
+msgstr "已填充数字键盘进度条上的文字"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Text on ink"
+msgstr "墨色上的文字"
+
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
 msgstr "无法在此设备上打开提交链接。"
@@ -1154,14 +1396,28 @@ msgstr "无法打开安装链接。请检查浏览器设置后重试。"
 msgid "Their time to beat"
 msgstr "需要超越的时间"
 
+#: src/app/settings/themes/index.tsx
 #: src/screens/components/settings-screen/settings.screen.tsx
-#: src/settings/hooks/use-settings-option-sheet-config.hook.ts
+#: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Theme"
 msgstr "主题"
+
+#: src/app/settings/themes/editor.tsx
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Theme editor"
+msgstr "主题编辑器"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Theme name"
+msgstr "主题名称"
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "这次未能完成棋盘。乌克兰争取自由的战斗仍在继续。每 1 美元捐款都有意义。"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "This theme will be removed permanently."
+msgstr "此主题将被永久删除。"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "This value is multiplied by the difficulty coefficient:"
@@ -1224,10 +1480,6 @@ msgstr "无法打开链接"
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Unable to start installation"
 msgstr "无法开始安装"
-
-#: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
-msgid "Uninterrupted run"
-msgstr "全程未中断"
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/screens/components/settings-screen/settings.screen.tsx
@@ -1387,9 +1639,17 @@ msgstr "你的最佳战绩"
 msgid "Your browser may ask for permission to install unknown apps. Android will also show an operating-system security warning before installation."
 msgstr "浏览器可能会请求安装未知来源应用的权限。安装前，Android 还会显示操作系统安全警告。"
 
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Your custom colors"
+msgstr "你的自定义颜色"
+
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Your progress"
 msgstr "你的进度"
+
+#: src/screens/components/winner-screen/winner.screen.tsx
+msgid "Your recording"
+msgstr "你的录制"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Your rival was faster"

@@ -24,9 +24,9 @@ export const UkraineSupportCard = ({ context = 'neutral', testID, variant = 'fil
     const { theme } = use(ThemeContext);
     const { t } = useLingui();
     const isBordered = variant === 'bordered';
-    const textColor = isBordered ? theme.colors.label.main : theme.colors.label.inverted;
+    const textColor = isBordered ? theme.colors.text.primary : theme.colors.inkText;
     const cardVariant = isBordered ? 'default' : 'inverted';
-    const cardColorStyles = isBordered ? { backgroundColor: 'transparent', borderColor: theme.colors.candidate.border } : null;
+    const cardColorStyles = isBordered ? { backgroundColor: 'transparent', borderColor: theme.colors.surface.border } : null;
     const containerStyles = [styles.container, cardColorStyles];
     const titleStyles = [styles.title, { color: textColor }];
     const descriptionStyles = [styles.description, { color: textColor }];
@@ -56,7 +56,7 @@ export const UkraineSupportCard = ({ context = 'neutral', testID, variant = 'fil
                 </BlackText>
             </View>
 
-            <Text adjustsFontSizeToFit allowFontScaling={false} minimumFontScale={0.78} numberOfLines={3} style={descriptionStyles}>
+            <Text allowFontScaling={false} style={descriptionStyles}>
                 {description}
             </Text>
 

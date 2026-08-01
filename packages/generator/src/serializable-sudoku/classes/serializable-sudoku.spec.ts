@@ -68,7 +68,8 @@ describe('SerializableSudoku - Difficulty Settings', () => {
                 [DifficultyEnum.Easy]: 0.4,
                 [DifficultyEnum.Medium]: 0.6,
                 [DifficultyEnum.Hard]: 0.8,
-                [DifficultyEnum.Nightmare]: 0.9
+                [DifficultyEnum.Nightmare]: 0.9,
+                [DifficultyEnum.Hell]: 0.95
             }
         };
 
@@ -87,6 +88,16 @@ describe('SerializableSudoku - Difficulty Settings', () => {
         const sudoku = SerializableSudoku.fromString(testFieldsString, defaultSudokuConfig);
 
         expect(sudoku.Difficulty).toBe(DifficultyEnum.Newbie);
+    });
+
+    it('should report Hell for a field with 61-64 blank cells', () => {
+        expect.assertions(1);
+
+        const seventeenGivensFieldsString = '000000010400000000020000000000050407008000300001090000300400200050100000000806000';
+
+        const sudoku = SerializableSudoku.fromString(seventeenGivensFieldsString, defaultSudokuConfig);
+
+        expect(sudoku.Difficulty).toBe(DifficultyEnum.Hell);
     });
 });
 

@@ -16,7 +16,7 @@ import { initialGameState } from './game.state';
 
 import type { GameState } from './game.state';
 import type { CellInterface, DifficultyEnum, ScoredCellsInterface, Sudoku } from '@suuudokuuu/generator';
-import type { SolutionTechniqueEnum } from '@suuudokuuu/solver';
+import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 const MillisecondsPerSecond = 1000;
 
@@ -24,10 +24,11 @@ export const gameSlice = createSlice({
     name: 'game',
     initialState: initialGameState,
     reducers: {
-        start: (state, action: PayloadAction<Pick<GameState, 'sudokuString' | 'maxMistakes' | 'isChallengeRun'>>) => {
+        start: (state, action: PayloadAction<Pick<GameState, 'sudokuString' | 'difficulty' | 'maxMistakes' | 'isChallengeRun'>>) => {
             Object.assign(state, { ...initialGameState, historyByDifficulty: state.historyByDifficulty });
 
             state.sudokuString = action.payload.sudokuString;
+            state.difficulty = action.payload.difficulty;
             state.maxMistakes = action.payload.maxMistakes;
             state.isChallengeRun = action.payload.isChallengeRun;
         },
@@ -105,7 +106,7 @@ export const gameSlice = createSlice({
 
             state.score += scoring.calculate({
                 scoredCells,
-                difficulty: sudoku.Difficulty,
+                difficulty: state.difficulty,
                 mistakes: state.mistakes,
                 elapsedTime: state.elapsedTime,
                 maxMistakes: state.maxMistakes
@@ -194,6 +195,25 @@ export const gameSlice = createSlice({
             } else {
                 state.candidates[key] = [...candidates, value];
             }
+
+            if (state.isChallengeRun) {
+                state.timelineEvents.push({
+                    kind: TimelineEventKindEnum.Pencil,
+                    cellIndex: action.payload.y * defaultSudokuConfig.fieldSize + action.payload.x,
+                    value,
+                    ts: getTimelineTimestampDelta(state.timelineEvents, state.elapsedTime)
+                });
+            }
+        },
+        screenshot: state => {
+            if (!state.isChallengeRun) {
+                return;
+            }
+
+            state.timelineEvents.push({
+                kind: TimelineEventKindEnum.Screenshot,
+                ts: getTimelineTimestampDelta(state.timelineEvents, state.elapsedTime)
+            });
         },
 
         // eslint-disable-next-line max-statements

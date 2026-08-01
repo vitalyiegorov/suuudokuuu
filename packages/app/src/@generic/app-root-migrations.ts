@@ -1,19 +1,30 @@
+import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
+
 import { gameSlice } from '../game/store/game.slice';
 import { initialGameState } from '../game/store/game.state';
 import { emptyGameHistory } from '../history/interfaces/history-game.interface';
 import { settingsSlice } from '../settings/store/settings.slice';
 import { initialSettingsState } from '../settings/store/settings.state';
+import { ColorSchemaEnum } from '../theme/enum/color-schema.enum';
+import { ThemeEnum } from '../theme/enum/theme.enum';
+import { CustomThemeSchemaVersion } from '../theme/schema/custom-theme.schema';
+import { customThemesSlice } from '../theme/store/custom-themes.slice';
+import { initialCustomThemesState } from '../theme/store/custom-themes.state';
+import { getTheme } from '../theme/utils/get-theme.util';
+import { migrateCustomThemeColors } from '../theme/utils/migrate-custom-theme-colors.util';
 
 import type { GameState } from '../game/store/game.state';
 import type { SettingsState } from '../settings/store/settings.state';
+import type { CustomThemesState } from '../theme/store/custom-themes.state';
 import type { MigrationManifest } from 'redux-persist/es/types';
 
 export interface AppRootPersistedStateInterface {
     [gameSlice.name]: GameState;
     [settingsSlice.name]: SettingsState;
+    [customThemesSlice.name]: CustomThemesState;
 }
 
-export const appRootPersistVersion = 28;
+export const appRootPersistVersion = 33;
 
 const resetBestScores = (state: AppRootPersistedStateInterface): AppRootPersistedStateInterface => {
     const gameState = state[gameSlice.name];
@@ -68,6 +79,62 @@ const migrateSolutionStepsToTimelineEvents = (state: AppRootPersistedStateInterf
     [settingsSlice.name]: { ...initialSettingsState, ...state[settingsSlice.name] }
 });
 
+const backfillRunDifficulty = (state: AppRootPersistedStateInterface): AppRootPersistedStateInterface => {
+    const gameState = { ...initialGameState, ...state[gameSlice.name] };
+    const fieldLength = defaultSudokuConfig.fieldSize * defaultSudokuConfig.fieldSize;
+    const difficulty =
+        gameState.sudokuString.length === fieldLength
+            ? Sudoku.convertFieldFromString(gameState.sudokuString, defaultSudokuConfig)[1]
+            : initialGameState.difficulty;
+
+    return {
+        ...state,
+        [gameSlice.name]: { ...gameState, difficulty }
+    };
+};
+
+const introduceCustomThemes = (state: AppRootPersistedStateInterface): AppRootPersistedStateInterface => ({
+    ...state,
+    [customThemesSlice.name]: { ...initialCustomThemesState, ...state[customThemesSlice.name] },
+    [settingsSlice.name]: { ...initialSettingsState, ...state[settingsSlice.name] }
+});
+
+const dropHellQueue = (state: AppRootPersistedStateInterface): AppRootPersistedStateInterface => {
+    const clone = { ...state };
+
+    Reflect.deleteProperty(clone, 'hellQueue');
+
+    return clone;
+};
+
+const migrateCustomThemesToSemanticTokens = (state: AppRootPersistedStateInterface): AppRootPersistedStateInterface => {
+    const customThemesState = { ...initialCustomThemesState, ...state[customThemesSlice.name] };
+    const themes = customThemesState.themes.map(theme => {
+        const sourceTheme = Object.values(ThemeEnum).includes(theme.sourceTheme) ? theme.sourceTheme : ThemeEnum.BlackAndWhite;
+        const storedColors: Partial<Record<ColorSchemaEnum, unknown>> = { ...theme.colors };
+
+        return {
+            ...theme,
+            schemaVersion: CustomThemeSchemaVersion,
+            colors: {
+                [ColorSchemaEnum.Light]: migrateCustomThemeColors(
+                    storedColors[ColorSchemaEnum.Light],
+                    getTheme(sourceTheme, ColorSchemaEnum.Light).colors
+                ),
+                [ColorSchemaEnum.Dark]: migrateCustomThemeColors(
+                    storedColors[ColorSchemaEnum.Dark],
+                    getTheme(sourceTheme, ColorSchemaEnum.Dark).colors
+                )
+            }
+        };
+    });
+
+    return {
+        ...state,
+        [customThemesSlice.name]: { ...customThemesState, themes }
+    };
+};
+
 export const appRootMigrations: MigrationManifest<AppRootPersistedStateInterface> = {
     12: state => ({
         ...state,
@@ -97,5 +164,10 @@ export const appRootMigrations: MigrationManifest<AppRootPersistedStateInterface
     25: state => ({ ...state, [gameSlice.name]: { ...initialGameState, ...state[gameSlice.name] } }),
     26: state => ({ ...state, [settingsSlice.name]: { ...initialSettingsState, ...state[settingsSlice.name] } }),
     27: state => ({ ...state, [settingsSlice.name]: { ...initialSettingsState, ...state[settingsSlice.name] } }),
-    28: migrateSolutionStepsToTimelineEvents
+    28: migrateSolutionStepsToTimelineEvents,
+    29: backfillRunDifficulty,
+    30: introduceCustomThemes,
+    31: migrateCustomThemesToSemanticTokens,
+    32: ensureAllDifficulties,
+    33: dropHellQueue
 };

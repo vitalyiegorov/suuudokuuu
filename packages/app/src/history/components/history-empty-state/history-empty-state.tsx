@@ -15,8 +15,8 @@ interface Props {
 export const HistoryEmptyState = ({ message, title }: Props) => {
     const { theme } = use(ThemeContext);
 
-    const containerStyles = [styles.container, { backgroundColor: theme.colors.candidate.bg, borderColor: theme.colors.candidate.border }];
-    const messageStyles = [styles.message, { color: theme.colors.label.hint }];
+    const containerStyles = [styles.container, { backgroundColor: theme.colors.candidate.fill, borderColor: theme.colors.surface.border }];
+    const messageStyles = [styles.message, { color: theme.colors.text.hint }];
 
     return (
         <View style={containerStyles}>

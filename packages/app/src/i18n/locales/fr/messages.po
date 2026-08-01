@@ -13,11 +13,6 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#. placeholder {0}: ranges.length
-#: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
-msgid "{0, plural, one {# break} other {# breaks}}"
-msgstr "{0, plural, one {# pause} other {# pauses}}"
-
 #. placeholder {0}: 0
 #. placeholder {0}: 3
 #. placeholder {0}: 99
@@ -25,13 +20,21 @@ msgstr "{0, plural, one {# pause} other {# pauses}}"
 msgid "{0, plural, one {# mistake} other {# mistakes}}"
 msgstr "{0, plural, one {# erreur} other {# erreurs}}"
 
+#: src/settings/component/settings-app-footer/settings-app-footer.tsx
+msgid "{appName} · v{version}"
+msgstr "{appName} · v{version}"
+
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
 msgstr "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
 
-#: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
+#: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
 msgid "{awaySeconds}s away"
 msgstr "{awaySeconds}s absent"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "{draftThemeName} copy"
+msgstr "{draftThemeName} (copie)"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} faster"
@@ -45,19 +48,19 @@ msgstr "{durationText} plus lent"
 msgid "{filledCells}/{totalCells} filled"
 msgstr "{filledCells}/{totalCells} remplies"
 
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "{foregroundLabel} on {backgroundLabel}: {contrastRatioText} — minimum {minimumRatio}"
+msgstr "{foregroundLabel} sur {backgroundLabel} : {contrastRatioText} — minimum {minimumRatio}"
+
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "{gamesCompleted, plural, one {# completed game} other {# completed games}}"
 msgstr "{gamesCompleted, plural, one {# partie terminée} other {# parties terminées}}"
-
-#: src/challenge/components/challenge-technique-preview/challenge-technique-preview.tsx
-msgid "{keyMoveCount, plural, one {# key move} other {# key moves}}"
-msgstr "{keyMoveCount, plural, one {# coup clé} other {# coups clés}}"
 
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
 msgstr "{mistakes, plural, one {# erreur} other {# erreurs}}"
 
-#: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
+#: src/challenge/components/challenge-run-summary/challenge-run-summary.tsx
 msgid "{sharpCount, plural, one {# sharp technique} other {# sharp techniques}}"
 msgstr "{sharpCount, plural, one {# technique pointue} other {# techniques pointues}}"
 
@@ -84,6 +87,10 @@ msgstr "<0>Client de développement requis</0><1>Les clients de développement n
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "A little room between cells"
 msgstr "Un peu d’espace entre les cases"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Accent"
+msgstr "Accent"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Accept challenge"
@@ -123,6 +130,10 @@ msgstr "Installation sur Android"
 msgid "Animate completed rows, columns, and boxes"
 msgstr "Animer les lignes, colonnes et blocs terminés"
 
+#: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
+msgid "Apply"
+msgstr "Appliquer"
+
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Attempts to load the latest development build again"
 msgstr "Tente de charger à nouveau la dernière version de développement"
@@ -148,7 +159,7 @@ msgstr "Bahasa Indonesia"
 msgid "Balanced digits for most players"
 msgstr "Chiffres équilibrés pour la plupart des joueurs"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Balanced solve"
 msgstr "Résolution équilibrée"
 
@@ -179,6 +190,10 @@ msgstr "Meilleur temps"
 msgid "Better luck next time!"
 msgstr "Ce sera pour la prochaine fois !"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Board cells"
+msgstr "Cellules de la grille"
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Board colors and screen appearance"
 msgstr "Couleurs de la grille et apparence des écrans"
@@ -200,8 +215,22 @@ msgstr "Pouvez-vous faire mieux ?"
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 #: src/screens/components/shared-screen/shared-screen.tsx
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+#: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Cancel"
 msgstr "Annuler"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Candidate background"
+msgstr "Fond du candidat"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Candidate text"
+msgstr "Texte du candidat"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Candidates"
+msgstr "Candidats"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
@@ -259,10 +288,6 @@ msgid "Choose how much space appears between Sudoku cells"
 msgstr "Choisissez l’espace entre les cellules du Sudoku"
 
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
-msgid "Choose the color style for the board and app screens"
-msgstr "Choisissez le style de couleur de la grille et des écrans de l’app"
-
-#: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Choose the language used for menus and game text"
 msgstr "Choisissez la langue des menus et du texte du jeu"
 
@@ -277,6 +302,10 @@ msgstr "Sans faute"
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Clean black-and-white board"
 msgstr "Grille noir et blanc nette"
+
+#: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
+msgid "Clean run"
+msgstr "Partie propre"
 
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Clean win"
@@ -327,13 +356,37 @@ msgstr "Continuer ailleurs"
 msgid "Continue this Sudoku exactly where I left off!"
 msgstr "Continuez ce sudoku exactement là où je me suis arrêté !"
 
+#: src/screens/components/themes-screen/themes.screen.tsx
+msgid "Create theme"
+msgstr "Créer un thème"
+
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Custom theme"
+msgstr "Thème personnalisé"
+
+#: src/screens/components/themes-screen/themes.screen.tsx
+msgid "Customize"
+msgstr "Personnaliser"
+
 #: src/@generic/hooks/use-timer-text.hook.ts
 msgid "d"
 msgstr "d"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Danger accent"
+msgstr "Accent de danger"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Dark"
+msgstr "Sombre"
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Dark mode"
 msgstr "Mode sombre"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Dark overlay"
+msgstr "Superposition sombre"
 
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Day streak"
@@ -343,9 +396,17 @@ msgstr "Série quotidienne"
 msgid "Dead even"
 msgstr "Égalité parfaite"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Deep focus"
 msgstr "Concentration intense"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Delete"
+msgstr "Supprimer"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Delete theme"
+msgstr "Supprimer le thème"
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Deutsch"
@@ -389,6 +450,10 @@ msgstr "Télécharger la version de développement Android"
 msgid "Downloads the Android development APK"
 msgstr "Télécharge l’APK de développement Android"
 
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Duplicate"
+msgstr "Dupliquer"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Each correct placement starts with a base value:"
 msgstr "Chaque placement correct commence avec une valeur de base :"
@@ -398,9 +463,25 @@ msgstr "Chaque placement correct commence avec une valeur de base :"
 msgid "Easy"
 msgstr "Facile"
 
+#: src/screens/components/themes-screen/themes.screen.tsx
+msgid "Edit"
+msgstr "Modifier"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Empty cell text"
+msgstr "Texte de la cellule vide"
+
 #: src/settings/constant/language-labels.constant.ts
 msgid "English"
 msgstr "English"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Enter a theme name"
+msgstr "Saisissez un nom de thème"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Error cell"
+msgstr "Cellule en erreur"
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Español"
@@ -410,7 +491,7 @@ msgstr "Español"
 msgid "Evenly matched"
 msgstr "Match équilibré"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Expert grid"
 msgstr "Grille experte"
 
@@ -421,6 +502,10 @@ msgstr "Vous gagnez des points supplémentaires quand votre coup complète :"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Feedback"
 msgstr "Retours"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Filled cell"
+msgstr "Cellule remplie"
 
 #: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
 msgid "Final score"
@@ -460,7 +545,11 @@ msgstr "Jeu en pause"
 msgid "Games"
 msgstr "Parties"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "General"
+msgstr "Général"
+
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Gentle start"
 msgstr "Départ en douceur"
 
@@ -495,6 +584,11 @@ msgstr "Difficile"
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Hardcore"
 msgstr "Hardcore"
+
+#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/scoring/components/scoring.screen.tsx
+msgid "Hell"
+msgstr "Enfer"
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Help Ukraine win"
@@ -532,6 +626,10 @@ msgstr "Surligner les nombres identiques"
 msgid "Highlight pencil marks"
 msgstr "Surligner les notes"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Hint text"
+msgstr "Texte d'indice"
+
 #: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Home"
@@ -554,6 +652,10 @@ msgstr "Immortel"
 msgid "Incomplete"
 msgstr "Incomplet"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Ink"
+msgstr "Encre"
+
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Install on iOS"
 msgstr "Installer sur iOS"
@@ -562,7 +664,7 @@ msgstr "Installer sur iOS"
 msgid "Install the iOS development build"
 msgstr "Installer la version de développement iOS"
 
-#: src/game/components/game-provider/game-provider.tsx
+#: src/game/hooks/use-game-creation-runner.hook.ts
 msgid "Invalid Sudoku"
 msgstr "Sudoku non valide"
 
@@ -619,7 +721,15 @@ msgstr "Disposition pour gaucher"
 msgid "Level"
 msgstr "Niveau"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Light"
+msgstr "Clair"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Light overlay"
+msgstr "Superposition claire"
+
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Light warm-up"
 msgstr "Échauffement léger"
 
@@ -634,6 +744,10 @@ msgstr "Chargement de la dernière version de développement…"
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "Lost"
 msgstr "Perdues"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Low contrast"
+msgstr "Faible contraste"
 
 #: src/@generic/hooks/use-timer-text.hook.ts
 msgid "m"
@@ -656,6 +770,10 @@ msgstr "Moyen"
 msgid "Menus, settings, and game text"
 msgstr "Menus, réglages et texte du jeu"
 
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
+msgid "Minimum clues"
+msgstr "Indices minimaux"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Minimum Score"
 msgstr "Score minimum"
@@ -677,6 +795,14 @@ msgstr "Coup"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Move the landscape controls panel to the left of the board"
 msgstr "Placer le panneau de commandes à gauche de la grille en mode paysage"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "My theme"
+msgstr "Mon thème"
+
+#: src/screens/components/themes-screen/themes.screen.tsx
+msgid "My themes"
+msgstr "Mes thèmes"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Naked Pair"
@@ -756,16 +882,32 @@ msgstr "sans pause"
 msgid "No stats yet"
 msgstr "Pas encore de stats"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Number pad"
+msgstr "Pavé numérique"
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Number size"
 msgstr "Taille des chiffres"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Numpad text"
+msgstr "Texte du pavé numérique"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Numpad track"
+msgstr "Barre du pavé numérique"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Numpad track (filled)"
+msgstr "Barre du pavé numérique (remplie)"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "of current score"
 msgstr "du score actuel"
 
-#: src/game/components/game-provider/game-provider.tsx
+#: src/game/hooks/use-game-creation-runner.hook.ts
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
@@ -788,6 +930,10 @@ msgstr "Ouvrir la grille partagée ?"
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "Open this page in Safari on a physical iPhone or iPad. The device must already be registered in the Ad Hoc provisioning profile."
 msgstr "Ouvrez cette page dans Safari sur un iPhone ou iPad physique. L’appareil doit déjà être enregistré dans le profil de provisionnement Ad Hoc."
+
+#: src/settings/component/theme-editor-color-row/theme-editor-color-row.tsx
+msgid "Opens a color picker for this token"
+msgstr "Ouvre un sélecteur de couleur pour cet élément"
 
 #: src/settings/component/settings-option-link/settings-option-link.tsx
 msgid "Opens a picker to change this setting"
@@ -821,6 +967,10 @@ msgstr "Pénalités"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Penalty formula"
 msgstr "Formule de pénalité"
+
+#: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
+msgid "Pencil marks"
+msgstr "Annotations"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "per mistake"
@@ -874,6 +1024,14 @@ msgstr "points par chiffre bien placé."
 msgid "Português"
 msgstr "Português"
 
+#: src/screens/components/themes-screen/themes.screen.tsx
+msgid "Presets"
+msgstr "Préréglages"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Primary text"
+msgstr "Texte principal"
+
 #: src/app/privacy-policy.tsx
 #: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx
 #: src/settings/component/settings-app-footer/settings-app-footer.tsx
@@ -887,6 +1045,14 @@ msgstr "Publiée :"
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Quit"
 msgstr "Quitter"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Raised surface"
+msgstr "Surface surélevée"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Raised surface text"
+msgstr "Texte de la surface surélevée"
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"
@@ -913,6 +1079,10 @@ msgstr "Relecture"
 #: src/settings/component/settings-app-footer/settings-app-footer.tsx
 msgid "Report a bug"
 msgstr "Signaler un problème"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Reset"
+msgstr "Réinitialiser"
 
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "Result"
@@ -943,10 +1113,6 @@ msgstr "Le rival t'a défié"
 msgid "Rival's arsenal"
 msgstr "Arsenal du rival"
 
-#: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
-msgid "Rival's playbook"
-msgstr "Stratégie du rival"
-
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Rival's run"
 msgstr "Partie de l’adversaire"
@@ -959,6 +1125,14 @@ msgstr "Temps du rival à battre"
 msgid "Row"
 msgstr "Ligne"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Same-value cell"
+msgstr "Cellule de même valeur"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Same-value cell text"
+msgstr "Texte de la cellule de même valeur"
+
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Sashimi Swordfish"
 msgstr "Sashimi Swordfish"
@@ -966,6 +1140,14 @@ msgstr "Sashimi Swordfish"
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Sashimi X-Wing"
 msgstr "Sashimi X-Wing"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Save"
+msgstr "Enregistrer"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Save anyway"
+msgstr "Enregistrer quand même"
 
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
@@ -982,6 +1164,34 @@ msgstr "score × coefficient × nombre"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 msgstr "Le score est calculé pour chaque chiffre bien placé selon la difficulté, les bonus et les pénalités."
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Screen background"
+msgstr "Arrière-plan de l'écran"
+
+#: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
+msgid "Screenshots"
+msgstr "Captures d'écran"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Selected candidate background"
+msgstr "Fond du candidat sélectionné"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Selected candidate border"
+msgstr "Bordure du candidat sélectionné"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Selected candidate text"
+msgstr "Texte du candidat sélectionné"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Selected cell"
+msgstr "Cellule sélectionnée"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Selected cell text"
+msgstr "Texte de la cellule sélectionnée"
 
 #: src/game/hooks/use-share-game.hook.ts
 msgid "Send the puzzle to solve from scratch, or hand off your run to continue elsewhere."
@@ -1052,9 +1262,13 @@ msgstr "Chiffres les plus petits pour les grilles compactes"
 msgid "Soft gray board with a paper-like feel"
 msgstr "Grille grise douce avec un aspect papier"
 
-#: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
+#: src/challenge/components/challenge-run-summary/challenge-run-summary.tsx
 msgid "Solved with the fundamentals"
 msgstr "Résolu avec les bases"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Some color combinations are hard to read. Save anyway?"
+msgstr "Certaines combinaisons de couleurs sont difficiles à lire. Enregistrer quand même ?"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Space between Sudoku cells"
@@ -1099,6 +1313,18 @@ msgstr "Temps par coup"
 msgid "Stop current run?"
 msgstr "Arrêter la partie en cours ?"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Subtle surface"
+msgstr "Surface discrète"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Subtle surface hint"
+msgstr "Indice de la surface discrète"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Subtle surface text"
+msgstr "Texte de la surface discrète"
+
 #: src/@generic/components/support-ukraine-pill/support-ukraine-pill.tsx
 msgid "Support"
 msgstr "Soutenir"
@@ -1108,13 +1334,13 @@ msgstr "Soutenir"
 msgid "Support Ukraine"
 msgstr "Soutenir l'Ukraine"
 
-#: src/screens/components/home-screen/home.screen.tsx
-msgid "suuudokuuu"
-msgstr "suuudokuuu"
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Surface border"
+msgstr "Bordure de la surface"
 
-#: src/settings/component/settings-app-footer/settings-app-footer.tsx
-msgid "suuudokuuu · v{version}"
-msgstr "suuudokuuu · v{version}"
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Surfaces"
+msgstr "Surfaces"
 
 #: src/game/hooks/use-share-challenge/use-share-challenge.hook.ts
 msgid "SuuudokuuU Challenge"
@@ -1144,6 +1370,22 @@ msgstr "Swordfish"
 msgid "Taller marks = sharper techniques"
 msgstr "Plus les marques sont hautes, plus les techniques sont pointues"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Text and labels"
+msgstr "Texte et étiquettes"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Text on danger accent"
+msgstr "Texte sur l'accent de danger"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Text on filled numpad track"
+msgstr "Texte sur la barre remplie du pavé numérique"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Text on ink"
+msgstr "Texte sur l'encre"
+
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
 msgstr "Impossible d’ouvrir le lien du commit sur cet appareil."
@@ -1156,14 +1398,28 @@ msgstr "Impossible d’ouvrir le lien d’installation. Vérifiez les réglages 
 msgid "Their time to beat"
 msgstr "Leur temps à battre"
 
+#: src/app/settings/themes/index.tsx
 #: src/screens/components/settings-screen/settings.screen.tsx
-#: src/settings/hooks/use-settings-option-sheet-config.hook.ts
+#: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Theme"
 msgstr "Thème"
+
+#: src/app/settings/themes/editor.tsx
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Theme editor"
+msgstr "Éditeur de thème"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Theme name"
+msgstr "Nom du thème"
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "Cette grille ne s’est pas terminée cette fois. Le combat pour la liberté en Ukraine continue. Chaque don de 1 $ fait la différence."
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "This theme will be removed permanently."
+msgstr "Ce thème sera supprimé définitivement."
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "This value is multiplied by the difficulty coefficient:"
@@ -1226,10 +1482,6 @@ msgstr "Impossible d’ouvrir le lien"
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Unable to start installation"
 msgstr "Impossible de démarrer l’installation"
-
-#: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
-msgid "Uninterrupted run"
-msgstr "Partie sans interruption"
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/screens/components/settings-screen/settings.screen.tsx
@@ -1389,9 +1641,17 @@ msgstr "Ta meilleure partie"
 msgid "Your browser may ask for permission to install unknown apps. Android will also show an operating-system security warning before installation."
 msgstr "Votre navigateur peut demander l’autorisation d’installer des applications de source inconnue. Android affichera également un avertissement de sécurité du système d’exploitation avant l’installation."
 
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Your custom colors"
+msgstr "Vos couleurs personnalisées"
+
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Your progress"
 msgstr "Votre progression"
+
+#: src/screens/components/winner-screen/winner.screen.tsx
+msgid "Your recording"
+msgstr "Votre enregistrement"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Your rival was faster"

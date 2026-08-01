@@ -14,4 +14,5 @@ export const gameMistakeAction = gameSlice.actions.mistake;
 export const gameToggleAutoCandidatesAction = gameSlice.actions.toggleShowAutoCandidates;
 export const gameToggleInputModeAction = gameSlice.actions.toggleInputMode;
 export const gameToggleCellCandidateAction = gameSlice.actions.toggleCellCandidate;
+export const gameScreenshotAction = gameSlice.actions.screenshot;
 export const gameFinishAction = gameSlice.actions.finish;

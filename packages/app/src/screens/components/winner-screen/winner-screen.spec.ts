@@ -49,9 +49,28 @@ describe('WinnerScreen', () => {
         expect(source).not.toContain('Replay');
     });
 
+    it('shows the recorded challenge summary before sharing only for a self-authored challenge run', () => {
+        expect(source).toContain('isChallengeRecording(gameState)');
+        expect(source).toContain('<ChallengeRunSummary');
+        expect(source).toContain('summary={getChallengeRecordingSummary(gameState.timelineEvents, gameState.elapsedTime)}');
+        expect(source).toContain('{recordingSummary}');
+        expect(source).toContain('const isChallengeShareable = isChallengeRecording(gameState);');
+    });
+
+    it('keeps the generic completion surface for a normal win', () => {
+        const summaryIndex = source.indexOf('{recordingSummary}');
+        const detailsIndex = source.indexOf('<CompletedGameResultDetails');
+
+        expect(summaryIndex).toBeLessThan(detailsIndex);
+        expect(source).toContain('const isPuzzleShareable = !gameState.isChallengeRun && !hasRival;');
+        expect(source).toContain('PuzzleShareButton');
+    });
+
     it('starts the same completed-game setup without returning to game setup', () => {
         expect(source).toContain('GameContext');
-        expect(source).toContain('create(difficulty, gameState.maxMistakes)');
-        expect(source).toContain('<PlayAgainButton onPress={handlePlayAgain}');
+        expect(source).toContain('create(retrySetup)');
+        expect(source).toContain('retrySetup={retrySetup}');
+        expect(source).toContain('<PlayAgainButton isLoading={isCreatingGame} onPress={handlePlayAgain}');
+        expect(source).not.toContain('sudoku.Difficulty');
     });
 });

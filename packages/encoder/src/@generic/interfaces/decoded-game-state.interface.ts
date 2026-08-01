@@ -11,4 +11,6 @@ export interface DecodedGameStateInterface {
     score: number;
     candidates: Record<number, number[]>;
     anchorSeconds: number;
+    pencilCount: number | null;
+    screenshotCount: number | null;
 }

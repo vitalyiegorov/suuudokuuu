@@ -3,6 +3,137 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.74.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.73.1...v1.74.0) (2026-08-01)
+
+### Bug Fixes
+
+- **app,generator:** close per-file coverage gaps in difficulty helpers ([f3b1770](https://github.com/vitalyiegorov/suuudokuuu/commit/f3b1770198e68aa9f5641cfdf2701c155bf33daa))
+- **app:** resolve the ember static glow unistyle for reduced motion ([e6ac2c3](https://github.com/vitalyiegorov/suuudokuuu/commit/e6ac2c3719ea96cc500637eb26e81dee51c60d45))
+- **app:** score with the authoritative stored difficulty ([3e2374f](https://github.com/vitalyiegorov/suuudokuuu/commit/3e2374fcd21a73a474530705f1f25d43d1726ad7))
+- **app:** trigger Hell refill at the low-water mark ([17c3d12](https://github.com/vitalyiegorov/suuudokuuu/commit/17c3d12d42408f4456941a442275acdb59fdc602))
+- **generator:** handle degenerate walk states in HellGenerator cell selection ([45e9ffa](https://github.com/vitalyiegorov/suuudokuuu/commit/45e9ffa2109e01220223f9fe9b1a260e3072b73d))
+- **generator:** make HellGenerator digit-assignment failure explicit ([631e3ee](https://github.com/vitalyiegorov/suuudokuuu/commit/631e3eef3395f2c02c23520406ed4a58f38ec19a))
+- **solver-core:** validate digit range and tighten coverage gate ([40c0aa4](https://github.com/vitalyiegorov/suuudokuuu/commit/40c0aa462ee1ff569cd8a33a05e41a4c9a75e315))
+- **solver-dlx:** cap countSolutions at the requested limit ([b2afeea](https://github.com/vitalyiegorov/suuudokuuu/commit/b2afeeacfee7cea1eec86e2acd9307359dd384fb))
+
+### Features
+
+- **app:** add guarded E2E seeding hook for the Hell queue ([1eea69d](https://github.com/vitalyiegorov/suuudokuuu/commit/1eea69d544e8eddccbddbd4252682bfda0f16230))
+- **app:** add Hell difficulty Home card with queued puzzle consumption ([b65d3e4](https://github.com/vitalyiegorov/suuudokuuu/commit/b65d3e49ca1745e2d0750726268e752a45ed9787))
+- **app:** add Hell queue technique gate and background refill worker ([5d84b1c](https://github.com/vitalyiegorov/suuudokuuu/commit/5d84b1c4a7d7b51c8c96b09fadbb59908841dc32))
+- **app:** add Hell scoring, history plumbing, and persisted hell queue ([640f67c](https://github.com/vitalyiegorov/suuudokuuu/commit/640f67c6477c70b9fac5cc4ea613387ce3d3480f))
+- **app:** add Hell to the difficulty slider with an ember start button ([f52045c](https://github.com/vitalyiegorov/suuudokuuu/commit/f52045c87b522246a66a48e6db1e7e5c2a7cb6d9))
+- **app:** refine the Hell start button with a gradient ember treatment ([be6cd05](https://github.com/vitalyiegorov/suuudokuuu/commit/be6cd052a88863668b8bee7222cccf721db0be94))
+- **generator:** add Hell difficulty enum and blank-cell threshold ([7c9b8b7](https://github.com/vitalyiegorov/suuudokuuu/commit/7c9b8b7e033ff3ec9345dded8b08be65dce6522c))
+- **generator:** add HellGenerator minimal-puzzle neighborhood walk ([881151c](https://github.com/vitalyiegorov/suuudokuuu/commit/881151c30afce3d4b37a8facfe2829c2ce1396b3))
+- **generator:** add solved-grid fill and minimal-puzzle reduction utilities ([1a663e0](https://github.com/vitalyiegorov/suuudokuuu/commit/1a663e00e913661c6a79ce9dde7e314130a6c789))
+- **hell-corpus:** bundle the verified 49158-puzzle 17-clue corpus ([ec73c3f](https://github.com/vitalyiegorov/suuudokuuu/commit/ec73c3ff731c3f8fec25843f277cc2e4151ff823))
+- **hell-corpus:** scaffold package with decoder, isomorphism transform, and build CLI ([2194420](https://github.com/vitalyiegorov/suuudokuuu/commit/21944205a9ebdfa76520cb1a3d298cb7e51f3c5a))
+- **solver-bitmask:** add typed-array MRV solver with singles propagation ([b210dc4](https://github.com/vitalyiegorov/suuudokuuu/commit/b210dc4d07d4bcaf1e22472df4ed382ccd33e185))
+- **solver-core:** add conformance cases and differential-test helpers ([9588b6d](https://github.com/vitalyiegorov/suuudokuuu/commit/9588b6d69480c41afdc558bf3cf6e2b17e6eca63))
+- **solver-core:** add machine-solver contract, grid utils, and seeded PRNG ([345d455](https://github.com/vitalyiegorov/suuudokuuu/commit/345d45531260461f2953049d75f68355a84d2001))
+
+### Performance Improvements
+
+- **generator:** adopt benchmark-selected bitmask solver engine ([1fce3b6](https://github.com/vitalyiegorov/suuudokuuu/commit/1fce3b628d998bebe025b315ae0e43d2c164140e))
+- **solver-bitmask:** remove per-call allocations from grid-state hot paths ([ada2818](https://github.com/vitalyiegorov/suuudokuuu/commit/ada2818537dd3f5ada0b51e75f02ac20f7906794))
+
+## [1.73.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.73.0...v1.73.1) (2026-08-01)
+
+**Note:** Version bump only for package @suuudokuuu/root
+
+# [1.73.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.72.0...v1.73.0) (2026-08-01)
+
+### Bug Fixes
+
+- **app:** skip the native screenshot listener on web ([bcd6b80](https://github.com/vitalyiegorov/suuudokuuu/commit/bcd6b806f4bbb238143abc13d09cc4dbdbc1d102))
+
+### Features
+
+- **app:** celebrate game wins with a reanimated CSS confetti burst ([b07a32f](https://github.com/vitalyiegorov/suuudokuuu/commit/b07a32fc3d5da9f1ef7456e4b8e8464f6c4d5649))
+
+# [1.72.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.71.1...v1.72.0) (2026-07-31)
+
+### Features
+
+- **app:** bump the custom theme schema to v2 with a persist migration ([b39caaa](https://github.com/vitalyiegorov/suuudokuuu/commit/b39caaa7e529a0f71b4d2d4a0f2dfc4c51aac944))
+
+## [1.71.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.71.0...v1.71.1) (2026-07-31)
+
+### Bug Fixes
+
+- **app:** use explicit ESM import extensions in Vercel beta functions ([4abefc8](https://github.com/vitalyiegorov/suuudokuuu/commit/4abefc8d35f69fc0a1b83b62e83711661e34fccb))
+
+# [1.71.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.70.2...v1.71.0) (2026-07-31)
+
+### Bug Fixes
+
+- **app:** calibrate contrast minimums against all theme presets ([47f4e95](https://github.com/vitalyiegorov/suuudokuuu/commit/47f4e950fe9363c4d5fad5b4b05f94a3e03d1645))
+- **app:** correct colorful dark overlay inversion and highlight contrast ([62ab280](https://github.com/vitalyiegorov/suuudokuuu/commit/62ab280d526acf680a27ca94df941508fa1f3b2e))
+- **app:** keep theme rows stable and anchor editor actions in footer ([1e51b2c](https://github.com/vitalyiegorov/suuudokuuu/commit/1e51b2cab43277e4571750de68c288420d558042))
+- **app:** parse uppercase rgb color strings ([830690d](https://github.com/vitalyiegorov/suuudokuuu/commit/830690dafeea9c73bb88b1f43325dd2804f31814))
+- **app:** render themes pages with collapsible page chrome ([fdb659f](https://github.com/vitalyiegorov/suuudokuuu/commit/fdb659fda1bdbd8b01607c7ce12fb3ec316d22ec))
+
+### Features
+
+- **app:** add color string parsing utility ([db93e54](https://github.com/vitalyiegorov/suuudokuuu/commit/db93e5477f15e7059d14876955ac739efba7c67b))
+- **app:** add contrast validation for custom theme colors ([5d09e3a](https://github.com/vitalyiegorov/suuudokuuu/commit/5d09e3aafe3a1029cc25630305587a6212ccece4))
+- **app:** add custom theme editor screen ([e24cef2](https://github.com/vitalyiegorov/suuudokuuu/commit/e24cef2761adfdbbc1f53071ccc23bc73462113e))
+- **app:** add custom theme id type and type guard ([1b7fa5c](https://github.com/vitalyiegorov/suuudokuuu/commit/1b7fa5c9e954b23fa2a8d4ed9612df42d4aff680))
+- **app:** add custom themes slice with factory utilities ([552657d](https://github.com/vitalyiegorov/suuudokuuu/commit/552657d852cf8e622f604c8ba5db81cd4b82b4e3))
+- **app:** add live theme preview board ([97b0716](https://github.com/vitalyiegorov/suuudokuuu/commit/97b0716fe1b6cf8c29c02c2fd901391d4a3140f3))
+- **app:** add theme editor color row and picker sheet ([1712f80](https://github.com/vitalyiegorov/suuudokuuu/commit/1712f80a42598539ffd933822822f2a9d110ffb7))
+- **app:** add theme editor token descriptors and labels ([ce194ef](https://github.com/vitalyiegorov/suuudokuuu/commit/ce194ef6ec63a743725bc30793140bdc52ae9864))
+- **app:** add themes list page with preset and custom sections ([de950a0](https://github.com/vitalyiegorov/suuudokuuu/commit/de950a03064ef21dbdb2d2a7c3e115e872a0eb40))
+- **app:** add unistyles custom theme slots with runtime application ([2c9479e](https://github.com/vitalyiegorov/suuudokuuu/commit/2c9479e16ce3a45a49c00115593ae4999ad24927))
+- **app:** add versioned custom theme schema and interface ([705ac42](https://github.com/vitalyiegorov/suuudokuuu/commit/705ac42df98236f203905ab0593f5830ec59dc49))
+- **app:** add WCAG contrast ratio and alpha compositing utilities ([50fb38a](https://github.com/vitalyiegorov/suuudokuuu/commit/50fb38afd56aa298a9f689842eb8c7a849dd6b93))
+- **app:** expose validated runtime brand configuration with docs ([062ee0c](https://github.com/vitalyiegorov/suuudokuuu/commit/062ee0ce4731c19310a896902b308f3c40b83294))
+- **app:** persist custom themes with redux-persist migration v29 ([1342966](https://github.com/vitalyiegorov/suuudokuuu/commit/13429663c8586b723d302c41b27db2ca968d476b))
+- **app:** polish themes page with active highlight and sticky create button ([a8b0cc3](https://github.com/vitalyiegorov/suuudokuuu/commit/a8b0cc363939057dc6dd7070d931bc453068eac9))
+- **app:** resolve custom themes in theme provider ([7025b90](https://github.com/vitalyiegorov/suuudokuuu/commit/7025b9062b9a80e259d62690c7eb7086bc54ff45))
+- **app:** route theme setting to the new themes page ([365d011](https://github.com/vitalyiegorov/suuudokuuu/commit/365d011cb166c76274cedcc96088f7045ea489f3))
+- **app:** seed initial theme from brand configuration ([6dc8c38](https://github.com/vitalyiegorov/suuudokuuu/commit/6dc8c38e47b9e6b471c286edfae859a34cbd1d57))
+- **app:** unify theme row actions into a pencil icon button ([9fe6006](https://github.com/vitalyiegorov/suuudokuuu/commit/9fe6006714ec64ecf630a99613a4bdbc58a35d05))
+- **app:** widen theme setting to support custom theme ids ([e96c053](https://github.com/vitalyiegorov/suuudokuuu/commit/e96c0534529ee03277406e1ddf4f3885c4a4df03))
+
+## [1.70.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.70.1...v1.70.2) (2026-07-30)
+
+### Bug Fixes
+
+- **app,ui:** gate the wide layout by aspect ratio instead of a viewport height cap ([79c17a0](https://github.com/vitalyiegorov/suuudokuuu/commit/79c17a0a81de2646cae92748b9a705539903cb29))
+
+## [1.70.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.70.0...v1.70.1) (2026-07-30)
+
+### Bug Fixes
+
+- **app:** align the landscape side panel and keep the challenge HUD out of the board row ([#235](https://github.com/vitalyiegorov/suuudokuuu/issues/235)) ([25aac67](https://github.com/vitalyiegorov/suuudokuuu/commit/25aac67e481717d5fc587dd4679729d6b6bbce35))
+- **app:** force a UTF-8 locale for native builds ([#234](https://github.com/vitalyiegorov/suuudokuuu/issues/234)) ([8de04fb](https://github.com/vitalyiegorov/suuudokuuu/commit/8de04fbfa66e8bb861eedfad8272c9c4bf59bb1d))
+
+# [1.70.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.69.2...v1.70.0) (2026-07-29)
+
+### Features
+
+- **app,encoder:** unify challenge run analytics into stat tiles ([#233](https://github.com/vitalyiegorov/suuudokuuu/issues/233)) ([9d24d80](https://github.com/vitalyiegorov/suuudokuuu/commit/9d24d80b7ec88dbd0c44c7485ad35eaae4f74e7a))
+
+## [1.69.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.69.1...v1.69.2) (2026-07-29)
+
+### Bug Fixes
+
+- **app:** preserve the complete game setup when playing again ([#231](https://github.com/vitalyiegorov/suuudokuuu/issues/231)) ([4779504](https://github.com/vitalyiegorov/suuudokuuu/commit/47795042002038f66092d1e0ea2d876d04787fec))
+
+## [1.69.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.69.0...v1.69.1) (2026-07-29)
+
+### Bug Fixes
+
+- **app,ui:** make game generation single-flight across start and retry actions ([#232](https://github.com/vitalyiegorov/suuudokuuu/issues/232)) ([90881f2](https://github.com/vitalyiegorov/suuudokuuu/commit/90881f2691593d87a091c6ed39bdbfbcaeee25b5)), closes [#224](https://github.com/vitalyiegorov/suuudokuuu/issues/224)
+
+# [1.69.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.68.1...v1.69.0) (2026-07-29)
+
+### Features
+
+- **app:** show a recorded challenge summary before sharing ([#230](https://github.com/vitalyiegorov/suuudokuuu/issues/230)) ([7f7c18e](https://github.com/vitalyiegorov/suuudokuuu/commit/7f7c18ee987b8fea17d944b30501c88c93782d79))
+
 ## [1.68.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.68.0...v1.68.1) (2026-07-28)
 
 ### Bug Fixes

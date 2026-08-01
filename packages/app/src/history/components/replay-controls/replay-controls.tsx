@@ -5,7 +5,7 @@ import { Text, View } from 'react-native';
 
 import { isPositiveNumber } from '@rnw-community/shared';
 
-import { BlackIconButton } from '../../../@generic/components/black-icon-button/black-icon-button';
+import { AppIconButton } from '../../../@generic/components/app-icon-button/app-icon-button';
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { ChallengeAwayBands } from '../../../challenge/components/challenge-away-bands/challenge-away-bands';
@@ -18,7 +18,7 @@ import { ReplayControlsStyles as styles } from './replay-controls.styles';
 
 import type { ChallengeAwayRangeInterface } from '../../../challenge/interfaces/challenge-away-range.interface';
 import type { EmptyFn } from '@rnw-community/shared';
-import type { MoveClassificationInterface } from '@suuudokuuu/solver';
+import type { MoveClassificationInterface } from '@suuudokuuu/techniques';
 
 interface Props {
     readonly awayRanges: ChallengeAwayRangeInterface[];
@@ -40,25 +40,25 @@ export const ReplayControls = (props: Props) => {
     const canGoForward = currentStep < totalSteps;
     const stepProgress = replayGetStepProgress(currentStep, totalSteps);
     const stepProgressPercent: `${number}%` = `${stepProgress * 100}%`;
-    const previousIconColor = canGoBack ? theme.colors.surface.raisedText : theme.colors.label.hint;
-    const nextIconColor = canGoForward ? theme.colors.surface.raisedText : theme.colors.label.hint;
+    const previousIconColor = canGoBack ? theme.colors.surface.raisedText : theme.colors.text.hint;
+    const nextIconColor = canGoForward ? theme.colors.surface.raisedText : theme.colors.text.hint;
     const previousButtonStyles = [
         styles.navButton,
-        { backgroundColor: theme.colors.surface.raised, borderColor: theme.colors.value.border },
+        { backgroundColor: theme.colors.surface.raised, borderColor: theme.colors.surface.border },
         !canGoBack && styles.disabledButton
     ];
     const nextButtonStyles = [
         styles.navButton,
-        { backgroundColor: theme.colors.surface.raised, borderColor: theme.colors.value.border },
+        { backgroundColor: theme.colors.surface.raised, borderColor: theme.colors.surface.border },
         !canGoForward && styles.disabledButton
     ];
-    const trackStyles = [styles.scrubberTrack, { backgroundColor: theme.colors.value.progress }];
-    const fillStyles = [styles.scrubberFill, { backgroundColor: theme.colors.value.progressActive, width: stepProgressPercent }];
+    const trackStyles = [styles.scrubberTrack, { backgroundColor: theme.colors.numpad.track }];
+    const fillStyles = [styles.scrubberFill, { backgroundColor: theme.colors.numpad.trackFilled, width: stepProgressPercent }];
     const thumbStyles = [
         styles.scrubberThumb,
         {
             backgroundColor: theme.colors.surface.raised,
-            borderColor: theme.colors.value.border,
+            borderColor: theme.colors.surface.border,
             left: stepProgressPercent
         }
     ];
@@ -83,25 +83,25 @@ export const ReplayControls = (props: Props) => {
             </View>
 
             <View style={styles.controlsRow}>
-                <BlackIconButton
+                <AppIconButton
                     disabled={!canGoBack}
-                    isActive
                     onPress={onPrevStep}
                     style={previousButtonStyles}
                     testID={ReplayControlsSelectors.PreviousButton}
+                    variant="inverted"
                 >
                     <LucideChevronLeft color={previousIconColor} size={30} />
-                </BlackIconButton>
+                </AppIconButton>
 
-                <BlackIconButton
+                <AppIconButton
                     disabled={!canGoForward}
-                    isActive
                     onPress={onNextStep}
                     style={nextButtonStyles}
                     testID={ReplayControlsSelectors.NextButton}
+                    variant="inverted"
                 >
                     <LucideChevronRight color={nextIconColor} size={30} />
-                </BlackIconButton>
+                </AppIconButton>
             </View>
         </View>
     );

@@ -5,13 +5,14 @@ import { View } from 'react-native';
 
 import { isNotEmptyString } from '@rnw-community/shared';
 
-import { BlackButton } from '../../../@generic/components/black-button/black-button';
+import { AppLinkButton } from '../../../@generic/components/app-link-button/app-link-button';
 import { Header } from '../../../@generic/components/header/header';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { ChallengeAcceptScreen } from '../../../challenge/components/challenge-accept-screen/challenge-accept-screen';
 import { GameContext } from '../../../game/context/game.context';
 import { decodeSharedGameState } from '../../../game/utils/decode-shared-game-state.util';
 
+import { SharedScreenSelectors } from './shared-screen.selectors';
 import { SharedScreenStyles as styles } from './shared-screen.styles';
 
 interface Props {
@@ -20,7 +21,7 @@ interface Props {
 
 export const SharedScreen = ({ stateString }: Props) => {
     const { t } = useLingui();
-    const { createFromState } = use(GameContext);
+    const { createFromState, isCreatingGame } = use(GameContext);
 
     const { gameState, isReadable, kind } = decodeSharedGameState(stateString);
     const resumeTimeText = useTimerText(gameState.elapsedTime);
@@ -36,7 +37,14 @@ export const SharedScreen = ({ stateString }: Props) => {
     };
 
     if (kind === SharedPayloadKindEnum.Challenge && isNotEmptyString(challengeState)) {
-        return <ChallengeAcceptScreen challengeState={challengeState} onAccept={handleOpenPuzzle} opponentTotalTime={challengeTime} />;
+        return (
+            <ChallengeAcceptScreen
+                challengeState={challengeState}
+                isLoading={isCreatingGame}
+                onAccept={handleOpenPuzzle}
+                opponentTotalTime={challengeTime}
+            />
+        );
     }
 
     const isHandoff = kind === SharedPayloadKindEnum.Handoff;
@@ -45,7 +53,7 @@ export const SharedScreen = ({ stateString }: Props) => {
     const resumeSummary = `${resumeTimeText} · ${String(gameState.score)}`;
 
     return (
-        <View style={styles.container}>
+        <View style={styles.container} testID={SharedScreenSelectors.Root}>
             <View style={styles.headerColumn}>
                 <Header text={headerText} />
 
@@ -53,8 +61,13 @@ export const SharedScreen = ({ stateString }: Props) => {
             </View>
 
             <View style={styles.buttonsWrapper}>
-                <BlackButton onPress={handleOpenPuzzle} text={confirmText} />
-                <BlackButton href="/" text={t`Cancel`} />
+                <AppLinkButton
+                    isLoading={isCreatingGame}
+                    onPress={handleOpenPuzzle}
+                    testID={SharedScreenSelectors.ConfirmButton}
+                    text={confirmText}
+                />
+                <AppLinkButton href="/" testID={SharedScreenSelectors.CancelButton} text={t`Cancel`} />
             </View>
         </View>
     );

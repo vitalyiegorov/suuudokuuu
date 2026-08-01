@@ -1,26 +1,27 @@
 import { useLingui } from '@lingui/react/macro';
+import { useAppLayout } from '@suuudokuuu/ui';
 import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { useRouter } from 'expo-router';
 import { use, useEffect, useRef, useState } from 'react';
 import { Pressable, View } from 'react-native';
-import { Display, Hide } from 'react-native-unistyles';
 
 import { isDefined } from '@rnw-community/shared';
 
 import { Alert } from '../../../@generic/components/alert/alert';
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
-import { WideLayoutMediaQuery } from '../../../@generic/constants/layout-media-query.constant';
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { useVibration } from '../../../@generic/hooks/use-vibration.hook';
 import { ChallengeRaceHud } from '../../../challenge/components/challenge-race-hud/challenge-race-hud';
 import { ChallengeRecordHud } from '../../../challenge/components/challenge-record-hud/challenge-record-hud';
+import { ChallengeScreenshotRecorder } from '../../../challenge/components/challenge-screenshot-recorder/challenge-screenshot-recorder';
 import { classifyTimelineMove } from '../../../challenge/utils/classify-timeline-move.util';
+import { WinConfettiContext } from '../../../confetti/context/win-confetti.context';
 import { Field, FieldRef } from '../../../game/components/field/field';
 import { GameTimerController } from '../../../game/components/game-timer-controller/game-timer-controller';
 import { GameContext } from '../../../game/context/game.context';
-import { useBoardCellSize } from '../../../game/hooks/use-board-cell-size.hook';
+import { useBoardGeometry } from '../../../game/hooks/use-board-geometry.hook';
 import { useKeyboardControls } from '../../../game/hooks/use-keyboard-controls/use-keyboard-controls.hook';
 import { useShareGame } from '../../../game/hooks/use-share-game.hook';
 import {
@@ -33,6 +34,7 @@ import {
 } from '../../../game/store/game.actions';
 import {
     gameChallengeTimeSelector,
+    gameDifficultySelector,
     gameElapsedTimeSelector,
     gameHasRivalSelector,
     gameInputModeSelector,
@@ -54,10 +56,11 @@ import { GameStatusBlock } from './game-status-block/game-status-block';
 import { useOpenGameSettings } from './hooks/use-open-game-settings.hook';
 import { gameScreenExit } from './utils/game-screen-exit.util';
 import { gameScreenGetLostRoute, gameScreenGetWonRoute } from './utils/game-screen-get-result-route.util';
+import { gameScreenMaybeStartWinConfetti } from './utils/game-screen-maybe-start-win-confetti.util';
 
 import type { AvailableValuesItemRef } from '../../../game/components/available-values-item/available-values-item';
 import type { CellInterface, ScoredCellsInterface } from '@suuudokuuu/generator';
-import type { SolutionTechniqueEnum } from '@suuudokuuu/solver';
+import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 // eslint-disable-next-line max-lines-per-function -- Game orchestration component requires many handlers and refs
 export const GameScreen = () => {
@@ -66,10 +69,14 @@ export const GameScreen = () => {
 
     const { sudoku } = use(GameContext);
     const { theme } = use(ThemeContext);
+    const startWinConfetti = use(WinConfettiContext);
 
     const [hapticNotification, hapticImpact] = useVibration();
 
-    const { cellSize: boardCellSize, boardSize, onBoardAreaLayout } = useBoardCellSize();
+    const { cellSize: boardCellSize, boardSize, onBoardAreaLayout } = useBoardGeometry();
+
+    const { sizeClass } = useAppLayout();
+    const isWideLayout = sizeClass === 'wide';
 
     const dispatch = useAppDispatch();
     const score = useAppSelector(gameScoreSelector);
@@ -82,6 +89,7 @@ export const GameScreen = () => {
     const hasRival = useAppSelector(gameHasRivalSelector);
     const isChallengeRun = useAppSelector(gameIsChallengeRunSelector);
     const challengeTime = useAppSelector(gameChallengeTimeSelector);
+    const difficulty = useAppSelector(gameDifficultySelector);
     const elapsedTime = useAppSelector(gameElapsedTimeSelector);
 
     const availableValuesRefs = useRef<Record<number, AvailableValuesItemRef | null>>({});
@@ -127,7 +135,7 @@ export const GameScreen = () => {
     const handleLostGame = () => {
         hapticImpact(ImpactFeedbackStyle.Heavy);
 
-        dispatch(gameFinishAction({ difficulty: sudoku.Difficulty, isWon: false, isChallenge: hasRival }));
+        dispatch(gameFinishAction({ difficulty, isWon: false, isChallenge: hasRival }));
 
         router.replace(gameScreenGetLostRoute(hasRival));
     };
@@ -136,9 +144,8 @@ export const GameScreen = () => {
         hapticImpact(ImpactFeedbackStyle.Heavy);
 
         const wonChallenge = hasRival && elapsedTime < challengeTime;
-
-        dispatch(gameFinishAction({ difficulty: sudoku.Difficulty, isWon: true, isChallenge: wonChallenge }));
-
+        gameScreenMaybeStartWinConfetti(hasRival, wonChallenge, startWinConfetti);
+        dispatch(gameFinishAction({ difficulty, isWon: true, isChallenge: wonChallenge }));
         // HINT: We need to wait for the animation to finish, animation finish event would fix it?
         setTimeout(() => void router.replace(gameScreenGetWonRoute(hasRival, wonChallenge)), 10 * animationDurationConstant);
     };
@@ -233,57 +240,60 @@ export const GameScreen = () => {
         />
     );
 
-    const challengeHud = hasRival ? <ChallengeRaceHud /> : <ChallengeRecordHud />;
+    const challengeRunElements = isChallengeRun ? (
+        <>
+            <ChallengeScreenshotRecorder />
+            {hasRival ? <ChallengeRaceHud /> : <ChallengeRecordHud />}
+        </>
+    ) : null;
 
     return (
         <Pressable
             accessible={false}
             {...(!keepActiveCell && { onPress: handleDeselectCell })}
-            style={styles.container(isLeftHanded)}
+            style={styles.container}
             testID={GameScreenSelectors.Root}
         >
             <GameTimerController />
             {keyboardControlsElement}
 
-            <Hide mq={WideLayoutMediaQuery}>
+            {isWideLayout ? null : (
                 <View style={styles.topBar}>
                     {statusBlock}
                     {gameActions}
                 </View>
-            </Hide>
+            )}
 
-            {isChallengeRun ? challengeHud : null}
+            {challengeRunElements}
 
-            <View onLayout={onBoardAreaLayout} style={styles.boardArea}>
-                <Hide mq={WideLayoutMediaQuery}>
-                    <View style={styles.boardSpacer} />
-                </Hide>
+            <View style={styles.gameRow(isLeftHanded)}>
+                <View onLayout={onBoardAreaLayout} style={styles.boardArea}>
+                    {isWideLayout ? null : <View style={styles.boardSpacer} />}
 
-                <Field cellSize={boardCellSize} onSelect={handleSelectCell} ref={fieldRef} selectedCell={selectedCell} />
+                    <Field cellSize={boardCellSize} onSelect={handleSelectCell} ref={fieldRef} selectedCell={selectedCell} />
 
-                <Hide mq={WideLayoutMediaQuery}>
-                    <View style={styles.toolsSlot}>
-                        <GameInputTools hideAutoCandidates={hideAutoCandidates} />
-                    </View>
-                </Hide>
-            </View>
-
-            <View style={styles.panelArea(boardSize)}>
-                <Display mq={WideLayoutMediaQuery}>{statusBlock}</Display>
-
-                <View style={styles.panelInputArea}>
-                    <GameNumpad
-                        availableValuesRefsHandler={handleAvailableRef}
-                        onSelectValue={handleSelectValue}
-                        selectedCell={selectedCell}
-                    />
-
-                    <Display mq={WideLayoutMediaQuery}>
-                        <GameInputTools hideAutoCandidates={hideAutoCandidates} />
-                    </Display>
+                    {isWideLayout ? null : (
+                        <View style={styles.toolsSlot}>
+                            <GameInputTools hideAutoCandidates={hideAutoCandidates} />
+                        </View>
+                    )}
                 </View>
 
-                <Display mq={WideLayoutMediaQuery}>{gameActionsWithPause}</Display>
+                <View style={styles.panelArea(boardSize)}>
+                    {isWideLayout ? statusBlock : null}
+
+                    <View style={styles.panelInputArea}>
+                        <GameNumpad
+                            availableValuesRefsHandler={handleAvailableRef}
+                            onSelectValue={handleSelectValue}
+                            selectedCell={selectedCell}
+                        />
+
+                        {isWideLayout ? <GameInputTools hideAutoCandidates={hideAutoCandidates} /> : null}
+                    </View>
+
+                    {isWideLayout ? gameActionsWithPause : null}
+                </View>
             </View>
         </Pressable>
     );

@@ -18,12 +18,12 @@ export const LoserScreen = () => {
         return <Redirect href="/" />;
     }
 
-    const { gameState, sudoku, timeText } = completedGameResult;
+    const { gameState, retrySetup, sudoku, timeText } = completedGameResult;
     const { mistakes } = gameState;
 
     const progress = pauseScreenGetProgress(sudoku);
     const detailsText = `${t`Incomplete`} • ${completedGameResult.difficultyText} • ${completedGameResult.mistakesTypeText}`;
-    const footer = <LoserScreenActions difficulty={sudoku.Difficulty} gameState={gameState} />;
+    const footer = <LoserScreenActions retrySetup={retrySetup} />;
 
     return (
         <GameResultPage footer={footer} testID={LoserScreenSelectors.Root}>

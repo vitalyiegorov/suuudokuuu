@@ -4,16 +4,16 @@ export const fieldCellGetBackgroundColor = (params: FieldCellBackgroundColorPara
     const { isActiveValue, isCellHighlighted, isWrong, isEmpty, showAreas, showIdenticalNumbers, showFilledNumbers, theme } = params;
 
     if (isWrong) {
-        return theme.colors.cell.error;
+        return theme.colors.board.error;
     } else if (isActiveValue && showIdenticalNumbers) {
-        return theme.colors.cell.activeValue;
+        return theme.colors.board.sameValue;
     } else if (isCellHighlighted && showAreas) {
-        return theme.colors.cell.highlighted;
+        return theme.colors.surface.subtle;
     } else if (isEmpty) {
-        return theme.colors.white;
+        return theme.colors.surface.raised;
     } else if (showFilledNumbers) {
-        return theme.colors.cell.filled;
+        return theme.colors.board.filled;
     }
 
-    return theme.colors.white;
+    return theme.colors.surface.raised;
 };

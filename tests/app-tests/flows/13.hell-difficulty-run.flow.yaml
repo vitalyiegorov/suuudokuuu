@@ -1,0 +1,26 @@
+appId: ${APP_ID}
+---
+- startRecording:
+      path: '13.hell-difficulty-run'
+      optional: true
+
+- runFlow: subflows/navigation/launch-home.flow.yaml
+- tapOn:
+      id: 'DifficultyComplexityOptionSelectors.Option.Hell'
+- scrollUntilVisible:
+      element:
+          id: 'HomeScreenStartButtonEmberSelectors\.(AnimatedRoot|StaticRoot)'
+      direction: DOWN
+      visibilityPercentage: 50
+      timeout: 3000
+
+- runFlow: subflows/game/start-new-game.flow.yaml
+- runFlow: subflows/game/quit-current-game.flow.yaml
+
+- scrollUntilVisible:
+      element:
+          id: 'HomeScreenStartButtonEmberSelectors\.(AnimatedRoot|StaticRoot)'
+      direction: DOWN
+      visibilityPercentage: 50
+      timeout: 3000
+- stopApp

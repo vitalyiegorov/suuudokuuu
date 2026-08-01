@@ -38,10 +38,13 @@ appId: ${APP_ID}
 
 - runFlow: subflows/game/quit-current-game.flow.yaml
 
+# Home keeps the scroll offset it had when the run started, and starting a run
+# settles that scroll at the end of the content, so the mode switch sits above
+# the viewport rather than below it on the way back.
 - scrollUntilVisible:
       element:
           id: 'ChallengeModeSwitchSelectors.Root'
-      direction: DOWN
+      direction: UP
       timeout: 3000
 - tapOn:
       id: 'ChallengeModeSwitchSelectors.Root'

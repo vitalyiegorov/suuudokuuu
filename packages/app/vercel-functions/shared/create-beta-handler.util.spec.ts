@@ -1,9 +1,9 @@
 import { describe, expect, it, jest } from '@jest/globals';
 
-import apkRoute from '../api/beta/apk';
-import ipaRoute from '../api/beta/ipa';
-import manifestRoute from '../api/beta/manifest';
-import releaseRoute from '../api/beta/release';
+import apkRoute from '../api/beta/apk.js';
+import ipaRoute from '../api/beta/ipa.js';
+import manifestRoute from '../api/beta/manifest.js';
+import releaseRoute from '../api/beta/release.js';
 
 import {
     GithubReleasesTokenEnvironmentVariable,
@@ -12,10 +12,10 @@ import {
     HttpMethodNotAllowedStatus,
     HttpNotFoundStatus,
     HttpOkStatus
-} from './beta-release.constant';
-import { createBetaHandler, resolveBetaReleaseFromEnvironment } from './create-beta-handler.util';
+} from './beta-release.constant.js';
+import { createBetaHandler, resolveBetaReleaseFromEnvironment } from './create-beta-handler.util.js';
 
-import type { BetaRelease, ResolveBetaReleaseResult } from './beta-release.interface';
+import type { BetaRelease, ResolveBetaReleaseResult } from './beta-release.interface.js';
 
 const CommitSha = '0123456789abcdef0123456789abcdef01234567';
 const ChecksumLength = 64;

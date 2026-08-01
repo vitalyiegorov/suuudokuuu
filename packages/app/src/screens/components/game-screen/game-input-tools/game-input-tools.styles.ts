@@ -1,12 +1,10 @@
+import { appLayoutScreenIsWide } from '@suuudokuuu/ui';
 import { StyleSheet } from 'react-native-unistyles';
 
-import { BlackIconButtonSize } from '../../../../@generic/components/black-icon-button/constant/black-icon-button-size.constant';
-import { WideLayoutMediaQuery } from '../../../../@generic/constants/layout-media-query.constant';
+import { AppIconButtonSize } from '../../../../@generic/components/app-icon-button/constant/app-icon-button-size.constant';
 import { PanelControlPillRadiusConstant, PanelControlWideSizeConstant } from '../../../../game/constant/panel-control-size.constant';
 
-const toolButtonSize = { xs: BlackIconButtonSize, [WideLayoutMediaQuery]: PanelControlWideSizeConstant };
-
-export const GameInputToolsStyles = StyleSheet.create(theme => ({
+export const GameInputToolsStyles = StyleSheet.create((theme, rt) => ({
     inputControls: {
         flexDirection: 'row',
         gap: theme.spacing.sm,
@@ -14,11 +12,11 @@ export const GameInputToolsStyles = StyleSheet.create(theme => ({
     },
     toolButton: {
         borderRadius: PanelControlPillRadiusConstant,
-        height: toolButtonSize,
-        maxHeight: toolButtonSize,
-        maxWidth: toolButtonSize,
-        minHeight: toolButtonSize,
-        minWidth: toolButtonSize,
-        width: toolButtonSize
+        height: appLayoutScreenIsWide(rt.screen) ? PanelControlWideSizeConstant : AppIconButtonSize,
+        maxHeight: appLayoutScreenIsWide(rt.screen) ? PanelControlWideSizeConstant : AppIconButtonSize,
+        maxWidth: appLayoutScreenIsWide(rt.screen) ? PanelControlWideSizeConstant : AppIconButtonSize,
+        minHeight: appLayoutScreenIsWide(rt.screen) ? PanelControlWideSizeConstant : AppIconButtonSize,
+        minWidth: appLayoutScreenIsWide(rt.screen) ? PanelControlWideSizeConstant : AppIconButtonSize,
+        width: appLayoutScreenIsWide(rt.screen) ? PanelControlWideSizeConstant : AppIconButtonSize
     }
 }));

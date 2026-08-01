@@ -16,9 +16,9 @@ export const ScoringScreen = () => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
 
-    const textStyle = { color: theme.colors.label.main };
-    const headingStyle = { color: theme.colors.label.main, fontWeight: 'bold' as const, fontSize: 16, marginTop: 16, marginBottom: 8 };
-    const codeStyle = { color: theme.colors.label.main, fontFamily: 'monospace', fontWeight: 'bold' as const };
+    const textStyle = { color: theme.colors.text.primary };
+    const headingStyle = { color: theme.colors.text.primary, fontWeight: 'bold' as const, fontSize: 16, marginTop: 16, marginBottom: 8 };
+    const codeStyle = { color: theme.colors.text.primary, fontFamily: 'monospace', fontWeight: 'bold' as const };
 
     return (
         <CollapsibleChromePage
@@ -78,6 +78,13 @@ export const ScoringScreen = () => {
                     <Text style={codeStyle}>×{defaultScoringConfig.difficultyCoefficients[DifficultyEnum.Nightmare]}</Text> ={' '}
                     <Text style={codeStyle}>
                         {defaultScoringConfig.correctValue * defaultScoringConfig.difficultyCoefficients[DifficultyEnum.Nightmare]}
+                    </Text>
+                </ListItem>
+                <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
+                    • <Trans>Hell</Trans>:{' '}
+                    <Text style={codeStyle}>×{defaultScoringConfig.difficultyCoefficients[DifficultyEnum.Hell]}</Text> ={' '}
+                    <Text style={codeStyle}>
+                        {defaultScoringConfig.correctValue * defaultScoringConfig.difficultyCoefficients[DifficultyEnum.Hell]}
                     </Text>
                 </ListItem>
             </View>

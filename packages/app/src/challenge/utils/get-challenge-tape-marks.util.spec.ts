@@ -1,6 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 import { TimelineEventKindEnum } from '@suuudokuuu/encoder';
-import { SolutionTechniqueEnum } from '@suuudokuuu/solver';
+import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { techniqueComplexityConstant } from '../constants/technique-complexity.constant';
 

@@ -10,6 +10,7 @@ import { GlassIconButton } from '../../../../@generic/components/glass-icon-butt
 import { PlayAgainButton } from '../../../../@generic/components/play-again-button/play-again-button';
 import { ScreenActionBar } from '../../../../@generic/components/screen-action-bar/screen-action-bar';
 import { ChallengeShareButton } from '../../../../challenge/components/challenge-share-button/challenge-share-button';
+import { isChallengeRecording } from '../../../../challenge/utils/is-challenge-recording.util';
 import { PuzzleShareButton } from '../../../../game/components/puzzle-share-button/puzzle-share-button';
 import { GameContext } from '../../../../game/context/game.context';
 import { ThemeContext } from '../../../../theme/context/theme.context';
@@ -17,29 +18,34 @@ import { WinnerScreenSelectors } from '../winner-screen.selectors';
 
 import { WinnerScreenActionsStyles as styles } from './winner-screen-actions.styles';
 
+import type { GameSetupInterface } from '../../../../game/interface/game-setup.interface';
 import type { GameState } from '../../../../game/store/game.state';
-import type { DifficultyEnum } from '@suuudokuuu/generator';
 
 interface Props {
-    readonly difficulty: DifficultyEnum;
     readonly gameState: GameState;
+    readonly retrySetup: GameSetupInterface;
 }
 
-export const WinnerScreenActions = ({ difficulty, gameState }: Props) => {
+export const WinnerScreenActions = ({ gameState, retrySetup }: Props) => {
     const { t } = useLingui();
-    const { create } = use(GameContext);
+    const { create, isCreatingGame } = use(GameContext);
     const { theme } = use(ThemeContext);
 
     const hasRival = isNotEmptyString(gameState.challengeState);
-    const isChallengeShareable = gameState.isChallengeRun && !hasRival;
+    const isChallengeShareable = isChallengeRecording(gameState);
     const isPuzzleShareable = !gameState.isChallengeRun && !hasRival;
-    const handlePlayAgain = () => void create(difficulty, gameState.maxMistakes);
+    const handlePlayAgain = () => void create(retrySetup);
     const homeAction = <GameResultHomeButton accessibilityLabel={t`Home`} testID={WinnerScreenSelectors.HomeButton} />;
 
     if (isChallengeShareable || isPuzzleShareable) {
         const playAgainAction = (
-            <GlassIconButton accessibilityLabel={t`Play again`} onPress={handlePlayAgain} testID={WinnerScreenSelectors.PlayAgainButton}>
-                <LucideRotateCcw color={theme.colors.label.inverted} />
+            <GlassIconButton
+                accessibilityLabel={t`Play again`}
+                isLoading={isCreatingGame}
+                onPress={handlePlayAgain}
+                testID={WinnerScreenSelectors.PlayAgainButton}
+            >
+                <LucideRotateCcw color={theme.colors.inkText} />
             </GlassIconButton>
         );
         const shareAction = isChallengeShareable ? (
@@ -57,7 +63,7 @@ export const WinnerScreenActions = ({ difficulty, gameState }: Props) => {
 
     return (
         <GameResultActionsLayout homeAction={homeAction}>
-            <PlayAgainButton onPress={handlePlayAgain} style={styles.button} />
+            <PlayAgainButton isLoading={isCreatingGame} onPress={handlePlayAgain} style={styles.button} />
         </GameResultActionsLayout>
     );
 };

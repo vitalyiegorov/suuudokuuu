@@ -6,6 +6,7 @@ import { Pressable, StyleSheet, View } from 'react-native';
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { UkraineFlagIcon } from '../../../@generic/components/ukraine-flag-icon/ukraine-flag-icon';
 import { donationLinkConstant } from '../../../@generic/constants/donation.constant';
+import { getBrand } from '../../../@generic/utils/get-brand.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { settingsAppFooterGetSupportLinkColors } from '../../utils/settings-app-footer-get-support-link-colors.util';
 
@@ -20,7 +21,8 @@ export const SettingsAppFooter = ({ version }: Props) => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
 
-    const versionLabel = t`suuudokuuu · v${version}`;
+    const { appName } = getBrand();
+    const versionLabel = t`${appName} · v${version}`;
     const supportLinkColors = settingsAppFooterGetSupportLinkColors(theme);
     const supportButtonStyle = StyleSheet.flatten([
         styles.supportButton,
@@ -33,12 +35,12 @@ export const SettingsAppFooter = ({ version }: Props) => {
         styles.action,
         {
             backgroundColor: theme.colors.surface.subtle,
-            borderColor: theme.colors.candidate.border
+            borderColor: theme.colors.surface.border
         }
     ]);
     const supportTextStyles = [styles.supportText, { color: supportLinkColors.textColor }];
     const actionTextStyles = [styles.actionText, { color: theme.colors.surface.subtleText }];
-    const versionStyles = [styles.version, { color: theme.colors.label.hint }];
+    const versionStyles = [styles.version, { color: theme.colors.text.hint }];
 
     return (
         <View style={styles.container}>

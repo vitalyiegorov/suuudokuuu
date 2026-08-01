@@ -1,1 +1,3 @@
-export const donationLinkConstant = 'https://savelife.in.ua/en/donate-en/#donate-army-card-monthly';
+import { getBrand } from '../utils/get-brand.util';
+
+export const donationLinkConstant = getBrand().links.donation;

@@ -54,9 +54,9 @@ export const HistoryDifficulty = ({ difficulty }: Props) => {
     const bestTimeValueText = hasWins ? bestTimeText : HistoryMissingValueText;
     const challengesText = `${challengesWon}/${challengesLost}`;
 
-    const containerStyles = [styles.container, { borderColor: theme.colors.candidate.border }];
-    const titleStyles = [styles.title, { color: theme.colors.label.main }];
-    const subtitleStyles = [styles.subtitle, { color: theme.colors.label.hint }];
+    const containerStyles = [styles.container, { borderColor: theme.colors.surface.border }];
+    const titleStyles = [styles.title, { color: theme.colors.text.primary }];
+    const subtitleStyles = [styles.subtitle, { color: theme.colors.text.hint }];
 
     const handlePress = () => {
         router.push({ params: { difficulty }, pathname: '/history/[difficulty]' });
@@ -78,7 +78,7 @@ export const HistoryDifficulty = ({ difficulty }: Props) => {
                     </BlackText>
                 </View>
 
-                <LucideChevronRight color={theme.colors.label.hint} size={HistoryDifficultyChevronSize} />
+                <LucideChevronRight color={theme.colors.text.hint} size={HistoryDifficultyChevronSize} />
             </View>
 
             <AppMetricStrip separatorStyle={styles.separator} style={styles.strip} variant="ghost">

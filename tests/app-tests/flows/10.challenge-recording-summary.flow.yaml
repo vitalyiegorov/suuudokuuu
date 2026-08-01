@@ -1,0 +1,106 @@
+appId: ${APP_ID}
+---
+- startRecording:
+      path: '10.challenge-recording-summary'
+      optional: true
+
+- runFlow: subflows/navigation/launch-home.flow.yaml
+
+# The handoff fixture restores a challenge recording with one background period
+# (40s in, 20s away) and exactly one empty cell (6-0) whose value is 2.
+- retry:
+      maxRetries: 1
+      commands:
+          - openLink:
+                link: suuudokuuu://shared/_N2P________9____qXF6FFdMjBWGhJIN-CMqSm5omCUw0KFUm6-t2HxLUAuYMAqVUFCWAAAAAAAA
+          - extendedWaitUntil:
+                visible:
+                    id: 'SharedScreenSelectors.Root'
+                timeout: 10000
+
+- tapOn:
+      id: 'SharedScreenSelectors.ConfirmButton'
+- extendedWaitUntil:
+      visible:
+          id: 'GameScreenSelectors.Root'
+      timeout: 10000
+- assertVisible:
+      id: 'ChallengeRecordHudSelectors.Root'
+
+- tapOn:
+      id: 'CellSelectors.Cell.6-0'
+- tapOn:
+      id: 'InputModeButtonSelectors.Root'
+- extendedWaitUntil:
+      visible:
+          id: 'CandidateInputItemSelectors.Button.2'
+      timeout: 3000
+- tapOn:
+      id: 'CandidateInputItemSelectors.Button.2'
+
+- tapOn:
+      id: 'InputModeButtonSelectors.Root'
+- extendedWaitUntil:
+      visible:
+          id: 'AvailableValueItemSelectors.Button.2'
+      timeout: 3000
+- tapOn:
+      id: 'AvailableValueItemSelectors.Button.2'
+
+- extendedWaitUntil:
+      visible:
+          id: 'WinnerScreenSelectors.Root'
+      timeout: 5000
+- assertVisible:
+      id: 'ChallengeRunSummarySelectors.Root'
+
+- scrollUntilVisible:
+      element:
+          id: 'ChallengeRunStatsSelectors.PencilTile'
+      direction: DOWN
+      visibilityPercentage: 50
+      timeout: 15000
+- assertVisible: 'Pencil marks'
+# This flow pencils the candidate 2 in once before placing the value, so the run
+# records exactly one pencil action.
+- assertVisible:
+      id: 'ChallengeRunStatsSelectors.PencilTile.Count'
+      text: '1'
+- assertVisible:
+      id: 'ChallengeRunStatsSelectors.ExitsTile'
+- assertVisible: '.*20s away.*'
+# The fixture holds a single background period, so the exit badge stays at one.
+- assertVisible:
+      id: 'ChallengeRunStatsSelectors.ExitsTile.Count'
+      text: '1'
+- assertNotVisible:
+      id: 'ChallengeRunStatsSelectors.CleanRunTile'
+- assertNotVisible:
+      id: 'ChallengeRunStatsSelectors.ScreenshotsTile'
+
+- scrollUntilVisible:
+      element:
+          id: 'ChallengeRunStatsSelectors.Root'
+      direction: DOWN
+      visibilityPercentage: 50
+      timeout: 15000
+
+- scrollUntilVisible:
+      element:
+          id: 'WinnerScreenSelectors.TimeValue'
+      direction: DOWN
+      visibilityPercentage: 50
+      timeout: 15000
+- assertVisible:
+      id: 'WinnerScreenSelectors.MistakesValue'
+- assertVisible: 'Challenge'
+- assertVisible:
+      id: 'WinnerScreenSelectors.PlayAgainButton'
+
+- tapOn:
+      id: 'WinnerScreenSelectors.HomeButton'
+- extendedWaitUntil:
+      visible:
+          id: 'HomeScreenSelectors.Root'
+      timeout: 3000
+- stopApp

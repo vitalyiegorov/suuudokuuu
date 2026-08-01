@@ -11,11 +11,6 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#. placeholder {0}: ranges.length
-#: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
-msgid "{0, plural, one {# break} other {# breaks}}"
-msgstr "{0, plural, one {# avbrott} other {# avbrott}}"
-
 #. placeholder {0}: 0
 #. placeholder {0}: 3
 #. placeholder {0}: 99
@@ -23,13 +18,21 @@ msgstr "{0, plural, one {# avbrott} other {# avbrott}}"
 msgid "{0, plural, one {# mistake} other {# mistakes}}"
 msgstr "{0, plural, one {# misstag} other {# misstag}}"
 
+#: src/settings/component/settings-app-footer/settings-app-footer.tsx
+msgid "{appName} · v{version}"
+msgstr "{appName} · v{version}"
+
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
 msgstr "{arsenalCardCount, plural, one {# teknik} other {# tekniker}}"
 
-#: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
+#: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
 msgid "{awaySeconds}s away"
 msgstr "{awaySeconds}s borta"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "{draftThemeName} copy"
+msgstr "{draftThemeName} (kopia)"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} faster"
@@ -43,19 +46,19 @@ msgstr "{durationText} långsammare"
 msgid "{filledCells}/{totalCells} filled"
 msgstr "{filledCells}/{totalCells} ifyllda"
 
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "{foregroundLabel} on {backgroundLabel}: {contrastRatioText} — minimum {minimumRatio}"
+msgstr "{foregroundLabel} på {backgroundLabel}: {contrastRatioText} — minst {minimumRatio}"
+
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "{gamesCompleted, plural, one {# completed game} other {# completed games}}"
 msgstr "{gamesCompleted, plural, one {# slutfört spel} other {# slutförda spel}}"
-
-#: src/challenge/components/challenge-technique-preview/challenge-technique-preview.tsx
-msgid "{keyMoveCount, plural, one {# key move} other {# key moves}}"
-msgstr "{keyMoveCount, plural, one {# nyckeldrag} other {# nyckeldrag}}"
 
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
 msgstr "{mistakes, plural, one {# misstag} other {# misstag}}"
 
-#: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
+#: src/challenge/components/challenge-run-summary/challenge-run-summary.tsx
 msgid "{sharpCount, plural, one {# sharp technique} other {# sharp techniques}}"
 msgstr "{sharpCount, plural, one {# skarpsinnig teknik} other {# skarpsinniga tekniker}}"
 
@@ -82,6 +85,10 @@ msgstr "<0>Utvecklingsklient krävs</0><1>Utvecklingsklienter behöver Metro, st
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "A little room between cells"
 msgstr "Lite utrymme mellan rutorna"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Accent"
+msgstr "Accentfärg"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Accept challenge"
@@ -121,6 +128,10 @@ msgstr "Android-installation"
 msgid "Animate completed rows, columns, and boxes"
 msgstr "Animera färdiga rader, kolumner och block"
 
+#: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
+msgid "Apply"
+msgstr "Tillämpa"
+
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Attempts to load the latest development build again"
 msgstr "Försöker läsa in den senaste utvecklingsversionen igen"
@@ -146,7 +157,7 @@ msgstr "Bahasa Indonesia"
 msgid "Balanced digits for most players"
 msgstr "Balanserade siffror för de flesta spelare"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Balanced solve"
 msgstr "Balanserad lösning"
 
@@ -177,6 +188,10 @@ msgstr "Bästa tid"
 msgid "Better luck next time!"
 msgstr "Bättre lycka nästa gång!"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Board cells"
+msgstr "Brädets rutor"
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Board colors and screen appearance"
 msgstr "Brädets färger och skärmens utseende"
@@ -198,8 +213,22 @@ msgstr "Kan du slå dem?"
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 #: src/screens/components/shared-screen/shared-screen.tsx
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+#: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Cancel"
 msgstr "Avbryt"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Candidate background"
+msgstr "Bakgrund för kandidat"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Candidate text"
+msgstr "Text för kandidat"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Candidates"
+msgstr "Kandidater"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
@@ -257,10 +286,6 @@ msgid "Choose how much space appears between Sudoku cells"
 msgstr "Välj hur mycket utrymme som visas mellan Sudoku-rutor"
 
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
-msgid "Choose the color style for the board and app screens"
-msgstr "Välj färgstil för brädet och appskärmarna"
-
-#: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Choose the language used for menus and game text"
 msgstr "Välj språk för menyer och speltext"
 
@@ -275,6 +300,10 @@ msgstr "Felfritt"
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Clean black-and-white board"
 msgstr "Rent svartvitt bräde"
+
+#: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
+msgid "Clean run"
+msgstr "Ren omgång"
 
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Clean win"
@@ -325,13 +354,37 @@ msgstr "Fortsätt någon annanstans"
 msgid "Continue this Sudoku exactly where I left off!"
 msgstr "Fortsätt detta sudoku precis där jag slutade!"
 
+#: src/screens/components/themes-screen/themes.screen.tsx
+msgid "Create theme"
+msgstr "Skapa tema"
+
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Custom theme"
+msgstr "Anpassat tema"
+
+#: src/screens/components/themes-screen/themes.screen.tsx
+msgid "Customize"
+msgstr "Anpassa"
+
 #: src/@generic/hooks/use-timer-text.hook.ts
 msgid "d"
 msgstr "d"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Danger accent"
+msgstr "Faroaccent"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Dark"
+msgstr "Mörk"
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Dark mode"
 msgstr "Mörkt läge"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Dark overlay"
+msgstr "Mörkt överlägg"
 
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Day streak"
@@ -341,9 +394,17 @@ msgstr "Dagsserie"
 msgid "Dead even"
 msgstr "Helt jämnt"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Deep focus"
 msgstr "Djupt fokus"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Delete"
+msgstr "Ta bort"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Delete theme"
+msgstr "Ta bort tema"
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Deutsch"
@@ -387,6 +448,10 @@ msgstr "Ladda ned utvecklingsversionen för Android"
 msgid "Downloads the Android development APK"
 msgstr "Laddar ned APK-filen för Android-utvecklingsversionen"
 
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Duplicate"
+msgstr "Duplicera"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Each correct placement starts with a base value:"
 msgstr "Varje korrekt placering börjar med ett grundvärde:"
@@ -396,9 +461,25 @@ msgstr "Varje korrekt placering börjar med ett grundvärde:"
 msgid "Easy"
 msgstr "Lätt"
 
+#: src/screens/components/themes-screen/themes.screen.tsx
+msgid "Edit"
+msgstr "Redigera"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Empty cell text"
+msgstr "Text för tom ruta"
+
 #: src/settings/constant/language-labels.constant.ts
 msgid "English"
 msgstr "English"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Enter a theme name"
+msgstr "Ange ett temanamn"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Error cell"
+msgstr "Felruta"
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Español"
@@ -408,7 +489,7 @@ msgstr "Español"
 msgid "Evenly matched"
 msgstr "Jämn match"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Expert grid"
 msgstr "Expertrutnät"
 
@@ -419,6 +500,10 @@ msgstr "Du får extrapoäng när ditt drag slutför:"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Feedback"
 msgstr "Feedback"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Filled cell"
+msgstr "Ifylld ruta"
 
 #: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
 msgid "Final score"
@@ -458,7 +543,11 @@ msgstr "Spelet pausat"
 msgid "Games"
 msgstr "Partier"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "General"
+msgstr "Allmänt"
+
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Gentle start"
 msgstr "Mjuk start"
 
@@ -493,6 +582,11 @@ msgstr "Svår"
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Hardcore"
 msgstr "Hardcore"
+
+#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/scoring/components/scoring.screen.tsx
+msgid "Hell"
+msgstr "Helvete"
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Help Ukraine win"
@@ -530,6 +624,10 @@ msgstr "Markera matchande siffror"
 msgid "Highlight pencil marks"
 msgstr "Markera anteckningar"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Hint text"
+msgstr "Text för ledtråd"
+
 #: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Home"
@@ -552,6 +650,10 @@ msgstr "Odödlig"
 msgid "Incomplete"
 msgstr "Ofullständig"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Ink"
+msgstr "Bläck"
+
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Install on iOS"
 msgstr "Installera på iOS"
@@ -560,7 +662,7 @@ msgstr "Installera på iOS"
 msgid "Install the iOS development build"
 msgstr "Installera utvecklingsversionen för iOS"
 
-#: src/game/components/game-provider/game-provider.tsx
+#: src/game/hooks/use-game-creation-runner.hook.ts
 msgid "Invalid Sudoku"
 msgstr "Ogiltigt sudoku"
 
@@ -617,7 +719,15 @@ msgstr "Vänsterhänt layout"
 msgid "Level"
 msgstr "Nivå"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Light"
+msgstr "Ljus"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Light overlay"
+msgstr "Ljust överlägg"
+
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Light warm-up"
 msgstr "Lätt uppvärmning"
 
@@ -632,6 +742,10 @@ msgstr "Läser in den senaste utvecklingsversionen…"
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "Lost"
 msgstr "Förlorade"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Low contrast"
+msgstr "Låg kontrast"
 
 #: src/@generic/hooks/use-timer-text.hook.ts
 msgid "m"
@@ -654,6 +768,10 @@ msgstr "Medel"
 msgid "Menus, settings, and game text"
 msgstr "Menyer, inställningar och speltext"
 
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
+msgid "Minimum clues"
+msgstr "Minimala ledtrådar"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Minimum Score"
 msgstr "Minimipoäng"
@@ -675,6 +793,14 @@ msgstr "Drag"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Move the landscape controls panel to the left of the board"
 msgstr "Flytta kontrollpanelen till vänster om brädet i liggande läge"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "My theme"
+msgstr "Mitt tema"
+
+#: src/screens/components/themes-screen/themes.screen.tsx
+msgid "My themes"
+msgstr "Mina teman"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Naked Pair"
@@ -754,16 +880,32 @@ msgstr "ingen paus"
 msgid "No stats yet"
 msgstr "Ingen statistik än"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Number pad"
+msgstr "Sifferpanel"
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Number size"
 msgstr "Sifferstorlek"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Numpad text"
+msgstr "Text för sifferpanelen"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Numpad track"
+msgstr "Sifferpanelens list"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Numpad track (filled)"
+msgstr "Sifferpanelens list (ifylld)"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "of current score"
 msgstr "av aktuell poäng"
 
-#: src/game/components/game-provider/game-provider.tsx
+#: src/game/hooks/use-game-creation-runner.hook.ts
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
@@ -786,6 +928,10 @@ msgstr "Öppna delat sudoku?"
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "Open this page in Safari on a physical iPhone or iPad. The device must already be registered in the Ad Hoc provisioning profile."
 msgstr "Öppna den här sidan i Safari på en fysisk iPhone eller iPad. Enheten måste redan vara registrerad i Ad Hoc-provisioneringsprofilen."
+
+#: src/settings/component/theme-editor-color-row/theme-editor-color-row.tsx
+msgid "Opens a color picker for this token"
+msgstr "Öppnar en färgväljare för det här alternativet"
 
 #: src/settings/component/settings-option-link/settings-option-link.tsx
 msgid "Opens a picker to change this setting"
@@ -819,6 +965,10 @@ msgstr "Straff"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Penalty formula"
 msgstr "Straffformel"
+
+#: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
+msgid "Pencil marks"
+msgstr "Blyertsmarkeringar"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "per mistake"
@@ -872,6 +1022,14 @@ msgstr "poäng per korrekt placering."
 msgid "Português"
 msgstr "Português"
 
+#: src/screens/components/themes-screen/themes.screen.tsx
+msgid "Presets"
+msgstr "Förinställningar"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Primary text"
+msgstr "Primär text"
+
 #: src/app/privacy-policy.tsx
 #: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx
 #: src/settings/component/settings-app-footer/settings-app-footer.tsx
@@ -885,6 +1043,14 @@ msgstr "Publicerad:"
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Quit"
 msgstr "Avsluta"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Raised surface"
+msgstr "Upphöjd yta"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Raised surface text"
+msgstr "Text för upphöjd yta"
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"
@@ -911,6 +1077,10 @@ msgstr "Repetition"
 #: src/settings/component/settings-app-footer/settings-app-footer.tsx
 msgid "Report a bug"
 msgstr "Rapportera ett fel"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Reset"
+msgstr "Återställ"
 
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "Result"
@@ -941,10 +1111,6 @@ msgstr "Rivalen utmanade dig"
 msgid "Rival's arsenal"
 msgstr "Rivalens arsenal"
 
-#: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
-msgid "Rival's playbook"
-msgstr "Rivalens taktik"
-
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Rival's run"
 msgstr "Motståndarens runda"
@@ -957,6 +1123,14 @@ msgstr "Rivalens tid att slå"
 msgid "Row"
 msgstr "Rad"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Same-value cell"
+msgstr "Ruta med samma värde"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Same-value cell text"
+msgstr "Text för ruta med samma värde"
+
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Sashimi Swordfish"
 msgstr "Sashimi Swordfish"
@@ -964,6 +1138,14 @@ msgstr "Sashimi Swordfish"
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Sashimi X-Wing"
 msgstr "Sashimi X-Wing"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Save"
+msgstr "Spara"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Save anyway"
+msgstr "Spara ändå"
 
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
@@ -980,6 +1162,34 @@ msgstr "poäng × koefficient × antal"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Score is calculated for each correct cell placement based on difficulty, bonuses, and penalties."
 msgstr "Poängen beräknas för varje korrekt ifylld ruta utifrån svårighetsgrad, bonusar och straff."
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Screen background"
+msgstr "Skärmens bakgrund"
+
+#: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
+msgid "Screenshots"
+msgstr "Skärmbilder"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Selected candidate background"
+msgstr "Bakgrund för vald kandidat"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Selected candidate border"
+msgstr "Kant för vald kandidat"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Selected candidate text"
+msgstr "Text för vald kandidat"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Selected cell"
+msgstr "Vald ruta"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Selected cell text"
+msgstr "Text för vald ruta"
 
 #: src/game/hooks/use-share-game.hook.ts
 msgid "Send the puzzle to solve from scratch, or hand off your run to continue elsewhere."
@@ -1050,9 +1260,13 @@ msgstr "Minsta siffror för kompakta bräden"
 msgid "Soft gray board with a paper-like feel"
 msgstr "Mjukt grått bräde med papperskänsla"
 
-#: src/challenge/components/challenge-technique-breakdown/challenge-technique-breakdown.tsx
+#: src/challenge/components/challenge-run-summary/challenge-run-summary.tsx
 msgid "Solved with the fundamentals"
 msgstr "Löst med grunderna"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Some color combinations are hard to read. Save anyway?"
+msgstr "Vissa färgkombinationer är svåra att läsa. Spara ändå?"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Space between Sudoku cells"
@@ -1097,6 +1311,18 @@ msgstr "Dragtid"
 msgid "Stop current run?"
 msgstr "Avbryta aktuell omgång?"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Subtle surface"
+msgstr "Subtil yta"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Subtle surface hint"
+msgstr "Ledtråd för subtil yta"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Subtle surface text"
+msgstr "Text för subtil yta"
+
 #: src/@generic/components/support-ukraine-pill/support-ukraine-pill.tsx
 msgid "Support"
 msgstr "Stöd"
@@ -1106,13 +1332,13 @@ msgstr "Stöd"
 msgid "Support Ukraine"
 msgstr "Stöd Ukraina"
 
-#: src/screens/components/home-screen/home.screen.tsx
-msgid "suuudokuuu"
-msgstr "suuudokuuu"
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Surface border"
+msgstr "Ytans kant"
 
-#: src/settings/component/settings-app-footer/settings-app-footer.tsx
-msgid "suuudokuuu · v{version}"
-msgstr "suuudokuuu · v{version}"
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Surfaces"
+msgstr "Ytor"
 
 #: src/game/hooks/use-share-challenge/use-share-challenge.hook.ts
 msgid "SuuudokuuU Challenge"
@@ -1142,6 +1368,22 @@ msgstr "Swordfish"
 msgid "Taller marks = sharper techniques"
 msgstr "Högre markeringar = skarpare tekniker"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Text and labels"
+msgstr "Text och etiketter"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Text on danger accent"
+msgstr "Text på faroaccent"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Text on filled numpad track"
+msgstr "Text på ifylld list i sifferpanelen"
+
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Text on ink"
+msgstr "Text på bläck"
+
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
 msgstr "Commit-länken kunde inte öppnas på den här enheten."
@@ -1154,14 +1396,28 @@ msgstr "Installationslänken kunde inte öppnas. Kontrollera webbläsarens inst�
 msgid "Their time to beat"
 msgstr "Deras tid att slå"
 
+#: src/app/settings/themes/index.tsx
 #: src/screens/components/settings-screen/settings.screen.tsx
-#: src/settings/hooks/use-settings-option-sheet-config.hook.ts
+#: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Theme"
 msgstr "Tema"
+
+#: src/app/settings/themes/editor.tsx
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Theme editor"
+msgstr "Temaredigerare"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Theme name"
+msgstr "Temanamn"
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "Det här brädet blev inte klart den här gången. Kampen för frihet i Ukraina fortsätter. Varje donation på 1 $ gör skillnad."
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "This theme will be removed permanently."
+msgstr "Det här temat tas bort permanent."
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "This value is multiplied by the difficulty coefficient:"
@@ -1224,10 +1480,6 @@ msgstr "Det går inte att öppna länken"
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Unable to start installation"
 msgstr "Det går inte att starta installationen"
-
-#: src/challenge/components/challenge-integrity-badge/challenge-integrity-badge.tsx
-msgid "Uninterrupted run"
-msgstr "Runda utan avbrott"
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/screens/components/settings-screen/settings.screen.tsx
@@ -1387,9 +1639,17 @@ msgstr "Din bästa runda"
 msgid "Your browser may ask for permission to install unknown apps. Android will also show an operating-system security warning before installation."
 msgstr "Webbläsaren kan be om tillåtelse att installera appar från okända källor. Android visar också en säkerhetsvarning från operativsystemet före installationen."
 
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Your custom colors"
+msgstr "Dina anpassade färger"
+
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Your progress"
 msgstr "Din utveckling"
+
+#: src/screens/components/winner-screen/winner.screen.tsx
+msgid "Your recording"
+msgstr "Din inspelning"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Your rival was faster"

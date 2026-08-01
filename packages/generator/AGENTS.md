@@ -1,6 +1,6 @@
 # Generator Package
 
-Pure TypeScript Sudoku generation and solving engine. It exports the `Sudoku` class, difficulty config, field/cell interfaces, scored-cell helpers, and the DLX uniqueness solver used by the app.
+Pure TypeScript Sudoku generation and solving engine. It exports the `Sudoku` class, difficulty config, field/cell interfaces, and scored-cell helpers; machine solving lives in the `@suuudokuuu/solver-*` packages.
 
 ## Commands
 
@@ -19,8 +19,6 @@ yarn test:coverage
 ```text
 src/
 ├── @generic/                  # Shared enums, interfaces, types, and utilities
-├── dlx/                       # Dancing Links exact-cover solver feature
-│   └── classes/
 ├── serializable-sudoku/       # Base serialization and field state feature
 │   └── classes/
 └── sudoku/                    # Generation, gameplay, navigation, and scoring feature
@@ -33,12 +31,12 @@ src/
 2. `field` is the solved grid; `gameField` is the playable grid; `emptyField` is the blank template.
 3. A cell uses `x`, `y`, `value`, and `group`. Keep coordinate semantics consistent across app, generator, and encoder.
 4. Blank cells use the configured blank value, currently `0`.
-5. Puzzle generation must keep a unique solution. Use `DLXSolver.count(..., 2)` or equivalent uniqueness checks before accepting clue removal.
+5. Puzzle generation must keep a unique solution. Use `SolverInterface.countSolutions(grid, UNIQUENESS_COUNT_LIMIT)` or equivalent uniqueness checks before accepting clue removal.
 6. `DifficultyEnum` values are serialized into app history and UI. Changing names or values requires app migrations, i18n updates, and tests.
 
 ## Algorithm Rules
 
-1. Treat DLX pointer manipulation as invariant-heavy code. Small readability refactors are fine; broad rewrites need focused tests first.
+1. Treat the generator's clue-removal loop and its solver-backed uniqueness checks as invariant-heavy code. Small readability refactors are fine; broad rewrites need focused tests first.
 2. Keep solver methods deterministic for a given field. Randomness belongs in generation and shuffle steps.
 3. Do not replace structured field/cell operations with ad hoc string parsing inside the generator.
 4. Use constants or config values for grid dimensions when touching generic Sudoku logic.
@@ -55,7 +53,7 @@ src/
 
 ## Testing
 
-1. Add or update tests for puzzle creation, serialization, navigation, scoring return shapes, candidate calculation, and DLX uniqueness behavior.
+1. Add or update tests for puzzle creation, serialization, navigation, scoring return shapes, candidate calculation, and solver-backed uniqueness behavior.
 2. Use deterministic fixtures when asserting exact fields. Avoid brittle tests that depend on random generation order.
 3. After generator changes, run:
 

@@ -14,7 +14,7 @@ export const GameResultHomeButton = ({ accessibilityLabel, testID }: Props) => {
 
     return (
         <GlassIconButton accessibilityLabel={accessibilityLabel} href="/" replace testID={testID}>
-            <LucideHouse color={theme.colors.label.inverted} />
+            <LucideHouse color={theme.colors.inkText} />
         </GlassIconButton>
     );
 };

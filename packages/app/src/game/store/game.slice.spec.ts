@@ -1,6 +1,6 @@
 import { describe, expect, it, jest } from '@jest/globals';
 import { TimelineEventKindEnum } from '@suuudokuuu/encoder';
-import { DifficultyEnum, Sudoku, emptyScoredCells } from '@suuudokuuu/generator';
+import { DifficultyEnum, Sudoku, defaultSudokuConfig, emptyScoredCells } from '@suuudokuuu/generator';
 
 import { isDefined } from '@rnw-community/shared';
 
@@ -16,6 +16,8 @@ jest.mock('@suuudokuuu/encoder', () => {
 });
 
 import { getCellKey } from '../../@generic/utils/get-cell-key.util';
+import { SudokuScoring } from '../../scoring/classes/sudoku-scoring';
+import { defaultScoringConfig } from '../../scoring/interfaces/scoring-config.interface';
 
 import {
     gameChallengeClockSyncAction,
@@ -37,6 +39,26 @@ import { initialGameState } from './game.state';
 
 const StartedSudokuString = 'started-sudoku';
 const InitialElapsedTime = 42;
+
+const HellPuzzle = '000000010400000000020000000000050407008000300001090000300400200050100000000806000';
+const HellSolution = '693784512487512936125963874932651487568247391741398625319475268856129743274836159';
+const HellCellsAlreadySolved = 15;
+
+const buildPartiallySolvedHellField = (solvedCellCount: number): string => {
+    let remainingCellsToSolve = solvedCellCount;
+
+    return HellPuzzle.split('')
+        .map((puzzleValue, index) => {
+            if (puzzleValue === '0' && remainingCellsToSolve > 0) {
+                remainingCellsToSolve -= 1;
+
+                return HellSolution[index];
+            }
+
+            return puzzleValue;
+        })
+        .join('');
+};
 
 describe('gameSlice', () => {
     it('starts a new puzzle while preserving completed history', () => {
@@ -61,16 +83,62 @@ describe('gameSlice', () => {
 
         const nextState = gameSlice.reducer(
             dirtyState,
-            gameStartAction({ sudokuString: StartedSudokuString, maxMistakes: 0, isChallengeRun: false })
+            gameStartAction({
+                sudokuString: StartedSudokuString,
+                difficulty: DifficultyEnum.Hard,
+                maxMistakes: 0,
+                isChallengeRun: false
+            })
         );
 
         expect(nextState).toMatchObject({
             ...initialGameState,
             historyByDifficulty,
             sudokuString: StartedSudokuString,
+            difficulty: DifficultyEnum.Hard,
             maxMistakes: 0
         });
         expect(nextState.hasNewPersonalBestScore).toBe(false);
+    });
+
+    it.each([
+        { difficulty: DifficultyEnum.Easy, isChallengeRun: false, maxMistakes: 3 },
+        { difficulty: DifficultyEnum.Hard, isChallengeRun: false, maxMistakes: 0 },
+        { difficulty: DifficultyEnum.Nightmare, isChallengeRun: false, maxMistakes: 99 },
+        { difficulty: DifficultyEnum.Nightmare, isChallengeRun: true, maxMistakes: 0 }
+    ])('keeps $difficulty with $maxMistakes mistakes and challenge $isChallengeRun while resetting per-attempt state', setup => {
+        const completedState = {
+            ...initialGameState,
+            candidates: { '1-1': [1, 2] },
+            challengeState: 'rival-payload',
+            challengeTime: 120,
+            challengeTimelineEvents: [{ kind: TimelineEventKindEnum.Away as const, ts: 1 }],
+            difficulty: DifficultyEnum.Newbie,
+            elapsedTime: InitialElapsedTime,
+            hasNewPersonalBestScore: true,
+            isChallengeRun: !setup.isChallengeRun,
+            maxMistakes: 1,
+            mistakes: 5,
+            score: 4200,
+            timelineEvents: [{ kind: TimelineEventKindEnum.Away as const, ts: 2 }],
+            wallClockStartMs: 1234
+        };
+
+        const nextState = gameSlice.reducer(completedState, gameStartAction({ ...setup, sudokuString: StartedSudokuString }));
+
+        expect(nextState).toMatchObject({ ...setup, sudokuString: StartedSudokuString });
+        expect(nextState).toMatchObject({
+            candidates: {},
+            challengeState: '',
+            challengeTime: 0,
+            challengeTimelineEvents: [],
+            elapsedTime: 0,
+            hasNewPersonalBestScore: false,
+            mistakes: 0,
+            score: 0,
+            timelineEvents: [],
+            wallClockStartMs: 0
+        });
     });
 
     it('loads partial game state, records mistakes, and resets active progress', () => {
@@ -174,6 +242,49 @@ describe('gameSlice', () => {
         ]);
         expect(savedState.candidates[correctCellKey]).toEqual([]);
         expect(savedState.candidates[affectedCellKey]).toEqual([]);
+    });
+
+    it('scores a save with the authoritative stored difficulty even when the restored sudoku reports a degraded difficulty', () => {
+        const partiallySolvedHellField = buildPartiallySolvedHellField(HellCellsAlreadySolved);
+        const sudoku = Sudoku.fromString(partiallySolvedHellField, defaultSudokuConfig);
+
+        expect(sudoku.Difficulty).toBe(DifficultyEnum.Hard);
+
+        const blankCell = sudoku.Field.flat().find(cell => sudoku.isBlankCell(cell));
+
+        if (!isDefined(blankCell)) {
+            throw new Error('Expected the partially solved Hell puzzle to contain a blank cell');
+        }
+
+        const correctCell = { ...blankCell, value: sudoku.getCorrectValue(blankCell) };
+        const scoredCells = { ...emptyScoredCells, ...sudoku.setCellValue(correctCell), values: [correctCell.value] };
+        const state = {
+            ...initialGameState,
+            difficulty: DifficultyEnum.Hell,
+            sudokuString: partiallySolvedHellField,
+            elapsedTime: 1
+        };
+
+        const savedState = gameSlice.reducer(state, gameSaveAction({ sudoku, correctCell, scoredCells }));
+
+        const scoring = new SudokuScoring(defaultScoringConfig);
+        const hellScore = scoring.calculate({
+            scoredCells,
+            difficulty: DifficultyEnum.Hell,
+            mistakes: state.mistakes,
+            elapsedTime: state.elapsedTime,
+            maxMistakes: state.maxMistakes
+        });
+        const degradedScore = scoring.calculate({
+            scoredCells,
+            difficulty: sudoku.Difficulty,
+            mistakes: state.mistakes,
+            elapsedTime: state.elapsedTime,
+            maxMistakes: state.maxMistakes
+        });
+
+        expect(savedState.score).toBe(hellScore);
+        expect(savedState.score).not.toBe(degradedScore);
     });
 
     it('ticks only while a puzzle exists and the game is not paused', () => {
@@ -314,6 +425,27 @@ describe('gameSlice', () => {
             score: 250
         });
         expect(finishedState).toMatchObject({ isPaused: true, shouldResumeOnFocus: false, shouldShowPauseScreen: false });
+    });
+
+    it('records a completed Hell game under Hell history even though the finished board reads as Newbie by cell count', () => {
+        const finishedState = gameSlice.reducer(
+            {
+                ...initialGameState,
+                difficulty: DifficultyEnum.Hell,
+                elapsedTime: InitialElapsedTime,
+                score: 500,
+                sudokuString: HellSolution
+            },
+            gameFinishAction({ difficulty: DifficultyEnum.Hell, isWon: true })
+        );
+
+        expect(Sudoku.fromString(finishedState.sudokuString, defaultSudokuConfig).Difficulty).toBe(DifficultyEnum.Newbie);
+
+        const [completedGame] = finishedState.historyByDifficulty[DifficultyEnum.Hell].completedGames;
+
+        expect(finishedState.historyByDifficulty[DifficultyEnum.Hell].gamesCompleted).toBe(1);
+        expect(completedGame).toMatchObject({ difficulty: DifficultyEnum.Hell, score: 500 });
+        expect(finishedState.historyByDifficulty[DifficultyEnum.Newbie].gamesCompleted).toBe(0);
     });
 
     it('records ordinary wins without replacing a better score', () => {

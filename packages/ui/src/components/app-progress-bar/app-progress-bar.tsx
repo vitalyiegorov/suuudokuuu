@@ -16,8 +16,8 @@ interface Props {
 export const AppProgressBar = ({ percent, size = 'regular', style, variant = 'default' }: Props) => {
     const { theme } = useUnistyles();
     const isInvertedVariant = variant === 'inverted';
-    const trackColor = isInvertedVariant ? theme.colors.white05 : theme.colors.value.progress;
-    const fillColor = isInvertedVariant ? theme.colors.label.inverted : theme.colors.value.progressActive;
+    const trackColor = isInvertedVariant ? theme.colors.overlayDark : theme.colors.numpad.track;
+    const fillColor = isInvertedVariant ? theme.colors.inkText : theme.colors.numpad.trackFilled;
     const boundedPercent = Math.max(0, Math.min(100, percent));
     const remainderPercent = 100 - boundedPercent;
     const trackStyles = [styles.track, styles[size], { backgroundColor: trackColor }, style];

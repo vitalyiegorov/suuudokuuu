@@ -4,6 +4,8 @@ env:
     EAS_CLI_VERSION: '20.5.1'
     TURBO_TEAM: vitalyiegorov
     TURBO_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+    LANG: en_US.UTF-8
+    LC_ALL: en_US.UTF-8
 
 on:
     workflow_dispatch:

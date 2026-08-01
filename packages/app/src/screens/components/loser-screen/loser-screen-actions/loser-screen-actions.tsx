@@ -10,25 +10,24 @@ import { LoserScreenSelectors } from '../loser-screen.selectors';
 
 import { LoserScreenActionsStyles as styles } from './loser-screen-actions.styles';
 
-import type { GameState } from '../../../../game/store/game.state';
-import type { DifficultyEnum } from '@suuudokuuu/generator';
+import type { GameSetupInterface } from '../../../../game/interface/game-setup.interface';
 
 interface Props {
-    readonly difficulty: DifficultyEnum;
-    readonly gameState: GameState;
+    readonly retrySetup: GameSetupInterface;
 }
 
-export const LoserScreenActions = ({ difficulty, gameState }: Props) => {
+export const LoserScreenActions = ({ retrySetup }: Props) => {
     const { t } = useLingui();
-    const { create } = use(GameContext);
+    const { create, isCreatingGame } = use(GameContext);
 
-    const handlePlayAgain = () => void create(difficulty, gameState.maxMistakes);
+    const handlePlayAgain = () => void create(retrySetup);
     const homeAction = <GameResultHomeButton accessibilityLabel={t`Home`} testID={LoserScreenSelectors.BackHomeButton} />;
 
     return (
         <GameResultActionsLayout homeAction={homeAction}>
             <AppLinkButton
                 icon={LucideRotateCcw}
+                isLoading={isCreatingGame}
                 onPress={handlePlayAgain}
                 size="large"
                 style={styles.primaryButton}

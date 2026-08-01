@@ -11,6 +11,7 @@ import { ThemeContext } from '../../../theme/context/theme.context';
 import { gameCandidatesSelector } from '../../store/game.selectors';
 import { DigitButtonStyles } from '../../styles/digit-button.styles';
 
+import { CandidateInputItemSelectors as selectors } from './candidate-input-item.selectors';
 import { CandidateInputItemStyles as styles } from './candidate-input-item.styles';
 
 import type { OnEventFn } from '@rnw-community/shared';
@@ -45,7 +46,11 @@ export const CandidateInputItem = (props: Props) => {
     const selectionAnimation = useDerivedValue(() => withTiming(isSelected ? 1 : 0, { duration: selectionAnimationDuration }));
 
     const animatedStyles = useAnimatedStyle(() => ({
-        backgroundColor: interpolateColor(selectionAnimation.value, [0, 1], [theme.colors.candidate.bg, theme.colors.candidate.bgActive])
+        backgroundColor: interpolateColor(
+            selectionAnimation.value,
+            [0, 1],
+            [theme.colors.candidate.fill, theme.colors.candidate.fillSelected]
+        )
     }));
 
     const handlePress = () => {
@@ -56,18 +61,22 @@ export const CandidateInputItem = (props: Props) => {
         resolveUnistyleForAnimated(DigitButtonStyles.button),
         resolveUnistyleForAnimated(styles.button),
         {
-            borderColor: isSelected ? theme.colors.candidate.borderActive : theme.colors.candidate.border,
-            backgroundColor: isSelected ? theme.colors.candidate.bgActive : theme.colors.candidate.bg
+            borderColor: isSelected ? theme.colors.candidate.borderSelected : theme.colors.surface.border,
+            backgroundColor: isSelected ? theme.colors.candidate.fillSelected : theme.colors.candidate.fill
         },
         animatedStyles,
         cs(isExhausted, resolveUnistyleForAnimated(DigitButtonStyles.exhausted))
     ];
-    const textStyles = [digitTextStyle, { color: isSelected ? theme.colors.candidate.textActive : theme.colors.candidate.text }];
+    const textStyles = [digitTextStyle, { color: isSelected ? theme.colors.candidate.textSelected : theme.colors.candidate.text }];
     const containerStyles = [DigitButtonStyles.container, sizeStyle];
 
     return (
-        <View style={containerStyles}>
-            <ReanimatedPressable style={buttonStyles} {...(canPress && !isExhausted && { onPress: handlePress })}>
+        <View style={containerStyles} testID={selectors.Root}>
+            <ReanimatedPressable
+                style={buttonStyles}
+                testID={`${selectors.Button}.${value}`}
+                {...(canPress && !isExhausted && { onPress: handlePress })}
+            >
                 <Text allowFontScaling={false} style={textStyles}>
                     {value}
                 </Text>

@@ -1,32 +1,31 @@
+import { appLayoutScreenIsWide } from '@suuudokuuu/ui';
 import { StyleSheet } from 'react-native-unistyles';
 
-import { WideLayoutMediaQuery } from '../../../../@generic/constants/layout-media-query.constant';
 import { GameNumpadWideColumnsConstant, GameNumpadWideDigitSizeConstant } from '../../../../game/constant/game-numpad-digits.constant';
 import { PanelControlSizeConstant } from '../../../../game/constant/panel-control-size.constant';
 
 const DigitFontSizeRatio = 2.5;
 
-export const GameNumpadStyles = StyleSheet.create(theme => ({
+export const GameNumpadStyles = StyleSheet.create((theme, rt) => ({
     numpad: {
         alignSelf: 'center',
         flexDirection: 'row',
         flexWrap: 'wrap',
-        gap: { xs: theme.spacing.sm, [WideLayoutMediaQuery]: theme.spacing.lg },
+        gap: appLayoutScreenIsWide(rt.screen) ? theme.spacing.lg : theme.spacing.sm,
         justifyContent: 'center',
-        maxWidth: {
-            xs: '100%',
-            [WideLayoutMediaQuery]:
-                GameNumpadWideDigitSizeConstant * GameNumpadWideColumnsConstant + theme.spacing.lg * (GameNumpadWideColumnsConstant - 1)
-        }
+        maxWidth: appLayoutScreenIsWide(rt.screen)
+            ? GameNumpadWideDigitSizeConstant * GameNumpadWideColumnsConstant + theme.spacing.lg * (GameNumpadWideColumnsConstant - 1)
+            : '100%'
     },
     digit: {
-        height: { xs: PanelControlSizeConstant, [WideLayoutMediaQuery]: GameNumpadWideDigitSizeConstant },
-        width: { xs: PanelControlSizeConstant, [WideLayoutMediaQuery]: GameNumpadWideDigitSizeConstant }
+        height: appLayoutScreenIsWide(rt.screen) ? GameNumpadWideDigitSizeConstant : PanelControlSizeConstant,
+        width: appLayoutScreenIsWide(rt.screen) ? GameNumpadWideDigitSizeConstant : PanelControlSizeConstant
     },
-    digitText: (fontSizeMultiplier: number) => ({
-        fontSize: {
-            xs: (PanelControlSizeConstant / DigitFontSizeRatio) * fontSizeMultiplier,
-            [WideLayoutMediaQuery]: (GameNumpadWideDigitSizeConstant / DigitFontSizeRatio) * fontSizeMultiplier
-        }
-    })
+    digitText: (fontSizeMultiplier: number) => {
+        const digitSize = appLayoutScreenIsWide(rt.screen) ? GameNumpadWideDigitSizeConstant : PanelControlSizeConstant;
+
+        return {
+            fontSize: (digitSize / DigitFontSizeRatio) * fontSizeMultiplier
+        };
+    }
 }));

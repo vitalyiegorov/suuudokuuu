@@ -4,7 +4,7 @@ import { LucideX } from 'lucide-react-native';
 import { use } from 'react';
 import { View } from 'react-native';
 
-import { BlackIconButton } from '../../../@generic/components/black-icon-button/black-icon-button';
+import { AppIconButton } from '../../../@generic/components/app-icon-button/app-icon-button';
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { ThemeContext } from '../../../theme/context/theme.context';
 
@@ -17,7 +17,7 @@ export const ReplayTopBar = () => {
     const router = useRouter();
 
     const handleReturn = () => (router.canGoBack() ? void router.back() : void router.replace('/history'));
-    const accentStyles = [styles.accent, { backgroundColor: theme.colors.value.progressActive }];
+    const accentStyles = [styles.accent, { backgroundColor: theme.colors.numpad.trackFilled }];
 
     return (
         <View style={styles.container}>
@@ -28,14 +28,14 @@ export const ReplayTopBar = () => {
                 </BlackText>
             </View>
 
-            <BlackIconButton
+            <AppIconButton
                 accessibilityLabel={t`Back`}
                 onPress={handleReturn}
                 style={styles.closeButton}
                 testID={ReplayTopBarSelectors.CloseButton}
             >
-                <LucideX color={theme.colors.label.inverted} size={20} />
-            </BlackIconButton>
+                <LucideX color={theme.colors.inkText} size={20} />
+            </AppIconButton>
         </View>
     );
 };

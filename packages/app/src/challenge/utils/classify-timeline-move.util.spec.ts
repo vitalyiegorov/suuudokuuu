@@ -1,6 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
-import { SolutionTechniqueEnum } from '@suuudokuuu/solver';
+import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { classifyTimelineMove } from './classify-timeline-move.util';
 

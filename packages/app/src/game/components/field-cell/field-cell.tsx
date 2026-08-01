@@ -100,7 +100,7 @@ export const FieldCell = (props: Props) => {
     const animation = useDerivedValue(() => withTiming(isActive ? 1 : 0, animationConfig));
 
     const cellAnimatedStyles = useAnimatedStyle(() => ({
-        backgroundColor: interpolateColor(animation.value, [0, 1], [cellBackgroundColor, theme.colors.cell.active])
+        backgroundColor: interpolateColor(animation.value, [0, 1], [cellBackgroundColor, theme.colors.board.selected])
     }));
     const successPopAnimatedStyles = useAnimatedStyle(() => {
         if (!isSuccessPulsing) {

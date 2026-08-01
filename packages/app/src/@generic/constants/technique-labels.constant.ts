@@ -1,5 +1,5 @@
 import { msg } from '@lingui/core/macro';
-import { SolutionTechniqueEnum } from '@suuudokuuu/solver';
+import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import type { MessageDescriptor } from '@lingui/core';
 

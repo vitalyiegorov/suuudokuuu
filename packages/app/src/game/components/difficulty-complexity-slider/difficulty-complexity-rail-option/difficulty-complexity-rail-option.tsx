@@ -4,6 +4,8 @@ import { ThemeContext } from '../../../../theme/context/theme.context';
 import { DifficultyComplexityOption } from '../difficulty-complexity-option/difficulty-complexity-option';
 import { DifficultyComplexitySliderStyles as styles } from '../difficulty-complexity-slider.styles';
 
+import { difficultyComplexityRailOptionGetColor } from './utils/difficulty-complexity-rail-option-get-color.util';
+
 import type { DifficultyEnum } from '@suuudokuuu/generator';
 
 interface Props {
@@ -17,7 +19,8 @@ export const DifficultyComplexityRailOption = (props: Props) => {
     const { theme } = use(ThemeContext);
     const isSelected = difficulty === selectedDifficulty;
 
-    const optionLabelStyles = [styles.optionLabel, { color: isSelected ? theme.colors.label.main : theme.colors.label.hint }];
+    const optionLabelColor = difficultyComplexityRailOptionGetColor(theme, difficulty, isSelected);
+    const optionLabelStyles = [styles.optionLabel, { color: optionLabelColor }];
 
     return (
         <DifficultyComplexityOption difficulty={difficulty} labelStyle={optionLabelStyles} onPress={onPress} style={styles.optionTrigger} />

@@ -1,15 +1,14 @@
 import { DifficultyEnum } from '@suuudokuuu/generator';
+import { useAppLayout } from '@suuudokuuu/ui';
 import { Redirect } from 'expo-router';
 import { useState } from 'react';
 import { View } from 'react-native';
-import { Display, Hide } from 'react-native-unistyles';
 
 import { isDefined } from '@rnw-community/shared';
 
-import { WideLayoutMediaQuery } from '../../../@generic/constants/layout-media-query.constant';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { getChallengeAwayRanges } from '../../../challenge/utils/get-challenge-away-ranges.util';
-import { useBoardCellSize } from '../../../game/hooks/use-board-cell-size.hook';
+import { useBoardGeometry } from '../../../game/hooks/use-board-geometry.hook';
 import { gameCompletedGameByIdSelector } from '../../../game/store/game.selectors';
 import { getTimelineCellSteps } from '../../../game/utils/get-timeline-cell-steps.util';
 import { stringToGameState } from '../../../game/utils/string-to-game-state.util';
@@ -28,10 +27,13 @@ interface Props {
 }
 
 export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
+    const { sizeClass } = useAppLayout();
+    const isWideLayout = sizeClass === 'wide';
+
     const completedGame = useAppSelector(gameCompletedGameByIdSelector(difficulty, completedAt));
     const [currentStep, setCurrentStep] = useState(0);
     const [gameState] = useState(() => stringToGameState(completedGame?.encodedState));
-    const { cellSize: boardCellSize, onBoardAreaLayout } = useBoardCellSize();
+    const { cellSize: boardCellSize, onBoardAreaLayout } = useBoardGeometry();
 
     if (!isDefined(gameState) || !isDefined(completedGame)) {
         return <Redirect href="/history" />;
@@ -70,14 +72,14 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
         <View style={styles.container}>
             <ReplayTopBar />
             <View style={styles.content}>
-                <Hide mq={WideLayoutMediaQuery}>{replayHeader}</Hide>
+                {isWideLayout ? null : replayHeader}
 
                 <View onLayout={onBoardAreaLayout} style={styles.fieldWrapper}>
                     <ReplayField cellSize={boardCellSize} highlightedCellKey={highlightedCellKey} sudoku={sudoku} />
                 </View>
 
                 <View style={styles.controlsColumn}>
-                    <Display mq={WideLayoutMediaQuery}>{replayHeader}</Display>
+                    {isWideLayout ? replayHeader : null}
 
                     {replayControls}
                 </View>

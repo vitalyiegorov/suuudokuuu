@@ -99,7 +99,9 @@ describe('GameStateSerializer v3 encoded size characterization', () => {
             isChallengeRun: false,
             score: 0,
             candidates: {},
-            anchorSeconds: 0
+            anchorSeconds: 0,
+            pencilCount: 0,
+            screenshotCount: 0
         });
 
         expect(encoded.length).toBeLessThanOrEqual(40);
@@ -121,7 +123,9 @@ describe('GameStateSerializer v3 encoded size characterization', () => {
             isChallengeRun: true,
             score: 0,
             candidates: {},
-            anchorSeconds: 0
+            anchorSeconds: 0,
+            pencilCount: 0,
+            screenshotCount: 0
         });
 
         expect(encoded.length).toBeLessThanOrEqual(220);
@@ -138,7 +142,9 @@ describe('GameStateSerializer v3 encoded size characterization', () => {
             isChallengeRun: true,
             score: 4820,
             candidates: buildPencilMarks(18),
-            anchorSeconds: 1800000000
+            anchorSeconds: 1800000000,
+            pencilCount: 0,
+            screenshotCount: 0
         });
 
         expect(encoded.length).toBeLessThanOrEqual(320);
@@ -155,7 +161,9 @@ describe('GameStateSerializer v3 encoded size characterization', () => {
             isChallengeRun: true,
             score: 0,
             candidates: {},
-            anchorSeconds: 0
+            anchorSeconds: 0,
+            pencilCount: 0,
+            screenshotCount: 0
         });
 
         expect(encoded).toMatch(/^_[\w-]*$/u);

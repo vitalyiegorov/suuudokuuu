@@ -4,6 +4,7 @@ import { DifficultyEnum } from '@suuudokuuu/generator';
 
 import { initialGameState } from '../../game/store/game.state';
 import { ThemeEnum } from '../../theme/enum/theme.enum';
+import { initialCustomThemesState } from '../../theme/store/custom-themes.state';
 
 import {
     settingsCellMarginSelector,
@@ -48,7 +49,11 @@ describe('settings selectors', () => {
     it('should read the settings slice out of the root state', () => {
         expect.assertions(1);
 
-        const rootState: RootState = { game: initialGameState, settings: state };
+        const rootState: RootState = {
+            game: initialGameState,
+            settings: state,
+            customThemes: initialCustomThemesState
+        };
 
         expect(settingsThemeSelector(rootState)).toBe(ThemeEnum.Newspaper);
     });

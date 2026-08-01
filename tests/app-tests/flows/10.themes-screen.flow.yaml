@@ -1,0 +1,66 @@
+appId: ${APP_ID}
+---
+- startRecording:
+      path: '10.themes-screen'
+      optional: true
+
+- runFlow: subflows/navigation/launch-home.flow.yaml
+- tapOn: 'Settings'
+- extendedWaitUntil:
+      visible:
+          id: 'SettingsScreenSelectors.Root'
+      timeout: 3000
+- scrollUntilVisible:
+      element:
+          id: 'SettingsScreenSelectors.ThemeOption'
+      direction: DOWN
+- tapOn:
+      id: 'SettingsScreenSelectors.ThemeOption'
+- extendedWaitUntil:
+      visible:
+          id: 'themes-screen'
+      timeout: 3000
+- assertVisible: 'Presets'
+- extendedWaitUntil:
+      visible:
+          id: 'themes-screen-create-button'
+      timeout: 3000
+- tapOn:
+      id: 'themes-screen-create-button'
+- extendedWaitUntil:
+      visible:
+          id: 'theme-editor-screen'
+      timeout: 3000
+- tapOn:
+      id: 'theme-editor-screen-name-input'
+- eraseText
+- inputText: 'Maestro theme'
+# The soft keyboard covers the sticky-footer Save button on both platforms
+# (proven by identical iOS/Android failures), so dismiss it before asserting
+# footer chrome.
+- hideKeyboard
+- extendedWaitUntil:
+      visible:
+          id: 'theme-editor-screen-save-button'
+      timeout: 3000
+- tapOn:
+      id: 'theme-editor-screen-save-button'
+- extendedWaitUntil:
+      visible:
+          id: 'themes-screen'
+      timeout: 3000
+- assertVisible: 'Maestro theme'
+- tapOn:
+      id: 'HeaderBackButtonSelectors.Root'
+- extendedWaitUntil:
+      visible:
+          id: 'SettingsScreenSelectors.Root'
+      timeout: 3000
+- assertVisible: 'Maestro theme'
+- tapOn:
+      id: 'HeaderBackButtonSelectors.Root'
+- extendedWaitUntil:
+      visible:
+          id: 'HomeScreenSelectors.Root'
+      timeout: 3000
+- stopApp

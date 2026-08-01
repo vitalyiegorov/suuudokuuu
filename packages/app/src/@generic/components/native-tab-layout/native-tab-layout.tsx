@@ -14,7 +14,7 @@ const SettingsIcon = { default: 'gearshape', selected: 'gearshape.fill' } as con
 export const NativeTabLayout = () => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
-    const labelStyle = { color: theme.colors.label.hint };
+    const labelStyle = { color: theme.colors.text.hint };
 
     return (
         <TabBarInsetContext value={NativeTabBarOccupiedHeight}>
@@ -22,10 +22,10 @@ export const NativeTabLayout = () => {
                 backgroundColor={theme.colors.background}
                 blurEffect="systemChromeMaterial"
                 disableTransparentOnScrollEdge
-                iconColor={theme.colors.label.hint}
+                iconColor={theme.colors.text.hint}
                 labelStyle={labelStyle}
                 minimizeBehavior="onScrollDown"
-                tintColor={theme.colors.label.main}
+                tintColor={theme.colors.text.primary}
             >
                 <NativeTabs.Trigger name="index">
                     <NativeTabs.Trigger.Label>{t`Play`}</NativeTabs.Trigger.Label>
