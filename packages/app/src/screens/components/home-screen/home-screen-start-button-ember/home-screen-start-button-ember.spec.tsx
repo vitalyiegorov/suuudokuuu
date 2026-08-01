@@ -26,7 +26,12 @@ jest.mock('react-native-reanimated', () => {
 
     return {
         __esModule: true,
-        Easing: { ease: (value: unknown) => value, inOut: (easing: unknown) => easing },
+        Easing: {
+            bezier: (...values: number[]) => values,
+            ease: (value: unknown) => value,
+            inOut: (easing: unknown) => easing,
+            quad: (value: unknown) => value
+        },
         cancelAnimation: jest.fn(),
         default: { View, createAnimatedComponent: (component: unknown) => component },
         useAnimatedStyle: (factory: () => object) => factory(),
@@ -83,9 +88,14 @@ describe('HomeScreenStartButtonEmber', () => {
             ? [
                   HomeScreenStartButtonEmberStyles.emberWrapper,
                   HomeScreenStartButtonEmberStyles.emberGlow,
-                  HomeScreenStartButtonEmberStyles.emberStaticGlow
+                  HomeScreenStartButtonEmberStyles.emberStaticGlow,
+                  HomeScreenStartButtonEmberStyles.emberSheen
               ]
-            : [HomeScreenStartButtonEmberStyles.emberWrapper, HomeScreenStartButtonEmberStyles.emberGlow];
+            : [
+                  HomeScreenStartButtonEmberStyles.emberWrapper,
+                  HomeScreenStartButtonEmberStyles.emberGlow,
+                  HomeScreenStartButtonEmberStyles.emberSheen
+              ];
 
         expect(resolvedStyles).toStrictEqual(expectedStyles);
     });
