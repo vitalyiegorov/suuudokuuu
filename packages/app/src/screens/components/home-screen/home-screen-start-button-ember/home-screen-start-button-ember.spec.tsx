@@ -6,8 +6,20 @@ import { I18nTestWrapper } from '../../../../@generic/mocks/i18n-test-wrapper.mo
 
 import { HomeScreenStartButtonEmber } from './home-screen-start-button-ember';
 import { HomeScreenStartButtonEmberSelectors } from './home-screen-start-button-ember.selectors';
+import { HomeScreenStartButtonEmberStyles } from './home-screen-start-button-ember.styles';
 
 let mockReducedMotion = false;
+
+const mockResolveUnistyleForAnimated = jest.fn((style: object) => style);
+
+jest.mock('@suuudokuuu/ui', () => {
+    const actualUi = jest.requireActual<typeof import('@suuudokuuu/ui')>('@suuudokuuu/ui');
+
+    return {
+        ...actualUi,
+        resolveUnistyleForAnimated: (style: object) => mockResolveUnistyleForAnimated(style)
+    };
+});
 
 jest.mock('react-native-reanimated', () => {
     const { View } = jest.requireActual<typeof import('react-native')>('react-native');
@@ -40,6 +52,7 @@ const renderEmberButton = () =>
 describe('HomeScreenStartButtonEmber', () => {
     beforeEach(() => {
         mockReducedMotion = false;
+        mockResolveUnistyleForAnimated.mockClear();
     });
 
     it('should render the animated ember variant by default', async () => {
@@ -58,5 +71,22 @@ describe('HomeScreenStartButtonEmber', () => {
         expect(screen.getByTestId(HomeScreenStartButtonEmberSelectors.StaticRoot)).toBeTruthy();
         expect(screen.queryByTestId(HomeScreenStartButtonEmberSelectors.AnimatedRoot)).toBeNull();
         expect(screen.getByTestId(testID)).toBeTruthy();
+    });
+
+    it.each([false, true])('should resolve every wrapper unistyle when reduced motion is %s', async isReducedMotion => {
+        mockReducedMotion = isReducedMotion;
+
+        await renderEmberButton();
+
+        const resolvedStyles = mockResolveUnistyleForAnimated.mock.calls.map(([style]) => style);
+        const expectedStyles = isReducedMotion
+            ? [
+                  HomeScreenStartButtonEmberStyles.emberWrapper,
+                  HomeScreenStartButtonEmberStyles.emberGlow,
+                  HomeScreenStartButtonEmberStyles.emberStaticGlow
+              ]
+            : [HomeScreenStartButtonEmberStyles.emberWrapper, HomeScreenStartButtonEmberStyles.emberGlow];
+
+        expect(resolvedStyles).toStrictEqual(expectedStyles);
     });
 });
