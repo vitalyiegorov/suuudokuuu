@@ -116,6 +116,7 @@ export default ({ config }) =>
                 backgroundColor: brandConfig.splashBackgroundColor
             },
             package: getUniqueIdentifier(true),
+            blockedPermissions: ['android.permission.READ_MEDIA_IMAGES', 'android.permission.READ_MEDIA_VIDEO'],
             intentFilters: [
                 {
                     action: 'VIEW',
@@ -181,7 +182,7 @@ export default ({ config }) =>
                 {
                     ios: ['fb', 'instagram', 'twitter', 'tiktoksharesdk'],
                     android: ['com.facebook.katana', 'com.instagram.android', 'com.twitter.android', 'com.zhiliaoapp.musically'],
-                    enableBase64ShareAndroid: true
+                    enableBase64ShareAndroid: false
                 }
             ]
         ],
