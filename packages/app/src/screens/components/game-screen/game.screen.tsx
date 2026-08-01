@@ -17,6 +17,7 @@ import { ChallengeRaceHud } from '../../../challenge/components/challenge-race-h
 import { ChallengeRecordHud } from '../../../challenge/components/challenge-record-hud/challenge-record-hud';
 import { ChallengeScreenshotRecorder } from '../../../challenge/components/challenge-screenshot-recorder/challenge-screenshot-recorder';
 import { classifyTimelineMove } from '../../../challenge/utils/classify-timeline-move.util';
+import { WinConfettiContext } from '../../../confetti/context/win-confetti.context';
 import { Field, FieldRef } from '../../../game/components/field/field';
 import { GameTimerController } from '../../../game/components/game-timer-controller/game-timer-controller';
 import { GameContext } from '../../../game/context/game.context';
@@ -55,6 +56,7 @@ import { GameStatusBlock } from './game-status-block/game-status-block';
 import { useOpenGameSettings } from './hooks/use-open-game-settings.hook';
 import { gameScreenExit } from './utils/game-screen-exit.util';
 import { gameScreenGetLostRoute, gameScreenGetWonRoute } from './utils/game-screen-get-result-route.util';
+import { gameScreenMaybeStartWinConfetti } from './utils/game-screen-maybe-start-win-confetti.util';
 
 import type { AvailableValuesItemRef } from '../../../game/components/available-values-item/available-values-item';
 import type { CellInterface, ScoredCellsInterface } from '@suuudokuuu/generator';
@@ -67,6 +69,7 @@ export const GameScreen = () => {
 
     const { sudoku } = use(GameContext);
     const { theme } = use(ThemeContext);
+    const startWinConfetti = use(WinConfettiContext);
 
     const [hapticNotification, hapticImpact] = useVibration();
 
@@ -141,9 +144,8 @@ export const GameScreen = () => {
         hapticImpact(ImpactFeedbackStyle.Heavy);
 
         const wonChallenge = hasRival && elapsedTime < challengeTime;
-
+        gameScreenMaybeStartWinConfetti(hasRival, wonChallenge, startWinConfetti);
         dispatch(gameFinishAction({ difficulty, isWon: true, isChallenge: wonChallenge }));
-
         // HINT: We need to wait for the animation to finish, animation finish event would fix it?
         setTimeout(() => void router.replace(gameScreenGetWonRoute(hasRival, wonChallenge)), 10 * animationDurationConstant);
     };
