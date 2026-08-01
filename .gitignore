@@ -56,5 +56,3 @@ build-*.tar.gz
 *.apk
 app*.tar.gz
 tests/app-tests/artifacts
-
-packages/hell-corpus/scripts/.cache/
