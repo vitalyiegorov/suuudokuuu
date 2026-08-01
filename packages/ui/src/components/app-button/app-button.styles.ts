@@ -21,6 +21,26 @@ export const AppButtonStyles = StyleSheet.create(theme => ({
         minHeight: 44,
         paddingHorizontal: 16
     },
+    content: {
+        alignItems: 'center',
+        flexDirection: 'row',
+        flexGrow: 1,
+        flexShrink: 1,
+        gap: theme.spacing.sm,
+        justifyContent: 'center'
+    },
+    contentHidden: {
+        opacity: 0
+    },
+    loaderOverlay: {
+        alignItems: 'center',
+        bottom: 0,
+        justifyContent: 'center',
+        left: 0,
+        position: 'absolute',
+        right: 0,
+        top: 0
+    },
     large: {
         borderRadius: 30,
         minHeight: 60,

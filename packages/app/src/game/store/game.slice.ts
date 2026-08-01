@@ -16,7 +16,7 @@ import { initialGameState } from './game.state';
 
 import type { GameState } from './game.state';
 import type { CellInterface, DifficultyEnum, ScoredCellsInterface, Sudoku } from '@suuudokuuu/generator';
-import type { SolutionTechniqueEnum } from '@suuudokuuu/solver';
+import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 const MillisecondsPerSecond = 1000;
 
@@ -106,7 +106,7 @@ export const gameSlice = createSlice({
 
             state.score += scoring.calculate({
                 scoredCells,
-                difficulty: sudoku.Difficulty,
+                difficulty: state.difficulty,
                 mistakes: state.mistakes,
                 elapsedTime: state.elapsedTime,
                 maxMistakes: state.maxMistakes

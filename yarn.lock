@@ -4902,8 +4902,10 @@ __metadata:
     "@rnw-community/shared": "npm:^2.2.0"
     "@suuudokuuu/encoder": "workspace:*"
     "@suuudokuuu/generator": "workspace:*"
+    "@suuudokuuu/hell-corpus": "workspace:*"
     "@suuudokuuu/screen-chrome": "workspace:*"
-    "@suuudokuuu/solver": "workspace:*"
+    "@suuudokuuu/solver-core": "workspace:*"
+    "@suuudokuuu/techniques": "workspace:*"
     "@suuudokuuu/ui": "workspace:*"
     "@testing-library/react-native": "npm:^14.0.1"
     "@types/react": "npm:~19.2.14"
@@ -4968,6 +4970,18 @@ __metadata:
   resolution: "@suuudokuuu/generator@workspace:packages/generator"
   dependencies:
     "@rnw-community/shared": "npm:^2.2.0"
+    "@suuudokuuu/solver-bitmask": "workspace:*"
+    "@suuudokuuu/solver-core": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
+"@suuudokuuu/hell-corpus@workspace:*, @suuudokuuu/hell-corpus@workspace:packages/hell-corpus":
+  version: 0.0.0-use.local
+  resolution: "@suuudokuuu/hell-corpus@workspace:packages/hell-corpus"
+  dependencies:
+    "@suuudokuuu/solver-bitmask": "workspace:*"
+    "@suuudokuuu/solver-core": "workspace:*"
+    "@suuudokuuu/solver-dlx": "workspace:*"
   languageName: unknown
   linkType: soft
 
@@ -5024,9 +5038,35 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@suuudokuuu/solver@workspace:*, @suuudokuuu/solver@workspace:packages/solver":
+"@suuudokuuu/solver-bitmask@workspace:*, @suuudokuuu/solver-bitmask@workspace:packages/solver-bitmask":
   version: 0.0.0-use.local
-  resolution: "@suuudokuuu/solver@workspace:packages/solver"
+  resolution: "@suuudokuuu/solver-bitmask@workspace:packages/solver-bitmask"
+  dependencies:
+    "@suuudokuuu/solver-core": "workspace:*"
+    "@suuudokuuu/solver-dlx": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
+"@suuudokuuu/solver-core@workspace:*, @suuudokuuu/solver-core@workspace:packages/solver-core":
+  version: 0.0.0-use.local
+  resolution: "@suuudokuuu/solver-core@workspace:packages/solver-core"
+  dependencies:
+    "@rnw-community/shared": "npm:^2.2.0"
+  languageName: unknown
+  linkType: soft
+
+"@suuudokuuu/solver-dlx@workspace:*, @suuudokuuu/solver-dlx@workspace:packages/solver-dlx":
+  version: 0.0.0-use.local
+  resolution: "@suuudokuuu/solver-dlx@workspace:packages/solver-dlx"
+  dependencies:
+    "@rnw-community/shared": "npm:^2.2.0"
+    "@suuudokuuu/solver-core": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
+"@suuudokuuu/techniques@workspace:*, @suuudokuuu/techniques@workspace:packages/techniques":
+  version: 0.0.0-use.local
+  resolution: "@suuudokuuu/techniques@workspace:packages/techniques"
   dependencies:
     "@rnw-community/shared": "npm:^2.2.0"
     "@suuudokuuu/generator": "workspace:*"

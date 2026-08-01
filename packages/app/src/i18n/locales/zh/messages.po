@@ -157,7 +157,7 @@ msgstr "Bahasa Indonesia"
 msgid "Balanced digits for most players"
 msgstr "适合大多数玩家的均衡数字大小"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Balanced solve"
 msgstr "均衡解题"
 
@@ -394,7 +394,7 @@ msgstr "每日连续"
 msgid "Dead even"
 msgstr "完全平局"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Deep focus"
 msgstr "深度专注"
 
@@ -489,7 +489,7 @@ msgstr "Español"
 msgid "Evenly matched"
 msgstr "势均力敌"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Expert grid"
 msgstr "专家棋盘"
 
@@ -547,7 +547,7 @@ msgstr "对局"
 msgid "General"
 msgstr "通用"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Gentle start"
 msgstr "轻松开始"
 
@@ -582,6 +582,11 @@ msgstr "困难"
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Hardcore"
 msgstr "硬核"
+
+#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/scoring/components/scoring.screen.tsx
+msgid "Hell"
+msgstr "地狱"
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Help Ukraine win"
@@ -657,7 +662,7 @@ msgstr "在 iOS 上安装"
 msgid "Install the iOS development build"
 msgstr "安装 iOS 开发版本"
 
-#: src/game/components/game-provider/game-provider.tsx
+#: src/game/hooks/use-game-creation-runner.hook.ts
 msgid "Invalid Sudoku"
 msgstr "无效数独"
 
@@ -722,7 +727,7 @@ msgstr "浅色"
 msgid "Light overlay"
 msgstr "浅色叠加层"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Light warm-up"
 msgstr "轻度热身"
 
@@ -762,6 +767,10 @@ msgstr "中等"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Menus, settings, and game text"
 msgstr "菜单、设置和游戏文字"
+
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
+msgid "Minimum clues"
+msgstr "最少提示"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Minimum Score"
@@ -896,7 +905,7 @@ msgstr "数字键盘进度条（已填充）"
 msgid "of current score"
 msgstr "当前分数的"
 
-#: src/game/components/game-provider/game-provider.tsx
+#: src/game/hooks/use-game-creation-runner.hook.ts
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx

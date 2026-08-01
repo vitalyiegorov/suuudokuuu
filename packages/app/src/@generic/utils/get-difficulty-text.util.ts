@@ -13,6 +13,8 @@ export const getDifficultyText = (difficulty: DifficultyEnum): string => {
             return t`Newbie`;
         case DifficultyEnum.Nightmare:
             return t`Nightmare`;
+        case DifficultyEnum.Hell:
+            return t`Hell`;
         default:
             return t`Unknown`;
     }

@@ -38,6 +38,20 @@ const buildState = (overrides: Partial<AppRootPersistedStateInterface> = {}): Ap
 const runMigration = (version: number, state: AppRootPersistedStateInterface): AppRootPersistedStateInterface =>
     appRootMigrations[version](state);
 
+const withoutKeyAtRuntime = <T extends object>(value: T, key: keyof T): T => {
+    const clone = { ...value };
+    Reflect.deleteProperty(clone, key);
+
+    return clone;
+};
+
+const withExtraKeyAtRuntime = <T extends object>(value: T, key: PropertyKey, extraValue: unknown): T => {
+    const clone = { ...value };
+    Reflect.set(clone, key, extraValue);
+
+    return clone;
+};
+
 describe('appRootMigrations', () => {
     it('should persist at the newest migration version', () => {
         expect.assertions(1);
@@ -150,5 +164,44 @@ describe('appRootMigrations', () => {
         expect.assertions(1);
 
         expect(runMigration(31, buildState()).customThemes).toStrictEqual(initialCustomThemesState);
+    });
+
+    it('should keep the Hell difficulty entry in the history after migration 32', () => {
+        expect.assertions(1);
+
+        const state = buildState();
+
+        expect(Object.keys(runMigration(32, state).game.historyByDifficulty)).toStrictEqual(
+            Object.keys(initialGameState.historyByDifficulty)
+        );
+    });
+
+    it('should backfill the missing Hell history entry when Hell predates the persisted state entirely', () => {
+        expect.assertions(1);
+
+        const legacyHistoryByDifficulty = withoutKeyAtRuntime(initialGameState.historyByDifficulty, DifficultyEnum.Hell);
+        const legacyState = buildState({ game: { ...initialGameState, historyByDifficulty: legacyHistoryByDifficulty } });
+        const migrated = runMigration(32, legacyState);
+
+        expect(Object.keys(migrated.game.historyByDifficulty)).toStrictEqual(Object.keys(initialGameState.historyByDifficulty));
+    });
+
+    it('should drop the now-unknown hell queue key while leaving the rest of the state untouched', () => {
+        expect.assertions(2);
+
+        const state = buildState({ settings: { ...initialSettingsState, hasTimer: false } });
+        const legacyState = withExtraKeyAtRuntime(state, 'hellQueue', { entries: [{ id: 'stale-entry' }] });
+        const migrated = runMigration(33, legacyState);
+
+        expect(Reflect.has(migrated, 'hellQueue')).toBe(false);
+        expect(migrated).toStrictEqual(state);
+    });
+
+    it('should leave persisted state unchanged at migration 33 when no hell queue key is present', () => {
+        expect.assertions(1);
+
+        const state = buildState();
+
+        expect(runMigration(33, state)).toStrictEqual(state);
     });
 });

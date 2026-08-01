@@ -1,5 +1,5 @@
 import type { ChallengeTechniqueTierEnum } from '../enums/challenge-technique-tier.enum';
-import type { SolutionTechniqueEnum } from '@suuudokuuu/solver';
+import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 export interface ChallengeTechniqueEventInterface {
     cumulativeTime: number;

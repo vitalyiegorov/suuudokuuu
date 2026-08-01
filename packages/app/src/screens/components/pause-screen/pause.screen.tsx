@@ -19,6 +19,7 @@ import { useShareGame } from '../../../game/hooks/use-share-game.hook';
 import { gameResetAction } from '../../../game/store/game.actions';
 import {
     gameChallengeStateSelector,
+    gameDifficultySelector,
     gameElapsedTimeSelector,
     gameMaxMistakesSelector,
     gameMistakesSelector,
@@ -46,6 +47,7 @@ export const PauseScreen = () => {
     const maxMistakes = useAppSelector(gameMaxMistakesSelector);
     const elapsedTime = useAppSelector(gameElapsedTimeSelector);
     const challengeState = useAppSelector(gameChallengeStateSelector);
+    const difficulty = useAppSelector(gameDifficultySelector);
 
     const handleResume = useResumeGame();
     const handleShare = useShareGame();
@@ -62,7 +64,7 @@ export const PauseScreen = () => {
     };
 
     const progress = pauseScreenGetProgress(sudoku);
-    const difficultyText = getDifficultyText(sudoku.Difficulty);
+    const difficultyText = getDifficultyText(difficulty);
     const mistakesTypeText = getMistakesTypeText(maxMistakes);
 
     const { filledCells } = progress;

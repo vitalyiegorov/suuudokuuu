@@ -1,11 +1,14 @@
 /* eslint-disable max-lines */
+import { BitmaskSolver } from '@suuudokuuu/solver-bitmask';
+import { GRID_SIZE, UNIQUENESS_COUNT_LIMIT } from '@suuudokuuu/solver-core';
+
 import { isDefined } from '@rnw-community/shared';
 
 import { type ScoredCellsInterface, emptyScoredCells } from '../../@generic/interfaces/scored-cells.interface';
 import { defaultSudokuConfig, getBlankCellCountByConfig } from '../../@generic/interfaces/sudoku-config.interface';
 import { cloneField } from '../../@generic/utils/clone-field.util';
+import { fieldToGrid } from '../../@generic/utils/field-to-grid.util';
 import { shuffle } from '../../@generic/utils/shuffle.util';
-import { DLXSolver } from '../../dlx/classes/dlx-solver';
 import { SerializableSudoku } from '../../serializable-sudoku/classes/serializable-sudoku';
 
 import type { DifficultyEnum } from '../../@generic/enums/difficulty.enum';
@@ -13,9 +16,13 @@ import type { CellInterface } from '../../@generic/interfaces/cell.interface';
 import type { FieldInterface } from '../../@generic/interfaces/field.interface';
 import type { SudokuConfigInterface } from '../../@generic/interfaces/sudoku-config.interface';
 
+const maxFieldAttempts = 10;
+const maxClueRemovalAttempts = 50;
+
 export class Sudoku extends SerializableSudoku {
     private readonly fieldFillingValues: number[];
     private readonly coordinates: { x: number; y: number }[] = [];
+    private readonly solver = new BitmaskSolver();
 
     constructor(config: SudokuConfigInterface = defaultSudokuConfig) {
         super(config);
@@ -36,14 +43,14 @@ export class Sudoku extends SerializableSudoku {
         this.config = { ...this.config, difficulty };
         const targetBlankCells = getBlankCellCountByConfig(this.config);
 
-        for (let attempt = 0; attempt < 10; attempt += 1) {
+        for (let attempt = 0; attempt < maxFieldAttempts; attempt += 1) {
             this.field = cloneField(this.emptyField);
             if (!this.fillRecursive()) {
                 throw new Error('Unable to create a game field');
             }
             this.gameField = cloneField(this.field);
 
-            if (this.removeClues(targetBlankCells, 50) >= targetBlankCells) {
+            if (this.removeClues(targetBlankCells, maxClueRemovalAttempts) >= targetBlankCells) {
                 break;
             }
         }
@@ -273,21 +280,24 @@ export class Sudoku extends SerializableSudoku {
     }
 
     // eslint-disable-next-line max-statements
-    private removeClues(targetBlankCells: number, maxAttempts = 50): number {
+    private removeClues(targetBlankCells: number, maxAttempts: number): number {
         let maxBlanks = 0;
         let bestGameField = cloneField(this.gameField);
 
         for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
             this.gameField = cloneField(this.field);
+            const grid = fieldToGrid(this.gameField);
 
             let blankCells = 0;
             for (const { x, y } of shuffle(this.coordinates)) {
-                const backup = this.gameField[y][x].value;
+                const backup = grid[y * GRID_SIZE + x];
                 this.gameField[y][x].value = this.config.blankCellValue;
+                grid[y * GRID_SIZE + x] = this.config.blankCellValue;
                 blankCells += 1;
 
-                if (new DLXSolver().count(this.gameField, 2) !== 1) {
+                if (this.solver.countSolutions(grid, UNIQUENESS_COUNT_LIMIT) !== 1) {
                     this.gameField[y][x].value = backup;
+                    grid[y * GRID_SIZE + x] = backup;
                     blankCells -= 1;
                 }
 

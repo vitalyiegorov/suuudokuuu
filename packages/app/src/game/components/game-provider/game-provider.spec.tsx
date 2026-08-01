@@ -20,6 +20,7 @@ const mockAlert = jest.fn();
 let mockPathname = '/';
 
 jest.mock('expo-router', () => ({ usePathname: () => mockPathname, useRouter: () => ({ push: mockPush, replace: mockReplace }) }));
+jest.mock('../../../@generic/app-root.store', () => ({ appRootStore: { dispatch: jest.fn(), getState: jest.fn() } }));
 jest.mock('../../../@generic/components/alert/alert', () => ({ Alert: (title: string) => mockAlert(title) }));
 jest.mock('../../../@generic/hooks/use-app-dispatch.hook', () => ({ useAppDispatch: () => mockDispatch }));
 jest.mock('../../../@generic/hooks/use-app-selector.hook', () => ({ useAppSelector: (selector: () => unknown) => selector() }));
@@ -27,6 +28,7 @@ jest.mock('../../store/game.selectors', () => ({ gameSudokuStringSelector: () =>
 jest.mock('../../../settings/store/settings.selectors', () => ({ settingsLanguageSelector: () => 'en' }));
 
 const maxMistakes = 3;
+const hellGameOptions = { difficulty: DifficultyEnum.Hell, isChallengeRun: false, maxMistakes };
 
 interface Props {
     readonly children: ReactNode;
@@ -71,6 +73,20 @@ describe('GameProvider', () => {
         await waitFor(() => void expect(mockPush).toHaveBeenCalledTimes(1));
 
         expect(createSpy).toHaveBeenCalledTimes(1);
+        expect(mockDispatch).toHaveBeenCalledTimes(1);
+    });
+
+    it('should admit exactly one Hell creation under rapid repeated calls', async () => {
+        const { result } = await renderGameContext();
+
+        await act(() => {
+            result.current.create(hellGameOptions);
+            result.current.create(hellGameOptions);
+            result.current.create(hellGameOptions);
+        });
+
+        await waitFor(() => void expect(mockPush).toHaveBeenCalledTimes(1));
+
         expect(mockDispatch).toHaveBeenCalledTimes(1);
     });
 
