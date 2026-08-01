@@ -5,6 +5,7 @@
     "main": "index.ts",
     "scripts": {
         "android": "expo run:android",
+        "export:web": "expo export --platform=web",
         "i18n:compile": "run -T lingui compile --typescript && run -T prettier --write \"src/i18n/locales/*/messages.ts\"",
         "i18n:extract": "run -T lingui extract --overwrite --clean",
         "i18n:sync": "yarn i18n:extract && yarn i18n:compile",
