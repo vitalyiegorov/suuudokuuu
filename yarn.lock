@@ -4963,6 +4963,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@suuudokuuu/hell-corpus@workspace:packages/hell-corpus":
+  version: 0.0.0-use.local
+  resolution: "@suuudokuuu/hell-corpus@workspace:packages/hell-corpus"
+  dependencies:
+    "@suuudokuuu/solver-bitmask": "workspace:*"
+    "@suuudokuuu/solver-core": "workspace:*"
+    "@suuudokuuu/solver-dlx": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
 "@suuudokuuu/root@workspace:.":
   version: 0.0.0-use.local
   resolution: "@suuudokuuu/root@workspace:."
