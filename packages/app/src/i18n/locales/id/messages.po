@@ -662,7 +662,7 @@ msgstr "Instal di iOS"
 msgid "Install the iOS development build"
 msgstr "Instal build pengembangan iOS"
 
-#: src/game/components/game-provider/game-provider.tsx
+#: src/game/hooks/use-game-creation-runner.hook.ts
 msgid "Invalid Sudoku"
 msgstr "Sudoku tidak valid"
 
@@ -767,6 +767,10 @@ msgstr "Sedang"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Menus, settings, and game text"
 msgstr "Menu, pengaturan, dan teks permainan"
+
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
+msgid "Minimum clues"
+msgstr "Petunjuk minimal"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Minimum Score"
@@ -901,7 +905,7 @@ msgstr "Bilah numpad (terisi)"
 msgid "of current score"
 msgstr "dari skor saat ini"
 
-#: src/game/components/game-provider/game-provider.tsx
+#: src/game/hooks/use-game-creation-runner.hook.ts
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx

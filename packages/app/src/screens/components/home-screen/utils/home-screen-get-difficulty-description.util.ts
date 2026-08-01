@@ -13,6 +13,8 @@ export const homeScreenGetDifficultyDescription = (difficulty: DifficultyEnum): 
             return t`Deep focus`;
         case DifficultyEnum.Nightmare:
             return t`Expert grid`;
+        case DifficultyEnum.Hell:
+            return t`Minimum clues`;
         default:
             return '';
     }

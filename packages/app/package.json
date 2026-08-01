@@ -33,6 +33,7 @@
         "@suuudokuuu/generator": "workspace:*",
         "@suuudokuuu/hell-corpus": "workspace:*",
         "@suuudokuuu/screen-chrome": "workspace:*",
+        "@suuudokuuu/solver-core": "workspace:*",
         "@suuudokuuu/techniques": "workspace:*",
         "@suuudokuuu/ui": "workspace:*",
         "date-fns": "^4.4.0",

@@ -128,6 +128,7 @@ export const HomeScreen = () => {
         { label: t`Time`, value: bestTimeText }
     ];
     const startButtonText = isGameStarted ? t`Start new puzzle` : t`Start puzzle`;
+    const isHellSelected = difficulty === DifficultyEnum.Hell;
     const contentInsetBottom = HomeScreenBottomScrollPadding + tabBarInset;
     const platformInsetTop = Platform.OS === 'ios' ? safeAreaInsets.top : 0;
     const contentInsetTop = homeScreenGetContentInsetTop(safeAreaInsets.top, platformInsetTop);
@@ -236,6 +237,7 @@ export const HomeScreen = () => {
                             currentProgressPercent={currentProgressPercent}
                             currentProgressText={currentProgressText}
                             isGameStarted={isGameStarted}
+                            isHellSelected={isHellSelected}
                             isLoading={isCreatingGame}
                             onStart={handleStart}
                             startButtonSubtitle={setupSummary}

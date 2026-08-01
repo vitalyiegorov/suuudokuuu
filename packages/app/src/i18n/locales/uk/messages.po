@@ -664,7 +664,7 @@ msgstr "Інсталювати на iOS"
 msgid "Install the iOS development build"
 msgstr "Інсталювати збірку для розробки на iOS"
 
-#: src/game/components/game-provider/game-provider.tsx
+#: src/game/hooks/use-game-creation-runner.hook.ts
 msgid "Invalid Sudoku"
 msgstr "Некоректне судоку"
 
@@ -769,6 +769,10 @@ msgstr "Середній"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Menus, settings, and game text"
 msgstr "Меню, налаштування та текст гри"
+
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
+msgid "Minimum clues"
+msgstr "Мінімум підказок"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Minimum Score"
@@ -903,7 +907,7 @@ msgstr "Смуга панелі цифр (заповнена)"
 msgid "of current score"
 msgstr "від поточного рахунку"
 
-#: src/game/components/game-provider/game-provider.tsx
+#: src/game/hooks/use-game-creation-runner.hook.ts
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
