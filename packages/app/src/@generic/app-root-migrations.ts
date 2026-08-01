@@ -24,7 +24,7 @@ export interface AppRootPersistedStateInterface {
     [customThemesSlice.name]: CustomThemesState;
 }
 
-export const appRootPersistVersion = 31;
+export const appRootPersistVersion = 33;
 
 const resetBestScores = (state: AppRootPersistedStateInterface): AppRootPersistedStateInterface => {
     const gameState = state[gameSlice.name];
@@ -99,6 +99,14 @@ const introduceCustomThemes = (state: AppRootPersistedStateInterface): AppRootPe
     [settingsSlice.name]: { ...initialSettingsState, ...state[settingsSlice.name] }
 });
 
+const dropHellQueue = (state: AppRootPersistedStateInterface): AppRootPersistedStateInterface => {
+    const clone = { ...state };
+
+    Reflect.deleteProperty(clone, 'hellQueue');
+
+    return clone;
+};
+
 const migrateCustomThemesToSemanticTokens = (state: AppRootPersistedStateInterface): AppRootPersistedStateInterface => {
     const customThemesState = { ...initialCustomThemesState, ...state[customThemesSlice.name] };
     const themes = customThemesState.themes.map(theme => {
@@ -159,5 +167,7 @@ export const appRootMigrations: MigrationManifest<AppRootPersistedStateInterface
     28: migrateSolutionStepsToTimelineEvents,
     29: backfillRunDifficulty,
     30: introduceCustomThemes,
-    31: migrateCustomThemesToSemanticTokens
+    31: migrateCustomThemesToSemanticTokens,
+    32: ensureAllDifficulties,
+    33: dropHellQueue
 };

@@ -157,7 +157,7 @@ msgstr "Bahasa Indonesia"
 msgid "Balanced digits for most players"
 msgstr "أرقام متوازنة لمعظم اللاعبين"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Balanced solve"
 msgstr "حل متوازن"
 
@@ -394,7 +394,7 @@ msgstr "سلسلة الأيام"
 msgid "Dead even"
 msgstr "تعادل تام"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Deep focus"
 msgstr "تركيز عميق"
 
@@ -489,7 +489,7 @@ msgstr "Español"
 msgid "Evenly matched"
 msgstr "تعادل متقارب"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Expert grid"
 msgstr "شبكة للخبراء"
 
@@ -547,7 +547,7 @@ msgstr "الألعاب"
 msgid "General"
 msgstr "عام"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Gentle start"
 msgstr "بداية سهلة"
 
@@ -582,6 +582,11 @@ msgstr "صعب"
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Hardcore"
 msgstr "هاردكور"
+
+#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/scoring/components/scoring.screen.tsx
+msgid "Hell"
+msgstr "جحيم"
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Help Ukraine win"
@@ -657,7 +662,7 @@ msgstr "التثبيت على iOS"
 msgid "Install the iOS development build"
 msgstr "تثبيت إصدار التطوير لنظام iOS"
 
-#: src/game/components/game-provider/game-provider.tsx
+#: src/game/hooks/use-game-creation-runner.hook.ts
 msgid "Invalid Sudoku"
 msgstr "سودوكو غير صالح"
 
@@ -722,7 +727,7 @@ msgstr "فاتح"
 msgid "Light overlay"
 msgstr "طبقة فاتحة"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Light warm-up"
 msgstr "إحماء خفيف"
 
@@ -762,6 +767,10 @@ msgstr "متوسط"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Menus, settings, and game text"
 msgstr "القوائم والإعدادات ونصوص اللعبة"
+
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
+msgid "Minimum clues"
+msgstr "أرقام أقل"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Minimum Score"
@@ -896,7 +905,7 @@ msgstr "شريط لوحة الأرقام (ممتلئ)"
 msgid "of current score"
 msgstr "من النتيجة الحالية"
 
-#: src/game/components/game-provider/game-provider.tsx
+#: src/game/hooks/use-game-creation-runner.hook.ts
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx

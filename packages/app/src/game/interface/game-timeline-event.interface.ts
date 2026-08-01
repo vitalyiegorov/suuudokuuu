@@ -1,5 +1,5 @@
 import type { CellTimelineEventInterface, MarkerTimelineEventInterface, PayloadTimelineEventInterface } from '@suuudokuuu/encoder';
-import type { SolutionTechniqueEnum } from '@suuudokuuu/solver';
+import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 type GameCellTimelineEventInterface = CellTimelineEventInterface & { technique?: SolutionTechniqueEnum };
 

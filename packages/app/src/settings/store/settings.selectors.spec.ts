@@ -49,7 +49,11 @@ describe('settings selectors', () => {
     it('should read the settings slice out of the root state', () => {
         expect.assertions(1);
 
-        const rootState: RootState = { game: initialGameState, settings: state, customThemes: initialCustomThemesState };
+        const rootState: RootState = {
+            game: initialGameState,
+            settings: state,
+            customThemes: initialCustomThemesState
+        };
 
         expect(settingsThemeSelector(rootState)).toBe(ThemeEnum.Newspaper);
     });

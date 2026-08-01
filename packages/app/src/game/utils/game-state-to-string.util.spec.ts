@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers */
 import { describe, expect, it } from '@jest/globals';
 import { GameStateSerializer, SharedPayloadKindEnum, TimelineEventKindEnum } from '@suuudokuuu/encoder';
-import { SolutionTechniqueEnum } from '@suuudokuuu/solver';
+import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { initialGameState } from '../store/game.state';
 

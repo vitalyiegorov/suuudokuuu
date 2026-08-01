@@ -1,5 +1,5 @@
 import { useLingui } from '@lingui/react';
-import { SolutionTechniqueEnum } from '@suuudokuuu/solver';
+import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 import { use } from 'react';
 import { View } from 'react-native';
 
@@ -9,7 +9,7 @@ import { ThemeContext } from '../../../theme/context/theme.context';
 
 import { ReplayTechniqueStyles as styles } from './replay-technique.styles';
 
-import type { MoveClassificationInterface } from '@suuudokuuu/solver';
+import type { MoveClassificationInterface } from '@suuudokuuu/techniques';
 
 interface Props {
     readonly classification: MoveClassificationInterface | null;

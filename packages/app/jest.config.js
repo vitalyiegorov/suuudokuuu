@@ -16,7 +16,9 @@ module.exports = {
     moduleNameMapper: {
         '^@suuudokuuu/encoder$': '<rootDir>/../encoder/src/index.ts',
         '^@suuudokuuu/generator$': '<rootDir>/../generator/src/index.ts',
-        '^@suuudokuuu/solver$': '<rootDir>/../solver/src/index.ts',
+        '^@suuudokuuu/hell-corpus$': '<rootDir>/../hell-corpus/src/index.ts',
+        '^@suuudokuuu/solver-core$': '<rootDir>/../solver-core/src/index.ts',
+        '^@suuudokuuu/techniques$': '<rootDir>/../techniques/src/index.ts',
         '^@suuudokuuu/ui$': '<rootDir>/../ui/src/index.ts',
         '^@suuudokuuu/ui/theme$': '<rootDir>/../ui/src/theme/index.ts',
         '^@suuudokuuu/ui/app-button-get-colors$': '<rootDir>/../ui/src/components/app-button/utils/app-button-get-colors.util.ts',

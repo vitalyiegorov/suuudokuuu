@@ -7,11 +7,11 @@ import { AppButtonLoaderTestId } from './constant/app-button-loader-test-id.cons
 const buttonTestId = 'app-button';
 
 describe('AppButton', () => {
-    it('should render the loader instead of the text while loading', async () => {
+    it('should render the loader and hide the text while loading', async () => {
         await render(<AppButton isLoading testID={buttonTestId} text="Start puzzle" />);
 
         expect(screen.getByTestId(AppButtonLoaderTestId)).toBeTruthy();
-        expect(screen.queryByText('Start puzzle')).toBeNull();
+        expect(screen.getByText('Start puzzle')).not.toBeVisible();
     });
 
     it('should expose busy and disabled accessibility state while loading', async () => {

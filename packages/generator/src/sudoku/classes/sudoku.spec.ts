@@ -14,6 +14,10 @@ class ExtendedSudoku extends Sudoku {
     }
 }
 
+const difficultiesReachableByRandomDigging = Object.values(DifficultyEnum).filter(difficulty => difficulty !== DifficultyEnum.Hell);
+
+const unreachableTargetTimeoutMs = 60000;
+
 describe('Sudoku - Basic Operations', () => {
     const testFieldsString = '...469123469123875123875469784596...596231784231784596658947312947312658312658...';
 
@@ -48,7 +52,7 @@ describe('Sudoku - Basic Operations', () => {
         expect(blankCells).toEqual([sudoku.Field[0][0]]);
     });
 
-    it.each(Object.values(DifficultyEnum))('puzzle creation with difficulty "%s"', difficulty => {
+    it.each(difficultiesReachableByRandomDigging)('puzzle creation with difficulty "%s"', difficulty => {
         const sudoku = new Sudoku();
         sudoku.create(difficulty);
 
@@ -56,6 +60,25 @@ describe('Sudoku - Basic Operations', () => {
 
         expect(blanks).toBe(getBlankCellCountByConfig({ ...defaultSudokuConfig, difficulty }));
     });
+
+    it(
+        'create() keeps the best attempt when the blank target is unreachable by digging',
+        () => {
+            const unreachableBlankCells = defaultSudokuConfig.fieldSize * defaultSudokuConfig.fieldSize;
+            const sudoku = new Sudoku({
+                ...defaultSudokuConfig,
+                difficultyBlankCells: { ...defaultSudokuConfig.difficultyBlankCells, [DifficultyEnum.Newbie]: unreachableBlankCells }
+            });
+
+            sudoku.create(DifficultyEnum.Newbie);
+
+            const blanks = sudoku.Field.flat().filter(cell => cell.value === defaultSudokuConfig.blankCellValue).length;
+
+            expect(blanks).toBeGreaterThan(0);
+            expect(blanks).toBeLessThan(unreachableBlankCells);
+        },
+        unreachableTargetTimeoutMs
+    );
 
     it('getCorrectValue() with no cell returns blankCellValue', () => {
         const sudoku = new Sudoku();

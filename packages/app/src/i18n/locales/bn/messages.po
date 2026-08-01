@@ -157,7 +157,7 @@ msgstr "Bahasa Indonesia"
 msgid "Balanced digits for most players"
 msgstr "বেশির ভাগ খেলোয়াড়ের জন্য ভারসাম্যপূর্ণ সংখ্যা"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Balanced solve"
 msgstr "সুষম সমাধান"
 
@@ -394,7 +394,7 @@ msgstr "দিনের ধারাবাহিকতা"
 msgid "Dead even"
 msgstr "পুরো সমতা"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Deep focus"
 msgstr "গভীর মনোযোগ"
 
@@ -489,7 +489,7 @@ msgstr "Español"
 msgid "Evenly matched"
 msgstr "সমানে সমান"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Expert grid"
 msgstr "বিশেষজ্ঞ গ্রিড"
 
@@ -547,7 +547,7 @@ msgstr "খেলা"
 msgid "General"
 msgstr "সাধারণ"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Gentle start"
 msgstr "সহজ শুরু"
 
@@ -582,6 +582,11 @@ msgstr "কঠিন"
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Hardcore"
 msgstr "হার্ডকোর"
+
+#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/scoring/components/scoring.screen.tsx
+msgid "Hell"
+msgstr "নরক"
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Help Ukraine win"
@@ -657,7 +662,7 @@ msgstr "iOS-এ ইনস্টল করুন"
 msgid "Install the iOS development build"
 msgstr "iOS ডেভেলপমেন্ট বিল্ড ইনস্টল করুন"
 
-#: src/game/components/game-provider/game-provider.tsx
+#: src/game/hooks/use-game-creation-runner.hook.ts
 msgid "Invalid Sudoku"
 msgstr "অবৈধ সুডোকু"
 
@@ -722,7 +727,7 @@ msgstr "লাইট"
 msgid "Light overlay"
 msgstr "হালকা ওভারলে"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Light warm-up"
 msgstr "হালকা ওয়ার্ম-আপ"
 
@@ -762,6 +767,10 @@ msgstr "মাঝারি"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Menus, settings, and game text"
 msgstr "মেনু, সেটিংস ও গেমের লেখা"
+
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
+msgid "Minimum clues"
+msgstr "ন্যূনতম সূত্র"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Minimum Score"
@@ -896,7 +905,7 @@ msgstr "নম্বর প্যাডের ট্র্যাক (পূর�
 msgid "of current score"
 msgstr "বর্তমান স্কোরের"
 
-#: src/game/components/game-provider/game-provider.tsx
+#: src/game/hooks/use-game-creation-runner.hook.ts
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx

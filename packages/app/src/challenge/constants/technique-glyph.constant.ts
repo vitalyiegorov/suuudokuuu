@@ -1,4 +1,4 @@
-import { SolutionTechniqueEnum } from '@suuudokuuu/solver';
+import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 export interface TechniqueGlyphInterface {
     readonly primary: readonly number[];

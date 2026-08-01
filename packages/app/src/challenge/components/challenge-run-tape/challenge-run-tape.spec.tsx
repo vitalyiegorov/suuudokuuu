@@ -1,5 +1,5 @@
 import { describe, expect, it } from '@jest/globals';
-import { SolutionTechniqueEnum } from '@suuudokuuu/solver';
+import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 import { render, screen } from '@testing-library/react-native';
 
 import { I18nTestWrapper } from '../../../@generic/mocks/i18n-test-wrapper.mock';

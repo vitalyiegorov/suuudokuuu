@@ -1,5 +1,5 @@
 import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
-import { TechniqueManager } from '@suuudokuuu/solver';
+import { TechniqueManager } from '@suuudokuuu/techniques';
 
 import { getCellKey } from '../../@generic/utils/get-cell-key.util';
 import { getTimelineCellSteps } from '../../game/utils/get-timeline-cell-steps.util';
@@ -8,7 +8,7 @@ import { getReplayTimeline } from './get-replay-timeline.util';
 
 import type { GameState } from '../../game/store/game.state';
 import type { SolutionStepInterface } from '@suuudokuuu/encoder';
-import type { MoveClassificationInterface } from '@suuudokuuu/solver';
+import type { MoveClassificationInterface } from '@suuudokuuu/techniques';
 
 export const getSudokuAtStep = (gameState: GameState, currentStep: number) => {
     const { events, givens } = getReplayTimeline(gameState);

@@ -20,6 +20,7 @@ export * from './history/components/replay-top-bar/replay-top-bar.selectors';
 export * from './screens/components/game-screen/game-screen.selectors';
 export * from './screens/components/history-games-screen/history-games-screen.selectors';
 export * from './screens/components/history-screen/history-screen.selectors';
+export * from './screens/components/home-screen/home-screen-start-button-ember/home-screen-start-button-ember.selectors';
 export * from './screens/components/home-screen/home-screen.selectors';
 export * from './screens/components/loser-screen/loser-screen.selectors';
 export * from './screens/components/pause-screen/pause-screen.selectors';

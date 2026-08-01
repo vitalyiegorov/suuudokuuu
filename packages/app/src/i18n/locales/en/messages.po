@@ -159,7 +159,7 @@ msgstr "Bahasa Indonesia"
 msgid "Balanced digits for most players"
 msgstr "Balanced digits for most players"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Balanced solve"
 msgstr "Balanced solve"
 
@@ -396,7 +396,7 @@ msgstr "Day streak"
 msgid "Dead even"
 msgstr "Dead even"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Deep focus"
 msgstr "Deep focus"
 
@@ -491,7 +491,7 @@ msgstr "Español"
 msgid "Evenly matched"
 msgstr "Evenly matched"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Expert grid"
 msgstr "Expert grid"
 
@@ -549,7 +549,7 @@ msgstr "Games"
 msgid "General"
 msgstr "General"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Gentle start"
 msgstr "Gentle start"
 
@@ -584,6 +584,11 @@ msgstr "Hard"
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Hardcore"
 msgstr "Hardcore"
+
+#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/scoring/components/scoring.screen.tsx
+msgid "Hell"
+msgstr "Hell"
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Help Ukraine win"
@@ -659,7 +664,7 @@ msgstr "Install on iOS"
 msgid "Install the iOS development build"
 msgstr "Install the iOS development build"
 
-#: src/game/components/game-provider/game-provider.tsx
+#: src/game/hooks/use-game-creation-runner.hook.ts
 msgid "Invalid Sudoku"
 msgstr "Invalid Sudoku"
 
@@ -724,7 +729,7 @@ msgstr "Light"
 msgid "Light overlay"
 msgstr "Light overlay"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Light warm-up"
 msgstr "Light warm-up"
 
@@ -764,6 +769,10 @@ msgstr "Medium"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Menus, settings, and game text"
 msgstr "Menus, settings, and game text"
+
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
+msgid "Minimum clues"
+msgstr "Minimum clues"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Minimum Score"
@@ -898,7 +907,7 @@ msgstr "Numpad track (filled)"
 msgid "of current score"
 msgstr "of current score"
 
-#: src/game/components/game-provider/game-provider.tsx
+#: src/game/hooks/use-game-creation-runner.hook.ts
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
