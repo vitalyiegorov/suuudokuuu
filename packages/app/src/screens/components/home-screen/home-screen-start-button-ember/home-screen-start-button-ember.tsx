@@ -1,33 +1,22 @@
 import { AppButton, resolveUnistyleForAnimated } from '@suuudokuuu/ui';
-import { use, useEffect } from 'react';
-import Animated, {
-    Easing,
-    cancelAnimation,
-    useAnimatedStyle,
-    useReducedMotion,
-    useSharedValue,
-    withDelay,
-    withRepeat,
-    withSequence,
-    withTiming
-} from 'react-native-reanimated';
+import { LinearGradient } from 'expo-linear-gradient';
+import { use, useState } from 'react';
+import { View } from 'react-native';
+import Animated, { useReducedMotion } from 'react-native-reanimated';
 
 import { ThemeContext } from '../../../../theme/context/theme.context';
 
-import {
-    HomeScreenStartButtonEmberGlowPulseOpacity,
-    HomeScreenStartButtonEmberGlowRestOpacity,
-    HomeScreenStartButtonEmberIdlePulseDurationMs,
-    HomeScreenStartButtonEmberIdlePulseScale,
-    HomeScreenStartButtonEmberShakeBurstDistance,
-    HomeScreenStartButtonEmberShakeBurstDurationMs,
-    HomeScreenStartButtonEmberShakeSegmentDurationMs
-} from './constant/home-screen-start-button-ember.constant';
+import { HomeScreenStartButtonEmberFillLocations } from './constant/home-screen-start-button-ember.constant';
 import { HomeScreenStartButtonEmberSelectors } from './home-screen-start-button-ember.selectors';
 import { HomeScreenStartButtonEmberStyles as styles } from './home-screen-start-button-ember.styles';
+import { useHomeScreenStartButtonEmberAnimation } from './use-home-screen-start-button-ember-animation.hook';
 
 import type { ReactNode } from 'react';
-import type { StyleProp, ViewStyle } from 'react-native';
+import type { LayoutChangeEvent, StyleProp, ViewStyle } from 'react-native';
+
+const emberGradientStart = { x: 0, y: 0 };
+const emberGradientEnd = { x: 1, y: 1 };
+const emberSheenEnd = { x: 1, y: 0 };
 
 interface Props {
     readonly children: ReactNode;
@@ -40,56 +29,42 @@ interface Props {
 export const HomeScreenStartButtonEmber = ({ children, isLoading, onPress, style, testID }: Props) => {
     const { theme } = use(ThemeContext);
     const reduceMotion = useReducedMotion();
-    const shakeOffset = useSharedValue(0);
-    const idlePulse = useSharedValue(0);
+    const [surfaceWidth, setSurfaceWidth] = useState(0);
+    const { sheenStyle, wrapperStyle } = useHomeScreenStartButtonEmberAnimation(reduceMotion, surfaceWidth);
 
-    useEffect(() => {
-        if (!reduceMotion) {
-            shakeOffset.value = withSequence(
-                withTiming(-HomeScreenStartButtonEmberShakeBurstDistance, { duration: HomeScreenStartButtonEmberShakeSegmentDurationMs }),
-                withTiming(HomeScreenStartButtonEmberShakeBurstDistance, { duration: HomeScreenStartButtonEmberShakeSegmentDurationMs }),
-                withTiming(-HomeScreenStartButtonEmberShakeBurstDistance / 2, {
-                    duration: HomeScreenStartButtonEmberShakeSegmentDurationMs
-                }),
-                withTiming(0, { duration: HomeScreenStartButtonEmberShakeSegmentDurationMs })
-            );
-
-            idlePulse.value = withDelay(
-                HomeScreenStartButtonEmberShakeBurstDurationMs,
-                withRepeat(
-                    withSequence(
-                        withTiming(1, { duration: HomeScreenStartButtonEmberIdlePulseDurationMs, easing: Easing.inOut(Easing.ease) }),
-                        withTiming(0, { duration: HomeScreenStartButtonEmberIdlePulseDurationMs, easing: Easing.inOut(Easing.ease) })
-                    ),
-                    -1,
-                    false
-                )
-            );
-        }
-
-        return () => {
-            cancelAnimation(shakeOffset);
-            cancelAnimation(idlePulse);
-        };
-    }, [reduceMotion, shakeOffset, idlePulse]);
-
-    const emberAnimatedStyle = useAnimatedStyle(() => ({
-        shadowOpacity: HomeScreenStartButtonEmberGlowRestOpacity + idlePulse.value * HomeScreenStartButtonEmberGlowPulseOpacity,
-        transform: [{ translateX: shakeOffset.value }, { scale: 1 + idlePulse.value * HomeScreenStartButtonEmberIdlePulseScale }]
-    }));
+    const handleSurfaceLayout = (event: LayoutChangeEvent) => void setSurfaceWidth(event.nativeEvent.layout.width);
 
     const wrapperUnistyles = reduceMotion
         ? [styles.emberWrapper, styles.emberGlow, styles.emberStaticGlow]
         : [styles.emberWrapper, styles.emberGlow];
-    const animatedStyles = reduceMotion ? [] : [emberAnimatedStyle];
+    const animatedStyles = reduceMotion ? [] : [wrapperStyle];
     const emberWrapperStyle = [...wrapperUnistyles.map(resolveUnistyleForAnimated), ...animatedStyles];
+    const emberSheenStyle = [resolveUnistyleForAnimated(styles.emberSheen), sheenStyle];
     const emberWrapperTestId = reduceMotion
         ? HomeScreenStartButtonEmberSelectors.StaticRoot
         : HomeScreenStartButtonEmberSelectors.AnimatedRoot;
-    const emberButtonWrapperStyle = [style, styles.emberButton, { backgroundColor: theme.colors.danger }];
+    const emberButtonWrapperStyle = [style, styles.emberButton];
+    const emberFillColors = [theme.colors.danger, theme.colors.danger, theme.colors.ink] as const;
+    const emberSheenColors = ['transparent', theme.colors.overlayLight, 'transparent'] as const;
 
     return (
         <Animated.View style={emberWrapperStyle} testID={emberWrapperTestId}>
+            <View onLayout={handleSurfaceLayout} pointerEvents="none" style={styles.emberSurface}>
+                <LinearGradient
+                    colors={emberFillColors}
+                    end={emberGradientEnd}
+                    locations={HomeScreenStartButtonEmberFillLocations}
+                    start={emberGradientStart}
+                    style={styles.emberFill}
+                />
+
+                {!reduceMotion && (
+                    <Animated.View style={emberSheenStyle}>
+                        <LinearGradient colors={emberSheenColors} end={emberSheenEnd} start={emberGradientStart} style={styles.emberFill} />
+                    </Animated.View>
+                )}
+            </View>
+
             <AppButton
                 isLoading={isLoading}
                 onPress={onPress}

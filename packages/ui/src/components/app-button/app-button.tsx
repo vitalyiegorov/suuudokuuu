@@ -1,4 +1,13 @@
-import { ActivityIndicator, Pressable, type PressableProps, type StyleProp, Text, type TextProps, type ViewStyle } from 'react-native';
+import {
+    ActivityIndicator,
+    Pressable,
+    type PressableProps,
+    type StyleProp,
+    Text,
+    type TextProps,
+    View,
+    type ViewStyle
+} from 'react-native';
 import { useUnistyles } from 'react-native-unistyles';
 
 import { isDefined, isNotEmptyString } from '@rnw-community/shared';
@@ -54,21 +63,35 @@ export const AppButton = ({
     const isDisabled = isLoading || disabled === true;
     const accessibilityState = { busy: isLoading, disabled: isDisabled };
 
+    const contentStyles = [styles.content, isLoading && styles.contentHidden];
+
     return (
         <Pressable onPress={onPress} style={buttonStyles} {...restProps} accessibilityState={accessibilityState} disabled={isDisabled}>
-            {isLoading && <ActivityIndicator color={colors.textColor} testID={AppButtonLoaderTestId} />}
+            <View pointerEvents="none" style={contentStyles}>
+                {isDefined(children) && children}
 
-            {!isLoading && isDefined(children) && children}
+                {!isDefined(children) && (
+                    <>
+                        {isDefined(Icon) && <Icon color={colors.textColor} size={iconSize} />}
+                        {shouldShowText && (
+                            <Text
+                                adjustsFontSizeToFit
+                                allowFontScaling={false}
+                                minimumFontScale={0.72}
+                                numberOfLines={1}
+                                style={textStyles}
+                            >
+                                {text}
+                            </Text>
+                        )}
+                    </>
+                )}
+            </View>
 
-            {!isLoading && !isDefined(children) && (
-                <>
-                    {isDefined(Icon) && <Icon color={colors.textColor} size={iconSize} />}
-                    {shouldShowText && (
-                        <Text adjustsFontSizeToFit allowFontScaling={false} minimumFontScale={0.72} numberOfLines={1} style={textStyles}>
-                            {text}
-                        </Text>
-                    )}
-                </>
+            {isLoading && (
+                <View pointerEvents="none" style={styles.loaderOverlay}>
+                    <ActivityIndicator color={colors.textColor} testID={AppButtonLoaderTestId} />
+                </View>
             )}
         </Pressable>
     );
