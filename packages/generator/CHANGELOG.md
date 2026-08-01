@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.74.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.73.1...v1.74.0) (2026-08-01)
+
+### Bug Fixes
+
+- **app,generator:** close per-file coverage gaps in difficulty helpers ([f3b1770](https://github.com/vitalyiegorov/suuudokuuu/commit/f3b1770198e68aa9f5641cfdf2701c155bf33daa))
+- **generator:** handle degenerate walk states in HellGenerator cell selection ([45e9ffa](https://github.com/vitalyiegorov/suuudokuuu/commit/45e9ffa2109e01220223f9fe9b1a260e3072b73d))
+- **generator:** make HellGenerator digit-assignment failure explicit ([631e3ee](https://github.com/vitalyiegorov/suuudokuuu/commit/631e3eef3395f2c02c23520406ed4a58f38ec19a))
+
+### Features
+
+- **generator:** add Hell difficulty enum and blank-cell threshold ([7c9b8b7](https://github.com/vitalyiegorov/suuudokuuu/commit/7c9b8b7e033ff3ec9345dded8b08be65dce6522c))
+- **generator:** add HellGenerator minimal-puzzle neighborhood walk ([881151c](https://github.com/vitalyiegorov/suuudokuuu/commit/881151c30afce3d4b37a8facfe2829c2ce1396b3))
+- **generator:** add solved-grid fill and minimal-puzzle reduction utilities ([1a663e0](https://github.com/vitalyiegorov/suuudokuuu/commit/1a663e00e913661c6a79ce9dde7e314130a6c789))
+
+### Performance Improvements
+
+- **generator:** adopt benchmark-selected bitmask solver engine ([1fce3b6](https://github.com/vitalyiegorov/suuudokuuu/commit/1fce3b628d998bebe025b315ae0e43d2c164140e))
+
 ## [1.66.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.66.1...v1.66.2) (2026-07-26)
 
 **Note:** Version bump only for package @suuudokuuu/generator
