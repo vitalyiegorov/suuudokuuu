@@ -106,7 +106,7 @@ export const gameSlice = createSlice({
 
             state.score += scoring.calculate({
                 scoredCells,
-                difficulty: sudoku.Difficulty,
+                difficulty: state.difficulty,
                 mistakes: state.mistakes,
                 elapsedTime: state.elapsedTime,
                 maxMistakes: state.maxMistakes
