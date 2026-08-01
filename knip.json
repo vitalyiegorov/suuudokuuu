@@ -16,7 +16,8 @@
         "@expo/fingerprint",
         "babel-jest",
         "babel-plugin-react-compiler",
-        "eas-build-cache-provider"
+        "eas-build-cache-provider",
+        "serve"
     ],
     "ignoreBinaries": ["run"],
     "workspaces": {

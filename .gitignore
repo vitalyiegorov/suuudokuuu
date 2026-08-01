@@ -44,6 +44,10 @@ report
 # Jest
 coverage/
 
+# Playwright
+tests/web-tests/playwright-report/
+tests/web-tests/test-results/
+
 # Expo prebuild
 packages/app/android
 packages/app/ios

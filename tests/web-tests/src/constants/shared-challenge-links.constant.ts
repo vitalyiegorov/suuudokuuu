@@ -1,0 +1,2 @@
+export const winningSharedChallengeEncodedConstant = '_KGP________9____qXF6FFdMjBWGhJIN-CMqSm5omCUw0KFUm6-t2HxLUAuYMCP-';
+export const losingSharedChallengeEncodedConstant = '_KAP3__7X7_7r____zMOSjkyv8nqM0LfkydkEBSLStwgSBis7M6rv28ZIIBEZAA';
