@@ -78,10 +78,11 @@ export const HomeScreenStartButtonEmber = ({ children, isLoading, onPress, style
         transform: [{ translateX: shakeOffset.value }, { scale: 1 + idlePulse.value * HomeScreenStartButtonEmberIdlePulseScale }]
     }));
 
-    const emberWrapperBaseStyle = [resolveUnistyleForAnimated(styles.emberWrapper), resolveUnistyleForAnimated(styles.emberGlow)];
-    const emberWrapperStyle = reduceMotion
-        ? [...emberWrapperBaseStyle, styles.emberStaticGlow]
-        : [...emberWrapperBaseStyle, emberAnimatedStyle];
+    const wrapperUnistyles = reduceMotion
+        ? [styles.emberWrapper, styles.emberGlow, styles.emberStaticGlow]
+        : [styles.emberWrapper, styles.emberGlow];
+    const animatedStyles = reduceMotion ? [] : [emberAnimatedStyle];
+    const emberWrapperStyle = [...wrapperUnistyles.map(resolveUnistyleForAnimated), ...animatedStyles];
     const emberWrapperTestId = reduceMotion
         ? HomeScreenStartButtonEmberSelectors.StaticRoot
         : HomeScreenStartButtonEmberSelectors.AnimatedRoot;

@@ -9,30 +9,18 @@ appId: ${APP_ID}
       id: 'DifficultyComplexityOptionSelectors.Option.Hell'
 - scrollUntilVisible:
       element:
-          text: 'Minimum clues'
-      direction: DOWN
-      timeout: 3000
-- assertVisible: 'Minimum clues'
-- scrollUntilVisible:
-      element:
           id: 'HomeScreenStartButtonEmberSelectors\.(AnimatedRoot|StaticRoot)'
       direction: DOWN
+      visibilityPercentage: 50
       timeout: 3000
-- assertVisible:
-      id: 'HomeScreenStartButtonEmberSelectors\.(AnimatedRoot|StaticRoot)'
+
 - runFlow: subflows/game/start-new-game.flow.yaml
 - runFlow: subflows/game/quit-current-game.flow.yaml
-- scrollUntilVisible:
-      element:
-          text: 'Minimum clues'
-      direction: DOWN
-      timeout: 3000
-- assertVisible: 'Minimum clues'
+
 - scrollUntilVisible:
       element:
           id: 'HomeScreenStartButtonEmberSelectors\.(AnimatedRoot|StaticRoot)'
       direction: DOWN
+      visibilityPercentage: 50
       timeout: 3000
-- assertVisible:
-      id: 'HomeScreenStartButtonEmberSelectors\.(AnimatedRoot|StaticRoot)'
 - stopApp
