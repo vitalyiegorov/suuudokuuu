@@ -3,6 +3,41 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.74.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.73.1...v1.74.0) (2026-08-01)
+
+### Bug Fixes
+
+- **app,generator:** close per-file coverage gaps in difficulty helpers ([f3b1770](https://github.com/vitalyiegorov/suuudokuuu/commit/f3b1770198e68aa9f5641cfdf2701c155bf33daa))
+- **app:** resolve the ember static glow unistyle for reduced motion ([e6ac2c3](https://github.com/vitalyiegorov/suuudokuuu/commit/e6ac2c3719ea96cc500637eb26e81dee51c60d45))
+- **app:** score with the authoritative stored difficulty ([3e2374f](https://github.com/vitalyiegorov/suuudokuuu/commit/3e2374fcd21a73a474530705f1f25d43d1726ad7))
+- **app:** trigger Hell refill at the low-water mark ([17c3d12](https://github.com/vitalyiegorov/suuudokuuu/commit/17c3d12d42408f4456941a442275acdb59fdc602))
+- **generator:** handle degenerate walk states in HellGenerator cell selection ([45e9ffa](https://github.com/vitalyiegorov/suuudokuuu/commit/45e9ffa2109e01220223f9fe9b1a260e3072b73d))
+- **generator:** make HellGenerator digit-assignment failure explicit ([631e3ee](https://github.com/vitalyiegorov/suuudokuuu/commit/631e3eef3395f2c02c23520406ed4a58f38ec19a))
+- **solver-core:** validate digit range and tighten coverage gate ([40c0aa4](https://github.com/vitalyiegorov/suuudokuuu/commit/40c0aa462ee1ff569cd8a33a05e41a4c9a75e315))
+- **solver-dlx:** cap countSolutions at the requested limit ([b2afeea](https://github.com/vitalyiegorov/suuudokuuu/commit/b2afeeacfee7cea1eec86e2acd9307359dd384fb))
+
+### Features
+
+- **app:** add guarded E2E seeding hook for the Hell queue ([1eea69d](https://github.com/vitalyiegorov/suuudokuuu/commit/1eea69d544e8eddccbddbd4252682bfda0f16230))
+- **app:** add Hell difficulty Home card with queued puzzle consumption ([b65d3e4](https://github.com/vitalyiegorov/suuudokuuu/commit/b65d3e49ca1745e2d0750726268e752a45ed9787))
+- **app:** add Hell queue technique gate and background refill worker ([5d84b1c](https://github.com/vitalyiegorov/suuudokuuu/commit/5d84b1c4a7d7b51c8c96b09fadbb59908841dc32))
+- **app:** add Hell scoring, history plumbing, and persisted hell queue ([640f67c](https://github.com/vitalyiegorov/suuudokuuu/commit/640f67c6477c70b9fac5cc4ea613387ce3d3480f))
+- **app:** add Hell to the difficulty slider with an ember start button ([f52045c](https://github.com/vitalyiegorov/suuudokuuu/commit/f52045c87b522246a66a48e6db1e7e5c2a7cb6d9))
+- **app:** refine the Hell start button with a gradient ember treatment ([be6cd05](https://github.com/vitalyiegorov/suuudokuuu/commit/be6cd052a88863668b8bee7222cccf721db0be94))
+- **generator:** add Hell difficulty enum and blank-cell threshold ([7c9b8b7](https://github.com/vitalyiegorov/suuudokuuu/commit/7c9b8b7e033ff3ec9345dded8b08be65dce6522c))
+- **generator:** add HellGenerator minimal-puzzle neighborhood walk ([881151c](https://github.com/vitalyiegorov/suuudokuuu/commit/881151c30afce3d4b37a8facfe2829c2ce1396b3))
+- **generator:** add solved-grid fill and minimal-puzzle reduction utilities ([1a663e0](https://github.com/vitalyiegorov/suuudokuuu/commit/1a663e00e913661c6a79ce9dde7e314130a6c789))
+- **hell-corpus:** bundle the verified 49158-puzzle 17-clue corpus ([ec73c3f](https://github.com/vitalyiegorov/suuudokuuu/commit/ec73c3ff731c3f8fec25843f277cc2e4151ff823))
+- **hell-corpus:** scaffold package with decoder, isomorphism transform, and build CLI ([2194420](https://github.com/vitalyiegorov/suuudokuuu/commit/21944205a9ebdfa76520cb1a3d298cb7e51f3c5a))
+- **solver-bitmask:** add typed-array MRV solver with singles propagation ([b210dc4](https://github.com/vitalyiegorov/suuudokuuu/commit/b210dc4d07d4bcaf1e22472df4ed382ccd33e185))
+- **solver-core:** add conformance cases and differential-test helpers ([9588b6d](https://github.com/vitalyiegorov/suuudokuuu/commit/9588b6d69480c41afdc558bf3cf6e2b17e6eca63))
+- **solver-core:** add machine-solver contract, grid utils, and seeded PRNG ([345d455](https://github.com/vitalyiegorov/suuudokuuu/commit/345d45531260461f2953049d75f68355a84d2001))
+
+### Performance Improvements
+
+- **generator:** adopt benchmark-selected bitmask solver engine ([1fce3b6](https://github.com/vitalyiegorov/suuudokuuu/commit/1fce3b628d998bebe025b315ae0e43d2c164140e))
+- **solver-bitmask:** remove per-call allocations from grid-state hot paths ([ada2818](https://github.com/vitalyiegorov/suuudokuuu/commit/ada2818537dd3f5ada0b51e75f02ac20f7906794))
+
 ## [1.73.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.73.0...v1.73.1) (2026-08-01)
 
 **Note:** Version bump only for package @suuudokuuu/root

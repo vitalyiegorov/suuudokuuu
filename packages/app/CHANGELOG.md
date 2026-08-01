@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.74.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.73.1...v1.74.0) (2026-08-01)
+
+### Bug Fixes
+
+- **app,generator:** close per-file coverage gaps in difficulty helpers ([f3b1770](https://github.com/vitalyiegorov/suuudokuuu/commit/f3b1770198e68aa9f5641cfdf2701c155bf33daa))
+- **app:** resolve the ember static glow unistyle for reduced motion ([e6ac2c3](https://github.com/vitalyiegorov/suuudokuuu/commit/e6ac2c3719ea96cc500637eb26e81dee51c60d45))
+- **app:** score with the authoritative stored difficulty ([3e2374f](https://github.com/vitalyiegorov/suuudokuuu/commit/3e2374fcd21a73a474530705f1f25d43d1726ad7))
+- **app:** trigger Hell refill at the low-water mark ([17c3d12](https://github.com/vitalyiegorov/suuudokuuu/commit/17c3d12d42408f4456941a442275acdb59fdc602))
+
+### Features
+
+- **app:** add guarded E2E seeding hook for the Hell queue ([1eea69d](https://github.com/vitalyiegorov/suuudokuuu/commit/1eea69d544e8eddccbddbd4252682bfda0f16230))
+- **app:** add Hell difficulty Home card with queued puzzle consumption ([b65d3e4](https://github.com/vitalyiegorov/suuudokuuu/commit/b65d3e49ca1745e2d0750726268e752a45ed9787))
+- **app:** add Hell queue technique gate and background refill worker ([5d84b1c](https://github.com/vitalyiegorov/suuudokuuu/commit/5d84b1c4a7d7b51c8c96b09fadbb59908841dc32))
+- **app:** add Hell scoring, history plumbing, and persisted hell queue ([640f67c](https://github.com/vitalyiegorov/suuudokuuu/commit/640f67c6477c70b9fac5cc4ea613387ce3d3480f))
+- **app:** add Hell to the difficulty slider with an ember start button ([f52045c](https://github.com/vitalyiegorov/suuudokuuu/commit/f52045c87b522246a66a48e6db1e7e5c2a7cb6d9))
+- **app:** refine the Hell start button with a gradient ember treatment ([be6cd05](https://github.com/vitalyiegorov/suuudokuuu/commit/be6cd052a88863668b8bee7222cccf721db0be94))
+
 ## [1.73.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.73.0...v1.73.1) (2026-08-01)
 
 **Note:** Version bump only for package @suuudokuuu/app

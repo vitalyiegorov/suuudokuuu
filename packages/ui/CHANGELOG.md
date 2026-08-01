@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.74.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.73.1...v1.74.0) (2026-08-01)
+
+### Features
+
+- **app:** refine the Hell start button with a gradient ember treatment ([be6cd05](https://github.com/vitalyiegorov/suuudokuuu/commit/be6cd052a88863668b8bee7222cccf721db0be94))
+
 # [1.72.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.71.1...v1.72.0) (2026-07-31)
 
 **Note:** Version bump only for package @suuudokuuu/ui
