@@ -1,0 +1,68 @@
+name: Web E2E
+
+on:
+    workflow_call:
+    workflow_dispatch:
+    push:
+        branches: [main]
+
+concurrency:
+    group: web-e2e-${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: ${{ github.event_name == 'push' }}
+
+env:
+    TURBO_TEAM: vitalyiegorov
+    TURBO_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+    EXPO_NO_TELEMETRY: '1'
+
+jobs:
+    playwright:
+        name: Playwright web E2E
+        runs-on: ubuntu-latest
+        timeout-minutes: 20
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v5
+
+            - name: Setup Node
+              uses: actions/setup-node@v6
+              with:
+                  node-version: 22.x
+                  cache: yarn
+
+            - name: Install dependencies
+              run: yarn install
+
+            - name: Export Expo web build
+              run: yarn turbo run export:web --filter=@suuudokuuu/app
+
+            - name: Resolve Playwright version
+              id: playwright-version
+              shell: bash
+              run: |
+                  set -euo pipefail
+                  version=$(yarn workspace @suuudokuuu/web-tests exec node -p "require('@playwright/test/package.json').version")
+                  echo "Playwright version: $version"
+                  echo "version=$version" >> "$GITHUB_OUTPUT"
+
+            - name: Cache Playwright browsers
+              uses: actions/cache@v5
+              with:
+                  path: ~/.cache/ms-playwright
+                  key: playwright-${{ runner.os }}-${{ steps.playwright-version.outputs.version }}
+
+            - name: Install Playwright chromium
+              run: yarn workspace @suuudokuuu/web-tests playwright install --with-deps chromium
+
+            - name: Run Playwright web E2E
+              run: yarn workspace @suuudokuuu/web-tests test:e2e
+
+            - name: Upload Playwright report
+              if: failure()
+              uses: actions/upload-artifact@v6
+              with:
+                  name: playwright-report
+                  path: |
+                      tests/web-tests/playwright-report
+                      tests/web-tests/test-results
+                  retention-days: 7

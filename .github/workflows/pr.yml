@@ -134,9 +134,15 @@ jobs:
         uses: ./.github/workflows/mobile-e2e.yml
         secrets: inherit
 
+    web-e2e:
+        if: ${{ needs.changes.outputs.mobile == 'true' }}
+        needs: [changes]
+        uses: ./.github/workflows/web-e2e.yml
+        secrets: inherit
+
     required-ci:
         if: ${{ always() }}
-        needs: [changes, code-quality, mobile-e2e]
+        needs: [changes, code-quality, mobile-e2e, web-e2e]
         name: Required CI
         runs-on: ubuntu-latest
         timeout-minutes: 5
@@ -147,20 +153,21 @@ jobs:
                   MOBILE_RESULT: ${{ needs.changes.outputs.mobile }}
                   CODE_QUALITY_RESULT: ${{ needs.code-quality.result }}
                   MOBILE_E2E_RESULT: ${{ needs.mobile-e2e.result }}
+                  WEB_E2E_RESULT: ${{ needs.web-e2e.result }}
               run: |
                   set -euo pipefail
-                  summary="changes=$CHANGES_RESULT, code-quality=$CODE_QUALITY_RESULT, mobile=$MOBILE_RESULT, mobile-e2e=$MOBILE_E2E_RESULT"
+                  summary="changes=$CHANGES_RESULT, code-quality=$CODE_QUALITY_RESULT, mobile=$MOBILE_RESULT, mobile-e2e=$MOBILE_E2E_RESULT, web-e2e=$WEB_E2E_RESULT"
                   echo "CI summary: $summary"
                   if [ "$CHANGES_RESULT" != 'success' ] || [ "$CODE_QUALITY_RESULT" != 'success' ]; then
                     echo "Required jobs did not pass: $summary"
                     exit 1
                   fi
 
-                  if [ "$MOBILE_RESULT" = 'true' ] && [ "$MOBILE_E2E_RESULT" = 'success' ]; then
+                  if [ "$MOBILE_RESULT" = 'true' ] && [ "$MOBILE_E2E_RESULT" = 'success' ] && [ "$WEB_E2E_RESULT" = 'success' ]; then
                     exit 0
                   fi
 
-                  if [ "$MOBILE_RESULT" = 'false' ] && [ "$MOBILE_E2E_RESULT" = 'skipped' ]; then
+                  if [ "$MOBILE_RESULT" = 'false' ] && [ "$MOBILE_E2E_RESULT" = 'skipped' ] && [ "$WEB_E2E_RESULT" = 'skipped' ]; then
                     exit 0
                   fi
 

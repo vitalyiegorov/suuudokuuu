@@ -1,0 +1,16 @@
+{
+    "name": "@suuudokuuu/web-tests",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "lint": "run -T eslint --fix specs src playwright.config.ts",
+        "test:e2e": "playwright test",
+        "ts": "run -T tsc -p ."
+    },
+    "devDependencies": {
+        "@playwright/test": "^1.62.1",
+        "@rnw-community/shared": "^2.2.0",
+        "@suuudokuuu/app": "workspace:*",
+        "serve": "^14.2.6"
+    }
+}
