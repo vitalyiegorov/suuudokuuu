@@ -1,15 +1,15 @@
 import { router } from 'expo-router';
-import { use, useEffect } from 'react';
+import { useEffect } from 'react';
 import { View } from 'react-native';
 
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
-import { GameContext } from '../../../game/context/game.context';
 import { gameFinishAction } from '../../../game/store/game.actions';
 import {
     gameChallengeStepsSelector,
     gameChallengeTimeSelector,
     gameChallengeTimelineEventsSelector,
+    gameDifficultySelector,
     gameElapsedTimeSelector,
     gameSolutionsStepsSelector
 } from '../../../game/store/game.selectors';
@@ -25,14 +25,13 @@ import { ChallengeRaceHudSelectors } from './challenge-race-hud.selectors';
 import { ChallengeRaceHudStyles as styles } from './challenge-race-hud.styles';
 
 export const ChallengeRaceHud = () => {
-    const { sudoku } = use(GameContext);
-
     const dispatch = useAppDispatch();
     const elapsedTime = useAppSelector(gameElapsedTimeSelector);
     const challengeSteps = useAppSelector(gameChallengeStepsSelector);
     const challengeTime = useAppSelector(gameChallengeTimeSelector);
     const playerSteps = useAppSelector(gameSolutionsStepsSelector);
     const challengeTimelineEvents = useAppSelector(gameChallengeTimelineEventsSelector);
+    const difficulty = useAppSelector(gameDifficultySelector);
 
     const events = useChallengeTechniqueEvents();
 
@@ -42,10 +41,10 @@ export const ChallengeRaceHud = () => {
 
     useEffect(() => {
         if (opponentProgress >= 1) {
-            dispatch(gameFinishAction({ difficulty: sudoku.Difficulty, isWon: false, isChallenge: true }));
+            dispatch(gameFinishAction({ difficulty, isWon: false, isChallenge: true }));
             router.replace({ pathname: '/challenge-lost', params: { reason: ChallengeLossReason.Time } });
         }
-    }, [opponentProgress, dispatch, sudoku.Difficulty]);
+    }, [opponentProgress, dispatch, difficulty]);
 
     return (
         <View style={styles.container} testID={ChallengeRaceHudSelectors.Root}>
