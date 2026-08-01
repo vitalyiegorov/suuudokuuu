@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Suuudokuuu is an open-source Sudoku game built with React Native and Expo. This monorepo has eight core packages: `app` for the game UI, `generator` for Sudoku generation and solving, `solver-core` for the shared solver contract, grid utilities, and conformance helpers, `solver-dlx` for the Dancing Links exact-cover solver, `solver-bitmask` for the typed-array bitmask solver, `techniques` for solving-technique detection, `encoder` for compact shareable game-state encoding, and `screen-chrome` for generic screen chrome primitives.
+Suuudokuuu is an open-source Sudoku game built with React Native and Expo. This monorepo has nine core packages: `app` for the game UI, `generator` for Sudoku generation and solving, `solver-core` for the shared solver contract, grid utilities, and conformance helpers, `solver-dlx` for the Dancing Links exact-cover solver, `solver-bitmask` for the typed-array bitmask solver, `techniques` for solving-technique detection, `encoder` for compact shareable game-state encoding, `hell-corpus` for the bundled, verified Hell-difficulty puzzle corpus, and `screen-chrome` for generic screen chrome primitives.
 
 ## Canonical Agent Surfaces
 
@@ -48,6 +48,7 @@ packages/
 ├── solver-bitmask/     # Typed-array bitmask MRV Sudoku solver
 ├── techniques/         # Pure TypeScript solving-technique detection
 ├── encoder/            # Binary/LZ encoding for puzzle sharing and replay
+├── hell-corpus/        # Bundled, verified 17-clue Hell-difficulty puzzle corpus
 └── screen-chrome/      # Raw TypeScript generic screen chrome, edge fades, and collapsible header
 tests/
 └── app-tests/          # Maestro E2E flows
@@ -59,6 +60,7 @@ tests/
 - Read `packages/generator/AGENTS.md` before changing Sudoku generation, validation, navigation, DLX solving, difficulty config, or puzzle interfaces.
 - Read `packages/techniques/AGENTS.md` before changing solving techniques, candidate context, strategy ordering, or move classification.
 - Read `packages/encoder/AGENTS.md` before changing binary formats, solution-step encoding, URL serialization, compression, or decode error behavior.
+- Read `packages/hell-corpus/scripts/build-corpus.mjs` before changing the bundled Hell-difficulty puzzle corpus, its build/verification CLI, or the packed record format.
 - Read `packages/screen-chrome/README.md` before changing `@suuudokuuu/screen-chrome`; preserve its generic, app-agnostic API.
 - Read `tests/app-tests/AGENTS.md` before changing Maestro flows, test IDs used by flows, deep-link fixtures, or E2E app assumptions.
 
@@ -146,7 +148,7 @@ Use Conventional Commits for commit messages and PR titles:
 type(scope): short description
 ```
 
-Scopes are `app`, `generator`, `solver-core`, `solver-dlx`, `solver-bitmask`, `techniques`, and `encoder`. Omit the scope for repo-wide docs, tooling, skills, or workspace configuration.
+Scopes are `app`, `generator`, `solver-core`, `solver-dlx`, `solver-bitmask`, `techniques`, `encoder`, and `hell-corpus`. Omit the scope for repo-wide docs, tooling, skills, or workspace configuration.
 
 Use these types: `feat`, `fix`, `refactor`, `chore`, `docs`, `ci`, `test`, `i18n`, `perf`, and `build`.
 
