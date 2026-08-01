@@ -54,10 +54,6 @@ msgstr "{foregroundLabel} pada {backgroundLabel}: {contrastRatioText} — minimu
 msgid "{gamesCompleted, plural, one {# completed game} other {# completed games}}"
 msgstr "{gamesCompleted, plural, one {# game selesai} other {# game selesai}}"
 
-#: src/screens/components/home-screen/home-screen-hell-card/home-screen-hell-card.tsx
-msgid "{hellQueueCount, plural, one {# puzzle ready} other {# puzzles ready}}"
-msgstr "{hellQueueCount, plural, one {# sudoku siap} other {# sudoku siap}}"
-
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
 msgstr "{mistakes, plural, one {# kesalahan} other {# kesalahan}}"
@@ -589,7 +585,6 @@ msgstr "Hardcore"
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/scoring/components/scoring.screen.tsx
-#: src/screens/components/home-screen/home-screen-hell-card/home-screen-hell-card.tsx
 msgid "Hell"
 msgstr "Neraka"
 
@@ -864,10 +859,6 @@ msgstr "Tanpa jarak tambahan antar sel"
 #: src/history/components/history-games-list/history-games-list.tsx
 msgid "No games yet"
 msgstr "Belum ada game"
-
-#: src/game/utils/game-provider-create-hell-game.util.ts
-msgid "No Hell puzzles are ready yet"
-msgstr "Belum ada sudoku Neraka yang siap"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "No limit"

@@ -1,7 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 
 import { initialGameState } from '../../game/store/game.state';
-import { initialHellQueueState } from '../../hell-queue/store/hell-queue.state';
 import { initialSettingsState } from '../../settings/store/settings.state';
 import { ColorSchemaEnum } from '../enum/color-schema.enum';
 import { ThemeEnum } from '../enum/theme.enum';
@@ -30,8 +29,7 @@ describe('customThemesSelector', () => {
         const rootState: RootState = {
             game: initialGameState,
             settings: initialSettingsState,
-            customThemes: { themes: [sampleTheme] },
-            hellQueue: initialHellQueueState
+            customThemes: { themes: [sampleTheme] }
         };
 
         expect(customThemesSelector(rootState)).toEqual([sampleTheme]);
