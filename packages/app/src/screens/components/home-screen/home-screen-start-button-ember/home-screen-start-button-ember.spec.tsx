@@ -84,18 +84,7 @@ describe('HomeScreenStartButtonEmber', () => {
         await renderEmberButton();
 
         const resolvedStyles = mockResolveUnistyleForAnimated.mock.calls.map(([style]) => style);
-        const expectedStyles = isReducedMotion
-            ? [
-                  HomeScreenStartButtonEmberStyles.emberWrapper,
-                  HomeScreenStartButtonEmberStyles.emberGlow,
-                  HomeScreenStartButtonEmberStyles.emberStaticGlow,
-                  HomeScreenStartButtonEmberStyles.emberSheen
-              ]
-            : [
-                  HomeScreenStartButtonEmberStyles.emberWrapper,
-                  HomeScreenStartButtonEmberStyles.emberGlow,
-                  HomeScreenStartButtonEmberStyles.emberSheen
-              ];
+        const expectedStyles = [HomeScreenStartButtonEmberStyles.emberWrapper, HomeScreenStartButtonEmberStyles.emberButton];
 
         expect(resolvedStyles).toStrictEqual(expectedStyles);
     });
