@@ -13,8 +13,6 @@ jest.mock('expo-haptics', () => ({
 
 jest.mock('expo-glass-effect', () => ({ GlassView: 'GlassView', isLiquidGlassAvailable: () => false }));
 
-jest.mock('expo-linear-gradient', () => ({ LinearGradient: 'LinearGradient' }));
-
 jest.mock('react-native-share', () => ({ default: { open: jest.fn() }, Social: {} }));
 
 jest.mock('expo-router', () => ({
