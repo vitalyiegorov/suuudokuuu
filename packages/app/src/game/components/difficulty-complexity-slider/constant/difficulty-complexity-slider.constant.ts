@@ -5,7 +5,8 @@ export const DifficultyComplexitySliderDifficulties: readonly DifficultyEnum[] =
     DifficultyEnum.Easy,
     DifficultyEnum.Medium,
     DifficultyEnum.Hard,
-    DifficultyEnum.Nightmare
+    DifficultyEnum.Nightmare,
+    DifficultyEnum.Hell
 ];
 
 export const DifficultyComplexitySliderInitialIndex = 1;

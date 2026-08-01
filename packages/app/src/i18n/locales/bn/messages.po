@@ -662,7 +662,7 @@ msgstr "iOS-এ ইনস্টল করুন"
 msgid "Install the iOS development build"
 msgstr "iOS ডেভেলপমেন্ট বিল্ড ইনস্টল করুন"
 
-#: src/game/components/game-provider/game-provider.tsx
+#: src/game/hooks/use-game-creation-runner.hook.ts
 msgid "Invalid Sudoku"
 msgstr "অবৈধ সুডোকু"
 
@@ -767,6 +767,10 @@ msgstr "মাঝারি"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Menus, settings, and game text"
 msgstr "মেনু, সেটিংস ও গেমের লেখা"
+
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
+msgid "Minimum clues"
+msgstr "ন্যূনতম সূত্র"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Minimum Score"
@@ -901,7 +905,7 @@ msgstr "নম্বর প্যাডের ট্র্যাক (পূর�
 msgid "of current score"
 msgstr "বর্তমান স্কোরের"
 
-#: src/game/components/game-provider/game-provider.tsx
+#: src/game/hooks/use-game-creation-runner.hook.ts
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx

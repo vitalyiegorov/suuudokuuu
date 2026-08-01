@@ -18,6 +18,7 @@ import type { GameSetupInterface } from '../../interface/game-setup.interface';
 jest.mock('../../../@generic/app-root.store', () => ({ appRootStore: { dispatch: jest.fn(), getState: jest.fn() } }));
 
 const createTriggerTestID = 'game-provider-create-trigger';
+const HellPuzzleGivenCellCount = 17;
 
 const abandonedAttempt = {
     candidates: { '1-1': [1, 2] },
@@ -90,5 +91,21 @@ describe('GameProvider', () => {
 
         expect(gameState).toMatchObject({ difficulty: DifficultyEnum.Easy, isChallengeRun: false, maxMistakes: 3 });
         expect(Sudoku.fromString(gameState.sudokuString, defaultSudokuConfig).Difficulty).toBe(DifficultyEnum.Easy);
+    });
+
+    it('starts a Hell run with a genuine 17-clue puzzle', async () => {
+        const gameState = await startGame({ difficulty: DifficultyEnum.Hell, isChallengeRun: false, maxMistakes: 3 });
+        const givenCellCount = gameState.sudokuString.split('').filter(character => character !== '.').length;
+
+        expect(gameState).toMatchObject({ difficulty: DifficultyEnum.Hell, isChallengeRun: false, maxMistakes: 3 });
+        expect(givenCellCount).toBe(HellPuzzleGivenCellCount);
+        expect(Sudoku.fromString(gameState.sudokuString, defaultSudokuConfig).Difficulty).toBe(DifficultyEnum.Hell);
+    });
+
+    it('produces a different Hell puzzle for each run', async () => {
+        const firstGameState = await startGame({ difficulty: DifficultyEnum.Hell, isChallengeRun: false, maxMistakes: 3 });
+        const secondGameState = await startGame({ difficulty: DifficultyEnum.Hell, isChallengeRun: false, maxMistakes: 3 });
+
+        expect(firstGameState.sudokuString).not.toBe(secondGameState.sudokuString);
     });
 });

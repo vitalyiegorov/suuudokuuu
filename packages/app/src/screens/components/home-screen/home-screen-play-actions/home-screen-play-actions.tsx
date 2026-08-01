@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/react/macro';
-import { AppButton } from '@suuudokuuu/ui';
 import { Play } from 'lucide-react-native';
 import { use } from 'react';
 import { Pressable, View } from 'react-native';
@@ -7,6 +6,7 @@ import { Pressable, View } from 'react-native';
 import { BlackText } from '../../../../@generic/components/black-text/black-text';
 import { useResumeGame } from '../../../../game/hooks/use-resume-game.hook';
 import { ThemeContext } from '../../../../theme/context/theme.context';
+import { HomeScreenStartButton } from '../home-screen-start-button/home-screen-start-button';
 import { HomeScreenSelectors } from '../home-screen.selectors';
 import { HomeScreenStyles as styles } from '../home-screen.styles';
 
@@ -15,6 +15,7 @@ interface Props {
     readonly currentProgressPercent: number;
     readonly currentProgressText: string;
     readonly isGameStarted: boolean;
+    readonly isHellSelected: boolean;
     readonly isLoading: boolean;
     readonly onStart: () => void;
     readonly startButtonSubtitle: string;
@@ -26,6 +27,7 @@ export const HomeScreenPlayActions = ({
     currentProgressPercent,
     currentProgressText,
     isGameStarted,
+    isHellSelected,
     isLoading,
     onStart,
     startButtonSubtitle,
@@ -33,8 +35,9 @@ export const HomeScreenPlayActions = ({
 }: Props) => {
     const { theme } = use(ThemeContext);
     const handleContinue = useResumeGame();
-    const startButtonTitleStyles = [styles.startButtonTitle, { color: theme.colors.inkText }];
-    const startButtonSubtitleStyles = [styles.startButtonSubtitle, { color: theme.colors.inkText }];
+    const startButtonTextColor = isHellSelected ? theme.colors.dangerText : theme.colors.inkText;
+    const startButtonTitleStyles = [styles.startButtonTitle, { color: startButtonTextColor }];
+    const startButtonSubtitleStyles = [styles.startButtonSubtitle, { color: startButtonTextColor }];
     const continueRowStyles = [styles.continueRow, { backgroundColor: theme.colors.surface.subtle }];
     const continueProgressFillStyles = [
         styles.continueProgressFill,
@@ -48,19 +51,18 @@ export const HomeScreenPlayActions = ({
 
     return (
         <View style={styles.playActions}>
-            <AppButton
+            <HomeScreenStartButton
+                isHellSelected={isHellSelected}
                 isLoading={isLoading}
                 onPress={onStart}
-                size="large"
                 style={styles.primaryButton}
                 testID={HomeScreenSelectors.StartButton}
-                variant="primary"
             >
                 <View style={styles.startButtonContent}>
                     <BlackText style={startButtonTitleStyles}>{startButtonText}</BlackText>
                     <BlackText style={startButtonSubtitleStyles}>{startButtonSubtitle}</BlackText>
                 </View>
-            </AppButton>
+            </HomeScreenStartButton>
 
             {isGameStarted ? (
                 <Pressable
