@@ -10,6 +10,7 @@ import { isDefined } from '@rnw-community/shared';
 import { LinguiDefaultComponent } from '../@generic/components/lingui-default-component/lingui-default-component';
 import { RootProviders } from '../@generic/components/root-providers/root-providers';
 import { i18nGetOSLocale } from '../@generic/utils/i18n.util';
+import { WinConfettiProvider } from '../confetti/components/win-confetti-provider/win-confetti-provider';
 import { GameProvider } from '../game/components/game-provider/game-provider';
 import { ThemeProvider } from '../theme/components/theme-provider/theme-provider';
 
@@ -42,10 +43,12 @@ export default function RootLayout() {
             <ThemeProvider>
                 <I18nProvider i18n={i18n} defaultComponent={LinguiDefaultComponent}>
                     <GameProvider>
-                        <Stack screenOptions={stackOptions}>
-                            <Stack.Screen name="game" options={gameOptions} />
-                            <Stack.Screen name="settings/[setting]" options={settingsOptionSheetOptions} />
-                        </Stack>
+                        <WinConfettiProvider>
+                            <Stack screenOptions={stackOptions}>
+                                <Stack.Screen name="game" options={gameOptions} />
+                                <Stack.Screen name="settings/[setting]" options={settingsOptionSheetOptions} />
+                            </Stack>
+                        </WinConfettiProvider>
                     </GameProvider>
                 </I18nProvider>
             </ThemeProvider>
