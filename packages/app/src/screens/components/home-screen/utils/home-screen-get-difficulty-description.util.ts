@@ -1,21 +1,13 @@
 import { t } from '@lingui/core/macro';
 import { DifficultyEnum } from '@suuudokuuu/generator';
 
-export const homeScreenGetDifficultyDescription = (difficulty: DifficultyEnum): string => {
-    switch (difficulty) {
-        case DifficultyEnum.Newbie:
-            return t`Gentle start`;
-        case DifficultyEnum.Easy:
-            return t`Light warm-up`;
-        case DifficultyEnum.Medium:
-            return t`Balanced solve`;
-        case DifficultyEnum.Hard:
-            return t`Deep focus`;
-        case DifficultyEnum.Nightmare:
-            return t`Expert grid`;
-        case DifficultyEnum.Hell:
-            return t`Minimum clues`;
-        default:
-            return '';
-    }
+const difficultyDescriptions: Record<DifficultyEnum, () => string> = {
+    [DifficultyEnum.Newbie]: () => t`Gentle start`,
+    [DifficultyEnum.Easy]: () => t`Light warm-up`,
+    [DifficultyEnum.Medium]: () => t`Balanced solve`,
+    [DifficultyEnum.Hard]: () => t`Deep focus`,
+    [DifficultyEnum.Nightmare]: () => t`Expert grid`,
+    [DifficultyEnum.Hell]: () => t`Minimum clues`
 };
+
+export const homeScreenGetDifficultyDescription = (difficulty: DifficultyEnum): string => difficultyDescriptions[difficulty]();

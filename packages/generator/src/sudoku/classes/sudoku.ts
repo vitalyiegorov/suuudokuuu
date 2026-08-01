@@ -16,6 +16,9 @@ import type { CellInterface } from '../../@generic/interfaces/cell.interface';
 import type { FieldInterface } from '../../@generic/interfaces/field.interface';
 import type { SudokuConfigInterface } from '../../@generic/interfaces/sudoku-config.interface';
 
+const maxFieldAttempts = 10;
+const maxClueRemovalAttempts = 50;
+
 export class Sudoku extends SerializableSudoku {
     private readonly fieldFillingValues: number[];
     private readonly coordinates: { x: number; y: number }[] = [];
@@ -40,14 +43,14 @@ export class Sudoku extends SerializableSudoku {
         this.config = { ...this.config, difficulty };
         const targetBlankCells = getBlankCellCountByConfig(this.config);
 
-        for (let attempt = 0; attempt < 10; attempt += 1) {
+        for (let attempt = 0; attempt < maxFieldAttempts; attempt += 1) {
             this.field = cloneField(this.emptyField);
             if (!this.fillRecursive()) {
                 throw new Error('Unable to create a game field');
             }
             this.gameField = cloneField(this.field);
 
-            if (this.removeClues(targetBlankCells, 50) >= targetBlankCells) {
+            if (this.removeClues(targetBlankCells, maxClueRemovalAttempts) >= targetBlankCells) {
                 break;
             }
         }
@@ -277,7 +280,7 @@ export class Sudoku extends SerializableSudoku {
     }
 
     // eslint-disable-next-line max-statements
-    private removeClues(targetBlankCells: number, maxAttempts = 50): number {
+    private removeClues(targetBlankCells: number, maxAttempts: number): number {
         let maxBlanks = 0;
         let bestGameField = cloneField(this.gameField);
 
