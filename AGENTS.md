@@ -47,7 +47,8 @@ packages/
 ├── encoder/            # Binary/LZ encoding for puzzle sharing and replay
 └── screen-chrome/      # Raw TypeScript generic screen chrome, edge fades, and collapsible header
 tests/
-└── app-tests/          # Maestro E2E flows
+├── app-tests/          # Maestro E2E flows
+└── web-tests/          # Playwright web E2E specs
 ```
 
 ## Package Instructions
@@ -58,6 +59,7 @@ tests/
 - Read `packages/encoder/AGENTS.md` before changing binary formats, solution-step encoding, URL serialization, compression, or decode error behavior.
 - Read `packages/screen-chrome/README.md` before changing `@suuudokuuu/screen-chrome`; preserve its generic, app-agnostic API.
 - Read `tests/app-tests/AGENTS.md` before changing Maestro flows, test IDs used by flows, deep-link fixtures, or E2E app assumptions.
+- Read `tests/web-tests/AGENTS.md` before changing Playwright web flows, web selectors, or web E2E CI assumptions.
 
 ## Engineering Rules
 
@@ -125,6 +127,7 @@ Use `.filter(isDefined)` only when the mapped array can actually contain nullish
 - Generator and encoder tests are colocated with source files using `.spec.ts`.
 - App unit tests are limited and should stay focused on deterministic logic such as scoring.
 - Maestro E2E coverage lives under `tests/app-tests`.
+- Web E2E coverage lives under `tests/web-tests` (Playwright against the Expo web export).
 - Add or update tests when changing puzzle generation, solving, serialization, scoring, persistence migrations, or externally visible behavior.
 
 ## Delegation And Model Economy

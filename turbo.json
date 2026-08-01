@@ -18,6 +18,9 @@
         "cpd": {
             "outputs": ["report/jscpd/**"]
         },
+        "export:web": {
+            "outputs": ["dist/**"]
+        },
         "format": {
             "outputs": []
         },
