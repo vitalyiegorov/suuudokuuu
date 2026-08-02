@@ -1,0 +1,32 @@
+suuudokuuu is Sudoku the way it should be: fast, beautiful, and honest about difficulty. Six levels, from a gentle Newbie board to genuine Hell — the hardest legitimate Sudoku that exists. No ads pretending to be puzzles, no accounts, no nonsense. Just you and the grid.
+
+NEW LOOK AND FEEL
+We rebuilt the board from the color up. Pick Classic, Gold, or Newspaper, or open the live-preview theme editor and make every cell, line, and highlight exactly yours. Built-in contrast validation keeps every custom theme readable in both light and dark, so your board always looks sharp and never strains your eyes.
+
+HELL DIFFICULTY, FOR REAL
+Most "expert" Sudoku apps fake their hardest level. Ours doesn't. Hell difficulty draws from a bundled, verified corpus of 49,158 genuine 17-clue puzzles — the minimum number of clues a Sudoku can have and still be uniquely solvable. If you've ever finished an "expert" puzzle and felt shortchanged, this is the level that will finally push back.
+
+CHALLENGE A FRIEND
+Rival mode sends your exact puzzle to a friend as a share link, with your recorded run attached. They play the same grid you did and race your time move for move. Bragging rights, settled.
+
+WATCH IT BACK
+Every completed game can be replayed, move by move. Rewind your own solve, study where you slowed down, or just enjoy watching a good finish twice.
+
+SMARTER SCORING
+Our scoring isn't just a timer. It's technique-aware, recognizing real solving moves like Naked Pairs and X-Wing as you play, so your score reflects how you actually solved the puzzle, not just how fast you clicked.
+
+EVERYTHING ELSE YOU'D WANT
+• 6 difficulties, Newbie to Hell
+• Full theme engine with light and dark support
+• Rival challenges via share link
+• Full move-by-move replay
+• Technique-aware scoring and move analysis
+• 13 languages
+• Confetti on every win, buttery-smooth animations
+• Works fully offline
+• No account, no sign-up, ever
+• Free and open-source
+
+suuudokuuu is built for people who actually love Sudoku, not people who want to be sold a subscription. Download it, pick a difficulty, and see how far you get before Hell mode humbles you.
+
+Learn more at www.suuudokuuu.com.

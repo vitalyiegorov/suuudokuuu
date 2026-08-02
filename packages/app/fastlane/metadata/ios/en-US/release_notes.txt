@@ -1,0 +1,10 @@
+New look and feel is here.
+
+• Full theme engine: Classic, Gold, and Newspaper presets, plus a live-preview custom editor where every board color is yours
+• Automatic contrast validation keeps custom themes sharp in light and dark
+• Refreshed settings/theme screens with more polished buttons
+• Hell difficulty now draws from our full 49,158-strong 17-clue corpus
+• Rival mode sharing is faster and more reliable
+• Smoother move-by-move replay playback
+• Translation improvements across all 13 languages
+• Bug fixes and stability improvements

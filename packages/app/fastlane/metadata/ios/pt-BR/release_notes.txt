@@ -1,0 +1,10 @@
+Cara nova chegou.
+
+• Editor de temas completo: presets Clássico, Ouro e Jornal, além de um editor personalizado com pré-visualização ao vivo
+• Validação automática de contraste mantém temas personalizados nítidos no claro e no escuro
+• Telas de configurações e temas renovadas, com botões mais polidos
+• Dificuldade Inferno agora usa nosso banco completo de 49.158 grades de 17 pistas
+• Compartilhamento do modo Rival mais rápido e confiável
+• Replay jogada por jogada mais suave
+• Melhorias de tradução nos 13 idiomas
+• Correções de bugs e estabilidade
