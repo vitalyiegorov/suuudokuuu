@@ -1,0 +1,25 @@
+appId: ${APP_ID}
+tags:
+    - screenshots
+---
+# How Scoring Works screen: fully static content driven by
+# defaultScoringConfig, so no fixture or prior navigation is needed.
+- runFlow: subflows/reset-app.flow.yaml
+- runFlow:
+      file: subflows/apply-language.flow.yaml
+      env:
+          LOCALE: ${LOCALE}
+- runFlow:
+      file: subflows/apply-appearance.flow.yaml
+      env:
+          APPEARANCE: ${APPEARANCE}
+
+- openLink:
+      link: 'suuudokuuu://scoring'
+- extendedWaitUntil:
+      visible:
+          id: 'ScoringScreenSelectors.Root'
+      timeout: 5000
+
+- takeScreenshot: '12-scoring'
+- stopApp

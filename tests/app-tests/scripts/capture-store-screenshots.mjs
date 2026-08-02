@@ -15,6 +15,7 @@ const defaultOutputRootDirectory = join(repositoryRootDirectory, 'packages', 'ap
 
 const AllLocales = ['en', 'uk', 'de', 'es', 'fr', 'sv', 'zh', 'hi', 'ar', 'bn', 'pt', 'id', 'ur'];
 const AllAppearances = ['light', 'dark'];
+const AllDeviceClasses = ['iphone', 'ipad'];
 const AllScenes = [
     { file: '01.hero-board.flow.yaml', name: 'hero-board' },
     { file: '02.hell.flow.yaml', name: 'hell' },
@@ -23,7 +24,12 @@ const AllScenes = [
     { file: '05.win.flow.yaml', name: 'win' },
     { file: '06.rival.flow.yaml', name: 'rival' },
     { file: '07.replay.flow.yaml', name: 'replay' },
-    { file: '08.settings.flow.yaml', name: 'settings' }
+    { file: '08.settings.flow.yaml', name: 'settings' },
+    { file: '09.home.flow.yaml', name: 'home' },
+    { file: '10.stats.flow.yaml', name: 'stats' },
+    { file: '11.pause.flow.yaml', name: 'pause' },
+    { file: '12.scoring.flow.yaml', name: 'scoring' },
+    { file: '13.history.flow.yaml', name: 'history' }
 ];
 
 const parseCommaSeparatedList = value => value.split(',').map(item => item.trim()).filter(item => item.length > 0);
@@ -32,6 +38,7 @@ const { values: cliOptions } = parseArgs({
     options: {
         'app-id': { type: 'string' },
         appearances: { type: 'string' },
+        'device-class': { type: 'string' },
         locales: { type: 'string' },
         'output-dir': { type: 'string' },
         platform: { type: 'string' },
@@ -42,7 +49,9 @@ const { values: cliOptions } = parseArgs({
 
 const platform = cliOptions.platform ?? process.env.SCREENSHOT_PLATFORM ?? 'ios';
 const appId = cliOptions['app-id'] ?? process.env.APP_ID;
-const simulatorUdid = cliOptions.udid ?? process.env.SIMULATOR_UDID ?? (platform === 'ios' ? detectBootedIosSimulatorUdid() : '');
+const deviceClass = cliOptions['device-class'] ?? process.env.DEVICE_CLASS ?? 'iphone';
+const simulatorUdid =
+    cliOptions.udid ?? process.env.SIMULATOR_UDID ?? (platform === 'ios' ? detectBootedIosSimulatorUdid(deviceClass) : '');
 const outputRootDirectory = cliOptions['output-dir'] ?? process.env.SCREENSHOT_OUTPUT_DIR ?? defaultOutputRootDirectory;
 const selectedLocales = isDefinedString(cliOptions.locales) ? parseCommaSeparatedList(cliOptions.locales) : AllLocales;
 const selectedAppearances = isDefinedString(cliOptions.appearances) ? parseCommaSeparatedList(cliOptions.appearances) : AllAppearances;
@@ -53,9 +62,12 @@ function isDefinedString(value) {
     return typeof value === 'string' && value.length > 0;
 }
 
-function detectBootedIosSimulatorUdid() {
+function detectBootedIosSimulatorUdid(targetDeviceClass) {
     const result = spawnSync('xcrun', ['simctl', 'list', 'devices', 'booted'], { encoding: 'utf8' });
-    const match = result.stdout.match(/\(([0-9A-F-]{36})\) \(Booted\)/);
+    const bootedDeviceLines = (result.stdout ?? '').split('\n').filter(line => line.includes('(Booted)'));
+    const deviceClassPattern = targetDeviceClass === 'ipad' ? /ipad/i : /iphone/i;
+    const matchingLine = bootedDeviceLines.find(line => deviceClassPattern.test(line)) ?? bootedDeviceLines[0];
+    const match = matchingLine?.match(/\(([0-9A-F-]{36})\) \(Booted\)/);
 
     return match?.[1] ?? '';
 }
@@ -111,7 +123,8 @@ function runMaestroScene(scene, locale, appearance, testOutputDirectory) {
 }
 
 function captureCombination(locale, appearance) {
-    const testOutputDirectory = join(outputRootDirectory, platform, locale, appearance);
+    const deviceClassPathSegments = platform === 'ios' ? [deviceClass] : [];
+    const testOutputDirectory = join(outputRootDirectory, platform, ...deviceClassPathSegments, locale, appearance);
 
     mkdirSync(testOutputDirectory, { recursive: true });
 
@@ -121,19 +134,26 @@ function captureCombination(locale, appearance) {
         const durationSeconds = Math.round((Date.now() - startedAt) / 1000);
         const status = succeeded ? 'success' : 'failure';
 
-        process.stdout.write(`[${locale}/${appearance}] ${scene.name}: ${status} (${durationSeconds}s)\n`);
+        process.stdout.write(`[${deviceClass}/${locale}/${appearance}] ${scene.name}: ${status} (${durationSeconds}s)\n`);
 
         if (!succeeded) {
             process.stderr.write(`${failureOutput}\n`);
         }
 
-        return { appearance, durationSeconds, locale, scene: scene.name, status };
+        return { appearance, deviceClass, durationSeconds, locale, scene: scene.name, status };
     });
 }
 
 function main() {
     if (!isDefinedString(appId)) {
         process.stderr.write('APP_ID is required. Pass --app-id=<bundle-id> or set the APP_ID environment variable.\n');
+        process.exitCode = 1;
+
+        return;
+    }
+
+    if (!AllDeviceClasses.includes(deviceClass)) {
+        process.stderr.write(`Unknown device class "${deviceClass}". Pass --device-class=iphone or --device-class=ipad.\n`);
         process.exitCode = 1;
 
         return;
@@ -163,7 +183,9 @@ function main() {
     process.stdout.write(`\nCaptured ${results.length - failedResults.length}/${results.length} scenes.\n`);
 
     if (failedResults.length > 0) {
-        process.stdout.write(`Failed: ${failedResults.map(result => `${result.locale}/${result.appearance}/${result.scene}`).join(', ')}\n`);
+        process.stdout.write(
+            `Failed: ${failedResults.map(result => `${result.deviceClass}/${result.locale}/${result.appearance}/${result.scene}`).join(', ')}\n`
+        );
         process.exitCode = 1;
     }
 }

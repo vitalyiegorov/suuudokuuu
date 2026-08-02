@@ -2,11 +2,10 @@ appId: ${APP_ID}
 tags:
     - screenshots
 ---
-# Replay playback of a completed game. Completes the same win fixture used
-# by 04.statistics-screen.flow.yaml (lands in the Newbie history bucket),
-# then opens History through the deep link and its testID-only difficulty
-# card instead of tapping the localized "Stats" tab label or scrolling to
-# English "completed game" copy, so this works under every locale.
+# Stats/history tab with a completed game entry so the difficulty grid isn't
+# empty. Reuses the same win fixture as 07.replay/13.history, then opens
+# History through the deep link instead of the localized "Stats" tab label
+# (same reasoning as 07.replay - see README).
 - runFlow: subflows/reset-app.flow.yaml
 - runFlow:
       file: subflows/apply-language.flow.yaml
@@ -33,18 +32,6 @@ tags:
           id: 'HistoryDifficultySelectors.Card.Newbie'
       direction: DOWN
       timeout: 5000
-- tapOn:
-      id: 'HistoryDifficultySelectors.Card.Newbie'
-- extendedWaitUntil:
-      visible:
-          id: 'CompletedGameItemSelectors.ReplayButton'
-      timeout: 5000
-- tapOn:
-      id: 'CompletedGameItemSelectors.ReplayButton'
-- extendedWaitUntil:
-      visible:
-          id: 'ReplayControlsSelectors.Root'
-      timeout: 5000
 
-- takeScreenshot: '07-replay'
+- takeScreenshot: '10-stats'
 - stopApp

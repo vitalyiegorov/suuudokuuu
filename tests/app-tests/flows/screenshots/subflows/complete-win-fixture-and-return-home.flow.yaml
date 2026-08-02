@@ -1,0 +1,30 @@
+appId: ${APP_ID}
+---
+# Completes the shared win fixture (one empty cell, 6-0 = 2) and returns to
+# Home through the challenge-result footer. Shared by every scene that needs
+# a completed game already sitting in history: 07.replay, 10.stats,
+# 13.history.
+- runFlow:
+      file: ../../subflows/shared/open-shared-challenge.flow.yaml
+      env:
+          SHARED_CHALLENGE_LINK: ${SHARED_CHALLENGE_LINK}
+- runFlow: ../../subflows/shared/accept-shared-challenge.flow.yaml
+- tapOn:
+      id: 'CellSelectors.Cell.6-0'
+- tapOn:
+      id: 'AvailableValueItemSelectors.Button.2'
+- extendedWaitUntil:
+      visible:
+          id: 'ChallengeResultScreenSelectors.Root'
+      timeout: 5000
+- scrollUntilVisible:
+      element:
+          id: 'ChallengeResultFooterSelectors.HomeButton'
+      direction: DOWN
+      timeout: 5000
+- tapOn:
+      id: 'ChallengeResultFooterSelectors.HomeButton'
+- extendedWaitUntil:
+      visible:
+          id: 'HomeScreenSelectors.Root'
+      timeout: 5000

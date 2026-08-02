@@ -1,0 +1,35 @@
+appId: ${APP_ID}
+tags:
+    - screenshots
+---
+# Pause screen shown after backgrounding an in-progress game. Mirrors the
+# background/foreground sequence from the main suite's
+# 07.background-foreground-game.flow.yaml (pressKey Home, wait, launchApp
+# with stopApp: false) instead of a deep link, since Pause has no route
+# params of its own to seed - it only renders once the app detects a
+# backgrounded, in-progress game.
+- runFlow: subflows/reset-app.flow.yaml
+- runFlow:
+      file: subflows/apply-language.flow.yaml
+      env:
+          LOCALE: ${LOCALE}
+- runFlow:
+      file: subflows/apply-appearance.flow.yaml
+      env:
+          APPEARANCE: ${APPEARANCE}
+
+- runFlow: ../subflows/game/start-new-game.flow.yaml
+- pressKey: Home
+- runFlow:
+      file: ../subflows/shared/wait-observation-window.flow.yaml
+      env:
+          WAIT_MILLISECONDS: 3000
+- launchApp:
+      stopApp: false
+- extendedWaitUntil:
+      visible:
+          id: 'PauseScreenSelectors.Root'
+      timeout: 10000
+
+- takeScreenshot: '11-pause'
+- stopApp

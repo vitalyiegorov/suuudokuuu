@@ -172,9 +172,23 @@ uploaded when explicitly requested.
 
 1. Capture raw frames (only when the UI meaningfully changed): run
    `APP_ID=com.vitalyiegorov.suuudokuuu yarn workspace @suuudokuuu/app-tests screenshots:capture`
-   on an iPhone 17 Pro Max simulator (the 6.9" 1320×2868 store slot). Raw
-   captures land in `fastlane/screenshots/raw/` (gitignored). See
-   `tests/app-tests/flows/screenshots/README.md`.
+   on an iPhone 17 Pro Max simulator (the 6.9" 1320×2868 store slot, the
+   default `DEVICE_CLASS=iphone`). For the 13" iPad slot (2064×2752), boot an
+   "iPad Pro 13-inch (M4)" simulator (or closest available) and run the same
+   command with `DEVICE_CLASS=ipad` and that simulator's UDID:
+
+   ```bash
+   APP_ID=com.vitalyiegorov.suuudokuuu SIMULATOR_UDID=<iphone-udid> \
+       yarn workspace @suuudokuuu/app-tests screenshots:capture
+   DEVICE_CLASS=ipad APP_ID=com.vitalyiegorov.suuudokuuu SIMULATOR_UDID=<ipad-udid> \
+       yarn workspace @suuudokuuu/app-tests screenshots:capture
+   ```
+
+   Pass `SIMULATOR_UDID` explicitly whenever more than one simulator may be
+   booted. Raw captures land in `fastlane/screenshots/raw/<platform>/
+   <device-class>/<locale>/<appearance>/` for iOS (gitignored; Android has no
+   device-class segment). See `tests/app-tests/flows/screenshots/README.md`
+   for the full device matrix and scene list.
 2. Frame + caption with fastlane `frameit` using the config and per-locale
    captions in `fastlane/screenshots/design/` (see its README for the exact
    commands).
@@ -195,7 +209,8 @@ GOOGLE_SERVICE_ACCOUNT_KEY_PATH=... fastlane android_screenshots
 
 Target asset specs:
 
-- iOS: 6.9" primary screenshot set at 1320×2868.
+- iOS: 6.9" primary screenshot set at 1320×2868, plus a 13" iPad set at
+  2064×2752.
 - Play Store: phone screenshots at 1080×1920, plus one 1024×500 feature
   graphic.
 - App Preview video: 886×1920, H.264, 15-30 seconds.
