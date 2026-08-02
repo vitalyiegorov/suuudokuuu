@@ -1,0 +1,45 @@
+appId: ${APP_ID}
+tags:
+    - screenshots
+---
+# Mid-game board with a selected cell and pencil marks. Reuses the win
+# fixture from 02.game-screen-win/04.statistics-screen (single empty cell
+# 6-0, value 2) but stops short of filling it in, pencilling two candidates
+# instead so the board reads as "in progress" rather than won.
+- runFlow: subflows/reset-app.flow.yaml
+- runFlow:
+      file: subflows/apply-language.flow.yaml
+      env:
+          LOCALE: ${LOCALE}
+- runFlow:
+      file: subflows/apply-appearance.flow.yaml
+      env:
+          APPEARANCE: ${APPEARANCE}
+
+- runFlow:
+      file: ../subflows/shared/open-shared-challenge.flow.yaml
+      env:
+          SHARED_CHALLENGE_LINK: suuudokuuu://shared/_KGP________9____qXF6FFdMjBWGhJIN-CMqSm5omCUw0KFUm6-t2HxLUAuYMCP-
+- runFlow: ../subflows/shared/accept-shared-challenge.flow.yaml
+
+- tapOn:
+      id: 'CellSelectors.Cell.6-0'
+- tapOn:
+      id: 'InputModeButtonSelectors.Root'
+- extendedWaitUntil:
+      visible:
+          id: 'CandidateInputItemSelectors.Button.2'
+      timeout: 3000
+- tapOn:
+      id: 'CandidateInputItemSelectors.Button.2'
+- tapOn:
+      id: 'CandidateInputItemSelectors.Button.5'
+- tapOn:
+      id: 'InputModeButtonSelectors.Root'
+- extendedWaitUntil:
+      visible:
+          id: 'AvailableValueItemSelectors.Button.2'
+      timeout: 3000
+
+- takeScreenshot: '01-hero-board'
+- stopApp

@@ -3,6 +3,7 @@ import { router } from 'expo-router';
 
 import { useAppDispatch } from '../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../@generic/hooks/use-app-selector.hook';
+import { SettingsOptionSheetSelectors } from '../component/settings-option-sheet/settings-option-sheet.selectors';
 import { CellMargin } from '../constant/cell-margin.constant';
 import { FontSizes } from '../constant/font-sizes.constant';
 import { Languages } from '../constant/languages.constant';
@@ -60,7 +61,8 @@ export const useSettingsOptionSheetConfig = (setting: string | null): SettingsOp
         description: getLanguageDescription(language),
         isSelected: language === currentLanguage,
         label: getLanguageLabel(language),
-        onPress: () => void selectLanguage(language)
+        onPress: () => void selectLanguage(language),
+        testID: `${SettingsOptionSheetSelectors.Option}.${language}`
     }));
 
     if (setting === 'cell-margin') {

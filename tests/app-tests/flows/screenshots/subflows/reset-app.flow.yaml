@@ -1,0 +1,14 @@
+appId: ${APP_ID}
+---
+# Mirrors subflows/navigation/launch-home.flow.yaml. Screenshot flows target
+# both a locally connected dev client (which loses its cached Metro URL on
+# clearState: true) and a freshly installed release/E2E build, so this keeps
+# clearState: false and lets apply-language/apply-appearance make the
+# resulting state deterministic instead.
+- launchApp:
+      clearState: false
+- tapOn: 'Play'
+- extendedWaitUntil:
+      visible:
+          id: 'HomeScreenSelectors.Root'
+      timeout: 15000

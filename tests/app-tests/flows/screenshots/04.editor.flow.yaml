@@ -1,0 +1,26 @@
+appId: ${APP_ID}
+tags:
+    - screenshots
+---
+# Opened directly (no customThemeId/sourceThemeId params); the editor
+# self-seeds a draft theme from the currently active theme, so no prior
+# navigation through the themes list is required.
+- runFlow: subflows/reset-app.flow.yaml
+- runFlow:
+      file: subflows/apply-language.flow.yaml
+      env:
+          LOCALE: ${LOCALE}
+- runFlow:
+      file: subflows/apply-appearance.flow.yaml
+      env:
+          APPEARANCE: ${APPEARANCE}
+
+- openLink:
+      link: 'suuudokuuu://settings/themes/editor'
+- extendedWaitUntil:
+      visible:
+          id: 'theme-editor-screen'
+      timeout: 5000
+
+- takeScreenshot: '04-editor'
+- stopApp

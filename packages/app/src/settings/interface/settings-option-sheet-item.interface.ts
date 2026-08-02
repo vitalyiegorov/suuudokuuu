@@ -3,4 +3,5 @@ export interface SettingsOptionSheetItemInterface {
     readonly isSelected: boolean;
     readonly label: string;
     readonly onPress: () => void;
+    readonly testID?: string;
 }

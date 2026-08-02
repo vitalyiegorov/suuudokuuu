@@ -1,0 +1,28 @@
+appId: ${APP_ID}
+tags:
+    - screenshots
+---
+# Home screen with the difficulty slider on Hell so the ember gradient start
+# button is visible. Mirrors 13.hell-difficulty-run's setup step but never
+# starts a game, since the screenshot only needs the Home composition.
+- runFlow: subflows/reset-app.flow.yaml
+- runFlow:
+      file: subflows/apply-language.flow.yaml
+      env:
+          LOCALE: ${LOCALE}
+- runFlow:
+      file: subflows/apply-appearance.flow.yaml
+      env:
+          APPEARANCE: ${APPEARANCE}
+
+- tapOn:
+      id: 'DifficultyComplexityOptionSelectors.Option.Hell'
+- scrollUntilVisible:
+      element:
+          id: 'HomeScreenStartButtonEmberSelectors\.(AnimatedRoot|StaticRoot)'
+      direction: DOWN
+      visibilityPercentage: 50
+      timeout: 3000
+
+- takeScreenshot: '02-hell'
+- stopApp

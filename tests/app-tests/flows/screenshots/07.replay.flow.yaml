@@ -1,0 +1,70 @@
+appId: ${APP_ID}
+tags:
+    - screenshots
+---
+# Replay playback of a completed game. Completes the same win fixture used
+# by 04.statistics-screen.flow.yaml (lands in the Newbie history bucket),
+# then opens History through the deep link and its testID-only difficulty
+# card instead of tapping the localized "Stats" tab label or scrolling to
+# English "completed game" copy, so this works under every locale.
+- runFlow: subflows/reset-app.flow.yaml
+- runFlow:
+      file: subflows/apply-language.flow.yaml
+      env:
+          LOCALE: ${LOCALE}
+- runFlow:
+      file: subflows/apply-appearance.flow.yaml
+      env:
+          APPEARANCE: ${APPEARANCE}
+
+- runFlow:
+      file: ../subflows/shared/open-shared-challenge.flow.yaml
+      env:
+          SHARED_CHALLENGE_LINK: suuudokuuu://shared/_KGP________9____qXF6FFdMjBWGhJIN-CMqSm5omCUw0KFUm6-t2HxLUAuYMCP-
+- runFlow: ../subflows/shared/accept-shared-challenge.flow.yaml
+- tapOn:
+      id: 'CellSelectors.Cell.6-0'
+- tapOn:
+      id: 'AvailableValueItemSelectors.Button.2'
+- extendedWaitUntil:
+      visible:
+          id: 'ChallengeResultScreenSelectors.Root'
+      timeout: 5000
+- scrollUntilVisible:
+      element:
+          id: 'ChallengeResultFooterSelectors.HomeButton'
+      direction: DOWN
+      timeout: 5000
+- tapOn:
+      id: 'ChallengeResultFooterSelectors.HomeButton'
+- extendedWaitUntil:
+      visible:
+          id: 'HomeScreenSelectors.Root'
+      timeout: 5000
+
+- openLink:
+      link: 'suuudokuuu://history'
+- extendedWaitUntil:
+      visible:
+          id: 'HistoryScreenSelectors.Root'
+      timeout: 5000
+- scrollUntilVisible:
+      element:
+          id: 'HistoryDifficultySelectors.Card.Newbie'
+      direction: DOWN
+      timeout: 5000
+- tapOn:
+      id: 'HistoryDifficultySelectors.Card.Newbie'
+- extendedWaitUntil:
+      visible:
+          id: 'CompletedGameItemSelectors.ReplayButton'
+      timeout: 5000
+- tapOn:
+      id: 'CompletedGameItemSelectors.ReplayButton'
+- extendedWaitUntil:
+      visible:
+          id: 'ReplayControlsSelectors.Root'
+      timeout: 5000
+
+- takeScreenshot: '07-replay'
+- stopApp

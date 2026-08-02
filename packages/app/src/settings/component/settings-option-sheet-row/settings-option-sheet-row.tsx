@@ -16,9 +16,16 @@ interface Props {
     readonly isSelected: boolean;
     readonly label: string;
     readonly onPress: () => void;
+    readonly testID?: string;
 }
 
-export const SettingsOptionSheetRow = ({ description = '', isSelected, label, onPress }: Props) => {
+export const SettingsOptionSheetRow = ({
+    description = '',
+    isSelected,
+    label,
+    onPress,
+    testID = SettingsOptionSheetSelectors.Option
+}: Props) => {
     const { theme } = use(ThemeContext);
 
     const sheetColors = settingsOptionSheetGetColors(theme);
@@ -37,7 +44,7 @@ export const SettingsOptionSheetRow = ({ description = '', isSelected, label, on
             accessibilityState={accessibilityState}
             onPress={onPress}
             style={containerStyles}
-            testID={SettingsOptionSheetSelectors.Option}
+            testID={testID}
         >
             <View style={styles.content}>
                 <BlackText numberOfLines={1} style={titleStyles}>
