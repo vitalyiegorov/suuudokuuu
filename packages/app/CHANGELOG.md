@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.74.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.74.0...v1.74.1) (2026-08-02)
+
+### Bug Fixes
+
+- **app:** block restricted media permissions in the Android manifest ([1ad1146](https://github.com/vitalyiegorov/suuudokuuu/commit/1ad1146ef033d5ab09734c5ec9b2ffaf48b1ac61))
+
 # [1.74.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.73.1...v1.74.0) (2026-08-01)
 
 ### Bug Fixes
