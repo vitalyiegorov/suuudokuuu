@@ -1,0 +1,8 @@
+app_identifier("com.vitalyiegorov.suuudokuuu")
+apple_id("vitalyiegorov@gmail.com")
+team_id("3R8589YV24")
+
+for_platform :android do
+  package_name("com.vitaliiyehorov.suuudokuuu")
+  json_key_file(ENV["GOOGLE_SERVICE_ACCOUNT_KEY_PATH"])
+end
