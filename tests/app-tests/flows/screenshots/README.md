@@ -36,7 +36,15 @@ maestro test tests/app-tests/flows/screenshots/02.hell.flow.yaml \
 | Slot | Device | Simulator | Resolution |
 | ---- | ------ | --------- | ---------- |
 | iPhone 6.9" (primary) | iPhone 17 Pro Max | boot an "iPhone 17 Pro Max" simulator | 1320×2868 |
-| iPad 13" | iPad Pro 13-inch (M4) | boot an "iPad Pro 13-inch (M4)" simulator (or closest available `iPad Pro 13-inch` device type — see `xcrun simctl list devicetypes \| grep -i iPad`) | 2064×2752 |
+| iPad 13" portrait | iPad Pro 13-inch (M4) | boot an "iPad Pro 13-inch (M4)" simulator (or closest available `iPad Pro 13-inch` device type — see `xcrun simctl list devicetypes \| grep -i iPad`) | 2064×2752 |
+| iPad 13" landscape | iPad Pro 13-inch (M4) | same simulator, rotated automatically by the runner via serve-sim | 2752×2064 |
+
+The iPhone stays portrait-only (the app locks phone orientation). The iPad supports
+all orientations and the adaptive wide layout shines in landscape, so capture both:
+`ORIENTATION=landscape` (or `--orientation=landscape`) with `DEVICE_CLASS=ipad`
+writes to `raw/ios/ipad-landscape/…` and rotates the simulator before and after the
+run. Recommended store curation: iPad set leads with landscape shots, one or two
+portrait shots later in the set.
 
 Final store assets must be captured on these exact simulator classes. Smaller/other
 simulators produce differently sized/cropped screenshots that App Store Connect will reject

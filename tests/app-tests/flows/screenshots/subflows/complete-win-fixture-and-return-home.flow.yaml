@@ -15,7 +15,7 @@ appId: ${APP_ID}
       id: 'AvailableValueItemSelectors.Button.2'
 - extendedWaitUntil:
       visible:
-          id: 'ChallengeResultScreenSelectors.Root'
+          id: 'ChallengeResultScreenSelectors.OutcomeValue'
       timeout: 5000
 - scrollUntilVisible:
       element:

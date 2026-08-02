@@ -40,6 +40,7 @@ const { values: cliOptions } = parseArgs({
         appearances: { type: 'string' },
         'device-class': { type: 'string' },
         locales: { type: 'string' },
+        orientation: { type: 'string' },
         'output-dir': { type: 'string' },
         platform: { type: 'string' },
         scenes: { type: 'string' },
@@ -52,7 +53,18 @@ const appId = cliOptions['app-id'] ?? process.env.APP_ID;
 const deviceClass = cliOptions['device-class'] ?? process.env.DEVICE_CLASS ?? 'iphone';
 const simulatorUdid =
     cliOptions.udid ?? process.env.SIMULATOR_UDID ?? (platform === 'ios' ? detectBootedIosSimulatorUdid(deviceClass) : '');
+const orientation = cliOptions.orientation ?? process.env.ORIENTATION ?? 'portrait';
 const outputRootDirectory = cliOptions['output-dir'] ?? process.env.SCREENSHOT_OUTPUT_DIR ?? defaultOutputRootDirectory;
+
+if (!['portrait', 'landscape'].includes(orientation)) {
+    process.stderr.write(`Unknown orientation "${orientation}". Use portrait or landscape.\n`);
+    process.exit(1);
+}
+
+if (orientation === 'landscape' && deviceClass !== 'ipad') {
+    process.stderr.write('Landscape capture is only supported for the ipad device class; the app locks iPhone to portrait.\n');
+    process.exit(1);
+}
 const selectedLocales = isDefinedString(cliOptions.locales) ? parseCommaSeparatedList(cliOptions.locales) : AllLocales;
 const selectedAppearances = isDefinedString(cliOptions.appearances) ? parseCommaSeparatedList(cliOptions.appearances) : AllAppearances;
 const selectedSceneNames = isDefinedString(cliOptions.scenes) ? parseCommaSeparatedList(cliOptions.scenes) : AllScenes.map(scene => scene.name);
@@ -122,8 +134,27 @@ function runMaestroScene(scene, locale, appearance, testOutputDirectory) {
     return { failureOutput, succeeded: result.status === 0 };
 }
 
+function rotateSimulator(targetOrientation) {
+    const detachResult = spawnSync('npx', ['serve-sim', '--detach', '-q', simulatorUdid], { encoding: 'utf8' });
+
+    if (detachResult.status !== 0) {
+        process.stderr.write('Failed to start serve-sim for rotation. Install it with "npx serve-sim" once, then retry.\n');
+        process.exit(1);
+    }
+
+    const rotateResult = spawnSync('npx', ['serve-sim', 'rotate', targetOrientation, '-d', simulatorUdid], {
+        encoding: 'utf8',
+    });
+
+    if (rotateResult.status !== 0) {
+        process.stderr.write(`Failed to rotate simulator to ${targetOrientation}: ${rotateResult.stderr}\n`);
+        process.exit(1);
+    }
+}
+
 function captureCombination(locale, appearance) {
-    const deviceClassPathSegments = platform === 'ios' ? [deviceClass] : [];
+    const deviceClassSegment = orientation === 'landscape' ? `${deviceClass}-landscape` : deviceClass;
+    const deviceClassPathSegments = platform === 'ios' ? [deviceClassSegment] : [];
     const testOutputDirectory = join(outputRootDirectory, platform, ...deviceClassPathSegments, locale, appearance);
 
     mkdirSync(testOutputDirectory, { recursive: true });
@@ -166,12 +197,20 @@ function main() {
         return;
     }
 
+    if (orientation === 'landscape') {
+        rotateSimulator('landscape_left');
+    }
+
     const results = [];
 
     for (const locale of selectedLocales) {
         for (const appearance of selectedAppearances) {
             results.push(...captureCombination(locale, appearance));
         }
+    }
+
+    if (orientation === 'landscape') {
+        rotateSimulator('portrait');
     }
 
     const failedResults = results.filter(result => result.status === 'failure');

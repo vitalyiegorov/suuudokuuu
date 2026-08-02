@@ -29,7 +29,16 @@ appId: ${APP_ID}
                     - extendedWaitUntil:
                           notVisible: '^Open$'
                           timeout: 5000
-          - tapOn: 'Play'
+          - openLink:
+                link: 'suuudokuuu://'
+          - runFlow:
+                when:
+                    visible: '^Open$'
+                commands:
+                    - tapOn: '^Open$'
+                    - extendedWaitUntil:
+                          notVisible: '^Open$'
+                          timeout: 5000
           - extendedWaitUntil:
                 visible:
                     id: 'HomeScreenSelectors.Root'

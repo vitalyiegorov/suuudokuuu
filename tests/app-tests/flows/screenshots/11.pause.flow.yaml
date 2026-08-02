@@ -28,7 +28,7 @@ tags:
       stopApp: false
 - extendedWaitUntil:
       visible:
-          id: 'PauseScreenSelectors.Root'
+          id: 'PauseScreenSelectors.TimeValue'
       timeout: 10000
 
 - takeScreenshot: '11-pause'
