@@ -85,18 +85,6 @@ jobs:
             - name: Publish a release
               run: yarn release
 
-            - name: Sync store release notes
-              run: |
-                  yarn workspace @suuudokuuu/app store:notes
-
-                  if git diff --quiet HEAD -- packages/app/fastlane/metadata; then
-                    echo "Store release notes are up to date."
-                    exit 0
-                  fi
-
-                  git add packages/app/fastlane/metadata
-                  git commit -m "chore: sync store release notes [skip ci]"
-                  git push origin HEAD:main
 
     web-deploy:
         name: Vercel deploy Web
