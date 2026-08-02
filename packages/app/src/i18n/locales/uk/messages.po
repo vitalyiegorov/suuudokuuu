@@ -261,7 +261,7 @@ msgstr "Режим виклику"
 
 #: src/challenge/components/challenge-mode-switch/challenge-mode-switch.tsx
 msgid "Challenge runs cannot be paused and record when you leave the app"
-msgstr "Партії-виклики не можна ставити на паузу, і вони фіксують, коли ти виходиш з застосунку"
+msgstr "Партії-виклики не можна ставити на паузу — час іде, навіть якщо ти вийдеш із застосунку"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Challenge won"

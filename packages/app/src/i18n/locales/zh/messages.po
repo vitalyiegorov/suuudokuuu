@@ -1117,7 +1117,7 @@ msgstr "对手的对局"
 
 #: src/challenge/components/challenge-result-rival-time-card/challenge-result-rival-time-card.tsx
 msgid "Rival's time to beat"
-msgstr "需要超越的对手时间"
+msgstr "对手用时"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Row"
