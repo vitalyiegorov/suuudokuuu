@@ -6,6 +6,8 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
 
+import { bakeLandscapeScreenshot } from './bake-landscape-screenshot.ts';
+
 const scriptDirectory = dirname(fileURLToPath(import.meta.url));
 const appTestsDirectory = dirname(scriptDirectory);
 const repositoryRootDirectory = dirname(dirname(appTestsDirectory));
@@ -153,6 +155,12 @@ function runMaestroScene(scene: Scene, locale: string, appearance: string, testO
     return { failureOutput, succeeded: result.status === 0 };
 }
 
+function sceneScreenshotBaseName(scene: Scene): string {
+    const sceneNumberPrefix = scene.file.split('.')[0];
+
+    return `${sceneNumberPrefix}-${scene.name}`;
+}
+
 function rotateSimulator(targetOrientation: string): void {
     const detachResult = spawnSync('npx', ['serve-sim', '--detach', '-q', simulatorUdid], { encoding: 'utf8' });
 
@@ -189,18 +197,37 @@ function captureCombination(locale: string, appearance: string): CaptureResult[]
 
     return selectedScenes.map(scene => {
         const startedAt = Date.now();
-        const { failureOutput, succeeded } = runMaestroScene(scene, locale, appearance, testOutputDirectory);
+        const firstAttempt = runMaestroScene(scene, locale, appearance, testOutputDirectory);
+        let sceneOutcome = firstAttempt;
+
+        if (!firstAttempt.succeeded) {
+            recycleIosDriver();
+            sceneOutcome = runMaestroScene(scene, locale, appearance, testOutputDirectory);
+        }
+
         const durationSeconds = Math.round((Date.now() - startedAt) / 1000);
-        const status = succeeded ? 'success' : 'failure';
+        const status = sceneOutcome.succeeded ? 'success' : 'failure';
 
         process.stdout.write(`[${deviceClass}/${locale}/${appearance}] ${scene.name}: ${status} (${durationSeconds}s)\n`);
 
-        if (!succeeded) {
-            process.stderr.write(`${failureOutput}\n`);
+        if (!sceneOutcome.succeeded) {
+            process.stderr.write(`${sceneOutcome.failureOutput}\n`);
+        }
+
+        if (sceneOutcome.succeeded && orientation === 'landscape') {
+            bakeLandscapeScreenshot(join(testOutputDirectory, `${sceneScreenshotBaseName(scene)}.png`));
         }
 
         return { appearance, deviceClass, durationSeconds, locale, scene: scene.name, status };
     });
+}
+
+function recycleIosDriver(): void {
+    if (platform !== 'ios' || simulatorUdid.length === 0) {
+        return;
+    }
+
+    spawnSync('bash', [join(scriptDirectory, 'recycle-ios-driver.sh'), simulatorUdid], { encoding: 'utf8' });
 }
 
 function main(): void {
@@ -224,6 +251,8 @@ function main(): void {
 
         return;
     }
+
+    recycleIosDriver();
 
     if (orientation === 'landscape') {
         rotateSimulator('landscape_left');

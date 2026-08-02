@@ -44,7 +44,10 @@ all orientations and the adaptive wide layout shines in landscape, so capture bo
 `ORIENTATION=landscape` (or `--orientation=landscape`) with `DEVICE_CLASS=ipad`
 writes to `raw/ios/ipad-landscape/…` and rotates the simulator before and after the
 run. Recommended store curation: iPad set leads with landscape shots, one or two
-portrait shots later in the set.
+portrait shots later in the set. The runner bakes each landscape capture's pixels
+physically (`scripts/bake-landscape-screenshot.ts`, 2752×2064 with no EXIF orientation
+metadata) immediately after it succeeds, since Maestro otherwise writes landscape PNGs
+in the portrait framebuffer with an EXIF rotation hint that stores reject.
 
 Final store assets must be captured on these exact simulator classes. Smaller/other
 simulators produce differently sized/cropped screenshots that App Store Connect will reject
@@ -177,3 +180,12 @@ used by `07.replay`, `10.stats`, and `13.history`.
   threaded through `ScoringScreen`'s `CollapsibleChromePage` `testID` prop (the same pattern
   `ThemesScreenSelectors.Root` already uses) — needed because `12.scoring` had no stable root
   id to wait on.
+
+## iPad scene coverage
+
+Maestro's iOS accessibility snapshots run ~19s per interaction on the iPad
+Pro 13" wide layout, so the gameplay-fixture scenes (win, replay, stats,
+pause, history) time out there. The iPad store set is therefore scoped to
+the eight fast scenes: hero-board, hell, themes, editor, rival, settings,
+home, scoring — more than enough for both stores' 3-8 shot galleries. The
+iPhone captures all 13 scenes.
