@@ -12,12 +12,16 @@ const appDirectory = dirname(scriptDirectory);
 const repositoryRootDirectory = dirname(dirname(appDirectory));
 
 const requireFromScript = createRequire(import.meta.url);
-const { getErrorMessage, isNotEmptyString } = requireFromScript('@rnw-community/shared');
+const sharedUtilities: {
+    getErrorMessage: (error: unknown) => string;
+    isNotEmptyString: (value: unknown) => value is string;
+} = requireFromScript('@rnw-community/shared');
+const { getErrorMessage, isNotEmptyString } = sharedUtilities;
 
 const iosReleaseNotesCharacterLimit = 4000;
 const androidChangelogCharacterLimit = 500;
 
-const storeNotesModel = process.env.STORE_NOTES_MODEL ?? 'claude-opus-5';
+const storeNotesModel = process.env['STORE_NOTES_MODEL'] ?? 'claude-opus-5';
 const releaseNotesMaxTokens = 64000;
 const appStoreNotesCodepointLimit = 3900;
 const playChangelogCodepointLimit = 490;
@@ -25,10 +29,15 @@ const playChangelogCodepointLimit = 490;
 const userFacingCommitTypes = new Set(['feat', 'fix', 'perf', 'i18n']);
 const userFacingCommitScopes = new Set(['app', 'ui']);
 
-const conventionalCommitPattern =
-    /^(?<type>[a-z]+)(?:\((?<scope>[a-z0-9,-]+)\))?(?<breaking>!)?:\s*(?<subject>.+)$/i;
+const conventionalCommitPattern = /^(?<type>[a-z]+)(?:\((?<scope>[a-z0-9,-]+)\))?(?<breaking>!)?:\s*(?<subject>.+)$/i;
 
-const localeStoreFolders = [
+interface LocaleStoreFolder {
+    appLocale: string;
+    iosLocale: string | undefined;
+    androidLocale: string;
+}
+
+const localeStoreFolders: LocaleStoreFolder[] = [
     { appLocale: 'ar', iosLocale: 'ar-SA', androidLocale: 'ar' },
     { appLocale: 'bn', iosLocale: undefined, androidLocale: 'bn-BD' },
     { appLocale: 'de', iosLocale: 'de-DE', androidLocale: 'de-DE' },
@@ -41,7 +50,7 @@ const localeStoreFolders = [
     { appLocale: 'sv', iosLocale: 'sv', androidLocale: 'sv-SE' },
     { appLocale: 'uk', iosLocale: 'uk', androidLocale: 'uk' },
     { appLocale: 'ur', iosLocale: undefined, androidLocale: 'ur' },
-    { appLocale: 'zh', iosLocale: 'zh-Hans', androidLocale: 'zh-CN' },
+    { appLocale: 'zh', iosLocale: 'zh-Hans', androidLocale: 'zh-CN' }
 ];
 
 const appLocales = localeStoreFolders.map(({ appLocale }) => appLocale);
@@ -62,29 +71,33 @@ For every locale, write native-quality, idiomatic copy — never a literal trans
 
 Respond with JSON only, matching the provided schema exactly.`;
 
-function runGit(args) {
+function runGit(args: string[]): string {
     return execFileSync('git', args, { cwd: repositoryRootDirectory, encoding: 'utf8' }).trim();
 }
 
-function getLatestTag() {
+function getLatestTag(): string {
     return runGit(['describe', '--tags', '--abbrev=0']);
 }
 
-function getHeadCommit() {
+function getHeadCommit(): string {
     return runGit(['rev-parse', 'HEAD']);
 }
 
-function getTagCommit(tag) {
+function getTagCommit(tag: string): string {
     return runGit(['rev-list', '-n1', tag]);
 }
 
-function readAppVersion() {
-    const appPackageJson = JSON.parse(readFileSync(join(appDirectory, 'package.json'), 'utf8'));
+const releaseNotesVersionSchema = z.string().min(1);
+const appPackageJsonSchema = z.object({ version: releaseNotesVersionSchema });
 
-    return releaseNotesVersionSchema.parse(appPackageJson.version);
+function readAppVersion(): string {
+    const appPackageJsonPath = join(appDirectory, 'package.json');
+    const appPackageJsonContents: unknown = JSON.parse(readFileSync(appPackageJsonPath, 'utf8'));
+
+    return appPackageJsonSchema.parse(appPackageJsonContents).version;
 }
 
-function getPreviousTag(latestTag) {
+function getPreviousTag(latestTag: string): string | undefined {
     const sortedTags = runGit(['tag', '--list', 'v*', '--sort=-v:refname'])
         .split('\n')
         .filter(tag => tag.length > 0);
@@ -94,15 +107,21 @@ function getPreviousTag(latestTag) {
     return hasPreviousTag ? sortedTags[latestTagIndex + 1] : undefined;
 }
 
-function getCommitSubjects(baseRef, headRef) {
+function getCommitSubjects(baseRef: string | undefined, headRef: string): string[] {
     const range = baseRef === undefined ? headRef : `${baseRef}..${headRef}`;
     const log = runGit(['log', range, '--pretty=%s']);
 
     return log.length === 0 ? [] : log.split('\n');
 }
 
-function isUserFacingCommit(commitMatch) {
-    const { type, scope } = commitMatch.groups;
+interface ConventionalCommitGroups {
+    type: string;
+    scope: string | undefined;
+    subject: string;
+}
+
+function isUserFacingCommit(commitGroups: ConventionalCommitGroups): boolean {
+    const { type, scope } = commitGroups;
     const hasUserFacingType = userFacingCommitTypes.has(type.toLowerCase());
 
     if (!hasUserFacingType) {
@@ -118,26 +137,34 @@ function isUserFacingCommit(commitMatch) {
     return scopeSegments.every(scopeSegment => userFacingCommitScopes.has(scopeSegment));
 }
 
-function toSentenceCase(text) {
+function toSentenceCase(text: string): string {
     const trimmedText = text.trim();
 
-    return trimmedText.length === 0
-        ? trimmedText
-        : trimmedText.charAt(0).toUpperCase() + trimmedText.slice(1);
+    return trimmedText.length === 0 ? trimmedText : trimmedText.charAt(0).toUpperCase() + trimmedText.slice(1);
 }
 
-function getReleaseNoteBullets(commitSubjects) {
-    const seenNormalizedBullets = new Set();
-    const bullets = [];
+function getReleaseNoteBullets(commitSubjects: string[]): string[] {
+    const seenNormalizedBullets = new Set<string>();
+    const bullets: string[] = [];
 
     for (const commitSubject of commitSubjects) {
         const commitMatch = conventionalCommitPattern.exec(commitSubject);
 
-        if (commitMatch === null || !isUserFacingCommit(commitMatch)) {
+        if (commitMatch === null || commitMatch.groups === undefined) {
             continue;
         }
 
-        const bullet = toSentenceCase(commitMatch.groups.subject);
+        const commitGroups: ConventionalCommitGroups = {
+            type: commitMatch.groups['type'],
+            scope: commitMatch.groups['scope'],
+            subject: commitMatch.groups['subject']
+        };
+
+        if (!isUserFacingCommit(commitGroups)) {
+            continue;
+        }
+
+        const bullet = toSentenceCase(commitGroups.subject);
         const normalizedBullet = bullet.toLowerCase();
 
         if (bullet.length === 0 || seenNormalizedBullets.has(normalizedBullet)) {
@@ -151,7 +178,7 @@ function getReleaseNoteBullets(commitSubjects) {
     return bullets;
 }
 
-function renderReleaseNotes(bullets) {
+function renderReleaseNotes(bullets: string[]): string {
     if (bullets.length === 0) {
         return "What's new:\n- Stability and quality improvements.";
     }
@@ -161,11 +188,11 @@ function renderReleaseNotes(bullets) {
     return ["What's new:", ...bulletLines].join('\n');
 }
 
-function trimToCharacterLimit(text, characterLimit) {
+function trimToCharacterLimit(text: string, characterLimit: number): string {
     return text.length <= characterLimit ? text : text.slice(0, characterLimit);
 }
 
-function trimToLineBoundary(text, characterLimit) {
+function trimToLineBoundary(text: string, characterLimit: number): string {
     if (text.length <= characterLimit) {
         return text;
     }
@@ -177,21 +204,23 @@ function trimToLineBoundary(text, characterLimit) {
     return truncatedText.slice(0, boundaryIndex).trimEnd();
 }
 
-function writeReleaseNotesFile(filePath, content) {
+function writeReleaseNotesFile(filePath: string, content: string): void {
     mkdirSync(dirname(filePath), { recursive: true });
     writeFileSync(filePath, content, 'utf8');
 }
 
-function reportStaleLocaleReleaseNotes(metadataDirectory) {
+function hasPublishedIosLocale(folder: LocaleStoreFolder): folder is LocaleStoreFolder & { iosLocale: string } {
+    return folder.iosLocale !== undefined && folder.iosLocale !== 'en-US';
+}
+
+function reportStaleLocaleReleaseNotes(metadataDirectory: string): void {
     const staleFilePaths = [
         ...localeStoreFolders
-            .filter(({ iosLocale }) => iosLocale !== undefined && iosLocale !== 'en-US')
+            .filter(hasPublishedIosLocale)
             .map(({ iosLocale }) => join(metadataDirectory, 'ios', iosLocale, 'release_notes.txt')),
         ...localeStoreFolders
             .filter(({ androidLocale }) => androidLocale !== 'en-US')
-            .map(({ androidLocale }) =>
-                join(metadataDirectory, 'android', androidLocale, 'changelogs', 'default.txt')
-            ),
+            .map(({ androidLocale }) => join(metadataDirectory, 'android', androidLocale, 'changelogs', 'default.txt'))
     ].filter(filePath => existsSync(filePath));
 
     if (staleFilePaths.length === 0) {
@@ -206,11 +235,11 @@ function reportStaleLocaleReleaseNotes(metadataDirectory) {
     }
 }
 
-function getCodepointLength(text) {
+function getCodepointLength(text: string): number {
     return [...text].length;
 }
 
-function trimToCodepointLineBoundary(text, codepointLimit) {
+function trimToCodepointLineBoundary(text: string, codepointLimit: number): string {
     const codepoints = [...text];
 
     if (codepoints.length <= codepointLimit) {
@@ -224,19 +253,17 @@ function trimToCodepointLineBoundary(text, codepointLimit) {
     return truncatedText.slice(0, boundaryIndex).trimEnd();
 }
 
-function buildReleaseNotesSchema() {
+function buildReleaseNotesSchema(): Record<string, unknown> {
     const localeReleaseNotesSchema = {
         type: 'object',
         properties: {
             appStore: { type: 'string' },
-            play: { type: 'string' },
+            play: { type: 'string' }
         },
         required: ['appStore', 'play'],
-        additionalProperties: false,
+        additionalProperties: false
     };
-    const localeProperties = Object.fromEntries(
-        appLocales.map(appLocale => [appLocale, localeReleaseNotesSchema])
-    );
+    const localeProperties = Object.fromEntries(appLocales.map(appLocale => [appLocale, localeReleaseNotesSchema]));
 
     return {
         type: 'object',
@@ -245,15 +272,15 @@ function buildReleaseNotesSchema() {
                 type: 'object',
                 properties: localeProperties,
                 required: appLocales,
-                additionalProperties: false,
-            },
+                additionalProperties: false
+            }
         },
         required: ['locales'],
-        additionalProperties: false,
+        additionalProperties: false
     };
 }
 
-function buildReleaseNotesUserPrompt(bullets, version) {
+function buildReleaseNotesUserPrompt(bullets: string[], version: string): string {
     const commitList =
         bullets.length === 0
             ? '(No user-facing changes were recorded for this release; write stability and quality improvement copy.)'
@@ -268,11 +295,18 @@ function buildReleaseNotesUserPrompt(bullets, version) {
         '- "appStore": Apple App Store "What\'s New" release notes, aiming for 600 characters or fewer.',
         '- "play": Google Play changelog, a hard limit of 490 characters, written as 4 to 6 short lines.',
         'Write native-quality, idiomatic copy for each locale — never a literal translation from English.',
-        'Respond with JSON only, matching the provided schema exactly.',
+        'Respond with JSON only, matching the provided schema exactly.'
     ].join('\n');
 }
 
-function buildShortenRetryPrompt(originalUserPrompt, violations) {
+interface LengthViolation {
+    appLocale: string;
+    field: 'appStore' | 'play';
+    limit: number;
+    length: number;
+}
+
+function buildShortenRetryPrompt(originalUserPrompt: string, violations: LengthViolation[]): string {
     const violationLines = violations.map(
         ({ appLocale, field, limit, length }) =>
             `- locale "${appLocale}", field "${field}": ${length} characters, must be ${limit} characters or fewer`
@@ -284,43 +318,50 @@ function buildShortenRetryPrompt(originalUserPrompt, violations) {
         'Your previous response exceeded the required limits on these fields:',
         ...violationLines,
         '',
-        'Return the complete JSON again for all 13 locales, matching the schema exactly, with only the fields listed above shortened to fit their limits. Keep every other field as strong as before.',
+        'Return the complete JSON again for all 13 locales, matching the schema exactly, with only the fields listed above shortened to fit their limits. Keep every other field as strong as before.'
     ].join('\n');
 }
 
 function buildLocaleReleaseNotesResponseSchema() {
     const localeReleaseNotesSchema = z.object({
         appStore: z.string(),
-        play: z.string(),
+        play: z.string()
     });
 
     return z.object({
-        locales: z.object(Object.fromEntries(appLocales.map(appLocale => [appLocale, localeReleaseNotesSchema]))),
+        locales: z.object(Object.fromEntries(appLocales.map(appLocale => [appLocale, localeReleaseNotesSchema])))
     });
 }
 
 const localeReleaseNotesResponseSchema = buildLocaleReleaseNotesResponseSchema();
 
-const releaseNotesVersionSchema = z.string().min(1);
+type LocaleReleaseNotesResponse = z.infer<typeof localeReleaseNotesResponseSchema>;
+type LocaleReleaseNotesMap = LocaleReleaseNotesResponse['locales'];
+interface LocaleReleaseNotes {
+    appStore: string;
+    play: string;
+}
 
 const releaseNotesStateSchema = z.object({
     baseRef: z.string(),
     generatedAtCommit: z.string(),
-    generatedFor: z.string(),
+    generatedFor: z.string()
 });
 
-function getReleaseNotesStatePath(metadataDirectory) {
+type ReleaseNotesState = z.infer<typeof releaseNotesStateSchema>;
+
+function getReleaseNotesStatePath(metadataDirectory: string): string {
     return join(metadataDirectory, 'release-notes-state.json');
 }
 
-function writeReleaseNotesState(metadataDirectory, state) {
+function writeReleaseNotesState(metadataDirectory: string, state: ReleaseNotesState): void {
     const stateFilePath = getReleaseNotesStatePath(metadataDirectory);
 
     writeFileSync(stateFilePath, `${JSON.stringify(state, undefined, 4)}\n`, 'utf8');
     console.log(`  ${stateFilePath}`);
 }
 
-function checkReleaseNotesFreshness(metadataDirectory) {
+function checkReleaseNotesFreshness(metadataDirectory: string): void {
     const stateFilePath = getReleaseNotesStatePath(metadataDirectory);
 
     if (!existsSync(stateFilePath)) {
@@ -331,9 +372,10 @@ function checkReleaseNotesFreshness(metadataDirectory) {
         return;
     }
 
-    const state = releaseNotesStateSchema.parse(JSON.parse(readFileSync(stateFilePath, 'utf8')));
+    const stateFileContents: unknown = JSON.parse(readFileSync(stateFilePath, 'utf8'));
+    const state = releaseNotesStateSchema.parse(stateFileContents);
 
-    let commitSubjectsSinceGeneration = [];
+    let commitSubjectsSinceGeneration: string[] = [];
     try {
         commitSubjectsSinceGeneration = getCommitSubjects(state.generatedAtCommit, 'HEAD');
     } catch {
@@ -361,7 +403,11 @@ function checkReleaseNotesFreshness(metadataDirectory) {
     }
 }
 
-async function requestReleaseNotesCompletion(client, schema, userPrompt) {
+async function requestReleaseNotesCompletion(
+    client: Anthropic,
+    schema: Record<string, unknown>,
+    userPrompt: string
+): Promise<Anthropic.Beta.BetaMessage> {
     const stream = client.beta.messages.stream({
         model: storeNotesModel,
         max_tokens: releaseNotesMaxTokens,
@@ -369,24 +415,29 @@ async function requestReleaseNotesCompletion(client, schema, userPrompt) {
         fallbacks: 'default',
         system: releaseNotesSystemPrompt,
         messages: [{ role: 'user', content: userPrompt }],
-        output_config: { format: { type: 'json_schema', schema } },
+        output_config: { format: { type: 'json_schema', schema } }
     });
 
     return stream.finalMessage();
 }
 
-function parseReleaseNotesMessage(message) {
+function isTextContentBlock(block: Anthropic.Beta.BetaContentBlock): block is Anthropic.Beta.BetaTextBlock {
+    return block.type === 'text';
+}
+
+function parseReleaseNotesMessage(message: Anthropic.Beta.BetaMessage): LocaleReleaseNotesMap {
     const responseText = message.content
-        .filter(block => block.type === 'text')
+        .filter(isTextContentBlock)
         .map(block => block.text)
         .join('');
-    const parsedResponse = localeReleaseNotesResponseSchema.parse(JSON.parse(responseText));
+    const responseJson: unknown = JSON.parse(responseText);
+    const parsedResponse = localeReleaseNotesResponseSchema.parse(responseJson);
 
     return parsedResponse.locales;
 }
 
-function findLengthViolations(localeNotes) {
-    const violations = [];
+function findLengthViolations(localeNotes: LocaleReleaseNotesMap): LengthViolation[] {
+    const violations: LengthViolation[] = [];
 
     for (const appLocale of appLocales) {
         const notes = localeNotes[appLocale];
@@ -398,7 +449,7 @@ function findLengthViolations(localeNotes) {
                 appLocale,
                 field: 'appStore',
                 limit: appStoreNotesCodepointLimit,
-                length: appStoreLength,
+                length: appStoreLength
             });
         }
 
@@ -410,13 +461,13 @@ function findLengthViolations(localeNotes) {
     return violations;
 }
 
-function truncateLocaleNotesToLimits(localeNotes) {
+function truncateLocaleNotesToLimits(localeNotes: LocaleReleaseNotesMap): Record<string, LocaleReleaseNotes> {
     return Object.fromEntries(
         appLocales.map(appLocale => {
             const notes = localeNotes[appLocale];
             const truncatedNotes = {
                 appStore: trimToCodepointLineBoundary(notes.appStore, appStoreNotesCodepointLimit),
-                play: trimToCodepointLineBoundary(notes.play, playChangelogCodepointLimit),
+                play: trimToCodepointLineBoundary(notes.play, playChangelogCodepointLimit)
             };
 
             return [appLocale, truncatedNotes];
@@ -424,7 +475,7 @@ function truncateLocaleNotesToLimits(localeNotes) {
     );
 }
 
-async function generateLocalizedReleaseNotesWithClaude(bullets, version) {
+async function generateLocalizedReleaseNotesWithClaude(bullets: string[], version: string): Promise<Record<string, LocaleReleaseNotes>> {
     const client = new Anthropic();
     const schema = buildReleaseNotesSchema();
     const userPrompt = buildReleaseNotesUserPrompt(bullets, version);
@@ -454,8 +505,8 @@ async function generateLocalizedReleaseNotesWithClaude(bullets, version) {
     return retryViolations.length === 0 ? retriedLocaleNotes : truncateLocaleNotesToLimits(retriedLocaleNotes);
 }
 
-function writeLocalizedReleaseNotesFiles(localeNotes, metadataDirectory) {
-    const writtenFilePaths = [];
+function writeLocalizedReleaseNotesFiles(localeNotes: Record<string, LocaleReleaseNotes>, metadataDirectory: string): string[] {
+    const writtenFilePaths: string[] = [];
 
     for (const { appLocale, iosLocale, androidLocale } of localeStoreFolders) {
         const notes = localeNotes[appLocale];
@@ -474,7 +525,7 @@ function writeLocalizedReleaseNotesFiles(localeNotes, metadataDirectory) {
     return writtenFilePaths;
 }
 
-async function generateLocalizedStoreReleaseNotes(bullets, version, metadataDirectory) {
+async function generateLocalizedStoreReleaseNotes(bullets: string[], version: string, metadataDirectory: string): Promise<void> {
     const localeNotes = await generateLocalizedReleaseNotesWithClaude(bullets, version);
     const writtenFilePaths = writeLocalizedReleaseNotesFiles(localeNotes, metadataDirectory);
 
@@ -485,7 +536,12 @@ async function generateLocalizedStoreReleaseNotes(bullets, version, metadataDire
     }
 }
 
-function generateFallbackEnglishStoreReleaseNotes(bullets, baseRef, headRef, metadataDirectory) {
+function generateFallbackEnglishStoreReleaseNotes(
+    bullets: string[],
+    baseRef: string | undefined,
+    headRef: string,
+    metadataDirectory: string
+): void {
     const releaseNotes = renderReleaseNotes(bullets);
     const iosReleaseNotesPath = join(metadataDirectory, 'ios', 'en-US', 'release_notes.txt');
     const androidChangelogPath = join(metadataDirectory, 'android', 'en-US', 'changelogs', 'default.txt');
@@ -500,7 +556,7 @@ function generateFallbackEnglishStoreReleaseNotes(bullets, baseRef, headRef, met
     reportStaleLocaleReleaseNotes(metadataDirectory);
 }
 
-async function main() {
+async function main(): Promise<void> {
     const metadataDirectory = join(appDirectory, 'fastlane', 'metadata');
 
     if (process.argv.includes('--check')) {
@@ -521,7 +577,7 @@ async function main() {
 
     let hasGeneratedNotes = false;
 
-    if (isNotEmptyString(process.env.ANTHROPIC_API_KEY)) {
+    if (isNotEmptyString(process.env['ANTHROPIC_API_KEY'])) {
         try {
             await generateLocalizedStoreReleaseNotes(bullets, version, metadataDirectory);
             hasGeneratedNotes = true;
@@ -537,11 +593,11 @@ async function main() {
     writeReleaseNotesState(metadataDirectory, {
         baseRef: baseRef ?? '(initial commit)',
         generatedAtCommit: headCommit,
-        generatedFor: version,
+        generatedFor: version
     });
 }
 
-main().catch(error => {
+main().catch((error: unknown) => {
     console.error(getErrorMessage(error));
     process.exitCode = 1;
 });

@@ -14,10 +14,10 @@
         "lint": "run -T eslint --fix src vercel-functions",
         "prebuild": "LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 expo prebuild --clean",
         "start": "expo start --dev-client -c",
-        "store:notes": "node scripts/generate-store-release-notes.mjs",
+        "store:notes": "node scripts/generate-store-release-notes.ts",
         "test": "run -T jest",
         "test:coverage": "run -T jest --coverage",
-        "ts": "run -T tsc -p .",
+        "ts": "run -T tsc -p . && run -T tsc -p scripts",
         "web": "expo start --web"
     },
     "dependencies": {

@@ -125,7 +125,7 @@ jobs:
 
             - name: Check store release notes freshness
               working-directory: packages/app
-              run: node scripts/generate-store-release-notes.mjs --check
+              run: node scripts/generate-store-release-notes.ts --check
 
             - name: Push App Store metadata
               working-directory: packages/app
@@ -345,7 +345,7 @@ jobs:
 
             - name: Check store release notes freshness
               working-directory: packages/app
-              run: node scripts/generate-store-release-notes.mjs --check
+              run: node scripts/generate-store-release-notes.ts --check
 
             - name: Push Play Store metadata
               working-directory: packages/app

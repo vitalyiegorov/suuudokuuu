@@ -72,12 +72,12 @@ are the source of truth. The flow:
    tag and the commit it generated from. This is how the publish workflow
    knows what the committed notes cover.
 3. The "Build and Publish to Stores" workflow runs
-   `generate-store-release-notes.mjs --check` before pushing metadata: it
+   `generate-store-release-notes.ts --check` before pushing metadata: it
    compares the state file against `HEAD` and emits a workflow warning when
    user-facing commits landed after the last generation, listing them.
    It never blocks the publish.
 
-`packages/app/scripts/generate-store-release-notes.mjs` always starts the
+`packages/app/scripts/generate-store-release-notes.ts` always starts the
 same way:
 
 1. Picks the commit range: everything since the latest tag when `HEAD` has
@@ -137,7 +137,7 @@ yarn workspace @suuudokuuu/app store:notes
 Check freshness (the same check the publish workflow runs):
 
 ```bash
-node packages/app/scripts/generate-store-release-notes.mjs --check
+node packages/app/scripts/generate-store-release-notes.ts --check
 ```
 
 No CI secret is needed for release notes — `ANTHROPIC_API_KEY` only has to

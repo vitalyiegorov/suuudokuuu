@@ -16,7 +16,13 @@ const defaultOutputRootDirectory = join(repositoryRootDirectory, 'packages', 'ap
 const AllLocales = ['en', 'uk', 'de', 'es', 'fr', 'sv', 'zh', 'hi', 'ar', 'bn', 'pt', 'id', 'ur'];
 const AllAppearances = ['light', 'dark'];
 const AllDeviceClasses = ['iphone', 'ipad'];
-const AllScenes = [
+
+interface Scene {
+    file: string;
+    name: string;
+}
+
+const AllScenes: Scene[] = [
     { file: '01.hero-board.flow.yaml', name: 'hero-board' },
     { file: '02.hell.flow.yaml', name: 'hell' },
     { file: '03.themes.flow.yaml', name: 'themes' },
@@ -32,7 +38,16 @@ const AllScenes = [
     { file: '13.history.flow.yaml', name: 'history' }
 ];
 
-const parseCommaSeparatedList = value => value.split(',').map(item => item.trim()).filter(item => item.length > 0);
+function parseCommaSeparatedList(value: string): string[] {
+    return value
+        .split(',')
+        .map(item => item.trim())
+        .filter(item => item.length > 0);
+}
+
+function isDefinedString(value: unknown): value is string {
+    return typeof value === 'string' && value.length > 0;
+}
 
 const { values: cliOptions } = parseArgs({
     options: {
@@ -48,13 +63,23 @@ const { values: cliOptions } = parseArgs({
     }
 });
 
-const platform = cliOptions.platform ?? process.env.SCREENSHOT_PLATFORM ?? 'ios';
-const appId = cliOptions['app-id'] ?? process.env.APP_ID;
-const deviceClass = cliOptions['device-class'] ?? process.env.DEVICE_CLASS ?? 'iphone';
+function detectBootedIosSimulatorUdid(targetDeviceClass: string): string {
+    const result = spawnSync('xcrun', ['simctl', 'list', 'devices', 'booted'], { encoding: 'utf8' });
+    const bootedDeviceLines = (result.stdout ?? '').split('\n').filter(line => line.includes('(Booted)'));
+    const deviceClassPattern = targetDeviceClass === 'ipad' ? /ipad/i : /iphone/i;
+    const matchingLine = bootedDeviceLines.find(line => deviceClassPattern.test(line)) ?? bootedDeviceLines[0];
+    const match = matchingLine?.match(/\(([0-9A-F-]{36})\) \(Booted\)/);
+
+    return match?.[1] ?? '';
+}
+
+const platform = cliOptions.platform ?? process.env['SCREENSHOT_PLATFORM'] ?? 'ios';
+const appId = cliOptions['app-id'] ?? process.env['APP_ID'];
+const deviceClass = cliOptions['device-class'] ?? process.env['DEVICE_CLASS'] ?? 'iphone';
 const simulatorUdid =
-    cliOptions.udid ?? process.env.SIMULATOR_UDID ?? (platform === 'ios' ? detectBootedIosSimulatorUdid(deviceClass) : '');
-const orientation = cliOptions.orientation ?? process.env.ORIENTATION ?? 'portrait';
-const outputRootDirectory = cliOptions['output-dir'] ?? process.env.SCREENSHOT_OUTPUT_DIR ?? defaultOutputRootDirectory;
+    cliOptions.udid ?? process.env['SIMULATOR_UDID'] ?? (platform === 'ios' ? detectBootedIosSimulatorUdid(deviceClass) : '');
+const orientation = cliOptions.orientation ?? process.env['ORIENTATION'] ?? 'portrait';
+const outputRootDirectory = cliOptions['output-dir'] ?? process.env['SCREENSHOT_OUTPUT_DIR'] ?? defaultOutputRootDirectory;
 
 if (!['portrait', 'landscape'].includes(orientation)) {
     process.stderr.write(`Unknown orientation "${orientation}". Use portrait or landscape.\n`);
@@ -65,26 +90,15 @@ if (orientation === 'landscape' && deviceClass !== 'ipad') {
     process.stderr.write('Landscape capture is only supported for the ipad device class; the app locks iPhone to portrait.\n');
     process.exit(1);
 }
+
 const selectedLocales = isDefinedString(cliOptions.locales) ? parseCommaSeparatedList(cliOptions.locales) : AllLocales;
 const selectedAppearances = isDefinedString(cliOptions.appearances) ? parseCommaSeparatedList(cliOptions.appearances) : AllAppearances;
-const selectedSceneNames = isDefinedString(cliOptions.scenes) ? parseCommaSeparatedList(cliOptions.scenes) : AllScenes.map(scene => scene.name);
+const selectedSceneNames = isDefinedString(cliOptions.scenes)
+    ? parseCommaSeparatedList(cliOptions.scenes)
+    : AllScenes.map(scene => scene.name);
 const selectedScenes = AllScenes.filter(scene => selectedSceneNames.includes(scene.name));
 
-function isDefinedString(value) {
-    return typeof value === 'string' && value.length > 0;
-}
-
-function detectBootedIosSimulatorUdid(targetDeviceClass) {
-    const result = spawnSync('xcrun', ['simctl', 'list', 'devices', 'booted'], { encoding: 'utf8' });
-    const bootedDeviceLines = (result.stdout ?? '').split('\n').filter(line => line.includes('(Booted)'));
-    const deviceClassPattern = targetDeviceClass === 'ipad' ? /ipad/i : /iphone/i;
-    const matchingLine = bootedDeviceLines.find(line => deviceClassPattern.test(line)) ?? bootedDeviceLines[0];
-    const match = matchingLine?.match(/\(([0-9A-F-]{36})\) \(Booted\)/);
-
-    return match?.[1] ?? '';
-}
-
-function flattenMaestroScreenshotsDirectory(testOutputDirectory) {
+function flattenMaestroScreenshotsDirectory(testOutputDirectory: string): void {
     const nestedScreenshotsDirectory = join(testOutputDirectory, 'screenshots');
 
     if (!existsSync(nestedScreenshotsDirectory)) {
@@ -98,7 +112,12 @@ function flattenMaestroScreenshotsDirectory(testOutputDirectory) {
     rmdirSync(nestedScreenshotsDirectory);
 }
 
-function runMaestroScene(scene, locale, appearance, testOutputDirectory) {
+interface MaestroSceneOutcome {
+    failureOutput: string;
+    succeeded: boolean;
+}
+
+function runMaestroScene(scene: Scene, locale: string, appearance: string, testOutputDirectory: string): MaestroSceneOutcome {
     const flowPath = join(screenshotsFlowsDirectory, scene.file);
     const maestroArguments = [
         'test',
@@ -134,7 +153,7 @@ function runMaestroScene(scene, locale, appearance, testOutputDirectory) {
     return { failureOutput, succeeded: result.status === 0 };
 }
 
-function rotateSimulator(targetOrientation) {
+function rotateSimulator(targetOrientation: string): void {
     const detachResult = spawnSync('npx', ['serve-sim', '--detach', '-q', simulatorUdid], { encoding: 'utf8' });
 
     if (detachResult.status !== 0) {
@@ -143,7 +162,7 @@ function rotateSimulator(targetOrientation) {
     }
 
     const rotateResult = spawnSync('npx', ['serve-sim', 'rotate', targetOrientation, '-d', simulatorUdid], {
-        encoding: 'utf8',
+        encoding: 'utf8'
     });
 
     if (rotateResult.status !== 0) {
@@ -152,7 +171,16 @@ function rotateSimulator(targetOrientation) {
     }
 }
 
-function captureCombination(locale, appearance) {
+interface CaptureResult {
+    appearance: string;
+    deviceClass: string;
+    durationSeconds: number;
+    locale: string;
+    scene: string;
+    status: 'success' | 'failure';
+}
+
+function captureCombination(locale: string, appearance: string): CaptureResult[] {
     const deviceClassSegment = orientation === 'landscape' ? `${deviceClass}-landscape` : deviceClass;
     const deviceClassPathSegments = platform === 'ios' ? [deviceClassSegment] : [];
     const testOutputDirectory = join(outputRootDirectory, platform, ...deviceClassPathSegments, locale, appearance);
@@ -175,7 +203,7 @@ function captureCombination(locale, appearance) {
     });
 }
 
-function main() {
+function main(): void {
     if (!isDefinedString(appId)) {
         process.stderr.write('APP_ID is required. Pass --app-id=<bundle-id> or set the APP_ID environment variable.\n');
         process.exitCode = 1;
@@ -201,7 +229,7 @@ function main() {
         rotateSimulator('landscape_left');
     }
 
-    const results = [];
+    const results: CaptureResult[] = [];
 
     for (const locale of selectedLocales) {
         for (const appearance of selectedAppearances) {
