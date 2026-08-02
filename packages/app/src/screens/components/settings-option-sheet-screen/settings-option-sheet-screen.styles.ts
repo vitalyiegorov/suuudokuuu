@@ -1,12 +1,7 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-import { settingsOptionSheetGetColors } from '../../../settings/utils/settings-option-sheet-get-colors.util';
-
-export const SettingsOptionSheetScreenStyles = StyleSheet.create(theme => ({
-    sheetBackground: {
-        backgroundColor: settingsOptionSheetGetColors(theme).panelBackground
-    },
+export const SettingsOptionSheetScreenStyles = StyleSheet.create({
     sheetContent: {
         flex: 1
     }
-}));
+});
