@@ -1,19 +1,5 @@
-const sheetContentWidthStyleId = 'suuudokuuu-sheet-content-width';
+import { emptyFn } from '@rnw-community/shared';
 
-const sheetContentWidthCss = `[data-vaul-drawer] {
-    max-width: 640px;
-    margin-left: auto;
-    margin-right: auto;
-}`;
+import './sheet-content-width.css';
 
-export const applySheetContentWidth = (): void => {
-    if (typeof document === 'undefined' || document.getElementById(sheetContentWidthStyleId) !== null) {
-        return;
-    }
-
-    const styleElement = document.createElement('style');
-
-    styleElement.id = sheetContentWidthStyleId;
-    styleElement.textContent = sheetContentWidthCss;
-    document.head.append(styleElement);
-};
+export const applySheetContentWidth = emptyFn;
