@@ -37,7 +37,8 @@ const AllScenes: Scene[] = [
     { file: '10.stats.flow.yaml', name: 'stats' },
     { file: '11.pause.flow.yaml', name: 'pause' },
     { file: '12.scoring.flow.yaml', name: 'scoring' },
-    { file: '13.history.flow.yaml', name: 'history' }
+    { file: '13.history.flow.yaml', name: 'history' },
+    { file: '14.challenge-live.flow.yaml', name: 'challenge-live' }
 ];
 
 function parseCommaSeparatedList(value: string): string[] {

@@ -114,7 +114,7 @@ always passes `--config`; if you invoke a flow manually for debugging, pass it t
 
 | # | Scene | Screen | Fixture / navigation |
 | - | ----- | ------ | --------------------- |
-| 01 | hero-board | Mid-game board, selected cell + pencil marks | Reuses the `02.game-screen-win` win fixture but pencils two candidates into the last empty cell instead of filling it, so the board reads "in progress". |
+| 01 | hero-board | Fresh, mostly-empty board, selected cell + pencil marks | Selects `DifficultyComplexityOptionSelectors.Option.Nightmare` and starts a real new game (`subflows/game/start-new-game.flow.yaml`), so the board reads airy (17-25 clues) instead of the near-complete board the old win-fixture reuse produced. Since a generated puzzle's blank cells are random, the flow cascades `tapOn` across a handful of spread-out coordinates, using the `'•'` marker `FieldCellText` renders for a selected empty cell to detect the first one that is actually blank, then pencils three candidates into it. Quits the game before `stopApp` so later scenes (or a later locale/appearance pass over this scene) don't inherit an in-progress run. |
 | 02 | hell | Home screen, Hell difficulty (ember gradient button) | Taps `DifficultyComplexityOptionSelectors.Option.Hell`, same setup step as `13.hell-difficulty-run`, without starting a game. |
 | 03 | themes | Themes screen | `suuudokuuu://settings/themes` |
 | 04 | editor | Theme editor | `suuudokuuu://settings/themes/editor` (self-seeds a draft from the active theme; no prior navigation needed) |
@@ -127,6 +127,7 @@ always passes `--config`; if you invoke a flow manually for debugging, pass it t
 | 11 | pause | Pause screen (board preview, time/score/mistakes) | Starts a real game (`subflows/game/start-new-game.flow.yaml`), backgrounds the app (`pressKey: Home`), waits, then foregrounds with `launchApp: { stopApp: false }` — the same background/foreground sequence the main suite's `07.background-foreground-game.flow.yaml` uses to reach `PauseScreenSelectors.Root`. Pause has no route params of its own to seed, so there's no deep-link shortcut. |
 | 12 | scoring | "How Scoring Works" screen | `suuudokuuu://scoring`. Fully static content driven by `defaultScoringConfig`, so no fixture or prior navigation is needed. |
 | 13 | history | History detail: completed games for one difficulty (Score/Time/Mistakes rows) | Completes the win fixture via `subflows/complete-win-fixture-and-return-home.flow.yaml`, opens `suuudokuuu://history`, then taps the Newbie difficulty card — one step deeper than `10.stats` and one step short of `07.replay`'s playback screen. |
+| 14 | challenge-live | Live challenge run, rival ahead (losing state) | Opens the same rival fixture `06.rival` previews (`SHARED_CHALLENGE_LINK`), taps `ChallengeAcceptScreenSelectors.AcceptButton`, then waits an observation window (`subflows/shared/wait-observation-window.flow.yaml`, 30s) with no player moves. The fixture's rival finishes in 03:50, so 30s puts the rival at roughly 13% progress against the player's 0%, which crosses `ChallengeRaceStatus`'s lead margin and renders the "Rival is ahead" losing state on `ChallengeRaceHudSelectors.Root` (the live race HUD's progress timeline and status badge). Pairs with `06.rival` as a two-shot story: accept-preview, then the race itself. Quits the game before `stopApp` for the same reason `01.hero-board` does. |
 
 `subflows/complete-win-fixture-and-return-home.flow.yaml` factors out the shared "open the win
 fixture, accept it, fill the last cell, wait for the challenge result, return to Home" sequence
@@ -186,6 +187,10 @@ used by `07.replay`, `10.stats`, and `13.history`.
 Maestro's iOS accessibility snapshots run ~19s per interaction on the iPad
 Pro 13" wide layout, so the gameplay-fixture scenes (win, replay, stats,
 pause, history) time out there. The iPad store set is therefore scoped to
-the eight fast scenes: hero-board, hell, themes, editor, rival, settings,
-home, scoring — more than enough for both stores' 3-8 shot galleries. The
-iPhone captures all 13 scenes.
+hero-board, hell, themes, editor, rival, settings, home, scoring, and
+challenge-live — more than enough for both stores' 3-8 shot galleries.
+`challenge-live` pairs with `rival` (accept-preview, then the race itself)
+and, despite reaching the live game screen, has completed reliably in
+practice (under two minutes per capture); pull it back out of the iPad set
+if it starts timing out the way the excluded gameplay-fixture scenes do.
+The iPhone captures all 14 scenes.

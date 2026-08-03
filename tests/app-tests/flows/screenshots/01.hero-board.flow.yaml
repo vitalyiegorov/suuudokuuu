@@ -2,10 +2,14 @@ appId: ${APP_ID}
 tags:
     - screenshots
 ---
-# Mid-game board with a selected cell and pencil marks. Reuses the win
-# fixture from 02.game-screen-win/04.statistics-screen (single empty cell
-# 6-0, value 2) but stops short of filling it in, pencilling two candidates
-# instead so the board reads as "in progress" rather than won.
+# Fresh Nightmare-difficulty board so the hero shot reads airy: 17-25 clues
+# out of 81 cells leaves most of the grid empty, unlike the near-complete
+# win-fixture board this scene used to reuse. Nightmare (not Hell) avoids the
+# bundled Hell corpus's slower load. Which cell ends up blank is inherently
+# random per generation, so this cascades through a handful of spread-out
+# coordinates using the '•' marker FieldCellText renders for a selected
+# empty cell (field-cell-text.tsx's getText) to find the first one that is
+# actually blank instead of assuming any single fixed coordinate is empty.
 - runFlow: subflows/reset-app.flow.yaml
 - runFlow:
       file: subflows/apply-language.flow.yaml
@@ -16,14 +20,38 @@ tags:
       env:
           APPEARANCE: ${APPEARANCE}
 
-- runFlow:
-      file: ../subflows/shared/open-shared-challenge.flow.yaml
-      env:
-          SHARED_CHALLENGE_LINK: suuudokuuu://shared/_KGP________9____qXF6FFdMjBWGhJIN-CMqSm5omCUw0KFUm6-t2HxLUAuYMCP-
-- runFlow: ../subflows/shared/accept-shared-challenge.flow.yaml
+- tapOn:
+      id: 'DifficultyComplexityOptionSelectors.Option.Nightmare'
+- runFlow: ../subflows/game/start-new-game.flow.yaml
 
 - tapOn:
-      id: 'CellSelectors.Cell.6-0'
+      id: 'CellSelectors.Cell.4-4'
+- runFlow:
+      when:
+          notVisible: '•'
+      commands:
+          - tapOn:
+                id: 'CellSelectors.Cell.0-0'
+          - runFlow:
+                when:
+                    notVisible: '•'
+                commands:
+                    - tapOn:
+                          id: 'CellSelectors.Cell.8-8'
+                    - runFlow:
+                          when:
+                              notVisible: '•'
+                          commands:
+                              - tapOn:
+                                    id: 'CellSelectors.Cell.2-6'
+                              - runFlow:
+                                    when:
+                                        notVisible: '•'
+                                    commands:
+                                        - tapOn:
+                                              id: 'CellSelectors.Cell.6-2'
+- assertVisible: '•'
+
 - tapOn:
       id: 'InputModeButtonSelectors.Root'
 - extendedWaitUntil:
@@ -35,6 +63,8 @@ tags:
 - tapOn:
       id: 'CandidateInputItemSelectors.Button.5'
 - tapOn:
+      id: 'CandidateInputItemSelectors.Button.8'
+- tapOn:
       id: 'InputModeButtonSelectors.Root'
 - extendedWaitUntil:
       visible:
@@ -42,4 +72,5 @@ tags:
       timeout: 3000
 
 - takeScreenshot: '01-hero-board'
+- runFlow: ../subflows/game/quit-current-game.flow.yaml
 - stopApp
