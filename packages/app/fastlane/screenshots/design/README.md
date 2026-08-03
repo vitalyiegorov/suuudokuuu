@@ -1,11 +1,21 @@
 # App Store screenshot design
 
-Caption copy and [frameit](https://docs.fastlane.tools/actions/frameit/)
-configuration for the iOS App Store screenshot set. This directory only holds
-design assets (`Framefile.json`, per-locale `title.strings`, and the shared
-background). It does not contain raw device captures, store metadata, or
-Fastlane lanes — see `../raw/` for captures and `../../metadata/` for listing
-copy.
+Caption copy for the iOS App Store screenshot set, plus a
+[frameit](https://docs.fastlane.tools/actions/frameit/) configuration kept for
+reference. This directory only holds design assets (`Framefile.json`,
+per-locale `title.strings`, and the shared background). It does not contain
+raw device captures, store metadata, or Fastlane lanes — see `../raw/` for
+captures and `../../metadata/` for listing copy.
+
+**The committed `en-US` set is actually produced by
+`compose-screenshots.sh` (ImageMagick), not by running `fastlane frameit`
+below.** `Framefile.json` targets a fixed 1320x2868 canvas (the iPhone 6.9"
+slot), but the current raw captures are native-resolution iPhone 17
+(1206x2622) and iPad Pro 13" landscape (2752x2064) shots, and `deliver`
+assigns screenshots to store slots by exact pixel dimensions — see
+`../README.md`'s "Framing" section for the full reasoning and the reproducible
+command. The `frameit` instructions below remain accurate if a future capture
+run targets the 6.9" canvas directly.
 
 ## Layout
 
