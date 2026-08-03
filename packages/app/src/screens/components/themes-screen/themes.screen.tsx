@@ -35,8 +35,10 @@ export const ThemesScreen = () => {
     return (
         <CollapsibleChromePage
             contentContainerStyle={resolveUnistyleForAnimated(styles.scrollContent)}
+            contentStyle={styles.content}
             footer={footer}
             footerStyle={styles.footer}
+            style={resolveUnistyleForAnimated(styles.scrollView)}
             testID={ThemesScreenSelectors.Root}
             title={t`Theme`}
         >
