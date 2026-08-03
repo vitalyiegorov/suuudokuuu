@@ -41,7 +41,11 @@ Locales: `en-US`, `ar-SA`, `de-DE`, `es-ES`, `fr-FR`, `hi`, `id`, `pt-BR`,
 
 ## Brand
 
-- Background: `#F5F5F5`, near-black `#0A0A0A` text, black device bezel.
+- Background: two mirrored palettes, one per variant. Light: `#F5F5F5`
+  canvas with near-black `#0A0A0A` text. Dark (the deployed default):
+  `#141414`-to-`#0E0E0E` canvas with near-white `#F5F5F5` text. Black
+  device bezel in both. `set_variant_palette` in `compose-screenshots.sh`
+  owns the mapping.
 - Type: Inter, Black (900) weight, loaded straight from
   `@expo-google-fonts/inter` (the same family the app ships via
   `Inter_900Black.ttf` — see `packages/app/app.json`'s `expo-font` plugin
@@ -95,9 +99,9 @@ rules themselves unless the underlying research changes.
    down — this is what makes the flat background read as intentional depth
    instead of a flat product photo pasted onto paper.
 5. **Two alternating layouts.** Layout `A` is text-top / device-bottom;
-   layout `B` flips it: device-top / text-bottom. The `SCENES` array
-   alternates `A`/`B` by position across the whole gallery (iPhone then
-   iPad) so a full scroll through the store listing doesn't look like the
+   layout `B` flips it: device-top / text-bottom. The
+   `SCENES_LIGHT`/`SCENES_DARK` arrays alternate `A`/`B` by position across
+   the whole gallery (iPhone then iPad) so a full scroll through the store listing doesn't look like the
    same template repeated — with one deliberate exception: two shots that
    are a connected pair (the challenge accept/live shots) share the same
    layout on purpose, so the pair reads as one two-part scene rather than
@@ -114,14 +118,15 @@ rules themselves unless the underlying research changes.
    headline and descriptor: an earlier version of this design rendered a
    fixed Ukraine-flag-colored underline mark there as a brand signal, but it
    read as a decorative afterthought rather than a premium one and was
-   removed — every headline renders in the same near-black `#0A0A0A`, and
+   removed — every headline renders in the variant's text color, and
    typography hierarchy alone carries the brand now.
-7. **Flat background, barely-there depth.** The canvas stays `#F5F5F5` in
+7. **Flat background, barely-there depth.** The canvas stays flat in
    spirit — no gradient brand treatment, because a visible gradient would
    fight this app's minimalist black/white/red identity — but it's actually
-   painted as an almost imperceptible vertical tone shift (`#F7F7F7` top to
-   `#F1F1F1` bottom, a 6-level difference) so it doesn't read as a dead flat
-   swatch next to the device's drop shadow.
+   painted as an almost imperceptible vertical tone shift (light:
+   `#F7F7F7` top to `#F1F1F1` bottom; dark: `#141414` top to `#0E0E0E`
+   bottom) so it doesn't read as a dead flat swatch next to the device's
+   drop shadow.
 8. **Endpoint emphasis.** The first and last shots in the whole gallery use
    the top of the device height range (0.78); every shot in between uses the
    bottom of the range (0.74) — a small, deliberate difference, not visible

@@ -24,6 +24,9 @@ platform :ios do
       key_filepath: ENV["EXPO_ASC_API_KEY_PATH"]
     )
 
+    deployed_variants = JSON.parse(File.read("./fastlane/screenshots/deployed-variant.json"))
+    screenshot_variant = ENV.fetch("SCREENSHOT_VARIANT", deployed_variants.fetch("ios"))
+
     deliver(
       skip_binary_upload: true,
       skip_metadata: true,
@@ -31,7 +34,7 @@ platform :ios do
       overwrite_screenshots: true,
       force: true,
       precheck_include_in_app_purchases: false,
-      screenshots_path: "./fastlane/screenshots/ios"
+      screenshots_path: "./fastlane/screenshots/variants/#{screenshot_variant}/ios"
     )
   end
 end

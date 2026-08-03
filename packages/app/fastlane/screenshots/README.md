@@ -1,9 +1,19 @@
 # Store screenshots
 
-`ios/<locale>/` holds the store-ready screenshots that `fastlane ios_screenshots`
-uploads. They are committed to the repo on purpose: store media changes rarely,
-so it is versioned and reviewed like any other asset instead of being rebuilt on
+`variants/<variant>/ios/<locale>/` holds the store-ready screenshots, one
+full set per appearance variant: `variants/dark/` and `variants/light/`.
+Both are committed to the repo on purpose: store media changes rarely, so it
+is versioned and reviewed like any other asset instead of being rebuilt on
 every release.
+
+Only one variant is ever uploaded — stores have no per-user appearance
+switch for listing media, so the deployed set is a single deliberate brand
+choice. `deployed-variant.json` records that choice per platform (currently
+`dark` for iOS, matching the app's dark-first identity); the
+`ios_screenshots` lane reads it and points `deliver` at
+`variants/<variant>/ios`. Set `SCREENSHOT_VARIANT=light|dark` when invoking
+the lane to override without editing the file. Switching the store to the
+other variant is a one-line JSON change plus a screenshot upload dispatch.
 
 `raw/` is the Maestro capture output and is gitignored — it is the intermediate
 input for curation, not a deliverable.
@@ -11,7 +21,7 @@ input for curation, not a deliverable.
 ## Current set
 
 English only, framed and captioned from the flows in
-`tests/app-tests/flows/screenshots`:
+`tests/app-tests/flows/screenshots`, in both variants:
 
 | Prefix | Device | Resolution | App Store slot |
 | ------ | ------ | ---------- | -------------- |
@@ -48,9 +58,17 @@ flows happen to capture them in:
    (Ukrainian), proving per-cell theming and language breadth in a single
    shot instead of two separate ones.
 6. `07-replay` — move-by-move replay, a depth feature for engaged users.
-7. `01-hero-board`, **dark appearance** — the closing note. Reuses the same
-   airy board as shot 1 to prove the redesign holds up in dark mode too, with
-   its own copy so it doesn't read as a repeat of the opener.
+7. `01-hero-board`, **opposite appearance** — the closing note. Reuses the
+   same airy board as shot 1 to prove the design holds up in the other mode
+   too, with its own copy so it doesn't read as a repeat of the opener. In
+   the light variant that's the dark board ("Still sharp after dark."); in
+   the dark variant it's the light board ("Just as sharp in daylight.").
+
+The two variants mirror each other exactly: the same seven iPhone and five
+iPad scenes in the same order and layouts, each shot using its own variant's
+appearance for both the app capture and the canvas palette, with only the
+closing shot flipped. That keeps a variant switch a pure brand decision —
+no re-curation, no new copy, no different story.
 
 The iPad set (`21`-`25`) skips the two-device combo (framing two devices at a
 legible size only works on the iPhone's narrower canvas) and reuses five
@@ -96,11 +114,14 @@ at `~/.fastlane/frameit/latest`):
 fastlane frameit download_frames
 ```
 
-Regenerate the English set from `packages/app`:
+Regenerate both English variant sets from `packages/app`:
 
 ```bash
-fastlane/screenshots/design/compose-screenshots.sh en-US
+fastlane/screenshots/design/compose-screenshots.sh en-US all
 ```
+
+The second argument selects the variant (`light`, `dark`, or `all`,
+defaulting to `all`).
 
 The script (requires ImageMagick 7, `magick` on `PATH`, and the frame assets
 above) implements the researched, conversion-oriented design system
@@ -130,19 +151,22 @@ short version:
   gap instead of independently anchoring text and device to opposite canvas
   edges — the composition reads as one cohesive unit, not a caption-island
   floating apart from a device-island.
-- Every headline renders in the same near-black `#0A0A0A` with no per-scene
-  accent. An earlier version of this design rendered a small two-color
-  underline bar under every headline as a fixed brand mark; it read as a
-  decorative afterthought rather than a premium signal and was removed —
-  typography hierarchy alone now carries the brand.
+- Every headline renders in the variant's text color (near-black `#0A0A0A`
+  on the light canvas, near-white `#F5F5F5` on the dark one) with no
+  per-scene accent. An earlier version of this design rendered a small
+  two-color underline bar under every headline as a fixed brand mark; it
+  read as a decorative afterthought rather than a premium signal and was
+  removed — typography hierarchy alone now carries the brand.
 - Writes output at the exact source resolution so `deliver` slots each image
-  correctly, into `ios/<locale>/`, overwriting the locale's existing set.
+  correctly, into `variants/<variant>/ios/<locale>/`, overwriting that
+  variant's existing locale set.
 
-The curated scene manifest (which raw capture, which appearance, which
+The curated scene manifests (which raw capture, which appearance, which
 layout variant, which device height fraction, which output filename, in
-what order) is a store-listing decision and lives directly in the `SCENES`
-array in `compose-screenshots.sh`, not in a separate config — edit it there
-to change ordering, swap scenes, or change the layout rhythm.
+what order) are a store-listing decision and live directly in the
+`SCENES_LIGHT`/`SCENES_DARK` arrays in `compose-screenshots.sh`, not in a
+separate config — edit them there to change ordering, swap scenes, or
+change the layout rhythm, and keep the two manifests mirrored.
 
 ## Refreshing them
 
@@ -150,12 +174,13 @@ to change ordering, swap scenes, or change the layout rhythm.
    set was captured on an iPhone 17 simulator (6.3" slot) and an iPad Pro 13"
    landscape simulator; capture on an iPhone 17 Pro Max simulator instead if
    you need to fill the 6.9" slot (1320x2868).
-2. Run `fastlane/screenshots/design/compose-screenshots.sh en-US` from
-   `packages/app` to frame and caption the curated set.
-3. Review the output in `ios/en-US/` and commit it.
+2. Run `fastlane/screenshots/design/compose-screenshots.sh en-US all` from
+   `packages/app` to frame and caption both curated variant sets.
+3. Review the output in `variants/{dark,light}/ios/en-US/` and commit it.
 4. Upload by dispatching "Build and Publish to Stores" with
    "Also upload the committed store screenshots" checked, or run
-   `fastlane ios_screenshots` locally.
+   `fastlane ios_screenshots` locally. Both paths upload the variant named
+   in `deployed-variant.json` unless `SCREENSHOT_VARIANT` overrides it.
 
 ## Gaps
 

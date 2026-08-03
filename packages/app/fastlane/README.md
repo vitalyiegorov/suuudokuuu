@@ -193,8 +193,12 @@ uploaded when explicitly requested.
    captions in `fastlane/screenshots/design/` (see its README for the exact
    commands).
 3. Commit the final framed assets:
-   - iOS: `fastlane/screenshots/ios/<ios-locale>/*.png` (read by the
-     `ios_screenshots` lane via `deliver`'s `screenshots_path`).
+   - iOS: `fastlane/screenshots/variants/<variant>/ios/<ios-locale>/*.png`,
+     one full set per appearance variant (`light` and `dark`). The
+     `ios_screenshots` lane reads the deployed variant from
+     `fastlane/screenshots/deployed-variant.json` (currently `dark`) and
+     points `deliver`'s `screenshots_path` at that variant's directory;
+     `SCREENSHOT_VARIANT=light|dark` overrides it for a one-off upload.
    - Android: `fastlane/metadata/android/<locale>/images/phoneScreenshots/`
      plus `images/featureGraphic.png` (the standard `supply` layout, read by
      the `android_screenshots` lane).

@@ -14,8 +14,8 @@
 # frame assets and offset data directly: it composites each raw capture into
 # the frame PNG's own transparent screen cutout (so the frame's real bezel,
 # not a synthetic radius, decides what covers the screenshot's corners), then
-# scales that framed unit down onto a same-resolution #F5F5F5 canvas with a
-# two-tier headline/descriptor caption stack and a soft drop shadow. See
+# scales that framed unit down onto a same-resolution variant-palette canvas
+# with a two-tier headline/descriptor caption stack and a soft drop shadow. See
 # README.md's "Framing" section and design/README.md's "Design system"
 # section for the full reasoning.
 #
@@ -25,14 +25,16 @@
 #   fastlane frameit download_frames
 #
 # Usage:
-#   packages/app/fastlane/screenshots/design/compose-screenshots.sh [locale]
+#   packages/app/fastlane/screenshots/design/compose-screenshots.sh [locale] [variant]
 #
 # `locale` defaults to en-US and must have a design/<locale>/title.strings
-# and design/<locale>/subtitle.strings file. The scene manifest (which raw
-# captures to use, in which order, with which appearance, layout variant, and
-# device size) is curated below in SCENES — it is a store-listing decision,
-# not something to infer from the raw capture directory, so it is not read
-# from a config file.
+# and design/<locale>/subtitle.strings file. `variant` is light, dark, or
+# all (the default) and selects which appearance set(s) to compose into
+# variants/<variant>/ios/<locale>. The scene manifests (which raw captures
+# to use, in which order, with which appearance, layout variant, and device
+# size) are curated below in SCENES_LIGHT/SCENES_DARK — they are a
+# store-listing decision, not something to infer from the raw capture
+# directory, so they are not read from a config file.
 #
 # Requires ImageMagick 7 (`magick`) on PATH.
 
@@ -45,9 +47,15 @@ RAW_DIR="$APP_DIR/fastlane/screenshots/raw/ios"
 FONT="$REPO_ROOT/node_modules/@expo-google-fonts/inter/900Black/Inter_900Black.ttf"
 
 LOCALE="${1:-en-US}"
+VARIANT="${2:-all}"
 TITLES="$DESIGN_DIR/$LOCALE/title.strings"
 SUBTITLES="$DESIGN_DIR/$LOCALE/subtitle.strings"
-OUT_DIR="$APP_DIR/fastlane/screenshots/ios/$LOCALE"
+OUT_DIR=""
+
+if [[ "$VARIANT" != "all" && "$VARIANT" != "light" && "$VARIANT" != "dark" ]]; then
+  echo "error: unknown variant '$VARIANT'. Use light, dark, or all." >&2
+  exit 1
+fi
 
 if [[ ! -f "$TITLES" ]]; then
   echo "error: no title.strings for locale '$LOCALE' at $TITLES" >&2
@@ -123,15 +131,27 @@ IPAD_CUTOUT_H=2048
 # --- Design system constants — see design/README.md "Design system" for the
 # researched rationale behind each of these. --------------------------------
 
-# Background: flat #F5F5F5 with an almost imperceptible top-to-bottom tone
-# shift instead of a pure solid fill — reads as flat at a glance (a gradient
-# would fight this app's minimalist black/white/red brand) but keeps the
-# canvas from looking like a dead, printer-paper flat swatch next to the
-# device shadow.
-BACKGROUND_TOP_HEX="#F7F7F7"
-BACKGROUND_BOTTOM_HEX="#F1F1F1"
-
-TEXT_HEX="#0A0A0A"
+# Background: near-flat canvas with an almost imperceptible top-to-bottom
+# tone shift instead of a pure solid fill — reads as flat at a glance (a
+# gradient would fight this app's minimalist black/white/red brand) but
+# keeps the canvas from looking like a dead, printer-paper flat swatch next
+# to the device shadow. Each variant gets its own canvas and text palette;
+# set_variant_palette selects the active one before composing.
+set_variant_palette() {
+  local variant="$1"
+  if [[ "$variant" == "dark" ]]; then
+    BACKGROUND_TOP_HEX="#141414"
+    BACKGROUND_BOTTOM_HEX="#0E0E0E"
+    TEXT_HEX="#F5F5F5"
+    DESCRIPTOR_RGB="245,245,245"
+  else
+    BACKGROUND_TOP_HEX="#F7F7F7"
+    BACKGROUND_BOTTOM_HEX="#F1F1F1"
+    TEXT_HEX="#0A0A0A"
+    DESCRIPTOR_RGB="10,10,10"
+  fi
+  OUT_DIR="$APP_DIR/fastlane/screenshots/variants/$variant/ios/$LOCALE"
+}
 
 # Headline point size target: 9-11% of canvas width, but on a landscape
 # canvas (iPad, wider than it is tall) sizing off the raw width produces a
@@ -276,7 +296,7 @@ build_shadow() {
 # transparent PNG, `cap_w` wide and exactly as tall as its rendered content —
 # no wasted vertical space, so position_layout can place the device directly
 # beneath (or above) it with a fixed, tight gap instead of centering it in a
-# fixed box. Every headline renders in the same near-black $TEXT_HEX with no
+# fixed box. Every headline renders in the variant's $TEXT_HEX with no
 # per-scene accent — a two-color underline mark used to live here but read
 # as a decorative afterthought rather than a premium brand signal, so it was
 # removed; typography hierarchy alone now carries the brand.
@@ -304,7 +324,7 @@ build_text_stack() {
   headline_h="$(magick identify -format "%h" "$headline_png")"
 
   descriptor_png="$WORK_ROOT/$$-descriptor-$RANDOM.png"
-  magick -background none -fill "rgba(10,10,10,${DESCRIPTOR_OPACITY})" -font "$FONT" -pointsize "$descriptor_pt" \
+  magick -background none -fill "rgba(${DESCRIPTOR_RGB},${DESCRIPTOR_OPACITY})" -font "$FONT" -pointsize "$descriptor_pt" \
     -gravity center -size "${cap_w}x" caption:"$descriptor" -trim +repage \
     -define png:color-type=6 -depth 8 "$descriptor_png"
   descriptor_w="$(magick identify -format "%w" "$descriptor_png")"
@@ -355,13 +375,26 @@ position_layout() {
 # corner overlap) covers the screenshot's square corners. Nothing crops the
 # capture — resizing "!" fills the cutout exactly and the frame only ever
 # adds bezel around it. Output is at the frame's own native resolution.
+# The screen cutout's bounding box overlaps the frame's transparent outer
+# corner region (the device's outer corner radius is larger than the
+# screen's), so a square capture composited at the cutout offset pokes past
+# the bezel at all four corners. Clip the capture to the frame's enclosed
+# screen cutout: flood-fill the border-connected transparent region out of
+# the alpha mask so only the screen opening (the one transparent region not
+# touching the image edge) keeps capture pixels.
 frame_capture() {
   local src="$1" frame_file="$2" cutout_x="$3" cutout_y="$4" cutout_w="$5" cutout_h="$6" out="$7"
-  local frame_native_w frame_native_h
+  local frame_native_w frame_native_h cutout_mask
   frame_native_w="$(magick identify -format "%w" "$frame_file")"
   frame_native_h="$(magick identify -format "%h" "$frame_file")"
+  cutout_mask="$WORK_ROOT/cutout-mask-$$-$RANDOM.png"
+  magick "$frame_file" -alpha extract -fuzz 50% -fill white -floodfill +0+0 black -negate \
+    \( -size "${frame_native_w}x${frame_native_h}" xc:black -fill white \
+      -draw "rectangle ${cutout_x},${cutout_y} $((cutout_x + cutout_w - 1)),$((cutout_y + cutout_h - 1))" \) \
+    -compose Multiply -composite -define png:color-type=0 -depth 8 "$cutout_mask"
   magick -size "${frame_native_w}x${frame_native_h}" xc:none \
     \( "$src" -resize "${cutout_w}x${cutout_h}!" \) -geometry "+${cutout_x}+${cutout_y}" -compose Over -composite \
+    "$cutout_mask" -compose CopyOpacity -composite \
     "$frame_file" -compose Over -composite \
     -define png:color-type=6 -depth 8 "$out"
 }
@@ -432,8 +465,7 @@ compose_one() {
   frame_native_h="$(magick identify -format "%h" "$frame_file")"
 
   local work
-  work="$(mktemp -d)"
-  trap 'rm -rf "$work"' RETURN
+  work="$(mktemp -d "$WORK_ROOT/compose-XXXXXX")"
 
   magick -size "${canvas_w}x${canvas_h}" "gradient:${BACKGROUND_TOP_HEX}-${BACKGROUND_BOTTOM_HEX}" \
     -define png:color-type=2 -depth 8 "$work/bg.png"
@@ -480,9 +512,9 @@ compose_one() {
 # — the right (Ukrainian) device is composited on top, so its own content is
 # always fully legible; only the left device's right edge is partly covered.
 compose_combo() {
-  local layout="$1" height_fraction="$2" out_name="$3" caption_key="$4"
-  local left_src="$RAW_DIR/iphone/en/light/04-editor.png"
-  local right_src="$RAW_DIR/iphone/uk/light/03-themes.png"
+  local layout="$1" height_fraction="$2" out_name="$3" caption_key="$4" appearance="${5:-light}"
+  local left_src="$RAW_DIR/iphone/en/$appearance/04-editor.png"
+  local right_src="$RAW_DIR/iphone/uk/$appearance/03-themes.png"
   wait_for_capture "$left_src"
   wait_for_capture "$right_src"
 
@@ -495,8 +527,7 @@ compose_combo() {
   canvas_h="$(magick identify -format "%h" "$left_src")"
 
   local work
-  work="$(mktemp -d)"
-  trap 'rm -rf "$work"' RETURN
+  work="$(mktemp -d "$WORK_ROOT/compose-XXXXXX")"
 
   magick -size "${canvas_w}x${canvas_h}" "gradient:${BACKGROUND_TOP_HEX}-${BACKGROUND_BOTTOM_HEX}" \
     -define png:color-type=2 -depth 8 "$work/bg.png"
@@ -573,8 +604,12 @@ compose_combo() {
 # of the device height range (0.78), every other shot uses the shorter end
 # (0.74) — see design/README.md "Design system". The combo scene (device
 # field "combo") is dispatched to compose_combo instead of compose_one; its
-# scene/appearance fields are unused placeholders.
-SCENES=(
+# appearance field selects which captures the combo pulls, its scene field
+# is an unused placeholder. The two variant manifests mirror each other:
+# every shot uses its own variant's appearance, and the closing iPhone shot
+# flips to the opposite appearance as the "also does the other mode" proof
+# (dark closer in the light set, light closer in the dark set).
+SCENES_LIGHT=(
   "iphone|01-hero-board|light|A|$DEVICE_HEIGHT_FRACTION_ENDPOINT|01_iphone_hero-board.png"
   "iphone|02-hell|light|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|02_iphone_hell.png"
   "iphone|06-rival|light|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|03_iphone_challenge-accept.png"
@@ -589,12 +624,47 @@ SCENES=(
   "ipad-landscape|09-home|light|A|$DEVICE_HEIGHT_FRACTION_ENDPOINT|25_ipad_home.png"
 )
 
-rm -f "$OUT_DIR"/*.png
-for entry in "${SCENES[@]}"; do
-  IFS='|' read -r device scene appearance layout height_fraction out_name caption_key <<<"$entry"
-  if [[ "$device" == "combo" ]]; then
-    compose_combo "$layout" "$height_fraction" "$out_name" "$caption_key"
+SCENES_DARK=(
+  "iphone|01-hero-board|dark|A|$DEVICE_HEIGHT_FRACTION_ENDPOINT|01_iphone_hero-board.png"
+  "iphone|02-hell|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|02_iphone_hell.png"
+  "iphone|06-rival|dark|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|03_iphone_challenge-accept.png"
+  "iphone|14-challenge-live|dark|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|04_iphone_challenge-live.png"
+  "combo|-|dark|B|$DEVICE_HEIGHT_FRACTION_COMBO|05_iphone_customization.png|05-customization"
+  "iphone|07-replay|dark|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|06_iphone_replay.png"
+  "iphone|01-hero-board|light|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|07_iphone_hero-board-light.png|01-hero-board-light"
+  "ipad-landscape|01-hero-board|dark|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|21_ipad_hero-board.png"
+  "ipad-landscape|02-hell|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|22_ipad_hell.png"
+  "ipad-landscape|14-challenge-live|dark|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|23_ipad_challenge-live.png"
+  "ipad-landscape|04-editor|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|24_ipad_editor.png"
+  "ipad-landscape|09-home|dark|A|$DEVICE_HEIGHT_FRACTION_ENDPOINT|25_ipad_home.png"
+)
+
+run_variant() {
+  local variant="$1"
+  local -a scenes
+  set_variant_palette "$variant"
+  if [[ "$variant" == "dark" ]]; then
+    scenes=("${SCENES_DARK[@]}")
   else
-    compose_one "$device" "$scene" "$appearance" "$layout" "$height_fraction" "$out_name" "$caption_key"
+    scenes=("${SCENES_LIGHT[@]}")
   fi
-done
+
+  mkdir -p "$OUT_DIR"
+  rm -f "$OUT_DIR"/*.png
+  local entry device scene appearance layout height_fraction out_name caption_key
+  for entry in "${scenes[@]}"; do
+    IFS='|' read -r device scene appearance layout height_fraction out_name caption_key <<<"$entry"
+    if [[ "$device" == "combo" ]]; then
+      compose_combo "$layout" "$height_fraction" "$out_name" "$caption_key" "$appearance"
+    else
+      compose_one "$device" "$scene" "$appearance" "$layout" "$height_fraction" "$out_name" "$caption_key"
+    fi
+  done
+}
+
+if [[ "$VARIANT" == "all" ]]; then
+  run_variant "light"
+  run_variant "dark"
+else
+  run_variant "$VARIANT"
+fi
