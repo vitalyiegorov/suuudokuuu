@@ -31,8 +31,10 @@ fastlane/screenshots/
     └── <locale>/subtitle.strings                  # per-locale descriptors, same keys as title.strings
 ```
 
-Scenes, in gallery order: `01-hero-board`, `02-hell`, `03-themes`,
-`04-editor`, `05-win`, `06-rival`, `07-replay`, `08-settings`.
+Scenes, in gallery order: `01-hero-board`, `02-hell`, `06-rival`,
+`14-challenge-live`, the two-device customization combo (`04-editor` +
+`03-themes`, Ukrainian), `07-replay`, `01-hero-board` (dark). The iPad set
+additionally uses `09-home`.
 
 Locales: `en-US`, `ar-SA`, `de-DE`, `es-ES`, `fr-FR`, `hi`, `id`, `pt-BR`,
 `sv`, `uk`, `zh-Hans` — matching `../../metadata/ios`.
@@ -48,12 +50,16 @@ Locales: `en-US`, `ar-SA`, `de-DE`, `es-ES`, `fr-FR`, `hi`, `id`, `pt-BR`,
   resolved relative to `Framefile.json`'s own directory (frameit's
   `config_parser.rb` resolves relative paths against the config file's
   location, not the working directory).
-- Accent: Ukrainian flag colors, applied as one fixed underline mark below
-  every headline — see "Design system" below. `Framefile.json` (the
-  reference-only frameit config, not what actually produces the committed
-  set — see "The committed `en-US` set..." above) still uses the older
-  single-caption, per-scene-color-override design; it has not been updated to
-  match, since it is not exercised by any current pipeline.
+- Accent: none. An earlier version of this design rendered a fixed
+  Ukraine-flag-colored underline mark below every headline; it was removed
+  by design decision (it read as a decorative afterthought, not a premium
+  brand signal) — see "Design system" below. Every headline renders in the
+  same near-black `#0A0A0A`; typography hierarchy alone carries the brand
+  now. `Framefile.json` (the reference-only frameit config, not what
+  actually produces the committed set — see "The committed `en-US` set..."
+  above) still uses the older single-caption, per-scene-color-override
+  design; it has not been updated to match, since it is not exercised by any
+  current pipeline.
 
 ## Design system
 
@@ -88,18 +94,28 @@ rules themselves unless the underlying research changes.
    scaling its opacity, blurring only the alpha channel, and translating it
    down — this is what makes the flat background read as intentional depth
    instead of a flat product photo pasted onto paper.
-5. **Two alternating layouts.** Layout `A` is text-top / device-bottom
-   (anchored to the top and bottom edges respectively); layout `B` flips it:
-   device-top / text-bottom. The `SCENES` array alternates `A`/`B` by
-   position across the whole gallery (iPhone then iPad) so a full scroll
-   through the store listing doesn't look like the same template repeated.
-6. **Fixed Ukraine accent mark.** A short bar directly under the headline
-   (before the descriptor), half `#0057B7` / half `#FFD700`, ~12% of canvas
-   width, 4-6px tall (scaled off canvas height). It renders at the same
-   position relative to the text stack and the same proportions on every
-   shot — this replaced the old design's per-shot caption color override
-   (the `02-hell` caption used to render in flag blue; every headline is now
-   uniformly `#0A0A0A`) as the one consistent brand signal.
+5. **Two alternating layouts.** Layout `A` is text-top / device-bottom;
+   layout `B` flips it: device-top / text-bottom. The `SCENES` array
+   alternates `A`/`B` by position across the whole gallery (iPhone then
+   iPad) so a full scroll through the store listing doesn't look like the
+   same template repeated — with one deliberate exception: two shots that
+   are a connected pair (the challenge accept/live shots) share the same
+   layout on purpose, so the pair reads as one two-part scene rather than
+   two unrelated shots that happen to be adjacent.
+6. **Tight text-to-device gap.** The device is positioned directly relative
+   to the caption stack's own rendered height plus one small fixed gap
+   (`TEXT_DEVICE_GAP_FRACTION`, ~1.6% of canvas height) — not independently
+   anchored to the opposite canvas edge, which used to leave a large,
+   headline-length-dependent gap between the two blocks. `position_layout`
+   in `compose-screenshots.sh` computes both the device's and the text's
+   absolute position from this rule for both layout variants, so the
+   composition reads as one cohesive unit instead of a caption-island
+   floating apart from a device-island. No accent bar sits between the
+   headline and descriptor: an earlier version of this design rendered a
+   fixed Ukraine-flag-colored underline mark there as a brand signal, but it
+   read as a decorative afterthought rather than a premium one and was
+   removed — every headline renders in the same near-black `#0A0A0A`, and
+   typography hierarchy alone carries the brand now.
 7. **Flat background, barely-there depth.** The canvas stays `#F5F5F5` in
    spirit — no gradient brand treatment, because a visible gradient would
    fight this app's minimalist black/white/red identity — but it's actually
@@ -111,6 +127,16 @@ rules themselves unless the underlying research changes.
    bottom of the range (0.74) — a small, deliberate difference, not visible
    as an inconsistency, that gives the opening and closing shots slightly
    more presence.
+9. **Two-device combo scene.** One scene (`compose_combo` in
+   `compose-screenshots.sh`) departs from the one-device template: it
+   frames two raw captures — the colorful theme editor and the Ukrainian
+   theme list — as separate framed iPhone 17s, each scaled to 50% of canvas
+   height instead of the usual 74-78%, positioned edge to edge with just
+   enough overlap (derived from the available canvas width, not a fixed
+   constant) to fit. The second device composites on top, so its own
+   content is always fully legible; only the first device's trailing edge
+   is partly covered. This tells a "full customization" story — per-cell
+   theming and language breadth — in a single shot instead of two.
 
 Landscape-canvas note: rule 1's "9-11% of canvas width" is calibrated
 against a portrait canvas. Applied literally to the iPad's landscape canvas

@@ -7,10 +7,11 @@
  * system" for the two-tier text rules. */
 
 "01-hero-board" = "Clean numbers. Total focus.";
+"01-hero-board-dark" = "Full dark mode. Zero compromise.";
 "02-hell" = "Just 17 clues. Nothing more.";
-"03-themes" = "Swap themes in a single tap.";
 "04-editor" = "Design every color, cell by cell.";
-"05-win" = "Confetti included. Every time.";
-"06-rival" = "Same board. Only one winner.";
+"05-customization" = "Every color yours. 13 languages.";
+"06-rival" = "A real run. Anticheat verified.";
 "07-replay" = "See exactly how you solved it.";
-"08-settings" = "Any language, one simple app.";
+"09-home" = "Six difficulties, from Newbie to Hell.";
+"14-challenge-live" = "Every technique tracked.";

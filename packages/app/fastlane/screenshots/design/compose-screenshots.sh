@@ -15,9 +15,9 @@
 # the frame PNG's own transparent screen cutout (so the frame's real bezel,
 # not a synthetic radius, decides what covers the screenshot's corners), then
 # scales that framed unit down onto a same-resolution #F5F5F5 canvas with a
-# two-tier headline/descriptor caption stack, a soft drop shadow, and a fixed
-# brand accent mark. See README.md's "Framing" section and design/README.md's
-# "Design system" section for the full reasoning.
+# two-tier headline/descriptor caption stack and a soft drop shadow. See
+# README.md's "Framing" section and design/README.md's "Design system"
+# section for the full reasoning.
 #
 # One-time setup: download the frame assets fastlane frameit uses (~280
 # files, one-time, cached at ~/.fastlane/frameit/latest):
@@ -132,8 +132,6 @@ BACKGROUND_TOP_HEX="#F7F7F7"
 BACKGROUND_BOTTOM_HEX="#F1F1F1"
 
 TEXT_HEX="#0A0A0A"
-ACCENT_BLUE_HEX="#0057B7"
-ACCENT_YELLOW_HEX="#FFD700"
 
 # Headline point size target: 9-11% of canvas width, but on a landscape
 # canvas (iPad, wider than it is tall) sizing off the raw width produces a
@@ -156,15 +154,20 @@ TEXT_SIDE_MARGIN_FRACTION="0.05"
 TEXT_EDGE_MARGIN_FRACTION="0.05"
 STACK_GAP_FRACTION="0.012"
 
+# Vertical gap between the caption stack and the device frame — deliberately
+# tight so the composition reads as one cohesive unit instead of a
+# caption-island floating above (or below) a separate device-island. Both
+# layout variants place the device directly relative to the caption stack's
+# actual rendered height (see position_layout below) using this fixed gap,
+# instead of independently anchoring text and device to opposite canvas
+# edges and letting whatever space happens to be left over become the gap.
+TEXT_DEVICE_GAP_FRACTION="0.016"
+
 DEVICE_HEIGHT_FRACTION_DEFAULT="0.74"
 DEVICE_HEIGHT_FRACTION_ENDPOINT="0.78"
+DEVICE_HEIGHT_FRACTION_COMBO="0.62"
 DEVICE_EDGE_MARGIN_FRACTION="0.02"
-
-# Fixed Ukraine-flag accent mark: a short bar directly under the headline,
-# identical size/position relative to the text stack on every shot — the one
-# consistent brand signal, replacing the old per-shot caption color swap.
-ACCENT_BAR_WIDTH_FRACTION="0.12"
-ACCENT_BAR_HEIGHT_FRACTION="0.0019"
+COMBO_EDGE_MARGIN_FRACTION="0.015"
 
 # Soft drop shadow under the framed device — black, low opacity, blurred,
 # offset down. Ratios are relative to canvas height so both devices get a
@@ -205,6 +208,22 @@ headline_for() {
 
 descriptor_for() {
   string_for "$SUBTITLES" "$1" "descriptor"
+}
+
+# Blocks until `path` exists, tolerating a concurrent capture run still
+# writing raw captures to disk.
+wait_for_capture() {
+  local path="$1"
+  local retries=0
+  while [[ ! -f "$path" && $retries -lt 30 ]]; do
+    echo "waiting for raw capture $path (concurrent capture run in progress)..." >&2
+    sleep 2
+    retries=$((retries + 1))
+  done
+  if [[ ! -f "$path" ]]; then
+    echo "error: missing raw capture $path" >&2
+    exit 1
+  fi
 }
 
 # Renders `text` at `pointsize` as an unwrapped label and prints its pixel
@@ -253,17 +272,20 @@ build_shadow() {
     -define png:color-type=6 -depth 8 "$out"
 }
 
-# Builds the two-tier caption stack (headline, fixed accent bar, descriptor)
-# as one transparent PNG, `cap_w` wide and exactly as tall as its rendered
-# content — no wasted vertical space, so both layout variants can anchor it
-# precisely against the canvas edge instead of centering it in a fixed box.
+# Builds the two-tier caption stack (headline, descriptor) as one
+# transparent PNG, `cap_w` wide and exactly as tall as its rendered content —
+# no wasted vertical space, so position_layout can place the device directly
+# beneath (or above) it with a fixed, tight gap instead of centering it in a
+# fixed box. Every headline renders in the same near-black $TEXT_HEX with no
+# per-scene accent — a two-color underline mark used to live here but read
+# as a decorative afterthought rather than a premium brand signal, so it was
+# removed; typography hierarchy alone now carries the brand.
 build_text_stack() {
   local canvas_w="$1" canvas_h="$2" headline="$3" descriptor="$4" out="$5"
-  local is_landscape effective_w headline_pt descriptor_pt
-  local cap_w headline_png descriptor_png bar_png
+  local effective_w headline_pt descriptor_pt
+  local cap_w headline_png descriptor_png
   local headline_w headline_h descriptor_w descriptor_h
-  local bar_w bar_h gap_total sub_gap bar_y descriptor_y stack_h
-  local bar_half_w bar_half_w2
+  local sub_gap descriptor_y stack_h
 
   if (( canvas_h >= canvas_w )); then
     effective_w="$canvas_w"
@@ -288,50 +310,70 @@ build_text_stack() {
   descriptor_w="$(magick identify -format "%w" "$descriptor_png")"
   descriptor_h="$(magick identify -format "%h" "$descriptor_png")"
 
-  bar_w=$(awk -v w="$canvas_w" -v f="$ACCENT_BAR_WIDTH_FRACTION" 'BEGIN { printf "%d", w * f }')
-  bar_h=$(awk -v h="$canvas_h" -v f="$ACCENT_BAR_HEIGHT_FRACTION" 'BEGIN { v = h * f; printf "%d", (v < 4 ? 4 : v) }')
-  bar_half_w=$((bar_w / 2))
-  bar_half_w2=$((bar_w - bar_half_w))
-  bar_png="$WORK_ROOT/$$-bar-$RANDOM.png"
-  magick \( -size "${bar_half_w}x${bar_h}" xc:"$ACCENT_BLUE_HEX" \) \( -size "${bar_half_w2}x${bar_h}" xc:"$ACCENT_YELLOW_HEX" \) \
-    +append -define png:color-type=2 -depth 8 "$bar_png"
-
-  gap_total=$(awk -v h="$canvas_h" -v f="$STACK_GAP_FRACTION" 'BEGIN { printf "%d", h * f }')
-  sub_gap=$(( (gap_total - bar_h) / 2 ))
+  sub_gap=$(awk -v h="$canvas_h" -v f="$STACK_GAP_FRACTION" 'BEGIN { printf "%d", h * f }')
   if (( sub_gap < 2 )); then
     sub_gap=2
   fi
 
-  bar_y=$((headline_h + sub_gap))
-  descriptor_y=$((bar_y + bar_h + sub_gap))
+  descriptor_y=$((headline_h + sub_gap))
   stack_h=$((descriptor_y + descriptor_h))
 
   magick -size "${cap_w}x${stack_h}" xc:none \
     "$headline_png" -gravity North -geometry "+0+0" -compose Over -composite \
-    "$bar_png" -gravity North -geometry "+0+${bar_y}" -compose Over -composite \
     "$descriptor_png" -gravity North -geometry "+0+${descriptor_y}" -compose Over -composite \
     -define png:color-type=6 -depth 8 "$out"
 
-  rm -f "$headline_png" "$descriptor_png" "$bar_png"
+  rm -f "$headline_png" "$descriptor_png"
+}
+
+# Given the layout variant and the actual rendered heights of the caption
+# stack and the device block, returns "device_y text_y" (both absolute,
+# North-anchored pixel offsets from the canvas top). Layout A is
+# text-top/device-bottom: text sits at the fixed outer edge margin, and the
+# device starts immediately after it (stack height + one fixed gap) — not at
+# a fixed distance from the opposite canvas edge, which is what used to leave
+# a large, variable, uncontrolled gap between the two blocks. Layout B
+# mirrors this: the device sits at the fixed outer edge margin, and the text
+# starts immediately after it.
+position_layout() {
+  local canvas_h="$1" layout="$2" device_h="$3" stack_h="$4"
+  local edge_margin gap device_y text_y
+  edge_margin=$(awk -v h="$canvas_h" -v f="$TEXT_EDGE_MARGIN_FRACTION" 'BEGIN { printf "%d", h * f }')
+  gap=$(awk -v h="$canvas_h" -v f="$TEXT_DEVICE_GAP_FRACTION" 'BEGIN { printf "%d", h * f }')
+  if [[ "$layout" == "A" ]]; then
+    text_y="$edge_margin"
+    device_y=$((text_y + stack_h + gap))
+  else
+    device_y="$edge_margin"
+    text_y=$((device_y + device_h + gap))
+  fi
+  echo "$device_y $text_y"
+}
+
+# Resizes a raw capture into a frame PNG's real transparent screen cutout and
+# layers the frame on top, so the frame's own bezel (including the rounded-
+# corner overlap) covers the screenshot's square corners. Nothing crops the
+# capture — resizing "!" fills the cutout exactly and the frame only ever
+# adds bezel around it. Output is at the frame's own native resolution.
+frame_capture() {
+  local src="$1" frame_file="$2" cutout_x="$3" cutout_y="$4" cutout_w="$5" cutout_h="$6" out="$7"
+  local frame_native_w frame_native_h
+  frame_native_w="$(magick identify -format "%w" "$frame_file")"
+  frame_native_h="$(magick identify -format "%h" "$frame_file")"
+  magick -size "${frame_native_w}x${frame_native_h}" xc:none \
+    \( "$src" -resize "${cutout_w}x${cutout_h}!" \) -geometry "+${cutout_x}+${cutout_y}" -compose Over -composite \
+    "$frame_file" -compose Over -composite \
+    -define png:color-type=6 -depth 8 "$out"
 }
 
 compose_one() {
-  local device="$1" scene="$2" appearance="$3" layout="$4" height_fraction="$5" out_name="$6"
+  local device="$1" scene="$2" appearance="$3" layout="$4" height_fraction="$5" out_name="$6" caption_key="${7:-$scene}"
   local src="$RAW_DIR/$device/en/$appearance/$scene.png"
-  local retries=0
-  while [[ ! -f "$src" && $retries -lt 30 ]]; do
-    echo "waiting for raw capture $src (concurrent capture run in progress)..." >&2
-    sleep 2
-    retries=$((retries + 1))
-  done
-  if [[ ! -f "$src" ]]; then
-    echo "error: missing raw capture $src" >&2
-    exit 1
-  fi
+  wait_for_capture "$src"
 
   local headline descriptor
-  headline="$(headline_for "$scene")"
-  descriptor="$(descriptor_for "$scene")"
+  headline="$(headline_for "$caption_key")"
+  descriptor="$(descriptor_for "$caption_key")"
 
   # A concurrent capture run can rewrite a raw file mid-run; re-reading its
   # dimensions can otherwise briefly observe a stale or half-written file
@@ -396,82 +438,163 @@ compose_one() {
   magick -size "${canvas_w}x${canvas_h}" "gradient:${BACKGROUND_TOP_HEX}-${BACKGROUND_BOTTOM_HEX}" \
     -define png:color-type=2 -depth 8 "$work/bg.png"
 
-  # Resize the capture to exactly fill the frame's real screen cutout, place
-  # it at the cutout's offset on a frame-sized transparent canvas, then lay
-  # the frame PNG on top: its own opaque bezel (including the rounded-corner
-  # overlap) covers the screenshot's square corners, so the corner radius
-  # always matches the real device instead of an approximated one. Nothing
-  # here crops the capture — resizing "!" fills the cutout exactly and the
-  # frame only ever adds bezel around it.
-  magick -size "${frame_native_w}x${frame_native_h}" xc:none \
-    \( "$src" -resize "${cutout_w}x${cutout_h}!" \) -geometry "+${cutout_x}+${cutout_y}" -compose Over -composite \
-    "$frame_file" -compose Over -composite \
-    -define png:color-type=6 -depth 8 "$work/framed-device.png"
+  frame_capture "$src" "$frame_file" "$cutout_x" "$cutout_y" "$cutout_w" "$cutout_h" "$work/framed-device.png"
 
-  local frame_h frame_w device_edge_margin frame_x frame_y
+  local frame_h frame_w frame_x
   frame_h=$(awk -v h="$canvas_h" -v f="$height_fraction" 'BEGIN { printf "%d", h * f }')
   frame_w=$(awk -v fh="$frame_h" -v nw="$frame_native_w" -v nh="$frame_native_h" 'BEGIN { printf "%d", (fh * nw) / nh }')
-  device_edge_margin=$(awk -v h="$canvas_h" -v f="$DEVICE_EDGE_MARGIN_FRACTION" 'BEGIN { printf "%d", h * f }')
   frame_x=$(( (canvas_w - frame_w) / 2 ))
-  if [[ "$layout" == "A" ]]; then
-    frame_y=$((canvas_h - frame_h - device_edge_margin))
-  else
-    frame_y="$device_edge_margin"
-  fi
 
   magick "$work/framed-device.png" -resize "${frame_w}x${frame_h}!" \
     -define png:color-type=6 -depth 8 "$work/framed-device-scaled.png"
 
-  magick -size "${canvas_w}x${canvas_h}" xc:none "$work/framed-device-scaled.png" -geometry "+${frame_x}+${frame_y}" \
+  build_text_stack "$canvas_w" "$canvas_h" "$headline" "$descriptor" "$work/text-stack.png"
+  local stack_h
+  stack_h="$(magick identify -format "%h" "$work/text-stack.png")"
+
+  local device_y text_y
+  read -r device_y text_y <<<"$(position_layout "$canvas_h" "$layout" "$frame_h" "$stack_h")"
+
+  magick -size "${canvas_w}x${canvas_h}" xc:none "$work/framed-device-scaled.png" -geometry "+${frame_x}+${device_y}" \
     -compose Over -composite -define png:color-type=6 -depth 8 "$work/device-on-canvas.png"
 
   build_shadow "$work/device-on-canvas.png" "$canvas_w" "$canvas_h" "$work/shadow.png"
 
   magick "$work/bg.png" "$work/shadow.png" -compose Over -composite \
     "$work/device-on-canvas.png" -compose Over -composite \
-    -define png:color-type=2 -depth 8 "$work/with-device.png"
-
-  build_text_stack "$canvas_w" "$canvas_h" "$headline" "$descriptor" "$work/text-stack.png"
-
-  local text_edge_margin
-  text_edge_margin=$(awk -v h="$canvas_h" -v f="$TEXT_EDGE_MARGIN_FRACTION" 'BEGIN { printf "%d", h * f }')
+    "$work/text-stack.png" -gravity North -geometry "+0+${text_y}" -compose Over -composite \
+    -define png:color-type=2 -depth 8 "$work/final.png"
 
   mkdir -p "$OUT_DIR"
-  if [[ "$layout" == "A" ]]; then
-    magick "$work/with-device.png" "$work/text-stack.png" -gravity North -geometry "+0+${text_edge_margin}" \
-      -compose Over -composite -define png:color-type=2 -depth 8 "$OUT_DIR/$out_name"
-  else
-    magick "$work/with-device.png" "$work/text-stack.png" -gravity South -geometry "+0+${text_edge_margin}" \
-      -compose Over -composite -define png:color-type=2 -depth 8 "$OUT_DIR/$out_name"
-  fi
+  cp "$work/final.png" "$OUT_DIR/$out_name"
 
   echo "wrote $OUT_DIR/$out_name (${canvas_w}x${canvas_h}), layout $layout, headline: \"$headline\""
 }
 
-# device | scene | appearance | layout | device height fraction | output filename
+# Special two-device scene for the "full customization" story: the colorful
+# theme editor (English) and the localized theme list (Ukrainian) side by
+# side in one iPhone-sized canvas, as a single combined proof of both
+# per-cell theming and language breadth instead of two separate shots. Both
+# devices are real framed iPhone 17s scaled to the same height, positioned
+# so they fit the canvas width edge-to-edge with the minimum overlap needed
+# — the right (Ukrainian) device is composited on top, so its own content is
+# always fully legible; only the left device's right edge is partly covered.
+compose_combo() {
+  local layout="$1" height_fraction="$2" out_name="$3" caption_key="$4"
+  local left_src="$RAW_DIR/iphone/en/light/04-editor.png"
+  local right_src="$RAW_DIR/iphone/uk/light/03-themes.png"
+  wait_for_capture "$left_src"
+  wait_for_capture "$right_src"
+
+  local headline descriptor
+  headline="$(headline_for "$caption_key")"
+  descriptor="$(descriptor_for "$caption_key")"
+
+  local canvas_w canvas_h
+  canvas_w="$(magick identify -format "%w" "$left_src")"
+  canvas_h="$(magick identify -format "%h" "$left_src")"
+
+  local work
+  work="$(mktemp -d)"
+  trap 'rm -rf "$work"' RETURN
+
+  magick -size "${canvas_w}x${canvas_h}" "gradient:${BACKGROUND_TOP_HEX}-${BACKGROUND_BOTTOM_HEX}" \
+    -define png:color-type=2 -depth 8 "$work/bg.png"
+
+  frame_capture "$left_src" "$IPHONE_FRAME" "$IPHONE_CUTOUT_X" "$IPHONE_CUTOUT_Y" "$IPHONE_CUTOUT_W" "$IPHONE_CUTOUT_H" "$work/framed-left.png"
+  frame_capture "$right_src" "$IPHONE_FRAME" "$IPHONE_CUTOUT_X" "$IPHONE_CUTOUT_Y" "$IPHONE_CUTOUT_W" "$IPHONE_CUTOUT_H" "$work/framed-right.png"
+
+  local frame_native_w frame_native_h
+  frame_native_w="$(magick identify -format "%w" "$IPHONE_FRAME")"
+  frame_native_h="$(magick identify -format "%h" "$IPHONE_FRAME")"
+
+  local device_h device_w edge_margin
+  device_h=$(awk -v h="$canvas_h" -v f="$height_fraction" 'BEGIN { printf "%d", h * f }')
+  device_w=$(awk -v dh="$device_h" -v nw="$frame_native_w" -v nh="$frame_native_h" 'BEGIN { printf "%d", (dh * nw) / nh }')
+  edge_margin=$(awk -v h="$canvas_h" -v f="$COMBO_EDGE_MARGIN_FRACTION" 'BEGIN { printf "%d", h * f }')
+
+  magick "$work/framed-left.png" -resize "${device_w}x${device_h}!" \
+    -define png:color-type=6 -depth 8 "$work/framed-left-scaled.png"
+  magick "$work/framed-right.png" -resize "${device_w}x${device_h}!" \
+    -define png:color-type=6 -depth 8 "$work/framed-right-scaled.png"
+
+  # Both devices span the canvas width edge-to-edge (minus the outer
+  # margins) at their target height; on a portrait canvas, two portrait
+  # phones at a legible height only fit that width with real overlap, so the
+  # overlap is derived from the available width rather than picked as an
+  # arbitrary constant — it is exactly the overlap needed to fit, no more.
+  local available_w total_pair_w overlap_px left_x right_x
+  available_w=$((canvas_w - 2 * edge_margin))
+  total_pair_w=$((2 * device_w))
+  overlap_px=$((total_pair_w - available_w))
+  if (( overlap_px < 0 )); then
+    overlap_px=0
+  fi
+  left_x="$edge_margin"
+  right_x=$((left_x + device_w - overlap_px))
+
+  build_text_stack "$canvas_w" "$canvas_h" "$headline" "$descriptor" "$work/text-stack.png"
+  local stack_h
+  stack_h="$(magick identify -format "%h" "$work/text-stack.png")"
+
+  local gap block_h block_top device_y text_y
+  gap=$(awk -v h="$canvas_h" -v f="$TEXT_DEVICE_GAP_FRACTION" 'BEGIN { printf "%d", h * f }')
+  block_h=$((device_h + gap + stack_h))
+  block_top=$(((canvas_h - block_h) / 2))
+  device_y="$block_top"
+  text_y=$((block_top + device_h + gap))
+
+  magick -size "${canvas_w}x${canvas_h}" xc:none \
+    "$work/framed-left-scaled.png" -gravity NorthWest -geometry "+${left_x}+${device_y}" -compose Over -composite \
+    "$work/framed-right-scaled.png" -gravity NorthWest -geometry "+${right_x}+${device_y}" -compose Over -composite \
+    -define png:color-type=6 -depth 8 "$work/device-on-canvas.png"
+
+  build_shadow "$work/device-on-canvas.png" "$canvas_w" "$canvas_h" "$work/shadow.png"
+
+  magick "$work/bg.png" "$work/shadow.png" -compose Over -composite \
+    "$work/device-on-canvas.png" -compose Over -composite \
+    "$work/text-stack.png" -gravity North -geometry "+0+${text_y}" -compose Over -composite \
+    -define png:color-type=2 -depth 8 "$work/final.png"
+
+  mkdir -p "$OUT_DIR"
+  cp "$work/final.png" "$OUT_DIR/$out_name"
+
+  echo "wrote $OUT_DIR/$out_name (${canvas_w}x${canvas_h}), layout $layout, headline: \"$headline\" (combo: 04-editor en + 03-themes uk)"
+}
+
+# device | scene | appearance | layout | device height fraction | output filename | caption key (optional, defaults to scene)
 # Curated store order — see README.md "Curated store ordering" for
 # rationale. Layout alternates A (text top / device bottom) and B (device
-# top / text bottom) by position for scroll rhythm; the first and last shots
-# use the taller end of the device height range (0.78), every other shot
-# uses the shorter end (0.74) — see design/README.md "Design system".
+# top / text bottom) by position for scroll rhythm, with one deliberate
+# exception: the challenge pair (03, 04) shares layout A on purpose — same
+# composition, complementary copy, so the two shots read as a connected
+# two-part story instead of two unrelated scenes that happen to be adjacent.
+# The very first and very last shots in the whole gallery use the taller end
+# of the device height range (0.78), every other shot uses the shorter end
+# (0.74) — see design/README.md "Design system". The combo scene (device
+# field "combo") is dispatched to compose_combo instead of compose_one; its
+# scene/appearance fields are unused placeholders.
 SCENES=(
-  "iphone|05-win|light|A|$DEVICE_HEIGHT_FRACTION_ENDPOINT|01_iphone_win.png"
+  "iphone|01-hero-board|light|A|$DEVICE_HEIGHT_FRACTION_ENDPOINT|01_iphone_hero-board.png"
   "iphone|02-hell|light|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|02_iphone_hell.png"
-  "iphone|04-editor|light|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|03_iphone_editor.png"
-  "iphone|06-rival|light|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|04_iphone_rival.png"
-  "iphone|01-hero-board|light|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|05_iphone_hero-board.png"
-  "iphone|07-replay|light|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|06_iphone_replay.png"
-  "iphone|03-themes|light|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|07_iphone_themes.png"
-  "iphone|08-settings|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|08_iphone_dark_settings.png"
-  "ipad-landscape|02-hell|light|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|21_ipad_hell.png"
-  "ipad-landscape|03-themes|light|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|22_ipad_themes.png"
-  "ipad-landscape|04-editor|light|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|23_ipad_editor.png"
-  "ipad-landscape|06-rival|light|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|24_ipad_rival.png"
-  "ipad-landscape|08-settings|dark|A|$DEVICE_HEIGHT_FRACTION_ENDPOINT|25_ipad_dark_settings.png"
+  "iphone|06-rival|light|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|03_iphone_challenge-accept.png"
+  "iphone|14-challenge-live|light|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|04_iphone_challenge-live.png"
+  "combo|-|light|B|$DEVICE_HEIGHT_FRACTION_COMBO|05_iphone_customization.png|05-customization"
+  "iphone|07-replay|light|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|06_iphone_replay.png"
+  "iphone|01-hero-board|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|07_iphone_hero-board-dark.png|01-hero-board-dark"
+  "ipad-landscape|01-hero-board|light|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|21_ipad_hero-board.png"
+  "ipad-landscape|02-hell|light|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|22_ipad_hell.png"
+  "ipad-landscape|14-challenge-live|light|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|23_ipad_challenge-live.png"
+  "ipad-landscape|04-editor|light|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|24_ipad_editor.png"
+  "ipad-landscape|09-home|light|A|$DEVICE_HEIGHT_FRACTION_ENDPOINT|25_ipad_home.png"
 )
 
 rm -f "$OUT_DIR"/*.png
 for entry in "${SCENES[@]}"; do
-  IFS='|' read -r device scene appearance layout height_fraction out_name <<<"$entry"
-  compose_one "$device" "$scene" "$appearance" "$layout" "$height_fraction" "$out_name"
+  IFS='|' read -r device scene appearance layout height_fraction out_name caption_key <<<"$entry"
+  if [[ "$device" == "combo" ]]; then
+    compose_combo "$layout" "$height_fraction" "$out_name" "$caption_key"
+  else
+    compose_one "$device" "$scene" "$appearance" "$layout" "$height_fraction" "$out_name" "$caption_key"
+  fi
 done

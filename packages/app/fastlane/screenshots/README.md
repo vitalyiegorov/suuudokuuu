@@ -15,7 +15,7 @@ English only, framed and captioned from the flows in
 
 | Prefix | Device | Resolution | App Store slot |
 | ------ | ------ | ---------- | -------------- |
-| `01`-`08` | iPhone 17 | 1206x2622 | iPhone 6.3" |
+| `01`-`07` | iPhone 17 | 1206x2622 | iPhone 6.3" |
 | `21`-`25` | iPad Pro 13" landscape | 2752x2064 | iPad 13" |
 
 `deliver` assigns each image to a device slot by its exact pixel resolution, so
@@ -30,29 +30,43 @@ Apple shows roughly the first 3 screenshots before a user scrolls, so the set
 leads with the most emotionally distinctive shots rather than the order the
 flows happen to capture them in:
 
-1. `05-win` — the "Challenge won" confetti screen. Unique payoff moment, nothing
-   else in the set is this emotionally strong, so it leads.
-2. `02-hell` (flag-blue caption) — a real 17-clue Hell puzzle. This is the
-   differentiator: not a marketing difficulty label but a visibly brutal board.
-3. `03-themes` — the theme picker, the "make it yours" hook, still inside the
-   guaranteed-visible first-3 zone.
-4. `06-rival` — challenge-a-friend, the social/competitive hook.
-5. `01-hero-board` — the actual gameplay board. Deliberately not first: it's
-   the correct screen to prove the app works, but it is the least
-   differentiated shot in the set, so it sits mid-gallery instead of leading.
+1. `01-hero-board` — the actual gameplay board, airy and uncluttered with
+   pencil marks. Leads because it's the clearest single-frame pitch: this is
+   what the app looks like, no marketing artifice.
+2. `02-hell` — a real 17-clue Hell puzzle. The differentiator: not a
+   marketing difficulty label but a visibly brutal board.
+3. `06-rival` — "Get challenged.", the accept-challenge screen. First half of
+   a two-shot challenge story: the live-race premise plus anticheat, still
+   inside the guaranteed-visible first-3 zone.
+4. `14-challenge-live` — "Race them live.", mid-race with the rival's live
+   position and technique badges. Second half of the challenge story;
+   composed with the *same* layout variant as shot 3 (see "Design system" in
+   `design/README.md`) so the pair reads as one connected two-part scene
+   instead of two unrelated shots that happen to be adjacent.
+5. The customization combo — two framed iPhones side by side in one canvas,
+   the colorful theme editor (English) and the localized theme list
+   (Ukrainian), proving per-cell theming and language breadth in a single
+   shot instead of two separate ones.
 6. `07-replay` — move-by-move replay, a depth feature for engaged users.
-7. `04-editor` — the per-color theme editor, paired with `03-themes` as the
-   second half of the customization story.
-8. `08-settings`, **dark appearance** — the one dark-mode shot in the set,
-   placed last so theming support reads as a closing note rather than
-   fragmenting the gallery's visual rhythm by alternating light/dark
-   throughout.
+7. `01-hero-board`, **dark appearance** — the closing note. Reuses the same
+   airy board as shot 1 to prove the redesign holds up in dark mode too, with
+   its own copy so it doesn't read as a repeat of the opener.
 
-The iPad set reuses the same five scenes that already have captions
-(`02-hell`, `03-themes`, `04-editor`, `06-rival`, `08-settings`) in the same
-priority order, with `08-settings` again the single dark-appearance shot —
-consistent theming coverage across both device families without inventing new
-copy.
+The iPad set (`21`-`25`) skips the two-device combo (framing two devices at a
+legible size only works on the iPhone's narrower canvas) and reuses five
+scenes that already have captions: `01-hero-board`, `02-hell`,
+`14-challenge-live`, `04-editor` (the theme editor solo, since the combo
+shot doesn't exist on iPad), and `09-home` (the play/difficulty-picker
+screen) as the closing shot.
+
+The "Challenge won" confetti shot, the solo theme-picker shot, and the
+dark-appearance settings/language shot from the previous set were dropped:
+confetti didn't earn its own slot once the challenge pair told a stronger,
+two-shot story; the solo theme picker is now folded into the customization
+combo (with the Ukrainian list already proving localization, a separate
+"speaks your language" shot was redundant); and the closing dark note now
+uses the hero board instead, which better showcases the actual redesign this
+set exists to show off.
 
 ## Framing
 
@@ -105,14 +119,22 @@ short version:
   the cutout exactly, and the frame only ever adds bezel around it.
 - Scales that framed device (bezel and all) to 74-78% of canvas *height*
   (not width — see "Design system" for why), horizontally centered, with a
-  soft blurred drop shadow composited beneath it.
+  soft blurred drop shadow composited beneath it. The two-device combo scene
+  scales each device to 50% instead, positioned edge to edge with just
+  enough overlap to fit the canvas width.
 - Alternates two layouts by scene position — text-top/device-bottom and
   device-top/text-bottom — so the gallery has scroll rhythm instead of one
-  repeated template.
-- Renders one fixed brand accent: a small Ukraine-flag-colored bar directly
-  under every headline, identical position and proportions on every shot.
-  Every headline renders in the same near-black `#0A0A0A` — no per-scene
-  caption color overrides.
+  repeated template, except where two shots are a deliberate connected pair
+  (the challenge shots), which share a layout on purpose.
+- Places the device directly against the caption stack with a small, fixed
+  gap instead of independently anchoring text and device to opposite canvas
+  edges — the composition reads as one cohesive unit, not a caption-island
+  floating apart from a device-island.
+- Every headline renders in the same near-black `#0A0A0A` with no per-scene
+  accent. An earlier version of this design rendered a small two-color
+  underline bar under every headline as a fixed brand mark; it read as a
+  decorative afterthought rather than a premium signal and was removed —
+  typography hierarchy alone now carries the brand.
 - Writes output at the exact source resolution so `deliver` slots each image
   correctly, into `ios/<locale>/`, overwriting the locale's existing set.
 
