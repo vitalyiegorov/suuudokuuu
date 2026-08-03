@@ -57,16 +57,30 @@ copy.
 ## Framing
 
 Screenshots are composed with ImageMagick
-(`design/compose-screenshots.sh`), not `fastlane frameit`. `frameit`'s
-`Framefile.json` in this directory targets a fixed 1320x2868 canvas (the
-iPhone 6.9" slot), but the raw captures are native-resolution shots from an
-iPhone 17 simulator (1206x2622, the 6.3" slot) and an iPad Pro 13" landscape
-simulator (2752x2064). `deliver` assigns uploaded screenshots to App Store
-Connect device slots by matching exact pixel dimensions, so the committed
-output must stay at the source resolution rather than being letterboxed or
-padded into frameit's canvas — ruling out frameit's fixed-canvas frame
-database for this capture set. `Framefile.json` is kept for reference and for
-any future capture run that targets the 6.9" slot directly.
+(`design/compose-screenshots.sh`), not `fastlane frameit`'s own `run`/`ios`
+commands. `frameit`'s `Framefile.json` in this directory targets a fixed
+1320x2868 canvas (the iPhone 6.9" slot), but the raw captures are
+native-resolution shots from an iPhone 17 simulator (1206x2622, the 6.3"
+slot) and an iPad Pro 13" landscape simulator (2752x2064). `deliver` assigns
+uploaded screenshots to App Store Connect device slots by matching exact
+pixel dimensions, so the committed output must stay at the source resolution
+rather than being letterboxed or padded into frameit's canvas — ruling out
+frameit's own fixed-canvas pipeline for this capture set. `Framefile.json` is
+kept for reference and for any future capture run that targets the 6.9" slot
+directly.
+
+The device frame itself, however, *is* a real frameit asset: the script reads
+the same downloaded frame PNGs and offset data frameit's own `editor.rb`
+uses, and composites the raw capture directly into each frame's real,
+transparent screen cutout — see `design/README.md`'s "Frame source" for the
+device models, provenance, and how the cutout rectangles were measured.
+
+One-time setup — download frameit's device frame assets (~280 files, cached
+at `~/.fastlane/frameit/latest`):
+
+```bash
+fastlane frameit download_frames
+```
 
 Regenerate the English set from `packages/app`:
 
@@ -74,27 +88,39 @@ Regenerate the English set from `packages/app`:
 fastlane/screenshots/design/compose-screenshots.sh en-US
 ```
 
-The script (requires ImageMagick 7, `magick` on `PATH`):
+The script (requires ImageMagick 7, `magick` on `PATH`, and the frame assets
+above) implements the researched, conversion-oriented design system
+documented in full in `design/README.md`'s "Design system" section — the
+short version:
 
-- Reads captions from `design/<locale>/title.strings`, keyed by scene name.
-- Composes each raw capture onto a same-resolution `#F5F5F5` canvas with a
-  rounded-corner, thin-dark-border device treatment (device scaled to ~78%
-  of canvas width, bottom-anchored).
-- Renders the caption above the device in Inter Black
-  (`node_modules/@expo-google-fonts/inter/900Black/Inter_900Black.ttf` at the
-  repo root — the same family the app ships), auto-fit and wrapped to the
-  caption box by ImageMagick's `caption:` reader, dark near-black `#0A0A0A`
-  by default.
-- Applies the one intentional accent: `02-hell`'s caption renders in
-  Ukraine-flag blue (`#0057B7`) instead of the default color, on both iPhone
-  and iPad. No other scene overrides the caption color.
+- Reads a headline from `design/<locale>/title.strings` and a matching
+  descriptor from `design/<locale>/subtitle.strings`, both keyed by scene
+  name. The headline is Inter Black, auto-sized to 9-11% of canvas width and
+  shrunk to fit a 90% text safe zone; the descriptor is the same font at
+  50-60% of the headline's size, rendered at 75% opacity.
+- Resizes each raw capture to exactly fill the real device frame's
+  transparent screen cutout, then layers the frame PNG on top so its own
+  bezel — including the real rounded-corner overlap — covers the
+  screenshot's square corners. Nothing is cropped: the capture always fills
+  the cutout exactly, and the frame only ever adds bezel around it.
+- Scales that framed device (bezel and all) to 74-78% of canvas *height*
+  (not width — see "Design system" for why), horizontally centered, with a
+  soft blurred drop shadow composited beneath it.
+- Alternates two layouts by scene position — text-top/device-bottom and
+  device-top/text-bottom — so the gallery has scroll rhythm instead of one
+  repeated template.
+- Renders one fixed brand accent: a small Ukraine-flag-colored bar directly
+  under every headline, identical position and proportions on every shot.
+  Every headline renders in the same near-black `#0A0A0A` — no per-scene
+  caption color overrides.
 - Writes output at the exact source resolution so `deliver` slots each image
   correctly, into `ios/<locale>/`, overwriting the locale's existing set.
 
-The curated scene manifest (which raw capture, which appearance, which output
-filename, in what order) is a store-listing decision and lives directly in
-the `SCENES` array in `compose-screenshots.sh`, not in a separate config —
-edit it there to change ordering or swap scenes.
+The curated scene manifest (which raw capture, which appearance, which
+layout variant, which device height fraction, which output filename, in
+what order) is a store-listing decision and lives directly in the `SCENES`
+array in `compose-screenshots.sh`, not in a separate config — edit it there
+to change ordering, swap scenes, or change the layout rhythm.
 
 ## Refreshing them
 
@@ -112,7 +138,9 @@ edit it there to change ordering or swap scenes.
 ## Gaps
 
 - Only `en-US` is composed and committed. Other locales' `title.strings`
-  already exist under `design/`; run
+  already exist under `design/`, but `subtitle.strings` (the descriptor
+  copy) currently only exists for `en-US` — write a `subtitle.strings` for
+  each other locale (same scene keys, 4-8 words) before running
   `compose-screenshots.sh <locale>` against the matching raw captures to
   curate them once the raw captures exist for that locale.
 - No Android screenshots yet: `supply` expects them under
