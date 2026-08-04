@@ -7,5 +7,5 @@ appId: ${APP_ID}
                 link: ${SHARED_CHALLENGE_LINK}
           - extendedWaitUntil:
                 visible:
-                    id: 'ChallengeAcceptScreenSelectors.Root'
+                    id: 'ChallengeAcceptScreenSelectors.AcceptButton'
                 timeout: 10000

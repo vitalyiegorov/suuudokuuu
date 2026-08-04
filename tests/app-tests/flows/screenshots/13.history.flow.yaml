@@ -1,0 +1,42 @@
+appId: ${APP_ID}
+tags:
+    - screenshots
+---
+# History detail: the list of completed games for one difficulty
+# (Score/Time/Mistakes rows), one step deeper than 10.stats and one step
+# short of 07.replay's playback screen. Reuses the same win fixture.
+- runFlow: subflows/reset-app.flow.yaml
+- runFlow:
+      file: subflows/apply-language.flow.yaml
+      env:
+          LOCALE: ${LOCALE}
+- runFlow:
+      file: subflows/apply-appearance.flow.yaml
+      env:
+          APPEARANCE: ${APPEARANCE}
+
+- runFlow:
+      file: subflows/complete-win-fixture-and-return-home.flow.yaml
+      env:
+          SHARED_CHALLENGE_LINK: suuudokuuu://shared/_KGP________9____qXF6FFdMjBWGhJIN-CMqSm5omCUw0KFUm6-t2HxLUAuYMCP-
+
+- openLink:
+      link: 'suuudokuuu://history'
+- extendedWaitUntil:
+      visible:
+          id: 'HistoryScreenSelectors.Root'
+      timeout: 5000
+- scrollUntilVisible:
+      element:
+          id: 'HistoryDifficultySelectors.Card.Newbie'
+      direction: DOWN
+      timeout: 5000
+- tapOn:
+      id: 'HistoryDifficultySelectors.Card.Newbie'
+- extendedWaitUntil:
+      visible:
+          id: 'CompletedGameItemSelectors.ReplayButton'
+      timeout: 5000
+
+- takeScreenshot: '13-history'
+- stopApp

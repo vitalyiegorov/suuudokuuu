@@ -1,0 +1,27 @@
+appId: ${APP_ID}
+tags:
+    - screenshots
+---
+# Challenge accept-preview screen (rival stats, timeline, arsenal). Reuses
+# the same fixture link as 08.challenge-accept-preview.flow.yaml.
+- runFlow: subflows/reset-app.flow.yaml
+- runFlow:
+      file: subflows/apply-language.flow.yaml
+      env:
+          LOCALE: ${LOCALE}
+- runFlow:
+      file: subflows/apply-appearance.flow.yaml
+      env:
+          APPEARANCE: ${APPEARANCE}
+
+- runFlow:
+      file: ../subflows/shared/open-shared-challenge.flow.yaml
+      env:
+          SHARED_CHALLENGE_LINK: suuudokuuu://shared/_KAOADKxQxGAEwAiG0eSR7tZLUwnibscwQ0-A5fIIKC45kkWcIIQQQRgYUgCGSyNYgAAAAAAAAAAAAASWSrfOcD6yrHa0SAMNhPEITYFvbWxiFMlBQUFBQUFBQUFBQUFBQUFCQkFAgICAgICBQIFCQIJCQUFCQkFAgICAgICAgICAgICAgICAgICAgICAgIA
+- extendedWaitUntil:
+      visible:
+          id: 'ChallengeAcceptScreenSelectors.Timeline'
+      timeout: 5000
+
+- takeScreenshot: '06-rival'
+- stopApp

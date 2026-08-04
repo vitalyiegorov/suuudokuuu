@@ -10,7 +10,7 @@ import type { LayoutChangeEvent } from 'react-native';
 
 const initialBoardArea = { width: 0, height: 0 };
 
-export const useBoardGeometry = (): BoardAreaGeometryInterface => {
+export const useBoardGeometry = (reservedHeight: number): BoardAreaGeometryInterface => {
     const cellMargin = useAppSelector(settingsCellMarginSelector);
 
     const [boardArea, setBoardArea] = useState(initialBoardArea);
@@ -24,6 +24,7 @@ export const useBoardGeometry = (): BoardAreaGeometryInterface => {
     const { cellSize, boardSize } = gameGetBoardGeometry({
         availableWidth: boardArea.width,
         availableHeight: boardArea.height,
+        reservedHeight,
         fieldSize: defaultSudokuConfig.fieldSize,
         fieldGroupSize: defaultSudokuConfig.fieldGroupHeight,
         cellMargin

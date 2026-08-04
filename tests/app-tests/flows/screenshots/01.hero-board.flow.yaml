@@ -1,0 +1,76 @@
+appId: ${APP_ID}
+tags:
+    - screenshots
+---
+# Fresh Nightmare-difficulty board so the hero shot reads airy: 17-25 clues
+# out of 81 cells leaves most of the grid empty, unlike the near-complete
+# win-fixture board this scene used to reuse. Nightmare (not Hell) avoids the
+# bundled Hell corpus's slower load. Which cell ends up blank is inherently
+# random per generation, so this cascades through a handful of spread-out
+# coordinates using the '•' marker FieldCellText renders for a selected
+# empty cell (field-cell-text.tsx's getText) to find the first one that is
+# actually blank instead of assuming any single fixed coordinate is empty.
+- runFlow: subflows/reset-app.flow.yaml
+- runFlow:
+      file: subflows/apply-language.flow.yaml
+      env:
+          LOCALE: ${LOCALE}
+- runFlow:
+      file: subflows/apply-appearance.flow.yaml
+      env:
+          APPEARANCE: ${APPEARANCE}
+
+- tapOn:
+      id: 'DifficultyComplexityOptionSelectors.Option.Nightmare'
+- runFlow: ../subflows/game/start-new-game.flow.yaml
+
+- tapOn:
+      id: 'CellSelectors.Cell.4-4'
+- runFlow:
+      when:
+          notVisible: '•'
+      commands:
+          - tapOn:
+                id: 'CellSelectors.Cell.0-0'
+          - runFlow:
+                when:
+                    notVisible: '•'
+                commands:
+                    - tapOn:
+                          id: 'CellSelectors.Cell.8-8'
+                    - runFlow:
+                          when:
+                              notVisible: '•'
+                          commands:
+                              - tapOn:
+                                    id: 'CellSelectors.Cell.2-6'
+                              - runFlow:
+                                    when:
+                                        notVisible: '•'
+                                    commands:
+                                        - tapOn:
+                                              id: 'CellSelectors.Cell.6-2'
+- assertVisible: '•'
+
+- tapOn:
+      id: 'InputModeButtonSelectors.Root'
+- extendedWaitUntil:
+      visible:
+          id: 'CandidateInputItemSelectors.Button.2'
+      timeout: 3000
+- tapOn:
+      id: 'CandidateInputItemSelectors.Button.2'
+- tapOn:
+      id: 'CandidateInputItemSelectors.Button.5'
+- tapOn:
+      id: 'CandidateInputItemSelectors.Button.8'
+- tapOn:
+      id: 'InputModeButtonSelectors.Root'
+- extendedWaitUntil:
+      visible:
+          id: 'AvailableValueItemSelectors.Button.2'
+      timeout: 3000
+
+- takeScreenshot: '01-hero-board'
+- runFlow: ../subflows/game/quit-current-game.flow.yaml
+- stopApp

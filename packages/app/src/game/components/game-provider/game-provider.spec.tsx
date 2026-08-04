@@ -70,10 +70,12 @@ describe('GameProvider', () => {
             result.current.create(newbieGameOptions);
         });
 
-        await waitFor(() => void expect(mockPush).toHaveBeenCalledTimes(1));
+        await waitFor(() => void expect(mockReplace).toHaveBeenCalledTimes(1));
 
         expect(createSpy).toHaveBeenCalledTimes(1);
         expect(mockDispatch).toHaveBeenCalledTimes(1);
+        expect(mockReplace).toHaveBeenCalledWith('/game');
+        expect(mockPush).not.toHaveBeenCalled();
     });
 
     it('should admit exactly one Hell creation under rapid repeated calls', async () => {
@@ -85,7 +87,7 @@ describe('GameProvider', () => {
             result.current.create(hellGameOptions);
         });
 
-        await waitFor(() => void expect(mockPush).toHaveBeenCalledTimes(1));
+        await waitFor(() => void expect(mockReplace).toHaveBeenCalledTimes(1));
 
         expect(mockDispatch).toHaveBeenCalledTimes(1);
     });
@@ -110,13 +112,13 @@ describe('GameProvider', () => {
         const { result } = await renderGameContext();
 
         await act(() => void result.current.create(newbieGameOptions));
-        await waitFor(() => void expect(mockPush).toHaveBeenCalledTimes(1));
+        await waitFor(() => void expect(mockReplace).toHaveBeenCalledTimes(1));
 
         await act(() => void result.current.create(newbieGameOptions));
 
         expect(result.current.isCreatingGame).toBe(true);
         expect(createSpy).toHaveBeenCalledTimes(1);
-        expect(mockPush).toHaveBeenCalledTimes(1);
+        expect(mockReplace).toHaveBeenCalledTimes(1);
     });
 
     it('should load and navigate once for repeated createFromState calls', async () => {
@@ -148,10 +150,10 @@ describe('GameProvider', () => {
         await waitFor(() => void expect(mockAlert).toHaveBeenCalledTimes(1));
 
         expect(result.current.isCreatingGame).toBe(false);
-        expect(mockPush).not.toHaveBeenCalled();
+        expect(mockReplace).not.toHaveBeenCalled();
 
         await act(() => void result.current.create(newbieGameOptions));
 
-        await waitFor(() => void expect(mockPush).toHaveBeenCalledTimes(1));
+        await waitFor(() => void expect(mockReplace).toHaveBeenCalledTimes(1));
     });
 });

@@ -20,32 +20,32 @@ export const ReplayHeader = ({ game }: Props) => {
     const mistakesValue = game.maxMistakes >= RelaxedMistakeLimit ? `${game.mistakes}/∞` : `${game.mistakes}/${game.maxMistakes}`;
 
     return (
-        <AppMetricStrip separatorStyle={styles.separator} style={styles.container} variant="primary">
+        <AppMetricStrip separatorStyle={styles.separator} style={styles.container} variant="ghost">
             <AppMetricStripItem
                 label={t`Level`}
                 labelStyle={styles.label}
-                style={styles.itemLevel}
+                style={styles.item}
                 value={getDifficultyText(game.difficulty)}
                 valueStyle={styles.value}
             />
             <AppMetricStripItem
                 label={t`Score`}
                 labelStyle={styles.label}
-                style={styles.itemScore}
+                style={styles.item}
                 value={String(game.score)}
                 valueStyle={styles.value}
             />
             <AppMetricStripItem
                 label={t`Mistakes`}
                 labelStyle={styles.label}
-                style={styles.itemMistakes}
+                style={styles.item}
                 value={mistakesValue}
                 valueStyle={styles.value}
             />
             <AppMetricStripItem
                 label={t`Time`}
                 labelStyle={styles.label}
-                style={styles.itemTime}
+                style={styles.item}
                 value={elapsedTimeText}
                 valueStyle={styles.value}
             />

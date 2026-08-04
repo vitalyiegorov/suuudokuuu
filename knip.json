@@ -19,7 +19,7 @@
         "eas-build-cache-provider",
         "serve"
     ],
-    "ignoreBinaries": ["run"],
+    "ignoreBinaries": ["run", "xcrun", "maestro"],
     "workspaces": {
         "packages/app": {
             "entry": ["{index,cli,main}.{js,mjs,cjs,jsx,ts,tsx,mts,cts}!", "vercel-functions/api/**/*.ts!"]

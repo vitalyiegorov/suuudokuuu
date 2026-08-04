@@ -534,11 +534,67 @@ describe('gameSlice', () => {
         const history = finishedState.historyByDifficulty[DifficultyEnum.Hard];
 
         expect(history).toMatchObject({
-            averageTime: InitialElapsedTime,
+            averageTime: 0,
             challengesLost: 1,
             gamesCompleted: 1,
             gamesLost: 1
         });
         expect(history.completedGames).toEqual([]);
+    });
+
+    it('excludes losses from the average time so a fast loss cannot drag it below the best win time', () => {
+        const wonState = gameSlice.reducer(
+            {
+                ...initialGameState,
+                elapsedTime: 30,
+                score: 100,
+                sudokuString: StartedSudokuString
+            },
+            gameFinishAction({ difficulty: DifficultyEnum.Medium, isWon: true })
+        );
+        const lostState = gameSlice.reducer(
+            {
+                ...wonState,
+                elapsedTime: 5,
+                sudokuString: StartedSudokuString
+            },
+            gameFinishAction({ difficulty: DifficultyEnum.Medium, isWon: false })
+        );
+        const history = lostState.historyByDifficulty[DifficultyEnum.Medium];
+
+        expect(history).toMatchObject({ averageTime: 30, bestTime: 30, gamesLost: 1, gamesWon: 1 });
+        expect(history.averageTime).toBeGreaterThanOrEqual(history.bestTime);
+    });
+
+    it('lowers the best time for a faster win even when that win scores lower than a previous win', () => {
+        const firstWinState = gameSlice.reducer(
+            { ...initialGameState, elapsedTime: 30, score: 500, sudokuString: StartedSudokuString },
+            gameFinishAction({ difficulty: DifficultyEnum.Medium, isWon: true })
+        );
+        const secondWinState = gameSlice.reducer(
+            { ...firstWinState, elapsedTime: 10, score: 100, sudokuString: StartedSudokuString },
+            gameFinishAction({ difficulty: DifficultyEnum.Medium, isWon: true })
+        );
+        const history = secondWinState.historyByDifficulty[DifficultyEnum.Medium];
+
+        expect(history).toMatchObject({ bestScore: 500, bestTime: 10 });
+    });
+
+    it('averages the elapsed time of winning games only, ignoring an interleaved loss', () => {
+        const firstWinState = gameSlice.reducer(
+            { ...initialGameState, elapsedTime: 20, score: 100, sudokuString: StartedSudokuString },
+            gameFinishAction({ difficulty: DifficultyEnum.Medium, isWon: true })
+        );
+        const secondWinState = gameSlice.reducer(
+            { ...firstWinState, elapsedTime: 40, score: 50, sudokuString: StartedSudokuString },
+            gameFinishAction({ difficulty: DifficultyEnum.Medium, isWon: true })
+        );
+        const lostState = gameSlice.reducer(
+            { ...secondWinState, elapsedTime: 1, sudokuString: StartedSudokuString },
+            gameFinishAction({ difficulty: DifficultyEnum.Medium, isWon: false })
+        );
+        const history = lostState.historyByDifficulty[DifficultyEnum.Medium];
+
+        expect(history).toMatchObject({ averageTime: 30, gamesLost: 1, gamesWon: 2 });
     });
 });

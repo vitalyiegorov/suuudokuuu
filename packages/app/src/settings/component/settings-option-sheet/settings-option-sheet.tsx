@@ -60,6 +60,7 @@ export const SettingsOptionSheet = ({ description, items, title }: Props) => {
                                 key={item.label}
                                 label={item.label}
                                 onPress={item.onPress}
+                                testID={item.testID}
                             />
                         );
                     })}

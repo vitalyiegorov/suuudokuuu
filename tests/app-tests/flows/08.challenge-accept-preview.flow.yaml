@@ -43,8 +43,12 @@ appId: ${APP_ID}
 - assertVisible: 'Hidden Pair'
 - tapOn:
       id: 'ChallengeAcceptScreenSelectors.MaybeLaterButton'
+# Declining unmounts a fully rendered accept screen (arsenal grid, technique
+# timeline) and remounts the full Home scroll content, which is clearly slower
+# native work than the default budget under CI farm load, so give it more room
+# than 3000.
 - extendedWaitUntil:
       visible:
           id: 'HomeScreenSelectors.Root'
-      timeout: 3000
+      timeout: 8000
 - stopApp

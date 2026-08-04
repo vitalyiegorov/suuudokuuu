@@ -1,23 +1,21 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const BetaScreenStyles = StyleSheet.create({
+import { PageHorizontalPaddingConstant } from '../../../@generic/constants/page-horizontal-padding.constant';
+import { pageColumnScrollViewStyle } from '../../utils/page-column-screen-styles.util';
+
+export const BetaScreenStyles = StyleSheet.create(theme => ({
     content: {
         alignItems: 'center',
-        paddingHorizontal: 20
+        paddingHorizontal: PageHorizontalPaddingConstant
     },
     readyContent: {
         gap: 20,
         width: '100%'
     },
     scrollContent: {
-        alignSelf: 'center',
         gap: 20,
-        maxWidth: 660,
         paddingBottom: 32,
         width: '100%'
     },
-    scrollView: {
-        flex: 1,
-        width: '100%'
-    }
-});
+    scrollView: pageColumnScrollViewStyle(theme)
+}));

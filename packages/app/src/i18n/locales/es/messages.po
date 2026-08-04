@@ -501,7 +501,7 @@ msgstr "Ganas puntos extra cuando tu jugada completa:"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Feedback"
-msgstr "Respuesta"
+msgstr "Comentarios"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Filled cell"
@@ -1216,7 +1216,7 @@ msgstr "Sombrear celdas que ya tienen un número"
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Share puzzle"
-msgstr "Compartir rompecabezas"
+msgstr "Compartir sudoku"
 
 #: src/game/hooks/use-share-game.hook.ts
 msgid "Share this game"

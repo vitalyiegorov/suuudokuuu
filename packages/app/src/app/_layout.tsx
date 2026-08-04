@@ -9,6 +9,7 @@ import { isDefined } from '@rnw-community/shared';
 
 import { LinguiDefaultComponent } from '../@generic/components/lingui-default-component/lingui-default-component';
 import { RootProviders } from '../@generic/components/root-providers/root-providers';
+import { applySheetContentWidth } from '../@generic/utils/apply-sheet-content-width';
 import { i18nGetOSLocale } from '../@generic/utils/i18n.util';
 import { WinConfettiProvider } from '../confetti/components/win-confetti-provider/win-confetti-provider';
 import { GameProvider } from '../game/components/game-provider/game-provider';
@@ -16,6 +17,7 @@ import { ThemeProvider } from '../theme/components/theme-provider/theme-provider
 
 enableScreens();
 enableFreeze();
+applySheetContentWidth();
 
 i18n.activate(i18nGetOSLocale());
 

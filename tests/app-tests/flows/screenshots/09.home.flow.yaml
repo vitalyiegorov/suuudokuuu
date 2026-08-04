@@ -1,0 +1,27 @@
+appId: ${APP_ID}
+tags:
+    - screenshots
+---
+# Home/Play tab with the difficulty slider at a normal ("Medium") level.
+# Mirrors 02.hell's setup step (tap a DifficultyComplexityOptionSelectors
+# option) but stops mid-scale instead of at the Hell extreme, and never
+# starts a game.
+- runFlow: subflows/reset-app.flow.yaml
+- runFlow:
+      file: subflows/apply-language.flow.yaml
+      env:
+          LOCALE: ${LOCALE}
+- runFlow:
+      file: subflows/apply-appearance.flow.yaml
+      env:
+          APPEARANCE: ${APPEARANCE}
+
+- tapOn:
+      id: 'DifficultyComplexityOptionSelectors.Option.Medium'
+- extendedWaitUntil:
+      visible:
+          id: 'HomeScreenSelectors.Root'
+      timeout: 3000
+
+- takeScreenshot: '09-home'
+- stopApp

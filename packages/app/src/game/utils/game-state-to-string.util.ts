@@ -1,5 +1,7 @@
 import { GameStateSerializer, SharedPayloadKindEnum, TimelineEventKindEnum } from '@suuudokuuu/encoder';
 
+import { isDefined } from '@rnw-community/shared';
+
 import { GameState } from '../store/game.state';
 
 import { getIndexedCandidates } from './get-indexed-candidates.util';
@@ -23,9 +25,30 @@ const countEventsOfKind = (events: GameTimelineEventInterface[], kind: TimelineE
 const toShareableEvent = (event: GameTimelineEventInterface): TimelineEventInterface =>
     event.kind === TimelineEventKindEnum.Cell ? { kind: event.kind, cellIndex: event.cellIndex, value: event.value, ts: event.ts } : event;
 
+const toShareableTimelineEvents = (events: GameTimelineEventInterface[]): TimelineEventInterface[] => {
+    const shareableEvents: TimelineEventInterface[] = [];
+    let carriedSeconds = 0;
+
+    for (const event of events) {
+        if (shareableEventKinds.includes(event.kind)) {
+            shareableEvents.push({ ...toShareableEvent(event), ts: event.ts + carriedSeconds });
+            carriedSeconds = 0;
+        } else {
+            carriedSeconds += event.ts;
+        }
+    }
+
+    const lastShareableEvent = shareableEvents.at(-1);
+    if (carriedSeconds > 0 && isDefined(lastShareableEvent)) {
+        lastShareableEvent.ts += carriedSeconds;
+    }
+
+    return shareableEvents;
+};
+
 export const gameStateToString = (gameState: GameState, kind = SharedPayloadKindEnum.Puzzle): string => {
     try {
-        const timelineEvents = gameState.timelineEvents.filter(event => shareableEventKinds.includes(event.kind)).map(toShareableEvent);
+        const timelineEvents = toShareableTimelineEvents(gameState.timelineEvents);
 
         return serializer.encodeState({
             field: gameState.sudokuString,

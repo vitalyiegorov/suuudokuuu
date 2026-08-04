@@ -70,7 +70,7 @@ export const GameProvider = ({ children }: Props) => {
 
             const sudokuString = newSudoku.toString();
             dispatch(gameStartAction({ difficulty, isChallengeRun, maxMistakes, sudokuString }));
-            router.push('/game');
+            router.replace('/game');
         });
 
     useEffect(() => void i18n.activate(currentLanguage), [currentLanguage]);

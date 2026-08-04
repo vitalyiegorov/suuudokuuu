@@ -14,6 +14,7 @@ npm-debug.*
 *.orig.*
 web-build/
 packages/app/google-service-account.json
+packages/app/fastlane/screenshots/raw/
 .turbo
 report
 

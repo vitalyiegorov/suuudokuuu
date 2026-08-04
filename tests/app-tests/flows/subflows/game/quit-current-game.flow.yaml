@@ -6,7 +6,10 @@ appId: ${APP_ID}
     visible: 'Stop current run?'
     timeout: 3000
 - tapOn: 'OK'
+# Confirming quit unmounts a fully populated board (81 cells, numpad, timer) and
+# remounts the full Home scroll content, which is clearly slower native work than
+# the default budget under CI farm load, so give it more room than 3000.
 - extendedWaitUntil:
     visible:
       id: 'HomeScreenSelectors.Root'
-    timeout: 3000
+    timeout: 8000

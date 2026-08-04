@@ -1,0 +1,37 @@
+appId: ${APP_ID}
+tags:
+    - screenshots
+---
+# Stats/history tab with a completed game entry so the difficulty grid isn't
+# empty. Reuses the same win fixture as 07.replay/13.history, then opens
+# History through the deep link instead of the localized "Stats" tab label
+# (same reasoning as 07.replay - see README).
+- runFlow: subflows/reset-app.flow.yaml
+- runFlow:
+      file: subflows/apply-language.flow.yaml
+      env:
+          LOCALE: ${LOCALE}
+- runFlow:
+      file: subflows/apply-appearance.flow.yaml
+      env:
+          APPEARANCE: ${APPEARANCE}
+
+- runFlow:
+      file: subflows/complete-win-fixture-and-return-home.flow.yaml
+      env:
+          SHARED_CHALLENGE_LINK: suuudokuuu://shared/_KGP________9____qXF6FFdMjBWGhJIN-CMqSm5omCUw0KFUm6-t2HxLUAuYMCP-
+
+- openLink:
+      link: 'suuudokuuu://history'
+- extendedWaitUntil:
+      visible:
+          id: 'HistoryScreenSelectors.Root'
+      timeout: 5000
+- scrollUntilVisible:
+      element:
+          id: 'HistoryDifficultySelectors.Card.Newbie'
+      direction: DOWN
+      timeout: 5000
+
+- takeScreenshot: '10-stats'
+- stopApp

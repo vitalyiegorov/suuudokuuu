@@ -3,9 +3,5 @@ export const gameResumeGetNavigationIntent = (pathname: string) => {
         return 'stay';
     }
 
-    if (pathname === '/pause') {
-        return 'replace';
-    }
-
-    return 'push';
+    return 'replace';
 };

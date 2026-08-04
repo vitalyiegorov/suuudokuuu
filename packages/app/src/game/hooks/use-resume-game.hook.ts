@@ -20,9 +20,5 @@ export const useResumeGame = (): OnEventFn => {
         if (navigationIntent === 'replace') {
             router.replace('/game');
         }
-
-        if (navigationIntent === 'push') {
-            router.push('/game');
-        }
     };
 };

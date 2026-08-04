@@ -1,0 +1,43 @@
+appId: ${APP_ID}
+tags:
+    - screenshots
+---
+# Live challenge run against the same rival fixture 06.rival previews, so the
+# two scenes read as a pair: accept-preview, then the race itself. Reuses
+# 06.rival's SHARED_CHALLENGE_LINK (opponent total time 03:50 = 230s, same
+# fixture 08.challenge-accept-preview asserts). No player moves are made
+# (the cheap-move fallback), so after a ~30s observation window the rival is
+# meaningfully ahead (~13% progress vs. the player's 0%), which crosses
+# ChallengeRaceStatus's lead margin and renders the "Rival is ahead" losing
+# state on the live race HUD (ChallengeRaceHudSelectors.Root) instead of a
+# neutral "neck & neck" one.
+- runFlow: subflows/reset-app.flow.yaml
+- runFlow:
+      file: subflows/apply-language.flow.yaml
+      env:
+          LOCALE: ${LOCALE}
+- runFlow:
+      file: subflows/apply-appearance.flow.yaml
+      env:
+          APPEARANCE: ${APPEARANCE}
+
+- runFlow:
+      file: ../subflows/shared/open-shared-challenge.flow.yaml
+      env:
+          SHARED_CHALLENGE_LINK: suuudokuuu://shared/_KAOADKxQxGAEwAiG0eSR7tZLUwnibscwQ0-A5fIIKC45kkWcIIQQQRgYUgCGSyNYgAAAAAAAAAAAAASWSrfOcD6yrHa0SAMNhPEITYFvbWxiFMlBQUFBQUFBQUFBQUFBQUFCQkFAgICAgICBQIFCQIJCQUFCQkFAgICAgICAgICAgICAgICAgICAgICAgIA
+- runFlow: ../subflows/shared/accept-shared-challenge.flow.yaml
+- extendedWaitUntil:
+      visible:
+          id: 'ChallengeRaceHudSelectors.Root'
+      timeout: 5000
+
+- runFlow:
+      file: ../subflows/shared/wait-observation-window.flow.yaml
+      env:
+          WAIT_MILLISECONDS: 30000
+
+- assertVisible:
+      id: 'ChallengeRaceHudSelectors.Root'
+- takeScreenshot: '14-challenge-live'
+- runFlow: ../subflows/game/quit-current-game.flow.yaml
+- stopApp

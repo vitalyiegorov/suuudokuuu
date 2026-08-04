@@ -20,6 +20,7 @@ import { classifyTimelineMove } from '../../../challenge/utils/classify-timeline
 import { WinConfettiContext } from '../../../confetti/context/win-confetti.context';
 import { Field, FieldRef } from '../../../game/components/field/field';
 import { GameTimerController } from '../../../game/components/game-timer-controller/game-timer-controller';
+import { GameToolsSlotReservedHeightConstant } from '../../../game/constant/board-cell-size.constant';
 import { GameContext } from '../../../game/context/game.context';
 import { useBoardGeometry } from '../../../game/hooks/use-board-geometry.hook';
 import { useKeyboardControls } from '../../../game/hooks/use-keyboard-controls/use-keyboard-controls.hook';
@@ -73,11 +74,10 @@ export const GameScreen = () => {
 
     const [hapticNotification, hapticImpact] = useVibration();
 
-    const { cellSize: boardCellSize, boardSize, onBoardAreaLayout } = useBoardGeometry();
-
     const { sizeClass } = useAppLayout();
     const isWideLayout = sizeClass === 'wide';
-
+    const reservedBoardHeight = isWideLayout ? 0 : GameToolsSlotReservedHeightConstant;
+    const { cellSize: boardCellSize, boardSize, onBoardAreaLayout } = useBoardGeometry(reservedBoardHeight);
     const dispatch = useAppDispatch();
     const score = useAppSelector(gameScoreSelector);
     const mistakes = useAppSelector(gameMistakesSelector);

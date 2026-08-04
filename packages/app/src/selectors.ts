@@ -17,6 +17,7 @@ export * from './history/components/completed-games-list/completed-game-item.sel
 export * from './history/components/history-difficulty/history-difficulty.selectors';
 export * from './history/components/replay-controls/replay-controls.selectors';
 export * from './history/components/replay-top-bar/replay-top-bar.selectors';
+export * from './scoring/components/scoring-screen.selectors';
 export * from './screens/components/game-screen/game-screen.selectors';
 export * from './screens/components/history-games-screen/history-games-screen.selectors';
 export * from './screens/components/history-screen/history-screen.selectors';
