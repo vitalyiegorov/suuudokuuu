@@ -4943,7 +4943,7 @@ __metadata:
     react-native-screens: "npm:4.25.2"
     react-native-share: "npm:^12.3.1"
     react-native-svg: "npm:15.15.4"
-    react-native-unistyles: "npm:^3.2.5"
+    react-native-unistyles: "patch:react-native-unistyles@npm%3A3.3.0#~/.yarn/patches/react-native-unistyles-npm-3.3.0-ad7eeefa22.patch"
     react-native-web: "npm:^0.21.2"
     react-native-worklets: "npm:0.10.0"
     react-redux: "npm:^9.3.0"
@@ -15394,7 +15394,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-unistyles@npm:^3.2.5":
+"react-native-unistyles@npm:3.3.0":
   version: 3.3.0
   resolution: "react-native-unistyles@npm:3.3.0"
   dependencies:
@@ -15412,6 +15412,27 @@ __metadata:
     react-native-reanimated:
       optional: true
   checksum: 10/7cbec0ac6b1e50e689cca53861cf9d499c9e748e83aad970143b7da77f8b1b2d6c036492877d9d93a0bb60dfa1e36bf77774b514cbe1d2cca0409dcf7618a247
+  languageName: node
+  linkType: hard
+
+"react-native-unistyles@patch:react-native-unistyles@npm%3A3.3.0#~/.yarn/patches/react-native-unistyles-npm-3.3.0-ad7eeefa22.patch":
+  version: 3.3.0
+  resolution: "react-native-unistyles@patch:react-native-unistyles@npm%3A3.3.0#~/.yarn/patches/react-native-unistyles-npm-3.3.0-ad7eeefa22.patch::version=3.3.0&hash=324753"
+  dependencies:
+    "@babel/types": "npm:7.29.0"
+  peerDependencies:
+    "@react-native/normalize-colors": "*"
+    react: "*"
+    react-native: ">=0.76.0"
+    react-native-edge-to-edge: "*"
+    react-native-nitro-modules: "*"
+    react-native-reanimated: "*"
+  peerDependenciesMeta:
+    react-native-edge-to-edge:
+      optional: true
+    react-native-reanimated:
+      optional: true
+  checksum: 10/c28c3b2198a63c41c8c5f909eda1e570a90165c35e73437beba9fc1f7d9aac45a91fb20645d372f8c87b718e5c3a53f2272139006094352e201f4699faf3d978
   languageName: node
   linkType: hard
 

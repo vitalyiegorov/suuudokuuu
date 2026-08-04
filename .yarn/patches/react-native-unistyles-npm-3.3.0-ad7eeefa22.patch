@@ -1,0 +1,92 @@
+diff --git a/cxx/core/UnistylesRegistry.cpp b/cxx/core/UnistylesRegistry.cpp
+index 7960fd72c580a526ed52cba3d1fc7505cb45c7e0..795072cfdeb3989a834568d3975113826f20fb4f 100644
+--- a/cxx/core/UnistylesRegistry.cpp
++++ b/cxx/core/UnistylesRegistry.cpp
+@@ -122,6 +122,7 @@ void core::UnistylesRegistry::suspendShadowNode(const ShadowNodeFamily* shadowNo
+     this->trafficController.withLock([this, shadowNodeFamily](){
+         if (this->_shadowRegistry.contains(shadowNodeFamily)) {
+             this->_suspendedFamilies.insert(shadowNodeFamily);
++            this->trafficController.removeShadowNode(shadowNodeFamily);
+         }
+     });
+ }
+@@ -130,6 +131,10 @@ bool core::UnistylesRegistry::isSuspended(const ShadowNodeFamily* family) const
+     return _suspendedFamilies.count(family) > 0;
+ }
+ 
++bool core::UnistylesRegistry::isActiveUnistylesFamily(const ShadowNodeFamily* family) const noexcept {
++    return _shadowRegistry.count(family) > 0 && _suspendedFamilies.count(family) == 0;
++}
++
+ std::shared_ptr<core::StyleSheet> core::UnistylesRegistry::addStyleSheet(jsi::Runtime& rt, core::StyleSheetType type, jsi::Object&& rawValue) {
+     int tag = _nextStyleSheetTag.fetch_add(1);
+ 
+@@ -145,6 +150,10 @@ core::DependencyMap core::UnistylesRegistry::buildDependencyMap(std::vector<Unis
+     std::unordered_set<UnistyleDependency> uniqueDependencies(deps.begin(), deps.end());
+ 
+     for (const auto& [family, unistyles] : this->_shadowRegistry) {
++        if (this->_suspendedFamilies.count(family) > 0) {
++            continue;
++        }
++
+         bool hasAnyOfDependencies = false;
+ 
+         // Check if any dependency matches
+diff --git a/cxx/core/UnistylesRegistry.h b/cxx/core/UnistylesRegistry.h
+index f501232918f26154836965dc3130dd6c119e3365..fd0eb332c1fd24eaa57051395c2d08e55e0b04d8 100644
+--- a/cxx/core/UnistylesRegistry.h
++++ b/cxx/core/UnistylesRegistry.h
+@@ -44,6 +44,8 @@ struct UnistylesRegistry: public StyleSheetRegistry {
+     void unlinkShadowNodeWithUnistyles(const ShadowNodeFamily*);
+     void suspendShadowNode(const ShadowNodeFamily*);
+     bool isSuspended(const ShadowNodeFamily*) const noexcept;
++    // Caller must hold trafficController's lock when link/unlink/suspend may race.
++    bool isActiveUnistylesFamily(const ShadowNodeFamily*) const noexcept;
+     std::shared_ptr<core::StyleSheet> addStyleSheet(jsi::Runtime& rt, core::StyleSheetType type, jsi::Object&& rawValue);
+     DependencyMap buildDependencyMap(std::vector<UnistyleDependency>& deps);
+     void shadowLeafUpdateFromUnistyle(jsi::Runtime& rt, Unistyle::Shared unistyle, jsi::Value& maybePressableId);
+diff --git a/cxx/shadowTree/ShadowTrafficController.h b/cxx/shadowTree/ShadowTrafficController.h
+index aafbecedd3a209c25dcb6055acad19bf377cb2f3..2c952a566ccf40f006883e52431fad6f697122b8 100644
+--- a/cxx/shadowTree/ShadowTrafficController.h
++++ b/cxx/shadowTree/ShadowTrafficController.h
+@@ -20,9 +20,13 @@ struct ShadowTrafficController {
+         this->_canCommit = true;
+     }
+ 
+-    inline shadow::ShadowLeafUpdates& getUpdates() {
++    inline shadow::ShadowLeafUpdates takeUpdates() {
+         // call it only within withLock!
+-        return _unistylesUpdates;
++        auto updates = std::move(_unistylesUpdates);
++        _unistylesUpdates = {};
++        _canCommit = false;
++
++        return updates;
+     }
+ 
+     inline void setUpdates(shadow::ShadowLeafUpdates& newUpdates) {
+diff --git a/cxx/shadowTree/ShadowTreeManager.cpp b/cxx/shadowTree/ShadowTreeManager.cpp
+index 01026dc5751b00473ae878804cdae1b283fdbc57..f4e5cff69107c4e64b97ee8464654e53dbeb4af9 100644
+--- a/cxx/shadowTree/ShadowTreeManager.cpp
++++ b/cxx/shadowTree/ShadowTreeManager.cpp
+@@ -10,7 +10,19 @@ void shadow::ShadowTreeManager::updateShadowTree(jsi::Runtime& rt) {
+     auto& registry = core::UnistylesRegistry::get();
+ 
+     registry.trafficController.withLock([&](){
+-        auto updates = registry.trafficController.getUpdates();
++        auto updates = registry.trafficController.takeUpdates();
++
++        if (updates.empty()) {
++            return;
++        }
++
++        for (auto it = updates.begin(); it != updates.end();) {
++            if (!registry.isActiveUnistylesFamily(it->first)) {
++                it = updates.erase(it);
++            } else {
++                ++it;
++            }
++        }
+ 
+         if (updates.empty()) {
+             return;
