@@ -21,6 +21,10 @@ const NarrowAreaWidth = 360;
 const TallAreaHeight = 800;
 const CollapsedAreaWidth = -100;
 const DefaultCellMargin = 5;
+const NoReservedHeight = 0;
+const ToolsSlotReservedHeight = 60;
+const HeightBoundAreaWidth = 420;
+const HeightBoundAreaHeight = 440;
 const MeasuredAreaSizes = [
     CompactPhoneAreaSize,
     LargePhoneAreaSize,
@@ -34,6 +38,7 @@ const getSquareGeometry = (areaSize: number, cellMargin: number) =>
     gameGetBoardGeometry({
         availableWidth: areaSize,
         availableHeight: areaSize,
+        reservedHeight: NoReservedHeight,
         fieldSize,
         fieldGroupSize,
         cellMargin
@@ -70,6 +75,7 @@ describe('gameGetBoardGeometry', () => {
         const narrowGeometry = gameGetBoardGeometry({
             availableWidth: NarrowAreaWidth,
             availableHeight: TallAreaHeight,
+            reservedHeight: NoReservedHeight,
             fieldSize,
             fieldGroupSize,
             cellMargin: DefaultCellMargin
@@ -82,6 +88,7 @@ describe('gameGetBoardGeometry', () => {
         const shortGeometry = gameGetBoardGeometry({
             availableWidth: WideAreaWidth,
             availableHeight: ShortAreaHeight,
+            reservedHeight: NoReservedHeight,
             fieldSize,
             fieldGroupSize,
             cellMargin: DefaultCellMargin
@@ -102,11 +109,47 @@ describe('gameGetBoardGeometry', () => {
         const collapsedGeometry = gameGetBoardGeometry({
             availableWidth: CollapsedAreaWidth,
             availableHeight: TallAreaHeight,
+            reservedHeight: NoReservedHeight,
             fieldSize,
             fieldGroupSize,
             cellMargin: DefaultCellMargin
         });
 
         expect(collapsedGeometry).toStrictEqual({ cellSize: 0, boardSize: 0 });
+    });
+
+    it('reserves height for a fixed sibling before fitting the board to the limiting height', () => {
+        const geometryWithReservedHeight = gameGetBoardGeometry({
+            availableWidth: HeightBoundAreaWidth,
+            availableHeight: HeightBoundAreaHeight,
+            reservedHeight: ToolsSlotReservedHeight,
+            fieldSize,
+            fieldGroupSize,
+            cellMargin: DefaultCellMargin
+        });
+        const geometryWithoutReservedHeight = gameGetBoardGeometry({
+            availableWidth: HeightBoundAreaWidth,
+            availableHeight: HeightBoundAreaHeight,
+            reservedHeight: NoReservedHeight,
+            fieldSize,
+            fieldGroupSize,
+            cellMargin: DefaultCellMargin
+        });
+
+        expect(geometryWithReservedHeight.boardSize).toBeLessThan(geometryWithoutReservedHeight.boardSize);
+        expect(geometryWithReservedHeight.boardSize + ToolsSlotReservedHeight).toBeLessThanOrEqual(HeightBoundAreaHeight);
+    });
+
+    it('never returns a negative size when the reserved height exceeds the measured height', () => {
+        const overReservedGeometry = gameGetBoardGeometry({
+            availableWidth: HeightBoundAreaWidth,
+            availableHeight: ToolsSlotReservedHeight,
+            reservedHeight: HeightBoundAreaHeight,
+            fieldSize,
+            fieldGroupSize,
+            cellMargin: DefaultCellMargin
+        });
+
+        expect(overReservedGeometry).toStrictEqual({ cellSize: 0, boardSize: 0 });
     });
 });
