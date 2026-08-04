@@ -1,0 +1,43 @@
+appId: ${APP_ID}
+---
+# Idempotent regardless of the switch's current state: reads the toggle's
+# accessibility "checked" state instead of assuming a starting appearance
+# (the app never clears state between scenes, so the previous scene's
+# appearance carries over). Only taps when the current state disagrees with
+# ${APPEARANCE}, then returns to Home explicitly through the deep link
+# rather than a back button, since the Settings tab root has none.
+- openLink:
+      link: 'suuudokuuu://settings'
+- extendedWaitUntil:
+      visible:
+          id: 'SettingsScreenSelectors.Root'
+      timeout: 5000
+- scrollUntilVisible:
+      element:
+          id: 'SettingsScreenSelectors.DarkModeSwitch'
+      direction: DOWN
+      timeout: 5000
+- runFlow:
+      when:
+          true: ${APPEARANCE == 'dark'}
+          visible:
+              id: 'SettingsScreenSelectors.DarkModeSwitch'
+              checked: false
+      commands:
+          - tapOn:
+                id: 'SettingsScreenSelectors.DarkModeSwitch'
+- runFlow:
+      when:
+          true: ${APPEARANCE == 'light'}
+          visible:
+              id: 'SettingsScreenSelectors.DarkModeSwitch'
+              checked: true
+      commands:
+          - tapOn:
+                id: 'SettingsScreenSelectors.DarkModeSwitch'
+- openLink:
+      link: 'suuudokuuu://'
+- extendedWaitUntil:
+      visible:
+          id: 'HomeScreenSelectors.Root'
+      timeout: 5000

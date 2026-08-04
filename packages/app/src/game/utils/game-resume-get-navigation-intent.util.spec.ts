@@ -11,8 +11,8 @@ describe('gameResumeGetNavigationIntent', () => {
         expect(gameResumeGetNavigationIntent('/pause')).toBe('replace');
     });
 
-    it('pushes game route from non-game pages', () => {
-        expect(gameResumeGetNavigationIntent('/')).toBe('push');
-        expect(gameResumeGetNavigationIntent('/history')).toBe('push');
+    it('replaces the current page with the game route from non-game pages', () => {
+        expect(gameResumeGetNavigationIntent('/')).toBe('replace');
+        expect(gameResumeGetNavigationIntent('/history')).toBe('replace');
     });
 });

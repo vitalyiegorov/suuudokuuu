@@ -11,9 +11,10 @@ interface Props {
     readonly setting: Parameters<typeof settingsKeySelector>[0];
     readonly title: string;
     readonly description?: string;
+    readonly testID?: string;
 }
 
-export const SettingsSwitch = ({ setting, title, description }: Props) => {
+export const SettingsSwitch = ({ setting, title, description, testID }: Props) => {
     const settingValue = useAppSelector(settingsKeySelector(setting));
     const dispatch = useAppDispatch();
     const [, hapticImpact] = useVibration();
@@ -21,7 +22,7 @@ export const SettingsSwitch = ({ setting, title, description }: Props) => {
         hapticImpact(ImpactFeedbackStyle.Light);
         dispatch(settingsSetAction({ [setting]: newValue }));
     };
-    const trailing = <AppToggle onValueChange={handleValueChange} value={settingValue} />;
+    const trailing = <AppToggle onValueChange={handleValueChange} testID={testID} value={settingValue} />;
 
     return <AppSettingsRow description={description} title={title} trailing={trailing} />;
 };

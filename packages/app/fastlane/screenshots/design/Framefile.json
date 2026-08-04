@@ -1,0 +1,48 @@
+{
+  "device_frame_version": "latest",
+  "default": {
+    "background": "background.png",
+    "frame": "BLACK",
+    "use_platform": "IOS",
+    "title_below_image": false,
+    "show_complete_frame": false,
+    "padding": "6%x9%",
+    "title_min_height": "20%",
+    "font_scale_factor": 0.11,
+    "interline_spacing": 12,
+    "title": {
+      "font": "../../../../../node_modules/@expo-google-fonts/inter/900Black/Inter_900Black.ttf",
+      "color": "#0A0A0A",
+      "font_size": 104
+    }
+  },
+  "data": [
+    {
+      "filter": "01-hero-board"
+    },
+    {
+      "filter": "02-hell",
+      "title": {
+        "color": "#0057B7"
+      }
+    },
+    {
+      "filter": "03-themes"
+    },
+    {
+      "filter": "04-editor"
+    },
+    {
+      "filter": "05-win"
+    },
+    {
+      "filter": "06-rival"
+    },
+    {
+      "filter": "07-replay"
+    },
+    {
+      "filter": "08-settings"
+    }
+  ]
+}

@@ -81,11 +81,12 @@ describe('gameStateToString', () => {
         expect(decoded.timelineEvents).toStrictEqual(events);
     });
 
-    it('should drop the local only event kinds from the payload', () => {
-        expect.assertions(1);
+    it('should drop the local only event kinds from the payload while keeping their elapsed time', () => {
+        expect.assertions(2);
 
+        const [cellEvent] = buildCellEvents(1);
         const events: GameTimelineEventInterface[] = [
-            ...buildCellEvents(1),
+            cellEvent,
             { kind: TimelineEventKindEnum.Pencil, cellIndex: 3, value: 7, ts: 1 },
             { kind: TimelineEventKindEnum.InputMode, ts: 1 },
             { kind: TimelineEventKindEnum.Pause, ts: 1 },
@@ -93,7 +94,27 @@ describe('gameStateToString', () => {
         ];
         const decoded = serializer.decodeState(gameStateToString(buildGameState(events), SharedPayloadKindEnum.Challenge));
 
-        expect(decoded.timelineEvents).toStrictEqual(buildCellEvents(1));
+        expect(decoded.timelineEvents).toStrictEqual([{ ...cellEvent, ts: 14 }]);
+        expect(decoded.elapsedTime).toBe(14);
+    });
+
+    it('should preserve the full elapsed time when pencil events sit between shared events', () => {
+        expect.assertions(2);
+
+        const [firstCellEvent, secondCellEvent] = buildCellEvents(2);
+        const events: GameTimelineEventInterface[] = [
+            { kind: TimelineEventKindEnum.Pencil, cellIndex: 3, value: 7, ts: 60 },
+            firstCellEvent,
+            { kind: TimelineEventKindEnum.Pencil, cellIndex: 5, value: 2, ts: 200 },
+            secondCellEvent
+        ];
+        const decoded = serializer.decodeState(gameStateToString(buildGameState(events), SharedPayloadKindEnum.Challenge));
+
+        expect(decoded.elapsedTime).toBe(280);
+        expect(decoded.timelineEvents).toStrictEqual([
+            { ...firstCellEvent, ts: 70 },
+            { ...secondCellEvent, ts: 210 }
+        ]);
     });
 
     it('should keep the auto candidates assist marker in the payload', () => {

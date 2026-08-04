@@ -1,0 +1,8 @@
+Ya está aquí el look nuevo.
+
+• Editor de temas con presets Clásico, Dorado y Periódico, más editor personalizado con vista previa en vivo
+• Validación de contraste automática para temas nítidos en claro y oscuro
+• Pantallas de ajustes y temas renovadas, botones más cuidados
+• La dificultad Infierno usa ya nuestro corpus completo de 49.158 puzles de 17 pistas
+• Mejoras en el modo Rival, la repetición y las traducciones
+• Corrección de errores y mejoras de estabilidad

@@ -198,7 +198,7 @@ msgstr "Brädets färger och skärmens utseende"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Box-Line Reduction"
-msgstr "Box-rad-reduktion"
+msgstr "Block-rad-reduktion"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Built:"
@@ -1072,7 +1072,7 @@ msgstr "Versionsinformation"
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-top-bar/replay-top-bar.tsx
 msgid "Replay"
-msgstr "Repetition"
+msgstr "Repris"
 
 #: src/settings/component/settings-app-footer/settings-app-footer.tsx
 msgid "Report a bug"
@@ -1113,7 +1113,7 @@ msgstr "Rivalens arsenal"
 
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Rival's run"
-msgstr "Motståndarens runda"
+msgstr "Rivalens runda"
 
 #: src/challenge/components/challenge-result-rival-time-card/challenge-result-rival-time-card.tsx
 msgid "Rival's time to beat"

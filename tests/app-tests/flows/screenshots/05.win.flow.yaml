@@ -1,0 +1,37 @@
+appId: ${APP_ID}
+tags:
+    - screenshots
+---
+# Challenge-won result screen (confetti + score). This is the deterministic
+# "win" screen reachable from a fixture: a truly plain (non-challenge)
+# WinnerScreen has no existing deep-link fixture with more than one empty
+# cell (see README), so this scene reuses the same win fixture as
+# 02.game-screen-win/04.statistics-screen instead of complete-winning-
+# shared-challenge.flow.yaml directly, because that subflow asserts the
+# English-only "Their time to beat" copy and would fail under other locales.
+- runFlow: subflows/reset-app.flow.yaml
+- runFlow:
+      file: subflows/apply-language.flow.yaml
+      env:
+          LOCALE: ${LOCALE}
+- runFlow:
+      file: subflows/apply-appearance.flow.yaml
+      env:
+          APPEARANCE: ${APPEARANCE}
+
+- runFlow:
+      file: ../subflows/shared/open-shared-challenge.flow.yaml
+      env:
+          SHARED_CHALLENGE_LINK: suuudokuuu://shared/_KGP________9____qXF6FFdMjBWGhJIN-CMqSm5omCUw0KFUm6-t2HxLUAuYMCP-
+- runFlow: ../subflows/shared/accept-shared-challenge.flow.yaml
+- tapOn:
+      id: 'CellSelectors.Cell.6-0'
+- tapOn:
+      id: 'AvailableValueItemSelectors.Button.2'
+- extendedWaitUntil:
+      visible:
+          id: 'ChallengeResultScreenSelectors.OutcomeValue'
+      timeout: 5000
+
+- takeScreenshot: '05-win'
+- stopApp

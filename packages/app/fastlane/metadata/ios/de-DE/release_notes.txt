@@ -1,0 +1,10 @@
+Der neue Look ist da.
+
+• Kompletter Theme-Editor: die Presets Klassisch, Gold und Zeitung, plus ein Live-Vorschau-Editor, in dem du jede Brettfarbe selbst bestimmst
+• Automatische Kontrastprüfung hält eigene Themes in Hell und Dunkel gestochen scharf
+• Überarbeitete Einstellungs- und Theme-Bildschirme mit poliertem Design
+• Hölle-Schwierigkeit schöpft jetzt aus unserem vollen Korpus von 49.158 17-Hinweis-Rätseln
+• Teilen im Rivalen-Modus ist schneller und zuverlässiger
+• Flüssigere Zug-für-Zug-Wiederholung
+• Übersetzungen in allen 13 Sprachen verbessert
+• Fehlerbehebungen und Stabilitätsverbesserungen

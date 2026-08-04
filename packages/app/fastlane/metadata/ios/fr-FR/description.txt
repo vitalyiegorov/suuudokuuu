@@ -1,0 +1,32 @@
+suuudokuuu, c'est le Sudoku comme il devrait être : rapide, beau et honnête sur la difficulté. Six niveaux, d'une grille Novice toute douce jusqu'au véritable Enfer, le Sudoku légitime le plus difficile qui existe. Pas de pubs déguisées en énigmes, pas de compte, pas de blabla. Juste toi et la grille.
+
+NOUVEAU LOOK, NOUVELLES SENSATIONS
+On a repensé la grille couleur par couleur. Choisis Classique, Or ou Journal, ou ouvre l'éditeur de thèmes avec aperçu en direct et définis toi-même chaque case, chaque ligne et chaque surbrillance. La validation de contraste intégrée garde chaque thème personnalisé lisible en clair comme en sombre, pour une grille toujours nette qui ne fatigue jamais les yeux.
+
+L'ENFER, POUR DE VRAI
+La plupart des applis Sudoku "expert" trichent sur leur niveau le plus difficile. Pas la nôtre. La difficulté Enfer puise dans un corpus vérifié de 49 158 grilles authentiques à 17 indices, le nombre minimum d'indices pour qu'un Sudoku ait encore une solution unique. Si une grille "expert" t'a déjà laissé sur ta faim, voici enfin le niveau qui va te donner du fil à retordre.
+
+DÉFIE UN AMI
+Le mode Rival envoie ta grille exacte à un ami sous forme de lien, avec ta partie enregistrée. Il ou elle joue la même grille que toi et affronte ton temps, coup par coup. Le droit de se vanter, réglé une fois pour toutes.
+
+REVOIS LA PARTIE
+Chaque partie terminée peut être revue coup par coup. Rembobine ta propre résolution, étudie où tu as ralenti, ou savoure deux fois une belle fin de partie.
+
+UN SCORE PLUS MALIN
+Notre score n'est pas qu'un simple chrono. Il reconnaît les vraies techniques de résolution, comme la Paire nue et le X-Wing, pendant que tu joues, pour que ton score reflète comment tu as vraiment résolu la grille, pas juste la vitesse à laquelle tu as tapoté l'écran.
+
+TOUT LE RESTE QUE TU VEUX
+• 6 difficultés, de Novice à Enfer
+• Éditeur de thèmes complet, en clair comme en sombre
+• Défis Rival par lien de partage
+• Relecture complète coup par coup
+• Score et analyse des coups sensibles aux techniques
+• 13 langues
+• Confettis à chaque victoire, animations d'une fluidité parfaite
+• Fonctionne entièrement hors ligne
+• Sans compte, sans inscription, jamais
+• Gratuit et open source
+
+suuudokuuu est fait pour celles et ceux qui aiment vraiment le Sudoku, pas pour qu'on leur vende un abonnement. Télécharge-le, choisis une difficulté, et vois jusqu'où tu iras avant que l'Enfer ne te remette à ta place.
+
+Pour en savoir plus, rends-toi sur www.suuudokuuu.com.

@@ -1390,7 +1390,7 @@ msgstr "Tautan commit tidak dapat dibuka di perangkat ini."
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "The install link could not be opened. Check your browser settings and try again."
-msgstr "Tautan penginstalan tidak dapat dibuka. Periksa pengaturan browser Anda dan coba lagi."
+msgstr "Tautan penginstalan tidak dapat dibuka. Periksa pengaturan browsermu dan coba lagi."
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Their time to beat"
@@ -1564,7 +1564,7 @@ msgstr "Build pengembangan terbaru tidak dapat dimuat. Silakan coba lagi."
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "While you were away, the fight for freedom continued. Every $1 makes a difference."
-msgstr "Saat Anda pergi, perjuangan untuk kebebasan terus berlanjut. Setiap donasi $1 berarti."
+msgstr "Saat kamu pergi, perjuangan untuk kebebasan terus berlanjut. Setiap donasi $1 berarti."
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Wider gaps for easier tapping"
@@ -1621,7 +1621,7 @@ msgstr "Kamu mengalahkan lawanmu"
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "You finished your puzzle. The fight for freedom in Ukraine continues. Every $1 makes a difference."
-msgstr "Anda telah menyelesaikan Sudoku Anda. Perjuangan untuk kebebasan di Ukraina terus berlanjut. Setiap donasi $1 berarti."
+msgstr "Kamu telah menyelesaikan sudokumu. Perjuangan untuk kebebasan di Ukraina terus berlanjut. Setiap donasi $1 berarti."
 
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "You got to"
@@ -1637,15 +1637,15 @@ msgstr "Permainan terbaikmu"
 
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "Your browser may ask for permission to install unknown apps. Android will also show an operating-system security warning before installation."
-msgstr "Browser Anda mungkin meminta izin untuk menginstal aplikasi dari sumber tidak dikenal. Android juga akan menampilkan peringatan keamanan sistem operasi sebelum penginstalan."
+msgstr "Browsermu mungkin meminta izin untuk menginstal aplikasi dari sumber tidak dikenal. Android juga akan menampilkan peringatan keamanan sistem operasi sebelum penginstalan."
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Your custom colors"
-msgstr "Warna khusus Anda"
+msgstr "Warna khususmu"
 
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Your progress"
-msgstr "Progres Anda"
+msgstr "Progresmu"
 
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Your recording"

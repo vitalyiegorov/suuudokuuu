@@ -1,4 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
+import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { View } from 'react-native';
 
 import { CollapsibleChromePage } from '../../../@generic/components/collapsible-chrome-page/collapsible-chrome-page';
@@ -17,9 +18,9 @@ export const BetaScreen = () => {
 
     return (
         <CollapsibleChromePage
-            contentContainerStyle={styles.scrollContent}
+            contentContainerStyle={resolveUnistyleForAnimated(styles.scrollContent)}
             contentStyle={styles.content}
-            style={styles.scrollView}
+            style={resolveUnistyleForAnimated(styles.scrollView)}
             testID={BetaScreenSelectors.Root}
             title={t`Development builds`}
         >

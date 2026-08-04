@@ -1,0 +1,10 @@
+Tampilan baru udah hadir.
+
+• Theme engine lengkap: preset Classic, Gold, dan Newspaper, plus editor custom dengan live preview buat semua warna papan
+• Validasi kontras otomatis jaga tema custom tetap tajam di mode terang dan gelap
+• Layar settings/tema disegarkan dengan tombol yang lebih rapi
+• Hell difficulty sekarang pakai korpus penuh 49.158 puzzle 17-clue
+• Berbagi rival mode makin cepat dan stabil
+• Playback replay gerakan demi gerakan makin mulus
+• Peningkatan terjemahan di semua 13 bahasa
+• Perbaikan bug dan peningkatan stabilitas

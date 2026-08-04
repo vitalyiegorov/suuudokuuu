@@ -167,8 +167,10 @@ export const ThemeEditorScreen = () => {
     return (
         <CollapsibleChromePage
             contentContainerStyle={resolveUnistyleForAnimated(styles.scrollContent)}
+            contentStyle={styles.content}
             footer={footer}
             footerStyle={styles.footer}
+            style={resolveUnistyleForAnimated(styles.scrollView)}
             testID={ThemeEditorScreenSelectors.Root}
             title={t`Theme editor`}
         >

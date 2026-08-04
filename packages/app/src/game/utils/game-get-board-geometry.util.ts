@@ -8,13 +8,15 @@ import type { GameGetBoardGeometryOptionsInterface } from '../interface/game-get
 export const gameGetBoardGeometry = ({
     availableWidth,
     availableHeight,
+    reservedHeight,
     fieldSize,
     fieldGroupSize,
     cellMargin
 }: GameGetBoardGeometryOptionsInterface): BoardGeometryInterface => {
     const groupGapCount = Math.floor((fieldSize - 1) / fieldGroupSize);
     const groupGapsSize = groupGapCount * cellMargin;
-    const availableSquareSize = Math.max(0, Math.min(availableWidth, availableHeight));
+    const constrainedHeight = Math.max(0, availableHeight - reservedHeight);
+    const availableSquareSize = Math.max(0, Math.min(availableWidth, constrainedHeight));
     const cellsSize = Math.floor((availableSquareSize - groupGapsSize) / fieldSize);
     const cellSize = Math.max(0, Math.min(BoardCellSizeCapConstant, cellsSize));
 

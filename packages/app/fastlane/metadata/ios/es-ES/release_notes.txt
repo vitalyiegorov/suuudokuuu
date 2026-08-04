@@ -1,0 +1,10 @@
+Ya está aquí el look nuevo.
+
+• Editor de temas completo: presets Clásico, Dorado y Periódico, más un editor con vista previa en vivo donde eliges tú cada color del tablero
+• Validación de contraste automática para temas nítidos en claro y oscuro
+• Pantallas de ajustes y temas renovadas, con botones más cuidados
+• La dificultad Infierno ya usa nuestro corpus completo de 49.158 puzles de 17 pistas
+• Compartir en modo Rival más rápido y fiable
+• Repetición movimiento a movimiento más fluida
+• Mejoras de traducción en los 13 idiomas
+• Corrección de errores y mejoras de estabilidad

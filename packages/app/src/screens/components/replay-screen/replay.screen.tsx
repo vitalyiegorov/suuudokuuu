@@ -33,7 +33,7 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
     const completedGame = useAppSelector(gameCompletedGameByIdSelector(difficulty, completedAt));
     const [currentStep, setCurrentStep] = useState(0);
     const [gameState] = useState(() => stringToGameState(completedGame?.encodedState));
-    const { cellSize: boardCellSize, onBoardAreaLayout } = useBoardGeometry();
+    const { cellSize: boardCellSize, onBoardAreaLayout } = useBoardGeometry(0);
 
     if (!isDefined(gameState) || !isDefined(completedGame)) {
         return <Redirect href="/history" />;
