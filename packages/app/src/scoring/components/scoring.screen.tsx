@@ -9,6 +9,7 @@ import { ThemeContext } from '../../theme/context/theme.context';
 import { defaultScoringConfig } from '../interfaces/scoring-config.interface';
 
 import { ListItem } from './list-item';
+import { ScoringScreenSelectors } from './scoring-screen.selectors';
 import { ScoringScreenStyles as styles } from './scoring-screen.styles';
 
 // eslint-disable-next-line max-lines-per-function
@@ -26,6 +27,7 @@ export const ScoringScreen = () => {
             contentStyle={styles.content}
             showsVerticalScrollIndicator={false}
             style={resolveUnistyleForAnimated(styles.scrollView)}
+            testID={ScoringScreenSelectors.Root}
             title={t`How Scoring Works`}
         >
             <View style={styles.section}>

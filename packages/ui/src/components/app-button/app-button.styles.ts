@@ -24,7 +24,6 @@ export const AppButtonStyles = StyleSheet.create(theme => ({
     content: {
         alignItems: 'center',
         flexDirection: 'row',
-        flexGrow: 1,
         flexShrink: 1,
         gap: theme.spacing.sm,
         justifyContent: 'center'

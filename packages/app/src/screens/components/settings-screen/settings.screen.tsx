@@ -72,7 +72,12 @@ export const SettingsScreen = () => {
                         title={t`Theme`}
                         value={getThemeLabel(theme)}
                     />
-                    <SettingsSwitch description={t`Use a dark color scheme`} setting="isDarkColorSchema" title={t`Dark mode`} />
+                    <SettingsSwitch
+                        description={t`Use a dark color scheme`}
+                        setting="isDarkColorSchema"
+                        testID={SettingsScreenSelectors.DarkModeSwitch}
+                        title={t`Dark mode`}
+                    />
                     <SettingsSwitch
                         description={t`Move the landscape controls panel to the left of the board`}
                         setting="isLeftHanded"

@@ -3,28 +3,13 @@ import { StyleSheet } from 'react-native-unistyles';
 export const ReplayHeaderStyles = StyleSheet.create(theme => ({
     container: {
         alignSelf: 'center',
-        borderRadius: 34,
-        maxWidth: theme.contentWidth.narrow,
-        minHeight: 68,
-        paddingHorizontal: 18,
-        paddingVertical: 10,
-        width: '100%'
+        maxWidth: '100%',
+        minHeight: 68
     },
-    itemLevel: {
+    item: {
         gap: theme.spacing.xs,
-        width: 84
-    },
-    itemMistakes: {
-        gap: theme.spacing.xs,
-        width: 76
-    },
-    itemScore: {
-        gap: theme.spacing.xs,
-        width: 68
-    },
-    itemTime: {
-        gap: theme.spacing.xs,
-        width: 86
+        paddingHorizontal: theme.spacing.sm,
+        width: 'auto'
     },
     label: {
         fontSize: 10,

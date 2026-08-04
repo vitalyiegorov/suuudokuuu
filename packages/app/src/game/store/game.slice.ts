@@ -225,10 +225,15 @@ export const gameSlice = createSlice({
 
             state.hasNewPersonalBestScore = hasNewPersonalBestScore;
 
-            history.averageTime = (history.averageTime * history.gamesCompleted + state.elapsedTime) / (history.gamesCompleted + 1);
             history.gamesCompleted += 1;
 
             if (isWon) {
+                history.averageTime = (history.averageTime * history.gamesWon + state.elapsedTime) / (history.gamesWon + 1);
+
+                if (history.bestTime === 0 || state.elapsedTime < history.bestTime) {
+                    history.bestTime = state.elapsedTime;
+                }
+
                 history.gamesWon += 1;
                 history.gamesWonWithoutMistakes += state.mistakes === 0 ? 1 : 0;
                 history.hardcoreWon += state.maxMistakes === 0 ? 1 : 0;
@@ -248,7 +253,6 @@ export const gameSlice = createSlice({
 
                 if (state.score > history.bestScore) {
                     history.bestScore = state.score;
-                    history.bestTime = state.elapsedTime;
                 }
             } else {
                 history.gamesLost += 1;

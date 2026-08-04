@@ -7,7 +7,7 @@
             "outputs": ["dist/**", "build/**"]
         },
         "ts": {
-            "outputs": ["node_modules/.cache/tsbuildinfo.json"]
+            "outputs": ["node_modules/.cache/tsbuildinfo.json", "**/node_modules/.cache/tsbuildinfo.json"]
         },
         "lint": {
             "outputs": []

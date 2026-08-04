@@ -1155,7 +1155,7 @@ msgstr "Trotzdem speichern"
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
 msgid "Score"
-msgstr "Punktestand"
+msgstr "Punkte"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "score × coefficient × count"

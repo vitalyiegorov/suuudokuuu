@@ -1,5 +1,9 @@
 {
     "name": "@suuudokuuu/app-tests",
     "version": "1.18.0",
-    "private": true
+    "private": true,
+    "scripts": {
+        "screenshots:capture": "node scripts/capture-store-screenshots.ts",
+        "ts": "run -T tsc -p scripts"
+    }
 }

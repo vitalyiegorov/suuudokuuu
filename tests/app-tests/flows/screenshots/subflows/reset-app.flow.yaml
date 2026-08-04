@@ -1,0 +1,45 @@
+appId: ${APP_ID}
+---
+# Mirrors subflows/navigation/launch-home.flow.yaml. Screenshot flows target
+# both a locally connected dev client (which loses its cached Metro URL on
+# clearState: true) and a freshly installed release/E2E build, so this keeps
+# clearState: false and lets apply-language/apply-appearance make the
+# resulting state deterministic instead.
+#
+# On some simulators (observed on a freshly created iPad target) the dev
+# client's own "reconnect to last project" handoff re-triggers iOS's
+# "Open in <app>?" custom-scheme confirmation on every launchApp, the same
+# dialog flows/setup/prime-deep-links.flow.yaml exists to dismiss for the
+# main E2E suite. Guard for it here too so a device with that behavior does
+# not strand every scene on the dialog instead of Home.
+#
+# Mirrors subflows/navigation/relaunch-home.flow.yaml's retry: a cold
+# relaunch right after a fresh simulator boot or a prior scene's teardown
+# can race native launch/handoff, so retry the whole sequence once.
+- retry:
+      maxRetries: 1
+      commands:
+          - launchApp:
+                clearState: false
+          - runFlow:
+                when:
+                    visible: '^Open$'
+                commands:
+                    - tapOn: '^Open$'
+                    - extendedWaitUntil:
+                          notVisible: '^Open$'
+                          timeout: 5000
+          - openLink:
+                link: 'suuudokuuu://'
+          - runFlow:
+                when:
+                    visible: '^Open$'
+                commands:
+                    - tapOn: '^Open$'
+                    - extendedWaitUntil:
+                          notVisible: '^Open$'
+                          timeout: 5000
+          - extendedWaitUntil:
+                visible:
+                    id: 'HomeScreenSelectors.Root'
+                timeout: 15000

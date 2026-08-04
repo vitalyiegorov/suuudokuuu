@@ -1,0 +1,32 @@
+suuudokuuu ist Sudoku, wie es sein sollte: schnell, schön und ehrlich bei der Schwierigkeit. Sechs Stufen, von einem sanften Anfänger-Brett bis zur echten Hölle – dem schwersten legitimen Sudoku, das es gibt. Keine Werbung, die sich als Rätsel tarnt, kein Konto, kein Schnickschnack. Nur du und das Gitter.
+
+NEUER LOOK, NEUES GEFÜHL
+Wir haben das Spielbrett von Grund auf neu eingefärbt. Wähle Klassisch, Gold oder Zeitung, oder öffne den Live-Vorschau-Editor und bestimme jede Zelle, jede Linie und jede Hervorhebung selbst. Eine eingebaute Kontrastprüfung hält jedes eigene Thema in Hell und Dunkel gut lesbar, damit dein Brett immer scharf aussieht und deine Augen schont.
+
+ECHTE HÖLLE
+Die meisten „Experten"-Sudoku-Apps schummeln bei ihrer schwersten Stufe. Unsere nicht. Die Hölle-Schwierigkeit schöpft aus einem gebündelten, geprüften Korpus von 49.158 echten 17-Hinweis-Rätseln – der Mindestanzahl an Hinweisen, mit der ein Sudoku noch eindeutig lösbar ist. Wenn dich ein „Experten"-Rätsel je enttäuscht hat, ist das hier die Stufe, die endlich zurückschlägt.
+
+FORDERE EINEN FREUND HERAUS
+Der Rivalen-Modus schickt dein exaktes Rätsel als Link an einen Freund, samt deinem aufgezeichneten Lauf. Er oder sie spielt genau dein Gitter und tritt Zug um Zug gegen deine Zeit an. Angeberrechte, geklärt.
+
+NOCHMAL ANSCHAUEN
+Jedes abgeschlossene Spiel lässt sich Zug für Zug als Wiederholung ansehen. Spul deinen eigenen Lösungsweg zurück, studiere, wo du langsamer wurdest, oder genieß einfach ein gutes Finish ein zweites Mal.
+
+KLÜGERE WERTUNG
+Unsere Wertung ist kein reiner Timer. Sie erkennt echte Lösungstechniken wie Nacktes Paar und X-Wing, während du spielst, sodass dein Ergebnis zeigt, wie du das Rätsel wirklich gelöst hast – nicht nur, wie schnell du getippt hast.
+
+ALLES ANDERE, WAS DU WILLST
+• 6 Schwierigkeitsstufen, von Anfänger bis Hölle
+• Vollständiger Theme-Editor mit Hell- und Dunkelmodus
+• Rivalen-Herausforderungen per Link
+• Vollständige Zug-für-Zug-Wiederholung
+• Technikbewusste Wertung und Zuganalyse
+• 13 Sprachen
+• Konfetti bei jedem Sieg, butterweiche Animationen
+• Funktioniert komplett offline
+• Kein Konto, keine Anmeldung, nie
+• Kostenlos und Open Source
+
+suuudokuuu ist gemacht für Menschen, die Sudoku wirklich lieben – nicht für Menschen, denen man ein Abo verkaufen will. Lad es dir herunter, wähl eine Schwierigkeit und schau, wie weit du kommst, bevor dich die Hölle in die Knie zwingt.
+
+Mehr auf www.suuudokuuu.com.
