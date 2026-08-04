@@ -14,6 +14,11 @@ appId: ${APP_ID}
     text: '0'
 - assertVisible: '0/3'
 - runFlow: subflows/game/quit-current-game.flow.yaml
-- assertVisible:
-    id: 'HomeScreenSelectors.StartButton'
+# Quitting remounts Home at the top of its scroll content, so the start button
+# sits below the fold on shorter viewports and has to be scrolled back into view.
+- scrollUntilVisible:
+    element:
+      id: 'HomeScreenSelectors.StartButton'
+    direction: DOWN
+    timeout: 3000
 - stopApp
