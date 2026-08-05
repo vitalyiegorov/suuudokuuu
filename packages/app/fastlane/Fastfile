@@ -63,6 +63,20 @@ def verify_copyright_year
   UI.success("Copyright: #{copyright}")
 end
 
+# supply uploads whatever sits under metadata/android/<locale>/images and
+# reports success even when that is nothing at all, so the count is checked
+# rather than trusted.
+def android_image_counts
+  counts = Hash.new(0)
+
+  Dir.glob(File.join(ANDROID_METADATA_PATH, "*", "images", "**", "*.{png,jpg,jpeg}")).each do |path|
+    segments = path.delete_prefix("#{ANDROID_METADATA_PATH}/").split("/")
+    counts["#{segments[0]}/#{File.basename(segments[2], '.*')}"] += 1
+  end
+
+  counts
+end
+
 def png_dimensions(path)
   File.binread(path, 24)[16, 8].unpack("N2")
 end
@@ -104,6 +118,13 @@ lane :store_preflight do
   verify_store_directory("Android metadata", ANDROID_METADATA_PATH)
   verify_store_directory("iOS screenshots", ios_screenshots_path)
   verify_ios_screenshot_slots(ios_screenshots_path)
+
+  android_images = android_image_counts
+  if android_images.empty?
+    UI.important("No Play Store images under #{ANDROID_METADATA_PATH}/<locale>/images; android_screenshots would upload nothing")
+  else
+    android_images.sort.each { |label, count| UI.success("  Play #{label}: #{count}") }
+  end
 end
 
 platform :ios do
@@ -167,6 +188,8 @@ platform :android do
   end
 
   lane :android_screenshots do
+    UI.user_error!("No Play Store images under #{ANDROID_METADATA_PATH}/<locale>/images") if android_image_counts.empty?
+
     submit_track = android_submit_track
     version_codes = google_play_track_version_codes(track: submit_track)
     UI.user_error!("No release on the '#{submit_track}' track to attach screenshots to") if version_codes.empty?
