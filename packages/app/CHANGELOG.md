@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.74.3](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.74.2...v1.74.3) (2026-08-05)
+
+### Bug Fixes
+
+- **app:** patch unistyles shadow tree use-after-free crash ([#248](https://github.com/vitalyiegorov/suuudokuuu/issues/248)) ([1c2035e](https://github.com/vitalyiegorov/suuudokuuu/commit/1c2035edc61d975d9ec58a7e8cdfbd1d13de8c9c)), closes [jpudysz/react-native-unistyles#1191](https://github.com/jpudysz/react-native-unistyles/issues/1191) [jpudysz/react-native-unistyles#1217](https://github.com/jpudysz/react-native-unistyles/issues/1217) [#1179](https://github.com/vitalyiegorov/suuudokuuu/issues/1179)
+
 ## [1.74.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.74.1...v1.74.2) (2026-08-04)
 
 ### Bug Fixes
