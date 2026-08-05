@@ -85,8 +85,10 @@ Screenshots, end to end:
 - No accent underline/flag bar - was tried, user rejected as not premium.
   Uniform variant text color (#0A0A0A light / #F5F5F5 dark); typography
   carries hierarchy.
-- Real frameit frames (Apple iPhone 17 Black is a pixel-perfect 1206x2622
-  cutout; iPad uses the 12.9" 4th-gen frame scaled 0.7%). Soft drop shadow.
+- Real frameit frames (Apple iPhone 16 Pro Max Black Titanium is a
+  pixel-perfect 1320x2868 cutout at +75+66, the 6.9" slot, and stays black
+  because Apple ships no black 17 Pro Max; iPad uses the 12.9" 4th-gen frame
+  scaled 0.7%). Soft drop shadow.
 - Tight caption-device gap (1.6% canvas height), text within 90% width.
 - Two alternating layouts (text-top / device-top); the challenge pair
   (accept + live) intentionally shares one layout to read as a story.
@@ -169,21 +171,29 @@ Screenshots, end to end:
   PNG eXIf orientation-6 hint; stores need baked pixels - the runner's
   bake handles it.
 - iPad GameScreen captures show a stray iPadOS predictive-text toolbar
-  (reproducible after sim erase; suspected hidden hardware-keyboard
-  listener in-app). Known open issue.
-- Final iPhone 6.9" store slot (1320x2868) needs an iPhone 17 Pro Max
-  simulator; the current committed set is 1206x2622 (iPhone 17 = 6.3" slot).
+  (suspected hidden hardware-keyboard listener in-app). Still unfixed, and
+  present in every committed iPad shot - verified byte-for-byte identical
+  framing against the pre-6.9" set, so it is not a capture regression.
+- The iPad simulator queues iOS's "Open in <app>?" custom-scheme dialog and it
+  survives relaunch, stranding every scene on the dialog. `simctl erase` the
+  iPad, reinstall, then run `flows/setup/prime-deep-links.flow.yaml` against it
+  once before capturing; the iPhone target does not need this.
+- The iPhone set must be captured on an iPhone 17 Pro Max simulator for the
+  6.9" store slot (1320x2868). This machine ships zero simulators by default -
+  create one with `xcrun simctl create`. Capture needs a real installed build,
+  so `expo run:ios --configuration Release` with `APP_VARIANT=production` has
+  to finish first; there is no prebuilt app to reuse.
 
 ## Current state / open items
 
-- en-US framed sets committed in both variants (7 iPhone + 5 iPad each)
-  under screenshots/variants/{dark,light}/ios/en-US; dark is the deployed
-  variant (deployed-variant.json). Other 12 locales: raw captures possible
+- en-US framed sets committed in both variants (7 iPhone at 1320x2868, the
+  6.9" slot, + 5 iPad at 2752x2064, the 13" slot) under
+  screenshots/variants/{dark,light}/ios/en-US; dark is the deployed variant
+  (deployed-variant.json). `store_preflight` confirms both slots. Other 12 locales: raw captures possible
   via the same pipeline; captions exist for 11 iOS locales in
   design/<locale>/title.strings (subtitles en-US only so far, and non-en
   title.strings still carry the pre-v3 single-tier keys).
 - Android/Play screenshots not captured yet (needs an emulator; supply
   expects metadata/android/<locale>/images/phoneScreenshots/).
-- 6.9" iPhone recapture pending (Pro Max sim).
 - App Preview video (886x1920 H.264 15-30s) not produced; GIFs are not
   accepted by either store.

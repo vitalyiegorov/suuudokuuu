@@ -6,9 +6,10 @@
 #
 # fastlane frameit's own `run`/`ios` commands target a fixed 1320x2868 canvas
 # (the iPhone 6.9" slot) and letterbox/pad every capture into it, but our raw
-# captures are native-resolution shots from an iPhone 17 simulator
-# (1206x2622) and an iPad Pro 13" landscape simulator (2752x2064). `deliver`
-# assigns screenshots to App Store Connect device slots by matching the
+# captures are native-resolution shots from an iPhone 17 Pro Max simulator
+# (1320x2868, the 6.9" store slot) and an iPad Pro 13" landscape simulator
+# (2752x2064). `deliver` assigns screenshots to App Store Connect device
+# slots by matching the
 # *exact* pixel dimensions of the uploaded file, so this script cannot run
 # frameit's own pipeline unmodified. Instead it borrows frameit's downloaded
 # frame assets and offset data directly: it composites each raw capture into
@@ -89,7 +90,14 @@ if [[ -z "$FRAMES_DIR" ]]; then
   exit 1
 fi
 
-IPHONE_FRAME="$FRAMES_DIR/Apple iPhone 17 Black.png"
+# The store's primary iPhone slot is 6.9" (1320x2868), which is the Pro Max
+# panel. Apple ships no black 17 Pro Max, and the only 17 Pro Max frames are
+# Cosmic Orange / Deep Blue / Silver, all of which would put a fourth colour
+# next to this app's black/white/red brand. The 16 Pro Max Black Titanium
+# frame carries the identical panel geometry (offsets.json gives both
+# "iPhone 16 Pro Max" and "iPhone 17 Pro Max" as +75+66 at width 1320), so it
+# keeps the approved black device while hitting the 6.9" slot exactly.
+IPHONE_FRAME="$FRAMES_DIR/Apple iPhone 16 Pro Max Black Titanium.png"
 # The 13" M4 iPad Pro isn't in frameit-frames yet (it's a community-maintained
 # asset set); the 12.9" iPad Pro (4th generation) is the closest match — same
 # edge-to-edge Face ID design with no home button, same 4:3-ish panel ratio,
@@ -108,14 +116,16 @@ done
 # transparent region not connected to the image's outer edge) and
 # cross-checked against fastlane frameit's own offsets.json ('offset'/
 # 'width' keys for "iPhone 17" and "iPad Pro (12.9 inch) (4th generation)").
-# iPhone 17's cutout is an exact 1206x2622 pixel match for our capture
-# resolution — no resize needed. The iPad cutout (2048x2732) is resized ~1%
-# to our capture's 2732x2048 landscape resolution; the aspect ratio is
-# already a 0.05% match, so that resize is imperceptible and never crops.
-IPHONE_CUTOUT_X=72
-IPHONE_CUTOUT_Y=69
-IPHONE_CUTOUT_W=1206
-IPHONE_CUTOUT_H=2622
+# The Pro Max cutout is an exact 1320x2868 pixel match for our 6.9" capture
+# resolution — no resize needed. It also falls straight out of the frame
+# canvas: 1470-(2*75)=1320 and 3000-(2*66)=2868. The iPad cutout (2048x2732)
+# is resized ~1% to our capture's 2732x2048 landscape resolution; the aspect
+# ratio is already a 0.05% match, so that resize is imperceptible and never
+# crops.
+IPHONE_CUTOUT_X=75
+IPHONE_CUTOUT_Y=66
+IPHONE_CUTOUT_W=1320
+IPHONE_CUTOUT_H=2868
 
 # Same cutout, rotated: the portrait frame is 2048x2732 at offset +96+102 in
 # a 2245x2930 canvas. Rotating that frame 90 clockwise (to match our
