@@ -1,8 +1,10 @@
 Ny look är här.
 
-• Komplett temamotor: Classic, Gold & Newspaper, plus egen editor med live-förhandsgranskning
-• Automatisk kontrastkontroll för skarpa teman i ljust & mörkt läge
-• Uppdaterade inställnings-/temaskärmar och snyggare knappar
-• Helvete-nivån hämtar nu från hela vårt lager på 49 158 pussel med 17 ledtrådar
-• Snabbare rivaldelning och mjukare repriser, plus bättre översättningar
-• Buggfixar och stabilitetsförbättringar
+• Komplett temamotor: Classic, Gold & Newspaper, plus egen live-editor
+• Automatisk kontrastkontroll för skarpa teman i ljust & mörkt
+• Uppdaterade inställnings-/temaskärmar, snyggare knappar
+• Helvete-nivån hämtar nu från våra 49 158 pussel med 17 ledtrådar
+• Omdesignad repris, plus bättre översättningar
+• Delade utmaningar visar nu din exakta tid att slå
+• Statistiken rättad: bästa tid är snabbaste vinst, snittet räknar bara vinster
+• Krasch- och stabilitetsfixar

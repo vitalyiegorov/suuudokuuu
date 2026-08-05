@@ -5,6 +5,9 @@ Ny look är här.
 • Uppdaterade inställnings- och temaskärmar med snyggare knappar
 • Helvete-nivån hämtar nu från hela vårt lager på 49 158 pussel med 17 ledtrådar
 • Delning i rivalläget är snabbare och stabilare
-• Mjukare uppspelning av repriser, drag för drag
+• Omdesignad repris med smidigare uppspelning, drag för drag
+• Delade utmaningar visar nu din exakta tid att slå
+• Statistiken rättad: bästa tid är din snabbaste vinst, och snitten räknar bara vinster
+• Stabilare brädlayout vid samtal och snabba omstarter
 • Förbättrade översättningar på alla 13 språk
-• Buggfixar och stabilitetsförbättringar
+• Krasch- och stabilitetsfixar

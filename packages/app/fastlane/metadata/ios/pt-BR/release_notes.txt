@@ -5,6 +5,9 @@ Cara nova chegou.
 • Telas de configurações e temas renovadas, com botões mais polidos
 • Dificuldade Inferno agora usa nosso banco completo de 49.158 grades de 17 pistas
 • Compartilhamento do modo Rival mais rápido e confiável
-• Replay jogada por jogada mais suave
+• Replay redesenhado, com reprodução jogada por jogada mais suave
+• Desafios compartilhados agora mostram seu tempo exato a superar
+• Estatísticas corrigidas: seu melhor tempo é sua vitória mais rápida, e as médias contam só as vitórias
+• Layout do tabuleiro mais estável durante chamadas e início rápido de partidas
 • Melhorias de tradução nos 13 idiomas
-• Correções de bugs e estabilidade
+• Correções de travamentos e estabilidade

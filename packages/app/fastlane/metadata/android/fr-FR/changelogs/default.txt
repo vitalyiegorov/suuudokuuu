@@ -1,8 +1,10 @@
 Le nouveau look est arrivé.
 
-• Éditeur de thèmes avec presets Classique, Or et Journal, plus éditeur personnalisé avec aperçu en direct
-• Validation de contraste automatique pour des thèmes nets en clair et en sombre
-• Écrans de réglages et de thèmes revus, boutons plus soignés
-• La difficulté Enfer puise désormais dans notre corpus complet de 49 158 grilles à 17 indices
-• Améliorations du mode Rival, de la relecture et des traductions
-• Corrections de bugs et de stabilité
+• Éditeur de thèmes : Classique, Or et Journal, en direct
+• Contraste automatique, en clair et en sombre
+• Écrans de réglages et de thèmes revus, boutons soignés
+• Enfer puise dans le corpus complet : 49 158 grilles à 17 indices
+• Relecture repensée, traductions améliorées
+• Les défis affichent ton temps exact à battre
+• Statistiques corrigées : meilleur temps = victoire la plus rapide
+• Corrections de plantages et de stabilité

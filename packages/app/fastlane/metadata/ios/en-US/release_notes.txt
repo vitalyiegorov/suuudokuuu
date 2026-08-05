@@ -5,6 +5,9 @@ New look and feel is here.
 • Refreshed settings/theme screens with more polished buttons
 • Hell difficulty now draws from our full 49,158-strong 17-clue corpus
 • Rival mode sharing is faster and more reliable
-• Smoother move-by-move replay playback
+• Redesigned replay with smoother move-by-move playback
+• Shared challenges now carry your exact time to beat
+• Statistics corrected: best time is your fastest win, and averages count wins only
+• Steadier board layout during calls and rapid starts
 • Translation improvements across all 13 languages
-• Bug fixes and stability improvements
+• Crash and stability fixes

@@ -5,6 +5,9 @@ Ya está aquí el look nuevo.
 • Pantallas de ajustes y temas renovadas, con botones más cuidados
 • La dificultad Infierno ya usa nuestro corpus completo de 49.158 puzles de 17 pistas
 • Compartir en modo Rival más rápido y fiable
-• Repetición movimiento a movimiento más fluida
+• Repetición rediseñada con reproducción más fluida movimiento a movimiento
+• Los retos compartidos ahora incluyen tu tiempo exacto a batir
+• Estadísticas corregidas: el mejor tiempo es tu victoria más rápida y los promedios solo cuentan victorias
+• Diseño del tablero más estable durante llamadas e inicios rápidos
 • Mejoras de traducción en los 13 idiomas
-• Corrección de errores y mejoras de estabilidad
+• Corrección de fallos y mejoras de estabilidad
