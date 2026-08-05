@@ -5,6 +5,9 @@ Der neue Look ist da.
 • Überarbeitete Einstellungs- und Theme-Bildschirme mit poliertem Design
 • Hölle-Schwierigkeit schöpft jetzt aus unserem vollen Korpus von 49.158 17-Hinweis-Rätseln
 • Teilen im Rivalen-Modus ist schneller und zuverlässiger
-• Flüssigere Zug-für-Zug-Wiederholung
+• Überarbeitete Wiederholung mit flüssigerer Zug-für-Zug-Wiedergabe
+• Geteilte Herausforderungen zeigen jetzt deine exakte Zielzeit
+• Statistiken korrigiert: Bestzeit ist dein schnellster Sieg, Durchschnittswerte zählen nur Siege
+• Stabileres Spielfeld-Layout bei Anrufen und schnellen Neustarts
 • Übersetzungen in allen 13 Sprachen verbessert
-• Fehlerbehebungen und Stabilitätsverbesserungen
+• Absturz- und Stabilitätskorrekturen

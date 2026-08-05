@@ -1,8 +1,10 @@
 New look and feel is here.
 
-• Full theme engine: Classic, Gold & Newspaper presets, plus a live-preview custom editor
-• Automatic contrast validation for sharp custom themes in light and dark
-• Refreshed settings/theme screens and more polished buttons
-• Hell difficulty now draws from our full 49,158-strong 17-clue corpus
-• Rival sharing and replay polish, plus translation improvements
-• Bug fixes and stability improvements
+• Full theme engine: Classic, Gold & Newspaper presets, plus a live-preview editor
+• Contrast validation keeps custom themes sharp in light and dark
+• Refreshed settings and theme screens
+• Hell now draws from our full 49,158-puzzle 17-clue corpus
+• Redesigned replay, plus translation improvements
+• Shared challenges carry your exact time to beat
+• Statistics fixed: best time is your fastest win, averages count wins only
+• Crash and stability fixes

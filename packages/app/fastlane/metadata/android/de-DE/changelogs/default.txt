@@ -1,8 +1,10 @@
 Der neue Look ist da.
 
-• Theme-Editor mit Presets Klassisch, Gold & Zeitung, plus Live-Vorschau-Editor
-• Automatische Kontrastprüfung für scharfe Themes in Hell und Dunkel
-• Überarbeitete Einstellungs-/Theme-Bildschirme, poliertere Buttons
-• Hölle-Schwierigkeit nutzt jetzt den vollen Korpus von 49.158 17-Hinweis-Rätseln
-• Verbesserungen bei Rivalen-Teilen, Wiederholung und Übersetzungen
-• Fehlerbehebungen und Stabilitätsverbesserungen
+• Theme-Editor: Klassisch, Gold & Zeitung, live editierbar
+• Kontrastprüfung für scharfe Themes, hell & dunkel
+• Neue Einstellungs-/Theme-Bildschirme, bessere Buttons
+• Hölle nutzt den vollen Korpus: 49.158 17-Hinweis-Rätsel
+• Neue Wiederholung, bessere Übersetzungen
+• Herausforderungen zeigen deine exakte Zielzeit
+• Statistik korrigiert: Bestzeit = schnellster Sieg, Ø nur Siege
+• Absturz- und Stabilitätskorrekturen

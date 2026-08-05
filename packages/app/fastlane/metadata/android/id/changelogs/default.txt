@@ -1,8 +1,10 @@
 Tampilan baru udah hadir.
 
-• Theme engine lengkap: preset Classic, Gold & Newspaper, plus editor custom dengan live preview
-• Validasi kontras otomatis buat tema custom tetap tajam di mode terang & gelap
-• Layar settings/tema disegarkan dan tombol lebih rapi
+• Theme engine lengkap: Classic, Gold & Newspaper, plus custom live preview
+• Kontras otomatis jaga tema tajam di terang & gelap
+• Layar settings/tema disegarkan, tombol lebih rapi
 • Hell difficulty sekarang pakai korpus penuh 49.158 puzzle 17-clue
-• Rival sharing & replay makin mulus, plus peningkatan terjemahan
-• Perbaikan bug dan peningkatan stabilitas
+• Replay didesain ulang, plus terjemahan makin oke
+• Challenge share sekarang bawa waktu pastimu
+• Statistik dibenerin: best time itu menang tercepat, rata-rata cuma yang menang
+• Perbaikan crash dan stabilitas
