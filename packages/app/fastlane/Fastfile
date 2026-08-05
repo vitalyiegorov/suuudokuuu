@@ -11,6 +11,23 @@ IOS_METADATA_PATH = File.join(FASTLANE_DIR, "metadata", "ios")
 ANDROID_METADATA_PATH = File.join(FASTLANE_DIR, "metadata", "android")
 IOS_COPYRIGHT_PATH = File.join(IOS_METADATA_PATH, "copyright.txt")
 
+# deliver assigns App Store screenshot slots by resolution, so a set captured
+# at the wrong size uploads alongside the existing store images instead of
+# replacing them.
+APPLE_SCREENSHOT_SLOTS = {
+  [1320, 2868] => 'iPhone 6.9"',
+  [1290, 2796] => 'iPhone 6.9"',
+  [1284, 2778] => 'iPhone 6.5"',
+  [1242, 2688] => 'iPhone 6.5"',
+  [1206, 2622] => 'iPhone 6.3"',
+  [1179, 2556] => 'iPhone 6.1"',
+  [2064, 2752] => 'iPad 13"',
+  [2752, 2064] => 'iPad 13"',
+  [2048, 2732] => 'iPad 12.9"',
+  [2732, 2048] => 'iPad 12.9"'
+}
+REQUIRED_IOS_SCREENSHOT_SLOT = 'iPhone 6.9"'
+
 # deliver writes into the editable App Store version, and a freshly uploaded
 # build does not create one on its own. Naming the version explicitly makes
 # deliver select or create it instead of failing with "could not find an
@@ -46,6 +63,31 @@ def verify_copyright_year
   UI.success("Copyright: #{copyright}")
 end
 
+def png_dimensions(path)
+  File.binread(path, 24)[16, 8].unpack("N2")
+end
+
+def verify_ios_screenshot_slots(path)
+  screenshots = Dir.glob(File.join(path, "**", "*.png")).sort
+  UI.user_error!("No screenshots found under #{path}") if screenshots.empty?
+
+  slot_counts = Hash.new(0)
+
+  screenshots.each do |screenshot|
+    width, height = png_dimensions(screenshot)
+    slot = APPLE_SCREENSHOT_SLOTS[[width, height]]
+    UI.user_error!("#{screenshot} is #{width}x#{height}, which matches no App Store screenshot size") if slot.nil?
+
+    slot_counts[slot] += 1
+  end
+
+  slot_counts.sort.each { |slot, count| UI.success("  #{slot}: #{count}") }
+
+  unless slot_counts.key?(REQUIRED_IOS_SCREENSHOT_SLOT)
+    UI.important("No #{REQUIRED_IOS_SCREENSHOT_SLOT} set; these upload into their own slots and leave the current store images in place")
+  end
+end
+
 def verify_store_directory(label, path)
   UI.user_error!("#{label} is missing at #{path}") unless Dir.exist?(path)
   UI.user_error!("#{label} has no locales at #{path}") if Dir.children(path).empty?
@@ -61,6 +103,7 @@ lane :store_preflight do
   verify_store_directory("iOS metadata", IOS_METADATA_PATH)
   verify_store_directory("Android metadata", ANDROID_METADATA_PATH)
   verify_store_directory("iOS screenshots", ios_screenshots_path)
+  verify_ios_screenshot_slots(ios_screenshots_path)
 end
 
 platform :ios do

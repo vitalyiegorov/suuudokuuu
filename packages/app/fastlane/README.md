@@ -195,6 +195,48 @@ fastlane runs lane bodies from `packages/app/fastlane` but actions from
 the `FASTLANE_DIR`/`APP_DIR` constants rather than written relative to the
 working directory.
 
+## Store requirements
+
+Every item here has failed a real publish at least once.
+
+**Version.** `packages/app/package.json` is the single source: `app.config.js`
+stamps the binary from it and both iOS lanes pass it to `deliver` as
+`app_version`. Apple requires each new App Store version string to be greater
+than the last released one. The repo drifted behind the store once (store live
+on 2.0.0, repo building 1.74.x), so every push created a version that could
+never be submitted. Check the live version before publishing:
+
+```bash
+curl -s "https://itunes.apple.com/lookup?id=6449440933" | grep -o '"version":"[^"]*"'
+```
+
+If the store is ahead, bump `packages/app/package.json` and `lerna.json` before
+dispatching. A wrong version cannot be cleaned up afterwards: App Store Connect
+refuses to delete any version once a build exists for the platform, so the only
+correction is to fix `package.json` and re-run the lane, which makes
+`ensure_version!` rename the editable version in place.
+
+**Per-version and per-locale fields.** `copyright.txt` must carry the current
+year or precheck fails; `store_preflight` guards it. `support_url.txt` is a
+localised field, so it must exist for all 11 App Store locales - setting only
+`en-US` leaves the rest empty and precheck flags each one.
+
+**Screenshots.** `deliver` assigns App Store slots by image resolution, so a set
+captured at the wrong size lands in its own slot and leaves the current store
+images in place, making the listing look unchanged. The primary iPhone slot is
+6.9" at 1320x2868; iPad 13" is 2064x2752 portrait and 2752x2064 landscape.
+`store_preflight` prints the slot each committed screenshot maps to, fails on
+any size Apple does not recognise, and warns when the 6.9" set is missing.
+
+**precheck never fails the lane.** It runs at the end of `ios_metadata` and only
+warns, so its output is the one place these problems surface before a reviewer
+rejects the build.
+
+**Visibility.** Metadata pushes land on the editable version page in App Store
+Connect, not the live listing, which stays unchanged until that version is
+submitted and approved. Screenshots upload only when `push_screenshots` is
+ticked at workflow dispatch.
+
 ## Screenshot pipeline (manual, committed to the repo)
 
 Store media is generated **manually, on demand** — never in CI — because it

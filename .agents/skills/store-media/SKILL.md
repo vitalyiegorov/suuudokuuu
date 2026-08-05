@@ -104,6 +104,40 @@ Screenshots, end to end:
   transparent outer corners, so an unmasked square capture pokes past the
   bezel at all four corners.
 
+## Store requirements (learned the hard way, all verified live)
+
+- **The App Store version must exceed the released one.** `packages/app/package.json`
+  is the only version that matters: `app.config.js` stamps the binary from it and
+  the fastlane lanes pass it to `deliver`. It silently diverged once - the store
+  went live on 2.0.0 while the repo kept building 1.74.x - so every metadata push
+  created a version _below_ the released one, which Apple will never accept. Before
+  publishing, check the repo version against the live one (`itunes.apple.com/lookup?id=6449440933`
+  needs no credentials) and bump `packages/app/package.json` plus `lerna.json` if
+  the store is ahead.
+- **A wrong version cannot be deleted.** App Store Connect refuses with "Only the
+  first version of any platform can be deleted" and "A version cannot be deleted if
+  any build has been uploaded for the platform". The only correction is to fix
+  `package.json` and re-run the lane: `deliver`'s `ensure_version!` renames the
+  editable version in place.
+- **Copyright must carry the current year** or precheck fails. `store_preflight`
+  guards it, so a January rollover fails in seconds instead of at review time.
+- **Support URL is per locale.** Setting only `en-US` leaves every other locale
+  empty and precheck flags each one. Every field under `metadata/ios/<locale>/`
+  must exist for all 11 App Store locales.
+- **Screenshot slots are assigned by resolution, not by filename or order.** A set
+  captured at the wrong size uploads into its own slot and leaves the current store
+  images untouched - the listing looks unchanged. `store_preflight` prints the slot
+  each committed screenshot maps to, fails on any size Apple does not recognise, and
+  warns when the primary iPhone 6.9" (1320x2868) set is missing. iPad 13" is
+  2064x2752 portrait / 2752x2064 landscape.
+- **precheck only warns.** It runs at the end of `ios_metadata` and never fails the
+  lane, so read its output - it is the only place these problems surface before a
+  human review rejection.
+- **Nothing reaches the public listing until the version is submitted and approved.**
+  Metadata pushes land on the editable version page; the live listing is unchanged.
+  Screenshots are opt-in: the publish workflow only uploads them when the
+  `push_screenshots` checkbox is ticked at dispatch.
+
 ## Environment gotchas (hard-won, verified)
 
 - fastlane overwrites `fastlane/README.md` with its generated lane docs after
