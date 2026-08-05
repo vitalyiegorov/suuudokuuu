@@ -29,14 +29,25 @@ release.
 - `packages/app/fastlane/screenshots/deployed-variant.json` - selects which
   variant the `ios_screenshots` lane uploads (currently `dark`; dark-first
   is a user decision). `SCREENSHOT_VARIANT=light|dark` env-overrides it.
-- `packages/app/fastlane/{Fastfile,Appfile}` - lanes: `ios_metadata`,
-  `android_metadata`, `ios_screenshots`, `android_screenshots`.
+- `packages/app/fastlane/{Fastfile,Appfile}` - lanes: `store_preflight`,
+  `ios_metadata`, `android_metadata`, `ios_screenshots`,
+  `android_screenshots`. Address lanes as `fastlane <platform> <lane>`; a
+  bare name resolves against `default_platform(:ios)`. Lane bodies run from
+  `fastlane/` while actions run from `packages/app/`, so plain-Ruby paths are
+  anchored on the `FASTLANE_DIR`/`APP_DIR` constants, never on the working
+  directory. `store_preflight` needs no credentials and gates both publish
+  jobs before the build. The Android lanes read the track from
+  `submit.production.android.track` in `eas.json` (not supply's `production`
+  default) and resolve the submitted release's version code with
+  `google_play_track_version_codes`, because supply cannot infer one when it
+  uploads no binary.
 - `tests/app-tests/flows/screenshots/` - capture flows (13+ scenes),
   `tests/app-tests/scripts/capture-store-screenshots.ts` - runner,
   `bake-landscape-screenshot.ts` - physical rotation bake.
-- `.github/workflows/native-publish.yml` - store publish; metadata pushes
-  after each `eas submit`; screenshots upload only with the
-  `push_screenshots` checkbox; release-notes freshness check runs
+- `.github/workflows/native-publish.yml` - store publish; `fastlane
+store_preflight` gates both jobs up front; metadata pushes after each
+  `eas submit`; screenshots upload only with the `push_screenshots`
+  checkbox; release-notes freshness check runs
   `node scripts/generate-store-release-notes.ts --check`.
 
 ## Workflows
@@ -48,17 +59,18 @@ writes Claude-authored notes for all 13 locales (model `claude-opus-5`,
 override `STORE_NOTES_MODEL`); without it, plain English fallback.
 
 Screenshots, end to end:
+
 1. Capture: `APP_ID=<bundle-id> SIMULATOR_UDID=<udid> yarn workspace
-   @suuudokuuu/app-tests screenshots:capture --locales=en --scenes=...`
+@suuudokuuu/app-tests screenshots:capture --locales=en --scenes=...`
    (add `DEVICE_CLASS=ipad ORIENTATION=landscape` for iPad landscape; the
    runner recycles the XCUITest driver, retries failures once, and bakes
    landscape pixels to 2752x2064 without EXIF).
 2. Compose: `bash packages/app/fastlane/screenshots/design/compose-screenshots.sh en-US all`
-   - frames captures in real fastlane frameit device frames, applies
-   two-tier captions, writes both variant sets (second arg: light|dark|all).
-   Scene manifests are `SCENES_LIGHT`/`SCENES_DARK` in the script; palettes
-   live in `set_variant_palette` (light #F7F7F7->#F1F1F1 / #0A0A0A text;
-   dark #141414->#0E0E0E / #F5F5F5 text). Keep the manifests mirrored.
+    - frames captures in real fastlane frameit device frames, applies
+      two-tier captions, writes both variant sets (second arg: light|dark|all).
+      Scene manifests are `SCENES_LIGHT`/`SCENES_DARK` in the script; palettes
+      live in `set_variant_palette` (light #F7F7F7->#F1F1F1 / #0A0A0A text;
+      dark #141414->#0E0E0E / #F5F5F5 text). Keep the manifests mirrored.
 3. Review visually (downscale with sips and look), commit both sets.
 4. Upload: dispatch "Build and Publish to Stores" with the screenshots
    checkbox, or run the fastlane lanes locally.
@@ -94,6 +106,9 @@ Screenshots, end to end:
 
 ## Environment gotchas (hard-won, verified)
 
+- fastlane overwrites `fastlane/README.md` with its generated lane docs after
+  every local lane run, destroying the hand-written doc. The Fastfile calls
+  `skip_docs` to prevent that; do not remove it.
 - Metro file watching is broken in t3 worktrees: after ANY app-source edit,
   kill the port-8081 process and cold-start Metro, or the app serves stale
   code. Fast Refresh never fires.

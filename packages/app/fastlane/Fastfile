@@ -1,11 +1,54 @@
 default_platform(:ios)
 
+skip_docs
+
+# fastlane runs lane bodies from the fastlane folder and actions from the
+# package folder, so every path a lane resolves itself is anchored here
+# instead of relying on the working directory.
+FASTLANE_DIR = File.expand_path(__dir__)
+APP_DIR = File.expand_path("..", FASTLANE_DIR)
+IOS_METADATA_PATH = File.join(FASTLANE_DIR, "metadata", "ios")
+ANDROID_METADATA_PATH = File.join(FASTLANE_DIR, "metadata", "android")
+
 # deliver writes into the editable App Store version, and a freshly uploaded
 # build does not create one on its own. Naming the version explicitly makes
 # deliver select or create it instead of failing with "could not find an
 # editable version".
-def app_version_from_package_json
-  JSON.parse(File.read("./package.json")).fetch("version")
+def app_store_version
+  JSON.parse(File.read(File.join(APP_DIR, "package.json"))).fetch("version")
+end
+
+def ios_screenshots_path
+  deployed_variants = JSON.parse(File.read(File.join(FASTLANE_DIR, "screenshots", "deployed-variant.json")))
+  screenshot_variant = ENV.fetch("SCREENSHOT_VARIANT", deployed_variants.fetch("ios"))
+
+  File.join(FASTLANE_DIR, "screenshots", "variants", screenshot_variant, "ios")
+end
+
+# eas submit uploads the bundle to the track named in eas.json, and supply
+# defaults to production, so the track is read from the same source instead of
+# being repeated here.
+def android_submit_track
+  submit_track = JSON.parse(File.read(File.join(APP_DIR, "eas.json"))).dig("submit", "production", "android", "track")
+  UI.user_error!("eas.json does not define submit.production.android.track") unless submit_track
+
+  submit_track
+end
+
+def verify_store_directory(label, path)
+  UI.user_error!("#{label} is missing at #{path}") unless Dir.exist?(path)
+  UI.user_error!("#{label} has no locales at #{path}") if Dir.children(path).empty?
+
+  UI.success("#{label}: #{path}")
+end
+
+lane :store_preflight do
+  UI.success("App Store version: #{app_store_version}")
+  UI.success("Google Play track: #{android_submit_track}")
+
+  verify_store_directory("iOS metadata", IOS_METADATA_PATH)
+  verify_store_directory("Android metadata", ANDROID_METADATA_PATH)
+  verify_store_directory("iOS screenshots", ios_screenshots_path)
 end
 
 platform :ios do
@@ -17,12 +60,12 @@ platform :ios do
     )
 
     deliver(
-      app_version: app_version_from_package_json,
+      app_version: app_store_version,
       skip_binary_upload: true,
       skip_screenshots: true,
       force: true,
       precheck_include_in_app_purchases: false,
-      metadata_path: "./fastlane/metadata/ios"
+      metadata_path: IOS_METADATA_PATH
     )
   end
 
@@ -33,42 +76,55 @@ platform :ios do
       key_filepath: ENV["EXPO_ASC_API_KEY_PATH"]
     )
 
-    deployed_variants = JSON.parse(File.read("./fastlane/screenshots/deployed-variant.json"))
-    screenshot_variant = ENV.fetch("SCREENSHOT_VARIANT", deployed_variants.fetch("ios"))
-
     deliver(
-      app_version: app_version_from_package_json,
+      app_version: app_store_version,
       skip_binary_upload: true,
       skip_metadata: true,
       skip_screenshots: false,
       overwrite_screenshots: true,
       force: true,
       precheck_include_in_app_purchases: false,
-      screenshots_path: "./fastlane/screenshots/variants/#{screenshot_variant}/ios"
+      screenshots_path: ios_screenshots_path
     )
   end
 end
 
 platform :android do
+  # supply derives version codes from the binary it uploads, and these lanes
+  # upload none, so the release just submitted by eas is looked up on the
+  # track instead. Without it supply aborts with "Cannot find changelog
+  # because no version code given".
   lane :android_metadata do
+    submit_track = android_submit_track
+    version_codes = google_play_track_version_codes(track: submit_track)
+    UI.user_error!("No release on the '#{submit_track}' track to attach changelogs to") if version_codes.empty?
+
     supply(
+      track: submit_track,
+      version_code: version_codes.max,
       skip_upload_apk: true,
       skip_upload_aab: true,
       skip_upload_screenshots: true,
       skip_upload_images: true,
-      metadata_path: "./fastlane/metadata/android"
+      metadata_path: ANDROID_METADATA_PATH
     )
   end
 
   lane :android_screenshots do
+    submit_track = android_submit_track
+    version_codes = google_play_track_version_codes(track: submit_track)
+    UI.user_error!("No release on the '#{submit_track}' track to attach screenshots to") if version_codes.empty?
+
     supply(
+      track: submit_track,
+      version_code: version_codes.max,
       skip_upload_apk: true,
       skip_upload_aab: true,
       skip_upload_metadata: true,
       skip_upload_changelogs: true,
       skip_upload_screenshots: false,
       skip_upload_images: false,
-      metadata_path: "./fastlane/metadata/android"
+      metadata_path: ANDROID_METADATA_PATH
     )
   end
 end
