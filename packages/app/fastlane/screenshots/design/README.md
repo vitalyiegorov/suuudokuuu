@@ -10,12 +10,12 @@ captures and `../../metadata/` for listing copy.
 **The committed `en-US` set is actually produced by
 `compose-screenshots.sh` (ImageMagick), not by running `fastlane frameit`
 below.** `Framefile.json` targets a fixed 1320x2868 canvas (the iPhone 6.9"
-slot), but the current raw captures are native-resolution iPhone 17
-(1206x2622) and iPad Pro 13" landscape (2752x2064) shots, and `deliver`
-assigns screenshots to store slots by exact pixel dimensions — see
-`../README.md`'s "Framing" section for the full reasoning and the reproducible
-command. The `frameit` instructions below remain accurate if a future capture
-run targets the 6.9" canvas directly. The device *frame graphics* the script
+slot), which is also what the raw captures now are: native-resolution
+iPhone 17 Pro Max (1320x2868) and iPad Pro 13" landscape (2752x2064) shots.
+`deliver` assigns screenshots to store slots by exact pixel dimensions, so
+those two resolutions are what put the set in the 6.9" iPhone and 13" iPad
+slots — see `../README.md`'s "Framing" section for the full reasoning and the
+reproducible command. The device *frame graphics* the script
 composites with, however, are the real frameit-downloaded frame PNGs, not a
 drawn shape — see "Frame source" below.
 
@@ -89,7 +89,7 @@ rules themselves unless the underlying research changes.
    consistently proportioned across the very different iPhone (portrait) and
    iPad (landscape) canvas aspect ratios. The raw capture always fills the
    frame's real transparent screen cutout exactly — nothing is cropped, and
-   output dimensions always match the source capture exactly (1206x2622 /
+   output dimensions always match the source capture exactly (1320x2868 /
    2752x2064).
 4. **Soft drop shadow.** A blurred, ~15%-opacity black silhouette of the
    framed device, offset down, composited between the background and the
@@ -184,13 +184,16 @@ before scaling the whole framed unit down onto the `#F5F5F5` canvas.
 
 Frame files in use:
 
-- **iPhone** — `Apple iPhone 17 Black.png`. `offsets.json` gives this frame's
-  cutout as `+72+69`, width `1206` — an exact pixel match for our iPhone 17
-  capture resolution (1206x2622), so the capture fills the cutout with no
-  resize. Verified directly against the PNG's alpha channel: the transparent
-  cutout's bounding box (found with a flood fill from the image border, so it
-  excludes the frame's own outer transparent margin) is exactly
-  `(72, 69)`–`(1278, 2691)`, i.e. 1206x2622.
+- **iPhone** — `Apple iPhone 16 Pro Max Black Titanium.png`. The store's
+  primary iPhone slot is 6.9", which is the Pro Max panel, but Apple ships no
+  black 17 Pro Max: frameit only carries Cosmic Orange, Deep Blue and Silver,
+  each of which would put a fourth colour beside the black/white/red brand.
+  `offsets.json` lists both `iPhone 16 Pro Max` and `iPhone 17 Pro Max` as
+  `+75+66` at width `1320`, so the 16 Pro Max frame is geometrically identical
+  to the device we capture on while staying black. The cutout also falls
+  straight out of the 1470x3000 canvas — `1470-(2*75)=1320` and
+  `3000-(2*66)=2868` — an exact pixel match for the 1320x2868 capture, so it
+  fills the cutout with no resize.
 - **iPad** — `Apple iPad Pro (12.9-inch) (4th generation) Space Gray.png`.
   frameit-frames does not yet ship a frame for the 13" M4 iPad Pro (the
   device the capture simulator models); the generic `Apple iPad Pro
