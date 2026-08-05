@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.74.5](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.74.4...v1.74.5) (2026-08-05)
+
+### Bug Fixes
+
+- **app:** target the released version when pushing store metadata ([#251](https://github.com/vitalyiegorov/suuudokuuu/issues/251)) ([b99b094](https://github.com/vitalyiegorov/suuudokuuu/commit/b99b094db6d88d0c95afb365ce2f8203e9515bda))
+
 ## [1.74.4](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.74.3...v1.74.4) (2026-08-05)
 
 **Note:** Version bump only for package @suuudokuuu/app
