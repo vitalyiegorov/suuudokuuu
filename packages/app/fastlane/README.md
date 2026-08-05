@@ -275,7 +275,12 @@ uploaded when explicitly requested.
       `SCREENSHOT_VARIANT=light|dark` overrides it for a one-off upload.
     - Android: `fastlane/metadata/android/<locale>/images/phoneScreenshots/`
       plus `images/featureGraphic.png` (the standard `supply` layout, read by
-      the `android_screenshots` lane).
+      the `android_screenshots` lane). The compose script writes the phone set
+      too: captures come from an emulator forced to the Pixel 5 panel
+      (`adb shell wm size 1080x2340`), get framed in the Pixel 5 frame, and are
+      composed onto a 1080x1920 canvas because Play requires phone screenshots
+      between 16:9 and 9:16 while the capture is 9:19.5. `featureGraphic.png`
+      is artwork rather than a capture and is not generated.
 4. Upload happens only on request: check "Also upload the committed store
    screenshots" when dispatching the "Build and Publish to Stores" workflow,
    or run the lanes locally:

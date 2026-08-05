@@ -21,7 +21,12 @@ release.
 - `packages/app/fastlane/screenshots/design/` - compose pipeline:
   `compose-screenshots.sh` (ImageMagick 7), `<locale>/title.strings` +
   `subtitle.strings` (captions), frameit design kit README.
-- `packages/app/fastlane/screenshots/raw/` - gitignored Maestro captures.
+- `packages/app/fastlane/screenshots/raw/{ios,android}/` - gitignored Maestro
+  captures.
+- `packages/app/fastlane/metadata/android/<locale>/images/phoneScreenshots/` -
+  the committed, framed Play set (7 shots at 1080x1920), written by the same
+  compose script. Play carries one set rather than a light/dark pair, so it
+  mirrors the deployed dark App Store story.
 - `packages/app/fastlane/screenshots/variants/{dark,light}/ios/en-US/` -
   the committed, framed, store-ready sets, one full mirrored set per
   appearance variant (same scenes/order/layouts; only the closing shot
@@ -65,6 +70,16 @@ Screenshots, end to end:
    (add `DEVICE_CLASS=ipad ORIENTATION=landscape` for iPad landscape; the
    runner recycles the XCUITest driver, retries failures once, and bakes
    landscape pixels to 2752x2064 without EXIF).
+1b. Android capture: create an AVD, boot it, then
+   `adb shell wm size 1080x2340` and `adb shell wm density 440` so the capture
+   exactly matches the Pixel 5 frame cutout. Build and install with
+   `APP_VARIANT=production npx expo run:android --variant release --device <avd-name>`
+   (`--device` takes the AVD name, not the adb serial - an adb serial fails with
+   "Could not find device with name"). Then
+   `APP_ID=com.vitaliiyehorov.suuudokuuu yarn workspace @suuudokuuu/app-tests
+   screenshots:capture --platform=android --locales=en --appearances=light,dark
+   --scenes=...`. The runner's progress label prints `[iphone/...]` on Android;
+   that is cosmetic, the output path is `raw/android/`.
 2. Compose: `bash packages/app/fastlane/screenshots/design/compose-screenshots.sh en-US all`
     - frames captures in real fastlane frameit device frames, applies
       two-tier captions, writes both variant sets (second arg: light|dark|all).
@@ -206,7 +221,8 @@ Screenshots, end to end:
   via the same pipeline; captions exist for 11 iOS locales in
   design/<locale>/title.strings (subtitles en-US only so far, and non-en
   title.strings still carry the pre-v3 single-tier keys).
-- Android/Play screenshots not captured yet (needs an emulator; supply
-  expects metadata/android/<locale>/images/phoneScreenshots/).
+- Play phone screenshots captured and uploaded (7 at 1080x1920). Still
+  missing: the 1024x500 featureGraphic, which is design artwork rather than a
+  capture, and the seven/ten-inch tablet sets.
 - App Preview video (886x1920 H.264 15-30s) not produced; GIFs are not
   accepted by either store.
