@@ -29,6 +29,17 @@ const playChangelogCodepointLimit = 490;
 const userFacingCommitTypes = new Set(['feat', 'fix', 'perf', 'i18n']);
 const userFacingCommitScopes = new Set(['app', 'ui']);
 
+const nonShippingPathspecs = [
+    ':(exclude).agents',
+    ':(exclude).claude',
+    ':(exclude).github',
+    ':(exclude)docs',
+    ':(exclude)tests',
+    ':(exclude)packages/app/fastlane',
+    ':(exclude)packages/app/scripts',
+    ':(exclude)*.md'
+];
+
 const conventionalCommitPattern = /^(?<type>[a-z]+)(?:\((?<scope>[a-z0-9,-]+)\))?(?<breaking>!)?:\s*(?<subject>.+)$/i;
 
 interface LocaleStoreFolder {
@@ -109,7 +120,7 @@ function getPreviousTag(latestTag: string): string | undefined {
 
 function getCommitSubjects(baseRef: string | undefined, headRef: string): string[] {
     const range = baseRef === undefined ? headRef : `${baseRef}..${headRef}`;
-    const log = runGit(['log', range, '--pretty=%s']);
+    const log = runGit(['log', range, '--pretty=%s', '--', '.', ...nonShippingPathspecs]);
 
     return log.length === 0 ? [] : log.split('\n');
 }

@@ -9,6 +9,7 @@ FASTLANE_DIR = File.expand_path(__dir__)
 APP_DIR = File.expand_path("..", FASTLANE_DIR)
 IOS_METADATA_PATH = File.join(FASTLANE_DIR, "metadata", "ios")
 ANDROID_METADATA_PATH = File.join(FASTLANE_DIR, "metadata", "android")
+IOS_COPYRIGHT_PATH = File.join(IOS_METADATA_PATH, "copyright.txt")
 
 # deliver writes into the editable App Store version, and a freshly uploaded
 # build does not create one on its own. Naming the version explicitly makes
@@ -35,6 +36,16 @@ def android_submit_track
   submit_track
 end
 
+# App Store precheck rejects a copyright that does not carry the current year,
+# and it only runs once a build has already been submitted.
+def verify_copyright_year
+  copyright = File.read(IOS_COPYRIGHT_PATH).strip
+  current_year = Time.now.year.to_s
+  UI.user_error!("#{IOS_COPYRIGHT_PATH} reads '#{copyright}' but must carry #{current_year}") unless copyright.include?(current_year)
+
+  UI.success("Copyright: #{copyright}")
+end
+
 def verify_store_directory(label, path)
   UI.user_error!("#{label} is missing at #{path}") unless Dir.exist?(path)
   UI.user_error!("#{label} has no locales at #{path}") if Dir.children(path).empty?
@@ -46,6 +57,7 @@ lane :store_preflight do
   UI.success("App Store version: #{app_store_version}")
   UI.success("Google Play track: #{android_submit_track}")
 
+  verify_copyright_year
   verify_store_directory("iOS metadata", IOS_METADATA_PATH)
   verify_store_directory("Android metadata", ANDROID_METADATA_PATH)
   verify_store_directory("iOS screenshots", ios_screenshots_path)
