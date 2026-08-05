@@ -139,6 +139,7 @@ platform :ios do
       overwrite_screenshots: true,
       force: true,
       precheck_include_in_app_purchases: false,
+      metadata_path: IOS_METADATA_PATH,
       screenshots_path: ios_screenshots_path
     )
   end

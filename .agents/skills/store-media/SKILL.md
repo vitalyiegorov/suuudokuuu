@@ -132,6 +132,19 @@ Screenshots, end to end:
   each committed screenshot maps to, fails on any size Apple does not recognise, and
   warns when the primary iPhone 6.9" (1320x2868) set is missing. iPad 13" is
   2064x2752 portrait / 2752x2064 landscape.
+- **The screenshot lane needs `metadata_path` even with `skip_metadata: true`.**
+  `deliver` validates the metadata root's subdirectories as locale names
+  regardless, and the default `./fastlane/metadata` holds `ios/` and `android/`,
+  so it aborts with "Unsupported directory name(s) for screenshots/metadata".
+  Both iOS lanes therefore pass `metadata_path: IOS_METADATA_PATH`.
+- **1320x2868 uploads land in `APP_IPHONE_67`**, Apple's largest iPhone slot -
+  there is no separate 6.9" set. With `overwrite_screenshots: true` the upload
+  also clears the legacy `APP_IPHONE_65` set, so the listing ends up with one
+  iPhone set instead of three stale ones.
+- **`deliver` can leave duplicate screenshots behind.** Its post-upload
+  verification sometimes reports a freshly uploaded file as "missing on App
+  Store Connect", retries it, and both copies survive. Check the set count
+  after uploading and delete extras by `file_name`.
 - **precheck only warns.** It runs at the end of `ios_metadata` and never fails the
   lane, so read its output - it is the only place these problems surface before a
   human review rejection.
