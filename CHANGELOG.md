@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.74.4](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.74.3...v1.74.4) (2026-08-05)
+
+**Note:** Version bump only for package @suuudokuuu/root
+
 ## [1.74.3](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.74.2...v1.74.3) (2026-08-05)
 
 ### Bug Fixes
