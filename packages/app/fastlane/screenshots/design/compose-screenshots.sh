@@ -6,9 +6,10 @@
 #
 # fastlane frameit's own `run`/`ios` commands target a fixed 1320x2868 canvas
 # (the iPhone 6.9" slot) and letterbox/pad every capture into it, but our raw
-# captures are native-resolution shots from an iPhone 17 simulator
-# (1206x2622) and an iPad Pro 13" landscape simulator (2752x2064). `deliver`
-# assigns screenshots to App Store Connect device slots by matching the
+# captures are native-resolution shots from an iPhone 17 Pro Max simulator
+# (1320x2868, the 6.9" store slot) and an iPad Pro 13" landscape simulator
+# (2752x2064). `deliver` assigns screenshots to App Store Connect device
+# slots by matching the
 # *exact* pixel dimensions of the uploaded file, so this script cannot run
 # frameit's own pipeline unmodified. Instead it borrows frameit's downloaded
 # frame assets and offset data directly: it composites each raw capture into
@@ -89,14 +90,25 @@ if [[ -z "$FRAMES_DIR" ]]; then
   exit 1
 fi
 
-IPHONE_FRAME="$FRAMES_DIR/Apple iPhone 17 Black.png"
+# The store's primary iPhone slot is 6.9" (1320x2868), which is the Pro Max
+# panel. Apple ships no black 17 Pro Max, and the only 17 Pro Max frames are
+# Cosmic Orange / Deep Blue / Silver, all of which would put a fourth colour
+# next to this app's black/white/red brand. The 16 Pro Max Black Titanium
+# frame carries the identical panel geometry (offsets.json gives both
+# "iPhone 16 Pro Max" and "iPhone 17 Pro Max" as +75+66 at width 1320), so it
+# keeps the approved black device while hitting the 6.9" slot exactly.
+IPHONE_FRAME="$FRAMES_DIR/Apple iPhone 16 Pro Max Black Titanium.png"
 # The 13" M4 iPad Pro isn't in frameit-frames yet (it's a community-maintained
 # asset set); the 12.9" iPad Pro (4th generation) is the closest match — same
 # edge-to-edge Face ID design with no home button, same 4:3-ish panel ratio,
 # just a slightly smaller/older panel. See README.md "Framing" for the
 # comparison against the (older, home-button) generic "iPad Pro" frame.
 IPAD_FRAME_PORTRAIT="$FRAMES_DIR/Apple iPad Pro (12.9-inch) (4th generation) Space Gray.png"
-for frame_file in "$IPHONE_FRAME" "$IPAD_FRAME_PORTRAIT"; do
+# Play's phone screenshots use a Pixel frame; the Pixel 5 is the newest black
+# bezel-less Pixel frameit ships, and its panel matches the emulator capture
+# exactly. See the cutout block below.
+ANDROID_FRAME="$FRAMES_DIR/Google Pixel 5 Just Black.png"
+for frame_file in "$IPHONE_FRAME" "$IPAD_FRAME_PORTRAIT" "$ANDROID_FRAME"; do
   if [[ ! -f "$frame_file" ]]; then
     echo "error: missing frame asset '$frame_file' — re-run 'fastlane frameit download_frames'" >&2
     exit 1
@@ -108,14 +120,16 @@ done
 # transparent region not connected to the image's outer edge) and
 # cross-checked against fastlane frameit's own offsets.json ('offset'/
 # 'width' keys for "iPhone 17" and "iPad Pro (12.9 inch) (4th generation)").
-# iPhone 17's cutout is an exact 1206x2622 pixel match for our capture
-# resolution — no resize needed. The iPad cutout (2048x2732) is resized ~1%
-# to our capture's 2732x2048 landscape resolution; the aspect ratio is
-# already a 0.05% match, so that resize is imperceptible and never crops.
-IPHONE_CUTOUT_X=72
-IPHONE_CUTOUT_Y=69
-IPHONE_CUTOUT_W=1206
-IPHONE_CUTOUT_H=2622
+# The Pro Max cutout is an exact 1320x2868 pixel match for our 6.9" capture
+# resolution — no resize needed. It also falls straight out of the frame
+# canvas: 1470-(2*75)=1320 and 3000-(2*66)=2868. The iPad cutout (2048x2732)
+# is resized ~1% to our capture's 2732x2048 landscape resolution; the aspect
+# ratio is already a 0.05% match, so that resize is imperceptible and never
+# crops.
+IPHONE_CUTOUT_X=75
+IPHONE_CUTOUT_Y=66
+IPHONE_CUTOUT_W=1320
+IPHONE_CUTOUT_H=2868
 
 # Same cutout, rotated: the portrait frame is 2048x2732 at offset +96+102 in
 # a 2245x2930 canvas. Rotating that frame 90 clockwise (to match our
@@ -127,6 +141,20 @@ IPAD_CUTOUT_X=96
 IPAD_CUTOUT_Y=96
 IPAD_CUTOUT_W=2732
 IPAD_CUTOUT_H=2048
+
+# Play Store phone screenshots. offsets.json puts the Pixel 5 screen at +58+58
+# with width 1080, so the cutout is an exact match for a 1080x2340 emulator
+# capture (adb shell wm size 1080x2340) and nothing is resized. Unlike the App
+# Store sets, the canvas is NOT the capture size: Play requires phone
+# screenshots between 16:9 and 9:16, and the capture is 9:19.5, so the framed
+# device is scaled onto a 1080x1920 canvas instead.
+ANDROID_RAW_DIR="$APP_DIR/fastlane/screenshots/raw/android"
+ANDROID_CUTOUT_X=58
+ANDROID_CUTOUT_Y=58
+ANDROID_CUTOUT_W=1080
+ANDROID_CUTOUT_H=2340
+ANDROID_CANVAS_W=1080
+ANDROID_CANVAS_H=1920
 
 # --- Design system constants — see design/README.md "Design system" for the
 # researched rationale behind each of these. --------------------------------
@@ -401,7 +429,12 @@ frame_capture() {
 
 compose_one() {
   local device="$1" scene="$2" appearance="$3" layout="$4" height_fraction="$5" out_name="$6" caption_key="${7:-$scene}"
-  local src="$RAW_DIR/$device/en/$appearance/$scene.png"
+  local src
+  if [[ "$device" == "android" ]]; then
+    src="$ANDROID_RAW_DIR/en/$appearance/$scene.png"
+  else
+    src="$RAW_DIR/$device/en/$appearance/$scene.png"
+  fi
   wait_for_capture "$src"
 
   local headline descriptor
@@ -418,7 +451,7 @@ compose_one() {
     canvas_w="$(magick identify -format "%w" "$src")"
     canvas_h="$(magick identify -format "%h" "$src")"
     case "$device" in
-      iphone)
+      iphone | android)
         if (( canvas_h > canvas_w )); then
           break
         fi
@@ -438,6 +471,11 @@ compose_one() {
     orientation_retries=$((orientation_retries + 1))
   done
 
+  if [[ "$device" == "android" ]]; then
+    canvas_w=$ANDROID_CANVAS_W
+    canvas_h=$ANDROID_CANVAS_H
+  fi
+
   local frame_file cutout_x cutout_y cutout_w cutout_h
   case "$device" in
     iphone)
@@ -453,6 +491,13 @@ compose_one() {
       cutout_y=$IPAD_CUTOUT_Y
       cutout_w=$IPAD_CUTOUT_W
       cutout_h=$IPAD_CUTOUT_H
+      ;;
+    android)
+      frame_file="$ANDROID_FRAME"
+      cutout_x=$ANDROID_CUTOUT_X
+      cutout_y=$ANDROID_CUTOUT_Y
+      cutout_w=$ANDROID_CUTOUT_W
+      cutout_h=$ANDROID_CUTOUT_H
       ;;
     *)
       echo "error: unknown device '$device'" >&2
@@ -624,6 +669,20 @@ SCENES_LIGHT=(
   "ipad-landscape|09-home|light|A|$DEVICE_HEIGHT_FRACTION_ENDPOINT|25_ipad_home.png"
 )
 
+# Play carries one screenshot set rather than an appearance pair, so the Android
+# manifest mirrors the deployed (dark) App Store story on a single phone. The
+# two-device customization combo is an iPhone-only composition, so Android uses
+# the single editor shot in that slot instead.
+SCENES_ANDROID=(
+  "android|01-hero-board|dark|A|$DEVICE_HEIGHT_FRACTION_ENDPOINT|01_phone_hero-board.png"
+  "android|02-hell|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|02_phone_hell.png"
+  "android|06-rival|dark|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|03_phone_challenge-accept.png"
+  "android|14-challenge-live|dark|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|04_phone_challenge-live.png"
+  "android|04-editor|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|05_phone_customization.png|04-editor"
+  "android|07-replay|dark|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|06_phone_replay.png"
+  "android|01-hero-board|light|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|07_phone_hero-board-light.png|01-hero-board-light"
+)
+
 SCENES_DARK=(
   "iphone|01-hero-board|dark|A|$DEVICE_HEIGHT_FRACTION_ENDPOINT|01_iphone_hero-board.png"
   "iphone|02-hell|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|02_iphone_hell.png"
@@ -662,9 +721,26 @@ run_variant() {
   done
 }
 
+run_android() {
+  set_variant_palette "dark"
+  OUT_DIR="$APP_DIR/fastlane/metadata/android/$LOCALE/images/phoneScreenshots"
+
+  mkdir -p "$OUT_DIR"
+  rm -f "$OUT_DIR"/*.png
+  local entry device scene appearance layout height_fraction out_name caption_key
+  for entry in "${SCENES_ANDROID[@]}"; do
+    IFS='|' read -r device scene appearance layout height_fraction out_name caption_key <<<"$entry"
+    compose_one "$device" "$scene" "$appearance" "$layout" "$height_fraction" "$out_name" "$caption_key"
+  done
+}
+
 if [[ "$VARIANT" == "all" ]]; then
   run_variant "light"
   run_variant "dark"
+  run_android
 else
   run_variant "$VARIANT"
+  if [[ "$VARIANT" == "dark" ]]; then
+    run_android
+  fi
 fi

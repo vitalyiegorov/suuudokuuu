@@ -58,6 +58,10 @@ jobs:
                   pod --version
                   fastlane --version
 
+            - name: Verify store metadata inputs
+              working-directory: packages/app
+              run: fastlane store_preflight
+
             - name: Verify release credentials
               env:
                   EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
@@ -134,7 +138,7 @@ jobs:
                   EXPO_ASC_API_KEY_PATH: ${{ github.workspace }}/packages/app/asc_api_key.p8
                   EXPO_ASC_KEY_ID: LD57UK43J9
                   EXPO_ASC_ISSUER_ID: 76e76b40-770a-4a81-bcdc-1f8346aeed02
-              run: fastlane ios_metadata
+              run: fastlane ios ios_metadata
 
             - name: Push App Store screenshots
               if: inputs.push_screenshots
@@ -143,7 +147,7 @@ jobs:
                   EXPO_ASC_API_KEY_PATH: ${{ github.workspace }}/packages/app/asc_api_key.p8
                   EXPO_ASC_KEY_ID: LD57UK43J9
                   EXPO_ASC_ISSUER_ID: 76e76b40-770a-4a81-bcdc-1f8346aeed02
-              run: fastlane ios_screenshots
+              run: fastlane ios ios_screenshots
 
             - name: Remove App Store Connect key
               if: always()
@@ -259,6 +263,10 @@ jobs:
 
                   export PATH="$HOME/.rbenv/shims:/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
                   fastlane --version
+
+            - name: Verify store metadata inputs
+              working-directory: packages/app
+              run: fastlane store_preflight
 
             - name: Setup Java
               uses: actions/setup-java@v5
