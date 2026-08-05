@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.74.5...v2.1.1) (2026-08-05)
+
+### Bug Fixes
+
+- **app:** repair the store metadata push for both stores ([#252](https://github.com/vitalyiegorov/suuudokuuu/issues/252)) ([080620f](https://github.com/vitalyiegorov/suuudokuuu/commit/080620f296409cc30a0d6e6a72de98bba8c8ba02))
+
 ## [1.74.5](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.74.4...v1.74.5) (2026-08-05)
 
 ### Bug Fixes
