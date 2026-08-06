@@ -1,17 +1,17 @@
 name: Android Maestro
 
 # Runs the Maestro suite against Redroid (Android-in-container) on the LINUX
-# runners. Google ships no emulator for arm64 linux and nested-KVM boots are
-# unstable on the host, so Android runs as a privileged container at native
-# arm64 speed over the binder kernel module — no virtualization inside the
-# guest at all. Requires the linux guest image to carry docker + the pulled
-# redroid image + the prewarmed /data volume (prewarm-redroid-linux.sh).
-# Tests only: the APK is produced by mobile-build.yml (see mobile-e2e.yml).
+# runners, via rnw-community/mobile-ci's run-maestro-android-redroid action —
+# a hardened extraction of the Redroid lifecycle this repo pioneered (see the
+# adoption PR for the exact hardening gained). Google ships no emulator for
+# arm64 linux and nested-KVM boots are unstable on the host, so Android runs
+# as a privileged container at native arm64 speed over the binder kernel
+# module — no virtualization inside the guest at all. Requires the linux
+# guest image to carry docker + the pulled redroid image + the prewarmed
+# /data volume (prewarm-redroid-linux.sh). Tests only: the APK is produced by
+# mobile-build.yml (see mobile-e2e.yml).
 on:
     workflow_call:
-
-env:
-    MAESTRO_VERSION: '2.6.1'
 
 jobs:
     test:
@@ -26,104 +26,24 @@ jobs:
         steps:
             - uses: actions/checkout@v5
 
-            - name: Start prewarmed Redroid container
-              shell: bash
-              run: |
-                  set -euo pipefail
-                  manifest="$HOME/.sudoku-ci/android-emulator.json"
-                  test -f "$manifest" || {
-                    echo '::error::The guest image lacks the Redroid prewarm; rebuild the base with prewarm-redroid-linux.sh.'
-                    exit 1
-                  }
-                  image=$(python3 -c "import json; print(json.load(open('$manifest'))['image'])")
-                  data=$(python3 -c "import json; print(json.load(open('$manifest'))['dataDir'])")
-                  echo "REDROID_PREWARM_OK image=$image dataDir=$data"
-                  sudo modprobe binder_linux devices=binder,hwbinder,vndbinder 2>/dev/null || true
-                  sudo docker rm -f redroid-e2e >/dev/null 2>&1 || true
-                  sudo docker run -d --name redroid-e2e --privileged \
-                    --memory 6g --memory-swap 6g --cpus 4 \
-                    -v "$data":/data -p 5555:5555 \
-                    "$image" androidboot.redroid_gpu_mode=guest
-                  adb connect localhost:5555
-                  deadline=$(( $(date +%s) + 300 ))
-                  until [ "$(adb -s localhost:5555 shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')" = "1" ]; do
-                    test "$(date +%s)" -lt "$deadline"
-                    sleep 5
-                    adb connect localhost:5555 >/dev/null 2>&1 || true
-                  done
-                  echo "ANDROID_SERIAL=localhost:5555" >> "$GITHUB_ENV"
-
             - uses: actions/download-artifact@v6
               with:
                   name: android-e2e-app
                   path: .ci-artifacts/android-e2e-app
 
-            - name: Install APK
-              run: adb -s localhost:5555 install -r .ci-artifacts/android-e2e-app/suuudokuuu-e2e.apk
-
-            - name: Install Maestro
-              run: |
-                  maestro_bin="$HOME/.maestro/bin/maestro"
-                  if [ ! -x "$maestro_bin" ] || [ "$("$maestro_bin" --version 2>/dev/null | tail -n 1 | tr -d '\r' || true)" != "$MAESTRO_VERSION" ]; then
-                    curl -fsSL https://get.maestro.mobile.dev | env MAESTRO_VERSION="$MAESTRO_VERSION" bash
-                  fi
-                  echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
-
-            - name: Run deterministic Maestro suite
-              working-directory: tests/app-tests
-              shell: bash
-              env:
-                  APP_ID: com.vitaliiyehorov.suuudokuuu.e2e # android package prefix differs from iOS (app.config.js getUniqueIdentifier)
-                  JAVA_TOOL_OPTIONS: -Djava.awt.headless=true -Xmx2048m
-                  MAESTRO_DRIVER_STARTUP_TIMEOUT: '180000'
-                  MAESTRO_DEBUG_OUTPUT_DIRECTORY: ${{ github.workspace }}/tests/app-tests/artifacts/maestro-android
-                  MAESTRO_OUTPUT_PATH: ${{ github.workspace }}/tests/app-tests/artifacts/maestro-android/report.xml
-              run: |
-                  set -euo pipefail
-                  flows=()
-                  while IFS= read -r flow; do
-                    flows+=("$flow")
-                  done < <(find flows -maxdepth 1 -type f -name '*.flow.yaml' | sort)
-                  test "${#flows[@]}" -gt 0
-                  mkdir -p "./artifacts/maestro-android"
-                  SIMULATOR_UDID="$ANDROID_SERIAL" ./scripts/run-maestro-suite.sh "${flows[@]}" \
-                    2>&1 | tee "./artifacts/maestro-android/console.log"
-
-            - name: Publish Maestro timing summary
-              if: always()
-              shell: bash
-              run: |
-                  set -euo pipefail
-                  timing_file="tests/app-tests/artifacts/maestro-android/flow-timings.tsv"
-                  if [ -f "$timing_file" ]; then
-                    {
-                      echo "### Android Maestro flow timings"
-                      echo
-                      echo '| Flow | Status | Attempts | Seconds |'
-                      echo '| --- | --- | ---: | ---: |'
-                      tail -n +2 "$timing_file" |
-                        awk -F '\t' '{ printf "| `%s` | %s | %s | %s |\n", $2, $3, $4, $5 }'
-                    } >> "$GITHUB_STEP_SUMMARY"
-                  fi
-
-            - name: Capture final device state
-              if: always()
-              run: |
-                  out="tests/app-tests/artifacts/maestro-android"
-                  mkdir -p "$out"
-                  adb -s localhost:5555 exec-out screencap -p > "$out/final-screen.png" || true
-                  adb -s localhost:5555 logcat -d > "$out/logcat-full.txt" 2>&1 || true
-                  adb -s localhost:5555 logcat -d -b crash > "$out/logcat-crash.txt" 2>&1 || true
-                  adb -s localhost:5555 logcat -d ReactNative:V ReactNativeJS:V AndroidRuntime:E Unistyles:V NativeModule:V '*:E' \
-                    > "$out/logcat-app.txt" 2>&1 || true
-                  adb -s localhost:5555 shell dumpsys activity top > "$out/activity-top.txt" 2>&1 || true
-                  sudo docker rm -f redroid-e2e || true
-
-            - uses: actions/upload-artifact@v6
-              if: always()
+            - name: run-maestro-android-redroid
+              uses: rnw-community/mobile-ci/actions/run-maestro-android-redroid@92b18c6b0d207e46ba13ae7e7546966755d36e9f # main
               with:
-                  name: maestro-android
-                  include-hidden-files: true
-                  path: tests/app-tests/artifacts/maestro-android/**
-                  if-no-files-found: warn
-                  retention-days: 7
+                  container-name: redroid-e2e
+                  apk-path: .ci-artifacts/android-e2e-app/suuudokuuu-e2e.apk
+                  app-id: com.vitaliiyehorov.suuudokuuu.e2e
+                  flows-dir: tests/app-tests/flows
+                  shard-index: '0'
+                  shard-count: '1'
+                  maestro-version: '2.6.1'
+                  memory: 6g
+                  cpus: '4'
+                  prewarm-manifest-path: $HOME/.sudoku-ci/android-emulator.json
+                  boot-timeout-seconds: '300'
+                  artifacts-dir: ${{ github.workspace }}/tests/app-tests/artifacts/maestro-android
+                  artifact-name: maestro-android
