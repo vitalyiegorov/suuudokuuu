@@ -7,8 +7,8 @@ import {
     HistoryGamesScreenSelectors,
     HistoryScreenSelectors,
     HomeScreenSelectors,
-    ReplayControlsSelectors,
-    ReplayTopBarSelectors
+    ReplayActionsSelectors,
+    ReplayControlsSelectors
 } from '@suuudokuuu/app/src/selectors';
 
 import { winningSharedChallengeEncodedConstant } from '../src/constants/shared-challenge-links.constant';
@@ -44,7 +44,7 @@ test('reviews and replays a completed game from statistics', async ({ page }) =>
     await page.getByTestId(ReplayControlsSelectors.NextButton).click();
     await page.getByTestId(ReplayControlsSelectors.PreviousButton).click();
 
-    await page.getByTestId(ReplayTopBarSelectors.CloseButton).click();
+    await page.getByTestId(ReplayActionsSelectors.BackButton).click();
     await expect(page.getByTestId(HistoryGamesScreenSelectors.Root)).toBeVisible();
 
     await getVisibleByTestId(page, HeaderBackButtonSelectors.Root).click();

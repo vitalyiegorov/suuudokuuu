@@ -12,10 +12,10 @@ import { useBoardGeometry } from '../../../game/hooks/use-board-geometry.hook';
 import { gameCompletedGameByIdSelector } from '../../../game/store/game.selectors';
 import { getTimelineCellSteps } from '../../../game/utils/get-timeline-cell-steps.util';
 import { stringToGameState } from '../../../game/utils/string-to-game-state.util';
+import { ReplayActions } from '../../../history/components/replay-actions/replay-actions';
 import { ReplayControls } from '../../../history/components/replay-controls/replay-controls';
 import { ReplayField } from '../../../history/components/replay-field/replay-field';
 import { ReplayHeader } from '../../../history/components/replay-header/replay-header';
-import { ReplayTopBar } from '../../../history/components/replay-top-bar/replay-top-bar';
 import { getReplayTimeline } from '../../../history/utils/get-replay-timeline.util';
 import { getSudokuAtStep } from '../../../history/utils/get-sudoku-at-step.util';
 
@@ -70,9 +70,13 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
 
     return (
         <View style={styles.container}>
-            <ReplayTopBar />
             <View style={styles.content}>
-                {isWideLayout ? null : replayHeader}
+                {isWideLayout ? null : (
+                    <View style={styles.topBar}>
+                        {replayHeader}
+                        <ReplayActions />
+                    </View>
+                )}
 
                 <View onLayout={onBoardAreaLayout} style={styles.fieldWrapper}>
                     <ReplayField cellSize={boardCellSize} highlightedCellKey={highlightedCellKey} sudoku={sudoku} />
@@ -82,6 +86,8 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
                     {isWideLayout ? replayHeader : null}
 
                     {replayControls}
+
+                    {isWideLayout ? <ReplayActions /> : null}
                 </View>
             </View>
         </View>

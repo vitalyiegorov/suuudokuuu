@@ -145,7 +145,7 @@ msgid "Avoid mistakes - they cost you points!"
 msgstr "गलतियों से बचें: वे आपके अंक घटाती हैं।"
 
 #: src/@generic/components/header-back-button/header-back-button.tsx
-#: src/history/components/replay-top-bar/replay-top-bar.tsx
+#: src/history/components/replay-actions/replay-actions.tsx
 msgid "Back"
 msgstr "वापस"
 
@@ -1070,7 +1070,6 @@ msgid "Release notes"
 msgstr "रिलीज़ नोट्स"
 
 #: src/history/components/completed-games-list/completed-game-item.tsx
-#: src/history/components/replay-top-bar/replay-top-bar.tsx
 msgid "Replay"
 msgstr "रीप्ले"
 

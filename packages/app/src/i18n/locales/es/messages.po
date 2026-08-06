@@ -147,7 +147,7 @@ msgid "Avoid mistakes - they cost you points!"
 msgstr "Evita errores: te restan puntos."
 
 #: src/@generic/components/header-back-button/header-back-button.tsx
-#: src/history/components/replay-top-bar/replay-top-bar.tsx
+#: src/history/components/replay-actions/replay-actions.tsx
 msgid "Back"
 msgstr "Atrás"
 
@@ -1072,7 +1072,6 @@ msgid "Release notes"
 msgstr "Notas de la versión"
 
 #: src/history/components/completed-games-list/completed-game-item.tsx
-#: src/history/components/replay-top-bar/replay-top-bar.tsx
 msgid "Replay"
 msgstr "Repetición"
 
