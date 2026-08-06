@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native-unistyles';
 export const ReplayHeaderStyles = StyleSheet.create(theme => ({
     container: {
         alignSelf: 'center',
+        flexShrink: 1,
         maxWidth: '100%',
         minHeight: 68
     },
