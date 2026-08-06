@@ -145,7 +145,7 @@ msgid "Avoid mistakes - they cost you points!"
 msgstr "避免错误：它们会扣分。"
 
 #: src/@generic/components/header-back-button/header-back-button.tsx
-#: src/history/components/replay-top-bar/replay-top-bar.tsx
+#: src/history/components/replay-actions/replay-actions.tsx
 msgid "Back"
 msgstr "返回"
 
@@ -1070,7 +1070,6 @@ msgid "Release notes"
 msgstr "发行说明"
 
 #: src/history/components/completed-games-list/completed-game-item.tsx
-#: src/history/components/replay-top-bar/replay-top-bar.tsx
 msgid "Replay"
 msgstr "回放"
 

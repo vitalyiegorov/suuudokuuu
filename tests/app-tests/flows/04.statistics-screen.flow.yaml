@@ -60,7 +60,7 @@ appId: ${APP_ID}
 - tapOn:
       id: 'ReplayControlsSelectors.PreviousButton'
 - tapOn:
-      id: 'ReplayTopBarSelectors.CloseButton'
+      id: 'ReplayActionsSelectors.BackButton'
 - extendedWaitUntil:
       visible:
           id: 'HistoryGamesScreenSelectors.Root'
