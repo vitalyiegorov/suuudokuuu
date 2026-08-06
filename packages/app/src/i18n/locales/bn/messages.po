@@ -58,10 +58,6 @@ msgstr "{gamesCompleted, plural, one {#টি সম্পন্ন খেলা
 msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
 msgstr "{mistakes, plural, one {#টি ভুল} other {#টি ভুল}}"
 
-#: src/challenge/components/challenge-run-summary/challenge-run-summary.tsx
-msgid "{sharpCount, plural, one {# sharp technique} other {# sharp techniques}}"
-msgstr "{sharpCount, plural, one {#টি চৌকস কৌশল} other {#টি চৌকস কৌশল}}"
-
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
 msgstr "{value, plural, one {# দিন} other {# দিন}}"
@@ -1259,10 +1255,6 @@ msgstr "কমপ্যাক্ট বোর্ডের জন্য সবচ
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Soft gray board with a paper-like feel"
 msgstr "কাগজের অনুভূতি সহ নরম ধূসর বোর্ড"
-
-#: src/challenge/components/challenge-run-summary/challenge-run-summary.tsx
-msgid "Solved with the fundamentals"
-msgstr "মৌলিক কৌশলে সমাধান হয়েছে"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Some color combinations are hard to read. Save anyway?"

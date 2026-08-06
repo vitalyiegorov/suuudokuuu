@@ -58,10 +58,6 @@ msgstr "{gamesCompleted, plural, one {# 局已完成} other {# 局已完成}}"
 msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
 msgstr "{mistakes, plural, one {# 个错误} other {# 个错误}}"
 
-#: src/challenge/components/challenge-run-summary/challenge-run-summary.tsx
-msgid "{sharpCount, plural, one {# sharp technique} other {# sharp techniques}}"
-msgstr "{sharpCount, plural, one {# 个精妙技巧} other {# 个精妙技巧}}"
-
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
 msgstr "{value, plural, other {# 天}}"
@@ -1259,10 +1255,6 @@ msgstr "最小数字，适合紧凑棋盘"
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Soft gray board with a paper-like feel"
 msgstr "柔和灰色棋盘，带纸张质感"
-
-#: src/challenge/components/challenge-run-summary/challenge-run-summary.tsx
-msgid "Solved with the fundamentals"
-msgstr "仅用基础技巧解出"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Some color combinations are hard to read. Save anyway?"
