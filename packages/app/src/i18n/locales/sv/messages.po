@@ -1076,7 +1076,7 @@ msgstr "Repris"
 
 #: src/history/components/replay-scrubber/replay-scrubber.tsx
 msgid "Replay progress"
-msgstr ""
+msgstr "Reprisförlopp"
 
 #: src/settings/component/settings-app-footer/settings-app-footer.tsx
 msgid "Report a bug"
