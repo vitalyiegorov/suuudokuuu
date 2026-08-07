@@ -32,12 +32,14 @@ jobs:
                   path: .ci-artifacts/android-e2e-app
 
             - name: run-maestro-android-redroid
-              uses: rnw-community/mobile-ci/actions/run-maestro-android-redroid@92b18c6b0d207e46ba13ae7e7546966755d36e9f # main
+              uses: rnw-community/mobile-ci/actions/run-maestro-android-redroid@bc5927455f3ca5aed5c1b7733c9286fc8b53769e # v1.0.0
               with:
                   container-name: redroid-e2e
                   apk-path: .ci-artifacts/android-e2e-app/suuudokuuu-e2e.apk
                   app-id: com.vitaliiyehorov.suuudokuuu.e2e
                   flows-dir: tests/app-tests/flows
+                  pre-run-flow: tests/app-tests/flows/setup/prime-deep-links.flow.yaml
+                  flow-retries: '1'
                   shard-index: '0'
                   shard-count: '1'
                   maestro-version: '2.6.1'
