@@ -8,7 +8,9 @@ describe('ReplayScrubber', () => {
 
     it('exposes adjustable accessibility semantics', () => {
         expect(source).toContain('accessibilityRole="adjustable"');
-        expect(source).toContain('accessibilityValue={accessibilityValue}');
+        expect(source).toContain('aria-valuemax={totalSteps}');
+        expect(source).toContain('aria-valuemin={0}');
+        expect(source).toContain('aria-valuenow={currentStep}');
         expect(source).toContain("{ name: 'increment' }");
         expect(source).toContain("{ name: 'decrement' }");
         expect(source).toContain('onAccessibilityAction={handleAccessibilityAction}');

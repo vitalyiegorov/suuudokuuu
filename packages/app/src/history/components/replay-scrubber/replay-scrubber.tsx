@@ -46,7 +46,6 @@ export const ReplayScrubber = ({ awayRanges, currentStep, onScrubStep, totalStep
         { backgroundColor: theme.colors.numpad.trackFilled, borderColor: theme.colors.background, left: stepProgressPercent }
     ];
     const accessibilityActions = [{ name: 'increment' }, { name: 'decrement' }];
-    const accessibilityValue = { max: totalSteps, min: 0, now: currentStep };
 
     return (
         <GestureDetector gesture={scrubberGesture}>
@@ -54,8 +53,10 @@ export const ReplayScrubber = ({ awayRanges, currentStep, onScrubStep, totalStep
                 accessibilityActions={accessibilityActions}
                 accessibilityLabel={t`Replay progress`}
                 accessibilityRole="adjustable"
-                accessibilityValue={accessibilityValue}
                 accessible
+                aria-valuemax={totalSteps}
+                aria-valuemin={0}
+                aria-valuenow={currentStep}
                 onAccessibilityAction={handleAccessibilityAction}
                 onLayout={handleRailLayout}
                 style={styles.hitArea}
