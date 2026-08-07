@@ -236,6 +236,7 @@ msgid "Cell spacing"
 msgstr "ঘরের ফাঁক"
 
 #: src/challenge/components/challenge-mode-switch/challenge-mode-switch.tsx
+#: src/history/components/replay-share-action/replay-share-action.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Challenge"
@@ -1073,6 +1074,10 @@ msgstr "রিলিজ নোট"
 msgid "Replay"
 msgstr "রিপ্লে"
 
+#: src/history/components/replay-scrubber/replay-scrubber.tsx
+msgid "Replay progress"
+msgstr ""
+
 #: src/settings/component/settings-app-footer/settings-app-footer.tsx
 msgid "Report a bug"
 msgstr "বাগ রিপোর্ট করুন"
@@ -1210,6 +1215,7 @@ msgid "Shade cells that already have a number"
 msgstr "যে ঘরগুলোতে ইতিমধ্যে সংখ্যা আছে সেগুলো শেড করুন"
 
 #: src/game/hooks/use-share-game.hook.ts
+#: src/history/components/replay-share-action/replay-share-action.tsx
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Share puzzle"

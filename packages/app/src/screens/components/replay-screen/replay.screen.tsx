@@ -53,6 +53,9 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
             setCurrentStep(currentStep + 1);
         }
     };
+    const handleScrubStep = (step: number) => {
+        setCurrentStep(Math.min(Math.max(step, 0), totalSteps));
+    };
 
     const { sudoku, highlightedCellKey, elapsedTime, moveClassification } = getSudokuAtStep(gameState, currentStep);
     const awayRanges = getChallengeAwayRanges(replayTimeline.events, completedGame.elapsedTime);
@@ -65,6 +68,7 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
             moveClassification={moveClassification}
             onNextStep={handleNextStep}
             onPrevStep={handlePrevStep}
+            onScrubStep={handleScrubStep}
             totalSteps={totalSteps}
         />
     );
