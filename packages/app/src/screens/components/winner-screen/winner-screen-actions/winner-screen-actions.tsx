@@ -51,7 +51,7 @@ export const WinnerScreenActions = ({ gameState, retrySetup }: Props) => {
         const shareAction = isChallengeShareable ? (
             <ChallengeShareButton gameState={gameState} text={t`Challenge`} />
         ) : (
-            <PuzzleShareButton text={t`Share puzzle`} />
+            <PuzzleShareButton gameState={gameState} text={t`Share puzzle`} />
         );
 
         return (

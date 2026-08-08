@@ -143,7 +143,7 @@ msgid "Avoid mistakes - they cost you points!"
 msgstr "Evita errores: te restan puntos."
 
 #: src/@generic/components/header-back-button/header-back-button.tsx
-#: src/history/components/replay-top-bar/replay-top-bar.tsx
+#: src/history/components/replay-actions/replay-actions.tsx
 msgid "Back"
 msgstr "Atrás"
 
@@ -234,6 +234,7 @@ msgid "Cell spacing"
 msgstr "Espaciado de celdas"
 
 #: src/challenge/components/challenge-mode-switch/challenge-mode-switch.tsx
+#: src/history/components/replay-share-action/replay-share-action.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Challenge"
@@ -1068,9 +1069,12 @@ msgid "Release notes"
 msgstr "Notas de la versión"
 
 #: src/history/components/completed-games-list/completed-game-item.tsx
-#: src/history/components/replay-top-bar/replay-top-bar.tsx
 msgid "Replay"
 msgstr "Repetición"
+
+#: src/history/components/replay-scrubber/replay-scrubber.tsx
+msgid "Replay progress"
+msgstr "Progreso de la repetición"
 
 #: src/settings/component/settings-app-footer/settings-app-footer.tsx
 msgid "Report a bug"
@@ -1209,6 +1213,7 @@ msgid "Shade cells that already have a number"
 msgstr "Sombrear celdas que ya tienen un número"
 
 #: src/game/hooks/use-share-game.hook.ts
+#: src/history/components/replay-share-action/replay-share-action.tsx
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Share puzzle"

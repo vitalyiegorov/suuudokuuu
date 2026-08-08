@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.2.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.1.2...v2.2.0) (2026-08-08)
+
+### Features
+
+- **app:** add contextual replay sharing and a touch-draggable step scrubber ([#258](https://github.com/vitalyiegorov/suuudokuuu/issues/258)) ([7e09a48](https://github.com/vitalyiegorov/suuudokuuu/commit/7e09a48124cb1e0f8d5389128e16e43af4aeaddd))
+
+## [2.1.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.1.1...v2.1.2) (2026-08-06)
+
+### Bug Fixes
+
+- **app:** use standard game actions header on the replay screen ([#254](https://github.com/vitalyiegorov/suuudokuuu/issues/254)) ([cd8030f](https://github.com/vitalyiegorov/suuudokuuu/commit/cd8030fd5d214f57898c4fcb3bc3b4f78ee6f69a))
+
 ## [2.1.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.74.5...v2.1.1) (2026-08-05)
 
 ### Bug Fixes
