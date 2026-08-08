@@ -58,10 +58,6 @@ msgstr "{gamesCompleted, plural, one {# jogo concluído} other {# jogos concluí
 msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
 msgstr "{mistakes, plural, one {# erro} other {# erros}}"
 
-#: src/challenge/components/challenge-run-summary/challenge-run-summary.tsx
-msgid "{sharpCount, plural, one {# sharp technique} other {# sharp techniques}}"
-msgstr "{sharpCount, plural, one {# técnica engenhosa} other {# técnicas engenhosas}}"
-
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
 msgstr "{value, plural, one {# dia} other {# dias}}"
@@ -1264,10 +1260,6 @@ msgstr "Dígitos mínimos para tabuleiros compactos"
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Soft gray board with a paper-like feel"
 msgstr "Tabuleiro cinza suave com sensação de papel"
-
-#: src/challenge/components/challenge-run-summary/challenge-run-summary.tsx
-msgid "Solved with the fundamentals"
-msgstr "Resolvido com o básico"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Some color combinations are hard to read. Save anyway?"
