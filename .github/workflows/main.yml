@@ -110,12 +110,14 @@ jobs:
               working-directory: packages/app
               run: yarn expo export --platform=web
 
-            - name: Stage Vercel project
-              run: .github/scripts/stage-vercel-project.sh
+            - name: Pull Vercel project settings
+              working-directory: packages/app
+              run: yarn dlx vercel@latest pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+
+            - name: Build Vercel output
+              working-directory: packages/app
+              run: yarn build:vercel
 
             - name: Deploy to Vercel
-              working-directory: packages/app/dist
-              run: |
-                  echo "!node_modules" > .vercelignore
-                  yarn dlx vercel@latest pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
-                  yarn dlx vercel@latest deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
+              working-directory: packages/app
+              run: yarn dlx vercel@latest deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
