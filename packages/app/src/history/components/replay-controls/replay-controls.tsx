@@ -8,9 +8,8 @@ import { isPositiveNumber } from '@rnw-community/shared';
 import { AppIconButton } from '../../../@generic/components/app-icon-button/app-icon-button';
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
-import { ChallengeAwayBands } from '../../../challenge/components/challenge-away-bands/challenge-away-bands';
 import { ThemeContext } from '../../../theme/context/theme.context';
-import { replayGetStepProgress } from '../../utils/replay-get-step-progress.util';
+import { ReplayScrubber } from '../replay-scrubber/replay-scrubber';
 import { ReplayTechnique } from '../replay-technique/replay-technique';
 
 import { ReplayControlsSelectors } from './replay-controls.selectors';
@@ -28,33 +27,22 @@ interface Props {
     readonly moveClassification: MoveClassificationInterface | null;
     readonly onPrevStep: EmptyFn;
     readonly onNextStep: EmptyFn;
+    readonly onScrubStep: (step: number) => void;
 }
 
 export const ReplayControls = (props: Props) => {
-    const { awayRanges, currentStep, totalSteps, elapsedTime, moveClassification, onPrevStep, onNextStep } = props;
+    const { awayRanges, currentStep, totalSteps, elapsedTime, moveClassification, onPrevStep, onNextStep, onScrubStep } = props;
 
     const { theme } = use(ThemeContext);
     const elapsedTimeText = useTimerText(elapsedTime);
 
     const canGoBack = isPositiveNumber(currentStep);
     const canGoForward = currentStep < totalSteps;
-    const stepProgress = replayGetStepProgress(currentStep, totalSteps);
-    const stepProgressPercent: `${number}%` = `${stepProgress * 100}%`;
     const previousIconColor = canGoBack ? theme.colors.surface.raisedText : theme.colors.text.hint;
     const nextIconColor = canGoForward ? theme.colors.surface.raisedText : theme.colors.text.hint;
     const previousButtonStyles = [styles.navButton, !canGoBack && styles.disabledButton];
     const nextButtonStyles = [styles.navButton, !canGoForward && styles.disabledButton];
     const cardStyles = [styles.card, { backgroundColor: theme.colors.surface.subtle, borderColor: theme.colors.surface.border }];
-    const trackStyles = [styles.scrubberTrack, { backgroundColor: theme.colors.numpad.track }];
-    const fillStyles = [styles.scrubberFill, { backgroundColor: theme.colors.numpad.trackFilled, width: stepProgressPercent }];
-    const thumbStyles = [
-        styles.scrubberThumb,
-        {
-            backgroundColor: theme.colors.numpad.trackFilled,
-            borderColor: theme.colors.background,
-            left: stepProgressPercent
-        }
-    ];
 
     return (
         <View style={styles.container} testID={ReplayControlsSelectors.Root}>
@@ -70,11 +58,7 @@ export const ReplayControls = (props: Props) => {
 
                 <ReplayTechnique classification={moveClassification} />
 
-                <View style={trackStyles}>
-                    <View style={fillStyles} />
-                    <ChallengeAwayBands ranges={awayRanges} variant="default" />
-                    <View style={thumbStyles} />
-                </View>
+                <ReplayScrubber awayRanges={awayRanges} currentStep={currentStep} onScrubStep={onScrubStep} totalSteps={totalSteps} />
             </View>
 
             <View style={styles.controlsRow}>
