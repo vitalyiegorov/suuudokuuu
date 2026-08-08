@@ -29,7 +29,7 @@ jobs:
             mobile: ${{ steps.mobile.outputs.mobile }}
         steps:
             - name: Checkout repository
-              uses: actions/checkout@v5
+              uses: actions/checkout@v7
               with:
                   fetch-depth: 0
 
@@ -91,10 +91,10 @@ jobs:
             pull-requests: write
         steps:
             - name: Checkout repository
-              uses: actions/checkout@v5
+              uses: actions/checkout@v7
 
             - name: Setup Node
-              uses: actions/setup-node@v6
+              uses: actions/setup-node@v7
               with:
                   node-version: 22.x
                   cache: yarn
@@ -126,7 +126,7 @@ jobs:
               run: yarn test:coverage
 
             - name: Upload coverage reports to Codecov
-              uses: codecov/codecov-action@v5
+              uses: codecov/codecov-action@v7
 
     mobile-e2e:
         if: ${{ needs.changes.outputs.mobile == 'true' && needs.code-quality.result == 'success' }}
