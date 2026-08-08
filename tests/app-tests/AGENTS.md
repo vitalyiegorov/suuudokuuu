@@ -11,7 +11,7 @@ maestro test -e APP_ID=<installed-app-id> -e DEV_CLIENT_LINK='suuudokuuu://expo-
 APP_ID=<installed-app-id> SIMULATOR_UDID=<simulator-udid> tests/app-tests/scripts/run-maestro-suite.sh
 ```
 
-Use a freshly rebuilt and reinstalled app when validating code, selector, deep-link, app-config, or native changes. CI installs an embedded Release E2E app, so it does not use `launch-dev-client.flow.yaml` or depend on Metro. The suite runner primes the iOS custom-scheme confirmation once in a separate Maestro session, then runs every selected numbered scenario in its own Maestro/XCTest session while preserving the installed app container.
+Use a freshly rebuilt and reinstalled app when validating code, selector, deep-link, app-config, or native changes. CI installs an embedded Release E2E app, so it does not use `launch-dev-client.flow.yaml` or depend on Metro. The suite runner primes the iOS custom-scheme confirmation once in a separate Maestro session, then runs every selected numbered scenario in its own Maestro/XCTest session while preserving the installed app container. After a failed flow, the runner clears app state and re-primes deep links so leftover in-progress state cannot cascade into later flows.
 
 ## Robustness Rules
 

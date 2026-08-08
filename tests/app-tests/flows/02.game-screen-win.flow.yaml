@@ -16,12 +16,16 @@ appId: ${APP_ID}
 - assertVisible: '.*You beat your rival.*'
 - assertVisible:
       id: 'ChallengeResultScreenSelectors.MarginValue'
+# Screenshot-based settle polling can cost over ten seconds per scroll
+# iteration on a loaded runner, so cap it to keep visibility checks inside
+# the scroll budget.
 - scrollUntilVisible:
       element:
           id: 'ChallengeResultScreenSelectors.UkraineSupportCta'
       direction: DOWN
       visibilityPercentage: 50
       timeout: 30000
+      waitToSettleTimeoutMs: 500
 - tapOn:
       id: 'ChallengeResultFooterSelectors.HomeButton'
 - extendedWaitUntil:
