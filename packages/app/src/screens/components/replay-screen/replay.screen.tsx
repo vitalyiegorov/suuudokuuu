@@ -16,6 +16,7 @@ import { ReplayActions } from '../../../history/components/replay-actions/replay
 import { ReplayControls } from '../../../history/components/replay-controls/replay-controls';
 import { ReplayField } from '../../../history/components/replay-field/replay-field';
 import { ReplayHeader } from '../../../history/components/replay-header/replay-header';
+import { ReplayShareAction } from '../../../history/components/replay-share-action/replay-share-action';
 import { getReplayTimeline } from '../../../history/utils/get-replay-timeline.util';
 import { getSudokuAtStep } from '../../../history/utils/get-sudoku-at-step.util';
 
@@ -52,6 +53,9 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
             setCurrentStep(currentStep + 1);
         }
     };
+    const handleScrubStep = (step: number) => {
+        setCurrentStep(Math.min(Math.max(step, 0), totalSteps));
+    };
 
     const { sudoku, highlightedCellKey, elapsedTime, moveClassification } = getSudokuAtStep(gameState, currentStep);
     const awayRanges = getChallengeAwayRanges(replayTimeline.events, completedGame.elapsedTime);
@@ -64,6 +68,7 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
             moveClassification={moveClassification}
             onNextStep={handleNextStep}
             onPrevStep={handlePrevStep}
+            onScrubStep={handleScrubStep}
             totalSteps={totalSteps}
         />
     );
@@ -86,6 +91,8 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
                     {isWideLayout ? replayHeader : null}
 
                     {replayControls}
+
+                    <ReplayShareAction gameState={gameState} />
 
                     {isWideLayout ? <ReplayActions /> : null}
                 </View>

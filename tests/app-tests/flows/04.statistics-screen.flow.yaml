@@ -59,6 +59,22 @@ appId: ${APP_ID}
       id: 'ReplayControlsSelectors.NextButton'
 - tapOn:
       id: 'ReplayControlsSelectors.PreviousButton'
+- assertVisible: 'Move 0 / 1'
+- swipe:
+      from:
+          id: 'ReplayScrubberSelectors.Root'
+      direction: RIGHT
+- assertVisible: 'Move 1 / 1'
+- tapOn:
+      id: 'ReplayControlsSelectors.PreviousButton'
+- assertVisible: 'Move 0 / 1'
+- scrollUntilVisible:
+      element:
+          id: 'ReplayShareActionSelectors.Button'
+      direction: DOWN
+      timeout: 3000
+- assertVisible:
+      id: 'ReplayShareActionSelectors.Button'
 - tapOn:
       id: 'ReplayActionsSelectors.BackButton'
 - extendedWaitUntil:
