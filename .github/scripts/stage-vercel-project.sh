@@ -17,6 +17,7 @@ required_files=(
     "${functions_directory}/package.json"
     "${functions_directory}/yarn.lock"
     "${functions_directory}/.yarnrc.yml"
+    "${functions_directory}/tsconfig.json"
     "${app_directory}/vercel.json"
 )
 
@@ -33,6 +34,7 @@ cp -R "${functions_directory}/shared" "${dist_directory}/shared"
 cp "${functions_directory}/package.json" "${dist_directory}/package.json"
 cp "${functions_directory}/yarn.lock" "${dist_directory}/yarn.lock"
 cp "${functions_directory}/.yarnrc.yml" "${dist_directory}/.yarnrc.yml"
+cp "${functions_directory}/tsconfig.json" "${dist_directory}/tsconfig.json"
 cp "${app_directory}/vercel.json" "${dist_directory}/vercel.json"
 
 staged_files=(
@@ -45,6 +47,7 @@ staged_files=(
     "${dist_directory}/package.json"
     "${dist_directory}/yarn.lock"
     "${dist_directory}/.yarnrc.yml"
+    "${dist_directory}/tsconfig.json"
     "${dist_directory}/vercel.json"
 )
 
