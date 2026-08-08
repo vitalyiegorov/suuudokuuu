@@ -12,7 +12,7 @@ concurrency:
 
 jobs:
     dev-release:
-        uses: rnw-community/mobile-ci/.github/workflows/native-dev-release.yml@0eadcb345bc704b1ccc8e9965634af1ff3d2e25e # v1.1.0
+        uses: rnw-community/mobile-ci/.github/workflows/native-dev-release.yml@a252f5df9e911387598b2b01b0bb28bc40057ce0 # v1.2.0
         with:
             enable-ios: true
             enable-android: true
@@ -23,6 +23,12 @@ jobs:
             build-profile: development
             tag-prefix: development
             keep-releases: '5'
+            publish-env: |
+                EXPO_APPLE_TEAM_ID=3R8589YV24
+                EXPO_APPLE_TEAM_TYPE=INDIVIDUAL
+                EXPO_USE_PRECOMPILED_MODULES=1
+                RCT_USE_PREBUILT_RNCORE=1
+                RCT_USE_RN_DEP=1
             build-command: |
                 if [ "$GITHUB_JOB" = "ios-dev-release" ]; then
                   {
@@ -45,14 +51,7 @@ jobs:
                   fi
                   xcodebuild -version
 
-                  {
-                    echo "DEVELOPER_DIR=$xcode_app/Contents/Developer"
-                    echo "EXPO_APPLE_TEAM_ID=3R8589YV24"
-                    echo "EXPO_APPLE_TEAM_TYPE=INDIVIDUAL"
-                    echo "EXPO_USE_PRECOMPILED_MODULES=1"
-                    echo "RCT_USE_PREBUILT_RNCORE=1"
-                    echo "RCT_USE_RN_DEP=1"
-                  } >> "$GITHUB_ENV"
+                  echo "DEVELOPER_DIR=$xcode_app/Contents/Developer" >> "$GITHUB_ENV"
 
                   (
                     cd packages/app || exit 1

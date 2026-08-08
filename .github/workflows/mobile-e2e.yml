@@ -18,7 +18,7 @@ concurrency:
 jobs:
     ios:
         name: iOS Maestro E2E
-        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@0eadcb345bc704b1ccc8e9965634af1ff3d2e25e # v1.1.0
+        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@a252f5df9e911387598b2b01b0bb28bc40057ce0 # v1.2.0
         with:
             targets: >-
                 [{"name":"e2e","appDir":"packages/app","workspace":"suuudokuuuE2E.xcworkspace","scheme":"suuudokuuuE2E","appId":"com.vitalyiegorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p ios --clean --no-install"}]
@@ -38,7 +38,7 @@ jobs:
 
     android:
         name: Android Maestro E2E
-        uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@0eadcb345bc704b1ccc8e9965634af1ff3d2e25e # v1.1.0
+        uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@a252f5df9e911387598b2b01b0bb28bc40057ce0 # v1.2.0
         with:
             targets: >-
                 [{"name":"e2e","appDir":"packages/app","appId":"com.vitaliiyehorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p android --clean --no-install"}]
