@@ -32,7 +32,7 @@ jobs:
             maestro-version: '2.6.1'
             build-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
             test-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
-            cache-profile: suuudokuuu-ios-v1
+            cache-profile: suuudokuuu-ios-v2
             repack-on-hit: true
             rct-use-prebuilt-rncore: true
             rct-use-rn-dep: true
