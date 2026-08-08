@@ -39,11 +39,17 @@ if [[ -n "$simulator_udid" ]]; then
     maestro_arguments+=(--udid "$simulator_udid")
 fi
 
-maestro test \
-    "$app_tests_directory/flows/setup/prime-deep-links.flow.yaml" \
-    "${maestro_arguments[@]}" \
-    --debug-output "$debug_output_directory/prime-deep-links" \
-    --test-output-dir "$debug_output_directory/prime-deep-links"
+run_setup_flow() {
+    local setup_flow_path="$1" setup_output_name="$2"
+
+    maestro test \
+        "$setup_flow_path" \
+        "${maestro_arguments[@]}" \
+        --debug-output "$debug_output_directory/$setup_output_name" \
+        --test-output-dir "$debug_output_directory/$setup_output_name"
+}
+
+run_setup_flow "$app_tests_directory/flows/setup/prime-deep-links.flow.yaml" "prime-deep-links"
 
 reports=()
 flow_index=0
@@ -116,6 +122,23 @@ run_flow_attempt() {
     return "$status"
 }
 
+# A failed flow can leave an in-progress game behind, which turns the next
+# flow's Start tap into a native confirmation alert that Maestro cannot see.
+# Clearing app state after every failure keeps one failure from cascading.
+reset_app_state_after_failed_flow() {
+    local reset_status=0
+
+    run_setup_flow "$app_tests_directory/flows/setup/reset-app-state.flow.yaml" \
+        "reset-app-state-$flow_index" || reset_status=$?
+    if [[ "$reset_status" -ne 0 ]]; then
+        echo "App state reset failed after $flow_name; continuing with remaining flows"
+        return 0
+    fi
+    run_setup_flow "$app_tests_directory/flows/setup/prime-deep-links.flow.yaml" \
+        "prime-deep-links-$flow_index" \
+        || echo "Deep link priming failed after app state reset; continuing with remaining flows"
+}
+
 reset_simulator_after_driver_failure() {
     if [[ -z "$simulator_udid" ]]; then
         return 0
@@ -170,6 +193,7 @@ for flow_path in "${selected_flow_paths[@]}"; do
     # the suite still exits non-zero below.
     if [[ "$flow_status" -ne 0 ]]; then
         echo "Flow failed, continuing with remaining flows: $flow_name"
+        reset_app_state_after_failed_flow
     fi
 done
 
