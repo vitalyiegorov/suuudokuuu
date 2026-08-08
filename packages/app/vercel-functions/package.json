@@ -8,6 +8,10 @@
     "dependencies": {
         "zod": "4.4.3"
     },
+    "devDependencies": {
+        "@types/node": "26.0.1",
+        "typescript": "6.0.3"
+    },
     "packageManager": "yarn@4.17.0",
     "engines": {
         "node": ">=22.22.1"
