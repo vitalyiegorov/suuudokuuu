@@ -32,7 +32,7 @@ jobs:
                   path: .ci-artifacts/android-e2e-app
 
             - name: run-maestro-android-redroid
-              uses: rnw-community/mobile-ci/actions/run-maestro-android-redroid@bc5927455f3ca5aed5c1b7733c9286fc8b53769e # v1.0.0
+              uses: rnw-community/mobile-ci/actions/run-maestro-android-redroid@0eadcb345bc704b1ccc8e9965634af1ff3d2e25e # v1.1.0
               with:
                   container-name: redroid-e2e
                   apk-path: .ci-artifacts/android-e2e-app/suuudokuuu-e2e.apk
