@@ -1,10 +1,10 @@
 name: Mobile E2E
 
-# Ordering exists to fit the fleet host: one `macos-builder` VM (max 1 active)
-# and at most 2 concurrent macOS guests in total. Both embedded apps are built
-# first, back-to-back on that single builder; only then do the macOS Maestro
-# shards claim both macOS slots. Test suites still run in parallel across
-# platforms (iOS shards on macos-maestro, Android on the linux guest).
+# iOS and Android each run as an independent rnw-community/mobile-ci reusable
+# pipeline (build -> test -> status), so both platforms' builds queue
+# independently for the fleet's single macos-builder VM while their test
+# jobs run in parallel across separate pools (macos-maestro for iOS,
+# linux-xl for Android's Redroid driver).
 on:
     workflow_call:
     workflow_dispatch:
@@ -16,15 +16,47 @@ concurrency:
     cancel-in-progress: ${{ github.event_name == 'push' }}
 
 jobs:
-    build:
-        name: Mobile builds
-        uses: ./.github/workflows/mobile-build.yml
-        secrets: inherit
-
     ios:
-        needs: [build]
-        uses: ./.github/workflows/ios-maestro.yml
+        name: iOS Maestro E2E
+        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@0eadcb345bc704b1ccc8e9965634af1ff3d2e25e # v1.1.0
+        with:
+            targets: >-
+                [{"name":"e2e","appDir":"packages/app","workspace":"suuudokuuuE2E.xcworkspace","scheme":"suuudokuuuE2E","appId":"com.vitalyiegorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p ios --clean --no-install"}]
+            flows-dir: tests/app-tests/flows
+            pre-run-flow: tests/app-tests/flows/setup/prime-deep-links.flow.yaml
+            flow-retries: 1
+            shard-count: 2
+            maestro-version: '2.6.1'
+            build-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
+            test-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
+            cache-profile: suuudokuuu-ios-v1
+            repack-on-hit: true
+            rct-use-prebuilt-rncore: true
+            rct-use-rn-dep: true
+            build-env: |
+                APP_VARIANT=e2e
 
     android:
-        needs: [build]
-        uses: ./.github/workflows/android-maestro.yml
+        name: Android Maestro E2E
+        uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@0eadcb345bc704b1ccc8e9965634af1ff3d2e25e # v1.1.0
+        with:
+            targets: >-
+                [{"name":"e2e","appDir":"packages/app","appId":"com.vitaliiyehorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p android --clean --no-install"}]
+            flows-dir: tests/app-tests/flows
+            pre-run-flow: tests/app-tests/flows/setup/prime-deep-links.flow.yaml
+            flow-retries: 1
+            shard-count: 1
+            maestro-version: '2.6.1'
+            build-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
+            test-runner-labels: '["self-hosted","linux-tiered","linux-xl"]'
+            android-driver: redroid
+            redroid-prewarm-manifest-path: $HOME/.sudoku-ci/android-emulator.json
+            redroid-memory: 6g
+            redroid-cpus: '4'
+            redroid-boot-timeout-seconds: '300'
+            cache-profile: suuudokuuu-android-v1
+            repack-on-hit: true
+            build-env: |
+                APP_VARIANT=e2e
+                JAVA_HOME=/Library/Java/JavaVirtualMachines/temurin-17.jdk/Contents/Home
+                ORG_GRADLE_PROJECT_reactNativeArchitectures=arm64-v8a
