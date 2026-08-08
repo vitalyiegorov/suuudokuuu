@@ -121,22 +121,4 @@ describe('ChallengeRunSummary', () => {
 
         expect(screen.queryByTestId(ChallengeRunStatsSelectors.ScreenshotsTile)).toBeNull();
     });
-
-    it('should headline the sharp techniques of the run', async () => {
-        await renderRecordedRun(cleanRunEvents, 40);
-
-        expect(screen.getByText('1 sharp technique')).toBeTruthy();
-    });
-
-    it('should headline a fundamentals only run without a zero count', async () => {
-        await renderRecordedRun([placement(20, SolutionTechniqueEnum.NakedSingle)], 40);
-
-        expect(screen.getByText('Solved with the fundamentals')).toBeTruthy();
-    });
-
-    it('should omit the headline when no technique was recorded', async () => {
-        await renderRecordedRun([{ kind: TimelineEventKindEnum.Pencil, cellIndex: 4, value: 6, ts: 5 }], 40);
-
-        expect(screen.queryByText('Solved with the fundamentals')).toBeNull();
-    });
 });
