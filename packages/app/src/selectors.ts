@@ -15,8 +15,10 @@ export * from './game/components/difficulty-complexity-slider/difficulty-complex
 export * from './game/components/input-mode-button/input-mode-button.selectors';
 export * from './history/components/completed-games-list/completed-game-item.selectors';
 export * from './history/components/history-difficulty/history-difficulty.selectors';
+export * from './history/components/replay-actions/replay-actions.selectors';
 export * from './history/components/replay-controls/replay-controls.selectors';
-export * from './history/components/replay-top-bar/replay-top-bar.selectors';
+export * from './history/components/replay-scrubber/replay-scrubber.selectors';
+export * from './history/components/replay-share-action/replay-share-action.selectors';
 export * from './scoring/components/scoring-screen.selectors';
 export * from './screens/components/game-screen/game-screen.selectors';
 export * from './screens/components/history-games-screen/history-games-screen.selectors';

@@ -58,10 +58,6 @@ msgstr "{gamesCompleted, plural, one {# पूरी की गई गेम} ot
 msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
 msgstr "{mistakes, plural, one {# गलती} other {# गलतियाँ}}"
 
-#: src/challenge/components/challenge-run-summary/challenge-run-summary.tsx
-msgid "{sharpCount, plural, one {# sharp technique} other {# sharp techniques}}"
-msgstr "{sharpCount, plural, one {# चतुर तकनीक} other {# चतुर तकनीकें}}"
-
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
 msgstr "{value, plural, one {# दिन} other {# दिन}}"
@@ -145,7 +141,7 @@ msgid "Avoid mistakes - they cost you points!"
 msgstr "गलतियों से बचें: वे आपके अंक घटाती हैं।"
 
 #: src/@generic/components/header-back-button/header-back-button.tsx
-#: src/history/components/replay-top-bar/replay-top-bar.tsx
+#: src/history/components/replay-actions/replay-actions.tsx
 msgid "Back"
 msgstr "वापस"
 
@@ -236,6 +232,7 @@ msgid "Cell spacing"
 msgstr "सेल स्पेसिंग"
 
 #: src/challenge/components/challenge-mode-switch/challenge-mode-switch.tsx
+#: src/history/components/replay-share-action/replay-share-action.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Challenge"
@@ -1070,9 +1067,12 @@ msgid "Release notes"
 msgstr "रिलीज़ नोट्स"
 
 #: src/history/components/completed-games-list/completed-game-item.tsx
-#: src/history/components/replay-top-bar/replay-top-bar.tsx
 msgid "Replay"
 msgstr "रीप्ले"
+
+#: src/history/components/replay-scrubber/replay-scrubber.tsx
+msgid "Replay progress"
+msgstr "रीप्ले प्रगति"
 
 #: src/settings/component/settings-app-footer/settings-app-footer.tsx
 msgid "Report a bug"
@@ -1211,6 +1211,7 @@ msgid "Shade cells that already have a number"
 msgstr "जिन सेलों में पहले से अंक है उन्हें शेड करें"
 
 #: src/game/hooks/use-share-game.hook.ts
+#: src/history/components/replay-share-action/replay-share-action.tsx
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Share puzzle"
@@ -1259,10 +1260,6 @@ msgstr "कॉम्पैक्ट बोर्ड के लिए सबस�
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Soft gray board with a paper-like feel"
 msgstr "कागज़ जैसा महसूस होने वाला हल्का ग्रे बोर्ड"
-
-#: src/challenge/components/challenge-run-summary/challenge-run-summary.tsx
-msgid "Solved with the fundamentals"
-msgstr "मूल तकनीकों से हल किया"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Some color combinations are hard to read. Save anyway?"

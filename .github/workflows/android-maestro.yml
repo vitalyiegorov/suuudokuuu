@@ -24,9 +24,9 @@ jobs:
         runs-on: [self-hosted, linux-tiered, linux-xl]
         timeout-minutes: 45
         steps:
-            - uses: actions/checkout@v5
+            - uses: actions/checkout@v7
 
-            - uses: actions/download-artifact@v6
+            - uses: actions/download-artifact@v8
               with:
                   name: android-e2e-app
                   path: .ci-artifacts/android-e2e-app
