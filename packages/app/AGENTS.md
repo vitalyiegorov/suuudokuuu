@@ -12,6 +12,9 @@ yarn android
 yarn web
 yarn prebuild
 
+yarn export:web
+yarn build:vercel
+
 yarn i18n:sync
 yarn ts
 yarn lint
@@ -98,6 +101,13 @@ src/
 7. After text changes, run `yarn i18n:sync`.
 8. Before finishing i18n work, run `yarn i18n:check` from the repo root.
 9. Keep every locale's `messages.po` and compiled `messages.ts` under `src/i18n/locales` in sync.
+
+## Vercel Web Deploy
+
+1. `vercel-functions/api/beta/*.ts` are web-standard `{ fetch }` endpoints; `vercel-functions/shared/create-node-handler.util.ts` bridges them to the Node `(request, response)` signature the Vercel Node launcher calls.
+2. `scripts/build-vercel-output.ts` (`yarn build:vercel`) emits a Build Output API v3 tree in `.vercel/output`: `static/` from the Expo web export, one esbuild bundle per endpoint in `functions/api/beta/<name>.func`, and `config.json`.
+3. `vercel.json` stays the single source of truth for routes; the build script reads them from it.
+4. CI deploys the prebuilt tree with `vercel deploy --prebuilt` from `packages/app`, so the functions are never installed or compiled on Vercel.
 
 ## Error Handling
 
