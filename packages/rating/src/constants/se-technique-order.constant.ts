@@ -1,0 +1,30 @@
+import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
+
+export const seTechniqueOrder: SolutionTechniqueEnum[] = [
+    SolutionTechniqueEnum.FullHouse,
+    SolutionTechniqueEnum.HiddenSingle,
+    SolutionTechniqueEnum.NakedSingle,
+    SolutionTechniqueEnum.PointingPair,
+    SolutionTechniqueEnum.PointingTriple,
+    SolutionTechniqueEnum.BoxLineReduction,
+    SolutionTechniqueEnum.NakedPair,
+    SolutionTechniqueEnum.XWing,
+    SolutionTechniqueEnum.HiddenPair,
+    SolutionTechniqueEnum.FinnedXWing,
+    SolutionTechniqueEnum.SashimiXWing,
+    SolutionTechniqueEnum.NakedTriple,
+    SolutionTechniqueEnum.Swordfish,
+    SolutionTechniqueEnum.HiddenTriple,
+    SolutionTechniqueEnum.FinnedSwordfish,
+    SolutionTechniqueEnum.SashimiSwordfish,
+    SolutionTechniqueEnum.XYWing,
+    SolutionTechniqueEnum.XYZWing,
+    SolutionTechniqueEnum.WWing,
+    SolutionTechniqueEnum.SimpleColoring,
+    SolutionTechniqueEnum.XChain,
+    SolutionTechniqueEnum.NakedQuad,
+    SolutionTechniqueEnum.XYChain,
+    SolutionTechniqueEnum.Jellyfish,
+    SolutionTechniqueEnum.HiddenQuad,
+    SolutionTechniqueEnum.AIC
+];
