@@ -1,10 +1,11 @@
 {
     "name": "@suuudokuuu/app",
-    "version": "2.2.1",
+    "version": "2.2.2",
     "private": true,
     "main": "index.ts",
     "scripts": {
         "android": "expo run:android",
+        "build:vercel": "node scripts/build-vercel-output.ts",
         "export:web": "expo export --platform=web",
         "i18n:compile": "run -T lingui compile --typescript && run -T prettier --write \"src/i18n/locales/*/messages.ts\"",
         "i18n:extract": "run -T lingui extract --overwrite --clean",
@@ -90,6 +91,7 @@
         "babel-plugin-macros": "^3.1.0",
         "babel-plugin-react-compiler": "^1.0.0",
         "eas-build-cache-provider": "^20.0.0",
+        "esbuild": "^0.25.1",
         "test-renderer": "^1.2.0"
     }
 }
