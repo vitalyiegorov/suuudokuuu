@@ -27,9 +27,9 @@ jobs:
             RCT_USE_RN_DEP: '1'
             IOS_DERIVED_DATA: ${{ github.workspace }}/.ci-cache/DerivedData/suuudokuuu-e2e
         steps:
-            - uses: actions/checkout@v5
+            - uses: actions/checkout@v7
 
-            - uses: actions/setup-node@v6
+            - uses: actions/setup-node@v7
               with:
                   node-version: 22.x
                   cache: yarn
@@ -38,7 +38,7 @@ jobs:
               run: yarn install
 
             - name: Setup EAS CLI
-              uses: expo/expo-github-action@v8
+              uses: expo/expo-github-action@v9
               with:
                   eas-version: ${{ env.EAS_CLI_VERSION }}
                   token: ${{ secrets.EXPO_TOKEN }}
@@ -60,7 +60,7 @@ jobs:
 
             - name: Restore fingerprinted native app
               id: native-app-cache
-              uses: actions/cache/restore@v5
+              uses: actions/cache/restore@v6
               with:
                   path: .ci-cache/ios-native-app
                   key: ios-native-v2-macos26-suuudokuuu-e2e-${{ runner.os }}-arm64-xcode26_4_1-17E202-${{ steps.fingerprint.outputs.hash }}
@@ -119,7 +119,7 @@ jobs:
 
             - name: Restore CocoaPods cache
               if: steps.native-plan.outputs.required == 'true'
-              uses: actions/cache/restore@v5
+              uses: actions/cache/restore@v6
               with:
                   path: |
                       ~/Library/Caches/CocoaPods
@@ -177,7 +177,7 @@ jobs:
 
             - name: Save fingerprinted native app
               if: steps.native-app-cache.outputs.cache-hit != 'true'
-              uses: actions/cache/save@v5
+              uses: actions/cache/save@v6
               with:
                   path: .ci-cache/ios-native-app
                   key: ios-native-v2-macos26-suuudokuuu-e2e-${{ runner.os }}-arm64-xcode26_4_1-17E202-${{ steps.fingerprint.outputs.hash }}
@@ -201,7 +201,7 @@ jobs:
                   mkdir -p .ci-artifacts/ios-e2e-app
                   tar -C "$(dirname "$app_path")" -czf ".ci-artifacts/ios-e2e-app/$(basename "$app_path").tar.gz" "$(basename "$app_path")"
 
-            - uses: actions/upload-artifact@v6
+            - uses: actions/upload-artifact@v7
               with:
                   name: ios-e2e-app
                   path: .ci-artifacts/ios-e2e-app/*.tar.gz
@@ -225,9 +225,9 @@ jobs:
             ANDROID_E2E_ABI: arm64-v8a
             ANDROID_E2E_PACKAGE: com.vitaliiyehorov.suuudokuuu.e2e
         steps:
-            - uses: actions/checkout@v5
+            - uses: actions/checkout@v7
 
-            - uses: actions/setup-node@v6
+            - uses: actions/setup-node@v7
               with:
                   node-version: 22.x
                   cache: yarn
@@ -255,7 +255,7 @@ jobs:
               run: yarn install
 
             - name: Setup EAS CLI
-              uses: expo/expo-github-action@v8
+              uses: expo/expo-github-action@v9
               with:
                   eas-version: ${{ env.EAS_CLI_VERSION }}
                   token: ${{ secrets.EXPO_TOKEN }}
@@ -277,7 +277,7 @@ jobs:
 
             - name: Restore fingerprinted native APK
               id: native-apk-cache
-              uses: actions/cache/restore@v5
+              uses: actions/cache/restore@v6
               with:
                   path: .ci-cache/android-native-apk
                   key: android-native-v1-suuudokuuu-e2e-${{ runner.os }}-${{ env.ANDROID_E2E_ABI }}-${{ steps.fingerprint.outputs.hash }}
@@ -327,7 +327,7 @@ jobs:
 
             - name: Restore Gradle cache
               if: steps.native-plan.outputs.required == 'true'
-              uses: actions/cache@v5
+              uses: actions/cache@v6
               with:
                   path: |
                       ~/.gradle/caches
@@ -356,7 +356,7 @@ jobs:
 
             - name: Save fingerprinted native APK
               if: steps.native-apk-cache.outputs.cache-hit != 'true'
-              uses: actions/cache/save@v5
+              uses: actions/cache/save@v6
               with:
                   path: .ci-cache/android-native-apk
                   key: android-native-v1-suuudokuuu-e2e-${{ runner.os }}-${{ env.ANDROID_E2E_ABI }}-${{ steps.fingerprint.outputs.hash }}
@@ -380,7 +380,7 @@ jobs:
                   mkdir -p .ci-artifacts/android-e2e-app
                   cp "$apk" .ci-artifacts/android-e2e-app/suuudokuuu-e2e.apk
 
-            - uses: actions/upload-artifact@v6
+            - uses: actions/upload-artifact@v7
               with:
                   name: android-e2e-app
                   path: .ci-artifacts/android-e2e-app/*.apk
