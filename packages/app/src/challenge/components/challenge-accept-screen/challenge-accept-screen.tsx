@@ -16,6 +16,7 @@ import { ThemeContext } from '../../../theme/context/theme.context';
 import { MAX_TECHNIQUE_TILES } from '../../constants/challenge-run-stats.constant';
 import { getChallengeRivalRunSummary } from '../../utils/get-challenge-rival-run-summary.util';
 import { getChallengeTechniqueSummary } from '../../utils/get-challenge-technique-summary.util';
+import { ChallengeRivalChip } from '../challenge-rival-chip/challenge-rival-chip';
 import { ChallengeRunStats } from '../challenge-run-stats/challenge-run-stats';
 import { ChallengeTechniquePreview } from '../challenge-technique-preview/challenge-technique-preview';
 
@@ -23,7 +24,6 @@ import { ChallengeAcceptScreenSelectors } from './challenge-accept-screen.select
 import { ChallengeAcceptScreenStyles as styles } from './challenge-accept-screen.styles';
 
 const MEDALLION_ICON_SIZE = 40;
-const RIVAL_INITIAL = 'R';
 
 interface Props {
     readonly opponentTotalTime: number;
@@ -48,10 +48,6 @@ export const ChallengeAcceptScreen = ({ opponentTotalTime, challengeState, isLoa
 
     const medallionStyle = [styles.medallion, { backgroundColor: theme.colors.ink }];
     const titleStyle = [styles.title, { color: theme.colors.text.primary }];
-    const chipStyle = [styles.chip, { backgroundColor: theme.colors.ink }];
-    const chipAvatarStyle = [styles.chipAvatar, { backgroundColor: theme.colors.overlayDark }];
-    const chipAvatarTextStyle = [styles.chipAvatarText, { color: theme.colors.inkText }];
-    const chipTextStyle = [styles.chipText, { color: theme.colors.inkText }];
     const timeLabelStyle = [styles.timeLabel, { color: theme.colors.text.hint }];
     const timeValueStyle = [styles.timeValue, { color: theme.colors.text.primary }];
     const beatTextStyle = [styles.beatText, { color: theme.colors.text.primary }];
@@ -86,16 +82,7 @@ export const ChallengeAcceptScreen = ({ opponentTotalTime, challengeState, isLoa
                     {t`Accept challenge?`}
                 </Text>
 
-                <View style={chipStyle}>
-                    <View style={chipAvatarStyle}>
-                        <Text allowFontScaling={false} style={chipAvatarTextStyle}>
-                            {RIVAL_INITIAL}
-                        </Text>
-                    </View>
-                    <Text allowFontScaling={false} numberOfLines={1} style={chipTextStyle}>
-                        {chipText}
-                    </Text>
-                </View>
+                <ChallengeRivalChip chipText={chipText} isRatingCeiling={rivalGameState.isRatingCeiling} rating={rivalGameState.rating} />
 
                 <View style={styles.timeBlock}>
                     <Text allowFontScaling={false} style={timeLabelStyle}>

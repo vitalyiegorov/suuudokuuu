@@ -15,6 +15,11 @@ export const CompletedGameItemStyles = StyleSheet.create(theme => ({
         lineHeight: 27,
         textAlign: 'left'
     },
+    difficultyRow: {
+        alignItems: 'center',
+        flexDirection: 'row',
+        gap: theme.spacing.xs
+    },
     eyebrow: {
         fontSize: theme.typography.size.xs,
         fontWeight: '700',

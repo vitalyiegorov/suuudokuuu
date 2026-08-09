@@ -17,10 +17,12 @@ const PersonalBestIconSize = 20;
 interface Props {
     readonly descriptorText: string;
     readonly isPersonalBest: boolean;
+    readonly isRatingCeiling: boolean;
+    readonly rating: number;
     readonly scoreText: string;
 }
 
-export const WinnerResultHero = ({ descriptorText, isPersonalBest, scoreText }: Props) => {
+export const WinnerResultHero = ({ descriptorText, isPersonalBest, isRatingCeiling, rating, scoreText }: Props) => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
     const personalBestCardStyles = [styles.personalBestCard, { backgroundColor: 'transparent', borderColor: theme.colors.surface.border }];
@@ -35,6 +37,8 @@ export const WinnerResultHero = ({ descriptorText, isPersonalBest, scoreText }: 
                     <LucideTrophy color={theme.colors.text.primary} size={GameResultHeroIconSize} strokeWidth={2.2} />
                 </CelebrationPulse>
             }
+            isRatingCeiling={isRatingCeiling}
+            rating={rating}
             titleText={t`Winner, winner!`}
             valueText={scoreText}
         >

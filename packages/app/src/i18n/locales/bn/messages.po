@@ -717,6 +717,7 @@ msgid "Left-handed layout"
 msgstr "বাঁ-হাতি বিন্যাস"
 
 #: src/history/components/replay-header/replay-header.tsx
+#: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
 msgid "Level"
 msgstr "স্তর"
 
@@ -1052,6 +1053,11 @@ msgstr "উঁচু পৃষ্ঠ"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Raised surface text"
 msgstr "উঁচু পৃষ্ঠের লেখা"
+
+#: src/history/components/replay-header/replay-header.tsx
+#: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
+msgid "Rating"
+msgstr ""
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"

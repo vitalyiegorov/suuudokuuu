@@ -15,6 +15,14 @@ export const GameResultHeroStyles = StyleSheet.create({
         paddingHorizontal: 18,
         paddingVertical: 8
     },
+    descriptorRow: {
+        alignItems: 'center',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        gap: 8,
+        justifyContent: 'center',
+        maxWidth: '100%'
+    },
     descriptorText: {
         fontSize: 15,
         fontWeight: '900',

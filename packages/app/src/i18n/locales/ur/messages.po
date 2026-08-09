@@ -717,6 +717,7 @@ msgid "Left-handed layout"
 msgstr "بائیں ہاتھ کا لے آؤٹ"
 
 #: src/history/components/replay-header/replay-header.tsx
+#: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
 msgid "Level"
 msgstr "سطح"
 
@@ -1052,6 +1053,11 @@ msgstr "ابھری ہوئی سطح"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Raised surface text"
 msgstr "ابھری ہوئی سطح کا متن"
+
+#: src/history/components/replay-header/replay-header.tsx
+#: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
+msgid "Rating"
+msgstr ""
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"
