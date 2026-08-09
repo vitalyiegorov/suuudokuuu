@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers */
 import { describe, expect, it } from '@jest/globals';
 
+import { DIFFICULTY_CODE_MAX } from '../../@generic/constants/binary-codec.constant';
 import { GRID_CELL_COUNT, GRID_EMPTY_CELL, GRID_SIZE } from '../../@generic/constants/grid.constant';
 import { SharedPayloadKindEnum } from '../../@generic/enums/shared-payload-kind.enum';
 import { TimelineEventKindEnum } from '../../@generic/enums/timeline-event-kind.enum';
@@ -101,7 +102,8 @@ describe('GameStateSerializer v3 encoded size characterization', () => {
             candidates: {},
             anchorSeconds: 0,
             pencilCount: 0,
-            screenshotCount: 0
+            screenshotCount: 0,
+            difficulty: DIFFICULTY_CODE_MAX
         });
 
         expect(encoded.length).toBeLessThanOrEqual(40);
@@ -125,7 +127,8 @@ describe('GameStateSerializer v3 encoded size characterization', () => {
             candidates: {},
             anchorSeconds: 0,
             pencilCount: 0,
-            screenshotCount: 0
+            screenshotCount: 0,
+            difficulty: DIFFICULTY_CODE_MAX
         });
 
         expect(encoded.length).toBeLessThanOrEqual(220);
@@ -144,7 +147,8 @@ describe('GameStateSerializer v3 encoded size characterization', () => {
             candidates: buildPencilMarks(18),
             anchorSeconds: 1800000000,
             pencilCount: 0,
-            screenshotCount: 0
+            screenshotCount: 0,
+            difficulty: DIFFICULTY_CODE_MAX
         });
 
         expect(encoded.length).toBeLessThanOrEqual(320);
@@ -163,7 +167,8 @@ describe('GameStateSerializer v3 encoded size characterization', () => {
             candidates: {},
             anchorSeconds: 0,
             pencilCount: 0,
-            screenshotCount: 0
+            screenshotCount: 0,
+            difficulty: DIFFICULTY_CODE_MAX
         });
 
         expect(encoded).toMatch(/^_[\w-]*$/u);
