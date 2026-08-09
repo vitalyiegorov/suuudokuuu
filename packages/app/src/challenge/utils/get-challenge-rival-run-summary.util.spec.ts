@@ -28,6 +28,7 @@ const encodeRivalChallenge = (overrides: Partial<EncodableGameStateInterface>): 
         anchorSeconds: 0,
         pencilCount: 0,
         screenshotCount: 0,
+        difficulty: null,
         ...overrides
     });
 

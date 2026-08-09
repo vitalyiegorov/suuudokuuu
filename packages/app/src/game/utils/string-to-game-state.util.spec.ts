@@ -13,6 +13,7 @@ import type { SolutionStepInterface } from '@suuudokuuu/encoder';
 
 const solvedBoard = '534678912672195348198342567859761423426853791713924856961537284287419635345286179';
 const givensMask = '53..7....6..195....98....6.8...6...34..8.3..17...2...6.6....28....419..5....8..79';
+const LEGACY_CHALLENGE_PAYLOAD = '_OwPIThhRGUxFDDkJq4zrJuyYhUEGSYmTqAalQDDhYCWCCwEA';
 
 const buildSteps = (): SolutionStepInterface[] => {
     const steps: SolutionStepInterface[] = [];
@@ -29,6 +30,7 @@ const buildSteps = (): SolutionStepInterface[] => {
 const buildGameState = (): GameState => ({
     ...initialGameState,
     sudokuString: solvedBoard,
+    difficulty: DifficultyEnum.Nightmare,
     timelineEvents: buildSteps().map(step => ({ kind: TimelineEventKindEnum.Cell, ...step })),
     maxMistakes: 0
 });
@@ -106,6 +108,38 @@ describe('stringToGameState', () => {
         const restored = stringToGameState(gameStateToString(buildGameState(), SharedPayloadKindEnum.Handoff));
 
         expect(Sudoku.convertFieldFromString(restored.sudokuString, defaultSudokuConfig)[1]).toBe(DifficultyEnum.Newbie);
+        expect(restored.difficulty).toBe(DifficultyEnum.Nightmare);
+    });
+
+    it.each([SharedPayloadKindEnum.Puzzle, SharedPayloadKindEnum.Challenge, SharedPayloadKindEnum.Handoff])(
+        'should prefer the encoded difficulty over the blank-count inference for a %s share',
+        kind => {
+            expect.assertions(2);
+
+            const hellState = { ...buildGameState(), difficulty: DifficultyEnum.Hell };
+            const restored = stringToGameState(gameStateToString(hellState, kind));
+
+            expect(Sudoku.convertFieldFromString(givensMask, defaultSudokuConfig)[1]).toBe(DifficultyEnum.Nightmare);
+            expect(restored.difficulty).toBe(DifficultyEnum.Hell);
+        }
+    );
+
+    it('should round-trip every difficulty', () => {
+        expect.assertions(6);
+
+        for (const difficulty of Object.values(DifficultyEnum)) {
+            const encoded = gameStateToString({ ...buildGameState(), difficulty }, SharedPayloadKindEnum.Challenge);
+
+            expect(stringToGameState(encoded).difficulty).toBe(difficulty);
+        }
+    });
+
+    it('should infer the difficulty from the givens for a legacy payload that carries no difficulty', () => {
+        expect.assertions(2);
+
+        const restored = stringToGameState(LEGACY_CHALLENGE_PAYLOAD);
+
+        expect(restored.sudokuString).toBe(givensMask);
         expect(restored.difficulty).toBe(DifficultyEnum.Nightmare);
     });
 

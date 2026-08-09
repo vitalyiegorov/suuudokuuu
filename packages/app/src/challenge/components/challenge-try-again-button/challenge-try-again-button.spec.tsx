@@ -26,7 +26,7 @@ const buildRivalChallengeState = (): string => {
         );
 
     return gameStateToString(
-        { ...initialGameState, maxMistakes: 0, sudokuString: solvedBoard, timelineEvents },
+        { ...initialGameState, difficulty: DifficultyEnum.Nightmare, maxMistakes: 0, sudokuString: solvedBoard, timelineEvents },
         SharedPayloadKindEnum.Challenge
     );
 };
