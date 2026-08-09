@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.3.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.2.2...v2.3.0) (2026-08-09)
+
+### Features
+
+- **hell-corpus:** exclude singles-solvable puzzles from the corpus ([#265](https://github.com/vitalyiegorov/suuudokuuu/issues/265)) ([d498705](https://github.com/vitalyiegorov/suuudokuuu/commit/d49870580821acb090f57f1191979eb3c54cc009))
+
 ## [2.2.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.2.1...v2.2.2) (2026-08-09)
 
 **Note:** Version bump only for package @suuudokuuu/root
