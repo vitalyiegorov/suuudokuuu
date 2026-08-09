@@ -4,6 +4,7 @@ import { isDefined } from '@rnw-community/shared';
 
 import { GameState } from '../store/game.state';
 
+import { difficultyToDifficultyCode } from './difficulty-to-difficulty-code.util';
 import { getIndexedCandidates } from './get-indexed-candidates.util';
 
 import type { GameTimelineEventInterface } from '../interface/game-timeline-event.interface';
@@ -60,7 +61,8 @@ export const gameStateToString = (gameState: GameState, kind = SharedPayloadKind
             candidates: getIndexedCandidates(gameState.candidates),
             anchorSeconds: Math.floor(gameState.wallClockStartMs / 1000),
             pencilCount: countEventsOfKind(gameState.timelineEvents, TimelineEventKindEnum.Pencil),
-            screenshotCount: countEventsOfKind(gameState.timelineEvents, TimelineEventKindEnum.Screenshot)
+            screenshotCount: countEventsOfKind(gameState.timelineEvents, TimelineEventKindEnum.Screenshot),
+            difficulty: difficultyToDifficultyCode(gameState.difficulty)
         });
     } catch {
         return '';
