@@ -425,6 +425,10 @@ msgstr "未完成棋盘"
 msgid "Difficulty"
 msgstr "难度"
 
+#: src/@generic/components/rating-badge/rating-badge.tsx
+msgid "Difficulty rating {ratingLabel}"
+msgstr ""
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Dim a completed digit in the numpad instead of removing it"
 msgstr "让数字键盘中已完成的数字变暗，而不是移除它"

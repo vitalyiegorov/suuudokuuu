@@ -425,6 +425,10 @@ msgstr "بورڈ مکمل نہیں ہوا"
 msgid "Difficulty"
 msgstr "مشکل"
 
+#: src/@generic/components/rating-badge/rating-badge.tsx
+msgid "Difficulty rating {ratingLabel}"
+msgstr ""
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Dim a completed digit in the numpad instead of removing it"
 msgstr "مکمل ہندسے کو ہٹانے کے بجائے نمبر پیڈ میں دھندلا کریں"

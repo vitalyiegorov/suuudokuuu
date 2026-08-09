@@ -425,6 +425,10 @@ msgstr "बोर्ड पूरा नहीं हुआ"
 msgid "Difficulty"
 msgstr "कठिनाई"
 
+#: src/@generic/components/rating-badge/rating-badge.tsx
+msgid "Difficulty rating {ratingLabel}"
+msgstr ""
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Dim a completed digit in the numpad instead of removing it"
 msgstr "पूर्ण अंक को नंबर पैड से हटाने के बजाय धुंधला करें"
