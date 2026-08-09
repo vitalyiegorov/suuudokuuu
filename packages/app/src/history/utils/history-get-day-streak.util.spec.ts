@@ -18,6 +18,8 @@ const EveningHour = 18;
 const createCompletedGame = (completedAt: number): CompletedGameInterface => ({
     completedAt,
     difficulty: DifficultyEnum.Easy,
+    rating: 0,
+    isRatingCeiling: false,
     elapsedTime: 65,
     encodedState: '',
     maxMistakes: 3,

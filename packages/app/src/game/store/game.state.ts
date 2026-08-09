@@ -8,6 +8,8 @@ import type { GameTimelineEventInterface } from '../interface/game-timeline-even
 export interface GameState {
     sudokuString: string;
     difficulty: DifficultyEnum;
+    rating: number;
+    isRatingCeiling: boolean;
     score: number;
     mistakes: number;
     maxMistakes: number;
@@ -35,6 +37,8 @@ export const initialGameState: GameState = {
     elapsedTime: 0,
     sudokuString: '',
     difficulty: DifficultyEnum.Newbie,
+    rating: 0,
+    isRatingCeiling: false,
     mistakes: 0,
     maxMistakes: 3,
     score: 0,

@@ -24,7 +24,7 @@ export interface AppRootPersistedStateInterface {
     [customThemesSlice.name]: CustomThemesState;
 }
 
-export const appRootPersistVersion = 33;
+export const appRootPersistVersion = 34;
 
 const resetBestScores = (state: AppRootPersistedStateInterface): AppRootPersistedStateInterface => {
     const gameState = state[gameSlice.name];
@@ -99,6 +99,30 @@ const introduceCustomThemes = (state: AppRootPersistedStateInterface): AppRootPe
     [settingsSlice.name]: { ...initialSettingsState, ...state[settingsSlice.name] }
 });
 
+const legacyCompletedGameRatingDefaults = { rating: 0, isRatingCeiling: false };
+
+const backfillCompletedGameRatings = (state: AppRootPersistedStateInterface): AppRootPersistedStateInterface => {
+    const gameState = { ...initialGameState, ...state[gameSlice.name] };
+    const updatedHistory = { ...gameState.historyByDifficulty };
+
+    Object.keys(updatedHistory).forEach(key => {
+        const historyEntry = updatedHistory[key as keyof typeof updatedHistory];
+
+        updatedHistory[key as keyof typeof updatedHistory] = {
+            ...historyEntry,
+            completedGames: historyEntry.completedGames.map(completedGame => ({
+                ...legacyCompletedGameRatingDefaults,
+                ...completedGame
+            }))
+        };
+    });
+
+    return {
+        ...state,
+        [gameSlice.name]: { ...gameState, historyByDifficulty: updatedHistory }
+    };
+};
+
 const dropHellQueue = (state: AppRootPersistedStateInterface): AppRootPersistedStateInterface => {
     const clone = { ...state };
 
@@ -169,5 +193,6 @@ export const appRootMigrations: MigrationManifest<AppRootPersistedStateInterface
     30: introduceCustomThemes,
     31: migrateCustomThemesToSemanticTokens,
     32: ensureAllDifficulties,
-    33: dropHellQueue
+    33: dropHellQueue,
+    34: backfillCompletedGameRatings
 };

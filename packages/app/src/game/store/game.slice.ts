@@ -24,13 +24,20 @@ export const gameSlice = createSlice({
     name: 'game',
     initialState: initialGameState,
     reducers: {
-        start: (state, action: PayloadAction<Pick<GameState, 'sudokuString' | 'difficulty' | 'maxMistakes' | 'isChallengeRun'>>) => {
+        start: (
+            state,
+            action: PayloadAction<
+                Pick<GameState, 'sudokuString' | 'difficulty' | 'maxMistakes' | 'isChallengeRun' | 'rating' | 'isRatingCeiling'>
+            >
+        ) => {
             Object.assign(state, { ...initialGameState, historyByDifficulty: state.historyByDifficulty });
 
             state.sudokuString = action.payload.sudokuString;
             state.difficulty = action.payload.difficulty;
             state.maxMistakes = action.payload.maxMistakes;
             state.isChallengeRun = action.payload.isChallengeRun;
+            state.rating = action.payload.rating;
+            state.isRatingCeiling = action.payload.isRatingCeiling;
         },
         pause: (state, action: PayloadAction<{ shouldShowPauseScreen?: boolean } | undefined>) => {
             if (state.isChallengeRun) {
@@ -241,6 +248,8 @@ export const gameSlice = createSlice({
                 history.completedGames = [
                     {
                         difficulty,
+                        rating: state.rating,
+                        isRatingCeiling: state.isRatingCeiling,
                         encodedState: gameStateToString(state, SharedPayloadKindEnum.Handoff),
                         elapsedTime: state.elapsedTime,
                         score: state.score,

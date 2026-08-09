@@ -109,6 +109,35 @@ describe('stringToGameState', () => {
         expect(restored.difficulty).toBe(DifficultyEnum.Nightmare);
     });
 
+    it('should round-trip a computed rating and ceiling flag through a share link', () => {
+        expect.assertions(2);
+
+        const ratedState: GameState = { ...buildGameState(), rating: 4.2, isRatingCeiling: false };
+        const restored = stringToGameState(gameStateToString(ratedState, SharedPayloadKindEnum.Puzzle));
+
+        expect(restored.rating).toBe(4.2);
+        expect(restored.isRatingCeiling).toBe(false);
+    });
+
+    it('should round-trip a ceiling rating through a share link', () => {
+        expect.assertions(2);
+
+        const ceilingState: GameState = { ...buildGameState(), rating: 5.4, isRatingCeiling: true };
+        const restored = stringToGameState(gameStateToString(ceilingState, SharedPayloadKindEnum.Puzzle));
+
+        expect(restored.rating).toBe(5.4);
+        expect(restored.isRatingCeiling).toBe(true);
+    });
+
+    it('should decode an old share link with no rating trailer as an unknown rating', () => {
+        expect.assertions(2);
+
+        const restored = stringToGameState(gameStateToString(buildGameState(), SharedPayloadKindEnum.Puzzle));
+
+        expect(restored.rating).toBe(0);
+        expect(restored.isRatingCeiling).toBe(false);
+    });
+
     it('should fall back to the initial state for an undecodable link', () => {
         expect.assertions(1);
 

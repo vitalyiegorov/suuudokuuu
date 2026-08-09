@@ -1,4 +1,5 @@
 import { GameStateSerializer, SharedPayloadKindEnum, TimelineEventKindEnum } from '@suuudokuuu/encoder';
+import { DifficultyEnum } from '@suuudokuuu/generator';
 
 import { isDefined } from '@rnw-community/shared';
 
@@ -9,7 +10,11 @@ import { getIndexedCandidates } from './get-indexed-candidates.util';
 import type { GameTimelineEventInterface } from '../interface/game-timeline-event.interface';
 import type { TimelineEventInterface } from '@suuudokuuu/encoder';
 
+const RatingWireScale = 10;
+
 const serializer = new GameStateSerializer();
+
+const getDifficultyOrdinal = (difficulty: DifficultyEnum): number => Object.values(DifficultyEnum).indexOf(difficulty) + 1;
 
 const shareableEventKinds: TimelineEventKindEnum[] = [
     TimelineEventKindEnum.Cell,
@@ -61,9 +66,9 @@ export const gameStateToString = (gameState: GameState, kind = SharedPayloadKind
             anchorSeconds: Math.floor(gameState.wallClockStartMs / 1000),
             pencilCount: countEventsOfKind(gameState.timelineEvents, TimelineEventKindEnum.Pencil),
             screenshotCount: countEventsOfKind(gameState.timelineEvents, TimelineEventKindEnum.Screenshot),
-            rating: 0,
-            isRatingCeiling: false,
-            difficulty: 0
+            rating: Math.round(gameState.rating * RatingWireScale),
+            isRatingCeiling: gameState.isRatingCeiling,
+            difficulty: getDifficultyOrdinal(gameState.difficulty)
         });
     } catch {
         return '';

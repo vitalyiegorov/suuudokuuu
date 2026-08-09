@@ -11,6 +11,8 @@ import type { HistoryGameInterface } from '../interfaces/history-game.interface'
 const buildCompletedGame = (difficulty: DifficultyEnum, completedAt: number): CompletedGameInterface => ({
     completedAt,
     difficulty,
+    rating: 0,
+    isRatingCeiling: false,
     elapsedTime: 100,
     encodedState: '',
     maxMistakes: 3,
