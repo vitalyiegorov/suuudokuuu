@@ -719,6 +719,7 @@ msgid "Left-handed layout"
 msgstr "Linkshänder-Layout"
 
 #: src/history/components/replay-header/replay-header.tsx
+#: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
 msgid "Level"
 msgstr "Stufe"
 
@@ -1054,6 +1055,11 @@ msgstr "Erhabene Oberfläche"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Raised surface text"
 msgstr "Text der erhabenen Oberfläche"
+
+#: src/history/components/replay-header/replay-header.tsx
+#: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
+msgid "Rating"
+msgstr ""
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"

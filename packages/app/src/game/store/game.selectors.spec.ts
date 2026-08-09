@@ -20,10 +20,12 @@ import {
     gameHistoryDifficultySelector,
     gameInputModeSelector,
     gameIsChallengeRunSelector,
+    gameIsRatingCeilingSelector,
     gameIsStartedSelector,
     gameMaxMistakesSelector,
     gameMistakesSelector,
     gamePausedSelector,
+    gameRatingSelector,
     gameScoreSelector,
     gameSelector,
     gameShouldResumeOnFocusSelector,
@@ -40,6 +42,7 @@ import type { CompletedGameInterface } from '../../history/interfaces/completed-
 
 const completedAt = 42;
 const elapsedTime = 90;
+const gameRating = 4.2;
 
 const completedGame: CompletedGameInterface = {
     encodedState: 'encoded',
@@ -57,6 +60,8 @@ const state: GameState = {
     ...initialGameState,
     sudokuString: '123',
     difficulty: DifficultyEnum.Hard,
+    rating: gameRating,
+    isRatingCeiling: true,
     score: 7,
     mistakes: 1,
     maxMistakes: 5,
@@ -87,6 +92,8 @@ describe('game selectors', () => {
         expect(gameSelector({ game: state } as never)).toBe(state);
         expect(gameSudokuStringSelector.resultFunc(state)).toBe('123');
         expect(gameDifficultySelector.resultFunc(state)).toBe(DifficultyEnum.Hard);
+        expect(gameRatingSelector.resultFunc(state)).toBe(gameRating);
+        expect(gameIsRatingCeilingSelector.resultFunc(state)).toBe(true);
         expect(gameScoreSelector.resultFunc(state)).toBe(7);
         expect(gameMistakesSelector.resultFunc(state)).toBe(1);
         expect(gameMaxMistakesSelector.resultFunc(state)).toBe(5);

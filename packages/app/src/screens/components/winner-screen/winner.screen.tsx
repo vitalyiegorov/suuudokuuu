@@ -21,7 +21,7 @@ export const WinnerScreen = () => {
     }
 
     const { gameState, retrySetup, timeText } = completedGameResult;
-    const { hasNewPersonalBestScore, mistakes, score } = gameState;
+    const { hasNewPersonalBestScore, isRatingCeiling, mistakes, rating, score } = gameState;
 
     const scoreText = i18n.number(score);
     const isCleanWin = mistakes === 0;
@@ -38,7 +38,13 @@ export const WinnerScreen = () => {
 
     return (
         <GameResultPage footer={footer} testID={WinnerScreenSelectors.Root}>
-            <WinnerResultHero descriptorText={descriptorText} isPersonalBest={hasNewPersonalBestScore} scoreText={scoreText} />
+            <WinnerResultHero
+                descriptorText={descriptorText}
+                isPersonalBest={hasNewPersonalBestScore}
+                isRatingCeiling={isRatingCeiling}
+                rating={rating}
+                scoreText={scoreText}
+            />
 
             {recordingSummary}
 

@@ -11,6 +11,8 @@ export const gameSelector = (state: RootState) => state.game;
 
 export const gameSudokuStringSelector = createSelector(gameSelector, state => state.sudokuString);
 export const gameDifficultySelector = createSelector(gameSelector, state => state.difficulty);
+export const gameRatingSelector = createSelector(gameSelector, state => state.rating);
+export const gameIsRatingCeilingSelector = createSelector(gameSelector, state => state.isRatingCeiling);
 export const gameScoreSelector = createSelector(gameSelector, state => state.score);
 export const gameMistakesSelector = createSelector(gameSelector, state => state.mistakes);
 export const gameMaxMistakesSelector = createSelector(gameSelector, state => state.maxMistakes);

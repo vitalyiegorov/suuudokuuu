@@ -3,11 +3,14 @@ import { SharedPayloadKindEnum } from '@suuudokuuu/encoder';
 import { use } from 'react';
 import { View } from 'react-native';
 
-import { isNotEmptyString } from '@rnw-community/shared';
+import { isNotEmptyString, isPositiveNumber } from '@rnw-community/shared';
 
 import { AppLinkButton } from '../../../@generic/components/app-link-button/app-link-button';
+import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { Header } from '../../../@generic/components/header/header';
+import { RatingBadge } from '../../../@generic/components/rating-badge/rating-badge';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
+import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
 import { ChallengeAcceptScreen } from '../../../challenge/components/challenge-accept-screen/challenge-accept-screen';
 import { GameContext } from '../../../game/context/game.context';
 import { decodeSharedGameState } from '../../../game/utils/decode-shared-game-state.util';
@@ -51,6 +54,8 @@ export const SharedScreen = ({ stateString }: Props) => {
     const headerText = isHandoff ? t`Resume this game?` : t`Open shared puzzle?`;
     const confirmText = isHandoff ? t`Resume game` : t`Open puzzle`;
     const resumeSummary = `${resumeTimeText} · ${String(gameState.score)}`;
+    const difficultyText = getDifficultyText(gameState.difficulty);
+    const hasRating = isPositiveNumber(gameState.rating);
 
     return (
         <View style={styles.container} testID={SharedScreenSelectors.Root}>
@@ -58,6 +63,12 @@ export const SharedScreen = ({ stateString }: Props) => {
                 <Header text={headerText} />
 
                 {isHandoff ? <Header text={resumeSummary} /> : null}
+
+                <View style={styles.metaRow} testID={SharedScreenSelectors.Meta}>
+                    <BlackText style={styles.metaText}>{difficultyText}</BlackText>
+
+                    {hasRating && <RatingBadge isCeiling={gameState.isRatingCeiling} rating={gameState.rating} />}
+                </View>
             </View>
 
             <View style={styles.buttonsWrapper}>

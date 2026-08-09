@@ -19,7 +19,7 @@ export const LoserScreen = () => {
     }
 
     const { gameState, retrySetup, sudoku, timeText } = completedGameResult;
-    const { mistakes } = gameState;
+    const { isRatingCeiling, mistakes, rating } = gameState;
 
     const progress = pauseScreenGetProgress(sudoku);
     const detailsText = `${t`Incomplete`} • ${completedGameResult.difficultyText} • ${completedGameResult.mistakesTypeText}`;
@@ -27,7 +27,12 @@ export const LoserScreen = () => {
 
     return (
         <GameResultPage footer={footer} testID={LoserScreenSelectors.Root}>
-            <LoserScreenResultHero detailsText={detailsText} progressPercent={progress.percent} />
+            <LoserScreenResultHero
+                detailsText={detailsText}
+                isRatingCeiling={isRatingCeiling}
+                progressPercent={progress.percent}
+                rating={rating}
+            />
 
             <CompletedGameResultDetails
                 resultContext="loser"

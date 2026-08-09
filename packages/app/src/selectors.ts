@@ -18,6 +18,7 @@ export * from './history/components/completed-games-list/completed-game-item.sel
 export * from './history/components/history-difficulty/history-difficulty.selectors';
 export * from './history/components/replay-actions/replay-actions.selectors';
 export * from './history/components/replay-controls/replay-controls.selectors';
+export * from './history/components/replay-header/replay-header.selectors';
 export * from './history/components/replay-scrubber/replay-scrubber.selectors';
 export * from './history/components/replay-share-action/replay-share-action.selectors';
 export * from './scoring/components/scoring-screen.selectors';
