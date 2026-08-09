@@ -12,7 +12,7 @@ concurrency:
 
 jobs:
     dev-release:
-        uses: rnw-community/mobile-ci/.github/workflows/native-dev-release.yml@054f68edd9440db7997f964cc17335d3cfcebce4 # v1.4.0
+        uses: rnw-community/mobile-ci/.github/workflows/native-dev-release.yml@8965855537e7b3a9cfa98f2066f53847931bebfa # v1.4.1
         with:
             enable-ios: true
             enable-android: true
