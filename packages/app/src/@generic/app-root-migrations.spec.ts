@@ -204,4 +204,77 @@ describe('appRootMigrations', () => {
 
         expect(runMigration(33, state)).toStrictEqual(state);
     });
+
+    it('should backfill the unknown rating sentinel onto a completed game recorded before rating existed', () => {
+        expect.assertions(2);
+
+        const legacyCompletedGame = withoutKeyAtRuntime(
+            withoutKeyAtRuntime(
+                {
+                    encodedState: 'legacy-state',
+                    difficulty: DifficultyEnum.Easy,
+                    rating: 0,
+                    isRatingCeiling: false,
+                    elapsedTime: 60,
+                    score: 100,
+                    mistakes: 0,
+                    maxMistakes: 3,
+                    completedAt: 1700000000000
+                },
+                'rating'
+            ),
+            'isRatingCeiling'
+        );
+        const state = buildState({
+            game: {
+                ...initialGameState,
+                historyByDifficulty: {
+                    ...initialGameState.historyByDifficulty,
+                    [DifficultyEnum.Easy]: { ...emptyGameHistory, completedGames: [legacyCompletedGame] }
+                }
+            }
+        });
+        const [migratedCompletedGame] = runMigration(34, state).game.historyByDifficulty[DifficultyEnum.Easy].completedGames;
+
+        expect(migratedCompletedGame).toMatchObject({ rating: 0, isRatingCeiling: false, score: 100 });
+        expect(migratedCompletedGame.encodedState).toBe('legacy-state');
+    });
+
+    it('should keep an already-rated completed game untouched', () => {
+        expect.assertions(1);
+
+        const ratedCompletedGame = {
+            encodedState: 'rated-state',
+            difficulty: DifficultyEnum.Hard,
+            rating: 3.4,
+            isRatingCeiling: false,
+            elapsedTime: 30,
+            score: 50,
+            mistakes: 1,
+            maxMistakes: 3,
+            completedAt: 1700000001000
+        };
+        const state = buildState({
+            game: {
+                ...initialGameState,
+                historyByDifficulty: {
+                    ...initialGameState.historyByDifficulty,
+                    [DifficultyEnum.Hard]: { ...emptyGameHistory, completedGames: [ratedCompletedGame] }
+                }
+            }
+        });
+
+        expect(runMigration(34, state).game.historyByDifficulty[DifficultyEnum.Hard].completedGames).toStrictEqual([ratedCompletedGame]);
+    });
+
+    it('should backfill the unknown rating sentinel onto the in-progress game state', () => {
+        expect.assertions(2);
+
+        const legacyGameState = withoutKeyAtRuntime(withoutKeyAtRuntime(initialGameState, 'rating'), 'isRatingCeiling');
+        const state = buildState({ game: legacyGameState });
+        const migrated = runMigration(34, state);
+
+        expect(migrated.game.rating).toBe(0);
+        expect(migrated.game.isRatingCeiling).toBe(false);
+    });
 });

@@ -4935,6 +4935,7 @@ __metadata:
     "@suuudokuuu/encoder": "workspace:*"
     "@suuudokuuu/generator": "workspace:*"
     "@suuudokuuu/hell-corpus": "workspace:*"
+    "@suuudokuuu/rating": "workspace:*"
     "@suuudokuuu/screen-chrome": "workspace:*"
     "@suuudokuuu/solver-core": "workspace:*"
     "@suuudokuuu/techniques": "workspace:*"
@@ -5019,7 +5020,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@suuudokuuu/rating@workspace:packages/rating":
+"@suuudokuuu/rating@workspace:*, @suuudokuuu/rating@workspace:packages/rating":
   version: 0.0.0-use.local
   resolution: "@suuudokuuu/rating@workspace:packages/rating"
   dependencies:

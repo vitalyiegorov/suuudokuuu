@@ -39,6 +39,7 @@ import { initialGameState } from './game.state';
 
 const StartedSudokuString = 'started-sudoku';
 const InitialElapsedTime = 42;
+const StartedRating = 3.4;
 
 const HellPuzzle = '000000010400000000020000000000050407008000300001090000300400200050100000000806000';
 const HellSolution = '693784512487512936125963874932651487568247391741398625319475268856129743274836159';
@@ -87,7 +88,9 @@ describe('gameSlice', () => {
                 sudokuString: StartedSudokuString,
                 difficulty: DifficultyEnum.Hard,
                 maxMistakes: 0,
-                isChallengeRun: false
+                isChallengeRun: false,
+                rating: StartedRating,
+                isRatingCeiling: false
             })
         );
 
@@ -96,7 +99,9 @@ describe('gameSlice', () => {
             historyByDifficulty,
             sudokuString: StartedSudokuString,
             difficulty: DifficultyEnum.Hard,
-            maxMistakes: 0
+            maxMistakes: 0,
+            rating: StartedRating,
+            isRatingCeiling: false
         });
         expect(nextState.hasNewPersonalBestScore).toBe(false);
     });
@@ -124,9 +129,12 @@ describe('gameSlice', () => {
             wallClockStartMs: 1234
         };
 
-        const nextState = gameSlice.reducer(completedState, gameStartAction({ ...setup, sudokuString: StartedSudokuString }));
+        const nextState = gameSlice.reducer(
+            completedState,
+            gameStartAction({ ...setup, sudokuString: StartedSudokuString, rating: StartedRating, isRatingCeiling: false })
+        );
 
-        expect(nextState).toMatchObject({ ...setup, sudokuString: StartedSudokuString });
+        expect(nextState).toMatchObject({ ...setup, sudokuString: StartedSudokuString, rating: StartedRating });
         expect(nextState).toMatchObject({
             candidates: {},
             challengeState: '',
@@ -399,6 +407,8 @@ describe('gameSlice', () => {
                 ...initialGameState,
                 elapsedTime: InitialElapsedTime,
                 maxMistakes: 0,
+                rating: StartedRating,
+                isRatingCeiling: true,
                 score: 250,
                 sudokuString: StartedSudokuString
             },
@@ -419,6 +429,8 @@ describe('gameSlice', () => {
         });
         expect(completedGame).toMatchObject({
             difficulty: DifficultyEnum.Newbie,
+            rating: StartedRating,
+            isRatingCeiling: true,
             elapsedTime: InitialElapsedTime,
             maxMistakes: 0,
             mistakes: 0,

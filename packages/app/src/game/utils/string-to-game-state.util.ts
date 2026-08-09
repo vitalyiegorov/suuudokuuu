@@ -6,6 +6,8 @@ import { GameState, initialGameState } from '../store/game.state';
 import { getKeyedCandidates } from './get-keyed-candidates.util';
 import { getTimelineMistakesCount } from './get-timeline-mistakes-count.util';
 
+const RatingWireScale = 10;
+
 const serializer = new GameStateSerializer();
 
 export const stringToGameState = (gameStateString = ''): GameState => {
@@ -19,6 +21,8 @@ export const stringToGameState = (gameStateString = ''): GameState => {
             sudokuString: decoded.field,
             difficulty: Sudoku.convertFieldFromString(decoded.field, defaultSudokuConfig)[1],
             maxMistakes: decoded.maxMistakes,
+            rating: decoded.rating / RatingWireScale,
+            isRatingCeiling: decoded.isRatingCeiling,
 
             ...(isChallenge && {
                 challengeTimelineEvents: decoded.timelineEvents,

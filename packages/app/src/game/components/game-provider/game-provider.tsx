@@ -1,5 +1,6 @@
 import { i18n } from '@lingui/core';
 import { DifficultyEnum, Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
+import { ratePuzzle } from '@suuudokuuu/rating';
 import { useEffect, useState } from 'react';
 
 import { isNotEmptyString } from '@rnw-community/shared';
@@ -69,7 +70,9 @@ export const GameProvider = ({ children }: Props) => {
             setSudoku(newSudoku);
 
             const sudokuString = newSudoku.toString();
-            dispatch(gameStartAction({ difficulty, isChallengeRun, maxMistakes, sudokuString }));
+            const { rating, isCeiling } = ratePuzzle(sudokuString);
+
+            dispatch(gameStartAction({ difficulty, isChallengeRun, maxMistakes, sudokuString, rating, isRatingCeiling: isCeiling }));
             router.replace('/game');
         });
 

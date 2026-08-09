@@ -44,6 +44,8 @@ const elapsedTime = 90;
 const completedGame: CompletedGameInterface = {
     encodedState: 'encoded',
     difficulty: DifficultyEnum.Easy,
+    rating: 0,
+    isRatingCeiling: false,
     elapsedTime: 60,
     score: 100,
     mistakes: 0,
