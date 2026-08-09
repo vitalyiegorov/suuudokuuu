@@ -1,5 +1,6 @@
 export * from './@generic/components/header-back-button/header-back-button.selectors';
 export * from './@generic/components/play-again-button/play-again-button.selectors';
+export * from './@generic/components/rating-badge/rating-badge.selectors';
 export * from './challenge/components/challenge-accept-screen/challenge-accept-screen.selectors';
 export * from './challenge/components/challenge-conditions-row/challenge-conditions-row.selectors';
 export * from './challenge/components/challenge-mode-switch/challenge-mode-switch.selectors';

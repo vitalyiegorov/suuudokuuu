@@ -427,6 +427,10 @@ msgstr "Grille non terminée"
 msgid "Difficulty"
 msgstr "Difficulté"
 
+#: src/@generic/components/rating-badge/rating-badge.tsx
+msgid "Difficulty rating {ratingLabel}"
+msgstr ""
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Dim a completed digit in the numpad instead of removing it"
 msgstr "Estomper un chiffre complété dans le clavier numérique plutôt que de le supprimer"

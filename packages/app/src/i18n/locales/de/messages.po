@@ -427,6 +427,10 @@ msgstr "Feld nicht vollendet"
 msgid "Difficulty"
 msgstr "Schwierigkeit"
 
+#: src/@generic/components/rating-badge/rating-badge.tsx
+msgid "Difficulty rating {ratingLabel}"
+msgstr ""
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Dim a completed digit in the numpad instead of removing it"
 msgstr "Abgeschlossene Zahl im Nummernblock abdunkeln statt sie zu entfernen"
