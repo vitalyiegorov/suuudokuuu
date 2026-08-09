@@ -101,7 +101,10 @@ describe('GameStateSerializer v3 encoded size characterization', () => {
             candidates: {},
             anchorSeconds: 0,
             pencilCount: 0,
-            screenshotCount: 0
+            screenshotCount: 0,
+            rating: 0,
+            isRatingCeiling: false,
+            difficulty: 0
         });
 
         expect(encoded.length).toBeLessThanOrEqual(40);
@@ -125,7 +128,10 @@ describe('GameStateSerializer v3 encoded size characterization', () => {
             candidates: {},
             anchorSeconds: 0,
             pencilCount: 0,
-            screenshotCount: 0
+            screenshotCount: 0,
+            rating: 0,
+            isRatingCeiling: false,
+            difficulty: 0
         });
 
         expect(encoded.length).toBeLessThanOrEqual(220);
@@ -144,7 +150,10 @@ describe('GameStateSerializer v3 encoded size characterization', () => {
             candidates: buildPencilMarks(18),
             anchorSeconds: 1800000000,
             pencilCount: 0,
-            screenshotCount: 0
+            screenshotCount: 0,
+            rating: 0,
+            isRatingCeiling: false,
+            difficulty: 0
         });
 
         expect(encoded.length).toBeLessThanOrEqual(320);
@@ -163,7 +172,10 @@ describe('GameStateSerializer v3 encoded size characterization', () => {
             candidates: {},
             anchorSeconds: 0,
             pencilCount: 0,
-            screenshotCount: 0
+            screenshotCount: 0,
+            rating: 0,
+            isRatingCeiling: false,
+            difficulty: 0
         });
 
         expect(encoded).toMatch(/^_[\w-]*$/u);

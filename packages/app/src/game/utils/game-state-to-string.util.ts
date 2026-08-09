@@ -60,7 +60,10 @@ export const gameStateToString = (gameState: GameState, kind = SharedPayloadKind
             candidates: getIndexedCandidates(gameState.candidates),
             anchorSeconds: Math.floor(gameState.wallClockStartMs / 1000),
             pencilCount: countEventsOfKind(gameState.timelineEvents, TimelineEventKindEnum.Pencil),
-            screenshotCount: countEventsOfKind(gameState.timelineEvents, TimelineEventKindEnum.Screenshot)
+            screenshotCount: countEventsOfKind(gameState.timelineEvents, TimelineEventKindEnum.Screenshot),
+            rating: 0,
+            isRatingCeiling: false,
+            difficulty: 0
         });
     } catch {
         return '';

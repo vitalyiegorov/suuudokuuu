@@ -293,7 +293,10 @@ describe('GameStateSerializer', () => {
                     candidates: {},
                     anchorSeconds: 0,
                     pencilCount: 0,
-                    screenshotCount: 0
+                    screenshotCount: 0,
+                    rating: 0,
+                    isRatingCeiling: false,
+                    difficulty: 0
                 })
             );
 
@@ -316,7 +319,10 @@ describe('GameStateSerializer', () => {
                     candidates,
                     anchorSeconds: 1800000000,
                     pencilCount: 0,
-                    screenshotCount: 0
+                    screenshotCount: 0,
+                    rating: 0,
+                    isRatingCeiling: false,
+                    difficulty: 0
                 })
             );
 
@@ -334,6 +340,52 @@ describe('GameStateSerializer', () => {
             expect(decoded.field).toBe(legacyGivensField);
         });
 
+        it('should populate the unknown rating sentinel for a pre-binary legacy payload', () => {
+            expect.assertions(3);
+
+            const decoded = serializer.decodeState(legacyPuzzlePayload);
+
+            expect(decoded.rating).toBe(0);
+            expect(decoded.isRatingCeiling).toBe(false);
+            expect(decoded.difficulty).toBe(0);
+        });
+
+        it('should populate the unknown rating sentinel for a legacy v2 binary payload', () => {
+            expect.assertions(3);
+
+            const decoded = serializer.decodeState(serializer.encode(validSudokuString, sampleSolutionSteps, 3, true));
+
+            expect(decoded.rating).toBe(0);
+            expect(decoded.isRatingCeiling).toBe(false);
+            expect(decoded.difficulty).toBe(0);
+        });
+
+        it('should carry a known rating and difficulty through a v3 puzzle share', () => {
+            expect.assertions(3);
+
+            const decoded = serializer.decodeState(
+                serializer.encodeState({
+                    field: validSudokuString,
+                    timelineEvents: [],
+                    kind: SharedPayloadKindEnum.Puzzle,
+                    maxMistakes: 3,
+                    isChallengeRun: false,
+                    score: 0,
+                    candidates: {},
+                    anchorSeconds: 0,
+                    pencilCount: 0,
+                    screenshotCount: 0,
+                    rating: 96,
+                    isRatingCeiling: true,
+                    difficulty: 6
+                })
+            );
+
+            expect(decoded.rating).toBe(96);
+            expect(decoded.isRatingCeiling).toBe(true);
+            expect(decoded.difficulty).toBe(6);
+        });
+
         it('should keep v3 payloads prefixed and url path safe', () => {
             expect.assertions(1);
 
@@ -347,7 +399,10 @@ describe('GameStateSerializer', () => {
                 candidates: {},
                 anchorSeconds: 0,
                 pencilCount: 0,
-                screenshotCount: 0
+                screenshotCount: 0,
+                rating: 0,
+                isRatingCeiling: false,
+                difficulty: 0
             });
 
             expect(encoded).toMatch(/^_[\w-]*$/u);
