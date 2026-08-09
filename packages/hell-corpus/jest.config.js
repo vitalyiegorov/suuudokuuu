@@ -1,7 +1,11 @@
 module.exports = {
     coverageReporters: ['text-summary', 'lcov'],
     reporters: ['default'],
-    coveragePathIgnorePatterns: ['.mock.ts', 'src/constants/hell-corpus-data.constant.ts'],
+    coveragePathIgnorePatterns: [
+        '.mock.ts',
+        'src/constants/hell-corpus-data.constant.ts',
+        'src/constants/infinity-corpus-data.constant.ts'
+    ],
     collectCoverageFrom: ['src/**/*.ts', '!src/**/*.spec.ts', '!src/index.ts'],
     displayName: 'hell-corpus',
     moduleNameMapper: {

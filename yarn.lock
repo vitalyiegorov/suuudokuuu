@@ -5012,9 +5012,19 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@suuudokuuu/hell-corpus@workspace:packages/hell-corpus"
   dependencies:
+    "@rnw-community/shared": "npm:^2.2.0"
     "@suuudokuuu/solver-bitmask": "workspace:*"
     "@suuudokuuu/solver-core": "workspace:*"
     "@suuudokuuu/solver-dlx": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
+"@suuudokuuu/rating@workspace:packages/rating":
+  version: 0.0.0-use.local
+  resolution: "@suuudokuuu/rating@workspace:packages/rating"
+  dependencies:
+    "@suuudokuuu/generator": "workspace:*"
+    "@suuudokuuu/techniques": "workspace:*"
   languageName: unknown
   linkType: soft
 
