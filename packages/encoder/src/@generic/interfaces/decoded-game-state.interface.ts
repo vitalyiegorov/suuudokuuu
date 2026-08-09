@@ -13,4 +13,5 @@ export interface DecodedGameStateInterface {
     anchorSeconds: number;
     pencilCount: number | null;
     screenshotCount: number | null;
+    difficulty: number | null;
 }
