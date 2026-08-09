@@ -34,6 +34,7 @@ export default defineConfig(
             '**/babel.config.js',
             '**/fingerprint.config.js',
             'packages/hell-corpus/src/constants/hell-corpus-data.constant.ts',
+            'packages/hell-corpus/src/constants/infinity-corpus-data.constant.ts',
 
             'eslint.config.mjs'
         ]
