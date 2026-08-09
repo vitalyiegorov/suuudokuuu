@@ -1,10 +1,6 @@
-New look and feel is here.
-
-• Full theme engine: Classic, Gold & Newspaper presets, plus a live-preview editor
-• Contrast validation keeps custom themes sharp in light and dark
-• Refreshed settings and theme screens
-• Hell now draws from our full 49,158-puzzle 17-clue corpus
-• Redesigned replay, plus translation improvements
-• Shared challenges carry your exact time to beat
-• Statistics fixed: best time is your fastest win, averages count wins only
-• Crash and stability fixes
+🔥 Hell difficulty: our hardest tier yet — hand-verified 17-clue grids that demand real technique.
+🎨 Themes: Classic, Gold, Newspaper, or build your own with a live preview.
+▶️ Replays: share any moment, drag through solution steps.
+🏆 Challenge: review your run summary before sharing.
+🎉 Confetti on every win.
+⚡ Sharper tablet and web layout, faster new games, fairer scoring.

@@ -1,10 +1,6 @@
-Der neue Look ist da.
-
-• Theme-Editor: Klassisch, Gold & Zeitung, live editierbar
-• Kontrastprüfung für scharfe Themes, hell & dunkel
-• Neue Einstellungs-/Theme-Bildschirme, bessere Buttons
-• Hölle nutzt den vollen Korpus: 49.158 17-Hinweis-Rätsel
-• Neue Wiederholung, bessere Übersetzungen
-• Herausforderungen zeigen deine exakte Zielzeit
-• Statistik korrigiert: Bestzeit = schnellster Sieg, Ø nur Siege
-• Absturz- und Stabilitätskorrekturen
+🔥 Neue Stufe "Hölle": handgeprüfte 17-Hinweis-Rätsel, nur mit echter Technik zu knacken.
+🎨 Themes: Classic, Gold, Newspaper — oder bau dein eigenes mit Live-Vorschau.
+▶️ Replay: jeden Moment teilen, per Finger durch die Lösungsschritte ziehen.
+🏆 Challenge: Rundenübersicht ansehen, bevor du sie teilst.
+🎉 Konfetti bei jedem Sieg.
+⚡ Besseres Tablet- und Web-Layout, schnellere neue Spiele.

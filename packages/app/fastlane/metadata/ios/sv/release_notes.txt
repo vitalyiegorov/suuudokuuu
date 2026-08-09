@@ -1,13 +1,8 @@
-Ny look är här.
+Svårighetsgraden Helvete är här — det tuffaste suuudokuuu någonsin släppt. Varje pussel är ett handkontrollerat rutnät med 17 ledtrådar, filtrerat så att inget som löser sig med enkla singlar slinker igenom. Här krävs riktig teknik.
 
-• Komplett temamotor: förinställningarna Classic, Gold och Newspaper, plus en egen editor med live-förhandsgranskning för varje färg på brädet
-• Automatisk kontrastkontroll håller egna teman skarpa i både ljust och mörkt läge
-• Uppdaterade inställnings- och temaskärmar med snyggare knappar
-• Helvete-nivån hämtar nu från hela vårt lager på 49 158 pussel med 17 ledtrådar
-• Delning i rivalläget är snabbare och stabilare
-• Omdesignad repris med smidigare uppspelning, drag för drag
-• Delade utmaningar visar nu din exakta tid att slå
-• Statistiken rättad: bästa tid är din snabbaste vinst, och snitten räknar bara vinster
-• Stabilare brädlayout vid samtal och snabba omstarter
-• Förbättrade översättningar på alla 13 språk
-• Krasch- och stabilitetsfixar
+• Komplett temamotor: Klassisk, Guld och Tidning, plus en egen temaredigerare med live-förhandsvisning av brädet. Kontrastkollen håller dina färger läsbara i både ljust och mörkt.
+• Bättre repriser: dela vilket ögonblick som helst ur ett parti och dra dig fram genom lösningsstegen med fingret.
+• Utmaningsläget: läs sammanfattningen av ditt parti innan du delar den, och "spela igen" sparar hela din uppsättning.
+• Konfetti vid varje vinst.
+• Skarpare layout på surfplattor och webben.
+• En sällsynt krasch fixad och snabbare nya spel.
