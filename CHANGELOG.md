@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.4.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.3.0...v2.4.0) (2026-08-09)
+
+### Bug Fixes
+
+- **app:** prefer the encoded difficulty over blank-count inference when decoding shares ([6b1ba3e](https://github.com/vitalyiegorov/suuudokuuu/commit/6b1ba3e60e6b9ed8d28b7d1dd3bff47e2ee94863))
+
+### Features
+
+- **encoder:** carry the puzzle difficulty in the shared payload trailer ([5adf233](https://github.com/vitalyiegorov/suuudokuuu/commit/5adf23355d08f865ac6823e6dcb4c74f7b21edb9))
+
 # [2.3.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.2.2...v2.3.0) (2026-08-09)
 
 ### Features
