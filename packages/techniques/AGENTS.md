@@ -99,6 +99,17 @@ New members are appended, never inserted: the app persists these ordinals on rep
 - `UniqueRectangle` covers type 1 only: four unfilled corners over two rows, two columns, and exactly two boxes, three of them holding the same candidate pair, so the pair leaves the fourth corner.
 - `BivalueUniversalGrave` covers BUG+1: every unfilled cell holds two candidates except one that holds three, so the candidate appearing three times in that cell's units is placed.
 
+### Chain search
+
+`XChainTechnique` and `XYChainTechnique` search shortest-first. Each root runs a breadth-first scan over link states, so the first chain that reaches a state is the shortest chain to it:
+
+- An X-Chain state is a cell plus the link type the chain must take next, which alternates strong, weak, strong. Endpoint eliminations are collected whenever a state is reached over a strong link with at least `X_CHAIN_MIN_CELLS` cells on the path.
+- An XY-Chain state is a bi-value cell plus its outgoing link value. Endpoint eliminations are collected when that outgoing value is the elimination value and the path holds at least `XY_CHAIN_MIN_CELLS` cells.
+
+A state is expanded once, and a neighbour already on the reconstructed path is rejected, so every emitted chain is a simple path: a chain that used a cell in both link states would be a contradiction argument, not a chain deduction. The `*_MAX_VISITS_PER_ROOT` caps still bound the scan, but a breadth-first scan visits at most two states per cell per root and never approaches them.
+
+Results carry `chainLength`, the number of cells in the chain, which is always `reasonCells.length`. `@suuudokuuu/rating` prices chains from it. Nothing else in the ladder sets the field, and `getCanonicalTechniqueResults` already keeps the fewest-reason-cells result per deduction, so the surviving result for a deduction is the shortest chain found for it across every root.
+
 ### CandidateContext
 
 Cached snapshot of candidates per blank cell (`fromSudoku`), with unit/peer navigation. Logical strategies work on this context, never on the Sudoku instance directly.
@@ -119,6 +130,7 @@ Snapshots are immutable: `withEliminations(eliminations)` and `withPlacement(cel
 - Tests colocated with source files (`.spec.ts` suffix)
 - Coverage thresholds: statements 80%, branches 70%, lines 80%, functions 80%
 - `solve-logically.spec.ts` guards the driver: elimination-only progress, solved/stuck/contradiction outcomes, determinism from a fixed board string, and a wall-clock budget of 5000 ms for a full logical solve of a 17-clue hell-corpus board (about 80 ms locally, so the budget only fails on real regressions)
+- The chain specs guard shortest-first search: a fixture where a short and a long chain prove the same deduction asserts the short one is reported, the same fixture with the short chain broken asserts the long one is, and each detector holds a 2000 ms budget for a broad scan of a stuck 17-clue board (about 5 ms locally)
 - Driver fixtures are fixed 81-character board strings fed through `Sudoku.fromString`; never `Sudoku.create`, which uses unseeded randomness
 - `technique-catalog-known-solution.spec.ts` pairs every fixture board with its own solution and asserts that no registered strategy eliminates a solution value or places a wrong one, which is what keeps the uniqueness techniques honest
 

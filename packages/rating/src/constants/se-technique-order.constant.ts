@@ -22,11 +22,11 @@ export const seTechniqueOrder: SolutionTechniqueEnum[] = [
     SolutionTechniqueEnum.WWing,
     SolutionTechniqueEnum.UniqueRectangle,
     SolutionTechniqueEnum.SimpleColoring,
-    SolutionTechniqueEnum.XChain,
     SolutionTechniqueEnum.NakedQuad,
-    SolutionTechniqueEnum.XYChain,
     SolutionTechniqueEnum.Jellyfish,
     SolutionTechniqueEnum.HiddenQuad,
-    SolutionTechniqueEnum.AIC,
-    SolutionTechniqueEnum.BivalueUniversalGrave
+    SolutionTechniqueEnum.BivalueUniversalGrave,
+    SolutionTechniqueEnum.XChain,
+    SolutionTechniqueEnum.XYChain,
+    SolutionTechniqueEnum.AIC
 ];

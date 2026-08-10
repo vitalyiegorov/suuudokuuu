@@ -5,6 +5,7 @@ import { SolutionTechniqueEnum, TechniqueManager } from '@suuudokuuu/techniques'
 import { seTechniqueOrder } from '../constants/se-technique-order.constant';
 import { SE_RATING_CEILING, seTechniqueRatings } from '../constants/se-technique-rating.constant';
 
+import { getStepRating } from './get-step-rating.util';
 import { ratePuzzle } from './rate-puzzle.util';
 
 const hiddenSingleBoard = '5..6178.3.19.3264.8364957..421..93.8..51832.4387..6..915.3..9...9.7514.6674.28...';
@@ -14,6 +15,7 @@ const nakedPairBoard = '.6.....3..8..9...2..4..6....2..6....4...5.91.......4.7..
 const xWingBoard = '..3...7......4.2...826.......9..1........5..84...2..9.5....4...16....8.9......6.7';
 const aicBoard = '.4...8....1...9..37..6...21...7.........4.65...3.....9.8..9.3.......54....5....7.';
 const uniquenessBoard = '.1...2.3..7....4...95.....7.64.9......9..82.......17.......5..1.3..7..2....4.....';
+const xyChainBoard = '................12..3..4..............5.1.3...6.27.........358..2......47...9....';
 const stuckHellCorpusBoard = '........1.......2...3..4........53...4......612...........7.......8..4.9..712....';
 const solvedBoard = '123456789456789123789123456214365897365897214897214365531642978642978531978531642';
 
@@ -98,6 +100,25 @@ describe('ratePuzzle', () => {
             isCeiling: false
         });
     });
+
+    it(
+        'should price a chain-rated board above the chain base by its shortest chain length',
+        () => {
+            expect.assertions(5);
+
+            const result = ratePuzzle(xyChainBoard);
+            const solveResult = new TechniqueManager(Sudoku.fromString(xyChainBoard)).solveLogically(seTechniqueOrder);
+            const chainSteps = solveResult.steps.filter(step => step.technique === SolutionTechniqueEnum.XYChain);
+            const chainRatings = chainSteps.map(step => getStepRating(step));
+
+            expect(result.hardestTechnique).toBe(SolutionTechniqueEnum.XYChain);
+            expect(result.isCeiling).toBe(false);
+            expect(chainSteps.every(step => step.chainLength === step.reasonCells.length)).toBe(true);
+            expect(result.rating).toBeGreaterThan(seTechniqueRatings[SolutionTechniqueEnum.XYChain]);
+            expect(result.rating).toBe(Math.max(...chainRatings));
+        },
+        ratingTimeoutMilliseconds
+    );
 
     it('should take the maximum technique value over the whole solve path', () => {
         expect.assertions(4);

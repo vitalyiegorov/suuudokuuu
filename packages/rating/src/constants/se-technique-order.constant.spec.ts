@@ -1,13 +1,14 @@
 import { describe, expect, it } from '@jest/globals';
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
+import { SE_CHAIN_RATING_MAXIMUM } from './se-chain-rating.constant';
 import { seTechniqueOrder } from './se-technique-order.constant';
 import { SE_RATING_CEILING, seTechniqueRatings } from './se-technique-rating.constant';
 
 const enumMemberCount = Object.keys(SolutionTechniqueEnum).length / 2;
 
 const expectedOrderedRatings =
-    '1.0 1.5 2.3 2.6 2.6 2.8 3.0 3.2 3.4 3.4 3.5 3.6 3.8 4.0 4.0 4.1 4.2 4.4 4.4 4.5 4.6 4.8 5.0 5.1 5.2 5.4 5.4 5.6';
+    '1.0 1.5 2.3 2.6 2.6 2.8 3.0 3.2 3.4 3.4 3.5 3.6 3.8 4.0 4.0 4.1 4.2 4.4 4.4 4.5 4.6 5.0 5.2 5.4 5.6 6.6 7.0 7.2';
 
 const formatOrderedRatings = (): string => seTechniqueOrder.map(technique => seTechniqueRatings[technique].toFixed(1)).join(' ');
 
@@ -50,14 +51,15 @@ describe('seTechniqueRatings', () => {
         expect(Object.keys(seTechniqueRatings)).toHaveLength(enumMemberCount);
     });
 
-    it('should use the hardest known technique value as the reported ceiling', () => {
-        expect.assertions(3);
+    it('should use the top of the chain band as the reported ceiling', () => {
+        expect.assertions(4);
 
         const orderedRatings = seTechniqueOrder.map(technique => seTechniqueRatings[technique]);
 
-        expect(SE_RATING_CEILING).toBe(Math.max(...orderedRatings));
-        expect(SE_RATING_CEILING).toBe(seTechniqueRatings[SolutionTechniqueEnum.BivalueUniversalGrave]);
-        expect(SE_RATING_CEILING.toFixed(1)).toBe('5.6');
+        expect(SE_RATING_CEILING).toBe(SE_CHAIN_RATING_MAXIMUM);
+        expect(SE_RATING_CEILING).toBe(seTechniqueRatings[SolutionTechniqueEnum.Guess]);
+        expect(SE_RATING_CEILING).toBeGreaterThanOrEqual(Math.max(...orderedRatings));
+        expect(SE_RATING_CEILING.toFixed(1)).toBe('7.6');
     });
 
     it('should price the uniqueness techniques at their published values', () => {
@@ -65,5 +67,13 @@ describe('seTechniqueRatings', () => {
 
         expect(seTechniqueRatings[SolutionTechniqueEnum.UniqueRectangle].toFixed(1)).toBe('4.5');
         expect(seTechniqueRatings[SolutionTechniqueEnum.BivalueUniversalGrave].toFixed(1)).toBe('5.6');
+    });
+
+    it('should price the chain techniques at the base of the shortest-chain band', () => {
+        expect.assertions(3);
+
+        expect(seTechniqueRatings[SolutionTechniqueEnum.XChain].toFixed(1)).toBe('6.6');
+        expect(seTechniqueRatings[SolutionTechniqueEnum.XYChain].toFixed(1)).toBe('7.0');
+        expect(seTechniqueRatings[SolutionTechniqueEnum.AIC].toFixed(1)).toBe('7.2');
     });
 });
