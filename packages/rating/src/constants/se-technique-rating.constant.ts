@@ -41,5 +41,3 @@ export const seTechniqueRatings: Record<SolutionTechniqueEnum, number> = {
     [SolutionTechniqueEnum.RegionForcingChain]: SE_MULTIPLE_FORCING_CHAIN_RATING,
     [SolutionTechniqueEnum.Guess]: SE_FORCING_CHAIN_RATING_MAXIMUM
 };
-
-export const SE_RATING_CEILING = seTechniqueRatings[SolutionTechniqueEnum.Guess];

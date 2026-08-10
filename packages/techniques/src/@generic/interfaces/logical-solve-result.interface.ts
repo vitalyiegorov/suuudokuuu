@@ -4,4 +4,5 @@ import type { LogicalSolveOutcomeType } from '../types/logical-solve-outcome.typ
 export interface LogicalSolveResultInterface {
     outcome: LogicalSolveOutcomeType;
     steps: TechniqueResultInterface[];
+    wasSearchCapped: boolean;
 }
