@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-export const CellStyles = StyleSheet.create(theme => ({
+export const CellStyles = StyleSheet.create({
     container: (cellSize: number) => ({
         alignItems: 'center',
         borderLeftWidth: 1,
@@ -10,20 +10,6 @@ export const CellStyles = StyleSheet.create(theme => ({
         height: cellSize,
         justifyContent: 'center',
         position: 'relative',
-        width: cellSize,
-        outlineOffset: 0,
-        outlineWidth: 0,
-        _web: {
-            cursor: 'pointer',
-            _hover: {
-                opacity: 0.85
-            },
-            '_focus-visible': {
-                outlineColor: theme.colors.ink,
-                outlineOffset: 2,
-                outlineStyle: 'solid',
-                outlineWidth: 2
-            }
-        }
+        width: cellSize
     })
-}));
+});

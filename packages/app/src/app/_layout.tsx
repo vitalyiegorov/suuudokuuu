@@ -9,6 +9,7 @@ import { isDefined } from '@rnw-community/shared';
 
 import { LinguiDefaultComponent } from '../@generic/components/lingui-default-component/lingui-default-component';
 import { RootProviders } from '../@generic/components/root-providers/root-providers';
+import { applyGameControlsInteractions } from '../@generic/utils/apply-game-controls-interactions';
 import { applySheetContentWidth } from '../@generic/utils/apply-sheet-content-width';
 import { i18nGetOSLocale } from '../@generic/utils/i18n.util';
 import { WinConfettiProvider } from '../confetti/components/win-confetti-provider/win-confetti-provider';
@@ -18,6 +19,7 @@ import { ThemeProvider } from '../theme/components/theme-provider/theme-provider
 enableScreens();
 enableFreeze();
 applySheetContentWidth();
+applyGameControlsInteractions();
 
 i18n.activate(i18nGetOSLocale());
 
