@@ -134,7 +134,7 @@ export const ConfettiBurst = () => {
     const overlayStyle = [StyleSheet.absoluteFill, styles.overlay];
 
     return (
-        <View style={overlayStyle} testID={ConfettiBurstSelectors.Root}>
+        <View accessible={false} aria-hidden style={overlayStyle} testID={ConfettiBurstSelectors.Root}>
             <Canvas style={StyleSheet.absoluteFill}>
                 <Atlas colorBlendMode="modulate" colors={colors} image={texture} sprites={sprites} transforms={transforms} />
             </Canvas>
