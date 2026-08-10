@@ -4972,6 +4972,7 @@ __metadata:
     babel-plugin-react-compiler: "npm:^1.0.0"
     date-fns: "npm:^4.4.0"
     eas-build-cache-provider: "npm:^20.0.0"
+    esbuild: "npm:^0.25.1"
     expo: "npm:~57.0.4"
     expo-blur: "npm:~57.0.0"
     expo-build-properties: "npm:~57.0.3"

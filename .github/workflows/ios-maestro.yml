@@ -26,7 +26,7 @@ jobs:
                     - shard-index: 1
                       shard-number: 2
         steps:
-            - uses: actions/checkout@v5
+            - uses: actions/checkout@v7
 
             - name: Select Xcode
               run: |
@@ -67,7 +67,7 @@ jobs:
                   done
                   echo "SIMULATOR_UDID=$simulator_udid" >> "$GITHUB_ENV"
 
-            - uses: actions/download-artifact@v6
+            - uses: actions/download-artifact@v8
               with:
                   name: ios-e2e-app
                   path: .ci-artifacts/ios-e2e-app
@@ -140,7 +140,7 @@ jobs:
                   xcrun simctl io "$SIMULATOR_UDID" screenshot "tests/app-tests/artifacts/simulator-shard-${{ matrix.shard-index }}/final-screen.png" || true
                   xcrun simctl shutdown "$SIMULATOR_UDID" || true
 
-            - uses: actions/upload-artifact@v6
+            - uses: actions/upload-artifact@v7
               if: always()
               with:
                   name: maestro-ios-shard-${{ matrix.shard-number }}

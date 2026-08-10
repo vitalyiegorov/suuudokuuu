@@ -1,13 +1,8 @@
-Ya está aquí el look nuevo.
+Llega la dificultad Infierno: el nivel más duro que ha tenido suuudokuuu. Cada tablero es una cuadrícula de 17 pistas verificada a mano, filtrada para que no se cuele nada que se resuelva con singles simples. Aquí hace falta técnica de verdad.
 
-• Editor de temas completo: presets Clásico, Dorado y Periódico, más un editor con vista previa en vivo donde eliges tú cada color del tablero
-• Validación de contraste automática para temas nítidos en claro y oscuro
-• Pantallas de ajustes y temas renovadas, con botones más cuidados
-• La dificultad Infierno ya usa nuestro corpus completo de 49.158 puzles de 17 pistas
-• Compartir en modo Rival más rápido y fiable
-• Repetición rediseñada con reproducción más fluida movimiento a movimiento
-• Los retos compartidos ahora incluyen tu tiempo exacto a batir
-• Estadísticas corregidas: el mejor tiempo es tu victoria más rápida y los promedios solo cuentan victorias
-• Diseño del tablero más estable durante llamadas e inicios rápidos
-• Mejoras de traducción en los 13 idiomas
-• Corrección de fallos y mejoras de estabilidad
+• Motor de temas completo: Clásico, Oro y Periódico, más un editor propio con vista previa en vivo del tablero. El control de contraste mantiene tus colores legibles en claro y en oscuro.
+• Repeticiones mejores: comparte cualquier momento de una partida y recorre los pasos de la solución arrastrando el dedo.
+• Modo desafío: revisa el resumen de tu partida antes de compartirla y "jugar de nuevo" conserva toda tu configuración.
+• Confeti en cada victoria.
+• Diseño más nítido en tablets y web.
+• Corregido un fallo raro y partidas nuevas más rápidas.
