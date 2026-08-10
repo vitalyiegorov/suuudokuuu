@@ -1,10 +1,12 @@
 /* suuudokuuu — App Store screenshot captions (fr-FR) */
 
 "01-hero-board" = "Le sudoku, bien fait.";
-"02-hell" = "Vrai enfer. 17 indices.";
-"03-themes" = "Faites-le vôtre.";
+"01-hero-board-dark" = "Toujours net la nuit.";
+"01-hero-board-light" = "Aussi net en plein jour.";
+"02-hell" = "Un vrai enfer.";
 "04-editor" = "Toutes les couleurs, à vous.";
-"05-win" = "Gagnez avec style.";
-"06-rival" = "Défiez vos amis.";
+"05-customization" = "Faites-le vraiment vôtre.";
+"06-rival" = "Relevez le défi.";
 "07-replay" = "Revivez chaque coup.";
-"08-settings" = "Parle votre langue.";
+"09-home" = "Choisissez votre niveau.";
+"14-challenge-live" = "Duel en direct.";

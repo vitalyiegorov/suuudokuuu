@@ -1,10 +1,12 @@
 /* suuudokuuu — App Store screenshot captions (es-ES) */
 
 "01-hero-board" = "Sudoku, bien hecho.";
-"02-hell" = "Infierno real. 17 pistas.";
-"03-themes" = "Hazlo tuyo.";
-"04-editor" = "Cada color, a tu gusto.";
-"05-win" = "Gana con estilo.";
-"06-rival" = "Compite con tus amigos.";
+"01-hero-board-dark" = "Nítido también de noche.";
+"01-hero-board-light" = "Igual de nítido de día.";
+"02-hell" = "Infierno de verdad.";
+"04-editor" = "Cada color es tuyo.";
+"05-customization" = "Hazlo realmente tuyo.";
+"06-rival" = "Acepta el reto.";
 "07-replay" = "Revive cada jugada.";
-"08-settings" = "Habla tu idioma.";
+"09-home" = "Elige tu desafío.";
+"14-challenge-live" = "Compite en directo.";

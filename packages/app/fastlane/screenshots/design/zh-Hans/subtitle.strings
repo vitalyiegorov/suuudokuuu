@@ -1,0 +1,19 @@
+/* suuudokuuu — App Store screenshot descriptors (zh-Hans)
+ * Second-tier caption line under each headline in title.strings — same
+ * scene keys, rendered smaller and at reduced opacity. Kept short enough to
+ * stay on one line at the iPhone canvas's descriptor point size (measured
+ * against the 1085px iPhone text safe-zone width) so the caption stack never
+ * grows taller than expected. Headlines and descriptors both drop the
+ * trailing 。 in this locale. See ../README.md "Design system" for the
+ * two-tier text rules. */
+
+"01-hero-board" = "数字清晰，全神贯注";
+"01-hero-board-dark" = "完整深色模式，毫不妥协";
+"01-hero-board-light" = "完整浅色模式，同样专注";
+"02-hell" = "仅 17 条线索，别无其他";
+"04-editor" = "逐格设计每一种颜色";
+"05-customization" = "颜色随心，13 种语言";
+"06-rival" = "真实对局，反作弊验证";
+"07-replay" = "看清你是如何解开的";
+"09-home" = "六种难度，从新手到地狱";
+"14-challenge-live" = "记录每一种解题技巧";
