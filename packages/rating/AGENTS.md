@@ -25,7 +25,7 @@ yarn ts                # TypeScript check
 ```
 src/
 ├── constants/
-│   ├── se-chain-rating.constant.ts      # Chain length ladder + chain band maximum
+│   ├── se-chain-rating.constant.ts      # Chain length ladder + chain and forcing band maximums
 │   ├── se-technique-rating.constant.ts  # SE value table + reported ceiling
 │   └── se-technique-order.constant.ts   # Cheapest-SE-first solve order
 ├── interfaces/
@@ -61,43 +61,46 @@ SE rates a puzzle as the hardest technique on the _rating-optimal_ path, so the 
 
 The order deliberately differs from `SolutionTechniqueEnum` ordinals: SE prices a Hidden Single (1.5) below a Naked Single (2.3), an X-Wing (3.2) below a Hidden Pair (3.4) and a Naked Triple (3.6), and a Naked Quad (5.0) above every wing. The registry-order rule in `packages/techniques/AGENTS.md` stays true; SE ordering lives only here.
 
-A length-priced chain is ordered by the cheapest value it can report, which is its table value, so the three chain detectors sort last and in the order X-Chain, XY-Chain, AIC. That is what keeps the rating-optimal path reaching for a length-priced chain before the flat-priced AIC that generalises both.
+A length-priced chain is ordered by the cheapest value it can report, which is its table value, so the shortest-path chain detectors sort in the order X-Chain, XY-Chain, AIC. That is what keeps the rating-optimal path reaching for a length-priced chain before the flat-priced AIC that generalises both. The three forcing chains sort last of all, so a hypothetical argument is only ever reached once every direct technique has failed.
 
 ### Ceiling reporting
 
-`solveLogically` returns `stuck` when no registered technique makes progress, and `contradiction` when a blank cell loses every candidate. Neither outcome yields a real SE number, so both report the ceiling: `rating` is the hardest value the ladder can express, `hardestTechnique` is `Guess`, and `isCeiling` is `true`. Consumers render that as "N+" (today "7.6+").
+`solveLogically` returns `stuck` when no registered technique makes progress, and `contradiction` when a blank cell loses every candidate. Neither outcome yields a real SE number, so both report the ceiling: `rating` is the hardest value the ladder can express, `hardestTechnique` is `Guess`, and `isCeiling` is `true`. Consumers render that as "N+" (today "8.5+").
 
-This is a first-class path, not an edge case. Hell-corpus puzzles rate 8.0–11.0 on the published SE scale, far beyond the implemented ladder, so most of them come back as a ceiling result. A ceiling rating equal to a non-ceiling one is not a contradiction: `isCeiling` is what separates "solved by the hardest technique we have" from "harder than every technique we have".
+This is a first-class path, not an edge case. The curated Infinity corpus rates 10.6–11.9 on the published SE scale, far beyond the implemented ladder, so every one of its records comes back as a ceiling result. A ceiling rating equal to a non-ceiling one is not a contradiction: `isCeiling` is what separates "solved by the hardest technique we have" from "harder than every technique we have".
 
 ### SE value table
 
 `seTechniqueRatings` maps every `SolutionTechniqueEnum` member to a number. The record is exhaustive by type, so a new technique cannot be added to the enum without pricing it here.
 
-The implemented ladder covers SE 1.0–5.4 completely (17/17 techniques), plus the two uniqueness techniques that carry the ladder to 5.6, plus the chain band that carries it to 7.6:
+The implemented ladder covers SE 1.0–5.4 completely (17/17 techniques), plus the two uniqueness techniques that carry the ladder to 5.6, plus the chain band that carries it to 7.6, plus the forcing chain band that carries it to 8.5:
 
-| Technique          | SE  |
-| ------------------ | --- |
-| Full House         | 1.0 |
-| Hidden Single      | 1.5 |
-| Naked Single       | 2.3 |
-| Pointing Pair      | 2.6 |
-| Pointing Triple    | 2.6 |
-| Box/Line Reduction | 2.8 |
-| Naked Pair         | 3.0 |
-| X-Wing             | 3.2 |
-| Hidden Pair        | 3.4 |
-| Naked Triple       | 3.6 |
-| Swordfish          | 3.8 |
-| Hidden Triple      | 4.0 |
-| XY-Wing            | 4.2 |
-| XYZ-Wing           | 4.4 |
-| Unique Rectangle   | 4.5 |
-| Naked Quad         | 5.0 |
-| Jellyfish          | 5.2 |
-| Hidden Quad        | 5.4 |
-| BUG                | 5.6 |
-| X-Chain            | 6.6 |
-| XY-Chain           | 7.0 |
+| Technique            | SE  |
+| -------------------- | --- |
+| Full House           | 1.0 |
+| Hidden Single        | 1.5 |
+| Naked Single         | 2.3 |
+| Pointing Pair        | 2.6 |
+| Pointing Triple      | 2.6 |
+| Box/Line Reduction   | 2.8 |
+| Naked Pair           | 3.0 |
+| X-Wing               | 3.2 |
+| Hidden Pair          | 3.4 |
+| Naked Triple         | 3.6 |
+| Swordfish            | 3.8 |
+| Hidden Triple        | 4.0 |
+| XY-Wing              | 4.2 |
+| XYZ-Wing             | 4.4 |
+| Unique Rectangle     | 4.5 |
+| Naked Quad           | 5.0 |
+| Jellyfish            | 5.2 |
+| Hidden Quad          | 5.4 |
+| BUG                  | 5.6 |
+| X-Chain              | 6.6 |
+| XY-Chain             | 7.0 |
+| Nishio Forcing Chain | 7.5 |
+| Cell Forcing Chain   | 8.0 |
+| Region Forcing Chain | 8.0 |
 
 Only the type 1 form of each uniqueness technique is implemented, which is exactly what SE prices at 4.5 for a Unique Rectangle and 5.6 for a Bivalue Universal Grave. The remaining UR and BUG types start at 4.6 and 5.7 and are out of scope until corpus measurements show they matter. Both values are sound only because every served puzzle has a single solution.
 
@@ -133,11 +136,23 @@ The thresholds are SE's own ladder, `[4, 6, 8, 12, 16, 24, 32, 48, 64, 96]`, gro
 
 Bases are 6.6 for an X-Chain (SE's forcing X-Chain, and the band minimum) and 7.0 for an XY-Chain (SE's forcing Y-Chain). A chain cannot hold more cells than the board has, so in practice an X-Chain tops out at 7.5 and an XY-Chain reaches the 7.6 clamp from about 25 cells.
 
-`SE_CHAIN_RATING_MAXIMUM` is 7.6 and clamps the band. It is also the reported ceiling, which keeps "the hardest thing the ladder can express" and "the hardest thing the ladder can price" the same number.
+`SE_CHAIN_RATING_MAXIMUM` is 7.6 and clamps the shortest-path chain band.
 
-AIC keeps a flat 7.2. It is the one chain detector that does not minimise its length, so pricing it by length would be a fiction; sitting above both chain bases and below the band top keeps it last in the cheapest-first order and keeps an exact AIC rating distinguishable from a ceiling result. Raising the ceiling past 7.6 is the forcing-chain engine's job.
+AIC keeps a flat 7.2. It is the one chain detector that does not minimise its length, so pricing it by length would be a fiction; sitting above both chain bases and below the band top keeps it last among the shortest-path chains in the cheapest-first order and keeps an exact AIC rating distinguishable from a ceiling result.
 
-`Guess` carries the ceiling value and is the sentinel `hardestTechnique` for ceiling results; `SE_RATING_CEILING` reads it back off the table, and the table reads it off `SE_CHAIN_RATING_MAXIMUM`, so the ceiling can never drift from the band it clamps.
+### Forcing chain pricing
+
+The three forcing chains are length-priced from the same ladder, off their own bases and against their own clamp, `SE_FORCING_CHAIN_RATING_MAXIMUM` at 8.5. `seLengthPricedBandMaximums` is what makes a technique length-priced at all: a technique absent from that map is priced flat, whatever length its step reports.
+
+A Nishio forcing chain is SE's contradiction form and takes the band minimum of 7.5. A cell forcing chain and a region forcing chain are both SE's "Multiple Forcing Chains" and share its 8.0 base; they are separate enum members because they are separate arguments and get separate labels, not because SE prices them apart. The ladder is exactly ten increments wide, so 7.5 reaches 8.5 at the top of the ladder and 8.0 clamps from a 24-cell argument up.
+
+`chainLength` for a forcing chain is the number of cells the argument placed, which for the multi-branch forms is the union over the branches rather than SE's sum over them. The union is bounded by the board, so it saturates the band more slowly than a sum would while still ordering shorter arguments below longer ones.
+
+8.5 is where SE's dynamic forcing chains begin, and dynamic and nested variants are out of scope, so 8.5 is also the reported ceiling. That keeps "the hardest thing the ladder can express" and "the hardest thing the ladder can price" the same number. Raising the ceiling past 8.5 is the dynamic forcing chain engine's job.
+
+A forcing chain rating is an upper bound in one respect worth stating: the forcing chains run last, so any deduction that reaches them is genuinely beyond the rest of the implemented ladder, but SE's own ladder is wider than this one. A position that SE would crack with a technique this package does not implement is priced here as the forcing chain that cracked it instead, which over-states rather than under-states it.
+
+`Guess` carries the ceiling value and is the sentinel `hardestTechnique` for ceiling results; `SE_RATING_CEILING` reads it back off the table, and the table reads it off `SE_FORCING_CHAIN_RATING_MAXIMUM`, so the ceiling can never drift from the band it clamps.
 
 ## Rules
 
@@ -150,9 +165,9 @@ AIC keeps a flat 7.2. It is the one chain detector that does not minimise its le
 
 - Tests colocated with source files (`.spec.ts` suffix)
 - Fixtures are fixed 81-character board strings fed through `Sudoku.fromString`; never `Sudoku.create`, which uses unseeded randomness
-- `rate-puzzle.util.spec.ts` guards known-technique boards against their SE values, max-over-path aggregation, ceiling reporting for a stuck 17-clue hell-corpus board, an exact rating for a board that only the uniqueness techniques unblock, a hell-corpus board priced above the XY-Chain base by its chain length, and determinism across repeated calls
-- `get-step-rating.util.spec.ts` guards the length ladder: every band boundary for both chain bases, the 7.6 clamp, monotonicity in the chain length, the fallback to the table value when a step carries no length, and flat pricing for every other technique
-- `se-technique-order.constant.spec.ts` guards the ordering policy: full coverage of the enum, cheapest-first ordering, enum-ordinal tie-breaking, the chain bases, and the ceiling matching the chain band maximum
+- `rate-puzzle.util.spec.ts` guards known-technique boards against their SE values, max-over-path aggregation, ceiling reporting for an Infinity-corpus board no technique can finish, an exact rating for a board that only the uniqueness techniques unblock, one that only a forcing chain unblocks, a hell-corpus board priced above the XY-Chain base by its chain length, and determinism across repeated calls
+- `get-step-rating.util.spec.ts` guards the length ladder: every band boundary for both chain bases and all three forcing chain bases, the 7.6 and 8.5 clamps, monotonicity in the chain length, the fallback to the table value when a step carries no length, and flat pricing for every other technique
+- `se-technique-order.constant.spec.ts` guards the ordering policy: full coverage of the enum, cheapest-first ordering, enum-ordinal tie-breaking, the chain and forcing chain bases, and the ceiling matching the forcing chain band maximum
 
 ## Exports
 

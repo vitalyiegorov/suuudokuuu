@@ -16,7 +16,8 @@ const xWingBoard = '..3...7......4.2...826.......9..1........5..84...2..9.5....4
 const aicBoard = '.4...8....1...9..37..6...21...7.........4.65...3.....9.8..9.3.......54....5....7.';
 const uniquenessBoard = '.1...2.3..7....4...95.....7.64.9......9..82.......17.......5..1.3..7..2....4.....';
 const xyChainBoard = '................12..3..4..............5.1.3...6.27.........358..2......47...9....';
-const stuckHellCorpusBoard = '........1.......2...3..4........53...4......612...........7.......8..4.9..712....';
+const forcingChainBoard = '000000001000000023004005000000000060000010000037000400000260700050000800200100000';
+const stuckInfinityBoard = '800000000003600000070090200050007000000045700000100030001000068008500010090000400';
 const solvedBoard = '123456789456789123789123456214365897365897214897214365531642978642978531978531642';
 
 const ratingTimeoutMilliseconds = 30000;
@@ -86,7 +87,13 @@ describe('ratePuzzle', () => {
     it('should rate a board the ladder could not finish before the uniqueness techniques', () => {
         expect.assertions(4);
 
-        const uniquenessOrder = [SolutionTechniqueEnum.UniqueRectangle, SolutionTechniqueEnum.BivalueUniversalGrave];
+        const uniquenessOrder = [
+            SolutionTechniqueEnum.UniqueRectangle,
+            SolutionTechniqueEnum.BivalueUniversalGrave,
+            SolutionTechniqueEnum.NishioForcingChain,
+            SolutionTechniqueEnum.CellForcingChain,
+            SolutionTechniqueEnum.RegionForcingChain
+        ];
         const previousOrder = seTechniqueOrder.filter(technique => !uniquenessOrder.includes(technique));
         const previousResult = new TechniqueManager(Sudoku.fromString(uniquenessBoard)).solveLogically(previousOrder);
         const currentResult = new TechniqueManager(Sudoku.fromString(uniquenessBoard)).solveLogically(seTechniqueOrder);
@@ -134,14 +141,39 @@ describe('ratePuzzle', () => {
     });
 
     it(
-        'should report a ceiling rating for a hell corpus board the ladder cannot finish',
+        'should report a ceiling rating for an infinity corpus board the ladder cannot finish',
         () => {
-            expect.assertions(2);
+            expect.assertions(3);
 
-            const result = ratePuzzle(stuckHellCorpusBoard);
+            const result = ratePuzzle(stuckInfinityBoard);
 
             expect(result).toEqual({ rating: SE_RATING_CEILING, hardestTechnique: SolutionTechniqueEnum.Guess, isCeiling: true });
-            expect(new TechniqueManager(Sudoku.fromString(stuckHellCorpusBoard)).solveLogically(seTechniqueOrder).outcome).toBe('stuck');
+            expect(result.rating.toFixed(1)).toBe('8.5');
+            expect(new TechniqueManager(Sudoku.fromString(stuckInfinityBoard)).solveLogically(seTechniqueOrder).outcome).toBe('stuck');
+        },
+        ratingTimeoutMilliseconds
+    );
+
+    it(
+        'should rate a board only a forcing chain can finish inside the forcing chain band',
+        () => {
+            expect.assertions(5);
+
+            const forcingOrder = [
+                SolutionTechniqueEnum.NishioForcingChain,
+                SolutionTechniqueEnum.CellForcingChain,
+                SolutionTechniqueEnum.RegionForcingChain
+            ];
+            const previousOrder = seTechniqueOrder.filter(technique => !forcingOrder.includes(technique));
+            const previousResult = new TechniqueManager(Sudoku.fromString(forcingChainBoard)).solveLogically(previousOrder);
+            const currentResult = new TechniqueManager(Sudoku.fromString(forcingChainBoard)).solveLogically(seTechniqueOrder);
+            const result = ratePuzzle(forcingChainBoard);
+
+            expect(previousResult.outcome).toBe('stuck');
+            expect(currentResult.outcome).toBe('solved');
+            expect(result.hardestTechnique).toBe(SolutionTechniqueEnum.NishioForcingChain);
+            expect(result.isCeiling).toBe(false);
+            expect(result.rating).toBeGreaterThanOrEqual(seTechniqueRatings[SolutionTechniqueEnum.NishioForcingChain]);
         },
         ratingTimeoutMilliseconds
     );
@@ -163,7 +195,7 @@ describe('ratePuzzle', () => {
 
             expect(ratePuzzle(xWingBoard)).toEqual(ratePuzzle(xWingBoard));
             expect(ratePuzzle(hiddenSingleBoard)).toEqual(ratePuzzle(hiddenSingleBoard));
-            expect(ratePuzzle(stuckHellCorpusBoard)).toEqual(ratePuzzle(stuckHellCorpusBoard));
+            expect(ratePuzzle(stuckInfinityBoard)).toEqual(ratePuzzle(stuckInfinityBoard));
         },
         ratingTimeoutMilliseconds
     );

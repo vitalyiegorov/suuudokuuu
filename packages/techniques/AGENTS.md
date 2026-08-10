@@ -22,10 +22,12 @@ src/
 │   ├── classes/
 │   │   ├── technique-manager/          # Public API: findNextStep, identifyMove
 │   │   ├── candidate-context/          # Cached candidate map + unit/peer navigation
+│   │   ├── hypothesis-propagator/      # Indexed board + memoised hypothesis propagation
 │   │   ├── abstract-sized-technique.ts # Descriptor-backed family metadata only
 │   │   └── abstract-fish-technique.ts  # Shared fish scanning only
 │   ├── constants/
-│   │   └── chain-scan.constant.ts
+│   │   ├── chain-scan.constant.ts
+│   │   └── forcing-chain-scan.constant.ts
 │   ├── enums/
 │   │   └── solution-technique.enum.ts  # Techniques ordered by difficulty (Guess = 0)
 │   ├── interfaces/                     # TechniqueResult, CandidateElimination, ...
@@ -90,7 +92,7 @@ Ignoring `target` entirely also stays correct for both intents.
 
 Enum values double as difficulty ranking (lower = simpler); `Guess = 0` is the fallback, never emitted by logical strategies. `SimpleColoring` and `AIC` are represented by their own feature folders and are part of the technique registry; keep their enum names and labels aligned with those modules.
 
-New members are appended, never inserted: the app persists these ordinals on replay timeline events, so renumbering would relabel finished games. `UniqueRectangle` and `BivalueUniversalGrave` therefore sit after `AIC` even though their solving cost is lower, which also keeps the registry reaching for them only after every non-uniqueness technique has failed.
+New members are appended, never inserted: the app persists these ordinals on replay timeline events, so renumbering would relabel finished games. `UniqueRectangle` and `BivalueUniversalGrave` therefore sit after `AIC` even though their solving cost is lower, which also keeps the registry reaching for them only after every non-uniqueness technique has failed. `NishioForcingChain`, `CellForcingChain`, and `RegionForcingChain` are appended after them and are the most expensive entries in both the registry and the SE order.
 
 ### Uniqueness techniques
 
@@ -109,6 +111,24 @@ New members are appended, never inserted: the app persists these ordinals on rep
 A state is expanded once, and a neighbour already on the reconstructed path is rejected, so every emitted chain is a simple path: a chain that used a cell in both link states would be a contradiction argument, not a chain deduction. The `*_MAX_VISITS_PER_ROOT` caps still bound the scan, but a breadth-first scan visits at most two states per cell per root and never approaches them.
 
 Results carry `chainLength`, the number of cells in the chain, which is always `reasonCells.length`. `@suuudokuuu/rating` prices chains from it. Nothing else in the ladder sets the field, and `getCanonicalTechniqueResults` already keeps the fewest-reason-cells result per deduction, so the surviving result for a deduction is the shortest chain found for it across every root.
+
+### Forcing chains
+
+`NishioForcingChainTechnique`, `CellForcingChainTechnique`, and `RegionForcingChainTechnique` are the only strategies that reason hypothetically. All three share `HypothesisPropagator`, which is where the cost lives.
+
+`HypothesisPropagator.fromContext(context)` snapshots the context once into an index-addressed board: a `Uint16Array` candidate bitmask per cell, peer index lists, and unit index lists. `propagate(cellIndex, value)` assumes that candidate, then runs naked singles and hidden singles to a fixpoint on a copy of the masks. It reports `hasContradiction`, the cells it placed, and the candidates it eliminated relative to the snapshot. Propagation is memoised per `(cell, value)`, so a scan pays for each hypothesis once even though a cell hypothesis and three region hypotheses ask for the same one.
+
+Propagation uses only naked and hidden singles, which is SE's non-dynamic chaining: it follows the direct consequences of an assumption and never assumes a second candidate on top of the first. Dynamic and nested variants are deliberately out of scope.
+
+- A **Nishio forcing chain** assumes one candidate. A contradiction proves the candidate false, so the candidate is eliminated.
+- A **cell forcing chain** assumes every candidate of one unfilled cell in turn.
+- A **region forcing chain** assumes every position of one value inside one unit in turn.
+
+Both multi-branch detectors keep what every branch agrees on: a cell that every branch places with the same value becomes a placement, and a candidate that every branch removes becomes an elimination. A root whose branches include a contradiction is skipped entirely — that branch is a Nishio deduction, which is cheaper and runs first.
+
+`chainLength` is the number of cells the argument placed: the contradiction path for Nishio, and the union of the branch paths for the multi-branch forms. It stays equal to `reasonCells.length`, as it is for the shortest-path chains. `FORCING_CHAIN_MIN_CELLS` rejects arguments below that size, which keeps a degenerate no-propagation case split from being reported as a forcing chain, and `FORCING_CHAIN_MAX_HYPOTHESES_PER_SCAN` caps the propagations one scan may run. A capped-out scan returns what it already found and otherwise leaves the driver `stuck`, exactly like the shortest-path chain caps.
+
+Results are canonicalised and then sorted by `chainLength`, so the driver applies the cheapest forcing argument available and `@suuudokuuu/rating` prices the position from the shortest argument that proves it.
 
 ### CandidateContext
 
@@ -131,6 +151,7 @@ Snapshots are immutable: `withEliminations(eliminations)` and `withPlacement(cel
 - Coverage thresholds: statements 80%, branches 70%, lines 80%, functions 80%
 - `solve-logically.spec.ts` guards the driver: elimination-only progress, solved/stuck/contradiction outcomes, determinism from a fixed board string, and a wall-clock budget of 5000 ms for a full logical solve of a 17-clue hell-corpus board (about 80 ms locally, so the budget only fails on real regressions)
 - The chain specs guard shortest-first search: a fixture where a short and a long chain prove the same deduction asserts the short one is reported, the same fixture with the short chain broken asserts the long one is, and each detector holds a 2000 ms budget for a broad scan of a stuck 17-clue board (about 5 ms locally)
+- The forcing chain specs guard hypothetical reasoning: each detector proves its own deduction shape on a board where it is the deciding technique, asserts `chainLength === reasonCells.length` and the minimum chain size, checks every deduction against that board's known solution, covers the direct and enabling search intents, and holds a 2000 ms budget for a broad scan of a 17-clue board where the hypothesis cap truncates the search (about 10 ms locally)
 - Driver fixtures are fixed 81-character board strings fed through `Sudoku.fromString`; never `Sudoku.create`, which uses unseeded randomness
 - `technique-catalog-known-solution.spec.ts` pairs every fixture board with its own solution and asserts that no registered strategy eliminates a solution value or places a wrong one, which is what keeps the uniqueness techniques honest
 

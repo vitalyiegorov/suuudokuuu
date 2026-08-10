@@ -30,5 +30,8 @@ export const techniqueComplexityConstant: Record<SolutionTechniqueEnum, number> 
     [SolutionTechniqueEnum.SimpleColoring]: 5,
     [SolutionTechniqueEnum.AIC]: 5,
     [SolutionTechniqueEnum.UniqueRectangle]: 4,
-    [SolutionTechniqueEnum.BivalueUniversalGrave]: 5
+    [SolutionTechniqueEnum.BivalueUniversalGrave]: 5,
+    [SolutionTechniqueEnum.NishioForcingChain]: 5,
+    [SolutionTechniqueEnum.CellForcingChain]: 5,
+    [SolutionTechniqueEnum.RegionForcingChain]: 5
 };

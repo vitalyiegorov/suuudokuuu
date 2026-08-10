@@ -1,5 +1,10 @@
+import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
+
 export const SE_CHAIN_RATING_MINIMUM = 6.6;
 export const SE_CHAIN_RATING_MAXIMUM = 7.6;
+export const SE_FORCING_CHAIN_RATING_MINIMUM = 7.5;
+export const SE_FORCING_CHAIN_RATING_MAXIMUM = 8.5;
+export const SE_MULTIPLE_FORCING_CHAIN_RATING = 8.0;
 export const SE_CHAIN_LENGTH_INCREMENT = 0.1;
 export const SE_RATING_DECIMAL_SCALE = 10;
 
@@ -20,3 +25,11 @@ const createChainLengthThresholds = (): number[] => {
 };
 
 export const SE_CHAIN_LENGTH_THRESHOLDS = createChainLengthThresholds();
+
+export const seLengthPricedBandMaximums = new Map<SolutionTechniqueEnum, number>([
+    [SolutionTechniqueEnum.XChain, SE_CHAIN_RATING_MAXIMUM],
+    [SolutionTechniqueEnum.XYChain, SE_CHAIN_RATING_MAXIMUM],
+    [SolutionTechniqueEnum.NishioForcingChain, SE_FORCING_CHAIN_RATING_MAXIMUM],
+    [SolutionTechniqueEnum.CellForcingChain, SE_FORCING_CHAIN_RATING_MAXIMUM],
+    [SolutionTechniqueEnum.RegionForcingChain, SE_FORCING_CHAIN_RATING_MAXIMUM]
+]);
