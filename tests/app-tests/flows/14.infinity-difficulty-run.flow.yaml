@@ -26,15 +26,12 @@ appId: ${APP_ID}
           id: 'RatingExplainerSelectors.Root'
       timeout: 3000
 - assertVisible: 'Beyond the ceiling'
-# The explainer is a native bottom sheet inside a transparent route, so the game
-# root stays visible underneath and cannot signal that the sheet closed. Maestro's
-# iOS back gesture hides the sheet but leaves the route swallowing taps, which
-# silently breaks the next control. Close it the way the sheet supports and wait
-# for it to actually leave the hierarchy.
-- swipe:
-      from:
-          id: 'RatingExplainerSelectors.Root'
-      direction: DOWN
+# The explainer is a native platform sheet, so neither a synthetic pan-down nor the
+# iOS back gesture dismisses it through the sheet's own close path. Use the sheet's
+# close control and wait for it to leave the hierarchy: the game root sits behind a
+# transparent route and stays visible either way, so it cannot gate this step.
+- tapOn:
+      id: 'RatingExplainerSheetScreenSelectors.CloseButton'
 - extendedWaitUntil:
       notVisible:
           id: 'RatingExplainerSelectors.Root'
