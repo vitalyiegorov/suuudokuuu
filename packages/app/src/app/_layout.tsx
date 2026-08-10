@@ -25,7 +25,7 @@ void SplashScreen.preventAutoHideAsync();
 
 const stackOptions = { headerShown: false, gestureEnabled: true };
 const gameOptions = { gestureEnabled: false };
-const settingsOptionSheetOptions = {
+const modalSheetOptions = {
     animation: 'fade' as const,
     contentStyle: { backgroundColor: 'transparent' },
     gestureEnabled: false,
@@ -48,7 +48,8 @@ export default function RootLayout() {
                         <WinConfettiProvider>
                             <Stack screenOptions={stackOptions}>
                                 <Stack.Screen name="game" options={gameOptions} />
-                                <Stack.Screen name="settings/[setting]" options={settingsOptionSheetOptions} />
+                                <Stack.Screen name="settings/[setting]" options={modalSheetOptions} />
+                                <Stack.Screen name="rating-explainer/[rating]" options={modalSheetOptions} />
                             </Stack>
                         </WinConfettiProvider>
                     </GameProvider>

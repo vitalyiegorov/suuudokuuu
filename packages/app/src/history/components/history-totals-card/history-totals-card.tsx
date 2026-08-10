@@ -1,11 +1,13 @@
 import { Trans, useLingui } from '@lingui/react/macro';
 import { AppMetricStrip } from '@suuudokuuu/ui';
+import { router } from 'expo-router';
 import { use } from 'react';
 import { View } from 'react-native';
 
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { RatingBadge } from '../../../@generic/components/rating-badge/rating-badge';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
+import { getRatingExplainerHref } from '../../../@generic/utils/get-rating-explainer-href.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { historyGetTotals } from '../../utils/history-get-totals.util';
 import { HistoryMetric } from '../history-metric/history-metric';
@@ -17,12 +19,13 @@ import type { DifficultyEnum } from '@suuudokuuu/generator';
 
 interface Props {
     readonly historyByDifficulty: Record<DifficultyEnum, HistoryGameInterface>;
+    readonly playedDayNumbers: readonly number[];
 }
 
-export const HistoryTotalsCard = ({ historyByDifficulty }: Props) => {
+export const HistoryTotalsCard = ({ historyByDifficulty, playedDayNumbers }: Props) => {
     const { theme } = use(ThemeContext);
     const { t } = useLingui();
-    const totals = historyGetTotals(historyByDifficulty);
+    const totals = historyGetTotals(historyByDifficulty, playedDayNumbers);
     const bestTimeText = useTimerText(totals.bestTime);
 
     const scoreCardStyles = [styles.heroCard, { backgroundColor: theme.colors.numpad.track }];
@@ -39,6 +42,10 @@ export const HistoryTotalsCard = ({ historyByDifficulty }: Props) => {
 
     const winRateText = `${totals.winRate}%`;
     const hasHardestSolve = totals.bestRating.rating > 0;
+
+    const handlePressRating = () => {
+        router.push(getRatingExplainerHref(totals.bestRating.rating, totals.bestRating.isRatingCeiling));
+    };
 
     return (
         <View style={styles.container}>
@@ -68,7 +75,11 @@ export const HistoryTotalsCard = ({ historyByDifficulty }: Props) => {
                         <Trans>Hardest solve</Trans>
                     </BlackText>
 
-                    <RatingBadge isCeiling={totals.bestRating.isRatingCeiling} rating={totals.bestRating.rating} />
+                    <RatingBadge
+                        isCeiling={totals.bestRating.isRatingCeiling}
+                        onPress={handlePressRating}
+                        rating={totals.bestRating.rating}
+                    />
                 </View>
             ) : null}
 

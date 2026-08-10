@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from '@jest/globals';
-import { render, screen } from '@testing-library/react-native';
+import { fireEvent, render, screen } from '@testing-library/react-native';
 
 import { I18nTestWrapper } from '../../mocks/i18n-test-wrapper.mock';
 
@@ -67,5 +67,21 @@ describe('RatingBadge', () => {
 
         expect(screen.getByTestId(RatingBadgeSelectors.Root)).toBeTruthy();
         expect(screen.getByText('7.0')).toBeTruthy();
+    });
+
+    it('should not be pressable when no onPress handler is given', async () => {
+        await renderRatingBadge(ExactSampleRating, false);
+
+        expect(screen.getByTestId(RatingBadgeSelectors.Root)).toBeTruthy();
+        expect(screen.queryByRole('button')).toBeNull();
+    });
+
+    it('should invoke the onPress handler when pressed', async () => {
+        const onPress = jest.fn();
+
+        await render(<RatingBadge isCeiling={false} onPress={onPress} rating={ExactSampleRating} />, { wrapper: I18nTestWrapper });
+        await fireEvent.press(screen.getByRole('button'));
+
+        expect(onPress).toHaveBeenCalledTimes(1);
     });
 });

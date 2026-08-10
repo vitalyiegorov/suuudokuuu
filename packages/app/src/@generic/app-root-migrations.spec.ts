@@ -13,6 +13,7 @@ import { ColorfulDarkTheme, ColorfulLightTheme } from '../theme/themes/colorful.
 import { createCustomTheme } from '../theme/utils/create-custom-theme.util';
 
 import { appRootMigrations, appRootPersistVersion } from './app-root-migrations';
+import { getDayNumber } from './utils/get-day-number.util';
 
 import type { AppRootPersistedStateInterface } from './app-root-migrations';
 
@@ -396,5 +397,50 @@ describe('appRootMigrations', () => {
         });
 
         expect(runMigration(36, state).game.techniqueUsageCounts).toStrictEqual({ 2: 5 });
+    });
+
+    it('should backfill played day numbers from completed wins only', () => {
+        expect.assertions(1);
+
+        const dayOneCompletedAt = new Date(2026, 0, 1, 12).getTime();
+        const dayTwoCompletedAt = new Date(2026, 0, 2, 12).getTime();
+        const buildLegacyCompletedGame = (completedAt: number) => ({
+            encodedState: '',
+            difficulty: DifficultyEnum.Easy,
+            rating: 0,
+            isRatingCeiling: false,
+            elapsedTime: 1,
+            score: 1,
+            mistakes: 0,
+            maxMistakes: 3,
+            completedAt
+        });
+        const legacyCompletedGames = [buildLegacyCompletedGame(dayOneCompletedAt), buildLegacyCompletedGame(dayTwoCompletedAt)];
+        const state = buildState({
+            game: {
+                ...initialGameState,
+                historyByDifficulty: {
+                    ...initialGameState.historyByDifficulty,
+                    [DifficultyEnum.Easy]: { ...emptyGameHistory, completedGames: legacyCompletedGames }
+                }
+            }
+        });
+
+        const migratedGameState = runMigration(37, state).game;
+        const dayOneNumber = getDayNumber(dayOneCompletedAt);
+        const dayTwoNumber = getDayNumber(dayTwoCompletedAt);
+
+        expect(migratedGameState.playedDayNumbers).toStrictEqual([dayOneNumber, dayTwoNumber]);
+    });
+
+    it('should merge backfilled day numbers with any already-recorded activity instead of discarding it', () => {
+        expect.assertions(1);
+
+        const alreadyPlayedDayNumber = getDayNumber(new Date(2020, 0, 1, 12).getTime());
+        const state = buildState({
+            game: { ...initialGameState, playedDayNumbers: [alreadyPlayedDayNumber] }
+        });
+
+        expect(runMigration(37, state).game.playedDayNumbers).toStrictEqual([alreadyPlayedDayNumber]);
     });
 });

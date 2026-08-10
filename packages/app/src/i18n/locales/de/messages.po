@@ -80,6 +80,10 @@ msgstr "{value, plural, one {# Sekunde} other {# Sekunden}}"
 msgid "<0>Development client required</0><1>Development clients need Metro, the launch URL configured in <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2>, or a compatible update on the <3>development</3> channel. This install flow does not publish an update.</1>"
 msgstr "<0>Entwicklungsclient erforderlich</0><1>Entwicklungsclients benötigen Metro, die unter <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2> konfigurierte Start-URL oder ein kompatibles Update im Kanal <3>development</3>. Bei dieser Installation wird kein Update veröffentlicht.</1>"
 
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "A “+” means this puzzle is at least SE {seRatingCeilingText}. Beyond that point, puzzles can chain into very long solutions, so we cap the displayed number instead of chasing false precision."
+msgstr ""
+
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "A little room between cells"
 msgstr "Etwas Abstand zwischen den Zellen"
@@ -99,6 +103,10 @@ msgstr "Herausforderung annehmen?"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Adjust the digits on the Sudoku board"
 msgstr "Größe der Zahlen auf dem Sudoku-Brett anpassen"
+
+#: src/history/constants/se-rating-band.constant.ts
+msgid "Advanced"
+msgstr ""
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "AIC"
@@ -134,13 +142,25 @@ msgstr "Übernehmen"
 msgid "Attempts to load the latest development build again"
 msgstr "Versucht, den neuesten Entwicklungs-Build erneut zu laden"
 
+#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
+msgid "Auto-candidates"
+msgstr ""
+
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "Average"
 msgstr "Durchschnitt"
 
+#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
+msgid "Avg / move"
+msgstr ""
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Avoid mistakes - they cost you points!"
 msgstr "Vermeide Fehler - sie kosten dich Punkte!"
+
+#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
+msgid "Away time"
+msgstr ""
 
 #: src/@generic/components/header-back-button/header-back-button.tsx
 #: src/history/components/replay-actions/replay-actions.tsx
@@ -158,6 +178,10 @@ msgstr "Ausgewogene Zahlen für die meisten Spieler"
 #: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Balanced solve"
 msgstr "Ausgewogenes Spiel"
+
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "Bands"
+msgstr ""
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Base Score"
@@ -189,6 +213,10 @@ msgstr "Bestzeit"
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "Better luck next time!"
 msgstr "Beim nächsten Mal klappt's!"
+
+#: src/history/constants/se-rating-band.constant.ts
+msgid "Beyond the ceiling"
+msgstr ""
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Board cells"
@@ -504,6 +532,10 @@ msgstr "Español"
 msgid "Evenly matched"
 msgstr "Ausgeglichenes Duell"
 
+#: src/history/constants/se-rating-band.constant.ts
+msgid "Expert"
+msgstr ""
+
 #: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Expert grid"
 msgstr "Expertenraster"
@@ -535,6 +567,10 @@ msgstr "Finned Swordfish"
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Finned X-Wing"
 msgstr "Finned X-Wing"
+
+#: src/history/constants/se-rating-band.constant.ts
+msgid "Foundational"
+msgstr ""
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Français"
@@ -597,6 +633,10 @@ msgstr "Schwer"
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Hardcore"
 msgstr "Hardcore"
+
+#: src/history/components/replay-hardest-moment/replay-hardest-moment.tsx
+msgid "Hardest moment"
+msgstr ""
 
 #: src/history/components/history-difficulty/history-difficulty.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
@@ -687,6 +727,10 @@ msgstr "Auf iOS installieren"
 msgid "Install the iOS development build"
 msgstr "iOS-Entwicklungs-Build installieren"
 
+#: src/history/constants/se-rating-band.constant.ts
+msgid "Intermediate"
+msgstr ""
+
 #: src/game/hooks/use-game-creation-runner.hook.ts
 msgid "Invalid Sudoku"
 msgstr "Ungültiges Sudoku"
@@ -765,6 +809,10 @@ msgstr "Entwicklungs-Build wird geladen"
 msgid "Loading the latest development build…"
 msgstr "Neuester Entwicklungs-Build wird geladen…"
 
+#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
+msgid "Longest pause"
+msgstr ""
+
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "Lost"
 msgstr "Verloren"
@@ -805,6 +853,7 @@ msgstr "Mindestpunktzahl"
 #: src/@generic/components/completed-game-result-details/completed-game-result-details.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
+#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
 #: src/screens/components/home-screen/home.screen.tsx
@@ -872,6 +921,10 @@ msgstr "Albtraum"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Nishio Forcing Chain"
+msgstr ""
+
+#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
+msgid "No"
 msgstr ""
 
 #: src/scoring/components/scoring.screen.tsx
@@ -997,6 +1050,7 @@ msgid "Penalty formula"
 msgstr "Strafformel"
 
 #: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
+#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
 msgid "Pencil marks"
 msgstr "Notizen"
 
@@ -1082,8 +1136,7 @@ msgstr "Erhabene Oberfläche"
 msgid "Raised surface text"
 msgstr "Text der erhabenen Oberfläche"
 
-#: src/history/components/replay-header/replay-header.tsx
-#: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
+#: src/@generic/components/rating-metric-item/rating-metric-item.tsx
 msgid "Rating"
 msgstr ""
 
@@ -1391,6 +1444,10 @@ msgstr "SuuudokuuU-Duell"
 msgid "SuuudokuuU game handoff"
 msgstr "SuuudokuuU Spielübergabe"
 
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "Suuudokuuu rates every puzzle on the Sudoku Explainer (SE) scale, the same scale serious solvers use to compare how hard a puzzle actually is to reason through, not just how many clues it has."
+msgstr ""
+
 #: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "SuuudokuuU Sudoku Puzzle"
 msgstr "SuuudokuuU Sudoku-Rätsel"
@@ -1438,6 +1495,10 @@ msgstr "Der Commit-Link konnte auf diesem Gerät nicht geöffnet werden."
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "The install link could not be opened. Check your browser settings and try again."
 msgstr "Der Installationslink konnte nicht geöffnet werden. Überprüfe deine Browsereinstellungen und versuche es erneut."
+
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "The SE difficulty scale"
+msgstr ""
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Their time to beat"
@@ -1507,6 +1568,10 @@ msgstr "Tipps für hohe Punktzahlen"
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "Too many mistakes"
 msgstr "Zu viele Fehler"
+
+#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
+msgid "Total time"
+msgstr ""
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Try again"
@@ -1666,6 +1731,10 @@ msgstr "XY-Wing"
 msgid "XYZ-Wing"
 msgstr "XYZ-Wing"
 
+#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
+msgid "Yes"
+msgstr ""
+
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "You"
 msgstr "Du"
@@ -1682,6 +1751,10 @@ msgstr "Du hast dein Sudoku beendet. Der Kampf für die Freiheit in der Ukraine 
 msgid "You got to"
 msgstr "Du kamst bis"
 
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "You have not finished a rated puzzle yet."
+msgstr ""
+
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 msgid "you lead"
 msgstr "du liegst vorn"
@@ -1697,6 +1770,10 @@ msgstr "Dein Browser fragt möglicherweise nach der Erlaubnis, Apps aus unbekann
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Your custom colors"
 msgstr "Deine eigenen Farben"
+
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "Your hardest solve"
+msgstr ""
 
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Your progress"

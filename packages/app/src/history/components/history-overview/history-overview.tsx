@@ -17,10 +17,11 @@ import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 interface Props {
     readonly difficulties: readonly DifficultyEnum[];
     readonly historyByDifficulty: Record<DifficultyEnum, HistoryGameInterface>;
+    readonly playedDayNumbers: readonly number[];
     readonly techniqueUsageCounts: Partial<Record<SolutionTechniqueEnum, number>>;
 }
 
-export const HistoryOverview = ({ difficulties, historyByDifficulty, techniqueUsageCounts }: Props) => {
+export const HistoryOverview = ({ difficulties, historyByDifficulty, playedDayNumbers, techniqueUsageCounts }: Props) => {
     const { t } = useLingui();
 
     if (difficulties.length === 0) {
@@ -31,7 +32,7 @@ export const HistoryOverview = ({ difficulties, historyByDifficulty, techniqueUs
 
     return (
         <View style={styles.container}>
-            <HistoryTotalsCard historyByDifficulty={historyByDifficulty} />
+            <HistoryTotalsCard historyByDifficulty={historyByDifficulty} playedDayNumbers={playedDayNumbers} />
 
             <HistoryRatingBands completedGames={completedGames} />
 

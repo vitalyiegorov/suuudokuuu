@@ -1,10 +1,9 @@
 import { useLingui } from '@lingui/react/macro';
 import { AppMetricStrip, AppMetricStripItem } from '@suuudokuuu/ui';
-import { View } from 'react-native';
 
 import { isPositiveNumber } from '@rnw-community/shared';
 
-import { RatingBadge } from '../../../@generic/components/rating-badge/rating-badge';
+import { RatingMetricItem } from '../../../@generic/components/rating-metric-item/rating-metric-item';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
 
@@ -35,11 +34,13 @@ export const ReplayHeader = ({ game }: Props) => {
                 valueStyle={styles.value}
             />
             {hasRating && (
-                <AppMetricStripItem label={t`Rating`} labelStyle={styles.label} style={styles.item}>
-                    <View testID={ReplayHeaderSelectors.Rating}>
-                        <RatingBadge isCeiling={game.isRatingCeiling} rating={game.rating} />
-                    </View>
-                </AppMetricStripItem>
+                <RatingMetricItem
+                    isCeiling={game.isRatingCeiling}
+                    itemStyle={styles.item}
+                    labelStyle={styles.label}
+                    rating={game.rating}
+                    testID={ReplayHeaderSelectors.Rating}
+                />
             )}
             <AppMetricStripItem
                 label={t`Score`}

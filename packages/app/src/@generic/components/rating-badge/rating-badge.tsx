@@ -1,6 +1,7 @@
 import { useLingui } from '@lingui/react/macro';
 import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { useEffect } from 'react';
+import { Pressable } from 'react-native';
 import Animated, {
     cancelAnimation,
     interpolate,
@@ -11,7 +12,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { useUnistyles } from 'react-native-unistyles';
 
-import { isPositiveNumber } from '@rnw-community/shared';
+import { isDefined, isPositiveNumber } from '@rnw-community/shared';
 
 import { BlackText } from '../black-text/black-text';
 
@@ -28,9 +29,10 @@ const RatingCeilingSuffix = '+';
 interface Props {
     readonly isCeiling: boolean;
     readonly rating: number;
+    readonly onPress?: () => void;
 }
 
-export const RatingBadge = ({ isCeiling, rating }: Props) => {
+export const RatingBadge = ({ isCeiling, rating, onPress }: Props) => {
     const { theme } = useUnistyles();
     const { t } = useLingui();
     const reduceMotion = useReducedMotion();
@@ -62,11 +64,21 @@ export const RatingBadge = ({ isCeiling, rating }: Props) => {
     ];
     const valueStyles = [styles.value, { color: rampColor }];
 
-    return (
+    const badge = (
         <Animated.View style={pillStyles} testID={RatingBadgeSelectors.Root}>
             <BlackText accessibilityLabel={t`Difficulty rating ${ratingLabel}`} style={valueStyles}>
                 {ratingLabel}
             </BlackText>
         </Animated.View>
+    );
+
+    if (!isDefined(onPress)) {
+        return badge;
+    }
+
+    return (
+        <Pressable accessibilityRole="button" onPress={onPress}>
+            {badge}
+        </Pressable>
     );
 };

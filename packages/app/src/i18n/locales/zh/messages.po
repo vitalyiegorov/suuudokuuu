@@ -78,6 +78,10 @@ msgstr "{value, plural, other {# 秒}}"
 msgid "<0>Development client required</0><1>Development clients need Metro, the launch URL configured in <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2>, or a compatible update on the <3>development</3> channel. This install flow does not publish an update.</1>"
 msgstr "<0>需要开发客户端</0><1>开发客户端需要 Metro、在 <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2> 中配置的启动 URL，或 <3>development</3> 渠道上的兼容更新。此安装流程不会发布更新。</1>"
 
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "A “+” means this puzzle is at least SE {seRatingCeilingText}. Beyond that point, puzzles can chain into very long solutions, so we cap the displayed number instead of chasing false precision."
+msgstr ""
+
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "A little room between cells"
 msgstr "单元格之间留出少量间距"
@@ -97,6 +101,10 @@ msgstr "接受挑战？"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Adjust the digits on the Sudoku board"
 msgstr "调整数独棋盘上的数字大小"
+
+#: src/history/constants/se-rating-band.constant.ts
+msgid "Advanced"
+msgstr ""
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "AIC"
@@ -132,13 +140,25 @@ msgstr "应用"
 msgid "Attempts to load the latest development build again"
 msgstr "再次尝试加载最新开发版本"
 
+#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
+msgid "Auto-candidates"
+msgstr ""
+
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "Average"
 msgstr "平均"
 
+#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
+msgid "Avg / move"
+msgstr ""
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Avoid mistakes - they cost you points!"
 msgstr "避免错误：它们会扣分。"
+
+#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
+msgid "Away time"
+msgstr ""
 
 #: src/@generic/components/header-back-button/header-back-button.tsx
 #: src/history/components/replay-actions/replay-actions.tsx
@@ -156,6 +176,10 @@ msgstr "适合大多数玩家的均衡数字大小"
 #: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Balanced solve"
 msgstr "均衡解题"
+
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "Bands"
+msgstr ""
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Base Score"
@@ -187,6 +211,10 @@ msgstr "最佳时间"
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "Better luck next time!"
 msgstr "下次好运！"
+
+#: src/history/constants/se-rating-band.constant.ts
+msgid "Beyond the ceiling"
+msgstr ""
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Board cells"
@@ -502,6 +530,10 @@ msgstr "Español"
 msgid "Evenly matched"
 msgstr "势均力敌"
 
+#: src/history/constants/se-rating-band.constant.ts
+msgid "Expert"
+msgstr ""
+
 #: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Expert grid"
 msgstr "专家棋盘"
@@ -533,6 +565,10 @@ msgstr "Finned Swordfish"
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Finned X-Wing"
 msgstr "Finned X-Wing"
+
+#: src/history/constants/se-rating-band.constant.ts
+msgid "Foundational"
+msgstr ""
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Français"
@@ -595,6 +631,10 @@ msgstr "困难"
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Hardcore"
 msgstr "硬核"
+
+#: src/history/components/replay-hardest-moment/replay-hardest-moment.tsx
+msgid "Hardest moment"
+msgstr ""
 
 #: src/history/components/history-difficulty/history-difficulty.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
@@ -685,6 +725,10 @@ msgstr "在 iOS 上安装"
 msgid "Install the iOS development build"
 msgstr "安装 iOS 开发版本"
 
+#: src/history/constants/se-rating-band.constant.ts
+msgid "Intermediate"
+msgstr ""
+
 #: src/game/hooks/use-game-creation-runner.hook.ts
 msgid "Invalid Sudoku"
 msgstr "无效数独"
@@ -763,6 +807,10 @@ msgstr "正在加载开发版本"
 msgid "Loading the latest development build…"
 msgstr "正在加载最新开发版本…"
 
+#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
+msgid "Longest pause"
+msgstr ""
+
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "Lost"
 msgstr "失败"
@@ -803,6 +851,7 @@ msgstr "最低分"
 #: src/@generic/components/completed-game-result-details/completed-game-result-details.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
+#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
 #: src/screens/components/home-screen/home.screen.tsx
@@ -870,6 +919,10 @@ msgstr "噩梦"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Nishio Forcing Chain"
+msgstr ""
+
+#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
+msgid "No"
 msgstr ""
 
 #: src/scoring/components/scoring.screen.tsx
@@ -995,6 +1048,7 @@ msgid "Penalty formula"
 msgstr "惩罚公式"
 
 #: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
+#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
 msgid "Pencil marks"
 msgstr "笔记标记"
 
@@ -1080,8 +1134,7 @@ msgstr "凸起表面"
 msgid "Raised surface text"
 msgstr "凸起表面文字"
 
-#: src/history/components/replay-header/replay-header.tsx
-#: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
+#: src/@generic/components/rating-metric-item/rating-metric-item.tsx
 msgid "Rating"
 msgstr ""
 
@@ -1389,6 +1442,10 @@ msgstr "SuuudokuuU 挑战"
 msgid "SuuudokuuU game handoff"
 msgstr "SuuudokuuU 对局交接"
 
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "Suuudokuuu rates every puzzle on the Sudoku Explainer (SE) scale, the same scale serious solvers use to compare how hard a puzzle actually is to reason through, not just how many clues it has."
+msgstr ""
+
 #: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "SuuudokuuU Sudoku Puzzle"
 msgstr "SuuudokuuU 数独"
@@ -1436,6 +1493,10 @@ msgstr "无法在此设备上打开提交链接。"
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "The install link could not be opened. Check your browser settings and try again."
 msgstr "无法打开安装链接。请检查浏览器设置后重试。"
+
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "The SE difficulty scale"
+msgstr ""
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Their time to beat"
@@ -1505,6 +1566,10 @@ msgstr "高分技巧"
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "Too many mistakes"
 msgstr "错误太多"
+
+#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
+msgid "Total time"
+msgstr ""
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Try again"
@@ -1664,6 +1729,10 @@ msgstr "XY-Wing"
 msgid "XYZ-Wing"
 msgstr "XYZ-Wing"
 
+#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
+msgid "Yes"
+msgstr ""
+
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "You"
 msgstr "你"
@@ -1680,6 +1749,10 @@ msgstr "你完成了这局数独。乌克兰争取自由的战斗仍在继续。
 msgid "You got to"
 msgstr "你完成了"
 
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "You have not finished a rated puzzle yet."
+msgstr ""
+
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 msgid "you lead"
 msgstr "你领先"
@@ -1695,6 +1768,10 @@ msgstr "浏览器可能会请求安装未知来源应用的权限。安装前，
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Your custom colors"
 msgstr "你的自定义颜色"
+
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "Your hardest solve"
+msgstr ""
 
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Your progress"

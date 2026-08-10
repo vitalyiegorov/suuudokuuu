@@ -1,10 +1,9 @@
 import { useLingui } from '@lingui/react/macro';
 import { AppMetricStrip, AppMetricStripItem } from '@suuudokuuu/ui';
-import { View } from 'react-native';
 
 import { isPositiveNumber } from '@rnw-community/shared';
 
-import { RatingBadge } from '../../../../@generic/components/rating-badge/rating-badge';
+import { RatingMetricItem } from '../../../../@generic/components/rating-metric-item/rating-metric-item';
 import { useAppSelector } from '../../../../@generic/hooks/use-app-selector.hook';
 import { useTimerText } from '../../../../@generic/hooks/use-timer-text.hook';
 import { getDifficultyText } from '../../../../@generic/utils/get-difficulty-text.util';
@@ -44,11 +43,13 @@ export const GameScreenMetrics = ({ elapsedTime, hasTimer, maxMistakes, maxMista
             />
 
             {hasRating && (
-                <AppMetricStripItem label={t`Rating`} labelStyle={styles.label} style={styles.item}>
-                    <View testID={GameScreenSelectors.Rating}>
-                        <RatingBadge isCeiling={isRatingCeiling} rating={rating} />
-                    </View>
-                </AppMetricStripItem>
+                <RatingMetricItem
+                    isCeiling={isRatingCeiling}
+                    itemStyle={styles.item}
+                    labelStyle={styles.label}
+                    rating={rating}
+                    testID={GameScreenSelectors.Rating}
+                />
             )}
 
             <AppMetricStripItem label={t`Mistakes`} labelStyle={styles.label} style={styles.item}>

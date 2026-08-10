@@ -2,8 +2,10 @@ import { describe, expect, it } from '@jest/globals';
 import { DifficultyEnum } from '@suuudokuuu/generator';
 
 import { emptyGameHistory } from '../../history/interfaces/history-game.interface';
+import { emptyHistoryRatingSnapshot } from '../../history/interfaces/history-rating-snapshot.interface';
 
 import {
+    gameBestRatingSelector,
     gameCandidatesSelector,
     gameChallengeStateSelector,
     gameChallengeStepsSelector,
@@ -82,7 +84,13 @@ const state: GameState = {
             difficulty: DifficultyEnum.Easy,
             bestScore: 100,
             bestTime: 60,
+            bestRating: { rating: 4.2, isRatingCeiling: false },
             completedGames: [completedGame]
+        },
+        [DifficultyEnum.Hard]: {
+            ...emptyGameHistory,
+            difficulty: DifficultyEnum.Hard,
+            bestRating: { rating: 8.6, isRatingCeiling: true }
         }
     }
 };
@@ -130,6 +138,11 @@ describe('game selectors', () => {
     it('finds the best score and time across difficulties', () => {
         expect(gameHistoryBestTimeSelector.resultFunc(state)).toEqual([100, 60]);
         expect(gameHistoryBestTimeSelector.resultFunc(initialGameState)).toEqual([0, 0]);
+    });
+
+    it('finds the highest best rating across every difficulty', () => {
+        expect(gameBestRatingSelector.resultFunc(state)).toStrictEqual({ rating: 8.6, isRatingCeiling: true });
+        expect(gameBestRatingSelector.resultFunc(initialGameState)).toStrictEqual(emptyHistoryRatingSnapshot);
     });
 
     it('selects per-difficulty history, completed games, and games by id', () => {

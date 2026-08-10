@@ -2,6 +2,7 @@ import { createSelector } from '@reduxjs/toolkit';
 
 import { isNotEmptyString } from '@rnw-community/shared';
 
+import { emptyHistoryRatingSnapshot } from '../../history/interfaces/history-rating-snapshot.interface';
 import { getTimelineCellSteps } from '../utils/get-timeline-cell-steps.util';
 
 import type { RootState } from '../../@generic/app-root.store';
@@ -49,3 +50,10 @@ export const gameTimelineEventsSelector = createSelector(gameSelector, state => 
 export const gameSolutionsStepsSelector = createSelector(gameSelector, state => getTimelineCellSteps(state.timelineEvents));
 export const gameHasNewPersonalBestScoreSelector = createSelector(gameSelector, state => state.hasNewPersonalBestScore);
 export const gameTechniqueUsageCountsSelector = createSelector(gameSelector, state => state.techniqueUsageCounts);
+export const gamePlayedDayNumbersSelector = createSelector(gameSelector, state => state.playedDayNumbers);
+export const gameBestRatingSelector = createSelector(gameSelector, state =>
+    Object.values(state.historyByDifficulty).reduce(
+        (best, history) => (history.bestRating.rating > best.rating ? history.bestRating : best),
+        emptyHistoryRatingSnapshot
+    )
+);

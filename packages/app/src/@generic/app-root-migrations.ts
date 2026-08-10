@@ -4,6 +4,7 @@ import { gameSlice } from '../game/store/game.slice';
 import { initialGameState } from '../game/store/game.state';
 import { emptyGameHistory } from '../history/interfaces/history-game.interface';
 import { emptyHistoryRatingSnapshot } from '../history/interfaces/history-rating-snapshot.interface';
+import { historyGetCompletedGames } from '../history/utils/history-get-completed-games.util';
 import { settingsSlice } from '../settings/store/settings.slice';
 import { initialSettingsState } from '../settings/store/settings.state';
 import { ColorSchemaEnum } from '../theme/enum/color-schema.enum';
@@ -13,6 +14,8 @@ import { customThemesSlice } from '../theme/store/custom-themes.slice';
 import { initialCustomThemesState } from '../theme/store/custom-themes.state';
 import { getTheme } from '../theme/utils/get-theme.util';
 import { migrateCustomThemeColors } from '../theme/utils/migrate-custom-theme-colors.util';
+
+import { getDayNumber } from './utils/get-day-number.util';
 
 import type { GameState } from '../game/store/game.state';
 import type { CompletedGameInterface } from '../history/interfaces/completed-game.interface';
@@ -28,7 +31,7 @@ export interface AppRootPersistedStateInterface {
     [customThemesSlice.name]: CustomThemesState;
 }
 
-export const appRootPersistVersion = 36;
+export const appRootPersistVersion = 37;
 
 const resetBestScores = (state: AppRootPersistedStateInterface): AppRootPersistedStateInterface => {
     const gameState = state[gameSlice.name];
@@ -193,6 +196,21 @@ const backfillStatsPack = (state: AppRootPersistedStateInterface): AppRootPersis
     };
 };
 
+const backfillPlayedDayNumbersFromCompletedWins = (state: AppRootPersistedStateInterface): AppRootPersistedStateInterface => {
+    const gameState = { ...initialGameState, ...state[gameSlice.name] };
+    const winDayNumbers = historyGetCompletedGames(gameState.historyByDifficulty).map(completedGame =>
+        getDayNumber(completedGame.completedAt)
+    );
+    const playedDayNumbers = Array.from(new Set([...gameState.playedDayNumbers, ...winDayNumbers])).sort(
+        (firstDayNumber, secondDayNumber) => firstDayNumber - secondDayNumber
+    );
+
+    return {
+        ...state,
+        [gameSlice.name]: { ...gameState, playedDayNumbers }
+    };
+};
+
 export const appRootMigrations: MigrationManifest<AppRootPersistedStateInterface> = {
     12: state => ({
         ...state,
@@ -230,5 +248,6 @@ export const appRootMigrations: MigrationManifest<AppRootPersistedStateInterface
     33: dropHellQueue,
     34: backfillCompletedGameRatings,
     35: ensureAllDifficulties,
-    36: backfillStatsPack
+    36: backfillStatsPack,
+    37: backfillPlayedDayNumbersFromCompletedWins
 };
