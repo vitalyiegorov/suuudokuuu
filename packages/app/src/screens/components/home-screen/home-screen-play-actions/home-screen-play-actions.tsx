@@ -16,6 +16,7 @@ interface Props {
     readonly currentProgressText: string;
     readonly isGameStarted: boolean;
     readonly isHellSelected: boolean;
+    readonly isInfinitySelected: boolean;
     readonly isLoading: boolean;
     readonly onStart: () => void;
     readonly startButtonSubtitle: string;
@@ -28,6 +29,7 @@ export const HomeScreenPlayActions = ({
     currentProgressText,
     isGameStarted,
     isHellSelected,
+    isInfinitySelected,
     isLoading,
     onStart,
     startButtonSubtitle,
@@ -53,6 +55,7 @@ export const HomeScreenPlayActions = ({
         <View style={styles.playActions}>
             <HomeScreenStartButton
                 isHellSelected={isHellSelected}
+                isInfinitySelected={isInfinitySelected}
                 isLoading={isLoading}
                 onPress={onStart}
                 style={styles.primaryButton}
