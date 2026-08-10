@@ -33,6 +33,7 @@ src/
 │   ├── interfaces/                     # TechniqueResult, CandidateElimination, ...
 │   ├── types/                          # CandidateMapType, LineType, FinnedFish*, ...
 │   └── utils/                          # Pure result, cell, peer, and registry helpers
+│       └── context-scan-state.util.ts  # Per-context shared propagator + search-cap register
 ├── *-technique/                       # One feature folder per solving technique
 │   ├── classes/                        # Strategy and focused colocated tests
 │   ├── constants/                      # Feature-owned constants when needed
@@ -67,11 +68,15 @@ A direct justification is one deduction step and always outranks an enabling one
 
 A step is accepted only when it still changes the threaded context: a placement needs candidates left in its cell, and an elimination needs at least one of its values to still be a candidate. That keeps every iteration monotonic, so the driver cannot repeat a step and always terminates.
 
-`LogicalSolveResultInterface` carries the ordered `steps` and one `outcome`:
+`LogicalSolveResultInterface` carries the ordered `steps`, one `outcome`, and `wasSearchCapped`:
 
 - `solved` — no unfilled cells remain.
-- `stuck` — no registered technique produces a progressing step; this is the single "beyond the ladder" signal that a guess would be needed. Capped chain searches simply land here.
+- `stuck` — no registered technique produces a progressing step; this is the single "beyond the ladder" signal that a guess would be needed.
 - `contradiction` — an unfilled cell has no candidates left.
+
+`wasSearchCapped` is `true` when any scan run during the solve returned truncated results because it exhausted a search cap. It is deliberately "any scan on the path", not "the last scan": a truncated scan earlier in the solve changes which position the driver ends in, so the whole path is suspect once one scan was cut short. A `stuck` outcome with `wasSearchCapped` is therefore "we ran out of budget", not "we ran out of ladder", and `@suuudokuuu/rating` separates the two in its ceiling reporting.
+
+Detectors report a cap through `markContextSearchCapped(context)`; the driver reads the flag back per iteration with `wasContextSearchCapped(context)`. The register lives in `context-scan-state.util.ts` as a module-level `WeakSet` keyed by the `CandidateContext`, so reporting a cap costs nothing in the strategy contract and cannot leak between boards: contexts are immutable snapshots, and a snapshot that goes out of scope takes its flag with it.
 
 Guess steps are never emitted; `steps` holds logical deductions only.
 
@@ -112,11 +117,23 @@ A state is expanded once, and a neighbour already on the reconstructed path is r
 
 Results carry `chainLength`, the number of cells in the chain, which is always `reasonCells.length`. `@suuudokuuu/rating` prices chains from it. Nothing else in the ladder sets the field, and `getCanonicalTechniqueResults` already keeps the fewest-reason-cells result per deduction, so the surviving result for a deduction is the shortest chain found for it across every root.
 
+### AIC scan budget
+
+`AICTechnique` searches depth-first, not breadth-first, so `AIC_MAX_LINK_VISITS` is a cap that really binds. It is spent **per start node**: every start node opens its own scan with a fresh budget, exactly as `XChainTechnique` and `XYChainTechnique` reset `linkVisits` per root.
+
+A single budget shared across the whole broad scan would be spent in start-node key order, which is coordinate order, so the scan would stop somewhere in the middle of the board and every deduction reachable only from a later start node would be invisible. That made the rating depend on cell labelling: a symmetry transform relabels the cells, moves the winning start node past the exhaustion point, and the same puzzle rates differently. Measured over 30 hell-corpus boards against four seeded transform images each, a shared budget diverged on 12 boards; a per-start-node budget diverged on none. Keep the budget per start node.
+
+An exhausted start-node budget still marks the context with `markContextSearchCapped`.
+
 ### Forcing chains
 
 `NishioForcingChainTechnique`, `CellForcingChainTechnique`, and `RegionForcingChainTechnique` are the only strategies that reason hypothetically. All three share `HypothesisPropagator`, which is where the cost lives.
 
 `HypothesisPropagator.fromContext(context)` snapshots the context once into an index-addressed board: a `Uint16Array` candidate bitmask per cell, peer index lists, and unit index lists. `propagate(cellIndex, value)` assumes that candidate, then runs naked singles and hidden singles to a fixpoint on a copy of the masks. It reports `hasContradiction`, the cells it placed, and the candidates it eliminated relative to the snapshot. Propagation is memoised per `(cell, value)`, so a scan pays for each hypothesis once even though a cell hypothesis and three region hypotheses ask for the same one.
+
+One propagator is built per `CandidateContext` and shared by all three detectors, so the memo survives across them instead of being thrown away three times per driver step. `getContextHypothesisPropagator(context)` in `context-scan-state.util.ts` holds it in a module-level `WeakMap` keyed by the context. A `WeakMap` is the right home rather than a shared-scan parameter threaded through `find`: the propagator is a pure function of the context, every strategy already receives that context, and keying on it keeps `TechniqueStrategyInterface` unchanged while letting the garbage collector drop the snapshot with the context. Nishio then pays for the propagations and the two multi-branch detectors read them back for free, which measures about 3x faster than rebuilding per detector.
+
+Sharing the memo must not also share the budget, or the second and third detector would start already spent. Each `find` call therefore keeps its own `propagationKeys` set on the scan: `propagateForScan` records the `(cell, value)` key it asked for and `hasForcingChainScanBudget` measures `FORCING_CHAIN_MAX_HYPOTHESES_PER_SCAN` against that set. Counting distinct keys rather than calls is what keeps the truncation point identical to the unshared version, since a region scan can legitimately ask for the same hypothesis from three different units.
 
 Propagation uses only naked and hidden singles, which is SE's non-dynamic chaining: it follows the direct consequences of an assumption and never assumes a second candidate on top of the first. Dynamic and nested variants are deliberately out of scope.
 
@@ -126,7 +143,7 @@ Propagation uses only naked and hidden singles, which is SE's non-dynamic chaini
 
 Both multi-branch detectors keep what every branch agrees on: a cell that every branch places with the same value becomes a placement, and a candidate that every branch removes becomes an elimination. A root whose branches include a contradiction is skipped entirely — that branch is a Nishio deduction, which is cheaper and runs first.
 
-`chainLength` is the number of cells the argument placed: the contradiction path for Nishio, and the union of the branch paths for the multi-branch forms. It stays equal to `reasonCells.length`, as it is for the shortest-path chains. `FORCING_CHAIN_MIN_CELLS` rejects arguments below that size, which keeps a degenerate no-propagation case split from being reported as a forcing chain, and `FORCING_CHAIN_MAX_HYPOTHESES_PER_SCAN` caps the propagations one scan may run. A capped-out scan returns what it already found and otherwise leaves the driver `stuck`, exactly like the shortest-path chain caps.
+`chainLength` is the number of cells the argument placed: the contradiction path for Nishio, and the union of the branch paths for the multi-branch forms. It stays equal to `reasonCells.length`, as it is for the shortest-path chains. `FORCING_CHAIN_MIN_CELLS` rejects arguments below that size, which keeps a degenerate no-propagation case split from being reported as a forcing chain, and `FORCING_CHAIN_MAX_HYPOTHESES_PER_SCAN` caps the propagations one scan may run. A capped-out scan returns what it already found, marks the context with `markContextSearchCapped`, and otherwise leaves the driver `stuck` — but a `stuck` that carries `wasSearchCapped` is a budget limit, not a ladder limit.
 
 Results are canonicalised and then sorted by `chainLength`, so the driver applies the cheapest forcing argument available and `@suuudokuuu/rating` prices the position from the shortest argument that proves it.
 
@@ -140,6 +157,8 @@ Snapshots are immutable: `withEliminations(eliminations)` and `withPlacement(cel
 
 - Technique detection must answer "which technique justifies value V in cell C", not "any technique anywhere"
 - New logical strategies must keep registry order aligned with `SolutionTechniqueEnum`
+- A scan cap must be spent per root, per start node, or per scan — never once across a whole coordinate-ordered sweep, which makes results depend on cell labelling
+- A detector that truncates on a cap must say so with `markContextSearchCapped`, so a capped `stuck` stays distinguishable from an exhausted ladder
 - New algorithms belong in their own `*-technique/classes/` folder; parameter-only variants belong in descriptor-backed family strategies
 - Uniqueness-based strategies may only assume a single solution; state that assumption in this file when adding one
 - Tests use realistic boards via `Sudoku.fromStrings(defaultSudokuConfig, ...)` + `CandidateContext.fromSudoku`; synthetic candidate maps only for patterns impractical to reach from a real board
@@ -149,7 +168,7 @@ Snapshots are immutable: `withEliminations(eliminations)` and `withPlacement(cel
 
 - Tests colocated with source files (`.spec.ts` suffix)
 - Coverage thresholds: statements 80%, branches 70%, lines 80%, functions 80%
-- `solve-logically.spec.ts` guards the driver: elimination-only progress, solved/stuck/contradiction outcomes, determinism from a fixed board string, and a wall-clock budget of 5000 ms for a full logical solve of a 17-clue hell-corpus board (about 80 ms locally, so the budget only fails on real regressions)
+- `solve-logically.spec.ts` guards the driver: elimination-only progress, solved/stuck/contradiction outcomes, determinism from a fixed board string, `wasSearchCapped` in all three shapes (a region forcing chain scan truncated on a 17-clue board reports it, a singles-only stuck solve and a solved board do not), and a wall-clock budget of 5000 ms for a full logical solve of a 17-clue hell-corpus board (about 80 ms locally, so the budget only fails on real regressions)
 - The chain specs guard shortest-first search: a fixture where a short and a long chain prove the same deduction asserts the short one is reported, the same fixture with the short chain broken asserts the long one is, and each detector holds a 2000 ms budget for a broad scan of a stuck 17-clue board (about 5 ms locally)
 - The forcing chain specs guard hypothetical reasoning: each detector proves its own deduction shape on a board where it is the deciding technique, asserts `chainLength === reasonCells.length` and the minimum chain size, checks every deduction against that board's known solution, covers the direct and enabling search intents, and holds a 2000 ms budget for a broad scan of a 17-clue board where the hypothesis cap truncates the search (about 10 ms locally)
 - Driver fixtures are fixed 81-character board strings fed through `Sudoku.fromString`; never `Sudoku.create`, which uses unseeded randomness

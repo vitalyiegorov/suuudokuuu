@@ -9,6 +9,7 @@ import {
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
 import { collectChainResults } from '../../@generic/utils/collect-chain-results.util';
 import { compareCells } from '../../@generic/utils/compare-cells.util';
+import { markContextSearchCapped } from '../../@generic/utils/context-scan-state.util';
 import { createEliminationResults } from '../../@generic/utils/create-elimination-results.util';
 import { getBivalueCells } from '../../@generic/utils/get-bivalue-cells.util';
 import { getCanonicalTechniqueResults } from '../../@generic/utils/get-canonical-technique-results.util';
@@ -92,6 +93,10 @@ export class XYChainTechnique implements TechniqueStrategyInterface {
             }
 
             nodeIndex += 1;
+        }
+
+        if (scan.linkVisits >= XY_CHAIN_MAX_VISITS_PER_ROOT) {
+            markContextSearchCapped(scan.context);
         }
     }
 

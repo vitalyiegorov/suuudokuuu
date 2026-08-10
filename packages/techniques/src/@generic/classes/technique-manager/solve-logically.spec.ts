@@ -14,6 +14,7 @@ const hellCorpusBoard = '.................1.....2.3......3.2...1.4......5....6..
 const stuckInfinityBoard = '1....7.9..3..2...8..96..5....53..9...1..8...26....4...3......1..4......7..7...3..';
 const solvedBoard = '123456789456789123789123456214365897365897214897214365531642978642978531978531642';
 const forcingChainBoard = '000000051000000023004005000000000600000130000007680000429006500370400000810000000';
+const cappedScanBoard = '000000000000000001000002034000005600007000080080010700000800000300600000905000003';
 
 const hellCorpusBudgetMilliseconds = 5000;
 const hellCorpusTimeoutMilliseconds = 20000;
@@ -78,6 +79,33 @@ describe('TechniqueManager.solveLogically', () => {
         ).toBe(true);
     });
 
+    it('should report a truncated search when a scan exhausts its hypothesis cap', () => {
+        expect.assertions(2);
+
+        const result = new TechniqueManager(createSudoku(cappedScanBoard)).solveLogically([SolutionTechniqueEnum.RegionForcingChain]);
+
+        expect(result.outcome).toBe('stuck');
+        expect(result.wasSearchCapped).toBe(true);
+    });
+
+    it('should not report a truncated search when a stuck board never reaches a scan cap', () => {
+        expect.assertions(2);
+
+        const result = new TechniqueManager(createSudoku(hellCorpusBoard)).solveLogically(singlesOrder);
+
+        expect(result.outcome).toBe('stuck');
+        expect(result.wasSearchCapped).toBe(false);
+    });
+
+    it('should not report a truncated search for a solved board', () => {
+        expect.assertions(2);
+
+        const result = new TechniqueManager(createSudoku(hellCorpusBoard)).solveLogically();
+
+        expect(result.outcome).toBe('solved');
+        expect(result.wasSearchCapped).toBe(false);
+    });
+
     it('should report a solved board without any steps', () => {
         expect.assertions(2);
 
@@ -88,7 +116,7 @@ describe('TechniqueManager.solveLogically', () => {
     });
 
     it('should report a contradiction when a blank cell loses every candidate', () => {
-        expect.assertions(2);
+        expect.assertions(3);
 
         const sudoku = createSudoku(hellCorpusBoard);
         const [blankCell] = sudoku.Field.flatMap(row => row).filter(cell => sudoku.isBlankCell(cell));
@@ -97,6 +125,7 @@ describe('TechniqueManager.solveLogically', () => {
 
         expect(result.outcome).toBe('contradiction');
         expect(result.steps).toHaveLength(1);
+        expect(result.wasSearchCapped).toBe(false);
     });
 
     it('should ignore an elimination that no longer targets a candidate', () => {

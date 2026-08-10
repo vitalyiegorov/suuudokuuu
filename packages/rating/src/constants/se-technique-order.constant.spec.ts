@@ -2,8 +2,9 @@ import { describe, expect, it } from '@jest/globals';
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { SE_FORCING_CHAIN_RATING_MAXIMUM } from './se-chain-rating.constant';
+import { SE_RATING_CEILING } from './se-rating-ceiling.constant';
 import { seTechniqueOrder } from './se-technique-order.constant';
-import { SE_RATING_CEILING, seTechniqueRatings } from './se-technique-rating.constant';
+import { seTechniqueRatings } from './se-technique-rating.constant';
 
 const enumMemberCount = Object.keys(SolutionTechniqueEnum).length / 2;
 

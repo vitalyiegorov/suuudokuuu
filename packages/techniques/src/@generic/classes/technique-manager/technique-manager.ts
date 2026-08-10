@@ -2,6 +2,7 @@ import { isDefined, isNotEmptyArray } from '@rnw-community/shared';
 
 import { GuessTechnique } from '../../../guess-technique/classes/guess.technique';
 import { canSee } from '../../utils/can-see.util';
+import { wasContextSearchCapped } from '../../utils/context-scan-state.util';
 import { createTechniqueStrategies } from '../../utils/create-technique-strategies.util';
 import { isForcedPlacement } from '../../utils/is-forced-placement.util';
 import { isSameCell } from '../../utils/is-same-cell.util';
@@ -50,14 +51,16 @@ export class TechniqueManager {
 
         let context = CandidateContext.fromSudoku(this.sudoku);
         let step = this.findProgressingStep(context, orderedStrategies);
+        let wasSearchCapped = wasContextSearchCapped(context);
 
         while (isDefined(step) && steps.length < stepLimit) {
             steps.push(step);
             context = this.applyStep(context, step);
             step = this.findProgressingStep(context, orderedStrategies);
+            wasSearchCapped ||= wasContextSearchCapped(context);
         }
 
-        return { outcome: this.getSolveOutcome(context), steps };
+        return { outcome: this.getSolveOutcome(context), steps, wasSearchCapped };
     }
 
     identifyMove(cell: CellInterface): MoveClassificationInterface {

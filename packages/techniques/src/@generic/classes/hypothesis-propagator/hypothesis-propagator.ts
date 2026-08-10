@@ -2,6 +2,7 @@ import { isDefined } from '@rnw-community/shared';
 
 import { createCandidateMask } from '../../utils/create-candidate-mask.util';
 import { getEliminatedMask } from '../../utils/get-eliminated-mask.util';
+import { getPropagationKey } from '../../utils/get-propagation-key.util';
 import { getSingleMaskValue } from '../../utils/get-single-mask-value.util';
 import { hasMaskValue } from '../../utils/has-mask-value.util';
 import { removeMaskValue } from '../../utils/remove-mask-value.util';
@@ -25,7 +26,7 @@ export class HypothesisPropagator {
     }
 
     propagate(cellIndex: number, value: number): HypothesisPropagationInterface {
-        const propagationKey = cellIndex * (this.board.valueCount + 1) + value;
+        const propagationKey = getPropagationKey(this.board, cellIndex, value);
         const cachedPropagation = this.propagations.get(propagationKey);
 
         if (isDefined(cachedPropagation)) {

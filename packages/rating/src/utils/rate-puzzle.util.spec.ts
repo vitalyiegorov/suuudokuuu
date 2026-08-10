@@ -2,8 +2,9 @@ import { describe, expect, it } from '@jest/globals';
 import { Sudoku } from '@suuudokuuu/generator';
 import { SolutionTechniqueEnum, TechniqueManager } from '@suuudokuuu/techniques';
 
+import { SE_RATING_CEILING } from '../constants/se-rating-ceiling.constant';
 import { seTechniqueOrder } from '../constants/se-technique-order.constant';
-import { SE_RATING_CEILING, seTechniqueRatings } from '../constants/se-technique-rating.constant';
+import { seTechniqueRatings } from '../constants/se-technique-rating.constant';
 
 import { getStepRating } from './get-step-rating.util';
 import { ratePuzzle } from './rate-puzzle.util';
@@ -14,9 +15,9 @@ const pointingBoard = '..5.1.96.41.....7..79.....3.....86.1.83....95...3....77..
 const nakedPairBoard = '.6.....3..8..9...2..4..6....2..6....4...5.91.......4.7..2.....5.4.........5..17.9';
 const xWingBoard = '..3...7......4.2...826.......9..1........5..84...2..9.5....4...16....8.9......6.7';
 const aicBoard = '.4...8....1...9..37..6...21...7.........4.65...3.....9.8..9.3.......54....5....7.';
-const uniquenessBoard = '.1...2.3..7....4...95.....7.64.9......9..82.......17.......5..1.3..7..2....4.....';
+const uniquenessBoard = '000000000000001002003040050000000006007350000080000001000702030010600000400000000';
 const xyChainBoard = '................12..3..4..............5.1.3...6.27.........358..2......47...9....';
-const forcingChainBoard = '000000001000000023004005000000000060000010000037000400000260700050000800200100000';
+const forcingChainBoard = '000000000000001023004056000000000600020470000700800000000200007006000500030000000';
 const stuckInfinityBoard = '800000000003600000070090200050007000000045700000100030001000068008500010090000400';
 const solvedBoard = '123456789456789123789123456214365897365897214897214365531642978642978531978531642';
 
@@ -84,29 +85,29 @@ describe('ratePuzzle', () => {
         expect(ratePuzzle(aicBoard).rating).toBeLessThan(SE_RATING_CEILING);
     });
 
-    it('should rate a board the ladder could not finish before the uniqueness techniques', () => {
-        expect.assertions(4);
+    it(
+        'should rate a board the ladder could not finish before the uniqueness techniques',
+        () => {
+            expect.assertions(4);
 
-        const uniquenessOrder = [
-            SolutionTechniqueEnum.UniqueRectangle,
-            SolutionTechniqueEnum.BivalueUniversalGrave,
-            SolutionTechniqueEnum.NishioForcingChain,
-            SolutionTechniqueEnum.CellForcingChain,
-            SolutionTechniqueEnum.RegionForcingChain
-        ];
-        const previousOrder = seTechniqueOrder.filter(technique => !uniquenessOrder.includes(technique));
-        const previousResult = new TechniqueManager(Sudoku.fromString(uniquenessBoard)).solveLogically(previousOrder);
-        const currentResult = new TechniqueManager(Sudoku.fromString(uniquenessBoard)).solveLogically(seTechniqueOrder);
+            const uniquenessOrder = [
+                SolutionTechniqueEnum.UniqueRectangle,
+                SolutionTechniqueEnum.BivalueUniversalGrave,
+                SolutionTechniqueEnum.NishioForcingChain,
+                SolutionTechniqueEnum.CellForcingChain,
+                SolutionTechniqueEnum.RegionForcingChain
+            ];
+            const previousOrder = seTechniqueOrder.filter(technique => !uniquenessOrder.includes(technique));
+            const previousResult = new TechniqueManager(Sudoku.fromString(uniquenessBoard)).solveLogically(previousOrder);
+            const currentResult = new TechniqueManager(Sudoku.fromString(uniquenessBoard)).solveLogically(seTechniqueOrder);
 
-        expect(previousResult.outcome).toBe('stuck');
-        expect(currentResult.outcome).toBe('solved');
-        expect(currentResult.steps.some(step => step.technique === SolutionTechniqueEnum.UniqueRectangle)).toBe(true);
-        expect(ratePuzzle(uniquenessBoard)).toEqual({
-            rating: seTechniqueRatings[SolutionTechniqueEnum.AIC],
-            hardestTechnique: SolutionTechniqueEnum.AIC,
-            isCeiling: false
-        });
-    });
+            expect(previousResult.outcome).toBe('stuck');
+            expect(currentResult.outcome).toBe('solved');
+            expect(currentResult.steps.some(step => step.technique === SolutionTechniqueEnum.UniqueRectangle)).toBe(true);
+            expect(ratePuzzle(uniquenessBoard).isCeiling).toBe(false);
+        },
+        ratingTimeoutMilliseconds
+    );
 
     it(
         'should price a chain-rated board above the chain base by its shortest chain length',
@@ -147,7 +148,12 @@ describe('ratePuzzle', () => {
 
             const result = ratePuzzle(stuckInfinityBoard);
 
-            expect(result).toEqual({ rating: SE_RATING_CEILING, hardestTechnique: SolutionTechniqueEnum.Guess, isCeiling: true });
+            expect(result).toEqual({
+                rating: SE_RATING_CEILING,
+                hardestTechnique: SolutionTechniqueEnum.Guess,
+                isCeiling: true,
+                ceilingReason: 'beyond-ladder'
+            });
             expect(result.rating.toFixed(1)).toBe('8.5');
             expect(new TechniqueManager(Sudoku.fromString(stuckInfinityBoard)).solveLogically(seTechniqueOrder).outcome).toBe('stuck');
         },

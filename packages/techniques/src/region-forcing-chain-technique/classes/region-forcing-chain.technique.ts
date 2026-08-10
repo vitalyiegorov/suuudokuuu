@@ -1,10 +1,13 @@
 import { isDefined } from '@rnw-community/shared';
 
 import { AbstractForcingChainTechnique } from '../../@generic/classes/abstract-forcing-chain-technique';
-import { FORCING_CHAIN_MAX_HYPOTHESES_PER_SCAN, FORCING_CHAIN_MIN_BRANCHES } from '../../@generic/constants/forcing-chain-scan.constant';
+import { FORCING_CHAIN_MIN_BRANCHES } from '../../@generic/constants/forcing-chain-scan.constant';
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
+import { markContextSearchCapped } from '../../@generic/utils/context-scan-state.util';
 import { createForcingChainResults } from '../../@generic/utils/create-forcing-chain-results.util';
+import { hasForcingChainScanBudget } from '../../@generic/utils/has-forcing-chain-scan-budget.util';
 import { hasMaskValue } from '../../@generic/utils/has-mask-value.util';
+import { propagateForScan } from '../../@generic/utils/propagate-for-scan.util';
 
 import type { ForcingChainScanInterface } from '../../@generic/interfaces/forcing-chain-scan.interface';
 
@@ -31,11 +34,13 @@ export class RegionForcingChainTechnique extends AbstractForcingChainTechnique {
             return true;
         }
 
-        if (scan.propagator.getPropagationCount() + positionIndexes.length > FORCING_CHAIN_MAX_HYPOTHESES_PER_SCAN) {
+        if (!hasForcingChainScanBudget(scan, positionIndexes.length)) {
+            markContextSearchCapped(scan.context);
+
             return false;
         }
 
-        const propagations = positionIndexes.map(positionIndex => scan.propagator.propagate(positionIndex, value));
+        const propagations = positionIndexes.map(positionIndex => propagateForScan(scan, positionIndex, value));
 
         scan.results.push(...createForcingChainResults(this.technique, board, propagations, scan.scope));
 

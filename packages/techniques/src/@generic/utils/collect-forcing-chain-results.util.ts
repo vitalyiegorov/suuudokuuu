@@ -1,8 +1,7 @@
 import { isDefined } from '@rnw-community/shared';
 
-import { HypothesisPropagator } from '../classes/hypothesis-propagator/hypothesis-propagator';
-
 import { compareChainLengths } from './compare-chain-lengths.util';
+import { getContextHypothesisPropagator } from './context-scan-state.util';
 import { getCanonicalTechniqueResults } from './get-canonical-technique-results.util';
 import { getSearchScope } from './get-search-scope.util';
 
@@ -17,9 +16,11 @@ export const collectForcingChainResults = (
     collectForScan: (scan: ForcingChainScanInterface) => void
 ): TechniqueResultInterface[] => {
     const scan: ForcingChainScanInterface = {
-        propagator: HypothesisPropagator.fromContext(context),
+        context,
+        propagator: getContextHypothesisPropagator(context),
         scope: getSearchScope(context, searchTarget),
-        results: []
+        results: [],
+        propagationKeys: new Set<number>()
     };
 
     collectForScan(scan);
