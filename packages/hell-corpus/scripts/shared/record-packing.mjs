@@ -7,8 +7,6 @@ const RATING_SCALE = 10;
 const RATING_VALUE_MASK = 0x7f;
 const CEILING_FLAG_BIT = 0x80;
 
-export const UNRATED_BYTE = 0;
-
 export const encodeRatingByte = rating => {
     const scaledRating = Math.round(rating * RATING_SCALE);
     const isCeiling = scaledRating > RATING_VALUE_MASK;
