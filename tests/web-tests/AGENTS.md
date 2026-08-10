@@ -68,6 +68,20 @@ running server outside CI. `playwright.config.ts` fails fast with an actionable 
   re-encode the same field through `gameStateToString` with `difficulty: DifficultyEnum.Infinity`,
   `rating: 11.9`, and `SharedPayloadKindEnum.Puzzle`, and keep
   `tests/app-tests/flows/14.infinity-difficulty-run.flow.yaml` in sync with the new string.
+- `ratedWinningSharedChallengeEncodedConstant`: the same one-empty-cell win as
+  `winningSharedChallengeEncodedConstant` (cell `y=6, x=0`, value `2`), re-encoded with a real
+  `rating`/`isRatingCeiling`/`difficulty` trailer instead of the legacy fixture's unknown rating, so
+  completing it produces a genuinely rated Newbie completed game. Regenerate by decoding
+  `winningSharedChallengeEncodedConstant` with `GameStateSerializer.decodeState`, rating its
+  `field` with `ratePuzzle` from `@suuudokuuu/rating`, then re-encoding the same decoded payload
+  through `GameStateSerializer.encodeState` with `rating: Math.round(rated.rating * 10)`,
+  `isRatingCeiling: rated.isCeiling`, and `difficulty: 0` (Newbie's wire code). Run the snippet from
+  inside `packages/app` so the workspace `@suuudokuuu/encoder`/`@suuudokuuu/rating` packages
+  resolve, and delete the scratch script afterward instead of committing it.
+- `ratedLosingSharedChallengeEncodedConstant`: the same three-mistake loss as
+  `losingSharedChallengeEncodedConstant` (cell `y=0, x=4`'s correct value is not `4`), re-encoded
+  with the same real rating trailer as `ratedWinningSharedChallengeEncodedConstant` (regenerate the
+  same way, decoding `losingSharedChallengeEncodedConstant` instead).
 
 ## Known Platform Notes
 

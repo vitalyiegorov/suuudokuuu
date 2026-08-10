@@ -54,6 +54,17 @@ appId: ${APP_ID}
 # Same old-link fixture: the replay header's rating metric must stay hidden.
 - assertNotVisible:
       id: 'ReplayHeaderSelectors.Rating'
+# Game Review card: pace metrics and the techniques-used section (with its
+# best-technique hero) always render once a run has at least one recorded
+# step, regardless of whether the game itself carries a rating.
+- assertVisible:
+      id: 'ReplayRunReviewSelectors.Root'
+- assertVisible:
+      id: 'ReplayPaceMetricsSelectors.Root'
+- assertVisible:
+      id: 'HistoryTechniquesSelectors.Root'
+- assertVisible:
+      id: 'ReplayMoveQualityStripSelectors.Root'
 # The replay board fills the shorter Android viewport, so the playback controls
 # scroll below the fold; scroll the step buttons above the navigation bar before
 # tapping (iOS passes only because its taller viewport keeps them on screen).
@@ -75,6 +86,13 @@ appId: ${APP_ID}
 - tapOn:
       id: 'ReplayControlsSelectors.PreviousButton'
 - assertVisible: 'Move 0 / 1'
+# Pressing the hardest-moment chip seeks the scrubber straight to that step,
+# the same destination the scrubber swipe above reached directly.
+- assertVisible:
+      id: 'ReplayHardestMomentSelectors.Root'
+- tapOn:
+      id: 'ReplayHardestMomentSelectors.Root'
+- assertVisible: 'Move 1 / 1'
 - scrollUntilVisible:
       element:
           id: 'ReplayShareActionSelectors.Button'

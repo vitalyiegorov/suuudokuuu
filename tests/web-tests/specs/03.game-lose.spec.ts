@@ -3,10 +3,14 @@ import {
     ChallengeRaceHudSelectors,
     ChallengeResultScreenSelectors,
     ChallengeTryAgainButtonSelectors,
-    GameScreenSelectors
+    GameScreenSelectors,
+    RatingBadgeSelectors
 } from '@suuudokuuu/app/src/selectors';
 
-import { losingSharedChallengeEncodedConstant } from '../src/constants/shared-challenge-links.constant';
+import {
+    losingSharedChallengeEncodedConstant,
+    ratedLosingSharedChallengeEncodedConstant
+} from '../src/constants/shared-challenge-links.constant';
 import { acceptSharedChallenge } from '../src/utils/accept-shared-challenge.util';
 import { launchHome } from '../src/utils/launch-home.util';
 import { openSharedChallenge } from '../src/utils/open-shared-challenge.util';
@@ -43,6 +47,29 @@ test('loses a shared challenge after three mistakes and tries again', async ({ p
     await expect(page.getByTestId(ChallengeResultScreenSelectors.OpponentTimeValue)).toBeVisible();
     await expect(page.getByText(/Out of mistakes/u).first()).toBeVisible();
     await expect(page.getByText('Did not finish the board')).toBeVisible();
+
+    await page.getByTestId(ChallengeTryAgainButtonSelectors.Root).click();
+    await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible();
+
+    await quitCurrentGame(page);
+});
+
+test('shows the rival rating badge on a rated challenge loss', async ({ page }) => {
+    await launchHome(page);
+    await openSharedChallenge(page, ratedLosingSharedChallengeEncodedConstant);
+    await acceptSharedChallenge(page);
+
+    const wrongCell = page.getByTestId(cellTestId(wrongCellY, wrongCellX));
+    const wrongValueButton = page.getByTestId(valueButtonTestId(wrongValue));
+
+    await wrongCell.click();
+    await wrongValueButton.click();
+    await wrongValueButton.click();
+    await wrongValueButton.click();
+
+    const resultScreen = page.getByTestId(ChallengeResultScreenSelectors.Root);
+    await expect(resultScreen).toBeVisible({ timeout: challengeResultTimeoutMilliseconds });
+    await expect(resultScreen.getByTestId(RatingBadgeSelectors.Root)).toBeVisible();
 
     await page.getByTestId(ChallengeTryAgainButtonSelectors.Root).click();
     await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible();

@@ -1,0 +1,28 @@
+appId: ${APP_ID}
+---
+- startRecording:
+      path: '16.rated-challenge-win-rating'
+      optional: true
+
+# Same fixture as flows/15's stats seed: winningSharedChallengeEncodedConstant's field/timeline
+# re-encoded with a real rating trailer, so the rival's own state (challengeState, replayed back
+# through the result screen) carries a rating and the badge renders.
+- runFlow: subflows/navigation/launch-home.flow.yaml
+- runFlow:
+      file: subflows/shared/complete-winning-shared-challenge.flow.yaml
+      env:
+          SHARED_CHALLENGE_LINK: suuudokuuu://shared/_OWP________9____qXF6FFdMjBWGhJIN-CMqSm5omCUw0KFUm6-t2HxLUAuYMARgH-IAABCg
+- assertVisible:
+      id: 'RatingBadgeSelectors.Root'
+- scrollUntilVisible:
+      element:
+          id: 'ChallengeResultFooterSelectors.HomeButton'
+      direction: DOWN
+      timeout: 3000
+- tapOn:
+      id: 'ChallengeResultFooterSelectors.HomeButton'
+- extendedWaitUntil:
+      visible:
+          id: 'HomeScreenSelectors.Root'
+      timeout: 3000
+- stopApp

@@ -5,17 +5,26 @@ import {
     HeaderBackButtonSelectors,
     HistoryDifficultySelectors,
     HistoryGamesScreenSelectors,
+    HistoryRatingBandsSelectors,
     HistoryScreenSelectors,
+    HistoryTechniquesSelectors,
     HomeScreenSelectors,
     RatingBadgeSelectors,
     ReplayActionsSelectors,
     ReplayControlsSelectors,
+    ReplayHardestMomentSelectors,
     ReplayHeaderSelectors,
+    ReplayMoveQualityStripSelectors,
+    ReplayPaceMetricsSelectors,
+    ReplayRunReviewSelectors,
     ReplayScrubberSelectors,
     ReplayShareActionSelectors
 } from '@suuudokuuu/app/src/selectors';
 
-import { winningSharedChallengeEncodedConstant } from '../src/constants/shared-challenge-links.constant';
+import {
+    ratedWinningSharedChallengeEncodedConstant,
+    winningSharedChallengeEncodedConstant
+} from '../src/constants/shared-challenge-links.constant';
 import { completeWinningSharedChallenge } from '../src/utils/complete-winning-shared-challenge.util';
 import { launchHome } from '../src/utils/launch-home.util';
 import { getVisibleByTestId } from '../src/utils/visible-locator.util';
@@ -42,11 +51,22 @@ test('reviews and replays a completed game from statistics', async ({ page }) =>
     await expect(historyGamesScreen.getByText('Score', { exact: true })).toBeVisible();
     await expect(historyGamesScreen.getByText('Time', { exact: true })).toBeVisible();
     await expect(historyGamesScreen.getByText('Mistakes', { exact: true })).toBeVisible();
-    await expect(page.getByTestId(RatingBadgeSelectors.Root)).toHaveCount(0);
+    // This legacy fixture predates the rating trailer and decodes with an unknown rating, so its
+    // own completed-game row must not show a badge. RatingBadgeSelectors.Root is reused by other
+    // screens (for example the History overview's best-technique hero), so the assertion must stay
+    // scoped to this screen instead of counting badges page-wide.
+    await expect(historyGamesScreen.getByTestId(RatingBadgeSelectors.Root)).toHaveCount(0);
 
     await page.getByTestId(CompletedGameItemSelectors.ReplayButton).click();
     await expect(page.getByTestId(ReplayControlsSelectors.Root)).toBeVisible();
     await expect(page.getByTestId(ReplayHeaderSelectors.Rating)).toHaveCount(0);
+
+    const gameReviewCard = page.getByTestId(ReplayRunReviewSelectors.Root);
+    await expect(gameReviewCard).toBeVisible();
+    await expect(gameReviewCard.getByTestId(ReplayPaceMetricsSelectors.Root)).toBeVisible();
+    await expect(gameReviewCard.getByTestId(HistoryTechniquesSelectors.Root)).toBeVisible();
+    await expect(page.getByTestId(ReplayMoveQualityStripSelectors.Root)).toBeVisible();
+
     await page.getByTestId(ReplayControlsSelectors.NextButton).click();
     await page.getByTestId(ReplayControlsSelectors.PreviousButton).click();
 
@@ -67,6 +87,11 @@ test('reviews and replays a completed game from statistics', async ({ page }) =>
     await page.mouse.up();
     await expect(scrubber).toHaveAttribute('aria-valuenow', '0');
 
+    const hardestMomentChip = page.getByTestId(ReplayHardestMomentSelectors.Root);
+    await expect(hardestMomentChip).toBeVisible();
+    await hardestMomentChip.click();
+    await expect(scrubber).toHaveAttribute('aria-valuenow', '1');
+
     await expect(page.getByTestId(ReplayShareActionSelectors.Button)).toBeVisible();
 
     await page.getByTestId(ReplayActionsSelectors.BackButton).click();
@@ -77,4 +102,32 @@ test('reviews and replays a completed game from statistics', async ({ page }) =>
 
     await getVisibleByTestId(page, HeaderBackButtonSelectors.Root).click();
     await expect(page.getByTestId(HomeScreenSelectors.Root)).toBeVisible();
+});
+
+test('shows the hardest-solve card, SE band histogram, and best-technique hero for a rated completed game', async ({ page }) => {
+    await launchHome(page);
+    await completeWinningSharedChallenge(page, ratedWinningSharedChallengeEncodedConstant);
+
+    await page.getByTestId(ChallengeResultFooterSelectors.HomeButton).scrollIntoViewIfNeeded();
+    await page.getByTestId(ChallengeResultFooterSelectors.HomeButton).click();
+    await expect(page.getByTestId(HomeScreenSelectors.Root)).toBeVisible();
+
+    await page.getByText('Stats').click();
+    const historyScreen = page.getByTestId(HistoryScreenSelectors.Root);
+    await expect(historyScreen).toBeVisible();
+
+    // "Hardest solve" also labels the per-difficulty card's own hardest-solve metric further down
+    // this screen, so this checks the totals card's copy specifically: the first match in DOM order.
+    await expect(historyScreen.getByText('Hardest solve', { exact: true }).first()).toBeVisible();
+    await expect(historyScreen.getByTestId(RatingBadgeSelectors.Root).first()).toBeVisible();
+    await expect(historyScreen.getByTestId(HistoryRatingBandsSelectors.Root)).toBeVisible();
+
+    const techniquesSection = historyScreen.getByTestId(HistoryTechniquesSelectors.Root);
+    await expect(techniquesSection).toBeVisible();
+    await expect(techniquesSection.getByText('Best technique', { exact: true })).toBeVisible();
+
+    await page.getByTestId(newbieDifficultyCardTestId).click();
+    const historyGamesScreen = page.getByTestId(HistoryGamesScreenSelectors.Root);
+    await expect(historyGamesScreen).toBeVisible();
+    await expect(historyGamesScreen.getByTestId(RatingBadgeSelectors.Root)).toHaveCount(1);
 });
