@@ -17,6 +17,7 @@ jest.mock('@suuudokuuu/encoder', () => {
 });
 
 import { getCellKey } from '../../@generic/utils/get-cell-key.util';
+import { getDayNumber } from '../../@generic/utils/get-day-number.util';
 import { SudokuScoring } from '../../scoring/classes/sudoku-scoring';
 import { defaultScoringConfig } from '../../scoring/interfaces/scoring-config.interface';
 
@@ -685,5 +686,57 @@ describe('gameSlice', () => {
         const history = lostState.historyByDifficulty[DifficultyEnum.Medium];
 
         expect(history).toMatchObject({ averageTime: 30, gamesLost: 1, gamesWon: 2 });
+    });
+
+    it('records the day of a won game in playedDayNumbers', () => {
+        const finishedState = gameSlice.reducer(
+            { ...initialGameState, sudokuString: StartedSudokuString },
+            gameFinishAction({ difficulty: DifficultyEnum.Easy, isWon: true })
+        );
+
+        expect(finishedState.playedDayNumbers).toStrictEqual([getDayNumber(Date.now())]);
+    });
+
+    it('records the day of a lost game in playedDayNumbers even though it is not a win', () => {
+        const finishedState = gameSlice.reducer(
+            { ...initialGameState, sudokuString: StartedSudokuString },
+            gameFinishAction({ difficulty: DifficultyEnum.Easy, isWon: false })
+        );
+
+        expect(finishedState.playedDayNumbers).toStrictEqual([getDayNumber(Date.now())]);
+    });
+
+    it('does not duplicate the same day when multiple games finish on it', () => {
+        const firstFinishedState = gameSlice.reducer(
+            { ...initialGameState, sudokuString: StartedSudokuString },
+            gameFinishAction({ difficulty: DifficultyEnum.Easy, isWon: true })
+        );
+        const secondFinishedState = gameSlice.reducer(
+            { ...firstFinishedState, sudokuString: StartedSudokuString },
+            gameFinishAction({ difficulty: DifficultyEnum.Hard, isWon: false })
+        );
+
+        expect(secondFinishedState.playedDayNumbers).toStrictEqual([getDayNumber(Date.now())]);
+    });
+
+    it('preserves played day numbers across start and reset', () => {
+        const recordedDayNumber = getDayNumber(Date.now());
+        const stateWithHistory = { ...initialGameState, playedDayNumbers: [recordedDayNumber] };
+
+        const startedState = gameSlice.reducer(
+            stateWithHistory,
+            gameStartAction({
+                sudokuString: StartedSudokuString,
+                difficulty: DifficultyEnum.Easy,
+                maxMistakes: 3,
+                isChallengeRun: false,
+                rating: 0,
+                isRatingCeiling: false
+            })
+        );
+        const resetState = gameSlice.reducer(stateWithHistory, gameResetAction());
+
+        expect(startedState.playedDayNumbers).toStrictEqual([recordedDayNumber]);
+        expect(resetState.playedDayNumbers).toStrictEqual([recordedDayNumber]);
     });
 });

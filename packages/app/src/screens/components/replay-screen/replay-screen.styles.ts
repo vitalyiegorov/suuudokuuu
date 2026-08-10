@@ -2,6 +2,7 @@ import { appLayoutScreenIsWide } from '@suuudokuuu/ui';
 import { StyleSheet } from 'react-native-unistyles';
 
 const ReplayScreenWideWidthMultiplier = 1.4;
+const ReplayReviewScrollMaxHeight = 260;
 
 export const ReplayScreenStyles = StyleSheet.create((theme, rt) => ({
     container: {
@@ -42,5 +43,10 @@ export const ReplayScreenStyles = StyleSheet.create((theme, rt) => ({
         flexShrink: 0,
         gap: 18,
         justifyContent: 'center'
+    },
+    reviewScroll: {
+        flexGrow: 0,
+        flexShrink: 0,
+        maxHeight: ReplayReviewScrollMaxHeight
     }
 }));

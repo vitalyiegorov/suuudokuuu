@@ -6,6 +6,7 @@ import { Text, View } from 'react-native';
 import { isNotEmptyString } from '@rnw-community/shared';
 
 import { ChromeScrollPage } from '../../../@generic/components/chrome-scroll-page/chrome-scroll-page';
+import { RatingBadge } from '../../../@generic/components/rating-badge/rating-badge';
 import { UkraineSupportCard } from '../../../@generic/components/ukraine-support-card/ukraine-support-card';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
@@ -90,6 +91,8 @@ export const ChallengeResultScreen = (props: Props) => {
                         {badgeText}
                     </Text>
                 </View>
+
+                <RatingBadge isCeiling={rivalGameState.isRatingCeiling} rating={rivalGameState.rating} />
 
                 {lostByTime ? (
                     <ChallengeResultRivalTimeCard rivalTimeText={challengeTimeText} />

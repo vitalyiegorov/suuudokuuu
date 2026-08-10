@@ -5,9 +5,11 @@ import { defaultSudokuConfig } from '@suuudokuuu/generator';
 import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
 import { getCellKey } from '../../@generic/utils/get-cell-key.util';
+import { getDayNumber } from '../../@generic/utils/get-day-number.util';
 import { maxCompletedGamesPerDifficulty } from '../../history/constants/max-completed-games-per-difficulty.constant';
 import { SudokuScoring } from '../../scoring/classes/sudoku-scoring';
 import { defaultScoringConfig } from '../../scoring/interfaces/scoring-config.interface';
+import { addPlayedDayNumber } from '../utils/add-played-day-number.util';
 import { gameStateToString } from '../utils/game-state-to-string.util';
 import { getTimelineTimestampDelta } from '../utils/get-timeline-timestamp-delta.util';
 import { isLastTimelineEventAway } from '../utils/is-last-timeline-event-away.util';
@@ -33,7 +35,8 @@ export const gameSlice = createSlice({
             Object.assign(state, {
                 ...initialGameState,
                 historyByDifficulty: state.historyByDifficulty,
-                techniqueUsageCounts: state.techniqueUsageCounts
+                techniqueUsageCounts: state.techniqueUsageCounts,
+                playedDayNumbers: state.playedDayNumbers
             });
 
             state.sudokuString = action.payload.sudokuString;
@@ -176,7 +179,8 @@ export const gameSlice = createSlice({
             Object.assign(state, {
                 ...initialGameState,
                 historyByDifficulty: state.historyByDifficulty,
-                techniqueUsageCounts: state.techniqueUsageCounts
+                techniqueUsageCounts: state.techniqueUsageCounts,
+                playedDayNumbers: state.playedDayNumbers
             });
         },
         toggleShowAutoCandidates: state => {
@@ -243,6 +247,7 @@ export const gameSlice = createSlice({
                 isWon && !isChallenge && !isNotEmptyString(state.challengeState) && state.score > history.bestScore;
 
             state.hasNewPersonalBestScore = hasNewPersonalBestScore;
+            state.playedDayNumbers = addPlayedDayNumber(state.playedDayNumbers, getDayNumber(Date.now()));
 
             history.gamesCompleted += 1;
 

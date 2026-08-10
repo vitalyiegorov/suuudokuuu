@@ -9,6 +9,8 @@ import { AppIconButton } from '../../../@generic/components/app-icon-button/app-
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { ReplayHardestMoment } from '../replay-hardest-moment/replay-hardest-moment';
+import { ReplayMoveQualityStrip } from '../replay-move-quality-strip/replay-move-quality-strip';
 import { ReplayScrubber } from '../replay-scrubber/replay-scrubber';
 import { ReplayTechnique } from '../replay-technique/replay-technique';
 
@@ -16,6 +18,8 @@ import { ReplayControlsSelectors } from './replay-controls.selectors';
 import { ReplayControlsStyles as styles } from './replay-controls.styles';
 
 import type { ChallengeAwayRangeInterface } from '../../../challenge/interfaces/challenge-away-range.interface';
+import type { ChallengeTechniqueEventInterface } from '../../../challenge/interfaces/challenge-technique-event.interface';
+import type { ReplayHardestStepInterface } from '../../interfaces/replay-hardest-step.interface';
 import type { EmptyFn } from '@rnw-community/shared';
 import type { MoveClassificationInterface } from '@suuudokuuu/techniques';
 
@@ -24,14 +28,27 @@ interface Props {
     readonly currentStep: number;
     readonly totalSteps: number;
     readonly elapsedTime: number;
+    readonly hardestStep: ReplayHardestStepInterface | null;
     readonly moveClassification: MoveClassificationInterface | null;
     readonly onPrevStep: EmptyFn;
     readonly onNextStep: EmptyFn;
     readonly onScrubStep: (step: number) => void;
+    readonly techniqueEvents: readonly ChallengeTechniqueEventInterface[];
 }
 
 export const ReplayControls = (props: Props) => {
-    const { awayRanges, currentStep, totalSteps, elapsedTime, moveClassification, onPrevStep, onNextStep, onScrubStep } = props;
+    const {
+        awayRanges,
+        currentStep,
+        totalSteps,
+        elapsedTime,
+        hardestStep,
+        moveClassification,
+        onPrevStep,
+        onNextStep,
+        onScrubStep,
+        techniqueEvents
+    } = props;
 
     const { theme } = use(ThemeContext);
     const elapsedTimeText = useTimerText(elapsedTime);
@@ -46,6 +63,8 @@ export const ReplayControls = (props: Props) => {
 
     return (
         <View style={styles.container} testID={ReplayControlsSelectors.Root}>
+            <ReplayHardestMoment hardestStep={hardestStep} onSeekToStep={onScrubStep} />
+
             <View style={cardStyles}>
                 <View style={styles.metaRow}>
                     <BlackText style={styles.metaText}>
@@ -57,6 +76,8 @@ export const ReplayControls = (props: Props) => {
                 </View>
 
                 <ReplayTechnique classification={moveClassification} />
+
+                <ReplayMoveQualityStrip techniqueEvents={techniqueEvents} />
 
                 <ReplayScrubber awayRanges={awayRanges} currentStep={currentStep} onScrubStep={onScrubStep} totalSteps={totalSteps} />
             </View>

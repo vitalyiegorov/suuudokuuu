@@ -78,6 +78,10 @@ msgstr "{value, plural, one {# সেকেন্ড} other {# সেকেন�
 msgid "<0>Development client required</0><1>Development clients need Metro, the launch URL configured in <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2>, or a compatible update on the <3>development</3> channel. This install flow does not publish an update.</1>"
 msgstr "<0>ডেভেলপমেন্ট ক্লায়েন্ট প্রয়োজন</0><1>ডেভেলপমেন্ট ক্লায়েন্ট চালাতে Metro, <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2>-এ কনফিগার করা লঞ্চ URL, অথবা <3>development</3> চ্যানেলে একটি সামঞ্জস্যপূর্ণ আপডেট প্রয়োজন। এই ইনস্টল প্রক্রিয়া কোনো আপডেট প্রকাশ করে না।</1>"
 
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "A “+” means this puzzle is at least SE {seRatingCeilingText}. Beyond that point, puzzles can chain into very long solutions, so we cap the displayed number instead of chasing false precision."
+msgstr ""
+
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "A little room between cells"
 msgstr "ঘরগুলোর মধ্যে সামান্য ফাঁকা জায়গা"
@@ -97,6 +101,10 @@ msgstr "চ্যালেঞ্জ গ্রহণ করবেন?"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Adjust the digits on the Sudoku board"
 msgstr "সুডোকু বোর্ডের সংখ্যাগুলোর আকার বদলান"
+
+#: src/history/constants/se-rating-band.constant.ts
+msgid "Advanced"
+msgstr ""
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "AIC"
@@ -132,13 +140,25 @@ msgstr "প্রয়োগ করুন"
 msgid "Attempts to load the latest development build again"
 msgstr "সর্বশেষ ডেভেলপমেন্ট বিল্ড আবার লোড করার চেষ্টা করে"
 
+#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
+msgid "Auto-candidates"
+msgstr ""
+
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "Average"
 msgstr "গড়"
 
+#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
+msgid "Avg / move"
+msgstr ""
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Avoid mistakes - they cost you points!"
 msgstr "ভুল এড়িয়ে চলুন: এগুলো আপনার পয়েন্ট কমায়।"
+
+#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
+msgid "Away time"
+msgstr ""
 
 #: src/@generic/components/header-back-button/header-back-button.tsx
 #: src/history/components/replay-actions/replay-actions.tsx
@@ -156,6 +176,10 @@ msgstr "বেশির ভাগ খেলোয়াড়ের জন্য ভ�
 #: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Balanced solve"
 msgstr "সুষম সমাধান"
+
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "Bands"
+msgstr ""
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Base Score"
@@ -187,6 +211,10 @@ msgstr "সেরা সময়"
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "Better luck next time!"
 msgstr "পরের বার ভাগ্য ভালো হোক!"
+
+#: src/history/constants/se-rating-band.constant.ts
+msgid "Beyond the ceiling"
+msgstr ""
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Board cells"
@@ -502,6 +530,10 @@ msgstr "Español"
 msgid "Evenly matched"
 msgstr "সমানে সমান"
 
+#: src/history/constants/se-rating-band.constant.ts
+msgid "Expert"
+msgstr ""
+
 #: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Expert grid"
 msgstr "বিশেষজ্ঞ গ্রিড"
@@ -533,6 +565,10 @@ msgstr "Finned Swordfish"
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Finned X-Wing"
 msgstr "Finned X-Wing"
+
+#: src/history/constants/se-rating-band.constant.ts
+msgid "Foundational"
+msgstr ""
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Français"
@@ -595,6 +631,10 @@ msgstr "কঠিন"
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Hardcore"
 msgstr "হার্ডকোর"
+
+#: src/history/components/replay-hardest-moment/replay-hardest-moment.tsx
+msgid "Hardest moment"
+msgstr ""
 
 #: src/history/components/history-difficulty/history-difficulty.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
@@ -685,6 +725,10 @@ msgstr "iOS-এ ইনস্টল করুন"
 msgid "Install the iOS development build"
 msgstr "iOS ডেভেলপমেন্ট বিল্ড ইনস্টল করুন"
 
+#: src/history/constants/se-rating-band.constant.ts
+msgid "Intermediate"
+msgstr ""
+
 #: src/game/hooks/use-game-creation-runner.hook.ts
 msgid "Invalid Sudoku"
 msgstr "অবৈধ সুডোকু"
@@ -763,6 +807,10 @@ msgstr "ডেভেলপমেন্ট বিল্ড লোড হচ্ছ
 msgid "Loading the latest development build…"
 msgstr "সর্বশেষ ডেভেলপমেন্ট বিল্ড লোড হচ্ছে…"
 
+#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
+msgid "Longest pause"
+msgstr ""
+
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "Lost"
 msgstr "হার"
@@ -803,6 +851,7 @@ msgstr "ন্যূনতম স্কোর"
 #: src/@generic/components/completed-game-result-details/completed-game-result-details.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
+#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
 #: src/screens/components/home-screen/home.screen.tsx
@@ -870,6 +919,10 @@ msgstr "দুঃস্বপ্ন"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Nishio Forcing Chain"
+msgstr ""
+
+#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
+msgid "No"
 msgstr ""
 
 #: src/scoring/components/scoring.screen.tsx
@@ -995,6 +1048,7 @@ msgid "Penalty formula"
 msgstr "জরিমানার সূত্র"
 
 #: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
+#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
 msgid "Pencil marks"
 msgstr "পেন্সিল চিহ্ন"
 
@@ -1080,8 +1134,7 @@ msgstr "উঁচু পৃষ্ঠ"
 msgid "Raised surface text"
 msgstr "উঁচু পৃষ্ঠের লেখা"
 
-#: src/history/components/replay-header/replay-header.tsx
-#: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
+#: src/@generic/components/rating-metric-item/rating-metric-item.tsx
 msgid "Rating"
 msgstr ""
 
@@ -1389,6 +1442,10 @@ msgstr "SuuudokuuU চ্যালেঞ্জ"
 msgid "SuuudokuuU game handoff"
 msgstr "SuuudokuuU খেলা হস্তান্তর"
 
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "Suuudokuuu rates every puzzle on the Sudoku Explainer (SE) scale, the same scale serious solvers use to compare how hard a puzzle actually is to reason through, not just how many clues it has."
+msgstr ""
+
 #: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "SuuudokuuU Sudoku Puzzle"
 msgstr "SuuudokuuU সুডোকু"
@@ -1436,6 +1493,10 @@ msgstr "এই ডিভাইসে কমিটের লিংকটি খ�
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "The install link could not be opened. Check your browser settings and try again."
 msgstr "ইনস্টল লিংকটি খোলা যায়নি। ব্রাউজারের সেটিংস পরীক্ষা করে আবার চেষ্টা করুন।"
+
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "The SE difficulty scale"
+msgstr ""
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Their time to beat"
@@ -1505,6 +1566,10 @@ msgstr "উচ্চ স্কোরের টিপস"
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "Too many mistakes"
 msgstr "খুব বেশি ভুল"
+
+#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
+msgid "Total time"
+msgstr ""
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Try again"
@@ -1664,6 +1729,10 @@ msgstr "XY-Wing"
 msgid "XYZ-Wing"
 msgstr "XYZ-Wing"
 
+#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
+msgid "Yes"
+msgstr ""
+
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "You"
 msgstr "আপনি"
@@ -1680,6 +1749,10 @@ msgstr "আপনি আপনার সুদোকু শেষ করেছ�
 msgid "You got to"
 msgstr "আপনি পৌঁছেছেন"
 
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "You have not finished a rated puzzle yet."
+msgstr ""
+
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 msgid "you lead"
 msgstr "আপনি এগিয়ে আছেন"
@@ -1695,6 +1768,10 @@ msgstr "আপনার ব্রাউজার অজানা উৎসের
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Your custom colors"
 msgstr "আপনার কাস্টম রং"
+
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "Your hardest solve"
+msgstr ""
 
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Your progress"

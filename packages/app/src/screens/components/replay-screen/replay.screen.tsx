@@ -2,7 +2,7 @@ import { DifficultyEnum } from '@suuudokuuu/generator';
 import { useAppLayout } from '@suuudokuuu/ui';
 import { Redirect } from 'expo-router';
 import { useState } from 'react';
-import { View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 
 import { isDefined } from '@rnw-community/shared';
 
@@ -16,7 +16,12 @@ import { ReplayActions } from '../../../history/components/replay-actions/replay
 import { ReplayControls } from '../../../history/components/replay-controls/replay-controls';
 import { ReplayField } from '../../../history/components/replay-field/replay-field';
 import { ReplayHeader } from '../../../history/components/replay-header/replay-header';
+import { ReplayRunReview } from '../../../history/components/replay-run-review/replay-run-review';
 import { ReplayShareAction } from '../../../history/components/replay-share-action/replay-share-action';
+import { getReplayHardestStep } from '../../../history/utils/get-replay-hardest-step.util';
+import { getReplayPaceStats } from '../../../history/utils/get-replay-pace-stats.util';
+import { getReplayRunTechniqueEvents } from '../../../history/utils/get-replay-run-technique-events.util';
+import { getReplayTechniqueUsageCounts } from '../../../history/utils/get-replay-technique-usage-counts.util';
 import { getReplayTimeline } from '../../../history/utils/get-replay-timeline.util';
 import { getSudokuAtStep } from '../../../history/utils/get-sudoku-at-step.util';
 
@@ -34,9 +39,19 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
     const completedGame = useAppSelector(gameCompletedGameByIdSelector(difficulty, completedAt));
     const [currentStep, setCurrentStep] = useState(0);
     const [gameState] = useState(() => stringToGameState(completedGame?.encodedState));
+    const [runReview] = useState(() => {
+        const techniqueEvents = getReplayRunTechniqueEvents(gameState);
+
+        return {
+            techniqueEvents,
+            techniqueUsageCounts: getReplayTechniqueUsageCounts(techniqueEvents),
+            hardestStep: getReplayHardestStep(techniqueEvents),
+            paceStats: isDefined(completedGame) ? getReplayPaceStats(gameState, completedGame) : null
+        };
+    });
     const { cellSize: boardCellSize, onBoardAreaLayout } = useBoardGeometry(0);
 
-    if (!isDefined(gameState) || !isDefined(completedGame)) {
+    if (!isDefined(gameState) || !isDefined(completedGame) || !isDefined(runReview.paceStats)) {
         return <Redirect href="/history" />;
     }
 
@@ -65,10 +80,12 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
             awayRanges={awayRanges}
             currentStep={currentStep}
             elapsedTime={elapsedTime}
+            hardestStep={runReview.hardestStep}
             moveClassification={moveClassification}
             onNextStep={handleNextStep}
             onPrevStep={handlePrevStep}
             onScrubStep={handleScrubStep}
+            techniqueEvents={runReview.techniqueEvents}
             totalSteps={totalSteps}
         />
     );
@@ -93,6 +110,10 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
                     {replayControls}
 
                     <ReplayShareAction gameState={gameState} />
+
+                    <ScrollView showsVerticalScrollIndicator={false} style={styles.reviewScroll}>
+                        <ReplayRunReview paceStats={runReview.paceStats} techniqueUsageCounts={runReview.techniqueUsageCounts} />
+                    </ScrollView>
 
                     {isWideLayout ? <ReplayActions /> : null}
                 </View>

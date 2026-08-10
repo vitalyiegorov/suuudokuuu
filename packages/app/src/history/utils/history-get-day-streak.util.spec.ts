@@ -1,62 +1,68 @@
 import { describe, expect, it } from '@jest/globals';
-import { DifficultyEnum } from '@suuudokuuu/generator';
+
+import { getDayNumber } from '../../@generic/utils/get-day-number.util';
 
 import { historyGetDayStreak } from './history-get-day-streak.util';
-
-import type { CompletedGameInterface } from '../interfaces/completed-game.interface';
 
 const TestYear = 2026;
 const TestMonth = 5;
 const TodayDate = 29;
-const YesterdayDate = 28;
-const PreviousDayDate = 27;
 const StaleDate = 26;
 const NoonHour = 12;
-const MorningHour = 8;
-const EveningHour = 18;
-
-const createCompletedGame = (completedAt: number): CompletedGameInterface => ({
-    completedAt,
-    difficulty: DifficultyEnum.Easy,
-    rating: 0,
-    isRatingCeiling: false,
-    elapsedTime: 65,
-    encodedState: '',
-    maxMistakes: 3,
-    mistakes: 0,
-    score: 2782
-});
 
 describe('historyGetDayStreak', () => {
-    it('counts consecutive completed days ending today', () => {
-        const now = new Date(TestYear, TestMonth, TodayDate, NoonHour).getTime();
-        const todayGame = createCompletedGame(new Date(TestYear, TestMonth, TodayDate, MorningHour).getTime());
-        const yesterdayGame = createCompletedGame(new Date(TestYear, TestMonth, YesterdayDate, EveningHour).getTime());
-        const previousDayGame = createCompletedGame(new Date(TestYear, TestMonth, PreviousDayDate, EveningHour).getTime());
+    it('counts consecutive played days ending today', () => {
+        expect.assertions(1);
 
-        expect(historyGetDayStreak([todayGame, yesterdayGame, previousDayGame], now)).toBe(3);
+        const now = new Date(TestYear, TestMonth, TodayDate, NoonHour).getTime();
+        const todayDayNumber = getDayNumber(now);
+        const playedDayNumbers = [todayDayNumber, todayDayNumber - 1, todayDayNumber - 2];
+
+        expect(historyGetDayStreak(playedDayNumbers, now)).toBe(3);
     });
 
-    it('keeps the streak alive when the latest game was yesterday', () => {
-        const now = new Date(TestYear, TestMonth, TodayDate, NoonHour).getTime();
-        const yesterdayGame = createCompletedGame(new Date(TestYear, TestMonth, YesterdayDate, EveningHour).getTime());
-        const previousDayGame = createCompletedGame(new Date(TestYear, TestMonth, PreviousDayDate, EveningHour).getTime());
+    it('keeps the streak alive when the latest played day was yesterday', () => {
+        expect.assertions(1);
 
-        expect(historyGetDayStreak([yesterdayGame, previousDayGame], now)).toBe(2);
+        const now = new Date(TestYear, TestMonth, TodayDate, NoonHour).getTime();
+        const todayDayNumber = getDayNumber(now);
+        const playedDayNumbers = [todayDayNumber - 1, todayDayNumber - 2];
+
+        expect(historyGetDayStreak(playedDayNumbers, now)).toBe(2);
     });
 
     it('stops counting at the first missed day', () => {
-        const now = new Date(TestYear, TestMonth, TodayDate, NoonHour).getTime();
-        const todayGame = createCompletedGame(new Date(TestYear, TestMonth, TodayDate, MorningHour).getTime());
-        const previousDayGame = createCompletedGame(new Date(TestYear, TestMonth, PreviousDayDate, EveningHour).getTime());
+        expect.assertions(1);
 
-        expect(historyGetDayStreak([todayGame, previousDayGame], now)).toBe(1);
+        const now = new Date(TestYear, TestMonth, TodayDate, NoonHour).getTime();
+        const todayDayNumber = getDayNumber(now);
+        const playedDayNumbers = [todayDayNumber, todayDayNumber - 2];
+
+        expect(historyGetDayStreak(playedDayNumbers, now)).toBe(1);
     });
 
-    it('resets when the latest completed game is older than yesterday', () => {
-        const now = new Date(TestYear, TestMonth, TodayDate, NoonHour).getTime();
-        const staleGame = createCompletedGame(new Date(TestYear, TestMonth, StaleDate, EveningHour).getTime());
+    it('resets when the latest played day is older than yesterday', () => {
+        expect.assertions(1);
 
-        expect(historyGetDayStreak([staleGame], now)).toBe(0);
+        const now = new Date(TestYear, TestMonth, TodayDate, NoonHour).getTime();
+        const staleDayNumber = getDayNumber(new Date(TestYear, TestMonth, StaleDate, NoonHour).getTime());
+
+        expect(historyGetDayStreak([staleDayNumber], now)).toBe(0);
+    });
+
+    it('deduplicates repeated day numbers from multiple games played on the same day', () => {
+        expect.assertions(1);
+
+        const now = new Date(TestYear, TestMonth, TodayDate, NoonHour).getTime();
+        const todayDayNumber = getDayNumber(now);
+        const playedDayNumbers = [todayDayNumber, todayDayNumber, todayDayNumber - 1];
+
+        expect(historyGetDayStreak(playedDayNumbers, now)).toBe(2);
+    });
+
+    it('returns zero for an empty history', () => {
+        expect.assertions(1);
+
+        expect(historyGetDayStreak([])).toBe(0);
     });
 });
