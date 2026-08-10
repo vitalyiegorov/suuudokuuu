@@ -90,6 +90,15 @@ Ignoring `target` entirely also stays correct for both intents.
 
 Enum values double as difficulty ranking (lower = simpler); `Guess = 0` is the fallback, never emitted by logical strategies. `SimpleColoring` and `AIC` are represented by their own feature folders and are part of the technique registry; keep their enum names and labels aligned with those modules.
 
+New members are appended, never inserted: the app persists these ordinals on replay timeline events, so renumbering would relabel finished games. `UniqueRectangle` and `BivalueUniversalGrave` therefore sit after `AIC` even though their solving cost is lower, which also keeps the registry reaching for them only after every non-uniqueness technique has failed.
+
+### Uniqueness techniques
+
+`UniqueRectangle` and `BivalueUniversalGrave` are valid only because every puzzle the app serves has exactly one solution: generation verifies uniqueness on every clue removal, and both bundled corpora are uniqueness-verified. Both detectors reason "this candidate would create a second solution, so it cannot be true", which is unsound on a multi-solution grid.
+
+- `UniqueRectangle` covers type 1 only: four unfilled corners over two rows, two columns, and exactly two boxes, three of them holding the same candidate pair, so the pair leaves the fourth corner.
+- `BivalueUniversalGrave` covers BUG+1: every unfilled cell holds two candidates except one that holds three, so the candidate appearing three times in that cell's units is placed.
+
 ### CandidateContext
 
 Cached snapshot of candidates per blank cell (`fromSudoku`), with unit/peer navigation. Logical strategies work on this context, never on the Sudoku instance directly.
@@ -101,6 +110,7 @@ Snapshots are immutable: `withEliminations(eliminations)` and `withPlacement(cel
 - Technique detection must answer "which technique justifies value V in cell C", not "any technique anywhere"
 - New logical strategies must keep registry order aligned with `SolutionTechniqueEnum`
 - New algorithms belong in their own `*-technique/classes/` folder; parameter-only variants belong in descriptor-backed family strategies
+- Uniqueness-based strategies may only assume a single solution; state that assumption in this file when adding one
 - Tests use realistic boards via `Sudoku.fromStrings(defaultSudokuConfig, ...)` + `CandidateContext.fromSudoku`; synthetic candidate maps only for patterns impractical to reach from a real board
 - Every technique needs a positive assertion; add negative coverage where false positives are plausible
 
@@ -110,6 +120,7 @@ Snapshots are immutable: `withEliminations(eliminations)` and `withPlacement(cel
 - Coverage thresholds: statements 80%, branches 70%, lines 80%, functions 80%
 - `solve-logically.spec.ts` guards the driver: elimination-only progress, solved/stuck/contradiction outcomes, determinism from a fixed board string, and a wall-clock budget of 5000 ms for a full logical solve of a 17-clue hell-corpus board (about 80 ms locally, so the budget only fails on real regressions)
 - Driver fixtures are fixed 81-character board strings fed through `Sudoku.fromString`; never `Sudoku.create`, which uses unseeded randomness
+- `technique-catalog-known-solution.spec.ts` pairs every fixture board with its own solution and asserts that no registered strategy eliminates a solution value or places a wrong one, which is what keeps the uniqueness techniques honest
 
 ## Exports
 

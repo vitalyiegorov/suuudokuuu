@@ -20,6 +20,7 @@ export const seTechniqueRatings: Record<SolutionTechniqueEnum, number> = {
     [SolutionTechniqueEnum.XYWing]: 4.2,
     [SolutionTechniqueEnum.XYZWing]: 4.4,
     [SolutionTechniqueEnum.WWing]: 4.4,
+    [SolutionTechniqueEnum.UniqueRectangle]: 4.5,
     [SolutionTechniqueEnum.SimpleColoring]: 4.6,
     [SolutionTechniqueEnum.XChain]: 4.8,
     [SolutionTechniqueEnum.NakedQuad]: 5.0,
@@ -27,7 +28,8 @@ export const seTechniqueRatings: Record<SolutionTechniqueEnum, number> = {
     [SolutionTechniqueEnum.Jellyfish]: 5.2,
     [SolutionTechniqueEnum.HiddenQuad]: 5.4,
     [SolutionTechniqueEnum.AIC]: 5.4,
-    [SolutionTechniqueEnum.Guess]: 5.4
+    [SolutionTechniqueEnum.BivalueUniversalGrave]: 5.6,
+    [SolutionTechniqueEnum.Guess]: 5.6
 };
 
 export const SE_RATING_CEILING = seTechniqueRatings[SolutionTechniqueEnum.Guess];

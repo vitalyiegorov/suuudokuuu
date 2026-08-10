@@ -6,7 +6,8 @@ import { SE_RATING_CEILING, seTechniqueRatings } from './se-technique-rating.con
 
 const enumMemberCount = Object.keys(SolutionTechniqueEnum).length / 2;
 
-const expectedOrderedRatings = '1.0 1.5 2.3 2.6 2.6 2.8 3.0 3.2 3.4 3.4 3.5 3.6 3.8 4.0 4.0 4.1 4.2 4.4 4.4 4.6 4.8 5.0 5.1 5.2 5.4 5.4';
+const expectedOrderedRatings =
+    '1.0 1.5 2.3 2.6 2.6 2.8 3.0 3.2 3.4 3.4 3.5 3.6 3.8 4.0 4.0 4.1 4.2 4.4 4.4 4.5 4.6 4.8 5.0 5.1 5.2 5.4 5.4 5.6';
 
 const formatOrderedRatings = (): string => seTechniqueOrder.map(technique => seTechniqueRatings[technique].toFixed(1)).join(' ');
 
@@ -50,11 +51,19 @@ describe('seTechniqueRatings', () => {
     });
 
     it('should use the hardest known technique value as the reported ceiling', () => {
-        expect.assertions(2);
+        expect.assertions(3);
 
         const orderedRatings = seTechniqueOrder.map(technique => seTechniqueRatings[technique]);
 
         expect(SE_RATING_CEILING).toBe(Math.max(...orderedRatings));
-        expect(SE_RATING_CEILING).toBe(seTechniqueRatings[SolutionTechniqueEnum.HiddenQuad]);
+        expect(SE_RATING_CEILING).toBe(seTechniqueRatings[SolutionTechniqueEnum.BivalueUniversalGrave]);
+        expect(SE_RATING_CEILING.toFixed(1)).toBe('5.6');
+    });
+
+    it('should price the uniqueness techniques at their published values', () => {
+        expect.assertions(2);
+
+        expect(seTechniqueRatings[SolutionTechniqueEnum.UniqueRectangle].toFixed(1)).toBe('4.5');
+        expect(seTechniqueRatings[SolutionTechniqueEnum.BivalueUniversalGrave].toFixed(1)).toBe('5.6');
     });
 });

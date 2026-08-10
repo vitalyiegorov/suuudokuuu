@@ -13,6 +13,7 @@ const pointingBoard = '..5.1.96.41.....7..79.....3.....86.1.83....95...3....77..
 const nakedPairBoard = '.6.....3..8..9...2..4..6....2..6....4...5.91.......4.7..2.....5.4.........5..17.9';
 const xWingBoard = '..3...7......4.2...826.......9..1........5..84...2..9.5....4...16....8.9......6.7';
 const aicBoard = '.4...8....1...9..37..6...21...7.........4.65...3.....9.8..9.3.......54....5....7.';
+const uniquenessBoard = '.1...2.3..7....4...95.....7.64.9......9..82.......17.......5..1.3..7..2....4.....';
 const stuckHellCorpusBoard = '........1.......2...3..4........53...4......612...........7.......8..4.9..712....';
 const solvedBoard = '123456789456789123789123456214365897365897214897214365531642978642978531978531642';
 
@@ -69,11 +70,30 @@ describe('ratePuzzle', () => {
         });
     });
 
-    it('should report the ceiling value without the ceiling flag when the hardest technique is the top of the ladder', () => {
-        expect.assertions(1);
+    it('should report an exact rating when the hardest technique is the top of the chain ladder', () => {
+        expect.assertions(2);
 
         expect(ratePuzzle(aicBoard)).toEqual({
-            rating: SE_RATING_CEILING,
+            rating: seTechniqueRatings[SolutionTechniqueEnum.AIC],
+            hardestTechnique: SolutionTechniqueEnum.AIC,
+            isCeiling: false
+        });
+        expect(ratePuzzle(aicBoard).rating).toBeLessThan(SE_RATING_CEILING);
+    });
+
+    it('should rate a board the ladder could not finish before the uniqueness techniques', () => {
+        expect.assertions(4);
+
+        const uniquenessOrder = [SolutionTechniqueEnum.UniqueRectangle, SolutionTechniqueEnum.BivalueUniversalGrave];
+        const previousOrder = seTechniqueOrder.filter(technique => !uniquenessOrder.includes(technique));
+        const previousResult = new TechniqueManager(Sudoku.fromString(uniquenessBoard)).solveLogically(previousOrder);
+        const currentResult = new TechniqueManager(Sudoku.fromString(uniquenessBoard)).solveLogically(seTechniqueOrder);
+
+        expect(previousResult.outcome).toBe('stuck');
+        expect(currentResult.outcome).toBe('solved');
+        expect(currentResult.steps.some(step => step.technique === SolutionTechniqueEnum.UniqueRectangle)).toBe(true);
+        expect(ratePuzzle(uniquenessBoard)).toEqual({
+            rating: seTechniqueRatings[SolutionTechniqueEnum.AIC],
             hardestTechnique: SolutionTechniqueEnum.AIC,
             isCeiling: false
         });
