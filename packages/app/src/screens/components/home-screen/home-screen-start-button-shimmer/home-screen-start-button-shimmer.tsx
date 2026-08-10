@@ -1,5 +1,6 @@
 import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { useEffect } from 'react';
+import { StyleSheet } from 'react-native';
 import Animated, {
     Easing,
     cancelAnimation,
@@ -48,7 +49,7 @@ export const HomeScreenStartButtonShimmer = ({ children, style }: Props) => {
         backgroundColor: shimmerColor.value,
         opacity: interpolate(breathe.value, [0, 1], ShimmerOpacityOutput)
     }));
-    const wrapperStyle = [style, resolveUnistyleForAnimated(styles.wrapper)];
+    const wrapperStyle = [resolveUnistyleForAnimated(StyleSheet.flatten(style)), resolveUnistyleForAnimated(styles.wrapper)];
     const shimmerStyle = [resolveUnistyleForAnimated(styles.shimmer), shimmerAnimatedStyle];
 
     return (
