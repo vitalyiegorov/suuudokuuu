@@ -89,6 +89,13 @@ export const ScoringScreen = () => {
                         {defaultScoringConfig.correctValue * defaultScoringConfig.difficultyCoefficients[DifficultyEnum.Hell]}
                     </Text>
                 </ListItem>
+                <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
+                    • <Trans>Infinity</Trans>:{' '}
+                    <Text style={codeStyle}>×{defaultScoringConfig.difficultyCoefficients[DifficultyEnum.Infinity]}</Text> ={' '}
+                    <Text style={codeStyle}>
+                        {defaultScoringConfig.correctValue * defaultScoringConfig.difficultyCoefficients[DifficultyEnum.Infinity]}
+                    </Text>
+                </ListItem>
             </View>
 
             <View style={styles.section}>

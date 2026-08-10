@@ -14,7 +14,9 @@ class ExtendedSudoku extends Sudoku {
     }
 }
 
-const difficultiesReachableByRandomDigging = Object.values(DifficultyEnum).filter(difficulty => difficulty !== DifficultyEnum.Hell);
+const difficultiesReachableByRandomDigging = Object.values(DifficultyEnum).filter(
+    difficulty => difficulty !== DifficultyEnum.Hell && difficulty !== DifficultyEnum.Infinity
+);
 
 const unreachableTargetTimeoutMs = 60000;
 

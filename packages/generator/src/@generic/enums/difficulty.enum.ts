@@ -4,5 +4,6 @@ export enum DifficultyEnum {
     Medium = 'Medium',
     Hard = 'Hard',
     Nightmare = 'Nightmare',
-    Hell = 'Hell'
+    Hell = 'Hell',
+    Infinity = 'Infinity'
 }

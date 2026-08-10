@@ -651,6 +651,11 @@ msgstr "不朽"
 msgid "Incomplete"
 msgstr "未完成"
 
+#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/scoring/components/scoring.screen.tsx
+msgid "Infinity"
+msgstr ""
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Ink"
 msgstr "墨色"
@@ -1597,6 +1602,10 @@ msgstr "获胜差距"
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "Won"
 msgstr "胜利"
+
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
+msgid "World-record puzzles"
+msgstr ""
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "X-Chain"

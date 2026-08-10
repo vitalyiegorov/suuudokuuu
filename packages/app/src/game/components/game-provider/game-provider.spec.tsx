@@ -29,6 +29,7 @@ jest.mock('../../../settings/store/settings.selectors', () => ({ settingsLanguag
 
 const maxMistakes = 3;
 const hellGameOptions = { difficulty: DifficultyEnum.Hell, isChallengeRun: false, maxMistakes };
+const infinityGameOptions = { difficulty: DifficultyEnum.Infinity, isChallengeRun: false, maxMistakes };
 
 interface Props {
     readonly children: ReactNode;
@@ -85,6 +86,20 @@ describe('GameProvider', () => {
             result.current.create(hellGameOptions);
             result.current.create(hellGameOptions);
             result.current.create(hellGameOptions);
+        });
+
+        await waitFor(() => void expect(mockReplace).toHaveBeenCalledTimes(1));
+
+        expect(mockDispatch).toHaveBeenCalledTimes(1);
+    });
+
+    it('should admit exactly one Infinity creation under rapid repeated calls', async () => {
+        const { result } = await renderGameContext();
+
+        await act(() => {
+            result.current.create(infinityGameOptions);
+            result.current.create(infinityGameOptions);
+            result.current.create(infinityGameOptions);
         });
 
         await waitFor(() => void expect(mockReplace).toHaveBeenCalledTimes(1));

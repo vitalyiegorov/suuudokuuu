@@ -277,4 +277,24 @@ describe('appRootMigrations', () => {
         expect(migrated.game.rating).toBe(0);
         expect(migrated.game.isRatingCeiling).toBe(false);
     });
+
+    it('should keep the Infinity difficulty entry in the history after migration 35', () => {
+        expect.assertions(1);
+
+        const state = buildState();
+
+        expect(Object.keys(runMigration(35, state).game.historyByDifficulty)).toStrictEqual(
+            Object.keys(initialGameState.historyByDifficulty)
+        );
+    });
+
+    it('should backfill the missing Infinity history entry when Infinity predates the persisted state entirely', () => {
+        expect.assertions(1);
+
+        const legacyHistoryByDifficulty = withoutKeyAtRuntime(initialGameState.historyByDifficulty, DifficultyEnum.Infinity);
+        const legacyState = buildState({ game: { ...initialGameState, historyByDifficulty: legacyHistoryByDifficulty } });
+        const migrated = runMigration(35, legacyState);
+
+        expect(Object.keys(migrated.game.historyByDifficulty)).toStrictEqual(Object.keys(initialGameState.historyByDifficulty));
+    });
 });

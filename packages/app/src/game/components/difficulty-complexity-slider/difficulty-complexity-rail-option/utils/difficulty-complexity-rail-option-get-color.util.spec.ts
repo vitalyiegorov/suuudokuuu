@@ -12,6 +12,12 @@ describe('difficultyComplexityRailOptionGetColor', () => {
         expect(color).toBe(BWLightTheme.colors.danger);
     });
 
+    it('should render the selected Infinity stop in the accent color', () => {
+        const color = difficultyComplexityRailOptionGetColor(BWLightTheme, DifficultyEnum.Infinity, true);
+
+        expect(color).toBe(BWLightTheme.colors.accent);
+    });
+
     it('should render other selected stops in the primary text color', () => {
         const color = difficultyComplexityRailOptionGetColor(BWLightTheme, DifficultyEnum.Nightmare, true);
 

@@ -15,6 +15,8 @@ export const getDifficultyText = (difficulty: DifficultyEnum): string => {
             return t`Nightmare`;
         case DifficultyEnum.Hell:
             return t`Hell`;
+        case DifficultyEnum.Infinity:
+            return t`Infinity`;
         default:
             return t`Unknown`;
     }
