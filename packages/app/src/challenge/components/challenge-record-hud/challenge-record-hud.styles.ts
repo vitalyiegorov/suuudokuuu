@@ -1,8 +1,9 @@
+import { appLayoutScreenIsWide } from '@suuudokuuu/ui';
 import { StyleSheet } from 'react-native-unistyles';
 
-export const ChallengeRecordHudStyles = StyleSheet.create(theme => ({
+export const ChallengeRecordHudStyles = StyleSheet.create((theme, rt) => ({
     container: {
-        paddingHorizontal: theme.spacing.xs,
+        paddingHorizontal: appLayoutScreenIsWide(rt.screen) ? 0 : theme.spacing.xs,
         paddingTop: theme.spacing.xs,
         width: '100%'
     },
