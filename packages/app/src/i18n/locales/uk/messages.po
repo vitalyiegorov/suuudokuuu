@@ -232,6 +232,10 @@ msgstr "Текст варіанта"
 msgid "Candidates"
 msgstr "Варіанти"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Cell Forcing Chain"
+msgstr ""
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Cell spacing"
@@ -857,6 +861,10 @@ msgstr "Газета"
 msgid "Nightmare"
 msgstr "Кошмар"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Nishio Forcing Chain"
+msgstr ""
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "no bonus"
 msgstr "без бонусу"
@@ -1077,6 +1085,10 @@ msgstr "записується"
 #: src/challenge/components/challenge-record-hud/challenge-record-hud.tsx
 msgid "Recording"
 msgstr "Запис"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Region Forcing Chain"
+msgstr ""
 
 #: src/@generic/utils/get-mistakes-type-text.util.ts
 #: src/screens/components/home-screen/home.screen.tsx

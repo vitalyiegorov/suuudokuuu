@@ -34,5 +34,8 @@ export const techniqueGlyphConstant: Record<SolutionTechniqueEnum, TechniqueGlyp
     [SolutionTechniqueEnum.SimpleColoring]: { primary: [0, 2, 6, 8], accent: [4] },
     [SolutionTechniqueEnum.AIC]: { primary: [2, 4, 6], accent: [0, 8] },
     [SolutionTechniqueEnum.UniqueRectangle]: { primary: [0, 1, 3], accent: [4] },
-    [SolutionTechniqueEnum.BivalueUniversalGrave]: { primary: [0, 1, 2, 3, 5, 6, 7, 8], accent: [4] }
+    [SolutionTechniqueEnum.BivalueUniversalGrave]: { primary: [0, 1, 2, 3, 5, 6, 7, 8], accent: [4] },
+    [SolutionTechniqueEnum.NishioForcingChain]: { primary: [4], accent: [0, 2, 6, 8] },
+    [SolutionTechniqueEnum.CellForcingChain]: { primary: [4], accent: [1, 3, 5, 7] },
+    [SolutionTechniqueEnum.RegionForcingChain]: { primary: [0, 1, 2], accent: [4, 7] }
 };

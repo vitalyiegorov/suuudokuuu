@@ -27,5 +27,8 @@ export enum SolutionTechniqueEnum {
     SimpleColoring,
     AIC,
     UniqueRectangle,
-    BivalueUniversalGrave
+    BivalueUniversalGrave,
+    NishioForcingChain,
+    CellForcingChain,
+    RegionForcingChain
 }

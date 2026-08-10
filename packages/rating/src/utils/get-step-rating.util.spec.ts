@@ -1,7 +1,11 @@
 import { describe, expect, it } from '@jest/globals';
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
-import { SE_CHAIN_LENGTH_THRESHOLDS, SE_CHAIN_RATING_MAXIMUM } from '../constants/se-chain-rating.constant';
+import {
+    SE_CHAIN_LENGTH_THRESHOLDS,
+    SE_CHAIN_RATING_MAXIMUM,
+    SE_FORCING_CHAIN_RATING_MAXIMUM
+} from '../constants/se-chain-rating.constant';
 import { seTechniqueRatings } from '../constants/se-technique-rating.constant';
 
 import { getStepRating } from './get-step-rating.util';
@@ -16,6 +20,8 @@ const xChainRatingsAtThresholds = ['6.6', '6.7', '6.8', '6.9', '7.0', '7.1', '7.
 const xChainRatingsPastThresholds = ['6.7', '6.8', '6.9', '7.0', '7.1', '7.2', '7.3', '7.4', '7.5', '7.6'];
 const xyChainRatingsAtThresholds = ['7.0', '7.1', '7.2', '7.3', '7.4', '7.5', '7.6', '7.6', '7.6', '7.6'];
 const xyChainRatingsPastThresholds = ['7.1', '7.2', '7.3', '7.4', '7.5', '7.6', '7.6', '7.6', '7.6', '7.6'];
+const nishioRatingsAtThresholds = ['7.5', '7.6', '7.7', '7.8', '7.9', '8.0', '8.1', '8.2', '8.3', '8.4'];
+const multipleForcingRatingsAtThresholds = ['8.0', '8.1', '8.2', '8.3', '8.4', '8.5', '8.5', '8.5', '8.5', '8.5'];
 
 const createStep = (technique: SolutionTechniqueEnum, chainLength = 0): TechniqueResultInterface => ({
     technique,
@@ -60,6 +66,55 @@ describe('getStepRating', () => {
             expect(getStepRating(createStep(SolutionTechniqueEnum.XYChain, chainLength)).toFixed(1)).toBe(expectedRating);
         }
     );
+
+    it.each(createBandCases(nishioRatingsAtThresholds, 0))(
+        'should price a Nishio forcing chain of %i cells at %s',
+        (chainLength, expectedRating) => {
+            expect.assertions(1);
+
+            expect(getStepRating(createStep(SolutionTechniqueEnum.NishioForcingChain, chainLength)).toFixed(1)).toBe(expectedRating);
+        }
+    );
+
+    it.each(createBandCases(multipleForcingRatingsAtThresholds, 0))(
+        'should price a cell forcing chain of %i cells at %s',
+        (chainLength, expectedRating) => {
+            expect.assertions(1);
+
+            expect(getStepRating(createStep(SolutionTechniqueEnum.CellForcingChain, chainLength)).toFixed(1)).toBe(expectedRating);
+        }
+    );
+
+    it.each(createBandCases(multipleForcingRatingsAtThresholds, 0))(
+        'should price a region forcing chain of %i cells at %s',
+        (chainLength, expectedRating) => {
+            expect.assertions(1);
+
+            expect(getStepRating(createStep(SolutionTechniqueEnum.RegionForcingChain, chainLength)).toFixed(1)).toBe(expectedRating);
+        }
+    );
+
+    it('should never price a forcing chain above the forcing chain band maximum', () => {
+        expect.assertions(3);
+
+        expect(getStepRating(createStep(SolutionTechniqueEnum.NishioForcingChain, longestThreshold * 2))).toBe(
+            SE_FORCING_CHAIN_RATING_MAXIMUM
+        );
+        expect(getStepRating(createStep(SolutionTechniqueEnum.CellForcingChain, longestThreshold * 2))).toBe(
+            SE_FORCING_CHAIN_RATING_MAXIMUM
+        );
+        expect(getStepRating(createStep(SolutionTechniqueEnum.RegionForcingChain, longestThreshold * 2))).toBe(
+            SE_FORCING_CHAIN_RATING_MAXIMUM
+        );
+    });
+
+    it('should carry the cheapest forcing chain base to the forcing band maximum', () => {
+        expect.assertions(1);
+
+        expect(getStepRating(createStep(SolutionTechniqueEnum.NishioForcingChain, longestThreshold + 1))).toBe(
+            SE_FORCING_CHAIN_RATING_MAXIMUM
+        );
+    });
 
     it('should price the shortest possible chain at its technique base value', () => {
         expect.assertions(2);

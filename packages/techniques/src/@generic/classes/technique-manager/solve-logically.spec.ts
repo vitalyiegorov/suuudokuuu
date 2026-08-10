@@ -11,8 +11,9 @@ import type { CellInterface } from '@suuudokuuu/generator';
 
 const xWingBoard = '...6.......6......57.3.1.86125973648698.1.732437268.5.86..5..1..5182649..4.13.865';
 const hellCorpusBoard = '.................1.....2.3......3.2...1.4......5....6..3......4.7..8...962...7...';
-const stuckHellCorpusBoard = '........1.......2...3..4........53...4......612...........7.......8..4.9..712....';
+const stuckInfinityBoard = '1....7.9..3..2...8..96..5....53..9...1..8...26....4...3......1..4......7..7...3..';
 const solvedBoard = '123456789456789123789123456214365897365897214897214365531642978642978531978531642';
+const forcingChainBoard = '000000051000000023004005000000000600000130000007680000429006500370400000810000000';
 
 const hellCorpusBudgetMilliseconds = 5000;
 const hellCorpusTimeoutMilliseconds = 20000;
@@ -55,10 +56,26 @@ describe('TechniqueManager.solveLogically', () => {
     it('should stop with a stuck outcome when the technique ladder runs out', () => {
         expect.assertions(2);
 
-        const result = new TechniqueManager(createSudoku(stuckHellCorpusBoard)).solveLogically();
+        const result = new TechniqueManager(createSudoku(stuckInfinityBoard)).solveLogically();
 
         expect(result.outcome).toBe('stuck');
         expect(result.steps.length).toBeGreaterThan(0);
+    });
+
+    it('should solve a board that only a forcing chain can finish', () => {
+        expect.assertions(3);
+
+        const forcingOrder = [...singlesOrder, SolutionTechniqueEnum.NishioForcingChain];
+        const result = new TechniqueManager(createSudoku(forcingChainBoard)).solveLogically(forcingOrder);
+        const singlesResult = new TechniqueManager(createSudoku(forcingChainBoard)).solveLogically(singlesOrder);
+
+        expect(singlesResult.outcome).toBe('stuck');
+        expect(result.steps.some(step => step.technique === SolutionTechniqueEnum.NishioForcingChain)).toBe(true);
+        expect(
+            result.steps.every(
+                step => step.technique !== SolutionTechniqueEnum.NishioForcingChain || step.chainLength === step.reasonCells.length
+            )
+        ).toBe(true);
     });
 
     it('should report a solved board without any steps', () => {

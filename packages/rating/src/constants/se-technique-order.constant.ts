@@ -28,5 +28,8 @@ export const seTechniqueOrder: SolutionTechniqueEnum[] = [
     SolutionTechniqueEnum.BivalueUniversalGrave,
     SolutionTechniqueEnum.XChain,
     SolutionTechniqueEnum.XYChain,
-    SolutionTechniqueEnum.AIC
+    SolutionTechniqueEnum.AIC,
+    SolutionTechniqueEnum.NishioForcingChain,
+    SolutionTechniqueEnum.CellForcingChain,
+    SolutionTechniqueEnum.RegionForcingChain
 ];

@@ -230,6 +230,10 @@ msgstr "候选数字文字"
 msgid "Candidates"
 msgstr "候选数字"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Cell Forcing Chain"
+msgstr ""
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Cell spacing"
@@ -855,6 +859,10 @@ msgstr "报纸"
 msgid "Nightmare"
 msgstr "噩梦"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Nishio Forcing Chain"
+msgstr ""
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "no bonus"
 msgstr "无奖励"
@@ -1075,6 +1083,10 @@ msgstr "已记录"
 #: src/challenge/components/challenge-record-hud/challenge-record-hud.tsx
 msgid "Recording"
 msgstr "记录中"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Region Forcing Chain"
+msgstr ""
 
 #: src/@generic/utils/get-mistakes-type-text.util.ts
 #: src/screens/components/home-screen/home.screen.tsx
