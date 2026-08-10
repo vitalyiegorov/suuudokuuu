@@ -1,10 +1,6 @@
-Tampilan baru udah hadir.
-
-• Theme engine lengkap: Classic, Gold & Newspaper, plus custom live preview
-• Kontras otomatis jaga tema tajam di terang & gelap
-• Layar settings/tema disegarkan, tombol lebih rapi
-• Hell difficulty sekarang pakai korpus penuh 49.158 puzzle 17-clue
-• Replay didesain ulang, plus terjemahan makin oke
-• Challenge share sekarang bawa waktu pastimu
-• Statistik dibenerin: best time itu menang tercepat, rata-rata cuma yang menang
-• Perbaikan crash dan stabilitas
+🔥 Tingkat Hell: level tersulit, grid 17 petunjuk yang diverifikasi manual.
+🎨 Tema: Classic, Gold, Newspaper, atau bikin sendiri dengan pratinjau langsung.
+▶️ Replay: bagikan momen apa pun, geser jari menyusuri langkah solusi.
+🏆 Tantangan: cek ringkasan permainanmu sebelum dibagikan.
+🎉 Konfeti tiap kamu menang.
+⚡ Tata letak tablet & web lebih rapi, game baru lebih cepat.

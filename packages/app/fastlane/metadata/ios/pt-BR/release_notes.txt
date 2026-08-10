@@ -1,13 +1,8 @@
-Cara nova chegou.
+Chegou a dificuldade Inferno — o nível mais duro que o suuudokuuu já teve. Cada grade tem 17 pistas, verificada à mão e filtrada para que nada resolvido por truques simples passe. Aqui é técnica de verdade.
 
-• Editor de temas completo: presets Clássico, Ouro e Jornal, além de um editor personalizado com pré-visualização ao vivo
-• Validação automática de contraste mantém temas personalizados nítidos no claro e no escuro
-• Telas de configurações e temas renovadas, com botões mais polidos
-• Dificuldade Inferno agora usa nosso banco completo de 49.158 grades de 17 pistas
-• Compartilhamento do modo Rival mais rápido e confiável
-• Replay redesenhado, com reprodução jogada por jogada mais suave
-• Desafios compartilhados agora mostram seu tempo exato a superar
-• Estatísticas corrigidas: seu melhor tempo é sua vitória mais rápida, e as médias contam só as vitórias
-• Layout do tabuleiro mais estável durante chamadas e início rápido de partidas
-• Melhorias de tradução nos 13 idiomas
-• Correções de travamentos e estabilidade
+• Motor de temas completo: Clássico, Ouro e Jornal, mais um editor próprio com prévia do tabuleiro em tempo real. A checagem de contraste mantém suas cores legíveis no claro e no escuro.
+• Replays melhores: compartilhe qualquer momento de uma partida e percorra os passos da solução arrastando o dedo.
+• Modo desafio: veja o resumo da sua partida antes de compartilhar, e "jogar de novo" guarda toda a sua configuração.
+• Confete em cada vitória.
+• Layout mais caprichado em tablets e na web.
+• Uma falha rara corrigida e partidas novas mais rápidas.

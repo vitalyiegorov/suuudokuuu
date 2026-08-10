@@ -1,13 +1,8 @@
-Der neue Look ist da.
+Neu: Schwierigkeit "Hölle" — die härteste Stufe, die suuudokuuu je hatte. Jedes Rätsel ist ein handgeprüftes 17-Hinweis-Gitter, gefiltert so, dass nichts durchrutscht, was mit einfachen Singles fällt. Hier brauchst du echte Technik.
 
-• Kompletter Theme-Editor: die Presets Klassisch, Gold und Zeitung, plus ein Live-Vorschau-Editor, in dem du jede Brettfarbe selbst bestimmst
-• Automatische Kontrastprüfung hält eigene Themes in Hell und Dunkel gestochen scharf
-• Überarbeitete Einstellungs- und Theme-Bildschirme mit poliertem Design
-• Hölle-Schwierigkeit schöpft jetzt aus unserem vollen Korpus von 49.158 17-Hinweis-Rätseln
-• Teilen im Rivalen-Modus ist schneller und zuverlässiger
-• Überarbeitete Wiederholung mit flüssigerer Zug-für-Zug-Wiedergabe
-• Geteilte Herausforderungen zeigen jetzt deine exakte Zielzeit
-• Statistiken korrigiert: Bestzeit ist dein schnellster Sieg, Durchschnittswerte zählen nur Siege
-• Stabileres Spielfeld-Layout bei Anrufen und schnellen Neustarts
-• Übersetzungen in allen 13 Sprachen verbessert
-• Absturz- und Stabilitätskorrekturen
+• Komplette Theme-Engine: Classic, Gold und Newspaper, dazu ein eigener Editor mit Live-Vorschau. Die Kontrastprüfung hält deine Farben hell wie dunkel lesbar.
+• Bessere Wiederholungen: teile jeden Moment einer Partie und zieh dich mit dem Finger durch die Lösungsschritte.
+• Challenge-Modus: prüf die Zusammenfassung deiner Runde vor dem Teilen, "Nochmal spielen" merkt sich dein Setup.
+• Konfetti bei jedem Sieg.
+• Schärferes Layout auf Tablets und im Web.
+• Seltener Absturz behoben, neue Spiele starten schneller.

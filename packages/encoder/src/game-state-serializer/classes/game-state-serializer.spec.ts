@@ -293,7 +293,8 @@ describe('GameStateSerializer', () => {
                     candidates: {},
                     anchorSeconds: 0,
                     pencilCount: 0,
-                    screenshotCount: 0
+                    screenshotCount: 0,
+                    difficulty: null
                 })
             );
 
@@ -316,7 +317,8 @@ describe('GameStateSerializer', () => {
                     candidates,
                     anchorSeconds: 1800000000,
                     pencilCount: 0,
-                    screenshotCount: 0
+                    screenshotCount: 0,
+                    difficulty: null
                 })
             );
 
@@ -347,7 +349,8 @@ describe('GameStateSerializer', () => {
                 candidates: {},
                 anchorSeconds: 0,
                 pencilCount: 0,
-                screenshotCount: 0
+                screenshotCount: 0,
+                difficulty: null
             });
 
             expect(encoded).toMatch(/^_[\w-]*$/u);

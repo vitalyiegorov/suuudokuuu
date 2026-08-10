@@ -1,13 +1,8 @@
-Tampilan baru udah hadir.
+Tingkat Hell resmi hadir — level tersulit yang pernah ada di suuudokuuu. Setiap teka-tekinya grid 17 petunjuk yang diverifikasi manual dan disaring supaya tidak ada yang bisa ditembus trik sederhana. Siapkan teknik seriusmu.
 
-• Theme engine lengkap: preset Classic, Gold, dan Newspaper, plus editor custom dengan live preview buat semua warna papan
-• Validasi kontras otomatis jaga tema custom tetap tajam di mode terang dan gelap
-• Layar settings/tema disegarkan dengan tombol yang lebih rapi
-• Hell difficulty sekarang pakai korpus penuh 49.158 puzzle 17-clue
-• Berbagi rival mode makin cepat dan stabil
-• Replay didesain ulang, playback gerakan demi gerakan makin mulus
-• Challenge yang dibagikan sekarang bawa waktu pastimu buat dikalahkan
-• Statistik dibenerin: best time itu kemenangan tercepatmu, rata-rata cuma hitung yang menang
-• Layout papan makin stabil pas ada telepon masuk atau mulai cepat
-• Peningkatan terjemahan di semua 13 bahasa
-• Perbaikan crash dan stabilitas
+• Mesin tema lengkap: Classic, Gold, dan Newspaper, plus editor tema sendiri dengan pratinjau papan langsung. Pemeriksaan kontras menjaga warnamu tetap enak dibaca di mode terang dan gelap.
+• Replay makin asyik: bagikan momen mana pun dari permainanmu dan geser jarimu menyusuri langkah-langkah solusi.
+• Mode tantangan: lihat ringkasan permainanmu sebelum dibagikan, dan "main lagi" kini menyimpan seluruh pengaturanmu.
+• Konfeti meriah setiap kali kamu menang.
+• Tata letak lebih rapi di tablet dan web.
+• Perbaikan crash langka dan pembuatan game baru lebih cepat.

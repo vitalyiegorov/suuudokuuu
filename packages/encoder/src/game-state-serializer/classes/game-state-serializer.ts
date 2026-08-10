@@ -99,7 +99,8 @@ export class GameStateSerializer {
             candidates: {},
             anchorSeconds: 0,
             pencilCount: null,
-            screenshotCount: null
+            screenshotCount: null,
+            difficulty: null
         };
     }
 

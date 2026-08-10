@@ -1,10 +1,6 @@
-Cara nova chegou.
-
-• Editor de temas: Clássico, Ouro e Jornal, mais editor com prévia ao vivo
-• Contraste automático mantém temas nítidos no claro e escuro
-• Telas de configurações e temas renovadas
-• Inferno agora usa banco de 49.158 grades de 17 pistas
-• Replay redesenhado, com melhorias de tradução
-• Desafios compartilhados mostram seu tempo exato a bater
-• Estatísticas corrigidas: recorde é vitória mais rápida, médias só de vitórias
-• Correções de travamentos e estabilidade
+🔥 Dificuldade Inferno: o nível mais duro, grades de 17 pistas verificadas à mão.
+🎨 Temas: Clássico, Ouro, Jornal ou crie o seu com prévia em tempo real.
+▶️ Replays: compartilhe qualquer momento e arraste pelos passos.
+🏆 Desafio: veja o resumo da sua partida antes de compartilhar.
+🎉 Confete em toda vitória.
+⚡ Layout melhor em tablets e web, partidas novas mais rápidas.
