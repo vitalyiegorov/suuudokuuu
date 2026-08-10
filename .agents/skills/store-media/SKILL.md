@@ -223,13 +223,27 @@ screenshots:capture --platform=android --locales=en --appearances=light,dark
 
 ## Current state / open items
 
-- en-US framed sets committed in both variants (7 iPhone at 1320x2868, the
-  6.9" slot, + 5 iPad at 2752x2064, the 13" slot) under
-  screenshots/variants/{dark,light}/ios/en-US; dark is the deployed variant
-  (deployed-variant.json). `store_preflight` confirms both slots. Other 12 locales: raw captures possible
-  via the same pipeline; captions exist for 11 iOS locales in
-  design/<locale>/title.strings (subtitles en-US only so far, and non-en
-  title.strings still carry the pre-v3 single-tier keys).
+- Framed sets committed in both variants (7 iPhone at 1320x2868, the 6.9"
+  slot, + 5 iPad at 2752x2064, the 13" slot) for en-US, uk, de-DE, es-ES,
+  fr-FR, pt-BR, sv, and id under screenshots/variants/{dark,light}/ios/;
+  dark is the deployed variant (deployed-variant.json). Two-tier captions
+  exist for all 11 iOS locales in design/<locale>/{title,subtitle}.strings.
+- Remaining iOS locales ar-SA, hi, and zh-Hans are BLOCKED on caption
+  rendering: Inter Black has zero Arabic, Devanagari, and CJK glyphs, so
+  composing them needs per-script caption fonts (Noto weights) plus an
+  ImageMagick RTL-shaping check for Arabic before capture is worth running.
+- The language sheet (@expo/ui bottom sheet) ignores synthetic Maestro
+  scroll gestures, so languages below its fold (ar, bn, id, pt, ur) cannot
+  be selected through the UI in a flow. The capture runner's
+  OS_LANGUAGE_MODE=true env skips apply-language's sheet interaction; set
+  the simulator's OS language (`simctl spawn <udid> defaults write
+.GlobalPreferences AppleLanguages -array <lang>`), uninstall + reinstall
+  the app (a fresh install boots in the OS locale), and re-prime deep links
+  before capturing such a locale.
+- Per-locale Play sets are composed from the en Android raws (the compose
+  script logs a "composing from en" note per fallback) until per-locale AVD
+  captures exist; the Play listing text is localized, the screens inside
+  the frames are English for non-en locales.
 - Play phone screenshots captured and uploaded (7 at 1080x1920). Still
   missing: the 1024x500 featureGraphic, which is design artwork rather than a
   capture, and the seven/ten-inch tablet sets.
