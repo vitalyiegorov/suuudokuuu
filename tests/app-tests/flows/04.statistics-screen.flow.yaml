@@ -64,13 +64,23 @@ appId: ${APP_ID}
 # best-technique hero) always render once a run has at least one recorded
 # step, regardless of whether the game itself carries a rating.
 - assertVisible:
+      id: 'ReplayMoveQualityStripSelectors.Root'
+- assertVisible:
       id: 'ReplayRunReviewSelectors.Root'
 - assertVisible:
       id: 'ReplayPaceMetricsSelectors.Root'
-- assertVisible:
-      id: 'HistoryTechniquesSelectors.Root'
-- assertVisible:
-      id: 'ReplayMoveQualityStripSelectors.Root'
+# The Game Review sits in its own height-capped scroll under the board, so on the
+# shorter Android viewport the techniques section starts outside it. Swiping inside
+# that scroll moves the review content rather than the page; iOS shows both without
+# scrolling and the swipe is a no-op there.
+- swipe:
+      from:
+          id: 'ReplayPaceMetricsSelectors.Root'
+      direction: UP
+- extendedWaitUntil:
+      visible:
+          id: 'HistoryTechniquesSelectors.Root'
+      timeout: 5000
 # The replay board fills the shorter Android viewport, so the playback controls
 # scroll below the fold; scroll the step buttons above the navigation bar before
 # tapping (iOS passes only because its taller viewport keeps them on screen).
