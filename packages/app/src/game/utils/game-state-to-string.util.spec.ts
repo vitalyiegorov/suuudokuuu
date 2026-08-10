@@ -177,12 +177,12 @@ describe('gameStateToString', () => {
         expect(decoded.isRatingCeiling).toBe(false);
     });
 
-    it('should encode the Infinity difficulty as the highest ordinal', () => {
+    it('should encode the Infinity difficulty as the highest difficulty code', () => {
         expect.assertions(1);
 
         const state = buildGameState([], { difficulty: DifficultyEnum.Infinity });
         const decoded = serializer.decodeState(gameStateToString(state, SharedPayloadKindEnum.Puzzle));
 
-        expect(decoded.difficulty).toBe(7);
+        expect(decoded.difficulty).toBe(Object.values(DifficultyEnum).length - 1);
     });
 });

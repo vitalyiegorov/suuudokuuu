@@ -10,6 +10,8 @@ appId: ${APP_ID}
 
 - assertNotVisible:
       id: 'GameScreenSelectors.PauseButton'
+- assertVisible:
+      id: 'ChallengeRecordHudSelectors.Root'
 
 - copyTextFrom:
       id: 'GameScreenSelectors.Time'

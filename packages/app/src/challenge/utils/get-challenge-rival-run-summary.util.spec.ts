@@ -30,7 +30,7 @@ const encodeRivalChallenge = (overrides: Partial<EncodableGameStateInterface>): 
         screenshotCount: 0,
         rating: 0,
         isRatingCeiling: false,
-        difficulty: 0,
+        difficulty: null,
         ...overrides
     });
 

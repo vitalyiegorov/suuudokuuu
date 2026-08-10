@@ -296,7 +296,7 @@ describe('GameStateSerializer', () => {
                     screenshotCount: 0,
                     rating: 0,
                     isRatingCeiling: false,
-                    difficulty: 0
+                    difficulty: null
                 })
             );
 
@@ -322,7 +322,7 @@ describe('GameStateSerializer', () => {
                     screenshotCount: 0,
                     rating: 0,
                     isRatingCeiling: false,
-                    difficulty: 0
+                    difficulty: null
                 })
             );
 
@@ -347,7 +347,7 @@ describe('GameStateSerializer', () => {
 
             expect(decoded.rating).toBe(0);
             expect(decoded.isRatingCeiling).toBe(false);
-            expect(decoded.difficulty).toBe(0);
+            expect(decoded.difficulty).toBeNull();
         });
 
         it('should populate the unknown rating sentinel for a legacy v2 binary payload', () => {
@@ -357,7 +357,7 @@ describe('GameStateSerializer', () => {
 
             expect(decoded.rating).toBe(0);
             expect(decoded.isRatingCeiling).toBe(false);
-            expect(decoded.difficulty).toBe(0);
+            expect(decoded.difficulty).toBeNull();
         });
 
         it('should carry a known rating and difficulty through a v3 puzzle share', () => {
@@ -402,7 +402,7 @@ describe('GameStateSerializer', () => {
                 screenshotCount: 0,
                 rating: 0,
                 isRatingCeiling: false,
-                difficulty: 0
+                difficulty: null
             });
 
             expect(encoded).toMatch(/^_[\w-]*$/u);

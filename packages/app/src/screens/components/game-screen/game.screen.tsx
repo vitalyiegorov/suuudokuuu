@@ -240,12 +240,9 @@ export const GameScreen = () => {
         />
     );
 
-    const challengeRunElements = isChallengeRun ? (
-        <>
-            <ChallengeScreenshotRecorder />
-            {hasRival ? <ChallengeRaceHud /> : <ChallengeRecordHud />}
-        </>
-    ) : null;
+    const challengeHudContent = hasRival ? <ChallengeRaceHud /> : <ChallengeRecordHud />;
+    const challengeRecorder = isChallengeRun ? <ChallengeScreenshotRecorder /> : null;
+    const challengeHud = isChallengeRun ? challengeHudContent : null;
 
     return (
         <Pressable
@@ -257,6 +254,7 @@ export const GameScreen = () => {
             <GameTimerController />
             {keyboardControlsElement}
 
+            {challengeRecorder}
             {isWideLayout ? null : (
                 <View style={styles.topBar}>
                     {statusBlock}
@@ -264,7 +262,7 @@ export const GameScreen = () => {
                 </View>
             )}
 
-            {challengeRunElements}
+            {isWideLayout ? null : challengeHud}
 
             <View style={styles.gameRow(isLeftHanded)}>
                 <View onLayout={onBoardAreaLayout} style={styles.boardArea}>
@@ -281,6 +279,8 @@ export const GameScreen = () => {
 
                 <View style={styles.panelArea(boardSize)}>
                     {isWideLayout ? statusBlock : null}
+
+                    {isWideLayout ? challengeHud : null}
 
                     <View style={styles.panelInputArea}>
                         <GameNumpad

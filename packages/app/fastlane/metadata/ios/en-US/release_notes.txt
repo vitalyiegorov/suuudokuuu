@@ -1,13 +1,8 @@
-New look and feel is here.
+Hell difficulty is here — the hardest tier suuudokuuu has ever shipped. Every Hell puzzle is a hand-verified 17-clue grid, filtered so nothing that falls to simple singles slips through. Bring real technique.
 
-• Full theme engine: Classic, Gold, and Newspaper presets, plus a live-preview custom editor where every board color is yours
-• Automatic contrast validation keeps custom themes sharp in light and dark
-• Refreshed settings/theme screens with more polished buttons
-• Hell difficulty now draws from our full 49,158-strong 17-clue corpus
-• Rival mode sharing is faster and more reliable
-• Redesigned replay with smoother move-by-move playback
-• Shared challenges now carry your exact time to beat
-• Statistics corrected: best time is your fastest win, and averages count wins only
-• Steadier board layout during calls and rapid starts
-• Translation improvements across all 13 languages
-• Crash and stability fixes
+• Full theme engine: Classic, Gold and Newspaper presets, plus a custom editor with a live board preview. Contrast checks keep your colors readable in light and dark.
+• Better replays: share any moment of a game, and drag your way through the solution steps with the new scrubber.
+• Challenge mode: review a summary of your run before you share it, and "play again" keeps your full setup.
+• Confetti for every win.
+• Sharper layout on tablets and web.
+• Rare crash fixed, faster new games, and shared puzzles now score at their true difficulty.

@@ -30,7 +30,7 @@ import {
     readHandoffExtras,
     writeHandoffExtras
 } from '../../@generic/utils/handoff-extras-codec.util';
-import { type RatingTrailerInterface, readRatingTrailer, writeRatingTrailer } from '../../@generic/utils/rating-codec.util';
+import { type MetadataTrailerInterface, readMetadataTrailer, writeMetadataTrailer } from '../../@generic/utils/metadata-trailer-codec.util';
 import {
     hasNonCellEvents,
     readTimelineEvents,
@@ -120,14 +120,14 @@ export class GameStateBinaryCodecV3 {
             writeAggregateTrailer(out, state.pencilCount, state.screenshotCount);
         }
 
-        writeRatingTrailer(out, state.rating, state.isRatingCeiling, state.difficulty);
+        writeMetadataTrailer(out, state.rating, state.isRatingCeiling, state.difficulty);
     }
 
     private readTrailers(
         input: BitInputStream,
         kind: SharedPayloadKindEnum,
         isChallengeRun: boolean
-    ): HandoffExtrasInterface & AggregateTrailerInterface & RatingTrailerInterface {
+    ): HandoffExtrasInterface & AggregateTrailerInterface & MetadataTrailerInterface {
         const handoffExtras = kind === SharedPayloadKindEnum.Handoff ? readHandoffExtras(input, isChallengeRun) : emptyHandoffExtras;
         const positionBeforeAggregateTrailer = input.position;
         const aggregateTrailer = kind === SharedPayloadKindEnum.Puzzle ? emptyAggregateTrailer : readAggregateTrailer(input);
@@ -136,9 +136,7 @@ export class GameStateBinaryCodecV3 {
             input.seek(positionBeforeAggregateTrailer);
         }
 
-        const ratingTrailer = readRatingTrailer(input);
-
-        return { ...handoffExtras, ...aggregateTrailer, ...ratingTrailer };
+        return { ...handoffExtras, ...aggregateTrailer, ...readMetadataTrailer(input) };
     }
 
     private readPayloadKind(input: BitInputStream): SharedPayloadKindEnum {

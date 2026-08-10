@@ -60,10 +60,14 @@ running server outside CI. `playwright.config.ts` fails fast with an actionable 
 - `losingSharedChallengeEncodedConstant`: cell `y=0, x=4`'s correct value is not `4`; entering `4`
   three times registers three mistakes and loses the challenge.
 - `infinitySharedPuzzleEncodedConstant`: a `Puzzle`-kind share of a real Infinity-corpus puzzle (21
-  clues) with the encoder's rating trailer carrying an explicit `Infinity` difficulty and its
-  curated SE rating, so it decodes as Infinity instead of colliding with Nightmare's blank-count
-  inference. Generated with `GameStateSerializer.encodeState` against `pickInfinityPuzzle`'s output;
-  regenerate the same way if the Infinity corpus or the rating trailer format changes.
+  clues) with the encoder's metadata trailer carrying an explicit `Infinity` difficulty (wire code
+  `6`) and its curated SE rating (`11.9`, non-ceiling), so it decodes as Infinity instead of
+  colliding with Nightmare's blank-count inference. Generated with `GameStateSerializer.encodeState`
+  against `pickInfinityPuzzle`'s output. Regenerate it whenever the Infinity corpus or the metadata
+  trailer format changes: decode the current constant with `GameStateSerializer.decodeState`, then
+  re-encode the same field through `gameStateToString` with `difficulty: DifficultyEnum.Infinity`,
+  `rating: 11.9`, and `SharedPayloadKindEnum.Puzzle`, and keep
+  `tests/app-tests/flows/14.infinity-difficulty-run.flow.yaml` in sync with the new string.
 
 ## Known Platform Notes
 

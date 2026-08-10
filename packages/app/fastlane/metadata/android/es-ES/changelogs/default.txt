@@ -1,10 +1,6 @@
-Ya está aquí el look nuevo.
-
-• Editor de temas: Clásico, Dorado y Periódico, en vivo
-• Validación de contraste automática, claro y oscuro
-• Pantallas de ajustes y temas renovadas, botones cuidados
-• Infierno usa ya el corpus de 49.158 puzles de 17 pistas
-• Repetición rediseñada, mejor traducción
-• Los retos muestran tu tiempo exacto a batir
-• Estadísticas corregidas: mejor tiempo = victoria más rápida
-• Corrección de fallos y estabilidad
+🔥 Dificultad Infierno: el nivel más duro, cuadrículas de 17 pistas verificadas a mano.
+🎨 Temas: Clásico, Oro, Periódico o crea el tuyo con vista previa en vivo.
+▶️ Repeticiones: comparte cualquier momento y arrastra por los pasos.
+🏆 Desafío: revisa el resumen de tu partida antes de compartirla.
+🎉 Confeti en cada victoria.
+⚡ Mejor diseño en tablets y web, partidas nuevas más rápidas.

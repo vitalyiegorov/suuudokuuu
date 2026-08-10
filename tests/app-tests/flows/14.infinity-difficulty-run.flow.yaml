@@ -25,7 +25,7 @@ appId: ${APP_ID}
 # decodes as Infinity instead of colliding with Nightmare's blank-count
 # inference, and that the curated rating survives the share/open round trip.
 - openLink:
-      link: 'suuudokuuu://shared/_MAMJlEGYQgogQQwoQHLAZUKyZ9jOXdw'
+      link: 'suuudokuuu://shared/_MAMJlEGYQgogQQwoQHLAZUKyZ9jOXdg'
 - extendedWaitUntil:
       visible:
           id: 'SharedScreenSelectors.Root'
