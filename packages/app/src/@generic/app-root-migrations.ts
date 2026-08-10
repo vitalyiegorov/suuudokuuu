@@ -3,6 +3,7 @@ import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { gameSlice } from '../game/store/game.slice';
 import { initialGameState } from '../game/store/game.state';
 import { emptyGameHistory } from '../history/interfaces/history-game.interface';
+import { emptyHistoryRatingSnapshot } from '../history/interfaces/history-rating-snapshot.interface';
 import { settingsSlice } from '../settings/store/settings.slice';
 import { initialSettingsState } from '../settings/store/settings.state';
 import { ColorSchemaEnum } from '../theme/enum/color-schema.enum';
@@ -14,6 +15,9 @@ import { getTheme } from '../theme/utils/get-theme.util';
 import { migrateCustomThemeColors } from '../theme/utils/migrate-custom-theme-colors.util';
 
 import type { GameState } from '../game/store/game.state';
+import type { CompletedGameInterface } from '../history/interfaces/completed-game.interface';
+import type { HistoryGameInterface } from '../history/interfaces/history-game.interface';
+import type { HistoryRatingSnapshotInterface } from '../history/interfaces/history-rating-snapshot.interface';
 import type { SettingsState } from '../settings/store/settings.state';
 import type { CustomThemesState } from '../theme/store/custom-themes.state';
 import type { MigrationManifest } from 'redux-persist/es/types';
@@ -24,7 +28,7 @@ export interface AppRootPersistedStateInterface {
     [customThemesSlice.name]: CustomThemesState;
 }
 
-export const appRootPersistVersion = 35;
+export const appRootPersistVersion = 36;
 
 const resetBestScores = (state: AppRootPersistedStateInterface): AppRootPersistedStateInterface => {
     const gameState = state[gameSlice.name];
@@ -99,22 +103,15 @@ const introduceCustomThemes = (state: AppRootPersistedStateInterface): AppRootPe
     [settingsSlice.name]: { ...initialSettingsState, ...state[settingsSlice.name] }
 });
 
-const legacyCompletedGameRatingDefaults = { rating: 0, isRatingCeiling: false };
-
-const backfillCompletedGameRatings = (state: AppRootPersistedStateInterface): AppRootPersistedStateInterface => {
+const mapHistoryByDifficultyEntries = (
+    state: AppRootPersistedStateInterface,
+    mapEntry: (historyEntry: HistoryGameInterface) => HistoryGameInterface
+): AppRootPersistedStateInterface => {
     const gameState = { ...initialGameState, ...state[gameSlice.name] };
     const updatedHistory = { ...gameState.historyByDifficulty };
 
     Object.keys(updatedHistory).forEach(key => {
-        const historyEntry = updatedHistory[key as keyof typeof updatedHistory];
-
-        updatedHistory[key as keyof typeof updatedHistory] = {
-            ...historyEntry,
-            completedGames: historyEntry.completedGames.map(completedGame => ({
-                ...legacyCompletedGameRatingDefaults,
-                ...completedGame
-            }))
-        };
+        updatedHistory[key as keyof typeof updatedHistory] = mapEntry(updatedHistory[key as keyof typeof updatedHistory]);
     });
 
     return {
@@ -122,6 +119,17 @@ const backfillCompletedGameRatings = (state: AppRootPersistedStateInterface): Ap
         [gameSlice.name]: { ...gameState, historyByDifficulty: updatedHistory }
     };
 };
+
+const legacyCompletedGameRatingDefaults = { rating: 0, isRatingCeiling: false };
+
+const backfillCompletedGameRatings = (state: AppRootPersistedStateInterface): AppRootPersistedStateInterface =>
+    mapHistoryByDifficultyEntries(state, historyEntry => ({
+        ...historyEntry,
+        completedGames: historyEntry.completedGames.map(completedGame => ({
+            ...legacyCompletedGameRatingDefaults,
+            ...completedGame
+        }))
+    }));
 
 const dropHellQueue = (state: AppRootPersistedStateInterface): AppRootPersistedStateInterface => {
     const clone = { ...state };
@@ -156,6 +164,32 @@ const migrateCustomThemesToSemanticTokens = (state: AppRootPersistedStateInterfa
     return {
         ...state,
         [customThemesSlice.name]: { ...customThemesState, themes }
+    };
+};
+
+const computeBestRatingFromCompletedGames = (completedGames: readonly CompletedGameInterface[]): HistoryRatingSnapshotInterface =>
+    completedGames.reduce<HistoryRatingSnapshotInterface>(
+        (best, completedGame) =>
+            completedGame.rating > 0 && completedGame.rating > best.rating
+                ? { rating: completedGame.rating, isRatingCeiling: completedGame.isRatingCeiling }
+                : best,
+        emptyHistoryRatingSnapshot
+    );
+
+const backfillStatsPack = (state: AppRootPersistedStateInterface): AppRootPersistedStateInterface => {
+    const migratedState = mapHistoryByDifficultyEntries(state, historyEntry => {
+        const defaultedEntry = { ...emptyGameHistory, ...historyEntry };
+
+        return { ...defaultedEntry, bestRating: computeBestRatingFromCompletedGames(defaultedEntry.completedGames) };
+    });
+    const migratedGameState = migratedState[gameSlice.name];
+
+    return {
+        ...migratedState,
+        [gameSlice.name]: {
+            ...migratedGameState,
+            techniqueUsageCounts: { ...initialGameState.techniqueUsageCounts, ...migratedGameState.techniqueUsageCounts }
+        }
     };
 };
 
@@ -195,5 +229,6 @@ export const appRootMigrations: MigrationManifest<AppRootPersistedStateInterface
     32: ensureAllDifficulties,
     33: dropHellQueue,
     34: backfillCompletedGameRatings,
-    35: ensureAllDifficulties
+    35: ensureAllDifficulties,
+    36: backfillStatsPack
 };

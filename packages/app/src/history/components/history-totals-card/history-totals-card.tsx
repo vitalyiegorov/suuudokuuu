@@ -4,6 +4,7 @@ import { use } from 'react';
 import { View } from 'react-native';
 
 import { BlackText } from '../../../@generic/components/black-text/black-text';
+import { RatingBadge } from '../../../@generic/components/rating-badge/rating-badge';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { historyGetTotals } from '../../utils/history-get-totals.util';
@@ -30,8 +31,14 @@ export const HistoryTotalsCard = ({ historyByDifficulty }: Props) => {
     const timeCardStyles = [styles.heroCard, { backgroundColor: theme.colors.ink }];
     const timeLabelStyles = [styles.heroLabel, { color: theme.colors.inkText }];
     const timeValueStyles = [styles.heroValue, { color: theme.colors.inkText }];
+    const ratingCardStyles = [
+        styles.ratingCard,
+        { backgroundColor: theme.colors.candidate.fill, borderColor: theme.colors.surface.border }
+    ];
+    const ratingLabelStyles = [styles.heroLabel, { color: theme.colors.text.primary }];
 
     const winRateText = `${totals.winRate}%`;
+    const hasHardestSolve = totals.bestRating.rating > 0;
 
     return (
         <View style={styles.container}>
@@ -54,6 +61,16 @@ export const HistoryTotalsCard = ({ historyByDifficulty }: Props) => {
                     </BlackText>
                 </View>
             </View>
+
+            {hasHardestSolve ? (
+                <View style={ratingCardStyles}>
+                    <BlackText style={ratingLabelStyles}>
+                        <Trans>Hardest solve</Trans>
+                    </BlackText>
+
+                    <RatingBadge isCeiling={totals.bestRating.isRatingCeiling} rating={totals.bestRating.rating} />
+                </View>
+            ) : null}
 
             <AppMetricStrip separatorStyle={styles.separator} style={styles.strip} variant="ghost">
                 <HistoryMetric label={t`Played`} value={String(totals.gamesCompleted)} />

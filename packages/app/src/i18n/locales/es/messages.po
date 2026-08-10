@@ -176,6 +176,10 @@ msgstr "Piensa bien, juega rápido..."
 msgid "Best score"
 msgstr "Mejor puntuación"
 
+#: src/history/components/history-techniques/history-techniques.tsx
+msgid "Best technique"
+msgstr ""
+
 #: src/history/components/history-difficulty/history-difficulty.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Best time"
@@ -593,6 +597,11 @@ msgstr "Difícil"
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Hardcore"
 msgstr "Hardcore"
+
+#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-totals-card/history-totals-card.tsx
+msgid "Hardest solve"
+msgstr ""
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -1294,6 +1303,10 @@ msgstr "Dígitos mínimos para tableros compactos"
 msgid "Soft gray board with a paper-like feel"
 msgstr "Tablero gris suave con aspecto de papel"
 
+#: src/history/components/history-rating-bands/history-rating-bands.tsx
+msgid "Solves by SE difficulty"
+msgstr ""
+
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Some color combinations are hard to read. Save anyway?"
 msgstr "Algunas combinaciones de colores son difíciles de leer. ¿Guardar de todos modos?"
@@ -1397,6 +1410,10 @@ msgstr "Swordfish"
 #: src/challenge/components/challenge-technique-preview/challenge-technique-preview.tsx
 msgid "Taller marks = sharper techniques"
 msgstr "Marcas más altas = técnicas más ingeniosas"
+
+#: src/history/components/history-techniques/history-techniques.tsx
+msgid "Techniques used"
+msgstr ""
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text and labels"

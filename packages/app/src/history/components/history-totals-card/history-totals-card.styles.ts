@@ -32,6 +32,16 @@ export const HistoryTotalsCardStyles = StyleSheet.create(() => ({
         lineHeight: 40,
         textAlign: 'left'
     },
+    ratingCard: {
+        alignItems: 'center',
+        borderRadius: 20,
+        borderWidth: StyleSheet.hairlineWidth,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingHorizontal: 18,
+        paddingVertical: 14,
+        width: '100%'
+    },
     separator: {
         height: 26,
         marginHorizontal: 0

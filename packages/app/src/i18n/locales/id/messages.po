@@ -174,6 +174,10 @@ msgstr "Berpikir cerdas, main cepat..."
 msgid "Best score"
 msgstr "Skor terbaik"
 
+#: src/history/components/history-techniques/history-techniques.tsx
+msgid "Best technique"
+msgstr ""
+
 #: src/history/components/history-difficulty/history-difficulty.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Best time"
@@ -591,6 +595,11 @@ msgstr "Sulit"
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Hardcore"
 msgstr "Hardcore"
+
+#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-totals-card/history-totals-card.tsx
+msgid "Hardest solve"
+msgstr ""
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -1292,6 +1301,10 @@ msgstr "Angka paling kecil untuk papan yang padat"
 msgid "Soft gray board with a paper-like feel"
 msgstr "Papan abu-abu lembut seperti kertas"
 
+#: src/history/components/history-rating-bands/history-rating-bands.tsx
+msgid "Solves by SE difficulty"
+msgstr ""
+
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Some color combinations are hard to read. Save anyway?"
 msgstr "Beberapa kombinasi warna sulit dibaca. Simpan saja?"
@@ -1395,6 +1408,10 @@ msgstr "Swordfish"
 #: src/challenge/components/challenge-technique-preview/challenge-technique-preview.tsx
 msgid "Taller marks = sharper techniques"
 msgstr "Tanda lebih tinggi = teknik lebih tajam"
+
+#: src/history/components/history-techniques/history-techniques.tsx
+msgid "Techniques used"
+msgstr ""
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text and labels"

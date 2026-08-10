@@ -1,6 +1,9 @@
 import { DifficultyEnum } from '@suuudokuuu/generator';
 
+import { emptyHistoryRatingSnapshot } from './history-rating-snapshot.interface';
+
 import type { CompletedGameInterface } from './completed-game.interface';
+import type { HistoryRatingSnapshotInterface } from './history-rating-snapshot.interface';
 
 export interface HistoryGameInterface {
     difficulty: DifficultyEnum;
@@ -9,6 +12,7 @@ export interface HistoryGameInterface {
     gamesWonWithoutMistakes: number;
     gamesLost: number;
     bestScore: number;
+    bestRating: HistoryRatingSnapshotInterface;
     bestTime: number;
     averageTime: number;
     hardcoreWon: number;
@@ -19,6 +23,7 @@ export interface HistoryGameInterface {
 
 export const emptyGameHistory: HistoryGameInterface = {
     bestScore: 0,
+    bestRating: emptyHistoryRatingSnapshot,
     bestTime: 0,
     difficulty: DifficultyEnum.Easy,
     gamesCompleted: 0,

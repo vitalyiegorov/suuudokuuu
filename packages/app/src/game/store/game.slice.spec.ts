@@ -1,6 +1,7 @@
 import { describe, expect, it, jest } from '@jest/globals';
 import { TimelineEventKindEnum } from '@suuudokuuu/encoder';
 import { DifficultyEnum, Sudoku, defaultSudokuConfig, emptyScoredCells } from '@suuudokuuu/generator';
+import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { isDefined } from '@rnw-community/shared';
 
@@ -149,6 +150,26 @@ describe('gameSlice', () => {
         });
     });
 
+    it('preserves technique usage counts across start and reset', () => {
+        const dirtyState = { ...initialGameState, techniqueUsageCounts: { [SolutionTechniqueEnum.NakedSingle]: 3 } };
+
+        const startedState = gameSlice.reducer(
+            dirtyState,
+            gameStartAction({
+                sudokuString: StartedSudokuString,
+                difficulty: DifficultyEnum.Hard,
+                maxMistakes: 3,
+                isChallengeRun: false,
+                rating: StartedRating,
+                isRatingCeiling: false
+            })
+        );
+        const resetState = gameSlice.reducer(dirtyState, gameResetAction());
+
+        expect(startedState.techniqueUsageCounts).toStrictEqual({ [SolutionTechniqueEnum.NakedSingle]: 3 });
+        expect(resetState.techniqueUsageCounts).toStrictEqual({ [SolutionTechniqueEnum.NakedSingle]: 3 });
+    });
+
     it('loads partial game state, records mistakes, and resets active progress', () => {
         const historyByDifficulty = {
             ...initialGameState.historyByDifficulty,
@@ -250,6 +271,33 @@ describe('gameSlice', () => {
         ]);
         expect(savedState.candidates[correctCellKey]).toEqual([]);
         expect(savedState.candidates[affectedCellKey]).toEqual([]);
+        expect(savedState.techniqueUsageCounts).toStrictEqual({});
+    });
+
+    it('increments the technique usage count for a classified correct placement', () => {
+        const sudoku = new Sudoku();
+        sudoku.create(DifficultyEnum.Easy);
+
+        const blankCell = sudoku.Field.flat().find(cell => sudoku.isBlankCell(cell));
+
+        if (!isDefined(blankCell)) {
+            throw new Error('Expected generated puzzle to contain a blank cell');
+        }
+
+        const correctCell = { ...blankCell, value: sudoku.getCorrectValue(blankCell) };
+        const scoredCells = { ...emptyScoredCells, ...sudoku.setCellValue(correctCell), values: [correctCell.value] };
+
+        const savedState = gameSlice.reducer(
+            initialGameState,
+            gameSaveAction({ sudoku, correctCell, scoredCells, technique: SolutionTechniqueEnum.NakedSingle })
+        );
+        const savedAgainState = gameSlice.reducer(
+            savedState,
+            gameSaveAction({ sudoku, correctCell, scoredCells, technique: SolutionTechniqueEnum.NakedSingle })
+        );
+
+        expect(savedState.techniqueUsageCounts).toStrictEqual({ [SolutionTechniqueEnum.NakedSingle]: 1 });
+        expect(savedAgainState.techniqueUsageCounts).toStrictEqual({ [SolutionTechniqueEnum.NakedSingle]: 2 });
     });
 
     it('scores a save with the authoritative stored difficulty even when the restored sudoku reports a degraded difficulty', () => {
@@ -437,6 +485,35 @@ describe('gameSlice', () => {
             score: 250
         });
         expect(finishedState).toMatchObject({ isPaused: true, shouldResumeOnFocus: false, shouldShowPauseScreen: false });
+    });
+
+    it('records the best rating on a win and keeps it against a lower-rated later win', () => {
+        const higherRatedState = gameSlice.reducer(
+            { ...initialGameState, rating: 6.6, isRatingCeiling: false, score: 100, sudokuString: StartedSudokuString },
+            gameFinishAction({ difficulty: DifficultyEnum.Medium, isWon: true })
+        );
+        const lowerRatedState = gameSlice.reducer(
+            { ...higherRatedState, rating: 3.4, isRatingCeiling: false, sudokuString: StartedSudokuString },
+            gameFinishAction({ difficulty: DifficultyEnum.Medium, isWon: true })
+        );
+
+        expect(higherRatedState.historyByDifficulty[DifficultyEnum.Medium].bestRating).toStrictEqual({
+            rating: 6.6,
+            isRatingCeiling: false
+        });
+        expect(lowerRatedState.historyByDifficulty[DifficultyEnum.Medium].bestRating).toStrictEqual({
+            rating: 6.6,
+            isRatingCeiling: false
+        });
+    });
+
+    it('does not record a best rating for a loss', () => {
+        const lostState = gameSlice.reducer(
+            { ...initialGameState, rating: 8.5, isRatingCeiling: true, sudokuString: StartedSudokuString },
+            gameFinishAction({ difficulty: DifficultyEnum.Medium, isWon: false })
+        );
+
+        expect(lostState.historyByDifficulty[DifficultyEnum.Medium].bestRating).toStrictEqual({ rating: 0, isRatingCeiling: false });
     });
 
     it('records a completed Hell game under Hell history even though the finished board reads as Newbie by cell count', () => {

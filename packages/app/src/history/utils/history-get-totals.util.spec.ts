@@ -2,6 +2,7 @@ import { describe, expect, it } from '@jest/globals';
 import { DifficultyEnum } from '@suuudokuuu/generator';
 
 import { emptyGameHistory } from '../interfaces/history-game.interface';
+import { emptyHistoryRatingSnapshot } from '../interfaces/history-rating-snapshot.interface';
 
 import { historyGetTotals } from './history-get-totals.util';
 
@@ -49,6 +50,7 @@ describe('historyGetTotals', () => {
 
         expect(historyGetTotals(buildHistoryByDifficulty({}))).toStrictEqual({
             averageTime: 0,
+            bestRating: emptyHistoryRatingSnapshot,
             bestScore: 0,
             bestTime: 0,
             challengesLost: 0,
@@ -111,6 +113,20 @@ describe('historyGetTotals', () => {
 
         expect(totals.bestScore).toBe(HighestBestScore);
         expect(totals.bestTime).toBe(LowestBestTime);
+    });
+
+    it('should take the highest best rating across every difficulty and preserve its ceiling flag', () => {
+        expect.assertions(1);
+
+        const totals = historyGetTotals(
+            buildHistoryByDifficulty({
+                [DifficultyEnum.Easy]: { bestRating: { rating: 3.4, isRatingCeiling: false } },
+                [DifficultyEnum.Hard]: { bestRating: { rating: 8.5, isRatingCeiling: true } },
+                [DifficultyEnum.Medium]: { bestRating: { rating: 5.6, isRatingCeiling: false } }
+            })
+        );
+
+        expect(totals.bestRating).toStrictEqual({ rating: 8.5, isRatingCeiling: true });
     });
 
     it('should ignore zero best times entirely when no difficulty has a positive one', () => {
