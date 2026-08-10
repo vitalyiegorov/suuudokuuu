@@ -41,12 +41,19 @@ appId: ${APP_ID}
 - assertVisible: 'Score'
 - assertVisible: 'Time'
 - assertVisible: 'Mistakes'
+# This fixture predates the rating trailer, so it decodes with an unknown
+# rating: the history row must hide the badge rather than show a fake 0.
+- assertNotVisible:
+      id: 'RatingBadgeSelectors.Root'
 - tapOn:
       id: 'CompletedGameItemSelectors.ReplayButton'
 - extendedWaitUntil:
       visible:
           id: 'ReplayControlsSelectors.Root'
       timeout: 3000
+# Same old-link fixture: the replay header's rating metric must stay hidden.
+- assertNotVisible:
+      id: 'ReplayHeaderSelectors.Rating'
 # The replay board fills the shorter Android viewport, so the playback controls
 # scroll below the fold; scroll the step buttons above the navigation bar before
 # tapping (iOS passes only because its taller viewport keeps them on screen).

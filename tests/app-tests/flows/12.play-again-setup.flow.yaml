@@ -21,6 +21,10 @@ appId: ${APP_ID}
       id: 'GameScreenSelectors.ShareButton'
 - assertNotVisible:
       id: 'ChallengeRecordHudSelectors.Root'
+# The handoff fixture predates the rating trailer, so its unknown rating must
+# stay hidden on the resumed game screen.
+- assertNotVisible:
+      id: 'GameScreenSelectors.Rating'
 - tapOn:
       id: 'CellSelectors.Cell.4-7'
 - tapOn:
@@ -41,6 +45,9 @@ appId: ${APP_ID}
       id: 'GameScreenSelectors.ShareButton'
 - assertNotVisible:
       id: 'ChallengeRecordHudSelectors.Root'
+# Retrying regenerates a fresh Hard puzzle, which always carries a computed rating.
+- assertVisible:
+      id: 'GameScreenSelectors.Rating'
 - runFlow: subflows/game/quit-current-game.flow.yaml
 
 # 2. A self-authored challenge run retries as a challenge run with no pause control.
@@ -52,6 +59,8 @@ appId: ${APP_ID}
       id: 'ChallengeRecordHudSelectors.Root'
 - assertNotVisible:
       id: 'GameScreenSelectors.ShareButton'
+- assertNotVisible:
+      id: 'GameScreenSelectors.Rating'
 - tapOn:
       id: 'CellSelectors.Cell.4-1'
 - tapOn:
@@ -72,6 +81,8 @@ appId: ${APP_ID}
       id: 'ChallengeRecordHudSelectors.Root'
 - assertNotVisible:
       id: 'GameScreenSelectors.ShareButton'
+- assertVisible:
+      id: 'GameScreenSelectors.Rating'
 - runFlow: subflows/game/quit-current-game.flow.yaml
 
 - stopApp

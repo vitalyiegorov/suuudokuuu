@@ -1,0 +1,51 @@
+appId: ${APP_ID}
+---
+- startRecording:
+      path: '14.infinity-difficulty-run'
+      optional: true
+
+# 1. Picking Infinity on the Home difficulty slider serves a curated
+# world-record puzzle (Everest/Platinum Blonde/AI Escargot class), which
+# always carries an exact, non-ceiling SE rating - unlike Hell's clamped one.
+- runFlow: subflows/navigation/launch-home.flow.yaml
+- tapOn:
+      id: 'DifficultyComplexityOptionSelectors.Option.Infinity'
+- assertVisible: 'World-record puzzles'
+- runFlow: subflows/game/start-new-game.flow.yaml
+- assertVisible:
+      id: 'GameScreenSelectors.Level'
+      text: 'Infinity'
+- assertVisible:
+      id: 'GameScreenSelectors.Rating'
+- runFlow: subflows/game/quit-current-game.flow.yaml
+
+# 2. Shared Infinity links round-trip the rating end to end. The fixture
+# below is a Puzzle-kind share of a real Infinity corpus puzzle (21 clues)
+# with the encoder's explicit difficulty trailer set to Infinity, proving it
+# decodes as Infinity instead of colliding with Nightmare's blank-count
+# inference, and that the curated rating survives the share/open round trip.
+- openLink:
+      link: 'suuudokuuu://shared/_MAMJlEGYQgogQQwoQHLAZUKyZ9jOXdw'
+- extendedWaitUntil:
+      visible:
+          id: 'SharedScreenSelectors.Root'
+      timeout: 10000
+- assertVisible:
+      id: 'SharedScreenSelectors.Meta'
+- assertVisible: 'Infinity'
+- assertVisible:
+      id: 'RatingBadgeSelectors.Root'
+- tapOn:
+      id: 'SharedScreenSelectors.ConfirmButton'
+- extendedWaitUntil:
+      visible:
+          id: 'GameScreenSelectors.Root'
+      timeout: 10000
+- assertVisible:
+      id: 'GameScreenSelectors.Level'
+      text: 'Infinity'
+- assertVisible:
+      id: 'GameScreenSelectors.Rating'
+- runFlow: subflows/game/quit-current-game.flow.yaml
+
+- stopApp
