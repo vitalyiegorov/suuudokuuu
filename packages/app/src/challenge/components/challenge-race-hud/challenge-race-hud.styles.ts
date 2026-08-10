@@ -1,6 +1,9 @@
-import { StyleSheet } from 'react-native';
+import { appLayoutScreenIsWide } from '@suuudokuuu/ui';
+import { StyleSheet } from 'react-native-unistyles';
 
-export const ChallengeRaceHudStyles = StyleSheet.create({
+const CompactContainerHorizontalPadding = 16;
+
+export const ChallengeRaceHudStyles = StyleSheet.create((_theme, rt) => ({
     card: {
         gap: 9,
         paddingVertical: 4,
@@ -8,7 +11,7 @@ export const ChallengeRaceHudStyles = StyleSheet.create({
     },
     container: {
         marginBottom: 10,
-        paddingHorizontal: 16,
+        paddingHorizontal: appLayoutScreenIsWide(rt.screen) ? 0 : CompactContainerHorizontalPadding,
         width: '100%'
     },
     header: {
@@ -18,4 +21,4 @@ export const ChallengeRaceHudStyles = StyleSheet.create({
         justifyContent: 'space-between',
         minHeight: 30
     }
-});
+}));

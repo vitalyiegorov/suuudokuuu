@@ -15,5 +15,5 @@ export interface DecodedGameStateInterface {
     screenshotCount: number | null;
     rating: number;
     isRatingCeiling: boolean;
-    difficulty: number;
+    difficulty: number | null;
 }

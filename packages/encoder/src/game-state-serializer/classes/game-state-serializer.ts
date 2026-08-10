@@ -102,7 +102,7 @@ export class GameStateSerializer {
             screenshotCount: null,
             rating: 0,
             isRatingCeiling: false,
-            difficulty: 0
+            difficulty: null
         };
     }
 
