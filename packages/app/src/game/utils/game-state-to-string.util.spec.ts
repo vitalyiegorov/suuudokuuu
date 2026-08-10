@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers */
 import { describe, expect, it } from '@jest/globals';
 import { GameStateSerializer, SharedPayloadKindEnum, TimelineEventKindEnum } from '@suuudokuuu/encoder';
+import { DifficultyEnum } from '@suuudokuuu/generator';
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { initialGameState } from '../store/game.state';
@@ -174,5 +175,14 @@ describe('gameStateToString', () => {
 
         expect(decoded.rating).toBe(0);
         expect(decoded.isRatingCeiling).toBe(false);
+    });
+
+    it('should encode the Infinity difficulty as the highest ordinal', () => {
+        expect.assertions(1);
+
+        const state = buildGameState([], { difficulty: DifficultyEnum.Infinity });
+        const decoded = serializer.decodeState(gameStateToString(state, SharedPayloadKindEnum.Puzzle));
+
+        expect(decoded.difficulty).toBe(7);
     });
 });

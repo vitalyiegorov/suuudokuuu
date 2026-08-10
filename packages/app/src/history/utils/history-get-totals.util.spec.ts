@@ -39,7 +39,8 @@ const buildHistoryByDifficulty = (
     [DifficultyEnum.Medium]: buildHistory(DifficultyEnum.Medium, overridesByDifficulty[DifficultyEnum.Medium] ?? {}),
     [DifficultyEnum.Hard]: buildHistory(DifficultyEnum.Hard, overridesByDifficulty[DifficultyEnum.Hard] ?? {}),
     [DifficultyEnum.Nightmare]: buildHistory(DifficultyEnum.Nightmare, overridesByDifficulty[DifficultyEnum.Nightmare] ?? {}),
-    [DifficultyEnum.Hell]: buildHistory(DifficultyEnum.Hell, overridesByDifficulty[DifficultyEnum.Hell] ?? {})
+    [DifficultyEnum.Hell]: buildHistory(DifficultyEnum.Hell, overridesByDifficulty[DifficultyEnum.Hell] ?? {}),
+    [DifficultyEnum.Infinity]: buildHistory(DifficultyEnum.Infinity, overridesByDifficulty[DifficultyEnum.Infinity] ?? {})
 });
 
 describe('historyGetTotals', () => {

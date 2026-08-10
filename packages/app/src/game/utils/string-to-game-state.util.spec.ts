@@ -29,6 +29,7 @@ const buildSteps = (): SolutionStepInterface[] => {
 const buildGameState = (): GameState => ({
     ...initialGameState,
     sudokuString: solvedBoard,
+    difficulty: DifficultyEnum.Nightmare,
     timelineEvents: buildSteps().map(step => ({ kind: TimelineEventKindEnum.Cell, ...step })),
     maxMistakes: 0
 });
@@ -92,7 +93,7 @@ describe('stringToGameState', () => {
         expect(restored.isChallengeRun).toBe(true);
     });
 
-    it('should decode the puzzle difficulty from the pristine givens', () => {
+    it('should decode the puzzle difficulty from the explicit trailer field', () => {
         expect.assertions(1);
 
         const encoded = gameStateToString(buildGameState(), SharedPayloadKindEnum.Challenge);
@@ -107,6 +108,18 @@ describe('stringToGameState', () => {
 
         expect(Sudoku.convertFieldFromString(restored.sudokuString, defaultSudokuConfig)[1]).toBe(DifficultyEnum.Newbie);
         expect(restored.difficulty).toBe(DifficultyEnum.Nightmare);
+    });
+
+    it('should prefer the explicit difficulty over blank-count inference for a 21-clue Infinity puzzle', () => {
+        expect.assertions(2);
+
+        const infinityGivens = '111111111111111111111............................................................';
+        const [, inferredDifficulty] = Sudoku.convertFieldFromString(infinityGivens, defaultSudokuConfig);
+        const infinityState: GameState = { ...buildGameState(), sudokuString: infinityGivens, difficulty: DifficultyEnum.Infinity };
+        const restored = stringToGameState(gameStateToString(infinityState, SharedPayloadKindEnum.Puzzle));
+
+        expect(inferredDifficulty).not.toBe(DifficultyEnum.Infinity);
+        expect(restored.difficulty).toBe(DifficultyEnum.Infinity);
     });
 
     it('should round-trip a computed rating and ceiling flag through a share link', () => {

@@ -3,7 +3,7 @@ import { DifficultyEnum, Sudoku, defaultSudokuConfig } from '@suuudokuuu/generat
 import { ratePuzzle } from '@suuudokuuu/rating';
 import { useEffect, useState } from 'react';
 
-import { isNotEmptyString } from '@rnw-community/shared';
+import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { settingsLanguageSelector } from '../../../settings/store/settings.selectors';
@@ -12,6 +12,7 @@ import { useGameCreationRunner } from '../../hooks/use-game-creation-runner.hook
 import { gameLoadAction, gameResumeAction, gameStartAction } from '../../store/game.actions';
 import { gameSudokuStringSelector } from '../../store/game.selectors';
 import { gameProviderCreateHellGame } from '../../utils/game-provider-create-hell-game.util';
+import { gameProviderCreateInfinityGame } from '../../utils/game-provider-create-infinity-game.util';
 
 import type { GameSetupInterface } from '../../interface/game-setup.interface';
 import type { GameState } from '../../store/game.state';
@@ -65,12 +66,15 @@ export const GameProvider = ({ children }: Props) => {
 
     const create = ({ difficulty, isChallengeRun, maxMistakes }: GameSetupInterface) =>
         void runGameCreation(() => {
-            const newSudoku = createSudokuByDifficulty(difficulty);
+            const infinityGame = difficulty === DifficultyEnum.Infinity ? gameProviderCreateInfinityGame() : null;
+            const newSudoku = infinityGame?.sudoku ?? createSudokuByDifficulty(difficulty);
 
             setSudoku(newSudoku);
 
             const sudokuString = newSudoku.toString();
-            const { rating, isCeiling } = ratePuzzle(sudokuString);
+            const { rating, isCeiling } = isDefined(infinityGame)
+                ? { rating: infinityGame.rating, isCeiling: false }
+                : ratePuzzle(sudokuString);
 
             dispatch(gameStartAction({ difficulty, isChallengeRun, maxMistakes, sudokuString, rating, isRatingCeiling: isCeiling }));
             router.replace('/game');

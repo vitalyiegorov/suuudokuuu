@@ -653,6 +653,11 @@ msgstr "Безсмертний"
 msgid "Incomplete"
 msgstr "Незавершено"
 
+#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/scoring/components/scoring.screen.tsx
+msgid "Infinity"
+msgstr ""
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Ink"
 msgstr "Чорнило"
@@ -1599,6 +1604,10 @@ msgstr "Перевага в часі"
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "Won"
 msgstr "Перемоги"
+
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
+msgid "World-record puzzles"
+msgstr ""
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "X-Chain"
