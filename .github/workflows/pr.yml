@@ -140,6 +140,131 @@ jobs:
         uses: ./.github/workflows/web-e2e.yml
         secrets: inherit
 
+    web-preview:
+        name: Vercel preview Web
+        if: ${{ needs.changes.outputs.mobile == 'true' && github.event.pull_request.head.repo.full_name == github.repository }}
+        needs: [changes]
+        runs-on: ubuntu-latest
+        timeout-minutes: 20
+        permissions:
+            contents: read
+            deployments: write
+            pull-requests: write
+        environment:
+            name: preview-web-pr-${{ github.event.number }}
+            url: ${{ steps.deploy.outputs.preview_url }}
+        env:
+            VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+            VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v7
+
+            - name: Setup Node
+              uses: actions/setup-node@v7
+              with:
+                  node-version: 22.x
+                  cache: yarn
+
+            - name: Install dependencies
+              run: yarn install
+
+            - name: Build expo web
+              working-directory: packages/app
+              run: yarn expo export --platform=web
+
+            - name: Pull Vercel project settings
+              working-directory: packages/app
+              run: yarn dlx vercel@latest pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+
+            - name: Build Vercel output
+              working-directory: packages/app
+              run: yarn build:vercel
+
+            - name: Deploy Vercel preview
+              id: deploy
+              working-directory: packages/app
+              shell: bash
+              env:
+                  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+              run: |
+                  set -euo pipefail
+                  preview_url=$(yarn dlx vercel@latest deploy --prebuilt --token="$VERCEL_TOKEN" 2>vercel-deploy.log | tail -n1)
+                  if [[ "$preview_url" != https://* ]]; then
+                    echo "::error::Vercel deploy did not return a preview URL. Got: $preview_url"
+                    cat vercel-deploy.log
+                    exit 1
+                  fi
+                  echo "Preview URL: $preview_url"
+                  echo "preview_url=$preview_url" >> "$GITHUB_OUTPUT"
+
+            - name: Comment preview URL
+              uses: actions/github-script@v9
+              env:
+                  PREVIEW_URL: ${{ steps.deploy.outputs.preview_url }}
+              with:
+                  script: |
+                      const marker = '<!-- suuudokuuu-web-preview -->';
+                      const body = [
+                          marker,
+                          '### Web preview',
+                          '',
+                          `${process.env.PREVIEW_URL} (commit ${context.payload.pull_request.head.sha.slice(0, 7)})`
+                      ].join('\n');
+                      const { data: comments } = await github.rest.issues.listComments({
+                          ...context.repo,
+                          issue_number: context.issue.number
+                      });
+                      const existingComment = comments.find(comment => comment.body?.startsWith(marker));
+                      if (existingComment) {
+                          await github.rest.issues.updateComment({ ...context.repo, comment_id: existingComment.id, body });
+                      } else {
+                          await github.rest.issues.createComment({ ...context.repo, issue_number: context.issue.number, body });
+                      }
+
+    eas-preview:
+        name: EAS Update preview
+        if: ${{ needs.changes.outputs.mobile == 'true' && github.event.pull_request.head.repo.full_name == github.repository }}
+        needs: [changes]
+        runs-on: ubuntu-latest
+        timeout-minutes: 30
+        permissions:
+            contents: read
+            deployments: write
+            pull-requests: write
+        environment:
+            name: preview-eas-pr-${{ github.event.number }}
+            url: ${{ steps.publish.outputs.link }}
+        env:
+            EAS_CLI_VERSION: '20.5.1'
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v7
+
+            - name: Setup Node
+              uses: actions/setup-node@v7
+              with:
+                  node-version: 22.x
+                  cache: yarn
+
+            - name: Setup Expo and EAS
+              uses: expo/expo-github-action@v9
+              with:
+                  eas-version: ${{ env.EAS_CLI_VERSION }}
+                  token: ${{ secrets.EXPO_TOKEN }}
+
+            - name: Install dependencies
+              run: yarn install
+
+            - name: Publish EAS Update preview
+              id: publish
+              uses: expo/expo-github-action/preview@v9
+              env:
+                  APP_VARIANT: preview
+              with:
+                  command: eas update --branch pr-${{ github.event.number }} --message pr-${{ github.event.number }}-${{ github.event.pull_request.head.sha }} --non-interactive
+                  working-directory: packages/app
+
     required-ci:
         if: ${{ always() }}
         needs: [changes, code-quality, mobile-e2e, web-e2e]
