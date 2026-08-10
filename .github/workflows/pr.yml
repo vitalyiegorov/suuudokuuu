@@ -253,7 +253,7 @@ jobs:
               env:
                   APP_VARIANT: preview
               with:
-                  command: eas update --branch pr-${{ github.event.number }} --message 'PR ${{ github.event.number }} preview' --non-interactive
+                  command: eas update --branch pr-${{ github.event.number }} --message pr-${{ github.event.number }}-${{ github.event.pull_request.head.sha }} --non-interactive
                   working-directory: packages/app
 
     required-ci:
