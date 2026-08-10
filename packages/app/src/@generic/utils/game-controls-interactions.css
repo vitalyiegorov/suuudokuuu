@@ -1,0 +1,14 @@
+[data-testid^='CellSelectors.Cell.']:focus-visible,
+[data-testid^='AvailableValueItemSelectors.Button.']:focus-visible,
+[data-testid^='CandidateInputItemSelectors.Button.']:focus-visible {
+    outline: 2px solid var(--colors-ink);
+    outline-offset: 2px;
+}
+
+@media (hover: hover) {
+    [data-testid^='CellSelectors.Cell.']:hover,
+    [data-testid^='AvailableValueItemSelectors.Button.']:hover,
+    [data-testid^='CandidateInputItemSelectors.Button.']:hover {
+        opacity: 0.85;
+    }
+}
