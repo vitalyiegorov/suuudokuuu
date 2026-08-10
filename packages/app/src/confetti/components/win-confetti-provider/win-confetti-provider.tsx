@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useReducedMotion } from 'react-native-reanimated';
 
 import { isDefined } from '@rnw-community/shared';
 
@@ -13,6 +14,8 @@ interface Props {
 }
 
 export const WinConfettiProvider = ({ children }: Props) => {
+    const isReducedMotion = useReducedMotion();
+
     const [isCelebrating, setIsCelebrating] = useState(false);
 
     const celebrationTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -36,7 +39,8 @@ export const WinConfettiProvider = ({ children }: Props) => {
         []
     );
 
-    const confettiOverlay = isCelebrating ? <ConfettiBurst /> : null;
+    const shouldRenderConfetti = isCelebrating && !isReducedMotion;
+    const confettiOverlay = shouldRenderConfetti ? <ConfettiBurst /> : null;
 
     return (
         <WinConfettiContext.Provider value={handleCelebrationStart}>
