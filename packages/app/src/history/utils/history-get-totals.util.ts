@@ -1,5 +1,8 @@
 import { isNotEmptyArray, isPositiveNumber } from '@rnw-community/shared';
 
+import { emptyHistoryRatingSnapshot } from '../interfaces/history-rating-snapshot.interface';
+
+import { historyGetCompletedGames } from './history-get-completed-games.util';
 import { historyGetDayStreak } from './history-get-day-streak.util';
 import { historyGetWinRate } from './history-get-win-rate.util';
 
@@ -15,8 +18,12 @@ export const historyGetTotals = (historyByDifficulty: Record<DifficultyEnum, His
     const hardcoreWins = histories.reduce((total, history) => total + history.hardcoreWon, 0);
     const challengesWon = histories.reduce((total, history) => total + history.challengesWon, 0);
     const challengesLost = histories.reduce((total, history) => total + history.challengesLost, 0);
-    const completedGames = histories.flatMap(history => history.completedGames);
+    const completedGames = historyGetCompletedGames(historyByDifficulty);
     const bestScore = histories.reduce((best, history) => Math.max(best, history.bestScore), 0);
+    const bestRating = histories.reduce(
+        (best, history) => (history.bestRating.rating > best.rating ? history.bestRating : best),
+        emptyHistoryRatingSnapshot
+    );
     const bestTimes = histories.map(history => history.bestTime).filter(isPositiveNumber);
     const bestTime = isNotEmptyArray(bestTimes) ? Math.min(...bestTimes) : 0;
     const averageTimeTotal = histories.reduce((total, history) => total + history.averageTime * history.gamesCompleted, 0);
@@ -26,6 +33,7 @@ export const historyGetTotals = (historyByDifficulty: Record<DifficultyEnum, His
 
     return {
         averageTime,
+        bestRating,
         bestScore,
         bestTime,
         challengesLost,

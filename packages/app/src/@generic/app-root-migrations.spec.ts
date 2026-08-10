@@ -297,4 +297,104 @@ describe('appRootMigrations', () => {
 
         expect(Object.keys(migrated.game.historyByDifficulty)).toStrictEqual(Object.keys(initialGameState.historyByDifficulty));
     });
+
+    it('should backfill the best rating from the highest rated completed game, ignoring rating-0 games', () => {
+        expect.assertions(1);
+
+        const legacyCompletedGames = [
+            {
+                encodedState: '',
+                difficulty: DifficultyEnum.Easy,
+                rating: 0,
+                isRatingCeiling: false,
+                elapsedTime: 1,
+                score: 1,
+                mistakes: 0,
+                maxMistakes: 3,
+                completedAt: 1
+            },
+            {
+                encodedState: '',
+                difficulty: DifficultyEnum.Easy,
+                rating: 3.4,
+                isRatingCeiling: false,
+                elapsedTime: 1,
+                score: 1,
+                mistakes: 0,
+                maxMistakes: 3,
+                completedAt: 2
+            },
+            {
+                encodedState: '',
+                difficulty: DifficultyEnum.Easy,
+                rating: 8.5,
+                isRatingCeiling: true,
+                elapsedTime: 1,
+                score: 1,
+                mistakes: 0,
+                maxMistakes: 3,
+                completedAt: 3
+            }
+        ];
+        const state = buildState({
+            game: {
+                ...initialGameState,
+                historyByDifficulty: {
+                    ...initialGameState.historyByDifficulty,
+                    [DifficultyEnum.Easy]: { ...emptyGameHistory, completedGames: legacyCompletedGames }
+                }
+            }
+        });
+
+        const migratedHistory = runMigration(36, state).game.historyByDifficulty[DifficultyEnum.Easy];
+
+        expect(migratedHistory.bestRating).toStrictEqual({ rating: 8.5, isRatingCeiling: true });
+    });
+
+    it('should default the best rating to the empty snapshot when a difficulty has no rated completed games', () => {
+        expect.assertions(1);
+
+        const state = buildState();
+
+        const migratedHistory = runMigration(36, state).game.historyByDifficulty[DifficultyEnum.Easy];
+
+        expect(migratedHistory.bestRating).toStrictEqual({ rating: 0, isRatingCeiling: false });
+    });
+
+    it('should default technique usage counts to empty rather than fabricating them from completed-game history', () => {
+        expect.assertions(1);
+
+        const legacyCompletedGame = {
+            encodedState: 'legacy-handoff-payload',
+            difficulty: DifficultyEnum.Easy,
+            rating: 4.2,
+            isRatingCeiling: false,
+            elapsedTime: 1,
+            score: 1,
+            mistakes: 0,
+            maxMistakes: 3,
+            completedAt: 1
+        };
+        const state = buildState({
+            game: {
+                ...initialGameState,
+                historyByDifficulty: {
+                    ...initialGameState.historyByDifficulty,
+                    [DifficultyEnum.Easy]: { ...emptyGameHistory, completedGames: [legacyCompletedGame] }
+                }
+            }
+        });
+
+        expect(runMigration(36, state).game.techniqueUsageCounts).toStrictEqual({});
+    });
+
+    it('should keep already-populated technique usage counts untouched', () => {
+        expect.assertions(1);
+
+        const state = buildState({
+            game: { ...initialGameState, techniqueUsageCounts: { 2: 5 } }
+        });
+
+        expect(runMigration(36, state).game.techniqueUsageCounts).toStrictEqual({ 2: 5 });
+    });
 });

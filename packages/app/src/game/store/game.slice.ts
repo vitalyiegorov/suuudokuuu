@@ -30,7 +30,11 @@ export const gameSlice = createSlice({
                 Pick<GameState, 'sudokuString' | 'difficulty' | 'maxMistakes' | 'isChallengeRun' | 'rating' | 'isRatingCeiling'>
             >
         ) => {
-            Object.assign(state, { ...initialGameState, historyByDifficulty: state.historyByDifficulty });
+            Object.assign(state, {
+                ...initialGameState,
+                historyByDifficulty: state.historyByDifficulty,
+                techniqueUsageCounts: state.techniqueUsageCounts
+            });
 
             state.sudokuString = action.payload.sudokuString;
             state.difficulty = action.payload.difficulty;
@@ -127,6 +131,10 @@ export const gameSlice = createSlice({
                 ...(isDefined(technique) && { technique })
             });
 
+            if (isDefined(technique)) {
+                state.techniqueUsageCounts[technique] = (state.techniqueUsageCounts[technique] ?? 0) + 1;
+            }
+
             state.candidates[getCellKey(correctCell)] = [];
 
             sudoku.Field.forEach(
@@ -165,7 +173,11 @@ export const gameSlice = createSlice({
             }
         },
         reset: state => {
-            Object.assign(state, { ...initialGameState, historyByDifficulty: state.historyByDifficulty });
+            Object.assign(state, {
+                ...initialGameState,
+                historyByDifficulty: state.historyByDifficulty,
+                techniqueUsageCounts: state.techniqueUsageCounts
+            });
         },
         toggleShowAutoCandidates: state => {
             state.showAutoCandidates = !state.showAutoCandidates;
@@ -262,6 +274,10 @@ export const gameSlice = createSlice({
 
                 if (state.score > history.bestScore) {
                     history.bestScore = state.score;
+                }
+
+                if (state.rating > history.bestRating.rating) {
+                    history.bestRating = { rating: state.rating, isRatingCeiling: state.isRatingCeiling };
                 }
             } else {
                 history.gamesLost += 1;

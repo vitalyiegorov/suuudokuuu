@@ -4,6 +4,7 @@ import { emptyGameHistory } from '../../history/interfaces/history-game.interfac
 
 import type { HistoryGameInterface } from '../../history/interfaces/history-game.interface';
 import type { GameTimelineEventInterface } from '../interface/game-timeline-event.interface';
+import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 export interface GameState {
     sudokuString: string;
@@ -28,6 +29,7 @@ export interface GameState {
     wallClockStartMs: number;
     isChallengeRun: boolean;
     hasNewPersonalBestScore: boolean;
+    techniqueUsageCounts: Partial<Record<SolutionTechniqueEnum, number>>;
 }
 
 export const initialGameState: GameState = {
@@ -60,5 +62,6 @@ export const initialGameState: GameState = {
     challengeState: '',
     wallClockStartMs: 0,
     isChallengeRun: false,
-    hasNewPersonalBestScore: false
+    hasNewPersonalBestScore: false,
+    techniqueUsageCounts: {}
 };

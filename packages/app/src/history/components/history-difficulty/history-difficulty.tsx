@@ -6,6 +6,7 @@ import { use } from 'react';
 import { Pressable, View } from 'react-native';
 
 import { BlackText } from '../../../@generic/components/black-text/black-text';
+import { RatingBadge } from '../../../@generic/components/rating-badge/rating-badge';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
@@ -31,6 +32,7 @@ export const HistoryDifficulty = ({ difficulty }: Props) => {
     const router = useRouter();
     const {
         bestScore,
+        bestRating,
         bestTime,
         gamesCompleted,
         gamesWon,
@@ -49,6 +51,7 @@ export const HistoryDifficulty = ({ difficulty }: Props) => {
     const hasWins = gamesWon > 0;
     const hasHardcoreWins = hardcoreWon > 0;
     const hasChallenges = challengesWon + challengesLost > 0;
+    const hasRatedSolve = bestRating.rating > 0;
     const winRateText = `${historyGetWinRate(gamesWon, gamesCompleted)}%`;
     const bestScoreText = hasWins ? String(bestScore) : HistoryMissingValueText;
     const bestTimeValueText = hasWins ? bestTimeText : HistoryMissingValueText;
@@ -86,6 +89,11 @@ export const HistoryDifficulty = ({ difficulty }: Props) => {
                 <HistoryMetric label={t`Best score`} value={bestScoreText} />
                 <HistoryMetric label={t`Best time`} value={bestTimeValueText} />
                 <HistoryMetric label={t`Average`} value={averageTimeText} />
+                {hasRatedSolve ? (
+                    <HistoryMetric label={t`Hardest solve`}>
+                        <RatingBadge isCeiling={bestRating.isRatingCeiling} rating={bestRating.rating} />
+                    </HistoryMetric>
+                ) : null}
             </AppMetricStrip>
 
             <AppMetricStrip separatorStyle={styles.separator} style={styles.strip} variant="ghost">
