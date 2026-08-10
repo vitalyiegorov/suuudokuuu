@@ -129,6 +129,7 @@ export const HomeScreen = () => {
     ];
     const startButtonText = isGameStarted ? t`Start new puzzle` : t`Start puzzle`;
     const isHellSelected = difficulty === DifficultyEnum.Hell;
+    const isInfinitySelected = difficulty === DifficultyEnum.Infinity;
     const contentInsetBottom = HomeScreenBottomScrollPadding + tabBarInset;
     const platformInsetTop = Platform.OS === 'ios' ? safeAreaInsets.top : 0;
     const contentInsetTop = homeScreenGetContentInsetTop(safeAreaInsets.top, platformInsetTop);
@@ -238,6 +239,7 @@ export const HomeScreen = () => {
                             currentProgressText={currentProgressText}
                             isGameStarted={isGameStarted}
                             isHellSelected={isHellSelected}
+                            isInfinitySelected={isInfinitySelected}
                             isLoading={isCreatingGame}
                             onStart={handleStart}
                             startButtonSubtitle={setupSummary}
