@@ -1478,6 +1478,7 @@ msgstr "Não foi possível abrir o link"
 msgid "Unable to start installation"
 msgstr "Não foi possível iniciar a instalação"
 
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Unknown"
 msgstr "Desconhecido"

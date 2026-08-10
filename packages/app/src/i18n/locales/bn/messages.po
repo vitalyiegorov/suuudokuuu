@@ -1478,6 +1478,7 @@ msgstr "লিংক খোলা যায়নি"
 msgid "Unable to start installation"
 msgstr "ইনস্টলেশন শুরু করা যায়নি"
 
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Unknown"
 msgstr "অজানা"

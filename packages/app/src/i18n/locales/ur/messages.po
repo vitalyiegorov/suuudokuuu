@@ -1478,6 +1478,7 @@ msgstr "لنک نہیں کھولا جا سکا"
 msgid "Unable to start installation"
 msgstr "انسٹالیشن شروع نہیں کی جا سکی"
 
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Unknown"
 msgstr "نامعلوم"
