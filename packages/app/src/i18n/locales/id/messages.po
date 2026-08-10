@@ -453,7 +453,7 @@ msgstr "Duplikat"
 msgid "Each correct placement starts with a base value:"
 msgstr "Setiap penempatan benar dimulai dari nilai dasar:"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Easy"
 msgstr "Mudah"
@@ -568,7 +568,7 @@ msgstr "Panduan"
 msgid "h"
 msgstr "h"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Hard"
 msgstr "Sulit"
@@ -580,7 +580,7 @@ msgstr "Sulit"
 msgid "Hardcore"
 msgstr "Hardcore"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Hell"
 msgstr "Neraka"
@@ -756,7 +756,7 @@ msgstr "Bonus batas kesalahan"
 msgid "Maybe later"
 msgstr "Mungkin nanti"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Medium"
 msgstr "Sedang"
@@ -827,7 +827,7 @@ msgstr "Game baru"
 msgid "New personal best"
 msgstr "Rekor pribadi baru"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Newbie"
 msgstr "Pemula"
@@ -836,7 +836,7 @@ msgstr "Pemula"
 msgid "Newspaper"
 msgstr "Koran"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Nightmare"
 msgstr "Mimpi buruk"
@@ -1478,7 +1478,6 @@ msgstr "Tidak dapat membuka tautan"
 msgid "Unable to start installation"
 msgstr "Tidak dapat memulai penginstalan"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Unknown"
 msgstr "Tidak diketahui"

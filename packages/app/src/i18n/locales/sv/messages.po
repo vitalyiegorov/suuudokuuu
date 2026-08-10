@@ -453,7 +453,7 @@ msgstr "Duplicera"
 msgid "Each correct placement starts with a base value:"
 msgstr "Varje korrekt placering börjar med ett grundvärde:"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Easy"
 msgstr "Lätt"
@@ -568,7 +568,7 @@ msgstr "Hjälpmedel"
 msgid "h"
 msgstr "h"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Hard"
 msgstr "Svår"
@@ -580,7 +580,7 @@ msgstr "Svår"
 msgid "Hardcore"
 msgstr "Hardcore"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Hell"
 msgstr "Helvete"
@@ -756,7 +756,7 @@ msgstr "Bonus för tillåtna misstag"
 msgid "Maybe later"
 msgstr "Kanske senare"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Medium"
 msgstr "Medel"
@@ -827,7 +827,7 @@ msgstr "Nytt spel"
 msgid "New personal best"
 msgstr "Nytt personbästa"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Newbie"
 msgstr "Nybörjare"
@@ -836,7 +836,7 @@ msgstr "Nybörjare"
 msgid "Newspaper"
 msgstr "Tidning"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Nightmare"
 msgstr "Mardröm"
@@ -1478,7 +1478,6 @@ msgstr "Det går inte att öppna länken"
 msgid "Unable to start installation"
 msgstr "Det går inte att starta installationen"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Unknown"
 msgstr "Okänd"

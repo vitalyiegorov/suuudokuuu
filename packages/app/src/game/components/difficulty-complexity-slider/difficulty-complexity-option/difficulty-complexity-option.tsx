@@ -1,7 +1,8 @@
+import { useLingui } from '@lingui/react/macro';
 import { Pressable } from 'react-native';
 
 import { BlackText } from '../../../../@generic/components/black-text/black-text';
-import { getDifficultyText } from '../../../../@generic/utils/get-difficulty-text.util';
+import { getDifficultyMessage } from '../../../../@generic/utils/get-difficulty-message.util';
 
 import { DifficultyComplexityOptionSelectors } from './difficulty-complexity-option.selectors';
 
@@ -15,15 +16,19 @@ interface Props {
     readonly style: StyleProp<ViewStyle>;
 }
 
-export const DifficultyComplexityOption = ({ difficulty, labelStyle, onPress, style }: Props) => (
-    <Pressable
-        accessibilityRole="button"
-        onPress={onPress}
-        style={style}
-        testID={`${DifficultyComplexityOptionSelectors.Option}.${difficulty}`}
-    >
-        <BlackText numberOfLines={1} style={labelStyle}>
-            {getDifficultyText(difficulty)}
-        </BlackText>
-    </Pressable>
-);
+export const DifficultyComplexityOption = ({ difficulty, labelStyle, onPress, style }: Props) => {
+    const { t } = useLingui();
+
+    return (
+        <Pressable
+            accessibilityRole="button"
+            onPress={onPress}
+            style={style}
+            testID={`${DifficultyComplexityOptionSelectors.Option}.${difficulty}`}
+        >
+            <BlackText numberOfLines={1} style={labelStyle}>
+                {t(getDifficultyMessage(difficulty))}
+            </BlackText>
+        </Pressable>
+    );
+};

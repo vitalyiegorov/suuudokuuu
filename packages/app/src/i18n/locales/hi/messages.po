@@ -453,7 +453,7 @@ msgstr "डुप्लिकेट करें"
 msgid "Each correct placement starts with a base value:"
 msgstr "हर सही स्थान का आधार मूल्य होता है:"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Easy"
 msgstr "आसान"
@@ -568,7 +568,7 @@ msgstr "सहायता"
 msgid "h"
 msgstr "h"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Hard"
 msgstr "कठिन"
@@ -580,7 +580,7 @@ msgstr "कठिन"
 msgid "Hardcore"
 msgstr "हार्डकोर"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Hell"
 msgstr "नरक"
@@ -756,7 +756,7 @@ msgstr "अनुमत गलतियों का बोनस"
 msgid "Maybe later"
 msgstr "शायद बाद में"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Medium"
 msgstr "मध्यम"
@@ -827,7 +827,7 @@ msgstr "नया गेम"
 msgid "New personal best"
 msgstr "नया व्यक्तिगत सर्वश्रेष्ठ"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Newbie"
 msgstr "नया खिलाड़ी"
@@ -836,7 +836,7 @@ msgstr "नया खिलाड़ी"
 msgid "Newspaper"
 msgstr "न्यूज़पेपर"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Nightmare"
 msgstr "दुःस्वप्न"
@@ -1478,7 +1478,6 @@ msgstr "लिंक नहीं खोला जा सका"
 msgid "Unable to start installation"
 msgstr "इंस्टॉलेशन शुरू नहीं किया जा सका"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Unknown"
 msgstr "अज्ञात"

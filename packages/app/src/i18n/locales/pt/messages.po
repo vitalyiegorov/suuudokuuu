@@ -453,7 +453,7 @@ msgstr "Duplicar"
 msgid "Each correct placement starts with a base value:"
 msgstr "Cada número correto começa com um valor base:"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Easy"
 msgstr "Fácil"
@@ -568,7 +568,7 @@ msgstr "Ajuda"
 msgid "h"
 msgstr "h"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Hard"
 msgstr "Difícil"
@@ -580,7 +580,7 @@ msgstr "Difícil"
 msgid "Hardcore"
 msgstr "Hardcore"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Hell"
 msgstr "Inferno"
@@ -756,7 +756,7 @@ msgstr "Bônus por erros permitidos"
 msgid "Maybe later"
 msgstr "Talvez mais tarde"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Medium"
 msgstr "Médio"
@@ -827,7 +827,7 @@ msgstr "Novo jogo"
 msgid "New personal best"
 msgstr "Novo recorde pessoal"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Newbie"
 msgstr "Iniciante"
@@ -836,7 +836,7 @@ msgstr "Iniciante"
 msgid "Newspaper"
 msgstr "Jornal"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Nightmare"
 msgstr "Pesadelo"
@@ -1478,7 +1478,6 @@ msgstr "Não foi possível abrir o link"
 msgid "Unable to start installation"
 msgstr "Não foi possível iniciar a instalação"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Unknown"
 msgstr "Desconhecido"
