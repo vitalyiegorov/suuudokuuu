@@ -4,6 +4,7 @@ import {
     GameScreenSelectors,
     HomeScreenSelectors,
     RatingBadgeSelectors,
+    RatingExplainerSelectors,
     SharedScreenSelectors
 } from '@suuudokuuu/app/src/selectors';
 
@@ -16,16 +17,36 @@ const gameScreenTimeoutMilliseconds = 15000;
 const infinityOptionTestId = `${DifficultyComplexityOptionSelectors.Option}.Infinity`;
 
 test('starts a curated Infinity puzzle from the home screen with its rating visible', async ({ page }) => {
+    const pageErrors: string[] = [];
+    page.on('pageerror', error => pageErrors.push(error.message));
+
     await launchHome(page);
 
     await page.getByTestId(infinityOptionTestId).click();
     const homeScreen = page.getByTestId(HomeScreenSelectors.Root);
     await expect(homeScreen.getByText('World-record puzzles', { exact: true })).toBeVisible();
 
+    // Regression guard: selecting Infinity re-renders the shimmering start button, which
+    // previously crashed react-native-web's Reanimated bridge (see home-screen-start-button-shimmer.tsx).
+    expect(pageErrors).toEqual([]);
+
     await page.getByTestId(HomeScreenSelectors.StartButton).click();
     await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible({ timeout: gameScreenTimeoutMilliseconds });
     await expect(page.getByTestId(GameScreenSelectors.Level)).toHaveText('Infinity');
     await expect(page.getByTestId(GameScreenSelectors.Rating)).toBeVisible();
+
+    await page.getByTestId(GameScreenSelectors.Rating).click();
+    const ratingExplainer = page.getByTestId(RatingExplainerSelectors.Root);
+    await expect(ratingExplainer).toBeVisible();
+    // "Beyond the ceiling" names both the current-rating row and its highlighted row in the band
+    // list below, so this checks the current-rating copy specifically: the first match in DOM order.
+    await expect(ratingExplainer.getByText('Beyond the ceiling', { exact: true }).first()).toBeVisible();
+
+    await page.keyboard.press('Escape');
+    await expect(ratingExplainer).not.toBeVisible();
+    await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible();
+
+    expect(pageErrors).toEqual([]);
 
     await quitCurrentGame(page);
 });

@@ -17,6 +17,20 @@ appId: ${APP_ID}
       text: 'Infinity'
 - assertVisible:
       id: 'GameScreenSelectors.Rating'
+# Curated Infinity puzzles always rate above the SE display ceiling, so the
+# explainer sheet's current-rating band is deterministically "Beyond the ceiling".
+- tapOn:
+      id: 'GameScreenSelectors.Rating'
+- extendedWaitUntil:
+      visible:
+          id: 'RatingExplainerSelectors.Root'
+      timeout: 3000
+- assertVisible: 'Beyond the ceiling'
+- back
+- extendedWaitUntil:
+      visible:
+          id: 'GameScreenSelectors.Root'
+      timeout: 3000
 - runFlow: subflows/game/quit-current-game.flow.yaml
 
 # 2. Shared Infinity links round-trip the rating end to end. The fixture

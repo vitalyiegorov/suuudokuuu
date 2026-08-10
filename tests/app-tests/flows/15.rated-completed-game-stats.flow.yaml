@@ -1,0 +1,63 @@
+appId: ${APP_ID}
+---
+- startRecording:
+      path: '15.rated-completed-game-stats'
+      optional: true
+
+# This fixture is winningSharedChallengeEncodedConstant's field/timeline re-encoded with a real
+# rating trailer (see tests/web-tests/AGENTS.md's ratedWinningSharedChallengeEncodedConstant fixture
+# note), so completing it produces a genuinely rated Newbie completed game.
+- runFlow: subflows/navigation/launch-home.flow.yaml
+- runFlow:
+      file: subflows/shared/complete-winning-shared-challenge.flow.yaml
+      env:
+          SHARED_CHALLENGE_LINK: suuudokuuu://shared/_OWP________9____qXF6FFdMjBWGhJIN-CMqSm5omCUw0KFUm6-t2HxLUAuYMARgH-IAABCg
+- scrollUntilVisible:
+      element:
+          id: 'ChallengeResultFooterSelectors.HomeButton'
+      direction: DOWN
+      timeout: 3000
+- tapOn:
+      id: 'ChallengeResultFooterSelectors.HomeButton'
+- extendedWaitUntil:
+      visible:
+          id: 'HomeScreenSelectors.Root'
+      timeout: 3000
+- tapOn: 'Stats'
+- extendedWaitUntil:
+      visible:
+          id: 'HistoryScreenSelectors.Root'
+      timeout: 3000
+- assertVisible: 'Hardest solve'
+- assertVisible:
+      id: 'RatingBadgeSelectors.Root'
+- assertVisible:
+      id: 'HistoryRatingBandsSelectors.Root'
+- assertVisible:
+      id: 'HistoryTechniquesSelectors.Root'
+- assertVisible: 'Best technique'
+- scrollUntilVisible:
+      element:
+          text: '.*completed game.*'
+      direction: DOWN
+- tapOn:
+      id: 'HistoryDifficultySelectors.Card.Newbie'
+- extendedWaitUntil:
+      visible:
+          id: 'HistoryGamesScreenSelectors.Root'
+      timeout: 3000
+- assertVisible:
+      id: 'RatingBadgeSelectors.Root'
+- tapOn:
+      id: 'HeaderBackButtonSelectors.Root'
+- extendedWaitUntil:
+      visible:
+          id: 'HistoryScreenSelectors.Root'
+      timeout: 3000
+- tapOn:
+      id: 'HeaderBackButtonSelectors.Root'
+- extendedWaitUntil:
+      visible:
+          id: 'HomeScreenSelectors.Root'
+      timeout: 3000
+- stopApp
