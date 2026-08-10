@@ -346,6 +346,10 @@ msgstr "পরিষ্কার খেলা"
 msgid "Clean win"
 msgstr "নিখুঁত জয়"
 
+#: src/screens/components/rating-explainer-sheet-screen/rating-explainer-sheet.screen.tsx
+msgid "Close"
+msgstr ""
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Column"
 msgstr "কলাম"

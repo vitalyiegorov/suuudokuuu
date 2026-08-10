@@ -348,6 +348,10 @@ msgstr "Clean run"
 msgid "Clean win"
 msgstr "Clean win"
 
+#: src/screens/components/rating-explainer-sheet-screen/rating-explainer-sheet.screen.tsx
+msgid "Close"
+msgstr "Close"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Column"
 msgstr "Column"
