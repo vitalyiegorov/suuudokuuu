@@ -32,6 +32,12 @@ appId: ${APP_ID}
           text: '.*completed game.*'
       direction: DOWN
 - assertVisible: 'Newbie.*'
+# The rating-band and technique sections pushed the difficulty card to the end of a
+# much taller scroll, so the scroll above stops as soon as the card's title line
+# appears and its tappable centre still sits under the floating tab bar. Scrolling
+# once more settles the content at its end, where the reserved bottom inset clears
+# the bar.
+- scroll
 - tapOn:
       id: 'HistoryDifficultySelectors.Card.Newbie'
 - extendedWaitUntil:

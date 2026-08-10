@@ -26,11 +26,19 @@ appId: ${APP_ID}
           id: 'RatingExplainerSelectors.Root'
       timeout: 3000
 - assertVisible: 'Beyond the ceiling'
-- back
+# The explainer is a native bottom sheet inside a transparent route, so the game
+# root stays visible underneath and cannot signal that the sheet closed. Maestro's
+# iOS back gesture hides the sheet but leaves the route swallowing taps, which
+# silently breaks the next control. Close it the way the sheet supports and wait
+# for it to actually leave the hierarchy.
+- swipe:
+      from:
+          id: 'RatingExplainerSelectors.Root'
+      direction: DOWN
 - extendedWaitUntil:
-      visible:
-          id: 'GameScreenSelectors.Root'
-      timeout: 3000
+      notVisible:
+          id: 'RatingExplainerSelectors.Root'
+      timeout: 5000
 - runFlow: subflows/game/quit-current-game.flow.yaml
 
 # 2. Shared Infinity links round-trip the rating end to end. The fixture
