@@ -165,3 +165,7 @@ Our Hell and Infinity difficulty levels stand on data curated by the wider Sudok
 - The [Enjoy Sudoku forum](http://forum.enjoysudoku.com/) community and `champagne`, who compiled the "hardest sudokus" database behind most of our Infinity-difficulty corpus.
 - **Arto Inkala**, creator of Everest and AI Escargot, and the Enjoy Sudoku forum authors behind Golden Nugget, Kolk, Patience, Discrepancy, Fata Morgana, Cigarette, Imam Bayildi, Red Dwarf, Second Flush, Silver Plate, First Peak, and Platinum Blonde, the named world-record puzzles that round out our Infinity level.
 - **Nicolas Juillerat**, creator of Sudoku Explainer, and the Enjoy Sudoku forum's Patterns Game community, whose SE rating methodology our difficulty scale follows.
+
+## License
+
+Suuudokuuu is licensed under the [O'SAASY License](LICENSE) — an MIT-style license with one condition: you may not offer the Software itself as a competing hosted or SaaS product. Learn more at [osaasy.dev](https://osaasy.dev).
