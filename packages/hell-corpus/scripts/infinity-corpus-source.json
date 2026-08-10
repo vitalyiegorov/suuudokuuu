@@ -16,5 +16,587 @@
         "grid": "000000012000000003002300400001800005060070800000009000008500000900040500470006000",
         "rating": 10.9,
         "source": "https://groups.google.com/g/sci.math/c/HXZfuNub7Cs"
+    },
+    {
+        "name": "Golden Nugget",
+        "grid": "000000039000001005003050800008090006070002000100400000009080050020000600400700000",
+        "rating": 11.9,
+        "source": "http://forum.enjoysudoku.com/golden-nugget-challenge-t35955.html"
+    },
+    {
+        "name": "Kolk",
+        "grid": "120300000400000300003050000004200500000080009060005070001500200000090060000007008",
+        "rating": 11.9,
+        "source": "http://forum.enjoysudoku.com/the-hardest-sudokus-new-thread-t6539.html"
+    },
+    {
+        "name": "Patience",
+        "grid": "120300000405000600070000020600100300004530000000008009000450100000000080000002007",
+        "rating": 11.9,
+        "source": "http://forum.enjoysudoku.com/the-hardest-sudokus-new-thread-t6539-285.html"
+    },
+    {
+        "name": "Discrepancy",
+        "grid": "120400300300010050006000100700090000040603000003002000500080700007000005000000098",
+        "rating": 10.4,
+        "source": "http://forum.enjoysudoku.com/the-hardest-sudokus-new-thread-t6539.html"
+    },
+    {
+        "name": "Fata Morgana",
+        "grid": "000000003001005600090040070000009050700000008050402000080020090003500100600000000",
+        "rating": 10.8,
+        "source": "http://forum.enjoysudoku.com/the-hardest-sudokus-new-thread-t6539.html"
+    },
+    {
+        "name": "Cigarette",
+        "grid": "120300000340000100005000000602400500000060070000008006004200300000070009000009080",
+        "rating": 10.8,
+        "source": "http://forum.enjoysudoku.com/the-hardest-sudokus-new-thread-t6539.html"
+    },
+    {
+        "name": "Imam Bayildi",
+        "grid": "003006080000100200000070004009008060030040001070200000300005000005000600980000050",
+        "rating": 11.9,
+        "source": "http://forum.enjoysudoku.com/the-hardest-sudokus-new-thread-t6539.html"
+    },
+    {
+        "name": "Red Dwarf",
+        "grid": "120300004350000100004000000005400200600070000000008090003100500000009070000060008",
+        "rating": 10.9,
+        "source": "http://forum.enjoysudoku.com/the-hardest-sudokus-new-thread-t6539.html"
+    },
+    {
+        "name": "Second Flush",
+        "grid": "120030000400001020005200100500400200000060070000003008050000900009070030000008006",
+        "rating": 11.9,
+        "source": "http://forum.enjoysudoku.com/the-hardest-sudokus-new-thread-t6539-285.html"
+    },
+    {
+        "name": "Silver Plate",
+        "grid": "100000007020400060003000500090040000000062040000900800005000003060200080700001000",
+        "rating": 11.5,
+        "source": "http://forum.enjoysudoku.com/the-hardest-sudokus-new-thread-t6539.html"
+    },
+    {
+        "name": "First Peak",
+        "grid": "120300000400050000006001700500200000030010040001006800009000070000100900000009068",
+        "rating": 11.8,
+        "source": "http://forum.enjoysudoku.com/the-hardest-sudokus-new-thread-t6539.html"
+    },
+    {
+        "name": "pearly6000-3091",
+        "grid": "000000006005001800090008070000802000003010200400503000060000090008300100700000004",
+        "rating": 11.8,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "ultra0203",
+        "grid": "200000006050080010004000900070301000000820000000705030009000400080010050600000002",
+        "rating": 11.8,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00055",
+        "grid": "500000009020100070008000300040600000000050000000207010003000800060004020900000005",
+        "rating": 11.8,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00212",
+        "grid": "100000009006700020080000400000075030005002000060300000090000800600040001002500060",
+        "rating": 11.8,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00213",
+        "grid": "000400080007009200000030005260001000001900000070000100500000040010800003006002900",
+        "rating": 11.8,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00214",
+        "grid": "003400080000000103700000000200090000000500800060007040005100008070005000900062050",
+        "rating": 11.8,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00222",
+        "grid": "020400700050009030600070000005008090700020000040600300000001008500000010001000903",
+        "rating": 11.8,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "gsf-2007-05-24-0032",
+        "grid": "100000002009400050060000700000890040000306000008040000020000100700000006005080030",
+        "rating": 11.8,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "coloin-04-10 (HardestSudokusThread-00228)",
+        "grid": "600000002090400050001000700050084000000020000000305040200000600030009080007000001",
+        "rating": 11.8,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "coloin-04-10 (HardestSudokusThread-00229)",
+        "grid": "100000002090400050006000700050304000000060000000058040002000600030009080700000001",
+        "rating": 11.8,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "h54autres_1",
+        "grid": "100000002030400050006000700050904000000023000000800090002000600090008040700000001",
+        "rating": 11.8,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "h54autres_4",
+        "grid": "100000002030400050006000700050804000000029000000300090007000001090008040200000600",
+        "rating": 11.8,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00246",
+        "grid": "000000009400009200000070045001030000070600900800007002030700800006010000900005020",
+        "rating": 11.8,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "pearly6000-3802",
+        "grid": "008000500040002090700000003020004000000930000000201060500000008010600020003000700",
+        "rating": 11.7,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "pearly6000-4268",
+        "grid": "003000500070004060800000009040007000000450000000201070500000003010700020009000800",
+        "rating": 11.7,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "pearly6000-3112",
+        "grid": "008000300070009040100000002060004000000980000000706050200000001090400060003000800",
+        "rating": 11.7,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00051",
+        "grid": "009000400070300020800060007100800006000010070000056000300005001040000090002000700",
+        "rating": 11.7,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "pearly6000-2803",
+        "grid": "100000009040003080002000600070058000000020000000704050006000200030800070900000001",
+        "rating": 11.7,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00073",
+        "grid": "000056700000100000600370000004000001300060900080000020500007300002000008010000040",
+        "rating": 11.7,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00087",
+        "grid": "100050009000000030079000000007010006500004200600800000005060007000002040000300800",
+        "rating": 11.7,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00191",
+        "grid": "120300000300040000005002300500006100000000090006700008050001600000900040000080007",
+        "rating": 11.7,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00215",
+        "grid": "100050009007000200069003040000800000000910070900005008300500001002000600040000000",
+        "rating": 11.7,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00216",
+        "grid": "000056080050700003008000000200000900040500007000092060304000001500100400010000070",
+        "rating": 11.7,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00217",
+        "grid": "100056000007100000009000010040060300000008002900700060000002400500600090000030008",
+        "rating": 11.7,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00218",
+        "grid": "000400080007009200000030005260001000001900000700000100500000040006002900900800003",
+        "rating": 11.7,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00223",
+        "grid": "000400009000080200600003010010007000700600500030000070300005020002900800000020004",
+        "rating": 11.7,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00224",
+        "grid": "100006700050700003008000004040500300000020090000000045070900030600010000002008000",
+        "rating": 11.7,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "coloin-04-10 (HardestSudokusThread-00232)",
+        "grid": "100000002090400050006000700050304000000960000000008040002000600030009080700000001",
+        "rating": 11.7,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "jpf-04/08",
+        "grid": "100000002030400050006000700050803000000070000000950080700000600090008030002000001",
+        "rating": 11.7,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "jpf-04/14/B4",
+        "grid": "100000002003400050060000700000850090000306000008090000020000100700000006009080030",
+        "rating": 11.7,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "jpf-04/14/01",
+        "grid": "100000002030400050006000700050804000000073000000900080700000600040008090002000001",
+        "rating": 11.7,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "jpf-04-10",
+        "grid": "100000002003400050060000700000030040000806000009540000020000100700000006005090080",
+        "rating": 11.7,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "colx155",
+        "grid": "001000500020400060300007000060280000000090020000000406500000100090800040007000003",
+        "rating": 11.7,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00247",
+        "grid": "000400009050009030000000105200800000006040000010005300004200070800067000070000003",
+        "rating": 11.7,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "pearly6000-3238",
+        "grid": "005000700080006040900000002040003000000650000000408010200000009010800030007000500",
+        "rating": 11.6,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "pearly6000-3978",
+        "grid": "002000600040005010300000008090004000000520000000107040800000003050700090006000200",
+        "rating": 11.6,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "pearly6000-4143",
+        "grid": "009000700010006080300000004020005000000890000000602010400000003080200050007000900",
+        "rating": 11.6,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "ultra0313",
+        "grid": "300000008070500010006000400090201000000040000000970020400000300050002070008000006",
+        "rating": 11.6,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "pearly6000-1847",
+        "grid": "300000001040002070005000800000076040000050000060209000100000500070600090008000003",
+        "rating": 11.6,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00085",
+        "grid": "500000009020100070008000300040002000000050000000706010003000800060004020900000005",
+        "rating": 11.6,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00219",
+        "grid": "100006000057100000090070010008000000000008902900500060000042003030000400700600090",
+        "rating": 11.6,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00220",
+        "grid": "020400000400080006009003100200500070095000000070000300002900040000001003000060800",
+        "rating": 11.6,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00221",
+        "grid": "003006080400100200090000004070008000035000000900030005009040007000002010000800600",
+        "rating": 11.6,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00225",
+        "grid": "103000009007109000090000040010007003000020800000500060000060500600800020070004000",
+        "rating": 11.6,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00226",
+        "grid": "003006700050080000090100000000090010007003200800500040370000400000004006004000072",
+        "rating": 11.6,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "jpf-04/14/02",
+        "grid": "100000002030400050006000700050803000000074000000900080700000600090008030002000001",
+        "rating": 11.6,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "colx1890",
+        "grid": "000100009000000085009050060005030006070002000100400000003080090020007300400000000",
+        "rating": 11.6,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "colx039",
+        "grid": "000000035000002060003050080005090006070000900100400000006080090020100000400007000",
+        "rating": 11.6,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "col-201107-M3-3",
+        "grid": "100000080000009130000000506007040000300001050060200000500008900040070000002600000",
+        "rating": 11.6,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "tarek071223170000-181",
+        "grid": "300009700060040000001800000500000093000003270000000008004010000200007050080600000",
+        "rating": 11.6,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "col0701-13",
+        "grid": "000000080006000120000200605001500900800003000040070000300008000002100006070040000",
+        "rating": 11.6,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "jpf-04/14",
+        "grid": "100000002003400050060000700000030040000506000008940000020000100700000006005080090",
+        "rating": 11.6,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00248",
+        "grid": "100050080007000006080300500200000010006000007090003800000904000040030900000800020",
+        "rating": 11.6,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00249",
+        "grid": "003050700400009000080200000200000040090800000001060500000501600000070003006000057",
+        "rating": 11.6,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "Pretty Biest",
+        "grid": "500600000020000040001020300900800000007040100000009006004070200030000010000005008",
+        "rating": 11.6,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00270",
+        "grid": "100400000007080006090000410000003000030800900005060007002000000500008002070020650",
+        "rating": 11.5,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00272",
+        "grid": "003400000050009000600020100200060001040500060006003000009000607000000802800070010",
+        "rating": 11.5,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00277",
+        "grid": "020006700400080030000200000000000005300040010005007600034008090081090400900000000",
+        "rating": 11.5,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00928",
+        "grid": "000400000006780000700002004030000600001005090000200005090007010060000300800020007",
+        "rating": 11.5,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00937",
+        "grid": "100050080000009006009200500000003008070900000004020300600040000700000001005002400",
+        "rating": 11.5,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00944",
+        "grid": "000056700007100006000000410200090000030005000006700040008000100500030008090002000",
+        "rating": 11.5,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "pearly6000-1802",
+        "grid": "500000007080009030004000200010036000000040000000108060002000400090300010700000005",
+        "rating": 11.4,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00293",
+        "grid": "000000709400009030080000405001800000060020000700005300500007003070600000002010070",
+        "rating": 11.4,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00297",
+        "grid": "100006700050100006009000010005008300700500090030000000000040002500600070004020800",
+        "rating": 11.4,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00945",
+        "grid": "000000700007109000680070000001090600000300020040000003008060100500000040010002005",
+        "rating": 11.4,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00952",
+        "grid": "000400000050009006009020010030000005001002060700000800000010007800060300006200040",
+        "rating": 11.4,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00975",
+        "grid": "100000700007109000680070000001090600000300020040000003008060100500000040000002005",
+        "rating": 11.4,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00976",
+        "grid": "020006000400080000009700100000000305060000901001300070005900003800002007000040000",
+        "rating": 11.4,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-01460",
+        "grid": "020400000007080006000003050009060001000002300000500040001000800600010007970000000",
+        "rating": 11.4,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "ultra0300",
+        "grid": "900000005040300060002000100080740000000020000000806070100000900030007040005000002",
+        "rating": 11.3,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "pearly6000-1801",
+        "grid": "300000002080070010006900000050704000000000008000510070009000300010040080200000006",
+        "rating": 11.3,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "pearly6000-1803",
+        "grid": "300000005070008060002000900010006000000820000000107040009000200080600010500000003",
+        "rating": 11.3,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00336",
+        "grid": "100006000050000006009070010004010070300800000080005300000004020000020907002700100",
+        "rating": 11.3,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00347",
+        "grid": "100000700050080003700201000060005000305800006000060400002900300000000090030040008",
+        "rating": 11.3,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00358",
+        "grid": "000050780006009002700000000030000050000830200001002006060000004004100920900004000",
+        "rating": 11.3,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00361",
+        "grid": "020050080007109000600000000000500040040000008000040302001007006060020030900600800",
+        "rating": 11.3,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00364",
+        "grid": "100000700050080003700201000060005030005800006000060400002900300000000090030040008",
+        "rating": 11.3,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00368",
+        "grid": "100400700007009006080000050000010000830090000005007060300000005000040092002005600",
+        "rating": 11.3,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00374",
+        "grid": "100056700000100006009000010005008300700500090030000000000040002500600070004020800",
+        "rating": 11.3,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-00388",
+        "grid": "020000009006080100700000005004600008000040010000308400090000020500007001001030800",
+        "rating": 11.3,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-01011",
+        "grid": "020000700400009003000020000001000600800003004000670010080005000500030040009800005",
+        "rating": 11.3,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-01023",
+        "grid": "020400080000009006600000500008700000300008070070020400001005000000010900030800040",
+        "rating": 11.3,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-01032",
+        "grid": "100006009006700020080030500000500300010008006000020000001004008840000000900000070",
+        "rating": 11.3,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-01056",
+        "grid": "020000700000000030009100004004900008300000600070060020005098000000001005040500800",
+        "rating": 11.3,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-01065",
+        "grid": "020400009000000100700030040010600900500008000007003010000005000040200090800000602",
+        "rating": 11.3,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
+    },
+    {
+        "name": "HardestSudokusThread-01464",
+        "grid": "000406700007000000000070015290000008006010500000200000030000000800003090005040600",
+        "rating": 11.3,
+        "source": "https://github.com/alexdej/hodoku-py/blob/8ba1922d42409ba524270f35f0480facc3d7091c/tests/testdata/HardestDatabase110626.txt"
     }
 ]
