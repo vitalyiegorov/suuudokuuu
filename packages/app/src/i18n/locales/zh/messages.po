@@ -346,6 +346,10 @@ msgstr "干净对局"
 msgid "Clean win"
 msgstr "完胜"
 
+#: src/screens/components/rating-explainer-sheet-screen/rating-explainer-sheet.screen.tsx
+msgid "Close"
+msgstr ""
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Column"
 msgstr "列"

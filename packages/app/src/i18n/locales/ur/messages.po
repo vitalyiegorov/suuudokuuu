@@ -346,6 +346,10 @@ msgstr "صاف کھیل"
 msgid "Clean win"
 msgstr "شاندار جیت"
 
+#: src/screens/components/rating-explainer-sheet-screen/rating-explainer-sheet.screen.tsx
+msgid "Close"
+msgstr ""
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Column"
 msgstr "کالم"

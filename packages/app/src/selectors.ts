@@ -38,6 +38,7 @@ export * from './screens/components/home-screen/home-screen-start-button-ember/h
 export * from './screens/components/home-screen/home-screen.selectors';
 export * from './screens/components/loser-screen/loser-screen.selectors';
 export * from './screens/components/pause-screen/pause-screen.selectors';
+export * from './screens/components/rating-explainer-sheet-screen/rating-explainer-sheet-screen.selectors';
 export * from './screens/components/privacy-policy-screen/privacy-policy-screen.selectors';
 export * from './screens/components/beta-screen/beta-screen.selectors';
 export * from './screens/components/settings-screen/settings-screen.selectors';
