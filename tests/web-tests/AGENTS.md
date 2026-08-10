@@ -59,6 +59,11 @@ running server outside CI. `playwright.config.ts` fails fast with an actionable 
   wins immediately.
 - `losingSharedChallengeEncodedConstant`: cell `y=0, x=4`'s correct value is not `4`; entering `4`
   three times registers three mistakes and loses the challenge.
+- `infinitySharedPuzzleEncodedConstant`: a `Puzzle`-kind share of a real Infinity-corpus puzzle (21
+  clues) with the encoder's rating trailer carrying an explicit `Infinity` difficulty and its
+  curated SE rating, so it decodes as Infinity instead of colliding with Nightmare's blank-count
+  inference. Generated with `GameStateSerializer.encodeState` against `pickInfinityPuzzle`'s output;
+  regenerate the same way if the Infinity corpus or the rating trailer format changes.
 
 ## Known Platform Notes
 

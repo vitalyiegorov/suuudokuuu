@@ -11,6 +11,10 @@ appId: ${APP_ID}
           SHARED_CHALLENGE_LINK: suuudokuuu://shared/_KAOADKxQxGAEwAiG0eSR7tZLUwnibscwQ0-A5fIIKC45kkWcIIQQQRgYUgCGSyNYgAAAAAAAAAAAAASWSrfOcD6yrHa0SAMNhPEITYFvbWxiFMlBQUFBQUFBQUFBQUFBQUFCQkFAgICAgICBQIFCQIJCQUFCQkFAgICAgICAgICAgICAgICAgICAgICAgIA
 
 - assertVisible: '.*Nightmare.*'
+# This fixture predates the rating trailer, so the rival chip must not show a
+# rating badge for its unknown (0) rating.
+- assertNotVisible:
+      id: 'RatingBadgeSelectors.Root'
 - assertVisible:
       id: 'ChallengeAcceptScreenSelectors.OpponentTime'
 - assertVisible: '03:50'

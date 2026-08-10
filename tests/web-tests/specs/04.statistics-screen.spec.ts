@@ -7,8 +7,10 @@ import {
     HistoryGamesScreenSelectors,
     HistoryScreenSelectors,
     HomeScreenSelectors,
+    RatingBadgeSelectors,
     ReplayActionsSelectors,
     ReplayControlsSelectors,
+    ReplayHeaderSelectors,
     ReplayScrubberSelectors,
     ReplayShareActionSelectors
 } from '@suuudokuuu/app/src/selectors';
@@ -40,9 +42,11 @@ test('reviews and replays a completed game from statistics', async ({ page }) =>
     await expect(historyGamesScreen.getByText('Score', { exact: true })).toBeVisible();
     await expect(historyGamesScreen.getByText('Time', { exact: true })).toBeVisible();
     await expect(historyGamesScreen.getByText('Mistakes', { exact: true })).toBeVisible();
+    await expect(page.getByTestId(RatingBadgeSelectors.Root)).toHaveCount(0);
 
     await page.getByTestId(CompletedGameItemSelectors.ReplayButton).click();
     await expect(page.getByTestId(ReplayControlsSelectors.Root)).toBeVisible();
+    await expect(page.getByTestId(ReplayHeaderSelectors.Rating)).toHaveCount(0);
     await page.getByTestId(ReplayControlsSelectors.NextButton).click();
     await page.getByTestId(ReplayControlsSelectors.PreviousButton).click();
 

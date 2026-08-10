@@ -1,8 +1,8 @@
 appId: ${APP_ID}
 ---
 - startRecording:
-    path: '01.home-screen'
-    optional: true
+      path: '01.home-screen'
+      optional: true
 
 - runFlow: subflows/navigation/launch-home.flow.yaml
 - assertVisible: 'Difficulty'
@@ -10,15 +10,22 @@ appId: ${APP_ID}
 - assertVisible: 'Mistakes'
 - runFlow: subflows/game/start-new-game.flow.yaml
 - assertVisible:
-    id: 'GameScreenSelectors.Score'
-    text: '0'
+      id: 'GameScreenSelectors.Score'
+      text: '0'
 - assertVisible: '0/3'
+# A freshly generated (non-shared) puzzle always carries a computed SE rating,
+# unlike shared links decoded from before the rating trailer existed.
+- assertVisible:
+      id: 'GameScreenSelectors.Level'
+      text: 'Easy'
+- assertVisible:
+      id: 'GameScreenSelectors.Rating'
 - runFlow: subflows/game/quit-current-game.flow.yaml
 # Quitting remounts Home at the top of its scroll content, so the start button
 # sits below the fold on shorter viewports and has to be scrolled back into view.
 - scrollUntilVisible:
-    element:
-      id: 'HomeScreenSelectors.StartButton'
-    direction: DOWN
-    timeout: 3000
+      element:
+          id: 'HomeScreenSelectors.StartButton'
+      direction: DOWN
+      timeout: 3000
 - stopApp
