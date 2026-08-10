@@ -25,6 +25,7 @@ const buildChallenge = (overrides: Partial<EncodableGameStateInterface>): Encoda
     anchorSeconds: 0,
     pencilCount: 0,
     screenshotCount: 0,
+    difficulty: null,
     ...overrides
 });
 

@@ -12,10 +12,11 @@ import { useBoardGeometry } from '../../../game/hooks/use-board-geometry.hook';
 import { gameCompletedGameByIdSelector } from '../../../game/store/game.selectors';
 import { getTimelineCellSteps } from '../../../game/utils/get-timeline-cell-steps.util';
 import { stringToGameState } from '../../../game/utils/string-to-game-state.util';
+import { ReplayActions } from '../../../history/components/replay-actions/replay-actions';
 import { ReplayControls } from '../../../history/components/replay-controls/replay-controls';
 import { ReplayField } from '../../../history/components/replay-field/replay-field';
 import { ReplayHeader } from '../../../history/components/replay-header/replay-header';
-import { ReplayTopBar } from '../../../history/components/replay-top-bar/replay-top-bar';
+import { ReplayShareAction } from '../../../history/components/replay-share-action/replay-share-action';
 import { getReplayTimeline } from '../../../history/utils/get-replay-timeline.util';
 import { getSudokuAtStep } from '../../../history/utils/get-sudoku-at-step.util';
 
@@ -52,6 +53,9 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
             setCurrentStep(currentStep + 1);
         }
     };
+    const handleScrubStep = (step: number) => {
+        setCurrentStep(Math.min(Math.max(step, 0), totalSteps));
+    };
 
     const { sudoku, highlightedCellKey, elapsedTime, moveClassification } = getSudokuAtStep(gameState, currentStep);
     const awayRanges = getChallengeAwayRanges(replayTimeline.events, completedGame.elapsedTime);
@@ -64,15 +68,20 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
             moveClassification={moveClassification}
             onNextStep={handleNextStep}
             onPrevStep={handlePrevStep}
+            onScrubStep={handleScrubStep}
             totalSteps={totalSteps}
         />
     );
 
     return (
         <View style={styles.container}>
-            <ReplayTopBar />
             <View style={styles.content}>
-                {isWideLayout ? null : replayHeader}
+                {isWideLayout ? null : (
+                    <View style={styles.topBar}>
+                        {replayHeader}
+                        <ReplayActions />
+                    </View>
+                )}
 
                 <View onLayout={onBoardAreaLayout} style={styles.fieldWrapper}>
                     <ReplayField cellSize={boardCellSize} highlightedCellKey={highlightedCellKey} sudoku={sudoku} />
@@ -82,6 +91,10 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
                     {isWideLayout ? replayHeader : null}
 
                     {replayControls}
+
+                    <ReplayShareAction gameState={gameState} />
+
+                    {isWideLayout ? <ReplayActions /> : null}
                 </View>
             </View>
         </View>

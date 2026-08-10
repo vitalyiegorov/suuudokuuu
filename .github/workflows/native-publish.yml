@@ -35,13 +35,13 @@ jobs:
             RCT_USE_RN_DEP: '1'
         steps:
             - name: Checkout repository
-              uses: actions/checkout@v5
+              uses: actions/checkout@v7
               with:
                   ref: main
                   fetch-depth: 0
 
             - name: Setup Node
-              uses: actions/setup-node@v6
+              uses: actions/setup-node@v7
               with:
                   node-version: 22.x
                   cache: yarn
@@ -92,13 +92,13 @@ jobs:
                   xcodebuild -version
 
             - name: Setup Expo and EAS
-              uses: expo/expo-github-action@v8
+              uses: expo/expo-github-action@v9
               with:
                   eas-version: ${{ env.EAS_CLI_VERSION }}
                   token: ${{ secrets.EXPO_TOKEN }}
 
             - name: ASC API Key file creation
-              uses: MobileDevOps/secret-to-file-action@v1.0.0
+              uses: MobileDevOps/secret-to-file-action@v2.0.0
               with:
                   base64-encoded-secret: ${{ secrets.EXPO_IOS_ASC_API_KEY }}
                   filename: 'packages/app/asc_api_key.p8'
@@ -117,7 +117,7 @@ jobs:
                   eas build --platform ios --profile production --local --non-interactive --output ../../artifacts/suuudokuuu-production.ipa
 
             - name: Upload iOS artifact
-              uses: actions/upload-artifact@v6
+              uses: actions/upload-artifact@v7
               with:
                   name: suuudokuuu-production-ios
                   path: artifacts/suuudokuuu-production.ipa
@@ -159,13 +159,13 @@ jobs:
         timeout-minutes: 60
         steps:
             - name: Checkout repository
-              uses: actions/checkout@v5
+              uses: actions/checkout@v7
               with:
                   ref: main
                   fetch-depth: 0
 
             - name: Setup Node
-              uses: actions/setup-node@v6
+              uses: actions/setup-node@v7
               with:
                   node-version: 22.x
                   cache: yarn
@@ -191,7 +191,7 @@ jobs:
               run: ../../node_modules/.bin/expo prebuild --platform android --no-install --clean
 
             - name: Cache Gradle
-              uses: actions/cache@v5
+              uses: actions/cache@v6
               with:
                   path: |
                       ~/.gradle/caches
@@ -226,7 +226,7 @@ jobs:
 
             - name: Upload lint report
               if: failure()
-              uses: actions/upload-artifact@v6
+              uses: actions/upload-artifact@v7
               with:
                   name: suuudokuuu-production-android-lint
                   path: |
@@ -242,13 +242,13 @@ jobs:
         timeout-minutes: 120
         steps:
             - name: Checkout repository
-              uses: actions/checkout@v5
+              uses: actions/checkout@v7
               with:
                   ref: main
                   fetch-depth: 0
 
             - name: Setup Node
-              uses: actions/setup-node@v6
+              uses: actions/setup-node@v7
               with:
                   node-version: 22.x
                   cache: yarn
@@ -310,13 +310,13 @@ jobs:
                   }
 
             - name: Setup Expo and EAS
-              uses: expo/expo-github-action@v8
+              uses: expo/expo-github-action@v9
               with:
                   eas-version: ${{ env.EAS_CLI_VERSION }}
                   token: ${{ secrets.EXPO_TOKEN }}
 
             - name: Google Play service account file creation
-              uses: MobileDevOps/secret-to-file-action@v1.0.0
+              uses: MobileDevOps/secret-to-file-action@v2.0.0
               with:
                   base64-encoded-secret: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
                   filename: 'packages/app/google-service-account.json'
@@ -343,7 +343,7 @@ jobs:
                   }
 
             - name: Upload Android artifact
-              uses: actions/upload-artifact@v6
+              uses: actions/upload-artifact@v7
               with:
                   name: suuudokuuu-production-android
                   path: artifacts/suuudokuuu-production.aab

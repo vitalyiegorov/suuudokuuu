@@ -7,8 +7,10 @@ import {
     HistoryGamesScreenSelectors,
     HistoryScreenSelectors,
     HomeScreenSelectors,
+    ReplayActionsSelectors,
     ReplayControlsSelectors,
-    ReplayTopBarSelectors
+    ReplayScrubberSelectors,
+    ReplayShareActionSelectors
 } from '@suuudokuuu/app/src/selectors';
 
 import { winningSharedChallengeEncodedConstant } from '../src/constants/shared-challenge-links.constant';
@@ -44,7 +46,26 @@ test('reviews and replays a completed game from statistics', async ({ page }) =>
     await page.getByTestId(ReplayControlsSelectors.NextButton).click();
     await page.getByTestId(ReplayControlsSelectors.PreviousButton).click();
 
-    await page.getByTestId(ReplayTopBarSelectors.CloseButton).click();
+    const scrubber = page.getByTestId(ReplayScrubberSelectors.Root);
+    await expect(scrubber).toHaveAttribute('aria-valuenow', '0');
+
+    const scrubberBox = await scrubber.boundingBox();
+    if (scrubberBox === null) {
+        throw new Error('Replay scrubber has no bounding box');
+    }
+
+    await scrubber.click({ position: { x: scrubberBox.width - 1, y: scrubberBox.height / 2 } });
+    await expect(scrubber).toHaveAttribute('aria-valuenow', '1');
+
+    await page.mouse.move(scrubberBox.x + scrubberBox.width - 1, scrubberBox.y + scrubberBox.height / 2);
+    await page.mouse.down();
+    await page.mouse.move(scrubberBox.x + 1, scrubberBox.y + scrubberBox.height / 2, { steps: 5 });
+    await page.mouse.up();
+    await expect(scrubber).toHaveAttribute('aria-valuenow', '0');
+
+    await expect(page.getByTestId(ReplayShareActionSelectors.Button)).toBeVisible();
+
+    await page.getByTestId(ReplayActionsSelectors.BackButton).click();
     await expect(page.getByTestId(HistoryGamesScreenSelectors.Root)).toBeVisible();
 
     await getVisibleByTestId(page, HeaderBackButtonSelectors.Root).click();

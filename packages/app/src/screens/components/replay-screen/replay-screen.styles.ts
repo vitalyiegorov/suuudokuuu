@@ -22,6 +22,13 @@ export const ReplayScreenStyles = StyleSheet.create((theme, rt) => ({
         flexDirection: appLayoutScreenIsWide(rt.screen) ? 'row' : 'column',
         gap: 18
     },
+    topBar: {
+        alignItems: 'flex-start',
+        flexDirection: 'row',
+        flexShrink: 0,
+        gap: theme.spacing.md,
+        justifyContent: 'space-between'
+    },
     fieldWrapper: {
         alignItems: 'center',
         flexGrow: 1,

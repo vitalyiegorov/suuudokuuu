@@ -4,6 +4,7 @@ node_modules/
 /docs/superpowers/specs/
 
 packages/app/.expo/
+.vercel/
 dist/
 npm-debug.*
 *.jks

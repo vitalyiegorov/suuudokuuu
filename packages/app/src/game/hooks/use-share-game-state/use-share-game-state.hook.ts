@@ -2,12 +2,11 @@ import { useLingui } from '@lingui/react/macro';
 import { SharedPayloadKindEnum } from '@suuudokuuu/encoder';
 import Share from 'react-native-share';
 
-import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
-import { gameSelector } from '../../store/game.selectors';
 import { gameStateToString } from '../../utils/game-state-to-string.util';
 
-export const useShareGameState = (kind: SharedPayloadKindEnum) => {
-    const state = useAppSelector(gameSelector);
+import type { GameState } from '../../store/game.state';
+
+export const useShareGameState = (kind: SharedPayloadKindEnum, gameState: GameState) => {
     const { t } = useLingui();
 
     const isHandoff = kind === SharedPayloadKindEnum.Handoff;
@@ -16,7 +15,7 @@ export const useShareGameState = (kind: SharedPayloadKindEnum) => {
 
     return async () => {
         try {
-            await Share.open({ title, message, url: `https://suuudokuuu.com/shared/${gameStateToString(state, kind)}` });
+            await Share.open({ title, message, url: `https://suuudokuuu.com/shared/${gameStateToString(gameState, kind)}` });
         } catch {
             // User dismissed the share sheet - this is expected behavior
         }
