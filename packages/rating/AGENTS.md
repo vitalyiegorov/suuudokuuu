@@ -61,7 +61,7 @@ The order deliberately differs from `SolutionTechniqueEnum` ordinals: SE prices 
 
 ### Ceiling reporting
 
-`solveLogically` returns `stuck` when no registered technique makes progress, and `contradiction` when a blank cell loses every candidate. Neither outcome yields a real SE number, so both report the ceiling: `rating` is the hardest value the ladder can express, `hardestTechnique` is `Guess`, and `isCeiling` is `true`. Consumers render that as "N+" (today "5.4+").
+`solveLogically` returns `stuck` when no registered technique makes progress, and `contradiction` when a blank cell loses every candidate. Neither outcome yields a real SE number, so both report the ceiling: `rating` is the hardest value the ladder can express, `hardestTechnique` is `Guess`, and `isCeiling` is `true`. Consumers render that as "N+" (today "5.6+").
 
 This is a first-class path, not an edge case. Hell-corpus puzzles rate 8.0–11.0 on the published SE scale, far beyond the implemented ladder, so most of them come back as a ceiling result. A ceiling rating equal to a non-ceiling one is not a contradiction: `isCeiling` is what separates "solved by the hardest technique we have" from "harder than every technique we have".
 
@@ -69,7 +69,7 @@ This is a first-class path, not an edge case. Hell-corpus puzzles rate 8.0–11.
 
 `seTechniqueRatings` maps every `SolutionTechniqueEnum` member to a number. The record is exhaustive by type, so a new technique cannot be added to the enum without pricing it here.
 
-The implemented ladder covers SE 1.0–5.4 completely (17/17 techniques):
+The implemented ladder covers SE 1.0–5.4 completely (17/17 techniques), plus the two uniqueness techniques that carry the ladder to 5.6:
 
 | Technique          | SE  |
 | ------------------ | --- |
@@ -87,9 +87,15 @@ The implemented ladder covers SE 1.0–5.4 completely (17/17 techniques):
 | Hidden Triple      | 4.0 |
 | XY-Wing            | 4.2 |
 | XYZ-Wing           | 4.4 |
+| Unique Rectangle   | 4.5 |
 | Naked Quad         | 5.0 |
 | Jellyfish          | 5.2 |
 | Hidden Quad        | 5.4 |
+| BUG                | 5.6 |
+
+Only the type 1 form of each uniqueness technique is implemented, which is exactly what SE prices at 4.5 for a Unique Rectangle and 5.6 for a Bivalue Universal Grave. The remaining UR and BUG types start at 4.6 and 5.7 and are out of scope until corpus measurements show they matter. Both values are sound only because every served puzzle has a single solution.
+
+A BUG rating is reachable but rare: BUG sits last in the cheapest-first order, and most BUG positions also yield to an XY-Chain (5.1) or an AIC (5.4), which the rating-optimal path must prefer. A Unique Rectangle at 4.5 is the uniqueness technique that actually unblocks solves.
 
 SE's Box/Line Reduction is its "Claiming" rule, and both Pointing sizes share SE's single Pointing value. SE's box/line hidden-single split and its "Direct" variants only refine the 1.2–2.5 band and are deliberately skipped: a uniform 1.5 is close enough for easy puzzles and irrelevant to hard ones.
 
@@ -107,9 +113,9 @@ Nine registered detectors have no classic SE name. Their values below are **appr
 | Simple Coloring   | 4.6            | Single-digit colouring, above every wing                   |
 | X-Chain           | 4.8            | Single-digit chain                                         |
 | XY-Chain          | 5.1            | Bi-value chain, above a Naked Quad                         |
-| AIC               | 5.4            | Hardest detector in the ladder, pinned to the ceiling      |
+| AIC               | 5.4            | Hardest chain detector in the ladder                       |
 
-Real SE prices chains from 6.6 upwards by _shortest_ chain length, which these detectors do not guarantee, so the approximations stay conservative and bounded by the 5.4 ladder ceiling until a shortest-chain rater exists. Follow-up work raises the ceiling: BUG + Unique Rectangle to about 5.7, shortest-chain ratings to about 7.6, and a forcing-chain engine to 8.0 and above.
+Real SE prices chains from 6.6 upwards by _shortest_ chain length, which these detectors do not guarantee, so the approximations stay conservative and bounded by the classic 5.4 band until a shortest-chain rater exists. Follow-up work raises the ceiling further: shortest-chain ratings to about 7.6, and a forcing-chain engine to 8.0 and above.
 
 `Guess` carries the ceiling value and is the sentinel `hardestTechnique` for ceiling results; `SE_RATING_CEILING` reads it back, so the ceiling can never drift from the table.
 
@@ -124,7 +130,7 @@ Real SE prices chains from 6.6 upwards by _shortest_ chain length, which these d
 
 - Tests colocated with source files (`.spec.ts` suffix)
 - Fixtures are fixed 81-character board strings fed through `Sudoku.fromString`; never `Sudoku.create`, which uses unseeded randomness
-- `rate-puzzle.util.spec.ts` guards known-technique boards against their SE values, max-over-path aggregation, ceiling reporting for a stuck 17-clue hell-corpus board, and determinism across repeated calls
+- `rate-puzzle.util.spec.ts` guards known-technique boards against their SE values, max-over-path aggregation, ceiling reporting for a stuck 17-clue hell-corpus board, an exact rating for a board that only the uniqueness techniques unblock, and determinism across repeated calls
 - `se-technique-order.constant.spec.ts` guards the ordering policy: full coverage of the enum, cheapest-first ordering, enum-ordinal tie-breaking, and the ceiling matching the hardest table value
 
 ## Exports

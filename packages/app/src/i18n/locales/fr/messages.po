@@ -198,6 +198,10 @@ msgstr "Couleurs de la grille et apparence des écrans"
 msgid "Box-Line Reduction"
 msgstr "Réduction bloc-ligne"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "BUG+1"
+msgstr ""
+
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Built:"
 msgstr "Créée :"
@@ -1494,6 +1498,10 @@ msgstr "Impossible d’ouvrir le lien"
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Unable to start installation"
 msgstr "Impossible de démarrer l’installation"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Unique Rectangle"
+msgstr ""
 
 #: src/@generic/utils/get-difficulty-text.util.ts
 #: src/screens/components/settings-screen/settings.screen.tsx

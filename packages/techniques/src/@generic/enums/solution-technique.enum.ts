@@ -25,5 +25,7 @@ export enum SolutionTechniqueEnum {
     XChain,
     XYChain,
     SimpleColoring,
-    AIC
+    AIC,
+    UniqueRectangle,
+    BivalueUniversalGrave
 }
