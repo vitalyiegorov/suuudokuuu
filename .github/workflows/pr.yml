@@ -148,7 +148,11 @@ jobs:
         timeout-minutes: 20
         permissions:
             contents: read
+            deployments: write
             pull-requests: write
+        environment:
+            name: preview-web-pr-${{ github.event.number }}
+            url: ${{ steps.deploy.outputs.preview_url }}
         env:
             VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
             VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
@@ -226,7 +230,11 @@ jobs:
         timeout-minutes: 30
         permissions:
             contents: read
+            deployments: write
             pull-requests: write
+        environment:
+            name: preview-eas-pr-${{ github.event.number }}
+            url: ${{ steps.publish.outputs.link }}
         env:
             EAS_CLI_VERSION: '20.5.1'
         steps:
@@ -249,6 +257,7 @@ jobs:
               run: yarn install
 
             - name: Publish EAS Update preview
+              id: publish
               uses: expo/expo-github-action/preview@v9
               env:
                   APP_VARIANT: preview
