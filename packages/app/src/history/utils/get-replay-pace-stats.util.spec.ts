@@ -1,12 +1,26 @@
-import { describe, expect, it } from '@jest/globals';
+import { describe, expect, it, jest } from '@jest/globals';
 import { TimelineEventKindEnum } from '@suuudokuuu/encoder';
 import { DifficultyEnum } from '@suuudokuuu/generator';
 
+import { getChallengeRecordingSummary } from '../../challenge/utils/get-challenge-recording-summary.util';
 import { initialGameState } from '../../game/store/game.state';
 
 import { getReplayPaceStats } from './get-replay-pace-stats.util';
 
 import type { CompletedGameInterface } from '../interfaces/completed-game.interface';
+
+jest.mock('../../challenge/utils/get-challenge-recording-summary.util', () => {
+    const actual = jest.requireActual<typeof import('../../challenge/utils/get-challenge-recording-summary.util')>(
+        '../../challenge/utils/get-challenge-recording-summary.util'
+    );
+
+    return {
+        ...actual,
+        getChallengeRecordingSummary: jest.fn(actual.getChallengeRecordingSummary)
+    };
+});
+
+const mockedGetChallengeRecordingSummary = jest.mocked(getChallengeRecordingSummary);
 
 const TotalRunSeconds = 25;
 const PlacementCount = 3;
@@ -66,6 +80,23 @@ describe('getReplayPaceStats', () => {
         expect(paceStats.averageSecondsPerPlacement).toBe(0);
         expect(paceStats.longestPauseSeconds).toBe(0);
         expect(paceStats.autoCandidatesUsed).toBe(false);
+        expect(paceStats.pencilCount).toBe(0);
+    });
+
+    it('should default pencil count to zero when the recording summary has no pencil count tracked', () => {
+        expect.assertions(1);
+
+        mockedGetChallengeRecordingSummary.mockReturnValueOnce({
+            awayRanges: [],
+            awaySeconds: 0,
+            exitCount: 0,
+            pencilCount: null,
+            screenshotCount: null,
+            techniqueEvents: []
+        });
+
+        const paceStats = getReplayPaceStats(initialGameState, buildCompletedGame());
+
         expect(paceStats.pencilCount).toBe(0);
     });
 });

@@ -28,4 +28,8 @@ describe('mixColors', () => {
     it('falls back to opaque black for unparsable colors', () => {
         expect(parseColor(mixColors('not-a-color', '#ffffff', NoProgress))).toEqual(parseColor('#000000'));
     });
+
+    it('falls back to opaque black when the target color cannot be parsed', () => {
+        expect(parseColor(mixColors('#ffffff', 'not-a-color', FullProgress))).toEqual(parseColor('#000000'));
+    });
 });
