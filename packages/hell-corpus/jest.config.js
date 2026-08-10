@@ -11,7 +11,8 @@ module.exports = {
     moduleNameMapper: {
         '^@suuudokuuu/solver-core$': '<rootDir>/../solver-core/src/index.ts',
         '^@suuudokuuu/solver-bitmask$': '<rootDir>/../solver-bitmask/src/index.ts',
-        '^@suuudokuuu/solver-dlx$': '<rootDir>/../solver-dlx/src/index.ts'
+        '^@suuudokuuu/solver-dlx$': '<rootDir>/../solver-dlx/src/index.ts',
+        '^@suuudokuuu/rating$': '<rootDir>/../rating/src/index.ts'
     },
     testRegex: './src/.*\\.spec\\.(tsx?)$',
     testEnvironment: 'node',

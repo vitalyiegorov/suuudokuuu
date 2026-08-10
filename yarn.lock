@@ -5014,6 +5014,7 @@ __metadata:
   resolution: "@suuudokuuu/hell-corpus@workspace:packages/hell-corpus"
   dependencies:
     "@rnw-community/shared": "npm:^2.2.0"
+    "@suuudokuuu/rating": "workspace:*"
     "@suuudokuuu/solver-bitmask": "workspace:*"
     "@suuudokuuu/solver-core": "workspace:*"
     "@suuudokuuu/solver-dlx": "workspace:*"
