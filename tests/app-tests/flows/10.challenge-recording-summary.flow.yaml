@@ -47,10 +47,13 @@ appId: ${APP_ID}
 - tapOn:
       id: 'AvailableValueItemSelectors.Button.2'
 
+# The win confetti overlay is mounted for 5s and is hidden from the
+# accessibility tree, but a loaded runner can still cost 10+ seconds per poll,
+# so the wait must clear the confetti window with margin to spare.
 - extendedWaitUntil:
       visible:
           id: 'WinnerScreenSelectors.Root'
-      timeout: 5000
+      timeout: 15000
 - assertVisible:
       id: 'ChallengeRunSummarySelectors.Root'
 
