@@ -1,27 +1,36 @@
 import { isDefined } from '@rnw-community/shared';
 
-import { X_CHAIN_MAX_VISITS_PER_ROOT, X_CHAIN_MIN_CELLS } from '../../@generic/constants/chain-scan.constant';
+import { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
+import {
+    CHAIN_SEARCH_ROOT_PARENT_INDEX,
+    X_CHAIN_MAX_VISITS_PER_ROOT,
+    X_CHAIN_MIN_CELLS
+} from '../../@generic/constants/chain-scan.constant';
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
 import { collectChainResults } from '../../@generic/utils/collect-chain-results.util';
+import { compareCells } from '../../@generic/utils/compare-cells.util';
 import { createEliminationResults } from '../../@generic/utils/create-elimination-results.util';
 import { getCanonicalTechniqueResults } from '../../@generic/utils/get-canonical-technique-results.util';
 import { getChainEndpointEliminations } from '../../@generic/utils/get-chain-endpoint-eliminations.util';
+import { getChainSearchPath } from '../../@generic/utils/get-chain-search-path.util';
 import { getSearchScope } from '../../@generic/utils/get-search-scope.util';
 import { getTargetEliminations } from '../../@generic/utils/get-target-eliminations.util';
 import { getUniqueCells } from '../../@generic/utils/get-unique-cells.util';
+import { isCellOnChainPath } from '../../@generic/utils/is-cell-on-chain-path.util';
 import { isSameCell } from '../../@generic/utils/is-same-cell.util';
 
-import type { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
 import type { TechniqueResultInterface } from '../../@generic/interfaces/technique-result.interface';
 import type { TechniqueSearchTargetInterface } from '../../@generic/interfaces/technique-search-target.interface';
 import type { TechniqueStrategyInterface } from '../../@generic/interfaces/technique-strategy.interface';
+import type { XChainNodeInterface } from '../interfaces/x-chain-node.interface';
 import type { XChainScanStateInterface } from '../interfaces/x-chain-scan-state.interface';
+import type { XChainSearchInterface } from '../interfaces/x-chain-search.interface';
 import type { CellInterface } from '@suuudokuuu/generator';
 
-type StrongLinkType = [CellInterface, CellInterface];
+const getNodeKey = (cell: CellInterface, requiresStrongLink: boolean): string =>
+    `${CandidateContext.getCellKey(cell)}:${String(requiresStrongLink)}`;
 
-const compareCells = (firstCell: CellInterface, secondCell: CellInterface): number =>
-    firstCell.y - secondCell.y || firstCell.x - secondCell.x;
+const hasTargetResults = (scan: XChainScanStateInterface): boolean => isDefined(scan.target) && scan.results.length > scan.resultsAtStart;
 
 export class XChainTechnique implements TechniqueStrategyInterface {
     readonly technique = SolutionTechniqueEnum.XChain;
@@ -33,7 +42,7 @@ export class XChainTechnique implements TechniqueStrategyInterface {
             const target = scope.directTarget;
             const scan = {
                 context,
-                strongLinks: this.getStrongLinks(context, eliminationValue),
+                strongNeighborsByCellKey: this.getStrongNeighborsByCellKey(context, eliminationValue),
                 value: eliminationValue,
                 results,
                 target,
@@ -58,9 +67,9 @@ export class XChainTechnique implements TechniqueStrategyInterface {
             scan.linkVisits = 0;
             scan.resultsAtStart = scan.results.length;
 
-            this.collectAlternatingPaths(scan, [root], true);
+            this.searchShortestChains(scan, root);
 
-            if (scan.target && scan.results.length > scan.resultsAtStart) {
+            if (hasTargetResults(scan)) {
                 return;
             }
 
@@ -70,76 +79,95 @@ export class XChainTechnique implements TechniqueStrategyInterface {
         }
     }
 
-    private collectAlternatingPaths(scan: XChainScanStateInterface, path: CellInterface[], requiresStrongLink: boolean): void {
-        const currentCell = path[path.length - 1];
+    private searchShortestChains(scan: XChainScanStateInterface, root: CellInterface): void {
+        const search: XChainSearchInterface = {
+            nodes: [{ cell: root, parentIndex: CHAIN_SEARCH_ROOT_PARENT_INDEX, pathLength: 1, requiresStrongLink: true }],
+            visitedKeys: new Set([getNodeKey(root, true)])
+        };
+        let nodeIndex = 0;
 
-        if (
-            !isDefined(currentCell) ||
-            (scan.target && scan.results.length > scan.resultsAtStart) ||
-            scan.linkVisits >= X_CHAIN_MAX_VISITS_PER_ROOT
-        ) {
-            return;
-        }
+        while (nodeIndex < search.nodes.length && scan.linkVisits < X_CHAIN_MAX_VISITS_PER_ROOT) {
+            this.expandNode(scan, search, nodeIndex);
 
-        const neighbors = requiresStrongLink
-            ? this.getStrongNeighbors(scan.strongLinks, currentCell)
-            : scan.context
-                  .getPeers(currentCell)
-                  .filter(cell => scan.context.getCandidates(cell).includes(scan.value))
-                  .sort(compareCells);
-
-        for (const neighbor of neighbors) {
-            if ((scan.target && scan.results.length > scan.resultsAtStart) || scan.linkVisits >= X_CHAIN_MAX_VISITS_PER_ROOT) {
+            if (hasTargetResults(scan)) {
                 return;
             }
 
-            if (!path.some(cell => isSameCell(cell, neighbor))) {
-                scan.linkVisits += 1;
-                const nextPath = [...path, neighbor];
+            nodeIndex += 1;
+        }
+    }
 
-                if (requiresStrongLink && nextPath.length >= X_CHAIN_MIN_CELLS) {
-                    this.addEndpointResults(scan, nextPath);
-                }
+    private expandNode(scan: XChainScanStateInterface, search: XChainSearchInterface, nodeIndex: number): void {
+        const node = search.nodes[nodeIndex];
 
-                this.collectAlternatingPaths(scan, nextPath, !requiresStrongLink);
+        for (const neighbor of this.getNeighbors(scan, node)) {
+            if (!hasTargetResults(scan) && scan.linkVisits < X_CHAIN_MAX_VISITS_PER_ROOT) {
+                this.visitNeighbor(scan, search, nodeIndex, neighbor);
             }
         }
     }
 
-    private addEndpointResults(scan: XChainScanStateInterface, path: CellInterface[]): void {
-        const eliminations = getChainEndpointEliminations(scan.context, path, scan.value, scan.target);
+    private visitNeighbor(scan: XChainScanStateInterface, search: XChainSearchInterface, nodeIndex: number, neighbor: CellInterface): void {
+        const node = search.nodes[nodeIndex];
+        const nextRequiresStrongLink = !node.requiresStrongLink;
+        const neighborKey = getNodeKey(neighbor, nextRequiresStrongLink);
 
-        scan.results.push(...createEliminationResults(this.technique, eliminations, path));
+        if (!search.visitedKeys.has(neighborKey) && !isCellOnChainPath(search.nodes, nodeIndex, neighbor)) {
+            scan.linkVisits += 1;
+            search.visitedKeys.add(neighborKey);
+            search.nodes.push({
+                cell: neighbor,
+                parentIndex: nodeIndex,
+                pathLength: node.pathLength + 1,
+                requiresStrongLink: nextRequiresStrongLink
+            });
+            this.addEndpointResults(scan, search, search.nodes.length - 1);
+        }
     }
 
-    private getStrongLinks(context: CandidateContext, value: number): StrongLinkType[] {
-        const links: StrongLinkType[] = [];
+    private addEndpointResults(scan: XChainScanStateInterface, search: XChainSearchInterface, nodeIndex: number): void {
+        const node = search.nodes[nodeIndex];
+
+        if (node.requiresStrongLink || node.pathLength < X_CHAIN_MIN_CELLS) {
+            return;
+        }
+
+        const path = getChainSearchPath(search.nodes, nodeIndex);
+        const eliminations = getChainEndpointEliminations(scan.context, path, scan.value, scan.target);
+
+        scan.results.push(...createEliminationResults(this.technique, eliminations, path, path.length));
+    }
+
+    private getNeighbors(scan: XChainScanStateInterface, node: XChainNodeInterface): CellInterface[] {
+        if (node.requiresStrongLink) {
+            return scan.strongNeighborsByCellKey[CandidateContext.getCellKey(node.cell)] ?? [];
+        }
+
+        return scan.context
+            .getPeers(node.cell)
+            .filter(cell => scan.context.getCandidates(cell).includes(scan.value))
+            .sort(compareCells);
+    }
+
+    private getStrongNeighborsByCellKey(context: CandidateContext, value: number): Record<string, CellInterface[]> {
+        const neighborsByCellKey: Record<string, CellInterface[]> = {};
 
         for (const unit of context.getUnits()) {
             const cells = unit.cells.filter(cell => context.getCandidates(cell).includes(value));
             const [firstCell, secondCell] = cells;
 
             if (cells.length === 2 && isDefined(firstCell) && isDefined(secondCell)) {
-                links.push([firstCell, secondCell]);
+                this.addStrongNeighbor(neighborsByCellKey, firstCell, secondCell);
+                this.addStrongNeighbor(neighborsByCellKey, secondCell, firstCell);
             }
         }
 
-        return links;
+        return neighborsByCellKey;
     }
 
-    private getStrongNeighbors(strongLinks: StrongLinkType[], cell: CellInterface): CellInterface[] {
-        const neighbors: CellInterface[] = [];
+    private addStrongNeighbor(neighborsByCellKey: Record<string, CellInterface[]>, cell: CellInterface, neighbor: CellInterface): void {
+        const cellKey = CandidateContext.getCellKey(cell);
 
-        for (const [firstCell, secondCell] of strongLinks) {
-            if (isSameCell(firstCell, cell)) {
-                neighbors.push(secondCell);
-            }
-
-            if (isSameCell(secondCell, cell)) {
-                neighbors.push(firstCell);
-            }
-        }
-
-        return getUniqueCells(neighbors).sort(compareCells);
+        neighborsByCellKey[cellKey] = getUniqueCells([...(neighborsByCellKey[cellKey] ?? []), neighbor]).sort(compareCells);
     }
 }

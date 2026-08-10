@@ -1,5 +1,7 @@
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
+import { SE_CHAIN_RATING_MAXIMUM, SE_CHAIN_RATING_MINIMUM } from './se-chain-rating.constant';
+
 export const seTechniqueRatings: Record<SolutionTechniqueEnum, number> = {
     [SolutionTechniqueEnum.FullHouse]: 1.0,
     [SolutionTechniqueEnum.HiddenSingle]: 1.5,
@@ -22,14 +24,14 @@ export const seTechniqueRatings: Record<SolutionTechniqueEnum, number> = {
     [SolutionTechniqueEnum.WWing]: 4.4,
     [SolutionTechniqueEnum.UniqueRectangle]: 4.5,
     [SolutionTechniqueEnum.SimpleColoring]: 4.6,
-    [SolutionTechniqueEnum.XChain]: 4.8,
     [SolutionTechniqueEnum.NakedQuad]: 5.0,
-    [SolutionTechniqueEnum.XYChain]: 5.1,
     [SolutionTechniqueEnum.Jellyfish]: 5.2,
     [SolutionTechniqueEnum.HiddenQuad]: 5.4,
-    [SolutionTechniqueEnum.AIC]: 5.4,
     [SolutionTechniqueEnum.BivalueUniversalGrave]: 5.6,
-    [SolutionTechniqueEnum.Guess]: 5.6
+    [SolutionTechniqueEnum.XChain]: SE_CHAIN_RATING_MINIMUM,
+    [SolutionTechniqueEnum.XYChain]: 7.0,
+    [SolutionTechniqueEnum.AIC]: 7.2,
+    [SolutionTechniqueEnum.Guess]: SE_CHAIN_RATING_MAXIMUM
 };
 
 export const SE_RATING_CEILING = seTechniqueRatings[SolutionTechniqueEnum.Guess];
