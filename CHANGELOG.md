@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.3](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.4.2...v2.4.3) (2026-08-10)
+
+### Bug Fixes
+
+- **app:** replace default web focus ring with themed game control styles ([#285](https://github.com/vitalyiegorov/suuudokuuu/issues/285)) ([07c4851](https://github.com/vitalyiegorov/suuudokuuu/commit/07c4851b3140f1dd2797302e37fe6da024fab2af))
+
 ## [2.4.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.4.1...v2.4.2) (2026-08-10)
 
 ### Bug Fixes
