@@ -1,5 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 import { DifficultyEnum } from '@suuudokuuu/generator';
+import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { emptyGameHistory } from '../../history/interfaces/history-game.interface';
 import { emptyHistoryRatingSnapshot } from '../../history/interfaces/history-rating-snapshot.interface';
@@ -27,6 +28,7 @@ import {
     gameMaxMistakesSelector,
     gameMistakesSelector,
     gamePausedSelector,
+    gamePlayedDayNumbersSelector,
     gameRatingSelector,
     gameScoreSelector,
     gameSelector,
@@ -35,6 +37,7 @@ import {
     gameShowAutoCandidatesSelector,
     gameSolutionsStepsSelector,
     gameSudokuStringSelector,
+    gameTechniqueUsageCountsSelector,
     gameTimelineEventsSelector
 } from './game.selectors';
 import { initialGameState } from './game.state';
@@ -45,6 +48,9 @@ import type { CompletedGameInterface } from '../../history/interfaces/completed-
 const completedAt = 42;
 const elapsedTime = 90;
 const gameRating = 4.2;
+const firstPlayedDayNumber = 19827;
+const secondPlayedDayNumber = 19828;
+const hiddenSingleUsageCount = 3;
 
 const completedGame: CompletedGameInterface = {
     encodedState: 'encoded',
@@ -77,6 +83,8 @@ const state: GameState = {
     challengeTime: 30,
     challengeState: 'encoded',
     hasNewPersonalBestScore: true,
+    techniqueUsageCounts: { [SolutionTechniqueEnum.HiddenSingle]: hiddenSingleUsageCount },
+    playedDayNumbers: [firstPlayedDayNumber, secondPlayedDayNumber],
     historyByDifficulty: {
         ...initialGameState.historyByDifficulty,
         [DifficultyEnum.Easy]: {
@@ -120,6 +128,8 @@ describe('game selectors', () => {
         expect(gameTimelineEventsSelector.resultFunc(state)).toBe(state.timelineEvents);
         expect(gameChallengeTimelineEventsSelector.resultFunc(state)).toBe(state.challengeTimelineEvents);
         expect(gameHasNewPersonalBestScoreSelector.resultFunc(state)).toBe(true);
+        expect(gameTechniqueUsageCountsSelector.resultFunc(state)).toBe(state.techniqueUsageCounts);
+        expect(gamePlayedDayNumbersSelector.resultFunc(state)).toBe(state.playedDayNumbers);
     });
 
     it('derives game and challenge activity from non-empty strings', () => {
