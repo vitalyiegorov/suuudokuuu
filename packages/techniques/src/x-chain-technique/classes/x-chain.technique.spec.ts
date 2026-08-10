@@ -321,6 +321,34 @@ describe('XChainTechnique', () => {
         expect(result?.chainLength).toBe(result?.reasonCells.length);
     });
 
+    it('applies the shortest chain first when different eliminations have different chain lengths', () => {
+        expect.assertions(3);
+
+        const context = createCandidateContextFromMap(
+            [2, 2, [3, 8]],
+            [0, 0, [8]],
+            [0, 4, [8]],
+            [1, 4, [8]],
+            [1, 1, [8]],
+            [2, 3, [3]],
+            [5, 3, [3]],
+            [5, 7, [3]],
+            [8, 7, [3]],
+            [8, 8, [3]],
+            [2, 8, [3]]
+        );
+        const getResultKey = (result: TechniqueResultInterface): string =>
+            `${result.technique}:${result.cell.y}:${result.cell.x}:${result.value}`;
+
+        const results = new XChainTechnique().find(context);
+        const [firstResult] = results;
+        const [lexicallyFirstKey] = [...results].map(getResultKey).sort();
+
+        expect(lexicallyFirstKey).not.toBe(getResultKey(firstResult));
+        expect(firstResult.value).toBe(8);
+        expect(firstResult.chainLength).toBe(4);
+    });
+
     it('returns identical results for repeated scans of the same context', () => {
         expect.assertions(1);
 

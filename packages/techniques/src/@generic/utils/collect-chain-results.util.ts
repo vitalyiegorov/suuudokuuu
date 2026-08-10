@@ -1,5 +1,6 @@
 import { isDefined } from '@rnw-community/shared';
 
+import { compareChainLengths } from './compare-chain-lengths.util';
 import { getCanonicalTechniqueResults } from './get-canonical-technique-results.util';
 
 import type { TechniqueResultInterface } from '../interfaces/technique-result.interface';
@@ -19,5 +20,5 @@ export const collectChainResults = (
         }
     }
 
-    return isDefined(scope.directTarget) ? results : getCanonicalTechniqueResults(results);
+    return isDefined(scope.directTarget) ? results : getCanonicalTechniqueResults(results).sort(compareChainLengths);
 };
