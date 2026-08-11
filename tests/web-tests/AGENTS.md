@@ -27,7 +27,10 @@ running server outside CI. `playwright.config.ts` fails fast with an actionable 
    behavior under test, not a workaround for flakiness.
 3. Use exact `data-testid` selectors (via `page.getByTestId`) for stable controls. Use text only
    for user-visible copy that is itself the behavior under test.
-4. Keep specs pinned to English (`locale: 'en-US'` in `playwright.config.ts`).
+4. Keep specs pinned to English (`locale: 'en-US'` in `playwright.config.ts`). The single exception is
+   `10.localized-quit-game.spec.ts`, which sets `test.use({ locale: 'uk-UA' })` because the translated
+   app language _is_ the behavior under test (see the `Alert` note under Known App Issues). Do not copy
+   this override into other specs.
 5. Prefer positive-state flow control: perform the action, then assert the destination.
 6. Helpers in `src/utils` mirror Maestro subflows one-to-one and keep a single responsibility.
    Do not add thin wrappers that only rename another helper.
@@ -104,8 +107,30 @@ running server outside CI. `playwright.config.ts` fails fast with an actionable 
   relies on. Dispatch `page.keyboard.press(...)` directly against the page; the hook's `window`
   keydown listener receives it without any prior click.
 
+## Browser Projects
+
+`chromium` and `mobile-chromium` run the whole suite. `mobile-webkit` (iPhone 14) is scoped via
+`testMatch` to `10.localized-quit-game.spec.ts` only, so the suite gains real WebKit coverage of the
+browser the quit bug was reported on without adopting the whole suite's WebKit gaps. Two existing
+specs fail on WebKit for reasons unrelated to the code under test, and must be resolved before the
+project can be widened:
+
+- `06.resume-game.spec.ts` — `HomeScreenSelectors.ResumeButton` never appears after `page.reload()`.
+  wa-sqlite/OPFS persistence does not survive a reload in Playwright's WebKit, unlike Chromium.
+- `08.challenge-hud-layout.spec.ts` — the rival-race HUD's `x` is `0` on the iPhone 14 viewport, so
+  the "HUD sits right of the board" geometry assertion does not hold at that breakpoint.
+
 ## Known App Issues Affecting This Suite
 
+- **The web `Alert` wrapper matched button labels against hardcoded English.**
+  `packages/app/src/@generic/components/alert/alert.web.ts` selected its confirm/cancel handlers with
+  `button.text === 'OK'` / `button.text === 'Cancel'`, but every call site builds those labels with the
+  Lingui `t` macro. In the six locales that translate "OK" (`ar`, `bn`, `hi`, `uk`, `ur`, `zh`) the
+  lookup returned `undefined`, so accepting the browser `confirm()` ran no handler at all and quitting a
+  game silently did nothing. The wrapper now selects by `AlertButton.style` (`'cancel'` versus the first
+  non-cancel button), which is locale-independent. Because this suite pins `locale: 'en-US'`, the whole
+  suite stayed green while the bug shipped — that is exactly why `10.localized-quit-game.spec.ts`
+  overrides the locale.
 - **`packages/app/src/selectors.ts` was missing an export.** `challenge-result-screen.selectors.ts`
   existed but was not re-exported from the barrel, so `ChallengeResultScreenSelectors` deep-imported
   as `undefined`. Added the missing `export *` line; this is a barrel-only change (no runtime
