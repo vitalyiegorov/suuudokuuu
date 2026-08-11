@@ -1,3 +1,3 @@
 export enum ReplayHeaderSelectors {
-    Rating = 'ReplayHeaderSelectors.Rating'
+    Level = 'ReplayHeaderSelectors.Level'
 }

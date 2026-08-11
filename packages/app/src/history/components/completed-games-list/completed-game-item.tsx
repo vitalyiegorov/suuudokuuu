@@ -4,13 +4,11 @@ import { LucidePlay } from 'lucide-react-native';
 import { use } from 'react';
 import { Text, View } from 'react-native';
 
-import { isPositiveNumber } from '@rnw-community/shared';
-
 import { AppLinkButton } from '../../../@generic/components/app-link-button/app-link-button';
 import { BlackText } from '../../../@generic/components/black-text/black-text';
-import { RatingBadge } from '../../../@generic/components/rating-badge/rating-badge';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
+import { getLevelRatingText } from '../../../@generic/utils/get-level-rating-text.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { HistoryMetric } from '../history-metric/history-metric';
 
@@ -37,7 +35,7 @@ export const CompletedGameItem = ({ game }: Props) => {
     const completedDateText = completedDate.toLocaleDateString();
     const mistakesValue = game.maxMistakes >= 99 ? String(game.mistakes) : `${game.mistakes}/${game.maxMistakes}`;
     const elapsedTimeText = useTimerText(game.elapsedTime);
-    const hasRating = isPositiveNumber(game.rating);
+    const levelText = getLevelRatingText(getDifficultyText(game.difficulty), game.rating, game.isRatingCeiling);
 
     return (
         <View style={containerStyles}>
@@ -45,8 +43,9 @@ export const CompletedGameItem = ({ game }: Props) => {
                 <View style={styles.titleGroup}>
                     <BlackText style={eyebrowStyles}>{completedDateText}</BlackText>
                     <View style={styles.difficultyRow}>
-                        <BlackText style={difficultyStyles}>{getDifficultyText(game.difficulty)}</BlackText>
-                        {hasRating && <RatingBadge isCeiling={game.isRatingCeiling} rating={game.rating} />}
+                        <BlackText style={difficultyStyles} testID={CompletedGameItemSelectors.DifficultyValue}>
+                            {levelText}
+                        </BlackText>
                     </View>
                 </View>
 

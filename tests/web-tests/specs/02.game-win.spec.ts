@@ -1,10 +1,5 @@
 import { expect, test } from '@playwright/test';
-import {
-    ChallengeResultFooterSelectors,
-    ChallengeResultScreenSelectors,
-    HomeScreenSelectors,
-    RatingBadgeSelectors
-} from '@suuudokuuu/app/src/selectors';
+import { ChallengeResultFooterSelectors, ChallengeResultScreenSelectors, HomeScreenSelectors } from '@suuudokuuu/app/src/selectors';
 
 import {
     ratedWinningSharedChallengeEncodedConstant,
@@ -29,10 +24,12 @@ test('wins a shared challenge and returns home from the result screen', async ({
     await expect(page.getByTestId(HomeScreenSelectors.Root)).toBeVisible();
 });
 
-test('shows the rival rating badge on a rated challenge win', async ({ page }) => {
+test('shows the rival rating inline on a rated challenge win', async ({ page }) => {
     await launchHome(page);
     await completeWinningSharedChallenge(page, ratedWinningSharedChallengeEncodedConstant);
 
     const resultScreen = page.getByTestId(ChallengeResultScreenSelectors.Root);
-    await expect(resultScreen.getByTestId(RatingBadgeSelectors.Root)).toBeVisible();
+    // The outcome pill now composes "{flavor} · {level} · {rating} · {mistakes type}" as plain
+    // text instead of rendering a separate rating badge next to it.
+    await expect(resultScreen.getByTestId(ChallengeResultScreenSelectors.OutcomeValue)).toHaveText(/· \d+\.\d\+?/u);
 });

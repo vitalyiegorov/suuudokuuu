@@ -3,8 +3,7 @@ import {
     ChallengeRaceHudSelectors,
     ChallengeResultScreenSelectors,
     ChallengeTryAgainButtonSelectors,
-    GameScreenSelectors,
-    RatingBadgeSelectors
+    GameScreenSelectors
 } from '@suuudokuuu/app/src/selectors';
 
 import {
@@ -54,7 +53,7 @@ test('loses a shared challenge after three mistakes and tries again', async ({ p
     await quitCurrentGame(page);
 });
 
-test('shows the rival rating badge on a rated challenge loss', async ({ page }) => {
+test('shows the rival rating inline on a rated challenge loss', async ({ page }) => {
     await launchHome(page);
     await openSharedChallenge(page, ratedLosingSharedChallengeEncodedConstant);
     await acceptSharedChallenge(page);
@@ -69,7 +68,9 @@ test('shows the rival rating badge on a rated challenge loss', async ({ page }) 
 
     const resultScreen = page.getByTestId(ChallengeResultScreenSelectors.Root);
     await expect(resultScreen).toBeVisible({ timeout: challengeResultTimeoutMilliseconds });
-    await expect(resultScreen.getByTestId(RatingBadgeSelectors.Root)).toBeVisible();
+    // The outcome pill now composes "{flavor} · {level} · {rating} · {mistakes type}" as plain
+    // text instead of rendering a separate rating badge next to it.
+    await expect(resultScreen.getByTestId(ChallengeResultScreenSelectors.OutcomeValue)).toHaveText(/· \d+\.\d\+?/u);
 
     await page.getByTestId(ChallengeTryAgainButtonSelectors.Root).click();
     await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible();

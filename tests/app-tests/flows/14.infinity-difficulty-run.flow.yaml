@@ -12,30 +12,25 @@ appId: ${APP_ID}
       id: 'DifficultyComplexityOptionSelectors.Option.Infinity'
 - assertVisible: 'World-record puzzles'
 - runFlow: subflows/game/start-new-game.flow.yaml
-- assertVisible:
+# The level+rating pill was removed from the game screen entirely; it now only shows on the
+# pause screen and result/history surfaces, so pause the run to see it. This also means the
+# rating explainer is no longer reachable from the in-game flow: the game screen no longer has
+# a rating control, and the pause screen's level pill is plain text. The explainer stays
+# reachable from the Stats screen's hardest-solve hero (see flows/15).
+- assertNotVisible:
       id: 'GameScreenSelectors.Level'
-      text: 'Infinity'
+- runFlow: subflows/game/pause-current-game.flow.yaml
+# Curated Infinity puzzles carry an exact SE rating (occasionally beyond the display ceiling,
+# which adds a "+" suffix), so the exact number and ceiling suffix vary with the puzzle drawn.
 - assertVisible:
-      id: 'GameScreenSelectors.Rating'
-# Curated Infinity puzzles always rate above the SE display ceiling, so the
-# explainer sheet's current-rating band is deterministically "Beyond the ceiling".
+      id: 'PauseScreenSelectors.DetailsValue'
+      text: '.*Infinity · [0-9]+\.[0-9]\+? • .*'
 - tapOn:
-      id: 'GameScreenSelectors.Rating'
+      id: 'PauseScreenSelectors.ResumeButton'
 - extendedWaitUntil:
       visible:
-          id: 'RatingExplainerSelectors.Root'
-      timeout: 3000
-- assertVisible: 'Beyond the ceiling'
-# The explainer is a native platform sheet, so neither a synthetic pan-down nor the
-# iOS back gesture dismisses it through the sheet's own close path. Use the sheet's
-# close control and wait for it to leave the hierarchy: the game root sits behind a
-# transparent route and stays visible either way, so it cannot gate this step.
-- tapOn:
-      id: 'RatingExplainerSheetScreenSelectors.CloseButton'
-- extendedWaitUntil:
-      notVisible:
-          id: 'RatingExplainerSelectors.Root'
-      timeout: 5000
+          id: 'GameScreenSelectors.Root'
+      timeout: 10000
 - runFlow: subflows/game/quit-current-game.flow.yaml
 
 # 2. Shared Infinity links round-trip the rating end to end. The fixture
@@ -51,20 +46,25 @@ appId: ${APP_ID}
       timeout: 10000
 - assertVisible:
       id: 'SharedScreenSelectors.Meta'
-- assertVisible: 'Infinity'
-- assertVisible:
-      id: 'RatingBadgeSelectors.Root'
+- assertVisible: 'Infinity · 11.9'
 - tapOn:
       id: 'SharedScreenSelectors.ConfirmButton'
 - extendedWaitUntil:
       visible:
           id: 'GameScreenSelectors.Root'
       timeout: 10000
-- assertVisible:
+- assertNotVisible:
       id: 'GameScreenSelectors.Level'
-      text: 'Infinity'
+- runFlow: subflows/game/pause-current-game.flow.yaml
 - assertVisible:
-      id: 'GameScreenSelectors.Rating'
+      id: 'PauseScreenSelectors.DetailsValue'
+      text: '.*Infinity · 11\.9.*'
+- tapOn:
+      id: 'PauseScreenSelectors.ResumeButton'
+- extendedWaitUntil:
+      visible:
+          id: 'GameScreenSelectors.Root'
+      timeout: 10000
 - runFlow: subflows/game/quit-current-game.flow.yaml
 
 - stopApp

@@ -3,20 +3,28 @@ import {
     DifficultyComplexityOptionSelectors,
     GameScreenSelectors,
     HomeScreenSelectors,
-    RatingBadgeSelectors,
-    RatingExplainerSelectors,
+    PauseScreenSelectors,
     SharedScreenSelectors
 } from '@suuudokuuu/app/src/selectors';
 
 import { infinitySharedPuzzleEncodedConstant } from '../src/constants/shared-challenge-links.constant';
+import { bringAppToForeground } from '../src/utils/bring-app-to-foreground.util';
 import { launchHome } from '../src/utils/launch-home.util';
 import { openSharedPuzzle } from '../src/utils/open-shared-puzzle.util';
-import { quitCurrentGame } from '../src/utils/quit-current-game.util';
+import { quitPausedGame } from '../src/utils/quit-paused-game.util';
+import { sendAppToBackground } from '../src/utils/send-app-to-background.util';
 
 const gameScreenTimeoutMilliseconds = 15000;
+const pauseScreenTimeoutMilliseconds = 10000;
 const infinityOptionTestId = `${DifficultyComplexityOptionSelectors.Option}.Infinity`;
 
-test('starts a curated Infinity puzzle from the home screen with its rating visible', async ({ page }) => {
+// The level+rating pill was removed from the game screen entirely (it now only shows on the
+// pause screen and result/history surfaces), so these specs pause the run to observe it. That
+// also means the rating explainer, which used to be reachable by pressing the game screen's
+// rating badge, is no longer reachable from the in-game flow at all: the pause screen's pill is
+// plain text, and the explainer stays reachable only from the Stats screen's hardest-solve hero.
+
+test('starts a curated Infinity puzzle from the home screen with its rating visible on pause', async ({ page }) => {
     const pageErrors: string[] = [];
     page.on('pageerror', error => pageErrors.push(error.message));
 
@@ -32,37 +40,35 @@ test('starts a curated Infinity puzzle from the home screen with its rating visi
 
     await page.getByTestId(HomeScreenSelectors.StartButton).click();
     await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible({ timeout: gameScreenTimeoutMilliseconds });
-    await expect(page.getByTestId(GameScreenSelectors.Level)).toHaveText('Infinity');
-    await expect(page.getByTestId(GameScreenSelectors.Rating)).toBeVisible();
 
-    await page.getByTestId(GameScreenSelectors.Rating).click();
-    const ratingExplainer = page.getByTestId(RatingExplainerSelectors.Root);
-    await expect(ratingExplainer).toBeVisible();
-    // "Beyond the ceiling" names both the current-rating row and its highlighted row in the band
-    // list below, so this checks the current-rating copy specifically: the first match in DOM order.
-    await expect(ratingExplainer.getByText('Beyond the ceiling', { exact: true }).first()).toBeVisible();
+    await sendAppToBackground(page);
+    await expect(page.getByTestId(PauseScreenSelectors.Root)).toBeVisible({ timeout: pauseScreenTimeoutMilliseconds });
+    await bringAppToForeground(page);
 
-    await page.keyboard.press('Escape');
-    await expect(ratingExplainer).not.toBeVisible();
-    await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible();
+    // Curated Infinity puzzles carry an exact SE rating (occasionally beyond the display
+    // ceiling, which adds a "+" suffix), so the exact number and ceiling suffix vary with the
+    // puzzle drawn.
+    await expect(page.getByTestId(PauseScreenSelectors.DetailsValue)).toHaveText(/Infinity · \d+\.\d\+? • /u);
 
     expect(pageErrors).toEqual([]);
 
-    await quitCurrentGame(page);
+    await quitPausedGame(page);
 });
 
-test('round-trips a shared Infinity link end to end with the rating badge visible', async ({ page }) => {
+test('round-trips a shared Infinity link end to end with its rating carried onto the pause screen', async ({ page }) => {
     await launchHome(page);
     await openSharedPuzzle(page, infinitySharedPuzzleEncodedConstant);
 
     const meta = page.getByTestId(SharedScreenSelectors.Meta);
-    await expect(meta.getByText('Infinity', { exact: true })).toBeVisible();
-    await expect(meta.getByTestId(RatingBadgeSelectors.Root)).toBeVisible();
+    await expect(meta.getByText('Infinity · 11.9', { exact: true })).toBeVisible();
 
     await page.getByTestId(SharedScreenSelectors.ConfirmButton).click();
     await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible({ timeout: gameScreenTimeoutMilliseconds });
-    await expect(page.getByTestId(GameScreenSelectors.Level)).toHaveText('Infinity');
-    await expect(page.getByTestId(GameScreenSelectors.Rating)).toBeVisible();
 
-    await quitCurrentGame(page);
+    await sendAppToBackground(page);
+    await expect(page.getByTestId(PauseScreenSelectors.Root)).toBeVisible({ timeout: pauseScreenTimeoutMilliseconds });
+    await bringAppToForeground(page);
+    await expect(page.getByTestId(PauseScreenSelectors.DetailsValue)).toHaveText(/Infinity · 11\.9/u);
+
+    await quitPausedGame(page);
 });

@@ -1,45 +1,19 @@
-import { beforeEach, describe, expect, it, jest } from '@jest/globals';
+import { describe, expect, it, jest } from '@jest/globals';
 import { fireEvent, render, screen } from '@testing-library/react-native';
 
 import { I18nTestWrapper } from '../../mocks/i18n-test-wrapper.mock';
 
-import { RatingBadge, RatingBadgeInfinityTierThreshold } from './rating-badge';
+import { RatingBadge } from './rating-badge';
 import { RatingBadgeSelectors } from './rating-badge.selectors';
 
 const ExactSampleRating = 3.2;
 const SeRatingLadderCeiling = 5.4;
-
-let mockReducedMotion = false;
-
-jest.mock('react-native-reanimated', () => {
-    const { Text, View } = jest.requireActual<typeof import('react-native')>('react-native');
-    const { interpolate, interpolateColor } = jest.requireActual<typeof import('react-native-reanimated')>('react-native-reanimated');
-
-    return {
-        __esModule: true,
-        Easing: { linear: (value: number) => value },
-        cancelAnimation: jest.fn(),
-        default: { View, Text, createAnimatedComponent: (component: unknown) => component },
-        interpolate,
-        interpolateColor,
-        useAnimatedStyle: (factory: () => object) => factory(),
-        useDerivedValue: (factory: () => unknown) => ({ value: factory() }),
-        useReducedMotion: () => mockReducedMotion,
-        useSharedValue: (initialValue: unknown) => ({ value: initialValue }),
-        withRepeat: (animation: unknown) => animation,
-        withSpring: (toValue: unknown) => toValue,
-        withTiming: (toValue: unknown) => toValue
-    };
-});
+const HighInfinityTierRating = 11;
 
 const renderRatingBadge = (rating: number, isCeiling: boolean) =>
     render(<RatingBadge isCeiling={isCeiling} rating={rating} />, { wrapper: I18nTestWrapper });
 
 describe('RatingBadge', () => {
-    beforeEach(() => {
-        mockReducedMotion = false;
-    });
-
     it('should render nothing when the rating is unknown', async () => {
         await renderRatingBadge(0, false);
 
@@ -65,29 +39,11 @@ describe('RatingBadge', () => {
         expect(screen.getByText('5.4+')).toBeTruthy();
     });
 
-    it('should still render its content when reduced motion is enabled', async () => {
-        mockReducedMotion = true;
-
-        await renderRatingBadge(7, false);
+    it('should render a high rating with the same static ramp treatment as any other rating', async () => {
+        await renderRatingBadge(HighInfinityTierRating, true);
 
         expect(screen.getByTestId(RatingBadgeSelectors.Root)).toBeTruthy();
-        expect(screen.getByText('7.0')).toBeTruthy();
-    });
-
-    it('should render the infinity-tier badge with the iridescent treatment at the threshold rating', async () => {
-        await renderRatingBadge(RatingBadgeInfinityTierThreshold, true);
-
-        expect(screen.getByTestId(RatingBadgeSelectors.Root)).toBeTruthy();
-        expect(screen.getByText('10.0+')).toBeTruthy();
-    });
-
-    it('should still render the infinity-tier badge when reduced motion is enabled', async () => {
-        mockReducedMotion = true;
-
-        await renderRatingBadge(RatingBadgeInfinityTierThreshold, false);
-
-        expect(screen.getByTestId(RatingBadgeSelectors.Root)).toBeTruthy();
-        expect(screen.getByText('10.0')).toBeTruthy();
+        expect(screen.getByText('11.0+')).toBeTruthy();
     });
 
     it('should not be pressable when no onPress handler is given', async () => {

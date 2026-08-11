@@ -13,12 +13,10 @@ import { LoserScreenResultHeroStyles as styles } from './loser-screen-result-her
 
 interface Props {
     readonly detailsText: string;
-    readonly isRatingCeiling: boolean;
     readonly progressPercent: number;
-    readonly rating: number;
 }
 
-export const LoserScreenResultHero = ({ detailsText, isRatingCeiling, progressPercent, rating }: Props) => {
+export const LoserScreenResultHero = ({ detailsText, progressPercent }: Props) => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
     const reasonPillStyles = [
@@ -33,8 +31,6 @@ export const LoserScreenResultHero = ({ detailsText, isRatingCeiling, progressPe
             descriptorText={detailsText}
             eyebrowText={t`You got to`}
             icon={<LucideCircleX color={theme.colors.danger} size={GameResultHeroIconSize} strokeWidth={2.2} />}
-            isRatingCeiling={isRatingCeiling}
-            rating={rating}
             testID={LoserScreenSelectors.ProgressValue}
             titleText={t`Better luck next time!`}
             valueText={progressPercentText}

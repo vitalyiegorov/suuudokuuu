@@ -12,6 +12,7 @@ import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
+import { getLevelRatingText } from '../../../@generic/utils/get-level-rating-text.util';
 import { getMistakesTypeText } from '../../../@generic/utils/get-mistakes-type-text.util';
 import { GameContext } from '../../../game/context/game.context';
 import { useResumeGame } from '../../../game/hooks/use-resume-game.hook';
@@ -21,8 +22,10 @@ import {
     gameChallengeStateSelector,
     gameDifficultySelector,
     gameElapsedTimeSelector,
+    gameIsRatingCeilingSelector,
     gameMaxMistakesSelector,
     gameMistakesSelector,
+    gameRatingSelector,
     gameScoreSelector
 } from '../../../game/store/game.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
@@ -48,6 +51,8 @@ export const PauseScreen = () => {
     const elapsedTime = useAppSelector(gameElapsedTimeSelector);
     const challengeState = useAppSelector(gameChallengeStateSelector);
     const difficulty = useAppSelector(gameDifficultySelector);
+    const rating = useAppSelector(gameRatingSelector);
+    const isRatingCeiling = useAppSelector(gameIsRatingCeilingSelector);
 
     const handleResume = useResumeGame();
     const handleShare = useShareGame();
@@ -65,11 +70,12 @@ export const PauseScreen = () => {
 
     const progress = pauseScreenGetProgress(sudoku);
     const difficultyText = getDifficultyText(difficulty);
+    const levelRatingText = getLevelRatingText(difficultyText, rating, isRatingCeiling);
     const mistakesTypeText = getMistakesTypeText(maxMistakes);
 
     const { filledCells } = progress;
     const { totalCells } = progress;
-    const detailsText = `${difficultyText} • ${mistakesTypeText}`;
+    const detailsText = `${levelRatingText} • ${mistakesTypeText}`;
     const progressMeta = t`${filledCells}/${totalCells} filled`;
     const timeText = useTimerText(elapsedTime);
     const scoreText = String(score);
@@ -86,7 +92,7 @@ export const PauseScreen = () => {
             <ChromeScrollPage footer={footer}>
                 <View style={styles.content}>
                     <View style={styles.summaryColumn}>
-                        <PauseScreenHeader detailsText={detailsText} />
+                        <PauseScreenHeader detailsText={detailsText} testID={PauseScreenSelectors.DetailsValue} />
 
                         <PauseScreenProgressCard
                             label={t`Your progress`}

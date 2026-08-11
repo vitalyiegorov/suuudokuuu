@@ -10,14 +10,6 @@ export const GameInputToolsStyles = StyleSheet.create((theme, rt) => ({
         gap: theme.spacing.sm,
         justifyContent: 'center'
     },
-    ratingBadgeSlot: {
-        alignItems: 'center',
-        bottom: 0,
-        justifyContent: 'center',
-        position: 'absolute',
-        right: 0,
-        top: 0
-    },
     row: {
         width: '100%'
     },

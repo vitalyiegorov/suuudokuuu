@@ -1,10 +1,7 @@
 import { useLingui } from '@lingui/react/macro';
 import { AppMetricStrip, AppMetricStripItem } from '@suuudokuuu/ui';
 
-import { useAppSelector } from '../../../../@generic/hooks/use-app-selector.hook';
 import { useTimerText } from '../../../../@generic/hooks/use-timer-text.hook';
-import { getDifficultyText } from '../../../../@generic/utils/get-difficulty-text.util';
-import { gameDifficultySelector } from '../../../../game/store/game.selectors';
 import { GameScreenMistakesValue } from '../game-screen-mistakes-value/game-screen-mistakes-value';
 import { GameScreenSelectors } from '../game-screen.selectors';
 
@@ -21,21 +18,11 @@ interface Props {
 
 export const GameScreenMetrics = ({ elapsedTime, hasTimer, maxMistakes, maxMistakesReached, mistakes, score }: Props) => {
     const { t } = useLingui();
-    const difficulty = useAppSelector(gameDifficultySelector);
     const elapsedTimeText = useTimerText(elapsedTime);
     const scoreText = String(score);
 
     return (
         <AppMetricStrip separatorStyle={styles.separator} style={styles.container} variant="ghost">
-            <AppMetricStripItem
-                label={t`Level`}
-                labelStyle={styles.label}
-                style={styles.item}
-                testID={GameScreenSelectors.Level}
-                value={getDifficultyText(difficulty)}
-                valueStyle={styles.value}
-            />
-
             <AppMetricStripItem label={t`Mistakes`} labelStyle={styles.label} style={styles.item}>
                 <GameScreenMistakesValue maxMistakes={maxMistakes} maxMistakesReached={maxMistakesReached} mistakes={mistakes} />
             </AppMetricStripItem>

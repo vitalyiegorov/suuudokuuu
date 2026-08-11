@@ -789,7 +789,6 @@ msgid "Left-handed layout"
 msgstr "Disposition pour gaucher"
 
 #: src/history/components/replay-header/replay-header.tsx
-#: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
 msgid "Level"
 msgstr "Niveau"
 
@@ -1139,10 +1138,6 @@ msgstr "Surface surélevée"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Raised surface text"
 msgstr "Texte de la surface surélevée"
-
-#: src/@generic/components/rating-metric-item/rating-metric-item.tsx
-msgid "Rating"
-msgstr ""
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"

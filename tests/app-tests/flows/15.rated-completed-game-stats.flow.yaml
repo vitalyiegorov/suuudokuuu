@@ -52,8 +52,11 @@ appId: ${APP_ID}
       visible:
           id: 'HistoryGamesScreenSelectors.Root'
       timeout: 3000
+# The completed-game row composes its rating into the difficulty text instead of rendering a
+# separate badge next to it.
 - assertVisible:
-      id: 'RatingBadgeSelectors.Root'
+      id: 'CompletedGameItemSelectors.DifficultyValue'
+      text: '.* · [0-9]+\.[0-9].*'
 - tapOn:
       id: 'HeaderBackButtonSelectors.Root'
 - extendedWaitUntil:

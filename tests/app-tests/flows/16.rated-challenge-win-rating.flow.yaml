@@ -12,8 +12,11 @@ appId: ${APP_ID}
       file: subflows/shared/complete-winning-shared-challenge.flow.yaml
       env:
           SHARED_CHALLENGE_LINK: suuudokuuu://shared/_OWP________9____qXF6FFdMjBWGhJIN-CMqSm5omCUw0KFUm6-t2HxLUAuYMARgH-IAABCg
+# The outcome pill now composes "{flavor} · {level} · {rating} · {mistakes type}" as plain text
+# instead of rendering a separate rating badge next to it.
 - assertVisible:
-      id: 'RatingBadgeSelectors.Root'
+      id: 'ChallengeResultScreenSelectors.OutcomeValue'
+      text: '.* · [0-9]+\.[0-9]\+? · .*'
 - scrollUntilVisible:
       element:
           id: 'ChallengeResultFooterSelectors.HomeButton'
