@@ -69,19 +69,33 @@ appId: ${APP_ID}
 - assertVisible:
       id: 'ReplayHeaderSelectors.Level'
       text: 'Newbie'
+# Every step rebuilds the board and reclassifies the move through the technique
+# engine while rendering, so the meta row can lag the tap on the slower Android
+# emulator. Previous is disabled at step 0, so tapping it before the Next render
+# lands is a silent no-op that strands the replay on step 1. Gate each interaction
+# on the step it produces instead of firing the taps back to back.
 - tapOn:
       id: 'ReplayControlsSelectors.NextButton'
+- extendedWaitUntil:
+      visible: 'Move 1 / 1'
+      timeout: 3000
 - tapOn:
       id: 'ReplayControlsSelectors.PreviousButton'
-- assertVisible: 'Move 0 / 1'
+- extendedWaitUntil:
+      visible: 'Move 0 / 1'
+      timeout: 3000
 - swipe:
       from:
           id: 'ReplayScrubberSelectors.Root'
       direction: RIGHT
-- assertVisible: 'Move 1 / 1'
+- extendedWaitUntil:
+      visible: 'Move 1 / 1'
+      timeout: 3000
 - tapOn:
       id: 'ReplayControlsSelectors.PreviousButton'
-- assertVisible: 'Move 0 / 1'
+- extendedWaitUntil:
+      visible: 'Move 0 / 1'
+      timeout: 3000
 - assertVisible:
       id: 'ReplayShareActionSelectors.Button'
 - tapOn:
