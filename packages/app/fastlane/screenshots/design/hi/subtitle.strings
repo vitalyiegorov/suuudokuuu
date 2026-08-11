@@ -1,0 +1,18 @@
+/* suuudokuuu — App Store screenshot descriptors (hi)
+ * Second-tier caption line under each headline in title.strings — same
+ * scene keys, 4-8 words, rendered smaller and at reduced opacity. Kept
+ * short enough to stay on one line at the iPhone canvas's descriptor point
+ * size (measured against the 1085px iPhone text safe-zone width) so the
+ * caption stack never grows taller than expected. See ../README.md "Design
+ * system" for the two-tier text rules. */
+
+"01-hero-board" = "साफ़ अंक। पूरा ध्यान।";
+"01-hero-board-dark" = "पूरा डार्क मोड। कोई समझौता नहीं।";
+"01-hero-board-light" = "पूरा लाइट मोड। वही फ़ोकस।";
+"02-hell" = "सिर्फ़ 17 संकेत, और कुछ नहीं।";
+"04-editor" = "हर रंग चुनें, सेल दर सेल।";
+"05-customization" = "हर रंग आपका। 13 भाषाएँ।";
+"06-rival" = "असली गेम। एंटीचीट से सत्यापित।";
+"07-replay" = "देखें आपने इसे कैसे हल किया।";
+"09-home" = "छह स्तर: नया खिलाड़ी से नर्क तक।";
+"14-challenge-live" = "हर तकनीक दर्ज होती है।";

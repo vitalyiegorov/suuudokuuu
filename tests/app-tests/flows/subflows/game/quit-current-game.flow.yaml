@@ -1,15 +1,19 @@
 appId: ${APP_ID}
 ---
+# The quit confirmation is a native alert, so its title and buttons carry
+# localized copy and expose no testIDs. Waiting for and tapping the confirm
+# button matches the "OK" label from every app locale catalog so this subflow
+# works for all screenshot-capture locales, not only English.
 - tapOn:
-    id: 'GameScreenSelectors.QuitButton'
+      id: 'GameScreenSelectors.QuitButton'
 - extendedWaitUntil:
-    visible: 'Stop current run?'
-    timeout: 3000
-- tapOn: 'OK'
+      visible: 'OK|Гаразд|حسنًا|ঠিক আছে|ठीक है|ٹھیک ہے|确定'
+      timeout: 3000
+- tapOn: 'OK|Гаразд|حسنًا|ঠিক আছে|ठीक है|ٹھیک ہے|确定'
 # Confirming quit unmounts a fully populated board (81 cells, numpad, timer) and
 # remounts the full Home scroll content, which is clearly slower native work than
 # the default budget under CI farm load, so give it more room than 3000.
 - extendedWaitUntil:
-    visible:
-      id: 'HomeScreenSelectors.Root'
-    timeout: 8000
+      visible:
+          id: 'HomeScreenSelectors.Root'
+      timeout: 8000

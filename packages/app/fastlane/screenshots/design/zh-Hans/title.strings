@@ -1,10 +1,12 @@
 /* suuudokuuu — App Store screenshot captions (zh-Hans) */
 
-"01-hero-board" = "数独,就该这样玩";
-"02-hell" = "真地狱难度,仅17条线索";
-"03-themes" = "打造专属于你的样子";
-"04-editor" = "每种颜色,由你决定";
-"05-win" = "赢得漂亮";
-"06-rival" = "和好友一较高下";
-"07-replay" = "回放每一步棋";
-"08-settings" = "说你的语言";
+"01-hero-board" = "数独，就该这样玩";
+"01-hero-board-dark" = "暗夜依旧清晰";
+"01-hero-board-light" = "白天同样清晰";
+"02-hell" = "真正的地狱";
+"04-editor" = "每种颜色都归你";
+"05-customization" = "打造真正专属";
+"06-rival" = "接受挑战";
+"07-replay" = "回放每一步";
+"09-home" = "选择你的难度";
+"14-challenge-live" = "实时同场竞速";

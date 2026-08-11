@@ -1,10 +1,12 @@
 /* suuudokuuu — App Store screenshot captions (sv) */
 
 "01-hero-board" = "Sudoku, gjort rätt.";
-"02-hell" = "Riktigt helvete. 17 ledtrådar.";
-"03-themes" = "Gör det till ditt.";
-"04-editor" = "Varje färg är ditt val.";
-"05-win" = "Vinn med stil.";
-"06-rival" = "Tävla mot dina vänner.";
+"01-hero-board-dark" = "Lika skarpt i mörker.";
+"01-hero-board-light" = "Lika skarpt i dagsljus.";
+"02-hell" = "Riktigt helvete.";
+"04-editor" = "Varje färg är din.";
+"05-customization" = "Gör det helt till ditt.";
+"06-rival" = "Anta utmaningen.";
 "07-replay" = "Se om varje drag.";
-"08-settings" = "Talar ditt språk.";
+"09-home" = "Välj din nivå.";
+"14-challenge-live" = "Tävla live.";

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.5.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.4.3...v2.5.0) (2026-08-11)
+
+### Features
+
+- **app:** localized store screenshots for 7 locales and reactive difficulty labels ([#289](https://github.com/vitalyiegorov/suuudokuuu/issues/289)) ([e3a93fe](https://github.com/vitalyiegorov/suuudokuuu/commit/e3a93fe9eed2b1127240cfa5373edae3525b0fc1))
+
 ## [2.4.3](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.4.2...v2.4.3) (2026-08-10)
 
 ### Bug Fixes

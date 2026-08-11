@@ -1,10 +1,12 @@
 /* suuudokuuu — App Store screenshot captions (de-DE, informal "du") */
 
 "01-hero-board" = "Sudoku, wie es sein soll.";
-"02-hell" = "Echte Hölle. 17 Vorgaben.";
-"03-themes" = "Mach's dir zu eigen.";
-"04-editor" = "Jede Farbe ist deine Wahl.";
-"05-win" = "Sieg mit Stil.";
-"06-rival" = "Tritt gegen Freunde an.";
+"01-hero-board-dark" = "Auch im Dunkeln scharf.";
+"01-hero-board-light" = "Bei Tag genauso scharf.";
+"02-hell" = "Echte Hölle.";
+"04-editor" = "Jede Farbe ist deine.";
+"05-customization" = "Mach's dir zu eigen.";
+"06-rival" = "Lass dich fordern.";
 "07-replay" = "Sieh jeden Zug noch einmal.";
-"08-settings" = "Spricht deine Sprache.";
+"09-home" = "Wähl deine Herausforderung.";
+"14-challenge-live" = "Live um die Wette.";

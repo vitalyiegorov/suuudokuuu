@@ -501,7 +501,7 @@ msgstr "نقل بنائیں"
 msgid "Each correct placement starts with a base value:"
 msgstr "ہر درست جگہ پر رکھنے کی بنیادی قدر ہوتی ہے:"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Easy"
 msgstr "آسان"
@@ -624,7 +624,7 @@ msgstr "رہنمائی"
 msgid "h"
 msgstr "h"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Hard"
 msgstr "مشکل"
@@ -645,7 +645,7 @@ msgstr ""
 msgid "Hardest solve"
 msgstr ""
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Hell"
 msgstr "جہنم"
@@ -712,7 +712,7 @@ msgstr "لافانی"
 msgid "Incomplete"
 msgstr "نامکمل"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Infinity"
 msgstr ""
@@ -835,7 +835,7 @@ msgstr "اجازت شدہ غلطیوں کا بونس"
 msgid "Maybe later"
 msgstr "شاید بعد میں"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Medium"
 msgstr "درمیانہ"
@@ -907,7 +907,7 @@ msgstr "نیا کھیل"
 msgid "New personal best"
 msgstr "نیا ذاتی ریکارڈ"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Newbie"
 msgstr "نیا کھلاڑی"
@@ -916,7 +916,7 @@ msgstr "نیا کھلاڑی"
 msgid "Newspaper"
 msgstr "اخبار"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Nightmare"
 msgstr "ڈراؤنا خواب"
@@ -1599,7 +1599,7 @@ msgstr "انسٹالیشن شروع نہیں کی جا سکی"
 msgid "Unique Rectangle"
 msgstr ""
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Unknown"
 msgstr "نامعلوم"
