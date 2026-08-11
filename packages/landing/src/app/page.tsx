@@ -22,6 +22,7 @@ import { fullHousePageMetadata } from './techniques/full-house/metadata';
 import { hiddenSinglePageMetadata } from './techniques/hidden-single/metadata';
 import { techniquesPageMetadata } from './techniques/metadata';
 import { nakedSinglePageMetadata } from './techniques/naked-single/metadata';
+import { whySuuudokuuuPageMetadata } from './why-suuudokuuu/metadata';
 
 import type { Metadata } from 'next';
 
@@ -46,7 +47,8 @@ const HomePage = () => (
         <h1>Play Free Online Sudoku</h1>
         <p>
             {SITE_NAME} is a free, open-source online sudoku — six difficulty levels from Newbie to Hell, technique-explaining guides, no
-            ads and no tracking. Solve on the web or install the app, then keep the same streaks and stats everywhere.
+            ads and no tracking. Solve on the web or install the app, then keep the same streaks and stats everywhere. See{' '}
+            <Link href={whySuuudokuuuPageMetadata.path}>why {SITE_NAME} is built this way</Link> for the full, verifiable case.
         </p>
         <a className="hero__cta" href={SITE_PLAY_URL}>
             Play now
