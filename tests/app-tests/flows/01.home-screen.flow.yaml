@@ -13,12 +13,12 @@ appId: ${APP_ID}
       id: 'GameScreenSelectors.Score'
       text: '0'
 - assertVisible: '0/3'
-# A freshly generated (non-shared) puzzle always carries a computed SE rating,
-# unlike shared links decoded from before the rating trailer existed.
 - assertVisible:
       id: 'GameScreenSelectors.Level'
       text: 'Easy'
-- assertVisible:
+# The game screen only shows a rating badge for Hell and Infinity, so an Easy run never
+# has one to assert, regardless of the freshly generated puzzle carrying a computed SE rating.
+- assertNotVisible:
       id: 'GameScreenSelectors.Rating'
 - runFlow: subflows/game/quit-current-game.flow.yaml
 # Quitting remounts Home at the top of its scroll content, so the start button

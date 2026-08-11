@@ -15,6 +15,11 @@ appId: ${APP_ID}
       timeout: 3000
 
 - runFlow: subflows/game/start-new-game.flow.yaml
+- assertVisible:
+      id: 'GameScreenSelectors.Level'
+      text: 'Hell'
+- assertVisible:
+      id: 'GameScreenSelectors.Rating'
 - runFlow: subflows/game/quit-current-game.flow.yaml
 
 - scrollUntilVisible:
