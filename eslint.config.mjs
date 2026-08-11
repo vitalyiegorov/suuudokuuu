@@ -293,7 +293,7 @@ export default defineConfig(
         extends: [promisePlugin.configs['flat/recommended']]
     },
     {
-        files: ['packages/app/**/*.{ts,tsx}', 'packages/landing/**/*.{ts,tsx}'],
+        files: ['packages/app/**/*.{ts,tsx}'],
         extends: [pluginLingui.configs['flat/recommended']],
         rules: {
             'lingui/no-unlocalized-strings': [

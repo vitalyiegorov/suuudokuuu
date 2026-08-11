@@ -1,0 +1,43 @@
+:root {
+    --landing-font-family:
+        -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+    --landing-background-color: #000000;
+    --landing-text-color: #ffffff;
+    --landing-muted-text-color: #b3b3b3;
+
+    color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--landing-background-color);
+    color: var(--landing-text-color);
+    font-family: var(--landing-font-family);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+main {
+    margin: 0 auto;
+    max-width: 48rem;
+    padding: 4rem 1.5rem;
+}
+
+h1 {
+    margin: 0 0 1rem;
+    font-size: clamp(2rem, 6vw, 3rem);
+    line-height: 1.1;
+}
+
+p {
+    margin: 0 0 1rem;
+    color: var(--landing-muted-text-color);
+}
