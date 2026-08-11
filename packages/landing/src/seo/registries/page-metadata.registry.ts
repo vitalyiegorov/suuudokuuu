@@ -1,3 +1,5 @@
+import { glossaryPageMetadata } from '../../app/glossary/metadata';
+import { howToPlayPageMetadata } from '../../app/how-to-play/metadata';
 import { homePageMetadata } from '../../app/metadata';
 import { boxLineReductionPageMetadata } from '../../app/techniques/box-line-reduction/metadata';
 import { fullHousePageMetadata } from '../../app/techniques/full-house/metadata';
@@ -17,6 +19,8 @@ import type { PageMetadataInterface } from '../interfaces/page-metadata.interfac
 
 export const PAGE_METADATA_REGISTRY: PageMetadataInterface[] = [
     homePageMetadata,
+    howToPlayPageMetadata,
+    glossaryPageMetadata,
     techniquesPageMetadata,
     fullHousePageMetadata,
     nakedSinglePageMetadata,

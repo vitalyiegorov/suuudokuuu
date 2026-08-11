@@ -7,7 +7,7 @@ export const SITE_PLAY_URL = `${SITE_ORIGIN}/play`;
 export const SITE_TAGLINE = 'Free offline Sudoku for iOS, Android and the web';
 
 export const SITE_DESCRIPTION =
-    'Suuudokuuu is a free, ad-free Sudoku game that works offline. Five difficulty levels, technique-aware hints, streaks and shareable puzzles.';
+    'Suuudokuuu is a free, ad-free Sudoku game that works offline. Six difficulty levels, technique-aware hints, streaks and shareable puzzles.';
 
 export const SITE_THEME_COLOR = '#000000';
 
