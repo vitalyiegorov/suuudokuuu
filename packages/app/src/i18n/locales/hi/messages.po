@@ -86,6 +86,10 @@ msgstr "{value, plural, one {# सेकंड} other {# सेकंड}}"
 msgid "<0>Development client required</0><1>Development clients need Metro, the launch URL configured in <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2>, or a compatible update on the <3>development</3> channel. This install flow does not publish an update.</1>"
 msgstr "<0>डेवलपमेंट क्लाइंट आवश्यक है</0><1>डेवलपमेंट क्लाइंट को Metro, <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2> में कॉन्फ़िगर किया गया लॉन्च URL या <3>development</3> चैनल पर संगत अपडेट चाहिए। यह इंस्टॉलेशन प्रक्रिया कोई अपडेट प्रकाशित नहीं करती।</1>"
 
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "A “+” means this puzzle is at least SE {seRatingCeilingText}. Beyond that point, puzzles can chain into very long solutions, so we cap the displayed number instead of chasing false precision."
+msgstr "“+” का मतलब है कि यह सुडोकू कम से कम SE {seRatingCeilingText} का है। इसके आगे हल बहुत लंबी शृंखलाओं में बंध सकते हैं, इसलिए हम झूठी सटीकता दिखाने के बजाय दिखाई गई संख्या पर सीमा लगा देते हैं।"
+
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "A little room between cells"
 msgstr "सेलों के बीच थोड़ी जगह"
@@ -105,6 +109,10 @@ msgstr "चुनौती स्वीकार करें?"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Adjust the digits on the Sudoku board"
 msgstr "सुडोकू बोर्ड पर अंकों का आकार बदलें"
+
+#: src/history/constants/se-rating-band.constant.ts
+msgid "Advanced"
+msgstr "उन्नत"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "AIC"
@@ -154,9 +162,13 @@ msgstr "लागू करें"
 msgid "Attempts to load the latest development build again"
 msgstr "नवीनतम डेवलपमेंट बिल्ड को फिर से लोड करने का प्रयास करता है"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 msgid "Average"
 msgstr "औसत"
+
+#: src/history/components/history-solver-profile/history-solver-profile.tsx
+msgid "Avg recent {averageRecentSeText} · Most played {mostPlayedDifficultyText}"
+msgstr "हालिया औसत {averageRecentSeText} · सर्वाधिक खेला {mostPlayedDifficultyText}"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Avoid mistakes - they cost you points!"
@@ -179,6 +191,10 @@ msgstr "अधिकतर खिलाड़ियों के लिए स�
 msgid "Balanced solve"
 msgstr "संतुलित हल"
 
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "Bands"
+msgstr "श्रेणियाँ"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Base Score"
 msgstr "आधार स्कोर"
@@ -191,12 +207,16 @@ msgstr "समय दंड घटाने के लिए तेज़ खे
 msgid "Be wise, be smart, be quick..."
 msgstr "समझदारी से सोचें, तेज़ चलें..."
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Best score"
 msgstr "बेस्ट स्कोर"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-techniques/history-techniques.tsx
+msgid "Best technique"
+msgstr "सर्वश्रेष्ठ तकनीक"
+
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Best time"
 msgstr "बेस्ट समय"
@@ -205,6 +225,10 @@ msgstr "बेस्ट समय"
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "Better luck next time!"
 msgstr "अगली बार किस्मत साथ देगी!"
+
+#: src/history/constants/se-rating-band.constant.ts
+msgid "Beyond the ceiling"
+msgstr "सीमा से परे"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Board cells"
@@ -221,6 +245,10 @@ msgstr ""
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Box-Line Reduction"
 msgstr "बॉक्स-लाइन न्यूनीकरण"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "BUG+1"
+msgstr "BUG+1"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Built:"
@@ -255,6 +283,10 @@ msgstr "उम्मीदवार का टेक्स्ट"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Candidates"
 msgstr "उम्मीदवार"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Cell Forcing Chain"
+msgstr "कोशिका बाध्यकारी शृंखला"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
@@ -296,7 +328,7 @@ msgstr "चुनौती जीती"
 msgid "Challenge Won!"
 msgstr "चुनौती जीती!"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 msgid "Challenges"
 msgstr "चुनौतियाँ"
 
@@ -324,7 +356,7 @@ msgstr "मेनू और गेम टेक्स्ट की भाषा 
 msgid "Classic"
 msgstr "क्लासिक"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 msgid "Clean"
 msgstr "बिना गलती"
 
@@ -339,6 +371,10 @@ msgstr "साफ़ खेल"
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Clean win"
 msgstr "स्वच्छ जीत"
+
+#: src/screens/components/rating-explainer-sheet-screen/rating-explainer-sheet.screen.tsx
+msgid "Close"
+msgstr "बंद करें"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Colorblind safe"
@@ -376,7 +412,7 @@ msgstr "पूर्णता ऐनिमेशन"
 msgid "Completion Bonuses"
 msgstr "पूरा करने के बोनस"
 
-#: src/screens/components/home-screen/home-screen-play-actions/home-screen-play-actions.tsx
+#: src/screens/components/home-screen/home-screen-continue-row/home-screen-continue-row.tsx
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Continue"
 msgstr "जारी रखें"
@@ -425,10 +461,6 @@ msgstr "डार्क मोड"
 msgid "Dark overlay"
 msgstr "गहरा ओवरले"
 
-#: src/history/components/history-totals-card/history-totals-card.tsx
-msgid "Day streak"
-msgstr "दैनिक स्ट्रीक"
-
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Dead even"
 msgstr "पूरा बराबर"
@@ -466,6 +498,10 @@ msgstr "बोर्ड पूरा नहीं हुआ"
 #: src/game/components/difficulty-complexity-slider/difficulty-complexity-slider.tsx
 msgid "Difficulty"
 msgstr "कठिनाई"
+
+#: src/@generic/components/rating-badge/rating-badge.tsx
+msgid "Difficulty rating {ratingLabel}"
+msgstr "कठिनाई रेटिंग {ratingLabel}"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Dim a completed digit in the numpad instead of removing it"
@@ -532,6 +568,10 @@ msgstr "Español"
 msgid "Evenly matched"
 msgstr "बराबरी की टक्कर"
 
+#: src/history/constants/se-rating-band.constant.ts
+msgid "Expert"
+msgstr "विशेषज्ञ"
+
 #: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Expert grid"
 msgstr "विशेषज्ञ ग्रिड"
@@ -567,6 +607,10 @@ msgstr "Finned X-Wing"
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Follow system"
 msgstr ""
+
+#: src/history/constants/se-rating-band.constant.ts
+msgid "Foundational"
+msgstr "बुनियादी"
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Français"
@@ -624,11 +668,15 @@ msgid "Hard"
 msgstr "कठिन"
 
 #: src/@generic/utils/get-mistakes-type-text.util.ts
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Hardcore"
 msgstr "हार्डकोर"
+
+#: src/history/components/history-solver-profile/history-solver-profile.tsx
+msgid "Hardest solve"
+msgstr "सबसे कठिन हल"
 
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -713,6 +761,11 @@ msgstr "अमर"
 msgid "Incomplete"
 msgstr "अधूरा"
 
+#: src/@generic/utils/get-difficulty-message.util.ts
+#: src/scoring/components/scoring.screen.tsx
+msgid "Infinity"
+msgstr "अनंत"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Ink"
 msgstr "स्याही"
@@ -728,6 +781,10 @@ msgstr "iOS पर इंस्टॉल करें"
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Install the iOS development build"
 msgstr "iOS डेवलपमेंट बिल्ड इंस्टॉल करें"
+
+#: src/history/constants/se-rating-band.constant.ts
+msgid "Intermediate"
+msgstr "मध्यवर्ती"
 
 #: src/game/hooks/use-game-creation-runner.hook.ts
 msgid "Invalid Sudoku"
@@ -810,7 +867,7 @@ msgstr "डेवलपमेंट बिल्ड लोड हो रहा �
 msgid "Loading the latest development build…"
 msgstr "नवीनतम डेवलपमेंट बिल्ड लोड हो रहा है…"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 msgid "Lost"
 msgstr "हारे"
 
@@ -926,6 +983,10 @@ msgstr ""
 #: src/scoring/components/scoring.screen.tsx
 msgid "Nightmare"
 msgstr "दुःस्वप्न"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Nishio Forcing Chain"
+msgstr "निशियो बाध्यकारी शृंखला"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "no bonus"
@@ -1182,6 +1243,10 @@ msgstr "रिकॉर्ड होता है"
 msgid "Recording"
 msgstr "रिकॉर्डिंग"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Region Forcing Chain"
+msgstr "क्षेत्र बाध्यकारी शृंखला"
+
 #: src/@generic/utils/get-mistakes-type-text.util.ts
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Relaxed"
@@ -1295,6 +1360,10 @@ msgstr "स्क्रीन की बैकग्राउंड"
 #: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
 msgid "Screenshots"
 msgstr "स्क्रीनशॉट"
+
+#: src/history/components/history-techniques/history-techniques.tsx
+msgid "SE {seValueText}"
+msgstr "SE {seValueText}"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Selected candidate background"
@@ -1457,6 +1526,10 @@ msgstr "चाल समय"
 msgid "Stop current run?"
 msgstr "मौजूदा गेम रोकें?"
 
+#: src/history/components/history-totals-card/history-totals-card.tsx
+msgid "Streak"
+msgstr "स्ट्रीक"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Subtle surface"
 msgstr "सूक्ष्म सतह"
@@ -1498,6 +1571,10 @@ msgstr "SuuudokuuU चुनौती"
 #: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "SuuudokuuU game handoff"
 msgstr "SuuudokuuU गेम हैंडऑफ़"
+
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "Suuudokuuu rates every puzzle on the Sudoku Explainer (SE) scale, the same scale serious solvers use to compare how hard a puzzle actually is to reason through, not just how many clues it has."
+msgstr "Suuudokuuu हर सुडोकू को Sudoku Explainer (SE) पैमाने पर आँकता है — वही पैमाना जिससे गंभीर खिलाड़ी तुलना करते हैं कि सुडोकू को सोच-समझकर हल करना असल में कितना कठिन है, न कि सिर्फ़ उसमें कितने संकेत हैं।"
 
 #: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "SuuudokuuU Sudoku Puzzle"
@@ -1546,6 +1623,10 @@ msgstr "इस डिवाइस पर कमिट लिंक नहीं 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "The install link could not be opened. Check your browser settings and try again."
 msgstr "इंस्टॉल लिंक नहीं खोला जा सका। अपने ब्राउज़र की सेटिंग जाँचें और फिर से कोशिश करें।"
+
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "The SE difficulty scale"
+msgstr "SE कठिनाई पैमाना"
 
 #: src/challenge/components/challenge-accept-time-block/challenge-accept-time-block.tsx
 msgid "Their time to beat"
@@ -1644,6 +1725,10 @@ msgstr "लिंक नहीं खोला जा सका"
 msgid "Unable to start installation"
 msgstr "इंस्टॉलेशन शुरू नहीं किया जा सका"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Unique Rectangle"
+msgstr "अद्वितीय आयत"
+
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Unknown"
@@ -1733,7 +1818,7 @@ msgstr "जब आप दूर थे, आज़ादी की लड़ा�
 msgid "Wider gaps for easier tapping"
 msgstr "आसान टैपिंग के लिए बड़े अंतर"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Win rate"
 msgstr "जीत दर"
@@ -1750,9 +1835,13 @@ msgstr "जीत गए! जश्न मनाइए!"
 msgid "Winning margin"
 msgstr "जीत का अंतर"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 msgid "Won"
 msgstr "जीते"
+
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
+msgid "World-record puzzles"
+msgstr "विश्व रिकॉर्ड सुडोकू"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "X-Chain"
@@ -1790,9 +1879,17 @@ msgstr "आपने अपना सुडोकू पूरा कर लि�
 msgid "You got to"
 msgstr "आप पहुँचे"
 
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "You have not finished a rated puzzle yet."
+msgstr "आपने अभी तक कोई रेटेड सुडोकू पूरा नहीं किया है।"
+
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 msgid "you lead"
 msgstr "आप आगे हैं"
+
+#: src/history/components/history-techniques/history-techniques.tsx
+msgid "Your arsenal"
+msgstr "आपका शस्त्रागार"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Your best run"
@@ -1805,6 +1902,10 @@ msgstr "आपका ब्राउज़र अज्ञात स्रोत
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Your custom colors"
 msgstr "आपके कस्टम रंग"
+
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "Your hardest solve"
+msgstr "आपका सबसे कठिन हल"
 
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Your progress"

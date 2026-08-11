@@ -237,7 +237,6 @@ export const GameScreen = () => {
             {...shareAction}
         />
     );
-
     const challengeHudContent = hasRival ? <ChallengeRaceHud /> : <ChallengeRecordHud />;
     const challengeRecorder = isChallengeRun ? <ChallengeScreenshotRecorder /> : null;
     const challengeHud = isChallengeRun ? challengeHudContent : null;
@@ -247,6 +246,7 @@ export const GameScreen = () => {
             accessible={false}
             {...(!keepActiveCell && { onPress: handleDeselectCell })}
             style={styles.container}
+            tabIndex={-1}
             testID={GameScreenSelectors.Root}
         >
             <GameTimerController />

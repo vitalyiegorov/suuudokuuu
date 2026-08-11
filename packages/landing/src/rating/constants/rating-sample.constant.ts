@@ -1,8 +1,10 @@
 import { DifficultyEnum } from '@suuudokuuu/generator';
 
+import type { LandingDifficultyType } from '../../difficulty/types/landing-difficulty.type';
+
 export const RATING_SAMPLE_SIZE = 40;
 
-export const RATING_SAMPLE_PUZZLES: Record<DifficultyEnum, string[]> = {
+export const RATING_SAMPLE_PUZZLES: Record<LandingDifficultyType, string[]> = {
     [DifficultyEnum.Newbie]: [
         '8.92.563736581.942472396185257463.91684971.23931..8..452.139476146782359793654218',
         '425.67813691823.5773815492637658124.5.974263..42396..115467938226341.795987.35164',

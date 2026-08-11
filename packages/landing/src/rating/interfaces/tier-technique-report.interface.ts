@@ -1,9 +1,9 @@
 import type { TechniqueUsageInterface } from './technique-usage.interface';
-import type { DifficultyEnum } from '@suuudokuuu/generator';
+import type { LandingDifficultyType } from '../../difficulty/types/landing-difficulty.type';
 import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 export interface TierTechniqueReportInterface {
-    difficulty: DifficultyEnum;
+    difficulty: LandingDifficultyType;
     clueCount: number;
     sampleSize: number;
     singlesOnlyPuzzleCount: number;

@@ -1,6 +1,6 @@
-🔥 Dificuldade Inferno: o nível mais duro, grades de 17 pistas verificadas à mão.
-🎨 Temas: Clássico, Ouro, Jornal ou crie o seu com prévia em tempo real.
-▶️ Replays: compartilhe qualquer momento e arraste pelos passos.
-🏆 Desafio: veja o resumo da sua partida antes de compartilhar.
-🎉 Confete em toda vitória.
-⚡ Layout melhor em tablets e web, partidas novas mais rápidas.
+Chegou o Infinity: 100 puzzles recordistas mundiais com SE 10.4 a 11.9, entre eles Everest e Golden Nugget.
+Todo puzzle mostra sua nota Sudoku Explainer, com explicação embutida.
+Inferno recurado: 1.544 tabuleiros verificados de 17 pistas, todos SE 6,6 ou maior.
+Estatísticas novas: resolução mais difícil, espectro SE e seu arsenal de técnicas.
+Resumo de técnicas no histórico e controle total pelo teclado na web.
+Corrigido: links compartilhados não apagam mais suas estatísticas.

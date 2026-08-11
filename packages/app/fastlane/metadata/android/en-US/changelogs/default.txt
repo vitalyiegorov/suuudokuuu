@@ -1,6 +1,6 @@
-🔥 Hell difficulty: our hardest tier yet — hand-verified 17-clue grids that demand real technique.
-🎨 Themes: Classic, Gold, Newspaper, or build your own with a live preview.
-▶️ Replays: share any moment, drag through solution steps.
-🏆 Challenge: review your run summary before sharing.
-🎉 Confetti on every win.
-⚡ Sharper tablet and web layout, faster new games, fairer scoring.
+Infinity is here: 100 world-record puzzles rated SE 10.4 to 11.9, including Everest and Golden Nugget.
+Every puzzle now shows its Sudoku Explainer rating, with a built-in guide to what the number means.
+Hell re-curated: 1,544 verified 17-clue boards, all SE 6.6 or higher.
+Redesigned stats: hardest solve, SE spectrum and your technique arsenal.
+Technique summaries on history cards, plus full keyboard control on the web.
+Fixed: shared links no longer clear your statistics.

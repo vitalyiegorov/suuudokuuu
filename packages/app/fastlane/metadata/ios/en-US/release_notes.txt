@@ -1,8 +1,10 @@
-Hell difficulty is here — the hardest tier suuudokuuu has ever shipped. Every Hell puzzle is a hand-verified 17-clue grid, filtered so nothing that falls to simple singles slips through. Bring real technique.
+Infinity is here: 100 world-record Sudoku puzzles, rated SE 10.4 to 11.9. Arto Inkala's Everest and AI Escargot, Golden Nugget, Platinum Blonde, Kolk, Patience. Most people never finish one.
 
-• Full theme engine: Classic, Gold and Newspaper presets, plus a custom editor with a live board preview. Contrast checks keep your colors readable in light and dark.
-• Better replays: share any moment of a game, and drag your way through the solution steps with the new scrubber.
-• Challenge mode: review a summary of your run before you share it, and "play again" keeps your full setup.
-• Confetti for every win.
-• Sharper layout on tablets and web.
-• Rare crash fixed, faster new games, and shared puzzles now score at their true difficulty.
+• Every puzzle now shows its Sudoku Explainer rating on the 1.0 to 12.0 scale, in the level pill on the board, in history and on shared links. A built-in explainer tells you what the number means.
+• Hell has been re-curated: 1,544 verified 17-clue puzzles, every one rated SE 6.6 or higher. No more "hardest" boards that fall to simple singles.
+• Statistics, redesigned: your hardest solve, recent average difficulty and most played level, the full SE spectrum of everything you've finished, and your arsenal of techniques with usage counts.
+• History cards now carry a technique summary, and the replay screen is cleaner.
+• Full keyboard control on the web: arrows to move, digits to place, Space or N for pencil mode, Shift and a digit for candidates, A for auto-candidates.
+• Fixed: opening a shared link no longer clears your statistics.
+• Fixed: quitting a game now works in every language.
+• Faster: Hell games start instantly, and history loads without stalling.

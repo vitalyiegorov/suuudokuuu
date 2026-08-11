@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers */
 import { describe, expect, it } from '@jest/globals';
 import { GameStateSerializer, SharedPayloadKindEnum, TimelineEventKindEnum } from '@suuudokuuu/encoder';
+import { DifficultyEnum } from '@suuudokuuu/generator';
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { initialGameState } from '../store/game.state';
@@ -145,5 +146,43 @@ describe('gameStateToString', () => {
 
         expect(decoded.score).toBe(4820);
         expect(decoded.candidates).toStrictEqual({ 40: [2, 6] });
+    });
+
+    it('should carry the computed rating and ceiling flag into the payload', () => {
+        expect.assertions(2);
+
+        const state = buildGameState([], { rating: 3.4, isRatingCeiling: false });
+        const decoded = serializer.decodeState(gameStateToString(state, SharedPayloadKindEnum.Puzzle));
+
+        expect(decoded.rating).toBe(34);
+        expect(decoded.isRatingCeiling).toBe(false);
+    });
+
+    it('should carry a ceiling rating into the payload', () => {
+        expect.assertions(2);
+
+        const state = buildGameState([], { rating: 5.4, isRatingCeiling: true });
+        const decoded = serializer.decodeState(gameStateToString(state, SharedPayloadKindEnum.Puzzle));
+
+        expect(decoded.rating).toBe(54);
+        expect(decoded.isRatingCeiling).toBe(true);
+    });
+
+    it('should encode the unknown rating sentinel for a puzzle without a computed rating', () => {
+        expect.assertions(2);
+
+        const decoded = serializer.decodeState(gameStateToString(buildGameState([]), SharedPayloadKindEnum.Puzzle));
+
+        expect(decoded.rating).toBe(0);
+        expect(decoded.isRatingCeiling).toBe(false);
+    });
+
+    it('should encode the Infinity difficulty as the highest difficulty code', () => {
+        expect.assertions(1);
+
+        const state = buildGameState([], { difficulty: DifficultyEnum.Infinity });
+        const decoded = serializer.decodeState(gameStateToString(state, SharedPayloadKindEnum.Puzzle));
+
+        expect(decoded.difficulty).toBe(Object.values(DifficultyEnum).length - 1);
     });
 });

@@ -1,25 +1,13 @@
 import { isDefined } from '@rnw-community/shared';
 
-import type { CompletedGameInterface } from '../interfaces/completed-game.interface';
+import { getDayNumber } from '../../@generic/utils/get-day-number.util';
 
-const HoursPerDay = 24;
-const DayInMilliseconds = HoursPerDay * 60 * 60 * 1000;
-
-const getLocalDayNumber = (timestamp: number) => {
-    const date = new Date(timestamp);
-
-    return Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) / DayInMilliseconds;
-};
-
-export const historyGetDayStreak = (completedGames: readonly CompletedGameInterface[], now = Date.now()) => {
-    const todayDayNumber = getLocalDayNumber(now);
-    const completedDayNumbers = completedGames
-        .map(game => getLocalDayNumber(game.completedAt))
-        .filter(dayNumber => dayNumber <= todayDayNumber);
-    const uniqueCompletedDayNumbers = Array.from(new Set(completedDayNumbers)).sort(
-        (firstDayNumber, secondDayNumber) => secondDayNumber - firstDayNumber
-    );
-    const [latestDayNumber] = uniqueCompletedDayNumbers;
+export const historyGetDayStreak = (playedDayNumbers: readonly number[], now = Date.now()): number => {
+    const todayDayNumber = getDayNumber(now);
+    const uniqueDayNumbers = Array.from(new Set(playedDayNumbers))
+        .filter(dayNumber => dayNumber <= todayDayNumber)
+        .sort((firstDayNumber, secondDayNumber) => secondDayNumber - firstDayNumber);
+    const [latestDayNumber] = uniqueDayNumbers;
 
     if (!isDefined(latestDayNumber) || latestDayNumber < todayDayNumber - 1) {
         return 0;
@@ -28,7 +16,7 @@ export const historyGetDayStreak = (completedGames: readonly CompletedGameInterf
     let expectedDayNumber = latestDayNumber;
     let streak = 0;
 
-    for (const dayNumber of uniqueCompletedDayNumbers) {
+    for (const dayNumber of uniqueDayNumbers) {
         if (dayNumber !== expectedDayNumber) {
             break;
         }

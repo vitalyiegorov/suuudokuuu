@@ -3,7 +3,7 @@
     "compilerOptions": {
         "tsBuildInfoFile": "./node_modules/.cache/tsbuildinfo.json",
         "jsx": "react-native",
-        "lib": ["ESNext"],
+        "lib": ["DOM", "ESNext"],
         "module": "preserve",
         "moduleDetection": "force",
         "moduleResolution": "bundler",

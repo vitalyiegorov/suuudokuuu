@@ -49,6 +49,12 @@ export default defineConfig({
             use: { ...devices['Pixel 7'], baseURL: `http://127.0.0.1:${webServerPort}` }
         },
         {
+            name: 'mobile-webkit',
+            testDir: './specs',
+            testMatch: /(10\.localized-quit-game|11\.backdrop-recomposite)\.spec\.ts/u,
+            use: { ...devices['iPhone 14'], baseURL: `http://127.0.0.1:${webServerPort}` }
+        },
+        {
             name: 'landing-chromium',
             testDir: './specs/techniques',
             use: { ...devices['Desktop Chrome'], baseURL: `http://127.0.0.1:${landingServerPort}` }

@@ -2,11 +2,13 @@ import { DifficultyEnum } from '@suuudokuuu/generator';
 
 import { RATING_SAMPLE_PUZZLES } from '../../rating/constants/rating-sample.constant';
 
+import type { LandingDifficultyType } from '../../difficulty/types/landing-difficulty.type';
+
 export const PRINTABLE_BOOKLET_SIZE = 16;
 
 export const PRINTABLE_LARGE_PRINT_SIZE = 12;
 
-export const PRINTABLE_BOOKLET_PUZZLES: Record<DifficultyEnum, string[]> = {
+export const PRINTABLE_BOOKLET_PUZZLES: Record<LandingDifficultyType, string[]> = {
     [DifficultyEnum.Newbie]: RATING_SAMPLE_PUZZLES[DifficultyEnum.Newbie].slice(0, PRINTABLE_BOOKLET_SIZE),
     [DifficultyEnum.Easy]: RATING_SAMPLE_PUZZLES[DifficultyEnum.Easy].slice(0, PRINTABLE_BOOKLET_SIZE),
     [DifficultyEnum.Medium]: RATING_SAMPLE_PUZZLES[DifficultyEnum.Medium].slice(0, PRINTABLE_BOOKLET_SIZE),

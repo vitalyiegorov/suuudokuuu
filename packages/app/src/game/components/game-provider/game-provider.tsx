@@ -52,11 +52,12 @@ export const GameProvider = ({ children }: Props) => {
 
     const create = ({ difficulty, isChallengeRun, maxMistakes }: GameSetupInterface) =>
         void runGameCreation(() => {
-            const sudokuString = forgePuzzle(difficulty).sudoku.toString();
+            const { sudoku, rating, isRatingCeiling } = forgePuzzle(difficulty);
+            const sudokuString = sudoku.toString();
 
             setEngine(new FieldEngine({ sudokuString, difficulty }));
 
-            dispatch(gameStartAction({ difficulty, isChallengeRun, maxMistakes, sudokuString }));
+            dispatch(gameStartAction({ difficulty, isChallengeRun, maxMistakes, sudokuString, rating, isRatingCeiling }));
             router.replace('/game');
         });
 

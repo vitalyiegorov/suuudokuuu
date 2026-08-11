@@ -20,6 +20,7 @@ module.exports = {
         '^@suuudokuuu/generator$': '<rootDir>/../generator/src/index.ts',
         '^@suuudokuuu/hell-corpus$': '<rootDir>/../hell-corpus/src/index.ts',
         '^@suuudokuuu/puzzle-forge$': '<rootDir>/../puzzle-forge/src/index.ts',
+        '^@suuudokuuu/rating$': '<rootDir>/../rating/src/index.ts',
         '^@suuudokuuu/solver-core$': '<rootDir>/../solver-core/src/index.ts',
         '^@suuudokuuu/techniques$': '<rootDir>/../techniques/src/index.ts',
         '^@suuudokuuu/ui$': '<rootDir>/../ui/src/index.ts',

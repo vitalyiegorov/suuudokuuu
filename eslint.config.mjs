@@ -36,6 +36,7 @@ export default defineConfig(
             'packages/app/scripts/**',
             'packages/landing/scripts/**',
             'packages/hell-corpus/src/constants/hell-corpus-data.constant.ts',
+            'packages/hell-corpus/src/constants/infinity-corpus-data.constant.ts',
 
             'eslint.config.mjs'
         ]

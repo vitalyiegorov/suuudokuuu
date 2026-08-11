@@ -88,6 +88,10 @@ msgstr "{value, plural, one {# секунду} few {# секунди} many {# с
 msgid "<0>Development client required</0><1>Development clients need Metro, the launch URL configured in <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2>, or a compatible update on the <3>development</3> channel. This install flow does not publish an update.</1>"
 msgstr "<0>Потрібен клієнт для розробки</0><1>Клієнтам для розробки потрібні Metro, URL-адреса запуску, налаштована в <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2>, або сумісне оновлення в каналі <3>development</3>. Цей процес інсталяції не публікує оновлення.</1>"
 
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "A “+” means this puzzle is at least SE {seRatingCeilingText}. Beyond that point, puzzles can chain into very long solutions, so we cap the displayed number instead of chasing false precision."
+msgstr "Знак «+» означає, що це судоку має щонайменше SE {seRatingCeilingText}. Далі розв’язання можуть розтягуватися в дуже довгі ланцюги, тож ми обмежуємо показане число, а не вдаємо хибну точність."
+
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "A little room between cells"
 msgstr "Трохи простору між клітинками"
@@ -107,6 +111,10 @@ msgstr "Прийняти виклик?"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Adjust the digits on the Sudoku board"
 msgstr "Налаштуйте цифри на дошці судоку"
+
+#: src/history/constants/se-rating-band.constant.ts
+msgid "Advanced"
+msgstr "Просунутий"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "AIC"
@@ -156,9 +164,13 @@ msgstr "Застосувати"
 msgid "Attempts to load the latest development build again"
 msgstr "Намагається знову завантажити найновішу збірку для розробки"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 msgid "Average"
 msgstr "Середнє"
+
+#: src/history/components/history-solver-profile/history-solver-profile.tsx
+msgid "Avg recent {averageRecentSeText} · Most played {mostPlayedDifficultyText}"
+msgstr "Сер. останні {averageRecentSeText} · Найчастіше {mostPlayedDifficultyText}"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Avoid mistakes - they cost you points!"
@@ -181,6 +193,10 @@ msgstr "Збалансовані цифри для більшості гравц
 msgid "Balanced solve"
 msgstr "Збалансоване розв’язання"
 
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "Bands"
+msgstr "Діапазони"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Base Score"
 msgstr "Базові бали"
@@ -193,12 +209,16 @@ msgstr "Грай швидко, щоб зменшити штрафи за час"
 msgid "Be wise, be smart, be quick..."
 msgstr "Думай мудро, грай швидко..."
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Best score"
 msgstr "Рекорд"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-techniques/history-techniques.tsx
+msgid "Best technique"
+msgstr "Найкраща техніка"
+
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Best time"
 msgstr "Найкращий час"
@@ -207,6 +227,10 @@ msgstr "Найкращий час"
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "Better luck next time!"
 msgstr "Наступного разу пощастить!"
+
+#: src/history/constants/se-rating-band.constant.ts
+msgid "Beyond the ceiling"
+msgstr "За межею"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Board cells"
@@ -223,6 +247,10 @@ msgstr ""
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Box-Line Reduction"
 msgstr "Взаємодія блока і лінії"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "BUG+1"
+msgstr "BUG+1"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Built:"
@@ -257,6 +285,10 @@ msgstr "Текст варіанта"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Candidates"
 msgstr "Варіанти"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Cell Forcing Chain"
+msgstr "Примусовий ланцюг клітинки"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
@@ -298,7 +330,7 @@ msgstr "Виклик виграно"
 msgid "Challenge Won!"
 msgstr "Виклик виграно!"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 msgid "Challenges"
 msgstr "Виклики"
 
@@ -326,7 +358,7 @@ msgstr "Виберіть мову меню та тексту гри"
 msgid "Classic"
 msgstr "Класична"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 msgid "Clean"
 msgstr "Без помилок"
 
@@ -341,6 +373,10 @@ msgstr "Чиста партія"
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Clean win"
 msgstr "Чиста перемога"
+
+#: src/screens/components/rating-explainer-sheet-screen/rating-explainer-sheet.screen.tsx
+msgid "Close"
+msgstr "Закрити"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Colorblind safe"
@@ -378,7 +414,7 @@ msgstr "Анімації завершення"
 msgid "Completion Bonuses"
 msgstr "Бонуси за завершення"
 
-#: src/screens/components/home-screen/home-screen-play-actions/home-screen-play-actions.tsx
+#: src/screens/components/home-screen/home-screen-continue-row/home-screen-continue-row.tsx
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Continue"
 msgstr "Продовжити"
@@ -427,10 +463,6 @@ msgstr "Темний режим"
 msgid "Dark overlay"
 msgstr "Темне накладання"
 
-#: src/history/components/history-totals-card/history-totals-card.tsx
-msgid "Day streak"
-msgstr "Денна серія"
-
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Dead even"
 msgstr "Нічия"
@@ -468,6 +500,10 @@ msgstr "Дошку не завершено"
 #: src/game/components/difficulty-complexity-slider/difficulty-complexity-slider.tsx
 msgid "Difficulty"
 msgstr "Складність"
+
+#: src/@generic/components/rating-badge/rating-badge.tsx
+msgid "Difficulty rating {ratingLabel}"
+msgstr "Оцінка складності {ratingLabel}"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Dim a completed digit in the numpad instead of removing it"
@@ -534,6 +570,10 @@ msgstr "Español"
 msgid "Evenly matched"
 msgstr "Рівна боротьба"
 
+#: src/history/constants/se-rating-band.constant.ts
+msgid "Expert"
+msgstr "Експерт"
+
 #: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Expert grid"
 msgstr "Сітка для експертів"
@@ -569,6 +609,10 @@ msgstr "Finned X-Wing"
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Follow system"
 msgstr ""
+
+#: src/history/constants/se-rating-band.constant.ts
+msgid "Foundational"
+msgstr "Базовий"
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Français"
@@ -626,11 +670,15 @@ msgid "Hard"
 msgstr "Важкий"
 
 #: src/@generic/utils/get-mistakes-type-text.util.ts
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Hardcore"
 msgstr "Хардкор"
+
+#: src/history/components/history-solver-profile/history-solver-profile.tsx
+msgid "Hardest solve"
+msgstr "Найскладніше судоку"
 
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -715,6 +763,11 @@ msgstr "Безсмертний"
 msgid "Incomplete"
 msgstr "Незавершено"
 
+#: src/@generic/utils/get-difficulty-message.util.ts
+#: src/scoring/components/scoring.screen.tsx
+msgid "Infinity"
+msgstr "Нескінченність"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Ink"
 msgstr "Чорнило"
@@ -730,6 +783,10 @@ msgstr "Інсталювати на iOS"
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Install the iOS development build"
 msgstr "Інсталювати збірку для розробки на iOS"
+
+#: src/history/constants/se-rating-band.constant.ts
+msgid "Intermediate"
+msgstr "Середній"
 
 #: src/game/hooks/use-game-creation-runner.hook.ts
 msgid "Invalid Sudoku"
@@ -812,7 +869,7 @@ msgstr "Завантаження збірки для розробки"
 msgid "Loading the latest development build…"
 msgstr "Завантаження найновішої збірки для розробки…"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 msgid "Lost"
 msgstr "Поразки"
 
@@ -928,6 +985,10 @@ msgstr ""
 #: src/scoring/components/scoring.screen.tsx
 msgid "Nightmare"
 msgstr "Кошмар"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Nishio Forcing Chain"
+msgstr "Примусовий ланцюг Нішіо"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "no bonus"
@@ -1184,6 +1245,10 @@ msgstr "записується"
 msgid "Recording"
 msgstr "Запис"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Region Forcing Chain"
+msgstr "Примусовий ланцюг області"
+
 #: src/@generic/utils/get-mistakes-type-text.util.ts
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Relaxed"
@@ -1297,6 +1362,10 @@ msgstr "Фон екрана"
 #: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
 msgid "Screenshots"
 msgstr "Скриншоти"
+
+#: src/history/components/history-techniques/history-techniques.tsx
+msgid "SE {seValueText}"
+msgstr "SE {seValueText}"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Selected candidate background"
@@ -1459,6 +1528,10 @@ msgstr "Час ходу"
 msgid "Stop current run?"
 msgstr "Завершити поточну партію?"
 
+#: src/history/components/history-totals-card/history-totals-card.tsx
+msgid "Streak"
+msgstr "Серія"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Subtle surface"
 msgstr "Приглушена поверхня"
@@ -1500,6 +1573,10 @@ msgstr "Виклик SuuudokuuU"
 #: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "SuuudokuuU game handoff"
 msgstr "Передача гри SuuudokuuU"
+
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "Suuudokuuu rates every puzzle on the Sudoku Explainer (SE) scale, the same scale serious solvers use to compare how hard a puzzle actually is to reason through, not just how many clues it has."
+msgstr "Suuudokuuu оцінює кожне судоку за шкалою Sudoku Explainer (SE) — тією самою, якою досвідчені гравці порівнюють, наскільки складно судоку насправді продумати, а не лише скільки в ньому підказок."
 
 #: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "SuuudokuuU Sudoku Puzzle"
@@ -1548,6 +1625,10 @@ msgstr "Не вдалося відкрити посилання на коміт 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "The install link could not be opened. Check your browser settings and try again."
 msgstr "Не вдалося відкрити посилання для інсталяції. Перевірте налаштування браузера й повторіть спробу."
+
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "The SE difficulty scale"
+msgstr "Шкала складності SE"
 
 #: src/challenge/components/challenge-accept-time-block/challenge-accept-time-block.tsx
 msgid "Their time to beat"
@@ -1646,6 +1727,10 @@ msgstr "Не вдалося відкрити посилання"
 msgid "Unable to start installation"
 msgstr "Не вдалося почати інсталяцію"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Unique Rectangle"
+msgstr "Унікальний прямокутник"
+
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Unknown"
@@ -1735,7 +1820,7 @@ msgstr "Поки вас не було, боротьба за свободу тр
 msgid "Wider gaps for easier tapping"
 msgstr "Ширші проміжки для легших дотиків"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Win rate"
 msgstr "Перемоги"
@@ -1752,9 +1837,13 @@ msgstr "Перемога! Можна святкувати!"
 msgid "Winning margin"
 msgstr "Перевага в часі"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 msgid "Won"
 msgstr "Перемоги"
+
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
+msgid "World-record puzzles"
+msgstr "Світові рекорди"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "X-Chain"
@@ -1792,9 +1881,17 @@ msgstr "Ви завершили своє судоку. Боротьба за с�
 msgid "You got to"
 msgstr "Ти дійшов до"
 
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "You have not finished a rated puzzle yet."
+msgstr "Ви ще не завершили жодного оціненого судоку."
+
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 msgid "you lead"
 msgstr "ти лідируєш"
+
+#: src/history/components/history-techniques/history-techniques.tsx
+msgid "Your arsenal"
+msgstr "Ваш арсенал"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Your best run"
@@ -1807,6 +1904,10 @@ msgstr "Браузер може запитати дозвіл на інстал�
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Your custom colors"
 msgstr "Твої власні кольори"
+
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "Your hardest solve"
+msgstr "Ваше найскладніше судоку"
 
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Your progress"

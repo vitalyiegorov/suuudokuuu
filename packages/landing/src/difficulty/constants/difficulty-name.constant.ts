@@ -1,6 +1,8 @@
 import { DifficultyEnum } from '@suuudokuuu/generator';
 
-export const DIFFICULTY_NAMES: Record<DifficultyEnum, string> = {
+import type { LandingDifficultyType } from '../types/landing-difficulty.type';
+
+export const DIFFICULTY_NAMES: Record<LandingDifficultyType, string> = {
     [DifficultyEnum.Newbie]: 'Newbie',
     [DifficultyEnum.Easy]: 'Easy',
     [DifficultyEnum.Medium]: 'Medium',
@@ -9,7 +11,7 @@ export const DIFFICULTY_NAMES: Record<DifficultyEnum, string> = {
     [DifficultyEnum.Hell]: 'Hell'
 };
 
-export const DIFFICULTY_LADDER: DifficultyEnum[] = [
+export const DIFFICULTY_LADDER: LandingDifficultyType[] = [
     DifficultyEnum.Newbie,
     DifficultyEnum.Easy,
     DifficultyEnum.Medium,

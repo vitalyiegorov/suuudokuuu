@@ -37,6 +37,7 @@
         "@suuudokuuu/field-core": "workspace:*",
         "@suuudokuuu/generator": "workspace:*",
         "@suuudokuuu/puzzle-forge": "workspace:*",
+        "@suuudokuuu/rating": "workspace:*",
         "@suuudokuuu/screen-chrome": "workspace:*",
         "@suuudokuuu/techniques": "workspace:*",
         "@suuudokuuu/ui": "workspace:*",

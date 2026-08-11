@@ -78,6 +78,52 @@ describe('CandidateContext', () => {
         expect(context.getCandidates(field[0][0])).toEqual([1, 2, 3]);
     });
 
+    it('should place a value and prune the peer candidates', () => {
+        expect.assertions(5);
+
+        const field = Sudoku.fromString(
+            '.'.repeat(defaultSudokuConfig.fieldSize * defaultSudokuConfig.fieldSize),
+            defaultSudokuConfig
+        ).Field;
+        const context = new CandidateContext(defaultSudokuConfig, field, {
+            [getCellKey(field[0][0])]: [1, 2, 3],
+            [getCellKey(field[0][1])]: [1, 2],
+            [getCellKey(field[4][4])]: [1, 5]
+        });
+        const placedContext = context.withPlacement(field[0][0], 1);
+
+        expect(placedContext.getCandidates(field[0][0])).toEqual([]);
+        expect(placedContext.getCandidates(field[0][1])).toEqual([2]);
+        expect(placedContext.getCandidates(field[4][4])).toEqual([1, 5]);
+        expect(placedContext.getRowCells(0)[0].value).toBe(1);
+        expect(context.getRowCells(0)[0].value).toBe(defaultSudokuConfig.blankCellValue);
+    });
+
+    it('should report contradictions and solved boards', () => {
+        expect.assertions(4);
+
+        const sudoku = Sudoku.fromStrings(
+            defaultSudokuConfig,
+            '12345678.',
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........'
+        );
+        const context = CandidateContext.fromSudoku(sudoku);
+        const [blankCell] = context.getBlankCells();
+        const emptiedContext = context.withEliminations(context.getCandidates(blankCell).map(value => ({ cell: blankCell, value })));
+
+        expect(context.hasContradiction()).toBe(false);
+        expect(context.isSolved()).toBe(false);
+        expect(emptiedContext.hasContradiction()).toBe(true);
+        expect(new CandidateContext(defaultSudokuConfig, sudoku.FullField).isSolved()).toBe(true);
+    });
+
     it('should return row column and group cells', () => {
         expect.assertions(3);
 

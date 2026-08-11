@@ -2,23 +2,32 @@ import { expect, test } from '@playwright/test';
 import {
     ChallengeResultFooterSelectors,
     CompletedGameItemSelectors,
+    CompletedGameTechniqueSummarySelectors,
     HeaderBackButtonSelectors,
     HistoryDifficultySelectors,
     HistoryGamesScreenSelectors,
+    HistoryGamesSummaryBandSelectors,
     HistoryScreenSelectors,
+    HistorySolverProfileSelectors,
+    HistoryTechniquesSelectors,
     HomeScreenSelectors,
     ReplayActionsSelectors,
     ReplayControlsSelectors,
+    ReplayHeaderSelectors,
     ReplayScrubberSelectors,
     ReplayShareActionSelectors
 } from '@suuudokuuu/app/src/selectors';
 
-import { winningSharedChallengeEncodedConstant } from '../src/constants/shared-challenge-links.constant';
+import {
+    ratedWinningSharedChallengeEncodedConstant,
+    winningSharedChallengeEncodedConstant
+} from '../src/constants/shared-challenge-links.constant';
 import { completeWinningSharedChallenge } from '../src/utils/complete-winning-shared-challenge.util';
 import { launchHome } from '../src/utils/launch-home.util';
 import { getVisibleByTestId } from '../src/utils/visible-locator.util';
 
 const newbieDifficultyCardTestId = `${HistoryDifficultySelectors.Card}.Newbie`;
+const noRatingSuffixPattern = /^[^·]*$/u;
 
 test('reviews and replays a completed game from statistics', async ({ page }) => {
     await launchHome(page);
@@ -36,13 +45,18 @@ test('reviews and replays a completed game from statistics', async ({ page }) =>
     await page.getByTestId(newbieDifficultyCardTestId).click();
     const historyGamesScreen = page.getByTestId(HistoryGamesScreenSelectors.Root);
     await expect(historyGamesScreen).toBeVisible();
+    await expect(historyGamesScreen.getByTestId(HistoryGamesSummaryBandSelectors.Root)).toBeVisible();
     await expect(page.getByTestId(CompletedGameItemSelectors.ReplayButton)).toBeVisible();
     await expect(historyGamesScreen.getByText('Score', { exact: true })).toBeVisible();
     await expect(historyGamesScreen.getByText('Time', { exact: true })).toBeVisible();
     await expect(historyGamesScreen.getByText('Mistakes', { exact: true })).toBeVisible();
+    await expect(historyGamesScreen.getByTestId(CompletedGameItemSelectors.DifficultyValue)).toHaveText(noRatingSuffixPattern);
+    await expect(page.getByTestId(CompletedGameTechniqueSummarySelectors.Root)).toBeVisible();
 
     await page.getByTestId(CompletedGameItemSelectors.ReplayButton).click();
     await expect(page.getByTestId(ReplayControlsSelectors.Root)).toBeVisible();
+    await expect(page.getByTestId(ReplayHeaderSelectors.Level)).toHaveText(noRatingSuffixPattern);
+
     await page.getByTestId(ReplayControlsSelectors.NextButton).click();
     await page.getByTestId(ReplayControlsSelectors.PreviousButton).click();
 
@@ -73,4 +87,31 @@ test('reviews and replays a completed game from statistics', async ({ page }) =>
 
     await getVisibleByTestId(page, HeaderBackButtonSelectors.Root).click();
     await expect(page.getByTestId(HomeScreenSelectors.Root)).toBeVisible();
+});
+
+test('shows the hardest-solve hero, SE spectrum, and best-technique arsenal for a rated completed game', async ({ page }) => {
+    await launchHome(page);
+    await completeWinningSharedChallenge(page, ratedWinningSharedChallengeEncodedConstant);
+
+    await page.getByTestId(ChallengeResultFooterSelectors.HomeButton).scrollIntoViewIfNeeded();
+    await page.getByTestId(ChallengeResultFooterSelectors.HomeButton).click();
+    await expect(page.getByTestId(HomeScreenSelectors.Root)).toBeVisible();
+
+    await page.getByText('Stats').click();
+    const historyScreen = page.getByTestId(HistoryScreenSelectors.Root);
+    await expect(historyScreen).toBeVisible();
+
+    const solverProfile = historyScreen.getByTestId(HistorySolverProfileSelectors.Root);
+    await expect(solverProfile).toBeVisible();
+    await expect(solverProfile.getByText('Hardest solve', { exact: true })).toBeVisible();
+    await expect(solverProfile.getByTestId(HistorySolverProfileSelectors.Spectrum)).toBeVisible();
+
+    const techniquesSection = historyScreen.getByTestId(HistoryTechniquesSelectors.Root);
+    await expect(techniquesSection).toBeVisible();
+    await expect(techniquesSection.getByTestId(HistoryTechniquesSelectors.BestTechnique)).toContainText('Best technique');
+
+    await page.getByTestId(newbieDifficultyCardTestId).click();
+    const historyGamesScreen = page.getByTestId(HistoryGamesScreenSelectors.Root);
+    await expect(historyGamesScreen).toBeVisible();
+    await expect(historyGamesScreen.getByTestId(CompletedGameItemSelectors.DifficultyValue)).not.toHaveText(noRatingSuffixPattern);
 });

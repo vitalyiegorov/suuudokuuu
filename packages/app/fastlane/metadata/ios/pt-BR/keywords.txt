@@ -1,1 +1,1 @@
-logica,cerebro,numeros,offline,diario,relax,treino,escuro,replay,enviar,amigos,xwing,17pistas,novato
+logica,cerebro,numeros,dificuldade,dificil,expert,pontuacao,recorde,xwing,17pistas,replay,amigos

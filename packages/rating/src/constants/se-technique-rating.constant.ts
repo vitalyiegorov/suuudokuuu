@@ -1,0 +1,43 @@
+import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
+
+import {
+    SE_CHAIN_RATING_MINIMUM,
+    SE_FORCING_CHAIN_RATING_MAXIMUM,
+    SE_FORCING_CHAIN_RATING_MINIMUM,
+    SE_MULTIPLE_FORCING_CHAIN_RATING
+} from './se-chain-rating.constant';
+
+export const seTechniqueRatings: Record<SolutionTechniqueEnum, number> = {
+    [SolutionTechniqueEnum.FullHouse]: 1.0,
+    [SolutionTechniqueEnum.HiddenSingle]: 1.5,
+    [SolutionTechniqueEnum.NakedSingle]: 2.3,
+    [SolutionTechniqueEnum.PointingPair]: 2.6,
+    [SolutionTechniqueEnum.PointingTriple]: 2.6,
+    [SolutionTechniqueEnum.BoxLineReduction]: 2.8,
+    [SolutionTechniqueEnum.NakedPair]: 3.0,
+    [SolutionTechniqueEnum.XWing]: 3.2,
+    [SolutionTechniqueEnum.HiddenPair]: 3.4,
+    [SolutionTechniqueEnum.FinnedXWing]: 3.4,
+    [SolutionTechniqueEnum.SashimiXWing]: 3.5,
+    [SolutionTechniqueEnum.NakedTriple]: 3.6,
+    [SolutionTechniqueEnum.Swordfish]: 3.8,
+    [SolutionTechniqueEnum.HiddenTriple]: 4.0,
+    [SolutionTechniqueEnum.FinnedSwordfish]: 4.0,
+    [SolutionTechniqueEnum.SashimiSwordfish]: 4.1,
+    [SolutionTechniqueEnum.XYWing]: 4.2,
+    [SolutionTechniqueEnum.XYZWing]: 4.4,
+    [SolutionTechniqueEnum.WWing]: 4.4,
+    [SolutionTechniqueEnum.UniqueRectangle]: 4.5,
+    [SolutionTechniqueEnum.SimpleColoring]: 4.6,
+    [SolutionTechniqueEnum.NakedQuad]: 5.0,
+    [SolutionTechniqueEnum.Jellyfish]: 5.2,
+    [SolutionTechniqueEnum.HiddenQuad]: 5.4,
+    [SolutionTechniqueEnum.BivalueUniversalGrave]: 5.6,
+    [SolutionTechniqueEnum.XChain]: SE_CHAIN_RATING_MINIMUM,
+    [SolutionTechniqueEnum.XYChain]: 7.0,
+    [SolutionTechniqueEnum.AIC]: 7.2,
+    [SolutionTechniqueEnum.NishioForcingChain]: SE_FORCING_CHAIN_RATING_MINIMUM,
+    [SolutionTechniqueEnum.CellForcingChain]: SE_MULTIPLE_FORCING_CHAIN_RATING,
+    [SolutionTechniqueEnum.RegionForcingChain]: SE_MULTIPLE_FORCING_CHAIN_RATING,
+    [SolutionTechniqueEnum.Guess]: SE_FORCING_CHAIN_RATING_MAXIMUM
+};

@@ -27,5 +27,10 @@ export const TECHNIQUE_NAMES: Record<SolutionTechniqueEnum, string> = {
     [SolutionTechniqueEnum.XChain]: 'X-Chain',
     [SolutionTechniqueEnum.XYChain]: 'XY-Chain',
     [SolutionTechniqueEnum.SimpleColoring]: 'Simple Coloring',
-    [SolutionTechniqueEnum.AIC]: 'AIC'
+    [SolutionTechniqueEnum.AIC]: 'AIC',
+    [SolutionTechniqueEnum.UniqueRectangle]: 'Unique Rectangle',
+    [SolutionTechniqueEnum.BivalueUniversalGrave]: 'Bivalue Universal Grave',
+    [SolutionTechniqueEnum.NishioForcingChain]: 'Nishio Forcing Chain',
+    [SolutionTechniqueEnum.CellForcingChain]: 'Cell Forcing Chain',
+    [SolutionTechniqueEnum.RegionForcingChain]: 'Region Forcing Chain'
 };

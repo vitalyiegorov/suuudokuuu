@@ -1,21 +1,26 @@
 appId: ${APP_ID}
 ---
 - launchApp:
-    clearState: false
+      clearState: false
 - extendedWaitUntil:
-    visible:
-      id: 'HomeScreenSelectors.Root'
-    timeout: 30000
+      visible:
+          id: 'HomeScreenSelectors.Root'
+      timeout: 30000
 - openLink: 'suuudokuuu://'
-- runFlow:
-    when:
-      visible: '^Open$'
-    commands:
-      - tapOn: '^Open$'
-      - extendedWaitUntil:
-          notVisible: '^Open$'
-          timeout: 5000
+# The iOS scheme-confirmation dialog can swallow the first tap while it is still
+# presenting, leaving it on screen and failing the whole setup flow. Re-tap while
+# it is visible instead of asserting a single tap dismissed it.
+- repeat:
+      times: 3
+      while:
+          visible: '^Open$'
+      commands:
+          - tapOn: '^Open$'
+          - extendedWaitUntil:
+                notVisible: '^Open$'
+                timeout: 5000
+                optional: true
 - extendedWaitUntil:
-    visible:
-      id: 'HomeScreenSelectors.Root'
-    timeout: 30000
+      visible:
+          id: 'HomeScreenSelectors.Root'
+      timeout: 30000

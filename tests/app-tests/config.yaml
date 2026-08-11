@@ -26,3 +26,7 @@ executionOrder:
         - 12.play-again-setup.flow
         - 13.hell-difficulty-run.flow
         - 14.hint-flow.flow
+        - 14.infinity-difficulty-run.flow
+        - 15.rated-completed-game-stats.flow
+        - 16.rated-challenge-win-rating.flow
+        - 17.rated-challenge-lose-rating.flow

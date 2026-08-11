@@ -2,6 +2,7 @@ import { isDefined } from '@rnw-community/shared';
 
 import { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
+import { markContextSearchCapped } from '../../@generic/utils/context-scan-state.util';
 import { createEliminationResults } from '../../@generic/utils/create-elimination-results.util';
 import { getCanonicalTechniqueResults } from '../../@generic/utils/get-canonical-technique-results.util';
 import { getCombinations } from '../../@generic/utils/get-combinations.util';
@@ -25,15 +26,14 @@ export class AICTechnique implements TechniqueStrategyInterface {
 
     find(context: CandidateContext, searchTarget?: TechniqueSearchTargetInterface): TechniqueResultInterface[] {
         const graph = this.createGraph(context);
-        const results: TechniqueResultInterface[] = [];
         const { directTarget: target } = getSearchScope(context, searchTarget);
         const startNodes = this.getStartNodes(graph, target);
 
         if (target) {
-            return this.findTargetResults(graph, results, startNodes, target);
+            return this.findTargetResults(context, graph, startNodes, target);
         }
 
-        return this.findBroadResults(graph, results, startNodes);
+        return this.findBroadResults(context, graph, startNodes);
     }
 
     protected collectResults(scan: AICScanInterface, path: CandidateNodeInterface[], requiresStrongLink: boolean): void {
@@ -62,15 +62,17 @@ export class AICTechnique implements TechniqueStrategyInterface {
     }
 
     private findTargetResults(
+        context: CandidateContext,
         graph: CandidateLinkGraphInterface,
-        results: TechniqueResultInterface[],
         startNodes: CandidateNodeInterface[],
         target: TechniqueSearchTargetInterface
     ): TechniqueResultInterface[] {
-        for (const startNode of startNodes) {
-            const scan: AICScanInterface = { graph, results, target, linkVisits: 0, hasTargetResult: false };
+        const results: TechniqueResultInterface[] = [];
 
-            this.collectResults(scan, [startNode], true);
+        for (const startNode of startNodes) {
+            const scan: AICScanInterface = { context, graph, results, target, linkVisits: 0, hasTargetResult: false };
+
+            this.collectStartNodeResults(scan, startNode);
 
             if (scan.hasTargetResult) {
                 return results;
@@ -81,21 +83,27 @@ export class AICTechnique implements TechniqueStrategyInterface {
     }
 
     private findBroadResults(
+        context: CandidateContext,
         graph: CandidateLinkGraphInterface,
-        results: TechniqueResultInterface[],
         startNodes: CandidateNodeInterface[]
     ): TechniqueResultInterface[] {
-        const scan: AICScanInterface = { graph, results, linkVisits: 0, hasTargetResult: false };
+        const results: TechniqueResultInterface[] = [];
 
         for (const startNode of startNodes) {
-            this.collectResults(scan, [startNode], true);
+            const scan: AICScanInterface = { context, graph, results, linkVisits: 0, hasTargetResult: false };
 
-            if (scan.linkVisits >= AIC_MAX_LINK_VISITS) {
-                break;
-            }
+            this.collectStartNodeResults(scan, startNode);
         }
 
         return getCanonicalTechniqueResults(results);
+    }
+
+    private collectStartNodeResults(scan: AICScanInterface, startNode: CandidateNodeInterface): void {
+        this.collectResults(scan, [startNode], true);
+
+        if (scan.linkVisits >= AIC_MAX_LINK_VISITS) {
+            markContextSearchCapped(scan.context);
+        }
     }
 
     private getStartNodes(graph: CandidateLinkGraphInterface, target?: TechniqueSearchTargetInterface): CandidateNodeInterface[] {

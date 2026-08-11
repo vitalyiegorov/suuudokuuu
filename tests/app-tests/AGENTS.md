@@ -45,7 +45,8 @@ Use a freshly rebuilt and reinstalled app when validating code, selector, deep-l
 7. Use `subflows/game/start-new-game.flow.yaml`, `subflows/game/open-settings-from-game.flow.yaml`, and `subflows/game/quit-current-game.flow.yaml` for repeated game setup and teardown.
 8. Use `subflows/shared/open-shared-challenge.flow.yaml` for shared links, `subflows/shared/accept-shared-challenge.flow.yaml` for the native accept transition, `subflows/shared/open-shared-handoff.flow.yaml` when a flow needs a handoff payload to land straight on the game screen, and `subflows/shared/complete-winning-shared-challenge.flow.yaml` when a flow needs a completed win as data setup.
 9. Deep-link fixtures should be stable and should decode through the same app path users hit.
-10. Do not merge win, loss, settings, stats, and resume flows into one giant flow. Merge only duplicated setup through subflows.
+10. Some fixtures are pinned to an older payload on purpose, and a failing assertion is not a reason to re-encode them. The rival link in `08.challenge-accept-preview` predates both the rating trailer and the technique trailer, so it is the only end-to-end coverage of the legacy path: the unknown-rating chip and the `getChallengeTechniqueEvents` replay that derives the rival arsenal when the payload carries no stored techniques. Re-encoding it would silently delete that coverage and rewrite the arsenal it asserts. Verify a fixture's payload with `GameStateSerializer.decodeState` from `packages/encoder/dist/esm` before assuming a fixture is stale.
+11. Do not merge win, loss, settings, stats, and resume flows into one giant flow. Merge only duplicated setup through subflows.
 
 ## Selector Rules
 

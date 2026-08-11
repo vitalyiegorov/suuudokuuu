@@ -1,32 +1,38 @@
-suuudokuuu, c'est le Sudoku comme il devrait être : rapide, beau et honnête sur la difficulté. Six niveaux, d'une grille Novice toute douce jusqu'au véritable Enfer, le Sudoku légitime le plus difficile qui existe. Pas de pubs déguisées en énigmes, pas de compte, pas de blabla. Juste toi et la grille.
+suuudokuuu, c'est le Sudoku comme il devrait être : rapide, beau et honnête sur la difficulté. Sept niveaux, d'une grille Novice toute douce jusqu'à Infinity : les Sudokus les plus difficiles jamais composés. Pas de pubs déguisées en énigmes, pas de compte, pas de blabla. Juste toi et la grille.
 
-NOUVEAU LOOK, NOUVELLES SENSATIONS
-On a repensé la grille couleur par couleur. Choisis Classique, Or ou Journal, ou ouvre l'éditeur de thèmes avec aperçu en direct et définis toi-même chaque case, chaque ligne et chaque surbrillance. La validation de contraste intégrée garde chaque thème personnalisé lisible en clair comme en sombre, pour une grille toujours nette qui ne fatigue jamais les yeux.
+CHAQUE GRILLE, NOTÉE
+La plupart des applis écrivent "expert" sur une grille en espérant que tu ne regardes pas de plus près. Nous, on met un chiffre dessus. Chaque grille porte une note Sudoku Explainer sur l'échelle de 1,0 à 12,0 qu'utilisent les vrais amateurs, affichée dans la pastille de niveau sur la grille, dans ton historique et dans chaque lien que tu partages. Une explication intégrée te dit ce que ce chiffre mesure vraiment : la difficulté du raisonnement, pas le nombre d'indices.
 
-L'ENFER, POUR DE VRAI
-La plupart des applis Sudoku "expert" trichent sur leur niveau le plus difficile. Pas la nôtre. La difficulté Enfer puise dans un corpus vérifié de 49 158 grilles authentiques à 17 indices, le nombre minimum d'indices pour qu'un Sudoku ait encore une solution unique. Si une grille "expert" t'a déjà laissé sur ta faim, voici enfin le niveau qui va te donner du fil à retordre.
+INFINITY : LES SUDOKUS LES PLUS DURS DU MONDE
+Une sélection de 100 grilles record du monde notées de SE 10.4 à 11.9. L'Everest et AI Escargot d'Arto Inkala. Golden Nugget. Platinum Blonde. Kolk, Patience, Fata Morgana, Red Dwarf. Ce sont les grilles qui ont fait la réputation de la communauté, et la plupart des gens n'en terminent jamais une seule.
+
+L'ENFER, RECOMPOSÉ
+L'Enfer, ce sont désormais 1 544 grilles vérifiées à 17 indices, toutes notées SE 6,6 ou plus. Dix-sept indices, c'est le minimum pour qu'un Sudoku garde une solution unique, mais peu d'indices ne suffit pas à rendre une grille difficile : nous avons noté tout le corpus et gardé uniquement les grilles qui résistent.
+
+TON JEU, MESURÉ
+L'écran de statistiques repensé affiche ta résolution la plus difficile, la difficulté moyenne de tes dernières parties et le niveau que tu joues le plus. Le spectre SE place chaque grille terminée le long de l'échelle. Ton arsenal compte chaque technique que tu as réellement utilisée — paire nue, X-Wing, jellyfish et au-delà — pour voir ton répertoire s'étoffer.
 
 DÉFIE UN AMI
 Le mode Rival envoie ta grille exacte à un ami sous forme de lien, avec ta partie enregistrée. Il ou elle joue la même grille que toi et affronte ton temps, coup par coup. Le droit de se vanter, réglé une fois pour toutes.
 
 REVOIS LA PARTIE
-Chaque partie terminée peut être revue coup par coup. Rembobine ta propre résolution, étudie où tu as ralenti, ou savoure deux fois une belle fin de partie.
+Chaque partie terminée se rejoue coup par coup, et chaque carte de l'historique porte un résumé des techniques qui l'ont résolue.
 
-UN SCORE PLUS MALIN
-Notre score n'est pas qu'un simple chrono. Il reconnaît les vraies techniques de résolution, comme la Paire nue et le X-Wing, pendant que tu joues, pour que ton score reflète comment tu as vraiment résolu la grille, pas juste la vitesse à laquelle tu as tapoté l'écran.
+JOUE À TA FAÇON
+Choisis Classique, Or ou Journal, ou ouvre l'éditeur de thèmes avec aperçu en direct et définis chaque case, chaque ligne et chaque surbrillance. La validation de contraste intégrée garde tes thèmes lisibles en clair comme en sombre. Sur le web, contrôle complet au clavier : flèches pour se déplacer, chiffres pour poser, Espace ou N pour le mode notes, Maj et un chiffre pour les candidats, A pour les candidats automatiques.
 
 TOUT LE RESTE QUE TU VEUX
-• 6 difficultés, de Novice à Enfer
+• 7 difficultés, de Novice à Infinity
+• Une note de difficulté SE sur chaque grille
 • Éditeur de thèmes complet, en clair comme en sombre
 • Défis Rival par lien de partage
-• Relecture complète coup par coup
-• Score et analyse des coups sensibles aux techniques
+• Relecture coup par coup avec analyse des techniques
+• Score sensible aux techniques
 • 13 langues
-• Confettis à chaque victoire, animations d'une fluidité parfaite
 • Fonctionne entièrement hors ligne
 • Sans compte, sans inscription, jamais
 • Gratuit et open source
 
-suuudokuuu est fait pour celles et ceux qui aiment vraiment le Sudoku, pas pour qu'on leur vende un abonnement. Télécharge-le, choisis une difficulté, et vois jusqu'où tu iras avant que l'Enfer ne te remette à ta place.
+suuudokuuu est fait pour celles et ceux qui aiment vraiment le Sudoku, pas pour qu'on leur vende un abonnement. Télécharge-le, choisis une difficulté et découvre quel est ton chiffre.
 
 Pour en savoir plus, rends-toi sur www.suuudokuuu.com.

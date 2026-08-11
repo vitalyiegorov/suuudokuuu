@@ -27,6 +27,8 @@ const buildState = (overrides: Partial<EncodableGameStateInterface>): EncodableG
     anchorSeconds: 0,
     pencilCount: 0,
     screenshotCount: 0,
+    rating: 0,
+    isRatingCeiling: false,
     difficulty: null,
     ...overrides
 });
@@ -34,7 +36,7 @@ const buildState = (overrides: Partial<EncodableGameStateInterface>): EncodableG
 describe('GameStateBinaryCodecV3 difficulty trailer', () => {
     const codec = new GameStateBinaryCodecV3();
 
-    it.each([0, 1, 2, 3, 4, DIFFICULTY_CODE_MAX])('should round-trip the difficulty code %s on a challenge payload', difficulty => {
+    it.each([0, 1, 2, 3, 4, 5, DIFFICULTY_CODE_MAX])('should round-trip the difficulty code %s on a challenge payload', difficulty => {
         expect.assertions(1);
 
         expect(codec.decode(codec.encode(buildState({ difficulty }))).difficulty).toBe(difficulty);

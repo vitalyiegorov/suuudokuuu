@@ -8,5 +8,7 @@ export enum GameScreenSelectors {
     PauseButton = 'GameScreenSelectors.PauseButton',
     Score = 'GameScreenSelectors.Score',
     MaxMistakesAllowed = 'GameScreenSelectors.MaxMistakesAllowed',
-    MistakesCount = 'GameScreenSelectors.MistakesCount'
+    MistakesCount = 'GameScreenSelectors.MistakesCount',
+    Level = 'GameScreenSelectors.Level',
+    Rating = 'GameScreenSelectors.Rating'
 }

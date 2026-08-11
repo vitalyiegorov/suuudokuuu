@@ -2,6 +2,7 @@ import { createSelector } from '@reduxjs/toolkit';
 
 import { isNotEmptyString } from '@rnw-community/shared';
 
+import { historyGetBestRating } from '../../history/utils/history-get-best-rating.util';
 import { getTimelineCellSteps } from '../utils/get-timeline-cell-steps.util';
 
 import type { RootState } from '../../@generic/app-root.store';
@@ -11,6 +12,8 @@ export const gameSelector = (state: RootState) => state.game;
 
 export const gameSudokuStringSelector = createSelector(gameSelector, state => state.sudokuString);
 export const gameDifficultySelector = createSelector(gameSelector, state => state.difficulty);
+export const gameRatingSelector = createSelector(gameSelector, state => state.rating);
+export const gameIsRatingCeilingSelector = createSelector(gameSelector, state => state.isRatingCeiling);
 export const gameScoreSelector = createSelector(gameSelector, state => state.score);
 export const gameMistakesSelector = createSelector(gameSelector, state => state.mistakes);
 export const gameMaxMistakesSelector = createSelector(gameSelector, state => state.maxMistakes);
@@ -46,3 +49,8 @@ export const gameChallengeTimeSelector = createSelector(gameSelector, state => s
 export const gameTimelineEventsSelector = createSelector(gameSelector, state => state.timelineEvents);
 export const gameSolutionsStepsSelector = createSelector(gameSelector, state => getTimelineCellSteps(state.timelineEvents));
 export const gameHasNewPersonalBestScoreSelector = createSelector(gameSelector, state => state.hasNewPersonalBestScore);
+export const gameTechniqueUsageCountsSelector = createSelector(gameSelector, state => state.techniqueUsageCounts);
+export const gamePlayedDayNumbersSelector = createSelector(gameSelector, state => state.playedDayNumbers);
+export const gameBestRatingSelector = createSelector(gameHistoryByDifficultySelector, historyByDifficulty =>
+    historyGetBestRating(Object.values(historyByDifficulty))
+);

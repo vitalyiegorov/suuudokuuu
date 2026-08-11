@@ -10,12 +10,14 @@ import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { ReplayScrubber } from '../replay-scrubber/replay-scrubber';
+import { ReplayShareAction } from '../replay-share-action/replay-share-action';
 import { ReplayTechnique } from '../replay-technique/replay-technique';
 
 import { ReplayControlsSelectors } from './replay-controls.selectors';
 import { ReplayControlsStyles as styles } from './replay-controls.styles';
 
 import type { ChallengeAwayRangeInterface } from '../../../challenge/interfaces/challenge-away-range.interface';
+import type { GameState } from '../../../game/store/game.state';
 import type { EmptyFn } from '@rnw-community/shared';
 import type { MoveClassificationInterface } from '@suuudokuuu/techniques';
 
@@ -24,6 +26,7 @@ interface Props {
     readonly currentStep: number;
     readonly totalSteps: number;
     readonly elapsedTime: number;
+    readonly gameState: GameState;
     readonly moveClassification: MoveClassificationInterface | null;
     readonly onPrevStep: EmptyFn;
     readonly onNextStep: EmptyFn;
@@ -31,7 +34,7 @@ interface Props {
 }
 
 export const ReplayControls = (props: Props) => {
-    const { awayRanges, currentStep, totalSteps, elapsedTime, moveClassification, onPrevStep, onNextStep, onScrubStep } = props;
+    const { awayRanges, currentStep, totalSteps, elapsedTime, gameState, moveClassification, onPrevStep, onNextStep, onScrubStep } = props;
 
     const { theme } = use(ThemeContext);
     const elapsedTimeText = useTimerText(elapsedTime);
@@ -71,6 +74,8 @@ export const ReplayControls = (props: Props) => {
                 >
                     <LucideChevronLeft color={previousIconColor} size={26} />
                 </AppIconButton>
+
+                <ReplayShareAction gameState={gameState} />
 
                 <AppIconButton
                     disabled={!canGoForward}

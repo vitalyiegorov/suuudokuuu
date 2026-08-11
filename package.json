@@ -3,7 +3,7 @@
     "version": "1.18.1",
     "private": true,
     "description": "suudokuuu platform",
-    "license": "MIT",
+    "license": "SEE LICENSE IN LICENSE",
     "author": "Vitalii Yehorov",
     "workspaces": [
         "packages/*",

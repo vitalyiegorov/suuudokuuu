@@ -13,9 +13,10 @@ const MEDALLION_ICON_SIZE = 34;
 
 interface Props {
     readonly detailsText: string;
+    readonly testID?: string;
 }
 
-export const PauseScreenHeader = ({ detailsText }: Props) => {
+export const PauseScreenHeader = ({ detailsText, testID }: Props) => {
     const { theme } = use(ThemeContext);
 
     const medallionStyles = [styles.medallion, { backgroundColor: theme.colors.ink }];
@@ -34,7 +35,12 @@ export const PauseScreenHeader = ({ detailsText }: Props) => {
             </BlackText>
 
             <View style={chipStyles}>
-                <BlackText maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant} numberOfLines={1} style={chipTextStyles}>
+                <BlackText
+                    maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant}
+                    numberOfLines={1}
+                    style={chipTextStyles}
+                    testID={testID}
+                >
                     {detailsText}
                 </BlackText>
             </View>

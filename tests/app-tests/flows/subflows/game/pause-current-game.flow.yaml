@@ -1,0 +1,17 @@
+appId: ${APP_ID}
+---
+# Backgrounding and relaunching mirrors flows/07's proven background/foreground mechanism:
+# pressKey: Home triggers the same visibilitychange-driven auto-pause the OS backgrounding
+# does, and relaunching without stopping the app returns to the foreground while the app
+# stays on the pause screen it navigated to.
+- pressKey: Home
+- runFlow:
+      file: ../shared/wait-observation-window.flow.yaml
+      env:
+          WAIT_MILLISECONDS: 1000
+- launchApp:
+      stopApp: false
+- extendedWaitUntil:
+      visible:
+          id: 'PauseScreenSelectors.Root'
+      timeout: 10000

@@ -45,6 +45,9 @@ export const applyCellEventsToField = (field: string, events: TimelineEventInter
 export const hasNonCellEvents = (events: TimelineEventInterface[]): boolean =>
     events.some(event => event.kind !== TimelineEventKindEnum.Cell);
 
+export const countCellEvents = (events: TimelineEventInterface[]): number =>
+    events.filter(event => event.kind === TimelineEventKindEnum.Cell).length;
+
 const writeEventTags = (out: BitOutputStream, events: TimelineEventInterface[]): void => {
     for (const event of events) {
         if (event.kind === TimelineEventKindEnum.Cell) {

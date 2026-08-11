@@ -7,7 +7,9 @@ import { mediumSudokuPageMetadata } from '../../app/sudoku/medium/metadata';
 import { newbieSudokuPageMetadata } from '../../app/sudoku/newbie/metadata';
 import { nightmareSudokuPageMetadata } from '../../app/sudoku/nightmare/metadata';
 
-export const DIFFICULTY_PAGE_PATHS: Record<DifficultyEnum, string> = {
+import type { LandingDifficultyType } from '../types/landing-difficulty.type';
+
+export const DIFFICULTY_PAGE_PATHS: Record<LandingDifficultyType, string> = {
     [DifficultyEnum.Newbie]: newbieSudokuPageMetadata.path,
     [DifficultyEnum.Easy]: easySudokuPageMetadata.path,
     [DifficultyEnum.Medium]: mediumSudokuPageMetadata.path,

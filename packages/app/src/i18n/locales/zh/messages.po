@@ -86,6 +86,10 @@ msgstr "{value, plural, other {# 秒}}"
 msgid "<0>Development client required</0><1>Development clients need Metro, the launch URL configured in <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2>, or a compatible update on the <3>development</3> channel. This install flow does not publish an update.</1>"
 msgstr "<0>需要开发客户端</0><1>开发客户端需要 Metro、在 <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2> 中配置的启动 URL，或 <3>development</3> 渠道上的兼容更新。此安装流程不会发布更新。</1>"
 
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "A “+” means this puzzle is at least SE {seRatingCeilingText}. Beyond that point, puzzles can chain into very long solutions, so we cap the displayed number instead of chasing false precision."
+msgstr "“+” 表示这道数独至少达到 SE {seRatingCeilingText}。超过这个点之后，解题推理可能延伸成极长的链条，因此我们为显示的数值设上限，而不去追求虚假的精确度。"
+
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "A little room between cells"
 msgstr "单元格之间留出少量间距"
@@ -105,6 +109,10 @@ msgstr "接受挑战？"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Adjust the digits on the Sudoku board"
 msgstr "调整数独棋盘上的数字大小"
+
+#: src/history/constants/se-rating-band.constant.ts
+msgid "Advanced"
+msgstr "高级"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "AIC"
@@ -154,9 +162,13 @@ msgstr "应用"
 msgid "Attempts to load the latest development build again"
 msgstr "再次尝试加载最新开发版本"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 msgid "Average"
 msgstr "平均"
+
+#: src/history/components/history-solver-profile/history-solver-profile.tsx
+msgid "Avg recent {averageRecentSeText} · Most played {mostPlayedDifficultyText}"
+msgstr "近期均值 {averageRecentSeText} · 最常玩 {mostPlayedDifficultyText}"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Avoid mistakes - they cost you points!"
@@ -179,6 +191,10 @@ msgstr "适合大多数玩家的均衡数字大小"
 msgid "Balanced solve"
 msgstr "均衡解题"
 
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "Bands"
+msgstr "区间"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Base Score"
 msgstr "基础分"
@@ -191,12 +207,16 @@ msgstr "尽快完成以减少时间惩罚"
 msgid "Be wise, be smart, be quick..."
 msgstr "想得巧，落得快..."
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Best score"
 msgstr "最高分"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-techniques/history-techniques.tsx
+msgid "Best technique"
+msgstr "最佳技巧"
+
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Best time"
 msgstr "最佳时间"
@@ -205,6 +225,10 @@ msgstr "最佳时间"
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "Better luck next time!"
 msgstr "下次好运！"
+
+#: src/history/constants/se-rating-band.constant.ts
+msgid "Beyond the ceiling"
+msgstr "超出上限"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Board cells"
@@ -221,6 +245,10 @@ msgstr ""
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Box-Line Reduction"
 msgstr "宫线消解"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "BUG+1"
+msgstr "BUG+1"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Built:"
@@ -255,6 +283,10 @@ msgstr "候选数字文字"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Candidates"
 msgstr "候选数字"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Cell Forcing Chain"
+msgstr "单元格强制链"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
@@ -296,7 +328,7 @@ msgstr "挑战获胜"
 msgid "Challenge Won!"
 msgstr "挑战获胜！"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 msgid "Challenges"
 msgstr "挑战"
 
@@ -324,7 +356,7 @@ msgstr "选择菜单和游戏文字使用的语言"
 msgid "Classic"
 msgstr "经典"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 msgid "Clean"
 msgstr "零失误"
 
@@ -339,6 +371,10 @@ msgstr "干净对局"
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Clean win"
 msgstr "完胜"
+
+#: src/screens/components/rating-explainer-sheet-screen/rating-explainer-sheet.screen.tsx
+msgid "Close"
+msgstr "关闭"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Colorblind safe"
@@ -376,7 +412,7 @@ msgstr "完成动画"
 msgid "Completion Bonuses"
 msgstr "完成奖励"
 
-#: src/screens/components/home-screen/home-screen-play-actions/home-screen-play-actions.tsx
+#: src/screens/components/home-screen/home-screen-continue-row/home-screen-continue-row.tsx
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Continue"
 msgstr "继续"
@@ -425,10 +461,6 @@ msgstr "深色模式"
 msgid "Dark overlay"
 msgstr "深色叠加层"
 
-#: src/history/components/history-totals-card/history-totals-card.tsx
-msgid "Day streak"
-msgstr "每日连续"
-
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Dead even"
 msgstr "完全平局"
@@ -466,6 +498,10 @@ msgstr "未完成棋盘"
 #: src/game/components/difficulty-complexity-slider/difficulty-complexity-slider.tsx
 msgid "Difficulty"
 msgstr "难度"
+
+#: src/@generic/components/rating-badge/rating-badge.tsx
+msgid "Difficulty rating {ratingLabel}"
+msgstr "难度评级 {ratingLabel}"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Dim a completed digit in the numpad instead of removing it"
@@ -532,6 +568,10 @@ msgstr "Español"
 msgid "Evenly matched"
 msgstr "势均力敌"
 
+#: src/history/constants/se-rating-band.constant.ts
+msgid "Expert"
+msgstr "专家"
+
 #: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Expert grid"
 msgstr "专家棋盘"
@@ -567,6 +607,10 @@ msgstr "Finned X-Wing"
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Follow system"
 msgstr ""
+
+#: src/history/constants/se-rating-band.constant.ts
+msgid "Foundational"
+msgstr "入门"
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Français"
@@ -624,11 +668,15 @@ msgid "Hard"
 msgstr "困难"
 
 #: src/@generic/utils/get-mistakes-type-text.util.ts
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Hardcore"
 msgstr "硬核"
+
+#: src/history/components/history-solver-profile/history-solver-profile.tsx
+msgid "Hardest solve"
+msgstr "最难纪录"
 
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -713,6 +761,11 @@ msgstr "不朽"
 msgid "Incomplete"
 msgstr "未完成"
 
+#: src/@generic/utils/get-difficulty-message.util.ts
+#: src/scoring/components/scoring.screen.tsx
+msgid "Infinity"
+msgstr "无限"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Ink"
 msgstr "墨色"
@@ -728,6 +781,10 @@ msgstr "在 iOS 上安装"
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Install the iOS development build"
 msgstr "安装 iOS 开发版本"
+
+#: src/history/constants/se-rating-band.constant.ts
+msgid "Intermediate"
+msgstr "中级"
 
 #: src/game/hooks/use-game-creation-runner.hook.ts
 msgid "Invalid Sudoku"
@@ -810,7 +867,7 @@ msgstr "正在加载开发版本"
 msgid "Loading the latest development build…"
 msgstr "正在加载最新开发版本…"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 msgid "Lost"
 msgstr "失败"
 
@@ -926,6 +983,10 @@ msgstr ""
 #: src/scoring/components/scoring.screen.tsx
 msgid "Nightmare"
 msgstr "噩梦"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Nishio Forcing Chain"
+msgstr "Nishio 强制链"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "no bonus"
@@ -1182,6 +1243,10 @@ msgstr "已记录"
 msgid "Recording"
 msgstr "记录中"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Region Forcing Chain"
+msgstr "区域强制链"
+
 #: src/@generic/utils/get-mistakes-type-text.util.ts
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Relaxed"
@@ -1295,6 +1360,10 @@ msgstr "屏幕背景"
 #: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
 msgid "Screenshots"
 msgstr "截屏"
+
+#: src/history/components/history-techniques/history-techniques.tsx
+msgid "SE {seValueText}"
+msgstr "SE {seValueText}"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Selected candidate background"
@@ -1457,6 +1526,10 @@ msgstr "步时"
 msgid "Stop current run?"
 msgstr "结束当前对局？"
 
+#: src/history/components/history-totals-card/history-totals-card.tsx
+msgid "Streak"
+msgstr "连续天数"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Subtle surface"
 msgstr "淡色表面"
@@ -1498,6 +1571,10 @@ msgstr "SuuudokuuU 挑战"
 #: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "SuuudokuuU game handoff"
 msgstr "SuuudokuuU 对局交接"
+
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "Suuudokuuu rates every puzzle on the Sudoku Explainer (SE) scale, the same scale serious solvers use to compare how hard a puzzle actually is to reason through, not just how many clues it has."
+msgstr "Suuudokuuu 用 Sudoku Explainer（SE）量表为每道数独评分，这也是资深爱好者用来比较一道题真正推理难度的量表，而不只是看它给了多少提示。"
 
 #: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "SuuudokuuU Sudoku Puzzle"
@@ -1546,6 +1623,10 @@ msgstr "无法在此设备上打开提交链接。"
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "The install link could not be opened. Check your browser settings and try again."
 msgstr "无法打开安装链接。请检查浏览器设置后重试。"
+
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "The SE difficulty scale"
+msgstr "SE 难度量表"
 
 #: src/challenge/components/challenge-accept-time-block/challenge-accept-time-block.tsx
 msgid "Their time to beat"
@@ -1644,6 +1725,10 @@ msgstr "无法打开链接"
 msgid "Unable to start installation"
 msgstr "无法开始安装"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Unique Rectangle"
+msgstr "唯一矩形"
+
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Unknown"
@@ -1733,7 +1818,7 @@ msgstr "当你离开时，争取自由的战斗仍在继续。每 1 美元捐款
 msgid "Wider gaps for easier tapping"
 msgstr "更宽的间距，便于点击"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Win rate"
 msgstr "胜率"
@@ -1750,9 +1835,13 @@ msgstr "胜利！庆祝一下！"
 msgid "Winning margin"
 msgstr "获胜差距"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 msgid "Won"
 msgstr "胜利"
+
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
+msgid "World-record puzzles"
+msgstr "世界纪录数独"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "X-Chain"
@@ -1790,9 +1879,17 @@ msgstr "你完成了这局数独。乌克兰争取自由的战斗仍在继续。
 msgid "You got to"
 msgstr "你完成了"
 
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "You have not finished a rated puzzle yet."
+msgstr "你还没有完成任何已评级的数独。"
+
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 msgid "you lead"
 msgstr "你领先"
+
+#: src/history/components/history-techniques/history-techniques.tsx
+msgid "Your arsenal"
+msgstr "你的武器库"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Your best run"
@@ -1805,6 +1902,10 @@ msgstr "浏览器可能会请求安装未知来源应用的权限。安装前，
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Your custom colors"
 msgstr "你的自定义颜色"
+
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "Your hardest solve"
+msgstr "你的最难纪录"
 
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Your progress"

@@ -3,14 +3,15 @@ import { DifficultyEnum, Sudoku, defaultSudokuConfig } from '@suuudokuuu/generat
 
 import { DIFFICULTY_BANDS } from './difficulty-band.constant';
 
-const legacyDifficultyOrder = ['Newbie', 'Easy', 'Medium', 'Hard', 'Nightmare', 'Hell'];
+const legacyDifficultyOrder = ['Newbie', 'Easy', 'Medium', 'Hard', 'Nightmare', 'Hell', 'Infinity'];
 const legacyInferenceBlankCells: Record<string, number> = {
     Newbie: 10,
     Easy: 30,
     Medium: 40,
     Hard: 50,
     Nightmare: 59,
-    Hell: 64
+    Hell: 64,
+    Infinity: 81
 };
 const legacyNewbiePuzzle = '9743.28565289.63171637.8294249.816736.72345893856971...528.9731896.73425731425968';
 
@@ -37,7 +38,7 @@ describe('DIFFICULTY_BANDS', () => {
     });
 
     it('should raise the blank-cell target with every tier', () => {
-        expect.assertions(5);
+        expect.assertions(6);
 
         const blankCells = Object.values(DifficultyEnum).map(difficulty => DIFFICULTY_BANDS[difficulty].blankCells);
 

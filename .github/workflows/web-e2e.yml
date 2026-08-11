@@ -54,8 +54,8 @@ jobs:
                   path: ~/.cache/ms-playwright
                   key: playwright-${{ runner.os }}-${{ steps.playwright-version.outputs.version }}
 
-            - name: Install Playwright chromium
-              run: yarn workspace @suuudokuuu/web-tests playwright install --with-deps chromium
+            - name: Install Playwright browsers
+              run: yarn workspace @suuudokuuu/web-tests playwright install --with-deps chromium webkit
 
             - name: Run Playwright web E2E
               run: yarn workspace @suuudokuuu/web-tests test:e2e
