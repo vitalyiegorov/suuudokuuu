@@ -80,7 +80,7 @@ msgstr "<0>Klien pengembangan diperlukan</0><1>Klien pengembangan memerlukan Met
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "A “+” means this puzzle is at least SE {seRatingCeilingText}. Beyond that point, puzzles can chain into very long solutions, so we cap the displayed number instead of chasing false precision."
-msgstr ""
+msgstr "Tanda “+” berarti sudoku ini setidaknya SE {seRatingCeilingText}. Di atas titik itu, penyelesaian bisa merangkai penalaran yang sangat panjang, jadi kami membatasi angka yang ditampilkan daripada mengejar ketelitian semu."
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "A little room between cells"
@@ -104,7 +104,7 @@ msgstr "Atur angka di papan Sudoku"
 
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Advanced"
-msgstr ""
+msgstr "Mahir"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "AIC"
@@ -146,7 +146,7 @@ msgstr "Rata-rata"
 
 #: src/history/components/history-solver-profile/history-solver-profile.tsx
 msgid "Avg recent {averageRecentSeText} · Most played {mostPlayedDifficultyText}"
-msgstr ""
+msgstr "Rata-rata {averageRecentSeText} · Terbanyak {mostPlayedDifficultyText}"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Avoid mistakes - they cost you points!"
@@ -171,7 +171,7 @@ msgstr "Penyelesaian seimbang"
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "Bands"
-msgstr ""
+msgstr "Rentang"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Base Score"
@@ -192,7 +192,7 @@ msgstr "Skor terbaik"
 
 #: src/history/components/history-techniques/history-techniques.tsx
 msgid "Best technique"
-msgstr ""
+msgstr "Teknik terbaik"
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
@@ -206,7 +206,7 @@ msgstr "Semoga lebih beruntung lain kali!"
 
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Beyond the ceiling"
-msgstr ""
+msgstr "Melampaui Batas"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Board cells"
@@ -222,7 +222,7 @@ msgstr "Reduksi Kotak-Baris"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "BUG+1"
-msgstr ""
+msgstr "BUG+1"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Built:"
@@ -256,7 +256,7 @@ msgstr "Kandidat"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Cell Forcing Chain"
-msgstr ""
+msgstr "Rantai Paksa Sel"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
@@ -340,7 +340,7 @@ msgstr "Kemenangan bersih"
 
 #: src/screens/components/rating-explainer-sheet-screen/rating-explainer-sheet.screen.tsx
 msgid "Close"
-msgstr ""
+msgstr "Tutup"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Column"
@@ -459,7 +459,7 @@ msgstr "Tingkat kesulitan"
 
 #: src/@generic/components/rating-badge/rating-badge.tsx
 msgid "Difficulty rating {ratingLabel}"
-msgstr ""
+msgstr "Peringkat kesulitan {ratingLabel}"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Dim a completed digit in the numpad instead of removing it"
@@ -524,7 +524,7 @@ msgstr "Sama kuat"
 
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Expert"
-msgstr ""
+msgstr "Ahli"
 
 #: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Expert grid"
@@ -560,7 +560,7 @@ msgstr "Finned X-Wing"
 
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Foundational"
-msgstr ""
+msgstr "Dasar"
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Français"
@@ -626,7 +626,7 @@ msgstr "Hardcore"
 
 #: src/history/components/history-solver-profile/history-solver-profile.tsx
 msgid "Hardest solve"
-msgstr ""
+msgstr "Sudoku tersulit"
 
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -698,7 +698,7 @@ msgstr "Belum selesai"
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Infinity"
-msgstr ""
+msgstr "Tak Terhingga"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Ink"
@@ -714,7 +714,7 @@ msgstr "Instal build pengembangan iOS"
 
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Intermediate"
-msgstr ""
+msgstr "Menengah"
 
 #: src/game/hooks/use-game-creation-runner.hook.ts
 msgid "Invalid Sudoku"
@@ -900,7 +900,7 @@ msgstr "Mimpi buruk"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Nishio Forcing Chain"
-msgstr ""
+msgstr "Rantai Paksa Nishio"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "no bonus"
@@ -1120,7 +1120,7 @@ msgstr "Merekam"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Region Forcing Chain"
-msgstr ""
+msgstr "Rantai Paksa Region"
 
 #: src/@generic/utils/get-mistakes-type-text.util.ts
 #: src/screens/components/home-screen/home.screen.tsx
@@ -1238,7 +1238,7 @@ msgstr "Tangkapan layar"
 
 #: src/history/components/history-techniques/history-techniques.tsx
 msgid "SE {seValueText}"
-msgstr ""
+msgstr "SE {seValueText}"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Selected candidate background"
@@ -1379,7 +1379,7 @@ msgstr "Hentikan permainan saat ini?"
 
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Streak"
-msgstr ""
+msgstr "Beruntun"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Subtle surface"
@@ -1420,7 +1420,7 @@ msgstr "Serah terima permainan SuuudokuuU"
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "Suuudokuuu rates every puzzle on the Sudoku Explainer (SE) scale, the same scale serious solvers use to compare how hard a puzzle actually is to reason through, not just how many clues it has."
-msgstr ""
+msgstr "Suuudokuuu menilai setiap sudoku dengan skala Sudoku Explainer (SE), skala yang dipakai pemain serius untuk membandingkan seberapa sulit sebuah sudoku benar-benar dinalar, bukan sekadar berapa banyak petunjuknya."
 
 #: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "SuuudokuuU Sudoku Puzzle"
@@ -1468,7 +1468,7 @@ msgstr "Tautan penginstalan tidak dapat dibuka. Periksa pengaturan browsermu dan
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "The SE difficulty scale"
-msgstr ""
+msgstr "Skala kesulitan SE"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Their time to beat"
@@ -1561,7 +1561,7 @@ msgstr "Tidak dapat memulai penginstalan"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Unique Rectangle"
-msgstr ""
+msgstr "Persegi Panjang Unik"
 
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/screens/components/settings-screen/settings.screen.tsx
@@ -1675,7 +1675,7 @@ msgstr "Menang"
 
 #: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "World-record puzzles"
-msgstr ""
+msgstr "Sudoku rekor dunia"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "X-Chain"
@@ -1715,7 +1715,7 @@ msgstr "Kamu mencapai"
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "You have not finished a rated puzzle yet."
-msgstr ""
+msgstr "Kamu belum menyelesaikan sudoku bernilai apa pun."
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 msgid "you lead"
@@ -1723,7 +1723,7 @@ msgstr "kamu unggul"
 
 #: src/history/components/history-techniques/history-techniques.tsx
 msgid "Your arsenal"
-msgstr ""
+msgstr "Arsenalmu"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Your best run"
@@ -1739,7 +1739,7 @@ msgstr "Warna khususmu"
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "Your hardest solve"
-msgstr ""
+msgstr "Sudoku tersulitmu"
 
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Your progress"
