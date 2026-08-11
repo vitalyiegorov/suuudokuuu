@@ -8,6 +8,7 @@ export interface FieldEngineOptionsInterface {
     difficulty: DifficultyEnum;
     config?: SudokuConfigInterface;
     candidates?: FieldCandidatesType;
+    eliminatedCandidates?: FieldCandidatesType;
     inputMode?: FieldInputModeType;
     showAutoCandidates?: boolean;
     mistakes?: number;

@@ -51,9 +51,9 @@ src/
 ├── step-script/
 │   ├── classes/step-script-player.ts    # index, next/back/reset, applyResult
 │   ├── enums/step-script-step-kind.enum.ts
-│   ├── interfaces/                      # Step union members, narration, target
+│   ├── interfaces/                      # Step union members, narration, target, state
 │   ├── types/step-script-step.type.ts
-│   └── utils/                           # findStepScript, techniqueResultToStepScript
+│   └── utils/                           # findStepScript, techniqueResultToStepScript, buildStepScriptState
 └── react/use-field-snapshot.hook.ts     # `@suuudokuuu/field-core/react` subpath
 ```
 
@@ -77,7 +77,7 @@ on<K extends keyof FieldEventMapInterface>(event: K, handler: (payload: FieldEve
 
 ### Serialization
 
-`serialize()` returns `SerializedFieldStateInterface`, which is directly accepted by the `FieldEngine` constructor. The grid uses the existing `Sudoku.toString()` format and must never change shape — app persistence, sharing, and replay all depend on it. Engine-only state (candidates, input mode, auto-candidates, mistakes, history) lives beside the grid string, not inside it.
+`serialize()` returns `SerializedFieldStateInterface`, which is directly accepted by the `FieldEngine` constructor. The grid uses the existing `Sudoku.toString()` format and must never change shape — app persistence, sharing, and replay all depend on it. Engine-only state (candidates, eliminated auto-candidates, input mode, auto-candidates, mistakes, history) lives beside the grid string, not inside it.
 
 Undo rebuilds the `Sudoku` instance from the stored grid string, so `engine.Sudoku` is not a stable reference. Read the board through the snapshot or re-read `engine.Sudoku` after every mutation.
 
@@ -89,11 +89,14 @@ A technique-agnostic, ordered list of primitive steps: `Highlight`, `RevealCandi
 
 `StepScriptPlayer` is pure state: `StepIndex`, `CurrentStep`, `IsFirstStep`, `IsLastStep`, `next()`, `back()`, `reset()`, and `applyResult(target)`, which commits eliminations then the placement through the structural `StepScriptTargetInterface`. The player never imports the engine, which is what keeps the two decoupled.
 
+`buildStepScriptState(stepScript, stepIndex)` is the one shared fold consumers use to render a script's played prefix: it walks steps `0..stepIndex` into `patternCellKeys`, `targetCellKey`, `revealedCandidates`, `eliminatedCandidates`, and `placedValues` (a `StepScriptStateInterface`). Both `field-dom`'s `FieldBoard` and the app's `Field` call this instead of keeping their own copy of the fold.
+
 ## Rules
 
 - Zero runtime dependencies beyond `@rnw-community/shared`, `@suuudokuuu/generator`, and `@suuudokuuu/techniques`.
 - React is an optional peer dependency reachable only through the `./react` subpath. Never import `react`, `react-dom`, or `react-native` from the main entry.
 - Candidate semantics must stay byte-identical to the app slice they replaced: notes append in input order, a placement clears the placed cell and intersects every blank peer's notes with the recomputed possible values.
+- When auto-candidates are enabled, `getCellCandidates` returns the row/column/box-computed set minus `eliminatedCandidates` for that cell; `removeCandidate` records into `eliminatedCandidates` instead of the (unused, in that mode) notes store. This is what lets an applied step script's eliminations actually disappear from the auto-candidate display instead of only clearing the walkthrough overlay.
 - The engine never throws for ordinary user input. Wrong values become mistakes, filled cells reject the move with `null`.
 
 ## Testing
@@ -110,6 +113,7 @@ export {
     FieldHistoryKindEnum,
     StepScriptPlayer,
     StepScriptStepKindEnum,
+    buildStepScriptState,
     findStepScript,
     getCellKey,
     techniqueResultToStepScript
@@ -119,7 +123,8 @@ export type {
     FieldEngineOptionsInterface,
     SerializedFieldStateInterface,
     FieldEventMapInterface,
-    StepScriptInterface /* ... */
+    StepScriptInterface,
+    StepScriptStateInterface /* ... */
 };
 ```
 

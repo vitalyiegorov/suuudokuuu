@@ -1,8 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { HintButtonSelectors } from '@suuudokuuu/app/src/game/components/hint-button/hint-button.selectors';
-import { HintPanelSelectors } from '@suuudokuuu/app/src/game/components/hint-panel/hint-panel.selectors';
-import { HintStepNarrationSelectors } from '@suuudokuuu/app/src/game/components/hint-step-narration/hint-step-narration.selectors';
-import { GameScreenSelectors } from '@suuudokuuu/app/src/selectors';
+import { GameScreenSelectors, HintButtonSelectors, HintPanelSelectors, HintStepNarrationSelectors } from '@suuudokuuu/app/src/selectors';
 
 import { launchHome } from '../src/utils/launch-home.util';
 import { startNewGame } from '../src/utils/start-new-game.util';

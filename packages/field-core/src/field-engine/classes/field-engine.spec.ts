@@ -273,6 +273,55 @@ describe('FieldEngine', () => {
             expect(engine.getSnapshot().inputMode).toBe('candidate');
             expect(engine.getSnapshot().showAutoCandidates).toBe(false);
         });
+
+        it('removes an auto candidate from the computed set and records the elimination', () => {
+            expect.assertions(2);
+
+            const engine = createEngine({ showAutoCandidates: true });
+            const cell = getCell(engine, 0, 0);
+
+            engine.removeCandidate(cell, 5);
+
+            expect(engine.getCellCandidates(cell)).not.toContain(5);
+            expect(engine.getSnapshot().eliminatedCandidates['0-0']).toEqual([5]);
+        });
+
+        it('does not duplicate an already eliminated auto candidate', () => {
+            expect.assertions(2);
+
+            const engine = createEngine({ showAutoCandidates: true });
+            const cell = getCell(engine, 0, 0);
+
+            engine.removeCandidate(cell, 5);
+            engine.removeCandidate(cell, 5);
+
+            expect(engine.getSnapshot().eliminatedCandidates['0-0']).toEqual([5]);
+            expect(engine.getSnapshot().canRedo).toBe(false);
+        });
+
+        it('ignores manual note removal while auto candidates are enabled', () => {
+            expect.assertions(1);
+
+            const engine = createEngine({ showAutoCandidates: true, candidates: { '0-0': [5] } });
+            const cell = getCell(engine, 0, 0);
+
+            engine.removeCandidate(cell, 5);
+
+            expect(engine.getSnapshot().candidates['0-0']).toEqual([5]);
+        });
+
+        it('undoes and redoes an auto candidate elimination', () => {
+            expect.assertions(3);
+
+            const engine = createEngine({ showAutoCandidates: true });
+            const cell = getCell(engine, 0, 0);
+
+            engine.removeCandidate(cell, 5);
+
+            expect(engine.undo()).toBe(true);
+            expect(engine.getCellCandidates(cell)).toContain(5);
+            expect(engine.redo()).toBe(true);
+        });
     });
 
     describe('undo and redo', () => {
@@ -369,6 +418,20 @@ describe('FieldEngine', () => {
             expect(restored.serialize()).toEqual(state);
             expect(restored.getSnapshot().sudokuString).toBe(engine.getSnapshot().sudokuString);
             expect(restored.getSnapshot().mistakes).toBe(1);
+        });
+
+        it('round-trips auto candidate eliminations', () => {
+            expect.assertions(2);
+
+            const engine = createEngine({ showAutoCandidates: true });
+
+            engine.removeCandidate(getCell(engine, 0, 0), 5);
+
+            const state = engine.serialize();
+            const restored = new FieldEngine(state);
+
+            expect(restored.serialize().eliminatedCandidates).toEqual({ '0-0': [5] });
+            expect(restored.getCellCandidates(getCell(restored, 0, 0))).not.toContain(5);
         });
 
         it('keeps undo working after a round-trip', () => {
@@ -510,6 +573,22 @@ describe('FieldEngine', () => {
             engine.applyStepScript();
 
             expect(engine.getSnapshot().candidates['0-3']).toEqual([5]);
+        });
+
+        it('commits the eliminations of a script to auto candidates when enabled', () => {
+            expect.assertions(2);
+
+            const engine = createEngine({ sudokuString: nakedPairBoard.join(''), showAutoCandidates: true });
+            const strategies = createTechniqueStrategies().filter(strategy => strategy.technique === SolutionTechniqueEnum.NakedPair);
+            const result = new TechniqueManager(engine.Sudoku, strategies).findNextStep();
+            const cell = getCell(engine, 3, 0);
+
+            expect(engine.getCellCandidates(cell)).toContain(8);
+
+            engine.startStepScript(techniqueResultToStepScript(requireTechniqueResult(result)));
+            engine.applyStepScript();
+
+            expect(engine.getCellCandidates(cell)).not.toContain(8);
         });
 
         it('does nothing when applying or stopping without a running script', () => {

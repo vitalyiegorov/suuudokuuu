@@ -7,6 +7,7 @@ export interface SerializedFieldStateInterface {
     sudokuString: string;
     difficulty: DifficultyEnum;
     candidates: FieldCandidatesType;
+    eliminatedCandidates: FieldCandidatesType;
     inputMode: FieldInputModeType;
     showAutoCandidates: boolean;
     mistakes: number;

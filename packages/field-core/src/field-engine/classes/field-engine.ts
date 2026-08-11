@@ -6,6 +6,13 @@ import { cloneFieldCells } from '../../@generic/utils/clone-field-cells.util';
 import { getCellKey } from '../../@generic/utils/get-cell-key.util';
 import { StepScriptPlayer } from '../../step-script/classes/step-script-player';
 import { FieldHistoryKindEnum } from '../enums/field-history-kind.enum';
+import {
+    cloneCandidateState,
+    getAutoCellCandidates,
+    getCandidatesWithElimination,
+    getCandidatesWithoutValue,
+    getToggledCandidates
+} from '../utils/candidate-mutation.util';
 import { getNeighbourCell } from '../utils/get-neighbour-cell.util';
 import { pruneCandidates } from '../utils/prune-candidates.util';
 
@@ -13,12 +20,12 @@ import { FieldHistory } from './field-history';
 import { FieldStore } from './field-store';
 
 import type { StepScriptInterface } from '../../step-script/interfaces/step-script.interface';
+import type { FieldCandidateStateInterface } from '../interfaces/field-candidate-state.interface';
 import type { FieldEngineOptionsInterface } from '../interfaces/field-engine-options.interface';
 import type { FieldHistoryStateInterface } from '../interfaces/field-history-state.interface';
 import type { FieldMoveResultInterface } from '../interfaces/field-move-result.interface';
 import type { FieldSnapshotInterface } from '../interfaces/field-snapshot.interface';
 import type { SerializedFieldStateInterface } from '../interfaces/serialized-field-state.interface';
-import type { FieldCandidatesType } from '../types/field-candidates.type';
 import type { FieldDirectionType } from '../types/field-direction.type';
 import type { FieldInputModeType } from '../types/field-input-mode.type';
 import type { CellInterface, DifficultyEnum, SudokuConfigInterface } from '@suuudokuuu/generator';
@@ -30,7 +37,7 @@ export class FieldEngine extends FieldStore {
 
     private sudoku: Sudoku;
     private selectedCell?: CellInterface;
-    private candidates: FieldCandidatesType;
+    private candidateState: FieldCandidateStateInterface;
     private inputMode: FieldInputModeType;
     private showAutoCandidates: boolean;
     private mistakes: number;
@@ -42,7 +49,7 @@ export class FieldEngine extends FieldStore {
         this.config = options.config ?? defaultSudokuConfig;
         this.difficulty = options.difficulty;
         this.sudoku = Sudoku.fromString(options.sudokuString, { ...this.config });
-        this.candidates = options.candidates ?? {};
+        this.candidateState = { candidates: options.candidates ?? {}, eliminatedCandidates: options.eliminatedCandidates ?? {} };
         this.inputMode = options.inputMode ?? 'normal';
         this.showAutoCandidates = options.showAutoCandidates ?? false;
         this.mistakes = options.mistakes ?? 0;
@@ -57,7 +64,7 @@ export class FieldEngine extends FieldStore {
         return {
             sudokuString: this.sudoku.toString(),
             difficulty: this.difficulty,
-            candidates: { ...this.candidates },
+            ...cloneCandidateState(this.candidateState),
             inputMode: this.inputMode,
             showAutoCandidates: this.showAutoCandidates,
             mistakes: this.mistakes,
@@ -78,11 +85,7 @@ export class FieldEngine extends FieldStore {
 
     setInputMode(inputMode: FieldInputModeType): void {
         this.inputMode = inputMode;
-
-        if (inputMode === 'candidate') {
-            this.showAutoCandidates = false;
-        }
-
+        this.showAutoCandidates = inputMode === 'candidate' ? false : this.showAutoCandidates;
         this.publish();
     }
 
@@ -92,16 +95,14 @@ export class FieldEngine extends FieldStore {
 
     toggleShowAutoCandidates(): void {
         this.showAutoCandidates = !this.showAutoCandidates;
-
-        if (this.showAutoCandidates) {
-            this.inputMode = 'normal';
-        }
-
+        this.inputMode = this.showAutoCandidates ? 'normal' : this.inputMode;
         this.publish();
     }
 
     getCellCandidates(cell: CellInterface): number[] {
-        return this.showAutoCandidates ? this.sudoku.getCellCandidates(cell) : (this.candidates[getCellKey(cell)] ?? []);
+        return this.showAutoCandidates
+            ? getAutoCellCandidates(this.sudoku, this.candidateState.eliminatedCandidates, cell)
+            : (this.candidateState.candidates[getCellKey(cell)] ?? []);
     }
 
     inputValue(value: number): FieldMoveResultInterface | null {
@@ -131,21 +132,26 @@ export class FieldEngine extends FieldStore {
     }
 
     toggleCandidate(cell: CellInterface, value: number): void {
-        const cellKey = getCellKey(cell);
-        const cellCandidates = this.candidates[cellKey] ?? [];
-        const nextCandidates = cellCandidates.includes(value)
-            ? cellCandidates.filter(candidate => candidate !== value)
-            : [...cellCandidates, value];
+        const candidates = getToggledCandidates(this.candidateState.candidates, cell, value);
 
-        this.commitCandidates(cell, value, { ...this.candidates, [cellKey]: nextCandidates });
+        this.commitCandidateState(cell, value, { ...this.candidateState, candidates });
     }
 
     removeCandidate(cell: CellInterface, value: number): void {
-        const cellKey = getCellKey(cell);
-        const cellCandidates = this.candidates[cellKey] ?? [];
+        if (this.showAutoCandidates) {
+            const eliminatedCandidates = getCandidatesWithElimination(this.candidateState.eliminatedCandidates, cell, value);
 
-        if (cellCandidates.includes(value)) {
-            this.commitCandidates(cell, value, { ...this.candidates, [cellKey]: cellCandidates.filter(candidate => candidate !== value) });
+            if (isDefined(eliminatedCandidates)) {
+                this.commitCandidateState(cell, value, { ...this.candidateState, eliminatedCandidates });
+            }
+
+            return;
+        }
+
+        const candidates = getCandidatesWithoutValue(this.candidateState.candidates, cell, value);
+
+        if (isDefined(candidates)) {
+            this.commitCandidateState(cell, value, { ...this.candidateState, candidates });
         }
     }
 
@@ -205,7 +211,7 @@ export class FieldEngine extends FieldStore {
             field: cloneFieldCells(this.sudoku.Field),
             difficulty: this.difficulty,
             sudokuString: this.sudoku.toString(),
-            candidates: this.candidates,
+            ...this.candidateState,
             inputMode: this.inputMode,
             showAutoCandidates: this.showAutoCandidates,
             mistakes: this.mistakes,
@@ -222,7 +228,7 @@ export class FieldEngine extends FieldStore {
         const previousState = this.captureState();
         const scoredCells = this.sudoku.setCellValue(cell);
 
-        this.candidates = pruneCandidates(this.sudoku, this.candidates, cell);
+        this.candidateState = { ...this.candidateState, candidates: pruneCandidates(this.sudoku, this.candidateState.candidates, cell) };
         this.selectedCell = { ...cell };
         this.pushHistory(FieldHistoryKindEnum.Value, { ...cell }, previousState);
 
@@ -249,10 +255,10 @@ export class FieldEngine extends FieldStore {
         return result;
     }
 
-    private commitCandidates(cell: CellInterface, value: number, candidates: FieldCandidatesType): void {
+    private commitCandidateState(cell: CellInterface, value: number, nextState: FieldCandidateStateInterface): void {
         const previousState = this.captureState();
 
-        this.candidates = candidates;
+        this.candidateState = nextState;
         this.pushHistory(FieldHistoryKindEnum.Candidate, { ...cell, value }, previousState);
         this.publish();
     }
@@ -262,7 +268,7 @@ export class FieldEngine extends FieldStore {
     }
 
     private captureState(): FieldHistoryStateInterface {
-        return { sudokuString: this.sudoku.toString(), candidates: { ...this.candidates } };
+        return { sudokuString: this.sudoku.toString(), ...cloneCandidateState(this.candidateState) };
     }
 
     private restoreState(state: FieldHistoryStateInterface | null): boolean {
@@ -274,7 +280,7 @@ export class FieldEngine extends FieldStore {
             this.sudoku = Sudoku.fromString(state.sudokuString, { ...this.config });
         }
 
-        this.candidates = { ...state.candidates };
+        this.candidateState = cloneCandidateState(state);
         this.publish();
 
         return true;

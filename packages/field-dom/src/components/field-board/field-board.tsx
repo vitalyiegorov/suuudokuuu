@@ -1,6 +1,6 @@
 'use client';
 
-import { getCellKey } from '@suuudokuuu/field-core';
+import { buildStepScriptState, getCellKey } from '@suuudokuuu/field-core';
 import { useFieldSnapshot } from '@suuudokuuu/field-core/react';
 import { useEffect, useRef } from 'react';
 
@@ -8,7 +8,6 @@ import { isDefined } from '@rnw-community/shared';
 
 import { FIRST_CELL_KEY } from '../../constants/field-grid.constant';
 import { buildFieldCellView } from '../../utils/build-field-cell-view.util';
-import { buildFieldStepState } from '../../utils/build-field-step-state.util';
 import { getFieldCellCandidates } from '../../utils/get-field-cell-candidates.util';
 import { getFieldClassName } from '../../utils/get-field-class-name.util';
 import { getKeyDigit } from '../../utils/get-key-digit.util';
@@ -42,7 +41,7 @@ export const FieldBoard = ({ className, engine, givenCellKeys = EMPTY_GIVEN_CELL
     const focusableCellKey = selectedCellKey ?? FIRST_CELL_KEY;
     const context: FieldCellViewContextInterface = {
         givenCellKeys,
-        stepState: buildFieldStepState(snapshot.stepScript, snapshot.stepIndex),
+        stepState: buildStepScriptState(snapshot.stepScript, snapshot.stepIndex),
         ...(isDefined(selectedCell) && { selectedCell }),
         ...(isDefined(mistakeCell) && { mistakeCell })
     };

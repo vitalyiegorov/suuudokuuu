@@ -1,10 +1,11 @@
 import { describe, expect, it } from '@jest/globals';
-import { StepScriptStepKindEnum } from '@suuudokuuu/field-core';
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
-import { buildFieldStepState } from './build-field-step-state.util';
+import { StepScriptStepKindEnum } from '../enums/step-script-step-kind.enum';
 
-import type { StepScriptInterface } from '@suuudokuuu/field-core';
+import { buildStepScriptState } from './build-step-script-state.util';
+
+import type { StepScriptInterface } from '../interfaces/step-script.interface';
 
 const createCell = (y: number, x: number, value = 0) => ({ x, y, value, group: Math.floor(y / 3) * 3 + Math.floor(x / 3) });
 
@@ -26,9 +27,11 @@ const nakedPairScript: StepScriptInterface = {
     ]
 };
 
-describe('buildFieldStepState', () => {
+describe('buildStepScriptState', () => {
     it('returns an empty state without a script', () => {
-        const stepState = buildFieldStepState(null, 0);
+        expect.assertions(5);
+
+        const stepState = buildStepScriptState(null, 0);
 
         expect(stepState.patternCellKeys.size).toBe(0);
         expect(stepState.targetCellKey).toBeNull();
@@ -38,7 +41,9 @@ describe('buildFieldStepState', () => {
     });
 
     it('exposes the placement cell as the target from the first step', () => {
-        const stepState = buildFieldStepState(nakedPairScript, 0);
+        expect.assertions(3);
+
+        const stepState = buildStepScriptState(nakedPairScript, 0);
 
         expect(stepState.targetCellKey).toBe('2-2');
         expect([...stepState.patternCellKeys]).toEqual(['0-0', '0-1']);
@@ -46,7 +51,9 @@ describe('buildFieldStepState', () => {
     });
 
     it('reveals candidates once the reveal step is reached', () => {
-        const stepState = buildFieldStepState(nakedPairScript, 1);
+        expect.assertions(3);
+
+        const stepState = buildStepScriptState(nakedPairScript, 1);
 
         expect(stepState.revealedCandidates.get('0-0')).toEqual([3, 7]);
         expect(stepState.revealedCandidates.get('0-1')).toEqual([3, 7]);
@@ -54,16 +61,52 @@ describe('buildFieldStepState', () => {
     });
 
     it('accumulates eliminations and placements up to the current step', () => {
-        const stepState = buildFieldStepState(nakedPairScript, 3);
+        expect.assertions(2);
+
+        const stepState = buildStepScriptState(nakedPairScript, 3);
 
         expect(stepState.eliminatedCandidates.get('0-4')).toEqual([3]);
         expect(stepState.placedValues.get('2-2')).toBe(5);
     });
 
     it('hides later steps while the player is rewound', () => {
-        const stepState = buildFieldStepState(nakedPairScript, 2);
+        expect.assertions(2);
+
+        const stepState = buildStepScriptState(nakedPairScript, 2);
 
         expect(stepState.eliminatedCandidates.get('0-4')).toEqual([3]);
         expect(stepState.placedValues.size).toBe(0);
+    });
+
+    it('reports no target cell for an elimination-only script', () => {
+        expect.assertions(1);
+
+        const eliminationOnlyScript: StepScriptInterface = {
+            technique: SolutionTechniqueEnum.NakedPair,
+            patternCells,
+            eliminations: nakedPairScript.eliminations,
+            steps: nakedPairScript.steps.slice(0, 3)
+        };
+
+        expect(buildStepScriptState(eliminationOnlyScript, 2).targetCellKey).toBeNull();
+    });
+
+    it('accumulates distinct elimination values per cell across multiple strike steps', () => {
+        expect.assertions(1);
+
+        const multiStrikeScript: StepScriptInterface = {
+            technique: SolutionTechniqueEnum.NakedPair,
+            patternCells,
+            eliminations: [
+                { cell: eliminationCell, value: 3 },
+                { cell: eliminationCell, value: 7 }
+            ],
+            steps: [
+                { kind: StepScriptStepKindEnum.StrikeCandidates, eliminations: [{ cell: eliminationCell, value: 7 }], narration },
+                { kind: StepScriptStepKindEnum.StrikeCandidates, eliminations: [{ cell: eliminationCell, value: 3 }], narration }
+            ]
+        };
+
+        expect(buildStepScriptState(multiStrikeScript, 1).eliminatedCandidates.get('0-4')).toEqual([3, 7]);
     });
 });

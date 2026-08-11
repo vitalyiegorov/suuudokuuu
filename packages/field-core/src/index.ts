@@ -16,6 +16,7 @@ export type { StepScriptHighlightStepInterface } from './step-script/interfaces/
 export type { StepScriptNarrationInterface } from './step-script/interfaces/step-script-narration.interface';
 export type { StepScriptPlaceValueStepInterface } from './step-script/interfaces/step-script-place-value-step.interface';
 export type { StepScriptRevealCandidatesStepInterface } from './step-script/interfaces/step-script-reveal-candidates-step.interface';
+export type { StepScriptStateInterface } from './step-script/interfaces/step-script-state.interface';
 export type { StepScriptStrikeCandidatesStepInterface } from './step-script/interfaces/step-script-strike-candidates-step.interface';
 export type { StepScriptTargetInterface } from './step-script/interfaces/step-script-target.interface';
 export type { StepScriptInterface } from './step-script/interfaces/step-script.interface';
@@ -27,6 +28,7 @@ export { FieldEngine } from './field-engine/classes/field-engine';
 export { FieldHistoryKindEnum } from './field-engine/enums/field-history-kind.enum';
 export { StepScriptPlayer } from './step-script/classes/step-script-player';
 export { StepScriptStepKindEnum } from './step-script/enums/step-script-step-kind.enum';
+export { buildStepScriptState } from './step-script/utils/build-step-script-state.util';
 export { findStepScript } from './step-script/utils/find-step-script.util';
 export { techniqueResultToStepScript } from './step-script/utils/technique-result-to-step-script.util';
 export { getCellKey } from './@generic/utils/get-cell-key.util';
