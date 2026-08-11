@@ -212,4 +212,18 @@ describe('gameGetBoardGeometry', () => {
 
         expect(overReservedGeometry).toStrictEqual({ boardSize: 0, cellMargin: 0, cellSize: 0 });
     });
+
+    it('spends no spacing on a board whose every cell already sits in one group', () => {
+        const singleGroupGeometry = gameGetBoardGeometry({
+            availableWidth: LargePhoneAreaSize,
+            availableHeight: LargePhoneAreaSize,
+            reservedHeight: 0,
+            fieldSize: fieldGroupSize,
+            fieldGroupSize,
+            cellMargin: DefaultCellMargin
+        });
+
+        expect(singleGroupGeometry.cellMargin).toBe(0);
+        expect(singleGroupGeometry.boardSize).toBe(fieldGroupSize * singleGroupGeometry.cellSize);
+    });
 });
