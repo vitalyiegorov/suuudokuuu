@@ -5342,6 +5342,23 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@suuudokuuu/field-core@workspace:packages/field-core":
+  version: 0.0.0-use.local
+  resolution: "@suuudokuuu/field-core@workspace:packages/field-core"
+  dependencies:
+    "@rnw-community/shared": "npm:^2.2.0"
+    "@suuudokuuu/generator": "workspace:*"
+    "@suuudokuuu/techniques": "workspace:*"
+    "@types/react": "npm:~19.2.14"
+    react: "npm:19.2.3"
+  peerDependencies:
+    react: ">=19.0.0"
+  peerDependenciesMeta:
+    react:
+      optional: true
+  languageName: unknown
+  linkType: soft
+
 "@suuudokuuu/generator@workspace:*, @suuudokuuu/generator@workspace:packages/generator":
   version: 0.0.0-use.local
   resolution: "@suuudokuuu/generator@workspace:packages/generator"

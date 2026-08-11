@@ -21,6 +21,9 @@
     ],
     "ignoreBinaries": ["run", "xcrun", "maestro"],
     "workspaces": {
+        "packages/field-core": {
+            "entry": ["src/index.ts!", "src/react/use-field-snapshot.hook.ts!"]
+        },
         "packages/landing": {
             "entry": [
                 "src/app/**/{page,layout,template,default,error,not-found,loading,route,sitemap,robots,manifest,metadata}.{ts,tsx}!",
