@@ -4,7 +4,8 @@
     outline-offset: 2px;
 }
 
-[data-testid^='CellSelectors.Cell.'] {
+[data-testid^='CellSelectors.Cell.'],
+[data-testid='GameScreenSelectors.Root'] {
     outline: none;
 }
 
