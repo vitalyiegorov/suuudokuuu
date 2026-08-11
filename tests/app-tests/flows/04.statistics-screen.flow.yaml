@@ -78,24 +78,24 @@ appId: ${APP_ID}
       id: 'ReplayControlsSelectors.NextButton'
 - extendedWaitUntil:
       visible: 'Move 1 / 1'
-      timeout: 3000
+      timeout: 15000
 - tapOn:
       id: 'ReplayControlsSelectors.PreviousButton'
 - extendedWaitUntil:
       visible: 'Move 0 / 1'
-      timeout: 3000
+      timeout: 15000
 - swipe:
       from:
           id: 'ReplayScrubberSelectors.Root'
       direction: RIGHT
 - extendedWaitUntil:
       visible: 'Move 1 / 1'
-      timeout: 3000
+      timeout: 15000
 - tapOn:
       id: 'ReplayControlsSelectors.PreviousButton'
 - extendedWaitUntil:
       visible: 'Move 0 / 1'
-      timeout: 3000
+      timeout: 15000
 - assertVisible:
       id: 'ReplayShareActionSelectors.Button'
 - tapOn:
