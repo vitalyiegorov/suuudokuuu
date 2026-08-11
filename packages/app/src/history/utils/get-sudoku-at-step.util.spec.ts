@@ -78,6 +78,17 @@ describe('getSudokuAtStep', () => {
         expect(replayState.moveClassification).toEqual({ technique: SolutionTechniqueEnum.FullHouse, value: 9 });
     });
 
+    it('should display the stored technique instead of reclassifying the replayed move', () => {
+        expect.assertions(1);
+
+        const storedState = {
+            ...gameState,
+            challengeTimelineEvents: [{ kind: TimelineEventKindEnum.Cell, ...logicalStep, technique: SolutionTechniqueEnum.XYZWing }]
+        };
+
+        expect(getSudokuAtStep(storedState, 1).moveClassification).toEqual({ technique: SolutionTechniqueEnum.XYZWing, value: 9 });
+    });
+
     it('should calculate guess technique for unsupported moves', () => {
         expect.assertions(1);
 

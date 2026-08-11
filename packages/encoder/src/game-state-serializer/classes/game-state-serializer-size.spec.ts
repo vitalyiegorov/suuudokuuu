@@ -111,10 +111,11 @@ describe('GameStateSerializer v3 encoded size characterization', () => {
         expect(encoded.length).toBeLessThanOrEqual(40);
     });
 
-    it('should keep a v3 challenge share under 220 characters', () => {
+    it('should keep a v3 challenge share with a technique stream under 240 characters', () => {
         expect.assertions(1);
 
         const encoded = serializer.encodeState({
+            techniques: buildCellEvents().map((_, index) => index % 26),
             field: solvedBoard,
             timelineEvents: [
                 ...buildCellEvents(),
@@ -135,13 +136,14 @@ describe('GameStateSerializer v3 encoded size characterization', () => {
             difficulty: DIFFICULTY_CODE_MAX
         });
 
-        expect(encoded.length).toBeLessThanOrEqual(220);
+        expect(encoded.length).toBeLessThanOrEqual(240);
     });
 
-    it('should keep a v3 handoff share with pencil marks under 320 characters', () => {
+    it('should keep a v3 handoff share with pencil marks and a technique stream under 320 characters', () => {
         expect.assertions(1);
 
         const encoded = serializer.encodeState({
+            techniques: buildCellEvents().map((_, index) => index % 26),
             field: solvedBoard,
             timelineEvents: buildCellEvents(),
             kind: SharedPayloadKindEnum.Handoff,

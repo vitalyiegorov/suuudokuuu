@@ -49,8 +49,8 @@ src/
 ```typescript
 constructor(sudoku: Sudoku)
 findNextStep(): TechniqueResultInterface | null     // Simplest available logical step, else guess
-identifyMove(cell: CellInterface): MoveClassificationInterface  // Technique and value for this exact move
-solveLogically(techniqueOrder?: SolutionTechniqueEnum[]): LogicalSolveResultInterface  // Full logical solve driver
+identifyMove(cell: CellInterface, techniqueOrder?: readonly SolutionTechniqueEnum[]): MoveClassificationInterface
+solveLogically(techniqueOrder?: readonly SolutionTechniqueEnum[]): LogicalSolveResultInterface  // Full logical solve driver
 ```
 
 Logical strategies run in `SolutionTechniqueEnum` difficulty order from `createTechniqueStrategies`. The manager exits at the first strategy that finds a result, and fallback `GuessTechnique` runs only when no supported logical technique matches. Techniques that only differ by size/name use descriptor-backed family strategies instead of empty subclasses.
@@ -61,6 +61,16 @@ Logical strategies run in `SolutionTechniqueEnum` difficulty order from `createT
 2. Enabling — the strategy's eliminations, applied to a transient context via `CandidateContext.withEliminations`, turn the played value into a naked or hidden single at the played cell (`isForcedPlacement`). The pass is skipped when the placement is already forced without those eliminations, so a technique is never credited for a deduction it did not cause.
 
 A direct justification is one deduction step and always outranks an enabling one, which is two. Only moves that would otherwise fall through to `Guess` can reach the enabling pass.
+
+`identifyMove` takes the same optional `techniqueOrder` as `solveLogically`, which is the interactive escape hatch: a caller that must answer within a frame passes a cheaper ladder instead of the registry.
+
+### interactiveTechniqueOrder
+
+`interactiveTechniqueOrder` is the registry order truncated before `AIC`, so it runs everything through `SimpleColoring` and drops `AIC`, `UniqueRectangle`, `BivalueUniversalGrave`, and the three forcing chains. It is a strict prefix, never a hole: skipping a cheap technique while keeping a later one would let a move be credited to a technique the full ladder would never have reached, whereas a prefix can only ever downgrade a classification to `Guess`.
+
+The cut sits at `AIC` because `identifyMove` narrows every scan by search intent, which makes the forcing chains far cheaper here than they are in a broad `solveLogically` scan, while `AICTechnique` searches depth-first and spends `AIC_MAX_LINK_VISITS` per start node on every fall-through move. Measured over 708 moves of twelve replayed Infinity games, the full ladder cost 11689 ms against 3781 ms for the interactive prefix, the worst single move fell from 780 ms to 42 ms, and 51 moves (7.2 %) downgraded to `Guess` — 31 that only a Nishio forcing chain explained and 20 that only an AIC explained. Cutting earlier, after the wing band, saved little more: the fish and wing strategies cost about 25 ms per move together.
+
+Consumers that rate or solve keep using the full registry; only interactive classification passes this order.
 
 ### solveLogically
 
@@ -177,7 +187,7 @@ Snapshots are immutable: `withEliminations(eliminations)` and `withPlacement(cel
 ## Exports
 
 ```typescript
-export { SolutionTechniqueEnum, TechniqueManager };
+export { SolutionTechniqueEnum, TechniqueManager, interactiveTechniqueOrder, isSolutionTechnique };
 export type { TechniqueResultInterface, MoveClassificationInterface, LogicalSolveResultInterface, LogicalSolveOutcomeType };
 ```
 

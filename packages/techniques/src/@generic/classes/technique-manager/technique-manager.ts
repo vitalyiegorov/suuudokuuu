@@ -44,7 +44,7 @@ export class TechniqueManager {
         return isDefined(blankCell) ? this.guessTechnique.findForCell(blankCell) : null;
     }
 
-    solveLogically(techniqueOrder?: SolutionTechniqueEnum[]): LogicalSolveResultInterface {
+    solveLogically(techniqueOrder?: readonly SolutionTechniqueEnum[]): LogicalSolveResultInterface {
         const orderedStrategies = this.getOrderedStrategies(techniqueOrder);
         const steps: TechniqueResultInterface[] = [];
         const stepLimit = this.getStepLimit();
@@ -63,15 +63,18 @@ export class TechniqueManager {
         return { outcome: this.getSolveOutcome(context), steps, wasSearchCapped };
     }
 
-    identifyMove(cell: CellInterface): MoveClassificationInterface {
+    identifyMove(cell: CellInterface, techniqueOrder?: readonly SolutionTechniqueEnum[]): MoveClassificationInterface {
         const context = CandidateContext.fromSudoku(this.sudoku);
+        const orderedStrategies = this.getOrderedStrategies(techniqueOrder);
         const targetValue = this.getTargetValue(cell);
-        const technique = this.findDirectTechnique(context, cell, targetValue) ?? this.findEnablingTechnique(context, cell, targetValue);
+        const technique =
+            this.findDirectTechnique(context, orderedStrategies, cell, targetValue) ??
+            this.findEnablingTechnique(context, orderedStrategies, cell, targetValue);
 
         return { technique: technique ?? this.guessTechnique.technique, value: targetValue };
     }
 
-    private getOrderedStrategies(techniqueOrder?: SolutionTechniqueEnum[]): TechniqueStrategyInterface[] {
+    private getOrderedStrategies(techniqueOrder?: readonly SolutionTechniqueEnum[]): TechniqueStrategyInterface[] {
         if (!isDefined(techniqueOrder)) {
             return this.strategies;
         }
@@ -123,8 +126,13 @@ export class TechniqueManager {
         return context.isSolved() ? 'solved' : 'stuck';
     }
 
-    private findDirectTechnique(context: CandidateContext, cell: CellInterface, value: number): SolutionTechniqueEnum | null {
-        for (const strategy of this.strategies) {
+    private findDirectTechnique(
+        context: CandidateContext,
+        strategies: TechniqueStrategyInterface[],
+        cell: CellInterface,
+        value: number
+    ): SolutionTechniqueEnum | null {
+        for (const strategy of strategies) {
             const results = strategy.find(context, { cell, value, intent: 'direct' });
             const result = results.find(candidate => this.isDirectResult(context, candidate, cell, value));
 
@@ -136,12 +144,17 @@ export class TechniqueManager {
         return null;
     }
 
-    private findEnablingTechnique(context: CandidateContext, cell: CellInterface, value: number): SolutionTechniqueEnum | null {
+    private findEnablingTechnique(
+        context: CandidateContext,
+        strategies: TechniqueStrategyInterface[],
+        cell: CellInterface,
+        value: number
+    ): SolutionTechniqueEnum | null {
         if (isForcedPlacement(context, cell, value)) {
             return null;
         }
 
-        for (const strategy of this.strategies) {
+        for (const strategy of strategies) {
             const results = strategy.find(context, { cell, value, intent: 'enabling' });
             const result = results.find(candidate => this.isEnablingResult(context, candidate, cell, value));
 

@@ -83,6 +83,17 @@ src/
 4. Persisted-state migrations are the only place where legacy unknown shapes may need narrow escape hatches. Do not spread that pattern into normal app code.
 5. Keep game mutations in the game slice and puzzle invariants in `@suuudokuuu/generator`.
 
+## Move Classification
+
+Every correct placement is classified exactly once, at the moment it is played, by `classifyTimelineMove`. The result rides the timeline event as `technique`, and `gameStateToString` writes those techniques into the encoded state as the encoder's technique trailer, so a finished game keeps its labels without a migration: `encodedState` is opaque to the persisted shape, and a record written by an older build simply lacks the stream.
+
+Consumers therefore prefer the stored technique and only fall back to re-deriving it:
+
+- `getRunTechniqueEvents` returns the stored stream when the decoded timeline carries one, and replays through `TechniqueManager` only for legacy records. The completed-game chips, the rival arsenal on the challenge accept screen, and the rival run summary all go through it.
+- `getSudokuAtStep` shows the stored technique for the replayed step and reclassifies only when it is missing.
+
+`classifyTimelineMove` and every fallback replay use `interactiveTechniqueOrder` from `@suuudokuuu/techniques`, not the full registry. That is a deliberate fidelity trade: a move that only an AIC or a forcing chain could justify now records `Guess`. Measured over twelve replayed Infinity games it affects about 7 % of moves, and it is what keeps a tap from blocking the JS thread for most of a second on a hard board. Everything the interactive ladder can explain is labelled exactly as the full ladder would label it, so scoring, challenge tiers, and the technique tiles keep their meaning; only the two most expensive labels can be lost, and they degrade to the honest "no technique justified this" answer rather than to a wrong one. Rating and solving still use the full registry.
+
 ## Routing And Deep Links
 
 1. Expo Router routes live under `src/app`.

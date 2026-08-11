@@ -1,6 +1,7 @@
 import { describe, expect, it } from '@jest/globals';
 import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 
+import { interactiveTechniqueOrder } from '../../constants/interactive-technique-order.constant';
 import { SolutionTechniqueEnum } from '../../enums/solution-technique.enum';
 import { CandidateContext } from '../candidate-context/candidate-context';
 
@@ -25,6 +26,8 @@ const xWingEnabledBoard = [
     '.5182649.',
     '.4.13.865'
 ];
+
+const forcingChainBoard = '000000051000000023004005000000000600000130000007680000429006500370400000810000000';
 
 const boxLineEnabledBoard = [
     '.1.36..4.',
@@ -159,6 +162,48 @@ describe('TechniqueManager', () => {
         }
 
         expect(justifiedWrongMoves).toEqual([]);
+    });
+
+    it('should classify every move the interactive ladder can explain exactly as the full ladder does', () => {
+        expect.assertions(2);
+
+        const divergences: string[] = [];
+        const explainedTechniques = new Set<SolutionTechniqueEnum>();
+
+        for (const board of [xWingEnabledBoard, boxLineEnabledBoard]) {
+            const sudoku = Sudoku.fromStrings(defaultSudokuConfig, ...board);
+            const context = CandidateContext.fromSudoku(sudoku);
+            const manager = new TechniqueManager(sudoku);
+
+            for (const cell of context.getBlankCells()) {
+                const move = { ...cell, value: sudoku.getCorrectValue(cell) };
+                const fullResult = manager.identifyMove(move);
+
+                if (interactiveTechniqueOrder.includes(fullResult.technique)) {
+                    explainedTechniques.add(fullResult.technique);
+
+                    const interactiveResult = manager.identifyMove(move, interactiveTechniqueOrder);
+
+                    if (interactiveResult.technique !== fullResult.technique) {
+                        divergences.push(`r${cell.y + 1}c${cell.x + 1} ${SolutionTechniqueEnum[fullResult.technique]}`);
+                    }
+                }
+            }
+        }
+
+        expect(divergences).toEqual([]);
+        expect(explainedTechniques.size).toBeGreaterThan(1);
+    });
+
+    it('should downgrade a forcing chain move to a guess on the interactive ladder', () => {
+        expect.assertions(2);
+
+        const sudoku = Sudoku.fromString(forcingChainBoard, defaultSudokuConfig);
+        const manager = new TechniqueManager(sudoku);
+        const move = { ...sudoku.Field[0][2], value: 3 };
+
+        expect(manager.identifyMove(move)).toEqual({ technique: SolutionTechniqueEnum.NishioForcingChain, value: 3 });
+        expect(manager.identifyMove(move, interactiveTechniqueOrder)).toEqual({ technique: SolutionTechniqueEnum.Guess, value: 3 });
     });
 
     it('should mark unsupported moves as guesses', () => {
