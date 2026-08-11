@@ -16,6 +16,7 @@ import { appRootMigrations, appRootPersistVersion } from './app-root-migrations'
 import { getDayNumber } from './utils/get-day-number.util';
 
 import type { AppRootPersistedStateInterface } from './app-root-migrations';
+import type { SettingsState } from '../settings/store/settings.state';
 
 jest.mock('react-native', () => ({
     Appearance: {
@@ -456,5 +457,23 @@ describe('appRootMigrations', () => {
         expect(migrated.settings.motionPreference).toBe('system');
         expect(migrated.settings.calmMode).toBe(false);
         expect(migrated.settings.hasTimer).toBe(false);
+    });
+
+    it('should rehydrate a pre-comfort-mode state with the preset off and nothing else touched', () => {
+        expect.assertions(6);
+
+        const legacySettings: SettingsState = { ...initialSettingsState, fontSize: 'xs', theme: ThemeEnum.Newspaper };
+        const storedSettings = withoutKeyAtRuntime(
+            withoutKeyAtRuntime(withoutKeyAtRuntime(legacySettings, 'comfortMode'), 'comfortModeOfferDismissed'),
+            'comfortModeRestore'
+        );
+        const migrated = runMigration(39, buildState({ settings: storedSettings }));
+
+        expect(migrated.settings.comfortMode).toBe('off');
+        expect(migrated.settings.comfortModeOfferDismissed).toBe(false);
+        expect(migrated.settings.comfortModeRestore).toBeNull();
+        expect(migrated.settings.fontSize).toBe('xs');
+        expect(migrated.settings.theme).toBe(ThemeEnum.Newspaper);
+        expect(migrated.settings.hasTimer).toBe(initialSettingsState.hasTimer);
     });
 });

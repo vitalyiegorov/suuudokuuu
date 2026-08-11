@@ -99,6 +99,15 @@ src/
 4. `useReduceMotion` combines the OS setting (`SystemMotionProvider` subscribes to `reduceMotionChanged`) with the `motionPreference` setting (`system` | `full` | `reduced`). Use it instead of Reanimated's `useReducedMotion` so the player override is honored. Gated animations must still leave the state legible: selection colour changes instantly rather than fading, and a placed cell shows a static `FieldCellSuccessOutline` instead of the animated ring.
 5. `calmMode` hides every score surface (in-game metric strip, pause stats) and swaps the winner hero for `WinnerCalmResultHero`, which reports the move count instead of a score. Scores are still recorded, so history and personal bests survive turning calm play off.
 
+### Comfort mode preset
+
+1. Comfort mode owns no rendering of its own. It writes the primitives above, so every screen keeps reading the individual settings and nothing needs a "comfort" branch. `ComfortModeSettings` in `settings/constant/comfort-mode.constant.ts` is the whole bundle; `ComfortModeSettingKeys` is its single source of truth for keys, and `Pick<SettingsState, …>` on the constant makes a drifted key or value a compile error.
+2. `comfortMode` is a three-state status (`off` | `on` | `customized`), not a boolean. `settingsSlice.set` recomputes it after every write: while the preset is not `off`, matching the bundle means `on` and any divergence means `customized`. A later edit is never reverted and never fights the player, and re-matching the bundle silently returns the status to `on`.
+3. `comfortModeRestore` stores the pre-preset values of the bundled keys plus `lastGameMaxMistakes`, and is captured only on the first enable — reapplying over a customized state keeps the original snapshot. Turning the preset off restores a key only when its current value is still the one the preset wrote, so an edit the player made in between survives.
+4. `isDarkColorSchema` is deliberately outside the bundle: the preset switches to `ThemeEnum.HighContrast` and lets the theme resolve against the light or dark choice already in place. `showComboAnimation` and `keepExhaustedDigits` are outside it too, because the preset only turns guidance on and never turns a player's affordance off.
+5. The mistake limit is a per-run Home-screen choice, not a setting the preset owns. Enabling comfort mode nudges `lastGameMaxMistakes` to `RelaxedMaxMistakesConstant` only while it still sits on the default, and the nudge is visible on the same screen. It is excluded from the `customized` computation, so choosing Hardcore for one run does not mark the preset as customized.
+6. The Home offer (`HomeScreenComfortOffer`) is shown once and disappears for good: `comfortModeOfferDismissed` is persisted by both the dismiss action and by ever enabling the preset from anywhere.
+
 ### Hints
 
 1. The hint feature is a teaching device, not an answer dispenser. `HintButton` runs `gameFindHintStepScript(engine.Sudoku)`, which wraps the unnarrowed `findStepScript` so the player always gets the simplest technique the position allows.

@@ -6,6 +6,7 @@ import { View } from 'react-native';
 import { CollapsibleChromePage } from '../../../@generic/components/collapsible-chrome-page/collapsible-chrome-page';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { SettingsAppFooter } from '../../../settings/component/settings-app-footer/settings-app-footer';
+import { SettingsComfortModeSection } from '../../../settings/component/settings-comfort-mode-section/settings-comfort-mode-section';
 import { SettingsFeedbackSection } from '../../../settings/component/settings-feedback-section/settings-feedback-section';
 import { SettingsGuidanceSection } from '../../../settings/component/settings-guidance-section/settings-guidance-section';
 import { SettingsOptionLink } from '../../../settings/component/settings-option-link/settings-option-link';
@@ -41,6 +42,8 @@ export const SettingsScreen = () => {
             title={t`Settings`}
         >
             <View style={styles.primaryColumn}>
+                <SettingsComfortModeSection />
+
                 <AppSettingsSection title={t`Game`}>
                     <SettingsOptionLink
                         description={t`Menus, settings, and game text`}

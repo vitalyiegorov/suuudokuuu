@@ -8,6 +8,8 @@ import { initialCustomThemesState } from '../../theme/store/custom-themes.state'
 
 import {
     settingsCellMarginSelector,
+    settingsComfortModeOfferVisibleSelector,
+    settingsComfortModeSelector,
     settingsFontSizeMultiplierSelector,
     settingsFontSizeSelector,
     settingsKeySelector,
@@ -74,6 +76,21 @@ describe('settings selectors', () => {
 
         expect(settingsMotionPreferenceSelector.resultFunc(state)).toBe('reduced');
         expect(settingsMotionPreferenceSelector.resultFunc(initialSettingsState)).toBe('system');
+    });
+
+    it('should read the comfort mode status', () => {
+        expect.assertions(2);
+
+        expect(settingsComfortModeSelector.resultFunc(initialSettingsState)).toBe('off');
+        expect(settingsComfortModeSelector.resultFunc({ ...state, comfortMode: 'customized' })).toBe('customized');
+    });
+
+    it('should offer comfort mode only while it is off and the offer was never dismissed', () => {
+        expect.assertions(3);
+
+        expect(settingsComfortModeOfferVisibleSelector.resultFunc(initialSettingsState)).toBe(true);
+        expect(settingsComfortModeOfferVisibleSelector.resultFunc({ ...state, comfortModeOfferDismissed: true })).toBe(false);
+        expect(settingsComfortModeOfferVisibleSelector.resultFunc({ ...state, comfortMode: 'on' })).toBe(false);
     });
 
     it('should read the stored font size and its multiplier', () => {
