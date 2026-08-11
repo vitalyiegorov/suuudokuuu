@@ -3,10 +3,9 @@ import { use } from 'react';
 
 import { AppIconButton } from '../../../@generic/components/app-icon-button/app-icon-button';
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
-import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { GameContext } from '../../context/game.context';
 import { gameToggleInputModeAction } from '../../store/game.actions';
-import { gameInputModeSelector } from '../../store/game.selectors';
 
 import { InputModeButtonSelectors } from './input-mode-button.selectors';
 
@@ -18,15 +17,16 @@ interface Props {
 
 export const InputModeButton = ({ sizeStyle }: Props) => {
     const { theme } = use(ThemeContext);
+    const { engine, snapshot } = use(GameContext);
 
     const dispatch = useAppDispatch();
-    const inputMode = useAppSelector(gameInputModeSelector);
 
     const handleToggle = () => {
+        engine.toggleInputMode();
         dispatch(gameToggleInputModeAction());
     };
 
-    const isCandidateMode = inputMode === 'candidate';
+    const isCandidateMode = snapshot.inputMode === 'candidate';
     const isActive = !isCandidateMode;
     const buttonVariant = isActive ? 'inverted' : 'primary';
     const iconColor = isActive ? theme.colors.surface.raisedText : theme.colors.inkText;

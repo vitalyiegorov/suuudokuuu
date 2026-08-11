@@ -15,8 +15,8 @@ import { isLastTimelineEventAway } from '../utils/is-last-timeline-event-away.ut
 import { initialGameState } from './game.state';
 
 import type { GameState } from './game.state';
-import type { CellInterface, DifficultyEnum, ScoredCellsInterface, Sudoku } from '@suuudokuuu/generator';
-import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
+import type { GameSavePayloadInterface } from '../interface/game-save-payload.interface';
+import type { CellInterface, DifficultyEnum } from '@suuudokuuu/generator';
 
 const MillisecondsPerSecond = 1000;
 
@@ -89,15 +89,7 @@ export const gameSlice = createSlice({
             state.shouldShowPauseScreen = false;
             state.shouldResumeOnFocus = false;
         },
-        save: (
-            state,
-            action: PayloadAction<{
-                sudoku: Sudoku;
-                correctCell: CellInterface;
-                scoredCells: ScoredCellsInterface;
-                technique?: SolutionTechniqueEnum;
-            }>
-        ) => {
+        save: (state, action: PayloadAction<GameSavePayloadInterface>) => {
             const { sudoku, correctCell, scoredCells, technique } = action.payload;
 
             const scoring = new SudokuScoring(defaultScoringConfig);

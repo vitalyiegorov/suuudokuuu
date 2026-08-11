@@ -6,7 +6,6 @@ import { AvailableValuesItem } from '../../../../game/components/available-value
 import { CandidateInputItem } from '../../../../game/components/candidate-input-item/candidate-input-item';
 import { GameNumpadDigitsConstant } from '../../../../game/constant/game-numpad-digits.constant';
 import { GameContext } from '../../../../game/context/game.context';
-import { gameInputModeSelector } from '../../../../game/store/game.selectors';
 import { settingsFontSizeMultiplierSelector, settingsKeySelector } from '../../../../settings/store/settings.selectors';
 
 import { GameNumpadStyles as styles } from './game-numpad.styles';
@@ -23,10 +22,12 @@ interface Props {
 }
 
 export const GameNumpad = ({ availableValuesRefsHandler, onSelectValue, selectedCell }: Props) => {
-    const { sudoku } = use(GameContext);
-    const inputMode = useAppSelector(gameInputModeSelector);
+    const { engine, snapshot } = use(GameContext);
     const keepExhaustedDigits = useAppSelector(settingsKeySelector('keepExhaustedDigits'));
     const fontSizeMultiplier = useAppSelector(settingsFontSizeMultiplierSelector);
+
+    const sudoku = engine.Sudoku;
+    const { inputMode } = snapshot;
     const canPress = sudoku.isBlankCell(selectedCell);
     const numpadDigits = keepExhaustedDigits ? GameNumpadDigitsConstant : sudoku.PossibleValues;
     const digitTextStyle = styles.digitText(fontSizeMultiplier);

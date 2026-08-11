@@ -15,6 +15,8 @@ module.exports = {
     resolver: require.resolve('./jest.resolver.js'),
     moduleNameMapper: {
         '^@suuudokuuu/encoder$': '<rootDir>/../encoder/src/index.ts',
+        '^@suuudokuuu/field-core$': '<rootDir>/../field-core/src/index.ts',
+        '^@suuudokuuu/field-core/react$': '<rootDir>/../field-core/src/react/use-field-snapshot.hook.ts',
         '^@suuudokuuu/generator$': '<rootDir>/../generator/src/index.ts',
         '^@suuudokuuu/hell-corpus$': '<rootDir>/../hell-corpus/src/index.ts',
         '^@suuudokuuu/solver-core$': '<rootDir>/../solver-core/src/index.ts',

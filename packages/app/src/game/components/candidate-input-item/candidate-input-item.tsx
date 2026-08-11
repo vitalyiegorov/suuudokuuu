@@ -5,10 +5,9 @@ import Reanimated, { interpolateColor, useAnimatedStyle, useDerivedValue, withTi
 
 import { cs, isDefined } from '@rnw-community/shared';
 
-import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { getCellKey } from '../../../@generic/utils/get-cell-key.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
-import { gameCandidatesSelector } from '../../store/game.selectors';
+import { GameContext } from '../../context/game.context';
 import { DigitButtonStyles } from '../../styles/digit-button.styles';
 
 import { CandidateInputItemSelectors as selectors } from './candidate-input-item.selectors';
@@ -37,8 +36,9 @@ export const CandidateInputItem = (props: Props) => {
     const { selectedCell, value, onSelect, canPress, isExhausted, sizeStyle, digitTextStyle } = props;
 
     const { theme } = use(ThemeContext);
+    const { snapshot } = use(GameContext);
 
-    const candidates = useAppSelector(gameCandidatesSelector);
+    const { candidates } = snapshot;
 
     const isSelected = isDefined(selectedCell) && (candidates[getCellKey(selectedCell)] ?? []).includes(value);
     const selectionAnimationDuration = isSelected ? selectionFillAnimationDurationMs : selectionReleaseAnimationDurationMs;

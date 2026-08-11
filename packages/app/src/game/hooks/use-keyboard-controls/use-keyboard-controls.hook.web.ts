@@ -6,13 +6,14 @@ import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { gameToggleInputModeAction } from '../../store/game.actions';
 
 import type { OnEventFn } from '@rnw-community/shared';
-import type { CellInterface, Sudoku } from '@suuudokuuu/generator';
+import type { FieldEngine } from '@suuudokuuu/field-core';
+import type { CellInterface } from '@suuudokuuu/generator';
 
 const ARROW_KEYS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
 const WASD_KEYS = ['KeyW', 'KeyA', 'KeyS', 'KeyD'];
 
 export const useKeyboardControls = (
-    sudoku: Sudoku,
+    engine: FieldEngine,
     selectedCell: CellInterface | undefined,
     onSelectCell: OnEventFn<CellInterface | undefined>,
     onSelectValue: OnEventFn<number>,
@@ -25,6 +26,7 @@ export const useKeyboardControls = (
         // eslint-disable-next-line max-statements
         const handleKeyDown = (e: KeyboardEvent) => {
             const { key, code } = e;
+            const sudoku = engine.Sudoku;
 
             if (ARROW_KEYS.includes(key) || WASD_KEYS.includes(code)) {
                 e.preventDefault();
@@ -50,6 +52,7 @@ export const useKeyboardControls = (
 
             if (code === 'Space' && isDefined(selectedCell)) {
                 e.preventDefault();
+                engine.toggleInputMode();
                 dispatch(gameToggleInputModeAction());
 
                 return;
@@ -71,5 +74,5 @@ export const useKeyboardControls = (
         window.addEventListener('keydown', handleKeyDown);
 
         return () => void window.removeEventListener('keydown', handleKeyDown);
-    }, [selectedCell, onSelectCell, onSelectValue, sudoku, onExit, dispatch]);
+    }, [selectedCell, onSelectCell, onSelectValue, engine, onExit, dispatch]);
 };

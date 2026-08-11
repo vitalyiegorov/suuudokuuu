@@ -34,6 +34,7 @@
         "@rnw-community/shared": "^2.2.0",
         "@shopify/react-native-skia": "2.6.2",
         "@suuudokuuu/encoder": "workspace:*",
+        "@suuudokuuu/field-core": "workspace:*",
         "@suuudokuuu/generator": "workspace:*",
         "@suuudokuuu/hell-corpus": "workspace:*",
         "@suuudokuuu/screen-chrome": "workspace:*",
