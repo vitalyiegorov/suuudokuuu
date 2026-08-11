@@ -230,6 +230,10 @@ msgstr "পরের বার ভাগ্য ভালো হোক!"
 msgid "Beyond the ceiling"
 msgstr "সীমার ওপারে"
 
+#: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
+msgid "Bigger board numbers, spacious cells, every highlight on, no timer, calm play, no animations and the high-contrast theme. Each one stays adjustable below."
+msgstr ""
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Board cells"
 msgstr "বোর্ডের ঘর"
@@ -383,6 +387,14 @@ msgstr ""
 #: src/scoring/components/scoring.screen.tsx
 msgid "Column"
 msgstr "কলাম"
+
+#: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
+msgid "Comfort"
+msgstr ""
+
+#: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
+msgid "Comfort mode"
+msgstr ""
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Comfortable"
@@ -1028,6 +1040,10 @@ msgstr ""
 msgid "No stats yet"
 msgstr "এখনও কোনো পরিসংখ্যান নেই"
 
+#: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
+msgid "Not now"
+msgstr ""
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Number pad"
 msgstr "নম্বর প্যাড"
@@ -1060,6 +1076,14 @@ msgstr "বর্তমান স্কোরের"
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "OK"
 msgstr "ঠিক আছে"
+
+#: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
+msgid "On, with your own changes kept. Turning it off restores what you had before."
+msgstr ""
+
+#: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
+msgid "One switch for bigger numbers, a calmer board, and high-contrast colors."
+msgstr ""
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "Only {valueList} is left for the marked cell, so place it there."
@@ -1712,6 +1736,14 @@ msgstr "আবার চেষ্টা করুন"
 #: src/challenge/components/challenge-try-again-button/challenge-try-again-button.tsx
 msgid "Try Again"
 msgstr "আবার চেষ্টা করুন"
+
+#: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
+msgid "Try Comfort mode"
+msgstr ""
+
+#: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
+msgid "Turn it on"
+msgstr ""
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Ukraine keeps fighting"

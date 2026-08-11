@@ -22,6 +22,11 @@ export const settingsKeySelector = (
         | 'calmMode'
     >
 ) => createSelector(settingsSelector, state => state[key]);
+export const settingsComfortModeSelector = createSelector(settingsSelector, state => state.comfortMode);
+export const settingsComfortModeOfferVisibleSelector = createSelector(
+    settingsSelector,
+    state => state.comfortMode === 'off' && !state.comfortModeOfferDismissed
+);
 export const settingsMotionPreferenceSelector = createSelector(settingsSelector, state => state.motionPreference);
 export const settingsFontSizeSelector = createSelector(settingsSelector, state => state.fontSize);
 export const settingsFontSizeMultiplierSelector = createSelector(

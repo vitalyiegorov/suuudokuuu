@@ -232,6 +232,10 @@ msgstr "Better luck next time!"
 msgid "Beyond the ceiling"
 msgstr "Beyond the ceiling"
 
+#: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
+msgid "Bigger board numbers, spacious cells, every highlight on, no timer, calm play, no animations and the high-contrast theme. Each one stays adjustable below."
+msgstr "Bigger board numbers, spacious cells, every highlight on, no timer, calm play, no animations and the high-contrast theme. Each one stays adjustable below."
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Board cells"
 msgstr "Board cells"
@@ -385,6 +389,14 @@ msgstr "Colorblind safe"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Column"
 msgstr "Column"
+
+#: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
+msgid "Comfort"
+msgstr "Comfort"
+
+#: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
+msgid "Comfort mode"
+msgstr "Comfort mode"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Comfortable"
@@ -1030,6 +1042,10 @@ msgstr "No simple technique applies"
 msgid "No stats yet"
 msgstr "No stats yet"
 
+#: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
+msgid "Not now"
+msgstr "Not now"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Number pad"
 msgstr "Number pad"
@@ -1062,6 +1078,14 @@ msgstr "of current score"
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "OK"
 msgstr "OK"
+
+#: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
+msgid "On, with your own changes kept. Turning it off restores what you had before."
+msgstr "On, with your own changes kept. Turning it off restores what you had before."
+
+#: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
+msgid "One switch for bigger numbers, a calmer board, and high-contrast colors."
+msgstr "One switch for bigger numbers, a calmer board, and high-contrast colors."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "Only {valueList} is left for the marked cell, so place it there."
@@ -1714,6 +1738,14 @@ msgstr "Try again"
 #: src/challenge/components/challenge-try-again-button/challenge-try-again-button.tsx
 msgid "Try Again"
 msgstr "Try Again"
+
+#: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
+msgid "Try Comfort mode"
+msgstr "Try Comfort mode"
+
+#: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
+msgid "Turn it on"
+msgstr "Turn it on"
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Ukraine keeps fighting"
