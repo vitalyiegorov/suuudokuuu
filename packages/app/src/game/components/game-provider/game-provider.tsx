@@ -1,7 +1,7 @@
 import { i18n } from '@lingui/core';
 import { FieldEngine } from '@suuudokuuu/field-core';
 import { useFieldSnapshot } from '@suuudokuuu/field-core/react';
-import { DifficultyEnum, Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
+import { forgePuzzle } from '@suuudokuuu/puzzle-forge';
 import { useEffect } from 'react';
 
 import { isNotEmptyString } from '@rnw-community/shared';
@@ -12,7 +12,6 @@ import { GameContext } from '../../context/game.context';
 import { useGameCreationRunner } from '../../hooks/use-game-creation-runner.hook';
 import { useGameEngineState } from '../../hooks/use-game-engine-state.hook';
 import { gameLoadAction, gameResumeAction, gameStartAction } from '../../store/game.actions';
-import { gameProviderCreateHellGame } from '../../utils/game-provider-create-hell-game.util';
 
 import type { GameSetupInterface } from '../../interface/game-setup.interface';
 import type { GameState } from '../../store/game.state';
@@ -21,18 +20,6 @@ import type { ReactNode } from 'react';
 interface Props {
     readonly children: ReactNode;
 }
-
-const createSudokuByDifficulty = (difficulty: DifficultyEnum): Sudoku => {
-    if (difficulty === DifficultyEnum.Hell) {
-        return gameProviderCreateHellGame();
-    }
-
-    const newSudoku = new Sudoku(defaultSudokuConfig);
-
-    newSudoku.create(difficulty);
-
-    return newSudoku;
-};
 
 export const GameProvider = ({ children }: Props) => {
     const { dispatch, isCreatingGame, router, runGameCreation, showAlert } = useGameCreationRunner();
@@ -65,7 +52,7 @@ export const GameProvider = ({ children }: Props) => {
 
     const create = ({ difficulty, isChallengeRun, maxMistakes }: GameSetupInterface) =>
         void runGameCreation(() => {
-            const sudokuString = createSudokuByDifficulty(difficulty).toString();
+            const sudokuString = forgePuzzle(difficulty).sudoku.toString();
 
             setEngine(new FieldEngine({ sudokuString, difficulty }));
 

@@ -34,6 +34,11 @@ jest.mock('../../store/game.selectors', () => ({
 }));
 jest.mock('../../../settings/store/settings.selectors', () => ({ settingsLanguageSelector: () => 'en' }));
 
+const forgedPuzzle = '9743.28565289.63171637.8294249.816736.72345893856971...528.9731896.73425731425968';
+const mockForgePuzzle = jest.fn(() => ({ isInBand: true, sudoku: Sudoku.fromString(forgedPuzzle, defaultSudokuConfig) }));
+
+jest.mock('@suuudokuuu/puzzle-forge', () => ({ forgePuzzle: () => mockForgePuzzle() }));
+
 const maxMistakes = 3;
 const hellGameOptions = { difficulty: DifficultyEnum.Hell, isChallengeRun: false, maxMistakes };
 
@@ -60,12 +65,9 @@ const buildChallengeState = () => {
 };
 
 describe('GameProvider', () => {
-    let createSpy = jest.spyOn(Sudoku.prototype, 'create');
-
     beforeEach(() => {
         mockPathname = '/';
         jest.clearAllMocks();
-        createSpy = jest.spyOn(Sudoku.prototype, 'create');
     });
 
     it('should generate, dispatch, and navigate once for repeated create calls', async () => {
@@ -79,7 +81,7 @@ describe('GameProvider', () => {
 
         await waitFor(() => void expect(mockReplace).toHaveBeenCalledTimes(1));
 
-        expect(createSpy).toHaveBeenCalledTimes(1);
+        expect(mockForgePuzzle).toHaveBeenCalledTimes(1);
         expect(mockDispatch).toHaveBeenCalledTimes(1);
         expect(mockReplace).toHaveBeenCalledWith('/game');
         expect(mockPush).not.toHaveBeenCalled();
@@ -105,9 +107,9 @@ describe('GameProvider', () => {
         await act(() => void result.current.create(newbieGameOptions));
 
         expect(result.current.isCreatingGame).toBe(true);
-        expect(createSpy).not.toHaveBeenCalled();
+        expect(mockForgePuzzle).not.toHaveBeenCalled();
 
-        await waitFor(() => void expect(createSpy).toHaveBeenCalledTimes(1));
+        await waitFor(() => void expect(mockForgePuzzle).toHaveBeenCalledTimes(1));
 
         mockPathname = '/game';
         await act(() => void rerender(undefined));
@@ -124,15 +126,13 @@ describe('GameProvider', () => {
         await act(() => void result.current.create(newbieGameOptions));
 
         expect(result.current.isCreatingGame).toBe(true);
-        expect(createSpy).toHaveBeenCalledTimes(1);
+        expect(mockForgePuzzle).toHaveBeenCalledTimes(1);
         expect(mockReplace).toHaveBeenCalledTimes(1);
     });
 
     it('should load and navigate once for repeated createFromState calls', async () => {
         const challengeState = buildChallengeState();
         const { result } = await renderGameContext();
-
-        createSpy.mockClear();
 
         await act(() => {
             result.current.createFromState(challengeState);
@@ -148,7 +148,7 @@ describe('GameProvider', () => {
     it('should surface the alert and allow a retry when generation fails', async () => {
         const { result } = await renderGameContext();
 
-        createSpy.mockImplementationOnce(() => {
+        mockForgePuzzle.mockImplementationOnce(() => {
             throw new Error('generation failed');
         });
 
