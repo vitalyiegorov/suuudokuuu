@@ -60,6 +60,10 @@ msgstr "{gamesCompleted, plural, one {# completed game} other {# completed games
 msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
 msgstr "{mistakes, plural, one {# mistake} other {# mistakes}}"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: start with {cellCount, plural, one {the # highlighted cell} other {the # highlighted cells}} and the digits {valueList}."
+msgstr "{techniqueName}: start with {cellCount, plural, one {the # highlighted cell} other {the # highlighted cells}} and the digits {valueList}."
+
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
 msgstr "{value, plural, one {# day} other {# days}}"
@@ -126,6 +130,7 @@ msgstr "Android installation"
 msgid "Animate completed rows, columns, and boxes"
 msgstr "Animate completed rows, columns, and boxes"
 
+#: src/game/components/hint-panel/hint-panel.tsx
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Apply"
 msgstr "Apply"
@@ -435,6 +440,10 @@ msgstr "Difficulty"
 msgid "Dim a completed digit in the numpad instead of removing it"
 msgstr "Dim a completed digit in the numpad instead of removing it"
 
+#: src/game/components/hint-panel/hint-panel.tsx
+msgid "Dismiss"
+msgstr "Dismiss"
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Display"
 msgstr "Display"
@@ -627,6 +636,10 @@ msgstr "Highlight matching numbers"
 msgid "Highlight pencil marks"
 msgstr "Highlight pencil marks"
 
+#: src/game/components/hint-button/hint-button.tsx
+msgid "Hint"
+msgstr "Hint"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Hint text"
 msgstr "Hint text"
@@ -656,6 +669,10 @@ msgstr "Incomplete"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Ink"
 msgstr "Ink"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Inside that pattern the digits {valueList} can only sit in the highlighted cells."
+msgstr "Inside that pattern the digits {valueList} can only sit in the highlighted cells."
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Install on iOS"
@@ -842,6 +859,10 @@ msgstr "Newbie"
 msgid "Newspaper"
 msgstr "Newspaper"
 
+#: src/game/components/hint-panel/hint-panel.tsx
+msgid "Next step"
+msgstr "Next step"
+
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Nightmare"
@@ -879,6 +900,10 @@ msgstr "No matter how many penalties, you always earn at least"
 msgid "no pause"
 msgstr "no pause"
 
+#: src/game/components/hint-button/hint-button.tsx
+msgid "No simple technique applies"
+msgstr "No simple technique applies"
+
 #: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
 msgstr "No stats yet"
@@ -908,12 +933,17 @@ msgstr "Numpad track (filled)"
 msgid "of current score"
 msgstr "of current score"
 
+#: src/game/components/hint-button/hint-button.tsx
 #: src/game/hooks/use-game-creation-runner.hook.ts
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "OK"
 msgstr "OK"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Only {valueList} is left for the marked cell, so place it there."
+msgstr "Only {valueList} is left for the marked cell, so place it there."
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Open commit {commitShortSha} on GitHub"
@@ -1042,6 +1072,10 @@ msgstr "Português"
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Presets"
 msgstr "Presets"
+
+#: src/game/components/hint-panel/hint-panel.tsx
+msgid "Previous step"
+msgstr "Previous step"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Primary text"
@@ -1334,6 +1368,10 @@ msgstr "Statistics"
 msgid "Stats"
 msgstr "Stats"
 
+#: src/game/components/hint-panel/hint-panel.tsx
+msgid "Step {currentStepNumber} of {stepCount}"
+msgstr "Step {currentStepNumber} of {stepCount}"
+
 #: src/history/components/replay-controls/replay-controls.tsx
 msgid "Step time"
 msgstr "Step time"
@@ -1422,6 +1460,10 @@ msgstr "Text on filled numpad track"
 msgid "Text on ink"
 msgstr "Text on ink"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "That rules {valueList} out of {cellCount, plural, one {# other cell} other {# other cells}}, so the struck candidates are gone."
+msgstr "That rules {valueList} out of {cellCount, plural, one {# other cell} other {# other cells}}, so the struck candidates are gone."
+
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
 msgstr "The commit link could not be opened on this device."
@@ -1452,6 +1494,10 @@ msgstr "Theme name"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
+
+#: src/game/components/hint-button/hint-button.tsx
+msgid "This position needs chains or trial and error, so there is no simple logical step to teach. Nothing was revealed and no score was deducted."
+msgstr "This position needs chains or trial and error, so there is no simple logical step to teach. Nothing was revealed and no score was deducted."
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "This theme will be removed permanently."

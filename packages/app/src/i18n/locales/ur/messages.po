@@ -58,6 +58,10 @@ msgstr "{gamesCompleted, plural, one {# مکمل کھیل} other {# مکمل ک�
 msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
 msgstr "{mistakes, plural, one {# غلطی} other {# غلطیاں}}"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: start with {cellCount, plural, one {the # highlighted cell} other {the # highlighted cells}} and the digits {valueList}."
+msgstr ""
+
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
 msgstr "{value, plural, one {# دن} other {# دن}}"
@@ -124,6 +128,7 @@ msgstr "Android انسٹالیشن"
 msgid "Animate completed rows, columns, and boxes"
 msgstr "مکمل قطاروں، کالموں اور خانوں کو متحرک کریں"
 
+#: src/game/components/hint-panel/hint-panel.tsx
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Apply"
 msgstr "لاگو کریں"
@@ -433,6 +438,10 @@ msgstr "مشکل"
 msgid "Dim a completed digit in the numpad instead of removing it"
 msgstr "مکمل ہندسے کو ہٹانے کے بجائے نمبر پیڈ میں دھندلا کریں"
 
+#: src/game/components/hint-panel/hint-panel.tsx
+msgid "Dismiss"
+msgstr ""
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Display"
 msgstr "ڈسپلے"
@@ -625,6 +634,10 @@ msgstr "ملتے جلتے نمبرز نمایاں کریں"
 msgid "Highlight pencil marks"
 msgstr "پینسل نوٹس نمایاں کریں"
 
+#: src/game/components/hint-button/hint-button.tsx
+msgid "Hint"
+msgstr ""
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Hint text"
 msgstr "اشارے کا متن"
@@ -654,6 +667,10 @@ msgstr "نامکمل"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Ink"
 msgstr "روشنائی"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Inside that pattern the digits {valueList} can only sit in the highlighted cells."
+msgstr ""
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Install on iOS"
@@ -840,6 +857,10 @@ msgstr "نیا کھلاڑی"
 msgid "Newspaper"
 msgstr "اخبار"
 
+#: src/game/components/hint-panel/hint-panel.tsx
+msgid "Next step"
+msgstr ""
+
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Nightmare"
@@ -877,6 +898,10 @@ msgstr "پنالٹیز کتنی بھی ہوں، آپ کو ہمیشہ کم از �
 msgid "no pause"
 msgstr "کوئی وقفہ نہیں"
 
+#: src/game/components/hint-button/hint-button.tsx
+msgid "No simple technique applies"
+msgstr ""
+
 #: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
 msgstr "ابھی کوئی شماریات نہیں"
@@ -906,12 +931,17 @@ msgstr "نمبر پیڈ کی پٹی (بھری ہوئی)"
 msgid "of current score"
 msgstr "موجودہ اسکور کا"
 
+#: src/game/components/hint-button/hint-button.tsx
 #: src/game/hooks/use-game-creation-runner.hook.ts
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "OK"
 msgstr "ٹھیک ہے"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Only {valueList} is left for the marked cell, so place it there."
+msgstr ""
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Open commit {commitShortSha} on GitHub"
@@ -1040,6 +1070,10 @@ msgstr "Português"
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Presets"
 msgstr "پری سیٹس"
+
+#: src/game/components/hint-panel/hint-panel.tsx
+msgid "Previous step"
+msgstr ""
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Primary text"
@@ -1332,6 +1366,10 @@ msgstr "اعدادوشمار"
 msgid "Stats"
 msgstr "شماریات"
 
+#: src/game/components/hint-panel/hint-panel.tsx
+msgid "Step {currentStepNumber} of {stepCount}"
+msgstr ""
+
 #: src/history/components/replay-controls/replay-controls.tsx
 msgid "Step time"
 msgstr "چال کا وقت"
@@ -1420,6 +1458,10 @@ msgstr "بھری ہوئی نمبر پیڈ کی پٹی پر متن"
 msgid "Text on ink"
 msgstr "روشنائی پر متن"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "That rules {valueList} out of {cellCount, plural, one {# other cell} other {# other cells}}, so the struck candidates are gone."
+msgstr ""
+
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
 msgstr "اس ڈیوائس پر کمیٹ کا لنک نہیں کھولا جا سکا۔"
@@ -1450,6 +1492,10 @@ msgstr "تھیم کا نام"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "اس بار یہ بورڈ مکمل نہیں ہوا۔ یوکرین میں آزادی کی جنگ جاری ہے۔ ہر $1 عطیہ معنی رکھتا ہے۔"
+
+#: src/game/components/hint-button/hint-button.tsx
+msgid "This position needs chains or trial and error, so there is no simple logical step to teach. Nothing was revealed and no score was deducted."
+msgstr ""
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "This theme will be removed permanently."

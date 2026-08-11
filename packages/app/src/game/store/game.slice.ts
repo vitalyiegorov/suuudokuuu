@@ -15,6 +15,7 @@ import { isLastTimelineEventAway } from '../utils/is-last-timeline-event-away.ut
 import { initialGameState } from './game.state';
 
 import type { GameState } from './game.state';
+import type { GameHintPayloadInterface } from '../interface/game-hint-payload.interface';
 import type { GameSavePayloadInterface } from '../interface/game-save-payload.interface';
 import type { CellInterface, DifficultyEnum } from '@suuudokuuu/generator';
 
@@ -130,6 +131,26 @@ export const gameSlice = createSlice({
                         }
                     })
             );
+        },
+        hint: (state, action: PayloadAction<GameHintPayloadInterface>) => {
+            const scoring = new SudokuScoring(defaultScoringConfig);
+            const penalty = scoring.calculateHintPenalty({ difficulty: state.difficulty, maxMistakes: state.maxMistakes });
+
+            state.score = Math.max(state.score - penalty, 0);
+
+            state.timelineEvents.push({
+                kind: TimelineEventKindEnum.Hint,
+                ts: getTimelineTimestampDelta(state.timelineEvents, state.elapsedTime)
+            });
+
+            action.payload.eliminations.forEach(elimination => {
+                const key = getCellKey(elimination.cell);
+                const cellCandidates = state.candidates[key];
+
+                if (isDefined(cellCandidates)) {
+                    state.candidates[key] = cellCandidates.filter(candidate => candidate !== elimination.value);
+                }
+            });
         },
         mistake: (state, action: PayloadAction<CellInterface>) => {
             state.mistakes += 1;

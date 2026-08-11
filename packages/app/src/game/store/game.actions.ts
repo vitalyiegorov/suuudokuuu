@@ -11,6 +11,7 @@ export const gameTimelineAwayAction = gameSlice.actions.timelineAway;
 export const gameTimelineReturnAction = gameSlice.actions.timelineReturn;
 export const gameTickAction = gameSlice.actions.tick;
 export const gameMistakeAction = gameSlice.actions.mistake;
+export const gameHintAction = gameSlice.actions.hint;
 export const gameToggleAutoCandidatesAction = gameSlice.actions.toggleShowAutoCandidates;
 export const gameToggleInputModeAction = gameSlice.actions.toggleInputMode;
 export const gameToggleCellCandidateAction = gameSlice.actions.toggleCellCandidate;

@@ -432,6 +432,7 @@ describe('SudokuScoring', () => {
                     correctValue: 50,
                     correctMinValue: 10,
                     elapsedCoefficient: 0.02,
+                    hintCoefficient: 0.25,
                     mistakesCoefficient: 0.1,
                     lastInRowCoefficientConstant: 1,
                     lastInColCoefficientConstant: 1,
@@ -545,6 +546,71 @@ describe('SudokuScoring', () => {
 
                 expect(score).toBeGreaterThanOrEqual(defaultScoringConfig.correctMinValue);
             });
+        });
+    });
+
+    describe('calculateHintPenalty', () => {
+        it('should charge half of a plain placement at the same difficulty', () => {
+            const scoring = new SudokuScoring(defaultScoringConfig);
+            const placementScore = scoring.calculate({
+                difficulty: DifficultyEnum.Medium,
+                scoredCells: emptyScoredCells,
+                mistakes: 0,
+                elapsedTime: 0,
+                maxMistakes: 3
+            });
+            const penalty = scoring.calculateHintPenalty({ difficulty: DifficultyEnum.Medium, maxMistakes: 3 });
+
+            expect(penalty).toBe(Math.floor(placementScore * defaultScoringConfig.hintCoefficient));
+        });
+
+        it('should scale the penalty with the difficulty coefficient', () => {
+            const scoring = new SudokuScoring(defaultScoringConfig);
+
+            const newbiePenalty = scoring.calculateHintPenalty({ difficulty: DifficultyEnum.Newbie, maxMistakes: 99 });
+            const hellPenalty = scoring.calculateHintPenalty({ difficulty: DifficultyEnum.Hell, maxMistakes: 99 });
+
+            expect(hellPenalty).toBeGreaterThan(newbiePenalty);
+        });
+
+        it('should scale the penalty with the hardcore max mistakes bonus', () => {
+            const scoring = new SudokuScoring(defaultScoringConfig);
+
+            const forgivingPenalty = scoring.calculateHintPenalty({ difficulty: DifficultyEnum.Hard, maxMistakes: 99 });
+            const hardcorePenalty = scoring.calculateHintPenalty({ difficulty: DifficultyEnum.Hard, maxMistakes: 0 });
+
+            expect(hardcorePenalty).toBeGreaterThan(forgivingPenalty);
+        });
+
+        it('should never charge less than the minimum correct value', () => {
+            const scoring = new SudokuScoring({ ...defaultScoringConfig, hintCoefficient: 0 });
+
+            expect(scoring.calculateHintPenalty({ difficulty: DifficultyEnum.Newbie, maxMistakes: 99 })).toBe(
+                defaultScoringConfig.correctMinValue
+            );
+        });
+
+        it('should stay below what a mistake costs over the rest of a run', () => {
+            const scoring = new SudokuScoring(defaultScoringConfig);
+            const calculateWithMistakes = (mistakes: number): number =>
+                scoring.calculate({
+                    difficulty: DifficultyEnum.Medium,
+                    scoredCells: emptyScoredCells,
+                    mistakes,
+                    elapsedTime: 0,
+                    maxMistakes: 3
+                });
+            const remainingPlacements = 20;
+            const mistakeCost = (calculateWithMistakes(0) - calculateWithMistakes(1)) * remainingPlacements;
+            const penalty = scoring.calculateHintPenalty({ difficulty: DifficultyEnum.Medium, maxMistakes: 3 });
+
+            expect(penalty).toBeLessThan(mistakeCost);
+        });
+
+        it('should always return an integer penalty', () => {
+            const scoring = new SudokuScoring({ ...defaultScoringConfig, hintCoefficient: 0.33 });
+
+            expect(Number.isInteger(scoring.calculateHintPenalty({ difficulty: DifficultyEnum.Nightmare, maxMistakes: 5 }))).toBe(true);
         });
     });
 });

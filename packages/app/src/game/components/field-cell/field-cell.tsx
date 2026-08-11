@@ -46,6 +46,8 @@ interface Props {
     readonly isEmpty: boolean;
     readonly isActiveValue: boolean;
     readonly isHighlighted: boolean;
+    readonly isPatternCell: boolean;
+    readonly isTargetCell: boolean;
     readonly isWrong: boolean;
     readonly isSuccessTarget: boolean;
     readonly successGeneration: number;
@@ -60,6 +62,8 @@ export const FieldCell = (props: Props) => {
         isActive,
         isActiveValue,
         isHighlighted,
+        isPatternCell,
+        isTargetCell,
         isWrong,
         isEmpty,
         isSuccessTarget,
@@ -91,6 +95,8 @@ export const FieldCell = (props: Props) => {
         isActiveValue,
         isCellHighlighted: isHighlighted,
         isEmpty,
+        isPatternCell,
+        isTargetCell,
         isWrong,
         showAreas,
         showFilledNumbers,

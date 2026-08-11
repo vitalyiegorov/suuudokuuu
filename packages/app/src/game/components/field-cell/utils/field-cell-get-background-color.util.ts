@@ -1,9 +1,24 @@
 import type { FieldCellBackgroundColorParamsInterface } from '../interface/field-cell-background-color-params.interface';
 
 export const fieldCellGetBackgroundColor = (params: FieldCellBackgroundColorParamsInterface) => {
-    const { isActiveValue, isCellHighlighted, isWrong, isEmpty, showAreas, showIdenticalNumbers, showFilledNumbers, theme } = params;
+    const {
+        isActiveValue,
+        isCellHighlighted,
+        isPatternCell,
+        isTargetCell,
+        isWrong,
+        isEmpty,
+        showAreas,
+        showIdenticalNumbers,
+        showFilledNumbers,
+        theme
+    } = params;
 
-    if (isWrong) {
+    if (isTargetCell) {
+        return theme.colors.accent;
+    } else if (isPatternCell) {
+        return theme.colors.candidate.fillSelected;
+    } else if (isWrong) {
         return theme.colors.board.error;
     } else if (isActiveValue && showIdenticalNumbers) {
         return theme.colors.board.sameValue;

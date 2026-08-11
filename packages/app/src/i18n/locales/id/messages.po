@@ -58,6 +58,10 @@ msgstr "{gamesCompleted, plural, one {# game selesai} other {# game selesai}}"
 msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
 msgstr "{mistakes, plural, one {# kesalahan} other {# kesalahan}}"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: start with {cellCount, plural, one {the # highlighted cell} other {the # highlighted cells}} and the digits {valueList}."
+msgstr ""
+
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
 msgstr "{value, plural, one {# hari} other {# hari}}"
@@ -124,6 +128,7 @@ msgstr "Penginstalan Android"
 msgid "Animate completed rows, columns, and boxes"
 msgstr "Animasikan baris, kolom, dan kotak yang selesai"
 
+#: src/game/components/hint-panel/hint-panel.tsx
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Apply"
 msgstr "Terapkan"
@@ -433,6 +438,10 @@ msgstr "Tingkat kesulitan"
 msgid "Dim a completed digit in the numpad instead of removing it"
 msgstr "Redupkan angka yang sudah lengkap di numpad, bukan menghapusnya"
 
+#: src/game/components/hint-panel/hint-panel.tsx
+msgid "Dismiss"
+msgstr ""
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Display"
 msgstr "Tampilan"
@@ -625,6 +634,10 @@ msgstr "Sorot angka yang cocok"
 msgid "Highlight pencil marks"
 msgstr "Sorot catatan pensil"
 
+#: src/game/components/hint-button/hint-button.tsx
+msgid "Hint"
+msgstr ""
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Hint text"
 msgstr "Teks petunjuk"
@@ -654,6 +667,10 @@ msgstr "Belum selesai"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Ink"
 msgstr "Tinta"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Inside that pattern the digits {valueList} can only sit in the highlighted cells."
+msgstr ""
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Install on iOS"
@@ -840,6 +857,10 @@ msgstr "Pemula"
 msgid "Newspaper"
 msgstr "Koran"
 
+#: src/game/components/hint-panel/hint-panel.tsx
+msgid "Next step"
+msgstr ""
+
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Nightmare"
@@ -877,6 +898,10 @@ msgstr "Berapa pun penaltinya, kamu selalu mendapat setidaknya"
 msgid "no pause"
 msgstr "tanpa jeda"
 
+#: src/game/components/hint-button/hint-button.tsx
+msgid "No simple technique applies"
+msgstr ""
+
 #: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
 msgstr "Belum ada statistik"
@@ -906,12 +931,17 @@ msgstr "Bilah numpad (terisi)"
 msgid "of current score"
 msgstr "dari skor saat ini"
 
+#: src/game/components/hint-button/hint-button.tsx
 #: src/game/hooks/use-game-creation-runner.hook.ts
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "OK"
 msgstr "OK"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Only {valueList} is left for the marked cell, so place it there."
+msgstr ""
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Open commit {commitShortSha} on GitHub"
@@ -1040,6 +1070,10 @@ msgstr "Português"
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Presets"
 msgstr "Preset"
+
+#: src/game/components/hint-panel/hint-panel.tsx
+msgid "Previous step"
+msgstr ""
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Primary text"
@@ -1332,6 +1366,10 @@ msgstr "Statistik"
 msgid "Stats"
 msgstr "Statistik"
 
+#: src/game/components/hint-panel/hint-panel.tsx
+msgid "Step {currentStepNumber} of {stepCount}"
+msgstr ""
+
 #: src/history/components/replay-controls/replay-controls.tsx
 msgid "Step time"
 msgstr "Waktu langkah"
@@ -1420,6 +1458,10 @@ msgstr "Teks pada bilah numpad terisi"
 msgid "Text on ink"
 msgstr "Teks pada tinta"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "That rules {valueList} out of {cellCount, plural, one {# other cell} other {# other cells}}, so the struck candidates are gone."
+msgstr ""
+
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
 msgstr "Tautan commit tidak dapat dibuka di perangkat ini."
@@ -1450,6 +1492,10 @@ msgstr "Nama tema"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "Papan ini belum selesai kali ini. Perjuangan untuk kebebasan di Ukraina terus berlanjut. Setiap donasi $1 berarti."
+
+#: src/game/components/hint-button/hint-button.tsx
+msgid "This position needs chains or trial and error, so there is no simple logical step to teach. Nothing was revealed and no score was deducted."
+msgstr ""
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "This theme will be removed permanently."

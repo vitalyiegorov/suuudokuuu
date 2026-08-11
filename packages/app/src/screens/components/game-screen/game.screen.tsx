@@ -17,6 +17,7 @@ import { ChallengeScreenshotRecorder } from '../../../challenge/components/chall
 import { WinConfettiContext } from '../../../confetti/context/win-confetti.context';
 import { Field, FieldRef } from '../../../game/components/field/field';
 import { GameTimerController } from '../../../game/components/game-timer-controller/game-timer-controller';
+import { HintPanel } from '../../../game/components/hint-panel/hint-panel';
 import { GameToolsSlotReservedHeightConstant } from '../../../game/constant/board-cell-size.constant';
 import { GameContext } from '../../../game/context/game.context';
 import { useBoardGeometry } from '../../../game/hooks/use-board-geometry.hook';
@@ -292,6 +293,8 @@ export const GameScreen = () => {
                     {isWideLayout ? gameActionsWithPause : null}
                 </View>
             </View>
+
+            <HintPanel />
         </Pressable>
     );
 };

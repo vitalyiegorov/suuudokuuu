@@ -21,7 +21,8 @@ export type MarkerTimelineEventKindType =
     | TimelineEventKindEnum.Return
     | TimelineEventKindEnum.Pause
     | TimelineEventKindEnum.Resume
-    | TimelineEventKindEnum.Screenshot;
+    | TimelineEventKindEnum.Screenshot
+    | TimelineEventKindEnum.Hint;
 
 export interface MarkerTimelineEventInterface {
     kind: MarkerTimelineEventKindType;
