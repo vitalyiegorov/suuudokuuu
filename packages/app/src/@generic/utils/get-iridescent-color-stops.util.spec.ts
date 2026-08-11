@@ -12,10 +12,11 @@ describe('getIridescentColorStops', () => {
         expect(stops.at(-1)).toBe(BWLightTheme.colors.accent);
     });
 
-    it('routes through the primary text and danger tokens between the accent stops', () => {
+    it('routes through cool surface and selection tokens between the accent stops, never the danger token', () => {
         const stops = getIridescentColorStops(BWLightTheme);
 
-        expect(stops[1]).toBe(BWLightTheme.colors.text.primary);
-        expect(stops[2]).toBe(BWLightTheme.colors.danger);
+        expect(stops[1]).toBe(BWLightTheme.colors.surface.raisedText);
+        expect(stops[2]).toBe(BWLightTheme.colors.board.selected);
+        expect(stops).not.toContain(BWLightTheme.colors.danger);
     });
 });
