@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Suuudokuuu is an open-source Sudoku game built with React Native and Expo. This monorepo has ten core packages: `app` for the game UI, `landing` for the static Next.js content and SEO site, `generator` for Sudoku generation and solving, `solver-core` for the shared solver contract, grid utilities, and conformance helpers, `solver-dlx` for the Dancing Links exact-cover solver, `solver-bitmask` for the typed-array bitmask solver, `techniques` for solving-technique detection, `encoder` for compact shareable game-state encoding, `hell-corpus` for the bundled, verified Hell-difficulty puzzle corpus, and `screen-chrome` for generic screen chrome primitives.
+Suuudokuuu is an open-source Sudoku game built with React Native and Expo. This monorepo has eleven core packages: `app` for the game UI, `landing` for the static Next.js content and SEO site, `generator` for Sudoku generation and solving, `solver-core` for the shared solver contract, grid utilities, and conformance helpers, `solver-dlx` for the Dancing Links exact-cover solver, `solver-bitmask` for the typed-array bitmask solver, `techniques` for solving-technique detection, `field-core` for the headless interactive field engine and technique step-script player, `encoder` for compact shareable game-state encoding, `hell-corpus` for the bundled, verified Hell-difficulty puzzle corpus, and `screen-chrome` for generic screen chrome primitives.
 
 ## Canonical Agent Surfaces
 
@@ -47,6 +47,7 @@ packages/
 ├── solver-dlx/         # Dancing Links (DLX) exact-cover Sudoku solver
 ├── solver-bitmask/     # Typed-array bitmask MRV Sudoku solver
 ├── techniques/         # Pure TypeScript solving-technique detection
+├── field-core/         # Headless sudoku field engine and technique step-script player
 ├── encoder/            # Binary/LZ encoding for puzzle sharing and replay
 ├── hell-corpus/        # Bundled, verified 17-clue Hell-difficulty puzzle corpus
 ├── landing/            # Static Next.js App Router content and SEO site for www.suuudokuuu.com
@@ -61,6 +62,7 @@ tests/
 - Read `packages/app/AGENTS.md` before changing Expo Router routes, React Native UI, Redux state, persistence, themes, Lingui text, deep links, sharing, or app assets.
 - Read `packages/generator/AGENTS.md` before changing Sudoku generation, validation, navigation, DLX solving, difficulty config, or puzzle interfaces.
 - Read `packages/techniques/AGENTS.md` before changing solving techniques, candidate context, strategy ordering, or move classification.
+- Read `packages/field-core/AGENTS.md` before changing the headless field engine: snapshots, subscriptions, engine events, candidates and input modes, undo/redo, engine serialization, or the StepScript model, mapper, and player.
 - Read `packages/encoder/AGENTS.md` before changing binary formats, solution-step encoding, URL serialization, compression, or decode error behavior.
 - Read `packages/hell-corpus/scripts/build-corpus.mjs` before changing the bundled Hell-difficulty puzzle corpus, its build/verification CLI, or the packed record format.
 - Read `packages/landing/AGENTS.md` before changing the landing site: App Router routes, page metadata sidecars, the metadata registry, JSON-LD schema components, `sitemap.ts`, `robots.ts`, `manifest.ts`, or landing copy.
@@ -154,7 +156,7 @@ Use Conventional Commits for commit messages and PR titles:
 type(scope): short description
 ```
 
-Scopes are `app`, `landing`, `generator`, `solver-core`, `solver-dlx`, `solver-bitmask`, `techniques`, `encoder`, and `hell-corpus`. Omit the scope for repo-wide docs, tooling, skills, or workspace configuration.
+Scopes are `app`, `landing`, `generator`, `solver-core`, `solver-dlx`, `solver-bitmask`, `techniques`, `encoder`, `hell-corpus`, `field-core`, and `field-dom`. Omit the scope for repo-wide docs, tooling, skills, or workspace configuration.
 
 Use these types: `feat`, `fix`, `refactor`, `chore`, `docs`, `ci`, `test`, `i18n`, `perf`, and `build`.
 
