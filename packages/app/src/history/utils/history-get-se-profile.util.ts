@@ -1,7 +1,8 @@
 import { isNotEmptyArray, isPositiveNumber } from '@rnw-community/shared';
 
 import { HistorySeProfileRecentWinsSampleSize } from '../constants/history-se-profile.constant';
-import { emptyHistoryRatingSnapshot } from '../interfaces/history-rating-snapshot.interface';
+
+import { historyGetBestRating } from './history-get-best-rating.util';
 
 import type { CompletedGameInterface } from '../interfaces/completed-game.interface';
 import type { HistoryGameInterface } from '../interfaces/history-game.interface';
@@ -13,10 +14,7 @@ export const historyGetSeProfile = (
     completedGames: readonly CompletedGameInterface[]
 ): HistorySeProfileInterface => {
     const histories = Object.values(historyByDifficulty);
-    const bestRating = histories.reduce(
-        (best, history) => (history.bestRating.rating > best.rating ? history.bestRating : best),
-        emptyHistoryRatingSnapshot
-    );
+    const bestRating = historyGetBestRating(histories);
 
     const recentRatedGames = completedGames
         .filter(game => isPositiveNumber(game.rating))

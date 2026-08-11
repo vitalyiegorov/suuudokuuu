@@ -68,8 +68,6 @@ test('shows the rival rating inline on a rated challenge loss', async ({ page })
 
     const resultScreen = page.getByTestId(ChallengeResultScreenSelectors.Root);
     await expect(resultScreen).toBeVisible({ timeout: challengeResultTimeoutMilliseconds });
-    // The outcome pill now composes "{flavor} · {level} · {rating} · {mistakes type}" as plain
-    // text instead of rendering a separate rating badge next to it.
     await expect(resultScreen.getByTestId(ChallengeResultScreenSelectors.OutcomeValue)).toHaveText(/· \d+\.\d\+?/u);
 
     await page.getByTestId(ChallengeTryAgainButtonSelectors.Root).click();

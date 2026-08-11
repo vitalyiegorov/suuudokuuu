@@ -151,8 +151,17 @@ describe('game selectors', () => {
     });
 
     it('finds the highest best rating across every difficulty', () => {
-        expect(gameBestRatingSelector.resultFunc(state)).toStrictEqual({ rating: 8.6, isRatingCeiling: true });
-        expect(gameBestRatingSelector.resultFunc(initialGameState)).toStrictEqual(emptyHistoryRatingSnapshot);
+        expect(gameBestRatingSelector.resultFunc(state.historyByDifficulty)).toStrictEqual({ rating: 8.6, isRatingCeiling: true });
+        expect(gameBestRatingSelector.resultFunc(initialGameState.historyByDifficulty)).toStrictEqual(emptyHistoryRatingSnapshot);
+    });
+
+    it('recomputes the best rating from history alone, so an unrelated tick reuses the cached snapshot', () => {
+        const firstResult = gameBestRatingSelector.memoizedResultFunc(state.historyByDifficulty);
+        const secondResult = gameBestRatingSelector.memoizedResultFunc(state.historyByDifficulty);
+
+        expect(gameBestRatingSelector.dependencies).toStrictEqual([gameHistoryByDifficultySelector]);
+        expect(gameHistoryByDifficultySelector.resultFunc({ ...state, elapsedTime: elapsedTime + 1 })).toBe(state.historyByDifficulty);
+        expect(secondResult).toBe(firstResult);
     });
 
     it('selects per-difficulty history, completed games, and games by id', () => {

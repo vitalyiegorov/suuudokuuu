@@ -15,8 +15,6 @@ test('starts and quits a new game from the home screen', async ({ page }) => {
     await startNewGame(page);
     await expect(page.getByTestId(GameScreenSelectors.Score)).toHaveText('0');
     await expect(page.getByText('0/3')).toBeVisible();
-    // The level pill moved off the game screen entirely (it now only lives on the pause screen
-    // and result/history surfaces), so both testids are permanently absent here.
     await expect(page.getByTestId(GameScreenSelectors.Level)).not.toBeVisible();
     await expect(page.getByTestId(GameScreenSelectors.Rating)).not.toBeVisible();
 

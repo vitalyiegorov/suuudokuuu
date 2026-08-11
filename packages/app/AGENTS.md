@@ -122,7 +122,16 @@ src/
    from react-navigation's `ResourceSavingView` into `Screen.web.js`, the only component in the web
    tree that applies `hidden` + `display: none`. `enableFreeze()` returns before its assignment and is
    a genuine no-op on web, so it is guarded alongside purely for symmetry.
-3. Blurred chrome on web (`EdgeFade`, the `FloatingTabBar` `BlurView` surface) attaches
+3. Board cells pass `tabIndex={-1}` to their `Pressable`. `react-native-web` always emits a `tabIndex`
+   from `Pressable` (`0` unless `disabled`), so `focusable={false}` is silently ignored there and
+   `tabIndex` is the only prop that works. Without it all 81 cells become tab stops. Cells are selected
+   by click and arrow keys, and the green selection highlight is their indicator, so the
+   `outline: none` rule for `[data-testid^='CellSelectors.Cell.']` in
+   `@generic/utils/game-controls-interactions.css` removes a ring that could never track the real
+   selection anyway. Tab therefore moves between genuine controls (numpad, candidate input), which keep
+   their themed `:focus-visible` ring. `tests/web-tests/specs/13.cell-focus-ring-alignment.spec.ts` pins
+   both halves of this.
+4. Blurred chrome on web (`EdgeFade`, the `FloatingTabBar` `BlurView` surface) attaches
    `useBackdropRecomposite` from `@suuudokuuu/screen-chrome`. Keep that ref attached to an existing
    wrapper element; do not introduce a new wrapper View for it, which would change tab bar layout.
 

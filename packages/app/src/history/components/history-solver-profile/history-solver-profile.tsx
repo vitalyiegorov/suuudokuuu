@@ -1,4 +1,4 @@
-import { useLingui } from '@lingui/react/macro';
+import { Trans, useLingui } from '@lingui/react/macro';
 import { router } from 'expo-router';
 import { use } from 'react';
 import { Pressable, View } from 'react-native';
@@ -61,7 +61,9 @@ export const HistorySolverProfile = ({ profile, completedGames }: Props) => {
                 style={styles.hero}
                 testID={HistorySolverProfileSelectors.HardestSolve}
             >
-                <BlackText style={eyebrowStyles}>{t`Hardest solve`}</BlackText>
+                <BlackText style={eyebrowStyles}>
+                    <Trans>Hardest solve</Trans>
+                </BlackText>
                 <BlackText adjustsFontSizeToFit minimumFontScale={0.62} numberOfLines={1} style={headlineStyles}>
                     {hardestSolveText}
                 </BlackText>

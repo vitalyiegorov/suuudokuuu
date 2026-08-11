@@ -10,6 +10,7 @@ import { maxCompletedGamesPerDifficulty } from '../../history/constants/max-comp
 import { SudokuScoring } from '../../scoring/classes/sudoku-scoring';
 import { defaultScoringConfig } from '../../scoring/interfaces/scoring-config.interface';
 import { addPlayedDayNumber } from '../utils/add-played-day-number.util';
+import { gameGetPersistedAggregates } from '../utils/game-get-persisted-aggregates.util';
 import { gameStateToString } from '../utils/game-state-to-string.util';
 import { getTimelineTimestampDelta } from '../utils/get-timeline-timestamp-delta.util';
 import { isLastTimelineEventAway } from '../utils/is-last-timeline-event-away.util';
@@ -32,12 +33,7 @@ export const gameSlice = createSlice({
                 Pick<GameState, 'sudokuString' | 'difficulty' | 'maxMistakes' | 'isChallengeRun' | 'rating' | 'isRatingCeiling'>
             >
         ) => {
-            Object.assign(state, {
-                ...initialGameState,
-                historyByDifficulty: state.historyByDifficulty,
-                techniqueUsageCounts: state.techniqueUsageCounts,
-                playedDayNumbers: state.playedDayNumbers
-            });
+            Object.assign(state, { ...initialGameState, ...gameGetPersistedAggregates(state) });
 
             state.sudokuString = action.payload.sudokuString;
             state.difficulty = action.payload.difficulty;
@@ -168,7 +164,7 @@ export const gameSlice = createSlice({
             });
         },
         load: (state, action: PayloadAction<Partial<GameState>>) => {
-            Object.assign(state, action.payload);
+            Object.assign(state, action.payload, gameGetPersistedAggregates(state));
         },
         tick: state => {
             if (!state.isPaused && isNotEmptyString(state.sudokuString)) {
@@ -176,12 +172,7 @@ export const gameSlice = createSlice({
             }
         },
         reset: state => {
-            Object.assign(state, {
-                ...initialGameState,
-                historyByDifficulty: state.historyByDifficulty,
-                techniqueUsageCounts: state.techniqueUsageCounts,
-                playedDayNumbers: state.playedDayNumbers
-            });
+            Object.assign(state, { ...initialGameState, ...gameGetPersistedAggregates(state) });
         },
         toggleShowAutoCandidates: state => {
             state.showAutoCandidates = !state.showAutoCandidates;

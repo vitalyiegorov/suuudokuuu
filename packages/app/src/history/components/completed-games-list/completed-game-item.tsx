@@ -43,11 +43,9 @@ export const CompletedGameItem = ({ game }: Props) => {
             <View style={styles.header}>
                 <View style={styles.titleGroup}>
                     <BlackText style={eyebrowStyles}>{completedDateText}</BlackText>
-                    <View style={styles.difficultyRow}>
-                        <BlackText style={difficultyStyles} testID={CompletedGameItemSelectors.DifficultyValue}>
-                            {levelText}
-                        </BlackText>
-                    </View>
+                    <BlackText style={difficultyStyles} testID={CompletedGameItemSelectors.DifficultyValue}>
+                        {levelText}
+                    </BlackText>
                 </View>
 
                 <AppLinkButton

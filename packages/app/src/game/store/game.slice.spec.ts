@@ -42,6 +42,9 @@ import { initialGameState } from './game.state';
 const StartedSudokuString = 'started-sudoku';
 const InitialElapsedTime = 42;
 const StartedRating = 3.4;
+const FirstPersistedDayNumber = 19000;
+const SecondPersistedDayNumber = 19001;
+const PersistedPlayedDayNumbers = [FirstPersistedDayNumber, SecondPersistedDayNumber];
 
 const HellPuzzle = '000000010400000000020000000000050407008000300001090000300400200050100000000806000';
 const HellSolution = '693784512487512936125963874932651487568247391741398625319475268856129743274836159';
@@ -191,6 +194,43 @@ describe('gameSlice', () => {
         expect(mistakenState.mistakes).toBe(1);
         expect(resetState).toMatchObject({ ...initialGameState, historyByDifficulty });
         expect(resetState.hasNewPersonalBestScore).toBe(false);
+    });
+
+    it('keeps persisted history, technique counts and played days when loading a full shared game state', () => {
+        const historyByDifficulty = {
+            ...initialGameState.historyByDifficulty,
+            [DifficultyEnum.Hell]: {
+                ...initialGameState.historyByDifficulty[DifficultyEnum.Hell],
+                gamesCompleted: 7,
+                gamesWon: 5,
+                bestScore: 4321,
+                bestRating: { rating: StartedRating, isRatingCeiling: false }
+            }
+        };
+        const persistedState = {
+            ...initialGameState,
+            historyByDifficulty,
+            techniqueUsageCounts: { [SolutionTechniqueEnum.NakedSingle]: 9 },
+            playedDayNumbers: PersistedPlayedDayNumbers
+        };
+        const sharedState = {
+            ...initialGameState,
+            sudokuString: StartedSudokuString,
+            difficulty: DifficultyEnum.Hard,
+            rating: StartedRating,
+            elapsedTime: InitialElapsedTime,
+            challengeState: 'shared-challenge-state',
+            isChallengeRun: true
+        };
+        const loadedState = gameSlice.reducer(persistedState, gameLoadAction(sharedState));
+
+        expect(loadedState.historyByDifficulty).toStrictEqual(historyByDifficulty);
+        expect(loadedState.techniqueUsageCounts).toStrictEqual({ [SolutionTechniqueEnum.NakedSingle]: 9 });
+        expect(loadedState.playedDayNumbers).toStrictEqual(PersistedPlayedDayNumbers);
+        expect(loadedState.sudokuString).toBe(StartedSudokuString);
+        expect(loadedState.difficulty).toBe(DifficultyEnum.Hard);
+        expect(loadedState.elapsedTime).toBe(InitialElapsedTime);
+        expect(loadedState.isChallengeRun).toBe(true);
     });
 
     it('keeps candidate and input modes mutually exclusive', () => {

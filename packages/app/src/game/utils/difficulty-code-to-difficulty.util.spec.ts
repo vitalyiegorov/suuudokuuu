@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers */
 import { describe, expect, it } from '@jest/globals';
+import { DIFFICULTY_CODE_MAX, DIFFICULTY_CODE_UNKNOWN } from '@suuudokuuu/encoder';
 import { DifficultyEnum } from '@suuudokuuu/generator';
 
 import { difficultyCodeToDifficulty } from './difficulty-code-to-difficulty.util';
@@ -32,6 +33,17 @@ describe('difficultyCodeToDifficulty', () => {
         for (const difficulty of Object.values(DifficultyEnum)) {
             expect(difficultyCodeToDifficulty(difficultyToDifficultyCode(difficulty))).toBe(difficulty);
         }
+    });
+});
+
+describe('difficulty code wire contract', () => {
+    it('should keep every difficulty inside the range the encoder can represent', () => {
+        expect.assertions(2);
+
+        const highestDifficultyCode = Object.values(DifficultyEnum).length - 1;
+
+        expect(highestDifficultyCode).toBeLessThanOrEqual(DIFFICULTY_CODE_MAX);
+        expect(DIFFICULTY_CODE_MAX).toBeLessThan(DIFFICULTY_CODE_UNKNOWN);
     });
 });
 
