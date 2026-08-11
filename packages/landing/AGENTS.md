@@ -27,9 +27,19 @@ src/
 │   ├── page.tsx             # placeholder home page
 │   ├── robots.ts            # /robots.txt
 │   ├── sitemap.ts           # /sitemap.xml, built from the metadata registry
+│   ├── guides/              # long-form guide articles built on generated solve data
 │   └── techniques/          # /techniques hub plus one folder per technique page
 ├── chrome/
 │   └── components/          # site header and site footer, used by the root layout
+├── difficulty/
+│   ├── components/          # prev/next difficulty chain
+│   ├── constants/           # difficulty display names, ladder order, difficulty page paths
+│   └── utils/               # clue count per difficulty
+├── rating/
+│   ├── components/          # generated tier-ladder and technique-frequency tables
+│   ├── constants/           # committed puzzle sample and the technique ladder order
+│   ├── interfaces/          # logical solve result and per-tier report view models
+│   └── utils/               # solvePuzzleLogically and the memoised tier reports
 ├── seo/
 │   ├── components/          # JsonLd, the compound FAQPage/HowTo/SoftwareApplication/BreadcrumbList schemas, and the visible Breadcrumbs and HowTo renderers
 │   ├── constants/           # site identity and schema.org constants
@@ -175,6 +185,16 @@ To add a technique page:
 - `TechniqueLiveBoard` owns the engine: `new FieldEngine({ sudokuString: board, difficulty, showAutoCandidates: true })`, `getGivenCellKeys(board)`, and `findStepScript(engine.Sudoku, createTechniqueStrategies().filter(...))` narrowed to the page's technique — the same narrowing `buildTechniqueExample` uses, which is why the walkthrough reproduces the static solver output exactly.
 - `field-dom` ships no strings. `FIELD_LABELS` in `src/techniques/constants/field-labels.constant.ts` supplies every control label, and `renderTechniqueNarration` turns the structured `{ technique, cells, values }` payload into prose generically for all 26 pages. Do not hand-write per-technique narration.
 - Theming happens by overriding `--field-*` custom properties on `.technique-embed__live` in `global.css`. The packaged stylesheet is wrapped in `@layer field-dom`, so the unlayered landing rules win. Map every colour to the existing `--landing-*` token so the live board matches the static table.
+
+## Guide pages and the generated solve data
+
+The guides under `src/app/guides` publish measured numbers, never hand-written ones. `TierLadderTable` and `TechniqueFrequencyTable` call `getTierTechniqueReports()` during static generation; the reports are memoised per build so both guides share one computation.
+
+`RATING_SAMPLE_PUZZLES` in `src/rating/constants/rating-sample.constant.ts` is a committed, fixed sample of `RATING_SAMPLE_SIZE` puzzle strings per difficulty. Generation is random and the Hell corpus is large, so the sample is frozen in source to keep every build deterministic and every published number reproducible. The five generated tiers came from `Sudoku.create(difficulty)`; the Hell strings are the first `RATING_SAMPLE_SIZE` records of `@suuudokuuu/hell-corpus`. Replacing the sample changes every number on both guides, so treat it as data, not as code to tidy.
+
+`solvePuzzleLogically` drives `TechniqueManager` over the full registry. `findNextStep()` rebuilds candidate state from the grid on every call, so an elimination-only step would otherwise repeat forever: the driver accumulates each result's eliminations itself, re-queries the registry from the strategy after the one that fired, and places a cell as soon as the accumulated eliminations force a naked or hidden single. When no strategy justifies any placement it records the puzzle as past the technique ladder and fills one cell from the solution to keep going. Guides must never present that outcome as proof a puzzle needs guessing — it means the required technique is not implemented yet.
+
+Prose on these pages reads its numbers from `getTierTechniqueReport(difficulty)` rather than repeating literals, so copy cannot drift from the tables.
 
 ## Knip
 

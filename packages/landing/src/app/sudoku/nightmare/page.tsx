@@ -11,6 +11,7 @@ import { FaqPage } from '../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { SITE_PLAY_URL } from '../../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
+import { sudokuDifficultyRatingPageMetadata } from '../../guides/sudoku-difficulty-rating/metadata';
 import { howToPlayPageMetadata } from '../../how-to-play/metadata';
 import { homePageMetadata } from '../../metadata';
 import { finnedSwordfishPageMetadata } from '../../techniques/finned-swordfish/metadata';
@@ -67,10 +68,13 @@ const NightmareSudokuPage = () => (
         </p>
         <h2>How hard is it, honestly</h2>
         <p>
-            No SE (Sudoku Explainer) rating band is published for Nightmare yet — that companion guide is still on the way — but
-            qualitatively this is where difficulty stops being about speed and becomes about pattern recognition under real uncertainty.
-            Fish and wing patterns are easy to describe and genuinely hard to see on a live board; most solvers need to actively hunt for
-            candidate shapes rather than notice them in passing.
+            No SE (Sudoku Explainer) rating band is published per puzzle yet, and the measured picture is more interesting than a single
+            label: at a fixed {getDifficultyClueCount(DifficultyEnum.Nightmare)} clues, some Nightmare boards still fall to singles while
+            others need chains, as the generated tables in our{' '}
+            <Link href={sudokuDifficultyRatingPageMetadata.path}>sudoku difficulty rating guide</Link> show. Qualitatively this is where
+            difficulty stops being about speed and becomes about pattern recognition under real uncertainty. Fish and wing patterns are easy
+            to describe and genuinely hard to see on a live board; most solvers need to actively hunt for candidate shapes rather than
+            notice them in passing.
         </p>
         <h2>Where to go next</h2>
         <p>

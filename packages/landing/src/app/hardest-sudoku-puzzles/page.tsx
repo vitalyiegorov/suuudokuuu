@@ -11,6 +11,7 @@ import { FaqQuestion } from '../../seo/components/faq-question/faq-question';
 import { SITE_PLAY_URL } from '../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../seo/utils/build-page-metadata.util';
 import { seventeenClueSudokuPageMetadata } from '../17-clue-sudoku/metadata';
+import { sudokuDifficultyRatingPageMetadata } from '../guides/sudoku-difficulty-rating/metadata';
 import { homePageMetadata } from '../metadata';
 import { hellSudokuPageMetadata } from '../sudoku/hell/metadata';
 import { aicPageMetadata } from '../techniques/aic/metadata';
@@ -48,8 +49,10 @@ const HardestSudokuPuzzlesPage = () => (
         </p>
         <p>
             Researchers rate that reasoning depth with SE (Sudoku Explainer), a community-standard 1.0–12.0 scale that scores a puzzle by
-            the hardest technique its optimal solve path requires. Suuudokuuu does not publish its own SE ratings yet — a full rating guide
-            is on the way — so the figures below are the values independent solvers and researchers commonly cite for each puzzle.
+            the hardest technique its optimal solve path requires — our{' '}
+            <Link href={sudokuDifficultyRatingPageMetadata.path}>sudoku difficulty rating guide</Link> explains how the technique ladder
+            becomes a number. Suuudokuuu does not publish its own SE ratings per puzzle yet, so the figures below are the values independent
+            solvers and researchers commonly cite for each puzzle.
         </p>
         <a className="hero__cta" href={SITE_PLAY_URL}>
             Play Sudoku now
@@ -114,7 +117,8 @@ const HardestSudokuPuzzlesPage = () => (
                 <FaqQuestion>What is a Sudoku Explainer (SE) rating?</FaqQuestion>
                 <FaqAnswer>
                     A 1.0–12.0 difficulty score that rates a puzzle by the hardest named technique its optimal solve path requires. Simple
-                    singles sit near 1.5; fish and wing patterns sit in the 3–4 range; forcing chains and nets push a puzzle past SE 8.
+                    singles sit near 1.5; fish and wing patterns sit in the 3–4 range; forcing chains and nets push a puzzle past SE 8. The{' '}
+                    <Link href={sudokuDifficultyRatingPageMetadata.path}>SE rating guide</Link> walks the full ladder with generated data.
                 </FaqAnswer>
             </Faq>
             <Faq>
