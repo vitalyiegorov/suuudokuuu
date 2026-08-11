@@ -7,11 +7,16 @@ describe('ReplayShareAction', () => {
     const source = readFileSync(join(__dirname, 'replay-share-action.tsx'), 'utf8');
 
     it('derives the contextual action from the decoded historical run', () => {
-        expect(source).toContain('gameState.isChallengeRun');
-        expect(source).toContain('<ChallengeShareButton gameState={gameState}');
-        expect(source).toContain('<PuzzleShareButton gameState={gameState}');
+        expect(source).toContain('isChallengeRun');
+        expect(source).toContain('useShareChallenge(gameState)');
+        expect(source).toContain('useShareGameState(SharedPayloadKindEnum.Puzzle, gameState)');
         expect(source).toContain('Challenge`');
         expect(source).toContain('Share puzzle`');
+    });
+
+    it('renders as a compact icon-only button', () => {
+        expect(source).toContain('<AppIconButton');
+        expect(source).not.toContain('text=');
     });
 
     it('never reads the live Redux game', () => {

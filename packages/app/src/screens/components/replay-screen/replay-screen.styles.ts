@@ -2,7 +2,6 @@ import { appLayoutScreenIsWide } from '@suuudokuuu/ui';
 import { StyleSheet } from 'react-native-unistyles';
 
 const ReplayScreenWideWidthMultiplier = 1.4;
-const ReplayReviewScrollMaxHeight = 260;
 
 export const ReplayScreenStyles = StyleSheet.create((theme, rt) => ({
     container: {
@@ -23,12 +22,11 @@ export const ReplayScreenStyles = StyleSheet.create((theme, rt) => ({
         flexDirection: appLayoutScreenIsWide(rt.screen) ? 'row' : 'column',
         gap: 18
     },
-    topBar: {
-        alignItems: 'flex-start',
+    headerRow: {
+        alignItems: 'center',
         flexDirection: 'row',
         flexShrink: 0,
-        gap: theme.spacing.md,
-        justifyContent: 'space-between'
+        gap: theme.spacing.md
     },
     fieldWrapper: {
         alignItems: 'center',
@@ -43,10 +41,5 @@ export const ReplayScreenStyles = StyleSheet.create((theme, rt) => ({
         flexShrink: 0,
         gap: 18,
         justifyContent: 'center'
-    },
-    reviewScroll: {
-        flexGrow: 0,
-        flexShrink: 0,
-        maxHeight: ReplayReviewScrollMaxHeight
     }
 }));

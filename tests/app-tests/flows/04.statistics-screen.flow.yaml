@@ -25,15 +25,15 @@ appId: ${APP_ID}
       visible:
           id: 'HistoryScreenSelectors.Root'
       timeout: 3000
-# Scroll-tolerant: the difficulty card sits below the fold on the Android
+# Scroll-tolerant: the difficulty ladder sits below the fold on the Android
 # viewport, so scroll to its deepest line before asserting the title above it.
 - scrollUntilVisible:
       element:
           text: '.*completed game.*'
       direction: DOWN
 - assertVisible: 'Newbie.*'
-# The rating-band and technique sections pushed the difficulty card to the end of a
-# much taller scroll, so the scroll above stops as soon as the card's title line
+# The arsenal and other editorial sections pushed the difficulty ladder to the end of a
+# much taller scroll, so the scroll above stops as soon as the row's title line
 # appears and its tappable centre still sits under the floating tab bar. Scrolling
 # once more settles the content at its end, where the reserved bottom inset clears
 # the bar.
@@ -44,6 +44,8 @@ appId: ${APP_ID}
       visible:
           id: 'CompletedGameItemSelectors.ReplayButton'
       timeout: 3000
+- assertVisible:
+      id: 'HistoryGamesSummaryBandSelectors.Root'
 - assertVisible: 'Score'
 - assertVisible: 'Time'
 - assertVisible: 'Mistakes'
@@ -52,6 +54,11 @@ appId: ${APP_ID}
 - assertVisible:
       id: 'CompletedGameItemSelectors.DifficultyValue'
       text: 'Newbie'
+# The compact technique summary derives lazily from the decoded replay after the card mounts.
+- extendedWaitUntil:
+      visible:
+          id: 'CompletedGameTechniqueSummarySelectors.Root'
+      timeout: 5000
 - tapOn:
       id: 'CompletedGameItemSelectors.ReplayButton'
 - extendedWaitUntil:
@@ -62,35 +69,6 @@ appId: ${APP_ID}
 - assertVisible:
       id: 'ReplayHeaderSelectors.Level'
       text: 'Newbie'
-# Game Review card: pace metrics and the techniques-used section (with its
-# best-technique hero) always render once a run has at least one recorded
-# step, regardless of whether the game itself carries a rating.
-- assertVisible:
-      id: 'ReplayMoveQualityStripSelectors.Root'
-- assertVisible:
-      id: 'ReplayRunReviewSelectors.Root'
-- assertVisible:
-      id: 'ReplayPaceMetricsSelectors.Root'
-# The Game Review sits in its own height-capped scroll under the board, so on the
-# shorter Android viewport the techniques section starts outside it. Swiping inside
-# that scroll moves the review content rather than the page; iOS shows both without
-# scrolling and the swipe is a no-op there.
-- swipe:
-      from:
-          id: 'ReplayPaceMetricsSelectors.Root'
-      direction: UP
-- extendedWaitUntil:
-      visible:
-          id: 'HistoryTechniquesSelectors.Root'
-      timeout: 5000
-# The replay board fills the shorter Android viewport, so the playback controls
-# scroll below the fold; scroll the step buttons above the navigation bar before
-# tapping (iOS passes only because its taller viewport keeps them on screen).
-- scrollUntilVisible:
-      element:
-          id: 'ReplayControlsSelectors.NextButton'
-      direction: DOWN
-      timeout: 5000
 - tapOn:
       id: 'ReplayControlsSelectors.NextButton'
 - tapOn:
@@ -104,18 +82,6 @@ appId: ${APP_ID}
 - tapOn:
       id: 'ReplayControlsSelectors.PreviousButton'
 - assertVisible: 'Move 0 / 1'
-# Pressing the hardest-moment chip seeks the scrubber straight to that step,
-# the same destination the scrubber swipe above reached directly.
-- assertVisible:
-      id: 'ReplayHardestMomentSelectors.Root'
-- tapOn:
-      id: 'ReplayHardestMomentSelectors.Root'
-- assertVisible: 'Move 1 / 1'
-- scrollUntilVisible:
-      element:
-          id: 'ReplayShareActionSelectors.Button'
-      direction: DOWN
-      timeout: 3000
 - assertVisible:
       id: 'ReplayShareActionSelectors.Button'
 - tapOn:

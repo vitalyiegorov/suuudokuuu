@@ -1,33 +1,17 @@
 import { StyleSheet } from 'react-native-unistyles';
 
 export const HistoryDifficultyStyles = StyleSheet.create(theme => ({
-    container: {
-        borderRadius: 24,
-        borderWidth: StyleSheet.hairlineWidth,
-        gap: 14,
-        paddingHorizontal: 16,
-        paddingVertical: 16,
-        width: '100%',
-        _web: {
-            cursor: 'pointer',
-            _hover: { opacity: 0.85 }
-        }
-    },
-    header: {
+    row: {
         alignItems: 'center',
         flexDirection: 'row',
         gap: theme.spacing.sm,
         justifyContent: 'space-between',
-        width: '100%'
-    },
-    separator: {
-        height: 26,
-        marginHorizontal: 0
-    },
-    strip: {
-        paddingHorizontal: 0,
-        paddingVertical: 0,
-        width: '100%'
+        paddingVertical: 14,
+        width: '100%',
+        _web: {
+            cursor: 'pointer',
+            _hover: { opacity: 0.7 }
+        }
     },
     subtitle: {
         fontSize: 13,
@@ -36,14 +20,24 @@ export const HistoryDifficultyStyles = StyleSheet.create(theme => ({
         textAlign: 'left'
     },
     title: {
-        fontSize: 22,
+        fontSize: 19,
         fontWeight: '800',
-        letterSpacing: -0.5,
-        lineHeight: 26,
+        letterSpacing: -0.4,
+        lineHeight: 23,
         textAlign: 'left'
     },
     titleGroup: {
         flex: 1,
         gap: 2
+    },
+    trailing: {
+        alignItems: 'center',
+        flexDirection: 'row',
+        gap: 6
+    },
+    winRate: {
+        fontSize: 16,
+        fontVariant: ['tabular-nums'],
+        fontWeight: '800'
     }
 }));

@@ -10,6 +10,7 @@ import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
 import { getLevelRatingText } from '../../../@generic/utils/get-level-rating-text.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { CompletedGameTechniqueSummary } from '../completed-game-technique-summary/completed-game-technique-summary';
 import { HistoryMetric } from '../history-metric/history-metric';
 
 import { CompletedGameItemSelectors } from './completed-game-item.selectors';
@@ -66,6 +67,8 @@ export const CompletedGameItem = ({ game }: Props) => {
                 <HistoryMetric label={t`Time`} value={elapsedTimeText} />
                 <HistoryMetric label={t`Mistakes`} value={mistakesValue} />
             </AppMetricStrip>
+
+            <CompletedGameTechniqueSummary encodedState={game.encodedState} />
         </View>
     );
 };

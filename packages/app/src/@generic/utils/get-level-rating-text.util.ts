@@ -1,7 +1,7 @@
 import { isPositiveNumber } from '@rnw-community/shared';
 
-const RatingDecimalPlaces = 1;
-const RatingCeilingSuffix = '+';
+import { formatSeRatingValue } from './format-se-rating-value.util';
+
 const LevelRatingSeparator = ' · ';
 
 export const getLevelRatingText = (difficultyText: string, rating: number, isCeiling: boolean): string => {
@@ -9,7 +9,5 @@ export const getLevelRatingText = (difficultyText: string, rating: number, isCei
         return difficultyText;
     }
 
-    const ratingText = `${rating.toFixed(RatingDecimalPlaces)}${isCeiling ? RatingCeilingSuffix : ''}`;
-
-    return `${difficultyText}${LevelRatingSeparator}${ratingText}`;
+    return `${difficultyText}${LevelRatingSeparator}${formatSeRatingValue(rating, isCeiling)}`;
 };

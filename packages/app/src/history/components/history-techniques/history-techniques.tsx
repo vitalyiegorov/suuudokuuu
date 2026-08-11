@@ -6,15 +6,17 @@ import { isDefined } from '@rnw-community/shared';
 
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { HistoryTechniqueTilesPerRow } from '../../constants/history-technique-grid.constant';
 import { historyGetBestTechnique } from '../../utils/history-get-best-technique.util';
 import { historyGetTechniqueUsageList } from '../../utils/history-get-technique-usage.util';
 import { HistoryTechniqueHero } from '../history-technique-hero/history-technique-hero';
-import { HistoryTechniqueRow } from '../history-technique-row/history-technique-row';
+import { HistoryTechniqueTile } from '../history-technique-tile/history-technique-tile';
 
 import { HistoryTechniquesSelectors } from './history-techniques.selectors';
 import { HistoryTechniquesStyles as styles } from './history-techniques.styles';
 
 import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
+import type { ReactNode } from 'react';
 
 interface Props {
     readonly techniqueUsageCounts: Partial<Record<SolutionTechniqueEnum, number>>;
@@ -30,25 +32,45 @@ export const HistoryTechniques = ({ techniqueUsageCounts }: Props) => {
         return null;
     }
 
-    const listStyles = [styles.list, { backgroundColor: theme.colors.candidate.fill, borderColor: theme.colors.surface.border }];
-    const titleStyles = [styles.title, { color: theme.colors.text.primary }];
+    const gridUsageList = [...usageList].sort((first, second) => second.count - first.count || second.seValue - first.seValue);
+    const eyebrowStyles = [styles.eyebrow, { color: theme.colors.text.hint }];
+
+    const rows: ReactNode[][] = [];
+    for (let index = 0; index < gridUsageList.length; index += HistoryTechniqueTilesPerRow) {
+        const tiles = gridUsageList
+            .slice(index, index + HistoryTechniqueTilesPerRow)
+            .map(usage => (
+                <HistoryTechniqueTile
+                    key={usage.technique}
+                    testID={`${HistoryTechniquesSelectors.Tile}.${usage.technique}`}
+                    usage={usage}
+                />
+            ));
+
+        rows.push(tiles);
+    }
 
     return (
         <View style={styles.container} testID={HistoryTechniquesSelectors.Root}>
-            <HistoryTechniqueHero label={t`Best technique`} usage={bestTechniqueUsage} />
+            <BlackText style={eyebrowStyles}>
+                <Trans>Your arsenal</Trans>
+            </BlackText>
 
-            <View style={listStyles}>
-                <BlackText style={titleStyles}>
-                    <Trans>Techniques used</Trans>
-                </BlackText>
+            <HistoryTechniqueHero label={t`Best technique`} testID={HistoryTechniquesSelectors.Hero} usage={bestTechniqueUsage} />
 
-                {usageList.map(usage => (
-                    <HistoryTechniqueRow
-                        key={usage.technique}
-                        testID={`${HistoryTechniquesSelectors.Row}.${usage.technique}`}
-                        usage={usage}
-                    />
-                ))}
+            <View style={styles.grid}>
+                {rows.map((row, rowIndex) => {
+                    const spacers = Array.from({ length: HistoryTechniqueTilesPerRow - row.length }, (_unused, spacerIndex) => (
+                        <View key={`spacer-${spacerIndex}`} style={styles.spacer} />
+                    ));
+
+                    return (
+                        <View key={`technique-row-${rowIndex}`} style={styles.row}>
+                            {row}
+                            {spacers}
+                        </View>
+                    );
+                })}
             </View>
         </View>
     );
