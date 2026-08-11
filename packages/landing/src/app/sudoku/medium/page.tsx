@@ -13,6 +13,7 @@ import { SITE_PLAY_URL } from '../../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
 import { howToPlayPageMetadata } from '../../how-to-play/metadata';
 import { homePageMetadata } from '../../metadata';
+import { printableMediumSudokuPageMetadata } from '../../printable/medium/metadata';
 import { boxLineReductionPageMetadata } from '../../techniques/box-line-reduction/metadata';
 import { hiddenPairPageMetadata } from '../../techniques/hidden-pair/metadata';
 import { techniquesPageMetadata } from '../../techniques/metadata';
@@ -71,7 +72,9 @@ const MediumSudokuPage = () => (
         <p>
             Comfortable spotting intersections and pairs? Move up to <Link href={hardSudokuPageMetadata.path}>Hard Sudoku</Link> for
             triples, quads and your first fish pattern, or drop back to <Link href={easySudokuPageMetadata.path}>Easy Sudoku</Link> to
-            revisit singles. Browse the <Link href={techniquesPageMetadata.path}>technique index</Link>, the{' '}
+            revisit singles. Prefer paper? Download the{' '}
+            <Link href={printableMediumSudokuPageMetadata.path}>printable Medium sudoku booklet</Link>. Browse the{' '}
+            <Link href={techniquesPageMetadata.path}>technique index</Link>, the{' '}
             <Link href={howToPlayPageMetadata.path}>how to play guide</Link>, every tier on the{' '}
             <Link href={sudokuDifficultiesPageMetadata.path}>Sudoku difficulty levels</Link> hub, or head{' '}
             <Link href={homePageMetadata.path}>home</Link>.

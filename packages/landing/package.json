@@ -4,11 +4,12 @@
     "private": true,
     "description": "Static Next.js content and SEO surface for www.suuudokuuu.com",
     "scripts": {
-        "build": "next build",
+        "build": "yarn generate:printables && next build",
         "clear": "yarn run -T rimraf .next out node_modules/.cache .turbo",
         "format": "run -T prettier --write src",
+        "generate:printables": "tsx scripts/generate-printables.ts",
         "lint": "run -T eslint --fix src",
-        "start": "next dev",
+        "start": "yarn generate:printables && next dev",
         "ts": "run -T tsc -p ."
     },
     "dependencies": {
@@ -26,6 +27,8 @@
     },
     "devDependencies": {
         "@types/react": "~19.2.14",
-        "@types/react-dom": "~19.2.4"
+        "@types/react-dom": "~19.2.4",
+        "pdf-lib": "^1.17.1",
+        "tsx": "^4.23.12"
     }
 }

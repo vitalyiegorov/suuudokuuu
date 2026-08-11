@@ -5,6 +5,13 @@ import { sudokuDifficultyRatingPageMetadata } from '../../app/guides/sudoku-diff
 import { hardestSudokuPuzzlesPageMetadata } from '../../app/hardest-sudoku-puzzles/metadata';
 import { howToPlayPageMetadata } from '../../app/how-to-play/metadata';
 import { homePageMetadata } from '../../app/metadata';
+import { printableEasySudokuPageMetadata } from '../../app/printable/easy/metadata';
+import { printableHardSudokuPageMetadata } from '../../app/printable/hard/metadata';
+import { printableHellSudokuPageMetadata } from '../../app/printable/hell/metadata';
+import { printableMediumSudokuPageMetadata } from '../../app/printable/medium/metadata';
+import { printableSudokuPageMetadata } from '../../app/printable/metadata';
+import { printableNewbieSudokuPageMetadata } from '../../app/printable/newbie/metadata';
+import { printableNightmareSudokuPageMetadata } from '../../app/printable/nightmare/metadata';
 import { solverPageMetadata } from '../../app/solver/metadata';
 import { easySudokuPageMetadata } from '../../app/sudoku/easy/metadata';
 import { hardSudokuPageMetadata } from '../../app/sudoku/hard/metadata';
@@ -59,6 +66,13 @@ export const PAGE_METADATA_REGISTRY: PageMetadataInterface[] = [
     seventeenClueSudokuPageMetadata,
     sudokuDifficultyRatingPageMetadata,
     sudokuCluesVsDifficultyPageMetadata,
+    printableSudokuPageMetadata,
+    printableNewbieSudokuPageMetadata,
+    printableEasySudokuPageMetadata,
+    printableMediumSudokuPageMetadata,
+    printableHardSudokuPageMetadata,
+    printableNightmareSudokuPageMetadata,
+    printableHellSudokuPageMetadata,
     techniquesPageMetadata,
     fullHousePageMetadata,
     nakedSinglePageMetadata,

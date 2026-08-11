@@ -13,6 +13,7 @@ import { SITE_PLAY_URL } from '../../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
 import { howToPlayPageMetadata } from '../../how-to-play/metadata';
 import { homePageMetadata } from '../../metadata';
+import { printableHardSudokuPageMetadata } from '../../printable/hard/metadata';
 import { hiddenQuadPageMetadata } from '../../techniques/hidden-quad/metadata';
 import { hiddenTriplePageMetadata } from '../../techniques/hidden-triple/metadata';
 import { techniquesPageMetadata } from '../../techniques/metadata';
@@ -69,7 +70,8 @@ const HardSudokuPage = () => (
         <h2>Where to go next</h2>
         <p>
             Ready to chain fish and wings together? Move up to <Link href={nightmareSudokuPageMetadata.path}>Nightmare Sudoku</Link>, or
-            step back to <Link href={mediumSudokuPageMetadata.path}>Medium Sudoku</Link> for an intersection-only puzzle. See the{' '}
+            step back to <Link href={mediumSudokuPageMetadata.path}>Medium Sudoku</Link> for an intersection-only puzzle. Prefer paper?
+            Download the <Link href={printableHardSudokuPageMetadata.path}>printable Hard sudoku PDF</Link>. See the{' '}
             <Link href={techniquesPageMetadata.path}>technique index</Link>, the{' '}
             <Link href={howToPlayPageMetadata.path}>how to play guide</Link>, every tier on the{' '}
             <Link href={sudokuDifficultiesPageMetadata.path}>Sudoku difficulty levels</Link> hub, or head{' '}

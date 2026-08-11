@@ -14,6 +14,7 @@ import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
 import { sudokuDifficultyRatingPageMetadata } from '../../guides/sudoku-difficulty-rating/metadata';
 import { howToPlayPageMetadata } from '../../how-to-play/metadata';
 import { homePageMetadata } from '../../metadata';
+import { printableNightmareSudokuPageMetadata } from '../../printable/nightmare/metadata';
 import { finnedSwordfishPageMetadata } from '../../techniques/finned-swordfish/metadata';
 import { finnedXWingPageMetadata } from '../../techniques/finned-x-wing/metadata';
 import { jellyfishPageMetadata } from '../../techniques/jellyfish/metadata';
@@ -34,6 +35,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = buildPageMetadata(nightmareSudokuPageMetadata);
 
+// eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const NightmareSudokuPage = () => (
     <main>
         <Breadcrumbs>
@@ -80,7 +82,9 @@ const NightmareSudokuPage = () => (
         <p>
             Cleared a few Nightmare boards? <Link href={hellSudokuPageMetadata.path}>Hell Sudoku</Link> is the last tier, built from a
             bundled 17-clue corpus. Step back to <Link href={hardSudokuPageMetadata.path}>Hard Sudoku</Link> if fish and wings still feel
-            unreliable. Browse the <Link href={techniquesPageMetadata.path}>technique index</Link>, the{' '}
+            unreliable. Prefer paper? Download the{' '}
+            <Link href={printableNightmareSudokuPageMetadata.path}>printable Nightmare sudoku booklet</Link>. Browse the{' '}
+            <Link href={techniquesPageMetadata.path}>technique index</Link>, the{' '}
             <Link href={howToPlayPageMetadata.path}>how to play guide</Link>, every tier on the{' '}
             <Link href={sudokuDifficultiesPageMetadata.path}>Sudoku difficulty levels</Link> hub, or head{' '}
             <Link href={homePageMetadata.path}>home</Link>.

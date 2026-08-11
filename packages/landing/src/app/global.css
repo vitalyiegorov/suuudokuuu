@@ -763,3 +763,46 @@ summary {
 details p {
     margin: 0.5rem 0 0;
 }
+
+.printable-tier {
+    margin: 0 0 2rem;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid var(--landing-border-color);
+    border-radius: 0.5rem;
+    background-color: var(--landing-surface-color);
+}
+
+.printable-tier h3 {
+    margin: 0 0 0.5rem;
+}
+
+.printable-tier p {
+    margin: 0;
+}
+
+.printable-download {
+    margin: 0 0 2rem;
+}
+
+.printable-download__cta {
+    margin-bottom: 1rem;
+}
+
+.printable-download__facts {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    color: var(--landing-muted-text-color);
+    font-size: 0.9rem;
+}
+
+.printable-download__facts li {
+    display: inline;
+    margin: 0 1rem 0 0;
+}
+
+.printable-download__facts li:not(:last-child)::after {
+    content: '·';
+    margin-left: 1rem;
+    color: var(--landing-border-color);
+}
