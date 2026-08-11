@@ -50,11 +50,7 @@ test('reviews and replays a completed game from statistics', async ({ page }) =>
     await expect(historyGamesScreen.getByText('Score', { exact: true })).toBeVisible();
     await expect(historyGamesScreen.getByText('Time', { exact: true })).toBeVisible();
     await expect(historyGamesScreen.getByText('Mistakes', { exact: true })).toBeVisible();
-    // This legacy fixture predates the rating trailer and decodes with an unknown rating, so its
-    // own completed-game row must show the plain difficulty text with no "· rating" suffix.
     await expect(historyGamesScreen.getByTestId(CompletedGameItemSelectors.DifficultyValue)).toHaveText(noRatingSuffixPattern);
-    // The compact technique summary derives lazily from the decoded replay, so it appears a beat
-    // after the card itself; toBeVisible polls, which covers that without a manual wait.
     await expect(page.getByTestId(CompletedGameTechniqueSummarySelectors.Root)).toBeVisible();
 
     await page.getByTestId(CompletedGameItemSelectors.ReplayButton).click();
@@ -117,7 +113,5 @@ test('shows the hardest-solve hero, SE spectrum, and best-technique arsenal for 
     await page.getByTestId(newbieDifficultyCardTestId).click();
     const historyGamesScreen = page.getByTestId(HistoryGamesScreenSelectors.Root);
     await expect(historyGamesScreen).toBeVisible();
-    // The rated completed-game row now composes its rating into the difficulty text instead of
-    // rendering a separate badge next to it.
     await expect(historyGamesScreen.getByTestId(CompletedGameItemSelectors.DifficultyValue)).not.toHaveText(noRatingSuffixPattern);
 });

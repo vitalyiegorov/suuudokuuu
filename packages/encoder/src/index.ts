@@ -9,6 +9,8 @@ export type {
 } from './@generic/interfaces/timeline-event.interface';
 export type { EncodableGameStateInterface } from './game-state-binary-codec/classes/game-state-binary-codec-v3';
 
+export { DIFFICULTY_CODE_MAX, DIFFICULTY_CODE_UNKNOWN } from './@generic/constants/binary-codec.constant';
+
 export { SharedPayloadKindEnum } from './@generic/enums/shared-payload-kind.enum';
 export { TimelineEventKindEnum } from './@generic/enums/timeline-event-kind.enum';
 

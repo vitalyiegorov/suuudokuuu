@@ -9,6 +9,7 @@ import { isDefined, isPositiveNumber } from '@rnw-community/shared';
 import { seRatingBands } from '../../../history/constants/se-rating-band.constant';
 import { getSeRatingBand } from '../../../history/utils/get-se-rating-band.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { formatSeRatingValue } from '../../utils/format-se-rating-value.util';
 import { BlackText } from '../black-text/black-text';
 import { RatingBadge } from '../rating-badge/rating-badge';
 
@@ -16,8 +17,6 @@ import { RatingExplainerSelectors } from './rating-explainer.selectors';
 import { RatingExplainerStyles as styles } from './rating-explainer.styles';
 
 import type { HistoryRatingSnapshotInterface } from '../../../history/interfaces/history-rating-snapshot.interface';
-
-const RatingDecimalPlaces = 1;
 
 interface Props {
     readonly rating: number;
@@ -32,7 +31,7 @@ export const RatingExplainer = ({ rating, isCeiling, bestRating }: Props) => {
     const currentBand = getSeRatingBand(rating);
     const hasCurrentRating = isPositiveNumber(rating);
     const hasBestRating = isPositiveNumber(bestRating.rating);
-    const seRatingCeilingText = SE_RATING_CEILING.toFixed(RatingDecimalPlaces);
+    const seRatingCeilingText = formatSeRatingValue(SE_RATING_CEILING, false);
 
     const titleStyles = [styles.title, { color: theme.colors.text.primary }];
     const sectionTitleStyles = [styles.sectionTitle, { color: theme.colors.text.primary }];

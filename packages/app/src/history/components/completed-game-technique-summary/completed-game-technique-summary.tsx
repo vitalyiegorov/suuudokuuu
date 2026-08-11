@@ -19,17 +19,9 @@ export const CompletedGameTechniqueSummary = ({ encodedState }: Props) => {
     const [techniqueUsageList, setTechniqueUsageList] = useState<readonly TechniqueUsageInterface[]>([]);
 
     useEffect(() => {
-        let isCancelled = false;
-        const timeoutId = setTimeout(() => {
-            if (!isCancelled) {
-                setTechniqueUsageList(getCompletedGameTechniqueSummary(encodedState));
-            }
-        }, 0);
+        const timeoutId = setTimeout(() => void setTechniqueUsageList(getCompletedGameTechniqueSummary(encodedState)), 0);
 
-        return () => {
-            isCancelled = true;
-            clearTimeout(timeoutId);
-        };
+        return () => void clearTimeout(timeoutId);
     }, [encodedState]);
 
     if (!isNotEmptyArray(techniqueUsageList)) {

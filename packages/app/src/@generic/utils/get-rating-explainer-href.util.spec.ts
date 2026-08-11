@@ -23,4 +23,13 @@ describe('getRatingExplainerHref', () => {
             params: { rating: '3.2', isCeiling: '0' }
         });
     });
+
+    it('should keep the ceiling suffix out of the numeric rating param so it stays parseable', () => {
+        expect.assertions(2);
+
+        const { params } = getRatingExplainerHref(RatingToRoundUp, true);
+
+        expect(params.rating).not.toContain('+');
+        expect(Number(params.rating)).toBeCloseTo(RatingToRoundUp, 1);
+    });
 });

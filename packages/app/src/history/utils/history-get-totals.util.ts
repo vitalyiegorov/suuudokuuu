@@ -1,7 +1,6 @@
 import { isNotEmptyArray, isPositiveNumber } from '@rnw-community/shared';
 
-import { emptyHistoryRatingSnapshot } from '../interfaces/history-rating-snapshot.interface';
-
+import { historyGetBestRating } from './history-get-best-rating.util';
 import { historyGetDayStreak } from './history-get-day-streak.util';
 import { historyGetWinRate } from './history-get-win-rate.util';
 
@@ -21,10 +20,7 @@ export const historyGetTotals = (
     const challengesWon = histories.reduce((total, history) => total + history.challengesWon, 0);
     const challengesLost = histories.reduce((total, history) => total + history.challengesLost, 0);
     const bestScore = histories.reduce((best, history) => Math.max(best, history.bestScore), 0);
-    const bestRating = histories.reduce(
-        (best, history) => (history.bestRating.rating > best.rating ? history.bestRating : best),
-        emptyHistoryRatingSnapshot
-    );
+    const bestRating = historyGetBestRating(histories);
     const bestTimes = histories.map(history => history.bestTime).filter(isPositiveNumber);
     const bestTime = isNotEmptyArray(bestTimes) ? Math.min(...bestTimes) : 0;
     const averageTimeTotal = histories.reduce((total, history) => total + history.averageTime * history.gamesWon, 0);

@@ -15,6 +15,7 @@ import { gameProviderCreateHellGame } from '../../utils/game-provider-create-hel
 import { gameProviderCreateInfinityGame } from '../../utils/game-provider-create-infinity-game.util';
 
 import type { GameSetupInterface } from '../../interface/game-setup.interface';
+import type { RatedGameInterface } from '../../interface/rated-game.interface';
 import type { GameState } from '../../store/game.state';
 import type { ReactNode } from 'react';
 
@@ -22,11 +23,19 @@ interface Props {
     readonly children: ReactNode;
 }
 
-const createSudokuByDifficulty = (difficulty: DifficultyEnum): Sudoku => {
+const createCorpusGame = (difficulty: DifficultyEnum): RatedGameInterface | null => {
     if (difficulty === DifficultyEnum.Hell) {
         return gameProviderCreateHellGame();
     }
 
+    if (difficulty === DifficultyEnum.Infinity) {
+        return gameProviderCreateInfinityGame();
+    }
+
+    return null;
+};
+
+const createGeneratedSudoku = (difficulty: DifficultyEnum): Sudoku => {
     const newSudoku = new Sudoku(defaultSudokuConfig);
 
     newSudoku.create(difficulty);
@@ -66,14 +75,14 @@ export const GameProvider = ({ children }: Props) => {
 
     const create = ({ difficulty, isChallengeRun, maxMistakes }: GameSetupInterface) =>
         void runGameCreation(() => {
-            const infinityGame = difficulty === DifficultyEnum.Infinity ? gameProviderCreateInfinityGame() : null;
-            const newSudoku = infinityGame?.sudoku ?? createSudokuByDifficulty(difficulty);
+            const corpusGame = createCorpusGame(difficulty);
+            const newSudoku = corpusGame?.sudoku ?? createGeneratedSudoku(difficulty);
 
             setSudoku(newSudoku);
 
             const sudokuString = newSudoku.toString();
-            const { rating, isCeiling } = isDefined(infinityGame)
-                ? { rating: infinityGame.rating, isCeiling: false }
+            const { rating, isCeiling } = isDefined(corpusGame)
+                ? { rating: corpusGame.rating, isCeiling: false }
                 : ratePuzzle(sudokuString);
 
             dispatch(gameStartAction({ difficulty, isChallengeRun, maxMistakes, sudokuString, rating, isRatingCeiling: isCeiling }));
