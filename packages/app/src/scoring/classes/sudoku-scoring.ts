@@ -11,6 +11,11 @@ interface CalculateScoreParams {
     maxMistakes: number;
 }
 
+interface CalculateHintPenaltyParams {
+    difficulty: DifficultyEnum;
+    maxMistakes: number;
+}
+
 export class SudokuScoring {
     constructor(private readonly config: ScoringConfigInterface) {}
 
@@ -24,6 +29,14 @@ export class SudokuScoring {
         score = this.applyMistakesPenalty(score, mistakes);
 
         return Math.floor(Math.max(score, this.config.correctMinValue));
+    }
+
+    calculateHintPenalty(params: CalculateHintPenaltyParams): number {
+        const { difficulty, maxMistakes } = params;
+
+        const placementValue = this.applyMaxMistakesBonus(this.getDifficultyBonus(this.config.correctValue, difficulty), maxMistakes);
+
+        return Math.floor(Math.max(placementValue * this.config.hintCoefficient, this.config.correctMinValue));
     }
 
     private applyCompletionBonuses(score: number, scoredCells: ScoredCellsInterface): number {

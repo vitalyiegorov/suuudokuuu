@@ -91,6 +91,21 @@ src/
 4. The game slice keeps `candidates`, `inputMode` and `showAutoCandidates` as a persistence mirror written by the same actions that already carry timeline and scoring data. Every engine mutation that changes one of them dispatches its matching action in the same handler, and `game.field-engine-mirror.spec.ts` proves the mirror stays identical to `engine.serialize()`.
 5. The persisted `sudokuString` format is the unchanged `Sudoku.toString()` grid. Saved games, share links and replays depend on it, so it must never change shape.
 
+### Hints
+
+1. The hint feature is a teaching device, not an answer dispenser. `HintButton` runs `gameFindHintStepScript(engine.Sudoku)`, which wraps the unnarrowed `findStepScript` so the player always gets the simplest technique the position allows.
+2. When no technique fires, or the only "technique" is `SolutionTechniqueEnum.Guess`, `gameFindHintStepScript` returns `null` and the button shows an honest alert. Nothing is revealed and no score is deducted.
+3. Playback is engine state: `engine.startStepScript`, `stepScriptNext`, `stepScriptBack`, `applyStepScript` and `stopStepScript`. `HintPanel` renders `snapshot.stepScript` and `snapshot.stepIndex`; `gameGetStepState` folds the played prefix of the script into pattern cells, revealed candidates and struck candidates that `Field` feeds into the existing cell highlight and candidate rendering.
+4. Applying a hint dispatches `gameHintAction` with the script eliminations and then calls `engine.applyStepScript()`. The placement flows through the normal `moveApplied` event, so scoring, the timeline cell event and its technique classification are identical to a manual placement of the same value. `game.hint-integration.spec.ts` proves it.
+5. Hint state is ephemeral. It is never persisted or serialized, abandoning a script simply discards it, and `HintPanel` stops any running script when it unmounts or when the engine is replaced by a new game.
+6. Prose never lives in `@suuudokuuu/field-core`. `gameGetStepNarration` maps a step kind plus its structured narration payload to one generic Lingui message per kind, with the technique name interpolated from `techniqueLabelsConstant`.
+
+### Hint scoring policy
+
+1. A hint costs `hintCoefficient` (0.5) of one plain correct placement at the current difficulty and max-mistakes setting, floored at `correctMinValue`. `SudokuScoring.calculateHintPenalty` reuses the same difficulty and hardcore multipliers as `calculate`, so the cost scales with the rest of the model.
+2. The magnitude is anchored to a mistake. A mistake is a permanent `mistakesCoefficient` (5%) tax on every remaining placement, so a mid-game mistake on a Medium board drains roughly one placement's worth of score. Half a placement is therefore about half a mistake, paid once and without compounding, which is the right price for an honest learning action.
+3. Applying a hint appends a `TimelineEventKindEnum.Hint` marker. The enum is append-only because encoded challenge and handoff payloads carry the numeric codes.
+
 ## Routing And Deep Links
 
 1. Expo Router routes live under `src/app`.

@@ -58,6 +58,10 @@ msgstr "{gamesCompleted, plural, one {# 局已完成} other {# 局已完成}}"
 msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
 msgstr "{mistakes, plural, one {# 个错误} other {# 个错误}}"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: start with {cellCount, plural, one {the # highlighted cell} other {the # highlighted cells}} and the digits {valueList}."
+msgstr ""
+
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
 msgstr "{value, plural, other {# 天}}"
@@ -124,6 +128,7 @@ msgstr "Android 安装"
 msgid "Animate completed rows, columns, and boxes"
 msgstr "为完成的行、列和宫格显示动画"
 
+#: src/game/components/hint-panel/hint-panel.tsx
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Apply"
 msgstr "应用"
@@ -433,6 +438,10 @@ msgstr "难度"
 msgid "Dim a completed digit in the numpad instead of removing it"
 msgstr "让数字键盘中已完成的数字变暗，而不是移除它"
 
+#: src/game/components/hint-panel/hint-panel.tsx
+msgid "Dismiss"
+msgstr ""
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Display"
 msgstr "显示"
@@ -625,6 +634,10 @@ msgstr "高亮匹配数字"
 msgid "Highlight pencil marks"
 msgstr "高亮笔记"
 
+#: src/game/components/hint-button/hint-button.tsx
+msgid "Hint"
+msgstr ""
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Hint text"
 msgstr "提示文字"
@@ -654,6 +667,10 @@ msgstr "未完成"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Ink"
 msgstr "墨色"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Inside that pattern the digits {valueList} can only sit in the highlighted cells."
+msgstr ""
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Install on iOS"
@@ -840,6 +857,10 @@ msgstr "新手"
 msgid "Newspaper"
 msgstr "报纸"
 
+#: src/game/components/hint-panel/hint-panel.tsx
+msgid "Next step"
+msgstr ""
+
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Nightmare"
@@ -877,6 +898,10 @@ msgstr "无论有多少惩罚，你至少都会获得"
 msgid "no pause"
 msgstr "无暂停"
 
+#: src/game/components/hint-button/hint-button.tsx
+msgid "No simple technique applies"
+msgstr ""
+
 #: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
 msgstr "还没有统计"
@@ -906,12 +931,17 @@ msgstr "数字键盘进度条（已填充）"
 msgid "of current score"
 msgstr "当前分数的"
 
+#: src/game/components/hint-button/hint-button.tsx
 #: src/game/hooks/use-game-creation-runner.hook.ts
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "OK"
 msgstr "确定"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Only {valueList} is left for the marked cell, so place it there."
+msgstr ""
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Open commit {commitShortSha} on GitHub"
@@ -1040,6 +1070,10 @@ msgstr "Português"
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Presets"
 msgstr "预设"
+
+#: src/game/components/hint-panel/hint-panel.tsx
+msgid "Previous step"
+msgstr ""
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Primary text"
@@ -1332,6 +1366,10 @@ msgstr "统计"
 msgid "Stats"
 msgstr "统计"
 
+#: src/game/components/hint-panel/hint-panel.tsx
+msgid "Step {currentStepNumber} of {stepCount}"
+msgstr ""
+
 #: src/history/components/replay-controls/replay-controls.tsx
 msgid "Step time"
 msgstr "步时"
@@ -1420,6 +1458,10 @@ msgstr "已填充数字键盘进度条上的文字"
 msgid "Text on ink"
 msgstr "墨色上的文字"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "That rules {valueList} out of {cellCount, plural, one {# other cell} other {# other cells}}, so the struck candidates are gone."
+msgstr ""
+
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
 msgstr "无法在此设备上打开提交链接。"
@@ -1450,6 +1492,10 @@ msgstr "主题名称"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "这次未能完成棋盘。乌克兰争取自由的战斗仍在继续。每 1 美元捐款都有意义。"
+
+#: src/game/components/hint-button/hint-button.tsx
+msgid "This position needs chains or trial and error, so there is no simple logical step to teach. Nothing was revealed and no score was deducted."
+msgstr ""
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "This theme will be removed permanently."
