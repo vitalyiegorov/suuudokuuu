@@ -3,6 +3,7 @@ import { useLocalSearchParams } from 'expo-router';
 
 import { PageHorizontalSafeAreaEdges } from '../@generic/components/page/constant/page-safe-area-edges.constant';
 import { Page } from '../@generic/components/page/page';
+import { PageHead } from '../@generic/components/page-head/page-head';
 import { PageHeader } from '../@generic/components/page-header/page-header';
 import { useResetGame } from '../@generic/hooks/use-reset-game.hook';
 import { ChallengeResultScreen } from '../challenge/components/challenge-result-screen/challenge-result-screen';
@@ -20,6 +21,7 @@ export default function ChallengeLostPage() {
 
     return (
         <Page edges={PageHorizontalSafeAreaEdges}>
+            <PageHead noIndex />
             <PageHeader title={t`Challenge Lost`} />
 
             <ChallengeResultScreen gameState={gameState} lossReason={lossReason} result={ChallengeResult.Lost}>

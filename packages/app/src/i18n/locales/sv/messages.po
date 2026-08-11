@@ -363,6 +363,10 @@ msgstr "Anpassat tema"
 msgid "Customize"
 msgstr "Anpassa"
 
+#: src/app/(tabs)/settings/index.tsx
+msgid "Customize your Sudoku experience: themes, difficulty, and gameplay preferences."
+msgstr ""
+
 #: src/@generic/hooks/use-timer-text.hook.ts
 msgid "d"
 msgstr "d"
@@ -987,9 +991,21 @@ msgstr "Spela"
 msgid "Play again"
 msgstr "Spela igen"
 
+#: src/app/(tabs)/index.tsx
+msgid "Play free Sudoku online with six difficulty levels, hints, and no ads. Fast, distraction-free puzzles in your browser."
+msgstr ""
+
+#: src/app/+html.tsx
+msgid "Play free Sudoku online with six difficulty levels, hints, and no ads. Fast, distraction-free puzzles that work great on any device."
+msgstr ""
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Play on higher difficulties for bigger multipliers"
 msgstr "Spela på högre svårighetsgrader för större multiplikatorer"
+
+#: src/app/game.tsx
+msgid "Play Sudoku — Suuudokuuu"
+msgstr ""
 
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Played"
@@ -1033,6 +1049,10 @@ msgstr "Primär text"
 msgid "Privacy policy"
 msgstr "Integritetspolicy"
 
+#: src/app/privacy-policy.tsx
+msgid "Privacy Policy — Suuudokuuu"
+msgstr ""
+
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Published:"
 msgstr "Publicerad:"
@@ -1048,6 +1068,10 @@ msgstr "Upphöjd yta"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Raised surface text"
 msgstr "Text för upphöjd yta"
+
+#: src/app/privacy-policy.tsx
+msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
+msgstr ""
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"
@@ -1202,6 +1226,10 @@ msgstr "Skicka sudokut för att lösas från början, eller lämna över din run
 msgid "Settings"
 msgstr "Inställningar"
 
+#: src/app/(tabs)/settings/index.tsx
+msgid "Settings — Suuudokuuu"
+msgstr ""
+
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "SHA-256 checksums"
 msgstr "SHA-256-kontrollsummor"
@@ -1260,6 +1288,10 @@ msgstr "Minsta siffror för kompakta bräden"
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Soft gray board with a paper-like feel"
 msgstr "Mjukt grått bräde med papperskänsla"
+
+#: src/app/game.tsx
+msgid "Solve a Sudoku puzzle online with hints, notes, and mistake tracking."
+msgstr ""
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Some color combinations are hard to read. Save anyway?"
@@ -1336,6 +1368,11 @@ msgstr "Ytans kant"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Surfaces"
 msgstr "Ytor"
+
+#: src/app/(tabs)/index.tsx
+#: src/app/+html.tsx
+msgid "Suuudokuuu — Free Online Sudoku, No Ads"
+msgstr ""
 
 #: src/game/hooks/use-share-challenge/use-share-challenge.hook.ts
 msgid "SuuudokuuU Challenge"
@@ -1457,6 +1494,10 @@ msgstr "Tips för höga poäng"
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "Too many mistakes"
 msgstr "För många misstag"
+
+#: src/app/(tabs)/history.tsx
+msgid "Track your solved Sudoku puzzles, best times, and scores across every difficulty."
+msgstr ""
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Try again"
@@ -1659,6 +1700,10 @@ msgstr "Din runda"
 #: src/history/components/history-overview/history-overview.tsx
 msgid "Your stats will build as you finish puzzles."
 msgstr "Din statistik byggs upp när du slutför sudoku."
+
+#: src/app/(tabs)/history.tsx
+msgid "Your Sudoku Stats — Suuudokuuu"
+msgstr ""
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Zero mistakes"
