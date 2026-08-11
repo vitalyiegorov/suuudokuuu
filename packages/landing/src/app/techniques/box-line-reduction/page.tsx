@@ -1,7 +1,5 @@
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
-import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
-import { Breadcrumbs } from '../../../seo/components/breadcrumbs/breadcrumbs';
 import { Faq } from '../../../seo/components/faq/faq';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
 import { FaqPage } from '../../../seo/components/faq-page/faq-page';
@@ -11,10 +9,9 @@ import { HowToStep } from '../../../seo/components/how-to-step/how-to-step';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
 import { TechniqueExampleBoard } from '../../../techniques/components/technique-example-board/technique-example-board';
 import { TechniqueNavigation } from '../../../techniques/components/technique-navigation/technique-navigation';
+import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
 import { buildTechniqueExample } from '../../../techniques/utils/build-technique-example.util';
-import { homePageMetadata } from '../../metadata';
-import { techniquesPageMetadata } from '../metadata';
 import { nakedPairPageMetadata } from '../naked-pair/metadata';
 import { pointingTriplePageMetadata } from '../pointing-triple/metadata';
 
@@ -31,12 +28,7 @@ const example = buildTechniqueExample(EXAMPLE_BOARD, SolutionTechniqueEnum.BoxLi
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const BoxLineReductionPage = () => (
     <main>
-        <Breadcrumbs>
-            <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
-            <BreadcrumbListItem path={techniquesPageMetadata.path}>Sudoku techniques</BreadcrumbListItem>
-            <BreadcrumbListItem>Box Line Reduction</BreadcrumbListItem>
-        </Breadcrumbs>
-        <h1>Box Line Reduction Sudoku Technique</h1>
+        <TechniquePageHeader title="Box Line Reduction" />
         <p>
             Box line reduction happens when a digit can only go in cells of one row or column that all belong to the same box, which forces
             the digit into that box segment and removes it from the rest of the box.

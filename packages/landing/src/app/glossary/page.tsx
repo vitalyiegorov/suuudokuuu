@@ -5,12 +5,16 @@ import { Breadcrumbs } from '../../seo/components/breadcrumbs/breadcrumbs';
 import { buildPageMetadata } from '../../seo/utils/build-page-metadata.util';
 import { howToPlayPageMetadata } from '../how-to-play/metadata';
 import { homePageMetadata } from '../metadata';
+import { aicPageMetadata } from '../techniques/aic/metadata';
 import { boxLineReductionPageMetadata } from '../techniques/box-line-reduction/metadata';
+import { finnedSwordfishPageMetadata } from '../techniques/finned-swordfish/metadata';
+import { finnedXWingPageMetadata } from '../techniques/finned-x-wing/metadata';
 import { fullHousePageMetadata } from '../techniques/full-house/metadata';
 import { hiddenPairPageMetadata } from '../techniques/hidden-pair/metadata';
 import { hiddenQuadPageMetadata } from '../techniques/hidden-quad/metadata';
 import { hiddenSinglePageMetadata } from '../techniques/hidden-single/metadata';
 import { hiddenTriplePageMetadata } from '../techniques/hidden-triple/metadata';
+import { jellyfishPageMetadata } from '../techniques/jellyfish/metadata';
 import { techniquesPageMetadata } from '../techniques/metadata';
 import { nakedPairPageMetadata } from '../techniques/naked-pair/metadata';
 import { nakedQuadPageMetadata } from '../techniques/naked-quad/metadata';
@@ -18,6 +22,16 @@ import { nakedSinglePageMetadata } from '../techniques/naked-single/metadata';
 import { nakedTriplePageMetadata } from '../techniques/naked-triple/metadata';
 import { pointingPairPageMetadata } from '../techniques/pointing-pair/metadata';
 import { pointingTriplePageMetadata } from '../techniques/pointing-triple/metadata';
+import { sashimiSwordfishPageMetadata } from '../techniques/sashimi-swordfish/metadata';
+import { sashimiXWingPageMetadata } from '../techniques/sashimi-x-wing/metadata';
+import { simpleColoringPageMetadata } from '../techniques/simple-coloring/metadata';
+import { swordfishPageMetadata } from '../techniques/swordfish/metadata';
+import { wWingPageMetadata } from '../techniques/w-wing/metadata';
+import { xChainPageMetadata } from '../techniques/x-chain/metadata';
+import { xWingPageMetadata } from '../techniques/x-wing/metadata';
+import { xyChainPageMetadata } from '../techniques/xy-chain/metadata';
+import { xyWingPageMetadata } from '../techniques/xy-wing/metadata';
+import { xyzWingPageMetadata } from '../techniques/xyz-wing/metadata';
 
 import { glossaryPageMetadata } from './metadata';
 
@@ -43,9 +57,7 @@ const GlossaryPage = () => (
         <dl className="glossary-list">
             <div className="glossary-entry">
                 <dt id="cell">Cell</dt>
-                <dd>
-                    One of the 81 positions in the grid. A cell holds either a single filled digit or, while blank, a set of candidates.
-                </dd>
+                <dd>One of the 81 positions in the grid, holding either a filled digit or, while blank, a set of candidates.</dd>
             </div>
             <div className="glossary-entry">
                 <dt id="row">Row</dt>
@@ -57,56 +69,40 @@ const GlossaryPage = () => (
             </div>
             <div className="glossary-entry">
                 <dt id="box">Box (unit)</dt>
-                <dd>
-                    One of the nine 3×3 blocks of cells, each of which must also contain the digits 1 to 9 exactly once. Unit is the general
-                    term for any row, column or box.
-                </dd>
+                <dd>One of the nine 3×3 blocks of cells. Unit is the general term for any row, column or box.</dd>
             </div>
             <div className="glossary-entry">
                 <dt id="candidate">Candidate (pencil mark)</dt>
-                <dd>
-                    A digit a blank cell could still legally hold, based on what its row, column and box already contain. Most solvers write
-                    candidates as small numbers in the corner of the cell while working through a puzzle.
-                </dd>
+                <dd>A digit a blank cell could still legally hold, based on what its row, column and box already contain.</dd>
             </div>
             <div className="glossary-entry">
                 <dt id="given">Given (clue)</dt>
-                <dd>
-                    A digit printed on the board before solving starts. The set of givens is what makes one puzzle different from another.
-                </dd>
+                <dd>A digit printed on the board before solving starts, part of what makes one puzzle different from another.</dd>
             </div>
             <div className="glossary-entry">
                 <dt id="naked-hidden">Naked / hidden</dt>
-                <dd>
-                    Two ways a pattern can appear. Naked patterns are visible directly in a cell’s own candidate list; hidden patterns are
-                    only visible by checking, unit by unit, where a digit is still allowed to go.
-                </dd>
+                <dd>Naked patterns are visible in a cell’s own candidates; hidden patterns need checking, unit by unit, for a digit.</dd>
             </div>
             <div className="glossary-entry">
                 <dt id="elimination">Elimination</dt>
-                <dd>
-                    Removing a candidate from a cell because a technique has proven it cannot be the answer there, without placing a digit.
-                </dd>
+                <dd>Removing a candidate from a cell because a technique has proven it cannot be the answer, without placing a digit.</dd>
             </div>
             <div className="glossary-entry">
                 <dt id="unique-solution">Unique solution</dt>
-                <dd>
-                    The property every well-formed Sudoku has: exactly one completed grid satisfies all three rules given the starting
-                    clues.
-                </dd>
+                <dd>The property every well-formed Sudoku has: exactly one completed grid satisfies all three rules given its clues.</dd>
             </div>
             <div className="glossary-entry">
                 <dt id="minimal-puzzle">Minimal puzzle (17-clue)</dt>
                 <dd>
-                    A puzzle with the fewest clues that still has a unique solution. Seventeen is the proven minimum clue count for a
-                    standard 9×9 Sudoku, which is why Suuudokuuu’s Hell difficulty draws from a bundled 17-clue corpus.
+                    A puzzle with the fewest clues that still has a unique solution — 17 for standard Sudoku, the source of Suuudokuuu’s
+                    Hell corpus.
                 </dd>
             </div>
         </dl>
         <h2>Solving techniques</h2>
         <p>
-            Techniques are listed in the difficulty order Suuudokuuu applies them. The twelve simplest have their own guide with a worked
-            example board; the rest are defined here and will get their own guides as the technique library grows.
+            Techniques are listed in the difficulty order Suuudokuuu applies them. Every one of them has its own guide with a worked example
+            board built from the real solving engine; the definitions below are the quick-reference version of the same list.
         </p>
         <dl className="glossary-list">
             <div className="glossary-entry">
@@ -131,9 +127,7 @@ const GlossaryPage = () => (
                 <dt id="pointing-pair">
                     <Link href={pointingPairPageMetadata.path}>Pointing Pair</Link>
                 </dt>
-                <dd>
-                    A digit confined to two cells of a box that also share a row or column, so it can be erased from the rest of that line.
-                </dd>
+                <dd>A digit confined to two cells of a box sharing a row or column, erased from the rest of that line.</dd>
             </div>
             <div className="glossary-entry">
                 <dt id="pointing-triple">
@@ -151,10 +145,7 @@ const GlossaryPage = () => (
                 <dt id="naked-pair">
                     <Link href={nakedPairPageMetadata.path}>Naked Pair</Link>
                 </dt>
-                <dd>
-                    Two cells in a unit that share the same two candidates and nothing else, so both digits can be erased elsewhere in the
-                    unit.
-                </dd>
+                <dd>Two cells sharing the same two candidates and nothing else, so both digits are erased elsewhere in the unit.</dd>
             </div>
             <div className="glossary-entry">
                 <dt id="naked-triple">
@@ -187,83 +178,90 @@ const GlossaryPage = () => (
                 <dd>Four digits confined between them to the same four cells of a unit.</dd>
             </div>
             <div className="glossary-entry">
-                <dt id="x-wing">X-Wing</dt>
-                <dd>
-                    A fish pattern where a digit is confined to the same two columns across two rows, or the same two rows across two
-                    columns, letting it be eliminated from the rest of those lines.
-                </dd>
+                <dt id="x-wing">
+                    <Link href={xWingPageMetadata.path}>X-Wing</Link>
+                </dt>
+                <dd>A fish pattern: a digit confined to the same two columns across two rows is erased from the rest of those columns.</dd>
             </div>
             <div className="glossary-entry">
-                <dt id="swordfish">Swordfish</dt>
+                <dt id="swordfish">
+                    <Link href={swordfishPageMetadata.path}>Swordfish</Link>
+                </dt>
                 <dd>The three-line version of an X-Wing, using three rows and three columns instead of two.</dd>
             </div>
             <div className="glossary-entry">
-                <dt id="jellyfish">Jellyfish</dt>
+                <dt id="jellyfish">
+                    <Link href={jellyfishPageMetadata.path}>Jellyfish</Link>
+                </dt>
                 <dd>The four-line version of the same fish pattern, using four rows and four columns.</dd>
             </div>
             <div className="glossary-entry">
-                <dt id="finned-x-wing">Finned X-Wing</dt>
-                <dd>
-                    An X-Wing with one or two extra candidates, called fins, that still supports a smaller set of eliminations near the fin.
-                </dd>
+                <dt id="finned-x-wing">
+                    <Link href={finnedXWingPageMetadata.path}>Finned X-Wing</Link>
+                </dt>
+                <dd>An X-Wing with an extra candidate, called a fin, that still supports a smaller set of eliminations near the fin.</dd>
             </div>
             <div className="glossary-entry">
-                <dt id="finned-swordfish">Finned Swordfish</dt>
+                <dt id="finned-swordfish">
+                    <Link href={finnedSwordfishPageMetadata.path}>Finned Swordfish</Link>
+                </dt>
                 <dd>A Swordfish pattern with fins, the three-line counterpart to a finned X-Wing.</dd>
             </div>
             <div className="glossary-entry">
-                <dt id="sashimi-x-wing">Sashimi X-Wing</dt>
+                <dt id="sashimi-x-wing">
+                    <Link href={sashimiXWingPageMetadata.path}>Sashimi X-Wing</Link>
+                </dt>
                 <dd>A finned X-Wing where removing the fin cell’s own candidate entirely still leaves a valid, smaller X-Wing behind.</dd>
             </div>
             <div className="glossary-entry">
-                <dt id="sashimi-swordfish">Sashimi Swordfish</dt>
+                <dt id="sashimi-swordfish">
+                    <Link href={sashimiSwordfishPageMetadata.path}>Sashimi Swordfish</Link>
+                </dt>
                 <dd>The same sashimi pattern applied to a Swordfish instead of an X-Wing.</dd>
             </div>
             <div className="glossary-entry">
-                <dt id="xy-wing">XY-Wing</dt>
+                <dt id="xy-wing">
+                    <Link href={xyWingPageMetadata.path}>XY-Wing</Link>
+                </dt>
                 <dd>
-                    Three cells with two candidates each, arranged so that whichever digit the pivot cell turns out to hold, a shared
-                    candidate can be eliminated from any cell that sees both of the other two.
+                    Three bivalue cells where, whichever value the pivot holds, a shared candidate is erased from cells seeing both others.
                 </dd>
             </div>
             <div className="glossary-entry">
-                <dt id="xyz-wing">XYZ-Wing</dt>
+                <dt id="xyz-wing">
+                    <Link href={xyzWingPageMetadata.path}>XYZ-Wing</Link>
+                </dt>
                 <dd>An XY-Wing where the pivot cell also carries the shared third candidate, which tightens the elimination further.</dd>
             </div>
             <div className="glossary-entry">
-                <dt id="w-wing">W-Wing</dt>
-                <dd>
-                    Two cells holding the same pair of candidates, connected by a strong link on one of those digits, that let the other
-                    digit be eliminated from cells both of them see.
-                </dd>
+                <dt id="w-wing">
+                    <Link href={wWingPageMetadata.path}>W-Wing</Link>
+                </dt>
+                <dd>Two cells sharing a candidate pair, linked by a strong link on one digit, that erases the other from shared peers.</dd>
             </div>
             <div className="glossary-entry">
-                <dt id="x-chain">X-Chain</dt>
-                <dd>
-                    A chain of strong and weak links on a single digit connecting two cells, proving one of the chain’s endpoints must hold
-                    it.
-                </dd>
+                <dt id="x-chain">
+                    <Link href={xChainPageMetadata.path}>X-Chain</Link>
+                </dt>
+                <dd>A chain of strong and weak links on one digit connecting two cells, proving an endpoint of the chain must hold it.</dd>
             </div>
             <div className="glossary-entry">
-                <dt id="xy-chain">XY-Chain</dt>
-                <dd>
-                    A chain of cells with exactly two candidates each, linked so the chain’s two endpoints force an elimination wherever
-                    they overlap.
-                </dd>
+                <dt id="xy-chain">
+                    <Link href={xyChainPageMetadata.path}>XY-Chain</Link>
+                </dt>
+                <dd>A chain of bivalue cells linked so the two endpoints force an elimination wherever their shared peers overlap.</dd>
             </div>
             <div className="glossary-entry">
-                <dt id="simple-coloring">Simple Coloring</dt>
-                <dd>
-                    A technique that assigns two alternating colors to a chain of strong links on one digit, then eliminates candidates that
-                    see cells of both colors.
-                </dd>
+                <dt id="simple-coloring">
+                    <Link href={simpleColoringPageMetadata.path}>Simple Coloring</Link>
+                </dt>
+                <dd>Assigns two alternating colors to a chain of strong links on one digit, then clears candidates seeing both colors.</dd>
             </div>
             <div className="glossary-entry">
-                <dt id="aic">AIC (Alternating Inference Chain)</dt>
-                <dd>
-                    A chain of alternating strong and weak links across candidates that generalises X-Chains, XY-Chains and coloring into
-                    one framework.
-                </dd>
+                <dt id="aic">
+                    <Link href={aicPageMetadata.path}>AIC (Alternating Inference Chain)</Link>
+                </dt>
+                <dd>A chain of alternating strong and weak links across candidates, generalising X-Chains, XY-Chains and coloring.</dd>
             </div>
         </dl>
         <p>

@@ -1,7 +1,5 @@
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
-import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
-import { Breadcrumbs } from '../../../seo/components/breadcrumbs/breadcrumbs';
 import { Faq } from '../../../seo/components/faq/faq';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
 import { FaqPage } from '../../../seo/components/faq-page/faq-page';
@@ -11,10 +9,9 @@ import { HowToStep } from '../../../seo/components/how-to-step/how-to-step';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
 import { TechniqueExampleBoard } from '../../../techniques/components/technique-example-board/technique-example-board';
 import { TechniqueNavigation } from '../../../techniques/components/technique-navigation/technique-navigation';
+import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
 import { buildTechniqueExample } from '../../../techniques/utils/build-technique-example.util';
-import { homePageMetadata } from '../../metadata';
-import { techniquesPageMetadata } from '../metadata';
 import { nakedSinglePageMetadata } from '../naked-single/metadata';
 
 import { fullHousePageMetadata } from './metadata';
@@ -30,12 +27,7 @@ const example = buildTechniqueExample(EXAMPLE_BOARD, SolutionTechniqueEnum.FullH
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const FullHousePage = () => (
     <main>
-        <Breadcrumbs>
-            <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
-            <BreadcrumbListItem path={techniquesPageMetadata.path}>Sudoku techniques</BreadcrumbListItem>
-            <BreadcrumbListItem>Full House</BreadcrumbListItem>
-        </Breadcrumbs>
-        <h1>Full House Sudoku Technique</h1>
+        <TechniquePageHeader title="Full House" />
         <p>
             A full house is a row, column or box in which exactly one cell is still empty, and the digit that belongs in it is simply the
             one value that unit has not used yet.

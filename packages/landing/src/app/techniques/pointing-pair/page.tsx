@@ -1,7 +1,5 @@
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
-import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
-import { Breadcrumbs } from '../../../seo/components/breadcrumbs/breadcrumbs';
 import { Faq } from '../../../seo/components/faq/faq';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
 import { FaqPage } from '../../../seo/components/faq-page/faq-page';
@@ -11,11 +9,10 @@ import { HowToStep } from '../../../seo/components/how-to-step/how-to-step';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
 import { TechniqueExampleBoard } from '../../../techniques/components/technique-example-board/technique-example-board';
 import { TechniqueNavigation } from '../../../techniques/components/technique-navigation/technique-navigation';
+import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
 import { buildTechniqueExample } from '../../../techniques/utils/build-technique-example.util';
-import { homePageMetadata } from '../../metadata';
 import { hiddenSinglePageMetadata } from '../hidden-single/metadata';
-import { techniquesPageMetadata } from '../metadata';
 import { pointingTriplePageMetadata } from '../pointing-triple/metadata';
 
 import { pointingPairPageMetadata } from './metadata';
@@ -31,12 +28,7 @@ const example = buildTechniqueExample(EXAMPLE_BOARD, SolutionTechniqueEnum.Point
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const PointingPairPage = () => (
     <main>
-        <Breadcrumbs>
-            <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
-            <BreadcrumbListItem path={techniquesPageMetadata.path}>Sudoku techniques</BreadcrumbListItem>
-            <BreadcrumbListItem>Pointing Pair</BreadcrumbListItem>
-        </Breadcrumbs>
-        <h1>Pointing Pair Sudoku Technique</h1>
+        <TechniquePageHeader title="Pointing Pair" />
         <p>
             A pointing pair occurs when a digit can only go in two cells of a box and both of those cells lie on the same row or column, so
             the digit can be erased from every other cell of that line.

@@ -1,7 +1,5 @@
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
-import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
-import { Breadcrumbs } from '../../../seo/components/breadcrumbs/breadcrumbs';
 import { Faq } from '../../../seo/components/faq/faq';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
 import { FaqPage } from '../../../seo/components/faq-page/faq-page';
@@ -11,11 +9,10 @@ import { HowToStep } from '../../../seo/components/how-to-step/how-to-step';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
 import { TechniqueExampleBoard } from '../../../techniques/components/technique-example-board/technique-example-board';
 import { TechniqueNavigation } from '../../../techniques/components/technique-navigation/technique-navigation';
+import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
 import { buildTechniqueExample } from '../../../techniques/utils/build-technique-example.util';
-import { homePageMetadata } from '../../metadata';
 import { hiddenPairPageMetadata } from '../hidden-pair/metadata';
-import { techniquesPageMetadata } from '../metadata';
 import { nakedTriplePageMetadata } from '../naked-triple/metadata';
 
 import { nakedQuadPageMetadata } from './metadata';
@@ -31,12 +28,7 @@ const example = buildTechniqueExample(EXAMPLE_BOARD, SolutionTechniqueEnum.Naked
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const NakedQuadPage = () => (
     <main>
-        <Breadcrumbs>
-            <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
-            <BreadcrumbListItem path={techniquesPageMetadata.path}>Sudoku techniques</BreadcrumbListItem>
-            <BreadcrumbListItem>Naked Quad</BreadcrumbListItem>
-        </Breadcrumbs>
-        <h1>Naked Quad Sudoku Technique</h1>
+        <TechniquePageHeader title="Naked Quad" />
         <p>
             A naked quad is four cells in the same unit whose candidates, taken together, use only four different digits, which reserves
             those four digits for those four cells and removes them from every other cell of the unit.
