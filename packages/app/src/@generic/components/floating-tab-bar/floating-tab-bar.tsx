@@ -1,3 +1,4 @@
+import { useBackdropRecomposite } from '@suuudokuuu/screen-chrome';
 import { use } from 'react';
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -16,11 +17,12 @@ import type { BottomTabBarProps } from 'expo-router/tabs';
 export const FloatingTabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
     const { theme } = use(ThemeContext);
     const safeAreaInsets = useSafeAreaInsets();
+    const backdropRecompositeRef = useBackdropRecomposite();
 
     const anchorStyles = [styles.anchor, { bottom: safeAreaInsets.bottom + FloatingTabBarBottomMargin }];
 
     return (
-        <View pointerEvents="box-none" style={anchorStyles}>
+        <View pointerEvents="box-none" ref={backdropRecompositeRef} style={anchorStyles}>
             <FloatingTabBarSurface>
                 <View style={styles.row}>
                     {state.routes.map((route, index) => {

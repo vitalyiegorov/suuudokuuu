@@ -4,6 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { isDefined } from '@rnw-community/shared';
 
+import { useBackdropRecomposite } from '../hook/use-backdrop-recomposite.hook';
 import { useScreenChrome } from '../hook/use-screen-chrome.hook';
 import { EdgeFadePosition, ScreenChromeColorSetInterface } from '../interface/screen-chrome-config.interface';
 
@@ -43,6 +44,7 @@ export const EdgeFade = ({ position, height, intensity, scrollAnimation, style }
     const maskImage = buildMaskImage(config.maskStops[position]);
 
     const animatedStyle = useEdgeFadeOpacityStyle(opacityInputRange);
+    const backdropRecompositeRef = useBackdropRecomposite();
 
     const positionalMetrics = getEdgeFadeBandMetrics(position, height, config, insets);
 
@@ -63,5 +65,5 @@ export const EdgeFade = ({ position, height, intensity, scrollAnimation, style }
 
     const combinedStyle = [webStyle, animatedStyle, style];
 
-    return <Animated.View pointerEvents="none" aria-hidden style={combinedStyle} />;
+    return <Animated.View pointerEvents="none" aria-hidden ref={backdropRecompositeRef} style={combinedStyle} />;
 };

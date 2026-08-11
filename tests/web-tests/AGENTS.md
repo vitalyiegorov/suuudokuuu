@@ -110,15 +110,26 @@ running server outside CI. `playwright.config.ts` fails fast with an actionable 
 ## Browser Projects
 
 `chromium` and `mobile-chromium` run the whole suite. `mobile-webkit` (iPhone 14) is scoped via
-`testMatch` to `10.localized-quit-game.spec.ts` only, so the suite gains real WebKit coverage of the
-browser the quit bug was reported on without adopting the whole suite's WebKit gaps. Two existing
-specs fail on WebKit for reasons unrelated to the code under test, and must be resolved before the
-project can be widened:
+`testMatch` to `10.localized-quit-game.spec.ts` and `11.backdrop-recomposite.spec.ts` only, so the
+suite gains real WebKit coverage of the browser both bugs were reported on without adopting the whole
+suite's WebKit gaps. Two existing specs fail on WebKit for reasons unrelated to the code under test,
+and must be resolved before the project can be widened:
 
 - `06.resume-game.spec.ts` — `HomeScreenSelectors.ResumeButton` never appears after `page.reload()`.
   wa-sqlite/OPFS persistence does not survive a reload in Playwright's WebKit, unlike Chromium.
 - `08.challenge-hud-layout.spec.ts` — the rival-race HUD's `x` is `0` on the iPhone 14 viewport, so
   the "HUD sits right of the board" geometry assertion does not hold at that breakpoint.
+
+## Backdrop Recomposite Spec
+
+`11.backdrop-recomposite.spec.ts` pins the _mechanism_ of an unverified iOS Safari mitigation, not a
+user-visible symptom. The reported "black screen after returning to Safari" could not be reproduced in
+any headless engine (see the note below), so there is no symptom to assert. Instead the spec installs a
+`MutationObserver` on every element whose computed `backdrop-filter` is not `none`, drives
+`visibilitychange` and `pageshow`/`persisted`, and asserts the inline `backdrop-filter` was set to
+`none` and then removed across frames — proving `useBackdropRecomposite` actually ran. It fails if the
+hook is unwired from `EdgeFade` or `FloatingTabBar`. Do not rewrite it to assert pixels; headless
+WebKit never reproduces the compositor fault this guards against.
 
 ## Known App Issues Affecting This Suite
 
