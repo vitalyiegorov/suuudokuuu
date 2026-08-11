@@ -1,0 +1,24 @@
+{
+    "name": "@suuudokuuu/landing",
+    "version": "2.5.1",
+    "private": true,
+    "description": "Static Next.js content and SEO surface for www.suuudokuuu.com",
+    "scripts": {
+        "build": "next build",
+        "clear": "yarn run -T rimraf .next out node_modules/.cache .turbo",
+        "format": "run -T prettier --write src",
+        "lint": "run -T eslint --fix src",
+        "start": "next dev",
+        "ts": "run -T tsc -p ."
+    },
+    "dependencies": {
+        "@rnw-community/shared": "^2.2.0",
+        "next": "16.3.0",
+        "react": "19.2.3",
+        "react-dom": "19.2.3"
+    },
+    "devDependencies": {
+        "@types/react": "~19.2.14",
+        "@types/react-dom": "~19.2.4"
+    }
+}

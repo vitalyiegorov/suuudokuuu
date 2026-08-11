@@ -21,6 +21,14 @@
     ],
     "ignoreBinaries": ["run", "xcrun", "maestro"],
     "workspaces": {
+        "packages/landing": {
+            "entry": [
+                "src/app/**/{page,layout,template,default,error,not-found,loading,route,sitemap,robots,manifest,metadata}.{ts,tsx}!",
+                "src/seo/components/**/*.tsx!",
+                "src/seo/utils/*.util.ts!"
+            ],
+            "project": ["src/**/*.{ts,tsx}"]
+        },
         "packages/app": {
             "entry": [
                 "{index,cli,main}.{js,mjs,cjs,jsx,ts,tsx,mts,cts}!",

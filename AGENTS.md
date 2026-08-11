@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Suuudokuuu is an open-source Sudoku game built with React Native and Expo. This monorepo has nine core packages: `app` for the game UI, `generator` for Sudoku generation and solving, `solver-core` for the shared solver contract, grid utilities, and conformance helpers, `solver-dlx` for the Dancing Links exact-cover solver, `solver-bitmask` for the typed-array bitmask solver, `techniques` for solving-technique detection, `encoder` for compact shareable game-state encoding, `hell-corpus` for the bundled, verified Hell-difficulty puzzle corpus, and `screen-chrome` for generic screen chrome primitives.
+Suuudokuuu is an open-source Sudoku game built with React Native and Expo. This monorepo has ten core packages: `app` for the game UI, `landing` for the static Next.js content and SEO site, `generator` for Sudoku generation and solving, `solver-core` for the shared solver contract, grid utilities, and conformance helpers, `solver-dlx` for the Dancing Links exact-cover solver, `solver-bitmask` for the typed-array bitmask solver, `techniques` for solving-technique detection, `encoder` for compact shareable game-state encoding, `hell-corpus` for the bundled, verified Hell-difficulty puzzle corpus, and `screen-chrome` for generic screen chrome primitives.
 
 ## Canonical Agent Surfaces
 
@@ -49,6 +49,7 @@ packages/
 ├── techniques/         # Pure TypeScript solving-technique detection
 ├── encoder/            # Binary/LZ encoding for puzzle sharing and replay
 ├── hell-corpus/        # Bundled, verified 17-clue Hell-difficulty puzzle corpus
+├── landing/            # Static Next.js App Router content and SEO site for www.suuudokuuu.com
 └── screen-chrome/      # Raw TypeScript generic screen chrome, edge fades, and collapsible header
 tests/
 ├── app-tests/          # Maestro E2E flows
@@ -62,6 +63,7 @@ tests/
 - Read `packages/techniques/AGENTS.md` before changing solving techniques, candidate context, strategy ordering, or move classification.
 - Read `packages/encoder/AGENTS.md` before changing binary formats, solution-step encoding, URL serialization, compression, or decode error behavior.
 - Read `packages/hell-corpus/scripts/build-corpus.mjs` before changing the bundled Hell-difficulty puzzle corpus, its build/verification CLI, or the packed record format.
+- Read `packages/landing/AGENTS.md` before changing the landing site: App Router routes, page metadata sidecars, the metadata registry, JSON-LD schema components, `sitemap.ts`, `robots.ts`, `manifest.ts`, or landing copy.
 - Read `packages/screen-chrome/README.md` before changing `@suuudokuuu/screen-chrome`; preserve its generic, app-agnostic API.
 - Read `.agents/skills/store-media/SKILL.md` before changing store listing metadata, store screenshots, release-notes generation, or `packages/app/fastlane`. It also records the App Store rules that publishing depends on, including the requirement that `packages/app/package.json` stay ahead of the version already released on the App Store; a lower version produces a listing that can never be submitted and cannot be deleted.
 - Read `tests/app-tests/AGENTS.md` before changing Maestro flows, test IDs used by flows, deep-link fixtures, or E2E app assumptions.
@@ -152,7 +154,7 @@ Use Conventional Commits for commit messages and PR titles:
 type(scope): short description
 ```
 
-Scopes are `app`, `generator`, `solver-core`, `solver-dlx`, `solver-bitmask`, `techniques`, `encoder`, and `hell-corpus`. Omit the scope for repo-wide docs, tooling, skills, or workspace configuration.
+Scopes are `app`, `landing`, `generator`, `solver-core`, `solver-dlx`, `solver-bitmask`, `techniques`, `encoder`, and `hell-corpus`. Omit the scope for repo-wide docs, tooling, skills, or workspace configuration.
 
 Use these types: `feat`, `fix`, `refactor`, `chore`, `docs`, `ci`, `test`, `i18n`, `perf`, and `build`.
 
