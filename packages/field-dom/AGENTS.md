@@ -58,7 +58,7 @@ The snapshot carries no given/user distinction, so the consumer supplies `givenC
 
 ### Step scripts
 
-`buildFieldStepState(stepScript, stepIndex)` folds steps `0..stepIndex` into pattern cells, revealed candidates, struck candidates, and placed values. `FieldStepPlayer` renders nothing when `snapshot.stepScript` is `null`. Narration is structured, never prose: `narrationRenderer(step)` receives the whole step (kind plus `{ technique, cells, values }`) and returns the consumer's localized node.
+`@suuudokuuu/field-core`'s `buildStepScriptState(stepScript, stepIndex)` folds steps `0..stepIndex` into pattern cells, revealed candidates, struck candidates, and placed values; `FieldBoard` passes the result as `context.stepState`. `FieldStepPlayer` renders nothing when `snapshot.stepScript` is `null`. Narration is structured, never prose: `narrationRenderer(step)` receives the whole step (kind plus `{ technique, cells, values }`) and returns the consumer's localized node.
 
 ### Keyboard model
 
@@ -91,7 +91,7 @@ The snapshot carries no given/user distinction, so the consumer supplies `givenC
 ```typescript
 export { FieldBoard, FieldCell, FieldCellCandidates, FieldGame, FieldNumberPad, FieldStepPlayer };
 export { useFieldMistakeCell };
-export { buildFieldCellView, buildFieldPadValues, buildFieldStepState, getAutoCandidates, getFieldCellCandidates, getGivenCellKeys };
+export { buildFieldCellView, buildFieldPadValues, getAutoCandidates, getFieldCellCandidates, getGivenCellKeys };
 export type { FieldBoardLabelsInterface, FieldGameLabelsInterface, FieldCellViewInterface /* ... */ };
 ```
 

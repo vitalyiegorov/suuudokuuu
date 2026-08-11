@@ -6,7 +6,6 @@ export type { FieldMistakeRecordInterface } from './interfaces/field-mistake-rec
 export type { FieldNumberPadLabelsInterface } from './interfaces/field-number-pad-labels.interface';
 export type { FieldPadValueInterface } from './interfaces/field-pad-value.interface';
 export type { FieldStepPlayerLabelsInterface } from './interfaces/field-step-player-labels.interface';
-export type { FieldStepStateInterface } from './interfaces/field-step-state.interface';
 
 export type { FieldCellType } from './types/field-cell.type';
 export type { FieldNarrationRendererType } from './types/field-narration-renderer.type';
@@ -24,7 +23,6 @@ export { useFieldMistakeCell } from './hooks/use-field-mistake-cell.hook';
 
 export { buildFieldCellView } from './utils/build-field-cell-view.util';
 export { buildFieldPadValues } from './utils/build-field-pad-values.util';
-export { buildFieldStepState } from './utils/build-field-step-state.util';
 export { getAutoCandidates } from './utils/get-auto-candidates.util';
 export { getFieldCellCandidates } from './utils/get-field-cell-candidates.util';
 export { getGivenCellKeys } from './utils/get-given-cell-keys.util';

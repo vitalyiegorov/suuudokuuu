@@ -12,6 +12,9 @@ export * from './challenge/components/challenge-try-again-button/challenge-try-a
 export * from './game/components/available-values-item/available-value-item.selectors';
 export * from './game/components/candidate-input-item/candidate-input-item.selectors';
 export * from './game/components/difficulty-complexity-slider/difficulty-complexity-option/difficulty-complexity-option.selectors';
+export * from './game/components/hint-button/hint-button.selectors';
+export * from './game/components/hint-panel/hint-panel.selectors';
+export * from './game/components/hint-step-narration/hint-step-narration.selectors';
 export * from './game/components/input-mode-button/input-mode-button.selectors';
 export * from './history/components/completed-games-list/completed-game-item.selectors';
 export * from './history/components/history-difficulty/history-difficulty.selectors';

@@ -1,3 +1,4 @@
+import { buildStepScriptState } from '@suuudokuuu/field-core';
 import { isEmptyScoredCells } from '@suuudokuuu/generator';
 import { type Ref, use, useImperativeHandle, useState } from 'react';
 import { View } from 'react-native';
@@ -5,7 +6,6 @@ import { View } from 'react-native';
 import { getCellKey } from '../../../@generic/utils/get-cell-key.util';
 import { GameContext } from '../../context/game.context';
 import { gameGetCellKeysToAnimate } from '../../utils/game-get-cell-keys-to-animate.util';
-import { gameGetStepState } from '../../utils/game-get-step-state.util';
 import { gameIncrementCellAnimationGenerations } from '../../utils/game-increment-cell-animation-generations.util';
 import { gameMergeCandidateValues } from '../../utils/game-merge-candidate-values.util';
 import { gameNextSuccessCellTrigger } from '../../utils/game-next-success-cell-trigger.util';
@@ -37,7 +37,7 @@ export const Field = ({ cellSize, onSelect, ref }: Props) => {
 
     const sudoku = engine.Sudoku;
     const { selectedCell } = snapshot;
-    const stepState = gameGetStepState(snapshot.stepScript, snapshot.stepIndex);
+    const stepState = buildStepScriptState(snapshot.stepScript, snapshot.stepIndex);
 
     const [comboAnimationGenerations, setComboAnimationGenerations] = useState<Record<string, number>>({});
     const [successTrigger, setSuccessTrigger] = useState<SuccessCellTriggerInterface>(initialSuccessTrigger);

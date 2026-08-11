@@ -80,12 +80,14 @@ test('gates the live board behind intent, then walks the elimination and takes d
 
     await expect(nextStepButton).toBeDisabled();
     await expect(targetCandidate).toHaveAttribute('data-eliminated', 'true');
+    await expect(targetCandidate).toHaveAttribute('data-present', 'true');
 
     await page.locator('.field-step-player__controls').getByRole('button', { name: 'Apply to the board' }).click();
 
     await expect(narration).toHaveCount(0);
     await expect(liveBoard.locator("[data-pattern='true']")).toHaveCount(0);
     await expect(targetCandidate).toHaveAttribute('data-eliminated', 'false');
+    await expect(targetCandidate).toHaveAttribute('data-present', 'false');
 
     await liveBoard.getByRole('gridcell', { name: playableCellLabel }).click();
     await page.getByRole('button', { name: new RegExp(`^Enter ${playableDigitValue},`, 'u') }).click();

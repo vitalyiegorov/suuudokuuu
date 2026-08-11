@@ -1,4 +1,4 @@
-export interface FieldStepStateInterface {
+export interface StepScriptStateInterface {
     patternCellKeys: ReadonlySet<string>;
     targetCellKey: string | null;
     revealedCandidates: ReadonlyMap<string, number[]>;

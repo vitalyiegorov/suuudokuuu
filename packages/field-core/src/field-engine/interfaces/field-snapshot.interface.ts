@@ -9,6 +9,7 @@ export interface FieldSnapshotInterface {
     sudokuString: string;
     selectedCell?: CellInterface;
     candidates: FieldCandidatesType;
+    eliminatedCandidates: FieldCandidatesType;
     inputMode: FieldInputModeType;
     showAutoCandidates: boolean;
     mistakes: number;

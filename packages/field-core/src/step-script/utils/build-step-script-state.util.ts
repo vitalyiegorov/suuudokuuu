@@ -1,14 +1,16 @@
-import { StepScriptStepKindEnum, getCellKey } from '@suuudokuuu/field-core';
-
 import { isDefined } from '@rnw-community/shared';
 
-import { mergeCandidateValues } from './merge-candidate-values.util';
+import { getCellKey } from '../../@generic/utils/get-cell-key.util';
+import { StepScriptStepKindEnum } from '../enums/step-script-step-kind.enum';
 
-import type { FieldStepStateInterface } from '../interfaces/field-step-state.interface';
-import type { StepScriptInterface, StepScriptStepType } from '@suuudokuuu/field-core';
+import type { StepScriptStateInterface } from '../interfaces/step-script-state.interface';
+import type { StepScriptInterface } from '../interfaces/step-script.interface';
+import type { StepScriptStepType } from '../types/step-script-step.type';
 
 const addCandidateValues = (target: Map<string, number[]>, cellKey: string, values: number[]): void => {
-    target.set(cellKey, mergeCandidateValues(target.get(cellKey) ?? [], values));
+    const mergedValues = [...new Set([...(target.get(cellKey) ?? []), ...values])].sort((left, right) => left - right);
+
+    target.set(cellKey, mergedValues);
 };
 
 const collectPatternCellKeys = (steps: StepScriptStepType[]): ReadonlySet<string> => {
@@ -65,7 +67,7 @@ const collectPlacedValues = (steps: StepScriptStepType[]): ReadonlyMap<string, n
     return placedValues;
 };
 
-export const buildFieldStepState = (stepScript: StepScriptInterface | null, stepIndex: number): FieldStepStateInterface => {
+export const buildStepScriptState = (stepScript: StepScriptInterface | null, stepIndex: number): StepScriptStateInterface => {
     const steps = isDefined(stepScript) ? stepScript.steps.slice(0, stepIndex + 1) : [];
     const placement = stepScript?.placement;
 

@@ -34,7 +34,6 @@
         "@suuudokuuu/field-core": "workspace:*"
     },
     "devDependencies": {
-        "@suuudokuuu/techniques": "workspace:*",
         "@types/react": "~19.2.14",
         "react": "19.2.3"
     },
