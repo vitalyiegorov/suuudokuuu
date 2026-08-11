@@ -363,6 +363,10 @@ msgstr "自定义主题"
 msgid "Customize"
 msgstr "自定义"
 
+#: src/app/(tabs)/settings/index.tsx
+msgid "Customize your Sudoku experience: themes, difficulty, and gameplay preferences."
+msgstr ""
+
 #: src/@generic/hooks/use-timer-text.hook.ts
 msgid "d"
 msgstr "d"
@@ -987,9 +991,21 @@ msgstr "开始"
 msgid "Play again"
 msgstr "再玩一次"
 
+#: src/app/(tabs)/index.tsx
+msgid "Play free Sudoku online with six difficulty levels, hints, and no ads. Fast, distraction-free puzzles in your browser."
+msgstr ""
+
+#: src/app/+html.tsx
+msgid "Play free Sudoku online with six difficulty levels, hints, and no ads. Fast, distraction-free puzzles that work great on any device."
+msgstr ""
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Play on higher difficulties for bigger multipliers"
 msgstr "选择更高难度可获得更大倍率"
+
+#: src/app/game.tsx
+msgid "Play Sudoku — Suuudokuuu"
+msgstr ""
 
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Played"
@@ -1033,6 +1049,10 @@ msgstr "主要文字"
 msgid "Privacy policy"
 msgstr "隐私政策"
 
+#: src/app/privacy-policy.tsx
+msgid "Privacy Policy — Suuudokuuu"
+msgstr ""
+
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Published:"
 msgstr "发布于："
@@ -1048,6 +1068,10 @@ msgstr "凸起表面"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Raised surface text"
 msgstr "凸起表面文字"
+
+#: src/app/privacy-policy.tsx
+msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
+msgstr ""
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"
@@ -1202,6 +1226,10 @@ msgstr "发送数独让对方从零开始解题，或交接你的对局以在别
 msgid "Settings"
 msgstr "设置"
 
+#: src/app/(tabs)/settings/index.tsx
+msgid "Settings — Suuudokuuu"
+msgstr ""
+
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "SHA-256 checksums"
 msgstr "SHA-256 校验和"
@@ -1260,6 +1288,10 @@ msgstr "最小数字，适合紧凑棋盘"
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Soft gray board with a paper-like feel"
 msgstr "柔和灰色棋盘，带纸张质感"
+
+#: src/app/game.tsx
+msgid "Solve a Sudoku puzzle online with hints, notes, and mistake tracking."
+msgstr ""
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Some color combinations are hard to read. Save anyway?"
@@ -1336,6 +1368,11 @@ msgstr "表面边框"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Surfaces"
 msgstr "表面"
+
+#: src/app/(tabs)/index.tsx
+#: src/app/+html.tsx
+msgid "Suuudokuuu — Free Online Sudoku, No Ads"
+msgstr ""
 
 #: src/game/hooks/use-share-challenge/use-share-challenge.hook.ts
 msgid "SuuudokuuU Challenge"
@@ -1457,6 +1494,10 @@ msgstr "高分技巧"
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "Too many mistakes"
 msgstr "错误太多"
+
+#: src/app/(tabs)/history.tsx
+msgid "Track your solved Sudoku puzzles, best times, and scores across every difficulty."
+msgstr ""
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Try again"
@@ -1659,6 +1700,10 @@ msgstr "你的对局"
 #: src/history/components/history-overview/history-overview.tsx
 msgid "Your stats will build as you finish puzzles."
 msgstr "完成数独后，统计数据会在这里累积。"
+
+#: src/app/(tabs)/history.tsx
+msgid "Your Sudoku Stats — Suuudokuuu"
+msgstr ""
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Zero mistakes"
