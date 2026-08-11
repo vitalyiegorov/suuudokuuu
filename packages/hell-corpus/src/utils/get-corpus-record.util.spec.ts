@@ -84,6 +84,7 @@ describe('getCorpusRecord', () => {
 
         expect(record.puzzle).toBe(ROYLE_17);
         expect(record.rating).toBeNull();
+        expect(record.isCeiling).toBe(false);
     });
 
     it('decodes a later record using its own slice of the corpus string', () => {
@@ -91,6 +92,7 @@ describe('getCorpusRecord', () => {
 
         expect(record.puzzle).toBe(RED_DWARF_TEST_PUZZLE);
         expect(record.rating).toBe(RATING_TEN_POINT_SIX);
+        expect(record.isCeiling).toBe(false);
     });
 
     it('throws for a negative index', () => {

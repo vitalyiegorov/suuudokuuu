@@ -4,9 +4,9 @@ import { HELL_CORPUS_RECORD_BASE64_LENGTH, HELL_CORPUS_RECORD_BYTES } from '../c
 import { ensureHellPuzzleRating } from './ensure-hell-puzzle-rating.util';
 import { getCorpusRecord } from './get-corpus-record.util';
 
-import type { HellPuzzleInterface } from '../interfaces/hell-puzzle.interface';
+import type { RatedCorpusPuzzleInterface } from '../interfaces/rated-corpus-puzzle.interface';
 
-export const getHellCorpusRecord = (index: number): HellPuzzleInterface =>
+export const getHellCorpusRecord = (index: number): RatedCorpusPuzzleInterface =>
     ensureHellPuzzleRating(
         getCorpusRecord(
             {

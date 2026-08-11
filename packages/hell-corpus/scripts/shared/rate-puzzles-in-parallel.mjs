@@ -19,12 +19,20 @@ const createShards = (lines, shardCount) => {
 const runShard = shardEntries =>
     new Promise((resolve, reject) => {
         const worker = new Worker(WORKER_FILE, { workerData: { shardEntries } });
+        let hasPostedMessage = false;
 
         worker.once('message', ratedEntries => {
+            hasPostedMessage = true;
             resolve(ratedEntries);
         });
         worker.once('error', reject);
-        worker.once('exit', () => void worker.terminate());
+        worker.once('exit', exitCode => {
+            void worker.terminate();
+
+            if (!hasPostedMessage) {
+                reject(new Error(`Rating worker exited with code ${exitCode} before posting its rated shard`));
+            }
+        });
     });
 
 export const ratePuzzlesInParallel = async (lines, requestedWorkerCount = availableParallelism()) => {

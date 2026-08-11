@@ -1,14 +1,9 @@
-import { isNumber } from '@rnw-community/shared';
+import { ensureRatedCorpusPuzzle } from './ensure-rated-corpus-puzzle.util';
 
 import type { DecodedCorpusRecordInterface } from '../interfaces/decoded-corpus-record.interface';
-import type { InfinityPuzzleInterface } from '../interfaces/infinity-puzzle.interface';
+import type { RatedCorpusPuzzleInterface } from '../interfaces/rated-corpus-puzzle.interface';
 
-export const ensureInfinityPuzzleRating = (record: DecodedCorpusRecordInterface, index: number): InfinityPuzzleInterface => {
-    const { puzzle, rating } = record;
+const createMissingRatingMessage = (index: number): string => `Infinity corpus record at index ${index} is missing its curated rating`;
 
-    if (!isNumber(rating)) {
-        throw new Error(`Infinity corpus record at index ${index} is missing its curated rating`);
-    }
-
-    return { puzzle, rating };
-};
+export const ensureInfinityPuzzleRating = (record: DecodedCorpusRecordInterface, index: number): RatedCorpusPuzzleInterface =>
+    ensureRatedCorpusPuzzle(record, index, createMissingRatingMessage);

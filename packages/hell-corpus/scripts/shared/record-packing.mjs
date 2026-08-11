@@ -1,5 +1,6 @@
+import { parseGridString } from '@suuudokuuu/solver-core';
+
 import { encodeBase64Bytes } from './base64-encoder.mjs';
-import { lineToGrid } from './puzzle-verification.mjs';
 
 const POSITION_MASK_BYTES = 11;
 const NIBBLE_MASK = 0xf;
@@ -7,10 +8,9 @@ const RATING_SCALE = 10;
 const RATING_VALUE_MASK = 0x7f;
 const CEILING_FLAG_BIT = 0x80;
 
-export const encodeRatingByte = rating => {
+export const encodeRatingByte = (rating, isCeiling) => {
     const scaledRating = Math.round(rating * RATING_SCALE);
-    const isCeiling = scaledRating > RATING_VALUE_MASK;
-    const clampedValue = isCeiling ? RATING_VALUE_MASK : scaledRating;
+    const clampedValue = Math.min(scaledRating, RATING_VALUE_MASK);
 
     return clampedValue | (isCeiling ? CEILING_FLAG_BIT : 0);
 };
@@ -46,4 +46,4 @@ const packGivensRecord = (grid, ratingByte, recordBytes) => {
 };
 
 export const packPuzzleRecord = (line, ratingByte, recordBytes) =>
-    encodeBase64Bytes(packGivensRecord(lineToGrid(line), ratingByte, recordBytes));
+    encodeBase64Bytes(packGivensRecord(parseGridString(line), ratingByte, recordBytes));

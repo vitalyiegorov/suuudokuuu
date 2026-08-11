@@ -41,8 +41,11 @@ export const decodeHellCorpusRecord = (record: Uint8Array, recordBytes: number):
         grid[cell] = readGivenValue(record, givenIndex);
     });
 
+    const { rating, isCeiling } = decodeCorpusRating(record[recordBytes - 1]);
+
     return {
         puzzle: formatGridString(grid),
-        rating: decodeCorpusRating(record[recordBytes - 1])
+        rating,
+        isCeiling
     };
 };
