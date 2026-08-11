@@ -1,5 +1,5 @@
 import { parsePuzzleGivens } from '../../utils/parse-puzzle-givens.util';
-import { HardestPuzzleRow } from '../hardest-puzzle-row/hardest-puzzle-row';
+import { PuzzleBoardRow } from '../puzzle-board-row/puzzle-board-row';
 
 import type { ReactNode } from 'react';
 
@@ -10,11 +10,11 @@ interface Props {
     children: ReactNode;
 }
 
-export const HardestPuzzleBoard = ({ children, givens }: Props) => {
+export const PuzzleBoard = ({ children, givens }: Props) => {
     const rows = parsePuzzleGivens(givens);
 
     return (
-        <div className="hardest-puzzle-board">
+        <div className="puzzle-board">
             <table className="sudoku-board">
                 <caption className="sudoku-board__caption">{children}</caption>
                 <thead>
@@ -29,7 +29,7 @@ export const HardestPuzzleBoard = ({ children, givens }: Props) => {
                 </thead>
                 <tbody>
                     {rows.map(row => (
-                        <HardestPuzzleRow key={row.index} row={row} />
+                        <PuzzleBoardRow key={row.index} row={row} />
                     ))}
                 </tbody>
             </table>

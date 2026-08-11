@@ -1,12 +1,12 @@
 import { isPositiveNumber } from '@rnw-community/shared';
 
-import type { HardestPuzzleCellInterface } from '../../interfaces/hardest-puzzle-cell.interface';
+import type { PuzzleBoardCellInterface } from '../../interfaces/puzzle-board-cell.interface';
 
 interface Props {
-    cell: HardestPuzzleCellInterface;
+    cell: PuzzleBoardCellInterface;
 }
 
-export const HardestPuzzleCell = ({ cell }: Props) => {
+export const PuzzleBoardCell = ({ cell }: Props) => {
     const hasValue = isPositiveNumber(cell.value);
     const content = hasValue ? <span className="sudoku-cell__value">{cell.value}</span> : null;
 

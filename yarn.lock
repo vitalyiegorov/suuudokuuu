@@ -5394,7 +5394,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@suuudokuuu/landing@workspace:packages/landing":
+"@suuudokuuu/landing@workspace:*, @suuudokuuu/landing@workspace:packages/landing":
   version: 0.0.0-use.local
   resolution: "@suuudokuuu/landing@workspace:packages/landing"
   dependencies:
@@ -5402,6 +5402,9 @@ __metadata:
     "@suuudokuuu/field-core": "workspace:*"
     "@suuudokuuu/field-dom": "workspace:*"
     "@suuudokuuu/generator": "workspace:*"
+    "@suuudokuuu/solver-bitmask": "workspace:*"
+    "@suuudokuuu/solver-core": "workspace:*"
+    "@suuudokuuu/solver-dlx": "workspace:*"
     "@suuudokuuu/techniques": "workspace:*"
     "@types/react": "npm:~19.2.14"
     "@types/react-dom": "npm:~19.2.4"
@@ -5521,6 +5524,7 @@ __metadata:
     "@playwright/test": "npm:^1.62.1"
     "@rnw-community/shared": "npm:^2.2.0"
     "@suuudokuuu/app": "workspace:*"
+    "@suuudokuuu/landing": "workspace:*"
     serve: "npm:^14.2.6"
   languageName: unknown
   linkType: soft

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { HardestPuzzleBoard } from '../../hardest/components/hardest-puzzle-board/hardest-puzzle-board';
+import { PuzzleBoard } from '../../puzzle/components/puzzle-board/puzzle-board';
 import { ArticleSchema } from '../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { Breadcrumbs } from '../../seo/components/breadcrumbs/breadcrumbs';
@@ -62,9 +62,7 @@ const HardestSudokuPuzzlesPage = () => (
             it needs chains and forcing logic well beyond the fish and wing patterns that finish most “expert” puzzles, and it remains the
             puzzle most people mean when they first ask about the hardest sudoku ever made.
         </p>
-        <HardestPuzzleBoard givens={AI_ESCARGOT_GIVENS}>
-            Arto Inkala’s AI Escargot (2006), 23 givens, commonly rated around SE 10.6.
-        </HardestPuzzleBoard>
+        <PuzzleBoard givens={AI_ESCARGOT_GIVENS}>Arto Inkala’s AI Escargot (2006), 23 givens, commonly rated around SE 10.6.</PuzzleBoard>
         <h3>Platinum Blonde</h3>
         <p>
             Platinum Blonde is a computer-generated puzzle built specifically to push the SE scale, commonly cited at roughly SE 10.9. Its

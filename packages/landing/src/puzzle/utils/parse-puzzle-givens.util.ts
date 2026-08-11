@@ -1,4 +1,4 @@
-import type { HardestPuzzleRowInterface } from '../interfaces/hardest-puzzle-row.interface';
+import type { PuzzleBoardRowInterface } from '../interfaces/puzzle-board-row.interface';
 
 const GRID_SIZE = 9;
 const BLANK_CHARACTERS = new Set(['0', '.']);
@@ -7,7 +7,7 @@ const buildCellLabel = (row: number, column: number): string => `r${row + 1}c${c
 
 const buildCellValue = (character: string | undefined): number => (BLANK_CHARACTERS.has(character ?? '0') ? 0 : Number(character));
 
-export const parsePuzzleGivens = (givens: string): HardestPuzzleRowInterface[] =>
+export const parsePuzzleGivens = (givens: string): PuzzleBoardRowInterface[] =>
     Array.from({ length: GRID_SIZE }, (_, row) => ({
         index: row,
         cells: Array.from({ length: GRID_SIZE }, (_, column) => ({
