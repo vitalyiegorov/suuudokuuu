@@ -16,7 +16,7 @@ test('starts and quits a new game from the home screen', async ({ page }) => {
     await expect(page.getByTestId(GameScreenSelectors.Score)).toHaveText('0');
     await expect(page.getByText('0/3')).toBeVisible();
     await expect(page.getByTestId(GameScreenSelectors.Level)).toHaveText('Easy');
-    await expect(page.getByTestId(GameScreenSelectors.Rating)).toBeVisible();
+    await expect(page.getByTestId(GameScreenSelectors.Rating)).not.toBeVisible();
 
     await quitCurrentGame(page);
     await expect(page.getByTestId(HomeScreenSelectors.StartButton)).toBeVisible();
