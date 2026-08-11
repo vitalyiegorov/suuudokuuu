@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.5.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.5.0...v2.5.1) (2026-08-11)
+
+### Bug Fixes
+
+- **app:** hide the win confetti overlay from the accessibility tree ([ca7bed0](https://github.com/vitalyiegorov/suuudokuuu/commit/ca7bed05421b30a5339552e39ac7d2f61a592732))
+
+### Performance Improvements
+
+- **app:** rewrite the win confetti as a single-surface physics burst ([ddb161f](https://github.com/vitalyiegorov/suuudokuuu/commit/ddb161f70210c52658b1e9f586ac423af2678235))
+
 # [2.5.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.4.3...v2.5.0) (2026-08-11)
 
 ### Features
