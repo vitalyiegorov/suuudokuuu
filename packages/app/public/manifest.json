@@ -2,7 +2,7 @@
     "name": "Suuudokuuu — Free Online Sudoku, No Ads",
     "short_name": "Suuudokuuu",
     "description": "Play free Sudoku online with six difficulty levels, hints, and no ads.",
-    "start_url": "/",
+    "start_url": "/play",
     "display": "standalone",
     "background_color": "#000000",
     "theme_color": "#000000",

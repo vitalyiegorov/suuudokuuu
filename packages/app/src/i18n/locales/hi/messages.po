@@ -982,6 +982,7 @@ msgstr "प्रति सेकंड"
 #: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/index.tsx
+#: src/app/play.tsx
 msgid "Play"
 msgstr "खेलें"
 
@@ -1004,6 +1005,7 @@ msgid "Play on higher difficulties for bigger multipliers"
 msgstr "बड़े गुणकों के लिए कठिन स्तरों पर खेलें"
 
 #: src/app/game.tsx
+#: src/app/play.tsx
 msgid "Play Sudoku — Suuudokuuu"
 msgstr ""
 

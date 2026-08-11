@@ -33,6 +33,7 @@ export default defineConfig(
             '**/messages.ts',
             '**/babel.config.js',
             '**/fingerprint.config.js',
+            'packages/app/scripts/**',
             'packages/hell-corpus/src/constants/hell-corpus-data.constant.ts',
 
             'eslint.config.mjs'
