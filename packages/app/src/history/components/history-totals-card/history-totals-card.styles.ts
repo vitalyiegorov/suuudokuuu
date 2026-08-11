@@ -6,8 +6,9 @@ export const HistoryTotalsCardStyles = StyleSheet.create(() => ({
         width: '100%'
     },
     item: {
+        flex: 1,
         gap: 4,
-        width: 92
+        width: 'auto'
     },
     label: {
         fontSize: 10,
