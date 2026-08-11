@@ -7,11 +7,10 @@ import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
 import { HowToStep } from '../../../seo/components/how-to-step/how-to-step';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
-import { TechniqueExampleBoard } from '../../../techniques/components/technique-example-board/technique-example-board';
 import { TechniqueNavigation } from '../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
-import { buildTechniqueExample } from '../../../techniques/utils/build-technique-example.util';
+import { TechniqueWorkedExample } from '../../../techniques/components/technique-worked-example/technique-worked-example';
 import { finnedSwordfishPageMetadata } from '../finned-swordfish/metadata';
 import { sashimiSwordfishPageMetadata } from '../sashimi-swordfish/metadata';
 
@@ -22,8 +21,6 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = buildPageMetadata(sashimiXWingPageMetadata);
 
 const EXAMPLE_BOARD = '953168742862734951417..28367.6..3.252816453973.527..68.38.2.674.7438.2196294.7.83';
-
-const example = buildTechniqueExample(EXAMPLE_BOARD, SolutionTechniqueEnum.SashimiXWing);
 
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const SashimiXWingPage = () => (
@@ -54,10 +51,10 @@ const SashimiXWingPage = () => (
             for the same either/or reason as a regular finned fish.
         </p>
         <h2>Worked example</h2>
-        <TechniqueExampleBoard example={example}>
+        <TechniqueWorkedExample board={EXAMPLE_BOARD} technique={SolutionTechniqueEnum.SashimiXWing}>
             The digit 1 has base rows 6 and 9 over cover columns 5 and 7. Row 9 keeps only its column-5 corner, while row 6 keeps its
             column-7 corner plus a fin at r6c6. The solver reports an elimination at r4c5.
-        </TechniqueExampleBoard>
+        </TechniqueWorkedExample>
         <p>
             In row 9, the only cell left that can hold 1 is r9c5 — the cover-column-5 corner, with no candidate at column 7 at all. In row
             6, 1 is a candidate at r6c7 — the cover-column-7 corner — and also at r6c6, a cell outside both cover columns. That third cell

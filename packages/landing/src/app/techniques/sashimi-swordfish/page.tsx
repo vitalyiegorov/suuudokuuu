@@ -7,11 +7,10 @@ import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
 import { HowToStep } from '../../../seo/components/how-to-step/how-to-step';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
-import { TechniqueExampleBoard } from '../../../techniques/components/technique-example-board/technique-example-board';
 import { TechniqueNavigation } from '../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
-import { buildTechniqueExample } from '../../../techniques/utils/build-technique-example.util';
+import { TechniqueWorkedExample } from '../../../techniques/components/technique-worked-example/technique-worked-example';
 import { sashimiXWingPageMetadata } from '../sashimi-x-wing/metadata';
 import { xyWingPageMetadata } from '../xy-wing/metadata';
 
@@ -22,8 +21,6 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = buildPageMetadata(sashimiSwordfishPageMetadata);
 
 const EXAMPLE_BOARD = '953168742862734951417..28367.6..3.252816453973.527..68.38.2.674.7438.2196294.7583';
-
-const example = buildTechniqueExample(EXAMPLE_BOARD, SolutionTechniqueEnum.SashimiSwordfish);
 
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const SashimiSwordfishPage = () => (
@@ -57,10 +54,10 @@ const SashimiSwordfishPage = () => (
             is down to a single relevant candidate, but it still reaches real eliminations that a plain three-by-three Swordfish would miss.
         </p>
         <h2>Worked example</h2>
-        <TechniqueExampleBoard example={example}>
+        <TechniqueWorkedExample board={EXAMPLE_BOARD} technique={SolutionTechniqueEnum.SashimiSwordfish}>
             The digit 1 uses base columns 1, 5 and 7 over cover rows 4, 6 and 7. Column 5 keeps only r4c5 inside those rows, leaving r9c5 as
             a fin. The solver reports an elimination at r7c6.
-        </TechniqueExampleBoard>
+        </TechniqueWorkedExample>
         <p>
             Column 1 has one candidate for 1 in the cover rows: r7c1. Column 7 has two: r4c7 and r6c7. Column 5 also has two candidates for
             1 overall, but only one of them, r4c5, falls inside rows 4, 6 and 7 — the other, r9c5, sits in row 9, outside the chosen cover

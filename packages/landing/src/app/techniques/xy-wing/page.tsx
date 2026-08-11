@@ -7,11 +7,10 @@ import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
 import { HowToStep } from '../../../seo/components/how-to-step/how-to-step';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
-import { TechniqueExampleBoard } from '../../../techniques/components/technique-example-board/technique-example-board';
 import { TechniqueNavigation } from '../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
-import { buildTechniqueExample } from '../../../techniques/utils/build-technique-example.util';
+import { TechniqueWorkedExample } from '../../../techniques/components/technique-worked-example/technique-worked-example';
 import { sashimiSwordfishPageMetadata } from '../sashimi-swordfish/metadata';
 import { xyzWingPageMetadata } from '../xyz-wing/metadata';
 
@@ -22,8 +21,6 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = buildPageMetadata(xyWingPageMetadata);
 
 const EXAMPLE_BOARD = '953168742862734951417..28367.6..3.252816453973.527..68.38.2.674.7438.2196294.7583';
-
-const example = buildTechniqueExample(EXAMPLE_BOARD, SolutionTechniqueEnum.XYWing);
 
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const XYWingPage = () => (
@@ -57,10 +54,10 @@ const XYWingPage = () => (
             all three cells share a row, column or box in some combination.
         </p>
         <h2>Worked example</h2>
-        <TechniqueExampleBoard example={example}>
+        <TechniqueWorkedExample board={EXAMPLE_BOARD} technique={SolutionTechniqueEnum.XYWing}>
             The pivot r4c7 holds 1 and 4. Pincer r4c5 holds 1 and 9; pincer r4c2 holds 4 and 9. Because r4c4 sees both pincers along row 4,
             the solver eliminates the shared value 9 there.
-        </TechniqueExampleBoard>
+        </TechniqueWorkedExample>
         <p>
             r4c7 is the pivot, with candidates 1 and 4. r4c5 shares the pivot’s candidate 1 and also carries 9. r4c2 shares the pivot’s
             candidate 4 and also carries 9. The pivot must hold either 1 or 4. If it holds 1, r4c5 cannot, so r4c5 must hold 9. If the pivot

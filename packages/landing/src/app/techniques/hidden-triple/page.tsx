@@ -7,11 +7,10 @@ import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
 import { HowToStep } from '../../../seo/components/how-to-step/how-to-step';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
-import { TechniqueExampleBoard } from '../../../techniques/components/technique-example-board/technique-example-board';
 import { TechniqueNavigation } from '../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
-import { buildTechniqueExample } from '../../../techniques/utils/build-technique-example.util';
+import { TechniqueWorkedExample } from '../../../techniques/components/technique-worked-example/technique-worked-example';
 import { hiddenPairPageMetadata } from '../hidden-pair/metadata';
 import { hiddenQuadPageMetadata } from '../hidden-quad/metadata';
 
@@ -22,8 +21,6 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = buildPageMetadata(hiddenTriplePageMetadata);
 
 const EXAMPLE_BOARD = '692...8..457..831218324569784...3...31.....6.72.......571486...934172586268..9471';
-
-const example = buildTechniqueExample(EXAMPLE_BOARD, SolutionTechniqueEnum.HiddenTriple);
 
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const HiddenTriplePage = () => (
@@ -54,10 +51,10 @@ const HiddenTriplePage = () => (
             down to three in a single move is the sort of progress that restarts a stalled grid.
         </p>
         <h2>Worked example</h2>
-        <TechniqueExampleBoard example={example}>
+        <TechniqueWorkedExample board={EXAMPLE_BOARD} technique={SolutionTechniqueEnum.HiddenTriple}>
             The bottom-right box confines 3, 4 and 8 to r5c9, r6c8 and r6c9. Those three cells are cleaned out, which the solver reports as
             five eliminations.
-        </TechniqueExampleBoard>
+        </TechniqueWorkedExample>
         <p>
             The bottom-right box has eight empty cells, so nothing about it looks tidy. Trace the three digits anyway. 3 fits only in r6c8
             and r6c9. 4 fits only in r5c9, r6c8 and r6c9. 8 fits only in r5c9 and r6c9. Together those digits reach exactly three cells.

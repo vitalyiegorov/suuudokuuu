@@ -7,11 +7,10 @@ import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
 import { HowToStep } from '../../../seo/components/how-to-step/how-to-step';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
-import { TechniqueExampleBoard } from '../../../techniques/components/technique-example-board/technique-example-board';
 import { TechniqueNavigation } from '../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
-import { buildTechniqueExample } from '../../../techniques/utils/build-technique-example.util';
+import { TechniqueWorkedExample } from '../../../techniques/components/technique-worked-example/technique-worked-example';
 import { aicPageMetadata } from '../aic/metadata';
 import { xyChainPageMetadata } from '../xy-chain/metadata';
 
@@ -22,8 +21,6 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = buildPageMetadata(simpleColoringPageMetadata);
 
 const EXAMPLE_BOARD = '953168742862734..1417..28367.6..3.252.164...73.527..68.38.2.674.7438.2.96294.7...';
-
-const example = buildTechniqueExample(EXAMPLE_BOARD, SolutionTechniqueEnum.SimpleColoring);
 
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const SimpleColoringPage = () => (
@@ -57,10 +54,10 @@ const SimpleColoringPage = () => (
             what X-Chains and the more general AIC add on top of it.
         </p>
         <h2>Worked example</h2>
-        <TechniqueExampleBoard example={example}>
+        <TechniqueWorkedExample board={EXAMPLE_BOARD} technique={SolutionTechniqueEnum.SimpleColoring}>
             The digit 1 colors r9c5 and r4c7 one color, r4c5 and r6c7 the other, through strong links on row 4, row 6, column 5 and a box.
             Because r9c7 sees both colors, the solver eliminates 1 there.
-        </TechniqueExampleBoard>
+        </TechniqueWorkedExample>
         <p>
             r4c5 and r9c5 are the only candidates for 1 in column 5, a strong link. r4c5 and r4c7 are the only candidates for 1 in row 4,
             another strong link. r4c7 and r6c7 are the only candidates for 1 in their shared box, a third strong link. r6c6 and r6c7 are the

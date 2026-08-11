@@ -7,11 +7,10 @@ import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
 import { HowToStep } from '../../../seo/components/how-to-step/how-to-step';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
-import { TechniqueExampleBoard } from '../../../techniques/components/technique-example-board/technique-example-board';
 import { TechniqueNavigation } from '../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
-import { buildTechniqueExample } from '../../../techniques/utils/build-technique-example.util';
+import { TechniqueWorkedExample } from '../../../techniques/components/technique-worked-example/technique-worked-example';
 import { finnedXWingPageMetadata } from '../finned-x-wing/metadata';
 import { sashimiXWingPageMetadata } from '../sashimi-x-wing/metadata';
 
@@ -22,8 +21,6 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = buildPageMetadata(finnedSwordfishPageMetadata);
 
 const EXAMPLE_BOARD = '953168742862734951417..28367.6..3.252816453973.527..68.38.2.674.7438.2.96294.7..3';
-
-const example = buildTechniqueExample(EXAMPLE_BOARD, SolutionTechniqueEnum.FinnedSwordfish);
 
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const FinnedSwordfishPage = () => (
@@ -59,10 +56,10 @@ const FinnedSwordfishPage = () => (
             real board.
         </p>
         <h2>Worked example</h2>
-        <TechniqueExampleBoard example={example}>
+        <TechniqueWorkedExample board={EXAMPLE_BOARD} technique={SolutionTechniqueEnum.FinnedSwordfish}>
             The digit 1 spans rows 6, 7 and 8 across columns 1, 6 and 7, but row 8 also carries 1 at r8c8 — the fin. Because r9c7 shares the
             fin’s box, the solver reports an elimination there.
-        </TechniqueExampleBoard>
+        </TechniqueWorkedExample>
         <p>
             Across rows 6, 7 and 8, the digit 1 is a candidate at r6c6, r6c7, r7c1, r7c6, r8c1 and r8c6 — six cells spanning columns 1, 6
             and 7, which is a clean Swordfish shape. Row 8 also carries 1 at r8c8, a seventh cell in a fourth column. That extra candidate

@@ -1,0 +1,31 @@
+import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
+
+export const TECHNIQUE_NAMES: Record<SolutionTechniqueEnum, string> = {
+    [SolutionTechniqueEnum.Guess]: 'Guess',
+    [SolutionTechniqueEnum.FullHouse]: 'Full House',
+    [SolutionTechniqueEnum.NakedSingle]: 'Naked Single',
+    [SolutionTechniqueEnum.HiddenSingle]: 'Hidden Single',
+    [SolutionTechniqueEnum.PointingPair]: 'Pointing Pair',
+    [SolutionTechniqueEnum.PointingTriple]: 'Pointing Triple',
+    [SolutionTechniqueEnum.BoxLineReduction]: 'Box Line Reduction',
+    [SolutionTechniqueEnum.NakedPair]: 'Naked Pair',
+    [SolutionTechniqueEnum.NakedTriple]: 'Naked Triple',
+    [SolutionTechniqueEnum.NakedQuad]: 'Naked Quad',
+    [SolutionTechniqueEnum.HiddenPair]: 'Hidden Pair',
+    [SolutionTechniqueEnum.HiddenTriple]: 'Hidden Triple',
+    [SolutionTechniqueEnum.HiddenQuad]: 'Hidden Quad',
+    [SolutionTechniqueEnum.XWing]: 'X-Wing',
+    [SolutionTechniqueEnum.Swordfish]: 'Swordfish',
+    [SolutionTechniqueEnum.Jellyfish]: 'Jellyfish',
+    [SolutionTechniqueEnum.FinnedXWing]: 'Finned X-Wing',
+    [SolutionTechniqueEnum.FinnedSwordfish]: 'Finned Swordfish',
+    [SolutionTechniqueEnum.SashimiXWing]: 'Sashimi X-Wing',
+    [SolutionTechniqueEnum.SashimiSwordfish]: 'Sashimi Swordfish',
+    [SolutionTechniqueEnum.XYWing]: 'XY-Wing',
+    [SolutionTechniqueEnum.XYZWing]: 'XYZ-Wing',
+    [SolutionTechniqueEnum.WWing]: 'W-Wing',
+    [SolutionTechniqueEnum.XChain]: 'X-Chain',
+    [SolutionTechniqueEnum.XYChain]: 'XY-Chain',
+    [SolutionTechniqueEnum.SimpleColoring]: 'Simple Coloring',
+    [SolutionTechniqueEnum.AIC]: 'AIC'
+};

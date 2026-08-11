@@ -3,6 +3,8 @@ import { TechniqueManager, createTechniqueStrategies } from '@suuudokuuu/techniq
 
 import { isDefined } from '@rnw-community/shared';
 
+import { formatCellLabel } from './format-cell-label.util';
+
 import type { TechniqueExampleCandidateInterface } from '../interfaces/technique-example-candidate.interface';
 import type { TechniqueExampleCellInterface } from '../interfaces/technique-example-cell.interface';
 import type { TechniqueExampleInterface } from '../interfaces/technique-example.interface';
@@ -10,8 +12,6 @@ import type { CellInterface } from '@suuudokuuu/generator';
 import type { SolutionTechniqueEnum, TechniqueResultInterface } from '@suuudokuuu/techniques';
 
 const BLANK_CELL_VALUE = defaultSudokuConfig.blankCellValue;
-
-const formatCellLabel = (cell: Pick<CellInterface, 'x' | 'y'>): string => `r${cell.y + 1}c${cell.x + 1}`;
 
 const isSameCell = (cell: Pick<CellInterface, 'x' | 'y'>, otherCell: Pick<CellInterface, 'x' | 'y'>): boolean =>
     cell.x === otherCell.x && cell.y === otherCell.y;

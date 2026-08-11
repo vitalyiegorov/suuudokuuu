@@ -7,11 +7,10 @@ import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
 import { HowToStep } from '../../../seo/components/how-to-step/how-to-step';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
-import { TechniqueExampleBoard } from '../../../techniques/components/technique-example-board/technique-example-board';
 import { TechniqueNavigation } from '../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
-import { buildTechniqueExample } from '../../../techniques/utils/build-technique-example.util';
+import { TechniqueWorkedExample } from '../../../techniques/components/technique-worked-example/technique-worked-example';
 import { simpleColoringPageMetadata } from '../simple-coloring/metadata';
 
 import { aicPageMetadata } from './metadata';
@@ -21,8 +20,6 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = buildPageMetadata(aicPageMetadata);
 
 const EXAMPLE_BOARD = '953168742862734..1417..28367.6..3.252.164...73.527..68.38.2.674.7438.2.96294.7..3';
-
-const example = buildTechniqueExample(EXAMPLE_BOARD, SolutionTechniqueEnum.AIC);
 
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const AICPage = () => (
@@ -57,10 +54,10 @@ const AICPage = () => (
             to a cell in the same unit as its start, forcing a contradiction, the starting candidate itself is eliminated.
         </p>
         <h2>Worked example</h2>
-        <TechniqueExampleBoard example={example}>
+        <TechniqueWorkedExample board={EXAMPLE_BOARD} technique={SolutionTechniqueEnum.AIC}>
             Assuming r4c7 is 9 forces r6c7 to 1, then r9c7 to 5, then r2c7 to 9 — which cannot be, since r2c7 and r4c7 share column 7 and
             cannot both be 9. The solver eliminates 9 from r4c7 itself.
-        </TechniqueExampleBoard>
+        </TechniqueWorkedExample>
         <p>
             Column 7’s only two candidates for 1 are r4c7 and r6c7, a strong link. r9c7 is bivalue at 1 and 5. Column 7’s only two
             candidates for 5 are r2c7 and r9c7, another strong link. r2c7 is bivalue at 5 and 9.

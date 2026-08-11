@@ -7,11 +7,10 @@ import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
 import { HowToStep } from '../../../seo/components/how-to-step/how-to-step';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
-import { TechniqueExampleBoard } from '../../../techniques/components/technique-example-board/technique-example-board';
 import { TechniqueNavigation } from '../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
-import { buildTechniqueExample } from '../../../techniques/utils/build-technique-example.util';
+import { TechniqueWorkedExample } from '../../../techniques/components/technique-worked-example/technique-worked-example';
 import { hiddenTriplePageMetadata } from '../hidden-triple/metadata';
 import { nakedQuadPageMetadata } from '../naked-quad/metadata';
 
@@ -22,8 +21,6 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = buildPageMetadata(hiddenPairPageMetadata);
 
 const EXAMPLE_BOARD = '.......43..5....12..3..4.76......3.4..7.152.8..6...7.1..9721485758...129214958637';
-
-const example = buildTechniqueExample(EXAMPLE_BOARD, SolutionTechniqueEnum.HiddenPair);
 
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const HiddenPairPage = () => (
@@ -55,10 +52,10 @@ const HiddenPairPage = () => (
             and look unremarkable. They usually surface right after a run of intersection eliminations has thinned a unit out.
         </p>
         <h2>Worked example</h2>
-        <TechniqueExampleBoard example={example}>
+        <TechniqueWorkedExample board={EXAMPLE_BOARD} technique={SolutionTechniqueEnum.HiddenPair}>
             In column 4 the digits 1 and 5 fit only in r1c4 and r3c4. Both cells are stripped down to that pair, which the solver reports as
             five eliminations.
-        </TechniqueExampleBoard>
+        </TechniqueWorkedExample>
         <p>
             Column 4 has seven empty cells. Follow the digit 1: it is possible only in r1c4 and r3c4. Follow the digit 5: also only r1c4 and
             r3c4. Two digits, the same two homes, so those two cells will take 1 and 5 in some order.
