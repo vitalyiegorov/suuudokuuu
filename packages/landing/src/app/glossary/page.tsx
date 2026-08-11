@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { BreadcrumbListItem } from '../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { Breadcrumbs } from '../../seo/components/breadcrumbs/breadcrumbs';
 import { buildPageMetadata } from '../../seo/utils/build-page-metadata.util';
+import { TechniqueSummary } from '../../techniques/components/technique-summary/technique-summary';
 import { howToPlayPageMetadata } from '../how-to-play/metadata';
 import { homePageMetadata } from '../metadata';
 import { aicPageMetadata } from '../techniques/aic/metadata';
@@ -53,6 +54,13 @@ const GlossaryPage = () => (
             <Link href={howToPlayPageMetadata.path}>how to play guide</Link> or the{' '}
             <Link href={techniquesPageMetadata.path}>technique index</Link> should be defined here.
         </p>
+        <TechniqueSummary>
+            <ul>
+                <li>Core grid vocabulary first — cell, row, column, box, unit, candidate, given — then every named solving technique.</li>
+                <li>Each entry defines the term in one or two sentences and links to its full guide where one exists.</li>
+                <li>The names used here are the names the Suuudokuuu solver prints in its step output.</li>
+            </ul>
+        </TechniqueSummary>
         <h2>Core vocabulary</h2>
         <dl className="glossary-list">
             <div className="glossary-entry">

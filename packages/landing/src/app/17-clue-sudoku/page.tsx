@@ -9,6 +9,7 @@ import { FaqPage } from '../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../seo/components/faq-question/faq-question';
 import { SITE_PLAY_URL } from '../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../seo/utils/build-page-metadata.util';
+import { TechniqueSummary } from '../../techniques/components/technique-summary/technique-summary';
 import { sudokuCluesVsDifficultyPageMetadata } from '../guides/sudoku-clues-vs-difficulty/metadata';
 import { hardestSudokuPuzzlesPageMetadata } from '../hardest-sudoku-puzzles/metadata';
 import { homePageMetadata } from '../metadata';
@@ -44,6 +45,16 @@ const SeventeenClueSudokuPage = () => (
             ever been found, and in 2012 an exhaustive computer search proved none can exist. Seventeen is not a rule of thumb; it is a
             settled result.
         </p>
+        <TechniqueSummary>
+            <ul>
+                <li>17 givens is the proven minimum for a standard 9×9 sudoku with exactly one solution.</li>
+                <li>
+                    Gary McGuire, Bastian Tugemann and Gilles Civario proved in 2012 that no 16-clue puzzle with a unique solution exists.
+                </li>
+                <li>Minimal and minimum differ: a 17-clue grid is always minimal, but many minimal puzzles carry 20 or more givens.</li>
+                <li>Fewer clues does not mean harder — plenty of 17-clue grids finish on singles and pointing pairs.</li>
+            </ul>
+        </TechniqueSummary>
         <a className="hero__cta" href={SITE_PLAY_URL}>
             Play Sudoku now
         </a>

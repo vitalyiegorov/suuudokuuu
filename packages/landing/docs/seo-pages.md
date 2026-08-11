@@ -231,17 +231,19 @@ Check this table before writing a new component. Most concerns already have one.
 
 ## 4. Indexing, sitemap, and submission rules
 
-These rules apply to `sitemap.ts`, `robots.ts`, and any future submission tooling — they are the operating constraints for issue #301 (AI-search layer, IndexNow, and indexing operations). They come from a production incident on a sibling multi-domain site and are cheap to honour up front.
+These rules apply to `sitemap.ts`, `robots.ts`, `llms.txt`, and the IndexNow tooling. They come from a production incident on a sibling multi-domain site and are cheap to honour up front.
+
+`docs/indexing.md` is the runbook that operates these rules: what the build publishes, why submission is a CLI script rather than an API route on a static export, the `INDEXNOW_KEY` setup and rotation, the search-console workflow, and what to monitor.
 
 ### 4.1 Submission URLs derive from the sitemap function, never from a content registry
 
-Whatever submits URLs — an IndexNow call, an indexing script, a test, an admin tool — must obtain its URL list from the same function the `sitemap.ts` route uses to produce that sitemap. Never rebuild a list by walking `PAGE_METADATA_REGISTRY` (or any content registry) in the submitting code.
+Whatever submits URLs — an IndexNow call, an indexing script, a test, an admin tool — must obtain its URL list from the same function the `sitemap.ts` route uses to produce that sitemap. That function is `buildIndexablePages()` in `src/indexing/utils/build-indexable-pages.util.ts`; `sitemap.ts`, the generated `llms.txt`, and `scripts/submit-indexnow.ts` all derive from it. Never rebuild a list by walking `PAGE_METADATA_REGISTRY` (or any content registry) in the submitting code.
 
 Rebuilding looks equivalent and is not. Two enumerations drift the moment one gains a filter, a locale, or a conditional entry the other lacks, and the submitted set silently stops matching the crawlable set. On a multi-host build it is worse: registry-derived lists submit URLs that do not belong to the host being submitted for, which corrupts ownership signals in the search consoles.
 
 The canonical flow is: resolve the target host or configuration, pass it to the sitemap helper, submit or assert exactly the URLs it returns.
 
-Keep a regression test asserting that the submitted list is the sitemap-derived list and contains no URL outside the target host.
+Keep a regression check asserting that the submitted list is the sitemap-derived list and contains no URL outside the target host. Today that check is `yarn workspace @suuudokuuu/landing submit:indexnow --dry-run`, which needs no key, prints the exact list that would be submitted, and fails on any URL outside the `SITE_ORIGIN` host; its output must diff clean against the `<loc>` entries of the built `sitemap.xml`.
 
 ### 4.2 Host- or locale-dependent metadata routes are `force-dynamic`, never time-`revalidate`
 
@@ -253,7 +255,9 @@ This landing package is single-host and fully static today, so both metadata rou
 
 ### 4.3 Verification key files must be served as exact plaintext
 
-If a submission protocol requires a key file at a fixed path, that path must return the exact key as plaintext on every production host, with no redirect and no HTML fallback. Locale routing, trailing-slash rules, and rewrite rules are the usual culprits — a redirect to a locale-prefixed path serves HTML and fails verification. Cover it with a regression test.
+If a submission protocol requires a key file at a fixed path, that path must return the exact key as plaintext on every production host, with no redirect and no HTML fallback. Locale routing, trailing-slash rules, and rewrite rules are the usual culprits — a redirect to a locale-prefixed path serves HTML and fails verification.
+
+Here the IndexNow key file is written into `public/` by `scripts/generate-indexing-files.ts` before `next build`, so the export ships it as a real static file with no trailing newline. The key itself is never committed; it comes from the `INDEXNOW_KEY` environment variable, and a build without that variable simply omits the file and removes any stale one. Verify the byte-exact body over HTTP after every deploy and after any CDN, proxy or redirect change.
 
 ### 4.4 Submission is an accelerator, not a substitute
 
