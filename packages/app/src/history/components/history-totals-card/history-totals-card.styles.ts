@@ -19,7 +19,7 @@ export const HistoryTotalsCardStyles = StyleSheet.create(() => ({
         width: '100%'
     },
     secondaryStrip: {
-        flex: 2,
+        flex: 4,
         paddingHorizontal: 0,
         paddingVertical: 0
     },

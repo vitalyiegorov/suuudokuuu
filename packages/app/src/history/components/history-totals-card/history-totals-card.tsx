@@ -49,6 +49,8 @@ export const HistoryTotalsCard = ({ historyByDifficulty, playedDayNumbers }: Pro
             </AppMetricStrip>
 
             <View style={styles.secondaryRow}>
+                <View style={styles.spacer} />
+
                 <AppMetricStrip separatorStyle={styles.separator} style={styles.secondaryStrip} variant="ghost">
                     {metrics.slice(PrimaryMetricCount).map(renderMetricItem)}
                 </AppMetricStrip>
