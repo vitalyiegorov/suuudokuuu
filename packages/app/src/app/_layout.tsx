@@ -3,6 +3,7 @@ import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
+import { Platform } from 'react-native';
 import { enableFreeze, enableScreens } from 'react-native-screens';
 
 import { isDefined } from '@rnw-community/shared';
@@ -16,8 +17,10 @@ import { WinConfettiProvider } from '../confetti/components/win-confetti-provide
 import { GameProvider } from '../game/components/game-provider/game-provider';
 import { ThemeProvider } from '../theme/components/theme-provider/theme-provider';
 
-enableScreens();
-enableFreeze();
+if (Platform.OS !== 'web') {
+    enableScreens();
+    enableFreeze();
+}
 applySheetContentWidth();
 applyGameControlsInteractions();
 

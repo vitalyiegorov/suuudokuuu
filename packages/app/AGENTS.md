@@ -109,6 +109,23 @@ src/
 3. `vercel.json` stays the single source of truth for routes; the build script reads them from it.
 4. CI deploys the prebuilt tree with `vercel deploy --prebuilt` from `packages/app`, so the functions are never installed or compiled on Vercel.
 
+## Web Platform Notes
+
+1. `Alert` resolves to `@generic/components/alert/alert.web.ts` on web, which maps a React Native
+   `Alert.alert` call onto a single `window.confirm()`. It selects handlers by `AlertButton.style`
+   (`'cancel'` versus the first non-cancel button). Never match on `button.text` — every call site
+   builds those labels with the Lingui `t` macro, so text matching silently breaks in every locale that
+   translates the label.
+2. `enableScreens()` is called only when `Platform.OS !== 'web'` in `src/app/_layout.tsx`.
+   `react-native-screens` assigns `ENABLE_SCREENS` _before_ its `isNativePlatformSupported` guard, so
+   calling it unconditionally flips `screensEnabled()` to `true` on web and diverts the tab navigator
+   from react-navigation's `ResourceSavingView` into `Screen.web.js`, the only component in the web
+   tree that applies `hidden` + `display: none`. `enableFreeze()` returns before its assignment and is
+   a genuine no-op on web, so it is guarded alongside purely for symmetry.
+3. Blurred chrome on web (`EdgeFade`, the `FloatingTabBar` `BlurView` surface) attaches
+   `useBackdropRecomposite` from `@suuudokuuu/screen-chrome`. Keep that ref attached to an existing
+   wrapper element; do not introduce a new wrapper View for it, which would change tab bar layout.
+
 ## Error Handling
 
 1. Use `getErrorMessage(error)` for unknown errors.

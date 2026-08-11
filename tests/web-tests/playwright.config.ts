@@ -40,7 +40,7 @@ export default defineConfig({
         },
         {
             name: 'mobile-webkit',
-            testMatch: /10\.localized-quit-game\.spec\.ts/u,
+            testMatch: /(10\.localized-quit-game|11\.backdrop-recomposite)\.spec\.ts/u,
             use: { ...devices['iPhone 14'] }
         }
     ],

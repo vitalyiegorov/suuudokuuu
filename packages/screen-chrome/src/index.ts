@@ -10,6 +10,8 @@ export type { EdgeFadePropsInterface } from './edge-fade/interface/edge-fade-pro
 export type { EdgeFadeScrollAnimationInterface } from './edge-fade/interface/edge-fade-scroll-animation.interface';
 export { SCREEN_CHROME_DEFAULT_CONFIG } from './constant/screen-chrome-default-config.constant';
 export { ColorSchemeEnum } from './enum/color-scheme.enum';
+export { useBackdropRecomposite } from './hook/use-backdrop-recomposite.hook';
+export type { BackdropRecompositeRef } from './hook/interface/backdrop-recomposite-ref.interface';
 export { useScreenChromeScrollHandler } from './hook/use-screen-chrome-scroll-handler.hook';
 export { useScreenChrome } from './hook/use-screen-chrome.hook';
 export { useScrollFadeStyle } from './hook/use-scroll-fade-style.hook';
