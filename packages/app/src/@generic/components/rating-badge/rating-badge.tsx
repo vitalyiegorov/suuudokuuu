@@ -4,14 +4,12 @@ import { useUnistyles } from 'react-native-unistyles';
 
 import { isDefined, isPositiveNumber } from '@rnw-community/shared';
 
+import { formatSeRatingValue } from '../../utils/format-se-rating-value.util';
 import { BlackTextStyles } from '../black-text/black-text.styles';
 
 import { RatingBadgeSelectors } from './rating-badge.selectors';
 import { RatingBadgeStyles as styles } from './rating-badge.styles';
 import { ratingBadgeGetColor } from './utils/rating-badge-get-color.util';
-
-const RatingDecimalPlaces = 1;
-const RatingCeilingSuffix = '+';
 
 interface Props {
     readonly isCeiling: boolean;
@@ -27,7 +25,7 @@ export const RatingBadge = ({ isCeiling, rating, onPress }: Props) => {
         return null;
     }
 
-    const ratingLabel = `${rating.toFixed(RatingDecimalPlaces)}${isCeiling ? RatingCeilingSuffix : ''}`;
+    const ratingLabel = formatSeRatingValue(rating, isCeiling);
     const rampColor = ratingBadgeGetColor(theme, rating);
     const pillStyles = [styles.pill, { backgroundColor: theme.colors.surface.subtle, borderColor: rampColor }];
     const valueStyles = [BlackTextStyles.text, { color: theme.colors.text.primary }, styles.value, { color: rampColor }];

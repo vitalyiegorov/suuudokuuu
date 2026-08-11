@@ -2,18 +2,24 @@ import { StyleSheet } from 'react-native-unistyles';
 
 export const HistoryTechniquesStyles = StyleSheet.create(() => ({
     container: {
-        gap: 12,
+        gap: 16,
         width: '100%'
     },
-    list: {
-        borderRadius: 20,
-        borderWidth: StyleSheet.hairlineWidth,
-        gap: 10,
-        padding: 18,
+    eyebrow: {
+        fontSize: 12,
+        fontWeight: '800',
+        letterSpacing: 1.1,
+        textTransform: 'uppercase'
+    },
+    grid: {
+        gap: 14,
         width: '100%'
     },
-    title: {
-        fontSize: 14,
-        fontWeight: '800'
+    row: {
+        flexDirection: 'row',
+        gap: 12
+    },
+    spacer: {
+        flex: 1
     }
 }));

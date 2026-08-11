@@ -1,10 +1,13 @@
 import { useLingui } from '@lingui/react/macro';
+import { use } from 'react';
 import { View } from 'react-native';
 
+import { ThemeContext } from '../../../theme/context/theme.context';
 import { historyGetCompletedGames } from '../../utils/history-get-completed-games.util';
+import { historyGetSeProfile } from '../../utils/history-get-se-profile.util';
 import { HistoryDifficulty } from '../history-difficulty/history-difficulty';
 import { HistoryEmptyState } from '../history-empty-state/history-empty-state';
-import { HistoryRatingBands } from '../history-rating-bands/history-rating-bands';
+import { HistorySolverProfile } from '../history-solver-profile/history-solver-profile';
 import { HistoryTechniques } from '../history-techniques/history-techniques';
 import { HistoryTotalsCard } from '../history-totals-card/history-totals-card';
 
@@ -13,6 +16,7 @@ import { HistoryOverviewStyles as styles } from './history-overview.styles';
 import type { HistoryGameInterface } from '../../interfaces/history-game.interface';
 import type { DifficultyEnum } from '@suuudokuuu/generator';
 import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
+import type { ReactNode } from 'react';
 
 interface Props {
     readonly difficulties: readonly DifficultyEnum[];
@@ -22,6 +26,7 @@ interface Props {
 }
 
 export const HistoryOverview = ({ difficulties, historyByDifficulty, playedDayNumbers, techniqueUsageCounts }: Props) => {
+    const { theme } = use(ThemeContext);
     const { t } = useLingui();
 
     if (difficulties.length === 0) {
@@ -29,20 +34,24 @@ export const HistoryOverview = ({ difficulties, historyByDifficulty, playedDayNu
     }
 
     const completedGames = historyGetCompletedGames(historyByDifficulty);
+    const seProfile = historyGetSeProfile(historyByDifficulty, completedGames);
+    const separatorStyles = [styles.separator, { backgroundColor: theme.colors.surface.border }];
+
+    const ladderRows = difficulties.map(difficulty => <HistoryDifficulty difficulty={difficulty} key={difficulty} />);
+    const lastLadderIndex = ladderRows.length - 1;
+    const ladderRowsWithSeparators: ReactNode[] = ladderRows.flatMap((row, index) =>
+        index === lastLadderIndex ? [row] : [row, <View key={`separator-${difficulties[index]}`} style={separatorStyles} />]
+    );
 
     return (
         <View style={styles.container}>
-            <HistoryTotalsCard historyByDifficulty={historyByDifficulty} playedDayNumbers={playedDayNumbers} />
-
-            <HistoryRatingBands completedGames={completedGames} />
+            <HistorySolverProfile completedGames={completedGames} profile={seProfile} />
 
             <HistoryTechniques techniqueUsageCounts={techniqueUsageCounts} />
 
-            <View style={styles.difficultySection}>
-                {difficulties.map(difficulty => (
-                    <HistoryDifficulty difficulty={difficulty} key={difficulty} />
-                ))}
-            </View>
+            <HistoryTotalsCard historyByDifficulty={historyByDifficulty} playedDayNumbers={playedDayNumbers} />
+
+            <View style={styles.difficultySection}>{ladderRowsWithSeparators}</View>
         </View>
     );
 };

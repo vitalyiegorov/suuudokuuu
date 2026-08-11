@@ -140,25 +140,17 @@ msgstr "लागू करें"
 msgid "Attempts to load the latest development build again"
 msgstr "नवीनतम डेवलपमेंट बिल्ड को फिर से लोड करने का प्रयास करता है"
 
-#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
-msgid "Auto-candidates"
-msgstr ""
-
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 msgid "Average"
 msgstr "औसत"
 
-#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
-msgid "Avg / move"
+#: src/history/components/history-solver-profile/history-solver-profile.tsx
+msgid "Avg recent {averageRecentSeText} · Most played {mostPlayedDifficultyText}"
 msgstr ""
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Avoid mistakes - they cost you points!"
 msgstr "गलतियों से बचें: वे आपके अंक घटाती हैं।"
-
-#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
-msgid "Away time"
-msgstr ""
 
 #: src/@generic/components/header-back-button/header-back-button.tsx
 #: src/history/components/replay-actions/replay-actions.tsx
@@ -193,7 +185,7 @@ msgstr "समय दंड घटाने के लिए तेज़ खे
 msgid "Be wise, be smart, be quick..."
 msgstr "समझदारी से सोचें, तेज़ चलें..."
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Best score"
 msgstr "बेस्ट स्कोर"
@@ -202,7 +194,7 @@ msgstr "बेस्ट स्कोर"
 msgid "Best technique"
 msgstr ""
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Best time"
 msgstr "बेस्ट समय"
@@ -306,7 +298,7 @@ msgstr "चुनौती जीती"
 msgid "Challenge Won!"
 msgstr "चुनौती जीती!"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 msgid "Challenges"
 msgstr "चुनौतियाँ"
 
@@ -330,7 +322,7 @@ msgstr "मेनू और गेम टेक्स्ट की भाषा 
 msgid "Classic"
 msgstr "क्लासिक"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 msgid "Clean"
 msgstr "बिना गलती"
 
@@ -630,18 +622,13 @@ msgid "Hard"
 msgstr "कठिन"
 
 #: src/@generic/utils/get-mistakes-type-text.util.ts
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Hardcore"
 msgstr "हार्डकोर"
 
-#: src/history/components/replay-hardest-moment/replay-hardest-moment.tsx
-msgid "Hardest moment"
-msgstr ""
-
-#: src/history/components/history-difficulty/history-difficulty.tsx
-#: src/history/components/history-totals-card/history-totals-card.tsx
+#: src/history/components/history-solver-profile/history-solver-profile.tsx
 msgid "Hardest solve"
 msgstr ""
 
@@ -810,11 +797,7 @@ msgstr "डेवलपमेंट बिल्ड लोड हो रहा �
 msgid "Loading the latest development build…"
 msgstr "नवीनतम डेवलपमेंट बिल्ड लोड हो रहा है…"
 
-#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
-msgid "Longest pause"
-msgstr ""
-
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 msgid "Lost"
 msgstr "हारे"
 
@@ -854,7 +837,6 @@ msgstr "न्यूनतम स्कोर"
 #: src/@generic/components/completed-game-result-details/completed-game-result-details.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
-#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
 #: src/screens/components/home-screen/home.screen.tsx
@@ -922,10 +904,6 @@ msgstr "दुःस्वप्न"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Nishio Forcing Chain"
-msgstr ""
-
-#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
-msgid "No"
 msgstr ""
 
 #: src/scoring/components/scoring.screen.tsx
@@ -1051,7 +1029,6 @@ msgid "Penalty formula"
 msgstr "दंड सूत्र"
 
 #: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
-#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
 msgid "Pencil marks"
 msgstr "पेंसिल निशान"
 
@@ -1263,6 +1240,10 @@ msgstr "स्क्रीन की बैकग्राउंड"
 msgid "Screenshots"
 msgstr "स्क्रीनशॉट"
 
+#: src/history/components/history-technique-hero/history-technique-hero.tsx
+msgid "SE {seValueText}"
+msgstr ""
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Selected candidate background"
 msgstr "चुने हुए उम्मीदवार की बैकग्राउंड"
@@ -1352,10 +1333,6 @@ msgstr "कॉम्पैक्ट बोर्ड के लिए सबस�
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Soft gray board with a paper-like feel"
 msgstr "कागज़ जैसा महसूस होने वाला हल्का ग्रे बोर्ड"
-
-#: src/history/components/history-rating-bands/history-rating-bands.tsx
-msgid "Solves by SE difficulty"
-msgstr ""
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Some color combinations are hard to read. Save anyway?"
@@ -1465,10 +1442,6 @@ msgstr "Swordfish"
 msgid "Taller marks = sharper techniques"
 msgstr "ऊँचे निशान = तेज़ तकनीकें"
 
-#: src/history/components/history-techniques/history-techniques.tsx
-msgid "Techniques used"
-msgstr ""
-
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text and labels"
 msgstr "टेक्स्ट और लेबल"
@@ -1565,10 +1538,6 @@ msgstr "उच्च स्कोर के सुझाव"
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "Too many mistakes"
 msgstr "बहुत ज़्यादा गलतियाँ"
-
-#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
-msgid "Total time"
-msgstr ""
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Try again"
@@ -1683,7 +1652,7 @@ msgstr "जब आप दूर थे, आज़ादी की लड़ा�
 msgid "Wider gaps for easier tapping"
 msgstr "आसान टैपिंग के लिए बड़े अंतर"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Win rate"
 msgstr "जीत दर"
@@ -1700,7 +1669,7 @@ msgstr "जीत गए! जश्न मनाइए!"
 msgid "Winning margin"
 msgstr "जीत का अंतर"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 msgid "Won"
 msgstr "जीते"
 
@@ -1728,10 +1697,6 @@ msgstr "XY-Wing"
 msgid "XYZ-Wing"
 msgstr "XYZ-Wing"
 
-#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
-msgid "Yes"
-msgstr ""
-
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "You"
 msgstr "आप"
@@ -1755,6 +1720,10 @@ msgstr ""
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 msgid "you lead"
 msgstr "आप आगे हैं"
+
+#: src/history/components/history-techniques/history-techniques.tsx
+msgid "Your arsenal"
+msgstr ""
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Your best run"

@@ -140,25 +140,17 @@ msgstr "应用"
 msgid "Attempts to load the latest development build again"
 msgstr "再次尝试加载最新开发版本"
 
-#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
-msgid "Auto-candidates"
-msgstr ""
-
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 msgid "Average"
 msgstr "平均"
 
-#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
-msgid "Avg / move"
+#: src/history/components/history-solver-profile/history-solver-profile.tsx
+msgid "Avg recent {averageRecentSeText} · Most played {mostPlayedDifficultyText}"
 msgstr ""
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Avoid mistakes - they cost you points!"
 msgstr "避免错误：它们会扣分。"
-
-#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
-msgid "Away time"
-msgstr ""
 
 #: src/@generic/components/header-back-button/header-back-button.tsx
 #: src/history/components/replay-actions/replay-actions.tsx
@@ -193,7 +185,7 @@ msgstr "尽快完成以减少时间惩罚"
 msgid "Be wise, be smart, be quick..."
 msgstr "想得巧，落得快..."
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Best score"
 msgstr "最高分"
@@ -202,7 +194,7 @@ msgstr "最高分"
 msgid "Best technique"
 msgstr ""
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Best time"
 msgstr "最佳时间"
@@ -306,7 +298,7 @@ msgstr "挑战获胜"
 msgid "Challenge Won!"
 msgstr "挑战获胜！"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 msgid "Challenges"
 msgstr "挑战"
 
@@ -330,7 +322,7 @@ msgstr "选择菜单和游戏文字使用的语言"
 msgid "Classic"
 msgstr "经典"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 msgid "Clean"
 msgstr "零失误"
 
@@ -630,18 +622,13 @@ msgid "Hard"
 msgstr "困难"
 
 #: src/@generic/utils/get-mistakes-type-text.util.ts
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Hardcore"
 msgstr "硬核"
 
-#: src/history/components/replay-hardest-moment/replay-hardest-moment.tsx
-msgid "Hardest moment"
-msgstr ""
-
-#: src/history/components/history-difficulty/history-difficulty.tsx
-#: src/history/components/history-totals-card/history-totals-card.tsx
+#: src/history/components/history-solver-profile/history-solver-profile.tsx
 msgid "Hardest solve"
 msgstr ""
 
@@ -810,11 +797,7 @@ msgstr "正在加载开发版本"
 msgid "Loading the latest development build…"
 msgstr "正在加载最新开发版本…"
 
-#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
-msgid "Longest pause"
-msgstr ""
-
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 msgid "Lost"
 msgstr "失败"
 
@@ -854,7 +837,6 @@ msgstr "最低分"
 #: src/@generic/components/completed-game-result-details/completed-game-result-details.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
-#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
 #: src/screens/components/home-screen/home.screen.tsx
@@ -922,10 +904,6 @@ msgstr "噩梦"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Nishio Forcing Chain"
-msgstr ""
-
-#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
-msgid "No"
 msgstr ""
 
 #: src/scoring/components/scoring.screen.tsx
@@ -1051,7 +1029,6 @@ msgid "Penalty formula"
 msgstr "惩罚公式"
 
 #: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
-#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
 msgid "Pencil marks"
 msgstr "笔记标记"
 
@@ -1263,6 +1240,10 @@ msgstr "屏幕背景"
 msgid "Screenshots"
 msgstr "截屏"
 
+#: src/history/components/history-technique-hero/history-technique-hero.tsx
+msgid "SE {seValueText}"
+msgstr ""
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Selected candidate background"
 msgstr "选中候选数字背景"
@@ -1352,10 +1333,6 @@ msgstr "最小数字，适合紧凑棋盘"
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Soft gray board with a paper-like feel"
 msgstr "柔和灰色棋盘，带纸张质感"
-
-#: src/history/components/history-rating-bands/history-rating-bands.tsx
-msgid "Solves by SE difficulty"
-msgstr ""
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Some color combinations are hard to read. Save anyway?"
@@ -1465,10 +1442,6 @@ msgstr "Swordfish"
 msgid "Taller marks = sharper techniques"
 msgstr "标记越高，技巧越精妙"
 
-#: src/history/components/history-techniques/history-techniques.tsx
-msgid "Techniques used"
-msgstr ""
-
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text and labels"
 msgstr "文字与标签"
@@ -1565,10 +1538,6 @@ msgstr "高分技巧"
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "Too many mistakes"
 msgstr "错误太多"
-
-#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
-msgid "Total time"
-msgstr ""
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Try again"
@@ -1683,7 +1652,7 @@ msgstr "当你离开时，争取自由的战斗仍在继续。每 1 美元捐款
 msgid "Wider gaps for easier tapping"
 msgstr "更宽的间距，便于点击"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Win rate"
 msgstr "胜率"
@@ -1700,7 +1669,7 @@ msgstr "胜利！庆祝一下！"
 msgid "Winning margin"
 msgstr "获胜差距"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 msgid "Won"
 msgstr "胜利"
 
@@ -1728,10 +1697,6 @@ msgstr "XY-Wing"
 msgid "XYZ-Wing"
 msgstr "XYZ-Wing"
 
-#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
-msgid "Yes"
-msgstr ""
-
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "You"
 msgstr "你"
@@ -1755,6 +1720,10 @@ msgstr ""
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 msgid "you lead"
 msgstr "你领先"
+
+#: src/history/components/history-techniques/history-techniques.tsx
+msgid "Your arsenal"
+msgstr ""
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Your best run"

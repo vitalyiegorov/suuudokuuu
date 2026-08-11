@@ -1,46 +1,49 @@
 import { useLingui } from '@lingui/react';
+import { Trans } from '@lingui/react/macro';
 import { use } from 'react';
 import { View } from 'react-native';
 
 import { BlackText } from '../../../@generic/components/black-text/black-text';
-import { RatingBadge } from '../../../@generic/components/rating-badge/rating-badge';
 import { techniqueLabelsConstant } from '../../../@generic/constants/technique-labels.constant';
+import { formatSeRatingValue } from '../../../@generic/utils/format-se-rating-value.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
-import { HistoryTechniqueGlyph } from '../history-technique-glyph/history-technique-glyph';
+import { HistoryTechniqueTile } from '../history-technique-tile/history-technique-tile';
 
 import { HistoryTechniqueHeroStyles as styles } from './history-technique-hero.styles';
 
 import type { TechniqueUsageInterface } from '../../interfaces/technique-usage.interface';
 
-const GlyphSize = 30;
-const GlyphGap = 3;
-
 interface Props {
     readonly label: string;
     readonly usage: TechniqueUsageInterface;
+    readonly testID?: string;
 }
 
-export const HistoryTechniqueHero = ({ label, usage }: Props) => {
+export const HistoryTechniqueHero = ({ label, usage, testID }: Props) => {
     const { _ } = useLingui();
     const { theme } = use(ThemeContext);
 
     const techniqueLabel = _(techniqueLabelsConstant[usage.technique]);
-    const containerStyles = [styles.container, { backgroundColor: theme.colors.candidate.fill, borderColor: theme.colors.surface.border }];
-    const labelStyles = [styles.label, { color: theme.colors.text.primary }];
-    const valueStyles = [styles.value, { color: theme.colors.text.primary }];
+    const seValueText = formatSeRatingValue(usage.seValue, false);
+    const labelStyles = [styles.label, { color: theme.colors.text.hint }];
+    const nameStyles = [styles.name, { color: theme.colors.text.primary }];
+    const seValueStyles = [styles.seValue, { color: theme.colors.text.hint }];
 
     return (
-        <View style={containerStyles}>
+        <View style={styles.container} testID={testID}>
             <BlackText style={labelStyles}>{label}</BlackText>
 
             <View style={styles.row}>
-                <HistoryTechniqueGlyph gap={GlyphGap} size={GlyphSize} technique={usage.technique} />
+                <HistoryTechniqueTile testID={`${testID}.Tile`} usage={usage} />
 
-                <BlackText numberOfLines={1} style={valueStyles}>
-                    {techniqueLabel}
-                </BlackText>
-
-                <RatingBadge isCeiling={false} rating={usage.seValue} />
+                <View style={styles.details}>
+                    <BlackText numberOfLines={2} style={nameStyles}>
+                        {techniqueLabel}
+                    </BlackText>
+                    <BlackText style={seValueStyles}>
+                        <Trans>SE {seValueText}</Trans>
+                    </BlackText>
+                </View>
             </View>
         </View>
     );

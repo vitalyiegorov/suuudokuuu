@@ -8,6 +8,7 @@ import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
 import { gameCompletedGamesSelector } from '../../../game/store/game.selectors';
 import { HistoryGamesList } from '../../../history/components/history-games-list/history-games-list';
+import { HistoryGamesSummaryBand } from '../../../history/components/history-games-summary-band/history-games-summary-band';
 
 import { HistoryGamesScreenSelectors } from './history-games-screen.selectors';
 import { HistoryGamesScreenStyles as styles } from './history-games-screen.styles';
@@ -34,6 +35,8 @@ export const HistoryGamesScreen = ({ difficulty }: Props) => {
             testID={HistoryGamesScreenSelectors.Root}
             title={title}
         >
+            <HistoryGamesSummaryBand difficulty={difficulty} />
+
             <HistoryGamesList
                 difficulties={difficulties}
                 games={completedGames}

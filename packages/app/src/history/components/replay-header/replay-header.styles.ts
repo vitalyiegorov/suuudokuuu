@@ -3,9 +3,10 @@ import { StyleSheet } from 'react-native-unistyles';
 export const ReplayHeaderStyles = StyleSheet.create(theme => ({
     container: {
         alignSelf: 'center',
+        flexGrow: 1,
         flexShrink: 1,
-        maxWidth: '100%',
-        minHeight: 68
+        minHeight: 68,
+        minWidth: 0
     },
     item: {
         gap: theme.spacing.xs,

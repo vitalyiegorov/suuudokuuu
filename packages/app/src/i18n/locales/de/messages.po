@@ -142,25 +142,17 @@ msgstr "Übernehmen"
 msgid "Attempts to load the latest development build again"
 msgstr "Versucht, den neuesten Entwicklungs-Build erneut zu laden"
 
-#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
-msgid "Auto-candidates"
-msgstr ""
-
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 msgid "Average"
 msgstr "Durchschnitt"
 
-#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
-msgid "Avg / move"
+#: src/history/components/history-solver-profile/history-solver-profile.tsx
+msgid "Avg recent {averageRecentSeText} · Most played {mostPlayedDifficultyText}"
 msgstr ""
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Avoid mistakes - they cost you points!"
 msgstr "Vermeide Fehler - sie kosten dich Punkte!"
-
-#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
-msgid "Away time"
-msgstr ""
 
 #: src/@generic/components/header-back-button/header-back-button.tsx
 #: src/history/components/replay-actions/replay-actions.tsx
@@ -195,7 +187,7 @@ msgstr "Sei schnell, um Zeitstrafen zu minimieren"
 msgid "Be wise, be smart, be quick..."
 msgstr "Denk klug, spiel schnell..."
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Best score"
 msgstr "Highscore"
@@ -204,7 +196,7 @@ msgstr "Highscore"
 msgid "Best technique"
 msgstr ""
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Best time"
 msgstr "Bestzeit"
@@ -308,7 +300,7 @@ msgstr "Duell gewonnen"
 msgid "Challenge Won!"
 msgstr "Duell gewonnen!"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 msgid "Challenges"
 msgstr "Herausforderungen"
 
@@ -332,7 +324,7 @@ msgstr "Wähle die Sprache für Menüs und Spieltexte"
 msgid "Classic"
 msgstr "Klassisch"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 msgid "Clean"
 msgstr "Fehlerfrei"
 
@@ -632,18 +624,13 @@ msgid "Hard"
 msgstr "Schwer"
 
 #: src/@generic/utils/get-mistakes-type-text.util.ts
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Hardcore"
 msgstr "Hardcore"
 
-#: src/history/components/replay-hardest-moment/replay-hardest-moment.tsx
-msgid "Hardest moment"
-msgstr ""
-
-#: src/history/components/history-difficulty/history-difficulty.tsx
-#: src/history/components/history-totals-card/history-totals-card.tsx
+#: src/history/components/history-solver-profile/history-solver-profile.tsx
 msgid "Hardest solve"
 msgstr ""
 
@@ -812,11 +799,7 @@ msgstr "Entwicklungs-Build wird geladen"
 msgid "Loading the latest development build…"
 msgstr "Neuester Entwicklungs-Build wird geladen…"
 
-#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
-msgid "Longest pause"
-msgstr ""
-
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 msgid "Lost"
 msgstr "Verloren"
 
@@ -856,7 +839,6 @@ msgstr "Mindestpunktzahl"
 #: src/@generic/components/completed-game-result-details/completed-game-result-details.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
-#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
 #: src/screens/components/home-screen/home.screen.tsx
@@ -924,10 +906,6 @@ msgstr "Albtraum"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Nishio Forcing Chain"
-msgstr ""
-
-#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
-msgid "No"
 msgstr ""
 
 #: src/scoring/components/scoring.screen.tsx
@@ -1053,7 +1031,6 @@ msgid "Penalty formula"
 msgstr "Strafformel"
 
 #: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
-#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
 msgid "Pencil marks"
 msgstr "Notizen"
 
@@ -1265,6 +1242,10 @@ msgstr "Bildschirmhintergrund"
 msgid "Screenshots"
 msgstr "Screenshots"
 
+#: src/history/components/history-technique-hero/history-technique-hero.tsx
+msgid "SE {seValueText}"
+msgstr ""
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Selected candidate background"
 msgstr "Hintergrund des ausgewählten Kandidaten"
@@ -1354,10 +1335,6 @@ msgstr "Kleinste Zahlen für kompakte Bretter"
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Soft gray board with a paper-like feel"
 msgstr "Weiches graues Brett mit Papieroptik"
-
-#: src/history/components/history-rating-bands/history-rating-bands.tsx
-msgid "Solves by SE difficulty"
-msgstr ""
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Some color combinations are hard to read. Save anyway?"
@@ -1467,10 +1444,6 @@ msgstr "Swordfish"
 msgid "Taller marks = sharper techniques"
 msgstr "Höhere Markierungen = raffiniertere Techniken"
 
-#: src/history/components/history-techniques/history-techniques.tsx
-msgid "Techniques used"
-msgstr ""
-
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text and labels"
 msgstr "Text und Beschriftungen"
@@ -1567,10 +1540,6 @@ msgstr "Tipps für hohe Punktzahlen"
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "Too many mistakes"
 msgstr "Zu viele Fehler"
-
-#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
-msgid "Total time"
-msgstr ""
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Try again"
@@ -1685,7 +1654,7 @@ msgstr "Während du weg warst, ging der Kampf für die Freiheit weiter. Jeder 1-
 msgid "Wider gaps for easier tapping"
 msgstr "Breitere Abstände für leichteres Tippen"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Win rate"
 msgstr "Gewinnrate"
@@ -1702,7 +1671,7 @@ msgstr "Gewonnen, gewonnen - heute gibt's Hähnchen!"
 msgid "Winning margin"
 msgstr "Siegvorsprung"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 msgid "Won"
 msgstr "Gewonnen"
 
@@ -1730,10 +1699,6 @@ msgstr "XY-Wing"
 msgid "XYZ-Wing"
 msgstr "XYZ-Wing"
 
-#: src/history/components/replay-pace-metrics/replay-pace-metrics.tsx
-msgid "Yes"
-msgstr ""
-
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "You"
 msgstr "Du"
@@ -1757,6 +1722,10 @@ msgstr ""
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 msgid "you lead"
 msgstr "du liegst vorn"
+
+#: src/history/components/history-techniques/history-techniques.tsx
+msgid "Your arsenal"
+msgstr ""
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Your best run"

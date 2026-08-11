@@ -30,9 +30,9 @@ appId: ${APP_ID}
       timeout: 3000
 - assertVisible: 'Hardest solve'
 - assertVisible:
-      id: 'RatingBadgeSelectors.Root'
+      id: 'HistorySolverProfileSelectors.HardestSolve'
 - assertVisible:
-      id: 'HistoryRatingBandsSelectors.Root'
+      id: 'HistorySolverProfileSelectors.Spectrum'
 - assertVisible:
       id: 'HistoryTechniquesSelectors.Root'
 - assertVisible: 'Best technique'
@@ -40,8 +40,8 @@ appId: ${APP_ID}
       element:
           text: '.*completed game.*'
       direction: DOWN
-# The rating-band and technique sections pushed the difficulty card to the end of a
-# much taller scroll, so the scroll above stops as soon as the card's title line
+# The arsenal and other editorial sections pushed the difficulty ladder to the end of a
+# much taller scroll, so the scroll above stops as soon as the row's title line
 # appears and its tappable centre still sits under the floating tab bar. Scrolling
 # once more settles the content at its end, where the reserved bottom inset clears
 # the bar.
