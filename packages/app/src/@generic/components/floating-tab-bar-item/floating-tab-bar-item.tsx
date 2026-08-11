@@ -1,3 +1,4 @@
+import { CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
 import { use } from 'react';
 import { Pressable, Text } from 'react-native';
 
@@ -39,7 +40,7 @@ export const FloatingTabBarItem = (props: Props) => {
             testID={testID}
         >
             {children}
-            <Text allowFontScaling={false} numberOfLines={1} style={labelStyles}>
+            <Text maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant} numberOfLines={1} style={labelStyles}>
                 {label}
             </Text>
         </Pressable>

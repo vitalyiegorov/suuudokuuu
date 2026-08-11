@@ -12,6 +12,8 @@ import { useUnistyles } from 'react-native-unistyles';
 
 import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
+import { MaxFontSizeMultiplierConstant } from '../../theme/constant/font-scaling.constant';
+
 import { AppButtonStyles as styles } from './app-button.styles';
 import { AppButtonDefaultIconSize } from './constant/app-button-default-icon-size.constant';
 import { AppButtonLoaderTestId } from './constant/app-button-loader-test-id.constant';
@@ -76,9 +78,9 @@ export const AppButton = ({
                         {shouldShowText && (
                             <Text
                                 adjustsFontSizeToFit
-                                allowFontScaling={false}
+                                maxFontSizeMultiplier={MaxFontSizeMultiplierConstant}
                                 minimumFontScale={0.72}
-                                numberOfLines={1}
+                                numberOfLines={2}
                                 style={textStyles}
                             >
                                 {text}

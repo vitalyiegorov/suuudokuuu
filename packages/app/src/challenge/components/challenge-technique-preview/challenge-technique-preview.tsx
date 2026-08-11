@@ -1,4 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
+import { MaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
 import { use } from 'react';
 import { Text, View } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
@@ -70,7 +71,7 @@ export const ChallengeTechniquePreview = ({ awayRanges = [], events, totalTime }
             </View>
             <View style={styles.captionRow}>
                 <View style={barStyle} />
-                <Text allowFontScaling={false} style={captionStyle}>
+                <Text maxFontSizeMultiplier={MaxFontSizeMultiplierConstant} style={captionStyle}>
                     {captionText}
                 </Text>
             </View>

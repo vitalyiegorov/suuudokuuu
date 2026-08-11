@@ -1,3 +1,4 @@
+import { CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
 import { use } from 'react';
 import { Text, View } from 'react-native';
 
@@ -18,7 +19,7 @@ export const ChallengeStatCountBadge = ({ count, testID }: Props) => {
 
     return (
         <View style={badgeStyle}>
-            <Text allowFontScaling={false} style={countStyle} testID={testID}>
+            <Text maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant} style={countStyle} testID={testID}>
                 {count}
             </Text>
         </View>

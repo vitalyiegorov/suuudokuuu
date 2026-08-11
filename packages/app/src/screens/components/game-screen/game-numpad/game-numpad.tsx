@@ -1,5 +1,5 @@
 import { use } from 'react';
-import { View } from 'react-native';
+import { View, useWindowDimensions } from 'react-native';
 
 import { useAppSelector } from '../../../../@generic/hooks/use-app-selector.hook';
 import { AvailableValuesItem } from '../../../../game/components/available-values-item/available-values-item';
@@ -23,6 +23,7 @@ interface Props {
 
 export const GameNumpad = ({ availableValuesRefsHandler, onSelectValue, selectedCell }: Props) => {
     const { engine, snapshot } = use(GameContext);
+    const { fontScale } = useWindowDimensions();
     const keepExhaustedDigits = useAppSelector(settingsKeySelector('keepExhaustedDigits'));
     const fontSizeMultiplier = useAppSelector(settingsFontSizeMultiplierSelector);
 
@@ -30,7 +31,7 @@ export const GameNumpad = ({ availableValuesRefsHandler, onSelectValue, selected
     const { inputMode } = snapshot;
     const canPress = sudoku.isBlankCell(selectedCell);
     const numpadDigits = keepExhaustedDigits ? GameNumpadDigitsConstant : sudoku.PossibleValues;
-    const digitTextStyle = styles.digitText(fontSizeMultiplier);
+    const digitTextStyle = styles.digitText(fontSizeMultiplier, fontScale);
 
     return (
         <View style={styles.numpad}>

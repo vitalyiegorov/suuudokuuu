@@ -1,3 +1,4 @@
+import { CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
 import { use } from 'react';
 import { Text, View } from 'react-native';
 
@@ -30,7 +31,7 @@ export const ChallengeStatTile = ({ children, count, label, testID }: Props) => 
                 {children}
                 {countBadge}
             </View>
-            <Text allowFontScaling={false} numberOfLines={2} style={labelStyle}>
+            <Text maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant} numberOfLines={2} style={labelStyle}>
                 {label}
             </Text>
         </View>

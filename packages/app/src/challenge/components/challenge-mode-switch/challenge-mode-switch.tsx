@@ -1,5 +1,6 @@
 import { useLingui } from '@lingui/react/macro';
 import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
+import { CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { Zap } from 'lucide-react-native';
 import { useEffect } from 'react';
@@ -77,7 +78,7 @@ export const ChallengeModeSwitch = () => {
         >
             <Zap color={glyphColor} fill={glyphFill} size={GlyphSize} strokeWidth={2.6} />
 
-            <Animated.Text allowFontScaling={false} style={labelStyles}>
+            <Animated.Text maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant} style={labelStyles}>
                 {t`Challenge`}
             </Animated.Text>
         </AnimatedPressable>

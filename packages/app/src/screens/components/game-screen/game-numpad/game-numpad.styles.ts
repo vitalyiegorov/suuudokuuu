@@ -3,8 +3,7 @@ import { StyleSheet } from 'react-native-unistyles';
 
 import { GameNumpadWideColumnsConstant, GameNumpadWideDigitSizeConstant } from '../../../../game/constant/game-numpad-digits.constant';
 import { PanelControlSizeConstant } from '../../../../game/constant/panel-control-size.constant';
-
-const DigitFontSizeRatio = 2.5;
+import { getDigitButtonFontSize } from '../../../../game/utils/get-digit-button-font-size.util';
 
 export const GameNumpadStyles = StyleSheet.create((theme, rt) => ({
     numpad: {
@@ -21,11 +20,11 @@ export const GameNumpadStyles = StyleSheet.create((theme, rt) => ({
         height: appLayoutScreenIsWide(rt.screen) ? GameNumpadWideDigitSizeConstant : PanelControlSizeConstant,
         width: appLayoutScreenIsWide(rt.screen) ? GameNumpadWideDigitSizeConstant : PanelControlSizeConstant
     },
-    digitText: (fontSizeMultiplier: number) => {
+    digitText: (fontSizeMultiplier: number, fontScale: number) => {
         const digitSize = appLayoutScreenIsWide(rt.screen) ? GameNumpadWideDigitSizeConstant : PanelControlSizeConstant;
 
         return {
-            fontSize: (digitSize / DigitFontSizeRatio) * fontSizeMultiplier
+            fontSize: getDigitButtonFontSize(digitSize, fontSizeMultiplier, fontScale)
         };
     }
 }));

@@ -1,3 +1,4 @@
+import { MaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
 import { LucideProps } from 'lucide-react-native';
 import { FC, use } from 'react';
 import { Platform, Text, View } from 'react-native';
@@ -31,11 +32,11 @@ export const BlackText = ({ style, icon: Icon, ...props }: Props) => {
 
         return (
             <View style={BlackTextStyles.container}>
-                <Text allowFontScaling={false} style={textStyles} {...props} />
+                <Text maxFontSizeMultiplier={MaxFontSizeMultiplierConstant} style={textStyles} {...props} />
                 <Icon style={iconStyles} width={10} height={10} />
             </View>
         );
     }
 
-    return <Text allowFontScaling={false} style={textStyles} {...props} />;
+    return <Text maxFontSizeMultiplier={MaxFontSizeMultiplierConstant} style={textStyles} {...props} />;
 };

@@ -19,11 +19,6 @@ export const ChallengeAcceptScreenStyles = StyleSheet.create({
         fontFamily: 'Inter_500Medium',
         fontSize: 12
     },
-    beatText: {
-        fontFamily: 'Inter_700Bold',
-        fontSize: 15,
-        marginTop: 8
-    },
     chip: {
         alignItems: 'center',
         alignSelf: 'center',
@@ -66,22 +61,6 @@ export const ChallengeAcceptScreenStyles = StyleSheet.create({
         justifyContent: 'center',
         marginBottom: 12,
         width: 72
-    },
-    timeBlock: {
-        alignItems: 'center',
-        marginBottom: 4,
-        marginTop: 16
-    },
-    timeLabel: {
-        fontFamily: 'Inter_500Medium',
-        fontSize: 13
-    },
-    timeValue: {
-        fontFamily: 'Inter_700Bold',
-        fontSize: 48,
-        fontVariant: ['tabular-nums'],
-        letterSpacing: -1.5,
-        marginTop: 4
     },
     timelineWrap: {
         marginTop: 16,

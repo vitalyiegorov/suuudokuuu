@@ -17,6 +17,7 @@ export const GameScreenMetricsStyles = StyleSheet.create((_theme, rt) => ({
     },
     item: {
         gap: 3,
+        minWidth: 0,
         paddingHorizontal: 7,
         width: 'auto'
     },
