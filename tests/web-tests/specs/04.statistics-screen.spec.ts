@@ -108,7 +108,7 @@ test('shows the hardest-solve hero, SE spectrum, and best-technique arsenal for 
 
     const techniquesSection = historyScreen.getByTestId(HistoryTechniquesSelectors.Root);
     await expect(techniquesSection).toBeVisible();
-    await expect(techniquesSection.getByText('Best technique', { exact: true })).toBeVisible();
+    await expect(techniquesSection.getByTestId(HistoryTechniquesSelectors.BestTechnique)).toContainText('Best technique');
 
     await page.getByTestId(newbieDifficultyCardTestId).click();
     const historyGamesScreen = page.getByTestId(HistoryGamesScreenSelectors.Root);

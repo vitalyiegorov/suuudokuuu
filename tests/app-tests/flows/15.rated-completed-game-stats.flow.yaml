@@ -34,7 +34,8 @@ appId: ${APP_ID}
       id: 'HistorySolverProfileSelectors.Spectrum'
 - assertVisible:
       id: 'HistoryTechniquesSelectors.Root'
-- assertVisible: 'Best technique'
+- assertVisible:
+      id: 'HistoryTechniquesSelectors.BestTechnique'
 - scrollUntilVisible:
       element:
           text: '.*completed game.*'

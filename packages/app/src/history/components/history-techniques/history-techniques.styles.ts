@@ -6,9 +6,10 @@ export const HistoryTechniquesStyles = StyleSheet.create(() => ({
         width: '100%'
     },
     eyebrow: {
-        fontSize: 12,
+        fontSize: 11,
         fontWeight: '800',
         letterSpacing: 1.1,
+        textAlign: 'left',
         textTransform: 'uppercase'
     },
     grid: {
@@ -21,5 +22,15 @@ export const HistoryTechniquesStyles = StyleSheet.create(() => ({
     },
     spacer: {
         flex: 1
+    },
+    summary: {
+        fontSize: 14,
+        fontWeight: '600',
+        lineHeight: 18,
+        marginTop: 8,
+        textAlign: 'left'
+    },
+    summaryName: {
+        fontWeight: '800'
     }
 }));

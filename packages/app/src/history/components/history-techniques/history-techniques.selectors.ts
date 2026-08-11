@@ -1,5 +1,5 @@
 export enum HistoryTechniquesSelectors {
     Root = 'HistoryTechniquesSelectors.Root',
-    Hero = 'HistoryTechniquesSelectors.Hero',
+    BestTechnique = 'HistoryTechniquesSelectors.BestTechnique',
     Tile = 'HistoryTechniquesSelectors.Tile'
 }

@@ -1,18 +1,25 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-const TrackHeight = 48;
+const BarBlockHeight = 64;
 
 export const HistoryRatingBandSegmentStyles = StyleSheet.create(() => ({
+    bar: {
+        borderRadius: 3,
+        width: 22
+    },
+    barBlock: {
+        alignItems: 'center',
+        flexDirection: 'column',
+        gap: 2,
+        height: BarBlockHeight,
+        justifyContent: 'flex-end',
+        width: '100%'
+    },
     count: {
         fontSize: 11,
         fontVariant: ['tabular-nums'],
         fontWeight: '800',
-        height: 14,
         textAlign: 'center'
-    },
-    fill: {
-        borderRadius: 4,
-        width: '100%'
     },
     label: {
         fontSize: 9,
@@ -24,13 +31,6 @@ export const HistoryRatingBandSegmentStyles = StyleSheet.create(() => ({
     },
     segment: {
         alignItems: 'center',
-        flex: 1,
-        gap: 2
-    },
-    track: {
-        alignItems: 'center',
-        height: TrackHeight,
-        justifyContent: 'flex-end',
-        width: '55%'
+        flex: 1
     }
 }));

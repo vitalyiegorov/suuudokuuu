@@ -2,19 +2,31 @@ import { StyleSheet } from 'react-native-unistyles';
 
 export const HistoryTotalsCardStyles = StyleSheet.create(() => ({
     container: {
+        gap: 14,
         width: '100%'
     },
     item: {
         gap: 4,
-        width: 68
+        width: 92
     },
     label: {
         fontSize: 10,
         letterSpacing: 0.4
     },
+    secondaryRow: {
+        flexDirection: 'row',
+        width: '100%'
+    },
+    secondaryStrip: {
+        paddingHorizontal: 0,
+        paddingVertical: 0
+    },
     separator: {
         height: 32,
         marginHorizontal: 0
+    },
+    spacer: {
+        flex: 1
     },
     strip: {
         paddingHorizontal: 0,
