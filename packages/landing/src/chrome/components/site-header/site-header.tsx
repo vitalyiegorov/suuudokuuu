@@ -8,6 +8,7 @@ import { printableSudokuPageMetadata } from '../../../app/printable/metadata';
 import { solverPageMetadata } from '../../../app/solver/metadata';
 import { sudokuDifficultiesPageMetadata } from '../../../app/sudoku/metadata';
 import { techniquesPageMetadata } from '../../../app/techniques/metadata';
+import { whySuuudokuuuPageMetadata } from '../../../app/why-suuudokuuu/metadata';
 import { SITE_NAME, SITE_PLAY_URL } from '../../../seo/constants/site.constant';
 
 export const SiteHeader = () => (
@@ -23,6 +24,7 @@ export const SiteHeader = () => (
             <Link href={sudokuDifficultyRatingPageMetadata.path}>Difficulty rating</Link>
             <Link href={solverPageMetadata.path}>Solver</Link>
             <Link href={glossaryPageMetadata.path}>Glossary</Link>
+            <Link href={whySuuudokuuuPageMetadata.path}>Why {SITE_NAME}</Link>
             <a href={SITE_PLAY_URL}>Play</a>
         </nav>
     </header>

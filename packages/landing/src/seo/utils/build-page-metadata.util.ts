@@ -1,15 +1,12 @@
-import { isNotEmptyString } from '@rnw-community/shared';
-
+import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from '../constants/og-image.constant';
 import { DEFAULT_LOCALE, SITE_NAME, SITE_ORIGIN } from '../constants/site.constant';
 
 import { buildAlternates } from './build-alternates.util';
 import { buildLocaleUrl } from './build-locale-url.util';
+import { getOgImagePath } from './get-og-image-path.util';
 
 import type { PageMetadataInterface } from '../interfaces/page-metadata.interface';
 import type { Metadata } from 'next';
-
-const OPEN_GRAPH_IMAGE_WIDTH = 1200;
-const OPEN_GRAPH_IMAGE_HEIGHT = 630;
 
 export const buildPageMetadata = ({
     imageAlt,
@@ -21,10 +18,9 @@ export const buildPageMetadata = ({
     title,
     updatedAt
 }: PageMetadataInterface): Metadata => {
-    const hasImage = isNotEmptyString(imagePath);
-    const imageUrl = `${SITE_ORIGIN}${imagePath ?? ''}`;
-    const openGraphImages = [{ url: imageUrl, width: OPEN_GRAPH_IMAGE_WIDTH, height: OPEN_GRAPH_IMAGE_HEIGHT, alt: imageAlt ?? title }];
-    const twitterCard = hasImage ? 'summary_large_image' : 'summary';
+    const resolvedImagePath = imagePath ?? getOgImagePath(path);
+    const imageUrl = `${SITE_ORIGIN}${resolvedImagePath}`;
+    const openGraphImages = [{ url: imageUrl, width: OG_IMAGE_WIDTH, height: OG_IMAGE_HEIGHT, alt: imageAlt ?? title }];
 
     return {
         title: metaTitle,
@@ -37,13 +33,13 @@ export const buildPageMetadata = ({
             title: metaTitle,
             description: metaDescription,
             url: buildLocaleUrl(DEFAULT_LOCALE, path),
-            ...(hasImage && { images: openGraphImages })
+            images: openGraphImages
         },
         twitter: {
-            card: twitterCard,
+            card: 'summary_large_image',
             title: metaTitle,
             description: metaDescription,
-            ...(hasImage && { images: [imageUrl] })
+            images: [imageUrl]
         },
         other: {
             'article:published_time': publishedAt,

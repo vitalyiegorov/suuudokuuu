@@ -5597,6 +5597,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@suuudokuuu/landing@workspace:packages/landing"
   dependencies:
+    "@expo-google-fonts/inter": "npm:^0.4.2"
     "@rnw-community/shared": "npm:^2.2.0"
     "@suuudokuuu/field-core": "workspace:*"
     "@suuudokuuu/field-dom": "workspace:*"
@@ -5612,6 +5613,18 @@ __metadata:
     react: "npm:19.2.3"
     react-dom: "npm:19.2.3"
     tsx: "npm:^4.23.12"
+  languageName: unknown
+  linkType: soft
+
+"@suuudokuuu/puzzle-forge@workspace:packages/puzzle-forge":
+  version: 0.0.0-use.local
+  resolution: "@suuudokuuu/puzzle-forge@workspace:packages/puzzle-forge"
+  dependencies:
+    "@rnw-community/shared": "npm:^2.2.0"
+    "@suuudokuuu/generator": "workspace:*"
+    "@suuudokuuu/hell-corpus": "workspace:*"
+    "@suuudokuuu/solver-core": "workspace:*"
+    "@suuudokuuu/techniques": "workspace:*"
   languageName: unknown
   linkType: soft
 
