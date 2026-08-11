@@ -197,6 +197,10 @@ msgstr "棋盘单元格"
 msgid "Board colors and screen appearance"
 msgstr "棋盘颜色和界面外观"
 
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Board states told apart by lightness and outlines, not hue"
+msgstr ""
+
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Box-Line Reduction"
 msgstr "宫线消解"
@@ -205,7 +209,7 @@ msgstr "宫线消解"
 msgid "Built:"
 msgstr "构建于："
 
-#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+#: src/challenge/components/challenge-accept-time-block/challenge-accept-time-block.tsx
 msgid "Can you beat them?"
 msgstr "你能超过他们吗？"
 
@@ -310,6 +314,10 @@ msgstr "干净对局"
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Clean win"
 msgstr "完胜"
+
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Colorblind safe"
+msgstr ""
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Column"
@@ -618,6 +626,10 @@ msgstr "隐性单数"
 msgid "Hidden Triple"
 msgstr "隐性三数组"
 
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "High contrast"
+msgstr ""
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Highlight areas"
 msgstr "高亮区域"
@@ -772,6 +784,10 @@ msgstr "m"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Max Mistakes bonus"
 msgstr "允许错误奖励"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Maximum separation between board states"
+msgstr ""
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Maybe later"
@@ -1470,7 +1486,7 @@ msgstr "无法在此设备上打开提交链接。"
 msgid "The install link could not be opened. Check your browser settings and try again."
 msgstr "无法打开安装链接。请检查浏览器设置后重试。"
 
-#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+#: src/challenge/components/challenge-accept-time-block/challenge-accept-time-block.tsx
 msgid "Their time to beat"
 msgstr "需要超越的时间"
 

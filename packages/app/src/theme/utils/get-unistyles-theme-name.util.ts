@@ -17,6 +17,14 @@ const unistylesThemeNamesByThemeAndSchema: Record<ThemeEnum, Record<ColorSchemaE
     [ThemeEnum.Newspaper]: {
         [ColorSchemaEnum.Light]: 'newspaperLight',
         [ColorSchemaEnum.Dark]: 'newspaperDark'
+    },
+    [ThemeEnum.HighContrast]: {
+        [ColorSchemaEnum.Light]: 'highContrastLight',
+        [ColorSchemaEnum.Dark]: 'highContrastDark'
+    },
+    [ThemeEnum.ColorblindSafe]: {
+        [ColorSchemaEnum.Light]: 'colorblindSafeLight',
+        [ColorSchemaEnum.Dark]: 'colorblindSafeDark'
     }
 };
 

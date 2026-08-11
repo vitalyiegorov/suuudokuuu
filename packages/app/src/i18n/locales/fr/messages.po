@@ -199,6 +199,10 @@ msgstr "Cellules de la grille"
 msgid "Board colors and screen appearance"
 msgstr "Couleurs de la grille et apparence des écrans"
 
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Board states told apart by lightness and outlines, not hue"
+msgstr ""
+
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Box-Line Reduction"
 msgstr "Réduction bloc-ligne"
@@ -207,7 +211,7 @@ msgstr "Réduction bloc-ligne"
 msgid "Built:"
 msgstr "Créée :"
 
-#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+#: src/challenge/components/challenge-accept-time-block/challenge-accept-time-block.tsx
 msgid "Can you beat them?"
 msgstr "Pouvez-vous faire mieux ?"
 
@@ -312,6 +316,10 @@ msgstr "Partie propre"
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Clean win"
 msgstr "Victoire nette"
+
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Colorblind safe"
+msgstr ""
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Column"
@@ -620,6 +628,10 @@ msgstr "Singleton caché"
 msgid "Hidden Triple"
 msgstr "Triplet caché"
 
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "High contrast"
+msgstr ""
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Highlight areas"
 msgstr "Surligner les zones"
@@ -774,6 +786,10 @@ msgstr "m"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Max Mistakes bonus"
 msgstr "Bonus d'erreurs autorisées"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Maximum separation between board states"
+msgstr ""
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Maybe later"
@@ -1472,7 +1488,7 @@ msgstr "Impossible d’ouvrir le lien du commit sur cet appareil."
 msgid "The install link could not be opened. Check your browser settings and try again."
 msgstr "Impossible d’ouvrir le lien d’installation. Vérifiez les réglages de votre navigateur et réessayez."
 
-#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+#: src/challenge/components/challenge-accept-time-block/challenge-accept-time-block.tsx
 msgid "Their time to beat"
 msgstr "Leur temps à battre"
 
