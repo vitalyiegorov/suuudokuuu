@@ -53,6 +53,35 @@ TITLES="$DESIGN_DIR/$LOCALE/title.strings"
 SUBTITLES="$DESIGN_DIR/$LOCALE/subtitle.strings"
 OUT_DIR=""
 
+# Store locales map onto the app language codes the capture runner writes
+# raw screenshots under (raw/ios/<device>/<app-locale>/...).
+case "$LOCALE" in
+  en-US) RAW_LOCALE="en" ;;
+  de-DE) RAW_LOCALE="de" ;;
+  es-ES) RAW_LOCALE="es" ;;
+  fr-FR) RAW_LOCALE="fr" ;;
+  pt-BR) RAW_LOCALE="pt" ;;
+  zh-Hans) RAW_LOCALE="zh" ;;
+  ar-SA) RAW_LOCALE="ar" ;;
+  *) RAW_LOCALE="$LOCALE" ;;
+esac
+
+# Prefer the locale's own capture; fall back to the en capture (with a log
+# line, so a partially captured locale is visible) since some raw sets -
+# notably the Android emulator captures - exist only for en.
+raw_source_for() {
+  local base_dir="$1" device_segment="$2" appearance="$3" scene="$4"
+  local locale_src="$base_dir/$device_segment$RAW_LOCALE/$appearance/$scene.png"
+  local en_src="$base_dir/${device_segment}en/$appearance/$scene.png"
+
+  if [[ "$RAW_LOCALE" != "en" && ! -f "$locale_src" ]]; then
+    echo "note: $scene ($appearance) has no $RAW_LOCALE capture, composing from en" >&2
+    echo "$en_src"
+  else
+    echo "$locale_src"
+  fi
+}
+
 if [[ "$VARIANT" != "all" && "$VARIANT" != "light" && "$VARIANT" != "dark" ]]; then
   echo "error: unknown variant '$VARIANT'. Use light, dark, or all." >&2
   exit 1
@@ -431,9 +460,9 @@ compose_one() {
   local device="$1" scene="$2" appearance="$3" layout="$4" height_fraction="$5" out_name="$6" caption_key="${7:-$scene}"
   local src
   if [[ "$device" == "android" ]]; then
-    src="$ANDROID_RAW_DIR/en/$appearance/$scene.png"
+    src="$(raw_source_for "$ANDROID_RAW_DIR" "" "$appearance" "$scene")"
   else
-    src="$RAW_DIR/$device/en/$appearance/$scene.png"
+    src="$(raw_source_for "$RAW_DIR" "$device/" "$appearance" "$scene")"
   fi
   wait_for_capture "$src"
 

@@ -453,7 +453,7 @@ msgstr "تكرار"
 msgid "Each correct placement starts with a base value:"
 msgstr "كل إدخال صحيح يبدأ بقيمة أساسية:"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Easy"
 msgstr "سهل"
@@ -568,7 +568,7 @@ msgstr "المساعدة"
 msgid "h"
 msgstr "h"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Hard"
 msgstr "صعب"
@@ -580,7 +580,7 @@ msgstr "صعب"
 msgid "Hardcore"
 msgstr "هاردكور"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Hell"
 msgstr "جحيم"
@@ -756,7 +756,7 @@ msgstr "مكافأة الأخطاء المسموحة"
 msgid "Maybe later"
 msgstr "ربما لاحقًا"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Medium"
 msgstr "متوسط"
@@ -827,7 +827,7 @@ msgstr "لعبة جديدة"
 msgid "New personal best"
 msgstr "رقم قياسي شخصي جديد"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Newbie"
 msgstr "مبتدئ"
@@ -836,7 +836,7 @@ msgstr "مبتدئ"
 msgid "Newspaper"
 msgstr "صحيفة"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Nightmare"
 msgstr "كابوس"
@@ -1478,7 +1478,7 @@ msgstr "تعذّر فتح الرابط"
 msgid "Unable to start installation"
 msgstr "تعذّر بدء التثبيت"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Unknown"
 msgstr "غير معروف"

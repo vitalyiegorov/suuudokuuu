@@ -1,0 +1,18 @@
+/* suuudokuuu — App Store screenshot descriptors (sv)
+ * Second-tier caption line under each headline in title.strings — same
+ * scene keys, 4-8 words, rendered smaller and at reduced opacity. Kept
+ * short enough to stay on one line at the iPhone canvas's descriptor point
+ * size (measured against the 1085px iPhone text safe-zone width) so the
+ * caption stack never grows taller than expected. See ../README.md "Design
+ * system" for the two-tier text rules. */
+
+"01-hero-board" = "Rena siffror. Full fokus.";
+"01-hero-board-dark" = "Fullt mörkt läge. Inga kompromisser.";
+"01-hero-board-light" = "Fullt ljust läge. Samma fokus.";
+"02-hell" = "Bara 17 ledtrådar. Inget mer.";
+"04-editor" = "Välj varje färg, ruta för ruta.";
+"05-customization" = "Alla färger dina. 13 språk.";
+"06-rival" = "En äkta runda, anticheat-verifierad.";
+"07-replay" = "Se exakt hur du löste den.";
+"09-home" = "Sex nivåer, från Nybörjare till Helvete.";
+"14-challenge-live" = "Varje teknik registreras.";

@@ -1,10 +1,12 @@
 /* suuudokuuu — App Store screenshot captions (id, informal "kamu") */
 
 "01-hero-board" = "Sudoku, cara yang benar.";
-"02-hell" = "Neraka asli. Cuma 17 petunjuk.";
-"03-themes" = "Bikin jadi gayamu.";
-"04-editor" = "Setiap warna, pilihanmu.";
-"05-win" = "Menang dengan gaya.";
-"06-rival" = "Adu cepat sama temanmu.";
+"01-hero-board-dark" = "Tetap tajam saat gelap.";
+"01-hero-board-light" = "Sama tajam di terang.";
+"02-hell" = "Neraka sungguhan.";
+"04-editor" = "Setiap warna milikmu.";
+"05-customization" = "Bikin jadi gayamu.";
+"06-rival" = "Terima tantangannya.";
 "07-replay" = "Putar ulang tiap langkah.";
-"08-settings" = "Bicara bahasamu.";
+"09-home" = "Pilih levelmu.";
+"14-challenge-live" = "Adu cepat langsung.";

@@ -17,7 +17,7 @@ import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { getBrand } from '../../../@generic/utils/get-brand.util';
-import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
+import { getDifficultyMessage } from '../../../@generic/utils/get-difficulty-message.util';
 import { ChallengeModeSwitch } from '../../../challenge/components/challenge-mode-switch/challenge-mode-switch';
 import {
     DifficultyComplexitySliderDifficulties,
@@ -115,7 +115,7 @@ export const HomeScreen = () => {
     const selectedDifficultyIndex =
         selectedDifficultyIndexFromSettings < 0 ? DifficultyComplexitySliderInitialIndex : selectedDifficultyIndexFromSettings;
     const selectedDifficulty = DifficultyComplexitySliderDifficulties[selectedDifficultyIndex] ?? difficulty;
-    const selectedDifficultyLabel = getDifficultyText(difficulty);
+    const selectedDifficultyLabel = t(getDifficultyMessage(difficulty));
     const selectedDifficultyDescription = homeScreenGetDifficultyDescription(selectedDifficulty);
     const challengeSummarySuffix = isChallengeMode ? ` • ${t`Challenge`}` : '';
     const setupSummary = `${selectedDifficultyLabel} • ${selectedMistakesOption.title}${challengeSummarySuffix}`;

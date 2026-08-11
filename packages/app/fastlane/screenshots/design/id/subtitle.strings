@@ -1,0 +1,18 @@
+/* suuudokuuu — App Store screenshot descriptors (id, informal "kamu")
+ * Second-tier caption line under each headline in title.strings — same
+ * scene keys, 4-8 words, rendered smaller and at reduced opacity. Kept
+ * short enough to stay on one line at the iPhone canvas's descriptor point
+ * size (measured against the 1085px iPhone text safe-zone width) so the
+ * caption stack never grows taller than expected. See ../README.md "Design
+ * system" for the two-tier text rules. */
+
+"01-hero-board" = "Angka bersih. Fokus penuh.";
+"01-hero-board-dark" = "Mode gelap penuh. Tanpa kompromi.";
+"01-hero-board-light" = "Mode terang penuh. Fokus sama.";
+"02-hell" = "Cuma 17 petunjuk. Tak lebih.";
+"04-editor" = "Atur setiap warna, sel demi sel.";
+"05-customization" = "Semua warna milikmu. 13 bahasa.";
+"06-rival" = "Permainan asli, terverifikasi antikecurangan.";
+"07-replay" = "Lihat persis cara kamu menyelesaikannya.";
+"09-home" = "Enam tingkat, dari Pemula sampai Neraka.";
+"14-challenge-live" = "Setiap teknik tercatat.";
