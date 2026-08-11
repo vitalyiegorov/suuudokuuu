@@ -85,7 +85,6 @@ jobs:
             - name: Publish a release
               run: yarn release
 
-
     web-deploy:
         name: Vercel deploy Web
         needs: release
@@ -109,6 +108,9 @@ jobs:
             - name: Build expo web
               working-directory: packages/app
               run: yarn expo export --platform=web
+
+            - name: Build landing export
+              run: yarn build --filter=@suuudokuuu/landing
 
             - name: Pull Vercel project settings
               working-directory: packages/app

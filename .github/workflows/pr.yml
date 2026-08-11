@@ -173,6 +173,9 @@ jobs:
               working-directory: packages/app
               run: yarn expo export --platform=web
 
+            - name: Build landing export
+              run: yarn build --filter=@suuudokuuu/landing
+
             - name: Pull Vercel project settings
               working-directory: packages/app
               run: yarn dlx vercel@latest pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}

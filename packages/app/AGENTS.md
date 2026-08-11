@@ -105,9 +105,18 @@ src/
 ## Vercel Web Deploy
 
 1. `vercel-functions/api/beta/*.ts` are web-standard `{ fetch }` endpoints; `vercel-functions/shared/create-node-handler.util.ts` bridges them to the Node `(request, response)` signature the Vercel Node launcher calls.
-2. `scripts/build-vercel-output.ts` (`yarn build:vercel`) emits a Build Output API v3 tree in `.vercel/output`: `static/` from the Expo web export, one esbuild bundle per endpoint in `functions/api/beta/<name>.func`, and `config.json`.
+2. `scripts/build-vercel-output.ts` (`yarn build:vercel`) emits a Build Output API v3 tree in `.vercel/output`: `static/` composed from the Expo web export and the `@suuudokuuu/landing` static export, one esbuild bundle per endpoint in `functions/api/beta/<name>.func`, and `config.json`. It needs both `dist/index.html` (`yarn export:web`) and `packages/landing/out/index.html` (`yarn build --filter=@suuudokuuu/landing`).
 3. `vercel.json` stays the single source of truth for routes; the build script reads them from it.
 4. CI deploys the prebuilt tree with `vercel deploy --prebuilt` from `packages/app`, so the functions are never installed or compiled on Vercel.
+
+### Same-domain split with the landing
+
+1. `www.suuudokuuu.com` serves the landing at `/` and at every content path; the game SPA keeps its own paths on the same domain.
+2. The Expo export is copied to the static root except for `index.html`, which becomes the SPA shell at `static/_app/index.html`. The landing export is copied on top, so the landing owns `/index.html`, `/robots.txt`, `/sitemap.xml`, `/manifest.webmanifest` and `_next/**`, while the app keeps `_expo/**`, `assets/**`, `.well-known/**` and `/manifest.json`. Overlapping file names are reported by the script and resolved in favor of the landing.
+3. The SPA route prefixes in `vercel.json` are matched before `{ "handle": "filesystem" }` and rewrite to `/_app/index.html`, so a landing page can never shadow a game route. Everything else falls through to the filesystem and then to the landing `404.html`.
+4. Landing pages are exported as `<route>.html` (`trailingSlash: false`). The build script emits Build Output API `overrides` so each one is served at its extensionless path; root `index.html` and `404.html` are excluded because they are addressed directly.
+5. `/` belongs to the landing, so `/play` is the SPA entry that renders the difficulty-select home. It is `noIndex` and is also the PWA `start_url` in `public/manifest.json`. In-app navigation to `/` stays client-side and keeps working.
+6. When adding a game route, add it to the SPA prefixes in `vercel.json`, otherwise a direct URL hit returns the landing 404.
 
 ## Error Handling
 
