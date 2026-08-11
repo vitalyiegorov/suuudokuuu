@@ -503,7 +503,7 @@ msgstr "Duplicate"
 msgid "Each correct placement starts with a base value:"
 msgstr "Each correct placement starts with a base value:"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Easy"
 msgstr "Easy"
@@ -626,7 +626,7 @@ msgstr "Guidance"
 msgid "h"
 msgstr "h"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Hard"
 msgstr "Hard"
@@ -647,7 +647,7 @@ msgstr "Hardest moment"
 msgid "Hardest solve"
 msgstr "Hardest solve"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Hell"
 msgstr "Hell"
@@ -714,7 +714,7 @@ msgstr "Immortal"
 msgid "Incomplete"
 msgstr "Incomplete"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Infinity"
 msgstr "Infinity"
@@ -837,7 +837,7 @@ msgstr "Max Mistakes bonus"
 msgid "Maybe later"
 msgstr "Maybe later"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Medium"
 msgstr "Medium"
@@ -909,7 +909,7 @@ msgstr "New game"
 msgid "New personal best"
 msgstr "New personal best"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Newbie"
 msgstr "Newbie"
@@ -918,7 +918,7 @@ msgstr "Newbie"
 msgid "Newspaper"
 msgstr "Newspaper"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Nightmare"
 msgstr "Nightmare"
@@ -1601,7 +1601,7 @@ msgstr "Unable to start installation"
 msgid "Unique Rectangle"
 msgstr "Unique Rectangle"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Unknown"
 msgstr "Unknown"

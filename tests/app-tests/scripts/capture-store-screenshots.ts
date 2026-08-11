@@ -82,6 +82,7 @@ const deviceClass = cliOptions['device-class'] ?? process.env['DEVICE_CLASS'] ??
 const simulatorUdid =
     cliOptions.udid ?? process.env['SIMULATOR_UDID'] ?? (platform === 'ios' ? detectBootedIosSimulatorUdid(deviceClass) : '');
 const orientation = cliOptions.orientation ?? process.env['ORIENTATION'] ?? 'portrait';
+const osLanguageMode = process.env['OS_LANGUAGE_MODE'] === 'true' ? 'true' : 'false';
 const outputRootDirectory = cliOptions['output-dir'] ?? process.env['SCREENSHOT_OUTPUT_DIR'] ?? defaultOutputRootDirectory;
 
 if (!['portrait', 'landscape'].includes(orientation)) {
@@ -133,6 +134,8 @@ function runMaestroScene(scene: Scene, locale: string, appearance: string, testO
         `LOCALE=${locale}`,
         '-e',
         `APPEARANCE=${appearance}`,
+        '-e',
+        `OS_LANGUAGE_MODE=${osLanguageMode}`,
         '--test-output-dir',
         testOutputDirectory,
         '--debug-output',

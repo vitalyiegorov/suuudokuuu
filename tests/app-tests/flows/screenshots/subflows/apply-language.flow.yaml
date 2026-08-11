@@ -5,23 +5,34 @@ appId: ${APP_ID}
 # Home explicitly through the deep link instead of relying on where
 # router.back() lands, since this flow opens the sheet directly instead of
 # navigating from Settings.
-- openLink:
-      link: 'suuudokuuu://settings/language'
-- extendedWaitUntil:
-      visible:
-          id: 'SettingsOptionSheetSelectors.Root'
-      timeout: 5000
-- scrollUntilVisible:
-      element:
-          id: 'SettingsOptionSheetSelectors.Option.${LOCALE}'
-      direction: DOWN
-      timeout: 5000
-- tapOn:
-      id: 'SettingsOptionSheetSelectors.Option.${LOCALE}'
-- extendedWaitUntil:
-      notVisible:
-          id: 'SettingsOptionSheetSelectors.Root'
-      timeout: 5000
+#
+# OS_LANGUAGE_MODE=true skips the sheet entirely: the @expo/ui bottom sheet
+# ignores synthetic Maestro scroll gestures, so languages below the sheet's
+# fold (ar, bn, id, pt, ur) can never be selected through the UI in a flow.
+# For those locales the capture orchestration sets the simulator's OS
+# language and reinstalls the app instead, and the fresh install boots in
+# the OS locale (settings.state.ts defaults language to i18nGetOSLocale()).
+- runFlow:
+      when:
+          true: ${OS_LANGUAGE_MODE != 'true'}
+      commands:
+          - openLink:
+                link: 'suuudokuuu://settings/language'
+          - extendedWaitUntil:
+                visible:
+                    id: 'SettingsOptionSheetSelectors.Root'
+                timeout: 5000
+          - scrollUntilVisible:
+                element:
+                    id: 'SettingsOptionSheetSelectors.Option.${LOCALE}'
+                direction: DOWN
+                timeout: 5000
+          - tapOn:
+                id: 'SettingsOptionSheetSelectors.Option.${LOCALE}'
+          - extendedWaitUntil:
+                notVisible:
+                    id: 'SettingsOptionSheetSelectors.Root'
+                timeout: 5000
 - openLink:
       link: 'suuudokuuu://'
 - extendedWaitUntil:
