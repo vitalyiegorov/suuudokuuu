@@ -10,6 +10,8 @@ import { HistoryTotalsCardStyles as styles } from './history-totals-card.styles'
 import type { HistoryGameInterface } from '../../interfaces/history-game.interface';
 import type { DifficultyEnum } from '@suuudokuuu/generator';
 
+const PrimaryMetricCount = 3;
+
 interface Props {
     readonly historyByDifficulty: Record<DifficultyEnum, HistoryGameInterface>;
     readonly playedDayNumbers: readonly number[];
@@ -21,48 +23,34 @@ export const HistoryTotalsCard = ({ historyByDifficulty, playedDayNumbers }: Pro
     const bestTimeText = useTimerText(totals.bestTime);
     const winRateText = `${totals.winRate}%`;
 
+    const metrics = [
+        { label: t`Played`, value: String(totals.gamesCompleted) },
+        { label: t`Win rate`, value: winRateText },
+        { label: t`Streak`, value: String(totals.dayStreak) },
+        { label: t`Best score`, value: String(totals.bestScore) },
+        { label: t`Best time`, value: bestTimeText }
+    ];
+
+    const renderMetricItem = (metric: { label: string; value: string }) => (
+        <AppMetricStripItem
+            key={metric.label}
+            label={metric.label}
+            labelStyle={styles.label}
+            style={styles.item}
+            value={metric.value}
+            valueStyle={styles.value}
+        />
+    );
+
     return (
         <View style={styles.container}>
             <AppMetricStrip separatorStyle={styles.separator} style={styles.strip} variant="ghost">
-                <AppMetricStripItem
-                    label={t`Played`}
-                    labelStyle={styles.label}
-                    style={styles.item}
-                    value={String(totals.gamesCompleted)}
-                    valueStyle={styles.value}
-                />
-                <AppMetricStripItem
-                    label={t`Win rate`}
-                    labelStyle={styles.label}
-                    style={styles.item}
-                    value={winRateText}
-                    valueStyle={styles.value}
-                />
-                <AppMetricStripItem
-                    label={t`Streak`}
-                    labelStyle={styles.label}
-                    style={styles.item}
-                    value={String(totals.dayStreak)}
-                    valueStyle={styles.value}
-                />
+                {metrics.slice(0, PrimaryMetricCount).map(renderMetricItem)}
             </AppMetricStrip>
 
             <View style={styles.secondaryRow}>
                 <AppMetricStrip separatorStyle={styles.separator} style={styles.secondaryStrip} variant="ghost">
-                    <AppMetricStripItem
-                        label={t`Best score`}
-                        labelStyle={styles.label}
-                        style={styles.item}
-                        value={String(totals.bestScore)}
-                        valueStyle={styles.value}
-                    />
-                    <AppMetricStripItem
-                        label={t`Best time`}
-                        labelStyle={styles.label}
-                        style={styles.item}
-                        value={bestTimeText}
-                        valueStyle={styles.value}
-                    />
+                    {metrics.slice(PrimaryMetricCount).map(renderMetricItem)}
                 </AppMetricStrip>
 
                 <View style={styles.spacer} />
