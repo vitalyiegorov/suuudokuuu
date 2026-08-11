@@ -5,12 +5,16 @@ import { Breadcrumbs } from '../../seo/components/breadcrumbs/breadcrumbs';
 import { buildPageMetadata } from '../../seo/utils/build-page-metadata.util';
 import { homePageMetadata } from '../metadata';
 
+import { aicPageMetadata } from './aic/metadata';
 import { boxLineReductionPageMetadata } from './box-line-reduction/metadata';
+import { finnedSwordfishPageMetadata } from './finned-swordfish/metadata';
+import { finnedXWingPageMetadata } from './finned-x-wing/metadata';
 import { fullHousePageMetadata } from './full-house/metadata';
 import { hiddenPairPageMetadata } from './hidden-pair/metadata';
 import { hiddenQuadPageMetadata } from './hidden-quad/metadata';
 import { hiddenSinglePageMetadata } from './hidden-single/metadata';
 import { hiddenTriplePageMetadata } from './hidden-triple/metadata';
+import { jellyfishPageMetadata } from './jellyfish/metadata';
 import { techniquesPageMetadata } from './metadata';
 import { nakedPairPageMetadata } from './naked-pair/metadata';
 import { nakedQuadPageMetadata } from './naked-quad/metadata';
@@ -18,6 +22,16 @@ import { nakedSinglePageMetadata } from './naked-single/metadata';
 import { nakedTriplePageMetadata } from './naked-triple/metadata';
 import { pointingPairPageMetadata } from './pointing-pair/metadata';
 import { pointingTriplePageMetadata } from './pointing-triple/metadata';
+import { sashimiSwordfishPageMetadata } from './sashimi-swordfish/metadata';
+import { sashimiXWingPageMetadata } from './sashimi-x-wing/metadata';
+import { simpleColoringPageMetadata } from './simple-coloring/metadata';
+import { swordfishPageMetadata } from './swordfish/metadata';
+import { wWingPageMetadata } from './w-wing/metadata';
+import { xChainPageMetadata } from './x-chain/metadata';
+import { xWingPageMetadata } from './x-wing/metadata';
+import { xyChainPageMetadata } from './xy-chain/metadata';
+import { xyWingPageMetadata } from './xy-wing/metadata';
+import { xyzWingPageMetadata } from './xyz-wing/metadata';
 
 import type { Metadata } from 'next';
 
@@ -105,6 +119,68 @@ const TechniquesPage = () => (
                 <Link href={hiddenQuadPageMetadata.path}>Hidden Quad</Link> — four digits confined to the same four cells.
             </li>
         </ul>
+        <h2>Tier 4 — Fish, wings and chains</h2>
+        <p>
+            Beyond the subsets, techniques stop reasoning about a single unit and start reasoning across two or more units, or across a path
+            of cells, at once. Fish patterns trap a digit in the same set of rows and columns; wings link a small handful of cells through
+            shared candidates; chains follow strong and weak links as far as the board allows. These are the techniques that carry the
+            hardest puzzles Suuudokuuu generates.
+        </p>
+        <ul className="technique-index">
+            <li>
+                <Link href={xWingPageMetadata.path}>X-Wing</Link> — a digit confined to the same two columns across two rows is erased from
+                the rest of those columns.
+            </li>
+            <li>
+                <Link href={swordfishPageMetadata.path}>Swordfish</Link> — the same fish pattern spread across three lines instead of two.
+            </li>
+            <li>
+                <Link href={jellyfishPageMetadata.path}>Jellyfish</Link> — the same fish pattern spread across four lines.
+            </li>
+            <li>
+                <Link href={finnedXWingPageMetadata.path}>Finned X-Wing</Link> — an X-Wing with one extra candidate that still supports a
+                smaller, safe set of eliminations.
+            </li>
+            <li>
+                <Link href={finnedSwordfishPageMetadata.path}>Finned Swordfish</Link> — the same fin logic applied to a Swordfish.
+            </li>
+            <li>
+                <Link href={sashimiXWingPageMetadata.path}>Sashimi X-Wing</Link> — a finned X-Wing where one base line is missing its normal
+                corner candidate entirely.
+            </li>
+            <li>
+                <Link href={sashimiSwordfishPageMetadata.path}>Sashimi Swordfish</Link> — the same missing-corner pattern applied to a
+                Swordfish.
+            </li>
+            <li>
+                <Link href={xyWingPageMetadata.path}>XY-Wing</Link> — three bivalue cells arranged so a shared candidate can be erased from
+                any cell that sees both pincers.
+            </li>
+            <li>
+                <Link href={xyzWingPageMetadata.path}>XYZ-Wing</Link> — an XY-Wing whose pivot also carries the shared candidate, tightening
+                the elimination further.
+            </li>
+            <li>
+                <Link href={wWingPageMetadata.path}>W-Wing</Link> — two matching bivalue cells tied together by a strong link on one of
+                their shared candidates.
+            </li>
+            <li>
+                <Link href={xChainPageMetadata.path}>X-Chain</Link> — a chain of strong and weak links on one digit connecting two cells
+                that share a peer.
+            </li>
+            <li>
+                <Link href={xyChainPageMetadata.path}>XY-Chain</Link> — a chain of bivalue cells whose two endpoints force an elimination
+                wherever they overlap.
+            </li>
+            <li>
+                <Link href={simpleColoringPageMetadata.path}>Simple Coloring</Link> — a two-color network of strong links on one digit,
+                cleared wherever a cell sees both colors.
+            </li>
+            <li>
+                <Link href={aicPageMetadata.path}>AIC</Link> — an alternating inference chain that generalises the fish, wing and chain
+                patterns above into one technique.
+            </li>
+        </ul>
         <h2>How to use this list</h2>
         <p>
             Work down the list, not across it. A solver that reaches for a naked quad while an unspotted hidden single is sitting on the
@@ -113,9 +189,8 @@ const TechniquesPage = () => (
             hint.
         </p>
         <p>
-            Beyond the subsets lie the fish patterns, the wings and the chains — X-Wing, Swordfish, XY-Wing, XY-Chain and friends. They
-            follow the same principle of reserving digits for cells, but they reason across two or more units at once rather than inside a
-            single one.
+            The fish patterns, the wings and the chains above follow the same principle as the subsets — reserving digits for cells — but
+            they reason across two or more units at once, or across a path of cells, rather than inside a single unit.
         </p>
     </main>
 );
