@@ -1,3 +1,4 @@
+import { CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
 import { use } from 'react';
 import { Text, View } from 'react-native';
 
@@ -24,7 +25,7 @@ export const ChallengeRunTape = ({ awayRanges, events, label, totalTime }: Props
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Text allowFontScaling={false} style={labelStyle}>
+                <Text maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant} style={labelStyle}>
                     {label}
                 </Text>
             </View>

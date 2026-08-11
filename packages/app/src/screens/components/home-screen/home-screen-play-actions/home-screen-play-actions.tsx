@@ -1,4 +1,5 @@
 import { Trans } from '@lingui/react/macro';
+import { CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
 import { Play } from 'lucide-react-native';
 import { use } from 'react';
 import { Pressable, View } from 'react-native';
@@ -82,13 +83,29 @@ export const HomeScreenPlayActions = ({
                         </View>
 
                         <View style={styles.continueCopy}>
-                            <BlackText numberOfLines={1} style={continueTitleStyles}>
+                            <BlackText
+                                maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant}
+                                numberOfLines={1}
+                                style={continueTitleStyles}
+                            >
                                 <Trans>Continue</Trans>
                             </BlackText>
-                            <BlackText style={continueElapsedStyles}>{currentElapsedTimeText}</BlackText>
+                            <BlackText
+                                maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant}
+                                numberOfLines={1}
+                                style={continueElapsedStyles}
+                            >
+                                {currentElapsedTimeText}
+                            </BlackText>
                         </View>
 
-                        <BlackText style={continueProgressTextStyles}>{currentProgressText}</BlackText>
+                        <BlackText
+                            maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant}
+                            numberOfLines={1}
+                            style={continueProgressTextStyles}
+                        >
+                            {currentProgressText}
+                        </BlackText>
                     </View>
                 </Pressable>
             ) : null}

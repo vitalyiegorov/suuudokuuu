@@ -42,7 +42,9 @@ export const useSettingsOptionLabels = () => {
         return {
             [ThemeEnum.BlackAndWhite]: t`Classic`,
             [ThemeEnum.Colorful]: t`Gold`,
-            [ThemeEnum.Newspaper]: t`Newspaper`
+            [ThemeEnum.Newspaper]: t`Newspaper`,
+            [ThemeEnum.HighContrast]: t`High contrast`,
+            [ThemeEnum.ColorblindSafe]: t`Colorblind safe`
         }[themeId];
     };
 

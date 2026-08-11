@@ -2,6 +2,7 @@ import { Trans, useLingui } from '@lingui/react/macro';
 import { DifficultyEnum } from '@suuudokuuu/generator';
 import { ScreenChromeScrollView } from '@suuudokuuu/screen-chrome';
 import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
+import { CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
 import { Link } from 'expo-router';
 import { use } from 'react';
 import { Platform, Pressable, View } from 'react-native';
@@ -164,7 +165,12 @@ export const HomeScreen = () => {
                 <View style={styles.contentStack}>
                     <View style={styles.masthead}>
                         <View style={styles.hero}>
-                            <Header numberOfLines={1} style={styles.title} text={getBrand().appName} />
+                            <Header
+                                maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant}
+                                numberOfLines={1}
+                                style={styles.title}
+                                text={getBrand().appName}
+                            />
                             <SupportUkrainePill />
                         </View>
 

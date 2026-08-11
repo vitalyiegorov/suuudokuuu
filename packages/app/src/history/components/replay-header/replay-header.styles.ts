@@ -9,6 +9,7 @@ export const ReplayHeaderStyles = StyleSheet.create(theme => ({
     },
     item: {
         gap: theme.spacing.xs,
+        minWidth: 0,
         paddingHorizontal: theme.spacing.sm,
         width: 'auto'
     },

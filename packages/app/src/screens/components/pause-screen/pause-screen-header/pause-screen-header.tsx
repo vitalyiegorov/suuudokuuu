@@ -1,4 +1,5 @@
 import { Trans } from '@lingui/react/macro';
+import { CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
 import { LucidePause } from 'lucide-react-native';
 import { use } from 'react';
 import { View } from 'react-native';
@@ -28,12 +29,12 @@ export const PauseScreenHeader = ({ detailsText }: Props) => {
                 <LucidePause color={theme.colors.inkText} size={MEDALLION_ICON_SIZE} strokeWidth={2.6} />
             </View>
 
-            <BlackText allowFontScaling={false} style={titleStyles}>
+            <BlackText maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant} style={titleStyles}>
                 <Trans>Paused</Trans>
             </BlackText>
 
             <View style={chipStyles}>
-                <BlackText allowFontScaling={false} numberOfLines={1} style={chipTextStyles}>
+                <BlackText maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant} numberOfLines={1} style={chipTextStyles}>
                     {detailsText}
                 </BlackText>
             </View>

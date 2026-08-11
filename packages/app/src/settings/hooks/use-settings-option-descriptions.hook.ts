@@ -53,7 +53,9 @@ export const useSettingsOptionDescriptions = () => {
         return {
             [ThemeEnum.BlackAndWhite]: t`Clean black-and-white board`,
             [ThemeEnum.Colorful]: t`Warm gold accents for a brighter board`,
-            [ThemeEnum.Newspaper]: t`Soft gray board with a paper-like feel`
+            [ThemeEnum.Newspaper]: t`Soft gray board with a paper-like feel`,
+            [ThemeEnum.HighContrast]: t`Maximum separation between board states`,
+            [ThemeEnum.ColorblindSafe]: t`Board states told apart by lightness and outlines, not hue`
         }[theme];
     };
 

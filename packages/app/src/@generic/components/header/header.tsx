@@ -1,3 +1,4 @@
+import { MaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
 import { use } from 'react';
 import { Text, type TextProps } from 'react-native';
 
@@ -15,7 +16,7 @@ export const Header = ({ text, style, ...props }: Props) => {
     const textStyles = [styles.container, { color: theme.colors.text.primary }, style];
 
     return (
-        <Text allowFontScaling={false} style={textStyles} {...props}>
+        <Text maxFontSizeMultiplier={MaxFontSizeMultiplierConstant} style={textStyles} {...props}>
             {text}
         </Text>
     );

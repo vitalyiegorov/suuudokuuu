@@ -1,5 +1,6 @@
 import { plural } from '@lingui/core/macro';
-import { Trans, useLingui } from '@lingui/react/macro';
+import { useLingui } from '@lingui/react/macro';
+import { CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
 import { LucideSwords, LucideX } from 'lucide-react-native';
 import { use } from 'react';
 import { Text, View } from 'react-native';
@@ -16,6 +17,7 @@ import { ThemeContext } from '../../../theme/context/theme.context';
 import { MAX_TECHNIQUE_TILES } from '../../constants/challenge-run-stats.constant';
 import { getChallengeRivalRunSummary } from '../../utils/get-challenge-rival-run-summary.util';
 import { getChallengeTechniqueSummary } from '../../utils/get-challenge-technique-summary.util';
+import { ChallengeAcceptTimeBlock } from '../challenge-accept-time-block/challenge-accept-time-block';
 import { ChallengeRunStats } from '../challenge-run-stats/challenge-run-stats';
 import { ChallengeTechniquePreview } from '../challenge-technique-preview/challenge-technique-preview';
 
@@ -52,9 +54,6 @@ export const ChallengeAcceptScreen = ({ opponentTotalTime, challengeState, isLoa
     const chipAvatarStyle = [styles.chipAvatar, { backgroundColor: theme.colors.overlayDark }];
     const chipAvatarTextStyle = [styles.chipAvatarText, { color: theme.colors.inkText }];
     const chipTextStyle = [styles.chipText, { color: theme.colors.inkText }];
-    const timeLabelStyle = [styles.timeLabel, { color: theme.colors.text.hint }];
-    const timeValueStyle = [styles.timeValue, { color: theme.colors.text.primary }];
-    const beatTextStyle = [styles.beatText, { color: theme.colors.text.primary }];
     const arsenalLabelStyle = [styles.arsenalLabel, { color: theme.colors.text.hint }];
     const arsenalTagStyle = [styles.arsenalTag, { color: theme.colors.text.hint }];
 
@@ -82,42 +81,32 @@ export const ChallengeAcceptScreen = ({ opponentTotalTime, challengeState, isLoa
                     <LucideSwords color={theme.colors.inkText} size={MEDALLION_ICON_SIZE} strokeWidth={1.9} />
                 </View>
 
-                <Text allowFontScaling={false} style={titleStyle}>
+                <Text maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant} style={titleStyle}>
                     {t`Accept challenge?`}
                 </Text>
 
                 <View style={chipStyle}>
                     <View style={chipAvatarStyle}>
-                        <Text allowFontScaling={false} style={chipAvatarTextStyle}>
+                        <Text maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant} style={chipAvatarTextStyle}>
                             {RIVAL_INITIAL}
                         </Text>
                     </View>
-                    <Text allowFontScaling={false} numberOfLines={1} style={chipTextStyle}>
+                    <Text maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant} numberOfLines={1} style={chipTextStyle}>
                         {chipText}
                     </Text>
                 </View>
 
-                <View style={styles.timeBlock}>
-                    <Text allowFontScaling={false} style={timeLabelStyle}>
-                        <Trans>Their time to beat</Trans>
-                    </Text>
-                    <Text allowFontScaling={false} style={timeValueStyle} testID={ChallengeAcceptScreenSelectors.OpponentTime}>
-                        {opponentTotalTimeText}
-                    </Text>
-                    <Text allowFontScaling={false} style={beatTextStyle}>
-                        <Trans>Can you beat them?</Trans>
-                    </Text>
-                </View>
+                <ChallengeAcceptTimeBlock opponentTotalTimeText={opponentTotalTimeText} />
 
                 <View style={styles.timelineWrap} testID={ChallengeAcceptScreenSelectors.Timeline}>
                     <ChallengeTechniquePreview awayRanges={awayRanges} events={techniqueEvents} totalTime={opponentTotalTime} />
                 </View>
 
                 <View style={styles.arsenalHeader}>
-                    <Text allowFontScaling={false} style={arsenalLabelStyle}>
+                    <Text maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant} style={arsenalLabelStyle}>
                         {t`Rival's arsenal`}
                     </Text>
-                    <Text allowFontScaling={false} style={arsenalTagStyle}>
+                    <Text maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant} style={arsenalTagStyle}>
                         {arsenalTagText}
                     </Text>
                 </View>

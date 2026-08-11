@@ -1,4 +1,5 @@
 import { useLingui } from '@lingui/react';
+import { CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
 import { use } from 'react';
 import { Text } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
@@ -50,10 +51,10 @@ export const ChallengeRaceBadge = ({ events, elapsedTime }: Props) => {
                 size={GLYPH_SIZE}
                 technique={latestEvent.technique}
             />
-            <Text allowFontScaling={false} style={labelStyle}>
+            <Text maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant} style={labelStyle}>
                 {techniqueLabel}
             </Text>
-            <Text allowFontScaling={false} style={countStyle}>{`×${techniqueCount}`}</Text>
+            <Text maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant} style={countStyle}>{`×${techniqueCount}`}</Text>
         </Animated.View>
     );
 };
