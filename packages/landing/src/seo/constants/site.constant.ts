@@ -2,6 +2,8 @@ export const SITE_NAME = 'Suuudokuuu';
 
 export const SITE_ORIGIN = 'https://www.suuudokuuu.com';
 
+export const SITE_PLAY_URL = `${SITE_ORIGIN}/play`;
+
 export const SITE_TAGLINE = 'Free offline Sudoku for iOS, Android and the web';
 
 export const SITE_DESCRIPTION =
