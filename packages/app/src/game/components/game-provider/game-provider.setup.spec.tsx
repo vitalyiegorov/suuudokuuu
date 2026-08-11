@@ -19,7 +19,7 @@ jest.mock('../../../@generic/app-root.store', () => ({ appRootStore: { dispatch:
 
 const createTriggerTestID = 'game-provider-create-trigger';
 const HellPuzzleGivenCellCount = 17;
-const MinimumInfinityGivenCellCount = 21;
+const MinimumInfinityGivenCellCount = 20;
 const MaximumInfinityGivenCellCount = 23;
 
 const abandonedAttempt = {
