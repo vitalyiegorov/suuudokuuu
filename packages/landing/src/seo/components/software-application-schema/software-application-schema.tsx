@@ -1,5 +1,5 @@
 import { SCHEMA_CONTEXT } from '../../constants/schema.constant';
-import { DEFAULT_LOCALE } from '../../constants/site.constant';
+import { DEFAULT_LOCALE, SITE_GITHUB_URL, SITE_LICENSE } from '../../constants/site.constant';
 import { buildLocaleUrl } from '../../utils/build-locale-url.util';
 import { extractNodeText } from '../../utils/extract-node-text.util';
 import { findSlots } from '../../utils/find-slots.util';
@@ -32,6 +32,10 @@ export const SoftwareApplicationSchema = ({ children, description, name, path }:
         applicationCategory: APPLICATION_CATEGORY,
         operatingSystem: OPERATING_SYSTEMS,
         offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+        isAccessibleForFree: true,
+        license: SITE_LICENSE,
+        codeRepository: SITE_GITHUB_URL,
+        sameAs: [SITE_GITHUB_URL],
         featureList
     };
 
