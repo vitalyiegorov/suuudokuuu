@@ -37,6 +37,11 @@ export default defineConfig({
         {
             name: 'mobile-chromium',
             use: { ...devices['Pixel 7'] }
+        },
+        {
+            name: 'mobile-webkit',
+            testMatch: /10\.localized-quit-game\.spec\.ts/u,
+            use: { ...devices['iPhone 14'] }
         }
     ],
     webServer: {
