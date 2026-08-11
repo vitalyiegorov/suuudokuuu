@@ -197,6 +197,10 @@ msgstr "Brädets rutor"
 msgid "Board colors and screen appearance"
 msgstr "Brädets färger och skärmens utseende"
 
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Board states told apart by lightness and outlines, not hue"
+msgstr ""
+
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Box-Line Reduction"
 msgstr "Block-rad-reduktion"
@@ -205,7 +209,7 @@ msgstr "Block-rad-reduktion"
 msgid "Built:"
 msgstr "Byggd:"
 
-#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+#: src/challenge/components/challenge-accept-time-block/challenge-accept-time-block.tsx
 msgid "Can you beat them?"
 msgstr "Kan du slå dem?"
 
@@ -310,6 +314,10 @@ msgstr "Ren omgång"
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Clean win"
 msgstr "Ren vinst"
+
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Colorblind safe"
+msgstr ""
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Column"
@@ -618,6 +626,10 @@ msgstr "Dold singel"
 msgid "Hidden Triple"
 msgstr "Dold trippel"
 
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "High contrast"
+msgstr ""
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Highlight areas"
 msgstr "Markera områden"
@@ -772,6 +784,10 @@ msgstr "m"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Max Mistakes bonus"
 msgstr "Bonus för tillåtna misstag"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Maximum separation between board states"
+msgstr ""
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Maybe later"
@@ -1470,7 +1486,7 @@ msgstr "Commit-länken kunde inte öppnas på den här enheten."
 msgid "The install link could not be opened. Check your browser settings and try again."
 msgstr "Installationslänken kunde inte öppnas. Kontrollera webbläsarens inställningar och försök igen."
 
-#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+#: src/challenge/components/challenge-accept-time-block/challenge-accept-time-block.tsx
 msgid "Their time to beat"
 msgstr "Deras tid att slå"
 

@@ -197,6 +197,10 @@ msgstr "بورڈ کے خانے"
 msgid "Board colors and screen appearance"
 msgstr "بورڈ کے رنگ اور اسکرین کی شکل"
 
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Board states told apart by lightness and outlines, not hue"
+msgstr ""
+
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Box-Line Reduction"
 msgstr "باکس لائن تخفیف"
@@ -205,7 +209,7 @@ msgstr "باکس لائن تخفیف"
 msgid "Built:"
 msgstr "تیار کیا گیا:"
 
-#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+#: src/challenge/components/challenge-accept-time-block/challenge-accept-time-block.tsx
 msgid "Can you beat them?"
 msgstr "کیا آپ انہیں ہرا سکتے ہیں؟"
 
@@ -310,6 +314,10 @@ msgstr "صاف کھیل"
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Clean win"
 msgstr "شاندار جیت"
+
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Colorblind safe"
+msgstr ""
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Column"
@@ -618,6 +626,10 @@ msgstr "پوشیدہ اکہرا"
 msgid "Hidden Triple"
 msgstr "پوشیدہ تہرا"
 
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "High contrast"
+msgstr ""
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Highlight areas"
 msgstr "علاقے نمایاں کریں"
@@ -772,6 +784,10 @@ msgstr "m"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Max Mistakes bonus"
 msgstr "اجازت شدہ غلطیوں کا بونس"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Maximum separation between board states"
+msgstr ""
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Maybe later"
@@ -1470,7 +1486,7 @@ msgstr "اس ڈیوائس پر کمیٹ کا لنک نہیں کھولا جا س�
 msgid "The install link could not be opened. Check your browser settings and try again."
 msgstr "انسٹالیشن کا لنک نہیں کھولا جا سکا۔ اپنے براؤزر کی ترتیبات چیک کریں اور دوبارہ کوشش کریں۔"
 
-#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+#: src/challenge/components/challenge-accept-time-block/challenge-accept-time-block.tsx
 msgid "Their time to beat"
 msgstr "ان کا وقت جسے پیچھے چھوڑنا ہے"
 

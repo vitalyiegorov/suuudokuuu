@@ -199,6 +199,10 @@ msgstr "Board cells"
 msgid "Board colors and screen appearance"
 msgstr "Board colors and screen appearance"
 
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Board states told apart by lightness and outlines, not hue"
+msgstr "Board states told apart by lightness and outlines, not hue"
+
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Box-Line Reduction"
 msgstr "Box-Line Reduction"
@@ -207,7 +211,7 @@ msgstr "Box-Line Reduction"
 msgid "Built:"
 msgstr "Built:"
 
-#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+#: src/challenge/components/challenge-accept-time-block/challenge-accept-time-block.tsx
 msgid "Can you beat them?"
 msgstr "Can you beat them?"
 
@@ -312,6 +316,10 @@ msgstr "Clean run"
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Clean win"
 msgstr "Clean win"
+
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Colorblind safe"
+msgstr "Colorblind safe"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Column"
@@ -620,6 +628,10 @@ msgstr "Hidden Single"
 msgid "Hidden Triple"
 msgstr "Hidden Triple"
 
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "High contrast"
+msgstr "High contrast"
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Highlight areas"
 msgstr "Highlight areas"
@@ -774,6 +786,10 @@ msgstr "m"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Max Mistakes bonus"
 msgstr "Max Mistakes bonus"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Maximum separation between board states"
+msgstr "Maximum separation between board states"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Maybe later"
@@ -1472,7 +1488,7 @@ msgstr "The commit link could not be opened on this device."
 msgid "The install link could not be opened. Check your browser settings and try again."
 msgstr "The install link could not be opened. Check your browser settings and try again."
 
-#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+#: src/challenge/components/challenge-accept-time-block/challenge-accept-time-block.tsx
 msgid "Their time to beat"
 msgstr "Their time to beat"
 

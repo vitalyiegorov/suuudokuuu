@@ -199,6 +199,10 @@ msgstr "Клітинки поля"
 msgid "Board colors and screen appearance"
 msgstr "Кольори дошки та вигляд екранів"
 
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Board states told apart by lightness and outlines, not hue"
+msgstr ""
+
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Box-Line Reduction"
 msgstr "Взаємодія блока і лінії"
@@ -207,7 +211,7 @@ msgstr "Взаємодія блока і лінії"
 msgid "Built:"
 msgstr "Зібрано:"
 
-#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+#: src/challenge/components/challenge-accept-time-block/challenge-accept-time-block.tsx
 msgid "Can you beat them?"
 msgstr "Зможеш їх обіграти?"
 
@@ -312,6 +316,10 @@ msgstr "Чиста партія"
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Clean win"
 msgstr "Чиста перемога"
+
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Colorblind safe"
+msgstr ""
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Column"
@@ -620,6 +628,10 @@ msgstr "Прихований одинак"
 msgid "Hidden Triple"
 msgstr "Прихована трійка"
 
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "High contrast"
+msgstr ""
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Highlight areas"
 msgstr "Підсвічувати області"
@@ -774,6 +786,10 @@ msgstr "m"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Max Mistakes bonus"
 msgstr "Бонус за дозволені помилки"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Maximum separation between board states"
+msgstr ""
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Maybe later"
@@ -1472,7 +1488,7 @@ msgstr "Не вдалося відкрити посилання на коміт 
 msgid "The install link could not be opened. Check your browser settings and try again."
 msgstr "Не вдалося відкрити посилання для інсталяції. Перевірте налаштування браузера й повторіть спробу."
 
-#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+#: src/challenge/components/challenge-accept-time-block/challenge-accept-time-block.tsx
 msgid "Their time to beat"
 msgstr "Їхній час, який треба побити"
 

@@ -197,6 +197,10 @@ msgstr "বোর্ডের ঘর"
 msgid "Board colors and screen appearance"
 msgstr "বোর্ডের রং ও স্ক্রিনের চেহারা"
 
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Board states told apart by lightness and outlines, not hue"
+msgstr ""
+
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Box-Line Reduction"
 msgstr "বক্স-লাইন হ্রাস"
@@ -205,7 +209,7 @@ msgstr "বক্স-লাইন হ্রাস"
 msgid "Built:"
 msgstr "বিল্ড করা হয়েছে:"
 
-#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+#: src/challenge/components/challenge-accept-time-block/challenge-accept-time-block.tsx
 msgid "Can you beat them?"
 msgstr "আপনি কি তাদের হারাতে পারবেন?"
 
@@ -310,6 +314,10 @@ msgstr "পরিষ্কার খেলা"
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Clean win"
 msgstr "নিখুঁত জয়"
+
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Colorblind safe"
+msgstr ""
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Column"
@@ -618,6 +626,10 @@ msgstr "লুকানো একক"
 msgid "Hidden Triple"
 msgstr "লুকানো ত্রয়ী"
 
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "High contrast"
+msgstr ""
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Highlight areas"
 msgstr "এলাকা হাইলাইট করুন"
@@ -772,6 +784,10 @@ msgstr "m"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Max Mistakes bonus"
 msgstr "অনুমোদিত ভুলের বোনাস"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Maximum separation between board states"
+msgstr ""
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Maybe later"
@@ -1470,7 +1486,7 @@ msgstr "এই ডিভাইসে কমিটের লিংকটি খ�
 msgid "The install link could not be opened. Check your browser settings and try again."
 msgstr "ইনস্টল লিংকটি খোলা যায়নি। ব্রাউজারের সেটিংস পরীক্ষা করে আবার চেষ্টা করুন।"
 
-#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+#: src/challenge/components/challenge-accept-time-block/challenge-accept-time-block.tsx
 msgid "Their time to beat"
 msgstr "তাদের হারাতে হবে এমন সময়"
 

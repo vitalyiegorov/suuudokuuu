@@ -25,6 +25,7 @@ import { useCellBorderStyles } from '../../hooks/use-cell-border-styles.hook';
 import { FieldCellSuccessRing } from '../field-cell-success-ring/field-cell-success-ring';
 
 import { fieldCellGetBackgroundColor } from './utils/field-cell-get-background-color.util';
+import { fieldCellGetOutlineStyle } from './utils/field-cell-get-outline-style.util';
 
 import type { CellInterface } from '@suuudokuuu/generator';
 import type { ReactNode } from 'react';
@@ -54,6 +55,7 @@ interface Props {
     readonly children?: ReactNode;
 }
 
+// eslint-disable-next-line max-lines-per-function -- Layout/form component requires many lines
 export const FieldCell = (props: Props) => {
     const {
         cell,
@@ -144,7 +146,8 @@ export const FieldCell = (props: Props) => {
         ...useCellBorderStyles(engine.Sudoku, cell),
         { backgroundColor: cellBackgroundColor },
         cellAnimatedStyles,
-        successPopAnimatedStyles
+        successPopAnimatedStyles,
+        fieldCellGetOutlineStyle({ isWrong, theme })
     ];
 
     // Stable, unique per-cell testID by board coordinate. Selection/highlight
