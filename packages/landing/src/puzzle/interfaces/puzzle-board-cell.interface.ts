@@ -1,4 +1,4 @@
-export interface HardestPuzzleCellInterface {
+export interface PuzzleBoardCellInterface {
     row: number;
     column: number;
     label: string;

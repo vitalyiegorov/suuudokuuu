@@ -3,6 +3,7 @@ import { glossaryPageMetadata } from '../../app/glossary/metadata';
 import { hardestSudokuPuzzlesPageMetadata } from '../../app/hardest-sudoku-puzzles/metadata';
 import { howToPlayPageMetadata } from '../../app/how-to-play/metadata';
 import { homePageMetadata } from '../../app/metadata';
+import { solverPageMetadata } from '../../app/solver/metadata';
 import { easySudokuPageMetadata } from '../../app/sudoku/easy/metadata';
 import { hardSudokuPageMetadata } from '../../app/sudoku/hard/metadata';
 import { hellSudokuPageMetadata } from '../../app/sudoku/hell/metadata';
@@ -43,6 +44,7 @@ import type { PageMetadataInterface } from '../interfaces/page-metadata.interfac
 export const PAGE_METADATA_REGISTRY: PageMetadataInterface[] = [
     homePageMetadata,
     howToPlayPageMetadata,
+    solverPageMetadata,
     glossaryPageMetadata,
     sudokuDifficultiesPageMetadata,
     newbieSudokuPageMetadata,

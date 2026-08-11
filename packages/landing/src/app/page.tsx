@@ -16,6 +16,7 @@ import { glossaryPageMetadata } from './glossary/metadata';
 import { hardestSudokuPuzzlesPageMetadata } from './hardest-sudoku-puzzles/metadata';
 import { howToPlayPageMetadata } from './how-to-play/metadata';
 import { homePageMetadata } from './metadata';
+import { solverPageMetadata } from './solver/metadata';
 import { sudokuDifficultiesPageMetadata } from './sudoku/metadata';
 import { fullHousePageMetadata } from './techniques/full-house/metadata';
 import { hiddenSinglePageMetadata } from './techniques/hidden-single/metadata';
@@ -83,6 +84,12 @@ const HomePage = () => (
                 <Link href={hiddenSinglePageMetadata.path}>Hidden Single</Link> — a digit that only fits in one cell of a unit.
             </li>
         </ul>
+        <h2>Stuck on a puzzle?</h2>
+        <p>
+            Type or paste the grid into the <Link href={solverPageMetadata.path}>step-by-step sudoku solver</Link> and it will name every
+            move — Hidden Single, Naked Pair, X-Wing — instead of just filling the board in. It checks that your puzzle has exactly one
+            solution first, and it runs entirely in your browser.
+        </p>
         <h2>New to Sudoku?</h2>
         <p>
             Read the <Link href={howToPlayPageMetadata.path}>how to play guide</Link> for the three rules and a walkthrough of your first

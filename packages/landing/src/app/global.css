@@ -231,7 +231,7 @@ strong {
 }
 
 .technique-example,
-.hardest-puzzle-board {
+.puzzle-board {
     margin: 1.5rem 0 2rem;
 }
 
@@ -490,6 +490,217 @@ strong {
     display: block;
     color: var(--landing-text-color);
     font-weight: 600;
+}
+
+.solver-workbench {
+    margin: 1.5rem 0 2.5rem;
+    padding: 1.25rem;
+    border: 1px solid var(--landing-border-color);
+    border-radius: 0.35rem;
+    background-color: var(--landing-surface-color);
+}
+
+.solver-entry {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.85rem;
+}
+
+.solver-entry__board {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--landing-text-color);
+}
+
+.solver-entry__row {
+    display: flex;
+}
+
+.solver-entry__cell {
+    width: var(--landing-cell-size);
+    height: var(--landing-cell-size);
+    padding: 0;
+    border: 1px solid var(--landing-border-color);
+    background-color: transparent;
+    color: var(--landing-text-color);
+    font: inherit;
+    font-size: calc(var(--landing-cell-size) * 0.55);
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.solver-entry__row:nth-child(3n) .solver-entry__cell {
+    border-bottom-color: var(--landing-text-color);
+}
+
+.solver-entry__cell:nth-child(3n) {
+    border-right-color: var(--landing-text-color);
+}
+
+.solver-entry__cell[data-selected='true'] {
+    background-color: var(--landing-pattern-color);
+}
+
+.solver-entry__cell:focus-visible {
+    outline: 2px solid var(--landing-accent-color);
+    outline-offset: -2px;
+}
+
+.solver-entry__pad {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+
+.solver-entry__digit {
+    min-width: 2.25rem;
+    padding: 0.4rem 0.6rem;
+    border: 1px solid var(--landing-border-color);
+    border-radius: 0.25rem;
+    background-color: transparent;
+    color: var(--landing-text-color);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.solver-entry__label {
+    color: var(--landing-muted-text-color);
+    font-size: 0.85rem;
+}
+
+.solver-entry__input {
+    width: 100%;
+    padding: 0.5rem 0.65rem;
+    border: 1px solid var(--landing-border-color);
+    border-radius: 0.25rem;
+    background-color: var(--landing-background-color);
+    color: var(--landing-text-color);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.8rem;
+}
+
+.solver-entry__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+}
+
+.solver-entry__solve,
+.solver-entry__action {
+    padding: 0.6rem 1.1rem;
+    border: 1px solid var(--landing-accent-color);
+    border-radius: 0.35rem;
+    background-color: transparent;
+    color: var(--landing-accent-color);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.solver-entry__solve {
+    background-color: var(--landing-accent-color);
+    color: var(--landing-background-color);
+}
+
+.solver-entry__solve:disabled {
+    opacity: 0.5;
+    cursor: progress;
+}
+
+.solver-notice {
+    margin: 1.25rem 0 0;
+    padding: 0.75rem 1rem;
+    border-left: 3px solid var(--landing-border-color);
+    color: var(--landing-muted-text-color);
+    font-size: 0.9rem;
+}
+
+.solver-notice[data-tone='success'] {
+    border-left-color: var(--landing-placed-color);
+}
+
+.solver-notice[data-tone='warning'] {
+    border-left-color: var(--landing-target-color);
+}
+
+.solver-notice[data-tone='error'] {
+    border-left-color: var(--landing-eliminated-color);
+}
+
+.solver-result h3 {
+    margin: 1.75rem 0 0.5rem;
+}
+
+.solver-steps {
+    margin: 0 0 1.5rem;
+    padding: 0;
+    list-style: none;
+}
+
+.solver-steps__item {
+    margin: 0;
+    border-bottom: 1px solid var(--landing-border-color);
+}
+
+.solver-steps__toggle {
+    display: flex;
+    gap: 0.65rem;
+    width: 100%;
+    padding: 0.5rem 0;
+    border: 0;
+    background-color: transparent;
+    color: var(--landing-text-color);
+    font: inherit;
+    font-size: 0.9rem;
+    text-align: left;
+    cursor: pointer;
+}
+
+.solver-steps__toggle[data-selected='true'] {
+    color: var(--landing-accent-color);
+}
+
+.solver-steps__index {
+    min-width: 2rem;
+    color: var(--landing-muted-text-color);
+    font-variant-numeric: tabular-nums;
+}
+
+.solver-steps__technique {
+    display: inline-block;
+    margin: 0 0 0.5rem 2.65rem;
+    font-size: 0.8rem;
+}
+
+.solver-preview {
+    --field-font-family: var(--landing-font-family);
+    --field-cell-size: var(--landing-cell-size);
+    --field-border-color: var(--landing-border-color);
+    --field-border-strong-color: var(--landing-text-color);
+    --field-cell-color: var(--landing-accent-color);
+    --field-cell-given-color: var(--landing-text-color);
+    --field-cell-placed-color: var(--landing-placed-color);
+    --field-cell-wrong-color: var(--landing-eliminated-color);
+    --field-cell-pattern-background-color: var(--landing-pattern-color);
+    --field-cell-target-background-color: var(--landing-target-color);
+    --field-candidate-color: var(--landing-muted-text-color);
+    --field-candidate-eliminated-color: var(--landing-eliminated-color);
+    --field-focus-color: var(--landing-accent-color);
+    --field-button-active-color: var(--landing-background-color);
+    --field-button-active-background-color: var(--landing-accent-color);
+    --field-muted-color: var(--landing-muted-text-color);
+    --field-dot-color: var(--landing-border-color);
+    --field-dot-active-color: var(--landing-accent-color);
+    --field-dot-done-color: var(--landing-placed-color);
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    margin: 0 0 1.25rem;
 }
 
 details {

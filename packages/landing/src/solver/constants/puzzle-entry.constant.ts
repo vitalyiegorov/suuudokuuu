@@ -1,0 +1,9 @@
+export const ENTRY_GRID_SIZE = 9;
+export const ENTRY_CELL_COUNT = ENTRY_GRID_SIZE * ENTRY_GRID_SIZE;
+export const ENTRY_BLANK_CHARACTER = '.';
+export const ENTRY_GRID_BLANK_CHARACTER = '0';
+export const ENTRY_DIGIT_PATTERN = /^[1-9]$/u;
+export const ENTRY_DIGITS = Array.from({ length: ENTRY_GRID_SIZE }, (_, index) => String(index + 1));
+export const ENTRY_GRID_INDEXES = Array.from({ length: ENTRY_GRID_SIZE }, (_, index) => index);
+export const EMPTY_PUZZLE_ENTRY = ENTRY_BLANK_CHARACTER.repeat(ENTRY_CELL_COUNT);
+export const SAMPLE_PUZZLE_ENTRY = '1.8.46.2..69......2.7.8...9......7.6.....7..3..3..4.5..851.93.23...28.....2.5.19.';
