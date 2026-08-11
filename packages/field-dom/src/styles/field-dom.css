@@ -1,0 +1,299 @@
+@layer field-dom {
+    :root {
+        --field-font-family: inherit;
+        --field-cell-size: clamp(1.9rem, 8vw, 2.75rem);
+        --field-gap: 0.75rem;
+        --field-radius: 0.35rem;
+        --field-transition-duration: 120ms;
+
+        --field-surface-color: transparent;
+        --field-border-color: #333333;
+        --field-border-strong-color: #ffffff;
+        --field-border-width: 1px;
+        --field-border-strong-width: 1px;
+
+        --field-cell-color: #4da3ff;
+        --field-cell-given-color: #ffffff;
+        --field-cell-placed-color: #7ee08a;
+        --field-cell-wrong-color: #ff6b6b;
+        --field-cell-value-size: calc(var(--field-cell-size) * 0.6);
+
+        --field-cell-background-color: transparent;
+        --field-cell-given-background-color: rgba(255, 255, 255, 0.04);
+        --field-cell-highlighted-background-color: rgba(77, 163, 255, 0.12);
+        --field-cell-same-value-background-color: rgba(77, 163, 255, 0.22);
+        --field-cell-selected-background-color: rgba(77, 163, 255, 0.38);
+        --field-cell-wrong-background-color: rgba(255, 107, 107, 0.3);
+        --field-cell-pattern-background-color: #1c3a5c;
+        --field-cell-target-background-color: #5c3a1c;
+
+        --field-candidate-color: #b3b3b3;
+        --field-candidate-eliminated-color: #ff6b6b;
+        --field-candidate-size: calc(var(--field-cell-size) * 0.26);
+
+        --field-focus-color: #4da3ff;
+        --field-focus-width: 2px;
+
+        --field-button-color: #ffffff;
+        --field-button-background-color: rgba(255, 255, 255, 0.06);
+        --field-button-active-color: #0b1622;
+        --field-button-active-background-color: #4da3ff;
+        --field-button-disabled-opacity: 0.4;
+        --field-button-padding: 0.4rem 0.6rem;
+
+        --field-muted-color: #b3b3b3;
+        --field-dot-color: #333333;
+        --field-dot-active-color: #4da3ff;
+        --field-dot-done-color: #7ee08a;
+        --field-dot-size: 0.5rem;
+    }
+
+    .field-game {
+        display: flex;
+        flex-direction: column;
+        gap: var(--field-gap);
+        align-items: flex-start;
+        font-family: var(--field-font-family);
+    }
+
+    .field-board {
+        display: flex;
+        flex-direction: column;
+        background-color: var(--field-surface-color);
+        border: var(--field-border-strong-width) solid var(--field-border-strong-color);
+        font-variant-numeric: tabular-nums;
+    }
+
+    .field-board__row {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .field-board__row:nth-child(3n) .field-cell {
+        border-bottom-color: var(--field-border-strong-color);
+    }
+
+    .field-board__row:last-child .field-cell {
+        border-bottom: 0;
+    }
+
+    .field-cell {
+        display: block;
+        width: var(--field-cell-size);
+        height: var(--field-cell-size);
+        margin: 0;
+        padding: 0;
+        border: 0;
+        border-right: var(--field-border-width) solid var(--field-border-color);
+        border-bottom: var(--field-border-width) solid var(--field-border-color);
+        background-color: var(--field-cell-background-color);
+        color: var(--field-cell-color);
+        font: inherit;
+        text-align: center;
+        cursor: pointer;
+        transition: background-color var(--field-transition-duration) ease-out;
+    }
+
+    .field-cell:nth-child(3n) {
+        border-right-color: var(--field-border-strong-color);
+    }
+
+    .field-cell:last-child {
+        border-right: 0;
+    }
+
+    .field-cell:focus-visible {
+        outline: var(--field-focus-width) solid var(--field-focus-color);
+        outline-offset: calc(var(--field-focus-width) * -1);
+    }
+
+    .field-cell[data-given='true'] {
+        background-color: var(--field-cell-given-background-color);
+        color: var(--field-cell-given-color);
+        font-weight: 700;
+        cursor: default;
+    }
+
+    .field-cell[data-highlighted='true'] {
+        background-color: var(--field-cell-highlighted-background-color);
+    }
+
+    .field-cell[data-same-value='true'] {
+        background-color: var(--field-cell-same-value-background-color);
+    }
+
+    .field-cell[data-pattern='true'] {
+        background-color: var(--field-cell-pattern-background-color);
+    }
+
+    .field-cell[data-target='true'] {
+        background-color: var(--field-cell-target-background-color);
+    }
+
+    .field-cell[data-selected='true'] {
+        background-color: var(--field-cell-selected-background-color);
+    }
+
+    .field-cell[data-wrong='true'] {
+        background-color: var(--field-cell-wrong-background-color);
+        color: var(--field-cell-wrong-color);
+    }
+
+    .field-cell__value {
+        font-size: var(--field-cell-value-size);
+        font-weight: 600;
+        line-height: var(--field-cell-size);
+    }
+
+    .field-cell__value[data-placed='true'] {
+        color: var(--field-cell-placed-color);
+    }
+
+    .field-cell__candidates {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        align-items: center;
+        justify-items: center;
+        height: 100%;
+        color: var(--field-candidate-color);
+        font-size: var(--field-candidate-size);
+        line-height: 1.1;
+    }
+
+    .field-cell__candidate[data-eliminated='true'] {
+        color: var(--field-candidate-eliminated-color);
+        font-weight: 700;
+        text-decoration: line-through;
+    }
+
+    .field-number-pad {
+        display: flex;
+        flex-direction: column;
+        gap: calc(var(--field-gap) / 2);
+    }
+
+    .field-number-pad__digits {
+        display: flex;
+        flex-wrap: wrap;
+        gap: calc(var(--field-gap) / 3);
+    }
+
+    .field-number-pad__digit {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-width: var(--field-cell-size);
+        padding: var(--field-button-padding);
+        border: var(--field-border-width) solid var(--field-border-color);
+        border-radius: var(--field-radius);
+        background-color: var(--field-button-background-color);
+        color: var(--field-button-color);
+        font: inherit;
+        cursor: pointer;
+        transition: background-color var(--field-transition-duration) ease-out;
+    }
+
+    .field-number-pad__digit-value {
+        font-size: var(--field-cell-value-size);
+        font-weight: 600;
+        line-height: 1;
+    }
+
+    .field-number-pad__digit-remaining {
+        color: var(--field-muted-color);
+        font-size: var(--field-candidate-size);
+        line-height: 1.4;
+    }
+
+    .field-number-pad__actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: calc(var(--field-gap) / 3);
+    }
+
+    .field-number-pad__action,
+    .field-step-player__control {
+        padding: var(--field-button-padding);
+        border: var(--field-border-width) solid var(--field-border-color);
+        border-radius: var(--field-radius);
+        background-color: var(--field-button-background-color);
+        color: var(--field-button-color);
+        font: inherit;
+        cursor: pointer;
+        transition:
+            background-color var(--field-transition-duration) ease-out,
+            color var(--field-transition-duration) ease-out;
+    }
+
+    .field-number-pad__action[data-active='true'] {
+        background-color: var(--field-button-active-background-color);
+        color: var(--field-button-active-color);
+    }
+
+    .field-number-pad__digit:focus-visible,
+    .field-number-pad__action:focus-visible,
+    .field-step-player__control:focus-visible {
+        outline: var(--field-focus-width) solid var(--field-focus-color);
+        outline-offset: var(--field-focus-width);
+    }
+
+    .field-number-pad__digit:disabled,
+    .field-number-pad__action:disabled,
+    .field-step-player__control:disabled {
+        opacity: var(--field-button-disabled-opacity);
+        cursor: not-allowed;
+    }
+
+    .field-step-player {
+        display: flex;
+        flex-direction: column;
+        gap: calc(var(--field-gap) / 2);
+        width: 100%;
+    }
+
+    .field-step-player__progress {
+        display: flex;
+        gap: calc(var(--field-gap) / 3);
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .field-step-player__dot {
+        width: var(--field-dot-size);
+        height: var(--field-dot-size);
+        border-radius: 50%;
+        background-color: var(--field-dot-color);
+        transition: background-color var(--field-transition-duration) ease-out;
+    }
+
+    .field-step-player__dot[data-state='active'] {
+        background-color: var(--field-dot-active-color);
+    }
+
+    .field-step-player__dot[data-state='done'] {
+        background-color: var(--field-dot-done-color);
+    }
+
+    .field-step-player__narration {
+        margin: 0;
+        color: var(--field-muted-color);
+        font-size: 0.9rem;
+    }
+
+    .field-step-player__controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: calc(var(--field-gap) / 3);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .field-cell,
+        .field-number-pad__digit,
+        .field-number-pad__action,
+        .field-step-player__control,
+        .field-step-player__dot {
+            transition: none;
+        }
+    }
+}
