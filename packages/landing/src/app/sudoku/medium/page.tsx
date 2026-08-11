@@ -1,0 +1,113 @@
+import { DifficultyEnum } from '@suuudokuuu/generator';
+import Link from 'next/link';
+
+import { DifficultyNavigation } from '../../../difficulty/components/difficulty-navigation/difficulty-navigation';
+import { getDifficultyClueCount } from '../../../difficulty/utils/get-difficulty-clue-count.util';
+import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
+import { Breadcrumbs } from '../../../seo/components/breadcrumbs/breadcrumbs';
+import { Faq } from '../../../seo/components/faq/faq';
+import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
+import { FaqPage } from '../../../seo/components/faq-page/faq-page';
+import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
+import { SITE_PLAY_URL } from '../../../seo/constants/site.constant';
+import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
+import { howToPlayPageMetadata } from '../../how-to-play/metadata';
+import { homePageMetadata } from '../../metadata';
+import { boxLineReductionPageMetadata } from '../../techniques/box-line-reduction/metadata';
+import { hiddenPairPageMetadata } from '../../techniques/hidden-pair/metadata';
+import { techniquesPageMetadata } from '../../techniques/metadata';
+import { nakedPairPageMetadata } from '../../techniques/naked-pair/metadata';
+import { pointingPairPageMetadata } from '../../techniques/pointing-pair/metadata';
+import { pointingTriplePageMetadata } from '../../techniques/pointing-triple/metadata';
+import { easySudokuPageMetadata } from '../easy/metadata';
+import { hardSudokuPageMetadata } from '../hard/metadata';
+import { sudokuDifficultiesPageMetadata } from '../metadata';
+
+import { mediumSudokuPageMetadata } from './metadata';
+
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = buildPageMetadata(mediumSudokuPageMetadata);
+
+const MediumSudokuPage = () => (
+    <main>
+        <Breadcrumbs>
+            <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
+            <BreadcrumbListItem path={sudokuDifficultiesPageMetadata.path}>Sudoku difficulties</BreadcrumbListItem>
+            <BreadcrumbListItem>Medium</BreadcrumbListItem>
+        </Breadcrumbs>
+        <h1>Medium Sudoku Puzzles</h1>
+        <p>
+            Medium is where Suuudokuuu starts asking for pencil marks. A Medium board carries{' '}
+            {getDifficultyClueCount(DifficultyEnum.Medium)} clues out of 81 cells, and singles alone no longer finish it: once full houses
+            and singles run out, the puzzle stalls until you spot an intersection — a digit confined to where a box and a line overlap — or
+            a pair locked together. <Link href={pointingPairPageMetadata.path}>Pointing pairs</Link>,{' '}
+            <Link href={pointingTriplePageMetadata.path}>pointing triples</Link> and{' '}
+            <Link href={boxLineReductionPageMetadata.path}>box line reduction</Link> cover the intersections;{' '}
+            <Link href={nakedPairPageMetadata.path}>naked pairs</Link> and <Link href={hiddenPairPageMetadata.path}>hidden pairs</Link>{' '}
+            cover the smallest subset pattern.
+        </p>
+        <a className="hero__cta" href={SITE_PLAY_URL}>
+            Play Medium Sudoku now
+        </a>
+        <h2>What makes a puzzle Medium</h2>
+        <p>
+            An intersection technique works on the overlap between one box and one row or column. A pointing pair or pointing triple finds a
+            digit confined to two or three cells of a box that all share a line, and erases it from the rest of that line; box line
+            reduction is the mirror image, working from a line back into a box. Naked and hidden pairs are the entry point to subset
+            reasoning: two cells that share exactly two candidates, or two digits that fit in exactly two cells of a unit, either way
+            locking those two cells away from everything else in it. None of these place a digit outright — they only eliminate candidates —
+            but at {getDifficultyClueCount(DifficultyEnum.Medium)} clues a Medium puzzle always has at least one waiting, and it is usually
+            enough to unlock a fresh naked single a move or two later.
+        </p>
+        <h2>How hard is it, honestly</h2>
+        <p>
+            No SE (Sudoku Explainer) rating band is published for Medium yet — that companion guide is still being written — but
+            qualitatively this is the first tier where a solver needs real pattern recognition instead of a fast scan. Players who read
+            pencil marks fluently usually clear a Medium board in a few minutes; players relying on mental candidate tracking will find this
+            the first tier that genuinely rewards writing candidates down.
+        </p>
+        <h2>Where to go next</h2>
+        <p>
+            Comfortable spotting intersections and pairs? Move up to <Link href={hardSudokuPageMetadata.path}>Hard Sudoku</Link> for
+            triples, quads and your first fish pattern, or drop back to <Link href={easySudokuPageMetadata.path}>Easy Sudoku</Link> to
+            revisit singles. Browse the <Link href={techniquesPageMetadata.path}>technique index</Link>, the{' '}
+            <Link href={howToPlayPageMetadata.path}>how to play guide</Link>, every tier on the{' '}
+            <Link href={sudokuDifficultiesPageMetadata.path}>Sudoku difficulty levels</Link> hub, or head{' '}
+            <Link href={homePageMetadata.path}>home</Link>.
+        </p>
+        <h2>Medium Sudoku FAQ</h2>
+        <FaqPage>
+            <Faq>
+                <FaqQuestion>What techniques do I need for Medium sudoku?</FaqQuestion>
+                <FaqAnswer>
+                    Full houses and singles as a baseline, plus pointing pairs, pointing triples, box line reduction, and naked or hidden
+                    pairs whenever singles run dry.
+                </FaqAnswer>
+            </Faq>
+            <Faq>
+                <FaqQuestion>How many clues does a Medium sudoku have?</FaqQuestion>
+                <FaqAnswer>
+                    {getDifficultyClueCount(DifficultyEnum.Medium)} clues out of 81 cells, roughly half the grid filled in before you start.
+                </FaqAnswer>
+            </Faq>
+            <Faq>
+                <FaqQuestion>What is a pointing pair?</FaqQuestion>
+                <FaqAnswer>
+                    A digit confined to two cells of one box that also share a row or column. It can then be erased from the rest of that
+                    row or column, since one of those two cells must hold it.
+                </FaqAnswer>
+            </Faq>
+            <Faq>
+                <FaqQuestion>Is Medium sudoku hard?</FaqQuestion>
+                <FaqAnswer>
+                    It is a real step up from Easy, but every technique it needs still works inside a single box or line at a time — the
+                    longer fish and chain patterns only start at Hard and beyond.
+                </FaqAnswer>
+            </Faq>
+        </FaqPage>
+        <DifficultyNavigation next={hardSudokuPageMetadata} previous={easySudokuPageMetadata} />
+    </main>
+);
+
+export default MediumSudokuPage;

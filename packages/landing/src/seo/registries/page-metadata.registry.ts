@@ -1,6 +1,13 @@
 import { glossaryPageMetadata } from '../../app/glossary/metadata';
 import { howToPlayPageMetadata } from '../../app/how-to-play/metadata';
 import { homePageMetadata } from '../../app/metadata';
+import { easySudokuPageMetadata } from '../../app/sudoku/easy/metadata';
+import { hardSudokuPageMetadata } from '../../app/sudoku/hard/metadata';
+import { hellSudokuPageMetadata } from '../../app/sudoku/hell/metadata';
+import { mediumSudokuPageMetadata } from '../../app/sudoku/medium/metadata';
+import { sudokuDifficultiesPageMetadata } from '../../app/sudoku/metadata';
+import { newbieSudokuPageMetadata } from '../../app/sudoku/newbie/metadata';
+import { nightmareSudokuPageMetadata } from '../../app/sudoku/nightmare/metadata';
 import { aicPageMetadata } from '../../app/techniques/aic/metadata';
 import { boxLineReductionPageMetadata } from '../../app/techniques/box-line-reduction/metadata';
 import { finnedSwordfishPageMetadata } from '../../app/techniques/finned-swordfish/metadata';
@@ -35,6 +42,13 @@ export const PAGE_METADATA_REGISTRY: PageMetadataInterface[] = [
     homePageMetadata,
     howToPlayPageMetadata,
     glossaryPageMetadata,
+    sudokuDifficultiesPageMetadata,
+    newbieSudokuPageMetadata,
+    easySudokuPageMetadata,
+    mediumSudokuPageMetadata,
+    hardSudokuPageMetadata,
+    nightmareSudokuPageMetadata,
+    hellSudokuPageMetadata,
     techniquesPageMetadata,
     fullHousePageMetadata,
     nakedSinglePageMetadata,

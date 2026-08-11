@@ -1,0 +1,13 @@
+import type { PageMetadataInterface } from '../../../seo/interfaces/page-metadata.interface';
+
+export const newbieSudokuPageMetadata: PageMetadataInterface = {
+    path: '/sudoku/newbie',
+    title: 'Newbie Sudoku',
+    metaTitle: 'Beginner Sudoku Puzzles (Newbie Level) — Play Free Online',
+    metaDescription:
+        'Free beginner Sudoku puzzles with 71 clues, solvable with full houses and naked singles alone. Play Newbie-level Sudoku online, no ads, no sign-up.',
+    publishedAt: '2026-08-11T00:00:00.000Z',
+    updatedAt: '2026-08-11T00:00:00.000Z',
+    changeFrequency: 'weekly',
+    priority: 0.8
+};

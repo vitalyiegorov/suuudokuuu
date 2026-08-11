@@ -15,6 +15,7 @@ import { buildPageMetadata } from '../seo/utils/build-page-metadata.util';
 import { glossaryPageMetadata } from './glossary/metadata';
 import { howToPlayPageMetadata } from './how-to-play/metadata';
 import { homePageMetadata } from './metadata';
+import { sudokuDifficultiesPageMetadata } from './sudoku/metadata';
 import { fullHousePageMetadata } from './techniques/full-house/metadata';
 import { hiddenSinglePageMetadata } from './techniques/hidden-single/metadata';
 import { techniquesPageMetadata } from './techniques/metadata';
@@ -35,6 +36,7 @@ const webSiteSchema = {
     dateModified: homePageMetadata.updatedAt
 };
 
+// eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const HomePage = () => (
     <main>
         <JsonLd data={webSiteSchema} />
@@ -86,10 +88,12 @@ const HomePage = () => (
             moves, or look up any term in the <Link href={glossaryPageMetadata.path}>sudoku glossary</Link>, which defines every technique
             and every piece of vocabulary the guides use.
         </p>
-        <h2>Coming soon</h2>
+        <h2>Difficulty guides</h2>
         <p>
-            Difficulty guides that break down exactly what separates Newbie from Hell, and a showcase of the hardest 17-clue puzzles in the
-            bundled corpus, are both on the way.
+            Every tier from Newbie to Hell now has its own guide, breaking down exactly what separates one level from the next — clue
+            counts, required techniques and an honest read on how hard each one really is. Start on the{' '}
+            <Link href={sudokuDifficultiesPageMetadata.path}>Sudoku difficulty levels</Link> hub. A showcase of the hardest 17-clue puzzles
+            in the bundled corpus is still on the way.
         </p>
         <h2>Frequently asked questions</h2>
         <FaqPage>
