@@ -11,6 +11,7 @@ import { HowToStep } from '../../seo/components/how-to-step/how-to-step';
 import { SITE_PLAY_URL } from '../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../seo/utils/build-page-metadata.util';
 import { SolverWorkbench } from '../../solver/components/solver-workbench/solver-workbench';
+import { TechniqueSummary } from '../../techniques/components/technique-summary/technique-summary';
 import { seventeenClueSudokuPageMetadata } from '../17-clue-sudoku/metadata';
 import { hardestSudokuPuzzlesPageMetadata } from '../hardest-sudoku-puzzles/metadata';
 import { howToPlayPageMetadata } from '../how-to-play/metadata';
@@ -68,6 +69,15 @@ const SolverPage = () => (
             open-source solving engine that powers hints inside the Suuudokuuu game, so every step it names is a step the app could have
             shown you mid-game.
         </p>
+        <TechniqueSummary>
+            <ul>
+                <li>Type the grid cell by cell or paste all 81 characters, then press Solve step by step.</li>
+                <li>A uniqueness check runs first and reports honestly when a grid has no solution or more than one.</li>
+                <li>Each step names the technique that proves it and links to that technique’s full guide.</li>
+                <li>Any step replays on a live board with the pattern cells highlighted and the candidates drawn in.</li>
+                <li>Everything runs in your browser: nothing is uploaded, nothing is stored, no account is needed.</li>
+            </ul>
+        </TechniqueSummary>
         <SolverWorkbench />
         <h2>Why a narrated solve beats a bare answer</h2>
         <p>

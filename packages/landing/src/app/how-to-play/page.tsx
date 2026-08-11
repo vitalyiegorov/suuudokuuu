@@ -10,6 +10,7 @@ import { HowTo } from '../../seo/components/how-to/how-to';
 import { HowToStep } from '../../seo/components/how-to-step/how-to-step';
 import { SITE_PLAY_URL } from '../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../seo/utils/build-page-metadata.util';
+import { TechniqueSummary } from '../../techniques/components/technique-summary/technique-summary';
 import { glossaryPageMetadata } from '../glossary/metadata';
 import { homePageMetadata } from '../metadata';
 import { sudokuDifficultiesPageMetadata } from '../sudoku/metadata';
@@ -41,6 +42,15 @@ const HowToPlayPage = () => (
             puzzle is only which cells start filled and which digits they hold, and it is that starting layout of givens that determines how
             much logic is needed to reach the one valid solution.
         </p>
+        <TechniqueSummary>
+            <ul>
+                <li>Fill every empty cell with a digit from 1 to 9 so that no digit repeats in a row, a column or a 3×3 box.</li>
+                <li>A well-formed puzzle always has exactly one solution and never requires a guess.</li>
+                <li>Solve the cheapest placements first: full houses, then naked singles, then hidden singles.</li>
+                <li>Write candidates into a cell only once scanning stops producing placements.</li>
+                <li>Every named technique is a faster way of tracking the same row, column and box overlap across many cells at once.</li>
+            </ul>
+        </TechniqueSummary>
         <h2>The three rules of Sudoku</h2>
         <p>
             Every Sudoku rule is really the same constraint applied to three different kinds of unit. Learn the constraint once and you

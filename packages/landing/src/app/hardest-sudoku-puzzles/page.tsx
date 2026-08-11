@@ -10,6 +10,7 @@ import { FaqPage } from '../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../seo/components/faq-question/faq-question';
 import { SITE_PLAY_URL } from '../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../seo/utils/build-page-metadata.util';
+import { TechniqueSummary } from '../../techniques/components/technique-summary/technique-summary';
 import { seventeenClueSudokuPageMetadata } from '../17-clue-sudoku/metadata';
 import { sudokuDifficultyRatingPageMetadata } from '../guides/sudoku-difficulty-rating/metadata';
 import { homePageMetadata } from '../metadata';
@@ -54,6 +55,25 @@ const HardestSudokuPuzzlesPage = () => (
             becomes a number. Suuudokuuu does not publish its own SE ratings per puzzle yet, so the figures below are the values independent
             solvers and researchers commonly cite for each puzzle.
         </p>
+        <TechniqueSummary>
+            <ul>
+                <li>Hardest means reasoning depth, not clue count — a 23-given puzzle can be far harder than a 17-given one.</li>
+                <li>
+                    Depth is quoted as an SE (Sudoku Explainer) rating, a 1.0–12.0 scale set by the hardest technique the optimal solve path
+                    requires.
+                </li>
+                <li>
+                    AI Escargot (2006, 23 givens) is commonly cited near SE 10.6, Platinum Blonde near SE 10.9, and Arto Inkala’s 2010
+                    “Everest” near SE 11.9.
+                </li>
+                <li>
+                    These puzzles resist every bounded pattern, so closing them takes forcing chains and nets rather than pattern spotting.
+                </li>
+                <li>
+                    The SE figures here are values independent raters commonly cite; Suuudokuuu does not publish per-puzzle SE ratings yet.
+                </li>
+            </ul>
+        </TechniqueSummary>
         <a className="hero__cta" href={SITE_PLAY_URL}>
             Play Sudoku now
         </a>

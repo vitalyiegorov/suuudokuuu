@@ -32,19 +32,19 @@ src/
 │   ├── metadata.ts          # home page metadata sidecar
 │   ├── page.tsx             # placeholder home page
 │   ├── robots.ts            # /robots.txt
-│   ├── sitemap.ts           # /sitemap.xml, built from the metadata registry
+│   ├── sitemap.ts           # /sitemap.xml, built from buildIndexablePages()
 │   ├── guides/              # long-form guide articles built on generated solve data
 │   └── techniques/          # /techniques hub plus one folder per technique page
 ├── chrome/
 │   └── components/          # site header and site footer, used by the root layout
-├── indexing/
-│   ├── constants/           # IndexNow env-var name, endpoint and key pattern, llms.txt section names
-│   ├── interfaces/          # the indexable page view model
-│   └── utils/               # buildIndexablePages (the one URL enumeration), llms.txt builder, IndexNow key helpers
 ├── difficulty/
 │   ├── components/          # prev/next difficulty chain
 │   ├── constants/           # difficulty display names, ladder order, difficulty page paths
 │   └── utils/               # clue count per difficulty
+├── indexing/
+│   ├── constants/           # IndexNow env-var name, endpoint and key pattern, llms.txt section names
+│   ├── interfaces/          # the indexable page view model
+│   └── utils/               # buildIndexablePages (the one URL enumeration), llms.txt builder, IndexNow key helpers
 ├── rating/
 │   ├── components/          # generated tier-ladder and technique-frequency tables
 │   ├── constants/           # committed puzzle sample and the technique ladder order
