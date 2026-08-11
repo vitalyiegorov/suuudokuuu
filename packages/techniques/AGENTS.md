@@ -93,9 +93,11 @@ Cached snapshot of candidates per blank cell (`fromSudoku`), with unit/peer navi
 ## Exports
 
 ```typescript
-export { SolutionTechniqueEnum, TechniqueManager };
-export type { TechniqueResultInterface, MoveClassificationInterface };
+export { SolutionTechniqueEnum, TechniqueManager, createTechniqueStrategies };
+export type { TechniqueResultInterface, MoveClassificationInterface, TechniqueStrategyInterface };
 ```
+
+`createTechniqueStrategies` is exported so a consumer can build a `TechniqueManager` over a narrowed registry, for example a single technique. `findNextStep` always returns the first strategy in the given order that fires, so a full registry can only ever surface the simplest available technique. Several techniques — `HiddenQuad` most obviously, because its in-unit complement is always a smaller naked subset — can therefore never be observed through the default registry, and a filtered registry is the only way to detect them on demand.
 
 ## Build
 

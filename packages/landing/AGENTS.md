@@ -20,21 +20,32 @@ The static export lands in `packages/landing/out`. Both `packages/landing/.next`
 ```text
 src/
 ├── app/                     # App Router routes and native metadata routes
-│   ├── global.css           # system font stack, no next/font network fetches
-│   ├── layout.tsx           # root layout, metadataBase, viewport
+│   ├── global.css           # system font stack and every visible class, no next/font network fetches
+│   ├── layout.tsx           # root layout, site chrome, metadataBase, viewport
 │   ├── manifest.ts          # /manifest.webmanifest
 │   ├── metadata.ts          # home page metadata sidecar
 │   ├── page.tsx             # placeholder home page
 │   ├── robots.ts            # /robots.txt
-│   └── sitemap.ts           # /sitemap.xml, built from the metadata registry
-└── seo/
-    ├── components/          # JsonLd plus the compound FAQPage, HowTo, SoftwareApplication and BreadcrumbList schemas
-    ├── constants/           # site identity and schema.org constants
-    ├── interfaces/          # page metadata, page alternates, shared slot props
-    ├── registries/          # metadata-only aggregators consumed by sitemap.ts
-    ├── types/               # sitemap change frequency, slot component type
-    └── utils/               # metadata factory, locale URLs, alternates, slot toolkit, node text extraction
+│   ├── sitemap.ts           # /sitemap.xml, built from the metadata registry
+│   └── techniques/          # /techniques hub plus one folder per technique page
+├── chrome/
+│   └── components/          # site header and site footer, used by the root layout
+├── seo/
+│   ├── components/          # JsonLd, the compound FAQPage/HowTo/SoftwareApplication/BreadcrumbList schemas, and the visible Breadcrumbs and HowTo renderers
+│   ├── constants/           # site identity and schema.org constants
+│   ├── interfaces/          # page metadata, page alternates, shared slot props
+│   ├── registries/          # metadata-only aggregators consumed by sitemap.ts
+│   ├── types/               # sitemap change frequency, slot component type
+│   └── utils/               # metadata factory, locale URLs, alternates, slot toolkit, node text extraction
+└── techniques/
+    ├── components/          # zero-JS example board, TL;DR box, prev/next chain
+    ├── interfaces/          # example view model
+    └── utils/               # buildTechniqueExample, the build-time solver bridge
 ```
+
+### CSS
+
+There are no CSS modules. `noPropertyAccessFromIndexSignature` forces `styles['x']` access, which the `dot-notation` lint rule then rejects, so every visible class lives in `src/app/global.css` and is referenced as a plain string. Variant state is expressed with `data-*` attributes and CSS attribute selectors rather than composed class names.
 
 ## Hard Rules
 
@@ -126,6 +137,29 @@ The landing package is English-only and is deliberately excluded from the root E
 4. Write the body copy inline in the page.
 5. Add JSON-LD with the compound schema components where it applies.
 6. Run `yarn workspace @suuudokuuu/landing ts` and `yarn workspace @suuudokuuu/landing lint`, then the root validation sequence.
+
+## Technique pages and the worked-example pipeline
+
+Every page under `src/app/techniques/<slug>` renders a board that comes from the real solver rather than from hand-drawn markup.
+
+```tsx
+const EXAMPLE_BOARD = '..7..1..2..8..7..1912..3745...';
+
+const example = buildTechniqueExample(EXAMPLE_BOARD, SolutionTechniqueEnum.HiddenQuad);
+```
+
+`buildTechniqueExample` runs at module scope, so it executes once during static generation. It parses the 81-character board with `Sudoku.fromString`, builds a `TechniqueManager` over `createTechniqueStrategies()` filtered down to the single requested technique, and calls `findNextStep()`. The returned `TechniqueResultInterface` supplies the highlighted pattern cells, the placement or the eliminations, and the candidate list of every blank cell. If the detector does not report the expected technique the util throws and the build fails, so copy and diagram can never drift.
+
+Filtering the registry matters. `findNextStep` returns the first strategy in the given order that fires, so an unfiltered manager can only ever report the simplest technique available on a board. Several techniques, `HiddenQuad` above all, can never be the simplest step on any legal position, and a filtered registry is the only way to observe them.
+
+To add a technique page:
+
+1. Find a board where the technique fires. Boards from `packages/techniques/src/**/*.spec.ts` work, and so does any real solve position.
+2. Create `src/app/techniques/<slug>/metadata.ts` with a keyword-first `metaTitle`, and register it in `page-metadata.registry.ts`.
+3. Copy the structure of an existing technique page: `Breadcrumbs`, `h1`, a definition-first opening sentence, `TechniqueSummary`, prose sections, `TechniqueExampleBoard`, `HowTo` with `HowToStep` children, a mistakes list, `FaqPage` with `Faq`/`FaqQuestion`/`FaqAnswer` children, and `TechniqueNavigation`.
+4. Point the `previous` and `next` props at the neighbouring sidecars in `SolutionTechniqueEnum` order.
+5. Write 600 to 900 words of copy inline. Use typographic apostrophes; `react/no-unescaped-entities` rejects raw `'` in JSX text.
+6. Keep the `max-lines-per-function` disable on the page component. Long-form copy in a route file is the reason it is there.
 
 ## Knip
 

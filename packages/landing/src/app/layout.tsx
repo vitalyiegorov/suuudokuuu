@@ -1,4 +1,6 @@
 import './global.css';
+import { SiteFooter } from '../chrome/components/site-footer/site-footer';
+import { SiteHeader } from '../chrome/components/site-header/site-header';
 import { DEFAULT_LOCALE, SITE_NAME, SITE_ORIGIN, SITE_THEME_COLOR } from '../seo/constants/site.constant';
 
 import type { Metadata, Viewport } from 'next';
@@ -21,7 +23,11 @@ interface Props {
 
 const RootLayout = ({ children }: Props) => (
     <html lang={DEFAULT_LOCALE}>
-        <body>{children}</body>
+        <body>
+            <SiteHeader />
+            {children}
+            <SiteFooter />
+        </body>
     </html>
 );
 
