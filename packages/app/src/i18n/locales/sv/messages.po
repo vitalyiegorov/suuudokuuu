@@ -58,6 +58,10 @@ msgstr "{gamesCompleted, plural, one {# slutfört spel} other {# slutförda spel
 msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
 msgstr "{mistakes, plural, one {# misstag} other {# misstag}}"
 
+#: src/screens/components/winner-screen/winner-calm-result-hero/winner-calm-result-hero.tsx
+msgid "{moveCount, plural, one {# move} other {# moves}}"
+msgstr ""
+
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: start with {cellCount, plural, one {the # highlighted cell} other {the # highlighted cells}} and the digits {valueList}."
 msgstr ""
@@ -120,6 +124,14 @@ msgstr "Alla rutor med en siffra (1-9)"
 msgid "All progress will be lost"
 msgstr "Alla framsteg går förlorade"
 
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Always off"
+msgstr ""
+
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Always on"
+msgstr ""
+
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "Android installation"
 msgstr "Android-installation"
@@ -127,6 +139,11 @@ msgstr "Android-installation"
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Animate completed rows, columns, and boxes"
 msgstr "Animera färdiga rader, kolumner och block"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+#: src/settings/hooks/use-settings-option-sheet-config.hook.ts
+msgid "Animations"
+msgstr ""
 
 #: src/game/components/hint-panel/hint-panel.tsx
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
@@ -209,6 +226,10 @@ msgstr "Block-rad-reduktion"
 msgid "Built:"
 msgstr "Byggd:"
 
+#: src/settings/component/settings-feedback-section/settings-feedback-section.tsx
+msgid "Calm play"
+msgstr ""
+
 #: src/challenge/components/challenge-accept-time-block/challenge-accept-time-block.tsx
 msgid "Can you beat them?"
 msgstr "Kan du slå dem?"
@@ -290,6 +311,10 @@ msgstr "Välj hur stora siffrorna på brädet ska vara"
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Choose how much space appears between Sudoku cells"
 msgstr "Välj hur mycket utrymme som visas mellan Sudoku-rutor"
+
+#: src/settings/hooks/use-settings-option-sheet-config.hook.ts
+msgid "Choose how much the board and screens may animate"
+msgstr ""
 
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Choose the language used for menus and game text"
@@ -515,7 +540,7 @@ msgstr "Expertrutnät"
 msgid "Extra points are awarded when your placement completes:"
 msgstr "Du får extrapoäng när ditt drag slutför:"
 
-#: src/screens/components/settings-screen/settings.screen.tsx
+#: src/settings/component/settings-feedback-section/settings-feedback-section.tsx
 msgid "Feedback"
 msgstr "Feedback"
 
@@ -538,6 +563,10 @@ msgstr "Finned Swordfish"
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Finned X-Wing"
 msgstr "Finned X-Wing"
+
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Follow system"
+msgstr ""
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Français"
@@ -626,6 +655,10 @@ msgstr "Dold singel"
 msgid "Hidden Triple"
 msgstr "Dold trippel"
 
+#: src/settings/component/settings-feedback-section/settings-feedback-section.tsx
+msgid "Hide the score and finish with a calm summary instead"
+msgstr ""
+
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "High contrast"
 msgstr ""
@@ -658,6 +691,10 @@ msgstr "Text för ledtråd"
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Home"
 msgstr "Hem"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "How much the board and screens may move"
+msgstr ""
 
 #: src/app/scoring.tsx
 #: src/scoring/components/scoring.screen.tsx
@@ -720,6 +757,10 @@ msgstr "Behåll vald ruta"
 msgid "Keep completed digits"
 msgstr "Behåll ifyllda siffror"
 
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Keep every animation even when the system reduces motion"
+msgstr ""
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Keep selection after tapping outside the board"
 msgstr "Behåll markeringen efter tryck utanför brädet"
@@ -780,6 +821,10 @@ msgstr "Låg kontrast"
 #: src/@generic/hooks/use-timer-text.hook.ts
 msgid "m"
 msgstr "m"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Match the reduce motion setting of your device"
+msgstr ""
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Max Mistakes bonus"
@@ -1109,6 +1154,10 @@ msgstr ""
 msgid "Published:"
 msgstr "Publicerad:"
 
+#: src/screens/components/winner-screen/winner-calm-result-hero/winner-calm-result-hero.tsx
+msgid "Puzzle complete"
+msgstr ""
+
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Quit"
 msgstr "Avsluta"
@@ -1309,7 +1358,11 @@ msgstr "delbar"
 msgid "Show cells with the same number as the selected cell"
 msgstr "Visa rutor med samma siffra som den valda rutan"
 
-#: src/screens/components/settings-screen/settings.screen.tsx
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Show changes instantly with no movement at all"
+msgstr ""
+
+#: src/settings/component/settings-feedback-section/settings-feedback-section.tsx
 msgid "Show elapsed time while you play"
 msgstr "Visa spelad tid medan du spelar"
 
@@ -1343,6 +1396,14 @@ msgstr "Mjukt grått bräde med papperskänsla"
 
 #: src/app/game.tsx
 msgid "Solve a Sudoku puzzle online with hints, notes, and mistake tracking."
+msgstr ""
+
+#: src/screens/components/winner-screen/winner.screen.tsx
+msgid "Solved"
+msgstr ""
+
+#: src/screens/components/winner-screen/winner-calm-result-hero/winner-calm-result-hero.tsx
+msgid "Solved in"
 msgstr ""
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
@@ -1543,7 +1604,7 @@ msgstr "Tid"
 msgid "Time behind"
 msgstr "Tidsunderläge"
 
-#: src/screens/components/settings-screen/settings.screen.tsx
+#: src/settings/component/settings-feedback-section/settings-feedback-section.tsx
 msgid "Timer"
 msgstr "Timer"
 
@@ -1644,11 +1705,11 @@ msgstr "Använd ukrainska för apptexten"
 msgid "Use Urdu for app text"
 msgstr "Använd urdu för apptexten"
 
-#: src/screens/components/settings-screen/settings.screen.tsx
+#: src/settings/component/settings-feedback-section/settings-feedback-section.tsx
 msgid "Vibrate on taps and game actions"
 msgstr "Vibrera vid tryck och spelåtgärder"
 
-#: src/screens/components/settings-screen/settings.screen.tsx
+#: src/settings/component/settings-feedback-section/settings-feedback-section.tsx
 msgid "Vibration"
 msgstr "Vibration"
 

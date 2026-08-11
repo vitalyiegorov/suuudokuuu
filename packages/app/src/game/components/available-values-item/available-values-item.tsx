@@ -6,6 +6,7 @@ import Reanimated, {
     interpolateColor,
     useAnimatedStyle,
     useSharedValue,
+    withDelay,
     withSequence,
     withTiming
 } from 'react-native-reanimated';
@@ -13,7 +14,9 @@ import Svg, { Circle } from 'react-native-svg';
 
 import { cs } from '@rnw-community/shared';
 
+import { useReduceMotion } from '../../../@generic/hooks/use-reduce-motion.hook';
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { PanelControlHitSlopConstant } from '../../constant/panel-control-size.constant';
 import { DigitButtonStyles } from '../../styles/digit-button.styles';
 
 import { AvailableValueItemSelectors as selectors } from './available-value-item.selectors';
@@ -34,6 +37,10 @@ import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
 const ReanimatedPressable = Reanimated.createAnimatedComponent(Pressable);
 
 const AvailableValueProgressOpacity = 0.65;
+const PressAnimationDurationMs = 200;
+const ReducedMotionHoldDurationMs = 400;
+const InstantAnimationConfig = { duration: 0 };
+const PressAnimationConfig = { duration: PressAnimationDurationMs };
 
 export interface AvailableValuesItemRef {
     triggerAnimation: OnEventFn<void>;
@@ -56,6 +63,8 @@ export const AvailableValuesItem = (props: Props) => {
 
     const { theme } = use(ThemeContext);
 
+    const isMotionReduced = useReduceMotion();
+
     const isCorrect = value === correctValue;
     const pressAnimatedBgColor = isCorrect ? theme.colors.board.selected : theme.colors.board.error;
 
@@ -63,18 +72,24 @@ export const AvailableValuesItem = (props: Props) => {
     const animatedStyles = useAnimatedStyle(
         () => ({
             backgroundColor: interpolateColor(animated.value, [0, 1], [theme.colors.surface.raised, pressAnimatedBgColor]),
-            ...(!isCorrect && {
-                transform: [
-                    { translateX: interpolate(animated.value, [0, 0.5, 1], [0, -10, 10]) },
-                    { rotate: `${interpolate(animated.value, [0, 0.5, 1], [0, -20, 20])}deg` }
-                ]
-            })
+            ...(!isCorrect &&
+                !isMotionReduced && {
+                    transform: [
+                        { translateX: interpolate(animated.value, [0, 0.5, 1], [0, -10, 10]) },
+                        { rotate: `${interpolate(animated.value, [0, 0.5, 1], [0, -20, 20])}deg` }
+                    ]
+                })
         }),
-        [pressAnimatedBgColor, isCorrect, theme.colors.surface.raised]
+        [pressAnimatedBgColor, isCorrect, isMotionReduced, theme.colors.surface.raised]
     );
 
     const triggerAnimationFn = () => {
-        animated.value = withSequence(withTiming(1, { duration: 200 }), withTiming(0, { duration: 200 }));
+        animated.value = isMotionReduced
+            ? withSequence(
+                  withTiming(1, InstantAnimationConfig),
+                  withDelay(ReducedMotionHoldDurationMs, withTiming(0, InstantAnimationConfig))
+              )
+            : withSequence(withTiming(1, PressAnimationConfig), withTiming(0, PressAnimationConfig));
     };
 
     useImperativeHandle(ref, () => ({
@@ -100,6 +115,7 @@ export const AvailableValuesItem = (props: Props) => {
     return (
         <View style={containerStyles} testID={selectors.Root}>
             <ReanimatedPressable
+                hitSlop={PanelControlHitSlopConstant}
                 key={value}
                 style={buttonStyles}
                 testID={`${selectors.Button}.${value}`}

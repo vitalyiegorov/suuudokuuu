@@ -49,6 +49,18 @@ describe('settingsSlice', () => {
         expect(nextState.keepExhaustedDigits).toBe(false);
     });
 
+    it('defaults to following the operating system motion preference with scoring visible', () => {
+        expect(initialSettingsState.motionPreference).toBe('system');
+        expect(initialSettingsState.calmMode).toBe(false);
+    });
+
+    it('updates the motion preference and calm play when the player overrides them', () => {
+        const nextState = settingsSlice.reducer(initialSettingsState, settingsSetAction({ calmMode: true, motionPreference: 'reduced' }));
+
+        expect(nextState.motionPreference).toBe('reduced');
+        expect(nextState.calmMode).toBe(true);
+    });
+
     it('defaults to the right-handed landscape layout', () => {
         expect(initialSettingsState.isLeftHanded).toBe(false);
     });

@@ -58,6 +58,10 @@ msgstr "{gamesCompleted, plural, one {# 局已完成} other {# 局已完成}}"
 msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
 msgstr "{mistakes, plural, one {# 个错误} other {# 个错误}}"
 
+#: src/screens/components/winner-screen/winner-calm-result-hero/winner-calm-result-hero.tsx
+msgid "{moveCount, plural, one {# move} other {# moves}}"
+msgstr ""
+
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: start with {cellCount, plural, one {the # highlighted cell} other {the # highlighted cells}} and the digits {valueList}."
 msgstr ""
@@ -120,6 +124,14 @@ msgstr "某个数字的所有格（1-9）"
 msgid "All progress will be lost"
 msgstr "所有进度都会丢失"
 
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Always off"
+msgstr ""
+
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Always on"
+msgstr ""
+
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "Android installation"
 msgstr "Android 安装"
@@ -127,6 +139,11 @@ msgstr "Android 安装"
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Animate completed rows, columns, and boxes"
 msgstr "为完成的行、列和宫格显示动画"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+#: src/settings/hooks/use-settings-option-sheet-config.hook.ts
+msgid "Animations"
+msgstr ""
 
 #: src/game/components/hint-panel/hint-panel.tsx
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
@@ -209,6 +226,10 @@ msgstr "宫线消解"
 msgid "Built:"
 msgstr "构建于："
 
+#: src/settings/component/settings-feedback-section/settings-feedback-section.tsx
+msgid "Calm play"
+msgstr ""
+
 #: src/challenge/components/challenge-accept-time-block/challenge-accept-time-block.tsx
 msgid "Can you beat them?"
 msgstr "你能超过他们吗？"
@@ -290,6 +311,10 @@ msgstr "选择棋盘数字显示大小"
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Choose how much space appears between Sudoku cells"
 msgstr "选择数独单元格之间的间距"
+
+#: src/settings/hooks/use-settings-option-sheet-config.hook.ts
+msgid "Choose how much the board and screens may animate"
+msgstr ""
 
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Choose the language used for menus and game text"
@@ -515,7 +540,7 @@ msgstr "专家棋盘"
 msgid "Extra points are awarded when your placement completes:"
 msgstr "当你的落子完成以下内容时可获得额外分数："
 
-#: src/screens/components/settings-screen/settings.screen.tsx
+#: src/settings/component/settings-feedback-section/settings-feedback-section.tsx
 msgid "Feedback"
 msgstr "反馈"
 
@@ -538,6 +563,10 @@ msgstr "Finned Swordfish"
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Finned X-Wing"
 msgstr "Finned X-Wing"
+
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Follow system"
+msgstr ""
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Français"
@@ -626,6 +655,10 @@ msgstr "隐性单数"
 msgid "Hidden Triple"
 msgstr "隐性三数组"
 
+#: src/settings/component/settings-feedback-section/settings-feedback-section.tsx
+msgid "Hide the score and finish with a calm summary instead"
+msgstr ""
+
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "High contrast"
 msgstr ""
@@ -658,6 +691,10 @@ msgstr "提示文字"
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Home"
 msgstr "首页"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "How much the board and screens may move"
+msgstr ""
 
 #: src/app/scoring.tsx
 #: src/scoring/components/scoring.screen.tsx
@@ -720,6 +757,10 @@ msgstr "保持单元格选中"
 msgid "Keep completed digits"
 msgstr "保留已完成数字"
 
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Keep every animation even when the system reduces motion"
+msgstr ""
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Keep selection after tapping outside the board"
 msgstr "点按棋盘外后仍保持选择"
@@ -780,6 +821,10 @@ msgstr "低对比度"
 #: src/@generic/hooks/use-timer-text.hook.ts
 msgid "m"
 msgstr "m"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Match the reduce motion setting of your device"
+msgstr ""
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Max Mistakes bonus"
@@ -1109,6 +1154,10 @@ msgstr ""
 msgid "Published:"
 msgstr "发布于："
 
+#: src/screens/components/winner-screen/winner-calm-result-hero/winner-calm-result-hero.tsx
+msgid "Puzzle complete"
+msgstr ""
+
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Quit"
 msgstr "退出"
@@ -1309,7 +1358,11 @@ msgstr "可分享"
 msgid "Show cells with the same number as the selected cell"
 msgstr "显示与所选单元格数字相同的单元格"
 
-#: src/screens/components/settings-screen/settings.screen.tsx
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Show changes instantly with no movement at all"
+msgstr ""
+
+#: src/settings/component/settings-feedback-section/settings-feedback-section.tsx
 msgid "Show elapsed time while you play"
 msgstr "游戏时显示已用时间"
 
@@ -1343,6 +1396,14 @@ msgstr "柔和灰色棋盘，带纸张质感"
 
 #: src/app/game.tsx
 msgid "Solve a Sudoku puzzle online with hints, notes, and mistake tracking."
+msgstr ""
+
+#: src/screens/components/winner-screen/winner.screen.tsx
+msgid "Solved"
+msgstr ""
+
+#: src/screens/components/winner-screen/winner-calm-result-hero/winner-calm-result-hero.tsx
+msgid "Solved in"
 msgstr ""
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
@@ -1543,7 +1604,7 @@ msgstr "时间"
 msgid "Time behind"
 msgstr "落后时间"
 
-#: src/screens/components/settings-screen/settings.screen.tsx
+#: src/settings/component/settings-feedback-section/settings-feedback-section.tsx
 msgid "Timer"
 msgstr "计时器"
 
@@ -1644,11 +1705,11 @@ msgstr "使用乌克兰语显示应用文字"
 msgid "Use Urdu for app text"
 msgstr "使用乌尔都语显示应用文字"
 
-#: src/screens/components/settings-screen/settings.screen.tsx
+#: src/settings/component/settings-feedback-section/settings-feedback-section.tsx
 msgid "Vibrate on taps and game actions"
 msgstr "点按和游戏操作时振动"
 
-#: src/screens/components/settings-screen/settings.screen.tsx
+#: src/settings/component/settings-feedback-section/settings-feedback-section.tsx
 msgid "Vibration"
 msgstr "振动"
 

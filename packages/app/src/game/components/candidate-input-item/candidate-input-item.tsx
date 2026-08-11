@@ -5,8 +5,10 @@ import Reanimated, { interpolateColor, useAnimatedStyle, useDerivedValue, withTi
 
 import { cs, isDefined } from '@rnw-community/shared';
 
+import { useReduceMotion } from '../../../@generic/hooks/use-reduce-motion.hook';
 import { getCellKey } from '../../../@generic/utils/get-cell-key.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { PanelControlHitSlopConstant } from '../../constant/panel-control-size.constant';
 import { GameContext } from '../../context/game.context';
 import { DigitButtonStyles } from '../../styles/digit-button.styles';
 
@@ -21,6 +23,7 @@ const ReanimatedPressable = Reanimated.createAnimatedComponent(Pressable);
 
 const selectionFillAnimationDurationMs = 90;
 const selectionReleaseAnimationDurationMs = 40;
+const selectionInstantAnimationDurationMs = 0;
 
 interface Props {
     readonly selectedCell?: CellInterface;
@@ -38,10 +41,13 @@ export const CandidateInputItem = (props: Props) => {
     const { theme } = use(ThemeContext);
     const { snapshot } = use(GameContext);
 
+    const isMotionReduced = useReduceMotion();
+
     const { candidates } = snapshot;
 
     const isSelected = isDefined(selectedCell) && (candidates[getCellKey(selectedCell)] ?? []).includes(value);
-    const selectionAnimationDuration = isSelected ? selectionFillAnimationDurationMs : selectionReleaseAnimationDurationMs;
+    const selectedAnimationDuration = isSelected ? selectionFillAnimationDurationMs : selectionReleaseAnimationDurationMs;
+    const selectionAnimationDuration = isMotionReduced ? selectionInstantAnimationDurationMs : selectedAnimationDuration;
 
     const selectionAnimation = useDerivedValue(() => withTiming(isSelected ? 1 : 0, { duration: selectionAnimationDuration }));
 
@@ -73,6 +79,7 @@ export const CandidateInputItem = (props: Props) => {
     return (
         <View style={containerStyles} testID={selectors.Root}>
             <ReanimatedPressable
+                hitSlop={PanelControlHitSlopConstant}
                 style={buttonStyles}
                 testID={`${selectors.Button}.${value}`}
                 {...(canPress && !isExhausted && { onPress: handlePress })}

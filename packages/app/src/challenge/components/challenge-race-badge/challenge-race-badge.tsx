@@ -7,6 +7,7 @@ import Animated, { FadeIn } from 'react-native-reanimated';
 import { isDefined } from '@rnw-community/shared';
 
 import { techniqueLabelsConstant } from '../../../@generic/constants/technique-labels.constant';
+import { useReduceMotion } from '../../../@generic/hooks/use-reduce-motion.hook';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { TechniqueGlyph } from '../technique-glyph/technique-glyph';
 
@@ -27,6 +28,8 @@ export const ChallengeRaceBadge = ({ events, elapsedTime }: Props) => {
     const { _ } = useLingui();
     const { theme } = use(ThemeContext);
 
+    const isMotionReduced = useReduceMotion();
+
     const passedEvents = events.filter(event => event.cumulativeTime < elapsedTime);
     const latestEvent = passedEvents.at(-1);
 
@@ -40,9 +43,10 @@ export const ChallengeRaceBadge = ({ events, elapsedTime }: Props) => {
     const badgeStyle = [styles.badge, { borderColor: theme.colors.surface.border }];
     const labelStyle = [styles.label, { color: theme.colors.text.primary }];
     const countStyle = [styles.count, { color: theme.colors.text.primary }];
+    const enteringProps = isMotionReduced ? {} : { entering: FadeIn.duration(ENTER_DURATION_MS) };
 
     return (
-        <Animated.View entering={FadeIn.duration(ENTER_DURATION_MS)} key={`${latestEvent.technique}-${techniqueCount}`} style={badgeStyle}>
+        <Animated.View key={`${latestEvent.technique}-${techniqueCount}`} style={badgeStyle} {...enteringProps}>
             <TechniqueGlyph
                 accentColor={theme.colors.danger}
                 dimColor={theme.colors.text.hint}

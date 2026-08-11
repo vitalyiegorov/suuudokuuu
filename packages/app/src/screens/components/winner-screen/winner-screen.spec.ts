@@ -49,6 +49,16 @@ describe('WinnerScreen', () => {
         expect(source).not.toContain('Replay');
     });
 
+    it('swaps the scored hero for a move-count summary when calm play hides scoring', () => {
+        expect(source).toContain('const { gameState, isCalmMode, retrySetup, timeText } = completedGameResult;');
+        expect(source).toContain('const resultHero = isCalmMode ? (');
+        expect(source).toContain('<WinnerCalmResultHero descriptorText={calmDescriptorText} moveCount={moveCount} />');
+        expect(source).toContain('const moveCount = getTimelineCellSteps(gameState.timelineEvents).length;');
+        expect(source).toContain("plural(moveCount, { one: '# move', other: '# moves' })");
+        expect(source).toContain('Solved in');
+        expect(source).toContain('Puzzle complete');
+    });
+
     it('shows the recorded challenge summary before sharing only for a self-authored challenge run', () => {
         expect(source).toContain('isChallengeRecording(gameState)');
         expect(source).toContain('<ChallengeRunSummary');

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Gesture } from 'react-native-gesture-handler';
 import { runOnJS, useSharedValue, withTiming } from 'react-native-reanimated';
 
+import { useReduceMotion } from '../../../../../@generic/hooks/use-reduce-motion.hook';
 import { DifficultyComplexitySliderProgressAnimationDurationMs } from '../../constant/difficulty-complexity-slider.constant';
 
 import type { LayoutChangeEvent } from 'react-native';
@@ -18,17 +19,20 @@ const RailGestureActiveOffsetX = 10;
 const RailGestureFailOffsetY = 12;
 const RailTapMaxDuration = 250;
 const RailGestureHitSlop = SpacingConstant.sm;
+const RailInstantAnimationDurationMs = 0;
 
 export const useDifficultyComplexityRailGesture = (parameters: Parameters) => {
     const { difficultyStopFraction, maxDifficultyIndex, onCommitDifficultyIndex, optionCount } = parameters;
+    const isMotionReduced = useReduceMotion();
     const [railWidth, setRailWidth] = useState(0);
     const difficultyProgressValue = useSharedValue(difficultyStopFraction);
+    const progressAnimationDurationMs = isMotionReduced
+        ? RailInstantAnimationDurationMs
+        : DifficultyComplexitySliderProgressAnimationDurationMs;
 
     useEffect(() => {
-        difficultyProgressValue.value = withTiming(difficultyStopFraction, {
-            duration: DifficultyComplexitySliderProgressAnimationDurationMs
-        });
-    }, [difficultyStopFraction, difficultyProgressValue]);
+        difficultyProgressValue.value = withTiming(difficultyStopFraction, { duration: progressAnimationDurationMs });
+    }, [difficultyStopFraction, progressAnimationDurationMs, difficultyProgressValue]);
 
     const handleRailLayout = (event: LayoutChangeEvent) => {
         setRailWidth(event.nativeEvent.layout.width);
@@ -68,9 +72,7 @@ export const useDifficultyComplexityRailGesture = (parameters: Parameters) => {
 
         const nextDifficultyIndex = getDifficultyIndexFromFraction(getClampedPositionFraction(positionX));
 
-        difficultyProgressValue.value = withTiming((nextDifficultyIndex + 0.5) / optionCount, {
-            duration: DifficultyComplexitySliderProgressAnimationDurationMs
-        });
+        difficultyProgressValue.value = withTiming((nextDifficultyIndex + 0.5) / optionCount, { duration: progressAnimationDurationMs });
         runOnJS(onCommitDifficultyIndex)(nextDifficultyIndex);
     };
 

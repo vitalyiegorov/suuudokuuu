@@ -6,6 +6,7 @@ import Animated, { FadeIn } from 'react-native-reanimated';
 
 import { isEmptyArray } from '@rnw-community/shared';
 
+import { useReduceMotion } from '../../../@generic/hooks/use-reduce-motion.hook';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { getChallengeTimelineMarks } from '../../utils/get-challenge-timeline-marks.util';
 import { getTechniqueTierColor } from '../../utils/get-technique-tier-color.util';
@@ -34,6 +35,8 @@ interface Props {
 export const ChallengeTechniquePreview = ({ awayRanges = [], events, totalTime }: Props) => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
+
+    const isMotionReduced = useReduceMotion();
 
     if (isEmptyArray(events)) {
         return null;
@@ -65,8 +68,9 @@ export const ChallengeTechniquePreview = ({ awayRanges = [], events, totalTime }
                     };
                     const tickStyle = [styles.tick, markStyle];
                     const enterAnimation = FadeIn.delay(index * TICK_STAGGER_MS).duration(TICK_DURATION_MS);
+                    const enteringProps = isMotionReduced ? {} : { entering: enterAnimation };
 
-                    return <Animated.View entering={enterAnimation} key={`tick-${index}`} style={tickStyle} />;
+                    return <Animated.View key={`tick-${index}`} style={tickStyle} {...enteringProps} />;
                 })}
             </View>
             <View style={styles.captionRow}>

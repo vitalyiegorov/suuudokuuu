@@ -74,7 +74,7 @@ export const GameScreen = () => {
     const { sizeClass } = useAppLayout();
     const isWideLayout = sizeClass === 'wide';
     const reservedBoardHeight = isWideLayout ? 0 : GameToolsSlotReservedHeightConstant;
-    const { cellSize: boardCellSize, boardSize, onBoardAreaLayout } = useBoardGeometry(reservedBoardHeight);
+    const { cellSize: boardCellSize, cellMargin: boardCellMargin, boardSize, onBoardAreaLayout } = useBoardGeometry(reservedBoardHeight);
     const dispatch = useAppDispatch();
     const score = useAppSelector(gameScoreSelector);
     const mistakes = useAppSelector(gameMistakesSelector);
@@ -266,7 +266,7 @@ export const GameScreen = () => {
                 <View onLayout={onBoardAreaLayout} style={styles.boardArea}>
                     {isWideLayout ? null : <View style={styles.boardSpacer} />}
 
-                    <Field cellSize={boardCellSize} onSelect={handleSelectCell} ref={fieldRef} />
+                    <Field cellMargin={boardCellMargin} cellSize={boardCellSize} onSelect={handleSelectCell} ref={fieldRef} />
 
                     {isWideLayout ? null : (
                         <View style={styles.toolsSlot}>

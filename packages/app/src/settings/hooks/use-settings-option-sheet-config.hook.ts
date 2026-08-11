@@ -7,8 +7,14 @@ import { SettingsOptionSheetSelectors } from '../component/settings-option-sheet
 import { CellMargin } from '../constant/cell-margin.constant';
 import { FontSizes } from '../constant/font-sizes.constant';
 import { Languages } from '../constant/languages.constant';
+import { MotionPreferences } from '../constant/motion-preferences.constant';
 import { settingsSetAction } from '../store/settings.actions';
-import { settingsCellMarginSelector, settingsFontSizeSelector, settingsLanguageSelector } from '../store/settings.selectors';
+import {
+    settingsCellMarginSelector,
+    settingsFontSizeSelector,
+    settingsLanguageSelector,
+    settingsMotionPreferenceSelector
+} from '../store/settings.selectors';
 
 import { useSettingsOptionDescriptions } from './use-settings-option-descriptions.hook';
 import { useSettingsOptionLabels } from './use-settings-option-labels.hook';
@@ -28,8 +34,10 @@ export const useSettingsOptionSheetConfig = (setting: string | null): SettingsOp
     const currentCellMargin = useAppSelector(settingsCellMarginSelector);
     const currentFontSize = useAppSelector(settingsFontSizeSelector);
     const currentLanguage = useAppSelector(settingsLanguageSelector);
-    const { getCellMarginDescription, getFontSizeDescription, getLanguageDescription } = useSettingsOptionDescriptions();
-    const { getCellMarginLabel, getFontSizeLabel, getLanguageLabel } = useSettingsOptionLabels();
+    const currentMotionPreference = useAppSelector(settingsMotionPreferenceSelector);
+    const { getCellMarginDescription, getFontSizeDescription, getLanguageDescription, getMotionPreferenceDescription } =
+        useSettingsOptionDescriptions();
+    const { getCellMarginLabel, getFontSizeLabel, getLanguageLabel, getMotionPreferenceLabel } = useSettingsOptionLabels();
 
     const selectCellMargin = (cellMargin: SettingsState['cellMargin']) => {
         dispatch(settingsSetAction({ cellMargin }));
@@ -37,6 +45,10 @@ export const useSettingsOptionSheetConfig = (setting: string | null): SettingsOp
     };
     const selectFontSize = (fontSize: SettingsState['fontSize']) => {
         dispatch(settingsSetAction({ fontSize }));
+        router.back();
+    };
+    const selectMotionPreference = (motionPreference: SettingsState['motionPreference']) => {
+        dispatch(settingsSetAction({ motionPreference }));
         router.back();
     };
     const selectLanguage = (language: SettingsState['language']) => {
@@ -56,6 +68,12 @@ export const useSettingsOptionSheetConfig = (setting: string | null): SettingsOp
         isSelected: fontSize === currentFontSize,
         label: getFontSizeLabel(fontSize),
         onPress: () => void selectFontSize(fontSize)
+    }));
+    const motionPreferenceItems = MotionPreferences.map(motionPreference => ({
+        description: getMotionPreferenceDescription(motionPreference),
+        isSelected: motionPreference === currentMotionPreference,
+        label: getMotionPreferenceLabel(motionPreference),
+        onPress: () => void selectMotionPreference(motionPreference)
     }));
     const languageItems = Languages.map(language => ({
         description: getLanguageDescription(language),
@@ -78,6 +96,14 @@ export const useSettingsOptionSheetConfig = (setting: string | null): SettingsOp
             description: t`Choose how large board digits appear`,
             items: fontSizeItems,
             title: t`Number size`
+        };
+    }
+
+    if (setting === 'motion') {
+        return {
+            description: t`Choose how much the board and screens may animate`,
+            items: motionPreferenceItems,
+            title: t`Animations`
         };
     }
 

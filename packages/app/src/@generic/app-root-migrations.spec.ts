@@ -204,4 +204,18 @@ describe('appRootMigrations', () => {
 
         expect(runMigration(33, state)).toStrictEqual(state);
     });
+
+    it('should backfill the comfort preferences at migration 34 without touching stored choices', () => {
+        expect.assertions(3);
+
+        const storedSettings = withoutKeyAtRuntime(
+            withoutKeyAtRuntime({ ...initialSettingsState, hasTimer: false }, 'calmMode'),
+            'motionPreference'
+        );
+        const migrated = runMigration(34, buildState({ settings: storedSettings }));
+
+        expect(migrated.settings.motionPreference).toBe('system');
+        expect(migrated.settings.calmMode).toBe(false);
+        expect(migrated.settings.hasTimer).toBe(false);
+    });
 });

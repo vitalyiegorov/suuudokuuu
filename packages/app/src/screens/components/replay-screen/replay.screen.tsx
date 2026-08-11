@@ -34,7 +34,7 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
     const completedGame = useAppSelector(gameCompletedGameByIdSelector(difficulty, completedAt));
     const [currentStep, setCurrentStep] = useState(0);
     const [gameState] = useState(() => stringToGameState(completedGame?.encodedState));
-    const { cellSize: boardCellSize, onBoardAreaLayout } = useBoardGeometry(0);
+    const { cellSize: boardCellSize, cellMargin: boardCellMargin, onBoardAreaLayout } = useBoardGeometry(0);
 
     if (!isDefined(gameState) || !isDefined(completedGame)) {
         return <Redirect href="/history" />;
@@ -84,7 +84,12 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
                 )}
 
                 <View onLayout={onBoardAreaLayout} style={styles.fieldWrapper}>
-                    <ReplayField cellSize={boardCellSize} highlightedCellKey={highlightedCellKey} sudoku={sudoku} />
+                    <ReplayField
+                        cellMargin={boardCellMargin}
+                        cellSize={boardCellSize}
+                        highlightedCellKey={highlightedCellKey}
+                        sudoku={sudoku}
+                    />
                 </View>
 
                 <View style={styles.controlsColumn}>

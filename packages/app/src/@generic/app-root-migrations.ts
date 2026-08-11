@@ -24,7 +24,7 @@ export interface AppRootPersistedStateInterface {
     [customThemesSlice.name]: CustomThemesState;
 }
 
-export const appRootPersistVersion = 33;
+export const appRootPersistVersion = 34;
 
 const resetBestScores = (state: AppRootPersistedStateInterface): AppRootPersistedStateInterface => {
     const gameState = state[gameSlice.name];
@@ -169,5 +169,6 @@ export const appRootMigrations: MigrationManifest<AppRootPersistedStateInterface
     30: introduceCustomThemes,
     31: migrateCustomThemesToSemanticTokens,
     32: ensureAllDifficulties,
-    33: dropHellQueue
+    33: dropHellQueue,
+    34: state => ({ ...state, [settingsSlice.name]: { ...initialSettingsState, ...state[settingsSlice.name] } })
 };

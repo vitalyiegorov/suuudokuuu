@@ -29,6 +29,17 @@ export const useSettingsOptionDescriptions = () => {
 
         return t`Larger digits for easier reading`;
     };
+    const getMotionPreferenceDescription = (motionPreference: SettingsState['motionPreference']) => {
+        if (motionPreference === 'full') {
+            return t`Keep every animation even when the system reduces motion`;
+        }
+
+        if (motionPreference === 'reduced') {
+            return t`Show changes instantly with no movement at all`;
+        }
+
+        return t`Match the reduce motion setting of your device`;
+    };
     const getLanguageDescription = (language: SettingsState['language']) =>
         ({
             ar: t`Use Arabic for app text`,
@@ -63,6 +74,7 @@ export const useSettingsOptionDescriptions = () => {
         getCellMarginDescription,
         getFontSizeDescription,
         getLanguageDescription,
+        getMotionPreferenceDescription,
         getThemeDescription
     };
 };

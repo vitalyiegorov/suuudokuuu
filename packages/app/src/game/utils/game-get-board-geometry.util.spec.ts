@@ -1,7 +1,7 @@
 import { describe, expect, it } from '@jest/globals';
 import { defaultSudokuConfig } from '@suuudokuuu/generator';
 
-import { BoardCellSizeCapConstant } from '../constant/board-cell-size.constant';
+import { BoardCellSizeCapConstant, BoardCellSizeMinConstant } from '../constant/board-cell-size.constant';
 
 import { gameGetBoardGeometry } from './game-get-board-geometry.util';
 
@@ -33,6 +33,16 @@ const MeasuredAreaSizes = [
     DesktopAreaSize,
     LargeDesktopAreaSize
 ];
+const MinimumCellsSize = fieldSize * BoardCellSizeMinConstant;
+const SmallestSupportedPhoneAreaSize = 280;
+const FloorBoundaryAreaSizes = [
+    MinimumCellsSize - 1,
+    MinimumCellsSize,
+    MinimumCellsSize + 1,
+    MinimumCellsSize + GroupGapCount * DefaultCellMargin,
+    MinimumCellsSize + GroupGapCount * DefaultCellMargin + 1
+];
+const DegradedAreaSizes = [SmallestSupportedPhoneAreaSize, CompactPhoneAreaSize, MinimumCellsSize - 1];
 
 const getSquareGeometry = (areaSize: number, cellMargin: number) =>
     gameGetBoardGeometry({
@@ -48,9 +58,9 @@ describe('gameGetBoardGeometry', () => {
     it('reports the exact size the rendered field occupies, group gaps included', () => {
         CellMarginOptions.forEach(cellMargin => {
             MeasuredAreaSizes.forEach(areaSize => {
-                const { cellSize, boardSize } = getSquareGeometry(areaSize, cellMargin);
+                const geometry = getSquareGeometry(areaSize, cellMargin);
 
-                expect(boardSize).toBe(fieldSize * cellSize + GroupGapCount * cellMargin);
+                expect(geometry.boardSize).toBe(fieldSize * geometry.cellSize + GroupGapCount * geometry.cellMargin);
             });
         });
     });
@@ -102,7 +112,57 @@ describe('gameGetBoardGeometry', () => {
     });
 
     it('collapses to zero before the board area has been measured', () => {
-        expect(getSquareGeometry(0, DefaultCellMargin)).toStrictEqual({ cellSize: 0, boardSize: 0 });
+        expect(getSquareGeometry(0, DefaultCellMargin)).toStrictEqual({ boardSize: 0, cellMargin: 0, cellSize: 0 });
+    });
+
+    it('keeps every cell at or above the minimum touch target across screen sizes and spacing settings', () => {
+        CellMarginOptions.forEach(cellMargin => {
+            [...MeasuredAreaSizes, ...FloorBoundaryAreaSizes].forEach(areaSize => {
+                if (areaSize < MinimumCellsSize) {
+                    return;
+                }
+
+                expect(getSquareGeometry(areaSize, cellMargin).cellSize).toBeGreaterThanOrEqual(BoardCellSizeMinConstant);
+            });
+        });
+    });
+
+    it('spends the group gaps before the cells when the area cannot fit both at the requested spacing', () => {
+        const tightestFloorAreaSize = MinimumCellsSize + GroupGapCount * DefaultCellMargin - 1;
+        const tightestFloorGeometry = getSquareGeometry(tightestFloorAreaSize, DefaultCellMargin);
+
+        expect(tightestFloorGeometry.cellSize).toBe(BoardCellSizeMinConstant);
+        expect(tightestFloorGeometry.cellMargin).toBeLessThan(DefaultCellMargin);
+        expect(tightestFloorGeometry.boardSize).toBeLessThanOrEqual(tightestFloorAreaSize);
+    });
+
+    it('keeps the requested spacing as soon as the area fits the minimum cells and the group gaps', () => {
+        const roomyFloorAreaSize = MinimumCellsSize + GroupGapCount * DefaultCellMargin;
+        const roomyFloorGeometry = getSquareGeometry(roomyFloorAreaSize, DefaultCellMargin);
+
+        expect(roomyFloorGeometry.cellMargin).toBe(DefaultCellMargin);
+        expect(roomyFloorGeometry.cellSize).toBe(BoardCellSizeMinConstant);
+        expect(roomyFloorGeometry.boardSize).toBe(roomyFloorAreaSize);
+    });
+
+    it('drops the group gaps to zero and shrinks the cells only when the minimum board cannot fit at all', () => {
+        CellMarginOptions.forEach(cellMargin => {
+            DegradedAreaSizes.forEach(areaSize => {
+                const degradedGeometry = getSquareGeometry(areaSize, cellMargin);
+
+                expect(degradedGeometry.cellMargin).toBe(0);
+                expect(degradedGeometry.cellSize).toBe(Math.floor(areaSize / fieldSize));
+                expect(degradedGeometry.boardSize).toBeLessThanOrEqual(areaSize);
+            });
+        });
+    });
+
+    it('never reports a spacing wider than the setting the player chose', () => {
+        CellMarginOptions.forEach(cellMargin => {
+            [...MeasuredAreaSizes, ...FloorBoundaryAreaSizes, ...DegradedAreaSizes].forEach(areaSize => {
+                expect(getSquareGeometry(areaSize, cellMargin).cellMargin).toBeLessThanOrEqual(cellMargin);
+            });
+        });
     });
 
     it('never returns a negative size for a collapsed area', () => {
@@ -115,7 +175,7 @@ describe('gameGetBoardGeometry', () => {
             cellMargin: DefaultCellMargin
         });
 
-        expect(collapsedGeometry).toStrictEqual({ cellSize: 0, boardSize: 0 });
+        expect(collapsedGeometry).toStrictEqual({ boardSize: 0, cellMargin: 0, cellSize: 0 });
     });
 
     it('reserves height for a fixed sibling before fitting the board to the limiting height', () => {
@@ -150,6 +210,6 @@ describe('gameGetBoardGeometry', () => {
             cellMargin: DefaultCellMargin
         });
 
-        expect(overReservedGeometry).toStrictEqual({ cellSize: 0, boardSize: 0 });
+        expect(overReservedGeometry).toStrictEqual({ boardSize: 0, cellMargin: 0, cellSize: 0 });
     });
 });
