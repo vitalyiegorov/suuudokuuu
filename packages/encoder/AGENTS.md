@@ -67,6 +67,9 @@ Trailers are appended in a fixed order after the payload body. Every trailer rea
 
 1. Aggregate trailer (`aggregate-trailer-codec.util.ts`, `Handoff`/`Challenge` kinds, written only when both `pencilCount` and `screenshotCount` are non-null): 4-bit trailer version (`1`), then `pencilCount` and `screenshotCount` as 8-bit/16-bit varints. Missing, truncated, or version-mismatched trailer bits decode as `{ pencilCount: null, screenshotCount: null }`, so `null` stays distinguishable from a genuine `0` and older/foreign payloads still decode.
 2. Metadata trailer (`metadata-trailer-codec.util.ts`, every payload kind, always written by the current encoder): 4-bit trailer version, then a version-specific body. Version `2` is the only version this codec writes: a 7-bit `rating` (rating × 10; `0` means unknown), a 1-bit `isRatingCeiling` flag, and a 3-bit difficulty code. Version `1` is the difficulty-only trailer shipped by app v2.4.0–v2.4.2 and is still read: a 3-bit difficulty code and nothing else, decoding with an unknown rating. Missing, truncated, or version-mismatched trailer bits decode as `{ rating: 0, isRatingCeiling: false, difficulty: null }` and rewind the stream instead of throwing.
+3. Technique trailer (`technique-trailer-codec.util.ts`, written only when the caller supplies `techniques` and the payload holds at least one `Cell` event): 4-bit trailer version (`1`), then one 6-bit technique code per `Cell` event, in event order. Code `63` (`TECHNIQUE_CODE_UNKNOWN`) means "this move was never classified" and decodes as `null`, which keeps an unclassified move distinguishable from a genuine `Guess` (`0`). Codes `0..62` decode verbatim; `SolutionTechniqueEnum` currently tops out at `31`, so the width leaves room for future members. Missing, truncated, or version-mismatched trailer bits decode as `{ techniques: null }` and rewind the stream.
+
+The technique trailer needs no length field: the `Cell` event count is already known from the decoded timeline, so `readTechniqueTrailer` takes it as a parameter and demands exactly `4 + 6 × cellEventCount` bits before it reads anything. A payload without `Cell` events never carries the trailer, which also removes the only case where a stray version tag could match on padding alone.
 
 Difficulty codes are the zero-based ordinal positions of `DifficultyEnum` in the `generator` package (`0 = Newbie` … `5 = Hell`, `6 = Infinity`), kept as plain numbers here because this package does not depend on `generator`. `DIFFICULTY_CODE_MAX` is `6` and the remaining 3-bit value `7` (`DIFFICULTY_CODE_UNKNOWN`) is the "no difficulty" sentinel written by version 2. `DifficultyEnum` is append-only, so codes `0..5` mean exactly what app v2.4.x wrote them to mean. Reserved codes above `DIFFICULTY_CODE_MAX` decode as `difficulty: null`, which lets callers fall back to their own blank-count inference.
 
@@ -74,11 +77,12 @@ Difficulty codes are the zero-based ordinal positions of `DifficultyEnum` in the
 
 Three generations of v3 links exist in the wild and all three must keep decoding:
 
-| Link generation | Bits after the aggregate trailer        | Decode result                                                         |
-| --------------- | --------------------------------------- | --------------------------------------------------------------------- |
-| Pre-v2.4.0      | none (zero padding only)                | `rating: 0`, `isRatingCeiling: false`, `difficulty: null`             |
-| v2.4.0–v2.4.2   | version-`1` difficulty trailer (7 bits) | difficulty from the 3-bit code, `rating: 0`, `isRatingCeiling: false` |
-| Current         | version-`2` metadata trailer (15 bits)  | rating, ceiling flag, and difficulty as written                       |
+| Link generation      | Bits after the aggregate trailer                                                                   | Decode result                                                         |
+| -------------------- | -------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| Pre-v2.4.0           | none (zero padding only)                                                                           | `rating: 0`, `isRatingCeiling: false`, `difficulty: null`             |
+| v2.4.0–v2.4.2        | version-`1` difficulty trailer (7 bits)                                                            | difficulty from the 3-bit code, `rating: 0`, `isRatingCeiling: false` |
+| Current              | version-`2` metadata trailer (15 bits)                                                             | rating, ceiling flag, and difficulty as written                       |
+| Current + techniques | version-`2` metadata trailer plus a version-`1` technique trailer (`15 + 4 + 6 × cellEvents` bits) | the above plus one technique code per cell event                      |
 
 `GameStateBinaryCodecV3.readTrailers` snapshots the stream position before the aggregate read and rewinds to it whenever the aggregate read reports unknown counts, because `readAggregateTrailer` consumes its 4-bit version tag before rejecting a foreign tag. The rewind matters because the aggregate trailer's version tag (`1`) shares the same bit position and the same width as the metadata trailer's:
 
@@ -86,6 +90,8 @@ Three generations of v3 links exist in the wild and all three must keep decoding
 - A current link without an aggregate trailer leaves `15 + 0..7 = 15..22` bits, so the length guard can pass. The version tag then reads `2`, which does not match `AGGREGATE_TRAILER_VERSION_V1`, and the rewind restores the four consumed bits before the metadata trailer is read.
 
 Base64url decoding leaves at most seven trailing zero-padding bits and a zero version tag matches nothing, so padding alone can never be mistaken for a trailer. `game-state-serializer-frozen-payloads.spec.ts` pins byte-for-byte payloads from each shipped generation; do not regenerate those strings.
+
+The technique trailer is the fourth generation and sits after the metadata trailer, which is the only placement that leaves those frozen bytes untouched. Every shipped generation reaches that position with at most seven padding bits, while the smallest technique trailer needs `4 + 6 = 10`, so the length guard rejects all of them before the version tag is read; the frozen spec asserts `techniques: null` for all seven pinned payloads. An older app reading a new link stops after the metadata trailer and ignores the extra bits, so the stream costs old clients nothing but size.
 
 ## Legacy v2 Tuple Format
 

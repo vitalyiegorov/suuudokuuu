@@ -38,4 +38,32 @@ describe('getCompletedGameTechniqueSummary', () => {
         expect(summary).toHaveLength(1);
         expect(summary[0]).toMatchObject({ count: 1, technique: SolutionTechniqueEnum.FullHouse });
     });
+
+    it('reads the stored technique stream instead of replaying the run', () => {
+        const sudoku = Sudoku.fromStrings(
+            defaultSudokuConfig,
+            '12345678.',
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........'
+        );
+        const gameState = {
+            ...initialGameState,
+            sudokuString: sudoku.toString(),
+            timelineEvents: [
+                { kind: TimelineEventKindEnum.Cell as const, cellIndex: 8, value: 9, ts: 5, technique: SolutionTechniqueEnum.XYZWing }
+            ]
+        };
+        const encodedState = gameStateToString(gameState, SharedPayloadKindEnum.Handoff);
+
+        const summary = getCompletedGameTechniqueSummary(encodedState);
+
+        expect(summary).toHaveLength(1);
+        expect(summary[0]).toMatchObject({ count: 1, technique: SolutionTechniqueEnum.XYZWing });
+    });
 });

@@ -6,9 +6,9 @@ import { GameState } from '../store/game.state';
 
 import { difficultyToDifficultyCode } from './difficulty-to-difficulty-code.util';
 import { getIndexedCandidates } from './get-indexed-candidates.util';
+import { getTimelineCellTechniques } from './get-timeline-cell-techniques.util';
 
 import type { GameTimelineEventInterface } from '../interface/game-timeline-event.interface';
-import type { TimelineEventInterface } from '@suuudokuuu/encoder';
 
 const RatingWireScale = 10;
 
@@ -25,16 +25,13 @@ const shareableEventKinds: TimelineEventKindEnum[] = [
 const countEventsOfKind = (events: GameTimelineEventInterface[], kind: TimelineEventKindEnum): number =>
     events.filter(event => event.kind === kind).length;
 
-const toShareableEvent = (event: GameTimelineEventInterface): TimelineEventInterface =>
-    event.kind === TimelineEventKindEnum.Cell ? { kind: event.kind, cellIndex: event.cellIndex, value: event.value, ts: event.ts } : event;
-
-const toShareableTimelineEvents = (events: GameTimelineEventInterface[]): TimelineEventInterface[] => {
-    const shareableEvents: TimelineEventInterface[] = [];
+const toShareableTimelineEvents = (events: GameTimelineEventInterface[]): GameTimelineEventInterface[] => {
+    const shareableEvents: GameTimelineEventInterface[] = [];
     let carriedSeconds = 0;
 
     for (const event of events) {
         if (shareableEventKinds.includes(event.kind)) {
-            shareableEvents.push({ ...toShareableEvent(event), ts: event.ts + carriedSeconds });
+            shareableEvents.push({ ...event, ts: event.ts + carriedSeconds });
             carriedSeconds = 0;
         } else {
             carriedSeconds += event.ts;
@@ -52,10 +49,12 @@ const toShareableTimelineEvents = (events: GameTimelineEventInterface[]): Timeli
 export const gameStateToString = (gameState: GameState, kind = SharedPayloadKindEnum.Puzzle): string => {
     try {
         const timelineEvents = toShareableTimelineEvents(gameState.timelineEvents);
+        const techniques = getTimelineCellTechniques(timelineEvents);
 
         return serializer.encodeState({
             field: gameState.sudokuString,
             timelineEvents,
+            ...(techniques.some(isDefined) && { techniques }),
             kind,
             maxMistakes: gameState.maxMistakes,
             isChallengeRun: gameState.isChallengeRun,

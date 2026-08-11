@@ -13,6 +13,7 @@ export interface DecodedGameStateInterface {
     anchorSeconds: number;
     pencilCount: number | null;
     screenshotCount: number | null;
+    techniques: (number | null)[] | null;
     rating: number;
     isRatingCeiling: boolean;
     difficulty: number | null;

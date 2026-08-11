@@ -131,3 +131,25 @@ describe('GameStateSerializer frozen v2.4.x difficulty-trailer payloads', () => 
         expect(decoded.rating).toBe(0);
     });
 });
+
+describe('GameStateSerializer frozen payload technique streams', () => {
+    const serializer = new GameStateSerializer();
+
+    it('should report unknown techniques for every shipped link generation', () => {
+        expect.assertions(7);
+
+        const shippedPayloads = [
+            FROZEN_PUZZLE_PAYLOAD,
+            FROZEN_CHALLENGE_PAYLOAD,
+            FROZEN_HANDOFF_PAYLOAD,
+            FROZEN_V1_PUZZLE_PAYLOAD,
+            FROZEN_V1_CHALLENGE_PAYLOAD,
+            FROZEN_V1_HANDOFF_PAYLOAD,
+            FROZEN_V1_TRAILERLESS_CHALLENGE_PAYLOAD
+        ];
+
+        for (const payload of shippedPayloads) {
+            expect(serializer.decodeState(payload).techniques).toBeNull();
+        }
+    });
+});

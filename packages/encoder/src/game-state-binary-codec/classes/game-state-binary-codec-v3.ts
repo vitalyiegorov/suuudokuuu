@@ -1,6 +1,6 @@
 import { BitInputStream, BitOutputStream } from '@thi.ng/bitstream';
 
-import { isDefined } from '@rnw-community/shared';
+import { isDefined, isNotEmptyArray } from '@rnw-community/shared';
 
 import {
     CODEC_VERSION_BITS,
@@ -32,6 +32,12 @@ import {
 } from '../../@generic/utils/handoff-extras-codec.util';
 import { type MetadataTrailerInterface, readMetadataTrailer, writeMetadataTrailer } from '../../@generic/utils/metadata-trailer-codec.util';
 import {
+    type TechniqueTrailerInterface,
+    readTechniqueTrailer,
+    writeTechniqueTrailer
+} from '../../@generic/utils/technique-trailer-codec.util';
+import {
+    countCellEvents,
     hasNonCellEvents,
     readTimelineEvents,
     removeCellEventsFromField,
@@ -41,7 +47,9 @@ import {
 import type { DecodedGameStateInterface } from '../../@generic/interfaces/decoded-game-state.interface';
 import type { TimelineEventInterface } from '../../@generic/interfaces/timeline-event.interface';
 
-export type EncodableGameStateInterface = Omit<DecodedGameStateInterface, 'elapsedTime'>;
+export type EncodableGameStateInterface = Omit<DecodedGameStateInterface, 'elapsedTime' | 'techniques'> & {
+    techniques?: (number | null)[];
+};
 
 export class GameStateBinaryCodecV3 {
     encode(state: EncodableGameStateInterface): string {
@@ -86,7 +94,7 @@ export class GameStateBinaryCodecV3 {
             maxMistakes,
             elapsedTime,
             isChallengeRun,
-            ...this.readTrailers(input, kind, isChallengeRun)
+            ...this.readTrailers(input, kind, isChallengeRun, countCellEvents(timelineEvents))
         };
     }
 
@@ -121,13 +129,20 @@ export class GameStateBinaryCodecV3 {
         }
 
         writeMetadataTrailer(out, state.rating, state.isRatingCeiling, state.difficulty);
+
+        const cellEventCount = countCellEvents(events);
+
+        if (isNotEmptyArray(state.techniques) && cellEventCount > 0) {
+            writeTechniqueTrailer(out, state.techniques, cellEventCount);
+        }
     }
 
     private readTrailers(
         input: BitInputStream,
         kind: SharedPayloadKindEnum,
-        isChallengeRun: boolean
-    ): HandoffExtrasInterface & AggregateTrailerInterface & MetadataTrailerInterface {
+        isChallengeRun: boolean,
+        cellEventCount: number
+    ): HandoffExtrasInterface & AggregateTrailerInterface & MetadataTrailerInterface & TechniqueTrailerInterface {
         const handoffExtras = kind === SharedPayloadKindEnum.Handoff ? readHandoffExtras(input, isChallengeRun) : emptyHandoffExtras;
         const positionBeforeAggregateTrailer = input.position;
         const aggregateTrailer = kind === SharedPayloadKindEnum.Puzzle ? emptyAggregateTrailer : readAggregateTrailer(input);
@@ -136,7 +151,12 @@ export class GameStateBinaryCodecV3 {
             input.seek(positionBeforeAggregateTrailer);
         }
 
-        return { ...handoffExtras, ...aggregateTrailer, ...readMetadataTrailer(input) };
+        return {
+            ...handoffExtras,
+            ...aggregateTrailer,
+            ...readMetadataTrailer(input),
+            ...readTechniqueTrailer(input, cellEventCount)
+        };
     }
 
     private readPayloadKind(input: BitInputStream): SharedPayloadKindEnum {

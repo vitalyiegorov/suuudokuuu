@@ -1,5 +1,5 @@
 import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
-import { TechniqueManager } from '@suuudokuuu/techniques';
+import { TechniqueManager, interactiveTechniqueOrder } from '@suuudokuuu/techniques';
 
 import { isEmptyArray, isNotEmptyString } from '@rnw-community/shared';
 
@@ -21,7 +21,7 @@ export const getChallengeTechniqueEvents = (sudokuString: string, steps: Solutio
         const x = step.cellIndex % defaultSudokuConfig.fieldSize;
         const y = Math.floor(step.cellIndex / defaultSudokuConfig.fieldSize);
         const cell = { ...sudoku.Field[y][x], value: step.value };
-        const classification = new TechniqueManager(sudoku).identifyMove(cell);
+        const classification = new TechniqueManager(sudoku).identifyMove(cell, interactiveTechniqueOrder);
 
         sudoku.Field[y][x] = cell;
         cumulativeTime += step.ts;
