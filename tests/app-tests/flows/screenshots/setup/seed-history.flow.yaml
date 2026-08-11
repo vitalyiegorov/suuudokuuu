@@ -1,0 +1,48 @@
+appId: ${APP_ID}
+tags:
+    - screenshots
+---
+# One-time store-screenshot state seeding: completes one rated challenge per
+# difficulty so the Statistics screen has a real Solver Profile instead of the
+# single Newbie win the per-scene fixture leaves behind. Without this the hero
+# reads "Hardest solve 1.0", the SE spectrum has one of five buckets filled and
+# the difficulty ladder has a single row - accurate, but a poor store listing.
+#
+# The screenshot flows all launch with clearState:false, so this seeded history
+# persists across every later scene, locale and appearance; run it once per app
+# install (re-run after the uninstall/reinstall that OS_LANGUAGE_MODE locales
+# need). Fixtures are the rated one-win board re-encoded with per-difficulty
+# rating/difficulty trailers - see design notes in the store-media skill.
+- launchApp:
+      clearState: true
+- extendedWaitUntil:
+      visible:
+          id: 'HomeScreenSelectors.Root'
+      timeout: 15000
+
+- runFlow:
+      file: seed-one-completed-game.flow.yaml
+      env:
+          SHARED_CHALLENGE_LINK: suuudokuuu://shared/_OWP3___9___93___qW-RojmzMbQsY8eL3ZRyEIVSmGalwx2Yvrdh8S1ALmDASBMnAMiAaUA3IBzCAAARoQ
+- runFlow:
+      file: seed-one-completed-game.flow.yaml
+      env:
+          SHARED_CHALLENGE_LINK: suuudokuuu://shared/_OWP3___9___93___qW-RojmzMbQsY8eL3ZRyEIVSmGalwx2Yvrdh8S1ALmDASBMnAMiAaUA3IBzCAAASog
+- runFlow:
+      file: seed-one-completed-game.flow.yaml
+      env:
+          SHARED_CHALLENGE_LINK: suuudokuuu://shared/_OWP3___9___93___qW-RojmzMbQsY8eL3ZRyEIVSmGalwx2Yvrdh8S1ALmDASBMnAMiAaUA3IBzCAAATow
+- runFlow:
+      file: seed-one-completed-game.flow.yaml
+      env:
+          SHARED_CHALLENGE_LINK: suuudokuuu://shared/_OWP3___9___93___qW-RojmzMbQsY8eL3ZRyEIVSmGalwx2Yvrdh8S1ALmDASBMnAMiAaUA3IBzCAAAUxA
+- runFlow:
+      file: seed-one-completed-game.flow.yaml
+      env:
+          SHARED_CHALLENGE_LINK: suuudokuuu://shared/_OWP3___9___93___qW-RojmzMbQsY8eL3ZRyEIVSmGalwx2Yvrdh8S1ALmDASBMnAMiAaUA3IBzCAAAV5Q
+- runFlow:
+      file: seed-one-completed-game.flow.yaml
+      env:
+          SHARED_CHALLENGE_LINK: suuudokuuu://shared/_OWP3___9___93___qW-RojmzMbQsY8eL3ZRyEIVSmGalwx2Yvrdh8S1ALmDASBMnAMiAaUA3IBzCAAAXdg
+
+- stopApp

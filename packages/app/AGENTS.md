@@ -92,7 +92,15 @@ Consumers therefore prefer the stored technique and only fall back to re-derivin
 - `getRunTechniqueEvents` returns the stored stream when the decoded timeline carries one, and replays through `TechniqueManager` only for legacy records. The completed-game chips, the rival arsenal on the challenge accept screen, and the rival run summary all go through it.
 - `getSudokuAtStep` shows the stored technique for the replayed step and reclassifies only when it is missing.
 
-`classifyTimelineMove` and every fallback replay use `interactiveTechniqueOrder` from `@suuudokuuu/techniques`, not the full registry. That is a deliberate fidelity trade: a move that only an AIC or a forcing chain could justify now records `Guess`. Measured over twelve replayed Infinity games it affects about 7 % of moves, and it is what keeps a tap from blocking the JS thread for most of a second on a hard board. Everything the interactive ladder can explain is labelled exactly as the full ladder would label it, so scoring, challenge tiers, and the technique tiles keep their meaning; only the two most expensive labels can be lost, and they degrade to the honest "no technique justified this" answer rather than to a wrong one. Rating and solving still use the full registry.
+`interactiveTechniqueOrder` from `@suuudokuuu/techniques` is for classification that has to answer inside a frame, not for every derivation:
+
+- `classifyTimelineMove` uses it. It runs on the tap that plays a cell, so the full registry would block the JS thread for most of a second on a hard board.
+- `getSudokuAtStep` uses it for the one step being scrubbed, for the same reason.
+- `getChallengeTechniqueEvents` does not. It is the legacy-record fallback: a whole run replayed once per screen open, off any tap budget, so it uses the full registry and keeps the labels a legacy link deserves.
+
+That split matters because the interactive ladder is a fidelity trade, not a free win. A move that only an AIC or a forcing chain could justify records `Guess`; measured over twelve replayed Infinity games that is about 7 % of moves. Nothing else changes meaning, so scoring, challenge tiers, and the technique tiles keep theirs.
+
+The trade also does not pay off in a bulk replay. Replaying the 59-move Nightmare rival of `08.challenge-accept-preview` costs 139 ms on the full registry against 198 ms on the interactive ladder, because a move the full ladder settles at `AIC` instead falls through the whole direct pass and then the whole enabling pass. Only the hardest boards invert that: a 60-move Infinity replay costs 0.6-1.4 s full against 0.3-0.5 s interactive, and both of those are already too slow to hide, for legacy records only. Rating and solving still use the full registry.
 
 ## Routing And Deep Links
 

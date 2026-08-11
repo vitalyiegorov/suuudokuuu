@@ -5,6 +5,10 @@ appId: ${APP_ID}
       optional: true
 
 - runFlow: subflows/navigation/launch-home.flow.yaml
+# This rival payload predates the rating trailer and the technique trailer, so it is
+# the only end-to-end cover of the legacy decode path. Do not re-encode it: the
+# arsenal below is derived by replaying the run through the full technique registry
+# precisely because the payload carries no stored techniques.
 - runFlow:
       file: subflows/shared/open-shared-challenge.flow.yaml
       env:

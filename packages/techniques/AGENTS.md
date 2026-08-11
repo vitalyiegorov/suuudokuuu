@@ -66,11 +66,11 @@ A direct justification is one deduction step and always outranks an enabling one
 
 ### interactiveTechniqueOrder
 
-`interactiveTechniqueOrder` is the registry order truncated before `AIC`, so it runs everything through `SimpleColoring` and drops `AIC`, `UniqueRectangle`, `BivalueUniversalGrave`, and the three forcing chains. It is a strict prefix, never a hole: skipping a cheap technique while keeping a later one would let a move be credited to a technique the full ladder would never have reached, whereas a prefix can only ever downgrade a classification to `Guess`.
+`interactiveTechniqueOrder` is the registry order truncated before `AIC`, so it runs everything through `SimpleColoring` and drops `AIC`, `UniqueRectangle`, `BivalueUniversalGrave`, and the three forcing chains. It is a strict prefix, never a hole: skipping a cheap technique while keeping a later one would let a move be credited to a technique the full ladder would never have reached. A prefix can only ever weaken a classification, but not always to `Guess`: dropping the technique that justified a move directly lets it fall into the enabling pass, where a cheaper technique can still explain it in two steps, so a direct `AIC` can resurface as an enabling `HiddenPair`.
 
 The cut sits at `AIC` because `identifyMove` narrows every scan by search intent, which makes the forcing chains far cheaper here than they are in a broad `solveLogically` scan, while `AICTechnique` searches depth-first and spends `AIC_MAX_LINK_VISITS` per start node on every fall-through move. Measured over 708 moves of twelve replayed Infinity games, the full ladder cost 11689 ms against 3781 ms for the interactive prefix, the worst single move fell from 780 ms to 42 ms, and 51 moves (7.2 %) downgraded to `Guess` — 31 that only a Nishio forcing chain explained and 20 that only an AIC explained. Cutting earlier, after the wing band, saved little more: the fish and wing strategies cost about 25 ms per move together.
 
-Consumers that rate or solve keep using the full registry; only interactive classification passes this order.
+Consumers that rate or solve keep using the full registry, and so does every bulk replay that is not on a tap budget; only classification that must answer inside a frame passes this order.
 
 ### solveLogically
 
