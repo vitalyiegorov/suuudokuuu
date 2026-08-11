@@ -24,7 +24,14 @@ jest.mock('../../../@generic/app-root.store', () => ({ appRootStore: { dispatch:
 jest.mock('../../../@generic/components/alert/alert', () => ({ Alert: (title: string) => mockAlert(title) }));
 jest.mock('../../../@generic/hooks/use-app-dispatch.hook', () => ({ useAppDispatch: () => mockDispatch }));
 jest.mock('../../../@generic/hooks/use-app-selector.hook', () => ({ useAppSelector: (selector: () => unknown) => selector() }));
-jest.mock('../../store/game.selectors', () => ({ gameSudokuStringSelector: () => '' }));
+jest.mock('../../store/game.selectors', () => ({
+    gameCandidatesSelector: () => ({}),
+    gameDifficultySelector: () => 'Newbie',
+    gameInputModeSelector: () => 'normal',
+    gameMistakesSelector: () => 0,
+    gameShowAutoCandidatesSelector: () => false,
+    gameSudokuStringSelector: () => ''
+}));
 jest.mock('../../../settings/store/settings.selectors', () => ({ settingsLanguageSelector: () => 'en' }));
 
 const maxMistakes = 3;

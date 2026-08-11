@@ -1,6 +1,8 @@
 import { i18n } from '@lingui/core';
+import { FieldEngine } from '@suuudokuuu/field-core';
+import { useFieldSnapshot } from '@suuudokuuu/field-core/react';
 import { DifficultyEnum, Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { isNotEmptyString } from '@rnw-community/shared';
 
@@ -8,8 +10,8 @@ import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { settingsLanguageSelector } from '../../../settings/store/settings.selectors';
 import { GameContext } from '../../context/game.context';
 import { useGameCreationRunner } from '../../hooks/use-game-creation-runner.hook';
+import { useGameEngineState } from '../../hooks/use-game-engine-state.hook';
 import { gameLoadAction, gameResumeAction, gameStartAction } from '../../store/game.actions';
-import { gameSudokuStringSelector } from '../../store/game.selectors';
 import { gameProviderCreateHellGame } from '../../utils/game-provider-create-hell-game.util';
 
 import type { GameSetupInterface } from '../../interface/game-setup.interface';
@@ -35,27 +37,26 @@ const createSudokuByDifficulty = (difficulty: DifficultyEnum): Sudoku => {
 export const GameProvider = ({ children }: Props) => {
     const { dispatch, isCreatingGame, router, runGameCreation, showAlert } = useGameCreationRunner();
 
-    const currentGameString = useAppSelector(gameSudokuStringSelector);
     const currentLanguage = useAppSelector(settingsLanguageSelector);
 
-    const [sudoku, setSudoku] = useState(() => {
-        if (isNotEmptyString(currentGameString)) {
-            try {
-                return Sudoku.fromString(currentGameString, defaultSudokuConfig);
-            } catch (error: unknown) {
-                showAlert(error);
-            }
-        }
-
-        return new Sudoku(defaultSudokuConfig);
-    });
+    const [engine, setEngine] = useGameEngineState(showAlert);
+    const snapshot = useFieldSnapshot(engine);
 
     const createFromState = (newState: GameState) =>
         void runGameCreation(() => {
             const needsWallClock = isNotEmptyString(newState.challengeState) || newState.isChallengeRun;
             dispatch(gameLoadAction({ ...newState, ...(needsWallClock && { wallClockStartMs: Date.now() }) }));
 
-            setSudoku(Sudoku.fromString(newState.sudokuString, defaultSudokuConfig));
+            setEngine(
+                new FieldEngine({
+                    sudokuString: newState.sudokuString,
+                    difficulty: newState.difficulty,
+                    candidates: newState.candidates,
+                    inputMode: newState.inputMode,
+                    showAutoCandidates: newState.showAutoCandidates,
+                    mistakes: newState.mistakes
+                })
+            );
 
             dispatch(gameResumeAction());
 
@@ -64,18 +65,17 @@ export const GameProvider = ({ children }: Props) => {
 
     const create = ({ difficulty, isChallengeRun, maxMistakes }: GameSetupInterface) =>
         void runGameCreation(() => {
-            const newSudoku = createSudokuByDifficulty(difficulty);
+            const sudokuString = createSudokuByDifficulty(difficulty).toString();
 
-            setSudoku(newSudoku);
+            setEngine(new FieldEngine({ sudokuString, difficulty }));
 
-            const sudokuString = newSudoku.toString();
             dispatch(gameStartAction({ difficulty, isChallengeRun, maxMistakes, sudokuString }));
             router.replace('/game');
         });
 
     useEffect(() => void i18n.activate(currentLanguage), [currentLanguage]);
 
-    const value = { create, createFromState, isCreatingGame, sudoku };
+    const value = { create, createFromState, engine, isCreatingGame, snapshot };
 
     return <GameContext value={value}>{children}</GameContext>;
 };

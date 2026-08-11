@@ -67,7 +67,7 @@ export const FieldCell = (props: Props) => {
         children
     } = props;
 
-    const { sudoku } = use(GameContext);
+    const { engine } = use(GameContext);
     const { theme } = use(ThemeContext);
 
     const showAreas = useAppSelector(settingsKeySelector('showAreas'));
@@ -135,7 +135,7 @@ export const FieldCell = (props: Props) => {
 
     const cellStyles = [
         resolveUnistyleForAnimated(styles.container(cellSize)),
-        ...useCellBorderStyles(sudoku, cell),
+        ...useCellBorderStyles(engine.Sudoku, cell),
         { backgroundColor: cellBackgroundColor },
         cellAnimatedStyles,
         successPopAnimatedStyles

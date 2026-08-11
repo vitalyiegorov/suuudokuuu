@@ -8,11 +8,12 @@ import { UseKeyboardControlsStyles as styles } from './use-keyboard-controls.sty
 import { keyboardKeyToAction } from './utils/keyboard-key-to-action.util';
 
 import type { OnEventFn } from '@rnw-community/shared';
-import type { CellInterface, Sudoku } from '@suuudokuuu/generator';
+import type { FieldEngine } from '@suuudokuuu/field-core';
+import type { CellInterface } from '@suuudokuuu/generator';
 import type { NativeSyntheticEvent, TextInputKeyPressEventData } from 'react-native';
 
 export const useKeyboardControls = (
-    sudoku: Sudoku,
+    engine: FieldEngine,
     selectedCell: CellInterface | undefined,
     onSelectCell: OnEventFn<CellInterface | undefined>,
     onSelectValue: OnEventFn<number>,
@@ -31,11 +32,12 @@ export const useKeyboardControls = (
     };
 
     const handleKeyPress = (event: NativeSyntheticEvent<TextInputKeyPressEventData>) => {
-        const action = keyboardKeyToAction(event.nativeEvent.key, sudoku, selectedCell);
+        const action = keyboardKeyToAction(event.nativeEvent.key, engine.Sudoku, selectedCell);
 
         if (action.type === 'select-cell') {
             onSelectCell(action.cell);
         } else if (action.type === 'toggle-input-mode') {
+            engine.toggleInputMode();
             dispatch(gameToggleInputModeAction());
         } else if (action.type === 'exit') {
             onExit();

@@ -2,10 +2,8 @@ import { isEmptyScoredCells } from '@suuudokuuu/generator';
 import { type Ref, use, useImperativeHandle, useState } from 'react';
 import { View } from 'react-native';
 
-import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { getCellKey } from '../../../@generic/utils/get-cell-key.util';
 import { GameContext } from '../../context/game.context';
-import { gameCandidatesSelector, gameShowAutoCandidatesSelector } from '../../store/game.selectors';
 import { gameGetCellKeysToAnimate } from '../../utils/game-get-cell-keys-to-animate.util';
 import { gameIncrementCellAnimationGenerations } from '../../utils/game-increment-cell-animation-generations.util';
 import { gameNextSuccessCellTrigger } from '../../utils/game-next-success-cell-trigger.util';
@@ -28,16 +26,15 @@ export interface FieldRef {
 
 interface Props {
     readonly cellSize: number;
-    readonly selectedCell?: CellInterface;
     readonly onSelect: OnEventFn<CellInterface | undefined>;
     readonly ref: Ref<FieldRef>;
 }
 
-export const Field = ({ cellSize, selectedCell, onSelect, ref }: Props) => {
-    const { sudoku } = use(GameContext);
+export const Field = ({ cellSize, onSelect, ref }: Props) => {
+    const { engine, snapshot } = use(GameContext);
 
-    const showAutoCandidates = useAppSelector(gameShowAutoCandidatesSelector);
-    const candidates = useAppSelector(gameCandidatesSelector);
+    const sudoku = engine.Sudoku;
+    const { selectedCell } = snapshot;
 
     const [comboAnimationGenerations, setComboAnimationGenerations] = useState<Record<string, number>>({});
     const [successTrigger, setSuccessTrigger] = useState<SuccessCellTriggerInterface>(initialSuccessTrigger);
@@ -61,7 +58,7 @@ export const Field = ({ cellSize, selectedCell, onSelect, ref }: Props) => {
 
     return (
         <View style={styles.wrapper}>
-            {sudoku.Field.map(row => (
+            {snapshot.field.map(row => (
                 <View key={`row-${row[0].y}`} style={styles.row}>
                     {row.map(cell => {
                         const cellKey = getCellKey(cell);
@@ -71,7 +68,7 @@ export const Field = ({ cellSize, selectedCell, onSelect, ref }: Props) => {
                         const isWrong = sudoku.isCellWrong(cell, selectedCell);
                         const isEmpty = sudoku.isBlankCell(cell);
 
-                        const cellCandidates = showAutoCandidates ? sudoku.getCellCandidates(cell) : (candidates[cellKey] ?? []);
+                        const cellCandidates = engine.getCellCandidates(cell);
                         const shouldShowCandidates = isEmpty && cellCandidates.length > 0;
 
                         return (

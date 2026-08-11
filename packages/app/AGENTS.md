@@ -81,7 +81,15 @@ src/
 2. Use `useAppDispatch` and `useAppSelector` from `@generic/hooks`.
 3. When persisted state shape changes, bump the Redux Persist version and add a migration in `@generic/app-root.store.ts`.
 4. Persisted-state migrations are the only place where legacy unknown shapes may need narrow escape hatches. Do not spread that pattern into normal app code.
-5. Keep game mutations in the game slice and puzzle invariants in `@suuudokuuu/generator`.
+5. Keep puzzle invariants in `@suuudokuuu/generator`.
+
+### Field state ownership
+
+1. `@suuudokuuu/field-core` owns interactive field state: the `Sudoku` grid of record, the selected cell, notes/candidates, input mode, the auto-candidates flag, mistake counting, and completion detection. `GameProvider` creates the `FieldEngine` and `GameContext` exposes `{ create, createFromState, engine, isCreatingGame, snapshot }`.
+2. Read the board through `snapshot` (`snapshot.field`, `snapshot.selectedCell`, `snapshot.inputMode`, `snapshot.candidates`) and through `engine.Sudoku` predicates. `engine.Sudoku` is not reference-stable across undo, so never store it in state or a ref.
+3. Board input goes through `engine.selectCell`, `engine.inputValue` and `engine.toggleCandidate`. Scoring, the timeline log, haptics, confetti and routing stay app-side and are driven by the `moveApplied`, `mistake` and `completed` engine events subscribed in `game.screen.tsx`.
+4. The game slice keeps `candidates`, `inputMode` and `showAutoCandidates` as a persistence mirror written by the same actions that already carry timeline and scoring data. Every engine mutation that changes one of them dispatches its matching action in the same handler, and `game.field-engine-mirror.spec.ts` proves the mirror stays identical to `engine.serialize()`.
+5. The persisted `sudokuString` format is the unchanged `Sudoku.toString()` grid. Saved games, share links and replays depend on it, so it must never change shape.
 
 ## Routing And Deep Links
 

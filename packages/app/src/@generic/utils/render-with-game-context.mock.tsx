@@ -1,11 +1,13 @@
 import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
-import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
+import { FieldEngine } from '@suuudokuuu/field-core';
+import { DifficultyEnum } from '@suuudokuuu/generator';
 import { render } from '@testing-library/react-native';
 import { Provider } from 'react-redux';
 
 import { emptyFn } from '@rnw-community/shared';
 
+import { GameEmptySudokuStringConstant } from '../../game/constant/empty-sudoku-string.constant';
 import { GameContext } from '../../game/context/game.context';
 
 import { createAppTestStore } from './create-app-test-store.mock';
@@ -22,11 +24,13 @@ interface RenderWithGameContextOptions {
 }
 
 export const renderWithGameContext = (ui: ReactElement, options: RenderWithGameContextOptions = {}) => {
+    const engine = new FieldEngine({ sudokuString: GameEmptySudokuStringConstant, difficulty: DifficultyEnum.Newbie });
     const gameContextValue: GameContextValueInterface = {
         create: options.create ?? emptyFn,
         createFromState: options.createFromState ?? emptyFn,
+        engine,
         isCreatingGame: options.isCreatingGame ?? false,
-        sudoku: new Sudoku(defaultSudokuConfig)
+        snapshot: engine.getSnapshot()
     };
 
     return render(
