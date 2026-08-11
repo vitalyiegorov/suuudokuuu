@@ -28,11 +28,12 @@ export interface FieldRef {
 
 interface Props {
     readonly cellSize: number;
+    readonly cellMargin: number;
     readonly onSelect: OnEventFn<CellInterface | undefined>;
     readonly ref: Ref<FieldRef>;
 }
 
-export const Field = ({ cellSize, onSelect, ref }: Props) => {
+export const Field = ({ cellSize, cellMargin, onSelect, ref }: Props) => {
     const { engine, snapshot } = use(GameContext);
 
     const sudoku = engine.Sudoku;
@@ -84,6 +85,7 @@ export const Field = ({ cellSize, onSelect, ref }: Props) => {
                         return (
                             <FieldCell
                                 cell={cell}
+                                cellMargin={cellMargin}
                                 cellSize={cellSize}
                                 isActive={isActive}
                                 isActiveValue={isActiveValue}

@@ -3,6 +3,7 @@ import { use, useEffect } from 'react';
 import { View } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
+import { useReduceMotion } from '../../../@generic/hooks/use-reduce-motion.hook';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { getChallengeTimelineMarks } from '../../utils/get-challenge-timeline-marks.util';
 import { ChallengeAwayBands } from '../challenge-away-bands/challenge-away-bands';
@@ -17,6 +18,7 @@ import type { ChallengeTechniqueEventInterface } from '../../interfaces/challeng
 const TICK_COUNT = 44;
 const PERCENT = 100;
 const ANIMATION_DURATION_MS = 300;
+const INSTANT_DURATION_MS = 0;
 
 interface Props {
     readonly awayRanges: ChallengeAwayRangeInterface[];
@@ -29,15 +31,18 @@ interface Props {
 export const ChallengeRaceTimeline = ({ awayRanges, events, opponentProgress, playerProgress, totalTime }: Props) => {
     const { theme } = use(ThemeContext);
 
+    const isMotionReduced = useReduceMotion();
+    const progressDurationMs = isMotionReduced ? INSTANT_DURATION_MS : ANIMATION_DURATION_MS;
+
     const opponentProgressValue = useSharedValue(opponentProgress);
     const playerProgressValue = useSharedValue(playerProgress);
 
     useEffect(() => {
-        opponentProgressValue.value = withTiming(opponentProgress, { duration: ANIMATION_DURATION_MS });
-    }, [opponentProgress, opponentProgressValue]);
+        opponentProgressValue.value = withTiming(opponentProgress, { duration: progressDurationMs });
+    }, [opponentProgress, progressDurationMs, opponentProgressValue]);
     useEffect(() => {
-        playerProgressValue.value = withTiming(playerProgress, { duration: ANIMATION_DURATION_MS });
-    }, [playerProgress, playerProgressValue]);
+        playerProgressValue.value = withTiming(playerProgress, { duration: progressDurationMs });
+    }, [playerProgress, progressDurationMs, playerProgressValue]);
 
     const marks = getChallengeTimelineMarks(events, TICK_COUNT, totalTime).map(mark => ({ ...mark, isAway: false }));
     const isRivalAhead = opponentProgress > playerProgress;

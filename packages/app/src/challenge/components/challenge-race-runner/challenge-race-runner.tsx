@@ -2,6 +2,7 @@ import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { use, useEffect } from 'react';
 import Animated, { Easing, interpolate, useAnimatedStyle, useSharedValue, withRepeat, withTiming } from 'react-native-reanimated';
 
+import { useReduceMotion } from '../../../@generic/hooks/use-reduce-motion.hook';
 import { ThemeContext } from '../../../theme/context/theme.context';
 
 import { ChallengeRaceRunnerStyles as styles } from './challenge-race-runner.styles';
@@ -21,11 +22,17 @@ interface Props {
 export const ChallengeRaceRunner = ({ progress }: Props) => {
     const { theme } = use(ThemeContext);
 
+    const isMotionReduced = useReduceMotion();
+
     const pulse = useSharedValue(0);
 
     useEffect(() => {
+        if (isMotionReduced) {
+            return;
+        }
+
         pulse.value = withRepeat(withTiming(1, { duration: PULSE_DURATION_MS, easing: Easing.inOut(Easing.ease) }), -1, true);
-    }, [pulse]);
+    }, [isMotionReduced, pulse]);
 
     const runnerAnimatedStyle = useAnimatedStyle(() => ({
         left: `${interpolate(progress.value, PULSE_INPUT, PROGRESS_OUTPUT)}%`

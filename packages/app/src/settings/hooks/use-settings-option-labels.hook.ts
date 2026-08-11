@@ -33,6 +33,17 @@ export const useSettingsOptionLabels = () => {
 
         return t`Large`;
     };
+    const getMotionPreferenceLabel = (motionPreference: SettingsState['motionPreference']) => {
+        if (motionPreference === 'full') {
+            return t`Always on`;
+        }
+
+        if (motionPreference === 'reduced') {
+            return t`Always off`;
+        }
+
+        return t`Follow system`;
+    };
     const getLanguageLabel = (language: SettingsState['language']) => i18n._(LanguageLabels[language]);
     const getThemeLabel = (themeId: SettingsState['theme']) => {
         if (isCustomThemeId(themeId)) {
@@ -48,5 +59,5 @@ export const useSettingsOptionLabels = () => {
         }[themeId];
     };
 
-    return { getCellMarginLabel, getFontSizeLabel, getLanguageLabel, getThemeLabel };
+    return { getCellMarginLabel, getFontSizeLabel, getLanguageLabel, getMotionPreferenceLabel, getThemeLabel };
 };

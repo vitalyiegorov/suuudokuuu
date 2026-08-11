@@ -91,6 +91,14 @@ src/
 4. The game slice keeps `candidates`, `inputMode` and `showAutoCandidates` as a persistence mirror written by the same actions that already carry timeline and scoring data. Every engine mutation that changes one of them dispatches its matching action in the same handler, and `game.field-engine-mirror.spec.ts` proves the mirror stays identical to `engine.serialize()`.
 5. The persisted `sudokuString` format is the unchanged `Sudoku.toString()` grid. Saved games, share links and replays depend on it, so it must never change shape.
 
+### Comfort primitives
+
+1. `gameGetBoardGeometry` holds a `BoardCellSizeMinConstant` (44) floor. When the measured square cannot fit `9 × 44` plus the requested group gaps, the group gaps shrink first and the util returns the reduced `cellMargin` it actually spent. Only when `9 × 44` cannot fit at all do the cells drop below the floor; the board never scrolls or overflows, because full-board scanning is the mechanic.
+2. The effective `cellMargin` flows from `useBoardGeometry` through `Field`/`ReplayField` into `useCellBorderStyles` and `gameGetCellHitSlop`. Never read `settingsCellMarginSelector` inside a cell again — the rendered margins must match the margins the geometry budgeted, or the board overflows its measured area.
+3. Board `hitSlop` is per-edge and never larger than half the group gap, so two neighbouring cells cannot claim the same point. Numpad digits use `PanelControlHitSlopConstant`, half the smallest numpad gap.
+4. `useReduceMotion` combines the OS setting (`SystemMotionProvider` subscribes to `reduceMotionChanged`) with the `motionPreference` setting (`system` | `full` | `reduced`). Use it instead of Reanimated's `useReducedMotion` so the player override is honored. Gated animations must still leave the state legible: selection colour changes instantly rather than fading, and a placed cell shows a static `FieldCellSuccessOutline` instead of the animated ring.
+5. `calmMode` hides every score surface (in-game metric strip, pause stats) and swaps the winner hero for `WinnerCalmResultHero`, which reports the move count instead of a score. Scores are still recorded, so history and personal bests survive turning calm play off.
+
 ### Hints
 
 1. The hint feature is a teaching device, not an answer dispenser. `HintButton` runs `gameFindHintStepScript(engine.Sudoku)`, which wraps the unnarrowed `findStepScript` so the player always gets the simplest technique the position allows.

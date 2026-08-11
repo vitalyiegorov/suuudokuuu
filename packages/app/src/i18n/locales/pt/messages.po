@@ -58,6 +58,10 @@ msgstr "{gamesCompleted, plural, one {# jogo concluído} other {# jogos concluí
 msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
 msgstr "{mistakes, plural, one {# erro} other {# erros}}"
 
+#: src/screens/components/winner-screen/winner-calm-result-hero/winner-calm-result-hero.tsx
+msgid "{moveCount, plural, one {# move} other {# moves}}"
+msgstr ""
+
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: start with {cellCount, plural, one {the # highlighted cell} other {the # highlighted cells}} and the digits {valueList}."
 msgstr ""
@@ -120,6 +124,14 @@ msgstr "Todas as casas de um número (1-9)"
 msgid "All progress will be lost"
 msgstr "Todo o progresso será perdido"
 
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Always off"
+msgstr ""
+
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Always on"
+msgstr ""
+
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "Android installation"
 msgstr "Instalação no Android"
@@ -127,6 +139,11 @@ msgstr "Instalação no Android"
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Animate completed rows, columns, and boxes"
 msgstr "Animar linhas, colunas e blocos concluídos"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+#: src/settings/hooks/use-settings-option-sheet-config.hook.ts
+msgid "Animations"
+msgstr ""
 
 #: src/game/components/hint-panel/hint-panel.tsx
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
@@ -209,6 +226,10 @@ msgstr "Redução caixa-linha"
 msgid "Built:"
 msgstr "Gerada:"
 
+#: src/settings/component/settings-feedback-section/settings-feedback-section.tsx
+msgid "Calm play"
+msgstr ""
+
 #: src/challenge/components/challenge-accept-time-block/challenge-accept-time-block.tsx
 msgid "Can you beat them?"
 msgstr "Consegue superar?"
@@ -290,6 +311,10 @@ msgstr "Escolha o tamanho dos dígitos no tabuleiro"
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Choose how much space appears between Sudoku cells"
 msgstr "Escolha o espaço entre as células do Sudoku"
+
+#: src/settings/hooks/use-settings-option-sheet-config.hook.ts
+msgid "Choose how much the board and screens may animate"
+msgstr ""
 
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Choose the language used for menus and game text"
@@ -515,7 +540,7 @@ msgstr "Grade de especialista"
 msgid "Extra points are awarded when your placement completes:"
 msgstr "Você ganha pontos extras quando sua jogada completa:"
 
-#: src/screens/components/settings-screen/settings.screen.tsx
+#: src/settings/component/settings-feedback-section/settings-feedback-section.tsx
 msgid "Feedback"
 msgstr "Feedback"
 
@@ -538,6 +563,10 @@ msgstr "Finned Swordfish"
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Finned X-Wing"
 msgstr "Finned X-Wing"
+
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Follow system"
+msgstr ""
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Français"
@@ -626,6 +655,10 @@ msgstr "Único oculto"
 msgid "Hidden Triple"
 msgstr "Trio oculto"
 
+#: src/settings/component/settings-feedback-section/settings-feedback-section.tsx
+msgid "Hide the score and finish with a calm summary instead"
+msgstr ""
+
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "High contrast"
 msgstr ""
@@ -658,6 +691,10 @@ msgstr "Texto de dica"
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Home"
 msgstr "Início"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "How much the board and screens may move"
+msgstr ""
 
 #: src/app/scoring.tsx
 #: src/scoring/components/scoring.screen.tsx
@@ -720,6 +757,10 @@ msgstr "Manter célula selecionada"
 msgid "Keep completed digits"
 msgstr "Manter números completos"
 
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Keep every animation even when the system reduces motion"
+msgstr ""
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Keep selection after tapping outside the board"
 msgstr "Manter a seleção após tocar fora do tabuleiro"
@@ -780,6 +821,10 @@ msgstr "Baixo contraste"
 #: src/@generic/hooks/use-timer-text.hook.ts
 msgid "m"
 msgstr "m"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Match the reduce motion setting of your device"
+msgstr ""
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Max Mistakes bonus"
@@ -1109,6 +1154,10 @@ msgstr ""
 msgid "Published:"
 msgstr "Publicada:"
 
+#: src/screens/components/winner-screen/winner-calm-result-hero/winner-calm-result-hero.tsx
+msgid "Puzzle complete"
+msgstr ""
+
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Quit"
 msgstr "Sair"
@@ -1309,7 +1358,11 @@ msgstr "compartilhável"
 msgid "Show cells with the same number as the selected cell"
 msgstr "Mostrar células com o mesmo número da célula selecionada"
 
-#: src/screens/components/settings-screen/settings.screen.tsx
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Show changes instantly with no movement at all"
+msgstr ""
+
+#: src/settings/component/settings-feedback-section/settings-feedback-section.tsx
 msgid "Show elapsed time while you play"
 msgstr "Mostrar o tempo decorrido enquanto você joga"
 
@@ -1343,6 +1396,14 @@ msgstr "Tabuleiro cinza suave com sensação de papel"
 
 #: src/app/game.tsx
 msgid "Solve a Sudoku puzzle online with hints, notes, and mistake tracking."
+msgstr ""
+
+#: src/screens/components/winner-screen/winner.screen.tsx
+msgid "Solved"
+msgstr ""
+
+#: src/screens/components/winner-screen/winner-calm-result-hero/winner-calm-result-hero.tsx
+msgid "Solved in"
 msgstr ""
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
@@ -1543,7 +1604,7 @@ msgstr "Tempo"
 msgid "Time behind"
 msgstr "Tempo atrás"
 
-#: src/screens/components/settings-screen/settings.screen.tsx
+#: src/settings/component/settings-feedback-section/settings-feedback-section.tsx
 msgid "Timer"
 msgstr "Cronômetro"
 
@@ -1644,11 +1705,11 @@ msgstr "Usar ucraniano no texto do app"
 msgid "Use Urdu for app text"
 msgstr "Usar urdu no texto do app"
 
-#: src/screens/components/settings-screen/settings.screen.tsx
+#: src/settings/component/settings-feedback-section/settings-feedback-section.tsx
 msgid "Vibrate on taps and game actions"
 msgstr "Vibrar ao tocar e em ações do jogo"
 
-#: src/screens/components/settings-screen/settings.screen.tsx
+#: src/settings/component/settings-feedback-section/settings-feedback-section.tsx
 msgid "Vibration"
 msgstr "Vibração"
 

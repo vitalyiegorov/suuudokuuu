@@ -12,6 +12,8 @@ import Animated, {
     withTiming
 } from 'react-native-reanimated';
 
+import { useReduceMotion } from '../../hooks/use-reduce-motion.hook';
+
 import { CelebrationPulseStyles as styles } from './celebration-pulse.styles';
 
 import type { ReactNode } from 'react';
@@ -32,15 +34,21 @@ interface Props {
 }
 
 export const CelebrationPulse = ({ children, color, size }: Props) => {
+    const isMotionReduced = useReduceMotion();
+
     const pulse = useSharedValue(0);
     const appear = useSharedValue(0);
 
     useEffect(() => {
-        appear.value = withSpring(1, { damping: 12, stiffness: 160 });
-    }, [appear]);
+        appear.value = isMotionReduced ? 1 : withSpring(1, { damping: 12, stiffness: 160 });
+    }, [isMotionReduced, appear]);
     useEffect(() => {
+        if (isMotionReduced) {
+            return;
+        }
+
         pulse.value = withRepeat(withTiming(1, { duration: PulseDurationMs, easing: Easing.out(Easing.ease) }), -1, false);
-    }, [pulse]);
+    }, [isMotionReduced, pulse]);
 
     const appearScale = useDerivedValue(() => interpolate(appear.value, UnitInput, AppearScaleOutput));
     const contentAnimatedStyle = useAnimatedStyle(() => {
