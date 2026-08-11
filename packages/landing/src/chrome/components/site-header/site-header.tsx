@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { glossaryPageMetadata } from '../../../app/glossary/metadata';
 import { howToPlayPageMetadata } from '../../../app/how-to-play/metadata';
 import { homePageMetadata } from '../../../app/metadata';
+import { sudokuDifficultiesPageMetadata } from '../../../app/sudoku/metadata';
 import { techniquesPageMetadata } from '../../../app/techniques/metadata';
 import { SITE_NAME, SITE_PLAY_URL } from '../../../seo/constants/site.constant';
 
@@ -12,6 +13,7 @@ export const SiteHeader = () => (
             {SITE_NAME}
         </Link>
         <nav aria-label="Primary" className="site-header__nav">
+            <Link href={sudokuDifficultiesPageMetadata.path}>Difficulty levels</Link>
             <Link href={howToPlayPageMetadata.path}>How to play</Link>
             <Link href={techniquesPageMetadata.path}>Techniques</Link>
             <Link href={glossaryPageMetadata.path}>Glossary</Link>

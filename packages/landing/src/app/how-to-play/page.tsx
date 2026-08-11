@@ -12,6 +12,7 @@ import { SITE_PLAY_URL } from '../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../seo/utils/build-page-metadata.util';
 import { glossaryPageMetadata } from '../glossary/metadata';
 import { homePageMetadata } from '../metadata';
+import { sudokuDifficultiesPageMetadata } from '../sudoku/metadata';
 import { hiddenSinglePageMetadata } from '../techniques/hidden-single/metadata';
 import { techniquesPageMetadata } from '../techniques/metadata';
 import { nakedSinglePageMetadata } from '../techniques/naked-single/metadata';
@@ -98,10 +99,11 @@ const HowToPlayPage = () => (
                 <strong>Easy.</strong> Adds hidden singles, still no candidate tracking required.
             </li>
             <li>
-                <strong>Medium.</strong> Introduces pointing pairs, pointing triples and box line reduction.
+                <strong>Medium.</strong> Introduces pointing pairs, pointing triples, box line reduction and the first naked and hidden
+                pairs.
             </li>
             <li>
-                <strong>Hard.</strong> Requires naked and hidden subsets — pairs, triples and quads.
+                <strong>Hard.</strong> Requires naked and hidden triples and quads, plus your first fish pattern.
             </li>
             <li>
                 <strong>Nightmare.</strong> Needs fish patterns and wings on top of every earlier technique.
@@ -111,7 +113,9 @@ const HowToPlayPage = () => (
             </li>
         </ul>
         <p>
-            Every level is free to play, with no ads and no sign-up. <a href={SITE_PLAY_URL}>Play a puzzle now</a> at any of the six levels.
+            Every level is free to play, with no ads and no sign-up. <a href={SITE_PLAY_URL}>Play a puzzle now</a> at any of the six levels,
+            or read the full breakdown of clue counts and required techniques on the{' '}
+            <Link href={sudokuDifficultiesPageMetadata.path}>Sudoku difficulty levels</Link> hub.
         </p>
         <h2>Getting started</h2>
         <HowTo name="How to start solving a Sudoku puzzle">
