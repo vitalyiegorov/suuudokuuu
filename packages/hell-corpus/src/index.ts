@@ -18,5 +18,7 @@ export { transformPuzzle } from './utils/transform-puzzle.util';
 export { pickHellPuzzle } from './utils/pick-hell-puzzle.util';
 export { pickHellPuzzleRecord } from './utils/pick-hell-puzzle-record.util';
 export { pickInfinityPuzzle } from './utils/pick-infinity-puzzle.util';
-export type { HellPuzzleInterface } from './interfaces/hell-puzzle.interface';
-export type { InfinityPuzzleInterface } from './interfaces/infinity-puzzle.interface';
+export type {
+    RatedCorpusPuzzleInterface as HellPuzzleInterface,
+    RatedCorpusPuzzleInterface as InfinityPuzzleInterface
+} from './interfaces/rated-corpus-puzzle.interface';

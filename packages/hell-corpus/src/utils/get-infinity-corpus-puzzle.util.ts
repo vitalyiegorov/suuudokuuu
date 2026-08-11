@@ -4,9 +4,9 @@ import { INFINITY_CORPUS_RECORD_BASE64_LENGTH, INFINITY_CORPUS_RECORD_BYTES } fr
 import { ensureInfinityPuzzleRating } from './ensure-infinity-puzzle-rating.util';
 import { getCorpusRecord } from './get-corpus-record.util';
 
-import type { InfinityPuzzleInterface } from '../interfaces/infinity-puzzle.interface';
+import type { RatedCorpusPuzzleInterface } from '../interfaces/rated-corpus-puzzle.interface';
 
-export const getInfinityCorpusPuzzle = (index: number): InfinityPuzzleInterface =>
+export const getInfinityCorpusPuzzle = (index: number): RatedCorpusPuzzleInterface =>
     ensureInfinityPuzzleRating(
         getCorpusRecord(
             {

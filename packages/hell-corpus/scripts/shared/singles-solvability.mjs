@@ -1,8 +1,4 @@
-import { GRID_CELL_COUNT } from '@suuudokuuu/solver-core';
-
-const GRID_SIZE = 9;
-const BOX_SIZE = 3;
-const ALL_CANDIDATES_MASK = 0x1ff;
+import { GRID_BOX_SIZE, GRID_CELL_COUNT, GRID_DIGIT_MASK, GRID_SIZE } from '@suuudokuuu/solver-core';
 
 const buildUnitCells = () => {
     const units = [];
@@ -13,8 +9,8 @@ const buildUnitCells = () => {
         const boxCells = [];
 
         for (let offset = 0; offset < GRID_SIZE; offset += 1) {
-            const boxRow = Math.floor(index / BOX_SIZE) * BOX_SIZE + Math.floor(offset / BOX_SIZE);
-            const boxColumn = (index % BOX_SIZE) * BOX_SIZE + (offset % BOX_SIZE);
+            const boxRow = Math.floor(index / GRID_BOX_SIZE) * GRID_BOX_SIZE + Math.floor(offset / GRID_BOX_SIZE);
+            const boxColumn = (index % GRID_BOX_SIZE) * GRID_BOX_SIZE + (offset % GRID_BOX_SIZE);
 
             rowCells.push(index * GRID_SIZE + offset);
             columnCells.push(offset * GRID_SIZE + index);
@@ -34,7 +30,7 @@ const cellRow = cell => Math.floor(cell / GRID_SIZE);
 
 const cellColumn = cell => cell % GRID_SIZE;
 
-const cellBox = cell => Math.floor(cellRow(cell) / BOX_SIZE) * BOX_SIZE + Math.floor(cellColumn(cell) / BOX_SIZE);
+const cellBox = cell => Math.floor(cellRow(cell) / GRID_BOX_SIZE) * GRID_BOX_SIZE + Math.floor(cellColumn(cell) / GRID_BOX_SIZE);
 
 const maskToIndex = mask => Math.log2(mask);
 
@@ -59,7 +55,7 @@ const cellCandidates = (state, cell) => {
 
     const usedMask = state.rowMasks[cellRow(cell)] | state.columnMasks[cellColumn(cell)] | state.boxMasks[cellBox(cell)];
 
-    return ALL_CANDIDATES_MASK & ~usedMask;
+    return GRID_DIGIT_MASK & ~usedMask;
 };
 
 const createSinglesState = grid => {

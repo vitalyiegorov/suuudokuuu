@@ -1,6 +1,4 @@
-import { GRID_CELL_COUNT, UNIQUENESS_COUNT_LIMIT } from '@suuudokuuu/solver-core';
-
-export const lineToGrid = line => Uint8Array.from(line, character => Number(character));
+import { GRID_CELL_COUNT, UNIQUENESS_COUNT_LIMIT, parseGridString } from '@suuudokuuu/solver-core';
 
 export const validatePuzzleFormat = (line, label) => {
     if (!/^[0-9]{81}$/u.test(line)) {
@@ -17,7 +15,7 @@ export const validateUniquePuzzle = (line, label, seenPuzzles, bitmaskSolver) =>
 
     seenPuzzles.add(line);
 
-    const solutionCount = bitmaskSolver.countSolutions(lineToGrid(line), UNIQUENESS_COUNT_LIMIT);
+    const solutionCount = bitmaskSolver.countSolutions(parseGridString(line), UNIQUENESS_COUNT_LIMIT);
 
     if (solutionCount !== 1) {
         return `${label}: expected exactly one solution, BitmaskSolver found ${solutionCount}`;
@@ -27,7 +25,7 @@ export const validateUniquePuzzle = (line, label, seenPuzzles, bitmaskSolver) =>
 };
 
 export const crossCheckPuzzleLine = (line, label, dlxSolver) => {
-    const solutionCount = dlxSolver.countSolutions(lineToGrid(line), UNIQUENESS_COUNT_LIMIT);
+    const solutionCount = dlxSolver.countSolutions(parseGridString(line), UNIQUENESS_COUNT_LIMIT);
 
     if (solutionCount !== 1) {
         return `${label}: DLX cross-check expected exactly one solution, found ${solutionCount}`;

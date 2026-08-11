@@ -3,7 +3,7 @@ import { availableParallelism } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { UNIQUENESS_COUNT_LIMIT } from '@suuudokuuu/solver-core';
+import { UNIQUENESS_COUNT_LIMIT, parseGridString } from '@suuudokuuu/solver-core';
 import { BitmaskSolver } from '@suuudokuuu/solver-bitmask';
 import { DLXSolver } from '@suuudokuuu/solver-dlx';
 
@@ -11,7 +11,7 @@ import { writeGeneratedCorpusModule } from './shared/generated-module-writer.mjs
 import { ratePuzzlesInParallel } from './shared/rate-puzzles-in-parallel.mjs';
 import { encodeRatingByte, packPuzzleRecord } from './shared/record-packing.mjs';
 import { isSinglesSolvable } from './shared/singles-solvability.mjs';
-import { crossCheckPuzzleLine, lineToGrid, validatePuzzleFormat, validateUniquePuzzle } from './shared/puzzle-verification.mjs';
+import { crossCheckPuzzleLine, validatePuzzleFormat, validateUniquePuzzle } from './shared/puzzle-verification.mjs';
 
 const SCRIPT_DIRECTORY = dirname(fileURLToPath(import.meta.url));
 const OUTPUT_FILE = join(SCRIPT_DIRECTORY, '..', 'src', 'constants', 'hell-corpus-data.constant.ts');
@@ -56,6 +56,10 @@ const parseArguments = argv => {
         throw new Error(USAGE_TEXT);
     }
 
+    if (!Number.isInteger(options.workerCount) || options.workerCount < 1) {
+        throw new Error(USAGE_TEXT);
+    }
+
     return options;
 };
 
@@ -76,7 +80,7 @@ const validateHellPuzzleLine = (line, lineIndex, seenPuzzles, bitmaskSolver) => 
         return formatFailure;
     }
 
-    const givenCount = lineToGrid(line).reduce((count, value) => (value === 0 ? count : count + 1), 0);
+    const givenCount = parseGridString(line).reduce((count, value) => (value === 0 ? count : count + 1), 0);
 
     if (givenCount !== CLUE_COUNT) {
         return `${label}: expected ${CLUE_COUNT} givens, received ${givenCount}`;
@@ -142,7 +146,7 @@ const main = async () => {
             }
         }
 
-        if (isSinglesSolvable(lineToGrid(line))) {
+        if (isSinglesSolvable(parseGridString(line))) {
             singlesSolvableCount += 1;
 
             return;
@@ -176,7 +180,7 @@ const main = async () => {
             return;
         }
 
-        records.push(packPuzzleRecord(line, encodeRatingByte(rating), RECORD_BYTES));
+        records.push(packPuzzleRecord(line, encodeRatingByte(rating, isCeiling), RECORD_BYTES));
         keptRatedRecords.push({ rating, isCeiling });
     });
 
