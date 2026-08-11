@@ -13,6 +13,7 @@ import { SITE_PLAY_URL } from '../../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
 import { howToPlayPageMetadata } from '../../how-to-play/metadata';
 import { homePageMetadata } from '../../metadata';
+import { printableNewbieSudokuPageMetadata } from '../../printable/newbie/metadata';
 import { fullHousePageMetadata } from '../../techniques/full-house/metadata';
 import { techniquesPageMetadata } from '../../techniques/metadata';
 import { nakedSinglePageMetadata } from '../../techniques/naked-single/metadata';
@@ -63,10 +64,11 @@ const NewbieSudokuPage = () => (
         <h2>Where to go next</h2>
         <p>
             Ready for a puzzle that needs one more idea? Move up to <Link href={easySudokuPageMetadata.path}>Easy Sudoku</Link>, which adds
-            the hidden single on top of everything here. Browse the full <Link href={techniquesPageMetadata.path}>technique index</Link> or
-            the <Link href={howToPlayPageMetadata.path}>how to play guide</Link>, or head back{' '}
-            <Link href={homePageMetadata.path}>home</Link> and see all six tiers on the{' '}
-            <Link href={sudokuDifficultiesPageMetadata.path}>Sudoku difficulty levels</Link> hub.
+            the hidden single on top of everything here. Prefer paper? Download the{' '}
+            <Link href={printableNewbieSudokuPageMetadata.path}>printable Newbie sudoku booklet</Link>. Browse the full{' '}
+            <Link href={techniquesPageMetadata.path}>technique index</Link> or the{' '}
+            <Link href={howToPlayPageMetadata.path}>how to play guide</Link>, or head back <Link href={homePageMetadata.path}>home</Link>{' '}
+            and see all six tiers on the <Link href={sudokuDifficultiesPageMetadata.path}>Sudoku difficulty levels</Link> hub.
         </p>
         <h2>Newbie Sudoku FAQ</h2>
         <FaqPage>
