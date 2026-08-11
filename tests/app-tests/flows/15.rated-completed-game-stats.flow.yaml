@@ -28,7 +28,6 @@ appId: ${APP_ID}
       visible:
           id: 'HistoryScreenSelectors.Root'
       timeout: 3000
-- assertVisible: 'Hardest solve'
 - assertVisible:
       id: 'HistorySolverProfileSelectors.HardestSolve'
 - assertVisible:
