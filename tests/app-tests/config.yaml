@@ -25,3 +25,4 @@ executionOrder:
         - 11.single-flight-start.flow
         - 12.play-again-setup.flow
         - 13.hell-difficulty-run.flow
+        - 14.hint-flow.flow

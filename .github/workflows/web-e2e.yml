@@ -36,6 +36,9 @@ jobs:
             - name: Export Expo web build
               run: yarn turbo run export:web --filter=@suuudokuuu/app
 
+            - name: Build landing export
+              run: yarn build --filter=@suuudokuuu/landing
+
             - name: Resolve Playwright version
               id: playwright-version
               shell: bash
