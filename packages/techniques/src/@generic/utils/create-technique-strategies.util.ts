@@ -1,14 +1,19 @@
 import { AICTechnique } from '../../aic-technique/classes/aic.technique';
 import { BasicFishTechnique } from '../../basic-fish-technique/classes/basic-fish.technique';
+import { BivalueUniversalGraveTechnique } from '../../bivalue-universal-grave-technique/classes/bivalue-universal-grave.technique';
 import { BoxLineReductionTechnique } from '../../box-line-reduction-technique/classes/box-line-reduction.technique';
+import { CellForcingChainTechnique } from '../../cell-forcing-chain-technique/classes/cell-forcing-chain.technique';
 import { FinnedFishTechnique } from '../../finned-fish-technique/classes/finned-fish.technique';
 import { FullHouseTechnique } from '../../full-house-technique/classes/full-house.technique';
 import { HiddenSingleTechnique } from '../../hidden-single-technique/classes/hidden-single.technique';
 import { HiddenSubsetTechnique } from '../../hidden-subset-technique/classes/hidden-subset.technique';
 import { NakedSingleTechnique } from '../../naked-single-technique/classes/naked-single.technique';
 import { NakedSubsetTechnique } from '../../naked-subset-technique/classes/naked-subset.technique';
+import { NishioForcingChainTechnique } from '../../nishio-forcing-chain-technique/classes/nishio-forcing-chain.technique';
 import { PointingTechnique } from '../../pointing-technique/classes/pointing.technique';
+import { RegionForcingChainTechnique } from '../../region-forcing-chain-technique/classes/region-forcing-chain.technique';
 import { SimpleColoringTechnique } from '../../simple-coloring-technique/classes/simple-coloring.technique';
+import { UniqueRectangleTechnique } from '../../unique-rectangle-technique/classes/unique-rectangle.technique';
 import { WWingTechnique } from '../../w-wing-technique/classes/w-wing.technique';
 import { XChainTechnique } from '../../x-chain-technique/classes/x-chain.technique';
 import { XYChainTechnique } from '../../xy-chain-technique/classes/xy-chain.technique';
@@ -44,5 +49,10 @@ export const createTechniqueStrategies = (): TechniqueStrategyInterface[] => [
     new XChainTechnique(),
     new XYChainTechnique(),
     new SimpleColoringTechnique(),
-    new AICTechnique()
+    new AICTechnique(),
+    new UniqueRectangleTechnique(),
+    new BivalueUniversalGraveTechnique(),
+    new NishioForcingChainTechnique(),
+    new CellForcingChainTechnique(),
+    new RegionForcingChainTechnique()
 ];

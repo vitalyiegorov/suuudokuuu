@@ -27,7 +27,10 @@ running server outside CI. `playwright.config.ts` fails fast with an actionable 
    behavior under test, not a workaround for flakiness.
 3. Use exact `data-testid` selectors (via `page.getByTestId`) for stable controls. Use text only
    for user-visible copy that is itself the behavior under test.
-4. Keep specs pinned to English (`locale: 'en-US'` in `playwright.config.ts`).
+4. Keep specs pinned to English (`locale: 'en-US'` in `playwright.config.ts`). The single exception is
+   `10.localized-quit-game.spec.ts`, which sets `test.use({ locale: 'uk-UA' })` because the translated
+   app language _is_ the behavior under test (see the `Alert` note under Known App Issues). Do not copy
+   this override into other specs.
 5. Prefer positive-state flow control: perform the action, then assert the destination.
 6. Helpers in `src/utils` mirror Maestro subflows one-to-one and keep a single responsibility.
    Do not add thin wrappers that only rename another helper.
@@ -59,6 +62,29 @@ running server outside CI. `playwright.config.ts` fails fast with an actionable 
   wins immediately.
 - `losingSharedChallengeEncodedConstant`: cell `y=0, x=4`'s correct value is not `4`; entering `4`
   three times registers three mistakes and loses the challenge.
+- `infinitySharedPuzzleEncodedConstant`: a `Puzzle`-kind share of a real Infinity-corpus puzzle (21
+  clues) with the encoder's metadata trailer carrying an explicit `Infinity` difficulty (wire code
+  `6`) and its curated SE rating (`11.9`, non-ceiling), so it decodes as Infinity instead of
+  colliding with Nightmare's blank-count inference. Generated with `GameStateSerializer.encodeState`
+  against `pickInfinityPuzzle`'s output. Regenerate it whenever the Infinity corpus or the metadata
+  trailer format changes: decode the current constant with `GameStateSerializer.decodeState`, then
+  re-encode the same field through `gameStateToString` with `difficulty: DifficultyEnum.Infinity`,
+  `rating: 11.9`, and `SharedPayloadKindEnum.Puzzle`, and keep
+  `tests/app-tests/flows/14.infinity-difficulty-run.flow.yaml` in sync with the new string.
+- `ratedWinningSharedChallengeEncodedConstant`: the same one-empty-cell win as
+  `winningSharedChallengeEncodedConstant` (cell `y=6, x=0`, value `2`), re-encoded with a real
+  `rating`/`isRatingCeiling`/`difficulty` trailer instead of the legacy fixture's unknown rating, so
+  completing it produces a genuinely rated Newbie completed game. Regenerate by decoding
+  `winningSharedChallengeEncodedConstant` with `GameStateSerializer.decodeState`, rating its
+  `field` with `ratePuzzle` from `@suuudokuuu/rating`, then re-encoding the same decoded payload
+  through `GameStateSerializer.encodeState` with `rating: Math.round(rated.rating * 10)`,
+  `isRatingCeiling: rated.isCeiling`, and `difficulty: 0` (Newbie's wire code). Run the snippet from
+  inside `packages/app` so the workspace `@suuudokuuu/encoder`/`@suuudokuuu/rating` packages
+  resolve, and delete the scratch script afterward instead of committing it.
+- `ratedLosingSharedChallengeEncodedConstant`: the same three-mistake loss as
+  `losingSharedChallengeEncodedConstant` (cell `y=0, x=4`'s correct value is not `4`), re-encoded
+  with the same real rating trailer as `ratedWinningSharedChallengeEncodedConstant` (regenerate the
+  same way, decoding `losingSharedChallengeEncodedConstant` instead).
 
 ## Known Platform Notes
 
@@ -92,8 +118,41 @@ running server outside CI. `playwright.config.ts` fails fast with an actionable 
   clearing and the candidate's `data-present` attribute flipping to `false`, when a spec applies an
   elimination-only technique's step script.
 
+## Browser Projects
+
+`chromium` and `mobile-chromium` run the whole suite. `mobile-webkit` (iPhone 14) is scoped via
+`testMatch` to `10.localized-quit-game.spec.ts` and `11.backdrop-recomposite.spec.ts` only, so the
+suite gains real WebKit coverage of the browser both bugs were reported on without adopting the whole
+suite's WebKit gaps. Two existing specs fail on WebKit for reasons unrelated to the code under test,
+and must be resolved before the project can be widened:
+
+- `06.resume-game.spec.ts` — `HomeScreenSelectors.ResumeButton` never appears after `page.reload()`.
+  wa-sqlite/OPFS persistence does not survive a reload in Playwright's WebKit, unlike Chromium.
+- `08.challenge-hud-layout.spec.ts` — the rival-race HUD's `x` is `0` on the iPhone 14 viewport, so
+  the "HUD sits right of the board" geometry assertion does not hold at that breakpoint.
+
+## Backdrop Recomposite Spec
+
+`11.backdrop-recomposite.spec.ts` pins the _mechanism_ of an unverified iOS Safari mitigation, not a
+user-visible symptom. The reported "black screen after returning to Safari" could not be reproduced in
+any headless engine (see the note below), so there is no symptom to assert. Instead the spec installs a
+`MutationObserver` on every element whose computed `backdrop-filter` is not `none`, drives
+`visibilitychange` and `pageshow`/`persisted`, and asserts the inline `backdrop-filter` was set to
+`none` and then removed across frames — proving `useBackdropRecomposite` actually ran. It fails if the
+hook is unwired from `EdgeFade` or `FloatingTabBar`. Do not rewrite it to assert pixels; headless
+WebKit never reproduces the compositor fault this guards against.
+
 ## Known App Issues Affecting This Suite
 
+- **The web `Alert` wrapper matched button labels against hardcoded English.**
+  `packages/app/src/@generic/components/alert/alert.web.ts` selected its confirm/cancel handlers with
+  `button.text === 'OK'` / `button.text === 'Cancel'`, but every call site builds those labels with the
+  Lingui `t` macro. In the six locales that translate "OK" (`ar`, `bn`, `hi`, `uk`, `ur`, `zh`) the
+  lookup returned `undefined`, so accepting the browser `confirm()` ran no handler at all and quitting a
+  game silently did nothing. The wrapper now selects by `AlertButton.style` (`'cancel'` versus the first
+  non-cancel button), which is locale-independent. Because this suite pins `locale: 'en-US'`, the whole
+  suite stayed green while the bug shipped — that is exactly why `10.localized-quit-game.spec.ts`
+  overrides the locale.
 - **`packages/app/src/selectors.ts` was missing an export.** `challenge-result-screen.selectors.ts`
   existed but was not re-exported from the barrel, so `ChallengeResultScreenSelectors` deep-imported
   as `undefined`. Added the missing `export *` line; this is a barrel-only change (no runtime

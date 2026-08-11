@@ -1,0 +1,48 @@
+appId: ${APP_ID}
+tags:
+    - screenshots
+---
+# Completes one rated shared-challenge fixture and returns Home. The fixture
+# boards are the same four-empty-cell win re-encoded with a different
+# difficulty/rating metadata trailer per call, so each run persists a completed
+# game under its own difficulty bucket. Four cells (rather than the single cell
+# the per-scene win fixture uses) so the move classifier records more than one
+# technique into the arsenal.
+- runFlow:
+      file: ../../subflows/shared/open-shared-challenge.flow.yaml
+      env:
+          SHARED_CHALLENGE_LINK: ${SHARED_CHALLENGE_LINK}
+- runFlow: ../../subflows/shared/accept-shared-challenge.flow.yaml
+
+- tapOn:
+      id: 'CellSelectors.Cell.0-4'
+- tapOn:
+      id: 'AvailableValueItemSelectors.Button.9'
+- tapOn:
+      id: 'CellSelectors.Cell.3-3'
+- tapOn:
+      id: 'AvailableValueItemSelectors.Button.1'
+- tapOn:
+      id: 'CellSelectors.Cell.6-4'
+- tapOn:
+      id: 'AvailableValueItemSelectors.Button.4'
+- tapOn:
+      id: 'CellSelectors.Cell.6-0'
+- tapOn:
+      id: 'AvailableValueItemSelectors.Button.2'
+
+- extendedWaitUntil:
+      visible:
+          id: 'ChallengeResultScreenSelectors.OutcomeValue'
+      timeout: 8000
+- scrollUntilVisible:
+      element:
+          id: 'ChallengeResultFooterSelectors.HomeButton'
+      direction: DOWN
+      timeout: 5000
+- tapOn:
+      id: 'ChallengeResultFooterSelectors.HomeButton'
+- extendedWaitUntil:
+      visible:
+          id: 'HomeScreenSelectors.Root'
+      timeout: 5000

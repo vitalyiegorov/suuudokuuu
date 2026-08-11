@@ -1,0 +1,21 @@
+module.exports = {
+    coverageReporters: ['text-summary', 'lcov'],
+    reporters: ['default'],
+    coveragePathIgnorePatterns: ['.mock.ts'],
+    collectCoverageFrom: ['src/**/*.ts', '!src/**/*.spec.ts', '!src/index.ts'],
+    displayName: 'rating',
+    moduleNameMapper: {
+        '^@suuudokuuu/generator$': '<rootDir>/../generator/src/index.ts',
+        '^@suuudokuuu/techniques$': '<rootDir>/../techniques/src/index.ts'
+    },
+    testRegex: './src/.*\\.spec\\.(tsx?)$',
+    testEnvironment: 'node',
+    coverageThreshold: {
+        global: {
+            statements: 99,
+            branches: 97,
+            lines: 99,
+            functions: 100
+        }
+    }
+};

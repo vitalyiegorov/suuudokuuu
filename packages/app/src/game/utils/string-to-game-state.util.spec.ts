@@ -14,6 +14,7 @@ import type { SolutionStepInterface } from '@suuudokuuu/encoder';
 const solvedBoard = '534678912672195348198342567859761423426853791713924856961537284287419635345286179';
 const givensMask = '53..7....6..195....98....6.8...6...34..8.3..17...2...6.6....28....419..5....8..79';
 const LEGACY_CHALLENGE_PAYLOAD = '_OwPIThhRGUxFDDkJq4zrJuyYhUEGSYmTqAalQDDhYCWCCwEA';
+const V2_4_X_PUZZLE_PAYLOAD = '_MAPIThhRGUxFDDkJq4zrJuyYhUEGSYmTqNA';
 
 const buildSteps = (): SolutionStepInterface[] => {
     const steps: SolutionStepInterface[] = [];
@@ -94,7 +95,7 @@ describe('stringToGameState', () => {
         expect(restored.isChallengeRun).toBe(true);
     });
 
-    it('should decode the puzzle difficulty from the pristine givens', () => {
+    it('should decode the puzzle difficulty from the explicit trailer field', () => {
         expect.assertions(1);
 
         const encoded = gameStateToString(buildGameState(), SharedPayloadKindEnum.Challenge);
@@ -125,7 +126,7 @@ describe('stringToGameState', () => {
     );
 
     it('should round-trip every difficulty', () => {
-        expect.assertions(6);
+        expect.assertions(Object.values(DifficultyEnum).length);
 
         for (const difficulty of Object.values(DifficultyEnum)) {
             const encoded = gameStateToString({ ...buildGameState(), difficulty }, SharedPayloadKindEnum.Challenge);
@@ -135,12 +136,66 @@ describe('stringToGameState', () => {
     });
 
     it('should infer the difficulty from the givens for a legacy payload that carries no difficulty', () => {
-        expect.assertions(2);
+        expect.assertions(4);
 
         const restored = stringToGameState(LEGACY_CHALLENGE_PAYLOAD);
 
         expect(restored.sudokuString).toBe(givensMask);
         expect(restored.difficulty).toBe(DifficultyEnum.Nightmare);
+        expect(restored.rating).toBe(0);
+        expect(restored.isRatingCeiling).toBe(false);
+    });
+
+    it('should decode the difficulty of a v2.4.x link and report its rating as unknown', () => {
+        expect.assertions(4);
+
+        const restored = stringToGameState(V2_4_X_PUZZLE_PAYLOAD);
+
+        expect(restored.sudokuString).toBe(givensMask);
+        expect(restored.difficulty).toBe(DifficultyEnum.Hell);
+        expect(restored.rating).toBe(0);
+        expect(restored.isRatingCeiling).toBe(false);
+    });
+
+    it('should prefer the explicit difficulty over blank-count inference for a 21-clue Infinity puzzle', () => {
+        expect.assertions(2);
+
+        const infinityGivens = '111111111111111111111............................................................';
+        const [, inferredDifficulty] = Sudoku.convertFieldFromString(infinityGivens, defaultSudokuConfig);
+        const infinityState: GameState = { ...buildGameState(), sudokuString: infinityGivens, difficulty: DifficultyEnum.Infinity };
+        const restored = stringToGameState(gameStateToString(infinityState, SharedPayloadKindEnum.Puzzle));
+
+        expect(inferredDifficulty).not.toBe(DifficultyEnum.Infinity);
+        expect(restored.difficulty).toBe(DifficultyEnum.Infinity);
+    });
+
+    it('should round-trip a computed rating and ceiling flag through a share link', () => {
+        expect.assertions(2);
+
+        const ratedState: GameState = { ...buildGameState(), rating: 4.2, isRatingCeiling: false };
+        const restored = stringToGameState(gameStateToString(ratedState, SharedPayloadKindEnum.Puzzle));
+
+        expect(restored.rating).toBe(4.2);
+        expect(restored.isRatingCeiling).toBe(false);
+    });
+
+    it('should round-trip a ceiling rating through a share link', () => {
+        expect.assertions(2);
+
+        const ceilingState: GameState = { ...buildGameState(), rating: 5.4, isRatingCeiling: true };
+        const restored = stringToGameState(gameStateToString(ceilingState, SharedPayloadKindEnum.Puzzle));
+
+        expect(restored.rating).toBe(5.4);
+        expect(restored.isRatingCeiling).toBe(true);
+    });
+
+    it('should decode an old share link with no rating trailer as an unknown rating', () => {
+        expect.assertions(2);
+
+        const restored = stringToGameState(gameStateToString(buildGameState(), SharedPayloadKindEnum.Puzzle));
+
+        expect(restored.rating).toBe(0);
+        expect(restored.isRatingCeiling).toBe(false);
     });
 
     it('should fall back to the initial state for an undecodable link', () => {

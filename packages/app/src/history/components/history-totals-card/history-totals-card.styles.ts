@@ -2,43 +2,42 @@ import { StyleSheet } from 'react-native-unistyles';
 
 export const HistoryTotalsCardStyles = StyleSheet.create(() => ({
     container: {
-        gap: 12,
+        gap: 14,
         width: '100%'
     },
-    heroCard: {
-        borderRadius: 24,
+    item: {
         flex: 1,
         gap: 4,
-        paddingHorizontal: 18,
-        paddingVertical: 18
+        width: 'auto'
     },
-    heroLabel: {
-        fontSize: 12,
-        fontWeight: '700',
-        letterSpacing: 0.2,
-        lineHeight: 16,
-        textAlign: 'left'
+    label: {
+        fontSize: 10,
+        letterSpacing: 0.4
     },
-    heroRow: {
+    secondaryRow: {
         flexDirection: 'row',
-        gap: 12,
         width: '100%'
     },
-    heroValue: {
-        fontSize: 34,
-        fontVariant: ['tabular-nums'],
-        fontWeight: '800',
-        letterSpacing: -1,
-        lineHeight: 40,
-        textAlign: 'left'
+    secondaryStrip: {
+        flex: 4,
+        paddingHorizontal: 0,
+        paddingVertical: 0
     },
     separator: {
-        height: 26,
+        height: 32,
         marginHorizontal: 0
+    },
+    spacer: {
+        flex: 1
     },
     strip: {
         paddingHorizontal: 0,
-        paddingVertical: 2,
+        paddingVertical: 0,
         width: '100%'
+    },
+    value: {
+        fontSize: 24,
+        letterSpacing: -0.5,
+        lineHeight: 27
     }
 }));

@@ -8,12 +8,16 @@ import { GameState, initialGameState } from '../store/game.state';
 import { difficultyCodeToDifficulty } from './difficulty-code-to-difficulty.util';
 import { getKeyedCandidates } from './get-keyed-candidates.util';
 import { getTimelineMistakesCount } from './get-timeline-mistakes-count.util';
+import { withTimelineCellTechniques } from './with-timeline-cell-techniques.util';
+
+const RatingWireScale = 10;
 
 const serializer = new GameStateSerializer();
 
 export const stringToGameState = (gameStateString = ''): GameState => {
     try {
         const decoded = serializer.decodeState(gameStateString);
+        const timelineEvents = withTimelineCellTechniques(decoded.timelineEvents, decoded.techniques);
         const isChallenge = decoded.kind === SharedPayloadKindEnum.Challenge;
         const isHandoff = decoded.kind === SharedPayloadKindEnum.Handoff;
         const encodedDifficulty = difficultyCodeToDifficulty(decoded.difficulty);
@@ -26,9 +30,11 @@ export const stringToGameState = (gameStateString = ''): GameState => {
             sudokuString: decoded.field,
             difficulty,
             maxMistakes: decoded.maxMistakes,
+            rating: decoded.rating / RatingWireScale,
+            isRatingCeiling: decoded.isRatingCeiling,
 
             ...(isChallenge && {
-                challengeTimelineEvents: decoded.timelineEvents,
+                challengeTimelineEvents: timelineEvents,
                 challengeTime: decoded.elapsedTime,
                 challengeState: gameStateString,
                 isChallengeRun: true
@@ -36,7 +42,7 @@ export const stringToGameState = (gameStateString = ''): GameState => {
 
             ...(isHandoff && {
                 sudokuString: applyCellEventsToField(decoded.field, decoded.timelineEvents),
-                timelineEvents: decoded.timelineEvents,
+                timelineEvents,
                 elapsedTime: decoded.elapsedTime,
                 score: decoded.score,
                 mistakes: getTimelineMistakesCount(decoded.timelineEvents),

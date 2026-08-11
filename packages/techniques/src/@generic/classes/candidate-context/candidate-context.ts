@@ -1,4 +1,4 @@
-import { isDefined, isNotEmptyArray } from '@rnw-community/shared';
+import { isDefined, isEmptyArray, isNotEmptyArray } from '@rnw-community/shared';
 
 import type { CandidateEliminationInterface } from '../../interfaces/candidate-elimination.interface';
 import type { CandidateUnitInterface } from '../../interfaces/candidate-unit.interface';
@@ -63,8 +63,36 @@ export class CandidateContext {
         return new CandidateContext(this.config, this.field, candidateMap);
     }
 
+    withPlacement(cell: CellInterface, value: number): CandidateContext {
+        const placedCellKey = CandidateContext.getCellKey(cell);
+        const peerKeys = new Set(this.getPeers(cell).map(peer => CandidateContext.getCellKey(peer)));
+        const candidateMap: CandidateMapType = {};
+
+        for (const fieldCell of this.cells) {
+            const key = CandidateContext.getCellKey(fieldCell);
+
+            if (key === placedCellKey) {
+                candidateMap[key] = [];
+            } else if (peerKeys.has(key)) {
+                candidateMap[key] = this.candidateMap[key].filter(candidate => candidate !== value);
+            } else {
+                candidateMap[key] = this.candidateMap[key];
+            }
+        }
+
+        return new CandidateContext(this.config, this.createFieldWithValue(cell, value), candidateMap);
+    }
+
     isBlankCell(cell: CellInterface): boolean {
         return cell.value === this.config.blankCellValue;
+    }
+
+    hasContradiction(): boolean {
+        return this.cells.some(cell => this.isBlankCell(cell) && isEmptyArray(this.getCandidates(cell)));
+    }
+
+    isSolved(): boolean {
+        return this.cells.every(cell => !this.isBlankCell(cell));
     }
 
     getCells(): CellInterface[] {
@@ -111,6 +139,10 @@ export class CandidateContext {
         return this.getPeers(firstCell).filter(peer =>
             otherCells.every(cell => this.getPeers(cell).some(otherPeer => this.isSameCell(peer, otherPeer)))
         );
+    }
+
+    private createFieldWithValue(cell: CellInterface, value: number): FieldInterface {
+        return this.field.map(row => row.map(fieldCell => (this.isSameCell(fieldCell, cell) ? { ...fieldCell, value } : fieldCell)));
     }
 
     private createColumnCells(): CellInterface[][] {

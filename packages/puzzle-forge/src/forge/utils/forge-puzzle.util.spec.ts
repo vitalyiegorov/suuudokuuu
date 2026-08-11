@@ -1,5 +1,7 @@
 import { describe, expect, it } from '@jest/globals';
 import { DifficultyEnum } from '@suuudokuuu/generator';
+import { HELL_CORPUS_MINIMUM_RATING, INFINITY_CORPUS_MINIMUM_RATING } from '@suuudokuuu/hell-corpus';
+import { SE_RATING_CEILING } from '@suuudokuuu/rating';
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { DIFFICULTY_BANDS } from '../../@generic/constants/difficulty-band.constant';
@@ -66,6 +68,37 @@ describe('forgePuzzle', () => {
         expect(getClueCount(puzzleString)).toBe(hellClueCount);
         expect(isSolvableWithLadder(puzzleString, SolutionTechniqueEnum.HiddenSingle)).toBe(false);
     });
+
+    it('should serve Infinity from the curated corpus with its published rating', () => {
+        expect.assertions(3);
+
+        const { isInBand, rating, sudoku } = forgePuzzle(DifficultyEnum.Infinity);
+
+        expect(isInBand).toBe(true);
+        expect(rating).toBeGreaterThanOrEqual(INFINITY_CORPUS_MINIMUM_RATING);
+        expect(isSolvableWithLadder(sudoku.toString(), SolutionTechniqueEnum.HiddenSingle)).toBe(false);
+    });
+
+    it('should take a corpus-sourced rating from the record instead of re-rating the board', () => {
+        expect.assertions(2);
+
+        expect(forgePuzzle(DifficultyEnum.Hell).rating).toBeGreaterThanOrEqual(HELL_CORPUS_MINIMUM_RATING);
+        expect(forgePuzzle(DifficultyEnum.Infinity).rating).toBeGreaterThan(SE_RATING_CEILING);
+    });
+
+    it(
+        'should rate a generated board through the rater',
+        () => {
+            expect.assertions(3);
+
+            const { isRatingCeiling, rating } = forgePuzzle(DifficultyEnum.Newbie, generousAttemptBudget);
+
+            expect(rating).toBeGreaterThan(0);
+            expect(rating).toBeLessThanOrEqual(SE_RATING_CEILING);
+            expect(isRatingCeiling).toBe(false);
+        },
+        forgeTimeoutMs
+    );
 
     it('should return the closest board it found when the attempt budget runs out', () => {
         expect.assertions(2);

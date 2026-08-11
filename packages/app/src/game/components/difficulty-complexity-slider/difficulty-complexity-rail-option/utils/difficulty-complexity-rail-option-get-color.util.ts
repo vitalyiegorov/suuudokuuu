@@ -11,6 +11,10 @@ export const difficultyComplexityRailOptionGetColor = (
         return theme.colors.danger;
     }
 
+    if (isSelected && difficulty === DifficultyEnum.Infinity) {
+        return theme.colors.accent;
+    }
+
     if (isSelected) {
         return theme.colors.text.primary;
     }

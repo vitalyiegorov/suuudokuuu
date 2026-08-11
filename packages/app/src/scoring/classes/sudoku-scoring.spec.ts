@@ -444,7 +444,8 @@ describe('SudokuScoring', () => {
                         [DifficultyEnum.Medium]: 2,
                         [DifficultyEnum.Hard]: 2.5,
                         [DifficultyEnum.Nightmare]: 3,
-                        [DifficultyEnum.Hell]: 3.7
+                        [DifficultyEnum.Hell]: 3.7,
+                        [DifficultyEnum.Infinity]: 4.4
                     },
                     maxMistakesCoefficients: {
                         0: 2,

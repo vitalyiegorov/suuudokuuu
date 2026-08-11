@@ -1,65 +1,62 @@
-import { Trans, useLingui } from '@lingui/react/macro';
-import { AppMetricStrip } from '@suuudokuuu/ui';
-import { use } from 'react';
+import { useLingui } from '@lingui/react/macro';
+import { AppMetricStrip, AppMetricStripItem } from '@suuudokuuu/ui';
 import { View } from 'react-native';
 
-import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
-import { ThemeContext } from '../../../theme/context/theme.context';
 import { historyGetTotals } from '../../utils/history-get-totals.util';
-import { HistoryMetric } from '../history-metric/history-metric';
 
 import { HistoryTotalsCardStyles as styles } from './history-totals-card.styles';
 
 import type { HistoryGameInterface } from '../../interfaces/history-game.interface';
 import type { DifficultyEnum } from '@suuudokuuu/generator';
 
+const PrimaryMetricCount = 3;
+
 interface Props {
     readonly historyByDifficulty: Record<DifficultyEnum, HistoryGameInterface>;
+    readonly playedDayNumbers: readonly number[];
 }
 
-export const HistoryTotalsCard = ({ historyByDifficulty }: Props) => {
-    const { theme } = use(ThemeContext);
+export const HistoryTotalsCard = ({ historyByDifficulty, playedDayNumbers }: Props) => {
     const { t } = useLingui();
-    const totals = historyGetTotals(historyByDifficulty);
+    const totals = historyGetTotals(historyByDifficulty, playedDayNumbers);
     const bestTimeText = useTimerText(totals.bestTime);
-
-    const scoreCardStyles = [styles.heroCard, { backgroundColor: theme.colors.numpad.track }];
-    const scoreLabelStyles = [styles.heroLabel, { color: theme.colors.numpad.text }];
-    const scoreValueStyles = [styles.heroValue, { color: theme.colors.numpad.text }];
-    const timeCardStyles = [styles.heroCard, { backgroundColor: theme.colors.ink }];
-    const timeLabelStyles = [styles.heroLabel, { color: theme.colors.inkText }];
-    const timeValueStyles = [styles.heroValue, { color: theme.colors.inkText }];
-
     const winRateText = `${totals.winRate}%`;
+
+    const metrics = [
+        { label: t`Played`, value: String(totals.gamesCompleted) },
+        { label: t`Win rate`, value: winRateText },
+        { label: t`Streak`, value: String(totals.dayStreak) },
+        { label: t`Best score`, value: String(totals.bestScore) },
+        { label: t`Best time`, value: bestTimeText }
+    ];
+
+    const renderMetricItem = (metric: { label: string; value: string }) => (
+        <AppMetricStripItem
+            key={metric.label}
+            label={metric.label}
+            labelStyle={styles.label}
+            style={styles.item}
+            value={metric.value}
+            valueStyle={styles.value}
+        />
+    );
 
     return (
         <View style={styles.container}>
-            <View style={styles.heroRow}>
-                <View style={scoreCardStyles}>
-                    <BlackText style={scoreLabelStyles}>
-                        <Trans>Best score</Trans>
-                    </BlackText>
-                    <BlackText adjustsFontSizeToFit minimumFontScale={0.62} numberOfLines={1} style={scoreValueStyles}>
-                        {totals.bestScore}
-                    </BlackText>
-                </View>
-
-                <View style={timeCardStyles}>
-                    <BlackText style={timeLabelStyles}>
-                        <Trans>Best time</Trans>
-                    </BlackText>
-                    <BlackText adjustsFontSizeToFit minimumFontScale={0.62} numberOfLines={1} style={timeValueStyles}>
-                        {bestTimeText}
-                    </BlackText>
-                </View>
-            </View>
-
             <AppMetricStrip separatorStyle={styles.separator} style={styles.strip} variant="ghost">
-                <HistoryMetric label={t`Played`} value={String(totals.gamesCompleted)} />
-                <HistoryMetric label={t`Win rate`} value={winRateText} />
-                <HistoryMetric label={t`Day streak`} value={String(totals.dayStreak)} />
+                {metrics.slice(0, PrimaryMetricCount).map(renderMetricItem)}
             </AppMetricStrip>
+
+            <View style={styles.secondaryRow}>
+                <View style={styles.spacer} />
+
+                <AppMetricStrip separatorStyle={styles.separator} style={styles.secondaryStrip} variant="ghost">
+                    {metrics.slice(PrimaryMetricCount).map(renderMetricItem)}
+                </AppMetricStrip>
+
+                <View style={styles.spacer} />
+            </View>
         </View>
     );
 };

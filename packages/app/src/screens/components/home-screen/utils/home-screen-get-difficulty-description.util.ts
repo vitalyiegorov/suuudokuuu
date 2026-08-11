@@ -7,7 +7,8 @@ const difficultyDescriptions: Record<DifficultyEnum, () => string> = {
     [DifficultyEnum.Medium]: () => t`Balanced solve`,
     [DifficultyEnum.Hard]: () => t`Deep focus`,
     [DifficultyEnum.Nightmare]: () => t`Expert grid`,
-    [DifficultyEnum.Hell]: () => t`Minimum clues`
+    [DifficultyEnum.Hell]: () => t`Minimum clues`,
+    [DifficultyEnum.Infinity]: () => t`World-record puzzles`
 };
 
 export const homeScreenGetDifficultyDescription = (difficulty: DifficultyEnum): string => difficultyDescriptions[difficulty]();

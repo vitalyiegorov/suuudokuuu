@@ -1,7 +1,8 @@
-import type { SolutionTechniqueEnum } from '../enums/solution-technique.enum';
+import type { TechniqueResultInterface } from './technique-result.interface';
+import type { LogicalSolveOutcomeType } from '../types/logical-solve-outcome.type';
 
 export interface LogicalSolveResultInterface {
-    isSolved: boolean;
-    requiredTechniques: SolutionTechniqueEnum[];
-    hardestTechnique: SolutionTechniqueEnum;
+    outcome: LogicalSolveOutcomeType;
+    steps: TechniqueResultInterface[];
+    wasSearchCapped: boolean;
 }

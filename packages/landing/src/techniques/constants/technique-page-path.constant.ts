@@ -55,5 +55,10 @@ export const TECHNIQUE_PAGE_PATHS: Record<SolutionTechniqueEnum, string> = {
     [SolutionTechniqueEnum.XChain]: xChainPageMetadata.path,
     [SolutionTechniqueEnum.XYChain]: xyChainPageMetadata.path,
     [SolutionTechniqueEnum.SimpleColoring]: simpleColoringPageMetadata.path,
-    [SolutionTechniqueEnum.AIC]: aicPageMetadata.path
+    [SolutionTechniqueEnum.AIC]: aicPageMetadata.path,
+    [SolutionTechniqueEnum.UniqueRectangle]: techniquesPageMetadata.path,
+    [SolutionTechniqueEnum.BivalueUniversalGrave]: techniquesPageMetadata.path,
+    [SolutionTechniqueEnum.NishioForcingChain]: techniquesPageMetadata.path,
+    [SolutionTechniqueEnum.CellForcingChain]: techniquesPageMetadata.path,
+    [SolutionTechniqueEnum.RegionForcingChain]: techniquesPageMetadata.path
 };

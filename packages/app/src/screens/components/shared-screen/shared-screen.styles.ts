@@ -20,5 +20,14 @@ export const SharedScreenStyles = StyleSheet.create(theme => ({
     headerColumn: {
         alignItems: 'center',
         width: '100%'
+    },
+    metaRow: {
+        alignItems: 'center',
+        flexDirection: 'row',
+        gap: theme.spacing.sm,
+        justifyContent: 'center'
+    },
+    metaText: {
+        fontSize: theme.typography.size.md
     }
 }));

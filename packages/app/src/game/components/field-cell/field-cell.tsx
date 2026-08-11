@@ -168,6 +168,7 @@ export const FieldCell = (props: Props) => {
             hitSlop={gameGetCellHitSlop(engine.Sudoku, cell, cellMargin)}
             onPress={handlePress}
             style={cellStyles}
+            tabIndex={-1}
             testID={`CellSelectors.Cell.${cell.y}-${cell.x}`}
         >
             {isSuccessPulsing ? successMarker : null}

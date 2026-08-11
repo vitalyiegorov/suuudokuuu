@@ -1,11 +1,14 @@
 import { describe, expect, it } from '@jest/globals';
+import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 
+import { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
 import { createCandidateContextFromMap } from '../../@generic/test-utils/create-candidate-context-from-map.spec.util';
 import { expectTechniqueResults } from '../../@generic/test-utils/expect-technique-results.spec.util';
 
 import { XChainTechnique } from './x-chain.technique';
 
+import type { TechniqueResultInterface } from '../../@generic/interfaces/technique-result.interface';
 import type { CandidateCellSpecType } from '../../@generic/types/candidate-cell-spec.spec.type';
 
 interface TargetChainFixtureInterface {
@@ -14,6 +17,33 @@ interface TargetChainFixtureInterface {
     readonly target: [number, number, number];
     readonly reasonCells: [number, number][];
 }
+
+const shortChainCells: CandidateCellSpecType[] = [
+    [0, 0, [5, 1]],
+    [0, 4, [5, 2]],
+    [1, 4, [5, 3]],
+    [1, 1, [5, 4]]
+];
+
+const longChainCells: CandidateCellSpecType[] = [
+    [2, 3, [5, 7]],
+    [5, 3, [5, 8]],
+    [5, 7, [5, 9]],
+    [8, 7, [5, 1]],
+    [8, 8, [5, 2]],
+    [2, 8, [5, 3]]
+];
+
+const eliminationTargetCell: CandidateCellSpecType = [2, 2, [5, 6]];
+
+const shortChainBreakerCell: CandidateCellSpecType = [0, 2, [5, 9]];
+
+const chainScanBudgetMilliseconds = 2000;
+
+const hellCorpusBoard = '........1.......2...3..4........53...4......612...........7.......8..4.9..712....';
+
+const findTargetChain = (results: TechniqueResultInterface[]): TechniqueResultInterface | undefined =>
+    results.find(result => result.cell.y === 2 && result.cell.x === 2 && result.value === 5);
 
 describe('XChainTechnique', () => {
     const targetFixtures: TargetChainFixtureInterface[] = [
@@ -263,6 +293,80 @@ describe('XChainTechnique', () => {
                 ]
             }
         ]);
+    });
+
+    it('reports the shortest chain when a short and a long chain share the same deduction', () => {
+        expect.assertions(3);
+
+        const context = createCandidateContextFromMap(eliminationTargetCell, ...shortChainCells, ...longChainCells);
+        const result = findTargetChain(new XChainTechnique().find(context));
+
+        expect(result?.chainLength).toBe(4);
+        expect(result?.chainLength).toBe(result?.reasonCells.length);
+        expect(result?.reasonCells.map(cell => [cell.y, cell.x])).toEqual([
+            [0, 0],
+            [0, 4],
+            [1, 4],
+            [1, 1]
+        ]);
+    });
+
+    it('falls back to the long chain when the short chain loses its strong link', () => {
+        expect.assertions(2);
+
+        const context = createCandidateContextFromMap(eliminationTargetCell, shortChainBreakerCell, ...shortChainCells, ...longChainCells);
+        const result = findTargetChain(new XChainTechnique().find(context));
+
+        expect(result?.chainLength).toBe(6);
+        expect(result?.chainLength).toBe(result?.reasonCells.length);
+    });
+
+    it('applies the shortest chain first when different eliminations have different chain lengths', () => {
+        expect.assertions(3);
+
+        const context = createCandidateContextFromMap(
+            [2, 2, [3, 8]],
+            [0, 0, [8]],
+            [0, 4, [8]],
+            [1, 4, [8]],
+            [1, 1, [8]],
+            [2, 3, [3]],
+            [5, 3, [3]],
+            [5, 7, [3]],
+            [8, 7, [3]],
+            [8, 8, [3]],
+            [2, 8, [3]]
+        );
+        const getResultKey = (result: TechniqueResultInterface): string =>
+            `${result.technique}:${result.cell.y}:${result.cell.x}:${result.value}`;
+
+        const results = new XChainTechnique().find(context);
+        const [firstResult] = results;
+        const [lexicallyFirstKey] = [...results].map(getResultKey).sort();
+
+        expect(lexicallyFirstKey).not.toBe(getResultKey(firstResult));
+        expect(firstResult.value).toBe(8);
+        expect(firstResult.chainLength).toBe(4);
+    });
+
+    it('returns identical results for repeated scans of the same context', () => {
+        expect.assertions(1);
+
+        const context = createCandidateContextFromMap(eliminationTargetCell, ...shortChainCells, ...longChainCells);
+
+        expect(JSON.stringify(new XChainTechnique().find(context))).toBe(JSON.stringify(new XChainTechnique().find(context)));
+    });
+
+    it('scans a stuck hell corpus board within the chain scan budget', () => {
+        expect.assertions(2);
+
+        const context = CandidateContext.fromSudoku(Sudoku.fromString(hellCorpusBoard, defaultSudokuConfig));
+        const startedAt = Date.now();
+        const results = new XChainTechnique().find(context);
+        const elapsedMilliseconds = Date.now() - startedAt;
+
+        expect(elapsedMilliseconds).toBeLessThan(chainScanBudgetMilliseconds);
+        expect(results.every(result => result.chainLength === result.reasonCells.length)).toBe(true);
     });
 
     it('ignores a chain when a strong link gains a third occurrence', () => {

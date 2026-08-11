@@ -97,14 +97,15 @@ describe('AICTechnique', () => {
         expect(new AICTechnique().find(context, { cell: targetCell, value: 6, intent: 'direct' })).toEqual([]);
     });
 
-    it('uses one visit budget across all broad-search roots', () => {
-        expect.assertions(1);
+    it('gives every broad-search start node its own visit budget', () => {
+        expect.assertions(2);
 
         const context = createCandidateContextFromMap([0, 0, [1]], [0, 1, [2]]);
         const technique = new BudgetExhaustingAICTechnique();
 
         technique.find(context);
 
-        expect(technique.scans).toHaveLength(1);
+        expect(technique.scans).toHaveLength(2);
+        expect(technique.scans.map(scan => scan.linkVisits)).toStrictEqual([AIC_MAX_LINK_VISITS, AIC_MAX_LINK_VISITS]);
     });
 });

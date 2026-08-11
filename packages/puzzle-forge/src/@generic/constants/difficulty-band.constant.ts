@@ -6,37 +6,43 @@ import type { DifficultyBandInterface } from '../interfaces/difficulty-band.inte
 export const DIFFICULTY_BANDS: Record<DifficultyEnum, DifficultyBandInterface> = {
     [DifficultyEnum.Newbie]: {
         blankCells: 44,
-        isCorpusSourced: false,
+        corpus: null,
         simplerLadderMaxTechnique: null,
         bandLadderMaxTechnique: SolutionTechniqueEnum.NakedSingle
     },
     [DifficultyEnum.Easy]: {
         blankCells: 50,
-        isCorpusSourced: false,
+        corpus: null,
         simplerLadderMaxTechnique: SolutionTechniqueEnum.NakedSingle,
         bandLadderMaxTechnique: SolutionTechniqueEnum.HiddenSingle
     },
     [DifficultyEnum.Medium]: {
         blankCells: 54,
-        isCorpusSourced: false,
+        corpus: null,
         simplerLadderMaxTechnique: SolutionTechniqueEnum.HiddenSingle,
         bandLadderMaxTechnique: SolutionTechniqueEnum.HiddenQuad
     },
     [DifficultyEnum.Hard]: {
         blankCells: 55,
-        isCorpusSourced: false,
+        corpus: null,
         simplerLadderMaxTechnique: SolutionTechniqueEnum.HiddenQuad,
         bandLadderMaxTechnique: SolutionTechniqueEnum.WWing
     },
     [DifficultyEnum.Nightmare]: {
         blankCells: 56,
-        isCorpusSourced: false,
+        corpus: null,
         simplerLadderMaxTechnique: SolutionTechniqueEnum.WWing,
         bandLadderMaxTechnique: SolutionTechniqueEnum.AIC
     },
     [DifficultyEnum.Hell]: {
         blankCells: 64,
-        isCorpusSourced: true,
+        corpus: 'hell',
+        simplerLadderMaxTechnique: SolutionTechniqueEnum.HiddenSingle,
+        bandLadderMaxTechnique: null
+    },
+    [DifficultyEnum.Infinity]: {
+        blankCells: 81,
+        corpus: 'infinity',
         simplerLadderMaxTechnique: SolutionTechniqueEnum.HiddenSingle,
         bandLadderMaxTechnique: null
     }

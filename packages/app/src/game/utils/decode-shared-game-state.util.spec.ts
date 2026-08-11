@@ -10,6 +10,7 @@ import type { GameState } from '../store/game.state';
 
 const solvedBoard = '534678912672195348198342567859761423426853791713924856961537284287419635345286179';
 const givensMask = '53..7....6..195....98....6.8...6...34..8.3..17...2...6.6....28....419..5....8..79';
+const ComputedRating = 4.4;
 
 const buildGameState = (): GameState => ({
     ...initialGameState,
@@ -33,6 +34,16 @@ describe('decodeSharedGameState', () => {
             expect(decoded.isReadable).toBe(true);
         }
     );
+
+    it('should preserve the computed rating of a decoded shared payload', () => {
+        expect.assertions(2);
+
+        const ratedState: GameState = { ...buildGameState(), rating: ComputedRating, isRatingCeiling: false };
+        const decoded = decodeSharedGameState(gameStateToString(ratedState, SharedPayloadKindEnum.Puzzle));
+
+        expect(decoded.gameState.rating).toBe(ComputedRating);
+        expect(decoded.gameState.isRatingCeiling).toBe(false);
+    });
 
     it('should report an unreadable payload as a puzzle with the initial state', () => {
         expect.assertions(3);

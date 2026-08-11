@@ -1,6 +1,7 @@
 import { describe, expect, it, jest } from '@jest/globals';
 import { TimelineEventKindEnum } from '@suuudokuuu/encoder';
 import { DifficultyEnum, Sudoku, defaultSudokuConfig, emptyScoredCells } from '@suuudokuuu/generator';
+import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { isDefined } from '@rnw-community/shared';
 
@@ -16,6 +17,7 @@ jest.mock('@suuudokuuu/encoder', () => {
 });
 
 import { getCellKey } from '../../@generic/utils/get-cell-key.util';
+import { getDayNumber } from '../../@generic/utils/get-day-number.util';
 import { SudokuScoring } from '../../scoring/classes/sudoku-scoring';
 import { defaultScoringConfig } from '../../scoring/interfaces/scoring-config.interface';
 
@@ -39,6 +41,10 @@ import { initialGameState } from './game.state';
 
 const StartedSudokuString = 'started-sudoku';
 const InitialElapsedTime = 42;
+const StartedRating = 3.4;
+const FirstPersistedDayNumber = 19000;
+const SecondPersistedDayNumber = 19001;
+const PersistedPlayedDayNumbers = [FirstPersistedDayNumber, SecondPersistedDayNumber];
 
 const HellPuzzle = '000000010400000000020000000000050407008000300001090000300400200050100000000806000';
 const HellSolution = '693784512487512936125963874932651487568247391741398625319475268856129743274836159';
@@ -87,7 +93,9 @@ describe('gameSlice', () => {
                 sudokuString: StartedSudokuString,
                 difficulty: DifficultyEnum.Hard,
                 maxMistakes: 0,
-                isChallengeRun: false
+                isChallengeRun: false,
+                rating: StartedRating,
+                isRatingCeiling: false
             })
         );
 
@@ -96,7 +104,9 @@ describe('gameSlice', () => {
             historyByDifficulty,
             sudokuString: StartedSudokuString,
             difficulty: DifficultyEnum.Hard,
-            maxMistakes: 0
+            maxMistakes: 0,
+            rating: StartedRating,
+            isRatingCeiling: false
         });
         expect(nextState.hasNewPersonalBestScore).toBe(false);
     });
@@ -124,9 +134,12 @@ describe('gameSlice', () => {
             wallClockStartMs: 1234
         };
 
-        const nextState = gameSlice.reducer(completedState, gameStartAction({ ...setup, sudokuString: StartedSudokuString }));
+        const nextState = gameSlice.reducer(
+            completedState,
+            gameStartAction({ ...setup, sudokuString: StartedSudokuString, rating: StartedRating, isRatingCeiling: false })
+        );
 
-        expect(nextState).toMatchObject({ ...setup, sudokuString: StartedSudokuString });
+        expect(nextState).toMatchObject({ ...setup, sudokuString: StartedSudokuString, rating: StartedRating });
         expect(nextState).toMatchObject({
             candidates: {},
             challengeState: '',
@@ -139,6 +152,26 @@ describe('gameSlice', () => {
             timelineEvents: [],
             wallClockStartMs: 0
         });
+    });
+
+    it('preserves technique usage counts across start and reset', () => {
+        const dirtyState = { ...initialGameState, techniqueUsageCounts: { [SolutionTechniqueEnum.NakedSingle]: 3 } };
+
+        const startedState = gameSlice.reducer(
+            dirtyState,
+            gameStartAction({
+                sudokuString: StartedSudokuString,
+                difficulty: DifficultyEnum.Hard,
+                maxMistakes: 3,
+                isChallengeRun: false,
+                rating: StartedRating,
+                isRatingCeiling: false
+            })
+        );
+        const resetState = gameSlice.reducer(dirtyState, gameResetAction());
+
+        expect(startedState.techniqueUsageCounts).toStrictEqual({ [SolutionTechniqueEnum.NakedSingle]: 3 });
+        expect(resetState.techniqueUsageCounts).toStrictEqual({ [SolutionTechniqueEnum.NakedSingle]: 3 });
     });
 
     it('loads partial game state, records mistakes, and resets active progress', () => {
@@ -161,6 +194,43 @@ describe('gameSlice', () => {
         expect(mistakenState.mistakes).toBe(1);
         expect(resetState).toMatchObject({ ...initialGameState, historyByDifficulty });
         expect(resetState.hasNewPersonalBestScore).toBe(false);
+    });
+
+    it('keeps persisted history, technique counts and played days when loading a full shared game state', () => {
+        const historyByDifficulty = {
+            ...initialGameState.historyByDifficulty,
+            [DifficultyEnum.Hell]: {
+                ...initialGameState.historyByDifficulty[DifficultyEnum.Hell],
+                gamesCompleted: 7,
+                gamesWon: 5,
+                bestScore: 4321,
+                bestRating: { rating: StartedRating, isRatingCeiling: false }
+            }
+        };
+        const persistedState = {
+            ...initialGameState,
+            historyByDifficulty,
+            techniqueUsageCounts: { [SolutionTechniqueEnum.NakedSingle]: 9 },
+            playedDayNumbers: PersistedPlayedDayNumbers
+        };
+        const sharedState = {
+            ...initialGameState,
+            sudokuString: StartedSudokuString,
+            difficulty: DifficultyEnum.Hard,
+            rating: StartedRating,
+            elapsedTime: InitialElapsedTime,
+            challengeState: 'shared-challenge-state',
+            isChallengeRun: true
+        };
+        const loadedState = gameSlice.reducer(persistedState, gameLoadAction(sharedState));
+
+        expect(loadedState.historyByDifficulty).toStrictEqual(historyByDifficulty);
+        expect(loadedState.techniqueUsageCounts).toStrictEqual({ [SolutionTechniqueEnum.NakedSingle]: 9 });
+        expect(loadedState.playedDayNumbers).toStrictEqual(PersistedPlayedDayNumbers);
+        expect(loadedState.sudokuString).toBe(StartedSudokuString);
+        expect(loadedState.difficulty).toBe(DifficultyEnum.Hard);
+        expect(loadedState.elapsedTime).toBe(InitialElapsedTime);
+        expect(loadedState.isChallengeRun).toBe(true);
     });
 
     it('keeps candidate and input modes mutually exclusive', () => {
@@ -242,6 +312,33 @@ describe('gameSlice', () => {
         ]);
         expect(savedState.candidates[correctCellKey]).toEqual([]);
         expect(savedState.candidates[affectedCellKey]).toEqual([]);
+        expect(savedState.techniqueUsageCounts).toStrictEqual({});
+    });
+
+    it('increments the technique usage count for a classified correct placement', () => {
+        const sudoku = new Sudoku();
+        sudoku.create(DifficultyEnum.Easy);
+
+        const blankCell = sudoku.Field.flat().find(cell => sudoku.isBlankCell(cell));
+
+        if (!isDefined(blankCell)) {
+            throw new Error('Expected generated puzzle to contain a blank cell');
+        }
+
+        const correctCell = { ...blankCell, value: sudoku.getCorrectValue(blankCell) };
+        const scoredCells = { ...emptyScoredCells, ...sudoku.setCellValue(correctCell), values: [correctCell.value] };
+
+        const savedState = gameSlice.reducer(
+            initialGameState,
+            gameSaveAction({ sudoku, correctCell, scoredCells, technique: SolutionTechniqueEnum.NakedSingle })
+        );
+        const savedAgainState = gameSlice.reducer(
+            savedState,
+            gameSaveAction({ sudoku, correctCell, scoredCells, technique: SolutionTechniqueEnum.NakedSingle })
+        );
+
+        expect(savedState.techniqueUsageCounts).toStrictEqual({ [SolutionTechniqueEnum.NakedSingle]: 1 });
+        expect(savedAgainState.techniqueUsageCounts).toStrictEqual({ [SolutionTechniqueEnum.NakedSingle]: 2 });
     });
 
     it('scores a save with the authoritative stored difficulty even when the restored sudoku reports a degraded difficulty', () => {
@@ -399,6 +496,8 @@ describe('gameSlice', () => {
                 ...initialGameState,
                 elapsedTime: InitialElapsedTime,
                 maxMistakes: 0,
+                rating: StartedRating,
+                isRatingCeiling: true,
                 score: 250,
                 sudokuString: StartedSudokuString
             },
@@ -419,12 +518,43 @@ describe('gameSlice', () => {
         });
         expect(completedGame).toMatchObject({
             difficulty: DifficultyEnum.Newbie,
+            rating: StartedRating,
+            isRatingCeiling: true,
             elapsedTime: InitialElapsedTime,
             maxMistakes: 0,
             mistakes: 0,
             score: 250
         });
         expect(finishedState).toMatchObject({ isPaused: true, shouldResumeOnFocus: false, shouldShowPauseScreen: false });
+    });
+
+    it('records the best rating on a win and keeps it against a lower-rated later win', () => {
+        const higherRatedState = gameSlice.reducer(
+            { ...initialGameState, rating: 6.6, isRatingCeiling: false, score: 100, sudokuString: StartedSudokuString },
+            gameFinishAction({ difficulty: DifficultyEnum.Medium, isWon: true })
+        );
+        const lowerRatedState = gameSlice.reducer(
+            { ...higherRatedState, rating: 3.4, isRatingCeiling: false, sudokuString: StartedSudokuString },
+            gameFinishAction({ difficulty: DifficultyEnum.Medium, isWon: true })
+        );
+
+        expect(higherRatedState.historyByDifficulty[DifficultyEnum.Medium].bestRating).toStrictEqual({
+            rating: 6.6,
+            isRatingCeiling: false
+        });
+        expect(lowerRatedState.historyByDifficulty[DifficultyEnum.Medium].bestRating).toStrictEqual({
+            rating: 6.6,
+            isRatingCeiling: false
+        });
+    });
+
+    it('does not record a best rating for a loss', () => {
+        const lostState = gameSlice.reducer(
+            { ...initialGameState, rating: 8.5, isRatingCeiling: true, sudokuString: StartedSudokuString },
+            gameFinishAction({ difficulty: DifficultyEnum.Medium, isWon: false })
+        );
+
+        expect(lostState.historyByDifficulty[DifficultyEnum.Medium].bestRating).toStrictEqual({ rating: 0, isRatingCeiling: false });
     });
 
     it('records a completed Hell game under Hell history even though the finished board reads as Newbie by cell count', () => {
@@ -596,5 +726,57 @@ describe('gameSlice', () => {
         const history = lostState.historyByDifficulty[DifficultyEnum.Medium];
 
         expect(history).toMatchObject({ averageTime: 30, gamesLost: 1, gamesWon: 2 });
+    });
+
+    it('records the day of a won game in playedDayNumbers', () => {
+        const finishedState = gameSlice.reducer(
+            { ...initialGameState, sudokuString: StartedSudokuString },
+            gameFinishAction({ difficulty: DifficultyEnum.Easy, isWon: true })
+        );
+
+        expect(finishedState.playedDayNumbers).toStrictEqual([getDayNumber(Date.now())]);
+    });
+
+    it('records the day of a lost game in playedDayNumbers even though it is not a win', () => {
+        const finishedState = gameSlice.reducer(
+            { ...initialGameState, sudokuString: StartedSudokuString },
+            gameFinishAction({ difficulty: DifficultyEnum.Easy, isWon: false })
+        );
+
+        expect(finishedState.playedDayNumbers).toStrictEqual([getDayNumber(Date.now())]);
+    });
+
+    it('does not duplicate the same day when multiple games finish on it', () => {
+        const firstFinishedState = gameSlice.reducer(
+            { ...initialGameState, sudokuString: StartedSudokuString },
+            gameFinishAction({ difficulty: DifficultyEnum.Easy, isWon: true })
+        );
+        const secondFinishedState = gameSlice.reducer(
+            { ...firstFinishedState, sudokuString: StartedSudokuString },
+            gameFinishAction({ difficulty: DifficultyEnum.Hard, isWon: false })
+        );
+
+        expect(secondFinishedState.playedDayNumbers).toStrictEqual([getDayNumber(Date.now())]);
+    });
+
+    it('preserves played day numbers across start and reset', () => {
+        const recordedDayNumber = getDayNumber(Date.now());
+        const stateWithHistory = { ...initialGameState, playedDayNumbers: [recordedDayNumber] };
+
+        const startedState = gameSlice.reducer(
+            stateWithHistory,
+            gameStartAction({
+                sudokuString: StartedSudokuString,
+                difficulty: DifficultyEnum.Easy,
+                maxMistakes: 3,
+                isChallengeRun: false,
+                rating: 0,
+                isRatingCeiling: false
+            })
+        );
+        const resetState = gameSlice.reducer(stateWithHistory, gameResetAction());
+
+        expect(startedState.playedDayNumbers).toStrictEqual([recordedDayNumber]);
+        expect(resetState.playedDayNumbers).toStrictEqual([recordedDayNumber]);
     });
 });

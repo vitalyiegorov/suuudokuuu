@@ -12,6 +12,11 @@ const BITS_PER_BYTE = 8;
 const NIBBLE_BIT_WIDTH = 4;
 const NIBBLE_MASK = 0xf;
 const GIVEN_CELL_STRIDE = 5;
+const RATING_ELEVEN_POINT_NINE_BYTE = 119;
+const RATING_ELEVEN_POINT_NINE = 11.9;
+const CEILING_FLAG_BIT = 0x80;
+const RATING_EIGHT_POINT_FIVE_BYTE = 85;
+const RATING_EIGHT_POINT_FIVE = 8.5;
 
 const buildSpreadGivensPuzzle = (): string => {
     const cells = Array.from({ length: HELL_CORPUS_CLUE_COUNT }, (_, given) => given * GIVEN_CELL_STRIDE);
@@ -49,12 +54,42 @@ const packPuzzleForTest = (puzzle: string): Uint8Array => {
 
 describe('decodeHellCorpusRecord', () => {
     it('round-trips a known 17-clue puzzle', () => {
-        expect(decodeHellCorpusRecord(packPuzzleForTest(ROYLE_17))).toBe(ROYLE_17);
+        expect(decodeHellCorpusRecord(packPuzzleForTest(ROYLE_17), HELL_CORPUS_RECORD_BYTES).puzzle).toBe(ROYLE_17);
     });
 
     it('round-trips a synthetic puzzle covering both grid boundaries and every digit', () => {
         const puzzle = buildSpreadGivensPuzzle();
 
-        expect(decodeHellCorpusRecord(packPuzzleForTest(puzzle))).toBe(puzzle);
+        expect(decodeHellCorpusRecord(packPuzzleForTest(puzzle), HELL_CORPUS_RECORD_BYTES).puzzle).toBe(puzzle);
+    });
+
+    it('decodes an unset rating byte as null with no ceiling flag', () => {
+        const decoded = decodeHellCorpusRecord(packPuzzleForTest(ROYLE_17), HELL_CORPUS_RECORD_BYTES);
+
+        expect(decoded.rating).toBeNull();
+        expect(decoded.isCeiling).toBe(false);
+    });
+
+    it('decodes a curated rating byte with no ceiling flag', () => {
+        const record = packPuzzleForTest(ROYLE_17);
+
+        record[record.length - 1] = RATING_ELEVEN_POINT_NINE_BYTE;
+
+        const decoded = decodeHellCorpusRecord(record, HELL_CORPUS_RECORD_BYTES);
+
+        expect(decoded.rating).toBe(RATING_ELEVEN_POINT_NINE);
+        expect(decoded.isCeiling).toBe(false);
+    });
+
+    it('decodes a rater-reported ceiling rating with the ceiling flag set', () => {
+        const record = packPuzzleForTest(ROYLE_17);
+
+        // eslint-disable-next-line no-bitwise -- test oracle sets the ceiling-flag bit being verified
+        record[record.length - 1] = RATING_EIGHT_POINT_FIVE_BYTE | CEILING_FLAG_BIT;
+
+        const decoded = decodeHellCorpusRecord(record, HELL_CORPUS_RECORD_BYTES);
+
+        expect(decoded.rating).toBe(RATING_EIGHT_POINT_FIVE);
+        expect(decoded.isCeiling).toBe(true);
     });
 });

@@ -9,9 +9,9 @@ import { TECHNIQUE_LADDER } from '../constants/technique-ladder.constant';
 
 import { solvePuzzleLogically } from './solve-puzzle-logically.util';
 
+import type { LandingDifficultyType } from '../../difficulty/types/landing-difficulty.type';
 import type { LogicalSolveResultInterface } from '../interfaces/logical-solve-result.interface';
 import type { TierTechniqueReportInterface } from '../interfaces/tier-technique-report.interface';
-import type { DifficultyEnum } from '@suuudokuuu/generator';
 
 const SINGLES_CEILING = SolutionTechniqueEnum.HiddenSingle;
 
@@ -28,7 +28,7 @@ const findTypicalHardestTechnique = (results: LogicalSolveResultInterface[]): So
     return top.technique;
 };
 
-const buildTierTechniqueReport = (difficulty: DifficultyEnum): TierTechniqueReportInterface => {
+const buildTierTechniqueReport = (difficulty: LandingDifficultyType): TierTechniqueReportInterface => {
     const results = RATING_SAMPLE_PUZZLES[difficulty].map(solvePuzzleLogically);
     const reached = TECHNIQUE_LADDER.filter(technique => results.some(result => result.hardestTechnique === technique));
 
@@ -55,7 +55,7 @@ export const getTierTechniqueReports = (): TierTechniqueReportInterface[] => {
     return cachedReports;
 };
 
-export const getTierTechniqueReport = (difficulty: DifficultyEnum): TierTechniqueReportInterface => {
+export const getTierTechniqueReport = (difficulty: LandingDifficultyType): TierTechniqueReportInterface => {
     const report = getTierTechniqueReports().find(tierReport => tierReport.difficulty === difficulty);
 
     if (!isDefined(report)) {

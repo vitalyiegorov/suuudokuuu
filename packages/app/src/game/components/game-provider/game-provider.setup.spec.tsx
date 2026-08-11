@@ -3,7 +3,7 @@ import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
 import { TimelineEventKindEnum } from '@suuudokuuu/encoder';
 import { DifficultyEnum, Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
-import { LogicalSolver, SolutionTechniqueEnum, createTechniqueStrategies } from '@suuudokuuu/techniques';
+import { SolutionTechniqueEnum, TechniqueManager, createTechniqueStrategies } from '@suuudokuuu/techniques';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react-native';
 import { use } from 'react';
 import { Pressable } from 'react-native';
@@ -20,11 +20,15 @@ jest.mock('../../../@generic/app-root.store', () => ({ appRootStore: { dispatch:
 
 const createTriggerTestID = 'game-provider-create-trigger';
 const HellPuzzleGivenCellCount = 17;
+const MinimumInfinityGivenCellCount = 20;
+const MaximumInfinityGivenCellCount = 23;
+
+const nakedSinglesLadder = createTechniqueStrategies()
+    .map(strategy => strategy.technique)
+    .filter(technique => technique <= SolutionTechniqueEnum.NakedSingle);
 
 const isNakedSinglesOnly = (sudokuString: string): boolean =>
-    new LogicalSolver(createTechniqueStrategies().filter(strategy => strategy.technique <= SolutionTechniqueEnum.NakedSingle)).solve(
-        sudokuString
-    ).isSolved;
+    new TechniqueManager(Sudoku.fromString(sudokuString, defaultSudokuConfig)).solveLogically(nakedSinglesLadder).outcome === 'solved';
 
 const abandonedAttempt = {
     candidates: { '1-1': [1, 2] },
@@ -113,5 +117,20 @@ describe('GameProvider', () => {
         const secondGameState = await startGame({ difficulty: DifficultyEnum.Hell, isChallengeRun: false, maxMistakes: 3 });
 
         expect(firstGameState.sudokuString).not.toBe(secondGameState.sudokuString);
+    });
+
+    it('starts an Infinity run served from the curated corpus with its published rating', async () => {
+        const gameState = await startGame({ difficulty: DifficultyEnum.Infinity, isChallengeRun: false, maxMistakes: 3 });
+        const givenCellCount = gameState.sudokuString.split('').filter(character => character !== '.').length;
+
+        expect(gameState).toMatchObject({
+            difficulty: DifficultyEnum.Infinity,
+            isChallengeRun: false,
+            isRatingCeiling: false,
+            maxMistakes: 3
+        });
+        expect(givenCellCount).toBeGreaterThanOrEqual(MinimumInfinityGivenCellCount);
+        expect(givenCellCount).toBeLessThanOrEqual(MaximumInfinityGivenCellCount);
+        expect(gameState.rating).toBeGreaterThan(0);
     });
 });

@@ -1,7 +1,7 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-import { DifficultyEnum, Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
+import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
 
 import { DIFFICULTY_LADDER, DIFFICULTY_NAMES } from '../src/difficulty/constants/difficulty-name.constant';
@@ -17,6 +17,7 @@ import { PRINTABLE_BOOKLET_PUZZLES, PRINTABLE_LARGE_PRINT_PUZZLES } from '../src
 import { getPrintableBookletPageCount } from '../src/printable/utils/get-printable-booklet-page-count.util';
 import { SITE_NAME, SITE_ORIGIN } from '../src/seo/constants/site.constant';
 
+import type { LandingDifficultyType } from '../src/difficulty/types/landing-difficulty.type';
 import type { PDFFont, PDFPage } from 'pdf-lib';
 
 const PAGE_WIDTH = 612;
@@ -207,7 +208,7 @@ const embedFonts = async (doc: PDFDocument): Promise<FontsInterface> => ({
     bold: await doc.embedFont(StandardFonts.HelveticaBold)
 });
 
-const buildBookletDocument = async (difficulty: DifficultyEnum): Promise<PDFDocument> => {
+const buildBookletDocument = async (difficulty: LandingDifficultyType): Promise<PDFDocument> => {
     const tierName = DIFFICULTY_NAMES[difficulty];
     const puzzles = PRINTABLE_BOOKLET_PUZZLES[difficulty];
     const solutions = puzzles.map(toSolutionDigits);

@@ -10,7 +10,7 @@ const nakedSinglesPuzzle = '349.6...1.1..37..9.57.8..435......96..61.8.5...2....
 const hiddenSinglePuzzle = '2.846.9.5.75.....2.9.32.4.896.1438.75......6.7....82..32..1.54......41....9532...';
 const openBand = {
     blankCells: 0,
-    isCorpusSourced: false,
+    corpus: null,
     simplerLadderMaxTechnique: null,
     bandLadderMaxTechnique: null
 };

@@ -2,10 +2,12 @@ appId: ${APP_ID}
 tags:
     - screenshots
 ---
-# Stats/history tab with a completed game entry so the difficulty grid isn't
-# empty. Reuses the same win fixture as 07.replay/13.history, then opens
-# History through the deep link instead of the localized "Stats" tab label
-# (same reasoning as 07.replay - see README).
+# Statistics tab: the editorial Solver Profile hero, its SE spectrum, and the
+# "Your arsenal" technique tiles. Uses the RATED win fixture rather than
+# 07.replay/13.history's legacy one: HistorySolverProfile returns null unless
+# the persisted bestRating is above zero, so the unrated fixture hides the hero
+# and the spectrum entirely. Opens History through the deep link instead of the
+# localized "Stats" tab label (same reasoning as 07.replay - see README).
 - runFlow: subflows/reset-app.flow.yaml
 - runFlow:
       file: subflows/apply-language.flow.yaml
@@ -19,18 +21,13 @@ tags:
 - runFlow:
       file: subflows/complete-win-fixture-and-return-home.flow.yaml
       env:
-          SHARED_CHALLENGE_LINK: suuudokuuu://shared/_KGP________9____qXF6FFdMjBWGhJIN-CMqSm5omCUw0KFUm6-t2HxLUAuYMCP-
+          SHARED_CHALLENGE_LINK: suuudokuuu://shared/_OWP________9____qXF6FFdMjBWGhJIN-CMqSm5omCUw0KFUm6-t2HxLUAuYMARgH-IAABCg
 
 - openLink:
       link: 'suuudokuuu://history'
 - extendedWaitUntil:
       visible:
-          id: 'HistoryScreenSelectors.Root'
-      timeout: 5000
-- scrollUntilVisible:
-      element:
-          id: 'HistoryDifficultySelectors.Card.Newbie'
-      direction: DOWN
+          id: 'HistorySolverProfileSelectors.Spectrum'
       timeout: 5000
 
 - takeScreenshot: '10-stats'

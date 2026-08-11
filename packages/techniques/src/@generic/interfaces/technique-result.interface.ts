@@ -10,4 +10,5 @@ export interface TechniqueResultInterface {
     kind: TechniqueResultKindType;
     eliminations: CandidateEliminationInterface[];
     reasonCells: CellInterface[];
+    chainLength?: number;
 }

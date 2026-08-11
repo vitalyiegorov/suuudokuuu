@@ -10,6 +10,7 @@ import { initialGameState } from '../../store/game.state';
 
 import { GameProvider } from './game-provider';
 
+import type { GameSetupInterface } from '../../interface/game-setup.interface';
 import type { ReactNode } from 'react';
 
 const mockPush = jest.fn();
@@ -35,12 +36,19 @@ jest.mock('../../store/game.selectors', () => ({
 jest.mock('../../../settings/store/settings.selectors', () => ({ settingsLanguageSelector: () => 'en' }));
 
 const forgedPuzzle = '9743.28565289.63171637.8294249.816736.72345893856971...528.9731896.73425731425968';
-const mockForgePuzzle = jest.fn(() => ({ isInBand: true, sudoku: Sudoku.fromString(forgedPuzzle, defaultSudokuConfig) }));
+const forgedRating = 4.2;
+const mockForgePuzzle = jest.fn(() => ({
+    isInBand: true,
+    isRatingCeiling: false,
+    rating: forgedRating,
+    sudoku: Sudoku.fromString(forgedPuzzle, defaultSudokuConfig)
+}));
 
 jest.mock('@suuudokuuu/puzzle-forge', () => ({ forgePuzzle: () => mockForgePuzzle() }));
 
 const maxMistakes = 3;
 const hellGameOptions = { difficulty: DifficultyEnum.Hell, isChallengeRun: false, maxMistakes };
+const infinityGameOptions = { difficulty: DifficultyEnum.Infinity, isChallengeRun: false, maxMistakes };
 
 interface Props {
     readonly children: ReactNode;
@@ -55,6 +63,13 @@ const GameProviderWrapper = ({ children }: Props) => (
 const renderGameContext = () => renderHook(() => use(GameContext), { wrapper: GameProviderWrapper });
 
 const newbieGameOptions = { difficulty: DifficultyEnum.Newbie, isChallengeRun: false, maxMistakes };
+
+const createSingleGame = async (options: GameSetupInterface) => {
+    const { result } = await renderGameContext();
+
+    await act(() => void result.current.create(options));
+    await waitFor(() => void expect(mockReplace).toHaveBeenCalledTimes(1));
+};
 
 const buildChallengeState = () => {
     const sudoku = new Sudoku(defaultSudokuConfig);
@@ -94,6 +109,30 @@ describe('GameProvider', () => {
             result.current.create(hellGameOptions);
             result.current.create(hellGameOptions);
             result.current.create(hellGameOptions);
+        });
+
+        await waitFor(() => void expect(mockReplace).toHaveBeenCalledTimes(1));
+
+        expect(mockDispatch).toHaveBeenCalledTimes(1);
+    });
+
+    it('should start the run with the rating the forge reported for the puzzle', async () => {
+        await createSingleGame(hellGameOptions);
+
+        expect(mockDispatch).toHaveBeenCalledWith(
+            expect.objectContaining({
+                payload: expect.objectContaining({ difficulty: DifficultyEnum.Hell, isRatingCeiling: false, rating: forgedRating })
+            })
+        );
+    });
+
+    it('should admit exactly one Infinity creation under rapid repeated calls', async () => {
+        const { result } = await renderGameContext();
+
+        await act(() => {
+            result.current.create(infinityGameOptions);
+            result.current.create(infinityGameOptions);
+            result.current.create(infinityGameOptions);
         });
 
         await waitFor(() => void expect(mockReplace).toHaveBeenCalledTimes(1));

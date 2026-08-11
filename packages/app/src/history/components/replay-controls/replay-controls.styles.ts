@@ -37,7 +37,7 @@ export const ReplayControlsStyles = StyleSheet.create(theme => ({
     controlsRow: {
         alignItems: 'center',
         flexDirection: 'row',
-        gap: theme.spacing.xl,
+        gap: theme.spacing.lg,
         justifyContent: 'center',
         width: '100%'
     },

@@ -5,11 +5,16 @@ import { BitOutputStream } from '@thi.ng/bitstream';
 import {
     CODEC_VERSION_BITS,
     CODEC_VERSION_V3,
+    DIFFICULTY_CODE_BITS,
     EVENT_COUNT_BITS,
     HAS_TAG_STREAM_BITS,
     IS_CHALLENGE_RUN_BITS,
     MAX_MISTAKES_BITS,
+    METADATA_TRAILER_VERSION_BITS,
+    METADATA_TRAILER_VERSION_V2,
     PAYLOAD_KIND_BITS,
+    RATING_CEILING_FLAG_BITS,
+    RATING_VALUE_BITS,
     TAG_CELL_FLAG_BITS,
     TAG_SUBCODE_BITS
 } from '../../@generic/constants/binary-codec.constant';
@@ -111,5 +116,40 @@ describe('GameStateBinaryCodecV3 corrupt payloads', () => {
         expect.assertions(1);
 
         expect(() => codec.decode('not valid!')).toThrow('Invalid base64url character');
+    });
+
+    it('should degrade to the unknown rating sentinel for a truncated metadata trailer', () => {
+        expect.assertions(3);
+
+        const payload = buildPayload(out => {
+            writeHeader(out, SharedPayloadKindEnum.Challenge, false);
+            writeEmptyGivensMask(out);
+            out.write(0, EVENT_COUNT_BITS);
+            out.write(METADATA_TRAILER_VERSION_V2, METADATA_TRAILER_VERSION_BITS);
+        });
+        const decoded = codec.decode(payload);
+
+        expect(decoded.rating).toBe(0);
+        expect(decoded.isRatingCeiling).toBe(false);
+        expect(decoded.difficulty).toBeNull();
+    });
+
+    it('should degrade to the unknown rating sentinel for an unrecognised metadata trailer version', () => {
+        expect.assertions(3);
+
+        const payload = buildPayload(out => {
+            writeHeader(out, SharedPayloadKindEnum.Challenge, false);
+            writeEmptyGivensMask(out);
+            out.write(0, EVENT_COUNT_BITS);
+            out.write(METADATA_TRAILER_VERSION_V2 + 1, METADATA_TRAILER_VERSION_BITS);
+            out.write(45, RATING_VALUE_BITS);
+            out.write(1, RATING_CEILING_FLAG_BITS);
+            out.write(4, DIFFICULTY_CODE_BITS);
+        });
+        const decoded = codec.decode(payload);
+
+        expect(decoded.rating).toBe(0);
+        expect(decoded.isRatingCeiling).toBe(false);
+        expect(decoded.difficulty).toBeNull();
     });
 });

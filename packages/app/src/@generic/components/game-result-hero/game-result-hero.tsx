@@ -33,10 +33,12 @@ export const GameResultHero = ({ children, descriptorText, eyebrowText, icon, te
                 {titleText}
             </BlackText>
 
-            <View style={descriptorPillStyles}>
-                <Text maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant} numberOfLines={1} style={descriptorTextStyles}>
-                    {descriptorText}
-                </Text>
+            <View style={styles.descriptorRow}>
+                <View style={descriptorPillStyles}>
+                    <Text maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant} numberOfLines={1} style={descriptorTextStyles}>
+                        {descriptorText}
+                    </Text>
+                </View>
             </View>
 
             <BlackText style={eyebrowStyles}>{eyebrowText}</BlackText>
