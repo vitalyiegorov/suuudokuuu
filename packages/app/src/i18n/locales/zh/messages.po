@@ -453,7 +453,7 @@ msgstr "复制"
 msgid "Each correct placement starts with a base value:"
 msgstr "每次正确填入都会从基础值开始："
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Easy"
 msgstr "简单"
@@ -568,7 +568,7 @@ msgstr "辅助"
 msgid "h"
 msgstr "h"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Hard"
 msgstr "困难"
@@ -580,7 +580,7 @@ msgstr "困难"
 msgid "Hardcore"
 msgstr "硬核"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Hell"
 msgstr "地狱"
@@ -756,7 +756,7 @@ msgstr "允许错误奖励"
 msgid "Maybe later"
 msgstr "以后再说"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Medium"
 msgstr "中等"
@@ -827,7 +827,7 @@ msgstr "新游戏"
 msgid "New personal best"
 msgstr "新的个人最佳"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Newbie"
 msgstr "新手"
@@ -836,7 +836,7 @@ msgstr "新手"
 msgid "Newspaper"
 msgstr "报纸"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Nightmare"
 msgstr "噩梦"
@@ -1478,7 +1478,7 @@ msgstr "无法打开链接"
 msgid "Unable to start installation"
 msgstr "无法开始安装"
 
-#: src/@generic/utils/get-difficulty-text.util.ts
+#: src/@generic/utils/get-difficulty-message.util.ts
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Unknown"
 msgstr "未知"

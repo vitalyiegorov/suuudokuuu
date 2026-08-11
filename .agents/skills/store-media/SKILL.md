@@ -70,15 +70,15 @@ Screenshots, end to end:
    (add `DEVICE_CLASS=ipad ORIENTATION=landscape` for iPad landscape; the
    runner recycles the XCUITest driver, retries failures once, and bakes
    landscape pixels to 2752x2064 without EXIF).
-1b. Android capture: create an AVD, boot it, then
+   1b. Android capture: create an AVD, boot it, then
    `adb shell wm size 1080x2340` and `adb shell wm density 440` so the capture
    exactly matches the Pixel 5 frame cutout. Build and install with
    `APP_VARIANT=production npx expo run:android --variant release --device <avd-name>`
    (`--device` takes the AVD name, not the adb serial - an adb serial fails with
    "Could not find device with name"). Then
    `APP_ID=com.vitaliiyehorov.suuudokuuu yarn workspace @suuudokuuu/app-tests
-   screenshots:capture --platform=android --locales=en --appearances=light,dark
-   --scenes=...`. The runner's progress label prints `[iphone/...]` on Android;
+screenshots:capture --platform=android --locales=en --appearances=light,dark
+--scenes=...`. The runner's progress label prints `[iphone/...]` on Android;
    that is cosmetic, the output path is `raw/android/`.
 2. Compose: `bash packages/app/fastlane/screenshots/design/compose-screenshots.sh en-US all`
     - frames captures in real fastlane frameit device frames, applies
@@ -160,6 +160,15 @@ Screenshots, end to end:
   verification sometimes reports a freshly uploaded file as "missing on App
   Store Connect", retries it, and both copies survive. Check the set count
   after uploading and delete extras by `file_name`.
+- **Screenshots lock the moment the version is submitted for review.** Once the
+  editable version enters the review queue (a manual "Submit for Review" in App
+  Store Connect is enough - `eas submit` only uploads the binary), the ASC API
+  refuses screenshot deletion with "Can't Delete Screenshot After Submit for
+  review", so `ios_screenshots`' `overwrite_screenshots: true` fails after
+  retries. Metadata pushes still go through; Google Play has no such lock.
+  Push screenshots before submitting the version for review, or after approval
+  to the next editable version; the only same-version escape is cancelling the
+  review submission.
 - **precheck only warns.** It runs at the end of `ios_metadata` and never fails the
   lane, so read its output - it is the only place these problems surface before a
   human review rejection.
@@ -214,13 +223,27 @@ Screenshots, end to end:
 
 ## Current state / open items
 
-- en-US framed sets committed in both variants (7 iPhone at 1320x2868, the
-  6.9" slot, + 5 iPad at 2752x2064, the 13" slot) under
-  screenshots/variants/{dark,light}/ios/en-US; dark is the deployed variant
-  (deployed-variant.json). `store_preflight` confirms both slots. Other 12 locales: raw captures possible
-  via the same pipeline; captions exist for 11 iOS locales in
-  design/<locale>/title.strings (subtitles en-US only so far, and non-en
-  title.strings still carry the pre-v3 single-tier keys).
+- Framed sets committed in both variants (7 iPhone at 1320x2868, the 6.9"
+  slot, + 5 iPad at 2752x2064, the 13" slot) for en-US, uk, de-DE, es-ES,
+  fr-FR, pt-BR, sv, and id under screenshots/variants/{dark,light}/ios/;
+  dark is the deployed variant (deployed-variant.json). Two-tier captions
+  exist for all 11 iOS locales in design/<locale>/{title,subtitle}.strings.
+- Remaining iOS locales ar-SA, hi, and zh-Hans are BLOCKED on caption
+  rendering: Inter Black has zero Arabic, Devanagari, and CJK glyphs, so
+  composing them needs per-script caption fonts (Noto weights) plus an
+  ImageMagick RTL-shaping check for Arabic before capture is worth running.
+- The language sheet (@expo/ui bottom sheet) ignores synthetic Maestro
+  scroll gestures, so languages below its fold (ar, bn, id, pt, ur) cannot
+  be selected through the UI in a flow. The capture runner's
+  OS_LANGUAGE_MODE=true env skips apply-language's sheet interaction; set
+  the simulator's OS language (`simctl spawn <udid> defaults write
+.GlobalPreferences AppleLanguages -array <lang>`), uninstall + reinstall
+  the app (a fresh install boots in the OS locale), and re-prime deep links
+  before capturing such a locale.
+- Per-locale Play sets are composed from the en Android raws (the compose
+  script logs a "composing from en" note per fallback) until per-locale AVD
+  captures exist; the Play listing text is localized, the screens inside
+  the frames are English for non-en locales.
 - Play phone screenshots captured and uploaded (7 at 1080x1920). Still
   missing: the 1024x500 featureGraphic, which is design artwork rather than a
   capture, and the seven/ten-inch tablet sets.

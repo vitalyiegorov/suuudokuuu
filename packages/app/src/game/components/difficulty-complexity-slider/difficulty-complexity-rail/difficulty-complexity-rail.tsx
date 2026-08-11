@@ -8,7 +8,7 @@ import { GestureDetector } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 
 import { useVibration } from '../../../../@generic/hooks/use-vibration.hook';
-import { getDifficultyText } from '../../../../@generic/utils/get-difficulty-text.util';
+import { getDifficultyMessage } from '../../../../@generic/utils/get-difficulty-message.util';
 import { ThemeContext } from '../../../../theme/context/theme.context';
 import {
     DifficultyComplexitySliderDifficulties,
@@ -70,7 +70,7 @@ export const DifficultyComplexityRail = (props: Props) => {
         transform: [{ translateX: difficultyProgressValue.value * railWidth - DifficultyComplexitySliderThumbRadius }]
     }));
     const sliderThumbWithAnimatedStyles = [sliderThumbStyles, sliderThumbAnimatedStyles];
-    const currentDifficultyLabel = getDifficultyText(selectedDifficulty);
+    const currentDifficultyLabel = t(getDifficultyMessage(selectedDifficulty));
     const railAccessibilityLabel = t`Difficulty`;
     const railAccessibilityValue = { max: DifficultyComplexitySliderMaxIndex, min: 0, now: selectedIndex, text: currentDifficultyLabel };
     const railAccessibilityActions = [{ name: 'increment' }, { name: 'decrement' }];

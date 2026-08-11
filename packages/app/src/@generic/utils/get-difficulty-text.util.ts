@@ -1,21 +1,7 @@
-import { t } from '@lingui/core/macro';
-import { DifficultyEnum } from '@suuudokuuu/generator';
+import { i18n } from '@lingui/core';
 
-export const getDifficultyText = (difficulty: DifficultyEnum): string => {
-    switch (difficulty) {
-        case DifficultyEnum.Easy:
-            return t`Easy`;
-        case DifficultyEnum.Medium:
-            return t`Medium`;
-        case DifficultyEnum.Hard:
-            return t`Hard`;
-        case DifficultyEnum.Newbie:
-            return t`Newbie`;
-        case DifficultyEnum.Nightmare:
-            return t`Nightmare`;
-        case DifficultyEnum.Hell:
-            return t`Hell`;
-        default:
-            return t`Unknown`;
-    }
-};
+import { getDifficultyMessage } from './get-difficulty-message.util';
+
+import type { DifficultyEnum } from '@suuudokuuu/generator';
+
+export const getDifficultyText = (difficulty: DifficultyEnum): string => i18n._(getDifficultyMessage(difficulty));
