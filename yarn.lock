@@ -5277,6 +5277,7 @@ __metadata:
     "@rnw-community/shared": "npm:^2.2.0"
     "@shopify/react-native-skia": "npm:2.6.2"
     "@suuudokuuu/encoder": "workspace:*"
+    "@suuudokuuu/field-core": "workspace:*"
     "@suuudokuuu/generator": "workspace:*"
     "@suuudokuuu/hell-corpus": "workspace:*"
     "@suuudokuuu/screen-chrome": "workspace:*"
@@ -5342,7 +5343,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@suuudokuuu/field-core@workspace:packages/field-core":
+"@suuudokuuu/field-core@workspace:*, @suuudokuuu/field-core@workspace:packages/field-core":
   version: 0.0.0-use.local
   resolution: "@suuudokuuu/field-core@workspace:packages/field-core"
   dependencies:
@@ -5356,6 +5357,20 @@ __metadata:
   peerDependenciesMeta:
     react:
       optional: true
+  languageName: unknown
+  linkType: soft
+
+"@suuudokuuu/field-dom@workspace:packages/field-dom":
+  version: 0.0.0-use.local
+  resolution: "@suuudokuuu/field-dom@workspace:packages/field-dom"
+  dependencies:
+    "@rnw-community/shared": "npm:^2.2.0"
+    "@suuudokuuu/field-core": "workspace:*"
+    "@suuudokuuu/techniques": "workspace:*"
+    "@types/react": "npm:~19.2.14"
+    react: "npm:19.2.3"
+  peerDependencies:
+    react: ">=19.0.0"
   languageName: unknown
   linkType: soft
 

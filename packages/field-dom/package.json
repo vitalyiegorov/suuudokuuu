@@ -1,0 +1,44 @@
+{
+    "name": "@suuudokuuu/field-dom",
+    "version": "1.74.0",
+    "private": true,
+    "description": "React DOM board renderer for the headless sudoku field engine",
+    "sideEffects": [
+        "*.css"
+    ],
+    "exports": {
+        ".": {
+            "import": "./dist/esm/index.js",
+            "require": "./dist/cjs/index.js"
+        },
+        "./styles.css": "./dist/field-dom.css"
+    },
+    "main": "dist/cjs/index.js",
+    "module": "dist/esm/index.js",
+    "types": "dist/esm/index.d.ts",
+    "files": [
+        "dist/**/*"
+    ],
+    "scripts": {
+        "build": "yarn build:esm && yarn build:cjs && yarn build:styles && find ./dist -name '*.tsbuildinfo' -delete",
+        "build:cjs": "run -T tsc --pretty -p tsconfig.build-cjs.json",
+        "build:esm": "run -T tsc --pretty -p tsconfig.build-esm.json",
+        "build:styles": "cp src/styles/field-dom.css dist/field-dom.css",
+        "lint": "run -T eslint --fix src",
+        "test": "run -T jest",
+        "test:coverage": "run -T jest --coverage",
+        "ts": "run -T tsc -p ."
+    },
+    "dependencies": {
+        "@rnw-community/shared": "^2.2.0",
+        "@suuudokuuu/field-core": "workspace:*"
+    },
+    "devDependencies": {
+        "@suuudokuuu/techniques": "workspace:*",
+        "@types/react": "~19.2.14",
+        "react": "19.2.3"
+    },
+    "peerDependencies": {
+        "react": ">=19.0.0"
+    }
+}
