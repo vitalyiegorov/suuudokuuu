@@ -7,11 +7,10 @@ import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
 import { HowToStep } from '../../../seo/components/how-to-step/how-to-step';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
-import { TechniqueExampleBoard } from '../../../techniques/components/technique-example-board/technique-example-board';
 import { TechniqueNavigation } from '../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
-import { buildTechniqueExample } from '../../../techniques/utils/build-technique-example.util';
+import { TechniqueWorkedExample } from '../../../techniques/components/technique-worked-example/technique-worked-example';
 import { hiddenQuadPageMetadata } from '../hidden-quad/metadata';
 import { swordfishPageMetadata } from '../swordfish/metadata';
 
@@ -22,8 +21,6 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = buildPageMetadata(xWingPageMetadata);
 
 const EXAMPLE_BOARD = '953168742862734..1417..28367.6..3.2...1.4...7..5.7..6..38....74.7438...96294.7...';
-
-const example = buildTechniqueExample(EXAMPLE_BOARD, SolutionTechniqueEnum.XWing);
 
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const XWingPage = () => (
@@ -53,10 +50,10 @@ const XWingPage = () => (
             by two lines; Swordfish and Jellyfish, later on this list, stretch the same idea to three and four lines.
         </p>
         <h2>Worked example</h2>
-        <TechniqueExampleBoard example={example}>
+        <TechniqueWorkedExample board={EXAMPLE_BOARD} technique={SolutionTechniqueEnum.XWing}>
             The digit 2 is confined to columns 1 and 4 in rows 5 and 6. That rectangle removes 2 from every other cell in columns 1 and 4,
             which the solver reports as an elimination at r7c4.
-        </TechniqueExampleBoard>
+        </TechniqueWorkedExample>
         <p>
             Look at rows 5 and 6. In row 5, the only cells that can still hold 2 are r5c1 and r5c4. In row 6, the only cells that can still
             hold 2 are r6c1 and r6c4. Both rows restrict the digit to exactly the same pair of columns, 1 and 4, so the four corner cells

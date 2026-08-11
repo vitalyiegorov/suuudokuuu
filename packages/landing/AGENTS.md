@@ -38,9 +38,10 @@ src/
 │   ├── types/               # sitemap change frequency, slot component type
 │   └── utils/               # metadata factory, locale URLs, alternates, slot toolkit, node text extraction
 └── techniques/
-    ├── components/          # zero-JS example board, TL;DR box, prev/next chain
+    ├── components/          # zero-JS example board, the playable-board island, TL;DR box, prev/next chain
+    ├── constants/           # field-dom label contracts and technique display names
     ├── interfaces/          # example view model
-    └── utils/               # buildTechniqueExample, the build-time solver bridge
+    └── utils/               # buildTechniqueExample, cell labels, step narration
 ```
 
 ### CSS
@@ -145,10 +146,14 @@ Every page under `src/app/techniques/<slug>` renders a board that comes from the
 ```tsx
 const EXAMPLE_BOARD = '..7..1..2..8..7..1912..3745...';
 
-const example = buildTechniqueExample(EXAMPLE_BOARD, SolutionTechniqueEnum.HiddenQuad);
+<TechniqueWorkedExample board={EXAMPLE_BOARD} technique={SolutionTechniqueEnum.HiddenQuad}>
+    Caption prose describing what the solver found.
+</TechniqueWorkedExample>;
 ```
 
-`buildTechniqueExample` runs at module scope, so it executes once during static generation. It parses the 81-character board with `Sudoku.fromString`, builds a `TechniqueManager` over `createTechniqueStrategies()` filtered down to the single requested technique, and calls `findNextStep()`. The returned `TechniqueResultInterface` supplies the highlighted pattern cells, the placement or the eliminations, and the candidate list of every blank cell. If the detector does not report the expected technique the util throws and the build fails, so copy and diagram can never drift.
+`TechniqueWorkedExample` is the only worked-example entry point a page uses. It calls `buildTechniqueExample(board, technique)` during static generation and feeds both the prerendered table and the live board from that one board string, so the two can never drift.
+
+`buildTechniqueExample` executes once during static generation. It parses the 81-character board with `Sudoku.fromString`, builds a `TechniqueManager` over `createTechniqueStrategies()` filtered down to the single requested technique, and calls `findNextStep()`. The returned `TechniqueResultInterface` supplies the highlighted pattern cells, the placement or the eliminations, and the candidate list of every blank cell. If the detector does not report the expected technique the util throws and the build fails, so copy and diagram can never drift.
 
 Filtering the registry matters. `findNextStep` returns the first strategy in the given order that fires, so an unfiltered manager can only ever report the simplest technique available on a board. Several techniques, `HiddenQuad` above all, can never be the simplest step on any legal position, and a filtered registry is the only way to observe them.
 
@@ -156,10 +161,20 @@ To add a technique page:
 
 1. Find a board where the technique fires. Boards from `packages/techniques/src/**/*.spec.ts` work, and so does any real solve position.
 2. Create `src/app/techniques/<slug>/metadata.ts` with a keyword-first `metaTitle`, and register it in `page-metadata.registry.ts`.
-3. Copy the structure of an existing technique page: `Breadcrumbs`, `h1`, a definition-first opening sentence, `TechniqueSummary`, prose sections, `TechniqueExampleBoard`, `HowTo` with `HowToStep` children, a mistakes list, `FaqPage` with `Faq`/`FaqQuestion`/`FaqAnswer` children, and `TechniqueNavigation`.
+3. Copy the structure of an existing technique page: `Breadcrumbs`, `h1`, a definition-first opening sentence, `TechniqueSummary`, prose sections, `TechniqueWorkedExample`, `HowTo` with `HowToStep` children, a mistakes list, `FaqPage` with `Faq`/`FaqQuestion`/`FaqAnswer` children, and `TechniqueNavigation`.
 4. Point the `previous` and `next` props at the neighbouring sidecars in `SolutionTechniqueEnum` order.
 5. Write 600 to 900 words of copy inline. Use typographic apostrophes; `react/no-unescaped-entities` rejects raw `'` in JSX text.
 6. Keep the `max-lines-per-function` disable on the page component. Long-form copy in a route file is the reason it is there.
+
+## The playable-board island
+
+`TechniqueWorkedExample` (server) renders `TechniqueExampleBoard` inside `TechniquePlayableBoard` (client). The prerendered table is the baseline and the SEO artefact; the live board is an opt-in island.
+
+- The static `<table class="sudoku-board">`, its candidate grid, and the `solver-output` list are always in the exported HTML, wrapped in a `<details open>` that stays in the DOM after the island mounts. View-source is the crawlability contract; never move the table behind a client-only render.
+- The island mounts on user intent, not on visibility. `TechniquePlayableBoard` ships only a button and a `useState` flag; the engine arrives through `next/dynamic(..., { ssr: false })` when the reader presses “Try it on a live board”. On-visible gating would charge every scrolling reader the full `field-core` + `field-dom` + `techniques` + `generator` payload for a widget most readers never touch, so intent gating is the rule here. The island chunk must never appear in the page's script or preload list.
+- `TechniqueLiveBoard` owns the engine: `new FieldEngine({ sudokuString: board, difficulty, showAutoCandidates: true })`, `getGivenCellKeys(board)`, and `findStepScript(engine.Sudoku, createTechniqueStrategies().filter(...))` narrowed to the page's technique — the same narrowing `buildTechniqueExample` uses, which is why the walkthrough reproduces the static solver output exactly.
+- `field-dom` ships no strings. `FIELD_LABELS` in `src/techniques/constants/field-labels.constant.ts` supplies every control label, and `renderTechniqueNarration` turns the structured `{ technique, cells, values }` payload into prose generically for all 26 pages. Do not hand-write per-technique narration.
+- Theming happens by overriding `--field-*` custom properties on `.technique-embed__live` in `global.css`. The packaged stylesheet is wrapped in `@layer field-dom`, so the unlayered landing rules win. Map every colour to the existing `--landing-*` token so the live board matches the static table.
 
 ## Knip
 

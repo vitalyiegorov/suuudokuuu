@@ -9,10 +9,9 @@ import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
 import { HowToStep } from '../../../seo/components/how-to-step/how-to-step';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
-import { TechniqueExampleBoard } from '../../../techniques/components/technique-example-board/technique-example-board';
 import { TechniqueNavigation } from '../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
-import { buildTechniqueExample } from '../../../techniques/utils/build-technique-example.util';
+import { TechniqueWorkedExample } from '../../../techniques/components/technique-worked-example/technique-worked-example';
 import { homePageMetadata } from '../../metadata';
 import { techniquesPageMetadata } from '../metadata';
 import { nakedPairPageMetadata } from '../naked-pair/metadata';
@@ -25,8 +24,6 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = buildPageMetadata(nakedTriplePageMetadata);
 
 const EXAMPLE_BOARD = '..5.21.43934567812....34.5....215364342786195561493278.5317.48....64.5374..35..21';
-
-const example = buildTechniqueExample(EXAMPLE_BOARD, SolutionTechniqueEnum.NakedTriple);
 
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const NakedTriplePage = () => (
@@ -62,10 +59,10 @@ const NakedTriplePage = () => (
             blanks and the candidate lists are still too wide for three cells to share only three digits.
         </p>
         <h2>Worked example</h2>
-        <TechniqueExampleBoard example={example}>
+        <TechniqueWorkedExample board={EXAMPLE_BOARD} technique={SolutionTechniqueEnum.NakedTriple}>
             Column 2 holds a naked triple on 7, 8 and 9 in r1c2, r4c2 and r9c2. Four candidates are erased from the two remaining cells of
             the column.
-        </TechniqueExampleBoard>
+        </TechniqueWorkedExample>
         <p>
             Column 2 has five empty cells. Three of them carry only 7, 8 and 9 between them: r1c2 shows 7 and 8, r4c2 shows 7, 8 and 9, and
             r9c2 shows 7, 8 and 9. Note the mismatch in size, which is exactly why triples are missed so often. The union is still just

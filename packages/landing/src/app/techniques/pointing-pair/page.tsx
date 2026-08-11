@@ -7,11 +7,10 @@ import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
 import { HowToStep } from '../../../seo/components/how-to-step/how-to-step';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
-import { TechniqueExampleBoard } from '../../../techniques/components/technique-example-board/technique-example-board';
 import { TechniqueNavigation } from '../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
-import { buildTechniqueExample } from '../../../techniques/utils/build-technique-example.util';
+import { TechniqueWorkedExample } from '../../../techniques/components/technique-worked-example/technique-worked-example';
 import { hiddenSinglePageMetadata } from '../hidden-single/metadata';
 import { pointingTriplePageMetadata } from '../pointing-triple/metadata';
 
@@ -22,8 +21,6 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = buildPageMetadata(pointingPairPageMetadata);
 
 const EXAMPLE_BOARD = '9.3.....2..2.....1..7..2.36..6..3.2...1.4......5....6..3......4.74.8...962.4.7...';
-
-const example = buildTechniqueExample(EXAMPLE_BOARD, SolutionTechniqueEnum.PointingPair);
 
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const PointingPairPage = () => (
@@ -56,9 +53,9 @@ const PointingPairPage = () => (
             the surviving candidates for a digit get squeezed into a single band of three cells.
         </p>
         <h2>Worked example</h2>
-        <TechniqueExampleBoard example={example}>
+        <TechniqueWorkedExample board={EXAMPLE_BOARD} technique={SolutionTechniqueEnum.PointingPair}>
             In the bottom-left box the digit 1 survives only in r7c1 and r8c1, both in column 1. The solver therefore erases 1 from r3c1.
-        </TechniqueExampleBoard>
+        </TechniqueWorkedExample>
         <p>
             The bottom-left box has four empty cells: r7c1, r7c3, r8c1 and r9c3. Only r7c1 and r8c1 can still take a 1, and they sit one
             above the other in column 1. Whichever of the two ends up holding the digit, column 1 gets its 1 from inside that box.

@@ -7,11 +7,10 @@ import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
 import { HowToStep } from '../../../seo/components/how-to-step/how-to-step';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
-import { TechniqueExampleBoard } from '../../../techniques/components/technique-example-board/technique-example-board';
 import { TechniqueNavigation } from '../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
-import { buildTechniqueExample } from '../../../techniques/utils/build-technique-example.util';
+import { TechniqueWorkedExample } from '../../../techniques/components/technique-worked-example/technique-worked-example';
 import { fullHousePageMetadata } from '../full-house/metadata';
 import { hiddenSinglePageMetadata } from '../hidden-single/metadata';
 
@@ -22,8 +21,6 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = buildPageMetadata(nakedSinglePageMetadata);
 
 const EXAMPLE_BOARD = '9.3.68..2862.34.514.7..28367.68.3.252816453973.527..68.38.2.674.7438.2.96294.7..3';
-
-const example = buildTechniqueExample(EXAMPLE_BOARD, SolutionTechniqueEnum.NakedSingle);
 
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const NakedSinglePage = () => (
@@ -56,10 +53,10 @@ const NakedSinglePage = () => (
             single.
         </p>
         <h2>Worked example</h2>
-        <TechniqueExampleBoard example={example}>
+        <TechniqueWorkedExample board={EXAMPLE_BOARD} technique={SolutionTechniqueEnum.NakedSingle}>
             The Suuudokuuu solver marks r1c8 as its reason cell and places 4 there. Every other digit is blocked by row 1, column 8 or the
             top-right box.
-        </TechniqueExampleBoard>
+        </TechniqueWorkedExample>
         <p>
             Look only at r1c8. Row 1 already holds 9, 3, 6, 8 and 2. Column 8 already holds 5, 3, 2, 9, 6 and 7. The top-right box already
             holds 2, 5, 1, 8, 3 and 6. Put those three lists together and they cover 1, 2, 3, 5, 6, 7, 8 and 9. Only 4 is left, so 4 goes in

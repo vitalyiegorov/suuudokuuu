@@ -7,11 +7,10 @@ import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
 import { HowToStep } from '../../../seo/components/how-to-step/how-to-step';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
-import { TechniqueExampleBoard } from '../../../techniques/components/technique-example-board/technique-example-board';
 import { TechniqueNavigation } from '../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
-import { buildTechniqueExample } from '../../../techniques/utils/build-technique-example.util';
+import { TechniqueWorkedExample } from '../../../techniques/components/technique-worked-example/technique-worked-example';
 import { wWingPageMetadata } from '../w-wing/metadata';
 import { xyWingPageMetadata } from '../xy-wing/metadata';
 
@@ -22,8 +21,6 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = buildPageMetadata(xyzWingPageMetadata);
 
 const EXAMPLE_BOARD = '953168742862734951417..28367.6..3.2528164..973.527..68.38.2.674.7438.2.96294.7..3';
-
-const example = buildTechniqueExample(EXAMPLE_BOARD, SolutionTechniqueEnum.XYZWing);
 
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const XYZWingPage = () => (
@@ -56,10 +53,10 @@ const XYZWingPage = () => (
             in positions where the pivot’s extra candidate rules out a plain XY-Wing but the three-way agreement on Z still holds.
         </p>
         <h2>Worked example</h2>
-        <TechniqueExampleBoard example={example}>
+        <TechniqueWorkedExample board={EXAMPLE_BOARD} technique={SolutionTechniqueEnum.XYZWing}>
             The pivot r7c6 holds 1, 5 and 9. Pincer r7c4 holds 5 and 9; pincer r9c5 holds 1 and 5. All three cells and the target r8c6 share
             the same box, so the solver eliminates 5 there.
-        </TechniqueExampleBoard>
+        </TechniqueWorkedExample>
         <p>
             r7c6 is the pivot, carrying 1, 5 and 9. r7c4 shares the pivot’s row and holds 5 and 9. r9c5 shares the pivot’s box and holds 1
             and 5. Both pincers agree with the pivot on 5, so every one of the pivot’s three possible values leads to 5 landing somewhere in

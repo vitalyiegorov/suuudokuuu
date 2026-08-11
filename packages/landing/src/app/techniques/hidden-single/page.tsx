@@ -7,11 +7,10 @@ import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
 import { HowToStep } from '../../../seo/components/how-to-step/how-to-step';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
-import { TechniqueExampleBoard } from '../../../techniques/components/technique-example-board/technique-example-board';
 import { TechniqueNavigation } from '../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
-import { buildTechniqueExample } from '../../../techniques/utils/build-technique-example.util';
+import { TechniqueWorkedExample } from '../../../techniques/components/technique-worked-example/technique-worked-example';
 import { nakedSinglePageMetadata } from '../naked-single/metadata';
 import { pointingPairPageMetadata } from '../pointing-pair/metadata';
 
@@ -22,8 +21,6 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = buildPageMetadata(hiddenSinglePageMetadata);
 
 const EXAMPLE_BOARD = '.67..1.82.54..8.711827.3.4.491..685783657.12.27581..3.748192.6.629.8571.513..7298';
-
-const example = buildTechniqueExample(EXAMPLE_BOARD, SolutionTechniqueEnum.HiddenSingle);
 
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const HiddenSinglePage = () => (
@@ -55,9 +52,9 @@ const HiddenSinglePage = () => (
             Suuudokuuu solving order. Only when the board runs out of all three does the engine reach for intersections and subsets.
         </p>
         <h2>Worked example</h2>
-        <TechniqueExampleBoard example={example}>
+        <TechniqueWorkedExample board={EXAMPLE_BOARD} technique={SolutionTechniqueEnum.HiddenSingle}>
             The highlighted cells are column 5. The solver reports that 3 fits nowhere in that column except r4c5, so it places 3 there.
-        </TechniqueExampleBoard>
+        </TechniqueWorkedExample>
         <p>
             Column 5 already contains 7, 1, 9 and 8, so it still needs 2, 3, 4, 5 and 6 across its five empty cells: r1c5, r2c5, r3c5, r4c5
             and r9c5. Now follow the digit 3. The top-middle box already has a 3 at r3c6, which blocks r1c5, r2c5 and r3c5. Row 9 already

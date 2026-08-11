@@ -7,11 +7,10 @@ import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
 import { HowToStep } from '../../../seo/components/how-to-step/how-to-step';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
-import { TechniqueExampleBoard } from '../../../techniques/components/technique-example-board/technique-example-board';
 import { TechniqueNavigation } from '../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
-import { buildTechniqueExample } from '../../../techniques/utils/build-technique-example.util';
+import { TechniqueWorkedExample } from '../../../techniques/components/technique-worked-example/technique-worked-example';
 import { nakedSinglePageMetadata } from '../naked-single/metadata';
 
 import { fullHousePageMetadata } from './metadata';
@@ -21,8 +20,6 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = buildPageMetadata(fullHousePageMetadata);
 
 const EXAMPLE_BOARD = '..1..6..5.....5..18521937647956.21382149386576....1942147..95865238674199..514..3';
-
-const example = buildTechniqueExample(EXAMPLE_BOARD, SolutionTechniqueEnum.FullHouse);
 
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const FullHousePage = () => (
@@ -55,10 +52,10 @@ const FullHousePage = () => (
             full houses and singles, that is a precise statement about difficulty: no candidate bookkeeping was ever required.
         </p>
         <h2>Worked example</h2>
-        <TechniqueExampleBoard example={example}>
+        <TechniqueWorkedExample board={EXAMPLE_BOARD} technique={SolutionTechniqueEnum.FullHouse}>
             Row 4 holds eight digits and one blank. The highlighted cells are the row the Suuudokuuu solver used as its reason, and r4c5 is
             the placement it returned.
-        </TechniqueExampleBoard>
+        </TechniqueWorkedExample>
         <p>
             Row 4 of this position reads 7, 9, 5, 6, blank, 2, 1, 3 and 8. Comparing that list against 1 to 9 leaves exactly one absent
             digit, 4, so r4c5 takes 4. No other cell in the grid needs to be examined and no pencil marks are involved.

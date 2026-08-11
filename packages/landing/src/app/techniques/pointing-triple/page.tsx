@@ -7,11 +7,10 @@ import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
 import { HowToStep } from '../../../seo/components/how-to-step/how-to-step';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
-import { TechniqueExampleBoard } from '../../../techniques/components/technique-example-board/technique-example-board';
 import { TechniqueNavigation } from '../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
-import { buildTechniqueExample } from '../../../techniques/utils/build-technique-example.util';
+import { TechniqueWorkedExample } from '../../../techniques/components/technique-worked-example/technique-worked-example';
 import { boxLineReductionPageMetadata } from '../box-line-reduction/metadata';
 import { pointingPairPageMetadata } from '../pointing-pair/metadata';
 
@@ -22,8 +21,6 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = buildPageMetadata(pointingTriplePageMetadata);
 
 const EXAMPLE_BOARD = '.91.52.4354.937.122.3..4.59.5...3..443...5..612..49537912378465..5491328384526971';
-
-const example = buildTechniqueExample(EXAMPLE_BOARD, SolutionTechniqueEnum.PointingTriple);
 
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const PointingTriplePage = () => (
@@ -55,10 +52,10 @@ const PointingTriplePage = () => (
             available on a mid-difficulty puzzle, even though the reasoning is no harder than a pointing pair.
         </p>
         <h2>Worked example</h2>
-        <TechniqueExampleBoard example={example}>
+        <TechniqueWorkedExample board={EXAMPLE_BOARD} technique={SolutionTechniqueEnum.PointingTriple}>
             The top-right box has three blanks, r1c7, r2c7 and r3c7, and all of them lie in column 7. The digit 8 is therefore removed from
             r4c7 and r5c7.
-        </TechniqueExampleBoard>
+        </TechniqueWorkedExample>
         <p>
             The top-right box is missing 6, 7 and 8, and its only empty cells are r1c7, r2c7 and r3c7. Every one of them can still take an
             8. Because the box has to place its 8 somewhere, and all three homes stand in column 7, column 7 receives its 8 from inside that

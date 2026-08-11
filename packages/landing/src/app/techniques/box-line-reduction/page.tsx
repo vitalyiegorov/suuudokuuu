@@ -7,11 +7,10 @@ import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
 import { HowToStep } from '../../../seo/components/how-to-step/how-to-step';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
-import { TechniqueExampleBoard } from '../../../techniques/components/technique-example-board/technique-example-board';
 import { TechniqueNavigation } from '../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
-import { buildTechniqueExample } from '../../../techniques/utils/build-technique-example.util';
+import { TechniqueWorkedExample } from '../../../techniques/components/technique-worked-example/technique-worked-example';
 import { nakedPairPageMetadata } from '../naked-pair/metadata';
 import { pointingTriplePageMetadata } from '../pointing-triple/metadata';
 
@@ -22,8 +21,6 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = buildPageMetadata(boxLineReductionPageMetadata);
 
 const EXAMPLE_BOARD = '.486.1.23.362...411.2.3486.2.1...63..8435621.36.12..846..8134.241.7623.8823...176';
-
-const example = buildTechniqueExample(EXAMPLE_BOARD, SolutionTechniqueEnum.BoxLineReduction);
 
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const BoxLineReductionPage = () => (
@@ -55,9 +52,9 @@ const BoxLineReductionPage = () => (
             a cluster inside a box. Solvers who keep full pencil marks find it easily; solvers who cross-hatch tend to miss it.
         </p>
         <h2>Worked example</h2>
-        <TechniqueExampleBoard example={example}>
+        <TechniqueWorkedExample board={EXAMPLE_BOARD} technique={SolutionTechniqueEnum.BoxLineReduction}>
             In column 1 the digit 5 survives only in r1c1 and r2c1, and both belong to the top-left box, so 5 is removed from r3c2.
-        </TechniqueExampleBoard>
+        </TechniqueWorkedExample>
         <p>
             Column 1 still has three empty cells: r1c1, r2c1 and r5c1. The digit 5 is possible in r1c1 and r2c1 but not in r5c1, whose row
             already carries a 5. Both surviving cells sit in the top-left box, so that box receives its 5 from column 1.

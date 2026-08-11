@@ -7,11 +7,10 @@ import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
 import { HowToStep } from '../../../seo/components/how-to-step/how-to-step';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
-import { TechniqueExampleBoard } from '../../../techniques/components/technique-example-board/technique-example-board';
 import { TechniqueNavigation } from '../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
-import { buildTechniqueExample } from '../../../techniques/utils/build-technique-example.util';
+import { TechniqueWorkedExample } from '../../../techniques/components/technique-worked-example/technique-worked-example';
 import { hiddenPairPageMetadata } from '../hidden-pair/metadata';
 import { nakedTriplePageMetadata } from '../naked-triple/metadata';
 
@@ -22,8 +21,6 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = buildPageMetadata(nakedQuadPageMetadata);
 
 const EXAMPLE_BOARD = '..3.......56..4123..43.5...57...3..443.......16..42.3.681.3....3974....8245...36.';
-
-const example = buildTechniqueExample(EXAMPLE_BOARD, SolutionTechniqueEnum.NakedQuad);
 
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const NakedQuadPage = () => (
@@ -54,9 +51,9 @@ const NakedQuadPage = () => (
             other four automatically form a naked quad. Recognising the complement is often faster than testing combinations by hand.
         </p>
         <h2>Worked example</h2>
-        <TechniqueExampleBoard example={example}>
+        <TechniqueWorkedExample board={EXAMPLE_BOARD} technique={SolutionTechniqueEnum.NakedQuad}>
             Row 3 carries a naked quad on 6, 7, 8 and 9 across r3c1, r3c7, r3c8 and r3c9. All four digits are stripped from r3c5.
-        </TechniqueExampleBoard>
+        </TechniqueWorkedExample>
         <p>
             Row 3 has six empty cells. Four of them share a narrow set of options: r3c1 holds 7, 8 and 9; r3c7 holds 6, 7, 8 and 9; r3c8
             holds 7, 8 and 9; r3c9 holds 6, 7 and 9. Merging those lists gives exactly 6, 7, 8 and 9, so the quad is genuine.

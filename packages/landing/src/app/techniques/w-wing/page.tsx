@@ -7,11 +7,10 @@ import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
 import { HowToStep } from '../../../seo/components/how-to-step/how-to-step';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
-import { TechniqueExampleBoard } from '../../../techniques/components/technique-example-board/technique-example-board';
 import { TechniqueNavigation } from '../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
-import { buildTechniqueExample } from '../../../techniques/utils/build-technique-example.util';
+import { TechniqueWorkedExample } from '../../../techniques/components/technique-worked-example/technique-worked-example';
 import { xChainPageMetadata } from '../x-chain/metadata';
 import { xyzWingPageMetadata } from '../xyz-wing/metadata';
 
@@ -22,8 +21,6 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = buildPageMetadata(wWingPageMetadata);
 
 const EXAMPLE_BOARD = '953168742862734951417..28367.6..3.252816453973.527..68.38.2.674.7438.2.96294.7..3';
-
-const example = buildTechniqueExample(EXAMPLE_BOARD, SolutionTechniqueEnum.WWing);
 
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const WWingPage = () => (
@@ -57,10 +54,10 @@ const WWingPage = () => (
             W-Wing cells always does.
         </p>
         <h2>Worked example</h2>
-        <TechniqueExampleBoard example={example}>
+        <TechniqueWorkedExample board={EXAMPLE_BOARD} technique={SolutionTechniqueEnum.WWing}>
             r8c1 and r9c5 both hold 1 and 5, tied together by a strong link on 5. Because r8c6 sees both cells, the solver eliminates the
             shared value 1 there.
-        </TechniqueExampleBoard>
+        </TechniqueWorkedExample>
         <p>
             r8c1 and r9c5 both carry exactly 1 and 5. A strong link on 5 connects them, so the two cells always split the pair between them:
             whichever one ends up holding 5, the other is left holding 1. There is no way for both to hold 1 at once.

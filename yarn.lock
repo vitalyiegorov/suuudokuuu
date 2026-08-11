@@ -5360,7 +5360,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@suuudokuuu/field-dom@workspace:packages/field-dom":
+"@suuudokuuu/field-dom@workspace:*, @suuudokuuu/field-dom@workspace:packages/field-dom":
   version: 0.0.0-use.local
   resolution: "@suuudokuuu/field-dom@workspace:packages/field-dom"
   dependencies:
@@ -5399,6 +5399,8 @@ __metadata:
   resolution: "@suuudokuuu/landing@workspace:packages/landing"
   dependencies:
     "@rnw-community/shared": "npm:^2.2.0"
+    "@suuudokuuu/field-core": "workspace:*"
+    "@suuudokuuu/field-dom": "workspace:*"
     "@suuudokuuu/generator": "workspace:*"
     "@suuudokuuu/techniques": "workspace:*"
     "@types/react": "npm:~19.2.14"

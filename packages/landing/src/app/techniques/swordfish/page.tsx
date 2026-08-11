@@ -7,11 +7,10 @@ import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
 import { HowToStep } from '../../../seo/components/how-to-step/how-to-step';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
-import { TechniqueExampleBoard } from '../../../techniques/components/technique-example-board/technique-example-board';
 import { TechniqueNavigation } from '../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
-import { buildTechniqueExample } from '../../../techniques/utils/build-technique-example.util';
+import { TechniqueWorkedExample } from '../../../techniques/components/technique-worked-example/technique-worked-example';
 import { jellyfishPageMetadata } from '../jellyfish/metadata';
 import { xWingPageMetadata } from '../x-wing/metadata';
 
@@ -22,8 +21,6 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = buildPageMetadata(swordfishPageMetadata);
 
 const EXAMPLE_BOARD = '953168742862734..1417..28367.6..3.2.2.164...73.527..6..38.2.674.7438.2.96294.7...';
-
-const example = buildTechniqueExample(EXAMPLE_BOARD, SolutionTechniqueEnum.Swordfish);
 
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const SwordfishPage = () => (
@@ -57,10 +54,10 @@ const SwordfishPage = () => (
             rows trap the digit just as tightly, eliminating it from those three rows elsewhere.
         </p>
         <h2>Worked example</h2>
-        <TechniqueExampleBoard example={example}>
+        <TechniqueWorkedExample board={EXAMPLE_BOARD} technique={SolutionTechniqueEnum.Swordfish}>
             The digit 8 is confined to columns 2, 8 and 9 across rows 5, 6 and 9. That traps 8 out of every other cell in those three
             columns, which the solver reports as eliminations at r4c2 and r4c9.
-        </TechniqueExampleBoard>
+        </TechniqueWorkedExample>
         <p>
             In row 5, 8 can only go in r5c2 and r5c8. In row 6, it can only go in r6c2 and r6c9. In row 9, it can only go in r9c8 and r9c9.
             Collect the columns those six cells use: 2, 8, 2, 9, 8 and 9 — exactly three distinct columns, 2, 8 and 9, spread across exactly

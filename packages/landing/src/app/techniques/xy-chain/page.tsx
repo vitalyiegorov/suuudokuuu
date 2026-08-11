@@ -7,11 +7,10 @@ import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
 import { HowToStep } from '../../../seo/components/how-to-step/how-to-step';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
-import { TechniqueExampleBoard } from '../../../techniques/components/technique-example-board/technique-example-board';
 import { TechniqueNavigation } from '../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
-import { buildTechniqueExample } from '../../../techniques/utils/build-technique-example.util';
+import { TechniqueWorkedExample } from '../../../techniques/components/technique-worked-example/technique-worked-example';
 import { simpleColoringPageMetadata } from '../simple-coloring/metadata';
 import { xChainPageMetadata } from '../x-chain/metadata';
 
@@ -22,8 +21,6 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = buildPageMetadata(xyChainPageMetadata);
 
 const EXAMPLE_BOARD = '953168742862734951417..28367.6..3.2528164..973.527..68.38.2.674.7438.2.96294.7..3';
-
-const example = buildTechniqueExample(EXAMPLE_BOARD, SolutionTechniqueEnum.XYChain);
 
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const XYChainPage = () => (
@@ -55,10 +52,10 @@ const XYChainPage = () => (
             that candidate directly, one of the two endpoints always holds it.
         </p>
         <h2>Worked example</h2>
-        <TechniqueExampleBoard example={example}>
+        <TechniqueWorkedExample board={EXAMPLE_BOARD} technique={SolutionTechniqueEnum.XYChain}>
             The chain r4c5 → r9c5 → r9c7 → r6c7 → r6c2 links candidates 1, 5, 1 and 4 in turn, leaving 9 as the value both endpoints agree
             on. The solver eliminates 9 from r4c2 and r6c6.
-        </TechniqueExampleBoard>
+        </TechniqueWorkedExample>
         <p>
             r4c5 holds 1 and 9. r9c5 holds 1 and 5, sharing 1 with r4c5. r9c7 also holds 1 and 5, sharing 5 with r9c5. r6c7 holds 1 and 4,
             sharing 1 with r9c7. r6c2 holds 4 and 9, sharing 4 with r6c7. If r4c5 is not 1, it must be 9 — the chain ends immediately. If

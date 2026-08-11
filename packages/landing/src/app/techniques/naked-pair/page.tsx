@@ -7,11 +7,10 @@ import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
 import { HowToStep } from '../../../seo/components/how-to-step/how-to-step';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
-import { TechniqueExampleBoard } from '../../../techniques/components/technique-example-board/technique-example-board';
 import { TechniqueNavigation } from '../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
-import { buildTechniqueExample } from '../../../techniques/utils/build-technique-example.util';
+import { TechniqueWorkedExample } from '../../../techniques/components/technique-worked-example/technique-worked-example';
 import { boxLineReductionPageMetadata } from '../box-line-reduction/metadata';
 import { nakedTriplePageMetadata } from '../naked-triple/metadata';
 
@@ -22,8 +21,6 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = buildPageMetadata(nakedPairPageMetadata);
 
 const EXAMPLE_BOARD = '.....1.73.....7.61172.63.484.71856.221...6857586.721.4.2..1478.8.17.942.745628319';
-
-const example = buildTechniqueExample(EXAMPLE_BOARD, SolutionTechniqueEnum.NakedPair);
 
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const NakedPairPage = () => (
@@ -54,10 +51,10 @@ const NakedPairPage = () => (
             They are also the most common way out of a stall once singles and intersections have been exhausted.
         </p>
         <h2>Worked example</h2>
-        <TechniqueExampleBoard example={example}>
+        <TechniqueWorkedExample board={EXAMPLE_BOARD} technique={SolutionTechniqueEnum.NakedPair}>
             r5c3 and r7c3 both carry exactly 3 and 9. Column 3 therefore loses those candidates elsewhere, which the solver reports as three
             eliminations.
-        </TechniqueExampleBoard>
+        </TechniqueWorkedExample>
         <p>
             Column 3 has four empty cells. Two of them, r5c3 and r7c3, are down to the candidates 3 and 9 with nothing else. One will take 3
             and the other 9, so both digits are consumed inside the pair.

@@ -7,11 +7,10 @@ import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
 import { HowToStep } from '../../../seo/components/how-to-step/how-to-step';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
-import { TechniqueExampleBoard } from '../../../techniques/components/technique-example-board/technique-example-board';
 import { TechniqueNavigation } from '../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
-import { buildTechniqueExample } from '../../../techniques/utils/build-technique-example.util';
+import { TechniqueWorkedExample } from '../../../techniques/components/technique-worked-example/technique-worked-example';
 import { finnedXWingPageMetadata } from '../finned-x-wing/metadata';
 import { swordfishPageMetadata } from '../swordfish/metadata';
 
@@ -22,8 +21,6 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = buildPageMetadata(jellyfishPageMetadata);
 
 const EXAMPLE_BOARD = '94.71..32...25..41.12934.87...4.382.42.5..31..6.1.247....64.2.8..4.2.7.325.3..1.4';
-
-const example = buildTechniqueExample(EXAMPLE_BOARD, SolutionTechniqueEnum.Jellyfish);
 
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const JellyfishPage = () => (
@@ -57,10 +54,10 @@ const JellyfishPage = () => (
             digit just as tightly, eliminating it from those four rows elsewhere.
         </p>
         <h2>Worked example</h2>
-        <TechniqueExampleBoard example={example}>
+        <TechniqueWorkedExample board={EXAMPLE_BOARD} technique={SolutionTechniqueEnum.Jellyfish}>
             The digit 8 is confined to columns 1, 3, 5 and 6 across rows 1, 5, 6 and 9. That traps 8 out of every other cell in those four
             columns, which the solver reports as an elimination at r2c1.
-        </TechniqueExampleBoard>
+        </TechniqueWorkedExample>
         <p>
             Across rows 1, 5, 6 and 9, the only cells that can still hold 8 are r1c3, r1c6, r5c3, r5c5, r5c6, r6c1, r6c3, r6c5, r9c3, r9c5
             and r9c6. Collect the columns those eleven cells use: 1, 3, 5 and 6 — exactly four distinct columns spread across exactly four

@@ -7,11 +7,10 @@ import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
 import { HowToStep } from '../../../seo/components/how-to-step/how-to-step';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
-import { TechniqueExampleBoard } from '../../../techniques/components/technique-example-board/technique-example-board';
 import { TechniqueNavigation } from '../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
-import { buildTechniqueExample } from '../../../techniques/utils/build-technique-example.util';
+import { TechniqueWorkedExample } from '../../../techniques/components/technique-worked-example/technique-worked-example';
 import { wWingPageMetadata } from '../w-wing/metadata';
 import { xyChainPageMetadata } from '../xy-chain/metadata';
 
@@ -22,8 +21,6 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = buildPageMetadata(xChainPageMetadata);
 
 const EXAMPLE_BOARD = '953168742862734.51417..28367.6..3.252.164..973.527..68.38.2.674.7438.2.96294.7..3';
-
-const example = buildTechniqueExample(EXAMPLE_BOARD, SolutionTechniqueEnum.XChain);
 
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const XChainPage = () => (
@@ -59,10 +56,10 @@ const XChainPage = () => (
             alone are no longer enough.
         </p>
         <h2>Worked example</h2>
-        <TechniqueExampleBoard example={example}>
+        <TechniqueWorkedExample board={EXAMPLE_BOARD} technique={SolutionTechniqueEnum.XChain}>
             The digit 5 chains from r7c4 through r3c4, r3c5, r9c5 and r8c6 to r8c1. Because r7c1 sees both r7c4 and r8c1, the solver
             eliminates 5 there.
-        </TechniqueExampleBoard>
+        </TechniqueWorkedExample>
         <p>
             The chain on 5 runs r7c4 → r3c4 → r3c5 → r9c5 → r8c6 → r8c1, alternating strong and weak links along the way: r7c4 and r3c4
             share column 4, r3c4 and r3c5 share row 3, r3c5 and r9c5 share column 5, r9c5 and r8c6 share a box, and r8c6 and r8c1 share row

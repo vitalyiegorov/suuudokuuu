@@ -7,11 +7,10 @@ import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
 import { HowToStep } from '../../../seo/components/how-to-step/how-to-step';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
-import { TechniqueExampleBoard } from '../../../techniques/components/technique-example-board/technique-example-board';
 import { TechniqueNavigation } from '../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
-import { buildTechniqueExample } from '../../../techniques/utils/build-technique-example.util';
+import { TechniqueWorkedExample } from '../../../techniques/components/technique-worked-example/technique-worked-example';
 import { hiddenTriplePageMetadata } from '../hidden-triple/metadata';
 import { xWingPageMetadata } from '../x-wing/metadata';
 
@@ -22,8 +21,6 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = buildPageMetadata(hiddenQuadPageMetadata);
 
 const EXAMPLE_BOARD = '..7..1..2..8..7..1912..3745423795168679.18534185..4.79294176853856432917731..9426';
-
-const example = buildTechniqueExample(EXAMPLE_BOARD, SolutionTechniqueEnum.HiddenQuad);
 
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const HiddenQuadPage = () => (
@@ -56,10 +53,10 @@ const HiddenQuadPage = () => (
             sometimes the harder half to spot.
         </p>
         <h2>Worked example</h2>
-        <TechniqueExampleBoard example={example}>
+        <TechniqueWorkedExample board={EXAMPLE_BOARD} technique={SolutionTechniqueEnum.HiddenQuad}>
             In the top-middle box the digits 2, 4, 5 and 9 fit only in r1c4, r1c5, r2c4 and r2c5. Those four cells lose their 6 and 8
             candidates.
-        </TechniqueExampleBoard>
+        </TechniqueWorkedExample>
         <p>
             The top-middle box has six empty cells and is missing 2, 4, 5, 6, 8 and 9. Track four of those digits. 2 fits only in r2c4 and
             r2c5. 4 fits only in r1c5 and r2c5. 9 fits only in r1c4 and r2c4. 5 fits in all four of those cells. Together, 2, 4, 5 and 9
