@@ -20,9 +20,8 @@ interface Props {
 }
 
 export const SoftwareApplicationSchema = ({ children, description, name, path }: Props) => {
-    const featureList = findSlots(children, SoftwareApplicationFeature).map(featureElement =>
-        extractNodeText(featureElement.props.children)
-    );
+    const featureElements = findSlots(children, SoftwareApplicationFeature);
+    const featureList = featureElements.map(featureElement => extractNodeText(featureElement.props.children));
 
     const schema = {
         '@context': SCHEMA_CONTEXT,
@@ -36,5 +35,14 @@ export const SoftwareApplicationSchema = ({ children, description, name, path }:
         featureList
     };
 
-    return <JsonLd data={schema} />;
+    return (
+        <>
+            <JsonLd data={schema} />
+            <ul className="software-feature-list">
+                {featureElements.map(featureElement => (
+                    <li key={extractNodeText(featureElement.props.children)}>{featureElement.props.children}</li>
+                ))}
+            </ul>
+        </>
+    );
 };

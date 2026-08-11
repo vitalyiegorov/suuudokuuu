@@ -1,6 +1,5 @@
 :root {
-    --landing-font-family:
-        -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+    --landing-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
     --landing-background-color: #000000;
     --landing-surface-color: #111111;
     --landing-border-color: #333333;
@@ -78,6 +77,62 @@ a {
 
 strong {
     color: var(--landing-text-color);
+}
+
+.hero__eyebrow {
+    margin: 0 0 0.5rem;
+    color: var(--landing-accent-color);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.hero__cta {
+    display: inline-block;
+    margin: 0 0 2.5rem;
+    padding: 0.85rem 1.75rem;
+    border-radius: 0.35rem;
+    background-color: var(--landing-accent-color);
+    color: var(--landing-background-color);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.link-list {
+    margin: 0 0 2rem;
+    padding: 0;
+    list-style: none;
+}
+
+.link-list li {
+    margin: 0 0 0.75rem;
+}
+
+.software-feature-list {
+    margin: 0 0 2rem;
+    padding-left: 1.25rem;
+}
+
+.glossary-list {
+    margin: 0 0 2rem;
+}
+
+.glossary-entry {
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--landing-border-color);
+}
+
+.glossary-entry dt {
+    margin: 0 0 0.35rem;
+    color: var(--landing-text-color);
+    font-weight: 700;
+    scroll-margin-top: 1rem;
+}
+
+.glossary-entry dd {
+    margin: 0;
+    color: var(--landing-muted-text-color);
 }
 
 .site-header {
