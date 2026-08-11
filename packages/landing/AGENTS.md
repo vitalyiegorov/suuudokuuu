@@ -4,6 +4,10 @@
 
 Read the root `AGENTS.md` first. Every engineering rule there applies here.
 
+`docs/seo-pages.md` is the long-form content-page architecture guide: page anatomy, the compound-children pattern behind the schema primitives, the concern → primitive reference table, the indexing and submission rules, and the checklist for adding a page. This file stays the rules-of-record summary; read the guide before authoring a new page or a new SEO primitive.
+
+`docs/indexing.md` is the indexing runbook: what the build publishes, why IndexNow submission is a CLI script rather than an API route, the `INDEXNOW_KEY` environment variable and key rotation, the Search Console and Bing setup, and what to monitor. Read it before changing `src/indexing`, `sitemap.ts`, `robots.ts`, or either indexing script.
+
 ## Commands
 
 ```bash
@@ -11,6 +15,8 @@ yarn workspace @suuudokuuu/landing start   # next dev
 yarn workspace @suuudokuuu/landing build   # next build -> static export in out/
 yarn workspace @suuudokuuu/landing ts
 yarn workspace @suuudokuuu/landing lint
+yarn workspace @suuudokuuu/landing submit:indexnow --dry-run   # print the sitemap-derived URL list
+yarn workspace @suuudokuuu/landing submit:indexnow             # needs INDEXNOW_KEY, run after deploy
 ```
 
 The static export lands in `packages/landing/out`. Both `packages/landing/.next` and `packages/landing/out` are git-ignored.
@@ -31,6 +37,10 @@ src/
 │   └── techniques/          # /techniques hub plus one folder per technique page
 ├── chrome/
 │   └── components/          # site header and site footer, used by the root layout
+├── indexing/
+│   ├── constants/           # IndexNow env-var name, endpoint and key pattern, llms.txt section names
+│   ├── interfaces/          # the indexable page view model
+│   └── utils/               # buildIndexablePages (the one URL enumeration), llms.txt builder, IndexNow key helpers
 ├── difficulty/
 │   ├── components/          # prev/next difficulty chain
 │   ├── constants/           # difficulty display names, ladder order, difficulty page paths
@@ -126,17 +136,23 @@ Never hand-write `<script type="application/ld+json">`. `JsonLd` rewrites every 
 
 No `headers()`, `cookies()`, `searchParams`-driven branching, route handlers, middleware, or server actions. `output: 'export'` fails on all of them. Everything the site renders must be knowable at build time.
 
-Metadata routes (`sitemap.ts`, `robots.ts`, `manifest.ts`) compile to route handlers, so each one must export `export const dynamic = 'force-static';`. The build fails without it.
+Metadata routes (`sitemap.ts`, `robots.ts`, `manifest.ts`) compile to route handlers, so each one must export `export const dynamic = 'force-static';`. The build fails without it. If one of them ever becomes host- or locale-dependent it must switch to `force-dynamic`; a time-based `revalidate` on a metadata route is never correct.
 
-### 9. No network fonts
+Root-level files that are not routes — `llms.txt` and the IndexNow key file — are written into `public/` by `scripts/generate-indexing-files.ts` before `next build`, because a static export cannot serve them from a route handler and the key must come from an environment variable rather than the repository. Both are git-ignored.
+
+### 9. One URL enumeration
+
+`buildIndexablePages()` in `src/indexing/utils/build-indexable-pages.util.ts` is the only enumeration of the site's URLs. `sitemap.ts`, `llms.txt` and `scripts/submit-indexnow.ts` all derive from it. Never rebuild a URL list by walking `PAGE_METADATA_REGISTRY` in submitting or listing code — two enumerations drift, and a submitted set that no longer matches the crawlable set corrupts search-console signals. See `docs/seo-pages.md` §4 and `docs/indexing.md`.
+
+### 10. No network fonts
 
 Do not add `next/font/google`. Offline CI builds must not depend on font downloads. Use the system font stack in `src/app/global.css`.
 
-### 10. Brand constants live in one module
+### 11. Brand constants live in one module
 
 Site name, origin, locales, tagline, description and theme colors live in `src/seo/constants/site.constant.ts`. Do not re-declare the origin or the site name anywhere else. URLs are built with `buildLocaleUrl`, canonical and hreflang with `buildAlternates` / `buildLanguageAlternates`.
 
-### 11. No Lingui yet
+### 12. No Lingui yet
 
 The landing package is English-only and is deliberately excluded from the root ESLint Lingui config block. Plain JSX text is correct here. The locale plumbing (`DEFAULT_LOCALE`, `SUPPORTED_LOCALES`, `buildLocaleUrl`, `x-default` hreflang) is already in place so adding locales is a constants change plus a route segment, not a rewrite. When Lingui is introduced, re-add `packages/landing/**/*.{ts,tsx}` to the Lingui block in the root `eslint.config.mjs`.
 
