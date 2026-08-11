@@ -1,8 +1,10 @@
-Llega la dificultad Infierno: el nivel más duro que ha tenido suuudokuuu. Cada tablero es una cuadrícula de 17 pistas verificada a mano, filtrada para que no se cuele nada que se resuelva con singles simples. Aquí hace falta técnica de verdad.
+Llega Infinity: 100 sudokus récord mundial valorados entre SE 10.4 y 11.9. El Everest y AI Escargot de Arto Inkala, Golden Nugget, Platinum Blonde, Kolk, Patience. La mayoría de la gente no termina ninguno.
 
-• Motor de temas completo: Clásico, Oro y Periódico, más un editor propio con vista previa en vivo del tablero. El control de contraste mantiene tus colores legibles en claro y en oscuro.
-• Repeticiones mejores: comparte cualquier momento de una partida y recorre los pasos de la solución arrastrando el dedo.
-• Modo desafío: revisa el resumen de tu partida antes de compartirla y "jugar de nuevo" conserva toda tu configuración.
-• Confeti en cada victoria.
-• Diseño más nítido en tablets y web.
-• Corregido un fallo raro y partidas nuevas más rápidas.
+• Cada puzle muestra ya su valoración Sudoku Explainer en la escala de 1,0 a 12,0: en la etiqueta de nivel del tablero, en el historial y en los enlaces compartidos. Una explicación integrada te dice qué significa ese número.
+• Infierno, revisado: 1.544 puzles verificados de 17 pistas, todos con SE 6,6 o superior. Se acabaron los tableros "durísimos" que caen a base de singles.
+• Estadísticas rediseñadas: tu resolución más difícil, la dificultad media reciente, el nivel que más juegas, el espectro SE completo y tu arsenal de técnicas con sus recuentos.
+• Las tarjetas del historial llevan un resumen de técnicas, y la pantalla de repetición está más limpia.
+• Control total con el teclado en la web: flechas, dígitos, Espacio o N para notas, Mayús y un dígito para candidatos, A para candidatos automáticos.
+• Corregido: abrir un enlace compartido ya no borra tus estadísticas.
+• Corregido: salir de una partida funciona ya en todos los idiomas.
+• Más rápido: las partidas de Infierno arrancan al instante y el historial carga sin tirones.

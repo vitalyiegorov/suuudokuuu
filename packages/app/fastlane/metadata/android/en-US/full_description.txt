@@ -1,32 +1,38 @@
-suuudokuuu is Sudoku the way it should be: fast, beautiful, and honest about difficulty. Six levels, from a gentle Newbie board to genuine Hell — the hardest legitimate Sudoku that exists. No ads pretending to be puzzles, no accounts, no nonsense. Just you and the grid.
+suuudokuuu is Sudoku the way it should be: fast, beautiful, and honest about difficulty. Seven levels, from a gentle Newbie board to Infinity — the hardest Sudoku puzzles ever composed. No ads pretending to be puzzles, no accounts, no nonsense. Just you and the grid.
 
-NEW LOOK AND FEEL
-We rebuilt the board from the color up. Pick Classic, Gold, or Newspaper, or open the live-preview theme editor and make every cell, line, and highlight exactly yours. Built-in contrast validation keeps every custom theme readable in both light and dark, so your board always looks sharp and never strains your eyes.
+EVERY PUZZLE, RATED
+Most apps label a board "expert" and hope you don't look closer. We put a number on it. Every puzzle carries a Sudoku Explainer rating on the 1.0 to 12.0 scale serious solvers use, shown right in the level pill on the board, in your history, and on every link you share. A built-in explainer tells you what the number actually measures — how hard the puzzle is to reason through, not how few clues it has.
 
-HELL DIFFICULTY, FOR REAL
-Most "expert" Sudoku apps fake their hardest level. Ours doesn't. Hell difficulty draws from a bundled, verified corpus of 49,158 genuine 17-clue puzzles — the minimum number of clues a Sudoku can have and still be uniquely solvable. If you've ever finished an "expert" puzzle and felt shortchanged, this is the level that will finally push back.
+INFINITY: THE WORLD'S HARDEST SUDOKU
+A curated set of 100 world-record puzzles rated SE 10.4 to 11.9. Arto Inkala's Everest and AI Escargot. Golden Nugget. Platinum Blonde. Kolk, Patience, Fata Morgana, Red Dwarf. These are the grids the solving community made famous, and most people never finish one.
+
+HELL, RE-CURATED
+Hell is now 1,544 verified 17-clue puzzles, every one rated SE 6.6 or higher. Seventeen clues is the fewest a Sudoku can have and still have exactly one solution — but a low clue count alone doesn't make a puzzle hard, so we rated the whole corpus and kept only the boards that fight back.
+
+YOUR SOLVING, MEASURED
+The redesigned statistics screen shows your hardest solve, your recent average difficulty and the level you play most. The SE spectrum plots every puzzle you've finished across the scale. Your arsenal counts every technique you've actually used — naked pairs, X-Wing, swordfish and further — so you can watch your repertoire grow.
 
 CHALLENGE A FRIEND
 Rival mode sends your exact puzzle to a friend as a share link, with your recorded run attached. They play the same grid you did and race your time move for move. Bragging rights, settled.
 
 WATCH IT BACK
-Every completed game can be replayed, move by move. Rewind your own solve, study where you slowed down, or just enjoy watching a good finish twice.
+Every finished game replays move by move, and each history card carries a summary of the techniques that solved it.
 
-SMARTER SCORING
-Our scoring isn't just a timer. It's technique-aware, recognizing real solving moves like Naked Pairs and X-Wing as you play, so your score reflects how you actually solved the puzzle, not just how fast you clicked.
+PLAY YOUR WAY
+Pick Classic, Gold or Newspaper, or open the live-preview theme editor and make every cell, line and highlight yours. Built-in contrast validation keeps custom themes readable in light and dark. On the web there's full keyboard control: arrows to move, digits to place, Space or N for pencil mode, Shift and a digit for candidate marks, A for auto-candidates.
 
 EVERYTHING ELSE YOU'D WANT
-• 6 difficulties, Newbie to Hell
+• 7 difficulties, Newbie to Infinity
+• An SE difficulty rating on every puzzle
 • Full theme engine with light and dark support
 • Rival challenges via share link
-• Full move-by-move replay
-• Technique-aware scoring and move analysis
+• Move-by-move replay with technique analysis
+• Technique-aware scoring
 • 13 languages
-• Confetti on every win, buttery-smooth animations
 • Works fully offline
 • No account, no sign-up, ever
 • Free and open-source
 
-suuudokuuu is built for people who actually love Sudoku, not people who want to be sold a subscription. Download it, pick a difficulty, and see how far you get before Hell mode humbles you.
+suuudokuuu is built for people who actually love Sudoku, not people who want to be sold a subscription. Download it, pick a difficulty, and find out what your number is.
 
 Learn more at www.suuudokuuu.com.

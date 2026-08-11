@@ -1,6 +1,6 @@
-🔥 Neue Stufe "Hölle": handgeprüfte 17-Hinweis-Rätsel, nur mit echter Technik zu knacken.
-🎨 Themes: Classic, Gold, Newspaper — oder bau dein eigenes mit Live-Vorschau.
-▶️ Replay: jeden Moment teilen, per Finger durch die Lösungsschritte ziehen.
-🏆 Challenge: Rundenübersicht ansehen, bevor du sie teilst.
-🎉 Konfetti bei jedem Sieg.
-⚡ Besseres Tablet- und Web-Layout, schnellere neue Spiele.
+Infinity ist da: 100 Weltrekord-Rätsel mit SE 10.4 bis 11.9, darunter Everest und Golden Nugget.
+Jedes Rätsel zeigt jetzt seine Sudoku-Explainer-Bewertung, mit eingebauter Erklärung.
+Hölle neu kuratiert: 1.544 geprüfte 17-Hinweis-Bretter, alle SE 6.6 oder höher.
+Neue Statistik: schwerste Lösung, SE-Spektrum und dein Technik-Arsenal.
+Technik-Zusammenfassungen im Verlauf, volle Tastatursteuerung im Web.
+Behoben: Geteilte Links löschen nicht mehr deine Statistik.

@@ -1,31 +1,38 @@
-suuudokuuu adalah Sudoku seperti seharusnya: cepat, cantik, dan jujur soal tingkat kesulitan. Enam level, dari papan Newbie yang santai sampai Hell yang sesungguhnya — Sudoku legal tersulit yang ada. Tanpa iklan yang menyamar jadi puzzle, tanpa akun, tanpa ribet. Cuma kamu dan papan sudoku.
+suuudokuuu adalah Sudoku seperti seharusnya: cepat, cantik, dan jujur soal tingkat kesulitan. Tujuh level, dari papan Pemula yang santai sampai Infinity — Sudoku tersulit yang pernah dibuat. Tanpa iklan yang menyamar jadi puzzle, tanpa akun, tanpa ribet. Cuma kamu dan papan sudoku.
 
-TAMPILAN BARU
-Kami membangun ulang papan permainan dari warnanya. Pilih Classic, Gold, atau Newspaper, atau buka editor tema dengan live preview dan atur sendiri setiap sel, garis, dan highlight sesuai selera kamu. Validasi kontras bawaan menjaga setiap tema custom tetap enak dibaca, baik mode terang maupun gelap, jadi papan kamu selalu tajam dan nggak bikin mata capek.
+SEMUA PUZZLE ADA RATINGNYA
+Kebanyakan aplikasi menempel label "expert" di sebuah papan dan berharap kamu nggak memeriksanya. Kami menaruh angka di situ. Setiap puzzle punya rating Sudoku Explainer di skala 1,0 sampai 12,0 yang dipakai para pemain serius, langsung di label level pada papan, di riwayat kamu, dan di setiap tautan yang kamu bagikan. Penjelasan bawaan memberi tahu apa yang sebenarnya diukur angka itu: seberapa berat penalaran yang dibutuhkan, bukan sesedikit apa cluenya.
 
-HELL DIFFICULTY, ASLI
-Kebanyakan aplikasi Sudoku "expert" itu palsu di level tersulitnya. Punya kami enggak. Hell difficulty diambil dari korpus terverifikasi berisi 49.158 puzzle 17-clue asli — jumlah clue minimum yang bikin Sudoku masih punya solusi tunggal. Kalau kamu pernah menyelesaikan puzzle "expert" tapi merasa kurang tertantang, level ini yang bakal bikin kamu keteteran beneran.
+INFINITY: SUDOKU TERSULIT SEDUNIA
+Kumpulan pilihan berisi 100 puzzle rekor dunia dengan rating SE 10.4 sampai 11.9. Everest dan AI Escargot karya Arto Inkala. Golden Nugget. Platinum Blonde. Kolk, Patience, Fata Morgana, Red Dwarf. Inilah papan-papan yang membuat komunitas Sudoku terkenal, dan kebanyakan orang tidak pernah menyelesaikan satu pun.
+
+NERAKA, DIKURASI ULANG
+Neraka kini berisi 1.544 puzzle 17-clue terverifikasi, semuanya dengan rating SE 6,6 atau lebih tinggi. Tujuh belas clue adalah jumlah paling sedikit yang masih membuat sebuah Sudoku punya satu solusi, tapi sedikitnya clue saja tidak membuat puzzle jadi sulit. Jadi kami memberi rating pada seluruh korpus dan hanya menyimpan papan yang benar-benar melawan.
+
+PERMAINAN KAMU, TERUKUR
+Layar statistik yang dirancang ulang menampilkan penyelesaian tersulit kamu, rata-rata tingkat kesulitan terakhir, dan level yang paling sering kamu mainkan. Spektrum SE menyebar setiap puzzle yang sudah kamu selesaikan di sepanjang skala. Arsenal kamu menghitung setiap teknik yang benar-benar kamu pakai — naked pair, X-Wing, swordfish dan seterusnya — biar kamu lihat sendiri repertoar kamu bertambah.
 
 TANTANG TEMAN
 Rival mode mengirim puzzle kamu persis ke teman lewat share link, lengkap dengan rekaman permainan kamu. Mereka main di grid yang sama dan balapan lawan waktu kamu, gerakan demi gerakan. Gengsi, tuntas.
 
 TONTON ULANG
-Setiap permainan yang selesai bisa ditonton ulang, gerakan demi gerakan. Putar ulang permainan kamu sendiri, pelajari di mana kamu melambat, atau nikmati lagi momen penyelesaian yang keren.
+Setiap permainan yang selesai bisa diputar ulang gerakan demi gerakan, dan tiap kartu riwayat membawa ringkasan teknik yang dipakai menyelesaikannya.
 
-SKOR LEBIH PINTAR
-Skor kami bukan cuma soal waktu. Sistemnya paham teknik, mengenali gerakan solving asli seperti Naked Pairs dan X-Wing saat kamu main, jadi skor kamu mencerminkan cara kamu benar-benar menyelesaikan puzzle, bukan sekadar seberapa cepat kamu klik.
+MAIN SESUKA KAMU
+Pilih Classic, Gold, atau Newspaper, atau buka editor tema dengan live preview dan atur sendiri setiap sel, garis, dan highlight. Validasi kontras bawaan menjaga tema custom tetap enak dibaca di mode terang maupun gelap. Di web ada kontrol keyboard penuh: panah untuk berpindah, angka untuk mengisi, Spasi atau N untuk mode catatan, Shift dan angka untuk kandidat, A untuk kandidat otomatis.
 
 SEMUA YANG KAMU BUTUHKAN
-• 6 tingkat kesulitan, Newbie sampai Hell
+• 7 tingkat kesulitan, Pemula sampai Infinity
+• Rating kesulitan SE di setiap puzzle
 • Theme engine lengkap dengan dukungan mode terang dan gelap
 • Tantangan rival lewat share link
-• Replay lengkap, gerakan demi gerakan
-• Skor dan analisis gerakan yang paham teknik
+• Replay gerakan demi gerakan dengan analisis teknik
+• Skor yang paham teknik
 • 13 bahasa
-• Confetti di setiap kemenangan, animasi super mulus
 • Bisa dimainkan full offline
 • Tanpa akun, tanpa daftar, selamanya
+• Gratis dan open source
 
-suuudokuuu dibuat untuk orang yang beneran suka Sudoku, bukan buat orang yang mau ditawari langganan. Download, pilih tingkat kesulitan, dan lihat sejauh mana kamu bertahan sebelum Hell mode bikin kamu nyerah.
+suuudokuuu dibuat untuk orang yang beneran suka Sudoku, bukan buat orang yang mau ditawari langganan. Download, pilih tingkat kesulitan, dan cari tahu berapa angka kamu.
 
 Info lengkap di www.suuudokuuu.com.

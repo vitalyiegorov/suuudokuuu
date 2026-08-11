@@ -1,1 +1,1 @@
-logica,cerebro,numeros,offline,relax,oscuro,repeticion,compartir,amigos,x-wing,17pistas,novato
+logica,cerebro,numeros,dificultad,dificil,experto,puntuacion,record,x-wing,17pistas,repetir,amigos

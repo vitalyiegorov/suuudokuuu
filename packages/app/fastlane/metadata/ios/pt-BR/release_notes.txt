@@ -1,8 +1,10 @@
-Chegou a dificuldade Inferno — o nível mais duro que o suuudokuuu já teve. Cada grade tem 17 pistas, verificada à mão e filtrada para que nada resolvido por truques simples passe. Aqui é técnica de verdade.
+Chegou o Infinity: 100 Sudokus recordistas mundiais com nota SE de 10.4 a 11.9. O Everest e o AI Escargot de Arto Inkala, Golden Nugget, Platinum Blonde, Kolk, Patience. A maioria das pessoas nunca termina nenhum.
 
-• Motor de temas completo: Clássico, Ouro e Jornal, mais um editor próprio com prévia do tabuleiro em tempo real. A checagem de contraste mantém suas cores legíveis no claro e no escuro.
-• Replays melhores: compartilhe qualquer momento de uma partida e percorra os passos da solução arrastando o dedo.
-• Modo desafio: veja o resumo da sua partida antes de compartilhar, e "jogar de novo" guarda toda a sua configuração.
-• Confete em cada vitória.
-• Layout mais caprichado em tablets e na web.
-• Uma falha rara corrigida e partidas novas mais rápidas.
+• Todo puzzle agora mostra sua nota Sudoku Explainer na escala de 1,0 a 12,0: no selo de nível do tabuleiro, no histórico e nos links compartilhados. Uma explicação embutida conta o que o número significa.
+• O Inferno foi recurado: 1.544 puzzles verificados de 17 pistas, todos com SE 6,6 ou maior. Acabaram os tabuleiros "dificílimos" que caem só com singles.
+• Estatísticas redesenhadas: sua resolução mais difícil, a dificuldade média recente, o nível mais jogado, o espectro SE completo e seu arsenal de técnicas com contadores.
+• Os cartões do histórico trazem um resumo de técnicas, e a tela de replay ficou mais limpa.
+• Controle total pelo teclado na web: setas, dígitos, Espaço ou N pra anotação, Shift com um dígito pros candidatos, A pros candidatos automáticos.
+• Corrigido: abrir um link compartilhado não apaga mais suas estatísticas.
+• Corrigido: sair de uma partida agora funciona em todos os idiomas.
+• Mais rápido: partidas do Inferno começam na hora e o histórico carrega sem travar.

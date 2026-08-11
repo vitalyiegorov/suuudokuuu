@@ -1,8 +1,10 @@
-Tingkat Hell resmi hadir — level tersulit yang pernah ada di suuudokuuu. Setiap teka-tekinya grid 17 petunjuk yang diverifikasi manual dan disaring supaya tidak ada yang bisa ditembus trik sederhana. Siapkan teknik seriusmu.
+Infinity hadir: 100 Sudoku rekor dunia dengan rating SE 10.4 sampai 11.9. Everest dan AI Escargot karya Arto Inkala, Golden Nugget, Platinum Blonde, Kolk, Patience. Kebanyakan orang tidak pernah menyelesaikan satu pun.
 
-• Mesin tema lengkap: Classic, Gold, dan Newspaper, plus editor tema sendiri dengan pratinjau papan langsung. Pemeriksaan kontras menjaga warnamu tetap enak dibaca di mode terang dan gelap.
-• Replay makin asyik: bagikan momen mana pun dari permainanmu dan geser jarimu menyusuri langkah-langkah solusi.
-• Mode tantangan: lihat ringkasan permainanmu sebelum dibagikan, dan "main lagi" kini menyimpan seluruh pengaturanmu.
-• Konfeti meriah setiap kali kamu menang.
-• Tata letak lebih rapi di tablet dan web.
-• Perbaikan crash langka dan pembuatan game baru lebih cepat.
+• Setiap puzzle kini menampilkan rating Sudoku Explainer di skala 1,0 sampai 12,0: di label level pada papan, di riwayat, dan di tautan yang dibagikan. Penjelasan bawaan memberi tahu arti angkanya.
+• Neraka dikurasi ulang: 1.544 puzzle 17-clue terverifikasi, semuanya SE 6,6 atau lebih tinggi. Tidak ada lagi papan "tersulit" yang tumbang oleh single biasa.
+• Statistik dirancang ulang: penyelesaian tersulit kamu, rata-rata kesulitan terakhir, level paling sering dimainkan, spektrum SE penuh, dan arsenal teknik lengkap dengan hitungannya.
+• Kartu riwayat kini membawa ringkasan teknik, dan layar replay lebih bersih.
+• Kontrol keyboard penuh di web: panah, angka, Spasi atau N untuk catatan, Shift dan angka untuk kandidat, A untuk kandidat otomatis.
+• Diperbaiki: membuka tautan bagikan tidak lagi menghapus statistik kamu.
+• Diperbaiki: keluar dari permainan kini berfungsi di semua bahasa.
+• Lebih cepat: permainan Neraka mulai seketika dan riwayat termuat tanpa tersendat.
