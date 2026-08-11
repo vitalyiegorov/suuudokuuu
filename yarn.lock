@@ -5479,9 +5479,8 @@ __metadata:
     "@suuudokuuu/encoder": "workspace:*"
     "@suuudokuuu/field-core": "workspace:*"
     "@suuudokuuu/generator": "workspace:*"
-    "@suuudokuuu/hell-corpus": "workspace:*"
+    "@suuudokuuu/puzzle-forge": "workspace:*"
     "@suuudokuuu/screen-chrome": "workspace:*"
-    "@suuudokuuu/solver-core": "workspace:*"
     "@suuudokuuu/techniques": "workspace:*"
     "@suuudokuuu/ui": "workspace:*"
     "@testing-library/react-native": "npm:^14.0.1"
@@ -5616,7 +5615,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@suuudokuuu/puzzle-forge@workspace:packages/puzzle-forge":
+"@suuudokuuu/puzzle-forge@workspace:*, @suuudokuuu/puzzle-forge@workspace:packages/puzzle-forge":
   version: 0.0.0-use.local
   resolution: "@suuudokuuu/puzzle-forge@workspace:packages/puzzle-forge"
   dependencies:

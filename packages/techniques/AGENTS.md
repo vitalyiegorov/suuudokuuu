@@ -58,6 +58,23 @@ Logical strategies run in `SolutionTechniqueEnum` difficulty order from `createT
 
 A direct justification is one deduction step and always outranks an enabling one, which is two. Only moves that would otherwise fall through to `Guess` can reach the enabling pass.
 
+### LogicalSolver
+
+```typescript
+constructor(strategies?: TechniqueStrategyInterface[])
+solve(puzzleString: string): LogicalSolveResultInterface   // { isSolved, requiredTechniques, hardestTechnique }
+```
+
+The driver that answers "can this ladder finish this board, and what did it need". It exists because `findNextStep` rebuilds candidate state on every call and nothing consumes `TechniqueResultInterface.eliminations`, so a naive solve loop repeats the first elimination-only step forever.
+
+Per step the solver walks the registry once over one `CandidateContext`. The first strategy that returns placements supplies them all at once — every placement a strategy reports from one position is logically forced, so batching them is sound and saves a context rebuild per cell. A strategy that only eliminates has its eliminations folded into the working context with `withEliminations`, which means later strategies in the same pass see them, and the pass then re-asks the simpler placement strategies whether the new context forces a cell. Because eliminations accumulate across the pass, this driver is strictly stronger than one that re-queries from a fresh context per step.
+
+Placements only ever come from `PLACEMENT_TECHNIQUES` (Full House, Naked Single, Hidden Single); every other technique eliminates candidates. The constant keeps the elimination cash-in from re-running fish, wing and chain scans. A new placement-producing technique must be added to it.
+
+Narrowing the strategy list narrows the ladder, so `new LogicalSolver(createTechniqueStrategies().filter(strategy => strategy.technique <= NakedSingle))` answers "is this board solvable with naked singles alone". That is how `@suuudokuuu/puzzle-forge` grades difficulty tiers.
+
+`solve` parses its own `Sudoku` from the puzzle string, so it never mutates a caller's board. Every placement goes through `Sudoku.setCellValue`, which throws on a value that contradicts the solution — a solved result is therefore proof the ladder reached the real solution.
+
 ### TechniqueSearchTargetInterface
 
 `find(context, target)` narrows a scan to one move. `target.intent` says which pass is asking:
@@ -93,8 +110,8 @@ Cached snapshot of candidates per blank cell (`fromSudoku`), with unit/peer navi
 ## Exports
 
 ```typescript
-export { SolutionTechniqueEnum, TechniqueManager, createTechniqueStrategies };
-export type { TechniqueResultInterface, MoveClassificationInterface, TechniqueStrategyInterface };
+export { SolutionTechniqueEnum, TechniqueManager, LogicalSolver, createTechniqueStrategies };
+export type { TechniqueResultInterface, MoveClassificationInterface, TechniqueStrategyInterface, LogicalSolveResultInterface };
 ```
 
 `createTechniqueStrategies` is exported so a consumer can build a `TechniqueManager` over a narrowed registry, for example a single technique. `findNextStep` always returns the first strategy in the given order that fires, so a full registry can only ever surface the simplest available technique. Several techniques — `HiddenQuad` most obviously, because its in-unit complement is always a smaller naked subset — can therefore never be observed through the default registry, and a filtered registry is the only way to detect them on demand.

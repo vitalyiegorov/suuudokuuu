@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Suuudokuuu is an open-source Sudoku game built with React Native and Expo. This monorepo has twelve core packages: `app` for the game UI, `landing` for the static Next.js content and SEO site, `generator` for Sudoku generation and solving, `solver-core` for the shared solver contract, grid utilities, and conformance helpers, `solver-dlx` for the Dancing Links exact-cover solver, `solver-bitmask` for the typed-array bitmask solver, `techniques` for solving-technique detection, `field-core` for the headless interactive field engine and technique step-script player, `field-dom` for the React DOM board renderer, `encoder` for compact shareable game-state encoding, `hell-corpus` for the bundled, verified Hell-difficulty puzzle corpus, and `screen-chrome` for generic screen chrome primitives.
+Suuudokuuu is an open-source Sudoku game built with React Native and Expo. This monorepo has thirteen core packages: `app` for the game UI, `landing` for the static Next.js content and SEO site, `generator` for Sudoku generation and solving, `solver-core` for the shared solver contract, grid utilities, and conformance helpers, `solver-dlx` for the Dancing Links exact-cover solver, `solver-bitmask` for the typed-array bitmask solver, `techniques` for solving-technique detection and the logical-solve driver, `puzzle-forge` for technique-aware puzzle sourcing per difficulty tier, `field-core` for the headless interactive field engine and technique step-script player, `field-dom` for the React DOM board renderer, `encoder` for compact shareable game-state encoding, `hell-corpus` for the bundled, verified Hell-difficulty puzzle corpus, and `screen-chrome` for generic screen chrome primitives.
 
 ## Canonical Agent Surfaces
 
@@ -46,7 +46,8 @@ packages/
 ├── solver-core/        # Shared solver contract, grid constants, and conformance-test helpers
 ├── solver-dlx/         # Dancing Links (DLX) exact-cover Sudoku solver
 ├── solver-bitmask/     # Typed-array bitmask MRV Sudoku solver
-├── techniques/         # Pure TypeScript solving-technique detection
+├── techniques/         # Pure TypeScript solving-technique detection and logical-solve driver
+├── puzzle-forge/       # Technique-aware puzzle sourcing: difficulty bands and rejection sampling
 ├── field-core/         # Headless sudoku field engine and technique step-script player
 ├── field-dom/          # React DOM board, number pad, and step-player components with plain CSS
 ├── encoder/            # Binary/LZ encoding for puzzle sharing and replay
@@ -66,6 +67,7 @@ tests/
 - Read `packages/field-core/AGENTS.md` before changing the headless field engine: snapshots, subscriptions, engine events, candidates and input modes, undo/redo, engine serialization, or the StepScript model, mapper, and player.
 - Read `packages/field-dom/AGENTS.md` before changing the React DOM board: component APIs, label contracts, the narration renderer, cell state data attributes, keyboard handling, or `src/styles/field-dom.css` and its `--field-*` custom properties.
 - Read `packages/encoder/AGENTS.md` before changing binary formats, solution-step encoding, URL serialization, compression, or decode error behavior.
+- Read `packages/puzzle-forge/AGENTS.md` before changing what a difficulty tier means: the per-tier technique bands, blank-cell targets, the attempt budget, or how the app asks for a new board.
 - Read `packages/hell-corpus/scripts/build-corpus.mjs` before changing the bundled Hell-difficulty puzzle corpus, its build/verification CLI, or the packed record format.
 - Read `packages/landing/AGENTS.md` before changing the landing site: App Router routes, page metadata sidecars, the metadata registry, JSON-LD schema components, `sitemap.ts`, `robots.ts`, `manifest.ts`, or landing copy.
 - Read `packages/screen-chrome/README.md` before changing `@suuudokuuu/screen-chrome`; preserve its generic, app-agnostic API.
@@ -158,7 +160,7 @@ Use Conventional Commits for commit messages and PR titles:
 type(scope): short description
 ```
 
-Scopes are `app`, `landing`, `generator`, `solver-core`, `solver-dlx`, `solver-bitmask`, `techniques`, `encoder`, `hell-corpus`, `field-core`, and `field-dom`. Omit the scope for repo-wide docs, tooling, skills, or workspace configuration.
+Scopes are `app`, `landing`, `generator`, `solver-core`, `solver-dlx`, `solver-bitmask`, `techniques`, `puzzle-forge`, `encoder`, `hell-corpus`, `field-core`, and `field-dom`. Omit the scope for repo-wide docs, tooling, skills, or workspace configuration.
 
 Use these types: `feat`, `fix`, `refactor`, `chore`, `docs`, `ci`, `test`, `i18n`, `perf`, and `build`.
 

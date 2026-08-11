@@ -33,6 +33,8 @@ src/
 4. Blank cells use the configured blank value, currently `0`.
 5. Puzzle generation must keep a unique solution. Use `SolverInterface.countSolutions(grid, UNIQUENESS_COUNT_LIMIT)` or equivalent uniqueness checks before accepting clue removal.
 6. `DifficultyEnum` values are serialized into app history and UI. Changing names or values requires app migrations, i18n updates, and tests.
+7. `defaultSudokuConfig.difficultyBlankCells` is frozen. It is the legacy blank-count table that `convertFieldFromString` uses to label pre-trailer shared links, and changing a number relabels links players already hold. Blank-cell targets for newly created puzzles live in `@suuudokuuu/puzzle-forge`, which passes its own cloned config into `create`.
+8. The generator knows nothing about solving techniques. `techniques` depends on `generator`, so a technique import here would be a dependency cycle. Technique-aware puzzle acceptance belongs in `@suuudokuuu/puzzle-forge`.
 
 ## Algorithm Rules
 
