@@ -1,6 +1,8 @@
 import Link from 'next/link';
 
 import { glossaryPageMetadata } from '../../../app/glossary/metadata';
+import { sudokuCluesVsDifficultyPageMetadata } from '../../../app/guides/sudoku-clues-vs-difficulty/metadata';
+import { sudokuDifficultyRatingPageMetadata } from '../../../app/guides/sudoku-difficulty-rating/metadata';
 import { howToPlayPageMetadata } from '../../../app/how-to-play/metadata';
 import { solverPageMetadata } from '../../../app/solver/metadata';
 import { sudokuDifficultiesPageMetadata } from '../../../app/sudoku/metadata';
@@ -13,6 +15,8 @@ export const SiteFooter = () => (
             <Link href={sudokuDifficultiesPageMetadata.path}>Sudoku difficulty levels</Link>
             <Link href={howToPlayPageMetadata.path}>How to play</Link>
             <Link href={techniquesPageMetadata.path}>Sudoku techniques</Link>
+            <Link href={sudokuDifficultyRatingPageMetadata.path}>Sudoku difficulty rating</Link>
+            <Link href={sudokuCluesVsDifficultyPageMetadata.path}>Clues versus difficulty</Link>
             <Link href={solverPageMetadata.path}>Sudoku solver</Link>
             <Link href={glossaryPageMetadata.path}>Sudoku glossary</Link>
             <a href={SITE_PLAY_URL}>Play {SITE_NAME}</a>

@@ -9,6 +9,7 @@ import { FaqPage } from '../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../seo/components/faq-question/faq-question';
 import { SITE_PLAY_URL } from '../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../seo/utils/build-page-metadata.util';
+import { sudokuCluesVsDifficultyPageMetadata } from '../guides/sudoku-clues-vs-difficulty/metadata';
 import { hardestSudokuPuzzlesPageMetadata } from '../hardest-sudoku-puzzles/metadata';
 import { homePageMetadata } from '../metadata';
 import { hellSudokuPageMetadata } from '../sudoku/hell/metadata';
@@ -67,9 +68,10 @@ const SeventeenClueSudokuPage = () => (
             Clue count and logical difficulty are separate facts about a puzzle, and conflating them is one of the most common sudoku myths.
             A 17-clue grid can still solve with nothing more than singles and pointing pairs if its clues happen to unlock the board
             quickly; plenty do. What actually drives difficulty is how far a solver has to reason once the obvious placements run out — a
-            question of technique depth, not starting digit count. The{' '}
-            <Link href={hardestSudokuPuzzlesPageMetadata.path}>hardest sudoku puzzles in the world</Link> page profiles grids that are far
-            harder than a typical 17-clue puzzle despite carrying more givens, including one with 23.
+            question of technique depth, not starting digit count. Our{' '}
+            <Link href={sudokuCluesVsDifficultyPageMetadata.path}>clues versus difficulty guide</Link> measures the gap directly across six
+            clue counts, and the <Link href={hardestSudokuPuzzlesPageMetadata.path}>hardest sudoku puzzles in the world</Link> page profiles
+            grids that are far harder than a typical 17-clue puzzle despite carrying more givens, including one with 23.
         </p>
         <h2>Real 17-clue puzzles, verified twice</h2>
         <p>
@@ -97,7 +99,8 @@ const SeventeenClueSudokuPage = () => (
                 <FaqAnswer>
                     No. Clue count measures how much information a puzzle starts with, not how hard it is to reason through. Many 17-clue
                     puzzles solve with basic techniques, while some puzzles with far more givens, like{' '}
-                    <Link href={hardestSudokuPuzzlesPageMetadata.path}>AI Escargot</Link>, are dramatically harder.
+                    <Link href={hardestSudokuPuzzlesPageMetadata.path}>AI Escargot</Link>, are dramatically harder — see the{' '}
+                    <Link href={sudokuCluesVsDifficultyPageMetadata.path}>clues versus difficulty data</Link>.
                 </FaqAnswer>
             </Faq>
             <Faq>

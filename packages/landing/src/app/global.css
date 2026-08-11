@@ -221,6 +221,49 @@ strong {
     margin-bottom: 0;
 }
 
+.data-table__scroll {
+    margin: 0 0 2rem;
+    overflow-x: auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.data-table__caption {
+    margin: 0 0 0.75rem;
+    color: var(--landing-muted-text-color);
+    font-size: 0.85rem;
+    text-align: left;
+}
+
+.data-table th,
+.data-table td {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--landing-border-color);
+    text-align: left;
+    white-space: nowrap;
+}
+
+.data-table thead th {
+    background-color: var(--landing-surface-color);
+    color: var(--landing-text-color);
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.data-table tbody th {
+    color: var(--landing-text-color);
+    font-weight: 600;
+}
+
+.data-table tbody td {
+    color: var(--landing-muted-text-color);
+}
+
 .how-to {
     margin: 0 0 1.5rem;
     padding-left: 1.25rem;
