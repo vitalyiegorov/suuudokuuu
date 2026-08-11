@@ -80,6 +80,17 @@ running server outside CI. `playwright.config.ts` fails fast with an actionable 
   it — silently invalidating the "first press starts from Field[0][0]" assumption the keyboard hook
   relies on. Dispatch `page.keyboard.press(...)` directly against the page; the hook's `window`
   keydown listener receives it without any prior click.
+- The landing technique embeds (`specs/techniques/*.spec.ts`, `landing-chromium` project) run
+  against `packages/landing/out` on a second `serve` instance and a second `webServer`/`project`
+  pair in `playwright.config.ts`, not the app export. `TechniqueLiveBoard` constructs its
+  `FieldEngine` with `showAutoCandidates: true`, and `field-dom`'s `getFieldCellCandidates` ignores
+  the engine's stored candidate notes entirely in that mode, recomputing each cell's candidates from
+  row/column/box occupancy alone. Applying an elimination-only step script (`engine.applyStepScript()`)
+  does remove the value from the engine's internal notes store, but that removal never reaches the
+  rendered candidate grid, so a struck candidate does not visually disappear after "Apply to the
+  board" — only the walkthrough overlay itself (`data-pattern`, `data-eliminated`, the narration and
+  step controls) clears. Assert the overlay clearing, not candidate removal, when a spec applies an
+  elimination-only technique's step script.
 
 ## Known App Issues Affecting This Suite
 
@@ -87,3 +98,9 @@ running server outside CI. `playwright.config.ts` fails fast with an actionable 
   existed but was not re-exported from the barrel, so `ChallengeResultScreenSelectors` deep-imported
   as `undefined`. Added the missing `export *` line; this is a barrel-only change (no runtime
   behavior change) consistent with `tests/app-tests/AGENTS.md` Selector Rule 5.
+- **Hint selectors are not barrel-exported.** `HintButtonSelectors`, `HintPanelSelectors` and
+  `HintStepNarrationSelectors` exist under `packages/app/src/game/components/hint-*/` but
+  `packages/app/src/selectors.ts` does not re-export them yet. `09.hint-flow.spec.ts` deep-imports
+  the three `*.selectors.ts` files directly instead of touching the app barrel. A future pass that is
+  allowed to edit app source should add the three missing `export *` lines, consistent with Selector
+  Rule 5.

@@ -1,0 +1,34 @@
+appId: ${APP_ID}
+---
+- startRecording:
+      path: '14.hint-flow'
+      optional: true
+
+- runFlow: subflows/navigation/launch-home.flow.yaml
+- runFlow: subflows/game/start-new-game.flow.yaml
+
+- tapOn:
+      id: 'HintButtonSelectors.Root'
+- extendedWaitUntil:
+      visible:
+          id: 'HintPanelSelectors.Root'
+      timeout: 3000
+- assertVisible:
+      id: 'HintStepNarrationSelectors.Technique'
+- assertVisible:
+      id: 'HintStepNarrationSelectors.Narration'
+
+- tapOn:
+      id: 'HintPanelSelectors.NextButton'
+- assertVisible:
+      id: 'HintPanelSelectors.Progress'
+- tapOn:
+      id: 'HintPanelSelectors.BackButton'
+
+- tapOn:
+      id: 'HintPanelSelectors.ApplyButton'
+- assertNotVisible:
+      id: 'HintPanelSelectors.Root'
+
+- runFlow: subflows/game/quit-current-game.flow.yaml
+- stopApp
