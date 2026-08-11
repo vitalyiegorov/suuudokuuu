@@ -419,10 +419,6 @@ msgstr "ڈارک موڈ"
 msgid "Dark overlay"
 msgstr "گہری تہہ"
 
-#: src/history/components/history-totals-card/history-totals-card.tsx
-msgid "Day streak"
-msgstr "روزانہ سلسلہ"
-
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Dead even"
 msgstr "مکمل برابری"
@@ -1240,7 +1236,7 @@ msgstr "اسکرین کا پس منظر"
 msgid "Screenshots"
 msgstr "اسکرین شاٹس"
 
-#: src/history/components/history-technique-hero/history-technique-hero.tsx
+#: src/history/components/history-techniques/history-techniques.tsx
 msgid "SE {seValueText}"
 msgstr ""
 
@@ -1380,6 +1376,10 @@ msgstr "چال کا وقت"
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Stop current run?"
 msgstr "موجودہ گیم ختم کریں؟"
+
+#: src/history/components/history-totals-card/history-totals-card.tsx
+msgid "Streak"
+msgstr ""
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Subtle surface"

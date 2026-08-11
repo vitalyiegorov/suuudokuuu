@@ -39,27 +39,34 @@ export const HistoryTotalsCard = ({ historyByDifficulty, playedDayNumbers }: Pro
                     valueStyle={styles.value}
                 />
                 <AppMetricStripItem
-                    label={t`Day streak`}
+                    label={t`Streak`}
                     labelStyle={styles.label}
                     style={styles.item}
                     value={String(totals.dayStreak)}
                     valueStyle={styles.value}
                 />
-                <AppMetricStripItem
-                    label={t`Best score`}
-                    labelStyle={styles.label}
-                    style={styles.item}
-                    value={String(totals.bestScore)}
-                    valueStyle={styles.value}
-                />
-                <AppMetricStripItem
-                    label={t`Best time`}
-                    labelStyle={styles.label}
-                    style={styles.item}
-                    value={bestTimeText}
-                    valueStyle={styles.value}
-                />
             </AppMetricStrip>
+
+            <View style={styles.secondaryRow}>
+                <AppMetricStrip separatorStyle={styles.separator} style={styles.secondaryStrip} variant="ghost">
+                    <AppMetricStripItem
+                        label={t`Best score`}
+                        labelStyle={styles.label}
+                        style={styles.item}
+                        value={String(totals.bestScore)}
+                        valueStyle={styles.value}
+                    />
+                    <AppMetricStripItem
+                        label={t`Best time`}
+                        labelStyle={styles.label}
+                        style={styles.item}
+                        value={bestTimeText}
+                        valueStyle={styles.value}
+                    />
+                </AppMetricStrip>
+
+                <View style={styles.spacer} />
+            </View>
         </View>
     );
 };

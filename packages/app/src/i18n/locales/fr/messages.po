@@ -421,10 +421,6 @@ msgstr "Mode sombre"
 msgid "Dark overlay"
 msgstr "Superposition sombre"
 
-#: src/history/components/history-totals-card/history-totals-card.tsx
-msgid "Day streak"
-msgstr "Série quotidienne"
-
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Dead even"
 msgstr "Égalité parfaite"
@@ -1242,7 +1238,7 @@ msgstr "Arrière-plan de l'écran"
 msgid "Screenshots"
 msgstr "Captures d'écran"
 
-#: src/history/components/history-technique-hero/history-technique-hero.tsx
+#: src/history/components/history-techniques/history-techniques.tsx
 msgid "SE {seValueText}"
 msgstr ""
 
@@ -1382,6 +1378,10 @@ msgstr "Temps par coup"
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Stop current run?"
 msgstr "Arrêter la partie en cours ?"
+
+#: src/history/components/history-totals-card/history-totals-card.tsx
+msgid "Streak"
+msgstr ""
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Subtle surface"
