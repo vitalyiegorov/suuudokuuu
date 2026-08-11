@@ -1,4 +1,6 @@
+import { seventeenClueSudokuPageMetadata } from '../../app/17-clue-sudoku/metadata';
 import { glossaryPageMetadata } from '../../app/glossary/metadata';
+import { hardestSudokuPuzzlesPageMetadata } from '../../app/hardest-sudoku-puzzles/metadata';
 import { howToPlayPageMetadata } from '../../app/how-to-play/metadata';
 import { homePageMetadata } from '../../app/metadata';
 import { easySudokuPageMetadata } from '../../app/sudoku/easy/metadata';
@@ -49,6 +51,8 @@ export const PAGE_METADATA_REGISTRY: PageMetadataInterface[] = [
     hardSudokuPageMetadata,
     nightmareSudokuPageMetadata,
     hellSudokuPageMetadata,
+    hardestSudokuPuzzlesPageMetadata,
+    seventeenClueSudokuPageMetadata,
     techniquesPageMetadata,
     fullHousePageMetadata,
     nakedSinglePageMetadata,
