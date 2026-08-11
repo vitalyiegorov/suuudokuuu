@@ -230,7 +230,8 @@ strong {
     display: block;
 }
 
-.technique-example {
+.technique-example,
+.hardest-puzzle-board {
     margin: 1.5rem 0 2rem;
 }
 

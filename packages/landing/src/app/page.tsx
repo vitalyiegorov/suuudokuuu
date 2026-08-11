@@ -13,6 +13,7 @@ import { buildLocaleUrl } from '../seo/utils/build-locale-url.util';
 import { buildPageMetadata } from '../seo/utils/build-page-metadata.util';
 
 import { glossaryPageMetadata } from './glossary/metadata';
+import { hardestSudokuPuzzlesPageMetadata } from './hardest-sudoku-puzzles/metadata';
 import { howToPlayPageMetadata } from './how-to-play/metadata';
 import { homePageMetadata } from './metadata';
 import { sudokuDifficultiesPageMetadata } from './sudoku/metadata';
@@ -92,8 +93,8 @@ const HomePage = () => (
         <p>
             Every tier from Newbie to Hell now has its own guide, breaking down exactly what separates one level from the next — clue
             counts, required techniques and an honest read on how hard each one really is. Start on the{' '}
-            <Link href={sudokuDifficultiesPageMetadata.path}>Sudoku difficulty levels</Link> hub. A showcase of the hardest 17-clue puzzles
-            in the bundled corpus is still on the way.
+            <Link href={sudokuDifficultiesPageMetadata.path}>Sudoku difficulty levels</Link> hub, or see how it compares to the{' '}
+            <Link href={hardestSudokuPuzzlesPageMetadata.path}>hardest puzzles</Link> ever published.
         </p>
         <h2>Frequently asked questions</h2>
         <FaqPage>
