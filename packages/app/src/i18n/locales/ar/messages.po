@@ -787,7 +787,6 @@ msgid "Left-handed layout"
 msgstr "تخطيط لليد اليسرى"
 
 #: src/history/components/replay-header/replay-header.tsx
-#: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
 msgid "Level"
 msgstr "المستوى"
 
@@ -1137,10 +1136,6 @@ msgstr "السطح المرتفع"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Raised surface text"
 msgstr "نص السطح المرتفع"
-
-#: src/@generic/components/rating-metric-item/rating-metric-item.tsx
-msgid "Rating"
-msgstr ""
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"

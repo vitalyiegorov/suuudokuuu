@@ -15,11 +15,21 @@ appId: ${APP_ID}
       timeout: 3000
 
 - runFlow: subflows/game/start-new-game.flow.yaml
-- assertVisible:
+# The level+rating pill was removed from the game screen entirely; it now only shows on the
+# pause screen and result/history surfaces, so pause the run to see it.
+- assertNotVisible:
       id: 'GameScreenSelectors.Level'
-      text: 'Hell'
+- runFlow: subflows/game/pause-current-game.flow.yaml
+# Hell puzzles always carry a computed rating, so the pause pill composes it into the level text.
 - assertVisible:
-      id: 'GameScreenSelectors.Rating'
+      id: 'PauseScreenSelectors.DetailsValue'
+      text: '.*Hell · [0-9]+\.[0-9].*'
+- tapOn:
+      id: 'PauseScreenSelectors.ResumeButton'
+- extendedWaitUntil:
+      visible:
+          id: 'GameScreenSelectors.Root'
+      timeout: 10000
 - runFlow: subflows/game/quit-current-game.flow.yaml
 
 - scrollUntilVisible:

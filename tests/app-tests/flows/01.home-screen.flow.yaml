@@ -13,11 +13,10 @@ appId: ${APP_ID}
       id: 'GameScreenSelectors.Score'
       text: '0'
 - assertVisible: '0/3'
-- assertVisible:
+# The level+rating pill was removed from the game screen entirely; it now only shows on the
+# pause screen and result/history surfaces.
+- assertNotVisible:
       id: 'GameScreenSelectors.Level'
-      text: 'Easy'
-# The game screen only shows a rating badge for Hell and Infinity, so an Easy run never
-# has one to assert, regardless of the freshly generated puzzle carrying a computed SE rating.
 - assertNotVisible:
       id: 'GameScreenSelectors.Rating'
 - runFlow: subflows/game/quit-current-game.flow.yaml

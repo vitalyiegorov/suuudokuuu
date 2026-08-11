@@ -1,37 +1,33 @@
 import { describe, expect, it } from '@jest/globals';
-import { DifficultyEnum } from '@suuudokuuu/generator';
 import { screen } from '@testing-library/react-native';
 
-import { getDifficultyText } from '../../../../@generic/utils/get-difficulty-text.util';
 import { renderWithGameContext } from '../../../../@generic/utils/render-with-game-context.mock';
 import { GameScreenSelectors } from '../game-screen.selectors';
 
 import { GameScreenMetrics } from './game-screen-metrics';
 
-const highSampleRating = 8.4;
-
-const renderMetrics = (difficulty: DifficultyEnum, rating: number) =>
+const renderMetrics = () =>
     renderWithGameContext(
-        <GameScreenMetrics elapsedTime={90} hasTimer maxMistakes={3} maxMistakesReached={false} mistakes={1} score={42} />,
-        { game: { difficulty, isRatingCeiling: false, rating } }
+        <GameScreenMetrics elapsedTime={90} hasTimer maxMistakes={3} maxMistakesReached={false} mistakes={1} score={42} />
     );
 
 describe('GameScreenMetrics', () => {
-    it('shows the current difficulty on the Level item', async () => {
-        await renderMetrics(DifficultyEnum.Hell, highSampleRating);
+    it('never renders a Level item', async () => {
+        await renderMetrics();
 
-        expect(screen.getByTestId(GameScreenSelectors.Level)).toHaveTextContent(getDifficultyText(DifficultyEnum.Hell));
+        expect(screen.queryByTestId(GameScreenSelectors.Level)).toBeNull();
     });
 
-    it('never renders a Rating item, even when the run carries a rated difficulty', async () => {
-        await renderMetrics(DifficultyEnum.Hell, highSampleRating);
+    it('never renders a Rating item', async () => {
+        await renderMetrics();
 
         expect(screen.queryByTestId(GameScreenSelectors.Rating)).toBeNull();
     });
 
-    it('never renders a Rating item for an unrated difficulty', async () => {
-        await renderMetrics(DifficultyEnum.Easy, 0);
+    it('shows the elapsed time and score', async () => {
+        await renderMetrics();
 
-        expect(screen.queryByTestId(GameScreenSelectors.Rating)).toBeNull();
+        expect(screen.getByTestId(GameScreenSelectors.Time)).toBeTruthy();
+        expect(screen.getByTestId(GameScreenSelectors.Score)).toHaveTextContent('42');
     });
 });

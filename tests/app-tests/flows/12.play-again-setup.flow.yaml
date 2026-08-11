@@ -45,8 +45,9 @@ appId: ${APP_ID}
       id: 'GameScreenSelectors.ShareButton'
 - assertNotVisible:
       id: 'ChallengeRecordHudSelectors.Root'
-# Retrying regenerates a fresh Hard puzzle, which always carries a computed rating.
-- assertVisible:
+# The level+rating pill was removed from the game screen entirely; it now only shows on the
+# pause screen and result/history surfaces, regardless of the retried puzzle carrying a rating.
+- assertNotVisible:
       id: 'GameScreenSelectors.Rating'
 - runFlow: subflows/game/quit-current-game.flow.yaml
 
@@ -81,7 +82,7 @@ appId: ${APP_ID}
       id: 'ChallengeRecordHudSelectors.Root'
 - assertNotVisible:
       id: 'GameScreenSelectors.ShareButton'
-- assertVisible:
+- assertNotVisible:
       id: 'GameScreenSelectors.Rating'
 - runFlow: subflows/game/quit-current-game.flow.yaml
 

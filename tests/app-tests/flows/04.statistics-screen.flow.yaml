@@ -47,19 +47,21 @@ appId: ${APP_ID}
 - assertVisible: 'Score'
 - assertVisible: 'Time'
 - assertVisible: 'Mistakes'
-# This fixture predates the rating trailer, so it decodes with an unknown
-# rating: the history row must hide the badge rather than show a fake 0.
-- assertNotVisible:
-      id: 'RatingBadgeSelectors.Root'
+# This fixture predates the rating trailer, so it decodes with an unknown rating: the history
+# row must show the plain difficulty text with no "· rating" suffix rather than a fake 0.
+- assertVisible:
+      id: 'CompletedGameItemSelectors.DifficultyValue'
+      text: 'Newbie'
 - tapOn:
       id: 'CompletedGameItemSelectors.ReplayButton'
 - extendedWaitUntil:
       visible:
           id: 'ReplayControlsSelectors.Root'
       timeout: 3000
-# Same old-link fixture: the replay header's rating metric must stay hidden.
-- assertNotVisible:
-      id: 'ReplayHeaderSelectors.Rating'
+# Same old-link fixture: the replay header's level metric must stay plain, with no rating suffix.
+- assertVisible:
+      id: 'ReplayHeaderSelectors.Level'
+      text: 'Newbie'
 # Game Review card: pace metrics and the techniques-used section (with its
 # best-technique hero) always render once a run has at least one recorded
 # step, regardless of whether the game itself carries a rating.

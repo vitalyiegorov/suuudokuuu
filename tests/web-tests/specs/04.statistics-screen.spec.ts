@@ -30,6 +30,7 @@ import { launchHome } from '../src/utils/launch-home.util';
 import { getVisibleByTestId } from '../src/utils/visible-locator.util';
 
 const newbieDifficultyCardTestId = `${HistoryDifficultySelectors.Card}.Newbie`;
+const noRatingSuffixPattern = /^[^·]*$/u;
 
 test('reviews and replays a completed game from statistics', async ({ page }) => {
     await launchHome(page);
@@ -52,14 +53,12 @@ test('reviews and replays a completed game from statistics', async ({ page }) =>
     await expect(historyGamesScreen.getByText('Time', { exact: true })).toBeVisible();
     await expect(historyGamesScreen.getByText('Mistakes', { exact: true })).toBeVisible();
     // This legacy fixture predates the rating trailer and decodes with an unknown rating, so its
-    // own completed-game row must not show a badge. RatingBadgeSelectors.Root is reused by other
-    // screens (for example the History overview's best-technique hero), so the assertion must stay
-    // scoped to this screen instead of counting badges page-wide.
-    await expect(historyGamesScreen.getByTestId(RatingBadgeSelectors.Root)).toHaveCount(0);
+    // own completed-game row must show the plain difficulty text with no "· rating" suffix.
+    await expect(historyGamesScreen.getByTestId(CompletedGameItemSelectors.DifficultyValue)).toHaveText(noRatingSuffixPattern);
 
     await page.getByTestId(CompletedGameItemSelectors.ReplayButton).click();
     await expect(page.getByTestId(ReplayControlsSelectors.Root)).toBeVisible();
-    await expect(page.getByTestId(ReplayHeaderSelectors.Rating)).toHaveCount(0);
+    await expect(page.getByTestId(ReplayHeaderSelectors.Level)).toHaveText(noRatingSuffixPattern);
 
     const gameReviewCard = page.getByTestId(ReplayRunReviewSelectors.Root);
     await expect(gameReviewCard).toBeVisible();
@@ -129,5 +128,7 @@ test('shows the hardest-solve card, SE band histogram, and best-technique hero f
     await page.getByTestId(newbieDifficultyCardTestId).click();
     const historyGamesScreen = page.getByTestId(HistoryGamesScreenSelectors.Root);
     await expect(historyGamesScreen).toBeVisible();
-    await expect(historyGamesScreen.getByTestId(RatingBadgeSelectors.Root)).toHaveCount(1);
+    // The rated completed-game row now composes its rating into the difficulty text instead of
+    // rendering a separate badge next to it.
+    await expect(historyGamesScreen.getByTestId(CompletedGameItemSelectors.DifficultyValue)).not.toHaveText(noRatingSuffixPattern);
 });

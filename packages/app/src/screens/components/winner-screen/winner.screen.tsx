@@ -4,6 +4,7 @@ import { Redirect } from 'expo-router';
 import { CompletedGameResultDetails } from '../../../@generic/components/completed-game-result-details/completed-game-result-details';
 import { GameResultPage } from '../../../@generic/components/game-result-page/game-result-page';
 import { useCompletedGameResult } from '../../../@generic/hooks/use-completed-game-result.hook';
+import { getLevelRatingText } from '../../../@generic/utils/get-level-rating-text.util';
 import { ChallengeRunSummary } from '../../../challenge/components/challenge-run-summary/challenge-run-summary';
 import { getChallengeRecordingSummary } from '../../../challenge/utils/get-challenge-recording-summary.util';
 import { isChallengeRecording } from '../../../challenge/utils/is-challenge-recording.util';
@@ -26,7 +27,8 @@ export const WinnerScreen = () => {
     const scoreText = i18n.number(score);
     const isCleanWin = mistakes === 0;
     const winDescriptor = isCleanWin ? t`Clean win` : t`Completed`;
-    const descriptorText = `${winDescriptor} • ${completedGameResult.difficultyText} • ${completedGameResult.mistakesTypeText}`;
+    const levelText = getLevelRatingText(completedGameResult.difficultyText, rating, isRatingCeiling);
+    const descriptorText = `${winDescriptor} • ${levelText} • ${completedGameResult.mistakesTypeText}`;
     const footer = <WinnerScreenActions gameState={gameState} retrySetup={retrySetup} />;
     const recordingSummary = isChallengeRecording(gameState) ? (
         <ChallengeRunSummary
@@ -42,8 +44,6 @@ export const WinnerScreen = () => {
                 descriptorText={descriptorText}
                 difficulty={difficulty}
                 isPersonalBest={hasNewPersonalBestScore}
-                isRatingCeiling={isRatingCeiling}
-                rating={rating}
                 scoreText={scoreText}
             />
 

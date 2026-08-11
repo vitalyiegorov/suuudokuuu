@@ -787,7 +787,6 @@ msgid "Left-handed layout"
 msgstr "बाएँ हाथ का लेआउट"
 
 #: src/history/components/replay-header/replay-header.tsx
-#: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
 msgid "Level"
 msgstr "स्तर"
 
@@ -1137,10 +1136,6 @@ msgstr "उठी हुई सतह"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Raised surface text"
 msgstr "उठी हुई सतह का टेक्स्ट"
-
-#: src/@generic/components/rating-metric-item/rating-metric-item.tsx
-msgid "Rating"
-msgstr ""
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"

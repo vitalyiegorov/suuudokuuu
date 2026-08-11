@@ -10,6 +10,7 @@ import { GlassIconButton } from '../../../@generic/components/glass-icon-button/
 import { ScreenActionBar } from '../../../@generic/components/screen-action-bar/screen-action-bar';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
+import { getLevelRatingText } from '../../../@generic/utils/get-level-rating-text.util';
 import { getMistakesTypeText } from '../../../@generic/utils/get-mistakes-type-text.util';
 import { stringToGameState } from '../../../game/utils/string-to-game-state.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
@@ -41,8 +42,9 @@ export const ChallengeAcceptScreen = ({ opponentTotalTime, challengeState, isLoa
     const rivalSummary = getChallengeRivalRunSummary(challengeState, opponentTotalTime);
     const { awayRanges, techniqueEvents } = rivalSummary;
     const difficultyText = getDifficultyText(rivalGameState.difficulty);
+    const levelText = getLevelRatingText(difficultyText, rivalGameState.rating, rivalGameState.isRatingCeiling);
     const mistakesText = getMistakesTypeText(rivalGameState.maxMistakes);
-    const chipText = `${t`Rival challenged you`} · ${difficultyText} · ${mistakesText}`;
+    const chipText = `${t`Rival challenged you`} · ${levelText} · ${mistakesText}`;
     const arsenalCardCount = Math.min(getChallengeTechniqueSummary(techniqueEvents).length, MAX_TECHNIQUE_TILES);
     const arsenalTagText = plural(arsenalCardCount, { one: '# technique', other: '# techniques' });
 
@@ -82,7 +84,7 @@ export const ChallengeAcceptScreen = ({ opponentTotalTime, challengeState, isLoa
                     {t`Accept challenge?`}
                 </Text>
 
-                <ChallengeRivalChip chipText={chipText} isRatingCeiling={rivalGameState.isRatingCeiling} rating={rivalGameState.rating} />
+                <ChallengeRivalChip chipText={chipText} />
 
                 <View style={styles.timeBlock}>
                     <Text allowFontScaling={false} style={timeLabelStyle}>
