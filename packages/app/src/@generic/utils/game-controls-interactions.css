@@ -1,8 +1,11 @@
-[data-testid^='CellSelectors.Cell.']:focus-visible,
 [data-testid^='AvailableValueItemSelectors.Button.']:focus-visible,
 [data-testid^='CandidateInputItemSelectors.Button.']:focus-visible {
     outline: 2px solid var(--colors-ink);
     outline-offset: 2px;
+}
+
+[data-testid^='CellSelectors.Cell.'] {
+    outline: none;
 }
 
 @media (hover: hover) {
