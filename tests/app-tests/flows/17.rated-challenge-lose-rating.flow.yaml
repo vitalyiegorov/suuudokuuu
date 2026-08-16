@@ -26,12 +26,19 @@ appId: ${APP_ID}
       timeout: 3000
 - tapOn:
       id: 'AvailableValueItemSelectors.Button.4'
-- assertVisible: '2/3'
+- extendedWaitUntil:
+      visible: '2/3'
+      timeout: 3000
 - tapOn:
       id: 'AvailableValueItemSelectors.Button.4'
+# Assert the OutcomeValue pill instead of the screen's own Root: on iOS a
+# parent .Root testID can fail to register in the accessibility snapshot even
+# once the screen is fully mounted and visible, while a child element in the
+# same render commit reliably does (see the store-media skill's environment
+# gotchas).
 - extendedWaitUntil:
       visible:
-          id: 'ChallengeResultScreenSelectors.Root'
+          id: 'ChallengeResultScreenSelectors.OutcomeValue'
       timeout: 5000
 # The outcome pill now composes "{flavor} · {level} · {rating} · {mistakes type}" as plain text
 # instead of rendering a separate rating badge next to it.
