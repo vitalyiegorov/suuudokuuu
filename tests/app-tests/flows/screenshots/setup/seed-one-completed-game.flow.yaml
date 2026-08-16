@@ -3,11 +3,14 @@ tags:
     - screenshots
 ---
 # Completes one rated shared-challenge fixture and returns Home. The fixture
-# boards are the same four-empty-cell win re-encoded with a different
+# boards are the same nine-empty-cell win re-encoded with a different
 # difficulty/rating metadata trailer per call, so each run persists a completed
-# game under its own difficulty bucket. Four cells (rather than the single cell
-# the per-scene win fixture uses) so the move classifier records more than one
-# technique into the arsenal.
+# game under its own difficulty bucket.
+#
+# The blanks form two 2x2 patches plus the original cell. An isolated blank in
+# a nearly-solved grid is always the last empty cell of its column, so it can
+# only ever classify as Full House; the patches give each cell a live peer in
+# its row, column and box so the arsenal records Naked/Hidden Singles too.
 - runFlow:
       file: ../../subflows/shared/open-shared-challenge.flow.yaml
       env:
@@ -15,15 +18,35 @@ tags:
 - runFlow: ../../subflows/shared/accept-shared-challenge.flow.yaml
 
 - tapOn:
-      id: 'CellSelectors.Cell.0-4'
+      id: 'CellSelectors.Cell.0-0'
 - tapOn:
-      id: 'AvailableValueItemSelectors.Button.9'
+      id: 'AvailableValueItemSelectors.Button.5'
 - tapOn:
-      id: 'CellSelectors.Cell.3-3'
+      id: 'CellSelectors.Cell.0-1'
 - tapOn:
       id: 'AvailableValueItemSelectors.Button.1'
 - tapOn:
-      id: 'CellSelectors.Cell.6-4'
+      id: 'CellSelectors.Cell.1-0'
+- tapOn:
+      id: 'AvailableValueItemSelectors.Button.3'
+- tapOn:
+      id: 'CellSelectors.Cell.1-1'
+- tapOn:
+      id: 'AvailableValueItemSelectors.Button.2'
+- tapOn:
+      id: 'CellSelectors.Cell.4-4'
+- tapOn:
+      id: 'AvailableValueItemSelectors.Button.7'
+- tapOn:
+      id: 'CellSelectors.Cell.4-5'
+- tapOn:
+      id: 'AvailableValueItemSelectors.Button.3'
+- tapOn:
+      id: 'CellSelectors.Cell.5-4'
+- tapOn:
+      id: 'AvailableValueItemSelectors.Button.8'
+- tapOn:
+      id: 'CellSelectors.Cell.5-5'
 - tapOn:
       id: 'AvailableValueItemSelectors.Button.4'
 - tapOn:
