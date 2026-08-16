@@ -63,7 +63,22 @@ case "$LOCALE" in
   pt-BR) RAW_LOCALE="pt" ;;
   zh-Hans) RAW_LOCALE="zh" ;;
   ar-SA) RAW_LOCALE="ar" ;;
+  bn-BD) RAW_LOCALE="bn" ;;
+  hi-IN) RAW_LOCALE="hi" ;;
   *) RAW_LOCALE="$LOCALE" ;;
+esac
+
+# Play locale directories are NOT the same set as the App Store's. supply has
+# no allowlist filtering - it hands every directory under metadata_path to the
+# Play API as a language code, so a directory Play does not know (bare `sv`,
+# which is `sv-SE` there) fails the whole upload. Every value below must be a
+# real code from supply's ALL_LANGUAGES.
+case "$LOCALE" in
+  ar-SA) PLAY_LOCALE="ar" ;;
+  hi) PLAY_LOCALE="hi-IN" ;;
+  zh-Hans) PLAY_LOCALE="zh-CN" ;;
+  sv) PLAY_LOCALE="sv-SE" ;;
+  *) PLAY_LOCALE="$LOCALE" ;;
 esac
 
 # Prefer the locale's own capture; fall back to the en capture (with a log
@@ -303,10 +318,77 @@ wait_for_capture() {
   fi
 }
 
+# Inter Black carries no Arabic, Devanagari, Bengali or CJK glyphs, and this
+# ImageMagick is built without raqm/pango (see `magick -version` delegates), so
+# it cannot shape complex scripts either - it renders Arabic letters in
+# isolated, unjoined forms. librsvg DOES shape (it lays text out through
+# pango/harfbuzz + fribidi), so those locales render their captions through an
+# SVG <text> element instead of ImageMagick's label:/caption:. Latin and
+# Cyrillic keep the Inter Black freetype path untouched, so every previously
+# composed set stays pixel-identical.
+case "$LOCALE" in
+  ar-SA) CAPTION_ENGINE="rsvg"; CAPTION_FAMILY="SF Arabic"; CAPTION_WEIGHT="900"; CAPTION_DIRECTION="rtl" ;;
+  ur) CAPTION_ENGINE="rsvg"; CAPTION_FAMILY="Noto Nastaliq Urdu"; CAPTION_WEIGHT="bold"; CAPTION_DIRECTION="rtl" ;;
+  hi) CAPTION_ENGINE="rsvg"; CAPTION_FAMILY="Kohinoor Devanagari"; CAPTION_WEIGHT="bold"; CAPTION_DIRECTION="ltr" ;;
+  bn-BD) CAPTION_ENGINE="rsvg"; CAPTION_FAMILY="Kohinoor Bangla"; CAPTION_WEIGHT="bold"; CAPTION_DIRECTION="ltr" ;;
+  zh-Hans) CAPTION_ENGINE="rsvg"; CAPTION_FAMILY="Hiragino Sans GB"; CAPTION_WEIGHT="bold"; CAPTION_DIRECTION="ltr" ;;
+  *) CAPTION_ENGINE="freetype"; CAPTION_FAMILY=""; CAPTION_WEIGHT=""; CAPTION_DIRECTION="ltr" ;;
+esac
+
+if [[ "$CAPTION_ENGINE" == "rsvg" ]] && ! command -v rsvg-convert >/dev/null 2>&1; then
+  echo "error: locale '$LOCALE' needs shaped text rendering; install librsvg ('brew install librsvg') for rsvg-convert" >&2
+  exit 1
+fi
+
+escape_caption_xml() {
+  local text="$1"
+  text="${text//&/&amp;}"
+  text="${text//</&lt;}"
+  text="${text//>/&gt;}"
+  printf '%s' "$text"
+}
+
+# Renders one shaped caption line to a trimmed, transparent PNG. The canvas is
+# deliberately oversized (Nastaliq in particular hangs well below its baseline
+# and would otherwise clip) and trimmed back afterwards, so the caller gets the
+# same tight bounding box ImageMagick's -trim produces on the freetype path.
+render_caption_rsvg() {
+  local pointsize="$1" fill="$2" opacity="$3" text="$4" out="$5"
+  local svg canvas_w canvas_h baseline escaped
+  canvas_w=$((pointsize * 40))
+  canvas_h=$((pointsize * 4))
+  baseline=$((pointsize * 2))
+  escaped="$(escape_caption_xml "$text")"
+  svg="$WORK_ROOT/caption-$$-$RANDOM.svg"
+
+  cat >"$svg" <<EOF
+<svg xmlns="http://www.w3.org/2000/svg" width="$canvas_w" height="$canvas_h">
+<text x="$((canvas_w / 2))" y="$baseline" text-anchor="middle" direction="$CAPTION_DIRECTION"
+ font-family="$CAPTION_FAMILY" font-weight="$CAPTION_WEIGHT" font-size="$pointsize"
+ fill="$fill" fill-opacity="$opacity" xml:space="preserve">$escaped</text>
+</svg>
+EOF
+
+  rsvg-convert -o "$out.raw.png" "$svg"
+  magick "$out.raw.png" -trim +repage -define png:color-type=6 -depth 8 "$out"
+  rm -f "$svg" "$out.raw.png"
+}
+
 # Renders `text` at `pointsize` as an unwrapped label and prints its pixel
 # width — used by fit_headline_pointsize's shrink-to-fit loop.
 label_width() {
   local pointsize="$1" text="$2"
+
+  if [[ "$CAPTION_ENGINE" == "rsvg" ]]; then
+    local probe
+    probe="$WORK_ROOT/probe-$$-$RANDOM.png"
+    render_caption_rsvg "$pointsize" "#000000" "1" "$text" "$probe"
+    magick identify -format "%w" "$probe"
+    rm -f "$probe"
+
+    return
+  fi
+
   magick -font "$FONT" -pointsize "$pointsize" label:"$text" -format "%w" info:
 }
 
@@ -375,15 +457,23 @@ build_text_stack() {
   cap_w=$(awk -v w="$canvas_w" -v f="$HEADLINE_TARGET_WIDTH_FRACTION" 'BEGIN { printf "%d", w * f }')
 
   headline_png="$WORK_ROOT/$$-headline-$RANDOM.png"
-  magick -background none -fill "$TEXT_HEX" -font "$FONT" -pointsize "$headline_pt" \
-    label:"$headline" -trim +repage -define png:color-type=6 -depth 8 "$headline_png"
+  if [[ "$CAPTION_ENGINE" == "rsvg" ]]; then
+    render_caption_rsvg "$headline_pt" "$TEXT_HEX" "1" "$headline" "$headline_png"
+  else
+    magick -background none -fill "$TEXT_HEX" -font "$FONT" -pointsize "$headline_pt" \
+      label:"$headline" -trim +repage -define png:color-type=6 -depth 8 "$headline_png"
+  fi
   headline_w="$(magick identify -format "%w" "$headline_png")"
   headline_h="$(magick identify -format "%h" "$headline_png")"
 
   descriptor_png="$WORK_ROOT/$$-descriptor-$RANDOM.png"
-  magick -background none -fill "rgba(${DESCRIPTOR_RGB},${DESCRIPTOR_OPACITY})" -font "$FONT" -pointsize "$descriptor_pt" \
-    -gravity center -size "${cap_w}x" caption:"$descriptor" -trim +repage \
-    -define png:color-type=6 -depth 8 "$descriptor_png"
+  if [[ "$CAPTION_ENGINE" == "rsvg" ]]; then
+    render_caption_rsvg "$descriptor_pt" "$TEXT_HEX" "$DESCRIPTOR_OPACITY" "$descriptor" "$descriptor_png"
+  else
+    magick -background none -fill "rgba(${DESCRIPTOR_RGB},${DESCRIPTOR_OPACITY})" -font "$FONT" -pointsize "$descriptor_pt" \
+      -gravity center -size "${cap_w}x" caption:"$descriptor" -trim +repage \
+      -define png:color-type=6 -depth 8 "$descriptor_png"
+  fi
   descriptor_w="$(magick identify -format "%w" "$descriptor_png")"
   descriptor_h="$(magick identify -format "%h" "$descriptor_png")"
 
@@ -690,7 +780,8 @@ SCENES_LIGHT=(
   "iphone|14-challenge-live|light|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|04_iphone_challenge-live.png"
   "combo|-|light|B|$DEVICE_HEIGHT_FRACTION_COMBO|05_iphone_customization.png|05-customization"
   "iphone|07-replay|light|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|06_iphone_replay.png"
-  "iphone|01-hero-board|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|07_iphone_hero-board-dark.png|01-hero-board-dark"
+  "iphone|10-stats|light|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|07_iphone_stats.png"
+  "iphone|01-hero-board|dark|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|08_iphone_hero-board-dark.png|01-hero-board-dark"
   "ipad-landscape|01-hero-board|light|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|21_ipad_hero-board.png"
   "ipad-landscape|02-hell|light|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|22_ipad_hell.png"
   "ipad-landscape|14-challenge-live|light|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|23_ipad_challenge-live.png"
@@ -709,7 +800,8 @@ SCENES_ANDROID=(
   "android|14-challenge-live|dark|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|04_phone_challenge-live.png"
   "android|04-editor|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|05_phone_customization.png|04-editor"
   "android|07-replay|dark|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|06_phone_replay.png"
-  "android|01-hero-board|light|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|07_phone_hero-board-light.png|01-hero-board-light"
+  "android|10-stats|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|07_phone_stats.png"
+  "android|01-hero-board|light|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|08_phone_hero-board-light.png|01-hero-board-light"
 )
 
 SCENES_DARK=(
@@ -719,7 +811,8 @@ SCENES_DARK=(
   "iphone|14-challenge-live|dark|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|04_iphone_challenge-live.png"
   "combo|-|dark|B|$DEVICE_HEIGHT_FRACTION_COMBO|05_iphone_customization.png|05-customization"
   "iphone|07-replay|dark|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|06_iphone_replay.png"
-  "iphone|01-hero-board|light|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|07_iphone_hero-board-light.png|01-hero-board-light"
+  "iphone|10-stats|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|07_iphone_stats.png"
+  "iphone|01-hero-board|light|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|08_iphone_hero-board-light.png|01-hero-board-light"
   "ipad-landscape|01-hero-board|dark|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|21_ipad_hero-board.png"
   "ipad-landscape|02-hell|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|22_ipad_hell.png"
   "ipad-landscape|14-challenge-live|dark|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|23_ipad_challenge-live.png"
@@ -752,7 +845,7 @@ run_variant() {
 
 run_android() {
   set_variant_palette "dark"
-  OUT_DIR="$APP_DIR/fastlane/metadata/android/$LOCALE/images/phoneScreenshots"
+  OUT_DIR="$APP_DIR/fastlane/metadata/android/$PLAY_LOCALE/images/phoneScreenshots"
 
   mkdir -p "$OUT_DIR"
   rm -f "$OUT_DIR"/*.png
