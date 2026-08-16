@@ -1,30 +1,30 @@
-suuudokuuu es el Sudoku como debería ser: rápido, bonito y honesto con la dificultad. Siete niveles, desde un tablero Novato suave hasta Infinity: los sudokus más difíciles jamás compuestos. Nada de anuncios disfrazados de puzles, ni cuentas, ni tonterías. Solo tú y la cuadrícula.
+suuudokuuu es el Sudoku como debería ser: rápido, bonito y honesto con la dificultad. Siete niveles, desde un tranquilo tablero Novato hasta Infinito: los sudokus más difíciles jamás compuestos. Nada de anuncios disfrazados de puzles, ni cuentas, ni tonterías. Solo tú y la cuadrícula.
 
-CADA PUZLE, CON SU NOTA
-La mayoría de apps ponen "experto" en un tablero y esperan que no mires de cerca. Nosotros le ponemos un número. Cada puzle lleva una valoración Sudoku Explainer en la escala de 1,0 a 12,0 que usan los solucionadores serios, visible en la etiqueta de nivel del tablero, en tu historial y en cada enlace que compartes. Una explicación integrada te cuenta qué mide de verdad ese número: lo difícil que es razonar el puzle, no lo pocas pistas que tiene.
+CADA SUDOKU, CON SU VALORACIÓN
+La mayoría de apps ponen "Experto" en un tablero y esperan que no mires de cerca. Nosotros le ponemos un número. Suuudokuuu puntúa cada sudoku en la escala Sudoku Explainer (SE), de 1.0 a 12.0, la misma que usan los solucionadores serios. La valoración se ve en la etiqueta de nivel del tablero, en tu historial y en cada enlace que compartes. Una explicación integrada te cuenta qué mide de verdad ese número: lo difícil que es razonar un sudoku, no solo cuántas pistas tiene.
 
-INFINITY: LOS SUDOKUS MÁS DIFÍCILES DEL MUNDO
-Una selección de 100 puzles récord mundial valorados entre SE 10.4 y 11.9. El Everest y AI Escargot de Arto Inkala. Golden Nugget. Platinum Blonde. Kolk, Patience, Fata Morgana, Red Dwarf. Son las cuadrículas que hicieron famosa a la comunidad del Sudoku, y la mayoría de la gente no termina ninguna.
+INFINITO: LOS SUDOKUS MÁS DIFÍCILES DEL MUNDO
+Una selección de 100 sudokus récord mundial valorados entre SE 10.4 y 11.9. El Everest y AI Escargot de Arto Inkala. Golden Nugget. Platinum Blonde. Kolk, Patience, Fata Morgana, Red Dwarf. Son las cuadrículas que la comunidad del Sudoku hizo famosas, y la mayoría de la gente no termina ninguna.
 
 INFIERNO, REVISADO
-Infierno son ahora 1.544 puzles verificados de 17 pistas, todos con una valoración SE de 6,6 o superior. Diecisiete pistas es el mínimo con el que un Sudoku sigue teniendo una única solución, pero tener pocas pistas no basta para que un puzle sea difícil: valoramos el corpus entero y nos quedamos solo con los tableros que plantan cara.
+Infierno son ahora 1.544 sudokus verificados de 17 pistas, todos con una valoración SE de 6.6 o superior. Diecisiete pistas es el mínimo con el que un Sudoku sigue teniendo una única solución, pero tener pocas pistas no basta para que un sudoku sea difícil: valoramos el corpus entero y nos quedamos solo con los tableros que plantan cara.
 
 TU JUEGO, MEDIDO
-La pantalla de estadísticas rediseñada muestra tu resolución más difícil, la dificultad media de tus últimas partidas y el nivel que más juegas. El espectro SE sitúa cada puzle terminado a lo largo de la escala. Tu arsenal cuenta cada técnica que has usado de verdad (par desnudo, X-Wing, salto de rana y más allá) para que veas crecer tu repertorio.
+La pantalla de estadísticas rediseñada muestra tu sudoku más difícil, la dificultad media de tus últimas partidas y el nivel que más juegas. El espectro SE sitúa a lo largo de la escala cada sudoku que has terminado. Tu arsenal cuenta cada técnica que has usado de verdad (par desnudo, X-Wing, Swordfish y más allá) para que veas crecer tu repertorio.
 
 RETA A UN AMIGO
-El modo Rival envía tu puzle exacto a un amigo como enlace, junto con tu partida grabada. Juega tu misma cuadrícula y compite contra tu tiempo, movimiento a movimiento. Derecho a presumir, zanjado.
+El modo Rival envía tu sudoku exacto a un amigo como enlace, junto con tu partida grabada. Jugará la misma cuadrícula que tú y competirá contra tu tiempo, movimiento a movimiento. El derecho a presumir, zanjado.
 
-VUELVE A VERLA
+REVIVE CADA PARTIDA
 Cada partida terminada se puede repetir movimiento a movimiento, y cada tarjeta del historial lleva un resumen de las técnicas que la resolvieron.
 
 JUEGA A TU MANERA
-Elige Clásico, Dorado o Periódico, o abre el editor de temas con vista previa en vivo y define cada celda, línea y resaltado. La validación de contraste integrada mantiene tus temas legibles en claro y oscuro. En la web tienes control total con el teclado: flechas para moverte, dígitos para colocar, Espacio o N para el modo notas, Mayús y un dígito para candidatos, A para candidatos automáticos.
+Elige Clásico, Dorado o Periódico, o abre el editor de tema con vista previa en vivo y define cada celda, línea y resaltado. La validación de contraste integrada mantiene tus temas legibles en claro y oscuro. En la web tienes control total con el teclado: flechas para moverte, dígitos para colocar, Espacio o N para el modo anotaciones, Mayús y un dígito para candidatos, A para candidatos automáticos.
 
-TODO LO DEMÁS QUE QUIERES
-• 7 dificultades, de Novato a Infinity
-• Valoración SE de dificultad en cada puzle
-• Editor de temas completo con modo claro y oscuro
+TODO LO DEMÁS QUE PODRÍAS QUERER
+• 7 dificultades, de Novato a Infinito
+• Valoración SE de dificultad en cada sudoku
+• Editor de tema completo con modo claro y oscuro
 • Retos Rival mediante enlace
 • Repetición movimiento a movimiento con análisis de técnicas
 • Puntuación que reconoce técnicas

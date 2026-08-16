@@ -1,1 +1,1 @@
-Cada puzle con su nota de dificultad, y el modo Infinity: los más difíciles.
+Cada sudoku valorado de 1.0 a 12.0, y el modo Infinito: los más difíciles.

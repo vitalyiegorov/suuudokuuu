@@ -1,1 +1,1 @@
-Jedes Rätsel bewertet von 1,0 bis 12,0, plus Infinity: die schwersten der Welt.
+Jedes Rätsel mit SE-Wert 1.0 bis 12.0, plus Unendlich: die schwersten der Welt.

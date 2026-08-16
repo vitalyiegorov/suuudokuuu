@@ -1,1 +1,1 @@
-Setiap puzzle punya rating kesulitan, plus Infinity: tersulit sedunia.
+Setiap sudoku berperingkat 1.0-12.0, plus Tak Terhingga: tersulit sedunia.

@@ -1,6 +1,6 @@
-Infinity hadir: 100 puzzle rekor dunia dengan SE 10.4 sampai 11.9, termasuk Everest dan Golden Nugget.
-Setiap puzzle kini menampilkan rating Sudoku Explainer, lengkap dengan penjelasan bawaan.
-Neraka dikurasi ulang: 1.544 papan 17-clue terverifikasi, semuanya SE 6,6 ke atas.
-Statistik baru: penyelesaian tersulit, spektrum SE, dan arsenal teknik kamu.
-Ringkasan teknik di riwayat dan kontrol keyboard penuh di web.
-Diperbaiki: tautan bagikan tidak lagi menghapus statistik kamu.
+Tak Terhingga hadir: 100 sudoku rekor dunia SE 10.4 sampai 11.9, termasuk Everest dan Golden Nugget.
+Setiap sudoku kini menampilkan peringkat Sudoku Explainer (SE), lengkap dengan penjelasan bawaan.
+Neraka dikurasi ulang: 1.544 papan 17 petunjuk terverifikasi, semuanya SE 6.6 ke atas.
+Statistik baru: Sudoku tersulit, spektrum SE, dan Arsenalmu.
+Diperbaiki: tautan berbagi tidak lagi menghapus statistikmu.
+Diperbaiki: keluar dari permainan kini berfungsi di semua bahasa.

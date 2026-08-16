@@ -1,10 +1,10 @@
-Infinity ist da: 100 Weltrekord-Sudokus mit SE 10.4 bis 11.9. Arto Inkalas Everest und AI Escargot, Golden Nugget, Platinum Blonde, Kolk, Patience. Die meisten Menschen lösen nie eines davon.
+Unendlich ist da: 100 Weltrekord-Sudokus mit SE 10.4 bis 11.9. Arto Inkalas Everest und AI Escargot, Golden Nugget, Platinum Blonde, Kolk, Patience. Die meisten Menschen lösen nie eines davon.
 
-• Jedes Rätsel zeigt jetzt seine Sudoku-Explainer-Bewertung auf der Skala von 1,0 bis 12,0 – in der Stufen-Plakette auf dem Brett, im Verlauf und in geteilten Links. Eine eingebaute Erklärung sagt dir, was die Zahl bedeutet.
-• Die Hölle wurde neu kuratiert: 1.544 geprüfte 17-Hinweis-Rätsel, jedes mit SE 6.6 oder höher. Keine „schwersten" Bretter mehr, die an einfachen Singles zerfallen.
-• Statistik neu gestaltet: deine schwerste Lösung, deine jüngste Durchschnittsschwierigkeit, deine meistgespielte Stufe, das komplette SE-Spektrum und dein Arsenal an Techniken mit Zählern.
-• Verlaufskarten tragen jetzt eine Technik-Zusammenfassung, und der Wiederholungs-Bildschirm ist aufgeräumter.
+• Jedes Rätsel zeigt jetzt seine Bewertung auf der Sudoku-Explainer-Skala (SE) von 1.0 bis 12.0 – direkt neben der Schwierigkeitsstufe auf dem Brett, im Verlauf und in jedem geteilten Link. Eine eingebaute Erklärung sagt dir, was die Zahl bedeutet.
+• Die Hölle wurde neu kuratiert: 1.544 geprüfte Rätsel mit 17 Vorgaben, jedes mit SE 6.6 oder höher. Keine „schwersten“ Bretter mehr, die sich schon mit einfachen Singles lösen lassen.
+• Statistiken neu gestaltet: dein schwerstes Rätsel, deine durchschnittliche Schwierigkeit der letzten Spiele und deine meistgespielte Stufe, dazu das komplette SE-Spektrum und dein Arsenal an Techniken mit Zählern.
+• Verlaufskarten tragen jetzt eine Zusammenfassung der genutzten Techniken, und die Wiederholung ist aufgeräumter.
 • Volle Tastatursteuerung im Web: Pfeiltasten, Ziffern, Leertaste oder N für Notizen, Umschalt und Ziffer für Kandidaten, A für Auto-Kandidaten.
-• Behoben: Ein geteilter Link löscht nicht mehr deine Statistik.
+• Schneller: Spiele in der Hölle starten sofort, und der Verlauf lädt ohne Stocken.
+• Behoben: Ein geteilter Link löscht nicht mehr deine Statistiken.
 • Behoben: Das Beenden eines Spiels funktioniert jetzt in jeder Sprache.
-• Schneller: Hölle-Spiele starten sofort, und der Verlauf lädt ohne Stocken.

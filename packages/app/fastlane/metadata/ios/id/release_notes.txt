@@ -1,10 +1,10 @@
-Infinity hadir: 100 Sudoku rekor dunia dengan rating SE 10.4 sampai 11.9. Everest dan AI Escargot karya Arto Inkala, Golden Nugget, Platinum Blonde, Kolk, Patience. Kebanyakan orang tidak pernah menyelesaikan satu pun.
+Tak Terhingga hadir: 100 sudoku rekor dunia dengan peringkat SE 10.4 sampai 11.9. Everest dan AI Escargot karya Arto Inkala, Golden Nugget, Platinum Blonde, Kolk, Patience. Kebanyakan orang tidak pernah menyelesaikan satu pun.
 
-• Setiap puzzle kini menampilkan rating Sudoku Explainer di skala 1,0 sampai 12,0: di label level pada papan, di riwayat, dan di tautan yang dibagikan. Penjelasan bawaan memberi tahu arti angkanya.
-• Neraka dikurasi ulang: 1.544 puzzle 17-clue terverifikasi, semuanya SE 6,6 atau lebih tinggi. Tidak ada lagi papan "tersulit" yang tumbang oleh single biasa.
-• Statistik dirancang ulang: penyelesaian tersulit kamu, rata-rata kesulitan terakhir, level paling sering dimainkan, spektrum SE penuh, dan arsenal teknik lengkap dengan hitungannya.
-• Kartu riwayat kini membawa ringkasan teknik, dan layar replay lebih bersih.
-• Kontrol keyboard penuh di web: panah, angka, Spasi atau N untuk catatan, Shift dan angka untuk kandidat, A untuk kandidat otomatis.
-• Diperbaiki: membuka tautan bagikan tidak lagi menghapus statistik kamu.
+• Setiap sudoku kini menampilkan peringkatnya pada skala Sudoku Explainer (SE), dari 1.0 sampai 12.0: di label level pada papan, di riwayat, dan di tautan yang kamu bagikan. Penjelasan bawaan memberi tahu arti angka itu.
+• Neraka dikurasi ulang: 1.544 sudoku 17 petunjuk yang terverifikasi, semuanya SE 6.6 atau lebih tinggi. Tidak ada lagi papan "tersulit" yang tumbang hanya oleh tunggal biasa.
+• Statistik dirancang ulang: Sudoku tersulit yang pernah kamu pecahkan, rata-rata kesulitan terakhir, level paling sering dimainkan, spektrum SE lengkap, dan Arsenalmu berisi setiap teknik beserta jumlah pemakaiannya.
+• Kartu riwayat kini membawa ringkasan teknik, dan layar putar ulang jadi lebih rapi.
+• Kontrol keyboard penuh di web: panah untuk berpindah, angka untuk mengisi, Spasi atau N untuk mode catatan, Shift dan angka untuk kandidat, A untuk kandidat otomatis.
+• Diperbaiki: membuka tautan berbagi tidak lagi menghapus statistikmu.
 • Diperbaiki: keluar dari permainan kini berfungsi di semua bahasa.
 • Lebih cepat: permainan Neraka mulai seketika dan riwayat termuat tanpa tersendat.

@@ -1,10 +1,10 @@
-Infinity är här: 100 världsrekordpussel med SE 10.4 till 11.9. Arto Inkalas Everest och AI Escargot, Golden Nugget, Platinum Blonde, Kolk, Patience. De flesta löser aldrig ett enda.
+Oändlighet är här: 100 världsrekordpussel med SE 10.4 till 11.9. Arto Inkalas Everest och AI Escargot, Golden Nugget, Platinum Blonde, Kolk, Patience. De flesta löser aldrig ett enda.
 
-• Varje pussel visar nu sitt Sudoku Explainer-betyg på skalan 1,0 till 12,0 — i nivåbrickan på brädet, i historiken och i delade länkar. En inbyggd förklaring berättar vad siffran betyder.
-• Helvete är omgjort: 1 544 verifierade pussel med 17 ledtrådar, vart och ett SE 6.6 eller högre. Inga fler "svåraste" bräden som faller på enkla singlar.
-• Ny statistik: din svåraste lösning, senaste snittsvårighet och mest spelade nivå, hela SE-spektrumet och din arsenal av tekniker med räknare.
-• Korten i historiken har fått en tekniksammanfattning, och reprisvyn är renare.
+• Varje pussel visar nu sitt betyg på Sudoku Explainer-skalan (SE), 1.0 till 12.0 – direkt vid svårighetsgraden på brädet, i historiken och i varje delad länk. En inbyggd förklaring berättar vad siffran betyder.
+• Helvete är omgjort: 1 544 verifierade pussel med 17 ledtrådar, vart och ett SE 6.6 eller högre. Inga fler ”svåraste” bräden som faller på enkla singlar.
+• Ny statistik: din svåraste lösning, din snittsvårighet på sistone och din mest spelade nivå, plus hela SE-spektrumet och din arsenal av tekniker med räknare.
+• Korten i historiken har fått en sammanfattning av teknikerna, och reprisvyn är renare.
 • Full tangentbordsstyrning på webben: piltangenter, siffror, mellanslag eller N för anteckningar, Skift och siffra för kandidater, A för autokandidater.
+• Snabbare: pussel i Helvete startar direkt och historiken laddar utan hack.
 • Fixat: en delad länk raderar inte längre din statistik.
 • Fixat: att avsluta ett spel fungerar nu på alla språk.
-• Snabbare: Helvete-spel startar direkt och historiken laddar utan hack.

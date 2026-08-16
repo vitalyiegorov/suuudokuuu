@@ -1,16 +1,16 @@
-suuudokuuu ist Sudoku, wie es sein sollte: schnell, schön und ehrlich bei der Schwierigkeit. Sieben Stufen, von einem sanften Anfänger-Brett bis Infinity – den schwersten Sudoku-Rätseln, die je komponiert wurden. Keine Werbung, die sich als Rätsel tarnt, kein Konto, kein Schnickschnack. Nur du und das Gitter.
+suuudokuuu ist Sudoku, wie es sein sollte: schnell, schön und ehrlich bei der Schwierigkeit. Sieben Stufen, von einem sanften Anfänger-Brett bis Unendlich – den schwersten Sudoku-Rätseln, die je komponiert wurden. Keine Werbung, die sich als Rätsel tarnt, kein Konto, kein Schnickschnack. Nur du und das Gitter.
 
 JEDES RÄTSEL BEWERTET
-Die meisten Apps schreiben „Experte" auf ein Brett und hoffen, dass du nicht genauer hinschaust. Wir setzen eine Zahl darauf. Jedes Rätsel trägt eine Sudoku-Explainer-Bewertung auf der Skala von 1,0 bis 12,0, die ernsthafte Löser verwenden – direkt in der Stufen-Plakette auf dem Brett, in deinem Verlauf und in jedem Link, den du teilst. Eine eingebaute Erklärung zeigt dir, was die Zahl wirklich misst: wie schwer ein Rätsel zu durchdenken ist, nicht wie wenige Hinweise es hat.
+Die meisten Apps schreiben „Experte“ auf ein Brett und hoffen, dass du nicht genauer hinschaust. Wir setzen eine Zahl darauf. Jedes Rätsel trägt eine Bewertung auf der Sudoku-Explainer-Skala (SE) von 1.0 bis 12.0 – derselben Skala, mit der erfahrene Löser vergleichen. Sie steht direkt neben der Schwierigkeitsstufe auf dem Brett, in deinem Verlauf und in jedem Link, den du teilst. Eine eingebaute Erklärung zeigt dir, was die Zahl wirklich misst: wie schwer ein Rätsel zu durchdenken ist, und nicht, wie wenige Vorgaben es hat.
 
-INFINITY: DIE SCHWERSTEN SUDOKUS DER WELT
+UNENDLICH: DIE SCHWERSTEN SUDOKUS DER WELT
 Eine kuratierte Sammlung aus 100 Weltrekord-Rätseln mit SE 10.4 bis 11.9. Arto Inkalas Everest und AI Escargot. Golden Nugget. Platinum Blonde. Kolk, Patience, Fata Morgana, Red Dwarf. Das sind die Gitter, die die Löser-Community berühmt gemacht hat – die meisten Menschen lösen nie eines davon.
 
 HÖLLE, NEU KURATIERT
-Die Hölle besteht jetzt aus 1.544 geprüften 17-Hinweis-Rätseln, jedes einzelne mit SE 6.6 oder höher bewertet. Siebzehn Hinweise sind das Minimum, mit dem ein Sudoku noch genau eine Lösung hat – aber wenige Hinweise allein machen ein Rätsel nicht schwer. Also haben wir den gesamten Korpus bewertet und nur die Bretter behalten, die wirklich zurückschlagen.
+Die Hölle besteht jetzt aus 1.544 geprüften Rätseln mit 17 Vorgaben, jedes einzelne mit SE 6.6 oder höher bewertet. Siebzehn Vorgaben sind das Minimum, mit dem ein Sudoku noch genau eine Lösung hat – aber wenige Vorgaben allein machen ein Rätsel nicht schwer. Also haben wir den gesamten Bestand bewertet und nur die Bretter behalten, die wirklich zurückschlagen.
 
 DEIN SPIEL, GEMESSEN
-Die neu gestaltete Statistik zeigt deine schwerste Lösung, deine jüngste Durchschnittsschwierigkeit und die Stufe, die du am häufigsten spielst. Das SE-Spektrum trägt jedes abgeschlossene Rätsel auf der Skala ab. Dein Arsenal zählt jede Technik, die du wirklich eingesetzt hast – Nacktes Paar, X-Wing, Schwertfisch und weiter – damit du dein Repertoire wachsen siehst.
+Die neu gestalteten Statistiken zeigen dein schwerstes Rätsel, deine durchschnittliche Schwierigkeit der letzten Spiele und die Stufe, die du am häufigsten spielst. Das SE-Spektrum trägt jedes abgeschlossene Rätsel auf der Skala ab. Dein Arsenal zählt jede Technik, die du wirklich eingesetzt hast – Nacktes Paar, X-Wing, Swordfish und weiter – damit du dein Repertoire wachsen siehst.
 
 FORDERE EINEN FREUND HERAUS
 Der Rivalen-Modus schickt dein exaktes Rätsel als Link an einen Freund, samt deinem aufgezeichneten Lauf. Er oder sie spielt genau dein Gitter und tritt Zug um Zug gegen deine Zeit an. Angeberrechte, geklärt.
@@ -22,7 +22,7 @@ SPIEL, WIE DU WILLST
 Wähle Klassisch, Gold oder Zeitung, oder öffne den Theme-Editor mit Live-Vorschau und bestimme jede Zelle, jede Linie und jede Hervorhebung selbst. Die eingebaute Kontrastprüfung hält eigene Themes in Hell und Dunkel gut lesbar. Im Web gibt es volle Tastatursteuerung: Pfeiltasten zum Bewegen, Ziffern zum Setzen, Leertaste oder N für den Notizmodus, Umschalt und Ziffer für Kandidaten, A für Auto-Kandidaten.
 
 ALLES ANDERE, WAS DU WILLST
-• 7 Schwierigkeitsstufen, von Anfänger bis Infinity
+• 7 Schwierigkeitsstufen, von Anfänger bis Unendlich
 • SE-Schwierigkeitsbewertung für jedes Rätsel
 • Vollständiger Theme-Editor mit Hell- und Dunkelmodus
 • Rivalen-Herausforderungen per Link

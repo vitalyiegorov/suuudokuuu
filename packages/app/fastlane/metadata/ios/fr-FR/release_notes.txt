@@ -1,10 +1,10 @@
-Infinity arrive : 100 grilles record du monde notées de SE 10.4 à 11.9. L'Everest et AI Escargot d'Arto Inkala, Golden Nugget, Platinum Blonde, Kolk, Patience. La plupart des gens n'en terminent jamais une.
+Infini est là : 100 grilles record du monde, notées de SE 10.4 à 11.9. L'Everest et AI Escargot d'Arto Inkala, Golden Nugget, Platinum Blonde, Kolk, Patience. La plupart des joueurs n'en terminent jamais une seule.
 
-• Chaque grille affiche désormais sa note Sudoku Explainer sur l'échelle de 1,0 à 12,0 : dans la pastille de niveau, dans l'historique et dans les liens partagés. Une explication intégrée te dit ce que ce chiffre signifie.
-• L'Enfer a été recomposé : 1 544 grilles vérifiées à 17 indices, toutes notées SE 6,6 ou plus. Fini les grilles "les plus dures" qui tombent en singles.
-• Statistiques repensées : ta résolution la plus difficile, ta difficulté moyenne récente, ton niveau le plus joué, tout le spectre SE et ton arsenal de techniques avec leurs compteurs.
-• Les cartes de l'historique portent un résumé des techniques, et l'écran de relecture est plus net.
-• Contrôle complet au clavier sur le web : flèches, chiffres, Espace ou N pour les notes, Maj et un chiffre pour les candidats, A pour les candidats automatiques.
-• Corrigé : ouvrir un lien partagé n'efface plus tes statistiques.
+• Chaque grille affiche désormais sa note sur l'échelle Sudoku Explainer (SE), de 1.0 à 12.0 : dans la pastille de niveau, dans l'historique et dans les liens partagés. Une explication intégrée vous dit ce que ce chiffre mesure vraiment.
+• L'Enfer a été recomposé : 1 544 grilles vérifiées à 17 indices, toutes notées SE 6.6 ou plus. Fini les grilles soi-disant « les plus dures » qui tombent en quelques singletons.
+• Statistiques repensées : votre grille la plus dure, votre difficulté moyenne récente et votre niveau le plus joué, le spectre SE complet de tout ce que vous avez terminé, et votre arsenal de techniques avec le nombre d'utilisations.
+• Les cartes de l'historique portent maintenant un résumé des techniques, et l'écran de relecture est plus lisible.
+• Contrôle complet au clavier sur le web : flèches pour se déplacer, chiffres pour poser, Espace ou N pour le mode notes, Maj et un chiffre pour les candidats, A pour les candidats automatiques.
+• Corrigé : ouvrir un lien partagé n'efface plus vos statistiques.
 • Corrigé : quitter une partie fonctionne maintenant dans toutes les langues.
 • Plus rapide : les parties Enfer démarrent instantanément et l'historique se charge sans à-coups.
