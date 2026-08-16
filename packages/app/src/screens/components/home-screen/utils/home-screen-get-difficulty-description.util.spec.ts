@@ -15,4 +15,8 @@ describe('homeScreenGetDifficultyDescription', () => {
     it('should describe Hell by its minimal clue count', () => {
         expect(homeScreenGetDifficultyDescription(DifficultyEnum.Hell)).toBe('Minimum clues');
     });
+
+    it('should describe Infinity by its world-record corpus', () => {
+        expect(homeScreenGetDifficultyDescription(DifficultyEnum.Infinity)).toBe('World-record puzzles');
+    });
 });
