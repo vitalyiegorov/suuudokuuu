@@ -7,6 +7,11 @@ tags:
 # the seed-command hook before launch, so reset-app/apply-language/
 # apply-appearance are intentionally omitted (apply-language also trips the
 # option-sheet regression tracked in #262).
+- launchApp
+- extendedWaitUntil:
+      visible:
+          id: 'HomeScreenSelectors.Root'
+      timeout: 30000
 - runFlow:
       file: ../subflows/shared/open-shared-challenge.flow.yaml
       env:
