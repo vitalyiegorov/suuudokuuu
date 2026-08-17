@@ -25,54 +25,77 @@ appId: ${APP_ID}
       visible:
           id: 'HistoryScreenSelectors.Root'
       timeout: 3000
-# Scroll-tolerant: the difficulty card sits below the fold on the Android
+# Scroll-tolerant: the difficulty ladder sits below the fold on the Android
 # viewport, so scroll to its deepest line before asserting the title above it.
 - scrollUntilVisible:
       element:
           text: '.*completed game.*'
       direction: DOWN
 - assertVisible: 'Newbie.*'
+# The arsenal and other editorial sections pushed the difficulty ladder to the end of a
+# much taller scroll, so the scroll above stops as soon as the row's title line
+# appears and its tappable centre still sits under the floating tab bar. Scrolling
+# once more settles the content at its end, where the reserved bottom inset clears
+# the bar.
+- scroll
 - tapOn:
       id: 'HistoryDifficultySelectors.Card.Newbie'
 - extendedWaitUntil:
       visible:
           id: 'CompletedGameItemSelectors.ReplayButton'
       timeout: 3000
+- assertVisible:
+      id: 'HistoryGamesSummaryBandSelectors.Root'
 - assertVisible: 'Score'
 - assertVisible: 'Time'
 - assertVisible: 'Mistakes'
+# This fixture predates the rating trailer, so it decodes with an unknown rating: the history
+# row must show the plain difficulty text with no "· rating" suffix rather than a fake 0.
+- assertVisible:
+      id: 'CompletedGameItemSelectors.DifficultyValue'
+      text: 'Newbie'
+# The compact technique summary derives lazily from the decoded replay after the card mounts.
+- extendedWaitUntil:
+      visible:
+          id: 'CompletedGameTechniqueSummarySelectors.Root'
+      timeout: 5000
 - tapOn:
       id: 'CompletedGameItemSelectors.ReplayButton'
 - extendedWaitUntil:
       visible:
           id: 'ReplayControlsSelectors.Root'
       timeout: 3000
-# The replay board fills the shorter Android viewport, so the playback controls
-# scroll below the fold; scroll the step buttons above the navigation bar before
-# tapping (iOS passes only because its taller viewport keeps them on screen).
-- scrollUntilVisible:
-      element:
-          id: 'ReplayControlsSelectors.NextButton'
-      direction: DOWN
-      timeout: 5000
+# Same old-link fixture: the replay header's level metric must stay plain, with no rating suffix.
+- assertVisible:
+      id: 'ReplayHeaderSelectors.Level'
+      text: 'Newbie'
+# Every step rebuilds the board and reclassifies the move through the technique
+# engine while rendering, so the meta row can lag the tap on the slower Android
+# emulator. Previous is disabled at step 0, so tapping it before the Next render
+# lands is a silent no-op that strands the replay on step 1. Gate each interaction
+# on the step it produces instead of firing the taps back to back.
 - tapOn:
       id: 'ReplayControlsSelectors.NextButton'
+- extendedWaitUntil:
+      visible: 'Move 1 / 1'
+      timeout: 15000
 - tapOn:
       id: 'ReplayControlsSelectors.PreviousButton'
-- assertVisible: 'Move 0 / 1'
+- extendedWaitUntil:
+      visible: 'Move 0 / 1'
+      timeout: 15000
 - swipe:
       from:
           id: 'ReplayScrubberSelectors.Root'
       direction: RIGHT
-- assertVisible: 'Move 1 / 1'
+- extendedWaitUntil:
+      visible: 'Move 1 / 1'
+      timeout: 15000
 - tapOn:
       id: 'ReplayControlsSelectors.PreviousButton'
-- assertVisible: 'Move 0 / 1'
-- scrollUntilVisible:
-      element:
-          id: 'ReplayShareActionSelectors.Button'
-      direction: DOWN
-      timeout: 3000
+- extendedWaitUntil:
+      visible: 'Move 0 / 1'
+      timeout: 15000
 - assertVisible:
       id: 'ReplayShareActionSelectors.Button'
 - tapOn:

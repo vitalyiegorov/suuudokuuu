@@ -1,8 +1,11 @@
 import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
-import { TechniqueManager } from '@suuudokuuu/techniques';
+import { TechniqueManager, interactiveTechniqueOrder } from '@suuudokuuu/techniques';
+
+import { isDefined } from '@rnw-community/shared';
 
 import { getCellKey } from '../../@generic/utils/get-cell-key.util';
 import { getTimelineCellSteps } from '../../game/utils/get-timeline-cell-steps.util';
+import { getTimelineCellTechniques } from '../../game/utils/get-timeline-cell-techniques.util';
 
 import { getReplayTimeline } from './get-replay-timeline.util';
 
@@ -15,6 +18,7 @@ export const getSudokuAtStep = (gameState: GameState, currentStep: number) => {
     const sudoku = Sudoku.fromString(givens, defaultSudokuConfig);
 
     const steps = getTimelineCellSteps(events);
+    const storedTechniques = getTimelineCellTechniques(events);
     const effectiveStep = Math.min(currentStep, steps.length);
     let elapsedTime = 0;
     let highlightedCellKey = '';
@@ -27,7 +31,11 @@ export const getSudokuAtStep = (gameState: GameState, currentStep: number) => {
         const cell = { ...sudoku.Field[y][x], value: steps[i].value };
 
         if (i === effectiveStep - 1) {
-            moveClassification = new TechniqueManager(sudoku).identifyMove(cell);
+            const storedTechnique = storedTechniques[i];
+
+            moveClassification = isDefined(storedTechnique)
+                ? { technique: storedTechnique, value: cell.value }
+                : new TechniqueManager(sudoku).identifyMove(cell, interactiveTechniqueOrder);
         }
 
         sudoku.Field[y][x] = cell;

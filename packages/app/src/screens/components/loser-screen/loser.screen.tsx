@@ -4,6 +4,7 @@ import { Redirect } from 'expo-router';
 import { CompletedGameResultDetails } from '../../../@generic/components/completed-game-result-details/completed-game-result-details';
 import { GameResultPage } from '../../../@generic/components/game-result-page/game-result-page';
 import { useCompletedGameResult } from '../../../@generic/hooks/use-completed-game-result.hook';
+import { getLevelRatingText } from '../../../@generic/utils/get-level-rating-text.util';
 import { pauseScreenGetProgress } from '../pause-screen/utils/pause-screen-get-progress.util';
 
 import { LoserScreenActions } from './loser-screen-actions/loser-screen-actions';
@@ -19,10 +20,11 @@ export const LoserScreen = () => {
     }
 
     const { gameState, retrySetup, sudoku, timeText } = completedGameResult;
-    const { mistakes } = gameState;
+    const { isRatingCeiling, mistakes, rating } = gameState;
 
     const progress = pauseScreenGetProgress(sudoku);
-    const detailsText = `${t`Incomplete`} • ${completedGameResult.difficultyText} • ${completedGameResult.mistakesTypeText}`;
+    const levelText = getLevelRatingText(completedGameResult.difficultyText, rating, isRatingCeiling);
+    const detailsText = `${t`Incomplete`} • ${levelText} • ${completedGameResult.mistakesTypeText}`;
     const footer = <LoserScreenActions retrySetup={retrySetup} />;
 
     return (

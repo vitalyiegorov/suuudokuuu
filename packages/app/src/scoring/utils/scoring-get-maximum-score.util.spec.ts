@@ -5,7 +5,7 @@ import { defaultScoringConfig } from '../interfaces/scoring-config.interface';
 
 import { scoringGetMaximumScore } from './scoring-get-maximum-score.util';
 
-const ExpectedMaximumScore = 372900;
+const ExpectedMaximumScore = 441000;
 
 describe('scoringGetMaximumScore', () => {
     it('calculates the safe display maximum for the current scoring rules', () => {

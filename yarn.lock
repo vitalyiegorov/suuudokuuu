@@ -4962,6 +4962,7 @@ __metadata:
     "@suuudokuuu/encoder": "workspace:*"
     "@suuudokuuu/generator": "workspace:*"
     "@suuudokuuu/hell-corpus": "workspace:*"
+    "@suuudokuuu/rating": "workspace:*"
     "@suuudokuuu/screen-chrome": "workspace:*"
     "@suuudokuuu/solver-core": "workspace:*"
     "@suuudokuuu/techniques": "workspace:*"
@@ -5039,9 +5040,20 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@suuudokuuu/hell-corpus@workspace:packages/hell-corpus"
   dependencies:
+    "@rnw-community/shared": "npm:^2.2.0"
+    "@suuudokuuu/rating": "workspace:*"
     "@suuudokuuu/solver-bitmask": "workspace:*"
     "@suuudokuuu/solver-core": "workspace:*"
     "@suuudokuuu/solver-dlx": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
+"@suuudokuuu/rating@workspace:*, @suuudokuuu/rating@workspace:packages/rating":
+  version: 0.0.0-use.local
+  resolution: "@suuudokuuu/rating@workspace:packages/rating"
+  dependencies:
+    "@suuudokuuu/generator": "workspace:*"
+    "@suuudokuuu/techniques": "workspace:*"
   languageName: unknown
   linkType: soft
 

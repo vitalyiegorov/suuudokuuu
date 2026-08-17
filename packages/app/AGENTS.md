@@ -83,6 +83,25 @@ src/
 4. Persisted-state migrations are the only place where legacy unknown shapes may need narrow escape hatches. Do not spread that pattern into normal app code.
 5. Keep game mutations in the game slice and puzzle invariants in `@suuudokuuu/generator`.
 
+## Move Classification
+
+Every correct placement is classified exactly once, at the moment it is played, by `classifyTimelineMove`. The result rides the timeline event as `technique`, and `gameStateToString` writes those techniques into the encoded state as the encoder's technique trailer, so a finished game keeps its labels without a migration: `encodedState` is opaque to the persisted shape, and a record written by an older build simply lacks the stream.
+
+Consumers therefore prefer the stored technique and only fall back to re-deriving it:
+
+- `getRunTechniqueEvents` returns the stored stream when the decoded timeline carries one, and replays through `TechniqueManager` only for legacy records. The completed-game chips, the rival arsenal on the challenge accept screen, and the rival run summary all go through it.
+- `getSudokuAtStep` shows the stored technique for the replayed step and reclassifies only when it is missing.
+
+`interactiveTechniqueOrder` from `@suuudokuuu/techniques` is for classification that has to answer inside a frame, not for every derivation:
+
+- `classifyTimelineMove` uses it. It runs on the tap that plays a cell, so the full registry would block the JS thread for most of a second on a hard board.
+- `getSudokuAtStep` uses it for the one step being scrubbed, for the same reason.
+- `getChallengeTechniqueEvents` does not. It is the legacy-record fallback: a whole run replayed once per screen open, off any tap budget, so it uses the full registry and keeps the labels a legacy link deserves.
+
+That split matters because the interactive ladder is a fidelity trade, not a free win. A move that only an AIC or a forcing chain could justify records `Guess`; measured over twelve replayed Infinity games that is about 7 % of moves. Nothing else changes meaning, so scoring, challenge tiers, and the technique tiles keep theirs.
+
+The trade also does not pay off in a bulk replay. Replaying the 59-move Nightmare rival of `08.challenge-accept-preview` costs 139 ms on the full registry against 198 ms on the interactive ladder, because a move the full ladder settles at `AIC` instead falls through the whole direct pass and then the whole enabling pass. Only the hardest boards invert that: a 60-move Infinity replay costs 0.6-1.4 s full against 0.3-0.5 s interactive, and both of those are already too slow to hide, for legacy records only. Rating and solving still use the full registry.
+
 ## Routing And Deep Links
 
 1. Expo Router routes live under `src/app`.
@@ -108,6 +127,32 @@ src/
 2. `scripts/build-vercel-output.ts` (`yarn build:vercel`) emits a Build Output API v3 tree in `.vercel/output`: `static/` from the Expo web export, one esbuild bundle per endpoint in `functions/api/beta/<name>.func`, and `config.json`.
 3. `vercel.json` stays the single source of truth for routes; the build script reads them from it.
 4. CI deploys the prebuilt tree with `vercel deploy --prebuilt` from `packages/app`, so the functions are never installed or compiled on Vercel.
+
+## Web Platform Notes
+
+1. `Alert` resolves to `@generic/components/alert/alert.web.ts` on web, which maps a React Native
+   `Alert.alert` call onto a single `window.confirm()`. It selects handlers by `AlertButton.style`
+   (`'cancel'` versus the first non-cancel button). Never match on `button.text` — every call site
+   builds those labels with the Lingui `t` macro, so text matching silently breaks in every locale that
+   translates the label.
+2. `enableScreens()` is called only when `Platform.OS !== 'web'` in `src/app/_layout.tsx`.
+   `react-native-screens` assigns `ENABLE_SCREENS` _before_ its `isNativePlatformSupported` guard, so
+   calling it unconditionally flips `screensEnabled()` to `true` on web and diverts the tab navigator
+   from react-navigation's `ResourceSavingView` into `Screen.web.js`, the only component in the web
+   tree that applies `hidden` + `display: none`. `enableFreeze()` returns before its assignment and is
+   a genuine no-op on web, so it is guarded alongside purely for symmetry.
+3. Board cells pass `tabIndex={-1}` to their `Pressable`. `react-native-web` always emits a `tabIndex`
+   from `Pressable` (`0` unless `disabled`), so `focusable={false}` is silently ignored there and
+   `tabIndex` is the only prop that works. Without it all 81 cells become tab stops. Cells are selected
+   by click and arrow keys, and the green selection highlight is their indicator, so the
+   `outline: none` rule for `[data-testid^='CellSelectors.Cell.']` in
+   `@generic/utils/game-controls-interactions.css` removes a ring that could never track the real
+   selection anyway. Tab therefore moves between genuine controls (numpad, candidate input), which keep
+   their themed `:focus-visible` ring. `tests/web-tests/specs/13.cell-focus-ring-alignment.spec.ts` pins
+   both halves of this.
+4. Blurred chrome on web (`EdgeFade`, the `FloatingTabBar` `BlurView` surface) attaches
+   `useBackdropRecomposite` from `@suuudokuuu/screen-chrome`. Keep that ref attached to an existing
+   wrapper element; do not introduce a new wrapper View for it, which would change tab bar layout.
 
 ## Error Handling
 

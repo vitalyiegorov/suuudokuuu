@@ -1,6 +1,6 @@
-🔥 Tingkat Hell: level tersulit, grid 17 petunjuk yang diverifikasi manual.
-🎨 Tema: Classic, Gold, Newspaper, atau bikin sendiri dengan pratinjau langsung.
-▶️ Replay: bagikan momen apa pun, geser jari menyusuri langkah solusi.
-🏆 Tantangan: cek ringkasan permainanmu sebelum dibagikan.
-🎉 Konfeti tiap kamu menang.
-⚡ Tata letak tablet & web lebih rapi, game baru lebih cepat.
+Tak Terhingga hadir: 100 sudoku rekor dunia SE 10.4 sampai 11.9, termasuk Everest dan Golden Nugget.
+Setiap sudoku kini menampilkan peringkat Sudoku Explainer (SE), lengkap dengan penjelasan bawaan.
+Neraka dikurasi ulang: 1.544 papan 17 petunjuk terverifikasi, semuanya SE 6.6 ke atas.
+Statistik baru: Sudoku tersulit, spektrum SE, dan Arsenalmu.
+Diperbaiki: tautan berbagi tidak lagi menghapus statistikmu.
+Diperbaiki: keluar dari permainan kini berfungsi di semua bahasa.

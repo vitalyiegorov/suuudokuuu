@@ -1,4 +1,4 @@
-import { t } from '@lingui/core/macro';
+import { useLingui } from '@lingui/react/macro';
 import { useRouter } from 'expo-router';
 import { ChevronLeft } from 'lucide-react-native';
 import { use } from 'react';
@@ -11,6 +11,7 @@ import { HeaderBackButtonSelectors } from './header-back-button.selectors';
 import { HeaderBackButtonStyles as styles } from './header-back-button.styles';
 
 export const HeaderBackButton = () => {
+    const { t } = useLingui();
     const router = useRouter();
     const { theme } = use(ThemeContext);
 

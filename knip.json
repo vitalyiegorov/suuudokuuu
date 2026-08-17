@@ -7,7 +7,8 @@
         "**/*.web.tsx",
         "packages/screen-chrome/src/edge-fade/utils/edge-fade-get-backdrop-filter.util.ts",
         "packages/screen-chrome/src/edge-fade/interface/web-edge-fade-style.interface.ts",
-        "**/selectors.ts"
+        "**/selectors.ts",
+        "packages/hell-corpus/scripts/shared/rate-puzzle-worker.mjs"
     ],
     "ignoreDependencies": [
         "@babel/core",
@@ -19,7 +20,7 @@
         "eas-build-cache-provider",
         "serve"
     ],
-    "ignoreBinaries": ["run", "xcrun", "maestro"],
+    "ignoreBinaries": ["run", "xcrun", "maestro", "adb", "sqlite3"],
     "workspaces": {
         "packages/app": {
             "entry": [

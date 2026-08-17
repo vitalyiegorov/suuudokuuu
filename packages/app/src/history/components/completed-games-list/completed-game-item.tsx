@@ -7,8 +7,10 @@ import { Text, View } from 'react-native';
 import { AppLinkButton } from '../../../@generic/components/app-link-button/app-link-button';
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
-import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
+import { getDifficultyMessage } from '../../../@generic/utils/get-difficulty-message.util';
+import { getLevelRatingText } from '../../../@generic/utils/get-level-rating-text.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { CompletedGameTechniqueSummary } from '../completed-game-technique-summary/completed-game-technique-summary';
 import { HistoryMetric } from '../history-metric/history-metric';
 
 import { CompletedGameItemSelectors } from './completed-game-item.selectors';
@@ -34,13 +36,16 @@ export const CompletedGameItem = ({ game }: Props) => {
     const completedDateText = completedDate.toLocaleDateString();
     const mistakesValue = game.maxMistakes >= 99 ? String(game.mistakes) : `${game.mistakes}/${game.maxMistakes}`;
     const elapsedTimeText = useTimerText(game.elapsedTime);
+    const levelText = getLevelRatingText(t(getDifficultyMessage(game.difficulty)), game.rating, game.isRatingCeiling);
 
     return (
         <View style={containerStyles}>
             <View style={styles.header}>
                 <View style={styles.titleGroup}>
                     <BlackText style={eyebrowStyles}>{completedDateText}</BlackText>
-                    <BlackText style={difficultyStyles}>{getDifficultyText(game.difficulty)}</BlackText>
+                    <BlackText style={difficultyStyles} testID={CompletedGameItemSelectors.DifficultyValue}>
+                        {levelText}
+                    </BlackText>
                 </View>
 
                 <AppLinkButton
@@ -60,6 +65,8 @@ export const CompletedGameItem = ({ game }: Props) => {
                 <HistoryMetric label={t`Time`} value={elapsedTimeText} />
                 <HistoryMetric label={t`Mistakes`} value={mistakesValue} />
             </AppMetricStrip>
+
+            <CompletedGameTechniqueSummary encodedState={game.encodedState} />
         </View>
     );
 };

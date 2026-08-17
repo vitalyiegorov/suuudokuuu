@@ -69,7 +69,8 @@ describe('SerializableSudoku - Difficulty Settings', () => {
                 [DifficultyEnum.Medium]: 0.6,
                 [DifficultyEnum.Hard]: 0.8,
                 [DifficultyEnum.Nightmare]: 0.9,
-                [DifficultyEnum.Hell]: 0.95
+                [DifficultyEnum.Hell]: 0.95,
+                [DifficultyEnum.Infinity]: 1
             }
         };
 
@@ -98,6 +99,14 @@ describe('SerializableSudoku - Difficulty Settings', () => {
         const sudoku = SerializableSudoku.fromString(seventeenGivensFieldsString, defaultSudokuConfig);
 
         expect(sudoku.Difficulty).toBe(DifficultyEnum.Hell);
+    });
+
+    it('should report Infinity as the terminal fallback bucket for a fully blank field', () => {
+        expect.assertions(1);
+
+        const fullyBlankFieldString = '.'.repeat(defaultSudokuConfig.fieldSize * defaultSudokuConfig.fieldSize);
+
+        expect(SerializableSudoku.convertFieldFromString(fullyBlankFieldString, defaultSudokuConfig)[1]).toBe(DifficultyEnum.Infinity);
     });
 });
 

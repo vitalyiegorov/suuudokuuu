@@ -5,7 +5,7 @@ import type { CellInterface } from '@suuudokuuu/generator';
 
 export interface XChainScanStateInterface {
     readonly context: CandidateContext;
-    readonly strongLinks: [CellInterface, CellInterface][];
+    readonly strongNeighborsByCellKey: Record<string, CellInterface[]>;
     readonly value: number;
     readonly results: TechniqueResultInterface[];
     readonly target?: TechniqueSearchTargetInterface;

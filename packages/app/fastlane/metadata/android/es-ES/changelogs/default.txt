@@ -1,6 +1,6 @@
-🔥 Dificultad Infierno: el nivel más duro, cuadrículas de 17 pistas verificadas a mano.
-🎨 Temas: Clásico, Oro, Periódico o crea el tuyo con vista previa en vivo.
-▶️ Repeticiones: comparte cualquier momento y arrastra por los pasos.
-🏆 Desafío: revisa el resumen de tu partida antes de compartirla.
-🎉 Confeti en cada victoria.
-⚡ Mejor diseño en tablets y web, partidas nuevas más rápidas.
+Llega Infinito: 100 sudokus récord mundial con SE 10.4 a 11.9, como Everest y Golden Nugget.
+Cada sudoku muestra ya su valoración Sudoku Explainer (SE), con explicación integrada.
+Infierno revisado: 1.544 tableros verificados de 17 pistas, todos con SE 6.6 o más.
+Estadísticas nuevas: tu sudoku más difícil, el espectro SE y tu arsenal de técnicas.
+Corregido: los enlaces compartidos ya no borran tus estadísticas.
+Corregido: salir de una partida ya funciona en todos los idiomas.

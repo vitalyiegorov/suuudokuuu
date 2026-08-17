@@ -7,4 +7,6 @@ export const FloatingTabBarBlurIntensity = 40;
 export const FloatingTabBarItemHeight = 56;
 export const FloatingTabBarIconSize = 22;
 export const FloatingTabBarRowPadding = SpacingConstant.xs;
-export const FloatingTabBarOccupiedHeight = FloatingTabBarItemHeight + FloatingTabBarRowPadding * 2 + FloatingTabBarBottomMargin;
+const FloatingTabBarContentBreathingRoom = 12;
+export const FloatingTabBarOccupiedHeight =
+    FloatingTabBarItemHeight + FloatingTabBarRowPadding * 2 + FloatingTabBarBottomMargin + FloatingTabBarContentBreathingRoom;

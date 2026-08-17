@@ -80,6 +80,10 @@ msgstr "{value, plural, one {# seconde} other {# secondes}}"
 msgid "<0>Development client required</0><1>Development clients need Metro, the launch URL configured in <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2>, or a compatible update on the <3>development</3> channel. This install flow does not publish an update.</1>"
 msgstr "<0>Client de développement requis</0><1>Les clients de développement nécessitent Metro, l’URL de lancement configurée dans <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2> ou une mise à jour compatible sur le canal <3>development</3>. Ce processus d’installation ne publie aucune mise à jour.</1>"
 
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "A “+” means this puzzle is at least SE {seRatingCeilingText}. Beyond that point, puzzles can chain into very long solutions, so we cap the displayed number instead of chasing false precision."
+msgstr "Un « + » signifie que cette grille atteint au moins SE {seRatingCeilingText}. Au-delà, les solutions peuvent s’enchaîner sur des raisonnements très longs : nous plafonnons donc le nombre affiché plutôt que d’afficher une fausse précision."
+
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "A little room between cells"
 msgstr "Un peu d’espace entre les cases"
@@ -99,6 +103,10 @@ msgstr "Accepter le défi ?"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Adjust the digits on the Sudoku board"
 msgstr "Ajuster les chiffres sur la grille de sudoku"
+
+#: src/history/constants/se-rating-band.constant.ts
+msgid "Advanced"
+msgstr "Avancé"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "AIC"
@@ -134,9 +142,13 @@ msgstr "Appliquer"
 msgid "Attempts to load the latest development build again"
 msgstr "Tente de charger à nouveau la dernière version de développement"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 msgid "Average"
 msgstr "Moyenne"
+
+#: src/history/components/history-solver-profile/history-solver-profile.tsx
+msgid "Avg recent {averageRecentSeText} · Most played {mostPlayedDifficultyText}"
+msgstr "Moy. récente {averageRecentSeText} · Plus jouée {mostPlayedDifficultyText}"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Avoid mistakes - they cost you points!"
@@ -159,6 +171,10 @@ msgstr "Chiffres équilibrés pour la plupart des joueurs"
 msgid "Balanced solve"
 msgstr "Résolution équilibrée"
 
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "Bands"
+msgstr "Paliers"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Base Score"
 msgstr "Score de base"
@@ -171,12 +187,16 @@ msgstr "Soyez rapide pour minimiser les pénalités de temps"
 msgid "Be wise, be smart, be quick..."
 msgstr "Soyez malin, soyez rapide..."
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Best score"
 msgstr "Meilleur score"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-techniques/history-techniques.tsx
+msgid "Best technique"
+msgstr "Meilleure technique"
+
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Best time"
 msgstr "Meilleur temps"
@@ -185,6 +205,10 @@ msgstr "Meilleur temps"
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "Better luck next time!"
 msgstr "Ce sera pour la prochaine fois !"
+
+#: src/history/constants/se-rating-band.constant.ts
+msgid "Beyond the ceiling"
+msgstr "Au-delà du plafond"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Board cells"
@@ -197,6 +221,10 @@ msgstr "Couleurs de la grille et apparence des écrans"
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Box-Line Reduction"
 msgstr "Réduction bloc-ligne"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "BUG+1"
+msgstr "BUG+1"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Built:"
@@ -227,6 +255,10 @@ msgstr "Texte du candidat"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Candidates"
 msgstr "Candidats"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Cell Forcing Chain"
+msgstr "Chaîne forcée de case"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
@@ -268,7 +300,7 @@ msgstr "Défi gagné"
 msgid "Challenge Won!"
 msgstr "Défi gagné !"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 msgid "Challenges"
 msgstr "Défis"
 
@@ -292,7 +324,7 @@ msgstr "Choisissez la langue des menus et du texte du jeu"
 msgid "Classic"
 msgstr "Classique"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 msgid "Clean"
 msgstr "Sans faute"
 
@@ -307,6 +339,10 @@ msgstr "Partie propre"
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Clean win"
 msgstr "Victoire nette"
+
+#: src/screens/components/rating-explainer-sheet-screen/rating-explainer-sheet.screen.tsx
+msgid "Close"
+msgstr "Fermer"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Column"
@@ -385,10 +421,6 @@ msgstr "Mode sombre"
 msgid "Dark overlay"
 msgstr "Superposition sombre"
 
-#: src/history/components/history-totals-card/history-totals-card.tsx
-msgid "Day streak"
-msgstr "Série quotidienne"
-
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Dead even"
 msgstr "Égalité parfaite"
@@ -426,6 +458,10 @@ msgstr "Grille non terminée"
 #: src/game/components/difficulty-complexity-slider/difficulty-complexity-slider.tsx
 msgid "Difficulty"
 msgstr "Difficulté"
+
+#: src/@generic/components/rating-badge/rating-badge.tsx
+msgid "Difficulty rating {ratingLabel}"
+msgstr "Niveau de difficulté {ratingLabel}"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Dim a completed digit in the numpad instead of removing it"
@@ -488,6 +524,10 @@ msgstr "Español"
 msgid "Evenly matched"
 msgstr "Match équilibré"
 
+#: src/history/constants/se-rating-band.constant.ts
+msgid "Expert"
+msgstr "Expert"
+
 #: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Expert grid"
 msgstr "Grille experte"
@@ -519,6 +559,10 @@ msgstr "Finned Swordfish"
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Finned X-Wing"
 msgstr "Finned X-Wing"
+
+#: src/history/constants/se-rating-band.constant.ts
+msgid "Foundational"
+msgstr "Fondamental"
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Français"
@@ -576,11 +620,15 @@ msgid "Hard"
 msgstr "Difficile"
 
 #: src/@generic/utils/get-mistakes-type-text.util.ts
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Hardcore"
 msgstr "Hardcore"
+
+#: src/history/components/history-solver-profile/history-solver-profile.tsx
+msgid "Hardest solve"
+msgstr "Grille la plus dure"
 
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -649,6 +697,11 @@ msgstr "Immortel"
 msgid "Incomplete"
 msgstr "Incomplet"
 
+#: src/@generic/utils/get-difficulty-message.util.ts
+#: src/scoring/components/scoring.screen.tsx
+msgid "Infinity"
+msgstr "Infini"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Ink"
 msgstr "Encre"
@@ -660,6 +713,10 @@ msgstr "Installer sur iOS"
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Install the iOS development build"
 msgstr "Installer la version de développement iOS"
+
+#: src/history/constants/se-rating-band.constant.ts
+msgid "Intermediate"
+msgstr "Intermédiaire"
 
 #: src/game/hooks/use-game-creation-runner.hook.ts
 msgid "Invalid Sudoku"
@@ -738,7 +795,7 @@ msgstr "Chargement de la version de développement"
 msgid "Loading the latest development build…"
 msgstr "Chargement de la dernière version de développement…"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 msgid "Lost"
 msgstr "Perdues"
 
@@ -842,6 +899,10 @@ msgstr "Journal"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Nightmare"
 msgstr "Cauchemar"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Nishio Forcing Chain"
+msgstr "Chaîne forcée Nishio"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "no bonus"
@@ -1059,6 +1120,10 @@ msgstr "enregistré"
 msgid "Recording"
 msgstr "Enregistrement"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Region Forcing Chain"
+msgstr "Chaîne forcée de région"
+
 #: src/@generic/utils/get-mistakes-type-text.util.ts
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Relaxed"
@@ -1172,6 +1237,10 @@ msgstr "Arrière-plan de l'écran"
 #: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
 msgid "Screenshots"
 msgstr "Captures d'écran"
+
+#: src/history/components/history-techniques/history-techniques.tsx
+msgid "SE {seValueText}"
+msgstr "SE {seValueText}"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Selected candidate background"
@@ -1310,6 +1379,10 @@ msgstr "Temps par coup"
 msgid "Stop current run?"
 msgstr "Arrêter la partie en cours ?"
 
+#: src/history/components/history-totals-card/history-totals-card.tsx
+msgid "Streak"
+msgstr "Série"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Subtle surface"
 msgstr "Surface discrète"
@@ -1346,6 +1419,10 @@ msgstr "Défi SuuudokuuU"
 #: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "SuuudokuuU game handoff"
 msgstr "Transfert de partie SuuudokuuU"
+
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "Suuudokuuu rates every puzzle on the Sudoku Explainer (SE) scale, the same scale serious solvers use to compare how hard a puzzle actually is to reason through, not just how many clues it has."
+msgstr "Suuudokuuu évalue chaque grille sur l’échelle Sudoku Explainer (SE), celle qu’utilisent les solveurs chevronnés pour comparer la difficulté réelle du raisonnement, et pas seulement le nombre d’indices."
 
 #: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "SuuudokuuU Sudoku Puzzle"
@@ -1390,6 +1467,10 @@ msgstr "Impossible d’ouvrir le lien du commit sur cet appareil."
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "The install link could not be opened. Check your browser settings and try again."
 msgstr "Impossible d’ouvrir le lien d’installation. Vérifiez les réglages de votre navigateur et réessayez."
+
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "The SE difficulty scale"
+msgstr "L’échelle de difficulté SE"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Their time to beat"
@@ -1480,6 +1561,10 @@ msgstr "Impossible d’ouvrir le lien"
 msgid "Unable to start installation"
 msgstr "Impossible de démarrer l’installation"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Unique Rectangle"
+msgstr "Rectangle unique"
+
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Unknown"
@@ -1569,7 +1654,7 @@ msgstr "Pendant votre absence, le combat pour la liberté a continué. Chaque do
 msgid "Wider gaps for easier tapping"
 msgstr "Espaces plus larges pour toucher plus facilement"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Win rate"
 msgstr "Victoires"
@@ -1586,9 +1671,13 @@ msgstr "Victoire ! À vous le festin !"
 msgid "Winning margin"
 msgstr "Marge de victoire"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 msgid "Won"
 msgstr "Gagnées"
+
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
+msgid "World-record puzzles"
+msgstr "Records du monde"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "X-Chain"
@@ -1626,9 +1715,17 @@ msgstr "Vous avez terminé votre grille. Le combat pour la liberté en Ukraine c
 msgid "You got to"
 msgstr "Tu as atteint"
 
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "You have not finished a rated puzzle yet."
+msgstr "Vous n’avez pas encore terminé de grille évaluée."
+
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 msgid "you lead"
 msgstr "tu mènes"
+
+#: src/history/components/history-techniques/history-techniques.tsx
+msgid "Your arsenal"
+msgstr "Votre arsenal"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Your best run"
@@ -1641,6 +1738,10 @@ msgstr "Votre navigateur peut demander l’autorisation d’installer des applic
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Your custom colors"
 msgstr "Vos couleurs personnalisées"
+
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "Your hardest solve"
+msgstr "Votre grille la plus dure"
 
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Your progress"

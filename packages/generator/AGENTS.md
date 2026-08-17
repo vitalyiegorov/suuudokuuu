@@ -33,6 +33,7 @@ src/
 4. Blank cells use the configured blank value, currently `0`.
 5. Puzzle generation must keep a unique solution. Use `SolverInterface.countSolutions(grid, UNIQUENESS_COUNT_LIMIT)` or equivalent uniqueness checks before accepting clue removal.
 6. `DifficultyEnum` values are serialized into app history and UI. Changing names or values requires app migrations, i18n updates, and tests.
+7. `Hell` and `Infinity` are corpus-only difficulties: the app never calls `Sudoku.create()` for them, so their `difficultyBlankCells` entries do not drive clue removal. `Hell`'s entry (64) happens to equal every corpus puzzle's real blank count, so blank-count inference (`SerializableSudoku.convertFieldFromString`) still resolves it correctly. `Infinity` puzzles are curated by Sudoku Explainer rating, not clue count, so their real blank count (~58-60) varies and collides with `Nightmare`/`Hell`; `Infinity`'s entry (81, a full-board sentinel) only keeps the threshold table monotonic and satisfies the `Record<DifficultyEnum, number>` type. It does not make `Infinity` reachable by inference for realistic puzzles — callers that need to know a puzzle is `Infinity` must carry the difficulty explicitly (see the encoder's rating trailer) rather than relying on blank-count inference.
 
 ## Algorithm Rules
 

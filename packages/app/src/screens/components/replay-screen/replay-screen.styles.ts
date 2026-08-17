@@ -2,6 +2,7 @@ import { appLayoutScreenIsWide } from '@suuudokuuu/ui';
 import { StyleSheet } from 'react-native-unistyles';
 
 const ReplayScreenWideWidthMultiplier = 1.4;
+const ReplayScreenEdgeSpacing = 18;
 
 export const ReplayScreenStyles = StyleSheet.create((theme, rt) => ({
     container: {
@@ -12,7 +13,7 @@ export const ReplayScreenStyles = StyleSheet.create((theme, rt) => ({
         maxWidth: appLayoutScreenIsWide(rt.screen)
             ? theme.contentWidth.standard * ReplayScreenWideWidthMultiplier
             : theme.contentWidth.standard,
-        paddingBottom: 18,
+        paddingBottom: rt.insets.bottom + ReplayScreenEdgeSpacing,
         paddingHorizontal: 20,
         paddingTop: 18,
         width: '100%'
@@ -22,12 +23,11 @@ export const ReplayScreenStyles = StyleSheet.create((theme, rt) => ({
         flexDirection: appLayoutScreenIsWide(rt.screen) ? 'row' : 'column',
         gap: 18
     },
-    topBar: {
-        alignItems: 'flex-start',
+    headerRow: {
+        alignItems: 'center',
         flexDirection: 'row',
         flexShrink: 0,
-        gap: theme.spacing.md,
-        justifyContent: 'space-between'
+        gap: theme.spacing.md
     },
     fieldWrapper: {
         alignItems: 'center',

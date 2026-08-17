@@ -1,0 +1,15 @@
+/* suuudokuuu — App Store screenshot captions (ur, informal "تم")
+ * Urdu script, right-to-left. Sentences close with the Urdu full stop ۔
+ * instead of a Latin period; no directional control characters are used. */
+
+"01-hero-board" = "سوڈوکو، جیسا ہونا چاہیے۔";
+"01-hero-board-dark" = "اندھیرے میں بھی اتنا ہی صاف۔";
+"01-hero-board-light" = "دن کی روشنی میں بھی اتنا ہی صاف۔";
+"02-hell" = "اصلی جہنم۔";
+"04-editor" = "ہر رنگ تمہارا۔";
+"05-customization" = "اسے واقعی اپنا بناؤ۔";
+"06-rival" = "چیلنج قبول کرو۔";
+"07-replay" = "ہر چال دوبارہ دیکھو۔";
+"09-home" = "اپنا چیلنج چنو۔";
+"10-stats" = "اپنا اصل درجہ جانو۔";
+"14-challenge-live" = "لائیو مقابلہ کرو۔";

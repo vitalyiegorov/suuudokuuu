@@ -1,1 +1,1 @@
-Sudoku Infierno real, editor de temas completo, retos Rival y repetición.
+Cada sudoku valorado de 1.0 a 12.0, y el modo Infinito: los más difíciles.

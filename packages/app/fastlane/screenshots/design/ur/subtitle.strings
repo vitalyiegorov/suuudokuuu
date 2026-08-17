@@ -1,0 +1,21 @@
+/* suuudokuuu — App Store screenshot descriptors (ur, informal "تم")
+ * Second-tier caption line under each headline in title.strings — same
+ * scene keys, 4-8 words, rendered smaller and at reduced opacity. Kept
+ * short enough to stay on one line at the iPhone canvas's descriptor point
+ * size (measured against the 1085px iPhone text safe-zone width) so the
+ * caption stack never grows taller than expected. Urdu script, right-to-left,
+ * closing with the Urdu full stop ۔ like the headlines; no directional
+ * control characters are used. See ../README.md "Design system" for the
+ * two-tier text rules. */
+
+"01-hero-board" = "صاف ہندسے۔ پوری توجہ۔";
+"01-hero-board-dark" = "مکمل ڈارک موڈ۔ کوئی سمجھوتہ نہیں۔";
+"01-hero-board-light" = "مکمل لائٹ موڈ۔ وہی توجہ۔";
+"02-hell" = "صرف 17 اشارے۔ اور کچھ نہیں۔";
+"04-editor" = "ہر رنگ خود چنو، خانہ بہ خانہ۔";
+"05-customization" = "سب رنگ تمہارے۔ 13 زبانیں۔";
+"06-rival" = "اصلی کھیل، اینٹی چیٹ سے تصدیق شدہ۔";
+"07-replay" = "دیکھو تم نے اسے کیسے حل کیا۔";
+"09-home" = "چھ درجے، نوآموز سے جہنم تک۔";
+"10-stats" = "ہر حل کی درجہ بندی۔ ہر تکنیک درج۔";
+"14-challenge-live" = "ہر تکنیک درج ہوتی ہے۔";

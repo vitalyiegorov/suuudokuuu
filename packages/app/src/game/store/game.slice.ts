@@ -5,9 +5,12 @@ import { defaultSudokuConfig } from '@suuudokuuu/generator';
 import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
 import { getCellKey } from '../../@generic/utils/get-cell-key.util';
+import { getDayNumber } from '../../@generic/utils/get-day-number.util';
 import { maxCompletedGamesPerDifficulty } from '../../history/constants/max-completed-games-per-difficulty.constant';
 import { SudokuScoring } from '../../scoring/classes/sudoku-scoring';
 import { defaultScoringConfig } from '../../scoring/interfaces/scoring-config.interface';
+import { addPlayedDayNumber } from '../utils/add-played-day-number.util';
+import { gameGetPersistedAggregates } from '../utils/game-get-persisted-aggregates.util';
 import { gameStateToString } from '../utils/game-state-to-string.util';
 import { getTimelineTimestampDelta } from '../utils/get-timeline-timestamp-delta.util';
 import { isLastTimelineEventAway } from '../utils/is-last-timeline-event-away.util';
@@ -24,13 +27,20 @@ export const gameSlice = createSlice({
     name: 'game',
     initialState: initialGameState,
     reducers: {
-        start: (state, action: PayloadAction<Pick<GameState, 'sudokuString' | 'difficulty' | 'maxMistakes' | 'isChallengeRun'>>) => {
-            Object.assign(state, { ...initialGameState, historyByDifficulty: state.historyByDifficulty });
+        start: (
+            state,
+            action: PayloadAction<
+                Pick<GameState, 'sudokuString' | 'difficulty' | 'maxMistakes' | 'isChallengeRun' | 'rating' | 'isRatingCeiling'>
+            >
+        ) => {
+            Object.assign(state, { ...initialGameState, ...gameGetPersistedAggregates(state) });
 
             state.sudokuString = action.payload.sudokuString;
             state.difficulty = action.payload.difficulty;
             state.maxMistakes = action.payload.maxMistakes;
             state.isChallengeRun = action.payload.isChallengeRun;
+            state.rating = action.payload.rating;
+            state.isRatingCeiling = action.payload.isRatingCeiling;
         },
         pause: (state, action: PayloadAction<{ shouldShowPauseScreen?: boolean } | undefined>) => {
             if (state.isChallengeRun) {
@@ -120,6 +130,10 @@ export const gameSlice = createSlice({
                 ...(isDefined(technique) && { technique })
             });
 
+            if (isDefined(technique)) {
+                state.techniqueUsageCounts[technique] = (state.techniqueUsageCounts[technique] ?? 0) + 1;
+            }
+
             state.candidates[getCellKey(correctCell)] = [];
 
             sudoku.Field.forEach(
@@ -150,7 +164,7 @@ export const gameSlice = createSlice({
             });
         },
         load: (state, action: PayloadAction<Partial<GameState>>) => {
-            Object.assign(state, action.payload);
+            Object.assign(state, action.payload, gameGetPersistedAggregates(state));
         },
         tick: state => {
             if (!state.isPaused && isNotEmptyString(state.sudokuString)) {
@@ -158,7 +172,7 @@ export const gameSlice = createSlice({
             }
         },
         reset: state => {
-            Object.assign(state, { ...initialGameState, historyByDifficulty: state.historyByDifficulty });
+            Object.assign(state, { ...initialGameState, ...gameGetPersistedAggregates(state) });
         },
         toggleShowAutoCandidates: state => {
             state.showAutoCandidates = !state.showAutoCandidates;
@@ -224,6 +238,7 @@ export const gameSlice = createSlice({
                 isWon && !isChallenge && !isNotEmptyString(state.challengeState) && state.score > history.bestScore;
 
             state.hasNewPersonalBestScore = hasNewPersonalBestScore;
+            state.playedDayNumbers = addPlayedDayNumber(state.playedDayNumbers, getDayNumber(Date.now()));
 
             history.gamesCompleted += 1;
 
@@ -241,6 +256,8 @@ export const gameSlice = createSlice({
                 history.completedGames = [
                     {
                         difficulty,
+                        rating: state.rating,
+                        isRatingCeiling: state.isRatingCeiling,
                         encodedState: gameStateToString(state, SharedPayloadKindEnum.Handoff),
                         elapsedTime: state.elapsedTime,
                         score: state.score,
@@ -253,6 +270,10 @@ export const gameSlice = createSlice({
 
                 if (state.score > history.bestScore) {
                     history.bestScore = state.score;
+                }
+
+                if (state.rating > history.bestRating.rating) {
+                    history.bestRating = { rating: state.rating, isRatingCeiling: state.isRatingCeiling };
                 }
             } else {
                 history.gamesLost += 1;

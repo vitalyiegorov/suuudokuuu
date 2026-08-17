@@ -36,6 +36,7 @@
         "@suuudokuuu/encoder": "workspace:*",
         "@suuudokuuu/generator": "workspace:*",
         "@suuudokuuu/hell-corpus": "workspace:*",
+        "@suuudokuuu/rating": "workspace:*",
         "@suuudokuuu/screen-chrome": "workspace:*",
         "@suuudokuuu/solver-core": "workspace:*",
         "@suuudokuuu/techniques": "workspace:*",

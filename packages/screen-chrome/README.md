@@ -75,6 +75,7 @@ Render order inside `ScreenChromeFrame` matters: content first (so native blur c
 - **`useScreenChrome()`** — reads the current context value (`colorScheme`, `config`, `scrollY`). Throws `useScreenChrome must be used within ScreenChromeProvider` when called outside the provider.
 - **`useScreenChromeScrollHandler()`** — returns an animated scroll handler that writes the clamped scroll offset (`Math.max(event.contentOffset.y, 0)`) to the shared value on the UI thread. Already wired into `ScreenChromeScrollView`; only needed if you bring your own scroll view.
 - **`useScrollFadeStyle(inputRange, outputRange)`** — escape hatch returning an animated opacity style interpolated off the shared scroll position, for any custom scroll-linked element outside the provided components.
+- **`useBackdropRecomposite()`** — returns a `BackdropRecompositeRef` (a ref callback) to attach to any container element. On web, whenever the document returns to visibility (`visibilitychange` → `visible`) or the page is restored from the back/forward cache (`pageshow` with `event.persisted`), every element in that container's subtree with a non-`none` computed `backdrop-filter` has the filter cleared for one frame and restored on the next `requestAnimationFrame`. This forces WebKit to rebuild backdrop-filter layers that it can leave painted opaque after reclaiming a backgrounded tab's GPU resources. On native the hook is `emptyFn` and attaches nothing. `EdgeFade`'s web implementation wires this to itself; consumers with their own blurred chrome (a `BlurView` tab bar, for example) can attach the same ref to an existing wrapper so no extra DOM node or layout is introduced.
 
 ### Config
 
@@ -142,7 +143,7 @@ There is no built-in theme system — pass `colorScheme="light"` or `colorScheme
 ## Platform behavior
 
 - **Native** — `EdgeFade` layers a `MaskedView` (from `@react-native-masked-view/masked-view`, alpha gradient mask) over a wash gradient and a real `BlurView`, so the edge both blurs and tints the content beneath it. Blur tint follows `colorScheme` (`systemChromeMaterial*` / `systemMaterial*`).
-- **Web** — `EdgeFade` uses a CSS `backdrop-filter`/`mask-image` approach instead of a native blur view. Scroll-driven animation on web affects **opacity only** — the blur radius stays static; only the opacity interpolates with scroll. The bottom edge renders on web the same as the top edge.
+- **Web** — `EdgeFade` uses a CSS `backdrop-filter`/`mask-image` approach instead of a native blur view. Scroll-driven animation on web affects **opacity only** — the blur radius stays static; only the opacity interpolates with scroll. The bottom edge renders on web the same as the top edge. `EdgeFade` also attaches `useBackdropRecomposite` to itself so its blur layer is rebuilt when the tab returns to the foreground.
 
 ## Not included by design
 
