@@ -1,21 +1,14 @@
 # Fleet validation for the mobile-ci store-screenshots v1.6.0 redesign
-# (direct-capture mode + Android). Dispatch-only; one preset per run so the
+# (direct-capture mode + Android). Push-triggered: pushing this commit as
+# branch ci/ssv16-run/<preset> runs exactly that preset, one per push, so the
 # fleet never carries more than one validation pipeline at a time. The pin is
 # the mobile-ci main merge commit of the redesign, not a release tag.
 name: Store screenshots v1.6 validation
 
 on:
-    workflow_dispatch:
-        inputs:
-            preset:
-                description: Fleet-validation preset to run
-                type: choice
-                required: true
-                options:
-                    - r1-ios-direct
-                    - r2-android
-                    - r3-flows-legacy
-                    - r3-upload-gate
+    push:
+        branches:
+            - ci/ssv16-run/**
 
 permissions:
     contents: read
@@ -23,7 +16,7 @@ permissions:
 jobs:
     r1-ios-direct:
         name: R1 iOS direct capture
-        if: inputs.preset == 'r1-ios-direct'
+        if: github.ref_name == 'ci/ssv16-run/r1-ios-direct'
         uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@b9b028219a8635b0dea18514109da5afce61287f # main as of 2026-08-17, v1.6.0 store-screenshots redesign
         with:
             ios-target: >-
@@ -55,7 +48,7 @@ jobs:
 
     r2-android:
         name: R2 Android direct capture
-        if: inputs.preset == 'r2-android'
+        if: github.ref_name == 'ci/ssv16-run/r2-android'
         uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@b9b028219a8635b0dea18514109da5afce61287f # main as of 2026-08-17, v1.6.0 store-screenshots redesign
         with:
             android-target: >-
@@ -87,7 +80,7 @@ jobs:
 
     r3-flows-legacy:
         name: R3 legacy flows regression
-        if: inputs.preset == 'r3-flows-legacy'
+        if: github.ref_name == 'ci/ssv16-run/r3-flows-legacy'
         uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@b9b028219a8635b0dea18514109da5afce61287f # main as of 2026-08-17, v1.6.0 store-screenshots redesign
         with:
             ios-target: >-
@@ -111,7 +104,7 @@ jobs:
 
     r3-upload-gate:
         name: R3 upload gate (no real upload)
-        if: inputs.preset == 'r3-upload-gate'
+        if: github.ref_name == 'ci/ssv16-run/r3-upload-gate'
         uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@b9b028219a8635b0dea18514109da5afce61287f # main as of 2026-08-17, v1.6.0 store-screenshots redesign
         with:
             ios-target: >-
