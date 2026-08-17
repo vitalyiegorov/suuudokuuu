@@ -18,8 +18,12 @@ appId: ${APP_ID}
 # environment gotchas), while a child element in the same render commit
 # reliably does. OutcomeValue mounts in the same synchronous render as Root
 # (the win confetti overlay renders concurrently on top, unmounts after 5s,
-# and does not block the tree beneath it), so the timeout stays generous only
-# to absorb a loaded runner's slower accessibility-snapshot polling.
+# and does not block the tree beneath it). The trophy medallion's
+# CelebrationPulse animation also starts on this same mount, and while it is
+# actively pulsing every accessibility-snapshot poll runs slower (a
+# continuously-animating Reanimated view, not runner load), so the timeout
+# stays generous to absorb that window even though the pulse is now bounded
+# (CelebrationPulseRepeatCount) instead of running forever.
 - extendedWaitUntil:
       visible:
           id: 'ChallengeResultScreenSelectors.OutcomeValue'

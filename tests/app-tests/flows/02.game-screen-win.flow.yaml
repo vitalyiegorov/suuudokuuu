@@ -16,9 +16,14 @@ appId: ${APP_ID}
 - assertVisible: '.*You beat your rival.*'
 - assertVisible:
       id: 'ChallengeResultScreenSelectors.MarginValue'
-# Screenshot-based settle polling can cost over ten seconds per scroll
-# iteration on a loaded runner, so cap it to keep visibility checks inside
-# the scroll budget.
+# The result screen's trophy medallion used to pulse forever
+# (CelebrationPulse's withRepeat(..., -1)), and a continuously-animating
+# Reanimated view makes every XCUITest accessibility-snapshot poll slower,
+# independent of runner load, which could starve scrollUntilVisible's
+# check-then-swipe loop before it ever reached this element. The pulse is
+# now bounded (CelebrationPulseRepeatCount) and settles a few seconds after
+# the screen mounts, well before this step runs, so the timeout below is a
+# scroll-distance budget, not an animation-settle budget.
 - scrollUntilVisible:
       element:
           id: 'ChallengeResultScreenSelectors.UkraineSupportCta'
