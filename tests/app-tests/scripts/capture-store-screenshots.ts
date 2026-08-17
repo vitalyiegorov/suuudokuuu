@@ -1,12 +1,33 @@
-#!/usr/bin/env node
-
-import { spawnSync } from 'node:child_process';
-import { existsSync, mkdirSync, readdirSync, renameSync, rmdirSync, writeFileSync } from 'node:fs';
+import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
 
 import { bakeLandscapeScreenshot } from './bake-landscape-screenshot.ts';
+import {
+    type DeviceContext,
+    type SceneOutcome,
+    applyStatusBarOverride,
+    detectBootedIosSimulatorUdid,
+    openDeepLink,
+    recycleIosDriver,
+    rotateSimulator,
+    waitForRender,
+    writeDeviceScreenshot
+} from './capture-device.ts';
+import { type MaestroContext, runMaestroScene } from './maestro-scene.ts';
+import {
+    AllAppearances,
+    AllDeviceClasses,
+    AllLocales,
+    AllScenes,
+    DefaultSeedDifficulty,
+    HomeDeepLink,
+    type Scene,
+    localeIdentifierFor,
+    sceneScreenshotBaseName
+} from './screenshot-scenes.ts';
+import { type SeedTarget, launchSeededApp, seedAppState } from './seed-app-state.ts';
 
 const scriptDirectory = dirname(fileURLToPath(import.meta.url));
 const appTestsDirectory = dirname(scriptDirectory);
@@ -15,84 +36,77 @@ const configPath = join(appTestsDirectory, 'config.yaml');
 const screenshotsFlowsDirectory = join(appTestsDirectory, 'flows', 'screenshots');
 const defaultOutputRootDirectory = join(repositoryRootDirectory, 'packages', 'app', 'fastlane', 'screenshots', 'raw');
 
-const AllLocales = ['en', 'uk', 'de', 'es', 'fr', 'sv', 'zh', 'hi', 'ar', 'bn', 'pt', 'id', 'ur'];
-const AllAppearances = ['light', 'dark'];
-const AllDeviceClasses = ['iphone', 'ipad'];
+const LaunchSettleMilliseconds = 3500;
+const DeepLinkSettleMilliseconds = 2000;
+const MillisecondsPerSecond = 1000;
 
-interface Scene {
-    file: string;
-    name: string;
-}
-
-const AllScenes: Scene[] = [
-    { file: '01.hero-board.flow.yaml', name: 'hero-board' },
-    { file: '02.hell.flow.yaml', name: 'hell' },
-    { file: '03.themes.flow.yaml', name: 'themes' },
-    { file: '04.editor.flow.yaml', name: 'editor' },
-    { file: '05.win.flow.yaml', name: 'win' },
-    { file: '06.rival.flow.yaml', name: 'rival' },
-    { file: '07.replay.flow.yaml', name: 'replay' },
-    { file: '08.settings.flow.yaml', name: 'settings' },
-    { file: '09.home.flow.yaml', name: 'home' },
-    { file: '10.stats.flow.yaml', name: 'stats' },
-    { file: '11.pause.flow.yaml', name: 'pause' },
-    { file: '12.scoring.flow.yaml', name: 'scoring' },
-    { file: '13.history.flow.yaml', name: 'history' },
-    { file: '14.challenge-live.flow.yaml', name: 'challenge-live' }
-];
-
-function parseCommaSeparatedList(value: string): string[] {
-    return value
+const parseCommaSeparatedList = (value: string): string[] =>
+    value
         .split(',')
         .map(item => item.trim())
         .filter(item => item.length > 0);
-}
 
-function isDefinedString(value: unknown): value is string {
-    return typeof value === 'string' && value.length > 0;
-}
+const isDefinedString = (value: unknown): value is string => typeof value === 'string' && value.length > 0;
 
 const { values: cliOptions } = parseArgs({
     options: {
         'app-id': { type: 'string' },
         appearances: { type: 'string' },
+        'capture-mode': { type: 'string' },
         'device-class': { type: 'string' },
         locales: { type: 'string' },
         orientation: { type: 'string' },
         'output-dir': { type: 'string' },
         platform: { type: 'string' },
         scenes: { type: 'string' },
+        serial: { type: 'string' },
+        'status-bar': { type: 'string' },
         udid: { type: 'string' }
     }
 });
 
-function detectBootedIosSimulatorUdid(targetDeviceClass: string): string {
-    const result = spawnSync('xcrun', ['simctl', 'list', 'devices', 'booted'], { encoding: 'utf8' });
-    const bootedDeviceLines = (result.stdout ?? '').split('\n').filter(line => line.includes('(Booted)'));
-    const deviceClassPattern = targetDeviceClass === 'ipad' ? /ipad/i : /iphone/i;
-    const matchingLine = bootedDeviceLines.find(line => deviceClassPattern.test(line)) ?? bootedDeviceLines[0];
-    const match = matchingLine?.match(/\(([0-9A-F-]{36})\) \(Booted\)/);
+const {
+    ANDROID_SERIAL,
+    APP_ID,
+    CAPTURE_MODE,
+    DEVICE_CLASS,
+    ORIENTATION,
+    OS_LANGUAGE_MODE,
+    SCREENSHOT_OUTPUT_DIR,
+    SCREENSHOT_PLATFORM,
+    SIMULATOR_UDID,
+    STATUS_BAR
+} = process.env;
 
-    return match?.[1] ?? '';
-}
+const platform = cliOptions.platform ?? SCREENSHOT_PLATFORM ?? 'ios';
+const appId = cliOptions['app-id'] ?? APP_ID;
+const deviceClass = cliOptions['device-class'] ?? DEVICE_CLASS ?? 'iphone';
+const simulatorUdid = cliOptions.udid ?? SIMULATOR_UDID ?? (platform === 'ios' ? detectBootedIosSimulatorUdid(deviceClass) : '');
+const orientation = cliOptions.orientation ?? ORIENTATION ?? 'portrait';
+const captureMode = cliOptions['capture-mode'] ?? CAPTURE_MODE ?? 'fast';
+const statusBarMode = cliOptions['status-bar'] ?? STATUS_BAR ?? 'clean';
+const androidSerial = cliOptions.serial ?? ANDROID_SERIAL ?? '';
+const skipsLanguageSheet = captureMode === 'fast' || OS_LANGUAGE_MODE === 'true';
+const osLanguageMode = skipsLanguageSheet ? 'true' : 'false';
+const outputRootDirectory = cliOptions['output-dir'] ?? SCREENSHOT_OUTPUT_DIR ?? defaultOutputRootDirectory;
 
-const platform = cliOptions.platform ?? process.env['SCREENSHOT_PLATFORM'] ?? 'ios';
-const appId = cliOptions['app-id'] ?? process.env['APP_ID'];
-const deviceClass = cliOptions['device-class'] ?? process.env['DEVICE_CLASS'] ?? 'iphone';
-const simulatorUdid =
-    cliOptions.udid ?? process.env['SIMULATOR_UDID'] ?? (platform === 'ios' ? detectBootedIosSimulatorUdid(deviceClass) : '');
-const orientation = cliOptions.orientation ?? process.env['ORIENTATION'] ?? 'portrait';
-const osLanguageMode = process.env['OS_LANGUAGE_MODE'] === 'true' ? 'true' : 'false';
-const outputRootDirectory = cliOptions['output-dir'] ?? process.env['SCREENSHOT_OUTPUT_DIR'] ?? defaultOutputRootDirectory;
+const deviceContext: DeviceContext = { androidSerial, platform, scriptDirectory, simulatorUdid, statusBarMode };
+const maestroContext: MaestroContext = {
+    appId: appId ?? '',
+    artifactsDirectory: join(appTestsDirectory, 'artifacts', 'screenshots-debug'),
+    configPath,
+    flowsDirectory: screenshotsFlowsDirectory,
+    osLanguageMode,
+    platform,
+    simulatorUdid
+};
 
 if (!['portrait', 'landscape'].includes(orientation)) {
-    process.stderr.write(`Unknown orientation "${orientation}". Use portrait or landscape.\n`);
-    process.exit(1);
+    throw new Error(`Unknown orientation "${orientation}". Use portrait or landscape.`);
 }
 
 if (orientation === 'landscape' && deviceClass !== 'ipad') {
-    process.stderr.write('Landscape capture is only supported for the ipad device class; the app locks iPhone to portrait.\n');
-    process.exit(1);
+    throw new Error('Landscape capture is only supported for the ipad device class; the app locks iPhone to portrait.');
 }
 
 const selectedLocales = isDefinedString(cliOptions.locales) ? parseCommaSeparatedList(cliOptions.locales) : AllLocales;
@@ -102,86 +116,39 @@ const selectedSceneNames = isDefinedString(cliOptions.scenes)
     : AllScenes.map(scene => scene.name);
 const selectedScenes = AllScenes.filter(scene => selectedSceneNames.includes(scene.name));
 
-function flattenMaestroScreenshotsDirectory(testOutputDirectory: string): void {
-    const nestedScreenshotsDirectory = join(testOutputDirectory, 'screenshots');
+const seedTargetForRun = (): SeedTarget => ({
+    appId: isDefinedString(appId) ? appId : '',
+    platform,
+    serial: androidSerial,
+    udid: simulatorUdid
+});
 
-    if (!existsSync(nestedScreenshotsDirectory)) {
-        return;
+const seedOptionsForScene = (scene: Scene, locale: string, appearance: string) => ({
+    appearance,
+    difficulty: isDefinedString(scene.seedDifficulty) ? scene.seedDifficulty : DefaultSeedDifficulty,
+    language: locale,
+    sceneState: scene.sceneState
+});
+
+const captureSceneDirectly = (scene: Scene, locale: string, appearance: string, testOutputDirectory: string): SceneOutcome => {
+    const target = seedTargetForRun();
+
+    try {
+        seedAppState(target, seedOptionsForScene(scene, locale, appearance));
+    } catch (error) {
+        return { failureOutput: error instanceof Error ? error.message : String(error), succeeded: false };
     }
 
-    for (const screenshotFileName of readdirSync(nestedScreenshotsDirectory)) {
-        renameSync(join(nestedScreenshotsDirectory, screenshotFileName), join(testOutputDirectory, screenshotFileName));
+    launchSeededApp(target, locale, localeIdentifierFor(locale));
+    waitForRender(LaunchSettleMilliseconds);
+
+    if (isDefinedString(scene.deepLink) && scene.deepLink !== HomeDeepLink) {
+        openDeepLink(deviceContext, scene.deepLink);
+        waitForRender(DeepLinkSettleMilliseconds);
     }
 
-    rmdirSync(nestedScreenshotsDirectory);
-}
-
-interface MaestroSceneOutcome {
-    failureOutput: string;
-    succeeded: boolean;
-}
-
-function runMaestroScene(scene: Scene, locale: string, appearance: string, testOutputDirectory: string): MaestroSceneOutcome {
-    const flowPath = join(screenshotsFlowsDirectory, scene.file);
-    const maestroArguments = [
-        'test',
-        flowPath,
-        '--config',
-        configPath,
-        '-e',
-        `APP_ID=${appId}`,
-        '-e',
-        `LOCALE=${locale}`,
-        '-e',
-        `APPEARANCE=${appearance}`,
-        '-e',
-        `OS_LANGUAGE_MODE=${osLanguageMode}`,
-        '--test-output-dir',
-        testOutputDirectory,
-        '--debug-output',
-        join(appTestsDirectory, 'artifacts', 'screenshots-debug', `${locale}-${appearance}-${scene.name}`)
-    ];
-
-    if (isDefinedString(simulatorUdid)) {
-        maestroArguments.push('--udid', simulatorUdid);
-    }
-
-    if (platform !== 'ios') {
-        maestroArguments.push('--platform', platform);
-    }
-
-    const result = spawnSync('maestro', maestroArguments, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
-    const spawnErrorMessage = result.error?.message ?? '';
-    const failureOutput = `${spawnErrorMessage}\n${result.stdout ?? ''}\n${result.stderr ?? ''}`.trim();
-
-    flattenMaestroScreenshotsDirectory(testOutputDirectory);
-
-    return { failureOutput, succeeded: result.status === 0 };
-}
-
-function sceneScreenshotBaseName(scene: Scene): string {
-    const sceneNumberPrefix = scene.file.split('.')[0];
-
-    return `${sceneNumberPrefix}-${scene.name}`;
-}
-
-function rotateSimulator(targetOrientation: string): void {
-    const detachResult = spawnSync('npx', ['serve-sim', '--detach', '-q', simulatorUdid], { encoding: 'utf8' });
-
-    if (detachResult.status !== 0) {
-        process.stderr.write('Failed to start serve-sim for rotation. Install it with "npx serve-sim" once, then retry.\n');
-        process.exit(1);
-    }
-
-    const rotateResult = spawnSync('npx', ['serve-sim', 'rotate', targetOrientation, '-d', simulatorUdid], {
-        encoding: 'utf8'
-    });
-
-    if (rotateResult.status !== 0) {
-        process.stderr.write(`Failed to rotate simulator to ${targetOrientation}: ${rotateResult.stderr}\n`);
-        process.exit(1);
-    }
-}
+    return writeDeviceScreenshot(deviceContext, join(testOutputDirectory, `${sceneScreenshotBaseName(scene)}.png`));
+};
 
 interface CaptureResult {
     appearance: string;
@@ -192,49 +159,79 @@ interface CaptureResult {
     status: 'success' | 'failure';
 }
 
-function captureCombination(locale: string, appearance: string): CaptureResult[] {
+interface SceneReport {
+    appearance: string;
+    locale: string;
+    scene: Scene;
+    startedAt: number;
+    suffix: string;
+}
+
+const reportSceneOutcome = (report: SceneReport, outcome: SceneOutcome): CaptureResult => {
+    const { appearance, locale, scene, startedAt, suffix } = report;
+    const durationSeconds = Math.round((Date.now() - startedAt) / MillisecondsPerSecond);
+    const status = outcome.succeeded ? 'success' : 'failure';
+
+    process.stdout.write(`[${deviceClass}/${locale}/${appearance}] ${scene.name}: ${status} (${durationSeconds}s${suffix})\n`);
+
+    if (!outcome.succeeded) {
+        process.stderr.write(`${outcome.failureOutput}\n`);
+    }
+
+    return { appearance, deviceClass, durationSeconds, locale, scene: scene.name, status };
+};
+
+const captureCombination = (locale: string, appearance: string): CaptureResult[] => {
     const deviceClassSegment = orientation === 'landscape' ? `${deviceClass}-landscape` : deviceClass;
     const deviceClassPathSegments = platform === 'ios' ? [deviceClassSegment] : [];
     const testOutputDirectory = join(outputRootDirectory, platform, ...deviceClassPathSegments, locale, appearance);
+    const usesDirectCapture = captureMode === 'fast';
 
     mkdirSync(testOutputDirectory, { recursive: true });
 
+    if (usesDirectCapture) {
+        applyStatusBarOverride(deviceContext);
+    }
+
+    // eslint-disable-next-line max-statements -- Per-scene branch between direct capture and the Maestro fallback
     return selectedScenes.map(scene => {
         const startedAt = Date.now();
-        const firstAttempt = runMaestroScene(scene, locale, appearance, testOutputDirectory);
+        const capturesWithoutMaestro = usesDirectCapture && isDefinedString(scene.deepLink);
+        const screenshotPath = join(testOutputDirectory, `${sceneScreenshotBaseName(scene)}.png`);
+
+        if (capturesWithoutMaestro) {
+            const directOutcome = captureSceneDirectly(scene, locale, appearance, testOutputDirectory);
+
+            if (directOutcome.succeeded && orientation === 'landscape') {
+                bakeLandscapeScreenshot(screenshotPath);
+            }
+
+            return reportSceneOutcome({ appearance, locale, scene, startedAt, suffix: ', direct' }, directOutcome);
+        }
+
+        if (usesDirectCapture) {
+            seedAppState(seedTargetForRun(), seedOptionsForScene(scene, locale, appearance));
+        }
+
+        const maestroRequest = { appearance, locale, scene, testOutputDirectory };
+        const firstAttempt = runMaestroScene(maestroContext, maestroRequest);
         let sceneOutcome = firstAttempt;
 
         if (!firstAttempt.succeeded) {
-            recycleIosDriver();
-            sceneOutcome = runMaestroScene(scene, locale, appearance, testOutputDirectory);
-        }
-
-        const durationSeconds = Math.round((Date.now() - startedAt) / 1000);
-        const status = sceneOutcome.succeeded ? 'success' : 'failure';
-
-        process.stdout.write(`[${deviceClass}/${locale}/${appearance}] ${scene.name}: ${status} (${durationSeconds}s)\n`);
-
-        if (!sceneOutcome.succeeded) {
-            process.stderr.write(`${sceneOutcome.failureOutput}\n`);
+            recycleIosDriver(deviceContext);
+            sceneOutcome = runMaestroScene(maestroContext, maestroRequest);
         }
 
         if (sceneOutcome.succeeded && orientation === 'landscape') {
-            bakeLandscapeScreenshot(join(testOutputDirectory, `${sceneScreenshotBaseName(scene)}.png`));
+            bakeLandscapeScreenshot(screenshotPath);
         }
 
-        return { appearance, deviceClass, durationSeconds, locale, scene: scene.name, status };
+        return reportSceneOutcome({ appearance, locale, scene, startedAt, suffix: '' }, sceneOutcome);
     });
-}
+};
 
-function recycleIosDriver(): void {
-    if (platform !== 'ios' || simulatorUdid.length === 0) {
-        return;
-    }
-
-    spawnSync('bash', [join(scriptDirectory, 'recycle-ios-driver.sh'), simulatorUdid], { encoding: 'utf8' });
-}
-
-function main(): void {
+// eslint-disable-next-line max-statements -- CLI orchestration: argument validation, rotation, capture loop and reporting
+const main = (): void => {
     if (!isDefinedString(appId)) {
         process.stderr.write('APP_ID is required. Pass --app-id=<bundle-id> or set the APP_ID environment variable.\n');
         process.exitCode = 1;
@@ -256,10 +253,10 @@ function main(): void {
         return;
     }
 
-    recycleIosDriver();
+    recycleIosDriver(deviceContext);
 
     if (orientation === 'landscape') {
-        rotateSimulator('landscape_left');
+        rotateSimulator(deviceContext, 'landscape_left');
     }
 
     const results: CaptureResult[] = [];
@@ -271,7 +268,7 @@ function main(): void {
     }
 
     if (orientation === 'landscape') {
-        rotateSimulator('portrait');
+        rotateSimulator(deviceContext, 'portrait');
     }
 
     const failedResults = results.filter(result => result.status === 'failure');
@@ -288,6 +285,6 @@ function main(): void {
         );
         process.exitCode = 1;
     }
-}
+};
 
 main();
