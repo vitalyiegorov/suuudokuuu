@@ -18,7 +18,7 @@ import { useIridescentColor } from '../../hooks/use-iridescent-color.hook';
 
 import { CelebrationPulseRing } from './celebration-pulse-ring/celebration-pulse-ring';
 import { CelebrationPulseStyles as styles } from './celebration-pulse.styles';
-import { CelebrationPulseExtraRingsByVariant } from './constant/celebration-pulse.constant';
+import { CelebrationPulseExtraRingsByVariant, CelebrationPulseRepeatCount } from './constant/celebration-pulse.constant';
 
 import type { CelebrationPulseVariant } from './constant/celebration-pulse.constant';
 import type { ReactNode } from 'react';
@@ -54,7 +54,11 @@ export const CelebrationPulse = ({ children, color, size, variant = 'default' }:
         appear.value = withSpring(1, { damping: 12, stiffness: 160 });
     }, [appear]);
     useEffect(() => {
-        pulse.value = withRepeat(withTiming(1, { duration: PulseDurationMs, easing: Easing.out(Easing.ease) }), -1, false);
+        pulse.value = withRepeat(
+            withTiming(1, { duration: PulseDurationMs, easing: Easing.out(Easing.ease) }),
+            CelebrationPulseRepeatCount,
+            false
+        );
     }, [pulse]);
 
     const appearScale = useDerivedValue(() => interpolate(appear.value, UnitInput, AppearScaleOutput));
