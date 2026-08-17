@@ -17,7 +17,7 @@ jobs:
     r1-ios-direct:
         name: R1 iOS direct capture
         if: github.ref_name == 'ci/ssv16-run/r1-ios-direct'
-        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@3ff2769d224c572da6eae39384e5bce08092e57c # main as of 2026-08-17, v1.6.0 store-screenshots redesign
+        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@ff58867e5fbe243662f62a686f625261c30afbb4 # main as of 2026-08-17, v1.6.0 store-screenshots redesign
         with:
             ios-target: >-
                 {"name":"e2e","appDir":"packages/app","workspace":"suuudokuuuE2E.xcworkspace","scheme":"suuudokuuuE2E","appId":"com.vitalyiegorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p ios --clean --no-install"}
@@ -48,7 +48,7 @@ jobs:
     r2-android:
         name: R2 Android direct capture
         if: github.ref_name == 'ci/ssv16-run/r2-android'
-        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@3ff2769d224c572da6eae39384e5bce08092e57c # main as of 2026-08-17, v1.6.0 store-screenshots redesign
+        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@ff58867e5fbe243662f62a686f625261c30afbb4 # main as of 2026-08-17, v1.6.0 store-screenshots redesign
         with:
             android-target: >-
                 {"name":"e2e","appDir":"packages/app","appId":"com.vitaliiyehorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p android --clean --no-install"}
@@ -80,7 +80,7 @@ jobs:
     r3-flows-legacy:
         name: R3 legacy flows regression
         if: github.ref_name == 'ci/ssv16-run/r3-flows-legacy'
-        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@3ff2769d224c572da6eae39384e5bce08092e57c # main as of 2026-08-17, v1.6.0 store-screenshots redesign
+        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@ff58867e5fbe243662f62a686f625261c30afbb4 # main as of 2026-08-17, v1.6.0 store-screenshots redesign
         with:
             ios-target: >-
                 {"name":"e2e","appDir":"packages/app","workspace":"suuudokuuuE2E.xcworkspace","scheme":"suuudokuuuE2E","appId":"com.vitalyiegorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p ios --clean --no-install"}
@@ -103,7 +103,7 @@ jobs:
     r3-upload-gate:
         name: R3 upload gate (no real upload)
         if: github.ref_name == 'ci/ssv16-run/r3-upload-gate'
-        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@3ff2769d224c572da6eae39384e5bce08092e57c # main as of 2026-08-17, v1.6.0 store-screenshots redesign
+        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@ff58867e5fbe243662f62a686f625261c30afbb4 # main as of 2026-08-17, v1.6.0 store-screenshots redesign
         with:
             ios-target: >-
                 {"name":"e2e","appDir":"packages/app","workspace":"suuudokuuuE2E.xcworkspace","scheme":"suuudokuuuE2E","appId":"com.vitalyiegorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p ios --clean --no-install"}
