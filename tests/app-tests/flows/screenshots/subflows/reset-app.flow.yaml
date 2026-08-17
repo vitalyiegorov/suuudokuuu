@@ -24,24 +24,28 @@ appId: ${APP_ID}
                 arguments:
                     AppleLanguages: '(${LOCALE})'
                     AppleLocale: ${LOCALE_IDENTIFIER}
-          - runFlow:
-                when:
+          - repeat:
+                times: 3
+                while:
                     visible: '^Open$'
                 commands:
                     - tapOn: '^Open$'
                     - extendedWaitUntil:
                           notVisible: '^Open$'
                           timeout: 5000
+                          optional: true
           - openLink:
                 link: 'suuudokuuu://'
-          - runFlow:
-                when:
+          - repeat:
+                times: 3
+                while:
                     visible: '^Open$'
                 commands:
                     - tapOn: '^Open$'
                     - extendedWaitUntil:
                           notVisible: '^Open$'
                           timeout: 5000
+                          optional: true
           - extendedWaitUntil:
                 visible:
                     id: 'HomeScreenSelectors.Root'
