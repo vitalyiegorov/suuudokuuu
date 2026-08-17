@@ -28,7 +28,7 @@ jobs:
                 [
                   {"name":"hero-board","deepLink":"suuudokuuu://game"},
                   {"name":"stats","deepLink":"suuudokuuu://history"},
-                  {"name":"win","flow":"05.win-seeded.flow.yaml","locales":["en"]}
+                  {"name":"win","flow":"05.win.flow.yaml","locales":["en"]}
                 ]
             screenshots-dir: tests/app-tests/flows/screenshots
             seed-command: node tests/app-tests/scripts/ci-seed-scene.ts
@@ -36,7 +36,7 @@ jobs:
             maestro-version: '2.6.1'
             maestro-env: |
                 LOCALE_IDENTIFIER=en_US
-                OS_LANGUAGE_MODE=false
+                OS_LANGUAGE_MODE=true
             build-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
             capture-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
             cache-profile: suuudokuuu-ios-v2
@@ -92,7 +92,7 @@ jobs:
             maestro-version: '2.6.1'
             maestro-env: |
                 LOCALE_IDENTIFIER=en_US
-                OS_LANGUAGE_MODE=false
+                OS_LANGUAGE_MODE=true
             build-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
             capture-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
             cache-profile: suuudokuuu-ios-v2
@@ -116,7 +116,7 @@ jobs:
                 [
                   {"name":"hero-board","deepLink":"suuudokuuu://game"},
                   {"name":"stats","deepLink":"suuudokuuu://history"},
-                  {"name":"win","flow":"05.win-seeded.flow.yaml","locales":["en"]}
+                  {"name":"win","flow":"05.win.flow.yaml","locales":["en"]}
                 ]
             screenshots-dir: tests/app-tests/flows/screenshots
             seed-command: node tests/app-tests/scripts/ci-seed-scene.ts
@@ -124,7 +124,7 @@ jobs:
             maestro-version: '2.6.1'
             maestro-env: |
                 LOCALE_IDENTIFIER=en_US
-                OS_LANGUAGE_MODE=false
+                OS_LANGUAGE_MODE=true
             build-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
             capture-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
             upload-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
