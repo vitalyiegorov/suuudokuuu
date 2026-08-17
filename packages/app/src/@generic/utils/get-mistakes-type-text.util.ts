@@ -1,13 +1,15 @@
-import { t } from '@lingui/core/macro';
+import { msg } from '@lingui/core/macro';
 
-export const getMistakesTypeText = (maxMistakes: number): string => {
+import type { MessageDescriptor } from '@lingui/core';
+
+export const getMistakesTypeText = (maxMistakes: number): MessageDescriptor => {
     if (maxMistakes === 0) {
-        return t`Hardcore`;
+        return msg`Hardcore`;
     }
 
     if (maxMistakes === 3) {
-        return t`Standard`;
+        return msg`Standard`;
     }
 
-    return t`Relaxed`;
+    return msg`Relaxed`;
 };

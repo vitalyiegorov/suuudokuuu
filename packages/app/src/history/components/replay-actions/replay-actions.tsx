@@ -1,4 +1,4 @@
-import { t } from '@lingui/core/macro';
+import { useLingui } from '@lingui/react/macro';
 import { useRouter } from 'expo-router';
 import { ChevronLeft } from 'lucide-react-native';
 import { use } from 'react';
@@ -11,6 +11,7 @@ import { ThemeContext } from '../../../theme/context/theme.context';
 import { ReplayActionsSelectors } from './replay-actions.selectors';
 
 export const ReplayActions = () => {
+    const { t } = useLingui();
     const { theme } = use(ThemeContext);
     const router = useRouter();
 
