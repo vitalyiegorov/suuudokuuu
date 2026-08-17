@@ -28,7 +28,7 @@ jobs:
                 [
                   {"name":"hero-board","deepLink":"suuudokuuu://game"},
                   {"name":"stats","deepLink":"suuudokuuu://history"},
-                  {"name":"win","flow":"05.win.flow.yaml","locales":["en"]}
+                  {"name":"win","flow":"05.win-seeded.flow.yaml","locales":["en"]}
                 ]
             screenshots-dir: tests/app-tests/flows/screenshots
             seed-command: node tests/app-tests/scripts/ci-seed-scene.ts
@@ -116,7 +116,7 @@ jobs:
                 [
                   {"name":"hero-board","deepLink":"suuudokuuu://game"},
                   {"name":"stats","deepLink":"suuudokuuu://history"},
-                  {"name":"win","flow":"05.win.flow.yaml","locales":["en"]}
+                  {"name":"win","flow":"05.win-seeded.flow.yaml","locales":["en"]}
                 ]
             screenshots-dir: tests/app-tests/flows/screenshots
             seed-command: node tests/app-tests/scripts/ci-seed-scene.ts

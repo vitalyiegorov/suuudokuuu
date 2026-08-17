@@ -1,0 +1,25 @@
+appId: ${APP_ID}
+tags:
+    - screenshots
+---
+# Seeded-state variant of 05.win.flow.yaml for the mobile-ci direct-capture
+# pipeline: language, appearance, and fixtures are seeded into the app DB by
+# the seed-command hook before launch, so reset-app/apply-language/
+# apply-appearance are intentionally omitted (apply-language also trips the
+# option-sheet regression tracked in #262).
+- runFlow:
+      file: ../subflows/shared/open-shared-challenge.flow.yaml
+      env:
+          SHARED_CHALLENGE_LINK: suuudokuuu://shared/_KGP________9____qXF6FFdMjBWGhJIN-CMqSm5omCUw0KFUm6-t2HxLUAuYMCP-
+- runFlow: ../subflows/shared/accept-shared-challenge.flow.yaml
+- tapOn:
+      id: 'CellSelectors.Cell.6-0'
+- tapOn:
+      id: 'AvailableValueItemSelectors.Button.2'
+- extendedWaitUntil:
+      visible:
+          id: 'ChallengeResultScreenSelectors.OutcomeValue'
+      timeout: 5000
+
+- takeScreenshot: '05-win'
+- stopApp
