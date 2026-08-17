@@ -9,7 +9,8 @@ const DifficultyMessages: Partial<Record<DifficultyEnum, MessageDescriptor>> = {
     [DifficultyEnum.Medium]: msg`Medium`,
     [DifficultyEnum.Hard]: msg`Hard`,
     [DifficultyEnum.Nightmare]: msg`Nightmare`,
-    [DifficultyEnum.Hell]: msg`Hell`
+    [DifficultyEnum.Hell]: msg`Hell`,
+    [DifficultyEnum.Infinity]: msg`Infinity`
 };
 
 const UnknownDifficultyMessage = msg`Unknown`;

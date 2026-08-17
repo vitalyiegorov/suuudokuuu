@@ -1,0 +1,72 @@
+appId: ${APP_ID}
+---
+- startRecording:
+      path: '15.rated-completed-game-stats'
+      optional: true
+
+# This fixture is winningSharedChallengeEncodedConstant's field/timeline re-encoded with a real
+# rating trailer (see tests/web-tests/AGENTS.md's ratedWinningSharedChallengeEncodedConstant fixture
+# note), so completing it produces a genuinely rated Newbie completed game.
+- runFlow: subflows/navigation/launch-home.flow.yaml
+- runFlow:
+      file: subflows/shared/complete-winning-shared-challenge.flow.yaml
+      env:
+          SHARED_CHALLENGE_LINK: suuudokuuu://shared/_OWP________9____qXF6FFdMjBWGhJIN-CMqSm5omCUw0KFUm6-t2HxLUAuYMARgH-IAABCg
+- scrollUntilVisible:
+      element:
+          id: 'ChallengeResultFooterSelectors.HomeButton'
+      direction: DOWN
+      timeout: 3000
+- tapOn:
+      id: 'ChallengeResultFooterSelectors.HomeButton'
+- extendedWaitUntil:
+      visible:
+          id: 'HomeScreenSelectors.Root'
+      timeout: 3000
+- tapOn: 'Stats'
+- extendedWaitUntil:
+      visible:
+          id: 'HistoryScreenSelectors.Root'
+      timeout: 3000
+- assertVisible:
+      id: 'HistorySolverProfileSelectors.HardestSolve'
+- assertVisible:
+      id: 'HistorySolverProfileSelectors.Spectrum'
+- assertVisible:
+      id: 'HistoryTechniquesSelectors.Root'
+- assertVisible:
+      id: 'HistoryTechniquesSelectors.BestTechnique'
+- scrollUntilVisible:
+      element:
+          text: '.*completed game.*'
+      direction: DOWN
+# The arsenal and other editorial sections pushed the difficulty ladder to the end of a
+# much taller scroll, so the scroll above stops as soon as the row's title line
+# appears and its tappable centre still sits under the floating tab bar. Scrolling
+# once more settles the content at its end, where the reserved bottom inset clears
+# the bar.
+- scroll
+- tapOn:
+      id: 'HistoryDifficultySelectors.Card.Newbie'
+- extendedWaitUntil:
+      visible:
+          id: 'HistoryGamesScreenSelectors.Root'
+      timeout: 3000
+# The completed-game row composes its rating into the difficulty text instead of rendering a
+# separate badge next to it.
+- assertVisible:
+      id: 'CompletedGameItemSelectors.DifficultyValue'
+      text: '.* · [0-9]+\.[0-9].*'
+- tapOn:
+      id: 'HeaderBackButtonSelectors.Root'
+- extendedWaitUntil:
+      visible:
+          id: 'HistoryScreenSelectors.Root'
+      timeout: 3000
+- tapOn:
+      id: 'HeaderBackButtonSelectors.Root'
+- extendedWaitUntil:
+      visible:
+          id: 'HomeScreenSelectors.Root'
+      timeout: 3000
+- stopApp

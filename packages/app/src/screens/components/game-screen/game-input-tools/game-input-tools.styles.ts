@@ -10,6 +10,9 @@ export const GameInputToolsStyles = StyleSheet.create((theme, rt) => ({
         gap: theme.spacing.sm,
         justifyContent: 'center'
     },
+    row: {
+        width: '100%'
+    },
     toolButton: {
         borderRadius: PanelControlPillRadiusConstant,
         height: appLayoutScreenIsWide(rt.screen) ? PanelControlWideSizeConstant : AppIconButtonSize,

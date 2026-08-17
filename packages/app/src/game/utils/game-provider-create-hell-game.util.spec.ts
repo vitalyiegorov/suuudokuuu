@@ -1,5 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 import { DifficultyEnum, Sudoku } from '@suuudokuuu/generator';
+import { HELL_CORPUS_MINIMUM_RATING } from '@suuudokuuu/hell-corpus';
 
 import { gameProviderCreateHellGame } from './game-provider-create-hell-game.util';
 
@@ -7,8 +8,8 @@ const HellPuzzleGivenCellCount = 17;
 const NextCallDelayMs = 5;
 
 describe('gameProviderCreateHellGame', () => {
-    it('should build a Sudoku instance from a genuine 17-clue Hell puzzle', () => {
-        const sudoku = gameProviderCreateHellGame();
+    it('should build a Sudoku instance from a genuine 17-clue Hell puzzle with its verified rating', () => {
+        const { sudoku, rating } = gameProviderCreateHellGame();
         const givenCellCount = sudoku
             .toString()
             .split('')
@@ -17,6 +18,7 @@ describe('gameProviderCreateHellGame', () => {
         expect(sudoku).toBeInstanceOf(Sudoku);
         expect(sudoku.Difficulty).toBe(DifficultyEnum.Hell);
         expect(givenCellCount).toBe(HellPuzzleGivenCellCount);
+        expect(rating).toBeGreaterThanOrEqual(HELL_CORPUS_MINIMUM_RATING);
     });
 
     it('should produce a different puzzle for a later call', async () => {
@@ -28,6 +30,6 @@ describe('gameProviderCreateHellGame', () => {
 
         const second = gameProviderCreateHellGame();
 
-        expect(first.toString()).not.toBe(second.toString());
+        expect(first.sudoku.toString()).not.toBe(second.sudoku.toString());
     });
 });

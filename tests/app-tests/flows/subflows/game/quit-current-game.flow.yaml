@@ -9,11 +9,23 @@ appId: ${APP_ID}
 - extendedWaitUntil:
       visible: 'OK|Гаразд|حسنًا|ঠিক আছে|ठीक है|ٹھیک ہے|确定'
       timeout: 3000
-- tapOn: 'OK|Гаразд|حسنًا|ঠিক আছে|ठीक है|ٹھیک ہے|确定'
-# Confirming quit unmounts a fully populated board (81 cells, numpad, timer) and
-# remounts the full Home scroll content, which is clearly slower native work than
-# the default budget under CI farm load, so give it more room than 3000.
-- extendedWaitUntil:
-      visible:
-          id: 'HomeScreenSelectors.Root'
-      timeout: 8000
+# React Native presents this alert in its own UIWindow, made key on top of the app
+# window (RCTAlertController.mm), so confirming quit is an OS-surface handoff and
+# not an app-owned control. In CI run 31964094842 a single XCUITest tap landed on
+# the OK button's exact centre, the same (275, 487) that flows/06 and flows/13 hit
+# in that run, and the alert never reacted: the stored failure hierarchy still had
+# GameScreenSelectors.Root with a running timer and the alert window intact. Retry
+# the handoff once and prove it with Home, the way subflows/shared/open-shared-
+# challenge.flow.yaml already retries the native link handoff.
+#
+# Confirming quit also unmounts a fully populated board (81 cells, numpad, timer)
+# and remounts the full Home scroll content, which is clearly slower native work
+# than the default budget under CI farm load, so give it more room than 3000.
+- retry:
+      maxRetries: 1
+      commands:
+          - tapOn: 'OK|Гаразд|حسنًا|ঠিক আছে|ठीक है|ٹھیک ہے|确定'
+          - extendedWaitUntil:
+                visible:
+                    id: 'HomeScreenSelectors.Root'
+                timeout: 8000

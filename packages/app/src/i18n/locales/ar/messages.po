@@ -78,6 +78,10 @@ msgstr "{value, plural, zero {# ثانية} one {# ثانية} two {# ثانيت
 msgid "<0>Development client required</0><1>Development clients need Metro, the launch URL configured in <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2>, or a compatible update on the <3>development</3> channel. This install flow does not publish an update.</1>"
 msgstr "<0>يلزم تطبيق عميل للتطوير</0><1>تحتاج تطبيقات عميل التطوير إلى Metro أو إلى عنوان التشغيل المضبوط في <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2> أو إلى تحديث متوافق على قناة <3>development</3>. لا تنشر عملية التثبيت هذه أي تحديث.</1>"
 
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "A “+” means this puzzle is at least SE {seRatingCeilingText}. Beyond that point, puzzles can chain into very long solutions, so we cap the displayed number instead of chasing false precision."
+msgstr "علامة «+» تعني أن هذا اللغز يبلغ على الأقل SE {seRatingCeilingText}. بعد هذه النقطة قد تتشعب الحلول إلى سلاسل طويلة جدًا، لذلك نضع حدًا أقصى للرقم المعروض بدل ادعاء دقة زائفة."
+
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "A little room between cells"
 msgstr "مسافة قليلة بين الخلايا"
@@ -97,6 +101,10 @@ msgstr "قبول التحدي؟"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Adjust the digits on the Sudoku board"
 msgstr "اضبط حجم الأرقام على لوحة السودوكو"
+
+#: src/history/constants/se-rating-band.constant.ts
+msgid "Advanced"
+msgstr "متقدم"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "AIC"
@@ -132,9 +140,13 @@ msgstr "تطبيق"
 msgid "Attempts to load the latest development build again"
 msgstr "يحاول تحميل أحدث إصدار تطوير مرة أخرى"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 msgid "Average"
 msgstr "المعدل"
+
+#: src/history/components/history-solver-profile/history-solver-profile.tsx
+msgid "Avg recent {averageRecentSeText} · Most played {mostPlayedDifficultyText}"
+msgstr "متوسط حديث {averageRecentSeText} · الأكثر لعبًا {mostPlayedDifficultyText}"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Avoid mistakes - they cost you points!"
@@ -157,6 +169,10 @@ msgstr "أرقام متوازنة لمعظم اللاعبين"
 msgid "Balanced solve"
 msgstr "حل متوازن"
 
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "Bands"
+msgstr "النطاقات"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Base Score"
 msgstr "النقاط الأساسية"
@@ -169,12 +185,16 @@ msgstr "العب بسرعة لتقليل عقوبات الوقت"
 msgid "Be wise, be smart, be quick..."
 msgstr "فكر بذكاء والعب بسرعة..."
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Best score"
 msgstr "أفضل نتيجة"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-techniques/history-techniques.tsx
+msgid "Best technique"
+msgstr "أفضل تقنية"
+
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Best time"
 msgstr "أفضل وقت"
@@ -183,6 +203,10 @@ msgstr "أفضل وقت"
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "Better luck next time!"
 msgstr "حظًا أوفر في المرة القادمة!"
+
+#: src/history/constants/se-rating-band.constant.ts
+msgid "Beyond the ceiling"
+msgstr "ما بعد الحد الأقصى"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Board cells"
@@ -195,6 +219,10 @@ msgstr "ألوان اللوحة ومظهر الشاشات"
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Box-Line Reduction"
 msgstr "تخفيض الصندوق والخط"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "BUG+1"
+msgstr "BUG+1"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Built:"
@@ -225,6 +253,10 @@ msgstr "نص المرشح"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Candidates"
 msgstr "المرشحات"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Cell Forcing Chain"
+msgstr "سلسلة إجبار الخانة"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
@@ -266,7 +298,7 @@ msgstr "فزت بالتحدي"
 msgid "Challenge Won!"
 msgstr "فزت بالتحدي!"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 msgid "Challenges"
 msgstr "التحديات"
 
@@ -290,7 +322,7 @@ msgstr "اختر لغة القوائم ونصوص اللعبة"
 msgid "Classic"
 msgstr "كلاسيكي"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 msgid "Clean"
 msgstr "بلا أخطاء"
 
@@ -305,6 +337,10 @@ msgstr "جولة نظيفة"
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Clean win"
 msgstr "فوز نظيف"
+
+#: src/screens/components/rating-explainer-sheet-screen/rating-explainer-sheet.screen.tsx
+msgid "Close"
+msgstr "إغلاق"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Column"
@@ -383,10 +419,6 @@ msgstr "الوضع الداكن"
 msgid "Dark overlay"
 msgstr "طبقة داكنة"
 
-#: src/history/components/history-totals-card/history-totals-card.tsx
-msgid "Day streak"
-msgstr "سلسلة الأيام"
-
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Dead even"
 msgstr "تعادل تام"
@@ -424,6 +456,10 @@ msgstr "لم تُكمل اللوحة"
 #: src/game/components/difficulty-complexity-slider/difficulty-complexity-slider.tsx
 msgid "Difficulty"
 msgstr "مستوى الصعوبة"
+
+#: src/@generic/components/rating-badge/rating-badge.tsx
+msgid "Difficulty rating {ratingLabel}"
+msgstr "تقييم الصعوبة {ratingLabel}"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Dim a completed digit in the numpad instead of removing it"
@@ -486,6 +522,10 @@ msgstr "Español"
 msgid "Evenly matched"
 msgstr "تعادل متقارب"
 
+#: src/history/constants/se-rating-band.constant.ts
+msgid "Expert"
+msgstr "خبير"
+
 #: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Expert grid"
 msgstr "شبكة للخبراء"
@@ -517,6 +557,10 @@ msgstr "Finned Swordfish"
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Finned X-Wing"
 msgstr "Finned X-Wing"
+
+#: src/history/constants/se-rating-band.constant.ts
+msgid "Foundational"
+msgstr "تأسيسي"
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Français"
@@ -574,11 +618,15 @@ msgid "Hard"
 msgstr "صعب"
 
 #: src/@generic/utils/get-mistakes-type-text.util.ts
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Hardcore"
 msgstr "هاردكور"
+
+#: src/history/components/history-solver-profile/history-solver-profile.tsx
+msgid "Hardest solve"
+msgstr "أصعب حل"
 
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -647,6 +695,11 @@ msgstr "خالد"
 msgid "Incomplete"
 msgstr "غير مكتمل"
 
+#: src/@generic/utils/get-difficulty-message.util.ts
+#: src/scoring/components/scoring.screen.tsx
+msgid "Infinity"
+msgstr "لانهاية"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Ink"
 msgstr "الحبر"
@@ -658,6 +711,10 @@ msgstr "التثبيت على iOS"
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Install the iOS development build"
 msgstr "تثبيت إصدار التطوير لنظام iOS"
+
+#: src/history/constants/se-rating-band.constant.ts
+msgid "Intermediate"
+msgstr "متوسط"
 
 #: src/game/hooks/use-game-creation-runner.hook.ts
 msgid "Invalid Sudoku"
@@ -736,7 +793,7 @@ msgstr "جارٍ تحميل إصدار التطوير"
 msgid "Loading the latest development build…"
 msgstr "جارٍ تحميل أحدث إصدار تطوير…"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 msgid "Lost"
 msgstr "خسائر"
 
@@ -840,6 +897,10 @@ msgstr "صحيفة"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Nightmare"
 msgstr "كابوس"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Nishio Forcing Chain"
+msgstr "سلسلة إجبار نيشيو"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "no bonus"
@@ -1057,6 +1118,10 @@ msgstr "مسجَّل"
 msgid "Recording"
 msgstr "جارٍ التسجيل"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Region Forcing Chain"
+msgstr "سلسلة إجبار المنطقة"
+
 #: src/@generic/utils/get-mistakes-type-text.util.ts
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Relaxed"
@@ -1170,6 +1235,10 @@ msgstr "خلفية الشاشة"
 #: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
 msgid "Screenshots"
 msgstr "لقطات الشاشة"
+
+#: src/history/components/history-techniques/history-techniques.tsx
+msgid "SE {seValueText}"
+msgstr "SE {seValueText}"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Selected candidate background"
@@ -1308,6 +1377,10 @@ msgstr "وقت الحركة"
 msgid "Stop current run?"
 msgstr "إنهاء الجولة الحالية؟"
 
+#: src/history/components/history-totals-card/history-totals-card.tsx
+msgid "Streak"
+msgstr "التتابع"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Subtle surface"
 msgstr "السطح الخفيف"
@@ -1344,6 +1417,10 @@ msgstr "تحدي SuuudokuuU"
 #: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "SuuudokuuU game handoff"
 msgstr "تسليم لعبة SuuudokuuU"
+
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "Suuudokuuu rates every puzzle on the Sudoku Explainer (SE) scale, the same scale serious solvers use to compare how hard a puzzle actually is to reason through, not just how many clues it has."
+msgstr "يقيّم Suuudokuuu كل لغز على مقياس Sudoku Explainer (SE)، وهو المقياس نفسه الذي يستخدمه اللاعبون المتمرسون لمقارنة صعوبة التفكير في اللغز فعليًا، لا مجرد عدد الأرقام المعطاة فيه."
 
 #: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "SuuudokuuU Sudoku Puzzle"
@@ -1388,6 +1465,10 @@ msgstr "تعذّر فتح رابط الالتزام على هذا الجهاز."
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "The install link could not be opened. Check your browser settings and try again."
 msgstr "تعذّر فتح رابط التثبيت. تحقق من إعدادات المتصفح وحاول مرة أخرى."
+
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "The SE difficulty scale"
+msgstr "مقياس صعوبة SE"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Their time to beat"
@@ -1478,6 +1559,10 @@ msgstr "تعذّر فتح الرابط"
 msgid "Unable to start installation"
 msgstr "تعذّر بدء التثبيت"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Unique Rectangle"
+msgstr "المستطيل الفريد"
+
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Unknown"
@@ -1567,7 +1652,7 @@ msgstr "بينما كنت بعيدًا، استمر الكفاح من أجل ا�
 msgid "Wider gaps for easier tapping"
 msgstr "مسافات أوسع لتسهيل الضغط"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Win rate"
 msgstr "معدل الفوز"
@@ -1584,9 +1669,13 @@ msgstr "فزت! حان وقت الاحتفال!"
 msgid "Winning margin"
 msgstr "هامش الفوز"
 
-#: src/history/components/history-difficulty/history-difficulty.tsx
+#: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 msgid "Won"
 msgstr "فوز"
+
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
+msgid "World-record puzzles"
+msgstr "ألغاز قياسية عالمية"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "X-Chain"
@@ -1624,9 +1713,17 @@ msgstr "أكملت لغزك. يستمر الكفاح من أجل الحرية ف
 msgid "You got to"
 msgstr "وصلت إلى"
 
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "You have not finished a rated puzzle yet."
+msgstr "لم تُكمل بعد أي لغز مقيَّم."
+
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 msgid "you lead"
 msgstr "أنت متقدم"
+
+#: src/history/components/history-techniques/history-techniques.tsx
+msgid "Your arsenal"
+msgstr "ترسانتك"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Your best run"
@@ -1639,6 +1736,10 @@ msgstr "قد يطلب متصفحك إذنًا لتثبيت تطبيقات من �
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Your custom colors"
 msgstr "ألوانك المخصصة"
+
+#: src/@generic/components/rating-explainer/rating-explainer.tsx
+msgid "Your hardest solve"
+msgstr "أصعب حل لك"
 
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Your progress"

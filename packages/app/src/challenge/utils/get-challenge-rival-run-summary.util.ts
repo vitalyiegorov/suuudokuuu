@@ -1,10 +1,10 @@
 import { GameStateSerializer } from '@suuudokuuu/encoder';
 
-import { getTimelineCellSteps } from '../../game/utils/get-timeline-cell-steps.util';
+import { withTimelineCellTechniques } from '../../game/utils/with-timeline-cell-techniques.util';
 
 import { getChallengeAwayRanges } from './get-challenge-away-ranges.util';
 import { getChallengeAwaySeconds } from './get-challenge-away-seconds.util';
-import { getChallengeTechniqueEvents } from './get-challenge-technique-events.util';
+import { getRunTechniqueEvents } from './get-run-technique-events.util';
 
 import type { ChallengeRunSummaryInterface } from '../interfaces/challenge-run-summary.interface';
 
@@ -30,7 +30,7 @@ export const getChallengeRivalRunSummary = (challengeState: string, totalTime: n
             exitCount: awayRanges.length,
             pencilCount: decoded.pencilCount,
             screenshotCount: decoded.screenshotCount,
-            techniqueEvents: getChallengeTechniqueEvents(decoded.field, getTimelineCellSteps(decoded.timelineEvents))
+            techniqueEvents: getRunTechniqueEvents(withTimelineCellTechniques(decoded.timelineEvents, decoded.techniques), decoded.field)
         };
     } catch {
         return emptyChallengeRunSummary;

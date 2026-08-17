@@ -30,5 +30,10 @@ export const techniqueLabelsConstant: Record<SolutionTechniqueEnum, MessageDescr
     [SolutionTechniqueEnum.XChain]: msg`X-Chain`,
     [SolutionTechniqueEnum.XYChain]: msg`XY-Chain`,
     [SolutionTechniqueEnum.SimpleColoring]: msg`Simple Coloring`,
-    [SolutionTechniqueEnum.AIC]: msg`AIC`
+    [SolutionTechniqueEnum.AIC]: msg`AIC`,
+    [SolutionTechniqueEnum.UniqueRectangle]: msg`Unique Rectangle`,
+    [SolutionTechniqueEnum.BivalueUniversalGrave]: msg`BUG+1`,
+    [SolutionTechniqueEnum.NishioForcingChain]: msg`Nishio Forcing Chain`,
+    [SolutionTechniqueEnum.CellForcingChain]: msg`Cell Forcing Chain`,
+    [SolutionTechniqueEnum.RegionForcingChain]: msg`Region Forcing Chain`
 };

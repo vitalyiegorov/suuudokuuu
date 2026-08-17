@@ -1,6 +1,8 @@
 import { GRID_CELL_COUNT, formatGridString } from '@suuudokuuu/solver-core';
 
-import { HELL_CORPUS_CLUE_COUNT } from '../constants/hell-corpus.constant';
+import { decodeCorpusRating } from './decode-corpus-rating.util';
+
+import type { DecodedCorpusRecordInterface } from '../interfaces/decoded-corpus-record.interface';
 
 const POSITION_MASK_BYTE_COUNT = 11;
 const BITS_PER_BYTE = 8;
@@ -31,13 +33,19 @@ const readGivenValue = (record: Uint8Array, givenIndex: number): number => {
     return isLowNibble ? valueByte & NIBBLE_MASK : (valueByte >> NIBBLE_BIT_WIDTH) & NIBBLE_MASK;
 };
 
-export const decodeHellCorpusRecord = (record: Uint8Array): string => {
+export const decodeHellCorpusRecord = (record: Uint8Array, recordBytes: number): DecodedCorpusRecordInterface => {
     const grid = new Uint8Array(GRID_CELL_COUNT);
     const givenCells = collectGivenCells(record);
 
-    for (let givenIndex = 0; givenIndex < HELL_CORPUS_CLUE_COUNT; givenIndex += 1) {
-        grid[givenCells[givenIndex]] = readGivenValue(record, givenIndex);
-    }
+    givenCells.forEach((cell, givenIndex) => {
+        grid[cell] = readGivenValue(record, givenIndex);
+    });
 
-    return formatGridString(grid);
+    const { rating, isCeiling } = decodeCorpusRating(record[recordBytes - 1]);
+
+    return {
+        puzzle: formatGridString(grid),
+        rating,
+        isCeiling
+    };
 };

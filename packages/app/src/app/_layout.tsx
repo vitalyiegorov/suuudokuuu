@@ -3,6 +3,7 @@ import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
+import { Platform } from 'react-native';
 import { enableFreeze, enableScreens } from 'react-native-screens';
 
 import { isDefined } from '@rnw-community/shared';
@@ -16,8 +17,10 @@ import { WinConfettiProvider } from '../confetti/components/win-confetti-provide
 import { GameProvider } from '../game/components/game-provider/game-provider';
 import { ThemeProvider } from '../theme/components/theme-provider/theme-provider';
 
-enableScreens();
-enableFreeze();
+if (Platform.OS !== 'web') {
+    enableScreens();
+    enableFreeze();
+}
 applySheetContentWidth();
 applyGameControlsInteractions();
 
@@ -27,7 +30,7 @@ void SplashScreen.preventAutoHideAsync();
 
 const stackOptions = { headerShown: false, gestureEnabled: true };
 const gameOptions = { gestureEnabled: false };
-const settingsOptionSheetOptions = {
+const modalSheetOptions = {
     animation: 'fade' as const,
     contentStyle: { backgroundColor: 'transparent' },
     gestureEnabled: false,
@@ -50,7 +53,8 @@ export default function RootLayout() {
                         <WinConfettiProvider>
                             <Stack screenOptions={stackOptions}>
                                 <Stack.Screen name="game" options={gameOptions} />
-                                <Stack.Screen name="settings/[setting]" options={settingsOptionSheetOptions} />
+                                <Stack.Screen name="settings/[setting]" options={modalSheetOptions} />
+                                <Stack.Screen name="rating-explainer/[rating]" options={modalSheetOptions} />
                             </Stack>
                         </WinConfettiProvider>
                     </GameProvider>

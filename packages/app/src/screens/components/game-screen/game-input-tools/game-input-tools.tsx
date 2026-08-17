@@ -10,8 +10,10 @@ interface Props {
 }
 
 export const GameInputTools = ({ hideAutoCandidates }: Props) => (
-    <View style={styles.inputControls}>
-        <InputModeButton sizeStyle={styles.toolButton} />
-        {hideAutoCandidates ? null : <AutoCandidatesButton sizeStyle={styles.toolButton} />}
+    <View style={styles.row}>
+        <View style={styles.inputControls}>
+            <InputModeButton sizeStyle={styles.toolButton} />
+            {hideAutoCandidates ? null : <AutoCandidatesButton sizeStyle={styles.toolButton} />}
+        </View>
     </View>
 );

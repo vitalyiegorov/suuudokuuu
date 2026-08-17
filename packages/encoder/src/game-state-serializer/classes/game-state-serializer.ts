@@ -100,6 +100,9 @@ export class GameStateSerializer {
             anchorSeconds: 0,
             pencilCount: null,
             screenshotCount: null,
+            techniques: null,
+            rating: 0,
+            isRatingCeiling: false,
             difficulty: null
         };
     }

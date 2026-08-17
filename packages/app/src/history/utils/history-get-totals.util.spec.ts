@@ -1,27 +1,21 @@
 import { describe, expect, it } from '@jest/globals';
 import { DifficultyEnum } from '@suuudokuuu/generator';
 
+import { getDayNumber } from '../../@generic/utils/get-day-number.util';
 import { emptyGameHistory } from '../interfaces/history-game.interface';
+import { emptyHistoryRatingSnapshot } from '../interfaces/history-rating-snapshot.interface';
 
 import { historyGetTotals } from './history-get-totals.util';
 
-import type { CompletedGameInterface } from '../interfaces/completed-game.interface';
 import type { HistoryGameInterface } from '../interfaces/history-game.interface';
-
-const buildCompletedGame = (difficulty: DifficultyEnum, completedAt: number): CompletedGameInterface => ({
-    completedAt,
-    difficulty,
-    elapsedTime: 100,
-    encodedState: '',
-    maxMistakes: 3,
-    mistakes: 0,
-    score: 500
-});
 
 const HighestBestScore = 1500;
 const LowestBestTime = 120;
-const WeightedAverageTime = 175;
+const WeightedAverageTimeByWins = 175;
+const CorrectlyWeightedAverageTime = 200;
+const BuggyWeightedAverageTime = 150;
 const QuarterWinRate = 25;
+const NoPlayedDayNumbers: readonly number[] = [];
 
 const buildHistory = (difficulty: DifficultyEnum, overrides: Partial<HistoryGameInterface>): HistoryGameInterface => ({
     ...emptyGameHistory,
@@ -37,15 +31,17 @@ const buildHistoryByDifficulty = (
     [DifficultyEnum.Medium]: buildHistory(DifficultyEnum.Medium, overridesByDifficulty[DifficultyEnum.Medium] ?? {}),
     [DifficultyEnum.Hard]: buildHistory(DifficultyEnum.Hard, overridesByDifficulty[DifficultyEnum.Hard] ?? {}),
     [DifficultyEnum.Nightmare]: buildHistory(DifficultyEnum.Nightmare, overridesByDifficulty[DifficultyEnum.Nightmare] ?? {}),
-    [DifficultyEnum.Hell]: buildHistory(DifficultyEnum.Hell, overridesByDifficulty[DifficultyEnum.Hell] ?? {})
+    [DifficultyEnum.Hell]: buildHistory(DifficultyEnum.Hell, overridesByDifficulty[DifficultyEnum.Hell] ?? {}),
+    [DifficultyEnum.Infinity]: buildHistory(DifficultyEnum.Infinity, overridesByDifficulty[DifficultyEnum.Infinity] ?? {})
 });
 
 describe('historyGetTotals', () => {
     it('should return zeroed totals for an untouched history', () => {
         expect.assertions(1);
 
-        expect(historyGetTotals(buildHistoryByDifficulty({}))).toStrictEqual({
+        expect(historyGetTotals(buildHistoryByDifficulty({}), NoPlayedDayNumbers)).toStrictEqual({
             averageTime: 0,
+            bestRating: emptyHistoryRatingSnapshot,
             bestScore: 0,
             bestTime: 0,
             challengesLost: 0,
@@ -83,7 +79,8 @@ describe('historyGetTotals', () => {
                     challengesWon: 4,
                     challengesLost: 1
                 }
-            })
+            }),
+            NoPlayedDayNumbers
         );
 
         expect(totals.gamesCompleted).toBe(10);
@@ -103,48 +100,87 @@ describe('historyGetTotals', () => {
                 [DifficultyEnum.Easy]: { bestScore: 900, bestTime: 300 },
                 [DifficultyEnum.Hard]: { bestScore: HighestBestScore, bestTime: LowestBestTime },
                 [DifficultyEnum.Medium]: { bestScore: 100, bestTime: 0 }
-            })
+            }),
+            NoPlayedDayNumbers
         );
 
         expect(totals.bestScore).toBe(HighestBestScore);
         expect(totals.bestTime).toBe(LowestBestTime);
     });
 
+    it('should take the highest best rating across every difficulty and preserve its ceiling flag', () => {
+        expect.assertions(1);
+
+        const totals = historyGetTotals(
+            buildHistoryByDifficulty({
+                [DifficultyEnum.Easy]: { bestRating: { rating: 3.4, isRatingCeiling: false } },
+                [DifficultyEnum.Hard]: { bestRating: { rating: 8.5, isRatingCeiling: true } },
+                [DifficultyEnum.Medium]: { bestRating: { rating: 5.6, isRatingCeiling: false } }
+            }),
+            NoPlayedDayNumbers
+        );
+
+        expect(totals.bestRating).toStrictEqual({ rating: 8.5, isRatingCeiling: true });
+    });
+
     it('should ignore zero best times entirely when no difficulty has a positive one', () => {
         expect.assertions(1);
 
-        const totals = historyGetTotals(buildHistoryByDifficulty({ [DifficultyEnum.Easy]: { bestScore: 10, bestTime: 0 } }));
+        const totals = historyGetTotals(
+            buildHistoryByDifficulty({ [DifficultyEnum.Easy]: { bestScore: 10, bestTime: 0 } }),
+            NoPlayedDayNumbers
+        );
 
         expect(totals.bestTime).toBe(0);
     });
 
-    it('should weight the average time by games completed per difficulty', () => {
+    it('should weight the average time by games won per difficulty', () => {
         expect.assertions(1);
 
         const totals = historyGetTotals(
             buildHistoryByDifficulty({
-                [DifficultyEnum.Easy]: { gamesCompleted: 1, averageTime: 100 },
-                [DifficultyEnum.Hard]: { gamesCompleted: 3, averageTime: 200 }
-            })
+                [DifficultyEnum.Easy]: { gamesWon: 1, averageTime: 100 },
+                [DifficultyEnum.Hard]: { gamesWon: 3, averageTime: 200 }
+            }),
+            NoPlayedDayNumbers
         );
 
-        expect(totals.averageTime).toBe(WeightedAverageTime);
+        expect(totals.averageTime).toBe(WeightedAverageTimeByWins);
     });
 
-    it('should derive the win rate and day streak from the aggregated games', () => {
+    it('should weight the average time by wins, not by completed games including losses', () => {
         expect.assertions(2);
 
         const totals = historyGetTotals(
             buildHistoryByDifficulty({
-                [DifficultyEnum.Easy]: {
-                    gamesCompleted: 4,
-                    gamesWon: 1,
-                    completedGames: [buildCompletedGame(DifficultyEnum.Easy, Date.now())]
-                }
-            })
+                [DifficultyEnum.Easy]: { gamesCompleted: 5, gamesWon: 2, averageTime: 100 },
+                [DifficultyEnum.Hard]: { gamesCompleted: 1, gamesWon: 1, averageTime: 400 }
+            }),
+            NoPlayedDayNumbers
+        );
+
+        expect(totals.averageTime).toBe(CorrectlyWeightedAverageTime);
+        expect(totals.averageTime).not.toBe(BuggyWeightedAverageTime);
+    });
+
+    it('should derive the win rate from the aggregated games', () => {
+        expect.assertions(1);
+
+        const totals = historyGetTotals(
+            buildHistoryByDifficulty({
+                [DifficultyEnum.Easy]: { gamesCompleted: 4, gamesWon: 1 }
+            }),
+            NoPlayedDayNumbers
         );
 
         expect(totals.winRate).toBe(QuarterWinRate);
+    });
+
+    it('should derive the day streak from the played day numbers', () => {
+        expect.assertions(1);
+
+        const totals = historyGetTotals(buildHistoryByDifficulty({}), [getDayNumber(Date.now())]);
+
         expect(totals.dayStreak).toBe(1);
     });
 });

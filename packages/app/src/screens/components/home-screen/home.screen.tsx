@@ -116,7 +116,7 @@ export const HomeScreen = () => {
         selectedDifficultyIndexFromSettings < 0 ? DifficultyComplexitySliderInitialIndex : selectedDifficultyIndexFromSettings;
     const selectedDifficulty = DifficultyComplexitySliderDifficulties[selectedDifficultyIndex] ?? difficulty;
     const selectedDifficultyLabel = t(getDifficultyMessage(difficulty));
-    const selectedDifficultyDescription = homeScreenGetDifficultyDescription(selectedDifficulty);
+    const selectedDifficultyDescription = t(homeScreenGetDifficultyDescription(selectedDifficulty));
     const challengeSummarySuffix = isChallengeMode ? ` • ${t`Challenge`}` : '';
     const setupSummary = `${selectedDifficultyLabel} • ${selectedMistakesOption.title}${challengeSummarySuffix}`;
     const currentElapsedTimeText = useTimerText(currentElapsedTime);
@@ -129,6 +129,7 @@ export const HomeScreen = () => {
     ];
     const startButtonText = isGameStarted ? t`Start new puzzle` : t`Start puzzle`;
     const isHellSelected = difficulty === DifficultyEnum.Hell;
+    const isInfinitySelected = difficulty === DifficultyEnum.Infinity;
     const contentInsetBottom = HomeScreenBottomScrollPadding + tabBarInset;
     const platformInsetTop = Platform.OS === 'ios' ? safeAreaInsets.top : 0;
     const contentInsetTop = homeScreenGetContentInsetTop(safeAreaInsets.top, platformInsetTop);
@@ -238,6 +239,7 @@ export const HomeScreen = () => {
                             currentProgressText={currentProgressText}
                             isGameStarted={isGameStarted}
                             isHellSelected={isHellSelected}
+                            isInfinitySelected={isInfinitySelected}
                             isLoading={isCreatingGame}
                             onStart={handleStart}
                             startButtonSubtitle={setupSummary}

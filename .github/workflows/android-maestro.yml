@@ -33,6 +33,13 @@ jobs:
 
             - name: run-maestro-android-redroid
               uses: rnw-community/mobile-ci/actions/run-maestro-android-redroid@92b18c6b0d207e46ba13ae7e7546966755d36e9f # main
+              # Point Maestro's per-flow debug output (screenshots and view hierarchy
+              # dumps) inside the directory this action already uploads, the same way
+              # the iOS shards do. Without it the Android artifact carries only logcat
+              # and a final screenshot, which makes every Android-only failure a blind
+              # triage.
+              env:
+                  MAESTRO_DEBUG_OUTPUT_DIRECTORY: ${{ github.workspace }}/tests/app-tests/artifacts/maestro-android
               with:
                   container-name: redroid-e2e
                   apk-path: .ci-artifacts/android-e2e-app/suuudokuuu-e2e.apk
@@ -47,3 +54,26 @@ jobs:
                   boot-timeout-seconds: '300'
                   artifacts-dir: ${{ github.workspace }}/tests/app-tests/artifacts/maestro-android
                   artifact-name: maestro-android
+
+            # Fallback for the case where the action does not propagate the env var to
+            # its own Maestro invocation: Maestro then writes to its default location,
+            # which the action never uploads.
+            - name: Collect Maestro debug output
+              if: always()
+              shell: bash
+              run: |
+                  set -euo pipefail
+                  destination="${{ github.workspace }}/tests/app-tests/artifacts/maestro-android-debug"
+                  mkdir -p "$destination"
+                  if [ -d "$HOME/.maestro/tests" ]; then
+                    cp -R "$HOME/.maestro/tests/." "$destination/" || true
+                  fi
+
+            - uses: actions/upload-artifact@v7
+              if: always()
+              with:
+                  name: maestro-android-debug
+                  include-hidden-files: true
+                  path: tests/app-tests/artifacts/maestro-android-debug/**
+                  if-no-files-found: ignore
+                  retention-days: 7

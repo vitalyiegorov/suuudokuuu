@@ -1,5 +1,11 @@
 # App Tests Package
 
+This package also hosts the store-screenshot capture pipeline
+(`scripts/capture-store-screenshots.ts` and friends). That pipeline does NOT
+use Maestro for capture — read `docs/store-screenshot-capture.md` before
+touching it or capturing store screenshots; the rules below govern the E2E
+flows, not store capture.
+
 Maestro E2E flows for Suuudokuuu. Current coverage checks home start/quit, shared-puzzle win, shared-puzzle loss, statistics with replay, settings navigation, resume-after-settings persistence, background/foreground pause behavior, and `Play again` setup preservation.
 
 ## Commands
@@ -33,6 +39,9 @@ Use a freshly rebuilt and reinstalled app when validating code, selector, deep-l
 16. Do not change app behavior solely to satisfy E2E tests. Add selectors or accessibility metadata only when they preserve or improve real UI semantics; otherwise fix the Maestro flow, fixture, or harness.
 17. Before `inputText`, focus the actual input with `tapOn`. After selecting an option from a native sheet, wait for the sheet search field or root to disappear before interacting with the underlying form.
 18. Do not combine `optional: true` with an `extendedWaitUntil` timeout above `5000`, because absence silently consumes the full timeout.
+19. On small Android viewports, content laid out below the system navigation bar never enters the accessibility hierarchy at all, so no timeout can make it visible. Scroll the element into view before asserting it.
+20. Root-cause a CI flow failure from its uploaded debug artifacts — the accessibility hierarchy stored at the failing step, the driver log's synthesized-tap list, and the recording — before editing the flow. A longer wait is never the fix when the element is absent from the hierarchy, and a `.Root` theory is disproven the moment the hierarchy shows the element present.
+21. If a correctly-targeted tap on a native iOS alert does not register, the prime suspect is the game screen's hidden keyboard input re-claiming first responder from the alert's window (`use-keyboard-controls`' autoFocus `TextInput` re-focuses on blur). `subflows/game/quit-current-game.flow.yaml` retries that one OS handoff once; investigate the app hook before widening any retry.
 
 ## Flow Design
 
@@ -45,7 +54,8 @@ Use a freshly rebuilt and reinstalled app when validating code, selector, deep-l
 7. Use `subflows/game/start-new-game.flow.yaml`, `subflows/game/open-settings-from-game.flow.yaml`, and `subflows/game/quit-current-game.flow.yaml` for repeated game setup and teardown.
 8. Use `subflows/shared/open-shared-challenge.flow.yaml` for shared links, `subflows/shared/accept-shared-challenge.flow.yaml` for the native accept transition, `subflows/shared/open-shared-handoff.flow.yaml` when a flow needs a handoff payload to land straight on the game screen, and `subflows/shared/complete-winning-shared-challenge.flow.yaml` when a flow needs a completed win as data setup.
 9. Deep-link fixtures should be stable and should decode through the same app path users hit.
-10. Do not merge win, loss, settings, stats, and resume flows into one giant flow. Merge only duplicated setup through subflows.
+10. Some fixtures are pinned to an older payload on purpose, and a failing assertion is not a reason to re-encode them. The rival link in `08.challenge-accept-preview` predates both the rating trailer and the technique trailer, so it is the only end-to-end coverage of the legacy path: the unknown-rating chip and the `getChallengeTechniqueEvents` replay that derives the rival arsenal when the payload carries no stored techniques. Re-encoding it would silently delete that coverage and rewrite the arsenal it asserts. Verify a fixture's payload with `GameStateSerializer.decodeState` from `packages/encoder/dist/esm` before assuming a fixture is stale.
+11. Do not merge win, loss, settings, stats, and resume flows into one giant flow. Merge only duplicated setup through subflows.
 
 ## Selector Rules
 

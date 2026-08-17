@@ -10,16 +10,19 @@ import { initialGameState } from '../../store/game.state';
 
 import { GameProvider } from './game-provider';
 
+import type { GameSetupInterface } from '../../interface/game-setup.interface';
 import type { ReactNode } from 'react';
 
 const mockPush = jest.fn();
 const mockReplace = jest.fn();
 const mockDispatch = jest.fn();
 const mockAlert = jest.fn();
+const mockRatePuzzle = jest.fn(() => ({ rating: 4.2, isCeiling: false }));
 
 let mockPathname = '/';
 
 jest.mock('expo-router', () => ({ usePathname: () => mockPathname, useRouter: () => ({ push: mockPush, replace: mockReplace }) }));
+jest.mock('@suuudokuuu/rating', () => ({ ratePuzzle: () => mockRatePuzzle() }));
 jest.mock('../../../@generic/app-root.store', () => ({ appRootStore: { dispatch: jest.fn(), getState: jest.fn() } }));
 jest.mock('../../../@generic/components/alert/alert', () => ({ Alert: (title: string) => mockAlert(title) }));
 jest.mock('../../../@generic/hooks/use-app-dispatch.hook', () => ({ useAppDispatch: () => mockDispatch }));
@@ -29,6 +32,7 @@ jest.mock('../../../settings/store/settings.selectors', () => ({ settingsLanguag
 
 const maxMistakes = 3;
 const hellGameOptions = { difficulty: DifficultyEnum.Hell, isChallengeRun: false, maxMistakes };
+const infinityGameOptions = { difficulty: DifficultyEnum.Infinity, isChallengeRun: false, maxMistakes };
 
 interface Props {
     readonly children: ReactNode;
@@ -43,6 +47,13 @@ const GameProviderWrapper = ({ children }: Props) => (
 const renderGameContext = () => renderHook(() => use(GameContext), { wrapper: GameProviderWrapper });
 
 const newbieGameOptions = { difficulty: DifficultyEnum.Newbie, isChallengeRun: false, maxMistakes };
+
+const createSingleGame = async (options: GameSetupInterface) => {
+    const { result } = await renderGameContext();
+
+    await act(() => void result.current.create(options));
+    await waitFor(() => void expect(mockReplace).toHaveBeenCalledTimes(1));
+};
 
 const buildChallengeState = () => {
     const sudoku = new Sudoku(defaultSudokuConfig);
@@ -85,6 +96,37 @@ describe('GameProvider', () => {
             result.current.create(hellGameOptions);
             result.current.create(hellGameOptions);
             result.current.create(hellGameOptions);
+        });
+
+        await waitFor(() => void expect(mockReplace).toHaveBeenCalledTimes(1));
+
+        expect(mockDispatch).toHaveBeenCalledTimes(1);
+    });
+
+    it('should take the Hell rating from the verified corpus instead of running the solver ladder', async () => {
+        await createSingleGame(hellGameOptions);
+
+        expect(mockRatePuzzle).not.toHaveBeenCalled();
+        expect(mockDispatch).toHaveBeenCalledWith(
+            expect.objectContaining({
+                payload: expect.objectContaining({ difficulty: DifficultyEnum.Hell, isRatingCeiling: false })
+            })
+        );
+    });
+
+    it('should still rate a generated puzzle through the solver ladder', async () => {
+        await createSingleGame(newbieGameOptions);
+
+        expect(mockRatePuzzle).toHaveBeenCalledTimes(1);
+    });
+
+    it('should admit exactly one Infinity creation under rapid repeated calls', async () => {
+        const { result } = await renderGameContext();
+
+        await act(() => {
+            result.current.create(infinityGameOptions);
+            result.current.create(infinityGameOptions);
+            result.current.create(infinityGameOptions);
         });
 
         await waitFor(() => void expect(mockReplace).toHaveBeenCalledTimes(1));

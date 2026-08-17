@@ -1,6 +1,7 @@
+import { useLingui } from '@lingui/react/macro';
 import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 
-import { getDifficultyText } from '../utils/get-difficulty-text.util';
+import { getDifficultyMessage } from '../utils/get-difficulty-message.util';
 import { getMistakesTypeText } from '../utils/get-mistakes-type-text.util';
 
 import { useResetGame } from './use-reset-game.hook';
@@ -26,6 +27,7 @@ interface CompletedGameResultReady {
 type CompletedGameResult = CompletedGameResultReady | CompletedGameResultRedirect;
 
 export const useCompletedGameResult = (): CompletedGameResult => {
+    const { t } = useLingui();
     const [isGameStarted, gameState] = useResetGame();
     const timeText = useTimerText(gameState.elapsedTime);
 
@@ -40,8 +42,8 @@ export const useCompletedGameResult = (): CompletedGameResult => {
             isChallengeRun: gameState.isChallengeRun,
             maxMistakes: gameState.maxMistakes
         };
-        const difficultyText = getDifficultyText(retrySetup.difficulty);
-        const mistakesTypeText = getMistakesTypeText(retrySetup.maxMistakes);
+        const difficultyText = t(getDifficultyMessage(retrySetup.difficulty));
+        const mistakesTypeText = t(getMistakesTypeText(retrySetup.maxMistakes));
 
         return { difficultyText, gameState, kind: 'ready', mistakesTypeText, retrySetup, sudoku, timeText };
     } catch {

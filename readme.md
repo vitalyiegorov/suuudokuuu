@@ -156,3 +156,16 @@ The app uses [react-native-reanimated](https://docs.swmansion.com/react-native-r
 - [app](packages/app/readme.md) - React Native / Expo application package
 - [generator](packages/generator/readme.md) - Sudoku puzzle generator
 - [app-tests](tests/app-tests/readme.md) - Maestro tests for the app package
+
+## Acknowledgements
+
+Our Hell and Infinity difficulty levels stand on data curated by the wider Sudoku community over many years. Huge thanks to:
+
+- [t-dillon/tdoku](https://github.com/t-dillon/tdoku) for the `puzzles2_17_clue` dataset (BSD 2-Clause licensed) behind our Hell-difficulty corpus, and to **Gordon Royle** of the University of Western Australia, who originally compiled the 17-clue collection; it was later completed and proven exhaustive by `champagne`, `blue`, and other members of the [Enjoy Sudoku forum](http://forum.enjoysudoku.com/).
+- The [Enjoy Sudoku forum](http://forum.enjoysudoku.com/) community and `champagne`, who compiled the "hardest sudokus" database behind most of our Infinity-difficulty corpus.
+- **Arto Inkala**, creator of Everest and AI Escargot, and the Enjoy Sudoku forum authors behind Golden Nugget, Kolk, Patience, Discrepancy, Fata Morgana, Cigarette, Imam Bayildi, Red Dwarf, Second Flush, Silver Plate, First Peak, and Platinum Blonde, the named world-record puzzles that round out our Infinity level.
+- **Nicolas Juillerat**, creator of Sudoku Explainer, and the Enjoy Sudoku forum's Patterns Game community, whose SE rating methodology our difficulty scale follows.
+
+## License
+
+Suuudokuuu is licensed under the [O'SAASY License](LICENSE) — an MIT-style license with one condition: you may not offer the Software itself as a competing hosted or SaaS product. Learn more at [osaasy.dev](https://osaasy.dev).

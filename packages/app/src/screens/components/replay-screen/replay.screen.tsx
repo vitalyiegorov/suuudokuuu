@@ -16,7 +16,6 @@ import { ReplayActions } from '../../../history/components/replay-actions/replay
 import { ReplayControls } from '../../../history/components/replay-controls/replay-controls';
 import { ReplayField } from '../../../history/components/replay-field/replay-field';
 import { ReplayHeader } from '../../../history/components/replay-header/replay-header';
-import { ReplayShareAction } from '../../../history/components/replay-share-action/replay-share-action';
 import { getReplayTimeline } from '../../../history/utils/get-replay-timeline.util';
 import { getSudokuAtStep } from '../../../history/utils/get-sudoku-at-step.util';
 
@@ -59,12 +58,18 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
 
     const { sudoku, highlightedCellKey, elapsedTime, moveClassification } = getSudokuAtStep(gameState, currentStep);
     const awayRanges = getChallengeAwayRanges(replayTimeline.events, completedGame.elapsedTime);
-    const replayHeader = <ReplayHeader game={completedGame} />;
+    const headerRow = (
+        <View style={styles.headerRow}>
+            <ReplayActions />
+            <ReplayHeader game={completedGame} />
+        </View>
+    );
     const replayControls = (
         <ReplayControls
             awayRanges={awayRanges}
             currentStep={currentStep}
             elapsedTime={elapsedTime}
+            gameState={gameState}
             moveClassification={moveClassification}
             onNextStep={handleNextStep}
             onPrevStep={handlePrevStep}
@@ -76,25 +81,16 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
     return (
         <View style={styles.container}>
             <View style={styles.content}>
-                {isWideLayout ? null : (
-                    <View style={styles.topBar}>
-                        {replayHeader}
-                        <ReplayActions />
-                    </View>
-                )}
+                {isWideLayout ? null : headerRow}
 
                 <View onLayout={onBoardAreaLayout} style={styles.fieldWrapper}>
                     <ReplayField cellSize={boardCellSize} highlightedCellKey={highlightedCellKey} sudoku={sudoku} />
                 </View>
 
                 <View style={styles.controlsColumn}>
-                    {isWideLayout ? replayHeader : null}
+                    {isWideLayout ? headerRow : null}
 
                     {replayControls}
-
-                    <ReplayShareAction gameState={gameState} />
-
-                    {isWideLayout ? <ReplayActions /> : null}
                 </View>
             </View>
         </View>

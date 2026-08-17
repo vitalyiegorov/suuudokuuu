@@ -4,10 +4,13 @@ import { emptyGameHistory } from '../../history/interfaces/history-game.interfac
 
 import type { HistoryGameInterface } from '../../history/interfaces/history-game.interface';
 import type { GameTimelineEventInterface } from '../interface/game-timeline-event.interface';
+import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 export interface GameState {
     sudokuString: string;
     difficulty: DifficultyEnum;
+    rating: number;
+    isRatingCeiling: boolean;
     score: number;
     mistakes: number;
     maxMistakes: number;
@@ -26,6 +29,8 @@ export interface GameState {
     wallClockStartMs: number;
     isChallengeRun: boolean;
     hasNewPersonalBestScore: boolean;
+    techniqueUsageCounts: Partial<Record<SolutionTechniqueEnum, number>>;
+    playedDayNumbers: number[];
 }
 
 export const initialGameState: GameState = {
@@ -35,6 +40,8 @@ export const initialGameState: GameState = {
     elapsedTime: 0,
     sudokuString: '',
     difficulty: DifficultyEnum.Newbie,
+    rating: 0,
+    isRatingCeiling: false,
     mistakes: 0,
     maxMistakes: 3,
     score: 0,
@@ -47,7 +54,8 @@ export const initialGameState: GameState = {
         [DifficultyEnum.Medium]: { ...emptyGameHistory, difficulty: DifficultyEnum.Medium },
         [DifficultyEnum.Hard]: { ...emptyGameHistory, difficulty: DifficultyEnum.Hard },
         [DifficultyEnum.Nightmare]: { ...emptyGameHistory, difficulty: DifficultyEnum.Nightmare },
-        [DifficultyEnum.Hell]: { ...emptyGameHistory, difficulty: DifficultyEnum.Hell }
+        [DifficultyEnum.Hell]: { ...emptyGameHistory, difficulty: DifficultyEnum.Hell },
+        [DifficultyEnum.Infinity]: { ...emptyGameHistory, difficulty: DifficultyEnum.Infinity }
     },
     timelineEvents: [],
     challengeTimelineEvents: [],
@@ -55,5 +63,7 @@ export const initialGameState: GameState = {
     challengeState: '',
     wallClockStartMs: 0,
     isChallengeRun: false,
-    hasNewPersonalBestScore: false
+    hasNewPersonalBestScore: false,
+    techniqueUsageCounts: {},
+    playedDayNumbers: []
 };
