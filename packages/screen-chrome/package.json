@@ -1,6 +1,6 @@
 {
     "name": "@suuudokuuu/screen-chrome",
-    "version": "1.67.0",
+    "version": "2.6.0",
     "private": true,
     "description": "Generic scroll edge fade, blur chrome and collapsible header",
     "sideEffects": false,
