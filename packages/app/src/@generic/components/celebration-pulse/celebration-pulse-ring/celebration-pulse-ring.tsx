@@ -12,6 +12,7 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { CelebrationPulseStyles as styles } from '../celebration-pulse.styles';
+import { CelebrationPulseRepeatCount } from '../constant/celebration-pulse.constant';
 
 import type { SharedValue } from 'react-native-reanimated';
 
@@ -32,7 +33,11 @@ export const CelebrationPulseRing = ({ colorValue, delayMs, opacityOutput, scale
     useEffect(() => {
         pulse.value = withDelay(
             delayMs,
-            withRepeat(withTiming(1, { duration: RingPulseDurationMs, easing: Easing.out(Easing.ease) }), -1, false)
+            withRepeat(
+                withTiming(1, { duration: RingPulseDurationMs, easing: Easing.out(Easing.ease) }),
+                CelebrationPulseRepeatCount,
+                false
+            )
         );
 
         return () => void cancelAnimation(pulse);
