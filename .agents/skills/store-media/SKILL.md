@@ -9,6 +9,13 @@ Everything store-facing is repo-committed and regenerated manually - CI only
 publishes what is committed. Media changes rarely; nothing is generated on
 release.
 
+Capture mechanics live in `tests/app-tests/docs/store-screenshot-capture.md`
+
+- the canonical reference for the seeded-state fast path, per-platform
+  commands, the seed fixture, and the verification checklist. Read it before
+  capturing. This skill owns listing texts, captions, design decisions, and
+  publishing.
+
 ## File map
 
 - `packages/app/fastlane/metadata/{ios,android}/<locale>/` - listing texts.
