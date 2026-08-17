@@ -33,7 +33,6 @@ jobs:
             screenshots-dir: tests/app-tests/flows/screenshots
             seed-command: node tests/app-tests/scripts/ci-seed-scene.ts
             settle-seconds: '5'
-            maestro-version: '2.6.1'
             maestro-env: |
                 LOCALE_IDENTIFIER=en_US
                 OS_LANGUAGE_MODE=true
@@ -89,7 +88,6 @@ jobs:
                 [{"device":"iPhone 17 Pro","locales":["en"],"appearances":["light"]}]
             screenshots-dir: tests/app-tests/flows/screenshots
             scenes-name-pattern: 03.*.flow.yaml 08.*.flow.yaml 09.*.flow.yaml
-            maestro-version: '2.6.1'
             maestro-env: |
                 LOCALE_IDENTIFIER=en_US
                 OS_LANGUAGE_MODE=true
@@ -121,7 +119,6 @@ jobs:
             screenshots-dir: tests/app-tests/flows/screenshots
             seed-command: node tests/app-tests/scripts/ci-seed-scene.ts
             settle-seconds: '5'
-            maestro-version: '2.6.1'
             maestro-env: |
                 LOCALE_IDENTIFIER=en_US
                 OS_LANGUAGE_MODE=true
