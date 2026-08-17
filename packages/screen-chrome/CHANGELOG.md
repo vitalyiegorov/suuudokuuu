@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.6.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.5.1...v2.6.0) (2026-08-17)
+
+### Bug Fixes
+
+- **app,screen-chrome:** recomposite blurred web chrome after returning from background ([9b9e0df](https://github.com/vitalyiegorov/suuudokuuu/commit/9b9e0dfdb69509d8dfb7170537261c213578db45))
+
 # [1.67.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.66.2...v1.67.0) (2026-07-26)
 
 ### Features
