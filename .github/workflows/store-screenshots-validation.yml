@@ -1,0 +1,149 @@
+# Fleet validation for the mobile-ci store-screenshots v1.6.0 redesign
+# (direct-capture mode + Android). Dispatch-only; one preset per run so the
+# fleet never carries more than one validation pipeline at a time. The pin is
+# the mobile-ci main merge commit of the redesign, not a release tag.
+name: Store screenshots v1.6 validation
+
+on:
+    workflow_dispatch:
+        inputs:
+            preset:
+                description: Fleet-validation preset to run
+                type: choice
+                required: true
+                options:
+                    - r1-ios-direct
+                    - r2-android
+                    - r3-flows-legacy
+                    - r3-upload-gate
+
+permissions:
+    contents: read
+
+jobs:
+    r1-ios-direct:
+        name: R1 iOS direct capture
+        if: inputs.preset == 'r1-ios-direct'
+        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@b9b028219a8635b0dea18514109da5afce61287f # main as of 2026-08-17, v1.6.0 store-screenshots redesign
+        with:
+            ios-target: >-
+                {"name":"e2e","appDir":"packages/app","workspace":"suuudokuuuE2E.xcworkspace","scheme":"suuudokuuuE2E","appId":"com.vitalyiegorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p ios --clean --no-install"}
+            capture-manifest: >-
+                [{"platform":"ios","device":"iPhone 17 Pro","locales":["en","de"],"appearances":["light","dark"]}]
+            capture-mode: direct
+            capture-scenes: >-
+                [
+                  {"name":"hero-board","deepLink":"suuudokuuu://game"},
+                  {"name":"stats","deepLink":"suuudokuuu://history"},
+                  {"name":"win","flow":"05.win.flow.yaml","locales":["en"]}
+                ]
+            screenshots-dir: tests/app-tests/flows/screenshots
+            seed-command: node tests/app-tests/scripts/ci-seed-scene.ts
+            settle-seconds: '5'
+            maestro-version: '2.6.1'
+            maestro-env: |
+                LOCALE_IDENTIFIER=en_US
+                OS_LANGUAGE_MODE=false
+            build-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
+            capture-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
+            cache-profile: suuudokuuu-ios-v2
+            repack-on-hit: true
+            rct-use-prebuilt-rncore: true
+            rct-use-rn-dep: true
+            build-env: |
+                APP_VARIANT=e2e
+
+    r2-android:
+        name: R2 Android direct capture
+        if: inputs.preset == 'r2-android'
+        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@b9b028219a8635b0dea18514109da5afce61287f # main as of 2026-08-17, v1.6.0 store-screenshots redesign
+        with:
+            android-target: >-
+                {"name":"e2e","appDir":"packages/app","appId":"com.vitaliiyehorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p android --clean --no-install"}
+            capture-manifest: >-
+                [{"platform":"android","device":"phone-6.7","width":1080,"height":2340,"density":440,"locales":["en"],"appearances":["light","dark"]}]
+            capture-mode: direct
+            capture-scenes: >-
+                [
+                  {"name":"themes","deepLink":"suuudokuuu://settings/themes"},
+                  {"name":"settings","deepLink":"suuudokuuu://settings"},
+                  {"name":"stats","deepLink":"suuudokuuu://history"}
+                ]
+            seed-command: node tests/app-tests/scripts/ci-seed-scene.ts
+            settle-seconds: '5'
+            build-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
+            android-gradle-task: ':app:assembleRelease'
+            android-gradle-args: '-x lint -x lintVitalAnalyzeRelease -x lintAnalyzeRelease'
+            android-cache-profile: suuudokuuu-android-v1
+            repack-on-hit: true
+            redroid-prewarm-manifest-path: $HOME/.sudoku-ci/android-emulator.json
+            redroid-memory: 6g
+            redroid-cpus: '4'
+            redroid-boot-timeout-seconds: '300'
+            build-env: |
+                APP_VARIANT=e2e
+                JAVA_HOME=/Library/Java/JavaVirtualMachines/temurin-17.jdk/Contents/Home
+                ORG_GRADLE_PROJECT_reactNativeArchitectures=arm64-v8a
+
+    r3-flows-legacy:
+        name: R3 legacy flows regression
+        if: inputs.preset == 'r3-flows-legacy'
+        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@b9b028219a8635b0dea18514109da5afce61287f # main as of 2026-08-17, v1.6.0 store-screenshots redesign
+        with:
+            ios-target: >-
+                {"name":"e2e","appDir":"packages/app","workspace":"suuudokuuuE2E.xcworkspace","scheme":"suuudokuuuE2E","appId":"com.vitalyiegorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p ios --clean --no-install"}
+            capture-manifest: >-
+                [{"device":"iPhone 17 Pro","locales":["en"],"appearances":["light"]}]
+            screenshots-dir: tests/app-tests/flows/screenshots
+            scenes-name-pattern: 03.*.flow.yaml 08.*.flow.yaml 09.*.flow.yaml
+            maestro-version: '2.6.1'
+            maestro-env: |
+                LOCALE_IDENTIFIER=en_US
+                OS_LANGUAGE_MODE=false
+            build-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
+            capture-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
+            cache-profile: suuudokuuu-ios-v2
+            repack-on-hit: true
+            rct-use-prebuilt-rncore: true
+            rct-use-rn-dep: true
+            build-env: |
+                APP_VARIANT=e2e
+
+    r3-upload-gate:
+        name: R3 upload gate (no real upload)
+        if: inputs.preset == 'r3-upload-gate'
+        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@b9b028219a8635b0dea18514109da5afce61287f # main as of 2026-08-17, v1.6.0 store-screenshots redesign
+        with:
+            ios-target: >-
+                {"name":"e2e","appDir":"packages/app","workspace":"suuudokuuuE2E.xcworkspace","scheme":"suuudokuuuE2E","appId":"com.vitalyiegorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p ios --clean --no-install"}
+            capture-manifest: >-
+                [{"platform":"ios","device":"iPhone 17 Pro","locales":["en","de"],"appearances":["light","dark"]}]
+            capture-mode: direct
+            capture-scenes: >-
+                [
+                  {"name":"hero-board","deepLink":"suuudokuuu://game"},
+                  {"name":"stats","deepLink":"suuudokuuu://history"},
+                  {"name":"win","flow":"05.win.flow.yaml","locales":["en"]}
+                ]
+            screenshots-dir: tests/app-tests/flows/screenshots
+            seed-command: node tests/app-tests/scripts/ci-seed-scene.ts
+            settle-seconds: '5'
+            maestro-version: '2.6.1'
+            maestro-env: |
+                LOCALE_IDENTIFIER=en_US
+                OS_LANGUAGE_MODE=false
+            build-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
+            capture-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
+            upload-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
+            cache-profile: suuudokuuu-ios-v2
+            repack-on-hit: true
+            rct-use-prebuilt-rncore: true
+            rct-use-rn-dep: true
+            build-env: |
+                APP_VARIANT=e2e
+            upload-screenshots: true
+            upload-command: 'true'
+            apple-screenshot-slots: >-
+                {"1320x2868":"iPhone 6.9\"","1290x2796":"iPhone 6.9\"","1284x2778":"iPhone 6.5\"","1242x2688":"iPhone 6.5\"","1206x2622":"iPhone 6.3\"","1179x2556":"iPhone 6.1\"","2064x2752":"iPad 13\"","2752x2064":"iPad 13\"","2048x2732":"iPad 12.9\"","2732x2048":"iPad 12.9\""}
+        secrets:
+            ASC_API_KEY: ${{ secrets.EXPO_IOS_ASC_API_KEY }}

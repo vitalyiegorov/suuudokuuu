@@ -13,8 +13,8 @@ const migrationsSourcePath = join(repositoryRootDirectory, 'packages', 'app', 's
 const languagesSourcePath = join(repositoryRootDirectory, 'packages', 'app', 'src', 'settings', 'constant', 'languages.constant.ts');
 
 const PersistRootKey = 'persist:root';
-const IosStorageRelativePath = join('Documents', 'SQLite', 'ExpoSQLiteStorage');
-const AndroidStorageRelativePath = 'files/SQLite/ExpoSQLiteStorage';
+export const IosStorageRelativePath = join('Documents', 'SQLite', 'ExpoSQLiteStorage');
+export const AndroidStorageRelativePath = 'files/SQLite/ExpoSQLiteStorage';
 const PersistVersionPattern = /appRootPersistVersion\s*=\s*(\d+)/u;
 const LanguagesPattern = /export const Languages = \[([^\]]+)\]/u;
 const QuotePattern = /'/gu;
