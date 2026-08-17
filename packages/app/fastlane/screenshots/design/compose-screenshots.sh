@@ -29,11 +29,14 @@
 #   packages/app/fastlane/screenshots/design/compose-screenshots.sh [locale] [variant]
 #
 # `locale` defaults to en-US and must have a design/<locale>/title.strings
-# and design/<locale>/subtitle.strings file. `variant` is light, dark, or
-# all (the default) and selects which appearance set(s) to compose into
-# variants/<variant>/ios/<locale>. The scene manifests (which raw captures
-# to use, in which order, with which appearance, layout variant, and device
-# size) are curated below in SCENES_LIGHT/SCENES_DARK — they are a
+# and design/<locale>/subtitle.strings file. `variant` is light, dark,
+# android, or all (the default) and selects which appearance set(s) to
+# compose into variants/<variant>/ios/<locale>. `all` and `dark` also compose
+# the Play set; `android` composes only the Play set, which is what to use
+# when the iOS raw captures for a device class are unavailable and the iOS
+# stages of `dark` would abort before reaching it. The scene manifests (which
+# raw captures to use, in which order, with which appearance, layout variant,
+# and device size) are curated below in SCENES_LIGHT/SCENES_DARK — they are a
 # store-listing decision, not something to infer from the raw capture
 # directory, so they are not read from a config file.
 #
@@ -52,6 +55,30 @@ VARIANT="${2:-all}"
 TITLES="$DESIGN_DIR/$LOCALE/title.strings"
 SUBTITLES="$DESIGN_DIR/$LOCALE/subtitle.strings"
 OUT_DIR=""
+
+# Every scene composes into a staging directory and the committed set is only
+# replaced once the whole variant succeeded. `set -e` aborts on the first
+# ImageMagick failure, so clearing the output directory up front and composing
+# into it destroys committed screenshots and leaves nothing in their place -
+# that already happened once to de-DE/light's iPad shots.
+STAGE_ROOT="$(mktemp -d "${TMPDIR:-/tmp}/suuudokuuu-compose.XXXXXX")"
+trap 'rm -rf "$STAGE_ROOT"' EXIT
+
+publish_stage() {
+  local final_dir="$1"
+  local staged_count
+
+  staged_count="$(find "$OUT_DIR" -maxdepth 1 -name '*.png' | wc -l | tr -d ' ')"
+  if [[ "$staged_count" == "0" ]]; then
+    echo "error: nothing composed for $final_dir, keeping the committed set" >&2
+    exit 1
+  fi
+
+  mkdir -p "$final_dir"
+  rm -f "$final_dir"/*.png
+  mv "$OUT_DIR"/*.png "$final_dir/"
+  echo "published $staged_count screenshots to $final_dir"
+}
 
 # Store locales map onto the app language codes the capture runner writes
 # raw screenshots under (raw/ios/<device>/<app-locale>/...).
@@ -97,8 +124,8 @@ raw_source_for() {
   fi
 }
 
-if [[ "$VARIANT" != "all" && "$VARIANT" != "light" && "$VARIANT" != "dark" ]]; then
-  echo "error: unknown variant '$VARIANT'. Use light, dark, or all." >&2
+if [[ "$VARIANT" != "all" && "$VARIANT" != "light" && "$VARIANT" != "dark" && "$VARIANT" != "android" ]]; then
+  echo "error: unknown variant '$VARIANT'. Use light, dark, android, or all." >&2
   exit 1
 fi
 
@@ -222,7 +249,6 @@ set_variant_palette() {
     TEXT_HEX="#0A0A0A"
     DESCRIPTOR_RGB="10,10,10"
   fi
-  OUT_DIR="$APP_DIR/fastlane/screenshots/variants/$variant/ios/$LOCALE"
 }
 
 # Headline point size target: 9-11% of canvas width, but on a landscape
@@ -830,8 +856,8 @@ run_variant() {
     scenes=("${SCENES_LIGHT[@]}")
   fi
 
+  OUT_DIR="$STAGE_ROOT/$variant-ios-$LOCALE"
   mkdir -p "$OUT_DIR"
-  rm -f "$OUT_DIR"/*.png
   local entry device scene appearance layout height_fraction out_name caption_key
   for entry in "${scenes[@]}"; do
     IFS='|' read -r device scene appearance layout height_fraction out_name caption_key <<<"$entry"
@@ -841,24 +867,29 @@ run_variant() {
       compose_one "$device" "$scene" "$appearance" "$layout" "$height_fraction" "$out_name" "$caption_key"
     fi
   done
+
+  publish_stage "$APP_DIR/fastlane/screenshots/variants/$variant/ios/$LOCALE"
 }
 
 run_android() {
   set_variant_palette "dark"
-  OUT_DIR="$APP_DIR/fastlane/metadata/android/$PLAY_LOCALE/images/phoneScreenshots"
+  OUT_DIR="$STAGE_ROOT/android-$PLAY_LOCALE"
 
   mkdir -p "$OUT_DIR"
-  rm -f "$OUT_DIR"/*.png
   local entry device scene appearance layout height_fraction out_name caption_key
   for entry in "${SCENES_ANDROID[@]}"; do
     IFS='|' read -r device scene appearance layout height_fraction out_name caption_key <<<"$entry"
     compose_one "$device" "$scene" "$appearance" "$layout" "$height_fraction" "$out_name" "$caption_key"
   done
+
+  publish_stage "$APP_DIR/fastlane/metadata/android/$PLAY_LOCALE/images/phoneScreenshots"
 }
 
 if [[ "$VARIANT" == "all" ]]; then
   run_variant "light"
   run_variant "dark"
+  run_android
+elif [[ "$VARIANT" == "android" ]]; then
   run_android
 else
   run_variant "$VARIANT"

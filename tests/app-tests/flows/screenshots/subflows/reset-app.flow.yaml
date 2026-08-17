@@ -21,6 +21,9 @@ appId: ${APP_ID}
       commands:
           - launchApp:
                 clearState: false
+                arguments:
+                    AppleLanguages: '(${LOCALE})'
+                    AppleLocale: ${LOCALE_IDENTIFIER}
           - runFlow:
                 when:
                     visible: '^Open$'

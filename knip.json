@@ -20,7 +20,7 @@
         "eas-build-cache-provider",
         "serve"
     ],
-    "ignoreBinaries": ["run", "xcrun", "maestro"],
+    "ignoreBinaries": ["run", "xcrun", "maestro", "adb", "sqlite3"],
     "workspaces": {
         "packages/app": {
             "entry": [
