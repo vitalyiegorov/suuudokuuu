@@ -6,7 +6,7 @@ import { Pressable, Text } from 'react-native';
 import { isPositiveNumber } from '@rnw-community/shared';
 
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
-import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
+import { getDifficultyMessage } from '../../../@generic/utils/get-difficulty-message.util';
 import { getLevelRatingText } from '../../../@generic/utils/get-level-rating-text.util';
 import { getRatingExplainerHref } from '../../../@generic/utils/get-rating-explainer-href.util';
 
@@ -26,7 +26,7 @@ export const ReplayHeader = ({ game }: Props) => {
     const elapsedTimeText = useTimerText(game.elapsedTime);
     const mistakesValue = game.maxMistakes >= RelaxedMistakeLimit ? `${game.mistakes}/∞` : `${game.mistakes}/${game.maxMistakes}`;
     const hasRating = isPositiveNumber(game.rating);
-    const levelText = getLevelRatingText(getDifficultyText(game.difficulty), game.rating, game.isRatingCeiling);
+    const levelText = getLevelRatingText(t(getDifficultyMessage(game.difficulty)), game.rating, game.isRatingCeiling);
 
     const handlePressLevel = () => {
         router.push(getRatingExplainerHref(game.rating, game.isRatingCeiling));

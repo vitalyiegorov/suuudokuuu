@@ -7,7 +7,7 @@ import { Pressable, View } from 'react-native';
 
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
-import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
+import { getDifficultyMessage } from '../../../@generic/utils/get-difficulty-message.util';
 import { getLevelRatingText } from '../../../@generic/utils/get-level-rating-text.util';
 import { gameHistoryDifficultySelector } from '../../../game/store/game.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
@@ -29,7 +29,7 @@ export const HistoryDifficulty = ({ difficulty }: Props) => {
     const router = useRouter();
     const { bestRating, gamesCompleted, gamesWon } = useAppSelector(gameHistoryDifficultySelector(difficulty));
 
-    const difficultyText = getDifficultyText(difficulty);
+    const difficultyText = t(getDifficultyMessage(difficulty));
     const canComposeHardestTitle = hardestSolveDifficulties.includes(difficulty) && bestRating.rating > 0;
     const titleText = canComposeHardestTitle
         ? getLevelRatingText(difficultyText, bestRating.rating, bestRating.isRatingCeiling)

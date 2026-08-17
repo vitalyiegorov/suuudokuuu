@@ -11,7 +11,7 @@ import { UkraineSupportCard } from '../../../@generic/components/ukraine-support
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
-import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
+import { getDifficultyMessage } from '../../../@generic/utils/get-difficulty-message.util';
 import { getLevelRatingText } from '../../../@generic/utils/get-level-rating-text.util';
 import { getMistakesTypeText } from '../../../@generic/utils/get-mistakes-type-text.util';
 import { GameContext } from '../../../game/context/game.context';
@@ -69,9 +69,9 @@ export const PauseScreen = () => {
     };
 
     const progress = pauseScreenGetProgress(sudoku);
-    const difficultyText = getDifficultyText(difficulty);
+    const difficultyText = t(getDifficultyMessage(difficulty));
     const levelRatingText = getLevelRatingText(difficultyText, rating, isRatingCeiling);
-    const mistakesTypeText = getMistakesTypeText(maxMistakes);
+    const mistakesTypeText = t(getMistakesTypeText(maxMistakes));
 
     const { filledCells } = progress;
     const { totalCells } = progress;
