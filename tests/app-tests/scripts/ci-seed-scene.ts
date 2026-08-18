@@ -44,7 +44,29 @@ const ensureIosStorageDirectory = (udid: string, appId: string): void => {
     mkdirSync(join(container.stdout.trim(), dirname(IosStorageRelativePath)), { recursive: true });
 };
 
+const RootProbeAttempts = 15;
+
+const ensureAndroidRoot = (serial: string): void => {
+    spawnSync('adb', ['-s', serial, 'root'], { encoding: 'utf8' });
+
+    for (let attempt = 0; attempt < RootProbeAttempts; attempt += 1) {
+        spawnSync('adb', ['connect', serial], { encoding: 'utf8' });
+
+        const probe = spawnSync('adb', ['-s', serial, 'shell', 'id'], { encoding: 'utf8' });
+
+        if (probe.status === 0 && `${probe.stdout}`.includes('uid=0')) {
+            return;
+        }
+
+        spawnSync('sleep', ['1']);
+    }
+
+    throw new Error(`adb on ${serial} did not become root after 'adb root'; the persisted store cannot be written.`);
+};
+
 const ensureAndroidStorageDatabase = (serial: string, appId: string): void => {
+    ensureAndroidRoot(serial);
+
     const databasePath = posix.join('/data/data', appId, AndroidStorageRelativePath);
     const prepareCommand = `mkdir -p '${posix.dirname(databasePath)}' && touch '${databasePath}'`;
     const prepared = spawnSync('adb', ['-s', serial, 'shell', prepareCommand], { encoding: 'utf8' });
