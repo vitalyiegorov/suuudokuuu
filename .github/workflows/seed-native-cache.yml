@@ -1,0 +1,41 @@
+name: Seed native cache
+
+# Warms the fingerprinted native-app caches the Maestro pipelines restore, so a
+# push to main or a PR opened the next morning skips the cold native build. The
+# targets, cache profiles and build env must stay identical to mobile-e2e.yml or
+# the cache key will not match and the seed run is wasted.
+on:
+    workflow_dispatch:
+    schedule:
+        - cron: '0 3 * * *'
+
+permissions:
+    contents: read
+
+concurrency:
+    group: seed-native-cache
+    cancel-in-progress: false
+
+jobs:
+    seed:
+        name: Seed E2E native caches
+        uses: rnw-community/mobile-ci/.github/workflows/seed-native-cache.yml@v1.6.0 # v1.6.0
+        with:
+            ios-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
+            android-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
+            ios-targets: >-
+                [{"name":"e2e","appDir":"packages/app","workspace":"suuudokuuuE2E.xcworkspace","scheme":"suuudokuuuE2E","prebuildCommand":"npx expo prebuild -p ios --clean --no-install"}]
+            android-targets: >-
+                [{"name":"e2e","appDir":"packages/app","prebuildCommand":"npx expo prebuild -p android --clean --no-install"}]
+            xcode-version: '26.4.1'
+            xcode-build: '17E202'
+            gradle-task: ':app:assembleRelease'
+            gradle-args: '-x lint -x lintVitalAnalyzeRelease -x lintAnalyzeRelease -PreactNativeArchitectures=arm64-v8a'
+            ios-cache-profile: suuudokuuu-ios-v2
+            android-cache-profile: suuudokuuu-android-v1
+            rct-use-prebuilt-rncore: true
+            rct-use-rn-dep: true
+            build-env: |
+                APP_VARIANT=e2e
+                JAVA_HOME=/Library/Java/JavaVirtualMachines/temurin-17.jdk/Contents/Home
+                ORG_GRADLE_PROJECT_reactNativeArchitectures=arm64-v8a
