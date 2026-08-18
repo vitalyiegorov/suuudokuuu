@@ -65,7 +65,7 @@ jobs:
             settle-seconds: '5'
             build-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
             android-gradle-task: ':app:assembleRelease'
-            android-gradle-args: '-x lint -x lintVitalAnalyzeRelease -x lintAnalyzeRelease'
+            android-gradle-args: '-x lint -x lintVitalAnalyzeRelease -x lintAnalyzeRelease -PreactNativeArchitectures=arm64-v8a'
             android-cache-profile: suuudokuuu-android-v1
             repack-on-hit: true
             redroid-prewarm-manifest-path: $HOME/.sudoku-ci/android-emulator.json
