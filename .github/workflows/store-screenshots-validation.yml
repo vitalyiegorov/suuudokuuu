@@ -134,6 +134,6 @@ jobs:
             upload-screenshots: true
             upload-command: 'true'
             apple-screenshot-slots: >-
-                {"1320x2868":"iPhone 6.9\"","1290x2796":"iPhone 6.9\"","1284x2778":"iPhone 6.5\"","1242x2688":"iPhone 6.5\"","1206x2622":"iPhone 6.3\"","1179x2556":"iPhone 6.1\"","2064x2752":"iPad 13\"","2752x2064":"iPad 13\"","2048x2732":"iPad 12.9\"","2732x2048":"iPad 12.9\""}
+                {"1320x2868":"iPhone 6.9\"","1290x2796":"iPhone 6.9\"","1284x2778":"iPhone 6.5\"","1242x2688":"iPhone 6.5\"","9999x9999":"iPhone 6.3\"","1179x2556":"iPhone 6.1\"","2064x2752":"iPad 13\"","2752x2064":"iPad 13\"","2048x2732":"iPad 12.9\"","2732x2048":"iPad 12.9\""}
         secrets:
             ASC_API_KEY: ${{ secrets.EXPO_IOS_ASC_API_KEY }}
