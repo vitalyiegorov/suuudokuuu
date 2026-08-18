@@ -23,12 +23,13 @@ concurrency:
 jobs:
     ios:
         name: iOS Maestro E2E
-        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@v1.6.0 # v1.6.0
+        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@v1.6.1 # v1.6.1
         with:
             targets: >-
                 [{"name":"e2e","appDir":"packages/app","workspace":"suuudokuuuE2E.xcworkspace","scheme":"suuudokuuuE2E","appId":"com.vitalyiegorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p ios --clean --no-install"}]
             flows-dir: tests/app-tests/flows
             pre-run-flow: tests/app-tests/flows/setup/prime-deep-links.flow.yaml
+            flow-recovery-flow: tests/app-tests/flows/setup/recover-after-failed-flow.flow.yaml
             flow-retries: 1
             shard-count: 2
             maestro-version: '2.6.1'
@@ -46,12 +47,13 @@ jobs:
 
     android:
         name: Android Maestro E2E
-        uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@v1.6.0 # v1.6.0
+        uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@v1.6.1 # v1.6.1
         with:
             targets: >-
                 [{"name":"e2e","appDir":"packages/app","appId":"com.vitaliiyehorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p android --clean --no-install"}]
             flows-dir: tests/app-tests/flows
             pre-run-flow: tests/app-tests/flows/setup/prime-deep-links.flow.yaml
+            flow-recovery-flow: tests/app-tests/flows/setup/recover-after-failed-flow.flow.yaml
             flow-retries: 1
             # One Redroid job for every flow: the 24 GiB linux host cannot run two
             # 12 GiB guests, so sharding buys nothing and a single container can
