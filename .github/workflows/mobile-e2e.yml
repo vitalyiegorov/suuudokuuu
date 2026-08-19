@@ -48,7 +48,7 @@ jobs:
 
     android:
         name: Android Maestro E2E
-        uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@v1.6.5 # v1.6.5
+        uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@79730adeb31fa0529d723e12c95c74e70602878c # mobile-ci PR #45 (setup-android v4)
         with:
             targets: >-
                 [{"name":"e2e","appDir":"packages/app","appId":"com.vitaliiyehorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p android --clean --no-install"}]
