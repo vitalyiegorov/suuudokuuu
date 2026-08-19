@@ -104,7 +104,7 @@ jobs:
     publish:
         name: Build and submit
         needs: [android-release-lint]
-        uses: rnw-community/mobile-ci/.github/workflows/native-publish.yml@v1.6.3 # v1.6.3
+        uses: rnw-community/mobile-ci/.github/workflows/native-publish.yml@v1.6.5 # v1.6.5
         with:
             app-dir: packages/app
             enable-ios: true
@@ -161,4 +161,6 @@ jobs:
         secrets:
             EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
             ASC_API_KEY: ${{ secrets.EXPO_IOS_ASC_API_KEY }}
+            ASC_KEY_ID: ${{ secrets.EXPO_IOS_ASC_KEY_ID }}
+            ASC_ISSUER_ID: ${{ secrets.EXPO_IOS_ASC_ISSUER_ID }}
             GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
