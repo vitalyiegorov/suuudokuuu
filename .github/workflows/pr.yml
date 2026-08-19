@@ -132,7 +132,6 @@ jobs:
         if: ${{ needs.changes.outputs.mobile == 'true' && needs.code-quality.result == 'success' }}
         needs: [changes, code-quality]
         uses: ./.github/workflows/mobile-e2e.yml
-        secrets: inherit
 
     web-e2e:
         if: ${{ needs.changes.outputs.mobile == 'true' }}

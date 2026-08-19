@@ -1,30 +1,82 @@
 name: Mobile E2E
 
-# Ordering exists to fit the fleet host: one `macos-builder` VM (max 1 active)
-# and at most 2 concurrent macOS guests in total. Both embedded apps are built
-# first, back-to-back on that single builder; only then do the macOS Maestro
-# shards claim both macOS slots. Test suites still run in parallel across
-# platforms (iOS shards on macos-maestro, Android on the linux guest).
+# iOS and Android each run as an independent rnw-community/mobile-ci reusable
+# pipeline (detect -> build -> test -> status), so the build-before-test
+# ordering the fleet needs is enforced inside each pipeline instead of by a
+# shared build workflow here. Both platforms' native builds still queue on the
+# single `macos-builder` VM (Google ships no arm64-linux NDK, so the Android
+# APK is built on macOS too), while their Maestro jobs run in parallel across
+# separate pools: `macos-maestro` for the iOS shards, `linux-xl` for Redroid.
 on:
     workflow_call:
     workflow_dispatch:
     push:
         branches: [main]
 
+permissions:
+    contents: read
+
 concurrency:
     group: mobile-e2e-${{ github.workflow }}-${{ github.ref }}
     cancel-in-progress: ${{ github.event_name == 'push' }}
 
 jobs:
-    build:
-        name: Mobile builds
-        uses: ./.github/workflows/mobile-build.yml
-        secrets: inherit
-
     ios:
-        needs: [build]
-        uses: ./.github/workflows/ios-maestro.yml
+        name: iOS Maestro E2E
+        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@v1.6.3 # v1.6.3
+        with:
+            targets: >-
+                [{"name":"e2e","appDir":"packages/app","workspace":"suuudokuuuE2E.xcworkspace","scheme":"suuudokuuuE2E","appId":"com.vitalyiegorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p ios --clean --no-install"}]
+            flows-dir: tests/app-tests/flows
+            pre-run-flow: tests/app-tests/flows/setup/prime-deep-links.flow.yaml
+            maestro-config: tests/app-tests/config.yaml
+            flow-recovery-flow: tests/app-tests/flows/setup/recover-after-failed-flow.flow.yaml
+            flow-retries: 1
+            shard-count: 2
+            maestro-version: '2.6.1'
+            simulator-device: iPhone 17 Pro
+            xcode-version: '26.4.1'
+            xcode-build: '17E202'
+            build-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
+            test-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
+            cache-profile: suuudokuuu-ios-v2
+            repack-on-hit: true
+            rct-use-prebuilt-rncore: true
+            rct-use-rn-dep: true
+            build-env: |
+                APP_VARIANT=e2e
 
     android:
-        needs: [build]
-        uses: ./.github/workflows/android-maestro.yml
+        name: Android Maestro E2E
+        uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@v1.6.3 # v1.6.3
+        with:
+            targets: >-
+                [{"name":"e2e","appDir":"packages/app","appId":"com.vitaliiyehorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p android --clean --no-install"}]
+            flows-dir: tests/app-tests/flows
+            pre-run-flow: tests/app-tests/flows/setup/prime-deep-links.flow.yaml
+            maestro-config: tests/app-tests/config.yaml
+            flow-recovery-flow: tests/app-tests/flows/setup/recover-after-failed-flow.flow.yaml
+            flow-retries: 1
+            # One Redroid job for every flow: the 24 GiB linux host cannot run two
+            # 12 GiB guests, so sharding buys nothing and a single container can
+            # claim 6 GiB / 4 CPU for stable boot and snappy interaction (the timed
+            # challenge flows race a fixed opponent clock).
+            shard-count: 1
+            maestro-version: '2.6.1'
+            build-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
+            test-runner-labels: '["self-hosted","linux-tiered","linux-xl"]'
+            android-driver: redroid
+            gradle-task: ':app:assembleRelease'
+            # arm64-v8a only: Redroid runs on the arm64 linux guest, and an all-ABI
+            # build burns CMake time and OOM-kills D8 on the macOS builder.
+            gradle-args: '-x lint -x lintVitalAnalyzeRelease -x lintAnalyzeRelease -PreactNativeArchitectures=arm64-v8a'
+            redroid-prewarm-manifest-path: $HOME/.sudoku-ci/android-emulator.json
+            redroid-memory: 6g
+            redroid-cpus: '4'
+            redroid-boot-timeout-seconds: '300'
+            cache-profile: suuudokuuu-android-v1
+            repack-on-hit: true
+            build-env: |
+                APP_VARIANT=e2e
+                JAVA_HOME=/Library/Java/JavaVirtualMachines/temurin-17.jdk/Contents/Home
+                ORG_GRADLE_PROJECT_reactNativeArchitectures=arm64-v8a
