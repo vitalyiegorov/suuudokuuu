@@ -99,7 +99,7 @@ Then after manual review the app can be published to the production track.
 
 #### Internal distribution and testing
 
-For testing on `real devices` special manual [GitHub Workflow](./.github/workflows/native-dev-build.yml) is used to build the app for internal distribution.
+For testing on `real devices` special manual [GitHub Workflow](./.github/workflows/native-dev-release.yml) is used to build the app for internal distribution.
 
 > You need to register your device in the Expo dashboard to be able to install the development build.
 
