@@ -184,12 +184,12 @@ platform :ios do
 
     version.get_app_store_version_localizations.each do |localization|
       localization.get_app_screenshot_sets.each do |set|
-        screenshots = set.get_app_screenshots.group_by(&:file_name)
-        screenshots.each do |file_name, group|
+        set = Spaceship::ConnectAPI::AppScreenshotSet.get(app_screenshot_set_id: set.id)
+        set.app_screenshots.group_by(&:file_name).each do |file_name, group|
           next if group.size < 2
 
           group.drop(1).each do |duplicate|
-            Spaceship::ConnectAPI.delete("appScreenshots/#{duplicate.id}")
+            duplicate.delete!
             removed += 1
             UI.success("Deleted duplicate #{localization.locale}/#{set.screenshot_display_type}: #{file_name} (#{duplicate.id})")
           end
