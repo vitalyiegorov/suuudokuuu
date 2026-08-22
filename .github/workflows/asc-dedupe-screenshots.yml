@@ -1,0 +1,42 @@
+name: Dedupe App Store screenshots
+
+on:
+    workflow_dispatch:
+
+permissions:
+    contents: read
+
+jobs:
+    dedupe:
+        name: Delete duplicate App Store screenshots
+        runs-on: [self-hosted, macOS, ARM64, macos-builder]
+        timeout-minutes: 15
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v7
+
+            - name: Write ASC API key
+              env:
+                  ASC_API_KEY: ${{ secrets.EXPO_IOS_ASC_API_KEY }}
+              run: |
+                  set -euo pipefail
+                  key_path="$RUNNER_TEMP/asc-dedupe/asc_api_key.p8"
+                  mkdir -p "$(dirname "$key_path")"
+                  printf '%s' "$ASC_API_KEY" > "$key_path"
+                  chmod 600 "$key_path"
+                  echo "EXPO_ASC_API_KEY_PATH=$key_path" >> "$GITHUB_ENV"
+
+            - name: Dedupe screenshots
+              working-directory: packages/app
+              env:
+                  EXPO_ASC_KEY_ID: ${{ secrets.EXPO_IOS_ASC_KEY_ID }}
+                  EXPO_ASC_ISSUER_ID: ${{ secrets.EXPO_IOS_ASC_ISSUER_ID }}
+                  LANG: en_US.UTF-8
+                  LC_ALL: en_US.UTF-8
+              run: |
+                  export PATH="$HOME/.rbenv/shims:/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+                  fastlane ios ios_dedupe_screenshots
+
+            - name: Remove ASC key
+              if: always()
+              run: rm -f "$RUNNER_TEMP/asc-dedupe/asc_api_key.p8"
