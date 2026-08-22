@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.6.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.6.0...v2.6.1) (2026-08-22)
+
+### Bug Fixes
+
+- **app:** hide iPad keyboard shortcut bar on game screen ([8a36da8](https://github.com/vitalyiegorov/suuudokuuu/commit/8a36da8f22648ea4724e86b602fcff89683fa207))
+
 # [2.6.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.5.1...v2.6.0) (2026-08-17)
 
 ### Bug Fixes
