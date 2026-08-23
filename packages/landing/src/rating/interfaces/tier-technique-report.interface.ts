@@ -5,10 +5,15 @@ import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 export interface TierTechniqueReportInterface {
     difficulty: LandingDifficultyType;
     clueCount: number;
+    simplerLadderMaxTechnique: SolutionTechniqueEnum | null;
+    bandLadderMaxTechnique: SolutionTechniqueEnum | null;
     sampleSize: number;
     singlesOnlyPuzzleCount: number;
     beyondLadderPuzzleCount: number;
     typicalHardestTechnique: SolutionTechniqueEnum;
     hardestTechniqueReached: SolutionTechniqueEnum;
+    lowestRating: number;
+    highestRating: number;
+    ceilingRatedPuzzleCount: number;
     techniqueUsages: TechniqueUsageInterface[];
 }

@@ -7,7 +7,7 @@ export const sudokuDifficultiesPageMetadata: PageMetadataInterface = {
     metaDescription:
         'Compare all six free Suuudokuuu difficulty levels — Newbie, Easy, Medium, Hard, Nightmare and Hell — with real clue counts and the exact techniques each one requires.',
     publishedAt: '2026-08-11T00:00:00.000Z',
-    updatedAt: '2026-08-11T00:00:00.000Z',
+    updatedAt: '2026-08-23T00:00:00.000Z',
     changeFrequency: 'weekly',
     priority: 0.8
 };

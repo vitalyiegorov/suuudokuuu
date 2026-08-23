@@ -1,10 +1,13 @@
 import { DifficultyEnum } from '@suuudokuuu/generator';
+import { SE_RATING_CEILING } from '@suuudokuuu/rating';
+import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 import Link from 'next/link';
 
+import { SeRatingRange } from '../../../rating/components/se-rating-range/se-rating-range';
 import { TechniqueFrequencyTable } from '../../../rating/components/technique-frequency-table/technique-frequency-table';
 import { TierLadderTable } from '../../../rating/components/tier-ladder-table/tier-ladder-table';
 import { RATING_SAMPLE_SIZE, RATING_SAMPLE_TOTAL } from '../../../rating/constants/rating-sample.constant';
-import { getTierTechniqueReport } from '../../../rating/utils/get-tier-technique-reports.util';
+import { getTechniqueUsage, getTierTechniqueReport } from '../../../rating/utils/get-tier-technique-reports.util';
 import { ArticleSchema } from '../../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { Breadcrumbs } from '../../../seo/components/breadcrumbs/breadcrumbs';
@@ -39,10 +42,12 @@ export const metadata: Metadata = buildPageMetadata(sudokuDifficultyRatingPageMe
 
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const SudokuDifficultyRatingPage = () => {
-    const easyReport = getTierTechniqueReport(DifficultyEnum.Easy);
+    const newbieReport = getTierTechniqueReport(DifficultyEnum.Newbie);
+    const mediumReport = getTierTechniqueReport(DifficultyEnum.Medium);
     const hardReport = getTierTechniqueReport(DifficultyEnum.Hard);
     const nightmareReport = getTierTechniqueReport(DifficultyEnum.Nightmare);
     const hellReport = getTierTechniqueReport(DifficultyEnum.Hell);
+    const newbieToNightmareClueDrop = newbieReport.clueCount - nightmareReport.clueCount;
 
     return (
         <main>
@@ -71,8 +76,12 @@ const SudokuDifficultyRatingPage = () => {
                         up. AI Escargot lands near 10.6, Platinum Blonde near 10.9, Arto Inkala’s Everest near 11.9.
                     </li>
                     <li>
-                        Suuudokuuu does not attach an SE number to individual puzzles today. A per-puzzle rating engine is in development;
-                        until it ships this page reports the hardest technique each puzzle required, which is the quantity SE is built on.
+                        Suuudokuuu rates every puzzle it creates. Our open-source rating package scores a board the moment it is generated,
+                        and reports {SE_RATING_CEILING} with a ceiling flag rather than guessing when a board runs past what it can price.
+                    </li>
+                    <li>
+                        Each of our five generated tiers guarantees a required-technique band: the board must resist the tier below and must
+                        fall to its own ladder, or it is discarded and regenerated.
                     </li>
                     <li>
                         Every number in the tables below is produced at build time by running our open-source technique detectors over a
@@ -102,25 +111,31 @@ const SudokuDifficultyRatingPage = () => {
                 3.8. Above them sit the wings and chains — <Link href={xyWingPageMetadata.path}>XY-Wing</Link>,{' '}
                 <Link href={xChainPageMetadata.path}>X-Chain</Link>, <Link href={xyChainPageMetadata.path}>XY-Chain</Link>,{' '}
                 <Link href={simpleColoringPageMetadata.path}>simple coloring</Link> and <Link href={aicPageMetadata.path}>AIC</Link> — and
-                above those, forcing chains and nets, which start at 7.0 and carry every puzzle in the 8.0-and-up range. Where we have not
-                verified a value, this guide names the rung rather than invent a figure.
+                above those, forcing chains and nets, which start at 7.0 and carry every puzzle in the 8.0-and-up range. Our rating package
+                implements that table directly, and it is honest about where it stops: a board whose cheapest solve path needs something the
+                detectors cannot price comes back as {SE_RATING_CEILING} with a ceiling flag set, never as an invented number.
             </p>
-            <h2>Why blank-cell counts are a poor proxy</h2>
+            <h2>What a tier guarantees</h2>
             <p>
-                Most sudoku apps, Suuudokuuu included, currently label a puzzle by how many cells it leaves blank. That is a generation
-                parameter, not a measurement. The table below solves {RATING_SAMPLE_SIZE} fixed puzzles from each of our six tiers with the
-                full technique registry and records what each one actually demanded.
+                A tier here is not a blank-cell target. It is a pair of technique ladders. A candidate board is solved twice: once with the
+                ladder of the tier below it, which must fail, and once with its own ladder, which must succeed. Miss either test and the
+                board is thrown away and a new one is generated. That is what the “guaranteed band” column below states, and it is why two
+                adjacent tiers can sit one clue apart and still be different puzzles. The table solves {RATING_SAMPLE_SIZE} fixed puzzles
+                from each of our six tiers with the full technique registry and records what each one actually demanded.
             </p>
             <TierLadderTable>
-                Logical-solve results for {RATING_SAMPLE_TOTAL} puzzles, {RATING_SAMPLE_SIZE} per tier. “Singles only” counts puzzles
-                finished with full houses, naked singles and hidden singles alone. “Past our detectors” counts puzzles where our technique
-                registry ran out of justified steps before the grid was full.
+                Logical-solve results for {RATING_SAMPLE_TOTAL} puzzles, {RATING_SAMPLE_SIZE} per tier. “Guaranteed band” is the tier
+                contract the generator enforces. “SE range” is the measured spread of per-puzzle ratings in the sample. “Singles only”
+                counts puzzles finished with full houses, naked singles and hidden singles alone. “Past our detectors” counts puzzles where
+                our technique registry ran out of justified steps before the grid was full.
             </TierLadderTable>
             <p>
-                Easy starts with {easyReport.clueCount} clues and Medium with ten fewer, and every puzzle in both samples demands exactly
-                the same technique. Hard drops another ten, and {hardReport.singlesOnlyPuzzleCount} of {hardReport.sampleSize} Hard puzzles
-                still finish on singles alone. Clue count only becomes informative at the extreme: at seventeen clues,{' '}
-                {hellReport.singlesOnlyPuzzleCount} of {hellReport.sampleSize} puzzles do. The full argument lives in our{' '}
+                Read the clue column and the band column against each other. Medium starts with {mediumReport.clueCount} clues and Hard with{' '}
+                {hardReport.clueCount} — a difference of one given — yet no Medium board in the sample needs a fish or a wing and every Hard
+                board does. Nightmare removes one more clue and moves an entire band, from wings to chains. Meanwhile Newbie hands you{' '}
+                {newbieReport.clueCount} clues and Nightmare {nightmareReport.clueCount}, {newbieToNightmareClueDrop} fewer, across a span
+                that runs from SE <SeRatingRange report={newbieReport} /> to SE <SeRatingRange report={nightmareReport} />. Clue count is
+                not what separates these tiers; the technique contract is. The full argument lives in our{' '}
                 <Link href={sudokuCluesVsDifficultyPageMetadata.path}>clues versus difficulty guide</Link>.
             </p>
             <h2>Which techniques our tiers really require</h2>
@@ -135,27 +150,33 @@ const SudokuDifficultyRatingPage = () => {
             </TechniqueFrequencyTable>
             <h2>How our six tiers map today</h2>
             <p>
-                Newbie, Easy and Medium are single-technique tiers: full houses and naked singles finish every puzzle we sampled, so their
-                whole range collapses onto the bottom rung. Hard is the first tier where subsets and fish appear at all, and even there
-                rarely. Nightmare is the inflection point — {nightmareReport.singlesOnlyPuzzleCount} of {nightmareReport.sampleSize} still
-                fall to singles while the rest fan out across intersections, subsets, fish, wings and chains up to AIC. Hell, drawn from a
-                verified <Link href={seventeenClueSudokuPageMetadata.path}>17-clue corpus</Link>, is the only tier where singles alone never
-                suffice.
+                Newbie and Easy are the two singles tiers, and they are genuinely different puzzles even though they share an SE range: a
+                Newbie board falls to full houses and naked singles, an Easy board provably does not and needs a{' '}
+                <Link href={hiddenSinglePageMetadata.path}>hidden single</Link>. They overlap on the scale only because SE prices a hidden
+                single at 1.5, below a naked single at 2.3. Medium is the intersections-and-subsets tier at SE{' '}
+                <SeRatingRange report={mediumReport} />, Hard the fish-and-wings tier at SE <SeRatingRange report={hardReport} />, and
+                Nightmare the chain tier at SE <SeRatingRange report={nightmareReport} />. Hell, drawn from a verified{' '}
+                <Link href={seventeenClueSudokuPageMetadata.path}>17-clue corpus</Link> rather than generated to a band, measures SE{' '}
+                <SeRatingRange report={hellReport} /> — a narrower band that starts higher than Nightmare and ends only slightly above it,
+                with {getTechniqueUsage(hellReport, SolutionTechniqueEnum.NishioForcingChain)} of {hellReport.sampleSize} boards reaching a
+                forcing chain.
             </p>
             <p>
-                That spread is the honest answer to “how hard is expert sudoku, actually”: within one tier it varies enormously, because
-                clue count fixes the input and not the reasoning. Browse the{' '}
-                <Link href={sudokuDifficultiesPageMetadata.path}>difficulty levels hub</Link> or the{' '}
-                <Link href={techniquesPageMetadata.path}>technique index</Link> for the patterns themselves.
+                That is the honest answer to “how hard is expert sudoku, actually”: the ladder rung is the difficulty, and everything else —
+                clue count included — is packaging. Browse the <Link href={sudokuDifficultiesPageMetadata.path}>difficulty levels hub</Link>{' '}
+                or the <Link href={techniquesPageMetadata.path}>technique index</Link> for the patterns themselves.
             </p>
-            <h2>What we do not claim yet</h2>
+            <h2>Where our rating stops</h2>
             <p>
-                We do not compute an SE number for your puzzle. Our detector ladder tops out at AIC, so it covers the bottom of the SE scale
-                thoroughly and the top of it not at all — the {hellReport.beyondLadderPuzzleCount} Hell and{' '}
-                {nightmareReport.beyondLadderPuzzleCount} Nightmare puzzles marked “past our detectors” are not proof that those grids need
-                guessing. They need a forcing-chain engine we have not shipped, which is exactly what a real rating requires. Until it
-                lands, the hardest-technique column is the most rigorous difficulty statement we will publish. You can watch the same
-                registry work step by step in the <Link href={solverPageMetadata.path}>sudoku solver</Link>.
+                Our rater prices the SE ladder up to forcing chains and nets, and no further. A board whose cheapest path needs something
+                past that comes back as exactly {SE_RATING_CEILING} with a ceiling flag rather than a fabricated 10 or 11 — so a rating of{' '}
+                {SE_RATING_CEILING} on this site should be read as “{SE_RATING_CEILING} or above”, never as a precise score. That matters at
+                the top of the scale: the record puzzles on our{' '}
+                <Link href={hardestSudokuPuzzlesPageMetadata.path}>hardest sudoku puzzles</Link> page are quoted at values independent
+                raters publish, because our own engine would report them at the ceiling. Nothing we generate comes close: no board in the
+                sample below reached the ceiling, and the “past our detectors” column is {hellReport.beyondLadderPuzzleCount} of{' '}
+                {hellReport.sampleSize} in every tier, so nothing on this page rests on a puzzle the registry could not finish. You can
+                watch the same registry work step by step in the <Link href={solverPageMetadata.path}>sudoku solver</Link>.
             </p>
             <h2>Sudoku difficulty rating FAQ</h2>
             <FaqPage>
@@ -170,17 +191,19 @@ const SudokuDifficultyRatingPage = () => {
                 <Faq>
                     <FaqQuestion>Does Suuudokuuu give every puzzle an SE rating?</FaqQuestion>
                     <FaqAnswer>
-                        Not today. A per-puzzle rating engine is in development. What we publish now is the hardest technique each puzzle
-                        required, measured by running our open-source detectors over a fixed sample of {RATING_SAMPLE_TOTAL} puzzles at
-                        build time.
+                        Yes. Every board is rated by our open-source rating package as it is created. The package prices the published SE
+                        technique table and caps out at {SE_RATING_CEILING}: anything harder is reported as {SE_RATING_CEILING} with a
+                        ceiling flag rather than an invented figure.
                     </FaqAnswer>
                 </Faq>
                 <Faq>
                     <FaqQuestion>Is a sudoku with fewer clues always harder?</FaqQuestion>
                     <FaqAnswer>
-                        No. In our sample, {hardReport.singlesOnlyPuzzleCount} of {hardReport.sampleSize} puzzles with{' '}
-                        {hardReport.clueCount} clues needed nothing beyond singles — the same techniques every {easyReport.clueCount}-clue
-                        Easy puzzle needed. Clue count only becomes a reliable signal down at the seventeen-clue minimum.
+                        No. In our sample, {mediumReport.clueCount}-clue Medium boards measure SE <SeRatingRange report={mediumReport} />{' '}
+                        and {hardReport.clueCount}-clue Hard boards measure SE <SeRatingRange report={hardReport} /> — one clue apart, a
+                        whole technique band apart. Our {hellReport.clueCount}-clue Hell boards measure SE{' '}
+                        <SeRatingRange report={hellReport} />, overlapping {nightmareReport.clueCount}-clue Nightmare at SE{' '}
+                        <SeRatingRange report={nightmareReport} />.
                     </FaqAnswer>
                 </Faq>
                 <Faq>

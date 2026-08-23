@@ -33,10 +33,10 @@ const SudokuDifficultiesPage = () => (
         <h1>Sudoku Difficulty Levels</h1>
         <p>
             Suuudokuuu grades every puzzle on a six-tier ladder, from Newbie through Hell, and each tier is defined by two concrete facts
-            rather than a marketing label: how many clues the grid starts with, and which named solving techniques the tier draws on. No SE
-            (Sudoku Explainer) number is attached to individual puzzles yet; for what each tier measurably requires, the{' '}
-            <Link href={sudokuDifficultyRatingPageMetadata.path}>sudoku difficulty rating guide</Link> publishes solve data generated from a
-            fixed sample of every tier below.
+            rather than a marketing label: how many clues the grid starts with, and which named solving techniques the tier is guaranteed to
+            require. Every new board is also rated on the SE (Sudoku Explainer) scale the moment it is created, by the same open-source
+            rating package the <Link href={sudokuDifficultyRatingPageMetadata.path}>sudoku difficulty rating guide</Link> uses to publish
+            the measured band and SE range of every tier below.
         </p>
         <a className="hero__cta" href={SITE_PLAY_URL}>
             Play now
@@ -47,34 +47,36 @@ const SudokuDifficultiesPage = () => (
                 with full houses and naked singles alone.
             </li>
             <li>
-                <Link href={easySudokuPageMetadata.path}>Easy</Link> — {getDifficultyClueCount(DifficultyEnum.Easy)} clues, the same
-                single-cell logic with more of it to work through.
+                <Link href={easySudokuPageMetadata.path}>Easy</Link> — {getDifficultyClueCount(DifficultyEnum.Easy)} clues, guaranteed to
+                need at least one hidden single and never more than that.
             </li>
             <li>
-                <Link href={mediumSudokuPageMetadata.path}>Medium</Link> — {getDifficultyClueCount(DifficultyEnum.Medium)} clues, where
-                hidden singles and box-line intersections start to earn their keep.
+                <Link href={mediumSudokuPageMetadata.path}>Medium</Link> — {getDifficultyClueCount(DifficultyEnum.Medium)} clues, guaranteed
+                to stall on singles and to yield to intersections and subsets.
             </li>
             <li>
-                <Link href={hardSudokuPageMetadata.path}>Hard</Link> — {getDifficultyClueCount(DifficultyEnum.Hard)} clues, the first tier
-                where subsets and fish patterns show up at all.
+                <Link href={hardSudokuPageMetadata.path}>Hard</Link> — {getDifficultyClueCount(DifficultyEnum.Hard)} clues, guaranteed to
+                stall on subsets and to yield to fish and wing patterns.
             </li>
             <li>
                 <Link href={nightmareSudokuPageMetadata.path}>Nightmare</Link> — {getDifficultyClueCount(DifficultyEnum.Nightmare)} clues,
-                where boards diverge sharply: some still fall to singles, others need fish, wings and chains.
+                guaranteed to stall on wings and to yield to chains and coloring.
             </li>
             <li>
                 <Link href={hellSudokuPageMetadata.path}>Hell</Link> — {getDifficultyClueCount(DifficultyEnum.Hell)} clues, drawn from a
-                bundled, verified corpus, and the only tier where singles alone are never enough.
+                bundled, verified minimum-clue corpus rather than generated to a band.
             </li>
         </ul>
         <h2>How the ladder is built</h2>
         <p>
             Clue count is not the difficulty. It is only the input: fewer starting digits mean fewer immediate placements, which forces the
-            solver — human or machine — to reach for a wider set of named techniques before the grid moves again. Suuudokuuu’s generator
-            strips digits from a solved grid down to a fixed target for each tier, then verifies the result still has exactly one solution
-            before it ever reaches a player. The <Link href={techniquesPageMetadata.path}>full technique index</Link> lists every pattern
-            the generator and the in-app hint system recognise, in the order a solver tries them. Because clue count is only the input, two
-            boards on the same tier can differ a lot in practice —{' '}
+            solver — human or machine — to reach for a wider set of named techniques before the grid moves again. Suuudokuuu strips digits
+            from a solved grid down to a per-tier target, verifies the result still has exactly one solution, and then does the part that
+            actually defines the tier: it solves the candidate twice, once with the technique ladder of the tier below and once with its
+            own, and keeps the board only if the first solve fails and the second succeeds. Boards that miss are discarded and a fresh one
+            is generated. That is why each tier above is stated as a guarantee rather than a hope. The{' '}
+            <Link href={techniquesPageMetadata.path}>full technique index</Link> lists every pattern that ladder contains, in the order a
+            solver tries them. Within a band two boards can still differ a lot —{' '}
             <Link href={sudokuCluesVsDifficultyPageMetadata.path}>clues versus difficulty</Link> measures exactly how much.
         </p>
         <p>

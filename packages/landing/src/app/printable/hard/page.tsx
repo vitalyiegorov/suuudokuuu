@@ -11,11 +11,13 @@ import {
 import { PRINTABLE_BOOKLET_PUZZLES, PRINTABLE_BOOKLET_SIZE } from '../../../printable/constants/printable-sample.constant';
 import { getPrintableBookletPageCount } from '../../../printable/utils/get-printable-booklet-page-count.util';
 import { PuzzleBoard } from '../../../puzzle/components/puzzle-board/puzzle-board';
+import { SeRatingRange } from '../../../rating/components/se-rating-range/se-rating-range';
 import { getTierTechniqueReport } from '../../../rating/utils/get-tier-technique-reports.util';
 import { ArticleSchema } from '../../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { Breadcrumbs } from '../../../seo/components/breadcrumbs/breadcrumbs';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
+import { TechniqueLink } from '../../../techniques/components/technique-link/technique-link';
 import { sudokuDifficultyRatingPageMetadata } from '../../guides/sudoku-difficulty-rating/metadata';
 import { homePageMetadata } from '../../metadata';
 import { hardSudokuPageMetadata } from '../../sudoku/hard/metadata';
@@ -54,35 +56,36 @@ const PrintableHardSudokuPage = () => (
         </Breadcrumbs>
         <h1>Printable Sudoku Hard PDF</h1>
         <p>
-            Hard drops to {getDifficultyClueCount(DifficultyEnum.Hard)} clues, fewer than half the grid, and this is the first printable
-            booklet on the site where a pair alone will not carry you to the end. Solving it on paper means counting to three and four:
-            naked and hidden triples, naked and hidden quads, and the <Link href={xWingPageMetadata.path}>X-Wing</Link>, the first pattern
-            that reasons across two rows or columns rather than one unit.
+            Hard drops to {getDifficultyClueCount(DifficultyEnum.Hard)} clues, and this is the first printable booklet on the site where
+            subsets alone will not carry you to the end. Every puzzle in it was tested against a solver that already knows every
+            intersection and every subset, and kept only because that solver stalled. What finishes them is a fish or a wing: the{' '}
+            <Link href={xWingPageMetadata.path}>X-Wing</Link> and its larger and finned relatives, or one of the bivalue wing patterns.
         </p>
         <PuzzleBoard givens={PREVIEW_PUZZLE}>Puzzle 1 from the Hard booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF.</PuzzleBoard>
         <PrintableDownloadCard fileName="hard.pdf" pageCount={PAGE_COUNT} puzzleCount={PRINTABLE_BOOKLET_SIZE} title="Hard Sudoku" />
         <h2>What is inside the booklet</h2>
         <p>
-            Not every Hard puzzle actually needs a fish pattern — in our published sample, {hardReport.singlesOnlyPuzzleCount} of{' '}
-            {hardReport.sampleSize} Hard puzzles finished on singles alone, a fact the{' '}
+            Our published sample of {hardReport.sampleSize} Hard boards measures the tier at SE <SeRatingRange report={hardReport} />, with
+            the <TechniqueLink technique={hardReport.typicalHardestTechnique} /> as the most common hardest step — numbers the{' '}
             <Link href={sudokuDifficultyRatingPageMetadata.path}>sudoku difficulty rating guide</Link> measures directly rather than
             assumes. The {PRINTABLE_BOOKLET_SIZE} puzzles here print {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page with room to mark
-            candidates, and the solved grids on the closing pages let you confirm an X-Wing elimination actually held.
+            candidates, and the solved grids on the closing pages let you confirm a fish elimination actually held.
         </p>
-        <h2>Verifying triples, quads and the X-Wing on paper</h2>
+        <h2>Verifying fish and wings on paper</h2>
         <p>
-            A naked triple or a naked quad is easy to miss on a screen where only a handful of cells are visible at once, but on a full
-            printed grid you can circle three or four candidate-sharing cells directly and see the rest of the unit at the same time. The
-            X-Wing needs the same wide view across two full rows or columns, which is exactly what a printed page gives you and a small
-            phone screen does not. Because these patterns are easy to apply incorrectly the first few times, checking your work against the
-            solution pages at the back is worth doing every time until the shape becomes automatic.
+            A fish is easy to miss on a screen where only a handful of cells are visible at once, because the pattern lives in where one
+            digit can go across two, three or four whole lines at the same time. On a full printed grid you can mark that digit’s remaining
+            positions down a column and read the shape off the page. Wings need the opposite view — a few bivalue cells that see each other
+            across the grid — and circling them in pencil makes the overlap obvious. Because both families are easy to apply incorrectly the
+            first few times, checking your work against the solution pages at the back is worth doing every time until the shape becomes
+            automatic.
         </p>
         <h2>Where to go next</h2>
         <p>
-            Chaining subsets and fish together reliably? Move up to the{' '}
-            <Link href={printableNightmareSudokuPageMetadata.path}>printable Nightmare sudoku booklet</Link> for swordfish, jellyfish and
-            wing patterns. Step back to <Link href={printableMediumSudokuPageMetadata.path}>printable Medium sudoku</Link> for intersections
-            only, or play Hard on a screen at the <Link href={hardSudokuPageMetadata.path}>Hard sudoku lander</Link>.
+            Spotting fish and wings reliably? Move up to the{' '}
+            <Link href={printableNightmareSudokuPageMetadata.path}>printable Nightmare sudoku booklet</Link> for chains and coloring. Step
+            back to <Link href={printableMediumSudokuPageMetadata.path}>printable Medium sudoku</Link> for intersections and subsets only,
+            or play Hard on a screen at the <Link href={hardSudokuPageMetadata.path}>Hard sudoku lander</Link>.
         </p>
         <DifficultyNavigation next={printableNightmareSudokuPageMetadata} previous={printableMediumSudokuPageMetadata} />
     </main>

@@ -1,3 +1,4 @@
+import { SE_RATING_CEILING } from '@suuudokuuu/rating';
 import Link from 'next/link';
 
 import { PuzzleBoard } from '../../puzzle/components/puzzle-board/puzzle-board';
@@ -52,8 +53,9 @@ const HardestSudokuPuzzlesPage = () => (
             Researchers rate that reasoning depth with SE (Sudoku Explainer), a community-standard 1.0–12.0 scale that scores a puzzle by
             the hardest technique its optimal solve path requires — our{' '}
             <Link href={sudokuDifficultyRatingPageMetadata.path}>sudoku difficulty rating guide</Link> explains how the technique ladder
-            becomes a number. Suuudokuuu does not publish its own SE ratings per puzzle yet, so the figures below are the values independent
-            solvers and researchers commonly cite for each puzzle.
+            becomes a number. Suuudokuuu does rate every puzzle it generates, but our open-source rater prices the ladder only as far as
+            forcing chains and reports {SE_RATING_CEILING} with a ceiling flag above that — so it would return the same figure for all four
+            puzzles below. The values quoted here are therefore the ones independent solvers and researchers commonly cite, not our own.
         </p>
         <TechniqueSummary>
             <ul>
@@ -70,7 +72,8 @@ const HardestSudokuPuzzlesPage = () => (
                     These puzzles resist every bounded pattern, so closing them takes forcing chains and nets rather than pattern spotting.
                 </li>
                 <li>
-                    The SE figures here are values independent raters commonly cite; Suuudokuuu does not publish per-puzzle SE ratings yet.
+                    The SE figures here are values independent raters commonly cite. Suuudokuuu rates every puzzle it generates, but its
+                    rater caps at {SE_RATING_CEILING} and would report all four of these at that ceiling.
                 </li>
             </ul>
         </TechniqueSummary>
@@ -118,10 +121,12 @@ const HardestSudokuPuzzlesPage = () => (
         <h2>Play the hardest tier Suuudokuuu has today</h2>
         <p>
             Suuudokuuu does not yet serve these exact record puzzles — that is on the roadmap. What it serves today is{' '}
-            <Link href={hellSudokuPageMetadata.path}>Hell tier</Link>, drawn from a bundled, verified 17-clue corpus and solved with chains
-            and coloring rather than a blank-cell-count guess. Seventeen clues is a different fact about a puzzle than “hardest,” and the
-            two get confused constantly — see the <Link href={seventeenClueSudokuPageMetadata.path}>17-clue sudoku guide</Link> for why
-            minimal and hard are not the same property.
+            <Link href={hellSudokuPageMetadata.path}>Hell tier</Link>, drawn from a bundled 17-clue corpus that is verified for uniqueness
+            and then filtered by SE rating, so the tier is hard because of the rating filter rather than because of the clue count.
+            Seventeen clues is a different fact about a puzzle than “hardest,” and the two get confused constantly — see the{' '}
+            <Link href={seventeenClueSudokuPageMetadata.path}>17-clue sudoku guide</Link> for why minimal and hard are not the same
+            property. Measured on our own scale, Hell barely edges past the generated Nightmare tier and sits far below the puzzles on this
+            page.
         </p>
         <h2>Hardest Sudoku FAQ</h2>
         <FaqPage>
@@ -153,8 +158,8 @@ const HardestSudokuPuzzlesPage = () => (
                 <FaqQuestion>Can I play a hardest-tier sudoku on Suuudokuuu?</FaqQuestion>
                 <FaqAnswer>
                     Today, <Link href={hellSudokuPageMetadata.path}>Hell tier</Link> is Suuudokuuu’s hardest, serving verified 17-clue
-                    puzzles solved with chains, coloring and AIC. A future tier hosting curated record puzzles like the ones on this page is
-                    on the roadmap.
+                    puzzles that are filtered by SE rating and solved with chains, coloring and AIC. It is not in the same league as the
+                    record puzzles on this page; a future tier hosting curated record grids is on the roadmap.
                 </FaqAnswer>
             </Faq>
         </FaqPage>

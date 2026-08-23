@@ -52,7 +52,7 @@ const SeventeenClueSudokuPage = () => (
                     Gary McGuire, Bastian Tugemann and Gilles Civario proved in 2012 that no 16-clue puzzle with a unique solution exists.
                 </li>
                 <li>Minimal and minimum differ: a 17-clue grid is always minimal, but many minimal puzzles carry 20 or more givens.</li>
-                <li>Fewer clues does not mean harder — plenty of 17-clue grids finish on singles and pointing pairs.</li>
+                <li>Fewer clues does not mean harder — a 17-clue grid guarantees scarcity, not reasoning depth.</li>
             </ul>
         </TechniqueSummary>
         <a className="hero__cta" href={SITE_PLAY_URL}>
@@ -89,12 +89,17 @@ const SeventeenClueSudokuPage = () => (
             Suuudokuuu’s <Link href={hellSudokuPageMetadata.path}>Hell tier</Link> does not generate 17-clue puzzles on demand — they are
             too rare and too expensive to search for at runtime. Instead it draws from a bundled corpus built from the tdoku project’s
             published 17-clue catalog, one of the largest known collections of minimum-clue sudokus. Every puzzle in that catalog is
-            re-verified before it ships: a bitmask solver confirms each grid has exactly one solution, a Dancing Links exact-cover solver
-            cross-checks a sample of those results independently, and any puzzle solvable with nothing but naked and hidden singles is
-            excluded outright, since a corpus meant for the hardest tier should not include puzzles that fold on contact. What is left needs
-            the same chain and coloring techniques described on the <Link href={techniquesPageMetadata.path}>technique index</Link> —{' '}
-            <Link href={xChainPageMetadata.path}>X-Chain</Link> and <Link href={aicPageMetadata.path}>AIC</Link> among them — because a
-            17-clue board rarely leaves an easier way through.
+            re-verified before it ships: a bitmask solver confirms each grid has exactly one solution and a Dancing Links exact-cover solver
+            cross-checks a sample of those results independently.
+        </p>
+        <p>
+            Uniqueness is not difficulty, though, and this is where the myth would sneak back in. Seventeen clues guarantees that a grid is
+            rare and minimal; on its own it says nothing about which techniques the solve will need, and a corpus selected on clue count
+            alone contains plenty of grids that fold to intersections and subsets. So the corpus is rated as well as verified: every puzzle
+            is scored on the SE scale as it is packed, and anything below the tier’s minimum rating is dropped. What survives needs the
+            chain and coloring techniques described on the <Link href={techniquesPageMetadata.path}>technique index</Link> —{' '}
+            <Link href={xChainPageMetadata.path}>X-Chain</Link> and <Link href={aicPageMetadata.path}>AIC</Link> among them — because the
+            rating filter selected for exactly that, not because the clue count implies it.
         </p>
         <h2>17-Clue Sudoku FAQ</h2>
         <FaqPage>
@@ -126,7 +131,8 @@ const SeventeenClueSudokuPage = () => (
                 <FaqQuestion>Does Suuudokuuu’s Hell tier use real 17-clue puzzles?</FaqQuestion>
                 <FaqAnswer>
                     Yes. Hell draws from a bundled corpus sourced from the tdoku project’s 17-clue catalog, with every puzzle verified for a
-                    unique solution by a bitmask solver and cross-checked by an independent Dancing Links solver before it ships.
+                    unique solution by a bitmask solver, cross-checked by an independent Dancing Links solver, and rated on the SE scale so
+                    that grids too easy for the tier are dropped rather than shipped on their clue count alone.
                 </FaqAnswer>
             </Faq>
         </FaqPage>
