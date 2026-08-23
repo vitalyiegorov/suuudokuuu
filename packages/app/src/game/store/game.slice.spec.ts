@@ -308,7 +308,13 @@ describe('gameSlice', () => {
         expect(savedState.sudokuString).toBe(sudoku.toString());
         expect(savedState.score).toBeGreaterThan(0);
         expect(savedState.timelineEvents).toEqual([
-            { kind: TimelineEventKindEnum.Cell, cellIndex: correctCell.y * 9 + correctCell.x, value: correctCell.value, ts: 1 }
+            {
+                kind: TimelineEventKindEnum.Cell,
+                cellIndex: correctCell.y * 9 + correctCell.x,
+                value: correctCell.value,
+                ts: 1,
+                score: savedState.score
+            }
         ]);
         expect(savedState.candidates[correctCellKey]).toEqual([]);
         expect(savedState.candidates[affectedCellKey]).toEqual([]);

@@ -20,6 +20,8 @@ export * from './game/components/hint-button/hint-button.selectors';
 export * from './game/components/hint-panel/hint-panel.selectors';
 export * from './game/components/hint-step-narration/hint-step-narration.selectors';
 export * from './game/components/input-mode-button/input-mode-button.selectors';
+export * from './game/components/redo-button/redo-button.selectors';
+export * from './game/components/undo-button/undo-button.selectors';
 export * from './history/components/completed-game-technique-summary/completed-game-technique-summary.selectors';
 export * from './history/components/completed-games-list/completed-game-item.selectors';
 export * from './history/components/history-difficulty/history-difficulty.selectors';

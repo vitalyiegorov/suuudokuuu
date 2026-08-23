@@ -91,6 +91,17 @@ src/
 4. The game slice keeps `candidates`, `inputMode` and `showAutoCandidates` as a persistence mirror written by the same actions that already carry timeline and scoring data. Every engine mutation that changes one of them dispatches its matching action in the same handler, and `game.field-engine-mirror.spec.ts` proves the mirror stays identical to `engine.serialize()`.
 5. The persisted `sudokuString` format is the unchanged `Sudoku.toString()` grid. Saved games, share links and replays depend on it, so it must never change shape.
 
+### Undo and redo
+
+1. `@suuudokuuu/field-core` owns the history itself. `UndoButton`, `RedoButton` and the web `Cmd/Ctrl+Z` shortcut all go through `useGameHistoryControls`, which calls `engine.undo()` / `engine.redo()` and, only when the engine reports a step was taken, dispatches `gameUndoAction` / `gameRedoAction` with `gameGetFieldStatePayload(engine)`. That payload is the mirror update, so the persisted `sudokuString` and `candidates` are written by the same handler that moved the engine.
+2. The reducers derive what happened by comparing the payload grid to the persisted one. A different grid means a placement was taken back or replayed; an identical grid means it was a note edit, which is free and touches nothing but the mirror.
+3. A wrong value never reaches the board — it is counted as a mistake and discarded — so the engine never records it in history and undo can never erase a mistake. `mistakes` is what happened, not what is on the board, and undo leaves it alone.
+4. Every `save` writes the awarded points onto its `TimelineEventKindEnum.Cell` event as `score`, next to `technique`. Undoing a placement removes that event from the timeline, returns its `score`, and charges `SudokuScoring.calculateUndoPenalty`. Returning the award is what stops a place/undo/place loop from farming points; redo pops the event back with a fresh think-time delta and re-awards it. `techniqueUsageCounts` follows the same event through `gameApplyTechniqueUsageDelta`.
+5. Removing a Cell event carries its `ts` into the following event, so the accumulated deltas and every later absolute timestamp stay exact. This keeps the encoder invariant that the timeline replays into the persisted grid, which `applyCellEventsToField` relies on for handoff payloads. Nothing was added to `TimelineEventKindEnum`: undo is not a recorded event, it unrecords one.
+6. `undoneMoves` is the redo stack. `save`, `hint` and `toggleCellCandidate` clear it because each of them pushes engine history, which truncates the engine's own future.
+7. Undo and redo are hidden during a challenge run, and the shortcut is inert there. A challenge payload is a faithful record of the run, and neither an un-recorded note edit nor a re-recorded placement can be represented in it without extending the append-only encoder enum.
+8. History is never serialized, so it does not survive a restart or a handoff. `createFromState` rebuilds the engine without it and `canUndo` is false again.
+
 ### Comfort primitives
 
 1. `gameGetBoardGeometry` holds a `BoardCellSizeMinConstant` (44) floor. When the measured square cannot fit `9 × 44` plus the requested group gaps, the group gaps shrink first and the util returns the reduced `cellMargin` it actually spent. Only when `9 × 44` cannot fit at all do the cells drop below the floor; the board never scrolls or overflows, because full-board scanning is the mechanic.
@@ -116,12 +127,14 @@ src/
 4. Applying a hint dispatches `gameHintAction` with the script eliminations and then calls `engine.applyStepScript()`. The placement flows through the normal `moveApplied` event, so scoring, the timeline cell event and its technique classification are identical to a manual placement of the same value. `game.hint-integration.spec.ts` proves it.
 5. Hint state is ephemeral. It is never persisted or serialized, abandoning a script simply discards it, and `HintPanel` stops any running script when it unmounts or when the engine is replaced by a new game.
 6. Prose never lives in `@suuudokuuu/field-core`. `gameGetStepNarration` maps a step kind plus its structured narration payload to one generic Lingui message per kind, with the technique name interpolated from `techniqueLabelsConstant`.
+7. `gameIsHintAvailable` is the only gate. `HintButton` renders `null` when it returns false: never during a challenge run, and never on `Nightmare`, `Hell` or `Infinity` unless the player turned on `allowHintsOnHardDifficulties` in the guidance settings. Those three tiers are the challenge tiers, so the button is hidden rather than disabled — a disabled control with an explanation is weaker than an honest absence, and the setting is where the explanation belongs.
 
 ### Hint scoring policy
 
 1. A hint costs `hintCoefficient` (0.5) of one plain correct placement at the current difficulty and max-mistakes setting, floored at `correctMinValue`. `SudokuScoring.calculateHintPenalty` reuses the same difficulty and hardcore multipliers as `calculate`, so the cost scales with the rest of the model.
 2. The magnitude is anchored to a mistake. A mistake is a permanent `mistakesCoefficient` (5%) tax on every remaining placement, so a mid-game mistake on a Medium board drains roughly one placement's worth of score. Half a placement is therefore about half a mistake, paid once and without compounding, which is the right price for an honest learning action.
 3. Applying a hint appends a `TimelineEventKindEnum.Hint` marker. The enum is append-only because encoded challenge and handoff payloads carry the numeric codes.
+4. An undo costs `undoCoefficient` (0.25) of the same placement, on top of returning the points the undone placement earned. It is priced below a hint because it reveals nothing; the return is bookkeeping rather than a penalty, so a replayed cell can never be paid for twice. Both fractions are documented in the Assists section of the scoring screen.
 
 ## Move Classification
 

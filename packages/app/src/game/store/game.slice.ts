@@ -1,26 +1,28 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { SharedPayloadKindEnum, TimelineEventKindEnum } from '@suuudokuuu/encoder';
+import { TimelineEventKindEnum } from '@suuudokuuu/encoder';
 import { defaultSudokuConfig } from '@suuudokuuu/generator';
 
 import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
 import { getCellKey } from '../../@generic/utils/get-cell-key.util';
-import { getDayNumber } from '../../@generic/utils/get-day-number.util';
-import { maxCompletedGamesPerDifficulty } from '../../history/constants/max-completed-games-per-difficulty.constant';
 import { SudokuScoring } from '../../scoring/classes/sudoku-scoring';
 import { defaultScoringConfig } from '../../scoring/interfaces/scoring-config.interface';
-import { addPlayedDayNumber } from '../utils/add-played-day-number.util';
+import { gameApplyTechniqueUsageDelta } from '../utils/game-apply-technique-usage-delta.util';
+import { gameFinishRun } from '../utils/game-finish-run.util';
 import { gameGetPersistedAggregates } from '../utils/game-get-persisted-aggregates.util';
-import { gameStateToString } from '../utils/game-state-to-string.util';
+import { gameRedoPlacement } from '../utils/game-redo-placement.util';
+import { gameUndoPlacement } from '../utils/game-undo-placement.util';
 import { getTimelineTimestampDelta } from '../utils/get-timeline-timestamp-delta.util';
 import { isLastTimelineEventAway } from '../utils/is-last-timeline-event-away.util';
 
 import { initialGameState } from './game.state';
 
 import type { GameState } from './game.state';
+import type { GameFieldStatePayloadInterface } from '../interface/game-field-state-payload.interface';
+import type { GameFinishPayloadInterface } from '../interface/game-finish-payload.interface';
 import type { GameHintPayloadInterface } from '../interface/game-hint-payload.interface';
 import type { GameSavePayloadInterface } from '../interface/game-save-payload.interface';
-import type { CellInterface, DifficultyEnum } from '@suuudokuuu/generator';
+import type { CellInterface } from '@suuudokuuu/generator';
 
 const MillisecondsPerSecond = 1000;
 
@@ -100,7 +102,7 @@ export const gameSlice = createSlice({
 
             state.sudokuString = sudoku.toString();
 
-            state.score += scoring.calculate({
+            const score = scoring.calculate({
                 scoredCells,
                 difficulty: state.difficulty,
                 mistakes: state.mistakes,
@@ -108,16 +110,20 @@ export const gameSlice = createSlice({
                 maxMistakes: state.maxMistakes
             });
 
+            state.score += score;
+            state.undoneMoves = [];
+
             state.timelineEvents.push({
                 kind: TimelineEventKindEnum.Cell,
                 cellIndex: correctCell.y * defaultSudokuConfig.fieldSize + correctCell.x,
                 value: correctCell.value,
                 ts: getTimelineTimestampDelta(state.timelineEvents, state.elapsedTime),
+                score,
                 ...(isDefined(technique) && { technique })
             });
 
             if (isDefined(technique)) {
-                state.techniqueUsageCounts[technique] = (state.techniqueUsageCounts[technique] ?? 0) + 1;
+                gameApplyTechniqueUsageDelta(state.techniqueUsageCounts, technique, 1);
             }
 
             state.candidates[getCellKey(correctCell)] = [];
@@ -144,6 +150,7 @@ export const gameSlice = createSlice({
             const penalty = scoring.calculateHintPenalty({ difficulty: state.difficulty, maxMistakes: state.maxMistakes });
 
             state.score = Math.max(state.score - penalty, 0);
+            state.undoneMoves = [];
 
             state.timelineEvents.push({
                 kind: TimelineEventKindEnum.Hint,
@@ -158,6 +165,28 @@ export const gameSlice = createSlice({
                     state.candidates[key] = cellCandidates.filter(candidate => candidate !== elimination.value);
                 }
             });
+        },
+        undo: (state, action: PayloadAction<GameFieldStatePayloadInterface>) => {
+            const { sudokuString, candidates } = action.payload;
+            const isValuePlacementUndone = state.sudokuString !== sudokuString;
+
+            state.sudokuString = sudokuString;
+            state.candidates = candidates;
+
+            if (isValuePlacementUndone) {
+                gameUndoPlacement(state);
+            }
+        },
+        redo: (state, action: PayloadAction<GameFieldStatePayloadInterface>) => {
+            const { sudokuString, candidates } = action.payload;
+            const isValuePlacementRedone = state.sudokuString !== sudokuString;
+
+            state.sudokuString = sudokuString;
+            state.candidates = candidates;
+
+            if (isValuePlacementRedone) {
+                gameRedoPlacement(state);
+            }
         },
         mistake: (state, action: PayloadAction<CellInterface>) => {
             state.mistakes += 1;
@@ -210,6 +239,8 @@ export const gameSlice = createSlice({
             const key = getCellKey(action.payload);
             const candidates = state.candidates[key] ?? [];
 
+            state.undoneMoves = [];
+
             if (candidates.includes(value)) {
                 state.candidates[key] = candidates.filter(val => val !== value);
             } else {
@@ -236,59 +267,8 @@ export const gameSlice = createSlice({
             });
         },
 
-        // eslint-disable-next-line max-statements
-        finish: (state, action: PayloadAction<{ difficulty: DifficultyEnum; isWon: boolean; isChallenge?: boolean }>) => {
-            const { difficulty, isWon, isChallenge = false } = action.payload;
-            const history = state.historyByDifficulty[difficulty];
-            const hasNewPersonalBestScore =
-                isWon && !isChallenge && !isNotEmptyString(state.challengeState) && state.score > history.bestScore;
-
-            state.hasNewPersonalBestScore = hasNewPersonalBestScore;
-            state.playedDayNumbers = addPlayedDayNumber(state.playedDayNumbers, getDayNumber(Date.now()));
-
-            history.gamesCompleted += 1;
-
-            if (isWon) {
-                history.averageTime = (history.averageTime * history.gamesWon + state.elapsedTime) / (history.gamesWon + 1);
-
-                if (history.bestTime === 0 || state.elapsedTime < history.bestTime) {
-                    history.bestTime = state.elapsedTime;
-                }
-
-                history.gamesWon += 1;
-                history.gamesWonWithoutMistakes += state.mistakes === 0 ? 1 : 0;
-                history.hardcoreWon += state.maxMistakes === 0 ? 1 : 0;
-                history.challengesWon += isChallenge ? 1 : 0;
-                history.completedGames = [
-                    {
-                        difficulty,
-                        rating: state.rating,
-                        isRatingCeiling: state.isRatingCeiling,
-                        encodedState: gameStateToString(state, SharedPayloadKindEnum.Handoff),
-                        elapsedTime: state.elapsedTime,
-                        score: state.score,
-                        mistakes: state.mistakes,
-                        maxMistakes: state.maxMistakes,
-                        completedAt: Date.now()
-                    },
-                    ...history.completedGames
-                ].slice(0, maxCompletedGamesPerDifficulty);
-
-                if (state.score > history.bestScore) {
-                    history.bestScore = state.score;
-                }
-
-                if (state.rating > history.bestRating.rating) {
-                    history.bestRating = { rating: state.rating, isRatingCeiling: state.isRatingCeiling };
-                }
-            } else {
-                history.gamesLost += 1;
-                history.challengesLost += isChallenge ? 1 : 0;
-            }
-
-            state.isPaused = true;
-            state.shouldShowPauseScreen = false;
-            state.shouldResumeOnFocus = false;
+        finish: (state, action: PayloadAction<GameFinishPayloadInterface>) => {
+            gameFinishRun(state, action.payload);
         }
     }
 });

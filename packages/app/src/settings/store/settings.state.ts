@@ -22,6 +22,7 @@ export interface SettingsState {
     showActiveCandidates: boolean;
     keepActiveCell: boolean;
     keepExhaustedDigits: boolean;
+    allowHintsOnHardDifficulties: boolean;
     isLeftHanded: boolean;
     calmMode: boolean;
     comfortMode: (typeof ComfortModeStatuses)[number];
@@ -49,6 +50,7 @@ export const initialSettingsState: SettingsState = {
     showActiveCandidates: true,
     keepActiveCell: true,
     keepExhaustedDigits: true,
+    allowHintsOnHardDifficulties: false,
     isLeftHanded: false,
     calmMode: false,
     comfortMode: 'off',
