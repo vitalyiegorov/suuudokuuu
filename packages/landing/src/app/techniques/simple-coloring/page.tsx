@@ -2,6 +2,7 @@ import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { Faq } from '../../../seo/components/faq/faq';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
+import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
@@ -104,8 +105,8 @@ const SimpleColoringPage = () => (
                 Stopping at the first strong link found. The network can spread through many cells before a trap or wrap becomes visible.
             </li>
         </ul>
-        <h2>Simple coloring FAQ</h2>
         <FaqPage>
+            <FaqHeading>Simple coloring FAQ</FaqHeading>
             <Faq>
                 <FaqQuestion>What if the network contains a strong link that would color a cell both colors?</FaqQuestion>
                 <FaqAnswer>

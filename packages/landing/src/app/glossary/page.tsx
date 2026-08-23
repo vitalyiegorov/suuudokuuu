@@ -1,43 +1,21 @@
+import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 import Link from 'next/link';
 
 import { BreadcrumbListItem } from '../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { Faq } from '../../seo/components/faq/faq';
 import { FaqAnswer } from '../../seo/components/faq-answer/faq-answer';
+import { FaqHeading } from '../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../seo/components/faq-question/faq-question';
 import { PageHeader } from '../../seo/components/page-header/page-header';
 import { buildPageMetadata } from '../../seo/utils/build-page-metadata.util';
+import { TechniqueLink } from '../../techniques/components/technique-link/technique-link';
 import { TechniqueSummary } from '../../techniques/components/technique-summary/technique-summary';
 import { getTechniquePageCount } from '../../techniques/utils/get-technique-page-count.util';
 import { howToPlayPageMetadata } from '../how-to-play/metadata';
 import { homePageMetadata } from '../metadata';
 import { aicPageMetadata } from '../techniques/aic/metadata';
-import { boxLineReductionPageMetadata } from '../techniques/box-line-reduction/metadata';
-import { finnedSwordfishPageMetadata } from '../techniques/finned-swordfish/metadata';
-import { finnedXWingPageMetadata } from '../techniques/finned-x-wing/metadata';
-import { fullHousePageMetadata } from '../techniques/full-house/metadata';
-import { hiddenPairPageMetadata } from '../techniques/hidden-pair/metadata';
-import { hiddenQuadPageMetadata } from '../techniques/hidden-quad/metadata';
-import { hiddenSinglePageMetadata } from '../techniques/hidden-single/metadata';
-import { hiddenTriplePageMetadata } from '../techniques/hidden-triple/metadata';
-import { jellyfishPageMetadata } from '../techniques/jellyfish/metadata';
 import { techniquesPageMetadata } from '../techniques/metadata';
-import { nakedPairPageMetadata } from '../techniques/naked-pair/metadata';
-import { nakedQuadPageMetadata } from '../techniques/naked-quad/metadata';
-import { nakedSinglePageMetadata } from '../techniques/naked-single/metadata';
-import { nakedTriplePageMetadata } from '../techniques/naked-triple/metadata';
-import { pointingPairPageMetadata } from '../techniques/pointing-pair/metadata';
-import { pointingTriplePageMetadata } from '../techniques/pointing-triple/metadata';
-import { sashimiSwordfishPageMetadata } from '../techniques/sashimi-swordfish/metadata';
-import { sashimiXWingPageMetadata } from '../techniques/sashimi-x-wing/metadata';
-import { simpleColoringPageMetadata } from '../techniques/simple-coloring/metadata';
-import { swordfishPageMetadata } from '../techniques/swordfish/metadata';
-import { wWingPageMetadata } from '../techniques/w-wing/metadata';
-import { xChainPageMetadata } from '../techniques/x-chain/metadata';
-import { xWingPageMetadata } from '../techniques/x-wing/metadata';
-import { xyChainPageMetadata } from '../techniques/xy-chain/metadata';
-import { xyWingPageMetadata } from '../techniques/xy-wing/metadata';
-import { xyzWingPageMetadata } from '../techniques/xyz-wing/metadata';
 
 import { glossaryPageMetadata } from './metadata';
 
@@ -117,121 +95,121 @@ const GlossaryPage = () => (
         <dl className="glossary-list">
             <div className="glossary-entry">
                 <dt id="full-house">
-                    <Link href={fullHousePageMetadata.path}>Full House</Link>
+                    <TechniqueLink technique={SolutionTechniqueEnum.FullHouse} />
                 </dt>
                 <dd>The last empty cell in a row, column or box. It must take the one digit that unit is still missing.</dd>
             </div>
             <div className="glossary-entry">
                 <dt id="naked-single">
-                    <Link href={nakedSinglePageMetadata.path}>Naked Single</Link>
+                    <TechniqueLink technique={SolutionTechniqueEnum.NakedSingle} />
                 </dt>
                 <dd>A cell whose row, column and box between them eliminate every candidate but one.</dd>
             </div>
             <div className="glossary-entry">
                 <dt id="hidden-single">
-                    <Link href={hiddenSinglePageMetadata.path}>Hidden Single</Link>
+                    <TechniqueLink technique={SolutionTechniqueEnum.HiddenSingle} />
                 </dt>
                 <dd>A digit that fits in only one cell of a unit, even though that cell still carries other candidates.</dd>
             </div>
             <div className="glossary-entry">
                 <dt id="pointing-pair">
-                    <Link href={pointingPairPageMetadata.path}>Pointing Pair</Link>
+                    <TechniqueLink technique={SolutionTechniqueEnum.PointingPair} />
                 </dt>
                 <dd>A digit confined to two cells of a box sharing a row or column, erased from the rest of that line.</dd>
             </div>
             <div className="glossary-entry">
                 <dt id="pointing-triple">
-                    <Link href={pointingTriplePageMetadata.path}>Pointing Triple</Link>
+                    <TechniqueLink technique={SolutionTechniqueEnum.PointingTriple} />
                 </dt>
                 <dd>The same pattern as a pointing pair, with three cells confined to a box-line intersection instead of two.</dd>
             </div>
             <div className="glossary-entry">
                 <dt id="box-line-reduction">
-                    <Link href={boxLineReductionPageMetadata.path}>Box Line Reduction</Link>
+                    <TechniqueLink technique={SolutionTechniqueEnum.BoxLineReduction} />
                 </dt>
                 <dd>The mirror of a pointing pair: a digit confined to one box along a line is erased from the rest of that box.</dd>
             </div>
             <div className="glossary-entry">
                 <dt id="naked-pair">
-                    <Link href={nakedPairPageMetadata.path}>Naked Pair</Link>
+                    <TechniqueLink technique={SolutionTechniqueEnum.NakedPair} />
                 </dt>
                 <dd>Two cells sharing the same two candidates and nothing else, so both digits are erased elsewhere in the unit.</dd>
             </div>
             <div className="glossary-entry">
                 <dt id="naked-triple">
-                    <Link href={nakedTriplePageMetadata.path}>Naked Triple</Link>
+                    <TechniqueLink technique={SolutionTechniqueEnum.NakedTriple} />
                 </dt>
                 <dd>Three cells in a unit whose candidates together use only three digits.</dd>
             </div>
             <div className="glossary-entry">
                 <dt id="naked-quad">
-                    <Link href={nakedQuadPageMetadata.path}>Naked Quad</Link>
+                    <TechniqueLink technique={SolutionTechniqueEnum.NakedQuad} />
                 </dt>
                 <dd>Four cells in a unit whose candidates together use only four digits.</dd>
             </div>
             <div className="glossary-entry">
                 <dt id="hidden-pair">
-                    <Link href={hiddenPairPageMetadata.path}>Hidden Pair</Link>
+                    <TechniqueLink technique={SolutionTechniqueEnum.HiddenPair} />
                 </dt>
                 <dd>Two digits that fit in only two cells of a unit, which reserves those cells for the pair.</dd>
             </div>
             <div className="glossary-entry">
                 <dt id="hidden-triple">
-                    <Link href={hiddenTriplePageMetadata.path}>Hidden Triple</Link>
+                    <TechniqueLink technique={SolutionTechniqueEnum.HiddenTriple} />
                 </dt>
                 <dd>Three digits confined between them to the same three cells of a unit.</dd>
             </div>
             <div className="glossary-entry">
                 <dt id="hidden-quad">
-                    <Link href={hiddenQuadPageMetadata.path}>Hidden Quad</Link>
+                    <TechniqueLink technique={SolutionTechniqueEnum.HiddenQuad} />
                 </dt>
                 <dd>Four digits confined between them to the same four cells of a unit.</dd>
             </div>
             <div className="glossary-entry">
                 <dt id="x-wing">
-                    <Link href={xWingPageMetadata.path}>X-Wing</Link>
+                    <TechniqueLink technique={SolutionTechniqueEnum.XWing} />
                 </dt>
                 <dd>A fish pattern: a digit confined to the same two columns across two rows is erased from the rest of those columns.</dd>
             </div>
             <div className="glossary-entry">
                 <dt id="swordfish">
-                    <Link href={swordfishPageMetadata.path}>Swordfish</Link>
+                    <TechniqueLink technique={SolutionTechniqueEnum.Swordfish} />
                 </dt>
                 <dd>The three-line version of an X-Wing, using three rows and three columns instead of two.</dd>
             </div>
             <div className="glossary-entry">
                 <dt id="jellyfish">
-                    <Link href={jellyfishPageMetadata.path}>Jellyfish</Link>
+                    <TechniqueLink technique={SolutionTechniqueEnum.Jellyfish} />
                 </dt>
                 <dd>The four-line version of the same fish pattern, using four rows and four columns.</dd>
             </div>
             <div className="glossary-entry">
                 <dt id="finned-x-wing">
-                    <Link href={finnedXWingPageMetadata.path}>Finned X-Wing</Link>
+                    <TechniqueLink technique={SolutionTechniqueEnum.FinnedXWing} />
                 </dt>
                 <dd>An X-Wing with an extra candidate, called a fin, that still supports a smaller set of eliminations near the fin.</dd>
             </div>
             <div className="glossary-entry">
                 <dt id="finned-swordfish">
-                    <Link href={finnedSwordfishPageMetadata.path}>Finned Swordfish</Link>
+                    <TechniqueLink technique={SolutionTechniqueEnum.FinnedSwordfish} />
                 </dt>
                 <dd>A Swordfish pattern with fins, the three-line counterpart to a finned X-Wing.</dd>
             </div>
             <div className="glossary-entry">
                 <dt id="sashimi-x-wing">
-                    <Link href={sashimiXWingPageMetadata.path}>Sashimi X-Wing</Link>
+                    <TechniqueLink technique={SolutionTechniqueEnum.SashimiXWing} />
                 </dt>
                 <dd>A finned X-Wing where removing the fin cell’s own candidate entirely still leaves a valid, smaller X-Wing behind.</dd>
             </div>
             <div className="glossary-entry">
                 <dt id="sashimi-swordfish">
-                    <Link href={sashimiSwordfishPageMetadata.path}>Sashimi Swordfish</Link>
+                    <TechniqueLink technique={SolutionTechniqueEnum.SashimiSwordfish} />
                 </dt>
                 <dd>The same sashimi pattern applied to a Swordfish instead of an X-Wing.</dd>
             </div>
             <div className="glossary-entry">
                 <dt id="xy-wing">
-                    <Link href={xyWingPageMetadata.path}>XY-Wing</Link>
+                    <TechniqueLink technique={SolutionTechniqueEnum.XYWing} />
                 </dt>
                 <dd>
                     Three bivalue cells where, whichever value the pivot holds, a shared candidate is erased from cells seeing both others.
@@ -239,31 +217,31 @@ const GlossaryPage = () => (
             </div>
             <div className="glossary-entry">
                 <dt id="xyz-wing">
-                    <Link href={xyzWingPageMetadata.path}>XYZ-Wing</Link>
+                    <TechniqueLink technique={SolutionTechniqueEnum.XYZWing} />
                 </dt>
                 <dd>An XY-Wing where the pivot cell also carries the shared third candidate, which tightens the elimination further.</dd>
             </div>
             <div className="glossary-entry">
                 <dt id="w-wing">
-                    <Link href={wWingPageMetadata.path}>W-Wing</Link>
+                    <TechniqueLink technique={SolutionTechniqueEnum.WWing} />
                 </dt>
                 <dd>Two cells sharing a candidate pair, linked by a strong link on one digit, that erases the other from shared peers.</dd>
             </div>
             <div className="glossary-entry">
                 <dt id="x-chain">
-                    <Link href={xChainPageMetadata.path}>X-Chain</Link>
+                    <TechniqueLink technique={SolutionTechniqueEnum.XChain} />
                 </dt>
                 <dd>A chain of strong and weak links on one digit connecting two cells, proving an endpoint of the chain must hold it.</dd>
             </div>
             <div className="glossary-entry">
                 <dt id="xy-chain">
-                    <Link href={xyChainPageMetadata.path}>XY-Chain</Link>
+                    <TechniqueLink technique={SolutionTechniqueEnum.XYChain} />
                 </dt>
                 <dd>A chain of bivalue cells linked so the two endpoints force an elimination wherever their shared peers overlap.</dd>
             </div>
             <div className="glossary-entry">
                 <dt id="simple-coloring">
-                    <Link href={simpleColoringPageMetadata.path}>Simple Coloring</Link>
+                    <TechniqueLink technique={SolutionTechniqueEnum.SimpleColoring} />
                 </dt>
                 <dd>Assigns two alternating colors to a chain of strong links on one digit, then clears candidates seeing both colors.</dd>
             </div>
@@ -274,8 +252,8 @@ const GlossaryPage = () => (
                 <dd>A chain of alternating strong and weak links across candidates, generalising X-Chains, XY-Chains and coloring.</dd>
             </div>
         </dl>
-        <h2>Sudoku glossary FAQ</h2>
         <FaqPage>
+            <FaqHeading>Sudoku glossary FAQ</FaqHeading>
             <Faq>
                 <FaqQuestion>What is the difference between naked and hidden in sudoku?</FaqQuestion>
                 <FaqAnswer>Naked patterns show directly in a cell’s own candidates; hidden patterns need checking unit by unit.</FaqAnswer>

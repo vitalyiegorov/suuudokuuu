@@ -8,6 +8,7 @@ import { getTierTechniqueReport } from '../../../rating/utils/get-tier-technique
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { Faq } from '../../../seo/components/faq/faq';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
+import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { PageHeader } from '../../../seo/components/page-header/page-header';
@@ -151,8 +152,8 @@ const SudokuCluesVsDifficultyPage = () => {
                 <Link href={techniquesPageMetadata.path}>technique index</Link> has a worked example for each one, and the{' '}
                 <Link href={sudokuDifficultiesPageMetadata.path}>difficulty levels hub</Link> maps our tiers onto them.
             </p>
-            <h2>Clues versus difficulty FAQ</h2>
             <FaqPage>
+                <FaqHeading>Clues versus difficulty FAQ</FaqHeading>
                 <Faq>
                     <FaqQuestion>Does a sudoku with fewer clues mean it is harder?</FaqQuestion>
                     <FaqAnswer>

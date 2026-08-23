@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { BreadcrumbListItem } from '../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { Faq } from '../../seo/components/faq/faq';
 import { FaqAnswer } from '../../seo/components/faq-answer/faq-answer';
+import { FaqHeading } from '../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../seo/components/faq-question/faq-question';
 import { PageHeader } from '../../seo/components/page-header/page-header';
@@ -92,8 +93,8 @@ const WhySuuudokuuuPage = () => (
         <a className="hero__cta" href={SITE_PLAY_URL}>
             Play {SITE_NAME} now
         </a>
-        <h2>Why {SITE_NAME} FAQ</h2>
         <FaqPage>
+            <FaqHeading>Why {SITE_NAME} FAQ</FaqHeading>
             <Faq>
                 <FaqQuestion>Is {SITE_NAME} really free, with no hidden costs?</FaqQuestion>
                 <FaqAnswer>

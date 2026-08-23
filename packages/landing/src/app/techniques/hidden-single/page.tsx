@@ -2,6 +2,7 @@ import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { Faq } from '../../../seo/components/faq/faq';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
+import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
@@ -95,8 +96,8 @@ const HiddenSinglePage = () => (
             </li>
             <li>Sweeping one digit and moving on. Placing it changes the picture for that same digit elsewhere on the board.</li>
         </ul>
-        <h2>Hidden single FAQ</h2>
         <FaqPage>
+            <FaqHeading>Hidden single FAQ</FaqHeading>
             <Faq>
                 <FaqQuestion>How is a hidden single different from a naked single?</FaqQuestion>
                 <FaqAnswer>

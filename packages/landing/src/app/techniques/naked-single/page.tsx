@@ -2,6 +2,7 @@ import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { Faq } from '../../../seo/components/faq/faq';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
+import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
@@ -97,8 +98,8 @@ const NakedSinglePage = () => (
             </li>
             <li>Hunting for exotic patterns while naked singles are still on the board. They are always the cheaper move.</li>
         </ul>
-        <h2>Naked single FAQ</h2>
         <FaqPage>
+            <FaqHeading>Naked single FAQ</FaqHeading>
             <Faq>
                 <FaqQuestion>What is the difference between a naked single and a hidden single?</FaqQuestion>
                 <FaqAnswer>

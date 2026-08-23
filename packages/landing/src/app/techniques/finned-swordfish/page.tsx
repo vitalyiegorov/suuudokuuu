@@ -2,6 +2,7 @@ import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { Faq } from '../../../seo/components/faq/faq';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
+import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
@@ -106,8 +107,8 @@ const FinnedSwordfishPage = () => (
             </li>
             <li>Forgetting box visibility. Fin-based eliminations most often depend on a shared box, not just a shared row or column.</li>
         </ul>
-        <h2>Finned Swordfish FAQ</h2>
         <FaqPage>
+            <FaqHeading>Finned Swordfish FAQ</FaqHeading>
             <Faq>
                 <FaqQuestion>How is a Finned Swordfish different from a Finned X-Wing?</FaqQuestion>
                 <FaqAnswer>

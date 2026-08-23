@@ -2,6 +2,7 @@ import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { Faq } from '../../../seo/components/faq/faq';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
+import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
@@ -100,8 +101,8 @@ const XYWingPage = () => (
                 pincers, not the pincers needing to see each other.
             </li>
         </ul>
-        <h2>XY-Wing FAQ</h2>
         <FaqPage>
+            <FaqHeading>XY-Wing FAQ</FaqHeading>
             <Faq>
                 <FaqQuestion>Does the pivot need to see both pincers through the same kind of unit?</FaqQuestion>
                 <FaqAnswer>

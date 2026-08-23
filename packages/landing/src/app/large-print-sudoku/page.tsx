@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import { PrintableDownloadCard } from '../../printable/components/printable-download-card/printable-download-card';
+import { PrintableDownloadFact } from '../../printable/components/printable-download-fact/printable-download-fact';
 import {
     PRINTABLE_BOOKLET_PUZZLES_PER_PAGE,
     PRINTABLE_LARGE_PRINT_PUZZLES_PER_PAGE,
@@ -8,9 +9,11 @@ import {
 } from '../../printable/constants/printable-layout.constant';
 import { PRINTABLE_LARGE_PRINT_SIZE } from '../../printable/constants/printable-sample.constant';
 import { getPrintableBookletPageCount } from '../../printable/utils/get-printable-booklet-page-count.util';
+import { getPrintableFileSizeLabel } from '../../printable/utils/get-printable-file-size-label.util';
 import { BreadcrumbListItem } from '../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { Faq } from '../../seo/components/faq/faq';
 import { FaqAnswer } from '../../seo/components/faq-answer/faq-answer';
+import { FaqHeading } from '../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../seo/components/faq-question/faq-question';
 import { PageHeader } from '../../seo/components/page-header/page-header';
@@ -45,12 +48,12 @@ const LargePrintSudokuPage = () => (
             It sits alongside an on-screen alternative — an adjustable text-size control and the app’s Comfort mode — for anyone who would
             rather read a bigger board than print one.
         </p>
-        <PrintableDownloadCard
-            fileName="large-print.pdf"
-            pageCount={LARGE_PRINT_PAGE_COUNT}
-            puzzleCount={PRINTABLE_LARGE_PRINT_SIZE}
-            title="Large Print Sudoku"
-        />
+        <PrintableDownloadCard fileName="large-print.pdf" title="Large Print Sudoku">
+            <PrintableDownloadFact>{PRINTABLE_LARGE_PRINT_SIZE} puzzles</PrintableDownloadFact>
+            <PrintableDownloadFact>{LARGE_PRINT_PAGE_COUNT} pages</PrintableDownloadFact>
+            <PrintableDownloadFact>{getPrintableFileSizeLabel('large-print.pdf')} PDF, US Letter</PrintableDownloadFact>
+            <PrintableDownloadFact>Solutions included on the last pages</PrintableDownloadFact>
+        </PrintableDownloadCard>
         <h2>Who reaches for large print</h2>
         <p>
             A bigger grid helps whenever the standard print looks cramped: low-vision solvers, anyone reading without their glasses close
@@ -97,8 +100,8 @@ const LargePrintSudokuPage = () => (
         <a className="hero__cta" href={SITE_PLAY_URL}>
             Prefer a screen? Play {SITE_NAME} now
         </a>
-        <h2>Large Print Sudoku FAQ</h2>
         <FaqPage>
+            <FaqHeading>Large Print Sudoku FAQ</FaqHeading>
             <Faq>
                 <FaqQuestion>How much bigger is the large-print booklet than the regular one?</FaqQuestion>
                 <FaqAnswer>

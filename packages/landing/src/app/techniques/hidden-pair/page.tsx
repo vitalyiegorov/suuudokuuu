@@ -2,6 +2,7 @@ import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { Faq } from '../../../seo/components/faq/faq';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
+import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
@@ -95,8 +96,8 @@ const HiddenPairPage = () => (
             </li>
             <li>Stopping after the strip. The pair becomes a naked pair, and that second step often does the real damage.</li>
         </ul>
-        <h2>Hidden pair FAQ</h2>
         <FaqPage>
+            <FaqHeading>Hidden pair FAQ</FaqHeading>
             <Faq>
                 <FaqQuestion>How do I tell a hidden pair from a naked pair?</FaqQuestion>
                 <FaqAnswer>

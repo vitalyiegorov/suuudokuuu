@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { BreadcrumbListItem } from '../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { Faq } from '../../seo/components/faq/faq';
 import { FaqAnswer } from '../../seo/components/faq-answer/faq-answer';
+import { FaqHeading } from '../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../seo/components/faq-question/faq-question';
 import { PageHeader } from '../../seo/components/page-header/page-header';
@@ -96,8 +97,8 @@ const SeventeenClueSudokuPage = () => (
             <Link href={xChainPageMetadata.path}>X-Chain</Link> and <Link href={aicPageMetadata.path}>AIC</Link> among them — because the
             rating filter selected for exactly that, not because the clue count implies it.
         </p>
-        <h2>17-Clue Sudoku FAQ</h2>
         <FaqPage>
+            <FaqHeading>17-Clue Sudoku FAQ</FaqHeading>
             <Faq>
                 <FaqQuestion>Can a sudoku have 16 clues?</FaqQuestion>
                 <FaqAnswer>

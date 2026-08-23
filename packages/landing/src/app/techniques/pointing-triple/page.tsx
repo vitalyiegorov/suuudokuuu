@@ -2,6 +2,7 @@ import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { Faq } from '../../../seo/components/faq/faq';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
+import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
@@ -95,8 +96,8 @@ const PointingTriplePage = () => (
                 three, and only when those three form a straight line.
             </li>
         </ul>
-        <h2>Pointing triple FAQ</h2>
         <FaqPage>
+            <FaqHeading>Pointing triple FAQ</FaqHeading>
             <Faq>
                 <FaqQuestion>Is a pointing triple harder than a pointing pair?</FaqQuestion>
                 <FaqAnswer>

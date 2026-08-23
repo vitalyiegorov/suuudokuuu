@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 import { getDifficultyClueCount } from '../../difficulty/utils/get-difficulty-clue-count.util';
 import { PrintableDownloadCard } from '../../printable/components/printable-download-card/printable-download-card';
+import { PrintableDownloadFact } from '../../printable/components/printable-download-fact/printable-download-fact';
 import {
     PRINTABLE_BLANK_GRID_SHEET_PAGE_COUNT,
     PRINTABLE_BOOKLET_PUZZLES_PER_PAGE,
@@ -13,11 +14,14 @@ import {
 } from '../../printable/constants/printable-layout.constant';
 import { PRINTABLE_BOOKLET_SIZE, PRINTABLE_LARGE_PRINT_SIZE } from '../../printable/constants/printable-sample.constant';
 import { getPrintableBookletPageCount } from '../../printable/utils/get-printable-booklet-page-count.util';
+import { getPrintableFileSizeLabel } from '../../printable/utils/get-printable-file-size-label.util';
 import { BreadcrumbListItem } from '../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { Faq } from '../../seo/components/faq/faq';
 import { FaqAnswer } from '../../seo/components/faq-answer/faq-answer';
+import { FaqHeading } from '../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../seo/components/faq-question/faq-question';
+import { ItemListSchema } from '../../seo/components/item-list-schema/item-list-schema';
 import { PageHeader } from '../../seo/components/page-header/page-header';
 import { SITE_PLAY_URL } from '../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../seo/utils/build-page-metadata.util';
@@ -56,6 +60,15 @@ const LARGE_PRINT_PAGE_COUNT = getPrintableBookletPageCount(
 );
 const BLANK_GRID_PAGE_COUNT = PRINTABLE_COVER_PAGE_COUNT + PRINTABLE_BLANK_GRID_SHEET_PAGE_COUNT;
 
+const PRINTABLE_TIER_ITEMS = [
+    printableNewbieSudokuPageMetadata,
+    printableEasySudokuPageMetadata,
+    printableMediumSudokuPageMetadata,
+    printableHardSudokuPageMetadata,
+    printableNightmareSudokuPageMetadata,
+    printableHellSudokuPageMetadata
+];
+
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const PrintableSudokuPage = () => (
     <main>
@@ -63,6 +76,7 @@ const PrintableSudokuPage = () => (
             <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
             <BreadcrumbListItem>Printable sudoku</BreadcrumbListItem>
         </PageHeader>
+        <ItemListSchema items={PRINTABLE_TIER_ITEMS} metadata={printableSudokuPageMetadata} />
         <p>
             Every booklet below is a free printable sudoku PDF generated straight from Suuudokuuu’s own puzzle generator and technique
             detectors — the same code that runs the app. Pick a difficulty for a {PRINTABLE_BOOKLET_SIZE}-puzzle booklet with solutions on
@@ -85,12 +99,12 @@ const PrintableSudokuPage = () => (
                 {getDifficultyClueCount(DifficultyEnum.Newbie)} clues, solved with full houses and naked singles alone. See the{' '}
                 <Link href={newbieSudokuPageMetadata.path}>Newbie sudoku lander</Link> to play it digitally.
             </p>
-            <PrintableDownloadCard
-                fileName="newbie.pdf"
-                pageCount={TIER_BOOKLET_PAGE_COUNT}
-                puzzleCount={PRINTABLE_BOOKLET_SIZE}
-                title="Newbie Sudoku"
-            />
+            <PrintableDownloadCard fileName="newbie.pdf" title="Newbie Sudoku">
+                <PrintableDownloadFact>{PRINTABLE_BOOKLET_SIZE} puzzles</PrintableDownloadFact>
+                <PrintableDownloadFact>{TIER_BOOKLET_PAGE_COUNT} pages</PrintableDownloadFact>
+                <PrintableDownloadFact>{getPrintableFileSizeLabel('newbie.pdf')} PDF, US Letter</PrintableDownloadFact>
+                <PrintableDownloadFact>Solutions included on the last pages</PrintableDownloadFact>
+            </PrintableDownloadCard>
         </article>
         <article className="printable-tier">
             <h3>
@@ -100,12 +114,12 @@ const PrintableSudokuPage = () => (
                 {getDifficultyClueCount(DifficultyEnum.Easy)} clues, and every puzzle needs at least one hidden single, never more. See the{' '}
                 <Link href={easySudokuPageMetadata.path}>Easy sudoku lander</Link> to play it digitally.
             </p>
-            <PrintableDownloadCard
-                fileName="easy.pdf"
-                pageCount={TIER_BOOKLET_PAGE_COUNT}
-                puzzleCount={PRINTABLE_BOOKLET_SIZE}
-                title="Easy Sudoku"
-            />
+            <PrintableDownloadCard fileName="easy.pdf" title="Easy Sudoku">
+                <PrintableDownloadFact>{PRINTABLE_BOOKLET_SIZE} puzzles</PrintableDownloadFact>
+                <PrintableDownloadFact>{TIER_BOOKLET_PAGE_COUNT} pages</PrintableDownloadFact>
+                <PrintableDownloadFact>{getPrintableFileSizeLabel('easy.pdf')} PDF, US Letter</PrintableDownloadFact>
+                <PrintableDownloadFact>Solutions included on the last pages</PrintableDownloadFact>
+            </PrintableDownloadCard>
         </article>
         <article className="printable-tier">
             <h3>
@@ -115,12 +129,12 @@ const PrintableSudokuPage = () => (
                 {getDifficultyClueCount(DifficultyEnum.Medium)} clues, guaranteed to stall on singles and to yield to intersections and
                 subsets. See the <Link href={mediumSudokuPageMetadata.path}>Medium sudoku lander</Link> to play it digitally.
             </p>
-            <PrintableDownloadCard
-                fileName="medium.pdf"
-                pageCount={TIER_BOOKLET_PAGE_COUNT}
-                puzzleCount={PRINTABLE_BOOKLET_SIZE}
-                title="Medium Sudoku"
-            />
+            <PrintableDownloadCard fileName="medium.pdf" title="Medium Sudoku">
+                <PrintableDownloadFact>{PRINTABLE_BOOKLET_SIZE} puzzles</PrintableDownloadFact>
+                <PrintableDownloadFact>{TIER_BOOKLET_PAGE_COUNT} pages</PrintableDownloadFact>
+                <PrintableDownloadFact>{getPrintableFileSizeLabel('medium.pdf')} PDF, US Letter</PrintableDownloadFact>
+                <PrintableDownloadFact>Solutions included on the last pages</PrintableDownloadFact>
+            </PrintableDownloadCard>
         </article>
         <article className="printable-tier">
             <h3>
@@ -130,12 +144,12 @@ const PrintableSudokuPage = () => (
                 {getDifficultyClueCount(DifficultyEnum.Hard)} clues, guaranteed to stall on subsets and to yield to fish and wing patterns.
                 See the <Link href={hardSudokuPageMetadata.path}>Hard sudoku lander</Link> to play it digitally.
             </p>
-            <PrintableDownloadCard
-                fileName="hard.pdf"
-                pageCount={TIER_BOOKLET_PAGE_COUNT}
-                puzzleCount={PRINTABLE_BOOKLET_SIZE}
-                title="Hard Sudoku"
-            />
+            <PrintableDownloadCard fileName="hard.pdf" title="Hard Sudoku">
+                <PrintableDownloadFact>{PRINTABLE_BOOKLET_SIZE} puzzles</PrintableDownloadFact>
+                <PrintableDownloadFact>{TIER_BOOKLET_PAGE_COUNT} pages</PrintableDownloadFact>
+                <PrintableDownloadFact>{getPrintableFileSizeLabel('hard.pdf')} PDF, US Letter</PrintableDownloadFact>
+                <PrintableDownloadFact>Solutions included on the last pages</PrintableDownloadFact>
+            </PrintableDownloadCard>
         </article>
         <article className="printable-tier">
             <h3>
@@ -145,12 +159,12 @@ const PrintableSudokuPage = () => (
                 {getDifficultyClueCount(DifficultyEnum.Nightmare)} clues, guaranteed to stall on wings and to yield to chains and coloring.
                 See the <Link href={nightmareSudokuPageMetadata.path}>Nightmare sudoku lander</Link> to play it digitally.
             </p>
-            <PrintableDownloadCard
-                fileName="nightmare.pdf"
-                pageCount={TIER_BOOKLET_PAGE_COUNT}
-                puzzleCount={PRINTABLE_BOOKLET_SIZE}
-                title="Nightmare Sudoku"
-            />
+            <PrintableDownloadCard fileName="nightmare.pdf" title="Nightmare Sudoku">
+                <PrintableDownloadFact>{PRINTABLE_BOOKLET_SIZE} puzzles</PrintableDownloadFact>
+                <PrintableDownloadFact>{TIER_BOOKLET_PAGE_COUNT} pages</PrintableDownloadFact>
+                <PrintableDownloadFact>{getPrintableFileSizeLabel('nightmare.pdf')} PDF, US Letter</PrintableDownloadFact>
+                <PrintableDownloadFact>Solutions included on the last pages</PrintableDownloadFact>
+            </PrintableDownloadCard>
         </article>
         <article className="printable-tier">
             <h3>
@@ -160,12 +174,12 @@ const PrintableSudokuPage = () => (
                 {getDifficultyClueCount(DifficultyEnum.Hell)} clues, drawn from our bundled, verified 17-clue corpus. See the{' '}
                 <Link href={hellSudokuPageMetadata.path}>Hell sudoku lander</Link> to play it digitally.
             </p>
-            <PrintableDownloadCard
-                fileName="hell.pdf"
-                pageCount={TIER_BOOKLET_PAGE_COUNT}
-                puzzleCount={PRINTABLE_BOOKLET_SIZE}
-                title="Hell Sudoku"
-            />
+            <PrintableDownloadCard fileName="hell.pdf" title="Hell Sudoku">
+                <PrintableDownloadFact>{PRINTABLE_BOOKLET_SIZE} puzzles</PrintableDownloadFact>
+                <PrintableDownloadFact>{TIER_BOOKLET_PAGE_COUNT} pages</PrintableDownloadFact>
+                <PrintableDownloadFact>{getPrintableFileSizeLabel('hell.pdf')} PDF, US Letter</PrintableDownloadFact>
+                <PrintableDownloadFact>Solutions included on the last pages</PrintableDownloadFact>
+            </PrintableDownloadCard>
         </article>
         <h2>Large print sudoku, printable</h2>
         <p>
@@ -175,27 +189,30 @@ const PrintableSudokuPage = () => (
             for printing tips and the on-screen alternative, or the <Link href={sudokuForSeniorsPageMetadata.path}>sudoku for seniors</Link>{' '}
             guide for the full comfort-focused rundown.
         </p>
-        <PrintableDownloadCard
-            fileName="large-print.pdf"
-            pageCount={LARGE_PRINT_PAGE_COUNT}
-            puzzleCount={PRINTABLE_LARGE_PRINT_SIZE}
-            title="Large Print Sudoku"
-        />
+        <PrintableDownloadCard fileName="large-print.pdf" title="Large Print Sudoku">
+            <PrintableDownloadFact>{PRINTABLE_LARGE_PRINT_SIZE} puzzles</PrintableDownloadFact>
+            <PrintableDownloadFact>{LARGE_PRINT_PAGE_COUNT} pages</PrintableDownloadFact>
+            <PrintableDownloadFact>{getPrintableFileSizeLabel('large-print.pdf')} PDF, US Letter</PrintableDownloadFact>
+            <PrintableDownloadFact>Solutions included on the last pages</PrintableDownloadFact>
+        </PrintableDownloadCard>
         <h2>Blank sudoku grid</h2>
         <p>
             No puzzle, just the grid: one full-page 9×9 grid for copying out a puzzle from a book or newspaper, plus a second page of four
             smaller grids for quick practice sheets. Useful for teachers building their own worksheets or for anyone transcribing a puzzle
             they found somewhere without a printer-friendly version.
         </p>
-        <PrintableDownloadCard fileName="blank-grid.pdf" hasSolutions={false} pageCount={BLANK_GRID_PAGE_COUNT} title="Blank Sudoku Grid" />
+        <PrintableDownloadCard fileName="blank-grid.pdf" title="Blank Sudoku Grid">
+            <PrintableDownloadFact>{BLANK_GRID_PAGE_COUNT} pages</PrintableDownloadFact>
+            <PrintableDownloadFact>{getPrintableFileSizeLabel('blank-grid.pdf')} PDF, US Letter</PrintableDownloadFact>
+        </PrintableDownloadCard>
         <h2>How to print these puzzles</h2>
         <p>
             Every PDF is set to US Letter and drawn with vector lines and text, so it prints crisply at any size. Open the file, print at
             100% scale (not “fit to page”, which can distort the grid on some printers), and print single-sided if you want to keep the
             solutions on separate sheets from the puzzles.
         </p>
-        <h2>Printable sudoku FAQ</h2>
         <FaqPage>
+            <FaqHeading>Printable sudoku FAQ</FaqHeading>
             <Faq>
                 <FaqQuestion>How do I print these puzzles?</FaqQuestion>
                 <FaqAnswer>

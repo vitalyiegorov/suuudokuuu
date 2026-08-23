@@ -1,4 +1,4 @@
-import { isEmptyArray } from '@rnw-community/shared';
+import { isDefined, isEmptyArray } from '@rnw-community/shared';
 
 import { SCHEMA_CONTEXT } from '../../constants/schema.constant';
 import { extractNodeText } from '../../utils/extract-node-text.util';
@@ -6,6 +6,7 @@ import { findSlot } from '../../utils/find-slot.util';
 import { findSlots } from '../../utils/find-slots.util';
 import { Faq } from '../faq/faq';
 import { FaqAnswer } from '../faq-answer/faq-answer';
+import { FaqHeading } from '../faq-heading/faq-heading';
 import { FaqQuestion } from '../faq-question/faq-question';
 import { JsonLd } from '../json-ld/json-ld';
 
@@ -16,6 +17,7 @@ interface Props {
 }
 
 export const FaqPage = ({ children }: Props) => {
+    const headingElement = findSlot(children, FaqHeading);
     const entries = findSlots(children, Faq).map(faqElement => {
         const questionElement = findSlot(faqElement.props.children, FaqQuestion);
         const answerElement = findSlot(faqElement.props.children, FaqAnswer);
@@ -41,11 +43,13 @@ export const FaqPage = ({ children }: Props) => {
             acceptedAnswer: { '@type': 'Answer', text: entry.answerText }
         }))
     };
+    const heading = isDefined(headingElement) ? <h2>{headingElement.props.children}</h2> : null;
 
     return (
         <>
             <JsonLd data={schema} />
             <section>
+                {heading}
                 {entries.map(entry => (
                     <details key={entry.questionText}>
                         <summary>{entry.questionNode}</summary>

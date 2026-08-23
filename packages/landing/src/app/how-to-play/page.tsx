@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { BreadcrumbListItem } from '../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { Faq } from '../../seo/components/faq/faq';
 import { FaqAnswer } from '../../seo/components/faq-answer/faq-answer';
+import { FaqHeading } from '../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../seo/components/how-to/how-to';
@@ -145,8 +146,8 @@ const HowToPlayPage = () => (
                 order to keep clearing them.
             </HowToStep>
         </HowTo>
-        <h2>How to play Sudoku FAQ</h2>
         <FaqPage>
+            <FaqHeading>How to play Sudoku FAQ</FaqHeading>
             <Faq>
                 <FaqQuestion>Can a Sudoku have two solutions?</FaqQuestion>
                 <FaqAnswer>

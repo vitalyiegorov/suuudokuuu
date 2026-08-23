@@ -4,18 +4,21 @@ import Link from 'next/link';
 import { DifficultyNavigation } from '../../../difficulty/components/difficulty-navigation/difficulty-navigation';
 import { getDifficultyClueCount } from '../../../difficulty/utils/get-difficulty-clue-count.util';
 import { PrintableDownloadCard } from '../../../printable/components/printable-download-card/printable-download-card';
+import { PrintableDownloadFact } from '../../../printable/components/printable-download-fact/printable-download-fact';
 import {
     PRINTABLE_BOOKLET_PUZZLES_PER_PAGE,
     PRINTABLE_BOOKLET_SOLUTIONS_PER_PAGE
 } from '../../../printable/constants/printable-layout.constant';
 import { PRINTABLE_BOOKLET_PUZZLES, PRINTABLE_BOOKLET_SIZE } from '../../../printable/constants/printable-sample.constant';
 import { getPrintableBookletPageCount } from '../../../printable/utils/get-printable-booklet-page-count.util';
+import { getPrintableFileSizeLabel } from '../../../printable/utils/get-printable-file-size-label.util';
 import { PuzzleBoard } from '../../../puzzle/components/puzzle-board/puzzle-board';
 import { SeRatingRange } from '../../../rating/components/se-rating-range/se-rating-range';
 import { getTierTechniqueReport } from '../../../rating/utils/get-tier-technique-reports.util';
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { Faq } from '../../../seo/components/faq/faq';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
+import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { PageHeader } from '../../../seo/components/page-header/page-header';
@@ -72,7 +75,12 @@ const PrintableNewbieSudokuPage = () => (
             </ul>
         </TechniqueSummary>
         <PuzzleBoard givens={PREVIEW_PUZZLE}>Puzzle 1 from the Newbie booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF.</PuzzleBoard>
-        <PrintableDownloadCard fileName="newbie.pdf" pageCount={PAGE_COUNT} puzzleCount={PRINTABLE_BOOKLET_SIZE} title="Newbie Sudoku" />
+        <PrintableDownloadCard fileName="newbie.pdf" title="Newbie Sudoku">
+            <PrintableDownloadFact>{PRINTABLE_BOOKLET_SIZE} puzzles</PrintableDownloadFact>
+            <PrintableDownloadFact>{PAGE_COUNT} pages</PrintableDownloadFact>
+            <PrintableDownloadFact>{getPrintableFileSizeLabel('newbie.pdf')} PDF, US Letter</PrintableDownloadFact>
+            <PrintableDownloadFact>Solutions included on the last pages</PrintableDownloadFact>
+        </PrintableDownloadCard>
         <h2>What is inside the booklet</h2>
         <p>
             The PDF opens with a cover page stating the puzzle and page counts, moves into {PRINTABLE_BOOKLET_SIZE} puzzles printed{' '}
@@ -101,8 +109,8 @@ const PrintableNewbieSudokuPage = () => (
             behind these claims, see the <Link href={techniquesPageMetadata.path}>technique index</Link> and the{' '}
             <Link href={sudokuDifficultyRatingPageMetadata.path}>sudoku difficulty rating guide</Link>.
         </p>
-        <h2>Printable Newbie Sudoku FAQ</h2>
         <FaqPage>
+            <FaqHeading>Printable Newbie Sudoku FAQ</FaqHeading>
             <Faq>
                 <FaqQuestion>Is this printable Newbie sudoku booklet free?</FaqQuestion>
                 <FaqAnswer>

@@ -11,6 +11,7 @@ import { getTechniqueUsage, getTierTechniqueReport } from '../../../rating/utils
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { Faq } from '../../../seo/components/faq/faq';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
+import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { PageHeader } from '../../../seo/components/page-header/page-header';
@@ -171,8 +172,8 @@ const SudokuDifficultyRatingPage = () => {
                 {hellReport.sampleSize} in every tier, so nothing on this page rests on a puzzle the registry could not finish. You can
                 watch the same registry work step by step in the <Link href={solverPageMetadata.path}>sudoku solver</Link>.
             </p>
-            <h2>Sudoku difficulty rating FAQ</h2>
             <FaqPage>
+                <FaqHeading>Sudoku difficulty rating FAQ</FaqHeading>
                 <Faq>
                     <FaqQuestion>What is an SE rating in sudoku?</FaqQuestion>
                     <FaqAnswer>

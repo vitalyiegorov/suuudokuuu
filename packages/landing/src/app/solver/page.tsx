@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { BreadcrumbListItem } from '../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { Faq } from '../../seo/components/faq/faq';
 import { FaqAnswer } from '../../seo/components/faq-answer/faq-answer';
+import { FaqHeading } from '../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../seo/components/how-to/how-to';
@@ -11,44 +12,32 @@ import { PageHeader } from '../../seo/components/page-header/page-header';
 import { SITE_PLAY_URL } from '../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../seo/utils/build-page-metadata.util';
 import { SolverWorkbench } from '../../solver/components/solver-workbench/solver-workbench';
+import { TechniqueLinkList } from '../../techniques/components/technique-link-list/technique-link-list';
 import { TechniqueSummary } from '../../techniques/components/technique-summary/technique-summary';
+import { TECHNIQUE_PAGE_LADDER } from '../../techniques/constants/technique-page-ladder.constant';
 import { seventeenClueSudokuPageMetadata } from '../17-clue-sudoku/metadata';
 import { hardestSudokuPuzzlesPageMetadata } from '../hardest-sudoku-puzzles/metadata';
 import { howToPlayPageMetadata } from '../how-to-play/metadata';
 import { homePageMetadata } from '../metadata';
-import { aicPageMetadata } from '../techniques/aic/metadata';
-import { boxLineReductionPageMetadata } from '../techniques/box-line-reduction/metadata';
-import { finnedSwordfishPageMetadata } from '../techniques/finned-swordfish/metadata';
-import { finnedXWingPageMetadata } from '../techniques/finned-x-wing/metadata';
-import { fullHousePageMetadata } from '../techniques/full-house/metadata';
-import { hiddenPairPageMetadata } from '../techniques/hidden-pair/metadata';
-import { hiddenQuadPageMetadata } from '../techniques/hidden-quad/metadata';
-import { hiddenSinglePageMetadata } from '../techniques/hidden-single/metadata';
-import { hiddenTriplePageMetadata } from '../techniques/hidden-triple/metadata';
-import { jellyfishPageMetadata } from '../techniques/jellyfish/metadata';
 import { techniquesPageMetadata } from '../techniques/metadata';
-import { nakedPairPageMetadata } from '../techniques/naked-pair/metadata';
-import { nakedQuadPageMetadata } from '../techniques/naked-quad/metadata';
-import { nakedSinglePageMetadata } from '../techniques/naked-single/metadata';
-import { nakedTriplePageMetadata } from '../techniques/naked-triple/metadata';
-import { pointingPairPageMetadata } from '../techniques/pointing-pair/metadata';
-import { pointingTriplePageMetadata } from '../techniques/pointing-triple/metadata';
-import { sashimiSwordfishPageMetadata } from '../techniques/sashimi-swordfish/metadata';
-import { sashimiXWingPageMetadata } from '../techniques/sashimi-x-wing/metadata';
-import { simpleColoringPageMetadata } from '../techniques/simple-coloring/metadata';
-import { swordfishPageMetadata } from '../techniques/swordfish/metadata';
-import { wWingPageMetadata } from '../techniques/w-wing/metadata';
-import { xChainPageMetadata } from '../techniques/x-chain/metadata';
-import { xWingPageMetadata } from '../techniques/x-wing/metadata';
-import { xyChainPageMetadata } from '../techniques/xy-chain/metadata';
-import { xyWingPageMetadata } from '../techniques/xy-wing/metadata';
-import { xyzWingPageMetadata } from '../techniques/xyz-wing/metadata';
 
 import { solverPageMetadata } from './metadata';
 
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = buildPageMetadata(solverPageMetadata);
+
+const SINGLES_COUNT = 3;
+const INTERSECTIONS_COUNT = 3;
+const SUBSETS_COUNT = 6;
+const TIER_1_END = SINGLES_COUNT;
+const TIER_2_END = TIER_1_END + INTERSECTIONS_COUNT;
+const TIER_3_END = TIER_2_END + SUBSETS_COUNT;
+
+const TIER_1_SINGLES = TECHNIQUE_PAGE_LADDER.slice(0, TIER_1_END);
+const TIER_2_INTERSECTIONS = TECHNIQUE_PAGE_LADDER.slice(TIER_1_END, TIER_2_END);
+const TIER_3_SUBSETS = TECHNIQUE_PAGE_LADDER.slice(TIER_2_END, TIER_3_END);
+const TIER_4_FISH_WINGS_CHAINS = TECHNIQUE_PAGE_LADDER.slice(TIER_3_END);
 
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const SolverPage = () => (
@@ -159,40 +148,27 @@ const SolverPage = () => (
         <ul className="technique-index">
             <li>
                 <strong>Tier 1 — Singles</strong> place a digit outright and carry most easy puzzles on their own:{' '}
-                <Link href={fullHousePageMetadata.path}>Full House</Link>, <Link href={nakedSinglePageMetadata.path}>Naked Single</Link> and{' '}
-                <Link href={hiddenSinglePageMetadata.path}>Hidden Single</Link>.
+                <TechniqueLinkList techniques={TIER_1_SINGLES} />.
             </li>
             <li>
                 <strong>Tier 2 — Intersections</strong> work on the overlap between a box and a line and only ever remove candidates:{' '}
-                <Link href={pointingPairPageMetadata.path}>Pointing Pair</Link>,{' '}
-                <Link href={pointingTriplePageMetadata.path}>Pointing Triple</Link> and{' '}
-                <Link href={boxLineReductionPageMetadata.path}>Box Line Reduction</Link>.
+                <TechniqueLinkList techniques={TIER_2_INTERSECTIONS} />.
             </li>
             <li>
                 <strong>Tier 3 — Subsets</strong> reserve a group of digits for a group of cells:{' '}
-                <Link href={nakedPairPageMetadata.path}>Naked Pair</Link>, <Link href={nakedTriplePageMetadata.path}>Naked Triple</Link>,{' '}
-                <Link href={nakedQuadPageMetadata.path}>Naked Quad</Link>, <Link href={hiddenPairPageMetadata.path}>Hidden Pair</Link>,{' '}
-                <Link href={hiddenTriplePageMetadata.path}>Hidden Triple</Link> and{' '}
-                <Link href={hiddenQuadPageMetadata.path}>Hidden Quad</Link>.
+                <TechniqueLinkList techniques={TIER_3_SUBSETS} />.
             </li>
             <li>
                 <strong>Tier 4 — Fish, wings and chains</strong> reason across several units or along a path of cells:{' '}
-                <Link href={xWingPageMetadata.path}>X-Wing</Link>, <Link href={swordfishPageMetadata.path}>Swordfish</Link>,{' '}
-                <Link href={jellyfishPageMetadata.path}>Jellyfish</Link>, <Link href={finnedXWingPageMetadata.path}>Finned X-Wing</Link>,{' '}
-                <Link href={finnedSwordfishPageMetadata.path}>Finned Swordfish</Link>,{' '}
-                <Link href={sashimiXWingPageMetadata.path}>Sashimi X-Wing</Link>,{' '}
-                <Link href={sashimiSwordfishPageMetadata.path}>Sashimi Swordfish</Link>, <Link href={xyWingPageMetadata.path}>XY-Wing</Link>
-                , <Link href={xyzWingPageMetadata.path}>XYZ-Wing</Link>, <Link href={wWingPageMetadata.path}>W-Wing</Link>,{' '}
-                <Link href={xChainPageMetadata.path}>X-Chain</Link>, <Link href={xyChainPageMetadata.path}>XY-Chain</Link>,{' '}
-                <Link href={simpleColoringPageMetadata.path}>Simple Coloring</Link> and <Link href={aicPageMetadata.path}>AIC</Link>.
+                <TechniqueLinkList techniques={TIER_4_FISH_WINGS_CHAINS} />.
             </li>
         </ul>
         <p>
             Never solved a sudoku before? The <Link href={howToPlayPageMetadata.path}>how to play guide</Link> covers the three rules and
             your first moves before any of the patterns above become useful.
         </p>
-        <h2>Sudoku solver FAQ</h2>
         <FaqPage>
+            <FaqHeading>Sudoku solver FAQ</FaqHeading>
             <Faq>
                 <FaqQuestion>Can this solver solve any sudoku?</FaqQuestion>
                 <FaqAnswer>

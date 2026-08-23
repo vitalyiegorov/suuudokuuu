@@ -2,6 +2,7 @@ import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { Faq } from '../../../seo/components/faq/faq';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
+import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
@@ -104,8 +105,8 @@ const XWingPage = () => (
                 matters is the digit’s own count per row or column, not how full the cells look.
             </li>
         </ul>
-        <h2>X-Wing FAQ</h2>
         <FaqPage>
+            <FaqHeading>X-Wing FAQ</FaqHeading>
             <Faq>
                 <FaqQuestion>Does an X-Wing place a digit directly?</FaqQuestion>
                 <FaqAnswer>

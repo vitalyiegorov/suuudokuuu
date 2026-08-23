@@ -2,14 +2,13 @@ import Link from 'next/link';
 
 import { Faq } from '../seo/components/faq/faq';
 import { FaqAnswer } from '../seo/components/faq-answer/faq-answer';
+import { FaqHeading } from '../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../seo/components/faq-question/faq-question';
-import { JsonLd } from '../seo/components/json-ld/json-ld';
 import { SoftwareApplicationFeature } from '../seo/components/software-application-feature/software-application-feature';
 import { SoftwareApplicationSchema } from '../seo/components/software-application-schema/software-application-schema';
-import { SCHEMA_CONTEXT } from '../seo/constants/schema.constant';
-import { DEFAULT_LOCALE, SITE_DESCRIPTION, SITE_NAME, SITE_PLAY_URL } from '../seo/constants/site.constant';
-import { buildLocaleUrl } from '../seo/utils/build-locale-url.util';
+import { WebSiteSchema } from '../seo/components/web-site-schema/web-site-schema';
+import { SITE_DESCRIPTION, SITE_NAME, SITE_PLAY_URL } from '../seo/constants/site.constant';
 import { buildPageMetadata } from '../seo/utils/build-page-metadata.util';
 
 import { glossaryPageMetadata } from './glossary/metadata';
@@ -28,21 +27,10 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = buildPageMetadata(homePageMetadata);
 
-const webSiteSchema = {
-    '@context': SCHEMA_CONTEXT,
-    '@type': 'WebSite',
-    name: SITE_NAME,
-    description: SITE_DESCRIPTION,
-    url: buildLocaleUrl(DEFAULT_LOCALE, homePageMetadata.path),
-    inLanguage: DEFAULT_LOCALE,
-    datePublished: homePageMetadata.publishedAt,
-    dateModified: homePageMetadata.updatedAt
-};
-
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const HomePage = () => (
     <main>
-        <JsonLd data={webSiteSchema} />
+        <WebSiteSchema metadata={homePageMetadata} />
         <p className="hero__eyebrow">Free, open-source, no ads</p>
         <h1>Play Free Online Sudoku</h1>
         <p>
@@ -106,8 +94,8 @@ const HomePage = () => (
             <Link href={sudokuDifficultiesPageMetadata.path}>Sudoku difficulty levels</Link> hub, or see how it compares to the{' '}
             <Link href={hardestSudokuPuzzlesPageMetadata.path}>hardest puzzles</Link> ever published.
         </p>
-        <h2>Frequently asked questions</h2>
         <FaqPage>
+            <FaqHeading>Frequently asked questions</FaqHeading>
             <Faq>
                 <FaqQuestion>Is {SITE_NAME} free?</FaqQuestion>
                 <FaqAnswer>

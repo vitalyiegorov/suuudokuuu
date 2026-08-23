@@ -5,6 +5,7 @@ import { PuzzleBoard } from '../../puzzle/components/puzzle-board/puzzle-board';
 import { BreadcrumbListItem } from '../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { Faq } from '../../seo/components/faq/faq';
 import { FaqAnswer } from '../../seo/components/faq-answer/faq-answer';
+import { FaqHeading } from '../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../seo/components/faq-question/faq-question';
 import { PageHeader } from '../../seo/components/page-header/page-header';
@@ -122,8 +123,8 @@ const HardestSudokuPuzzlesPage = () => (
             property. Measured on our own scale, Hell barely edges past the generated Nightmare tier and sits far below the puzzles on this
             page.
         </p>
-        <h2>Hardest Sudoku FAQ</h2>
         <FaqPage>
+            <FaqHeading>Hardest Sudoku FAQ</FaqHeading>
             <Faq>
                 <FaqQuestion>What is the hardest sudoku puzzle ever?</FaqQuestion>
                 <FaqAnswer>
