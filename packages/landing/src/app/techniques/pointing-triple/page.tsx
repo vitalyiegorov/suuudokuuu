@@ -25,7 +25,7 @@ const EXAMPLE_BOARD = '.91.52.4354.937.122.3..4.59.5...3..443...5..612..49537912
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const PointingTriplePage = () => (
     <main>
-        <TechniquePageHeader title="Pointing Triple" />
+        <TechniquePageHeader metadata={pointingTriplePageMetadata} />
         <p>
             A pointing triple occurs when a digit can only go in three cells of a box and all three sit on the same row or column, which
             locks the digit into that line and clears it from the line outside the box.

@@ -3,6 +3,7 @@ import type { PageMetadataInterface } from '../../seo/interfaces/page-metadata.i
 export const howToPlayPageMetadata: PageMetadataInterface = {
     path: '/how-to-play',
     title: 'How to play Sudoku',
+    headline: 'How to Play Sudoku',
     metaTitle: 'How to Play Sudoku — Rules, First Moves & Free Puzzles',
     metaDescription:
         'Learn the rules of Sudoku, solve your first cells with naked and hidden singles, and see the six free difficulty levels from Newbie to Hell.',

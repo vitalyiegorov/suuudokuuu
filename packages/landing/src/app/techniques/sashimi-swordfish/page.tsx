@@ -25,7 +25,7 @@ const EXAMPLE_BOARD = '953168742862734951417..28367.6..3.252816453973.527..68.38
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const SashimiSwordfishPage = () => (
     <main>
-        <TechniquePageHeader title="Sashimi Swordfish" />
+        <TechniquePageHeader metadata={sashimiSwordfishPageMetadata} />
         <p>
             A Sashimi Swordfish is the three-line sashimi pattern: one of the three base lines is missing a candidate at one of the cover
             lines, but the fish still proves the same finned-style eliminations once the fin’s box is found.

@@ -25,7 +25,7 @@ const EXAMPLE_BOARD = '9.3.68..2862.34.514.7..28367.68.3.252816453973.527..68.38
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const NakedSinglePage = () => (
     <main>
-        <TechniquePageHeader title="Naked Single" />
+        <TechniquePageHeader metadata={nakedSinglePageMetadata} />
         <p>
             A naked single is an empty cell whose row, column and box between them already contain eight of the nine digits, so exactly one
             candidate survives and that candidate is the answer.

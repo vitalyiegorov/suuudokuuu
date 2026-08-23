@@ -25,7 +25,7 @@ const EXAMPLE_BOARD = '953168742862734..1417..28367.6..3.2...1.4...7..5.7..6..38
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const XWingPage = () => (
     <main>
-        <TechniquePageHeader title="X-Wing" />
+        <TechniquePageHeader metadata={xWingPageMetadata} />
         <p>
             An X-Wing is a fish pattern where a digit is confined to the same two lines — the same two columns across two rows, or the same
             two rows across two columns — which lets that digit be erased from every other cell along those two lines.

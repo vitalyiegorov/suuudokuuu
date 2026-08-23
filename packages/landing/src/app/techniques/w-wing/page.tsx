@@ -25,7 +25,7 @@ const EXAMPLE_BOARD = '953168742862734951417..28367.6..3.252816453973.527..68.38
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const WWingPage = () => (
     <main>
-        <TechniquePageHeader title="W-Wing" />
+        <TechniquePageHeader metadata={wWingPageMetadata} />
         <p>
             A W-Wing links two cells that hold the same pair of candidates through a strong link on one of those digits elsewhere on the
             board, which lets the other digit be erased from every cell both starting cells see.

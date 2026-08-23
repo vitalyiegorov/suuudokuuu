@@ -15,9 +15,8 @@ import {
 } from '../../../printable/constants/printable-sample.constant';
 import { getPrintableBookletPageCount } from '../../../printable/utils/get-printable-booklet-page-count.util';
 import { PuzzleBoard } from '../../../puzzle/components/puzzle-board/puzzle-board';
-import { ArticleSchema } from '../../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
-import { Breadcrumbs } from '../../../seo/components/breadcrumbs/breadcrumbs';
+import { PageHeader } from '../../../seo/components/page-header/page-header';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
 import { homePageMetadata } from '../../metadata';
 import { easySudokuPageMetadata } from '../../sudoku/easy/metadata';
@@ -40,19 +39,11 @@ const [PREVIEW_PUZZLE] = PRINTABLE_BOOKLET_PUZZLES[DifficultyEnum.Easy];
 
 const PrintableEasySudokuPage = () => (
     <main>
-        <ArticleSchema
-            dateModified={printableEasySudokuPageMetadata.updatedAt}
-            datePublished={printableEasySudokuPageMetadata.publishedAt}
-            description={printableEasySudokuPageMetadata.metaDescription}
-            headline={printableEasySudokuPageMetadata.title}
-            path={printableEasySudokuPageMetadata.path}
-        />
-        <Breadcrumbs>
+        <PageHeader metadata={printableEasySudokuPageMetadata}>
             <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
             <BreadcrumbListItem path={printableSudokuPageMetadata.path}>Printable sudoku</BreadcrumbListItem>
             <BreadcrumbListItem>Easy</BreadcrumbListItem>
-        </Breadcrumbs>
-        <h1>Printable Easy Sudoku (PDF)</h1>
+        </PageHeader>
         <p>
             Easy starts at {getDifficultyClueCount(DifficultyEnum.Easy)} clues, six below Newbie, and adds exactly one technique: every
             puzzle in this booklet needs at least one hidden single, and none of them needs anything harder. That single extra pattern is

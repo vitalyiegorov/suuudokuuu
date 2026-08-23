@@ -3,6 +3,7 @@ import type { PageMetadataInterface } from '../../seo/interfaces/page-metadata.i
 export const sudokuDifficultiesPageMetadata: PageMetadataInterface = {
     path: '/sudoku',
     title: 'Sudoku difficulty levels',
+    headline: 'Sudoku Difficulty Levels',
     metaTitle: 'Sudoku Difficulty Levels — Free Puzzles from Beginner to Evil',
     metaDescription:
         'Compare all six free Suuudokuuu difficulty levels — Newbie, Easy, Medium, Hard, Nightmare and Hell — with real clue counts and the exact techniques each one requires.',

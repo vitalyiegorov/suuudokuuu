@@ -1,8 +1,12 @@
+import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
+
+import { buildTechniquePageNames } from '../../../techniques/utils/build-technique-page-names.util';
+
 import type { PageMetadataInterface } from '../../../seo/interfaces/page-metadata.interface';
 
 export const nakedQuadPageMetadata: PageMetadataInterface = {
     path: '/techniques/naked-quad',
-    title: 'Naked Quad',
+    ...buildTechniquePageNames(SolutionTechniqueEnum.NakedQuad),
     metaTitle: 'Naked Quad Sudoku Technique — Four Cells, Four Candidates',
     metaDescription:
         'A naked quad is four cells in one unit whose candidates together use only four digits, reserving those digits for the quad and clearing them from the rest of the unit.',

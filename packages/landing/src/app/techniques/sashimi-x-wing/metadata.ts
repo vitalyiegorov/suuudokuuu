@@ -1,8 +1,12 @@
+import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
+
+import { buildTechniquePageNames } from '../../../techniques/utils/build-technique-page-names.util';
+
 import type { PageMetadataInterface } from '../../../seo/interfaces/page-metadata.interface';
 
 export const sashimiXWingPageMetadata: PageMetadataInterface = {
     path: '/techniques/sashimi-x-wing',
-    title: 'Sashimi X-Wing',
+    ...buildTechniquePageNames(SolutionTechniqueEnum.SashimiXWing),
     metaTitle: 'Sashimi X-Wing Sudoku Technique — How to Spot and Use It',
     metaDescription:
         'A Sashimi X-Wing is a finned X-Wing where one base line keeps only its fin, and the pattern still forces the same eliminations as a clean X-Wing.',

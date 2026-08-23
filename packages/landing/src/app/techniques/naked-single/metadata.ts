@@ -1,8 +1,12 @@
+import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
+
+import { buildTechniquePageNames } from '../../../techniques/utils/build-technique-page-names.util';
+
 import type { PageMetadataInterface } from '../../../seo/interfaces/page-metadata.interface';
 
 export const nakedSinglePageMetadata: PageMetadataInterface = {
     path: '/techniques/naked-single',
-    title: 'Naked Single',
+    ...buildTechniquePageNames(SolutionTechniqueEnum.NakedSingle),
     metaTitle: 'Naked Single Sudoku Technique — One Candidate Left',
     metaDescription:
         'A naked single is an empty Sudoku cell whose row, column and box between them rule out eight of the nine digits, leaving exactly one candidate. Worked example and steps.',

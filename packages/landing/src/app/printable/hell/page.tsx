@@ -13,9 +13,8 @@ import { getPrintableBookletPageCount } from '../../../printable/utils/get-print
 import { PuzzleBoard } from '../../../puzzle/components/puzzle-board/puzzle-board';
 import { SeRatingRange } from '../../../rating/components/se-rating-range/se-rating-range';
 import { getTierTechniqueReport } from '../../../rating/utils/get-tier-technique-reports.util';
-import { ArticleSchema } from '../../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
-import { Breadcrumbs } from '../../../seo/components/breadcrumbs/breadcrumbs';
+import { PageHeader } from '../../../seo/components/page-header/page-header';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
 import { seventeenClueSudokuPageMetadata } from '../../17-clue-sudoku/metadata';
 import { homePageMetadata } from '../../metadata';
@@ -41,19 +40,11 @@ const hellReport = getTierTechniqueReport(DifficultyEnum.Hell);
 
 const PrintableHellSudokuPage = () => (
     <main>
-        <ArticleSchema
-            dateModified={printableHellSudokuPageMetadata.updatedAt}
-            datePublished={printableHellSudokuPageMetadata.publishedAt}
-            description={printableHellSudokuPageMetadata.metaDescription}
-            headline={printableHellSudokuPageMetadata.title}
-            path={printableHellSudokuPageMetadata.path}
-        />
-        <Breadcrumbs>
+        <PageHeader metadata={printableHellSudokuPageMetadata}>
             <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
             <BreadcrumbListItem path={printableSudokuPageMetadata.path}>Printable sudoku</BreadcrumbListItem>
             <BreadcrumbListItem>Hell</BreadcrumbListItem>
-        </Breadcrumbs>
-        <h1>Printable Hell Sudoku PDF (17 Clues)</h1>
+        </PageHeader>
         <p>
             Every puzzle in this booklet carries exactly {getDifficultyClueCount(DifficultyEnum.Hell)} clues, the proven minimum for a
             sudoku with one unique solution, drawn from our bundled and independently verified 17-clue corpus rather than generated fresh.

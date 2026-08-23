@@ -11,9 +11,8 @@ import {
 import { PRINTABLE_BOOKLET_PUZZLES, PRINTABLE_BOOKLET_SIZE } from '../../../printable/constants/printable-sample.constant';
 import { getPrintableBookletPageCount } from '../../../printable/utils/get-printable-booklet-page-count.util';
 import { PuzzleBoard } from '../../../puzzle/components/puzzle-board/puzzle-board';
-import { ArticleSchema } from '../../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
-import { Breadcrumbs } from '../../../seo/components/breadcrumbs/breadcrumbs';
+import { PageHeader } from '../../../seo/components/page-header/page-header';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
 import { homePageMetadata } from '../../metadata';
 import { mediumSudokuPageMetadata } from '../../sudoku/medium/metadata';
@@ -38,19 +37,11 @@ const [PREVIEW_PUZZLE] = PRINTABLE_BOOKLET_PUZZLES[DifficultyEnum.Medium];
 
 const PrintableMediumSudokuPage = () => (
     <main>
-        <ArticleSchema
-            dateModified={printableMediumSudokuPageMetadata.updatedAt}
-            datePublished={printableMediumSudokuPageMetadata.publishedAt}
-            description={printableMediumSudokuPageMetadata.metaDescription}
-            headline={printableMediumSudokuPageMetadata.title}
-            path={printableMediumSudokuPageMetadata.path}
-        />
-        <Breadcrumbs>
+        <PageHeader metadata={printableMediumSudokuPageMetadata}>
             <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
             <BreadcrumbListItem path={printableSudokuPageMetadata.path}>Printable sudoku</BreadcrumbListItem>
             <BreadcrumbListItem>Medium</BreadcrumbListItem>
-        </Breadcrumbs>
-        <h1>Printable Medium Sudoku (PDF)</h1>
+        </PageHeader>
         <p>
             At {getDifficultyClueCount(DifficultyEnum.Medium)} clues out of 81 cells, this booklet is the first one worth solving with a
             pencil. Singles carry a Medium grid part of the way, but every puzzle in it provably stalls on them — that is the test each

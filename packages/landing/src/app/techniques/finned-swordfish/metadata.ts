@@ -1,8 +1,12 @@
+import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
+
+import { buildTechniquePageNames } from '../../../techniques/utils/build-technique-page-names.util';
+
 import type { PageMetadataInterface } from '../../../seo/interfaces/page-metadata.interface';
 
 export const finnedSwordfishPageMetadata: PageMetadataInterface = {
     path: '/techniques/finned-swordfish',
-    title: 'Finned Swordfish',
+    ...buildTechniquePageNames(SolutionTechniqueEnum.FinnedSwordfish),
     metaTitle: 'Finned Swordfish Sudoku Technique — How to Spot and Use It',
     metaDescription:
         'A Finned Swordfish is a Swordfish pattern with a fin cell that narrows the elimination down to whatever the fin itself can still see.',

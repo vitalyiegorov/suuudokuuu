@@ -3,6 +3,7 @@ import type { PageMetadataInterface } from '../../seo/interfaces/page-metadata.i
 export const glossaryPageMetadata: PageMetadataInterface = {
     path: '/glossary',
     title: 'Sudoku glossary',
+    headline: 'Sudoku Glossary',
     metaTitle: 'Sudoku Glossary — Every Technique and Term Explained',
     metaDescription:
         'Every Sudoku solving technique and core term defined in one place, from naked single and hidden pair to box, candidate and unique solution.',

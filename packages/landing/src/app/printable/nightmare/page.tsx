@@ -13,9 +13,8 @@ import { getPrintableBookletPageCount } from '../../../printable/utils/get-print
 import { PuzzleBoard } from '../../../puzzle/components/puzzle-board/puzzle-board';
 import { SeRatingRange } from '../../../rating/components/se-rating-range/se-rating-range';
 import { getTierTechniqueReport } from '../../../rating/utils/get-tier-technique-reports.util';
-import { ArticleSchema } from '../../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
-import { Breadcrumbs } from '../../../seo/components/breadcrumbs/breadcrumbs';
+import { PageHeader } from '../../../seo/components/page-header/page-header';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
 import { sudokuDifficultyRatingPageMetadata } from '../../guides/sudoku-difficulty-rating/metadata';
 import { homePageMetadata } from '../../metadata';
@@ -42,19 +41,11 @@ const nightmareReport = getTierTechniqueReport(DifficultyEnum.Nightmare);
 
 const PrintableNightmareSudokuPage = () => (
     <main>
-        <ArticleSchema
-            dateModified={printableNightmareSudokuPageMetadata.updatedAt}
-            datePublished={printableNightmareSudokuPageMetadata.publishedAt}
-            description={printableNightmareSudokuPageMetadata.metaDescription}
-            headline={printableNightmareSudokuPageMetadata.title}
-            path={printableNightmareSudokuPageMetadata.path}
-        />
-        <Breadcrumbs>
+        <PageHeader metadata={printableNightmareSudokuPageMetadata}>
             <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
             <BreadcrumbListItem path={printableSudokuPageMetadata.path}>Printable sudoku</BreadcrumbListItem>
             <BreadcrumbListItem>Nightmare</BreadcrumbListItem>
-        </Breadcrumbs>
-        <h1>Printable Nightmare Sudoku (PDF)</h1>
+        </PageHeader>
         <p>
             Nightmare holds just {getDifficultyClueCount(DifficultyEnum.Nightmare)} clues, and it is the booklet where the printed page
             genuinely earns its keep. Every puzzle in it was tested against a solver that already knows every fish and wing — including the{' '}

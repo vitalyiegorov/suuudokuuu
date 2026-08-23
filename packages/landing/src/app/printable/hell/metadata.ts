@@ -3,6 +3,7 @@ import type { PageMetadataInterface } from '../../../seo/interfaces/page-metadat
 export const printableHellSudokuPageMetadata: PageMetadataInterface = {
     path: '/printable/hell',
     title: 'Printable Hell Sudoku',
+    headline: 'Printable Hell Sudoku PDF (17 Clues)',
     metaTitle: 'Printable Hell Sudoku PDF — 17-Clue Puzzles & Solutions',
     metaDescription:
         'Download a free printable Hell sudoku PDF booklet: 16 verified, rating-filtered 17-clue puzzles from our Hell corpus, with solutions.',

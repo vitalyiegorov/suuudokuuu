@@ -1,8 +1,12 @@
+import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
+
+import { buildTechniquePageNames } from '../../../techniques/utils/build-technique-page-names.util';
+
 import type { PageMetadataInterface } from '../../../seo/interfaces/page-metadata.interface';
 
 export const xyChainPageMetadata: PageMetadataInterface = {
     path: '/techniques/xy-chain',
-    title: 'XY-Chain',
+    ...buildTechniquePageNames(SolutionTechniqueEnum.XYChain),
     metaTitle: 'XY-Chain Sudoku Technique — How to Spot and Use It',
     metaDescription:
         'An XY-Chain links bivalue cells end to end so the two chain endpoints agree on one candidate, letting it be erased from every cell both endpoints see.',

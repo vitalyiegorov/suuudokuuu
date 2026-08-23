@@ -1,13 +1,13 @@
 import Link from 'next/link';
 
 import { BreadcrumbListItem } from '../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
-import { Breadcrumbs } from '../../seo/components/breadcrumbs/breadcrumbs';
 import { Faq } from '../../seo/components/faq/faq';
 import { FaqAnswer } from '../../seo/components/faq-answer/faq-answer';
 import { FaqPage } from '../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../seo/components/how-to/how-to';
 import { HowToStep } from '../../seo/components/how-to-step/how-to-step';
+import { PageHeader } from '../../seo/components/page-header/page-header';
 import { SITE_PLAY_URL } from '../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../seo/utils/build-page-metadata.util';
 import { TechniqueSummary } from '../../techniques/components/technique-summary/technique-summary';
@@ -27,11 +27,10 @@ export const metadata: Metadata = buildPageMetadata(howToPlayPageMetadata);
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const HowToPlayPage = () => (
     <main>
-        <Breadcrumbs>
+        <PageHeader metadata={howToPlayPageMetadata}>
             <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
             <BreadcrumbListItem>How to play</BreadcrumbListItem>
-        </Breadcrumbs>
-        <h1>How to Play Sudoku</h1>
+        </PageHeader>
         <p>
             Sudoku is a logic puzzle played on a 9×9 grid, divided into nine 3×3 boxes. The goal is to fill every empty cell with a digit
             from 1 to 9 so that no digit repeats in any row, column or box. A well-formed Sudoku always starts with some cells already

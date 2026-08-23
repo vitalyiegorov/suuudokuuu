@@ -25,7 +25,7 @@ const EXAMPLE_BOARD = '692...8..457..831218324569784...3...31.....6.72.......571
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const HiddenTriplePage = () => (
     <main>
-        <TechniquePageHeader title="Hidden Triple" />
+        <TechniquePageHeader metadata={hiddenTriplePageMetadata} />
         <p>
             A hidden triple is three digits that between them can only go in the same three cells of a unit, which reserves those cells for
             the triple and removes every other candidate from them.

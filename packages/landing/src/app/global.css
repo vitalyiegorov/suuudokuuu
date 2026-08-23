@@ -245,6 +245,11 @@ strong {
     color: var(--landing-border-color);
 }
 
+.page-updated {
+    margin: 0 0 1.5rem;
+    font-size: 0.85rem;
+}
+
 .technique-summary {
     margin: 0 0 2rem;
     padding: 1rem 1.25rem;

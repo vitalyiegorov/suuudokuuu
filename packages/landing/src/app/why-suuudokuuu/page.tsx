@@ -1,12 +1,11 @@
 import Link from 'next/link';
 
-import { ArticleSchema } from '../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
-import { Breadcrumbs } from '../../seo/components/breadcrumbs/breadcrumbs';
 import { Faq } from '../../seo/components/faq/faq';
 import { FaqAnswer } from '../../seo/components/faq-answer/faq-answer';
 import { FaqPage } from '../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../seo/components/faq-question/faq-question';
+import { PageHeader } from '../../seo/components/page-header/page-header';
 import { SITE_GITHUB_URL, SITE_NAME, SITE_PLAY_URL } from '../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../seo/utils/build-page-metadata.util';
 import { homePageMetadata } from '../metadata';
@@ -24,18 +23,10 @@ export const metadata: Metadata = buildPageMetadata(whySuuudokuuuPageMetadata);
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const WhySuuudokuuuPage = () => (
     <main>
-        <ArticleSchema
-            dateModified={whySuuudokuuuPageMetadata.updatedAt}
-            datePublished={whySuuudokuuuPageMetadata.publishedAt}
-            description={whySuuudokuuuPageMetadata.metaDescription}
-            headline={whySuuudokuuuPageMetadata.title}
-            path={whySuuudokuuuPageMetadata.path}
-        />
-        <Breadcrumbs>
+        <PageHeader metadata={whySuuudokuuuPageMetadata}>
             <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
             <BreadcrumbListItem>Why {SITE_NAME}</BreadcrumbListItem>
-        </Breadcrumbs>
-        <h1>Why {SITE_NAME} Is an Ad-Free, Open-Source Sudoku</h1>
+        </PageHeader>
         <p>
             {SITE_NAME} is a free sudoku app and website with no ads, no third-party trackers and no account. The full source — the puzzle
             generator, the solvers, the technique detector and the app itself — is published on{' '}

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import { BreadcrumbListItem } from '../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
-import { Breadcrumbs } from '../../seo/components/breadcrumbs/breadcrumbs';
+import { PageHeader } from '../../seo/components/page-header/page-header';
 import { buildPageMetadata } from '../../seo/utils/build-page-metadata.util';
 import { TechniqueSummary } from '../../techniques/components/technique-summary/technique-summary';
 import { howToPlayPageMetadata } from '../how-to-play/metadata';
@@ -43,11 +43,10 @@ export const metadata: Metadata = buildPageMetadata(glossaryPageMetadata);
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const GlossaryPage = () => (
     <main>
-        <Breadcrumbs>
+        <PageHeader metadata={glossaryPageMetadata}>
             <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
             <BreadcrumbListItem>Glossary</BreadcrumbListItem>
-        </Breadcrumbs>
-        <h1>Sudoku Glossary</h1>
+        </PageHeader>
         <p>
             A glossary entry for every term used across the Suuudokuuu guides: the core vocabulary of the grid, plus all 26 solving
             techniques the app detects, from the simplest full house to a full alternating inference chain. Anything unfamiliar in the{' '}

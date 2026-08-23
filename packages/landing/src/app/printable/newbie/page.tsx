@@ -11,9 +11,8 @@ import {
 import { PRINTABLE_BOOKLET_PUZZLES, PRINTABLE_BOOKLET_SIZE } from '../../../printable/constants/printable-sample.constant';
 import { getPrintableBookletPageCount } from '../../../printable/utils/get-printable-booklet-page-count.util';
 import { PuzzleBoard } from '../../../puzzle/components/puzzle-board/puzzle-board';
-import { ArticleSchema } from '../../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
-import { Breadcrumbs } from '../../../seo/components/breadcrumbs/breadcrumbs';
+import { PageHeader } from '../../../seo/components/page-header/page-header';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
 import { sudokuDifficultyRatingPageMetadata } from '../../guides/sudoku-difficulty-rating/metadata';
 import { homePageMetadata } from '../../metadata';
@@ -37,19 +36,11 @@ const [PREVIEW_PUZZLE] = PRINTABLE_BOOKLET_PUZZLES[DifficultyEnum.Newbie];
 
 const PrintableNewbieSudokuPage = () => (
     <main>
-        <ArticleSchema
-            dateModified={printableNewbieSudokuPageMetadata.updatedAt}
-            datePublished={printableNewbieSudokuPageMetadata.publishedAt}
-            description={printableNewbieSudokuPageMetadata.metaDescription}
-            headline={printableNewbieSudokuPageMetadata.title}
-            path={printableNewbieSudokuPageMetadata.path}
-        />
-        <Breadcrumbs>
+        <PageHeader metadata={printableNewbieSudokuPageMetadata}>
             <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
             <BreadcrumbListItem path={printableSudokuPageMetadata.path}>Printable sudoku</BreadcrumbListItem>
             <BreadcrumbListItem>Newbie</BreadcrumbListItem>
-        </Breadcrumbs>
-        <h1>Printable Newbie Sudoku (PDF)</h1>
+        </PageHeader>
         <p>
             This is the gentlest booklet on the site: {getDifficultyClueCount(DifficultyEnum.Newbie)} clues out of 81 cells, and every one
             of the blanks is reachable with a full house or a naked single — a property each puzzle was checked for before it went into the

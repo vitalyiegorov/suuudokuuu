@@ -25,7 +25,7 @@ const EXAMPLE_BOARD = '.....1.73.....7.61172.63.484.71856.221...6857586.721.4.2.
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const NakedPairPage = () => (
     <main>
-        <TechniquePageHeader title="Naked Pair" />
+        <TechniquePageHeader metadata={nakedPairPageMetadata} />
         <p>
             A naked pair is two cells in the same row, column or box that both hold exactly the same two candidates, which reserves those
             two digits for those two cells and removes them from every other cell of the unit.

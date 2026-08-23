@@ -25,7 +25,7 @@ const EXAMPLE_BOARD = '..3.......56..4123..43.5...57...3..443.......16..42.3.681
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const NakedQuadPage = () => (
     <main>
-        <TechniquePageHeader title="Naked Quad" />
+        <TechniquePageHeader metadata={nakedQuadPageMetadata} />
         <p>
             A naked quad is four cells in the same unit whose candidates, taken together, use only four different digits, which reserves
             those four digits for those four cells and removes them from every other cell of the unit.

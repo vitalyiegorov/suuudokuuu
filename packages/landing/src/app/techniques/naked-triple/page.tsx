@@ -1,7 +1,5 @@
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
-import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
-import { Breadcrumbs } from '../../../seo/components/breadcrumbs/breadcrumbs';
 import { Faq } from '../../../seo/components/faq/faq';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
 import { FaqPage } from '../../../seo/components/faq-page/faq-page';
@@ -10,10 +8,9 @@ import { HowTo } from '../../../seo/components/how-to/how-to';
 import { HowToStep } from '../../../seo/components/how-to-step/how-to-step';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
 import { TechniqueNavigation } from '../../../techniques/components/technique-navigation/technique-navigation';
+import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
 import { TechniqueWorkedExample } from '../../../techniques/components/technique-worked-example/technique-worked-example';
-import { homePageMetadata } from '../../metadata';
-import { techniquesPageMetadata } from '../metadata';
 import { nakedPairPageMetadata } from '../naked-pair/metadata';
 import { nakedQuadPageMetadata } from '../naked-quad/metadata';
 
@@ -28,12 +25,7 @@ const EXAMPLE_BOARD = '..5.21.43934567812....34.5....215364342786195561493278.53
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const NakedTriplePage = () => (
     <main>
-        <Breadcrumbs>
-            <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
-            <BreadcrumbListItem path={techniquesPageMetadata.path}>Sudoku techniques</BreadcrumbListItem>
-            <BreadcrumbListItem>Naked Triple</BreadcrumbListItem>
-        </Breadcrumbs>
-        <h1>Naked Triple Sudoku Technique</h1>
+        <TechniquePageHeader metadata={nakedTriplePageMetadata} />
         <p>
             A naked triple is three cells in the same unit whose candidates, taken together, use only three different digits, which reserves
             those digits for the three cells and clears them from the rest of the unit.

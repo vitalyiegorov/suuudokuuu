@@ -25,7 +25,7 @@ const EXAMPLE_BOARD = '953168742862734951417..28367.6..3.2528164..973.527..68.38
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const XYChainPage = () => (
     <main>
-        <TechniquePageHeader title="XY-Chain" />
+        <TechniquePageHeader metadata={xyChainPageMetadata} />
         <p>
             An XY-Chain links bivalue cells end to end, each one sharing a candidate with the next, so that the chain’s two endpoints agree
             on one value between them and that value can be erased from every cell both endpoints see.

@@ -1,12 +1,11 @@
 import Link from 'next/link';
 
-import { ArticleSchema } from '../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
-import { Breadcrumbs } from '../../seo/components/breadcrumbs/breadcrumbs';
 import { Faq } from '../../seo/components/faq/faq';
 import { FaqAnswer } from '../../seo/components/faq-answer/faq-answer';
 import { FaqPage } from '../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../seo/components/faq-question/faq-question';
+import { PageHeader } from '../../seo/components/page-header/page-header';
 import { SITE_PLAY_URL } from '../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../seo/utils/build-page-metadata.util';
 import { TechniqueSummary } from '../../techniques/components/technique-summary/technique-summary';
@@ -27,18 +26,10 @@ export const metadata: Metadata = buildPageMetadata(seventeenClueSudokuPageMetad
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const SeventeenClueSudokuPage = () => (
     <main>
-        <ArticleSchema
-            dateModified={seventeenClueSudokuPageMetadata.updatedAt}
-            datePublished={seventeenClueSudokuPageMetadata.publishedAt}
-            description={seventeenClueSudokuPageMetadata.metaDescription}
-            headline={seventeenClueSudokuPageMetadata.title}
-            path={seventeenClueSudokuPageMetadata.path}
-        />
-        <Breadcrumbs>
+        <PageHeader metadata={seventeenClueSudokuPageMetadata}>
             <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
             <BreadcrumbListItem>17-clue sudoku</BreadcrumbListItem>
-        </Breadcrumbs>
-        <h1>17-Clue Sudoku: The Proven Minimum</h1>
+        </PageHeader>
         <p>
             A 17-clue sudoku is a puzzle that starts with only 17 filled cells out of 81 and still has exactly one valid solution — the
             smallest number of givens mathematically proven possible for a standard 9×9 grid. No 16-clue puzzle with a unique solution has

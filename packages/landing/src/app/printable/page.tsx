@@ -13,13 +13,12 @@ import {
 } from '../../printable/constants/printable-layout.constant';
 import { PRINTABLE_BOOKLET_SIZE, PRINTABLE_LARGE_PRINT_SIZE } from '../../printable/constants/printable-sample.constant';
 import { getPrintableBookletPageCount } from '../../printable/utils/get-printable-booklet-page-count.util';
-import { ArticleSchema } from '../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
-import { Breadcrumbs } from '../../seo/components/breadcrumbs/breadcrumbs';
 import { Faq } from '../../seo/components/faq/faq';
 import { FaqAnswer } from '../../seo/components/faq-answer/faq-answer';
 import { FaqPage } from '../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../seo/components/faq-question/faq-question';
+import { PageHeader } from '../../seo/components/page-header/page-header';
 import { SITE_PLAY_URL } from '../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../seo/utils/build-page-metadata.util';
 import { sudokuDifficultyRatingPageMetadata } from '../guides/sudoku-difficulty-rating/metadata';
@@ -60,18 +59,10 @@ const BLANK_GRID_PAGE_COUNT = PRINTABLE_COVER_PAGE_COUNT + PRINTABLE_BLANK_GRID_
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const PrintableSudokuPage = () => (
     <main>
-        <ArticleSchema
-            dateModified={printableSudokuPageMetadata.updatedAt}
-            datePublished={printableSudokuPageMetadata.publishedAt}
-            description={printableSudokuPageMetadata.metaDescription}
-            headline={printableSudokuPageMetadata.title}
-            path={printableSudokuPageMetadata.path}
-        />
-        <Breadcrumbs>
+        <PageHeader metadata={printableSudokuPageMetadata}>
             <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
             <BreadcrumbListItem>Printable sudoku</BreadcrumbListItem>
-        </Breadcrumbs>
-        <h1>Free Printable Sudoku Puzzles (PDF)</h1>
+        </PageHeader>
         <p>
             Every booklet below is a free printable sudoku PDF generated straight from Suuudokuuu’s own puzzle generator and technique
             detectors — the same code that runs the app. Pick a difficulty for a {PRINTABLE_BOOKLET_SIZE}-puzzle booklet with solutions on

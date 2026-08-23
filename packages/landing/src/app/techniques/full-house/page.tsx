@@ -24,7 +24,7 @@ const EXAMPLE_BOARD = '..1..6..5.....5..18521937647956.21382149386576....1942147
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const FullHousePage = () => (
     <main>
-        <TechniquePageHeader title="Full House" />
+        <TechniquePageHeader metadata={fullHousePageMetadata} />
         <p>
             A full house is a row, column or box in which exactly one cell is still empty, and the digit that belongs in it is simply the
             one value that unit has not used yet.

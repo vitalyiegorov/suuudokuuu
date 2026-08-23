@@ -3,6 +3,7 @@ import type { PageMetadataInterface } from '../../seo/interfaces/page-metadata.i
 export const solverPageMetadata: PageMetadataInterface = {
     path: '/solver',
     title: 'Sudoku solver',
+    headline: 'Sudoku Solver — Step by Step',
     metaTitle: 'Sudoku Solver Online — Step by Step, Free',
     metaDescription:
         'Free online sudoku solver that shows the steps. Type or paste your puzzle and get a technique-by-technique walkthrough, plus an honest uniqueness check.',

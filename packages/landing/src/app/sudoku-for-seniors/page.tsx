@@ -3,13 +3,12 @@ import Link from 'next/link';
 
 import { getDifficultyClueCount } from '../../difficulty/utils/get-difficulty-clue-count.util';
 import { PRINTABLE_LARGE_PRINT_PUZZLES_PER_PAGE } from '../../printable/constants/printable-layout.constant';
-import { ArticleSchema } from '../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
-import { Breadcrumbs } from '../../seo/components/breadcrumbs/breadcrumbs';
 import { Faq } from '../../seo/components/faq/faq';
 import { FaqAnswer } from '../../seo/components/faq-answer/faq-answer';
 import { FaqPage } from '../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../seo/components/faq-question/faq-question';
+import { PageHeader } from '../../seo/components/page-header/page-header';
 import { SITE_NAME, SITE_PLAY_URL } from '../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../seo/utils/build-page-metadata.util';
 import { TechniqueSummary } from '../../techniques/components/technique-summary/technique-summary';
@@ -30,18 +29,10 @@ export const metadata: Metadata = buildPageMetadata(sudokuForSeniorsPageMetadata
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const SudokuForSeniorsPage = () => (
     <main>
-        <ArticleSchema
-            dateModified={sudokuForSeniorsPageMetadata.updatedAt}
-            datePublished={sudokuForSeniorsPageMetadata.publishedAt}
-            description={sudokuForSeniorsPageMetadata.metaDescription}
-            headline={sudokuForSeniorsPageMetadata.title}
-            path={sudokuForSeniorsPageMetadata.path}
-        />
-        <Breadcrumbs>
+        <PageHeader metadata={sudokuForSeniorsPageMetadata}>
             <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
             <BreadcrumbListItem>Sudoku for seniors</BreadcrumbListItem>
-        </Breadcrumbs>
-        <h1>Sudoku for Seniors</h1>
+        </PageHeader>
         <p>
             Sudoku for seniors on {SITE_NAME} is the same puzzle everyone else plays, with the visual and motor friction removed: bigger
             digits, calmer colors, no forced timer, and a one-tap preset called Comfort mode that turns all of it on at once. Nothing here

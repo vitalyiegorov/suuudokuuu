@@ -6,11 +6,11 @@ import { getDifficultyClueCount } from '../../../difficulty/utils/get-difficulty
 import { SeRatingRange } from '../../../rating/components/se-rating-range/se-rating-range';
 import { getTierTechniqueReport } from '../../../rating/utils/get-tier-technique-reports.util';
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
-import { Breadcrumbs } from '../../../seo/components/breadcrumbs/breadcrumbs';
 import { Faq } from '../../../seo/components/faq/faq';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
 import { FaqPage } from '../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
+import { PageHeader } from '../../../seo/components/page-header/page-header';
 import { SITE_PLAY_URL } from '../../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
 import { howToPlayPageMetadata } from '../../how-to-play/metadata';
@@ -37,12 +37,11 @@ const EasySudokuPage = () => {
 
     return (
         <main>
-            <Breadcrumbs>
+            <PageHeader metadata={easySudokuPageMetadata}>
                 <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
                 <BreadcrumbListItem path={sudokuDifficultiesPageMetadata.path}>Sudoku difficulties</BreadcrumbListItem>
                 <BreadcrumbListItem>Easy</BreadcrumbListItem>
-            </Breadcrumbs>
-            <h1>Easy Sudoku Puzzles</h1>
+            </PageHeader>
             <p>
                 Easy is the first tier where Suuudokuuu expects a genuine, if gentle, solve. An Easy board carries{' '}
                 {getDifficultyClueCount(DifficultyEnum.Easy)} clues out of 81 cells, a handful fewer than Newbie. Full houses and naked

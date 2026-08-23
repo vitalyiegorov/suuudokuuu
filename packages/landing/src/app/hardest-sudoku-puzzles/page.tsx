@@ -2,13 +2,12 @@ import { SE_RATING_CEILING } from '@suuudokuuu/rating';
 import Link from 'next/link';
 
 import { PuzzleBoard } from '../../puzzle/components/puzzle-board/puzzle-board';
-import { ArticleSchema } from '../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
-import { Breadcrumbs } from '../../seo/components/breadcrumbs/breadcrumbs';
 import { Faq } from '../../seo/components/faq/faq';
 import { FaqAnswer } from '../../seo/components/faq-answer/faq-answer';
 import { FaqPage } from '../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../seo/components/faq-question/faq-question';
+import { PageHeader } from '../../seo/components/page-header/page-header';
 import { SITE_PLAY_URL } from '../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../seo/utils/build-page-metadata.util';
 import { TechniqueSummary } from '../../techniques/components/technique-summary/technique-summary';
@@ -31,18 +30,10 @@ const AI_ESCARGOT_GIVENS = '1000070900300200080096005000053009000100800026000040
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const HardestSudokuPuzzlesPage = () => (
     <main>
-        <ArticleSchema
-            dateModified={hardestSudokuPuzzlesPageMetadata.updatedAt}
-            datePublished={hardestSudokuPuzzlesPageMetadata.publishedAt}
-            description={hardestSudokuPuzzlesPageMetadata.metaDescription}
-            headline={hardestSudokuPuzzlesPageMetadata.title}
-            path={hardestSudokuPuzzlesPageMetadata.path}
-        />
-        <Breadcrumbs>
+        <PageHeader metadata={hardestSudokuPuzzlesPageMetadata}>
             <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
             <BreadcrumbListItem>Hardest sudoku puzzles</BreadcrumbListItem>
-        </Breadcrumbs>
-        <h1>The Hardest Sudoku Puzzles in the World</h1>
+        </PageHeader>
         <p>
             The hardest sudoku puzzles in the world are not the ones with the fewest clues. They are a small set of hand-crafted or
             computer-searched grids built specifically to defeat every named human solving technique, leaving only long forcing chains and

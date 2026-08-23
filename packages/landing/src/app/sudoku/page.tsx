@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import { getDifficultyClueCount } from '../../difficulty/utils/get-difficulty-clue-count.util';
 import { BreadcrumbListItem } from '../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
-import { Breadcrumbs } from '../../seo/components/breadcrumbs/breadcrumbs';
+import { PageHeader } from '../../seo/components/page-header/page-header';
 import { SITE_PLAY_URL } from '../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../seo/utils/build-page-metadata.util';
 import { sudokuCluesVsDifficultyPageMetadata } from '../guides/sudoku-clues-vs-difficulty/metadata';
@@ -26,11 +26,10 @@ export const metadata: Metadata = buildPageMetadata(sudokuDifficultiesPageMetada
 
 const SudokuDifficultiesPage = () => (
     <main>
-        <Breadcrumbs>
+        <PageHeader metadata={sudokuDifficultiesPageMetadata}>
             <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
             <BreadcrumbListItem>Sudoku difficulties</BreadcrumbListItem>
-        </Breadcrumbs>
-        <h1>Sudoku Difficulty Levels</h1>
+        </PageHeader>
         <p>
             Suuudokuuu grades every puzzle on a six-tier ladder, from Newbie through Hell, and each tier is defined by two concrete facts
             rather than a marketing label: how many clues the grid starts with, and which named solving techniques the tier is guaranteed to

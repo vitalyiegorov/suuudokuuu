@@ -24,7 +24,7 @@ const EXAMPLE_BOARD = '953168742862734..1417..28367.6..3.252.164...73.527..68.38
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const AICPage = () => (
     <main>
-        <TechniquePageHeader title="AIC" />
+        <TechniquePageHeader metadata={aicPageMetadata} />
         <p>
             An Alternating Inference Chain, or AIC, follows a path of alternating strong and weak links across candidates and cells,
             generalising X-Chains, XY-Chains and simple coloring into one technique that is not limited to a single digit or to bivalue

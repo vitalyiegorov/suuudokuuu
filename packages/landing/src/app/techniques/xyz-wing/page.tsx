@@ -25,7 +25,7 @@ const EXAMPLE_BOARD = '953168742862734951417..28367.6..3.2528164..973.527..68.38
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const XYZWingPage = () => (
     <main>
-        <TechniquePageHeader title="XYZ-Wing" />
+        <TechniquePageHeader metadata={xyzWingPageMetadata} />
         <p>
             An XYZ-Wing tightens the XY-Wing by giving the pivot cell all three candidates involved, X, Y and Z, so the elimination only
             reaches cells that all three cells of the wing see at once.

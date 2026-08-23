@@ -21,7 +21,7 @@ src/app/<route>/
 1. **Route file** — `src/app/<route>/page.tsx`, one per URL, exporting `metadata` and a default component.
 2. **Metadata sidecar** — `src/app/<route>/metadata.ts`, one exported `PageMetadataInterface` object.
 3. **Registry entry** — the sidecar is imported into `src/seo/registries/page-metadata.registry.ts` so `sitemap.ts` sees it.
-4. **Breadcrumbs** — `Breadcrumbs` with `BreadcrumbListItem` children, which emits the visible trail and the `BreadcrumbList` JSON-LD from the same children.
+4. **Page header** — `PageHeader metadata=` with `BreadcrumbListItem` children, which emits the visible trail and the `BreadcrumbList` JSON-LD from those children, plus the `<h1>`, the visible updated date and the `Article` schema from the sidecar.
 5. **Schema and cross-links** — the compound schema primitives the page needs, plus in-prose `<Link>`s to sibling pages, always resolved through the neighbour’s sidecar (`href={xWingPageMetadata.path}`), never through a hardcoded string.
 
 `src/app/techniques/x-wing/page.tsx` is the reference technique page, `src/app/sudoku/hard/page.tsx` the reference difficulty lander, `src/app/printable/hard/page.tsx` the reference article-schema page, and `src/app/solver/page.tsx` the reference tool page.
@@ -45,7 +45,7 @@ Every `page.tsx` has a sibling `metadata.ts` exporting one `PageMetadataInterfac
 ```ts
 export const xWingPageMetadata: PageMetadataInterface = {
     path: '/techniques/x-wing',
-    title: 'X-Wing',
+    ...buildTechniquePageNames(SolutionTechniqueEnum.XWing),
     metaTitle: 'X-Wing Sudoku Technique — How to Spot and Use It',
     metaDescription:
         'An X-Wing traps a digit in the same two lines across two rows or columns, letting it be erased everywhere else those lines cross.',
@@ -56,7 +56,19 @@ export const xWingPageMetadata: PageMetadataInterface = {
 };
 ```
 
-`publishedAt` and `updatedAt` are non-optional in `PageMetadataInterface` on purpose. TypeScript, not review discipline, guarantees that every page carries a freshness signal into `sitemap.ts`, into `ArticleSchema`, and into the `article:published_time` / `article:modified_time` Open Graph tags. There is no fallback date anywhere and no central last-modified map — a map like that goes stale silently, because nothing fails when an author forgets to touch it.
+`publishedAt` and `updatedAt` are non-optional in `PageMetadataInterface` on purpose. TypeScript, not review discipline, guarantees that every page carries a freshness signal into `sitemap.ts`, into `ArticleSchema`, into the visible `<time>` line under the `<h1>`, and into the `article:published_time` / `article:modified_time` Open Graph tags. There is no fallback date anywhere and no central last-modified map — a map like that goes stale silently, because nothing fails when an author forgets to touch it.
+
+`title` and `headline` are two different names for two different jobs, and each one exists exactly once:
+
+- `title` is the **short** name: the breadcrumb crumb, the prev/next chain label, the `llms.txt` link text. Keep it terse.
+- `headline` is the **rendered `<h1>`**, and it is optional; when it is absent the `<h1>` falls back to `title`. `ArticleSchema` reads the same resolved value through `resolvePageHeadline`, so the structured-data headline and the visible headline cannot drift — they are the same string.
+
+Neither is ever retyped in the route file. `PageHeader` renders the `<h1>` from the sidecar and every content page uses it.
+
+Where a family of pages shares a name that also exists as a display name outside any sidecar, the map is the authority and the sidecar derives from it:
+
+- `TECHNIQUE_NAMES` (`src/techniques/constants/technique-name.constant.ts`) is the one authority for technique display names — the narration renderer and the solver step list need `SolutionTechniqueEnum → name` on pages that are not the technique's own page, and five enum members have no page at all. `buildTechniquePageNames(technique)` reads that map and returns `{ title, headline }`, so a technique page never types its own name.
+- `DIFFICULTY_NAMES` (`src/difficulty/constants/difficulty-name.constant.ts`) is the one authority for tier names, used by the generated tables. `buildDifficultyPageTitle(difficulty)` turns it into the `/sudoku/<tier>` sidecar title.
 
 The page then reads the sidecar directly:
 
@@ -80,7 +92,9 @@ Never allowed in a registry: FAQ questions or answers, how-to steps, hero bullet
 
 ### 2.4 Body copy lives in the page that renders it
 
-Headings, prose, list items, FAQ entries, how-to steps, captions, and CTA text are written inline as JSX in the route file. A reader must be able to grep a visible sentence and land on the route that renders it.
+Section headings, prose, list items, FAQ entries, how-to steps, captions, and CTA text are written inline as JSX in the route file. A reader must be able to grep a visible sentence and land on the route that renders it.
+
+The `<h1>` is the one exception, and §2.2 explains why: it is also the `Article` headline, so it lives in the sidecar as `headline` and is rendered by `PageHeader`. It is still greppable, one file across from the copy it heads.
 
 Do not move copy into constants, keyed content objects, string arrays, or prop bags, and do not build a fixed list by mapping over an array of strings just to shorten a file. Long content pages are expected to be long; that is why the technique pages carry a narrow `max-lines-per-function` disable with a justification.
 
@@ -128,7 +142,9 @@ That is what makes the schema and the visible copy structurally incapable of dri
 | `Breadcrumbs`               | `BreadcrumbListItem path=`         | `BreadcrumbList` (through `BreadcrumbListSchema`) | yes, a `<nav><ol>` trail     |
 | `BreadcrumbListSchema`      | `BreadcrumbListItem path=`         | `BreadcrumbList`                                  | no, schema only              |
 
-`ArticleSchema` is the deliberate exception: its `headline`, `description`, `datePublished`, and `dateModified` are single values, and their one source of truth is the metadata sidecar, so it takes plain props and pages pass sidecar fields rather than retyping strings.
+`ArticleSchema` is the deliberate exception: its headline, description, dates, and image are single values whose one source of truth is the metadata sidecar, so it takes the whole sidecar as `metadata` rather than a row of free-typed strings. A page never renders it directly; `PageHeader` does, from the same object it renders the `<h1>` and the `<time>` line from. That is the same anti-drift guarantee the slot primitives give, achieved with one shared object instead of one shared set of children.
+
+The home page is the one content page with no `PageHeader` and no `Article` schema: it is a `WebSite` plus `SoftwareApplication` surface, not an article, and a product landing page does not want a “Updated …” line above the fold.
 
 Prefer the renderer over the bare schema. Reach for `HowToSchema` or `BreadcrumbListSchema` directly only when the page genuinely renders that content itself in a different shape; if you find yourself writing a visible `<ol>` next to a `HowToSchema` with the same steps, use `HowTo` instead.
 
@@ -153,9 +169,9 @@ The same rule applies one level down, to every primitive:
 
 A page never passes site identity down. Site name, origin, tagline, description, locales, and theme colors live once in `src/seo/constants/site.constant.ts`, and every primitive that needs them imports them itself.
 
-- `ArticleSchema` and `SoftwareApplicationSchema` resolve their `url` through `buildLocaleUrl(DEFAULT_LOCALE, path)` and their publisher through `SITE_NAME` internally. Callers pass `path`, not an origin.
+- `ArticleSchema` and `SoftwareApplicationSchema` resolve their `url` through `buildLocaleUrl(DEFAULT_LOCALE, path)` and their publisher through `SITE_NAME` internally. `ArticleSchema` also resolves its `image` through `buildOgImageUrl`, the same helper `buildPageMetadata` uses for the Open Graph image. Callers pass a sidecar, not an origin.
 - `buildPageMetadata` resolves canonical and hreflang through `buildAlternates` internally. Callers pass a sidecar, not a canonical URL.
-- `TechniquePageHeader` builds its own `Home > Sudoku techniques > <title>` trail from the two hub sidecars. Callers pass a title, not a breadcrumb array.
+- `TechniquePageHeader` builds its own `Home > Sudoku techniques > <title>` trail from the two hub sidecars. Callers pass the page's own sidecar, not a title and not a breadcrumb array.
 - `SiteHeader` and `SiteFooter` resolve every destination through the target page’s sidecar. Neither takes props.
 
 Never pass `siteName`, `origin`, `locale`, or a prebuilt canonical URL into a primitive. If a primitive needs a shared constant, it imports it; that is the only way one change to the brand constants reaches every surface.
@@ -203,8 +219,11 @@ Check this table before writing a new component. Most concerns already have one.
 | How-to steps, schema only                 | `HowToSchema name= description=` + `HowToStep name=`                                | use only when the page renders the steps itself in a different shape                                           |
 | Breadcrumbs, schema and visible together  | `Breadcrumbs` + `BreadcrumbListItem path=`                                          | omit `path` on the last item; it renders as the current page                                                   |
 | Breadcrumbs, schema only                  | `BreadcrumbListSchema` + `BreadcrumbListItem path=`                                 | used internally by `Breadcrumbs`                                                                               |
-| Technique page header                     | `TechniquePageHeader title=`                                                        | the `Home > Sudoku techniques > <title>` trail plus the `<h1>`                                                 |
-| Article dates and byline schema           | `ArticleSchema path= headline= description= datePublished= dateModified=`           | pass sidecar fields; never retype the headline or description                                                  |
+| Page header                               | `PageHeader metadata=` + `BreadcrumbListItem path=`                                 | breadcrumbs, the `<h1>`, the visible updated date and `Article` schema, all from one sidecar                   |
+| Technique page header                     | `TechniquePageHeader metadata=`                                                     | `PageHeader` with the fixed `Home > Sudoku techniques > <title>` trail                                         |
+| Visible freshness date                    | `UpdatedDate updatedAt=`                                                            | rendered by `PageHeader`; a `<time dateTime>` line under the `<h1>`                                            |
+| Article dates and byline schema           | `ArticleSchema metadata=`                                                           | rendered by `PageHeader`; takes the whole sidecar, never free-typed strings                                    |
+| Technique and tier display names          | `buildTechniquePageNames(technique)`, `buildDifficultyPageTitle(difficulty)`        | sidecar titles derive from `TECHNIQUE_NAMES` / `DIFFICULTY_NAMES`, the one authority per name                  |
 | App or feature list                       | `SoftwareApplicationSchema path= name= description=` + `SoftwareApplicationFeature` | emits `SoftwareApplication` JSON-LD with `featureList` and a visible feature list                              |
 | Worked technique example                  | `TechniqueWorkedExample board= technique=` + caption children                       | the only worked-example entry point; drives the static table and the live board from one board string          |
 | Static example board                      | `TechniqueExampleBoard example=` + caption children                                 | rendered by `TechniqueWorkedExample`; takes the built example view model                                       |
@@ -269,12 +288,12 @@ Treat a rejected submission as a configuration question, not a retry loop: reche
 
 ## 5. Adding a new content page
 
-1. Create `src/app/<route>/metadata.ts` with a `PageMetadataInterface` object: `path`, `title`, a keyword-first `metaTitle`, a `metaDescription` that reads as a sentence, `publishedAt`, `updatedAt`, `changeFrequency`, `priority`.
+1. Create `src/app/<route>/metadata.ts` with a `PageMetadataInterface` object: `path`, a short `title`, the `<h1>` text as `headline`, a keyword-first `metaTitle`, a `metaDescription` that reads as a sentence, `publishedAt`, `updatedAt`, `changeFrequency`, `priority`.
 2. Create `src/app/<route>/page.tsx` and export `const metadata: Metadata = buildPageMetadata(<page>Metadata);`.
 3. Register the sidecar in `src/seo/registries/page-metadata.registry.ts`, placed in the reading order of the site, not alphabetically.
-4. Open with `Breadcrumbs` and `BreadcrumbListItem` children, then the `<h1>`, then a definition-first opening paragraph that answers the query in the first sentence.
+4. Open with `PageHeader metadata=` and `BreadcrumbListItem` children — it renders the trail, the `<h1>`, the visible updated date and the `Article` schema — then a definition-first opening paragraph that answers the query in the first sentence. Never write an `<h1>` in a route file.
 5. Write the body copy inline. Reach for the concern → primitive table before writing any new component.
-6. Add the schema the page earns: `ArticleSchema` for long-form guides, `SoftwareApplicationSchema` for product surfaces, `HowTo` for procedures, `FaqPage` for questions. Feed each one children or sidecar fields — never a duplicated string.
+6. Add the extra schema the page earns: `SoftwareApplicationSchema` for product surfaces, `HowTo` for procedures, `FaqPage` for questions. Feed each one children or sidecar fields — never a duplicated string.
 7. Link outward through neighbouring sidecars, and add the inbound link from at least one hub page so the new URL is reachable.
 8. Add prev / next navigation if the page belongs to a chain.
 9. Run `yarn workspace @suuudokuuu/landing ts` and `yarn workspace @suuudokuuu/landing lint`, then the root validation sequence: `yarn format && yarn ts && yarn lint && yarn deadcode && yarn cpd`.

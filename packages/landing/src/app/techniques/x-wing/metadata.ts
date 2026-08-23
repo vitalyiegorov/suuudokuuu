@@ -1,8 +1,12 @@
+import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
+
+import { buildTechniquePageNames } from '../../../techniques/utils/build-technique-page-names.util';
+
 import type { PageMetadataInterface } from '../../../seo/interfaces/page-metadata.interface';
 
 export const xWingPageMetadata: PageMetadataInterface = {
     path: '/techniques/x-wing',
-    title: 'X-Wing',
+    ...buildTechniquePageNames(SolutionTechniqueEnum.XWing),
     metaTitle: 'X-Wing Sudoku Technique — How to Spot and Use It',
     metaDescription:
         'An X-Wing traps a digit in the same two lines across two rows or columns, letting it be erased everywhere else those lines cross.',

@@ -1,8 +1,13 @@
+import { DifficultyEnum } from '@suuudokuuu/generator';
+
+import { buildDifficultyPageTitle } from '../../../difficulty/utils/build-difficulty-page-title.util';
+
 import type { PageMetadataInterface } from '../../../seo/interfaces/page-metadata.interface';
 
 export const mediumSudokuPageMetadata: PageMetadataInterface = {
     path: '/sudoku/medium',
-    title: 'Medium Sudoku',
+    title: buildDifficultyPageTitle(DifficultyEnum.Medium),
+    headline: 'Medium Sudoku Puzzles',
     metaTitle: 'Medium Sudoku Puzzles — Play Free Online',
     metaDescription:
         'Free medium Sudoku puzzles with 27 clues, every one guaranteed to need pointing pairs, box line reduction or a naked or hidden subset. Play free online.',
