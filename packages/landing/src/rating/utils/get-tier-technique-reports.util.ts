@@ -1,3 +1,4 @@
+import { DIFFICULTY_BANDS } from '@suuudokuuu/puzzle-forge';
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { isDefined } from '@rnw-community/shared';
@@ -29,12 +30,20 @@ const findTypicalHardestTechnique = (results: LogicalSolveResultInterface[]): So
 };
 
 const buildTierTechniqueReport = (difficulty: LandingDifficultyType): TierTechniqueReportInterface => {
-    const results = RATING_SAMPLE_PUZZLES[difficulty].map(solvePuzzleLogically);
+    const sample = RATING_SAMPLE_PUZZLES[difficulty];
+    const results = sample.map(entry => solvePuzzleLogically(entry.puzzle));
     const reached = TECHNIQUE_LADDER.filter(technique => results.some(result => result.hardestTechnique === technique));
+    const ratings = sample.map(entry => entry.rating);
+    const band = DIFFICULTY_BANDS[difficulty];
 
     return {
         difficulty,
         clueCount: getDifficultyClueCount(difficulty),
+        simplerLadderMaxTechnique: band.simplerLadderMaxTechnique,
+        bandLadderMaxTechnique: band.bandLadderMaxTechnique,
+        lowestRating: Math.min(...ratings),
+        highestRating: Math.max(...ratings),
+        ceilingRatedPuzzleCount: sample.filter(entry => entry.isRatingCeiling).length,
         sampleSize: results.length,
         singlesOnlyPuzzleCount: results.filter(isSinglesOnly).length,
         beyondLadderPuzzleCount: results.filter(result => result.isBeyondTechniqueLadder).length,

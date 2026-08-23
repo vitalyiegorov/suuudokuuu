@@ -7,7 +7,7 @@ export const printableSudokuPageMetadata: PageMetadataInterface = {
     metaDescription:
         'Free printable sudoku PDF booklets for every difficulty, plus a large-print set and a blank sudoku grid. Solutions included, no sign-up.',
     publishedAt: '2026-08-11T00:00:00.000Z',
-    updatedAt: '2026-08-11T00:00:00.000Z',
+    updatedAt: '2026-08-23T00:00:00.000Z',
     changeFrequency: 'monthly',
     priority: 0.7
 };

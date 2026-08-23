@@ -51,9 +51,10 @@ const PrintableNewbieSudokuPage = () => (
         </Breadcrumbs>
         <h1>Printable Newbie Sudoku (PDF)</h1>
         <p>
-            This is the gentlest booklet on the site: {getDifficultyClueCount(DifficultyEnum.Newbie)} clues out of 81 cells, leaving so few
-            blanks that a full house or a naked single accounts for every placement. It is the booklet to hand a first-time solver, a
-            classroom just learning the rules, or anyone who wants a puzzle that never demands a second guess.
+            This is the gentlest booklet on the site: {getDifficultyClueCount(DifficultyEnum.Newbie)} clues out of 81 cells, and every one
+            of the blanks is reachable with a full house or a naked single — a property each puzzle was checked for before it went into the
+            PDF. It is the booklet to hand a first-time solver, a classroom just learning the rules, or anyone who wants a puzzle that never
+            demands a second guess.
         </p>
         <PuzzleBoard givens={PREVIEW_PUZZLE}>Puzzle 1 from the Newbie booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF.</PuzzleBoard>
         <PrintableDownloadCard fileName="newbie.pdf" pageCount={PAGE_COUNT} puzzleCount={PRINTABLE_BOOKLET_SIZE} title="Newbie Sudoku" />
@@ -66,18 +67,18 @@ const PrintableNewbieSudokuPage = () => (
         </p>
         <h2>Good for a first sudoku habit</h2>
         <p>
-            With only ten blanks per puzzle, this is the booklet to print for a five-minute daily habit rather than a long sitting: fold it
-            into a notebook, work one grid at a time, and there is never a candidate to write down or a pair to track across the row. It
-            also suits a classroom introducing the rules for the first time, since a full class can finish a puzzle in the same short window
-            without anyone stalling on an intersection they have not been taught yet. The four-per-page layout still leaves each grid large
-            enough to write in comfortably, even for a child’s handwriting, and the answer key at the back means a teacher never has to
-            solve the sheet themselves to check it.
+            This is the booklet to print for a short daily habit rather than a long sitting: fold it into a notebook, work one grid at a
+            time, and there is never a candidate to write down or a pair to track across the row. It also suits a classroom introducing the
+            rules for the first time, since a full class can finish a puzzle in the same short window without anyone stalling on an
+            intersection they have not been taught yet. The four-per-page layout still leaves each grid large enough to write in
+            comfortably, even for a child’s handwriting, and the answer key at the back means a teacher never has to solve the sheet
+            themselves to check it.
         </p>
         <h2>Where to go next</h2>
         <p>
             Once full houses and naked singles feel automatic, step up to the{' '}
-            <Link href={printableEasySudokuPageMetadata.path}>printable Easy sudoku booklet</Link>, which uses the same techniques over a
-            fuller grid. To play Newbie puzzles on a screen instead, visit the{' '}
+            <Link href={printableEasySudokuPageMetadata.path}>printable Easy sudoku booklet</Link>, which adds exactly one technique on top:
+            the hidden single. To play Newbie puzzles on a screen instead, visit the{' '}
             <Link href={newbieSudokuPageMetadata.path}>Newbie sudoku lander</Link>. For the full technique ladder and the measured data
             behind these claims, see the <Link href={techniquesPageMetadata.path}>technique index</Link> and the{' '}
             <Link href={sudokuDifficultyRatingPageMetadata.path}>sudoku difficulty rating guide</Link>.

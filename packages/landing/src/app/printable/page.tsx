@@ -104,8 +104,8 @@ const PrintableSudokuPage = () => (
                 <Link href={printableEasySudokuPageMetadata.path}>Easy</Link>
             </h3>
             <p>
-                {getDifficultyClueCount(DifficultyEnum.Easy)} clues, the same single-cell logic with more of the grid to work through. See
-                the <Link href={easySudokuPageMetadata.path}>Easy sudoku lander</Link> to play it digitally.
+                {getDifficultyClueCount(DifficultyEnum.Easy)} clues, and every puzzle needs at least one hidden single, never more. See the{' '}
+                <Link href={easySudokuPageMetadata.path}>Easy sudoku lander</Link> to play it digitally.
             </p>
             <PrintableDownloadCard
                 fileName="easy.pdf"
@@ -119,8 +119,8 @@ const PrintableSudokuPage = () => (
                 <Link href={printableMediumSudokuPageMetadata.path}>Medium</Link>
             </h3>
             <p>
-                {getDifficultyClueCount(DifficultyEnum.Medium)} clues, where hidden singles and box-line intersections start to earn their
-                keep. See the <Link href={mediumSudokuPageMetadata.path}>Medium sudoku lander</Link> to play it digitally.
+                {getDifficultyClueCount(DifficultyEnum.Medium)} clues, guaranteed to stall on singles and to yield to intersections and
+                subsets. See the <Link href={mediumSudokuPageMetadata.path}>Medium sudoku lander</Link> to play it digitally.
             </p>
             <PrintableDownloadCard
                 fileName="medium.pdf"
@@ -134,8 +134,8 @@ const PrintableSudokuPage = () => (
                 <Link href={printableHardSudokuPageMetadata.path}>Hard</Link>
             </h3>
             <p>
-                {getDifficultyClueCount(DifficultyEnum.Hard)} clues, the first tier where subsets and the X-Wing fish pattern show up at
-                all. See the <Link href={hardSudokuPageMetadata.path}>Hard sudoku lander</Link> to play it digitally.
+                {getDifficultyClueCount(DifficultyEnum.Hard)} clues, guaranteed to stall on subsets and to yield to fish and wing patterns.
+                See the <Link href={hardSudokuPageMetadata.path}>Hard sudoku lander</Link> to play it digitally.
             </p>
             <PrintableDownloadCard
                 fileName="hard.pdf"
@@ -149,8 +149,8 @@ const PrintableSudokuPage = () => (
                 <Link href={printableNightmareSudokuPageMetadata.path}>Nightmare</Link>
             </h3>
             <p>
-                {getDifficultyClueCount(DifficultyEnum.Nightmare)} clues, where boards diverge sharply between singles-only solves and fish,
-                wings and chains. See the <Link href={nightmareSudokuPageMetadata.path}>Nightmare sudoku lander</Link> to play it digitally.
+                {getDifficultyClueCount(DifficultyEnum.Nightmare)} clues, guaranteed to stall on wings and to yield to chains and coloring.
+                See the <Link href={nightmareSudokuPageMetadata.path}>Nightmare sudoku lander</Link> to play it digitally.
             </p>
             <PrintableDownloadCard
                 fileName="nightmare.pdf"

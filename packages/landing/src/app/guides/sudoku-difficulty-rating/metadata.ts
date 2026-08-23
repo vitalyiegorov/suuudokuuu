@@ -7,7 +7,7 @@ export const sudokuDifficultyRatingPageMetadata: PageMetadataInterface = {
     metaDescription:
         'What an SE (Sudoku Explainer) rating measures, the technique-to-rating ladder behind it, and real technique-frequency data from 240 generated puzzles.',
     publishedAt: '2026-08-11T00:00:00.000Z',
-    updatedAt: '2026-08-11T00:00:00.000Z',
+    updatedAt: '2026-08-23T00:00:00.000Z',
     changeFrequency: 'monthly',
     priority: 0.9
 };

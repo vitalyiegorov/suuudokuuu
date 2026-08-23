@@ -53,10 +53,10 @@ const PrintableMediumSudokuPage = () => (
         <h1>Printable Medium Sudoku (PDF)</h1>
         <p>
             At {getDifficultyClueCount(DifficultyEnum.Medium)} clues out of 81 cells, this booklet is the first one worth solving with a
-            pencil. Full houses and naked singles carry a Medium grid part of the way, but every puzzle in it eventually stalls until you
-            spot a <Link href={pointingPairPageMetadata.path}>pointing pair</Link> or a{' '}
-            <Link href={boxLineReductionPageMetadata.path}>box-line reduction</Link> — an intersection between a box and a line that only
-            eliminates candidates, never places a digit outright.
+            pencil. Singles carry a Medium grid part of the way, but every puzzle in it provably stalls on them — that is the test each
+            board had to fail to be printed here — until you spot a <Link href={pointingPairPageMetadata.path}>pointing pair</Link> or a{' '}
+            <Link href={boxLineReductionPageMetadata.path}>box-line reduction</Link>, an intersection between a box and a line that only
+            eliminates candidates, never places a digit outright. Nothing in the booklet needs a fish, a wing or a chain.
         </p>
         <PuzzleBoard givens={PREVIEW_PUZZLE}>Puzzle 1 from the Medium booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF.</PuzzleBoard>
         <PrintableDownloadCard fileName="medium.pdf" pageCount={PAGE_COUNT} puzzleCount={PRINTABLE_BOOKLET_SIZE} title="Medium Sudoku" />
@@ -78,9 +78,9 @@ const PrintableMediumSudokuPage = () => (
         <h2>Where to go next</h2>
         <p>
             When intersections start feeling automatic, move up to the{' '}
-            <Link href={printableHardSudokuPageMetadata.path}>printable Hard sudoku booklet</Link> for triples, quads and the X-Wing. Drop
-            back to <Link href={printableEasySudokuPageMetadata.path}>printable Easy sudoku</Link> for a singles-only warm-up, or play
-            Medium on a screen at the <Link href={mediumSudokuPageMetadata.path}>Medium sudoku lander</Link>.
+            <Link href={printableHardSudokuPageMetadata.path}>printable Hard sudoku booklet</Link> for fish and wing patterns. Drop back to{' '}
+            <Link href={printableEasySudokuPageMetadata.path}>printable Easy sudoku</Link> for a singles-only warm-up, or play Medium on a
+            screen at the <Link href={mediumSudokuPageMetadata.path}>Medium sudoku lander</Link>.
         </p>
         <DifficultyNavigation next={printableHardSudokuPageMetadata} previous={printableEasySudokuPageMetadata} />
     </main>

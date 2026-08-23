@@ -109,14 +109,14 @@ const HowToPlayPage = () => (
                 <strong>Easy.</strong> Adds hidden singles, still no candidate tracking required.
             </li>
             <li>
-                <strong>Medium.</strong> Introduces pointing pairs, pointing triples, box line reduction and the first naked and hidden
-                pairs.
+                <strong>Medium.</strong> Always stalls on singles and always yields to intersections and subsets — pointing pairs, box line
+                reduction, naked and hidden pairs through quads.
             </li>
             <li>
-                <strong>Hard.</strong> Requires naked and hidden triples and quads, plus your first fish pattern.
+                <strong>Hard.</strong> Always stalls on subsets and always yields to a fish or a wing pattern.
             </li>
             <li>
-                <strong>Nightmare.</strong> Needs fish patterns and wings on top of every earlier technique.
+                <strong>Nightmare.</strong> Always stalls on fish and wings and always yields to chain or coloring logic.
             </li>
             <li>
                 <strong>Hell.</strong> Drawn from a bundled, verified 17-clue corpus — the minimum number of clues a Sudoku can have.

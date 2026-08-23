@@ -40,7 +40,7 @@ src/
 
 ## Domain Rules
 
-1. `DIFFICULTY_BANDS` in `src/@generic/constants/difficulty-band.constant.ts` is the single source of truth for what a tier means. A tier is a blank-cell target plus a required-technique band, never a blank-cell target alone.
+1. `DIFFICULTY_BANDS` in `src/@generic/constants/difficulty-band.constant.ts` is the single source of truth for what a tier means. A tier is a blank-cell target plus a required-technique band, never a blank-cell target alone. It is exported from the package index so consumers can state a tier's clue count and band contract without re-deriving either.
 2. A band is expressed as two ladder ceilings. `simplerLadderMaxTechnique` is the previous tier's ceiling and the puzzle must **not** be solvable with it; `bandLadderMaxTechnique` is this tier's ceiling and the puzzle **must** be solvable with it. `null` means the bound is open on that side.
 3. `DifficultyEnum` values are append-only and are serialized into saved games, history, shared links and replays. Adding a tier means adding a band entry; never renumber or drop one.
 4. `defaultSudokuConfig.difficultyBlankCells` in the generator is frozen for every tier that already shipped. It is the legacy blank-count inference table used to label pre-trailer shared links, not a generation target. Blank-cell targets for new puzzles live in `DIFFICULTY_BANDS` and are applied by cloning the config per request. Corpus tiers never reach that cloning path, so their `blankCells` entry only records the tier's place in the table.

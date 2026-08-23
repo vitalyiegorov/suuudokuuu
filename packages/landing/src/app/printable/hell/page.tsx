@@ -11,6 +11,7 @@ import {
 import { PRINTABLE_BOOKLET_PUZZLES, PRINTABLE_BOOKLET_SIZE } from '../../../printable/constants/printable-sample.constant';
 import { getPrintableBookletPageCount } from '../../../printable/utils/get-printable-booklet-page-count.util';
 import { PuzzleBoard } from '../../../puzzle/components/puzzle-board/puzzle-board';
+import { SeRatingRange } from '../../../rating/components/se-rating-range/se-rating-range';
 import { getTierTechniqueReport } from '../../../rating/utils/get-tier-technique-reports.util';
 import { ArticleSchema } from '../../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
@@ -20,6 +21,7 @@ import { seventeenClueSudokuPageMetadata } from '../../17-clue-sudoku/metadata';
 import { homePageMetadata } from '../../metadata';
 import { hellSudokuPageMetadata } from '../../sudoku/hell/metadata';
 import { aicPageMetadata } from '../../techniques/aic/metadata';
+import { printableHardSudokuPageMetadata } from '../hard/metadata';
 import { printableSudokuPageMetadata } from '../metadata';
 import { printableNightmareSudokuPageMetadata } from '../nightmare/metadata';
 
@@ -55,10 +57,9 @@ const PrintableHellSudokuPage = () => (
         <p>
             Every puzzle in this booklet carries exactly {getDifficultyClueCount(DifficultyEnum.Hell)} clues, the proven minimum for a
             sudoku with one unique solution, drawn from our bundled and independently verified 17-clue corpus rather than generated fresh.
-            It is the only tier where singles never finish the job on their own: in our published sample,{' '}
-            {hellReport.singlesOnlyPuzzleCount} of {hellReport.sampleSize} Hell puzzles needed chain or coloring techniques such as{' '}
-            <Link href={aicPageMetadata.path}>AIC</Link>. See the <Link href={seventeenClueSudokuPageMetadata.path}>17-clue guide</Link> for
-            why the clue count itself is the headline fact here.
+            Our published sample of {hellReport.sampleSize} boards measures the tier at SE <SeRatingRange report={hellReport} />, with the{' '}
+            <Link href={aicPageMetadata.path}>AIC</Link> as the most common hardest step. See the{' '}
+            <Link href={seventeenClueSudokuPageMetadata.path}>17-clue guide</Link> for what the clue count does and does not tell you here.
         </p>
         <PuzzleBoard givens={PREVIEW_PUZZLE}>Puzzle 1 from the Hell booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF.</PuzzleBoard>
         <PrintableDownloadCard fileName="hell.pdf" pageCount={PAGE_COUNT} puzzleCount={PRINTABLE_BOOKLET_SIZE} title="Hell Sudoku" />
@@ -74,15 +75,18 @@ const PrintableHellSudokuPage = () => (
             Every 17-clue puzzle in this booklet comes from a bundled corpus that Suuudokuuu checks with two independent solving algorithms
             — a Dancing Links exact-cover solver and a typed-array bitmask solver — before it ships, rather than generating a fresh grid and
             hoping the clue count still leaves a unique solution. That is deliberate: seventeen clues is the smallest mathematically proven
-            count that can still guarantee one solution, so there is no safety margin for a generator to get it slightly wrong. Printing
-            from a pre-verified source means every puzzle here is guaranteed solvable before you ever pick up a pencil.
+            count that can still guarantee one solution, so there is no safety margin for a generator to get it slightly wrong. Each puzzle
+            is also rated on the SE scale as the corpus is packed, and anything that rates too low for the tier is dropped — the clue count
+            alone would not be enough to promise a hard puzzle. Printing from a pre-verified source means every puzzle here is guaranteed
+            solvable before you ever pick up a pencil.
         </p>
         <h2>Where to go next</h2>
         <p>
             Not ready for chains on paper yet? Step back to the{' '}
-            <Link href={printableNightmareSudokuPageMetadata.path}>printable Nightmare sudoku booklet</Link> for fish and wings without
-            chain-length reasoning, or play Hell on a screen at the <Link href={hellSudokuPageMetadata.path}>Hell sudoku lander</Link>,
-            where the same 17-clue corpus powers every puzzle.
+            <Link href={printableNightmareSudokuPageMetadata.path}>printable Nightmare sudoku booklet</Link> for the same chain reasoning
+            with more of the grid filled in, or to <Link href={printableHardSudokuPageMetadata.path}>printable Hard sudoku</Link> for fish
+            and wings without chain-length reasoning, or play Hell on a screen at the{' '}
+            <Link href={hellSudokuPageMetadata.path}>Hell sudoku lander</Link>, where the same 17-clue corpus powers every puzzle.
         </p>
         <DifficultyNavigation previous={printableNightmareSudokuPageMetadata} />
     </main>

@@ -15,6 +15,7 @@ yarn workspace @suuudokuuu/landing start   # next dev
 yarn workspace @suuudokuuu/landing build   # next build -> static export in out/
 yarn workspace @suuudokuuu/landing ts
 yarn workspace @suuudokuuu/landing lint
+yarn workspace @suuudokuuu/landing generate:rating-sample      # re-forge the committed guide sample, changes every published number
 yarn workspace @suuudokuuu/landing submit:indexnow --dry-run   # print the sitemap-derived URL list
 yarn workspace @suuudokuuu/landing submit:indexnow             # needs INDEXNOW_KEY, run after deploy
 ```
@@ -43,15 +44,15 @@ src/
 ├── difficulty/
 │   ├── components/          # prev/next difficulty chain
 │   ├── constants/           # difficulty display names, ladder order, difficulty page paths
-│   └── utils/               # clue count per difficulty
+│   └── utils/               # clue count per difficulty, derived from DIFFICULTY_BANDS
 ├── indexing/
 │   ├── constants/           # IndexNow env-var name, endpoint and key pattern, llms.txt section names
 │   ├── interfaces/          # the indexable page view model
 │   └── utils/               # buildIndexablePages (the one URL enumeration), llms.txt builder, IndexNow key helpers
 ├── rating/
-│   ├── components/          # generated tier-ladder and technique-frequency tables
-│   ├── constants/           # committed puzzle sample and the technique ladder order
-│   ├── interfaces/          # logical solve result and per-tier report view models
+│   ├── components/          # tier-ladder and technique-frequency tables, SE range and tier band renderers
+│   ├── constants/           # committed rated puzzle sample and the technique ladder order
+│   ├── interfaces/          # rated sample entry, logical solve result and per-tier report view models
 │   └── utils/               # solvePuzzleLogically and the memoised tier reports
 ├── seo/
 │   ├── components/          # JsonLd, the compound FAQPage/HowTo/SoftwareApplication/BreadcrumbList schemas, and the visible Breadcrumbs and HowTo renderers
@@ -213,11 +214,13 @@ To add a technique page:
 
 The guides under `src/app/guides` publish measured numbers, never hand-written ones. `TierLadderTable` and `TechniqueFrequencyTable` call `getTierTechniqueReports()` during static generation; the reports are memoised per build so both guides share one computation.
 
-`RATING_SAMPLE_PUZZLES` in `src/rating/constants/rating-sample.constant.ts` is a committed, fixed sample of `RATING_SAMPLE_SIZE` puzzle strings per difficulty. Generation is random and the Hell corpus is large, so the sample is frozen in source to keep every build deterministic and every published number reproducible. The five generated tiers came from `Sudoku.create(difficulty)`; the Hell strings are the first `RATING_SAMPLE_SIZE` records of `@suuudokuuu/hell-corpus`. Replacing the sample changes every number on both guides, so treat it as data, not as code to tidy.
+`RATING_SAMPLE_PUZZLES` in `src/rating/constants/rating-sample.constant.ts` is a committed, fixed sample of `RATING_SAMPLE_SIZE` rated puzzles per difficulty, each entry a `{ puzzle, rating, isRatingCeiling }` record. Sourcing is random and the Hell corpus is large, so the sample is frozen in source to keep every build deterministic and every published number reproducible. The file is written by `scripts/generate-rating-sample.ts` (`yarn workspace @suuudokuuu/landing generate:rating-sample`): the five generated tiers come from `forgePuzzle(difficulty)` in `@suuudokuuu/puzzle-forge`, retried until the board is in band so the sample proves the tier contract; the Hell entries are the first `RATING_SAMPLE_SIZE` records of `@suuudokuuu/hell-corpus`, which carry a verified rating. Regenerating the sample changes every number on both guides, the six difficulty landers and the printable booklets, so treat it as data, not as code to tidy. Keep each entry on one line: the generator emits tier arrays at top level precisely so a full entry fits inside the 140-column print width and the file stays under the `max-lines` limit.
 
-`solvePuzzleLogically` drives `TechniqueManager` over the full registry. `findNextStep()` rebuilds candidate state from the grid on every call, so an elimination-only step would otherwise repeat forever: the driver accumulates each result's eliminations itself, re-queries the registry from the strategy after the one that fired, and places a cell as soon as the accumulated eliminations force a naked or hidden single. When no strategy justifies any placement it records the puzzle as past the technique ladder and fills one cell from the solution to keep going. Guides must never present that outcome as proof a puzzle needs guessing — it means the required technique is not implemented yet.
+Clue counts come from `DIFFICULTY_BANDS` in `@suuudokuuu/puzzle-forge` via `getDifficultyClueCount`. Never read `defaultSudokuConfig.difficultyBlankCells` for a published number: that table is frozen legacy inference for pre-band shared links and no longer describes generated puzzles.
 
-Prose on these pages reads its numbers from `getTierTechniqueReport(difficulty)` rather than repeating literals, so copy cannot drift from the tables.
+`solvePuzzleLogically` is a thin adapter over `TechniqueManager.solveLogically()` from `@suuudokuuu/techniques`, which threads one `CandidateContext` through the whole solve. The shared driver reports `solved`, `stuck` or `contradiction` and stops; the landing wraps it so it can enumerate every technique a board uses: it applies the placements the shared driver found, and when the outcome is not `solved` it fills one cell from the solution and runs the shared driver again from there. Anything that needed such a fill is reported as past the technique ladder. Guides must never present that outcome as proof a puzzle needs guessing — it means the required technique is not implemented yet.
+
+Prose on these pages reads its numbers from `getTierTechniqueReport(difficulty)` rather than repeating literals, so copy cannot drift from the tables. `SeRatingRange` renders a report's measured SE spread and `TierBandRequirement` renders the band contract the forge enforces; use them instead of writing a rating or a band into copy by hand.
 
 ## Knip
 

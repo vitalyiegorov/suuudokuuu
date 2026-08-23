@@ -1,6 +1,7 @@
 import { DifficultyEnum } from '@suuudokuuu/generator';
 import Link from 'next/link';
 
+import { SeRatingRange } from '../../../rating/components/se-rating-range/se-rating-range';
 import { TierLadderTable } from '../../../rating/components/tier-ladder-table/tier-ladder-table';
 import { RATING_SAMPLE_SIZE, RATING_SAMPLE_TOTAL } from '../../../rating/constants/rating-sample.constant';
 import { getTierTechniqueReport } from '../../../rating/utils/get-tier-technique-reports.util';
@@ -13,12 +14,11 @@ import { FaqPage } from '../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { SITE_PLAY_URL } from '../../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
-import { TechniqueLink } from '../../../techniques/components/technique-link/technique-link';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
 import { seventeenClueSudokuPageMetadata } from '../../17-clue-sudoku/metadata';
 import { hardestSudokuPuzzlesPageMetadata } from '../../hardest-sudoku-puzzles/metadata';
 import { homePageMetadata } from '../../metadata';
-import { easySudokuPageMetadata } from '../../sudoku/easy/metadata';
+import { hardSudokuPageMetadata } from '../../sudoku/hard/metadata';
 import { hellSudokuPageMetadata } from '../../sudoku/hell/metadata';
 import { mediumSudokuPageMetadata } from '../../sudoku/medium/metadata';
 import { sudokuDifficultiesPageMetadata } from '../../sudoku/metadata';
@@ -36,12 +36,13 @@ export const metadata: Metadata = buildPageMetadata(sudokuCluesVsDifficultyPageM
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const SudokuCluesVsDifficultyPage = () => {
     const newbieReport = getTierTechniqueReport(DifficultyEnum.Newbie);
-    const easyReport = getTierTechniqueReport(DifficultyEnum.Easy);
     const mediumReport = getTierTechniqueReport(DifficultyEnum.Medium);
     const hardReport = getTierTechniqueReport(DifficultyEnum.Hard);
     const nightmareReport = getTierTechniqueReport(DifficultyEnum.Nightmare);
     const hellReport = getTierTechniqueReport(DifficultyEnum.Hell);
     const newbieToMediumClueDrop = newbieReport.clueCount - mediumReport.clueCount;
+    const newbieToNightmareClueDrop = newbieReport.clueCount - nightmareReport.clueCount;
+    const nightmareToHellClueGap = nightmareReport.clueCount - hellReport.clueCount;
 
     return (
         <main>
@@ -66,24 +67,27 @@ const SudokuCluesVsDifficultyPage = () => {
             <TechniqueSummary>
                 <ul>
                     <li>
-                        Short answer: no. Across {RATING_SAMPLE_TOTAL} puzzles we solved logically, clue count predicts difficulty badly
-                        everywhere except at the very bottom of the range.
+                        Short answer: no. Across {RATING_SAMPLE_TOTAL} puzzles we solved logically and rated, clue count barely tracks
+                        difficulty at all.
                     </li>
                     <li>
-                        {easyReport.clueCount}-clue Easy puzzles and {mediumReport.clueCount}-clue Medium puzzles required exactly the same
-                        techniques — ten fewer givens changed nothing.
+                        Our whole generated ladder fits between {newbieReport.clueCount} and {nightmareReport.clueCount} clues —{' '}
+                        {newbieToNightmareClueDrop} givens — while the measured difficulty runs from SE{' '}
+                        <SeRatingRange report={newbieReport} /> to SE <SeRatingRange report={nightmareReport} />.
                     </li>
                     <li>
-                        {hardReport.singlesOnlyPuzzleCount} of {hardReport.sampleSize} puzzles at {hardReport.clueCount} clues finished on
-                        singles alone.
+                        {mediumReport.clueCount}-clue Medium and {hardReport.clueCount}-clue Hard are one given apart and a whole technique
+                        band apart: SE <SeRatingRange report={mediumReport} /> against SE <SeRatingRange report={hardReport} />.
                     </li>
                     <li>
-                        Clue count does bite at the extreme: {hellReport.singlesOnlyPuzzleCount} of {hellReport.sampleSize} puzzles at{' '}
-                        {hellReport.clueCount} clues finished on singles.
+                        The seventeen-clue minimum is barely ahead of the tier above it: {hellReport.clueCount}-clue Hell measures SE{' '}
+                        <SeRatingRange report={hellReport} /> against SE <SeRatingRange report={nightmareReport} /> for{' '}
+                        {nightmareReport.clueCount}-clue Nightmare.
                     </li>
                     <li>
-                        Identical clue counts produce wildly different puzzles: our {nightmareReport.clueCount}-clue sample ranged from
-                        plain hidden singles up to <TechniqueLink technique={nightmareReport.hardestTechniqueReached} />.
+                        Clue count is a weak lower bound, not a ranking: {newbieReport.singlesOnlyPuzzleCount} of {newbieReport.sampleSize}{' '}
+                        puzzles at {newbieReport.clueCount} clues finish on singles, against {hardReport.singlesOnlyPuzzleCount} of{' '}
+                        {hardReport.sampleSize} at {hardReport.clueCount}.
                     </li>
                 </ul>
             </TechniqueSummary>
@@ -106,47 +110,53 @@ const SudokuCluesVsDifficultyPage = () => {
             </p>
             <h2>What the data says</h2>
             <p>
-                Suuudokuuu generates each tier by stripping a solved grid down to a fixed number of blanks and verifying the result still
-                has exactly one solution. Nothing in that process targets a difficulty. To find out what the tiers actually produce, we
-                solve {RATING_SAMPLE_SIZE} fixed puzzles per tier at build time with our full technique registry and record the hardest step
-                each one demanded.
+                Suuudokuuu no longer defines a tier by a blank-cell target. Each generated tier is a required-technique band: a candidate
+                board must resist the ladder of the tier below and fall to its own, or it is discarded. The clue count is whatever that
+                process happens to need. To find out what the tiers actually produce, we solve {RATING_SAMPLE_SIZE} fixed puzzles per tier
+                at build time with our full technique registry, record the hardest step each one demanded, and publish the SE rating each
+                board received when it was created.
             </p>
             <TierLadderTable>
-                Logical-solve results for {RATING_SAMPLE_TOTAL} puzzles, {RATING_SAMPLE_SIZE} per tier, ordered by clue count. “Singles
-                only” counts puzzles finished with full houses, naked singles and hidden singles alone.
+                Logical-solve results for {RATING_SAMPLE_TOTAL} puzzles, {RATING_SAMPLE_SIZE} per tier, ordered by tier. “Guaranteed band”
+                is the technique contract the generator enforces; “SE range” is the measured spread of per-puzzle ratings. “Singles only”
+                counts puzzles finished with full houses, naked singles and hidden singles alone.
             </TierLadderTable>
             <p>
-                Read the first three rows together. <Link href={newbieSudokuPageMetadata.path}>Newbie</Link>,{' '}
-                <Link href={easySudokuPageMetadata.path}>Easy</Link> and <Link href={mediumSudokuPageMetadata.path}>Medium</Link> span{' '}
-                {newbieReport.clueCount} clues down to {mediumReport.clueCount}, and every puzzle in all three samples finished on singles.
-                Stripping {newbieToMediumClueDrop} givens across that range never pushed a single puzzle past the simplest rung of the
-                ladder. Hard removes ten more and {hardReport.singlesOnlyPuzzleCount} of {hardReport.sampleSize} puzzles still finish the
-                same way; only a handful ever needed a subset or a fish.
+                Look at the clue column on its own first. <Link href={newbieSudokuPageMetadata.path}>Newbie</Link> starts at{' '}
+                {newbieReport.clueCount} clues and <Link href={nightmareSudokuPageMetadata.path}>Nightmare</Link>, four tiers later, at{' '}
+                {nightmareReport.clueCount}. That is {newbieToNightmareClueDrop} givens across the entire generated ladder — a range narrow
+                enough that a reader shown only the clue counts would call these puzzles interchangeable. The SE column says otherwise: SE{' '}
+                <SeRatingRange report={newbieReport} /> at the gentle end and SE <SeRatingRange report={nightmareReport} /> at the hard end,
+                from a deduction a beginner reads off one cell to a chain that has to be built link by link.
             </p>
-            <h2>Same clue count, very different puzzles</h2>
+            <h2>One clue, one whole band</h2>
             <p>
-                The <Link href={nightmareSudokuPageMetadata.path}>Nightmare</Link> row is the clearest result on this page. Every puzzle in
-                that sample starts with exactly {nightmareReport.clueCount} clues, yet {nightmareReport.singlesOnlyPuzzleCount} of{' '}
-                {nightmareReport.sampleSize} finish on singles alone while others need everything the registry has, up to{' '}
-                <TechniqueLink technique={nightmareReport.hardestTechniqueReached} />, and {nightmareReport.beyondLadderPuzzleCount} run
-                past our detectors entirely. If clue count determined difficulty, a fixed clue count would produce a fixed difficulty. It
-                does not come close. Whatever a difficulty label means, it cannot mean the number printed on the grid.
+                The sharpest result on this page is the pair in the middle. <Link href={mediumSudokuPageMetadata.path}>Medium</Link> carries{' '}
+                {mediumReport.clueCount} clues and <Link href={hardSudokuPageMetadata.path}>Hard</Link> carries {hardReport.clueCount} — a
+                single given between them. Yet no Medium board in the sample ever needs a fish or a wing, and every Hard board does, by
+                construction. Measured, that one clue is worth SE <SeRatingRange report={mediumReport} /> against SE{' '}
+                <SeRatingRange report={hardReport} />. Compare that with the other end of the ladder, where removing{' '}
+                {newbieToMediumClueDrop} givens between Newbie and Medium moves the same distance. There is no exchange rate between clues
+                and difficulty: one given is worth a band here and a tenth of one there. The number printed on the grid and the reasoning
+                the grid demands are simply different quantities.
             </p>
-            <h2>Where clue count does matter</h2>
+            <h2>The seventeen-clue minimum is not the ceiling</h2>
             <p>
-                It is not noise, it is a weak lower bound. Fewer givens shrink the pool of puzzles a generator can find, and at the minimum
-                that pool is thin enough that easy grids nearly vanish: at {hellReport.clueCount} clues, {hellReport.singlesOnlyPuzzleCount}{' '}
-                of {hellReport.sampleSize} sampled <Link href={hellSudokuPageMetadata.path}>Hell puzzles</Link> finished on singles, against{' '}
-                {hardReport.singlesOnlyPuzzleCount} of {hardReport.sampleSize} at {hardReport.clueCount} clues. So a 17-clue puzzle is
-                usually harder than a 40-clue puzzle. The failure is in the middle of the range, where nearly all published puzzles live,
-                and in the assumption that the relationship is tight enough to rank two specific puzzles.
+                <Link href={hellSudokuPageMetadata.path}>Hell</Link> is the one tier drawn from a fixed corpus of {hellReport.clueCount}
+                -clue puzzles rather than generated to a band, and it is the clue-count argument at its extreme: it measures SE{' '}
+                <SeRatingRange report={hellReport} /> against Nightmare at SE <SeRatingRange report={nightmareReport} /> with{' '}
+                {nightmareReport.clueCount} clues. {nightmareToHellClueGap} extra givens buy a tier that reaches almost as high. Fewer clues
+                do shift the odds — the pool of very easy grids at seventeen clues is thin — but the corpus behind that tier is filtered by
+                rating before it ships, precisely because the clue count alone would not have guaranteed a hard puzzle. Rarity and
+                difficulty are different properties, and only one of them is visible in the clue count.
             </p>
             <h2>How to judge difficulty instead</h2>
             <p>
                 Ask which techniques a puzzle requires. That is what the Sudoku Explainer scale formalises, and our{' '}
                 <Link href={sudokuDifficultyRatingPageMetadata.path}>sudoku difficulty rating guide</Link> explains how the technique ladder
-                turns into a number. Practically, the useful question is not “how many blanks” but “does this grid ever stop yielding to
-                singles” — and if it does, which pattern breaks the deadlock. The{' '}
+                turns into a number — and it is the number every Suuudokuuu board now carries, computed by our open-source rater at the
+                moment the board is created. Practically, the useful question is not “how many blanks” but “does this grid ever stop
+                yielding to singles” — and if it does, which pattern breaks the deadlock. The{' '}
                 <Link href={techniquesPageMetadata.path}>technique index</Link> has a worked example for each one, and the{' '}
                 <Link href={sudokuDifficultiesPageMetadata.path}>difficulty levels hub</Link> maps our tiers onto them.
             </p>
@@ -155,9 +165,10 @@ const SudokuCluesVsDifficultyPage = () => {
                 <Faq>
                     <FaqQuestion>Does a sudoku with fewer clues mean it is harder?</FaqQuestion>
                     <FaqAnswer>
-                        Not reliably. In our sample, {hardReport.singlesOnlyPuzzleCount} of {hardReport.sampleSize} puzzles with{' '}
-                        {hardReport.clueCount} clues needed nothing beyond singles — the same techniques as puzzles with{' '}
-                        {easyReport.clueCount} clues. Clue count only becomes a useful signal near the seventeen-clue minimum.
+                        Not reliably. In our sample, {mediumReport.clueCount}-clue puzzles measure SE{' '}
+                        <SeRatingRange report={mediumReport} /> and {hardReport.clueCount}-clue puzzles measure SE{' '}
+                        <SeRatingRange report={hardReport} /> — one given apart, an entire technique band apart. The whole generated ladder
+                        spans only {newbieToNightmareClueDrop} givens.
                     </FaqAnswer>
                 </Faq>
                 <Faq>
@@ -177,9 +188,9 @@ const SudokuCluesVsDifficultyPage = () => {
                 <Faq>
                     <FaqQuestion>Can two sudokus with the same number of clues have different difficulty?</FaqQuestion>
                     <FaqAnswer>
-                        Yes, dramatically. Every puzzle in our {nightmareReport.clueCount}-clue sample starts with the same number of
-                        givens, yet {nightmareReport.singlesOnlyPuzzleCount} of {nightmareReport.sampleSize} finish on singles while others
-                        need chains and coloring.
+                        Yes, dramatically — which is why we stopped grading by clue count. Our {nightmareReport.clueCount}-clue Nightmare
+                        tier only holds together because every board is checked against a technique ladder before it ships; boards at that
+                        clue count that fall to easier patterns are rejected rather than labelled Nightmare.
                     </FaqAnswer>
                 </Faq>
             </FaqPage>
