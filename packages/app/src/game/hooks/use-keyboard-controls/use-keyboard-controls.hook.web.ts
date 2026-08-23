@@ -20,6 +20,9 @@ const DIGIT_CODE_PATTERN = /^(?:Digit|Numpad)([1-9])$/u;
 const isEditableTarget = (target: EventTarget | null): boolean =>
     target instanceof HTMLElement && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable);
 
+const isBoardCellTarget = (target: EventTarget | null): boolean =>
+    target instanceof HTMLElement && isDefined(target.closest('[role="grid"]'));
+
 export const useKeyboardControls = (
     engine: FieldEngine,
     selectedCell: CellInterface | undefined,
@@ -117,8 +120,20 @@ export const useKeyboardControls = (
             }
         };
 
-        window.addEventListener('keydown', handleKeyDown);
+        const handleBoardCellSpace = (e: KeyboardEvent) => {
+            if (e.key === ' ' && !isEditableTarget(e.target) && isBoardCellTarget(e.target)) {
+                e.preventDefault();
+                e.stopPropagation();
+                handleKeyDown(e);
+            }
+        };
 
-        return () => void window.removeEventListener('keydown', handleKeyDown);
+        window.addEventListener('keydown', handleKeyDown);
+        window.addEventListener('keydown', handleBoardCellSpace, true);
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+            window.removeEventListener('keydown', handleBoardCellSpace, true);
+        };
     }, [isFocused, selectedCell, onSelectCell, onSelectValue, engine, onExit, dispatch, canToggleAutoCandidates]);
 };
