@@ -1,7 +1,7 @@
 @layer field-dom {
     :root {
         --field-font-family: inherit;
-        --field-cell-size: clamp(1.9rem, 8vw, 2.75rem);
+        --field-cell-size: clamp(1.9rem, 8vw, 3.5rem);
         --field-gap: 0.75rem;
         --field-radius: 0.35rem;
         --field-transition-duration: 120ms;
@@ -22,7 +22,7 @@
         --field-cell-given-background-color: rgba(255, 255, 255, 0.04);
         --field-cell-highlighted-background-color: rgba(77, 163, 255, 0.12);
         --field-cell-same-value-background-color: rgba(77, 163, 255, 0.22);
-        --field-cell-selected-background-color: rgba(77, 163, 255, 0.38);
+        --field-cell-selected-background-color: rgba(77, 163, 255, 0.32);
         --field-cell-wrong-background-color: rgba(255, 107, 107, 0.3);
         --field-cell-pattern-background-color: #1c3a5c;
         --field-cell-target-background-color: #5c3a1c;
