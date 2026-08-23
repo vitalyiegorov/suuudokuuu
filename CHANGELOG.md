@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.8.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.7.2...v2.8.0) (2026-08-23)
+
+### Features
+
+- **app:** add Infinity screenshot scene and fix challenge race seed ([307e2ca](https://github.com/vitalyiegorov/suuudokuuu/commit/307e2cae80b63a1dd11e0336df17c1b54b5ca786))
+
 ## [2.7.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.7.1...v2.7.2) (2026-08-22)
 
 **Note:** Version bump only for package @suuudokuuu/root
