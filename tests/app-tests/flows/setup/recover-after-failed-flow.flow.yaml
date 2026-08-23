@@ -1,0 +1,8 @@
+appId: ${APP_ID}
+---
+# Between-flows recovery for mobile-ci's flow-recovery-flow input: clears the
+# state a failed flow left behind, then re-primes the deep-link scheme
+# confirmation so the next flow starts from the same footing as the shard's
+# first one. Mirrors what run-maestro-suite.sh did locally after any failure.
+- runFlow: reset-app-state.flow.yaml
+- runFlow: prime-deep-links.flow.yaml

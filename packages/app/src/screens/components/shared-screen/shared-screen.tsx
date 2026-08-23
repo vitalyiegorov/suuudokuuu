@@ -9,7 +9,7 @@ import { AppLinkButton } from '../../../@generic/components/app-link-button/app-
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { Header } from '../../../@generic/components/header/header';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
-import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
+import { getDifficultyMessage } from '../../../@generic/utils/get-difficulty-message.util';
 import { getLevelRatingText } from '../../../@generic/utils/get-level-rating-text.util';
 import { ChallengeAcceptScreen } from '../../../challenge/components/challenge-accept-screen/challenge-accept-screen';
 import { GameContext } from '../../../game/context/game.context';
@@ -54,7 +54,7 @@ export const SharedScreen = ({ stateString }: Props) => {
     const headerText = isHandoff ? t`Resume this game?` : t`Open shared puzzle?`;
     const confirmText = isHandoff ? t`Resume game` : t`Open puzzle`;
     const resumeSummary = `${resumeTimeText} · ${String(gameState.score)}`;
-    const difficultyText = getDifficultyText(gameState.difficulty);
+    const difficultyText = t(getDifficultyMessage(gameState.difficulty));
     const levelText = getLevelRatingText(difficultyText, gameState.rating, gameState.isRatingCeiling);
 
     return (

@@ -118,7 +118,7 @@ export const HomeScreen = () => {
         selectedDifficultyIndexFromSettings < 0 ? DifficultyComplexitySliderInitialIndex : selectedDifficultyIndexFromSettings;
     const selectedDifficulty = DifficultyComplexitySliderDifficulties[selectedDifficultyIndex] ?? difficulty;
     const selectedDifficultyLabel = t(getDifficultyMessage(difficulty));
-    const selectedDifficultyDescription = homeScreenGetDifficultyDescription(selectedDifficulty);
+    const selectedDifficultyDescription = t(homeScreenGetDifficultyDescription(selectedDifficulty));
     const challengeSummarySuffix = isChallengeMode ? ` • ${t`Challenge`}` : '';
     const setupSummary = `${selectedDifficultyLabel} • ${selectedMistakesOption.title}${challengeSummarySuffix}`;
     const currentElapsedTimeText = useTimerText(currentElapsedTime);

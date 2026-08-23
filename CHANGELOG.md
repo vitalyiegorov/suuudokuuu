@@ -3,6 +3,81 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.8.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.7.2...v2.8.0) (2026-08-23)
+
+### Features
+
+- **app:** add Infinity screenshot scene and fix challenge race seed ([307e2ca](https://github.com/vitalyiegorov/suuudokuuu/commit/307e2cae80b63a1dd11e0336df17c1b54b5ca786))
+
+## [2.7.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.7.1...v2.7.2) (2026-08-22)
+
+**Note:** Version bump only for package @suuudokuuu/root
+
+## [2.7.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.6.1...v2.7.1) (2026-08-22)
+
+**Note:** Version bump only for package @suuudokuuu/root
+
+## [2.6.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.6.0...v2.6.1) (2026-08-22)
+
+### Bug Fixes
+
+- **app:** hide iPad keyboard shortcut bar on game screen ([8a36da8](https://github.com/vitalyiegorov/suuudokuuu/commit/8a36da8f22648ea4724e86b602fcff89683fa207))
+
+# [2.6.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.5.1...v2.6.0) (2026-08-17)
+
+### Bug Fixes
+
+- **app,screen-chrome:** recomposite blurred web chrome after returning from background ([9b9e0df](https://github.com/vitalyiegorov/suuudokuuu/commit/9b9e0dfdb69509d8dfb7170537261c213578db45))
+- **app:** add a close control to the rating explainer sheet ([6c35fe9](https://github.com/vitalyiegorov/suuudokuuu/commit/6c35fe9fc2633d5fcd11e03c3798322ed0a97a12))
+- **app:** align the record band's second row to the column rhythm ([bfe1d8b](https://github.com/vitalyiegorov/suuudokuuu/commit/bfe1d8bb387e0014979e8f32f707f409435d392e))
+- **app:** align the stats ledger on one rail and dedupe the arsenal ([372520d](https://github.com/vitalyiegorov/suuudokuuu/commit/372520d526292a40f91ad618a54120345722e732))
+- **app:** center the record band's second row ([913ebdc](https://github.com/vitalyiegorov/suuudokuuu/commit/913ebdc96be0a76405c7ea44df2044b937c9089c))
+- **app:** classify bulk technique replays with the full registry ([4bb7108](https://github.com/vitalyiegorov/suuudokuuu/commit/4bb7108d6f2f637e42a61be1cc3117f283c55816))
+- **app:** drop the misaligned focus outline from board cells on web ([44dddd7](https://github.com/vitalyiegorov/suuudokuuu/commit/44dddd7decdab22bbc0596b6272f1771fcc35c4c))
+- **app:** end the celebration pulse after four beats ([eb6bac6](https://github.com/vitalyiegorov/suuudokuuu/commit/eb6bac65c1e3d48793044136d591bb2274710b0f))
+- **app:** give the Infinity sweep a cool palette distinct from Hell ([fc0e688](https://github.com/vitalyiegorov/suuudokuuu/commit/fc0e68802b22ae0f5712c95ba562d08bd78d02a3))
+- **app:** keep the replay controls above the Android navigation bar ([647f599](https://github.com/vitalyiegorov/suuudokuuu/commit/647f5995d72b1e5270d4b1354f4e59e57186d848))
+- **app:** move the game-screen rating badge into the input tools row for Hell and Infinity ([bac3193](https://github.com/vitalyiegorov/suuudokuuu/commit/bac31935da840688d76dfe5a746e72f2b876b0e3))
+- **app:** preserve persisted stats when loading shared games and apply review cleanups ([f31e446](https://github.com/vitalyiegorov/suuudokuuu/commit/f31e446f70a85d40e510bdee4dc118c10ccb8f22))
+- **app:** redirect cold game and pause route entries to home ([019856b](https://github.com/vitalyiegorov/suuudokuuu/commit/019856bbbd39380d3b7834ad0bac595ca51b6cc6))
+- **app:** resolve render-path strings through the reactive Lingui instance ([dffdb55](https://github.com/vitalyiegorov/suuudokuuu/commit/dffdb55b2b1600f16ddf3fe7d8e249c0077d3d5a))
+- **app:** resolve unistyles style props before passing them to animated views ([19eadf6](https://github.com/vitalyiegorov/suuudokuuu/commit/19eadf62fea76dce7a681c19acfc0957494e34c9))
+- **app:** select web alert handlers by button style instead of label text ([aacbf95](https://github.com/vitalyiegorov/suuudokuuu/commit/aacbf953af2d95fb1bdea09dd5e49e221eaa5b69))
+- **app:** spread the stats record band across the full width ([34acf22](https://github.com/vitalyiegorov/suuudokuuu/commit/34acf2293b9e07613952b85b6d631ff08114cf31))
+- **hell-corpus:** carry the rater ceiling flag through corpus records and harden the build tooling ([a5e53a9](https://github.com/vitalyiegorov/suuudokuuu/commit/a5e53a931a6e7be12df2c153dc73e69377539b8b))
+- **techniques,rating:** make chain scan budgets transform-invariant and report search caps ([11e6225](https://github.com/vitalyiegorov/suuudokuuu/commit/11e62250ad273ce79ec0c27ac074013948b9eee7))
+- **techniques:** apply the shortest chain first in X-Chain and XY-Chain results ([083fab0](https://github.com/vitalyiegorov/suuudokuuu/commit/083fab0fa7f65c7d1c055d4d6fd10877ee655d2f))
+- **ui:** derive metric strip separator keys from item keys ([3615d0a](https://github.com/vitalyiegorov/suuudokuuu/commit/3615d0ad5549814323ecfc4c95099534374e63cc))
+
+### Features
+
+- **app:** add Arabic store screenshots ([4472af8](https://github.com/vitalyiegorov/suuudokuuu/commit/4472af883bb840cdd3357a8b74a92b07838f19bf))
+- **app:** add Hindi store screenshots ([0e7fe81](https://github.com/vitalyiegorov/suuudokuuu/commit/0e7fe81cd04073f5ea67bcb1077b7350ce6c7588))
+- **app:** add pro keyboard controls on web and remove stray tab stops ([a007242](https://github.com/vitalyiegorov/suuudokuuu/commit/a007242cdbb244704940e1ca2b30efcb6baf6303))
+- **app:** add SE rating statistics with technique usage and band history ([7d27bf1](https://github.com/vitalyiegorov/suuudokuuu/commit/7d27bf10f4ee510f7658e3fd3527371d6624304e))
+- **app:** add the Infinity visual identity and Hell win celebration ([0958ae7](https://github.com/vitalyiegorov/suuudokuuu/commit/0958ae7372278d5a582a59083e50b358a7aff8ac))
+- **app:** add the RatingBadge design-system component ([e124c7c](https://github.com/vitalyiegorov/suuudokuuu/commit/e124c7c4aeea5c35672ed2d2dddfc192cd007acf)), closes [#274](https://github.com/vitalyiegorov/suuudokuuu/issues/274)
+- **app:** add the replay game review, rating explainer, and activity streaks ([9f6681d](https://github.com/vitalyiegorov/suuudokuuu/commit/9f6681d8c85aab61cde7cb21865d4bd0ed18983b))
+- **app:** localize Play store screenshots for all thirteen locales ([3aa368f](https://github.com/vitalyiegorov/suuudokuuu/commit/3aa368f7e8b5d1db8033e5647ab57301239d3049))
+- **app:** recapture store screenshots with the redesigned stats screen ([c00de19](https://github.com/vitalyiegorov/suuudokuuu/commit/c00de19a6803cc8f60e12b057edfad90c770c9fa))
+- **app:** refresh iOS store screenshots natively for all locales ([b33d635](https://github.com/vitalyiegorov/suuudokuuu/commit/b33d6351a223ebfa9f38d609b80cc8d3beb579f5))
+- **app:** surface the rating on game, replay, shared, and history screens ([3a87724](https://github.com/vitalyiegorov/suuudokuuu/commit/3a87724c631bdb2348d63b9d6afb4f7070d3e795)), closes [#275](https://github.com/vitalyiegorov/suuudokuuu/issues/275)
+- **app:** thread the puzzle rating through game state, history, and persistence ([c385c7d](https://github.com/vitalyiegorov/suuudokuuu/commit/c385c7d63f9ec8ceee0c20b82a92d07313b052cf)), closes [#273](https://github.com/vitalyiegorov/suuudokuuu/issues/273)
+- **encoder:** add an optional rating and difficulty trailer to v3 shared payloads ([aa85d41](https://github.com/vitalyiegorov/suuudokuuu/commit/aa85d41f6f7567fd6af1e964f36c6eb14af9b4b8)), closes [#271](https://github.com/vitalyiegorov/suuudokuuu/issues/271)
+- **generator,app:** add the Infinity difficulty level served from the curated corpus ([0da6f80](https://github.com/vitalyiegorov/suuudokuuu/commit/0da6f8037fb6f6f37aaf051bcece0f82873d4f84)), closes [#280](https://github.com/vitalyiegorov/suuudokuuu/issues/280)
+- **hell-corpus:** add the curated Infinity corpus with per-record ratings ([d0e620d](https://github.com/vitalyiegorov/suuudokuuu/commit/d0e620deafbb5d8368ec22521cfcd74eceb711a8)), closes [#279](https://github.com/vitalyiegorov/suuudokuuu/issues/279)
+- **hell-corpus:** cull the Hell corpus to SE >= 6.6 with embedded rating bytes ([d04b978](https://github.com/vitalyiegorov/suuudokuuu/commit/d04b978762b4316e4702ff416ff230fcbc2f1e62))
+- **hell-corpus:** expand the Infinity corpus to 100 verified world-record puzzles ([7b6c964](https://github.com/vitalyiegorov/suuudokuuu/commit/7b6c9640bd818b08131807fbceb701236869ef65))
+- **rating:** add the SE rating engine package with a ratePuzzle API ([938264c](https://github.com/vitalyiegorov/suuudokuuu/commit/938264c679243593ac7d7909dd8c8b15987f2992)), closes [#269](https://github.com/vitalyiegorov/suuudokuuu/issues/269)
+- **techniques,rating:** add BUG and Unique Rectangle detectors and raise the rating ceiling ([a4fe885](https://github.com/vitalyiegorov/suuudokuuu/commit/a4fe885c9c0cbd6ff3314c49b66b394cd8d67577)), closes [#276](https://github.com/vitalyiegorov/suuudokuuu/issues/276)
+- **techniques,rating:** add shortest-chain search with length-based chain ratings ([48eca2e](https://github.com/vitalyiegorov/suuudokuuu/commit/48eca2e483aab2547c042eec265c2e979552fbdf)), closes [#277](https://github.com/vitalyiegorov/suuudokuuu/issues/277)
+- **techniques,rating:** add the forcing-chain engine for the SE 8.0+ band ([c941530](https://github.com/vitalyiegorov/suuudokuuu/commit/c9415308d775484a29d19c8005811a7ce3064a3c)), closes [#278](https://github.com/vitalyiegorov/suuudokuuu/issues/278)
+- **techniques:** add a logical-solve driver with persistent candidate state ([657eb36](https://github.com/vitalyiegorov/suuudokuuu/commit/657eb3647aace787de2a1dfb42769872f3006ae3)), closes [#268](https://github.com/vitalyiegorov/suuudokuuu/issues/268)
+
+### Performance Improvements
+
+- **app,encoder,techniques:** store per-move techniques and classify with an interactive ladder ([d19ac3e](https://github.com/vitalyiegorov/suuudokuuu/commit/d19ac3ea8dcbda9297636d609a0aa8d5a71a9782))
+
 ## [2.5.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.5.0...v2.5.1) (2026-08-11)
 
 ### Bug Fixes

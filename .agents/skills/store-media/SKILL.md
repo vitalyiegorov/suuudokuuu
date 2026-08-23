@@ -9,6 +9,12 @@ Everything store-facing is repo-committed and regenerated manually - CI only
 publishes what is committed. Media changes rarely; nothing is generated on
 release.
 
+Capture mechanics live in `tests/app-tests/docs/store-screenshot-capture.md`,
+the canonical reference for the seeded-state fast path, per-platform
+commands, the seed fixture, and the verification checklist. Read it before
+capturing. This skill owns listing texts, captions, design decisions, and
+publishing.
+
 ## File map
 
 - `packages/app/fastlane/metadata/{ios,android}/<locale>/` - listing texts.
@@ -72,23 +78,101 @@ Screenshots, end to end:
    landscape pixels to 2752x2064 without EXIF).
    1b. Android capture: create an AVD, boot it, then
    `adb shell wm size 1080x2340` and `adb shell wm density 440` so the capture
-   exactly matches the Pixel 5 frame cutout. Build and install with
-   `APP_VARIANT=production npx expo run:android --variant release --device <avd-name>`
-   (`--device` takes the AVD name, not the adb serial - an adb serial fails with
-   "Could not find device with name"). Then
-   `APP_ID=com.vitaliiyehorov.suuudokuuu yarn workspace @suuudokuuu/app-tests
-screenshots:capture --platform=android --locales=en --appearances=light,dark
---scenes=...`. The runner's progress label prints `[iphone/...]` on Android;
-   that is cosmetic, the output path is `raw/android/`.
-2. Compose: `bash packages/app/fastlane/screenshots/design/compose-screenshots.sh en-US all`
-    - frames captures in real fastlane frameit device frames, applies
-      two-tier captions, writes both variant sets (second arg: light|dark|all).
-      Scene manifests are `SCENES_LIGHT`/`SCENES_DARK` in the script; palettes
-      live in `set_variant_palette` (light #F7F7F7->#F1F1F1 / #0A0A0A text;
-      dark #141414->#0E0E0E / #F5F5F5 text). Keep the manifests mirrored.
-3. Review visually (downscale with sips and look), commit both sets.
-4. Upload: dispatch "Build and Publish to Stores" with the screenshots
-   checkbox, or run the fastlane lanes locally.
+   exactly matches the Pixel 5 frame cutout. Install the app, then
+   `yarn workspace @suuudokuuu/app-tests screenshots:capture
+--platform=android --serial=<adb-serial> --locales=en ...`. The runner's
+   progress label prints `[iphone/...]` on Android; that is cosmetic, the
+   output path is `raw/android/`.
+
+### Fast capture path (default: `--capture-mode=fast`)
+
+Maestro is NOT used for store capture any more. Driving the UI cost ~40 min
+per locale because every command dumps the accessibility hierarchy over the
+81-cell grid, and the statistics scene needed complete games played through
+the UI at ~20 min per game. Measured on the same simulator and build:
+`themes` 47s -> 6s, `stats` 99s -> 6s, and a full locale (8 scenes x
+dark+light = 16 captures) 40 min -> **1 min 37 sec**.
+
+The whole mechanism is three steps per scene, with no accessibility tree at
+all:
+
+1. `scripts/seed-app-state.ts` writes the persisted redux blob directly.
+2. `xcrun simctl launch <udid> <app> -AppleLanguages "(<lang>)" -AppleLocale
+<id>` (Android: `adb shell cmd locale set-app-locales <pkg> --locales
+<lang>` then `am start -n <pkg>/.MainActivity`).
+3. `simctl openurl` the scene's deep link, then `simctl io screenshot`
+   (Android: `adb exec-out screencap -p`).
+
+Facts this depends on, all verified:
+
+- **The app's language comes from persisted redux `settings.language`, not
+  from the OS.** Writing that field switches every locale, including the five
+  (ar, bn, id, pt, ur) that sit below the language sheet's fold. The old
+  ritual - set `AppleLanguages` globally, uninstall, reinstall, re-prime deep
+  links, re-seed history - was never necessary. `OS_LANGUAGE_MODE` is forced
+  on in fast mode purely to skip the sheet subflow.
+- **Persistence is `expo-sqlite`**, one `persist:root` row in a plain
+  `storage(key, value)` table. iOS: `<data container>/Documents/SQLite/
+ExpoSQLiteStorage` via `simctl get_app_container <udid> <app> data`.
+  Android: `/data/data/<pkg>/files/SQLite/ExpoSQLiteStorage`. redux-persist
+  stores each top-level reducer as a JSON string inside an outer JSON object,
+  so every slice is double-encoded.
+- **Terminate the app before writing.** A running app holds the SQLite WAL and
+  overwrites the seed on exit. The seeder force-stops first.
+- The persist version is read out of `app-root-migrations.ts` and the language
+  list out of `languages.constant.ts` at run time, so a migration bump or a
+  new locale cannot silently drift from the fixture.
+- **Android needs a rootable emulator** for the state write: `adb root` is
+  refused on `google_apis_playstore` images and `run-as` is refused on release
+  builds. Create the AVD from a **`google_apis`** system image. Language
+  switching alone (`cmd locale set-app-locales`, API 33+) needs no root.
+- Launch arguments only reach the app; the **system status bar** is
+  unaffected. The runner therefore applies `simctl status_bar override`
+  (9:41, full bars, 100% battery) and the SystemUI demo-mode equivalent on
+  Android. `--status-bar=real` restores the device clock.
+
+`fixtures/screenshot-seed-state.json` holds the seed: the real
+`historyByDifficulty` for all 7 difficulties (rated, with technique counts)
+plus `sceneStates` for the two scenes that used to need real gameplay -
+`hero` (an in-progress Nightmare board with pencil marks) and `challengeLive`
+(an accepted challenge mid-race). Both blobs were captured from state the app
+itself persisted, so they cannot drift from the reducers. To regenerate one,
+strip the flow's trailing teardown so it leaves the state on the device
+(`sed -e '/quit-current-game/d' -e '/^- stopApp$/d' 01.hero-board.flow.yaml >
+/tmp/bake.flow.yaml`), run it once through Maestro, then read the row back:
+`sqlite3 "$(xcrun simctl get_app_container <udid> <app> data)/Documents/SQLite/
+ExpoSQLiteStorage" "select value from storage where key='persist:root';"` and
+copy the `game` slice into `sceneStates`. Seed a clean state first - if a game
+is already in progress the flow hits a "Stop current run?" confirmation and
+never reaches the board.
+
+13 of 14 scenes are pure deep link + screenshot. Only `05.win` still has no
+seedable route. Scenes carry their own `deepLink`, `sceneState` and
+`seedDifficulty` in `AllScenes`; a scene with no `deepLink` falls back to its
+Maestro flow automatically, so mixing the two is supported.
+
+**Do not use fastlane `snapshot` here.** It drives XCUITest, which needs a UI
+test target inside the Xcode project - but `packages/app/ios` and
+`packages/app/android` are gitignored with zero tracked files (continuous
+native generation), so any target is destroyed on every `expo prebuild` and
+would need a config plugin to re-inject it, plus Swift scene code and an
+Espresso equivalent for `screengrab`. The five fastlane lanes here only
+upload. `snapshot`'s actual advantage is the per-locale
+`-AppleLanguages`/`-AppleLocale` launch arguments, which the runner now uses
+directly at no cost, and it would still pay XCUITest query time per step
+against the 6s/scene the simctl path already achieves. 2. Compose: `bash packages/app/fastlane/screenshots/design/compose-screenshots.sh en-US all` - composes into a temp staging dir and only swaps the committed set in
+once every scene of that variant succeeded. The script runs under
+`set -e`, so the old "clear the output dir, then compose into it"
+order destroyed committed screenshots whenever a scene failed midway
+(it ate de-DE/light's iPad shots once). Keep composition
+non-destructive; never reintroduce an up-front `rm -f "$OUT_DIR"/*.png`. - second arg also accepts `android`, which composes only the Play set -
+use it when a device class's iOS raws are missing and the iOS stages of
+`dark` would abort before reaching the Play set. - frames captures in real fastlane frameit device frames, applies
+two-tier captions, writes both variant sets (second arg: light|dark|all).
+Scene manifests are `SCENES_LIGHT`/`SCENES_DARK` in the script; palettes
+live in `set_variant_palette` (light #F7F7F7->#F1F1F1 / #0A0A0A text;
+dark #141414->#0E0E0E / #F5F5F5 text). Keep the manifests mirrored. 3. Review visually (downscale with sips and look), commit both sets. 4. Upload: dispatch "Build and Publish to Stores" with the screenshots
+checkbox, or run the fastlane lanes locally.
 
 ## Design system (user-approved decisions - do not regress)
 
@@ -179,6 +263,25 @@ screenshots:capture --platform=android --locales=en --appearances=light,dark
 
 ## Environment gotchas (hard-won, verified)
 
+- Before ANY capture session, verify the installed app version matches the
+  repo: `xcrun simctl listapps <udid> | grep -A2 <bundle-id>` (or launch and
+  check Settings) against `packages/app/package.json`. An entire 10-locale
+  iOS set was once captured on a stale 2.1.0 build while the repo was at
+  2.5.1 — every shot showed untranslated pre-release UI and the SE-rating
+  fixtures could not seed, and the whole set had to be recaptured. A stale
+  build is invisible in the screenshots themselves until a native speaker or
+  a missing feature exposes it.
+- Store copy must use the app's own translated terms. Audit listing text
+  against `packages/app/src/i18n/locales/<locale>/messages.po` for difficulty
+  names (Infinity is translated per locale), technique labels (X-Wing and
+  Swordfish stay Latin everywhere; Naked Pair et al. are translated), theme
+  names, and the statistics vocabulary ("Hardest solve", "Your arsenal").
+  A first-pass translation left "arsenal" untranslated in ur/hi/bn, invented
+  "salto de rana"/"Schwertfisch" for Swordfish, and inverted "the grids the
+  community made famous" in 10 locales — audit per locale against the
+  catalogs, never trust a bulk pass.
+- SE values always render with a dot (`formatSeRatingValue` uses `toFixed`),
+  so store copy must write `SE 6.6`, never a locale decimal comma.
 - fastlane overwrites `fastlane/README.md` with its generated lane docs after
   every local lane run, destroying the hand-written doc. The Fastfile calls
   `skip_docs` to prevent that; do not remove it.
@@ -228,22 +331,32 @@ screenshots:capture --platform=android --locales=en --appearances=light,dark
   fr-FR, pt-BR, sv, and id under screenshots/variants/{dark,light}/ios/;
   dark is the deployed variant (deployed-variant.json). Two-tier captions
   exist for all 11 iOS locales in design/<locale>/{title,subtitle}.strings.
-- Remaining iOS locales ar-SA, hi, and zh-Hans are BLOCKED on caption
-  rendering: Inter Black has zero Arabic, Devanagari, and CJK glyphs, so
-  composing them needs per-script caption fonts (Noto weights) plus an
-  ImageMagick RTL-shaping check for Arabic before capture is worth running.
+- Caption rendering for non-Latin scripts is solved: `set_caption_engine`'s
+  case sends ar-SA, ur, hi, bn-BD and zh-Hans through `rsvg-convert` (pango +
+  harfbuzz + fribidi shape and bidi them properly) instead of ImageMagick's
+  glyph-less Inter Black freetype path. Needs `brew install librsvg`. Latin
+  and Cyrillic locales keep the freetype path, so previously composed sets
+  stay pixel-identical.
 - The language sheet (@expo/ui bottom sheet) ignores synthetic Maestro
   scroll gestures, so languages below its fold (ar, bn, id, pt, ur) cannot
-  be selected through the UI in a flow. The capture runner's
-  OS_LANGUAGE_MODE=true env skips apply-language's sheet interaction; set
-  the simulator's OS language (`simctl spawn <udid> defaults write
-.GlobalPreferences AppleLanguages -array <lang>`), uninstall + reinstall
-  the app (a fresh install boots in the OS locale), and re-prime deep links
-  before capturing such a locale.
-- Per-locale Play sets are composed from the en Android raws (the compose
-  script logs a "composing from en" note per fallback) until per-locale AVD
-  captures exist; the Play listing text is localized, the screens inside
-  the frames are English for non-en locales.
+  be selected through the UI in a flow. This no longer matters for capture:
+  the fast path writes `settings.language` into the persisted blob, which
+  reaches every locale. The old workaround (set the simulator's OS language,
+  uninstall, reinstall, re-prime deep links, re-seed) is obsolete - do not
+  reintroduce it.
+- Two strings on Home - the Infinity difficulty label and
+  `homeScreenGetDifficultyDescription`'s subtitle - render from the DEVICE
+  locale rather than the app language, because `_layout` activates
+  `i18nGetOSLocale()` at module scope and the component calling that plain
+  util does not subscribe to the Lingui context, so it never re-renders when
+  the persisted language activates. Passing `-AppleLanguages` alongside the
+  seeded language makes both agree, which is why the fast path always sets
+  both. This is a real app bug, still unfixed.
+- Per-locale Play sets now capture natively: the fast path seeds the Android
+  container and switches language with `cmd locale set-app-locales`, so the
+  "composing from en" fallback should no longer fire. If it does, that locale's
+  raw capture is genuinely missing - fix the capture rather than shipping the
+  English screens.
 - Play phone screenshots captured and uploaded (7 at 1080x1920). Still
   missing: the 1024x500 featureGraphic, which is design artwork rather than a
   capture, and the seven/ten-inch tablet sets.

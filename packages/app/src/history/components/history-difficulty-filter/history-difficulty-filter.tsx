@@ -1,7 +1,7 @@
-import { t } from '@lingui/core/macro';
+import { useLingui } from '@lingui/react/macro';
 import { View } from 'react-native';
 
-import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
+import { getDifficultyMessage } from '../../../@generic/utils/get-difficulty-message.util';
 import { HistoryDifficultyChip } from '../history-difficulty-chip/history-difficulty-chip';
 
 import { HistoryDifficultyFilterStyles as styles } from './history-difficulty-filter.styles';
@@ -15,13 +15,14 @@ interface Props {
 }
 
 export const HistoryDifficultyFilter = ({ difficulties, onSelectDifficulty, selectedDifficulty }: Props) => {
+    const { t } = useLingui();
     const allOptions = [null, ...difficulties];
 
     return (
         <View style={styles.container}>
             {allOptions.map(difficulty => {
                 const isSelected = selectedDifficulty === difficulty;
-                const label = difficulty === null ? t`All` : getDifficultyText(difficulty);
+                const label = difficulty === null ? t`All` : t(getDifficultyMessage(difficulty));
                 const handlePress = () => {
                     onSelectDifficulty(difficulty);
                 };

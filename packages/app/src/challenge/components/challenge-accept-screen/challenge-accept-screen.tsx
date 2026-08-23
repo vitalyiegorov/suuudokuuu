@@ -10,7 +10,7 @@ import { ChromeScrollPage } from '../../../@generic/components/chrome-scroll-pag
 import { GlassIconButton } from '../../../@generic/components/glass-icon-button/glass-icon-button';
 import { ScreenActionBar } from '../../../@generic/components/screen-action-bar/screen-action-bar';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
-import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
+import { getDifficultyMessage } from '../../../@generic/utils/get-difficulty-message.util';
 import { getLevelRatingText } from '../../../@generic/utils/get-level-rating-text.util';
 import { getMistakesTypeText } from '../../../@generic/utils/get-mistakes-type-text.util';
 import { stringToGameState } from '../../../game/utils/string-to-game-state.util';
@@ -43,12 +43,12 @@ export const ChallengeAcceptScreen = ({ opponentTotalTime, challengeState, isLoa
     const rivalGameState = stringToGameState(challengeState);
     const rivalSummary = getChallengeRivalRunSummary(challengeState, opponentTotalTime);
     const { awayRanges, techniqueEvents } = rivalSummary;
-    const difficultyText = getDifficultyText(rivalGameState.difficulty);
+    const difficultyText = t(getDifficultyMessage(rivalGameState.difficulty));
     const levelText = getLevelRatingText(difficultyText, rivalGameState.rating, rivalGameState.isRatingCeiling);
-    const mistakesText = getMistakesTypeText(rivalGameState.maxMistakes);
+    const mistakesText = t(getMistakesTypeText(rivalGameState.maxMistakes));
     const chipText = `${t`Rival challenged you`} · ${levelText} · ${mistakesText}`;
     const arsenalCardCount = Math.min(getChallengeTechniqueSummary(techniqueEvents).length, MAX_TECHNIQUE_TILES);
-    const arsenalTagText = plural(arsenalCardCount, { one: '# technique', other: '# techniques' });
+    const arsenalTagText = t({ message: plural(arsenalCardCount, { one: '# technique', other: '# techniques' }) });
 
     const medallionStyle = [styles.medallion, { backgroundColor: theme.colors.ink }];
     const titleStyle = [styles.title, { color: theme.colors.text.primary }];

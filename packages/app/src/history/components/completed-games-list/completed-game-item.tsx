@@ -7,7 +7,7 @@ import { Text, View } from 'react-native';
 import { AppLinkButton } from '../../../@generic/components/app-link-button/app-link-button';
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
-import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
+import { getDifficultyMessage } from '../../../@generic/utils/get-difficulty-message.util';
 import { getLevelRatingText } from '../../../@generic/utils/get-level-rating-text.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { CompletedGameTechniqueSummary } from '../completed-game-technique-summary/completed-game-technique-summary';
@@ -36,7 +36,7 @@ export const CompletedGameItem = ({ game }: Props) => {
     const completedDateText = completedDate.toLocaleDateString();
     const mistakesValue = game.maxMistakes >= 99 ? String(game.mistakes) : `${game.mistakes}/${game.maxMistakes}`;
     const elapsedTimeText = useTimerText(game.elapsedTime);
-    const levelText = getLevelRatingText(getDifficultyText(game.difficulty), game.rating, game.isRatingCeiling);
+    const levelText = getLevelRatingText(t(getDifficultyMessage(game.difficulty)), game.rating, game.isRatingCeiling);
 
     return (
         <View style={containerStyles}>

@@ -1,5 +1,7 @@
 export type CelebrationPulseVariant = 'default' | 'hell' | 'infinity';
 
+export const CelebrationPulseRepeatCount = 4;
+
 interface CelebrationPulseExtraRingConfig {
     readonly delayMs: number;
     readonly opacityOutput: readonly [number, number];

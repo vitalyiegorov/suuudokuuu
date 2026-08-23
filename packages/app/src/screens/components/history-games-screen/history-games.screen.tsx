@@ -5,7 +5,7 @@ import { emptyFn } from '@rnw-community/shared';
 
 import { CollapsibleChromePage } from '../../../@generic/components/collapsible-chrome-page/collapsible-chrome-page';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
-import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
+import { getDifficultyMessage } from '../../../@generic/utils/get-difficulty-message.util';
 import { gameCompletedGamesSelector } from '../../../game/store/game.selectors';
 import { HistoryGamesList } from '../../../history/components/history-games-list/history-games-list';
 import { HistoryGamesSummaryBand } from '../../../history/components/history-games-summary-band/history-games-summary-band';
@@ -23,7 +23,7 @@ export const HistoryGamesScreen = ({ difficulty }: Props) => {
     const { t } = useLingui();
     const completedGames = useAppSelector(gameCompletedGamesSelector(difficulty));
 
-    const title = `${getDifficultyText(difficulty)} ${t`Games`}`;
+    const title = `${t(getDifficultyMessage(difficulty))} ${t`Games`}`;
     const difficulties = [difficulty];
 
     return (

@@ -33,7 +33,7 @@ export const ChallengeResultMarginCard = (props: Props) => {
     const { theme } = use(ThemeContext);
 
     const marginText = useChallengeResultMarginText(durationParts, result);
-    const mistakesText = plural(mistakes, { one: '# mistake', other: '# mistakes' });
+    const mistakesText = t({ message: plural(mistakes, { one: '# mistake', other: '# mistakes' }) });
 
     let labelText = t`Result`;
     let valueText = marginText;

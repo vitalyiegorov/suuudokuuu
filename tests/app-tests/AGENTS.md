@@ -1,5 +1,11 @@
 # App Tests Package
 
+This package also hosts the store-screenshot capture pipeline
+(`scripts/capture-store-screenshots.ts` and friends). That pipeline does NOT
+use Maestro for capture — read `docs/store-screenshot-capture.md` before
+touching it or capturing store screenshots; the rules below govern the E2E
+flows, not store capture.
+
 Maestro E2E flows for Suuudokuuu. Current coverage checks home start/quit, shared-puzzle win, shared-puzzle loss, statistics with replay, settings navigation, resume-after-settings persistence, background/foreground pause behavior, `Play again` setup preservation, and the hint mechanic (activation, stepping, apply, and dismiss).
 
 ## Commands
@@ -33,6 +39,9 @@ Use a freshly rebuilt and reinstalled app when validating code, selector, deep-l
 16. Do not change app behavior solely to satisfy E2E tests. Add selectors or accessibility metadata only when they preserve or improve real UI semantics; otherwise fix the Maestro flow, fixture, or harness.
 17. Before `inputText`, focus the actual input with `tapOn`. After selecting an option from a native sheet, wait for the sheet search field or root to disappear before interacting with the underlying form.
 18. Do not combine `optional: true` with an `extendedWaitUntil` timeout above `5000`, because absence silently consumes the full timeout.
+19. On small Android viewports, content laid out below the system navigation bar never enters the accessibility hierarchy at all, so no timeout can make it visible. Scroll the element into view before asserting it.
+20. Root-cause a CI flow failure from its uploaded debug artifacts — the accessibility hierarchy stored at the failing step, the driver log's synthesized-tap list, and the recording — before editing the flow. A longer wait is never the fix when the element is absent from the hierarchy, and a `.Root` theory is disproven the moment the hierarchy shows the element present.
+21. If a correctly-targeted tap on a native iOS alert does not register, the prime suspect is the game screen's hidden keyboard input re-claiming first responder from the alert's window (`use-keyboard-controls`' autoFocus `TextInput` re-focuses on blur). `subflows/game/quit-current-game.flow.yaml` retries that one OS handoff once; investigate the app hook before widening any retry.
 
 ## Flow Design
 

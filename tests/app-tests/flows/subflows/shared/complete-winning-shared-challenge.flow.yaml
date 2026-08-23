@@ -12,10 +12,19 @@ appId: ${APP_ID}
       id: 'CellSelectors.Cell.6-0'
 - tapOn:
       id: 'AvailableValueItemSelectors.Button.2'
-# The win confetti overlay is mounted for 5s and is hidden from the
-# accessibility tree, but a loaded runner can still cost 10+ seconds per poll,
-# so the wait must clear the confetti window with margin to spare.
+# Assert the OutcomeValue pill instead of the screen's own Root: on iOS a
+# parent .Root testID can fail to register in the accessibility snapshot even
+# once the screen is fully mounted and visible (see the store-media skill's
+# environment gotchas), while a child element in the same render commit
+# reliably does. OutcomeValue mounts in the same synchronous render as Root
+# (the win confetti overlay renders concurrently on top, unmounts after 5s,
+# and does not block the tree beneath it). The trophy medallion's
+# CelebrationPulse animation also starts on this same mount, and while it is
+# actively pulsing every accessibility-snapshot poll runs slower (a
+# continuously-animating Reanimated view, not runner load), so the timeout
+# stays generous to absorb that window even though the pulse is now bounded
+# (CelebrationPulseRepeatCount) instead of running forever.
 - extendedWaitUntil:
       visible:
-          id: 'ChallengeResultScreenSelectors.Root'
+          id: 'ChallengeResultScreenSelectors.OutcomeValue'
       timeout: 15000

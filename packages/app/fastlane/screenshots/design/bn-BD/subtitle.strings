@@ -1,0 +1,19 @@
+/* suuudokuuu — App Store screenshot descriptors (bn-BD, informal "তুমি")
+ * Second-tier caption line under each headline in title.strings — same
+ * scene keys, 4-8 words, rendered smaller and at reduced opacity. Kept
+ * short enough to stay on one line at the iPhone canvas's descriptor point
+ * size (measured against the 1085px iPhone text safe-zone width) so the
+ * caption stack never grows taller than expected. See ../README.md "Design
+ * system" for the two-tier text rules. */
+
+"01-hero-board" = "পরিষ্কার সংখ্যা। পূর্ণ মনোযোগ।";
+"01-hero-board-dark" = "সম্পূর্ণ ডার্ক মোড। কোনো আপস নেই।";
+"01-hero-board-light" = "সম্পূর্ণ লাইট মোড। একই মনোযোগ।";
+"02-hell" = "মাত্র 17টি সূত্র। আর কিছু নয়।";
+"04-editor" = "প্রতিটি রঙ সাজাও, ঘর ধরে ধরে।";
+"05-customization" = "সব রঙ তোমার। 13টি ভাষা।";
+"06-rival" = "আসল খেলা, অ্যান্টিচিট যাচাই করা।";
+"07-replay" = "দেখো ঠিক কীভাবে সমাধান করেছ।";
+"09-home" = "ছয় স্তর, নবিশ থেকে নরক পর্যন্ত।";
+"10-stats" = "প্রতিটি সমাধানের রেটিং। প্রতিটি কৌশল নথিভুক্ত।";
+"14-challenge-live" = "প্রতিটি কৌশল নথিভুক্ত হয়।";
