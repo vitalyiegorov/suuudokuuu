@@ -9,7 +9,7 @@ import { isNotEmptyString } from '@rnw-community/shared';
 import { ChromeScrollPage } from '../../../@generic/components/chrome-scroll-page/chrome-scroll-page';
 import { UkraineSupportCard } from '../../../@generic/components/ukraine-support-card/ukraine-support-card';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
-import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
+import { getDifficultyMessage } from '../../../@generic/utils/get-difficulty-message.util';
 import { getLevelRatingText } from '../../../@generic/utils/get-level-rating-text.util';
 import { getMistakesTypeText } from '../../../@generic/utils/get-mistakes-type-text.util';
 import { GameState } from '../../../game/store/game.state';
@@ -70,9 +70,9 @@ export const ChallengeResultScreen = (props: Props) => {
         flavorText = lostByMistakes ? t`Out of mistakes` : t`Your rival was faster`;
     }
 
-    const difficultyText = getDifficultyText(rivalGameState.difficulty);
+    const difficultyText = t(getDifficultyMessage(rivalGameState.difficulty));
     const levelText = getLevelRatingText(difficultyText, rivalGameState.rating, rivalGameState.isRatingCeiling);
-    const mistakesText = getMistakesTypeText(maxMistakes);
+    const mistakesText = t(getMistakesTypeText(maxMistakes));
     const badgeText = `${flavorText} · ${levelText} · ${mistakesText}`;
 
     const titleStyle = [styles.title, { color: theme.colors.text.primary }];

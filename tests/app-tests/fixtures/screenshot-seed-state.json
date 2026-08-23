@@ -1,0 +1,702 @@
+{
+    "game": {
+        "isPaused": false,
+        "shouldShowPauseScreen": false,
+        "shouldResumeOnFocus": false,
+        "elapsedTime": 0,
+        "sudokuString": "",
+        "difficulty": "Newbie",
+        "rating": 0,
+        "isRatingCeiling": false,
+        "mistakes": 0,
+        "maxMistakes": 3,
+        "score": 0,
+        "showAutoCandidates": false,
+        "inputMode": "normal",
+        "candidates": {},
+        "historyByDifficulty": {
+            "Newbie": {
+                "bestScore": 342,
+                "bestRating": {
+                    "rating": 1,
+                    "isRatingCeiling": false
+                },
+                "bestTime": 5,
+                "difficulty": "Newbie",
+                "gamesCompleted": 4,
+                "gamesLost": 0,
+                "gamesWon": 4,
+                "gamesWonWithoutMistakes": 4,
+                "averageTime": 17.5,
+                "hardcoreWon": 0,
+                "challengesWon": 4,
+                "challengesLost": 0,
+                "completedGames": [
+                    {
+                        "difficulty": "Newbie",
+                        "rating": 1,
+                        "isRatingCeiling": false,
+                        "encodedState": "_NWP________9____qXF6FFdMjBWGhJIN-CMqSm5omCUw0KFUm6-t2HxLUAuYMARRA7gDVBDRQIAABCgEEA",
+                        "elapsedTime": 34,
+                        "score": 238,
+                        "mistakes": 0,
+                        "maxMistakes": 99,
+                        "completedAt": 1786911307464
+                    },
+                    {
+                        "difficulty": "Newbie",
+                        "rating": 0,
+                        "isRatingCeiling": false,
+                        "encodedState": "_NWP________9____qXF6FFdMjBWGhJIN-CMqSm5omCUw0KFUm6-t2HxLUAuYMARGBPQDVBDOkIAABAAEEA",
+                        "elapsedTime": 12,
+                        "score": 317,
+                        "mistakes": 0,
+                        "maxMistakes": 99,
+                        "completedAt": 1786911199362
+                    },
+                    {
+                        "difficulty": "Newbie",
+                        "rating": 1,
+                        "isRatingCeiling": false,
+                        "encodedState": "_NWP________9____qXF6FFdMjBWGhJIN-CMqSm5omCUw0KFUm6-t2HxLUAuYMARChVgDVBDEIIAABCgEEA",
+                        "elapsedTime": 5,
+                        "score": 342,
+                        "mistakes": 0,
+                        "maxMistakes": 99,
+                        "completedAt": 1786910858459
+                    },
+                    {
+                        "difficulty": "Newbie",
+                        "rating": 0,
+                        "isRatingCeiling": false,
+                        "encodedState": "_NWP________9____qXF6FFdMjBWGhJIN-CMqSm5omCUw0KFUm6-t2HxLUAuYMARJhJADVBDBUIAABAAEEA",
+                        "elapsedTime": 19,
+                        "score": 292,
+                        "mistakes": 0,
+                        "maxMistakes": 99,
+                        "completedAt": 1786910782364
+                    }
+                ]
+            },
+            "Easy": {
+                "bestScore": 507,
+                "bestRating": {
+                    "rating": 2.6,
+                    "isRatingCeiling": false
+                },
+                "bestTime": 162,
+                "difficulty": "Easy",
+                "gamesCompleted": 1,
+                "gamesLost": 0,
+                "gamesWon": 1,
+                "gamesWonWithoutMistakes": 1,
+                "averageTime": 162,
+                "hardcoreWon": 0,
+                "challengesWon": 1,
+                "challengesLost": 0,
+                "completedGames": [
+                    {
+                        "difficulty": "Easy",
+                        "rating": 2.6,
+                        "isRatingCeiling": false,
+                        "encodedState": "_NWM_n____z-d____zqNzbszG0LGPHi9FAhiAiYJS_jHVTfpIVFMRaPRSgSAAAFGImUyBIgQRjzYwOH7ANUEJEggAAEaEQgQwQgQQQQ",
+                        "elapsedTime": 162,
+                        "score": 507,
+                        "mistakes": 0,
+                        "maxMistakes": 99,
+                        "completedAt": 1786909384315
+                    }
+                ]
+            },
+            "Medium": {
+                "bestScore": 496,
+                "bestRating": {
+                    "rating": 4.2,
+                    "isRatingCeiling": false
+                },
+                "bestTime": 184,
+                "difficulty": "Medium",
+                "gamesCompleted": 1,
+                "gamesLost": 0,
+                "gamesWon": 1,
+                "gamesWonWithoutMistakes": 1,
+                "averageTime": 184,
+                "hardcoreWon": 0,
+                "challengesWon": 1,
+                "challengesLost": 0,
+                "completedGames": [
+                    {
+                        "difficulty": "Medium",
+                        "rating": 4.2,
+                        "isRatingCeiling": false,
+                        "encodedState": "_NWM_n____z-d____zqNzbszG0LGPHi9FAhiAiYJS_jHVTfpIVFMRaPRSgSAAAFGImUx5wsVJnBwg6HwANUEJbIgAAEqIQgQwQgQQQQ",
+                        "elapsedTime": 184,
+                        "score": 496,
+                        "mistakes": 0,
+                        "maxMistakes": 99,
+                        "completedAt": 1786909587761
+                    }
+                ]
+            },
+            "Hard": {
+                "bestScore": 668,
+                "bestRating": {
+                    "rating": 5.8,
+                    "isRatingCeiling": false
+                },
+                "bestTime": 201,
+                "difficulty": "Hard",
+                "gamesCompleted": 1,
+                "gamesLost": 0,
+                "gamesWon": 1,
+                "gamesWonWithoutMistakes": 1,
+                "averageTime": 201,
+                "hardcoreWon": 0,
+                "challengesWon": 1,
+                "challengesLost": 0,
+                "completedGames": [
+                    {
+                        "difficulty": "Hard",
+                        "rating": 5.8,
+                        "isRatingCeiling": false,
+                        "encodedState": "_NWM_n____z-d____zqNzbszG0LGPHi9FAhiAiYJS_jHVTfpIVFMRaPRSgSAAAFGImUyQ82cRjiyIQKcANUEJ1ogAAE6MQgQwQgQQQQ",
+                        "elapsedTime": 201,
+                        "score": 668,
+                        "mistakes": 0,
+                        "maxMistakes": 99,
+                        "completedAt": 1786909817596
+                    }
+                ]
+            },
+            "Nightmare": {
+                "bestScore": 767,
+                "bestRating": {
+                    "rating": 7.6,
+                    "isRatingCeiling": false
+                },
+                "bestTime": 170,
+                "difficulty": "Nightmare",
+                "gamesCompleted": 1,
+                "gamesLost": 0,
+                "gamesWon": 1,
+                "gamesWonWithoutMistakes": 1,
+                "averageTime": 170,
+                "hardcoreWon": 0,
+                "challengesWon": 1,
+                "challengesLost": 0,
+                "completedGames": [
+                    {
+                        "difficulty": "Nightmare",
+                        "rating": 7.6,
+                        "isRatingCeiling": false,
+                        "encodedState": "_NWM_n____z-d____zqNzbszG0LGPHi9FAhiAiYJS_jHVTfpIVFMRaPRSgSAAAFGImUy5gkVIFCgYsL_ANUEKSYgAAFMQQgQwQgQQQQ",
+                        "elapsedTime": 170,
+                        "score": 767,
+                        "mistakes": 0,
+                        "maxMistakes": 99,
+                        "completedAt": 1786910016276
+                    }
+                ]
+            },
+            "Hell": {
+                "bestScore": 1542,
+                "bestRating": {
+                    "rating": 9.4,
+                    "isRatingCeiling": false
+                },
+                "bestTime": 161,
+                "difficulty": "Hell",
+                "gamesCompleted": 1,
+                "gamesLost": 0,
+                "gamesWon": 1,
+                "gamesWonWithoutMistakes": 1,
+                "averageTime": 161,
+                "hardcoreWon": 0,
+                "challengesWon": 1,
+                "challengesLost": 0,
+                "completedGames": [
+                    {
+                        "difficulty": "Hell",
+                        "rating": 9.4,
+                        "isRatingCeiling": false,
+                        "encodedState": "_NWM_n____z-d____zqNzbszG0LGPHi9FAhiAiYJS_jHVTfpIVFMRaPRSgSAAAFGImUxxAqPHkyxMoYGANUEKrQgAAFeUQgQwQgQQQQ",
+                        "elapsedTime": 161,
+                        "score": 1542,
+                        "mistakes": 0,
+                        "maxMistakes": 99,
+                        "completedAt": 1786910206090
+                    }
+                ]
+            },
+            "Infinity": {
+                "bestScore": 982,
+                "bestRating": {
+                    "rating": 11.9,
+                    "isRatingCeiling": false
+                },
+                "bestTime": 181,
+                "difficulty": "Infinity",
+                "gamesCompleted": 1,
+                "gamesLost": 0,
+                "gamesWon": 1,
+                "gamesWonWithoutMistakes": 1,
+                "averageTime": 181,
+                "hardcoreWon": 0,
+                "challengesWon": 1,
+                "challengesLost": 0,
+                "completedGames": [
+                    {
+                        "difficulty": "Infinity",
+                        "rating": 11.9,
+                        "isRatingCeiling": false,
+                        "encodedState": "_NWM_n____z-d____zqNzbszG0LGPHi9FAhiAiYJS_jHVTfpIVFMRaPRSgSAAAFGImUyY9EaOGygUOPWANUELC4gAAF3YQgQwQgQQQQ",
+                        "elapsedTime": 181,
+                        "score": 982,
+                        "mistakes": 0,
+                        "maxMistakes": 99,
+                        "completedAt": 1786910414810
+                    }
+                ]
+            }
+        },
+        "timelineEvents": [],
+        "challengeTimelineEvents": [],
+        "challengeTime": 0,
+        "challengeState": "",
+        "wallClockStartMs": 0,
+        "isChallengeRun": false,
+        "hasNewPersonalBestScore": false,
+        "techniqueUsageCounts": {
+            "1": 40,
+            "2": 12,
+            "3": 6
+        },
+        "playedDayNumbers": [20681]
+    },
+    "settings": {
+        "hasVibration": true,
+        "hasTimer": true,
+        "showAreas": true,
+        "showIdenticalNumbers": true,
+        "showComboAnimation": true,
+        "showFilledNumbers": true,
+        "showActiveCandidates": true,
+        "keepActiveCell": true,
+        "keepExhaustedDigits": true,
+        "isLeftHanded": false,
+        "fontSize": "m",
+        "language": "en",
+        "theme": "black-and-white",
+        "isDarkColorSchema": true,
+        "cellMargin": 5,
+        "lastGameDifficulty": "Hell",
+        "lastGameMaxMistakes": 3,
+        "lastGameChallengeMode": false,
+        "lastStatsDifficulty": "Easy"
+    },
+    "customThemes": {
+        "themes": []
+    },
+    "sceneStates": {
+        "hero": {
+            "difficulty": "Nightmare",
+            "sudokuString": "9.31........48.2.9...5.....69..........2....8.5...79.4......7.321...6..........4.",
+            "rating": 8,
+            "isRatingCeiling": false,
+            "elapsedTime": 12,
+            "score": 0,
+            "mistakes": 0,
+            "maxMistakes": 3,
+            "candidates": {
+                "4-4": [2, 5, 8],
+                "2-6": [1, 4],
+                "6-2": [3, 7, 9]
+            }
+        },
+        "infinity": {
+            "difficulty": "Infinity",
+            "sudokuString": "800000000003600000070090200050007000000045700000100030001000068008500010090000400",
+            "candidates": {
+                "4-4": [2, 5, 8]
+            },
+            "rating": 11.9,
+            "isRatingCeiling": false,
+            "elapsedTime": 12,
+            "score": 0,
+            "mistakes": 0,
+            "maxMistakes": 3
+        },
+        "challengeLive": {
+            "difficulty": "Nightmare",
+            "sudokuString": "9...........18..2.8.34...1.5....63...6...84..........9..85..........7...3....98.4",
+            "candidates": {},
+            "rating": 0,
+            "isRatingCeiling": false,
+            "elapsedTime": 45,
+            "score": 0,
+            "mistakes": 0,
+            "maxMistakes": 3,
+            "isChallengeRun": true,
+            "challengeState": "_KAOADKxQxGAEwAiG0eSR7tZLUwnibscwQ0-A5fIIKC45kkWcIIQQQRgYUgCGSyNYgAAAAAAAAAAAAASWSrfOcD6yrHa0SAMNhPEITYFvbWxiFMlBQUFBQUFBQUFBQUFBQUFCQkFAgICAgICBQIFCQIJCQUFCQkFAgICAgICAgICAgICAgICAgICAgICAgIA",
+            "challengeTime": 230,
+            "challengeTimelineEvents": [
+                {
+                    "kind": 0,
+                    "cellIndex": 8,
+                    "value": 8,
+                    "ts": 5
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 17,
+                    "value": 3,
+                    "ts": 5
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 5,
+                    "value": 3,
+                    "ts": 5
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 23,
+                    "value": 2,
+                    "ts": 5
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 28,
+                    "value": 8,
+                    "ts": 5
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 51,
+                    "value": 6,
+                    "ts": 5
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 26,
+                    "value": 6,
+                    "ts": 5
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 43,
+                    "value": 5,
+                    "ts": 5
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 79,
+                    "value": 6,
+                    "ts": 5
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 3,
+                    "value": 6,
+                    "ts": 5
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 4,
+                    "value": 7,
+                    "ts": 5
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 59,
+                    "value": 4,
+                    "ts": 5
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 76,
+                    "value": 1,
+                    "ts": 5
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 31,
+                    "value": 4,
+                    "ts": 5
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 49,
+                    "value": 5,
+                    "ts": 5
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 19,
+                    "value": 5,
+                    "ts": 9
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 10,
+                    "value": 4,
+                    "ts": 9
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 73,
+                    "value": 7,
+                    "ts": 5
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 6,
+                    "value": 5,
+                    "ts": 2
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 7,
+                    "value": 4,
+                    "ts": 2
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 14,
+                    "value": 5,
+                    "ts": 2
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 15,
+                    "value": 9,
+                    "ts": 2
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 22,
+                    "value": 9,
+                    "ts": 2
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 24,
+                    "value": 7,
+                    "ts": 2
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 62,
+                    "value": 7,
+                    "ts": 5
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 34,
+                    "value": 7,
+                    "ts": 2
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 30,
+                    "value": 9,
+                    "ts": 5
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 29,
+                    "value": 1,
+                    "ts": 9
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 1,
+                    "value": 1,
+                    "ts": 2
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 36,
+                    "value": 7,
+                    "ts": 9
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 40,
+                    "value": 2,
+                    "ts": 9
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 47,
+                    "value": 4,
+                    "ts": 5
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 54,
+                    "value": 1,
+                    "ts": 5
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 64,
+                    "value": 2,
+                    "ts": 9
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 70,
+                    "value": 9,
+                    "ts": 9
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 65,
+                    "value": 6,
+                    "ts": 5
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 2,
+                    "value": 2,
+                    "ts": 2
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 9,
+                    "value": 6,
+                    "ts": 2
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 11,
+                    "value": 7,
+                    "ts": 2
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 35,
+                    "value": 2,
+                    "ts": 2
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 38,
+                    "value": 9,
+                    "ts": 2
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 39,
+                    "value": 3,
+                    "ts": 2
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 44,
+                    "value": 1,
+                    "ts": 2
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 45,
+                    "value": 2,
+                    "ts": 2
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 46,
+                    "value": 3,
+                    "ts": 2
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 48,
+                    "value": 7,
+                    "ts": 2
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 50,
+                    "value": 1,
+                    "ts": 2
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 52,
+                    "value": 8,
+                    "ts": 2
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 55,
+                    "value": 9,
+                    "ts": 2
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 58,
+                    "value": 6,
+                    "ts": 2
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 60,
+                    "value": 2,
+                    "ts": 2
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 61,
+                    "value": 3,
+                    "ts": 2
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 63,
+                    "value": 4,
+                    "ts": 2
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 66,
+                    "value": 8,
+                    "ts": 2
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 67,
+                    "value": 3,
+                    "ts": 2
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 69,
+                    "value": 1,
+                    "ts": 2
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 71,
+                    "value": 5,
+                    "ts": 2
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 74,
+                    "value": 5,
+                    "ts": 2
+                },
+                {
+                    "kind": 0,
+                    "cellIndex": 75,
+                    "value": 2,
+                    "ts": 2
+                }
+            ],
+            "timelineEvents": [],
+            "wallClockStartMs": 1786944857965
+        }
+    }
+}

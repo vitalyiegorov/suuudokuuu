@@ -29,11 +29,14 @@
 #   packages/app/fastlane/screenshots/design/compose-screenshots.sh [locale] [variant]
 #
 # `locale` defaults to en-US and must have a design/<locale>/title.strings
-# and design/<locale>/subtitle.strings file. `variant` is light, dark, or
-# all (the default) and selects which appearance set(s) to compose into
-# variants/<variant>/ios/<locale>. The scene manifests (which raw captures
-# to use, in which order, with which appearance, layout variant, and device
-# size) are curated below in SCENES_LIGHT/SCENES_DARK — they are a
+# and design/<locale>/subtitle.strings file. `variant` is light, dark,
+# android, or all (the default) and selects which appearance set(s) to
+# compose into variants/<variant>/ios/<locale>. `all` and `dark` also compose
+# the Play set; `android` composes only the Play set, which is what to use
+# when the iOS raw captures for a device class are unavailable and the iOS
+# stages of `dark` would abort before reaching it. The scene manifests (which
+# raw captures to use, in which order, with which appearance, layout variant,
+# and device size) are curated below in SCENES_LIGHT/SCENES_DARK — they are a
 # store-listing decision, not something to infer from the raw capture
 # directory, so they are not read from a config file.
 #
@@ -53,6 +56,30 @@ TITLES="$DESIGN_DIR/$LOCALE/title.strings"
 SUBTITLES="$DESIGN_DIR/$LOCALE/subtitle.strings"
 OUT_DIR=""
 
+# Every scene composes into a staging directory and the committed set is only
+# replaced once the whole variant succeeded. `set -e` aborts on the first
+# ImageMagick failure, so clearing the output directory up front and composing
+# into it destroys committed screenshots and leaves nothing in their place -
+# that already happened once to de-DE/light's iPad shots.
+STAGE_ROOT="$(mktemp -d "${TMPDIR:-/tmp}/suuudokuuu-compose.XXXXXX")"
+trap 'rm -rf "$STAGE_ROOT"' EXIT
+
+publish_stage() {
+  local final_dir="$1"
+  local staged_count
+
+  staged_count="$(find "$OUT_DIR" -maxdepth 1 -name '*.png' | wc -l | tr -d ' ')"
+  if [[ "$staged_count" == "0" ]]; then
+    echo "error: nothing composed for $final_dir, keeping the committed set" >&2
+    exit 1
+  fi
+
+  mkdir -p "$final_dir"
+  rm -f "$final_dir"/*.png
+  mv "$OUT_DIR"/*.png "$final_dir/"
+  echo "published $staged_count screenshots to $final_dir"
+}
+
 # Store locales map onto the app language codes the capture runner writes
 # raw screenshots under (raw/ios/<device>/<app-locale>/...).
 case "$LOCALE" in
@@ -63,7 +90,22 @@ case "$LOCALE" in
   pt-BR) RAW_LOCALE="pt" ;;
   zh-Hans) RAW_LOCALE="zh" ;;
   ar-SA) RAW_LOCALE="ar" ;;
+  bn-BD) RAW_LOCALE="bn" ;;
+  hi-IN) RAW_LOCALE="hi" ;;
   *) RAW_LOCALE="$LOCALE" ;;
+esac
+
+# Play locale directories are NOT the same set as the App Store's. supply has
+# no allowlist filtering - it hands every directory under metadata_path to the
+# Play API as a language code, so a directory Play does not know (bare `sv`,
+# which is `sv-SE` there) fails the whole upload. Every value below must be a
+# real code from supply's ALL_LANGUAGES.
+case "$LOCALE" in
+  ar-SA) PLAY_LOCALE="ar" ;;
+  hi) PLAY_LOCALE="hi-IN" ;;
+  zh-Hans) PLAY_LOCALE="zh-CN" ;;
+  sv) PLAY_LOCALE="sv-SE" ;;
+  *) PLAY_LOCALE="$LOCALE" ;;
 esac
 
 # Prefer the locale's own capture; fall back to the en capture (with a log
@@ -82,8 +124,8 @@ raw_source_for() {
   fi
 }
 
-if [[ "$VARIANT" != "all" && "$VARIANT" != "light" && "$VARIANT" != "dark" ]]; then
-  echo "error: unknown variant '$VARIANT'. Use light, dark, or all." >&2
+if [[ "$VARIANT" != "all" && "$VARIANT" != "light" && "$VARIANT" != "dark" && "$VARIANT" != "android" ]]; then
+  echo "error: unknown variant '$VARIANT'. Use light, dark, android, or all." >&2
   exit 1
 fi
 
@@ -207,7 +249,6 @@ set_variant_palette() {
     TEXT_HEX="#0A0A0A"
     DESCRIPTOR_RGB="10,10,10"
   fi
-  OUT_DIR="$APP_DIR/fastlane/screenshots/variants/$variant/ios/$LOCALE"
 }
 
 # Headline point size target: 9-11% of canvas width, but on a landscape
@@ -303,10 +344,77 @@ wait_for_capture() {
   fi
 }
 
+# Inter Black carries no Arabic, Devanagari, Bengali or CJK glyphs, and this
+# ImageMagick is built without raqm/pango (see `magick -version` delegates), so
+# it cannot shape complex scripts either - it renders Arabic letters in
+# isolated, unjoined forms. librsvg DOES shape (it lays text out through
+# pango/harfbuzz + fribidi), so those locales render their captions through an
+# SVG <text> element instead of ImageMagick's label:/caption:. Latin and
+# Cyrillic keep the Inter Black freetype path untouched, so every previously
+# composed set stays pixel-identical.
+case "$LOCALE" in
+  ar-SA) CAPTION_ENGINE="rsvg"; CAPTION_FAMILY="SF Arabic"; CAPTION_WEIGHT="900"; CAPTION_DIRECTION="rtl" ;;
+  ur) CAPTION_ENGINE="rsvg"; CAPTION_FAMILY="Noto Nastaliq Urdu"; CAPTION_WEIGHT="bold"; CAPTION_DIRECTION="rtl" ;;
+  hi) CAPTION_ENGINE="rsvg"; CAPTION_FAMILY="Kohinoor Devanagari"; CAPTION_WEIGHT="bold"; CAPTION_DIRECTION="ltr" ;;
+  bn-BD) CAPTION_ENGINE="rsvg"; CAPTION_FAMILY="Kohinoor Bangla"; CAPTION_WEIGHT="bold"; CAPTION_DIRECTION="ltr" ;;
+  zh-Hans) CAPTION_ENGINE="rsvg"; CAPTION_FAMILY="Hiragino Sans GB"; CAPTION_WEIGHT="bold"; CAPTION_DIRECTION="ltr" ;;
+  *) CAPTION_ENGINE="freetype"; CAPTION_FAMILY=""; CAPTION_WEIGHT=""; CAPTION_DIRECTION="ltr" ;;
+esac
+
+if [[ "$CAPTION_ENGINE" == "rsvg" ]] && ! command -v rsvg-convert >/dev/null 2>&1; then
+  echo "error: locale '$LOCALE' needs shaped text rendering; install librsvg ('brew install librsvg') for rsvg-convert" >&2
+  exit 1
+fi
+
+escape_caption_xml() {
+  local text="$1"
+  text="${text//&/&amp;}"
+  text="${text//</&lt;}"
+  text="${text//>/&gt;}"
+  printf '%s' "$text"
+}
+
+# Renders one shaped caption line to a trimmed, transparent PNG. The canvas is
+# deliberately oversized (Nastaliq in particular hangs well below its baseline
+# and would otherwise clip) and trimmed back afterwards, so the caller gets the
+# same tight bounding box ImageMagick's -trim produces on the freetype path.
+render_caption_rsvg() {
+  local pointsize="$1" fill="$2" opacity="$3" text="$4" out="$5"
+  local svg canvas_w canvas_h baseline escaped
+  canvas_w=$((pointsize * 40))
+  canvas_h=$((pointsize * 4))
+  baseline=$((pointsize * 2))
+  escaped="$(escape_caption_xml "$text")"
+  svg="$WORK_ROOT/caption-$$-$RANDOM.svg"
+
+  cat >"$svg" <<EOF
+<svg xmlns="http://www.w3.org/2000/svg" width="$canvas_w" height="$canvas_h">
+<text x="$((canvas_w / 2))" y="$baseline" text-anchor="middle" direction="$CAPTION_DIRECTION"
+ font-family="$CAPTION_FAMILY" font-weight="$CAPTION_WEIGHT" font-size="$pointsize"
+ fill="$fill" fill-opacity="$opacity" xml:space="preserve">$escaped</text>
+</svg>
+EOF
+
+  rsvg-convert -o "$out.raw.png" "$svg"
+  magick "$out.raw.png" -trim +repage -define png:color-type=6 -depth 8 "$out"
+  rm -f "$svg" "$out.raw.png"
+}
+
 # Renders `text` at `pointsize` as an unwrapped label and prints its pixel
 # width — used by fit_headline_pointsize's shrink-to-fit loop.
 label_width() {
   local pointsize="$1" text="$2"
+
+  if [[ "$CAPTION_ENGINE" == "rsvg" ]]; then
+    local probe
+    probe="$WORK_ROOT/probe-$$-$RANDOM.png"
+    render_caption_rsvg "$pointsize" "#000000" "1" "$text" "$probe"
+    magick identify -format "%w" "$probe"
+    rm -f "$probe"
+
+    return
+  fi
+
   magick -font "$FONT" -pointsize "$pointsize" label:"$text" -format "%w" info:
 }
 
@@ -375,15 +483,23 @@ build_text_stack() {
   cap_w=$(awk -v w="$canvas_w" -v f="$HEADLINE_TARGET_WIDTH_FRACTION" 'BEGIN { printf "%d", w * f }')
 
   headline_png="$WORK_ROOT/$$-headline-$RANDOM.png"
-  magick -background none -fill "$TEXT_HEX" -font "$FONT" -pointsize "$headline_pt" \
-    label:"$headline" -trim +repage -define png:color-type=6 -depth 8 "$headline_png"
+  if [[ "$CAPTION_ENGINE" == "rsvg" ]]; then
+    render_caption_rsvg "$headline_pt" "$TEXT_HEX" "1" "$headline" "$headline_png"
+  else
+    magick -background none -fill "$TEXT_HEX" -font "$FONT" -pointsize "$headline_pt" \
+      label:"$headline" -trim +repage -define png:color-type=6 -depth 8 "$headline_png"
+  fi
   headline_w="$(magick identify -format "%w" "$headline_png")"
   headline_h="$(magick identify -format "%h" "$headline_png")"
 
   descriptor_png="$WORK_ROOT/$$-descriptor-$RANDOM.png"
-  magick -background none -fill "rgba(${DESCRIPTOR_RGB},${DESCRIPTOR_OPACITY})" -font "$FONT" -pointsize "$descriptor_pt" \
-    -gravity center -size "${cap_w}x" caption:"$descriptor" -trim +repage \
-    -define png:color-type=6 -depth 8 "$descriptor_png"
+  if [[ "$CAPTION_ENGINE" == "rsvg" ]]; then
+    render_caption_rsvg "$descriptor_pt" "$TEXT_HEX" "$DESCRIPTOR_OPACITY" "$descriptor" "$descriptor_png"
+  else
+    magick -background none -fill "rgba(${DESCRIPTOR_RGB},${DESCRIPTOR_OPACITY})" -font "$FONT" -pointsize "$descriptor_pt" \
+      -gravity center -size "${cap_w}x" caption:"$descriptor" -trim +repage \
+      -define png:color-type=6 -depth 8 "$descriptor_png"
+  fi
   descriptor_w="$(magick identify -format "%w" "$descriptor_png")"
   descriptor_h="$(magick identify -format "%h" "$descriptor_png")"
 
@@ -690,11 +806,14 @@ SCENES_LIGHT=(
   "iphone|14-challenge-live|light|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|04_iphone_challenge-live.png"
   "combo|-|light|B|$DEVICE_HEIGHT_FRACTION_COMBO|05_iphone_customization.png|05-customization"
   "iphone|07-replay|light|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|06_iphone_replay.png"
-  "iphone|01-hero-board|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|07_iphone_hero-board-dark.png|01-hero-board-dark"
+  "iphone|10-stats|light|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|07_iphone_stats.png"
+  "iphone|15-infinity|light|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|09_iphone_infinity.png"
+  "iphone|01-hero-board|dark|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|08_iphone_hero-board-dark.png|01-hero-board-dark"
   "ipad-landscape|01-hero-board|light|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|21_ipad_hero-board.png"
   "ipad-landscape|02-hell|light|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|22_ipad_hell.png"
   "ipad-landscape|14-challenge-live|light|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|23_ipad_challenge-live.png"
   "ipad-landscape|04-editor|light|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|24_ipad_editor.png"
+  "ipad-landscape|15-infinity|light|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|26_ipad_infinity.png"
   "ipad-landscape|09-home|light|A|$DEVICE_HEIGHT_FRACTION_ENDPOINT|25_ipad_home.png"
 )
 
@@ -709,7 +828,8 @@ SCENES_ANDROID=(
   "android|14-challenge-live|dark|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|04_phone_challenge-live.png"
   "android|04-editor|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|05_phone_customization.png|04-editor"
   "android|07-replay|dark|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|06_phone_replay.png"
-  "android|01-hero-board|light|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|07_phone_hero-board-light.png|01-hero-board-light"
+  "android|10-stats|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|07_phone_stats.png"
+  "android|01-hero-board|light|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|08_phone_hero-board-light.png|01-hero-board-light"
 )
 
 SCENES_DARK=(
@@ -719,11 +839,14 @@ SCENES_DARK=(
   "iphone|14-challenge-live|dark|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|04_iphone_challenge-live.png"
   "combo|-|dark|B|$DEVICE_HEIGHT_FRACTION_COMBO|05_iphone_customization.png|05-customization"
   "iphone|07-replay|dark|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|06_iphone_replay.png"
-  "iphone|01-hero-board|light|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|07_iphone_hero-board-light.png|01-hero-board-light"
+  "iphone|10-stats|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|07_iphone_stats.png"
+  "iphone|15-infinity|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|09_iphone_infinity.png"
+  "iphone|01-hero-board|light|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|08_iphone_hero-board-light.png|01-hero-board-light"
   "ipad-landscape|01-hero-board|dark|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|21_ipad_hero-board.png"
   "ipad-landscape|02-hell|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|22_ipad_hell.png"
   "ipad-landscape|14-challenge-live|dark|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|23_ipad_challenge-live.png"
   "ipad-landscape|04-editor|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|24_ipad_editor.png"
+  "ipad-landscape|15-infinity|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|26_ipad_infinity.png"
   "ipad-landscape|09-home|dark|A|$DEVICE_HEIGHT_FRACTION_ENDPOINT|25_ipad_home.png"
 )
 
@@ -737,8 +860,8 @@ run_variant() {
     scenes=("${SCENES_LIGHT[@]}")
   fi
 
+  OUT_DIR="$STAGE_ROOT/$variant-ios-$LOCALE"
   mkdir -p "$OUT_DIR"
-  rm -f "$OUT_DIR"/*.png
   local entry device scene appearance layout height_fraction out_name caption_key
   for entry in "${scenes[@]}"; do
     IFS='|' read -r device scene appearance layout height_fraction out_name caption_key <<<"$entry"
@@ -748,24 +871,29 @@ run_variant() {
       compose_one "$device" "$scene" "$appearance" "$layout" "$height_fraction" "$out_name" "$caption_key"
     fi
   done
+
+  publish_stage "$APP_DIR/fastlane/screenshots/variants/$variant/ios/$LOCALE"
 }
 
 run_android() {
   set_variant_palette "dark"
-  OUT_DIR="$APP_DIR/fastlane/metadata/android/$LOCALE/images/phoneScreenshots"
+  OUT_DIR="$STAGE_ROOT/android-$PLAY_LOCALE"
 
   mkdir -p "$OUT_DIR"
-  rm -f "$OUT_DIR"/*.png
   local entry device scene appearance layout height_fraction out_name caption_key
   for entry in "${SCENES_ANDROID[@]}"; do
     IFS='|' read -r device scene appearance layout height_fraction out_name caption_key <<<"$entry"
     compose_one "$device" "$scene" "$appearance" "$layout" "$height_fraction" "$out_name" "$caption_key"
   done
+
+  publish_stage "$APP_DIR/fastlane/metadata/android/$PLAY_LOCALE/images/phoneScreenshots"
 }
 
 if [[ "$VARIANT" == "all" ]]; then
   run_variant "light"
   run_variant "dark"
+  run_android
+elif [[ "$VARIANT" == "android" ]]; then
   run_android
 else
   run_variant "$VARIANT"

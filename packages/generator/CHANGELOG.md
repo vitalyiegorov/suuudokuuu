@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.6.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.5.1...v2.6.0) (2026-08-17)
+
+### Features
+
+- **generator,app:** add the Infinity difficulty level served from the curated corpus ([0da6f80](https://github.com/vitalyiegorov/suuudokuuu/commit/0da6f8037fb6f6f37aaf051bcece0f82873d4f84)), closes [#280](https://github.com/vitalyiegorov/suuudokuuu/issues/280)
+
 # [1.74.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.73.1...v1.74.0) (2026-08-01)
 
 ### Bug Fixes

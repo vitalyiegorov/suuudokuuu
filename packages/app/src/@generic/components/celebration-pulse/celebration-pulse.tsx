@@ -18,7 +18,7 @@ import { useReduceMotion } from '../../hooks/use-reduce-motion.hook';
 
 import { CelebrationPulseRing } from './celebration-pulse-ring/celebration-pulse-ring';
 import { CelebrationPulseStyles as styles } from './celebration-pulse.styles';
-import { CelebrationPulseExtraRingsByVariant } from './constant/celebration-pulse.constant';
+import { CelebrationPulseExtraRingsByVariant, CelebrationPulseRepeatCount } from './constant/celebration-pulse.constant';
 
 import type { CelebrationPulseVariant } from './constant/celebration-pulse.constant';
 import type { ReactNode } from 'react';
@@ -58,7 +58,11 @@ export const CelebrationPulse = ({ children, color, size, variant = 'default' }:
             return;
         }
 
-        pulse.value = withRepeat(withTiming(1, { duration: PulseDurationMs, easing: Easing.out(Easing.ease) }), -1, false);
+        pulse.value = withRepeat(
+            withTiming(1, { duration: PulseDurationMs, easing: Easing.out(Easing.ease) }),
+            CelebrationPulseRepeatCount,
+            false
+        );
     }, [isMotionReduced, pulse]);
 
     const appearScale = useDerivedValue(() => interpolate(appear.value, UnitInput, AppearScaleOutput));

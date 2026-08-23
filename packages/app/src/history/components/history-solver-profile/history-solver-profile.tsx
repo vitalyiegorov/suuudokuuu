@@ -7,7 +7,7 @@ import { isDefined } from '@rnw-community/shared';
 
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { formatSeRatingValue } from '../../../@generic/utils/format-se-rating-value.util';
-import { getDifficultyText } from '../../../@generic/utils/get-difficulty-text.util';
+import { getDifficultyMessage } from '../../../@generic/utils/get-difficulty-message.util';
 import { getRatingExplainerHref } from '../../../@generic/utils/get-rating-explainer-href.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { HistoryMissingValueText } from '../../constants/history-missing-value-text.constant';
@@ -41,7 +41,7 @@ export const HistorySolverProfile = ({ profile, completedGames }: Props) => {
     const hasAverageRecentSe = profile.averageRecentSeRating > 0;
     const averageRecentSeText = hasAverageRecentSe ? formatSeRatingValue(profile.averageRecentSeRating, false) : HistoryMissingValueText;
     const mostPlayedDifficultyText = isDefined(profile.mostPlayedDifficulty)
-        ? getDifficultyText(profile.mostPlayedDifficulty)
+        ? t(getDifficultyMessage(profile.mostPlayedDifficulty))
         : HistoryMissingValueText;
     const subtitleText = t`Avg recent ${averageRecentSeText} · Most played ${mostPlayedDifficultyText}`;
 

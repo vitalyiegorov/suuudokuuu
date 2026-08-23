@@ -1,6 +1,6 @@
-Infinity arrive : 100 grilles record du monde notées SE 10.4 à 11.9, dont Everest et Golden Nugget.
-Chaque grille affiche sa note Sudoku Explainer, avec une explication intégrée.
-Enfer recomposé : 1 544 grilles vérifiées à 17 indices, toutes SE 6,6 ou plus.
-Statistiques repensées : résolution la plus dure, spectre SE et ton arsenal de techniques.
-Résumés de techniques dans l'historique et contrôle complet au clavier sur le web.
-Corrigé : les liens partagés n'effacent plus tes statistiques.
+Infini est là : 100 grilles record du monde notées de SE 10.4 à 11.9, dont Everest et Golden Nugget.
+Chaque grille affiche sa note Sudoku Explainer (SE), avec une explication intégrée.
+Enfer recomposé : 1 544 grilles vérifiées à 17 indices, toutes SE 6.6 ou plus.
+Statistiques repensées : grille la plus dure, spectre SE et arsenal de techniques.
+Corrigé : les liens partagés n'effacent plus vos statistiques.
+Corrigé : quitter une partie marche dans toutes les langues.

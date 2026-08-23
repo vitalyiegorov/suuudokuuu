@@ -1,0 +1,44 @@
+name: Build Development build
+
+on:
+    workflow_dispatch:
+
+permissions:
+    contents: write
+
+concurrency:
+    group: development-build-release
+    cancel-in-progress: false
+
+jobs:
+    dev-release:
+        name: Development build and release
+        permissions:
+            contents: write
+        uses: rnw-community/mobile-ci/.github/workflows/native-dev-release.yml@v1.6.5 # v1.6.5
+        with:
+            app-dir: packages/app
+            enable-ios: true
+            enable-android: true
+            ios-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
+            android-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
+            node-version: 22.x
+            build-profile: development
+            eas-cli-version: '20.5.1'
+            tag-prefix: development
+            keep-releases: '5'
+            publish-env: |
+                EXPO_NO_TELEMETRY=1
+                LANG=en_US.UTF-8
+                LC_ALL=en_US.UTF-8
+                APP_VARIANT=development
+                EXPO_APPLE_TEAM_ID=3R8589YV24
+                EXPO_APPLE_TEAM_TYPE=INDIVIDUAL
+                EXPO_USE_PRECOMPILED_MODULES=1
+                RCT_USE_PREBUILT_RNCORE=1
+                RCT_USE_RN_DEP=1
+        secrets:
+            EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+            ASC_API_KEY: ${{ secrets.EXPO_IOS_ASC_API_KEY }}
+            ASC_KEY_ID: ${{ secrets.EXPO_IOS_ASC_KEY_ID }}
+            ASC_ISSUER_ID: ${{ secrets.EXPO_IOS_ASC_ISSUER_ID }}

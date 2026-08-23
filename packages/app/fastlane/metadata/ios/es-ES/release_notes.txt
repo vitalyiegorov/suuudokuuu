@@ -1,10 +1,10 @@
-Llega Infinity: 100 sudokus récord mundial valorados entre SE 10.4 y 11.9. El Everest y AI Escargot de Arto Inkala, Golden Nugget, Platinum Blonde, Kolk, Patience. La mayoría de la gente no termina ninguno.
+Llega Infinito: 100 sudokus récord mundial valorados entre SE 10.4 y 11.9. El Everest y AI Escargot de Arto Inkala, Golden Nugget, Platinum Blonde, Kolk, Patience. La mayoría de la gente no termina ninguno.
 
-• Cada puzle muestra ya su valoración Sudoku Explainer en la escala de 1,0 a 12,0: en la etiqueta de nivel del tablero, en el historial y en los enlaces compartidos. Una explicación integrada te dice qué significa ese número.
-• Infierno, revisado: 1.544 puzles verificados de 17 pistas, todos con SE 6,6 o superior. Se acabaron los tableros "durísimos" que caen a base de singles.
-• Estadísticas rediseñadas: tu resolución más difícil, la dificultad media reciente, el nivel que más juegas, el espectro SE completo y tu arsenal de técnicas con sus recuentos.
+• Cada sudoku muestra ya su valoración en la escala Sudoku Explainer (SE), de 1.0 a 12.0: en la etiqueta de nivel del tablero, en el historial y en los enlaces compartidos. Una explicación integrada te dice qué significa ese número.
+• Infierno, revisado: 1.544 sudokus verificados de 17 pistas, todos con SE 6.6 o superior. Se acabaron los tableros "durísimos" que caen con simples únicos.
+• Estadísticas rediseñadas: tu sudoku más difícil, la dificultad media reciente, el nivel que más juegas, el espectro SE completo y tu arsenal de técnicas con sus recuentos.
 • Las tarjetas del historial llevan un resumen de técnicas, y la pantalla de repetición está más limpia.
-• Control total con el teclado en la web: flechas, dígitos, Espacio o N para notas, Mayús y un dígito para candidatos, A para candidatos automáticos.
+• Control total con el teclado en la web: flechas, dígitos, Espacio o N para las anotaciones, Mayús y un dígito para candidatos, A para candidatos automáticos.
 • Corregido: abrir un enlace compartido ya no borra tus estadísticas.
-• Corregido: salir de una partida funciona ya en todos los idiomas.
+• Corregido: salir de una partida ya funciona en todos los idiomas.
 • Más rápido: las partidas de Infierno arrancan al instante y el historial carga sin tirones.

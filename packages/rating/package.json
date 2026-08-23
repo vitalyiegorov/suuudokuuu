@@ -1,6 +1,6 @@
 {
     "name": "@suuudokuuu/rating",
-    "version": "2.4.2",
+    "version": "2.6.0",
     "private": true,
     "sideEffects": "false",
     "exports": {

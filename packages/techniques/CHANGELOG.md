@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.6.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.5.1...v2.6.0) (2026-08-17)
+
+### Bug Fixes
+
+- **app:** classify bulk technique replays with the full registry ([4bb7108](https://github.com/vitalyiegorov/suuudokuuu/commit/4bb7108d6f2f637e42a61be1cc3117f283c55816))
+- **techniques,rating:** make chain scan budgets transform-invariant and report search caps ([11e6225](https://github.com/vitalyiegorov/suuudokuuu/commit/11e62250ad273ce79ec0c27ac074013948b9eee7))
+- **techniques:** apply the shortest chain first in X-Chain and XY-Chain results ([083fab0](https://github.com/vitalyiegorov/suuudokuuu/commit/083fab0fa7f65c7d1c055d4d6fd10877ee655d2f))
+
+### Features
+
+- **techniques,rating:** add BUG and Unique Rectangle detectors and raise the rating ceiling ([a4fe885](https://github.com/vitalyiegorov/suuudokuuu/commit/a4fe885c9c0cbd6ff3314c49b66b394cd8d67577)), closes [#276](https://github.com/vitalyiegorov/suuudokuuu/issues/276)
+- **techniques,rating:** add shortest-chain search with length-based chain ratings ([48eca2e](https://github.com/vitalyiegorov/suuudokuuu/commit/48eca2e483aab2547c042eec265c2e979552fbdf)), closes [#277](https://github.com/vitalyiegorov/suuudokuuu/issues/277)
+- **techniques,rating:** add the forcing-chain engine for the SE 8.0+ band ([c941530](https://github.com/vitalyiegorov/suuudokuuu/commit/c9415308d775484a29d19c8005811a7ce3064a3c)), closes [#278](https://github.com/vitalyiegorov/suuudokuuu/issues/278)
+- **techniques:** add a logical-solve driver with persistent candidate state ([657eb36](https://github.com/vitalyiegorov/suuudokuuu/commit/657eb3647aace787de2a1dfb42769872f3006ae3)), closes [#268](https://github.com/vitalyiegorov/suuudokuuu/issues/268)
+
+### Performance Improvements
+
+- **app,encoder,techniques:** store per-move techniques and classify with an interactive ladder ([d19ac3e](https://github.com/vitalyiegorov/suuudokuuu/commit/d19ac3ea8dcbda9297636d609a0aa8d5a71a9782))
+
 # [1.74.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.73.1...v1.74.0) (2026-08-01)
 
 **Note:** Version bump only for package @suuudokuuu/techniques

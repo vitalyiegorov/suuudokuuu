@@ -1,6 +1,6 @@
-Infinity ist da: 100 Weltrekord-Rätsel mit SE 10.4 bis 11.9, darunter Everest und Golden Nugget.
-Jedes Rätsel zeigt jetzt seine Sudoku-Explainer-Bewertung, mit eingebauter Erklärung.
-Hölle neu kuratiert: 1.544 geprüfte 17-Hinweis-Bretter, alle SE 6.6 oder höher.
-Neue Statistik: schwerste Lösung, SE-Spektrum und dein Technik-Arsenal.
-Technik-Zusammenfassungen im Verlauf, volle Tastatursteuerung im Web.
-Behoben: Geteilte Links löschen nicht mehr deine Statistik.
+Unendlich ist da: 100 Weltrekord-Rätsel mit SE 10.4 bis 11.9, darunter Everest und Golden Nugget.
+Jedes Rätsel zeigt jetzt seine Bewertung auf der Sudoku-Explainer-Skala (SE), mit eingebauter Erklärung.
+Hölle neu kuratiert: 1.544 geprüfte Bretter mit 17 Vorgaben, alle ab SE 6.6.
+Neue Statistiken: schwerstes Rätsel, SE-Spektrum und dein Arsenal an Techniken.
+Behoben: Geteilte Links löschen nicht mehr deine Statistiken.
+Behoben: Das Beenden eines Spiels funktioniert jetzt in jeder Sprache.

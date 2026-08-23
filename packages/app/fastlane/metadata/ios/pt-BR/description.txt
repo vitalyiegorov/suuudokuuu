@@ -1,38 +1,38 @@
-suuudokuuu é Sudoku como deveria ser: rápido, bonito e honesto sobre a dificuldade. Sete níveis, do tabuleiro tranquilo do Novato até o Infinity: os Sudokus mais difíceis já compostos. Sem anúncios disfarçados de quebra-cabeça, sem conta, sem enrolação. Só você e a grade.
+suuudokuuu é Sudoku como deveria ser: rápido, bonito e honesto sobre a dificuldade. Sete níveis, do tranquilo tabuleiro Iniciante até o Infinito: os sudokus mais difíceis já compostos. Sem anúncios disfarçados de quebra-cabeça, sem conta, sem enrolação. Só você e a grade.
 
-TODA GRADE TEM NOTA
-A maioria dos apps escreve "especialista" numa grade e torce pra você não olhar de perto. A gente coloca um número. Todo puzzle carrega uma nota Sudoku Explainer na escala de 1,0 a 12,0 que os solucionadores sérios usam, bem no selo de nível do tabuleiro, no seu histórico e em todo link que você compartilha. Uma explicação embutida conta o que esse número mede de verdade: o quanto a grade é difícil de raciocinar, não quantas pistas ela tem.
+TODO SUDOKU TEM SUA AVALIAÇÃO
+A maioria dos apps escreve "Especialista" numa grade e torce pra você não olhar de perto. A gente coloca um número. O Suuudokuuu avalia cada sudoku na escala Sudoku Explainer (SE), de 1.0 a 12.0, a mesma que os solucionadores experientes usam. A avaliação aparece no selo de nível do tabuleiro, no seu histórico e em todo link que você compartilha. Uma explicação embutida conta o que esse número mede de verdade: o quanto um sudoku é difícil de raciocinar, e não apenas quantas pistas ele tem.
 
-INFINITY: OS SUDOKUS MAIS DIFÍCEIS DO MUNDO
-Uma seleção de 100 puzzles recordistas mundiais com nota SE de 10.4 a 11.9. O Everest e o AI Escargot de Arto Inkala. Golden Nugget. Platinum Blonde. Kolk, Patience, Fata Morgana, Red Dwarf. São as grades que ficaram famosas na comunidade, e a maioria das pessoas nunca termina nenhuma.
+INFINITO: OS SUDOKUS MAIS DIFÍCEIS DO MUNDO
+Uma seleção de 100 sudokus recordistas mundiais avaliados entre SE 10.4 e 11.9. O Everest e o AI Escargot de Arto Inkala. Golden Nugget. Platinum Blonde. Kolk, Patience, Fata Morgana, Red Dwarf. São as grades que a comunidade do Sudoku tornou famosas, e a maioria das pessoas nunca termina nenhuma.
 
-INFERNO, RECURADO
-O Inferno agora são 1.544 puzzles verificados de 17 pistas, todos com nota SE 6,6 ou maior. Dezessete pistas é o mínimo que um Sudoku pode ter e ainda ter solução única, mas poucas pistas sozinhas não deixam a grade difícil: avaliamos o banco inteiro e ficamos só com os tabuleiros que revidam.
+INFERNO, COM NOVA CURADORIA
+O Inferno agora são 1.544 sudokus verificados de 17 pistas, todos com avaliação SE 6.6 ou maior. Dezessete pistas é o mínimo que um Sudoku pode ter e ainda assim ter solução única, mas poucas pistas sozinhas não deixam a grade difícil: avaliamos o acervo inteiro e ficamos só com os tabuleiros que revidam.
 
 SEU JOGO, MEDIDO
-A tela de estatísticas redesenhada mostra sua resolução mais difícil, a dificuldade média das últimas partidas e o nível que você mais joga. O espectro SE distribui cada puzzle concluído ao longo da escala. Seu arsenal conta cada técnica que você realmente usou — par nu, X-Wing, swordfish e além — pra você ver seu repertório crescer.
+A tela de estatísticas redesenhada mostra o seu sudoku mais difícil, a dificuldade média das últimas partidas e o nível que você mais joga. O espectro SE distribui ao longo da escala cada sudoku que você concluiu. Seu arsenal conta cada técnica que você realmente usou — Par nu, X-Wing, Swordfish e além — pra você ver seu repertório crescer.
 
 DESAFIE UM AMIGO
-O modo Rival envia sua grade exata pra um amigo por um link, com sua partida gravada junto. Ele joga a mesma grade e corre contra o seu tempo, jogada por jogada. Direito de se gabar, garantido.
+O modo Rival envia a sua grade exata pra um amigo por um link, com a sua partida gravada junto. Ele joga a mesma grade e corre contra o seu tempo, jogada por jogada. Direito de se gabar, garantido.
 
 REVEJA A PARTIDA
-Toda partida concluída pode ser revista jogada por jogada, e cada cartão do histórico traz um resumo das técnicas que resolveram ela.
+Toda partida concluída pode ser revista jogada por jogada, e cada cartão do histórico traz um resumo das técnicas que a resolveram.
 
 JOGUE DO SEU JEITO
-Escolha Clássico, Ouro ou Jornal, ou abra o editor de temas com pré-visualização ao vivo e deixe cada célula, linha e destaque do seu jeito. A validação de contraste garante que temas personalizados fiquem legíveis no claro e no escuro. Na web tem controle total pelo teclado: setas pra mover, dígitos pra preencher, Espaço ou N pro modo anotação, Shift com um dígito pros candidatos, A pros candidatos automáticos.
+Escolha Clássico, Dourado ou Jornal, ou abra o editor de tema com pré-visualização ao vivo e deixe cada célula, linha e destaque do seu jeito. A validação de contraste garante que temas personalizados fiquem legíveis no claro e no escuro. Na web tem controle total pelo teclado: setas pra mover, dígitos pra preencher, Espaço ou N pro modo anotações, Shift com um dígito pros candidatos, A pros candidatos automáticos.
 
 TUDO MAIS QUE VOCÊ QUERIA
-• 7 dificuldades, do Novato ao Infinity
-• Nota de dificuldade SE em todo puzzle
-• Editor de temas completo com suporte claro e escuro
+• 7 dificuldades, do Iniciante ao Infinito
+• Avaliação SE de dificuldade em todo sudoku
+• Editor de tema completo com suporte claro e escuro
 • Desafios Rival por link de compartilhamento
-• Replay jogada por jogada com análise de técnicas
+• Repetição jogada por jogada com análise de técnicas
 • Pontuação que reconhece técnicas
 • 13 idiomas
 • Funciona totalmente offline
 • Sem conta, sem cadastro, nunca
 • Grátis e de código aberto
 
-suuudokuuu foi feito pra quem realmente ama Sudoku, não pra quem querem vender uma assinatura. Baixe, escolha uma dificuldade e descubra qual é o seu número.
+suuudokuuu foi feito pra quem realmente ama Sudoku, não pra quem quer te vender uma assinatura. Baixe, escolha uma dificuldade e descubra qual é o seu número.
 
 Saiba mais em www.suuudokuuu.com.

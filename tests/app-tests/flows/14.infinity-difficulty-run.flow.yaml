@@ -10,7 +10,17 @@ appId: ${APP_ID}
 - runFlow: subflows/navigation/launch-home.flow.yaml
 - tapOn:
       id: 'DifficultyComplexityOptionSelectors.Option.Infinity'
-- assertVisible: 'World-record puzzles'
+# The description lives in the preview card below the mistake grid, which starts
+# below the fold on a 720x1280 Android viewport: it lays out past y=1184, exactly
+# where com.android.systemui:id/navigation_bar_frame begins, so it never enters
+# the accessibility hierarchy and no wait can make it appear. Scroll it into view
+# the way a player would, the same way flows/13 reaches the start button.
+- scrollUntilVisible:
+      element:
+          text: 'World-record puzzles'
+      direction: DOWN
+      visibilityPercentage: 50
+      timeout: 3000
 - runFlow: subflows/game/start-new-game.flow.yaml
 # The level+rating pill was removed from the game screen entirely; it now only shows on the
 # pause screen and result/history surfaces, so pause the run to see it. This also means the

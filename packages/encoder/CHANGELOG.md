@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.6.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.5.1...v2.6.0) (2026-08-17)
+
+### Bug Fixes
+
+- **app:** preserve persisted stats when loading shared games and apply review cleanups ([f31e446](https://github.com/vitalyiegorov/suuudokuuu/commit/f31e446f70a85d40e510bdee4dc118c10ccb8f22))
+
+### Features
+
+- **encoder:** add an optional rating and difficulty trailer to v3 shared payloads ([aa85d41](https://github.com/vitalyiegorov/suuudokuuu/commit/aa85d41f6f7567fd6af1e964f36c6eb14af9b4b8)), closes [#271](https://github.com/vitalyiegorov/suuudokuuu/issues/271)
+
+### Performance Improvements
+
+- **app,encoder,techniques:** store per-move techniques and classify with an interactive ladder ([d19ac3e](https://github.com/vitalyiegorov/suuudokuuu/commit/d19ac3ea8dcbda9297636d609a0aa8d5a71a9782))
+
 # [2.4.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.3.0...v2.4.0) (2026-08-09)
 
 ### Features

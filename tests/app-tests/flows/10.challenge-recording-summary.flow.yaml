@@ -48,8 +48,11 @@ appId: ${APP_ID}
       id: 'AvailableValueItemSelectors.Button.2'
 
 # The win confetti overlay is mounted for 5s and is hidden from the
-# accessibility tree, but a loaded runner can still cost 10+ seconds per poll,
-# so the wait must clear the confetti window with margin to spare.
+# accessibility tree, but the winner hero's CelebrationPulse animation mounts
+# at the same time and, while actively pulsing, makes every
+# accessibility-snapshot poll slower (a continuously-animating Reanimated
+# view, not runner load) — the pulse is now bounded (CelebrationPulseRepeatCount)
+# but the wait still budgets margin to clear that window.
 - extendedWaitUntil:
       visible:
           id: 'WinnerScreenSelectors.Root'

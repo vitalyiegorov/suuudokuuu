@@ -1,0 +1,15 @@
+name: PR closed cleanup
+
+on:
+    pull_request:
+        types: [closed]
+
+permissions:
+    actions: write
+
+jobs:
+    cleanup:
+        name: Cancel queued/in-progress runs for the closed PR branch
+        permissions:
+            actions: write
+        uses: rnw-community/mobile-ci/.github/workflows/pr-closed-cleanup-reusable.yml@v1.6.5 # v1.6.5

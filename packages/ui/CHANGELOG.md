@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.6.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.5.1...v2.6.0) (2026-08-17)
+
+### Bug Fixes
+
+- **ui:** derive metric strip separator keys from item keys ([3615d0a](https://github.com/vitalyiegorov/suuudokuuu/commit/3615d0ad5549814323ecfc4c95099534374e63cc))
+
 ## [1.74.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v1.74.1...v1.74.2) (2026-08-04)
 
 ### Bug Fixes
