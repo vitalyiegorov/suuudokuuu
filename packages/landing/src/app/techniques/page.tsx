@@ -1,6 +1,10 @@
 import Link from 'next/link';
 
 import { BreadcrumbListItem } from '../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
+import { Faq } from '../../seo/components/faq/faq';
+import { FaqAnswer } from '../../seo/components/faq-answer/faq-answer';
+import { FaqPage } from '../../seo/components/faq-page/faq-page';
+import { FaqQuestion } from '../../seo/components/faq-question/faq-question';
 import { PageHeader } from '../../seo/components/page-header/page-header';
 import { buildPageMetadata } from '../../seo/utils/build-page-metadata.util';
 import { TechniqueSummary } from '../../techniques/components/technique-summary/technique-summary';
@@ -200,6 +204,37 @@ const TechniquesPage = () => (
             The fish patterns, the wings and the chains above follow the same principle as the subsets — reserving digits for cells — but
             they reason across two or more units at once, or across a path of cells, rather than inside a single unit.
         </p>
+        <h2>Sudoku techniques FAQ</h2>
+        <FaqPage>
+            <Faq>
+                <FaqQuestion>What order should I learn sudoku techniques in?</FaqQuestion>
+                <FaqAnswer>
+                    The order on this page: singles first, then intersections, then subsets, then fish, wings and chains. Each tier only
+                    becomes necessary once every cheaper technique has been tried and failed.
+                </FaqAnswer>
+            </Faq>
+            <Faq>
+                <FaqQuestion>Do sudoku techniques ever guess a digit?</FaqQuestion>
+                <FaqAnswer>
+                    No. Every technique on this list justifies one placement or one elimination from the rules alone, without assuming a
+                    value and checking whether it leads to a contradiction.
+                </FaqAnswer>
+            </Faq>
+            <Faq>
+                <FaqQuestion>Which technique should I try first on a stuck puzzle?</FaqQuestion>
+                <FaqAnswer>
+                    Whichever sits highest on this list that you have not already checked. Suuudokuuu’s hint feature does the same thing: it
+                    applies the techniques in the order above and stops at the first one that fires.
+                </FaqAnswer>
+            </Faq>
+            <Faq>
+                <FaqQuestion>Why does every technique page show a worked example instead of a diagram?</FaqQuestion>
+                <FaqAnswer>
+                    Because a hand-drawn diagram can drift from the prose that describes it. Every worked example on this site is produced
+                    by running the same solving engine bundled with the app over a real puzzle position.
+                </FaqAnswer>
+            </Faq>
+        </FaqPage>
     </main>
 );
 

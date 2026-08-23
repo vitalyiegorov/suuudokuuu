@@ -14,8 +14,13 @@ import { PuzzleBoard } from '../../../puzzle/components/puzzle-board/puzzle-boar
 import { SeRatingRange } from '../../../rating/components/se-rating-range/se-rating-range';
 import { getTierTechniqueReport } from '../../../rating/utils/get-tier-technique-reports.util';
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
+import { Faq } from '../../../seo/components/faq/faq';
+import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
+import { FaqPage } from '../../../seo/components/faq-page/faq-page';
+import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { PageHeader } from '../../../seo/components/page-header/page-header';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
+import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
 import { sudokuDifficultyRatingPageMetadata } from '../../guides/sudoku-difficulty-rating/metadata';
 import { homePageMetadata } from '../../metadata';
 import { nightmareSudokuPageMetadata } from '../../sudoku/nightmare/metadata';
@@ -39,6 +44,7 @@ const PAGE_COUNT = getPrintableBookletPageCount(
 const [PREVIEW_PUZZLE] = PRINTABLE_BOOKLET_PUZZLES[DifficultyEnum.Nightmare];
 const nightmareReport = getTierTechniqueReport(DifficultyEnum.Nightmare);
 
+// eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const PrintableNightmareSudokuPage = () => (
     <main>
         <PageHeader metadata={printableNightmareSudokuPageMetadata}>
@@ -54,6 +60,21 @@ const PrintableNightmareSudokuPage = () => (
             can pencil the links in and follow them, than on a cramped screen. Our sample of {nightmareReport.sampleSize} boards measures
             the tier at SE <SeRatingRange report={nightmareReport} />.
         </p>
+        <TechniqueSummary>
+            <ul>
+                <li>
+                    {getDifficultyClueCount(DifficultyEnum.Nightmare)} clues out of 81 cells, guaranteed to need at least one chain or
+                    coloring technique beyond every fish and wing.
+                </li>
+                <li>
+                    {PRINTABLE_BOOKLET_SIZE} puzzles, printed {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page, with a full solution key.
+                </li>
+                <li>
+                    Our sample of {nightmareReport.sampleSize} Nightmare boards measures SE <SeRatingRange report={nightmareReport} />.
+                </li>
+                <li>A chain has no fixed shape, which is why marking it in pencil helps more here than at the easier tiers.</li>
+            </ul>
+        </TechniqueSummary>
         <PuzzleBoard givens={PREVIEW_PUZZLE}>Puzzle 1 from the Nightmare booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF.</PuzzleBoard>
         <PrintableDownloadCard
             fileName="nightmare.pdf"
@@ -83,6 +104,34 @@ const PrintableNightmareSudokuPage = () => (
             <Link href={printableHardSudokuPageMetadata.path}>printable Hard sudoku</Link> for fish and wings only, or play Nightmare on a
             screen at the <Link href={nightmareSudokuPageMetadata.path}>Nightmare sudoku lander</Link>.
         </p>
+        <h2>Printable Nightmare Sudoku FAQ</h2>
+        <FaqPage>
+            <Faq>
+                <FaqQuestion>Is the printable Nightmare sudoku PDF free?</FaqQuestion>
+                <FaqAnswer>Yes, with no account and no watermark, and every puzzle’s solved grid is included at the back.</FaqAnswer>
+            </Faq>
+            <Faq>
+                <FaqQuestion>What techniques does this Nightmare booklet require?</FaqQuestion>
+                <FaqAnswer>
+                    At least one chain or coloring technique — <Link href={swordfishPageMetadata.path}>swordfish</Link>-level fish and{' '}
+                    <Link href={xyWingPageMetadata.path}>XY-Wing</Link>-level wings are not enough on their own — on top of every fish and
+                    wing the Hard tier already needs.
+                </FaqAnswer>
+            </Faq>
+            <Faq>
+                <FaqQuestion>Why is paper recommended for chain-based puzzles?</FaqQuestion>
+                <FaqAnswer>
+                    A chain has no fixed shape and is built link by link, which is far easier to track by writing each strong and weak link
+                    down than by scrolling a small screen.
+                </FaqAnswer>
+            </Faq>
+            <Faq>
+                <FaqQuestion>How many puzzles are in the printable Nightmare sudoku PDF?</FaqQuestion>
+                <FaqAnswer>
+                    {PRINTABLE_BOOKLET_SIZE} puzzles across {PAGE_COUNT} pages, four to a page, with the solved grids at the back.
+                </FaqAnswer>
+            </Faq>
+        </FaqPage>
         <DifficultyNavigation next={printableHellSudokuPageMetadata} previous={printableHardSudokuPageMetadata} />
     </main>
 );

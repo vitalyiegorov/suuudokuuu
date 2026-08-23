@@ -46,8 +46,9 @@ const HomePage = () => (
         <p className="hero__eyebrow">Free, open-source, no ads</p>
         <h1>Play Free Online Sudoku</h1>
         <p>
-            {SITE_NAME} is a free, open-source online sudoku — six difficulty levels from Newbie to Hell, technique-explaining guides, no
-            ads and no tracking. Solve on the web or install the app, then keep the same streaks and stats everywhere. See{' '}
+            Free online sudoku means playing the classic 9×9 number puzzle in a browser or app with no purchase, install limit or paywall,
+            and {SITE_NAME} is a free, open-source implementation of it — six difficulty levels from Newbie to Hell, technique-explaining
+            guides, no ads and no tracking. Solve on the web or install the app, then keep the same streaks and stats everywhere. See{' '}
             <Link href={whySuuudokuuuPageMetadata.path}>why {SITE_NAME} is built this way</Link> for the full, verifiable case.
         </p>
         <a className="hero__cta" href={SITE_PLAY_URL}>

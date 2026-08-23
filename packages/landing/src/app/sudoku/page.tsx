@@ -3,6 +3,10 @@ import Link from 'next/link';
 
 import { getDifficultyClueCount } from '../../difficulty/utils/get-difficulty-clue-count.util';
 import { BreadcrumbListItem } from '../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
+import { Faq } from '../../seo/components/faq/faq';
+import { FaqAnswer } from '../../seo/components/faq-answer/faq-answer';
+import { FaqPage } from '../../seo/components/faq-page/faq-page';
+import { FaqQuestion } from '../../seo/components/faq-question/faq-question';
 import { PageHeader } from '../../seo/components/page-header/page-header';
 import { SITE_PLAY_URL } from '../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../seo/utils/build-page-metadata.util';
@@ -24,6 +28,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = buildPageMetadata(sudokuDifficultiesPageMetadata);
 
+// eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const SudokuDifficultiesPage = () => (
     <main>
         <PageHeader metadata={sudokuDifficultiesPageMetadata}>
@@ -82,6 +87,39 @@ const SudokuDifficultiesPage = () => (
             New to the grid itself? Start with the <Link href={howToPlayPageMetadata.path}>how to play guide</Link> for the three rules and
             your first placements before picking a tier above.
         </p>
+        <h2>Sudoku difficulty levels FAQ</h2>
+        <FaqPage>
+            <Faq>
+                <FaqQuestion>How many sudoku difficulty levels does Suuudokuuu have?</FaqQuestion>
+                <FaqAnswer>
+                    Six: Newbie, Easy, Medium, Hard, Nightmare and Hell, each defined by a clue count and a guaranteed technique band rather
+                    than a marketing label.
+                </FaqAnswer>
+            </Faq>
+            <Faq>
+                <FaqQuestion>Does a lower clue count always mean a harder puzzle?</FaqQuestion>
+                <FaqAnswer>
+                    No. Clue count is only the input that forces a solver toward a wider technique set; the technique band the generator
+                    verifies is what actually defines each tier. The{' '}
+                    <Link href={sudokuCluesVsDifficultyPageMetadata.path}>clues versus difficulty guide</Link> measures the gap directly.
+                </FaqAnswer>
+            </Faq>
+            <Faq>
+                <FaqQuestion>How does Suuudokuuu guarantee a tier’s technique requirement?</FaqQuestion>
+                <FaqAnswer>
+                    Every candidate board is solved twice: once with the tier below’s technique ladder, which must fail, and once with its
+                    own ladder, which must succeed. Boards that miss either test are discarded and regenerated.
+                </FaqAnswer>
+            </Faq>
+            <Faq>
+                <FaqQuestion>Which sudoku difficulty should I start with?</FaqQuestion>
+                <FaqAnswer>
+                    New solvers should start at Newbie and move up one tier at a time; each step adds exactly one new technique over the
+                    tier before it, all the way up to Hard. See the <Link href={howToPlayPageMetadata.path}>how to play guide</Link> first
+                    if the three core rules are still unfamiliar.
+                </FaqAnswer>
+            </Faq>
+        </FaqPage>
     </main>
 );
 

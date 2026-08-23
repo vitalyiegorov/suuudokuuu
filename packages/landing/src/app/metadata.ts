@@ -8,7 +8,7 @@ export const homePageMetadata: PageMetadataInterface = {
     metaTitle: 'Play Sudoku Online Free — No Ads, Six Difficulty Levels',
     metaDescription: SITE_DESCRIPTION,
     publishedAt: '2026-08-11T00:00:00.000Z',
-    updatedAt: '2026-08-11T00:00:00.000Z',
+    updatedAt: '2026-08-23T00:00:00.000Z',
     changeFrequency: 'weekly',
     priority: 1
 };

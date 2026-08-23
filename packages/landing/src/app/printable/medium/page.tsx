@@ -11,9 +11,17 @@ import {
 import { PRINTABLE_BOOKLET_PUZZLES, PRINTABLE_BOOKLET_SIZE } from '../../../printable/constants/printable-sample.constant';
 import { getPrintableBookletPageCount } from '../../../printable/utils/get-printable-booklet-page-count.util';
 import { PuzzleBoard } from '../../../puzzle/components/puzzle-board/puzzle-board';
+import { SeRatingRange } from '../../../rating/components/se-rating-range/se-rating-range';
+import { getTierTechniqueReport } from '../../../rating/utils/get-tier-technique-reports.util';
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
+import { Faq } from '../../../seo/components/faq/faq';
+import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
+import { FaqPage } from '../../../seo/components/faq-page/faq-page';
+import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { PageHeader } from '../../../seo/components/page-header/page-header';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
+import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
+import { sudokuDifficultyRatingPageMetadata } from '../../guides/sudoku-difficulty-rating/metadata';
 import { homePageMetadata } from '../../metadata';
 import { mediumSudokuPageMetadata } from '../../sudoku/medium/metadata';
 import { boxLineReductionPageMetadata } from '../../techniques/box-line-reduction/metadata';
@@ -34,7 +42,9 @@ const PAGE_COUNT = getPrintableBookletPageCount(
     PRINTABLE_BOOKLET_SOLUTIONS_PER_PAGE
 );
 const [PREVIEW_PUZZLE] = PRINTABLE_BOOKLET_PUZZLES[DifficultyEnum.Medium];
+const mediumReport = getTierTechniqueReport(DifficultyEnum.Medium);
 
+// eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const PrintableMediumSudokuPage = () => (
     <main>
         <PageHeader metadata={printableMediumSudokuPageMetadata}>
@@ -49,6 +59,21 @@ const PrintableMediumSudokuPage = () => (
             <Link href={boxLineReductionPageMetadata.path}>box-line reduction</Link>, an intersection between a box and a line that only
             eliminates candidates, never places a digit outright. Nothing in the booklet needs a fish, a wing or a chain.
         </p>
+        <TechniqueSummary>
+            <ul>
+                <li>
+                    {getDifficultyClueCount(DifficultyEnum.Medium)} clues out of 81 cells, guaranteed to stall on singles and yield to an
+                    intersection or a subset.
+                </li>
+                <li>
+                    {PRINTABLE_BOOKLET_SIZE} puzzles, printed {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page, with a full solution key.
+                </li>
+                <li>
+                    Our sample of {mediumReport.sampleSize} Medium boards measures SE <SeRatingRange report={mediumReport} />.
+                </li>
+                <li>Nothing in the booklet needs a fish, a wing or a chain.</li>
+            </ul>
+        </TechniqueSummary>
         <PuzzleBoard givens={PREVIEW_PUZZLE}>Puzzle 1 from the Medium booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF.</PuzzleBoard>
         <PrintableDownloadCard fileName="medium.pdf" pageCount={PAGE_COUNT} puzzleCount={PRINTABLE_BOOKLET_SIZE} title="Medium Sudoku" />
         <h2>What is inside the booklet</h2>
@@ -56,7 +81,10 @@ const PrintableMediumSudokuPage = () => (
             Print space here matters more than at the easier tiers, because intersections and pairs work by marking candidates in the
             margins. The {PRINTABLE_BOOKLET_SIZE} puzzles print {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page at full cell size, leaving
             enough room around each digit to pencil in the small numbers an intersection or a pair reasons over. Solved grids close out the
-            file so you can check your candidate marks against a confirmed answer.
+            file so you can check your candidate marks against a confirmed answer. Our published sample of {mediumReport.sampleSize} Medium
+            boards measures SE <SeRatingRange report={mediumReport} /> — numbers the{' '}
+            <Link href={sudokuDifficultyRatingPageMetadata.path}>sudoku difficulty rating guide</Link> measures directly rather than
+            assumes.
         </p>
         <h2>Tips for pencil-mark solving</h2>
         <p>
@@ -73,6 +101,34 @@ const PrintableMediumSudokuPage = () => (
             <Link href={printableEasySudokuPageMetadata.path}>printable Easy sudoku</Link> for a singles-only warm-up, or play Medium on a
             screen at the <Link href={mediumSudokuPageMetadata.path}>Medium sudoku lander</Link>.
         </p>
+        <h2>Printable Medium Sudoku FAQ</h2>
+        <FaqPage>
+            <Faq>
+                <FaqQuestion>Is the printable Medium sudoku PDF free?</FaqQuestion>
+                <FaqAnswer>Yes, with no account and no watermark, and every puzzle’s solved grid is included at the back.</FaqAnswer>
+            </Faq>
+            <Faq>
+                <FaqQuestion>What techniques does this Medium booklet require?</FaqQuestion>
+                <FaqAnswer>
+                    At least one <Link href={pointingPairPageMetadata.path}>pointing pair</Link>,{' '}
+                    <Link href={boxLineReductionPageMetadata.path}>box-line reduction</Link>, or a naked or hidden pair, on top of the
+                    singles the easier booklets already use. Nothing needs a fish, a wing or a chain.
+                </FaqAnswer>
+            </Faq>
+            <Faq>
+                <FaqQuestion>Why does this booklet leave more room around each digit?</FaqQuestion>
+                <FaqAnswer>
+                    Intersections and pairs are found by marking every remaining candidate in a unit, so the layout leaves space in each
+                    cell specifically for those pencil marks.
+                </FaqAnswer>
+            </Faq>
+            <Faq>
+                <FaqQuestion>How many puzzles are in the printable Medium sudoku PDF?</FaqQuestion>
+                <FaqAnswer>
+                    {PRINTABLE_BOOKLET_SIZE} puzzles across {PAGE_COUNT} pages, four to a page, with the solved grids at the back.
+                </FaqAnswer>
+            </Faq>
+        </FaqPage>
         <DifficultyNavigation next={printableHardSudokuPageMetadata} previous={printableEasySudokuPageMetadata} />
     </main>
 );

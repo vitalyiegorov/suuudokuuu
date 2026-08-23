@@ -14,6 +14,7 @@ import { PageHeader } from '../../../seo/components/page-header/page-header';
 import { SITE_PLAY_URL } from '../../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
 import { TechniqueLink } from '../../../techniques/components/technique-link/technique-link';
+import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
 import { sudokuDifficultyRatingPageMetadata } from '../../guides/sudoku-difficulty-rating/metadata';
 import { howToPlayPageMetadata } from '../../how-to-play/metadata';
 import { homePageMetadata } from '../../metadata';
@@ -54,6 +55,19 @@ const NightmareSudokuPage = () => {
                 <Link href={xyChainPageMetadata.path}>XY-Chain</Link>, <Link href={simpleColoringPageMetadata.path}>simple coloring</Link>{' '}
                 and <Link href={aicPageMetadata.path}>AIC</Link>, the alternating inference chain that generalises the other three.
             </p>
+            <TechniqueSummary>
+                <ul>
+                    <li>
+                        Nightmare boards carry {getDifficultyClueCount(DifficultyEnum.Nightmare)} clues and are guaranteed to need at least
+                        one chain or coloring technique beyond every fish and wing.
+                    </li>
+                    <li>Chain and coloring techniques: X-Chain, XY-Chain, simple coloring and AIC.</li>
+                    <li>
+                        Our sample of {nightmareReport.sampleSize} Nightmare boards measures SE <SeRatingRange report={nightmareReport} />.
+                    </li>
+                    <li>Nightmare is capped at AIC — a board resisting that is beyond what the generated tiers hand you.</li>
+                </ul>
+            </TechniqueSummary>
             <a className="hero__cta" href={SITE_PLAY_URL}>
                 Play Nightmare Sudoku now
             </a>

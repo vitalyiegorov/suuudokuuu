@@ -14,6 +14,7 @@ import { PageHeader } from '../../../seo/components/page-header/page-header';
 import { SITE_PLAY_URL } from '../../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
 import { TechniqueLink } from '../../../techniques/components/technique-link/technique-link';
+import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
 import { sudokuDifficultyRatingPageMetadata } from '../../guides/sudoku-difficulty-rating/metadata';
 import { howToPlayPageMetadata } from '../../how-to-play/metadata';
 import { homePageMetadata } from '../../metadata';
@@ -56,6 +57,19 @@ const MediumSudokuPage = () => {
                 <Link href={nakedPairPageMetadata.path}>naked pairs</Link> and <Link href={hiddenPairPageMetadata.path}>hidden pairs</Link>{' '}
                 cover the smallest subset pattern.
             </p>
+            <TechniqueSummary>
+                <ul>
+                    <li>
+                        Medium boards carry {getDifficultyClueCount(DifficultyEnum.Medium)} clues and are guaranteed to stall on singles and
+                        yield to an intersection or a subset.
+                    </li>
+                    <li>Intersections: pointing pair, pointing triple, box line reduction. Subsets: naked pair, hidden pair.</li>
+                    <li>
+                        Our sample of {mediumReport.sampleSize} Medium boards measures SE <SeRatingRange report={mediumReport} />.
+                    </li>
+                    <li>Nothing in the tier ever needs a fish, a wing or a chain — a board that does is promoted to Hard instead.</li>
+                </ul>
+            </TechniqueSummary>
             <a className="hero__cta" href={SITE_PLAY_URL}>
                 Play Medium Sudoku now
             </a>
@@ -76,8 +90,8 @@ const MediumSudokuPage = () => {
                 {mediumReport.singlesOnlyPuzzleCount} of {mediumReport.sampleSize} finished on singles alone — this is the first tier where
                 that number is zero by construction. The most common hardest step in the sample is the{' '}
                 <TechniqueLink technique={mediumReport.typicalHardestTechnique} />, and the hardest anything reached is the{' '}
-                <TechniqueLink technique={mediumReport.hardestTechniqueReached} />. Players who read pencil marks fluently usually clear a
-                Medium board in a few minutes; players relying on mental candidate tracking will find this the first tier that genuinely
+                <TechniqueLink technique={mediumReport.hardestTechniqueReached} />. Players who read pencil marks fluently clear a Medium
+                board noticeably faster than players relying on mental candidate tracking, who will find this the first tier that genuinely
                 rewards writing candidates down. The full per-tier data sits in our{' '}
                 <Link href={sudokuDifficultyRatingPageMetadata.path}>sudoku difficulty rating guide</Link>.
             </p>

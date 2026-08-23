@@ -46,7 +46,10 @@ const HardestSudokuPuzzlesPage = () => (
             <Link href={sudokuDifficultyRatingPageMetadata.path}>sudoku difficulty rating guide</Link> explains how the technique ladder
             becomes a number. Suuudokuuu does rate every puzzle it generates, but our open-source rater prices the ladder only as far as
             forcing chains and reports {SE_RATING_CEILING} with a ceiling flag above that — so it would return the same figure for all four
-            puzzles below. The values quoted here are therefore the ones independent solvers and researchers commonly cite, not our own.
+            puzzles below. The values quoted here are attributed to their publishers and to the sudoku-solving community that maintains
+            SE-based difficulty trackers, not to our own rater — no single figure below is a Suuudokuuu measurement, and different SE
+            implementations are known to disagree by several tenths at this end of the scale, which is why we attribute rather than link to
+            one disputed number.
         </p>
         <TechniqueSummary>
             <ul>
