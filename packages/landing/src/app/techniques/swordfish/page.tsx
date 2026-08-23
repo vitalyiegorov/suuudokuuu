@@ -2,6 +2,7 @@ import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { Faq } from '../../../seo/components/faq/faq';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
+import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
@@ -107,8 +108,8 @@ const SwordfishPage = () => (
                 and later passes may need a fresh scan.
             </li>
         </ul>
-        <h2>Swordfish FAQ</h2>
         <FaqPage>
+            <FaqHeading>Swordfish FAQ</FaqHeading>
             <Faq>
                 <FaqQuestion>Do all three rows need candidates in all three columns?</FaqQuestion>
                 <FaqAnswer>

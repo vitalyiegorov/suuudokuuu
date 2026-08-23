@@ -2,6 +2,7 @@ import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { Faq } from '../../../seo/components/faq/faq';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
+import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
@@ -91,8 +92,8 @@ const FullHousePage = () => (
             </li>
             <li>Treating a box with one blank as less reliable than a row with one blank. All three unit types work identically.</li>
         </ul>
-        <h2>Full house FAQ</h2>
         <FaqPage>
+            <FaqHeading>Full house FAQ</FaqHeading>
             <Faq>
                 <FaqQuestion>Is a full house the same as a naked single?</FaqQuestion>
                 <FaqAnswer>

@@ -2,6 +2,7 @@ import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { Faq } from '../../../seo/components/faq/faq';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
+import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
@@ -106,8 +107,8 @@ const AICPage = () => (
                 an AIC from an X-Chain.
             </li>
         </ul>
-        <h2>AIC FAQ</h2>
         <FaqPage>
+            <FaqHeading>AIC FAQ</FaqHeading>
             <Faq>
                 <FaqQuestion>Is an X-Chain a special case of an AIC?</FaqQuestion>
                 <FaqAnswer>

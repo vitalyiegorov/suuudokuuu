@@ -8,6 +8,7 @@ import { getTierTechniqueReport } from '../../../rating/utils/get-tier-technique
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { Faq } from '../../../seo/components/faq/faq';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
+import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { PageHeader } from '../../../seo/components/page-header/page-header';
@@ -104,8 +105,8 @@ const NightmareSudokuPage = () => {
                 <Link href={sudokuDifficultiesPageMetadata.path}>Sudoku difficulty levels</Link> hub, or head{' '}
                 <Link href={homePageMetadata.path}>home</Link>.
             </p>
-            <h2>Nightmare Sudoku FAQ</h2>
             <FaqPage>
+                <FaqHeading>Nightmare Sudoku FAQ</FaqHeading>
                 <Faq>
                     <FaqQuestion>How hard is Nightmare sudoku?</FaqQuestion>
                     <FaqAnswer>

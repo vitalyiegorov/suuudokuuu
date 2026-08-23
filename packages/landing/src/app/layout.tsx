@@ -2,16 +2,13 @@ import './global.css';
 import { SiteFooter } from '../chrome/components/site-footer/site-footer';
 import { SiteHeader } from '../chrome/components/site-header/site-header';
 import { buildComfortScaleInitScript } from '../chrome/utils/build-comfort-scale-init-script.util';
-import { DEFAULT_LOCALE, SITE_NAME, SITE_ORIGIN, SITE_THEME_COLOR } from '../seo/constants/site.constant';
+import { DEFAULT_LOCALE, SITE_THEME_COLOR } from '../seo/constants/site.constant';
+import { buildRootMetadata } from '../seo/utils/build-root-metadata.util';
 
 import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
 
-export const metadata: Metadata = {
-    metadataBase: new URL(SITE_ORIGIN),
-    applicationName: SITE_NAME,
-    robots: { index: true, follow: true }
-};
+export const metadata: Metadata = buildRootMetadata();
 
 export const viewport: Viewport = {
     themeColor: SITE_THEME_COLOR,

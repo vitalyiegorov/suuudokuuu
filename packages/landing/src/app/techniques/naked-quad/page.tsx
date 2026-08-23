@@ -2,6 +2,7 @@ import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { Faq } from '../../../seo/components/faq/faq';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
+import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
@@ -92,8 +93,8 @@ const NakedQuadPage = () => (
             </li>
             <li>Erasing candidates from the quad cells. As with every naked subset, the quad keeps everything it had.</li>
         </ul>
-        <h2>Naked quad FAQ</h2>
         <FaqPage>
+            <FaqHeading>Naked quad FAQ</FaqHeading>
             <Faq>
                 <FaqQuestion>Do all four cells need four candidates?</FaqQuestion>
                 <FaqAnswer>

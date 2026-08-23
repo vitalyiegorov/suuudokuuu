@@ -2,6 +2,7 @@ import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { Faq } from '../../../seo/components/faq/faq';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
+import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
@@ -90,8 +91,8 @@ const NakedPairPage = () => (
             </li>
             <li>Working from pencil marks that were never updated after the last placement, which invents pairs that do not exist.</li>
         </ul>
-        <h2>Naked pair FAQ</h2>
         <FaqPage>
+            <FaqHeading>Naked pair FAQ</FaqHeading>
             <Faq>
                 <FaqQuestion>Does a naked pair ever solve a cell?</FaqQuestion>
                 <FaqAnswer>

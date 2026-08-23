@@ -2,6 +2,7 @@ import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { Faq } from '../../../seo/components/faq/faq';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
+import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
@@ -102,8 +103,8 @@ const HiddenQuadPage = () => (
                 to verify.
             </li>
         </ul>
-        <h2>Hidden quad FAQ</h2>
         <FaqPage>
+            <FaqHeading>Hidden quad FAQ</FaqHeading>
             <Faq>
                 <FaqQuestion>Why do I almost never see a hidden quad in a solver log?</FaqQuestion>
                 <FaqAnswer>

@@ -2,6 +2,7 @@ import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { Faq } from '../../../seo/components/faq/faq';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
+import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
@@ -103,8 +104,8 @@ const SashimiSwordfishPage = () => (
                 candidate, not the other way around.
             </li>
         </ul>
-        <h2>Sashimi Swordfish FAQ</h2>
         <FaqPage>
+            <FaqHeading>Sashimi Swordfish FAQ</FaqHeading>
             <Faq>
                 <FaqQuestion>How is this different from a Finned Swordfish?</FaqQuestion>
                 <FaqAnswer>

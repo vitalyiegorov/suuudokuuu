@@ -2,6 +2,7 @@ import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { Faq } from '../../../seo/components/faq/faq';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
+import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
@@ -107,8 +108,8 @@ const XYChainPage = () => (
                 still close a few links later.
             </li>
         </ul>
-        <h2>XY-Chain FAQ</h2>
         <FaqPage>
+            <FaqHeading>XY-Chain FAQ</FaqHeading>
             <Faq>
                 <FaqQuestion>Is an XY-Wing just a short XY-Chain?</FaqQuestion>
                 <FaqAnswer>

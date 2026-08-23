@@ -130,6 +130,7 @@ Repeated authored content — FAQ entries, how-to steps, feature lists, breadcru
 
 ```tsx
 <FaqPage>
+    <FaqHeading>Suuudokuuu FAQ</FaqHeading>
     <Faq>
         <FaqQuestion>Is Suuudokuuu free?</FaqQuestion>
         <FaqAnswer>Yes. The game is free, ad-free and works offline.</FaqAnswer>

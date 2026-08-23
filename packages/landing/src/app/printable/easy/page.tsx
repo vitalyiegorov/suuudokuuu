@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { DifficultyNavigation } from '../../../difficulty/components/difficulty-navigation/difficulty-navigation';
 import { getDifficultyClueCount } from '../../../difficulty/utils/get-difficulty-clue-count.util';
 import { PrintableDownloadCard } from '../../../printable/components/printable-download-card/printable-download-card';
+import { PrintableDownloadFact } from '../../../printable/components/printable-download-fact/printable-download-fact';
 import {
     PRINTABLE_BOOKLET_PUZZLES_PER_PAGE,
     PRINTABLE_BOOKLET_SOLUTIONS_PER_PAGE
@@ -14,12 +15,14 @@ import {
     PRINTABLE_LARGE_PRINT_SIZE
 } from '../../../printable/constants/printable-sample.constant';
 import { getPrintableBookletPageCount } from '../../../printable/utils/get-printable-booklet-page-count.util';
+import { getPrintableFileSizeLabel } from '../../../printable/utils/get-printable-file-size-label.util';
 import { PuzzleBoard } from '../../../puzzle/components/puzzle-board/puzzle-board';
 import { SeRatingRange } from '../../../rating/components/se-rating-range/se-rating-range';
 import { getTierTechniqueReport } from '../../../rating/utils/get-tier-technique-reports.util';
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { Faq } from '../../../seo/components/faq/faq';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
+import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { PageHeader } from '../../../seo/components/page-header/page-header';
@@ -78,7 +81,12 @@ const PrintableEasySudokuPage = () => (
             </ul>
         </TechniqueSummary>
         <PuzzleBoard givens={PREVIEW_PUZZLE}>Puzzle 1 from the Easy booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF.</PuzzleBoard>
-        <PrintableDownloadCard fileName="easy.pdf" pageCount={PAGE_COUNT} puzzleCount={PRINTABLE_BOOKLET_SIZE} title="Easy Sudoku" />
+        <PrintableDownloadCard fileName="easy.pdf" title="Easy Sudoku">
+            <PrintableDownloadFact>{PRINTABLE_BOOKLET_SIZE} puzzles</PrintableDownloadFact>
+            <PrintableDownloadFact>{PAGE_COUNT} pages</PrintableDownloadFact>
+            <PrintableDownloadFact>{getPrintableFileSizeLabel('easy.pdf')} PDF, US Letter</PrintableDownloadFact>
+            <PrintableDownloadFact>Solutions included on the last pages</PrintableDownloadFact>
+        </PrintableDownloadCard>
         <h2>What is inside the booklet</h2>
         <p>
             A cover page states the puzzle and page counts up front, then {PRINTABLE_BOOKLET_SIZE} puzzles print{' '}
@@ -104,8 +112,8 @@ const PrintableEasySudokuPage = () => (
             <Link href={printableNewbieSudokuPageMetadata.path}>printable Newbie sudoku</Link> for an even gentler grid. To play Easy
             puzzles on a screen instead, visit the <Link href={easySudokuPageMetadata.path}>Easy sudoku lander</Link>.
         </p>
-        <h2>Printable Easy Sudoku FAQ</h2>
         <FaqPage>
+            <FaqHeading>Printable Easy Sudoku FAQ</FaqHeading>
             <Faq>
                 <FaqQuestion>Is the printable Easy sudoku PDF free?</FaqQuestion>
                 <FaqAnswer>Yes, with no account and no watermark, and every puzzle’s solved grid is included at the back.</FaqAnswer>

@@ -4,18 +4,21 @@ import Link from 'next/link';
 import { DifficultyNavigation } from '../../../difficulty/components/difficulty-navigation/difficulty-navigation';
 import { getDifficultyClueCount } from '../../../difficulty/utils/get-difficulty-clue-count.util';
 import { PrintableDownloadCard } from '../../../printable/components/printable-download-card/printable-download-card';
+import { PrintableDownloadFact } from '../../../printable/components/printable-download-fact/printable-download-fact';
 import {
     PRINTABLE_BOOKLET_PUZZLES_PER_PAGE,
     PRINTABLE_BOOKLET_SOLUTIONS_PER_PAGE
 } from '../../../printable/constants/printable-layout.constant';
 import { PRINTABLE_BOOKLET_PUZZLES, PRINTABLE_BOOKLET_SIZE } from '../../../printable/constants/printable-sample.constant';
 import { getPrintableBookletPageCount } from '../../../printable/utils/get-printable-booklet-page-count.util';
+import { getPrintableFileSizeLabel } from '../../../printable/utils/get-printable-file-size-label.util';
 import { PuzzleBoard } from '../../../puzzle/components/puzzle-board/puzzle-board';
 import { SeRatingRange } from '../../../rating/components/se-rating-range/se-rating-range';
 import { getTierTechniqueReport } from '../../../rating/utils/get-tier-technique-reports.util';
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { Faq } from '../../../seo/components/faq/faq';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
+import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { PageHeader } from '../../../seo/components/page-header/page-header';
@@ -75,7 +78,12 @@ const PrintableHellSudokuPage = () => (
             </ul>
         </TechniqueSummary>
         <PuzzleBoard givens={PREVIEW_PUZZLE}>Puzzle 1 from the Hell booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF.</PuzzleBoard>
-        <PrintableDownloadCard fileName="hell.pdf" pageCount={PAGE_COUNT} puzzleCount={PRINTABLE_BOOKLET_SIZE} title="Hell Sudoku" />
+        <PrintableDownloadCard fileName="hell.pdf" title="Hell Sudoku">
+            <PrintableDownloadFact>{PRINTABLE_BOOKLET_SIZE} puzzles</PrintableDownloadFact>
+            <PrintableDownloadFact>{PAGE_COUNT} pages</PrintableDownloadFact>
+            <PrintableDownloadFact>{getPrintableFileSizeLabel('hell.pdf')} PDF, US Letter</PrintableDownloadFact>
+            <PrintableDownloadFact>Solutions included on the last pages</PrintableDownloadFact>
+        </PrintableDownloadCard>
         <h2>What is inside the booklet</h2>
         <p>
             With so few givens, the printed grid looks almost empty at first glance — the {PRINTABLE_BOOKLET_SIZE} puzzles print{' '}
@@ -101,8 +109,8 @@ const PrintableHellSudokuPage = () => (
             and wings without chain-length reasoning, or play Hell on a screen at the{' '}
             <Link href={hellSudokuPageMetadata.path}>Hell sudoku lander</Link>, where the same 17-clue corpus powers every puzzle.
         </p>
-        <h2>Printable Hell Sudoku FAQ</h2>
         <FaqPage>
+            <FaqHeading>Printable Hell Sudoku FAQ</FaqHeading>
             <Faq>
                 <FaqQuestion>Is the printable Hell sudoku PDF free?</FaqQuestion>
                 <FaqAnswer>Yes, with no account and no watermark, and every puzzle’s solved grid is included at the back.</FaqAnswer>

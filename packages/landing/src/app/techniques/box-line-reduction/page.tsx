@@ -2,6 +2,7 @@ import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { Faq } from '../../../seo/components/faq/faq';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
+import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
@@ -93,8 +94,8 @@ const BoxLineReductionPage = () => (
                 Only checking rows. Columns produce box line reductions just as often, and a stuck puzzle frequently hides one in a column.
             </li>
         </ul>
-        <h2>Box line reduction FAQ</h2>
         <FaqPage>
+            <FaqHeading>Box line reduction FAQ</FaqHeading>
             <Faq>
                 <FaqQuestion>Is box line reduction the same as a claiming candidate?</FaqQuestion>
                 <FaqAnswer>

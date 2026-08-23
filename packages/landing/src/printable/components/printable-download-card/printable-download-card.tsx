@@ -1,19 +1,17 @@
-import { isPositiveNumber } from '@rnw-community/shared';
+import { extractNodeText } from '../../../seo/utils/extract-node-text.util';
+import { findSlots } from '../../../seo/utils/find-slots.util';
+import { PrintableDownloadFact } from '../printable-download-fact/printable-download-fact';
 
-import { getPrintableFileSizeLabel } from '../../utils/get-printable-file-size-label.util';
+import type { ReactNode } from 'react';
 
 interface Props {
     title: string;
     fileName: string;
-    pageCount: number;
-    puzzleCount?: number;
-    hasSolutions?: boolean;
+    children: ReactNode;
 }
 
-export const PrintableDownloadCard = ({ fileName, hasSolutions = true, pageCount, puzzleCount, title }: Props) => {
-    const fileSizeLabel = getPrintableFileSizeLabel(fileName);
-    const puzzleCountFact = isPositiveNumber(puzzleCount) ? <li>{puzzleCount} puzzles</li> : null;
-    const solutionsFact = hasSolutions ? <li>Solutions included on the last pages</li> : null;
+export const PrintableDownloadCard = ({ children, fileName, title }: Props) => {
+    const factElements = findSlots(children, PrintableDownloadFact);
 
     return (
         <div className="printable-download">
@@ -21,10 +19,9 @@ export const PrintableDownloadCard = ({ fileName, hasSolutions = true, pageCount
                 Download {title} (PDF)
             </a>
             <ul className="printable-download__facts">
-                {puzzleCountFact}
-                <li>{pageCount} pages</li>
-                <li>{fileSizeLabel} PDF, US Letter</li>
-                {solutionsFact}
+                {factElements.map(factElement => (
+                    <li key={extractNodeText(factElement.props.children)}>{factElement.props.children}</li>
+                ))}
             </ul>
         </div>
     );

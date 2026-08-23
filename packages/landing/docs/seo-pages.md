@@ -110,6 +110,7 @@ Multi-entry authored content — FAQ entries, how-to steps, feature bullets, bre
 
 ```tsx
 <FaqPage>
+    <FaqHeading>X-Wing FAQ</FaqHeading>
     <Faq>
         <FaqQuestion>Does an X-Wing place a digit directly?</FaqQuestion>
         <FaqAnswer>No. It only proves that a digit cannot appear in certain cells.</FaqAnswer>
@@ -133,14 +134,14 @@ That is what makes the schema and the visible copy structurally incapable of dri
 
 **Which primitives are compound today:**
 
-| Primitive                   | Slot children                      | Emits JSON-LD                                     | Emits visible output         |
-| --------------------------- | ---------------------------------- | ------------------------------------------------- | ---------------------------- |
-| `FaqPage`                   | `Faq` → `FaqQuestion`, `FaqAnswer` | `FAQPage`                                         | yes, a `<details>` accordion |
-| `HowTo`                     | `HowToStep name=`                  | `HowTo` (through `HowToSchema`)                   | yes, an ordered list         |
-| `HowToSchema`               | `HowToStep name=`                  | `HowTo`                                           | no, schema only              |
-| `SoftwareApplicationSchema` | `SoftwareApplicationFeature`       | `SoftwareApplication` with `featureList`          | yes, a feature `<ul>`        |
-| `Breadcrumbs`               | `BreadcrumbListItem path=`         | `BreadcrumbList` (through `BreadcrumbListSchema`) | yes, a `<nav><ol>` trail     |
-| `BreadcrumbListSchema`      | `BreadcrumbListItem path=`         | `BreadcrumbList`                                  | no, schema only              |
+| Primitive                   | Slot children                                    | Emits JSON-LD                                     | Emits visible output                        |
+| --------------------------- | ------------------------------------------------ | ------------------------------------------------- | ------------------------------------------- |
+| `FaqPage`                   | `FaqHeading`, `Faq` → `FaqQuestion`, `FaqAnswer` | `FAQPage`                                         | yes, an `<h2>` plus a `<details>` accordion |
+| `HowTo`                     | `HowToStep name=`                                | `HowTo` (through `HowToSchema`)                   | yes, an ordered list                        |
+| `HowToSchema`               | `HowToStep name=`                                | `HowTo`                                           | no, schema only                             |
+| `SoftwareApplicationSchema` | `SoftwareApplicationFeature`                     | `SoftwareApplication` with `featureList`          | yes, a feature `<ul>`                       |
+| `Breadcrumbs`               | `BreadcrumbListItem path=`                       | `BreadcrumbList` (through `BreadcrumbListSchema`) | yes, a `<nav><ol>` trail                    |
+| `BreadcrumbListSchema`      | `BreadcrumbListItem path=`                       | `BreadcrumbList`                                  | no, schema only                             |
 
 `ArticleSchema` is the deliberate exception: its headline, description, dates, and image are single values whose one source of truth is the metadata sidecar, so it takes the whole sidecar as `metadata` rather than a row of free-typed strings. A page never renders it directly; `PageHeader` does, from the same object it renders the `<h1>` and the `<time>` line from. That is the same anti-drift guarantee the slot primitives give, achieved with one shared object instead of one shared set of children.
 
@@ -214,7 +215,7 @@ Check this table before writing a new component. Most concerns already have one.
 | Canonical plus hreflang                   | `buildAlternates(path)`, `buildLanguageAlternates(path)`                            | called inside `buildPageMetadata`; call directly only outside a page                                           |
 | Absolute URL for a path                   | `buildLocaleUrl(locale, path)`                                                      | the only way to build a site URL; never concatenate `SITE_ORIGIN` by hand                                      |
 | Any JSON-LD payload                       | `JsonLd data=`                                                                      | escapes angle brackets; every schema primitive renders through it                                              |
-| FAQ, schema and visible together          | `FaqPage` + `Faq` → `FaqQuestion` / `FaqAnswer`                                     | emits `FAQPage` JSON-LD and a `<details>` accordion from one set of children                                   |
+| FAQ, schema and visible together          | `FaqPage` + `FaqHeading` + `Faq` → `FaqQuestion` / `FaqAnswer`                      | emits `FAQPage` JSON-LD and an `<h2>` plus a `<details>` accordion from one set of children                    |
 | How-to steps, schema and visible together | `HowTo name=` + `HowToStep name=`                                                   | emits `HowTo` JSON-LD and an ordered list from one set of children                                             |
 | How-to steps, schema only                 | `HowToSchema name= description=` + `HowToStep name=`                                | use only when the page renders the steps itself in a different shape                                           |
 | Breadcrumbs, schema and visible together  | `Breadcrumbs` + `BreadcrumbListItem path=`                                          | omit `path` on the last item; it renders as the current page                                                   |
@@ -223,6 +224,8 @@ Check this table before writing a new component. Most concerns already have one.
 | Technique page header                     | `TechniquePageHeader metadata=`                                                     | `PageHeader` with the fixed `Home > Sudoku techniques > <title>` trail                                         |
 | Visible freshness date                    | `UpdatedDate updatedAt=`                                                            | rendered by `PageHeader`; a `<time dateTime>` line under the `<h1>`                                            |
 | Article dates and byline schema           | `ArticleSchema metadata=`                                                           | rendered by `PageHeader`; takes the whole sidecar, never free-typed strings                                    |
+| Hub collection schema                     | `ItemListSchema metadata= items=`                                                   | schema only; `CollectionPage` wrapping an `ItemList`, one entry per linked sidecar                             |
+| Site-wide `WebSite` schema                | `WebSiteSchema metadata=`                                                           | schema only; the home page's `WebSite` JSON-LD, resolved from its own sidecar                                  |
 | Technique and tier display names          | `buildTechniquePageNames(technique)`, `buildDifficultyPageTitle(difficulty)`        | sidecar titles derive from `TECHNIQUE_NAMES` / `DIFFICULTY_NAMES`, the one authority per name                  |
 | App or feature list                       | `SoftwareApplicationSchema path= name= description=` + `SoftwareApplicationFeature` | emits `SoftwareApplication` JSON-LD with `featureList` and a visible feature list                              |
 | Worked technique example                  | `TechniqueWorkedExample board= technique=` + caption children                       | the only worked-example entry point; drives the static table and the live board from one board string          |
@@ -233,13 +236,15 @@ Check this table before writing a new component. Most concerns already have one.
 | Step narration text                       | `renderTechniqueNarration`                                                          | turns the structured step payload into prose for all technique pages; never hand-write per-technique narration |
 | Plain puzzle grid                         | `PuzzleBoard givens=` + caption children                                            | parses an 81-character string with `parsePuzzleGivens`; no candidates, no highlighting                         |
 | TL;DR summary box                         | `TechniqueSummary` + children                                                       | the labelled aside above the long-form sections                                                                |
-| Prev / next technique                     | `TechniqueNavigation previous= next=`                                               | takes sidecars; order follows `SolutionTechniqueEnum`                                                          |
-| Prev / next difficulty                    | `DifficultyNavigation previous= next=`                                              | takes sidecars; order follows `DIFFICULTY_LADDER`                                                              |
+| Prev / next technique                     | `TechniqueNavigation previous= next=`                                               | takes sidecars; order follows `SolutionTechniqueEnum`; renders through `PageChain`                             |
+| Prev / next difficulty                    | `DifficultyNavigation previous= next=`                                              | takes sidecars; order follows `DIFFICULTY_LADDER`; renders through `PageChain`                                 |
+| Generic prev / next chain                 | `PageChain ariaLabel= previousLabel= nextLabel= previous= next=`                    | the shared chain shell behind `TechniqueNavigation` and `DifficultyNavigation`                                 |
 | Link to a technique page                  | `TechniqueLink technique=`                                                          | resolves `TECHNIQUE_PAGE_PATHS` and `TECHNIQUE_NAMES` for a `SolutionTechniqueEnum`                            |
+| Ordered links to several techniques       | `TechniqueLinkList techniques=`                                                     | comma-and-"and" joined `TechniqueLink`s over computed technique order, e.g. `TECHNIQUE_PAGE_LADDER`            |
 | Clue count for a tier                     | `getDifficultyClueCount(difficulty)`                                                | the number every difficulty and printable page quotes                                                          |
 | Measured tier facts                       | `getTierTechniqueReport(difficulty)`, `getTierTechniqueReports()`                   | memoised per build; prose must read numbers from here, not repeat literals                                     |
 | Generated difficulty tables               | `TierLadderTable`, `TechniqueFrequencyTable` + caption children                     | render `getTierTechniqueReports()`; caption is `children`                                                      |
-| Printable download block                  | `PrintableDownloadCard title= fileName= pageCount= puzzleCount= hasSolutions=`      | resolves the file size itself from the built PDF                                                               |
+| Printable download block                  | `PrintableDownloadCard title= fileName=` + `PrintableDownloadFact` children         | facts (puzzle count, page count, file size, solutions) are page-owned children                                 |
 | Printable page counts                     | `getPrintableBookletPageCount(...)`, `getPrintableFileSizeLabel(fileName)`          | keeps quoted page counts and file sizes derived, never typed                                                   |
 | Solver workbench                          | `SolverWorkbench`                                                                   | the client island for the step-by-step solver page                                                             |
 | Site chrome                               | `SiteHeader`, `SiteFooter`                                                          | rendered by the root layout; no props, links resolved through sidecars                                         |

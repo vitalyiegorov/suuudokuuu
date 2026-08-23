@@ -2,6 +2,7 @@ import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { Faq } from '../../../seo/components/faq/faq';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
+import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
@@ -105,8 +106,8 @@ const SashimiXWingPage = () => (
                 among the cover columns; the line may still carry the digit in other, unrelated columns.
             </li>
         </ul>
-        <h2>Sashimi X-Wing FAQ</h2>
         <FaqPage>
+            <FaqHeading>Sashimi X-Wing FAQ</FaqHeading>
             <Faq>
                 <FaqQuestion>Why is it called Sashimi?</FaqQuestion>
                 <FaqAnswer>

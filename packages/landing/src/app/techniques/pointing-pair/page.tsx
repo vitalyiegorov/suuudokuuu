@@ -2,6 +2,7 @@ import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { Faq } from '../../../seo/components/faq/faq';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
+import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
@@ -93,8 +94,8 @@ const PointingPairPage = () => (
             </li>
             <li>Skipping the follow-up scan. The elimination is only useful if you then look for the single it exposed.</li>
         </ul>
-        <h2>Pointing pair FAQ</h2>
         <FaqPage>
+            <FaqHeading>Pointing pair FAQ</FaqHeading>
             <Faq>
                 <FaqQuestion>Is a pointing pair the same as a locked candidate?</FaqQuestion>
                 <FaqAnswer>

@@ -1,6 +1,4 @@
-import { isDefined } from '@rnw-community/shared';
-
-import { DifficultyNavigationLink } from '../difficulty-navigation-link/difficulty-navigation-link';
+import { PageChain } from '../../../seo/components/page-chain/page-chain';
 
 import type { PageMetadataInterface } from '../../../seo/interfaces/page-metadata.interface';
 
@@ -9,14 +7,12 @@ interface Props {
     next?: Pick<PageMetadataInterface, 'path' | 'title'>;
 }
 
-export const DifficultyNavigation = ({ next, previous }: Props) => {
-    const previousLink = isDefined(previous) ? <DifficultyNavigationLink label="Easier difficulty" metadata={previous} /> : null;
-    const nextLink = isDefined(next) ? <DifficultyNavigationLink label="Harder difficulty" metadata={next} /> : null;
-
-    return (
-        <nav aria-label="Sudoku difficulty chain" className="difficulty-chain">
-            {previousLink}
-            {nextLink}
-        </nav>
-    );
-};
+export const DifficultyNavigation = ({ next, previous }: Props) => (
+    <PageChain
+        ariaLabel="Sudoku difficulty chain"
+        next={next}
+        nextLabel="Harder difficulty"
+        previous={previous}
+        previousLabel="Easier difficulty"
+    />
+);

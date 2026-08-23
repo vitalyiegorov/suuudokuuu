@@ -2,6 +2,7 @@ import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { Faq } from '../../../seo/components/faq/faq';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
+import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
@@ -101,8 +102,8 @@ const XYZWingPage = () => (
                 the only unit all three cells share.
             </li>
         </ul>
-        <h2>XYZ-Wing FAQ</h2>
         <FaqPage>
+            <FaqHeading>XYZ-Wing FAQ</FaqHeading>
             <Faq>
                 <FaqQuestion>Why does the pivot need three candidates instead of two?</FaqQuestion>
                 <FaqAnswer>

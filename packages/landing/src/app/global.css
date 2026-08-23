@@ -512,7 +512,7 @@ strong {
     font-variant-numeric: tabular-nums;
 }
 
-.technique-chain {
+.page-chain {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
@@ -521,7 +521,7 @@ strong {
     border-top: 1px solid var(--landing-border-color);
 }
 
-.technique-chain__link {
+.page-chain__link {
     display: block;
     flex: 1 1 12rem;
     padding: 0.75rem 1rem;
@@ -530,7 +530,7 @@ strong {
     text-decoration: none;
 }
 
-.technique-chain__label {
+.page-chain__label {
     display: block;
     color: var(--landing-muted-text-color);
     font-size: 0.7rem;
@@ -538,7 +538,7 @@ strong {
     text-transform: uppercase;
 }
 
-.technique-chain__title {
+.page-chain__title {
     display: block;
     color: var(--landing-text-color);
     font-weight: 600;
@@ -552,38 +552,6 @@ strong {
 
 .technique-index li {
     margin: 0 0 0.75rem;
-}
-
-.difficulty-chain {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin: 2.5rem 0 0;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--landing-border-color);
-}
-
-.difficulty-chain__link {
-    display: block;
-    flex: 1 1 12rem;
-    padding: 0.75rem 1rem;
-    border: 1px solid var(--landing-border-color);
-    border-radius: 0.25rem;
-    text-decoration: none;
-}
-
-.difficulty-chain__label {
-    display: block;
-    color: var(--landing-muted-text-color);
-    font-size: 0.7rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-}
-
-.difficulty-chain__title {
-    display: block;
-    color: var(--landing-text-color);
-    font-weight: 600;
 }
 
 .solver-workbench {

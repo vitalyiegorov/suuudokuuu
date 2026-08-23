@@ -2,6 +2,7 @@ import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { Faq } from '../../../seo/components/faq/faq';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
+import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
@@ -103,8 +104,8 @@ const WWingPage = () => (
                 not the other.
             </li>
         </ul>
-        <h2>W-Wing FAQ</h2>
         <FaqPage>
+            <FaqHeading>W-Wing FAQ</FaqHeading>
             <Faq>
                 <FaqQuestion>What is a strong link?</FaqQuestion>
                 <FaqAnswer>

@@ -1,6 +1,4 @@
-import { isDefined } from '@rnw-community/shared';
-
-import { TechniqueNavigationLink } from '../technique-navigation-link/technique-navigation-link';
+import { PageChain } from '../../../seo/components/page-chain/page-chain';
 
 import type { PageMetadataInterface } from '../../../seo/interfaces/page-metadata.interface';
 
@@ -9,14 +7,12 @@ interface Props {
     next?: Pick<PageMetadataInterface, 'path' | 'title'>;
 }
 
-export const TechniqueNavigation = ({ next, previous }: Props) => {
-    const previousLink = isDefined(previous) ? <TechniqueNavigationLink label="Previous technique" metadata={previous} /> : null;
-    const nextLink = isDefined(next) ? <TechniqueNavigationLink label="Continue to" metadata={next} /> : null;
-
-    return (
-        <nav aria-label="Technique difficulty chain" className="technique-chain">
-            {previousLink}
-            {nextLink}
-        </nav>
-    );
-};
+export const TechniqueNavigation = ({ next, previous }: Props) => (
+    <PageChain
+        ariaLabel="Technique difficulty chain"
+        next={next}
+        nextLabel="Continue to"
+        previous={previous}
+        previousLabel="Previous technique"
+    />
+);

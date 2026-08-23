@@ -2,6 +2,7 @@ import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { Faq } from '../../../seo/components/faq/faq';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
+import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { HowTo } from '../../../seo/components/how-to/how-to';
@@ -103,8 +104,8 @@ const FinnedXWingPage = () => (
                 only that either outcome clears the target cells.
             </li>
         </ul>
-        <h2>Finned X-Wing FAQ</h2>
         <FaqPage>
+            <FaqHeading>Finned X-Wing FAQ</FaqHeading>
             <Faq>
                 <FaqQuestion>Can a base line have more than one fin?</FaqQuestion>
                 <FaqAnswer>

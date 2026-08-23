@@ -1,46 +1,31 @@
-import Link from 'next/link';
+import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { BreadcrumbListItem } from '../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { Faq } from '../../seo/components/faq/faq';
 import { FaqAnswer } from '../../seo/components/faq-answer/faq-answer';
+import { FaqHeading } from '../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../seo/components/faq-question/faq-question';
+import { ItemListSchema } from '../../seo/components/item-list-schema/item-list-schema';
 import { PageHeader } from '../../seo/components/page-header/page-header';
 import { buildPageMetadata } from '../../seo/utils/build-page-metadata.util';
+import { TechniqueLink } from '../../techniques/components/technique-link/technique-link';
 import { TechniqueSummary } from '../../techniques/components/technique-summary/technique-summary';
+import { TECHNIQUE_NAMES } from '../../techniques/constants/technique-name.constant';
+import { TECHNIQUE_PAGE_LADDER } from '../../techniques/constants/technique-page-ladder.constant';
+import { TECHNIQUE_PAGE_PATHS } from '../../techniques/constants/technique-page-path.constant';
 import { homePageMetadata } from '../metadata';
 
-import { aicPageMetadata } from './aic/metadata';
-import { boxLineReductionPageMetadata } from './box-line-reduction/metadata';
-import { finnedSwordfishPageMetadata } from './finned-swordfish/metadata';
-import { finnedXWingPageMetadata } from './finned-x-wing/metadata';
-import { fullHousePageMetadata } from './full-house/metadata';
-import { hiddenPairPageMetadata } from './hidden-pair/metadata';
-import { hiddenQuadPageMetadata } from './hidden-quad/metadata';
-import { hiddenSinglePageMetadata } from './hidden-single/metadata';
-import { hiddenTriplePageMetadata } from './hidden-triple/metadata';
-import { jellyfishPageMetadata } from './jellyfish/metadata';
 import { techniquesPageMetadata } from './metadata';
-import { nakedPairPageMetadata } from './naked-pair/metadata';
-import { nakedQuadPageMetadata } from './naked-quad/metadata';
-import { nakedSinglePageMetadata } from './naked-single/metadata';
-import { nakedTriplePageMetadata } from './naked-triple/metadata';
-import { pointingPairPageMetadata } from './pointing-pair/metadata';
-import { pointingTriplePageMetadata } from './pointing-triple/metadata';
-import { sashimiSwordfishPageMetadata } from './sashimi-swordfish/metadata';
-import { sashimiXWingPageMetadata } from './sashimi-x-wing/metadata';
-import { simpleColoringPageMetadata } from './simple-coloring/metadata';
-import { swordfishPageMetadata } from './swordfish/metadata';
-import { wWingPageMetadata } from './w-wing/metadata';
-import { xChainPageMetadata } from './x-chain/metadata';
-import { xWingPageMetadata } from './x-wing/metadata';
-import { xyChainPageMetadata } from './xy-chain/metadata';
-import { xyWingPageMetadata } from './xy-wing/metadata';
-import { xyzWingPageMetadata } from './xyz-wing/metadata';
 
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = buildPageMetadata(techniquesPageMetadata);
+
+const TECHNIQUE_INDEX_ITEMS = TECHNIQUE_PAGE_LADDER.map(technique => ({
+    path: TECHNIQUE_PAGE_PATHS[technique],
+    title: TECHNIQUE_NAMES[technique]
+}));
 
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const TechniquesPage = () => (
@@ -49,6 +34,7 @@ const TechniquesPage = () => (
             <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
             <BreadcrumbListItem>Sudoku techniques</BreadcrumbListItem>
         </PageHeader>
+        <ItemListSchema items={TECHNIQUE_INDEX_ITEMS} metadata={techniquesPageMetadata} />
         <p>
             A Sudoku technique is a named pattern of candidates that justifies placing a digit or erasing a candidate without guessing. This
             page lists the techniques in the order a solver should try them, from the single cheapest deduction in the game to the subset
@@ -74,15 +60,15 @@ const TechniquesPage = () => (
         </p>
         <ul className="technique-index">
             <li>
-                <Link href={fullHousePageMetadata.path}>Full House</Link> — the last empty cell in a row, column or box takes the one digit
-                that unit is still missing.
+                <TechniqueLink technique={SolutionTechniqueEnum.FullHouse} /> — the last empty cell in a row, column or box takes the one
+                digit that unit is still missing.
             </li>
             <li>
-                <Link href={nakedSinglePageMetadata.path}>Naked Single</Link> — a cell whose row, column and box between them rule out eight
-                digits, leaving one candidate.
+                <TechniqueLink technique={SolutionTechniqueEnum.NakedSingle} /> — a cell whose row, column and box between them rule out
+                eight digits, leaving one candidate.
             </li>
             <li>
-                <Link href={hiddenSinglePageMetadata.path}>Hidden Single</Link> — a digit that fits in only one cell of a unit, even though
+                <TechniqueLink technique={SolutionTechniqueEnum.HiddenSingle} /> — a digit that fits in only one cell of a unit, even though
                 that cell still has other candidates.
             </li>
         </ul>
@@ -93,15 +79,15 @@ const TechniquesPage = () => (
         </p>
         <ul className="technique-index">
             <li>
-                <Link href={pointingPairPageMetadata.path}>Pointing Pair</Link> — a digit confined to two cells of a box that share a line
+                <TechniqueLink technique={SolutionTechniqueEnum.PointingPair} /> — a digit confined to two cells of a box that share a line
                 is erased from the rest of that line.
             </li>
             <li>
-                <Link href={pointingTriplePageMetadata.path}>Pointing Triple</Link> — the same deduction with three cells instead of two.
+                <TechniqueLink technique={SolutionTechniqueEnum.PointingTriple} /> — the same deduction with three cells instead of two.
             </li>
             <li>
-                <Link href={boxLineReductionPageMetadata.path}>Box Line Reduction</Link> — the mirror image: a digit confined to one box
-                along a line is erased from the rest of that box.
+                <TechniqueLink technique={SolutionTechniqueEnum.BoxLineReduction} /> — the mirror image: a digit confined to one box along a
+                line is erased from the rest of that box.
             </li>
         </ul>
         <h2>Tier 3 — Subsets</h2>
@@ -112,23 +98,24 @@ const TechniquesPage = () => (
         </p>
         <ul className="technique-index">
             <li>
-                <Link href={nakedPairPageMetadata.path}>Naked Pair</Link> — two cells in a unit hold the same two candidates and nothing
+                <TechniqueLink technique={SolutionTechniqueEnum.NakedPair} /> — two cells in a unit hold the same two candidates and nothing
                 else.
             </li>
             <li>
-                <Link href={nakedTriplePageMetadata.path}>Naked Triple</Link> — three cells whose candidates together use only three digits.
+                <TechniqueLink technique={SolutionTechniqueEnum.NakedTriple} /> — three cells whose candidates together use only three
+                digits.
             </li>
             <li>
-                <Link href={nakedQuadPageMetadata.path}>Naked Quad</Link> — four cells whose candidates together use only four digits.
+                <TechniqueLink technique={SolutionTechniqueEnum.NakedQuad} /> — four cells whose candidates together use only four digits.
             </li>
             <li>
-                <Link href={hiddenPairPageMetadata.path}>Hidden Pair</Link> — two digits that fit in only two cells of a unit.
+                <TechniqueLink technique={SolutionTechniqueEnum.HiddenPair} /> — two digits that fit in only two cells of a unit.
             </li>
             <li>
-                <Link href={hiddenTriplePageMetadata.path}>Hidden Triple</Link> — three digits confined to the same three cells.
+                <TechniqueLink technique={SolutionTechniqueEnum.HiddenTriple} /> — three digits confined to the same three cells.
             </li>
             <li>
-                <Link href={hiddenQuadPageMetadata.path}>Hidden Quad</Link> — four digits confined to the same four cells.
+                <TechniqueLink technique={SolutionTechniqueEnum.HiddenQuad} /> — four digits confined to the same four cells.
             </li>
         </ul>
         <h2>Tier 4 — Fish, wings and chains</h2>
@@ -140,57 +127,58 @@ const TechniquesPage = () => (
         </p>
         <ul className="technique-index">
             <li>
-                <Link href={xWingPageMetadata.path}>X-Wing</Link> — a digit confined to the same two columns across two rows is erased from
-                the rest of those columns.
+                <TechniqueLink technique={SolutionTechniqueEnum.XWing} /> — a digit confined to the same two columns across two rows is
+                erased from the rest of those columns.
             </li>
             <li>
-                <Link href={swordfishPageMetadata.path}>Swordfish</Link> — the same fish pattern spread across three lines instead of two.
+                <TechniqueLink technique={SolutionTechniqueEnum.Swordfish} /> — the same fish pattern spread across three lines instead of
+                two.
             </li>
             <li>
-                <Link href={jellyfishPageMetadata.path}>Jellyfish</Link> — the same fish pattern spread across four lines.
+                <TechniqueLink technique={SolutionTechniqueEnum.Jellyfish} /> — the same fish pattern spread across four lines.
             </li>
             <li>
-                <Link href={finnedXWingPageMetadata.path}>Finned X-Wing</Link> — an X-Wing with one extra candidate that still supports a
+                <TechniqueLink technique={SolutionTechniqueEnum.FinnedXWing} /> — an X-Wing with one extra candidate that still supports a
                 smaller, safe set of eliminations.
             </li>
             <li>
-                <Link href={finnedSwordfishPageMetadata.path}>Finned Swordfish</Link> — the same fin logic applied to a Swordfish.
+                <TechniqueLink technique={SolutionTechniqueEnum.FinnedSwordfish} /> — the same fin logic applied to a Swordfish.
             </li>
             <li>
-                <Link href={sashimiXWingPageMetadata.path}>Sashimi X-Wing</Link> — a finned X-Wing where one base line is missing its normal
+                <TechniqueLink technique={SolutionTechniqueEnum.SashimiXWing} /> — a finned X-Wing where one base line is missing its normal
                 corner candidate entirely.
             </li>
             <li>
-                <Link href={sashimiSwordfishPageMetadata.path}>Sashimi Swordfish</Link> — the same missing-corner pattern applied to a
+                <TechniqueLink technique={SolutionTechniqueEnum.SashimiSwordfish} /> — the same missing-corner pattern applied to a
                 Swordfish.
             </li>
             <li>
-                <Link href={xyWingPageMetadata.path}>XY-Wing</Link> — three bivalue cells arranged so a shared candidate can be erased from
-                any cell that sees both pincers.
+                <TechniqueLink technique={SolutionTechniqueEnum.XYWing} /> — three bivalue cells arranged so a shared candidate can be
+                erased from any cell that sees both pincers.
             </li>
             <li>
-                <Link href={xyzWingPageMetadata.path}>XYZ-Wing</Link> — an XY-Wing whose pivot also carries the shared candidate, tightening
-                the elimination further.
+                <TechniqueLink technique={SolutionTechniqueEnum.XYZWing} /> — an XY-Wing whose pivot also carries the shared candidate,
+                tightening the elimination further.
             </li>
             <li>
-                <Link href={wWingPageMetadata.path}>W-Wing</Link> — two matching bivalue cells tied together by a strong link on one of
-                their shared candidates.
+                <TechniqueLink technique={SolutionTechniqueEnum.WWing} /> — two matching bivalue cells tied together by a strong link on one
+                of their shared candidates.
             </li>
             <li>
-                <Link href={xChainPageMetadata.path}>X-Chain</Link> — a chain of strong and weak links on one digit connecting two cells
-                that share a peer.
+                <TechniqueLink technique={SolutionTechniqueEnum.XChain} /> — a chain of strong and weak links on one digit connecting two
+                cells that share a peer.
             </li>
             <li>
-                <Link href={xyChainPageMetadata.path}>XY-Chain</Link> — a chain of bivalue cells whose two endpoints force an elimination
-                wherever they overlap.
+                <TechniqueLink technique={SolutionTechniqueEnum.XYChain} /> — a chain of bivalue cells whose two endpoints force an
+                elimination wherever they overlap.
             </li>
             <li>
-                <Link href={simpleColoringPageMetadata.path}>Simple Coloring</Link> — a two-color network of strong links on one digit,
+                <TechniqueLink technique={SolutionTechniqueEnum.SimpleColoring} /> — a two-color network of strong links on one digit,
                 cleared wherever a cell sees both colors.
             </li>
             <li>
-                <Link href={aicPageMetadata.path}>AIC</Link> — an alternating inference chain that generalises the fish, wing and chain
-                patterns above into one technique.
+                <TechniqueLink technique={SolutionTechniqueEnum.AIC} /> — an alternating inference chain that generalises the fish, wing and
+                chain patterns above into one technique.
             </li>
         </ul>
         <h2>How to use this list</h2>
@@ -204,8 +192,8 @@ const TechniquesPage = () => (
             The fish patterns, the wings and the chains above follow the same principle as the subsets — reserving digits for cells — but
             they reason across two or more units at once, or across a path of cells, rather than inside a single unit.
         </p>
-        <h2>Sudoku techniques FAQ</h2>
         <FaqPage>
+            <FaqHeading>Sudoku techniques FAQ</FaqHeading>
             <Faq>
                 <FaqQuestion>What order should I learn sudoku techniques in?</FaqQuestion>
                 <FaqAnswer>
