@@ -1,0 +1,25 @@
+appId: ${APP_ID}
+tags:
+    - screenshots
+---
+# The direct deep-link path seeds an AI Escargot-class Infinity board
+# (sceneState 'infinity', SE 11.9) straight into the game slice. This Maestro
+# fallback exists for parity with the other scenes: it starts a fresh curated
+# Infinity puzzle through the UI instead.
+- runFlow: subflows/reset-app.flow.yaml
+- runFlow:
+      file: subflows/apply-language.flow.yaml
+      env:
+          LOCALE: ${LOCALE}
+- runFlow:
+      file: subflows/apply-appearance.flow.yaml
+      env:
+          APPEARANCE: ${APPEARANCE}
+
+- tapOn:
+      id: 'DifficultyComplexityOptionSelectors.Option.Infinity'
+- runFlow: ../subflows/game/start-new-game.flow.yaml
+
+- takeScreenshot: '15-infinity'
+- runFlow: ../subflows/game/quit-current-game.flow.yaml
+- stopApp
