@@ -27,6 +27,11 @@ interface SeedFixture {
     settings: Record<string, unknown>;
 }
 
+interface ChallengeTimingState {
+    elapsedTime?: unknown;
+    wallClockStartMs?: unknown;
+}
+
 interface CommandResult {
     output: string;
     succeeded: boolean;
@@ -54,6 +59,14 @@ const runCommand = (command: string, commandArguments: string[]): CommandResult 
 };
 
 const isRecord = (value: unknown): value is Record<string, unknown> => typeof value === 'object' && value !== null && !Array.isArray(value);
+
+const reanchorChallengeWallClockStart = (game: ChallengeTimingState): void => {
+    const { elapsedTime, wallClockStartMs } = game;
+
+    if (typeof elapsedTime === 'number' && typeof wallClockStartMs === 'number') {
+        game.wallClockStartMs = Date.now() - elapsedTime * 1000;
+    }
+};
 
 const readPersistVersion = (): number => {
     const source = readFileSync(migrationsSourcePath, 'utf8');
@@ -128,6 +141,9 @@ const buildPersistRootValue = (options: SeedOptions): string => {
     }
 
     const game = { ...fixture.game, ...(hasSceneState && fixture.sceneStates[requestedSceneState]) };
+
+    reanchorChallengeWallClockStart(game);
+
     const persistMetadata = { rehydrated: true, version: readPersistVersion() };
 
     return JSON.stringify({

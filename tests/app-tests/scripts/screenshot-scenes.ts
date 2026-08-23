@@ -38,6 +38,13 @@ export const AllScenes: Scene[] = [
         name: 'challenge-live',
         sceneState: 'challengeLive',
         seedDifficulty: 'Nightmare'
+    },
+    {
+        deepLink: 'suuudokuuu://game',
+        file: '15.infinity.flow.yaml',
+        name: 'infinity',
+        sceneState: 'infinity',
+        seedDifficulty: 'Infinity'
     }
 ];
 
