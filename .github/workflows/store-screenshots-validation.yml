@@ -97,7 +97,8 @@ jobs:
             settle-seconds: '5'
             build-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
             capture-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
-            upload-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
+            # asc-dedupe-screenshots needs App Store Connect egress; the maestro capture pool is egress-restricted.
+            upload-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
             cache-profile: suuudokuuu-ios-v2
             repack-on-hit: true
             rct-use-prebuilt-rncore: true
