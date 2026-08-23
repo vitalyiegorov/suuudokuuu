@@ -12,6 +12,7 @@ import { buildPageMetadata } from '../../seo/utils/build-page-metadata.util';
 import { homePageMetadata } from '../metadata';
 import { solverPageMetadata } from '../solver/metadata';
 import { hellSudokuPageMetadata } from '../sudoku/hell/metadata';
+import { sudokuForSeniorsPageMetadata } from '../sudoku-for-seniors/metadata';
 import { techniquesPageMetadata } from '../techniques/metadata';
 
 import { whySuuudokuuuPageMetadata } from './metadata';
@@ -93,7 +94,9 @@ const WhySuuudokuuuPage = () => (
             practical difference is verifiability. You do not have to trust a privacy policy’s wording, because there is no hidden layer for
             it to describe — the code that generates your puzzle, checks it has one solution and decides what a hint tells you is public,
             readable and forkable on GitHub. That is the whole pitch: not a longer feature list, just fewer things you have to take on
-            trust.
+            trust. It is also built to be comfortable, not just honest — see the{' '}
+            <Link href={sudokuForSeniorsPageMetadata.path}>sudoku for seniors</Link> guide for the large-print and comfort-mode options that
+            come with the same free, ad-free package.
         </p>
         <a className="hero__cta" href={SITE_PLAY_URL}>
             Play {SITE_NAME} now

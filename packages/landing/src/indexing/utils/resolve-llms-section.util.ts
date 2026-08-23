@@ -5,7 +5,7 @@ export const resolveLlmsSection = (path: string): string => {
         return LLMS_SECTIONS.techniques;
     }
 
-    if (path.startsWith('/printable')) {
+    if (path.startsWith('/printable') || path === '/large-print-sudoku') {
         return LLMS_SECTIONS.printable;
     }
 
@@ -13,7 +13,7 @@ export const resolveLlmsSection = (path: string): string => {
         return LLMS_SECTIONS.guides;
     }
 
-    if (path.startsWith('/sudoku')) {
+    if (path === '/sudoku' || path.startsWith('/sudoku/')) {
         return LLMS_SECTIONS.difficulty;
     }
 

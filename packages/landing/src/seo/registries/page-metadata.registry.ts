@@ -4,6 +4,7 @@ import { sudokuCluesVsDifficultyPageMetadata } from '../../app/guides/sudoku-clu
 import { sudokuDifficultyRatingPageMetadata } from '../../app/guides/sudoku-difficulty-rating/metadata';
 import { hardestSudokuPuzzlesPageMetadata } from '../../app/hardest-sudoku-puzzles/metadata';
 import { howToPlayPageMetadata } from '../../app/how-to-play/metadata';
+import { largePrintSudokuPageMetadata } from '../../app/large-print-sudoku/metadata';
 import { homePageMetadata } from '../../app/metadata';
 import { printableEasySudokuPageMetadata } from '../../app/printable/easy/metadata';
 import { printableHardSudokuPageMetadata } from '../../app/printable/hard/metadata';
@@ -20,6 +21,7 @@ import { mediumSudokuPageMetadata } from '../../app/sudoku/medium/metadata';
 import { sudokuDifficultiesPageMetadata } from '../../app/sudoku/metadata';
 import { newbieSudokuPageMetadata } from '../../app/sudoku/newbie/metadata';
 import { nightmareSudokuPageMetadata } from '../../app/sudoku/nightmare/metadata';
+import { sudokuForSeniorsPageMetadata } from '../../app/sudoku-for-seniors/metadata';
 import { aicPageMetadata } from '../../app/techniques/aic/metadata';
 import { boxLineReductionPageMetadata } from '../../app/techniques/box-line-reduction/metadata';
 import { finnedSwordfishPageMetadata } from '../../app/techniques/finned-swordfish/metadata';
@@ -55,6 +57,7 @@ export const PAGE_METADATA_REGISTRY: PageMetadataInterface[] = [
     homePageMetadata,
     whySuuudokuuuPageMetadata,
     howToPlayPageMetadata,
+    sudokuForSeniorsPageMetadata,
     solverPageMetadata,
     glossaryPageMetadata,
     sudokuDifficultiesPageMetadata,
@@ -75,6 +78,7 @@ export const PAGE_METADATA_REGISTRY: PageMetadataInterface[] = [
     printableHardSudokuPageMetadata,
     printableNightmareSudokuPageMetadata,
     printableHellSudokuPageMetadata,
+    largePrintSudokuPageMetadata,
     techniquesPageMetadata,
     fullHousePageMetadata,
     nakedSinglePageMetadata,

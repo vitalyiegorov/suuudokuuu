@@ -17,6 +17,7 @@ import { sudokuDifficultyRatingPageMetadata } from '../../guides/sudoku-difficul
 import { howToPlayPageMetadata } from '../../how-to-play/metadata';
 import { homePageMetadata } from '../../metadata';
 import { printableNewbieSudokuPageMetadata } from '../../printable/newbie/metadata';
+import { sudokuForSeniorsPageMetadata } from '../../sudoku-for-seniors/metadata';
 import { fullHousePageMetadata } from '../../techniques/full-house/metadata';
 import { techniquesPageMetadata } from '../../techniques/metadata';
 import { nakedSinglePageMetadata } from '../../techniques/naked-single/metadata';
@@ -29,6 +30,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = buildPageMetadata(newbieSudokuPageMetadata);
 
+// eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const NewbieSudokuPage = () => {
     const newbieReport = getTierTechniqueReport(DifficultyEnum.Newbie);
 
@@ -73,8 +75,9 @@ const NewbieSudokuPage = () => {
             <p>
                 Ready for a puzzle that needs one more idea? Move up to <Link href={easySudokuPageMetadata.path}>Easy Sudoku</Link>, which
                 adds the hidden single on top of everything here. Prefer paper? Download the{' '}
-                <Link href={printableNewbieSudokuPageMetadata.path}>printable Newbie sudoku booklet</Link>. Browse the full{' '}
-                <Link href={techniquesPageMetadata.path}>technique index</Link> or the{' '}
+                <Link href={printableNewbieSudokuPageMetadata.path}>printable Newbie sudoku booklet</Link>, or see the{' '}
+                <Link href={sudokuForSeniorsPageMetadata.path}>sudoku for seniors</Link> guide for large-print and comfort options. Browse
+                the full <Link href={techniquesPageMetadata.path}>technique index</Link> or the{' '}
                 <Link href={howToPlayPageMetadata.path}>how to play guide</Link>, or head back{' '}
                 <Link href={homePageMetadata.path}>home</Link> and see all six tiers on the{' '}
                 <Link href={sudokuDifficultiesPageMetadata.path}>Sudoku difficulty levels</Link> hub.
