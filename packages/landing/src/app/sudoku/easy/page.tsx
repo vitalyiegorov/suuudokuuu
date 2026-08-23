@@ -16,6 +16,7 @@ import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
 import { howToPlayPageMetadata } from '../../how-to-play/metadata';
 import { homePageMetadata } from '../../metadata';
 import { printableEasySudokuPageMetadata } from '../../printable/easy/metadata';
+import { sudokuForSeniorsPageMetadata } from '../../sudoku-for-seniors/metadata';
 import { fullHousePageMetadata } from '../../techniques/full-house/metadata';
 import { hiddenSinglePageMetadata } from '../../techniques/hidden-single/metadata';
 import { techniquesPageMetadata } from '../../techniques/metadata';
@@ -77,8 +78,9 @@ const EasySudokuPage = () => {
                 Solving Easy boards without reaching for a hidden single? Step back to{' '}
                 <Link href={newbieSudokuPageMetadata.path}>Newbie Sudoku</Link>, or step up to{' '}
                 <Link href={mediumSudokuPageMetadata.path}>Medium Sudoku</Link>, where intersections and your first pairs appear. Prefer
-                paper? Download the <Link href={printableEasySudokuPageMetadata.path}>printable Easy sudoku booklet</Link>. See the full{' '}
-                <Link href={techniquesPageMetadata.path}>technique index</Link>, the{' '}
+                paper? Download the <Link href={printableEasySudokuPageMetadata.path}>printable Easy sudoku booklet</Link>, or see the{' '}
+                <Link href={sudokuForSeniorsPageMetadata.path}>sudoku for seniors</Link> guide for large-print and comfort options. See the
+                full <Link href={techniquesPageMetadata.path}>technique index</Link>, the{' '}
                 <Link href={howToPlayPageMetadata.path}>how to play</Link> guide, or every tier on the{' '}
                 <Link href={sudokuDifficultiesPageMetadata.path}>Sudoku difficulty levels</Link> hub back{' '}
                 <Link href={homePageMetadata.path}>home</Link>.

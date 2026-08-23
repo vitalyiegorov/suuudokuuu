@@ -23,6 +23,7 @@ import { FaqQuestion } from '../../seo/components/faq-question/faq-question';
 import { SITE_PLAY_URL } from '../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../seo/utils/build-page-metadata.util';
 import { sudokuDifficultyRatingPageMetadata } from '../guides/sudoku-difficulty-rating/metadata';
+import { largePrintSudokuPageMetadata } from '../large-print-sudoku/metadata';
 import { homePageMetadata } from '../metadata';
 import { easySudokuPageMetadata } from '../sudoku/easy/metadata';
 import { hardSudokuPageMetadata } from '../sudoku/hard/metadata';
@@ -30,6 +31,7 @@ import { hellSudokuPageMetadata } from '../sudoku/hell/metadata';
 import { mediumSudokuPageMetadata } from '../sudoku/medium/metadata';
 import { newbieSudokuPageMetadata } from '../sudoku/newbie/metadata';
 import { nightmareSudokuPageMetadata } from '../sudoku/nightmare/metadata';
+import { sudokuForSeniorsPageMetadata } from '../sudoku-for-seniors/metadata';
 
 import { printableEasySudokuPageMetadata } from './easy/metadata';
 import { printableHardSudokuPageMetadata } from './hard/metadata';
@@ -178,7 +180,9 @@ const PrintableSudokuPage = () => (
         <p>
             The large-print set uses the same Easy-tier logic as the booklet above, but at two puzzles per page instead of four, so every
             cell and digit prints noticeably bigger. It suits low-vision solvers, classroom handouts read from a distance, and anyone who
-            finds the standard grid cramped on paper.
+            finds the standard grid cramped on paper. See the <Link href={largePrintSudokuPageMetadata.path}>large print sudoku page</Link>{' '}
+            for printing tips and the on-screen alternative, or the <Link href={sudokuForSeniorsPageMetadata.path}>sudoku for seniors</Link>{' '}
+            guide for the full comfort-focused rundown.
         </p>
         <PrintableDownloadCard
             fileName="large-print.pdf"
