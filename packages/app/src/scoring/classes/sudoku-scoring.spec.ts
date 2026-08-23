@@ -433,6 +433,7 @@ describe('SudokuScoring', () => {
                     correctMinValue: 10,
                     elapsedCoefficient: 0.02,
                     hintCoefficient: 0.25,
+                    undoCoefficient: 0.1,
                     mistakesCoefficient: 0.1,
                     lastInRowCoefficientConstant: 1,
                     lastInColCoefficientConstant: 1,
@@ -612,6 +613,48 @@ describe('SudokuScoring', () => {
             const scoring = new SudokuScoring({ ...defaultScoringConfig, hintCoefficient: 0.33 });
 
             expect(Number.isInteger(scoring.calculateHintPenalty({ difficulty: DifficultyEnum.Nightmare, maxMistakes: 5 }))).toBe(true);
+        });
+    });
+
+    describe('calculateUndoPenalty', () => {
+        it('should charge the undo fraction of a plain placement at the same difficulty', () => {
+            const scoring = new SudokuScoring(defaultScoringConfig);
+            const placementScore = scoring.calculate({
+                difficulty: DifficultyEnum.Hell,
+                scoredCells: emptyScoredCells,
+                mistakes: 0,
+                elapsedTime: 0,
+                maxMistakes: 3
+            });
+            const penalty = scoring.calculateUndoPenalty({ difficulty: DifficultyEnum.Hell, maxMistakes: 3 });
+
+            expect(penalty).toBe(Math.floor(placementScore * defaultScoringConfig.undoCoefficient));
+        });
+
+        it('should cost less than applying a hint', () => {
+            const scoring = new SudokuScoring(defaultScoringConfig);
+
+            const undoPenalty = scoring.calculateUndoPenalty({ difficulty: DifficultyEnum.Infinity, maxMistakes: 0 });
+            const hintPenalty = scoring.calculateHintPenalty({ difficulty: DifficultyEnum.Infinity, maxMistakes: 0 });
+
+            expect(undoPenalty).toBeLessThan(hintPenalty);
+        });
+
+        it('should scale the penalty with the difficulty coefficient', () => {
+            const scoring = new SudokuScoring(defaultScoringConfig);
+
+            const newbiePenalty = scoring.calculateUndoPenalty({ difficulty: DifficultyEnum.Newbie, maxMistakes: 99 });
+            const hellPenalty = scoring.calculateUndoPenalty({ difficulty: DifficultyEnum.Hell, maxMistakes: 99 });
+
+            expect(hellPenalty).toBeGreaterThan(newbiePenalty);
+        });
+
+        it('should never charge less than the minimum correct value', () => {
+            const scoring = new SudokuScoring({ ...defaultScoringConfig, undoCoefficient: 0 });
+
+            expect(scoring.calculateUndoPenalty({ difficulty: DifficultyEnum.Newbie, maxMistakes: 99 })).toBe(
+                defaultScoringConfig.correctMinValue
+            );
         });
     });
 });

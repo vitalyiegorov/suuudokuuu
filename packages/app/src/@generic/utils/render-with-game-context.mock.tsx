@@ -20,13 +20,15 @@ import type { ReactElement } from 'react';
 interface RenderWithGameContextOptions {
     readonly create?: GameContextValueInterface['create'];
     readonly createFromState?: GameContextValueInterface['createFromState'];
+    readonly engine?: FieldEngine;
     readonly game?: Partial<GameState>;
     readonly isCreatingGame?: boolean;
     readonly settings?: Partial<SettingsState>;
+    readonly store?: ReturnType<typeof createAppTestStore>;
 }
 
 export const renderWithGameContext = (ui: ReactElement, options: RenderWithGameContextOptions = {}) => {
-    const engine = new FieldEngine({ sudokuString: GameEmptySudokuStringConstant, difficulty: DifficultyEnum.Newbie });
+    const engine = options.engine ?? new FieldEngine({ sudokuString: GameEmptySudokuStringConstant, difficulty: DifficultyEnum.Newbie });
     const gameContextValue: GameContextValueInterface = {
         create: options.create ?? emptyFn,
         createFromState: options.createFromState ?? emptyFn,
@@ -36,7 +38,7 @@ export const renderWithGameContext = (ui: ReactElement, options: RenderWithGameC
     };
 
     return render(
-        <Provider store={createAppTestStore({ game: options.game, settings: options.settings })}>
+        <Provider store={options.store ?? createAppTestStore({ game: options.game, settings: options.settings })}>
             <I18nProvider i18n={i18n}>
                 <GameContext value={gameContextValue}>{ui}</GameContext>
             </I18nProvider>

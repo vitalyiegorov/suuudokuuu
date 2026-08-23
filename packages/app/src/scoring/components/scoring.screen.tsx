@@ -172,6 +172,29 @@ export const ScoringScreen = () => {
 
             <View style={styles.section}>
                 <Text style={headingStyle}>
+                    <Trans>Assists</Trans>
+                </Text>
+                <Text style={textStyle}>
+                    <Trans>An assist is charged once, as a fraction of one plain placement at your difficulty and mistake limit:</Trans>
+                </Text>
+                <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
+                    • <Trans>Applying a hint</Trans>: <Text style={codeStyle}>×{defaultScoringConfig.hintCoefficient}</Text>{' '}
+                    <Trans>of one placement</Trans>
+                </ListItem>
+                <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
+                    • <Trans>Undoing a placement</Trans>: <Text style={codeStyle}>×{defaultScoringConfig.undoCoefficient}</Text>{' '}
+                    <Trans>of one placement</Trans>
+                </ListItem>
+                <Text style={textStyle}>
+                    <Trans>
+                        Undo also returns the points that the undone placement earned, so replaying the same cell can never earn them twice.
+                        Dismissing a hint without applying it costs nothing, and undoing a pencil mark is always free.
+                    </Trans>
+                </Text>
+            </View>
+
+            <View style={styles.section}>
+                <Text style={headingStyle}>
                     <Trans>Minimum Score</Trans>
                 </Text>
                 <Text style={textStyle}>

@@ -18,6 +18,7 @@ export const settingsKeySelector = (
         | 'showActiveCandidates'
         | 'keepActiveCell'
         | 'keepExhaustedDigits'
+        | 'allowHintsOnHardDifficulties'
         | 'isLeftHanded'
         | 'calmMode'
     >

@@ -11,7 +11,7 @@ interface CalculateScoreParams {
     maxMistakes: number;
 }
 
-interface CalculateHintPenaltyParams {
+interface CalculatePenaltyParams {
     difficulty: DifficultyEnum;
     maxMistakes: number;
 }
@@ -31,12 +31,20 @@ export class SudokuScoring {
         return Math.floor(Math.max(score, this.config.correctMinValue));
     }
 
-    calculateHintPenalty(params: CalculateHintPenaltyParams): number {
+    calculateHintPenalty(params: CalculatePenaltyParams): number {
+        return this.calculatePlacementFraction(params, this.config.hintCoefficient);
+    }
+
+    calculateUndoPenalty(params: CalculatePenaltyParams): number {
+        return this.calculatePlacementFraction(params, this.config.undoCoefficient);
+    }
+
+    private calculatePlacementFraction(params: CalculatePenaltyParams, coefficient: number): number {
         const { difficulty, maxMistakes } = params;
 
         const placementValue = this.applyMaxMistakesBonus(this.getDifficultyBonus(this.config.correctValue, difficulty), maxMistakes);
 
-        return Math.floor(Math.max(placementValue * this.config.hintCoefficient, this.config.correctMinValue));
+        return Math.floor(Math.max(placementValue * coefficient, this.config.correctMinValue));
     }
 
     private applyCompletionBonuses(score: number, scoredCells: ScoredCellsInterface): number {

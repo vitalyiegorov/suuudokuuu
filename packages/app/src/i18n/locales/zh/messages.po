@@ -140,6 +140,10 @@ msgstr ""
 msgid "Always on"
 msgstr ""
 
+#: src/scoring/components/scoring.screen.tsx
+msgid "An assist is charged once, as a fraction of one plain placement at your difficulty and mistake limit:"
+msgstr ""
+
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "Android installation"
 msgstr "Android 安装"
@@ -157,6 +161,14 @@ msgstr ""
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Apply"
 msgstr "应用"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Applying a hint"
+msgstr ""
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Assists"
+msgstr ""
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Attempts to load the latest development build again"
@@ -747,6 +759,10 @@ msgstr ""
 msgid "Hint text"
 msgstr "提示文字"
 
+#: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
+msgid "Hints on the hardest puzzles"
+msgstr ""
+
 #: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Home"
@@ -1069,6 +1085,14 @@ msgstr "数字键盘进度条（已填充）"
 msgid "of current score"
 msgstr "当前分数的"
 
+#: src/scoring/components/scoring.screen.tsx
+msgid "of one placement"
+msgstr ""
+
+#: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
+msgid "Offer hints on Nightmare, Hell, and Infinity puzzles too"
+msgstr ""
+
 #: src/game/components/hint-button/hint-button.tsx
 #: src/game/hooks/use-game-creation-runner.hook.ts
 #: src/screens/components/game-screen/game.screen.tsx
@@ -1266,6 +1290,10 @@ msgstr "已记录"
 #: src/challenge/components/challenge-record-hud/challenge-record-hud.tsx
 msgid "Recording"
 msgstr "记录中"
+
+#: src/game/components/redo-button/redo-button.tsx
+msgid "Redo"
+msgstr ""
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Region Forcing Chain"
@@ -1756,6 +1784,18 @@ msgstr "无法打开链接"
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Unable to start installation"
 msgstr "无法开始安装"
+
+#: src/game/components/undo-button/undo-button.tsx
+msgid "Undo"
+msgstr ""
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Undo also returns the points that the undone placement earned, so replaying the same cell can never earn them twice. Dismissing a hint without applying it costs nothing, and undoing a pencil mark is always free."
+msgstr ""
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Undoing a placement"
+msgstr ""
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Unique Rectangle"

@@ -17,15 +17,18 @@ jest.mock('@suuudokuuu/encoder', () => {
 });
 
 import { createAppTestStore } from '../../@generic/utils/create-app-test-store.mock';
+import { gameGetFieldStatePayload } from '../utils/game-get-field-state-payload.util';
 import { gameGetSavePayload } from '../utils/game-get-save-payload.util';
 
 import {
     gameFinishAction,
     gameMistakeAction,
+    gameRedoAction,
     gameSaveAction,
     gameToggleAutoCandidatesAction,
     gameToggleCellCandidateAction,
-    gameToggleInputModeAction
+    gameToggleInputModeAction,
+    gameUndoAction
 } from './game.actions';
 
 import type { GameState } from './game.state';
@@ -158,6 +161,67 @@ describe('field engine and persisted game state', () => {
             value: correctValue
         });
         expect(cellEvent).toHaveProperty('technique');
+    });
+
+    it('keeps the persisted mirror identical to engine state across undo and redo', () => {
+        expect.assertions(9);
+
+        const store = createAppTestStore({ game: { ...persistedReleaseState, inputMode: 'normal' } });
+        const engine = buildEngine(store.getState().game);
+
+        engine.on('moveApplied', appliedMove => void store.dispatch(gameSaveAction(gameGetSavePayload(engine.Sudoku, appliedMove))));
+
+        const blankCell = findBlankCell(engine.Sudoku);
+
+        engine.selectCell(blankCell);
+        engine.inputValue(engine.Sudoku.getCorrectValue(blankCell));
+
+        const scoreAfterPlacement = store.getState().game.score;
+
+        expect(engine.getSnapshot().canUndo).toBe(true);
+        expect(engine.undo()).toBe(true);
+
+        store.dispatch(gameUndoAction(gameGetFieldStatePayload(engine)));
+
+        const undoneSerialized = engine.serialize();
+        const undoneGame = store.getState().game;
+
+        expect(undoneGame.sudokuString).toBe(undoneSerialized.sudokuString);
+        expect(undoneGame.candidates).toStrictEqual(undoneSerialized.candidates);
+        expect(undoneGame.score).toBeLessThan(scoreAfterPlacement);
+
+        expect(engine.redo()).toBe(true);
+
+        store.dispatch(gameRedoAction(gameGetFieldStatePayload(engine)));
+
+        const redoneSerialized = engine.serialize();
+        const redoneGame = store.getState().game;
+
+        expect(redoneGame.sudokuString).toBe(redoneSerialized.sudokuString);
+        expect(redoneGame.candidates).toStrictEqual(redoneSerialized.candidates);
+        expect(redoneGame.timelineEvents).toHaveLength(1);
+    });
+
+    it('keeps the persisted mirror identical to engine state when a note edit is undone', () => {
+        expect.assertions(3);
+
+        const store = createAppTestStore({ game: { ...persistedReleaseState, inputMode: 'candidate' } });
+        const engine = buildEngine(store.getState().game);
+        const [firstRow] = engine.Sudoku.Field;
+        const [, , noteCell] = firstRow;
+
+        engine.toggleCandidate(noteCell, 9);
+        store.dispatch(gameToggleCellCandidateAction({ ...noteCell, value: 9 }));
+
+        engine.undo();
+        store.dispatch(gameUndoAction(gameGetFieldStatePayload(engine)));
+
+        const serialized = engine.serialize();
+        const { game } = store.getState();
+
+        expect(game.candidates).toStrictEqual(serialized.candidates);
+        expect(game.sudokuString).toBe(serialized.sudokuString);
+        expect(game.score).toBe(persistedReleaseState.score);
     });
 
     it('finishes the run from the engine completed event', () => {

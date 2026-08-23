@@ -3,7 +3,7 @@ import { DifficultyEnum } from '@suuudokuuu/generator';
 import { emptyGameHistory } from '../../history/interfaces/history-game.interface';
 
 import type { HistoryGameInterface } from '../../history/interfaces/history-game.interface';
-import type { GameTimelineEventInterface } from '../interface/game-timeline-event.interface';
+import type { GameCellTimelineEventInterface, GameTimelineEventInterface } from '../interface/game-timeline-event.interface';
 import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 export interface GameState {
@@ -22,6 +22,7 @@ export interface GameState {
     inputMode: 'normal' | 'candidate';
     candidates: Record<string, number[]>;
     timelineEvents: GameTimelineEventInterface[];
+    undoneMoves: GameCellTimelineEventInterface[];
     historyByDifficulty: Record<DifficultyEnum, HistoryGameInterface>;
     challengeTimelineEvents: GameTimelineEventInterface[];
     challengeTime: number;
@@ -58,6 +59,7 @@ export const initialGameState: GameState = {
         [DifficultyEnum.Infinity]: { ...emptyGameHistory, difficulty: DifficultyEnum.Infinity }
     },
     timelineEvents: [],
+    undoneMoves: [],
     challengeTimelineEvents: [],
     challengeTime: 0,
     challengeState: '',

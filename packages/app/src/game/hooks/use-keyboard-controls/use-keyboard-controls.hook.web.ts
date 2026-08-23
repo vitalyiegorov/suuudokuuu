@@ -8,6 +8,8 @@ import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { gameToggleAutoCandidatesAction, gameToggleCellCandidateAction, gameToggleInputModeAction } from '../../store/game.actions';
 import { gameMaxMistakesSelector } from '../../store/game.selectors';
 
+import { useHistoryShortcut } from './use-history-shortcut.hook';
+
 import type { OnEventFn } from '@rnw-community/shared';
 import type { FieldEngine } from '@suuudokuuu/field-core';
 import type { CellInterface } from '@suuudokuuu/generator';
@@ -30,6 +32,8 @@ export const useKeyboardControls = (
     const isFocused = useIsFocused();
     const maxMistakes = useAppSelector(gameMaxMistakesSelector);
     const canToggleAutoCandidates = maxMistakes > 0;
+
+    useHistoryShortcut(engine);
 
     useEffect(() => {
         if (!isFocused) {
