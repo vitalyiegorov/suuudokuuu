@@ -1,8 +1,12 @@
+import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
+
+import { buildTechniquePageNames } from '../../../techniques/utils/build-technique-page-names.util';
+
 import type { PageMetadataInterface } from '../../../seo/interfaces/page-metadata.interface';
 
 export const swordfishPageMetadata: PageMetadataInterface = {
     path: '/techniques/swordfish',
-    title: 'Swordfish',
+    ...buildTechniquePageNames(SolutionTechniqueEnum.Swordfish),
     metaTitle: 'Swordfish Sudoku Technique — How to Spot and Use It',
     metaDescription:
         'A Swordfish is the three-line fish pattern: a digit confined to the same three columns across three rows can be erased everywhere else in those columns.',

@@ -25,7 +25,7 @@ const EXAMPLE_BOARD = '953168742862734951417..28367.6..3.252816453973.527..68.38
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const SashimiXWingPage = () => (
     <main>
-        <TechniquePageHeader title="Sashimi X-Wing" />
+        <TechniquePageHeader metadata={sashimiXWingPageMetadata} />
         <p>
             A Sashimi X-Wing is a finned X-Wing where one of the two base lines is missing its normal second corner candidate entirely,
             leaving only a single cell there, yet the pattern still forces the same kind of eliminations as an ordinary finned fish.

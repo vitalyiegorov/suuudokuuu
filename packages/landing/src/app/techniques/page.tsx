@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import { BreadcrumbListItem } from '../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
-import { Breadcrumbs } from '../../seo/components/breadcrumbs/breadcrumbs';
+import { PageHeader } from '../../seo/components/page-header/page-header';
 import { buildPageMetadata } from '../../seo/utils/build-page-metadata.util';
 import { TechniqueSummary } from '../../techniques/components/technique-summary/technique-summary';
 import { homePageMetadata } from '../metadata';
@@ -41,11 +41,10 @@ export const metadata: Metadata = buildPageMetadata(techniquesPageMetadata);
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const TechniquesPage = () => (
     <main>
-        <Breadcrumbs>
+        <PageHeader metadata={techniquesPageMetadata}>
             <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
             <BreadcrumbListItem>Sudoku techniques</BreadcrumbListItem>
-        </Breadcrumbs>
-        <h1>Sudoku Techniques</h1>
+        </PageHeader>
         <p>
             A Sudoku technique is a named pattern of candidates that justifies placing a digit or erasing a candidate without guessing. This
             page lists the techniques in the order a solver should try them, from the single cheapest deduction in the game to the subset

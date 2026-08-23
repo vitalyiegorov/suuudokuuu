@@ -3,6 +3,7 @@ import type { PageMetadataInterface } from '../../../seo/interfaces/page-metadat
 export const printableNightmareSudokuPageMetadata: PageMetadataInterface = {
     path: '/printable/nightmare',
     title: 'Printable Nightmare Sudoku',
+    headline: 'Printable Nightmare Sudoku (PDF)',
     metaTitle: 'Printable Nightmare Sudoku PDF — Free Puzzles & Solutions',
     metaDescription:
         'Download a free printable Nightmare sudoku PDF booklet: 16 puzzles that each need chain or coloring logic past every fish and wing, with solutions.',

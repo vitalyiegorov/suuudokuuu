@@ -25,7 +25,7 @@ const EXAMPLE_BOARD = '953168742862734..1417..28367.6..3.2...1.4...7..5.7..6..38
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const FinnedXWingPage = () => (
     <main>
-        <TechniquePageHeader title="Finned X-Wing" />
+        <TechniquePageHeader metadata={finnedXWingPageMetadata} />
         <p>
             A Finned X-Wing is an X-Wing that has picked up one extra candidate cell, called a fin, in one of its base rows or columns, and
             still supports a smaller but safe set of eliminations near that fin.

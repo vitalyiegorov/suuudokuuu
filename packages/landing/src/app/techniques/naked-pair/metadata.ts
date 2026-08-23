@@ -1,8 +1,12 @@
+import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
+
+import { buildTechniquePageNames } from '../../../techniques/utils/build-technique-page-names.util';
+
 import type { PageMetadataInterface } from '../../../seo/interfaces/page-metadata.interface';
 
 export const nakedPairPageMetadata: PageMetadataInterface = {
     path: '/techniques/naked-pair',
-    title: 'Naked Pair',
+    ...buildTechniquePageNames(SolutionTechniqueEnum.NakedPair),
     metaTitle: 'Naked Pair Sudoku Technique — How to Spot and Use It',
     metaDescription:
         'A naked pair is two cells in one unit that hold the same two candidates and nothing else, which locks those digits into the pair and clears them from every other cell.',

@@ -1,8 +1,12 @@
+import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
+
+import { buildTechniquePageNames } from '../../../techniques/utils/build-technique-page-names.util';
+
 import type { PageMetadataInterface } from '../../../seo/interfaces/page-metadata.interface';
 
 export const hiddenPairPageMetadata: PageMetadataInterface = {
     path: '/techniques/hidden-pair',
-    title: 'Hidden Pair',
+    ...buildTechniquePageNames(SolutionTechniqueEnum.HiddenPair),
     metaTitle: 'Hidden Pair Sudoku Technique — How to Spot and Use It',
     metaDescription:
         'A hidden pair is two digits that fit in only two cells of a unit. Those cells must take the pair, so every other candidate inside them can be erased. Worked example included.',

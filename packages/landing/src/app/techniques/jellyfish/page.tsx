@@ -25,7 +25,7 @@ const EXAMPLE_BOARD = '94.71..32...25..41.12934.87...4.382.42.5..31..6.1.247....
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const JellyfishPage = () => (
     <main>
-        <TechniquePageHeader title="Jellyfish" />
+        <TechniquePageHeader metadata={jellyfishPageMetadata} />
         <p>
             A Jellyfish is the four-line version of the fish pattern behind the X-Wing and the Swordfish: a digit confined to the same four
             columns across four rows can be erased from every other cell in those four columns.

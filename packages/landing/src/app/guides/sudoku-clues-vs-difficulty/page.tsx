@@ -5,13 +5,12 @@ import { SeRatingRange } from '../../../rating/components/se-rating-range/se-rat
 import { TierLadderTable } from '../../../rating/components/tier-ladder-table/tier-ladder-table';
 import { RATING_SAMPLE_SIZE, RATING_SAMPLE_TOTAL } from '../../../rating/constants/rating-sample.constant';
 import { getTierTechniqueReport } from '../../../rating/utils/get-tier-technique-reports.util';
-import { ArticleSchema } from '../../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
-import { Breadcrumbs } from '../../../seo/components/breadcrumbs/breadcrumbs';
 import { Faq } from '../../../seo/components/faq/faq';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
 import { FaqPage } from '../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
+import { PageHeader } from '../../../seo/components/page-header/page-header';
 import { SITE_PLAY_URL } from '../../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
@@ -46,18 +45,10 @@ const SudokuCluesVsDifficultyPage = () => {
 
     return (
         <main>
-            <ArticleSchema
-                dateModified={sudokuCluesVsDifficultyPageMetadata.updatedAt}
-                datePublished={sudokuCluesVsDifficultyPageMetadata.publishedAt}
-                description={sudokuCluesVsDifficultyPageMetadata.metaDescription}
-                headline={sudokuCluesVsDifficultyPageMetadata.title}
-                path={sudokuCluesVsDifficultyPageMetadata.path}
-            />
-            <Breadcrumbs>
+            <PageHeader metadata={sudokuCluesVsDifficultyPageMetadata}>
                 <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
                 <BreadcrumbListItem>Clues versus difficulty</BreadcrumbListItem>
-            </Breadcrumbs>
-            <h1>Does Fewer Sudoku Clues Mean a Harder Puzzle?</h1>
+            </PageHeader>
             <p>
                 A sudoku clue, also called a given, is a digit printed on the grid before you start, and the clue count is simply how many
                 of the 81 cells are filled in at the outset. Fewer clues does not reliably mean a harder puzzle. Clue count fixes how much

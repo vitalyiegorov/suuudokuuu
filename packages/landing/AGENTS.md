@@ -55,7 +55,7 @@ src/
 │   ├── interfaces/          # rated sample entry, logical solve result and per-tier report view models
 │   └── utils/               # solvePuzzleLogically and the memoised tier reports
 ├── seo/
-│   ├── components/          # JsonLd, the compound FAQPage/HowTo/SoftwareApplication/BreadcrumbList schemas, and the visible Breadcrumbs and HowTo renderers
+│   ├── components/          # JsonLd, PageHeader, the compound FAQPage/HowTo/SoftwareApplication/BreadcrumbList schemas, and the visible Breadcrumbs, UpdatedDate and HowTo renderers
 │   ├── constants/           # site identity and schema.org constants
 │   ├── interfaces/          # page metadata, page alternates, shared slot props
 │   ├── registries/          # metadata-only aggregators consumed by sitemap.ts
@@ -84,7 +84,9 @@ Every SEO page lives at its own `src/app/<route>/page.tsx`. Never collapse conte
 
 ### 2. Copy stays in the page file
 
-Per-page visible copy — headings, prose, bullets, FAQ questions and answers, CTA text, legal text — is written inline as JSX in the route `page.tsx`. A reader must be able to grep a visible sentence and land on the route that renders it.
+Per-page visible copy — section headings, prose, bullets, FAQ questions and answers, CTA text, legal text — is written inline as JSX in the route `page.tsx`. A reader must be able to grep a visible sentence and land on the route that renders it.
+
+The `<h1>` is the one exception: it is also the `Article` schema headline, so it lives in the sidecar as `headline` and is rendered by `PageHeader`. Never write an `<h1>` in a route file.
 
 Do not move body copy into registries, keyed content objects, string arrays, slug dispatchers, or prop bags. Do not build fixed JSX lists by mapping over arrays of strings just to shorten a file.
 
@@ -98,12 +100,15 @@ A route page never re-discovers itself with `.find(...)` against a registry. It 
 
 ### 4. Metadata sidecars are required and carry dates
 
-Every `page.tsx` has a sibling `metadata.ts` exporting a `PageMetadataInterface` object. `publishedAt` and `updatedAt` are required by the type, so TypeScript guarantees every page carries a freshness signal into `sitemap.ts` and into the Open Graph date tags. There are no fallback dates and no central last-modified map.
+Every `page.tsx` has a sibling `metadata.ts` exporting a `PageMetadataInterface` object. `publishedAt` and `updatedAt` are required by the type, so TypeScript guarantees every page carries a freshness signal into `sitemap.ts`, into the `Article` schema, into the visible `<time>` line and into the Open Graph date tags. There are no fallback dates and no central last-modified map.
+
+`title` is the short name used by breadcrumbs, prev/next chains and `llms.txt`. `headline` is the rendered `<h1>`, optional and falling back to `title`. `PageHeader` renders the `<h1>` and `ArticleSchema` reads the same resolved value, so a page never states its own name twice. See `docs/seo-pages.md` §2.2.
 
 ```ts
 export const howToPlayPageMetadata: PageMetadataInterface = {
     path: '/how-to-play',
     title: 'How to play Sudoku',
+    headline: 'How to Play Sudoku',
     metaTitle: 'How to play Sudoku — Suuudokuuu',
     metaDescription: 'Learn the rules of Sudoku and the solving techniques that get you unstuck.',
     publishedAt: '2026-08-11T00:00:00.000Z',
@@ -194,8 +199,8 @@ Filtering the registry matters. `findNextStep` returns the first strategy in the
 To add a technique page:
 
 1. Find a board where the technique fires. Boards from `packages/techniques/src/**/*.spec.ts` work, and so does any real solve position.
-2. Create `src/app/techniques/<slug>/metadata.ts` with a keyword-first `metaTitle`, and register it in `page-metadata.registry.ts`.
-3. Copy the structure of an existing technique page: `Breadcrumbs`, `h1`, a definition-first opening sentence, `TechniqueSummary`, prose sections, `TechniqueWorkedExample`, `HowTo` with `HowToStep` children, a mistakes list, `FaqPage` with `Faq`/`FaqQuestion`/`FaqAnswer` children, and `TechniqueNavigation`.
+2. Create `src/app/techniques/<slug>/metadata.ts` with `...buildTechniquePageNames(SolutionTechniqueEnum.<Member>)` in place of `title` and `headline` and a keyword-first `metaTitle`, and register it in `page-metadata.registry.ts`.
+3. Copy the structure of an existing technique page: `TechniquePageHeader metadata=`, a definition-first opening sentence, `TechniqueSummary`, prose sections, `TechniqueWorkedExample`, `HowTo` with `HowToStep` children, a mistakes list, `FaqPage` with `Faq`/`FaqQuestion`/`FaqAnswer` children, and `TechniqueNavigation`.
 4. Point the `previous` and `next` props at the neighbouring sidecars in `SolutionTechniqueEnum` order.
 5. Write 600 to 900 words of copy inline. Use typographic apostrophes; `react/no-unescaped-entities` rejects raw `'` in JSX text.
 6. Keep the `max-lines-per-function` disable on the page component. Long-form copy in a route file is the reason it is there.

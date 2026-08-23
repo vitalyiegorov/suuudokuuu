@@ -25,7 +25,7 @@ const EXAMPLE_BOARD = '953168742862734..1417..28367.6..3.252.164...73.527..68.38
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const SimpleColoringPage = () => (
     <main>
-        <TechniquePageHeader title="Simple Coloring" />
+        <TechniquePageHeader metadata={simpleColoringPageMetadata} />
         <p>
             Simple coloring assigns two alternating colors to a chain of strong links on one digit, then erases any candidate for that digit
             that can see cells of both colors at once.

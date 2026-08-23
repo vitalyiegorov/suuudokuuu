@@ -8,7 +8,7 @@ import { resolveLlmsSection } from './resolve-llms-section.util';
 
 const LLMS_INTRO = [
     `${SITE_NAME} is a free, ad-free Sudoku game and an open reference for how Sudoku is actually solved.`,
-    'Every page listed below is a static, JavaScript-free HTML document with schema.org structured data, a definition-first opening sentence, and machine-readable publication and modification dates.',
+    'Every page listed below is a static, JavaScript-free HTML document with schema.org structured data, a definition-first opening sentence, and visible publication and modification dates.',
     'Numbers quoted on the site — clue counts, technique frequencies, difficulty tiers, printable page counts — are produced at build time by the open-source solver that ships with the game, not written by hand.',
     `The machine-readable URL set is ${SITE_ORIGIN}/sitemap.xml and it lists exactly the pages below.`
 ].join(' ');

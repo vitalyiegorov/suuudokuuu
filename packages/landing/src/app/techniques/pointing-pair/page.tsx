@@ -25,7 +25,7 @@ const EXAMPLE_BOARD = '9.3.....2..2.....1..7..2.36..6..3.2...1.4......5....6..3.
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const PointingPairPage = () => (
     <main>
-        <TechniquePageHeader title="Pointing Pair" />
+        <TechniquePageHeader metadata={pointingPairPageMetadata} />
         <p>
             A pointing pair occurs when a digit can only go in two cells of a box and both of those cells lie on the same row or column, so
             the digit can be erased from every other cell of that line.

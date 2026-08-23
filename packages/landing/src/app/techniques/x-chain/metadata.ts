@@ -1,8 +1,12 @@
+import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
+
+import { buildTechniquePageNames } from '../../../techniques/utils/build-technique-page-names.util';
+
 import type { PageMetadataInterface } from '../../../seo/interfaces/page-metadata.interface';
 
 export const xChainPageMetadata: PageMetadataInterface = {
     path: '/techniques/x-chain',
-    title: 'X-Chain',
+    ...buildTechniquePageNames(SolutionTechniqueEnum.XChain),
     metaTitle: 'X-Chain Sudoku Technique — How to Spot and Use It',
     metaDescription:
         'An X-Chain follows one digit through alternating strong and weak links until both ends see the same cell, which lets that candidate be erased there.',

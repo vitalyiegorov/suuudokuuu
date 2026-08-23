@@ -3,6 +3,7 @@ import type { SitemapChangeFrequencyType } from '../types/sitemap-change-frequen
 export interface PageMetadataInterface {
     path: string;
     title: string;
+    headline?: string;
     metaTitle: string;
     metaDescription: string;
     publishedAt: string;

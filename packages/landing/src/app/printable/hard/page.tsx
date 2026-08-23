@@ -13,9 +13,8 @@ import { getPrintableBookletPageCount } from '../../../printable/utils/get-print
 import { PuzzleBoard } from '../../../puzzle/components/puzzle-board/puzzle-board';
 import { SeRatingRange } from '../../../rating/components/se-rating-range/se-rating-range';
 import { getTierTechniqueReport } from '../../../rating/utils/get-tier-technique-reports.util';
-import { ArticleSchema } from '../../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
-import { Breadcrumbs } from '../../../seo/components/breadcrumbs/breadcrumbs';
+import { PageHeader } from '../../../seo/components/page-header/page-header';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
 import { TechniqueLink } from '../../../techniques/components/technique-link/technique-link';
 import { sudokuDifficultyRatingPageMetadata } from '../../guides/sudoku-difficulty-rating/metadata';
@@ -42,19 +41,11 @@ const hardReport = getTierTechniqueReport(DifficultyEnum.Hard);
 
 const PrintableHardSudokuPage = () => (
     <main>
-        <ArticleSchema
-            dateModified={printableHardSudokuPageMetadata.updatedAt}
-            datePublished={printableHardSudokuPageMetadata.publishedAt}
-            description={printableHardSudokuPageMetadata.metaDescription}
-            headline={printableHardSudokuPageMetadata.title}
-            path={printableHardSudokuPageMetadata.path}
-        />
-        <Breadcrumbs>
+        <PageHeader metadata={printableHardSudokuPageMetadata}>
             <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
             <BreadcrumbListItem path={printableSudokuPageMetadata.path}>Printable sudoku</BreadcrumbListItem>
             <BreadcrumbListItem>Hard</BreadcrumbListItem>
-        </Breadcrumbs>
-        <h1>Printable Sudoku Hard PDF</h1>
+        </PageHeader>
         <p>
             Hard drops to {getDifficultyClueCount(DifficultyEnum.Hard)} clues, and this is the first printable booklet on the site where
             subsets alone will not carry you to the end. Every puzzle in it was tested against a solver that already knows every

@@ -25,7 +25,7 @@ const EXAMPLE_BOARD = '.......43..5....12..3..4.76......3.4..7.152.8..6...7.1..9
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const HiddenPairPage = () => (
     <main>
-        <TechniquePageHeader title="Hidden Pair" />
+        <TechniquePageHeader metadata={hiddenPairPageMetadata} />
         <p>
             A hidden pair is two digits that can only go in the same two cells of a row, column or box, which reserves both cells for those
             digits and removes every other candidate from them.

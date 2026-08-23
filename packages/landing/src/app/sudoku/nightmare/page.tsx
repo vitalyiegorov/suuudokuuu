@@ -6,11 +6,11 @@ import { getDifficultyClueCount } from '../../../difficulty/utils/get-difficulty
 import { SeRatingRange } from '../../../rating/components/se-rating-range/se-rating-range';
 import { getTierTechniqueReport } from '../../../rating/utils/get-tier-technique-reports.util';
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
-import { Breadcrumbs } from '../../../seo/components/breadcrumbs/breadcrumbs';
 import { Faq } from '../../../seo/components/faq/faq';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
 import { FaqPage } from '../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
+import { PageHeader } from '../../../seo/components/page-header/page-header';
 import { SITE_PLAY_URL } from '../../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
 import { TechniqueLink } from '../../../techniques/components/technique-link/technique-link';
@@ -40,12 +40,11 @@ const NightmareSudokuPage = () => {
 
     return (
         <main>
-            <Breadcrumbs>
+            <PageHeader metadata={nightmareSudokuPageMetadata}>
                 <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
                 <BreadcrumbListItem path={sudokuDifficultiesPageMetadata.path}>Sudoku difficulties</BreadcrumbListItem>
                 <BreadcrumbListItem>Nightmare</BreadcrumbListItem>
-            </Breadcrumbs>
-            <h1>Expert Sudoku Puzzles (Nightmare Level)</h1>
+            </PageHeader>
             <p>
                 Nightmare is Suuudokuuu’s expert tier — what most other apps would call very hard or expert. A Nightmare board carries just{' '}
                 {getDifficultyClueCount(DifficultyEnum.Nightmare)} clues out of 81 cells, and it is the tier where bounded patterns stop

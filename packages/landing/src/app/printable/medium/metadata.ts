@@ -3,6 +3,7 @@ import type { PageMetadataInterface } from '../../../seo/interfaces/page-metadat
 export const printableMediumSudokuPageMetadata: PageMetadataInterface = {
     path: '/printable/medium',
     title: 'Printable Medium Sudoku',
+    headline: 'Printable Medium Sudoku (PDF)',
     metaTitle: 'Printable Medium Sudoku PDF — Free Puzzles & Solutions',
     metaDescription:
         'Download a free printable Medium sudoku PDF booklet: 16 puzzles that each stall on singles and need an intersection or a subset, with solutions.',

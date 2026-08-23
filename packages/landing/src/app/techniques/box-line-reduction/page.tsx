@@ -25,7 +25,7 @@ const EXAMPLE_BOARD = '.486.1.23.362...411.2.3486.2.1...63..8435621.36.12..846..
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const BoxLineReductionPage = () => (
     <main>
-        <TechniquePageHeader title="Box Line Reduction" />
+        <TechniquePageHeader metadata={boxLineReductionPageMetadata} />
         <p>
             Box line reduction happens when a digit can only go in cells of one row or column that all belong to the same box, which forces
             the digit into that box segment and removes it from the rest of the box.

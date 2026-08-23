@@ -8,13 +8,12 @@ import { TechniqueFrequencyTable } from '../../../rating/components/technique-fr
 import { TierLadderTable } from '../../../rating/components/tier-ladder-table/tier-ladder-table';
 import { RATING_SAMPLE_SIZE, RATING_SAMPLE_TOTAL } from '../../../rating/constants/rating-sample.constant';
 import { getTechniqueUsage, getTierTechniqueReport } from '../../../rating/utils/get-tier-technique-reports.util';
-import { ArticleSchema } from '../../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
-import { Breadcrumbs } from '../../../seo/components/breadcrumbs/breadcrumbs';
 import { Faq } from '../../../seo/components/faq/faq';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
 import { FaqPage } from '../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
+import { PageHeader } from '../../../seo/components/page-header/page-header';
 import { SITE_PLAY_URL } from '../../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
@@ -51,18 +50,10 @@ const SudokuDifficultyRatingPage = () => {
 
     return (
         <main>
-            <ArticleSchema
-                dateModified={sudokuDifficultyRatingPageMetadata.updatedAt}
-                datePublished={sudokuDifficultyRatingPageMetadata.publishedAt}
-                description={sudokuDifficultyRatingPageMetadata.metaDescription}
-                headline={sudokuDifficultyRatingPageMetadata.title}
-                path={sudokuDifficultyRatingPageMetadata.path}
-            />
-            <Breadcrumbs>
+            <PageHeader metadata={sudokuDifficultyRatingPageMetadata}>
                 <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
                 <BreadcrumbListItem>Sudoku difficulty rating</BreadcrumbListItem>
-            </Breadcrumbs>
-            <h1>Sudoku Difficulty Rating (SE) Explained</h1>
+            </PageHeader>
             <p>
                 An SE rating is a sudoku difficulty score on the Sudoku Explainer scale — roughly 1.0 to 12.0 — that grades a puzzle by the
                 hardest human solving technique its cheapest logical solve path requires. It is a claim about reasoning depth, not about how

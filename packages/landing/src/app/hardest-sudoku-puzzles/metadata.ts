@@ -3,6 +3,7 @@ import type { PageMetadataInterface } from '../../seo/interfaces/page-metadata.i
 export const hardestSudokuPuzzlesPageMetadata: PageMetadataInterface = {
     path: '/hardest-sudoku-puzzles',
     title: 'The hardest sudoku puzzles in the world',
+    headline: 'The Hardest Sudoku Puzzles in the World',
     metaTitle: 'Hardest Sudoku Puzzles in the World — AI Escargot & More',
     metaDescription:
         'The hardest sudoku puzzles ever published, ranked and explained — AI Escargot, Platinum Blonde and Inkala’s Everest, with SE ratings and why they defeat human solvers.',

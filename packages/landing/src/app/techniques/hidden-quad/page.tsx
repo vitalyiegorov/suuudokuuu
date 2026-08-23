@@ -25,7 +25,7 @@ const EXAMPLE_BOARD = '..7..1..2..8..7..1912..3745423795168679.18534185..4.79294
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const HiddenQuadPage = () => (
     <main>
-        <TechniquePageHeader title="Hidden Quad" />
+        <TechniquePageHeader metadata={hiddenQuadPageMetadata} />
         <p>
             A hidden quad is four digits that between them can only go in the same four cells of a row, column or box, which reserves those
             cells for the four digits and removes every other candidate from them.

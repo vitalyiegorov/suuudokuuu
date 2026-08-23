@@ -25,7 +25,7 @@ const EXAMPLE_BOARD = '953168742862734951417..28367.6..3.252816453973.527..68.38
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const FinnedSwordfishPage = () => (
     <main>
-        <TechniquePageHeader title="Finned Swordfish" />
+        <TechniquePageHeader metadata={finnedSwordfishPageMetadata} />
         <p>
             A Finned Swordfish is a Swordfish pattern with one extra candidate cell, called a fin, sitting outside the three cover columns,
             which narrows the elimination down to whatever the fin itself can still see.

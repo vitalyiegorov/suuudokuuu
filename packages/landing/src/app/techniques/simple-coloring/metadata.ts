@@ -1,8 +1,12 @@
+import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
+
+import { buildTechniquePageNames } from '../../../techniques/utils/build-technique-page-names.util';
+
 import type { PageMetadataInterface } from '../../../seo/interfaces/page-metadata.interface';
 
 export const simpleColoringPageMetadata: PageMetadataInterface = {
     path: '/techniques/simple-coloring',
-    title: 'Simple Coloring',
+    ...buildTechniquePageNames(SolutionTechniqueEnum.SimpleColoring),
     metaTitle: 'Simple Coloring Sudoku Technique — How to Spot and Use It',
     metaDescription:
         'Simple coloring assigns two alternating colors to a chain of strong links on one digit, then erases any candidate that sees cells of both colors.',

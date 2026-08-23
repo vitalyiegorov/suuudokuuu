@@ -3,6 +3,7 @@ import type { PageMetadataInterface } from '../../../seo/interfaces/page-metadat
 export const printableHardSudokuPageMetadata: PageMetadataInterface = {
     path: '/printable/hard',
     title: 'Printable Hard Sudoku',
+    headline: 'Printable Sudoku Hard PDF',
     metaTitle: 'Printable Sudoku Hard PDF — Free Puzzles & Solutions',
     metaDescription:
         'Download a free printable Hard sudoku PDF booklet: 16 puzzles that each need a fish or a wing pattern beyond every subset, with solutions.',

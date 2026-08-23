@@ -25,7 +25,7 @@ const EXAMPLE_BOARD = '953168742862734.51417..28367.6..3.252.164..973.527..68.38
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const XChainPage = () => (
     <main>
-        <TechniquePageHeader title="X-Chain" />
+        <TechniquePageHeader metadata={xChainPageMetadata} />
         <p>
             An X-Chain follows one digit through a sequence of alternating strong and weak links, cell to cell, until both ends of the chain
             reach a cell that can see them both, which lets that candidate be erased there.

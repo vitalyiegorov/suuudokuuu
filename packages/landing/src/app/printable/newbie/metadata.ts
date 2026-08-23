@@ -3,6 +3,7 @@ import type { PageMetadataInterface } from '../../../seo/interfaces/page-metadat
 export const printableNewbieSudokuPageMetadata: PageMetadataInterface = {
     path: '/printable/newbie',
     title: 'Printable Newbie Sudoku',
+    headline: 'Printable Newbie Sudoku (PDF)',
     metaTitle: 'Printable Newbie Sudoku PDF — Free Puzzles & Solutions',
     metaDescription:
         'Download a free printable Newbie sudoku PDF booklet: 16 large-clue puzzles solved with full houses and naked singles, with solutions.',

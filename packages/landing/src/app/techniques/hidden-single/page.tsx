@@ -25,7 +25,7 @@ const EXAMPLE_BOARD = '.67..1.82.54..8.711827.3.4.491..685783657.12.27581..3.748
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const HiddenSinglePage = () => (
     <main>
-        <TechniquePageHeader title="Hidden Single" />
+        <TechniquePageHeader metadata={hiddenSinglePageMetadata} />
         <p>
             A hidden single is a digit that can legally go in only one cell of a row, column or box, so that cell must take the digit even
             though it still shows other candidates.

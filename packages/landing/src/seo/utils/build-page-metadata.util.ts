@@ -1,9 +1,9 @@
 import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from '../constants/og-image.constant';
-import { DEFAULT_LOCALE, SITE_NAME, SITE_ORIGIN } from '../constants/site.constant';
+import { DEFAULT_LOCALE, SITE_NAME } from '../constants/site.constant';
 
 import { buildAlternates } from './build-alternates.util';
 import { buildLocaleUrl } from './build-locale-url.util';
-import { getOgImagePath } from './get-og-image-path.util';
+import { buildOgImageUrl } from './build-og-image-url.util';
 
 import type { PageMetadataInterface } from '../interfaces/page-metadata.interface';
 import type { Metadata } from 'next';
@@ -18,8 +18,7 @@ export const buildPageMetadata = ({
     title,
     updatedAt
 }: PageMetadataInterface): Metadata => {
-    const resolvedImagePath = imagePath ?? getOgImagePath(path);
-    const imageUrl = `${SITE_ORIGIN}${resolvedImagePath}`;
+    const imageUrl = buildOgImageUrl({ imagePath, path });
     const openGraphImages = [{ url: imageUrl, width: OG_IMAGE_WIDTH, height: OG_IMAGE_HEIGHT, alt: imageAlt ?? title }];
 
     return {

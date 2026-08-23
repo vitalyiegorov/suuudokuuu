@@ -25,7 +25,7 @@ const EXAMPLE_BOARD = '953168742862734..1417..28367.6..3.2.2.164...73.527..6..38
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const SwordfishPage = () => (
     <main>
-        <TechniquePageHeader title="Swordfish" />
+        <TechniquePageHeader metadata={swordfishPageMetadata} />
         <p>
             A Swordfish is the three-line version of an X-Wing: a digit confined to the same three columns across three rows can be erased
             from every other cell in those three columns.
