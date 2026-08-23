@@ -39,13 +39,13 @@ export default defineConfig({
         {
             name: 'chromium',
             testDir: './specs',
-            testIgnore: /techniques\//u,
+            testIgnore: /landing\//u,
             use: { ...devices['Desktop Chrome'], baseURL: `http://127.0.0.1:${webServerPort}` }
         },
         {
             name: 'mobile-chromium',
             testDir: './specs',
-            testIgnore: /techniques\//u,
+            testIgnore: /landing\//u,
             use: { ...devices['Pixel 7'], baseURL: `http://127.0.0.1:${webServerPort}` }
         },
         {
@@ -56,7 +56,7 @@ export default defineConfig({
         },
         {
             name: 'landing-chromium',
-            testDir: './specs/techniques',
+            testDir: './specs/landing',
             use: { ...devices['Desktop Chrome'], baseURL: `http://127.0.0.1:${landingServerPort}` }
         }
     ],
