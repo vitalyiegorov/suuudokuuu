@@ -45,6 +45,7 @@ const SUCCESS_POP_INPUT = [0, 0.5, 0.8, 1];
 const SUCCESS_POP_OUTPUT = [1, SUCCESS_POP_PEAK, SUCCESS_POP_DIP, 1];
 
 interface Props {
+    readonly accessibilityLabel: string;
     readonly cell: CellInterface;
     readonly cellSize: number;
     readonly cellMargin: number;
@@ -64,6 +65,7 @@ interface Props {
 // eslint-disable-next-line max-lines-per-function -- Layout/form component requires many lines
 export const FieldCell = (props: Props) => {
     const {
+        accessibilityLabel,
         cell,
         cellSize,
         cellMargin,
@@ -159,12 +161,16 @@ export const FieldCell = (props: Props) => {
         fieldCellGetOutlineStyle({ isWrong, theme })
     ];
     const successMarker = isMotionReduced ? <FieldCellSuccessOutline /> : <FieldCellSuccessRing animation={successAnimation} />;
+    const cellAccessibilityState = { selected: isActive };
 
     // Stable, unique per-cell testID by board coordinate. Selection/highlight
     // state must NOT change the testID: E2E flows target exact cells, and a
     // state-dependent id makes positional selection diverge across platforms.
     return (
         <ReanimatedPressable
+            accessibilityLabel={accessibilityLabel}
+            accessibilityRole="button"
+            accessibilityState={cellAccessibilityState}
             hitSlop={gameGetCellHitSlop(engine.Sudoku, cell, cellMargin)}
             onPress={handlePress}
             style={cellStyles}

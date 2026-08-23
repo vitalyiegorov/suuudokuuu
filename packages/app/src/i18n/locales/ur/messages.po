@@ -67,6 +67,14 @@ msgstr "{mistakes, plural, one {# غلطی} other {# غلطیاں}}"
 msgid "{moveCount, plural, one {# move} other {# moves}}"
 msgstr ""
 
+#: src/game/components/available-values-item/available-values-item.tsx
+msgid "{remaining, plural, one {Enter {value}, # left to place} other {Enter {value}, # left to place}}"
+msgstr ""
+
+#: src/game/components/candidate-input-item/candidate-input-item.tsx
+msgid "{remaining, plural, one {Note {value}, # left to place} other {Note {value}, # left to place}}"
+msgstr ""
+
 #: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
 msgid "{streak, plural, one {# day streak} other {# day streak}}"
@@ -671,6 +679,10 @@ msgstr "گیم"
 msgid "Game paused"
 msgstr "گیم موقوف ہے"
 
+#: src/screens/components/game-screen/game-actions/game-actions.tsx
+msgid "Game settings"
+msgstr ""
+
 #: src/app/history/[difficulty]/index.tsx
 #: src/screens/components/history-games-screen/history-games.screen.tsx
 msgid "Games"
@@ -1082,6 +1094,10 @@ msgstr "ابھی کوئی شماریات نہیں"
 msgid "Not now"
 msgstr ""
 
+#: src/game/components/input-mode-button/input-mode-button.tsx
+msgid "Notes mode"
+msgstr ""
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Number pad"
 msgstr "نمبر پیڈ"
@@ -1177,6 +1193,10 @@ msgstr "اس کمیٹ کو GitHub پر کھولتا ہے"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Out of mistakes"
 msgstr "غلطیوں کی حد ختم"
+
+#: src/screens/components/game-screen/game-actions/game-actions.tsx
+msgid "Pause"
+msgstr ""
 
 #: src/screens/components/pause-screen/pause-screen-header/pause-screen-header.tsx
 msgid "Paused"
@@ -1294,6 +1314,10 @@ msgstr "شائع شدہ:"
 msgid "Puzzle complete"
 msgstr ""
 
+#: src/screens/components/game-screen/hooks/use-game-engine-events.hook.ts
+msgid "Puzzle solved."
+msgstr ""
+
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Quit"
 msgstr "چھوڑیں"
@@ -1391,6 +1415,22 @@ msgstr "حریف کا وقت جسے پیچھے چھوڑنا ہے"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Row"
 msgstr "قطار"
+
+#: src/game/utils/game-get-cell-accessibility-label.util.ts
+msgid "Row {row}, column {column}, {value}"
+msgstr ""
+
+#: src/game/utils/game-get-cell-accessibility-label.util.ts
+msgid "Row {row}, column {column}, {value}, wrong"
+msgstr ""
+
+#: src/game/utils/game-get-cell-accessibility-label.util.ts
+msgid "Row {row}, column {column}, empty"
+msgstr ""
+
+#: src/game/utils/game-get-cell-accessibility-label.util.ts
+msgid "Row {row}, column {column}, empty, notes {noteList}"
+msgstr ""
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Same-value cell"
@@ -1498,9 +1538,17 @@ msgstr "سوڈوکو شیئر کریں"
 msgid "Share this game"
 msgstr "یہ گیم شیئر کریں"
 
+#: src/screens/components/game-screen/game-actions/game-actions.tsx
+msgid "Share this puzzle"
+msgstr ""
+
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "shareable"
 msgstr "شیئر کرنے کے قابل"
+
+#: src/game/components/auto-candidates-button/auto-candidates-button.tsx
+msgid "Show all candidates"
+msgstr ""
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show cells with the same number as the selected cell"
@@ -1610,6 +1658,10 @@ msgstr "چال کا وقت"
 msgid "Stop current run?"
 msgstr "موجودہ گیم ختم کریں؟"
 
+#: src/screens/components/game-screen/game-actions/game-actions.tsx
+msgid "Stop this run"
+msgstr ""
+
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Streak"
 msgstr "تسلسل"
@@ -1625,6 +1677,10 @@ msgstr "ہلکی سطح کا اشارہ"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Subtle surface text"
 msgstr "ہلکی سطح کا متن"
+
+#: src/game/components/field/field.tsx
+msgid "Sudoku board, 9 by 9 cells"
+msgstr ""
 
 #: src/@generic/components/support-ukraine-pill/support-ukraine-pill.tsx
 msgid "Support"
@@ -1950,6 +2006,14 @@ msgstr "جیتے"
 #: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "World-record puzzles"
 msgstr "عالمی ریکارڈ سوڈوکو"
+
+#: src/screens/components/game-screen/hooks/use-game-engine-events.hook.ts
+msgid "Wrong value. Mistake {mistakeCount} of {maxMistakes}."
+msgstr ""
+
+#: src/screens/components/game-screen/hooks/use-game-engine-events.hook.ts
+msgid "Wrong value. Too many mistakes, the run is over."
+msgstr ""
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "X-Chain"

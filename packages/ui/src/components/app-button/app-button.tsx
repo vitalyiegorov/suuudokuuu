@@ -48,6 +48,7 @@ export const AppButton = ({
     children,
     size = 'regular',
     variant = 'primary',
+    accessibilityState: accessibilityStateProp,
     ...restProps
 }: AppButtonProps) => {
     const { theme } = useUnistyles();
@@ -63,7 +64,7 @@ export const AppButton = ({
     const textStyles = [styles.text, textSizeStyles, { color: colors.textColor }, textStyle];
     const shouldShowText = isNotEmptyString(text);
     const isDisabled = isLoading || disabled === true;
-    const accessibilityState = { busy: isLoading, disabled: isDisabled };
+    const accessibilityState = { ...accessibilityStateProp, busy: isLoading, disabled: isDisabled };
 
     const contentStyles = [styles.content, isLoading && styles.contentHidden];
 

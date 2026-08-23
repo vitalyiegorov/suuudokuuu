@@ -1,6 +1,6 @@
 import { useLingui } from '@lingui/react';
-import { use } from 'react';
-import { View } from 'react-native';
+import { use, useEffect } from 'react';
+import { AccessibilityInfo, View } from 'react-native';
 
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { techniqueLabelsConstant } from '../../../@generic/constants/technique-labels.constant';
@@ -25,6 +25,8 @@ export const HintStepNarration = ({ step }: Props) => {
 
     const techniqueStyles = [styles.technique, { color: theme.colors.accent }];
     const narrationStyles = [styles.narration, { color: theme.colors.surface.raisedText }];
+
+    useEffect(() => void AccessibilityInfo.announceForAccessibility(narrationText), [narrationText]);
 
     return (
         <View style={styles.container}>

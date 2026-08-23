@@ -1,3 +1,4 @@
+import { useLingui } from '@lingui/react/macro';
 import { LucidePencil } from 'lucide-react-native';
 import { use } from 'react';
 
@@ -16,6 +17,7 @@ interface Props {
 }
 
 export const InputModeButton = ({ sizeStyle }: Props) => {
+    const { t } = useLingui();
     const { theme } = use(ThemeContext);
     const { engine, snapshot } = use(GameContext);
 
@@ -30,9 +32,19 @@ export const InputModeButton = ({ sizeStyle }: Props) => {
     const isActive = !isCandidateMode;
     const buttonVariant = isActive ? 'inverted' : 'primary';
     const iconColor = isActive ? theme.colors.surface.raisedText : theme.colors.inkText;
+    const inputModeAccessibilityState = { checked: isCandidateMode };
 
     return (
-        <AppIconButton hitSlop={10} onPress={handleToggle} style={sizeStyle} testID={InputModeButtonSelectors.Root} variant={buttonVariant}>
+        <AppIconButton
+            accessibilityLabel={t`Notes mode`}
+            accessibilityRole="togglebutton"
+            accessibilityState={inputModeAccessibilityState}
+            hitSlop={10}
+            onPress={handleToggle}
+            style={sizeStyle}
+            testID={InputModeButtonSelectors.Root}
+            variant={buttonVariant}
+        >
             <LucidePencil color={iconColor} />
         </AppIconButton>
     );

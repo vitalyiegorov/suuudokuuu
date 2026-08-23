@@ -26,5 +26,5 @@ export const FieldCellSuccessRing = ({ animation }: Props) => {
     }));
     const ringStyle = [resolveUnistyleForAnimated(styles.ring), { borderColor: theme.colors.board.selected }, ringAnimatedStyle];
 
-    return <Reanimated.View pointerEvents="none" style={ringStyle} />;
+    return <Reanimated.View accessible={false} aria-hidden pointerEvents="none" style={ringStyle} />;
 };

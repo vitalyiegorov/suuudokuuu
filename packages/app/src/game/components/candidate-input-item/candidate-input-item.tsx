@@ -1,3 +1,5 @@
+import { plural } from '@lingui/core/macro';
+import { useLingui } from '@lingui/react/macro';
 import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { use } from 'react';
 import { Pressable, Text, View } from 'react-native';
@@ -30,14 +32,16 @@ interface Props {
     readonly value: number;
     readonly canPress: boolean;
     readonly isExhausted: boolean;
+    readonly remaining: number;
     readonly onSelect: OnEventFn<number>;
     readonly sizeStyle: StyleProp<ViewStyle>;
     readonly digitTextStyle: StyleProp<TextStyle>;
 }
 
 export const CandidateInputItem = (props: Props) => {
-    const { selectedCell, value, onSelect, canPress, isExhausted, sizeStyle, digitTextStyle } = props;
+    const { selectedCell, value, onSelect, canPress, isExhausted, remaining, sizeStyle, digitTextStyle } = props;
 
+    const { t } = useLingui();
     const { theme } = use(ThemeContext);
     const { snapshot } = use(GameContext);
 
@@ -75,10 +79,18 @@ export const CandidateInputItem = (props: Props) => {
     ];
     const textStyles = [digitTextStyle, { color: isSelected ? theme.colors.candidate.textSelected : theme.colors.candidate.text }];
     const containerStyles = [DigitButtonStyles.container, sizeStyle];
+    const isDisabled = !canPress || isExhausted;
+    const noteAccessibilityLabel = t({
+        message: plural(remaining, { one: `Note ${value}, # left to place`, other: `Note ${value}, # left to place` })
+    });
+    const noteAccessibilityState = { checked: isSelected, disabled: isDisabled };
 
     return (
         <View style={containerStyles} testID={selectors.Root}>
             <ReanimatedPressable
+                accessibilityLabel={noteAccessibilityLabel}
+                accessibilityRole="togglebutton"
+                accessibilityState={noteAccessibilityState}
                 hitSlop={PanelControlHitSlopConstant}
                 style={buttonStyles}
                 testID={`${selectors.Button}.${value}`}
