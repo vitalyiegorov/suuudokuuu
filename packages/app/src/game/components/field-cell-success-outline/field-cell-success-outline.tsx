@@ -10,5 +10,5 @@ export const FieldCellSuccessOutline = () => {
 
     const outlineStyle = [styles.outline, { borderColor: theme.colors.board.selected }];
 
-    return <View pointerEvents="none" style={outlineStyle} />;
+    return <View accessible={false} aria-hidden pointerEvents="none" style={outlineStyle} />;
 };

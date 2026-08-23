@@ -1,3 +1,5 @@
+import { plural } from '@lingui/core/macro';
+import { useLingui } from '@lingui/react/macro';
 import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { use, useImperativeHandle } from 'react';
 import { Pressable, Text, View } from 'react-native';
@@ -51,6 +53,7 @@ interface Props {
     readonly canPress: boolean;
     readonly isExhausted: boolean;
     readonly progress: number;
+    readonly remaining: number;
     readonly correctValue?: number;
     readonly onSelect: OnEventFn<number>;
     readonly ref: Ref<AvailableValuesItemRef>;
@@ -58,9 +61,11 @@ interface Props {
     readonly digitTextStyle: StyleProp<TextStyle>;
 }
 
+// eslint-disable-next-line max-lines-per-function -- Layout/form component requires many lines
 export const AvailableValuesItem = (props: Props) => {
-    const { value, onSelect, progress, correctValue, canPress, isExhausted, ref, sizeStyle, digitTextStyle } = props;
+    const { value, onSelect, progress, remaining, correctValue, canPress, isExhausted, ref, sizeStyle, digitTextStyle } = props;
 
+    const { t } = useLingui();
     const { theme } = use(ThemeContext);
 
     const isMotionReduced = useReduceMotion();
@@ -111,10 +116,18 @@ export const AvailableValuesItem = (props: Props) => {
     const progressDashOffset = AvailableValueProgressCircumference * (1 - normalizedProgress / 100);
     const textStyles = [styles.text, digitTextStyle, { color: theme.colors.numpad.text }];
     const containerStyles = [DigitButtonStyles.container, sizeStyle];
+    const isDisabled = !canPress || isExhausted;
+    const digitAccessibilityLabel = t({
+        message: plural(remaining, { one: `Enter ${value}, # left to place`, other: `Enter ${value}, # left to place` })
+    });
+    const digitAccessibilityState = { disabled: isDisabled };
 
     return (
         <View style={containerStyles} testID={selectors.Root}>
             <ReanimatedPressable
+                accessibilityLabel={digitAccessibilityLabel}
+                accessibilityRole="button"
+                accessibilityState={digitAccessibilityState}
                 hitSlop={PanelControlHitSlopConstant}
                 key={value}
                 style={buttonStyles}

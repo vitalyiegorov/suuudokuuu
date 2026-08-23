@@ -1,3 +1,4 @@
+import { useLingui } from '@lingui/react/macro';
 import { LucideHandHelping } from 'lucide-react-native';
 import { use } from 'react';
 
@@ -15,6 +16,7 @@ interface Props {
 }
 
 export const AutoCandidatesButton = ({ sizeStyle }: Props) => {
+    const { t } = useLingui();
     const { theme } = use(ThemeContext);
     const { engine, snapshot } = use(GameContext);
 
@@ -28,9 +30,18 @@ export const AutoCandidatesButton = ({ sizeStyle }: Props) => {
     const isActive = !snapshot.showAutoCandidates;
     const buttonVariant = isActive ? 'inverted' : 'primary';
     const iconColor = isActive ? theme.colors.surface.raisedText : theme.colors.inkText;
+    const autoCandidatesAccessibilityState = { checked: snapshot.showAutoCandidates };
 
     return (
-        <AppIconButton onPress={handleCandidates} style={sizeStyle} testID={GameScreenSelectors.TipsButton} variant={buttonVariant}>
+        <AppIconButton
+            accessibilityLabel={t`Show all candidates`}
+            accessibilityRole="togglebutton"
+            accessibilityState={autoCandidatesAccessibilityState}
+            onPress={handleCandidates}
+            style={sizeStyle}
+            testID={GameScreenSelectors.TipsButton}
+            variant={buttonVariant}
+        >
             <LucideHandHelping color={iconColor} />
         </AppIconButton>
     );

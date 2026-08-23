@@ -1,3 +1,4 @@
+import { useLingui } from '@lingui/react/macro';
 import { buildStepScriptState } from '@suuudokuuu/field-core';
 import { isEmptyScoredCells } from '@suuudokuuu/generator';
 import { type Ref, use, useImperativeHandle, useState } from 'react';
@@ -5,6 +6,7 @@ import { View } from 'react-native';
 
 import { getCellKey } from '../../../@generic/utils/get-cell-key.util';
 import { GameContext } from '../../context/game.context';
+import { gameGetCellAccessibilityLabel } from '../../utils/game-get-cell-accessibility-label.util';
 import { gameGetCellKeysToAnimate } from '../../utils/game-get-cell-keys-to-animate.util';
 import { gameIncrementCellAnimationGenerations } from '../../utils/game-increment-cell-animation-generations.util';
 import { gameMergeCandidateValues } from '../../utils/game-merge-candidate-values.util';
@@ -33,7 +35,9 @@ interface Props {
     readonly ref: Ref<FieldRef>;
 }
 
+// eslint-disable-next-line max-lines-per-function -- Layout/form component requires many lines
 export const Field = ({ cellSize, cellMargin, onSelect, ref }: Props) => {
+    const { i18n, t } = useLingui();
     const { engine, snapshot } = use(GameContext);
 
     const sudoku = engine.Sudoku;
@@ -60,10 +64,12 @@ export const Field = ({ cellSize, cellMargin, onSelect, ref }: Props) => {
         }
     }));
 
+    const boardAccessibilityLabel = t`Sudoku board, 9 by 9 cells`;
+
     return (
-        <View style={styles.wrapper}>
+        <View accessibilityLabel={boardAccessibilityLabel} role="grid" style={styles.wrapper}>
             {snapshot.field.map(row => (
-                <View key={`row-${row[0].y}`} style={styles.row}>
+                <View key={`row-${row[0].y}`} role="row" style={styles.row}>
                     {row.map(cell => {
                         const cellKey = getCellKey(cell);
                         const isActive = sudoku.isSameCell(cell, selectedCell);
@@ -81,9 +87,18 @@ export const Field = ({ cellSize, cellMargin, onSelect, ref }: Props) => {
                         );
                         const cellCandidates = gameMergeCandidateValues(engine.getCellCandidates(cell), hintedCandidates);
                         const shouldShowCandidates = isEmpty && cellCandidates.length > 0;
+                        const cellAccessibilityLabel = i18n._(
+                            gameGetCellAccessibilityLabel({
+                                candidates: shouldShowCandidates ? cellCandidates : [],
+                                cell,
+                                isEmpty,
+                                isWrong
+                            })
+                        );
 
                         return (
                             <FieldCell
+                                accessibilityLabel={cellAccessibilityLabel}
                                 cell={cell}
                                 cellMargin={cellMargin}
                                 cellSize={cellSize}
