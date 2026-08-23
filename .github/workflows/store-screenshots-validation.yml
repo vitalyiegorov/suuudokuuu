@@ -111,6 +111,8 @@ jobs:
                 {"1320x2868":"iPhone 6.9\"","1290x2796":"iPhone 6.9\"","1284x2778":"iPhone 6.5\"","1242x2688":"iPhone 6.5\"","1206x2622":"iPhone 6.3\"","1179x2556":"iPhone 6.1\"","2064x2752":"iPad 13\"","2752x2064":"iPad 13\"","2048x2732":"iPad 12.9\"","2732x2048":"iPad 12.9\""}
             asc-dedupe-screenshots: true
             asc-dedupe-app-id: com.vitalyiegorov.suuudokuuu
+            # v0.1.459 shipped; no editable version exists - audit the live listing instead.
+            asc-dedupe-version-state: READY_FOR_SALE
         secrets:
             ASC_API_KEY: ${{ secrets.EXPO_IOS_ASC_API_KEY }}
             ASC_KEY_ID: ${{ secrets.EXPO_IOS_ASC_KEY_ID }}
