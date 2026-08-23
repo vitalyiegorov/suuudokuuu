@@ -14,6 +14,7 @@ import { PageHeader } from '../../../seo/components/page-header/page-header';
 import { SITE_PLAY_URL } from '../../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
 import { TechniqueLink } from '../../../techniques/components/technique-link/technique-link';
+import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
 import { seventeenClueSudokuPageMetadata } from '../../17-clue-sudoku/metadata';
 import { sudokuCluesVsDifficultyPageMetadata } from '../../guides/sudoku-clues-vs-difficulty/metadata';
 import { sudokuDifficultyRatingPageMetadata } from '../../guides/sudoku-difficulty-rating/metadata';
@@ -55,6 +56,19 @@ const HellSudokuPage = () => {
                 <Link href={xyChainPageMetadata.path}>XY-Chain</Link>, <Link href={simpleColoringPageMetadata.path}>simple coloring</Link>{' '}
                 and <Link href={aicPageMetadata.path}>AIC</Link>, the technique that generalises all three.
             </p>
+            <TechniqueSummary>
+                <ul>
+                    <li>
+                        Hell boards carry {getDifficultyClueCount(DifficultyEnum.Hell)} clues, the proven minimum for a unique-solution
+                        sudoku, drawn from a bundled and independently verified 17-clue corpus rather than generated fresh.
+                    </li>
+                    <li>Chain and coloring techniques: X-Chain, XY-Chain, simple coloring and AIC.</li>
+                    <li>
+                        Our sample of {hellReport.sampleSize} Hell boards measures SE <SeRatingRange report={hellReport} />.
+                    </li>
+                    <li>Hardness here comes from the SE rating filter applied to the corpus, not from the clue count.</li>
+                </ul>
+            </TechniqueSummary>
             <a className="hero__cta" href={SITE_PLAY_URL}>
                 Play Hell Sudoku now
             </a>

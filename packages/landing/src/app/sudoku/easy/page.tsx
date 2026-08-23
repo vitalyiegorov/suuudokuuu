@@ -13,6 +13,7 @@ import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { PageHeader } from '../../../seo/components/page-header/page-header';
 import { SITE_PLAY_URL } from '../../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
+import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
 import { howToPlayPageMetadata } from '../../how-to-play/metadata';
 import { homePageMetadata } from '../../metadata';
 import { printableEasySudokuPageMetadata } from '../../printable/easy/metadata';
@@ -51,6 +52,19 @@ const EasySudokuPage = () => {
                 is a guarantee rather than a tendency: a board that a full-house-and-naked-single solver can finish is rejected as too easy
                 for the tier, and a board that needs anything past the hidden single is rejected as too hard.
             </p>
+            <TechniqueSummary>
+                <ul>
+                    <li>
+                        Easy boards carry {getDifficultyClueCount(DifficultyEnum.Easy)} clues and are guaranteed to need at least one hidden
+                        single and nothing harder.
+                    </li>
+                    <li>Full houses and naked singles still clear most of the grid; the hidden single is the one addition over Newbie.</li>
+                    <li>
+                        Our sample of {easyReport.sampleSize} Easy boards measures SE <SeRatingRange report={easyReport} />.
+                    </li>
+                    <li>A board that a full-house-and-naked-single solver can finish is rejected as too easy for the tier.</li>
+                </ul>
+            </TechniqueSummary>
             <a className="hero__cta" href={SITE_PLAY_URL}>
                 Play Easy Sudoku now
             </a>
@@ -70,7 +84,7 @@ const EasySudokuPage = () => {
                 measures SE <SeRatingRange report={easyReport} />. The two tiers share a range because SE prices a hidden single at 1.5,
                 below a naked single at 2.3 — so the technique that defines Easy is, by that scale, cheaper than the one that defines
                 Newbie. What genuinely changes is where you have to look: a naked single is read off one cell, a hidden single off a whole
-                unit. It suits players who have cleared a few Newbie boards and want a puzzle that takes more than a minute.
+                unit. It suits players who have cleared a few Newbie boards and want a puzzle that takes noticeably longer to finish.
             </p>
             <h2>Where to go next</h2>
             <p>

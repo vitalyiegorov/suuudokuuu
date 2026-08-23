@@ -1,9 +1,14 @@
 import Link from 'next/link';
 
 import { BreadcrumbListItem } from '../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
+import { Faq } from '../../seo/components/faq/faq';
+import { FaqAnswer } from '../../seo/components/faq-answer/faq-answer';
+import { FaqPage } from '../../seo/components/faq-page/faq-page';
+import { FaqQuestion } from '../../seo/components/faq-question/faq-question';
 import { PageHeader } from '../../seo/components/page-header/page-header';
 import { buildPageMetadata } from '../../seo/utils/build-page-metadata.util';
 import { TechniqueSummary } from '../../techniques/components/technique-summary/technique-summary';
+import { getTechniquePageCount } from '../../techniques/utils/get-technique-page-count.util';
 import { howToPlayPageMetadata } from '../how-to-play/metadata';
 import { homePageMetadata } from '../metadata';
 import { aicPageMetadata } from '../techniques/aic/metadata';
@@ -48,10 +53,11 @@ const GlossaryPage = () => (
             <BreadcrumbListItem>Glossary</BreadcrumbListItem>
         </PageHeader>
         <p>
-            A glossary entry for every term used across the Suuudokuuu guides: the core vocabulary of the grid, plus all 26 solving
-            techniques the app detects, from the simplest full house to a full alternating inference chain. Anything unfamiliar in the{' '}
-            <Link href={howToPlayPageMetadata.path}>how to play guide</Link> or the{' '}
-            <Link href={techniquesPageMetadata.path}>technique index</Link> should be defined here.
+            Sudoku terms are the grid vocabulary — cell, row, column, box, candidate, given — plus every named solving technique, from full
+            house to alternating inference chain, that justifies a placement or an elimination. This glossary defines all{' '}
+            {getTechniquePageCount()} of those techniques plus the core vocabulary, matching the{' '}
+            <Link href={howToPlayPageMetadata.path}>how to play guide</Link> and the{' '}
+            <Link href={techniquesPageMetadata.path}>technique index</Link>.
         </p>
         <TechniqueSummary>
             <ul>
@@ -100,10 +106,7 @@ const GlossaryPage = () => (
             </div>
             <div className="glossary-entry">
                 <dt id="minimal-puzzle">Minimal puzzle (17-clue)</dt>
-                <dd>
-                    A puzzle with the fewest clues that still has a unique solution — 17 for standard Sudoku, the source of Suuudokuuu’s
-                    Hell corpus.
-                </dd>
+                <dd>A puzzle with the fewest clues that still has a unique solution — 17 for standard Sudoku.</dd>
             </div>
         </dl>
         <h2>Solving techniques</h2>
@@ -271,6 +274,21 @@ const GlossaryPage = () => (
                 <dd>A chain of alternating strong and weak links across candidates, generalising X-Chains, XY-Chains and coloring.</dd>
             </div>
         </dl>
+        <h2>Sudoku glossary FAQ</h2>
+        <FaqPage>
+            <Faq>
+                <FaqQuestion>What is the difference between naked and hidden in sudoku?</FaqQuestion>
+                <FaqAnswer>Naked patterns show directly in a cell’s own candidates; hidden patterns need checking unit by unit.</FaqAnswer>
+            </Faq>
+            <Faq>
+                <FaqQuestion>Are candidates and pencil marks the same thing?</FaqQuestion>
+                <FaqAnswer>Yes. Candidate is the term used here; pencil mark is the traditional paper-solving name for it.</FaqAnswer>
+            </Faq>
+            <Faq>
+                <FaqQuestion>What does “unit” mean in sudoku?</FaqQuestion>
+                <FaqAnswer>Unit is the general term for a row, column or box, the groups that each hold 1 to 9 once.</FaqAnswer>
+            </Faq>
+        </FaqPage>
         <p>
             Ready to put a term into practice? <Link href={howToPlayPageMetadata.path}>Learn how to play</Link> or browse the full{' '}
             <Link href={techniquesPageMetadata.path}>technique index</Link>.

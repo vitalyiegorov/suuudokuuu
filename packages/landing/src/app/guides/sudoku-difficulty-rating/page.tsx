@@ -62,9 +62,10 @@ const SudokuDifficultyRatingPage = () => {
             <TechniqueSummary>
                 <ul>
                     <li>SE scores the hardest technique a puzzle forces on you, measured over the cheapest path to the solution.</li>
+                    <li>Published technique costs: hidden single 1.5, X-Wing 3.2, swordfish 3.8, forcing chains 7.0 and up.</li>
                     <li>
-                        Landmark values the solving community quotes: hidden single 1.5, X-Wing 3.2, swordfish 3.8, forcing chains 7.0 and
-                        up. AI Escargot lands near 10.6, Platinum Blonde near 10.9, Arto Inkala’s Everest near 11.9.
+                        Record-puzzle landmarks are figures their publishers and the sudoku-solving community report, not our own
+                        measurement: AI Escargot near SE 10.6, Platinum Blonde near SE 10.9, Arto Inkala’s Everest near SE 11.9.
                     </li>
                     <li>
                         Suuudokuuu rates every puzzle it creates. Our open-source rating package scores a board the moment it is generated,
@@ -91,7 +92,8 @@ const SudokuDifficultyRatingPage = () => {
                 more than a <Link href={hiddenSinglePageMetadata.path}>hidden single</Link> is rated at the hidden-single cost no matter how
                 many of them it takes. That single-worst-step rule is what makes SE a difficulty measure rather than a length measure — and
                 it is the number behind almost every “world’s hardest sudoku” claim, including the puzzles on our{' '}
-                <Link href={hardestSudokuPuzzlesPageMetadata.path}>hardest sudoku puzzles</Link> page.
+                <Link href={hardestSudokuPuzzlesPageMetadata.path}>hardest sudoku puzzles</Link> page, where every landmark rating is
+                attributed to its publisher or to the wider solving community rather than measured by our own rater.
             </p>
             <h2>The technique-to-rating ladder</h2>
             <p>

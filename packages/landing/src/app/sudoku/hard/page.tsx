@@ -14,6 +14,7 @@ import { PageHeader } from '../../../seo/components/page-header/page-header';
 import { SITE_PLAY_URL } from '../../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
 import { TechniqueLink } from '../../../techniques/components/technique-link/technique-link';
+import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
 import { sudokuDifficultyRatingPageMetadata } from '../../guides/sudoku-difficulty-rating/metadata';
 import { howToPlayPageMetadata } from '../../how-to-play/metadata';
 import { homePageMetadata } from '../../metadata';
@@ -51,16 +52,31 @@ const HardSudokuPage = () => {
                 <BreadcrumbListItem>Hard</BreadcrumbListItem>
             </PageHeader>
             <p>
-                Hard is where reasoning stops fitting inside a single box or line. A Hard board carries{' '}
-                {getDifficultyClueCount(DifficultyEnum.Hard)} clues out of 81 cells, and it is defined by what it refuses to yield to: every
-                board in the tier has been run through a solver equipped with every intersection and every subset up to the{' '}
-                <Link href={hiddenQuadPageMetadata.path}>hidden quad</Link>, and kept only because that solver got stuck. What breaks the
-                deadlock is a fish — <Link href={xWingPageMetadata.path}>X-Wing</Link>,{' '}
+                Hard Sudoku is a difficulty tier that starts at {getDifficultyClueCount(DifficultyEnum.Hard)} clues out of 81 cells and is
+                defined by what a subset-only solver cannot finish: every board in the tier has been run through a solver equipped with
+                every intersection and every subset up to the <Link href={hiddenQuadPageMetadata.path}>hidden quad</Link>, and kept only
+                because that solver got stuck. What breaks the deadlock is a fish — <Link href={xWingPageMetadata.path}>X-Wing</Link>,{' '}
                 <Link href={swordfishPageMetadata.path}>swordfish</Link>, <Link href={jellyfishPageMetadata.path}>jellyfish</Link> and their{' '}
                 <Link href={finnedXWingPageMetadata.path}>finned</Link> and <Link href={sashimiXWingPageMetadata.path}>sashimi</Link>{' '}
                 variants — or a wing: <Link href={xyWingPageMetadata.path}>XY-Wing</Link>,{' '}
                 <Link href={xyzWingPageMetadata.path}>XYZ-Wing</Link> and <Link href={wWingPageMetadata.path}>W-Wing</Link>.
             </p>
+            <TechniqueSummary>
+                <ul>
+                    <li>
+                        Hard boards carry {getDifficultyClueCount(DifficultyEnum.Hard)} clues and are guaranteed to need at least one fish
+                        or wing pattern beyond every subset.
+                    </li>
+                    <li>
+                        Fish patterns: X-Wing, swordfish, jellyfish and their finned and sashimi variants. Wing patterns: XY-Wing, XYZ-Wing
+                        and W-Wing.
+                    </li>
+                    <li>
+                        Our sample of {hardReport.sampleSize} Hard boards measures SE <SeRatingRange report={hardReport} />.
+                    </li>
+                    <li>Hard is capped at the W-Wing — a board that resists every fish and wing is graded Nightmare instead.</li>
+                </ul>
+            </TechniqueSummary>
             <a className="hero__cta" href={SITE_PLAY_URL}>
                 Play Hard Sudoku now
             </a>
@@ -82,8 +98,8 @@ const HardSudokuPage = () => {
                 squarely in the range the solving community associates with fish and wing patterns, and well below the chain territory above
                 7. The most common hardest step is the <TechniqueLink technique={hardReport.typicalHardestTechnique} />, and the hardest
                 anything in the sample reached is the <TechniqueLink technique={hardReport.hardestTechniqueReached} />. This is where casual
-                solvers start reaching for a hint: fish and wings are easy to describe and genuinely hard to see on a live board. Expect a
-                careful, honest solve to take ten minutes or more, and see the{' '}
+                solvers start reaching for a hint: fish and wings are easy to describe and genuinely hard to see on a live board, so expect
+                a noticeably longer, more deliberate solve than Medium asks for. See the{' '}
                 <Link href={sudokuDifficultyRatingPageMetadata.path}>sudoku difficulty rating guide</Link> for the full per-tier data.
             </p>
             <h2>Where to go next</h2>

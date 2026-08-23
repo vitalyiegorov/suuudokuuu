@@ -51,12 +51,16 @@ const SeventeenClueSudokuPage = () => (
         </a>
         <h2>The proof that 16 clues is not enough</h2>
         <p>
-            In 2012, Gary McGuire, Bastian Tugemann and Gilles Civario published a result proving that a 16-clue sudoku with a unique
-            solution does not exist. Rather than checking every possible 16-clue grid by hand, their method used a “hitting set” search:
-            they showed that every 16-clue candidate must fail to eliminate at least one of a large catalog of known unavoidable sets —
-            small groups of cells that any valid puzzle must intersect enough to keep the solution unique — and confirmed exhaustively that
-            no 16-clue arrangement threads all of them at once. The search consumed roughly 7 million core-hours of computation before the
-            result was confirmed and published. Seventeen has held as the floor ever since.
+            In 2012, Gary McGuire, Bastian Tugemann and Gilles Civario published{' '}
+            <a href="https://arxiv.org/abs/1201.0749" rel="noopener">
+                “There is no 16-Clue Sudoku: Solving the Sudoku Minimum Number of Clues Problem”
+            </a>
+            , a paper proving that a 16-clue sudoku with a unique solution does not exist. Rather than checking every possible 16-clue grid
+            by hand, their method used a “hitting set” search: they showed that every 16-clue candidate must fail to eliminate at least one
+            of a large catalog of known unavoidable sets — small groups of cells that any valid puzzle must intersect enough to keep the
+            solution unique — and confirmed exhaustively that no 16-clue arrangement threads all of them at once. The search consumed
+            roughly 7 million core-hours of computation before the result was confirmed and published. Seventeen has held as the floor ever
+            since.
         </p>
         <h2>What “minimal” actually means</h2>
         <p>

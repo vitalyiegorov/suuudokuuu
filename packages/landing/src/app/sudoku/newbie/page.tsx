@@ -13,6 +13,7 @@ import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { PageHeader } from '../../../seo/components/page-header/page-header';
 import { SITE_PLAY_URL } from '../../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
+import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
 import { sudokuDifficultyRatingPageMetadata } from '../../guides/sudoku-difficulty-rating/metadata';
 import { howToPlayPageMetadata } from '../../how-to-play/metadata';
 import { homePageMetadata } from '../../metadata';
@@ -30,6 +31,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = buildPageMetadata(newbieSudokuPageMetadata);
 
+// eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const NewbieSudokuPage = () => {
     const newbieReport = getTierTechniqueReport(DifficultyEnum.Newbie);
 
@@ -49,6 +51,19 @@ const NewbieSudokuPage = () => {
                 rule the generator enforces: a candidate board is only accepted as Newbie once a solver restricted to full houses and naked
                 singles has finished it. No pencil marks, no elimination logic and no guessing are ever required.
             </p>
+            <TechniqueSummary>
+                <ul>
+                    <li>
+                        Newbie boards carry {getDifficultyClueCount(DifficultyEnum.Newbie)} clues and are guaranteed to finish with full
+                        houses and naked singles alone.
+                    </li>
+                    <li>No pencil marks, no elimination logic and no guessing are ever required.</li>
+                    <li>
+                        Our sample of {newbieReport.sampleSize} Newbie boards measures SE <SeRatingRange report={newbieReport} />.
+                    </li>
+                    <li>A board that needs a hidden single or anything harder is rejected and regenerated, never labelled Newbie.</li>
+                </ul>
+            </TechniqueSummary>
             <a className="hero__cta" href={SITE_PLAY_URL}>
                 Play Newbie Sudoku now
             </a>

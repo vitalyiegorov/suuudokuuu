@@ -14,9 +14,14 @@ import { PuzzleBoard } from '../../../puzzle/components/puzzle-board/puzzle-boar
 import { SeRatingRange } from '../../../rating/components/se-rating-range/se-rating-range';
 import { getTierTechniqueReport } from '../../../rating/utils/get-tier-technique-reports.util';
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
+import { Faq } from '../../../seo/components/faq/faq';
+import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
+import { FaqPage } from '../../../seo/components/faq-page/faq-page';
+import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { PageHeader } from '../../../seo/components/page-header/page-header';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
 import { TechniqueLink } from '../../../techniques/components/technique-link/technique-link';
+import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
 import { sudokuDifficultyRatingPageMetadata } from '../../guides/sudoku-difficulty-rating/metadata';
 import { homePageMetadata } from '../../metadata';
 import { hardSudokuPageMetadata } from '../../sudoku/hard/metadata';
@@ -52,6 +57,21 @@ const PrintableHardSudokuPage = () => (
             intersection and every subset, and kept only because that solver stalled. What finishes them is a fish or a wing: the{' '}
             <Link href={xWingPageMetadata.path}>X-Wing</Link> and its larger and finned relatives, or one of the bivalue wing patterns.
         </p>
+        <TechniqueSummary>
+            <ul>
+                <li>
+                    {getDifficultyClueCount(DifficultyEnum.Hard)} clues out of 81 cells, guaranteed to need at least one fish or wing
+                    pattern beyond every subset.
+                </li>
+                <li>
+                    {PRINTABLE_BOOKLET_SIZE} puzzles, printed {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page, with a full solution key.
+                </li>
+                <li>
+                    Our sample of {hardReport.sampleSize} Hard boards measures SE <SeRatingRange report={hardReport} />.
+                </li>
+                <li>Nothing in the booklet needs a chain — that starts at the Nightmare tier.</li>
+            </ul>
+        </TechniqueSummary>
         <PuzzleBoard givens={PREVIEW_PUZZLE}>Puzzle 1 from the Hard booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF.</PuzzleBoard>
         <PrintableDownloadCard fileName="hard.pdf" pageCount={PAGE_COUNT} puzzleCount={PRINTABLE_BOOKLET_SIZE} title="Hard Sudoku" />
         <h2>What is inside the booklet</h2>
@@ -78,6 +98,33 @@ const PrintableHardSudokuPage = () => (
             back to <Link href={printableMediumSudokuPageMetadata.path}>printable Medium sudoku</Link> for intersections and subsets only,
             or play Hard on a screen at the <Link href={hardSudokuPageMetadata.path}>Hard sudoku lander</Link>.
         </p>
+        <h2>Printable Hard Sudoku FAQ</h2>
+        <FaqPage>
+            <Faq>
+                <FaqQuestion>Is the printable Hard sudoku PDF free?</FaqQuestion>
+                <FaqAnswer>Yes, with no account and no watermark, and every puzzle’s solved grid is included at the back.</FaqAnswer>
+            </Faq>
+            <Faq>
+                <FaqQuestion>What techniques does this Hard booklet require?</FaqQuestion>
+                <FaqAnswer>
+                    At least one fish (<Link href={xWingPageMetadata.path}>X-Wing</Link> and its larger and finned relatives) or one bivalue
+                    wing pattern, on top of every intersection and subset the easier booklets already need.
+                </FaqAnswer>
+            </Faq>
+            <Faq>
+                <FaqQuestion>How is a fish or wing easier to verify on paper?</FaqQuestion>
+                <FaqAnswer>
+                    A fish spans whole rows or columns at once, which is easier to trace by marking a digit’s remaining positions down a
+                    printed column than by scrolling a screen. Wings need the opposite view — a few bivalue cells seen at a glance.
+                </FaqAnswer>
+            </Faq>
+            <Faq>
+                <FaqQuestion>How many puzzles are in the printable Hard sudoku PDF?</FaqQuestion>
+                <FaqAnswer>
+                    {PRINTABLE_BOOKLET_SIZE} puzzles across {PAGE_COUNT} pages, four to a page, with the solved grids at the back.
+                </FaqAnswer>
+            </Faq>
+        </FaqPage>
         <DifficultyNavigation next={printableNightmareSudokuPageMetadata} previous={printableMediumSudokuPageMetadata} />
     </main>
 );
