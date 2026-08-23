@@ -110,6 +110,8 @@ jobs:
               run: yarn expo export --platform=web
 
             - name: Build landing export
+              env:
+                  INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
               run: yarn build --filter=@suuudokuuu/landing
 
             - name: Pull Vercel project settings
@@ -123,3 +125,8 @@ jobs:
             - name: Deploy to Vercel
               working-directory: packages/app
               run: yarn dlx vercel@latest deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+            - name: Submit changed pages to IndexNow
+              env:
+                  INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+              run: yarn workspace @suuudokuuu/landing submit:indexnow
