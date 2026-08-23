@@ -32,6 +32,11 @@ msgstr "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
 msgid "{awaySeconds}s away"
 msgstr "{awaySeconds}s absent"
 
+#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
+msgid "{bestStreak, plural, one {Best streak: # day} other {Best streak: # days}}"
+msgstr ""
+
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "{draftThemeName} copy"
 msgstr "{draftThemeName} (copie)"
@@ -62,6 +67,11 @@ msgstr "{mistakes, plural, one {# erreur} other {# erreurs}}"
 
 #: src/screens/components/winner-screen/winner-calm-result-hero/winner-calm-result-hero.tsx
 msgid "{moveCount, plural, one {# move} other {# moves}}"
+msgstr ""
+
+#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
+msgid "{streak, plural, one {# day streak} other {# day streak}}"
 msgstr ""
 
 #: src/game/utils/game-get-step-narration.util.ts
@@ -128,6 +138,7 @@ msgstr "Toutes"
 msgid "All of a number (1-9)"
 msgstr "Toutes les cases d'un chiffre (1-9)"
 
+#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
@@ -280,6 +291,7 @@ msgstr ""
 msgid "Can you beat them?"
 msgstr "Pouvez-vous faire mieux ?"
 
+#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
 #: src/game/hooks/use-share-game.hook.ts
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
@@ -438,6 +450,7 @@ msgstr "Animations de complétion"
 msgid "Completion Bonuses"
 msgstr "Bonus de complétion"
 
+#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
 #: src/screens/components/home-screen/home-screen-continue-row/home-screen-continue-row.tsx
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Continue"
@@ -470,6 +483,11 @@ msgstr ""
 #: src/@generic/hooks/use-timer-text.hook.ts
 msgid "d"
 msgstr "d"
+
+#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
+msgid "Daily challenge"
+msgstr ""
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Danger accent"
@@ -787,6 +805,10 @@ msgstr "J'ai terminé ce sudoku en {elapsedTimeString}. Pouvez-vous faire mieux 
 msgid "Immortal"
 msgstr "Immortel"
 
+#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+msgid "In progress • {difficultyLabel}"
+msgstr ""
+
 #: src/screens/components/loser-screen/loser.screen.tsx
 msgid "Incomplete"
 msgstr "Incomplet"
@@ -1095,6 +1117,7 @@ msgstr ""
 msgid "Offer hints on Nightmare, Hell, and Infinity puzzles too"
 msgstr ""
 
+#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
 #: src/game/components/hint-button/hint-button.tsx
 #: src/game/hooks/use-game-creation-runner.hook.ts
 #: src/screens/components/game-screen/game.screen.tsx
@@ -1209,6 +1232,10 @@ msgstr "Jouez à des niveaux plus difficiles pour obtenir de meilleurs multiplic
 #: src/app/game.tsx
 #: src/app/play.tsx
 msgid "Play Sudoku — Suuudokuuu"
+msgstr ""
+
+#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+msgid "Play today"
 msgstr ""
 
 #: src/history/components/history-totals-card/history-totals-card.tsx
@@ -1529,6 +1556,10 @@ msgstr ""
 msgid "Solved in"
 msgstr ""
 
+#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+msgid "Solved today • {difficultyLabel}"
+msgstr ""
+
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Some color combinations are hard to read. Save anyway?"
 msgstr "Certaines combinaisons de couleurs sont difficiles à lire. Enregistrer quand même ?"
@@ -1574,6 +1605,7 @@ msgstr ""
 msgid "Step time"
 msgstr "Temps par coup"
 
+#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
@@ -1750,6 +1782,10 @@ msgstr "Minuscule"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Tips for High Scores"
 msgstr "Conseils pour de meilleurs scores"
+
+#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+msgid "Today's puzzle • {difficultyLabel}"
+msgstr ""
 
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "Too many mistakes"

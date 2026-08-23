@@ -35,6 +35,7 @@ src/
 ├── @generic/           # Store setup, shared components, hooks, styles, utils
 ├── app/                # Expo Router routes and root layout
 ├── challenge/          # Challenge result/accept/progress UI and utilities
+├── daily/              # Daily challenge card, streak summary, status derivation
 ├── game/               # Game context, Redux slice, board UI, hooks, serializers
 ├── history/            # Completed game history and replay UI
 ├── i18n/locales/       # Lingui catalogs: en, uk, fr, de, es
@@ -101,6 +102,16 @@ src/
 6. `undoneMoves` is the redo stack. `save`, `hint` and `toggleCellCandidate` clear it because each of them pushes engine history, which truncates the engine's own future.
 7. Undo and redo are hidden during a challenge run, and the shortcut is inert there. A challenge payload is a faithful record of the run, and neither an un-recorded note edit nor a re-recorded placement can be represented in it without extending the append-only encoder enum.
 8. History is never serialized, so it does not survive a restart or a handoff. `createFromState` rebuilds the engine without it and `canUndo` is false again.
+
+### Daily challenge
+
+1. A daily run is an ordinary run. It goes through the same `FieldEngine`, scoring, timeline, hints and undo policy as any other game — the only difference is where the board came from and that the run remembers which day it belongs to. It is never a challenge run: `createDaily` always starts it with `isChallengeRun: false`, so ghost-challenge recording, its wall clock, and its undo/hint exclusions stay entirely separate flows.
+2. The board is offline and deterministic. `GameContext.createDaily(maxMistakes)` resolves today's UTC date with `getDailyDateString(Date.now())` and asks `@suuudokuuu/puzzle-forge` for `forgeDailyPuzzle(dateString)`. Every device asking on the same UTC date forges the identical board with the identical rating, with no network call and no stored table. The seed derivation itself is specified in `packages/puzzle-forge/AGENTS.md`; do not re-derive a date key in the app.
+3. `dailyDayNumber` on `GameState` is the whole run-scoped state, and `0` means "this run is not a daily". It is written once by `gameStartAction` and never recomputed, so a run started at 23:50 UTC still records against the day it started when it is finished after midnight. `create` passes `0`; only `createDaily` passes today.
+4. The persisted record is two additive fields: `dailyCompletedDayNumbers` (unique, ascending UTC day numbers of solved dailies) and `dailyBestStreak`. Both live in `gameGetPersistedAggregates`, so starting the next game keeps them. Only a **won** daily is recorded — `gameFinishRun` ignores a lost or abandoned one — so there is no backfill and no catch-up.
+5. Two different streaks exist on purpose and must not be merged. `playedDayNumbers` counts any game played on a **local** calendar day and feeds the history totals; `dailyCompletedDayNumbers` counts solved dailies on a **UTC** day and feeds the daily card. `getDayStreak(dayNumbers, todayDayNumber)` in `@generic/utils` is the one streak implementation both use, and it takes today's day number rather than a timestamp precisely so each caller supplies its own calendar.
+6. `dailyGetStatus` is the only place the card's three states are decided, and `completed` outranks `inProgress`. That ordering is what stops a finished daily from offering Continue into a run that is already over, and what makes the card offer a fresh puzzle the moment UTC midnight moves past the day the current run belongs to.
+7. `useDailyChallenge` reads "today" through a lazy `useState` initializer and re-reads it in a `useFocusEffect`, never during render. Home is a tab, so it can stay mounted across midnight; refreshing on focus is what rolls the card over without an interval timer.
 
 ### Comfort primitives
 

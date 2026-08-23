@@ -1,10 +1,7 @@
 import { isDefined } from '@rnw-community/shared';
 
-import { getDayNumber } from '../../@generic/utils/get-day-number.util';
-
-export const historyGetDayStreak = (playedDayNumbers: readonly number[], now = Date.now()): number => {
-    const todayDayNumber = getDayNumber(now);
-    const uniqueDayNumbers = Array.from(new Set(playedDayNumbers))
+export const getDayStreak = (dayNumbers: readonly number[], todayDayNumber: number): number => {
+    const uniqueDayNumbers = Array.from(new Set(dayNumbers))
         .filter(dayNumber => dayNumber <= todayDayNumber)
         .sort((firstDayNumber, secondDayNumber) => secondDayNumber - firstDayNumber);
     const [latestDayNumber] = uniqueDayNumbers;

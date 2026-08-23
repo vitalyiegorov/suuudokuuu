@@ -12,6 +12,7 @@ const emptyEngine = new FieldEngine({ sudokuString: GameEmptySudokuStringConstan
 
 export const GameContext = createContext<GameContextValueInterface>({
     create: emptyFn,
+    createDaily: emptyFn,
     createFromState: emptyFn,
     engine: emptyEngine,
     isCreatingGame: false,

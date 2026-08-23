@@ -4,7 +4,7 @@ import { HELL_CORPUS_MINIMUM_RATING, INFINITY_CORPUS_MINIMUM_RATING } from '@suu
 import { SE_RATING_CEILING } from '@suuudokuuu/rating';
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
-import { DIFFICULTY_BANDS } from '../../@generic/constants/difficulty-band.constant';
+import { DIFFICULTY_BANDS, PUZZLE_FORGE_MAX_ATTEMPTS } from '../../@generic/constants/difficulty-band.constant';
 
 import { forgePuzzle } from './forge-puzzle.util';
 import { isSolvableWithLadder } from './is-solvable-with-ladder.util';
@@ -21,6 +21,9 @@ const generatedDifficulties = [
 const forgeTimeoutMs = 120_000;
 const generousAttemptBudget = 200;
 const hellClueCount = 17;
+const sampleSeed = 20_260_823;
+const otherSeed = 20_260_824;
+const unseededSampleCount = 3;
 
 const getClueCount = (puzzleString: string): number => puzzleString.split('').filter(character => character !== '.').length;
 
@@ -96,6 +99,60 @@ describe('forgePuzzle', () => {
             expect(rating).toBeGreaterThan(0);
             expect(rating).toBeLessThanOrEqual(SE_RATING_CEILING);
             expect(isRatingCeiling).toBe(false);
+        },
+        forgeTimeoutMs
+    );
+
+    it(
+        'should forge the identical generated board for the same seed',
+        () => {
+            expect.assertions(2);
+
+            const first = forgePuzzle(DifficultyEnum.Easy, generousAttemptBudget, sampleSeed);
+            const second = forgePuzzle(DifficultyEnum.Easy, generousAttemptBudget, sampleSeed);
+
+            expect(first.sudoku.toString()).toBe(second.sudoku.toString());
+            expect(first.rating).toBe(second.rating);
+        },
+        forgeTimeoutMs
+    );
+
+    it(
+        'should forge a different generated board for a different seed',
+        () => {
+            expect.assertions(1);
+
+            const first = forgePuzzle(DifficultyEnum.Easy, generousAttemptBudget, sampleSeed);
+            const second = forgePuzzle(DifficultyEnum.Easy, generousAttemptBudget, otherSeed);
+
+            expect(first.sudoku.toString()).not.toBe(second.sudoku.toString());
+        },
+        forgeTimeoutMs
+    );
+
+    it('should pick the identical corpus board for the same seed', () => {
+        expect.assertions(2);
+
+        expect(forgePuzzle(DifficultyEnum.Hell, PUZZLE_FORGE_MAX_ATTEMPTS, sampleSeed).sudoku.toString()).toBe(
+            forgePuzzle(DifficultyEnum.Hell, PUZZLE_FORGE_MAX_ATTEMPTS, sampleSeed).sudoku.toString()
+        );
+        expect(forgePuzzle(DifficultyEnum.Infinity, PUZZLE_FORGE_MAX_ATTEMPTS, sampleSeed).sudoku.toString()).toBe(
+            forgePuzzle(DifficultyEnum.Infinity, PUZZLE_FORGE_MAX_ATTEMPTS, sampleSeed).sudoku.toString()
+        );
+    });
+
+    it(
+        'should stay unpredictable when no seed is supplied',
+        () => {
+            expect.assertions(1);
+
+            const boards = new Set(
+                Array.from({ length: unseededSampleCount }, () =>
+                    forgePuzzle(DifficultyEnum.Newbie, generousAttemptBudget).sudoku.toString()
+                )
+            );
+
+            expect(boards.size).toBe(unseededSampleCount);
         },
         forgeTimeoutMs
     );

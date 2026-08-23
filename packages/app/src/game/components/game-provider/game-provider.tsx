@@ -1,7 +1,7 @@
 import { i18n } from '@lingui/core';
 import { FieldEngine } from '@suuudokuuu/field-core';
 import { useFieldSnapshot } from '@suuudokuuu/field-core/react';
-import { forgePuzzle } from '@suuudokuuu/puzzle-forge';
+import { forgeDailyPuzzle, forgePuzzle, getDailyDateString, getDailyDayNumber, getDailyDifficulty } from '@suuudokuuu/puzzle-forge';
 import { useEffect } from 'react';
 
 import { isNotEmptyString } from '@rnw-community/shared';
@@ -15,6 +15,7 @@ import { gameLoadAction, gameResumeAction, gameStartAction } from '../../store/g
 
 import type { GameSetupInterface } from '../../interface/game-setup.interface';
 import type { GameState } from '../../store/game.state';
+import type { ForgedPuzzleInterface } from '@suuudokuuu/puzzle-forge';
 import type { ReactNode } from 'react';
 
 interface Props {
@@ -50,20 +51,38 @@ export const GameProvider = ({ children }: Props) => {
             router.replace('/game');
         });
 
+    const startForgedGame = (
+        { sudoku, rating, isRatingCeiling }: ForgedPuzzleInterface,
+        setup: Pick<GameState, 'dailyDayNumber' | 'difficulty' | 'isChallengeRun' | 'maxMistakes'>
+    ) => {
+        const sudokuString = sudoku.toString();
+
+        setEngine(new FieldEngine({ sudokuString, difficulty: setup.difficulty }));
+
+        dispatch(gameStartAction({ ...setup, sudokuString, rating, isRatingCeiling }));
+        router.replace('/game');
+    };
+
     const create = ({ difficulty, isChallengeRun, maxMistakes }: GameSetupInterface) =>
+        void runGameCreation(
+            () => void startForgedGame(forgePuzzle(difficulty), { difficulty, isChallengeRun, maxMistakes, dailyDayNumber: 0 })
+        );
+
+    const createDaily = (maxMistakes: number) =>
         void runGameCreation(() => {
-            const { sudoku, rating, isRatingCeiling } = forgePuzzle(difficulty);
-            const sudokuString = sudoku.toString();
+            const dateString = getDailyDateString(Date.now());
 
-            setEngine(new FieldEngine({ sudokuString, difficulty }));
-
-            dispatch(gameStartAction({ difficulty, isChallengeRun, maxMistakes, sudokuString, rating, isRatingCeiling }));
-            router.replace('/game');
+            startForgedGame(forgeDailyPuzzle(dateString), {
+                difficulty: getDailyDifficulty(dateString),
+                isChallengeRun: false,
+                maxMistakes,
+                dailyDayNumber: getDailyDayNumber(dateString)
+            });
         });
 
     useEffect(() => void i18n.activate(currentLanguage), [currentLanguage]);
 
-    const value = { create, createFromState, engine, isCreatingGame, snapshot };
+    const value = { create, createDaily, createFromState, engine, isCreatingGame, snapshot };
 
     return <GameContext value={value}>{children}</GameContext>;
 };

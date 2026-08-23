@@ -476,4 +476,29 @@ describe('appRootMigrations', () => {
         expect(migrated.settings.theme).toBe(ThemeEnum.Newspaper);
         expect(migrated.settings.hasTimer).toBe(initialSettingsState.hasTimer);
     });
+    it('should seed the daily challenge record at migration 41 without touching anything else', () => {
+        expect.assertions(4);
+
+        const storedGame = withoutKeyAtRuntime(
+            withoutKeyAtRuntime(
+                withoutKeyAtRuntime({ ...initialGameState, playedDayNumbers: [20688], score: 500 }, 'dailyCompletedDayNumbers'),
+                'dailyBestStreak'
+            ),
+            'dailyDayNumber'
+        );
+        const migrated = runMigration(41, buildState({ game: storedGame }));
+
+        expect(migrated.game.dailyCompletedDayNumbers).toStrictEqual([]);
+        expect(migrated.game.dailyBestStreak).toBe(0);
+        expect(migrated.game.dailyDayNumber).toBe(0);
+        expect(migrated.game.playedDayNumbers).toStrictEqual([20688]);
+    });
+
+    it('should never resume a stored run as a daily challenge', () => {
+        expect.assertions(1);
+
+        const storedGame = { ...initialGameState, dailyDayNumber: 20688 };
+
+        expect(runMigration(41, buildState({ game: storedGame })).game.dailyDayNumber).toBe(0);
+    });
 });
