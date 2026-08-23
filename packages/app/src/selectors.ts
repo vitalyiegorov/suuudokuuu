@@ -13,6 +13,8 @@ export * from './challenge/components/challenge-run-summary/challenge-run-summar
 export * from './challenge/components/challenge-result-footer/challenge-result-footer.selectors';
 export * from './challenge/components/challenge-result-screen/challenge-result-screen.selectors';
 export * from './challenge/components/challenge-try-again-button/challenge-try-again-button.selectors';
+export * from './daily/components/daily-challenge-card/daily-challenge-card.selectors';
+export * from './daily/components/daily-streak-summary/daily-streak-summary.selectors';
 export * from './game/components/available-values-item/available-value-item.selectors';
 export * from './game/components/candidate-input-item/candidate-input-item.selectors';
 export * from './game/components/difficulty-complexity-slider/difficulty-complexity-option/difficulty-complexity-option.selectors';

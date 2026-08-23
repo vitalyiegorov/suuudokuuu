@@ -1,11 +1,12 @@
 import { SharedPayloadKindEnum } from '@suuudokuuu/encoder';
 
-import { isNotEmptyString } from '@rnw-community/shared';
+import { isNotEmptyString, isPositiveNumber } from '@rnw-community/shared';
 
 import { getDayNumber } from '../../@generic/utils/get-day-number.util';
+import { getDayStreak } from '../../@generic/utils/get-day-streak.util';
 import { maxCompletedGamesPerDifficulty } from '../../history/constants/max-completed-games-per-difficulty.constant';
 
-import { addPlayedDayNumber } from './add-played-day-number.util';
+import { addDayNumber } from './add-day-number.util';
 import { gameStateToString } from './game-state-to-string.util';
 
 import type { GameFinishPayloadInterface } from '../interface/game-finish-payload.interface';
@@ -17,9 +18,14 @@ export const gameFinishRun = (state: GameState, payload: GameFinishPayloadInterf
     const hasNewPersonalBestScore = isWon && !isChallenge && !isNotEmptyString(state.challengeState) && state.score > history.bestScore;
 
     state.hasNewPersonalBestScore = hasNewPersonalBestScore;
-    state.playedDayNumbers = addPlayedDayNumber(state.playedDayNumbers, getDayNumber(Date.now()));
+    state.playedDayNumbers = addDayNumber(state.playedDayNumbers, getDayNumber(Date.now()));
 
     history.gamesCompleted += 1;
+
+    if (isWon && isPositiveNumber(state.dailyDayNumber)) {
+        state.dailyCompletedDayNumbers = addDayNumber(state.dailyCompletedDayNumbers, state.dailyDayNumber);
+        state.dailyBestStreak = Math.max(state.dailyBestStreak, getDayStreak(state.dailyCompletedDayNumbers, state.dailyDayNumber));
+    }
 
     if (isWon) {
         history.averageTime = (history.averageTime * history.gamesWon + state.elapsedTime) / (history.gamesWon + 1);

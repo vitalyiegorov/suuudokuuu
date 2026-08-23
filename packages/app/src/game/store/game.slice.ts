@@ -33,7 +33,10 @@ export const gameSlice = createSlice({
         start: (
             state,
             action: PayloadAction<
-                Pick<GameState, 'sudokuString' | 'difficulty' | 'maxMistakes' | 'isChallengeRun' | 'rating' | 'isRatingCeiling'>
+                Pick<
+                    GameState,
+                    'dailyDayNumber' | 'difficulty' | 'isChallengeRun' | 'isRatingCeiling' | 'maxMistakes' | 'rating' | 'sudokuString'
+                >
             >
         ) => {
             Object.assign(state, { ...initialGameState, ...gameGetPersistedAggregates(state) }, action.payload);

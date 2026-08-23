@@ -94,6 +94,7 @@ describe('gameSlice', () => {
                 difficulty: DifficultyEnum.Hard,
                 maxMistakes: 0,
                 isChallengeRun: false,
+                dailyDayNumber: 0,
                 rating: StartedRating,
                 isRatingCeiling: false
             })
@@ -136,7 +137,13 @@ describe('gameSlice', () => {
 
         const nextState = gameSlice.reducer(
             completedState,
-            gameStartAction({ ...setup, sudokuString: StartedSudokuString, rating: StartedRating, isRatingCeiling: false })
+            gameStartAction({
+                ...setup,
+                sudokuString: StartedSudokuString,
+                rating: StartedRating,
+                isRatingCeiling: false,
+                dailyDayNumber: 0
+            })
         );
 
         expect(nextState).toMatchObject({ ...setup, sudokuString: StartedSudokuString, rating: StartedRating });
@@ -164,6 +171,7 @@ describe('gameSlice', () => {
                 difficulty: DifficultyEnum.Hard,
                 maxMistakes: 3,
                 isChallengeRun: false,
+                dailyDayNumber: 0,
                 rating: StartedRating,
                 isRatingCeiling: false
             })
@@ -776,6 +784,7 @@ describe('gameSlice', () => {
                 difficulty: DifficultyEnum.Easy,
                 maxMistakes: 3,
                 isChallengeRun: false,
+                dailyDayNumber: 0,
                 rating: 0,
                 isRatingCeiling: false
             })

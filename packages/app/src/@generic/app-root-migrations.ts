@@ -31,7 +31,7 @@ export interface AppRootPersistedStateInterface {
     [customThemesSlice.name]: CustomThemesState;
 }
 
-export const appRootPersistVersion = 40;
+export const appRootPersistVersion = 41;
 
 const resetBestScores = (state: AppRootPersistedStateInterface): AppRootPersistedStateInterface => {
     const gameState = state[gameSlice.name];
@@ -256,5 +256,15 @@ export const appRootMigrations: MigrationManifest<AppRootPersistedStateInterface
         ...state,
         [gameSlice.name]: { ...initialGameState, ...state[gameSlice.name], undoneMoves: [] },
         [settingsSlice.name]: { ...initialSettingsState, ...state[settingsSlice.name] }
+    }),
+    41: state => ({
+        ...state,
+        [gameSlice.name]: {
+            ...initialGameState,
+            ...state[gameSlice.name],
+            dailyDayNumber: initialGameState.dailyDayNumber,
+            dailyCompletedDayNumbers: initialGameState.dailyCompletedDayNumbers,
+            dailyBestStreak: initialGameState.dailyBestStreak
+        }
     })
 };

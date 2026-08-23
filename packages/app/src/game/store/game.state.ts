@@ -29,9 +29,12 @@ export interface GameState {
     challengeState: string;
     wallClockStartMs: number;
     isChallengeRun: boolean;
+    dailyDayNumber: number;
     hasNewPersonalBestScore: boolean;
     techniqueUsageCounts: Partial<Record<SolutionTechniqueEnum, number>>;
     playedDayNumbers: number[];
+    dailyCompletedDayNumbers: number[];
+    dailyBestStreak: number;
 }
 
 export const initialGameState: GameState = {
@@ -65,7 +68,10 @@ export const initialGameState: GameState = {
     challengeState: '',
     wallClockStartMs: 0,
     isChallengeRun: false,
+    dailyDayNumber: 0,
     hasNewPersonalBestScore: false,
     techniqueUsageCounts: {},
-    playedDayNumbers: []
+    playedDayNumbers: [],
+    dailyCompletedDayNumbers: [],
+    dailyBestStreak: 0
 };

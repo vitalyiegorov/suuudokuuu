@@ -49,3 +49,5 @@ export const DIFFICULTY_BANDS: Record<DifficultyEnum, DifficultyBandInterface> =
 };
 
 export const PUZZLE_FORGE_MAX_ATTEMPTS = 64;
+
+export const PUZZLE_FORGE_SEED_RANGE = 0x1_0000_0000;

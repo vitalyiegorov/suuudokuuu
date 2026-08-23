@@ -51,6 +51,9 @@ export const gameSolutionsStepsSelector = createSelector(gameSelector, state => 
 export const gameHasNewPersonalBestScoreSelector = createSelector(gameSelector, state => state.hasNewPersonalBestScore);
 export const gameTechniqueUsageCountsSelector = createSelector(gameSelector, state => state.techniqueUsageCounts);
 export const gamePlayedDayNumbersSelector = createSelector(gameSelector, state => state.playedDayNumbers);
+export const gameDailyDayNumberSelector = createSelector(gameSelector, state => state.dailyDayNumber);
+export const gameDailyCompletedDayNumbersSelector = createSelector(gameSelector, state => state.dailyCompletedDayNumbers);
+export const gameDailyBestStreakSelector = createSelector(gameSelector, state => state.dailyBestStreak);
 export const gameBestRatingSelector = createSelector(gameHistoryByDifficultySelector, historyByDifficulty =>
     historyGetBestRating(Object.values(historyByDifficulty))
 );

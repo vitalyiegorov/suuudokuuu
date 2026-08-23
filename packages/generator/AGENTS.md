@@ -41,9 +41,10 @@ src/
 
 1. Treat the generator's clue-removal loop and its solver-backed uniqueness checks as invariant-heavy code. Small readability refactors are fine; broad rewrites need focused tests first.
 2. Keep solver methods deterministic for a given field. Randomness belongs in generation and shuffle steps.
-3. Do not replace structured field/cell operations with ad hoc string parsing inside the generator.
-4. Use constants or config values for grid dimensions when touching generic Sudoku logic.
-5. Algorithm-heavy `max-statements` disables must stay local to the narrow method and carry a short justification.
+3. All generation randomness flows through `config.random`, a `SeededRandomType` from `@suuudokuuu/solver-core`. `defaultSudokuConfig.random` is `Math.random`, so every existing caller is unchanged, and passing `createSeededRandom(seed)` in a cloned config makes `create()` fully reproducible. `shuffle` takes the generator as a required argument precisely so a new randomness site cannot silently reach for `Math.random`: never call `Math.random` inside this package. `sudoku-seeded-generation.spec.ts` proves same-seed reproducibility, and the daily challenge's seed derivation is documented in `packages/puzzle-forge/AGENTS.md`.
+4. Do not replace structured field/cell operations with ad hoc string parsing inside the generator.
+5. Use constants or config values for grid dimensions when touching generic Sudoku logic.
+6. Algorithm-heavy `max-statements` disables must stay local to the narrow method and carry a short justification.
 
 ## File Organization
 

@@ -19,6 +19,7 @@ import type { ReactElement } from 'react';
 
 interface RenderWithGameContextOptions {
     readonly create?: GameContextValueInterface['create'];
+    readonly createDaily?: GameContextValueInterface['createDaily'];
     readonly createFromState?: GameContextValueInterface['createFromState'];
     readonly engine?: FieldEngine;
     readonly game?: Partial<GameState>;
@@ -31,6 +32,7 @@ export const renderWithGameContext = (ui: ReactElement, options: RenderWithGameC
     const engine = options.engine ?? new FieldEngine({ sudokuString: GameEmptySudokuStringConstant, difficulty: DifficultyEnum.Newbie });
     const gameContextValue: GameContextValueInterface = {
         create: options.create ?? emptyFn,
+        createDaily: options.createDaily ?? emptyFn,
         createFromState: options.createFromState ?? emptyFn,
         engine,
         isCreatingGame: options.isCreatingGame ?? false,

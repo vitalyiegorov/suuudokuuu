@@ -20,6 +20,7 @@ import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { getBrand } from '../../../@generic/utils/get-brand.util';
 import { getDifficultyMessage } from '../../../@generic/utils/get-difficulty-message.util';
 import { ChallengeModeSwitch } from '../../../challenge/components/challenge-mode-switch/challenge-mode-switch';
+import { DailyChallengeCard } from '../../../daily/components/daily-challenge-card/daily-challenge-card';
 import {
     DifficultyComplexitySliderDifficulties,
     DifficultyComplexitySliderInitialIndex
@@ -209,6 +210,8 @@ export const HomeScreen = () => {
                                 </Pressable>
                             </Link>
                         ) : null}
+
+                        <DailyChallengeCard />
 
                         <HomeScreenComfortOffer />
                     </View>

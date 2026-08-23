@@ -31,9 +31,11 @@ yarn test:coverage
 ```text
 src/
 ├── @generic/
-│   ├── constants/       # DIFFICULTY_BANDS and the attempt budget
+│   ├── constants/       # DIFFICULTY_BANDS, the attempt budget, and the daily challenge scheme
 │   ├── interfaces/      # band, band match, and forged-puzzle contracts
 │   └── types/           # the corpus discriminator
+├── daily/
+│   └── utils/           # UTC date keys, the daily seed, the tier rotation, and the daily entry point
 └── forge/
     └── utils/           # ladder solvability, band matching, and the forge entry point
 ```
@@ -47,6 +49,17 @@ src/
 5. Hell and Infinity are corpus-sourced. `band.corpus` names which corpus supplies the board, and `null` means the tier is generated. Seventeen-clue Hell puzzles cannot be produced by clue removal in any practical time, and Infinity puzzles are curated by published Sudoku Explainer rating rather than clue count, so `@suuudokuuu/hell-corpus` supplies both.
 6. `forgePuzzle` returns the rating with the board. A corpus tier carries the record's stored `rating` and `isCeiling` straight through, because those are verified or published values the local rater cannot reproduce — the rater's ladder tops out at `SE_RATING_CEILING`, well below the Infinity band. A generated tier is rated by `ratePuzzle` from `@suuudokuuu/rating`. The app never rates a new board itself.
 7. `forgePuzzle` is rejection sampling with a budget. It always returns a board: when the budget runs out it returns the closest candidate it saw and reports `isInBand: false`. Callers must never block on an in-band result.
+
+## The Daily Challenge Seed
+
+The daily challenge is reproducible from nothing but a UTC calendar date. No table is stored anywhere, so a client, a build step and a future `/daily/YYYY-MM-DD` archive page all derive the same board independently, and the app never talks to a server for one.
+
+1. **The key is the UTC date string.** `getDailyDateString(timestamp)` is `new Date(timestamp).toISOString().slice(0, 10)`, so the day boundary is UTC midnight everywhere on earth. `getDailyDayNumber(dateString)` is `Math.floor(Date.parse(`${dateString}T00:00:00.000Z`) / 86_400_000)` — whole UTC days since the epoch, and the exact inverse of the date string. Never use a local calendar date here: two players in different time zones must get the same puzzle at the same moment.
+2. **The seed is FNV-1a over a namespaced key.** `getDailyPuzzleSeed(dateString)` hashes `` `suuudokuuu-daily-${dateString}` `` with 32-bit FNV-1a: offset basis `0x811c9dc5`, prime `0x01000193`, `Math.imul` per UTF-16 code unit, `>>> 0` after every step. `2026-08-23` therefore always yields `2317164260`, and `get-daily-puzzle-seed.util.spec.ts` pins that value. Changing the namespace string, the hash, or the date format reshuffles every past and future daily, so treat all three as frozen.
+3. **The tier rotates by day number.** `DAILY_DIFFICULTY_LADDER` is the four generated tiers below `Nightmare` — `Newbie`, `Easy`, `Medium`, `Hard` — and `getDailyDifficulty(dateString)` indexes it with `dayNumber % 4`. A daily is never a corpus tier, so it is always a genuinely generated, band-checked board rather than a corpus pick.
+4. **Every draw in the pipeline comes from that one seed.** `forgeDailyPuzzle(dateString)` calls `forgePuzzle(tier, budget, seed)`. `forgePuzzle` builds one master `createSeededRandom(seed)` stream and draws each rejection-sampling attempt's own PRNG seed from it, so attempt N is a pure function of the daily seed and the attempt index. It is not `seed + attempt`: adjacent seeds would then share attempt streams and two neighbouring days could forge the same board.
+5. **Determinism is a property of mulberry32, not of the test runner.** `createSeededRandom` in `@suuudokuuu/solver-core` is integer and bitwise only, so it produces byte-identical streams on Hermes, JSC and every browser engine. Tests can only prove same-process reproducibility; the cross-engine half follows from the PRNG never touching a host random source or a float intermediate.
+6. **An unseeded `forgePuzzle` stays unpredictable.** The `seed` parameter defaults to `Math.floor(Math.random() * PUZZLE_FORGE_SEED_RANGE)`, so ordinary puzzle creation is unchanged and two runs in the same millisecond cannot collide.
 
 ## Cost Rules
 
