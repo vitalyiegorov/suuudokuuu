@@ -36,7 +36,10 @@ src/
 │   ├── guides/              # long-form guide articles built on generated solve data
 │   └── techniques/          # /techniques hub plus one folder per technique page
 ├── chrome/
-│   └── components/          # site header and site footer, used by the root layout
+│   ├── components/          # site header, site footer, and the comfort-control text-size stepper
+│   ├── constants/           # comfort-scale steps, storage key, CSS custom property name
+│   ├── interfaces/          # comfort-scale step view model
+│   └── utils/               # buildComfortScaleInitScript, the pre-hydration scale script
 ├── difficulty/
 │   ├── components/          # prev/next difficulty chain
 │   ├── constants/           # difficulty display names, ladder order, difficulty page paths
@@ -67,6 +70,10 @@ src/
 ### CSS
 
 There are no CSS modules. `noPropertyAccessFromIndexSignature` forces `styles['x']` access, which the `dot-notation` lint rule then rejects, so every visible class lives in `src/app/global.css` and is referenced as a plain string. Variant state is expressed with `data-*` attributes and CSS attribute selectors rather than composed class names.
+
+### Comfort scale
+
+`--landing-scale` (defined in `:root`, default `1`) is the one control point for reader-driven text and board sizing. `html { font-size: calc(100% * var(--landing-scale, 1)); }` scales every `rem`-based size site-wide, and `--landing-cell-size` folds the same variable into its `clamp()` so the board grows with it too. `ComfortControl` (`src/chrome/components/comfort-control/comfort-control.tsx`) is the client-island stepper in `SiteHeader` that writes the chosen step's scale to that custom property via `element.style.setProperty` and persists the step id to `localStorage` under `COMFORT_SCALE_STORAGE_KEY` (`src/chrome/constants/comfort-scale.constant.ts`). `buildComfortScaleInitScript` (`src/chrome/utils/build-comfort-scale-init-script.util.ts`) renders the same steps into a small inline `<script>` placed as the first child of `<body>` in the root layout, so a repeat visitor's saved scale applies before the rest of the page paints, with no flash and no server dependency. Without JavaScript the control renders as inert static buttons and every size falls back to the `1` default, so the exported HTML never changes.
 
 ## Hard Rules
 

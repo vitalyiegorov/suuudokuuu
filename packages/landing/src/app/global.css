@@ -10,7 +10,8 @@
     --landing-target-color: #5c3a1c;
     --landing-eliminated-color: #ff6b6b;
     --landing-placed-color: #7ee08a;
-    --landing-cell-size: clamp(1.9rem, 8vw, 2.75rem);
+    --landing-scale: 1;
+    --landing-cell-size: clamp(1.9rem, calc(8vw * var(--landing-scale, 1)), 3.5rem);
 
     color-scheme: dark;
 }
@@ -19,6 +20,10 @@
 *::before,
 *::after {
     box-sizing: border-box;
+}
+
+html {
+    font-size: calc(100% * var(--landing-scale, 1));
 }
 
 html,
@@ -158,6 +163,47 @@ strong {
     display: flex;
     gap: 1.25rem;
     font-size: 0.95rem;
+}
+
+.site-header__controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.comfort-control {
+    display: flex;
+    gap: 0.35rem;
+}
+
+.comfort-control__step {
+    padding: 0.3rem 0.55rem;
+    border: 1px solid var(--landing-border-color);
+    border-radius: 0.3rem;
+    background-color: transparent;
+    color: var(--landing-muted-text-color);
+    font: inherit;
+    font-size: 0.8rem;
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.comfort-control__step:hover {
+    border-color: var(--landing-text-color);
+    color: var(--landing-text-color);
+}
+
+.comfort-control__step:focus-visible {
+    outline: 2px solid var(--landing-accent-color);
+    outline-offset: 2px;
+}
+
+.comfort-control__step[aria-pressed='true'] {
+    border-color: var(--landing-accent-color);
+    background-color: var(--landing-accent-color);
+    color: var(--landing-background-color);
 }
 
 .site-footer {
