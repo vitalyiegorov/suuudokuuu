@@ -24,7 +24,7 @@ jobs:
                 {"name":"e2e","appDir":"packages/app","workspace":"suuudokuuuE2E.xcworkspace","scheme":"suuudokuuuE2E","appId":"com.vitalyiegorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p ios --clean --no-install"}
             capture-manifest: >-
                 [
-                  {"platform":"ios","device":"iPhone 17 Pro","locales":["en",{"id":"de","env":{"LOCALE_IDENTIFIER":"de-DE","OS_LANGUAGE_MODE":"true"}},{"id":"fr","env":{"LOCALE_IDENTIFIER":"fr-FR","OS_LANGUAGE_MODE":"true"}}],"appearances":["light"]}
+                  {"platform":"ios","device":"iPhone 17 Pro","locales":[{"id":"en","env":{"LOCALE_IDENTIFIER":"en-US","OS_LANGUAGE_MODE":"true"}},{"id":"de","env":{"LOCALE_IDENTIFIER":"de-DE","OS_LANGUAGE_MODE":"true"}},{"id":"fr","env":{"LOCALE_IDENTIFIER":"fr-FR","OS_LANGUAGE_MODE":"true"}}],"appearances":["light"]}
                 ]
             capture-mode: direct
             capture-scenes: >-
