@@ -5,6 +5,10 @@ appId: ${APP_ID}
       optional: true
 
 - runFlow: subflows/navigation/launch-home.flow.yaml
+# Pin a hint-capable difficulty: the preceding Hell run persists its selection,
+# and the hint button is deliberately absent on Nightmare, Hell and Infinity.
+- tapOn:
+      id: 'DifficultyComplexityOptionSelectors.Option.Easy'
 - runFlow: subflows/game/start-new-game.flow.yaml
 
 - tapOn:
