@@ -1,0 +1,66 @@
+name: SEO report
+
+on:
+    schedule:
+        - cron: '0 6 * * 1'
+    workflow_dispatch:
+
+permissions:
+    contents: read
+
+concurrency:
+    group: seo-report
+    cancel-in-progress: false
+
+jobs:
+    report:
+        name: Weekly Search Console and CrUX snapshot
+        runs-on: ubuntu-latest
+        timeout-minutes: 20
+        permissions:
+            contents: write
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v7
+              with:
+                  fetch-depth: 0
+
+            - name: Enable Corepack
+              run: corepack enable
+
+            - name: Setup Node
+              uses: actions/setup-node@v7
+              with:
+                  node-version: 22.x
+                  cache: yarn
+
+            - name: Install dependencies
+              run: yarn install
+
+            - name: Generate the SEO report
+              env:
+                  GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+                  CRUX_API_KEY: ${{ secrets.CRUX_API_KEY }}
+              run: yarn workspace @suuudokuuu/landing seo:report
+
+            - name: Commit the snapshot
+              run: |
+                  set -euo pipefail
+
+                  if [ ! -d reports/seo ]; then
+                    echo "No report was written, so there is nothing to commit."
+                    exit 0
+                  fi
+
+                  git config user.name "github-actions[bot]"
+                  git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+                  git add reports/seo
+
+                  if git diff --cached --quiet; then
+                    echo "No new snapshot to commit."
+                    exit 0
+                  fi
+
+                  git commit -m "chore: weekly seo snapshot $(date -u +%Y-%m-%d) [skip ci]"
+                  git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
+                  git push origin "HEAD:${GITHUB_REF_NAME}"

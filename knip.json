@@ -35,7 +35,8 @@
                 "src/seo/utils/*.util.ts!",
                 "scripts/*.ts!"
             ],
-            "project": ["src/**/*.{ts,tsx}", "scripts/**/*.ts"]
+            "project": ["src/**/*.{ts,tsx}", "scripts/**/*.ts"],
+            "ignoreDependencies": ["@expo-google-fonts/inter"]
         },
         "packages/app": {
             "entry": [
