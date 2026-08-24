@@ -18,7 +18,7 @@ jobs:
     r1-locale-env-ios:
         name: R1 iOS direct capture with per-locale env
         if: github.ref_name == 'ci/ssv-run/r1-locale-env-ios'
-        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@9d56f922c409dd8564bf19ac45d4f37bcdc850bc # feat/store-screenshots-locale-env-asc-dedupe
+        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@da0a3a7f44cac205f8a56fe742eaeabaa07ffcfe # feat/store-screenshots-locale-env-asc-dedupe
         with:
             ios-target: >-
                 {"name":"e2e","appDir":"packages/app","workspace":"suuudokuuuE2E.xcworkspace","scheme":"suuudokuuuE2E","appId":"com.vitalyiegorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p ios --clean --no-install"}
@@ -48,7 +48,7 @@ jobs:
     r2-android-regression:
         name: R2 Android direct capture regression
         if: github.ref_name == 'ci/ssv-run/r2-android-regression'
-        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@9d56f922c409dd8564bf19ac45d4f37bcdc850bc # feat/store-screenshots-locale-env-asc-dedupe
+        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@da0a3a7f44cac205f8a56fe742eaeabaa07ffcfe # feat/store-screenshots-locale-env-asc-dedupe
         with:
             android-target: >-
                 {"name":"e2e","appDir":"packages/app","appId":"com.vitaliiyehorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p android --clean --no-install"}
@@ -80,7 +80,7 @@ jobs:
     r3-upload-dedupe-gate:
         name: R3 upload gate + App Store Connect dedupe
         if: github.ref_name == 'ci/ssv-run/r3-upload-dedupe-gate'
-        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@9d56f922c409dd8564bf19ac45d4f37bcdc850bc # feat/store-screenshots-locale-env-asc-dedupe
+        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@da0a3a7f44cac205f8a56fe742eaeabaa07ffcfe # feat/store-screenshots-locale-env-asc-dedupe
         with:
             ios-target: >-
                 {"name":"e2e","appDir":"packages/app","workspace":"suuudokuuuE2E.xcworkspace","scheme":"suuudokuuuE2E","appId":"com.vitalyiegorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p ios --clean --no-install"}
