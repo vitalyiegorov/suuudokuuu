@@ -1,5 +1,6 @@
 'use client';
 
+import { track } from '@vercel/analytics';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
 
@@ -13,14 +14,16 @@ const TechniqueLiveBoard = dynamic(async () => (await import('../technique-live-
 interface Props {
     board: string;
     technique: SolutionTechniqueEnum;
+    techniqueName: string;
     children: ReactNode;
 }
 
-export const TechniquePlayableBoard = ({ board, children, technique }: Props) => {
+export const TechniquePlayableBoard = ({ board, children, technique, techniqueName }: Props) => {
     const [isLive, setIsLive] = useState(false);
     const isStaticOpen = !isLive;
 
     const handleStart = () => {
+        track('island_opened', { technique: techniqueName });
         setIsLive(true);
     };
 

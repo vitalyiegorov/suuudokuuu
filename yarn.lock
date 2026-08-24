@@ -5613,6 +5613,8 @@ __metadata:
     "@suuudokuuu/techniques": "workspace:*"
     "@types/react": "npm:~19.2.14"
     "@types/react-dom": "npm:~19.2.4"
+    "@vercel/analytics": "npm:^2.0.1"
+    "@vercel/speed-insights": "npm:^2.0.0"
     next: "npm:16.3.0"
     pdf-lib: "npm:^1.17.1"
     react: "npm:19.2.3"
@@ -6433,6 +6435,69 @@ __metadata:
   version: 1.12.2
   resolution: "@unrs/resolver-binding-win32-x64-msvc@npm:1.12.2"
   conditions: os=win32 & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@vercel/analytics@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "@vercel/analytics@npm:2.0.1"
+  peerDependencies:
+    "@remix-run/react": ^2
+    "@sveltejs/kit": ^1 || ^2
+    next: ">= 13"
+    nuxt: ">= 3"
+    react: ^18 || ^19 || ^19.0.0-rc
+    svelte: ">= 4"
+    vue: ^3
+    vue-router: ^4
+  peerDependenciesMeta:
+    "@remix-run/react":
+      optional: true
+    "@sveltejs/kit":
+      optional: true
+    next:
+      optional: true
+    nuxt:
+      optional: true
+    react:
+      optional: true
+    svelte:
+      optional: true
+    vue:
+      optional: true
+    vue-router:
+      optional: true
+  checksum: 10/ffef3eea08992e40e08d0fc9900396a9433855a4aaca90602bfea935c26faa30b6d208c034b6e249fb8a69c81cb5a11aa3acd725d5b9067fb30a4508879c6383
+  languageName: node
+  linkType: hard
+
+"@vercel/speed-insights@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "@vercel/speed-insights@npm:2.0.0"
+  peerDependencies:
+    "@sveltejs/kit": ^1 || ^2
+    next: ">= 13"
+    nuxt: ">= 3"
+    react: ^18 || ^19 || ^19.0.0-rc
+    svelte: ">= 4"
+    vue: ^3
+    vue-router: ^4
+  peerDependenciesMeta:
+    "@sveltejs/kit":
+      optional: true
+    next:
+      optional: true
+    nuxt:
+      optional: true
+    react:
+      optional: true
+    svelte:
+      optional: true
+    vue:
+      optional: true
+    vue-router:
+      optional: true
+  checksum: 10/c8bb85c8e9972b1536d19bb36b8cdecfd85b4391b508a8e9f70cc7e55e09266e19896bad45f889fe5da0430884c83bc8628b7d822f0ffd975ec329cab18ea4b5
   languageName: node
   linkType: hard
 

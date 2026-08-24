@@ -176,4 +176,36 @@ Weekly, in Search Console and Bing Webmaster Tools:
 - **Queries by page family**: technique guides, difficulty landers and printable pages behave differently and should be read separately.
 - **`llms.txt` and key file reachability** after any hosting, CDN or redirect change. Both are root-level `.txt` files and both are exactly what a new proxy rule tends to break.
 
-A daily GSC/Bing snapshot CLI is a reasonable future addition; it belongs beside `scripts/submit-indexnow.ts` and must read its URL list from `buildIndexablePages()` like everything else.
+Most of that list is answered automatically by the weekly SEO report below; the reachability checks stay manual.
+
+---
+
+## 9. Weekly SEO report
+
+`.github/workflows/seo-report.yml` runs `scripts/seo-report.ts` every Monday at 06:00 UTC, and on `workflow_dispatch`. The script pulls the last 28 days of Search Console data against the prior 28 days, the top 20 queries, the top 20 pages, the sitemap submission status, and the CrUX field Core Web Vitals for the origin. It appends a markdown table to the run summary and commits the raw JSON to `reports/seo/<YYYY-MM-DD>.json` on `main`, so the history is greppable from a checkout instead of living in a dashboard.
+
+Run it locally with `yarn workspace @suuudokuuu/landing seo:report`. Without the secrets it prints which sections it is skipping, writes nothing and exits `0`, exactly like `submit:indexnow`. With secrets present it prints the same markdown to stdout when `GITHUB_STEP_SUMMARY` is unset.
+
+### 9.1 `GCP_SA_KEY` — Search Console access
+
+1. In Google Cloud, create (or reuse) a project and enable the **Google Search Console API**.
+2. Create a service account with no project roles; Search Console permissions are granted on the property, not in IAM.
+3. Create a JSON key for it and download the file.
+4. In Search Console → Settings → Users and permissions, add the service account's `client_email` as a **Restricted** user of the `https://www.suuudokuuu.com/` property. Restricted is enough for read-only reporting.
+5. Store the whole JSON key file as the `GCP_SA_KEY` repository secret. The script signs an RS256 JWT with `node:crypto` and exchanges it at `https://oauth2.googleapis.com/token` for a `webmasters.readonly` token, so there is no client library and no refresh token to rotate.
+
+The property string the script queries is `SITE_ORIGIN` plus a trailing slash. A Domain property (`sc-domain:suuudokuuu.com`) is a different key and will answer `403`; grant access on the URL-prefix property that §7.1 sets up.
+
+### 9.2 `CRUX_API_KEY` — field Core Web Vitals
+
+1. In the same Google Cloud project, enable the **Chrome UX Report API**.
+2. Create an API key under Credentials and restrict it to that API.
+3. Store it as the `CRUX_API_KEY` repository secret.
+
+CrUX only answers for origins with enough real-user traffic. A `404` from the API means the origin has no dataset yet, not that the key is wrong.
+
+### 9.3 Failure modes
+
+- A malformed `GCP_SA_KEY` fails with a single explanatory line and exit `1`; it never prints the key or a stack trace.
+- A `403` from Search Console means the service account is not a user on the property.
+- Either secret may be absent on its own. The matching section is skipped with a message and the report still commits the section that did run; only when both are absent is nothing written.

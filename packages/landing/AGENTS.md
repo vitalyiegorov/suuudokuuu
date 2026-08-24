@@ -6,7 +6,7 @@ Read the root `AGENTS.md` first. Every engineering rule there applies here.
 
 `docs/seo-pages.md` is the long-form content-page architecture guide: page anatomy, the compound-children pattern behind the schema primitives, the concern → primitive reference table, the indexing and submission rules, and the checklist for adding a page. This file stays the rules-of-record summary; read the guide before authoring a new page or a new SEO primitive.
 
-`docs/indexing.md` is the indexing runbook: what the build publishes, why IndexNow submission is a CLI script rather than an API route, the `INDEXNOW_KEY` environment variable and key rotation, the Search Console and Bing setup, and what to monitor. Read it before changing `src/indexing`, `sitemap.ts`, `robots.ts`, or either indexing script.
+`docs/indexing.md` is the indexing runbook: what the build publishes, why IndexNow submission is a CLI script rather than an API route, the `INDEXNOW_KEY` environment variable and key rotation, the Search Console and Bing setup, what to monitor, and the weekly SEO report and its `GCP_SA_KEY` / `CRUX_API_KEY` setup. Read it before changing `src/indexing`, `sitemap.ts`, `robots.ts`, or any of the indexing and reporting scripts.
 
 ## Commands
 
@@ -18,6 +18,7 @@ yarn workspace @suuudokuuu/landing lint
 yarn workspace @suuudokuuu/landing generate:rating-sample      # re-forge the committed guide sample, changes every published number
 yarn workspace @suuudokuuu/landing submit:indexnow --dry-run   # print the sitemap-derived URL list
 yarn workspace @suuudokuuu/landing submit:indexnow             # needs INDEXNOW_KEY, run after deploy
+yarn workspace @suuudokuuu/landing seo:report                  # needs GCP_SA_KEY and CRUX_API_KEY, run weekly by CI
 ```
 
 The static export lands in `packages/landing/out`. Both `packages/landing/.next` and `packages/landing/out` are git-ignored.
@@ -26,6 +27,10 @@ The static export lands in `packages/landing/out`. Both `packages/landing/.next`
 
 ```text
 src/
+├── analytics/
+│   ├── components/          # the inline Microsoft Clarity script tag
+│   ├── constants/           # analytics environment-variable names and Vercel environment values
+│   └── utils/               # buildMicrosoftClarityScript, the cookieless consentv2 snippet
 ├── app/                     # App Router routes and native metadata routes
 │   ├── global.css           # system font stack and every visible class, no next/font network fetches
 │   ├── layout.tsx           # root layout, site chrome, metadataBase, viewport
@@ -71,6 +76,16 @@ src/
 ### CSS
 
 There are no CSS modules. `noPropertyAccessFromIndexSignature` forces `styles['x']` access, which the `dot-notation` lint rule then rejects, so every visible class lives in `src/app/global.css` and is referenced as a plain string. Variant state is expressed with `data-*` attributes and CSS attribute selectors rather than composed class names.
+
+### Analytics
+
+The site carries cookieless, anonymous analytics; the game carries none, and the published copy says exactly that. Do not widen either claim without changing the other.
+
+`src/app/layout.tsx` renders `<Analytics />` only when `VERCEL` is `1`, `<SpeedInsights />` only when `VERCEL_ENV` is `production`, and `<MicrosoftClarity />` only when `VERCEL_ENV` is `production` and `NEXT_PUBLIC_CLARITY_PROJECT_ID` is set. Those variables exist only during a Vercel build, so a local, fork or CI export contains no analytics markup at all — grep `out/index.html` for `clarity` or `vercel` to prove it. Clarity is an inline `next/script` snippet from `buildMicrosoftClarityScript`, which denies both `ad_Storage` and `analytics_Storage` through `consentv2`, so it never sets a cookie. There is no consent banner because nothing is stored.
+
+Funnel events go through `track()` from `@vercel/analytics`, called from client islands that already exist: `island_opened` and `walkthrough_started` from the technique board island, `solver_used` from the solver workbench, `comfort_scale_set` from the comfort control. Never add a `'use client'` boundary just to fire an event, and never send anything a reader typed — the technique name, the solver outcome kind and the comfort step id are the whole payload vocabulary.
+
+`TechniquePlayableBoard` takes the technique's name as a plain `techniqueName` string resolved by its server parent, because value-importing `SolutionTechniqueEnum` inside that island drags the whole `@suuudokuuu/techniques` package into every technique page's script list. Keep the enum a type-only import there; the dynamic `TechniqueLiveBoard` chunk already carries the package and may read `TECHNIQUE_NAMES` directly.
 
 ### Comfort scale
 

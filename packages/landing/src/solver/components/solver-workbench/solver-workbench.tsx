@@ -1,5 +1,6 @@
 'use client';
 
+import { track } from '@vercel/analytics';
 import { useState } from 'react';
 
 import { getErrorMessage, isDefined } from '@rnw-community/shared';
@@ -16,6 +17,7 @@ export const SolverWorkbench = () => {
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
     const handleOutcome = (nextOutcome: SolverOutcomeType) => {
+        track('solver_used', { outcome: nextOutcome.kind });
         setOutcome(nextOutcome);
         setSelectedStepIndex(null);
         setIsSolving(false);
