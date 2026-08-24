@@ -36,8 +36,9 @@ const HomePage = () => (
         <p>
             Free online sudoku means playing the classic 9×9 number puzzle in a browser or app with no purchase, install limit or paywall,
             and {SITE_NAME} is a free, open-source implementation of it — six difficulty levels from Newbie to Hell, technique-explaining
-            guides, no ads and no tracking. Solve on the web or install the app, then keep the same streaks and stats everywhere. See{' '}
-            <Link href={whySuuudokuuuPageMetadata.path}>why {SITE_NAME} is built this way</Link> for the full, verifiable case.
+            guides, no ads and no tracking in the game. Solve on the web or install the app, then keep the same streaks and stats
+            everywhere. See <Link href={whySuuudokuuuPageMetadata.path}>why {SITE_NAME} is built this way</Link> for the full, verifiable
+            case.
         </p>
         <a className="hero__cta" href={SITE_PLAY_URL}>
             Play now
@@ -53,7 +54,9 @@ const HomePage = () => (
             <SoftwareApplicationFeature>
                 Every puzzle guaranteed to have exactly one solution, no guessing required
             </SoftwareApplicationFeature>
-            <SoftwareApplicationFeature>No ads, no account and no tracking, on the web or in the app</SoftwareApplicationFeature>
+            <SoftwareApplicationFeature>
+                No ads, no account and no tracking inside the game, on the web or in the app
+            </SoftwareApplicationFeature>
             <SoftwareApplicationFeature>Works fully offline once installed, on iOS, Android and the web</SoftwareApplicationFeature>
             <SoftwareApplicationFeature>Shareable puzzle links and full game replays for any solve</SoftwareApplicationFeature>
         </SoftwareApplicationSchema>
@@ -104,7 +107,10 @@ const HomePage = () => (
             </Faq>
             <Faq>
                 <FaqQuestion>Does {SITE_NAME} have ads?</FaqQuestion>
-                <FaqAnswer>No. There are no ads and no third-party tracking, on the web or in the mobile apps.</FaqAnswer>
+                <FaqAnswer>
+                    No. There are no ads anywhere and no tracking inside the game; this website uses only cookieless, anonymous page
+                    analytics.
+                </FaqAnswer>
             </Faq>
             <Faq>
                 <FaqQuestion>Does it work offline?</FaqQuestion>

@@ -1,5 +1,6 @@
 'use client';
 
+import { track } from '@vercel/analytics';
 import { useSyncExternalStore } from 'react';
 
 import { isDefined } from '@rnw-community/shared';
@@ -46,6 +47,7 @@ export const ComfortControl = () => {
     const activeStepId = useSyncExternalStore(subscribeToActiveStep, getClientActiveStepId, getServerActiveStepId);
 
     const handleSelectStep = (step: ComfortScaleStepInterface) => () => {
+        track('comfort_scale_set', { step: step.id });
         applyComfortScaleStep(step);
     };
 

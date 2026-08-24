@@ -34,7 +34,7 @@ export const SiteFooter = () => (
             {SITE_NAME} — {SITE_TAGLINE}
         </p>
         <p className="site-footer__note">
-            Free and open source under the {SITE_LICENSE} license. No ads, no trackers, no account — read{' '}
+            Free and open source under the {SITE_LICENSE} license. No ads, no account, no tracking in the game — read{' '}
             <Link href={whySuuudokuuuPageMetadata.path}>why</Link> or browse the <a href={SITE_GITHUB_URL}>full source on GitHub</a>.
         </p>
     </footer>

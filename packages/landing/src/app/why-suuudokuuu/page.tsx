@@ -29,8 +29,8 @@ const WhySuuudokuuuPage = () => (
             <BreadcrumbListItem>Why {SITE_NAME}</BreadcrumbListItem>
         </PageHeader>
         <p>
-            {SITE_NAME} is a free sudoku app and website with no ads, no third-party trackers and no account. The full source — the puzzle
-            generator, the solvers, the technique detector and the app itself — is published on{' '}
+            {SITE_NAME} is a free sudoku app and website with no ads and no account, and the game itself carries no tracking of any kind.
+            The full source — the puzzle generator, the solvers, the technique detector and the app itself — is published on{' '}
             <a href={SITE_GITHUB_URL}>GitHub under the MIT license</a>. That combination is unusual: most sudoku apps run ads, most closed
             source apps ask you to trust their claims about privacy, and few publish the code that generates and checks the puzzles you are
             actually solving. This page lays out exactly what {SITE_NAME} does, with links to the parts of the codebase that back each
@@ -44,10 +44,11 @@ const WhySuuudokuuuPage = () => (
             same public history. Nothing about generation, solving or scoring happens on a server you cannot inspect; the logic lives in
             plain TypeScript packages anyone can read end to end.
         </p>
-        <h2>No ads, no trackers, no account</h2>
+        <h2>No ads, no account, no tracking in the game</h2>
         <p>
-            {SITE_NAME} ships with no advertising SDK, no analytics SDK and no crash-reporting SDK wired into the app or the website — there
-            is simply nothing in the dependency list to send your activity anywhere. Playing does not require creating an account, entering
+            The game ships with no advertising SDK, no analytics SDK and no crash-reporting SDK — nothing in the app’s dependency list sends
+            your play activity anywhere. This website uses cookieless, anonymous page analytics to see which guides help people, with no
+            cookies, no cross-site profiles and no ad networks; the game never does. Playing does not require creating an account, entering
             an email address or signing in with a third party. Progress, streaks and settings are stored on your own device, not in an
             account database, because there is no account database. If you want to verify this instead of trusting a marketing sentence, the
             dependency manifests are public, and you can grep them for yourself.
