@@ -17,23 +17,19 @@ export const buildPageMetadata = ({ metaDescription, metaTitle, path, publishedA
         description: metaDescription,
         alternates: buildAlternates(path),
         openGraph: {
-            type: 'website',
             siteName: SITE_NAME,
             locale: DEFAULT_LOCALE,
             title: metaTitle,
             description: metaDescription,
             url: buildLocaleUrl(DEFAULT_LOCALE, path),
-            images: openGraphImages
+            images: openGraphImages,
+            ...(path === '/' ? { type: 'website' } : { type: 'article', publishedTime: publishedAt, modifiedTime: updatedAt })
         },
         twitter: {
             card: 'summary_large_image',
             title: metaTitle,
             description: metaDescription,
             images: [imageUrl]
-        },
-        other: {
-            'article:published_time': publishedAt,
-            'article:modified_time': updatedAt
         }
     };
 };
