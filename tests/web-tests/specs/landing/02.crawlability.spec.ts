@@ -23,7 +23,18 @@ const CanonicalPattern = /<link rel="canonical" href="([^"]+)"/u;
 const OgImagePattern = /<meta property="og:image" content="([^"]+)"/u;
 const MarkupTagPattern = /<[^>]+>/gu;
 
-const readHeadings = (html: string): string[] => Array.from(html.matchAll(HeadingPattern), match => match[1].replace(MarkupTagPattern, ''));
+const stripMarkupTags = (text: string): string => {
+    let strippedText = text;
+    let previousText = '';
+    while (strippedText !== previousText) {
+        previousText = strippedText;
+        strippedText = strippedText.replace(MarkupTagPattern, '');
+    }
+
+    return strippedText;
+};
+
+const readHeadings = (html: string): string[] => Array.from(html.matchAll(HeadingPattern), match => stripMarkupTags(match[1]));
 
 test('serves the whole technique worked example as static markup before any JavaScript executes', async ({ request }) => {
     const html = await fetchPageHtml(request, techniquePagePath);

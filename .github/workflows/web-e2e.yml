@@ -6,6 +6,9 @@ on:
     push:
         branches: [main]
 
+permissions:
+    contents: read
+
 concurrency:
     group: web-e2e-${{ github.workflow }}-${{ github.ref }}
     cancel-in-progress: ${{ github.event_name == 'push' }}
