@@ -25,7 +25,7 @@ export const SolverStepItem = ({ children, isSelected, onSelect, step }: Props) 
                 type="button"
             >
                 <span className="solver-steps__index">{step.index + 1}</span>
-                <span className="solver-steps__narration">{step.narration}</span>
+                <span>{step.narration}</span>
             </button>
             <Link className="solver-steps__technique" href={step.techniquePath}>
                 {step.techniqueName}

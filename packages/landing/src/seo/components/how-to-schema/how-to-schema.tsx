@@ -1,4 +1,4 @@
-import { isEmptyArray, isNotEmptyString } from '@rnw-community/shared';
+import { isEmptyArray } from '@rnw-community/shared';
 
 import { SCHEMA_CONTEXT } from '../../constants/schema.constant';
 import { extractNodeText } from '../../utils/extract-node-text.util';
@@ -10,11 +10,10 @@ import type { ReactNode } from 'react';
 
 interface Props {
     name: string;
-    description?: string;
     children: ReactNode;
 }
 
-export const HowToSchema = ({ children, description, name }: Props) => {
+export const HowToSchema = ({ children, name }: Props) => {
     const steps = findSlots(children, HowToStep).map((stepElement, index) => ({
         '@type': 'HowToStep',
         position: index + 1,
@@ -30,7 +29,6 @@ export const HowToSchema = ({ children, description, name }: Props) => {
         '@context': SCHEMA_CONTEXT,
         '@type': 'HowTo',
         name,
-        ...(isNotEmptyString(description) && { description }),
         step: steps
     };
 

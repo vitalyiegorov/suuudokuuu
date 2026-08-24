@@ -1,6 +1,5 @@
+import { getCellKey } from '@suuudokuuu/field-core';
 import { defaultSudokuConfig } from '@suuudokuuu/generator';
-
-import { getCellKey } from '../../@generic/utils/get-cell-key.util';
 
 export const getKeyedCandidates = (indexedCandidates: Record<number, number[]>): Record<string, number[]> => {
     const candidates: Record<string, number[]> = {};

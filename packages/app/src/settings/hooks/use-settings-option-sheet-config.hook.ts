@@ -57,36 +57,15 @@ export const useSettingsOptionSheetConfig = (setting: string | null): SettingsOp
         router.back();
     };
 
-    const cellMarginItems = CellMargin.map(cellMargin => ({
-        description: getCellMarginDescription(cellMargin),
-        isSelected: cellMargin === currentCellMargin,
-        label: getCellMarginLabel(cellMargin),
-        onPress: () => void selectCellMargin(cellMargin)
-    }));
-    const fontSizeItems = FontSizes.map(fontSize => ({
-        description: getFontSizeDescription(fontSize),
-        isSelected: fontSize === currentFontSize,
-        label: getFontSizeLabel(fontSize),
-        onPress: () => void selectFontSize(fontSize)
-    }));
-    const motionPreferenceItems = MotionPreferences.map(motionPreference => ({
-        description: getMotionPreferenceDescription(motionPreference),
-        isSelected: motionPreference === currentMotionPreference,
-        label: getMotionPreferenceLabel(motionPreference),
-        onPress: () => void selectMotionPreference(motionPreference)
-    }));
-    const languageItems = Languages.map(language => ({
-        description: getLanguageDescription(language),
-        isSelected: language === currentLanguage,
-        label: getLanguageLabel(language),
-        onPress: () => void selectLanguage(language),
-        testID: `${SettingsOptionSheetSelectors.Option}.${language}`
-    }));
-
     if (setting === 'cell-margin') {
         return {
             description: t`Choose how much space appears between Sudoku cells`,
-            items: cellMarginItems,
+            items: CellMargin.map(cellMargin => ({
+                description: getCellMarginDescription(cellMargin),
+                isSelected: cellMargin === currentCellMargin,
+                label: getCellMarginLabel(cellMargin),
+                onPress: () => void selectCellMargin(cellMargin)
+            })),
             title: t`Cell spacing`
         };
     }
@@ -94,7 +73,12 @@ export const useSettingsOptionSheetConfig = (setting: string | null): SettingsOp
     if (setting === 'font-size') {
         return {
             description: t`Choose how large board digits appear`,
-            items: fontSizeItems,
+            items: FontSizes.map(fontSize => ({
+                description: getFontSizeDescription(fontSize),
+                isSelected: fontSize === currentFontSize,
+                label: getFontSizeLabel(fontSize),
+                onPress: () => void selectFontSize(fontSize)
+            })),
             title: t`Number size`
         };
     }
@@ -102,7 +86,12 @@ export const useSettingsOptionSheetConfig = (setting: string | null): SettingsOp
     if (setting === 'motion') {
         return {
             description: t`Choose how much the board and screens may animate`,
-            items: motionPreferenceItems,
+            items: MotionPreferences.map(motionPreference => ({
+                description: getMotionPreferenceDescription(motionPreference),
+                isSelected: motionPreference === currentMotionPreference,
+                label: getMotionPreferenceLabel(motionPreference),
+                onPress: () => void selectMotionPreference(motionPreference)
+            })),
             title: t`Animations`
         };
     }
@@ -110,7 +99,13 @@ export const useSettingsOptionSheetConfig = (setting: string | null): SettingsOp
     if (setting === 'language') {
         return {
             description: t`Choose the language used for menus and game text`,
-            items: languageItems,
+            items: Languages.map(language => ({
+                description: getLanguageDescription(language),
+                isSelected: language === currentLanguage,
+                label: getLanguageLabel(language),
+                onPress: () => void selectLanguage(language),
+                testID: `${SettingsOptionSheetSelectors.Option}.${language}`
+            })),
             title: t`Language`
         };
     }

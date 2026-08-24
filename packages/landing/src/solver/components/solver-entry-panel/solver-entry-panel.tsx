@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { EMPTY_PUZZLE_ENTRY, SAMPLE_PUZZLE_ENTRY } from '../../constants/puzzle-entry.constant';
+import { EMPTY_PUZZLE_ENTRY, ENTRY_FIRST_CELL_INDEX, SAMPLE_PUZZLE_ENTRY } from '../../constants/puzzle-entry.constant';
 import { normalizePuzzleEntry } from '../../utils/normalize-puzzle-entry.util';
 import { replaceEntryValue } from '../../utils/replace-entry-value.util';
 import { SolverEntryBoard } from '../solver-entry-board/solver-entry-board';
@@ -8,7 +8,6 @@ import { SolverEntryPad } from '../solver-entry-pad/solver-entry-pad';
 
 import type { ChangeEvent } from 'react';
 
-const FIRST_CELL_INDEX = 0;
 const ENTRY_INPUT_ID = 'solver-entry-string';
 
 interface Props {
@@ -28,7 +27,7 @@ export const SolverEntryPanel = ({ isSolving, onEntryChange, onSolve }: Props) =
     };
 
     const handleEnterValue = (character: string) => {
-        const index = selectedIndex ?? FIRST_CELL_INDEX;
+        const index = selectedIndex ?? ENTRY_FIRST_CELL_INDEX;
 
         setSelectedIndex(index);
         applyEntry(replaceEntryValue(entry, index, character));

@@ -1,5 +1,4 @@
-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { readFileSync } from 'node:fs';
 
 import { ImageResponse } from 'next/og';
 import { createElement } from 'react';
@@ -19,35 +18,28 @@ import { PAGE_METADATA_REGISTRY } from '../src/seo/registries/page-metadata.regi
 import { getOgImageKicker } from '../src/seo/utils/get-og-image-kicker.util';
 import { getOgImageSlug } from '../src/seo/utils/get-og-image-path.util';
 
+import { createPublicDirectory } from './utils/create-public-directory.util';
+import { handleGeneratorError } from './utils/handle-generator-error.util';
+import { writePublicArtifact } from './utils/write-public-artifact.util';
+
 import type { ReactElement } from 'react';
 
-type OgImageResponseOptions = NonNullable<ConstructorParameters<typeof ImageResponse>[1]>;
-
-const OUTPUT_DIRECTORY = join(process.cwd(), 'public', 'og');
+const OUTPUT_DIRECTORY = createPublicDirectory('og');
 const OG_IMAGE_FONT_FAMILY = 'Inter';
 const OG_IMAGE_FONT_WEIGHT_REGULAR = 400;
 const OG_IMAGE_FONT_WEIGHT_SEMIBOLD = 600;
 const OG_IMAGE_FONT_WEIGHT_BOLD = 700;
-const OG_IMAGE_FONTS: OgImageResponseOptions['fonts'] = [
-    {
-        name: OG_IMAGE_FONT_FAMILY,
-        data: readFileSync(require.resolve('@expo-google-fonts/inter/400Regular/Inter_400Regular.ttf')),
-        style: 'normal',
-        weight: OG_IMAGE_FONT_WEIGHT_REGULAR
-    },
-    {
-        name: OG_IMAGE_FONT_FAMILY,
-        data: readFileSync(require.resolve('@expo-google-fonts/inter/600SemiBold/Inter_600SemiBold.ttf')),
-        style: 'normal',
-        weight: OG_IMAGE_FONT_WEIGHT_SEMIBOLD
-    },
-    {
-        name: OG_IMAGE_FONT_FAMILY,
-        data: readFileSync(require.resolve('@expo-google-fonts/inter/700Bold/Inter_700Bold.ttf')),
-        style: 'normal',
-        weight: OG_IMAGE_FONT_WEIGHT_BOLD
-    }
-];
+const OG_IMAGE_FONT_SOURCES = [
+    { weight: OG_IMAGE_FONT_WEIGHT_REGULAR, modulePath: '@expo-google-fonts/inter/400Regular/Inter_400Regular.ttf' },
+    { weight: OG_IMAGE_FONT_WEIGHT_SEMIBOLD, modulePath: '@expo-google-fonts/inter/600SemiBold/Inter_600SemiBold.ttf' },
+    { weight: OG_IMAGE_FONT_WEIGHT_BOLD, modulePath: '@expo-google-fonts/inter/700Bold/Inter_700Bold.ttf' }
+] as const;
+const OG_IMAGE_FONTS = OG_IMAGE_FONT_SOURCES.map(({ modulePath, weight }) => ({
+    name: OG_IMAGE_FONT_FAMILY,
+    data: readFileSync(require.resolve(modulePath)),
+    style: 'normal' as const,
+    weight
+}));
 const GRID_MOTIF_PATTERN =
     '.4...8..6' + '6..3..1..' + '..1.6.4..' + '.......7.' + '2.6...9.4' + '.5.......' + '..7.9.2..' + '..8..5..1' + '3..1...8.';
 const GRID_MOTIF_SIZE = 9;
@@ -238,20 +230,15 @@ const renderOgImage = async (kicker: string, title: string): Promise<Buffer> => 
 };
 
 const generateOgImages = async (): Promise<void> => {
-    mkdirSync(OUTPUT_DIRECTORY, { recursive: true });
-
     for (const pageMetadata of PAGE_METADATA_REGISTRY) {
         const kicker = getOgImageKicker(pageMetadata.path);
         const buffer = await renderOgImage(kicker, pageMetadata.title);
         const fileName = `${getOgImageSlug(pageMetadata.path)}.png`;
 
-        writeFileSync(join(OUTPUT_DIRECTORY, fileName), buffer);
+        writePublicArtifact(OUTPUT_DIRECTORY, fileName, buffer);
     }
 
     console.log(`Generated ${PAGE_METADATA_REGISTRY.length} OG images in ${OUTPUT_DIRECTORY}`);
 };
 
-generateOgImages().catch(error => {
-    console.error(error);
-    process.exitCode = 1;
-});
+generateOgImages().catch(handleGeneratorError);

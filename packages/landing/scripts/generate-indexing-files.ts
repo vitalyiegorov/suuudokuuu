@@ -1,39 +1,37 @@
-import { mkdirSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
+import { readdirSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
 
-import { isNotEmptyString } from '@rnw-community/shared';
+import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
 import { INDEXNOW_KEY_ENVIRONMENT_VARIABLE, LLMS_FILE_NAME } from '../src/indexing/constants/indexnow.constant';
 import { buildIndexNowKeyFileName } from '../src/indexing/utils/build-indexnow-key-file-name.util';
 import { buildLlmsTxt } from '../src/indexing/utils/build-llms-txt.util';
 import { resolveIndexNowKey } from '../src/indexing/utils/resolve-indexnow-key.util';
 
-const PUBLIC_DIRECTORY = join(process.cwd(), 'public');
+import { createPublicDirectory } from './utils/create-public-directory.util';
+import { writePublicArtifact } from './utils/write-public-artifact.util';
 
-const isRootTextFile = (fileName: string): boolean => fileName.endsWith('.txt') && statSync(join(PUBLIC_DIRECTORY, fileName)).isFile();
+const PUBLIC_DIRECTORY = createPublicDirectory();
 
 const removeStaleRootTextFiles = (keptFileNames: string[]): void => {
     readdirSync(PUBLIC_DIRECTORY)
-        .filter(fileName => isRootTextFile(fileName) && !keptFileNames.includes(fileName))
+        .filter(fileName => fileName.endsWith('.txt') && !keptFileNames.includes(fileName))
         .forEach(fileName => {
             rmSync(join(PUBLIC_DIRECTORY, fileName));
             console.log(`Removed stale public/${fileName}`);
         });
 };
 
-mkdirSync(PUBLIC_DIRECTORY, { recursive: true });
-
 const indexNowKey = resolveIndexNowKey();
-const hasIndexNowKey = isNotEmptyString(indexNowKey);
-const keyFileName = hasIndexNowKey ? buildIndexNowKeyFileName(indexNowKey) : '';
+const keyFileName = isNotEmptyString(indexNowKey) ? buildIndexNowKeyFileName(indexNowKey) : undefined;
 
-removeStaleRootTextFiles([LLMS_FILE_NAME, ...(hasIndexNowKey ? [keyFileName] : [])]);
+removeStaleRootTextFiles([LLMS_FILE_NAME, ...(isDefined(keyFileName) ? [keyFileName] : [])]);
 
-writeFileSync(join(PUBLIC_DIRECTORY, LLMS_FILE_NAME), buildLlmsTxt(), 'utf8');
+writePublicArtifact(PUBLIC_DIRECTORY, LLMS_FILE_NAME, buildLlmsTxt());
 console.log(`Wrote public/${LLMS_FILE_NAME}`);
 
-if (hasIndexNowKey) {
-    writeFileSync(join(PUBLIC_DIRECTORY, keyFileName), indexNowKey, 'utf8');
+if (isDefined(keyFileName)) {
+    writePublicArtifact(PUBLIC_DIRECTORY, keyFileName, indexNowKey);
     console.log(`Wrote public/${keyFileName} (IndexNow key file, exact plaintext, no trailing newline)`);
 } else {
     console.log(

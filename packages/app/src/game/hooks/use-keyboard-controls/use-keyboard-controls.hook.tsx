@@ -3,6 +3,7 @@ import { TextInput } from 'react-native';
 
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { gameToggleInputModeAction } from '../../store/game.actions';
+import { gameGetInputStatePayload } from '../../utils/game-get-input-state-payload.util';
 
 import { UseKeyboardControlsStyles as styles } from './use-keyboard-controls.styles';
 import { keyboardKeyToAction } from './utils/keyboard-key-to-action.util';
@@ -38,7 +39,7 @@ export const useKeyboardControls = (
             onSelectCell(action.cell);
         } else if (action.type === 'toggle-input-mode') {
             engine.toggleInputMode();
-            dispatch(gameToggleInputModeAction());
+            dispatch(gameToggleInputModeAction(gameGetInputStatePayload(engine)));
         } else if (action.type === 'exit') {
             onExit();
         } else if (action.type === 'select-value') {

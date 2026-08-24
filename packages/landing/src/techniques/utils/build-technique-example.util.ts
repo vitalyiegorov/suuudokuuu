@@ -22,8 +22,6 @@ const buildExampleCell = (sudoku: Sudoku, result: TechniqueResultInterface, cell
     const isPlacedCell = isTargetCell && result.kind === 'placement';
 
     return {
-        row: cell.y,
-        column: cell.x,
         label: formatCellLabel(cell),
         value: cell.value,
         placedValue: isPlacedCell ? result.value : BLANK_CELL_VALUE,

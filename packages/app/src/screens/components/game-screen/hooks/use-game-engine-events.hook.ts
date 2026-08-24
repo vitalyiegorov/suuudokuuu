@@ -17,8 +17,7 @@ import {
     gameDifficultySelector,
     gameElapsedTimeSelector,
     gameHasRivalSelector,
-    gameMaxMistakesSelector,
-    gameMistakesSelector
+    gameMaxMistakesSelector
 } from '../../../../game/store/game.selectors';
 import { gameGetSavePayload } from '../../../../game/utils/game-get-save-payload.util';
 import { gameScreenGetLostRoute, gameScreenGetWonRoute } from '../utils/game-screen-get-result-route.util';
@@ -37,7 +36,6 @@ export const useGameEngineEvents = (fieldRef: RefObject<FieldRef | null>): void 
     const [hapticNotification, hapticImpact] = useVibration();
 
     const dispatch = useAppDispatch();
-    const mistakes = useAppSelector(gameMistakesSelector);
     const maxMistakes = useAppSelector(gameMaxMistakesSelector);
     const hasRival = useAppSelector(gameHasRivalSelector);
     const challengeTime = useAppSelector(gameChallengeTimeSelector);
@@ -54,7 +52,7 @@ export const useGameEngineEvents = (fieldRef: RefObject<FieldRef | null>): void 
         };
 
         const unsubscribeMoveApplied = engine.on('moveApplied', move => {
-            dispatch(gameSaveAction(gameGetSavePayload(engine.Sudoku, move)));
+            dispatch(gameSaveAction(gameGetSavePayload(engine, move)));
 
             hapticNotification(Haptics.NotificationFeedbackType.Success);
 
@@ -67,7 +65,7 @@ export const useGameEngineEvents = (fieldRef: RefObject<FieldRef | null>): void 
 
             const mistakeCount = mistake.mistakes;
 
-            if (mistakes + 1 >= maxMistakes) {
+            if (mistakeCount >= maxMistakes) {
                 AccessibilityInfo.announceForAccessibility(t`Wrong value. Too many mistakes, the run is over.`);
                 finishLostGame();
             } else {
@@ -104,7 +102,6 @@ export const useGameEngineEvents = (fieldRef: RefObject<FieldRef | null>): void 
         hapticNotification,
         hasRival,
         maxMistakes,
-        mistakes,
         router,
         startWinConfetti,
         t

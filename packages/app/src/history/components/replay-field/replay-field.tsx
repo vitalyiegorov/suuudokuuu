@@ -1,6 +1,6 @@
+import { getCellKey } from '@suuudokuuu/field-core';
 import { View } from 'react-native';
 
-import { getCellKey } from '../../../@generic/utils/get-cell-key.util';
 import { FieldStyles as styles } from '../../../game/components/field/field.styles';
 import { ReplayFieldCell } from '../replay-field-cell/replay-field-cell';
 

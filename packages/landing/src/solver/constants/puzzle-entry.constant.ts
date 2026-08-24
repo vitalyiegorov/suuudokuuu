@@ -1,5 +1,6 @@
 export const ENTRY_GRID_SIZE = 9;
 export const ENTRY_CELL_COUNT = ENTRY_GRID_SIZE * ENTRY_GRID_SIZE;
+export const ENTRY_FIRST_CELL_INDEX = 0;
 export const ENTRY_BLANK_CHARACTER = '.';
 export const ENTRY_GRID_BLANK_CHARACTER = '0';
 export const ENTRY_DIGIT_PATTERN = /^[1-9]$/u;

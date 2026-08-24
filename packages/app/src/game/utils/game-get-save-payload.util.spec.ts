@@ -42,12 +42,13 @@ describe('gameGetSavePayload', () => {
                 throw new Error('Expected the engine to apply the scripted placement');
             }
 
-            const payload = gameGetSavePayload(engine.Sudoku, move);
+            const payload = gameGetSavePayload(engine, move);
 
             expect(payload.correctCell).toStrictEqual(legacyCell);
             expect(payload.scoredCells).toStrictEqual(legacyScoredCells);
             expect(payload.technique).toBe(legacyTechnique);
-            expect(payload.sudoku.toString()).toBe(legacySudoku.toString());
+            expect(payload.sudokuString).toBe(legacySudoku.toString());
+            expect(payload.candidates).toStrictEqual(engine.serialize().candidates);
         }
     });
 });

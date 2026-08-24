@@ -2,13 +2,13 @@ import { describe, expect, it } from '@jest/globals';
 
 import { isDefined } from '@rnw-community/shared';
 
-import { ColorVisionDeficiencyEnum } from '../enum/color-vision-deficiency.enum';
-import { getColorDifference, getLightnessDifference } from '../utils/get-color-difference.util';
 import { parseColor } from '../utils/parse-color.util';
-import { simulateColorVisionDeficiency } from '../utils/simulate-color-vision-deficiency.util';
 
+import { ColorVisionDeficiencyEnum } from './color-vision-deficiency.mock';
 import { ColorblindSafeDarkTheme, ColorblindSafeLightTheme } from './colorblind-safe.theme';
+import { getColorDifference, getLightnessDifference } from './get-color-difference.mock';
 import { HighContrastDarkTheme, HighContrastLightTheme } from './high-contrast.theme';
+import { simulateColorVisionDeficiency } from './simulate-color-vision-deficiency.mock';
 
 import type { ParsedColorInterface } from '../utils/parse-color.util';
 import type { ThemeInterface } from '@suuudokuuu/ui/theme';

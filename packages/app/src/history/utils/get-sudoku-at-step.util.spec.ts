@@ -1,9 +1,9 @@
 import { describe, expect, it } from '@jest/globals';
 import { TimelineEventKindEnum } from '@suuudokuuu/encoder';
+import { getCellKey } from '@suuudokuuu/field-core';
 import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
-import { getCellKey } from '../../@generic/utils/get-cell-key.util';
 import { initialGameState } from '../../game/store/game.state';
 
 import { getSudokuAtStep } from './get-sudoku-at-step.util';

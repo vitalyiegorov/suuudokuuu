@@ -13,6 +13,7 @@ import {
     gameShowAutoCandidatesSelector,
     gameSudokuStringSelector
 } from '../store/game.selectors';
+import { gameCreateEngine } from '../utils/game-create-engine.util';
 
 import type { OnEventFn } from '@rnw-community/shared';
 import type { Dispatch, SetStateAction } from 'react';
@@ -28,7 +29,7 @@ export const useGameEngineState = (onInvalidState: OnEventFn<unknown>): [FieldEn
     return useState(() => {
         if (isNotEmptyString(sudokuString)) {
             try {
-                return new FieldEngine({ sudokuString, difficulty, candidates, inputMode, showAutoCandidates, mistakes });
+                return gameCreateEngine({ sudokuString, difficulty, candidates, inputMode, showAutoCandidates, mistakes });
             } catch (error: unknown) {
                 onInvalidState(error);
             }

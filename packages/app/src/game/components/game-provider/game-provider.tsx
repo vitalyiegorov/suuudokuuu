@@ -12,6 +12,7 @@ import { GameContext } from '../../context/game.context';
 import { useGameCreationRunner } from '../../hooks/use-game-creation-runner.hook';
 import { useGameEngineState } from '../../hooks/use-game-engine-state.hook';
 import { gameLoadAction, gameResumeAction, gameStartAction } from '../../store/game.actions';
+import { gameCreateEngine } from '../../utils/game-create-engine.util';
 
 import type { GameSetupInterface } from '../../interface/game-setup.interface';
 import type { GameState } from '../../store/game.state';
@@ -35,16 +36,7 @@ export const GameProvider = ({ children }: Props) => {
             const needsWallClock = isNotEmptyString(newState.challengeState) || newState.isChallengeRun;
             dispatch(gameLoadAction({ ...newState, ...(needsWallClock && { wallClockStartMs: Date.now() }) }));
 
-            setEngine(
-                new FieldEngine({
-                    sudokuString: newState.sudokuString,
-                    difficulty: newState.difficulty,
-                    candidates: newState.candidates,
-                    inputMode: newState.inputMode,
-                    showAutoCandidates: newState.showAutoCandidates,
-                    mistakes: newState.mistakes
-                })
-            );
+            setEngine(gameCreateEngine(newState));
 
             dispatch(gameResumeAction());
 

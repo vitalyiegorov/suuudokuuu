@@ -5,16 +5,13 @@ import { DifficultyNavigation } from '../../../difficulty/components/difficulty-
 import { getDifficultyClueCount } from '../../../difficulty/utils/get-difficulty-clue-count.util';
 import { PrintableDownloadCard } from '../../../printable/components/printable-download-card/printable-download-card';
 import { PrintableDownloadFact } from '../../../printable/components/printable-download-fact/printable-download-fact';
-import {
-    PRINTABLE_BOOKLET_PUZZLES_PER_PAGE,
-    PRINTABLE_BOOKLET_SOLUTIONS_PER_PAGE
-} from '../../../printable/constants/printable-layout.constant';
+import { PRINTABLE_BOOKLET_PUZZLES_PER_PAGE } from '../../../printable/constants/printable-layout.constant';
+import { PRINTABLE_BOOKLET_PAGE_COUNT } from '../../../printable/constants/printable-page-count.constant';
 import {
     PRINTABLE_BOOKLET_PUZZLES,
     PRINTABLE_BOOKLET_SIZE,
     PRINTABLE_LARGE_PRINT_SIZE
 } from '../../../printable/constants/printable-sample.constant';
-import { getPrintableBookletPageCount } from '../../../printable/utils/get-printable-booklet-page-count.util';
 import { getPrintableFileSizeLabel } from '../../../printable/utils/get-printable-file-size-label.util';
 import { PuzzleBoard } from '../../../puzzle/components/puzzle-board/puzzle-board';
 import { SeRatingRange } from '../../../rating/components/se-rating-range/se-rating-range';
@@ -42,11 +39,6 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = buildPageMetadata(printableEasySudokuPageMetadata);
 
-const PAGE_COUNT = getPrintableBookletPageCount(
-    PRINTABLE_BOOKLET_SIZE,
-    PRINTABLE_BOOKLET_PUZZLES_PER_PAGE,
-    PRINTABLE_BOOKLET_SOLUTIONS_PER_PAGE
-);
 const [PREVIEW_PUZZLE] = PRINTABLE_BOOKLET_PUZZLES[DifficultyEnum.Easy];
 const easyReport = getTierTechniqueReport(DifficultyEnum.Easy);
 
@@ -83,7 +75,7 @@ const PrintableEasySudokuPage = () => (
         <PuzzleBoard givens={PREVIEW_PUZZLE}>Puzzle 1 from the Easy booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF.</PuzzleBoard>
         <PrintableDownloadCard fileName="easy.pdf" title="Easy Sudoku">
             <PrintableDownloadFact>{PRINTABLE_BOOKLET_SIZE} puzzles</PrintableDownloadFact>
-            <PrintableDownloadFact>{PAGE_COUNT} pages</PrintableDownloadFact>
+            <PrintableDownloadFact>{PRINTABLE_BOOKLET_PAGE_COUNT} pages</PrintableDownloadFact>
             <PrintableDownloadFact>{getPrintableFileSizeLabel('easy.pdf')} PDF, US Letter</PrintableDownloadFact>
             <PrintableDownloadFact>Solutions included on the last pages</PrintableDownloadFact>
         </PrintableDownloadCard>
@@ -135,7 +127,8 @@ const PrintableEasySudokuPage = () => (
             <Faq>
                 <FaqQuestion>How many puzzles are in the printable Easy sudoku PDF?</FaqQuestion>
                 <FaqAnswer>
-                    {PRINTABLE_BOOKLET_SIZE} puzzles across {PAGE_COUNT} pages, four to a page, with the solved grids at the back.
+                    {PRINTABLE_BOOKLET_SIZE} puzzles across {PRINTABLE_BOOKLET_PAGE_COUNT} pages, four to a page, with the solved grids at
+                    the back.
                 </FaqAnswer>
             </Faq>
         </FaqPage>

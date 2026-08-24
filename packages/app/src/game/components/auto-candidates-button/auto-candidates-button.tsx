@@ -8,6 +8,7 @@ import { GameScreenSelectors } from '../../../screens/components/game-screen/gam
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { GameContext } from '../../context/game.context';
 import { gameToggleAutoCandidatesAction } from '../../store/game.actions';
+import { gameGetInputStatePayload } from '../../utils/game-get-input-state-payload.util';
 
 import type { StyleProp, ViewStyle } from 'react-native';
 
@@ -24,7 +25,7 @@ export const AutoCandidatesButton = ({ sizeStyle }: Props) => {
 
     const handleCandidates = () => {
         engine.toggleShowAutoCandidates();
-        dispatch(gameToggleAutoCandidatesAction());
+        dispatch(gameToggleAutoCandidatesAction(gameGetInputStatePayload(engine)));
     };
 
     const isActive = !snapshot.showAutoCandidates;

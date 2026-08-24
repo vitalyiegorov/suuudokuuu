@@ -7,6 +7,9 @@ import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { gameToggleAutoCandidatesAction, gameToggleCellCandidateAction, gameToggleInputModeAction } from '../../store/game.actions';
 import { gameMaxMistakesSelector } from '../../store/game.selectors';
+import { gameGetArrowTargetCell } from '../../utils/game-get-arrow-target-cell.util';
+import { gameGetCellCandidatePayload } from '../../utils/game-get-cell-candidate-payload.util';
+import { gameGetInputStatePayload } from '../../utils/game-get-input-state-payload.util';
 
 import { useHistoryShortcut } from './use-history-shortcut.hook';
 
@@ -54,22 +57,7 @@ export const useKeyboardControls = (
 
             if (ARROW_KEYS.includes(key)) {
                 e.preventDefault();
-                const currentCell = selectedCell ?? sudoku.Field[0][0];
-                const lastRowIndex = sudoku.Field.length - 1;
-                const lastColIndex = sudoku.Field[currentCell.y].length - 1;
-
-                let nextCell: CellInterface | undefined;
-                if (key === 'ArrowUp') {
-                    nextCell = sudoku.getCellUp(currentCell) ?? sudoku.Field[lastRowIndex][currentCell.x];
-                } else if (key === 'ArrowDown') {
-                    nextCell = sudoku.getCellDown(currentCell) ?? sudoku.Field[0][currentCell.x];
-                } else if (key === 'ArrowLeft') {
-                    nextCell = sudoku.getCellLeft(currentCell) ?? sudoku.Field[currentCell.y][lastColIndex];
-                } else if (key === 'ArrowRight') {
-                    nextCell = sudoku.getCellRight(currentCell) ?? sudoku.Field[currentCell.y][0];
-                }
-
-                onSelectCell(nextCell);
+                onSelectCell(gameGetArrowTargetCell(sudoku, selectedCell ?? sudoku.Field[0][0], key));
 
                 return;
             }
@@ -79,7 +67,7 @@ export const useKeyboardControls = (
 
                 if (isDefined(selectedCell)) {
                     engine.toggleInputMode();
-                    dispatch(gameToggleInputModeAction());
+                    dispatch(gameToggleInputModeAction(gameGetInputStatePayload(engine)));
                 }
 
                 return;
@@ -90,7 +78,7 @@ export const useKeyboardControls = (
 
                 if (canToggleAutoCandidates) {
                     engine.toggleShowAutoCandidates();
-                    dispatch(gameToggleAutoCandidatesAction());
+                    dispatch(gameToggleAutoCandidatesAction(gameGetInputStatePayload(engine)));
                 }
 
                 return;
@@ -112,7 +100,7 @@ export const useKeyboardControls = (
                 if (shiftKey) {
                     if (sudoku.isBlankCell(selectedCell)) {
                         engine.toggleCandidate(selectedCell, value);
-                        dispatch(gameToggleCellCandidateAction({ ...selectedCell, value }));
+                        dispatch(gameToggleCellCandidateAction(gameGetCellCandidatePayload(engine, { ...selectedCell, value })));
                     }
                 } else {
                     onSelectValue(value);

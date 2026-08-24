@@ -104,13 +104,15 @@ strong {
     text-decoration: none;
 }
 
-.link-list {
+.link-list,
+.technique-index {
     margin: 0 0 2rem;
     padding: 0;
     list-style: none;
 }
 
-.link-list li {
+.link-list li,
+.technique-index li {
     margin: 0 0 0.75rem;
 }
 
@@ -436,7 +438,9 @@ strong {
 }
 
 .technique-embed__start,
-.technique-embed__action {
+.technique-embed__action,
+.solver-entry__solve,
+.solver-entry__action {
     padding: 0.6rem 1.1rem;
     border: 1px solid var(--landing-accent-color);
     border-radius: 0.35rem;
@@ -544,16 +548,6 @@ strong {
     font-weight: 600;
 }
 
-.technique-index {
-    margin: 0 0 2rem;
-    padding: 0;
-    list-style: none;
-}
-
-.technique-index li {
-    margin: 0 0 0.75rem;
-}
-
 .solver-workbench {
     margin: 1.5rem 0 2.5rem;
     padding: 1.25rem;
@@ -648,18 +642,6 @@ strong {
     display: flex;
     flex-wrap: wrap;
     gap: 0.65rem;
-}
-
-.solver-entry__solve,
-.solver-entry__action {
-    padding: 0.6rem 1.1rem;
-    border: 1px solid var(--landing-accent-color);
-    border-radius: 0.35rem;
-    background-color: transparent;
-    color: var(--landing-accent-color);
-    font: inherit;
-    font-weight: 600;
-    cursor: pointer;
 }
 
 .solver-entry__solve {

@@ -1,10 +1,10 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { TimelineEventKindEnum } from '@suuudokuuu/encoder';
+import { getCellKey } from '@suuudokuuu/field-core';
 import { defaultSudokuConfig } from '@suuudokuuu/generator';
 
 import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
-import { getCellKey } from '../../@generic/utils/get-cell-key.util';
 import { SudokuScoring } from '../../scoring/classes/sudoku-scoring';
 import { defaultScoringConfig } from '../../scoring/interfaces/scoring-config.interface';
 import { gameApplyTechniqueUsageDelta } from '../utils/game-apply-technique-usage-delta.util';
@@ -18,6 +18,7 @@ import { isLastTimelineEventAway } from '../utils/is-last-timeline-event-away.ut
 import { initialGameState } from './game.state';
 
 import type { GameState } from './game.state';
+import type { GameCellCandidatePayloadInterface } from '../interface/game-cell-candidate-payload.interface';
 import type { GameFieldStatePayloadInterface } from '../interface/game-field-state-payload.interface';
 import type { GameFinishPayloadInterface } from '../interface/game-finish-payload.interface';
 import type { GameHintPayloadInterface } from '../interface/game-hint-payload.interface';
@@ -99,11 +100,11 @@ export const gameSlice = createSlice({
             state.shouldResumeOnFocus = false;
         },
         save: (state, action: PayloadAction<GameSavePayloadInterface>) => {
-            const { sudoku, correctCell, scoredCells, technique } = action.payload;
+            const { sudokuString, candidates, correctCell, scoredCells, technique } = action.payload;
 
             const scoring = new SudokuScoring(defaultScoringConfig);
 
-            state.sudokuString = sudoku.toString();
+            state.sudokuString = sudokuString;
 
             const score = scoring.calculate({
                 scoredCells,
@@ -129,24 +130,7 @@ export const gameSlice = createSlice({
                 gameApplyTechniqueUsageDelta(state.techniqueUsageCounts, technique, 1);
             }
 
-            state.candidates[getCellKey(correctCell)] = [];
-
-            sudoku.Field.forEach(
-                row =>
-                    void row.forEach(cell => {
-                        if (
-                            sudoku.isBlankCell(cell) &&
-                            (cell.x === correctCell.x || cell.y === correctCell.y || cell.group === correctCell.group)
-                        ) {
-                            const possibleCandidates = sudoku.getCellCandidates(cell);
-
-                            const key = getCellKey(cell);
-                            const currentCandidates = state.candidates[key] ?? [];
-
-                            state.candidates[key] = currentCandidates.filter(candidate => possibleCandidates.includes(candidate));
-                        }
-                    })
-            );
+            state.candidates = candidates;
         },
         hint: (state, action: PayloadAction<GameHintPayloadInterface>) => {
             const scoring = new SudokuScoring(defaultScoringConfig);
@@ -212,12 +196,11 @@ export const gameSlice = createSlice({
         reset: state => {
             Object.assign(state, { ...initialGameState, ...gameGetPersistedAggregates(state) });
         },
-        toggleShowAutoCandidates: state => {
-            state.showAutoCandidates = !state.showAutoCandidates;
+        toggleShowAutoCandidates: (state, action: PayloadAction<Pick<GameState, 'inputMode' | 'showAutoCandidates'>>) => {
+            state.showAutoCandidates = action.payload.showAutoCandidates;
+            state.inputMode = action.payload.inputMode;
 
             if (state.showAutoCandidates) {
-                state.inputMode = 'normal';
-
                 const hasRecordedAssist = state.timelineEvents.some(event => event.kind === TimelineEventKindEnum.AutoCandidates);
 
                 if (!hasRecordedAssist) {
@@ -228,33 +211,21 @@ export const gameSlice = createSlice({
                 }
             }
         },
-        toggleInputMode: state => {
-            const newMode = state.inputMode === 'normal' ? 'candidate' : 'normal';
-            state.inputMode = newMode;
-
-            if (newMode === 'candidate') {
-                state.showAutoCandidates = false;
-            }
+        toggleInputMode: (state, action: PayloadAction<Pick<GameState, 'inputMode' | 'showAutoCandidates'>>) => {
+            state.inputMode = action.payload.inputMode;
+            state.showAutoCandidates = action.payload.showAutoCandidates;
         },
-        toggleCellCandidate: (state, action: PayloadAction<CellInterface>) => {
-            const { value } = action.payload;
+        toggleCellCandidate: (state, action: PayloadAction<GameCellCandidatePayloadInterface>) => {
+            const { candidates, cell } = action.payload;
 
-            const key = getCellKey(action.payload);
-            const candidates = state.candidates[key] ?? [];
-
+            state.candidates = candidates;
             state.undoneMoves = [];
-
-            if (candidates.includes(value)) {
-                state.candidates[key] = candidates.filter(val => val !== value);
-            } else {
-                state.candidates[key] = [...candidates, value];
-            }
 
             if (state.isChallengeRun) {
                 state.timelineEvents.push({
                     kind: TimelineEventKindEnum.Pencil,
-                    cellIndex: action.payload.y * defaultSudokuConfig.fieldSize + action.payload.x,
-                    value,
+                    cellIndex: cell.y * defaultSudokuConfig.fieldSize + cell.x,
+                    value: cell.value,
                     ts: getTimelineTimestampDelta(state.timelineEvents, state.elapsedTime)
                 });
             }

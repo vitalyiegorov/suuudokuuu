@@ -22,9 +22,6 @@ interface CandidateInterface {
     match: PuzzleBandMatchInterface;
 }
 
-const withinBandRank = 2;
-const aboveSimplerLadderRank = 1;
-
 const corpusPickers: Record<PuzzleCorpusType, (random: SeededRandomType) => RatedCorpusPuzzleInterface> = {
     hell: pickHellPuzzleRecord,
     infinity: pickInfinityPuzzle
@@ -51,8 +48,8 @@ const createCandidate = (
 const createAttemptRandom = (attemptSeedRandom: SeededRandomType): SeededRandomType =>
     createSeededRandom(Math.floor(attemptSeedRandom() * PUZZLE_FORGE_SEED_RANGE));
 
-const getCandidateRank = (match: PuzzleBandMatchInterface): number =>
-    (match.isWithinBand ? withinBandRank : 0) + (match.isAboveSimplerLadder ? aboveSimplerLadderRank : 0);
+const isBetterMatch = (match: PuzzleBandMatchInterface, bestMatch: PuzzleBandMatchInterface): boolean =>
+    match.isWithinBand === bestMatch.isWithinBand ? match.isAboveSimplerLadder && !bestMatch.isAboveSimplerLadder : match.isWithinBand;
 
 const forgeCorpusPuzzle = (corpus: PuzzleCorpusType, seed: number): ForgedPuzzleInterface => {
     const { puzzle, rating, isCeiling } = corpusPickers[corpus](createSeededRandom(seed));
@@ -78,7 +75,7 @@ export const forgePuzzle = (
     for (let attempt = 1; attempt < maxAttempts && !bestCandidate.match.isWithinBand; attempt += 1) {
         const candidate = createCandidate(config, difficulty, band, createAttemptRandom(attemptSeedRandom));
 
-        if (getCandidateRank(candidate.match) > getCandidateRank(bestCandidate.match)) {
+        if (isBetterMatch(candidate.match, bestCandidate.match)) {
             bestCandidate = candidate;
         }
     }

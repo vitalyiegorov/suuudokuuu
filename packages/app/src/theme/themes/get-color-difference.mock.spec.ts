@@ -1,6 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 
-import { getColorDifference, getLightnessDifference } from './get-color-difference.util';
+import { getColorDifference, getLightnessDifference } from './get-color-difference.mock';
 
 const white = { red: 255, green: 255, blue: 255, alpha: 1 };
 const black = { red: 0, green: 0, blue: 0, alpha: 1 };

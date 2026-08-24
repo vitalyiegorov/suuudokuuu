@@ -6,11 +6,11 @@ import { getHellCorpusRecord } from '@suuudokuuu/hell-corpus';
 import { forgePuzzle } from '@suuudokuuu/puzzle-forge';
 
 import { DIFFICULTY_LADDER, DIFFICULTY_NAMES } from '../src/difficulty/constants/difficulty-name.constant';
-import { RATING_SAMPLE_SIZE } from '../src/rating/constants/rating-sample.constant';
 
 import type { LandingDifficultyType } from '../src/difficulty/types/landing-difficulty.type';
 import type { RatedSamplePuzzleInterface } from '../src/rating/interfaces/rated-sample-puzzle.interface';
 
+const RATING_SAMPLE_SIZE = 40;
 const SAMPLE_FILE_PATH = join(import.meta.dirname, '..', 'src', 'rating', 'constants', 'rating-sample.constant.ts');
 const FORGE_ATTEMPT_BUDGET = 256;
 const IN_BAND_RETRY_LIMIT = 8;

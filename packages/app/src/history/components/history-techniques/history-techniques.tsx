@@ -10,7 +10,6 @@ import { techniqueLabelsConstant } from '../../../@generic/constants/technique-l
 import { formatSeRatingValue } from '../../../@generic/utils/format-se-rating-value.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { HistoryTechniqueTilesPerRow } from '../../constants/history-technique-grid.constant';
-import { historyGetBestTechnique } from '../../utils/history-get-best-technique.util';
 import { historyGetTechniqueUsageList } from '../../utils/history-get-technique-usage.util';
 import { HistoryTechniqueTile } from '../history-technique-tile/history-technique-tile';
 
@@ -28,7 +27,7 @@ export const HistoryTechniques = ({ techniqueUsageCounts }: Props) => {
     const { theme } = use(ThemeContext);
     const { _ } = useLingui();
     const usageList = historyGetTechniqueUsageList(techniqueUsageCounts);
-    const bestTechniqueUsage = historyGetBestTechnique(usageList);
+    const [bestTechniqueUsage] = usageList;
 
     if (!isDefined(bestTechniqueUsage)) {
         return null;

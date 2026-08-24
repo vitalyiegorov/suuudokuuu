@@ -1,6 +1,6 @@
-import { linearizeSrgbChannel } from './srgb-channel.util';
+import { linearizeSrgbChannel } from '../utils/srgb-channel.util';
 
-import type { ParsedColorInterface } from './parse-color.util';
+import type { ParsedColorInterface } from '../utils/parse-color.util';
 
 interface LabColorInterface {
     readonly lightness: number;

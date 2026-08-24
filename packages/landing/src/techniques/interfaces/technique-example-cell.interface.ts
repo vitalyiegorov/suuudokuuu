@@ -1,6 +1,4 @@
 export interface TechniqueExampleCellInterface {
-    row: number;
-    column: number;
     label: string;
     value: number;
     placedValue: number;

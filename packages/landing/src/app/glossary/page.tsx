@@ -11,7 +11,7 @@ import { PageHeader } from '../../seo/components/page-header/page-header';
 import { buildPageMetadata } from '../../seo/utils/build-page-metadata.util';
 import { TechniqueLink } from '../../techniques/components/technique-link/technique-link';
 import { TechniqueSummary } from '../../techniques/components/technique-summary/technique-summary';
-import { getTechniquePageCount } from '../../techniques/utils/get-technique-page-count.util';
+import { TECHNIQUE_PAGE_LADDER } from '../../techniques/constants/technique-page-ladder.constant';
 import { howToPlayPageMetadata } from '../how-to-play/metadata';
 import { homePageMetadata } from '../metadata';
 import { aicPageMetadata } from '../techniques/aic/metadata';
@@ -33,7 +33,7 @@ const GlossaryPage = () => (
         <p>
             Sudoku terms are the grid vocabulary — cell, row, column, box, candidate, given — plus every named solving technique, from full
             house to alternating inference chain, that justifies a placement or an elimination. This glossary defines all{' '}
-            {getTechniquePageCount()} of those techniques plus the core vocabulary, matching the{' '}
+            {TECHNIQUE_PAGE_LADDER.length} of those techniques plus the core vocabulary, matching the{' '}
             <Link href={howToPlayPageMetadata.path}>how to play guide</Link> and the{' '}
             <Link href={techniquesPageMetadata.path}>technique index</Link>.
         </p>

@@ -1,9 +1,8 @@
 import { describe, expect, it } from '@jest/globals';
 
-import { ColorVisionDeficiencyEnum } from '../enum/color-vision-deficiency.enum';
-
-import { getColorDifference } from './get-color-difference.util';
-import { simulateColorVisionDeficiency } from './simulate-color-vision-deficiency.util';
+import { ColorVisionDeficiencyEnum } from './color-vision-deficiency.mock';
+import { getColorDifference } from './get-color-difference.mock';
+import { simulateColorVisionDeficiency } from './simulate-color-vision-deficiency.mock';
 
 const pureRed = { red: 255, green: 0, blue: 0, alpha: 1 };
 const pureGreen = { red: 0, green: 255, blue: 0, alpha: 1 };

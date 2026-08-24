@@ -1,5 +1,6 @@
 import { plural } from '@lingui/core/macro';
 import { useLingui } from '@lingui/react/macro';
+import { getCellKey } from '@suuudokuuu/field-core';
 import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { use } from 'react';
 import { Pressable, Text, View } from 'react-native';
@@ -8,7 +9,6 @@ import Reanimated, { interpolateColor, useAnimatedStyle, useDerivedValue, withTi
 import { cs, isDefined } from '@rnw-community/shared';
 
 import { useReduceMotion } from '../../../@generic/hooks/use-reduce-motion.hook';
-import { getCellKey } from '../../../@generic/utils/get-cell-key.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { PanelControlHitSlopConstant } from '../../constant/panel-control-size.constant';
 import { GameContext } from '../../context/game.context';
