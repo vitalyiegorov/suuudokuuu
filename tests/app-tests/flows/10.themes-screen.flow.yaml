@@ -14,6 +14,13 @@ appId: ${APP_ID}
       element:
           id: 'SettingsScreenSelectors.ThemeOption'
       direction: DOWN
+# Overscroll past the target so the row sits above the floating tab bar;
+# a bottom-edge row registers the tap on the bar's blur surface on Android.
+# Same pattern as 05.settings-screen scrolling to Dark mode before tapping.
+- scrollUntilVisible:
+      element:
+          text: 'Animations'
+      direction: DOWN
 - tapOn:
       id: 'SettingsScreenSelectors.ThemeOption'
 - extendedWaitUntil:
