@@ -2,14 +2,12 @@ import { useEffect, useRef } from 'react';
 
 import { isDefined } from '@rnw-community/shared';
 
-import { ENTRY_GRID_INDEXES, ENTRY_GRID_SIZE } from '../../constants/puzzle-entry.constant';
+import { ENTRY_FIRST_CELL_INDEX, ENTRY_GRID_INDEXES, ENTRY_GRID_SIZE } from '../../constants/puzzle-entry.constant';
 import { moveEntrySelection } from '../../utils/move-entry-selection.util';
 import { readEntryKey } from '../../utils/read-entry-key.util';
 import { SolverEntryCell } from '../solver-entry-cell/solver-entry-cell';
 
 import type { KeyboardEvent } from 'react';
-
-const FIRST_CELL_INDEX = 0;
 
 interface Props {
     entry: string;
@@ -21,7 +19,7 @@ interface Props {
 export const SolverEntryBoard = ({ entry, onEnterValue, onSelect, selectedIndex }: Props) => {
     const selectedCellRef = useRef<HTMLButtonElement>(null);
     const isKeyboardNavigationRef = useRef(false);
-    const focusableIndex = selectedIndex ?? FIRST_CELL_INDEX;
+    const focusableIndex = selectedIndex ?? ENTRY_FIRST_CELL_INDEX;
 
     useEffect(() => {
         if (isKeyboardNavigationRef.current) {

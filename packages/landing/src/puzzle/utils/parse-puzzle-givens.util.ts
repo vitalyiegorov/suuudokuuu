@@ -11,8 +11,6 @@ export const parsePuzzleGivens = (givens: string): PuzzleBoardRowInterface[] =>
     Array.from({ length: GRID_SIZE }, (_, row) => ({
         index: row,
         cells: Array.from({ length: GRID_SIZE }, (_, column) => ({
-            row,
-            column,
             label: buildCellLabel(row, column),
             value: buildCellValue(givens[row * GRID_SIZE + column])
         }))

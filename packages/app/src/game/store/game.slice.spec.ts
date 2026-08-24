@@ -1,5 +1,6 @@
 import { describe, expect, it, jest } from '@jest/globals';
 import { TimelineEventKindEnum } from '@suuudokuuu/encoder';
+import { FieldEngine, getCellKey } from '@suuudokuuu/field-core';
 import { DifficultyEnum, Sudoku, defaultSudokuConfig, emptyScoredCells } from '@suuudokuuu/generator';
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
@@ -16,10 +17,11 @@ jest.mock('@suuudokuuu/encoder', () => {
     };
 });
 
-import { getCellKey } from '../../@generic/utils/get-cell-key.util';
 import { getDayNumber } from '../../@generic/utils/get-day-number.util';
 import { SudokuScoring } from '../../scoring/classes/sudoku-scoring';
 import { defaultScoringConfig } from '../../scoring/interfaces/scoring-config.interface';
+import { gameGetCellCandidatePayload } from '../utils/game-get-cell-candidate-payload.util';
+import { gameGetInputStatePayload } from '../utils/game-get-input-state-payload.util';
 
 import {
     gameChallengeClockSyncAction,
@@ -49,6 +51,9 @@ const PersistedPlayedDayNumbers = [FirstPersistedDayNumber, SecondPersistedDayNu
 const HellPuzzle = '000000010400000000020000000000050407008000300001090000300400200050100000000806000';
 const HellSolution = '693784512487512936125963874932651487568247391741398625319475268856129743274836159';
 const HellCellsAlreadySolved = 15;
+
+const buildEngine = (showAutoCandidates = false): FieldEngine =>
+    new FieldEngine({ sudokuString: HellPuzzle, difficulty: DifficultyEnum.Hell, showAutoCandidates });
 
 const buildPartiallySolvedHellField = (solvedCellCount: number): string => {
     let remainingCellsToSolve = solvedCellCount;
@@ -242,14 +247,31 @@ describe('gameSlice', () => {
     });
 
     it('keeps candidate and input modes mutually exclusive', () => {
-        const autoCandidateState = gameSlice.reducer(initialGameState, gameToggleAutoCandidatesAction());
-        const candidateInputState = gameSlice.reducer(autoCandidateState, gameToggleInputModeAction());
-        const normalInputState = gameSlice.reducer(candidateInputState, gameToggleInputModeAction());
+        const engine = buildEngine();
+
+        engine.toggleShowAutoCandidates();
+
+        const autoCandidateState = gameSlice.reducer(initialGameState, gameToggleAutoCandidatesAction(gameGetInputStatePayload(engine)));
+
+        engine.toggleInputMode();
+
+        const candidateInputState = gameSlice.reducer(autoCandidateState, gameToggleInputModeAction(gameGetInputStatePayload(engine)));
+
+        engine.toggleInputMode();
+
+        const normalInputState = gameSlice.reducer(candidateInputState, gameToggleInputModeAction(gameGetInputStatePayload(engine)));
         const manualCandidateState = {
             ...initialGameState,
             showAutoCandidates: true
         };
-        const disabledAutoCandidateState = gameSlice.reducer(manualCandidateState, gameToggleAutoCandidatesAction());
+        const manualEngine = buildEngine(true);
+
+        manualEngine.toggleShowAutoCandidates();
+
+        const disabledAutoCandidateState = gameSlice.reducer(
+            manualCandidateState,
+            gameToggleAutoCandidatesAction(gameGetInputStatePayload(manualEngine))
+        );
 
         expect(autoCandidateState).toMatchObject({ showAutoCandidates: true, inputMode: 'normal' });
         expect(candidateInputState).toMatchObject({ showAutoCandidates: false, inputMode: 'candidate' });
@@ -258,16 +280,29 @@ describe('gameSlice', () => {
     });
 
     it('toggles pencil mark candidates per cell', () => {
+        const engine = buildEngine();
         const cell = { x: 2, y: 3, value: 5, group: 1 };
         const cellKey = getCellKey(cell);
-        const addedCandidateState = gameSlice.reducer(initialGameState, gameToggleCellCandidateAction(cell));
-        const removedCandidateState = gameSlice.reducer(addedCandidateState, gameToggleCellCandidateAction(cell));
+
+        engine.toggleCandidate(cell, cell.value);
+
+        const addedCandidateState = gameSlice.reducer(
+            initialGameState,
+            gameToggleCellCandidateAction(gameGetCellCandidatePayload(engine, cell))
+        );
+
+        engine.toggleCandidate(cell, cell.value);
+
+        const removedCandidateState = gameSlice.reducer(
+            addedCandidateState,
+            gameToggleCellCandidateAction(gameGetCellCandidatePayload(engine, cell))
+        );
 
         expect(addedCandidateState.candidates[cellKey]).toEqual([cell.value]);
         expect(removedCandidateState.candidates[cellKey]).toEqual([]);
     });
 
-    it('saves a correct cell and cleans stale candidates', () => {
+    it('saves a correct cell and mirrors the engine candidates', () => {
         const sudoku = new Sudoku();
         sudoku.create(DifficultyEnum.Easy);
 
@@ -280,37 +315,22 @@ describe('gameSlice', () => {
         const correctCell = { ...blankCell, value: sudoku.getCorrectValue(blankCell) };
         const scoredCells = sudoku.setCellValue(correctCell);
         const correctCellKey = getCellKey(correctCell);
-        const affectedBlankCell = sudoku.Field.flat().find(
-            cell => sudoku.isBlankCell(cell) && (cell.x === correctCell.x || cell.y === correctCell.y || cell.group === correctCell.group)
-        );
-
-        if (!isDefined(affectedBlankCell)) {
-            throw new Error('Expected generated puzzle to contain an affected blank peer cell');
-        }
-
-        const possibleCandidates = sudoku.getCellCandidates(affectedBlankCell);
-        const staleCandidate = Array.from({ length: 9 }, (_, index) => index + 1).find(
-            candidate => !possibleCandidates.includes(candidate)
-        );
-
-        if (!isDefined(staleCandidate)) {
-            throw new Error('Expected affected blank peer cell to reject at least one candidate');
-        }
-
-        const affectedCellKey = getCellKey(affectedBlankCell);
+        const prunedCandidates = { [correctCellKey]: [] };
         const state = {
             ...initialGameState,
             sudokuString: StartedSudokuString,
             elapsedTime: 1,
-            candidates: {
-                [correctCellKey]: [correctCell.value],
-                [affectedCellKey]: [staleCandidate]
-            }
+            candidates: { [correctCellKey]: [correctCell.value] }
         };
 
         const savedState = gameSlice.reducer(
             state,
-            gameSaveAction({ sudoku, correctCell, scoredCells: { ...emptyScoredCells, ...scoredCells, values: [correctCell.value] } })
+            gameSaveAction({
+                sudokuString: sudoku.toString(),
+                candidates: prunedCandidates,
+                correctCell,
+                scoredCells: { ...emptyScoredCells, ...scoredCells, values: [correctCell.value] }
+            })
         );
 
         expect(savedState.sudokuString).toBe(sudoku.toString());
@@ -324,8 +344,7 @@ describe('gameSlice', () => {
                 score: savedState.score
             }
         ]);
-        expect(savedState.candidates[correctCellKey]).toEqual([]);
-        expect(savedState.candidates[affectedCellKey]).toEqual([]);
+        expect(savedState.candidates).toStrictEqual(prunedCandidates);
         expect(savedState.techniqueUsageCounts).toStrictEqual({});
     });
 
@@ -344,11 +363,23 @@ describe('gameSlice', () => {
 
         const savedState = gameSlice.reducer(
             initialGameState,
-            gameSaveAction({ sudoku, correctCell, scoredCells, technique: SolutionTechniqueEnum.NakedSingle })
+            gameSaveAction({
+                sudokuString: sudoku.toString(),
+                candidates: {},
+                correctCell,
+                scoredCells,
+                technique: SolutionTechniqueEnum.NakedSingle
+            })
         );
         const savedAgainState = gameSlice.reducer(
             savedState,
-            gameSaveAction({ sudoku, correctCell, scoredCells, technique: SolutionTechniqueEnum.NakedSingle })
+            gameSaveAction({
+                sudokuString: sudoku.toString(),
+                candidates: {},
+                correctCell,
+                scoredCells,
+                technique: SolutionTechniqueEnum.NakedSingle
+            })
         );
 
         expect(savedState.techniqueUsageCounts).toStrictEqual({ [SolutionTechniqueEnum.NakedSingle]: 1 });
@@ -376,7 +407,10 @@ describe('gameSlice', () => {
             elapsedTime: 1
         };
 
-        const savedState = gameSlice.reducer(state, gameSaveAction({ sudoku, correctCell, scoredCells }));
+        const savedState = gameSlice.reducer(
+            state,
+            gameSaveAction({ sudokuString: sudoku.toString(), candidates: {}, correctCell, scoredCells })
+        );
 
         const scoring = new SudokuScoring(defaultScoringConfig);
         const hellScore = scoring.calculate({

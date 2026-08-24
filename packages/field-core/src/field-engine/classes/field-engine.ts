@@ -4,8 +4,6 @@ import { isDefined } from '@rnw-community/shared';
 
 import { cloneFieldCells } from '../../@generic/utils/clone-field-cells.util';
 import { getCellKey } from '../../@generic/utils/get-cell-key.util';
-import { StepScriptPlayer } from '../../step-script/classes/step-script-player';
-import { FieldHistoryKindEnum } from '../enums/field-history-kind.enum';
 import {
     cloneCandidateState,
     getAutoCellCandidates,
@@ -28,12 +26,11 @@ import type { FieldSnapshotInterface } from '../interfaces/field-snapshot.interf
 import type { SerializedFieldStateInterface } from '../interfaces/serialized-field-state.interface';
 import type { FieldDirectionType } from '../types/field-direction.type';
 import type { FieldInputModeType } from '../types/field-input-mode.type';
-import type { CellInterface, DifficultyEnum, SudokuConfigInterface } from '@suuudokuuu/generator';
+import type { CellInterface, DifficultyEnum } from '@suuudokuuu/generator';
 
 export class FieldEngine extends FieldStore {
-    private readonly config: SudokuConfigInterface;
     private readonly difficulty: DifficultyEnum;
-    private readonly history: FieldHistory;
+    private readonly history = new FieldHistory();
 
     private sudoku: Sudoku;
     private selectedCell?: CellInterface;
@@ -41,19 +38,18 @@ export class FieldEngine extends FieldStore {
     private inputMode: FieldInputModeType;
     private showAutoCandidates: boolean;
     private mistakes: number;
-    private stepScriptPlayer: StepScriptPlayer | null = null;
+    private stepScript: StepScriptInterface | null = null;
+    private stepIndex = 0;
 
     constructor(options: FieldEngineOptionsInterface) {
         super();
 
-        this.config = options.config ?? defaultSudokuConfig;
         this.difficulty = options.difficulty;
-        this.sudoku = Sudoku.fromString(options.sudokuString, { ...this.config });
+        this.sudoku = Sudoku.fromString(options.sudokuString, { ...defaultSudokuConfig });
         this.candidateState = { candidates: options.candidates ?? {}, eliminatedCandidates: options.eliminatedCandidates ?? {} };
         this.inputMode = options.inputMode ?? 'normal';
         this.showAutoCandidates = options.showAutoCandidates ?? false;
         this.mistakes = options.mistakes ?? 0;
-        this.history = new FieldHistory(options.history, options.historyIndex);
     }
 
     get Sudoku(): Sudoku {
@@ -67,9 +63,7 @@ export class FieldEngine extends FieldStore {
             ...cloneCandidateState(this.candidateState),
             inputMode: this.inputMode,
             showAutoCandidates: this.showAutoCandidates,
-            mistakes: this.mistakes,
-            history: [...this.history.Entries],
-            historyIndex: this.history.Index
+            mistakes: this.mistakes
         };
     }
 
@@ -83,14 +77,10 @@ export class FieldEngine extends FieldStore {
         this.publish();
     }
 
-    setInputMode(inputMode: FieldInputModeType): void {
-        this.inputMode = inputMode;
-        this.showAutoCandidates = inputMode === 'candidate' ? false : this.showAutoCandidates;
-        this.publish();
-    }
-
     toggleInputMode(): void {
-        this.setInputMode(this.inputMode === 'normal' ? 'candidate' : 'normal');
+        this.inputMode = this.inputMode === 'normal' ? 'candidate' : 'normal';
+        this.showAutoCandidates = this.inputMode === 'candidate' ? false : this.showAutoCandidates;
+        this.publish();
     }
 
     toggleShowAutoCandidates(): void {
@@ -134,7 +124,7 @@ export class FieldEngine extends FieldStore {
     toggleCandidate(cell: CellInterface, value: number): void {
         const candidates = getToggledCandidates(this.candidateState.candidates, cell, value);
 
-        this.commitCandidateState(cell, value, { ...this.candidateState, candidates });
+        this.commitCandidateState({ ...this.candidateState, candidates });
     }
 
     removeCandidate(cell: CellInterface, value: number): void {
@@ -142,7 +132,7 @@ export class FieldEngine extends FieldStore {
             const eliminatedCandidates = getCandidatesWithElimination(this.candidateState.eliminatedCandidates, cell, value);
 
             if (isDefined(eliminatedCandidates)) {
-                this.commitCandidateState(cell, value, { ...this.candidateState, eliminatedCandidates });
+                this.commitCandidateState({ ...this.candidateState, eliminatedCandidates });
             }
 
             return;
@@ -151,7 +141,7 @@ export class FieldEngine extends FieldStore {
         const candidates = getCandidatesWithoutValue(this.candidateState.candidates, cell, value);
 
         if (isDefined(candidates)) {
-            this.commitCandidateState(cell, value, { ...this.candidateState, candidates });
+            this.commitCandidateState({ ...this.candidateState, candidates });
         }
     }
 
@@ -164,49 +154,73 @@ export class FieldEngine extends FieldStore {
     }
 
     startStepScript(script: StepScriptInterface): void {
-        this.stepScriptPlayer = new StepScriptPlayer(script);
+        this.stepScript = script;
+        this.stepIndex = 0;
         this.publish();
-        this.events.emit('stepScriptStarted', script);
     }
 
     stepScriptNext(): boolean {
-        return this.moveStepScript(player => player.next());
+        if (!isDefined(this.stepScript) || this.stepIndex >= this.stepScript.steps.length - 1) {
+            return false;
+        }
+
+        this.stepIndex += 1;
+        this.publish();
+
+        return true;
     }
 
     stepScriptBack(): boolean {
-        return this.moveStepScript(player => player.back());
+        if (!isDefined(this.stepScript) || this.stepIndex === 0) {
+            return false;
+        }
+
+        this.stepIndex -= 1;
+        this.publish();
+
+        return true;
     }
 
     stepScriptReset(): boolean {
-        return this.moveStepScript(player => {
-            player.reset();
+        if (!isDefined(this.stepScript)) {
+            return false;
+        }
 
-            return true;
-        });
+        this.stepIndex = 0;
+        this.publish();
+
+        return true;
     }
 
     applyStepScript(): void {
-        const player = this.stepScriptPlayer;
+        const script = this.stepScript;
 
-        if (isDefined(player)) {
-            player.applyResult(this);
-            this.stopStepScript();
+        if (!isDefined(script)) {
+            return;
         }
+
+        for (const elimination of script.eliminations) {
+            this.removeCandidate(elimination.cell, elimination.value);
+        }
+
+        const { placement } = script;
+
+        if (isDefined(placement)) {
+            this.placeValue(placement.cell, placement.value);
+        }
+
+        this.stopStepScript();
     }
 
     stopStepScript(): void {
-        const player = this.stepScriptPlayer;
-
-        if (isDefined(player)) {
-            this.stepScriptPlayer = null;
+        if (isDefined(this.stepScript)) {
+            this.stepScript = null;
+            this.stepIndex = 0;
             this.publish();
-            this.events.emit('stepScriptFinished', player.Script);
         }
     }
 
     protected override createSnapshot(): FieldSnapshotInterface {
-        const player = this.stepScriptPlayer;
-
         return {
             field: cloneFieldCells(this.sudoku.Field),
             difficulty: this.difficulty,
@@ -218,8 +232,8 @@ export class FieldEngine extends FieldStore {
             isWon: this.sudoku.PossibleValues.length === 0,
             canUndo: this.history.CanUndo,
             canRedo: this.history.CanRedo,
-            stepScript: isDefined(player) ? player.Script : null,
-            stepIndex: isDefined(player) ? player.StepIndex : 0,
+            stepScript: this.stepScript,
+            stepIndex: this.stepIndex,
             ...(isDefined(this.selectedCell) && { selectedCell: this.selectedCell })
         };
     }
@@ -230,7 +244,7 @@ export class FieldEngine extends FieldStore {
 
         this.candidateState = { ...this.candidateState, candidates: pruneCandidates(this.sudoku, this.candidateState.candidates, cell) };
         this.selectedCell = { ...cell };
-        this.pushHistory(FieldHistoryKindEnum.Value, { ...cell }, previousState);
+        this.history.push({ previous: previousState, next: this.captureState() });
 
         const result: FieldMoveResultInterface = { cell, isCorrect: true, scoredCells };
 
@@ -255,16 +269,12 @@ export class FieldEngine extends FieldStore {
         return result;
     }
 
-    private commitCandidateState(cell: CellInterface, value: number, nextState: FieldCandidateStateInterface): void {
+    private commitCandidateState(nextState: FieldCandidateStateInterface): void {
         const previousState = this.captureState();
 
         this.candidateState = nextState;
-        this.pushHistory(FieldHistoryKindEnum.Candidate, { ...cell, value }, previousState);
+        this.history.push({ previous: previousState, next: this.captureState() });
         this.publish();
-    }
-
-    private pushHistory(kind: FieldHistoryKindEnum, cell: CellInterface, previous: FieldHistoryStateInterface): void {
-        this.history.push({ kind, cell, value: cell.value, previous, next: this.captureState() });
     }
 
     private captureState(): FieldHistoryStateInterface {
@@ -277,22 +287,10 @@ export class FieldEngine extends FieldStore {
         }
 
         if (state.sudokuString !== this.sudoku.toString()) {
-            this.sudoku = Sudoku.fromString(state.sudokuString, { ...this.config });
+            this.sudoku = Sudoku.fromString(state.sudokuString, { ...defaultSudokuConfig });
         }
 
         this.candidateState = cloneCandidateState(state);
-        this.publish();
-
-        return true;
-    }
-
-    private moveStepScript(move: (player: StepScriptPlayer) => boolean): boolean {
-        const player = this.stepScriptPlayer;
-
-        if (!isDefined(player) || !move(player)) {
-            return false;
-        }
-
         this.publish();
 
         return true;

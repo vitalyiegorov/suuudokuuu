@@ -7,6 +7,7 @@ import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { GameContext } from '../../context/game.context';
 import { gameToggleInputModeAction } from '../../store/game.actions';
+import { gameGetInputStatePayload } from '../../utils/game-get-input-state-payload.util';
 
 import { InputModeButtonSelectors } from './input-mode-button.selectors';
 
@@ -25,7 +26,7 @@ export const InputModeButton = ({ sizeStyle }: Props) => {
 
     const handleToggle = () => {
         engine.toggleInputMode();
-        dispatch(gameToggleInputModeAction());
+        dispatch(gameToggleInputModeAction(gameGetInputStatePayload(engine)));
     };
 
     const isCandidateMode = snapshot.inputMode === 'candidate';

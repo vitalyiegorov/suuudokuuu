@@ -39,7 +39,7 @@ const buildStoreWithEngine = () => {
         mistakes: game.mistakes
     });
 
-    engine.on('moveApplied', move => void store.dispatch(gameSaveAction(gameGetSavePayload(engine.Sudoku, move))));
+    engine.on('moveApplied', move => void store.dispatch(gameSaveAction(gameGetSavePayload(engine, move))));
 
     return { engine, store };
 };

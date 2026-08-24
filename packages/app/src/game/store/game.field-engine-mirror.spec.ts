@@ -17,7 +17,9 @@ jest.mock('@suuudokuuu/encoder', () => {
 });
 
 import { createAppTestStore } from '../../@generic/utils/create-app-test-store.mock';
+import { gameGetCellCandidatePayload } from '../utils/game-get-cell-candidate-payload.util';
 import { gameGetFieldStatePayload } from '../utils/game-get-field-state-payload.util';
+import { gameGetInputStatePayload } from '../utils/game-get-input-state-payload.util';
 import { gameGetSavePayload } from '../utils/game-get-save-payload.util';
 
 import {
@@ -91,16 +93,16 @@ describe('field engine and persisted game state', () => {
         const [, , noteCell] = firstRow;
 
         engine.toggleCandidate(noteCell, 7);
-        store.dispatch(gameToggleCellCandidateAction({ ...noteCell, value: 7 }));
+        store.dispatch(gameToggleCellCandidateAction(gameGetCellCandidatePayload(engine, { ...noteCell, value: 7 })));
 
         engine.toggleCandidate(noteCell, 1);
-        store.dispatch(gameToggleCellCandidateAction({ ...noteCell, value: 1 }));
+        store.dispatch(gameToggleCellCandidateAction(gameGetCellCandidatePayload(engine, { ...noteCell, value: 1 })));
 
         engine.toggleInputMode();
-        store.dispatch(gameToggleInputModeAction());
+        store.dispatch(gameToggleInputModeAction(gameGetInputStatePayload(engine)));
 
         engine.toggleShowAutoCandidates();
-        store.dispatch(gameToggleAutoCandidatesAction());
+        store.dispatch(gameToggleAutoCandidatesAction(gameGetInputStatePayload(engine)));
 
         const blankCell = findBlankCell(engine.Sudoku);
 
@@ -112,7 +114,7 @@ describe('field engine and persisted game state', () => {
             throw new Error('Expected the engine to apply the scripted placement');
         }
 
-        store.dispatch(gameSaveAction(gameGetSavePayload(engine.Sudoku, move)));
+        store.dispatch(gameSaveAction(gameGetSavePayload(engine, move)));
 
         const serialized = engine.serialize();
         const { game } = store.getState();
@@ -129,7 +131,7 @@ describe('field engine and persisted game state', () => {
         });
         const engine = buildEngine(store.getState().game);
 
-        engine.on('moveApplied', appliedMove => void store.dispatch(gameSaveAction(gameGetSavePayload(engine.Sudoku, appliedMove))));
+        engine.on('moveApplied', appliedMove => void store.dispatch(gameSaveAction(gameGetSavePayload(engine, appliedMove))));
         engine.on('mistake', mistake => void store.dispatch(gameMistakeAction(mistake.cell)));
 
         const blankCell = findBlankCell(engine.Sudoku);
@@ -169,7 +171,7 @@ describe('field engine and persisted game state', () => {
         const store = createAppTestStore({ game: { ...persistedReleaseState, inputMode: 'normal' } });
         const engine = buildEngine(store.getState().game);
 
-        engine.on('moveApplied', appliedMove => void store.dispatch(gameSaveAction(gameGetSavePayload(engine.Sudoku, appliedMove))));
+        engine.on('moveApplied', appliedMove => void store.dispatch(gameSaveAction(gameGetSavePayload(engine, appliedMove))));
 
         const blankCell = findBlankCell(engine.Sudoku);
 
@@ -211,7 +213,7 @@ describe('field engine and persisted game state', () => {
         const [, , noteCell] = firstRow;
 
         engine.toggleCandidate(noteCell, 9);
-        store.dispatch(gameToggleCellCandidateAction({ ...noteCell, value: 9 }));
+        store.dispatch(gameToggleCellCandidateAction(gameGetCellCandidatePayload(engine, { ...noteCell, value: 9 })));
 
         engine.undo();
         store.dispatch(gameUndoAction(gameGetFieldStatePayload(engine)));
@@ -238,7 +240,7 @@ describe('field engine and persisted game state', () => {
         });
         const engine = buildEngine(store.getState().game);
 
-        engine.on('moveApplied', appliedMove => void store.dispatch(gameSaveAction(gameGetSavePayload(engine.Sudoku, appliedMove))));
+        engine.on('moveApplied', appliedMove => void store.dispatch(gameSaveAction(gameGetSavePayload(engine, appliedMove))));
         engine.on('completed', () => void store.dispatch(gameFinishAction({ difficulty: DifficultyEnum.Easy, isWon: true })));
 
         engine.selectCell(engine.Sudoku.Field[8][8]);

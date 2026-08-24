@@ -8,18 +8,9 @@ import { buildOgImageUrl } from './build-og-image-url.util';
 import type { PageMetadataInterface } from '../interfaces/page-metadata.interface';
 import type { Metadata } from 'next';
 
-export const buildPageMetadata = ({
-    imageAlt,
-    imagePath,
-    metaDescription,
-    metaTitle,
-    path,
-    publishedAt,
-    title,
-    updatedAt
-}: PageMetadataInterface): Metadata => {
-    const imageUrl = buildOgImageUrl({ imagePath, path });
-    const openGraphImages = [{ url: imageUrl, width: OG_IMAGE_WIDTH, height: OG_IMAGE_HEIGHT, alt: imageAlt ?? title }];
+export const buildPageMetadata = ({ metaDescription, metaTitle, path, publishedAt, title, updatedAt }: PageMetadataInterface): Metadata => {
+    const imageUrl = buildOgImageUrl({ path });
+    const openGraphImages = [{ url: imageUrl, width: OG_IMAGE_WIDTH, height: OG_IMAGE_HEIGHT, alt: title }];
 
     return {
         title: metaTitle,

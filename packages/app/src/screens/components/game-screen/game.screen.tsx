@@ -29,6 +29,7 @@ import {
     gameMistakesSelector,
     gameScoreSelector
 } from '../../../game/store/game.selectors';
+import { gameGetCellCandidatePayload } from '../../../game/utils/game-get-cell-candidate-payload.util';
 import { settingsKeySelector } from '../../../settings/store/settings.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { gameScreenSetSharingAvailable } from '../../utils/game-screen-set-sharing-available.util';
@@ -121,7 +122,7 @@ export const GameScreen = () => {
 
         if (snapshot.inputMode === 'candidate') {
             engine.toggleCandidate(targetCell, value);
-            dispatch(gameToggleCellCandidateAction({ ...targetCell, value }));
+            dispatch(gameToggleCellCandidateAction(gameGetCellCandidatePayload(engine, { ...targetCell, value })));
             hapticImpact(ImpactFeedbackStyle.Light);
         } else {
             engine.inputValue(value);

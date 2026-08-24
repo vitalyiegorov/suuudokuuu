@@ -2,21 +2,8 @@ import type { FieldHistoryEntryInterface } from '../interfaces/field-history-ent
 import type { FieldHistoryStateInterface } from '../interfaces/field-history-state.interface';
 
 export class FieldHistory {
-    private entries: FieldHistoryEntryInterface[];
-    private index: number;
-
-    constructor(entries: FieldHistoryEntryInterface[] = [], index: number = entries.length - 1) {
-        this.entries = entries;
-        this.index = index;
-    }
-
-    get Entries(): FieldHistoryEntryInterface[] {
-        return this.entries;
-    }
-
-    get Index(): number {
-        return this.index;
-    }
+    private entries: FieldHistoryEntryInterface[] = [];
+    private index = -1;
 
     get CanUndo(): boolean {
         return this.index >= 0;

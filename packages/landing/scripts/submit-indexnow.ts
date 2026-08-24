@@ -42,15 +42,18 @@ const submitToIndexNow = (key: string): void => {
 };
 
 const isDryRun = process.argv.includes('--dry-run');
-const indexNowKey = isDryRun ? '' : resolveIndexNowKey();
 
 if (isDryRun) {
     console.log(urlList.join('\n'));
     console.log(`${urlList.length} sitemap-derived URLs for ${host}`);
-} else if (isNotEmptyString(indexNowKey)) {
-    submitToIndexNow(indexNowKey);
 } else {
-    console.log(
-        `${INDEXNOW_KEY_ENVIRONMENT_VARIABLE} is not set, skipping IndexNow submission. This is expected for forks, contributors and preview builds; see packages/landing/docs/indexing.md.`
-    );
+    const indexNowKey = resolveIndexNowKey();
+
+    if (isNotEmptyString(indexNowKey)) {
+        submitToIndexNow(indexNowKey);
+    } else {
+        console.log(
+            `${INDEXNOW_KEY_ENVIRONMENT_VARIABLE} is not set, skipping IndexNow submission. This is expected for forks, contributors and preview builds; see packages/landing/docs/indexing.md.`
+        );
+    }
 }

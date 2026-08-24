@@ -19,7 +19,7 @@ export const HowTo = ({ children, name }: Props) => {
                 {steps.map(step => (
                     <li className="how-to__step" key={step.props.name}>
                         <strong className="how-to__step-name">{step.props.name}</strong>
-                        <span className="how-to__step-text">{step.props.children}</span>
+                        <span>{step.props.children}</span>
                     </li>
                 ))}
             </ol>

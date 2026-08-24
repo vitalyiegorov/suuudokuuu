@@ -186,7 +186,7 @@ describe('FieldEngine', () => {
 
             const engine = createEngine();
 
-            engine.setInputMode('candidate');
+            engine.toggleInputMode();
             engine.selectCell(getCell(engine, 0, 0));
             engine.inputValue(5);
 
@@ -410,7 +410,7 @@ describe('FieldEngine', () => {
             engine.toggleCandidate(getCell(engine, 2, 0), 4);
             engine.placeValue(getCell(engine, 0, 0), 5);
             engine.placeValue(getCell(engine, 0, 3), 1);
-            engine.setInputMode('candidate');
+            engine.toggleInputMode();
 
             const state = engine.serialize();
             const restored = new FieldEngine(state);
@@ -434,7 +434,7 @@ describe('FieldEngine', () => {
             expect(restored.getCellCandidates(getCell(restored, 0, 0))).not.toContain(5);
         });
 
-        it('keeps undo working after a round-trip', () => {
+        it('starts a round-tripped engine without undo history', () => {
             expect.assertions(2);
 
             const engine = createEngine();
@@ -443,8 +443,8 @@ describe('FieldEngine', () => {
 
             const restored = new FieldEngine(engine.serialize());
 
-            expect(restored.undo()).toBe(true);
-            expect(restored.getSnapshot().field[0][0].value).toBe(0);
+            expect(restored.getSnapshot().canUndo).toBe(false);
+            expect(restored.undo()).toBe(false);
         });
     });
 
@@ -505,16 +505,13 @@ describe('FieldEngine', () => {
         });
 
         it('exposes the player position through the snapshot', () => {
-            expect.assertions(6);
+            expect.assertions(5);
 
             const engine = createEngine();
             const script = findStepScript(engine.Sudoku);
-            const handler = jest.fn();
 
-            engine.on('stepScriptStarted', handler);
             engine.startStepScript(requireStepScript(script));
 
-            expect(handler).toHaveBeenCalledWith(script);
             expect(engine.getSnapshot().stepIndex).toBe(0);
             expect(engine.stepScriptNext()).toBe(true);
             expect(engine.getSnapshot().stepIndex).toBe(1);
@@ -546,18 +543,40 @@ describe('FieldEngine', () => {
         });
 
         it('commits the placement of a script and finishes it', () => {
-            expect.assertions(3);
+            expect.assertions(2);
 
             const engine = createEngine();
-            const handler = jest.fn();
 
-            engine.on('stepScriptFinished', handler);
             engine.startStepScript(requireStepScript(findStepScript(engine.Sudoku)));
             engine.applyStepScript();
 
             expect(engine.getSnapshot().field[0][2].value).toBe(4);
             expect(engine.getSnapshot().stepScript).toBeNull();
-            expect(handler).toHaveBeenCalledTimes(1);
+        });
+
+        it('refuses to walk past the last step or before the first one', () => {
+            expect.assertions(4);
+
+            const engine = createEngine();
+            const script = requireStepScript(findStepScript(engine.Sudoku));
+
+            engine.startStepScript(script);
+
+            const lastStepIndex = script.steps.length - 1;
+
+            while (engine.getSnapshot().stepIndex < lastStepIndex) {
+                engine.stepScriptNext();
+            }
+
+            expect(engine.getSnapshot().stepIndex).toBe(lastStepIndex);
+            expect(engine.stepScriptNext()).toBe(false);
+
+            while (engine.getSnapshot().stepIndex > 0) {
+                engine.stepScriptBack();
+            }
+
+            expect(engine.getSnapshot().stepIndex).toBe(0);
+            expect(engine.stepScriptBack()).toBe(false);
         });
 
         it('commits the eliminations of a script to the notes', () => {

@@ -10,7 +10,7 @@ import { isDefined } from '@rnw-community/shared';
 import { TECHNIQUE_NAMES } from '../../techniques/constants/technique-name.constant';
 import { TECHNIQUE_PAGE_PATHS } from '../../techniques/constants/technique-page-path.constant';
 import { renderTechniqueNarration } from '../../techniques/utils/render-technique-narration.util';
-import { ENTRY_BLANK_CHARACTER } from '../constants/puzzle-entry.constant';
+import { ENTRY_BLANK_CHARACTER, ENTRY_GRID_BLANK_CHARACTER } from '../constants/puzzle-entry.constant';
 
 import type { SolverSolutionInterface } from '../interfaces/solver-solution.interface';
 import type { SolverStepInterface } from '../interfaces/solver-step.interface';
@@ -20,7 +20,6 @@ import type { StepScriptInterface } from '@suuudokuuu/field-core';
 const MAX_SOLVER_STEPS = 400;
 const NO_SOLUTION_COUNT = 0;
 const UNIQUE_SOLUTION_COUNT = 1;
-const GRID_BLANK_CHARACTER = '0';
 
 const buildSolverStep = (index: number, boardBefore: string, script: StepScriptInterface): SolverStepInterface => {
     const [lastStep] = script.steps.slice(-1);
@@ -73,7 +72,7 @@ const buildSolution = (puzzle: string, solutionBoard: string): SolverSolutionInt
 };
 
 export const solvePuzzle = (puzzle: string): SolverOutcomeType => {
-    const grid = parseGridString(puzzle.replaceAll(ENTRY_BLANK_CHARACTER, GRID_BLANK_CHARACTER));
+    const grid = parseGridString(puzzle.replaceAll(ENTRY_BLANK_CHARACTER, ENTRY_GRID_BLANK_CHARACTER));
     const counts = {
         bitmaskCount: new BitmaskSolver().countSolutions(grid, UNIQUENESS_COUNT_LIMIT),
         dlxCount: new DLXSolver().countSolutions(grid, UNIQUENESS_COUNT_LIMIT)
@@ -93,5 +92,9 @@ export const solvePuzzle = (puzzle: string): SolverOutcomeType => {
 
     const solvedGrid = new BitmaskSolver().solve(grid);
 
-    return isDefined(solvedGrid) ? buildSolution(puzzle, formatGridString(solvedGrid)) : { kind: 'no-solution', ...counts };
+    if (!isDefined(solvedGrid)) {
+        throw new Error('The solvers counted one solution for this grid but the bitmask solver could not produce it');
+    }
+
+    return buildSolution(puzzle, formatGridString(solvedGrid));
 };

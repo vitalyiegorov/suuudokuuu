@@ -29,7 +29,7 @@ The consuming app owns everything the engine deliberately does not know about:
 - Scoring, the timeline event log, challenge/replay payloads, and persistence.
 - Haptics, animation, routing, sound, and every rendering decision.
 - Lingui text. The engine emits structured narration payloads, never prose.
-- Timers and pacing. The step player is pure state; consumers drive it.
+- Timers and pacing. Script playback is pure state; consumers drive it.
 
 ## Structure
 
@@ -44,14 +44,12 @@ src/
 │   │   ├── field-store.ts               # subscribe/getSnapshot/on + snapshot cache
 │   │   ├── field-history.ts             # undo/redo cursor over history entries
 │   │   └── field-engine.ts              # Public engine API
-│   ├── enums/field-history-kind.enum.ts
 │   ├── interfaces/                      # Snapshot, options, serialized state, events
 │   ├── types/                           # Input mode, direction, candidates map
 │   └── utils/                           # pruneCandidates, getNeighbourCell
 ├── step-script/
-│   ├── classes/step-script-player.ts    # index, next/back/reset, applyResult
 │   ├── enums/step-script-step-kind.enum.ts
-│   ├── interfaces/                      # Step union members, narration, target, state
+│   ├── interfaces/                      # Step union members, narration, state
 │   ├── types/step-script-step.type.ts
 │   └── utils/                           # findStepScript, techniqueResultToStepScript, buildStepScriptState
 └── react/use-field-snapshot.hook.ts     # `@suuudokuuu/field-core/react` subpath
@@ -73,11 +71,11 @@ on<K extends keyof FieldEventMapInterface>(event: K, handler: (payload: FieldEve
 
 ### Events
 
-`moveApplied`, `mistake`, `completed`, `stepScriptStarted`, `stepScriptFinished`. Events exist so the app can drive scoring, the timeline, and haptics without the engine knowing they exist. Do not add engine state for anything an event can report.
+`moveApplied`, `mistake`, `completed`. Events exist so the app can drive scoring, the timeline, and haptics without the engine knowing they exist. Do not add engine state for anything an event can report.
 
 ### Serialization
 
-`serialize()` returns `SerializedFieldStateInterface`, which is directly accepted by the `FieldEngine` constructor. The grid uses the existing `Sudoku.toString()` format and must never change shape — app persistence, sharing, and replay all depend on it. Engine-only state (candidates, eliminated auto-candidates, input mode, auto-candidates, mistakes, history) lives beside the grid string, not inside it.
+`serialize()` returns `SerializedFieldStateInterface`, which is directly accepted by the `FieldEngine` constructor. The grid uses the existing `Sudoku.toString()` format and must never change shape — app persistence, sharing, and replay all depend on it. Engine-only state (candidates, eliminated auto-candidates, input mode, auto-candidates, mistakes) lives beside the grid string, not inside it. Undo history is session-only: it is never serialized, so a rehydrated engine starts with `canUndo` false.
 
 Undo rebuilds the `Sudoku` instance from the stored grid string, so `engine.Sudoku` is not a stable reference. Read the board through the snapshot or re-read `engine.Sudoku` after every mutation.
 
@@ -87,7 +85,7 @@ A technique-agnostic, ordered list of primitive steps: `Highlight`, `RevealCandi
 
 `techniqueResultToStepScript` maps a `TechniqueResultInterface` into a script; `findStepScript(sudoku, strategies?)` runs `TechniqueManager` and maps its result, accepting a narrowed registry so a technique page can demand one specific technique.
 
-`StepScriptPlayer` is pure state: `StepIndex`, `CurrentStep`, `IsFirstStep`, `IsLastStep`, `next()`, `back()`, `reset()`, and `applyResult(target)`, which commits eliminations then the placement through the structural `StepScriptTargetInterface`. The player never imports the engine, which is what keeps the two decoupled.
+Script playback is engine state: `startStepScript`, `stepScriptNext`, `stepScriptBack`, `stepScriptReset`, `applyStepScript` and `stopStepScript`. The running script and its `stepIndex` are published on the snapshot, so every consumer renders the same position without holding a player of its own. `applyStepScript` commits the eliminations first and the placement last, so the placement's `moveApplied` event is the final thing a consumer sees.
 
 `buildStepScriptState(stepScript, stepIndex)` is the one shared fold consumers use to render a script's played prefix: it walks steps `0..stepIndex` into `patternCellKeys`, `targetCellKey`, `revealedCandidates`, `eliminatedCandidates`, and `placedValues` (a `StepScriptStateInterface`). Both `field-dom`'s `FieldBoard` and the app's `Field` call this instead of keeping their own copy of the fold.
 
@@ -108,21 +106,10 @@ A technique-agnostic, ordered list of primitive steps: `Highlight`, `RevealCandi
 ## Exports
 
 ```typescript
-export {
-    FieldEngine,
-    FieldHistoryKindEnum,
-    StepScriptPlayer,
-    StepScriptStepKindEnum,
-    buildStepScriptState,
-    findStepScript,
-    getCellKey,
-    techniqueResultToStepScript
-};
+export { FieldEngine, StepScriptStepKindEnum, buildStepScriptState, findStepScript, getCellKey };
 export type {
     FieldSnapshotInterface,
-    FieldEngineOptionsInterface,
-    SerializedFieldStateInterface,
-    FieldEventMapInterface,
+    FieldMoveResultInterface,
     StepScriptInterface,
     StepScriptStateInterface /* ... */
 };

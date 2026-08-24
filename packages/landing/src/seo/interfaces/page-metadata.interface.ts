@@ -10,6 +10,4 @@ export interface PageMetadataInterface {
     updatedAt: string;
     changeFrequency: SitemapChangeFrequencyType;
     priority: number;
-    imagePath?: string;
-    imageAlt?: string;
 }

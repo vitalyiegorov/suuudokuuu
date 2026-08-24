@@ -9,9 +9,7 @@ export const GameInputToolsStyles = StyleSheet.create((theme, rt) => ({
     inputControls: {
         flexDirection: 'row',
         gap: theme.spacing.sm,
-        justifyContent: 'center'
-    },
-    row: {
+        justifyContent: 'center',
         width: '100%'
     },
     toolButton: {

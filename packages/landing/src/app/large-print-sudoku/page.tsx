@@ -4,11 +4,10 @@ import { PrintableDownloadCard } from '../../printable/components/printable-down
 import { PrintableDownloadFact } from '../../printable/components/printable-download-fact/printable-download-fact';
 import {
     PRINTABLE_BOOKLET_PUZZLES_PER_PAGE,
-    PRINTABLE_LARGE_PRINT_PUZZLES_PER_PAGE,
-    PRINTABLE_LARGE_PRINT_SOLUTIONS_PER_PAGE
+    PRINTABLE_LARGE_PRINT_PUZZLES_PER_PAGE
 } from '../../printable/constants/printable-layout.constant';
+import { PRINTABLE_LARGE_PRINT_PAGE_COUNT } from '../../printable/constants/printable-page-count.constant';
 import { PRINTABLE_LARGE_PRINT_SIZE } from '../../printable/constants/printable-sample.constant';
-import { getPrintableBookletPageCount } from '../../printable/utils/get-printable-booklet-page-count.util';
 import { getPrintableFileSizeLabel } from '../../printable/utils/get-printable-file-size-label.util';
 import { BreadcrumbListItem } from '../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { Faq } from '../../seo/components/faq/faq';
@@ -29,12 +28,6 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = buildPageMetadata(largePrintSudokuPageMetadata);
 
-const LARGE_PRINT_PAGE_COUNT = getPrintableBookletPageCount(
-    PRINTABLE_LARGE_PRINT_SIZE,
-    PRINTABLE_LARGE_PRINT_PUZZLES_PER_PAGE,
-    PRINTABLE_LARGE_PRINT_SOLUTIONS_PER_PAGE
-);
-
 // eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const LargePrintSudokuPage = () => (
     <main>
@@ -50,7 +43,7 @@ const LargePrintSudokuPage = () => (
         </p>
         <PrintableDownloadCard fileName="large-print.pdf" title="Large Print Sudoku">
             <PrintableDownloadFact>{PRINTABLE_LARGE_PRINT_SIZE} puzzles</PrintableDownloadFact>
-            <PrintableDownloadFact>{LARGE_PRINT_PAGE_COUNT} pages</PrintableDownloadFact>
+            <PrintableDownloadFact>{PRINTABLE_LARGE_PRINT_PAGE_COUNT} pages</PrintableDownloadFact>
             <PrintableDownloadFact>{getPrintableFileSizeLabel('large-print.pdf')} PDF, US Letter</PrintableDownloadFact>
             <PrintableDownloadFact>Solutions included on the last pages</PrintableDownloadFact>
         </PrintableDownloadCard>

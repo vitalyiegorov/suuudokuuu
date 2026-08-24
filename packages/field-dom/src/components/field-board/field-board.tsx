@@ -8,7 +8,6 @@ import { isDefined } from '@rnw-community/shared';
 
 import { FIRST_CELL_KEY } from '../../constants/field-grid.constant';
 import { buildFieldCellView } from '../../utils/build-field-cell-view.util';
-import { getFieldCellCandidates } from '../../utils/get-field-cell-candidates.util';
 import { getFieldClassName } from '../../utils/get-field-class-name.util';
 import { getKeyDigit } from '../../utils/get-key-digit.util';
 import { getKeyDirection } from '../../utils/get-key-direction.util';
@@ -89,7 +88,7 @@ export const FieldBoard = ({ className, engine, givenCellKeys = EMPTY_GIVEN_CELL
             {snapshot.field.map((row, rowIndex) => (
                 <div className="field-board__row" key={rowIndex} role="row">
                     {row.map(cell => {
-                        const view = buildFieldCellView(cell, getFieldCellCandidates(snapshot, cell), context);
+                        const view = buildFieldCellView(cell, engine.getCellCandidates(cell), context);
                         const cellRef = view.isSelected ? selectedCellRef : null;
                         const isFocusable = view.key === focusableCellKey;
 

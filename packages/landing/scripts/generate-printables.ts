@@ -1,21 +1,27 @@
-import { mkdirSync, writeFileSync } from 'node:fs';
-import { join } from 'node:path';
-
 import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
 
+import { isDefined } from '@rnw-community/shared';
+
 import { DIFFICULTY_LADDER, DIFFICULTY_NAMES } from '../src/difficulty/constants/difficulty-name.constant';
 import {
-    PRINTABLE_BLANK_GRID_SHEET_PAGE_COUNT,
     PRINTABLE_BOOKLET_PUZZLES_PER_PAGE,
     PRINTABLE_BOOKLET_SOLUTIONS_PER_PAGE,
-    PRINTABLE_COVER_PAGE_COUNT,
     PRINTABLE_LARGE_PRINT_PUZZLES_PER_PAGE,
     PRINTABLE_LARGE_PRINT_SOLUTIONS_PER_PAGE
 } from '../src/printable/constants/printable-layout.constant';
+import {
+    PRINTABLE_BLANK_GRID_PAGE_COUNT,
+    PRINTABLE_BOOKLET_PAGE_COUNT,
+    PRINTABLE_LARGE_PRINT_PAGE_COUNT
+} from '../src/printable/constants/printable-page-count.constant';
 import { PRINTABLE_BOOKLET_PUZZLES, PRINTABLE_LARGE_PRINT_PUZZLES } from '../src/printable/constants/printable-sample.constant';
-import { getPrintableBookletPageCount } from '../src/printable/utils/get-printable-booklet-page-count.util';
 import { SITE_NAME, SITE_ORIGIN } from '../src/seo/constants/site.constant';
+import { EMPTY_PUZZLE_ENTRY } from '../src/solver/constants/puzzle-entry.constant';
+
+import { createPublicDirectory } from './utils/create-public-directory.util';
+import { handleGeneratorError } from './utils/handle-generator-error.util';
+import { writePublicArtifact } from './utils/write-public-artifact.util';
 
 import type { LandingDifficultyType } from '../src/difficulty/types/landing-difficulty.type';
 import type { PDFFont, PDFPage } from 'pdf-lib';
@@ -51,7 +57,7 @@ const CONTENT_TOP = PAGE_HEIGHT - PAGE_MARGIN - HEADER_HEIGHT;
 const CONTENT_BOTTOM = PAGE_MARGIN + FOOTER_HEIGHT;
 const CONTENT_HEIGHT = CONTENT_TOP - CONTENT_BOTTOM;
 
-const OUTPUT_DIRECTORY = join(process.cwd(), 'public', 'printable');
+const OUTPUT_DIRECTORY = createPublicDirectory('printable');
 
 interface FontsInterface {
     regular: PDFFont;
@@ -63,6 +69,26 @@ interface GridPlacementInterface {
     gridTopY: number;
     labelY: number;
 }
+
+interface GridArrangementInterface {
+    columns: number;
+    rows: number;
+}
+
+interface BookletInterface {
+    name: string;
+    puzzleCountLine: string;
+    puzzles: string[];
+    pageCount: number;
+    puzzlesPerPage: number;
+    solutionsPerPage: number;
+}
+
+const GRID_ARRANGEMENTS = new Map<number, GridArrangementInterface>([
+    [1, { columns: 1, rows: 1 }],
+    [2, { columns: 1, rows: 2 }],
+    [4, { columns: 2, rows: 2 }]
+]);
 
 const toSolutionDigits = (givens: string): string =>
     Sudoku.fromString(givens, defaultSudokuConfig)
@@ -80,20 +106,14 @@ const drawPageChrome = (page: PDFPage, fonts: FontsInterface, headerText: string
     drawCenteredText(page, fonts.regular, `${SITE_NAME} — ${SITE_ORIGIN}`, PAGE_MARGIN - FOOTER_FONT_SIZE, FOOTER_FONT_SIZE, GRAY);
 };
 
-const getGridArrangement = (puzzlesPerPage: number): { columns: number; rows: number } => {
-    if (puzzlesPerPage === 1) {
-        return { columns: 1, rows: 1 };
+const getGridArrangement = (puzzlesPerPage: number): GridArrangementInterface => {
+    const arrangement = GRID_ARRANGEMENTS.get(puzzlesPerPage);
+
+    if (!isDefined(arrangement)) {
+        throw new Error(`Unsupported printable layout of ${puzzlesPerPage} grids per page`);
     }
 
-    if (puzzlesPerPage === 2) {
-        return { columns: 1, rows: 2 };
-    }
-
-    if (puzzlesPerPage === 4) {
-        return { columns: 2, rows: 2 };
-    }
-
-    throw new Error(`Unsupported printable layout of ${puzzlesPerPage} grids per page`);
+    return arrangement;
 };
 
 const computeGridPlacements = (columns: number, rows: number): { gridSize: number; placements: GridPlacementInterface[] } => {
@@ -208,73 +228,68 @@ const embedFonts = async (doc: PDFDocument): Promise<FontsInterface> => ({
     bold: await doc.embedFont(StandardFonts.HelveticaBold)
 });
 
-const buildBookletDocument = async (difficulty: LandingDifficultyType): Promise<PDFDocument> => {
-    const tierName = DIFFICULTY_NAMES[difficulty];
-    const puzzles = PRINTABLE_BOOKLET_PUZZLES[difficulty];
-    const solutions = puzzles.map(toSolutionDigits);
-    const pageCount = getPrintableBookletPageCount(
-        puzzles.length,
-        PRINTABLE_BOOKLET_PUZZLES_PER_PAGE,
-        PRINTABLE_BOOKLET_SOLUTIONS_PER_PAGE
-    );
+const buildBookletDocument = async (booklet: BookletInterface): Promise<PDFDocument> => {
+    const solutions = booklet.puzzles.map(toSolutionDigits);
     const doc = await PDFDocument.create();
     const fonts = await embedFonts(doc);
 
-    doc.setTitle(`${tierName} Sudoku — Printable Puzzle Booklet`);
+    doc.setTitle(`${booklet.name} — Printable Puzzle Booklet`);
     doc.setAuthor(SITE_NAME);
 
-    addCoverPage(doc, fonts, `${tierName} Sudoku`, [
-        `${puzzles.length} free printable puzzles with solutions`,
-        `${pageCount}-page PDF, US Letter, ${PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} puzzles per page`,
+    addCoverPage(doc, fonts, booklet.name, [
+        booklet.puzzleCountLine,
+        `${booklet.pageCount}-page PDF, US Letter, ${booklet.puzzlesPerPage} puzzles per page`,
         `Play more at ${SITE_ORIGIN}`
     ]);
-    addGridPages(doc, fonts, `${tierName} Sudoku — Puzzles`, 'Puzzle', puzzles, PRINTABLE_BOOKLET_PUZZLES_PER_PAGE);
-    addGridPages(doc, fonts, `${tierName} Sudoku — Solutions`, 'Solution', solutions, PRINTABLE_BOOKLET_SOLUTIONS_PER_PAGE);
+    addGridPages(doc, fonts, `${booklet.name} — Puzzles`, 'Puzzle', booklet.puzzles, booklet.puzzlesPerPage);
+    addGridPages(doc, fonts, `${booklet.name} — Solutions`, 'Solution', solutions, booklet.solutionsPerPage);
 
     return doc;
 };
 
-const buildLargePrintDocument = async (): Promise<PDFDocument> => {
-    const puzzles = PRINTABLE_LARGE_PRINT_PUZZLES;
-    const solutions = puzzles.map(toSolutionDigits);
-    const pageCount = getPrintableBookletPageCount(
-        puzzles.length,
-        PRINTABLE_LARGE_PRINT_PUZZLES_PER_PAGE,
-        PRINTABLE_LARGE_PRINT_SOLUTIONS_PER_PAGE
-    );
-    const doc = await PDFDocument.create();
-    const fonts = await embedFonts(doc);
+const buildTierBooklet = (difficulty: LandingDifficultyType): BookletInterface => {
+    const puzzles = PRINTABLE_BOOKLET_PUZZLES[difficulty];
 
-    doc.setTitle('Large Print Sudoku — Printable Puzzle Booklet');
-    doc.setAuthor(SITE_NAME);
+    return {
+        name: `${DIFFICULTY_NAMES[difficulty]} Sudoku`,
+        puzzleCountLine: `${puzzles.length} free printable puzzles with solutions`,
+        puzzles,
+        pageCount: PRINTABLE_BOOKLET_PAGE_COUNT,
+        puzzlesPerPage: PRINTABLE_BOOKLET_PUZZLES_PER_PAGE,
+        solutionsPerPage: PRINTABLE_BOOKLET_SOLUTIONS_PER_PAGE
+    };
+};
 
-    addCoverPage(doc, fonts, 'Large Print Sudoku', [
-        `${puzzles.length} free large-print puzzles with solutions`,
-        `${pageCount}-page PDF, US Letter, ${PRINTABLE_LARGE_PRINT_PUZZLES_PER_PAGE} puzzles per page`,
-        `Play more at ${SITE_ORIGIN}`
-    ]);
-    addGridPages(doc, fonts, 'Large Print Sudoku — Puzzles', 'Puzzle', puzzles, PRINTABLE_LARGE_PRINT_PUZZLES_PER_PAGE);
-    addGridPages(doc, fonts, 'Large Print Sudoku — Solutions', 'Solution', solutions, PRINTABLE_LARGE_PRINT_SOLUTIONS_PER_PAGE);
-
-    return doc;
+const LARGE_PRINT_BOOKLET: BookletInterface = {
+    name: 'Large Print Sudoku',
+    puzzleCountLine: `${PRINTABLE_LARGE_PRINT_PUZZLES.length} free large-print puzzles with solutions`,
+    puzzles: PRINTABLE_LARGE_PRINT_PUZZLES,
+    pageCount: PRINTABLE_LARGE_PRINT_PAGE_COUNT,
+    puzzlesPerPage: PRINTABLE_LARGE_PRINT_PUZZLES_PER_PAGE,
+    solutionsPerPage: PRINTABLE_LARGE_PRINT_SOLUTIONS_PER_PAGE
 };
 
 const buildBlankGridDocument = async (): Promise<PDFDocument> => {
-    const blankDigits = BLANK_CHARACTER.repeat(GRID_LENGTH * GRID_LENGTH);
     const doc = await PDFDocument.create();
     const fonts = await embedFonts(doc);
-    const totalPageCount = PRINTABLE_COVER_PAGE_COUNT + PRINTABLE_BLANK_GRID_SHEET_PAGE_COUNT;
 
     doc.setTitle('Blank Sudoku Grid — Printable Practice Sheets');
     doc.setAuthor(SITE_NAME);
 
     addCoverPage(doc, fonts, 'Blank Sudoku Grid', [
         'One full-page grid plus four practice grids',
-        `${totalPageCount}-page PDF, US Letter`,
+        `${PRINTABLE_BLANK_GRID_PAGE_COUNT}-page PDF, US Letter`,
         `Play a finished puzzle at ${SITE_ORIGIN}`
     ]);
-    addGridPages(doc, fonts, 'Blank Sudoku Grid — Full Page', 'Grid', [blankDigits], 1);
-    addGridPages(doc, fonts, 'Blank Sudoku Grid — Practice Sheets', 'Grid', [blankDigits, blankDigits, blankDigits, blankDigits], 4);
+    addGridPages(doc, fonts, 'Blank Sudoku Grid — Full Page', 'Grid', [EMPTY_PUZZLE_ENTRY], 1);
+    addGridPages(
+        doc,
+        fonts,
+        'Blank Sudoku Grid — Practice Sheets',
+        'Grid',
+        [EMPTY_PUZZLE_ENTRY, EMPTY_PUZZLE_ENTRY, EMPTY_PUZZLE_ENTRY, EMPTY_PUZZLE_ENTRY],
+        4
+    );
 
     return doc;
 };
@@ -282,23 +297,18 @@ const buildBlankGridDocument = async (): Promise<PDFDocument> => {
 const writePdf = async (fileName: string, doc: PDFDocument): Promise<void> => {
     const bytes = await doc.save();
 
-    writeFileSync(join(OUTPUT_DIRECTORY, fileName), bytes);
+    writePublicArtifact(OUTPUT_DIRECTORY, fileName, bytes);
 };
 
 const generate = async (): Promise<void> => {
-    mkdirSync(OUTPUT_DIRECTORY, { recursive: true });
-
     for (const difficulty of DIFFICULTY_LADDER) {
-        await writePdf(`${DIFFICULTY_NAMES[difficulty].toLowerCase()}.pdf`, await buildBookletDocument(difficulty));
+        await writePdf(`${DIFFICULTY_NAMES[difficulty].toLowerCase()}.pdf`, await buildBookletDocument(buildTierBooklet(difficulty)));
     }
 
-    await writePdf('large-print.pdf', await buildLargePrintDocument());
+    await writePdf('large-print.pdf', await buildBookletDocument(LARGE_PRINT_BOOKLET));
     await writePdf('blank-grid.pdf', await buildBlankGridDocument());
 
     console.log(`Generated ${DIFFICULTY_LADDER.length + 2} printable PDFs in ${OUTPUT_DIRECTORY}`);
 };
 
-generate().catch(error => {
-    console.error(error);
-    process.exitCode = 1;
-});
+generate().catch(handleGeneratorError);

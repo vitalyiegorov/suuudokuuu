@@ -207,7 +207,10 @@ describe('gameSlice redo invalidation', () => {
         expect.assertions(1);
 
         const undoneState = gameSlice.reducer(buildRun(), undo(undoPayload));
-        const state = gameSlice.reducer(undoneState, toggleCellCandidate({ x: 1, y: 1, group: 0, value: 5 }));
+        const state = gameSlice.reducer(
+            undoneState,
+            toggleCellCandidate({ cell: { x: 1, y: 1, group: 0, value: 5 }, candidates: { '1-1': [5] } })
+        );
 
         expect(state.undoneMoves).toStrictEqual([]);
     });

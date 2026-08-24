@@ -1,9 +1,7 @@
 import { seTechniqueRatings } from '@suuudokuuu/rating';
-import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
+import { SolutionTechniqueEnum, isSolutionTechnique } from '@suuudokuuu/techniques';
 
 import { isPositiveNumber } from '@rnw-community/shared';
-
-import { isSolutionTechnique } from '../type-guard/is-solution-technique.type-guard';
 
 import type { TechniqueUsageInterface } from '../interfaces/technique-usage.interface';
 

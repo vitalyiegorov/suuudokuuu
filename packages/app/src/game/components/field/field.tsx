@@ -1,10 +1,9 @@
 import { useLingui } from '@lingui/react/macro';
-import { buildStepScriptState } from '@suuudokuuu/field-core';
+import { buildStepScriptState, getCellKey } from '@suuudokuuu/field-core';
 import { isEmptyScoredCells } from '@suuudokuuu/generator';
 import { type Ref, use, useImperativeHandle, useState } from 'react';
 import { View } from 'react-native';
 
-import { getCellKey } from '../../../@generic/utils/get-cell-key.util';
 import { GameContext } from '../../context/game.context';
 import { gameGetCellAccessibilityLabel } from '../../utils/game-get-cell-accessibility-label.util';
 import { gameGetCellKeysToAnimate } from '../../utils/game-get-cell-keys-to-animate.util';
@@ -89,7 +88,7 @@ export const Field = ({ cellSize, cellMargin, onSelect, ref }: Props) => {
                         const shouldShowCandidates = isEmpty && cellCandidates.length > 0;
                         const cellAccessibilityLabel = i18n._(
                             gameGetCellAccessibilityLabel({
-                                candidates: shouldShowCandidates ? cellCandidates : [],
+                                candidates: cellCandidates,
                                 cell,
                                 isEmpty,
                                 isWrong

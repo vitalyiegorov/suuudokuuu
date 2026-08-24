@@ -48,7 +48,7 @@ src/
 
 ### Cell view model
 
-`buildFieldCellView(cell, candidates, context)` maps a snapshot cell into `FieldCellViewInterface`. It keeps the landing's static-board vocabulary — `candidates`, `eliminatedCandidates`, `placedValue`, `isPatternCell`, `isTargetCell` — so the prerendered technique tables and the live board describe cells the same way. Interactive state adds `isSelected`, `isHighlighted`, `isSameValue`, `isWrong`, `isGiven`.
+`buildFieldCellView(cell, candidates, context)` — an internal helper, fed by `engine.getCellCandidates(cell)` — maps a snapshot cell into `FieldCellViewInterface`. It keeps the landing's static-board vocabulary — `candidates`, `eliminatedCandidates`, `placedValue`, `isPatternCell`, `isTargetCell` — so the prerendered technique tables and the live board describe cells the same way. Interactive state adds `isSelected`, `isHighlighted`, `isSameValue`, `isWrong`, `isGiven`.
 
 `FieldCell` renders every flag as a `data-*` attribute (`data-selected`, `data-highlighted`, `data-same-value`, `data-wrong`, `data-given`, `data-pattern`, `data-target`, plus `data-placed` on the value span). CSS owns what each state looks like.
 
@@ -89,10 +89,9 @@ The snapshot carries no given/user distinction, so the consumer supplies `givenC
 ## Exports
 
 ```typescript
-export { FieldBoard, FieldCell, FieldCellCandidates, FieldGame, FieldNumberPad, FieldStepPlayer };
-export { useFieldMistakeCell };
-export { buildFieldCellView, buildFieldPadValues, getAutoCandidates, getFieldCellCandidates, getGivenCellKeys };
-export type { FieldBoardLabelsInterface, FieldGameLabelsInterface, FieldCellViewInterface /* ... */ };
+export { FieldBoard, FieldGame, FieldStepPlayer };
+export { getGivenCellKeys };
+export type { FieldGameLabelsInterface };
 ```
 
 `@suuudokuuu/field-dom/styles.css` exports the stylesheet.

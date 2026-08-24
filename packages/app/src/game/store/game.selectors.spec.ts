@@ -16,7 +16,6 @@ import {
     gameCompletedGamesSelector,
     gameDifficultySelector,
     gameElapsedTimeSelector,
-    gameHasNewPersonalBestScoreSelector,
     gameHasRivalSelector,
     gameHistoryBestTimeSelector,
     gameHistoryByDifficultySelector,
@@ -127,7 +126,6 @@ describe('game selectors', () => {
         expect(gameSolutionsStepsSelector.resultFunc(state)).toStrictEqual([]);
         expect(gameTimelineEventsSelector.resultFunc(state)).toBe(state.timelineEvents);
         expect(gameChallengeTimelineEventsSelector.resultFunc(state)).toBe(state.challengeTimelineEvents);
-        expect(gameHasNewPersonalBestScoreSelector.resultFunc(state)).toBe(true);
         expect(gameTechniqueUsageCountsSelector.resultFunc(state)).toBe(state.techniqueUsageCounts);
         expect(gamePlayedDayNumbersSelector.resultFunc(state)).toBe(state.playedDayNumbers);
     });

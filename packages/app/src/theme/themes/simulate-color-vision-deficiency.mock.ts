@@ -1,8 +1,8 @@
-import { ColorVisionDeficiencyEnum } from '../enum/color-vision-deficiency.enum';
+import { delinearizeSrgbChannel, linearizeSrgbChannel } from '../utils/srgb-channel.util';
 
-import { delinearizeSrgbChannel, linearizeSrgbChannel } from './srgb-channel.util';
+import { ColorVisionDeficiencyEnum } from './color-vision-deficiency.mock';
 
-import type { ParsedColorInterface } from './parse-color.util';
+import type { ParsedColorInterface } from '../utils/parse-color.util';
 
 interface ChannelMixInterface {
     readonly fromRed: number;

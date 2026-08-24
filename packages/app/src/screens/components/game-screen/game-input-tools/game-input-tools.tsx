@@ -13,13 +13,11 @@ interface Props {
 }
 
 export const GameInputTools = ({ hideAutoCandidates }: Props) => (
-    <View style={styles.row}>
-        <View style={styles.inputControls}>
-            <UndoButton sizeStyle={styles.toolButton} />
-            <RedoButton sizeStyle={styles.toolButton} />
-            <InputModeButton sizeStyle={styles.toolButton} />
-            {hideAutoCandidates ? null : <AutoCandidatesButton sizeStyle={styles.toolButton} />}
-            <HintButton sizeStyle={styles.toolButton} />
-        </View>
+    <View style={styles.inputControls}>
+        <UndoButton sizeStyle={styles.toolButton} />
+        <RedoButton sizeStyle={styles.toolButton} />
+        <InputModeButton sizeStyle={styles.toolButton} />
+        {hideAutoCandidates ? null : <AutoCandidatesButton sizeStyle={styles.toolButton} />}
+        <HintButton sizeStyle={styles.toolButton} />
     </View>
 );
