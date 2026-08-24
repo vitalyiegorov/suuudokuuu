@@ -1,4 +1,4 @@
-import { LucideLogOut, LucidePause, LucideSettings, LucideShare2 } from 'lucide-react-native';
+import { LucideLogOut, LucidePause, LucideRedo2, LucideSettings, LucideShare2, LucideUndo2 } from 'lucide-react-native';
 import { View } from 'react-native';
 
 import { isDefined } from '@rnw-community/shared';
@@ -14,9 +14,23 @@ interface Props {
     readonly onOpenSettings: () => void;
     readonly onPause?: () => void;
     readonly onShare?: () => void;
+    readonly onUndo?: () => void;
+    readonly onRedo?: () => void;
+    readonly canUndo?: boolean;
+    readonly canRedo?: boolean;
 }
 
-export const GameActions = ({ actionIconColor, onExit, onOpenSettings, onPause, onShare }: Props) => (
+export const GameActions = ({
+    actionIconColor,
+    onExit,
+    onOpenSettings,
+    onPause,
+    onShare,
+    onUndo,
+    onRedo,
+    canUndo = false,
+    canRedo = false
+}: Props) => (
     <View style={styles.actions}>
         {isDefined(onPause) ? (
             <AppIconButton hitSlop={10} onPress={onPause} style={styles.button} testID={GameScreenSelectors.PauseButton} variant="inverted">
@@ -26,6 +40,30 @@ export const GameActions = ({ actionIconColor, onExit, onOpenSettings, onPause, 
         {isDefined(onShare) ? (
             <AppIconButton hitSlop={10} onPress={onShare} style={styles.button} testID={GameScreenSelectors.ShareButton} variant="inverted">
                 <LucideShare2 color={actionIconColor} />
+            </AppIconButton>
+        ) : null}
+        {isDefined(onUndo) ? (
+            <AppIconButton
+                disabled={!canUndo}
+                hitSlop={10}
+                onPress={onUndo}
+                style={styles.button}
+                testID={GameScreenSelectors.UndoButton}
+                variant="inverted"
+            >
+                <LucideUndo2 color={actionIconColor} />
+            </AppIconButton>
+        ) : null}
+        {isDefined(onRedo) ? (
+            <AppIconButton
+                disabled={!canRedo}
+                hitSlop={10}
+                onPress={onRedo}
+                style={styles.button}
+                testID={GameScreenSelectors.RedoButton}
+                variant="inverted"
+            >
+                <LucideRedo2 color={actionIconColor} />
             </AppIconButton>
         ) : null}
         <AppIconButton

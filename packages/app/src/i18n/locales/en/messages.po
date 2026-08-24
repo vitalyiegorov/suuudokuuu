@@ -965,6 +965,10 @@ msgstr "Numpad track (filled)"
 msgid "of current score"
 msgstr "of current score"
 
+#: src/scoring/components/scoring.screen.tsx
+msgid "of current score per undo, refunded on redo"
+msgstr "of current score per undo, refunded on redo"
+
 #: src/game/hooks/use-game-creation-runner.hook.ts
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
@@ -1560,6 +1564,10 @@ msgstr "Unable to open link"
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Unable to start installation"
 msgstr "Unable to start installation"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Undo"
+msgstr "Undo"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Unique Rectangle"

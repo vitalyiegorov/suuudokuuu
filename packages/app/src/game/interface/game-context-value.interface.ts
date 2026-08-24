@@ -5,6 +5,7 @@ import type { Sudoku } from '@suuudokuuu/generator';
 export interface GameContextValueInterface {
     readonly create: (setup: GameSetupInterface) => void;
     readonly createFromState: (newState: GameState) => void;
+    readonly restore: (sudokuString: string) => void;
     readonly isCreatingGame: boolean;
     readonly sudoku: Sudoku;
 }

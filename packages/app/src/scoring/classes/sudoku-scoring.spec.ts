@@ -433,6 +433,7 @@ describe('SudokuScoring', () => {
                     correctMinValue: 10,
                     elapsedCoefficient: 0.02,
                     mistakesCoefficient: 0.1,
+                    undoCoefficient: 0.2,
                     lastInRowCoefficientConstant: 1,
                     lastInColCoefficientConstant: 1,
                     lastInGroupCoefficientConstant: 1,

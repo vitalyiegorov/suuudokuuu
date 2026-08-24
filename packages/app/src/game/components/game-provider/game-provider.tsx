@@ -61,6 +61,14 @@ export const GameProvider = ({ children }: Props) => {
         return new Sudoku(defaultSudokuConfig);
     });
 
+    const restore = (restoredSudokuString: string) => {
+        try {
+            setSudoku(Sudoku.fromString(restoredSudokuString, defaultSudokuConfig));
+        } catch (error: unknown) {
+            showAlert(error);
+        }
+    };
+
     const createFromState = (newState: GameState) =>
         void runGameCreation(() => {
             const needsWallClock = isNotEmptyString(newState.challengeState) || newState.isChallengeRun;
@@ -91,7 +99,7 @@ export const GameProvider = ({ children }: Props) => {
 
     useEffect(() => void i18n.activate(currentLanguage), [currentLanguage]);
 
-    const value = { create, createFromState, isCreatingGame, sudoku };
+    const value = { create, createFromState, restore, isCreatingGame, sudoku };
 
     return <GameContext value={value}>{children}</GameContext>;
 };

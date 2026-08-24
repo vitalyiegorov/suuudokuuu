@@ -8,6 +8,7 @@ import type { GameContextValueInterface } from '../interface/game-context-value.
 export const GameContext = createContext<GameContextValueInterface>({
     create: emptyFn,
     createFromState: emptyFn,
+    restore: emptyFn,
     isCreatingGame: false,
     sudoku: new Sudoku(defaultSudokuConfig)
 });

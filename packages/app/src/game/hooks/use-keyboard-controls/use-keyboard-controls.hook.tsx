@@ -7,18 +7,20 @@ import { gameToggleInputModeAction } from '../../store/game.actions';
 import { UseKeyboardControlsStyles as styles } from './use-keyboard-controls.styles';
 import { keyboardKeyToAction } from './utils/keyboard-key-to-action.util';
 
+import type { KeyboardHandlersInterface } from './interface/keyboard-handlers.interface';
 import type { OnEventFn } from '@rnw-community/shared';
 import type { CellInterface, Sudoku } from '@suuudokuuu/generator';
 import type { NativeSyntheticEvent, TextInputKeyPressEventData } from 'react-native';
 
-export const useKeyboardControls = (
-    sudoku: Sudoku,
-    selectedCell: CellInterface | undefined,
-    onSelectCell: OnEventFn<CellInterface | undefined>,
-    onSelectValue: OnEventFn<number>,
-    onExit: OnEventFn<void>
-    // eslint-disable-next-line @typescript-eslint/max-params
-) => {
+interface UseKeyboardControlsParams {
+    readonly handlers: KeyboardHandlersInterface;
+    readonly onSelectCell: OnEventFn<CellInterface | undefined>;
+    readonly onSelectValue: OnEventFn<number>;
+    readonly selectedCell: CellInterface | undefined;
+    readonly sudoku: Sudoku;
+}
+
+export const useKeyboardControls = ({ handlers, onSelectCell, onSelectValue, selectedCell, sudoku }: UseKeyboardControlsParams) => {
     const dispatch = useAppDispatch();
     const hiddenInputRef = useRef<TextInput>(null);
 
@@ -38,7 +40,11 @@ export const useKeyboardControls = (
         } else if (action.type === 'toggle-input-mode') {
             dispatch(gameToggleInputModeAction());
         } else if (action.type === 'exit') {
-            onExit();
+            handlers.onExit();
+        } else if (action.type === 'undo') {
+            handlers.onUndo();
+        } else if (action.type === 'redo') {
+            handlers.onRedo();
         } else if (action.type === 'select-value') {
             onSelectValue(action.value);
         }

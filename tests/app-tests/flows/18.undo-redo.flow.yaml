@@ -1,0 +1,48 @@
+appId: ${APP_ID}
+---
+- startRecording:
+      path: '18.undo-redo'
+      optional: true
+
+# The fixture is an Easy Puzzle-kind payload (maxMistakes 3) whose blank cell
+# 0-3 needs a 5, so the placement, undo, and redo below are deterministic.
+- runFlow: subflows/navigation/launch-home.flow.yaml
+- runFlow:
+      file: subflows/shared/open-shared-handoff.flow.yaml
+      env:
+          SHARED_HANDOFF_LINK: suuudokuuu://shared/_MAPkUf6Fze86dvjf01NSzI894_I-hYooTW031nXI0CXNxABA
+
+# Undo starts empty, so only the disabled button pair is mounted.
+- assertVisible:
+      id: 'GameScreenSelectors.UndoButton'
+- assertVisible:
+      id: 'GameScreenSelectors.RedoButton'
+
+# A correct placement makes the score non-zero and enables undo/redo.
+- tapOn:
+      id: 'CellSelectors.Cell.0-3'
+- tapOn:
+      id: 'AvailableValueItemSelectors.Button.5'
+- extendedWaitUntil:
+      visible:
+          id: 'GameScreenSelectors.Score'
+          text: '.*[1-9].*'
+      timeout: 3000
+
+- tapOn:
+      id: 'GameScreenSelectors.UndoButton'
+# The digit disappears from that exact cell again after the undo.
+- assertNotVisible:
+      id: 'CellSelectors\.Cell\.0-3$'
+      text: '5'
+
+- tapOn:
+      id: 'GameScreenSelectors.RedoButton'
+- extendedWaitUntil:
+      visible:
+          id: 'CellSelectors\.Cell\.0-3$'
+          text: '5'
+      timeout: 3000
+
+- runFlow: subflows/game/quit-current-game.flow.yaml
+- stopApp

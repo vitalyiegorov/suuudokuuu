@@ -6,6 +6,8 @@ export enum GameScreenSelectors {
     QuitButton = 'GameScreenSelectors.QuitButton',
     Time = 'GameScreenSelectors.Time',
     PauseButton = 'GameScreenSelectors.PauseButton',
+    UndoButton = 'GameScreenSelectors.UndoButton',
+    RedoButton = 'GameScreenSelectors.RedoButton',
     Score = 'GameScreenSelectors.Score',
     MaxMistakesAllowed = 'GameScreenSelectors.MaxMistakesAllowed',
     MistakesCount = 'GameScreenSelectors.MistakesCount',

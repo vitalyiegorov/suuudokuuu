@@ -51,6 +51,16 @@ export const gameSolutionsStepsSelector = createSelector(gameSelector, state => 
 export const gameHasNewPersonalBestScoreSelector = createSelector(gameSelector, state => state.hasNewPersonalBestScore);
 export const gameTechniqueUsageCountsSelector = createSelector(gameSelector, state => state.techniqueUsageCounts);
 export const gamePlayedDayNumbersSelector = createSelector(gameSelector, state => state.playedDayNumbers);
+export const gameCanUndoSelector = createSelector(
+    gameSelector,
+    state => !state.isChallengeRun && state.maxMistakes > 0 && state.undoStack.length > 0
+);
+export const gameCanRedoSelector = createSelector(
+    gameSelector,
+    state => !state.isChallengeRun && state.maxMistakes > 0 && state.redoStack.length > 0
+);
+export const gameUndoSnapshotSelector = createSelector(gameSelector, state => state.undoStack[state.undoStack.length - 1]);
+export const gameRedoSnapshotSelector = createSelector(gameSelector, state => state.redoStack[state.redoStack.length - 1]);
 export const gameBestRatingSelector = createSelector(gameHistoryByDifficultySelector, historyByDifficulty =>
     historyGetBestRating(Object.values(historyByDifficulty))
 );

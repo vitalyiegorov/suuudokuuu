@@ -965,6 +965,10 @@ msgstr "Смуга панелі цифр (заповнена)"
 msgid "of current score"
 msgstr "від поточного рахунку"
 
+#: src/scoring/components/scoring.screen.tsx
+msgid "of current score per undo, refunded on redo"
+msgstr ""
+
 #: src/game/hooks/use-game-creation-runner.hook.ts
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
@@ -1560,6 +1564,10 @@ msgstr "Не вдалося відкрити посилання"
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Unable to start installation"
 msgstr "Не вдалося почати інсталяцію"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Undo"
+msgstr ""
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Unique Rectangle"

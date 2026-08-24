@@ -963,6 +963,10 @@ msgstr "নম্বর প্যাডের ট্র্যাক (পূর�
 msgid "of current score"
 msgstr "বর্তমান স্কোরের"
 
+#: src/scoring/components/scoring.screen.tsx
+msgid "of current score per undo, refunded on redo"
+msgstr ""
+
 #: src/game/hooks/use-game-creation-runner.hook.ts
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
@@ -1558,6 +1562,10 @@ msgstr "লিংক খোলা যায়নি"
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Unable to start installation"
 msgstr "ইনস্টলেশন শুরু করা যায়নি"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Undo"
+msgstr ""
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Unique Rectangle"

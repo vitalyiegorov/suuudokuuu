@@ -33,6 +33,14 @@ export const keyboardKeyToAction = (key: string, sudoku: Sudoku, selectedCell: C
         return { type: 'exit' };
     }
 
+    if (key === 'z' || key === 'Z') {
+        return { type: 'undo' };
+    }
+
+    if (key === 'y' || key === 'Y') {
+        return { type: 'redo' };
+    }
+
     if (isDefined(selectedCell) && /^[1-9]$/iu.test(key)) {
         return { type: 'select-value', value: Number(key) };
     }

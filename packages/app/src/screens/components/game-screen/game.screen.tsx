@@ -41,19 +41,19 @@ import {
     gameInputModeSelector,
     gameIsChallengeRunSelector,
     gameMaxMistakesSelector,
-    gameMistakesSelector,
-    gameScoreSelector
+    gameMistakesSelector
 } from '../../../game/store/game.selectors';
 import { settingsKeySelector } from '../../../settings/store/settings.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { gameScreenSetSharingAvailable } from '../../utils/game-screen-set-sharing-available.util';
 
-import { GameActions } from './game-actions/game-actions';
 import { GameInputTools } from './game-input-tools/game-input-tools';
 import { GameNumpad } from './game-numpad/game-numpad';
+import { GameScreenActions } from './game-screen-actions/game-screen-actions';
 import { GameScreenSelectors } from './game-screen.selectors';
 import { GameScreenStyles as styles } from './game-screen.styles';
 import { GameStatusBlock } from './game-status-block/game-status-block';
+import { useGameUndoRedo } from './hooks/use-game-undo-redo.hook';
 import { useOpenGameSettings } from './hooks/use-open-game-settings.hook';
 import { gameScreenExit } from './utils/game-screen-exit.util';
 import { gameScreenGetLostRoute, gameScreenGetWonRoute } from './utils/game-screen-get-result-route.util';
@@ -79,10 +79,8 @@ export const GameScreen = () => {
     const reservedBoardHeight = isWideLayout ? 0 : GameToolsSlotReservedHeightConstant;
     const { cellSize: boardCellSize, boardSize, onBoardAreaLayout } = useBoardGeometry(reservedBoardHeight);
     const dispatch = useAppDispatch();
-    const score = useAppSelector(gameScoreSelector);
     const mistakes = useAppSelector(gameMistakesSelector);
     const maxMistakes = useAppSelector(gameMaxMistakesSelector);
-    const hasTimer = useAppSelector(settingsKeySelector('hasTimer'));
     const keepActiveCell = useAppSelector(settingsKeySelector('keepActiveCell'));
     const isLeftHanded = useAppSelector(settingsKeySelector('isLeftHanded'));
     const inputMode = useAppSelector(gameInputModeSelector);
@@ -91,14 +89,13 @@ export const GameScreen = () => {
     const challengeTime = useAppSelector(gameChallengeTimeSelector);
     const difficulty = useAppSelector(gameDifficultySelector);
     const elapsedTime = useAppSelector(gameElapsedTimeSelector);
+    const { canRedo, canUndo, handleRedo, handleUndo } = useGameUndoRedo();
 
     const availableValuesRefs = useRef<Record<number, AvailableValuesItemRef | null>>({});
     const fieldRef = useRef<FieldRef>(null);
 
     const [selectedCell, setSelectedCell] = useState<CellInterface>();
     const [hasSharing, setHasSharing] = useState(false);
-
-    const maxMistakesReached = mistakes >= maxMistakes;
 
     useEffect(() => void gameScreenSetSharingAvailable(setHasSharing), []);
 
@@ -210,35 +207,32 @@ export const GameScreen = () => {
         availableValuesRefs.current[value] = ref;
     };
 
-    const keyboardControlsElement = useKeyboardControls(sudoku, selectedCell, handleSelectCell, handleSelectValue, handleExit);
+    const keyboardControlsElement = useKeyboardControls({
+        handlers: { onExit: handleExit, onRedo: handleRedo, onUndo: handleUndo },
+        onSelectCell: handleSelectCell,
+        onSelectValue: handleSelectValue,
+        selectedCell,
+        sudoku
+    });
 
     const hideAutoCandidates = maxMistakes === 0;
-    const gameActionsIconColor = theme.colors.surface.raisedText;
 
-    const statusBlock = (
-        <GameStatusBlock
-            elapsedTime={elapsedTime}
-            hasTimer={hasTimer}
-            maxMistakes={maxMistakes}
-            maxMistakesReached={maxMistakesReached}
-            mistakes={mistakes}
-            score={score}
-        />
-    );
-    const shareAction = { ...(hasSharing && !isChallengeRun && { onShare: handleShare }) };
-    const pauseAction = { ...(!isChallengeRun && { onPause: handlePause }) };
-    const gameActions = (
-        <GameActions actionIconColor={gameActionsIconColor} onExit={handleExit} onOpenSettings={handleOpenSettings} {...shareAction} />
-    );
-    const gameActionsWithPause = (
-        <GameActions
-            actionIconColor={gameActionsIconColor}
-            onExit={handleExit}
-            onOpenSettings={handleOpenSettings}
-            {...pauseAction}
-            {...shareAction}
-        />
-    );
+    const actionsProps = {
+        actionIconColor: theme.colors.surface.raisedText,
+        canRedo,
+        canUndo,
+        hasSharing,
+        isChallengeRun,
+        isHardcore: maxMistakes === 0,
+        onExit: handleExit,
+        onOpenSettings: handleOpenSettings,
+        onPause: handlePause,
+        onRedo: handleRedo,
+        onShare: handleShare,
+        onUndo: handleUndo
+    };
+    const gameActions = <GameScreenActions {...actionsProps} variant="top" />;
+    const gameActionsWithPause = <GameScreenActions {...actionsProps} variant="panel" />;
     const challengeHudContent = hasRival ? <ChallengeRaceHud /> : <ChallengeRecordHud />;
     const challengeRecorder = isChallengeRun ? <ChallengeScreenshotRecorder /> : null;
     const challengeHud = isChallengeRun ? challengeHudContent : null;
@@ -257,7 +251,7 @@ export const GameScreen = () => {
             {challengeRecorder}
             {isWideLayout ? null : (
                 <View style={styles.topBar}>
-                    {statusBlock}
+                    <GameStatusBlock />
                     {gameActions}
                 </View>
             )}
@@ -278,7 +272,7 @@ export const GameScreen = () => {
                 </View>
 
                 <View style={styles.panelArea(boardSize)}>
-                    {isWideLayout ? statusBlock : null}
+                    {isWideLayout ? <GameStatusBlock /> : null}
 
                     {isWideLayout ? challengeHud : null}
 

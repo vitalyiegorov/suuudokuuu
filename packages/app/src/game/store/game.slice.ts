@@ -10,10 +10,14 @@ import { maxCompletedGamesPerDifficulty } from '../../history/constants/max-comp
 import { SudokuScoring } from '../../scoring/classes/sudoku-scoring';
 import { defaultScoringConfig } from '../../scoring/interfaces/scoring-config.interface';
 import { addPlayedDayNumber } from '../utils/add-played-day-number.util';
+import { createGameSnapshot } from '../utils/create-game-snapshot.util';
+import { gameApplyRedo } from '../utils/game-apply-redo.util';
+import { gameApplyUndo } from '../utils/game-apply-undo.util';
 import { gameGetPersistedAggregates } from '../utils/game-get-persisted-aggregates.util';
 import { gameStateToString } from '../utils/game-state-to-string.util';
 import { getTimelineTimestampDelta } from '../utils/get-timeline-timestamp-delta.util';
 import { isLastTimelineEventAway } from '../utils/is-last-timeline-event-away.util';
+import { pruneCandidates } from '../utils/prune-candidates.util';
 
 import { initialGameState } from './game.state';
 
@@ -112,6 +116,9 @@ export const gameSlice = createSlice({
 
             const scoring = new SudokuScoring(defaultScoringConfig);
 
+            state.undoStack.push(createGameSnapshot(state));
+            state.redoStack = [];
+
             state.sudokuString = sudoku.toString();
 
             state.score += scoring.calculate({
@@ -135,23 +142,7 @@ export const gameSlice = createSlice({
             }
 
             state.candidates[getCellKey(correctCell)] = [];
-
-            sudoku.Field.forEach(
-                row =>
-                    void row.forEach(cell => {
-                        if (
-                            sudoku.isBlankCell(cell) &&
-                            (cell.x === correctCell.x || cell.y === correctCell.y || cell.group === correctCell.group)
-                        ) {
-                            const possibleCandidates = sudoku.getCellCandidates(cell);
-
-                            const key = getCellKey(cell);
-                            const currentCandidates = state.candidates[key] ?? [];
-
-                            state.candidates[key] = currentCandidates.filter(candidate => possibleCandidates.includes(candidate));
-                        }
-                    })
-            );
+            state.candidates = pruneCandidates(state.candidates, sudoku, correctCell);
         },
         mistake: (state, action: PayloadAction<CellInterface>) => {
             state.mistakes += 1;
@@ -201,6 +192,9 @@ export const gameSlice = createSlice({
         toggleCellCandidate: (state, action: PayloadAction<CellInterface>) => {
             const { value } = action.payload;
 
+            state.undoStack.push(createGameSnapshot(state));
+            state.redoStack = [];
+
             const key = getCellKey(action.payload);
             const candidates = state.candidates[key] ?? [];
 
@@ -228,6 +222,12 @@ export const gameSlice = createSlice({
                 kind: TimelineEventKindEnum.Screenshot,
                 ts: getTimelineTimestampDelta(state.timelineEvents, state.elapsedTime)
             });
+        },
+        undo: state => {
+            gameApplyUndo(state, defaultScoringConfig);
+        },
+        redo: state => {
+            gameApplyRedo(state);
         },
 
         // eslint-disable-next-line max-statements

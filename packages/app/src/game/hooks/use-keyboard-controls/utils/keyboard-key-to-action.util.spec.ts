@@ -68,6 +68,20 @@ describe('keyboardKeyToAction', () => {
         expect(keyboardKeyToAction('Escape', sudoku, undefined)).toStrictEqual({ type: 'exit' });
     });
 
+    it.each(['z', 'Z'])('maps %s to an undo action regardless of selection', key => {
+        const sudoku = createSudoku();
+
+        expect(keyboardKeyToAction(key, sudoku, getMiddleTestCell(sudoku))).toStrictEqual({ type: 'undo' });
+        expect(keyboardKeyToAction(key, sudoku, undefined)).toStrictEqual({ type: 'undo' });
+    });
+
+    it.each(['y', 'Y'])('maps %s to a redo action regardless of selection', key => {
+        const sudoku = createSudoku();
+
+        expect(keyboardKeyToAction(key, sudoku, getMiddleTestCell(sudoku))).toStrictEqual({ type: 'redo' });
+        expect(keyboardKeyToAction(key, sudoku, undefined)).toStrictEqual({ type: 'redo' });
+    });
+
     it('maps ArrowUp to a select-cell action delegating to sudoku.getCellUp', () => {
         const sudoku = createSudoku();
         const selectedCell = getMiddleTestCell(sudoku);

@@ -162,6 +162,10 @@ export const ScoringScreen = () => {
                     • <Trans>Mistakes</Trans>: <Text style={codeStyle}>{defaultScoringConfig.mistakesCoefficient}</Text>{' '}
                     <Trans>per mistake</Trans>
                 </ListItem>
+                <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
+                    • <Trans>Undo</Trans>: <Text style={codeStyle}>{defaultScoringConfig.undoCoefficient}</Text>{' '}
+                    <Trans>of current score per undo, refunded on redo</Trans>
+                </ListItem>
                 <Text style={textStyle}>
                     <Trans>Penalty formula</Trans>:{' '}
                     <Text style={codeStyle}>

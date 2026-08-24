@@ -5,6 +5,7 @@ export interface ScoringConfigInterface {
     correctMinValue: number;
     elapsedCoefficient: number;
     mistakesCoefficient: number;
+    undoCoefficient: number;
     lastInRowCoefficientConstant: number;
     lastInColCoefficientConstant: number;
     lastInGroupCoefficientConstant: number;
@@ -17,11 +18,12 @@ export const defaultScoringConfig: ScoringConfigInterface = {
     correctMinValue: 5,
     correctValue: 10,
     elapsedCoefficient: 0.01,
+    mistakesCoefficient: 0.05,
+    undoCoefficient: 0.1,
+    lastInRowCoefficientConstant: 2,
     lastInColCoefficientConstant: 2,
     lastInGroupCoefficientConstant: 3,
-    lastInRowCoefficientConstant: 2,
     lastValueCoefficient: 3,
-    mistakesCoefficient: 0.05,
     difficultyCoefficients: {
         [DifficultyEnum.Newbie]: 1,
         [DifficultyEnum.Easy]: 2,

@@ -18,6 +18,14 @@ interface KeyboardExitActionInterface {
     readonly type: 'exit';
 }
 
+interface KeyboardUndoActionInterface {
+    readonly type: 'undo';
+}
+
+interface KeyboardRedoActionInterface {
+    readonly type: 'redo';
+}
+
 interface KeyboardNoopActionInterface {
     readonly type: 'noop';
 }
@@ -27,4 +35,6 @@ export type KeyboardActionInterface =
     | KeyboardSelectValueActionInterface
     | KeyboardToggleInputModeActionInterface
     | KeyboardExitActionInterface
+    | KeyboardUndoActionInterface
+    | KeyboardRedoActionInterface
     | KeyboardNoopActionInterface;

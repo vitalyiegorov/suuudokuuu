@@ -3,6 +3,7 @@ import { DifficultyEnum } from '@suuudokuuu/generator';
 import { emptyGameHistory } from '../../history/interfaces/history-game.interface';
 
 import type { HistoryGameInterface } from '../../history/interfaces/history-game.interface';
+import type { GameSnapshotInterface } from '../interface/game-snapshot.interface';
 import type { GameTimelineEventInterface } from '../interface/game-timeline-event.interface';
 import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
@@ -31,6 +32,9 @@ export interface GameState {
     hasNewPersonalBestScore: boolean;
     techniqueUsageCounts: Partial<Record<SolutionTechniqueEnum, number>>;
     playedDayNumbers: number[];
+    undoStack: GameSnapshotInterface[];
+    redoStack: GameSnapshotInterface[];
+    lastUndoScorePenalty: number;
 }
 
 export const initialGameState: GameState = {
@@ -65,5 +69,8 @@ export const initialGameState: GameState = {
     isChallengeRun: false,
     hasNewPersonalBestScore: false,
     techniqueUsageCounts: {},
-    playedDayNumbers: []
+    playedDayNumbers: [],
+    undoStack: [],
+    redoStack: [],
+    lastUndoScorePenalty: 0
 };

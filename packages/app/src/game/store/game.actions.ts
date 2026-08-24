@@ -15,4 +15,6 @@ export const gameToggleAutoCandidatesAction = gameSlice.actions.toggleShowAutoCa
 export const gameToggleInputModeAction = gameSlice.actions.toggleInputMode;
 export const gameToggleCellCandidateAction = gameSlice.actions.toggleCellCandidate;
 export const gameScreenshotAction = gameSlice.actions.screenshot;
+export const gameUndoAction = gameSlice.actions.undo;
+export const gameRedoAction = gameSlice.actions.redo;
 export const gameFinishAction = gameSlice.actions.finish;
