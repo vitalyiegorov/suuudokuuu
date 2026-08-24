@@ -12,7 +12,7 @@ import { ComfortControl } from '../comfort-control/comfort-control';
 export const SiteHeader = () => (
     <header className="site-header">
         <Link className="site-header__brand" href={homePageMetadata.path}>
-            <span aria-hidden="true" className="site-header__mark" />
+            <img alt="" className="site-header__mark" height={32} src="/brand/icon-64.png" width={32} />
             {SITE_NAME}
         </Link>
         <nav aria-label="Primary" className="site-header__nav">

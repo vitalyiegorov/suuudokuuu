@@ -21,7 +21,7 @@ test('serves the full static worked example and prose before any JavaScript exec
     expect(html).toContain('<h1>X-Wing');
     expect(html).toContain('Sudoku Technique</h1>');
     expect(html).toContain('An X-Wing is a fish pattern where a digit is confined to the same two lines');
-    expect(html).toContain('<summary class="technique-embed__static-summary">Worked example diagram</summary>');
+    expect(html).toContain('class="technique-embed__tabs"');
     expect(html).toContain('Try it on a live board');
     expect(html).not.toContain('Play full puzzles');
 });
@@ -48,10 +48,10 @@ test('gates the live board behind intent, then walks the elimination and takes d
 
     const scriptRequestCountBeforeGate = scriptRequestUrls.length;
 
-    const staticDetails = page.locator('details.technique-embed__static');
-    await expect(staticDetails).toHaveAttribute('open', '');
+    const staticDetails = page.locator('.technique-embed__static');
+    await expect(staticDetails).toBeVisible();
 
-    await page.getByRole('button', { name: 'Try it on a live board' }).click();
+    await page.getByRole('tab', { name: 'Try it on a live board' }).click();
 
     const liveBoard = page.locator('.field-board');
     await expect(liveBoard.getByRole('gridcell')).toHaveCount(liveBoardGridCellCount);
@@ -60,7 +60,7 @@ test('gates the live board behind intent, then walks the elimination and takes d
 
     await expect(staticDetails).toHaveCount(1);
     await expect(staticDetails.locator('td.sudoku-cell')).toHaveCount(staticSudokuCellCount);
-    expect(await staticDetails.getAttribute('open')).toBeNull();
+    await expect(staticDetails).toBeHidden();
 
     await page.getByRole('button', { name: 'Show me the technique' }).click();
 
