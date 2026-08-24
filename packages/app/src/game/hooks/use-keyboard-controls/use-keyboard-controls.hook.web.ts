@@ -8,27 +8,45 @@ import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { gameToggleAutoCandidatesAction, gameToggleCellCandidateAction, gameToggleInputModeAction } from '../../store/game.actions';
 import { gameMaxMistakesSelector } from '../../store/game.selectors';
 
+import type { KeyboardHandlersInterface } from './interface/keyboard-handlers.interface';
 import type { OnEventFn } from '@rnw-community/shared';
 import type { CellInterface, Sudoku } from '@suuudokuuu/generator';
 
 const ARROW_KEYS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
 const DIGIT_CODE_PATTERN = /^(?:Digit|Numpad)([1-9])$/u;
 
+interface UseKeyboardControlsParams {
+    readonly handlers: KeyboardHandlersInterface;
+    readonly onSelectCell: OnEventFn<CellInterface | undefined>;
+    readonly onSelectValue: OnEventFn<number>;
+    readonly selectedCell: CellInterface | undefined;
+    readonly sudoku: Sudoku;
+}
+
 const isEditableTarget = (target: EventTarget | null): boolean =>
     target instanceof HTMLElement && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable);
 
-export const useKeyboardControls = (
-    sudoku: Sudoku,
-    selectedCell: CellInterface | undefined,
-    onSelectCell: OnEventFn<CellInterface | undefined>,
-    onSelectValue: OnEventFn<number>,
-    onExit: OnEventFn<void>
-    // eslint-disable-next-line @typescript-eslint/max-params
-) => {
+const applyUndoRedoKey = (key: string, handlers: KeyboardHandlersInterface): boolean => {
+    const isUndoKey = key === 'z' || key === 'Z';
+
+    if (!isUndoKey && key !== 'y' && key !== 'Y') {
+        return false;
+    }
+
+    if (isUndoKey) {
+        handlers.onUndo();
+    } else {
+        handlers.onRedo();
+    }
+
+    return true;
+};
+
+export const useKeyboardControls = ({ handlers, onSelectCell, onSelectValue, selectedCell, sudoku }: UseKeyboardControlsParams) => {
     const dispatch = useAppDispatch();
     const isFocused = useIsFocused();
     const maxMistakes = useAppSelector(gameMaxMistakesSelector);
-    const canToggleAutoCandidates = maxMistakes > 0;
+    const canToggleAssists = maxMistakes > 0;
 
     useEffect(() => {
         if (!isFocused) {
@@ -78,16 +96,22 @@ export const useKeyboardControls = (
             if (code === 'KeyA') {
                 e.preventDefault();
 
-                if (canToggleAutoCandidates) {
+                if (canToggleAssists) {
                     dispatch(gameToggleAutoCandidatesAction());
                 }
 
                 return;
             }
 
+            if (applyUndoRedoKey(key, handlers)) {
+                e.preventDefault();
+
+                return;
+            }
+
             if (key === 'Escape') {
                 e.preventDefault();
-                onExit();
+                handlers.onExit();
 
                 return;
             }
@@ -111,5 +135,5 @@ export const useKeyboardControls = (
         window.addEventListener('keydown', handleKeyDown);
 
         return () => void window.removeEventListener('keydown', handleKeyDown);
-    }, [isFocused, selectedCell, onSelectCell, onSelectValue, sudoku, onExit, dispatch, canToggleAutoCandidates]);
+    }, [isFocused, selectedCell, onSelectCell, onSelectValue, sudoku, handlers, dispatch, canToggleAssists]);
 };

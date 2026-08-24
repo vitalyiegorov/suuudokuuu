@@ -1,21 +1,21 @@
-import { isDefined, isEmptyArray } from '@rnw-community/shared';
+import { isDefined } from '@rnw-community/shared';
 
 import { createGameSnapshot } from './create-game-snapshot.util';
 
 import type { GameUndoRedoStateInterface } from '../interface/game-undo-redo-state.interface';
 
 export const gameApplyRedo = (state: GameUndoRedoStateInterface): void => {
-    if (state.isChallengeRun || state.maxMistakes === 0 || isEmptyArray(state.redoStack)) {
+    const snapshot = state.redoStack.at(-1);
+
+    if (state.isChallengeRun || state.maxMistakes === 0 || !isDefined(snapshot)) {
         return;
     }
 
-    const snapshot = state.redoStack.pop();
+    state.redoStack.pop();
     state.undoStack.push(createGameSnapshot(state));
 
-    if (isDefined(snapshot)) {
-        state.score += state.lastUndoScorePenalty;
-        state.lastUndoScorePenalty = 0;
-        state.sudokuString = snapshot.sudokuString;
-        state.candidates = snapshot.candidates;
-    }
+    state.score += state.lastUndoScorePenalty;
+    state.lastUndoScorePenalty = 0;
+    state.sudokuString = snapshot.sudokuString;
+    state.candidates = snapshot.candidates;
 };
