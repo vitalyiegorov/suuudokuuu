@@ -11,7 +11,7 @@ appId: ${APP_ID}
 - runFlow:
       file: subflows/shared/open-shared-handoff.flow.yaml
       env:
-          SHARED_HANDOFF_LINK: suuudokuuu://shared/_NABHQzBFw6RglyoiRQQUouMgjrAma5QGGoYAggggggggggggggggghCEIQiEIQhCEIREREREklQL1IJUTJSvlHjqmsZOolrdPSOtkgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgAAAA
+          SHARED_HANDOFF_LINK: suuudokuuu://shared/_NABHQzBFw6RglyoiRQQUouMgjrAma5QGGoYAggggggggggggggggghCEIQiEIQhCEIREREREklQL1IJUTJSvlHjqmsZOolrdPSOtkgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgAAAA
 - assertVisible: '0/0'
 
 - assertNotVisible:
