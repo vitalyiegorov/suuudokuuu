@@ -35,7 +35,7 @@ msgstr "{awaySeconds}с поза грою"
 #: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
 msgid "{bestStreak, plural, one {Best streak: # day} other {Best streak: # days}}"
-msgstr ""
+msgstr "{bestStreak, plural, one {Найкраща серія: # день} few {Найкраща серія: # дні} many {Найкраща серія: # днів} other {Найкраща серія: # дня}}"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "{draftThemeName} copy"
@@ -59,7 +59,7 @@ msgstr "{foregroundLabel} на {backgroundLabel}: {contrastRatioText} — мін
 
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "{gamesCompleted, plural, one {# completed game} other {# completed games}}"
-msgstr "{gamesCompleted, plural, one {# завершена гра} other {# завершені ігри}}"
+msgstr "{gamesCompleted, plural, one {# завершена гра} few {# завершені ігри} many {# завершених ігор} other {# завершеної гри}}"
 
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
@@ -67,24 +67,24 @@ msgstr "{mistakes, plural, one {# помилка} few {# помилки} many {#
 
 #: src/screens/components/winner-screen/winner-calm-result-hero/winner-calm-result-hero.tsx
 msgid "{moveCount, plural, one {# move} other {# moves}}"
-msgstr ""
+msgstr "{moveCount, plural, one {# хід} few {# ходи} many {# ходів} other {# ходу}}"
 
 #: src/game/components/available-values-item/available-values-item.tsx
 msgid "{remaining, plural, one {Enter {value}, # left to place} other {Enter {value}, # left to place}}"
-msgstr ""
+msgstr "{remaining, plural, one {Ввести {value}, залишилася # клітинка} few {Ввести {value}, залишилося # клітинки} many {Ввести {value}, залишилося # клітинок} other {Ввести {value}, залишилося # клітинки}}"
 
 #: src/game/components/candidate-input-item/candidate-input-item.tsx
 msgid "{remaining, plural, one {Note {value}, # left to place} other {Note {value}, # left to place}}"
-msgstr ""
+msgstr "{remaining, plural, one {Позначити {value}, залишилася # клітинка} few {Позначити {value}, залишилося # клітинки} many {Позначити {value}, залишилося # клітинок} other {Позначити {value}, залишилося # клітинки}}"
 
 #: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
 msgid "{streak, plural, one {# day streak} other {# day streak}}"
-msgstr ""
+msgstr "{streak, plural, one {Серія # день} few {Серія # дні} many {Серія # днів} other {Серія # дня}}"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: start with {cellCount, plural, one {the # highlighted cell} other {the # highlighted cells}} and the digits {valueList}."
-msgstr ""
+msgstr "{techniqueName}: почни з {cellCount, plural, one {підсвіченої клітинки} few {# підсвічених клітинок} many {# підсвічених клітинок} other {# підсвічених клітинок}} і цифр {valueList}."
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
@@ -155,15 +155,15 @@ msgstr "Увесь прогрес буде втрачено"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Always off"
-msgstr ""
+msgstr "Завжди вимкнено"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Always on"
-msgstr ""
+msgstr "Завжди увімкнено"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "An assist is charged once, as a fraction of one plain placement at your difficulty and mistake limit:"
-msgstr ""
+msgstr "Допомога списується один раз — як частка одного звичайного розміщення для твоєї складності та ліміту помилок:"
 
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "Android installation"
@@ -176,7 +176,7 @@ msgstr "Анімувати завершені рядки, стовпці та б
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Animations"
-msgstr ""
+msgstr "Анімації"
 
 #: src/game/components/hint-panel/hint-panel.tsx
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
@@ -185,11 +185,11 @@ msgstr "Застосувати"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Applying a hint"
-msgstr ""
+msgstr "Застосування підказки"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Assists"
-msgstr ""
+msgstr "Допоміжні дії"
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Attempts to load the latest development build again"
@@ -265,7 +265,7 @@ msgstr "За межею"
 
 #: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
 msgid "Bigger board numbers, spacious cells, every highlight on, no timer, calm play, no animations and the high-contrast theme. Each one stays adjustable below."
-msgstr ""
+msgstr "Більші цифри на дошці, просторі клітинки, усі підсвічування, без таймера, спокійна гра, без анімацій і висококонтрастна тема. Кожен пункт можна змінити нижче."
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Board cells"
@@ -277,7 +277,7 @@ msgstr "Кольори дошки та вигляд екранів"
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Board states told apart by lightness and outlines, not hue"
-msgstr ""
+msgstr "Стани дошки розрізняються світлістю та контурами, а не відтінком"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Box-Line Reduction"
@@ -293,7 +293,7 @@ msgstr "Зібрано:"
 
 #: src/settings/component/settings-feedback-section/settings-feedback-section.tsx
 msgid "Calm play"
-msgstr ""
+msgstr "Спокійна гра"
 
 #: src/challenge/components/challenge-accept-time-block/challenge-accept-time-block.tsx
 msgid "Can you beat them?"
@@ -384,7 +384,7 @@ msgstr "Виберіть відстань між клітинками Судок
 
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Choose how much the board and screens may animate"
-msgstr ""
+msgstr "Виберіть, наскільки можуть анімуватися дошка та екрани"
 
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Choose the language used for menus and game text"
@@ -416,7 +416,7 @@ msgstr "Закрити"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Colorblind safe"
-msgstr ""
+msgstr "Безпечна для дальтоніків"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Column"
@@ -424,11 +424,11 @@ msgstr "Стовпець"
 
 #: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
 msgid "Comfort"
-msgstr ""
+msgstr "Комфорт"
 
 #: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
 msgid "Comfort mode"
-msgstr ""
+msgstr "Режим комфорту"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Comfortable"
@@ -486,7 +486,7 @@ msgstr "Налаштувати"
 
 #: src/app/(tabs)/settings/index.tsx
 msgid "Customize your Sudoku experience: themes, difficulty, and gameplay preferences."
-msgstr ""
+msgstr "Налаштуйте судоку під себе: теми, складність і параметри гри."
 
 #: src/@generic/hooks/use-timer-text.hook.ts
 msgid "d"
@@ -495,7 +495,7 @@ msgstr "d"
 #: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
 msgid "Daily challenge"
-msgstr ""
+msgstr "Щоденний виклик"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Danger accent"
@@ -561,7 +561,7 @@ msgstr "Затемнювати завершену цифру в панелі ц�
 
 #: src/game/components/hint-panel/hint-panel.tsx
 msgid "Dismiss"
-msgstr ""
+msgstr "Сховати"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Display"
@@ -658,7 +658,7 @@ msgstr "Finned X-Wing"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Follow system"
-msgstr ""
+msgstr "Як у системі"
 
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Foundational"
@@ -683,7 +683,7 @@ msgstr "Гру призупинено"
 
 #: src/screens/components/game-screen/game-actions/game-actions.tsx
 msgid "Game settings"
-msgstr ""
+msgstr "Налаштування гри"
 
 #: src/app/history/[difficulty]/index.tsx
 #: src/screens/components/history-games-screen/history-games.screen.tsx
@@ -761,11 +761,11 @@ msgstr "Прихована трійка"
 
 #: src/settings/component/settings-feedback-section/settings-feedback-section.tsx
 msgid "Hide the score and finish with a calm summary instead"
-msgstr ""
+msgstr "Приховати бали й завершувати спокійним підсумком"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "High contrast"
-msgstr ""
+msgstr "Висока контрастність"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Highlight areas"
@@ -785,7 +785,7 @@ msgstr "Підсвічувати нотатки"
 
 #: src/game/components/hint-button/hint-button.tsx
 msgid "Hint"
-msgstr ""
+msgstr "Підказка"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Hint text"
@@ -793,7 +793,7 @@ msgstr "Текст підказки"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Hints on the hardest puzzles"
-msgstr ""
+msgstr "Підказки в найскладніших судоку"
 
 #: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
@@ -802,7 +802,7 @@ msgstr "Додому"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "How much the board and screens may move"
-msgstr ""
+msgstr "Наскільки можуть рухатися дошка та екрани"
 
 #: src/app/scoring.tsx
 #: src/scoring/components/scoring.screen.tsx
@@ -819,7 +819,7 @@ msgstr "Безсмертний"
 
 #: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
 msgid "In progress • {difficultyLabel}"
-msgstr ""
+msgstr "У процесі • {difficultyLabel}"
 
 #: src/screens/components/loser-screen/loser.screen.tsx
 msgid "Incomplete"
@@ -836,7 +836,7 @@ msgstr "Чорнило"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "Inside that pattern the digits {valueList} can only sit in the highlighted cells."
-msgstr ""
+msgstr "У цьому візерунку цифри {valueList} можуть стояти лише в підсвічених клітинках."
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Install on iOS"
@@ -880,7 +880,7 @@ msgstr "Залишати завершені цифри"
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Keep every animation even when the system reduces motion"
-msgstr ""
+msgstr "Залишати всі анімації, навіть коли система зменшує рух"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Keep selection after tapping outside the board"
@@ -945,7 +945,7 @@ msgstr "m"
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Match the reduce motion setting of your device"
-msgstr ""
+msgstr "Відповідати системному налаштуванню зменшення руху"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Max Mistakes bonus"
@@ -953,7 +953,7 @@ msgstr "Бонус за дозволені помилки"
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Maximum separation between board states"
-msgstr ""
+msgstr "Максимальна різниця між станами дошки"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Maybe later"
@@ -1041,7 +1041,7 @@ msgstr "Газета"
 
 #: src/game/components/hint-panel/hint-panel.tsx
 msgid "Next step"
-msgstr ""
+msgstr "Наступний крок"
 
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -1086,7 +1086,7 @@ msgstr "без паузи"
 
 #: src/game/components/hint-button/hint-button.tsx
 msgid "No simple technique applies"
-msgstr ""
+msgstr "Простих технік немає"
 
 #: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
@@ -1094,11 +1094,11 @@ msgstr "Статистики ще немає"
 
 #: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
 msgid "Not now"
-msgstr ""
+msgstr "Не зараз"
 
 #: src/game/components/input-mode-button/input-mode-button.tsx
 msgid "Notes mode"
-msgstr ""
+msgstr "Режим нотаток"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Number pad"
@@ -1127,11 +1127,11 @@ msgstr "від поточного рахунку"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "of one placement"
-msgstr ""
+msgstr "від одного розміщення"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Offer hints on Nightmare, Hell, and Infinity puzzles too"
-msgstr ""
+msgstr "Пропонувати підказки також у судоку рівнів Кошмар, Пекло і Нескінченність"
 
 #: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
 #: src/game/components/hint-button/hint-button.tsx
@@ -1144,15 +1144,15 @@ msgstr "Гаразд"
 
 #: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
 msgid "On, with your own changes kept. Turning it off restores what you had before."
-msgstr ""
+msgstr "Увімкнено, твої зміни збережено. Вимкнення поверне те, що було раніше."
 
 #: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
 msgid "One switch for bigger numbers, a calmer board, and high-contrast colors."
-msgstr ""
+msgstr "Один перемикач — більші цифри, спокійніша дошка й висококонтрастні кольори."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "Only {valueList} is left for the marked cell, so place it there."
-msgstr ""
+msgstr "Для позначеної клітинки лишається лише {valueList} — постав цю цифру там."
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Open commit {commitShortSha} on GitHub"
@@ -1198,7 +1198,7 @@ msgstr "Вичерпано ліміт помилок"
 
 #: src/screens/components/game-screen/game-actions/game-actions.tsx
 msgid "Pause"
-msgstr ""
+msgstr "Пауза"
 
 #: src/screens/components/pause-screen/pause-screen-header/pause-screen-header.tsx
 msgid "Paused"
@@ -1239,11 +1239,11 @@ msgstr "Зіграти знову"
 
 #: src/app/(tabs)/index.tsx
 msgid "Play free Sudoku online with six difficulty levels, hints, and no ads. Fast, distraction-free puzzles in your browser."
-msgstr ""
+msgstr "Грайте у безкоштовне судоку онлайн: шість рівнів складності, підказки та жодної реклами. Швидкі судоку без відволікань просто у браузері."
 
 #: src/app/+html.tsx
 msgid "Play free Sudoku online with six difficulty levels, hints, and no ads. Fast, distraction-free puzzles that work great on any device."
-msgstr ""
+msgstr "Грайте у безкоштовне судоку онлайн: шість рівнів складності, підказки та жодної реклами. Швидкі судоку без відволікань, які чудово працюють на будь-якому пристрої."
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Play on higher difficulties for bigger multipliers"
@@ -1252,11 +1252,11 @@ msgstr "Грай на вищій складності, щоб отримати �
 #: src/app/game.tsx
 #: src/app/play.tsx
 msgid "Play Sudoku — Suuudokuuu"
-msgstr ""
+msgstr "Грати в судоку — Suuudokuuu"
 
 #: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
 msgid "Play today"
-msgstr ""
+msgstr "Грати сьогодні"
 
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Played"
@@ -1292,7 +1292,7 @@ msgstr "Готові теми"
 
 #: src/game/components/hint-panel/hint-panel.tsx
 msgid "Previous step"
-msgstr ""
+msgstr "Попередній крок"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Primary text"
@@ -1306,7 +1306,7 @@ msgstr "Політика конфіденційності"
 
 #: src/app/privacy-policy.tsx
 msgid "Privacy Policy — Suuudokuuu"
-msgstr ""
+msgstr "Політика конфіденційності — Suuudokuuu"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Published:"
@@ -1314,11 +1314,11 @@ msgstr "Опубліковано:"
 
 #: src/screens/components/winner-screen/winner-calm-result-hero/winner-calm-result-hero.tsx
 msgid "Puzzle complete"
-msgstr ""
+msgstr "Судоку завершено"
 
 #: src/screens/components/game-screen/hooks/use-game-engine-events.hook.ts
 msgid "Puzzle solved."
-msgstr ""
+msgstr "Судоку розв’язано."
 
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Quit"
@@ -1334,7 +1334,7 @@ msgstr "Текст піднятої поверхні"
 
 #: src/app/privacy-policy.tsx
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
-msgstr ""
+msgstr "Ознайомтеся з політикою конфіденційності Suuudokuuu: збір і зберігання даних та ваші права."
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"
@@ -1346,7 +1346,7 @@ msgstr "Запис"
 
 #: src/game/components/redo-button/redo-button.tsx
 msgid "Redo"
-msgstr ""
+msgstr "Повторити"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Region Forcing Chain"
@@ -1420,19 +1420,19 @@ msgstr "Рядок"
 
 #: src/game/utils/game-get-cell-accessibility-label.util.ts
 msgid "Row {row}, column {column}, {value}"
-msgstr ""
+msgstr "Рядок {row}, стовпець {column}, {value}"
 
 #: src/game/utils/game-get-cell-accessibility-label.util.ts
 msgid "Row {row}, column {column}, {value}, wrong"
-msgstr ""
+msgstr "Рядок {row}, стовпець {column}, {value}, помилка"
 
 #: src/game/utils/game-get-cell-accessibility-label.util.ts
 msgid "Row {row}, column {column}, empty"
-msgstr ""
+msgstr "Рядок {row}, стовпець {column}, порожньо"
 
 #: src/game/utils/game-get-cell-accessibility-label.util.ts
 msgid "Row {row}, column {column}, empty, notes {noteList}"
-msgstr ""
+msgstr "Рядок {row}, стовпець {column}, порожньо, нотатки {noteList}"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Same-value cell"
@@ -1519,7 +1519,7 @@ msgstr "Налаштування"
 
 #: src/app/(tabs)/settings/index.tsx
 msgid "Settings — Suuudokuuu"
-msgstr ""
+msgstr "Налаштування — Suuudokuuu"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "SHA-256 checksums"
@@ -1542,7 +1542,7 @@ msgstr "Поділитися цією грою"
 
 #: src/screens/components/game-screen/game-actions/game-actions.tsx
 msgid "Share this puzzle"
-msgstr ""
+msgstr "Поділитися цим судоку"
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "shareable"
@@ -1550,7 +1550,7 @@ msgstr "можна поділитися"
 
 #: src/game/components/auto-candidates-button/auto-candidates-button.tsx
 msgid "Show all candidates"
-msgstr ""
+msgstr "Показати всі варіанти"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show cells with the same number as the selected cell"
@@ -1558,7 +1558,7 @@ msgstr "Показувати клітинки з тим самим числом,
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Show changes instantly with no movement at all"
-msgstr ""
+msgstr "Показувати зміни миттєво, зовсім без руху"
 
 #: src/settings/component/settings-feedback-section/settings-feedback-section.tsx
 msgid "Show elapsed time while you play"
@@ -1594,19 +1594,19 @@ msgstr "М’яка сіра дошка з відчуттям паперу"
 
 #: src/app/game.tsx
 msgid "Solve a Sudoku puzzle online with hints, notes, and mistake tracking."
-msgstr ""
+msgstr "Розв’язуйте судоку онлайн: підказки, нотатки та облік помилок."
 
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Solved"
-msgstr ""
+msgstr "Розв’язано"
 
 #: src/screens/components/winner-screen/winner-calm-result-hero/winner-calm-result-hero.tsx
 msgid "Solved in"
-msgstr ""
+msgstr "Розв’язано за"
 
 #: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
 msgid "Solved today • {difficultyLabel}"
-msgstr ""
+msgstr "Розв’язано сьогодні • {difficultyLabel}"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Some color combinations are hard to read. Save anyway?"
@@ -1647,7 +1647,7 @@ msgstr "Статистика"
 
 #: src/game/components/hint-panel/hint-panel.tsx
 msgid "Step {currentStepNumber} of {stepCount}"
-msgstr ""
+msgstr "Крок {currentStepNumber} з {stepCount}"
 
 #: src/history/components/replay-controls/replay-controls.tsx
 msgid "Step time"
@@ -1662,7 +1662,7 @@ msgstr "Завершити поточну партію?"
 
 #: src/screens/components/game-screen/game-actions/game-actions.tsx
 msgid "Stop this run"
-msgstr ""
+msgstr "Завершити партію"
 
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Streak"
@@ -1682,7 +1682,7 @@ msgstr "Текст приглушеної поверхні"
 
 #: src/game/components/field/field.tsx
 msgid "Sudoku board, 9 by 9 cells"
-msgstr ""
+msgstr "Дошка судоку, 9 на 9 клітинок"
 
 #: src/@generic/components/support-ukraine-pill/support-ukraine-pill.tsx
 msgid "Support"
@@ -1704,7 +1704,7 @@ msgstr "Поверхні"
 #: src/app/(tabs)/index.tsx
 #: src/app/+html.tsx
 msgid "Suuudokuuu — Free Online Sudoku, No Ads"
-msgstr ""
+msgstr "Suuudokuuu — безкоштовне судоку онлайн без реклами"
 
 #: src/game/hooks/use-share-challenge/use-share-challenge.hook.ts
 msgid "SuuudokuuU Challenge"
@@ -1756,7 +1756,7 @@ msgstr "Текст на чорнилі"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "That rules {valueList} out of {cellCount, plural, one {# other cell} other {# other cells}}, so the struck candidates are gone."
-msgstr ""
+msgstr "Це виключає {valueList} з {cellCount, plural, one {# іншої клітинки} few {# інших клітинок} many {# інших клітинок} other {# інших клітинок}} — закреслені варіанти зникають."
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
@@ -1795,7 +1795,7 @@ msgstr "Цю дошку цього разу не завершено. Борот�
 
 #: src/game/components/hint-button/hint-button.tsx
 msgid "This position needs chains or trial and error, so there is no simple logical step to teach. Nothing was revealed and no score was deducted."
-msgstr ""
+msgstr "Ця позиція потребує ланцюгів або перебору, тож простого логічного кроку тут немає. Нічого не відкрито й балів не знято."
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "This theme will be removed permanently."
@@ -1841,7 +1841,7 @@ msgstr "Поради для високих результатів"
 
 #: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
 msgid "Today's puzzle • {difficultyLabel}"
-msgstr ""
+msgstr "Сьогоднішнє судоку • {difficultyLabel}"
 
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "Too many mistakes"
@@ -1849,7 +1849,7 @@ msgstr "Забагато помилок"
 
 #: src/app/(tabs)/history.tsx
 msgid "Track your solved Sudoku puzzles, best times, and scores across every difficulty."
-msgstr ""
+msgstr "Стежте за розв’язаними судоку, найкращим часом і балами на всіх рівнях складності."
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Try again"
@@ -1861,11 +1861,11 @@ msgstr "Спробувати ще раз"
 
 #: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
 msgid "Try Comfort mode"
-msgstr ""
+msgstr "Спробувати режим комфорту"
 
 #: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
 msgid "Turn it on"
-msgstr ""
+msgstr "Увімкнути"
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Ukraine keeps fighting"
@@ -1881,15 +1881,15 @@ msgstr "Не вдалося почати інсталяцію"
 
 #: src/game/components/undo-button/undo-button.tsx
 msgid "Undo"
-msgstr ""
+msgstr "Відмінити"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Undo also returns the points that the undone placement earned, so replaying the same cell can never earn them twice. Dismissing a hint without applying it costs nothing, and undoing a pencil mark is always free."
-msgstr ""
+msgstr "Скасування ходу також повертає бали, зароблені за це розміщення, тож за ту саму клітинку їх не можна отримати двічі. Закрити підказку, не застосувавши її, нічого не коштує, а скасування олівцевої позначки завжди безплатне."
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Undoing a placement"
-msgstr ""
+msgstr "Скасування розміщення"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Unique Rectangle"
@@ -2011,11 +2011,11 @@ msgstr "Світові рекорди"
 
 #: src/screens/components/game-screen/hooks/use-game-engine-events.hook.ts
 msgid "Wrong value. Mistake {mistakeCount} of {maxMistakes}."
-msgstr ""
+msgstr "Неправильне значення. Помилка {mistakeCount} з {maxMistakes}."
 
 #: src/screens/components/game-screen/hooks/use-game-engine-events.hook.ts
 msgid "Wrong value. Too many mistakes, the run is over."
-msgstr ""
+msgstr "Неправильне значення. Забагато помилок — партію завершено."
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "X-Chain"
@@ -2103,7 +2103,7 @@ msgstr "Статистика з’являтиметься, коли ви зав
 
 #: src/app/(tabs)/history.tsx
 msgid "Your Sudoku Stats — Suuudokuuu"
-msgstr ""
+msgstr "Ваша статистика судоку — Suuudokuuu"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Zero mistakes"

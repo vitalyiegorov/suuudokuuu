@@ -33,7 +33,7 @@ msgstr "{awaySeconds}s बाहर"
 #: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
 msgid "{bestStreak, plural, one {Best streak: # day} other {Best streak: # days}}"
-msgstr ""
+msgstr "{bestStreak, plural, one {सबसे लंबा सिलसिला: # दिन} other {सबसे लंबा सिलसिला: # दिन}}"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "{draftThemeName} copy"
@@ -65,24 +65,24 @@ msgstr "{mistakes, plural, one {# गलती} other {# गलतियाँ}}
 
 #: src/screens/components/winner-screen/winner-calm-result-hero/winner-calm-result-hero.tsx
 msgid "{moveCount, plural, one {# move} other {# moves}}"
-msgstr ""
+msgstr "{moveCount, plural, one {# चाल} other {# चालें}}"
 
 #: src/game/components/available-values-item/available-values-item.tsx
 msgid "{remaining, plural, one {Enter {value}, # left to place} other {Enter {value}, # left to place}}"
-msgstr ""
+msgstr "{remaining, plural, one {{value} भरें, # बाकी} other {{value} भरें, # बाकी}}"
 
 #: src/game/components/candidate-input-item/candidate-input-item.tsx
 msgid "{remaining, plural, one {Note {value}, # left to place} other {Note {value}, # left to place}}"
-msgstr ""
+msgstr "{remaining, plural, one {{value} नोट करें, # बाकी} other {{value} नोट करें, # बाकी}}"
 
 #: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
 msgid "{streak, plural, one {# day streak} other {# day streak}}"
-msgstr ""
+msgstr "{streak, plural, one {# दिन का सिलसिला} other {# दिन का सिलसिला}}"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: start with {cellCount, plural, one {the # highlighted cell} other {the # highlighted cells}} and the digits {valueList}."
-msgstr ""
+msgstr "{techniqueName}: {cellCount, plural, one {# हाइलाइट की गई सेल} other {# हाइलाइट की गई सेल}} और अंक {valueList} से शुरू करें।"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
@@ -153,15 +153,15 @@ msgstr "सारी प्रगति खो जाएगी"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Always off"
-msgstr ""
+msgstr "हमेशा बंद"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Always on"
-msgstr ""
+msgstr "हमेशा चालू"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "An assist is charged once, as a fraction of one plain placement at your difficulty and mistake limit:"
-msgstr ""
+msgstr "सहायता एक ही बार गिनी जाती है — आपकी कठिनाई और गलती सीमा पर एक सामान्य स्थान के अंश के रूप में:"
 
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "Android installation"
@@ -174,7 +174,7 @@ msgstr "पूरी हुई पंक्तियों, कॉलमों �
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Animations"
-msgstr ""
+msgstr "ऐनिमेशन"
 
 #: src/game/components/hint-panel/hint-panel.tsx
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
@@ -183,11 +183,11 @@ msgstr "लागू करें"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Applying a hint"
-msgstr ""
+msgstr "संकेत लागू करना"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Assists"
-msgstr ""
+msgstr "सहायताएँ"
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Attempts to load the latest development build again"
@@ -263,7 +263,7 @@ msgstr "सीमा से परे"
 
 #: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
 msgid "Bigger board numbers, spacious cells, every highlight on, no timer, calm play, no animations and the high-contrast theme. Each one stays adjustable below."
-msgstr ""
+msgstr "बोर्ड पर बड़े अंक, विस्तृत सेल, सभी हाइलाइट चालू, टाइमर बंद, शांत खेल, ऐनिमेशन बंद और हाई कंट्रास्ट थीम। हर विकल्प नीचे अलग से बदला जा सकता है।"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Board cells"
@@ -275,7 +275,7 @@ msgstr "बोर्ड के रंग और स्क्रीन का र
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Board states told apart by lightness and outlines, not hue"
-msgstr ""
+msgstr "बोर्ड की स्थितियाँ रंग की आभा से नहीं, चमक और किनारों से अलग दिखती हैं"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Box-Line Reduction"
@@ -291,7 +291,7 @@ msgstr "बिल्ड किया गया:"
 
 #: src/settings/component/settings-feedback-section/settings-feedback-section.tsx
 msgid "Calm play"
-msgstr ""
+msgstr "शांत खेल"
 
 #: src/challenge/components/challenge-accept-time-block/challenge-accept-time-block.tsx
 msgid "Can you beat them?"
@@ -382,7 +382,7 @@ msgstr "चुनें कि Sudoku सेलों के बीच कित
 
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Choose how much the board and screens may animate"
-msgstr ""
+msgstr "चुनें कि बोर्ड और स्क्रीन कितना ऐनिमेट हों"
 
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Choose the language used for menus and game text"
@@ -414,7 +414,7 @@ msgstr "बंद करें"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Colorblind safe"
-msgstr ""
+msgstr "वर्णांधता के अनुकूल"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Column"
@@ -422,11 +422,11 @@ msgstr "स्तंभ"
 
 #: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
 msgid "Comfort"
-msgstr ""
+msgstr "आराम"
 
 #: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
 msgid "Comfort mode"
-msgstr ""
+msgstr "आराम मोड"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Comfortable"
@@ -484,7 +484,7 @@ msgstr "कस्टमाइज़ करें"
 
 #: src/app/(tabs)/settings/index.tsx
 msgid "Customize your Sudoku experience: themes, difficulty, and gameplay preferences."
-msgstr ""
+msgstr "अपना सुडोकू अनुभव अपनी पसंद से सजाएँ: थीम, कठिनाई और खेल की प्राथमिकताएँ।"
 
 #: src/@generic/hooks/use-timer-text.hook.ts
 msgid "d"
@@ -493,7 +493,7 @@ msgstr "d"
 #: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
 msgid "Daily challenge"
-msgstr ""
+msgstr "दैनिक चुनौती"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Danger accent"
@@ -559,7 +559,7 @@ msgstr "पूर्ण अंक को नंबर पैड से हटा
 
 #: src/game/components/hint-panel/hint-panel.tsx
 msgid "Dismiss"
-msgstr ""
+msgstr "हटाएँ"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Display"
@@ -656,7 +656,7 @@ msgstr "Finned X-Wing"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Follow system"
-msgstr ""
+msgstr "सिस्टम के अनुसार"
 
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Foundational"
@@ -681,7 +681,7 @@ msgstr "गेम रुका हुआ है"
 
 #: src/screens/components/game-screen/game-actions/game-actions.tsx
 msgid "Game settings"
-msgstr ""
+msgstr "गेम सेटिंग्स"
 
 #: src/app/history/[difficulty]/index.tsx
 #: src/screens/components/history-games-screen/history-games.screen.tsx
@@ -759,11 +759,11 @@ msgstr "छिपा त्रिक"
 
 #: src/settings/component/settings-feedback-section/settings-feedback-section.tsx
 msgid "Hide the score and finish with a calm summary instead"
-msgstr ""
+msgstr "स्कोर छिपाएँ और शांत सारांश के साथ खेल पूरा करें"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "High contrast"
-msgstr ""
+msgstr "हाई कंट्रास्ट"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Highlight areas"
@@ -783,7 +783,7 @@ msgstr "पेंसिल नोट्स हाइलाइट करें"
 
 #: src/game/components/hint-button/hint-button.tsx
 msgid "Hint"
-msgstr ""
+msgstr "संकेत"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Hint text"
@@ -791,7 +791,7 @@ msgstr "संकेत का टेक्स्ट"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Hints on the hardest puzzles"
-msgstr ""
+msgstr "सबसे कठिन सुडोकू में संकेत"
 
 #: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
@@ -800,7 +800,7 @@ msgstr "होम"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "How much the board and screens may move"
-msgstr ""
+msgstr "बोर्ड और स्क्रीन कितना हिल सकते हैं"
 
 #: src/app/scoring.tsx
 #: src/scoring/components/scoring.screen.tsx
@@ -817,7 +817,7 @@ msgstr "अमर"
 
 #: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
 msgid "In progress • {difficultyLabel}"
-msgstr ""
+msgstr "जारी है • {difficultyLabel}"
 
 #: src/screens/components/loser-screen/loser.screen.tsx
 msgid "Incomplete"
@@ -834,7 +834,7 @@ msgstr "स्याही"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "Inside that pattern the digits {valueList} can only sit in the highlighted cells."
-msgstr ""
+msgstr "उस पैटर्न के भीतर अंक {valueList} सिर्फ़ हाइलाइट की गई सेल में ही आ सकते हैं।"
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Install on iOS"
@@ -878,7 +878,7 @@ msgstr "पूर्ण अंक रखें"
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Keep every animation even when the system reduces motion"
-msgstr ""
+msgstr "सिस्टम के मोशन घटाने पर भी सभी ऐनिमेशन बनाए रखें"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Keep selection after tapping outside the board"
@@ -943,7 +943,7 @@ msgstr "m"
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Match the reduce motion setting of your device"
-msgstr ""
+msgstr "अपने डिवाइस की मोशन घटाने वाली सेटिंग का पालन करें"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Max Mistakes bonus"
@@ -951,7 +951,7 @@ msgstr "अनुमत गलतियों का बोनस"
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Maximum separation between board states"
-msgstr ""
+msgstr "बोर्ड की स्थितियों के बीच अधिकतम अंतर"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Maybe later"
@@ -1039,7 +1039,7 @@ msgstr "न्यूज़पेपर"
 
 #: src/game/components/hint-panel/hint-panel.tsx
 msgid "Next step"
-msgstr ""
+msgstr "अगला चरण"
 
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -1084,7 +1084,7 @@ msgstr "कोई पॉज़ नहीं"
 
 #: src/game/components/hint-button/hint-button.tsx
 msgid "No simple technique applies"
-msgstr ""
+msgstr "कोई सरल तकनीक लागू नहीं होती"
 
 #: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
@@ -1092,11 +1092,11 @@ msgstr "अभी कोई आँकड़े नहीं"
 
 #: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
 msgid "Not now"
-msgstr ""
+msgstr "अभी नहीं"
 
 #: src/game/components/input-mode-button/input-mode-button.tsx
 msgid "Notes mode"
-msgstr ""
+msgstr "नोट मोड"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Number pad"
@@ -1125,11 +1125,11 @@ msgstr "वर्तमान स्कोर का"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "of one placement"
-msgstr ""
+msgstr "एक स्थान का"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Offer hints on Nightmare, Hell, and Infinity puzzles too"
-msgstr ""
+msgstr "दुःस्वप्न, नरक और अनंत सुडोकू में भी संकेत दें"
 
 #: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
 #: src/game/components/hint-button/hint-button.tsx
@@ -1142,15 +1142,15 @@ msgstr "ठीक है"
 
 #: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
 msgid "On, with your own changes kept. Turning it off restores what you had before."
-msgstr ""
+msgstr "चालू है, आपके अपने बदलाव सुरक्षित हैं। बंद करने पर पहले जैसी सेटिंग लौट आएगी।"
 
 #: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
 msgid "One switch for bigger numbers, a calmer board, and high-contrast colors."
-msgstr ""
+msgstr "एक स्विच में बड़े अंक, शांत बोर्ड और हाई कंट्रास्ट रंग।"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "Only {valueList} is left for the marked cell, so place it there."
-msgstr ""
+msgstr "चिह्नित सेल के लिए सिर्फ़ {valueList} बचा है, इसलिए इसे वहीं रखें।"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Open commit {commitShortSha} on GitHub"
@@ -1196,7 +1196,7 @@ msgstr "गलतियों की सीमा समाप्त"
 
 #: src/screens/components/game-screen/game-actions/game-actions.tsx
 msgid "Pause"
-msgstr ""
+msgstr "रोकें"
 
 #: src/screens/components/pause-screen/pause-screen-header/pause-screen-header.tsx
 msgid "Paused"
@@ -1237,11 +1237,11 @@ msgstr "फिर खेलें"
 
 #: src/app/(tabs)/index.tsx
 msgid "Play free Sudoku online with six difficulty levels, hints, and no ads. Fast, distraction-free puzzles in your browser."
-msgstr ""
+msgstr "छह कठिनाई स्तर, संकेत और बिना विज्ञापन के मुफ़्त ऑनलाइन सुडोकू खेलें। ब्राउज़र में ही तेज़ और बिना भटकाव वाली पहेलियाँ।"
 
 #: src/app/+html.tsx
 msgid "Play free Sudoku online with six difficulty levels, hints, and no ads. Fast, distraction-free puzzles that work great on any device."
-msgstr ""
+msgstr "छह कठिनाई स्तर, संकेत और बिना विज्ञापन के मुफ़्त ऑनलाइन सुडोकू खेलें। तेज़, बिना भटकाव वाली पहेलियाँ, जो हर डिवाइस पर बढ़िया चलती हैं।"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Play on higher difficulties for bigger multipliers"
@@ -1250,11 +1250,11 @@ msgstr "बड़े गुणकों के लिए कठिन स्त�
 #: src/app/game.tsx
 #: src/app/play.tsx
 msgid "Play Sudoku — Suuudokuuu"
-msgstr ""
+msgstr "सुडोकू खेलें — Suuudokuuu"
 
 #: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
 msgid "Play today"
-msgstr ""
+msgstr "आज खेलें"
 
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Played"
@@ -1290,7 +1290,7 @@ msgstr "प्रीसेट"
 
 #: src/game/components/hint-panel/hint-panel.tsx
 msgid "Previous step"
-msgstr ""
+msgstr "पिछला चरण"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Primary text"
@@ -1304,7 +1304,7 @@ msgstr "गोपनीयता नीति"
 
 #: src/app/privacy-policy.tsx
 msgid "Privacy Policy — Suuudokuuu"
-msgstr ""
+msgstr "गोपनीयता नीति — Suuudokuuu"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Published:"
@@ -1312,11 +1312,11 @@ msgstr "प्रकाशित:"
 
 #: src/screens/components/winner-screen/winner-calm-result-hero/winner-calm-result-hero.tsx
 msgid "Puzzle complete"
-msgstr ""
+msgstr "सुडोकू पूरा"
 
 #: src/screens/components/game-screen/hooks/use-game-engine-events.hook.ts
 msgid "Puzzle solved."
-msgstr ""
+msgstr "सुडोकू हल हो गया।"
 
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Quit"
@@ -1332,7 +1332,7 @@ msgstr "उठी हुई सतह का टेक्स्ट"
 
 #: src/app/privacy-policy.tsx
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
-msgstr ""
+msgstr "डेटा संग्रह, भंडारण और आपके अधिकारों पर Suuudokuuu की गोपनीयता नीति पढ़ें।"
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"
@@ -1344,7 +1344,7 @@ msgstr "रिकॉर्डिंग"
 
 #: src/game/components/redo-button/redo-button.tsx
 msgid "Redo"
-msgstr ""
+msgstr "फिर से करें"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Region Forcing Chain"
@@ -1418,19 +1418,19 @@ msgstr "पंक्ति"
 
 #: src/game/utils/game-get-cell-accessibility-label.util.ts
 msgid "Row {row}, column {column}, {value}"
-msgstr ""
+msgstr "पंक्ति {row}, कॉलम {column}, {value}"
 
 #: src/game/utils/game-get-cell-accessibility-label.util.ts
 msgid "Row {row}, column {column}, {value}, wrong"
-msgstr ""
+msgstr "पंक्ति {row}, कॉलम {column}, {value}, गलत"
 
 #: src/game/utils/game-get-cell-accessibility-label.util.ts
 msgid "Row {row}, column {column}, empty"
-msgstr ""
+msgstr "पंक्ति {row}, कॉलम {column}, खाली"
 
 #: src/game/utils/game-get-cell-accessibility-label.util.ts
 msgid "Row {row}, column {column}, empty, notes {noteList}"
-msgstr ""
+msgstr "पंक्ति {row}, कॉलम {column}, खाली, नोट {noteList}"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Same-value cell"
@@ -1517,7 +1517,7 @@ msgstr "सेटिंग्स"
 
 #: src/app/(tabs)/settings/index.tsx
 msgid "Settings — Suuudokuuu"
-msgstr ""
+msgstr "सेटिंग्स — Suuudokuuu"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "SHA-256 checksums"
@@ -1540,7 +1540,7 @@ msgstr "यह गेम शेयर करें"
 
 #: src/screens/components/game-screen/game-actions/game-actions.tsx
 msgid "Share this puzzle"
-msgstr ""
+msgstr "यह सुडोकू साझा करें"
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "shareable"
@@ -1548,7 +1548,7 @@ msgstr "शेयर करने योग्य"
 
 #: src/game/components/auto-candidates-button/auto-candidates-button.tsx
 msgid "Show all candidates"
-msgstr ""
+msgstr "सभी उम्मीदवार दिखाएँ"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show cells with the same number as the selected cell"
@@ -1556,7 +1556,7 @@ msgstr "चयनित सेल के समान अंक वाले स
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Show changes instantly with no movement at all"
-msgstr ""
+msgstr "बदलाव तुरंत दिखाएँ, बिना किसी हलचल के"
 
 #: src/settings/component/settings-feedback-section/settings-feedback-section.tsx
 msgid "Show elapsed time while you play"
@@ -1592,19 +1592,19 @@ msgstr "कागज़ जैसा महसूस होने वाला �
 
 #: src/app/game.tsx
 msgid "Solve a Sudoku puzzle online with hints, notes, and mistake tracking."
-msgstr ""
+msgstr "संकेत, नोट और गलतियों की गिनती के साथ ऑनलाइन सुडोकू हल करें।"
 
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Solved"
-msgstr ""
+msgstr "हल हुआ"
 
 #: src/screens/components/winner-screen/winner-calm-result-hero/winner-calm-result-hero.tsx
 msgid "Solved in"
-msgstr ""
+msgstr "हल करने में लगा"
 
 #: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
 msgid "Solved today • {difficultyLabel}"
-msgstr ""
+msgstr "आज हल हुआ • {difficultyLabel}"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Some color combinations are hard to read. Save anyway?"
@@ -1645,7 +1645,7 @@ msgstr "आंकड़े"
 
 #: src/game/components/hint-panel/hint-panel.tsx
 msgid "Step {currentStepNumber} of {stepCount}"
-msgstr ""
+msgstr "{stepCount} में से चरण {currentStepNumber}"
 
 #: src/history/components/replay-controls/replay-controls.tsx
 msgid "Step time"
@@ -1660,7 +1660,7 @@ msgstr "मौजूदा गेम रोकें?"
 
 #: src/screens/components/game-screen/game-actions/game-actions.tsx
 msgid "Stop this run"
-msgstr ""
+msgstr "यह गेम रोकें"
 
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Streak"
@@ -1680,7 +1680,7 @@ msgstr "सूक्ष्म सतह का टेक्स्ट"
 
 #: src/game/components/field/field.tsx
 msgid "Sudoku board, 9 by 9 cells"
-msgstr ""
+msgstr "सुडोकू बोर्ड, 9 गुणा 9 सेल"
 
 #: src/@generic/components/support-ukraine-pill/support-ukraine-pill.tsx
 msgid "Support"
@@ -1702,7 +1702,7 @@ msgstr "सतहें"
 #: src/app/(tabs)/index.tsx
 #: src/app/+html.tsx
 msgid "Suuudokuuu — Free Online Sudoku, No Ads"
-msgstr ""
+msgstr "Suuudokuuu — मुफ़्त ऑनलाइन सुडोकू, बिना विज्ञापन"
 
 #: src/game/hooks/use-share-challenge/use-share-challenge.hook.ts
 msgid "SuuudokuuU Challenge"
@@ -1754,7 +1754,7 @@ msgstr "स्याही पर टेक्स्ट"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "That rules {valueList} out of {cellCount, plural, one {# other cell} other {# other cells}}, so the struck candidates are gone."
-msgstr ""
+msgstr "इससे {cellCount, plural, one {# और सेल} other {# और सेल}} से {valueList} हट जाता है, इसलिए काटे गए उम्मीदवार खत्म हो जाते हैं।"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
@@ -1793,7 +1793,7 @@ msgstr "इस बार यह बोर्ड पूरा नहीं हु
 
 #: src/game/components/hint-button/hint-button.tsx
 msgid "This position needs chains or trial and error, so there is no simple logical step to teach. Nothing was revealed and no score was deducted."
-msgstr ""
+msgstr "इस स्थिति में चेन या अनुमान की ज़रूरत है, इसलिए सिखाने लायक कोई सरल तार्किक चरण नहीं है। कुछ भी उजागर नहीं हुआ और कोई स्कोर नहीं कटा।"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "This theme will be removed permanently."
@@ -1839,7 +1839,7 @@ msgstr "उच्च स्कोर के सुझाव"
 
 #: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
 msgid "Today's puzzle • {difficultyLabel}"
-msgstr ""
+msgstr "आज की पहेली • {difficultyLabel}"
 
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "Too many mistakes"
@@ -1847,7 +1847,7 @@ msgstr "बहुत ज़्यादा गलतियाँ"
 
 #: src/app/(tabs)/history.tsx
 msgid "Track your solved Sudoku puzzles, best times, and scores across every difficulty."
-msgstr ""
+msgstr "हर कठिनाई पर अपने हल किए सुडोकू, बेस्ट समय और स्कोर देखें।"
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Try again"
@@ -1859,11 +1859,11 @@ msgstr "फिर कोशिश करें"
 
 #: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
 msgid "Try Comfort mode"
-msgstr ""
+msgstr "आराम मोड आज़माएँ"
 
 #: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
 msgid "Turn it on"
-msgstr ""
+msgstr "चालू करें"
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Ukraine keeps fighting"
@@ -1879,15 +1879,15 @@ msgstr "इंस्टॉलेशन शुरू नहीं किया �
 
 #: src/game/components/undo-button/undo-button.tsx
 msgid "Undo"
-msgstr ""
+msgstr "पूर्ववत करें"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Undo also returns the points that the undone placement earned, so replaying the same cell can never earn them twice. Dismissing a hint without applying it costs nothing, and undoing a pencil mark is always free."
-msgstr ""
+msgstr "पूर्ववत करने पर उस स्थान से मिले अंक भी वापस चले जाते हैं, इसलिए वही सेल दोबारा अंक नहीं दे सकती। संकेत को बिना लागू किए हटाने पर कुछ नहीं लगता, और पेंसिल निशान पूर्ववत करना हमेशा मुफ़्त है।"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Undoing a placement"
-msgstr ""
+msgstr "स्थान पूर्ववत करना"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Unique Rectangle"
@@ -2009,11 +2009,11 @@ msgstr "विश्व रिकॉर्ड सुडोकू"
 
 #: src/screens/components/game-screen/hooks/use-game-engine-events.hook.ts
 msgid "Wrong value. Mistake {mistakeCount} of {maxMistakes}."
-msgstr ""
+msgstr "गलत मान। {maxMistakes} में से {mistakeCount} गलती।"
 
 #: src/screens/components/game-screen/hooks/use-game-engine-events.hook.ts
 msgid "Wrong value. Too many mistakes, the run is over."
-msgstr ""
+msgstr "गलत मान। बहुत ज़्यादा गलतियाँ, गेम खत्म।"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "X-Chain"
@@ -2101,7 +2101,7 @@ msgstr "सुडोकू पूरा करते ही आपके आँ�
 
 #: src/app/(tabs)/history.tsx
 msgid "Your Sudoku Stats — Suuudokuuu"
-msgstr ""
+msgstr "आपके सुडोकू आँकड़े — Suuudokuuu"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Zero mistakes"
