@@ -225,26 +225,10 @@ strong {
 }
 
 .site-header__mark {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    width: 1.15rem;
-    height: 1.15rem;
-    padding: 1px;
-    border: 1px solid var(--landing-border-strong-color);
-    border-radius: 3px;
-}
-
-.site-header__mark::before,
-.site-header__mark::after {
-    content: '';
-    border-radius: 1px;
-    background-color: var(--landing-accent-color);
-}
-
-.site-header__mark::after {
-    grid-area: 3 / 3;
-    background-color: var(--landing-text-color);
+    width: 2rem;
+    height: 2rem;
+    border-radius: 22%;
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 12%);
 }
 
 .site-header__nav {
@@ -535,6 +519,9 @@ strong {
 
 .technique-example,
 .puzzle-board {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin: 1.5rem 0 2rem;
 }
 
@@ -547,10 +534,10 @@ strong {
 
 .sudoku-board__caption {
     caption-side: bottom;
-    padding-top: 0.75rem;
+    padding-top: 0.85rem;
     color: var(--landing-muted-text-color);
     font-size: 0.85rem;
-    text-align: left;
+    text-align: center;
 }
 
 .sudoku-board__corner,
@@ -627,22 +614,49 @@ strong {
     margin: 1.5rem 0 2rem;
 }
 
-.technique-embed__static {
-    margin: 0;
-    padding: 0;
+.technique-embed__tabs {
+    display: inline-flex;
+    gap: 2px;
+    margin: 0 0 1.25rem;
+    padding: 3px;
+    border: 1px solid var(--landing-border-color);
+    border-radius: 999px;
+    background-color: var(--landing-surface-color);
+}
+
+.technique-embed__tab {
+    padding: 0.45rem 1.05rem;
     border: 0;
-    border-radius: 0;
+    border-radius: 999px;
     background-color: transparent;
-}
-
-.technique-embed__static-summary {
     color: var(--landing-muted-text-color);
-    font-size: 0.85rem;
+    font: inherit;
+    font-size: 0.88rem;
     font-weight: 600;
+    line-height: 1;
+    cursor: pointer;
+    transition:
+        background-color var(--landing-transition),
+        color var(--landing-transition);
 }
 
-.technique-embed__static .technique-example {
-    margin: 0.75rem 0 0;
+.technique-embed__tab:hover {
+    color: var(--landing-text-color);
+}
+
+.technique-embed__tab:focus-visible {
+    outline: 2px solid var(--landing-accent-color);
+    outline-offset: 2px;
+}
+
+.technique-embed__tab[aria-selected='true'] {
+    background-color: var(--landing-raised-color);
+    color: var(--landing-text-color);
+    box-shadow: inset 0 0 0 1px var(--landing-border-strong-color);
+}
+
+.technique-embed__panel[hidden] {
+    display: none;
 }
 
 .technique-embed__start,
@@ -677,6 +691,40 @@ strong {
 .technique-embed__action:focus-visible {
     outline: 2px solid var(--landing-accent-color);
     outline-offset: 2px;
+}
+
+@media (max-width: 40rem) {
+    .technique-embed__tabs {
+        display: flex;
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .technique-embed__tab {
+        flex: 1 1 0;
+        padding-inline: 0.5rem;
+        font-size: 0.82rem;
+        text-align: center;
+    }
+
+    .technique-embed__live .field-game {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .technique-embed__live .field-board {
+        margin-inline: auto;
+    }
+
+    .technique-embed__live .field-step-player__control {
+        flex: 1 1 6.5rem;
+        min-width: 0;
+    }
+
+    .solver-output {
+        width: 100%;
+        font-size: 0.8rem;
+    }
 }
 
 .technique-embed__live {
@@ -714,6 +762,9 @@ strong {
 
 .solver-output {
     display: grid;
+    width: max-content;
+    max-width: 100%;
+    margin-inline: auto;
     grid-template-columns: auto 1fr;
     gap: 0.25rem 1rem;
     margin: 0;

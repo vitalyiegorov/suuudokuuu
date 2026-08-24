@@ -20,28 +20,67 @@ interface Props {
 
 export const TechniquePlayableBoard = ({ board, children, technique, techniqueName }: Props) => {
     const [isLive, setIsLive] = useState(false);
-    const isStaticOpen = !isLive;
+    const [hasLoadedLive, setHasLoadedLive] = useState(false);
 
-    const handleStart = () => {
-        track('island_opened', { technique: techniqueName });
+    const handleShowStatic = () => void setIsLive(false);
+
+    const handleShowLive = () => {
+        if (!hasLoadedLive) {
+            track('island_opened', { technique: techniqueName });
+            setHasLoadedLive(true);
+        }
+
         setIsLive(true);
     };
 
-    const liveBoard = isLive ? (
-        <TechniqueLiveBoard board={board} technique={technique} />
-    ) : (
-        <button className="technique-embed__start" onClick={handleStart} type="button">
-            Try it on a live board
-        </button>
-    );
+    const livePanel = hasLoadedLive ? (
+        <div
+            aria-labelledby="technique-embed-live-tab"
+            className="technique-embed__panel"
+            hidden={!isLive}
+            id="technique-embed-live"
+            role="tabpanel"
+        >
+            <TechniqueLiveBoard board={board} technique={technique} />
+        </div>
+    ) : null;
 
     return (
         <div className="technique-embed">
-            <details className="technique-embed__static" open={isStaticOpen}>
-                <summary className="technique-embed__static-summary">Worked example diagram</summary>
+            <div aria-label="Worked example view" className="technique-embed__tabs" role="tablist">
+                <button
+                    aria-controls="technique-embed-static"
+                    aria-selected={!isLive}
+                    className="technique-embed__tab"
+                    id="technique-embed-static-tab"
+                    onClick={handleShowStatic}
+                    role="tab"
+                    type="button"
+                >
+                    Worked example
+                </button>
+                <button
+                    aria-controls="technique-embed-live"
+                    aria-selected={isLive}
+                    className="technique-embed__tab"
+                    id="technique-embed-live-tab"
+                    onClick={handleShowLive}
+                    role="tab"
+                    type="button"
+                >
+                    Try it on a live board
+                </button>
+            </div>
+            <div
+                aria-labelledby="technique-embed-static-tab"
+                className="technique-embed__panel technique-embed__static"
+                hidden={isLive}
+                id="technique-embed-static"
+                role="tabpanel"
+            >
                 {children}
-            </details>
-            {liveBoard}
+            </div>
+            {livePanel}
         </div>
     );
 };

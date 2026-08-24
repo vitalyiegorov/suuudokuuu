@@ -3,6 +3,7 @@
 import '@suuudokuuu/field-dom/styles.css';
 
 import { FieldEngine, findStepScript } from '@suuudokuuu/field-core';
+import { useFieldSnapshot } from '@suuudokuuu/field-core/react';
 import { FieldGame, getGivenCellKeys } from '@suuudokuuu/field-dom';
 import { DifficultyEnum } from '@suuudokuuu/generator';
 import { createTechniqueStrategies } from '@suuudokuuu/techniques';
@@ -25,7 +26,9 @@ interface Props {
 
 export const TechniqueLiveBoard = ({ board, technique }: Props) => {
     const [engine] = useState(() => new FieldEngine({ sudokuString: board, difficulty: DifficultyEnum.Hard, showAutoCandidates: true }));
+    const snapshot = useFieldSnapshot(engine);
     const givenCellKeys = getGivenCellKeys(board);
+    const isWalkthroughRunning = isDefined(snapshot.stepScript);
 
     const handleShowTechnique = () => {
         track('walkthrough_started', { technique: TECHNIQUE_NAMES[technique] });
@@ -40,9 +43,11 @@ export const TechniqueLiveBoard = ({ board, technique }: Props) => {
 
     return (
         <div className="technique-embed__live">
-            <button className="technique-embed__action" onClick={handleShowTechnique} type="button">
-                Show me the technique
-            </button>
+            {isWalkthroughRunning ? null : (
+                <button className="technique-embed__action" onClick={handleShowTechnique} type="button">
+                    Show me the technique
+                </button>
+            )}
             <FieldGame engine={engine} givenCellKeys={givenCellKeys} labels={FIELD_LABELS} narrationRenderer={renderTechniqueNarration} />
             <p className="technique-embed__footer">
                 Pick a cell, type a digit, switch to notes for candidates, and undo whenever you like.{' '}
