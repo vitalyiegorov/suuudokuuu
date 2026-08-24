@@ -9,7 +9,6 @@ appId: ${APP_ID}
       element:
           id: 'HomeScreenSelectors.StartButton'
       direction: DOWN
-      timeout: 3000
 - scroll
 - tapOn:
       id: 'HomeScreenSelectors.StartButton'
