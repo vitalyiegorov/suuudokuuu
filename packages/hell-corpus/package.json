@@ -1,6 +1,6 @@
 {
     "name": "@suuudokuuu/hell-corpus",
-    "version": "2.6.0",
+    "version": "2.9.0",
     "private": true,
     "sideEffects": "false",
     "exports": {

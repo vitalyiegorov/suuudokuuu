@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.9.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.8.0...v2.9.0) (2026-08-25)
+
+### Features
+
+- **landing:** technique hub and beginner technique pages with real solver worked examples ([74b7fc7](https://github.com/vitalyiegorov/suuudokuuu/commit/74b7fc7579a01b8c1735c969c5b5a1a6b2cf8231)), closes [#293](https://github.com/vitalyiegorov/suuudokuuu/issues/293)
+- **puzzle-forge,techniques,app:** generate puzzles by required technique band ([7ed2e4f](https://github.com/vitalyiegorov/suuudokuuu/commit/7ed2e4fc5af62116ef90f69ae5560496d04ff1ab)), closes [#314](https://github.com/vitalyiegorov/suuudokuuu/issues/314)
+
 # [2.6.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.5.1...v2.6.0) (2026-08-17)
 
 ### Bug Fixes
