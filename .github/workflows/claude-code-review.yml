@@ -24,7 +24,7 @@ jobs:
         #   github.event.pull_request.user.login == 'new-developer' ||
         #   github.event.pull_request.author_association == 'FIRST_TIME_CONTRIBUTOR'
 
-        runs-on: [self-hosted, linux-tiered, linux-medium]
+        runs-on: [self-hosted, trf-linux-amd64-2x4]
         timeout-minutes: 30
         permissions:
             contents: read

@@ -26,7 +26,7 @@ concurrency:
 jobs:
     release:
         name: Publish a release
-        runs-on: [self-hosted, linux-tiered, linux-medium]
+        runs-on: [self-hosted, trf-linux-amd64-2x4]
         timeout-minutes: 20
         steps:
             - name: Checkout repository
@@ -88,7 +88,7 @@ jobs:
     web-deploy:
         name: Vercel deploy Web
         needs: release
-        runs-on: [self-hosted, linux-tiered, linux-medium]
+        runs-on: [self-hosted, trf-linux-amd64-2x4]
         timeout-minutes: 20
         steps:
             - name: Checkout repository
