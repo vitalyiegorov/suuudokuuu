@@ -1,6 +1,8 @@
 import { type StyleProp, Text, View, type ViewStyle } from 'react-native';
 import { useUnistyles } from 'react-native-unistyles';
 
+import { MaxFontSizeMultiplierConstant } from '../../theme/constant/font-scaling.constant';
+
 import { AppSettingsSectionStyles as styles } from './app-settings-section.styles';
 
 import type { ReactNode } from 'react';
@@ -18,7 +20,7 @@ export const AppSettingsSection = ({ children, style, title }: Props) => {
 
     return (
         <View style={sectionStyles}>
-            <Text allowFontScaling={false} style={titleStyles}>
+            <Text maxFontSizeMultiplier={MaxFontSizeMultiplierConstant} style={titleStyles}>
                 {title}
             </Text>
 

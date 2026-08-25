@@ -6,7 +6,6 @@ import Animated, {
     cancelAnimation,
     interpolate,
     useAnimatedStyle,
-    useReducedMotion,
     useSharedValue,
     withRepeat,
     withTiming
@@ -14,6 +13,7 @@ import Animated, {
 import { useUnistyles } from 'react-native-unistyles';
 
 import { useIridescentColor } from '../../../../@generic/hooks/use-iridescent-color.hook';
+import { useReduceMotion } from '../../../../@generic/hooks/use-reduce-motion.hook';
 
 import { HomeScreenStartButtonShimmerSelectors } from './home-screen-start-button-shimmer.selectors';
 import { HomeScreenStartButtonShimmerStyles as styles } from './home-screen-start-button-shimmer.styles';
@@ -33,17 +33,17 @@ interface Props {
 
 export const HomeScreenStartButtonShimmer = ({ children, style }: Props) => {
     const { theme } = useUnistyles();
-    const reduceMotion = useReducedMotion();
+    const isMotionReduced = useReduceMotion();
     const breathe = useSharedValue(0);
-    const shimmerColor = useIridescentColor(theme, !reduceMotion);
+    const shimmerColor = useIridescentColor(theme, !isMotionReduced);
 
     useEffect(() => {
-        if (!reduceMotion) {
+        if (!isMotionReduced) {
             breathe.value = withRepeat(withTiming(1, { duration: ShimmerBreatheDurationMs, easing: Easing.inOut(Easing.ease) }), -1, true);
         }
 
         return () => void cancelAnimation(breathe);
-    }, [reduceMotion, breathe]);
+    }, [isMotionReduced, breathe]);
 
     const shimmerAnimatedStyle = useAnimatedStyle(() => ({
         backgroundColor: shimmerColor.value,
@@ -56,7 +56,7 @@ export const HomeScreenStartButtonShimmer = ({ children, style }: Props) => {
         <Animated.View style={wrapperStyle} testID={HomeScreenStartButtonShimmerSelectors.Wrapper}>
             {children}
 
-            {reduceMotion ? null : (
+            {isMotionReduced ? null : (
                 <Animated.View pointerEvents="none" style={shimmerStyle} testID={HomeScreenStartButtonShimmerSelectors.Root} />
             )}
         </Animated.View>

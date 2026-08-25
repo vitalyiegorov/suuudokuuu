@@ -1,13 +1,14 @@
+import { useLingui } from '@lingui/react/macro';
+import { buildStepScriptState, getCellKey } from '@suuudokuuu/field-core';
 import { isEmptyScoredCells } from '@suuudokuuu/generator';
 import { type Ref, use, useImperativeHandle, useState } from 'react';
 import { View } from 'react-native';
 
-import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
-import { getCellKey } from '../../../@generic/utils/get-cell-key.util';
 import { GameContext } from '../../context/game.context';
-import { gameCandidatesSelector, gameShowAutoCandidatesSelector } from '../../store/game.selectors';
+import { gameGetCellAccessibilityLabel } from '../../utils/game-get-cell-accessibility-label.util';
 import { gameGetCellKeysToAnimate } from '../../utils/game-get-cell-keys-to-animate.util';
 import { gameIncrementCellAnimationGenerations } from '../../utils/game-increment-cell-animation-generations.util';
+import { gameMergeCandidateValues } from '../../utils/game-merge-candidate-values.util';
 import { gameNextSuccessCellTrigger } from '../../utils/game-next-success-cell-trigger.util';
 import { FieldCell } from '../field-cell/field-cell';
 import { FieldCellCandidates } from '../field-cell-candidates/field-cell-candidates';
@@ -28,16 +29,19 @@ export interface FieldRef {
 
 interface Props {
     readonly cellSize: number;
-    readonly selectedCell?: CellInterface;
+    readonly cellMargin: number;
     readonly onSelect: OnEventFn<CellInterface | undefined>;
     readonly ref: Ref<FieldRef>;
 }
 
-export const Field = ({ cellSize, selectedCell, onSelect, ref }: Props) => {
-    const { sudoku } = use(GameContext);
+// eslint-disable-next-line max-lines-per-function -- Layout/form component requires many lines
+export const Field = ({ cellSize, cellMargin, onSelect, ref }: Props) => {
+    const { i18n, t } = useLingui();
+    const { engine, snapshot } = use(GameContext);
 
-    const showAutoCandidates = useAppSelector(gameShowAutoCandidatesSelector);
-    const candidates = useAppSelector(gameCandidatesSelector);
+    const sudoku = engine.Sudoku;
+    const { selectedCell } = snapshot;
+    const stepState = buildStepScriptState(snapshot.stepScript, snapshot.stepIndex);
 
     const [comboAnimationGenerations, setComboAnimationGenerations] = useState<Record<string, number>>({});
     const [successTrigger, setSuccessTrigger] = useState<SuccessCellTriggerInterface>(initialSuccessTrigger);
@@ -59,10 +63,12 @@ export const Field = ({ cellSize, selectedCell, onSelect, ref }: Props) => {
         }
     }));
 
+    const boardAccessibilityLabel = t`Sudoku board, 9 by 9 cells`;
+
     return (
-        <View style={styles.wrapper}>
-            {sudoku.Field.map(row => (
-                <View key={`row-${row[0].y}`} style={styles.row}>
+        <View accessibilityLabel={boardAccessibilityLabel} role="grid" style={styles.wrapper}>
+            {snapshot.field.map(row => (
+                <View key={`row-${row[0].y}`} role="row" style={styles.row}>
                     {row.map(cell => {
                         const cellKey = getCellKey(cell);
                         const isActive = sudoku.isSameCell(cell, selectedCell);
@@ -71,18 +77,37 @@ export const Field = ({ cellSize, selectedCell, onSelect, ref }: Props) => {
                         const isWrong = sudoku.isCellWrong(cell, selectedCell);
                         const isEmpty = sudoku.isBlankCell(cell);
 
-                        const cellCandidates = showAutoCandidates ? sudoku.getCellCandidates(cell) : (candidates[cellKey] ?? []);
+                        const isPatternCell = stepState.patternCellKeys.has(cellKey);
+                        const isTargetCell = stepState.targetCellKey === cellKey;
+                        const eliminatedCandidates = stepState.eliminatedCandidates.get(cellKey) ?? [];
+                        const hintedCandidates = gameMergeCandidateValues(
+                            stepState.revealedCandidates.get(cellKey) ?? [],
+                            eliminatedCandidates
+                        );
+                        const cellCandidates = gameMergeCandidateValues(engine.getCellCandidates(cell), hintedCandidates);
                         const shouldShowCandidates = isEmpty && cellCandidates.length > 0;
+                        const cellAccessibilityLabel = i18n._(
+                            gameGetCellAccessibilityLabel({
+                                candidates: cellCandidates,
+                                cell,
+                                isEmpty,
+                                isWrong
+                            })
+                        );
 
                         return (
                             <FieldCell
+                                accessibilityLabel={cellAccessibilityLabel}
                                 cell={cell}
+                                cellMargin={cellMargin}
                                 cellSize={cellSize}
                                 isActive={isActive}
                                 isActiveValue={isActiveValue}
                                 isEmpty={isEmpty}
                                 isHighlighted={isHighlighted}
+                                isPatternCell={isPatternCell}
                                 isSuccessTarget={successTrigger.key === cellKey}
+                                isTargetCell={isTargetCell}
                                 isWrong={isWrong}
                                 key={`cell-${cell.y}-${cell.x}`}
                                 onSelect={onSelect}
@@ -93,6 +118,7 @@ export const Field = ({ cellSize, selectedCell, onSelect, ref }: Props) => {
                                         activeValue={selectedCell?.value}
                                         candidates={cellCandidates}
                                         cellSize={cellSize}
+                                        eliminatedCandidates={eliminatedCandidates}
                                     />
                                 ) : null}
                                 <FieldCellText

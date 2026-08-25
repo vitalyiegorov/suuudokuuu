@@ -2,7 +2,7 @@ import type { ThemeInterface } from '../../../theme/interface/theme.interface';
 
 export type AppMetricStripVariant = 'primary' | 'secondary' | 'ghost';
 
-export const appMetricStripGetColors = (theme: ThemeInterface, variant: AppMetricStripVariant) => {
+export const appMetricStripGetColors = (theme: Pick<ThemeInterface, 'colors'>, variant: AppMetricStripVariant) => {
     if (variant === 'primary') {
         return {
             backgroundColor: theme.colors.ink,

@@ -30,6 +30,11 @@ msgstr "{arsenalCardCount, plural, zero {# تقنيات} one {# تقنية} two 
 msgid "{awaySeconds}s away"
 msgstr "غياب {awaySeconds} ثانية"
 
+#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
+msgid "{bestStreak, plural, one {Best streak: # day} other {Best streak: # days}}"
+msgstr "{bestStreak, plural, zero {أفضل تتابع: # يوم} one {أفضل تتابع: # يوم} two {أفضل تتابع: # يومين} few {أفضل تتابع: # أيام} many {أفضل تتابع: # يومًا} other {أفضل تتابع: # يوم}}"
+
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "{draftThemeName} copy"
 msgstr "{draftThemeName} (نسخة)"
@@ -52,11 +57,32 @@ msgstr "{foregroundLabel} على {backgroundLabel}: {contrastRatioText} — ال
 
 #: src/history/components/history-difficulty/history-difficulty.tsx
 msgid "{gamesCompleted, plural, one {# completed game} other {# completed games}}"
-msgstr "{gamesCompleted, plural, one {# لعبة مكتملة} other {# ألعاب مكتملة}}"
+msgstr "{gamesCompleted, plural, zero {# ألعاب مكتملة} one {# لعبة مكتملة} two {# لعبتان مكتملتان} few {# ألعاب مكتملة} many {# لعبة مكتملة} other {# لعبة مكتملة}}"
 
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
 msgstr "{mistakes, plural, zero {# أخطاء} one {# خطأ} two {# خطآن} few {# أخطاء} many {# خطأ} other {# خطأ}}"
+
+#: src/screens/components/winner-screen/winner-calm-result-hero/winner-calm-result-hero.tsx
+msgid "{moveCount, plural, one {# move} other {# moves}}"
+msgstr "{moveCount, plural, zero {# نقلات} one {# نقلة} two {# نقلتان} few {# نقلات} many {# نقلة} other {# نقلة}}"
+
+#: src/game/components/available-values-item/available-values-item.tsx
+msgid "{remaining, plural, one {Enter {value}, # left to place} other {Enter {value}, # left to place}}"
+msgstr "{remaining, plural, zero {أدخل {value}، المتبقي #} one {أدخل {value}، المتبقي #} two {أدخل {value}، المتبقي #} few {أدخل {value}، المتبقي #} many {أدخل {value}، المتبقي #} other {أدخل {value}، المتبقي #}}"
+
+#: src/game/components/candidate-input-item/candidate-input-item.tsx
+msgid "{remaining, plural, one {Note {value}, # left to place} other {Note {value}, # left to place}}"
+msgstr "{remaining, plural, zero {دوّن {value}، المتبقي #} one {دوّن {value}، المتبقي #} two {دوّن {value}، المتبقي #} few {دوّن {value}، المتبقي #} many {دوّن {value}، المتبقي #} other {دوّن {value}، المتبقي #}}"
+
+#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
+msgid "{streak, plural, one {# day streak} other {# day streak}}"
+msgstr "{streak, plural, zero {تتابع # يوم} one {تتابع # يوم} two {تتابع # يومين} few {تتابع # أيام} many {تتابع # يومًا} other {تتابع # يوم}}"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: start with {cellCount, plural, one {the # highlighted cell} other {the # highlighted cells}} and the digits {valueList}."
+msgstr "{techniqueName}: ابدأ من {cellCount, plural, zero {# خلايا مميزة} one {الخلية المميزة} two {الخليتين المميزتين} few {# خلايا مميزة} many {# خلية مميزة} other {# خلية مميزة}} والأرقام {valueList}."
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
@@ -118,11 +144,24 @@ msgstr "الكل"
 msgid "All of a number (1-9)"
 msgstr "كل خانات رقم معين (1-9)"
 
+#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "All progress will be lost"
 msgstr "سيضيع كل التقدم"
+
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Always off"
+msgstr "معطّلة دائمًا"
+
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Always on"
+msgstr "مفعّلة دائمًا"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "An assist is charged once, as a fraction of one plain placement at your difficulty and mistake limit:"
+msgstr "تُحتسب المساعدة مرة واحدة، كنسبة من إدخال صحيح عادي حسب مستوى صعوبتك وحد الأخطاء لديك:"
 
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "Android installation"
@@ -132,9 +171,23 @@ msgstr "تثبيت Android"
 msgid "Animate completed rows, columns, and boxes"
 msgstr "تحريك الصفوف والأعمدة والمربعات المكتملة"
 
+#: src/screens/components/settings-screen/settings.screen.tsx
+#: src/settings/hooks/use-settings-option-sheet-config.hook.ts
+msgid "Animations"
+msgstr "الحركات"
+
+#: src/game/components/hint-panel/hint-panel.tsx
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Apply"
 msgstr "تطبيق"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Applying a hint"
+msgstr "استخدام تلميح"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Assists"
+msgstr "المساعدات"
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Attempts to load the latest development build again"
@@ -208,6 +261,10 @@ msgstr "حظًا أوفر في المرة القادمة!"
 msgid "Beyond the ceiling"
 msgstr "ما بعد الحد الأقصى"
 
+#: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
+msgid "Bigger board numbers, spacious cells, every highlight on, no timer, calm play, no animations and the high-contrast theme. Each one stays adjustable below."
+msgstr "أرقام أكبر على اللوحة، وخلايا واسعة، وكل التمييزات مفعّلة، وبلا مؤقت، ولعب هادئ، وبلا حركات، مع سمة التباين العالي. يبقى كل عنصر قابلًا للتعديل بالأسفل."
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Board cells"
 msgstr "خلايا اللوحة"
@@ -215,6 +272,10 @@ msgstr "خلايا اللوحة"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Board colors and screen appearance"
 msgstr "ألوان اللوحة ومظهر الشاشات"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Board states told apart by lightness and outlines, not hue"
+msgstr "تُميَّز حالات اللوحة بالإضاءة والحدود، لا بدرجة اللون"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Box-Line Reduction"
@@ -228,10 +289,15 @@ msgstr "BUG+1"
 msgid "Built:"
 msgstr "تم الإنشاء:"
 
-#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+#: src/settings/component/settings-feedback-section/settings-feedback-section.tsx
+msgid "Calm play"
+msgstr "لعب هادئ"
+
+#: src/challenge/components/challenge-accept-time-block/challenge-accept-time-block.tsx
 msgid "Can you beat them?"
 msgstr "هل يمكنك التفوق عليهم؟"
 
+#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
 #: src/game/hooks/use-share-game.hook.ts
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
@@ -315,6 +381,10 @@ msgid "Choose how much space appears between Sudoku cells"
 msgstr "اختر مقدار المسافة بين خلايا السودوكو"
 
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
+msgid "Choose how much the board and screens may animate"
+msgstr "اختر مقدار الحركة في اللوحة والشاشات"
+
+#: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Choose the language used for menus and game text"
 msgstr "اختر لغة القوائم ونصوص اللعبة"
 
@@ -342,9 +412,21 @@ msgstr "فوز نظيف"
 msgid "Close"
 msgstr "إغلاق"
 
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Colorblind safe"
+msgstr "مناسب لعمى الألوان"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Column"
 msgstr "عمود"
+
+#: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
+msgid "Comfort"
+msgstr "الراحة"
+
+#: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
+msgid "Comfort mode"
+msgstr "وضع الراحة"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Comfortable"
@@ -374,7 +456,8 @@ msgstr "حركات الإكمال"
 msgid "Completion Bonuses"
 msgstr "مكافآت الإكمال"
 
-#: src/screens/components/home-screen/home-screen-play-actions/home-screen-play-actions.tsx
+#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/screens/components/home-screen/home-screen-continue-row/home-screen-continue-row.tsx
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Continue"
 msgstr "متابعة"
@@ -399,9 +482,18 @@ msgstr "سمة مخصصة"
 msgid "Customize"
 msgstr "تخصيص"
 
+#: src/app/(tabs)/settings/index.tsx
+msgid "Customize your Sudoku experience: themes, difficulty, and gameplay preferences."
+msgstr "خصّص تجربة السودوكو: السمات ومستوى الصعوبة وتفضيلات اللعب."
+
 #: src/@generic/hooks/use-timer-text.hook.ts
 msgid "d"
 msgstr "d"
+
+#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
+msgid "Daily challenge"
+msgstr "التحدي اليومي"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Danger accent"
@@ -464,6 +556,10 @@ msgstr "تقييم الصعوبة {ratingLabel}"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Dim a completed digit in the numpad instead of removing it"
 msgstr "تعتيم الرقم المكتمل في لوحة الأرقام بدلاً من إزالته"
+
+#: src/game/components/hint-panel/hint-panel.tsx
+msgid "Dismiss"
+msgstr "تجاهل"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Display"
@@ -534,7 +630,7 @@ msgstr "شبكة للخبراء"
 msgid "Extra points are awarded when your placement completes:"
 msgstr "تحصل على نقاط إضافية عندما تكمل حركتك:"
 
-#: src/screens/components/settings-screen/settings.screen.tsx
+#: src/settings/component/settings-feedback-section/settings-feedback-section.tsx
 msgid "Feedback"
 msgstr "التنبيهات"
 
@@ -558,6 +654,10 @@ msgstr "Finned Swordfish"
 msgid "Finned X-Wing"
 msgstr "Finned X-Wing"
 
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "Follow system"
+msgstr "حسب النظام"
+
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Foundational"
 msgstr "تأسيسي"
@@ -578,6 +678,10 @@ msgstr "اللعبة"
 #: src/app/pause.tsx
 msgid "Game paused"
 msgstr "اللعبة متوقفة مؤقتًا"
+
+#: src/screens/components/game-screen/game-actions/game-actions.tsx
+msgid "Game settings"
+msgstr "إعدادات اللعبة"
 
 #: src/app/history/[difficulty]/index.tsx
 #: src/screens/components/history-games-screen/history-games.screen.tsx
@@ -653,6 +757,14 @@ msgstr "مفرد خفي"
 msgid "Hidden Triple"
 msgstr "ثلاثي خفي"
 
+#: src/settings/component/settings-feedback-section/settings-feedback-section.tsx
+msgid "Hide the score and finish with a calm summary instead"
+msgstr "إخفاء النقاط وإنهاء اللعبة بملخص هادئ"
+
+#: src/settings/hooks/use-settings-option-labels.hook.ts
+msgid "High contrast"
+msgstr "تباين عالٍ"
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Highlight areas"
 msgstr "تمييز المناطق"
@@ -669,14 +781,26 @@ msgstr "تمييز الأرقام المطابقة"
 msgid "Highlight pencil marks"
 msgstr "تمييز الملاحظات بالقلم"
 
+#: src/game/components/hint-button/hint-button.tsx
+msgid "Hint"
+msgstr "تلميح"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Hint text"
 msgstr "نص التلميح"
+
+#: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
+msgid "Hints on the hardest puzzles"
+msgstr "التلميحات في أصعب الألغاز"
 
 #: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Home"
 msgstr "الرئيسية"
+
+#: src/screens/components/settings-screen/settings.screen.tsx
+msgid "How much the board and screens may move"
+msgstr "مقدار حركة اللوحة والشاشات"
 
 #: src/app/scoring.tsx
 #: src/scoring/components/scoring.screen.tsx
@@ -691,6 +815,10 @@ msgstr "أنهيت هذا السودوكو في {elapsedTimeString}. هل يمك
 msgid "Immortal"
 msgstr "خالد"
 
+#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+msgid "In progress • {difficultyLabel}"
+msgstr "قيد التقدم • {difficultyLabel}"
+
 #: src/screens/components/loser-screen/loser.screen.tsx
 msgid "Incomplete"
 msgstr "غير مكتمل"
@@ -703,6 +831,10 @@ msgstr "لانهاية"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Ink"
 msgstr "الحبر"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Inside that pattern the digits {valueList} can only sit in the highlighted cells."
+msgstr "داخل هذا النمط لا يمكن أن تقع الأرقام {valueList} إلا في الخلايا المميزة."
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Install on iOS"
@@ -743,6 +875,10 @@ msgstr "إبقاء الخلية محددة"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Keep completed digits"
 msgstr "إبقاء الأرقام المكتملة"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Keep every animation even when the system reduces motion"
+msgstr "الإبقاء على كل الحركات حتى عندما يقلّل النظام الحركة"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Keep selection after tapping outside the board"
@@ -805,9 +941,17 @@ msgstr "تباين منخفض"
 msgid "m"
 msgstr "m"
 
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Match the reduce motion setting of your device"
+msgstr "المطابقة مع إعداد تقليل الحركة في جهازك"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Max Mistakes bonus"
 msgstr "مكافأة الأخطاء المسموحة"
+
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Maximum separation between board states"
+msgstr "أقصى تمييز بين حالات اللوحة"
 
 #: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
 msgid "Maybe later"
@@ -893,6 +1037,10 @@ msgstr "مبتدئ"
 msgid "Newspaper"
 msgstr "صحيفة"
 
+#: src/game/components/hint-panel/hint-panel.tsx
+msgid "Next step"
+msgstr "الخطوة التالية"
+
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Nightmare"
@@ -934,9 +1082,21 @@ msgstr "مهما بلغت العقوبات، ستحصل دائمًا على ال
 msgid "no pause"
 msgstr "بلا إيقاف"
 
+#: src/game/components/hint-button/hint-button.tsx
+msgid "No simple technique applies"
+msgstr "لا تنطبق أي تقنية بسيطة"
+
 #: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
 msgstr "لا توجد إحصاءات بعد"
+
+#: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
+msgid "Not now"
+msgstr "ليس الآن"
+
+#: src/game/components/input-mode-button/input-mode-button.tsx
+msgid "Notes mode"
+msgstr "وضع الملاحظات"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Number pad"
@@ -963,12 +1123,34 @@ msgstr "شريط لوحة الأرقام (ممتلئ)"
 msgid "of current score"
 msgstr "من النتيجة الحالية"
 
+#: src/scoring/components/scoring.screen.tsx
+msgid "of one placement"
+msgstr "من إدخال واحد"
+
+#: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
+msgid "Offer hints on Nightmare, Hell, and Infinity puzzles too"
+msgstr "تقديم التلميحات أيضًا في ألغاز كابوس وجحيم ولانهاية"
+
+#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/game/components/hint-button/hint-button.tsx
 #: src/game/hooks/use-game-creation-runner.hook.ts
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "OK"
 msgstr "حسنًا"
+
+#: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
+msgid "On, with your own changes kept. Turning it off restores what you had before."
+msgstr "مفعّل، مع الاحتفاظ بتغييراتك. إيقافه يعيد ما كان لديك سابقًا."
+
+#: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
+msgid "One switch for bigger numbers, a calmer board, and high-contrast colors."
+msgstr "مفتاح واحد لأرقام أكبر ولوحة أهدأ وألوان عالية التباين."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Only {valueList} is left for the marked cell, so place it there."
+msgstr "لم يبقَ للخلية المحددة سوى {valueList}، فضعه فيها."
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Open commit {commitShortSha} on GitHub"
@@ -1012,6 +1194,10 @@ msgstr "يفتح هذا الالتزام على GitHub"
 msgid "Out of mistakes"
 msgstr "نفدت الأخطاء المسموحة"
 
+#: src/screens/components/game-screen/game-actions/game-actions.tsx
+msgid "Pause"
+msgstr "إيقاف مؤقت"
+
 #: src/screens/components/pause-screen/pause-screen-header/pause-screen-header.tsx
 msgid "Paused"
 msgstr "متوقف مؤقتًا"
@@ -1039,6 +1225,7 @@ msgstr "لكل ثانية"
 #: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/index.tsx
+#: src/app/play.tsx
 msgid "Play"
 msgstr "العب"
 
@@ -1048,9 +1235,26 @@ msgstr "العب"
 msgid "Play again"
 msgstr "العب مرة أخرى"
 
+#: src/app/(tabs)/index.tsx
+msgid "Play free Sudoku online with six difficulty levels, hints, and no ads. Fast, distraction-free puzzles in your browser."
+msgstr "العب السودوكو مجانًا على الإنترنت بستة مستويات صعوبة وتلميحات وبلا إعلانات. ألغاز سريعة بلا تشتيت في متصفحك."
+
+#: src/app/+html.tsx
+msgid "Play free Sudoku online with six difficulty levels, hints, and no ads. Fast, distraction-free puzzles that work great on any device."
+msgstr "العب السودوكو مجانًا على الإنترنت بستة مستويات صعوبة وتلميحات وبلا إعلانات. ألغاز سريعة بلا تشتيت تعمل بسلاسة على أي جهاز."
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Play on higher difficulties for bigger multipliers"
 msgstr "العب بمستويات أصعب لمضاعفات أكبر"
+
+#: src/app/game.tsx
+#: src/app/play.tsx
+msgid "Play Sudoku — Suuudokuuu"
+msgstr "العب السودوكو — Suuudokuuu"
+
+#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+msgid "Play today"
+msgstr "العب اليوم"
 
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Played"
@@ -1084,6 +1288,10 @@ msgstr "Português"
 msgid "Presets"
 msgstr "الإعدادات المسبقة"
 
+#: src/game/components/hint-panel/hint-panel.tsx
+msgid "Previous step"
+msgstr "الخطوة السابقة"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Primary text"
 msgstr "النص الأساسي"
@@ -1094,9 +1302,21 @@ msgstr "النص الأساسي"
 msgid "Privacy policy"
 msgstr "سياسة الخصوصية"
 
+#: src/app/privacy-policy.tsx
+msgid "Privacy Policy — Suuudokuuu"
+msgstr "سياسة الخصوصية — Suuudokuuu"
+
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Published:"
 msgstr "نُشر:"
+
+#: src/screens/components/winner-screen/winner-calm-result-hero/winner-calm-result-hero.tsx
+msgid "Puzzle complete"
+msgstr "اكتمل اللغز"
+
+#: src/screens/components/game-screen/hooks/use-game-engine-events.hook.ts
+msgid "Puzzle solved."
+msgstr "تم حل اللغز."
 
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Quit"
@@ -1110,6 +1330,10 @@ msgstr "السطح المرتفع"
 msgid "Raised surface text"
 msgstr "نص السطح المرتفع"
 
+#: src/app/privacy-policy.tsx
+msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
+msgstr "اطّلع على سياسة خصوصية Suuudokuuu بشأن جمع البيانات وتخزينها وحقوقك."
+
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"
 msgstr "مسجَّل"
@@ -1117,6 +1341,10 @@ msgstr "مسجَّل"
 #: src/challenge/components/challenge-record-hud/challenge-record-hud.tsx
 msgid "Recording"
 msgstr "جارٍ التسجيل"
+
+#: src/game/components/redo-button/redo-button.tsx
+msgid "Redo"
+msgstr "إعادة"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Region Forcing Chain"
@@ -1187,6 +1415,22 @@ msgstr "وقت المنافس الذي عليك التغلب عليه"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Row"
 msgstr "صف"
+
+#: src/game/utils/game-get-cell-accessibility-label.util.ts
+msgid "Row {row}, column {column}, {value}"
+msgstr "الصف {row}، العمود {column}، {value}"
+
+#: src/game/utils/game-get-cell-accessibility-label.util.ts
+msgid "Row {row}, column {column}, {value}, wrong"
+msgstr "الصف {row}، العمود {column}، {value}، خطأ"
+
+#: src/game/utils/game-get-cell-accessibility-label.util.ts
+msgid "Row {row}, column {column}, empty"
+msgstr "الصف {row}، العمود {column}، فارغة"
+
+#: src/game/utils/game-get-cell-accessibility-label.util.ts
+msgid "Row {row}, column {column}, empty, notes {noteList}"
+msgstr "الصف {row}، العمود {column}، فارغة، ملاحظات {noteList}"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Same-value cell"
@@ -1271,6 +1515,10 @@ msgstr "أرسل اللغز ليُحل من البداية، أو سلّم جو�
 msgid "Settings"
 msgstr "الإعدادات"
 
+#: src/app/(tabs)/settings/index.tsx
+msgid "Settings — Suuudokuuu"
+msgstr "الإعدادات — Suuudokuuu"
+
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "SHA-256 checksums"
 msgstr "مجاميع تحقق SHA-256"
@@ -1290,15 +1538,27 @@ msgstr "مشاركة السودوكو"
 msgid "Share this game"
 msgstr "مشاركة هذه اللعبة"
 
+#: src/screens/components/game-screen/game-actions/game-actions.tsx
+msgid "Share this puzzle"
+msgstr "مشاركة هذا اللغز"
+
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "shareable"
 msgstr "قابل للمشاركة"
+
+#: src/game/components/auto-candidates-button/auto-candidates-button.tsx
+msgid "Show all candidates"
+msgstr "إظهار كل المرشحات"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show cells with the same number as the selected cell"
 msgstr "إظهار الخلايا التي تحمل نفس رقم الخلية المحددة"
 
-#: src/screens/components/settings-screen/settings.screen.tsx
+#: src/settings/hooks/use-settings-option-descriptions.hook.ts
+msgid "Show changes instantly with no movement at all"
+msgstr "إظهار التغييرات فورًا بلا أي حركة"
+
+#: src/settings/component/settings-feedback-section/settings-feedback-section.tsx
 msgid "Show elapsed time while you play"
 msgstr "إظهار الوقت المنقضي أثناء اللعب"
 
@@ -1329,6 +1589,22 @@ msgstr "أصغر أرقام للوحات المدمجة"
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Soft gray board with a paper-like feel"
 msgstr "لوحة رمادية ناعمة بإحساس الورق"
+
+#: src/app/game.tsx
+msgid "Solve a Sudoku puzzle online with hints, notes, and mistake tracking."
+msgstr "حل لغز سودوكو على الإنترنت مع التلميحات والملاحظات وتتبع الأخطاء."
+
+#: src/screens/components/winner-screen/winner.screen.tsx
+msgid "Solved"
+msgstr "تم الحل"
+
+#: src/screens/components/winner-screen/winner-calm-result-hero/winner-calm-result-hero.tsx
+msgid "Solved in"
+msgstr "تم الحل في"
+
+#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+msgid "Solved today • {difficultyLabel}"
+msgstr "تم الحل اليوم • {difficultyLabel}"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Some color combinations are hard to read. Save anyway?"
@@ -1367,15 +1643,24 @@ msgstr "الإحصاءات"
 msgid "Stats"
 msgstr "الإحصاءات"
 
+#: src/game/components/hint-panel/hint-panel.tsx
+msgid "Step {currentStepNumber} of {stepCount}"
+msgstr "الخطوة {currentStepNumber} من {stepCount}"
+
 #: src/history/components/replay-controls/replay-controls.tsx
 msgid "Step time"
 msgstr "وقت الحركة"
 
+#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Stop current run?"
 msgstr "إنهاء الجولة الحالية؟"
+
+#: src/screens/components/game-screen/game-actions/game-actions.tsx
+msgid "Stop this run"
+msgstr "إنهاء الجولة"
 
 #: src/history/components/history-totals-card/history-totals-card.tsx
 msgid "Streak"
@@ -1393,6 +1678,10 @@ msgstr "تلميح السطح الخفيف"
 msgid "Subtle surface text"
 msgstr "نص السطح الخفيف"
 
+#: src/game/components/field/field.tsx
+msgid "Sudoku board, 9 by 9 cells"
+msgstr "لوحة سودوكو، 9 في 9 خلايا"
+
 #: src/@generic/components/support-ukraine-pill/support-ukraine-pill.tsx
 msgid "Support"
 msgstr "ادعم"
@@ -1409,6 +1698,11 @@ msgstr "حد السطح"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Surfaces"
 msgstr "الأسطح"
+
+#: src/app/(tabs)/index.tsx
+#: src/app/+html.tsx
+msgid "Suuudokuuu — Free Online Sudoku, No Ads"
+msgstr "Suuudokuuu — سودوكو مجاني على الإنترنت بلا إعلانات"
 
 #: src/game/hooks/use-share-challenge/use-share-challenge.hook.ts
 msgid "SuuudokuuU Challenge"
@@ -1458,6 +1752,10 @@ msgstr "النص على شريط لوحة الأرقام الممتلئ"
 msgid "Text on ink"
 msgstr "النص على الحبر"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "That rules {valueList} out of {cellCount, plural, one {# other cell} other {# other cells}}, so the struck candidates are gone."
+msgstr "هذا يستبعد {valueList} من {cellCount, plural, zero {# خلايا أخرى} one {خلية أخرى} two {خليتين أخريين} few {# خلايا أخرى} many {# خلية أخرى} other {# خلية أخرى}}، فتختفي المرشحات المشطوبة."
+
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
 msgstr "تعذّر فتح رابط الالتزام على هذا الجهاز."
@@ -1470,7 +1768,7 @@ msgstr "تعذّر فتح رابط التثبيت. تحقق من إعدادات 
 msgid "The SE difficulty scale"
 msgstr "مقياس صعوبة SE"
 
-#: src/challenge/components/challenge-accept-screen/challenge-accept-screen.tsx
+#: src/challenge/components/challenge-accept-time-block/challenge-accept-time-block.tsx
 msgid "Their time to beat"
 msgstr "وقتهم الذي عليك التغلب عليه"
 
@@ -1492,6 +1790,10 @@ msgstr "اسم السمة"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "لم تكتمل هذه اللوحة هذه المرة. يستمر الكفاح من أجل الحرية في أوكرانيا. كل تبرع بقيمة $1 يحدث فرقًا."
+
+#: src/game/components/hint-button/hint-button.tsx
+msgid "This position needs chains or trial and error, so there is no simple logical step to teach. Nothing was revealed and no score was deducted."
+msgstr "يحتاج هذا الوضع إلى سلاسل أو تجربة وخطأ، فلا توجد خطوة منطقية بسيطة لشرحها. لم يُكشف شيء ولم تُخصم أي نقاط."
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "This theme will be removed permanently."
@@ -1523,7 +1825,7 @@ msgstr "الوقت"
 msgid "Time behind"
 msgstr "فارق الوقت"
 
-#: src/screens/components/settings-screen/settings.screen.tsx
+#: src/settings/component/settings-feedback-section/settings-feedback-section.tsx
 msgid "Timer"
 msgstr "المؤقت"
 
@@ -1535,9 +1837,17 @@ msgstr "صغير جدًا"
 msgid "Tips for High Scores"
 msgstr "نصائح لنتائج أعلى"
 
+#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+msgid "Today's puzzle • {difficultyLabel}"
+msgstr "لغز اليوم • {difficultyLabel}"
+
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "Too many mistakes"
 msgstr "أخطاء كثيرة جدًا"
+
+#: src/app/(tabs)/history.tsx
+msgid "Track your solved Sudoku puzzles, best times, and scores across every difficulty."
+msgstr "تابع ألغاز السودوكو التي حللتها وأفضل أوقاتك ونقاطك في كل مستويات الصعوبة."
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Try again"
@@ -1546,6 +1856,14 @@ msgstr "حاول مجددًا"
 #: src/challenge/components/challenge-try-again-button/challenge-try-again-button.tsx
 msgid "Try Again"
 msgstr "حاول مجددًا"
+
+#: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
+msgid "Try Comfort mode"
+msgstr "جرّب وضع الراحة"
+
+#: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
+msgid "Turn it on"
+msgstr "تفعيله"
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Ukraine keeps fighting"
@@ -1558,6 +1876,18 @@ msgstr "تعذّر فتح الرابط"
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Unable to start installation"
 msgstr "تعذّر بدء التثبيت"
+
+#: src/game/components/undo-button/undo-button.tsx
+msgid "Undo"
+msgstr "تراجع"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Undo also returns the points that the undone placement earned, so replaying the same cell can never earn them twice. Dismissing a hint without applying it costs nothing, and undoing a pencil mark is always free."
+msgstr "التراجع يعيد أيضًا النقاط التي منحها الإدخال المتراجع عنه، فلا يمكن أن تمنحك الخلية نفسها النقاط مرتين. تجاهل التلميح دون استخدامه لا يكلّف شيئًا، والتراجع عن علامة قلم مجاني دائمًا."
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Undoing a placement"
+msgstr "التراجع عن إدخال"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Unique Rectangle"
@@ -1624,11 +1954,11 @@ msgstr "استخدم الأوكرانية لنص التطبيق"
 msgid "Use Urdu for app text"
 msgstr "استخدم الأردية لنص التطبيق"
 
-#: src/screens/components/settings-screen/settings.screen.tsx
+#: src/settings/component/settings-feedback-section/settings-feedback-section.tsx
 msgid "Vibrate on taps and game actions"
 msgstr "الاهتزاز عند النقر وإجراءات اللعب"
 
-#: src/screens/components/settings-screen/settings.screen.tsx
+#: src/settings/component/settings-feedback-section/settings-feedback-section.tsx
 msgid "Vibration"
 msgstr "الاهتزاز"
 
@@ -1676,6 +2006,14 @@ msgstr "فوز"
 #: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "World-record puzzles"
 msgstr "ألغاز قياسية عالمية"
+
+#: src/screens/components/game-screen/hooks/use-game-engine-events.hook.ts
+msgid "Wrong value. Mistake {mistakeCount} of {maxMistakes}."
+msgstr "قيمة خاطئة. الخطأ {mistakeCount} من {maxMistakes}."
+
+#: src/screens/components/game-screen/hooks/use-game-engine-events.hook.ts
+msgid "Wrong value. Too many mistakes, the run is over."
+msgstr "قيمة خاطئة. أخطاء كثيرة جدًا، انتهت الجولة."
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "X-Chain"
@@ -1760,6 +2098,10 @@ msgstr "جولتك"
 #: src/history/components/history-overview/history-overview.tsx
 msgid "Your stats will build as you finish puzzles."
 msgstr "ستتراكم إحصاءاتك كلما أنهيت ألغاز السودوكو."
+
+#: src/app/(tabs)/history.tsx
+msgid "Your Sudoku Stats — Suuudokuuu"
+msgstr "إحصاءات السودوكو الخاصة بك — Suuudokuuu"
 
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Zero mistakes"

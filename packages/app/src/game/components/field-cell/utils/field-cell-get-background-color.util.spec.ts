@@ -10,6 +10,8 @@ const baseParams: FieldCellBackgroundColorParamsInterface = {
     isActiveValue: false,
     isCellHighlighted: false,
     isEmpty: false,
+    isPatternCell: false,
+    isTargetCell: false,
     isWrong: false,
     showAreas: true,
     showFilledNumbers: true,
@@ -18,6 +20,22 @@ const baseParams: FieldCellBackgroundColorParamsInterface = {
 };
 
 describe('fieldCellGetBackgroundColor', () => {
+    it('should mark the hint target cell before every other state', () => {
+        expect.assertions(1);
+
+        expect(fieldCellGetBackgroundColor({ ...baseParams, isTargetCell: true, isPatternCell: true, isWrong: true })).toBe(
+            BWLightTheme.colors.accent
+        );
+    });
+
+    it('should mark a hint pattern cell before the ordinary board states', () => {
+        expect.assertions(1);
+
+        expect(fieldCellGetBackgroundColor({ ...baseParams, isPatternCell: true, isWrong: true })).toBe(
+            BWLightTheme.colors.candidate.fillSelected
+        );
+    });
+
     it('should flag a wrong value before anything else', () => {
         expect.assertions(1);
 

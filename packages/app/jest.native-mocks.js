@@ -15,10 +15,15 @@ jest.mock('expo-glass-effect', () => ({ GlassView: 'GlassView', isLiquidGlassAva
 
 jest.mock('react-native-share', () => ({ default: { open: jest.fn() }, Social: {} }));
 
-jest.mock('expo-router', () => ({
-    Link: 'Link',
-    Redirect: 'Redirect',
-    useLocalSearchParams: () => ({}),
-    usePathname: () => '/',
-    useRouter: () => ({ dismissTo: jest.fn(), navigate: jest.fn(), push: jest.fn(), replace: jest.fn() })
-}));
+jest.mock('expo-router', () => {
+    const { useEffect } = require('react');
+
+    return {
+        Link: 'Link',
+        Redirect: 'Redirect',
+        useFocusEffect: effect => useEffect(effect, [effect]),
+        useLocalSearchParams: () => ({}),
+        usePathname: () => '/',
+        useRouter: () => ({ dismissTo: jest.fn(), navigate: jest.fn(), push: jest.fn(), replace: jest.fn() })
+    };
+});

@@ -3,6 +3,7 @@ import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
 import { TimelineEventKindEnum } from '@suuudokuuu/encoder';
 import { DifficultyEnum, Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
+import { SolutionTechniqueEnum, TechniqueManager, createTechniqueStrategies } from '@suuudokuuu/techniques';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react-native';
 import { use } from 'react';
 import { Pressable } from 'react-native';
@@ -21,6 +22,13 @@ const createTriggerTestID = 'game-provider-create-trigger';
 const HellPuzzleGivenCellCount = 17;
 const MinimumInfinityGivenCellCount = 20;
 const MaximumInfinityGivenCellCount = 23;
+
+const nakedSinglesLadder = createTechniqueStrategies()
+    .map(strategy => strategy.technique)
+    .filter(technique => technique <= SolutionTechniqueEnum.NakedSingle);
+
+const isNakedSinglesOnly = (sudokuString: string): boolean =>
+    new TechniqueManager(Sudoku.fromString(sudokuString, defaultSudokuConfig)).solveLogically(nakedSinglesLadder).outcome === 'solved';
 
 const abandonedAttempt = {
     candidates: { '1-1': [1, 2] },
@@ -85,14 +93,14 @@ describe('GameProvider', () => {
             score: 0,
             timelineEvents: []
         });
-        expect(Sudoku.fromString(gameState.sudokuString, defaultSudokuConfig).Difficulty).toBe(DifficultyEnum.Hard);
+        expect(isNakedSinglesOnly(gameState.sudokuString)).toBe(false);
     });
 
     it('starts a normal retry without inheriting challenge identity', async () => {
         const gameState = await startGame({ difficulty: DifficultyEnum.Easy, isChallengeRun: false, maxMistakes: 3 });
 
         expect(gameState).toMatchObject({ difficulty: DifficultyEnum.Easy, isChallengeRun: false, maxMistakes: 3 });
-        expect(Sudoku.fromString(gameState.sudokuString, defaultSudokuConfig).Difficulty).toBe(DifficultyEnum.Easy);
+        expect(isNakedSinglesOnly(gameState.sudokuString)).toBe(false);
     });
 
     it('starts a Hell run with a genuine 17-clue puzzle', async () => {

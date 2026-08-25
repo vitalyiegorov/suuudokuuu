@@ -1,9 +1,9 @@
+import { getCellKey } from '@suuudokuuu/field-core';
 import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { TechniqueManager, interactiveTechniqueOrder } from '@suuudokuuu/techniques';
 
 import { isDefined } from '@rnw-community/shared';
 
-import { getCellKey } from '../../@generic/utils/get-cell-key.util';
 import { getTimelineCellSteps } from '../../game/utils/get-timeline-cell-steps.util';
 import { getTimelineCellTechniques } from '../../game/utils/get-timeline-cell-techniques.util';
 

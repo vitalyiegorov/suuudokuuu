@@ -2,6 +2,7 @@ import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { use } from 'react';
 import Animated, { LinearTransition } from 'react-native-reanimated';
 
+import { useReduceMotion } from '../../../../@generic/hooks/use-reduce-motion.hook';
 import { ThemeContext } from '../../../../theme/context/theme.context';
 import {
     DifficultyComplexitySliderCellRankMultiplier,
@@ -29,7 +30,9 @@ interface Props {
 export const DifficultyComplexityPreviewCell = (props: Props) => {
     const { activeCellCount, activeCellOpacity, cellIndex, isHardcoreMistakes, isRelaxedMistakes, isStandardMistakes } = props;
     const { theme } = use(ThemeContext);
+    const isMotionReduced = useReduceMotion();
     const previewLayoutTransition = LinearTransition.duration(DifficultyComplexitySliderPreviewLayoutAnimationDurationMs);
+    const layoutTransitionProps = isMotionReduced ? {} : { layout: previewLayoutTransition };
     const cellRank = (cellIndex * DifficultyComplexitySliderCellRankMultiplier) % DifficultyComplexitySliderPreviewCellCount;
     const isActive = cellRank < activeCellCount;
     const isMistakeCell =
@@ -78,5 +81,5 @@ export const DifficultyComplexityPreviewCell = (props: Props) => {
         }
     ];
 
-    return <Animated.View layout={previewLayoutTransition} style={cellStyles} />;
+    return <Animated.View style={cellStyles} {...layoutTransitionProps} />;
 };

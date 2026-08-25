@@ -1,0 +1,45 @@
+{
+    "name": "@suuudokuuu/landing",
+    "version": "2.5.1",
+    "private": true,
+    "description": "Static Next.js content and SEO surface for www.suuudokuuu.com",
+    "scripts": {
+        "build": "yarn generate:printables && yarn generate:og-images && yarn generate:indexing && next build",
+        "clear": "yarn run -T rimraf .next out node_modules/.cache .turbo",
+        "format": "run -T prettier --write src",
+        "generate:indexing": "tsx scripts/generate-indexing-files.ts",
+        "generate:og-images": "tsx scripts/generate-og-images.ts",
+        "generate:printables": "tsx scripts/generate-printables.ts",
+        "generate:rating-sample": "tsx scripts/generate-rating-sample.ts",
+        "lint": "run -T eslint --fix src",
+        "seo:report": "tsx scripts/seo-report.ts",
+        "start": "yarn generate:printables && yarn generate:og-images && yarn generate:indexing && next dev",
+        "submit:indexnow": "tsx scripts/submit-indexnow.ts",
+        "ts": "run -T tsc -p ."
+    },
+    "dependencies": {
+        "@rnw-community/shared": "^2.2.0",
+        "@suuudokuuu/field-core": "workspace:*",
+        "@suuudokuuu/field-dom": "workspace:*",
+        "@suuudokuuu/generator": "workspace:*",
+        "@suuudokuuu/puzzle-forge": "workspace:*",
+        "@suuudokuuu/rating": "workspace:*",
+        "@suuudokuuu/solver-bitmask": "workspace:*",
+        "@suuudokuuu/solver-core": "workspace:*",
+        "@suuudokuuu/solver-dlx": "workspace:*",
+        "@suuudokuuu/techniques": "workspace:*",
+        "@vercel/analytics": "^2.0.1",
+        "@vercel/speed-insights": "^2.0.0",
+        "next": "16.3.0",
+        "react": "19.2.3",
+        "react-dom": "19.2.3"
+    },
+    "devDependencies": {
+        "@expo-google-fonts/inter": "^0.4.2",
+        "@suuudokuuu/hell-corpus": "workspace:*",
+        "@types/react": "~19.2.14",
+        "@types/react-dom": "~19.2.4",
+        "pdf-lib": "^1.17.1",
+        "tsx": "^4.23.12"
+    }
+}

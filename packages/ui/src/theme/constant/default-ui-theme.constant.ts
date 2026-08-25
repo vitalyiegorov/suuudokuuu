@@ -1,6 +1,7 @@
 import type { ThemeInterface } from '../interface/theme.interface';
 
 export const DefaultUiTheme: ThemeInterface = {
+    hasErrorOutline: false,
     colors: {
         background: '#ffffff',
         ink: '#000000',

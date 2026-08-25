@@ -12,6 +12,8 @@ import { useUnistyles } from 'react-native-unistyles';
 
 import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
+import { MaxFontSizeMultiplierConstant } from '../../theme/constant/font-scaling.constant';
+
 import { AppButtonStyles as styles } from './app-button.styles';
 import { AppButtonDefaultIconSize } from './constant/app-button-default-icon-size.constant';
 import { AppButtonLoaderTestId } from './constant/app-button-loader-test-id.constant';
@@ -46,6 +48,7 @@ export const AppButton = ({
     children,
     size = 'regular',
     variant = 'primary',
+    accessibilityState: accessibilityStateProp,
     ...restProps
 }: AppButtonProps) => {
     const { theme } = useUnistyles();
@@ -61,7 +64,7 @@ export const AppButton = ({
     const textStyles = [styles.text, textSizeStyles, { color: colors.textColor }, textStyle];
     const shouldShowText = isNotEmptyString(text);
     const isDisabled = isLoading || disabled === true;
-    const accessibilityState = { busy: isLoading, disabled: isDisabled };
+    const accessibilityState = { ...accessibilityStateProp, busy: isLoading, disabled: isDisabled };
 
     const contentStyles = [styles.content, isLoading && styles.contentHidden];
 
@@ -76,9 +79,9 @@ export const AppButton = ({
                         {shouldShowText && (
                             <Text
                                 adjustsFontSizeToFit
-                                allowFontScaling={false}
+                                maxFontSizeMultiplier={MaxFontSizeMultiplierConstant}
                                 minimumFontScale={0.72}
-                                numberOfLines={1}
+                                numberOfLines={2}
                                 style={textStyles}
                             >
                                 {text}

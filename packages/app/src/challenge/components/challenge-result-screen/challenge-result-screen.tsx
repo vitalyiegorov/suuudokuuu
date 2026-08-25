@@ -1,4 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
+import { CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
 import { Redirect } from 'expo-router';
 import { use } from 'react';
 import { Text, View } from 'react-native';
@@ -83,12 +84,16 @@ export const ChallengeResultScreen = (props: Props) => {
             <View style={styles.content}>
                 <ChallengeResultMedallion result={result} />
 
-                <Text allowFontScaling={false} style={titleStyle}>
+                <Text maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant} style={titleStyle}>
                     {title}
                 </Text>
 
                 <View style={pillStyle}>
-                    <Text allowFontScaling={false} style={pillTextStyle} testID={ChallengeResultScreenSelectors.OutcomeValue}>
+                    <Text
+                        maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant}
+                        style={pillTextStyle}
+                        testID={ChallengeResultScreenSelectors.OutcomeValue}
+                    >
                         {badgeText}
                     </Text>
                 </View>

@@ -21,7 +21,7 @@ export const useBoardGeometry = (reservedHeight: number): BoardAreaGeometryInter
         setBoardArea({ width, height });
     };
 
-    const { cellSize, boardSize } = gameGetBoardGeometry({
+    const boardGeometry = gameGetBoardGeometry({
         availableWidth: boardArea.width,
         availableHeight: boardArea.height,
         reservedHeight,
@@ -30,5 +30,5 @@ export const useBoardGeometry = (reservedHeight: number): BoardAreaGeometryInter
         cellMargin
     });
 
-    return { cellSize, boardSize, onBoardAreaLayout };
+    return { ...boardGeometry, onBoardAreaLayout };
 };

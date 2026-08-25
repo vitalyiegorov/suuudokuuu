@@ -1,14 +1,20 @@
 import { useLingui } from '@lingui/react/macro';
 import { Redirect } from 'expo-router';
 
+import { isPositiveNumber } from '@rnw-community/shared';
+
 import { CompletedGameResultDetails } from '../../../@generic/components/completed-game-result-details/completed-game-result-details';
 import { GameResultPage } from '../../../@generic/components/game-result-page/game-result-page';
 import { useCompletedGameResult } from '../../../@generic/hooks/use-completed-game-result.hook';
+import { getDayStreak } from '../../../@generic/utils/get-day-streak.util';
 import { getLevelRatingText } from '../../../@generic/utils/get-level-rating-text.util';
 import { ChallengeRunSummary } from '../../../challenge/components/challenge-run-summary/challenge-run-summary';
 import { getChallengeRecordingSummary } from '../../../challenge/utils/get-challenge-recording-summary.util';
 import { isChallengeRecording } from '../../../challenge/utils/is-challenge-recording.util';
+import { DailyStreakSummary } from '../../../daily/components/daily-streak-summary/daily-streak-summary';
+import { getTimelineCellSteps } from '../../../game/utils/get-timeline-cell-steps.util';
 
+import { WinnerCalmResultHero } from './winner-calm-result-hero/winner-calm-result-hero';
 import { WinnerResultHero } from './winner-result-hero/winner-result-hero';
 import { WinnerScreenActions } from './winner-screen-actions/winner-screen-actions';
 import { WinnerScreenSelectors } from './winner-screen.selectors';
@@ -21,14 +27,23 @@ export const WinnerScreen = () => {
         return <Redirect href="/" />;
     }
 
-    const { gameState, retrySetup, timeText } = completedGameResult;
+    const { gameState, isCalmMode, retrySetup, timeText } = completedGameResult;
     const { difficulty, hasNewPersonalBestScore, isRatingCeiling, mistakes, rating, score } = gameState;
 
     const scoreText = i18n.number(score);
     const isCleanWin = mistakes === 0;
     const winDescriptor = isCleanWin ? t`Clean win` : t`Completed`;
+    const calmDescriptor = t`Solved`;
     const levelText = getLevelRatingText(completedGameResult.difficultyText, rating, isRatingCeiling);
-    const descriptorText = `${winDescriptor} • ${levelText} • ${completedGameResult.mistakesTypeText}`;
+    const scoredDescriptorText = `${winDescriptor} • ${levelText} • ${completedGameResult.mistakesTypeText}`;
+    const calmDescriptorText = `${calmDescriptor} • ${levelText}`;
+    const moveCount = getTimelineCellSteps(gameState.timelineEvents).length;
+    const dailyStreak = isPositiveNumber(gameState.dailyDayNumber)
+        ? getDayStreak(gameState.dailyCompletedDayNumbers, gameState.dailyDayNumber)
+        : 0;
+    const dailySummary = isPositiveNumber(dailyStreak) ? (
+        <DailyStreakSummary bestStreak={gameState.dailyBestStreak} streak={dailyStreak} />
+    ) : null;
     const footer = <WinnerScreenActions gameState={gameState} retrySetup={retrySetup} />;
     const recordingSummary = isChallengeRecording(gameState) ? (
         <ChallengeRunSummary
@@ -37,15 +52,22 @@ export const WinnerScreen = () => {
             totalTime={gameState.elapsedTime}
         />
     ) : null;
+    const resultHero = isCalmMode ? (
+        <WinnerCalmResultHero descriptorText={calmDescriptorText} moveCount={moveCount} />
+    ) : (
+        <WinnerResultHero
+            descriptorText={scoredDescriptorText}
+            difficulty={difficulty}
+            isPersonalBest={hasNewPersonalBestScore}
+            scoreText={scoreText}
+        />
+    );
 
     return (
         <GameResultPage footer={footer} testID={WinnerScreenSelectors.Root}>
-            <WinnerResultHero
-                descriptorText={descriptorText}
-                difficulty={difficulty}
-                isPersonalBest={hasNewPersonalBestScore}
-                scoreText={scoreText}
-            />
+            {resultHero}
+
+            {dailySummary}
 
             {recordingSummary}
 

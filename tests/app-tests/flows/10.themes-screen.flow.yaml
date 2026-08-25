@@ -14,6 +14,15 @@ appId: ${APP_ID}
       element:
           id: 'SettingsScreenSelectors.ThemeOption'
       direction: DOWN
+# Overscroll past the target so the row sits above the floating tab bar;
+# a bottom-edge row registers the tap on the bar's blur surface on Android.
+# Target the Animations row by id: iOS merges the row into one accessibility
+# element whose label is "title, description", so its bare title text never
+# matches there.
+- scrollUntilVisible:
+      element:
+          id: 'SettingsScreenSelectors.MotionOption'
+      direction: DOWN
 - tapOn:
       id: 'SettingsScreenSelectors.ThemeOption'
 - extendedWaitUntil:
@@ -49,14 +58,22 @@ appId: ${APP_ID}
       visible:
           id: 'themes-screen'
       timeout: 3000
-- assertVisible: 'Maestro theme'
+# The created theme lists below the presets, past the fold on the shorter
+# Android viewport, so scroll it into view instead of asserting in place.
+- scrollUntilVisible:
+      element:
+          text: 'Maestro theme'
+      direction: DOWN
 - tapOn:
       id: 'HeaderBackButtonSelectors.Root'
 - extendedWaitUntil:
       visible:
           id: 'SettingsScreenSelectors.Root'
       timeout: 3000
-- assertVisible: 'Maestro theme'
+- scrollUntilVisible:
+      element:
+          text: 'Maestro theme'
+      direction: DOWN
 - tapOn:
       id: 'HeaderBackButtonSelectors.Root'
 - extendedWaitUntil:

@@ -1,6 +1,8 @@
 import { AppButton, resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { useEffect } from 'react';
-import Animated, { Easing, cancelAnimation, useAnimatedStyle, useReducedMotion, useSharedValue, withTiming } from 'react-native-reanimated';
+import Animated, { Easing, cancelAnimation, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+
+import { useReduceMotion } from '../../../../@generic/hooks/use-reduce-motion.hook';
 
 import {
     HomeScreenStartButtonEmberEntranceDurationMs,
@@ -25,7 +27,7 @@ interface Props {
 }
 
 export const HomeScreenStartButtonEmber = ({ children, isLoading, onPress, style, testID }: Props) => {
-    const reduceMotion = useReducedMotion();
+    const reduceMotion = useReduceMotion();
     const entrance = useSharedValue(0);
 
     useEffect(() => {
