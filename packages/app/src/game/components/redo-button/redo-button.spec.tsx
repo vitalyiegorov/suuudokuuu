@@ -45,6 +45,16 @@ describe('RedoButton', () => {
         expect(engine.getCellCandidates(engine.Sudoku.Field[0][2])).toStrictEqual([noteCellValue]);
     });
 
+    it('is never offered in hardcore mode', async () => {
+        expect.assertions(1);
+
+        const engine = buildEngineWithUndoneNote();
+
+        await renderWithGameContext(<RedoButton sizeStyle={null} />, { engine, game: { maxMistakes: 0 } });
+
+        expect(screen.queryByTestId(RedoButtonSelectors.Root)).toBeNull();
+    });
+
     it('is never offered during a challenge run', async () => {
         expect.assertions(1);
 

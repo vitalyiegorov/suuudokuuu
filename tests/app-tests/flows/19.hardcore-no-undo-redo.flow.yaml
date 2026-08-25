@@ -1,0 +1,39 @@
+appId: ${APP_ID}
+---
+- startRecording:
+      path: '19.hardcore-no-undo-redo'
+      optional: true
+
+# Hardcore runs (maxMistakes 0) get no undo/redo, same as pencil assists.
+# This fixture is the Hard + Hardcore handoff from 12.play-again-setup with
+# exactly two blank cells; cell 4-7 needs 7.
+- runFlow: subflows/navigation/launch-home.flow.yaml
+- runFlow:
+      file: subflows/shared/open-shared-handoff.flow.yaml
+      env:
+          SHARED_HANDOFF_LINK: suuudokuuu://shared/_NABHQzBFw6RglyoiRQQUouMgjrAma5QGGoYAggggggggggggggggghCEIQiEIQhCEIREREREklQL1IJUTJSvlHjqmsZOolrdPSOtkgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgQIECBAgAAAA
+
+- assertVisible: '0/0'
+
+- assertNotVisible:
+      id: 'UndoButtonSelectors.Root'
+- assertNotVisible:
+      id: 'RedoButtonSelectors.Root'
+
+# Even after a correct placement the buttons must stay hidden in hardcore.
+- tapOn:
+      id: 'CellSelectors.Cell.4-7'
+- tapOn:
+      id: 'AvailableValueItemSelectors.Button.7'
+- extendedWaitUntil:
+      visible:
+          id: 'GameScreenSelectors.Score'
+          text: '.*[1-9].*'
+      timeout: 3000
+- assertNotVisible:
+      id: 'UndoButtonSelectors.Root'
+- assertNotVisible:
+      id: 'RedoButtonSelectors.Root'
+
+- runFlow: subflows/game/quit-current-game.flow.yaml
+- stopApp
