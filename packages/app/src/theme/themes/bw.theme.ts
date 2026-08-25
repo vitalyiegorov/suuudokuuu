@@ -64,8 +64,8 @@ export const BWDarkTheme: ThemeInterface = {
             hint: 'rgba(255, 255, 255, 0.5)'
         },
         board: {
-            selected: 'rgba(0, 255, 0, 0.7)',
-            selectedText: 'rgba(0, 0, 0, 1)',
+            selected: 'rgba(0, 255, 0, 0.64)',
+            selectedText: 'rgba(255, 255, 255, 1)',
             sameValue: 'rgba(0, 255, 0, 0.5)',
             sameValueText: 'rgba(255, 255, 255, 1)',
             error: 'rgba(212, 0, 0, 1)',
