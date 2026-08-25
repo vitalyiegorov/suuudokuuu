@@ -2,6 +2,7 @@ import { useLingui } from '@lingui/react/macro';
 import { Redirect } from 'expo-router';
 
 import { Page } from '../@generic/components/page/page';
+import { PageHead } from '../@generic/components/page-head/page-head';
 import { PageHeader } from '../@generic/components/page-header/page-header';
 import { useAppSelector } from '../@generic/hooks/use-app-selector.hook';
 import { gameIsStartedSelector, gameShouldShowPauseScreenSelector } from '../game/store/game.selectors';
@@ -13,6 +14,7 @@ export default function GamePage() {
     const isGameStarted = useAppSelector(gameIsStartedSelector);
     const shouldShowPauseScreen = useAppSelector(gameShouldShowPauseScreenSelector);
     const title = shouldShowPauseScreen ? t`Game paused` : t`Be wise, be smart, be quick...`;
+    const description = t`Solve a Sudoku puzzle online with hints, notes, and mistake tracking.`;
 
     if (!isGameStarted) {
         return <Redirect href="/" />;
@@ -20,6 +22,7 @@ export default function GamePage() {
 
     return (
         <Page>
+            <PageHead description={description} title={t`Play Sudoku — Suuudokuuu`} />
             <PageHeader title={title} />
 
             {shouldShowPauseScreen ? <PauseScreen /> : <GameScreen />}

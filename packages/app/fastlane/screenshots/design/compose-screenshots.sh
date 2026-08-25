@@ -807,11 +807,13 @@ SCENES_LIGHT=(
   "combo|-|light|B|$DEVICE_HEIGHT_FRACTION_COMBO|05_iphone_customization.png|05-customization"
   "iphone|07-replay|light|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|06_iphone_replay.png"
   "iphone|10-stats|light|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|07_iphone_stats.png"
+  "iphone|15-infinity|light|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|09_iphone_infinity.png"
   "iphone|01-hero-board|dark|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|08_iphone_hero-board-dark.png|01-hero-board-dark"
   "ipad-landscape|01-hero-board|light|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|21_ipad_hero-board.png"
   "ipad-landscape|02-hell|light|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|22_ipad_hell.png"
   "ipad-landscape|14-challenge-live|light|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|23_ipad_challenge-live.png"
   "ipad-landscape|04-editor|light|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|24_ipad_editor.png"
+  "ipad-landscape|15-infinity|light|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|26_ipad_infinity.png"
   "ipad-landscape|09-home|light|A|$DEVICE_HEIGHT_FRACTION_ENDPOINT|25_ipad_home.png"
 )
 
@@ -838,11 +840,13 @@ SCENES_DARK=(
   "combo|-|dark|B|$DEVICE_HEIGHT_FRACTION_COMBO|05_iphone_customization.png|05-customization"
   "iphone|07-replay|dark|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|06_iphone_replay.png"
   "iphone|10-stats|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|07_iphone_stats.png"
+  "iphone|15-infinity|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|09_iphone_infinity.png"
   "iphone|01-hero-board|light|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|08_iphone_hero-board-light.png|01-hero-board-light"
   "ipad-landscape|01-hero-board|dark|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|21_ipad_hero-board.png"
   "ipad-landscape|02-hell|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|22_ipad_hell.png"
   "ipad-landscape|14-challenge-live|dark|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|23_ipad_challenge-live.png"
   "ipad-landscape|04-editor|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|24_ipad_editor.png"
+  "ipad-landscape|15-infinity|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|26_ipad_infinity.png"
   "ipad-landscape|09-home|dark|A|$DEVICE_HEIGHT_FRACTION_ENDPOINT|25_ipad_home.png"
 )
 

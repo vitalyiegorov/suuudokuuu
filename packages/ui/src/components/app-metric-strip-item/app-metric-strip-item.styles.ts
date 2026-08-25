@@ -3,8 +3,9 @@ import { StyleSheet } from 'react-native-unistyles';
 export const AppMetricStripItemStyles = StyleSheet.create(() => ({
     item: {
         alignItems: 'center',
+        flexShrink: 1,
         gap: 2,
-        width: 62
+        minWidth: 62
     },
     label: {
         fontSize: 9,

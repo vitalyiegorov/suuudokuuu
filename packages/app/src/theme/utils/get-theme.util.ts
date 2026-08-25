@@ -1,7 +1,9 @@
 import { ColorSchemaEnum } from '../enum/color-schema.enum';
 import { ThemeEnum } from '../enum/theme.enum';
 import { BWDarkTheme, BWLightTheme } from '../themes/bw.theme';
+import { ColorblindSafeDarkTheme, ColorblindSafeLightTheme } from '../themes/colorblind-safe.theme';
 import { ColorfulDarkTheme, ColorfulLightTheme } from '../themes/colorful.theme';
+import { HighContrastDarkTheme, HighContrastLightTheme } from '../themes/high-contrast.theme';
 import { NewspaperDarkTheme, NewspaperLightTheme } from '../themes/newspaper';
 
 export const getTheme = (theme: ThemeEnum, colorShema: ColorSchemaEnum) => {
@@ -17,6 +19,14 @@ export const getTheme = (theme: ThemeEnum, colorShema: ColorSchemaEnum) => {
         [ThemeEnum.Newspaper]: {
             [ColorSchemaEnum.Dark]: NewspaperDarkTheme,
             [ColorSchemaEnum.Light]: NewspaperLightTheme
+        },
+        [ThemeEnum.HighContrast]: {
+            [ColorSchemaEnum.Dark]: HighContrastDarkTheme,
+            [ColorSchemaEnum.Light]: HighContrastLightTheme
+        },
+        [ThemeEnum.ColorblindSafe]: {
+            [ColorSchemaEnum.Dark]: ColorblindSafeDarkTheme,
+            [ColorSchemaEnum.Light]: ColorblindSafeLightTheme
         }
     };
 

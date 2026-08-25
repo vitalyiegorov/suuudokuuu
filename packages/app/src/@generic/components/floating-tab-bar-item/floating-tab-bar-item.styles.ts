@@ -10,8 +10,8 @@ export const FloatingTabBarItemStyles = StyleSheet.create(theme => ({
         flexGrow: 1,
         flexShrink: 1,
         gap: theme.spacing.xs,
-        height: FloatingTabBarItemHeight,
         justifyContent: 'center',
+        minHeight: FloatingTabBarItemHeight,
         minWidth: 0,
         _web: {
             cursor: 'pointer',

@@ -1,11 +1,9 @@
-import { Trans } from '@lingui/react/macro';
-import { Play } from 'lucide-react-native';
 import { use } from 'react';
-import { Pressable, View } from 'react-native';
+import { View } from 'react-native';
 
 import { BlackText } from '../../../../@generic/components/black-text/black-text';
-import { useResumeGame } from '../../../../game/hooks/use-resume-game.hook';
 import { ThemeContext } from '../../../../theme/context/theme.context';
+import { HomeScreenContinueRow } from '../home-screen-continue-row/home-screen-continue-row';
 import { HomeScreenStartButton } from '../home-screen-start-button/home-screen-start-button';
 import { HomeScreenSelectors } from '../home-screen.selectors';
 import { HomeScreenStyles as styles } from '../home-screen.styles';
@@ -36,20 +34,9 @@ export const HomeScreenPlayActions = ({
     startButtonText
 }: Props) => {
     const { theme } = use(ThemeContext);
-    const handleContinue = useResumeGame();
     const startButtonTextColor = isHellSelected ? theme.colors.dangerText : theme.colors.inkText;
     const startButtonTitleStyles = [styles.startButtonTitle, { color: startButtonTextColor }];
     const startButtonSubtitleStyles = [styles.startButtonSubtitle, { color: startButtonTextColor }];
-    const continueRowStyles = [styles.continueRow, { backgroundColor: theme.colors.surface.subtle }];
-    const continueProgressFillStyles = [
-        styles.continueProgressFill,
-        { backgroundColor: theme.colors.numpad.track, flex: currentProgressPercent }
-    ];
-    const continueProgressRemainderStyles = { flex: 100 - currentProgressPercent };
-    const continueIconStyles = [styles.continueIcon, { backgroundColor: theme.colors.ink }];
-    const continueTitleStyles = [styles.continueTitle, { color: theme.colors.text.primary }];
-    const continueElapsedStyles = [styles.continueElapsed, { color: theme.colors.text.hint }];
-    const continueProgressTextStyles = [styles.continueProgressText, { color: theme.colors.text.primary }];
 
     return (
         <View style={styles.playActions}>
@@ -68,32 +55,11 @@ export const HomeScreenPlayActions = ({
             </HomeScreenStartButton>
 
             {isGameStarted ? (
-                <Pressable
-                    accessibilityRole="button"
-                    onPress={handleContinue}
-                    style={continueRowStyles}
-                    testID={HomeScreenSelectors.ResumeButton}
-                >
-                    <View style={styles.continueProgressTrack}>
-                        <View style={continueProgressFillStyles} />
-                        <View style={continueProgressRemainderStyles} />
-                    </View>
-
-                    <View style={styles.continueContent}>
-                        <View style={continueIconStyles}>
-                            <Play color={theme.colors.inkText} fill={theme.colors.inkText} size={18} />
-                        </View>
-
-                        <View style={styles.continueCopy}>
-                            <BlackText numberOfLines={1} style={continueTitleStyles}>
-                                <Trans>Continue</Trans>
-                            </BlackText>
-                            <BlackText style={continueElapsedStyles}>{currentElapsedTimeText}</BlackText>
-                        </View>
-
-                        <BlackText style={continueProgressTextStyles}>{currentProgressText}</BlackText>
-                    </View>
-                </Pressable>
+                <HomeScreenContinueRow
+                    currentElapsedTimeText={currentElapsedTimeText}
+                    currentProgressPercent={currentProgressPercent}
+                    currentProgressText={currentProgressText}
+                />
             ) : null}
         </View>
     );

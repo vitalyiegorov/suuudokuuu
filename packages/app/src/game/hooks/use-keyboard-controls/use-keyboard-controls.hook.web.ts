@@ -7,9 +7,15 @@ import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { gameToggleAutoCandidatesAction, gameToggleCellCandidateAction, gameToggleInputModeAction } from '../../store/game.actions';
 import { gameMaxMistakesSelector } from '../../store/game.selectors';
+import { gameGetArrowTargetCell } from '../../utils/game-get-arrow-target-cell.util';
+import { gameGetCellCandidatePayload } from '../../utils/game-get-cell-candidate-payload.util';
+import { gameGetInputStatePayload } from '../../utils/game-get-input-state-payload.util';
+
+import { useHistoryShortcut } from './use-history-shortcut.hook';
 
 import type { OnEventFn } from '@rnw-community/shared';
-import type { CellInterface, Sudoku } from '@suuudokuuu/generator';
+import type { FieldEngine } from '@suuudokuuu/field-core';
+import type { CellInterface } from '@suuudokuuu/generator';
 
 const ARROW_KEYS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
 const DIGIT_CODE_PATTERN = /^(?:Digit|Numpad)([1-9])$/u;
@@ -17,8 +23,11 @@ const DIGIT_CODE_PATTERN = /^(?:Digit|Numpad)([1-9])$/u;
 const isEditableTarget = (target: EventTarget | null): boolean =>
     target instanceof HTMLElement && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable);
 
+const isBoardCellTarget = (target: EventTarget | null): boolean =>
+    target instanceof HTMLElement && isDefined(target.closest('[role="grid"]'));
+
 export const useKeyboardControls = (
-    sudoku: Sudoku,
+    engine: FieldEngine,
     selectedCell: CellInterface | undefined,
     onSelectCell: OnEventFn<CellInterface | undefined>,
     onSelectValue: OnEventFn<number>,
@@ -29,6 +38,8 @@ export const useKeyboardControls = (
     const isFocused = useIsFocused();
     const maxMistakes = useAppSelector(gameMaxMistakesSelector);
     const canToggleAutoCandidates = maxMistakes > 0;
+
+    useHistoryShortcut(engine);
 
     useEffect(() => {
         if (!isFocused) {
@@ -42,25 +53,11 @@ export const useKeyboardControls = (
             }
 
             const { key, code, shiftKey } = e;
+            const sudoku = engine.Sudoku;
 
             if (ARROW_KEYS.includes(key)) {
                 e.preventDefault();
-                const currentCell = selectedCell ?? sudoku.Field[0][0];
-                const lastRowIndex = sudoku.Field.length - 1;
-                const lastColIndex = sudoku.Field[currentCell.y].length - 1;
-
-                let nextCell: CellInterface | undefined;
-                if (key === 'ArrowUp') {
-                    nextCell = sudoku.getCellUp(currentCell) ?? sudoku.Field[lastRowIndex][currentCell.x];
-                } else if (key === 'ArrowDown') {
-                    nextCell = sudoku.getCellDown(currentCell) ?? sudoku.Field[0][currentCell.x];
-                } else if (key === 'ArrowLeft') {
-                    nextCell = sudoku.getCellLeft(currentCell) ?? sudoku.Field[currentCell.y][lastColIndex];
-                } else if (key === 'ArrowRight') {
-                    nextCell = sudoku.getCellRight(currentCell) ?? sudoku.Field[currentCell.y][0];
-                }
-
-                onSelectCell(nextCell);
+                onSelectCell(gameGetArrowTargetCell(sudoku, selectedCell ?? sudoku.Field[0][0], key));
 
                 return;
             }
@@ -69,7 +66,8 @@ export const useKeyboardControls = (
                 e.preventDefault();
 
                 if (isDefined(selectedCell)) {
-                    dispatch(gameToggleInputModeAction());
+                    engine.toggleInputMode();
+                    dispatch(gameToggleInputModeAction(gameGetInputStatePayload(engine)));
                 }
 
                 return;
@@ -79,7 +77,8 @@ export const useKeyboardControls = (
                 e.preventDefault();
 
                 if (canToggleAutoCandidates) {
-                    dispatch(gameToggleAutoCandidatesAction());
+                    engine.toggleShowAutoCandidates();
+                    dispatch(gameToggleAutoCandidatesAction(gameGetInputStatePayload(engine)));
                 }
 
                 return;
@@ -100,7 +99,8 @@ export const useKeyboardControls = (
 
                 if (shiftKey) {
                     if (sudoku.isBlankCell(selectedCell)) {
-                        dispatch(gameToggleCellCandidateAction({ ...selectedCell, value }));
+                        engine.toggleCandidate(selectedCell, value);
+                        dispatch(gameToggleCellCandidateAction(gameGetCellCandidatePayload(engine, { ...selectedCell, value })));
                     }
                 } else {
                     onSelectValue(value);
@@ -108,8 +108,20 @@ export const useKeyboardControls = (
             }
         };
 
-        window.addEventListener('keydown', handleKeyDown);
+        const handleBoardCellSpace = (e: KeyboardEvent) => {
+            if (e.key === ' ' && !isEditableTarget(e.target) && isBoardCellTarget(e.target)) {
+                e.preventDefault();
+                e.stopPropagation();
+                handleKeyDown(e);
+            }
+        };
 
-        return () => void window.removeEventListener('keydown', handleKeyDown);
-    }, [isFocused, selectedCell, onSelectCell, onSelectValue, sudoku, onExit, dispatch, canToggleAutoCandidates]);
+        window.addEventListener('keydown', handleKeyDown);
+        window.addEventListener('keydown', handleBoardCellSpace, true);
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+            window.removeEventListener('keydown', handleBoardCellSpace, true);
+        };
+    }, [isFocused, selectedCell, onSelectCell, onSelectValue, engine, onExit, dispatch, canToggleAutoCandidates]);
 };

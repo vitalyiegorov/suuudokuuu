@@ -21,6 +21,10 @@ jest.mock('@suuudokuuu/ui', () => {
     };
 });
 
+jest.mock('../../../../@generic/hooks/use-reduce-motion.hook', () => ({
+    useReduceMotion: () => mockReducedMotion
+}));
+
 jest.mock('react-native-reanimated', () => {
     const { View } = jest.requireActual<typeof import('react-native')>('react-native');
 
@@ -35,7 +39,6 @@ jest.mock('react-native-reanimated', () => {
         cancelAnimation: jest.fn(),
         default: { View, createAnimatedComponent: (component: unknown) => component },
         useAnimatedStyle: (factory: () => object) => factory(),
-        useReducedMotion: () => mockReducedMotion,
         useSharedValue: (initialValue: unknown) => ({ value: initialValue }),
         withDelay: (_delayMs: number, animation: unknown) => animation,
         withRepeat: (animation: unknown) => animation,

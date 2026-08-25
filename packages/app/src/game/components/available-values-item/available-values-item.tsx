@@ -1,3 +1,5 @@
+import { plural } from '@lingui/core/macro';
+import { useLingui } from '@lingui/react/macro';
 import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { use, useImperativeHandle } from 'react';
 import { Pressable, Text, View } from 'react-native';
@@ -6,6 +8,7 @@ import Reanimated, {
     interpolateColor,
     useAnimatedStyle,
     useSharedValue,
+    withDelay,
     withSequence,
     withTiming
 } from 'react-native-reanimated';
@@ -13,7 +16,9 @@ import Svg, { Circle } from 'react-native-svg';
 
 import { cs } from '@rnw-community/shared';
 
+import { useReduceMotion } from '../../../@generic/hooks/use-reduce-motion.hook';
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { PanelControlHitSlopConstant } from '../../constant/panel-control-size.constant';
 import { DigitButtonStyles } from '../../styles/digit-button.styles';
 
 import { AvailableValueItemSelectors as selectors } from './available-value-item.selectors';
@@ -34,6 +39,10 @@ import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
 const ReanimatedPressable = Reanimated.createAnimatedComponent(Pressable);
 
 const AvailableValueProgressOpacity = 0.65;
+const PressAnimationDurationMs = 200;
+const ReducedMotionHoldDurationMs = 400;
+const InstantAnimationConfig = { duration: 0 };
+const PressAnimationConfig = { duration: PressAnimationDurationMs };
 
 export interface AvailableValuesItemRef {
     triggerAnimation: OnEventFn<void>;
@@ -44,6 +53,7 @@ interface Props {
     readonly canPress: boolean;
     readonly isExhausted: boolean;
     readonly progress: number;
+    readonly remaining: number;
     readonly correctValue?: number;
     readonly onSelect: OnEventFn<number>;
     readonly ref: Ref<AvailableValuesItemRef>;
@@ -51,10 +61,14 @@ interface Props {
     readonly digitTextStyle: StyleProp<TextStyle>;
 }
 
+// eslint-disable-next-line max-lines-per-function -- Layout/form component requires many lines
 export const AvailableValuesItem = (props: Props) => {
-    const { value, onSelect, progress, correctValue, canPress, isExhausted, ref, sizeStyle, digitTextStyle } = props;
+    const { value, onSelect, progress, remaining, correctValue, canPress, isExhausted, ref, sizeStyle, digitTextStyle } = props;
 
+    const { t } = useLingui();
     const { theme } = use(ThemeContext);
+
+    const isMotionReduced = useReduceMotion();
 
     const isCorrect = value === correctValue;
     const pressAnimatedBgColor = isCorrect ? theme.colors.board.selected : theme.colors.board.error;
@@ -63,18 +77,24 @@ export const AvailableValuesItem = (props: Props) => {
     const animatedStyles = useAnimatedStyle(
         () => ({
             backgroundColor: interpolateColor(animated.value, [0, 1], [theme.colors.surface.raised, pressAnimatedBgColor]),
-            ...(!isCorrect && {
-                transform: [
-                    { translateX: interpolate(animated.value, [0, 0.5, 1], [0, -10, 10]) },
-                    { rotate: `${interpolate(animated.value, [0, 0.5, 1], [0, -20, 20])}deg` }
-                ]
-            })
+            ...(!isCorrect &&
+                !isMotionReduced && {
+                    transform: [
+                        { translateX: interpolate(animated.value, [0, 0.5, 1], [0, -10, 10]) },
+                        { rotate: `${interpolate(animated.value, [0, 0.5, 1], [0, -20, 20])}deg` }
+                    ]
+                })
         }),
-        [pressAnimatedBgColor, isCorrect, theme.colors.surface.raised]
+        [pressAnimatedBgColor, isCorrect, isMotionReduced, theme.colors.surface.raised]
     );
 
     const triggerAnimationFn = () => {
-        animated.value = withSequence(withTiming(1, { duration: 200 }), withTiming(0, { duration: 200 }));
+        animated.value = isMotionReduced
+            ? withSequence(
+                  withTiming(1, InstantAnimationConfig),
+                  withDelay(ReducedMotionHoldDurationMs, withTiming(0, InstantAnimationConfig))
+              )
+            : withSequence(withTiming(1, PressAnimationConfig), withTiming(0, PressAnimationConfig));
     };
 
     useImperativeHandle(ref, () => ({
@@ -96,10 +116,19 @@ export const AvailableValuesItem = (props: Props) => {
     const progressDashOffset = AvailableValueProgressCircumference * (1 - normalizedProgress / 100);
     const textStyles = [styles.text, digitTextStyle, { color: theme.colors.numpad.text }];
     const containerStyles = [DigitButtonStyles.container, sizeStyle];
+    const isDisabled = !canPress || isExhausted;
+    const digitAccessibilityLabel = t({
+        message: plural(remaining, { one: `Enter ${value}, # left to place`, other: `Enter ${value}, # left to place` })
+    });
+    const digitAccessibilityState = { disabled: isDisabled };
 
     return (
         <View style={containerStyles} testID={selectors.Root}>
             <ReanimatedPressable
+                accessibilityLabel={digitAccessibilityLabel}
+                accessibilityRole="button"
+                accessibilityState={digitAccessibilityState}
+                hitSlop={PanelControlHitSlopConstant}
                 key={value}
                 style={buttonStyles}
                 testID={`${selectors.Button}.${value}`}

@@ -22,6 +22,22 @@
     ],
     "ignoreBinaries": ["run", "xcrun", "maestro", "adb", "sqlite3"],
     "workspaces": {
+        "packages/field-core": {
+            "entry": ["src/index.ts!", "src/react/use-field-snapshot.hook.ts!"]
+        },
+        "packages/field-dom": {
+            "entry": ["src/index.ts!"]
+        },
+        "packages/landing": {
+            "entry": [
+                "src/app/**/{page,layout,template,default,error,not-found,loading,route,sitemap,robots,manifest,metadata}.{ts,tsx}!",
+                "src/seo/components/**/*.tsx!",
+                "src/seo/utils/*.util.ts!",
+                "scripts/*.ts!"
+            ],
+            "project": ["src/**/*.{ts,tsx}", "scripts/**/*.ts"],
+            "ignoreDependencies": ["@expo-google-fonts/inter"]
+        },
         "packages/app": {
             "entry": [
                 "{index,cli,main}.{js,mjs,cjs,jsx,ts,tsx,mts,cts}!",

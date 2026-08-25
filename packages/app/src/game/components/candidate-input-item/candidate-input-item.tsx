@@ -1,3 +1,6 @@
+import { plural } from '@lingui/core/macro';
+import { useLingui } from '@lingui/react/macro';
+import { getCellKey } from '@suuudokuuu/field-core';
 import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { use } from 'react';
 import { Pressable, Text, View } from 'react-native';
@@ -5,10 +8,10 @@ import Reanimated, { interpolateColor, useAnimatedStyle, useDerivedValue, withTi
 
 import { cs, isDefined } from '@rnw-community/shared';
 
-import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
-import { getCellKey } from '../../../@generic/utils/get-cell-key.util';
+import { useReduceMotion } from '../../../@generic/hooks/use-reduce-motion.hook';
 import { ThemeContext } from '../../../theme/context/theme.context';
-import { gameCandidatesSelector } from '../../store/game.selectors';
+import { PanelControlHitSlopConstant } from '../../constant/panel-control-size.constant';
+import { GameContext } from '../../context/game.context';
 import { DigitButtonStyles } from '../../styles/digit-button.styles';
 
 import { CandidateInputItemSelectors as selectors } from './candidate-input-item.selectors';
@@ -22,26 +25,33 @@ const ReanimatedPressable = Reanimated.createAnimatedComponent(Pressable);
 
 const selectionFillAnimationDurationMs = 90;
 const selectionReleaseAnimationDurationMs = 40;
+const selectionInstantAnimationDurationMs = 0;
 
 interface Props {
     readonly selectedCell?: CellInterface;
     readonly value: number;
     readonly canPress: boolean;
     readonly isExhausted: boolean;
+    readonly remaining: number;
     readonly onSelect: OnEventFn<number>;
     readonly sizeStyle: StyleProp<ViewStyle>;
     readonly digitTextStyle: StyleProp<TextStyle>;
 }
 
 export const CandidateInputItem = (props: Props) => {
-    const { selectedCell, value, onSelect, canPress, isExhausted, sizeStyle, digitTextStyle } = props;
+    const { selectedCell, value, onSelect, canPress, isExhausted, remaining, sizeStyle, digitTextStyle } = props;
 
+    const { t } = useLingui();
     const { theme } = use(ThemeContext);
+    const { snapshot } = use(GameContext);
 
-    const candidates = useAppSelector(gameCandidatesSelector);
+    const isMotionReduced = useReduceMotion();
+
+    const { candidates } = snapshot;
 
     const isSelected = isDefined(selectedCell) && (candidates[getCellKey(selectedCell)] ?? []).includes(value);
-    const selectionAnimationDuration = isSelected ? selectionFillAnimationDurationMs : selectionReleaseAnimationDurationMs;
+    const selectedAnimationDuration = isSelected ? selectionFillAnimationDurationMs : selectionReleaseAnimationDurationMs;
+    const selectionAnimationDuration = isMotionReduced ? selectionInstantAnimationDurationMs : selectedAnimationDuration;
 
     const selectionAnimation = useDerivedValue(() => withTiming(isSelected ? 1 : 0, { duration: selectionAnimationDuration }));
 
@@ -69,10 +79,19 @@ export const CandidateInputItem = (props: Props) => {
     ];
     const textStyles = [digitTextStyle, { color: isSelected ? theme.colors.candidate.textSelected : theme.colors.candidate.text }];
     const containerStyles = [DigitButtonStyles.container, sizeStyle];
+    const isDisabled = !canPress || isExhausted;
+    const noteAccessibilityLabel = t({
+        message: plural(remaining, { one: `Note ${value}, # left to place`, other: `Note ${value}, # left to place` })
+    });
+    const noteAccessibilityState = { checked: isSelected, disabled: isDisabled };
 
     return (
         <View style={containerStyles} testID={selectors.Root}>
             <ReanimatedPressable
+                accessibilityLabel={noteAccessibilityLabel}
+                accessibilityRole="togglebutton"
+                accessibilityState={noteAccessibilityState}
+                hitSlop={PanelControlHitSlopConstant}
                 style={buttonStyles}
                 testID={`${selectors.Button}.${value}`}
                 {...(canPress && !isExhausted && { onPress: handlePress })}

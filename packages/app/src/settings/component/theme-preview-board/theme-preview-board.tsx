@@ -11,11 +11,11 @@ interface Props {
 
 export const ThemePreviewBoard = ({ colors, testID }: Props) => {
     const sampleCells = [
-        { backgroundColor: colors.board.filled, color: colors.numpad.text, value: '5' },
+        { backgroundColor: colors.board.filled, color: colors.ink, value: '5' },
         { backgroundColor: colors.surface.subtle, color: colors.surface.subtleText, value: '3' },
         { backgroundColor: colors.board.selected, color: colors.board.selectedText, value: '7' },
         { backgroundColor: colors.board.sameValue, color: colors.board.sameValueText, value: '7' },
-        { backgroundColor: colors.board.error, color: colors.dangerText, value: '1' }
+        { backgroundColor: colors.board.error, color: colors.ink, value: '1' }
     ];
     const sampleNumpadChips = [
         { backgroundColor: colors.numpad.track, color: colors.numpad.text, value: '2' },

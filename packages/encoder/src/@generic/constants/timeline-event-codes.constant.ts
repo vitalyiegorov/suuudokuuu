@@ -17,7 +17,8 @@ export const timelineEventKindByCode: Record<number, TimelineEventKindEnum> = {
     [TimelineEventKindEnum.Return]: TimelineEventKindEnum.Return,
     [TimelineEventKindEnum.Pause]: TimelineEventKindEnum.Pause,
     [TimelineEventKindEnum.Resume]: TimelineEventKindEnum.Resume,
-    [TimelineEventKindEnum.Screenshot]: TimelineEventKindEnum.Screenshot
+    [TimelineEventKindEnum.Screenshot]: TimelineEventKindEnum.Screenshot,
+    [TimelineEventKindEnum.Hint]: TimelineEventKindEnum.Hint
 };
 
 export const cellPayloadKinds: TimelineEventKindEnum[] = [TimelineEventKindEnum.Pencil, TimelineEventKindEnum.Mistake];

@@ -1,4 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
+import { CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
 import { LucideUser } from 'lucide-react-native';
 import { use } from 'react';
 import { Text, View } from 'react-native';
@@ -39,10 +40,10 @@ export const ChallengeRaceStatus = ({ opponentProgress, playerProgress }: Props)
             <View style={avatarStyle}>
                 <LucideUser color={theme.colors.text.primary} size={AVATAR_ICON_SIZE} strokeWidth={2.2} />
             </View>
-            <Text allowFontScaling={false} style={nameStyle}>
+            <Text maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant} style={nameStyle}>
                 {t`Rival`}
             </Text>
-            <Text allowFontScaling={false} style={statusStyle}>
+            <Text maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant} style={statusStyle}>
                 {statusText}
             </Text>
         </View>

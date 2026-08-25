@@ -33,6 +33,8 @@ export default defineConfig(
             '**/messages.ts',
             '**/babel.config.js',
             '**/fingerprint.config.js',
+            'packages/app/scripts/**',
+            'packages/landing/scripts/**',
             'packages/hell-corpus/src/constants/hell-corpus-data.constant.ts',
             'packages/hell-corpus/src/constants/infinity-corpus-data.constant.ts',
 
@@ -294,7 +296,7 @@ export default defineConfig(
         extends: [promisePlugin.configs['flat/recommended']]
     },
     {
-        files: ['packages/app/**/*.{ts,tsx}', 'packages/landing/**/*.{ts,tsx}'],
+        files: ['packages/app/**/*.{ts,tsx}'],
         extends: [pluginLingui.configs['flat/recommended']],
         rules: {
             'lingui/no-unlocalized-strings': [

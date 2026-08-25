@@ -7,7 +7,7 @@ import type { ThemeInterface } from '@suuudokuuu/ui/theme';
 const RatingRampMinRating = 1;
 const RatingRampMaxRating = 12;
 
-export const ratingBadgeGetColor = (theme: ThemeInterface, rating: number): string => {
+export const ratingBadgeGetColor = (theme: Pick<ThemeInterface, 'colors'>, rating: number): string => {
     const clampedRating = Math.min(Math.max(rating, RatingRampMinRating), RatingRampMaxRating);
 
     if (clampedRating <= SE_RATING_CEILING) {

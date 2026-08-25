@@ -1,4 +1,5 @@
 import { useAppMetricStripColor } from '@suuudokuuu/ui';
+import { CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
 import { use } from 'react';
 import { Text } from 'react-native';
 
@@ -19,7 +20,7 @@ export const GameScreenMistakesValue = ({ maxMistakes, maxMistakesReached, mista
     const mistakesTextStyles = [styles.value, { color: mistakesColor, textAlign: 'center' as const }];
 
     return (
-        <Text allowFontScaling={false} numberOfLines={1} style={mistakesTextStyles}>
+        <Text maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant} numberOfLines={1} style={mistakesTextStyles}>
             <Text testID={GameScreenSelectors.MistakesCount}>{mistakes}</Text>
             <Text>/</Text>
             <Text testID={GameScreenSelectors.MaxMistakesAllowed}>{maxMistakes}</Text>

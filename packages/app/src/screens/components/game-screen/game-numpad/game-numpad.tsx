@@ -1,12 +1,12 @@
 import { use } from 'react';
-import { View } from 'react-native';
+import { View, useWindowDimensions } from 'react-native';
 
 import { useAppSelector } from '../../../../@generic/hooks/use-app-selector.hook';
 import { AvailableValuesItem } from '../../../../game/components/available-values-item/available-values-item';
 import { CandidateInputItem } from '../../../../game/components/candidate-input-item/candidate-input-item';
 import { GameNumpadDigitsConstant } from '../../../../game/constant/game-numpad-digits.constant';
 import { GameContext } from '../../../../game/context/game.context';
-import { gameInputModeSelector } from '../../../../game/store/game.selectors';
+import { gameGetRemainingDigitCounts } from '../../../../game/utils/game-get-remaining-digit-counts.util';
 import { settingsFontSizeMultiplierSelector, settingsKeySelector } from '../../../../settings/store/settings.selectors';
 
 import { GameNumpadStyles as styles } from './game-numpad.styles';
@@ -23,19 +23,24 @@ interface Props {
 }
 
 export const GameNumpad = ({ availableValuesRefsHandler, onSelectValue, selectedCell }: Props) => {
-    const { sudoku } = use(GameContext);
-    const inputMode = useAppSelector(gameInputModeSelector);
+    const { engine, snapshot } = use(GameContext);
+    const { fontScale } = useWindowDimensions();
     const keepExhaustedDigits = useAppSelector(settingsKeySelector('keepExhaustedDigits'));
     const fontSizeMultiplier = useAppSelector(settingsFontSizeMultiplierSelector);
+
+    const sudoku = engine.Sudoku;
+    const { inputMode } = snapshot;
     const canPress = sudoku.isBlankCell(selectedCell);
     const numpadDigits = keepExhaustedDigits ? GameNumpadDigitsConstant : sudoku.PossibleValues;
-    const digitTextStyle = styles.digitText(fontSizeMultiplier);
+    const digitTextStyle = styles.digitText(fontSizeMultiplier, fontScale);
+    const remainingDigitCounts = gameGetRemainingDigitCounts(snapshot.field);
 
     return (
         <View style={styles.numpad}>
             {numpadDigits.map(value => {
                 const isExhausted = !sudoku.PossibleValues.includes(value);
                 const valueProgress = isExhausted ? GameNumpadExhaustedProgress : sudoku.getValueProgress(value);
+                const remaining = remainingDigitCounts.get(value) ?? 0;
 
                 return inputMode === 'candidate' ? (
                     <CandidateInputItem
@@ -44,6 +49,7 @@ export const GameNumpad = ({ availableValuesRefsHandler, onSelectValue, selected
                         isExhausted={isExhausted}
                         key={`candidate-value-${value}`}
                         onSelect={onSelectValue}
+                        remaining={remaining}
                         selectedCell={selectedCell}
                         sizeStyle={styles.digit}
                         value={value}
@@ -58,6 +64,7 @@ export const GameNumpad = ({ availableValuesRefsHandler, onSelectValue, selected
                         onSelect={onSelectValue}
                         progress={valueProgress}
                         ref={availableValuesRefsHandler(value)}
+                        remaining={remaining}
                         sizeStyle={styles.digit}
                         value={value}
                     />

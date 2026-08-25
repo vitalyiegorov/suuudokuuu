@@ -1,3 +1,4 @@
+import { CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
 import { use } from 'react';
 import { Text, View } from 'react-native';
 
@@ -21,11 +22,11 @@ export const ChallengeRivalChip = ({ chipText }: Props) => {
     return (
         <View style={chipStyle}>
             <View style={chipAvatarStyle}>
-                <Text allowFontScaling={false} style={chipAvatarTextStyle}>
+                <Text maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant} style={chipAvatarTextStyle}>
                     {RivalInitial}
                 </Text>
             </View>
-            <Text allowFontScaling={false} numberOfLines={1} style={chipTextStyle}>
+            <Text maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant} numberOfLines={1} style={chipTextStyle}>
                 {chipText}
             </Text>
         </View>
