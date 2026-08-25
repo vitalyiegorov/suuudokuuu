@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.9.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.9.0...v2.9.1) (2026-08-25)
+
+### Bug Fixes
+
+- **app:** restore the white digit on the selected board cell ([#363](https://github.com/vitalyiegorov/suuudokuuu/issues/363)) ([72fd0ac](https://github.com/vitalyiegorov/suuudokuuu/commit/72fd0ac95197981bbb7d28403d7c8d53e11d2ec6))
+
 # [2.9.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.8.0...v2.9.0) (2026-08-25)
 
 ### Bug Fixes
