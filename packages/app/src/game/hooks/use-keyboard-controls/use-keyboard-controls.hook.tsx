@@ -53,11 +53,14 @@ export const useKeyboardControls = ({ handlers, onSelectCell, onSelectValue, sel
     return (
         <TextInput
             autoFocus
+            autoCorrect={false}
             caretHidden
+            disableKeyboardShortcuts
             onBlur={handleBlur}
             onKeyPress={handleKeyPress}
             ref={hiddenInputRef}
             showSoftInputOnFocus={false}
+            spellCheck={false}
             style={styles.hiddenInput}
             value=""
         />

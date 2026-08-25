@@ -164,6 +164,42 @@ platform :ios do
       screenshots_path: ios_screenshots_path
     )
   end
+
+  # deliver's post-upload verification sometimes reports a freshly uploaded
+  # screenshot as "missing on App Store Connect", retries it, and both copies
+  # survive. This lane groups every screenshot of the editable version by
+  # locale + set + file name and deletes all but the first copy.
+  lane :ios_dedupe_screenshots do
+    require 'spaceship'
+
+    Spaceship::ConnectAPI.token = Spaceship::ConnectAPI::Token.create(
+      key_id: ENV["EXPO_ASC_KEY_ID"],
+      issuer_id: ENV["EXPO_ASC_ISSUER_ID"],
+      key: File.read(ENV.fetch("EXPO_ASC_API_KEY_PATH"))
+    )
+
+    app = Spaceship::ConnectAPI::App.find('com.vitalyiegorov.suuudokuuu')
+    version = app.get_edit_app_store_version
+    removed = 0
+
+    version.get_app_store_version_localizations.each do |localization|
+      localization.get_app_screenshot_sets.each do |set|
+        set = Spaceship::ConnectAPI::AppScreenshotSet.get(app_screenshot_set_id: set.id)
+        set.app_screenshots.group_by(&:file_name).each do |file_name, group|
+          next if group.size < 2
+
+          group.drop(1).each do |duplicate|
+            duplicate.delete!
+            removed += 1
+            UI.success("Deleted duplicate #{localization.locale}/#{set.screenshot_display_type}: #{file_name} (#{duplicate.id})")
+          end
+        end
+      end
+    end
+
+    UI.user_error!("Found #{removed} duplicated screenshot(s) on App Store Connect") if removed.positive?
+    UI.success("No duplicate screenshots on App Store Connect")
+  end
 end
 
 platform :android do

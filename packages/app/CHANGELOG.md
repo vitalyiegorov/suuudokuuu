@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.8.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.7.2...v2.8.0) (2026-08-23)
+
+### Features
+
+- **app:** add Infinity screenshot scene and fix challenge race seed ([307e2ca](https://github.com/vitalyiegorov/suuudokuuu/commit/307e2cae80b63a1dd11e0336df17c1b54b5ca786))
+
+## [2.7.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.7.1...v2.7.2) (2026-08-22)
+
+**Note:** Version bump only for package @suuudokuuu/app
+
+## [2.7.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.6.1...v2.7.1) (2026-08-22)
+
+**Note:** Version bump only for package @suuudokuuu/app
+
+## [2.6.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.6.0...v2.6.1) (2026-08-22)
+
+### Bug Fixes
+
+- **app:** hide iPad keyboard shortcut bar on game screen ([8a36da8](https://github.com/vitalyiegorov/suuudokuuu/commit/8a36da8f22648ea4724e86b602fcff89683fa207))
+
 # [2.6.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.5.1...v2.6.0) (2026-08-17)
 
 ### Bug Fixes
