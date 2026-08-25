@@ -3,6 +3,51 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.9.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.8.0...v2.9.0) (2026-08-25)
+
+### Bug Fixes
+
+- **app:** reclaim the space shortcut from board-cell keyboard activation ([40e6b91](https://github.com/vitalyiegorov/suuudokuuu/commit/40e6b9128f2532d8a57299aa587bd7c83fea9228))
+- **field-core,field-dom,app:** subtract engine eliminations from auto-candidates ([8981436](https://github.com/vitalyiegorov/suuudokuuu/commit/8981436f6863611894eaba2ffded5f9fbbb6bc6c)), closes [#312](https://github.com/vitalyiegorov/suuudokuuu/issues/312) [#311](https://github.com/vitalyiegorov/suuudokuuu/issues/311) [#313](https://github.com/vitalyiegorov/suuudokuuu/issues/313)
+- **field-dom:** center the board block and match the number row to board width ([adcda39](https://github.com/vitalyiegorov/suuudokuuu/commit/adcda392ec69b5a15294a7ecb009c3e235eb7498))
+- **landing,puzzle-forge:** regenerate published tier data for technique bands and real ratings ([7a3e6b5](https://github.com/vitalyiegorov/suuudokuuu/commit/7a3e6b547abf27d7495ba2e132e3a967e957cdc4)), closes [#332](https://github.com/vitalyiegorov/suuudokuuu/issues/332) [#333](https://github.com/vitalyiegorov/suuudokuuu/issues/333)
+- **landing:** emit article dates as real opengraph properties ([12c0f31](https://github.com/vitalyiegorov/suuudokuuu/commit/12c0f312956dac15273866513652d9e980c78a0a))
+
+### Features
+
+- **app,encoder:** technique-explaining hint mechanic with step-script walkthroughs ([e4358da](https://github.com/vitalyiegorov/suuudokuuu/commit/e4358da71f22e11584587fc47367e43821b1bdee)), closes [#307](https://github.com/vitalyiegorov/suuudokuuu/issues/307)
+- **app,generator,puzzle-forge:** daily challenge with streaks over seeded generation ([2ca4d22](https://github.com/vitalyiegorov/suuudokuuu/commit/2ca4d22c5cdb1a0dea9294d7c7e583e5d0a10c20)), closes [#348](https://github.com/vitalyiegorov/suuudokuuu/issues/348)
+- **app,ui:** high-contrast and colorblind-safe themes with wcag aa contrast gates ([f204469](https://github.com/vitalyiegorov/suuudokuuu/commit/f2044693d5d357445a8a3c715610c9eb706bbbd5)), closes [#318](https://github.com/vitalyiegorov/suuudokuuu/issues/318)
+- **app,ui:** honor os text scaling with per-context multiplier caps ([dcc30bc](https://github.com/vitalyiegorov/suuudokuuu/commit/dcc30bc16d1f0b6ee8a20b574bf34b3c0aa6113f)), closes [#316](https://github.com/vitalyiegorov/suuudokuuu/issues/316)
+- **app,ui:** screen-reader labels and announcements for the board and controls ([5bf5cce](https://github.com/vitalyiegorov/suuudokuuu/commit/5bf5cceed2509ecc694f8c7202d7ba6cee1c5427)), closes [#349](https://github.com/vitalyiegorov/suuudokuuu/issues/349)
+- **app:** comfort mode preset with exact restore and a customized state ([578a009](https://github.com/vitalyiegorov/suuudokuuu/commit/578a009d6834e5f08755d0591ec4249738b0b204)), closes [#315](https://github.com/vitalyiegorov/suuudokuuu/issues/315)
+- **app:** comfort primitives for touch targets, reduced motion, and calm play ([8578ae1](https://github.com/vitalyiegorov/suuudokuuu/commit/8578ae19ed1cf4719a7923ccb23da9b209bfdf3c)), closes [#317](https://github.com/vitalyiegorov/suuudokuuu/issues/317) [#319](https://github.com/vitalyiegorov/suuudokuuu/issues/319)
+- **app:** undo and redo with honest scoring, and hint gating for hard tiers ([9d6e221](https://github.com/vitalyiegorov/suuudokuuu/commit/9d6e221566ae33f133aa161e41efa47b640ac7fd)), closes [#346](https://github.com/vitalyiegorov/suuudokuuu/issues/346) [#347](https://github.com/vitalyiegorov/suuudokuuu/issues/347)
+- **app:** web export SEO hygiene with default social meta and per-route titles ([74b90c3](https://github.com/vitalyiegorov/suuudokuuu/commit/74b90c3c2f69fd1a74e1ab7a4868ca373174658b)), closes [#302](https://github.com/vitalyiegorov/suuudokuuu/issues/302)
+- **field-core:** headless sudoku field engine with a technique step-script player ([29f5e9d](https://github.com/vitalyiegorov/suuudokuuu/commit/29f5e9d0da66c58b401de970b6fea00ed9fca4e4)), closes [#304](https://github.com/vitalyiegorov/suuudokuuu/issues/304)
+- **field-dom:** browser board renderer with input and step-player controls ([49125f5](https://github.com/vitalyiegorov/suuudokuuu/commit/49125f517654fcb9fe81d0f584445766d9cadb57)), closes [#305](https://github.com/vitalyiegorov/suuudokuuu/issues/305)
+- **landing,field-dom:** text-size comfort control and a larger web board ([487213b](https://github.com/vitalyiegorov/suuudokuuu/commit/487213bdd16615383937af8395e4bf455c2c587d)), closes [#320](https://github.com/vitalyiegorov/suuudokuuu/issues/320)
+- **landing:** advanced technique pages for fish, wings, coloring, and chains ([5ebe270](https://github.com/vitalyiegorov/suuudokuuu/commit/5ebe2703f9352c0eebc5b49f48f8dbe861beaf3e)), closes [#294](https://github.com/vitalyiegorov/suuudokuuu/issues/294)
+- **landing:** cookieless analytics with funnel events and clarity heatmaps ([4854b41](https://github.com/vitalyiegorov/suuudokuuu/commit/4854b41b78ded3d73a8ef0d997aae06bf2d068d5)), closes [#359](https://github.com/vitalyiegorov/suuudokuuu/issues/359)
+- **landing:** definition-first openings, hub faqs, and sourced claims ([72114fa](https://github.com/vitalyiegorov/suuudokuuu/commit/72114fa406697b39299f928fcf5cc88a4e67c255)), closes [#330](https://github.com/vitalyiegorov/suuudokuuu/issues/330) [#331](https://github.com/vitalyiegorov/suuudokuuu/issues/331)
+- **landing:** difficulty landers with transparent clue counts and technique ladders ([a3f70da](https://github.com/vitalyiegorov/suuudokuuu/commit/a3f70da1fe2605c2020da8e64ae358307bdb7cdc)), closes [#295](https://github.com/vitalyiegorov/suuudokuuu/issues/295)
+- **landing:** editorial redesign with layered surfaces and a serif display voice ([241960e](https://github.com/vitalyiegorov/suuudokuuu/commit/241960e84ff3d7e7ae0dda3f21ea03af1cf0dccb))
+- **landing:** hardest-sudoku and 17-clue showcase pages with article schema ([84e5a73](https://github.com/vitalyiegorov/suuudokuuu/commit/84e5a730a9d529712e7096caf03eb1eb40f18080)), closes [#297](https://github.com/vitalyiegorov/suuudokuuu/issues/297)
+- **landing:** homepage, how-to-play guide, and glossary with FAQ schema ([31191ac](https://github.com/vitalyiegorov/suuudokuuu/commit/31191acd6e9730640dde9cf217fb30fc1a9a391b)), closes [#292](https://github.com/vitalyiegorov/suuudokuuu/issues/292)
+- **landing:** link the source repository and state the open-source nature sitewide ([61d6cf2](https://github.com/vitalyiegorov/suuudokuuu/commit/61d6cf2286dffd6b1118341df0aa0a01fdd86acc))
+- **landing:** llms.txt, indexnow submission, and ai-citation formatting ([6a8c127](https://github.com/vitalyiegorov/suuudokuuu/commit/6a8c12710d8c8ae4b01d4922913e1b1b3be2c779)), closes [#301](https://github.com/vitalyiegorov/suuudokuuu/issues/301)
+- **landing:** playable technique boards behind intent-gated hydration islands ([4063086](https://github.com/vitalyiegorov/suuudokuuu/commit/4063086a450061f2d08b53bd726a6bb1cf84e347)), closes [#308](https://github.com/vitalyiegorov/suuudokuuu/issues/308)
+- **landing:** positioning page and programmatic og images ([d56df9b](https://github.com/vitalyiegorov/suuudokuuu/commit/d56df9be333b3677434f8f018f0598aba9f212fb)), closes [#300](https://github.com/vitalyiegorov/suuudokuuu/issues/300)
+- **landing:** printable sudoku hub with build-time pdf booklets ([2a70d87](https://github.com/vitalyiegorov/suuudokuuu/commit/2a70d87896dda8295af3835a7305bd6d5c3a4a7e)), closes [#299](https://github.com/vitalyiegorov/suuudokuuu/issues/299)
+- **landing:** scaffold the static Next.js SEO landing workspace ([59f372b](https://github.com/vitalyiegorov/suuudokuuu/commit/59f372b4a481a9d6e8d7141834f5c4e0054b2afb)), closes [#290](https://github.com/vitalyiegorov/suuudokuuu/issues/290)
+- **landing:** slick sticky header and grouped footer ([a0b275f](https://github.com/vitalyiegorov/suuudokuuu/commit/a0b275f77d017dc60a8f440cf9a5be455412b321))
+- **landing:** step-by-step solver page with technique narration and uniqueness checks ([1f9e6a8](https://github.com/vitalyiegorov/suuudokuuu/commit/1f9e6a83a271ac2e2f8657104468e9db20e0f126)), closes [#298](https://github.com/vitalyiegorov/suuudokuuu/issues/298)
+- **landing:** sudoku difficulty rating pillar and clues-vs-difficulty guide ([9cd6ff1](https://github.com/vitalyiegorov/suuudokuuu/commit/9cd6ff13dab8dfd86ebb68c621db118e72c1c815)), closes [#296](https://github.com/vitalyiegorov/suuudokuuu/issues/296)
+- **landing:** sudoku-for-seniors and large-print content cluster ([48f758c](https://github.com/vitalyiegorov/suuudokuuu/commit/48f758c61e846bc641594a5bb427a047b2777abd)), closes [#321](https://github.com/vitalyiegorov/suuudokuuu/issues/321)
+- **landing:** tabbed worked example with the real app logo ([82853da](https://github.com/vitalyiegorov/suuudokuuu/commit/82853dad35af83ebf01aa094754074e44e163105))
+- **landing:** technique hub and beginner technique pages with real solver worked examples ([74b7fc7](https://github.com/vitalyiegorov/suuudokuuu/commit/74b7fc7579a01b8c1735c969c5b5a1a6b2cf8231)), closes [#293](https://github.com/vitalyiegorov/suuudokuuu/issues/293)
+- **puzzle-forge,techniques,app:** generate puzzles by required technique band ([7ed2e4f](https://github.com/vitalyiegorov/suuudokuuu/commit/7ed2e4fc5af62116ef90f69ae5560496d04ff1ab)), closes [#314](https://github.com/vitalyiegorov/suuudokuuu/issues/314)
+
 # [2.8.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.7.2...v2.8.0) (2026-08-23)
 
 ### Features

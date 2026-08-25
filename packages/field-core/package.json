@@ -1,6 +1,6 @@
 {
     "name": "@suuudokuuu/field-core",
-    "version": "1.74.0",
+    "version": "2.9.0",
     "private": true,
     "description": "Headless sudoku field engine with a technique step-script player",
     "sideEffects": "false",
