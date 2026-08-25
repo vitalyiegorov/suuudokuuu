@@ -6,3 +6,8 @@ export { TypographyConstant } from './constant/typography.constant';
 export { RadiusConstant } from './constant/radius.constant';
 export { ContentWidthConstant } from './constant/content-width.constant';
 export { Breakpoints } from './constant/breakpoints.constant';
+export {
+    CompactMaxFontSizeMultiplierConstant,
+    DisplayMaxFontSizeMultiplierConstant,
+    MaxFontSizeMultiplierConstant
+} from './constant/font-scaling.constant';

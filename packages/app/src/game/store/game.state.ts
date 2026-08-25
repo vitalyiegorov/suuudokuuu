@@ -3,7 +3,7 @@ import { DifficultyEnum } from '@suuudokuuu/generator';
 import { emptyGameHistory } from '../../history/interfaces/history-game.interface';
 
 import type { HistoryGameInterface } from '../../history/interfaces/history-game.interface';
-import type { GameTimelineEventInterface } from '../interface/game-timeline-event.interface';
+import type { GameCellTimelineEventInterface, GameTimelineEventInterface } from '../interface/game-timeline-event.interface';
 import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 export interface GameState {
@@ -22,15 +22,19 @@ export interface GameState {
     inputMode: 'normal' | 'candidate';
     candidates: Record<string, number[]>;
     timelineEvents: GameTimelineEventInterface[];
+    undoneMoves: GameCellTimelineEventInterface[];
     historyByDifficulty: Record<DifficultyEnum, HistoryGameInterface>;
     challengeTimelineEvents: GameTimelineEventInterface[];
     challengeTime: number;
     challengeState: string;
     wallClockStartMs: number;
     isChallengeRun: boolean;
+    dailyDayNumber: number;
     hasNewPersonalBestScore: boolean;
     techniqueUsageCounts: Partial<Record<SolutionTechniqueEnum, number>>;
     playedDayNumbers: number[];
+    dailyCompletedDayNumbers: number[];
+    dailyBestStreak: number;
 }
 
 export const initialGameState: GameState = {
@@ -58,12 +62,16 @@ export const initialGameState: GameState = {
         [DifficultyEnum.Infinity]: { ...emptyGameHistory, difficulty: DifficultyEnum.Infinity }
     },
     timelineEvents: [],
+    undoneMoves: [],
     challengeTimelineEvents: [],
     challengeTime: 0,
     challengeState: '',
     wallClockStartMs: 0,
     isChallengeRun: false,
+    dailyDayNumber: 0,
     hasNewPersonalBestScore: false,
     techniqueUsageCounts: {},
-    playedDayNumbers: []
+    playedDayNumbers: [],
+    dailyCompletedDayNumbers: [],
+    dailyBestStreak: 0
 };

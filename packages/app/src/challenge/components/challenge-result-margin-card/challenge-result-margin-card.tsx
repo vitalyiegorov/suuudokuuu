@@ -1,5 +1,6 @@
 import { plural } from '@lingui/core/macro';
 import { Trans, useLingui } from '@lingui/react/macro';
+import { CompactMaxFontSizeMultiplierConstant, MaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
 import { LucideBan, LucideMinus, LucideTurtle, LucideZap } from 'lucide-react-native';
 import { use } from 'react';
 import { Text, View } from 'react-native';
@@ -60,14 +61,18 @@ export const ChallengeResultMarginCard = (props: Props) => {
         <View style={styles.card}>
             <View style={styles.header}>
                 <View style={styles.textColumn}>
-                    <Text allowFontScaling={false} style={labelStyle}>
+                    <Text maxFontSizeMultiplier={MaxFontSizeMultiplierConstant} style={labelStyle}>
                         {labelText}
                     </Text>
-                    <Text allowFontScaling={false} style={valueStyle} testID={ChallengeResultScreenSelectors.MarginValue}>
+                    <Text
+                        maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant}
+                        style={valueStyle}
+                        testID={ChallengeResultScreenSelectors.MarginValue}
+                    >
                         {valueText}
                     </Text>
                     {lostByMistakes ? (
-                        <Text allowFontScaling={false} style={captionStyle}>
+                        <Text maxFontSizeMultiplier={MaxFontSizeMultiplierConstant} style={captionStyle}>
                             <Trans>Did not finish the board</Trans>
                         </Text>
                     ) : null}
@@ -79,18 +84,26 @@ export const ChallengeResultMarginCard = (props: Props) => {
 
             <View style={styles.timesRow}>
                 <View style={styles.timeSide}>
-                    <Text allowFontScaling={false} style={timeLabelStyle}>
+                    <Text maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant} style={timeLabelStyle}>
                         <Trans>You</Trans>
                     </Text>
-                    <Text allowFontScaling={false} style={timeValueStyle} testID={ChallengeResultScreenSelectors.YourTimeValue}>
+                    <Text
+                        maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant}
+                        style={timeValueStyle}
+                        testID={ChallengeResultScreenSelectors.YourTimeValue}
+                    >
                         {playerTimeText}
                     </Text>
                 </View>
                 <View style={styles.timeSideEnd}>
-                    <Text allowFontScaling={false} style={timeLabelStyle}>
+                    <Text maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant} style={timeLabelStyle}>
                         <Trans>Rival</Trans>
                     </Text>
-                    <Text allowFontScaling={false} style={timeValueStyle} testID={ChallengeResultScreenSelectors.OpponentTimeValue}>
+                    <Text
+                        maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant}
+                        style={timeValueStyle}
+                        testID={ChallengeResultScreenSelectors.OpponentTimeValue}
+                    >
                         {opponentTimeText}
                     </Text>
                 </View>

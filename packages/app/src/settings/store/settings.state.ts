@@ -6,8 +6,11 @@ import { i18nGetOSLocale } from '../../@generic/utils/i18n.util';
 import { CellMargin } from '../constant/cell-margin.constant';
 
 import type { ThemeIdType } from '../../theme/types/theme-id.type';
+import type { ComfortModeStatuses } from '../constant/comfort-mode.constant';
 import type { FontSizes } from '../constant/font-sizes.constant';
 import type { Languages } from '../constant/languages.constant';
+import type { MotionPreferences } from '../constant/motion-preferences.constant';
+import type { ComfortModeRestoreType } from '../types/comfort-mode-restore.type';
 
 export interface SettingsState {
     hasVibration: boolean;
@@ -19,7 +22,13 @@ export interface SettingsState {
     showActiveCandidates: boolean;
     keepActiveCell: boolean;
     keepExhaustedDigits: boolean;
+    allowHintsOnHardDifficulties: boolean;
     isLeftHanded: boolean;
+    calmMode: boolean;
+    comfortMode: (typeof ComfortModeStatuses)[number];
+    comfortModeOfferDismissed: boolean;
+    comfortModeRestore: ComfortModeRestoreType | null;
+    motionPreference: (typeof MotionPreferences)[number];
     fontSize: (typeof FontSizes)[number];
     language: (typeof Languages)[number];
     theme: ThemeIdType;
@@ -41,7 +50,13 @@ export const initialSettingsState: SettingsState = {
     showActiveCandidates: true,
     keepActiveCell: true,
     keepExhaustedDigits: true,
+    allowHintsOnHardDifficulties: false,
     isLeftHanded: false,
+    calmMode: false,
+    comfortMode: 'off',
+    comfortModeOfferDismissed: false,
+    comfortModeRestore: null,
+    motionPreference: 'system',
     fontSize: 'm',
     language: i18nGetOSLocale(),
     theme: getBrand().defaultTheme,

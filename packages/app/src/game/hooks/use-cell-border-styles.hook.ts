@@ -1,16 +1,12 @@
 import { use } from 'react';
 
-import { useAppSelector } from '../../@generic/hooks/use-app-selector.hook';
-import { settingsCellMarginSelector } from '../../settings/store/settings.selectors';
 import { ThemeContext } from '../../theme/context/theme.context';
 
 import type { CellInterface, Sudoku } from '@suuudokuuu/generator';
 import type { StyleProp, ViewStyle } from 'react-native';
 
-export const useCellBorderStyles = (sudoku: Sudoku, cell: CellInterface): StyleProp<ViewStyle>[] => {
+export const useCellBorderStyles = (sudoku: Sudoku, cell: CellInterface, cellMargin: number): StyleProp<ViewStyle>[] => {
     const { theme } = use(ThemeContext);
-
-    const cellMargin = useAppSelector(settingsCellMarginSelector);
 
     const styles: StyleProp<ViewStyle>[] = [{ borderColor: theme.colors.ink }];
     if (sudoku.isLastInCellGroupX(cell)) {

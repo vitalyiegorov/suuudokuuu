@@ -1,25 +1,29 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { SharedPayloadKindEnum, TimelineEventKindEnum } from '@suuudokuuu/encoder';
+import { TimelineEventKindEnum } from '@suuudokuuu/encoder';
+import { getCellKey } from '@suuudokuuu/field-core';
 import { defaultSudokuConfig } from '@suuudokuuu/generator';
 
 import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
-import { getCellKey } from '../../@generic/utils/get-cell-key.util';
-import { getDayNumber } from '../../@generic/utils/get-day-number.util';
-import { maxCompletedGamesPerDifficulty } from '../../history/constants/max-completed-games-per-difficulty.constant';
 import { SudokuScoring } from '../../scoring/classes/sudoku-scoring';
 import { defaultScoringConfig } from '../../scoring/interfaces/scoring-config.interface';
-import { addPlayedDayNumber } from '../utils/add-played-day-number.util';
+import { gameApplyTechniqueUsageDelta } from '../utils/game-apply-technique-usage-delta.util';
+import { gameFinishRun } from '../utils/game-finish-run.util';
 import { gameGetPersistedAggregates } from '../utils/game-get-persisted-aggregates.util';
-import { gameStateToString } from '../utils/game-state-to-string.util';
+import { gameRedoPlacement } from '../utils/game-redo-placement.util';
+import { gameUndoPlacement } from '../utils/game-undo-placement.util';
 import { getTimelineTimestampDelta } from '../utils/get-timeline-timestamp-delta.util';
 import { isLastTimelineEventAway } from '../utils/is-last-timeline-event-away.util';
 
 import { initialGameState } from './game.state';
 
 import type { GameState } from './game.state';
-import type { CellInterface, DifficultyEnum, ScoredCellsInterface, Sudoku } from '@suuudokuuu/generator';
-import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
+import type { GameCellCandidatePayloadInterface } from '../interface/game-cell-candidate-payload.interface';
+import type { GameFieldStatePayloadInterface } from '../interface/game-field-state-payload.interface';
+import type { GameFinishPayloadInterface } from '../interface/game-finish-payload.interface';
+import type { GameHintPayloadInterface } from '../interface/game-hint-payload.interface';
+import type { GameSavePayloadInterface } from '../interface/game-save-payload.interface';
+import type { CellInterface } from '@suuudokuuu/generator';
 
 const MillisecondsPerSecond = 1000;
 
@@ -30,17 +34,13 @@ export const gameSlice = createSlice({
         start: (
             state,
             action: PayloadAction<
-                Pick<GameState, 'sudokuString' | 'difficulty' | 'maxMistakes' | 'isChallengeRun' | 'rating' | 'isRatingCeiling'>
+                Pick<
+                    GameState,
+                    'dailyDayNumber' | 'difficulty' | 'isChallengeRun' | 'isRatingCeiling' | 'maxMistakes' | 'rating' | 'sudokuString'
+                >
             >
         ) => {
-            Object.assign(state, { ...initialGameState, ...gameGetPersistedAggregates(state) });
-
-            state.sudokuString = action.payload.sudokuString;
-            state.difficulty = action.payload.difficulty;
-            state.maxMistakes = action.payload.maxMistakes;
-            state.isChallengeRun = action.payload.isChallengeRun;
-            state.rating = action.payload.rating;
-            state.isRatingCeiling = action.payload.isRatingCeiling;
+            Object.assign(state, { ...initialGameState, ...gameGetPersistedAggregates(state) }, action.payload);
         },
         pause: (state, action: PayloadAction<{ shouldShowPauseScreen?: boolean } | undefined>) => {
             if (state.isChallengeRun) {
@@ -99,22 +99,14 @@ export const gameSlice = createSlice({
             state.shouldShowPauseScreen = false;
             state.shouldResumeOnFocus = false;
         },
-        save: (
-            state,
-            action: PayloadAction<{
-                sudoku: Sudoku;
-                correctCell: CellInterface;
-                scoredCells: ScoredCellsInterface;
-                technique?: SolutionTechniqueEnum;
-            }>
-        ) => {
-            const { sudoku, correctCell, scoredCells, technique } = action.payload;
+        save: (state, action: PayloadAction<GameSavePayloadInterface>) => {
+            const { sudokuString, candidates, correctCell, scoredCells, technique } = action.payload;
 
             const scoring = new SudokuScoring(defaultScoringConfig);
 
-            state.sudokuString = sudoku.toString();
+            state.sudokuString = sudokuString;
 
-            state.score += scoring.calculate({
+            const score = scoring.calculate({
                 scoredCells,
                 difficulty: state.difficulty,
                 mistakes: state.mistakes,
@@ -122,36 +114,66 @@ export const gameSlice = createSlice({
                 maxMistakes: state.maxMistakes
             });
 
+            state.score += score;
+            state.undoneMoves = [];
+
             state.timelineEvents.push({
                 kind: TimelineEventKindEnum.Cell,
                 cellIndex: correctCell.y * defaultSudokuConfig.fieldSize + correctCell.x,
                 value: correctCell.value,
                 ts: getTimelineTimestampDelta(state.timelineEvents, state.elapsedTime),
+                score,
                 ...(isDefined(technique) && { technique })
             });
 
             if (isDefined(technique)) {
-                state.techniqueUsageCounts[technique] = (state.techniqueUsageCounts[technique] ?? 0) + 1;
+                gameApplyTechniqueUsageDelta(state.techniqueUsageCounts, technique, 1);
             }
 
-            state.candidates[getCellKey(correctCell)] = [];
+            state.candidates = candidates;
+        },
+        hint: (state, action: PayloadAction<GameHintPayloadInterface>) => {
+            const scoring = new SudokuScoring(defaultScoringConfig);
+            const penalty = scoring.calculateHintPenalty({ difficulty: state.difficulty, maxMistakes: state.maxMistakes });
 
-            sudoku.Field.forEach(
-                row =>
-                    void row.forEach(cell => {
-                        if (
-                            sudoku.isBlankCell(cell) &&
-                            (cell.x === correctCell.x || cell.y === correctCell.y || cell.group === correctCell.group)
-                        ) {
-                            const possibleCandidates = sudoku.getCellCandidates(cell);
+            state.score = Math.max(state.score - penalty, 0);
+            state.undoneMoves = [];
 
-                            const key = getCellKey(cell);
-                            const currentCandidates = state.candidates[key] ?? [];
+            state.timelineEvents.push({
+                kind: TimelineEventKindEnum.Hint,
+                ts: getTimelineTimestampDelta(state.timelineEvents, state.elapsedTime)
+            });
 
-                            state.candidates[key] = currentCandidates.filter(candidate => possibleCandidates.includes(candidate));
-                        }
-                    })
-            );
+            action.payload.eliminations.forEach(elimination => {
+                const key = getCellKey(elimination.cell);
+                const cellCandidates = state.candidates[key];
+
+                if (isDefined(cellCandidates)) {
+                    state.candidates[key] = cellCandidates.filter(candidate => candidate !== elimination.value);
+                }
+            });
+        },
+        undo: (state, action: PayloadAction<GameFieldStatePayloadInterface>) => {
+            const { sudokuString, candidates } = action.payload;
+            const isValuePlacementUndone = state.sudokuString !== sudokuString;
+
+            state.sudokuString = sudokuString;
+            state.candidates = candidates;
+
+            if (isValuePlacementUndone) {
+                gameUndoPlacement(state);
+            }
+        },
+        redo: (state, action: PayloadAction<GameFieldStatePayloadInterface>) => {
+            const { sudokuString, candidates } = action.payload;
+            const isValuePlacementRedone = state.sudokuString !== sudokuString;
+
+            state.sudokuString = sudokuString;
+            state.candidates = candidates;
+
+            if (isValuePlacementRedone) {
+                gameRedoPlacement(state);
+            }
         },
         mistake: (state, action: PayloadAction<CellInterface>) => {
             state.mistakes += 1;
@@ -174,12 +196,11 @@ export const gameSlice = createSlice({
         reset: state => {
             Object.assign(state, { ...initialGameState, ...gameGetPersistedAggregates(state) });
         },
-        toggleShowAutoCandidates: state => {
-            state.showAutoCandidates = !state.showAutoCandidates;
+        toggleShowAutoCandidates: (state, action: PayloadAction<Pick<GameState, 'inputMode' | 'showAutoCandidates'>>) => {
+            state.showAutoCandidates = action.payload.showAutoCandidates;
+            state.inputMode = action.payload.inputMode;
 
             if (state.showAutoCandidates) {
-                state.inputMode = 'normal';
-
                 const hasRecordedAssist = state.timelineEvents.some(event => event.kind === TimelineEventKindEnum.AutoCandidates);
 
                 if (!hasRecordedAssist) {
@@ -190,31 +211,21 @@ export const gameSlice = createSlice({
                 }
             }
         },
-        toggleInputMode: state => {
-            const newMode = state.inputMode === 'normal' ? 'candidate' : 'normal';
-            state.inputMode = newMode;
-
-            if (newMode === 'candidate') {
-                state.showAutoCandidates = false;
-            }
+        toggleInputMode: (state, action: PayloadAction<Pick<GameState, 'inputMode' | 'showAutoCandidates'>>) => {
+            state.inputMode = action.payload.inputMode;
+            state.showAutoCandidates = action.payload.showAutoCandidates;
         },
-        toggleCellCandidate: (state, action: PayloadAction<CellInterface>) => {
-            const { value } = action.payload;
+        toggleCellCandidate: (state, action: PayloadAction<GameCellCandidatePayloadInterface>) => {
+            const { candidates, cell } = action.payload;
 
-            const key = getCellKey(action.payload);
-            const candidates = state.candidates[key] ?? [];
-
-            if (candidates.includes(value)) {
-                state.candidates[key] = candidates.filter(val => val !== value);
-            } else {
-                state.candidates[key] = [...candidates, value];
-            }
+            state.candidates = candidates;
+            state.undoneMoves = [];
 
             if (state.isChallengeRun) {
                 state.timelineEvents.push({
                     kind: TimelineEventKindEnum.Pencil,
-                    cellIndex: action.payload.y * defaultSudokuConfig.fieldSize + action.payload.x,
-                    value,
+                    cellIndex: cell.y * defaultSudokuConfig.fieldSize + cell.x,
+                    value: cell.value,
                     ts: getTimelineTimestampDelta(state.timelineEvents, state.elapsedTime)
                 });
             }
@@ -230,59 +241,8 @@ export const gameSlice = createSlice({
             });
         },
 
-        // eslint-disable-next-line max-statements
-        finish: (state, action: PayloadAction<{ difficulty: DifficultyEnum; isWon: boolean; isChallenge?: boolean }>) => {
-            const { difficulty, isWon, isChallenge = false } = action.payload;
-            const history = state.historyByDifficulty[difficulty];
-            const hasNewPersonalBestScore =
-                isWon && !isChallenge && !isNotEmptyString(state.challengeState) && state.score > history.bestScore;
-
-            state.hasNewPersonalBestScore = hasNewPersonalBestScore;
-            state.playedDayNumbers = addPlayedDayNumber(state.playedDayNumbers, getDayNumber(Date.now()));
-
-            history.gamesCompleted += 1;
-
-            if (isWon) {
-                history.averageTime = (history.averageTime * history.gamesWon + state.elapsedTime) / (history.gamesWon + 1);
-
-                if (history.bestTime === 0 || state.elapsedTime < history.bestTime) {
-                    history.bestTime = state.elapsedTime;
-                }
-
-                history.gamesWon += 1;
-                history.gamesWonWithoutMistakes += state.mistakes === 0 ? 1 : 0;
-                history.hardcoreWon += state.maxMistakes === 0 ? 1 : 0;
-                history.challengesWon += isChallenge ? 1 : 0;
-                history.completedGames = [
-                    {
-                        difficulty,
-                        rating: state.rating,
-                        isRatingCeiling: state.isRatingCeiling,
-                        encodedState: gameStateToString(state, SharedPayloadKindEnum.Handoff),
-                        elapsedTime: state.elapsedTime,
-                        score: state.score,
-                        mistakes: state.mistakes,
-                        maxMistakes: state.maxMistakes,
-                        completedAt: Date.now()
-                    },
-                    ...history.completedGames
-                ].slice(0, maxCompletedGamesPerDifficulty);
-
-                if (state.score > history.bestScore) {
-                    history.bestScore = state.score;
-                }
-
-                if (state.rating > history.bestRating.rating) {
-                    history.bestRating = { rating: state.rating, isRatingCeiling: state.isRatingCeiling };
-                }
-            } else {
-                history.gamesLost += 1;
-                history.challengesLost += isChallenge ? 1 : 0;
-            }
-
-            state.isPaused = true;
-            state.shouldShowPauseScreen = false;
-            state.shouldResumeOnFocus = false;
+        finish: (state, action: PayloadAction<GameFinishPayloadInterface>) => {
+            gameFinishRun(state, action.payload);
         }
     }
 });

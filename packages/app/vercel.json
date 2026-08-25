@@ -13,7 +13,15 @@
             },
             "continue": true
         },
+        {
+            "src": "^/(?:play|game|game-settings|pause|winner|loser|challenge-won|challenge-lost|scoring|privacy-policy|beta)/?$",
+            "dest": "/_app/index.html"
+        },
+        {
+            "src": "^/(?:shared|history|settings)(?:/.*)?$",
+            "dest": "/_app/index.html"
+        },
         { "handle": "filesystem" },
-        { "src": "/.*", "dest": "/index.html" }
+        { "src": "/.*", "status": 404, "dest": "/404.html" }
     ]
 }

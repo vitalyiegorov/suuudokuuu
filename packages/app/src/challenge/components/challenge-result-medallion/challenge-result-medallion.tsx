@@ -5,6 +5,7 @@ import { View } from 'react-native';
 import Animated, { interpolate, useAnimatedStyle, useDerivedValue, useSharedValue, withSpring } from 'react-native-reanimated';
 
 import { CelebrationPulse } from '../../../@generic/components/celebration-pulse/celebration-pulse';
+import { useReduceMotion } from '../../../@generic/hooks/use-reduce-motion.hook';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { ChallengeResult } from '../../interfaces/challenge-result.interface';
 
@@ -22,11 +23,13 @@ interface Props {
 export const ChallengeResultMedallion = ({ result }: Props) => {
     const { theme } = use(ThemeContext);
 
+    const isMotionReduced = useReduceMotion();
+
     const appear = useSharedValue(0);
 
     useEffect(() => {
-        appear.value = withSpring(1, { damping: 12, stiffness: 160 });
-    }, [appear]);
+        appear.value = isMotionReduced ? 1 : withSpring(1, { damping: 12, stiffness: 160 });
+    }, [isMotionReduced, appear]);
 
     const appearScale = useDerivedValue(() => interpolate(appear.value, AppearInput, AppearScaleOutput));
     const appearAnimatedStyle = useAnimatedStyle(() => ({ transform: [{ scale: appearScale.value }] }));

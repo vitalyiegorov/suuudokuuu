@@ -1,4 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
+import { CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
 import { Pressable, Text, View } from 'react-native';
 import { useUnistyles } from 'react-native-unistyles';
 
@@ -32,7 +33,12 @@ export const RatingBadge = ({ isCeiling, rating, onPress }: Props) => {
 
     const badge = (
         <View style={pillStyles} testID={RatingBadgeSelectors.Root}>
-            <Text accessibilityLabel={t`Difficulty rating ${ratingLabel}`} allowFontScaling={false} style={valueStyles}>
+            <Text
+                accessibilityLabel={t`Difficulty rating ${ratingLabel}`}
+                maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant}
+                numberOfLines={1}
+                style={valueStyles}
+            >
                 {ratingLabel}
             </Text>
         </View>

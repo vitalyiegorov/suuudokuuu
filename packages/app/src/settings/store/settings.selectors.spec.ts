@@ -8,6 +8,8 @@ import { initialCustomThemesState } from '../../theme/store/custom-themes.state'
 
 import {
     settingsCellMarginSelector,
+    settingsComfortModeOfferVisibleSelector,
+    settingsComfortModeSelector,
     settingsFontSizeMultiplierSelector,
     settingsFontSizeSelector,
     settingsKeySelector,
@@ -15,6 +17,7 @@ import {
     settingsLastGameChallengeModeSelector,
     settingsLastGameDifficultySelector,
     settingsLastGameMaxMistakesSelector,
+    settingsMotionPreferenceSelector,
     settingsThemeSelector
 } from './settings.selectors';
 import { initialSettingsState } from './settings.state';
@@ -34,6 +37,8 @@ jest.mock('../../@generic/utils/i18n.util', () => ({
 
 const state: SettingsState = {
     ...initialSettingsState,
+    calmMode: true,
+    motionPreference: 'reduced',
     cellMargin: 2,
     fontSize: 'xl',
     hasVibration: false,
@@ -59,10 +64,33 @@ describe('settings selectors', () => {
     });
 
     it('should read a boolean preference by key', () => {
-        expect.assertions(2);
+        expect.assertions(3);
 
         expect(settingsKeySelector('hasVibration').resultFunc(state)).toBe(false);
         expect(settingsKeySelector('isLeftHanded').resultFunc(state)).toBe(true);
+        expect(settingsKeySelector('calmMode').resultFunc(state)).toBe(true);
+    });
+
+    it('should read the stored motion preference', () => {
+        expect.assertions(2);
+
+        expect(settingsMotionPreferenceSelector.resultFunc(state)).toBe('reduced');
+        expect(settingsMotionPreferenceSelector.resultFunc(initialSettingsState)).toBe('system');
+    });
+
+    it('should read the comfort mode status', () => {
+        expect.assertions(2);
+
+        expect(settingsComfortModeSelector.resultFunc(initialSettingsState)).toBe('off');
+        expect(settingsComfortModeSelector.resultFunc({ ...state, comfortMode: 'customized' })).toBe('customized');
+    });
+
+    it('should offer comfort mode only while it is off and the offer was never dismissed', () => {
+        expect.assertions(3);
+
+        expect(settingsComfortModeOfferVisibleSelector.resultFunc(initialSettingsState)).toBe(true);
+        expect(settingsComfortModeOfferVisibleSelector.resultFunc({ ...state, comfortModeOfferDismissed: true })).toBe(false);
+        expect(settingsComfortModeOfferVisibleSelector.resultFunc({ ...state, comfortMode: 'on' })).toBe(false);
     });
 
     it('should read the stored font size and its multiplier', () => {

@@ -1,6 +1,6 @@
 import type { ThemeInterface } from '@suuudokuuu/ui/theme';
 
-export const homeScreenOptionCardGetColors = (theme: ThemeInterface, isSelected: boolean) => {
+export const homeScreenOptionCardGetColors = (theme: Pick<ThemeInterface, 'colors'>, isSelected: boolean) => {
     if (isSelected) {
         return {
             backgroundColor: theme.colors.ink,

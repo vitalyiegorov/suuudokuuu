@@ -29,6 +29,17 @@ export const useSettingsOptionDescriptions = () => {
 
         return t`Larger digits for easier reading`;
     };
+    const getMotionPreferenceDescription = (motionPreference: SettingsState['motionPreference']) => {
+        if (motionPreference === 'full') {
+            return t`Keep every animation even when the system reduces motion`;
+        }
+
+        if (motionPreference === 'reduced') {
+            return t`Show changes instantly with no movement at all`;
+        }
+
+        return t`Match the reduce motion setting of your device`;
+    };
     const getLanguageDescription = (language: SettingsState['language']) =>
         ({
             ar: t`Use Arabic for app text`,
@@ -53,7 +64,9 @@ export const useSettingsOptionDescriptions = () => {
         return {
             [ThemeEnum.BlackAndWhite]: t`Clean black-and-white board`,
             [ThemeEnum.Colorful]: t`Warm gold accents for a brighter board`,
-            [ThemeEnum.Newspaper]: t`Soft gray board with a paper-like feel`
+            [ThemeEnum.Newspaper]: t`Soft gray board with a paper-like feel`,
+            [ThemeEnum.HighContrast]: t`Maximum separation between board states`,
+            [ThemeEnum.ColorblindSafe]: t`Board states told apart by lightness and outlines, not hue`
         }[theme];
     };
 
@@ -61,6 +74,7 @@ export const useSettingsOptionDescriptions = () => {
         getCellMarginDescription,
         getFontSizeDescription,
         getLanguageDescription,
+        getMotionPreferenceDescription,
         getThemeDescription
     };
 };

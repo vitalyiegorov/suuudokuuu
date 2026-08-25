@@ -1,7 +1,7 @@
+import { getRunTechniqueEvents } from '../../challenge/utils/get-run-technique-events.util';
 import { getTimelineCellSteps } from '../../game/utils/get-timeline-cell-steps.util';
 import { stringToGameState } from '../../game/utils/string-to-game-state.util';
 
-import { getReplayRunTechniqueEvents } from './get-replay-run-technique-events.util';
 import { getReplayTechniqueUsageCounts } from './get-replay-technique-usage-counts.util';
 import { getReplayTimeline } from './get-replay-timeline.util';
 import { historyGetTechniqueUsageList } from './history-get-technique-usage.util';
@@ -18,7 +18,7 @@ export const getCompletedGameTechniqueSummary = (encodedState: string): readonly
         return [];
     }
 
-    const techniqueEvents = getReplayRunTechniqueEvents(gameState);
+    const techniqueEvents = getRunTechniqueEvents(timeline.events, timeline.givens);
     const usageCounts = getReplayTechniqueUsageCounts(techniqueEvents);
 
     return historyGetTechniqueUsageList(usageCounts).slice(0, CompletedGameTechniqueSummaryLimit);

@@ -8,15 +8,17 @@ real static build (`packages/app/dist`), not the Metro dev server.
 
 ```bash
 yarn workspace @suuudokuuu/app expo export --platform=web
+yarn build --filter=@suuudokuuu/landing
 yarn workspace @suuudokuuu/web-tests playwright install chromium
 yarn workspace @suuudokuuu/web-tests test:e2e
 yarn workspace @suuudokuuu/web-tests ts
 yarn workspace @suuudokuuu/web-tests lint
 ```
 
-`test:e2e` starts `serve --single` over `packages/app/dist` on port 4173 and reuses an already
-running server outside CI. `playwright.config.ts` fails fast with an actionable message if
-`packages/app/dist/index.html` is missing; run the export above first.
+`test:e2e` starts `serve --single` over `packages/app/dist` on port 4173 and a plain `serve` over
+`packages/landing/out` on port 4174, and reuses already running servers outside CI.
+`playwright.config.ts` fails fast with an actionable message if `packages/app/dist/index.html` or
+`packages/landing/out/index.html` is missing; run both builds above first.
 
 ## Robustness Rules
 
@@ -106,6 +108,17 @@ running server outside CI. `playwright.config.ts` fails fast with an actionable 
   it — silently invalidating the "first press starts from Field[0][0]" assumption the keyboard hook
   relies on. Dispatch `page.keyboard.press(...)` directly against the page; the hook's `window`
   keydown listener receives it without any prior click.
+- The landing specs (`specs/landing/*.spec.ts`, `landing-chromium` project) run
+  against `packages/landing/out` on a second `serve` instance and a second `webServer`/`project`
+  pair in `playwright.config.ts`, not the app export. `TechniqueLiveBoard` constructs its
+  `FieldEngine` with `showAutoCandidates: true`. In that mode `field-dom`'s `getFieldCellCandidates`
+  recomputes each cell's candidates from row/column/box occupancy and then subtracts the engine's
+  `eliminatedCandidates`, which `FieldEngine.removeCandidate` now records whenever auto candidates
+  are enabled. Applying an elimination-only step script (`engine.applyStepScript()`) therefore
+  removes the struck value from the rendered candidate grid, not just from the walkthrough overlay
+  (`data-pattern`, `data-eliminated`, the narration and step controls). Assert both: the overlay
+  clearing and the candidate's `data-present` attribute flipping to `false`, when a spec applies an
+  elimination-only technique's step script.
 
 ## Browser Projects
 
@@ -120,6 +133,52 @@ and must be resolved before the project can be widened:
 - `08.challenge-hud-layout.spec.ts` — the rival-race HUD's `x` is `0` on the iPhone 14 viewport, so
   the "HUD sits right of the board" geometry assertion does not hold at that breakpoint.
 
+## Landing Specs
+
+`specs/landing/**` is the whole `landing-chromium` scope: the static Next.js export in
+`packages/landing/out`, served on port 4174. The app projects exclude it with `testIgnore:
+/landing\//u`, so an app spec never hits the landing server and a landing spec never hits the app
+export. Number landing specs from `01` inside that folder; they are a separate ladder from the app
+specs at `specs/`.
+
+| Spec                             | What it pins                                                                                                                                        |
+| -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `01.technique-embed.spec.ts`     | The intent-gated playable island: static table stays in the DOM, the engine chunk only loads on click, the step script walks and applies.              |
+| `02.crawlability.spec.ts`        | Zero-JS contracts: static worked example and candidate grid, guide measured-data tables, one `<h1>`/canonical/exported `og:image` per sampled family, and the `Article.headline === <h1>` invariant (absent on home, which ships `WebSite` + `SoftwareApplication`). |
+| `03.indexing-consistency.spec.ts`| One URL enumeration: every `sitemap.xml` `<loc>` is unique, same-origin and served with 200; `robots.txt` advertises the sitemap; `llms.txt` lists exactly the sitemap set. |
+| `04.comfort-text-size.spec.ts`   | The comfort scale: three steps in the header, `aria-pressed`, root font size and board cell growth, `localStorage` persistence across a reload, and the pre-paint inline script in raw HTML. |
+| `05.navigation-chains.spec.ts`   | Header and footer links resolve, the technique prev/next chain navigates both ways, breadcrumbs mark the current page, and the hub's visible list equals its `ItemList` structured data (26 techniques). |
+| `06.solver-flow.spec.ts`         | The solver island: static shell in raw HTML, a sample puzzle narrates into technique-linked steps with a live replay board, empty grid reports multiple solutions, contradictory grid reports none, no console errors. |
+| `07.printables.spec.ts`          | The printable hub lists six tiers plus the extras, and every `.pdf` link answers 200 with the `%PDF-` magic bytes.                                     |
+| `08.faq-rendering.spec.ts`       | A `FaqPage` renders one `<details>` per entry and the visible summaries are exactly the `FAQPage` schema questions, in order.                          |
+| `09.not-found.spec.ts`           | An unknown path answers 404 with the landing 404 document and its site chrome.                                                                         |
+
+Rules specific to this scope:
+
+1. Use the `request` fixture for anything provable from the exported bytes (markup, structured data,
+   sitemap, PDFs). Reach for `page` only where hydration or interaction is the behavior under test.
+   Half of this scope is a view-source contract, and `page` would hide a regression that only shows
+   up before JavaScript runs.
+2. Import landing constants from the source of truth by deep import (`@suuudokuuu/landing/src/...`),
+   the way `01.technique-embed.spec.ts` imports `SITE_PLAY_URL`. The landing package ships no
+   `data-testid` attributes; its stable handles are semantic roles, `aria-label`s and the `class`
+   names in `src/app/global.css`, which is why these specs use CSS/role selectors rather than
+   `getByTestId`. That is a deliberate exception to Robustness Rule 3, not a shortcut.
+3. Never assert a number that `yarn workspace @suuudokuuu/landing generate:rating-sample` can move.
+   Clue counts, SE ranges and technique frequencies are regenerable data: assert that a numeric cell
+   renders and that the row count matches the tier count, not the value. Counts that come from
+   source enumerations (26 technique pages, 6 difficulty tiers) are fair to pin literally.
+4. `readJsonLdSchema` (`src/utils/json-ld.util.ts`) locates a schema block by its serialized
+   `{"@context":…,"@type":…}` prefix and returns `null` when the page does not publish it, so a spec
+   can assert both presence and absence. Assert against it with `toMatchObject` rather than reading
+   properties off the parsed value: the parsed payload is `unknown`, and `toMatchObject` keeps the
+   spec free of type assertions and index access.
+5. `llms.txt` is written into `packages/landing/public` by `scripts/generate-indexing-files.ts`,
+   which the package's own `build` script runs before `next build`. Both the local build and the CI
+   `yarn build --filter=@suuudokuuu/landing` step therefore always produce it, so
+   `03.indexing-consistency.spec.ts` asserts it unconditionally. The IndexNow key file is the
+   opposite case — it only exists when `INDEXNOW_KEY` is set, so nothing here asserts it.
+
 ## Backdrop Recomposite Spec
 
 `11.backdrop-recomposite.spec.ts` pins the _mechanism_ of an unverified iOS Safari mitigation, not a
@@ -130,6 +189,22 @@ any headless engine (see the note below), so there is no symptom to assert. Inst
 `none` and then removed across frames — proving `useBackdropRecomposite` actually ran. It fails if the
 hook is unwired from `EdgeFade` or `FloatingTabBar`. Do not rewrite it to assert pixels; headless
 WebKit never reproduces the compositor fault this guards against.
+
+## Known Landing Issues Affecting This Suite
+
+- **The 404 document carries two conflicting `robots` meta tags.** `packages/landing/out/404.html`
+  and `_not-found.html` emit both `<meta name="robots" content="noindex"/>` (Next's own not-found
+  metadata) and `<meta name="robots" content="index, follow"/>` (from `buildRootMetadata`, which the
+  root layout applies to every document). Crawlers resolve conflicting directives to the most
+  restrictive one, so the page is still de-indexed and the behavior is correct today;
+  `09.not-found.spec.ts` asserts the `noindex` tag rather than the absence of the other. Fixing it
+  means scoping the root `robots` metadata so the not-found route can override it.
+- **The home canonical and the home sitemap entry differ by a trailing slash.**
+  `sitemap.ts` publishes `https://www.suuudokuuu.com/` (`buildLocaleUrl` concatenates the `/` path)
+  while the rendered `<link rel="canonical">` is `https://www.suuudokuuu.com`, because Next resolves
+  canonical URLs against `metadataBase` and normalizes the empty path away. The two are the same URL
+  per RFC 3986 and Google treats them identically, so `02.crawlability.spec.ts` asserts the canonical
+  shares the site origin rather than pinning an exact string.
 
 ## Known App Issues Affecting This Suite
 
@@ -146,3 +221,8 @@ WebKit never reproduces the compositor fault this guards against.
   existed but was not re-exported from the barrel, so `ChallengeResultScreenSelectors` deep-imported
   as `undefined`. Added the missing `export *` line; this is a barrel-only change (no runtime
   behavior change) consistent with `tests/app-tests/AGENTS.md` Selector Rule 5.
+- **Hint selectors were not barrel-exported.** `HintButtonSelectors`, `HintPanelSelectors` and
+  `HintStepNarrationSelectors` exist under `packages/app/src/game/components/hint-*/`. Added the
+  three missing `export *` lines to `packages/app/src/selectors.ts`, consistent with Selector Rule 5,
+  and switched `09.hint-flow.spec.ts` from deep-importing the three `*.selectors.ts` files to the
+  barrel import.

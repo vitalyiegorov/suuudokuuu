@@ -39,6 +39,17 @@ describe('AppButton', () => {
         expect(handlePress).toHaveBeenCalledTimes(1);
     });
 
+    it('should keep a caller accessibility state alongside the busy and disabled flags it owns', async () => {
+        const accessibilityState = { checked: true };
+
+        await render(<AppButton accessibilityState={accessibilityState} testID={buttonTestId} text="Notes mode" />);
+
+        expect(screen.getByTestId(buttonTestId)).toHaveProp(
+            'accessibilityState',
+            expect.objectContaining({ busy: false, checked: true, disabled: false })
+        );
+    });
+
     it('should stay disabled without a loader when disabled is passed explicitly', async () => {
         const handlePress = jest.fn();
 

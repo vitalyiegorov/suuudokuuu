@@ -1,4 +1,5 @@
 export interface ThemeInterface {
+    hasErrorOutline: boolean;
     colors: {
         background: string;
         ink: string;

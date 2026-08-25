@@ -1,3 +1,4 @@
+import { CompactMaxFontSizeMultiplierConstant, DisplayMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
 import { type ReactNode, use } from 'react';
 import { Text, View } from 'react-native';
 
@@ -28,11 +29,13 @@ export const GameResultHero = ({ children, descriptorText, eyebrowText, icon, te
         <View style={styles.container}>
             {icon}
 
-            <BlackText style={titleStyles}>{titleText}</BlackText>
+            <BlackText maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant} style={titleStyles}>
+                {titleText}
+            </BlackText>
 
             <View style={styles.descriptorRow}>
                 <View style={descriptorPillStyles}>
-                    <Text allowFontScaling={false} numberOfLines={1} style={descriptorTextStyles}>
+                    <Text maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant} numberOfLines={1} style={descriptorTextStyles}>
                         {descriptorText}
                     </Text>
                 </View>
@@ -40,7 +43,7 @@ export const GameResultHero = ({ children, descriptorText, eyebrowText, icon, te
 
             <BlackText style={eyebrowStyles}>{eyebrowText}</BlackText>
 
-            <BlackText style={valueStyles} testID={testID}>
+            <BlackText maxFontSizeMultiplier={DisplayMaxFontSizeMultiplierConstant} style={valueStyles} testID={testID}>
                 {valueText}
             </BlackText>
 

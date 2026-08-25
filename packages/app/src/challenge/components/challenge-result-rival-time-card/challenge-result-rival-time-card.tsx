@@ -1,4 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
+import { DisplayMaxFontSizeMultiplierConstant, MaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
 import { use } from 'react';
 import { Text, View } from 'react-native';
 
@@ -19,10 +20,10 @@ export const ChallengeResultRivalTimeCard = ({ rivalTimeText }: Props) => {
 
     return (
         <View style={styles.card}>
-            <Text allowFontScaling={false} style={labelStyle}>
+            <Text maxFontSizeMultiplier={MaxFontSizeMultiplierConstant} style={labelStyle}>
                 {t`Rival's time to beat`}
             </Text>
-            <Text allowFontScaling={false} style={valueStyle}>
+            <Text maxFontSizeMultiplier={DisplayMaxFontSizeMultiplierConstant} style={valueStyle}>
                 {rivalTimeText}
             </Text>
         </View>

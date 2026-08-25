@@ -42,7 +42,7 @@ import { pauseScreenGetProgress } from './utils/pause-screen-get-progress.util';
 export const PauseScreen = () => {
     const router = useRouter();
     const dispatch = useAppDispatch();
-    const { sudoku } = use(GameContext);
+    const { engine } = use(GameContext);
     const { theme } = use(ThemeContext);
     const { t } = useLingui();
     const score = useAppSelector(gameScoreSelector);
@@ -68,7 +68,7 @@ export const PauseScreen = () => {
         ]);
     };
 
-    const progress = pauseScreenGetProgress(sudoku);
+    const progress = pauseScreenGetProgress(engine.Sudoku);
     const difficultyText = t(getDifficultyMessage(difficulty));
     const levelRatingText = getLevelRatingText(difficultyText, rating, isRatingCeiling);
     const mistakesTypeText = t(getMistakesTypeText(maxMistakes));
@@ -98,7 +98,7 @@ export const PauseScreen = () => {
                             label={t`Your progress`}
                             meta={progressMeta}
                             progressPercent={progress.percent}
-                            sudoku={sudoku}
+                            sudoku={engine.Sudoku}
                         />
 
                         <PauseScreenStats mistakesText={mistakesText} scoreText={scoreText} timeText={timeText} />

@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers */
 import { describe, expect, it, jest } from '@jest/globals';
+import { TimelineEventKindEnum } from '@suuudokuuu/encoder';
 import { DifficultyEnum } from '@suuudokuuu/generator';
 
 import { initialGameState } from '../game/store/game.state';
@@ -16,6 +17,8 @@ import { appRootMigrations, appRootPersistVersion } from './app-root-migrations'
 import { getDayNumber } from './utils/get-day-number.util';
 
 import type { AppRootPersistedStateInterface } from './app-root-migrations';
+import type { GameCellTimelineEventInterface } from '../game/interface/game-timeline-event.interface';
+import type { SettingsState } from '../settings/store/settings.state';
 
 jest.mock('react-native', () => ({
     Appearance: {
@@ -28,6 +31,8 @@ jest.mock('./utils/i18n.util', () => ({
 }));
 
 const migrationVersions = Object.keys(appRootMigrations).map(Number);
+
+const LastReleasedPersistVersion = 33;
 
 const buildState = (overrides: Partial<AppRootPersistedStateInterface> = {}): AppRootPersistedStateInterface => ({
     game: initialGameState,
@@ -53,6 +58,107 @@ const withExtraKeyAtRuntime = <T extends object>(value: T, key: PropertyKey, ext
     return clone;
 };
 
+const LegacyEasyCompletedAt = new Date(2026, 0, 1, 12).getTime();
+const LegacyHardCompletedAt = new Date(2026, 0, 2, 12).getTime();
+const LegacyPlayedDayNumber = 20688;
+
+const ratedEasyCompletedGame = {
+    encodedState: 'legacy-state',
+    difficulty: DifficultyEnum.Easy,
+    rating: 0,
+    isRatingCeiling: false,
+    elapsedTime: 60,
+    score: 100,
+    mistakes: 0,
+    maxMistakes: 3,
+    completedAt: LegacyEasyCompletedAt
+};
+
+const legacyEasyCompletedGame = withoutKeyAtRuntime(withoutKeyAtRuntime(ratedEasyCompletedGame, 'rating'), 'isRatingCeiling');
+
+const legacyHardCompletedGame = {
+    encodedState: 'rated-state',
+    difficulty: DifficultyEnum.Hard,
+    rating: 8.5,
+    isRatingCeiling: true,
+    elapsedTime: 30,
+    score: 50,
+    mistakes: 1,
+    maxMistakes: 3,
+    completedAt: LegacyHardCompletedAt
+};
+
+const legacyUndoneMove: GameCellTimelineEventInterface = {
+    kind: TimelineEventKindEnum.Cell,
+    cellIndex: 12,
+    value: 3,
+    ts: 1000
+};
+
+const buildLegacyReleasedState = (): AppRootPersistedStateInterface => {
+    const storedHistoryByDifficulty = withoutKeyAtRuntime(
+        withoutKeyAtRuntime(
+            {
+                ...initialGameState.historyByDifficulty,
+                [DifficultyEnum.Easy]: { ...emptyGameHistory, difficulty: DifficultyEnum.Easy, completedGames: [legacyEasyCompletedGame] },
+                [DifficultyEnum.Hard]: { ...emptyGameHistory, difficulty: DifficultyEnum.Hard, completedGames: [legacyHardCompletedGame] }
+            },
+            DifficultyEnum.Hell
+        ),
+        DifficultyEnum.Infinity
+    );
+    const storedGame = withoutKeyAtRuntime(
+        withoutKeyAtRuntime(
+            withoutKeyAtRuntime(
+                {
+                    ...initialGameState,
+                    score: 700,
+                    historyByDifficulty: storedHistoryByDifficulty,
+                    playedDayNumbers: [LegacyPlayedDayNumber],
+                    techniqueUsageCounts: { 2: 5 },
+                    undoneMoves: [legacyUndoneMove]
+                },
+                'dailyDayNumber'
+            ),
+            'dailyCompletedDayNumbers'
+        ),
+        'dailyBestStreak'
+    );
+    const storedSettings = withoutKeyAtRuntime(
+        withoutKeyAtRuntime(withoutKeyAtRuntime({ ...initialSettingsState, hasTimer: false }, 'calmMode'), 'motionPreference'),
+        'comfortModeRestore'
+    );
+
+    return buildState({ game: storedGame, settings: storedSettings });
+};
+
+const collapsedLegacyReleasedState: AppRootPersistedStateInterface = {
+    game: {
+        ...initialGameState,
+        score: 700,
+        techniqueUsageCounts: { 2: 5 },
+        undoneMoves: [],
+        playedDayNumbers: [getDayNumber(LegacyEasyCompletedAt), getDayNumber(LegacyHardCompletedAt), LegacyPlayedDayNumber],
+        historyByDifficulty: {
+            ...initialGameState.historyByDifficulty,
+            [DifficultyEnum.Easy]: {
+                ...emptyGameHistory,
+                difficulty: DifficultyEnum.Easy,
+                bestRating: { rating: 0, isRatingCeiling: false },
+                completedGames: [ratedEasyCompletedGame]
+            },
+            [DifficultyEnum.Hard]: {
+                ...emptyGameHistory,
+                difficulty: DifficultyEnum.Hard,
+                bestRating: { rating: 8.5, isRatingCeiling: true },
+                completedGames: [legacyHardCompletedGame]
+            }
+        }
+    },
+    settings: { ...initialSettingsState, hasTimer: false },
+    customThemes: initialCustomThemesState
+};
+
 describe('appRootMigrations', () => {
     it('should persist at the newest migration version', () => {
         expect.assertions(1);
@@ -60,12 +166,20 @@ describe('appRootMigrations', () => {
         expect(appRootPersistVersion).toBe(Math.max(...migrationVersions));
     });
 
-    it('should keep the manifest free of version gaps', () => {
+    it('should keep the released manifest free of version gaps', () => {
         expect.assertions(1);
 
-        const sortedVersions = [...migrationVersions].sort((first, second) => first - second);
+        const releasedVersions = migrationVersions
+            .filter(version => version <= LastReleasedPersistVersion)
+            .sort((firstVersion, secondVersion) => firstVersion - secondVersion);
 
-        expect(sortedVersions).toStrictEqual(sortedVersions.map((_, index) => sortedVersions[0] + index));
+        expect(releasedVersions).toStrictEqual(releasedVersions.map((_, index) => releasedVersions[0] + index));
+    });
+
+    it('should reach the newest version from the last released version in a single collapsed step', () => {
+        expect.assertions(1);
+
+        expect(migrationVersions.filter(version => version > LastReleasedPersistVersion)).toStrictEqual([appRootPersistVersion]);
     });
 
     it('should reset every stored best score', () => {
@@ -235,7 +349,7 @@ describe('appRootMigrations', () => {
                 }
             }
         });
-        const [migratedCompletedGame] = runMigration(34, state).game.historyByDifficulty[DifficultyEnum.Easy].completedGames;
+        const [migratedCompletedGame] = runMigration(41, state).game.historyByDifficulty[DifficultyEnum.Easy].completedGames;
 
         expect(migratedCompletedGame).toMatchObject({ rating: 0, isRatingCeiling: false, score: 100 });
         expect(migratedCompletedGame.encodedState).toBe('legacy-state');
@@ -265,7 +379,7 @@ describe('appRootMigrations', () => {
             }
         });
 
-        expect(runMigration(34, state).game.historyByDifficulty[DifficultyEnum.Hard].completedGames).toStrictEqual([ratedCompletedGame]);
+        expect(runMigration(41, state).game.historyByDifficulty[DifficultyEnum.Hard].completedGames).toStrictEqual([ratedCompletedGame]);
     });
 
     it('should backfill the unknown rating sentinel onto the in-progress game state', () => {
@@ -273,18 +387,18 @@ describe('appRootMigrations', () => {
 
         const legacyGameState = withoutKeyAtRuntime(withoutKeyAtRuntime(initialGameState, 'rating'), 'isRatingCeiling');
         const state = buildState({ game: legacyGameState });
-        const migrated = runMigration(34, state);
+        const migrated = runMigration(41, state);
 
         expect(migrated.game.rating).toBe(0);
         expect(migrated.game.isRatingCeiling).toBe(false);
     });
 
-    it('should keep the Infinity difficulty entry in the history after migration 35', () => {
+    it('should keep the Infinity difficulty entry in the history after the collapsed migration', () => {
         expect.assertions(1);
 
         const state = buildState();
 
-        expect(Object.keys(runMigration(35, state).game.historyByDifficulty)).toStrictEqual(
+        expect(Object.keys(runMigration(41, state).game.historyByDifficulty)).toStrictEqual(
             Object.keys(initialGameState.historyByDifficulty)
         );
     });
@@ -294,7 +408,7 @@ describe('appRootMigrations', () => {
 
         const legacyHistoryByDifficulty = withoutKeyAtRuntime(initialGameState.historyByDifficulty, DifficultyEnum.Infinity);
         const legacyState = buildState({ game: { ...initialGameState, historyByDifficulty: legacyHistoryByDifficulty } });
-        const migrated = runMigration(35, legacyState);
+        const migrated = runMigration(41, legacyState);
 
         expect(Object.keys(migrated.game.historyByDifficulty)).toStrictEqual(Object.keys(initialGameState.historyByDifficulty));
     });
@@ -347,7 +461,7 @@ describe('appRootMigrations', () => {
             }
         });
 
-        const migratedHistory = runMigration(36, state).game.historyByDifficulty[DifficultyEnum.Easy];
+        const migratedHistory = runMigration(41, state).game.historyByDifficulty[DifficultyEnum.Easy];
 
         expect(migratedHistory.bestRating).toStrictEqual({ rating: 8.5, isRatingCeiling: true });
     });
@@ -357,7 +471,7 @@ describe('appRootMigrations', () => {
 
         const state = buildState();
 
-        const migratedHistory = runMigration(36, state).game.historyByDifficulty[DifficultyEnum.Easy];
+        const migratedHistory = runMigration(41, state).game.historyByDifficulty[DifficultyEnum.Easy];
 
         expect(migratedHistory.bestRating).toStrictEqual({ rating: 0, isRatingCeiling: false });
     });
@@ -386,7 +500,7 @@ describe('appRootMigrations', () => {
             }
         });
 
-        expect(runMigration(36, state).game.techniqueUsageCounts).toStrictEqual({});
+        expect(runMigration(41, state).game.techniqueUsageCounts).toStrictEqual({});
     });
 
     it('should keep already-populated technique usage counts untouched', () => {
@@ -396,7 +510,7 @@ describe('appRootMigrations', () => {
             game: { ...initialGameState, techniqueUsageCounts: { 2: 5 } }
         });
 
-        expect(runMigration(36, state).game.techniqueUsageCounts).toStrictEqual({ 2: 5 });
+        expect(runMigration(41, state).game.techniqueUsageCounts).toStrictEqual({ 2: 5 });
     });
 
     it('should backfill played day numbers from completed wins only', () => {
@@ -426,7 +540,7 @@ describe('appRootMigrations', () => {
             }
         });
 
-        const migratedGameState = runMigration(37, state).game;
+        const migratedGameState = runMigration(41, state).game;
         const dayOneNumber = getDayNumber(dayOneCompletedAt);
         const dayTwoNumber = getDayNumber(dayTwoCompletedAt);
 
@@ -441,6 +555,85 @@ describe('appRootMigrations', () => {
             game: { ...initialGameState, playedDayNumbers: [alreadyPlayedDayNumber] }
         });
 
-        expect(runMigration(37, state).game.playedDayNumbers).toStrictEqual([alreadyPlayedDayNumber]);
+        expect(runMigration(41, state).game.playedDayNumbers).toStrictEqual([alreadyPlayedDayNumber]);
+    });
+
+    it('should backfill the comfort preferences at the collapsed migration without touching stored choices', () => {
+        expect.assertions(3);
+
+        const storedSettings = withoutKeyAtRuntime(
+            withoutKeyAtRuntime({ ...initialSettingsState, hasTimer: false }, 'calmMode'),
+            'motionPreference'
+        );
+        const migrated = runMigration(41, buildState({ settings: storedSettings }));
+
+        expect(migrated.settings.motionPreference).toBe('system');
+        expect(migrated.settings.calmMode).toBe(false);
+        expect(migrated.settings.hasTimer).toBe(false);
+    });
+
+    it('should rehydrate a pre-comfort-mode state with the preset off and nothing else touched', () => {
+        expect.assertions(6);
+
+        const legacySettings: SettingsState = { ...initialSettingsState, fontSize: 'xs', theme: ThemeEnum.Newspaper };
+        const storedSettings = withoutKeyAtRuntime(
+            withoutKeyAtRuntime(withoutKeyAtRuntime(legacySettings, 'comfortMode'), 'comfortModeOfferDismissed'),
+            'comfortModeRestore'
+        );
+        const migrated = runMigration(41, buildState({ settings: storedSettings }));
+
+        expect(migrated.settings.comfortMode).toBe('off');
+        expect(migrated.settings.comfortModeOfferDismissed).toBe(false);
+        expect(migrated.settings.comfortModeRestore).toBeNull();
+        expect(migrated.settings.fontSize).toBe('xs');
+        expect(migrated.settings.theme).toBe(ThemeEnum.Newspaper);
+        expect(migrated.settings.hasTimer).toBe(initialSettingsState.hasTimer);
+    });
+    it('should seed the daily challenge record at the collapsed migration without touching anything else', () => {
+        expect.assertions(4);
+
+        const storedGame = withoutKeyAtRuntime(
+            withoutKeyAtRuntime(
+                withoutKeyAtRuntime({ ...initialGameState, playedDayNumbers: [20688], score: 500 }, 'dailyCompletedDayNumbers'),
+                'dailyBestStreak'
+            ),
+            'dailyDayNumber'
+        );
+        const migrated = runMigration(41, buildState({ game: storedGame }));
+
+        expect(migrated.game.dailyCompletedDayNumbers).toStrictEqual([]);
+        expect(migrated.game.dailyBestStreak).toBe(0);
+        expect(migrated.game.dailyDayNumber).toBe(0);
+        expect(migrated.game.playedDayNumbers).toStrictEqual([20688]);
+    });
+
+    it('should never resume a stored run as a daily challenge', () => {
+        expect.assertions(1);
+
+        const storedGame = { ...initialGameState, dailyDayNumber: 20688 };
+
+        expect(runMigration(41, buildState({ game: storedGame })).game.dailyDayNumber).toBe(0);
+    });
+
+    it('should drop a stored redo stack', () => {
+        expect.assertions(1);
+
+        const storedGame = { ...initialGameState, undoneMoves: [legacyUndoneMove] };
+
+        expect(runMigration(41, buildState({ game: storedGame })).game.undoneMoves).toStrictEqual([]);
+    });
+
+    it('should migrate a released v33 state into the exact collapsed shape', () => {
+        expect.assertions(1);
+
+        expect(runMigration(41, buildLegacyReleasedState())).toStrictEqual(collapsedLegacyReleasedState);
+    });
+
+    it('should land on the same shape when replayed over an already-collapsed state', () => {
+        expect.assertions(1);
+
+        const migrated = runMigration(41, buildLegacyReleasedState());
+
+        expect(runMigration(41, migrated)).toStrictEqual(migrated);
     });
 });

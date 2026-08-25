@@ -16,6 +16,10 @@ const buildChallengeRun = (overrides: Partial<GameState> = {}): GameState => ({
 const { timelineAway, timelineReturn, toggleShowAutoCandidates, toggleCellCandidate, pause, screenshot } = gameSlice.actions;
 
 const candidateCell = { x: 3, y: 2, value: 7, group: 1 };
+const penciledCandidatePayload = { cell: candidateCell, candidates: { '2-3': [candidateCell.value] } };
+const erasedCandidatePayload = { cell: candidateCell, candidates: { '2-3': [] } };
+const autoCandidatesOnPayload = { inputMode: 'normal' as const, showAutoCandidates: true };
+const autoCandidatesOffPayload = { inputMode: 'normal' as const, showAutoCandidates: false };
 
 describe('gameSlice timeline events', () => {
     describe('away', () => {
@@ -114,7 +118,7 @@ describe('gameSlice timeline events', () => {
         it('should record a pencil action with the think time before it', () => {
             expect.assertions(1);
 
-            const state = gameSlice.reducer(buildChallengeRun({ elapsedTime: 18 }), toggleCellCandidate(candidateCell));
+            const state = gameSlice.reducer(buildChallengeRun({ elapsedTime: 18 }), toggleCellCandidate(penciledCandidatePayload));
 
             expect(state.timelineEvents).toStrictEqual([{ kind: TimelineEventKindEnum.Pencil, cellIndex: 21, value: 7, ts: 18 }]);
         });
@@ -122,8 +126,8 @@ describe('gameSlice timeline events', () => {
         it('should record erasing a candidate as another pencil action', () => {
             expect.assertions(1);
 
-            const penciled = gameSlice.reducer(buildChallengeRun({ elapsedTime: 18 }), toggleCellCandidate(candidateCell));
-            const erased = gameSlice.reducer({ ...penciled, elapsedTime: 25 }, toggleCellCandidate(candidateCell));
+            const penciled = gameSlice.reducer(buildChallengeRun({ elapsedTime: 18 }), toggleCellCandidate(penciledCandidatePayload));
+            const erased = gameSlice.reducer({ ...penciled, elapsedTime: 25 }, toggleCellCandidate(erasedCandidatePayload));
 
             expect(erased.timelineEvents).toStrictEqual([
                 { kind: TimelineEventKindEnum.Pencil, cellIndex: 21, value: 7, ts: 18 },
@@ -134,7 +138,7 @@ describe('gameSlice timeline events', () => {
         it('should still toggle the candidate it records', () => {
             expect.assertions(1);
 
-            const state = gameSlice.reducer(buildChallengeRun({ elapsedTime: 18 }), toggleCellCandidate(candidateCell));
+            const state = gameSlice.reducer(buildChallengeRun({ elapsedTime: 18 }), toggleCellCandidate(penciledCandidatePayload));
 
             expect(state.candidates['2-3']).toStrictEqual([7]);
         });
@@ -144,7 +148,7 @@ describe('gameSlice timeline events', () => {
 
             const state = gameSlice.reducer(
                 buildChallengeRun({ isChallengeRun: false, elapsedTime: 18 }),
-                toggleCellCandidate(candidateCell)
+                toggleCellCandidate(penciledCandidatePayload)
             );
 
             expect(state.timelineEvents).toStrictEqual([]);
@@ -186,7 +190,7 @@ describe('gameSlice timeline events', () => {
         it('should record the first activation with its timestamp', () => {
             expect.assertions(1);
 
-            const state = gameSlice.reducer(buildChallengeRun({ elapsedTime: 40 }), toggleShowAutoCandidates());
+            const state = gameSlice.reducer(buildChallengeRun({ elapsedTime: 40 }), toggleShowAutoCandidates(autoCandidatesOnPayload));
 
             expect(state.timelineEvents).toStrictEqual([{ kind: TimelineEventKindEnum.AutoCandidates, ts: 40 }]);
         });
@@ -194,9 +198,9 @@ describe('gameSlice timeline events', () => {
         it('should record the assist only once per run however often it is toggled', () => {
             expect.assertions(1);
 
-            const firstOn = gameSlice.reducer(buildChallengeRun({ elapsedTime: 40 }), toggleShowAutoCandidates());
-            const off = gameSlice.reducer(firstOn, toggleShowAutoCandidates());
-            const secondOn = gameSlice.reducer({ ...off, elapsedTime: 90 }, toggleShowAutoCandidates());
+            const firstOn = gameSlice.reducer(buildChallengeRun({ elapsedTime: 40 }), toggleShowAutoCandidates(autoCandidatesOnPayload));
+            const off = gameSlice.reducer(firstOn, toggleShowAutoCandidates(autoCandidatesOffPayload));
+            const secondOn = gameSlice.reducer({ ...off, elapsedTime: 90 }, toggleShowAutoCandidates(autoCandidatesOnPayload));
 
             expect(secondOn.timelineEvents).toHaveLength(1);
         });
@@ -204,7 +208,10 @@ describe('gameSlice timeline events', () => {
         it('should not record anything when the assist is switched off', () => {
             expect.assertions(1);
 
-            const state = gameSlice.reducer(buildChallengeRun({ showAutoCandidates: true }), toggleShowAutoCandidates());
+            const state = gameSlice.reducer(
+                buildChallengeRun({ showAutoCandidates: true }),
+                toggleShowAutoCandidates(autoCandidatesOffPayload)
+            );
 
             expect(state.timelineEvents).toStrictEqual([]);
         });

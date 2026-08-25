@@ -31,7 +31,7 @@ export interface AppRootPersistedStateInterface {
     [customThemesSlice.name]: CustomThemesState;
 }
 
-export const appRootPersistVersion = 37;
+export const appRootPersistVersion = 41;
 
 const resetBestScores = (state: AppRootPersistedStateInterface): AppRootPersistedStateInterface => {
     const gameState = state[gameSlice.name];
@@ -211,6 +211,24 @@ const backfillPlayedDayNumbersFromCompletedWins = (state: AppRootPersistedStateI
     };
 };
 
+const backfillStatsPackAndDailyRecord = (state: AppRootPersistedStateInterface): AppRootPersistedStateInterface => {
+    const withPlayedDayNumbers = backfillPlayedDayNumbersFromCompletedWins(
+        backfillStatsPack(ensureAllDifficulties(backfillCompletedGameRatings(state)))
+    );
+
+    return {
+        ...withPlayedDayNumbers,
+        [gameSlice.name]: {
+            ...withPlayedDayNumbers[gameSlice.name],
+            undoneMoves: [],
+            dailyDayNumber: initialGameState.dailyDayNumber,
+            dailyCompletedDayNumbers: initialGameState.dailyCompletedDayNumbers,
+            dailyBestStreak: initialGameState.dailyBestStreak
+        },
+        [settingsSlice.name]: { ...initialSettingsState, ...state[settingsSlice.name] }
+    };
+};
+
 export const appRootMigrations: MigrationManifest<AppRootPersistedStateInterface> = {
     12: state => ({
         ...state,
@@ -246,8 +264,5 @@ export const appRootMigrations: MigrationManifest<AppRootPersistedStateInterface
     31: migrateCustomThemesToSemanticTokens,
     32: ensureAllDifficulties,
     33: dropHellQueue,
-    34: backfillCompletedGameRatings,
-    35: ensureAllDifficulties,
-    36: backfillStatsPack,
-    37: backfillPlayedDayNumbersFromCompletedWins
+    41: backfillStatsPackAndDailyRecord
 };

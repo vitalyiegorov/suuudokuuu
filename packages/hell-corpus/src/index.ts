@@ -19,6 +19,7 @@ export { pickHellPuzzle } from './utils/pick-hell-puzzle.util';
 export { pickHellPuzzleRecord } from './utils/pick-hell-puzzle-record.util';
 export { pickInfinityPuzzle } from './utils/pick-infinity-puzzle.util';
 export type {
+    RatedCorpusPuzzleInterface,
     RatedCorpusPuzzleInterface as HellPuzzleInterface,
     RatedCorpusPuzzleInterface as InfinityPuzzleInterface
 } from './interfaces/rated-corpus-puzzle.interface';

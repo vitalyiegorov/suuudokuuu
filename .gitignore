@@ -6,6 +6,8 @@ node_modules/
 packages/app/.expo/
 .vercel/
 dist/
+packages/landing/.next/
+packages/landing/out/
 npm-debug.*
 *.jks
 *.p8

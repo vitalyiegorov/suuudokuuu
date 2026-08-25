@@ -1,4 +1,4 @@
-import { getCellKey } from '../../@generic/utils/get-cell-key.util';
+import { getCellKey } from '@suuudokuuu/field-core';
 
 import type { ScoredCellsInterface, Sudoku } from '@suuudokuuu/generator';
 

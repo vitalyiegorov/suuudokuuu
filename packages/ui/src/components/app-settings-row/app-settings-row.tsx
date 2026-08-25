@@ -3,6 +3,8 @@ import { useUnistyles } from 'react-native-unistyles';
 
 import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
+import { MaxFontSizeMultiplierConstant } from '../../theme/constant/font-scaling.constant';
+
 import { AppSettingsRowStyles as styles } from './app-settings-row.styles';
 
 import type { ReactNode } from 'react';
@@ -32,12 +34,12 @@ export const AppSettingsRow = ({ description, style, testID, title, trailing }: 
     return (
         <View style={rowStyles} testID={testID}>
             <View style={styles.content}>
-                <Text allowFontScaling={false} numberOfLines={2} style={titleStyles}>
+                <Text maxFontSizeMultiplier={MaxFontSizeMultiplierConstant} style={titleStyles}>
                     {title}
                 </Text>
 
                 {hasDescription && (
-                    <Text allowFontScaling={false} numberOfLines={2} style={descriptionStyles}>
+                    <Text maxFontSizeMultiplier={MaxFontSizeMultiplierConstant} style={descriptionStyles}>
                         {description}
                     </Text>
                 )}

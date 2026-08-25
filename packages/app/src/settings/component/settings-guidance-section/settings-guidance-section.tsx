@@ -38,6 +38,11 @@ export const SettingsGuidanceSection = () => {
                 setting="keepActiveCell"
                 title={t`Keep cell selected`}
             />
+            <SettingsSwitch
+                description={t`Offer hints on Nightmare, Hell, and Infinity puzzles too`}
+                setting="allowHintsOnHardDifficulties"
+                title={t`Hints on the hardest puzzles`}
+            />
         </AppSettingsSection>
     );
 };

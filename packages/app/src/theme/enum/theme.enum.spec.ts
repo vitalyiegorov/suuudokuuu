@@ -4,6 +4,6 @@ import { ThemeEnum } from './theme.enum';
 
 describe('ThemeEnum', () => {
     it('defines stable persisted theme identifiers', () => {
-        expect(Object.values(ThemeEnum)).toEqual(['black-and-white', 'colorful', 'newspaper']);
+        expect(Object.values(ThemeEnum)).toEqual(['black-and-white', 'colorful', 'newspaper', 'high-contrast', 'colorblind-safe']);
     });
 });

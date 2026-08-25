@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import { useReducedMotion } from 'react-native-reanimated';
 
 import { isDefined } from '@rnw-community/shared';
 
+import { useReduceMotion } from '../../../@generic/hooks/use-reduce-motion.hook';
 import { winConfettiCelebrationDurationConstant } from '../../constants/win-confetti.constant';
 import { WinConfettiContext } from '../../context/win-confetti.context';
 import { ConfettiBurst } from '../confetti-burst/confetti-burst';
@@ -14,7 +14,7 @@ interface Props {
 }
 
 export const WinConfettiProvider = ({ children }: Props) => {
-    const isReducedMotion = useReducedMotion();
+    const isReducedMotion = useReduceMotion();
 
     const [isCelebrating, setIsCelebrating] = useState(false);
 
