@@ -3,6 +3,7 @@ import type { ThemeInterface } from '@suuudokuuu/ui/theme';
 type ThemeColorsType = ThemeInterface['colors'];
 
 const ThemeContrastMinimumRatio = 4.5;
+const ThemeContrastLargeTextMinimumRatio = 3;
 
 export interface ThemeContrastPairInterface {
     readonly foregroundKey: string;
@@ -53,14 +54,14 @@ export const ThemeContrastPairs: readonly ThemeContrastPairInterface[] = [
         backgroundKey: 'board.selected',
         getForeground: colors => colors.board.selectedText,
         getBackground: colors => colors.board.selected,
-        minimumRatio: ThemeContrastMinimumRatio
+        minimumRatio: ThemeContrastLargeTextMinimumRatio
     },
     {
         foregroundKey: 'board.sameValueText',
         backgroundKey: 'board.sameValue',
         getForeground: colors => colors.board.sameValueText,
         getBackground: colors => colors.board.sameValue,
-        minimumRatio: ThemeContrastMinimumRatio
+        minimumRatio: ThemeContrastLargeTextMinimumRatio
     },
     {
         foregroundKey: 'candidate.text',
