@@ -3,10 +3,13 @@ name: Mobile E2E
 # iOS and Android each run as an independent rnw-community/mobile-ci reusable
 # pipeline (detect -> build -> test -> status), so the build-before-test
 # ordering the fleet needs is enforced inside each pipeline instead of by a
-# shared build workflow here. Both platforms' native builds still queue on the
-# single `macos-builder` VM (Google ships no arm64-linux NDK, so the Android
-# APK is built on macOS too), while their Maestro jobs run in parallel across
-# separate pools: `macos-maestro` for the iOS shards, `linux-xl` for Redroid.
+# shared build workflow here. iOS still belongs to the Macs: it builds on the
+# single `macos-builder` VM and runs its Maestro shards on `macos-maestro`.
+# Android has left them entirely — both its APK build and its Maestro run
+# happen on node-b's x86_64 Linux `trf-linux-amd64-4x8` containers, against a
+# KVM-accelerated Google AVD instead of a Redroid container. Nothing about the
+# Android pipeline queues behind the macOS builder any more, so the two
+# platforms now overlap end to end.
 on:
     workflow_call:
     workflow_dispatch:
@@ -57,26 +60,33 @@ jobs:
             maestro-config: tests/app-tests/config.yaml
             flow-recovery-flow: tests/app-tests/flows/setup/recover-after-failed-flow.flow.yaml
             flow-retries: 1
-            # One Redroid job for every flow: the 24 GiB linux host cannot run two
-            # 12 GiB guests, so sharding buys nothing and a single container can
-            # claim 6 GiB / 4 CPU for stable boot and snappy interaction (the timed
-            # challenge flows race a fixed opponent clock).
+            # One emulator job at a time: node-b budgets 8 CPU / 16 GiB to
+            # containers, a `trf-linux-amd64-4x8` container is 4 CPU / 8 GiB, and
+            # the AVD alone measured ~4.2 GiB RSS. One emulator shard alongside the
+            # APK build is what the host actually fits; a second shard would only
+            # queue behind the first while starving both.
             shard-count: 1
             maestro-version: '2.6.1'
-            build-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
-            test-runner-labels: '["self-hosted","linux-tiered","linux-xl"]'
-            android-driver: redroid
+            # Both legs on node-b: the APK builds on Linux now (Google does ship an
+            # x86_64-linux NDK), and 8 GiB is what keeps D8 from being OOM-killed.
+            build-runner-labels: '["self-hosted","trf-linux-amd64-4x8"]'
+            # `trf-linux-amd64-4x8` is the ONLY node-b profile granted /dev/kvm, so
+            # this label is a hard requirement of the avd driver, not a preference.
+            test-runner-labels: '["self-hosted","trf-linux-amd64-4x8"]'
+            # Google's own emulator instead of Redroid. api-level 34 / google_apis /
+            # x86_64 are the reusable workflow's defaults and are exactly the system
+            # image baked into the runner container, so they stay unset here rather
+            # than being restated in two places that could drift apart.
+            android-driver: avd
             gradle-task: ':app:assembleRelease'
-            # arm64-v8a only: Redroid runs on the arm64 linux guest, and an all-ABI
-            # build burns CMake time and OOM-kills D8 on the macOS builder.
-            gradle-args: '-x lint -x lintVitalAnalyzeRelease -x lintAnalyzeRelease -PreactNativeArchitectures=arm64-v8a'
-            redroid-prewarm-manifest-path: $HOME/.sudoku-ci/android-emulator.json
-            redroid-memory: 6g
-            redroid-cpus: '4'
-            redroid-boot-timeout-seconds: '300'
+            # x86_64 only: the AVD boots an x86_64 system image, so every other ABI
+            # is CMake time spent on a library nothing installs. The lint skips stay
+            # — lint is a separate PR gate, not this pipeline's job.
+            gradle-args: '-x lint -x lintVitalAnalyzeRelease -x lintAnalyzeRelease -PreactNativeArchitectures=x86_64'
             cache-profile: suuudokuuu-android-v1
             repack-on-hit: true
+            # No JAVA_HOME line: the runner image ships OpenJDK 17 and exports
+            # JAVA_HOME itself, unlike the macOS builder this job came from.
             build-env: |
                 APP_VARIANT=e2e
-                JAVA_HOME=/Library/Java/JavaVirtualMachines/temurin-17.jdk/Contents/Home
-                ORG_GRADLE_PROJECT_reactNativeArchitectures=arm64-v8a
+                ORG_GRADLE_PROJECT_reactNativeArchitectures=x86_64
