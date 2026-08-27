@@ -87,7 +87,14 @@ jobs:
             # halves are therefore stated rather than inferred: 3 GiB of guest
             # for the AVD, a bounded heap for Maestro, and the rest left for
             # adb, node, and page cache.
-            emulator-ram-size: '3072'
+            # Nexus 4 is 768x1280 @ 320dpi — within a whisker of the 720x1280 @
+            # 320dpi Redroid presented, which is the geometry every flow here was
+            # calibrated against. pixel_6 (1080x2400 @ 420dpi) is both a
+            # different dp viewport and a materially larger software-rendered
+            # framebuffer: measured on this runner, the swap costs 450 MB of
+            # unreclaimable memory for a device the flows were never written for.
+            emulator-profile: Nexus 4
+            emulator-ram-size: '2048'
             pre-test-command: export JAVA_TOOL_OPTIONS="-Xmx1536m"
             gradle-task: ':app:assembleRelease'
             # x86_64 only: the AVD boots an x86_64 system image, so every other ABI
