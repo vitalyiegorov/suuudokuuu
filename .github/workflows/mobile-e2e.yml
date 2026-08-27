@@ -51,7 +51,7 @@ jobs:
 
     android:
         name: Android Maestro E2E
-        uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@v1.9.0 # v1.9.0
+        uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@v1.10.0 # v1.10.0
         with:
             targets: >-
                 [{"name":"e2e","appDir":"packages/app","appId":"com.vitaliiyehorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p android --clean --no-install"}]
@@ -78,6 +78,17 @@ jobs:
             # image baked into the runner container, so they stay unset here rather
             # than being restated in two places that could drift apart.
             android-driver: avd
+            # The container is 4 CPU / 8 GiB and nothing inside it discovers that
+            # on its own: /proc/meminfo shows the host's 27 GiB, so a JVM left
+            # to its own ergonomics sizes a 6.76 GiB max heap and the emulator
+            # measures ~4.2 GiB beside it. Whoever crosses the cgroup ceiling
+            # first is killed by the kernel with no out-of-memory message, and
+            # the shard fails as a lost adb connection several flows in. Both
+            # halves are therefore stated rather than inferred: 3 GiB of guest
+            # for the AVD, a bounded heap for Maestro, and the rest left for
+            # adb, node, and page cache.
+            emulator-ram-size: '3072'
+            pre-test-command: export JAVA_TOOL_OPTIONS="-Xmx1536m"
             gradle-task: ':app:assembleRelease'
             # x86_64 only: the AVD boots an x86_64 system image, so every other ABI
             # is CMake time spent on a library nothing installs. The lint skips stay
