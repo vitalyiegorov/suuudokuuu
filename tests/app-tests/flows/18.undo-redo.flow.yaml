@@ -19,6 +19,8 @@ appId: ${APP_ID}
       id: 'RedoButtonSelectors.Root'
 
 # A correct placement makes the score non-zero and enables undo/redo.
+# The cell exposes its digit only through its accessibility label, so every
+# cell-content assertion below matches that label, not a bare '5'.
 - tapOn:
       id: 'CellSelectors.Cell.0-3'
 - tapOn:
@@ -28,20 +30,25 @@ appId: ${APP_ID}
           id: 'GameScreenSelectors.Score'
           text: '.*[1-9].*'
       timeout: 3000
+- extendedWaitUntil:
+      visible:
+          id: 'CellSelectors\.Cell\.0-3$'
+          text: 'Row 1, column 4, 5'
+      timeout: 3000
 
 - tapOn:
       id: 'UndoButtonSelectors.Root'
 # The digit disappears from that exact cell again after the undo.
 - assertNotVisible:
       id: 'CellSelectors\.Cell\.0-3$'
-      text: '5'
+      text: 'Row 1, column 4, 5'
 
 - tapOn:
       id: 'RedoButtonSelectors.Root'
 - extendedWaitUntil:
       visible:
           id: 'CellSelectors\.Cell\.0-3$'
-          text: '5'
+          text: 'Row 1, column 4, 5'
       timeout: 3000
 
 - runFlow: subflows/game/quit-current-game.flow.yaml
