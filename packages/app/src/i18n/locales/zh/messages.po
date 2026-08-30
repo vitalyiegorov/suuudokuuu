@@ -81,8 +81,44 @@ msgid "{streak, plural, one {# day streak} other {# day streak}}"
 msgstr "{streak, plural, other {连续 # 天}}"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: start with {cellCount, plural, one {the # highlighted cell} other {the # highlighted cells}} and the digits {valueList}."
-msgstr "{techniqueName}：从{cellCount, plural, other {# 个高亮单元格}}和数字 {valueList} 开始。"
+msgid "{techniqueName}: in the highlighted box, {value} fits only in the marked cell."
+msgstr "{techniqueName}:在突出显示的宫中，{value} 只能填入标记的单元格。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in the highlighted column, {value} fits only in the marked cell."
+msgstr "{techniqueName}:在突出显示的列中，{value} 只能填入标记的单元格。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in the highlighted row, {value} fits only in the marked cell."
+msgstr "{techniqueName}:在突出显示的行中，{value} 只能填入标记的单元格。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}:突出显示的宫只剩一个空格，{value} 应填在那里。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells can only hold the digits {valueList}."
+msgstr "{techniqueName}:突出显示的单元格只能容纳数字 {valueList}。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
+msgstr "{techniqueName}:突出显示的单元格让标记单元格只剩下 {value} 可填。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted column has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}:突出显示的列只剩一个空格，{value} 应填在那里。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted row has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}:突出显示的行只剩一个空格，{value} 应填在那里。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the marked cell sees every highlighted digit except {value}."
+msgstr "{techniqueName}:标记的单元格已看到除 {value} 之外的所有突出显示的数字。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the pattern rules {valueList} out of the marked cells."
+msgstr "{techniqueName}:该模式排除了标记单元格中的 {valueList}。"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
@@ -481,7 +517,7 @@ msgstr "d"
 #: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 msgid "Daily"
-msgstr ""
+msgstr "每日"
 
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
 #: src/screens/components/daily-screen/daily.screen.tsx
@@ -825,10 +861,6 @@ msgstr "无限"
 msgid "Ink"
 msgstr "墨色"
 
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "Inside that pattern the digits {valueList} can only sit in the highlighted cells."
-msgstr "在该模式中，数字 {valueList} 只能位于高亮的单元格里。"
-
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Install on iOS"
 msgstr "在 iOS 上安装"
@@ -983,7 +1015,7 @@ msgstr "步"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Move the landscape controls panel to the left of the board"
-msgstr "横屏时将控制面板移到棋盘左侧"
+msgstr ""
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "My theme"
@@ -1081,7 +1113,7 @@ msgstr "没有适用的简单技巧"
 
 #: src/daily/components/daily-history-list/daily-history-list.tsx
 msgid "No solves yet. Today’s puzzle is waiting."
-msgstr ""
+msgstr "还没有解答。今日数独等着你来挑战。"
 
 #: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
@@ -1132,10 +1164,6 @@ msgstr "在噩梦、地狱和无限难度的数独中也提供提示"
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "OK"
 msgstr "确定"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "Only {valueList} is left for the marked cell, so place it there."
-msgstr "标记的单元格只剩 {valueList}，直接填入即可。"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Open commit {commitShortSha} on GitHub"
@@ -1206,6 +1234,10 @@ msgstr "每个错误"
 #: src/scoring/components/scoring.screen.tsx
 msgid "per second"
 msgstr "每秒"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Place {valueList} in the marked cell."
+msgstr "将 {valueList} 填入标记的单元格。"
 
 #: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
@@ -1321,7 +1353,7 @@ msgstr "阅读 Suuudokuuu 隐私政策，了解数据收集、存储以及你的
 
 #: src/daily/components/daily-history-list/daily-history-list.tsx
 msgid "Recent solves"
-msgstr ""
+msgstr "最近的解答"
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"
@@ -1593,7 +1625,7 @@ msgstr "用时"
 
 #: src/screens/components/daily-screen/daily.screen.tsx
 msgid "Solved today"
-msgstr ""
+msgstr "今日已解出"
 
 #: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "Solved today • {difficultyLabel}"
@@ -1745,10 +1777,6 @@ msgstr "已填充数字键盘进度条上的文字"
 msgid "Text on ink"
 msgstr "墨色上的文字"
 
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "That rules {valueList} out of {cellCount, plural, one {# other cell} other {# other cells}}, so the struck candidates are gone."
-msgstr "这样就能从{cellCount, plural, other {另外 # 个单元格}}中排除 {valueList}，被划掉的候选数字随之消失。"
-
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
 msgstr "无法在此设备上打开提交链接。"
@@ -1832,7 +1860,7 @@ msgstr "高分技巧"
 
 #: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "Today"
-msgstr ""
+msgstr "今天"
 
 #: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "Today's puzzle • {difficultyLabel}"

@@ -11,12 +11,8 @@ export const renderTechniqueNarration = (step: StepScriptStepType): string => {
     const cellLabels = step.narration.cells.map(formatCellLabel).join(', ');
     const valueLabels = step.narration.values.join(', ');
 
-    if (step.kind === StepScriptStepKindEnum.Highlight) {
-        return `${techniqueName} pattern on ${valueLabels}: ${cellLabels}.`;
-    }
-
     if (step.kind === StepScriptStepKindEnum.RevealCandidates) {
-        return `Candidates ${valueLabels} stay live in ${cellLabels}.`;
+        return `${techniqueName} pattern: candidates ${valueLabels} stay live in ${cellLabels}.`;
     }
 
     if (step.kind === StepScriptStepKindEnum.StrikeCandidates) {

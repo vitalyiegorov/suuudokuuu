@@ -81,8 +81,44 @@ msgid "{streak, plural, one {# day streak} other {# day streak}}"
 msgstr "{streak, plural, one {Sequência de # dia} other {Sequência de # dias}}"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: start with {cellCount, plural, one {the # highlighted cell} other {the # highlighted cells}} and the digits {valueList}."
-msgstr "{techniqueName}: comece {cellCount, plural, one {pela célula destacada} other {pelas # células destacadas}} e pelos dígitos {valueList}."
+msgid "{techniqueName}: in the highlighted box, {value} fits only in the marked cell."
+msgstr "{techniqueName}: na região destacada, {value} só cabe na célula marcada."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in the highlighted column, {value} fits only in the marked cell."
+msgstr "{techniqueName}: na coluna destacada, {value} só cabe na célula marcada."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in the highlighted row, {value} fits only in the marked cell."
+msgstr "{techniqueName}: na linha destacada, {value} só cabe na célula marcada."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}: resta apenas uma célula vazia na região destacada, então {value} vai lá."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells can only hold the digits {valueList}."
+msgstr "{techniqueName}: as células destacadas só podem conter os dígitos {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
+msgstr "{techniqueName}: as células destacadas deixam apenas {value} para a célula marcada."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted column has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}: resta apenas uma célula vazia na coluna destacada, então {value} vai lá."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted row has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}: resta apenas uma célula vazia na linha destacada, então {value} vai lá."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the marked cell sees every highlighted digit except {value}."
+msgstr "{techniqueName}: a célula marcada vê todos os dígitos destacados, exceto {value}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the pattern rules {valueList} out of the marked cells."
+msgstr "{techniqueName}: o padrão elimina {valueList} nas células marcadas."
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
@@ -481,7 +517,7 @@ msgstr "d"
 #: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 msgid "Daily"
-msgstr ""
+msgstr "Diário"
 
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
 #: src/screens/components/daily-screen/daily.screen.tsx
@@ -825,10 +861,6 @@ msgstr "Infinito"
 msgid "Ink"
 msgstr "Tinta"
 
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "Inside that pattern the digits {valueList} can only sit in the highlighted cells."
-msgstr "Dentro desse padrão, os dígitos {valueList} só podem ficar nas células destacadas."
-
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Install on iOS"
 msgstr "Instalar no iOS"
@@ -983,7 +1015,7 @@ msgstr "Jogada"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Move the landscape controls panel to the left of the board"
-msgstr "Mova o painel de controles para a esquerda do tabuleiro na horizontal"
+msgstr ""
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "My theme"
@@ -1081,7 +1113,7 @@ msgstr "Nenhuma técnica simples se aplica"
 
 #: src/daily/components/daily-history-list/daily-history-list.tsx
 msgid "No solves yet. Today’s puzzle is waiting."
-msgstr ""
+msgstr "Ainda sem soluções. O sudoku de hoje espera."
 
 #: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
@@ -1132,10 +1164,6 @@ msgstr "Oferecer dicas também nos sudokus Pesadelo, Inferno e Infinito"
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "OK"
 msgstr "OK"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "Only {valueList} is left for the marked cell, so place it there."
-msgstr "Só resta {valueList} para a célula marcada, então coloque ali."
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Open commit {commitShortSha} on GitHub"
@@ -1206,6 +1234,10 @@ msgstr "por erro"
 #: src/scoring/components/scoring.screen.tsx
 msgid "per second"
 msgstr "por segundo"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Place {valueList} in the marked cell."
+msgstr "Coloque {valueList} na célula marcada."
 
 #: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
@@ -1321,7 +1353,7 @@ msgstr "Leia a política de privacidade do Suuudokuuu sobre coleta de dados, arm
 
 #: src/daily/components/daily-history-list/daily-history-list.tsx
 msgid "Recent solves"
-msgstr ""
+msgstr "Soluções recentes"
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"
@@ -1593,7 +1625,7 @@ msgstr "Resolvido em"
 
 #: src/screens/components/daily-screen/daily.screen.tsx
 msgid "Solved today"
-msgstr ""
+msgstr "Resolvido hoje"
 
 #: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "Solved today • {difficultyLabel}"
@@ -1745,10 +1777,6 @@ msgstr "Texto sobre a barra preenchida do teclado numérico"
 msgid "Text on ink"
 msgstr "Texto sobre a tinta"
 
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "That rules {valueList} out of {cellCount, plural, one {# other cell} other {# other cells}}, so the struck candidates are gone."
-msgstr "Isso elimina {valueList} de {cellCount, plural, one {# outra célula} other {# outras células}}, então os candidatos riscados somem."
-
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
 msgstr "Não foi possível abrir o link do commit neste dispositivo."
@@ -1832,7 +1860,7 @@ msgstr "Dicas para pontuações altas"
 
 #: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "Today"
-msgstr ""
+msgstr "Hoje"
 
 #: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "Today's puzzle • {difficultyLabel}"

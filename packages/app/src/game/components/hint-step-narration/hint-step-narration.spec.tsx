@@ -19,7 +19,12 @@ const patternCell = { x: 1, y: 0, value: 0, group: 0 };
 const narration = { technique: SolutionTechniqueEnum.NakedPair, cells: [patternCell], values: [4] };
 
 const scriptSteps: StepScriptStepType[] = [
-    { kind: StepScriptStepKindEnum.Highlight, patternCells: [patternCell], narration },
+    {
+        kind: StepScriptStepKindEnum.RevealCandidates,
+        patternCells: [patternCell],
+        candidates: [{ cell: patternCell, value: 4 }],
+        narration
+    },
     { kind: StepScriptStepKindEnum.PlaceValue, placement: { cell: patternCell, value: 4 }, narration }
 ];
 

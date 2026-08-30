@@ -12,11 +12,13 @@ export const HintPanelStyles = StyleSheet.create((theme, rt) => ({
         right: theme.spacing.sm,
         zIndex: 10
     },
-    progress: {
-        fontSize: 11,
-        fontWeight: '700',
-        letterSpacing: 0.4,
-        textTransform: 'uppercase'
+    content: {
+        alignItems: 'flex-start',
+        flexDirection: 'row',
+        gap: theme.spacing.xs
+    },
+    dismissButton: {
+        flexShrink: 0
     },
     controls: {
         alignItems: 'center',
@@ -29,10 +31,22 @@ export const HintPanelStyles = StyleSheet.create((theme, rt) => ({
         flexDirection: 'row',
         gap: theme.spacing.xs
     },
-    actionControls: {
+    dots: {
         alignItems: 'center',
         flexDirection: 'row',
-        gap: theme.spacing.xs
+        gap: theme.spacing.xs / 2
+    },
+    dot: {
+        backgroundColor: theme.colors.text.hint,
+        borderRadius: theme.radius.pill,
+        height: 6,
+        width: 6
+    },
+    dotActive: {
+        backgroundColor: theme.colors.accent,
+        borderRadius: theme.radius.pill,
+        height: 8,
+        width: 8
     },
     stepButton: {
         minWidth: 44

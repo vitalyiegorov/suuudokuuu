@@ -2,6 +2,8 @@ import { useLingui } from '@lingui/react';
 import { use, useEffect } from 'react';
 import { AccessibilityInfo, View } from 'react-native';
 
+import { isDefined } from '@rnw-community/shared';
+
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { techniqueLabelsConstant } from '../../../@generic/constants/technique-labels.constant';
 import { ThemeContext } from '../../../theme/context/theme.context';
@@ -14,9 +16,10 @@ import type { StepScriptStepType } from '@suuudokuuu/field-core';
 
 interface Props {
     readonly step: StepScriptStepType;
+    readonly value?: number;
 }
 
-export const HintStepNarration = ({ step }: Props) => {
+export const HintStepNarration = ({ step, value }: Props) => {
     const { _ } = useLingui();
     const { theme } = use(ThemeContext);
 
@@ -25,6 +28,8 @@ export const HintStepNarration = ({ step }: Props) => {
 
     const techniqueStyles = [styles.technique, { color: theme.colors.accent }];
     const narrationStyles = [styles.narration, { color: theme.colors.surface.raisedText }];
+    const chipStyles = [styles.chip, { backgroundColor: theme.colors.ink }];
+    const chipTextStyles = [styles.chipText, { color: theme.colors.inkText }];
 
     useEffect(() => void AccessibilityInfo.announceForAccessibility(narrationText), [narrationText]);
 
@@ -34,9 +39,16 @@ export const HintStepNarration = ({ step }: Props) => {
                 {techniqueName}
             </BlackText>
 
-            <BlackText style={narrationStyles} testID={HintStepNarrationSelectors.Narration}>
-                {narrationText}
-            </BlackText>
+            <View style={styles.row}>
+                {isDefined(value) ? (
+                    <View style={chipStyles} testID={HintStepNarrationSelectors.Value}>
+                        <BlackText style={chipTextStyles}>{value}</BlackText>
+                    </View>
+                ) : null}
+                <BlackText style={narrationStyles} testID={HintStepNarrationSelectors.Narration}>
+                    {narrationText}
+                </BlackText>
+            </View>
         </View>
     );
 };

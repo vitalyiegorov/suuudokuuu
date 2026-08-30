@@ -81,8 +81,44 @@ msgid "{streak, plural, one {# day streak} other {# day streak}}"
 msgstr "{streak, plural, one {Rentetan # hari} other {Rentetan # hari}}"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: start with {cellCount, plural, one {the # highlighted cell} other {the # highlighted cells}} and the digits {valueList}."
-msgstr "{techniqueName}: mulai dari {cellCount, plural, one {# sel yang disorot} other {# sel yang disorot}} dan angka {valueList}."
+msgid "{techniqueName}: in the highlighted box, {value} fits only in the marked cell."
+msgstr "{techniqueName}: di kotak yang disorot, {value} hanya muat di sel yang ditandai."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in the highlighted column, {value} fits only in the marked cell."
+msgstr "{techniqueName}: di kolom yang disorot, {value} hanya muat di sel yang ditandai."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in the highlighted row, {value} fits only in the marked cell."
+msgstr "{techniqueName}: di baris yang disorot, {value} hanya muat di sel yang ditandai."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}: kotak yang disorot hanya menyisakan satu sel kosong, jadi {value} ditempatkan di sana."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells can only hold the digits {valueList}."
+msgstr "{techniqueName}: sel yang disorot hanya bisa berisi angka {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
+msgstr "{techniqueName}: sel yang disorot hanya menyisakan {value} untuk sel yang ditandai."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted column has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}: kolom yang disorot hanya menyisakan satu sel kosong, jadi {value} ditempatkan di sana."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted row has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}: baris yang disorot hanya menyisakan satu sel kosong, jadi {value} ditempatkan di sana."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the marked cell sees every highlighted digit except {value}."
+msgstr "{techniqueName}: sel yang ditandai melihat semua angka yang disorot kecuali {value}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the pattern rules {valueList} out of the marked cells."
+msgstr "{techniqueName}: pola ini mengeliminasi {valueList} di sel yang ditandai."
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
@@ -481,7 +517,7 @@ msgstr "d"
 #: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 msgid "Daily"
-msgstr ""
+msgstr "Harian"
 
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
 #: src/screens/components/daily-screen/daily.screen.tsx
@@ -825,10 +861,6 @@ msgstr "Tak Terhingga"
 msgid "Ink"
 msgstr "Tinta"
 
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "Inside that pattern the digits {valueList} can only sit in the highlighted cells."
-msgstr "Di dalam pola itu, angka {valueList} hanya bisa berada di sel yang disorot."
-
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Install on iOS"
 msgstr "Instal di iOS"
@@ -983,7 +1015,7 @@ msgstr "Langkah"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Move the landscape controls panel to the left of the board"
-msgstr "Pindahkan panel kontrol ke sebelah kiri papan saat mode lanskap"
+msgstr ""
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "My theme"
@@ -1081,7 +1113,7 @@ msgstr "Tidak ada teknik sederhana yang cocok"
 
 #: src/daily/components/daily-history-list/daily-history-list.tsx
 msgid "No solves yet. Today’s puzzle is waiting."
-msgstr ""
+msgstr "Belum ada solusi. Sudoku hari ini menunggu."
 
 #: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
@@ -1132,10 +1164,6 @@ msgstr "Tawarkan petunjuk juga di sudoku Mimpi buruk, Neraka, dan Tak Terhingga"
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "OK"
 msgstr "OK"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "Only {valueList} is left for the marked cell, so place it there."
-msgstr "Hanya {valueList} yang tersisa untuk sel bertanda itu, jadi tempatkan di sana."
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Open commit {commitShortSha} on GitHub"
@@ -1206,6 +1234,10 @@ msgstr "per kesalahan"
 #: src/scoring/components/scoring.screen.tsx
 msgid "per second"
 msgstr "per detik"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Place {valueList} in the marked cell."
+msgstr "Tempatkan {valueList} di sel yang ditandai."
 
 #: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
@@ -1321,7 +1353,7 @@ msgstr "Baca kebijakan privasi Suuudokuuu tentang pengumpulan data, penyimpanan,
 
 #: src/daily/components/daily-history-list/daily-history-list.tsx
 msgid "Recent solves"
-msgstr ""
+msgstr "Solusi terbaru"
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"
@@ -1593,7 +1625,7 @@ msgstr "Terpecahkan dalam"
 
 #: src/screens/components/daily-screen/daily.screen.tsx
 msgid "Solved today"
-msgstr ""
+msgstr "Selesai hari ini"
 
 #: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "Solved today • {difficultyLabel}"
@@ -1745,10 +1777,6 @@ msgstr "Teks pada bilah numpad terisi"
 msgid "Text on ink"
 msgstr "Teks pada tinta"
 
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "That rules {valueList} out of {cellCount, plural, one {# other cell} other {# other cells}}, so the struck candidates are gone."
-msgstr "Itu menyingkirkan {valueList} dari {cellCount, plural, one {# sel lain} other {# sel lain}}, jadi kandidat yang dicoret pun hilang."
-
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
 msgstr "Tautan commit tidak dapat dibuka di perangkat ini."
@@ -1832,7 +1860,7 @@ msgstr "Tips skor tinggi"
 
 #: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "Today"
-msgstr ""
+msgstr "Hari ini"
 
 #: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "Today's puzzle • {difficultyLabel}"

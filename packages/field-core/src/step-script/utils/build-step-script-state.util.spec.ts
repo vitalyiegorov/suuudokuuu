@@ -20,8 +20,12 @@ const nakedPairScript: StepScriptInterface = {
     eliminations: [{ cell: eliminationCell, value: 3 }],
     placement: { cell: placementCell, value: 5 },
     steps: [
-        { kind: StepScriptStepKindEnum.Highlight, patternCells, narration },
-        { kind: StepScriptStepKindEnum.RevealCandidates, patternCells, values: [3, 7], narration },
+        {
+            kind: StepScriptStepKindEnum.RevealCandidates,
+            patternCells,
+            candidates: [...patternCells.map(cell => ({ cell, value: 3 })), ...patternCells.map(cell => ({ cell, value: 7 }))],
+            narration
+        },
         { kind: StepScriptStepKindEnum.StrikeCandidates, eliminations: [{ cell: eliminationCell, value: 3 }], narration },
         { kind: StepScriptStepKindEnum.PlaceValue, placement: { cell: placementCell, value: 5 }, narration }
     ]
@@ -40,20 +44,20 @@ describe('buildStepScriptState', () => {
         expect(stepState.placedValues.size).toBe(0);
     });
 
-    it('exposes the placement cell as the target from the first step', () => {
+    it('exposes the pattern and the placement target from the reveal step', () => {
         expect.assertions(3);
 
         const stepState = buildStepScriptState(nakedPairScript, 0);
 
         expect(stepState.targetCellKey).toBe('2-2');
         expect([...stepState.patternCellKeys]).toEqual(['0-0', '0-1']);
-        expect(stepState.revealedCandidates.size).toBe(0);
+        expect(stepState.revealedCandidates.get('0-0')).toEqual([3, 7]);
     });
 
     it('reveals candidates once the reveal step is reached', () => {
         expect.assertions(3);
 
-        const stepState = buildStepScriptState(nakedPairScript, 1);
+        const stepState = buildStepScriptState(nakedPairScript, 0);
 
         expect(stepState.revealedCandidates.get('0-0')).toEqual([3, 7]);
         expect(stepState.revealedCandidates.get('0-1')).toEqual([3, 7]);
@@ -63,19 +67,20 @@ describe('buildStepScriptState', () => {
     it('accumulates eliminations and placements up to the current step', () => {
         expect.assertions(2);
 
-        const stepState = buildStepScriptState(nakedPairScript, 3);
+        const stepState = buildStepScriptState(nakedPairScript, 2);
 
         expect(stepState.eliminatedCandidates.get('0-4')).toEqual([3]);
         expect(stepState.placedValues.get('2-2')).toBe(5);
     });
 
     it('hides later steps while the player is rewound', () => {
-        expect.assertions(2);
+        expect.assertions(3);
 
-        const stepState = buildStepScriptState(nakedPairScript, 2);
+        const stepState = buildStepScriptState(nakedPairScript, 0);
 
-        expect(stepState.eliminatedCandidates.get('0-4')).toEqual([3]);
+        expect(stepState.eliminatedCandidates.size).toBe(0);
         expect(stepState.placedValues.size).toBe(0);
+        expect(stepState.revealedCandidates.get('0-0')).toEqual([3, 7]);
     });
 
     it('reports no target cell for an elimination-only script', () => {
@@ -85,10 +90,10 @@ describe('buildStepScriptState', () => {
             technique: SolutionTechniqueEnum.NakedPair,
             patternCells,
             eliminations: nakedPairScript.eliminations,
-            steps: nakedPairScript.steps.slice(0, 3)
+            steps: nakedPairScript.steps.slice(0, 2)
         };
 
-        expect(buildStepScriptState(eliminationOnlyScript, 2).targetCellKey).toBeNull();
+        expect(buildStepScriptState(eliminationOnlyScript, 1).targetCellKey).toBeNull();
     });
 
     it('accumulates distinct elimination values per cell across multiple strike steps', () => {

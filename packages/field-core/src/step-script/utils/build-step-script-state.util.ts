@@ -17,7 +17,7 @@ const collectPatternCellKeys = (steps: StepScriptStepType[]): ReadonlySet<string
     const patternCellKeys = new Set<string>();
 
     for (const step of steps) {
-        if (step.kind === StepScriptStepKindEnum.Highlight || step.kind === StepScriptStepKindEnum.RevealCandidates) {
+        if (step.kind === StepScriptStepKindEnum.RevealCandidates) {
             for (const cell of step.patternCells) {
                 patternCellKeys.add(getCellKey(cell));
             }
@@ -32,8 +32,8 @@ const collectRevealedCandidates = (steps: StepScriptStepType[]): ReadonlyMap<str
 
     for (const step of steps) {
         if (step.kind === StepScriptStepKindEnum.RevealCandidates) {
-            for (const cell of step.patternCells) {
-                addCandidateValues(revealedCandidates, getCellKey(cell), step.values);
+            for (const candidate of step.candidates) {
+                addCandidateValues(revealedCandidates, getCellKey(candidate.cell), [candidate.value]);
             }
         }
     }
