@@ -14,7 +14,7 @@ const placement = { cell: createRowCell(4), value: 9 };
 const narrationCells = Array.from({ length: 9 }, (_, x) => createRowCell(x));
 const narrationColumnCells = Array.from({ length: 9 }, (_, y) => ({ x: 4, y, value: 0, group: 1 }));
 const narrationBoxCells = Array.from({ length: 9 }, (_, index) => ({ x: index % 3, y: Math.floor(index / 3), value: 0, group: 0 }));
-const scatteredCells = narrationCells.map(cell => ({ x: cell.x, y: cell.x, group: Math.floor(cell.x / 3) }));
+const scatteredCells = narrationCells.map(cell => ({ x: cell.x, y: cell.x, value: 0, group: Math.floor(cell.x / 3) }));
 
 const narrate = (step: StepScriptStepType, techniqueName = 'Naked Single'): string => i18n._(gameGetStepNarration(step, techniqueName));
 
