@@ -52,6 +52,7 @@ export const GameScreenStyles = StyleSheet.create((theme, rt) => ({
     },
     toolsSlot: {
         alignItems: 'center',
+        alignSelf: 'stretch',
         flexGrow: 1,
         flexShrink: 1,
         justifyContent: 'center',

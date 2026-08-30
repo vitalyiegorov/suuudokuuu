@@ -20,7 +20,6 @@ import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { getBrand } from '../../../@generic/utils/get-brand.util';
 import { getDifficultyMessage } from '../../../@generic/utils/get-difficulty-message.util';
 import { ChallengeModeSwitch } from '../../../challenge/components/challenge-mode-switch/challenge-mode-switch';
-import { DailyChallengeCard } from '../../../daily/components/daily-challenge-card/daily-challenge-card';
 import {
     DifficultyComplexitySliderDifficulties,
     DifficultyComplexitySliderInitialIndex
@@ -45,7 +44,6 @@ import {
 import { ThemeContext } from '../../../theme/context/theme.context';
 
 import { HomeScreenBottomScrollPadding, HomeScreenTopOverlayHeight, HomeScreenTopOverlayIntensity } from './constant/home-screen.constant';
-import { HomeScreenComfortOffer } from './home-screen-comfort-offer/home-screen-comfort-offer';
 import { HomeScreenOptionCard } from './home-screen-option-card/home-screen-option-card';
 import { homeScreenOptionCardGetColors } from './home-screen-option-card/utils/home-screen-option-card-get-colors.util';
 import { HomeScreenPlayActions } from './home-screen-play-actions/home-screen-play-actions';
@@ -210,10 +208,6 @@ export const HomeScreen = () => {
                                 </Pressable>
                             </Link>
                         ) : null}
-
-                        <DailyChallengeCard />
-
-                        <HomeScreenComfortOffer />
                     </View>
 
                     <View style={styles.setupSection}>

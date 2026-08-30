@@ -7,9 +7,3 @@ appId: ${APP_ID}
     visible:
       id: 'HomeScreenSelectors.Root'
     timeout: 15000
-# The comfort-mode offer is one-time onboarding that a returning player has
-# already dismissed. Dismissing it here keeps the masthead at the height every
-# other flow scrolls against, and the offer itself is covered by its own flow.
-- tapOn:
-    id: 'HomeScreenSelectors.ComfortOfferDismiss'
-    optional: true

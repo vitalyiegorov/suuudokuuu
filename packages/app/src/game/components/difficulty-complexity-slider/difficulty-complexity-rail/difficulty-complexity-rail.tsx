@@ -11,11 +11,13 @@ import { useVibration } from '../../../../@generic/hooks/use-vibration.hook';
 import { getDifficultyMessage } from '../../../../@generic/utils/get-difficulty-message.util';
 import { ThemeContext } from '../../../../theme/context/theme.context';
 import {
+    DifficultyComplexitySliderBottomLabelDifficulties,
     DifficultyComplexitySliderDifficulties,
     DifficultyComplexitySliderMaxIndex,
-    DifficultyComplexitySliderThumbRadius
+    DifficultyComplexitySliderThumbRadius,
+    DifficultyComplexitySliderTopLabelDifficulties
 } from '../constant/difficulty-complexity-slider.constant';
-import { DifficultyComplexityRailOption } from '../difficulty-complexity-rail-option/difficulty-complexity-rail-option';
+import { DifficultyComplexityRailLabelRow } from '../difficulty-complexity-rail-label-row/difficulty-complexity-rail-label-row';
 import { DifficultyComplexitySliderStyles as styles } from '../difficulty-complexity-slider.styles';
 
 import { useDifficultyComplexityRailGesture } from './hooks/use-difficulty-complexity-rail-gesture.hook';
@@ -75,10 +77,6 @@ export const DifficultyComplexityRail = (props: Props) => {
     const railAccessibilityValue = { max: DifficultyComplexitySliderMaxIndex, min: 0, now: selectedIndex, text: currentDifficultyLabel };
     const railAccessibilityActions = [{ name: 'increment' }, { name: 'decrement' }];
 
-    const handleDifficultyPress = (newDifficulty: DifficultyEnum) => () => {
-        setSelectedDifficulty(newDifficulty);
-    };
-
     const handleAccessibilityAction = (event: AccessibilityActionEvent) => {
         if (event.nativeEvent.actionName === 'increment') {
             commitDifficultyIndex(Math.min(selectedIndex + 1, DifficultyComplexitySliderMaxIndex));
@@ -91,6 +89,12 @@ export const DifficultyComplexityRail = (props: Props) => {
 
     return (
         <View style={styles.sliderWrap}>
+            <DifficultyComplexityRailLabelRow
+                labelDifficulties={DifficultyComplexitySliderTopLabelDifficulties}
+                onPressDifficulty={setSelectedDifficulty}
+                selectedDifficulty={selectedDifficulty}
+            />
+
             <GestureDetector gesture={railGesture}>
                 <View
                     accessibilityActions={railAccessibilityActions}
@@ -108,16 +112,11 @@ export const DifficultyComplexityRail = (props: Props) => {
                 </View>
             </GestureDetector>
 
-            <View style={styles.optionRow}>
-                {DifficultyComplexitySliderDifficulties.map(optionDifficulty => (
-                    <DifficultyComplexityRailOption
-                        difficulty={optionDifficulty}
-                        key={optionDifficulty}
-                        onPress={handleDifficultyPress(optionDifficulty)}
-                        selectedDifficulty={selectedDifficulty}
-                    />
-                ))}
-            </View>
+            <DifficultyComplexityRailLabelRow
+                labelDifficulties={DifficultyComplexitySliderBottomLabelDifficulties}
+                onPressDifficulty={setSelectedDifficulty}
+                selectedDifficulty={selectedDifficulty}
+            />
         </View>
     );
 };

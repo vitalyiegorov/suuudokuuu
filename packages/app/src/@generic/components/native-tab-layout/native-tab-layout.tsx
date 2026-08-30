@@ -8,6 +8,7 @@ import { TabBarInsetContext } from '../main-tab-layout/context/tab-bar-inset.con
 import { NativeTabBarOccupiedHeight } from './constant/native-tab-layout.constant';
 
 const PlayIcon = { default: 'play', selected: 'play.fill' } as const;
+const DailyIcon = { default: 'calendar', selected: 'calendar.circle.fill' } as const;
 const StatsIcon = { default: 'chart.bar', selected: 'chart.bar.fill' } as const;
 const SettingsIcon = { default: 'gearshape', selected: 'gearshape.fill' } as const;
 
@@ -30,6 +31,11 @@ export const NativeTabLayout = () => {
                 <NativeTabs.Trigger name="index">
                     <NativeTabs.Trigger.Label>{t`Play`}</NativeTabs.Trigger.Label>
                     <NativeTabs.Trigger.Icon md="play_arrow" sf={PlayIcon} />
+                </NativeTabs.Trigger>
+
+                <NativeTabs.Trigger name="daily">
+                    <NativeTabs.Trigger.Label>{t`Daily`}</NativeTabs.Trigger.Label>
+                    <NativeTabs.Trigger.Icon md="event" sf={DailyIcon} />
                 </NativeTabs.Trigger>
 
                 <NativeTabs.Trigger name="history">

@@ -14,12 +14,13 @@ export const GameInputToolsStyles = StyleSheet.create((theme, rt) => ({
     },
     toolButton: {
         borderRadius: PanelControlPillRadiusConstant,
+        flexBasis: 0,
+        flexGrow: 1,
         flexShrink: 1,
         height: appLayoutScreenIsWide(rt.screen) ? PanelControlWideSizeConstant : AppIconButtonSize,
         maxHeight: appLayoutScreenIsWide(rt.screen) ? PanelControlWideSizeConstant : AppIconButtonSize,
         maxWidth: appLayoutScreenIsWide(rt.screen) ? PanelControlWideSizeConstant : AppIconButtonSize,
         minHeight: appLayoutScreenIsWide(rt.screen) ? PanelControlWideSizeConstant : AppIconButtonSize,
-        minWidth: BoardCellSizeMinConstant,
-        width: appLayoutScreenIsWide(rt.screen) ? PanelControlWideSizeConstant : AppIconButtonSize
+        minWidth: BoardCellSizeMinConstant
     }
 }));
