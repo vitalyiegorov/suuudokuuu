@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.9.4](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.9.3...v2.9.4) (2026-08-30)
+
+### Bug Fixes
+
+- **app,ui:** crisp 1px borders, unified icon button sizing, pressed feedback ([ebc1405](https://github.com/vitalyiegorov/suuudokuuu/commit/ebc14056e00169e6ffba77b6227ad76a1841a3d6))
+
 ## [2.9.3](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.9.2...v2.9.3) (2026-08-30)
 
 ### Bug Fixes
