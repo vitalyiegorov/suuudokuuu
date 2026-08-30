@@ -20,13 +20,14 @@ import type { StyleProp, ViewStyle } from 'react-native';
 
 interface Props {
     readonly children: ReactNode;
+    readonly color: string;
     readonly isLoading: boolean;
     readonly onPress: () => void;
     readonly style: StyleProp<ViewStyle>;
     readonly testID: string;
 }
 
-export const HomeScreenStartButtonEmber = ({ children, isLoading, onPress, style, testID }: Props) => {
+export const HomeScreenStartButtonEmber = ({ children, color, isLoading, onPress, style, testID }: Props) => {
     const reduceMotion = useReduceMotion();
     const entrance = useSharedValue(0);
 
@@ -55,7 +56,8 @@ export const HomeScreenStartButtonEmber = ({ children, isLoading, onPress, style
     const emberWrapperTestId = reduceMotion
         ? HomeScreenStartButtonEmberSelectors.StaticRoot
         : HomeScreenStartButtonEmberSelectors.AnimatedRoot;
-    const emberButtonWrapperStyle = [style, resolveUnistyleForAnimated(styles.emberButton)];
+    const emberButtonColorStyles = { backgroundColor: color, borderColor: color };
+    const emberButtonWrapperStyle = [style, emberButtonColorStyles];
 
     return (
         <Animated.View style={emberWrapperStyle} testID={emberWrapperTestId}>

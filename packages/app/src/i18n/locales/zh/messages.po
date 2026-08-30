@@ -30,7 +30,7 @@ msgstr "{arsenalCardCount, plural, one {# 个技巧} other {# 个技巧}}"
 msgid "{awaySeconds}s away"
 msgstr "离开 {awaySeconds} 秒"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
 msgid "{bestStreak, plural, one {Best streak: # day} other {Best streak: # days}}"
 msgstr "{bestStreak, plural, other {最长连续：# 天}}"
@@ -75,14 +75,50 @@ msgstr "{remaining, plural, other {填入 {value}，还剩 # 个}}"
 msgid "{remaining, plural, one {Note {value}, # left to place} other {Note {value}, # left to place}}"
 msgstr "{remaining, plural, other {标记 {value}，还剩 # 个}}"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
 msgid "{streak, plural, one {# day streak} other {# day streak}}"
 msgstr "{streak, plural, other {连续 # 天}}"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: start with {cellCount, plural, one {the # highlighted cell} other {the # highlighted cells}} and the digits {valueList}."
-msgstr "{techniqueName}：从{cellCount, plural, other {# 个高亮单元格}}和数字 {valueList} 开始。"
+msgid "{techniqueName}: in the highlighted box, {value} fits only in the marked cell."
+msgstr "{techniqueName}:在突出显示的宫中，{value} 只能填入标记的单元格。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in the highlighted column, {value} fits only in the marked cell."
+msgstr "{techniqueName}:在突出显示的列中，{value} 只能填入标记的单元格。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in the highlighted row, {value} fits only in the marked cell."
+msgstr "{techniqueName}:在突出显示的行中，{value} 只能填入标记的单元格。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}:突出显示的宫只剩一个空格，{value} 应填在那里。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells can only hold the digits {valueList}."
+msgstr "{techniqueName}:突出显示的单元格只能容纳数字 {valueList}。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
+msgstr "{techniqueName}:突出显示的单元格让标记单元格只剩下 {value} 可填。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted column has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}:突出显示的列只剩一个空格，{value} 应填在那里。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted row has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}:突出显示的行只剩一个空格，{value} 应填在那里。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the marked cell sees every highlighted digit except {value}."
+msgstr "{techniqueName}:标记的单元格已看到除 {value} 之外的所有突出显示的数字。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the pattern rules {valueList} out of the marked cells."
+msgstr "{techniqueName}:该模式排除了标记单元格中的 {valueList}。"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
@@ -144,7 +180,7 @@ msgstr "全部"
 msgid "All of a number (1-9)"
 msgstr "某个数字的所有格（1-9）"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
@@ -261,10 +297,6 @@ msgstr "下次好运！"
 msgid "Beyond the ceiling"
 msgstr "超出上限"
 
-#: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
-msgid "Bigger board numbers, spacious cells, every highlight on, no timer, calm play, no animations and the high-contrast theme. Each one stays adjustable below."
-msgstr "更大的棋盘数字、宽松的单元格、开启全部高亮、不计时、平静游戏、无动画，以及高对比度主题。以下每一项仍可单独调整。"
-
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Board cells"
 msgstr "棋盘单元格"
@@ -297,8 +329,8 @@ msgstr "平静游戏"
 msgid "Can you beat them?"
 msgstr "你能超过他们吗？"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
 #: src/game/hooks/use-share-game.hook.ts
+#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
@@ -420,14 +452,6 @@ msgstr "色盲友好"
 msgid "Column"
 msgstr "列"
 
-#: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
-msgid "Comfort"
-msgstr "舒适"
-
-#: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
-msgid "Comfort mode"
-msgstr "舒适模式"
-
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Comfortable"
 msgstr "舒适"
@@ -456,7 +480,7 @@ msgstr "完成动画"
 msgid "Completion Bonuses"
 msgstr "完成奖励"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/home-screen/home-screen-continue-row/home-screen-continue-row.tsx
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Continue"
@@ -490,8 +514,13 @@ msgstr "自定义你的数独体验：主题、难度和玩法偏好。"
 msgid "d"
 msgstr "d"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
+#: src/@generic/components/native-tab-layout/native-tab-layout.tsx
+msgid "Daily"
+msgstr "每日"
+
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 msgid "Daily challenge"
 msgstr "每日挑战"
 
@@ -815,7 +844,7 @@ msgstr "我用 {elapsedTimeString} 完成了这道数独。你能超过我吗？
 msgid "Immortal"
 msgstr "不朽"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "In progress • {difficultyLabel}"
 msgstr "进行中 • {difficultyLabel}"
 
@@ -831,10 +860,6 @@ msgstr "无限"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Ink"
 msgstr "墨色"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "Inside that pattern the digits {valueList} can only sit in the highlighted cells."
-msgstr "在该模式中，数字 {valueList} 只能位于高亮的单元格里。"
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Install on iOS"
@@ -990,7 +1015,7 @@ msgstr "步"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Move the landscape controls panel to the left of the board"
-msgstr "横屏时将控制面板移到棋盘左侧"
+msgstr ""
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "My theme"
@@ -1086,13 +1111,13 @@ msgstr "无暂停"
 msgid "No simple technique applies"
 msgstr "没有适用的简单技巧"
 
+#: src/daily/components/daily-history-list/daily-history-list.tsx
+msgid "No solves yet. Today’s puzzle is waiting."
+msgstr "还没有解答。今日数独等着你来挑战。"
+
 #: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
 msgstr "还没有统计"
-
-#: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
-msgid "Not now"
-msgstr "暂不"
 
 #: src/game/components/input-mode-button/input-mode-button.tsx
 msgid "Notes mode"
@@ -1131,26 +1156,14 @@ msgstr "一次填入的"
 msgid "Offer hints on Nightmare, Hell, and Infinity puzzles too"
 msgstr "在噩梦、地狱和无限难度的数独中也提供提示"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
 #: src/game/components/hint-button/hint-button.tsx
 #: src/game/hooks/use-game-creation-runner.hook.ts
+#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "OK"
 msgstr "确定"
-
-#: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
-msgid "On, with your own changes kept. Turning it off restores what you had before."
-msgstr "已开启，你的自定义改动会保留。关闭后会恢复此前的设置。"
-
-#: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
-msgid "One switch for bigger numbers, a calmer board, and high-contrast colors."
-msgstr "一个开关，带来更大的数字、更平静的棋盘和高对比度配色。"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "Only {valueList} is left for the marked cell, so place it there."
-msgstr "标记的单元格只剩 {valueList}，直接填入即可。"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Open commit {commitShortSha} on GitHub"
@@ -1222,6 +1235,10 @@ msgstr "每个错误"
 msgid "per second"
 msgstr "每秒"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Place {valueList} in the marked cell."
+msgstr "将 {valueList} 填入标记的单元格。"
+
 #: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/index.tsx
@@ -1252,7 +1269,7 @@ msgstr "选择更高难度可获得更大倍率"
 msgid "Play Sudoku — Suuudokuuu"
 msgstr "玩数独 — Suuudokuuu"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 msgid "Play today"
 msgstr "今天来一局"
 
@@ -1333,6 +1350,10 @@ msgstr "凸起表面文字"
 #: src/app/privacy-policy.tsx
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "阅读 Suuudokuuu 隐私政策，了解数据收集、存储以及你的权利。"
+
+#: src/daily/components/daily-history-list/daily-history-list.tsx
+msgid "Recent solves"
+msgstr "最近的解答"
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"
@@ -1602,7 +1623,11 @@ msgstr "已解开"
 msgid "Solved in"
 msgstr "用时"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
+msgid "Solved today"
+msgstr "今日已解出"
+
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "Solved today • {difficultyLabel}"
 msgstr "今天已完成 • {difficultyLabel}"
 
@@ -1651,7 +1676,7 @@ msgstr "第 {currentStepNumber} 步，共 {stepCount} 步"
 msgid "Step time"
 msgstr "步时"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
@@ -1752,10 +1777,6 @@ msgstr "已填充数字键盘进度条上的文字"
 msgid "Text on ink"
 msgstr "墨色上的文字"
 
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "That rules {valueList} out of {cellCount, plural, one {# other cell} other {# other cells}}, so the struck candidates are gone."
-msgstr "这样就能从{cellCount, plural, other {另外 # 个单元格}}中排除 {valueList}，被划掉的候选数字随之消失。"
-
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
 msgstr "无法在此设备上打开提交链接。"
@@ -1837,7 +1858,11 @@ msgstr "极小"
 msgid "Tips for High Scores"
 msgstr "高分技巧"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+msgid "Today"
+msgstr "今天"
+
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "Today's puzzle • {difficultyLabel}"
 msgstr "今日数独 • {difficultyLabel}"
 
@@ -1856,14 +1881,6 @@ msgstr "重试"
 #: src/challenge/components/challenge-try-again-button/challenge-try-again-button.tsx
 msgid "Try Again"
 msgstr "重试"
-
-#: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
-msgid "Try Comfort mode"
-msgstr "试用舒适模式"
-
-#: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
-msgid "Turn it on"
-msgstr "开启"
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Ukraine keeps fighting"

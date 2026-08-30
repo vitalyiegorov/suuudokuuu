@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.9.4](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.9.3...v2.9.4) (2026-08-30)
+
+### Bug Fixes
+
+- **app,ui:** crisp 1px borders, unified icon button sizing, pressed feedback ([ebc1405](https://github.com/vitalyiegorov/suuudokuuu/commit/ebc14056e00169e6ffba77b6227ad76a1841a3d6))
+
+## [2.9.3](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.9.2...v2.9.3) (2026-08-30)
+
+### Bug Fixes
+
+- **app,ui:** stop the game metric strip from clamping labels and values ([cd57b64](https://github.com/vitalyiegorov/suuudokuuu/commit/cd57b64fe021bbd83b4f598a8376d43748ba3a39)), closes [#379](https://github.com/vitalyiegorov/suuudokuuu/issues/379)
+
 # [2.9.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.8.0...v2.9.0) (2026-08-25)
 
 ### Features

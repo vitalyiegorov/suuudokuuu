@@ -2,8 +2,9 @@ import { StyleSheet } from 'react-native-unistyles';
 
 export const CompletedGameItemStyles = StyleSheet.create(theme => ({
     container: {
+        borderCurve: 'continuous',
         borderRadius: 22,
-        borderWidth: StyleSheet.hairlineWidth,
+        borderWidth: 1,
         gap: 14,
         paddingHorizontal: 14,
         paddingVertical: 14,

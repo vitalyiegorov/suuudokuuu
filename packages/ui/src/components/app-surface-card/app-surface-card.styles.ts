@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native-unistyles';
 export const AppSurfaceCardStyles = StyleSheet.create(theme => ({
     card: {
         borderCurve: 'continuous',
-        borderWidth: StyleSheet.hairlineWidth,
+        borderWidth: 1,
         overflow: 'hidden',
         width: '100%'
     },

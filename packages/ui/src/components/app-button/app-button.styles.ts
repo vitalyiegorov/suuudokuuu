@@ -4,7 +4,7 @@ export const AppButtonStyles = StyleSheet.create(theme => ({
     button: {
         alignItems: 'center',
         borderCurve: 'continuous',
-        borderWidth: StyleSheet.hairlineWidth,
+        borderWidth: 1,
         flexDirection: 'row',
         gap: theme.spacing.sm,
         justifyContent: 'center',
@@ -39,6 +39,10 @@ export const AppButtonStyles = StyleSheet.create(theme => ({
         position: 'absolute',
         right: 0,
         top: 0
+    },
+    pressed: {
+        opacity: 0.85,
+        transform: [{ scale: 0.98 }]
     },
     large: {
         borderRadius: 30,

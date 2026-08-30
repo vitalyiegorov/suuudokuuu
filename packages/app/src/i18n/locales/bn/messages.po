@@ -30,7 +30,7 @@ msgstr "{arsenalCardCount, plural, one {#টি কৌশল} other {#টি ক
 msgid "{awaySeconds}s away"
 msgstr "{awaySeconds}s অনুপস্থিত"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
 msgid "{bestStreak, plural, one {Best streak: # day} other {Best streak: # days}}"
 msgstr "{bestStreak, plural, one {সেরা ধারা: # দিন} other {সেরা ধারা: # দিন}}"
@@ -75,14 +75,50 @@ msgstr "{remaining, plural, one {{value} বসান, আর # বাকি} ot
 msgid "{remaining, plural, one {Note {value}, # left to place} other {Note {value}, # left to place}}"
 msgstr "{remaining, plural, one {{value} নোট করুন, আর # বাকি} other {{value} নোট করুন, আর # বাকি}}"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
 msgid "{streak, plural, one {# day streak} other {# day streak}}"
 msgstr "{streak, plural, one {# দিনের ধারা} other {# দিনের ধারা}}"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: start with {cellCount, plural, one {the # highlighted cell} other {the # highlighted cells}} and the digits {valueList}."
-msgstr "{techniqueName}: {cellCount, plural, one {# হাইলাইট করা ঘর} other {# হাইলাইট করা ঘর}} আর {valueList} সংখ্যাগুলো দিয়ে শুরু করুন।"
+msgid "{techniqueName}: in the highlighted box, {value} fits only in the marked cell."
+msgstr "{techniqueName}: হাইলাইট করা বাক্সে, {value} শুধু চিহ্নিত ঘরেই বসতে পারে।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in the highlighted column, {value} fits only in the marked cell."
+msgstr "{techniqueName}: হাইলাইট করা কলামে, {value} শুধু চিহ্নিত ঘরেই বসতে পারে।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in the highlighted row, {value} fits only in the marked cell."
+msgstr "{techniqueName}: হাইলাইট করা সারিতে, {value} শুধু চিহ্নিত ঘরেই বসতে পারে।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}: হাইলাইট করা বাক্সে শুধু একটি খালি ঘর বাকি, তাই {value} সেখানেই বসবে।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells can only hold the digits {valueList}."
+msgstr "{techniqueName}: হাইলাইট করা ঘরগুলিতে শুধু {valueList} সংখ্যাগুলিই থাকতে পারে।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
+msgstr "{techniqueName}: হাইলাইট করা ঘরগুলি চিহ্নিত ঘরের জন্য শুধু {value} রাখে।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted column has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}: হাইলাইট করা কলামে শুধু একটি খালি ঘর বাকি, তাই {value} সেখানেই বসবে।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted row has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}: হাইলাইট করা সারিতে শুধু একটি খালি ঘর বাকি, তাই {value} সেখানেই বসবে।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the marked cell sees every highlighted digit except {value}."
+msgstr "{techniqueName}: চিহ্নিত ঘরটি {value} ছাড়া বাকি সব হাইলাইট করা সংখ্যা দেখে।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the pattern rules {valueList} out of the marked cells."
+msgstr "{techniqueName}: এই প্যাটার্ন চিহ্নিত ঘরগুলি থেকে {valueList} বাদ দেয়।"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
@@ -144,7 +180,7 @@ msgstr "সব"
 msgid "All of a number (1-9)"
 msgstr "একটি সংখ্যার সব ঘর (1-9)"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
@@ -261,10 +297,6 @@ msgstr "পরের বার ভাগ্য ভালো হোক!"
 msgid "Beyond the ceiling"
 msgstr "সীমার ওপারে"
 
-#: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
-msgid "Bigger board numbers, spacious cells, every highlight on, no timer, calm play, no animations and the high-contrast theme. Each one stays adjustable below."
-msgstr "বোর্ডে বড় সংখ্যা, প্রশস্ত ঘর, সব হাইলাইট চালু, টাইমার বন্ধ, শান্ত খেলা, অ্যানিমেশন বন্ধ এবং উচ্চ কনট্রাস্ট থিম। প্রতিটি নিচে আলাদাভাবে বদলানো যায়।"
-
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Board cells"
 msgstr "বোর্ডের ঘর"
@@ -297,8 +329,8 @@ msgstr "শান্ত খেলা"
 msgid "Can you beat them?"
 msgstr "আপনি কি তাদের হারাতে পারবেন?"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
 #: src/game/hooks/use-share-game.hook.ts
+#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
@@ -420,14 +452,6 @@ msgstr "বর্ণান্ধতা-বান্ধব"
 msgid "Column"
 msgstr "কলাম"
 
-#: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
-msgid "Comfort"
-msgstr "আরাম"
-
-#: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
-msgid "Comfort mode"
-msgstr "আরাম মোড"
-
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Comfortable"
 msgstr "আরামদায়ক"
@@ -456,7 +480,7 @@ msgstr "সম্পূর্ণ হওয়ার অ্যানিমেশন"
 msgid "Completion Bonuses"
 msgstr "সম্পূর্ণ করার বোনাস"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/home-screen/home-screen-continue-row/home-screen-continue-row.tsx
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Continue"
@@ -490,8 +514,13 @@ msgstr "আপনার সুডোকু অভিজ্ঞতা সাজি
 msgid "d"
 msgstr "d"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
+#: src/@generic/components/native-tab-layout/native-tab-layout.tsx
+msgid "Daily"
+msgstr "দৈনিক"
+
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 msgid "Daily challenge"
 msgstr "দৈনিক চ্যালেঞ্জ"
 
@@ -815,7 +844,7 @@ msgstr "আমি এই সুডোকু {elapsedTimeString}-এ শেষ �
 msgid "Immortal"
 msgstr "অমর"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "In progress • {difficultyLabel}"
 msgstr "চলছে • {difficultyLabel}"
 
@@ -831,10 +860,6 @@ msgstr "অসীম"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Ink"
 msgstr "কালি"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "Inside that pattern the digits {valueList} can only sit in the highlighted cells."
-msgstr "ওই বিন্যাসের ভেতরে {valueList} সংখ্যাগুলো কেবল হাইলাইট করা ঘরেই বসতে পারে।"
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Install on iOS"
@@ -990,7 +1015,7 @@ msgstr "চাল"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Move the landscape controls panel to the left of the board"
-msgstr "ল্যান্ডস্কেপ মোডে নিয়ন্ত্রণ প্যানেল বোর্ডের বাঁ পাশে সরান"
+msgstr ""
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "My theme"
@@ -1086,13 +1111,13 @@ msgstr "বিরতি নেই"
 msgid "No simple technique applies"
 msgstr "সহজ কোনো কৌশল খাটে না"
 
+#: src/daily/components/daily-history-list/daily-history-list.tsx
+msgid "No solves yet. Today’s puzzle is waiting."
+msgstr "এখনও কোনো সমাধান নেই। আজকের সুডোকু অপেক্ষা করছে।"
+
 #: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
 msgstr "এখনও কোনো পরিসংখ্যান নেই"
-
-#: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
-msgid "Not now"
-msgstr "এখন নয়"
 
 #: src/game/components/input-mode-button/input-mode-button.tsx
 msgid "Notes mode"
@@ -1131,26 +1156,14 @@ msgstr "একটি বসানোর"
 msgid "Offer hints on Nightmare, Hell, and Infinity puzzles too"
 msgstr "দুঃস্বপ্ন, নরক ও অসীম সুডোকুতেও সংকেত দিন"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
 #: src/game/components/hint-button/hint-button.tsx
 #: src/game/hooks/use-game-creation-runner.hook.ts
+#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "OK"
 msgstr "ঠিক আছে"
-
-#: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
-msgid "On, with your own changes kept. Turning it off restores what you had before."
-msgstr "চালু আছে, আপনার নিজের পরিবর্তনগুলো রাখা হয়েছে। বন্ধ করলে আগের অবস্থা ফিরে আসবে।"
-
-#: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
-msgid "One switch for bigger numbers, a calmer board, and high-contrast colors."
-msgstr "একটি সুইচেই বড় সংখ্যা, শান্ত বোর্ড আর উচ্চ কনট্রাস্ট রঙ।"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "Only {valueList} is left for the marked cell, so place it there."
-msgstr "চিহ্নিত ঘরের জন্য কেবল {valueList} বাকি আছে, তাই ওখানেই বসান।"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Open commit {commitShortSha} on GitHub"
@@ -1222,6 +1235,10 @@ msgstr "প্রতি ভুলে"
 msgid "per second"
 msgstr "প্রতি সেকেন্ডে"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Place {valueList} in the marked cell."
+msgstr "চিহ্নিত ঘরে {valueList} বসান।"
+
 #: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/index.tsx
@@ -1252,7 +1269,7 @@ msgstr "বড় গুণকের জন্য বেশি কঠিনত�
 msgid "Play Sudoku — Suuudokuuu"
 msgstr "সুডোকু খেলুন — Suuudokuuu"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 msgid "Play today"
 msgstr "আজ খেলুন"
 
@@ -1333,6 +1350,10 @@ msgstr "উঁচু পৃষ্ঠের লেখা"
 #: src/app/privacy-policy.tsx
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "তথ্য সংগ্রহ, সংরক্ষণ ও আপনার অধিকার নিয়ে Suuudokuuu-এর গোপনীয়তা নীতি পড়ুন।"
+
+#: src/daily/components/daily-history-list/daily-history-list.tsx
+msgid "Recent solves"
+msgstr "সাম্প্রতিক সমাধান"
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"
@@ -1602,7 +1623,11 @@ msgstr "সমাধান হয়েছে"
 msgid "Solved in"
 msgstr "সমাধানের সময়"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
+msgid "Solved today"
+msgstr "আজ সমাধান হয়েছে"
+
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "Solved today • {difficultyLabel}"
 msgstr "আজ সমাধান হয়েছে • {difficultyLabel}"
 
@@ -1651,7 +1676,7 @@ msgstr "{stepCount}টির মধ্যে ধাপ {currentStepNumber}"
 msgid "Step time"
 msgstr "চালের সময়"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
@@ -1752,10 +1777,6 @@ msgstr "পূর্ণ নম্বর প্যাড ট্র্যাকে
 msgid "Text on ink"
 msgstr "কালির উপরের লেখা"
 
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "That rules {valueList} out of {cellCount, plural, one {# other cell} other {# other cells}}, so the struck candidates are gone."
-msgstr "এতে {cellCount, plural, one {আরও # ঘর} other {আরও # ঘর}} থেকে {valueList} বাদ পড়ে, তাই কাটা প্রার্থীগুলো আর থাকে না।"
-
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
 msgstr "এই ডিভাইসে কমিটের লিংকটি খোলা যায়নি।"
@@ -1837,7 +1858,11 @@ msgstr "ক্ষুদ্র"
 msgid "Tips for High Scores"
 msgstr "উচ্চ স্কোরের টিপস"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+msgid "Today"
+msgstr "আজ"
+
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "Today's puzzle • {difficultyLabel}"
 msgstr "আজকের সুডোকু • {difficultyLabel}"
 
@@ -1856,14 +1881,6 @@ msgstr "আবার চেষ্টা করুন"
 #: src/challenge/components/challenge-try-again-button/challenge-try-again-button.tsx
 msgid "Try Again"
 msgstr "আবার চেষ্টা করুন"
-
-#: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
-msgid "Try Comfort mode"
-msgstr "আরাম মোড চেষ্টা করুন"
-
-#: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
-msgid "Turn it on"
-msgstr "চালু করুন"
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Ukraine keeps fighting"

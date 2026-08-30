@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.10.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.10.0...v2.10.1) (2026-08-30)
+
+### Bug Fixes
+
+- **app,field-core,techniques,landing:** rebuild hints around the reason a move works ([#382](https://github.com/vitalyiegorov/suuudokuuu/issues/382)) ([40518b2](https://github.com/vitalyiegorov/suuudokuuu/commit/40518b21b700d4ff4160607c36c376534fdeec9f))
+
+# [2.10.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.9.4...v2.10.0) (2026-08-30)
+
+### Features
+
+- **app:** anchor the notes control to the thumb edge ([664f354](https://github.com/vitalyiegorov/suuudokuuu/commit/664f354ac4a80d8fd4480206aaebb1fbb28932bd))
+
+## [2.9.4](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.9.3...v2.9.4) (2026-08-30)
+
+### Bug Fixes
+
+- **app,ui:** crisp 1px borders, unified icon button sizing, pressed feedback ([ebc1405](https://github.com/vitalyiegorov/suuudokuuu/commit/ebc14056e00169e6ffba77b6227ad76a1841a3d6))
+
+## [2.9.3](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.9.2...v2.9.3) (2026-08-30)
+
+### Bug Fixes
+
+- **app,ui:** stop the game metric strip from clamping labels and values ([cd57b64](https://github.com/vitalyiegorov/suuudokuuu/commit/cd57b64fe021bbd83b4f598a8376d43748ba3a39)), closes [#379](https://github.com/vitalyiegorov/suuudokuuu/issues/379)
+- **app:** combined ui/ux polish pass for the v2.9.x changes ([cca171c](https://github.com/vitalyiegorov/suuudokuuu/commit/cca171cfedd74039c582b3f266841eae1843f636)), closes [#373](https://github.com/vitalyiegorov/suuudokuuu/issues/373) [#374](https://github.com/vitalyiegorov/suuudokuuu/issues/374) [#375](https://github.com/vitalyiegorov/suuudokuuu/issues/375) [#376](https://github.com/vitalyiegorov/suuudokuuu/issues/376) [#377](https://github.com/vitalyiegorov/suuudokuuu/issues/377) [#372](https://github.com/vitalyiegorov/suuudokuuu/issues/372)
+
 ## [2.9.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.9.1...v2.9.2) (2026-08-28)
 
 **Note:** Version bump only for package @suuudokuuu/root

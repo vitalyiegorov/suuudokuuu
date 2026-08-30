@@ -1,0 +1,15 @@
+appId: ${APP_ID}
+---
+- runFlow: subflows/navigation/launch-home.flow.yaml
+- tapOn: 'Daily'
+- assertVisible:
+      id: 'DailyStreakHeroSelectors.Root'
+- assertVisible:
+      id: 'DailyScreenSelectors.ActionButton'
+      text: '.*Play today.*'
+- tapOn:
+      id: 'DailyScreenSelectors.ActionButton'
+- extendedWaitUntil:
+      visible:
+          id: 'GameScreenSelectors.Root'
+      timeout: 15000

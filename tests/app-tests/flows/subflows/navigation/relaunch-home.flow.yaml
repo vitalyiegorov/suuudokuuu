@@ -12,8 +12,3 @@ appId: ${APP_ID}
                 visible:
                     id: 'HomeScreenSelectors.Root'
                 timeout: 15000
-# Same one-time comfort offer as launch-home; dismiss it so the masthead height
-# matches what every scrolling flow expects.
-- tapOn:
-      id: 'HomeScreenSelectors.ComfortOfferDismiss'
-      optional: true

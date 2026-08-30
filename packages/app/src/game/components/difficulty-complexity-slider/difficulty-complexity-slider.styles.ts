@@ -8,22 +8,20 @@ const DifficultyComplexitySliderStaticStyles = {
         justifyContent: 'space-between',
         width: '100%'
     },
-    optionLabel: {
-        fontSize: 10,
-        fontWeight: '700',
-        lineHeight: 13,
-        textAlign: 'center'
-    },
-    optionRow: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
+    labelRow: {
+        height: 24,
         width: '100%'
+    },
+    optionLabel: {
+        fontSize: 11,
+        fontWeight: '700',
+        lineHeight: 14,
+        textAlign: 'center'
     },
     optionTrigger: {
         alignItems: 'center',
-        flex: 1,
-        minHeight: 30,
-        paddingTop: 6,
+        justifyContent: 'center',
+        width: '100%',
         _web: {
             cursor: 'pointer',
             _hover: {
@@ -98,8 +96,9 @@ export const DifficultyComplexitySliderStyles = StyleSheet.create(theme => ({
     },
     preview: {
         alignItems: 'center',
+        borderCurve: 'continuous',
         borderRadius: 14,
-        borderWidth: StyleSheet.hairlineWidth,
+        borderWidth: 1,
         flexDirection: 'row',
         gap: 14,
         minHeight: 132,
@@ -109,14 +108,16 @@ export const DifficultyComplexitySliderStyles = StyleSheet.create(theme => ({
     },
     previewGridFrame: {
         alignItems: 'center',
+        borderCurve: 'continuous',
         borderRadius: 12,
-        borderWidth: StyleSheet.hairlineWidth,
+        borderWidth: 1,
         justifyContent: 'center',
         padding: theme.spacing.sm
     },
     previewMistakeBadge: {
+        borderCurve: 'continuous',
         borderRadius: theme.radius.pill,
-        borderWidth: StyleSheet.hairlineWidth,
+        borderWidth: 1,
         paddingHorizontal: 9,
         paddingVertical: theme.spacing.xs
     },

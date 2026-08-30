@@ -2,8 +2,9 @@ import { StyleSheet } from 'react-native-unistyles';
 
 export const HistoryEmptyStateStyles = StyleSheet.create(theme => ({
     container: {
+        borderCurve: 'continuous',
         borderRadius: theme.radius.lg,
-        borderWidth: StyleSheet.hairlineWidth,
+        borderWidth: 1,
         gap: theme.spacing.sm,
         paddingHorizontal: 18,
         paddingVertical: 22,

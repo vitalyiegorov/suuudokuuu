@@ -32,7 +32,7 @@ msgstr "{arsenalCardCount, plural, one {# técnica} other {# técnicas}}"
 msgid "{awaySeconds}s away"
 msgstr "{awaySeconds}s ausente"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
 msgid "{bestStreak, plural, one {Best streak: # day} other {Best streak: # days}}"
 msgstr "{bestStreak, plural, one {Mejor racha: # día} other {Mejor racha: # días}}"
@@ -77,14 +77,50 @@ msgstr "{remaining, plural, one {Escribir {value}, queda # por colocar} other {E
 msgid "{remaining, plural, one {Note {value}, # left to place} other {Note {value}, # left to place}}"
 msgstr "{remaining, plural, one {Anotar {value}, queda # por colocar} other {Anotar {value}, quedan # por colocar}}"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
 msgid "{streak, plural, one {# day streak} other {# day streak}}"
 msgstr "{streak, plural, one {Racha de # día} other {Racha de # días}}"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: start with {cellCount, plural, one {the # highlighted cell} other {the # highlighted cells}} and the digits {valueList}."
-msgstr "{techniqueName}: empieza por {cellCount, plural, one {la celda resaltada} other {las # celdas resaltadas}} y los dígitos {valueList}."
+msgid "{techniqueName}: in the highlighted box, {value} fits only in the marked cell."
+msgstr "{techniqueName}: en la región destacada, {value} solo cabe en la celda marcada."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in the highlighted column, {value} fits only in the marked cell."
+msgstr "{techniqueName}: en la columna destacada, {value} solo cabe en la celda marcada."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in the highlighted row, {value} fits only in the marked cell."
+msgstr "{techniqueName}: en la fila destacada, {value} solo cabe en la celda marcada."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}: a la región destacada solo le queda una celda vacía, así que {value} va ahí."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells can only hold the digits {valueList}."
+msgstr "{techniqueName}: las celdas destacadas solo pueden contener los dígitos {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
+msgstr "{techniqueName}: las celdas destacadas dejan solo {value} para la celda marcada."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted column has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}: a la columna destacada solo le queda una celda vacía, así que {value} va ahí."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted row has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}: a la fila destacada solo le queda una celda vacía, así que {value} va ahí."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the marked cell sees every highlighted digit except {value}."
+msgstr "{techniqueName}: la celda marcada ve todos los dígitos destacados excepto {value}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the pattern rules {valueList} out of the marked cells."
+msgstr "{techniqueName}: el patrón descarta {valueList} en las celdas marcadas."
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
@@ -146,7 +182,7 @@ msgstr "Todas"
 msgid "All of a number (1-9)"
 msgstr "Todas las casillas de un número (1-9)"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
@@ -263,10 +299,6 @@ msgstr "¡Mejor suerte la próxima vez!"
 msgid "Beyond the ceiling"
 msgstr "Más allá del límite"
 
-#: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
-msgid "Bigger board numbers, spacious cells, every highlight on, no timer, calm play, no animations and the high-contrast theme. Each one stays adjustable below."
-msgstr "Números más grandes en el tablero, celdas amplias, todos los resaltados activados, sin temporizador, juego tranquilo, sin animaciones y el tema de alto contraste. Cada opción se puede ajustar más abajo."
-
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Board cells"
 msgstr "Celdas del tablero"
@@ -299,8 +331,8 @@ msgstr "Juego tranquilo"
 msgid "Can you beat them?"
 msgstr "¿Puedes superar su marca?"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
 #: src/game/hooks/use-share-game.hook.ts
+#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
@@ -422,14 +454,6 @@ msgstr "Apto para daltónicos"
 msgid "Column"
 msgstr "Columna"
 
-#: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
-msgid "Comfort"
-msgstr "Comodidad"
-
-#: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
-msgid "Comfort mode"
-msgstr "Modo comodidad"
-
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Comfortable"
 msgstr "Cómodo"
@@ -458,7 +482,7 @@ msgstr "Animaciones de completado"
 msgid "Completion Bonuses"
 msgstr "Bonificaciones por completar"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/home-screen/home-screen-continue-row/home-screen-continue-row.tsx
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Continue"
@@ -492,8 +516,13 @@ msgstr "Personaliza tu experiencia de sudoku: temas, dificultad y preferencias d
 msgid "d"
 msgstr "d"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
+#: src/@generic/components/native-tab-layout/native-tab-layout.tsx
+msgid "Daily"
+msgstr "Diario"
+
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 msgid "Daily challenge"
 msgstr "Reto diario"
 
@@ -817,7 +846,7 @@ msgstr "He completado este sudoku en {elapsedTimeString}. ¿Puedes superarme?"
 msgid "Immortal"
 msgstr "Inmortal"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "In progress • {difficultyLabel}"
 msgstr "En curso • {difficultyLabel}"
 
@@ -833,10 +862,6 @@ msgstr "Infinito"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Ink"
 msgstr "Tinta"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "Inside that pattern the digits {valueList} can only sit in the highlighted cells."
-msgstr "Dentro de ese patrón, los dígitos {valueList} solo pueden ir en las celdas resaltadas."
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Install on iOS"
@@ -992,7 +1017,7 @@ msgstr "Jugada"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Move the landscape controls panel to the left of the board"
-msgstr "Mueve el panel de controles a la izquierda del tablero en horizontal"
+msgstr ""
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "My theme"
@@ -1088,13 +1113,13 @@ msgstr "sin pausa"
 msgid "No simple technique applies"
 msgstr "No se aplica ninguna técnica sencilla"
 
+#: src/daily/components/daily-history-list/daily-history-list.tsx
+msgid "No solves yet. Today’s puzzle is waiting."
+msgstr "Aún no hay soluciones. El sudoku de hoy espera."
+
 #: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
 msgstr "Aún no hay estadísticas"
-
-#: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
-msgid "Not now"
-msgstr "Ahora no"
 
 #: src/game/components/input-mode-button/input-mode-button.tsx
 msgid "Notes mode"
@@ -1133,26 +1158,14 @@ msgstr "de una colocación"
 msgid "Offer hints on Nightmare, Hell, and Infinity puzzles too"
 msgstr "Ofrecer sugerencias también en los sudokus Pesadilla, Infierno e Infinito"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
 #: src/game/components/hint-button/hint-button.tsx
 #: src/game/hooks/use-game-creation-runner.hook.ts
+#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "OK"
 msgstr "OK"
-
-#: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
-msgid "On, with your own changes kept. Turning it off restores what you had before."
-msgstr "Activado, con tus propios cambios conservados. Al desactivarlo se restaura lo que tenías antes."
-
-#: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
-msgid "One switch for bigger numbers, a calmer board, and high-contrast colors."
-msgstr "Un solo interruptor para números más grandes, un tablero más tranquilo y colores de alto contraste."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "Only {valueList} is left for the marked cell, so place it there."
-msgstr "Para la celda marcada solo queda {valueList}, así que colócalo ahí."
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Open commit {commitShortSha} on GitHub"
@@ -1224,6 +1237,10 @@ msgstr "por error"
 msgid "per second"
 msgstr "por segundo"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Place {valueList} in the marked cell."
+msgstr "Pon {valueList} en la celda marcada."
+
 #: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/index.tsx
@@ -1254,7 +1271,7 @@ msgstr "Juega en dificultades más altas para obtener multiplicadores mayores"
 msgid "Play Sudoku — Suuudokuuu"
 msgstr "Jugar al sudoku — Suuudokuuu"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 msgid "Play today"
 msgstr "Jugar hoy"
 
@@ -1335,6 +1352,10 @@ msgstr "Texto de la superficie elevada"
 #: src/app/privacy-policy.tsx
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "Lee la política de privacidad de Suuudokuuu sobre la recogida de datos, su almacenamiento y tus derechos."
+
+#: src/daily/components/daily-history-list/daily-history-list.tsx
+msgid "Recent solves"
+msgstr "Soluciones recientes"
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"
@@ -1604,7 +1625,11 @@ msgstr "Resuelto"
 msgid "Solved in"
 msgstr "Resuelto en"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
+msgid "Solved today"
+msgstr "Resuelto hoy"
+
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "Solved today • {difficultyLabel}"
 msgstr "Resuelto hoy • {difficultyLabel}"
 
@@ -1653,7 +1678,7 @@ msgstr "Paso {currentStepNumber} de {stepCount}"
 msgid "Step time"
 msgstr "Tiempo por jugada"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
@@ -1754,10 +1779,6 @@ msgstr "Texto sobre la barra rellena del teclado numérico"
 msgid "Text on ink"
 msgstr "Texto sobre la tinta"
 
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "That rules {valueList} out of {cellCount, plural, one {# other cell} other {# other cells}}, so the struck candidates are gone."
-msgstr "Eso descarta {valueList} en {cellCount, plural, one {# celda más} other {# celdas más}}, así que los candidatos tachados desaparecen."
-
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
 msgstr "No se ha podido abrir el enlace del commit en este dispositivo."
@@ -1839,7 +1860,11 @@ msgstr "Diminuto"
 msgid "Tips for High Scores"
 msgstr "Consejos para puntuaciones altas"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+msgid "Today"
+msgstr "Hoy"
+
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "Today's puzzle • {difficultyLabel}"
 msgstr "Sudoku de hoy • {difficultyLabel}"
 
@@ -1858,14 +1883,6 @@ msgstr "Intentar de nuevo"
 #: src/challenge/components/challenge-try-again-button/challenge-try-again-button.tsx
 msgid "Try Again"
 msgstr "Intentar de nuevo"
-
-#: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
-msgid "Try Comfort mode"
-msgstr "Probar el modo comodidad"
-
-#: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
-msgid "Turn it on"
-msgstr "Activarlo"
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Ukraine keeps fighting"
