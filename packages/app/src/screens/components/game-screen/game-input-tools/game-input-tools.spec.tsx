@@ -13,8 +13,8 @@ import { GameInputTools } from './game-input-tools';
 
 const highSampleRating = 8.4;
 
-const renderGameInputTools = (hideAutoCandidates = false) =>
-    renderWithGameContext(<GameInputTools hideAutoCandidates={hideAutoCandidates} />, {
+const renderGameInputTools = (hideAutoCandidates = false, isLeftHanded = false) =>
+    renderWithGameContext(<GameInputTools hideAutoCandidates={hideAutoCandidates} isLeftHanded={isLeftHanded} />, {
         game: { difficulty: DifficultyEnum.Easy, isRatingCeiling: false, rating: 0 }
     });
 
@@ -34,8 +34,17 @@ describe('GameInputTools', () => {
         expect(screen.getByTestId(HintButtonSelectors.Root)).toBeTruthy();
     });
 
+    it('renders the mirrored row for a left-handed player', async () => {
+        await renderGameInputTools(false, true);
+
+        expect(screen.getByTestId(InputModeButtonSelectors.Root)).toBeTruthy();
+        expect(screen.getByTestId(UndoButtonSelectors.Root)).toBeTruthy();
+        expect(screen.getByTestId(RedoButtonSelectors.Root)).toBeTruthy();
+        expect(screen.getByTestId(HintButtonSelectors.Root)).toBeTruthy();
+    });
+
     it('hides the undo, redo and hint buttons during a challenge run', async () => {
-        await renderWithGameContext(<GameInputTools hideAutoCandidates={false} />, {
+        await renderWithGameContext(<GameInputTools hideAutoCandidates={false} isLeftHanded={false} />, {
             game: { difficulty: DifficultyEnum.Easy, isChallengeRun: true, isRatingCeiling: false, rating: 0 }
         });
 
@@ -45,7 +54,7 @@ describe('GameInputTools', () => {
     });
 
     it('hides the hint button on the hardest difficulties while keeping undo and redo', async () => {
-        await renderWithGameContext(<GameInputTools hideAutoCandidates={false} />, {
+        await renderWithGameContext(<GameInputTools hideAutoCandidates={false} isLeftHanded={false} />, {
             game: { difficulty: DifficultyEnum.Nightmare, isRatingCeiling: false, rating: 0 }
         });
 
@@ -54,7 +63,7 @@ describe('GameInputTools', () => {
     });
 
     it('restores the hint button on the hardest difficulties when the player opts in', async () => {
-        await renderWithGameContext(<GameInputTools hideAutoCandidates={false} />, {
+        await renderWithGameContext(<GameInputTools hideAutoCandidates={false} isLeftHanded={false} />, {
             game: { difficulty: DifficultyEnum.Hell, isRatingCeiling: false, rating: 0 },
             settings: { allowHintsOnHardDifficulties: true }
         });
@@ -69,7 +78,7 @@ describe('GameInputTools', () => {
     });
 
     it('never renders a rating badge, even for a rated Hell run', async () => {
-        await renderWithGameContext(<GameInputTools hideAutoCandidates={false} />, {
+        await renderWithGameContext(<GameInputTools hideAutoCandidates={false} isLeftHanded={false} />, {
             game: { difficulty: DifficultyEnum.Hell, isRatingCeiling: false, rating: highSampleRating }
         });
 
@@ -77,7 +86,7 @@ describe('GameInputTools', () => {
     });
 
     it('never renders a rating badge, even for a rated Infinity run', async () => {
-        await renderWithGameContext(<GameInputTools hideAutoCandidates={false} />, {
+        await renderWithGameContext(<GameInputTools hideAutoCandidates={false} isLeftHanded={false} />, {
             game: { difficulty: DifficultyEnum.Infinity, isRatingCeiling: true, rating: highSampleRating }
         });
 
