@@ -27,7 +27,7 @@ export const AppSettingsRowStyles = StyleSheet.create(theme => ({
         alignItems: 'center',
         borderCurve: 'continuous',
         borderRadius: AppSettingsRowBorderRadius,
-        borderWidth: StyleSheet.hairlineWidth,
+        borderWidth: 1,
         flexDirection: 'row',
         gap: AppSettingsRowGap,
         justifyContent: 'space-between',

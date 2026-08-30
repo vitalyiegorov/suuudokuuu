@@ -3,8 +3,9 @@ import { StyleSheet } from 'react-native-unistyles';
 export const HistoryDifficultyChipStyles = StyleSheet.create(theme => ({
     container: {
         alignItems: 'center',
+        borderCurve: 'continuous',
         borderRadius: theme.radius.pill,
-        borderWidth: StyleSheet.hairlineWidth,
+        borderWidth: 1,
         justifyContent: 'center',
         minHeight: 42,
         minWidth: 96,

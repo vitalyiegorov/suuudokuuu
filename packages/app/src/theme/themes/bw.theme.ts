@@ -91,7 +91,7 @@ export const BWDarkTheme: ThemeInterface = {
             subtle: 'rgba(255,255,255,0.35)',
             subtleText: 'rgba(255, 255, 255, 1)',
             subtleHint: 'rgba(255, 255, 255, 0.75)',
-            border: 'rgba(255,255,255,0.3)'
+            border: 'rgba(255,255,255,0.16)'
         }
     }
 };

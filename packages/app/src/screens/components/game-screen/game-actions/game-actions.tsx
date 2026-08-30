@@ -27,7 +27,6 @@ export const GameActions = ({ actionIconColor, onExit, onOpenSettings, onPause, 
                     accessibilityLabel={t`Pause`}
                     hitSlop={10}
                     onPress={onPause}
-                    style={styles.button}
                     testID={GameScreenSelectors.PauseButton}
                     variant="inverted"
                 >
@@ -39,7 +38,6 @@ export const GameActions = ({ actionIconColor, onExit, onOpenSettings, onPause, 
                     accessibilityLabel={t`Share this puzzle`}
                     hitSlop={10}
                     onPress={onShare}
-                    style={styles.button}
                     testID={GameScreenSelectors.ShareButton}
                     variant="inverted"
                 >
@@ -50,7 +48,6 @@ export const GameActions = ({ actionIconColor, onExit, onOpenSettings, onPause, 
                 accessibilityLabel={t`Game settings`}
                 hitSlop={10}
                 onPress={onOpenSettings}
-                style={styles.button}
                 testID={GameScreenSelectors.SettingsButton}
                 variant="inverted"
             >
@@ -60,7 +57,6 @@ export const GameActions = ({ actionIconColor, onExit, onOpenSettings, onPause, 
                 accessibilityLabel={t`Stop this run`}
                 hitSlop={10}
                 onPress={onExit}
-                style={styles.button}
                 testID={GameScreenSelectors.QuitButton}
                 variant="inverted"
             >

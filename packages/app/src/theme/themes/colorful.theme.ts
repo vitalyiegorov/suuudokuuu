@@ -91,7 +91,7 @@ export const ColorfulDarkTheme: ThemeInterface = {
             subtle: '#8FA8C1',
             subtleText: '#2A3B4D',
             subtleHint: '#2A3B4D',
-            border: 'rgba(143, 168, 193, 0.55)'
+            border: 'rgba(143, 168, 193, 0.3)'
         }
     }
 };

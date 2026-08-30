@@ -148,8 +148,9 @@ const HomeScreenStaticStyles = {
         textAlign: 'left'
     },
     optionCard: {
+        borderCurve: 'continuous',
         borderRadius: 18,
-        borderWidth: StyleSheet.hairlineWidth,
+        borderWidth: 1,
         gap: 3,
         minHeight: 64,
         paddingHorizontal: 12,

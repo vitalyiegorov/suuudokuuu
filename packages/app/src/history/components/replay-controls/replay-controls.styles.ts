@@ -12,7 +12,7 @@ export const ReplayControlsStyles = StyleSheet.create(theme => ({
     card: {
         borderCurve: 'continuous',
         borderRadius: theme.radius.lg,
-        borderWidth: StyleSheet.hairlineWidth,
+        borderWidth: 1,
         gap: theme.spacing.md,
         paddingHorizontal: theme.spacing.lg,
         paddingVertical: theme.spacing.md,

@@ -11,7 +11,7 @@ export const AppMetricStripStyles = StyleSheet.create(() => ({
         alignSelf: 'flex-start',
         borderCurve: 'continuous',
         borderRadius: 28,
-        borderWidth: StyleSheet.hairlineWidth,
+        borderWidth: 1,
         flexDirection: 'row',
         flexShrink: 1,
         minHeight: 52,

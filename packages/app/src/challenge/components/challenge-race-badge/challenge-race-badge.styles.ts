@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native';
 export const ChallengeRaceBadgeStyles = StyleSheet.create({
     badge: {
         alignItems: 'center',
+        borderCurve: 'continuous',
         borderRadius: 999,
         borderWidth: 1,
         flexDirection: 'row',
