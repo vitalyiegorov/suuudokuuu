@@ -1,7 +1,7 @@
 appId: ${APP_ID}
 ---
 - startRecording:
-      path: '18.undo-redo'
+      path: '20.undo-redo'
       optional: true
 
 # The fixture is an Easy Puzzle-kind payload (maxMistakes 3) whose blank cell

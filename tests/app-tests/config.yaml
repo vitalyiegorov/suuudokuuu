@@ -30,3 +30,6 @@ executionOrder:
         - 15.rated-completed-game-stats.flow
         - 16.rated-challenge-win-rating.flow
         - 17.rated-challenge-lose-rating.flow
+        - 18.daily-challenge.flow
+        - 20.undo-redo.flow
+        - 21.hardcore-no-undo-redo.flow

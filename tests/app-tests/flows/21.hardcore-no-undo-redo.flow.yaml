@@ -1,7 +1,7 @@
 appId: ${APP_ID}
 ---
 - startRecording:
-      path: '19.hardcore-no-undo-redo'
+      path: '21.hardcore-no-undo-redo'
       optional: true
 
 # Hardcore runs (maxMistakes 0) get no undo/redo, same as pencil assists.
