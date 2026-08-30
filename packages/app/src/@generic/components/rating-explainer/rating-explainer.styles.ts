@@ -30,8 +30,9 @@ export const RatingExplainerStyles = StyleSheet.create(theme => ({
     },
     bandRow: {
         alignItems: 'center',
+        borderCurve: 'continuous',
         borderRadius: theme.radius.sm,
-        borderWidth: StyleSheet.hairlineWidth,
+        borderWidth: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingHorizontal: theme.spacing.sm,
