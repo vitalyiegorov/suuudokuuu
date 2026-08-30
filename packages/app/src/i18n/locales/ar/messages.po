@@ -480,7 +480,7 @@ msgstr "حركات الإكمال"
 msgid "Completion Bonuses"
 msgstr "مكافآت الإكمال"
 
-#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/home-screen/home-screen-continue-row/home-screen-continue-row.tsx
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Continue"
@@ -843,6 +843,10 @@ msgstr "أنهيت هذا السودوكو في {elapsedTimeString}. هل يمك
 #: src/scoring/components/scoring.screen.tsx
 msgid "Immortal"
 msgstr "خالد"
+
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+msgid "In progress • {difficultyLabel}"
+msgstr "قيد التقدم • {difficultyLabel}"
 
 #: src/screens/components/loser-screen/loser.screen.tsx
 msgid "Incomplete"
@@ -1265,7 +1269,7 @@ msgstr "العب بمستويات أصعب لمضاعفات أكبر"
 msgid "Play Sudoku — Suuudokuuu"
 msgstr "العب السودوكو — Suuudokuuu"
 
-#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 msgid "Play today"
 msgstr "العب اليوم"
 
@@ -1619,9 +1623,13 @@ msgstr "تم الحل"
 msgid "Solved in"
 msgstr "تم الحل في"
 
-#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 msgid "Solved today"
 msgstr "تم الحل اليوم"
+
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+msgid "Solved today • {difficultyLabel}"
+msgstr "تم الحل اليوم • {difficultyLabel}"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Some color combinations are hard to read. Save anyway?"
@@ -1853,6 +1861,10 @@ msgstr "نصائح لنتائج أعلى"
 #: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "Today"
 msgstr "اليوم"
+
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+msgid "Today's puzzle • {difficultyLabel}"
+msgstr "لغز اليوم • {difficultyLabel}"
 
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "Too many mistakes"

@@ -482,7 +482,7 @@ msgstr "Анімації завершення"
 msgid "Completion Bonuses"
 msgstr "Бонуси за завершення"
 
-#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/home-screen/home-screen-continue-row/home-screen-continue-row.tsx
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Continue"
@@ -845,6 +845,10 @@ msgstr "Мій результат у цьому судоку: {elapsedTimeString
 #: src/scoring/components/scoring.screen.tsx
 msgid "Immortal"
 msgstr "Безсмертний"
+
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+msgid "In progress • {difficultyLabel}"
+msgstr "У процесі • {difficultyLabel}"
 
 #: src/screens/components/loser-screen/loser.screen.tsx
 msgid "Incomplete"
@@ -1267,7 +1271,7 @@ msgstr "Грай на вищій складності, щоб отримати �
 msgid "Play Sudoku — Suuudokuuu"
 msgstr "Грати в судоку — Suuudokuuu"
 
-#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 msgid "Play today"
 msgstr "Грати сьогодні"
 
@@ -1621,9 +1625,13 @@ msgstr "Розв’язано"
 msgid "Solved in"
 msgstr "Розв’язано за"
 
-#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 msgid "Solved today"
 msgstr "Вирішено сьогодні"
+
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+msgid "Solved today • {difficultyLabel}"
+msgstr "Розв’язано сьогодні • {difficultyLabel}"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Some color combinations are hard to read. Save anyway?"
@@ -1855,6 +1863,10 @@ msgstr "Поради для високих результатів"
 #: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "Today"
 msgstr "Сьогодні"
+
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+msgid "Today's puzzle • {difficultyLabel}"
+msgstr "Сьогоднішнє судоку • {difficultyLabel}"
 
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "Too many mistakes"

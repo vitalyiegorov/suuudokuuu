@@ -482,7 +482,7 @@ msgstr "Animaciones de completado"
 msgid "Completion Bonuses"
 msgstr "Bonificaciones por completar"
 
-#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/home-screen/home-screen-continue-row/home-screen-continue-row.tsx
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Continue"
@@ -845,6 +845,10 @@ msgstr "He completado este sudoku en {elapsedTimeString}. ¿Puedes superarme?"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Immortal"
 msgstr "Inmortal"
+
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+msgid "In progress • {difficultyLabel}"
+msgstr "En curso • {difficultyLabel}"
 
 #: src/screens/components/loser-screen/loser.screen.tsx
 msgid "Incomplete"
@@ -1267,7 +1271,7 @@ msgstr "Juega en dificultades más altas para obtener multiplicadores mayores"
 msgid "Play Sudoku — Suuudokuuu"
 msgstr "Jugar al sudoku — Suuudokuuu"
 
-#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 msgid "Play today"
 msgstr "Jugar hoy"
 
@@ -1621,9 +1625,13 @@ msgstr "Resuelto"
 msgid "Solved in"
 msgstr "Resuelto en"
 
-#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 msgid "Solved today"
 msgstr "Resuelto hoy"
+
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+msgid "Solved today • {difficultyLabel}"
+msgstr "Resuelto hoy • {difficultyLabel}"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Some color combinations are hard to read. Save anyway?"
@@ -1855,6 +1863,10 @@ msgstr "Consejos para puntuaciones altas"
 #: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "Today"
 msgstr "Hoy"
+
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+msgid "Today's puzzle • {difficultyLabel}"
+msgstr "Sudoku de hoy • {difficultyLabel}"
 
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "Too many mistakes"

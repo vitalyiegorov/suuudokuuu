@@ -480,7 +480,7 @@ msgstr "সম্পূর্ণ হওয়ার অ্যানিমেশন"
 msgid "Completion Bonuses"
 msgstr "সম্পূর্ণ করার বোনাস"
 
-#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/home-screen/home-screen-continue-row/home-screen-continue-row.tsx
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Continue"
@@ -843,6 +843,10 @@ msgstr "আমি এই সুডোকু {elapsedTimeString}-এ শেষ �
 #: src/scoring/components/scoring.screen.tsx
 msgid "Immortal"
 msgstr "অমর"
+
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+msgid "In progress • {difficultyLabel}"
+msgstr "চলছে • {difficultyLabel}"
 
 #: src/screens/components/loser-screen/loser.screen.tsx
 msgid "Incomplete"
@@ -1265,7 +1269,7 @@ msgstr "বড় গুণকের জন্য বেশি কঠিনত�
 msgid "Play Sudoku — Suuudokuuu"
 msgstr "সুডোকু খেলুন — Suuudokuuu"
 
-#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 msgid "Play today"
 msgstr "আজ খেলুন"
 
@@ -1619,9 +1623,13 @@ msgstr "সমাধান হয়েছে"
 msgid "Solved in"
 msgstr "সমাধানের সময়"
 
-#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 msgid "Solved today"
 msgstr "আজ সমাধান হয়েছে"
+
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+msgid "Solved today • {difficultyLabel}"
+msgstr "আজ সমাধান হয়েছে • {difficultyLabel}"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Some color combinations are hard to read. Save anyway?"
@@ -1853,6 +1861,10 @@ msgstr "উচ্চ স্কোরের টিপস"
 #: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "Today"
 msgstr "আজ"
+
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+msgid "Today's puzzle • {difficultyLabel}"
+msgstr "আজকের সুডোকু • {difficultyLabel}"
 
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "Too many mistakes"

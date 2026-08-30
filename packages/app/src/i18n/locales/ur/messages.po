@@ -480,7 +480,7 @@ msgstr "تکمیل کی اینیمیشنز"
 msgid "Completion Bonuses"
 msgstr "مکمل کرنے کے بونس"
 
-#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/home-screen/home-screen-continue-row/home-screen-continue-row.tsx
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Continue"
@@ -843,6 +843,10 @@ msgstr "میں نے یہ سوڈوکو {elapsedTimeString} میں مکمل کیا
 #: src/scoring/components/scoring.screen.tsx
 msgid "Immortal"
 msgstr "لافانی"
+
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+msgid "In progress • {difficultyLabel}"
+msgstr "جاری ہے • {difficultyLabel}"
 
 #: src/screens/components/loser-screen/loser.screen.tsx
 msgid "Incomplete"
@@ -1265,7 +1269,7 @@ msgstr "بڑے ملٹی پلائرز کے لیے زیادہ مشکل سطح پر
 msgid "Play Sudoku — Suuudokuuu"
 msgstr "سوڈوکو کھیلیں — Suuudokuuu"
 
-#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 msgid "Play today"
 msgstr "آج کھیلیں"
 
@@ -1619,9 +1623,13 @@ msgstr "حل ہو گیا"
 msgid "Solved in"
 msgstr "حل ہونے کا وقت"
 
-#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 msgid "Solved today"
 msgstr "آج حل ہو گیا"
+
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+msgid "Solved today • {difficultyLabel}"
+msgstr "آج حل ہوا • {difficultyLabel}"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Some color combinations are hard to read. Save anyway?"
@@ -1853,6 +1861,10 @@ msgstr "ہائی اسکور کے مشورے"
 #: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "Today"
 msgstr "آج"
+
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+msgid "Today's puzzle • {difficultyLabel}"
+msgstr "آج کی پہیلی • {difficultyLabel}"
 
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "Too many mistakes"

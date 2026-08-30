@@ -480,7 +480,7 @@ msgstr "Animasi penyelesaian"
 msgid "Completion Bonuses"
 msgstr "Bonus penyelesaian"
 
-#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/home-screen/home-screen-continue-row/home-screen-continue-row.tsx
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Continue"
@@ -843,6 +843,10 @@ msgstr "Aku menyelesaikan sudoku ini dalam {elapsedTimeString}. Bisa kalahkan ak
 #: src/scoring/components/scoring.screen.tsx
 msgid "Immortal"
 msgstr "Abadi"
+
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+msgid "In progress • {difficultyLabel}"
+msgstr "Sedang berjalan • {difficultyLabel}"
 
 #: src/screens/components/loser-screen/loser.screen.tsx
 msgid "Incomplete"
@@ -1265,7 +1269,7 @@ msgstr "Main di tingkat lebih sulit untuk pengali lebih besar"
 msgid "Play Sudoku — Suuudokuuu"
 msgstr "Main Sudoku — Suuudokuuu"
 
-#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 msgid "Play today"
 msgstr "Main hari ini"
 
@@ -1619,9 +1623,13 @@ msgstr "Terpecahkan"
 msgid "Solved in"
 msgstr "Terpecahkan dalam"
 
-#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 msgid "Solved today"
 msgstr "Selesai hari ini"
+
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+msgid "Solved today • {difficultyLabel}"
+msgstr "Terpecahkan hari ini • {difficultyLabel}"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Some color combinations are hard to read. Save anyway?"
@@ -1853,6 +1861,10 @@ msgstr "Tips skor tinggi"
 #: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "Today"
 msgstr "Hari ini"
+
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+msgid "Today's puzzle • {difficultyLabel}"
+msgstr "Sudoku hari ini • {difficultyLabel}"
 
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "Too many mistakes"
