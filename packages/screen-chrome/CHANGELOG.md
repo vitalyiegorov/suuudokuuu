@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.9.3](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.9.2...v2.9.3) (2026-08-30)
+
+### Bug Fixes
+
+- **app:** combined ui/ux polish pass for the v2.9.x changes ([cca171c](https://github.com/vitalyiegorov/suuudokuuu/commit/cca171cfedd74039c582b3f266841eae1843f636)), closes [#373](https://github.com/vitalyiegorov/suuudokuuu/issues/373) [#374](https://github.com/vitalyiegorov/suuudokuuu/issues/374) [#375](https://github.com/vitalyiegorov/suuudokuuu/issues/375) [#376](https://github.com/vitalyiegorov/suuudokuuu/issues/376) [#377](https://github.com/vitalyiegorov/suuudokuuu/issues/377) [#372](https://github.com/vitalyiegorov/suuudokuuu/issues/372)
+
 # [2.6.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.5.1...v2.6.0) (2026-08-17)
 
 ### Bug Fixes
