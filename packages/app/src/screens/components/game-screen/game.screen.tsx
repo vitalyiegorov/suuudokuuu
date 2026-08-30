@@ -197,7 +197,7 @@ export const GameScreen = () => {
 
                     {isWideLayout ? null : (
                         <View style={styles.toolsSlot}>
-                            <GameInputTools hideAutoCandidates={hideAutoCandidates} />
+                            <GameInputTools hideAutoCandidates={hideAutoCandidates} isLeftHanded={isLeftHanded} />
                         </View>
                     )}
                 </View>
@@ -214,7 +214,7 @@ export const GameScreen = () => {
                             selectedCell={selectedCell}
                         />
 
-                        {isWideLayout ? <GameInputTools hideAutoCandidates={hideAutoCandidates} /> : null}
+                        {isWideLayout ? <GameInputTools hideAutoCandidates={hideAutoCandidates} isLeftHanded={isLeftHanded} /> : null}
                     </View>
 
                     {isWideLayout ? gameActionsWithPause : null}
