@@ -91,7 +91,7 @@ export const NewspaperDarkTheme: ThemeInterface = {
             subtle: '#2a2a2a',
             subtleText: '#f0f0f0',
             subtleHint: 'rgba(240, 240, 240, 0.65)',
-            border: 'rgba(240, 240, 240, 0.28)'
+            border: 'rgba(240, 240, 240, 0.16)'
         }
     }
 };

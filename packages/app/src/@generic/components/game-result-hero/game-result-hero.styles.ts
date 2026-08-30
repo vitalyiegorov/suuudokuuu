@@ -10,7 +10,7 @@ export const GameResultHeroStyles = StyleSheet.create({
         backgroundColor: 'transparent',
         borderCurve: 'continuous',
         borderRadius: 999,
-        borderWidth: StyleSheet.hairlineWidth,
+        borderWidth: 1,
         maxWidth: '100%',
         paddingHorizontal: 18,
         paddingVertical: 8

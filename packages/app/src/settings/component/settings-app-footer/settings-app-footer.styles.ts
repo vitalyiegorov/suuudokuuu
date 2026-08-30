@@ -3,8 +3,9 @@ import { StyleSheet } from 'react-native-unistyles';
 export const SettingsAppFooterStyles = StyleSheet.create(theme => ({
     action: {
         alignItems: 'center',
+        borderCurve: 'continuous',
         borderRadius: theme.radius.pill,
-        borderWidth: StyleSheet.hairlineWidth,
+        borderWidth: 1,
         minHeight: 38,
         paddingHorizontal: 16,
         paddingVertical: 9,
@@ -36,8 +37,9 @@ export const SettingsAppFooterStyles = StyleSheet.create(theme => ({
     },
     supportButton: {
         alignItems: 'center',
+        borderCurve: 'continuous',
         borderRadius: 22,
-        borderWidth: StyleSheet.hairlineWidth,
+        borderWidth: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
         minHeight: 66,
