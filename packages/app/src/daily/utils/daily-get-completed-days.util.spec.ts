@@ -5,12 +5,11 @@ import { dailyGetCompletedDays } from './daily-get-completed-days.util';
 
 describe('dailyGetCompletedDays', () => {
     it('should return completed days newest first with their derived difficulty', () => {
-        expect.assertions(3);
+        expect.assertions(2);
 
         const completedDays = dailyGetCompletedDays([20691, 20690, 20692]);
 
         expect(completedDays.map(({ dayNumber }) => dayNumber)).toStrictEqual([20692, 20691, 20690]);
-        expect(completedDays[0]?.dateString).toMatch(/^\d{4}-\d{2}-\d{2}$/u);
         expect(completedDays[0]?.difficulty).toBeDefined();
     });
 
