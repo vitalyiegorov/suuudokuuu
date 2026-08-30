@@ -5,7 +5,7 @@ export const LoserScreenResultHeroStyles = StyleSheet.create(theme => ({
         alignItems: 'center',
         borderCurve: 'continuous',
         borderRadius: theme.radius.pill,
-        borderWidth: StyleSheet.hairlineWidth,
+        borderWidth: 1,
         flexDirection: 'row',
         gap: theme.spacing.sm,
         paddingHorizontal: 16,

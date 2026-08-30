@@ -3,8 +3,9 @@ import { StyleSheet } from 'react-native-unistyles';
 export const SupportUkrainePillStyles = StyleSheet.create(theme => ({
     container: {
         alignItems: 'center',
+        borderCurve: 'continuous',
         borderRadius: theme.radius.pill,
-        borderWidth: StyleSheet.hairlineWidth,
+        borderWidth: 1,
         flexDirection: 'row',
         gap: theme.spacing.sm,
         justifyContent: 'center',

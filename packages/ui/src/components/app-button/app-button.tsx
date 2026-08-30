@@ -2,6 +2,7 @@ import {
     ActivityIndicator,
     Pressable,
     type PressableProps,
+    type PressableStateCallbackType,
     type StyleProp,
     Text,
     type TextProps,
@@ -67,9 +68,10 @@ export const AppButton = ({
     const accessibilityState = { ...accessibilityStateProp, busy: isLoading, disabled: isDisabled };
 
     const contentStyles = [styles.content, isLoading && styles.contentHidden];
+    const pressableStyles = ({ pressed }: PressableStateCallbackType) => [...buttonStyles, pressed && styles.pressed];
 
     return (
-        <Pressable onPress={onPress} style={buttonStyles} {...restProps} accessibilityState={accessibilityState} disabled={isDisabled}>
+        <Pressable onPress={onPress} style={pressableStyles} {...restProps} accessibilityState={accessibilityState} disabled={isDisabled}>
             <View pointerEvents="none" style={contentStyles}>
                 {isDefined(children) && children}
 
