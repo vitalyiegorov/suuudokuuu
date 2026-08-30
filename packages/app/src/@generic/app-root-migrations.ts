@@ -31,7 +31,7 @@ export interface AppRootPersistedStateInterface {
     [customThemesSlice.name]: CustomThemesState;
 }
 
-export const appRootPersistVersion = 41;
+export const appRootPersistVersion = 42;
 
 const resetBestScores = (state: AppRootPersistedStateInterface): AppRootPersistedStateInterface => {
     const gameState = state[gameSlice.name];
@@ -229,6 +229,21 @@ const backfillStatsPackAndDailyRecord = (state: AppRootPersistedStateInterface):
     };
 };
 
+const ComfortModePersistedKeys = ['comfortMode', 'comfortModeOfferDismissed', 'comfortModeRestore'] as const;
+
+const dropComfortMode = (state: AppRootPersistedStateInterface): AppRootPersistedStateInterface => {
+    const settingsState = { ...state[settingsSlice.name] };
+
+    ComfortModePersistedKeys.forEach(key => {
+        Reflect.deleteProperty(settingsState, key);
+    });
+
+    return {
+        ...state,
+        [settingsSlice.name]: settingsState
+    };
+};
+
 export const appRootMigrations: MigrationManifest<AppRootPersistedStateInterface> = {
     12: state => ({
         ...state,
@@ -264,5 +279,6 @@ export const appRootMigrations: MigrationManifest<AppRootPersistedStateInterface
     31: migrateCustomThemesToSemanticTokens,
     32: ensureAllDifficulties,
     33: dropHellQueue,
-    41: backfillStatsPackAndDailyRecord
+    41: backfillStatsPackAndDailyRecord,
+    42: dropComfortMode
 };

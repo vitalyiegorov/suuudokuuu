@@ -60,3 +60,12 @@ export const DifficultyComplexitySliderHardcoreGuardCells = [
 
 export const DifficultyComplexitySliderMaxIndex = DifficultyComplexitySliderDifficulties.length - 1;
 export const DifficultyComplexitySliderThumbRadius = 13;
+const DifficultyComplexitySliderLabelSlotIndexes = DifficultyComplexitySliderDifficulties.map(
+    (_unusedDifficulty, slotIndex) => slotIndex
+);
+export const DifficultyComplexitySliderTopLabelSlotIndexes = DifficultyComplexitySliderLabelSlotIndexes.filter(
+    slotIndex => slotIndex % 2 === 1
+);
+export const DifficultyComplexitySliderBottomLabelSlotIndexes = DifficultyComplexitySliderLabelSlotIndexes.filter(
+    slotIndex => slotIndex % 2 === 0
+);

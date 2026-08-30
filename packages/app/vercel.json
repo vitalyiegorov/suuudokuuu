@@ -14,7 +14,7 @@
             "continue": true
         },
         {
-            "src": "^/(?:play|game|game-settings|pause|winner|loser|challenge-won|challenge-lost|scoring|privacy-policy|beta)/?$",
+            "src": "^/(?:play|game|game-settings|pause|winner|loser|challenge-won|challenge-lost|scoring|privacy-policy|beta|daily)/?$",
             "dest": "/_app/index.html"
         },
         {

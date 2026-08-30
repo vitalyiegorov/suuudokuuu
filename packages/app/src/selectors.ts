@@ -13,7 +13,8 @@ export * from './challenge/components/challenge-run-summary/challenge-run-summar
 export * from './challenge/components/challenge-result-footer/challenge-result-footer.selectors';
 export * from './challenge/components/challenge-result-screen/challenge-result-screen.selectors';
 export * from './challenge/components/challenge-try-again-button/challenge-try-again-button.selectors';
-export * from './daily/components/daily-challenge-card/daily-challenge-card.selectors';
+export * from './daily/components/daily-history-list/daily-history-list.selectors';
+export * from './daily/components/daily-streak-hero/daily-streak-hero.selectors';
 export * from './daily/components/daily-streak-summary/daily-streak-summary.selectors';
 export * from './game/components/available-values-item/available-value-item.selectors';
 export * from './game/components/candidate-input-item/candidate-input-item.selectors';
@@ -37,6 +38,7 @@ export * from './history/components/replay-scrubber/replay-scrubber.selectors';
 export * from './history/components/replay-share-action/replay-share-action.selectors';
 export * from './scoring/components/scoring-screen.selectors';
 export * from './screens/components/game-screen/game-screen.selectors';
+export * from './screens/components/daily-screen/daily-screen.selectors';
 export * from './screens/components/history-games-screen/history-games-screen.selectors';
 export * from './screens/components/history-screen/history-screen.selectors';
 export * from './screens/components/home-screen/home-screen-start-button-ember/home-screen-start-button-ember.selectors';

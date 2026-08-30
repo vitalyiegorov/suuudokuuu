@@ -25,6 +25,7 @@ interface DailyChallengeInterface {
     readonly startDaily: () => void;
     readonly status: DailyStatusType;
     readonly streak: number;
+    readonly todayDateString: string;
 }
 
 export const useDailyChallenge = (): DailyChallengeInterface => {
@@ -48,6 +49,7 @@ export const useDailyChallenge = (): DailyChallengeInterface => {
         isGameStarted,
         startDaily: () => void createDaily(maxMistakes),
         status: dailyGetStatus(todayDayNumber, completedDayNumbers, activeRunDayNumber),
-        streak: getDayStreak(completedDayNumbers, todayDayNumber)
+        streak: getDayStreak(completedDayNumbers, todayDayNumber),
+        todayDateString
     };
 };

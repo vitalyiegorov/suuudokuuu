@@ -18,7 +18,6 @@ import { getDayNumber } from './utils/get-day-number.util';
 
 import type { AppRootPersistedStateInterface } from './app-root-migrations';
 import type { GameCellTimelineEventInterface } from '../game/interface/game-timeline-event.interface';
-import type { SettingsState } from '../settings/store/settings.state';
 
 jest.mock('react-native', () => ({
     Appearance: {
@@ -32,7 +31,8 @@ jest.mock('./utils/i18n.util', () => ({
 
 const migrationVersions = Object.keys(appRootMigrations).map(Number);
 
-const LastReleasedPersistVersion = 33;
+const LastGaplessPersistVersion = 33;
+const ReleasedCollapsedPersistVersion = 41;
 
 const buildState = (overrides: Partial<AppRootPersistedStateInterface> = {}): AppRootPersistedStateInterface => ({
     game: initialGameState,
@@ -125,8 +125,8 @@ const buildLegacyReleasedState = (): AppRootPersistedStateInterface => {
         'dailyBestStreak'
     );
     const storedSettings = withoutKeyAtRuntime(
-        withoutKeyAtRuntime(withoutKeyAtRuntime({ ...initialSettingsState, hasTimer: false }, 'calmMode'), 'motionPreference'),
-        'comfortModeRestore'
+        withoutKeyAtRuntime({ ...initialSettingsState, hasTimer: false }, 'calmMode'),
+        'motionPreference'
     );
 
     return buildState({ game: storedGame, settings: storedSettings });
@@ -170,16 +170,19 @@ describe('appRootMigrations', () => {
         expect.assertions(1);
 
         const releasedVersions = migrationVersions
-            .filter(version => version <= LastReleasedPersistVersion)
+            .filter(version => version <= LastGaplessPersistVersion)
             .sort((firstVersion, secondVersion) => firstVersion - secondVersion);
 
         expect(releasedVersions).toStrictEqual(releasedVersions.map((_, index) => releasedVersions[0] + index));
     });
 
-    it('should reach the newest version from the last released version in a single collapsed step', () => {
+    it('should keep the post-collapse released steps to the collapsed release and the newest version', () => {
         expect.assertions(1);
 
-        expect(migrationVersions.filter(version => version > LastReleasedPersistVersion)).toStrictEqual([appRootPersistVersion]);
+        expect(migrationVersions.filter(version => version > LastGaplessPersistVersion)).toStrictEqual([
+            ReleasedCollapsedPersistVersion,
+            appRootPersistVersion
+        ]);
     });
 
     it('should reset every stored best score', () => {
@@ -558,7 +561,7 @@ describe('appRootMigrations', () => {
         expect(runMigration(41, state).game.playedDayNumbers).toStrictEqual([alreadyPlayedDayNumber]);
     });
 
-    it('should backfill the comfort preferences at the collapsed migration without touching stored choices', () => {
+    it('should backfill the missing settings keys at the collapsed migration without touching stored choices', () => {
         expect.assertions(3);
 
         const storedSettings = withoutKeyAtRuntime(
@@ -572,23 +575,6 @@ describe('appRootMigrations', () => {
         expect(migrated.settings.hasTimer).toBe(false);
     });
 
-    it('should rehydrate a pre-comfort-mode state with the preset off and nothing else touched', () => {
-        expect.assertions(6);
-
-        const legacySettings: SettingsState = { ...initialSettingsState, fontSize: 'xs', theme: ThemeEnum.Newspaper };
-        const storedSettings = withoutKeyAtRuntime(
-            withoutKeyAtRuntime(withoutKeyAtRuntime(legacySettings, 'comfortMode'), 'comfortModeOfferDismissed'),
-            'comfortModeRestore'
-        );
-        const migrated = runMigration(41, buildState({ settings: storedSettings }));
-
-        expect(migrated.settings.comfortMode).toBe('off');
-        expect(migrated.settings.comfortModeOfferDismissed).toBe(false);
-        expect(migrated.settings.comfortModeRestore).toBeNull();
-        expect(migrated.settings.fontSize).toBe('xs');
-        expect(migrated.settings.theme).toBe(ThemeEnum.Newspaper);
-        expect(migrated.settings.hasTimer).toBe(initialSettingsState.hasTimer);
-    });
     it('should seed the daily challenge record at the collapsed migration without touching anything else', () => {
         expect.assertions(4);
 
@@ -621,6 +607,56 @@ describe('appRootMigrations', () => {
         const storedGame = { ...initialGameState, undoneMoves: [legacyUndoneMove] };
 
         expect(runMigration(41, buildState({ game: storedGame })).game.undoneMoves).toStrictEqual([]);
+    });
+
+    it('should drop the comfort preset keys at the removal migration without touching stored choices', () => {
+        expect.assertions(5);
+
+        const storedSettings = withExtraKeyAtRuntime(
+            withExtraKeyAtRuntime(
+                withExtraKeyAtRuntime(
+                    { ...initialSettingsState, fontSize: 's' as const, theme: ThemeEnum.Newspaper },
+                    'comfortMode',
+                    'customized'
+                ),
+                'comfortModeOfferDismissed',
+                true
+            ),
+            'comfortModeRestore',
+            { hasTimer: false }
+        );
+        const migrated = runMigration(42, buildState({ settings: storedSettings }));
+
+        expect(Reflect.has(migrated.settings, 'comfortMode')).toBe(false);
+        expect(Reflect.has(migrated.settings, 'comfortModeOfferDismissed')).toBe(false);
+        expect(Reflect.has(migrated.settings, 'comfortModeRestore')).toBe(false);
+        expect(migrated.settings.fontSize).toBe('s');
+        expect(migrated.settings.theme).toBe(ThemeEnum.Newspaper);
+    });
+
+    it('should leave a state without comfort keys untouched at the removal migration', () => {
+        expect.assertions(1);
+
+        const state = buildState({ settings: { ...initialSettingsState, hasTimer: false } });
+
+        expect(runMigration(42, state)).toStrictEqual(state);
+    });
+
+    it('should land on the same shape when the comfort removal replays over an already-removed state', () => {
+        expect.assertions(1);
+
+        const storedSettings = withExtraKeyAtRuntime(
+            withExtraKeyAtRuntime(
+                withExtraKeyAtRuntime({ ...initialSettingsState }, 'comfortMode', 'on'),
+                'comfortModeOfferDismissed',
+                true
+            ),
+            'comfortModeRestore',
+            { hasTimer: true }
+        );
+        const migrated = runMigration(42, buildState({ settings: storedSettings }));
+
+        expect(runMigration(42, migrated)).toStrictEqual(migrated);
     });
 
     it('should migrate a released v33 state into the exact collapsed shape', () => {
