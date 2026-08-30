@@ -519,6 +519,19 @@ describe('FieldEngine', () => {
             expect(engine.getSnapshot().stepIndex).toBe(0);
         });
 
+        it('clears the stale selection when a script starts', () => {
+            expect.assertions(2);
+
+            const engine = createEngine();
+            const script = requireStepScript(findStepScript(engine.Sudoku));
+
+            engine.selectCell(getCell(engine, 0, 0));
+            engine.startStepScript(script);
+
+            expect(engine.getSnapshot().selectedCell).toBeUndefined();
+            expect(engine.getSnapshot().stepScript).not.toBeNull();
+        });
+
         it('resets the player position', () => {
             expect.assertions(2);
 

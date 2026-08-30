@@ -81,8 +81,44 @@ msgid "{streak, plural, one {# day streak} other {# day streak}}"
 msgstr "{streak, plural, one {Svit på # dag} other {Svit på # dagar}}"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: start with {cellCount, plural, one {the # highlighted cell} other {the # highlighted cells}} and the digits {valueList}."
-msgstr "{techniqueName}: börja med {cellCount, plural, one {den markerade rutan} other {de # markerade rutorna}} och siffrorna {valueList}."
+msgid "{techniqueName}: in the highlighted box, {value} fits only in the marked cell."
+msgstr "{techniqueName}: i den markerade 3\\u00d73-rutan passar {value} bara i den markerade cellen."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in the highlighted column, {value} fits only in the marked cell."
+msgstr "{techniqueName}: i den markerade kolumnen passar {value} bara i den markerade cellen."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in the highlighted row, {value} fits only in the marked cell."
+msgstr "{techniqueName}: i den markerade raden passar {value} bara i den markerade cellen."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}: den markerade 3\\u00d73-rutan har bara en tom cell kvar, s\\u00e5 {value} hamnar d\\u00e4r."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells can only hold the digits {valueList}."
+msgstr "{techniqueName}: de markerade cellerna kan bara innehålla siffrorna {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
+msgstr "{techniqueName}: de markerade cellerna lämnar bara {value} för den markerade cellen."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted column has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}: den markerade kolumnen har bara en tom cell kvar, så {value} hamnar där."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted row has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}: den markerade raden har bara en tom cell kvar, så {value} hamnar där."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the marked cell sees every highlighted digit except {value}."
+msgstr "{techniqueName}: den markerade cellen ser alla markerade siffror utom {value}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the pattern rules {valueList} out of the marked cells."
+msgstr "{techniqueName}: mönstret utesluter {valueList} i de markerade cellerna."
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
@@ -481,7 +517,7 @@ msgstr "d"
 #: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 msgid "Daily"
-msgstr ""
+msgstr "Dagligt"
 
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
 #: src/screens/components/daily-screen/daily.screen.tsx
@@ -825,10 +861,6 @@ msgstr "Oändlighet"
 msgid "Ink"
 msgstr "Bläck"
 
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "Inside that pattern the digits {valueList} can only sit in the highlighted cells."
-msgstr "Inom det mönstret kan siffrorna {valueList} bara stå i de markerade rutorna."
-
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Install on iOS"
 msgstr "Installera på iOS"
@@ -983,7 +1015,7 @@ msgstr "Drag"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Move the landscape controls panel to the left of the board"
-msgstr "Flytta kontrollpanelen till vänster om brädet i liggande läge"
+msgstr ""
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "My theme"
@@ -1081,7 +1113,7 @@ msgstr "Ingen enkel teknik fungerar"
 
 #: src/daily/components/daily-history-list/daily-history-list.tsx
 msgid "No solves yet. Today’s puzzle is waiting."
-msgstr ""
+msgstr "Inga lösningar än. Dagens sudoku väntar."
 
 #: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
@@ -1132,10 +1164,6 @@ msgstr "Erbjud ledtrådar även i sudokun på Mardröm, Helvete och Oändlighet"
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "OK"
 msgstr "OK"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "Only {valueList} is left for the marked cell, so place it there."
-msgstr "Bara {valueList} återstår för den markerade rutan, så placera den där."
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Open commit {commitShortSha} on GitHub"
@@ -1206,6 +1234,10 @@ msgstr "per misstag"
 #: src/scoring/components/scoring.screen.tsx
 msgid "per second"
 msgstr "per sekund"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Place {valueList} in the marked cell."
+msgstr "Placera {valueList} i den markerade cellen."
 
 #: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
@@ -1321,7 +1353,7 @@ msgstr "Läs Suuudokuuus integritetspolicy om datainsamling, lagring och dina r�
 
 #: src/daily/components/daily-history-list/daily-history-list.tsx
 msgid "Recent solves"
-msgstr ""
+msgstr "Senaste lösningar"
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"
@@ -1593,7 +1625,7 @@ msgstr "Löst på"
 
 #: src/screens/components/daily-screen/daily.screen.tsx
 msgid "Solved today"
-msgstr ""
+msgstr "Löst idag"
 
 #: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "Solved today • {difficultyLabel}"
@@ -1745,10 +1777,6 @@ msgstr "Text på ifylld list i sifferpanelen"
 msgid "Text on ink"
 msgstr "Text på bläck"
 
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "That rules {valueList} out of {cellCount, plural, one {# other cell} other {# other cells}}, so the struck candidates are gone."
-msgstr "Det utesluter {valueList} i {cellCount, plural, one {# annan ruta} other {# andra rutor}}, så de överstrukna kandidaterna försvinner."
-
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
 msgstr "Commit-länken kunde inte öppnas på den här enheten."
@@ -1832,7 +1860,7 @@ msgstr "Tips för höga poäng"
 
 #: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "Today"
-msgstr ""
+msgstr "Idag"
 
 #: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "Today's puzzle • {difficultyLabel}"

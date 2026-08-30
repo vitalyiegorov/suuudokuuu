@@ -83,8 +83,44 @@ msgid "{streak, plural, one {# day streak} other {# day streak}}"
 msgstr "{streak, plural, one {Série de # jour} other {Série de # jours}}"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: start with {cellCount, plural, one {the # highlighted cell} other {the # highlighted cells}} and the digits {valueList}."
-msgstr "{techniqueName} : commencez par {cellCount, plural, one {la cellule surlignée} other {les # cellules surlignées}} et les chiffres {valueList}."
+msgid "{techniqueName}: in the highlighted box, {value} fits only in the marked cell."
+msgstr "{techniqueName} : dans le bloc surligné, {value} ne peut aller que dans la case marquée."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in the highlighted column, {value} fits only in the marked cell."
+msgstr "{techniqueName} : dans la colonne surlignée, {value} ne peut aller que dans la case marquée."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in the highlighted row, {value} fits only in the marked cell."
+msgstr "{techniqueName} : dans la ligne surlignée, {value} ne peut aller que dans la case marquée."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} goes there."
+msgstr "{techniqueName} : il ne reste qu’une case vide dans le bloc surligné, donc {value} va là."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells can only hold the digits {valueList}."
+msgstr "{techniqueName} : les cases surlignées ne peuvent contenir que les chiffres {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
+msgstr "{techniqueName} : les cases surlignées ne laissent que {value} pour la case marquée."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted column has one empty cell left, so {value} goes there."
+msgstr "{techniqueName} : il ne reste qu’une case vide dans la colonne surlignée, donc {value} va là."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted row has one empty cell left, so {value} goes there."
+msgstr "{techniqueName} : il ne reste qu’une case vide dans la ligne surlignée, donc {value} va là."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the marked cell sees every highlighted digit except {value}."
+msgstr "{techniqueName} : la case marquée voit tous les chiffres surlignés sauf {value}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the pattern rules {valueList} out of the marked cells."
+msgstr "{techniqueName} : le motif élimine {valueList} dans les cases marquées."
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
@@ -483,7 +519,7 @@ msgstr "d"
 #: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 msgid "Daily"
-msgstr ""
+msgstr "Quotidien"
 
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
 #: src/screens/components/daily-screen/daily.screen.tsx
@@ -827,10 +863,6 @@ msgstr "Infini"
 msgid "Ink"
 msgstr "Encre"
 
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "Inside that pattern the digits {valueList} can only sit in the highlighted cells."
-msgstr "Dans ce motif, les chiffres {valueList} ne peuvent occuper que les cellules surlignées."
-
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Install on iOS"
 msgstr "Installer sur iOS"
@@ -985,7 +1017,7 @@ msgstr "Coup"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Move the landscape controls panel to the left of the board"
-msgstr "Placer le panneau de commandes à gauche de la grille en mode paysage"
+msgstr ""
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "My theme"
@@ -1083,7 +1115,7 @@ msgstr "Aucune technique simple ne s’applique"
 
 #: src/daily/components/daily-history-list/daily-history-list.tsx
 msgid "No solves yet. Today’s puzzle is waiting."
-msgstr ""
+msgstr "Aucune résolution pour l’instant. La grille du jour attend."
 
 #: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
@@ -1134,10 +1166,6 @@ msgstr "Proposer aussi des indices dans les grilles Cauchemar, Enfer et Infini"
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "OK"
 msgstr "OK"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "Only {valueList} is left for the marked cell, so place it there."
-msgstr "Il ne reste que {valueList} pour la cellule marquée : placez-le là."
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Open commit {commitShortSha} on GitHub"
@@ -1208,6 +1236,10 @@ msgstr "par erreur"
 #: src/scoring/components/scoring.screen.tsx
 msgid "per second"
 msgstr "par seconde"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Place {valueList} in the marked cell."
+msgstr "Placez {valueList} dans la case marquée."
 
 #: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
@@ -1323,7 +1355,7 @@ msgstr "Consultez la politique de confidentialité de Suuudokuuu : collecte des 
 
 #: src/daily/components/daily-history-list/daily-history-list.tsx
 msgid "Recent solves"
-msgstr ""
+msgstr "Résolutions récentes"
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"
@@ -1595,7 +1627,7 @@ msgstr "Résolue en"
 
 #: src/screens/components/daily-screen/daily.screen.tsx
 msgid "Solved today"
-msgstr ""
+msgstr "Résolu aujourd’hui"
 
 #: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "Solved today • {difficultyLabel}"
@@ -1747,10 +1779,6 @@ msgstr "Texte sur la barre remplie du pavé numérique"
 msgid "Text on ink"
 msgstr "Texte sur l'encre"
 
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "That rules {valueList} out of {cellCount, plural, one {# other cell} other {# other cells}}, so the struck candidates are gone."
-msgstr "Cela élimine {valueList} de {cellCount, plural, one {# autre cellule} other {# autres cellules}}, les candidats barrés disparaissent donc."
-
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
 msgstr "Impossible d’ouvrir le lien du commit sur cet appareil."
@@ -1834,7 +1862,7 @@ msgstr "Conseils pour de meilleurs scores"
 
 #: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "Today"
-msgstr ""
+msgstr "Aujourd’hui"
 
 #: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "Today's puzzle • {difficultyLabel}"

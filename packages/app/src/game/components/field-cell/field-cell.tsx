@@ -118,8 +118,9 @@ export const FieldCell = (props: Props) => {
     const selectionAnimationConfig = isMotionReduced ? instantAnimationConfig : animationConfig;
     const animation = useDerivedValue(() => withTiming(isActive ? 1 : 0, selectionAnimationConfig));
 
+    const selectionTargetColor = isTargetCell ? cellBackgroundColor : theme.colors.board.selected;
     const cellAnimatedStyles = useAnimatedStyle(() => ({
-        backgroundColor: interpolateColor(animation.value, [0, 1], [cellBackgroundColor, theme.colors.board.selected])
+        backgroundColor: interpolateColor(animation.value, [0, 1], [cellBackgroundColor, selectionTargetColor])
     }));
     const successPopAnimatedStyles = useAnimatedStyle(() => {
         if (!isSuccessPulsing || isMotionReduced) {

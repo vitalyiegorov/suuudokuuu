@@ -156,6 +156,7 @@ export class FieldEngine extends FieldStore {
     startStepScript(script: StepScriptInterface): void {
         this.stepScript = script;
         this.stepIndex = 0;
+        this.selectCell();
         this.publish();
     }
 

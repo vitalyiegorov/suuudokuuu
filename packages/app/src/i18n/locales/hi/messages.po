@@ -81,8 +81,44 @@ msgid "{streak, plural, one {# day streak} other {# day streak}}"
 msgstr "{streak, plural, one {# दिन का सिलसिला} other {# दिन का सिलसिला}}"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: start with {cellCount, plural, one {the # highlighted cell} other {the # highlighted cells}} and the digits {valueList}."
-msgstr "{techniqueName}: {cellCount, plural, one {# हाइलाइट की गई सेल} other {# हाइलाइट की गई सेल}} और अंक {valueList} से शुरू करें।"
+msgid "{techniqueName}: in the highlighted box, {value} fits only in the marked cell."
+msgstr "{techniqueName}: हाइलाइट किए गए ब्लॉक में, {value} केवल चिह्नित सेल में ही आ सकता है।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in the highlighted column, {value} fits only in the marked cell."
+msgstr "{techniqueName}: हाइलाइट किए गए कॉलम में, {value} केवल चिह्नित सेल में ही आ सकता है।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in the highlighted row, {value} fits only in the marked cell."
+msgstr "{techniqueName}: हाइलाइट की गई पंक्ति में, {value} केवल चिह्नित सेल में ही आ सकता है।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}: हाइलाइट किए गए ब्लॉक में केवल एक खाली सेल बची है, इसलिए {value} वहीं जाएगा।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells can only hold the digits {valueList}."
+msgstr "{techniqueName}: हाइलाइट किए गए सेल केवल अंक {valueList} रख सकते हैं।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
+msgstr "{techniqueName}: हाइलाइट किए गए सेल चिह्नित सेल के लिए केवल {value} छोड़ते हैं।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted column has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}: हाइलाइट किए गए कॉलम में केवल एक खाली सेल बची है, इसलिए {value} वहीं जाएगा।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted row has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}: हाइलाइट की गई पंक्ति में केवल एक खाली सेल बची है, इसलिए {value} वहीं जाएगा।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the marked cell sees every highlighted digit except {value}."
+msgstr "{techniqueName}: चिह्नित सेल {value} को छोड़कर हर हाइलाइट किया गया अंक देखता है।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the pattern rules {valueList} out of the marked cells."
+msgstr "{techniqueName}: यह पैटर्न चिह्नित सेल से {valueList} हटा देता है।"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
@@ -481,7 +517,7 @@ msgstr "d"
 #: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 msgid "Daily"
-msgstr ""
+msgstr "दैनिक"
 
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
 #: src/screens/components/daily-screen/daily.screen.tsx
@@ -825,10 +861,6 @@ msgstr "अनंत"
 msgid "Ink"
 msgstr "स्याही"
 
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "Inside that pattern the digits {valueList} can only sit in the highlighted cells."
-msgstr "उस पैटर्न के भीतर अंक {valueList} सिर्फ़ हाइलाइट की गई सेल में ही आ सकते हैं।"
-
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Install on iOS"
 msgstr "iOS पर इंस्टॉल करें"
@@ -983,7 +1015,7 @@ msgstr "चाल"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Move the landscape controls panel to the left of the board"
-msgstr "लैंडस्केप में नियंत्रण पैनल को बोर्ड के बाईं ओर ले जाएँ"
+msgstr ""
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "My theme"
@@ -1081,7 +1113,7 @@ msgstr "कोई सरल तकनीक लागू नहीं होत�
 
 #: src/daily/components/daily-history-list/daily-history-list.tsx
 msgid "No solves yet. Today’s puzzle is waiting."
-msgstr ""
+msgstr "अभी कोई हल नहीं। आज का सुडोकू इंतज़ार कर रहा है।"
 
 #: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
@@ -1132,10 +1164,6 @@ msgstr "दुःस्वप्न, नरक और अनंत सुडो�
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "OK"
 msgstr "ठीक है"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "Only {valueList} is left for the marked cell, so place it there."
-msgstr "चिह्नित सेल के लिए सिर्फ़ {valueList} बचा है, इसलिए इसे वहीं रखें।"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Open commit {commitShortSha} on GitHub"
@@ -1206,6 +1234,10 @@ msgstr "प्रति गलती"
 #: src/scoring/components/scoring.screen.tsx
 msgid "per second"
 msgstr "प्रति सेकंड"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Place {valueList} in the marked cell."
+msgstr "{valueList} को चिह्नित सेल में रखें।"
 
 #: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
@@ -1321,7 +1353,7 @@ msgstr "डेटा संग्रह, भंडारण और आपके 
 
 #: src/daily/components/daily-history-list/daily-history-list.tsx
 msgid "Recent solves"
-msgstr ""
+msgstr "हाल के हल"
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"
@@ -1593,7 +1625,7 @@ msgstr "हल करने में लगा"
 
 #: src/screens/components/daily-screen/daily.screen.tsx
 msgid "Solved today"
-msgstr ""
+msgstr "आज हल किया"
 
 #: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "Solved today • {difficultyLabel}"
@@ -1745,10 +1777,6 @@ msgstr "भरे हुए नंबर पैड ट्रैक पर टे
 msgid "Text on ink"
 msgstr "स्याही पर टेक्स्ट"
 
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "That rules {valueList} out of {cellCount, plural, one {# other cell} other {# other cells}}, so the struck candidates are gone."
-msgstr "इससे {cellCount, plural, one {# और सेल} other {# और सेल}} से {valueList} हट जाता है, इसलिए काटे गए उम्मीदवार खत्म हो जाते हैं।"
-
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
 msgstr "इस डिवाइस पर कमिट लिंक नहीं खोला जा सका।"
@@ -1832,7 +1860,7 @@ msgstr "उच्च स्कोर के सुझाव"
 
 #: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "Today"
-msgstr ""
+msgstr "आज"
 
 #: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "Today's puzzle • {difficultyLabel}"

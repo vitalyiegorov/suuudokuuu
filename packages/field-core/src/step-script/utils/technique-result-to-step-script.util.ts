@@ -1,4 +1,4 @@
-import { isNotEmptyArray } from '@rnw-community/shared';
+import { isDefined, isNotEmptyArray } from '@rnw-community/shared';
 
 import { StepScriptStepKindEnum } from '../enums/step-script-step-kind.enum';
 
@@ -11,17 +11,21 @@ import type { SolutionTechniqueEnum, TechniqueResultInterface } from '@suuudokuu
 const getPatternValues = (result: TechniqueResultInterface): number[] =>
     isNotEmptyArray(result.eliminations) ? [...new Set(result.eliminations.map(elimination => elimination.value))] : [result.value];
 
-const createHighlightStep = (technique: SolutionTechniqueEnum, patternCells: CellInterface[], values: number[]): StepScriptStepType => ({
-    kind: StepScriptStepKindEnum.Highlight,
-    patternCells,
-    narration: { technique, cells: patternCells, values }
-});
-
-const createRevealStep = (technique: SolutionTechniqueEnum, patternCells: CellInterface[], values: number[]): StepScriptStepType => ({
+const createRevealStep = (
+    technique: SolutionTechniqueEnum,
+    patternCells: CellInterface[],
+    candidates: StepScriptCandidateInterface[],
+    placement?: StepScriptCandidateInterface
+): StepScriptStepType => ({
     kind: StepScriptStepKindEnum.RevealCandidates,
     patternCells,
-    values,
-    narration: { technique, cells: patternCells, values }
+    candidates,
+    narration: {
+        technique,
+        cells: patternCells,
+        values: [...new Set(candidates.map(candidate => candidate.value))],
+        ...(isDefined(placement) && { placement })
+    }
 });
 
 const createStrikeStep = (technique: SolutionTechniqueEnum, eliminations: StepScriptCandidateInterface[]): StepScriptStepType => ({
@@ -37,18 +41,22 @@ const createStrikeStep = (technique: SolutionTechniqueEnum, eliminations: StepSc
 const createPlaceStep = (technique: SolutionTechniqueEnum, placement: StepScriptCandidateInterface): StepScriptStepType => ({
     kind: StepScriptStepKindEnum.PlaceValue,
     placement,
-    narration: { technique, cells: [placement.cell], values: [placement.value] }
+    narration: { technique, cells: [placement.cell], values: [placement.value], placement }
 });
 
 export const techniqueResultToStepScript = (result: TechniqueResultInterface): StepScriptInterface => {
     const patternCells = [...result.reasonCells];
     const eliminations = result.eliminations.map(elimination => ({ cell: elimination.cell, value: elimination.value }));
-    const values = getPatternValues(result);
     const placement = { cell: result.cell, value: result.value };
     const hasPlacement = result.kind !== 'elimination';
+    const revealCandidates = hasPlacement
+        ? [placement]
+        : patternCells.flatMap(cell => getPatternValues(result).map(value => ({ cell, value })));
+    const revealStep = hasPlacement
+        ? createRevealStep(result.technique, patternCells, revealCandidates, placement)
+        : createRevealStep(result.technique, patternCells, revealCandidates);
     const steps: StepScriptStepType[] = [
-        createHighlightStep(result.technique, patternCells, values),
-        createRevealStep(result.technique, patternCells, values),
+        revealStep,
         ...(isNotEmptyArray(eliminations) ? [createStrikeStep(result.technique, eliminations)] : []),
         ...(hasPlacement ? [createPlaceStep(result.technique, placement)] : [])
     ];

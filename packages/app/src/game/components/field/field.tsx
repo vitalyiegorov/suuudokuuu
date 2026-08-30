@@ -4,6 +4,8 @@ import { isEmptyScoredCells } from '@suuudokuuu/generator';
 import { type Ref, use, useImperativeHandle, useState } from 'react';
 import { View } from 'react-native';
 
+import { isDefined } from '@rnw-community/shared';
+
 import { GameContext } from '../../context/game.context';
 import { gameGetCellAccessibilityLabel } from '../../utils/game-get-cell-accessibility-label.util';
 import { gameGetCellKeysToAnimate } from '../../utils/game-get-cell-keys-to-animate.util';
@@ -64,6 +66,7 @@ export const Field = ({ cellSize, cellMargin, onSelect, ref }: Props) => {
     }));
 
     const boardAccessibilityLabel = t`Sudoku board, 9 by 9 cells`;
+    const isHintActive = isDefined(snapshot.stepScript);
 
     return (
         <View accessibilityLabel={boardAccessibilityLabel} role="grid" style={styles.wrapper}>
@@ -72,8 +75,8 @@ export const Field = ({ cellSize, cellMargin, onSelect, ref }: Props) => {
                     {row.map(cell => {
                         const cellKey = getCellKey(cell);
                         const isActive = sudoku.isSameCell(cell, selectedCell);
-                        const isActiveValue = sudoku.isSameCellValue(cell, selectedCell);
-                        const isHighlighted = sudoku.isCellHighlighted(cell, selectedCell);
+                        const isActiveValue = sudoku.isSameCellValue(cell, selectedCell) && !isHintActive;
+                        const isHighlighted = sudoku.isCellHighlighted(cell, selectedCell) && !isHintActive;
                         const isWrong = sudoku.isCellWrong(cell, selectedCell);
                         const isEmpty = sudoku.isBlankCell(cell);
 
@@ -85,7 +88,8 @@ export const Field = ({ cellSize, cellMargin, onSelect, ref }: Props) => {
                             eliminatedCandidates
                         );
                         const cellCandidates = gameMergeCandidateValues(engine.getCellCandidates(cell), hintedCandidates);
-                        const shouldShowCandidates = isEmpty && cellCandidates.length > 0;
+                        const shouldShowCandidates =
+                            isEmpty && cellCandidates.length > 0 && !isDefined(stepState.placedValues.get(cellKey));
                         const cellAccessibilityLabel = i18n._(
                             gameGetCellAccessibilityLabel({
                                 candidates: cellCandidates,
@@ -125,6 +129,7 @@ export const Field = ({ cellSize, cellMargin, onSelect, ref }: Props) => {
                                     cell={cell}
                                     cellSize={cellSize}
                                     comboAnimationGeneration={comboAnimationGenerations[cellKey] ?? 0}
+                                    hintValue={stepState.placedValues.get(cellKey)}
                                     isActive={isActive}
                                     isActiveValue={isActiveValue}
                                     isEmpty={isEmpty}
