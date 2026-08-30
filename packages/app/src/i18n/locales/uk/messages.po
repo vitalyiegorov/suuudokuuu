@@ -83,8 +83,44 @@ msgid "{streak, plural, one {# day streak} other {# day streak}}"
 msgstr "{streak, plural, one {Серія # день} few {Серія # дні} many {Серія # днів} other {Серія # дня}}"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: start with {cellCount, plural, one {the # highlighted cell} other {the # highlighted cells}} and the digits {valueList}."
-msgstr "{techniqueName}: почни з {cellCount, plural, one {підсвіченої клітинки} few {# підсвічених клітинок} many {# підсвічених клітинок} other {# підсвічених клітинок}} і цифр {valueList}."
+msgid "{techniqueName}: in the highlighted box, {value} fits only in the marked cell."
+msgstr "{techniqueName}: у підсвіченому блоці цифра {value} може стояти лише в позначеній клітинці."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in the highlighted column, {value} fits only in the marked cell."
+msgstr "{techniqueName}: у підсвіченому стовпці цифра {value} може стояти лише в позначеній клітинці."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in the highlighted row, {value} fits only in the marked cell."
+msgstr "{techniqueName}: у підсвіченому рядку цифра {value} може стояти лише в позначеній клітинці."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}: у підсвіченому блоці лишилась одна порожня клітинка — там стоїть {value}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells can only hold the digits {valueList}."
+msgstr "{techniqueName}: у підсвічених клітинках можливі лише цифри {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
+msgstr "{techniqueName}: підсвічені клітинки залишають лише {value} у позначеній клітинці."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted column has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}: у підсвіченому стовпці лишилась одна порожня клітинка — там стоїть {value}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted row has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}: у підсвіченому рядку лишилась одна порожня клітинка — там стоїть {value}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the marked cell sees every highlighted digit except {value}."
+msgstr "{techniqueName}: позначена клітинка бачить усі підсвічені цифри, крім {value}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the pattern rules {valueList} out of the marked cells."
+msgstr "{techniqueName}: ця закономірність виключає {valueList} у позначених клітинках."
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
@@ -446,7 +482,7 @@ msgstr "Анімації завершення"
 msgid "Completion Bonuses"
 msgstr "Бонуси за завершення"
 
-#: src/screens/components/daily-screen/daily.screen.tsx
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 #: src/screens/components/home-screen/home-screen-continue-row/home-screen-continue-row.tsx
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Continue"
@@ -483,7 +519,7 @@ msgstr "d"
 #: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 msgid "Daily"
-msgstr ""
+msgstr "Щодня"
 
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
 #: src/screens/components/daily-screen/daily.screen.tsx
@@ -810,10 +846,6 @@ msgstr "Мій результат у цьому судоку: {elapsedTimeString
 msgid "Immortal"
 msgstr "Безсмертний"
 
-#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
-msgid "In progress • {difficultyLabel}"
-msgstr "У процесі • {difficultyLabel}"
-
 #: src/screens/components/loser-screen/loser.screen.tsx
 msgid "Incomplete"
 msgstr "Незавершено"
@@ -826,10 +858,6 @@ msgstr "Нескінченність"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Ink"
 msgstr "Чорнило"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "Inside that pattern the digits {valueList} can only sit in the highlighted cells."
-msgstr "У цьому візерунку цифри {valueList} можуть стояти лише в підсвічених клітинках."
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Install on iOS"
@@ -985,7 +1013,7 @@ msgstr "Хід"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Move the landscape controls panel to the left of the board"
-msgstr "Перемістити панель керування ліворуч від дошки в альбомній орієнтації"
+msgstr ""
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "My theme"
@@ -1083,7 +1111,7 @@ msgstr "Простих технік немає"
 
 #: src/daily/components/daily-history-list/daily-history-list.tsx
 msgid "No solves yet. Today’s puzzle is waiting."
-msgstr ""
+msgstr "Ще жодного розв'язання. Сьогоднішнє судоку чекає."
 
 #: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
@@ -1134,10 +1162,6 @@ msgstr "Пропонувати підказки також у судоку рі�
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "OK"
 msgstr "Гаразд"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "Only {valueList} is left for the marked cell, so place it there."
-msgstr "Для позначеної клітинки лишається лише {valueList} — постав цю цифру там."
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Open commit {commitShortSha} on GitHub"
@@ -1209,6 +1233,10 @@ msgstr "за помилку"
 msgid "per second"
 msgstr "за секунду"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Place {valueList} in the marked cell."
+msgstr "Поставте {valueList} у позначену клітинку."
+
 #: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/index.tsx
@@ -1239,7 +1267,7 @@ msgstr "Грай на вищій складності, щоб отримати �
 msgid "Play Sudoku — Suuudokuuu"
 msgstr "Грати в судоку — Suuudokuuu"
 
-#: src/screens/components/daily-screen/daily.screen.tsx
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "Play today"
 msgstr "Грати сьогодні"
 
@@ -1323,7 +1351,7 @@ msgstr "Ознайомтеся з політикою конфіденційно�
 
 #: src/daily/components/daily-history-list/daily-history-list.tsx
 msgid "Recent solves"
-msgstr ""
+msgstr "Недавні розв'язання"
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"
@@ -1593,13 +1621,9 @@ msgstr "Розв’язано"
 msgid "Solved in"
 msgstr "Розв’язано за"
 
-#: src/screens/components/daily-screen/daily.screen.tsx
-msgid "Solved today"
-msgstr ""
-
 #: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
-msgid "Solved today • {difficultyLabel}"
-msgstr "Розв’язано сьогодні • {difficultyLabel}"
+msgid "Solved today"
+msgstr "Вирішено сьогодні"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Some color combinations are hard to read. Save anyway?"
@@ -1747,10 +1771,6 @@ msgstr "Текст на заповненій смузі панелі цифр"
 msgid "Text on ink"
 msgstr "Текст на чорнилі"
 
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "That rules {valueList} out of {cellCount, plural, one {# other cell} other {# other cells}}, so the struck candidates are gone."
-msgstr "Це виключає {valueList} з {cellCount, plural, one {# іншої клітинки} few {# інших клітинок} many {# інших клітинок} other {# інших клітинок}} — закреслені варіанти зникають."
-
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
 msgstr "Не вдалося відкрити посилання на коміт на цьому пристрої."
@@ -1834,11 +1854,7 @@ msgstr "Поради для високих результатів"
 
 #: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "Today"
-msgstr ""
-
-#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
-msgid "Today's puzzle • {difficultyLabel}"
-msgstr "Сьогоднішнє судоку • {difficultyLabel}"
+msgstr "Сьогодні"
 
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "Too many mistakes"

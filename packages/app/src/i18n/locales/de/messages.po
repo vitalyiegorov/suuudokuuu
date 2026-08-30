@@ -83,8 +83,44 @@ msgid "{streak, plural, one {# day streak} other {# day streak}}"
 msgstr "{streak, plural, one {Serie: # Tag} other {Serie: # Tage}}"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: start with {cellCount, plural, one {the # highlighted cell} other {the # highlighted cells}} and the digits {valueList}."
-msgstr "{techniqueName}: Beginne mit {cellCount, plural, one {der hervorgehobenen Zelle} other {den # hervorgehobenen Zellen}} und den Zahlen {valueList}."
+msgid "{techniqueName}: in the highlighted box, {value} fits only in the marked cell."
+msgstr "{techniqueName}: im markierten Block passt {value} nur in die markierte Zelle."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in the highlighted column, {value} fits only in the marked cell."
+msgstr "{techniqueName}: in der markierten Spalte passt {value} nur in die markierte Zelle."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in the highlighted row, {value} fits only in the marked cell."
+msgstr "{techniqueName}: in der markierten Zeile passt {value} nur in die markierte Zelle."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}: im markierten Block bleibt nur eine leere Zelle, dorthin gehört {value}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells can only hold the digits {valueList}."
+msgstr "{techniqueName}: in den markierten Zellen sind nur die Ziffern {valueList} möglich."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
+msgstr "{techniqueName}: die markierten Zellen lassen für die markierte Zelle nur {value} übrig."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted column has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}: in der markierten Spalte bleibt nur eine leere Zelle, dorthin gehört {value}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted row has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}: in der markierten Zeile bleibt nur eine leere Zelle, dorthin gehört {value}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the marked cell sees every highlighted digit except {value}."
+msgstr "{techniqueName}: die markierte Zelle sieht alle markierten Ziffern außer {value}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the pattern rules {valueList} out of the marked cells."
+msgstr "{techniqueName}: das Muster schließt {valueList} in den markierten Zellen aus."
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
@@ -446,7 +482,7 @@ msgstr "Abschlussanimationen"
 msgid "Completion Bonuses"
 msgstr "Abschlussboni"
 
-#: src/screens/components/daily-screen/daily.screen.tsx
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 #: src/screens/components/home-screen/home-screen-continue-row/home-screen-continue-row.tsx
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Continue"
@@ -483,7 +519,7 @@ msgstr "d"
 #: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 msgid "Daily"
-msgstr ""
+msgstr "Täglich"
 
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
 #: src/screens/components/daily-screen/daily.screen.tsx
@@ -810,10 +846,6 @@ msgstr "Ich habe dieses Sudoku in {elapsedTimeString} gelöst. Kannst du mich sc
 msgid "Immortal"
 msgstr "Unsterblich"
 
-#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
-msgid "In progress • {difficultyLabel}"
-msgstr "Läuft • {difficultyLabel}"
-
 #: src/screens/components/loser-screen/loser.screen.tsx
 msgid "Incomplete"
 msgstr "Unvollständig"
@@ -826,10 +858,6 @@ msgstr "Unendlich"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Ink"
 msgstr "Tinte"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "Inside that pattern the digits {valueList} can only sit in the highlighted cells."
-msgstr "Innerhalb dieses Musters können die Zahlen {valueList} nur in den hervorgehobenen Zellen stehen."
 
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Install on iOS"
@@ -985,7 +1013,7 @@ msgstr "Zug"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Move the landscape controls panel to the left of the board"
-msgstr "Das Bedienfeld im Querformat links neben dem Brett anzeigen"
+msgstr ""
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "My theme"
@@ -1083,7 +1111,7 @@ msgstr "Keine einfache Technik anwendbar"
 
 #: src/daily/components/daily-history-list/daily-history-list.tsx
 msgid "No solves yet. Today’s puzzle is waiting."
-msgstr ""
+msgstr "Noch keine Lösungen. Das heutige Sudoku wartet."
 
 #: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
@@ -1134,10 +1162,6 @@ msgstr "Hinweise auch in Rätseln der Stufen Albtraum, Hölle und Unendlich anbi
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "OK"
 msgstr "OK"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "Only {valueList} is left for the marked cell, so place it there."
-msgstr "Für die markierte Zelle bleibt nur {valueList} übrig – setze die Zahl dort ein."
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Open commit {commitShortSha} on GitHub"
@@ -1209,6 +1233,10 @@ msgstr "pro Fehler"
 msgid "per second"
 msgstr "pro Sekunde"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Place {valueList} in the marked cell."
+msgstr "Trage {valueList} in die markierte Zelle ein."
+
 #: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/index.tsx
@@ -1239,7 +1267,7 @@ msgstr "Spiele auf höheren Schwierigkeitsgraden für größere Multiplikatoren"
 msgid "Play Sudoku — Suuudokuuu"
 msgstr "Sudoku spielen — Suuudokuuu"
 
-#: src/screens/components/daily-screen/daily.screen.tsx
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "Play today"
 msgstr "Heute spielen"
 
@@ -1323,7 +1351,7 @@ msgstr "Lies die Datenschutzerklärung von Suuudokuuu zu Datenerfassung, Speiche
 
 #: src/daily/components/daily-history-list/daily-history-list.tsx
 msgid "Recent solves"
-msgstr ""
+msgstr "Letzte Lösungen"
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"
@@ -1593,13 +1621,9 @@ msgstr "Gelöst"
 msgid "Solved in"
 msgstr "Gelöst in"
 
-#: src/screens/components/daily-screen/daily.screen.tsx
-msgid "Solved today"
-msgstr ""
-
 #: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
-msgid "Solved today • {difficultyLabel}"
-msgstr "Heute gelöst • {difficultyLabel}"
+msgid "Solved today"
+msgstr "Heute gelöst"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Some color combinations are hard to read. Save anyway?"
@@ -1747,10 +1771,6 @@ msgstr "Text auf gefüllter Leiste der Zifferntastatur"
 msgid "Text on ink"
 msgstr "Text auf Tinte"
 
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "That rules {valueList} out of {cellCount, plural, one {# other cell} other {# other cells}}, so the struck candidates are gone."
-msgstr "Damit fällt {valueList} in {cellCount, plural, one {# weiteren Zelle} other {# weiteren Zellen}} weg, die durchgestrichenen Kandidaten sind also verschwunden."
-
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
 msgstr "Der Commit-Link konnte auf diesem Gerät nicht geöffnet werden."
@@ -1834,11 +1854,7 @@ msgstr "Tipps für hohe Punktzahlen"
 
 #: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "Today"
-msgstr ""
-
-#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
-msgid "Today's puzzle • {difficultyLabel}"
-msgstr "Heutiges Rätsel • {difficultyLabel}"
+msgstr "Heute"
 
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "Too many mistakes"

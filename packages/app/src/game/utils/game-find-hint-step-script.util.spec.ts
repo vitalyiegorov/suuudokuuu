@@ -42,6 +42,20 @@ describe('gameFindHintStepScript', () => {
         expect(gameFindHintStepScript(buildSudoku(solvedPuzzle))).toBeNull();
     });
 
+    it('should never hint a placement that contradicts the puzzle solution', () => {
+        expect.assertions(2);
+
+        const sudoku = buildSudoku(unsolvedPuzzle);
+        const stepScript = gameFindHintStepScript(sudoku);
+
+        if (!isDefined(stepScript) || !isDefined(stepScript.placement)) {
+            throw new Error('Expected the fixture puzzle to expose a placement technique');
+        }
+
+        expect(stepScript.technique).not.toBe(SolutionTechniqueEnum.Guess);
+        expect(stepScript.placement.value).toBe(sudoku.getCorrectValue(stepScript.placement.cell));
+    });
+
     it('should refuse to reveal a guess when no logical technique fires', () => {
         expect.assertions(1);
 

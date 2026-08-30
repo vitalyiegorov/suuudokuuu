@@ -57,38 +57,48 @@ const findResult = (board: string[], technique: SolutionTechniqueEnum): Techniqu
 };
 
 describe('techniqueResultToStepScript', () => {
-    it('maps a placement technique into highlight, reveal and place steps', () => {
-        expect.assertions(5);
+    it('maps a placement technique into reveal and place steps that reveal the value only on the target', () => {
+        expect.assertions(7);
 
         const result = findResult(hiddenSingleBoard, SolutionTechniqueEnum.HiddenSingle);
         const script = techniqueResultToStepScript(result);
+        const [revealStep, placeStep] = script.steps;
 
         expect(script.technique).toBe(SolutionTechniqueEnum.HiddenSingle);
-        expect(script.steps.map(step => step.kind)).toEqual([
-            StepScriptStepKindEnum.Highlight,
-            StepScriptStepKindEnum.RevealCandidates,
-            StepScriptStepKindEnum.PlaceValue
-        ]);
+        expect(script.steps.map(step => step.kind)).toEqual([StepScriptStepKindEnum.RevealCandidates, StepScriptStepKindEnum.PlaceValue]);
         expect(script.eliminations).toEqual([]);
         expect(script.placement).toEqual({ cell: result.cell, value: result.value });
         expect(script.patternCells).toEqual(result.reasonCells);
+        expect(revealStep).toEqual({
+            kind: StepScriptStepKindEnum.RevealCandidates,
+            patternCells: result.reasonCells,
+            candidates: [{ cell: result.cell, value: result.value }],
+            narration: {
+                technique: SolutionTechniqueEnum.HiddenSingle,
+                cells: result.reasonCells,
+                values: [result.value],
+                placement: { cell: result.cell, value: result.value }
+            }
+        });
+        expect(placeStep.narration.cells).toEqual([result.cell]);
     });
 
     it('carries a structured narration payload instead of prose', () => {
         expect.assertions(2);
 
         const result = findResult(hiddenSingleBoard, SolutionTechniqueEnum.HiddenSingle);
-        const [highlightStep] = techniqueResultToStepScript(result).steps;
+        const [revealStep] = techniqueResultToStepScript(result).steps;
 
-        expect(highlightStep.narration).toEqual({
+        expect(revealStep.narration).toEqual({
             technique: SolutionTechniqueEnum.HiddenSingle,
             cells: result.reasonCells,
-            values: [result.value]
+            values: [result.value],
+            placement: { cell: result.cell, value: result.value }
         });
-        expect(highlightStep.kind).toBe(StepScriptStepKindEnum.Highlight);
+        expect(revealStep.kind).toBe(StepScriptStepKindEnum.RevealCandidates);
     });
 
-    it('maps an elimination technique into a strike step without a placement', () => {
+    it('maps an elimination technique into reveal and strike steps without a placement', () => {
         expect.assertions(4);
 
         const result = findResult(nakedPairBoard, SolutionTechniqueEnum.NakedPair);
@@ -96,7 +106,6 @@ describe('techniqueResultToStepScript', () => {
 
         expect(script.technique).toBe(SolutionTechniqueEnum.NakedPair);
         expect(script.steps.map(step => step.kind)).toEqual([
-            StepScriptStepKindEnum.Highlight,
             StepScriptStepKindEnum.RevealCandidates,
             StepScriptStepKindEnum.StrikeCandidates
         ]);
@@ -104,18 +113,18 @@ describe('techniqueResultToStepScript', () => {
         expect(script.eliminations).toEqual(result.eliminations.map(elimination => ({ cell: elimination.cell, value: elimination.value })));
     });
 
-    it('reveals the eliminated values on the pattern cells of a pattern technique', () => {
+    it('reveals the pattern values on the pattern cells of an elimination technique', () => {
         expect.assertions(3);
 
         const result = findResult(pointingPairBoard, SolutionTechniqueEnum.PointingPair);
         const script = techniqueResultToStepScript(result);
-        const [, revealStep, strikeStep] = script.steps;
+        const [revealStep, strikeStep] = script.steps;
 
         expect(script.technique).toBe(SolutionTechniqueEnum.PointingPair);
         expect(revealStep).toEqual({
             kind: StepScriptStepKindEnum.RevealCandidates,
             patternCells: result.reasonCells,
-            values: [result.value],
+            candidates: result.reasonCells.map(cell => ({ cell, value: result.value })),
             narration: { technique: SolutionTechniqueEnum.PointingPair, cells: result.reasonCells, values: [result.value] }
         });
         expect(strikeStep.narration.cells).toEqual(result.eliminations.map(elimination => elimination.cell));
