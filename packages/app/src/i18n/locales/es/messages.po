@@ -32,7 +32,7 @@ msgstr "{arsenalCardCount, plural, one {# técnica} other {# técnicas}}"
 msgid "{awaySeconds}s away"
 msgstr "{awaySeconds}s ausente"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
 msgid "{bestStreak, plural, one {Best streak: # day} other {Best streak: # days}}"
 msgstr "{bestStreak, plural, one {Mejor racha: # día} other {Mejor racha: # días}}"
@@ -77,7 +77,7 @@ msgstr "{remaining, plural, one {Escribir {value}, queda # por colocar} other {E
 msgid "{remaining, plural, one {Note {value}, # left to place} other {Note {value}, # left to place}}"
 msgstr "{remaining, plural, one {Anotar {value}, queda # por colocar} other {Anotar {value}, quedan # por colocar}}"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
 msgid "{streak, plural, one {# day streak} other {# day streak}}"
 msgstr "{streak, plural, one {Racha de # día} other {Racha de # días}}"
@@ -146,7 +146,7 @@ msgstr "Todas"
 msgid "All of a number (1-9)"
 msgstr "Todas las casillas de un número (1-9)"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
@@ -263,10 +263,6 @@ msgstr "¡Mejor suerte la próxima vez!"
 msgid "Beyond the ceiling"
 msgstr "Más allá del límite"
 
-#: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
-msgid "Bigger board numbers, spacious cells, every highlight on, no timer, calm play, no animations and the high-contrast theme. Each one stays adjustable below."
-msgstr "Números más grandes en el tablero, celdas amplias, todos los resaltados activados, sin temporizador, juego tranquilo, sin animaciones y el tema de alto contraste. Cada opción se puede ajustar más abajo."
-
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Board cells"
 msgstr "Celdas del tablero"
@@ -299,8 +295,8 @@ msgstr "Juego tranquilo"
 msgid "Can you beat them?"
 msgstr "¿Puedes superar su marca?"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
 #: src/game/hooks/use-share-game.hook.ts
+#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
@@ -422,14 +418,6 @@ msgstr "Apto para daltónicos"
 msgid "Column"
 msgstr "Columna"
 
-#: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
-msgid "Comfort"
-msgstr "Comodidad"
-
-#: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
-msgid "Comfort mode"
-msgstr "Modo comodidad"
-
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Comfortable"
 msgstr "Cómodo"
@@ -458,7 +446,7 @@ msgstr "Animaciones de completado"
 msgid "Completion Bonuses"
 msgstr "Bonificaciones por completar"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/home-screen/home-screen-continue-row/home-screen-continue-row.tsx
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Continue"
@@ -492,8 +480,13 @@ msgstr "Personaliza tu experiencia de sudoku: temas, dificultad y preferencias d
 msgid "d"
 msgstr "d"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
+#: src/@generic/components/native-tab-layout/native-tab-layout.tsx
+msgid "Daily"
+msgstr ""
+
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 msgid "Daily challenge"
 msgstr "Reto diario"
 
@@ -817,7 +810,7 @@ msgstr "He completado este sudoku en {elapsedTimeString}. ¿Puedes superarme?"
 msgid "Immortal"
 msgstr "Inmortal"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "In progress • {difficultyLabel}"
 msgstr "En curso • {difficultyLabel}"
 
@@ -1088,13 +1081,13 @@ msgstr "sin pausa"
 msgid "No simple technique applies"
 msgstr "No se aplica ninguna técnica sencilla"
 
+#: src/daily/components/daily-history-list/daily-history-list.tsx
+msgid "No solves yet. Today’s puzzle is waiting."
+msgstr ""
+
 #: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
 msgstr "Aún no hay estadísticas"
-
-#: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
-msgid "Not now"
-msgstr "Ahora no"
 
 #: src/game/components/input-mode-button/input-mode-button.tsx
 msgid "Notes mode"
@@ -1133,22 +1126,14 @@ msgstr "de una colocación"
 msgid "Offer hints on Nightmare, Hell, and Infinity puzzles too"
 msgstr "Ofrecer sugerencias también en los sudokus Pesadilla, Infierno e Infinito"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
 #: src/game/components/hint-button/hint-button.tsx
 #: src/game/hooks/use-game-creation-runner.hook.ts
+#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "OK"
 msgstr "OK"
-
-#: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
-msgid "On, with your own changes kept. Turning it off restores what you had before."
-msgstr "Activado, con tus propios cambios conservados. Al desactivarlo se restaura lo que tenías antes."
-
-#: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
-msgid "One switch for bigger numbers, a calmer board, and high-contrast colors."
-msgstr "Un solo interruptor para números más grandes, un tablero más tranquilo y colores de alto contraste."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "Only {valueList} is left for the marked cell, so place it there."
@@ -1254,7 +1239,7 @@ msgstr "Juega en dificultades más altas para obtener multiplicadores mayores"
 msgid "Play Sudoku — Suuudokuuu"
 msgstr "Jugar al sudoku — Suuudokuuu"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 msgid "Play today"
 msgstr "Jugar hoy"
 
@@ -1335,6 +1320,10 @@ msgstr "Texto de la superficie elevada"
 #: src/app/privacy-policy.tsx
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "Lee la política de privacidad de Suuudokuuu sobre la recogida de datos, su almacenamiento y tus derechos."
+
+#: src/daily/components/daily-history-list/daily-history-list.tsx
+msgid "Recent solves"
+msgstr ""
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"
@@ -1604,7 +1593,11 @@ msgstr "Resuelto"
 msgid "Solved in"
 msgstr "Resuelto en"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
+msgid "Solved today"
+msgstr ""
+
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "Solved today • {difficultyLabel}"
 msgstr "Resuelto hoy • {difficultyLabel}"
 
@@ -1653,7 +1646,7 @@ msgstr "Paso {currentStepNumber} de {stepCount}"
 msgid "Step time"
 msgstr "Tiempo por jugada"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
@@ -1839,7 +1832,11 @@ msgstr "Diminuto"
 msgid "Tips for High Scores"
 msgstr "Consejos para puntuaciones altas"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+msgid "Today"
+msgstr ""
+
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "Today's puzzle • {difficultyLabel}"
 msgstr "Sudoku de hoy • {difficultyLabel}"
 
@@ -1858,14 +1855,6 @@ msgstr "Intentar de nuevo"
 #: src/challenge/components/challenge-try-again-button/challenge-try-again-button.tsx
 msgid "Try Again"
 msgstr "Intentar de nuevo"
-
-#: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
-msgid "Try Comfort mode"
-msgstr "Probar el modo comodidad"
-
-#: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
-msgid "Turn it on"
-msgstr "Activarlo"
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Ukraine keeps fighting"

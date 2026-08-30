@@ -1,10 +1,6 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-export const HomeScreenStartButtonEmberStyles = StyleSheet.create(theme => ({
-    emberButton: {
-        backgroundColor: theme.colors.danger,
-        borderColor: theme.colors.danger
-    },
+export const HomeScreenStartButtonEmberStyles = StyleSheet.create(() => ({
     emberWrapper: {
         borderRadius: 999,
         width: '100%'

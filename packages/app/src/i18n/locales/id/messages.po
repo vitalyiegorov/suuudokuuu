@@ -30,7 +30,7 @@ msgstr "{arsenalCardCount, plural, one {# teknik} other {# teknik}}"
 msgid "{awaySeconds}s away"
 msgstr "{awaySeconds}s di luar aplikasi"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
 msgid "{bestStreak, plural, one {Best streak: # day} other {Best streak: # days}}"
 msgstr "{bestStreak, plural, one {Rentetan terbaik: # hari} other {Rentetan terbaik: # hari}}"
@@ -75,7 +75,7 @@ msgstr "{remaining, plural, one {Isi {value}, # tersisa} other {Isi {value}, # t
 msgid "{remaining, plural, one {Note {value}, # left to place} other {Note {value}, # left to place}}"
 msgstr "{remaining, plural, one {Catat {value}, # tersisa} other {Catat {value}, # tersisa}}"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
 msgid "{streak, plural, one {# day streak} other {# day streak}}"
 msgstr "{streak, plural, one {Rentetan # hari} other {Rentetan # hari}}"
@@ -144,7 +144,7 @@ msgstr "Semua"
 msgid "All of a number (1-9)"
 msgstr "Semua kotak dengan satu angka (1-9)"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
@@ -261,10 +261,6 @@ msgstr "Semoga lebih beruntung lain kali!"
 msgid "Beyond the ceiling"
 msgstr "Melampaui Batas"
 
-#: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
-msgid "Bigger board numbers, spacious cells, every highlight on, no timer, calm play, no animations and the high-contrast theme. Each one stays adjustable below."
-msgstr "Angka papan lebih besar, sel lebih lapang, semua sorotan aktif, tanpa timer, permainan tenang, tanpa animasi, dan tema kontras tinggi. Semuanya tetap bisa diatur di bawah."
-
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Board cells"
 msgstr "Sel papan"
@@ -297,8 +293,8 @@ msgstr "Permainan tenang"
 msgid "Can you beat them?"
 msgstr "Bisakah kamu mengalahkannya?"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
 #: src/game/hooks/use-share-game.hook.ts
+#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
@@ -420,14 +416,6 @@ msgstr "Ramah buta warna"
 msgid "Column"
 msgstr "Kolom"
 
-#: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
-msgid "Comfort"
-msgstr "Kenyamanan"
-
-#: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
-msgid "Comfort mode"
-msgstr "Mode nyaman"
-
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Comfortable"
 msgstr "Nyaman"
@@ -456,7 +444,7 @@ msgstr "Animasi penyelesaian"
 msgid "Completion Bonuses"
 msgstr "Bonus penyelesaian"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/home-screen/home-screen-continue-row/home-screen-continue-row.tsx
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Continue"
@@ -490,8 +478,13 @@ msgstr "Sesuaikan pengalaman sudokumu: tema, tingkat kesulitan, dan preferensi p
 msgid "d"
 msgstr "d"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
+#: src/@generic/components/native-tab-layout/native-tab-layout.tsx
+msgid "Daily"
+msgstr ""
+
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 msgid "Daily challenge"
 msgstr "Tantangan harian"
 
@@ -815,7 +808,7 @@ msgstr "Aku menyelesaikan sudoku ini dalam {elapsedTimeString}. Bisa kalahkan ak
 msgid "Immortal"
 msgstr "Abadi"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "In progress • {difficultyLabel}"
 msgstr "Sedang berjalan • {difficultyLabel}"
 
@@ -1086,13 +1079,13 @@ msgstr "tanpa jeda"
 msgid "No simple technique applies"
 msgstr "Tidak ada teknik sederhana yang cocok"
 
+#: src/daily/components/daily-history-list/daily-history-list.tsx
+msgid "No solves yet. Today’s puzzle is waiting."
+msgstr ""
+
 #: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
 msgstr "Belum ada statistik"
-
-#: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
-msgid "Not now"
-msgstr "Nanti saja"
 
 #: src/game/components/input-mode-button/input-mode-button.tsx
 msgid "Notes mode"
@@ -1131,22 +1124,14 @@ msgstr "dari satu penempatan"
 msgid "Offer hints on Nightmare, Hell, and Infinity puzzles too"
 msgstr "Tawarkan petunjuk juga di sudoku Mimpi buruk, Neraka, dan Tak Terhingga"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
 #: src/game/components/hint-button/hint-button.tsx
 #: src/game/hooks/use-game-creation-runner.hook.ts
+#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "OK"
 msgstr "OK"
-
-#: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
-msgid "On, with your own changes kept. Turning it off restores what you had before."
-msgstr "Aktif, dengan perubahanmu sendiri tetap tersimpan. Mematikannya akan mengembalikan pengaturan sebelumnya."
-
-#: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
-msgid "One switch for bigger numbers, a calmer board, and high-contrast colors."
-msgstr "Satu sakelar untuk angka lebih besar, papan lebih tenang, dan warna kontras tinggi."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "Only {valueList} is left for the marked cell, so place it there."
@@ -1252,7 +1237,7 @@ msgstr "Main di tingkat lebih sulit untuk pengali lebih besar"
 msgid "Play Sudoku — Suuudokuuu"
 msgstr "Main Sudoku — Suuudokuuu"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 msgid "Play today"
 msgstr "Main hari ini"
 
@@ -1333,6 +1318,10 @@ msgstr "Teks permukaan terangkat"
 #: src/app/privacy-policy.tsx
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "Baca kebijakan privasi Suuudokuuu tentang pengumpulan data, penyimpanan, dan hakmu."
+
+#: src/daily/components/daily-history-list/daily-history-list.tsx
+msgid "Recent solves"
+msgstr ""
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"
@@ -1602,7 +1591,11 @@ msgstr "Terpecahkan"
 msgid "Solved in"
 msgstr "Terpecahkan dalam"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
+msgid "Solved today"
+msgstr ""
+
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "Solved today • {difficultyLabel}"
 msgstr "Terpecahkan hari ini • {difficultyLabel}"
 
@@ -1651,7 +1644,7 @@ msgstr "Langkah {currentStepNumber} dari {stepCount}"
 msgid "Step time"
 msgstr "Waktu langkah"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
@@ -1837,7 +1830,11 @@ msgstr "Mini"
 msgid "Tips for High Scores"
 msgstr "Tips skor tinggi"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+msgid "Today"
+msgstr ""
+
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "Today's puzzle • {difficultyLabel}"
 msgstr "Sudoku hari ini • {difficultyLabel}"
 
@@ -1856,14 +1853,6 @@ msgstr "Coba lagi"
 #: src/challenge/components/challenge-try-again-button/challenge-try-again-button.tsx
 msgid "Try Again"
 msgstr "Coba lagi"
-
-#: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
-msgid "Try Comfort mode"
-msgstr "Coba mode nyaman"
-
-#: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
-msgid "Turn it on"
-msgstr "Aktifkan"
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Ukraine keeps fighting"
