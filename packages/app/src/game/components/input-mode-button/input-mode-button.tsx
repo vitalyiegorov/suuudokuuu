@@ -40,7 +40,7 @@ export const InputModeButton = ({ sizeStyle }: Props) => {
             accessibilityLabel={t`Notes mode`}
             accessibilityRole="togglebutton"
             accessibilityState={inputModeAccessibilityState}
-            hitSlop={10}
+            hitSlop={12}
             onPress={handleToggle}
             style={sizeStyle}
             testID={InputModeButtonSelectors.Root}
