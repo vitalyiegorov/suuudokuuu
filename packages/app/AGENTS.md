@@ -35,7 +35,7 @@ src/
 ├── @generic/           # Store setup, shared components, hooks, styles, utils
 ├── app/                # Expo Router routes and root layout
 ├── challenge/          # Challenge result/accept/progress UI and utilities
-├── daily/              # Daily challenge card, streak summary, status derivation
+├── daily/              # Daily streak hero, history list, status derivation, date utils
 ├── game/               # Game context, Redux slice, board UI, hooks, serializers
 ├── history/            # Completed game history and replay UI
 ├── i18n/locales/       # Lingui catalogs: en, uk, fr, de, es
@@ -109,9 +109,10 @@ src/
 2. The board is offline and deterministic. `GameContext.createDaily(maxMistakes)` resolves today's UTC date with `getDailyDateString(Date.now())` and asks `@suuudokuuu/puzzle-forge` for `forgeDailyPuzzle(dateString)`. Every device asking on the same UTC date forges the identical board with the identical rating, with no network call and no stored table. The seed derivation itself is specified in `packages/puzzle-forge/AGENTS.md`; do not re-derive a date key in the app.
 3. `dailyDayNumber` on `GameState` is the whole run-scoped state, and `0` means "this run is not a daily". It is written once by `gameStartAction` and never recomputed, so a run started at 23:50 UTC still records against the day it started when it is finished after midnight. `create` passes `0`; only `createDaily` passes today.
 4. The persisted record is two additive fields: `dailyCompletedDayNumbers` (unique, ascending UTC day numbers of solved dailies) and `dailyBestStreak`. Both live in `gameGetPersistedAggregates`, so starting the next game keeps them. Only a **won** daily is recorded — `gameFinishRun` ignores a lost or abandoned one — so there is no backfill and no catch-up.
-5. Two different streaks exist on purpose and must not be merged. `playedDayNumbers` counts any game played on a **local** calendar day and feeds the history totals; `dailyCompletedDayNumbers` counts solved dailies on a **UTC** day and feeds the daily card. `getDayStreak(dayNumbers, todayDayNumber)` in `@generic/utils` is the one streak implementation both use, and it takes today's day number rather than a timestamp precisely so each caller supplies its own calendar.
-6. `dailyGetStatus` is the only place the card's three states are decided, and `completed` outranks `inProgress`. That ordering is what stops a finished daily from offering Continue into a run that is already over, and what makes the card offer a fresh puzzle the moment UTC midnight moves past the day the current run belongs to.
-7. `useDailyChallenge` reads "today" through a lazy `useState` initializer and re-reads it in a `useFocusEffect`, never during render. Home is a tab, so it can stay mounted across midnight; refreshing on focus is what rolls the card over without an interval timer.
+5. Two different streaks exist on purpose and must not be merged. `playedDayNumbers` counts any game played on a **local** calendar day and feeds the history totals; `dailyCompletedDayNumbers` counts solved dailies on a **UTC** day and feeds the daily screen. `getDayStreak(dayNumbers, todayDayNumber)` in `@generic/utils` is the one streak implementation both use, and it takes today's day number rather than a timestamp precisely so each caller supplies its own calendar.
+6. `dailyGetStatus` is the only place the daily screen's three states are decided, and `completed` outranks `inProgress`. That ordering is what stops a finished daily from offering Continue into a run that is already over, and what makes the screen offer a fresh puzzle the moment UTC midnight moves past the day the current run belongs to.
+7. `useDailyChallenge` reads "today" through a lazy `useState` initializer and re-reads it in a `useFocusEffect`, never during render. The daily screen is a tab, so it can stay mounted across midnight; refreshing on focus is what rolls it over without an interval timer.
+8. The daily challenge lives on its own Daily tab (`app/(tabs)/daily.tsx` → `DailyScreen`), not as a card on Home. The winner screen's `DailyStreakSummary` is unchanged.
 
 ### Comfort primitives
 
@@ -120,15 +121,6 @@ src/
 3. Board `hitSlop` is per-edge and never larger than half the group gap, so two neighbouring cells cannot claim the same point. Numpad digits use `PanelControlHitSlopConstant`, half the smallest numpad gap.
 4. `useReduceMotion` combines the OS setting (`SystemMotionProvider` subscribes to `reduceMotionChanged`) with the `motionPreference` setting (`system` | `full` | `reduced`). Use it instead of Reanimated's `useReducedMotion` so the player override is honored. Gated animations must still leave the state legible: selection colour changes instantly rather than fading, and a placed cell shows a static `FieldCellSuccessOutline` instead of the animated ring.
 5. `calmMode` hides every score surface (in-game metric strip, pause stats) and swaps the winner hero for `WinnerCalmResultHero`, which reports the move count instead of a score. Scores are still recorded, so history and personal bests survive turning calm play off.
-
-### Comfort mode preset
-
-1. Comfort mode owns no rendering of its own. It writes the primitives above, so every screen keeps reading the individual settings and nothing needs a "comfort" branch. `ComfortModeSettings` in `settings/constant/comfort-mode.constant.ts` is the whole bundle; `ComfortModeSettingKeys` is its single source of truth for keys, and `Pick<SettingsState, …>` on the constant makes a drifted key or value a compile error.
-2. `comfortMode` is a three-state status (`off` | `on` | `customized`), not a boolean. `settingsSlice.set` recomputes it after every write: while the preset is not `off`, matching the bundle means `on` and any divergence means `customized`. A later edit is never reverted and never fights the player, and re-matching the bundle silently returns the status to `on`.
-3. `comfortModeRestore` stores the pre-preset values of the bundled keys plus `lastGameMaxMistakes`, and is captured only on the first enable — reapplying over a customized state keeps the original snapshot. Turning the preset off restores a key only when its current value is still the one the preset wrote, so an edit the player made in between survives.
-4. `isDarkColorSchema` is deliberately outside the bundle: the preset switches to `ThemeEnum.HighContrast` and lets the theme resolve against the light or dark choice already in place. `showComboAnimation` and `keepExhaustedDigits` are outside it too, because the preset only turns guidance on and never turns a player's affordance off.
-5. The mistake limit is a per-run Home-screen choice, not a setting the preset owns. Enabling comfort mode nudges `lastGameMaxMistakes` to `RelaxedMaxMistakesConstant` only while it still sits on the default, and the nudge is visible on the same screen. It is excluded from the `customized` computation, so choosing Hardcore for one run does not mark the preset as customized.
-6. The Home offer (`HomeScreenComfortOffer`) is shown once and disappears for good: `comfortModeOfferDismissed` is persisted by both the dismiss action and by ever enabling the preset from anywhere.
 
 ### Hints
 

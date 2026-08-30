@@ -14,7 +14,7 @@ export const useEdgeFadeOpacityStyle = (opacityInputRange: readonly [number, num
 
     return useAnimatedStyle(() => {
         if (!hasOpacityRange) {
-            return {};
+            return { opacity: 1 };
         }
 
         return {

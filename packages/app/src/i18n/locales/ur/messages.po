@@ -30,7 +30,7 @@ msgstr "{arsenalCardCount, plural, one {# تکنیک} other {# تکنیکیں}}"
 msgid "{awaySeconds}s away"
 msgstr "{awaySeconds}s غیر حاضر"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
 msgid "{bestStreak, plural, one {Best streak: # day} other {Best streak: # days}}"
 msgstr "{bestStreak, plural, one {بہترین تسلسل: # دن} other {بہترین تسلسل: # دن}}"
@@ -75,7 +75,7 @@ msgstr "{remaining, plural, one {{value} لکھیں، # باقی} other {{value}
 msgid "{remaining, plural, one {Note {value}, # left to place} other {Note {value}, # left to place}}"
 msgstr "{remaining, plural, one {{value} نوٹ کریں، # باقی} other {{value} نوٹ کریں، # باقی}}"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
 msgid "{streak, plural, one {# day streak} other {# day streak}}"
 msgstr "{streak, plural, one {# دن کا تسلسل} other {# دن کا تسلسل}}"
@@ -144,7 +144,7 @@ msgstr "سب"
 msgid "All of a number (1-9)"
 msgstr "کسی نمبر کے تمام خانے (1-9)"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
@@ -261,10 +261,6 @@ msgstr "اگلی بار قسمت بہتر ہو!"
 msgid "Beyond the ceiling"
 msgstr "حد سے آگے"
 
-#: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
-msgid "Bigger board numbers, spacious cells, every highlight on, no timer, calm play, no animations and the high-contrast theme. Each one stays adjustable below."
-msgstr "بورڈ پر بڑے ہندسے، کشادہ خانے، تمام ہائی لائٹس آن، ٹائمر بند، پُرسکون کھیل، اینیمیشن بند اور ہائی کنٹراسٹ تھیم۔ ہر چیز نیچے الگ سے بدلی جا سکتی ہے۔"
-
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Board cells"
 msgstr "بورڈ کے خانے"
@@ -297,8 +293,8 @@ msgstr "پُرسکون کھیل"
 msgid "Can you beat them?"
 msgstr "کیا آپ انہیں ہرا سکتے ہیں؟"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
 #: src/game/hooks/use-share-game.hook.ts
+#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
@@ -420,14 +416,6 @@ msgstr "رنگوں کی نابینائی کے لیے موزوں"
 msgid "Column"
 msgstr "کالم"
 
-#: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
-msgid "Comfort"
-msgstr "آرام"
-
-#: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
-msgid "Comfort mode"
-msgstr "آرام موڈ"
-
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Comfortable"
 msgstr "آرام دہ"
@@ -456,7 +444,7 @@ msgstr "تکمیل کی اینیمیشنز"
 msgid "Completion Bonuses"
 msgstr "مکمل کرنے کے بونس"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/home-screen/home-screen-continue-row/home-screen-continue-row.tsx
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Continue"
@@ -490,8 +478,13 @@ msgstr "اپنا سوڈوکو تجربہ اپنی پسند سے ترتیب دی�
 msgid "d"
 msgstr "d"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
+#: src/@generic/components/native-tab-layout/native-tab-layout.tsx
+msgid "Daily"
+msgstr ""
+
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 msgid "Daily challenge"
 msgstr "روزانہ چیلنج"
 
@@ -815,7 +808,7 @@ msgstr "میں نے یہ سوڈوکو {elapsedTimeString} میں مکمل کیا
 msgid "Immortal"
 msgstr "لافانی"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "In progress • {difficultyLabel}"
 msgstr "جاری ہے • {difficultyLabel}"
 
@@ -1086,13 +1079,13 @@ msgstr "کوئی وقفہ نہیں"
 msgid "No simple technique applies"
 msgstr "کوئی سادہ تکنیک لاگو نہیں ہوتی"
 
+#: src/daily/components/daily-history-list/daily-history-list.tsx
+msgid "No solves yet. Today’s puzzle is waiting."
+msgstr ""
+
 #: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
 msgstr "ابھی کوئی شماریات نہیں"
-
-#: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
-msgid "Not now"
-msgstr "ابھی نہیں"
 
 #: src/game/components/input-mode-button/input-mode-button.tsx
 msgid "Notes mode"
@@ -1131,22 +1124,14 @@ msgstr "ایک خانے کا"
 msgid "Offer hints on Nightmare, Hell, and Infinity puzzles too"
 msgstr "ڈراؤنا خواب، جہنم اور لامحدود سوڈوکو میں بھی اشارے دیں"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
 #: src/game/components/hint-button/hint-button.tsx
 #: src/game/hooks/use-game-creation-runner.hook.ts
+#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "OK"
 msgstr "ٹھیک ہے"
-
-#: src/settings/component/settings-comfort-mode-section/settings-comfort-mode-section.tsx
-msgid "On, with your own changes kept. Turning it off restores what you had before."
-msgstr "آن ہے، آپ کی اپنی تبدیلیاں محفوظ ہیں۔ بند کرنے پر پہلے والی حالت واپس آ جائے گی۔"
-
-#: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
-msgid "One switch for bigger numbers, a calmer board, and high-contrast colors."
-msgstr "ایک ہی سوئچ سے بڑے ہندسے، پُرسکون بورڈ اور ہائی کنٹراسٹ رنگ۔"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "Only {valueList} is left for the marked cell, so place it there."
@@ -1252,7 +1237,7 @@ msgstr "بڑے ملٹی پلائرز کے لیے زیادہ مشکل سطح پر
 msgid "Play Sudoku — Suuudokuuu"
 msgstr "سوڈوکو کھیلیں — Suuudokuuu"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 msgid "Play today"
 msgstr "آج کھیلیں"
 
@@ -1333,6 +1318,10 @@ msgstr "ابھری ہوئی سطح کا متن"
 #: src/app/privacy-policy.tsx
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "ڈیٹا جمع کرنے، محفوظ رکھنے اور آپ کے حقوق سے متعلق Suuudokuuu کی پرائیویسی پالیسی پڑھیں۔"
+
+#: src/daily/components/daily-history-list/daily-history-list.tsx
+msgid "Recent solves"
+msgstr ""
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"
@@ -1602,7 +1591,11 @@ msgstr "حل ہو گیا"
 msgid "Solved in"
 msgstr "حل ہونے کا وقت"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
+msgid "Solved today"
+msgstr ""
+
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "Solved today • {difficultyLabel}"
 msgstr "آج حل ہوا • {difficultyLabel}"
 
@@ -1651,7 +1644,7 @@ msgstr "مرحلہ {currentStepNumber} از {stepCount}"
 msgid "Step time"
 msgstr "چال کا وقت"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
@@ -1837,7 +1830,11 @@ msgstr "ننھا"
 msgid "Tips for High Scores"
 msgstr "ہائی اسکور کے مشورے"
 
-#: src/daily/components/daily-challenge-card/daily-challenge-card.tsx
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+msgid "Today"
+msgstr ""
+
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 msgid "Today's puzzle • {difficultyLabel}"
 msgstr "آج کی پہیلی • {difficultyLabel}"
 
@@ -1856,14 +1853,6 @@ msgstr "دوبارہ کوشش کریں"
 #: src/challenge/components/challenge-try-again-button/challenge-try-again-button.tsx
 msgid "Try Again"
 msgstr "دوبارہ کوشش کریں"
-
-#: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
-msgid "Try Comfort mode"
-msgstr "آرام موڈ آزمائیں"
-
-#: src/screens/components/home-screen/home-screen-comfort-offer/home-screen-comfort-offer.tsx
-msgid "Turn it on"
-msgstr "آن کریں"
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Ukraine keeps fighting"

@@ -34,15 +34,18 @@ export const HomeScreenPlayActions = ({
     startButtonText
 }: Props) => {
     const { theme } = use(ThemeContext);
-    const startButtonTextColor = isHellSelected ? theme.colors.dangerText : theme.colors.inkText;
+    const isSpecialTierSelected = isHellSelected || isInfinitySelected;
+    const specialButtonColor = isHellSelected ? theme.colors.danger : theme.colors.board.selected;
+    const startButtonColor = isSpecialTierSelected ? specialButtonColor : null;
+    const specialButtonTextColor = isHellSelected ? theme.colors.dangerText : theme.colors.board.selectedText;
+    const startButtonTextColor = isSpecialTierSelected ? specialButtonTextColor : theme.colors.inkText;
     const startButtonTitleStyles = [styles.startButtonTitle, { color: startButtonTextColor }];
     const startButtonSubtitleStyles = [styles.startButtonSubtitle, { color: startButtonTextColor }];
 
     return (
         <View style={styles.playActions}>
             <HomeScreenStartButton
-                isHellSelected={isHellSelected}
-                isInfinitySelected={isInfinitySelected}
+                color={startButtonColor}
                 isLoading={isLoading}
                 onPress={onStart}
                 style={styles.primaryButton}

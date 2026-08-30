@@ -8,22 +8,20 @@ const DifficultyComplexitySliderStaticStyles = {
         justifyContent: 'space-between',
         width: '100%'
     },
-    optionLabel: {
-        fontSize: 10,
-        fontWeight: '700',
-        lineHeight: 13,
-        textAlign: 'center'
-    },
-    optionRow: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
+    labelRow: {
+        height: 24,
         width: '100%'
+    },
+    optionLabel: {
+        fontSize: 11,
+        fontWeight: '700',
+        lineHeight: 14,
+        textAlign: 'center'
     },
     optionTrigger: {
         alignItems: 'center',
-        flex: 1,
-        minHeight: 30,
-        paddingTop: 6,
+        justifyContent: 'center',
+        width: '100%',
         _web: {
             cursor: 'pointer',
             _hover: {
