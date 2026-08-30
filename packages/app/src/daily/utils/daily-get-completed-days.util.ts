@@ -7,7 +7,6 @@ import type { DifficultyEnum } from '@suuudokuuu/generator';
 const DailyHistoryLength = 10;
 
 export interface DailyCompletedDayInterface {
-    readonly dateString: string;
     readonly dayNumber: number;
     readonly difficulty: DifficultyEnum;
 }
@@ -16,8 +15,4 @@ export const dailyGetCompletedDays = (completedDayNumbers: readonly number[]): r
     [...completedDayNumbers]
         .sort((firstDayNumber, secondDayNumber) => secondDayNumber - firstDayNumber)
         .slice(0, DailyHistoryLength)
-        .map(dayNumber => {
-            const dateString = dailyGetDateString(dayNumber);
-
-            return { dateString, dayNumber, difficulty: getDailyDifficulty(dateString) };
-        });
+        .map(dayNumber => ({ dayNumber, difficulty: getDailyDifficulty(dailyGetDateString(dayNumber)) }));

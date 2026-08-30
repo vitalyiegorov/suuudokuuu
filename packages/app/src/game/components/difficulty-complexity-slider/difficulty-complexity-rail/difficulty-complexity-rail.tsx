@@ -11,11 +11,11 @@ import { useVibration } from '../../../../@generic/hooks/use-vibration.hook';
 import { getDifficultyMessage } from '../../../../@generic/utils/get-difficulty-message.util';
 import { ThemeContext } from '../../../../theme/context/theme.context';
 import {
-    DifficultyComplexitySliderBottomLabelSlotIndexes,
+    DifficultyComplexitySliderBottomLabelDifficulties,
     DifficultyComplexitySliderDifficulties,
     DifficultyComplexitySliderMaxIndex,
     DifficultyComplexitySliderThumbRadius,
-    DifficultyComplexitySliderTopLabelSlotIndexes
+    DifficultyComplexitySliderTopLabelDifficulties
 } from '../constant/difficulty-complexity-slider.constant';
 import { DifficultyComplexityRailLabelRow } from '../difficulty-complexity-rail-label-row/difficulty-complexity-rail-label-row';
 import { DifficultyComplexitySliderStyles as styles } from '../difficulty-complexity-slider.styles';
@@ -90,7 +90,7 @@ export const DifficultyComplexityRail = (props: Props) => {
     return (
         <View style={styles.sliderWrap}>
             <DifficultyComplexityRailLabelRow
-                labelSlotIndexes={DifficultyComplexitySliderTopLabelSlotIndexes}
+                labelDifficulties={DifficultyComplexitySliderTopLabelDifficulties}
                 onPressDifficulty={setSelectedDifficulty}
                 selectedDifficulty={selectedDifficulty}
             />
@@ -113,7 +113,7 @@ export const DifficultyComplexityRail = (props: Props) => {
             </GestureDetector>
 
             <DifficultyComplexityRailLabelRow
-                labelSlotIndexes={DifficultyComplexitySliderBottomLabelSlotIndexes}
+                labelDifficulties={DifficultyComplexitySliderBottomLabelDifficulties}
                 onPressDifficulty={setSelectedDifficulty}
                 selectedDifficulty={selectedDifficulty}
             />

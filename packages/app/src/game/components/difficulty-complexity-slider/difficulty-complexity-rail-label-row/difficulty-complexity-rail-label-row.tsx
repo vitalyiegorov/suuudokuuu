@@ -8,42 +8,43 @@ import type { DifficultyEnum } from '@suuudokuuu/generator';
 import type { StyleProp, ViewStyle } from 'react-native';
 
 interface Props {
-    readonly labelSlotIndexes: readonly number[];
+    readonly labelDifficulties: readonly DifficultyEnum[];
     readonly onPressDifficulty: (difficulty: DifficultyEnum) => void;
     readonly selectedDifficulty: DifficultyEnum;
 }
 
 const OptionCount = DifficultyComplexitySliderDifficulties.length;
-const LabelSlotStyles: readonly StyleProp<ViewStyle>[] = DifficultyComplexitySliderDifficulties.map((_, index) => ({
-    alignItems: 'center',
-    justifyContent: 'center',
-    left: `${((index + 0.5) / OptionCount) * 100}%`,
-    position: 'absolute',
-    transform: [{ translateX: '-50%' }],
-    width: `${(2 / OptionCount) * 100}%`,
-    ...(index % 2 === 1 ? { bottom: 0 } : { top: 0 })
-}));
+const LabelSlotStyleEntries = new Map<DifficultyEnum, StyleProp<ViewStyle>>(
+    DifficultyComplexitySliderDifficulties.map((difficulty, index) => [
+        difficulty,
+        {
+            alignItems: 'center',
+            justifyContent: 'center',
+            left: `${((index + 0.5) / OptionCount) * 100}%`,
+            position: 'absolute',
+            transform: [{ translateX: '-50%' }],
+            width: `${(2 / OptionCount) * 100}%`,
+            ...(index % 2 === 1 ? { bottom: 0 } : { top: 0 })
+        }
+    ])
+);
 
-export const DifficultyComplexityRailLabelRow = ({ labelSlotIndexes, onPressDifficulty, selectedDifficulty }: Props) => {
+export const DifficultyComplexityRailLabelRow = ({ labelDifficulties, onPressDifficulty, selectedDifficulty }: Props) => {
     const handlePress = (difficulty: DifficultyEnum) => () => {
         onPressDifficulty(difficulty);
     };
 
     return (
         <View style={styles.labelRow}>
-            {labelSlotIndexes.map(index => {
-                const difficulty = DifficultyComplexitySliderDifficulties[index] ?? selectedDifficulty;
-
-                return (
-                    <DifficultyComplexityRailOption
-                        difficulty={difficulty}
-                        key={difficulty}
-                        onPress={handlePress(difficulty)}
-                        selectedDifficulty={selectedDifficulty}
-                        style={LabelSlotStyles[index]}
-                    />
-                );
-            })}
+            {labelDifficulties.map(difficulty => (
+                <DifficultyComplexityRailOption
+                    difficulty={difficulty}
+                    key={difficulty}
+                    onPress={handlePress(difficulty)}
+                    selectedDifficulty={selectedDifficulty}
+                    style={LabelSlotStyleEntries.get(difficulty)}
+                />
+            ))}
         </View>
     );
 };
