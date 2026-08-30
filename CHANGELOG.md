@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.10.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.9.4...v2.10.0) (2026-08-30)
+
+### Features
+
+- **app:** anchor the notes control to the thumb edge ([664f354](https://github.com/vitalyiegorov/suuudokuuu/commit/664f354ac4a80d8fd4480206aaebb1fbb28932bd))
+
 ## [2.9.4](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.9.3...v2.9.4) (2026-08-30)
 
 ### Bug Fixes
