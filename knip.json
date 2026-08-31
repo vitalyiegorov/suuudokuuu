@@ -44,6 +44,9 @@
                 "vercel-functions/api/**/*.ts!",
                 "vercel-functions/shared/create-node-handler.util.ts!"
             ]
+        },
+        "tests/app-tests": {
+            "entry": ["scripts/ci-seed-scene.ts"]
         }
     }
 }
