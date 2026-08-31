@@ -1,9 +1,18 @@
 appId: ${APP_ID}
 ---
 - runFlow: subflows/navigation/launch-home.flow.yaml
-- tapOn: 'Daily'
-- assertVisible:
-      id: 'DailyStreakHeroSelectors.Root'
+# Retry the tab handoff once: on the warm app the first tap after a flow
+# lands at Home is occasionally consumed without reaching the tab bar (CI run
+# 33395276746: Settings never mounted after a reported tap), the same
+# mid-transition swallow the shared accept/confirm subflows already retry.
+- retry:
+      maxRetries: 1
+      commands:
+          - tapOn: 'Daily'
+          - extendedWaitUntil:
+                visible:
+                    id: 'DailyStreakHeroSelectors.Root'
+                timeout: 5000
 - assertVisible:
       id: 'DailyScreenSelectors.ActionButton'
       text: '.*Play today.*'
