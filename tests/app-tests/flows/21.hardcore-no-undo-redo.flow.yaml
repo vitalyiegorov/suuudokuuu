@@ -36,4 +36,3 @@ appId: ${APP_ID}
       id: 'RedoButtonSelectors.Root'
 
 - runFlow: subflows/game/quit-current-game.flow.yaml
-- stopApp
