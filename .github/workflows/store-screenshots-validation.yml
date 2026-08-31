@@ -122,30 +122,35 @@ jobs:
             ASC_ISSUER_ID: ${{ secrets.EXPO_IOS_ASC_ISSUER_ID }}
 
     r4-config-path:
-        # PR #105 validation: capture-screenshots-ios runtime tie-break fix.
-        # mobile-ci's capture-screenshots-ios self-reference in
-        # store-screenshots.yml was temporarily SHA-pinned to
-        # fix/capture-ios-runtime-tiebreak's branch head (e0ee0af) instead of
-        # the released @v1.10.0, because store-screenshots.yml itself lives
-        # on main (unpatched) and only self-references the OLD action at the
-        # released tag - see commit e0ee0af on that branch for why. That
-        # branch predates config-path (#103 not yet merged), so this uses the
-        # explicit with: blob form, not config-path. Device deliberately set
-        # back to the duplicated 'iPhone 17 Pro' name (not "Max") to exercise
-        # the tie-break against the live collision.
-        name: R4 capture-ios runtime tie-break validation (PR 105)
+        # PR #107 validation: deep-link foreground fix (Open-in-app sheet
+        # dismissal + --device on flow-backed maestro invocations).
+        # store-screenshots.yml's own capture-screenshots-ios self-reference
+        # is already SHA-pinned by the PR author to fa82545 (this branch's
+        # own history) - no pin dance needed here, and it must NOT be
+        # restored by this validation (the author/coordinator owns that).
+        # Device is iPhone 17 Pro Max (plain 'iPhone 17 Pro' has a
+        # same-runtime clone on part of the pool per #105's validation -
+        # fails closed by design, not what this run is testing). Explicit
+        # with: blob form per instruction, even though this branch already
+        # has config-path merged in (1ed9e04) - either form exercises the
+        # same capture-screenshots-ios code, config-path itself already
+        # validated in #103. capture-scenes now also carries a flow-backed
+        # scene (win) alongside the two deep-link scenes, to exercise this
+        # PR's --device fix on the flow-backed maestro invocations too.
+        name: R4 deep-link foreground fix validation (PR 107)
         if: github.ref_name == 'ci/ssv-run/config-path'
-        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@e0ee0af5febe58c65d1cd822bf856b6844605f19 # fix/capture-ios-runtime-tiebreak fleet-validation pin
+        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@bb583d4e878385b294ac6d25f8884967ed1e7470 # fix/capture-ios-deeplink-foreground (self-pinned by author, not by this validation)
         with:
             ios-target: >-
                 {"name":"e2e","appDir":"packages/app","workspace":"suuudokuuuE2E.xcworkspace","scheme":"suuudokuuuE2E","appId":"com.vitalyiegorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p ios --clean --no-install"}
             capture-manifest: >-
-                [{"platform":"ios","device":"iPhone 17 Pro","locales":["en","de"],"appearances":["light"]}]
+                [{"platform":"ios","device":"iPhone 17 Pro Max","locales":["en","de"],"appearances":["light"]}]
             capture-mode: direct
             capture-scenes: >-
                 [
                   {"name":"hero-board","deepLink":"suuudokuuu://game"},
-                  {"name":"stats","deepLink":"suuudokuuu://history"}
+                  {"name":"stats","deepLink":"suuudokuuu://history"},
+                  {"name":"win","flow":"05.win.flow.yaml"}
                 ]
             screenshots-dir: tests/app-tests/flows/screenshots
             seed-command: node tests/app-tests/scripts/ci-seed-scene.ts
