@@ -124,10 +124,13 @@ jobs:
     r4-config-path:
         # PR #107 validation: deep-link foreground fix (Open-in-app sheet
         # dismissal + --device on flow-backed maestro invocations).
-        # store-screenshots.yml's own capture-screenshots-ios self-reference
-        # is already SHA-pinned by the PR author to fa82545 (this branch's
-        # own history) - no pin dance needed here, and it must NOT be
-        # restored by this validation (the author/coordinator owns that).
+        # TWO self-references temporarily pinned inside this branch, NEITHER
+        # by this validation - both must be restored to tag form by the
+        # author/coordinator before merge:
+        #   - capture-screenshots-ios@fa82545 (pinned by the PR author)
+        #   - load-consumer-config@bb583d4 (pinned by the coordinator at
+        #     b8e43e1, after the first attempt failed the same
+        #     not-yet-cut-v1.11.0 chicken-and-egg #103 hit)
         # Device is iPhone 17 Pro Max (plain 'iPhone 17 Pro' has a
         # same-runtime clone on part of the pool per #105's validation -
         # fails closed by design, not what this run is testing). Explicit
@@ -139,7 +142,7 @@ jobs:
         # PR's --device fix on the flow-backed maestro invocations too.
         name: R4 deep-link foreground fix validation (PR 107)
         if: github.ref_name == 'ci/ssv-run/config-path'
-        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@bb583d4e878385b294ac6d25f8884967ed1e7470 # fix/capture-ios-deeplink-foreground (self-pinned by author, not by this validation)
+        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@b8e43e1ad9d0eb28da7972887f46fc81e61af0f0 # fix/capture-ios-deeplink-foreground (temp double self-pin, not by this validation)
         with:
             ios-target: >-
                 {"name":"e2e","appDir":"packages/app","workspace":"suuudokuuuE2E.xcworkspace","scheme":"suuudokuuuE2E","appId":"com.vitalyiegorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p ios --clean --no-install"}
