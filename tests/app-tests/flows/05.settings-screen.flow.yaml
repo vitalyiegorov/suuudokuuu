@@ -70,4 +70,3 @@ appId: ${APP_ID}
       visible:
           id: 'HomeScreenSelectors.Root'
       timeout: 3000
-- stopApp

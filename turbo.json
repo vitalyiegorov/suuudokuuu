@@ -28,6 +28,10 @@
             "dependsOn": ["^build"],
             "outputs": ["dist/**"]
         },
+        "@suuudokuuu/landing#build": {
+            "dependsOn": ["^build"],
+            "outputs": ["out/**", ".next/**", "!.next/cache/**"]
+        },
         "test": {},
         "test:coverage": {
             "outputs": ["coverage/**"]

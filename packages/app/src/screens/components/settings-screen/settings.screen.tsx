@@ -6,6 +6,7 @@ import { View } from 'react-native';
 import { CollapsibleChromePage } from '../../../@generic/components/collapsible-chrome-page/collapsible-chrome-page';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { SettingsAppFooter } from '../../../settings/component/settings-app-footer/settings-app-footer';
+import { SettingsFeedbackSection } from '../../../settings/component/settings-feedback-section/settings-feedback-section';
 import { SettingsGuidanceSection } from '../../../settings/component/settings-guidance-section/settings-guidance-section';
 import { SettingsOptionLink } from '../../../settings/component/settings-option-link/settings-option-link';
 import { SettingsSwitch } from '../../../settings/component/settings-switch/settings-switch';
@@ -14,6 +15,7 @@ import {
     settingsCellMarginSelector,
     settingsFontSizeSelector,
     settingsLanguageSelector,
+    settingsMotionPreferenceSelector,
     settingsThemeSelector
 } from '../../../settings/store/settings.selectors';
 
@@ -25,8 +27,9 @@ export const SettingsScreen = () => {
     const cellMargin = useAppSelector(settingsCellMarginSelector);
     const fontSize = useAppSelector(settingsFontSizeSelector);
     const language = useAppSelector(settingsLanguageSelector);
+    const motionPreference = useAppSelector(settingsMotionPreferenceSelector);
     const theme = useAppSelector(settingsThemeSelector);
-    const { getCellMarginLabel, getFontSizeLabel, getLanguageLabel, getThemeLabel } = useSettingsOptionLabels();
+    const { getCellMarginLabel, getFontSizeLabel, getLanguageLabel, getMotionPreferenceLabel, getThemeLabel } = useSettingsOptionLabels();
     const version = Constants.expoConfig?.version ?? t`Unknown`;
 
     return (
@@ -83,11 +86,15 @@ export const SettingsScreen = () => {
                         setting="isLeftHanded"
                         title={t`Left-handed layout`}
                     />
+                    <SettingsOptionLink
+                        description={t`How much the board and screens may move`}
+                        href="/settings/motion"
+                        testID={SettingsScreenSelectors.MotionOption}
+                        title={t`Animations`}
+                        value={getMotionPreferenceLabel(motionPreference)}
+                    />
                 </AppSettingsSection>
-                <AppSettingsSection title={t`Feedback`}>
-                    <SettingsSwitch description={t`Show elapsed time while you play`} setting="hasTimer" title={t`Timer`} />
-                    <SettingsSwitch description={t`Vibrate on taps and game actions`} setting="hasVibration" title={t`Vibration`} />
-                </AppSettingsSection>
+                <SettingsFeedbackSection />
             </View>
 
             <View style={styles.secondaryColumn}>

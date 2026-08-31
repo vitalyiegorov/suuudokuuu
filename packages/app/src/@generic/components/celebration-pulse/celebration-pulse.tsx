@@ -6,7 +6,6 @@ import Animated, {
     interpolate,
     useAnimatedStyle,
     useDerivedValue,
-    useReducedMotion,
     useSharedValue,
     withRepeat,
     withSpring,
@@ -15,6 +14,7 @@ import Animated, {
 import { useUnistyles } from 'react-native-unistyles';
 
 import { useIridescentColor } from '../../hooks/use-iridescent-color.hook';
+import { useReduceMotion } from '../../hooks/use-reduce-motion.hook';
 
 import { CelebrationPulseRing } from './celebration-pulse-ring/celebration-pulse-ring';
 import { CelebrationPulseStyles as styles } from './celebration-pulse.styles';
@@ -41,25 +41,29 @@ interface Props {
 
 export const CelebrationPulse = ({ children, color, size, variant = 'default' }: Props) => {
     const { theme } = useUnistyles();
-    const reduceMotion = useReducedMotion();
+    const isMotionReduced = useReduceMotion();
     const pulse = useSharedValue(0);
     const appear = useSharedValue(0);
     const isInfinityVariant = variant === 'infinity';
     const hellRingColorValue = useDerivedValue(() => theme.colors.danger);
-    const infinityRingColorValue = useIridescentColor(theme, isInfinityVariant && !reduceMotion);
+    const infinityRingColorValue = useIridescentColor(theme, isInfinityVariant && !isMotionReduced);
     const extraRingColorValue = isInfinityVariant ? infinityRingColorValue : hellRingColorValue;
-    const extraRingConfigs = reduceMotion ? [] : CelebrationPulseExtraRingsByVariant[variant];
+    const extraRingConfigs = isMotionReduced ? [] : CelebrationPulseExtraRingsByVariant[variant];
 
     useEffect(() => {
-        appear.value = withSpring(1, { damping: 12, stiffness: 160 });
-    }, [appear]);
+        appear.value = isMotionReduced ? 1 : withSpring(1, { damping: 12, stiffness: 160 });
+    }, [isMotionReduced, appear]);
     useEffect(() => {
+        if (isMotionReduced) {
+            return;
+        }
+
         pulse.value = withRepeat(
             withTiming(1, { duration: PulseDurationMs, easing: Easing.out(Easing.ease) }),
             CelebrationPulseRepeatCount,
             false
         );
-    }, [pulse]);
+    }, [isMotionReduced, pulse]);
 
     const appearScale = useDerivedValue(() => interpolate(appear.value, UnitInput, AppearScaleOutput));
     const contentAnimatedStyle = useAnimatedStyle(() => {

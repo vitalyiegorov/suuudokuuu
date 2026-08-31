@@ -1,5 +1,6 @@
 import { Trans, useLingui } from '@lingui/react/macro';
 import { AppSurfaceCard } from '@suuudokuuu/ui';
+import { MaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
 import { use } from 'react';
 import { Text, View } from 'react-native';
 
@@ -56,7 +57,7 @@ export const UkraineSupportCard = ({ context = 'neutral', testID, variant = 'fil
                 </BlackText>
             </View>
 
-            <Text allowFontScaling={false} style={descriptionStyles}>
+            <Text maxFontSizeMultiplier={MaxFontSizeMultiplierConstant} style={descriptionStyles}>
                 {description}
             </Text>
 

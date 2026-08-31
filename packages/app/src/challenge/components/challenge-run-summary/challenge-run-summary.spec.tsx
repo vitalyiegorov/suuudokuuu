@@ -3,7 +3,7 @@ import { TimelineEventKindEnum } from '@suuudokuuu/encoder';
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 import { render, screen } from '@testing-library/react-native';
 
-import { I18nTestWrapper } from '../../../@generic/mocks/i18n-test-wrapper.mock';
+import { AppTestWrapper } from '../../../@generic/mocks/app-test-wrapper.mock';
 import { getChallengeRecordingSummary } from '../../utils/get-challenge-recording-summary.util';
 import { ChallengeAwayBandsSelectors } from '../challenge-away-bands/challenge-away-bands.selectors';
 import { ChallengeRunStatsSelectors } from '../challenge-run-stats/challenge-run-stats.selectors';
@@ -43,7 +43,7 @@ const capturedRunEvents: GameTimelineEventInterface[] = [
 
 const renderRecordedRun = async (events: GameTimelineEventInterface[], totalTime: number) =>
     render(<ChallengeRunSummary label="Your recording" summary={getChallengeRecordingSummary(events, totalTime)} totalTime={totalTime} />, {
-        wrapper: I18nTestWrapper
+        wrapper: AppTestWrapper
     });
 
 describe('ChallengeRunSummary', () => {

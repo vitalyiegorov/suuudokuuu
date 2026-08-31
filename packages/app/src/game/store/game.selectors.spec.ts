@@ -14,9 +14,11 @@ import {
     gameChallengeTimelineEventsSelector,
     gameCompletedGameByIdSelector,
     gameCompletedGamesSelector,
+    gameDailyBestStreakSelector,
+    gameDailyCompletedDayNumbersSelector,
+    gameDailyDayNumberSelector,
     gameDifficultySelector,
     gameElapsedTimeSelector,
-    gameHasNewPersonalBestScoreSelector,
     gameHasRivalSelector,
     gameHistoryBestTimeSelector,
     gameHistoryByDifficultySelector,
@@ -51,6 +53,9 @@ const gameRating = 4.2;
 const firstPlayedDayNumber = 19827;
 const secondPlayedDayNumber = 19828;
 const hiddenSingleUsageCount = 3;
+const runDayNumber = 20692;
+const solvedDayNumber = 20691;
+const bestDailyStreak = 4;
 
 const completedGame: CompletedGameInterface = {
     encodedState: 'encoded',
@@ -85,6 +90,9 @@ const state: GameState = {
     hasNewPersonalBestScore: true,
     techniqueUsageCounts: { [SolutionTechniqueEnum.HiddenSingle]: hiddenSingleUsageCount },
     playedDayNumbers: [firstPlayedDayNumber, secondPlayedDayNumber],
+    dailyDayNumber: runDayNumber,
+    dailyCompletedDayNumbers: [solvedDayNumber],
+    dailyBestStreak: bestDailyStreak,
     historyByDifficulty: {
         ...initialGameState.historyByDifficulty,
         [DifficultyEnum.Easy]: {
@@ -127,9 +135,15 @@ describe('game selectors', () => {
         expect(gameSolutionsStepsSelector.resultFunc(state)).toStrictEqual([]);
         expect(gameTimelineEventsSelector.resultFunc(state)).toBe(state.timelineEvents);
         expect(gameChallengeTimelineEventsSelector.resultFunc(state)).toBe(state.challengeTimelineEvents);
-        expect(gameHasNewPersonalBestScoreSelector.resultFunc(state)).toBe(true);
         expect(gameTechniqueUsageCountsSelector.resultFunc(state)).toBe(state.techniqueUsageCounts);
         expect(gamePlayedDayNumbersSelector.resultFunc(state)).toBe(state.playedDayNumbers);
+    });
+
+    it('projects the daily challenge record', () => {
+        expect(gameDailyDayNumberSelector.resultFunc(state)).toBe(runDayNumber);
+        expect(gameDailyCompletedDayNumbersSelector.resultFunc(state)).toStrictEqual([solvedDayNumber]);
+        expect(gameDailyBestStreakSelector.resultFunc(state)).toBe(bestDailyStreak);
+        expect(gameDailyDayNumberSelector.resultFunc(initialGameState)).toBe(0);
     });
 
     it('derives game and challenge activity from non-empty strings', () => {

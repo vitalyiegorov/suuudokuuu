@@ -2,7 +2,7 @@ import type { ThemeInterface } from '../../../theme/interface/theme.interface';
 
 export type AppButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger' | 'donation' | 'inverted' | 'glass';
 
-export const appButtonGetColors = (theme: ThemeInterface, variant: AppButtonVariant) => {
+export const appButtonGetColors = (theme: Pick<ThemeInterface, 'colors'>, variant: AppButtonVariant) => {
     if (variant === 'primary') {
         return {
             backgroundColor: theme.colors.ink,

@@ -1,6 +1,6 @@
 import { useLingui } from '@lingui/react/macro';
 import { Tabs } from 'expo-router';
-import { BarChart3, Play, Settings } from 'lucide-react-native';
+import { BarChart3, CalendarDays, Play, Settings } from 'lucide-react-native';
 
 import { FloatingTabBarOccupiedHeight } from '../floating-tab-bar/constant/floating-tab-bar.constant';
 import { FloatingTabBar } from '../floating-tab-bar/floating-tab-bar';
@@ -25,6 +25,10 @@ export const FloatingTabLayout = () => {
         tabBarIcon: (props: TabBarIconInput) => <MainTabIcon Icon={Play} color={props.color} size={props.size} />,
         title: t`Play`
     };
+    const dailyOptions = {
+        tabBarIcon: (props: TabBarIconInput) => <MainTabIcon Icon={CalendarDays} color={props.color} size={props.size} />,
+        title: t`Daily`
+    };
     const statsOptions = {
         tabBarIcon: (props: TabBarIconInput) => <MainTabIcon Icon={BarChart3} color={props.color} size={props.size} />,
         title: t`Stats`
@@ -38,6 +42,7 @@ export const FloatingTabLayout = () => {
         <TabBarInsetContext value={FloatingTabBarOccupiedHeight}>
             <Tabs backBehavior="none" screenOptions={screenOptions} tabBar={renderTabBar}>
                 <Tabs.Screen name="index" options={playOptions} />
+                <Tabs.Screen name="daily" options={dailyOptions} />
                 <Tabs.Screen name="history" options={statsOptions} />
                 <Tabs.Screen name="settings" options={settingsOptions} />
             </Tabs>

@@ -4,8 +4,9 @@ import { FloatingTabBarMaxWidth, FloatingTabBarPillRadius } from '../floating-ta
 
 export const FloatingTabBarSurfaceStyles = StyleSheet.create({
     pill: {
+        borderCurve: 'continuous',
         borderRadius: FloatingTabBarPillRadius,
-        borderWidth: StyleSheet.hairlineWidth,
+        borderWidth: 1,
         maxWidth: FloatingTabBarMaxWidth,
         overflow: 'hidden',
         width: '100%'

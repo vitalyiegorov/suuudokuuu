@@ -3,6 +3,89 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.11.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.10.1...v2.11.0) (2026-08-31)
+
+### Features
+
+- **app:** hide undo and redo in hardcore mode with e2e coverage ([#364](https://github.com/vitalyiegorov/suuudokuuu/issues/364)) ([4b208b1](https://github.com/vitalyiegorov/suuudokuuu/commit/4b208b145524e70e5f9c3a5f7169ee450100ab0a))
+
+## [2.10.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.10.0...v2.10.1) (2026-08-30)
+
+### Bug Fixes
+
+- **app,field-core,techniques,landing:** rebuild hints around the reason a move works ([#382](https://github.com/vitalyiegorov/suuudokuuu/issues/382)) ([40518b2](https://github.com/vitalyiegorov/suuudokuuu/commit/40518b21b700d4ff4160607c36c376534fdeec9f))
+
+# [2.10.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.9.4...v2.10.0) (2026-08-30)
+
+### Features
+
+- **app:** anchor the notes control to the thumb edge ([664f354](https://github.com/vitalyiegorov/suuudokuuu/commit/664f354ac4a80d8fd4480206aaebb1fbb28932bd))
+
+## [2.9.4](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.9.3...v2.9.4) (2026-08-30)
+
+### Bug Fixes
+
+- **app,ui:** crisp 1px borders, unified icon button sizing, pressed feedback ([ebc1405](https://github.com/vitalyiegorov/suuudokuuu/commit/ebc14056e00169e6ffba77b6227ad76a1841a3d6))
+
+## [2.9.3](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.9.2...v2.9.3) (2026-08-30)
+
+### Bug Fixes
+
+- **app,ui:** stop the game metric strip from clamping labels and values ([cd57b64](https://github.com/vitalyiegorov/suuudokuuu/commit/cd57b64fe021bbd83b4f598a8376d43748ba3a39)), closes [#379](https://github.com/vitalyiegorov/suuudokuuu/issues/379)
+- **app:** combined ui/ux polish pass for the v2.9.x changes ([cca171c](https://github.com/vitalyiegorov/suuudokuuu/commit/cca171cfedd74039c582b3f266841eae1843f636)), closes [#373](https://github.com/vitalyiegorov/suuudokuuu/issues/373) [#374](https://github.com/vitalyiegorov/suuudokuuu/issues/374) [#375](https://github.com/vitalyiegorov/suuudokuuu/issues/375) [#376](https://github.com/vitalyiegorov/suuudokuuu/issues/376) [#377](https://github.com/vitalyiegorov/suuudokuuu/issues/377) [#372](https://github.com/vitalyiegorov/suuudokuuu/issues/372)
+
+## [2.9.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.9.1...v2.9.2) (2026-08-28)
+
+**Note:** Version bump only for package @suuudokuuu/app
+
+## [2.9.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.9.0...v2.9.1) (2026-08-25)
+
+### Bug Fixes
+
+- **app:** restore the white digit on the selected board cell ([#363](https://github.com/vitalyiegorov/suuudokuuu/issues/363)) ([72fd0ac](https://github.com/vitalyiegorov/suuudokuuu/commit/72fd0ac95197981bbb7d28403d7c8d53e11d2ec6))
+
+# [2.9.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.8.0...v2.9.0) (2026-08-25)
+
+### Bug Fixes
+
+- **app:** reclaim the space shortcut from board-cell keyboard activation ([40e6b91](https://github.com/vitalyiegorov/suuudokuuu/commit/40e6b9128f2532d8a57299aa587bd7c83fea9228))
+- **field-core,field-dom,app:** subtract engine eliminations from auto-candidates ([8981436](https://github.com/vitalyiegorov/suuudokuuu/commit/8981436f6863611894eaba2ffded5f9fbbb6bc6c)), closes [#312](https://github.com/vitalyiegorov/suuudokuuu/issues/312) [#311](https://github.com/vitalyiegorov/suuudokuuu/issues/311) [#313](https://github.com/vitalyiegorov/suuudokuuu/issues/313)
+- **field-dom:** center the board block and match the number row to board width ([adcda39](https://github.com/vitalyiegorov/suuudokuuu/commit/adcda392ec69b5a15294a7ecb009c3e235eb7498))
+
+### Features
+
+- **app,encoder:** technique-explaining hint mechanic with step-script walkthroughs ([e4358da](https://github.com/vitalyiegorov/suuudokuuu/commit/e4358da71f22e11584587fc47367e43821b1bdee)), closes [#307](https://github.com/vitalyiegorov/suuudokuuu/issues/307)
+- **app,generator,puzzle-forge:** daily challenge with streaks over seeded generation ([2ca4d22](https://github.com/vitalyiegorov/suuudokuuu/commit/2ca4d22c5cdb1a0dea9294d7c7e583e5d0a10c20)), closes [#348](https://github.com/vitalyiegorov/suuudokuuu/issues/348)
+- **app,ui:** high-contrast and colorblind-safe themes with wcag aa contrast gates ([f204469](https://github.com/vitalyiegorov/suuudokuuu/commit/f2044693d5d357445a8a3c715610c9eb706bbbd5)), closes [#318](https://github.com/vitalyiegorov/suuudokuuu/issues/318)
+- **app,ui:** honor os text scaling with per-context multiplier caps ([dcc30bc](https://github.com/vitalyiegorov/suuudokuuu/commit/dcc30bc16d1f0b6ee8a20b574bf34b3c0aa6113f)), closes [#316](https://github.com/vitalyiegorov/suuudokuuu/issues/316)
+- **app,ui:** screen-reader labels and announcements for the board and controls ([5bf5cce](https://github.com/vitalyiegorov/suuudokuuu/commit/5bf5cceed2509ecc694f8c7202d7ba6cee1c5427)), closes [#349](https://github.com/vitalyiegorov/suuudokuuu/issues/349)
+- **app:** comfort mode preset with exact restore and a customized state ([578a009](https://github.com/vitalyiegorov/suuudokuuu/commit/578a009d6834e5f08755d0591ec4249738b0b204)), closes [#315](https://github.com/vitalyiegorov/suuudokuuu/issues/315)
+- **app:** comfort primitives for touch targets, reduced motion, and calm play ([8578ae1](https://github.com/vitalyiegorov/suuudokuuu/commit/8578ae19ed1cf4719a7923ccb23da9b209bfdf3c)), closes [#317](https://github.com/vitalyiegorov/suuudokuuu/issues/317) [#319](https://github.com/vitalyiegorov/suuudokuuu/issues/319)
+- **app:** undo and redo with honest scoring, and hint gating for hard tiers ([9d6e221](https://github.com/vitalyiegorov/suuudokuuu/commit/9d6e221566ae33f133aa161e41efa47b640ac7fd)), closes [#346](https://github.com/vitalyiegorov/suuudokuuu/issues/346) [#347](https://github.com/vitalyiegorov/suuudokuuu/issues/347)
+- **app:** web export SEO hygiene with default social meta and per-route titles ([74b90c3](https://github.com/vitalyiegorov/suuudokuuu/commit/74b90c3c2f69fd1a74e1ab7a4868ca373174658b)), closes [#302](https://github.com/vitalyiegorov/suuudokuuu/issues/302)
+- **landing:** sudoku-for-seniors and large-print content cluster ([48f758c](https://github.com/vitalyiegorov/suuudokuuu/commit/48f758c61e846bc641594a5bb427a047b2777abd)), closes [#321](https://github.com/vitalyiegorov/suuudokuuu/issues/321)
+- **puzzle-forge,techniques,app:** generate puzzles by required technique band ([7ed2e4f](https://github.com/vitalyiegorov/suuudokuuu/commit/7ed2e4fc5af62116ef90f69ae5560496d04ff1ab)), closes [#314](https://github.com/vitalyiegorov/suuudokuuu/issues/314)
+
+# [2.8.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.7.2...v2.8.0) (2026-08-23)
+
+### Features
+
+- **app:** add Infinity screenshot scene and fix challenge race seed ([307e2ca](https://github.com/vitalyiegorov/suuudokuuu/commit/307e2cae80b63a1dd11e0336df17c1b54b5ca786))
+
+## [2.7.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.7.1...v2.7.2) (2026-08-22)
+
+**Note:** Version bump only for package @suuudokuuu/app
+
+## [2.7.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.6.1...v2.7.1) (2026-08-22)
+
+**Note:** Version bump only for package @suuudokuuu/app
+
+## [2.6.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.6.0...v2.6.1) (2026-08-22)
+
+### Bug Fixes
+
+- **app:** hide iPad keyboard shortcut bar on game screen ([8a36da8](https://github.com/vitalyiegorov/suuudokuuu/commit/8a36da8f22648ea4724e86b602fcff89683fa207))
+
 # [2.6.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.5.1...v2.6.0) (2026-08-17)
 
 ### Bug Fixes

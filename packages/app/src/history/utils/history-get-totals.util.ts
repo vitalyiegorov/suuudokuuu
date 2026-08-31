@@ -1,7 +1,9 @@
 import { isNotEmptyArray, isPositiveNumber } from '@rnw-community/shared';
 
+import { getDayNumber } from '../../@generic/utils/get-day-number.util';
+import { getDayStreak } from '../../@generic/utils/get-day-streak.util';
+
 import { historyGetBestRating } from './history-get-best-rating.util';
-import { historyGetDayStreak } from './history-get-day-streak.util';
 import { historyGetWinRate } from './history-get-win-rate.util';
 
 import type { HistoryGameInterface } from '../interfaces/history-game.interface';
@@ -25,7 +27,7 @@ export const historyGetTotals = (
     const bestTime = isNotEmptyArray(bestTimes) ? Math.min(...bestTimes) : 0;
     const averageTimeTotal = histories.reduce((total, history) => total + history.averageTime * history.gamesWon, 0);
     const averageTime = isPositiveNumber(gamesWon) ? averageTimeTotal / gamesWon : 0;
-    const dayStreak = historyGetDayStreak(playedDayNumbers);
+    const dayStreak = getDayStreak(playedDayNumbers, getDayNumber(Date.now()));
     const winRate = historyGetWinRate(gamesWon, gamesCompleted);
 
     return {

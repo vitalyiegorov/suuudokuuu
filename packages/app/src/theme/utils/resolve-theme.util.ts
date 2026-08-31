@@ -19,7 +19,10 @@ export const resolveTheme = (
         const customTheme = customThemes.find(theme => theme.id === themeId);
 
         if (isDefined(customTheme)) {
-            return { colors: customTheme.colors[colorSchema] };
+            return {
+                hasErrorOutline: getTheme(customTheme.sourceTheme, colorSchema).hasErrorOutline,
+                colors: customTheme.colors[colorSchema]
+            };
         }
 
         return getTheme(ThemeEnum.BlackAndWhite, colorSchema);

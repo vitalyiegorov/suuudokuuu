@@ -18,9 +18,12 @@ export const settingsKeySelector = (
         | 'showActiveCandidates'
         | 'keepActiveCell'
         | 'keepExhaustedDigits'
+        | 'allowHintsOnHardDifficulties'
         | 'isLeftHanded'
+        | 'calmMode'
     >
 ) => createSelector(settingsSelector, state => state[key]);
+export const settingsMotionPreferenceSelector = createSelector(settingsSelector, state => state.motionPreference);
 export const settingsFontSizeSelector = createSelector(settingsSelector, state => state.fontSize);
 export const settingsFontSizeMultiplierSelector = createSelector(
     settingsSelector,

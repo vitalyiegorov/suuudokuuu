@@ -1,6 +1,7 @@
 import type { ThemeInterface } from '@suuudokuuu/ui/theme';
 
 export const ColorfulLightTheme: ThemeInterface = {
+    hasErrorOutline: false,
     colors: {
         background: '#F7ECD0',
         ink: '#000000',
@@ -12,7 +13,7 @@ export const ColorfulLightTheme: ThemeInterface = {
         accent: '#8FA8C1',
         text: {
             primary: '#2A3B4D',
-            hint: 'rgba(74, 97, 58, 0.75)'
+            hint: '#3D5130'
         },
         board: {
             selected: '#AFCEBE',
@@ -24,8 +25,8 @@ export const ColorfulLightTheme: ThemeInterface = {
             emptyText: 'rgba(74, 97, 58, 0.75)'
         },
         candidate: {
-            text: 'rgba(74, 97, 58, 0.75)',
-            textSelected: '#AFCEBE',
+            text: '#3D5130',
+            textSelected: '#2A3B4D',
             fill: '#FFFFFF',
             fillSelected: '#D9E3D8',
             borderSelected: '#AFCEBE'
@@ -48,6 +49,7 @@ export const ColorfulLightTheme: ThemeInterface = {
 };
 
 export const ColorfulDarkTheme: ThemeInterface = {
+    hasErrorOutline: false,
     colors: {
         background: '#2A3B4D',
         ink: '#000000',
@@ -65,14 +67,14 @@ export const ColorfulDarkTheme: ThemeInterface = {
             selected: '#4B613A',
             selectedText: '#EDECE7',
             sameValue: '#829B74',
-            sameValueText: '#EDECE7',
-            error: '#C24641',
+            sameValueText: '#1B1B1A',
+            error: '#CD6058',
             filled: '#D0C7B8',
             emptyText: 'rgba(205, 208, 194, 0.75)'
         },
         candidate: {
             text: 'rgba(205, 208, 194, 0.75)',
-            textSelected: '#4B613A',
+            textSelected: '#1B1B1A',
             fill: '#2A3B4D',
             fillSelected: '#829B74',
             borderSelected: '#4B613A'
@@ -89,7 +91,7 @@ export const ColorfulDarkTheme: ThemeInterface = {
             subtle: '#8FA8C1',
             subtleText: '#2A3B4D',
             subtleHint: '#2A3B4D',
-            border: 'rgba(143, 168, 193, 0.55)'
+            border: 'rgba(143, 168, 193, 0.3)'
         }
     }
 };

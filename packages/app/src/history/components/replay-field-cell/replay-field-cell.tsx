@@ -12,10 +12,11 @@ interface Props {
     readonly sudoku: Sudoku;
     readonly cell: CellInterface;
     readonly cellSize: number;
+    readonly cellMargin: number;
     readonly isHighlighted: boolean;
 }
 
-export const ReplayFieldCell = ({ sudoku, cell, cellSize, isHighlighted }: Props) => {
+export const ReplayFieldCell = ({ sudoku, cell, cellSize, cellMargin, isHighlighted }: Props) => {
     const { theme } = use(ThemeContext);
     const fontSize = useCellFontSize(cellSize);
 
@@ -27,7 +28,7 @@ export const ReplayFieldCell = ({ sudoku, cell, cellSize, isHighlighted }: Props
     const containerStyles = [
         cellStyles.container(cellSize),
         { backgroundColor: cellBackgroundColor },
-        ...useCellBorderStyles(sudoku, cell)
+        ...useCellBorderStyles(sudoku, cell, cellMargin)
     ];
 
     const textColor = isEmpty ? theme.colors.board.emptyText : theme.colors.ink;

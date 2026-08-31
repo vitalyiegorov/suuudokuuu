@@ -2,6 +2,7 @@ import { Trans, useLingui } from '@lingui/react/macro';
 import { DifficultyEnum } from '@suuudokuuu/generator';
 import { ScreenChromeScrollView } from '@suuudokuuu/screen-chrome';
 import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
+import { CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
 import { Link } from 'expo-router';
 import { use } from 'react';
 import { Platform, Pressable, View } from 'react-native';
@@ -33,6 +34,7 @@ import {
     gameSolutionsStepsSelector,
     gameSudokuStringSelector
 } from '../../../game/store/game.selectors';
+import { RelaxedMaxMistakesConstant } from '../../../settings/constant/max-mistakes.constant';
 import { settingsSetAction } from '../../../settings/store/settings.actions';
 import {
     settingsLastGameChallengeModeSelector,
@@ -53,7 +55,6 @@ import { homeScreenGetContentInsetTop } from './utils/home-screen-get-content-in
 import { homeScreenGetCurrentGameProgress } from './utils/home-screen-get-current-game-progress.util';
 import { homeScreenGetDifficultyDescription } from './utils/home-screen-get-difficulty-description.util';
 
-const RelaxedMistakeLimit = 99;
 const topEdgeFadeProps = { height: HomeScreenTopOverlayHeight, intensity: HomeScreenTopOverlayIntensity };
 
 // eslint-disable-next-line max-lines-per-function
@@ -100,7 +101,7 @@ export const HomeScreen = () => {
     const mistakeOptions = [
         {
             description: t`No limit`,
-            maxMistakes: RelaxedMistakeLimit,
+            maxMistakes: RelaxedMaxMistakesConstant,
             title: t`Relaxed`
         },
         standardMistakesOption,
@@ -165,7 +166,12 @@ export const HomeScreen = () => {
                 <View style={styles.contentStack}>
                     <View style={styles.masthead}>
                         <View style={styles.hero}>
-                            <Header numberOfLines={1} style={styles.title} text={getBrand().appName} />
+                            <Header
+                                maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant}
+                                numberOfLines={1}
+                                style={styles.title}
+                                text={getBrand().appName}
+                            />
                             <SupportUkrainePill />
                         </View>
 

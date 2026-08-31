@@ -26,7 +26,7 @@ concurrency:
 jobs:
     release:
         name: Publish a release
-        runs-on: [self-hosted, linux-tiered, linux-medium]
+        runs-on: [self-hosted, trf-linux-amd64-2x4]
         timeout-minutes: 20
         steps:
             - name: Checkout repository
@@ -85,11 +85,10 @@ jobs:
             - name: Publish a release
               run: yarn release
 
-
     web-deploy:
         name: Vercel deploy Web
         needs: release
-        runs-on: [self-hosted, linux-tiered, linux-medium]
+        runs-on: [self-hosted, trf-linux-amd64-2x4]
         timeout-minutes: 20
         steps:
             - name: Checkout repository
@@ -110,6 +109,11 @@ jobs:
               working-directory: packages/app
               run: yarn expo export --platform=web
 
+            - name: Build landing export
+              env:
+                  INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+              run: yarn build --filter=@suuudokuuu/landing
+
             - name: Pull Vercel project settings
               working-directory: packages/app
               run: yarn dlx vercel@latest pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
@@ -121,3 +125,8 @@ jobs:
             - name: Deploy to Vercel
               working-directory: packages/app
               run: yarn dlx vercel@latest deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+            - name: Submit changed pages to IndexNow
+              env:
+                  INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+              run: yarn workspace @suuudokuuu/landing submit:indexnow

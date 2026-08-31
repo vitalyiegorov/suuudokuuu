@@ -258,7 +258,7 @@ export class Sudoku extends SerializableSudoku {
             return true;
         }
 
-        for (const value of shuffle(this.fieldFillingValues)) {
+        for (const value of shuffle(this.fieldFillingValues, this.config.random)) {
             const cell = { ...this.field[emptyY][emptyX], value };
 
             if (
@@ -289,7 +289,7 @@ export class Sudoku extends SerializableSudoku {
             const grid = fieldToGrid(this.gameField);
 
             let blankCells = 0;
-            for (const { x, y } of shuffle(this.coordinates)) {
+            for (const { x, y } of shuffle(this.coordinates, this.config.random)) {
                 const backup = grid[y * GRID_SIZE + x];
                 this.gameField[y][x].value = this.config.blankCellValue;
                 grid[y * GRID_SIZE + x] = this.config.blankCellValue;

@@ -17,18 +17,34 @@ const mockPush = jest.fn();
 const mockReplace = jest.fn();
 const mockDispatch = jest.fn();
 const mockAlert = jest.fn();
-const mockRatePuzzle = jest.fn(() => ({ rating: 4.2, isCeiling: false }));
 
 let mockPathname = '/';
 
 jest.mock('expo-router', () => ({ usePathname: () => mockPathname, useRouter: () => ({ push: mockPush, replace: mockReplace }) }));
-jest.mock('@suuudokuuu/rating', () => ({ ratePuzzle: () => mockRatePuzzle() }));
 jest.mock('../../../@generic/app-root.store', () => ({ appRootStore: { dispatch: jest.fn(), getState: jest.fn() } }));
 jest.mock('../../../@generic/components/alert/alert', () => ({ Alert: (title: string) => mockAlert(title) }));
 jest.mock('../../../@generic/hooks/use-app-dispatch.hook', () => ({ useAppDispatch: () => mockDispatch }));
 jest.mock('../../../@generic/hooks/use-app-selector.hook', () => ({ useAppSelector: (selector: () => unknown) => selector() }));
-jest.mock('../../store/game.selectors', () => ({ gameSudokuStringSelector: () => '' }));
+jest.mock('../../store/game.selectors', () => ({
+    gameCandidatesSelector: () => ({}),
+    gameDifficultySelector: () => 'Newbie',
+    gameInputModeSelector: () => 'normal',
+    gameMistakesSelector: () => 0,
+    gameShowAutoCandidatesSelector: () => false,
+    gameSudokuStringSelector: () => ''
+}));
 jest.mock('../../../settings/store/settings.selectors', () => ({ settingsLanguageSelector: () => 'en' }));
+
+const forgedPuzzle = '9743.28565289.63171637.8294249.816736.72345893856971...528.9731896.73425731425968';
+const forgedRating = 4.2;
+const mockForgePuzzle = jest.fn(() => ({
+    isInBand: true,
+    isRatingCeiling: false,
+    rating: forgedRating,
+    sudoku: Sudoku.fromString(forgedPuzzle, defaultSudokuConfig)
+}));
+
+jest.mock('@suuudokuuu/puzzle-forge', () => ({ forgePuzzle: () => mockForgePuzzle() }));
 
 const maxMistakes = 3;
 const hellGameOptions = { difficulty: DifficultyEnum.Hell, isChallengeRun: false, maxMistakes };
@@ -64,12 +80,9 @@ const buildChallengeState = () => {
 };
 
 describe('GameProvider', () => {
-    let createSpy = jest.spyOn(Sudoku.prototype, 'create');
-
     beforeEach(() => {
         mockPathname = '/';
         jest.clearAllMocks();
-        createSpy = jest.spyOn(Sudoku.prototype, 'create');
     });
 
     it('should generate, dispatch, and navigate once for repeated create calls', async () => {
@@ -83,7 +96,7 @@ describe('GameProvider', () => {
 
         await waitFor(() => void expect(mockReplace).toHaveBeenCalledTimes(1));
 
-        expect(createSpy).toHaveBeenCalledTimes(1);
+        expect(mockForgePuzzle).toHaveBeenCalledTimes(1);
         expect(mockDispatch).toHaveBeenCalledTimes(1);
         expect(mockReplace).toHaveBeenCalledWith('/game');
         expect(mockPush).not.toHaveBeenCalled();
@@ -103,21 +116,14 @@ describe('GameProvider', () => {
         expect(mockDispatch).toHaveBeenCalledTimes(1);
     });
 
-    it('should take the Hell rating from the verified corpus instead of running the solver ladder', async () => {
+    it('should start the run with the rating the forge reported for the puzzle', async () => {
         await createSingleGame(hellGameOptions);
 
-        expect(mockRatePuzzle).not.toHaveBeenCalled();
         expect(mockDispatch).toHaveBeenCalledWith(
             expect.objectContaining({
-                payload: expect.objectContaining({ difficulty: DifficultyEnum.Hell, isRatingCeiling: false })
+                payload: expect.objectContaining({ difficulty: DifficultyEnum.Hell, isRatingCeiling: false, rating: forgedRating })
             })
         );
-    });
-
-    it('should still rate a generated puzzle through the solver ladder', async () => {
-        await createSingleGame(newbieGameOptions);
-
-        expect(mockRatePuzzle).toHaveBeenCalledTimes(1);
     });
 
     it('should admit exactly one Infinity creation under rapid repeated calls', async () => {
@@ -140,9 +146,9 @@ describe('GameProvider', () => {
         await act(() => void result.current.create(newbieGameOptions));
 
         expect(result.current.isCreatingGame).toBe(true);
-        expect(createSpy).not.toHaveBeenCalled();
+        expect(mockForgePuzzle).not.toHaveBeenCalled();
 
-        await waitFor(() => void expect(createSpy).toHaveBeenCalledTimes(1));
+        await waitFor(() => void expect(mockForgePuzzle).toHaveBeenCalledTimes(1));
 
         mockPathname = '/game';
         await act(() => void rerender(undefined));
@@ -159,15 +165,13 @@ describe('GameProvider', () => {
         await act(() => void result.current.create(newbieGameOptions));
 
         expect(result.current.isCreatingGame).toBe(true);
-        expect(createSpy).toHaveBeenCalledTimes(1);
+        expect(mockForgePuzzle).toHaveBeenCalledTimes(1);
         expect(mockReplace).toHaveBeenCalledTimes(1);
     });
 
     it('should load and navigate once for repeated createFromState calls', async () => {
         const challengeState = buildChallengeState();
         const { result } = await renderGameContext();
-
-        createSpy.mockClear();
 
         await act(() => {
             result.current.createFromState(challengeState);
@@ -183,7 +187,7 @@ describe('GameProvider', () => {
     it('should surface the alert and allow a retry when generation fails', async () => {
         const { result } = await renderGameContext();
 
-        createSpy.mockImplementationOnce(() => {
+        mockForgePuzzle.mockImplementationOnce(() => {
             throw new Error('generation failed');
         });
 

@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.9.4](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.9.3...v2.9.4) (2026-08-30)
+
+### Bug Fixes
+
+- **app,ui:** crisp 1px borders, unified icon button sizing, pressed feedback ([ebc1405](https://github.com/vitalyiegorov/suuudokuuu/commit/ebc14056e00169e6ffba77b6227ad76a1841a3d6))
+
+## [2.9.3](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.9.2...v2.9.3) (2026-08-30)
+
+### Bug Fixes
+
+- **app,ui:** stop the game metric strip from clamping labels and values ([cd57b64](https://github.com/vitalyiegorov/suuudokuuu/commit/cd57b64fe021bbd83b4f598a8376d43748ba3a39)), closes [#379](https://github.com/vitalyiegorov/suuudokuuu/issues/379)
+
+# [2.9.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.8.0...v2.9.0) (2026-08-25)
+
+### Features
+
+- **app,ui:** high-contrast and colorblind-safe themes with wcag aa contrast gates ([f204469](https://github.com/vitalyiegorov/suuudokuuu/commit/f2044693d5d357445a8a3c715610c9eb706bbbd5)), closes [#318](https://github.com/vitalyiegorov/suuudokuuu/issues/318)
+- **app,ui:** honor os text scaling with per-context multiplier caps ([dcc30bc](https://github.com/vitalyiegorov/suuudokuuu/commit/dcc30bc16d1f0b6ee8a20b574bf34b3c0aa6113f)), closes [#316](https://github.com/vitalyiegorov/suuudokuuu/issues/316)
+- **app,ui:** screen-reader labels and announcements for the board and controls ([5bf5cce](https://github.com/vitalyiegorov/suuudokuuu/commit/5bf5cceed2509ecc694f8c7202d7ba6cee1c5427)), closes [#349](https://github.com/vitalyiegorov/suuudokuuu/issues/349)
+
 # [2.6.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.5.1...v2.6.0) (2026-08-17)
 
 ### Bug Fixes

@@ -10,10 +10,11 @@ import Reanimated, {
 } from 'react-native-reanimated';
 import { scheduleOnRN } from 'react-native-worklets';
 
-import { cs } from '@rnw-community/shared';
+import { cs, isDefined } from '@rnw-community/shared';
 
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
+import { useReduceMotion } from '../../../@generic/hooks/use-reduce-motion.hook';
 import { settingsKeySelector } from '../../../settings/store/settings.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { useCellFontSize } from '../../hooks/use-cell-font-size.hook';
@@ -29,6 +30,7 @@ interface Props {
     readonly cell: CellInterface;
     readonly cellSize: number;
     readonly comboAnimationGeneration: number;
+    readonly hintValue?: number;
     readonly isActive: boolean;
     readonly isActiveValue: boolean;
     readonly isHighlighted: boolean;
@@ -37,10 +39,12 @@ interface Props {
 }
 
 export const FieldCellText = (props: Props) => {
-    const { cell, cellSize, comboAnimationGeneration, isActive, isActiveValue, isHighlighted, isEmpty, showAutoCandidates } = props;
+    const { cell, cellSize, comboAnimationGeneration, hintValue, isActive, isActiveValue, isHighlighted, isEmpty, showAutoCandidates } =
+        props;
 
     const { theme } = use(ThemeContext);
 
+    const isMotionReduced = useReduceMotion();
     const hasComboAnimation = useAppSelector(settingsKeySelector('showComboAnimation'));
     const showAreas = useAppSelector(settingsKeySelector('showAreas'));
     const showIdenticalNumbers = useAppSelector(settingsKeySelector('showIdenticalNumbers'));
@@ -54,7 +58,7 @@ export const FieldCellText = (props: Props) => {
     if (comboAnimationGeneration !== seenComboAnimationGeneration) {
         setSeenComboAnimationGeneration(comboAnimationGeneration);
 
-        if (comboAnimationGeneration > 0) {
+        if (comboAnimationGeneration > 0 && !isMotionReduced) {
             setIsComboAnimating(true);
         }
     }
@@ -66,7 +70,7 @@ export const FieldCellText = (props: Props) => {
     }));
 
     useEffect(() => {
-        if (comboAnimationGeneration === 0) {
+        if (comboAnimationGeneration === 0 || isMotionReduced) {
             return;
         }
 
@@ -78,10 +82,12 @@ export const FieldCellText = (props: Props) => {
                 }
             })
         );
-    }, [comboAnimationGeneration, comboAnimation]);
+    }, [comboAnimationGeneration, isMotionReduced, comboAnimation]);
 
     const getCellTextColor = () => {
         if (isActive) {
+            return theme.colors.board.selectedText;
+        } else if (isDefined(hintValue)) {
             return theme.colors.board.selectedText;
         } else if (isActiveValue && showIdenticalNumbers) {
             return theme.colors.board.sameValueText;
@@ -96,6 +102,10 @@ export const FieldCellText = (props: Props) => {
 
     const getText = (): string => {
         if (isEmpty) {
+            if (isDefined(hintValue)) {
+                return hintValue.toString();
+            }
+
             return isActive && !showAutoCandidates ? '•' : '';
         }
 
@@ -105,7 +115,7 @@ export const FieldCellText = (props: Props) => {
     const textStyles = [
         { color: getCellTextColor() },
         cs(isActive, resolveUnistyleForAnimated(styles.textActive)),
-        cs(isComboAnimating && hasComboAnimation, comboAnimatedStyle),
+        cs(isComboAnimating && hasComboAnimation && !isMotionReduced, comboAnimatedStyle),
         { fontSize }
     ];
 

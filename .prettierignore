@@ -1,1 +1,4 @@
 packages/hell-corpus/src/constants/hell-corpus-data.constant.ts
+packages/landing/.next/
+packages/landing/out/
+packages/landing/next-env.d.ts

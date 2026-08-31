@@ -13,12 +13,15 @@ import { DifficultyComplexityOptionSelectors } from '../difficulty-complexity-op
 import { difficultyComplexityRailOptionGetColor } from '../difficulty-complexity-rail-option/utils/difficulty-complexity-rail-option-get-color.util';
 import { DifficultyComplexitySliderStyles as styles } from '../difficulty-complexity-slider.styles';
 
+import type { StyleProp, ViewStyle } from 'react-native';
+
 interface Props {
     readonly isSelected: boolean;
     readonly onPress: () => void;
+    readonly style: StyleProp<ViewStyle>;
 }
 
-export const DifficultyComplexityRailInfinityOption = ({ isSelected, onPress }: Props) => {
+export const DifficultyComplexityRailInfinityOption = ({ isSelected, onPress, style }: Props) => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
     const iridescentColor = useIridescentColor(theme, isSelected);
@@ -35,7 +38,7 @@ export const DifficultyComplexityRailInfinityOption = ({ isSelected, onPress }: 
         <Pressable
             accessibilityRole="button"
             onPress={onPress}
-            style={styles.optionTrigger}
+            style={style}
             testID={`${DifficultyComplexityOptionSelectors.Option}.${DifficultyEnum.Infinity}`}
         >
             <Animated.Text allowFontScaling={false} numberOfLines={1} style={labelStyles}>

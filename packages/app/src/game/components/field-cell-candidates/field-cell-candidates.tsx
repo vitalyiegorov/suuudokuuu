@@ -15,6 +15,7 @@ interface Props {
     readonly activeValue?: number;
     readonly candidates: number[];
     readonly cellSize: number;
+    readonly eliminatedCandidates: number[];
 }
 
 const textCandidatePositionStyles = {
@@ -29,7 +30,7 @@ const textCandidatePositionStyles = {
     9: styles.textCandidatePosition9
 };
 
-export const FieldCellCandidates = ({ candidates, activeValue, cellSize }: Props) => {
+export const FieldCellCandidates = ({ candidates, activeValue, cellSize, eliminatedCandidates }: Props) => {
     const { theme } = use(ThemeContext);
 
     const fontSize = useCandidateFontSize(cellSize);
@@ -38,6 +39,7 @@ export const FieldCellCandidates = ({ candidates, activeValue, cellSize }: Props
     const getCandidateTextStyles = (candidate: number) => {
         const textCandidatePositionStyle = textCandidatePositionStyles[candidate as keyof typeof textCandidatePositionStyles];
         const isCandidateActive = candidate === activeValue;
+        const isCandidateEliminated = eliminatedCandidates.includes(candidate);
 
         return [
             resolveUnistyleForAnimated(styles.textCandidate(cellSize)),
@@ -48,6 +50,10 @@ export const FieldCellCandidates = ({ candidates, activeValue, cellSize }: Props
             cs(isCandidateActive && showActiveCandidates, {
                 backgroundColor: theme.colors.candidate.fillSelected,
                 color: theme.colors.candidate.textSelected
+            }),
+            cs(isCandidateEliminated, {
+                color: theme.colors.danger,
+                textDecorationLine: 'line-through'
             }),
             resolveUnistyleForAnimated(textCandidatePositionStyle(cellSize))
         ];

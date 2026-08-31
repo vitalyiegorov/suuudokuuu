@@ -2,6 +2,7 @@ import { type StyleProp, Text, type TextStyle, View, type ViewStyle } from 'reac
 
 import { isDefined } from '@rnw-community/shared';
 
+import { CompactMaxFontSizeMultiplierConstant, MetricMinimumFontScaleConstant } from '../../theme/constant/font-scaling.constant';
 import { useAppMetricStripColor } from '../app-metric-strip/hooks/use-app-metric-strip-color.hook';
 
 import { AppMetricStripItemStyles as styles } from './app-metric-strip-item.styles';
@@ -27,14 +28,27 @@ export const AppMetricStripItem = ({ children, label, labelStyle, style, testID,
 
     return (
         <View style={itemStyles}>
-            <Text allowFontScaling={false} numberOfLines={1} style={labelStyles}>
+            <Text
+                adjustsFontSizeToFit
+                maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant}
+                minimumFontScale={MetricMinimumFontScaleConstant}
+                numberOfLines={1}
+                style={labelStyles}
+            >
                 {label}
             </Text>
 
             {hasChildren ? (
                 children
             ) : (
-                <Text allowFontScaling={false} numberOfLines={1} style={valueStyles} testID={testID}>
+                <Text
+                    adjustsFontSizeToFit
+                    maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant}
+                    minimumFontScale={MetricMinimumFontScaleConstant}
+                    numberOfLines={1}
+                    style={valueStyles}
+                    testID={testID}
+                >
                     {value}
                 </Text>
             )}

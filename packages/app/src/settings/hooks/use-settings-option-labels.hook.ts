@@ -33,6 +33,17 @@ export const useSettingsOptionLabels = () => {
 
         return t`Large`;
     };
+    const getMotionPreferenceLabel = (motionPreference: SettingsState['motionPreference']) => {
+        if (motionPreference === 'full') {
+            return t`Always on`;
+        }
+
+        if (motionPreference === 'reduced') {
+            return t`Always off`;
+        }
+
+        return t`Follow system`;
+    };
     const getLanguageLabel = (language: SettingsState['language']) => i18n._(LanguageLabels[language]);
     const getThemeLabel = (themeId: SettingsState['theme']) => {
         if (isCustomThemeId(themeId)) {
@@ -42,9 +53,11 @@ export const useSettingsOptionLabels = () => {
         return {
             [ThemeEnum.BlackAndWhite]: t`Classic`,
             [ThemeEnum.Colorful]: t`Gold`,
-            [ThemeEnum.Newspaper]: t`Newspaper`
+            [ThemeEnum.Newspaper]: t`Newspaper`,
+            [ThemeEnum.HighContrast]: t`High contrast`,
+            [ThemeEnum.ColorblindSafe]: t`Colorblind safe`
         }[themeId];
     };
 
-    return { getCellMarginLabel, getFontSizeLabel, getLanguageLabel, getThemeLabel };
+    return { getCellMarginLabel, getFontSizeLabel, getLanguageLabel, getMotionPreferenceLabel, getThemeLabel };
 };

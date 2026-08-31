@@ -16,100 +16,17 @@ concurrency:
     cancel-in-progress: false
 
 jobs:
-    # Kept in-repo instead of using native-publish.yml's own android-lint-gate:
-    # that gate runs `lintVitalRelease` without -PreactNativeArchitectures and
-    # without APP_VARIANT, so it would build every ABI and lint a differently
-    # configured app.
-    android-release-lint:
-        name: Android release lint gate
-        runs-on: ubuntu-latest
-        timeout-minutes: 60
-        steps:
-            - name: Checkout repository
-              uses: actions/checkout@v7
-              with:
-                  fetch-depth: 0
-
-            - name: Setup Node
-              uses: actions/setup-node@v7
-              with:
-                  node-version: 22.x
-                  cache: yarn
-
-            - name: Setup Java
-              uses: actions/setup-java@v5
-              with:
-                  distribution: temurin
-                  java-version: '17'
-
-            - name: Setup Android SDK
-              uses: android-actions/setup-android@v4
-              with:
-                  packages: 'platform-tools platforms;android-36 build-tools;36.0.0'
-
-            - name: Install dependencies
-              run: yarn install
-
-            - name: Generate Android project
-              working-directory: packages/app
-              env:
-                  APP_VARIANT: production
-              run: ../../node_modules/.bin/expo prebuild --platform android --no-install --clean
-
-            - name: Cache Gradle
-              uses: actions/cache@v6
-              with:
-                  path: |
-                      ~/.gradle/caches
-                      ~/.gradle/wrapper
-                  key: gradle-lint-v1-${{ runner.os }}-arm64-v8a-${{ hashFiles('packages/app/android/gradle/wrapper/gradle-wrapper.properties', 'yarn.lock') }}
-                  restore-keys: gradle-lint-v1-${{ runner.os }}-arm64-v8a-
-
-            - name: Verify restricted media permissions
-              working-directory: packages/app/android
-              run: |
-                  ./gradlew :app:processReleaseManifest -PreactNativeArchitectures=arm64-v8a --no-daemon
-
-                  manifest=$(find app/build/intermediates/merged_manifests -path '*release*' -name AndroidManifest.xml | head -n 1)
-                  test -n "$manifest" || {
-                    echo "::error::The merged release manifest was not produced, so permissions cannot be verified."
-                    exit 1
-                  }
-
-                  printf 'Checking %s\n' "$manifest"
-                  for permission in android.permission.READ_MEDIA_IMAGES android.permission.READ_MEDIA_VIDEO; do
-                    ! grep -q "$permission" "$manifest" || {
-                      echo "::error::$permission reaches the merged release manifest; Google Play restricts photo and video permissions."
-                      exit 1
-                    }
-                  done
-
-                  echo "No restricted media permissions in the merged release manifest."
-
-            - name: Run release lint
-              working-directory: packages/app/android
-              run: ./gradlew :app:lintVitalRelease -PreactNativeArchitectures=arm64-v8a --no-daemon
-
-            - name: Upload lint report
-              if: failure()
-              uses: actions/upload-artifact@v7
-              with:
-                  name: suuudokuuu-production-android-lint
-                  path: |
-                      packages/app/android/app/build/reports/lint-results-*.html
-                      packages/app/android/app/build/reports/lint-results-*.xml
-                  if-no-files-found: ignore
-                  retention-days: 14
-
     publish:
         name: Build and submit
-        needs: [android-release-lint]
-        uses: rnw-community/mobile-ci/.github/workflows/native-publish.yml@v1.6.3 # v1.6.3
+        uses: rnw-community/mobile-ci/.github/workflows/native-publish.yml@v1.9.0 # v1.9.0
         with:
             app-dir: packages/app
             enable-ios: true
             enable-android: true
-            android-lint-gate: false
+            android-lint-gate: true
+            lint-timeout-minutes: 60
+            # An all-ABI lint run OOMs D8; scope the gate to the shipping variant.
+            android-lint-gate-gradle-args: '-PreactNativeArchitectures=arm64-v8a --no-daemon'
             ios-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
             android-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
             node-version: 22.x
@@ -119,10 +36,15 @@ jobs:
             required-android-abi: arm64-v8a
             # eas.json submit.production.ios.ascApiKeyPath resolves relative to app-dir.
             asc-key-path: asc_api_key.p8
+            # eas.json submit.production.android.serviceAccountKeyPath resolves
+            # relative to app-dir; the key is written post-build, so it never
+            # enters the eas build archive.
+            google-key-path: google-service-account.json
             publish-env: |
                 EXPO_NO_TELEMETRY=1
                 LANG=en_US.UTF-8
                 LC_ALL=en_US.UTF-8
+                APP_VARIANT=production
                 EXPO_APPLE_TEAM_ID=3R8589YV24
                 EXPO_APPLE_TEAM_TYPE=INDIVIDUAL
                 EXPO_USE_PRECOMPILED_MODULES=1
@@ -142,23 +64,20 @@ jobs:
                 if [ "$PUSH_SCREENSHOTS" = 'true' ]; then
                   fastlane ios ios_screenshots
                 fi
-            # eas.json submit.production.android.serviceAccountKeyPath is app-dir
-            # relative, while native-publish.yml writes the key under $RUNNER_TEMP
-            # after this hook runs, so the link is created ahead of the key itself.
             android-pre-submit-command: |
                 export PATH="$HOME/.rbenv/shims:/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
                 fastlane store_preflight
-                ln -sfn "$RUNNER_TEMP/android-publish/google-service-account.json" google-service-account.json
             android-post-submit-command: |
                 export PATH="$HOME/.rbenv/shims:/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
-                export GOOGLE_SERVICE_ACCOUNT_KEY_PATH="$RUNNER_TEMP/android-publish/google-service-account.json"
+                export GOOGLE_SERVICE_ACCOUNT_KEY_PATH="$PWD/google-service-account.json"
                 node scripts/generate-store-release-notes.ts --check
                 fastlane android android_metadata
                 if [ "$PUSH_SCREENSHOTS" = 'true' ]; then
                   fastlane android android_screenshots
                 fi
-                rm -f google-service-account.json
         secrets:
             EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
             ASC_API_KEY: ${{ secrets.EXPO_IOS_ASC_API_KEY }}
+            ASC_KEY_ID: ${{ secrets.EXPO_IOS_ASC_KEY_ID }}
+            ASC_ISSUER_ID: ${{ secrets.EXPO_IOS_ASC_ISSUER_ID }}
             GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}

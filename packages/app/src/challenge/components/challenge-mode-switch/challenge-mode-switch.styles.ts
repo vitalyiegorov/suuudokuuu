@@ -3,8 +3,9 @@ import { StyleSheet } from 'react-native-unistyles';
 export const ChallengeModeSwitchStyles = StyleSheet.create(theme => ({
     chip: {
         alignItems: 'center',
+        borderCurve: 'continuous',
         borderRadius: theme.radius.pill,
-        borderWidth: StyleSheet.hairlineWidth,
+        borderWidth: 1,
         flexDirection: 'row',
         gap: 5,
         paddingHorizontal: 9,

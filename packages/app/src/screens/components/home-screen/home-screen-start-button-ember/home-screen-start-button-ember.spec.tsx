@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { render, screen } from '@testing-library/react-native';
-import { Text } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 
 import { I18nTestWrapper } from '../../../../@generic/mocks/i18n-test-wrapper.mock';
 
@@ -8,18 +8,31 @@ import { HomeScreenStartButtonEmber } from './home-screen-start-button-ember';
 import { HomeScreenStartButtonEmberSelectors } from './home-screen-start-button-ember.selectors';
 import { HomeScreenStartButtonEmberStyles } from './home-screen-start-button-ember.styles';
 
-let mockReducedMotion = false;
+import type { StyleProp, ViewStyle } from 'react-native';
 
-const mockResolveUnistyleForAnimated = jest.fn((style: object) => style);
+let mockReducedMotion = false;
+let mockResolveUnistyleForAnimated = jest.fn((style: object) => style);
+let capturedAppButtonStyle: StyleProp<ViewStyle> | undefined;
 
 jest.mock('@suuudokuuu/ui', () => {
     const actualUi = jest.requireActual<typeof import('@suuudokuuu/ui')>('@suuudokuuu/ui');
 
     return {
         ...actualUi,
+        AppButton: (props: { readonly style: StyleProp<ViewStyle>; readonly testID: string }) => {
+            const { Text: MockText } = jest.requireActual<typeof import('react-native')>('react-native');
+
+            capturedAppButtonStyle = props.style;
+
+            return <MockText testID={props.testID}>Start puzzle</MockText>;
+        },
         resolveUnistyleForAnimated: (style: object) => mockResolveUnistyleForAnimated(style)
     };
 });
+
+jest.mock('../../../../@generic/hooks/use-reduce-motion.hook', () => ({
+    useReduceMotion: () => mockReducedMotion
+}));
 
 jest.mock('react-native-reanimated', () => {
     const { View } = jest.requireActual<typeof import('react-native')>('react-native');
@@ -35,7 +48,6 @@ jest.mock('react-native-reanimated', () => {
         cancelAnimation: jest.fn(),
         default: { View, createAnimatedComponent: (component: unknown) => component },
         useAnimatedStyle: (factory: () => object) => factory(),
-        useReducedMotion: () => mockReducedMotion,
         useSharedValue: (initialValue: unknown) => ({ value: initialValue }),
         withDelay: (_delayMs: number, animation: unknown) => animation,
         withRepeat: (animation: unknown) => animation,
@@ -45,10 +57,11 @@ jest.mock('react-native-reanimated', () => {
 });
 
 const testID = 'home-screen-start-button-ember-test';
+const emberColor = '#123456';
 
 const renderEmberButton = () =>
     render(
-        <HomeScreenStartButtonEmber isLoading={false} onPress={jest.fn()} style={undefined} testID={testID}>
+        <HomeScreenStartButtonEmber color={emberColor} isLoading={false} onPress={jest.fn()} style={undefined} testID={testID}>
             <Text>Start puzzle</Text>
         </HomeScreenStartButtonEmber>,
         { wrapper: I18nTestWrapper }
@@ -57,7 +70,8 @@ const renderEmberButton = () =>
 describe('HomeScreenStartButtonEmber', () => {
     beforeEach(() => {
         mockReducedMotion = false;
-        mockResolveUnistyleForAnimated.mockClear();
+        mockResolveUnistyleForAnimated = jest.fn((style: object) => style);
+        capturedAppButtonStyle = undefined;
     });
 
     it('should render the animated ember variant by default', async () => {
@@ -84,8 +98,15 @@ describe('HomeScreenStartButtonEmber', () => {
         await renderEmberButton();
 
         const resolvedStyles = mockResolveUnistyleForAnimated.mock.calls.map(([style]) => style);
-        const expectedStyles = [HomeScreenStartButtonEmberStyles.emberWrapper, HomeScreenStartButtonEmberStyles.emberButton];
 
-        expect(resolvedStyles).toStrictEqual(expectedStyles);
+        expect(resolvedStyles).toStrictEqual([HomeScreenStartButtonEmberStyles.emberWrapper]);
+    });
+
+    it('should tint the button with the provided color', async () => {
+        await renderEmberButton();
+
+        const flattenedStyles = StyleSheet.flatten(capturedAppButtonStyle);
+
+        expect(flattenedStyles).toMatchObject({ backgroundColor: emberColor, borderColor: emberColor });
     });
 });

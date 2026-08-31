@@ -1,6 +1,7 @@
 import type { ThemeInterface } from '@suuudokuuu/ui/theme';
 
 export const BWLightTheme: ThemeInterface = {
+    hasErrorOutline: false,
     colors: {
         background: '#f2f2f2',
         ink: 'rgb(0, 0, 0)',
@@ -12,7 +13,7 @@ export const BWLightTheme: ThemeInterface = {
         accent: 'rgba(0,0,255,0.28)',
         text: {
             primary: 'rgba(0, 0, 0, 1)',
-            hint: 'rgba(0, 0, 0, 0.5)'
+            hint: 'rgba(0, 0, 0, 0.62)'
         },
         board: {
             selected: 'rgba(0, 255, 0, 1)',
@@ -24,7 +25,7 @@ export const BWLightTheme: ThemeInterface = {
             emptyText: 'rgba(0, 0, 0, 0.5)'
         },
         candidate: {
-            text: 'rgba(0, 0, 0, 0.5)',
+            text: 'rgba(0, 0, 0, 0.62)',
             textSelected: 'rgba(0, 0, 0, 1)',
             fill: 'rgb(255, 255, 255)',
             fillSelected: 'rgba(0, 255, 0, 0.5)',
@@ -48,6 +49,7 @@ export const BWLightTheme: ThemeInterface = {
 };
 
 export const BWDarkTheme: ThemeInterface = {
+    hasErrorOutline: false,
     colors: {
         background: '#010101',
         ink: 'rgb(255, 255, 255)',
@@ -62,11 +64,11 @@ export const BWDarkTheme: ThemeInterface = {
             hint: 'rgba(255, 255, 255, 0.5)'
         },
         board: {
-            selected: 'rgba(0, 255, 0, 0.7)',
+            selected: 'rgba(0, 255, 0, 0.64)',
             selectedText: 'rgba(255, 255, 255, 1)',
             sameValue: 'rgba(0, 255, 0, 0.5)',
             sameValueText: 'rgba(255, 255, 255, 1)',
-            error: 'rgba(255, 0, 0, 1)',
+            error: 'rgba(212, 0, 0, 1)',
             filled: 'rgba(255, 255, 255, 0.2)',
             emptyText: 'rgba(255, 255, 255, 0.1)'
         },
@@ -89,7 +91,7 @@ export const BWDarkTheme: ThemeInterface = {
             subtle: 'rgba(255,255,255,0.35)',
             subtleText: 'rgba(255, 255, 255, 1)',
             subtleHint: 'rgba(255, 255, 255, 0.75)',
-            border: 'rgba(255,255,255,0.3)'
+            border: 'rgba(255,255,255,0.16)'
         }
     }
 };

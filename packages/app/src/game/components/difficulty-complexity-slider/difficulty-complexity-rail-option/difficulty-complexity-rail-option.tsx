@@ -8,25 +8,26 @@ import { DifficultyComplexitySliderStyles as styles } from '../difficulty-comple
 
 import { difficultyComplexityRailOptionGetColor } from './utils/difficulty-complexity-rail-option-get-color.util';
 
+import type { StyleProp, ViewStyle } from 'react-native';
+
 interface Props {
     readonly difficulty: DifficultyEnum;
     readonly onPress: () => void;
     readonly selectedDifficulty: DifficultyEnum;
+    readonly style: StyleProp<ViewStyle>;
 }
 
 export const DifficultyComplexityRailOption = (props: Props) => {
-    const { difficulty, onPress, selectedDifficulty } = props;
+    const { difficulty, onPress, selectedDifficulty, style } = props;
     const { theme } = use(ThemeContext);
     const isSelected = difficulty === selectedDifficulty;
 
     if (difficulty === DifficultyEnum.Infinity) {
-        return <DifficultyComplexityRailInfinityOption isSelected={isSelected} onPress={onPress} />;
+        return <DifficultyComplexityRailInfinityOption isSelected={isSelected} onPress={onPress} style={style} />;
     }
 
     const optionLabelColor = difficultyComplexityRailOptionGetColor(theme, difficulty, isSelected);
     const optionLabelStyles = [styles.optionLabel, { color: optionLabelColor }];
 
-    return (
-        <DifficultyComplexityOption difficulty={difficulty} labelStyle={optionLabelStyles} onPress={onPress} style={styles.optionTrigger} />
-    );
+    return <DifficultyComplexityOption difficulty={difficulty} labelStyle={optionLabelStyles} onPress={onPress} style={style} />;
 };

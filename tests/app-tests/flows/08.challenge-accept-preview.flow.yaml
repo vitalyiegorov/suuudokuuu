@@ -49,14 +49,17 @@ appId: ${APP_ID}
 - assertVisible:
       id: 'ChallengeRunStatsSelectors.TechniqueTile.10'
 - assertVisible: 'Hidden Pair'
-- tapOn:
-      id: 'ChallengeAcceptScreenSelectors.MaybeLaterButton'
 # Declining unmounts a fully rendered accept screen (arsenal grid, technique
 # timeline) and remounts the full Home scroll content, which is clearly slower
 # native work than the default budget under CI farm load, so give it more room
-# than 3000.
-- extendedWaitUntil:
-      visible:
-          id: 'HomeScreenSelectors.Root'
-      timeout: 8000
-- stopApp
+# than 3000. Retry the dismissal handoff once against the same mid-transition
+# tap swallow as the accept path (see accept-shared-challenge.flow.yaml).
+- retry:
+      maxRetries: 1
+      commands:
+          - tapOn:
+                id: 'ChallengeAcceptScreenSelectors.MaybeLaterButton'
+          - extendedWaitUntil:
+                visible:
+                    id: 'HomeScreenSelectors.Root'
+                timeout: 8000

@@ -1,49 +1,35 @@
 import { useLingui } from '@lingui/react/macro';
 import { useAppLayout } from '@suuudokuuu/ui';
-import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { useRouter } from 'expo-router';
 import { use, useEffect, useRef, useState } from 'react';
 import { Pressable, View } from 'react-native';
 
-import { isDefined } from '@rnw-community/shared';
-
 import { Alert } from '../../../@generic/components/alert/alert';
-import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { useVibration } from '../../../@generic/hooks/use-vibration.hook';
 import { ChallengeRaceHud } from '../../../challenge/components/challenge-race-hud/challenge-race-hud';
 import { ChallengeRecordHud } from '../../../challenge/components/challenge-record-hud/challenge-record-hud';
 import { ChallengeScreenshotRecorder } from '../../../challenge/components/challenge-screenshot-recorder/challenge-screenshot-recorder';
-import { classifyTimelineMove } from '../../../challenge/utils/classify-timeline-move.util';
-import { WinConfettiContext } from '../../../confetti/context/win-confetti.context';
 import { Field, FieldRef } from '../../../game/components/field/field';
 import { GameTimerController } from '../../../game/components/game-timer-controller/game-timer-controller';
+import { HintPanel } from '../../../game/components/hint-panel/hint-panel';
 import { GameToolsSlotReservedHeightConstant } from '../../../game/constant/board-cell-size.constant';
 import { GameContext } from '../../../game/context/game.context';
 import { useBoardGeometry } from '../../../game/hooks/use-board-geometry.hook';
 import { useKeyboardControls } from '../../../game/hooks/use-keyboard-controls/use-keyboard-controls.hook';
 import { useShareGame } from '../../../game/hooks/use-share-game.hook';
+import { gamePauseAction, gameResetAction, gameToggleCellCandidateAction } from '../../../game/store/game.actions';
 import {
-    gameFinishAction,
-    gameMistakeAction,
-    gamePauseAction,
-    gameResetAction,
-    gameSaveAction,
-    gameToggleCellCandidateAction
-} from '../../../game/store/game.actions';
-import {
-    gameChallengeTimeSelector,
-    gameDifficultySelector,
     gameElapsedTimeSelector,
     gameHasRivalSelector,
-    gameInputModeSelector,
     gameIsChallengeRunSelector,
     gameMaxMistakesSelector,
     gameMistakesSelector,
     gameScoreSelector
 } from '../../../game/store/game.selectors';
+import { gameGetCellCandidatePayload } from '../../../game/utils/game-get-cell-candidate-payload.util';
 import { settingsKeySelector } from '../../../settings/store/settings.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { gameScreenSetSharingAvailable } from '../../utils/game-screen-set-sharing-available.util';
@@ -54,30 +40,27 @@ import { GameNumpad } from './game-numpad/game-numpad';
 import { GameScreenSelectors } from './game-screen.selectors';
 import { GameScreenStyles as styles } from './game-screen.styles';
 import { GameStatusBlock } from './game-status-block/game-status-block';
+import { useGameEngineEvents } from './hooks/use-game-engine-events.hook';
 import { useOpenGameSettings } from './hooks/use-open-game-settings.hook';
 import { gameScreenExit } from './utils/game-screen-exit.util';
-import { gameScreenGetLostRoute, gameScreenGetWonRoute } from './utils/game-screen-get-result-route.util';
-import { gameScreenMaybeStartWinConfetti } from './utils/game-screen-maybe-start-win-confetti.util';
 
 import type { AvailableValuesItemRef } from '../../../game/components/available-values-item/available-values-item';
-import type { CellInterface, ScoredCellsInterface } from '@suuudokuuu/generator';
-import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
+import type { CellInterface } from '@suuudokuuu/generator';
 
 // eslint-disable-next-line max-lines-per-function -- Game orchestration component requires many handlers and refs
 export const GameScreen = () => {
     const router = useRouter();
     const { t } = useLingui();
 
-    const { sudoku } = use(GameContext);
+    const { engine, snapshot } = use(GameContext);
     const { theme } = use(ThemeContext);
-    const startWinConfetti = use(WinConfettiContext);
 
-    const [hapticNotification, hapticImpact] = useVibration();
+    const [, hapticImpact] = useVibration();
 
     const { sizeClass } = useAppLayout();
     const isWideLayout = sizeClass === 'wide';
     const reservedBoardHeight = isWideLayout ? 0 : GameToolsSlotReservedHeightConstant;
-    const { cellSize: boardCellSize, boardSize, onBoardAreaLayout } = useBoardGeometry(reservedBoardHeight);
+    const { cellSize: boardCellSize, cellMargin: boardCellMargin, boardSize, onBoardAreaLayout } = useBoardGeometry(reservedBoardHeight);
     const dispatch = useAppDispatch();
     const score = useAppSelector(gameScoreSelector);
     const mistakes = useAppSelector(gameMistakesSelector);
@@ -85,19 +68,16 @@ export const GameScreen = () => {
     const hasTimer = useAppSelector(settingsKeySelector('hasTimer'));
     const keepActiveCell = useAppSelector(settingsKeySelector('keepActiveCell'));
     const isLeftHanded = useAppSelector(settingsKeySelector('isLeftHanded'));
-    const inputMode = useAppSelector(gameInputModeSelector);
     const hasRival = useAppSelector(gameHasRivalSelector);
     const isChallengeRun = useAppSelector(gameIsChallengeRunSelector);
-    const challengeTime = useAppSelector(gameChallengeTimeSelector);
-    const difficulty = useAppSelector(gameDifficultySelector);
     const elapsedTime = useAppSelector(gameElapsedTimeSelector);
 
     const availableValuesRefs = useRef<Record<number, AvailableValuesItemRef | null>>({});
     const fieldRef = useRef<FieldRef>(null);
 
-    const [selectedCell, setSelectedCell] = useState<CellInterface>();
     const [hasSharing, setHasSharing] = useState(false);
 
+    const { selectedCell } = snapshot;
     const maxMistakesReached = mistakes >= maxMistakes;
 
     useEffect(() => void gameScreenSetSharingAvailable(setHasSharing), []);
@@ -118,13 +98,12 @@ export const GameScreen = () => {
     };
 
     const handleSelectCell = (cell: CellInterface | undefined) => {
-        setSelectedCell(cell);
+        engine.selectCell(cell);
         hapticImpact(ImpactFeedbackStyle.Light);
     };
 
     const handleDeselectCell = () => {
-        // eslint-disable-next-line no-undefined
-        setSelectedCell(undefined);
+        engine.selectCell();
     };
 
     const handlePause = () => {
@@ -132,77 +111,21 @@ export const GameScreen = () => {
         router.replace('/pause');
     };
 
-    const handleLostGame = () => {
-        hapticImpact(ImpactFeedbackStyle.Heavy);
-
-        dispatch(gameFinishAction({ difficulty, isWon: false, isChallenge: hasRival }));
-
-        router.replace(gameScreenGetLostRoute(hasRival));
-    };
-
-    const handleWonGame = () => {
-        hapticImpact(ImpactFeedbackStyle.Heavy);
-
-        const wonChallenge = hasRival && elapsedTime < challengeTime;
-        gameScreenMaybeStartWinConfetti(hasRival, wonChallenge, startWinConfetti);
-        dispatch(gameFinishAction({ difficulty, isWon: true, isChallenge: wonChallenge }));
-        // HINT: We need to wait for the animation to finish, animation finish event would fix it?
-        setTimeout(() => void router.replace(gameScreenGetWonRoute(hasRival, wonChallenge)), 10 * animationDurationConstant);
-    };
-
-    const handleCorrectValue = (correctCell: CellInterface, newScoredCells: ScoredCellsInterface, technique: SolutionTechniqueEnum) => {
-        dispatch(gameSaveAction({ sudoku, scoredCells: newScoredCells, correctCell, technique }));
-
-        hapticNotification(Haptics.NotificationFeedbackType.Success);
-
-        fieldRef.current?.triggerCellSuccess(correctCell);
-        fieldRef.current?.triggerAnimation(newScoredCells);
-
-        setSelectedCell(() => ({ ...correctCell }));
-    };
-
-    const handleWrongValue = (wrongCell: CellInterface) => {
-        dispatch(gameMistakeAction(wrongCell));
-
-        if (mistakes + 1 >= maxMistakes) {
-            handleLostGame();
-        } else {
-            hapticNotification(Haptics.NotificationFeedbackType.Error);
-        }
-    };
-
-    const handleCandidateInput = (cell: CellInterface, value: number) => {
-        dispatch(gameToggleCellCandidateAction({ ...cell, value }));
-        hapticImpact(ImpactFeedbackStyle.Light);
-    };
-
-    const handleNormalInput = (cell: CellInterface, value: number) => {
-        const newValueCell = { ...cell, value };
-        if (sudoku.isCorrectValue(newValueCell)) {
-            const technique = classifyTimelineMove(sudoku, newValueCell);
-            const newScoredCells = sudoku.setCellValue(newValueCell);
-
-            handleCorrectValue(newValueCell, newScoredCells, technique);
-
-            if (newScoredCells.isWon) {
-                handleWonGame();
-            }
-        } else {
-            handleWrongValue(newValueCell);
-        }
-    };
-
     const handleSelectValue = (value: number) => {
-        const isBlankCellSelected = sudoku.isBlankCell(selectedCell);
+        const targetCell = snapshot.selectedCell;
 
-        if (isBlankCellSelected && isDefined(selectedCell)) {
-            availableValuesRefs.current[value]?.triggerAnimation();
+        if (!engine.Sudoku.isBlankCell(targetCell)) {
+            return;
+        }
 
-            if (inputMode === 'candidate') {
-                handleCandidateInput(selectedCell, value);
-            } else {
-                handleNormalInput(selectedCell, value);
-            }
+        availableValuesRefs.current[value]?.triggerAnimation();
+
+        if (snapshot.inputMode === 'candidate') {
+            engine.toggleCandidate(targetCell, value);
+            dispatch(gameToggleCellCandidateAction(gameGetCellCandidatePayload(engine, { ...targetCell, value })));
+            hapticImpact(ImpactFeedbackStyle.Light);
+        } else {
+            engine.inputValue(value);
         }
     };
 
@@ -210,7 +133,9 @@ export const GameScreen = () => {
         availableValuesRefs.current[value] = ref;
     };
 
-    const keyboardControlsElement = useKeyboardControls(sudoku, selectedCell, handleSelectCell, handleSelectValue, handleExit);
+    useGameEngineEvents(fieldRef);
+
+    const keyboardControlsElement = useKeyboardControls(engine, selectedCell, handleSelectCell, handleSelectValue, handleExit);
 
     const hideAutoCandidates = maxMistakes === 0;
     const gameActionsIconColor = theme.colors.surface.raisedText;
@@ -268,11 +193,11 @@ export const GameScreen = () => {
                 <View onLayout={onBoardAreaLayout} style={styles.boardArea}>
                     {isWideLayout ? null : <View style={styles.boardSpacer} />}
 
-                    <Field cellSize={boardCellSize} onSelect={handleSelectCell} ref={fieldRef} selectedCell={selectedCell} />
+                    <Field cellMargin={boardCellMargin} cellSize={boardCellSize} onSelect={handleSelectCell} ref={fieldRef} />
 
                     {isWideLayout ? null : (
                         <View style={styles.toolsSlot}>
-                            <GameInputTools hideAutoCandidates={hideAutoCandidates} />
+                            <GameInputTools hideAutoCandidates={hideAutoCandidates} isLeftHanded={isLeftHanded} />
                         </View>
                     )}
                 </View>
@@ -289,12 +214,14 @@ export const GameScreen = () => {
                             selectedCell={selectedCell}
                         />
 
-                        {isWideLayout ? <GameInputTools hideAutoCandidates={hideAutoCandidates} /> : null}
+                        {isWideLayout ? <GameInputTools hideAutoCandidates={hideAutoCandidates} isLeftHanded={isLeftHanded} /> : null}
                     </View>
 
                     {isWideLayout ? gameActionsWithPause : null}
                 </View>
             </View>
+
+            <HintPanel />
         </Pressable>
     );
 };

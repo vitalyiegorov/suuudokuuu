@@ -1,6 +1,7 @@
 import type { ThemeInterface } from '@suuudokuuu/ui/theme';
 
 export const NewspaperLightTheme: ThemeInterface = {
+    hasErrorOutline: false,
     colors: {
         background: '#f5f5f5',
         ink: '#1a1a1a',
@@ -12,14 +13,14 @@ export const NewspaperLightTheme: ThemeInterface = {
         accent: '#000080',
         text: {
             primary: '#1a1a1a',
-            hint: 'rgba(26, 26, 26, 0.5)'
+            hint: 'rgba(26, 26, 26, 0.68)'
         },
         board: {
             selected: '#cccccc',
             selectedText: '#1a1a1a',
             sameValue: '#cfcfcf',
             sameValueText: '#1a1a1a',
-            error: '#990000',
+            error: '#EBB0AB',
             filled: '#f5f5f5',
             emptyText: 'rgba(26, 26, 26, 0.5)'
         },
@@ -48,6 +49,7 @@ export const NewspaperLightTheme: ThemeInterface = {
 };
 
 export const NewspaperDarkTheme: ThemeInterface = {
+    hasErrorOutline: false,
     colors: {
         background: '#1a1a1a',
         ink: '#f0f0f0',
@@ -66,7 +68,7 @@ export const NewspaperDarkTheme: ThemeInterface = {
             selectedText: '#f0f0f0',
             sameValue: '#444444',
             sameValueText: '#f0f0f0',
-            error: '#ff4d4d',
+            error: '#8C2622',
             filled: '#1a1a1a',
             emptyText: 'rgba(240, 240, 240, 0.5)'
         },
@@ -78,7 +80,7 @@ export const NewspaperDarkTheme: ThemeInterface = {
             borderSelected: '#ffffff'
         },
         numpad: {
-            track: '#888888',
+            track: '#5c5c5c',
             trackFilled: '#cccccc',
             trackFilledText: '#000000',
             text: '#f0f0f0'
@@ -89,7 +91,7 @@ export const NewspaperDarkTheme: ThemeInterface = {
             subtle: '#2a2a2a',
             subtleText: '#f0f0f0',
             subtleHint: 'rgba(240, 240, 240, 0.65)',
-            border: 'rgba(240, 240, 240, 0.28)'
+            border: 'rgba(240, 240, 240, 0.16)'
         }
     }
 };

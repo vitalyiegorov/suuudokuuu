@@ -8,6 +8,7 @@ import { CellMargin } from '../constant/cell-margin.constant';
 import type { ThemeIdType } from '../../theme/types/theme-id.type';
 import type { FontSizes } from '../constant/font-sizes.constant';
 import type { Languages } from '../constant/languages.constant';
+import type { MotionPreferences } from '../constant/motion-preferences.constant';
 
 export interface SettingsState {
     hasVibration: boolean;
@@ -19,7 +20,10 @@ export interface SettingsState {
     showActiveCandidates: boolean;
     keepActiveCell: boolean;
     keepExhaustedDigits: boolean;
+    allowHintsOnHardDifficulties: boolean;
     isLeftHanded: boolean;
+    calmMode: boolean;
+    motionPreference: (typeof MotionPreferences)[number];
     fontSize: (typeof FontSizes)[number];
     language: (typeof Languages)[number];
     theme: ThemeIdType;
@@ -41,7 +45,10 @@ export const initialSettingsState: SettingsState = {
     showActiveCandidates: true,
     keepActiveCell: true,
     keepExhaustedDigits: true,
+    allowHintsOnHardDifficulties: false,
     isLeftHanded: false,
+    calmMode: false,
+    motionPreference: 'system',
     fontSize: 'm',
     language: i18nGetOSLocale(),
     theme: getBrand().defaultTheme,

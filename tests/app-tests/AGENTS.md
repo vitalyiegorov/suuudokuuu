@@ -6,7 +6,7 @@ use Maestro for capture — read `docs/store-screenshot-capture.md` before
 touching it or capturing store screenshots; the rules below govern the E2E
 flows, not store capture.
 
-Maestro E2E flows for Suuudokuuu. Current coverage checks home start/quit, shared-puzzle win, shared-puzzle loss, statistics with replay, settings navigation, resume-after-settings persistence, background/foreground pause behavior, and `Play again` setup preservation.
+Maestro E2E flows for Suuudokuuu. Current coverage checks home start/quit, shared-puzzle win, shared-puzzle loss, statistics with replay, settings navigation, resume-after-settings persistence, background/foreground pause behavior, `Play again` setup preservation, and the hint mechanic (activation, stepping, apply, and dismiss).
 
 ## Commands
 
@@ -50,7 +50,7 @@ Use a freshly rebuilt and reinstalled app when validating code, selector, deep-l
 3. Keep business flows focused on one behavior.
 4. Shared subflows must have one clear responsibility. Delete thin wrappers that only rename another subflow.
 5. Prefer plain step sequences over nested `runFlow` blocks when the steps are linear and expected.
-6. Use `subflows/navigation/launch-home.flow.yaml` for normal scenario launches and `subflows/navigation/relaunch-home.flow.yaml` when stop-and-relaunch is the behavior under test. Both assert the Home contract without URL handoffs. Every scenario must leave the app at Home before stopping.
+6. Use `subflows/navigation/launch-home.flow.yaml` for normal scenario launches and `subflows/navigation/relaunch-home.flow.yaml` when stop-and-relaunch is the behavior under test. Both assert the Home contract without URL handoffs. Every scenario must leave the app at Home before stopping, and must not end with `stopApp`: `launch-home` cold-launches only when Home is absent, so the warm app carries straight into the next scenario and skips a full cold start per flow. A warm Home keeps its scroll position, so a flow that taps or asserts top-of-Home content directly after launch guards it with a single `scrollUntilVisible` `UP`.
 7. Use `subflows/game/start-new-game.flow.yaml`, `subflows/game/open-settings-from-game.flow.yaml`, and `subflows/game/quit-current-game.flow.yaml` for repeated game setup and teardown.
 8. Use `subflows/shared/open-shared-challenge.flow.yaml` for shared links, `subflows/shared/accept-shared-challenge.flow.yaml` for the native accept transition, `subflows/shared/open-shared-handoff.flow.yaml` when a flow needs a handoff payload to land straight on the game screen, and `subflows/shared/complete-winning-shared-challenge.flow.yaml` when a flow needs a completed win as data setup.
 9. Deep-link fixtures should be stable and should decode through the same app path users hit.

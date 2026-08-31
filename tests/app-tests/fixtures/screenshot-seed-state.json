@@ -313,6 +313,19 @@
                 "6-2": [3, 7, 9]
             }
         },
+        "infinity": {
+            "difficulty": "Infinity",
+            "sudokuString": "800000000003600000070090200050007000000045700000100030001000068008500010090000400",
+            "candidates": {
+                "4-4": [2, 5, 8]
+            },
+            "rating": 11.9,
+            "isRatingCeiling": false,
+            "elapsedTime": 12,
+            "score": 0,
+            "mistakes": 0,
+            "maxMistakes": 3
+        },
         "challengeLive": {
             "difficulty": "Nightmare",
             "sudokuString": "9...........18..2.8.34...1.5....63...6...84..........9..85..........7...3....98.4",

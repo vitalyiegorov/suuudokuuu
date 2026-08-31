@@ -1,5 +1,7 @@
 import { DifficultyEnum } from '../enums/difficulty.enum';
 
+import type { SeededRandomType } from '@suuudokuuu/solver-core';
+
 export interface SudokuConfigInterface {
     difficulty: DifficultyEnum;
     fieldSize: number;
@@ -7,10 +9,12 @@ export interface SudokuConfigInterface {
     fieldGroupHeight: number;
     blankCellValue: number;
     difficultyBlankCells: Record<DifficultyEnum, number>;
+    random: SeededRandomType;
 }
 
 export const defaultSudokuConfig: SudokuConfigInterface = {
     difficulty: DifficultyEnum.Newbie,
+    random: Math.random,
     fieldSize: 9,
     fieldGroupWidth: 3,
     fieldGroupHeight: 3,

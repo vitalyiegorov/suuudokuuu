@@ -10,6 +10,7 @@ import {
     ScreenChromeFrame,
     ScreenChromeScrollView
 } from '@suuudokuuu/screen-chrome';
+import { CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
 import { use } from 'react';
 
 import { isDefined } from '@rnw-community/shared';
@@ -88,12 +89,22 @@ export const CollapsibleChromePage = (props: Props) => {
                     <CollapsibleHeaderLeading>{leadingContent}</CollapsibleHeaderLeading>
                     <CollapsibleHeaderTitleSlot>
                         <CollapsibleHeaderLargeTitle>
-                            <Header numberOfLines={1} style={styles.largeTitle} text={title} />
+                            <Header
+                                maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant}
+                                numberOfLines={1}
+                                style={styles.largeTitle}
+                                text={title}
+                            />
                         </CollapsibleHeaderLargeTitle>
                     </CollapsibleHeaderTitleSlot>
                     {trailingContent}
                     <CollapsibleHeaderSmallTitle>
-                        <Header numberOfLines={1} style={styles.smallTitle} text={title} />
+                        <Header
+                            maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant}
+                            numberOfLines={1}
+                            style={styles.smallTitle}
+                            text={title}
+                        />
                     </CollapsibleHeaderSmallTitle>
                 </CollapsibleHeader>
 

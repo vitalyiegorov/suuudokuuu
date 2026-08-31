@@ -1,0 +1,36 @@
+name: Dedupe App Store screenshots
+
+on:
+    workflow_dispatch:
+
+permissions:
+    contents: read
+
+jobs:
+    dedupe:
+        name: Delete duplicate App Store screenshots
+        runs-on: ubuntu-latest
+        timeout-minutes: 15
+        steps:
+            - name: Write ASC API key
+              env:
+                  ASC_API_KEY: ${{ secrets.EXPO_IOS_ASC_API_KEY }}
+              run: |
+                  set -euo pipefail
+                  key_path="$RUNNER_TEMP/asc-dedupe/asc_api_key.p8"
+                  mkdir -p "$(dirname "$key_path")"
+                  printf '%s' "$ASC_API_KEY" > "$key_path"
+                  chmod 600 "$key_path"
+                  echo "ASC_KEY_PATH=$key_path" >> "$GITHUB_ENV"
+
+            - name: Dedupe screenshots
+              uses: rnw-community/mobile-ci/actions/asc-dedupe-screenshots@v1.9.0 # v1.9.0
+              with:
+                  app-id: com.vitalyiegorov.suuudokuuu
+                  asc-key-path: ${{ env.ASC_KEY_PATH }}
+                  asc-key-id: ${{ secrets.EXPO_IOS_ASC_KEY_ID }}
+                  asc-issuer-id: ${{ secrets.EXPO_IOS_ASC_ISSUER_ID }}
+
+            - name: Remove ASC key
+              if: always()
+              run: rm -f "$RUNNER_TEMP/asc-dedupe/asc_api_key.p8"

@@ -3,7 +3,7 @@ import { ChallengeTechniqueTierEnum } from '../enums/challenge-technique-tier.en
 import type { ThemeInterface } from '@suuudokuuu/ui';
 
 type TierColorSurface = 'default' | 'inverted';
-type TierColorResolver = (theme: ThemeInterface) => string;
+type TierColorResolver = (theme: Pick<ThemeInterface, 'colors'>) => string;
 
 const tierColorResolvers: Record<TierColorSurface, Record<ChallengeTechniqueTierEnum, TierColorResolver>> = {
     default: {
@@ -22,6 +22,6 @@ const tierColorResolvers: Record<TierColorSurface, Record<ChallengeTechniqueTier
 
 export const getTechniqueTierColor = (
     tier: ChallengeTechniqueTierEnum,
-    theme: ThemeInterface,
+    theme: Pick<ThemeInterface, 'colors'>,
     surface: TierColorSurface = 'default'
 ): string => tierColorResolvers[surface][tier](theme);

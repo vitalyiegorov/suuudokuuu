@@ -5,6 +5,7 @@ import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { useUnistyles } from 'react-native-unistyles';
 
 import { BlackText } from '../../../@generic/components/black-text/black-text';
+import { useReduceMotion } from '../../../@generic/hooks/use-reduce-motion.hook';
 
 import { ChallengeConditionsRowSelectors } from './challenge-conditions-row.selectors';
 import { ChallengeConditionsRowStyles as styles } from './challenge-conditions-row.styles';
@@ -17,17 +18,17 @@ export const ChallengeConditionsRow = () => {
     const { t } = useLingui();
     const { theme } = useUnistyles();
 
+    const isMotionReduced = useReduceMotion();
+
     const rowStyles = resolveUnistyleForAnimated(styles.row);
     const textStyles = [styles.text, { color: theme.colors.text.primary }];
     const conditions = [t`no pause`, t`recorded`, t`shareable`].join(' · ');
+    const transitionProps = isMotionReduced
+        ? {}
+        : { entering: FadeIn.duration(EnterDurationMs), exiting: FadeOut.duration(ExitDurationMs) };
 
     return (
-        <Animated.View
-            entering={FadeIn.duration(EnterDurationMs)}
-            exiting={FadeOut.duration(ExitDurationMs)}
-            style={rowStyles}
-            testID={ChallengeConditionsRowSelectors.Root}
-        >
+        <Animated.View style={rowStyles} testID={ChallengeConditionsRowSelectors.Root} {...transitionProps}>
             <Zap color={theme.colors.text.primary} fill={theme.colors.text.primary} size={GlyphSize} strokeWidth={2.4} />
 
             <BlackText numberOfLines={1} style={textStyles}>
