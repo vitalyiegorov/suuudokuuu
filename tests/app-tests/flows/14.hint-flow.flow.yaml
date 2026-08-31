@@ -7,6 +7,13 @@ appId: ${APP_ID}
 - runFlow: subflows/navigation/launch-home.flow.yaml
 # Pin a hint-capable difficulty: the preceding Hell run persists its selection,
 # and the hint button is deliberately absent on Nightmare, Hell and Infinity.
+# A warm Home keeps its scroll position, so bring the difficulty slider back
+# above the fold before tapping (a no-op when it is already visible).
+- scrollUntilVisible:
+      element:
+          id: 'DifficultyComplexityOptionSelectors.Option.Easy'
+      direction: UP
+      timeout: 3000
 - tapOn:
       id: 'DifficultyComplexityOptionSelectors.Option.Easy'
 - runFlow: subflows/game/start-new-game.flow.yaml
@@ -35,4 +42,3 @@ appId: ${APP_ID}
       id: 'HintPanelSelectors.Root'
 
 - runFlow: subflows/game/quit-current-game.flow.yaml
-- stopApp
