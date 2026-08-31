@@ -122,16 +122,38 @@ jobs:
             ASC_ISSUER_ID: ${{ secrets.EXPO_IOS_ASC_ISSUER_ID }}
 
     r4-config-path:
-        # Leg 1 (config-path). mobile-ci's load-consumer-config self-reference
-        # was temporarily SHA-pinned to this exact branch head (instead of the
-        # not-yet-cut v1.11.0 tag) so the fleet can actually resolve it; see
-        # commit a95cf35 on feat/store-screenshots-config-path. That pin is
-        # restored to @v1.11.0 before merge.
-        name: R4 iOS direct capture via config-path
+        # Leg 2 (regression). Same SHA-pinned mobile-ci head as leg 1
+        # (a95cf35 on feat/store-screenshots-config-path - see that commit
+        # for why load-consumer-config is temporarily SHA-pinned instead of
+        # @v1.11.0), but explicit R1-style with: blob inputs instead of
+        # config-path, to prove zero behaviour change for consumers that do
+        # not adopt the config file. Same device/scenes/effective values as
+        # leg 1's passing run (33360574890): iPhone 17 Pro Max, hero-board +
+        # stats only (win dropped - unrelated Maestro flow-state failure),
+        # settle-seconds=4.
+        name: R4 iOS direct capture without config-path (regression leg)
         if: github.ref_name == 'ci/ssv-run/config-path'
         uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@a95cf354a9edf0dff7e7675f87b5b02683929977 # feat/store-screenshots-config-path fleet-validation pin
         with:
-            config-path: .github/store-screenshots.config.json
+            ios-target: >-
+                {"name":"e2e","appDir":"packages/app","workspace":"suuudokuuuE2E.xcworkspace","scheme":"suuudokuuuE2E","appId":"com.vitalyiegorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p ios --clean --no-install"}
+            capture-manifest: >-
+                [{"platform":"ios","device":"iPhone 17 Pro Max","locales":["en","de"],"appearances":["light"]}]
+            capture-mode: direct
+            capture-scenes: >-
+                [
+                  {"name":"hero-board","deepLink":"suuudokuuu://game"},
+                  {"name":"stats","deepLink":"suuudokuuu://history"}
+                ]
+            screenshots-dir: tests/app-tests/flows/screenshots
+            seed-command: node tests/app-tests/scripts/ci-seed-scene.ts
+            settle-seconds: '4'
             build-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
             capture-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
-            settle-seconds: '4'
+            cache-profile: suuudokuuu-ios-v2
+            repack-on-hit: true
+            rct-use-prebuilt-rncore: true
+            rct-use-rn-dep: true
+            build-env: |
+                APP_VARIANT=e2e
+            upload-screenshots: false
