@@ -1,24 +1,21 @@
-import {
-    CollapsibleHeader,
-    CollapsibleHeaderBackdrop,
-    CollapsibleHeaderLargeTitle,
-    CollapsibleHeaderLeading,
-    CollapsibleHeaderSmallTitle,
-    CollapsibleHeaderTitleSlot,
-    CollapsibleHeaderTrailing,
-    ScreenChromeContent,
-    ScreenChromeFrame,
-    ScreenChromeScrollView
-} from '@suuudokuuu/screen-chrome';
 import { CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
 import { use } from 'react';
 
+import {
+    CollapsibleHeader,
+    CollapsibleHeaderBackdrop,
+    CollapsibleHeaderSlot,
+    CollapsibleHeaderTitleSlot,
+    ScreenChromeFrame,
+    ScreenChromeScrollView
+} from '@rnw-community/react-native-screen-chrome';
 import { isDefined } from '@rnw-community/shared';
 
 import { ScreenChromeContentInsetTop } from '../../constants/screen-chrome-content-inset.constant';
 import { Header } from '../header/header';
 import { HeaderBackButton } from '../header-back-button/header-back-button';
 import { TabBarInsetContext } from '../main-tab-layout/context/tab-bar-inset.context';
+import { ScreenChromeContent } from '../screen-chrome-content/screen-chrome-content';
 import { ScreenChromeThemeProvider } from '../screen-chrome-theme-provider/screen-chrome-theme-provider';
 import { StickyFooterBand } from '../sticky-footer-band/sticky-footer-band';
 
@@ -60,11 +57,6 @@ export const CollapsibleChromePage = (props: Props) => {
     const footerInset = isDefined(footer) ? CollapsibleChromePageFooterContentInset : 0;
     const contentInsetBottom = footerInset + tabBarInset;
     const leadingContent = isDefined(leading) ? leading : <HeaderBackButton />;
-    const trailingContent = isDefined(trailing) ? (
-        <CollapsibleHeaderTrailing>{trailing}</CollapsibleHeaderTrailing>
-    ) : (
-        <CollapsibleHeaderTrailing />
-    );
 
     return (
         <ScreenChromeThemeProvider>
@@ -76,6 +68,7 @@ export const CollapsibleChromePage = (props: Props) => {
                         bounces={bounces}
                         contentContainerStyle={contentContainerStyle}
                         contentInsetBottom={contentInsetBottom}
+                        contentInsetMode="additive"
                         contentInsetTop={ScreenChromeContentInsetTop}
                         showsVerticalScrollIndicator={showsVerticalScrollIndicator}
                     >
@@ -85,27 +78,27 @@ export const CollapsibleChromePage = (props: Props) => {
 
                 <CollapsibleHeaderBackdrop />
 
-                <CollapsibleHeader>
-                    <CollapsibleHeaderLeading>{leadingContent}</CollapsibleHeaderLeading>
+                <CollapsibleHeader
+                    collapsedContentContainerStyle={styles.titleLayer}
+                    expandedContentContainerStyle={styles.expandedTitleLayer}
+                    persistentContentContainerStyle={styles.persistentLayer}
+                >
+                    <CollapsibleHeaderSlot>{leadingContent}</CollapsibleHeaderSlot>
                     <CollapsibleHeaderTitleSlot>
-                        <CollapsibleHeaderLargeTitle>
-                            <Header
-                                maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant}
-                                numberOfLines={1}
-                                style={styles.largeTitle}
-                                text={title}
-                            />
-                        </CollapsibleHeaderLargeTitle>
-                    </CollapsibleHeaderTitleSlot>
-                    {trailingContent}
-                    <CollapsibleHeaderSmallTitle>
+                        <Header
+                            maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant}
+                            numberOfLines={1}
+                            style={styles.largeTitle}
+                            text={title}
+                        />
                         <Header
                             maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant}
                             numberOfLines={1}
                             style={styles.smallTitle}
                             text={title}
                         />
-                    </CollapsibleHeaderSmallTitle>
+                    </CollapsibleHeaderTitleSlot>
+                    <CollapsibleHeaderSlot>{trailing}</CollapsibleHeaderSlot>
                 </CollapsibleHeader>
 
                 {isDefined(footer) ? <StickyFooterBand contentStyle={footerStyle}>{footer}</StickyFooterBand> : null}

@@ -1,10 +1,11 @@
-import { EdgeFade } from '@suuudokuuu/screen-chrome';
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { EdgeFade } from '@rnw-community/react-native-screen-chrome';
+
 import { StickyFooterBandStyles as styles } from './sticky-footer-band.styles';
 
-import type { EdgeFadePropsInterface } from '@suuudokuuu/screen-chrome';
+import type { EdgeFadePropsInterface } from '@rnw-community/react-native-screen-chrome';
 import type { ReactNode } from 'react';
 import type { StyleProp, ViewStyle } from 'react-native';
 

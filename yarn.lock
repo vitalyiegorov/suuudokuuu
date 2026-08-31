@@ -5273,6 +5273,43 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rnw-community/react-native-collapsible-header@npm:^2.18.0":
+  version: 2.18.0
+  resolution: "@rnw-community/react-native-collapsible-header@npm:2.18.0"
+  dependencies:
+    "@rnw-community/shared": "npm:^2.15.0"
+    react-compiler-runtime: "npm:^1.0.0"
+  peerDependencies:
+    react: ">=18"
+    react-native: ">=0.72"
+    react-native-reanimated: ">=3.17.2 <5"
+  checksum: 10/6a8d79fce913795782f3ffd8152ac575de33e7a594892accb60071d3ea7657dc52e8dbdc677b85be198f9680e8001b58548a746559dcc2a105c74afd805a2ec5
+  languageName: node
+  linkType: hard
+
+"@rnw-community/react-native-screen-chrome@npm:^2.19.0":
+  version: 2.19.0
+  resolution: "@rnw-community/react-native-screen-chrome@npm:2.19.0"
+  dependencies:
+    "@rnw-community/shared": "npm:^2.15.0"
+  peerDependencies:
+    "@rnw-community/react-native-collapsible-header": ">=2.13.0 <3"
+    expo-blur: ">=55 <58"
+    react: ">=18"
+    react-native: ">=0.72"
+    react-native-reanimated: ">=3.17.2 <5"
+    react-native-safe-area-context: ">=4 <6"
+  checksum: 10/b94ee205bd101dc6788425c665a81af58a72c069087b353a8948236416bcf2a162b7125a07cc80345646fc21d87f9e869579909e5d090db0e096c5566fb2b6a1
+  languageName: node
+  linkType: hard
+
+"@rnw-community/shared@npm:^2.15.0":
+  version: 2.15.0
+  resolution: "@rnw-community/shared@npm:2.15.0"
+  checksum: 10/e086c6ed033b26afc5fb6799afb11b01c4f0aad7b21f9119ed1080fb742cb36cb1a365d4d22ae6dd1d91ede05931e7f4f3e0fe0af9ba1dbffeb3f3d2f55ec7a8
+  languageName: node
+  linkType: hard
+
 "@rnw-community/shared@npm:^2.2.0":
   version: 2.2.0
   resolution: "@rnw-community/shared@npm:2.2.0"
@@ -5474,6 +5511,8 @@ __metadata:
     "@react-native/jest-preset": "npm:0.86.1"
     "@react-native/metro-config": "npm:0.86.0"
     "@reduxjs/toolkit": "npm:^2.12.0"
+    "@rnw-community/react-native-collapsible-header": "npm:^2.18.0"
+    "@rnw-community/react-native-screen-chrome": "npm:^2.19.0"
     "@rnw-community/shared": "npm:^2.2.0"
     "@shopify/react-native-skia": "npm:2.6.2"
     "@suuudokuuu/encoder": "workspace:*"
@@ -5481,7 +5520,6 @@ __metadata:
     "@suuudokuuu/generator": "workspace:*"
     "@suuudokuuu/puzzle-forge": "workspace:*"
     "@suuudokuuu/rating": "workspace:*"
-    "@suuudokuuu/screen-chrome": "workspace:*"
     "@suuudokuuu/techniques": "workspace:*"
     "@suuudokuuu/ui": "workspace:*"
     "@testing-library/react-native": "npm:^14.0.1"
@@ -5678,23 +5716,6 @@ __metadata:
     turbo: "npm:^2.10.4"
     typescript: "npm:^6.0.3"
     typescript-eslint: "npm:^8.62.0"
-  languageName: unknown
-  linkType: soft
-
-"@suuudokuuu/screen-chrome@workspace:*, @suuudokuuu/screen-chrome@workspace:packages/screen-chrome":
-  version: 0.0.0-use.local
-  resolution: "@suuudokuuu/screen-chrome@workspace:packages/screen-chrome"
-  dependencies:
-    "@rnw-community/shared": "npm:^2.2.0"
-    react-native-easing-gradient: "npm:^1.1.1"
-  peerDependencies:
-    "@react-native-masked-view/masked-view": ^0.3.2
-    expo-blur: ~57.0.0
-    expo-linear-gradient: ~57.0.0
-    react: 19.2.3
-    react-native: 0.86.0
-    react-native-reanimated: 4.5.0
-    react-native-safe-area-context: ~5.7.0
   languageName: unknown
   linkType: soft
 
@@ -16190,6 +16211,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-compiler-runtime@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "react-compiler-runtime@npm:1.0.0"
+  peerDependencies:
+    react: ^17.0.0 || ^18.0.0 || ^19.0.0 || ^0.0.0-experimental
+  checksum: 10/7d85297de255c39f1aca3dd4942fbf59253e127db8abef1ad7fe3eb329e39aab4c30656ff77751165e2b21263d96836f44699777ca40c9a717ffe42c6c355543
+  languageName: node
+  linkType: hard
+
 "react-devtools-core@npm:^6.1.5":
   version: 6.1.5
   resolution: "react-devtools-core@npm:6.1.5"
@@ -16274,16 +16304,6 @@ __metadata:
     react-native-gesture-handler: ">= 2.0.0"
     react-native-reanimated: ">= 2.0.0"
   checksum: 10/766f4aefe8527feed4fbb1d8e844dacbea9de63b78d0f358b771dd1884bf8bbe0a0fd6b037f370b6cd45a4f8ffb3dc5d025e84ecd5c9ef2eb0a84d4b00588402
-  languageName: node
-  linkType: hard
-
-"react-native-easing-gradient@npm:^1.1.1":
-  version: 1.1.1
-  resolution: "react-native-easing-gradient@npm:1.1.1"
-  peerDependencies:
-    react: "*"
-    react-native: "*"
-  checksum: 10/70a27503402a9a9e9103bc913ea34226e5a95b2000704c63d46dc6e6138ed9d6dbb19650846263dc3a3bb9e999ff1823f581956d6325faf9b0d9386102822600
   languageName: node
   linkType: hard
 

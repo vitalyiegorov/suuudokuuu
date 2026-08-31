@@ -27,21 +27,23 @@ describe('CollapsibleChromePage', () => {
         expect(source).toContain('const contentInsetBottom = footerInset + tabBarInset');
     });
 
-    it('renders the small title above the full header row rather than inside the title slot', () => {
+    it('renders both title layers inside the title slot, large before small, as the primitive expects', () => {
         const source = readFileSync(join(__dirname, 'collapsible-chrome-page.tsx'), 'utf8');
+        const titleSlotStartIndex = source.indexOf('<CollapsibleHeaderTitleSlot>');
         const titleSlotEndIndex = source.indexOf('</CollapsibleHeaderTitleSlot>');
-        const smallTitleIndex = source.indexOf('<CollapsibleHeaderSmallTitle>');
+        const largeTitleIndex = source.indexOf('styles.largeTitle');
+        const smallTitleIndex = source.indexOf('styles.smallTitle');
 
-        expect(smallTitleIndex).toBeGreaterThan(titleSlotEndIndex);
+        expect(largeTitleIndex).toBeGreaterThan(titleSlotStartIndex);
+        expect(smallTitleIndex).toBeGreaterThan(largeTitleIndex);
+        expect(smallTitleIndex).toBeLessThan(titleSlotEndIndex);
     });
 
-    it('balances the default back slot with an empty trailing slot', () => {
+    it('always renders the balanced three-slot header so the primitive gets leading, title, and trailing', () => {
         const source = readFileSync(join(__dirname, 'collapsible-chrome-page.tsx'), 'utf8');
 
-        const trailingContentIndex = source.indexOf('const trailingContent = isDefined(trailing)');
-        const emptyTrailingSlotIndex = source.indexOf('<CollapsibleHeaderTrailing />');
-
-        expect(emptyTrailingSlotIndex).toBeGreaterThan(trailingContentIndex);
-        expect(source).toContain('{trailingContent}');
+        expect(source.match(/<CollapsibleHeaderSlot>/gu)).toHaveLength(2);
+        expect(source).toContain('<CollapsibleHeaderSlot>{leadingContent}</CollapsibleHeaderSlot>');
+        expect(source).toContain('<CollapsibleHeaderSlot>{trailing}</CollapsibleHeaderSlot>');
     });
 });

@@ -8,8 +8,8 @@ module.exports = function (api) {
                 'react-native-unistyles/plugin',
                 {
                     root: 'src',
-                    autoProcessPaths: ['packages/ui/src', 'packages/screen-chrome/src'],
-                    autoProcessImports: ['@suuudokuuu/ui', '@suuudokuuu/screen-chrome']
+                    autoProcessPaths: ['packages/ui/src'],
+                    autoProcessImports: ['@suuudokuuu/ui']
                 }
             ],
             'macros',

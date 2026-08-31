@@ -1,7 +1,8 @@
-import { ScreenChromeScrollView } from '@suuudokuuu/screen-chrome';
 import { useState } from 'react';
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+import { ScreenChromeScrollView } from '@rnw-community/react-native-screen-chrome';
 
 import {
     ChromeScrollPageContentInsetTop,
@@ -50,6 +51,7 @@ export const ChromeScrollPage = ({ children, footer, testID }: Props) => {
         >
             <ScreenChromeScrollView
                 contentContainerStyle={styles.scrollContent}
+                contentInsetMode="additive"
                 contentInsetBottom={footerReserve}
                 contentInsetTop={contentInsetTop}
                 showsVerticalScrollIndicator={false}

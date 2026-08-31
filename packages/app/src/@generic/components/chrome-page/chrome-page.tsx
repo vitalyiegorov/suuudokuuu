@@ -1,15 +1,16 @@
-import { EdgeFade, ScreenChromeContent, ScreenChromeFrame } from '@suuudokuuu/screen-chrome';
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { EdgeFade, ScreenChromeFrame } from '@rnw-community/react-native-screen-chrome';
 import { isDefined } from '@rnw-community/shared';
 
+import { ScreenChromeContent } from '../screen-chrome-content/screen-chrome-content';
 import { ScreenChromeThemeProvider } from '../screen-chrome-theme-provider/screen-chrome-theme-provider';
 import { StickyFooterBand } from '../sticky-footer-band/sticky-footer-band';
 
 import { ChromePageStyles as styles } from './chrome-page.styles';
 
-import type { EdgeFadePropsInterface } from '@suuudokuuu/screen-chrome';
+import type { EdgeFadePropsInterface } from '@rnw-community/react-native-screen-chrome';
 import type { ReactNode } from 'react';
 import type { StyleProp, ViewStyle } from 'react-native';
 

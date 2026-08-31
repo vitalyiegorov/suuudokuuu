@@ -1,9 +1,10 @@
 import { useLingui } from '@lingui/react/macro';
-import { ScreenChromeScrollView } from '@suuudokuuu/screen-chrome';
 import { AppButton, resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { use } from 'react';
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+import { ScreenChromeScrollView } from '@rnw-community/react-native-screen-chrome';
 
 import { Alert } from '../../../@generic/components/alert/alert';
 import { ChromePage } from '../../../@generic/components/chrome-page/chrome-page';
@@ -76,6 +77,7 @@ export const DailyScreen = () => {
     return (
         <ChromePage footer={actionBar} testID={DailyScreenSelectors.Root} topEdgeFadeProps={topEdgeFadeProps}>
             <ScreenChromeScrollView
+                contentInsetMode="additive"
                 contentContainerStyle={styles.scrollContent}
                 contentInsetBottom={contentInsetBottom}
                 contentInsetTop={safeAreaInsets.top}

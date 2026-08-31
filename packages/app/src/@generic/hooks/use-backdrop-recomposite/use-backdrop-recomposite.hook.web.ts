@@ -2,9 +2,9 @@ import { useCallback, useEffect, useRef } from 'react';
 
 import { isDefined } from '@rnw-community/shared';
 
-import { recompositeBackdropLayers } from '../utils/recomposite-backdrop-layers.util.web';
+import { recompositeBackdropLayers } from '../../utils/recomposite-backdrop-layers.util.web';
 
-import type { BackdropRecompositeRef } from './interface/backdrop-recomposite-ref.interface';
+import type { BackdropRecompositeRef } from './backdrop-recomposite-ref.interface';
 
 export const useBackdropRecomposite = (): BackdropRecompositeRef => {
     const containerRef = useRef<HTMLElement | null>(null);
