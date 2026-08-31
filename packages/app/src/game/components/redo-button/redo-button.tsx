@@ -7,7 +7,7 @@ import { isDefined } from '@rnw-community/shared';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { GameContext } from '../../context/game.context';
 import { useGameHistoryControls } from '../../hooks/use-game-history-controls.hook';
-import { gameIsChallengeRunSelector } from '../../store/game.selectors';
+import { gameIsChallengeRunSelector, gameMaxMistakesSelector } from '../../store/game.selectors';
 import { GameHistoryButton } from '../game-history-button/game-history-button';
 
 import { RedoButtonSelectors } from './redo-button.selectors';
@@ -23,11 +23,12 @@ export const RedoButton = ({ sizeStyle }: Props) => {
     const { engine, snapshot } = use(GameContext);
 
     const isChallengeRun = useAppSelector(gameIsChallengeRunSelector);
+    const maxMistakes = useAppSelector(gameMaxMistakesSelector);
     const { handleRedo } = useGameHistoryControls(engine);
 
     const isDisabled = !snapshot.canRedo || isDefined(snapshot.stepScript) || snapshot.isWon;
 
-    if (isChallengeRun) {
+    if (isChallengeRun || maxMistakes === 0) {
         return null;
     }
 
