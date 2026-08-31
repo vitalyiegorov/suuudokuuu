@@ -9,9 +9,18 @@ appId: ${APP_ID}
                 visible:
                     id: 'SharedScreenSelectors.Root'
                 timeout: 10000
-- tapOn:
-      id: 'SharedScreenSelectors.ConfirmButton'
-- extendedWaitUntil:
-      visible:
-          id: 'GameScreenSelectors.Root'
-      timeout: 10000
+# On a warm app the shared screen arrives through an animated JS transition,
+# and a confirm tap that lands mid-transition is reported as tapped yet never
+# reaches the button (CI run 33358942334: the failure hierarchy still shows the
+# fully-rendered shared screen after a COMPLETED tap). Retry the handoff once,
+# the same way subflows/game/quit-current-game.flow.yaml retries its OS
+# alert handoff.
+- retry:
+      maxRetries: 1
+      commands:
+          - tapOn:
+                id: 'SharedScreenSelectors.ConfirmButton'
+          - extendedWaitUntil:
+                visible:
+                    id: 'GameScreenSelectors.Root'
+                timeout: 10000
