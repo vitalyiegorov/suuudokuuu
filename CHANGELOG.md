@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.11.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.10.1...v2.11.0) (2026-08-31)
+
+### Features
+
+- **app:** hide undo and redo in hardcore mode with e2e coverage ([#364](https://github.com/vitalyiegorov/suuudokuuu/issues/364)) ([4b208b1](https://github.com/vitalyiegorov/suuudokuuu/commit/4b208b145524e70e5f9c3a5f7169ee450100ab0a))
+
 ## [2.10.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.10.0...v2.10.1) (2026-08-30)
 
 ### Bug Fixes
