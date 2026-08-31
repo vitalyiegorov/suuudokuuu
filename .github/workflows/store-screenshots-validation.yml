@@ -120,3 +120,13 @@ jobs:
             ASC_API_KEY: ${{ secrets.EXPO_IOS_ASC_API_KEY }}
             ASC_KEY_ID: ${{ secrets.EXPO_IOS_ASC_KEY_ID }}
             ASC_ISSUER_ID: ${{ secrets.EXPO_IOS_ASC_ISSUER_ID }}
+
+    r4-config-path:
+        name: R4 iOS direct capture via config-path
+        if: github.ref_name == 'ci/ssv-run/config-path'
+        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@fcef8ca670aeb7ec947f95381327bf210674f737 # feat/store-screenshots-config-path
+        with:
+            config-path: .github/store-screenshots.config.json
+            build-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
+            capture-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
+            settle-seconds: '4'

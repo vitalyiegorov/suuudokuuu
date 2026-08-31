@@ -1,0 +1,33 @@
+{
+    "ios-target": {
+        "name": "e2e",
+        "appDir": "packages/app",
+        "workspace": "suuudokuuuE2E.xcworkspace",
+        "scheme": "suuudokuuuE2E",
+        "appId": "com.vitalyiegorov.suuudokuuu.e2e",
+        "prebuildCommand": "npx expo prebuild -p ios --clean --no-install"
+    },
+    "capture-manifest": [
+        {
+            "platform": "ios",
+            "device": "iPhone 17 Pro",
+            "locales": ["en", "de"],
+            "appearances": ["light"]
+        }
+    ],
+    "capture-mode": "direct",
+    "capture-scenes": [
+        { "name": "hero-board", "deepLink": "suuudokuuu://game" },
+        { "name": "stats", "deepLink": "suuudokuuu://history" },
+        { "name": "win", "flow": "05.win.flow.yaml" }
+    ],
+    "screenshots-dir": "tests/app-tests/flows/screenshots",
+    "seed-command": "node tests/app-tests/scripts/ci-seed-scene.ts",
+    "settle-seconds": "5",
+    "cache-profile": "suuudokuuu-ios-v2",
+    "repack-on-hit": true,
+    "rct-use-prebuilt-rncore": true,
+    "rct-use-rn-dep": true,
+    "build-env": "APP_VARIANT=e2e\n",
+    "upload-screenshots": false
+}
