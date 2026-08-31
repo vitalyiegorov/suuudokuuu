@@ -2,6 +2,7 @@ import { spawnSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
+import { DatabaseSync } from 'node:sqlite';
 import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
 
@@ -13,11 +14,10 @@ const migrationsSourcePath = join(repositoryRootDirectory, 'packages', 'app', 's
 const languagesSourcePath = join(repositoryRootDirectory, 'packages', 'app', 'src', 'settings', 'constant', 'languages.constant.ts');
 
 const PersistRootKey = 'persist:root';
-const IosStorageRelativePath = join('Documents', 'SQLite', 'ExpoSQLiteStorage');
-const AndroidStorageRelativePath = 'files/SQLite/ExpoSQLiteStorage';
+export const IosStorageRelativePath = join('Documents', 'SQLite', 'ExpoSQLiteStorage');
+export const AndroidStorageRelativePath = 'files/SQLite/ExpoSQLiteStorage';
 const PersistVersionPattern = /appRootPersistVersion\s*=\s*(\d+)/u;
 const LanguagesPattern = /export const Languages = \[([^\]]+)\]/u;
-const QuotePattern = /'/gu;
 const LanguageQuotesPattern = /['"]/gu;
 
 interface SeedFixture {
@@ -155,16 +155,15 @@ const buildPersistRootValue = (options: SeedOptions): string => {
 };
 
 const writePersistRootToDatabase = (databasePath: string, value: string): void => {
-    const escapedValue = value.replace(QuotePattern, "''");
-    const statements = [
-        'CREATE TABLE IF NOT EXISTS storage (key TEXT PRIMARY KEY NOT NULL, value TEXT);',
-        `INSERT INTO storage (key, value) VALUES ('${PersistRootKey}', '${escapedValue}') ` +
-            'ON CONFLICT(key) DO UPDATE SET value = excluded.value;'
-    ].join('\n');
-    const result = spawnSync('sqlite3', [databasePath], { encoding: 'utf8', input: statements });
+    const database = new DatabaseSync(databasePath);
 
-    if (result.status !== 0) {
-        throw new Error(`Could not write ${PersistRootKey} into ${databasePath}: ${result.stderr}`);
+    try {
+        database.exec('CREATE TABLE IF NOT EXISTS storage (key TEXT PRIMARY KEY NOT NULL, value TEXT);');
+        database
+            .prepare('INSERT INTO storage (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value;')
+            .run(PersistRootKey, value);
+    } finally {
+        database.close();
     }
 };
 
