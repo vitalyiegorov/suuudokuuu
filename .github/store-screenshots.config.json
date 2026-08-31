@@ -18,8 +18,7 @@
     "capture-mode": "direct",
     "capture-scenes": [
         { "name": "hero-board", "deepLink": "suuudokuuu://game" },
-        { "name": "stats", "deepLink": "suuudokuuu://history" },
-        { "name": "win", "flow": "05.win.flow.yaml" }
+        { "name": "stats", "deepLink": "suuudokuuu://history" }
     ],
     "screenshots-dir": "tests/app-tests/flows/screenshots",
     "seed-command": "node tests/app-tests/scripts/ci-seed-scene.ts",
