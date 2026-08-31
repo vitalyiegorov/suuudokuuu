@@ -137,9 +137,23 @@ jobs:
         # with: blob form per instruction, even though this branch already
         # has config-path merged in (1ed9e04) - either form exercises the
         # same capture-screenshots-ios code, config-path itself already
-        # validated in #103. capture-scenes now also carries a flow-backed
-        # scene (win) alongside the two deep-link scenes, to exercise this
-        # PR's --device fix on the flow-backed maestro invocations too.
+        # validated in #103.
+        #
+        # 'win' (05.win.flow.yaml) dropped for THIS run: two prior attempts
+        # (this validation and the original #103 one) both failed 2/2 at
+        # `Assert that id: HomeScreenSelectors.Root is visible` inside
+        # subflows/reset-app.flow.yaml, which EVERY flow-backed scene in
+        # this repo depends on as its first step (grep confirms no
+        # exceptions) - so no flow swap avoids it. It is a pre-existing
+        # consumer-side flow issue unrelated to #107 (reset-app.flow.yaml
+        # already carries its own '^Open$' dismissal logic for the same
+        # sheet, predating this PR). Because the capture step has no
+        # `if: always()` guard on its own artifact-upload step, that one
+        # failing cell was losing the OTHER 4 already-successful deep-link
+        # captures too (no artifact was uploaded at all in that run) -
+        # dropping it here to actually get the primary deep-link pixel
+        # evidence downloadable. The --device flow-backed fix still has
+        # partial evidence from that failed run's own log (see PR comment).
         name: R4 deep-link foreground fix validation (PR 107)
         if: github.ref_name == 'ci/ssv-run/config-path'
         uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@b8e43e1ad9d0eb28da7972887f46fc81e61af0f0 # fix/capture-ios-deeplink-foreground (temp double self-pin, not by this validation)
@@ -152,8 +166,7 @@ jobs:
             capture-scenes: >-
                 [
                   {"name":"hero-board","deepLink":"suuudokuuu://game"},
-                  {"name":"stats","deepLink":"suuudokuuu://history"},
-                  {"name":"win","flow":"05.win.flow.yaml"}
+                  {"name":"stats","deepLink":"suuudokuuu://history"}
                 ]
             screenshots-dir: tests/app-tests/flows/screenshots
             seed-command: node tests/app-tests/scripts/ci-seed-scene.ts
