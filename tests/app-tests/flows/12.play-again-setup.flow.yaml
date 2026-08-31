@@ -85,5 +85,3 @@ appId: ${APP_ID}
 - assertNotVisible:
       id: 'GameScreenSelectors.Rating'
 - runFlow: subflows/game/quit-current-game.flow.yaml
-
-- stopApp

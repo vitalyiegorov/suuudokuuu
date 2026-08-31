@@ -54,4 +54,3 @@ appId: ${APP_ID}
       notVisible:
           id: 'ChallengeConditionsRowSelectors.Root'
       timeout: 3000
-- stopApp

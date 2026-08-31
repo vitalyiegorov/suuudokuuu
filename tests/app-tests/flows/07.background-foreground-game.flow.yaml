@@ -43,4 +43,3 @@ appId: ${APP_ID}
       timeout: 10000
 - runFlow: subflows/game/assert-timer-advances.flow.yaml
 - runFlow: subflows/game/quit-current-game.flow.yaml
-- stopApp

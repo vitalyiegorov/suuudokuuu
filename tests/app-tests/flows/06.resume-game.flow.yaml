@@ -92,4 +92,3 @@ appId: ${APP_ID}
 - assertVisible:
       id: 'AvailableValueItemSelectors\.Button\..*'
 - runFlow: subflows/game/quit-current-game.flow.yaml
-- stopApp

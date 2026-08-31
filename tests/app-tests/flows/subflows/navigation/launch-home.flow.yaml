@@ -1,9 +1,20 @@
 appId: ${APP_ID}
 ---
-- launchApp:
-    clearState: false
-- tapOn: 'Play'
-- extendedWaitUntil:
-    visible:
+# Every scenario ends at Home (the Home teardown contract) and no scenario
+# stops the app any more, so the warm app is usually already exactly where
+# this subflow must deliver. Cold-launch through the landing screen only when
+# Home is absent: the shard's very first session, or after a recovery reset.
+- runFlow:
+      when:
+          notVisible:
+              id: 'HomeScreenSelectors.Root'
+      commands:
+          - launchApp:
+                clearState: false
+          - tapOn: 'Play'
+          - extendedWaitUntil:
+                visible:
+                    id: 'HomeScreenSelectors.Root'
+                timeout: 15000
+- assertVisible:
       id: 'HomeScreenSelectors.Root'
-    timeout: 15000

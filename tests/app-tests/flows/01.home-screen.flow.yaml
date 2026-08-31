@@ -5,6 +5,13 @@ appId: ${APP_ID}
       optional: true
 
 - runFlow: subflows/navigation/launch-home.flow.yaml
+# A warm Home keeps its scroll position, so bring the difficulty header back
+# above the fold before asserting (a no-op when it is already visible).
+- scrollUntilVisible:
+      element:
+          text: 'Difficulty'
+      direction: UP
+      timeout: 3000
 - assertVisible: 'Difficulty'
 - assertVisible: 'Newbie'
 - assertVisible: 'Mistakes'
@@ -20,11 +27,23 @@ appId: ${APP_ID}
 - assertNotVisible:
       id: 'GameScreenSelectors.Rating'
 - runFlow: subflows/game/quit-current-game.flow.yaml
-# Quitting remounts Home at the top of its scroll content, so the start button
-# sits below the fold on shorter viewports and has to be scrolled back into view.
+
+# Single-flight guard: rapid duplicate taps on Start must launch exactly one
+# game. Quitting remounts Home at the top of its scroll content, so the start
+# button sits below the fold on shorter viewports and has to be scrolled back
+# into view first.
 - scrollUntilVisible:
       element:
           id: 'HomeScreenSelectors.StartButton'
       direction: DOWN
       timeout: 3000
-- stopApp
+- scroll
+- tapOn:
+      id: 'HomeScreenSelectors.StartButton'
+      repeat: 5
+      delay: 50
+- extendedWaitUntil:
+      visible:
+          id: 'GameScreenSelectors.Root'
+      timeout: 15000
+- runFlow: subflows/game/quit-current-game.flow.yaml

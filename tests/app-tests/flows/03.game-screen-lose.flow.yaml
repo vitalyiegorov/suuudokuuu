@@ -53,4 +53,3 @@ appId: ${APP_ID}
           id: 'GameScreenSelectors.Root'
       timeout: 5000
 - runFlow: subflows/game/quit-current-game.flow.yaml
-- stopApp
