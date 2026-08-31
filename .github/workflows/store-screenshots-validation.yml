@@ -122,11 +122,34 @@ jobs:
             ASC_ISSUER_ID: ${{ secrets.EXPO_IOS_ASC_ISSUER_ID }}
 
     r4-config-path:
-        name: R4 iOS direct capture via config-path
+        # Regression leg: same PR-103 SHA, but explicit R1-style with: blob
+        # inputs instead of config-path, to prove zero behaviour change for
+        # consumers that do not adopt the config file. Effective values match
+        # what run 1 resolved (settle-seconds=4, the input-override value).
+        name: R4 iOS direct capture without config-path (regression leg)
         if: github.ref_name == 'ci/ssv-run/config-path'
         uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@fcef8ca670aeb7ec947f95381327bf210674f737 # feat/store-screenshots-config-path
         with:
-            config-path: .github/store-screenshots.config.json
+            ios-target: >-
+                {"name":"e2e","appDir":"packages/app","workspace":"suuudokuuuE2E.xcworkspace","scheme":"suuudokuuuE2E","appId":"com.vitalyiegorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p ios --clean --no-install"}
+            capture-manifest: >-
+                [{"platform":"ios","device":"iPhone 17 Pro","locales":["en","de"],"appearances":["light"]}]
+            capture-mode: direct
+            capture-scenes: >-
+                [
+                  {"name":"hero-board","deepLink":"suuudokuuu://game"},
+                  {"name":"stats","deepLink":"suuudokuuu://history"},
+                  {"name":"win","flow":"05.win.flow.yaml"}
+                ]
+            screenshots-dir: tests/app-tests/flows/screenshots
+            seed-command: node tests/app-tests/scripts/ci-seed-scene.ts
+            settle-seconds: '4'
             build-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
             capture-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
-            settle-seconds: '4'
+            cache-profile: suuudokuuu-ios-v2
+            repack-on-hit: true
+            rct-use-prebuilt-rncore: true
+            rct-use-rn-dep: true
+            build-env: |
+                APP_VARIANT=e2e
+            upload-screenshots: false
