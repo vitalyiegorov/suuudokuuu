@@ -122,23 +122,25 @@ jobs:
             ASC_ISSUER_ID: ${{ secrets.EXPO_IOS_ASC_ISSUER_ID }}
 
     r4-config-path:
-        # Leg 2 (regression). Same SHA-pinned mobile-ci head as leg 1
-        # (a95cf35 on feat/store-screenshots-config-path - see that commit
-        # for why load-consumer-config is temporarily SHA-pinned instead of
-        # @v1.11.0), but explicit R1-style with: blob inputs instead of
-        # config-path, to prove zero behaviour change for consumers that do
-        # not adopt the config file. Same device/scenes/effective values as
-        # leg 1's passing run (33360574890): iPhone 17 Pro Max, hero-board +
-        # stats only (win dropped - unrelated Maestro flow-state failure),
-        # settle-seconds=4.
-        name: R4 iOS direct capture without config-path (regression leg)
+        # PR #105 validation: capture-screenshots-ios runtime tie-break fix.
+        # mobile-ci's capture-screenshots-ios self-reference in
+        # store-screenshots.yml was temporarily SHA-pinned to
+        # fix/capture-ios-runtime-tiebreak's branch head (e0ee0af) instead of
+        # the released @v1.10.0, because store-screenshots.yml itself lives
+        # on main (unpatched) and only self-references the OLD action at the
+        # released tag - see commit e0ee0af on that branch for why. That
+        # branch predates config-path (#103 not yet merged), so this uses the
+        # explicit with: blob form, not config-path. Device deliberately set
+        # back to the duplicated 'iPhone 17 Pro' name (not "Max") to exercise
+        # the tie-break against the live collision.
+        name: R4 capture-ios runtime tie-break validation (PR 105)
         if: github.ref_name == 'ci/ssv-run/config-path'
-        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@a95cf354a9edf0dff7e7675f87b5b02683929977 # feat/store-screenshots-config-path fleet-validation pin
+        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@e0ee0af5febe58c65d1cd822bf856b6844605f19 # fix/capture-ios-runtime-tiebreak fleet-validation pin
         with:
             ios-target: >-
                 {"name":"e2e","appDir":"packages/app","workspace":"suuudokuuuE2E.xcworkspace","scheme":"suuudokuuuE2E","appId":"com.vitalyiegorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p ios --clean --no-install"}
             capture-manifest: >-
-                [{"platform":"ios","device":"iPhone 17 Pro Max","locales":["en","de"],"appearances":["light"]}]
+                [{"platform":"ios","device":"iPhone 17 Pro","locales":["en","de"],"appearances":["light"]}]
             capture-mode: direct
             capture-scenes: >-
                 [
