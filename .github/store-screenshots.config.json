@@ -10,7 +10,7 @@
     "capture-manifest": [
         {
             "platform": "ios",
-            "device": "iPhone 17 Pro",
+            "device": "iPhone 17 Pro Max",
             "locales": ["en", "de"],
             "appearances": ["light"]
         }
