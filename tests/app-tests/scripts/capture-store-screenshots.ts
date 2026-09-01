@@ -1,3 +1,4 @@
+import { isPositiveNumber } from '@rnw-community/shared';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -36,8 +37,8 @@ const configPath = join(appTestsDirectory, 'config.yaml');
 const screenshotsFlowsDirectory = join(appTestsDirectory, 'flows', 'screenshots');
 const defaultOutputRootDirectory = join(repositoryRootDirectory, 'packages', 'app', 'fastlane', 'screenshots', 'raw');
 
-const LaunchSettleMilliseconds = 3500;
-const DeepLinkSettleMilliseconds = 2000;
+const DefaultLaunchSettleMilliseconds = 3500;
+const DefaultSceneSettleMilliseconds = 2000;
 const MillisecondsPerSecond = 1000;
 
 const parseCommaSeparatedList = (value: string): string[] =>
@@ -68,7 +69,9 @@ const { values: cliOptions } = parseArgs({
 const {
     ANDROID_SERIAL,
     APP_ID,
+    CAPTURE_LAUNCH_SETTLE_MS,
     CAPTURE_MODE,
+    CAPTURE_SCENE_SETTLE_MS,
     DEVICE_CLASS,
     ORIENTATION,
     OS_LANGUAGE_MODE,
@@ -89,6 +92,14 @@ const androidSerial = cliOptions.serial ?? ANDROID_SERIAL ?? '';
 const skipsLanguageSheet = captureMode === 'fast' || OS_LANGUAGE_MODE === 'true';
 const osLanguageMode = skipsLanguageSheet ? 'true' : 'false';
 const outputRootDirectory = cliOptions['output-dir'] ?? SCREENSHOT_OUTPUT_DIR ?? defaultOutputRootDirectory;
+const parsedLaunchSettleMilliseconds = Number(CAPTURE_LAUNCH_SETTLE_MS);
+const launchSettleMilliseconds = isPositiveNumber(parsedLaunchSettleMilliseconds)
+    ? parsedLaunchSettleMilliseconds
+    : DefaultLaunchSettleMilliseconds;
+const parsedSceneSettleMilliseconds = Number(CAPTURE_SCENE_SETTLE_MS);
+const sceneSettleMilliseconds = isPositiveNumber(parsedSceneSettleMilliseconds)
+    ? parsedSceneSettleMilliseconds
+    : DefaultSceneSettleMilliseconds;
 
 const deviceContext: DeviceContext = { androidSerial, platform, scriptDirectory, simulatorUdid, statusBarMode };
 const maestroContext: MaestroContext = {
@@ -140,11 +151,11 @@ const captureSceneDirectly = (scene: Scene, locale: string, appearance: string, 
     }
 
     launchSeededApp(target, locale, localeIdentifierFor(locale));
-    waitForRender(LaunchSettleMilliseconds);
+    waitForRender(launchSettleMilliseconds);
 
     if (isDefinedString(scene.deepLink) && scene.deepLink !== HomeDeepLink) {
         openDeepLink(deviceContext, scene.deepLink);
-        waitForRender(DeepLinkSettleMilliseconds);
+        waitForRender(sceneSettleMilliseconds);
     }
 
     return writeDeviceScreenshot(deviceContext, join(testOutputDirectory, `${sceneScreenshotBaseName(scene)}.png`));
