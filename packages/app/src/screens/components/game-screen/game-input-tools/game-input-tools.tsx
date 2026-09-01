@@ -19,6 +19,6 @@ export const GameInputTools = ({ hideAutoCandidates, isLeftHanded }: Props) => (
         <RedoButton sizeStyle={styles.toolButton} />
         {hideAutoCandidates ? null : <AutoCandidatesButton sizeStyle={styles.toolButton} />}
         <HintButton sizeStyle={styles.toolButton} />
-        <InputModeButton sizeStyle={styles.primaryToolButton} />
+        <InputModeButton sizeStyle={styles.primaryToolButton(isLeftHanded)} />
     </View>
 );
