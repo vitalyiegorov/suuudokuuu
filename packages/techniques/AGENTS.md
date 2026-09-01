@@ -212,7 +212,7 @@ Adopted by `AbstractFishTechnique` and both fish families, and by `HiddenSubsetT
 ## Testing
 
 - Tests colocated with source files (`.spec.ts` suffix)
-- Coverage thresholds: statements 80%, branches 70%, lines 80%, functions 80%
+- Coverage thresholds: statements 99%, branches 94%, lines 99%, functions 100%
 - `solve-logically.spec.ts` guards the driver: elimination-only progress, solved/stuck/contradiction outcomes, determinism from a fixed board string, `wasSearchCapped` in all three shapes (a region forcing chain scan truncated on a 17-clue board reports it, a singles-only stuck solve and a solved board do not), and a wall-clock budget of 5000 ms for a full logical solve of a 17-clue hell-corpus board (about 80 ms locally, so the budget only fails on real regressions)
 - The chain specs guard shortest-first search: a fixture where a short and a long chain prove the same deduction asserts the short one is reported, the same fixture with the short chain broken asserts the long one is, and each detector holds a 2000 ms budget for a broad scan of a stuck 17-clue board (about 5 ms locally)
 - The forcing chain specs guard hypothetical reasoning: each detector proves its own deduction shape on a board where it is the deciding technique, asserts `chainLength === reasonCells.length` and the minimum chain size, checks every deduction against that board's known solution, covers the direct and enabling search intents, and holds a 2000 ms budget for a broad scan of a 17-clue board where the hypothesis cap truncates the search (about 10 ms locally)

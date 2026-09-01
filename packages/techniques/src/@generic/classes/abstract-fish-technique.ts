@@ -49,10 +49,6 @@ export abstract class AbstractFishTechnique<
         ];
     }
 
-    protected isCandidateUnit(entry: UnitValueEntryInterface): boolean {
-        return entry.cells.length > 0;
-    }
-
     protected getCellIndexByLineType(cell: CellInterface, lineType: LineType): number {
         return lineType === 'row' ? cell.y : cell.x;
     }
@@ -143,4 +139,6 @@ export abstract class AbstractFishTechnique<
     }
 
     protected abstract findInUnits(index: UnitValueIndex, base: FishBaseType, targetCell?: CellInterface): TechniqueResultInterface[];
+
+    protected abstract isCandidateUnit(entry: UnitValueEntryInterface): boolean;
 }

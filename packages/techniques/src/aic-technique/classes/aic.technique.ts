@@ -75,7 +75,7 @@ export class AICTechnique implements TechniqueStrategyInterface {
         for (const startNode of startNodes) {
             const scan = this.createScan(scanBase, startNode);
 
-            this.collectStartNodeResults(scan);
+            this.collectStartNodeResults(scan, startNode);
 
             if (scan.hasTargetResult) {
                 return results;
@@ -96,7 +96,7 @@ export class AICTechnique implements TechniqueStrategyInterface {
         for (const startNode of startNodes) {
             const scan = this.createScan(scanBase, startNode);
 
-            this.collectStartNodeResults(scan);
+            this.collectStartNodeResults(scan, startNode);
         }
 
         return getCanonicalTechniqueResults(results);
@@ -148,13 +148,7 @@ export class AICTechnique implements TechniqueStrategyInterface {
         return targetCellNodes;
     }
 
-    private collectStartNodeResults(scan: AICScanInterface): void {
-        const [startNode] = scan.path;
-
-        if (!isDefined(startNode)) {
-            return;
-        }
-
+    private collectStartNodeResults(scan: AICScanInterface, startNode: CandidateNodeInterface): void {
         scan.onPathByNodeIndex[startNode.index] = 1;
         this.collectResults(scan, true);
         scan.onPathByNodeIndex[startNode.index] = 0;
@@ -194,7 +188,7 @@ export class AICTechnique implements TechniqueStrategyInterface {
         onPathByNodeIndex[neighborNodeIndex] = 1;
 
         if (requiresStrongLink && path.length >= AIC_MIN_NODES) {
-            this.addEndpointResults(scan);
+            this.addEndpointResults(scan, neighborNode);
         }
 
         this.collectResults(scan, !requiresStrongLink);
@@ -203,14 +197,8 @@ export class AICTechnique implements TechniqueStrategyInterface {
         onPathByNodeIndex[neighborNodeIndex] = 0;
     }
 
-    private addEndpointResults(scan: AICScanInterface): void {
+    private addEndpointResults(scan: AICScanInterface, lastNode: CandidateNodeInterface): void {
         const { path } = scan;
-        const lastNode = path[path.length - 1];
-
-        if (!isDefined(lastNode)) {
-            return;
-        }
-
         const eliminations = this.getEndpointEliminations(scan, lastNode);
 
         if (eliminations.length === 0) {
@@ -255,11 +243,6 @@ export class AICTechnique implements TechniqueStrategyInterface {
     private getEndpointEliminations(scan: AICScanInterface, lastNode: CandidateNodeInterface): CandidateEliminationInterface[] {
         const { endpointMarksByNodeIndex, firstWeakNeighborNodes, graph, onPathByNodeIndex } = scan;
         const eliminations: CandidateEliminationInterface[] = [];
-
-        if (firstWeakNeighborNodes.length === 0) {
-            return eliminations;
-        }
-
         const lastWeakNeighborNodes = graph.weakNeighborNodesByIndex[lastNode.index];
 
         for (const neighborNode of lastWeakNeighborNodes) {

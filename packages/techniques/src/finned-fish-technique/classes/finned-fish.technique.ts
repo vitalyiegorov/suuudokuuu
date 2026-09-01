@@ -106,7 +106,7 @@ export class FinnedFishTechnique
     }
 
     private isFinnedFishScan(index: UnitValueIndex, base: FishBaseType, coverIndexes: readonly number[]): boolean {
-        return this.sashimi === this.isSashimiScan(index, base, coverIndexes) && this.hasBodyCellPerCoverIndex(index, base, coverIndexes);
+        return this.sashimi === this.isSashimiScan(index, base, coverIndexes);
     }
 
     private isSashimiScan(index: UnitValueIndex, base: FishBaseType, coverIndexes: readonly number[]): boolean {
@@ -126,22 +126,6 @@ export class FinnedFishTechnique
         }
 
         return false;
-    }
-
-    private hasBodyCellPerCoverIndex(index: UnitValueIndex, base: FishBaseType, coverIndexes: readonly number[]): boolean {
-        for (const coverIndex of coverIndexes) {
-            let hasBodyCell = false;
-
-            for (const unitPosition of base.unitPositions) {
-                hasBodyCell ||= index.getUnitValueEntry(unitPosition, base.value).positions.includes(coverIndex);
-            }
-
-            if (!hasBodyCell) {
-                return false;
-            }
-        }
-
-        return true;
     }
 
     private getScanCells(index: UnitValueIndex, base: FishBaseType, coverIndexes: readonly number[]): CellInterface[] {

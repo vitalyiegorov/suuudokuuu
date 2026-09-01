@@ -407,6 +407,44 @@ describe('TechniqueManager', () => {
         expect(result.technique).toBe(SolutionTechniqueEnum.Guess);
     });
 
+    it('should fall through to a guess when the composed pass reaches a contradiction', () => {
+        expect.assertions(1);
+
+        const sudoku = Sudoku.fromStrings(
+            defaultSudokuConfig,
+            '12345678.',
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........'
+        );
+        const [victimCell] = sudoku.Field[0].slice(-1);
+        const strategy: TechniqueStrategyInterface = {
+            technique: SolutionTechniqueEnum.XWing,
+            find: context =>
+                context.getCandidates(victimCell).includes(9)
+                    ? [
+                          {
+                              technique: SolutionTechniqueEnum.XWing,
+                              cell: victimCell,
+                              value: 9,
+                              kind: 'elimination',
+                              eliminations: [{ cell: victimCell, value: 9 }],
+                              reasonCells: []
+                          }
+                      ]
+                    : []
+        };
+
+        const result = new TechniqueManager(sudoku, [strategy]).identifyMove({ ...sudoku.Field[4][4], value: 1 });
+
+        expect(result).toEqual({ technique: SolutionTechniqueEnum.Guess, value: 1 });
+    });
+
     it('should use a guess when no strategy finds a logical step', () => {
         expect.assertions(2);
 
