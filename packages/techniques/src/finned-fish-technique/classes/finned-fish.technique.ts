@@ -1,20 +1,20 @@
-import { isDefined, isEmptyArray, isNotEmptyArray } from '@rnw-community/shared';
+import { isDefined, isNotEmptyArray } from '@rnw-community/shared';
 
 import { AbstractFishTechnique } from '../../@generic/classes/abstract-fish-technique';
 import { createEliminationResults } from '../../@generic/utils/create-elimination-results.util';
-import { getCombinations } from '../../@generic/utils/get-combinations.util';
-import { getUniqueValues } from '../../@generic/utils/get-unique-values.util';
+import { forEachCombination } from '../../@generic/utils/get-combinations.util';
 import { isSameCell } from '../../@generic/utils/is-same-cell.util';
 
-import type { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
-import type { CandidateEliminationInterface } from '../../@generic/interfaces/candidate-elimination.interface';
+import type { UnitValueIndex } from '../../@generic/classes/unit-value-index/unit-value-index';
 import type { FinnedFishTechniqueDescriptorInterface } from '../../@generic/interfaces/finned-fish-technique-descriptor.interface';
 import type { TechniqueResultInterface } from '../../@generic/interfaces/technique-result.interface';
 import type { TechniqueStrategyInterface } from '../../@generic/interfaces/technique-strategy.interface';
-import type { FinnedFishBaseType } from '../../@generic/types/finned-fish-base.type';
-import type { FinnedFishScanType } from '../../@generic/types/finned-fish-scan.type';
-import type { LineType } from '../../@generic/types/line.type';
+import type { UnitValueEntryInterface } from '../../@generic/interfaces/unit-value-entry.interface';
+import type { FishBaseType } from '../../@generic/types/fish-base.type';
 import type { CellInterface } from '@suuudokuuu/generator';
+
+const noLineIndex = -1;
+const noGroup = -1;
 
 export class FinnedFishTechnique
     extends AbstractFishTechnique<FinnedFishTechniqueDescriptorInterface>
@@ -24,104 +24,142 @@ export class FinnedFishTechnique
         return this.descriptor.sashimi;
     }
 
-    protected findInUnits(
-        context: CandidateContext,
-        value: number,
-        base: FinnedFishBaseType,
-        targetCell?: CellInterface
-    ): TechniqueResultInterface[] {
+    protected override isCandidateUnit(entry: UnitValueEntryInterface): boolean {
+        const candidateCellCount = entry.cells.length;
+
+        return candidateCellCount > 0 && candidateCellCount - this.getLargestGroupCellCount(entry) <= this.size;
+    }
+
+    protected findInUnits(index: UnitValueIndex, base: FishBaseType, targetCell?: CellInterface): TechniqueResultInterface[] {
         const results: TechniqueResultInterface[] = [];
-        const candidateCells = base.units.flatMap(unit => unit.cells.filter(cell => context.getCandidates(cell).includes(value)));
-        const possibleCoverIndexes = getUniqueValues(candidateCells.map(cell => this.getCellCoverIndex(cell, base.coverType)));
-        const targetCoverIndex = isDefined(targetCell) ? this.getCellCoverIndex(targetCell, base.coverType) : null;
+        const possibleCoverIndexes = this.getDistinctCoverIndexes(index, base);
+        const targetCoverIndex = isDefined(targetCell) ? this.getCellIndexByLineType(targetCell, base.coverType) : noLineIndex;
+        const targetGroup = isDefined(targetCell) ? targetCell.group : noGroup;
+        const baseIndexes = this.getBaseIndexes(index, base);
 
-        for (const coverIndexes of getCombinations(possibleCoverIndexes, this.size)) {
-            const canEliminateTarget = !isDefined(targetCoverIndex) || coverIndexes.includes(targetCoverIndex);
+        forEachCombination(possibleCoverIndexes, this.size, coverIndexes => {
+            const canEliminateTarget = targetCoverIndex === noLineIndex || coverIndexes.includes(targetCoverIndex);
+            const finGroup = canEliminateTarget ? this.getScanFinGroup(index, base, coverIndexes) : noGroup;
+            const isTargetedScan = targetGroup === noGroup || finGroup === targetGroup;
 
-            if (canEliminateTarget) {
-                const scan = this.createScan(candidateCells, coverIndexes, value, base);
+            if (finGroup !== noGroup && isTargetedScan && this.isFinnedFishScan(index, base, coverIndexes)) {
+                const eliminations = this.getCoverEliminations({
+                    index,
+                    coverIndexes,
+                    coverType: base.coverType,
+                    baseType: base.baseType,
+                    baseIndexes,
+                    value: base.value,
+                    isEligibleCell: cell => cell.group === finGroup
+                }).filter(elimination => !isDefined(targetCell) || isSameCell(elimination.cell, targetCell));
 
-                if (this.isTargetedScan(scan, targetCell) && this.isFinnedFish(scan) && this.isMatchingScan(scan)) {
-                    const eliminations = this.getFinnedFishEliminations(context, scan).filter(
-                        elimination => !isDefined(targetCell) || isSameCell(elimination.cell, targetCell)
-                    );
-
-                    results.push(...createEliminationResults(this.technique, eliminations, [...scan.bodyCells, ...scan.finCells]));
+                if (isNotEmptyArray(eliminations)) {
+                    results.push(...createEliminationResults(this.technique, eliminations, this.getScanCells(index, base, coverIndexes)));
                 }
             }
-        }
+        });
 
         return results;
     }
 
-    private isTargetedScan(scan: FinnedFishScanType, targetCell?: CellInterface): boolean {
-        return !isDefined(targetCell) || scan.finCells.every(cell => cell.group === targetCell.group);
-    }
+    private getLargestGroupCellCount(entry: UnitValueEntryInterface): number {
+        let largestGroupCellCount = 0;
 
-    private createScan(
-        candidateCells: CellInterface[],
-        coverIndexes: number[],
-        value: number,
-        base: FinnedFishBaseType
-    ): FinnedFishScanType {
-        const bodyCells = candidateCells.filter(cell => coverIndexes.includes(this.getCellCoverIndex(cell, base.coverType)));
-        const finCells = candidateCells.filter(cell => !coverIndexes.includes(this.getCellCoverIndex(cell, base.coverType)));
+        for (const cell of entry.cells) {
+            let groupCellCount = 0;
 
-        return { ...base, bodyCells, coverIndexes, finCells, value };
-    }
+            for (const otherCell of entry.cells) {
+                if (otherCell.group === cell.group) {
+                    groupCellCount += 1;
+                }
+            }
 
-    private getFinnedFishEliminations(context: CandidateContext, scan: FinnedFishScanType): CandidateEliminationInterface[] {
-        const [finGroup] = getUniqueValues(scan.finCells.map(cell => cell.group));
-        const baseIndexes = scan.units.map(unit => unit.index);
-        const eliminations: CandidateEliminationInterface[] = [];
-
-        if (isEmptyArray(scan.finCells) || !isDefined(finGroup)) {
-            return [];
+            largestGroupCellCount = Math.max(largestGroupCellCount, groupCellCount);
         }
 
-        for (const coverIndex of scan.coverIndexes) {
-            const coverCells = scan.coverType === 'row' ? context.getRowCells(coverIndex) : context.getColumnCells(coverIndex);
+        return largestGroupCellCount;
+    }
 
-            for (const cell of coverCells) {
-                const baseIndex = this.getCellBaseIndex(cell, scan.baseType);
+    private getScanFinGroup(index: UnitValueIndex, base: FishBaseType, coverIndexes: readonly number[]): number {
+        let finGroup = noGroup;
 
-                if (!baseIndexes.includes(baseIndex) && cell.group === finGroup && context.getCandidates(cell).includes(scan.value)) {
-                    eliminations.push({ cell, value: scan.value });
+        for (const unitPosition of base.unitPositions) {
+            const entry = index.getUnitValueEntry(unitPosition, base.value);
+            let bodyCellCount = 0;
+
+            for (let cellSlot = 0; cellSlot < entry.positions.length; cellSlot += 1) {
+                if (coverIndexes.includes(entry.positions[cellSlot])) {
+                    bodyCellCount += 1;
+                } else if (finGroup === noGroup) {
+                    finGroup = entry.cells[cellSlot].group;
+                } else if (finGroup !== entry.cells[cellSlot].group) {
+                    return noGroup;
+                }
+            }
+
+            if (bodyCellCount === 0) {
+                return noGroup;
+            }
+        }
+
+        return finGroup;
+    }
+
+    private isFinnedFishScan(index: UnitValueIndex, base: FishBaseType, coverIndexes: readonly number[]): boolean {
+        return this.sashimi === this.isSashimiScan(index, base, coverIndexes) && this.hasBodyCellPerCoverIndex(index, base, coverIndexes);
+    }
+
+    private isSashimiScan(index: UnitValueIndex, base: FishBaseType, coverIndexes: readonly number[]): boolean {
+        for (const unitPosition of base.unitPositions) {
+            const entry = index.getUnitValueEntry(unitPosition, base.value);
+            let bodyCellCount = 0;
+
+            for (const position of entry.positions) {
+                if (coverIndexes.includes(position)) {
+                    bodyCellCount += 1;
+                }
+            }
+
+            if (bodyCellCount === 1) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private hasBodyCellPerCoverIndex(index: UnitValueIndex, base: FishBaseType, coverIndexes: readonly number[]): boolean {
+        for (const coverIndex of coverIndexes) {
+            let hasBodyCell = false;
+
+            for (const unitPosition of base.unitPositions) {
+                hasBodyCell ||= index.getUnitValueEntry(unitPosition, base.value).positions.includes(coverIndex);
+            }
+
+            if (!hasBodyCell) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private getScanCells(index: UnitValueIndex, base: FishBaseType, coverIndexes: readonly number[]): CellInterface[] {
+        const bodyCells: CellInterface[] = [];
+        const finCells: CellInterface[] = [];
+
+        for (const unitPosition of base.unitPositions) {
+            const entry = index.getUnitValueEntry(unitPosition, base.value);
+
+            for (let cellSlot = 0; cellSlot < entry.positions.length; cellSlot += 1) {
+                if (coverIndexes.includes(entry.positions[cellSlot])) {
+                    bodyCells.push(entry.cells[cellSlot]);
+                } else {
+                    finCells.push(entry.cells[cellSlot]);
                 }
             }
         }
 
-        return eliminations;
-    }
-
-    private isFinnedFish(scan: FinnedFishScanType): boolean {
-        const finGroups = getUniqueValues(scan.finCells.map(cell => cell.group));
-
-        return (
-            isNotEmptyArray(scan.finCells) &&
-            finGroups.length === 1 &&
-            scan.coverIndexes.every(coverIndex =>
-                scan.bodyCells.some(cell => this.getCellCoverIndex(cell, scan.coverType) === coverIndex)
-            ) &&
-            scan.units.every(unit => scan.bodyCells.some(cell => this.getCellBaseIndex(cell, scan.baseType) === unit.index))
-        );
-    }
-
-    private isMatchingScan(scan: FinnedFishScanType): boolean {
-        return this.sashimi === this.isSashimiFish(scan);
-    }
-
-    private isSashimiFish(scan: FinnedFishScanType): boolean {
-        return scan.units.some(
-            unit => scan.bodyCells.filter(cell => this.getCellBaseIndex(cell, scan.baseType) === unit.index).length === 1
-        );
-    }
-
-    private getCellBaseIndex(cell: CellInterface, baseType: LineType): number {
-        return baseType === 'row' ? cell.y : cell.x;
-    }
-
-    private getCellCoverIndex(cell: CellInterface, coverType: LineType): number {
-        return coverType === 'row' ? cell.y : cell.x;
+        return [...bodyCells, ...finCells];
     }
 }

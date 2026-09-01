@@ -1,31 +1,30 @@
 import { isDefined } from '@rnw-community/shared';
 
-import { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
 import { markContextSearchCapped } from '../../@generic/utils/context-scan-state.util';
 import { createEliminationResults } from '../../@generic/utils/create-elimination-results.util';
 import { getCanonicalTechniqueResults } from '../../@generic/utils/get-canonical-technique-results.util';
-import { getCombinations } from '../../@generic/utils/get-combinations.util';
 import { getSearchScope } from '../../@generic/utils/get-search-scope.util';
 import { getUniqueCells } from '../../@generic/utils/get-unique-cells.util';
 import { isSameCell } from '../../@generic/utils/is-same-cell.util';
-import { AIC_MAX_LINK_VISITS, AIC_MIN_NODES } from '../constants/aic.constant';
+import { AIC_MAX_LINK_VISITS, AIC_MIN_NODES, EMPTY_TARGET_CELL_NODES } from '../constants/aic.constant';
+import { getContextCandidateLinkGraph } from '../utils/candidate-link-graph.util';
 
+import type { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
 import type { CandidateEliminationInterface } from '../../@generic/interfaces/candidate-elimination.interface';
-import type { CandidateUnitInterface } from '../../@generic/interfaces/candidate-unit.interface';
 import type { TechniqueResultInterface } from '../../@generic/interfaces/technique-result.interface';
 import type { TechniqueSearchTargetInterface } from '../../@generic/interfaces/technique-search-target.interface';
 import type { TechniqueStrategyInterface } from '../../@generic/interfaces/technique-strategy.interface';
 import type { AICScanInterface } from '../interfaces/aic-scan.interface';
 import type { CandidateLinkGraphInterface } from '../interfaces/candidate-link-graph.interface';
 import type { CandidateNodeInterface } from '../interfaces/candidate-node.interface';
-import type { CellInterface } from '@suuudokuuu/generator';
+import type { AICScanBaseType } from '../types/aic-scan-base.type';
 
 export class AICTechnique implements TechniqueStrategyInterface {
     readonly technique = SolutionTechniqueEnum.AIC;
 
     find(context: CandidateContext, searchTarget?: TechniqueSearchTargetInterface): TechniqueResultInterface[] {
-        const graph = this.createGraph(context);
+        const graph = getContextCandidateLinkGraph(context);
         const { directTarget: target } = getSearchScope(context, searchTarget);
         const startNodes = this.getStartNodes(graph, target);
 
@@ -36,26 +35,29 @@ export class AICTechnique implements TechniqueStrategyInterface {
         return this.findBroadResults(context, graph, startNodes);
     }
 
-    protected collectResults(scan: AICScanInterface, path: CandidateNodeInterface[], requiresStrongLink: boolean): void {
+    protected collectResults(scan: AICScanInterface, requiresStrongLink: boolean): void {
+        const { path, results } = scan;
         const currentNode = path[path.length - 1];
 
         if (!isDefined(currentNode) || scan.hasTargetResult || scan.linkVisits >= AIC_MAX_LINK_VISITS) {
             return;
         }
 
-        const neighborKeys = requiresStrongLink
-            ? scan.graph.strongNeighborsByKey.get(currentNode.key)
-            : scan.graph.weakNeighborsByKey.get(currentNode.key);
+        const neighborNodes = requiresStrongLink
+            ? scan.sortedStrongNeighborsByIndex[currentNode.index]
+            : scan.sortedWeakNeighborsByIndex[currentNode.index];
+        const neighborCount = neighborNodes.length;
+        const isTargetScan = isDefined(scan.target);
 
-        for (const neighborKey of [...(neighborKeys ?? [])].sort()) {
+        for (let neighborPosition = 0; neighborPosition < neighborCount; neighborPosition += 1) {
             if (scan.linkVisits >= AIC_MAX_LINK_VISITS) {
                 return;
             }
 
             scan.linkVisits += 1;
-            this.visitNeighbor(scan, path, requiresStrongLink, neighborKey);
+            this.visitNeighbor(scan, requiresStrongLink, neighborNodes[neighborPosition]);
 
-            if (scan.target && scan.results.length > 0) {
+            if (isTargetScan && results.length > 0) {
                 return;
             }
         }
@@ -68,11 +70,12 @@ export class AICTechnique implements TechniqueStrategyInterface {
         target: TechniqueSearchTargetInterface
     ): TechniqueResultInterface[] {
         const results: TechniqueResultInterface[] = [];
+        const scanBase = this.createScanBase(context, graph, results, target);
 
         for (const startNode of startNodes) {
-            const scan: AICScanInterface = { context, graph, results, target, linkVisits: 0, hasTargetResult: false };
+            const scan = this.createScan(scanBase, startNode);
 
-            this.collectStartNodeResults(scan, startNode);
+            this.collectStartNodeResults(scan);
 
             if (scan.hasTargetResult) {
                 return results;
@@ -88,18 +91,73 @@ export class AICTechnique implements TechniqueStrategyInterface {
         startNodes: CandidateNodeInterface[]
     ): TechniqueResultInterface[] {
         const results: TechniqueResultInterface[] = [];
+        const scanBase = this.createScanBase(context, graph, results);
 
         for (const startNode of startNodes) {
-            const scan: AICScanInterface = { context, graph, results, linkVisits: 0, hasTargetResult: false };
+            const scan = this.createScan(scanBase, startNode);
 
-            this.collectStartNodeResults(scan, startNode);
+            this.collectStartNodeResults(scan);
         }
 
         return getCanonicalTechniqueResults(results);
     }
 
-    private collectStartNodeResults(scan: AICScanInterface, startNode: CandidateNodeInterface): void {
-        this.collectResults(scan, [startNode], true);
+    private createScanBase(
+        context: CandidateContext,
+        graph: CandidateLinkGraphInterface,
+        results: TechniqueResultInterface[],
+        target?: TechniqueSearchTargetInterface
+    ): AICScanBaseType {
+        const targetCellNodes = isDefined(target) ? this.getTargetCellNodes(graph, target) : EMPTY_TARGET_CELL_NODES;
+
+        return {
+            context,
+            graph,
+            results,
+            target,
+            targetCellNodes,
+            onPathByNodeIndex: new Uint8Array(graph.nodeCount),
+            endpointMarksByNodeIndex: new Uint8Array(graph.nodeCount),
+            sortedStrongNeighborsByIndex: graph.sortedStrongNeighborsByIndex,
+            sortedWeakNeighborsByIndex: graph.sortedWeakNeighborsByIndex
+        };
+    }
+
+    private createScan(scanBase: AICScanBaseType, startNode: CandidateNodeInterface): AICScanInterface {
+        return {
+            ...scanBase,
+            path: [startNode],
+            firstWeakNeighborNodes: scanBase.graph.weakNeighborNodesByIndex[startNode.index],
+            linkVisits: 0,
+            hasTargetResult: false
+        };
+    }
+
+    private getTargetCellNodes(
+        graph: CandidateLinkGraphInterface,
+        target: TechniqueSearchTargetInterface
+    ): readonly CandidateNodeInterface[] {
+        const targetCellNodes: CandidateNodeInterface[] = [];
+
+        for (const node of graph.nodesByKey.values()) {
+            if (isSameCell(node.cell, target.cell)) {
+                targetCellNodes.push(node);
+            }
+        }
+
+        return targetCellNodes;
+    }
+
+    private collectStartNodeResults(scan: AICScanInterface): void {
+        const [startNode] = scan.path;
+
+        if (!isDefined(startNode)) {
+            return;
+        }
+
+        scan.onPathByNodeIndex[startNode.index] = 1;
+        this.collectResults(scan, true);
+        scan.onPathByNodeIndex[startNode.index] = 0;
 
         if (scan.linkVisits >= AIC_MAX_LINK_VISITS) {
             markContextSearchCapped(scan.context);
@@ -115,14 +173,8 @@ export class AICTechnique implements TechniqueStrategyInterface {
 
         for (const targetNode of graph.nodesByKey.values()) {
             if (isSameCell(targetNode.cell, target.cell) && targetNode.value !== target.value) {
-                const neighborKeys = graph.weakNeighborsByKey.get(targetNode.key) ?? new Set<string>();
-
-                for (const neighborKey of neighborKeys) {
-                    const neighborNode = graph.nodesByKey.get(neighborKey);
-
-                    if (isDefined(neighborNode)) {
-                        startNodesByKey.set(neighborNode.key, neighborNode);
-                    }
+                for (const neighborNode of graph.weakNeighborNodesByIndex[targetNode.index]) {
+                    startNodesByKey.set(neighborNode.key, neighborNode);
                 }
             }
         }
@@ -130,166 +182,100 @@ export class AICTechnique implements TechniqueStrategyInterface {
         return [...startNodesByKey.values()].sort((firstNode, secondNode) => firstNode.key.localeCompare(secondNode.key));
     }
 
-    private createGraph(context: CandidateContext): CandidateLinkGraphInterface {
-        const graph: CandidateLinkGraphInterface = {
-            nodesByKey: new Map<string, CandidateNodeInterface>(),
-            strongNeighborsByKey: new Map<string, Set<string>>(),
-            weakNeighborsByKey: new Map<string, Set<string>>()
-        };
+    private visitNeighbor(scan: AICScanInterface, requiresStrongLink: boolean, neighborNode: CandidateNodeInterface): void {
+        const { onPathByNodeIndex, path } = scan;
+        const neighborNodeIndex = neighborNode.index;
 
-        this.addCellLinks(context, graph);
-        this.addUnitLinks(context, graph);
-
-        return graph;
-    }
-
-    private addCellLinks(context: CandidateContext, graph: CandidateLinkGraphInterface): void {
-        for (const cell of context.getBlankCells()) {
-            const cellNodes = context.getCandidates(cell).map(value => this.getOrCreateNode(graph, cell, value));
-
-            for (const [firstNode, secondNode] of getCombinations(cellNodes, 2)) {
-                if (isDefined(firstNode) && isDefined(secondNode)) {
-                    this.addLink(graph.weakNeighborsByKey, firstNode, secondNode);
-                }
-            }
-
-            const [firstNode, secondNode] = cellNodes;
-
-            if (cellNodes.length === 2 && isDefined(firstNode) && isDefined(secondNode)) {
-                this.addLink(graph.strongNeighborsByKey, firstNode, secondNode);
-            }
-        }
-    }
-
-    private addUnitLinks(context: CandidateContext, graph: CandidateLinkGraphInterface): void {
-        for (const value of context.getValues()) {
-            for (const unit of context.getUnits()) {
-                this.addUnitValueLinks(context, graph, unit, value);
-            }
-        }
-    }
-
-    private addUnitValueLinks(
-        context: CandidateContext,
-        graph: CandidateLinkGraphInterface,
-        unit: CandidateUnitInterface,
-        value: number
-    ): void {
-        const unitNodes = unit.cells
-            .filter(cell => context.getCandidates(cell).includes(value))
-            .map(cell => this.getOrCreateNode(graph, cell, value));
-
-        for (const [firstNode, secondNode] of getCombinations(unitNodes, 2)) {
-            if (isDefined(firstNode) && isDefined(secondNode)) {
-                this.addLink(graph.weakNeighborsByKey, firstNode, secondNode);
-            }
-        }
-
-        const [firstNode, secondNode] = unitNodes;
-
-        if (unitNodes.length === 2 && isDefined(firstNode) && isDefined(secondNode)) {
-            this.addLink(graph.strongNeighborsByKey, firstNode, secondNode);
-        }
-    }
-
-    private getOrCreateNode(graph: CandidateLinkGraphInterface, cell: CellInterface, value: number): CandidateNodeInterface {
-        const key = this.getNodeKey(cell, value);
-        const existingNode = graph.nodesByKey.get(key);
-
-        if (isDefined(existingNode)) {
-            return existingNode;
-        }
-
-        const node = { cell, key, value };
-
-        graph.nodesByKey.set(key, node);
-
-        return node;
-    }
-
-    private addLink(neighborsByKey: Map<string, Set<string>>, firstNode: CandidateNodeInterface, secondNode: CandidateNodeInterface): void {
-        const firstNeighbors = neighborsByKey.get(firstNode.key) ?? new Set<string>();
-        const secondNeighbors = neighborsByKey.get(secondNode.key) ?? new Set<string>();
-
-        firstNeighbors.add(secondNode.key);
-        secondNeighbors.add(firstNode.key);
-        neighborsByKey.set(firstNode.key, firstNeighbors);
-        neighborsByKey.set(secondNode.key, secondNeighbors);
-    }
-
-    private visitNeighbor(scan: AICScanInterface, path: CandidateNodeInterface[], requiresStrongLink: boolean, neighborKey: string): void {
-        if (path.some(node => node.key === neighborKey)) {
+        if (onPathByNodeIndex[neighborNodeIndex] === 1) {
             return;
         }
 
-        const neighborNode = scan.graph.nodesByKey.get(neighborKey);
+        path.push(neighborNode);
+        onPathByNodeIndex[neighborNodeIndex] = 1;
 
-        if (!isDefined(neighborNode)) {
-            return;
+        if (requiresStrongLink && path.length >= AIC_MIN_NODES) {
+            this.addEndpointResults(scan);
         }
 
-        const nextPath = [...path, neighborNode];
+        this.collectResults(scan, !requiresStrongLink);
 
-        if (requiresStrongLink && nextPath.length >= AIC_MIN_NODES) {
-            this.addEndpointResults(scan, nextPath);
-        }
-
-        this.collectResults(scan, nextPath, !requiresStrongLink);
+        path.pop();
+        onPathByNodeIndex[neighborNodeIndex] = 0;
     }
 
-    private addEndpointResults(scan: AICScanInterface, path: CandidateNodeInterface[]): void {
-        const [firstNode] = path;
+    private addEndpointResults(scan: AICScanInterface): void {
+        const { path } = scan;
         const lastNode = path[path.length - 1];
 
-        if (!isDefined(firstNode) || !isDefined(lastNode)) {
+        if (!isDefined(lastNode)) {
             return;
         }
 
-        const eliminations = this.getEndpointEliminations(scan.graph, path, firstNode, lastNode);
+        const eliminations = this.getEndpointEliminations(scan, lastNode);
+
+        if (eliminations.length === 0) {
+            return;
+        }
+
         const { target } = scan;
-        const targetsMove = !target || this.doesJustifyTargetValue(scan.graph, eliminations, target);
 
-        if (eliminations.length > 0 && targetsMove) {
-            scan.results.push(...createEliminationResults(this.technique, eliminations, getUniqueCells(path.map(node => node.cell))));
+        if (isDefined(target) && !this.doesJustifyTargetValue(scan, eliminations, target)) {
+            return;
+        }
 
-            if (scan.target) {
-                scan.hasTargetResult = true;
-            }
+        scan.results.push(...createEliminationResults(this.technique, eliminations, getUniqueCells(path.map(node => node.cell))));
+
+        if (isDefined(target)) {
+            scan.hasTargetResult = true;
         }
     }
 
     private doesJustifyTargetValue(
-        graph: CandidateLinkGraphInterface,
+        scan: AICScanInterface,
         eliminations: CandidateEliminationInterface[],
         target: TechniqueSearchTargetInterface
     ): boolean {
-        const remainingCandidates = [...graph.nodesByKey.values()]
-            .filter(node => isSameCell(node.cell, target.cell))
-            .filter(
-                node => !eliminations.some(elimination => isSameCell(elimination.cell, target.cell) && elimination.value === node.value)
+        let remainingCount = 0;
+        let remainingValue = 0;
+
+        for (const node of scan.targetCellNodes) {
+            const isEliminated = eliminations.some(
+                elimination => elimination.value === node.value && isSameCell(elimination.cell, target.cell)
             );
 
-        return remainingCandidates.length === 1 && remainingCandidates[0].value === target.value;
+            if (!isEliminated) {
+                remainingCount += 1;
+                remainingValue = node.value;
+            }
+        }
+
+        return remainingCount === 1 && remainingValue === target.value;
     }
 
-    private getEndpointEliminations(
-        graph: CandidateLinkGraphInterface,
-        path: CandidateNodeInterface[],
-        firstNode: CandidateNodeInterface,
-        lastNode: CandidateNodeInterface
-    ) {
-        const firstWeakNeighbors = graph.weakNeighborsByKey.get(firstNode.key) ?? new Set<string>();
-        const lastWeakNeighbors = graph.weakNeighborsByKey.get(lastNode.key) ?? new Set<string>();
-        const pathKeys = new Set(path.map(node => node.key));
+    private getEndpointEliminations(scan: AICScanInterface, lastNode: CandidateNodeInterface): CandidateEliminationInterface[] {
+        const { endpointMarksByNodeIndex, firstWeakNeighborNodes, graph, onPathByNodeIndex } = scan;
+        const eliminations: CandidateEliminationInterface[] = [];
 
-        return [...firstWeakNeighbors]
-            .filter(key => lastWeakNeighbors.has(key) && !pathKeys.has(key))
-            .map(key => graph.nodesByKey.get(key))
-            .filter(isDefined)
-            .map(node => ({ cell: node.cell, value: node.value }));
-    }
+        if (firstWeakNeighborNodes.length === 0) {
+            return eliminations;
+        }
 
-    private getNodeKey(cell: CellInterface, value: number): string {
-        return `${CandidateContext.getCellKey(cell)}:${value}`;
+        const lastWeakNeighborNodes = graph.weakNeighborNodesByIndex[lastNode.index];
+
+        for (const neighborNode of lastWeakNeighborNodes) {
+            endpointMarksByNodeIndex[neighborNode.index] = 1;
+        }
+
+        for (const neighborNode of firstWeakNeighborNodes) {
+            if (endpointMarksByNodeIndex[neighborNode.index] === 1 && onPathByNodeIndex[neighborNode.index] === 0) {
+                eliminations.push({ cell: neighborNode.cell, value: neighborNode.value });
+            }
+        }
+
+        for (const neighborNode of lastWeakNeighborNodes) {
+            endpointMarksByNodeIndex[neighborNode.index] = 0;
+        }
+
+        return eliminations;
     }
 }

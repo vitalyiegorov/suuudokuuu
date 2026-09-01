@@ -9,12 +9,11 @@ import { AICTechnique } from './aic.technique';
 
 import type { CandidateCellSpecType } from '../../@generic/types/candidate-cell-spec.spec.type';
 import type { AICScanInterface } from '../interfaces/aic-scan.interface';
-import type { CandidateNodeInterface } from '../interfaces/candidate-node.interface';
 
 class BudgetExhaustingAICTechnique extends AICTechnique {
     readonly scans: AICScanInterface[] = [];
 
-    protected override collectResults(scan: AICScanInterface, _path: CandidateNodeInterface[], _requiresStrongLink: boolean): void {
+    protected override collectResults(scan: AICScanInterface, _requiresStrongLink: boolean): void {
         this.scans.push(scan);
         scan.linkVisits = AIC_MAX_LINK_VISITS;
     }

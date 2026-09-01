@@ -21,7 +21,9 @@ src/
 ├── @generic/
 │   ├── classes/
 │   │   ├── technique-manager/          # Public API: findNextStep, identifyMove
-│   │   ├── candidate-context/          # Cached candidate map + unit/peer navigation
+│   │   ├── candidate-context/          # Index-addressed candidate snapshot + unit/peer navigation
+│   │   ├── board-geometry/             # Per-layout cached cell indexes, units, and peer lists
+│   │   ├── unit-value-index/           # Per-context (unit, value) -> cells and in-unit positions
 │   │   ├── hypothesis-propagator/      # Indexed board + memoised hypothesis propagation
 │   │   ├── abstract-sized-technique.ts # Descriptor-backed family metadata only
 │   │   └── abstract-fish-technique.ts  # Shared fish scanning only
@@ -55,12 +57,13 @@ solveLogically(techniqueOrder?: readonly SolutionTechniqueEnum[]): LogicalSolveR
 
 Logical strategies run in `SolutionTechniqueEnum` difficulty order from `createTechniqueStrategies`. The manager exits at the first strategy that finds a result, and fallback `GuessTechnique` runs only when no supported logical technique matches. Techniques that only differ by size/name use descriptor-backed family strategies instead of empty subclasses.
 
-`identifyMove` classifies in two ordered passes, each walking the registry in difficulty order:
+`identifyMove` classifies in three ordered passes, each walking the registry in difficulty order:
 
 1. Direct — the strategy places the played value in the played cell, or its eliminations leave that value as the only candidate there.
 2. Enabling — the strategy's eliminations, applied to a transient context via `CandidateContext.withEliminations`, turn the played value into a naked or hidden single at the played cell (`isForcedPlacement`). The pass is skipped when the placement is already forced without those eliminations, so a technique is never credited for a deduction it did not cause.
+3. Composed — only reached when direct and enabling both fail. It threads the same accepted-step loop `solveLogically` uses, starting from the same fresh `CandidateContext` the other two passes already built: `findProgressingStep` finds the next accepted step over the caller's `orderedStrategies`, `applyStep` folds it into the threaded context, and the loop repeats, bounded by the same `getStepLimit()` as the driver. It stops the moment the played value is placed by name or `isForcedPlacement` reports the played cell forced, and reports the hardest technique seen along the way, ranked by that technique's position in `orderedStrategies` rather than by `SolutionTechniqueEnum` ordinal, so the label still respects a caller-supplied `techniqueOrder`. A step ladder that runs dry (`findProgressingStep` returns null) or reaches a contradiction falls through to `Guess`, exactly like a `stuck` or `contradiction` `solveLogically` outcome would. The pass also declines up front, like the enabling pass, when the played cell is already forced before any step runs — crediting the first strategy that happens to fire in that case would attribute a deduction no step actually caused.
 
-A direct justification is one deduction step and always outranks an enabling one, which is two. Only moves that would otherwise fall through to `Guess` can reach the enabling pass.
+A direct justification is one deduction step and always outranks an enabling one, which is two, which in turn always outranks a composed one, which is whatever chain length the ladder actually needed. Only moves that would otherwise fall through to `Guess` reach the enabling pass, and only moves that survive both direct and enabling reach the composed pass — most placements that used to report `Guess` because their justification needed two or more composed elimination steps are labelled with the hardest technique in that chain instead.
 
 `identifyMove` takes the same optional `techniqueOrder` as `solveLogically`, which is the interactive escape hatch: a caller that must answer within a frame passes a cheaper ladder instead of the registry.
 
@@ -135,6 +138,12 @@ A single budget shared across the whole broad scan would be spent in start-node 
 
 An exhausted start-node budget still marks the context with `markContextSearchCapped`.
 
+One candidate-link graph is built per `CandidateContext` and shared across every `find()` call made against that context, including both passes `identifyMove` runs on the same context — direct and enabling. `getContextCandidateLinkGraph(context)` in `candidate-link-graph.util.ts` holds it in a module-level `WeakMap` keyed by the context, mirroring `getContextHypothesisPropagator`. Sharing it this way is sound only because the graph is immutable once built: `createGraph` derives `sortedStrongNeighborsByIndex`, `sortedWeakNeighborsByIndex`, and `weakNeighborNodesByIndex` a single time, and every piece of mutable state a scan needs — visited nodes, the link-visit budget, the path being reconstructed — lives on the per-scan state `find()` builds fresh each call, never on the cached graph. The three arrays are the same adjacency read two ways: the two `sorted*` arrays hold each node's neighbors in the default string sort of their keys, which is the traversal order, while `weakNeighborNodesByIndex` holds the weak neighbors of each node in the insertion order of the `Set` they were built from, which is the endpoint-elimination order. All three are materialised as node arrays addressed by node index, so no scan ever hashes a node key.
+
+The ordering contract the scan depended on before the cache still holds exactly: traversal still walks the presorted neighbor arrays, sorted with the same comparator used before the graph was cached; start nodes are still ordered by `localeCompare` on their key; and eliminations still walk the first node's weak neighbors in the insertion order of the `Set` behind them, since a graph built once has one fixed insertion order to materialise.
+
+The two node-indexed scratch arrays a scan writes — `onPathByNodeIndex`, which marks the current path, and `endpointMarksByNodeIndex`, which marks the last node's weak neighbors while an endpoint intersection is computed — are allocated once per `find()` and shared by every start node rather than allocated per start node. That is sound because both are left clean between start nodes: the depth-first walk pops and unmarks every node it pushed, `collectStartNodeResults` clears the start node's own mark after its scan returns, and the endpoint intersection clears its marks before returning. Neither array carries any state across start nodes, so the per-start-node budget and its exhaustion behaviour are untouched.
+
 ### Forcing chains
 
 `NishioForcingChainTechnique`, `CellForcingChainTechnique`, and `RegionForcingChainTechnique` are the only strategies that reason hypothetically. All three share `HypothesisPropagator`, which is where the cost lives.
@@ -163,6 +172,32 @@ Cached snapshot of candidates per blank cell (`fromSudoku`), with unit/peer navi
 
 Snapshots are immutable: `withEliminations(eliminations)` and `withPlacement(cell, value)` both return a new context, the latter with the value written into its own field copy and the value pruned from the peer candidates. `getBlankCells` is candidate-driven, so a cell reduced to zero candidates silently leaves it; `hasContradiction()` reports that state explicitly and `isSolved()` reports a board with no unfilled cells.
 
+Candidates are stored as one frozen array per `cellIndex` (`y * fieldSize + x`), not as a string-keyed map, so `getCandidates` is an array index. `withEliminations` and `withPlacement` copy only the candidate arrays they actually change and share every other array by reference into the child snapshot, which keeps a snapshot cheap enough for the driver to thread one per accepted step. The public constructor still accepts a string-keyed `CandidateMapType` and normalises it, which is what technique specs build synthetic contexts from, and `CandidateContext.getCellKey` stays the shared cell-key format for the detectors that key their own scan state.
+
+Every accessor that returns cells — `getCells`, `getRowCells`, `getColumnCells`, `getGroupCells`, `getUnits`, `getPeers` — still returns a fresh array the caller may mutate. The value-bearing arrays behind them are derived lazily on first access and memoised per snapshot, so a snapshot that is created and discarded without being scanned never materialises them.
+
+### BoardGeometry
+
+Static board topology — flat cell indexes per row, column, and group, the ordered unit descriptors, and the peer index list per cell — depends only on `fieldSize`, `fieldGroupWidth`, and `fieldGroupHeight`, never on cell values. It is therefore computed once per board layout and shared by every `CandidateContext`, instead of being rebuilt per snapshot.
+
+`BoardGeometry.forBoard(config, field)` resolves the cache in two steps: a `WeakMap` keyed by the config object identity, backed by a `Map` keyed by the layout dimensions. The second level is required because `Sudoku.Config` returns a fresh object on every access, so identity alone would miss on every `fromSudoku` call. Group membership is read from the field rather than recomputed, which is sound because every field is built by the generator's `createEmptyField` from those same three dimensions.
+
+Unit order is part of the deduction contract: rows and columns interleaved by index, then groups in ascending group number. Peer order is row cells, then column cells, then group cells, each at its first occurrence. Changing either reorders the results a technique reports and therefore changes which deduction the driver applies.
+
+### UnitValueIndex
+
+One `UnitValueIndex` is built per `CandidateContext`, lazily, and shared by every strategy that asks for it. `getContextUnitValueIndex(context)` in `context-scan-state.util.ts` holds it in a module-level `WeakMap` keyed by the context, mirroring `getContextHypothesisPropagator` and the AIC candidate-link graph.
+
+The index answers one question in constant time: which cells of unit U hold candidate V, in unit cell order, together with their positions inside that unit. It keeps one entry per `(unit, value)` pair in a flat array addressed by `unitPosition * (fieldSize + 1) + value`, and the entries hold the canonical cell objects the context's units already expose, so cell identity and every emitted result stay exactly what they were before the index existed.
+
+Sharing it across strategies is sound because a context is an immutable snapshot: entries are built once and only read afterwards, and every piece of per-scan state lives on the calling strategy's own frame. Callers must not mutate the arrays an entry hands back; a strategy that emits index cells as `reasonCells` copies them first.
+
+For line units the position inside the unit is also the fish cover index — a row unit is ordered by `x`, a column unit by `y` — so the fish scans read base cells, cover indexes, and the body/fin partition straight off the index instead of re-deriving them from `getCandidates` per base-unit combination.
+
+Adopted by `AbstractFishTechnique` and both fish families, and by `HiddenSubsetTechnique`. It is deliberately not adopted by the cheap singles-and-intersections band that runs before them: `HiddenSingle`, `Pointing`, and `BoxLineReduction` fire on nearly every context, so letting them build the index forces it onto contexts the ladder never scans deeply. That measured 1-2 % slower on both replay workloads even though it removed work from those three strategies. The index earns its build cost only where a context is scanned repeatedly, which is the subset and fish band and everything after it.
+
+`forEachCombination` in `get-combinations.util.ts` walks combinations through a single reused buffer, so a scan that only reads a combination allocates no array per combination. `getCombinations` is that same walk with a copy per combination and stays the right choice whenever the combinations outlive the walk, as they do for the value combinations `HiddenSubsetTechnique` reuses across all 27 units.
+
 ## Rules
 
 - Technique detection must answer "which technique justifies value V in cell C", not "any technique anywhere"
@@ -182,6 +217,7 @@ Snapshots are immutable: `withEliminations(eliminations)` and `withPlacement(cel
 - The chain specs guard shortest-first search: a fixture where a short and a long chain prove the same deduction asserts the short one is reported, the same fixture with the short chain broken asserts the long one is, and each detector holds a 2000 ms budget for a broad scan of a stuck 17-clue board (about 5 ms locally)
 - The forcing chain specs guard hypothetical reasoning: each detector proves its own deduction shape on a board where it is the deciding technique, asserts `chainLength === reasonCells.length` and the minimum chain size, checks every deduction against that board's known solution, covers the direct and enabling search intents, and holds a 2000 ms budget for a broad scan of a 17-clue board where the hypothesis cap truncates the search (about 10 ms locally)
 - Driver fixtures are fixed 81-character board strings fed through `Sudoku.fromString`; never `Sudoku.create`, which uses unseeded randomness
+- `identify-move-composition.spec.ts` guards the composed pass with mined fixtures: real player moves that need two or more composed elimination steps are labelled with the hardest technique in the chain instead of `Guess`, the interactive-order ladder either recomposes a cheaper label or honestly stays `Guess` for moves only a forcing chain or `AIC` proves, a full logical-solve replay of a solved board never classifies any of its placements as `Guess`, and a composed-pass classification on the slowest mined fixture holds a 5000 ms wall-clock budget
 - `technique-catalog-known-solution.spec.ts` pairs every fixture board with its own solution and asserts that no registered strategy eliminates a solution value or places a wrong one, which is what keeps the uniqueness techniques honest
 
 ## Exports
