@@ -271,7 +271,11 @@
             "2": 12,
             "3": 6
         },
-        "playedDayNumbers": [20681]
+        "playedDayNumbers": [20681],
+        "undoneMoves": [],
+        "dailyDayNumber": 0,
+        "dailyCompletedDayNumbers": [],
+        "dailyBestStreak": 0
     },
     "settings": {
         "hasVibration": true,
