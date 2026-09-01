@@ -3,13 +3,7 @@ import { mkdirSync } from 'node:fs';
 import { dirname, join, posix } from 'node:path';
 
 import { AllScenes, DefaultSeedDifficulty, type Scene } from './screenshot-scenes.ts';
-import {
-    AndroidStorageRelativePath,
-    IosStorageRelativePath,
-    type SeedOptions,
-    type SeedTarget,
-    seedAppState
-} from './seed-app-state.ts';
+import { AndroidStorageRelativePath, IosStorageRelativePath, type SeedOptions, type SeedTarget, seedAppState } from './seed-app-state.ts';
 
 const SupportedPlatforms = ['android', 'ios'];
 
