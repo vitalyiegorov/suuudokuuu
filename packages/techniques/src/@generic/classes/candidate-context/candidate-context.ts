@@ -1,86 +1,88 @@
 import { isDefined, isEmptyArray, isNotEmptyArray } from '@rnw-community/shared';
 
+import { BoardGeometry } from '../board-geometry/board-geometry';
+
 import type { CandidateEliminationInterface } from '../../interfaces/candidate-elimination.interface';
 import type { CandidateUnitInterface } from '../../interfaces/candidate-unit.interface';
 import type { CandidateMapType } from '../../types/candidate-map.type';
 import type { CellInterface, FieldInterface, Sudoku, SudokuConfigInterface } from '@suuudokuuu/generator';
 
+const emptyCandidates: readonly number[] = Object.freeze([]);
+const emptyCandidateMap: CandidateMapType = Object.freeze({});
+
 export class CandidateContext {
-    private readonly cells: CellInterface[];
-    private readonly values: number[];
-    private readonly rowCells: CellInterface[][];
-    private readonly columnCells: CellInterface[][];
-    private readonly groupCellsByIndex: Record<number, CellInterface[]>;
-    private readonly units: CandidateUnitInterface[];
-    private readonly peersByCellKey: Record<string, CellInterface[]>;
-    private readonly candidateMap: CandidateMapType;
+    private readonly geometry: BoardGeometry;
+    private readonly candidatesByCellIndex: readonly (readonly number[])[];
+
+    private cachedCells: CellInterface[] | null = null;
+    private cachedColumnCells: CellInterface[][] | null = null;
+    private cachedGroupCells: Map<number, CellInterface[]> | null = null;
+    private cachedUnits: CandidateUnitInterface[] | null = null;
+    private cachedPeerCells: (CellInterface[] | null)[] | null = null;
 
     constructor(
         private readonly config: SudokuConfigInterface,
         private readonly field: FieldInterface,
-        candidateMap: CandidateMapType = {}
+        candidateMap: CandidateMapType = {},
+        candidatesByCellIndex?: readonly (readonly number[])[]
     ) {
-        this.cells = this.field.flatMap(row => row);
-        this.candidateMap = {};
-
-        for (const cell of this.cells) {
-            const key = CandidateContext.getCellKey(cell);
-            const candidates = candidateMap[key];
-
-            this.candidateMap[key] = Object.freeze(isDefined(candidates) ? [...candidates] : []);
-        }
-
-        this.values = Array.from({ length: this.config.fieldSize }, (_, index) => index + 1);
-        this.rowCells = this.field.map(row => [...row]);
-        this.columnCells = this.createColumnCells();
-        this.groupCellsByIndex = this.createGroupCellsByIndex();
-        this.units = this.createUnits();
-        this.peersByCellKey = this.createPeersByCellKey();
+        this.geometry = BoardGeometry.forBoard(config, field);
+        this.candidatesByCellIndex = isDefined(candidatesByCellIndex) ? candidatesByCellIndex : this.createCandidatesFromMap(candidateMap);
     }
 
     getCandidates(cell: CellInterface): readonly number[] {
-        return this.candidateMap[CandidateContext.getCellKey(cell)];
+        const cellIndex = this.geometry.getCellIndex(cell);
+
+        return cellIndex < 0 ? emptyCandidates : this.candidatesByCellIndex[cellIndex];
     }
 
     withEliminations(eliminations: CandidateEliminationInterface[]): CandidateContext {
-        const eliminatedValuesByCellKey: Record<string, number[]> = {};
+        const eliminatedValuesByCellIndex = new Map<number, number[]>();
 
         for (const elimination of eliminations) {
-            const key = CandidateContext.getCellKey(elimination.cell);
+            const cellIndex = this.geometry.getCellIndex(elimination.cell);
 
-            eliminatedValuesByCellKey[key] = [...(eliminatedValuesByCellKey[key] ?? []), elimination.value];
-        }
+            if (cellIndex >= 0) {
+                const eliminatedValues = eliminatedValuesByCellIndex.get(cellIndex);
 
-        const candidateMap: CandidateMapType = {};
-
-        for (const cell of this.cells) {
-            const key = CandidateContext.getCellKey(cell);
-            const eliminatedValues = eliminatedValuesByCellKey[key] ?? [];
-
-            candidateMap[key] = this.candidateMap[key].filter(candidate => !eliminatedValues.includes(candidate));
-        }
-
-        return new CandidateContext(this.config, this.field, candidateMap);
-    }
-
-    withPlacement(cell: CellInterface, value: number): CandidateContext {
-        const placedCellKey = CandidateContext.getCellKey(cell);
-        const peerKeys = new Set(this.getPeers(cell).map(peer => CandidateContext.getCellKey(peer)));
-        const candidateMap: CandidateMapType = {};
-
-        for (const fieldCell of this.cells) {
-            const key = CandidateContext.getCellKey(fieldCell);
-
-            if (key === placedCellKey) {
-                candidateMap[key] = [];
-            } else if (peerKeys.has(key)) {
-                candidateMap[key] = this.candidateMap[key].filter(candidate => candidate !== value);
-            } else {
-                candidateMap[key] = this.candidateMap[key];
+                if (isDefined(eliminatedValues)) {
+                    eliminatedValues.push(elimination.value);
+                } else {
+                    eliminatedValuesByCellIndex.set(cellIndex, [elimination.value]);
+                }
             }
         }
 
-        return new CandidateContext(this.config, this.createFieldWithValue(cell, value), candidateMap);
+        const nextCandidatesByCellIndex = [...this.candidatesByCellIndex];
+
+        for (const [cellIndex, eliminatedValues] of eliminatedValuesByCellIndex) {
+            const cellCandidates = this.candidatesByCellIndex[cellIndex];
+            const remainingCandidates = cellCandidates.filter(candidate => !eliminatedValues.includes(candidate));
+
+            nextCandidatesByCellIndex[cellIndex] =
+                remainingCandidates.length === cellCandidates.length ? cellCandidates : Object.freeze(remainingCandidates);
+        }
+
+        return new CandidateContext(this.config, this.field, emptyCandidateMap, nextCandidatesByCellIndex);
+    }
+
+    withPlacement(cell: CellInterface, value: number): CandidateContext {
+        const placedCellIndex = this.geometry.getCellIndex(cell);
+        const nextCandidatesByCellIndex = [...this.candidatesByCellIndex];
+
+        if (placedCellIndex >= 0) {
+            nextCandidatesByCellIndex[placedCellIndex] = emptyCandidates;
+
+            for (const peerCellIndex of this.geometry.getPeerCellIndexes(placedCellIndex)) {
+                const peerCandidates = this.candidatesByCellIndex[peerCellIndex];
+
+                if (peerCandidates.includes(value)) {
+                    nextCandidatesByCellIndex[peerCellIndex] = Object.freeze(peerCandidates.filter(candidate => candidate !== value));
+                }
+            }
+        }
+
+        return new CandidateContext(this.config, this.createFieldWithValue(cell, value), emptyCandidateMap, nextCandidatesByCellIndex);
     }
 
     isBlankCell(cell: CellInterface): boolean {
@@ -88,43 +90,47 @@ export class CandidateContext {
     }
 
     hasContradiction(): boolean {
-        return this.cells.some(cell => this.isBlankCell(cell) && isEmptyArray(this.getCandidates(cell)));
+        return this.getCachedCells().some(cell => this.isBlankCell(cell) && isEmptyArray(this.getCandidates(cell)));
     }
 
     isSolved(): boolean {
-        return this.cells.every(cell => !this.isBlankCell(cell));
+        return this.getCachedCells().every(cell => !this.isBlankCell(cell));
     }
 
     getCells(): CellInterface[] {
-        return [...this.cells];
+        return [...this.getCachedCells()];
     }
 
     getBlankCells(): CellInterface[] {
-        return this.getCells().filter(cell => isNotEmptyArray(this.getCandidates(cell)));
+        return this.getCachedCells().filter(cell => isNotEmptyArray(this.getCandidates(cell)));
     }
 
     getValues(): number[] {
-        return [...this.values];
+        return [...this.geometry.values];
     }
 
     getRowCells(rowIndex: number): CellInterface[] {
-        return [...this.rowCells[rowIndex]];
+        return [...this.field[rowIndex]];
     }
 
     getColumnCells(columnIndex: number): CellInterface[] {
-        return [...this.columnCells[columnIndex]];
+        return [...this.getCachedColumnCells()[columnIndex]];
     }
 
     getGroupCells(cell: Pick<CellInterface, 'group'>): CellInterface[] {
-        return [...(this.groupCellsByIndex[cell.group] ?? [])];
+        const groupCells = this.getCachedGroupCells().get(cell.group);
+
+        return isDefined(groupCells) ? [...groupCells] : [];
     }
 
     getUnits(): CandidateUnitInterface[] {
-        return this.units.map(unit => ({ ...unit, cells: [...unit.cells] }));
+        return this.getCachedUnits().map(unit => ({ ...unit, cells: [...unit.cells] }));
     }
 
     getPeers(cell: CellInterface): CellInterface[] {
-        return [...(this.peersByCellKey[CandidateContext.getCellKey(cell)] ?? [])];
+        const cellIndex = this.geometry.getCellIndex(cell);
+
+        return cellIndex < 0 ? [] : [...this.getCachedCellPeers(cellIndex)];
     }
 
     getCommonPeers(cells: CellInterface[]): CellInterface[] {
@@ -141,58 +147,98 @@ export class CandidateContext {
         );
     }
 
-    private createFieldWithValue(cell: CellInterface, value: number): FieldInterface {
-        return this.field.map(row => row.map(fieldCell => (this.isSameCell(fieldCell, cell) ? { ...fieldCell, value } : fieldCell)));
-    }
+    private createCandidatesFromMap(candidateMap: CandidateMapType): readonly (readonly number[])[] {
+        const candidatesByCellIndex: (readonly number[])[] = [];
 
-    private createColumnCells(): CellInterface[][] {
-        return Array.from({ length: this.config.fieldSize }, (_, columnIndex) => this.field.map(row => row[columnIndex]));
-    }
-
-    private createGroupCellsByIndex(): Record<number, CellInterface[]> {
-        const groupCellsByIndex: Record<number, CellInterface[]> = {};
-
-        for (const cell of this.cells) {
-            const groupCells = groupCellsByIndex[cell.group] ?? [];
-
-            groupCells.push(cell);
-            groupCellsByIndex[cell.group] = groupCells;
+        for (let cellIndex = 0; cellIndex < this.geometry.cellCount; cellIndex += 1) {
+            candidatesByCellIndex.push(emptyCandidates);
         }
 
-        return groupCellsByIndex;
+        for (const row of this.field) {
+            for (const cell of row) {
+                const candidates = candidateMap[CandidateContext.getCellKey(cell)];
+
+                if (isDefined(candidates)) {
+                    candidatesByCellIndex[this.geometry.getCellIndex(cell)] = Object.freeze([...candidates]);
+                }
+            }
+        }
+
+        return candidatesByCellIndex;
     }
 
-    private createUnits(): CandidateUnitInterface[] {
-        const units: CandidateUnitInterface[] = [];
+    private getCachedCells(): CellInterface[] {
+        this.cachedCells ??= this.field.flatMap(row => row);
 
-        for (let index = 0; index < this.config.fieldSize; index += 1) {
-            units.push({ type: 'row', index, cells: this.rowCells[index] });
-            units.push({ type: 'column', index, cells: this.columnCells[index] });
+        return this.cachedCells;
+    }
+
+    private getCachedColumnCells(): CellInterface[][] {
+        this.cachedColumnCells ??= Array.from({ length: this.config.fieldSize }, (_, columnIndex) =>
+            this.geometry.getColumnCellIndexes(columnIndex).map(cellIndex => this.getCachedCells()[cellIndex])
+        );
+
+        return this.cachedColumnCells;
+    }
+
+    private getCachedGroupCells(): Map<number, CellInterface[]> {
+        if (isDefined(this.cachedGroupCells)) {
+            return this.cachedGroupCells;
         }
 
-        for (const groupIndex of Object.keys(this.groupCellsByIndex).map(Number)) {
-            units.push({ type: 'group', index: groupIndex, cells: this.groupCellsByIndex[groupIndex] });
+        const cells = this.getCachedCells();
+        const groupCells = new Map<number, CellInterface[]>();
+
+        for (const unitDescriptor of this.geometry.unitDescriptors) {
+            if (unitDescriptor.type === 'group') {
+                groupCells.set(
+                    unitDescriptor.index,
+                    unitDescriptor.cellIndexes.map(cellIndex => cells[cellIndex])
+                );
+            }
         }
+
+        this.cachedGroupCells = groupCells;
+
+        return groupCells;
+    }
+
+    private getCachedUnits(): CandidateUnitInterface[] {
+        if (isDefined(this.cachedUnits)) {
+            return this.cachedUnits;
+        }
+
+        const cells = this.getCachedCells();
+        const units = this.geometry.unitDescriptors.map(unitDescriptor => ({
+            type: unitDescriptor.type,
+            index: unitDescriptor.index,
+            cells: unitDescriptor.cellIndexes.map(cellIndex => cells[cellIndex])
+        }));
+
+        this.cachedUnits = units;
 
         return units;
     }
 
-    private createPeersByCellKey(): Record<string, CellInterface[]> {
-        const peersByCellKey: Record<string, CellInterface[]> = {};
+    private getCachedCellPeers(cellIndex: number): CellInterface[] {
+        this.cachedPeerCells ??= Array.from({ length: this.geometry.cellCount }, () => null);
 
-        for (const cell of this.cells) {
-            const peerMap: Record<string, CellInterface> = {};
+        const cachedCellPeers = this.cachedPeerCells[cellIndex];
 
-            for (const peer of [...this.rowCells[cell.y], ...this.columnCells[cell.x], ...this.getGroupCells(cell)]) {
-                if (!this.isSameCell(peer, cell)) {
-                    peerMap[CandidateContext.getCellKey(peer)] = peer;
-                }
-            }
-
-            peersByCellKey[CandidateContext.getCellKey(cell)] = Object.values(peerMap);
+        if (isDefined(cachedCellPeers)) {
+            return cachedCellPeers;
         }
 
-        return peersByCellKey;
+        const cells = this.getCachedCells();
+        const peerCells = this.geometry.getPeerCellIndexes(cellIndex).map(peerCellIndex => cells[peerCellIndex]);
+
+        this.cachedPeerCells[cellIndex] = peerCells;
+
+        return peerCells;
+    }
+
+    private createFieldWithValue(cell: CellInterface, value: number): FieldInterface {
+        return this.field.map(row => row.map(fieldCell => (this.isSameCell(fieldCell, cell) ? { ...fieldCell, value } : fieldCell)));
     }
 
     private isSameCell(cell: CellInterface, otherCell: CellInterface): boolean {
@@ -200,17 +246,22 @@ export class CandidateContext {
     }
 
     static fromSudoku(sudoku: Sudoku): CandidateContext {
-        const candidateMap: CandidateMapType = {};
+        const geometry = BoardGeometry.forBoard(sudoku.Config, sudoku.Field);
+        const candidatesByCellIndex: (readonly number[])[] = [];
+
+        for (let cellIndex = 0; cellIndex < geometry.cellCount; cellIndex += 1) {
+            candidatesByCellIndex.push(emptyCandidates);
+        }
 
         for (const row of sudoku.Field) {
             for (const cell of row) {
                 if (sudoku.isBlankCell(cell)) {
-                    candidateMap[CandidateContext.getCellKey(cell)] = sudoku.getCellCandidates(cell);
+                    candidatesByCellIndex[geometry.getCellIndex(cell)] = Object.freeze(sudoku.getCellCandidates(cell));
                 }
             }
         }
 
-        return new CandidateContext(sudoku.Config, sudoku.Field, candidateMap);
+        return new CandidateContext(sudoku.Config, sudoku.Field, emptyCandidateMap, candidatesByCellIndex);
     }
 
     static getCellKey(cell: CellInterface): string {
