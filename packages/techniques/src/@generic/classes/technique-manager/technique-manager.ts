@@ -69,7 +69,8 @@ export class TechniqueManager {
         const targetValue = this.getTargetValue(cell);
         const technique =
             this.findDirectTechnique(context, orderedStrategies, cell, targetValue) ??
-            this.findEnablingTechnique(context, orderedStrategies, cell, targetValue);
+            this.findEnablingTechnique(context, orderedStrategies, cell, targetValue) ??
+            this.findComposedTechnique(context, orderedStrategies, cell, targetValue);
 
         return { technique: technique ?? this.guessTechnique.technique, value: targetValue };
     }
@@ -172,6 +173,42 @@ export class TechniqueManager {
         );
 
         return clearsPeerCandidate && isForcedPlacement(context.withEliminations(result.eliminations), cell, value);
+    }
+
+    private findComposedTechnique(
+        context: CandidateContext,
+        orderedStrategies: TechniqueStrategyInterface[],
+        cell: CellInterface,
+        value: number
+    ): SolutionTechniqueEnum | null {
+        if (isForcedPlacement(context, cell, value)) {
+            return null;
+        }
+
+        let composedContext = context;
+        let hardestStrategyIndex = -1;
+
+        for (let stepCount = 0; stepCount < this.getStepLimit(); stepCount += 1) {
+            const step = this.findProgressingStep(composedContext, orderedStrategies);
+
+            if (!isDefined(step)) {
+                return null;
+            }
+
+            hardestStrategyIndex = Math.max(
+                hardestStrategyIndex,
+                orderedStrategies.findIndex(strategy => strategy.technique === step.technique)
+            );
+            composedContext = this.applyStep(composedContext, step);
+
+            const isPlayedByThisStep = step.kind === 'placement' && isSameCell(step.cell, cell) && step.value === value;
+
+            if (isPlayedByThisStep || isForcedPlacement(composedContext, cell, value)) {
+                return orderedStrategies[hardestStrategyIndex]?.technique ?? null;
+            }
+        }
+
+        return null;
     }
 
     private getTargetValue(cell: CellInterface): number {
