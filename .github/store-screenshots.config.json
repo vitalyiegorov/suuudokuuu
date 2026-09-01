@@ -1,0 +1,61 @@
+{
+    "ios-target": {
+        "name": "production",
+        "appDir": "packages/app",
+        "workspace": "suuudokuuu.xcworkspace",
+        "scheme": "suuudokuuu",
+        "appId": "com.vitalyiegorov.suuudokuuu",
+        "prebuildCommand": "npx expo prebuild -p ios --clean --no-install"
+    },
+    "capture-mode": "direct",
+    "capture-manifest": [
+        {
+            "platform": "ios",
+            "device": "iPhone 17 Pro Max",
+            "locales": [
+                { "id": "en", "env": { "LOCALE_IDENTIFIER": "en-US" } },
+                { "id": "de", "env": { "LOCALE_IDENTIFIER": "de-DE" } },
+                { "id": "es", "env": { "LOCALE_IDENTIFIER": "es-ES" } },
+                { "id": "fr", "env": { "LOCALE_IDENTIFIER": "fr-FR" } },
+                { "id": "pt", "env": { "LOCALE_IDENTIFIER": "pt-BR" } },
+                { "id": "sv", "env": { "LOCALE_IDENTIFIER": "sv-SE" } },
+                { "id": "hi", "env": { "LOCALE_IDENTIFIER": "hi-IN" } },
+                { "id": "ar", "env": { "LOCALE_IDENTIFIER": "ar-SA" } },
+                { "id": "id", "env": { "LOCALE_IDENTIFIER": "id-ID" } }
+            ],
+            "appearances": ["light"]
+        }
+    ],
+    "capture-scenes": [
+        { "name": "home", "deepLink": "suuudokuuu://" },
+        { "name": "game", "deepLink": "suuudokuuu://game" },
+        { "name": "stats", "deepLink": "suuudokuuu://history" }
+    ],
+    "screenshots-dir": "tests/app-tests/flows/screenshots",
+    "seed-command": "node tests/app-tests/scripts/ci-seed-scene.ts",
+    "settle-seconds": "5",
+    "status-bar-override": true,
+    "apple-screenshot-slots": {
+        "1320x2868": "iPhone 6.9\"",
+        "1290x2796": "iPhone 6.9\"",
+        "1284x2778": "iPhone 6.5\"",
+        "1242x2688": "iPhone 6.5\"",
+        "1206x2622": "iPhone 6.3\"",
+        "1179x2556": "iPhone 6.1\"",
+        "2064x2752": "iPad 13\"",
+        "2752x2064": "iPad 13\"",
+        "2048x2732": "iPad 12.9\"",
+        "2732x2048": "iPad 12.9\""
+    },
+    "maestro-env": "OS_LANGUAGE_MODE=true\n",
+    "cache-profile": "suuudokuuu-ios-prod-v1",
+    "repack-on-hit": true,
+    "rct-use-prebuilt-rncore": true,
+    "rct-use-rn-dep": true,
+    "build-env": "APP_VARIANT=production\n",
+    "upload-screenshots": true,
+    "upload-command": "export PATH=\"$HOME/.rbenv/shims:/opt/homebrew/bin:/opt/homebrew/sbin:$PATH\"\nexport SCREENSHOT_VARIANT=ci\nfastlane ios ios_screenshots\n",
+    "screenshots-download-dir": "fastlane/screenshots/variants/ci",
+    "asc-dedupe-screenshots": true,
+    "asc-dedupe-app-id": "com.vitalyiegorov.suuudokuuu"
+}

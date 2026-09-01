@@ -19,7 +19,7 @@ concurrency:
 jobs:
     seed:
         name: Seed E2E native caches
-        uses: rnw-community/mobile-ci/.github/workflows/seed-native-cache.yml@v1.9.0 # v1.9.0
+        uses: rnw-community/mobile-ci/.github/workflows/seed-native-cache.yml@v1.11.0 # v1.11.0
         with:
             ios-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
             android-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
