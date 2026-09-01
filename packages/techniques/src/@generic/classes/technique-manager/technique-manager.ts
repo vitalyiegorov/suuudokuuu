@@ -9,6 +9,8 @@ import { isSameCell } from '../../utils/is-same-cell.util';
 import { CandidateContext } from '../candidate-context/candidate-context';
 
 import type { SolutionTechniqueEnum } from '../../enums/solution-technique.enum';
+import type { ComposedStepResultInterface } from '../../interfaces/composed-step-result.interface';
+import type { ComposedStepStateInterface } from '../../interfaces/composed-step-state.interface';
 import type { LogicalSolveResultInterface } from '../../interfaces/logical-solve-result.interface';
 import type { MoveClassificationInterface } from '../../interfaces/move-classification.interface';
 import type { TechniqueResultInterface } from '../../interfaces/technique-result.interface';
@@ -69,7 +71,8 @@ export class TechniqueManager {
         const targetValue = this.getTargetValue(cell);
         const technique =
             this.findDirectTechnique(context, orderedStrategies, cell, targetValue) ??
-            this.findEnablingTechnique(context, orderedStrategies, cell, targetValue);
+            this.findEnablingTechnique(context, orderedStrategies, cell, targetValue) ??
+            this.findComposedTechnique(context, orderedStrategies, cell, targetValue);
 
         return { technique: technique ?? this.guessTechnique.technique, value: targetValue };
     }
@@ -172,6 +175,66 @@ export class TechniqueManager {
         );
 
         return clearsPeerCandidate && isForcedPlacement(context.withEliminations(result.eliminations), cell, value);
+    }
+
+    private findComposedTechnique(
+        context: CandidateContext,
+        orderedStrategies: TechniqueStrategyInterface[],
+        cell: CellInterface,
+        value: number
+    ): SolutionTechniqueEnum | null {
+        if (isForcedPlacement(context, cell, value)) {
+            return null;
+        }
+
+        const stepLimit = this.getStepLimit();
+        let state: ComposedStepStateInterface = { context, hardestStrategyIndex: -1 };
+
+        for (let stepCount = 0; stepCount < stepLimit; stepCount += 1) {
+            const stepResult = this.advanceComposedStep(state, orderedStrategies, cell, value);
+
+            if (!isDefined(stepResult)) {
+                return null;
+            }
+
+            if (stepResult.isResolved) {
+                return orderedStrategies[stepResult.hardestStrategyIndex]?.technique ?? null;
+            }
+
+            if (stepResult.hasContradiction) {
+                return null;
+            }
+
+            state = stepResult;
+        }
+
+        return null;
+    }
+
+    private advanceComposedStep(
+        state: ComposedStepStateInterface,
+        orderedStrategies: TechniqueStrategyInterface[],
+        cell: CellInterface,
+        value: number
+    ): ComposedStepResultInterface | null {
+        const step = this.findProgressingStep(state.context, orderedStrategies);
+
+        if (!isDefined(step)) {
+            return null;
+        }
+
+        const stepStrategyIndex = orderedStrategies.findIndex(strategy => strategy.technique === step.technique);
+        const nextHardestStrategyIndex = Math.max(state.hardestStrategyIndex, stepStrategyIndex);
+        const nextContext = this.applyStep(state.context, step);
+        const isPlayedPlacement = step.kind === 'placement' && isSameCell(step.cell, cell) && step.value === value;
+        const isResolved = isPlayedPlacement || isForcedPlacement(nextContext, cell, value);
+
+        return {
+            context: nextContext,
+            hardestStrategyIndex: nextHardestStrategyIndex,
+            isResolved,
+            hasContradiction: nextContext.hasContradiction()
+        };
     }
 
     private getTargetValue(cell: CellInterface): number {
