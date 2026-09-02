@@ -3,15 +3,9 @@ import { StyleSheet } from 'react-native-unistyles';
 
 const narrowChipSize = 38;
 const wideChipSize = 48;
-const narrowChipFontSize = 20;
-const wideChipFontSize = 24;
 const narrowTechniqueFontSize = 11;
-const wideTechniqueFontSize = 13;
 const narrowTechniqueLetterSpacing = 0.4;
 const wideTechniqueLetterSpacing = 0.6;
-const narrowNarrationFontSize = 13;
-const wideNarrationFontSize = 16;
-const wideNarrationLineHeight = 22;
 
 export const HintStepNarrationStyles = StyleSheet.create((theme, rt) => {
     const isWideLayout = appLayoutScreenIsWide(rt.screen);
@@ -36,11 +30,11 @@ export const HintStepNarrationStyles = StyleSheet.create((theme, rt) => {
             width: chipSize
         },
         chipText: {
-            fontSize: isWideLayout ? wideChipFontSize : narrowChipFontSize,
+            fontSize: isWideLayout ? theme.typography.size.xl : theme.typography.size.lg,
             fontWeight: '900'
         },
         technique: {
-            fontSize: isWideLayout ? wideTechniqueFontSize : narrowTechniqueFontSize,
+            fontSize: isWideLayout ? 13 : narrowTechniqueFontSize,
             fontWeight: '900',
             letterSpacing: isWideLayout ? wideTechniqueLetterSpacing : narrowTechniqueLetterSpacing,
             textAlign: 'left',
@@ -48,10 +42,10 @@ export const HintStepNarrationStyles = StyleSheet.create((theme, rt) => {
         },
         narration: {
             flex: 1,
-            fontSize: isWideLayout ? wideNarrationFontSize : narrowNarrationFontSize,
+            fontSize: isWideLayout ? theme.typography.size.md : 13,
             fontWeight: '600',
             textAlign: 'left',
-            ...(isWideLayout && { lineHeight: wideNarrationLineHeight })
+            ...(isWideLayout && { lineHeight: 22 })
         }
     };
 });

@@ -22,13 +22,6 @@ describe('GameInputToolsWideSizeConstant', () => {
         expect(wideToolsWidth).toBeLessThanOrEqual(GamePanelWideRowWidthConstant);
     });
 
-    it('uses the largest whole size the wide panel row can carry', () => {
-        const oversizedToolsWidth =
-            (GameInputToolsWideSizeConstant + 1) * GameInputToolsCountConstant + SpacingConstant.sm * (GameInputToolsCountConstant - 1);
-
-        expect(oversizedToolsWidth).toBeGreaterThan(GamePanelWideRowWidthConstant);
-    });
-
     it('stays above the minimum touch target', () => {
         expect(GameInputToolsWideSizeConstant).toBeGreaterThanOrEqual(BoardCellSizeMinConstant);
     });

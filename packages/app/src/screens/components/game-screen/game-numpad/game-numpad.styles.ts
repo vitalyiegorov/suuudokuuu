@@ -7,24 +7,25 @@ import { PanelControlSizeConstant } from '../../../../game/constant/panel-contro
 import { gameGetNumpadRowWidth } from '../../../../game/utils/game-get-numpad-row-width.util';
 import { getDigitButtonFontSize } from '../../../../game/utils/get-digit-button-font-size.util';
 
-export const GameNumpadStyles = StyleSheet.create((theme, rt) => ({
-    numpad: {
-        alignSelf: 'center',
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        gap: appLayoutScreenIsWide(rt.screen) ? GameNumpadWideGapConstant : theme.spacing.sm,
-        justifyContent: 'center',
-        maxWidth: appLayoutScreenIsWide(rt.screen) ? GamePanelWideRowWidthConstant : gameGetNumpadRowWidth(rt.screen.width)
-    },
-    digit: {
-        height: appLayoutScreenIsWide(rt.screen) ? GameNumpadWideDigitSizeConstant : PanelControlSizeConstant,
-        width: appLayoutScreenIsWide(rt.screen) ? GameNumpadWideDigitSizeConstant : PanelControlSizeConstant
-    },
-    digitText: (fontSizeMultiplier: number, fontScale: number) => {
-        const digitSize = appLayoutScreenIsWide(rt.screen) ? GameNumpadWideDigitSizeConstant : PanelControlSizeConstant;
+export const GameNumpadStyles = StyleSheet.create((theme, rt) => {
+    const isWideLayout = appLayoutScreenIsWide(rt.screen);
+    const digitSize = isWideLayout ? GameNumpadWideDigitSizeConstant : PanelControlSizeConstant;
 
-        return {
+    return {
+        numpad: {
+            alignSelf: 'center',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            gap: isWideLayout ? GameNumpadWideGapConstant : theme.spacing.sm,
+            justifyContent: 'center',
+            maxWidth: isWideLayout ? GamePanelWideRowWidthConstant : gameGetNumpadRowWidth(rt.screen.width)
+        },
+        digit: {
+            height: digitSize,
+            width: digitSize
+        },
+        digitText: (fontSizeMultiplier: number, fontScale: number) => ({
             fontSize: getDigitButtonFontSize(digitSize, fontSizeMultiplier, fontScale)
-        };
-    }
-}));
+        })
+    };
+});

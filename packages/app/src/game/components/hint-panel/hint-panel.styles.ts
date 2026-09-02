@@ -1,11 +1,16 @@
 import { appLayoutScreenIsWide } from '@suuudokuuu/ui';
 import { StyleSheet } from 'react-native-unistyles';
 
-import { HintPanelWideMaxWidthConstant } from './constant/hint-panel.constant';
+import { GameSidePanelWidthConstant } from '../../constant/board-cell-size.constant';
+
+const hintPanelWideWidthRatio = 1.5;
+const hintPanelWideMaxWidth = GameSidePanelWidthConstant * hintPanelWideWidthRatio;
 
 export const HintPanelStyles = StyleSheet.create((theme, rt) => {
     const isWideLayout = appLayoutScreenIsWide(rt.screen);
     const edgeInset = isWideLayout ? theme.spacing.lg : theme.spacing.sm;
+    const dotSize = isWideLayout ? 8 : 6;
+    const dotActiveSize = isWideLayout ? 10 : 8;
 
     return {
         container: {
@@ -19,7 +24,7 @@ export const HintPanelStyles = StyleSheet.create((theme, rt) => {
             position: 'absolute',
             right: edgeInset,
             zIndex: 10,
-            ...(isWideLayout && { marginHorizontal: 'auto', maxWidth: HintPanelWideMaxWidthConstant })
+            ...(isWideLayout && { marginHorizontal: 'auto', maxWidth: hintPanelWideMaxWidth })
         },
         content: {
             alignItems: 'flex-start',
@@ -48,14 +53,14 @@ export const HintPanelStyles = StyleSheet.create((theme, rt) => {
         dot: {
             backgroundColor: theme.colors.text.hint,
             borderRadius: theme.radius.pill,
-            height: isWideLayout ? 8 : 6,
-            width: isWideLayout ? 8 : 6
+            height: dotSize,
+            width: dotSize
         },
         dotActive: {
             backgroundColor: theme.colors.accent,
             borderRadius: theme.radius.pill,
-            height: isWideLayout ? 10 : 8,
-            width: isWideLayout ? 10 : 8
+            height: dotActiveSize,
+            width: dotActiveSize
         },
         stepButton: {
             minWidth: 44

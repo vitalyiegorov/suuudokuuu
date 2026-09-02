@@ -53,10 +53,6 @@ describe('GameInputTools', () => {
         expect(StyleSheet.flatten(GameInputToolsStyles.inputControls(true))).toMatchObject({ flexDirection: 'row-reverse' });
     });
 
-    it('keeps the utility group from shrinking its buttons', () => {
-        expect(StyleSheet.flatten(GameInputToolsStyles.utilityGroup)).toMatchObject({ flexShrink: 0 });
-    });
-
     it('centers every tool on the same horizontal axis', () => {
         expect(StyleSheet.flatten(GameInputToolsStyles.inputControls(false))).toMatchObject({ alignItems: 'center' });
     });

@@ -8,39 +8,40 @@ import { gameGetNumpadRowWidth } from '../../../../game/utils/game-get-numpad-ro
 
 import { GameInputToolsMinRowWidthConstant, GameInputToolsWideSizeConstant } from './constant/game-input-tools.constant';
 
-export const GameInputToolsStyles = StyleSheet.create((theme, rt) => ({
-    inputControls: (isLeftHanded: boolean) => {
-        const isWideLayout = appLayoutScreenIsWide(rt.screen);
-        const narrowFlexDirection = isLeftHanded ? 'row-reverse' : 'row';
-        const panelInnerWidth = rt.screen.width - GamePanelHorizontalPaddingConstant * 2;
-        const narrowRowWidth = Math.min(
-            panelInnerWidth,
-            Math.max(gameGetNumpadRowWidth(rt.screen.width), GameInputToolsMinRowWidthConstant)
-        );
+export const GameInputToolsStyles = StyleSheet.create((theme, rt) => {
+    const isWideLayout = appLayoutScreenIsWide(rt.screen);
+    const panelInnerWidth = rt.screen.width - GamePanelHorizontalPaddingConstant * 2;
+    const narrowRowWidth = Math.min(panelInnerWidth, Math.max(gameGetNumpadRowWidth(rt.screen.width), GameInputToolsMinRowWidthConstant));
+    const toolSize = isWideLayout ? GameInputToolsWideSizeConstant : AppIconButtonSize;
+    const primaryToolSize = isWideLayout ? GameInputToolsWideSizeConstant : PanelControlPrimarySizeConstant;
 
-        return {
+    return {
+        inputControls: (isLeftHanded: boolean) => {
+            const narrowFlexDirection = isLeftHanded ? 'row-reverse' : 'row';
+
+            return {
+                alignItems: 'center',
+                alignSelf: 'center',
+                flexDirection: isWideLayout ? 'row' : narrowFlexDirection,
+                gap: theme.spacing.sm,
+                justifyContent: 'space-between',
+                width: isWideLayout ? GamePanelWideRowWidthConstant : narrowRowWidth
+            };
+        },
+        utilityGroup: {
             alignItems: 'center',
-            alignSelf: 'center',
-            flexDirection: isWideLayout ? 'row' : narrowFlexDirection,
-            gap: theme.spacing.sm,
-            justifyContent: 'space-between',
-            width: isWideLayout ? GamePanelWideRowWidthConstant : narrowRowWidth
-        };
-    },
-    utilityGroup: {
-        alignItems: 'center',
-        flexDirection: 'row',
-        flexShrink: 0,
-        gap: theme.spacing.sm
-    },
-    toolButton: {
-        borderRadius: PanelControlPillRadiusConstant,
-        height: appLayoutScreenIsWide(rt.screen) ? GameInputToolsWideSizeConstant : AppIconButtonSize,
-        width: appLayoutScreenIsWide(rt.screen) ? GameInputToolsWideSizeConstant : AppIconButtonSize
-    },
-    primaryToolButton: {
-        borderRadius: PanelControlPillRadiusConstant,
-        height: appLayoutScreenIsWide(rt.screen) ? GameInputToolsWideSizeConstant : PanelControlPrimarySizeConstant,
-        width: appLayoutScreenIsWide(rt.screen) ? GameInputToolsWideSizeConstant : PanelControlPrimarySizeConstant
-    }
-}));
+            flexDirection: 'row',
+            gap: theme.spacing.sm
+        },
+        toolButton: {
+            borderRadius: PanelControlPillRadiusConstant,
+            height: toolSize,
+            width: toolSize
+        },
+        primaryToolButton: {
+            borderRadius: PanelControlPillRadiusConstant,
+            height: primaryToolSize,
+            width: primaryToolSize
+        }
+    };
+});

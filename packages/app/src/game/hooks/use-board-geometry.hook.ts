@@ -8,10 +8,9 @@ import { settingsCellMarginSelector } from '../../settings/store/settings.select
 import { gameGetBoardGeometry } from '../utils/game-get-board-geometry.util';
 
 import type { BoardAreaGeometryInterface } from '../interface/board-area-geometry.interface';
-import type { BoardAreaSizeInterface } from '../interface/board-area-size.interface';
 import type { LayoutChangeEvent } from 'react-native';
 
-let lastMeasuredBoardArea: BoardAreaSizeInterface = { width: 0, height: 0 };
+let lastMeasuredBoardArea = { width: 0, height: 0 };
 
 export const useBoardGeometry = (reservedHeight: number): BoardAreaGeometryInterface => {
     const cellMargin = useAppSelector(settingsCellMarginSelector);
