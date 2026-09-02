@@ -1,6 +1,6 @@
 {
     "name": "@suuudokuuu/field-dom",
-    "version": "2.11.2",
+    "version": "2.11.4",
     "private": true,
     "description": "React DOM board renderer for the headless sudoku field engine",
     "sideEffects": [
