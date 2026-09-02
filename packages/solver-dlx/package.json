@@ -2,7 +2,7 @@
     "name": "@suuudokuuu/solver-dlx",
     "version": "1.74.0",
     "private": true,
-    "sideEffects": "false",
+    "sideEffects": false,
     "exports": {
         ".": {
             "import": "./dist/esm/index.js",

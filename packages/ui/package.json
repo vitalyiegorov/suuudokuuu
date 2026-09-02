@@ -2,7 +2,7 @@
     "name": "@suuudokuuu/ui",
     "version": "2.9.4",
     "private": true,
-    "sideEffects": "false",
+    "sideEffects": false,
     "exports": {
         ".": {
             "import": "./src/index.ts",
