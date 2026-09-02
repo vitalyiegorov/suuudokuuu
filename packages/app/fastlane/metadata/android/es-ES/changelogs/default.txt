@@ -1,6 +1,6 @@
-Llega Infinito: 100 sudokus récord mundial con SE 10.4 a 11.9, como Everest y Golden Nugget.
-Cada sudoku muestra ya su valoración Sudoku Explainer (SE), con explicación integrada.
-Infierno revisado: 1.544 tableros verificados de 17 pistas, todos con SE 6.6 o más.
-Estadísticas nuevas: tu sudoku más difícil, el espectro SE y tu arsenal de técnicas.
-Corregido: los enlaces compartidos ya no borran tus estadísticas.
-Corregido: salir de una partida ya funciona en todos los idiomas.
+Las sugerencias ahora enseñan: nombran la técnica, iluminan las casillas que obligan la jugada y explican el porqué.
+Deshacer y rehacer con puntuación honesta; en los niveles más duros solo si las activas.
+Reto diario con rachas, en su propia pestaña.
+Cada nivel exige de verdad las técnicas que promete.
+Zonas de toque mayores, menos movimiento, dígitos más grandes, juego tranquilo, tamaño de texto del sistema.
+Temas de alto contraste y aptos para daltónicos, y lectores de pantalla.

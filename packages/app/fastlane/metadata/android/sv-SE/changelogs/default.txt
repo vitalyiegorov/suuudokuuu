@@ -1,6 +1,6 @@
-Oändlighet är här: 100 världsrekordpussel med SE 10.4 till 11.9, bland dem Everest och Golden Nugget.
-Varje pussel visar nu sitt betyg på Sudoku Explainer-skalan (SE), med en inbyggd förklaring.
-Helvete omgjort: 1 544 verifierade bräden med 17 ledtrådar, alla SE 6.6 eller högre.
-Ny statistik: svåraste lösning, SE-spektrum och din arsenal av tekniker.
-Fixat: delade länkar raderar inte längre din statistik.
-Fixat: att avsluta ett spel fungerar nu på alla språk.
+Ledtrådar undervisar nu: de namnger tekniken, lyfter fram rutorna som tvingar fram draget och förklarar varför, steg för steg.
+Ångra och gör om med ärlig poängsättning; på de svåraste nivåerna visas ledtrådar bara om du slår på dem.
+Dagens utmaning med sviter, i en egen flik.
+Varje nivå kräver nu verkligen sina tekniker.
+Större tryckytor, mindre rörelse, större siffror, lugnt spel, enhetens textstorlek.
+Nya teman för hög kontrast och färgblindhet, plus stöd för skärmläsare.

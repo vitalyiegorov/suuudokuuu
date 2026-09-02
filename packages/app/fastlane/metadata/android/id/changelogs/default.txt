@@ -1,6 +1,6 @@
-Tak Terhingga hadir: 100 sudoku rekor dunia SE 10.4 sampai 11.9, termasuk Everest dan Golden Nugget.
-Setiap sudoku kini menampilkan peringkat Sudoku Explainer (SE), lengkap dengan penjelasan bawaan.
-Neraka dikurasi ulang: 1.544 papan 17 petunjuk terverifikasi, semuanya SE 6.6 ke atas.
-Statistik baru: Sudoku tersulit, spektrum SE, dan Arsenalmu.
-Diperbaiki: tautan berbagi tidak lagi menghapus statistikmu.
-Diperbaiki: keluar dari permainan kini berfungsi di semua bahasa.
+Petunjuk kini mengajari: menyebut tekniknya, menyorot sel yang memaksa langkah itu, dan menjelaskan alasannya.
+Urungkan dan ulangi dengan skor yang jujur; di level tersulit petunjuk hanya muncul bila kamu mau.
+Tantangan harian dengan rentetan, di tabnya sendiri.
+Setiap level kini benar-benar menuntut tekniknya.
+Area sentuh lebih besar, gerak berkurang, angka lebih besar, permainan tenang, ukuran teks perangkat.
+Tema kontras tinggi dan ramah buta warna, plus dukungan pembaca layar.
