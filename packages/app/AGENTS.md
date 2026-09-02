@@ -236,8 +236,9 @@ The trade also does not pay off in a bulk replay. Replaying the 59-move Nightmar
 6. Do not enable `EXPO_UNSTABLE_TREE_SHAKING`: it drops the `expo-sqlite` web worker chunk, which
    breaks persistence rehydration.
 7. Import icons as `lucide-react-native/icons/<kebab-name>`, never from the package root. The root
-   barrel pulls all 1744 icon modules into the bundle. The `./icons/*` subpath comes from the
-   `.yarn/patches` entry for the package.
+   barrel pulls all 1744 icon modules into the bundle.
+8. Import Google fonts per weight (`@expo-google-fonts/inter/500Medium`), never from the package
+   root. The barrel `require()`s all 18 Inter weights into the native asset bundle.
 
 ## Error Handling
 
