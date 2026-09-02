@@ -2,8 +2,9 @@ import { appLayoutScreenIsWide } from '@suuudokuuu/ui';
 import { StyleSheet } from 'react-native-unistyles';
 
 import { AppIconButtonSize } from '../../../../@generic/components/app-icon-button/constant/app-icon-button-size.constant';
-import { BoardCellSizeMinConstant } from '../../../../game/constant/board-cell-size.constant';
-import { PanelControlPillRadiusConstant, PanelControlWideSizeConstant } from '../../../../game/constant/panel-control-size.constant';
+import { PanelControlPillRadiusConstant, PanelControlPrimarySizeConstant } from '../../../../game/constant/panel-control-size.constant';
+
+import { GameInputToolsWideSizeConstant } from './constant/game-input-tools.constant';
 
 const leftHandedThumbEdgeMargin = { marginEnd: 'auto' } as const;
 const rightHandedThumbEdgeMargin = { marginStart: 'auto' } as const;
@@ -24,14 +25,8 @@ export const GameInputToolsStyles = StyleSheet.create((theme, rt) => ({
     },
     toolButton: {
         borderRadius: PanelControlPillRadiusConstant,
-        flexBasis: 0,
-        flexGrow: 1,
-        flexShrink: 1,
-        height: appLayoutScreenIsWide(rt.screen) ? PanelControlWideSizeConstant : AppIconButtonSize,
-        maxHeight: appLayoutScreenIsWide(rt.screen) ? PanelControlWideSizeConstant : AppIconButtonSize,
-        maxWidth: appLayoutScreenIsWide(rt.screen) ? PanelControlWideSizeConstant : AppIconButtonSize,
-        minHeight: appLayoutScreenIsWide(rt.screen) ? PanelControlWideSizeConstant : AppIconButtonSize,
-        minWidth: BoardCellSizeMinConstant
+        height: appLayoutScreenIsWide(rt.screen) ? GameInputToolsWideSizeConstant : AppIconButtonSize,
+        width: appLayoutScreenIsWide(rt.screen) ? GameInputToolsWideSizeConstant : AppIconButtonSize
     },
     primaryToolButton: (isLeftHanded: boolean) => {
         const isNarrowLayout = !appLayoutScreenIsWide(rt.screen);
@@ -39,14 +34,8 @@ export const GameInputToolsStyles = StyleSheet.create((theme, rt) => ({
 
         return {
             borderRadius: PanelControlPillRadiusConstant,
-            flexBasis: 0,
-            flexGrow: 1,
-            flexShrink: 1,
-            height: PanelControlWideSizeConstant,
-            maxHeight: PanelControlWideSizeConstant,
-            maxWidth: PanelControlWideSizeConstant,
-            minHeight: PanelControlWideSizeConstant,
-            minWidth: BoardCellSizeMinConstant,
+            height: isNarrowLayout ? PanelControlPrimarySizeConstant : GameInputToolsWideSizeConstant,
+            width: isNarrowLayout ? PanelControlPrimarySizeConstant : GameInputToolsWideSizeConstant,
             ...(isNarrowLayout && thumbEdgeMargin)
         };
     }

@@ -57,6 +57,18 @@ describe('GameInputTools', () => {
         expect(StyleSheet.flatten(GameInputToolsStyles.inputControls(false))).toMatchObject({ alignItems: 'center' });
     });
 
+    it('keeps the notes button perfectly round', () => {
+        const notesButtonStyle = StyleSheet.flatten(GameInputToolsStyles.primaryToolButton(false));
+
+        expect(notesButtonStyle.width).toBe(notesButtonStyle.height);
+    });
+
+    it('keeps every utility tool perfectly round', () => {
+        const toolButtonStyle = StyleSheet.flatten(GameInputToolsStyles.toolButton);
+
+        expect(toolButtonStyle.width).toBe(toolButtonStyle.height);
+    });
+
     it('hides the undo, redo and hint buttons during a challenge run', async () => {
         await renderWithGameContext(<GameInputTools hideAutoCandidates={false} isLeftHanded={false} />, {
             game: { difficulty: DifficultyEnum.Easy, isChallengeRun: true, isRatingCeiling: false, rating: 0 }
