@@ -1,7 +1,11 @@
 import { describe, expect, it } from '@jest/globals';
 import { SpacingConstant } from '@suuudokuuu/ui/theme';
 
-import { GamePanelHorizontalPaddingConstant, GameSidePanelWidthConstant } from '../../../../../game/constant/board-cell-size.constant';
+import {
+    BoardCellSizeMinConstant,
+    GamePanelHorizontalPaddingConstant,
+    GamePanelWideRowWidthConstant
+} from '../../../../../game/constant/board-cell-size.constant';
 
 import {
     GameInputToolsCountConstant,
@@ -10,19 +14,23 @@ import {
 } from './game-input-tools.constant';
 
 const SmallestPhoneWidth = 320;
-const wideRowWidth = GameInputToolsWideSizeConstant * GameInputToolsCountConstant + SpacingConstant.sm * (GameInputToolsCountConstant - 1);
-const panelInnerWidth = GameSidePanelWidthConstant - GamePanelHorizontalPaddingConstant * 2;
+const wideToolsWidth =
+    GameInputToolsWideSizeConstant * GameInputToolsCountConstant + SpacingConstant.sm * (GameInputToolsCountConstant - 1);
 
 describe('GameInputToolsWideSizeConstant', () => {
-    it('keeps every wide tool inside the side panel gutters', () => {
-        expect(wideRowWidth).toBeLessThanOrEqual(panelInnerWidth);
+    it('keeps the wide tools row inside the number pad bounds', () => {
+        expect(wideToolsWidth).toBeLessThanOrEqual(GamePanelWideRowWidthConstant);
     });
 
-    it('uses the largest whole size the side panel can carry', () => {
-        const oversizedRowWidth =
+    it('uses the largest whole size the wide panel row can carry', () => {
+        const oversizedToolsWidth =
             (GameInputToolsWideSizeConstant + 1) * GameInputToolsCountConstant + SpacingConstant.sm * (GameInputToolsCountConstant - 1);
 
-        expect(oversizedRowWidth).toBeGreaterThan(panelInnerWidth);
+        expect(oversizedToolsWidth).toBeGreaterThan(GamePanelWideRowWidthConstant);
+    });
+
+    it('stays above the minimum touch target', () => {
+        expect(GameInputToolsWideSizeConstant).toBeGreaterThanOrEqual(BoardCellSizeMinConstant);
     });
 });
 

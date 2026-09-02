@@ -2,7 +2,7 @@ import { appLayoutScreenIsWide } from '@suuudokuuu/ui';
 import { StyleSheet } from 'react-native-unistyles';
 
 import { AppIconButtonSize } from '../../../../@generic/components/app-icon-button/constant/app-icon-button-size.constant';
-import { GamePanelHorizontalPaddingConstant } from '../../../../game/constant/board-cell-size.constant';
+import { GamePanelHorizontalPaddingConstant, GamePanelWideRowWidthConstant } from '../../../../game/constant/board-cell-size.constant';
 import { PanelControlPillRadiusConstant, PanelControlPrimarySizeConstant } from '../../../../game/constant/panel-control-size.constant';
 import { gameGetNumpadRowWidth } from '../../../../game/utils/game-get-numpad-row-width.util';
 
@@ -23,8 +23,8 @@ export const GameInputToolsStyles = StyleSheet.create((theme, rt) => ({
             alignSelf: 'center',
             flexDirection: isWideLayout ? 'row' : narrowFlexDirection,
             gap: theme.spacing.sm,
-            justifyContent: isWideLayout ? 'center' : 'space-between',
-            width: isWideLayout ? '100%' : narrowRowWidth
+            justifyContent: 'space-between',
+            width: isWideLayout ? GamePanelWideRowWidthConstant : narrowRowWidth
         };
     },
     utilityGroup: {
