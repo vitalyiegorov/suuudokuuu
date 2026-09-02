@@ -143,9 +143,11 @@ jobs:
         # carries a top-level "$schema" key (must be tolerated by
         # load-consumer-config, #111) and "launch-settle-seconds": "2"
         # (the new 33rd loadable key, must resolve from the file).
-        # ONE self-reference is still branch-pinned inside mobile-ci at this
-        # SHA (capture-screenshots-ios@fade644, the #111 head) - the release
-        # PR normalizes it to @v1.12.0.
+        # mobile-ci main 93356e2 still points load-consumer-config and
+        # capture-screenshots-ios at pre-release refs, so this run uses the
+        # throwaway ci/rc-v1.12.0-validation branch (same tree, both
+        # self-references repinned to 93356e2). The release PR normalizes
+        # both to @v1.12.0.
         # Device is iPhone 17 Pro Max (plain 'iPhone 17 Pro' has a
         # same-runtime clone on part of the pool per #105's validation -
         # fails closed by design, not what this run is testing).
@@ -167,7 +169,7 @@ jobs:
         # partial evidence from that failed run's own log (see PR comment).
         name: R4 v1.12.0 release-candidate validation (config-path form)
         if: github.ref_name == 'ci/ssv-run/config-path'
-        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@93356e236270cf7434c05f554210ba53edc1ccd9 # main release-candidate (v1.12.0)
+        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@2e586eb4a95cbbbe82b9a366dcabac0c97c94cc9 # ci/rc-v1.12.0-validation (main 93356e2 + self-ref pins)
         with:
             config-path: .github/store-screenshots.validation.config.json
             build-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
