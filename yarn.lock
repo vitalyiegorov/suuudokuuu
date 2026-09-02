@@ -5512,7 +5512,7 @@ __metadata:
     expo-status-bar: "npm:~57.0.0"
     expo-system-ui: "npm:~57.0.0"
     expo-updates: "npm:~57.0.6"
-    lucide-react-native: "patch:lucide-react-native@npm%3A1.21.0#~/.yarn/patches/lucide-react-native-npm-1.21.0-73be044214.patch"
+    lucide-react-native: "npm:^1.38.0"
     react: "npm:19.2.3"
     react-dom: "npm:19.2.3"
     react-native: "npm:0.86.0"
@@ -5742,7 +5742,7 @@ __metadata:
     "@rnw-community/shared": "npm:^2.2.0"
     "@testing-library/react-native": "npm:^14.0.1"
   peerDependencies:
-    lucide-react-native: ^1.21.0
+    lucide-react-native: ^1.38.0
     react: 19.2.3
     react-native: 0.86.0
     react-native-reanimated: 4.5.0
@@ -13624,25 +13624,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lucide-react-native@npm:1.21.0":
-  version: 1.21.0
-  resolution: "lucide-react-native@npm:1.21.0"
+"lucide-react-native@npm:^1.38.0":
+  version: 1.38.0
+  resolution: "lucide-react-native@npm:1.38.0"
   peerDependencies:
     react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
     react-native: "*"
     react-native-svg: ^12.0.0 || ^13.0.0 || ^14.0.0 || ^15.0.0
-  checksum: 10/6199850707314dd21adb17664ba9d412d2f998372dfa53725ad46c2a0b8912ea371e5f1fb8eff78c500bbc55b31628da8750c7743ad4460d211be0d572837a5f
-  languageName: node
-  linkType: hard
-
-"lucide-react-native@patch:lucide-react-native@npm%3A1.21.0#~/.yarn/patches/lucide-react-native-npm-1.21.0-73be044214.patch":
-  version: 1.21.0
-  resolution: "lucide-react-native@patch:lucide-react-native@npm%3A1.21.0#~/.yarn/patches/lucide-react-native-npm-1.21.0-73be044214.patch::version=1.21.0&hash=ae73ea"
-  peerDependencies:
-    react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
-    react-native: "*"
-    react-native-svg: ^12.0.0 || ^13.0.0 || ^14.0.0 || ^15.0.0
-  checksum: 10/a7dc327092f0198cf06211043fd1300487432609ab0880631e5a146bda0474f66fc4315d0d8c5186fe0ea79ccee76541f6e4b3774eed1630965b6b1b9733d588
+  checksum: 10/beef3cd8d4aa8f06299d34a5431518dcf6d3f591d39483dc7c16c06777d17eefa3cd9adcfed72e6bd26446306ef5287fc3a22c2cc48275bdb2c2ae061fcea86a
   languageName: node
   linkType: hard
 

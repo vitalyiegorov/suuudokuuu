@@ -62,7 +62,7 @@
         "expo-status-bar": "~57.0.0",
         "expo-system-ui": "~57.0.0",
         "expo-updates": "~57.0.6",
-        "lucide-react-native": "patch:lucide-react-native@npm%3A1.21.0#~/.yarn/patches/lucide-react-native-npm-1.21.0-73be044214.patch",
+        "lucide-react-native": "^1.38.0",
         "react": "19.2.3",
         "react-dom": "19.2.3",
         "react-native": "0.86.0",
