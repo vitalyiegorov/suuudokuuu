@@ -1,44 +1,52 @@
 import { appLayoutScreenIsWide } from '@suuudokuuu/ui';
 import { StyleSheet } from 'react-native-unistyles';
 
-import { GameSidePanelWidthConstant } from '../../constant/board-cell-size.constant';
+import { GamePanelHorizontalPaddingConstant, GameSidePanelWidthConstant } from '../../constant/board-cell-size.constant';
+import {
+    HintControlRowHeightConstant,
+    HintSurfaceNarrowGapConstant,
+    HintSurfaceNarrowPaddingConstant,
+    HintSurfaceWideGapConstant,
+    HintSurfaceWidePaddingConstant
+} from '../../constant/hint-surface.constant';
 
 const hintPanelWideWidthRatio = 1.5;
 const hintPanelWideMaxWidth = GameSidePanelWidthConstant * hintPanelWideWidthRatio;
+const hintPanelDismissSize = HintControlRowHeightConstant;
 
 export const HintPanelStyles = StyleSheet.create((theme, rt) => {
     const isWideLayout = appLayoutScreenIsWide(rt.screen);
-    const edgeInset = isWideLayout ? theme.spacing.lg : theme.spacing.sm;
     const dotSize = isWideLayout ? 8 : 6;
     const dotActiveSize = isWideLayout ? 10 : 8;
 
     return {
-        container: {
+        container: (surfaceHeight: number) => ({
             borderCurve: 'continuous',
-            borderRadius: isWideLayout ? theme.radius.lg : theme.radius.md,
+            borderRadius: theme.radius.lg,
             borderWidth: 1,
-            bottom: rt.insets.bottom / 2 + edgeInset,
-            gap: isWideLayout ? theme.spacing.md : theme.spacing.sm,
-            left: edgeInset,
-            padding: isWideLayout ? theme.spacing.lg : theme.spacing.sm,
+            bottom: isWideLayout ? rt.insets.bottom / 2 + theme.spacing.lg : 0,
+            gap: isWideLayout ? HintSurfaceWideGapConstant : HintSurfaceNarrowGapConstant,
+            height: surfaceHeight,
+            left: isWideLayout ? theme.spacing.lg : GamePanelHorizontalPaddingConstant,
+            padding: isWideLayout ? HintSurfaceWidePaddingConstant : HintSurfaceNarrowPaddingConstant,
             position: 'absolute',
-            right: edgeInset,
+            right: isWideLayout ? theme.spacing.lg : GamePanelHorizontalPaddingConstant,
             zIndex: 10,
             ...(isWideLayout && { marginHorizontal: 'auto', maxWidth: hintPanelWideMaxWidth })
-        },
-        content: {
-            alignItems: 'flex-start',
-            flexDirection: 'row',
-            gap: isWideLayout ? theme.spacing.sm : theme.spacing.xs
-        },
-        dismissButton: {
-            flexShrink: 0
-        },
+        }),
         controls: {
             alignItems: 'center',
             flexDirection: 'row',
-            gap: theme.spacing.xs,
+            flexShrink: 0,
+            gap: theme.spacing.sm,
+            height: HintControlRowHeightConstant,
             justifyContent: 'space-between'
+        },
+        dismissButton: {
+            borderRadius: hintPanelDismissSize / 2,
+            flexShrink: 0,
+            height: hintPanelDismissSize,
+            width: hintPanelDismissSize
         },
         stepControls: {
             alignItems: 'center',

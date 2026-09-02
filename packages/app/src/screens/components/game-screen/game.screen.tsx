@@ -5,6 +5,8 @@ import { useRouter } from 'expo-router';
 import { use, useEffect, useRef, useState } from 'react';
 import { Pressable, View } from 'react-native';
 
+import { isDefined } from '@rnw-community/shared';
+
 import { Alert } from '../../../@generic/components/alert/alert';
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
@@ -18,6 +20,7 @@ import { HintPanel } from '../../../game/components/hint-panel/hint-panel';
 import { GameToolsSlotReservedHeightConstant } from '../../../game/constant/board-cell-size.constant';
 import { GameContext } from '../../../game/context/game.context';
 import { useBoardGeometry } from '../../../game/hooks/use-board-geometry.hook';
+import { useHintSurfaceMetrics } from '../../../game/hooks/use-hint-surface-metrics.hook';
 import { useKeyboardControls } from '../../../game/hooks/use-keyboard-controls/use-keyboard-controls.hook';
 import { useShareGame } from '../../../game/hooks/use-share-game.hook';
 import { gamePauseAction, gameResetAction, gameToggleCellCandidateAction } from '../../../game/store/game.actions';
@@ -57,10 +60,11 @@ export const GameScreen = () => {
 
     const [, hapticImpact] = useVibration();
 
-    const { sizeClass } = useAppLayout();
+    const { sizeClass, width: screenWidth } = useAppLayout();
     const isWideLayout = sizeClass === 'wide';
     const reservedBoardHeight = isWideLayout ? 0 : GameToolsSlotReservedHeightConstant;
     const { cellSize: boardCellSize, cellMargin: boardCellMargin, boardSize, onBoardAreaLayout } = useBoardGeometry(reservedBoardHeight);
+    const { hintSurfaceMetrics, onToolsSlotLayout } = useHintSurfaceMetrics(isWideLayout, screenWidth);
     const dispatch = useAppDispatch();
     const score = useAppSelector(gameScoreSelector);
     const mistakes = useAppSelector(gameMistakesSelector);
@@ -139,6 +143,8 @@ export const GameScreen = () => {
 
     const hideAutoCandidates = maxMistakes === 0;
     const gameActionsIconColor = theme.colors.surface.raisedText;
+    const isHintActive = isDefined(snapshot.stepScript);
+    const toolsSlotPointerEvents = isHintActive ? 'none' : 'auto';
 
     const statusBlock = (
         <GameStatusBlock
@@ -196,7 +202,7 @@ export const GameScreen = () => {
                     <Field cellMargin={boardCellMargin} cellSize={boardCellSize} onSelect={handleSelectCell} ref={fieldRef} />
 
                     {isWideLayout ? null : (
-                        <View style={styles.toolsSlot}>
+                        <View onLayout={onToolsSlotLayout} pointerEvents={toolsSlotPointerEvents} style={styles.toolsSlot(isHintActive)}>
                             <GameInputTools hideAutoCandidates={hideAutoCandidates} isLeftHanded={isLeftHanded} />
                         </View>
                     )}
@@ -221,7 +227,7 @@ export const GameScreen = () => {
                 </View>
             </View>
 
-            <HintPanel />
+            <HintPanel narrationLineCount={hintSurfaceMetrics.narrationLineCount} surfaceHeight={hintSurfaceMetrics.height} />
         </Pressable>
     );
 };

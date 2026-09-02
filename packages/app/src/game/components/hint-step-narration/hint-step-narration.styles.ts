@@ -1,40 +1,54 @@
 import { appLayoutScreenIsWide } from '@suuudokuuu/ui';
 import { StyleSheet } from 'react-native-unistyles';
 
-const narrowChipSize = 38;
-const wideChipSize = 48;
-const narrowTechniqueFontSize = 11;
-const narrowTechniqueLetterSpacing = 0.4;
-const wideTechniqueLetterSpacing = 0.6;
+import {
+    HintNarrationNarrowLineHeightConstant,
+    HintNarrationWideLineHeightConstant,
+    HintSurfaceNarrowGapConstant,
+    HintSurfaceWideGapConstant,
+    HintTechniqueNarrowFontSizeConstant,
+    HintTechniqueWideFontSizeConstant,
+    HintValueChipNarrowSizeConstant,
+    HintValueChipWideSizeConstant
+} from '../../constant/hint-surface.constant';
+
+const narrowTechniqueLetterSpacing = 0.6;
+const wideTechniqueLetterSpacing = 0.8;
+const narrowNarrationFontSize = 16;
+const wideNarrationFontSize = 18;
 
 export const HintStepNarrationStyles = StyleSheet.create((theme, rt) => {
     const isWideLayout = appLayoutScreenIsWide(rt.screen);
-    const chipSize = isWideLayout ? wideChipSize : narrowChipSize;
+    const chipSize = isWideLayout ? HintValueChipWideSizeConstant : HintValueChipNarrowSizeConstant;
+    const lineHeight = isWideLayout ? HintNarrationWideLineHeightConstant : HintNarrationNarrowLineHeightConstant;
 
     return {
         container: {
             flex: 1,
-            gap: isWideLayout ? theme.spacing.xs : theme.spacing.xs / 2
+            gap: isWideLayout ? HintSurfaceWideGapConstant : HintSurfaceNarrowGapConstant,
+            minHeight: 0
         },
-        row: {
+        header: {
             alignItems: 'center',
             flexDirection: 'row',
-            gap: theme.spacing.sm
+            gap: theme.spacing.md,
+            height: chipSize
         },
         chip: {
             alignItems: 'center',
             borderCurve: 'continuous',
-            borderRadius: isWideLayout ? theme.radius.md : theme.radius.sm,
+            borderRadius: theme.radius.md,
             height: chipSize,
             justifyContent: 'center',
             width: chipSize
         },
         chipText: {
-            fontSize: isWideLayout ? theme.typography.size.xl : theme.typography.size.lg,
+            fontSize: isWideLayout ? theme.typography.size.xxl : theme.typography.size.xl,
             fontWeight: '900'
         },
         technique: {
-            fontSize: isWideLayout ? 13 : narrowTechniqueFontSize,
+            flex: 1,
+            fontSize: isWideLayout ? HintTechniqueWideFontSizeConstant : HintTechniqueNarrowFontSizeConstant,
             fontWeight: '900',
             letterSpacing: isWideLayout ? wideTechniqueLetterSpacing : narrowTechniqueLetterSpacing,
             textAlign: 'left',
@@ -42,10 +56,11 @@ export const HintStepNarrationStyles = StyleSheet.create((theme, rt) => {
         },
         narration: {
             flex: 1,
-            fontSize: isWideLayout ? theme.typography.size.md : 13,
+            fontSize: isWideLayout ? wideNarrationFontSize : narrowNarrationFontSize,
             fontWeight: '600',
-            textAlign: 'left',
-            ...(isWideLayout && { lineHeight: 22 })
+            lineHeight,
+            minHeight: lineHeight,
+            textAlign: 'left'
         }
     };
 });

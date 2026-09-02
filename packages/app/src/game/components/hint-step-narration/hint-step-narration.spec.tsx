@@ -15,6 +15,7 @@ import { HintStepNarrationSelectors } from './hint-step-narration.selectors';
 
 import type { StepScriptStepType } from '@suuudokuuu/field-core';
 
+const narrationLineCount = 3;
 const patternCell = { x: 1, y: 0, value: 0, group: 0 };
 const narration = { technique: SolutionTechniqueEnum.NakedPair, cells: [patternCell], values: [4] };
 
@@ -37,7 +38,7 @@ const NarrationHarness = () => {
 
     return (
         <>
-            <HintStepNarration step={scriptSteps[stepIndex]} />
+            <HintStepNarration lineCount={narrationLineCount} step={scriptSteps[stepIndex]} />
             <Pressable onPress={handleNudge} testID="nudge" />
             <Pressable onPress={handleNextStep} testID="next" />
             <Text testID="nudgeCount">{nudgeCount}</Text>

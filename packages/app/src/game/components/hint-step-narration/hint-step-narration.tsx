@@ -15,11 +15,12 @@ import { HintStepNarrationStyles as styles } from './hint-step-narration.styles'
 import type { StepScriptStepType } from '@suuudokuuu/field-core';
 
 interface Props {
+    readonly lineCount: number;
     readonly step: StepScriptStepType;
     readonly value?: number;
 }
 
-export const HintStepNarration = ({ step, value }: Props) => {
+export const HintStepNarration = ({ lineCount, step, value }: Props) => {
     const { _ } = useLingui();
     const { theme } = use(ThemeContext);
 
@@ -35,20 +36,21 @@ export const HintStepNarration = ({ step, value }: Props) => {
 
     return (
         <View style={styles.container}>
-            <BlackText numberOfLines={1} style={techniqueStyles} testID={HintStepNarrationSelectors.Technique}>
-                {techniqueName}
-            </BlackText>
-
-            <View style={styles.row}>
+            <View style={styles.header}>
                 {isDefined(value) ? (
                     <View style={chipStyles} testID={HintStepNarrationSelectors.Value}>
                         <BlackText style={chipTextStyles}>{value}</BlackText>
                     </View>
                 ) : null}
-                <BlackText style={narrationStyles} testID={HintStepNarrationSelectors.Narration}>
-                    {narrationText}
+
+                <BlackText numberOfLines={1} style={techniqueStyles} testID={HintStepNarrationSelectors.Technique}>
+                    {techniqueName}
                 </BlackText>
             </View>
+
+            <BlackText numberOfLines={lineCount} style={narrationStyles} testID={HintStepNarrationSelectors.Narration}>
+                {narrationText}
+            </BlackText>
         </View>
     );
 };
