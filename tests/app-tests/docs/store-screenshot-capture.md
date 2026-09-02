@@ -108,6 +108,17 @@ is exactly what step 2 above already does.
 - The seeder reads the persist version from `app-root-migrations.ts` and the
   language list from `languages.constant.ts` at run time, so a migration bump
   or a new locale fails loudly instead of drifting silently.
+- **Prime deep links once on every fresh simulator, iPhone and iPad.** iOS's
+  "Open in <app>?" custom-scheme dialog strands every scene until it is
+  primed once, on either device class - on iOS 26.2 the iPhone 17 Pro Max
+  simulator stranded every scene on the dialog exactly like the iPad. A
+  single tap on "Open" via a UI driver (`npx serve-sim tap`) or one run of
+  `flows/setup/prime-deep-links.flow.yaml` primes it. The iPad additionally
+  queues the dialog across relaunch, so `simctl erase` it and reinstall
+  before priming.
+- `CAPTURE_LAUNCH_SETTLE_MS` and `CAPTURE_SCENE_SETTLE_MS` override the
+  post-launch and post-deep-link settle delays; both exist because a loaded
+  macstudio needed longer settles than the ~3.5s/~2s defaults.
 
 ## The seed fixture
 
@@ -132,6 +143,26 @@ sqlite3 "$(xcrun simctl get_app_container <udid> <app> data)/Documents/SQLite/Ex
 Copy the relevant slice into the fixture. Seed a clean state first — an
 in-progress game makes the flow hit the "Stop current run?" confirmation and
 never reach the board.
+
+The fixture is not, and cannot be, kept in sync with every `SettingsState`
+field by hand: it once fell three fields behind (`allowHintsOnHardDifficulties`,
+`motionPreference`, `calmMode`), crashing `DailyScreen` on every tab route
+until it was hand-patched mid-session. `packages/app/src` cannot be imported
+from the seeder — its relative imports lack extensions, which plain `node`
+rejects, and the `settings` slice additionally pulls in the real
+`react-native` package, which neither plain `node` nor `tsx` can parse. So
+the seeder instead stamps the written `_persist.version` at a fixed baseline
+(`SeedFixtureBaselinePersistVersion` in `seed-app-state.ts`, currently 40,
+one below the migration that backfills `settings` against the live
+`initialSettingsState`) rather than the live `appRootPersistVersion`. This
+makes redux-persist run every migration newer than the baseline against the
+fixture on the app's first launch after seeding, the same way it would for a
+real upgrading user, so newly added fields backfill automatically. Bump the
+baseline only past a migration you have checked is a no-op for this fixture's
+actual values (`resetBestScores` at 15 and the daily-streak reset inside
+`backfillStatsPackAndDailyRecord` at 41 are destructive in general — they are
+safe here only because the fixture's `bestScore` and daily-streak fields
+already hold values those migrations would produce anyway).
 
 ## Compose and verify
 
