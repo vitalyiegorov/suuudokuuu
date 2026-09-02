@@ -1,10 +1,12 @@
-Tak Terhingga hadir: 100 sudoku rekor dunia dengan peringkat SE 10.4 sampai 11.9. Everest dan AI Escargot karya Arto Inkala, Golden Nugget, Platinum Blonde, Kolk, Patience. Kebanyakan orang tidak pernah menyelesaikan satu pun.
+Petunjuk kini mengajari, bukan sekadar memberi jawaban. Setiap petunjuk menyebut nama tekniknya, menyorot sel-sel yang memaksa langkah itu, dan menuntunmu melewati penalarannya langkah demi langkah sebelum apa pun diisi.
 
-• Setiap sudoku kini menampilkan peringkatnya pada skala Sudoku Explainer (SE), dari 1.0 sampai 12.0: di label level pada papan, di riwayat, dan di tautan yang kamu bagikan. Penjelasan bawaan memberi tahu arti angka itu.
-• Neraka dikurasi ulang: 1.544 sudoku 17 petunjuk yang terverifikasi, semuanya SE 6.6 atau lebih tinggi. Tidak ada lagi papan "tersulit" yang tumbang hanya oleh tunggal biasa.
-• Statistik dirancang ulang: Sudoku tersulit yang pernah kamu pecahkan, rata-rata kesulitan terakhir, level paling sering dimainkan, spektrum SE lengkap, dan Arsenalmu berisi setiap teknik beserta jumlah pemakaiannya.
-• Kartu riwayat kini membawa ringkasan teknik, dan layar putar ulang jadi lebih rapi.
-• Kontrol keyboard penuh di web: panah untuk berpindah, angka untuk mengisi, Spasi atau N untuk mode catatan, Shift dan angka untuk kandidat, A untuk kandidat otomatis.
-• Diperbaiki: membuka tautan berbagi tidak lagi menghapus statistikmu.
-• Diperbaiki: keluar dari permainan kini berfungsi di semua bahasa.
-• Lebih cepat: permainan Neraka mulai seketika dan riwayat termuat tanpa tersendat.
+• Urungkan dan ulangi, dengan skor yang jujur: mengurungkan mengembalikan persis poin yang diberikan langkah itu, jadi mengulang sel yang sama tidak pernah dibayar dua kali.
+• Petunjuk tidak muncul di Mimpi buruk, Neraka, dan Tak Terhingga kecuali kamu menyalakannya sendiri, dan di Hardcore petunjuk maupun urungkan ikut disembunyikan.
+• Tantangan harian di tabnya sendiri: satu sudoku yang sama untuk semua orang setiap hari, lengkap dengan rentetan saat ini, rentetan terbaik, dan daftar penyelesaian terakhirmu.
+• Tingkat kesulitan kini sesuai janjinya: setiap papan dibuat ulang sampai benar-benar menuntut teknik yang dijanjikan levelnya.
+• Lebih ramah untuk tangan dan mata: area sentuh lebih besar di papan dan tombol angka, pengaturan pengurangan gerak, angka lebih besar, Permainan tenang tanpa skor, dan penghormatan penuh pada ukuran teks perangkatmu.
+• Tema baru Kontras tinggi dan Ramah buta warna, dengan setiap pasangan warna papan lolos WCAG AA dan status dibedakan lewat terang-gelap serta garis tepi, bukan rona.
+• Dukungan pembaca layar penuh: sel, angka, dan kontrol menyebutkan peran dan statusnya, sementara langkah petunjuk, kesalahan, dan kemenangan diumumkan seketika.
+• Tombol catatan kini berdiri sendiri di tepi ibu jari, dicerminkan untuk pemain kidal, dan pada layar lebar panel petunjuk akhirnya berukuran nyaman dibaca.
+• Diperbaiki: langkah yang tersusun dari beberapa tahap logika dicatat sebagai tekniknya, bukan tebakan, kandidat otomatis kini membuang apa yang sudah dicoret petunjuk, dan angka putih di sel terpilih kembali muncul.
+• Lebih cepat: versi web langsung tampil tanpa menunggu seluruh unduhan selesai, dan aplikasinya 5,5 MB lebih kecil.

@@ -1,10 +1,12 @@
-Infinity is here: 100 world-record Sudoku puzzles, rated SE 10.4 to 11.9. Arto Inkala's Everest and AI Escargot, Golden Nugget, Platinum Blonde, Kolk, Patience. Most people never finish one.
+Hints now teach instead of telling. Each one names the technique, lights up the cells that force the move, and walks you through the reasoning step by step before anything is placed.
 
-• Every puzzle now shows its Sudoku Explainer rating on the 1.0 to 12.0 scale, in the level pill on the board, in history and on shared links. A built-in explainer tells you what the number means.
-• Hell has been re-curated: 1,544 verified 17-clue puzzles, every one rated SE 6.6 or higher. No more "hardest" boards that fall to simple singles.
-• Statistics, redesigned: your hardest solve, recent average difficulty and most played level, the full SE spectrum of everything you've finished, and your arsenal of techniques with usage counts.
-• History cards now carry a technique summary, and the replay screen is cleaner.
-• Full keyboard control on the web: arrows to move, digits to place, Space or N for pencil mode, Shift and a digit for candidates, A for auto-candidates.
-• Fixed: opening a shared link no longer clears your statistics.
-• Fixed: quitting a game now works in every language.
-• Faster: Hell games start instantly, and history loads without stalling.
+• Undo and redo, with honest scoring: an undo hands back exactly the points its placement earned, so replaying the same cell can never pay twice.
+• Hints stay off Nightmare, Hell and Infinity unless you switch them on, and both hints and undo are hidden in Hardcore.
+• Daily challenge on its own tab: the same puzzle for everyone each day, with a current and best streak and your recent solves.
+• Difficulty now means what it says — every board is generated until it really needs the techniques its level promises.
+• Kinder to hands and eyes: bigger touch targets on the board and number pad, a reduce motion setting, larger digits, Calm play without a score, and full respect for your device text size.
+• New High contrast and Colorblind safe themes, with every board color pair checked against WCAG AA and states told apart by lightness and outlines instead of hue.
+• Full screen reader support: cells, digits and controls announce their role and state, and hint steps, mistakes and wins are spoken as they happen.
+• The Notes control now sits alone at the thumb edge, mirrored for left-handed play, and on desktop the hint panel finally has a readable size.
+• Fixed: moves built from several logical steps are credited to the technique behind them instead of counting as guesses, auto-candidates now drop what a hint eliminated, and the white digit on the selected cell is back.
+• Faster: the web version paints straight away instead of waiting for the whole download, and the app itself is 5.5 MB smaller.

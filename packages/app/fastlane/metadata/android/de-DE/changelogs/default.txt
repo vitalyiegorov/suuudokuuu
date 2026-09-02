@@ -1,6 +1,6 @@
-Unendlich ist da: 100 Weltrekord-Rätsel mit SE 10.4 bis 11.9, darunter Everest und Golden Nugget.
-Jedes Rätsel zeigt jetzt seine Bewertung auf der Sudoku-Explainer-Skala (SE), mit eingebauter Erklärung.
-Hölle neu kuratiert: 1.544 geprüfte Bretter mit 17 Vorgaben, alle ab SE 6.6.
-Neue Statistiken: schwerstes Rätsel, SE-Spektrum und dein Arsenal an Techniken.
-Behoben: Geteilte Links löschen nicht mehr deine Statistiken.
-Behoben: Das Beenden eines Spiels funktioniert jetzt in jeder Sprache.
+Hinweise erklären jetzt: Sie nennen die Technik, heben die entscheidenden Zellen hervor und begründen den Zug.
+Rückgängig und Wiederherstellen mit ehrlicher Wertung; auf den schwersten Stufen nur auf Wunsch.
+Tägliche Herausforderung mit Serien, im eigenen Tab.
+Jede Stufe braucht jetzt wirklich ihre Techniken.
+Größere Trefferflächen, weniger Bewegung, größere Zahlen, ruhiges Spiel, Textgröße des Geräts.
+Neue Themen für hohen Kontrast und Farbenblindheit, dazu Screenreader-Unterstützung.
