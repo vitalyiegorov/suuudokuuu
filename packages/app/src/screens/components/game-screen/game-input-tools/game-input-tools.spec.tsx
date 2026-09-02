@@ -1,6 +1,7 @@
 import { describe, expect, it } from '@jest/globals';
 import { DifficultyEnum } from '@suuudokuuu/generator';
 import { screen } from '@testing-library/react-native';
+import { StyleSheet } from 'react-native';
 
 import { renderWithGameContext } from '../../../../@generic/utils/render-with-game-context.mock';
 import { HintButtonSelectors } from '../../../../game/components/hint-button/hint-button.selectors';
@@ -10,6 +11,7 @@ import { UndoButtonSelectors } from '../../../../game/components/undo-button/und
 import { GameScreenSelectors } from '../game-screen.selectors';
 
 import { GameInputTools } from './game-input-tools';
+import { GameInputToolsStyles } from './game-input-tools.styles';
 
 const highSampleRating = 8.4;
 
@@ -41,6 +43,18 @@ describe('GameInputTools', () => {
         expect(screen.getByTestId(UndoButtonSelectors.Root)).toBeTruthy();
         expect(screen.getByTestId(RedoButtonSelectors.Root)).toBeTruthy();
         expect(screen.getByTestId(HintButtonSelectors.Root)).toBeTruthy();
+    });
+
+    it('pushes the notes button to the trailing thumb edge for a right-handed player', () => {
+        expect(StyleSheet.flatten(GameInputToolsStyles.primaryToolButton(false))).toMatchObject({ marginStart: 'auto' });
+    });
+
+    it('mirrors the notes button to the opposite thumb edge for a left-handed player', () => {
+        expect(StyleSheet.flatten(GameInputToolsStyles.primaryToolButton(true))).toMatchObject({ marginEnd: 'auto' });
+    });
+
+    it('centers every tool on the same horizontal axis', () => {
+        expect(StyleSheet.flatten(GameInputToolsStyles.inputControls(false))).toMatchObject({ alignItems: 'center' });
     });
 
     it('hides the undo, redo and hint buttons during a challenge run', async () => {
