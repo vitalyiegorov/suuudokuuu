@@ -1,4 +1,4 @@
-import { withAndroidManifest } from '@expo/config-plugins';
+import { withAndroidManifest } from 'expo/config-plugins';
 
 import { brandConfig } from './brand.config';
 import rootPkg from './package.json';
