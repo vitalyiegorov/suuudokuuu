@@ -1,4 +1,4 @@
-import { LucideSwords } from 'lucide-react-native';
+import LucideSwords from 'lucide-react-native/icons/swords';
 
 import { AppLinkButton } from '../../../@generic/components/app-link-button/app-link-button';
 import { useShareChallenge } from '../../../game/hooks/use-share-challenge/use-share-challenge.hook';

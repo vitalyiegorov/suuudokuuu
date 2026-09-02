@@ -1,0 +1,28 @@
+diff --git a/dist/icon-module.d.ts b/dist/icon-module.d.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..5d262fd1b0a899bde593f1ae6ab53eaa25f82b00
+--- /dev/null
++++ b/dist/icon-module.d.ts
+@@ -0,0 +1,5 @@
++import type { LucideIcon } from './lucide-react-native';
++
++declare const icon: LucideIcon;
++
++export default icon;
+diff --git a/package.json b/package.json
+index cc560ebb6f526641ef1cffaa962eaae7105d4fbb..47df748f719ecf5459ea596b35e64c1f1d59357c 100644
+--- a/package.json
++++ b/package.json
+@@ -39,6 +39,12 @@
+       "import": "./dist/esm/icons/index.mjs",
+       "browser": "./dist/esm/icons/index.mjs",
+       "require": "./dist/cjs/icons/index.js"
++    },
++    "./icons/*": {
++      "types": "./dist/icon-module.d.ts",
++      "import": "./dist/esm/icons/*.mjs",
++      "browser": "./dist/esm/icons/*.mjs",
++      "require": "./dist/cjs/icons/*.js"
+     }
+   },
+   "sideEffects": false,
