@@ -1,6 +1,8 @@
-import { Inter_500Medium as inter500Medium, Inter_700Bold as inter700Bold, useFonts } from '@expo-google-fonts/inter';
+import { Inter_500Medium as inter500Medium } from '@expo-google-fonts/inter/500Medium';
+import { Inter_700Bold as inter700Bold } from '@expo-google-fonts/inter/700Bold';
 import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
+import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { Platform } from 'react-native';
@@ -12,7 +14,6 @@ import { LinguiDefaultComponent } from '../@generic/components/lingui-default-co
 import { RootProviders } from '../@generic/components/root-providers/root-providers';
 import { applyGameControlsInteractions } from '../@generic/utils/apply-game-controls-interactions';
 import { applySheetContentWidth } from '../@generic/utils/apply-sheet-content-width';
-import { i18nGetOSLocale } from '../@generic/utils/i18n.util';
 import { WinConfettiProvider } from '../confetti/components/win-confetti-provider/win-confetti-provider';
 import { GameProvider } from '../game/components/game-provider/game-provider';
 import { ThemeProvider } from '../theme/components/theme-provider/theme-provider';
@@ -23,8 +24,6 @@ if (Platform.OS !== 'web') {
 }
 applySheetContentWidth();
 applyGameControlsInteractions();
-
-i18n.activate(i18nGetOSLocale());
 
 void SplashScreen.preventAutoHideAsync();
 

@@ -1,7 +1,8 @@
 import { plural } from '@lingui/core/macro';
 import { useLingui } from '@lingui/react/macro';
 import { CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
-import { LucideSwords, LucideX } from 'lucide-react-native';
+import LucideSwords from 'lucide-react-native/icons/swords';
+import LucideX from 'lucide-react-native/icons/x';
 import { use } from 'react';
 import { Text, View } from 'react-native';
 

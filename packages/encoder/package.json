@@ -2,7 +2,7 @@
     "name": "@suuudokuuu/encoder",
     "version": "2.9.0",
     "private": true,
-    "sideEffects": "false",
+    "sideEffects": false,
     "exports": {
         ".": {
             "import": "./dist/esm/index.js",

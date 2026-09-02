@@ -15,10 +15,13 @@ interface Props {
 
 export const GameInputTools = ({ hideAutoCandidates, isLeftHanded }: Props) => (
     <View style={styles.inputControls(isLeftHanded)}>
-        <UndoButton sizeStyle={styles.toolButton} />
-        <RedoButton sizeStyle={styles.toolButton} />
-        {hideAutoCandidates ? null : <AutoCandidatesButton sizeStyle={styles.toolButton} />}
-        <HintButton sizeStyle={styles.toolButton} />
-        <InputModeButton sizeStyle={styles.primaryToolButton(isLeftHanded)} />
+        <View style={styles.utilityGroup}>
+            <UndoButton sizeStyle={styles.toolButton} />
+            <RedoButton sizeStyle={styles.toolButton} />
+            {hideAutoCandidates ? null : <AutoCandidatesButton sizeStyle={styles.toolButton} />}
+            <HintButton sizeStyle={styles.toolButton} />
+        </View>
+
+        <InputModeButton sizeStyle={styles.primaryToolButton} />
     </View>
 );

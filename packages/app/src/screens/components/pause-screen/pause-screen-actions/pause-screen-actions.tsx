@@ -1,5 +1,7 @@
 import { useLingui } from '@lingui/react/macro';
-import { LucideLogOut, LucidePlay, LucideShare2 } from 'lucide-react-native';
+import LucideLogOut from 'lucide-react-native/icons/log-out';
+import LucidePlay from 'lucide-react-native/icons/play';
+import LucideShare2 from 'lucide-react-native/icons/share-2';
 import { use } from 'react';
 import { type PressableProps } from 'react-native';
 

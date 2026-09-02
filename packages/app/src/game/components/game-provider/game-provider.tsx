@@ -1,4 +1,3 @@
-import { i18n } from '@lingui/core';
 import { FieldEngine } from '@suuudokuuu/field-core';
 import { useFieldSnapshot } from '@suuudokuuu/field-core/react';
 import { forgeDailyPuzzle, forgePuzzle, getDailyDateString, getDailyDayNumber, getDailyDifficulty } from '@suuudokuuu/puzzle-forge';
@@ -7,6 +6,7 @@ import { useEffect } from 'react';
 import { isNotEmptyString } from '@rnw-community/shared';
 
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
+import { i18nActivateLanguage } from '../../../@generic/utils/i18n-catalogs';
 import { settingsLanguageSelector } from '../../../settings/store/settings.selectors';
 import { GameContext } from '../../context/game.context';
 import { useGameCreationRunner } from '../../hooks/use-game-creation-runner.hook';
@@ -72,7 +72,7 @@ export const GameProvider = ({ children }: Props) => {
             });
         });
 
-    useEffect(() => void i18n.activate(currentLanguage), [currentLanguage]);
+    useEffect(() => void i18nActivateLanguage(currentLanguage), [currentLanguage]);
 
     const value = { create, createDaily, createFromState, engine, isCreatingGame, snapshot };
 

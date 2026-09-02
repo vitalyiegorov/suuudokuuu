@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/react/macro';
 import { CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
-import { Play } from 'lucide-react-native';
+import Play from 'lucide-react-native/icons/play';
 import { use } from 'react';
 import { Pressable, View } from 'react-native';
 

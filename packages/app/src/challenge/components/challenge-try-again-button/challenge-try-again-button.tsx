@@ -1,5 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
-import { LucideRotateCcw } from 'lucide-react-native';
+import LucideRotateCcw from 'lucide-react-native/icons/rotate-ccw';
 import { use } from 'react';
 
 import { AppLinkButton } from '../../../@generic/components/app-link-button/app-link-button';

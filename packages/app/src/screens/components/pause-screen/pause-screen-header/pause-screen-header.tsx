@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/react/macro';
 import { CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
-import { LucidePause } from 'lucide-react-native';
+import LucidePause from 'lucide-react-native/icons/pause';
 import { use } from 'react';
 import { View } from 'react-native';
 

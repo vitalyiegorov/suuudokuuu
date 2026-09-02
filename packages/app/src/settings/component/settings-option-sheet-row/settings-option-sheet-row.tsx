@@ -1,4 +1,4 @@
-import { Check } from 'lucide-react-native';
+import Check from 'lucide-react-native/icons/check';
 import { use } from 'react';
 import { Pressable, View } from 'react-native';
 

@@ -1,6 +1,6 @@
 import { useLingui } from '@lingui/react/macro';
 import * as Linking from 'expo-linking';
-import { LucideDownload } from 'lucide-react-native';
+import LucideDownload from 'lucide-react-native/icons/download';
 import { Alert, View } from 'react-native';
 
 import { AppLinkButton } from '../../../../../@generic/components/app-link-button/app-link-button';

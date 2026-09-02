@@ -1,5 +1,6 @@
 import { AppButton, AppSettingsRow } from '@suuudokuuu/ui';
-import { Check, Pencil } from 'lucide-react-native';
+import Check from 'lucide-react-native/icons/check';
+import Pencil from 'lucide-react-native/icons/pencil';
 import { use } from 'react';
 import { Pressable, View } from 'react-native';
 

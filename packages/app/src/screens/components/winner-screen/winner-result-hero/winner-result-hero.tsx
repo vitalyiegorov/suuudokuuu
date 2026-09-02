@@ -1,7 +1,8 @@
 import { Trans, useLingui } from '@lingui/react/macro';
 import { DifficultyEnum } from '@suuudokuuu/generator';
 import { AppSurfaceCard } from '@suuudokuuu/ui';
-import { LucideSparkles, LucideTrophy } from 'lucide-react-native';
+import LucideSparkles from 'lucide-react-native/icons/sparkles';
+import LucideTrophy from 'lucide-react-native/icons/trophy';
 import { use } from 'react';
 import { Text } from 'react-native';
 

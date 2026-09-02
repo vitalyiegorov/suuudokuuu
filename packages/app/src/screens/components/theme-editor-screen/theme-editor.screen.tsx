@@ -1,7 +1,7 @@
 import { useLingui } from '@lingui/react/macro';
 import { AppButton, AppSettingsSection, resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { router, useLocalSearchParams } from 'expo-router';
-import { RotateCcw } from 'lucide-react-native';
+import RotateCcw from 'lucide-react-native/icons/rotate-ccw';
 import { use, useState } from 'react';
 import { Alert, TextInput, View } from 'react-native';
 

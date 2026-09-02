@@ -1,6 +1,6 @@
 import { useLingui } from '@lingui/react/macro';
 import { useRouter } from 'expo-router';
-import { ChevronLeft } from 'lucide-react-native';
+import ChevronLeft from 'lucide-react-native/icons/chevron-left';
 import { use } from 'react';
 import { Pressable } from 'react-native';
 

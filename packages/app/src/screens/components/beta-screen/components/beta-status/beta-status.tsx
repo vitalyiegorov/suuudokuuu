@@ -1,5 +1,5 @@
 import { Trans, useLingui } from '@lingui/react/macro';
-import { LucideRefreshCw } from 'lucide-react-native';
+import LucideRefreshCw from 'lucide-react-native/icons/refresh-cw';
 import { use } from 'react';
 import { ActivityIndicator, Text, View } from 'react-native';
 

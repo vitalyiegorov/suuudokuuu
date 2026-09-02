@@ -1,6 +1,6 @@
 import { plural } from '@lingui/core/macro';
 import { useLingui } from '@lingui/react/macro';
-import { LucideCheck } from 'lucide-react-native';
+import LucideCheck from 'lucide-react-native/icons/check';
 import { use } from 'react';
 
 import { CelebrationPulse } from '../../../../@generic/components/celebration-pulse/celebration-pulse';

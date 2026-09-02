@@ -1,4 +1,4 @@
-import { format } from 'date-fns';
+import { format } from 'date-fns/format';
 
 const email = 'vitalyiegorov@gmail.com';
 const date = format(new Date('2023-05-25'), 'dd MMMM yyyy');

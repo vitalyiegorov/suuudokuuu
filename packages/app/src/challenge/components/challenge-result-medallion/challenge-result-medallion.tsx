@@ -1,5 +1,7 @@
 import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
-import { LucideFlag, LucideHeartCrack, LucideTrophy } from 'lucide-react-native';
+import LucideFlag from 'lucide-react-native/icons/flag';
+import LucideHeartCrack from 'lucide-react-native/icons/heart-crack';
+import LucideTrophy from 'lucide-react-native/icons/trophy';
 import { use, useEffect } from 'react';
 import { View } from 'react-native';
 import Animated, { interpolate, useAnimatedStyle, useDerivedValue, useSharedValue, withSpring } from 'react-native-reanimated';

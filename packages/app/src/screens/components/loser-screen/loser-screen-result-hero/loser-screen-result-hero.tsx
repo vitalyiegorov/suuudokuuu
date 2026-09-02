@@ -1,5 +1,5 @@
 import { Trans, useLingui } from '@lingui/react/macro';
-import { LucideCircleX } from 'lucide-react-native';
+import LucideCircleX from 'lucide-react-native/icons/circle-x';
 import { use } from 'react';
 import { View } from 'react-native';
 

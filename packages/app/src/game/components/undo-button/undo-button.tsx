@@ -1,5 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
-import { LucideUndo2 } from 'lucide-react-native';
+import LucideUndo2 from 'lucide-react-native/icons/undo-2';
 import { use } from 'react';
 
 import { isDefined } from '@rnw-community/shared';

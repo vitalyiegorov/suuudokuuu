@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/react/macro';
-import { LucideChevronLeft, LucideChevronRight } from 'lucide-react-native';
+import LucideChevronLeft from 'lucide-react-native/icons/chevron-left';
+import LucideChevronRight from 'lucide-react-native/icons/chevron-right';
 import { use } from 'react';
 import { Text, View } from 'react-native';
 
