@@ -138,7 +138,7 @@ jobs:
         # ONE self-reference temporarily pinned inside the mobile-ci branch,
         # not by this validation - it must be restored to tag form by the
         # author/coordinator before merge:
-        #   - capture-screenshots-ios@a998ac3
+        #   - capture-screenshots-ios@dd166ca
         # (load-consumer-config no longer needs a pin: v1.11.0 is cut and
         # allowed-keys is an input, so the tag form resolves.)
         # Device is iPhone 17 Pro Max (plain 'iPhone 17 Pro' has a
@@ -166,7 +166,7 @@ jobs:
         # partial evidence from that failed run's own log (see PR comment).
         name: R4 deep-link foreground fix validation (PR 107)
         if: github.ref_name == 'ci/ssv-run/config-path'
-        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@8bd27e3bf846870c4023471bed0e7dae4736e189 # fix/capture-ios-deeplink-foreground (temp capture-screenshots-ios self-pin, not by this validation)
+        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@c79ca78318eadc6e871b08fa40f587e75247edfc # fix/capture-ios-deeplink-foreground (temp capture-screenshots-ios self-pin, not by this validation)
         with:
             ios-target: >-
                 {"name":"e2e","appDir":"packages/app","workspace":"suuudokuuuE2E.xcworkspace","scheme":"suuudokuuuE2E","appId":"com.vitalyiegorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p ios --clean --no-install"}
