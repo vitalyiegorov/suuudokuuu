@@ -5,6 +5,20 @@ appId: ${APP_ID}
       optional: true
 
 - runFlow: subflows/navigation/launch-home.flow.yaml
+# A warm Home keeps its scroll position, so bring the difficulty slider back
+# above the fold before tapping (a no-op when it is already visible). Anchor on
+# the section header: the option labels overhang the horizontal screen edges by
+# a few pixels, so they can never satisfy scrollUntilVisible's 100% visibility.
+- scrollUntilVisible:
+      element:
+          text: 'Difficulty'
+      direction: UP
+      timeout: 3000
+# Settle the scroll before tapping (rule 12): a tap fired into residual scroll
+# momentum is consumed stopping the scroll and never reaches the option label
+# (CI run 33369560754 attempt 2: the slider still showed Easy after the tap).
+- waitForAnimationToEnd:
+      timeout: 3000
 - tapOn:
       id: 'DifficultyComplexityOptionSelectors.Option.Hell'
 - scrollUntilVisible:
@@ -38,4 +52,3 @@ appId: ${APP_ID}
       direction: DOWN
       visibilityPercentage: 50
       timeout: 3000
-- stopApp

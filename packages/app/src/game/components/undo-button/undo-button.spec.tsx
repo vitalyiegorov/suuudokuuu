@@ -57,6 +57,18 @@ describe('UndoButton', () => {
         expect(store.getState().game.sudokuString).toBe(puzzleString);
     });
 
+    it('is never offered in hardcore mode', async () => {
+        expect.assertions(1);
+
+        const engine = buildEngine();
+
+        placeFirstBlankCell(engine);
+
+        await renderWithGameContext(<UndoButton sizeStyle={null} />, { engine, game: { maxMistakes: 0 } });
+
+        expect(screen.queryByTestId(UndoButtonSelectors.Root)).toBeNull();
+    });
+
     it('is never offered during a challenge run', async () => {
         expect.assertions(1);
 

@@ -45,6 +45,10 @@ report
 # TypeScript
 *.tsbuildinfo
 
+# Benchmark artifacts
+.bench-profiles/
+.bench-baseline.txt
+
 # Jest
 coverage/
 

@@ -8,6 +8,20 @@ appId: ${APP_ID}
 # world-record puzzle (Everest/Platinum Blonde/AI Escargot class), which
 # always carries an exact, non-ceiling SE rating - unlike Hell's clamped one.
 - runFlow: subflows/navigation/launch-home.flow.yaml
+# A warm Home keeps its scroll position, so bring the difficulty slider back
+# above the fold before tapping (a no-op when it is already visible). Anchor on
+# the section header: the option labels overhang the horizontal screen edges by
+# a few pixels, so they can never satisfy scrollUntilVisible's 100% visibility.
+- scrollUntilVisible:
+      element:
+          text: 'Difficulty'
+      direction: UP
+      timeout: 3000
+# Settle the scroll before tapping (rule 12): a tap fired into residual scroll
+# momentum is consumed stopping the scroll and never reaches the option label
+# (CI run 33369560754 attempt 2: the slider still showed Easy after the tap).
+- waitForAnimationToEnd:
+      timeout: 3000
 - tapOn:
       id: 'DifficultyComplexityOptionSelectors.Option.Infinity'
 # The description lives in the preview card below the mistake grid, which starts
@@ -76,5 +90,3 @@ appId: ${APP_ID}
           id: 'GameScreenSelectors.Root'
       timeout: 10000
 - runFlow: subflows/game/quit-current-game.flow.yaml
-
-- stopApp

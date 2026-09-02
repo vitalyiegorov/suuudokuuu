@@ -12,6 +12,9 @@ import type { HypothesisBoardInterface } from '../../interfaces/hypothesis-board
 import type { HypothesisPropagationStateInterface } from '../../interfaces/hypothesis-propagation-state.interface';
 import type { HypothesisPropagationInterface } from '../../interfaces/hypothesis-propagation.interface';
 
+const NO_HIDDEN_SINGLE_POSITION = -1;
+const CONTRADICTION_POSITION = -2;
+
 export class HypothesisPropagator {
     private readonly propagations = new Map<number, HypothesisPropagationInterface>();
 
@@ -122,11 +125,12 @@ export class HypothesisPropagator {
     }
 
     private queueHiddenSingles(state: HypothesisPropagationStateInterface): boolean {
+        const { unitCellIndexes, valueCount } = this.board;
         let hasQueuedAssignments = false;
 
-        for (const unitCellIndexes of this.board.unitCellIndexes) {
-            for (let value = 1; value <= this.board.valueCount; value += 1) {
-                hasQueuedAssignments = this.queueUnitHiddenSingle(state, unitCellIndexes, value) || hasQueuedAssignments;
+        for (const cellIndexes of unitCellIndexes) {
+            for (let value = 1; value <= valueCount; value += 1) {
+                hasQueuedAssignments = this.queueUnitHiddenSingle(state, cellIndexes, value) || hasQueuedAssignments;
 
                 if (state.hasContradiction) {
                     return hasQueuedAssignments;
@@ -138,31 +142,44 @@ export class HypothesisPropagator {
     }
 
     private queueUnitHiddenSingle(state: HypothesisPropagationStateInterface, unitCellIndexes: number[], value: number): boolean {
-        if (this.hasUnitValue(state, unitCellIndexes, value)) {
-            return false;
-        }
+        const positionIndex = this.getUnitHiddenSinglePosition(state, unitCellIndexes, value);
 
-        const positionIndexes = unitCellIndexes.filter(cellIndex => hasMaskValue(state.masks[cellIndex], value));
-        const [firstPositionIndex] = positionIndexes;
-
-        if (positionIndexes.length === 0) {
+        if (positionIndex === CONTRADICTION_POSITION) {
             state.hasContradiction = true;
 
             return false;
         }
 
-        if (positionIndexes.length > 1) {
+        if (positionIndex === NO_HIDDEN_SINGLE_POSITION) {
             return false;
         }
 
-        state.pendingCellIndexes.push(firstPositionIndex);
+        state.pendingCellIndexes.push(positionIndex);
         state.pendingValues.push(value);
 
         return true;
     }
 
-    private hasUnitValue(state: HypothesisPropagationStateInterface, unitCellIndexes: number[], value: number): boolean {
-        return unitCellIndexes.some(cellIndex => this.board.cellValues[cellIndex] === value || state.placedValues[cellIndex] === value);
+    private getUnitHiddenSinglePosition(state: HypothesisPropagationStateInterface, unitCellIndexes: number[], value: number): number {
+        const { cellValues } = this.board;
+        const { masks, placedValues } = state;
+        let singlePositionIndex = CONTRADICTION_POSITION;
+
+        for (const cellIndex of unitCellIndexes) {
+            if (cellValues[cellIndex] === value || placedValues[cellIndex] === value) {
+                return NO_HIDDEN_SINGLE_POSITION;
+            }
+
+            if (hasMaskValue(masks[cellIndex], value)) {
+                if (singlePositionIndex !== CONTRADICTION_POSITION) {
+                    return NO_HIDDEN_SINGLE_POSITION;
+                }
+
+                singlePositionIndex = cellIndex;
+            }
+        }
+
+        return singlePositionIndex;
     }
 
     private createPropagation(state: HypothesisPropagationStateInterface): HypothesisPropagationInterface {

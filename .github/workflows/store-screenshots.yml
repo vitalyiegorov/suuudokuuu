@@ -8,6 +8,10 @@ name: Store screenshots
 #
 # Dispatch-only: capturing overwrites nothing until upload-screenshots runs,
 # but it does contact App Store Connect - run deliberately, not on push.
+#
+# App-shaped config (targets, capture manifest/scenes, upload command, ASC
+# dedupe settings, ...) lives in .github/store-screenshots.config.json,
+# loaded via config-path. Only plan-time runner labels stay as inputs here.
 on:
     workflow_dispatch:
 
@@ -16,56 +20,12 @@ permissions:
 
 jobs:
     screenshots:
-        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@v1.8.0 # v1.8.0
+        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@v1.11.0 # v1.11.0
         with:
-            ios-target: >-
-                {"name":"production","appDir":"packages/app","workspace":"suuudokuuu.xcworkspace","scheme":"suuudokuuu","appId":"com.vitalyiegorov.suuudokuuu","prebuildCommand":"npx expo prebuild -p ios --clean --no-install"}
-            capture-manifest: >-
-                [
-                  {"platform":"ios","device":"iPhone 17 Pro Max","locales":[
-                    {"id":"en","env":{"LOCALE_IDENTIFIER":"en-US","OS_LANGUAGE_MODE":"true"}},
-                    {"id":"de","env":{"LOCALE_IDENTIFIER":"de-DE","OS_LANGUAGE_MODE":"true"}},
-                    {"id":"es","env":{"LOCALE_IDENTIFIER":"es-ES","OS_LANGUAGE_MODE":"true"}},
-                    {"id":"fr","env":{"LOCALE_IDENTIFIER":"fr-FR","OS_LANGUAGE_MODE":"true"}},
-                    {"id":"pt","env":{"LOCALE_IDENTIFIER":"pt-BR","OS_LANGUAGE_MODE":"true"}},
-                    {"id":"sv","env":{"LOCALE_IDENTIFIER":"sv-SE","OS_LANGUAGE_MODE":"true"}},
-                    {"id":"hi","env":{"LOCALE_IDENTIFIER":"hi-IN","OS_LANGUAGE_MODE":"true"}},
-                    {"id":"ar","env":{"LOCALE_IDENTIFIER":"ar-SA","OS_LANGUAGE_MODE":"true"}},
-                    {"id":"id","env":{"LOCALE_IDENTIFIER":"id-ID","OS_LANGUAGE_MODE":"true"}}
-                  ],"appearances":["light"]}
-                ]
-            capture-mode: direct
-            capture-scenes: >-
-                [
-                  {"name":"home","deepLink":"suuudokuuu://"},
-                  {"name":"game","deepLink":"suuudokuuu://game"},
-                  {"name":"stats","deepLink":"suuudokuuu://history"}
-                ]
-            screenshots-dir: tests/app-tests/flows/screenshots
-            seed-command: node tests/app-tests/scripts/ci-seed-scene.ts
-            settle-seconds: '5'
-            status-bar-override: true
+            config-path: .github/store-screenshots.config.json
             build-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
             capture-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
             upload-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
-            cache-profile: suuudokuuu-ios-prod-v1
-            repack-on-hit: true
-            rct-use-prebuilt-rncore: true
-            rct-use-rn-dep: true
-            build-env: |
-                APP_VARIANT=production
-            maestro-env: |
-                OS_LANGUAGE_MODE=true
-            apple-screenshot-slots: >-
-                {"1320x2868":"iPhone 6.9\"","1290x2796":"iPhone 6.9\"","1284x2778":"iPhone 6.5\"","1242x2688":"iPhone 6.5\"","1206x2622":"iPhone 6.3\"","1179x2556":"iPhone 6.1\"","2064x2752":"iPad 13\"","2752x2064":"iPad 13\"","2048x2732":"iPad 12.9\"","2732x2048":"iPad 12.9\""}
-            upload-screenshots: true
-            upload-command: |
-                export PATH="$HOME/.rbenv/shims:/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
-                export SCREENSHOT_VARIANT=ci
-                fastlane ios ios_screenshots
-            screenshots-download-dir: fastlane/screenshots/variants/ci
-            asc-dedupe-screenshots: true
-            asc-dedupe-app-id: com.vitalyiegorov.suuudokuuu
         secrets:
             ASC_API_KEY: ${{ secrets.EXPO_IOS_ASC_API_KEY }}
             ASC_KEY_ID: ${{ secrets.EXPO_IOS_ASC_KEY_ID }}
