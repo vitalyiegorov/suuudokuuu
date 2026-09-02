@@ -3,8 +3,13 @@ import { SpacingConstant } from '@suuudokuuu/ui/theme';
 
 import { GamePanelHorizontalPaddingConstant, GameSidePanelWidthConstant } from '../../../../../game/constant/board-cell-size.constant';
 
-import { GameInputToolsCountConstant, GameInputToolsWideSizeConstant } from './game-input-tools.constant';
+import {
+    GameInputToolsCountConstant,
+    GameInputToolsMinRowWidthConstant,
+    GameInputToolsWideSizeConstant
+} from './game-input-tools.constant';
 
+const SmallestPhoneWidth = 320;
 const wideRowWidth = GameInputToolsWideSizeConstant * GameInputToolsCountConstant + SpacingConstant.sm * (GameInputToolsCountConstant - 1);
 const panelInnerWidth = GameSidePanelWidthConstant - GamePanelHorizontalPaddingConstant * 2;
 
@@ -18,5 +23,11 @@ describe('GameInputToolsWideSizeConstant', () => {
             (GameInputToolsWideSizeConstant + 1) * GameInputToolsCountConstant + SpacingConstant.sm * (GameInputToolsCountConstant - 1);
 
         expect(oversizedRowWidth).toBeGreaterThan(panelInnerWidth);
+    });
+});
+
+describe('GameInputToolsMinRowWidthConstant', () => {
+    it('fits the narrow tools row on the smallest supported phone', () => {
+        expect(GameInputToolsMinRowWidthConstant).toBeLessThanOrEqual(SmallestPhoneWidth - GamePanelHorizontalPaddingConstant * 2);
     });
 });
