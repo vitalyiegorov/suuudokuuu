@@ -122,15 +122,25 @@ jobs:
             ASC_ISSUER_ID: ${{ secrets.EXPO_IOS_ASC_ISSUER_ID }}
 
     r4-config-path:
-        # PR #107 validation: deep-link foreground fix (Open-in-app sheet
-        # dismissal + --device on flow-backed maestro invocations).
-        # TWO self-references temporarily pinned inside this branch, NEITHER
-        # by this validation - both must be restored to tag form by the
+        # PR #107 validation, run 2: deep-link foreground fix (Open-in-app
+        # sheet dismissal + --device on flow-backed maestro invocations +
+        # the required per-scene readySelector added after run 1).
+        #
+        # Run 1 (33380247574) went green while BOTH stats cells captured a
+        # byte-identical SpringBoard home screen: assertNotVisible on the
+        # sheet title is equally true of a bare home screen, so nothing
+        # noticed the app was not foreground. mobile-ci now requires a
+        # readySelector per deep-link scene, asserted visible immediately
+        # before the screencap; the selectors below are this repo's own
+        # screen roots. GameScreenSelectors.Root / HistoryScreenSelectors.Root
+        # are used rather than .Score, which is conditional on calm mode.
+        #
+        # ONE self-reference temporarily pinned inside the mobile-ci branch,
+        # not by this validation - it must be restored to tag form by the
         # author/coordinator before merge:
-        #   - capture-screenshots-ios@fa82545 (pinned by the PR author)
-        #   - load-consumer-config@bb583d4 (pinned by the coordinator at
-        #     b8e43e1, after the first attempt failed the same
-        #     not-yet-cut-v1.11.0 chicken-and-egg #103 hit)
+        #   - capture-screenshots-ios@a998ac3
+        # (load-consumer-config no longer needs a pin: v1.11.0 is cut and
+        # allowed-keys is an input, so the tag form resolves.)
         # Device is iPhone 17 Pro Max (plain 'iPhone 17 Pro' has a
         # same-runtime clone on part of the pool per #105's validation -
         # fails closed by design, not what this run is testing). Explicit
@@ -156,7 +166,7 @@ jobs:
         # partial evidence from that failed run's own log (see PR comment).
         name: R4 deep-link foreground fix validation (PR 107)
         if: github.ref_name == 'ci/ssv-run/config-path'
-        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@b8e43e1ad9d0eb28da7972887f46fc81e61af0f0 # fix/capture-ios-deeplink-foreground (temp double self-pin, not by this validation)
+        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@8bd27e3bf846870c4023471bed0e7dae4736e189 # fix/capture-ios-deeplink-foreground (temp capture-screenshots-ios self-pin, not by this validation)
         with:
             ios-target: >-
                 {"name":"e2e","appDir":"packages/app","workspace":"suuudokuuuE2E.xcworkspace","scheme":"suuudokuuuE2E","appId":"com.vitalyiegorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p ios --clean --no-install"}
@@ -165,8 +175,8 @@ jobs:
             capture-mode: direct
             capture-scenes: >-
                 [
-                  {"name":"hero-board","deepLink":"suuudokuuu://game"},
-                  {"name":"stats","deepLink":"suuudokuuu://history"}
+                  {"name":"hero-board","deepLink":"suuudokuuu://game","readySelector":{"id":"GameScreenSelectors.Root"}},
+                  {"name":"stats","deepLink":"suuudokuuu://history","readySelector":{"id":"HistoryScreenSelectors.Root"}}
                 ]
             screenshots-dir: tests/app-tests/flows/screenshots
             seed-command: node tests/app-tests/scripts/ci-seed-scene.ts
