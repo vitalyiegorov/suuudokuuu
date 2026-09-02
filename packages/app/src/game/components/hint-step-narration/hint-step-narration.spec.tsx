@@ -38,7 +38,7 @@ const NarrationHarness = () => {
 
     return (
         <>
-            <HintStepNarration lineCount={narrationLineCount} step={scriptSteps[stepIndex]} />
+            <HintStepNarration isRoomyLayout={false} lineCount={narrationLineCount} step={scriptSteps[stepIndex]} />
             <Pressable onPress={handleNudge} testID="nudge" />
             <Pressable onPress={handleNextStep} testID="next" />
             <Text testID="nudgeCount">{nudgeCount}</Text>

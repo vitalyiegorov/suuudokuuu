@@ -1,35 +1,42 @@
 import { SpacingConstant } from '@suuudokuuu/ui/theme';
 
 export const HintNarrationLineCountConstant = 3;
-export const HintNarrationNarrowLineHeightConstant = 22;
-export const HintNarrationWideLineHeightConstant = 26;
-export const HintValueChipNarrowSizeConstant = 48;
-export const HintValueChipWideSizeConstant = 56;
 export const HintControlRowHeightConstant = 44;
-export const HintTechniqueNarrowFontSizeConstant = 13;
-export const HintTechniqueWideFontSizeConstant = 15;
 
-export const HintSurfaceNarrowPaddingConstant = SpacingConstant.md;
-export const HintSurfaceNarrowGapConstant = SpacingConstant.sm;
-export const HintSurfaceWidePaddingConstant = SpacingConstant.lg;
-export const HintSurfaceWideGapConstant = SpacingConstant.md;
+export const HintSurfaceStandardPaddingConstant = SpacingConstant.md;
+export const HintSurfaceStandardGapConstant = SpacingConstant.sm;
+export const HintNarrationStandardFontSizeConstant = 16;
+export const HintNarrationStandardLineHeightConstant = 22;
+export const HintTechniqueStandardFontSizeConstant = 13;
+export const HintValueChipStandardSizeConstant = 48;
+
+export const HintSurfaceRoomyPaddingConstant = SpacingConstant.lg;
+export const HintSurfaceRoomyGapConstant = SpacingConstant.md;
+export const HintNarrationRoomyFontSizeConstant = 18;
+export const HintNarrationRoomyLineHeightConstant = 26;
+export const HintTechniqueRoomyFontSizeConstant = 15;
+export const HintValueChipRoomySizeConstant = 56;
 
 const surfaceRowGapCount = 2;
 
-export const HintSurfaceNarrowFixedHeightConstant =
-    HintSurfaceNarrowPaddingConstant * 2 +
-    HintValueChipNarrowSizeConstant +
-    HintSurfaceNarrowGapConstant * surfaceRowGapCount +
+export const HintSurfaceStandardFixedHeightConstant =
+    HintSurfaceStandardPaddingConstant * 2 +
+    HintValueChipStandardSizeConstant +
+    HintSurfaceStandardGapConstant * surfaceRowGapCount +
     HintControlRowHeightConstant;
 
-export const HintSurfaceNarrowHeightConstant =
-    HintSurfaceNarrowFixedHeightConstant + HintNarrationLineCountConstant * HintNarrationNarrowLineHeightConstant;
-
-export const HintSurfaceNarrowMinHeightConstant = HintSurfaceNarrowFixedHeightConstant + HintNarrationNarrowLineHeightConstant;
-
-export const HintSurfaceWideHeightConstant =
-    HintSurfaceWidePaddingConstant * 2 +
-    HintValueChipWideSizeConstant +
-    HintSurfaceWideGapConstant * surfaceRowGapCount +
-    HintNarrationLineCountConstant * HintNarrationWideLineHeightConstant +
+export const HintSurfaceRoomyFixedHeightConstant =
+    HintSurfaceRoomyPaddingConstant * 2 +
+    HintValueChipRoomySizeConstant +
+    HintSurfaceRoomyGapConstant * surfaceRowGapCount +
     HintControlRowHeightConstant;
+
+export const HintSurfaceMinHeightConstant = HintSurfaceStandardFixedHeightConstant + HintNarrationStandardLineHeightConstant;
+
+export const HintSurfaceStandardHeightConstant =
+    HintSurfaceStandardFixedHeightConstant + HintNarrationLineCountConstant * HintNarrationStandardLineHeightConstant;
+
+export const HintSurfaceRoomyHeightConstant =
+    HintSurfaceRoomyFixedHeightConstant + HintNarrationLineCountConstant * HintNarrationRoomyLineHeightConstant;
+
+export const HintSurfaceMaxHeightConstant = HintSurfaceRoomyHeightConstant + HintNarrationRoomyLineHeightConstant;

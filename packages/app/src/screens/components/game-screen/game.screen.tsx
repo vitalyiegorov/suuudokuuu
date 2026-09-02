@@ -227,7 +227,11 @@ export const GameScreen = () => {
                 </View>
             </View>
 
-            <HintPanel narrationLineCount={hintSurfaceMetrics.narrationLineCount} surfaceHeight={hintSurfaceMetrics.height} />
+            <HintPanel
+                isRoomyLayout={hintSurfaceMetrics.isRoomyLayout}
+                narrationLineCount={hintSurfaceMetrics.narrationLineCount}
+                surfaceHeight={hintSurfaceMetrics.height}
+            />
         </Pressable>
     );
 };

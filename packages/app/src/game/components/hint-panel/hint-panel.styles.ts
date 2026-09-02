@@ -4,10 +4,10 @@ import { StyleSheet } from 'react-native-unistyles';
 import { GamePanelHorizontalPaddingConstant, GameSidePanelWidthConstant } from '../../constant/board-cell-size.constant';
 import {
     HintControlRowHeightConstant,
-    HintSurfaceNarrowGapConstant,
-    HintSurfaceNarrowPaddingConstant,
-    HintSurfaceWideGapConstant,
-    HintSurfaceWidePaddingConstant
+    HintSurfaceRoomyGapConstant,
+    HintSurfaceRoomyPaddingConstant,
+    HintSurfaceStandardGapConstant,
+    HintSurfaceStandardPaddingConstant
 } from '../../constant/hint-surface.constant';
 
 const hintPanelWideWidthRatio = 1.5;
@@ -20,15 +20,15 @@ export const HintPanelStyles = StyleSheet.create((theme, rt) => {
     const dotActiveSize = isWideLayout ? 10 : 8;
 
     return {
-        container: (surfaceHeight: number) => ({
+        container: (surfaceHeight: number, isRoomyLayout: boolean) => ({
             borderCurve: 'continuous',
             borderRadius: theme.radius.lg,
             borderWidth: 1,
             bottom: isWideLayout ? rt.insets.bottom / 2 + theme.spacing.lg : 0,
-            gap: isWideLayout ? HintSurfaceWideGapConstant : HintSurfaceNarrowGapConstant,
+            gap: isRoomyLayout ? HintSurfaceRoomyGapConstant : HintSurfaceStandardGapConstant,
             height: surfaceHeight,
             left: isWideLayout ? theme.spacing.lg : GamePanelHorizontalPaddingConstant,
-            padding: isWideLayout ? HintSurfaceWidePaddingConstant : HintSurfaceNarrowPaddingConstant,
+            padding: isRoomyLayout ? HintSurfaceRoomyPaddingConstant : HintSurfaceStandardPaddingConstant,
             position: 'absolute',
             right: isWideLayout ? theme.spacing.lg : GamePanelHorizontalPaddingConstant,
             zIndex: 10,

@@ -2,11 +2,13 @@ import { SpacingConstant } from '@suuudokuuu/ui/theme';
 
 import {
     HintNarrationLineCountConstant,
-    HintNarrationNarrowLineHeightConstant,
-    HintSurfaceNarrowFixedHeightConstant,
-    HintSurfaceNarrowHeightConstant,
-    HintSurfaceNarrowMinHeightConstant,
-    HintSurfaceWideHeightConstant
+    HintNarrationRoomyLineHeightConstant,
+    HintNarrationStandardLineHeightConstant,
+    HintSurfaceMaxHeightConstant,
+    HintSurfaceMinHeightConstant,
+    HintSurfaceRoomyFixedHeightConstant,
+    HintSurfaceRoomyHeightConstant,
+    HintSurfaceStandardFixedHeightConstant
 } from '../constant/hint-surface.constant';
 
 import { gameGetNumpadHeight } from './game-get-numpad-height.util';
@@ -25,12 +27,15 @@ export const gameGetHintSurfaceMetrics = ({
     toolsSlotHeight
 }: OptionsInterface): HintSurfaceMetricsInterface => {
     if (isWideLayout) {
-        return { height: HintSurfaceWideHeightConstant, narrationLineCount: HintNarrationLineCountConstant };
+        return { height: HintSurfaceRoomyHeightConstant, isRoomyLayout: true, narrationLineCount: HintNarrationLineCountConstant };
     }
 
-    const availableHeight = toolsSlotHeight + SpacingConstant.sm + gameGetNumpadHeight(screenWidth);
-    const height = Math.floor(Math.min(HintSurfaceNarrowHeightConstant, Math.max(HintSurfaceNarrowMinHeightConstant, availableHeight)));
-    const narrationLineCount = Math.floor((height - HintSurfaceNarrowFixedHeightConstant) / HintNarrationNarrowLineHeightConstant);
+    const regionHeight = toolsSlotHeight + SpacingConstant.sm + gameGetNumpadHeight(screenWidth);
+    const height = Math.floor(Math.min(HintSurfaceMaxHeightConstant, Math.max(HintSurfaceMinHeightConstant, regionHeight)));
+    const isRoomyLayout = height >= HintSurfaceRoomyHeightConstant;
+    const fixedHeight = isRoomyLayout ? HintSurfaceRoomyFixedHeightConstant : HintSurfaceStandardFixedHeightConstant;
+    const lineHeight = isRoomyLayout ? HintNarrationRoomyLineHeightConstant : HintNarrationStandardLineHeightConstant;
+    const narrationLineCount = Math.min(HintNarrationLineCountConstant, Math.floor((height - fixedHeight) / lineHeight));
 
-    return { height, narrationLineCount };
+    return { height, isRoomyLayout, narrationLineCount };
 };

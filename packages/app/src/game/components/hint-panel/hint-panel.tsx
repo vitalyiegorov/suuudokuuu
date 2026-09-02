@@ -24,11 +24,12 @@ const enterDurationMs = 180;
 const exitDurationMs = 120;
 
 interface Props {
+    readonly isRoomyLayout: boolean;
     readonly narrationLineCount: number;
     readonly surfaceHeight: number;
 }
 
-export const HintPanel = ({ narrationLineCount, surfaceHeight }: Props) => {
+export const HintPanel = ({ isRoomyLayout, narrationLineCount, surfaceHeight }: Props) => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
     const { engine, snapshot } = use(GameContext);
@@ -68,7 +69,7 @@ export const HintPanel = ({ narrationLineCount, surfaceHeight }: Props) => {
     const stepCount = stepScript.steps.length;
     const currentStepNumber = stepIndex + 1;
     const containerStyles = [
-        styles.container(surfaceHeight),
+        styles.container(surfaceHeight, isRoomyLayout),
         { backgroundColor: theme.colors.surface.raised, borderColor: theme.colors.surface.border }
     ];
     const progressAccessibilityLabel = t`Step ${currentStepNumber} of ${stepCount}`;
@@ -78,7 +79,7 @@ export const HintPanel = ({ narrationLineCount, surfaceHeight }: Props) => {
 
     return (
         <Animated.View style={containerStyles} testID={HintPanelSelectors.Root} {...motionProps}>
-            <HintStepNarration lineCount={narrationLineCount} step={currentStep} value={placementValue} />
+            <HintStepNarration isRoomyLayout={isRoomyLayout} lineCount={narrationLineCount} step={currentStep} value={placementValue} />
 
             <View style={styles.controls}>
                 <AppIconButton
