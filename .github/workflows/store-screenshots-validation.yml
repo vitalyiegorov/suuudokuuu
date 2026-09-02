@@ -135,19 +135,20 @@ jobs:
         # screen roots. GameScreenSelectors.Root / HistoryScreenSelectors.Root
         # are used rather than .Score, which is conditional on calm mode.
         #
-        # ONE self-reference temporarily pinned inside the mobile-ci branch,
-        # not by this validation - it must be restored to tag form by the
-        # author/coordinator before merge:
-        #   - capture-screenshots-ios@dd166ca
-        # (load-consumer-config no longer needs a pin: v1.11.0 is cut and
-        # allowed-keys is an input, so the tag form resolves.)
+        # Re-scoped to the v1.12.0 release candidate (mobile-ci main
+        # 93356e2, PRs #107 + #110 + #111) in the config-path form the
+        # consumer will actually use: every app-shaped value lives in
+        # .github/store-screenshots.validation.config.json, only the
+        # plan-time runner labels stay in with:. The config file also
+        # carries a top-level "$schema" key (must be tolerated by
+        # load-consumer-config, #111) and "launch-settle-seconds": "2"
+        # (the new 33rd loadable key, must resolve from the file).
+        # ONE self-reference is still branch-pinned inside mobile-ci at this
+        # SHA (capture-screenshots-ios@fade644, the #111 head) - the release
+        # PR normalizes it to @v1.12.0.
         # Device is iPhone 17 Pro Max (plain 'iPhone 17 Pro' has a
         # same-runtime clone on part of the pool per #105's validation -
-        # fails closed by design, not what this run is testing). Explicit
-        # with: blob form per instruction, even though this branch already
-        # has config-path merged in (1ed9e04) - either form exercises the
-        # same capture-screenshots-ios code, config-path itself already
-        # validated in #103.
+        # fails closed by design, not what this run is testing).
         #
         # 'win' (05.win.flow.yaml) dropped for THIS run: two prior attempts
         # (this validation and the original #103 one) both failed 2/2 at
@@ -164,29 +165,14 @@ jobs:
         # dropping it here to actually get the primary deep-link pixel
         # evidence downloadable. The --device flow-backed fix still has
         # partial evidence from that failed run's own log (see PR comment).
-        name: R4 deep-link foreground fix validation (PR 107)
+        name: R4 v1.12.0 release-candidate validation (config-path form)
         if: github.ref_name == 'ci/ssv-run/config-path'
-        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@c79ca78318eadc6e871b08fa40f587e75247edfc # fix/capture-ios-deeplink-foreground (temp capture-screenshots-ios self-pin, not by this validation)
+        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@93356e236270cf7434c05f554210ba53edc1ccd9 # main release-candidate (v1.12.0)
         with:
-            ios-target: >-
-                {"name":"e2e","appDir":"packages/app","workspace":"suuudokuuuE2E.xcworkspace","scheme":"suuudokuuuE2E","appId":"com.vitalyiegorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p ios --clean --no-install"}
-            capture-manifest: >-
-                [{"platform":"ios","device":"iPhone 17 Pro Max","locales":["en","de"],"appearances":["light"]}]
-            capture-mode: direct
-            capture-scenes: >-
-                [
-                  {"name":"hero-board","deepLink":"suuudokuuu://game","readySelector":{"id":"GameScreenSelectors.Root"}},
-                  {"name":"stats","deepLink":"suuudokuuu://history","readySelector":{"id":"HistoryScreenSelectors.Root"}}
-                ]
-            screenshots-dir: tests/app-tests/flows/screenshots
-            seed-command: node tests/app-tests/scripts/ci-seed-scene.ts
-            settle-seconds: '4'
+            config-path: .github/store-screenshots.validation.config.json
             build-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
             capture-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
-            cache-profile: suuudokuuu-ios-v2
-            repack-on-hit: true
-            rct-use-prebuilt-rncore: true
-            rct-use-rn-dep: true
-            build-env: |
-                APP_VARIANT=e2e
-            upload-screenshots: false
+        secrets:
+            ASC_API_KEY: ${{ secrets.EXPO_IOS_ASC_API_KEY }}
+            ASC_KEY_ID: ${{ secrets.EXPO_IOS_ASC_KEY_ID }}
+            ASC_ISSUER_ID: ${{ secrets.EXPO_IOS_ASC_ISSUER_ID }}

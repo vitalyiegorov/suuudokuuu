@@ -1,0 +1,38 @@
+{
+    "$schema": "https://raw.githubusercontent.com/rnw-community/mobile-ci/main/schemas/store-screenshots.schema.json",
+    "ios-target": {
+        "name": "e2e",
+        "appDir": "packages/app",
+        "workspace": "suuudokuuuE2E.xcworkspace",
+        "scheme": "suuudokuuuE2E",
+        "appId": "com.vitalyiegorov.suuudokuuu.e2e",
+        "prebuildCommand": "npx expo prebuild -p ios --clean --no-install"
+    },
+    "capture-mode": "direct",
+    "capture-manifest": [
+        {
+            "platform": "ios",
+            "device": "iPhone 17 Pro Max",
+            "locales": [
+                { "id": "en", "env": { "LOCALE_IDENTIFIER": "en-US" } },
+                { "id": "de", "env": { "LOCALE_IDENTIFIER": "de-DE" } }
+            ],
+            "appearances": ["light"]
+        }
+    ],
+    "capture-scenes": [
+        { "name": "hero-board", "deepLink": "suuudokuuu://game", "readySelector": { "id": "GameScreenSelectors.Root" } },
+        { "name": "stats", "deepLink": "suuudokuuu://history", "readySelector": { "id": "HistoryScreenSelectors.Root" } }
+    ],
+    "screenshots-dir": "tests/app-tests/flows/screenshots",
+    "seed-command": "node tests/app-tests/scripts/ci-seed-scene.ts",
+    "settle-seconds": "4",
+    "launch-settle-seconds": "2",
+    "maestro-env": "OS_LANGUAGE_MODE=true\n",
+    "cache-profile": "suuudokuuu-ios-v2",
+    "repack-on-hit": true,
+    "rct-use-prebuilt-rncore": true,
+    "rct-use-rn-dep": true,
+    "build-env": "APP_VARIANT=e2e\n",
+    "upload-screenshots": false
+}
