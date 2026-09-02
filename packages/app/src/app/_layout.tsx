@@ -1,8 +1,10 @@
 import '../@generic/utils/i18n-bootstrap';
 
-import { Inter_500Medium as inter500Medium, Inter_700Bold as inter700Bold, useFonts } from '@expo-google-fonts/inter';
+import { Inter_500Medium as inter500Medium } from '@expo-google-fonts/inter/500Medium';
+import { Inter_700Bold as inter700Bold } from '@expo-google-fonts/inter/700Bold';
 import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
+import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { Platform } from 'react-native';
