@@ -12,6 +12,7 @@ import { LinguiDefaultComponent } from '../@generic/components/lingui-default-co
 import { RootProviders } from '../@generic/components/root-providers/root-providers';
 import { applyGameControlsInteractions } from '../@generic/utils/apply-game-controls-interactions';
 import { applySheetContentWidth } from '../@generic/utils/apply-sheet-content-width';
+import { i18nActivateLanguage } from '../@generic/utils/i18n-catalogs';
 import { i18nGetOSLocale } from '../@generic/utils/i18n.util';
 import { WinConfettiProvider } from '../confetti/components/win-confetti-provider/win-confetti-provider';
 import { GameProvider } from '../game/components/game-provider/game-provider';
@@ -24,7 +25,7 @@ if (Platform.OS !== 'web') {
 applySheetContentWidth();
 applyGameControlsInteractions();
 
-i18n.activate(i18nGetOSLocale());
+void i18nActivateLanguage(i18nGetOSLocale());
 
 void SplashScreen.preventAutoHideAsync();
 
