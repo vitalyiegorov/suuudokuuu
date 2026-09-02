@@ -5452,6 +5452,8 @@ __metadata:
 "@suuudokuuu/app-tests@workspace:tests/app-tests":
   version: 0.0.0-use.local
   resolution: "@suuudokuuu/app-tests@workspace:tests/app-tests"
+  dependencies:
+    "@rnw-community/shared": "npm:^2.2.0"
   languageName: unknown
   linkType: soft
 

@@ -17,6 +17,7 @@ const PersistRootKey = 'persist:root';
 export const IosStorageRelativePath = join('Documents', 'SQLite', 'ExpoSQLiteStorage');
 export const AndroidStorageRelativePath = 'files/SQLite/ExpoSQLiteStorage';
 const PersistVersionPattern = /appRootPersistVersion\s*=\s*(\d+)/u;
+const SeedFixtureBaselinePersistVersion = 40;
 const LanguagesPattern = /export const Languages = \[([^\]]+)\]/u;
 const LanguageQuotesPattern = /['"]/gu;
 
@@ -77,6 +78,19 @@ const readPersistVersion = (): number => {
     }
 
     return Number(match[1]);
+};
+
+const resolveSeedPersistVersion = (): number => {
+    const livePersistVersion = readPersistVersion();
+
+    if (SeedFixtureBaselinePersistVersion >= livePersistVersion) {
+        throw new Error(
+            `SeedFixtureBaselinePersistVersion (${SeedFixtureBaselinePersistVersion}) must stay below appRootPersistVersion ` +
+                `(${livePersistVersion}) read from ${migrationsSourcePath}, or persisted-state migrations stop running against the seed fixture.`
+        );
+    }
+
+    return SeedFixtureBaselinePersistVersion;
 };
 
 const readSupportedLanguages = (): string[] => {
@@ -144,7 +158,7 @@ const buildPersistRootValue = (options: SeedOptions): string => {
 
     reanchorChallengeWallClockStart(game);
 
-    const persistMetadata = { rehydrated: true, version: readPersistVersion() };
+    const persistMetadata = { rehydrated: true, version: resolveSeedPersistVersion() };
 
     return JSON.stringify({
         _persist: JSON.stringify(persistMetadata),
