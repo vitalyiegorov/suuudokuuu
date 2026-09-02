@@ -1,5 +1,3 @@
-import '../@generic/utils/i18n-bootstrap';
-
 import { Inter_500Medium as inter500Medium } from '@expo-google-fonts/inter/500Medium';
 import { Inter_700Bold as inter700Bold } from '@expo-google-fonts/inter/700Bold';
 import { i18n } from '@lingui/core';

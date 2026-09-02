@@ -10,7 +10,7 @@ const catalogLoaders: Record<SettingsState['language'], () => Promise<{ messages
     ar: () => import('../../i18n/locales/ar/messages'),
     bn: () => import('../../i18n/locales/bn/messages'),
     de: () => import('../../i18n/locales/de/messages'),
-    en: () => import('../../i18n/locales/en/messages'),
+    en: () => Promise.resolve({ messages: enMessages }),
     es: () => import('../../i18n/locales/es/messages'),
     fr: () => import('../../i18n/locales/fr/messages'),
     hi: () => import('../../i18n/locales/hi/messages'),
@@ -25,7 +25,16 @@ const catalogLoaders: Record<SettingsState['language'], () => Promise<{ messages
 i18n.load({ en: enMessages });
 i18n.activate('en');
 
-export const i18nActivateLanguage = (language: SettingsState['language']): Promise<void> =>
-    catalogLoaders[language]()
-        .then(({ messages }) => void i18n.loadAndActivate({ locale: language, messages }))
+let requestedLanguage: SettingsState['language'] = 'en';
+
+export const i18nActivateLanguage = (language: SettingsState['language']): Promise<void> => {
+    requestedLanguage = language;
+
+    if (language === i18n.locale) {
+        return Promise.resolve();
+    }
+
+    return catalogLoaders[language]()
+        .then(({ messages }) => void (requestedLanguage === language && i18n.loadAndActivate({ locale: language, messages })))
         .catch(emptyFn);
+};
