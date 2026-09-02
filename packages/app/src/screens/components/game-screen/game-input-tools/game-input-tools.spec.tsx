@@ -45,16 +45,32 @@ describe('GameInputTools', () => {
         expect(screen.getByTestId(HintButtonSelectors.Root)).toBeTruthy();
     });
 
-    it('pushes the notes button to the trailing thumb edge for a right-handed player', () => {
-        expect(StyleSheet.flatten(GameInputToolsStyles.primaryToolButton(false))).toMatchObject({ marginStart: 'auto' });
+    it('splits the row between the utility group and the notes button', () => {
+        expect(StyleSheet.flatten(GameInputToolsStyles.inputControls(false))).toMatchObject({ justifyContent: 'space-between' });
     });
 
-    it('mirrors the notes button to the opposite thumb edge for a left-handed player', () => {
-        expect(StyleSheet.flatten(GameInputToolsStyles.primaryToolButton(true))).toMatchObject({ marginEnd: 'auto' });
+    it('lays the row out from the trailing thumb edge for a left-handed player', () => {
+        expect(StyleSheet.flatten(GameInputToolsStyles.inputControls(true))).toMatchObject({ flexDirection: 'row-reverse' });
+    });
+
+    it('keeps the utility group from shrinking its buttons', () => {
+        expect(StyleSheet.flatten(GameInputToolsStyles.utilityGroup)).toMatchObject({ flexShrink: 0 });
     });
 
     it('centers every tool on the same horizontal axis', () => {
         expect(StyleSheet.flatten(GameInputToolsStyles.inputControls(false))).toMatchObject({ alignItems: 'center' });
+    });
+
+    it('keeps the notes button perfectly round', () => {
+        const notesButtonStyle = StyleSheet.flatten(GameInputToolsStyles.primaryToolButton);
+
+        expect(notesButtonStyle.width).toBe(notesButtonStyle.height);
+    });
+
+    it('keeps every utility tool perfectly round', () => {
+        const toolButtonStyle = StyleSheet.flatten(GameInputToolsStyles.toolButton);
+
+        expect(toolButtonStyle.width).toBe(toolButtonStyle.height);
     });
 
     it('hides the undo, redo and hint buttons during a challenge run', async () => {

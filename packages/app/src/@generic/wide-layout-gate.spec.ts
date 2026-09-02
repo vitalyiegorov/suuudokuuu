@@ -6,7 +6,14 @@ import { describe, expect, it } from '@jest/globals';
 const sourceRoot = join(__dirname, '..');
 const specFileName = 'wide-layout-gate.spec.ts';
 const gateSymbolNames = ['useAppLayout', 'appLayoutScreenIsWide'];
-const boardScreenDirectories = ['game-screen', 'replay-screen', 'challenge-race-hud', 'challenge-record-hud'];
+const boardScreenDirectories = [
+    'game-screen',
+    'replay-screen',
+    'challenge-race-hud',
+    'challenge-record-hud',
+    'hint-panel',
+    'hint-step-narration'
+];
 
 const collectSourceFiles = (directory: string): string[] =>
     readdirSync(directory).flatMap(entry => {
