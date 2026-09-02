@@ -1,9 +1,9 @@
-import * as SplashScreen from 'expo-splash-screen';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
 import { appRootPersistor, appRootStore } from '../../app-root.store';
+import { hideAppSplashScreen } from '../../utils/hide-app-splash-screen';
 import { SafeAreaFloorProvider } from '../safe-area-floor-provider/safe-area-floor-provider';
 import { SystemMotionProvider } from '../system-motion-provider/system-motion-provider';
 
@@ -18,7 +18,7 @@ const rootProvidersStyle = { flex: 1 };
 export const RootProviders = ({ children }: Props) => (
     <GestureHandlerRootView style={rootProvidersStyle}>
         <Provider store={appRootStore}>
-            <PersistGate loading={null} persistor={appRootPersistor} onBeforeLift={SplashScreen.hideAsync}>
+            <PersistGate loading={null} persistor={appRootPersistor} onBeforeLift={hideAppSplashScreen}>
                 <SafeAreaFloorProvider>
                     <SystemMotionProvider>{children}</SystemMotionProvider>
                 </SafeAreaFloorProvider>

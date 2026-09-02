@@ -1,3 +1,5 @@
+import '../@generic/utils/i18n-bootstrap';
+
 import { Inter_500Medium as inter500Medium, Inter_700Bold as inter700Bold, useFonts } from '@expo-google-fonts/inter';
 import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
@@ -12,8 +14,6 @@ import { LinguiDefaultComponent } from '../@generic/components/lingui-default-co
 import { RootProviders } from '../@generic/components/root-providers/root-providers';
 import { applyGameControlsInteractions } from '../@generic/utils/apply-game-controls-interactions';
 import { applySheetContentWidth } from '../@generic/utils/apply-sheet-content-width';
-import { i18nActivateLanguage } from '../@generic/utils/i18n-catalogs';
-import { i18nGetOSLocale } from '../@generic/utils/i18n.util';
 import { WinConfettiProvider } from '../confetti/components/win-confetti-provider/win-confetti-provider';
 import { GameProvider } from '../game/components/game-provider/game-provider';
 import { ThemeProvider } from '../theme/components/theme-provider/theme-provider';
@@ -24,8 +24,6 @@ if (Platform.OS !== 'web') {
 }
 applySheetContentWidth();
 applyGameControlsInteractions();
-
-void i18nActivateLanguage(i18nGetOSLocale());
 
 void SplashScreen.preventAutoHideAsync();
 
