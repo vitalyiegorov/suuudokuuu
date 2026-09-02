@@ -3,6 +3,7 @@ import { router } from 'expo-router';
 
 import { useAppDispatch } from '../../@generic/hooks/use-app-dispatch.hook';
 import { useAppSelector } from '../../@generic/hooks/use-app-selector.hook';
+import { i18nActivateLanguage } from '../../@generic/utils/i18n-catalogs';
 import { SettingsOptionSheetSelectors } from '../component/settings-option-sheet/settings-option-sheet.selectors';
 import { CellMargin } from '../constant/cell-margin.constant';
 import { FontSizes } from '../constant/font-sizes.constant';
@@ -29,7 +30,7 @@ type SettingsOptionSheetConfig = {
 };
 
 export const useSettingsOptionSheetConfig = (setting: string | null): SettingsOptionSheetConfig | null => {
-    const { i18n, t } = useLingui();
+    const { t } = useLingui();
     const dispatch = useAppDispatch();
     const currentCellMargin = useAppSelector(settingsCellMarginSelector);
     const currentFontSize = useAppSelector(settingsFontSizeSelector);
@@ -53,7 +54,7 @@ export const useSettingsOptionSheetConfig = (setting: string | null): SettingsOp
     };
     const selectLanguage = (language: SettingsState['language']) => {
         dispatch(settingsSetAction({ language }));
-        i18n.activate(language);
+        void i18nActivateLanguage(language);
         router.back();
     };
 

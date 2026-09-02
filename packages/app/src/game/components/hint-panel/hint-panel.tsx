@@ -1,6 +1,8 @@
 import { useLingui } from '@lingui/react/macro';
 import { AppButton } from '@suuudokuuu/ui';
-import { LucideChevronLeft, LucideChevronRight, LucideX } from 'lucide-react-native';
+import LucideChevronLeft from 'lucide-react-native/icons/chevron-left';
+import LucideChevronRight from 'lucide-react-native/icons/chevron-right';
+import LucideX from 'lucide-react-native/icons/x';
 import { use, useEffect } from 'react';
 import { View } from 'react-native';
 

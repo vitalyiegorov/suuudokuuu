@@ -1,5 +1,8 @@
 import { useLingui } from '@lingui/react/macro';
-import { LucideCamera, LucideDoorOpen, LucidePencil, LucideShieldCheck } from 'lucide-react-native';
+import LucideCamera from 'lucide-react-native/icons/camera';
+import LucideDoorOpen from 'lucide-react-native/icons/door-open';
+import LucidePencil from 'lucide-react-native/icons/pencil';
+import LucideShieldCheck from 'lucide-react-native/icons/shield-check';
 import { use } from 'react';
 import { View } from 'react-native';
 

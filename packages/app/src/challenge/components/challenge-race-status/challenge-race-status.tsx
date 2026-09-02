@@ -1,6 +1,6 @@
 import { useLingui } from '@lingui/react/macro';
 import { CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
-import { LucideUser } from 'lucide-react-native';
+import LucideUser from 'lucide-react-native/icons/user';
 import { use } from 'react';
 import { Text, View } from 'react-native';
 

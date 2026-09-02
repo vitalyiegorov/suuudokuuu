@@ -1,5 +1,4 @@
 import { MaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
-import { LucideProps } from 'lucide-react-native';
 import { FC, use } from 'react';
 import { Platform, Text, View } from 'react-native';
 
@@ -9,6 +8,7 @@ import { ThemeContext } from '../../../theme/context/theme.context';
 
 import { BlackTextStyles } from './black-text.styles';
 
+import type { LucideProps } from 'lucide-react-native';
 import type { TextProps } from 'react-native';
 
 interface Props extends TextProps {

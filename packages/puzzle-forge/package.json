@@ -2,7 +2,7 @@
     "name": "@suuudokuuu/puzzle-forge",
     "version": "2.11.2",
     "private": true,
-    "sideEffects": "false",
+    "sideEffects": false,
     "exports": {
         ".": {
             "import": "./dist/esm/index.js",

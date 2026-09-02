@@ -1,7 +1,7 @@
 import { Plural, useLingui } from '@lingui/react/macro';
 import { DifficultyEnum } from '@suuudokuuu/generator';
 import { useRouter } from 'expo-router';
-import { LucideChevronRight } from 'lucide-react-native';
+import LucideChevronRight from 'lucide-react-native/icons/chevron-right';
 import { use } from 'react';
 import { Pressable, View } from 'react-native';
 

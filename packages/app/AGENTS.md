@@ -219,6 +219,31 @@ The trade also does not pay off in a bulk replay. Replaying the 59-move Nightmar
    `useBackdropRecomposite` from `@suuudokuuu/screen-chrome`. Keep that ref attached to an existing
    wrapper element; do not introduce a new wrapper View for it, which would change tab bar layout.
 
+## Web Initial Load
+
+1. The first paint comes from a static splash in `public/index.html`, not from React. `+html.tsx` is
+   only used by static rendering and does not affect the `single` output. Keep the markup, its inline
+   CSS, and the `#app-splash` id in sync with `@generic/constants/web-splash.constant.ts`.
+2. The splash is removed by the `@generic/utils/hide-app-splash-screen(.web).ts` pair. `RootProviders`
+   wires it to `PersistGate`'s `onBeforeLift`, which awaits the promise it returns, and activates the
+   rehydrated `settings.language` first, so neither platform renders a frame in the wrong locale.
+   Read the language from the store there, never the OS locale: rehydration has already settled by the
+   time `onBeforeLift` runs, so the persisted choice is the authoritative one.
+3. Only the `en` catalog is bundled eagerly; the other twelve are `import()`ed per locale. Activate
+   languages through `i18nActivateLanguage`, never `i18n.activate`, or the catalog will be missing.
+   It no-ops when the requested locale is already active and discards a load whose locale has since
+   been superseded, so overlapping switches cannot resurrect an older choice.
+4. `expo.web.output` must stay `single`. `react-native-unistyles` v3 has no SSR support, so `static`
+   fails the export while building the route manifest.
+5. Do not enable expo-router `asyncRoutes` on web: it stalls the first route chunk and regresses
+   time-to-home from 0.6s to 5.9s.
+6. Do not enable `EXPO_UNSTABLE_TREE_SHAKING`: it drops the `expo-sqlite` web worker chunk, which
+   breaks persistence rehydration.
+7. Import icons as `lucide-react-native/icons/<kebab-name>`, never from the package root. The root
+   barrel pulls all 1744 icon modules into the bundle.
+8. Import Google fonts per weight (`@expo-google-fonts/inter/500Medium`), never from the package
+   root. The barrel `require()`s all 18 Inter weights into the native asset bundle.
+
 ## Error Handling
 
 1. Use `getErrorMessage(error)` for unknown errors.

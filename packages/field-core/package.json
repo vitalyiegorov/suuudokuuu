@@ -3,7 +3,7 @@
     "version": "2.11.2",
     "private": true,
     "description": "Headless sudoku field engine with a technique step-script player",
-    "sideEffects": "false",
+    "sideEffects": false,
     "exports": {
         ".": {
             "import": "./dist/esm/index.js",

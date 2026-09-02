@@ -1,7 +1,7 @@
 import BottomSheet, { BottomSheetScrollView } from '@expo/ui/community/bottom-sheet';
 import { useLingui } from '@lingui/react/macro';
 import { Redirect, Stack, router, useLocalSearchParams } from 'expo-router';
-import { LucideX } from 'lucide-react-native';
+import LucideX from 'lucide-react-native/icons/x';
 import { use, useEffect, useRef } from 'react';
 import { View } from 'react-native';
 

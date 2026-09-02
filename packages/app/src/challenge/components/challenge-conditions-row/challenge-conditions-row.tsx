@@ -1,6 +1,6 @@
 import { useLingui } from '@lingui/react/macro';
 import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
-import { Zap } from 'lucide-react-native';
+import Zap from 'lucide-react-native/icons/zap';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { useUnistyles } from 'react-native-unistyles';
 

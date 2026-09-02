@@ -1,5 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
-import { LucidePencil } from 'lucide-react-native';
+import LucidePencil from 'lucide-react-native/icons/pencil';
 import { use } from 'react';
 
 import { AppIconButton } from '../../../@generic/components/app-icon-button/app-icon-button';

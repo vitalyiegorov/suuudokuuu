@@ -1,4 +1,4 @@
-import { LucideHouse } from 'lucide-react-native';
+import LucideHouse from 'lucide-react-native/icons/house';
 import { use } from 'react';
 
 import { GlassIconButton } from '../../../@generic/components/glass-icon-button/glass-icon-button';

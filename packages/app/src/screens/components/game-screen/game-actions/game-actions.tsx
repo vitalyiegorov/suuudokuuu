@@ -1,5 +1,8 @@
 import { useLingui } from '@lingui/react/macro';
-import { LucideLogOut, LucidePause, LucideSettings, LucideShare2 } from 'lucide-react-native';
+import LucideLogOut from 'lucide-react-native/icons/log-out';
+import LucidePause from 'lucide-react-native/icons/pause';
+import LucideSettings from 'lucide-react-native/icons/settings';
+import LucideShare2 from 'lucide-react-native/icons/share-2';
 import { View } from 'react-native';
 
 import { isDefined } from '@rnw-community/shared';

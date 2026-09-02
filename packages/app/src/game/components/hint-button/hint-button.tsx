@@ -1,5 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
-import { LucideLightbulb } from 'lucide-react-native';
+import LucideLightbulb from 'lucide-react-native/icons/lightbulb';
 import { use } from 'react';
 
 import { isDefined } from '@rnw-community/shared';

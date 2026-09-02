@@ -1,5 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
-import { LucideRedo2 } from 'lucide-react-native';
+import LucideRedo2 from 'lucide-react-native/icons/redo-2';
 import { use } from 'react';
 
 import { isDefined } from '@rnw-community/shared';

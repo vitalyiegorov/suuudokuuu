@@ -1,5 +1,5 @@
 import { SharedPayloadKindEnum } from '@suuudokuuu/encoder';
-import { LucideShare2 } from 'lucide-react-native';
+import LucideShare2 from 'lucide-react-native/icons/share-2';
 
 import { AppLinkButton } from '../../../@generic/components/app-link-button/app-link-button';
 import { useShareGameState } from '../../hooks/use-share-game-state/use-share-game-state.hook';

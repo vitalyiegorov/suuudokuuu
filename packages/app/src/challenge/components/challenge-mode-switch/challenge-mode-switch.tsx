@@ -2,7 +2,7 @@ import { useLingui } from '@lingui/react/macro';
 import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
 import { ImpactFeedbackStyle } from 'expo-haptics';
-import { Zap } from 'lucide-react-native';
+import Zap from 'lucide-react-native/icons/zap';
 import { useEffect } from 'react';
 import { Pressable } from 'react-native';
 import Animated, { interpolate, interpolateColor, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';

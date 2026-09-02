@@ -1,6 +1,9 @@
 import { useLingui } from '@lingui/react/macro';
 import { Tabs } from 'expo-router';
-import { BarChart3, CalendarDays, Play, Settings } from 'lucide-react-native';
+import CalendarDays from 'lucide-react-native/icons/calendar-days';
+import BarChart3 from 'lucide-react-native/icons/chart-column';
+import Play from 'lucide-react-native/icons/play';
+import Settings from 'lucide-react-native/icons/settings';
 
 import { FloatingTabBarOccupiedHeight } from '../floating-tab-bar/constant/floating-tab-bar.constant';
 import { FloatingTabBar } from '../floating-tab-bar/floating-tab-bar';
