@@ -2,6 +2,7 @@ import type { FieldCellBackgroundColorParamsInterface } from '../interface/field
 
 export const fieldCellGetBackgroundColor = (params: FieldCellBackgroundColorParamsInterface) => {
     const {
+        isActive,
         isActiveValue,
         isCellHighlighted,
         isPatternCell,
@@ -16,6 +17,8 @@ export const fieldCellGetBackgroundColor = (params: FieldCellBackgroundColorPara
 
     if (isTargetCell) {
         return theme.colors.accent;
+    } else if (isActive) {
+        return theme.colors.board.selected;
     } else if (isPatternCell) {
         return theme.colors.candidate.fillSelected;
     } else if (isWrong) {
