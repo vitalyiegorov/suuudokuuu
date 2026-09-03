@@ -108,7 +108,6 @@ export const AvailableValuesItem = (props: Props) => {
 
     const buttonStyles = [
         resolveUnistyleForAnimated(DigitButtonStyles.button),
-        { backgroundColor: theme.colors.candidate.fill },
         animatedStyles,
         cs(isExhausted, resolveUnistyleForAnimated(DigitButtonStyles.exhausted))
     ];

@@ -23,6 +23,8 @@ export const withSpring = <Value,>(toValue: Value) => toValue;
 
 export const withTiming = <Value,>(toValue: Value) => toValue;
 
+export const withSequence = <Value,>(...animations: Value[]) => animations.at(-1);
+
 export const withRepeat = <Value,>(animation: Value) => animation;
 
 export const withDelay = <Value,>(_delayMs: number, animation: Value) => animation;

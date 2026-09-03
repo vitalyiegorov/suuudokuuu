@@ -1,13 +1,6 @@
 import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { use, useEffect, useState } from 'react';
-import Reanimated, {
-    interpolate,
-    interpolateColor,
-    useAnimatedStyle,
-    useSharedValue,
-    withSequence,
-    withTiming
-} from 'react-native-reanimated';
+import Reanimated, { interpolate, useAnimatedStyle, useSharedValue, withSequence, withTiming } from 'react-native-reanimated';
 import { scheduleOnRN } from 'react-native-worklets';
 
 import { cs, isDefined } from '@rnw-community/shared';
@@ -24,7 +17,12 @@ import { FieldCellTextStyles as styles } from './field-cell-text.styles';
 import type { CellInterface } from '@suuudokuuu/generator';
 
 const comboAnimationConfig = { duration: 6 * animationDurationConstant };
-const FONT_SIZE_MULTIPLIER = 1.5;
+const COMBO_FULL_TURN_DEGREES = 360;
+const COMBO_SCALE_PEAK = 1.5;
+const COMBO_TURN_INPUT = [0, 1];
+const COMBO_SCALE_INPUT = [0, 0.5, 1];
+const COMBO_SCALE_OUTPUT = [1, COMBO_SCALE_PEAK, 1];
+const COMBO_TURN_OUTPUT = [0, COMBO_FULL_TURN_DEGREES];
 
 interface Props {
     readonly cell: CellInterface;
@@ -64,9 +62,10 @@ export const FieldCellText = (props: Props) => {
     }
 
     const comboAnimatedStyle = useAnimatedStyle(() => ({
-        color: interpolateColor(comboAnimation.value, [0, 0.5, 1], [theme.colors.ink, theme.colors.surface.subtleText, theme.colors.ink]),
-        fontSize: interpolate(comboAnimation.value, [0, 0.5, 1], [fontSize, fontSize * FONT_SIZE_MULTIPLIER, fontSize]),
-        transform: [{ rotate: `${interpolate(comboAnimation.value, [0, 1], [0, 360])}deg` }]
+        transform: [
+            { rotate: `${interpolate(comboAnimation.value, COMBO_TURN_INPUT, COMBO_TURN_OUTPUT)}deg` },
+            { scale: interpolate(comboAnimation.value, COMBO_SCALE_INPUT, COMBO_SCALE_OUTPUT) }
+        ]
     }));
 
     useEffect(() => {

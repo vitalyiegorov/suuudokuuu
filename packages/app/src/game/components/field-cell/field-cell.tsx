@@ -1,16 +1,7 @@
 import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { use, useEffect, useState } from 'react';
 import { Pressable } from 'react-native';
-import Reanimated, {
-    Easing,
-    interpolate,
-    interpolateColor,
-    useAnimatedStyle,
-    useDerivedValue,
-    useSharedValue,
-    withSequence,
-    withTiming
-} from 'react-native-reanimated';
+import Reanimated, { Easing, interpolate, useAnimatedStyle, useSharedValue, withSequence, withTiming } from 'react-native-reanimated';
 import { scheduleOnRN } from 'react-native-worklets';
 
 import { type OnEventFn } from '@rnw-community/shared';
@@ -35,7 +26,6 @@ import type { ReactNode } from 'react';
 
 const ReanimatedPressable = Reanimated.createAnimatedComponent(Pressable);
 
-const animationConfig = { duration: animationDurationConstant };
 const instantAnimationConfig = { duration: 0 };
 const successAnimationConfig = { duration: 3 * animationDurationConstant, easing: Easing.out(Easing.cubic) };
 const successHoldConfig = { duration: 3 * animationDurationConstant };
@@ -104,6 +94,7 @@ export const FieldCell = (props: Props) => {
     }
 
     const cellBackgroundColor = fieldCellGetBackgroundColor({
+        isActive,
         isActiveValue,
         isCellHighlighted: isHighlighted,
         isEmpty,
@@ -115,13 +106,6 @@ export const FieldCell = (props: Props) => {
         showIdenticalNumbers,
         theme
     });
-    const selectionAnimationConfig = isMotionReduced ? instantAnimationConfig : animationConfig;
-    const animation = useDerivedValue(() => withTiming(isActive ? 1 : 0, selectionAnimationConfig));
-
-    const selectionTargetColor = isTargetCell ? cellBackgroundColor : theme.colors.board.selected;
-    const cellAnimatedStyles = useAnimatedStyle(() => ({
-        backgroundColor: interpolateColor(animation.value, [0, 1], [cellBackgroundColor, selectionTargetColor])
-    }));
     const successPopAnimatedStyles = useAnimatedStyle(() => {
         if (!isSuccessPulsing || isMotionReduced) {
             return { transform: [{ scale: 1 }], zIndex: isSuccessPulsing ? 2 : 0 };
@@ -157,7 +141,6 @@ export const FieldCell = (props: Props) => {
         resolveUnistyleForAnimated(styles.container(cellSize)),
         ...useCellBorderStyles(engine.Sudoku, cell, cellMargin),
         { backgroundColor: cellBackgroundColor },
-        cellAnimatedStyles,
         successPopAnimatedStyles,
         fieldCellGetOutlineStyle({ isWrong, theme })
     ];

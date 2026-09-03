@@ -7,6 +7,7 @@ import { fieldCellGetBackgroundColor } from './field-cell-get-background-color.u
 import type { FieldCellBackgroundColorParamsInterface } from '../interface/field-cell-background-color-params.interface';
 
 const baseParams: FieldCellBackgroundColorParamsInterface = {
+    isActive: false,
     isActiveValue: false,
     isCellHighlighted: false,
     isEmpty: false,
@@ -26,6 +27,15 @@ describe('fieldCellGetBackgroundColor', () => {
         expect(fieldCellGetBackgroundColor({ ...baseParams, isTargetCell: true, isPatternCell: true, isWrong: true })).toBe(
             BWLightTheme.colors.accent
         );
+    });
+
+    it('should paint the selected cell before every board state except the hint target', () => {
+        expect.assertions(2);
+
+        expect(fieldCellGetBackgroundColor({ ...baseParams, isActive: true, isPatternCell: true, isWrong: true })).toBe(
+            BWLightTheme.colors.board.selected
+        );
+        expect(fieldCellGetBackgroundColor({ ...baseParams, isActive: true, isTargetCell: true })).toBe(BWLightTheme.colors.accent);
     });
 
     it('should mark a hint pattern cell before the ordinary board states', () => {
