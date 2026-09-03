@@ -1,12 +1,12 @@
-Petunjuk kini mengajari, bukan sekadar memberi jawaban. Setiap petunjuk menyebut nama tekniknya, menyorot sel-sel yang memaksa langkah itu, dan menuntunmu melewati penalarannya langkah demi langkah sebelum apa pun diisi.
+Petunjuk kini mengajari, bukan sekadar memberi jawaban. Setiap petunjuk menyebut tekniknya, menyorot sel yang memaksa langkah itu, dan menuntunmu melewati penalarannya sebelum apa pun diisi. Di ponsel, panel petunjuk kini mengisi ruang di bawah papan dengan tinggi tetap: teks lebih besar, tidak ada yang meloncat antarlangkah.
 
-• Urungkan dan ulangi, dengan skor yang jujur: mengurungkan mengembalikan persis poin yang diberikan langkah itu, jadi mengulang sel yang sama tidak pernah dibayar dua kali.
-• Petunjuk tidak muncul di Mimpi buruk, Neraka, dan Tak Terhingga kecuali kamu menyalakannya sendiri, dan di Hardcore petunjuk maupun urungkan ikut disembunyikan.
-• Tantangan harian di tabnya sendiri: satu sudoku yang sama untuk semua orang setiap hari, lengkap dengan rentetan saat ini, rentetan terbaik, dan daftar penyelesaian terakhirmu.
-• Tingkat kesulitan kini sesuai janjinya: setiap papan dibuat ulang sampai benar-benar menuntut teknik yang dijanjikan levelnya.
-• Lebih ramah untuk tangan dan mata: area sentuh lebih besar di papan dan tombol angka, pengaturan pengurangan gerak, angka lebih besar, Permainan tenang tanpa skor, dan penghormatan penuh pada ukuran teks perangkatmu.
-• Tema baru Kontras tinggi dan Ramah buta warna, dengan setiap pasangan warna papan lolos WCAG AA dan status dibedakan lewat terang-gelap serta garis tepi, bukan rona.
-• Dukungan pembaca layar penuh: sel, angka, dan kontrol menyebutkan peran dan statusnya, sementara langkah petunjuk, kesalahan, dan kemenangan diumumkan seketika.
-• Tombol catatan kini berdiri sendiri di tepi ibu jari, dicerminkan untuk pemain kidal, dan pada layar lebar panel petunjuk akhirnya berukuran nyaman dibaca.
-• Diperbaiki: langkah yang tersusun dari beberapa tahap logika dicatat sebagai tekniknya, bukan tebakan, kandidat otomatis kini membuang apa yang sudah dicoret petunjuk, dan angka putih di sel terpilih kembali muncul.
+• Urungkan dan ulangi, dengan skor yang jujur: mengurungkan mengembalikan persis poin langkah itu, jadi mengulang sel yang sama tidak pernah dibayar dua kali.
+• Petunjuk tidak muncul di Mimpi buruk, Neraka, dan Tak Terhingga kecuali kamu menyalakannya, dan di Hardcore petunjuk maupun urungkan ikut disembunyikan.
+• Tantangan harian di tabnya sendiri: satu sudoku yang sama untuk semua setiap hari, dengan rentetan saat ini, rentetan terbaik, dan penyelesaian terakhirmu.
+• Tingkat kesulitan kini sesuai janjinya: setiap papan dibuat ulang sampai benar-benar menuntut teknik levelnya.
+• Lebih ramah untuk tangan dan mata: area sentuh lebih besar, pengurangan gerak, angka lebih besar, Permainan tenang tanpa skor, dan penghormatan penuh pada ukuran teks perangkatmu.
+• Tema baru Kontras tinggi dan Ramah buta warna, dengan setiap pasangan warna papan lolos WCAG AA dan status dibedakan lewat terang-gelap dan garis tepi, bukan rona.
+• Dukungan pembaca layar penuh: sel, angka, dan kontrol menyebutkan peran dan statusnya; langkah petunjuk, kesalahan, dan kemenangan diumumkan seketika.
+• Tombol catatan kini berdiri sendiri di tepi ibu jari, dicerminkan untuk pemain kidal, dan pada layar lebar panel petunjuk akhirnya nyaman dibaca.
+• Diperbaiki: langkah yang tersusun dari beberapa tahap logika dicatat sebagai tekniknya, bukan tebakan, kandidat otomatis kini membuang apa yang sudah dicoret petunjuk, sel tidak lagi menyimpan sorotan pilihan sebelumnya, dan angka putih di sel terpilih kembali muncul.
 • Lebih cepat: versi web langsung tampil tanpa menunggu seluruh unduhan selesai, dan aplikasinya 5,5 MB lebih kecil.

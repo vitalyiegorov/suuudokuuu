@@ -1,6 +1,6 @@
-Les indices expliquent enfin : ils nomment la technique, montrent les cases qui imposent le coup et le pourquoi.
-Annuler et rétablir avec un score honnête ; pas d'indices sur les grilles les plus dures sans votre accord.
-Défi du jour avec séries, dans son propre onglet.
+Les indices expliquent : ils nomment la technique et montrent les cases décisives. Le panneau a une hauteur fixe sous la grille : texte plus grand, sans saut.
+Annuler et rétablir avec un score honnête ; aucun indice sur les grilles les plus dures sans accord.
+Défi du jour avec séries, dans son onglet.
 Chaque niveau exige vraiment ses techniques.
-Zones tactiles agrandies, moins d'animations, chiffres plus grands, jeu apaisé, taille de texte du système.
-Thèmes contraste élevé et daltonisme, lecteurs d'écran pris en charge.
+Zones tactiles et chiffres agrandis, jeu apaisé, thèmes contraste et daltonisme, lecteurs d'écran.
+Corrigé : cases gardant une ancienne couleur.

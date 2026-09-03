@@ -1,4 +1,4 @@
-Hints now teach instead of telling. Each one names the technique, lights up the cells that force the move, and walks you through the reasoning step by step before anything is placed.
+Hints now teach instead of telling. Each one names the technique, lights up the cells that force the move, and walks you through the reasoning step by step before anything is placed. On phones the hint player now fills the space below the board as a fixed panel, so the text is bigger and nothing jumps between steps.
 
 • Undo and redo, with honest scoring: an undo hands back exactly the points its placement earned, so replaying the same cell can never pay twice.
 • Hints stay off Nightmare, Hell and Infinity unless you switch them on, and both hints and undo are hidden in Hardcore.
@@ -8,5 +8,5 @@ Hints now teach instead of telling. Each one names the technique, lights up the 
 • New High contrast and Colorblind safe themes, with every board color pair checked against WCAG AA and states told apart by lightness and outlines instead of hue.
 • Full screen reader support: cells, digits and controls announce their role and state, and hint steps, mistakes and wins are spoken as they happen.
 • The Notes control now sits alone at the thumb edge, mirrored for left-handed play, and on desktop the hint panel finally has a readable size.
-• Fixed: moves built from several logical steps are credited to the technique behind them instead of counting as guesses, auto-candidates now drop what a hint eliminated, and the white digit on the selected cell is back.
+• Fixed: moves built from several logical steps are credited to the technique behind them instead of counting as guesses, auto-candidates now drop what a hint eliminated, cells no longer keep the highlight or digit color of an earlier move, and the white digit on the selected cell is back.
 • Faster: the web version paints straight away instead of waiting for the whole download, and the app itself is 5.5 MB smaller.

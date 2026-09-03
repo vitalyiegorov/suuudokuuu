@@ -1,12 +1,12 @@
-Hinweise erklären jetzt, statt zu verraten. Jeder nennt die Technik, hebt die Zellen hervor, die den Zug erzwingen, und führt Schritt für Schritt durch die Begründung, bevor überhaupt etwas gesetzt wird.
+Hinweise erklären jetzt, statt zu verraten. Jeder nennt die Technik, hebt die Zellen hervor, die den Zug erzwingen, und führt Schritt für Schritt durch die Begründung. Auf dem Telefon füllt die Hinweiskarte den Platz unter dem Brett mit fester Höhe: größere Schrift, und zwischen den Schritten springt nichts mehr.
 
-• Rückgängig und Wiederherstellen, mit ehrlicher Wertung: Rückgängig gibt genau die Punkte zurück, die der Zug eingebracht hat, dieselbe Zelle zahlt also nie zweimal.
-• Hinweise bleiben in Albtraum, Hölle und Unendlich aus, bis du sie selbst einschaltest, und in Hardcore sind Hinweise wie auch Rückgängig ganz ausgeblendet.
-• Tägliche Herausforderung mit eigenem Tab: ein Rätsel pro Tag, für alle dasselbe, mit aktueller und bester Serie und deinen letzten Lösungen.
+• Rückgängig und Wiederherstellen, mit ehrlicher Wertung: Rückgängig gibt genau die Punkte des Zuges zurück, dieselbe Zelle zahlt also nie zweimal.
+• Hinweise bleiben in Albtraum, Hölle und Unendlich aus, bis du sie selbst einschaltest, und in Hardcore sind Hinweise und Rückgängig ganz ausgeblendet.
+• Tägliche Herausforderung mit eigenem Tab: ein Rätsel pro Tag für alle, mit aktueller und bester Serie und deinen letzten Lösungen.
 • Die Schwierigkeit hält jetzt, was sie verspricht: Jedes Brett wird so lange erzeugt, bis es die Techniken seiner Stufe wirklich braucht.
-• Schonender für Hände und Augen: größere Trefferflächen auf Brett und Ziffernfeld, eine Einstellung für weniger Bewegung, größere Zahlen, „Ruhiges Spiel“ ohne Punktanzeige und volle Unterstützung der Textgröße deines Geräts.
-• Neue Themen „Hoher Kontrast“ und „Farbenblind-freundlich“: Jedes Farbpaar auf dem Brett erfüllt WCAG AA, und Zustände unterscheiden sich durch Helligkeit und Umrisse statt durch den Farbton.
-• Vollständige Screenreader-Unterstützung: Zellen, Ziffern und Bedienelemente nennen Rolle und Zustand, und Hinweisschritte, Fehler und Siege werden angesagt.
+• Schonender für Hände und Augen: größere Trefferflächen auf Brett und Ziffernfeld, weniger Bewegung, größere Zahlen, „Ruhiges Spiel“ ohne Punktanzeige und volle Unterstützung der Textgröße deines Geräts.
+• Neue Themen „Hoher Kontrast“ und „Farbenblind-freundlich“: Jedes Farbpaar auf dem Brett erfüllt WCAG AA, und Zustände unterscheiden sich durch Helligkeit und Umrisse statt durch Farbton.
+• Vollständige Screenreader-Unterstützung: Zellen, Ziffern und Bedienelemente nennen Rolle und Zustand; Hinweisschritte, Fehler und Siege werden angesagt.
 • Der Notizen-Knopf sitzt jetzt allein am Daumenrand, gespiegelt für Linkshänder, und am Desktop hat die Hinweiskarte endlich eine lesbare Größe.
-• Behoben: Züge aus mehreren logischen Schritten zählen als die Technik dahinter statt als Raten, Auto-Kandidaten entfernen jetzt, was ein Hinweis ausgeschlossen hat, und die weiße Ziffer auf der gewählten Zelle ist zurück.
-• Schneller: Die Web-Version zeigt sofort etwas an, statt auf den kompletten Download zu warten, und die App selbst ist 5,5 MB kleiner.
+• Behoben: Züge aus mehreren logischen Schritten zählen als die Technik dahinter statt als Raten, Auto-Kandidaten entfernen jetzt, was ein Hinweis ausgeschlossen hat, Zellen behalten keine alte Hervorhebung mehr, und die weiße Ziffer auf der gewählten Zelle ist zurück.
+• Schneller: Die Web-Version zeigt sofort etwas an, statt den kompletten Download abzuwarten, und die App ist 5,5 MB kleiner.

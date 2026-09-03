@@ -1,4 +1,4 @@
-Ledtrådar undervisar nu i stället för att avslöja. Varje ledtråd namnger tekniken, lyfter fram rutorna som tvingar fram draget och går igenom resonemanget steg för steg innan något placeras.
+Ledtrådar undervisar nu i stället för att avslöja. Varje ledtråd namnger tekniken, lyfter fram rutorna som tvingar fram draget och går igenom resonemanget steg för steg innan något placeras. På telefonen fyller ledtrådspanelen utrymmet under brädet med fast höjd: större text, och inget hoppar till mellan stegen.
 
 • Ångra och gör om, med ärlig poängsättning: att ångra lämnar tillbaka exakt de poäng draget gav, så samma ruta kan aldrig ge poäng två gånger.
 • Ledtrådar visas inte i Mardröm, Helvete och Oändlighet om du inte slår på dem själv, och i Hardcore är både ledtrådar och ångra dolda.
@@ -8,5 +8,5 @@ Ledtrådar undervisar nu i stället för att avslöja. Varje ledtråd namnger te
 • Nya teman Hög kontrast och Färgblindanpassad, där varje färgpar på brädet klarar WCAG AA och tillstånd skiljs åt med ljushet och konturer i stället för nyans.
 • Fullt stöd för skärmläsare: rutor, siffror och kontroller anger roll och tillstånd, och ledtrådssteg, misstag och vinster läses upp direkt.
 • Anteckningsknappen sitter nu ensam vid tumkanten, speglad för vänsterhänta, och på skrivbordet har ledtrådspanelen äntligen en läsbar storlek.
-• Fixat: drag som byggs av flera logiska steg räknas till tekniken bakom dem i stället för som gissningar, autokandidater tar nu bort det en ledtråd uteslutit, och den vita siffran i den valda rutan är tillbaka.
+• Fixat: drag som byggs av flera logiska steg räknas till tekniken bakom dem i stället för som gissningar, autokandidater tar nu bort det en ledtråd uteslutit, rutor behåller inte längre markeringen från ett tidigare val, och den vita siffran i den valda rutan är tillbaka.
 • Snabbare: webbversionen ritas upp direkt i stället för att vänta på hela nedladdningen, och appen är 5,5 MB mindre.

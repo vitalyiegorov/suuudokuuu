@@ -1,6 +1,6 @@
-Ledtrådar undervisar nu: de namnger tekniken, lyfter fram rutorna som tvingar fram draget och förklarar varför, steg för steg.
-Ångra och gör om med ärlig poängsättning; på de svåraste nivåerna visas ledtrådar bara om du slår på dem.
-Dagens utmaning med sviter, i en egen flik.
-Varje nivå kräver nu verkligen sina tekniker.
-Större tryckytor, mindre rörelse, större siffror, lugnt spel, enhetens textstorlek.
-Nya teman för hög kontrast och färgblindhet, plus stöd för skärmläsare.
+Ledtrådar undervisar nu: de namnger tekniken, lyfter fram rutorna som tvingar fram draget och förklarar varför. Ledtrådspanelen har fast höjd under brädet: större text, inga hopp.
+Ångra och gör om med ärlig poängsättning; på de svåraste nivåerna bara om du slår på dem.
+Dagens utmaning med sviter, i egen flik.
+Varje nivå kräver verkligen sina tekniker.
+Större tryckytor och siffror, lugnt spel, teman för hög kontrast och färgblindhet, skärmläsare.
+Fixat: rutor behöll en gammal markering.
