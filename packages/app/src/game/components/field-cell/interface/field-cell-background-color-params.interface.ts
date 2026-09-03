@@ -1,6 +1,7 @@
 import type { BWDarkTheme } from '../../../../theme/themes/bw.theme';
 
 export interface FieldCellBackgroundColorParamsInterface {
+    readonly isActive: boolean;
     readonly isActiveValue: boolean;
     readonly isCellHighlighted: boolean;
     readonly isEmpty: boolean;

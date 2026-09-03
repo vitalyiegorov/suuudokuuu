@@ -76,6 +76,10 @@ src/
 4. Preserve the existing theme contract in `ThemeInterface` from `@suuudokuuu/ui` (`packages/ui/src/theme/interface/theme.interface.ts`).
 5. Keep test selectors in nearby `*.selectors.ts` files when a screen or component is targeted by Maestro.
 
+### Animated styles
+
+Never set the same style property both statically and through an animated style on one node. Reanimated 4 renders an animated style into React as its first-render value and appends the last settled animated props after the component's own styles, so on native the settled animated value is what the commit carries and the statically computed value can never win. A node whose property is decided by React state must not have that property in a `useAnimatedStyle`, and a property that is genuinely animated must have the animated style as its only writer. When a state-driven color, opacity, or size needs emphasis, animate a property React never sets on that node, such as `transform` or a dedicated overlay.
+
 ## State And Persistence
 
 1. Redux slices live in the owning module's `store` folder.
