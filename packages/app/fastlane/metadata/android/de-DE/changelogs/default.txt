@@ -1,6 +1,6 @@
-Hinweise erklären jetzt: Sie nennen die Technik, heben die entscheidenden Zellen hervor und begründen den Zug.
-Rückgängig und Wiederherstellen mit ehrlicher Wertung; auf den schwersten Stufen nur auf Wunsch.
-Tägliche Herausforderung mit Serien, im eigenen Tab.
-Jede Stufe braucht jetzt wirklich ihre Techniken.
-Größere Trefferflächen, weniger Bewegung, größere Zahlen, ruhiges Spiel, Textgröße des Geräts.
-Neue Themen für hohen Kontrast und Farbenblindheit, dazu Screenreader-Unterstützung.
+Hinweise erklären jetzt: Sie nennen die Technik und heben die Zellen hervor, die den Zug erzwingen. Die Hinweiskarte unter dem Brett hat feste Höhe: größere Schrift, kein Sprung.
+Rückgängig und Wiederherstellen mit ehrlicher Wertung; auf harten Stufen nur auf Wunsch.
+Tägliche Herausforderung mit Serien im eigenen Tab.
+Jede Stufe braucht wirklich ihre Techniken.
+Größere Trefferflächen und Zahlen, ruhiges Spiel, Kontrast-/Farbenblind-Themen, Screenreader.
+Behoben: alte Hervorhebung in Zellen.

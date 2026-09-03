@@ -1,7 +1,7 @@
-Hints now teach: each one names the technique, lights up the cells that force the move and explains why, step by step.
-Undo and redo with honest scoring, and hints kept off the hardest levels unless you ask.
+Hints now teach: each names the technique, lights the cells that force it and explains why. The hint panel has a fixed height below the board: bigger text, no jumps.
+Undo and redo with honest scoring; no hints on the hardest levels unless asked.
 Daily challenge with streaks, on its own tab.
-Every level now really needs the techniques it promises.
-Bigger touch targets, reduce motion, larger digits, calm play, device text size.
-High contrast and colorblind-safe themes, plus full screen reader support.
-Faster web start.
+Every level needs its techniques.
+Bigger touch targets, reduce motion, larger digits, calm play, text size.
+High contrast and colorblind-safe themes, screen readers.
+Fixed: cells keeping an old highlight.

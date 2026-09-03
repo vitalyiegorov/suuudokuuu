@@ -1,6 +1,6 @@
-Petunjuk kini mengajari: menyebut tekniknya, menyorot sel yang memaksa langkah itu, dan menjelaskan alasannya.
-Urungkan dan ulangi dengan skor yang jujur; di level tersulit petunjuk hanya muncul bila kamu mau.
-Tantangan harian dengan rentetan, di tabnya sendiri.
-Setiap level kini benar-benar menuntut tekniknya.
-Area sentuh lebih besar, gerak berkurang, angka lebih besar, permainan tenang, ukuran teks perangkat.
-Tema kontras tinggi dan ramah buta warna, plus dukungan pembaca layar.
+Petunjuk kini mengajari: menyebut tekniknya, menyorot sel penentu, dan menjelaskan alasannya. Panel petunjuk bertinggi tetap di bawah papan: teks lebih besar, tanpa loncat.
+Urungkan dan ulangi dengan skor jujur; di level tersulit petunjuk hanya bila diminta.
+Tantangan harian dengan rentetan, di tab sendiri.
+Setiap level benar-benar butuh tekniknya.
+Area sentuh dan angka lebih besar, permainan tenang, tema kontras tinggi dan ramah buta warna, pembaca layar.
+Diperbaiki: sorotan lama pada sel.

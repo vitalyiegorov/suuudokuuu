@@ -1,6 +1,6 @@
-As dicas agora ensinam: nomeiam a técnica, destacam as casas que forçam a jogada e explicam o porquê passo a passo.
-Desfazer e refazer com pontuação honesta; nos níveis mais duros não há dicas, a menos que você ligue.
-Desafio diário com sequências, na própria aba.
-Cada nível exige de verdade as técnicas que promete.
-Áreas de toque maiores, menos movimento, dígitos maiores, jogo tranquilo, tamanho de texto do aparelho.
-Temas de alto contraste e para daltônicos, além de leitores de tela.
+As dicas ensinam: nomeiam a técnica, destacam as casas que forçam a jogada e explicam o porquê. O painel de dica tem altura fixa abaixo do tabuleiro: texto maior, sem saltos.
+Desfazer e refazer com pontuação honesta; nos níveis mais duros só se você ligar.
+Desafio diário com sequências, na sua aba.
+Cada nível exige de verdade suas técnicas.
+Áreas de toque e dígitos maiores, jogo tranquilo, temas de alto contraste e para daltônicos, leitores de tela.
+Corrigido: casas com destaque antigo.

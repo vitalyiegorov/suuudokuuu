@@ -1,12 +1,12 @@
-Les indices expliquent désormais au lieu de donner la réponse. Chacun nomme la technique, met en évidence les cases qui imposent le coup et déroule le raisonnement étape par étape avant de rien poser.
+Les indices expliquent désormais au lieu de donner la réponse. Chacun nomme la technique, met en évidence les cases qui imposent le coup et déroule le raisonnement étape par étape. Sur téléphone, l'indice occupe l'espace sous la grille à hauteur fixe : texte plus grand, aucun saut entre les étapes.
 
-• Annuler et rétablir, avec un score honnête : annuler rend exactement les points rapportés par le coup, impossible donc de rejouer la même case pour les gagner deux fois.
-• Les indices restent absents en Cauchemar, Enfer et Infini tant que vous ne les activez pas, et en Hardcore les indices comme l'annulation sont masqués.
-• Défi du jour dans son propre onglet : la même grille pour tout le monde chaque jour, avec série en cours, meilleure série et vos dernières réussites.
+• Annuler et rétablir, avec un score honnête : annuler rend exactement les points du coup, impossible donc de gagner deux fois sur la même case.
+• Pas d'indices en Cauchemar, Enfer et Infini tant que vous ne les activez pas ; en Hardcore, indices et annulation sont masqués.
+• Défi du jour dans son propre onglet : la même grille pour tous chaque jour, avec série en cours, meilleure série et vos dernières réussites.
 • La difficulté tient enfin sa promesse : chaque grille est générée jusqu'à exiger réellement les techniques de son niveau.
-• Plus doux pour les mains et les yeux : zones tactiles agrandies sur la grille et le pavé, réglage de réduction des animations, chiffres plus grands, Jeu apaisé sans score et respect de la taille de texte de votre appareil.
-• Nouveaux thèmes Contraste élevé et Adapté au daltonisme : chaque paire de couleurs de la grille passe le seuil WCAG AA, et les états se distinguent par la luminosité et les contours plutôt que par la teinte.
-• Prise en charge complète des lecteurs d'écran : cases, chiffres et commandes annoncent leur rôle et leur état, et les étapes d'indice, les erreurs et les victoires sont annoncées.
+• Plus doux pour les mains et les yeux : zones tactiles agrandies, réduction des animations, chiffres plus grands, Jeu apaisé sans score et respect de la taille de texte de votre appareil.
+• Nouveaux thèmes Contraste élevé et Adapté au daltonisme : chaque paire de couleurs de la grille passe le seuil WCAG AA, et les états se distinguent par la luminosité et les contours, pas la teinte.
+• Lecteurs d'écran pris en charge : cases, chiffres et commandes annoncent leur rôle et leur état ; étapes d'indice, erreurs et victoires sont vocalisées.
 • Le bouton Notes se place seul au bord du pouce, en miroir pour les gauchers, et sur ordinateur le panneau d'indice a enfin une taille lisible.
-• Corrigé : les coups issus de plusieurs étapes logiques sont attribués à leur technique au lieu de compter comme des devinettes, les candidats automatiques retirent ce qu'un indice élimine, et le chiffre blanc de la case sélectionnée est de retour.
-• Plus rapide : la version web s'affiche immédiatement au lieu d'attendre tout le téléchargement, et l'application pèse 5,5 Mo de moins.
+• Corrigé : les coups issus de plusieurs étapes logiques sont attribués à leur technique au lieu de compter comme des devinettes, les candidats automatiques retirent ce qu'un indice élimine, les cases ne gardent plus une ancienne mise en évidence, et le chiffre blanc de la case sélectionnée est de retour.
+• Plus rapide : la version web s'affiche immédiatement sans attendre tout le téléchargement, et l'application pèse 5,5 Mo de moins.

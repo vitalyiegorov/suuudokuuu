@@ -1,6 +1,6 @@
-Las sugerencias ahora enseñan: nombran la técnica, iluminan las casillas que obligan la jugada y explican el porqué.
-Deshacer y rehacer con puntuación honesta; en los niveles más duros solo si las activas.
-Reto diario con rachas, en su propia pestaña.
-Cada nivel exige de verdad las técnicas que promete.
-Zonas de toque mayores, menos movimiento, dígitos más grandes, juego tranquilo, tamaño de texto del sistema.
-Temas de alto contraste y aptos para daltónicos, y lectores de pantalla.
+Las sugerencias enseñan: nombran la técnica, iluminan las casillas que obligan la jugada y lo explican paso a paso. El panel tiene altura fija bajo el tablero: texto mayor, sin saltos.
+Deshacer y rehacer con puntuación honesta; en los niveles duros solo si las activas.
+Reto diario con rachas, en su pestaña.
+Cada nivel exige de verdad sus técnicas.
+Toques y dígitos mayores, juego tranquilo, temas de alto contraste y daltónicos, lectores de pantalla.
+Corregido: casillas con resaltado anterior.
