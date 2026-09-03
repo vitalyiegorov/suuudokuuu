@@ -3,9 +3,6 @@
         "packages/app/lingui.config.js",
         "packages/app/fingerprint.config.js",
         "**/babel.config.js",
-        "**/*.web.ts",
-        "**/*.web.tsx",
-
         "**/selectors.ts",
         "packages/hell-corpus/scripts/shared/rate-puzzle-worker.mjs"
     ],

@@ -77,9 +77,9 @@ export const DailyScreen = () => {
     return (
         <ChromePage footer={actionBar} testID={DailyScreenSelectors.Root} topEdgeFadeProps={topEdgeFadeProps}>
             <ScreenChromeScrollView
-                contentInsetMode="additive"
-                contentContainerStyle={styles.scrollContent}
+                contentContainerStyle={resolveUnistyleForAnimated(styles.scrollContent)}
                 contentInsetBottom={contentInsetBottom}
+                contentInsetMode="additive"
                 contentInsetTop={safeAreaInsets.top}
                 showsVerticalScrollIndicator={false}
                 style={resolveUnistyleForAnimated(styles.scrollView)}

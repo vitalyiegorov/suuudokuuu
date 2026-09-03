@@ -157,9 +157,9 @@ export const HomeScreen = () => {
     return (
         <ChromePage contentStyle={styles.content} topEdgeFadeProps={topEdgeFadeProps}>
             <ScreenChromeScrollView
-                contentInsetMode="additive"
-                contentContainerStyle={styles.scrollContent}
+                contentContainerStyle={resolveUnistyleForAnimated(styles.scrollContent)}
                 contentInsetBottom={contentInsetBottom}
+                contentInsetMode="additive"
                 contentInsetTop={contentInsetTop}
                 showsVerticalScrollIndicator={false}
                 style={resolveUnistyleForAnimated(styles.scrollView)}

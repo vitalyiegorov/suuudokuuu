@@ -5322,17 +5322,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rnw-community/shared@npm:^2.15.0":
+"@rnw-community/shared@npm:^2.15.0, @rnw-community/shared@npm:^2.2.0":
   version: 2.15.0
   resolution: "@rnw-community/shared@npm:2.15.0"
   checksum: 10/e086c6ed033b26afc5fb6799afb11b01c4f0aad7b21f9119ed1080fb742cb36cb1a365d4d22ae6dd1d91ede05931e7f4f3e0fe0af9ba1dbffeb3f3d2f55ec7a8
-  languageName: node
-  linkType: hard
-
-"@rnw-community/shared@npm:^2.2.0":
-  version: 2.2.0
-  resolution: "@rnw-community/shared@npm:2.2.0"
-  checksum: 10/27638e6eaa08e58135982c3cfc5f1da9621f60a483ba6eb34fdc28f76766f6859b6f6a01b3c97f5791d886eb3e27fd22620982cdfef45503f17ccc92fdcfb4f4
   languageName: node
   linkType: hard
 
@@ -5527,7 +5520,6 @@ __metadata:
     "@lingui/core": "npm:6.4.0"
     "@lingui/format-po": "npm:6.4.0"
     "@lingui/react": "npm:6.4.0"
-    "@react-native-masked-view/masked-view": "npm:^0.3.2"
     "@react-native/jest-preset": "npm:0.86.1"
     "@react-native/metro-config": "npm:0.86.0"
     "@reduxjs/toolkit": "npm:^2.12.0"
@@ -5557,7 +5549,6 @@ __metadata:
     expo-font: "npm:~57.0.2"
     expo-glass-effect: "npm:~57.0.0"
     expo-haptics: "npm:~57.0.2"
-    expo-linear-gradient: "npm:~57.0.1"
     expo-linking: "npm:~57.0.8"
     expo-localization: "npm:~57.0.1"
     expo-router: "npm:~57.0.17"
@@ -10019,17 +10010,6 @@ __metadata:
     expo: "*"
     react: "*"
   checksum: 10/34260d33c674c984c2dfa992d4957b07266842b7d397f508c1a77eb9c4ebdb7dcdccd2a42caab2cb59dc51d702aef66ef919739fa53240bc2f6ca03a0e4fff6f
-  languageName: node
-  linkType: hard
-
-"expo-linear-gradient@npm:~57.0.1":
-  version: 57.0.1
-  resolution: "expo-linear-gradient@npm:57.0.1"
-  peerDependencies:
-    expo: "*"
-    react: "*"
-    react-native: "*"
-  checksum: 10/188d6772749be2535e2fe2a91b2066d829bd960fb0a0da76828ea0519b0516ef6f6fd015640d3959a017b61721d65681f2e93ab487533c6e865d8e86668a554f
   languageName: node
   linkType: hard
 

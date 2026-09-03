@@ -51,8 +51,8 @@ export const ChromeScrollPage = ({ children, footer, testID }: Props) => {
         >
             <ScreenChromeScrollView
                 contentContainerStyle={styles.scrollContent}
-                contentInsetMode="additive"
                 contentInsetBottom={footerReserve}
+                contentInsetMode="additive"
                 contentInsetTop={contentInsetTop}
                 showsVerticalScrollIndicator={false}
                 style={styles.scrollView}

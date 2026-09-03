@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { isDefined } from '@rnw-community/shared';
 
@@ -35,7 +35,7 @@ export const useBackdropRecomposite = (): BackdropRecompositeRef => {
         };
     }, []);
 
-    return useCallback((node: unknown) => {
+    return (node: unknown) => {
         containerRef.current = node instanceof HTMLElement ? node : null;
-    }, []);
+    };
 };

@@ -2,16 +2,31 @@ import { StyleSheet } from 'react-native';
 
 import { AppScreenChromeLayoutConfig } from '../../constants/screen-chrome-config.constant';
 
+const CollapsibleHeaderRowHorizontalPadding = 16;
+const CollapsibleHeaderSlotWidth = 44;
+
 const contentCapWidth = AppScreenChromeLayoutConfig.contentMaxWidth + AppScreenChromeLayoutConfig.contentHorizontalPadding * 2;
+const rowGutter = AppScreenChromeLayoutConfig.contentHorizontalPadding - CollapsibleHeaderRowHorizontalPadding;
+const titleGutter = AppScreenChromeLayoutConfig.contentHorizontalPadding + CollapsibleHeaderSlotWidth;
+const cappedHeaderLayer = {
+    marginHorizontal: 'auto',
+    maxWidth: contentCapWidth,
+    paddingTop: AppScreenChromeLayoutConfig.headerTopInset,
+    width: '100%'
+} as const;
 
 export const CollapsibleChromePageStyles = StyleSheet.create({
-    expandedTitleLayer: {
-        alignItems: 'flex-start',
-        paddingTop: AppScreenChromeLayoutConfig.headerTopInset,
-        alignSelf: 'center',
-        maxWidth: contentCapWidth,
-        paddingHorizontal: AppScreenChromeLayoutConfig.contentHorizontalPadding,
+    content: {
+        flex: 1,
         width: '100%'
+    },
+    expandedTitleLayer: {
+        ...cappedHeaderLayer,
+        alignItems: 'flex-start',
+        paddingHorizontal: titleGutter
+    },
+    frame: {
+        flex: 1
     },
     largeTitle: {
         fontSize: 31,
@@ -20,10 +35,8 @@ export const CollapsibleChromePageStyles = StyleSheet.create({
         transform: [{ translateY: 2 }]
     },
     persistentLayer: {
-        alignSelf: 'center',
-        maxWidth: contentCapWidth,
-        paddingTop: AppScreenChromeLayoutConfig.headerTopInset,
-        width: '100%'
+        ...cappedHeaderLayer,
+        paddingHorizontal: rowGutter
     },
     smallTitle: {
         fontSize: 17,

@@ -4,7 +4,6 @@ import { SCREEN_CHROME_DEFAULT_CONFIG } from '@rnw-community/react-native-screen
 
 import { PageHorizontalPaddingConstant } from './page-horizontal-padding.constant';
 
-export const AppScreenChromeSolidAlpha = 1;
 export const AppScreenChromeWashAlpha = 0;
 
 export const AppScreenChromeLayoutConfig = {

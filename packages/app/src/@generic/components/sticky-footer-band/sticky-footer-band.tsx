@@ -18,14 +18,12 @@ interface Props {
 export const StickyFooterBand = ({ children, contentStyle, edgeFadeProps }: Props) => {
     const { bottom } = useSafeAreaInsets();
 
-    const contentStyles = [styles.content, { paddingBottom: bottom }];
+    const contentStyles = [styles.content, { paddingBottom: bottom }, contentStyle];
 
     return (
         <View pointerEvents="box-none" style={styles.container}>
             <EdgeFade position="bottom" {...edgeFadeProps} />
-            <View style={contentStyles}>
-                <View style={contentStyle}>{children}</View>
-            </View>
+            <View style={contentStyles}>{children}</View>
         </View>
     );
 };

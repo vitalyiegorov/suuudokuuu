@@ -185,9 +185,11 @@ Rules specific to this scope:
 user-visible symptom. The reported "black screen after returning to Safari" could not be reproduced in
 any headless engine (see the note below), so there is no symptom to assert. Instead the spec installs a
 `MutationObserver` on every element whose computed `backdrop-filter` is not `none`, drives
-`visibilitychange` and `pageshow`/`persisted`, and asserts the inline `backdrop-filter` was set to
-`none` and then removed across frames — proving `useBackdropRecomposite` actually ran. It fails if the
-hook is unwired from `EdgeFade` or `FloatingTabBar`. Do not rewrite it to assert pixels; headless
+`visibilitychange` and `pageshow`/`persisted`, and asserts the computed `backdrop-filter` collapsed to
+`none` and then came back across frames — proving `useBackdropRecomposite` actually ran. Assert the
+computed value, never the inline one: whether the filter reaches the element inline or through a
+generated class is a styling detail that changes with the chrome implementation. It fails if the hook
+is unwired from `ChromePage`, `CollapsibleChromePage`, or `FloatingTabBar`. Do not rewrite it to assert pixels; headless
 WebKit never reproduces the compositor fault this guards against.
 
 ## Known Landing Issues Affecting This Suite
