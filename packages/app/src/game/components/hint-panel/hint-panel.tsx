@@ -5,11 +5,13 @@ import LucideChevronRight from 'lucide-react-native/icons/chevron-right';
 import LucideX from 'lucide-react-native/icons/x';
 import { use, useEffect } from 'react';
 import { View } from 'react-native';
+import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
 import { isDefined } from '@rnw-community/shared';
 
 import { AppIconButton } from '../../../@generic/components/app-icon-button/app-icon-button';
 import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
+import { useReduceMotion } from '../../../@generic/hooks/use-reduce-motion.hook';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { GameContext } from '../../context/game.context';
 import { gameHintAction } from '../../store/game.actions';
@@ -18,10 +20,21 @@ import { HintStepNarration } from '../hint-step-narration/hint-step-narration';
 import { HintPanelSelectors } from './hint-panel.selectors';
 import { HintPanelStyles as styles } from './hint-panel.styles';
 
-export const HintPanel = () => {
+const enterDurationMs = 180;
+const exitDurationMs = 120;
+
+interface Props {
+    readonly isRoomyLayout: boolean;
+    readonly narrationLineCount: number;
+    readonly surfaceHeight: number;
+}
+
+export const HintPanel = ({ isRoomyLayout, narrationLineCount, surfaceHeight }: Props) => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
     const { engine, snapshot } = use(GameContext);
+
+    const isMotionReduced = useReduceMotion();
 
     const dispatch = useAppDispatch();
 
@@ -55,16 +68,20 @@ export const HintPanel = () => {
 
     const stepCount = stepScript.steps.length;
     const currentStepNumber = stepIndex + 1;
-    const containerStyles = [styles.container, { backgroundColor: theme.colors.surface.raised, borderColor: theme.colors.surface.border }];
+    const containerStyles = [
+        styles.container(surfaceHeight, isRoomyLayout),
+        { backgroundColor: theme.colors.surface.raised, borderColor: theme.colors.surface.border }
+    ];
     const progressAccessibilityLabel = t`Step ${currentStepNumber} of ${stepCount}`;
     const placementValue = stepScript.placement?.value;
     const dismissIconColor = theme.colors.text.primary;
+    const motionProps = isMotionReduced ? {} : { entering: FadeIn.duration(enterDurationMs), exiting: FadeOut.duration(exitDurationMs) };
 
     return (
-        <View style={containerStyles} testID={HintPanelSelectors.Root}>
-            <View style={styles.content}>
-                <HintStepNarration step={currentStep} value={placementValue} />
+        <Animated.View style={containerStyles} testID={HintPanelSelectors.Root} {...motionProps}>
+            <HintStepNarration isRoomyLayout={isRoomyLayout} lineCount={narrationLineCount} step={currentStep} value={placementValue} />
 
+            <View style={styles.controls}>
                 <AppIconButton
                     accessibilityLabel={t`Dismiss`}
                     onPress={handleDismiss}
@@ -75,9 +92,7 @@ export const HintPanel = () => {
                 >
                     <LucideX color={dismissIconColor} />
                 </AppIconButton>
-            </View>
 
-            <View style={styles.controls}>
                 <View accessibilityLabel={progressAccessibilityLabel} style={styles.stepControls} testID={HintPanelSelectors.Progress}>
                     <AppButton
                         accessibilityLabel={t`Previous step`}
@@ -113,6 +128,6 @@ export const HintPanel = () => {
 
                 <AppButton onPress={handleApply} size="compact" testID={HintPanelSelectors.ApplyButton} text={t`Apply`} />
             </View>
-        </View>
+        </Animated.View>
     );
 };

@@ -12,14 +12,15 @@ export const GameNumpadStyles = StyleSheet.create((theme, rt) => {
     const digitSize = isWideLayout ? GameNumpadWideDigitSizeConstant : PanelControlSizeConstant;
 
     return {
-        numpad: {
+        numpad: (isNumpadHidden: boolean) => ({
             alignSelf: 'center',
             flexDirection: 'row',
             flexWrap: 'wrap',
             gap: isWideLayout ? GameNumpadWideGapConstant : theme.spacing.sm,
             justifyContent: 'center',
-            maxWidth: isWideLayout ? GamePanelWideRowWidthConstant : gameGetNumpadRowWidth(rt.screen.width)
-        },
+            maxWidth: isWideLayout ? GamePanelWideRowWidthConstant : gameGetNumpadRowWidth(rt.screen.width),
+            opacity: isNumpadHidden ? 0 : 1
+        }),
         digit: {
             height: digitSize,
             width: digitSize

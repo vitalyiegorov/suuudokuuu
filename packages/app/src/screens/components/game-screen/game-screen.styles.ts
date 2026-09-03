@@ -50,15 +50,16 @@ export const GameScreenStyles = StyleSheet.create((theme, rt) => ({
         flexGrow: 1,
         flexShrink: 1
     },
-    toolsSlot: {
+    toolsSlot: (isHintActive: boolean) => ({
         alignItems: 'center',
         alignSelf: 'stretch',
         flexGrow: 1,
         flexShrink: 1,
         justifyContent: 'center',
         minHeight: 0,
+        opacity: isHintActive ? 0 : 1,
         paddingTop: theme.spacing.sm
-    },
+    }),
     panelArea: (boardSize: number) => {
         const isWideLayout = appLayoutScreenIsWide(rt.screen);
         const widePanelAreaHeight = boardSize > 0 ? boardSize : '100%';
