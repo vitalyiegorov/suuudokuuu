@@ -70,10 +70,7 @@ export const CandidateInputItem = (props: Props) => {
     const buttonStyles = [
         resolveUnistyleForAnimated(DigitButtonStyles.button),
         resolveUnistyleForAnimated(styles.button),
-        {
-            borderColor: isSelected ? theme.colors.candidate.borderSelected : theme.colors.surface.border,
-            backgroundColor: isSelected ? theme.colors.candidate.fillSelected : theme.colors.candidate.fill
-        },
+        { borderColor: isSelected ? theme.colors.candidate.borderSelected : theme.colors.surface.border },
         animatedStyles,
         cs(isExhausted, resolveUnistyleForAnimated(DigitButtonStyles.exhausted))
     ];

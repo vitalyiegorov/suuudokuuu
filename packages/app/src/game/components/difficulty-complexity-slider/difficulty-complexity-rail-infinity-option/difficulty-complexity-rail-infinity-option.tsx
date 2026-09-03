@@ -25,13 +25,12 @@ export const DifficultyComplexityRailInfinityOption = ({ isSelected, onPress, st
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
     const iridescentColor = useIridescentColor(theme, isSelected);
-    const animatedLabelStyle = useAnimatedStyle(() => ({ color: iridescentColor.value }));
-    const staticLabelColor = difficultyComplexityRailOptionGetColor(theme, DifficultyEnum.Infinity, isSelected);
+    const restingLabelColor = difficultyComplexityRailOptionGetColor(theme, DifficultyEnum.Infinity, isSelected);
+    const animatedLabelStyle = useAnimatedStyle(() => ({ color: isSelected ? iridescentColor.value : restingLabelColor }));
     const labelStyles = [
         resolveUnistyleForAnimated(BlackTextStyles.text),
         resolveUnistyleForAnimated(styles.optionLabel),
-        { color: staticLabelColor },
-        ...(isSelected ? [animatedLabelStyle] : [])
+        animatedLabelStyle
     ];
 
     return (
