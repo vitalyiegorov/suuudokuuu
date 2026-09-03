@@ -1,12 +1,13 @@
 import { Trans, useLingui } from '@lingui/react/macro';
 import { DifficultyEnum } from '@suuudokuuu/generator';
-import { ScreenChromeScrollView } from '@suuudokuuu/screen-chrome';
 import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
 import { Link } from 'expo-router';
 import { use } from 'react';
 import { Platform, Pressable, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+import { ScreenChromeScrollView } from '@rnw-community/react-native-screen-chrome';
 
 import { Alert } from '../../../@generic/components/alert/alert';
 import { BlackText } from '../../../@generic/components/black-text/black-text';
@@ -156,8 +157,9 @@ export const HomeScreen = () => {
     return (
         <ChromePage contentStyle={styles.content} topEdgeFadeProps={topEdgeFadeProps}>
             <ScreenChromeScrollView
-                contentContainerStyle={styles.scrollContent}
+                contentContainerStyle={resolveUnistyleForAnimated(styles.scrollContent)}
                 contentInsetBottom={contentInsetBottom}
+                contentInsetMode="additive"
                 contentInsetTop={contentInsetTop}
                 showsVerticalScrollIndicator={false}
                 style={resolveUnistyleForAnimated(styles.scrollView)}

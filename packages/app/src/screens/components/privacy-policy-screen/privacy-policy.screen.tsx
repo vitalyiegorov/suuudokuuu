@@ -14,7 +14,6 @@ export const PrivacyPolicyScreen = () => {
     return (
         <CollapsibleChromePage
             contentStyle={PrivacyPolicyScreenStyles.content}
-            showsVerticalScrollIndicator={false}
             style={resolveUnistyleForAnimated(PrivacyPolicyScreenStyles.scrollView)}
             testID={PrivacyPolicyScreenSelectors.Root}
             title={t`Privacy policy`}

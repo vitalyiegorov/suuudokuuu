@@ -8,7 +8,7 @@ import { restoreAppFromBfcache } from '../src/utils/restore-app-from-bfcache.uti
 import { sendAppToBackground } from '../src/utils/send-app-to-background.util';
 import { watchBackdropFilterChanges } from '../src/utils/watch-backdrop-filter-changes.util';
 
-const firstLayerCleared = '0:none';
+const firstLayerCleared = '0:cleared';
 const firstLayerRestored = '0:restored';
 
 test('clears and restores the backdrop-filter layers when the app returns to visibility', async ({ page }) => {
