@@ -1,6 +1,7 @@
 import { describe, expect, it } from '@jest/globals';
 import { DifficultyEnum } from '@suuudokuuu/generator';
 import { screen } from '@testing-library/react-native';
+import { StyleSheet } from 'react-native';
 
 import { renderWithGameContext } from '../../../../@generic/utils/render-with-game-context.mock';
 import { HintButtonSelectors } from '../../../../game/components/hint-button/hint-button.selectors';
@@ -10,6 +11,7 @@ import { UndoButtonSelectors } from '../../../../game/components/undo-button/und
 import { GameScreenSelectors } from '../game-screen.selectors';
 
 import { GameInputTools } from './game-input-tools';
+import { GameInputToolsStyles } from './game-input-tools.styles';
 
 const highSampleRating = 8.4;
 
@@ -41,6 +43,30 @@ describe('GameInputTools', () => {
         expect(screen.getByTestId(UndoButtonSelectors.Root)).toBeTruthy();
         expect(screen.getByTestId(RedoButtonSelectors.Root)).toBeTruthy();
         expect(screen.getByTestId(HintButtonSelectors.Root)).toBeTruthy();
+    });
+
+    it('splits the row between the utility group and the notes button', () => {
+        expect(StyleSheet.flatten(GameInputToolsStyles.inputControls(false))).toMatchObject({ justifyContent: 'space-between' });
+    });
+
+    it('lays the row out from the trailing thumb edge for a left-handed player', () => {
+        expect(StyleSheet.flatten(GameInputToolsStyles.inputControls(true))).toMatchObject({ flexDirection: 'row-reverse' });
+    });
+
+    it('centers every tool on the same horizontal axis', () => {
+        expect(StyleSheet.flatten(GameInputToolsStyles.inputControls(false))).toMatchObject({ alignItems: 'center' });
+    });
+
+    it('keeps the notes button perfectly round', () => {
+        const notesButtonStyle = StyleSheet.flatten(GameInputToolsStyles.primaryToolButton);
+
+        expect(notesButtonStyle.width).toBe(notesButtonStyle.height);
+    });
+
+    it('keeps every utility tool perfectly round', () => {
+        const toolButtonStyle = StyleSheet.flatten(GameInputToolsStyles.toolButton);
+
+        expect(toolButtonStyle.width).toBe(toolButtonStyle.height);
     });
 
     it('hides the undo, redo and hint buttons during a challenge run', async () => {

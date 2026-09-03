@@ -17,6 +17,11 @@ appId: ${APP_ID}
           text: 'Difficulty'
       direction: UP
       timeout: 3000
+# Settle the scroll before tapping (rule 12): a tap fired into residual scroll
+# momentum is consumed stopping the scroll and never reaches the option label
+# (CI run 33369560754 attempt 2: the slider still showed Easy after the tap).
+- waitForAnimationToEnd:
+      timeout: 3000
 - tapOn:
       id: 'DifficultyComplexityOptionSelectors.Option.Infinity'
 # The description lives in the preview card below the mistake grid, which starts

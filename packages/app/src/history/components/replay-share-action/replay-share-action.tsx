@@ -1,6 +1,7 @@
 import { useLingui } from '@lingui/react/macro';
 import { SharedPayloadKindEnum } from '@suuudokuuu/encoder';
-import { LucideShare2, LucideSwords } from 'lucide-react-native';
+import LucideShare2 from 'lucide-react-native/icons/share-2';
+import LucideSwords from 'lucide-react-native/icons/swords';
 import { use } from 'react';
 
 import { AppIconButton } from '../../../@generic/components/app-icon-button/app-icon-button';

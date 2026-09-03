@@ -1,9 +1,9 @@
 {
     "name": "@suuudokuuu/field-core",
-    "version": "2.10.1",
+    "version": "2.11.4",
     "private": true,
     "description": "Headless sudoku field engine with a technique step-script player",
-    "sideEffects": "false",
+    "sideEffects": false,
     "exports": {
         ".": {
             "import": "./dist/esm/index.js",

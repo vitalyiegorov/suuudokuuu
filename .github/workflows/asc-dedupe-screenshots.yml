@@ -24,7 +24,7 @@ jobs:
                   echo "ASC_KEY_PATH=$key_path" >> "$GITHUB_ENV"
 
             - name: Dedupe screenshots
-              uses: rnw-community/mobile-ci/actions/asc-dedupe-screenshots@v1.9.0 # v1.9.0
+              uses: rnw-community/mobile-ci/actions/asc-dedupe-screenshots@v1.11.0 # v1.11.0
               with:
                   app-id: com.vitalyiegorov.suuudokuuu
                   asc-key-path: ${{ env.ASC_KEY_PATH }}

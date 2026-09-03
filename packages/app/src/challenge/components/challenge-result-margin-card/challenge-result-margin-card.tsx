@@ -1,7 +1,10 @@
 import { plural } from '@lingui/core/macro';
 import { Trans, useLingui } from '@lingui/react/macro';
 import { CompactMaxFontSizeMultiplierConstant, MaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
-import { LucideBan, LucideMinus, LucideTurtle, LucideZap } from 'lucide-react-native';
+import LucideBan from 'lucide-react-native/icons/ban';
+import LucideMinus from 'lucide-react-native/icons/minus';
+import LucideTurtle from 'lucide-react-native/icons/turtle';
+import LucideZap from 'lucide-react-native/icons/zap';
 import { use } from 'react';
 import { Text, View } from 'react-native';
 

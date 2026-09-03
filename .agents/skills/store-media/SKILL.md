@@ -314,10 +314,13 @@ checkbox, or run the fastlane lanes locally.
   (suspected hidden hardware-keyboard listener in-app). Still unfixed, and
   present in every committed iPad shot - verified byte-for-byte identical
   framing against the pre-6.9" set, so it is not a capture regression.
-- The iPad simulator queues iOS's "Open in <app>?" custom-scheme dialog and it
-  survives relaunch, stranding every scene on the dialog. `simctl erase` the
-  iPad, reinstall, then run `flows/setup/prime-deep-links.flow.yaml` against it
-  once before capturing; the iPhone target does not need this.
+- Prime iOS's "Open in <app>?" custom-scheme dialog once on every fresh
+  simulator - iPhone and iPad - before capturing, or every scene strands on
+  the dialog. A single tap on "Open" via a UI driver (`npx serve-sim tap`) or
+  one run of `flows/setup/prime-deep-links.flow.yaml` primes it; on iOS 26.2
+  the iPhone 17 Pro Max needed this exactly like the iPad. The iPad also
+  queues the dialog across relaunch, so `simctl erase` it and reinstall before
+  priming.
 - The iPhone set must be captured on an iPhone 17 Pro Max simulator for the
   6.9" store slot (1320x2868). This machine ships zero simulators by default -
   create one with `xcrun simctl create`. Capture needs a real installed build,

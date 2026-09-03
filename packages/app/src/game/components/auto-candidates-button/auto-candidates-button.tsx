@@ -1,5 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
-import { LucideHandHelping } from 'lucide-react-native';
+import LucideHandHelping from 'lucide-react-native/icons/hand-helping';
 import { use } from 'react';
 
 import { AppIconButton } from '../../../@generic/components/app-icon-button/app-icon-button';

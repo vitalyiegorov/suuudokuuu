@@ -1,7 +1,7 @@
 import { Trans, useLingui } from '@lingui/react/macro';
 import { AppSurfaceCard } from '@suuudokuuu/ui';
 import * as Linking from 'expo-linking';
-import { LucideExternalLink } from 'lucide-react-native';
+import LucideExternalLink from 'lucide-react-native/icons/external-link';
 import { use } from 'react';
 import { Alert, Text, View } from 'react-native';
 

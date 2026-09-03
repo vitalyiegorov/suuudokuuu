@@ -1,4 +1,4 @@
-import { withAndroidManifest } from '@expo/config-plugins';
+import { withAndroidManifest } from 'expo/config-plugins';
 
 import { brandConfig } from './brand.config';
 import rootPkg from './package.json';
@@ -176,7 +176,6 @@ export default ({ config }) =>
             'expo-status-bar',
             ['expo-dev-client', getExpoDevClientConfig()],
             ['expo-router', { origin: brandConfig.webOrigin }],
-            ['expo-font', { fonts: ['../../node_modules/@expo-google-fonts/inter/900Black/Inter_900Black.ttf'] }],
             [
                 'react-native-share',
                 {

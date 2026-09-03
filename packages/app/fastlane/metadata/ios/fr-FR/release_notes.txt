@@ -1,10 +1,12 @@
-Infini est là : 100 grilles record du monde, notées de SE 10.4 à 11.9. L'Everest et AI Escargot d'Arto Inkala, Golden Nugget, Platinum Blonde, Kolk, Patience. La plupart des joueurs n'en terminent jamais une seule.
+Les indices expliquent désormais au lieu de donner la réponse. Chacun nomme la technique, met en évidence les cases qui imposent le coup et déroule le raisonnement étape par étape. Sur téléphone, l'indice occupe l'espace sous la grille à hauteur fixe : texte plus grand, aucun saut entre les étapes.
 
-• Chaque grille affiche désormais sa note sur l'échelle Sudoku Explainer (SE), de 1.0 à 12.0 : dans la pastille de niveau, dans l'historique et dans les liens partagés. Une explication intégrée vous dit ce que ce chiffre mesure vraiment.
-• L'Enfer a été recomposé : 1 544 grilles vérifiées à 17 indices, toutes notées SE 6.6 ou plus. Fini les grilles soi-disant « les plus dures » qui tombent en quelques singletons.
-• Statistiques repensées : votre grille la plus dure, votre difficulté moyenne récente et votre niveau le plus joué, le spectre SE complet de tout ce que vous avez terminé, et votre arsenal de techniques avec le nombre d'utilisations.
-• Les cartes de l'historique portent maintenant un résumé des techniques, et l'écran de relecture est plus lisible.
-• Contrôle complet au clavier sur le web : flèches pour se déplacer, chiffres pour poser, Espace ou N pour le mode notes, Maj et un chiffre pour les candidats, A pour les candidats automatiques.
-• Corrigé : ouvrir un lien partagé n'efface plus vos statistiques.
-• Corrigé : quitter une partie fonctionne maintenant dans toutes les langues.
-• Plus rapide : les parties Enfer démarrent instantanément et l'historique se charge sans à-coups.
+• Annuler et rétablir, avec un score honnête : annuler rend exactement les points du coup, impossible donc de gagner deux fois sur la même case.
+• Pas d'indices en Cauchemar, Enfer et Infini tant que vous ne les activez pas ; en Hardcore, indices et annulation sont masqués.
+• Défi du jour dans son propre onglet : la même grille pour tous chaque jour, avec série en cours, meilleure série et vos dernières réussites.
+• La difficulté tient enfin sa promesse : chaque grille est générée jusqu'à exiger réellement les techniques de son niveau.
+• Plus doux pour les mains et les yeux : zones tactiles agrandies, réduction des animations, chiffres plus grands, Jeu apaisé sans score et respect de la taille de texte de votre appareil.
+• Nouveaux thèmes Contraste élevé et Adapté au daltonisme : chaque paire de couleurs de la grille passe le seuil WCAG AA, et les états se distinguent par la luminosité et les contours, pas la teinte.
+• Lecteurs d'écran pris en charge : cases, chiffres et commandes annoncent leur rôle et leur état ; étapes d'indice, erreurs et victoires sont vocalisées.
+• Le bouton Notes se place seul au bord du pouce, en miroir pour les gauchers, et sur ordinateur le panneau d'indice a enfin une taille lisible.
+• Corrigé : les coups issus de plusieurs étapes logiques sont attribués à leur technique au lieu de compter comme des devinettes, les candidats automatiques retirent ce qu'un indice élimine, les cases ne gardent plus une ancienne mise en évidence, et le chiffre blanc de la case sélectionnée est de retour.
+• Plus rapide : la version web s'affiche immédiatement sans attendre tout le téléchargement, et l'application pèse 5,5 Mo de moins.

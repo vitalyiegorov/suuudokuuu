@@ -1,8 +1,8 @@
 {
     "name": "@suuudokuuu/puzzle-forge",
-    "version": "2.10.1",
+    "version": "2.11.4",
     "private": true,
-    "sideEffects": "false",
+    "sideEffects": false,
     "exports": {
         ".": {
             "import": "./dist/esm/index.js",

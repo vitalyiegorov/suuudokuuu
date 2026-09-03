@@ -76,6 +76,10 @@ src/
 4. Preserve the existing theme contract in `ThemeInterface` from `@suuudokuuu/ui` (`packages/ui/src/theme/interface/theme.interface.ts`).
 5. Keep test selectors in nearby `*.selectors.ts` files when a screen or component is targeted by Maestro.
 
+### Animated styles
+
+Never set the same style property both statically and through an animated style on one node. Reanimated 4 renders an animated style into React as its first-render value and appends the last settled animated props after the component's own styles, so on native the settled animated value is what the commit carries and the statically computed value can never win. A node whose property is decided by React state must not have that property in a `useAnimatedStyle`, and a property that is genuinely animated must have the animated style as its only writer. When a state-driven color, opacity, or size needs emphasis, animate a property React never sets on that node, such as `transform` or a dedicated overlay.
+
 ## State And Persistence
 
 1. Redux slices live in the owning module's `store` folder.
@@ -131,6 +135,7 @@ src/
 5. Hint state is ephemeral. It is never persisted or serialized, abandoning a script simply discards it, and `HintPanel` stops any running script when it unmounts or when the engine is replaced by a new game.
 6. Prose never lives in `@suuudokuuu/field-core`. `gameGetStepNarration` maps a step plus its structured narration payload to a Lingui message: the reveal step explains the WHY per technique (a naked single names the digits its cell sees, a hidden single or full house names its row, column, or box), and strike and place steps narrate their own action. The technique name is interpolated from `techniqueLabelsConstant`.
 7. `gameIsHintAvailable` is the only gate. `HintButton` renders `null` when it returns false: never during a challenge run, and never on `Nightmare`, `Hell` or `Infinity` unless the player turned on `allowHintsOnHardDifficulties` in the guidance settings. Those three tiers are the challenge tiers, so the button is hidden rather than disabled — a disabled control with an explanation is weaker than an honest absence, and the setting is where the explanation belongs.
+8. The hint surface has one fixed height per viewport and stepping never changes it. `useHintSurfaceMetrics` measures the tools slot, `gameGetHintSurfaceMetrics` adds the deterministic numpad height from `gameGetNumpadHeight` to get the space below the board, and the surface fills that space clamped between `HintSurfaceMinHeightConstant` and `HintSurfaceMaxHeightConstant` so it can never reach the board. The same util picks the type scale: `isRoomyLayout` switches the narration to 18pt/26pt with a 56pt chip once the space affords `HintSurfaceRoomyHeightConstant`, otherwise it stays at 16pt/22pt with a 48pt chip, and `narrationLineCount` is derived from the same height. Never let narration length drive the surface height. While a script plays the tools row and, on compact layouts, the numpad both stay mounted and only drop to `opacity: 0` with `pointerEvents="none"`, so the board and the panel row keep their exact position and size when a hint opens, advances or closes. Wide layouts keep the bounded bottom-center card at `HintSurfaceRoomyHeightConstant` and keep their numpad usable.
 
 ### Hint scoring policy
 
@@ -218,6 +223,31 @@ The trade also does not pay off in a bulk replay. Replaying the 59-move Nightmar
 4. Blurred chrome on web (`EdgeFade`, the `FloatingTabBar` `BlurView` surface) attaches
    `useBackdropRecomposite` from `@suuudokuuu/screen-chrome`. Keep that ref attached to an existing
    wrapper element; do not introduce a new wrapper View for it, which would change tab bar layout.
+
+## Web Initial Load
+
+1. The first paint comes from a static splash in `public/index.html`, not from React. `+html.tsx` is
+   only used by static rendering and does not affect the `single` output. Keep the markup, its inline
+   CSS, and the `#app-splash` id in sync with `@generic/constants/web-splash.constant.ts`.
+2. The splash is removed by the `@generic/utils/hide-app-splash-screen(.web).ts` pair. `RootProviders`
+   wires it to `PersistGate`'s `onBeforeLift`, which awaits the promise it returns, and activates the
+   rehydrated `settings.language` first, so neither platform renders a frame in the wrong locale.
+   Read the language from the store there, never the OS locale: rehydration has already settled by the
+   time `onBeforeLift` runs, so the persisted choice is the authoritative one.
+3. Only the `en` catalog is bundled eagerly; the other twelve are `import()`ed per locale. Activate
+   languages through `i18nActivateLanguage`, never `i18n.activate`, or the catalog will be missing.
+   It no-ops when the requested locale is already active and discards a load whose locale has since
+   been superseded, so overlapping switches cannot resurrect an older choice.
+4. `expo.web.output` must stay `single`. `react-native-unistyles` v3 has no SSR support, so `static`
+   fails the export while building the route manifest.
+5. Do not enable expo-router `asyncRoutes` on web: it stalls the first route chunk and regresses
+   time-to-home from 0.6s to 5.9s.
+6. Do not enable `EXPO_UNSTABLE_TREE_SHAKING`: it drops the `expo-sqlite` web worker chunk, which
+   breaks persistence rehydration.
+7. Import icons as `lucide-react-native/icons/<kebab-name>`, never from the package root. The root
+   barrel pulls all 1744 icon modules into the bundle.
+8. Import Google fonts per weight (`@expo-google-fonts/inter/500Medium`), never from the package
+   root. The barrel `require()`s all 18 Inter weights into the native asset bundle.
 
 ## Error Handling
 

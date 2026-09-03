@@ -1,5 +1,8 @@
+import { useAppLayout } from '@suuudokuuu/ui';
 import { use } from 'react';
 import { View, useWindowDimensions } from 'react-native';
+
+import { isDefined } from '@rnw-community/shared';
 
 import { useAppSelector } from '../../../../@generic/hooks/use-app-selector.hook';
 import { AvailableValuesItem } from '../../../../game/components/available-values-item/available-values-item';
@@ -24,6 +27,7 @@ interface Props {
 
 export const GameNumpad = ({ availableValuesRefsHandler, onSelectValue, selectedCell }: Props) => {
     const { engine, snapshot } = use(GameContext);
+    const { sizeClass } = useAppLayout();
     const { fontScale } = useWindowDimensions();
     const keepExhaustedDigits = useAppSelector(settingsKeySelector('keepExhaustedDigits'));
     const fontSizeMultiplier = useAppSelector(settingsFontSizeMultiplierSelector);
@@ -34,9 +38,11 @@ export const GameNumpad = ({ availableValuesRefsHandler, onSelectValue, selected
     const numpadDigits = keepExhaustedDigits ? GameNumpadDigitsConstant : sudoku.PossibleValues;
     const digitTextStyle = styles.digitText(fontSizeMultiplier, fontScale);
     const remainingDigitCounts = gameGetRemainingDigitCounts(snapshot.field);
+    const isNumpadHidden = isDefined(snapshot.stepScript) && sizeClass !== 'wide';
+    const numpadPointerEvents = isNumpadHidden ? 'none' : 'auto';
 
     return (
-        <View style={styles.numpad}>
+        <View pointerEvents={numpadPointerEvents} style={styles.numpad(isNumpadHidden)}>
             {numpadDigits.map(value => {
                 const isExhausted = !sudoku.PossibleValues.includes(value);
                 const valueProgress = isExhausted ? GameNumpadExhaustedProgress : sudoku.getValueProgress(value);

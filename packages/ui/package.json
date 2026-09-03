@@ -1,8 +1,8 @@
 {
     "name": "@suuudokuuu/ui",
-    "version": "2.9.4",
+    "version": "2.11.4",
     "private": true,
-    "sideEffects": "false",
+    "sideEffects": false,
     "exports": {
         ".": {
             "import": "./src/index.ts",
@@ -41,7 +41,7 @@
         "@testing-library/react-native": "^14.0.1"
     },
     "peerDependencies": {
-        "lucide-react-native": "^1.21.0",
+        "lucide-react-native": "^1.38.0",
         "react": "19.2.3",
         "react-native": "0.86.0",
         "react-native-reanimated": "4.5.0",

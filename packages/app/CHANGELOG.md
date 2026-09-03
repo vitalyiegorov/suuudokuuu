@@ -3,6 +3,46 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.12.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.12.1...v2.12.2) (2026-09-03)
+
+**Note:** Version bump only for package @suuudokuuu/app
+
+## [2.12.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.12.0...v2.12.1) (2026-09-03)
+
+### Bug Fixes
+
+- **app:** stop animating style properties that react also sets on the board ([#394](https://github.com/vitalyiegorov/suuudokuuu/issues/394)) ([ea1d7a5](https://github.com/vitalyiegorov/suuudokuuu/commit/ea1d7a55951cd946c86c3b15dfc881a50e621d23))
+
+# [2.12.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.11.5...v2.12.0) (2026-09-03)
+
+### Features
+
+- **app:** fixed-height hint surface below the board with no layout shift ([#393](https://github.com/vitalyiegorov/suuudokuuu/issues/393)) ([11abc40](https://github.com/vitalyiegorov/suuudokuuu/commit/11abc402aa5d27e3067ded74f3b3ffec010ec69f))
+
+## [2.11.5](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.11.4...v2.11.5) (2026-09-02)
+
+**Note:** Version bump only for package @suuudokuuu/app
+
+## [2.11.4](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.11.3...v2.11.4) (2026-09-02)
+
+### Performance Improvements
+
+- **app:** fast web first paint, smaller web and native bundles, desktop tools and hint panel polish ([#391](https://github.com/vitalyiegorov/suuudokuuu/issues/391)) ([6bf7797](https://github.com/vitalyiegorov/suuudokuuu/commit/6bf7797b88345903248ffcb1311f4d1e5468ea95))
+
+## [2.11.3](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.11.2...v2.11.3) (2026-09-02)
+
+### Bug Fixes
+
+- **app:** anchor the notes button to the thumb edge and center the tools row ([#387](https://github.com/vitalyiegorov/suuudokuuu/issues/387)) ([bb667da](https://github.com/vitalyiegorov/suuudokuuu/commit/bb667da28f4743399bd460714f6fc0904d6089d5))
+
+## [2.11.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.11.1...v2.11.2) (2026-09-01)
+
+**Note:** Version bump only for package @suuudokuuu/app
+
+## [2.11.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.11.0...v2.11.1) (2026-09-01)
+
+**Note:** Version bump only for package @suuudokuuu/app
+
 # [2.11.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.10.1...v2.11.0) (2026-08-31)
 
 ### Features

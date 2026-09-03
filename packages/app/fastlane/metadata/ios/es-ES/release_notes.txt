@@ -1,10 +1,12 @@
-Llega Infinito: 100 sudokus récord mundial valorados entre SE 10.4 y 11.9. El Everest y AI Escargot de Arto Inkala, Golden Nugget, Platinum Blonde, Kolk, Patience. La mayoría de la gente no termina ninguno.
+Las sugerencias ahora enseñan en vez de resolver. Cada una nombra la técnica, ilumina las casillas que obligan la jugada y te guía paso a paso por el razonamiento. En el móvil el panel de sugerencia ocupa el espacio bajo el tablero con altura fija: texto más grande y nada se mueve entre pasos.
 
-• Cada sudoku muestra ya su valoración en la escala Sudoku Explainer (SE), de 1.0 a 12.0: en la etiqueta de nivel del tablero, en el historial y en los enlaces compartidos. Una explicación integrada te dice qué significa ese número.
-• Infierno, revisado: 1.544 sudokus verificados de 17 pistas, todos con SE 6.6 o superior. Se acabaron los tableros "durísimos" que caen con simples únicos.
-• Estadísticas rediseñadas: tu sudoku más difícil, la dificultad media reciente, el nivel que más juegas, el espectro SE completo y tu arsenal de técnicas con sus recuentos.
-• Las tarjetas del historial llevan un resumen de técnicas, y la pantalla de repetición está más limpia.
-• Control total con el teclado en la web: flechas, dígitos, Espacio o N para las anotaciones, Mayús y un dígito para candidatos, A para candidatos automáticos.
-• Corregido: abrir un enlace compartido ya no borra tus estadísticas.
-• Corregido: salir de una partida ya funciona en todos los idiomas.
-• Más rápido: las partidas de Infierno arrancan al instante y el historial carga sin tirones.
+• Deshacer y rehacer, con puntuación honesta: deshacer devuelve los puntos exactos de esa jugada, así que repetir la misma casilla nunca paga dos veces.
+• Las sugerencias no aparecen en Pesadilla, Infierno e Infinito salvo que las actives tú, y en Hardcore se ocultan tanto las sugerencias como deshacer.
+• Reto diario en su propia pestaña: el mismo sudoku para todos cada día, con racha actual, mejor racha y tus partidas recientes.
+• La dificultad ya significa lo que dice: cada tablero se genera hasta que de verdad exige las técnicas de su nivel.
+• Más amable con manos y vista: zonas de toque mayores, ajuste de reducción de movimiento, dígitos más grandes, Juego tranquilo sin marcador y respeto total al tamaño de texto del sistema.
+• Nuevos temas Alto contraste y Apto para daltónicos, con cada par de colores del tablero verificado según WCAG AA y estados que se distinguen por luminosidad y contornos, no por tono.
+• Compatibilidad completa con lectores de pantalla: casillas, dígitos y controles anuncian su función y su estado; los pasos de la sugerencia, los fallos y las victorias se locutan al momento.
+• El botón de anotaciones queda solo junto al pulgar, se refleja para zurdos, y en escritorio el panel de sugerencia por fin tiene un tamaño legible.
+• Corregido: las jugadas compuestas de varios pasos lógicos se atribuyen a su técnica en vez de contar como conjeturas, los candidatos automáticos ya descartan lo que elimina una sugerencia, las casillas ya no conservan el resaltado anterior y el dígito blanco de la casilla seleccionada ha vuelto.
+• Más rápido: la versión web se dibuja al instante en lugar de esperar toda la descarga, y la app pesa 5,5 MB menos.

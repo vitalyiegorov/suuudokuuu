@@ -118,14 +118,15 @@ describe('TechniqueManager', () => {
         expect(result).toEqual({ technique: SolutionTechniqueEnum.XWing, value: 2 });
     });
 
-    it('should not attribute an x-wing that does not force the played cell', () => {
-        expect.assertions(1);
+    it('should not attribute an x-wing that does not force the played cell, even though a composed chain does', () => {
+        expect.assertions(2);
 
         const sudoku = Sudoku.fromStrings(defaultSudokuConfig, ...xWingEnabledBoard);
         const [[targetCell]] = sudoku.Field;
         const result = new TechniqueManager(sudoku).identifyMove({ ...targetCell, value: 3 });
 
-        expect(result).toEqual({ technique: SolutionTechniqueEnum.Guess, value: 3 });
+        expect(result.technique).not.toBe(SolutionTechniqueEnum.XWing);
+        expect(result).toEqual({ technique: SolutionTechniqueEnum.HiddenSingle, value: 3 });
     });
 
     it('should prefer the simplest enabling technique for a forced placement', () => {
@@ -295,6 +296,28 @@ describe('TechniqueManager', () => {
         expect(receivedTarget).toEqual({ cell: targetMove, value: 9, intent: 'direct' });
     });
 
+    it('passes the move target through the single strategy find method for the enabling pass', () => {
+        expect.assertions(2);
+
+        const sudoku = Sudoku.fromStrings(defaultSudokuConfig, ...boxLineEnabledBoard);
+        const [targetCell] = sudoku.Field[6].slice(5);
+        const receivedTargets: (TechniqueSearchTargetInterface | undefined)[] = [];
+        const strategy: TechniqueStrategyInterface = {
+            technique: SolutionTechniqueEnum.BoxLineReduction,
+            find: (_context, target) => {
+                receivedTargets.push(target);
+
+                return [];
+            }
+        };
+
+        const targetMove = { ...targetCell, value: 3 };
+        const result = new TechniqueManager(sudoku, [strategy]).identifyMove(targetMove);
+
+        expect(result.technique).toBe(SolutionTechniqueEnum.Guess);
+        expect(receivedTargets[1]).toEqual({ cell: targetMove, value: 3, intent: 'enabling' });
+    });
+
     it('should not treat an eliminated candidate as a justified placement', () => {
         expect.assertions(1);
 
@@ -382,6 +405,44 @@ describe('TechniqueManager', () => {
 
         expect(sudoku.getCellCandidates(otherCell)).toContain(9);
         expect(result.technique).toBe(SolutionTechniqueEnum.Guess);
+    });
+
+    it('should fall through to a guess when the composed pass reaches a contradiction', () => {
+        expect.assertions(1);
+
+        const sudoku = Sudoku.fromStrings(
+            defaultSudokuConfig,
+            '12345678.',
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........',
+            '.........'
+        );
+        const [victimCell] = sudoku.Field[0].slice(-1);
+        const strategy: TechniqueStrategyInterface = {
+            technique: SolutionTechniqueEnum.XWing,
+            find: context =>
+                context.getCandidates(victimCell).includes(9)
+                    ? [
+                          {
+                              technique: SolutionTechniqueEnum.XWing,
+                              cell: victimCell,
+                              value: 9,
+                              kind: 'elimination',
+                              eliminations: [{ cell: victimCell, value: 9 }],
+                              reasonCells: []
+                          }
+                      ]
+                    : []
+        };
+
+        const result = new TechniqueManager(sudoku, [strategy]).identifyMove({ ...sudoku.Field[4][4], value: 1 });
+
+        expect(result).toEqual({ technique: SolutionTechniqueEnum.Guess, value: 1 });
     });
 
     it('should use a guess when no strategy finds a logical step', () => {

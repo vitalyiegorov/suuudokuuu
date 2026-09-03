@@ -1,10 +1,12 @@
-Chegou o Infinito: 100 sudokus recordistas mundiais avaliados entre SE 10.4 e 11.9. O Everest e o AI Escargot de Arto Inkala, Golden Nugget, Platinum Blonde, Kolk, Patience. A maioria das pessoas nunca termina nenhum.
+As dicas agora ensinam em vez de entregar a resposta. Cada uma nomeia a técnica, destaca as casas que forçam a jogada e conduz o raciocínio passo a passo antes de preencher qualquer coisa. No celular, o painel de dica ocupa o espaço abaixo do tabuleiro com altura fixa: texto maior e nada pula de um passo para outro.
 
-• Todo sudoku agora mostra sua avaliação na escala Sudoku Explainer (SE), de 1.0 a 12.0: no selo de nível do tabuleiro, no histórico e nos links compartilhados. Uma explicação embutida conta o que o número significa.
-• O Inferno ganhou uma nova curadoria: 1.544 sudokus verificados de 17 pistas, todos com SE 6.6 ou maior. Acabaram os tabuleiros "dificílimos" que caem com simples únicos.
-• Estatísticas redesenhadas: o seu sudoku mais difícil, a dificuldade média recente, o nível mais jogado, o espectro SE completo e o seu arsenal de técnicas com contadores.
-• Os cartões do histórico trazem um resumo de técnicas, e a tela de repetição ficou mais limpa.
-• Controle total pelo teclado na web: setas, dígitos, Espaço ou N pras anotações, Shift com um dígito pros candidatos, A pros candidatos automáticos.
-• Corrigido: abrir um link compartilhado não apaga mais suas estatísticas.
-• Corrigido: sair de uma partida agora funciona em todos os idiomas.
-• Mais rápido: partidas do Inferno começam na hora e o histórico carrega sem travar.
+• Desfazer e refazer, com pontuação honesta: desfazer devolve exatamente os pontos que a jogada rendeu, então repetir a mesma casa nunca paga duas vezes.
+• As dicas não aparecem em Pesadelo, Inferno e Infinito a menos que você as ligue, e no Hardcore tanto as dicas quanto o desfazer ficam ocultos.
+• Desafio diário na própria aba: o mesmo sudoku para todo mundo a cada dia, com sequência atual, melhor sequência e suas partidas recentes.
+• A dificuldade agora significa o que promete: cada tabuleiro é gerado até realmente exigir as técnicas do seu nível.
+• Mais gentil com as mãos e os olhos: áreas de toque maiores no tabuleiro e no teclado, ajuste de redução de movimento, dígitos maiores, Jogo tranquilo sem placar e respeito total ao tamanho de texto do aparelho.
+• Novos temas Alto contraste e Seguro para daltônicos, com cada par de cores do tabuleiro dentro do WCAG AA e estados distinguidos por luminosidade e contornos, não por matiz.
+• Suporte completo a leitores de tela: casas, dígitos e controles anunciam função e estado, e os passos da dica, os erros e as vitórias são falados na hora.
+• O botão de anotações ficou sozinho na borda do polegar, espelhado para canhotos, e no desktop o painel de dica enfim tem tamanho legível.
+• Corrigido: jogadas montadas com vários passos lógicos são creditadas à técnica por trás delas em vez de contar como chute, os candidatos automáticos agora descartam o que a dica eliminou, as casas não guardam mais o destaque de uma seleção anterior e o dígito branco na casa selecionada voltou.
+• Mais rápido: a versão web aparece na hora em vez de esperar o download inteiro, e o app ficou 5,5 MB menor.

@@ -1,6 +1,6 @@
 import { Trans, useLingui } from '@lingui/react/macro';
 import { AppMetricStrip } from '@suuudokuuu/ui';
-import { LucidePlay } from 'lucide-react-native';
+import LucidePlay from 'lucide-react-native/icons/play';
 import { use } from 'react';
 import { Text, View } from 'react-native';
 

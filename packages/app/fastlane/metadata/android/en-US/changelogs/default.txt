@@ -1,6 +1,7 @@
-Infinity is here: 100 world-record puzzles rated SE 10.4 to 11.9, including Everest and Golden Nugget.
-Every puzzle now shows its Sudoku Explainer rating, with a built-in guide to what the number means.
-Hell re-curated: 1,544 verified 17-clue boards, all SE 6.6 or higher.
-Redesigned stats: hardest solve, SE spectrum and your technique arsenal.
-Technique summaries on history cards, plus full keyboard control on the web.
-Fixed: shared links no longer clear your statistics.
+Hints now teach: each names the technique, lights the cells that force it and explains why. The hint panel has a fixed height below the board: bigger text, no jumps.
+Undo and redo with honest scoring; no hints on the hardest levels unless asked.
+Daily challenge with streaks, on its own tab.
+Every level needs its techniques.
+Bigger touch targets, reduce motion, larger digits, calm play, text size.
+High contrast and colorblind-safe themes, screen readers.
+Fixed: cells keeping an old highlight.

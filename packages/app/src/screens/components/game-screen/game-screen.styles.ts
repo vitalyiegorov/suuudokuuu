@@ -1,7 +1,7 @@
 import { appLayoutScreenIsWide } from '@suuudokuuu/ui';
 import { StyleSheet } from 'react-native-unistyles';
 
-import { GameSidePanelWidthConstant } from '../../../game/constant/board-cell-size.constant';
+import { GamePanelHorizontalPaddingConstant, GameSidePanelWidthConstant } from '../../../game/constant/board-cell-size.constant';
 
 export const GameScreenStyles = StyleSheet.create((theme, rt) => ({
     container: {
@@ -50,15 +50,16 @@ export const GameScreenStyles = StyleSheet.create((theme, rt) => ({
         flexGrow: 1,
         flexShrink: 1
     },
-    toolsSlot: {
+    toolsSlot: (isHintActive: boolean) => ({
         alignItems: 'center',
         alignSelf: 'stretch',
         flexGrow: 1,
         flexShrink: 1,
         justifyContent: 'center',
         minHeight: 0,
+        opacity: isHintActive ? 0 : 1,
         paddingTop: theme.spacing.sm
-    },
+    }),
     panelArea: (boardSize: number) => {
         const isWideLayout = appLayoutScreenIsWide(rt.screen);
         const widePanelAreaHeight = boardSize > 0 ? boardSize : '100%';
@@ -69,7 +70,7 @@ export const GameScreenStyles = StyleSheet.create((theme, rt) => ({
             gap: theme.spacing.sm,
             height: isWideLayout ? widePanelAreaHeight : 'auto',
             justifyContent: isWideLayout ? 'space-between' : 'center',
-            paddingHorizontal: theme.spacing.sm,
+            paddingHorizontal: GamePanelHorizontalPaddingConstant,
             width: isWideLayout ? GameSidePanelWidthConstant : '100%'
         };
     },

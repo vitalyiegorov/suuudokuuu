@@ -1,10 +1,12 @@
-Oändlighet är här: 100 världsrekordpussel med SE 10.4 till 11.9. Arto Inkalas Everest och AI Escargot, Golden Nugget, Platinum Blonde, Kolk, Patience. De flesta löser aldrig ett enda.
+Ledtrådar undervisar nu i stället för att avslöja. Varje ledtråd namnger tekniken, lyfter fram rutorna som tvingar fram draget och går igenom resonemanget steg för steg innan något placeras. På telefonen fyller ledtrådspanelen utrymmet under brädet med fast höjd: större text, och inget hoppar till mellan stegen.
 
-• Varje pussel visar nu sitt betyg på Sudoku Explainer-skalan (SE), 1.0 till 12.0 – direkt vid svårighetsgraden på brädet, i historiken och i varje delad länk. En inbyggd förklaring berättar vad siffran betyder.
-• Helvete är omgjort: 1 544 verifierade pussel med 17 ledtrådar, vart och ett SE 6.6 eller högre. Inga fler ”svåraste” bräden som faller på enkla singlar.
-• Ny statistik: din svåraste lösning, din snittsvårighet på sistone och din mest spelade nivå, plus hela SE-spektrumet och din arsenal av tekniker med räknare.
-• Korten i historiken har fått en sammanfattning av teknikerna, och reprisvyn är renare.
-• Full tangentbordsstyrning på webben: piltangenter, siffror, mellanslag eller N för anteckningar, Skift och siffra för kandidater, A för autokandidater.
-• Snabbare: pussel i Helvete startar direkt och historiken laddar utan hack.
-• Fixat: en delad länk raderar inte längre din statistik.
-• Fixat: att avsluta ett spel fungerar nu på alla språk.
+• Ångra och gör om, med ärlig poängsättning: att ångra lämnar tillbaka exakt de poäng draget gav, så samma ruta kan aldrig ge poäng två gånger.
+• Ledtrådar visas inte i Mardröm, Helvete och Oändlighet om du inte slår på dem själv, och i Hardcore är både ledtrådar och ångra dolda.
+• Dagens utmaning i en egen flik: samma pussel för alla varje dag, med aktuell och bästa svit samt dina senaste lösningar.
+• Svårighetsgraden betyder nu vad den lovar: varje bräde genereras tills det verkligen kräver teknikerna för sin nivå.
+• Snällare mot händer och ögon: större tryckytor på brädet och sifferpanelen, en inställning för mindre rörelse, större siffror, Lugnt spel utan poäng och full hänsyn till enhetens textstorlek.
+• Nya teman Hög kontrast och Färgblindanpassad, där varje färgpar på brädet klarar WCAG AA och tillstånd skiljs åt med ljushet och konturer i stället för nyans.
+• Fullt stöd för skärmläsare: rutor, siffror och kontroller anger roll och tillstånd, och ledtrådssteg, misstag och vinster läses upp direkt.
+• Anteckningsknappen sitter nu ensam vid tumkanten, speglad för vänsterhänta, och på skrivbordet har ledtrådspanelen äntligen en läsbar storlek.
+• Fixat: drag som byggs av flera logiska steg räknas till tekniken bakom dem i stället för som gissningar, autokandidater tar nu bort det en ledtråd uteslutit, rutor behåller inte längre markeringen från ett tidigare val, och den vita siffran i den valda rutan är tillbaka.
+• Snabbare: webbversionen ritas upp direkt i stället för att vänta på hela nedladdningen, och appen är 5,5 MB mindre.
