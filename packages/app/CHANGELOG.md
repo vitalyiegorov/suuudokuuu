@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.12.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.12.0...v2.12.1) (2026-09-03)
+
+### Bug Fixes
+
+- **app:** stop animating style properties that react also sets on the board ([#394](https://github.com/vitalyiegorov/suuudokuuu/issues/394)) ([ea1d7a5](https://github.com/vitalyiegorov/suuudokuuu/commit/ea1d7a55951cd946c86c3b15dfc881a50e621d23))
+
 # [2.12.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.11.5...v2.12.0) (2026-09-03)
 
 ### Features
