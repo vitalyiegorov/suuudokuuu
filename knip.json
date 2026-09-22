@@ -8,7 +8,8 @@
         "packages/screen-chrome/src/edge-fade/utils/edge-fade-get-backdrop-filter.util.ts",
         "packages/screen-chrome/src/edge-fade/interface/web-edge-fade-style.interface.ts",
         "**/selectors.ts",
-        "packages/hell-corpus/scripts/shared/rate-puzzle-worker.mjs"
+        "packages/hell-corpus/scripts/shared/rate-puzzle-worker.mjs",
+        ".github/scripts/plutil-shim.cjs"
     ],
     "ignoreDependencies": [
         "@babel/core",

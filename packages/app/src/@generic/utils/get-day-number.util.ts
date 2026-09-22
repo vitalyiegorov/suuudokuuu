@@ -1,5 +1,6 @@
-const HoursPerDay = 24;
-const DayInMilliseconds = HoursPerDay * 60 * 60 * 1000;
+import { MillisecondsPerSecond, SecondsPerDay } from '../constants/time.constant';
+
+const DayInMilliseconds = SecondsPerDay * MillisecondsPerSecond;
 
 export const getDayNumber = (timestamp: number): number => {
     const date = new Date(timestamp);
