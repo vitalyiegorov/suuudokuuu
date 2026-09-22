@@ -1,11 +1,46 @@
 name: Seed native cache
 
-# Warms the fingerprinted native-app caches the Maestro pipelines restore, so a
-# push to main or a PR opened the next morning skips the cold native build. The
-# targets, cache profiles and build env must stay identical to mobile-e2e.yml or
-# the cache key will not match and the seed run is wasted.
+# The warm-up. It publishes the base binary every pull request repacks, so a
+# later mobile-e2e.yml run repacks a published base on Linux instead of taking
+# a macOS builder slot or running Gradle.
+#
+# It plans first: one Linux job per target computes the native key and asks
+# whether a base already exists for it. Only a target with no base reaches a Mac
+# or a Gradle build at all, so a push that moved no native surface costs Linux
+# minutes and nothing else. That is why this runs on every push to main that
+# touches something a native key can see, rather than only nightly: a base is
+# published only from the default branch, so the sooner after a native change it
+# runs, the fewer pull requests pay for a native build.
+#
+# The targets, fingerprint-env and base flavor must stay identical to
+# mobile-e2e.yml or the warm-up publishes under an address no pull request ever
+# looks up, and the only symptom is that every pull request keeps building.
 on:
     workflow_dispatch:
+        inputs:
+            force-base:
+                description: Rebuild and re-publish every base, even a key that already has one.
+                type: boolean
+                default: false
+    push:
+        branches: [main]
+        # Everything a native key can see: the app package (source, assets,
+        # app.config.js, brand.config.js, fingerprint.config.js, package.json),
+        # every workspace package the app can pull into its dependency set, the
+        # lockfile, and the two workflows that define the key's address.
+        # packages/** is deliberately whole rather than an enumerated subset: an
+        # over-wide filter costs one Linux plan job that finds the base already
+        # published, while a missed path leaves a moved native key cold and
+        # every pull request pays for a native build until someone notices.
+        # packages/app/ios and packages/app/android are generated and never
+        # committed, so there is nothing to filter on for them.
+        paths:
+            - 'packages/**'
+            - 'package.json'
+            - 'yarn.lock'
+            - '.yarnrc.yml'
+            - '.github/workflows/seed-native-cache.yml'
+            - '.github/workflows/mobile-e2e.yml'
     schedule:
         - cron: '0 3 * * *'
 
@@ -19,10 +54,18 @@ concurrency:
 jobs:
     seed:
         name: Seed E2E native caches
-        uses: rnw-community/mobile-ci/.github/workflows/seed-native-cache.yml@v1.11.0 # v1.11.0
+        # A reusable workflow can only narrow the token its caller grants. Without
+        # packages: write this run plans fine, builds fine, and fails at publish -
+        # which reads as "repacking does not work" rather than as a permissions
+        # problem.
+        permissions:
+            contents: read
+            packages: write
+            actions: read
+        uses: rnw-community/mobile-ci/.github/workflows/seed-native-cache.yml@v3.0.0 # v3.0.0
         with:
             ios-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
-            android-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
+            android-runner-labels: '["self-hosted","trf-linux-amd64-4x8"]'
             ios-targets: >-
                 [{"name":"e2e","appDir":"packages/app","workspace":"suuudokuuuE2E.xcworkspace","scheme":"suuudokuuuE2E","prebuildCommand":"npx expo prebuild -p ios --clean --no-install"}]
             android-targets: >-
@@ -30,12 +73,24 @@ jobs:
             xcode-version: '26.4.1'
             xcode-build: '17E202'
             gradle-task: ':app:assembleRelease'
-            gradle-args: '-x lint -x lintVitalAnalyzeRelease -x lintAnalyzeRelease -PreactNativeArchitectures=arm64-v8a'
+            # x86_64, matching mobile-e2e.yml's Android lane: gradle-task and
+            # gradle-args are part of the native key's toolchain segment, so a
+            # warm-up that built another ABI set would publish under an address
+            # the e2e pipeline never looks up.
+            gradle-args: '-x lint -x lintVitalAnalyzeRelease -x lintAnalyzeRelease -PreactNativeArchitectures=x86_64'
             ios-cache-profile: suuudokuuu-ios-v2
             android-cache-profile: suuudokuuu-android-v1
             rct-use-prebuilt-rncore: true
             rct-use-rn-dep: true
+            # Byte-identical to both lanes of mobile-e2e.yml. A single differing
+            # byte gives the two a different native key and every pull request
+            # builds natively again.
+            fingerprint-env: |
+                APP_VARIANT=e2e
+            # Publish what this run builds as the base pull requests repack.
+            # Warming a host cache nobody else can reach is half the job.
+            publish-base: true
+            force-base: ${{ inputs.force-base || false }}
             build-env: |
                 APP_VARIANT=e2e
-                JAVA_HOME=/Library/Java/JavaVirtualMachines/temurin-17.jdk/Contents/Home
-                ORG_GRADLE_PROJECT_reactNativeArchitectures=arm64-v8a
+                ORG_GRADLE_PROJECT_reactNativeArchitectures=x86_64
