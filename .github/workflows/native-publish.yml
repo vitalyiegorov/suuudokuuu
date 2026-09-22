@@ -18,7 +18,7 @@ concurrency:
 jobs:
     publish:
         name: Build and submit
-        uses: rnw-community/mobile-ci/.github/workflows/native-publish.yml@v3.0.0 # v3.0.0
+        uses: rnw-community/mobile-ci/.github/workflows/native-publish.yml@v3.0.1 # v3.0.1
         with:
             app-dir: packages/app
             enable-ios: true

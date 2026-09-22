@@ -62,7 +62,7 @@ jobs:
             contents: read
             packages: write
             actions: read
-        uses: rnw-community/mobile-ci/.github/workflows/seed-native-cache.yml@v3.0.0 # v3.0.0
+        uses: rnw-community/mobile-ci/.github/workflows/seed-native-cache.yml@v3.0.1 # v3.0.1
         with:
             ios-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
             android-runner-labels: '["self-hosted","trf-linux-amd64-4x8"]'
