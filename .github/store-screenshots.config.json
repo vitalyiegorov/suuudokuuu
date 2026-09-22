@@ -48,8 +48,6 @@
         "2732x2048": "iPad 12.9\""
     },
     "maestro-env": "OS_LANGUAGE_MODE=true\n",
-    "cache-profile": "suuudokuuu-ios-prod-v1",
-    "repack-on-hit": true,
     "rct-use-prebuilt-rncore": true,
     "rct-use-rn-dep": true,
     "build-env": "APP_VARIANT=production\n",

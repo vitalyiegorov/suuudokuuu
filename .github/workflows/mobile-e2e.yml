@@ -1,15 +1,23 @@
 name: Mobile E2E
 
 # iOS and Android each run as an independent rnw-community/mobile-ci reusable
-# pipeline (detect -> build -> test -> status), so the build-before-test
+# pipeline (detect -> plan -> build -> test -> status), so the build-before-test
 # ordering the fleet needs is enforced inside each pipeline instead of by a
-# shared build workflow here. iOS still belongs to the Macs: it builds on the
-# single `macos-builder` VM and runs its Maestro shards on `macos-maestro`.
-# Android has left them entirely — both its APK build and its Maestro run
-# happen on node-b's x86_64 Linux `trf-linux-amd64-4x8` containers, against a
-# KVM-accelerated Google AVD instead of a Redroid container. Nothing about the
-# Android pipeline queues behind the macOS builder any more, so the two
-# platforms now overlap end to end.
+# shared build workflow here.
+#
+# From mobile-ci v3 the normal outcome of a pull request is that NOTHING
+# compiles native code. The plan job computes the target's native key on the
+# x86_64 Linux pool, fetches the base binary published for that key from GHCR,
+# repacks it with this commit's JavaScript, and hands the result to the Maestro
+# shards. Only a key with no published base reaches the macOS builder or
+# Gradle - and when that happens on main, the binary it produces is published
+# as the base for the next run. seed-native-cache.yml is the warm-up that keeps
+# that from ever being a pull request's problem.
+#
+# iOS still belongs to the Macs when it does build: the single `macos-builder`
+# VM, with its Maestro shards on `macos-maestro`. Android has left them
+# entirely - both its APK build and its Maestro run happen on node-b's x86_64
+# Linux `trf-linux-amd64-4x8` containers, against a KVM-accelerated Google AVD.
 on:
     workflow_call:
     workflow_dispatch:
@@ -26,7 +34,16 @@ concurrency:
 jobs:
     ios:
         name: iOS Maestro E2E
-        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@v1.11.0 # v1.11.0
+        # A reusable workflow can only narrow the token its caller grants, never
+        # widen it. Without these three scopes the plan job cannot read the base
+        # binary and a main run cannot publish one, so every run silently falls
+        # back to a full native build. pr.yml grants the same three on the job
+        # that calls this workflow - both levels are required.
+        permissions:
+            contents: read
+            packages: write
+            actions: read
+        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@v3.0.0 # v3.0.0
         with:
             targets: >-
                 [{"name":"e2e","appDir":"packages/app","workspace":"suuudokuuuE2E.xcworkspace","scheme":"suuudokuuuE2E","appId":"com.vitalyiegorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p ios --clean --no-install"}]
@@ -42,16 +59,36 @@ jobs:
             xcode-build: '17E202'
             build-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
             test-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
-            cache-profile: suuudokuuu-ios-v2
-            repack-on-hit: true
             rct-use-prebuilt-rncore: true
             rct-use-rn-dep: true
+            # app.config.js branches on APP_VARIANT for the app name, the bundle
+            # identifier and updates.enabled, so the fingerprint has to be taken
+            # with exactly the variable the build exports - a key computed under
+            # a different environment describes a native surface no build
+            # produces. This block is byte-identical to seed-native-cache.yml's,
+            # which is the only way the warm-up and this workflow address the
+            # same base.
+            fingerprint-env: |
+                APP_VARIANT=e2e
+            # Exported for the re-bundle, so the repacked binary's embedded
+            # app.config carries the e2e identity rather than the production one.
+            repack-env: |
+                APP_VARIANT=e2e
+            # Every identity value the repack rewrites, asserted. A config
+            # rewrite nobody checked is a repack nobody can trust.
+            expect-config: |
+                name=suuudokuuu (E2E)
+                ios.bundleIdentifier=com.vitalyiegorov.suuudokuuu.e2e
             build-env: |
                 APP_VARIANT=e2e
 
     android:
         name: Android Maestro E2E
-        uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@v1.11.0 # v1.11.0
+        permissions:
+            contents: read
+            packages: write
+            actions: read
+        uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@v3.0.0 # v3.0.0
         with:
             targets: >-
                 [{"name":"e2e","appDir":"packages/app","appId":"com.vitaliiyehorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p android --clean --no-install"}]
@@ -69,6 +106,8 @@ jobs:
             maestro-version: '2.6.1'
             # Both legs on node-b: the APK builds on Linux now (Google does ship an
             # x86_64-linux NDK), and 8 GiB is what keeps D8 from being OOM-killed.
+            # The plan/repack job lands on the same pool by default, so
+            # repack-runner-labels is deliberately left unset.
             build-runner-labels: '["self-hosted","trf-linux-amd64-4x8"]'
             # `trf-linux-amd64-4x8` is the ONLY node-b profile granted /dev/kvm, so
             # this label is a hard requirement of the avd driver, not a preference.
@@ -87,7 +126,7 @@ jobs:
             # halves are therefore stated rather than inferred: 3 GiB of guest
             # for the AVD, a bounded heap for Maestro, and the rest left for
             # adb, node, and page cache.
-            # Nexus 4 is 768x1280 @ 320dpi — within a whisker of the 720x1280 @
+            # Nexus 4 is 768x1280 @ 320dpi - within a whisker of the 720x1280 @
             # 320dpi Redroid presented, which is the geometry every flow here was
             # calibrated against. pixel_6 (1080x2400 @ 420dpi) is both a
             # different dp viewport and a materially larger software-rendered
@@ -99,10 +138,22 @@ jobs:
             gradle-task: ':app:assembleRelease'
             # x86_64 only: the AVD boots an x86_64 system image, so every other ABI
             # is CMake time spent on a library nothing installs. The lint skips stay
-            # — lint is a separate PR gate, not this pipeline's job.
+            # - lint is a separate PR gate, not this pipeline's job.
             gradle-args: '-x lint -x lintVitalAnalyzeRelease -x lintAnalyzeRelease -PreactNativeArchitectures=x86_64'
-            cache-profile: suuudokuuu-android-v1
-            repack-on-hit: true
+            # Byte-identical to the iOS lane above and to seed-native-cache.yml.
+            fingerprint-env: |
+                APP_VARIANT=e2e
+            repack-env: |
+                APP_VARIANT=e2e
+            expect-config: |
+                name=suuudokuuu (E2E)
+                android.package=com.vitaliiyehorov.suuudokuuu.e2e
+            # The repacked APK is re-signed with the React Native debug keystore
+            # `expo prebuild` ships and Gradle signs its release build with, which
+            # is what android-keystore-path already defaults to. The emulator
+            # refuses to install a repack signed with anything else, so the
+            # defaults are correct here and stay unstated.
+            #
             # No JAVA_HOME line: the runner image ships OpenJDK 17 and exports
             # JAVA_HOME itself, unlike the macOS builder this job came from.
             build-env: |

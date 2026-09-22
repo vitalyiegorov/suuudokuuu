@@ -131,8 +131,15 @@ jobs:
     mobile-e2e:
         if: ${{ needs.changes.outputs.mobile == 'true' && needs.code-quality.result == 'success' }}
         needs: [changes, code-quality]
+        # Each nesting level can only narrow the token, so the scopes mobile-ci's
+        # plan job needs to read a published base binary have to be granted here
+        # as well as on the jobs inside mobile-e2e.yml. Granting them only there
+        # leaves the token at contents: read and every pull request silently
+        # compiles native code instead of repacking.
         permissions:
             contents: read
+            packages: write
+            actions: read
         uses: ./.github/workflows/mobile-e2e.yml
 
     web-e2e:
