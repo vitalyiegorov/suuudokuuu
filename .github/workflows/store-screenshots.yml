@@ -9,9 +9,19 @@ name: Store screenshots
 # Dispatch-only: capturing overwrites nothing until upload-screenshots runs,
 # but it does contact App Store Connect - run deliberately, not on push.
 #
+# From mobile-ci v3 the capture jobs install a binary the plan job repacked on
+# Linux from the base published for this target's native key, and the macOS
+# builder is only claimed when that key has no base yet. This workflow is
+# dispatched from main, so the run that does build also publishes the base the
+# next run repacks. Its native key is its own: the key's toolchain segment
+# carries the workspace and scheme, and the production variant builds
+# suuudokuuu.xcworkspace / suuudokuuu where the e2e lanes build suuudokuuuE2E,
+# so the two never share an address even on the same base flavor.
+#
 # App-shaped config (targets, capture manifest/scenes, upload command, ASC
 # dedupe settings, ...) lives in .github/store-screenshots.config.json,
-# loaded via config-path. Only plan-time runner labels stay as inputs here.
+# loaded via config-path. Plan-time runner labels and the repack inputs that
+# are not config-loadable stay here.
 on:
     workflow_dispatch:
 
@@ -20,12 +30,32 @@ permissions:
 
 jobs:
     screenshots:
-        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@v1.11.0 # v1.11.0
+        # A reusable workflow can only narrow the token its caller grants. Without
+        # these the plan job cannot read the base binary and this run cannot
+        # publish the one it builds.
+        permissions:
+            contents: read
+            packages: write
+            actions: read
+        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@v3.0.0 # v3.0.0
         with:
             config-path: .github/store-screenshots.config.json
             build-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
             capture-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
             upload-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
+            # app.config.js branches on APP_VARIANT, so the fingerprint has to be
+            # taken under exactly what this workflow's build exports - here the
+            # production variant, matching build-env in the config file. It is
+            # deliberately NOT the e2e lanes' value: a key computed under an
+            # environment the build does not use describes a native surface
+            # nothing produces.
+            fingerprint-env: |
+                APP_VARIANT=production
+            repack-env: |
+                APP_VARIANT=production
+            expect-config: |
+                name=suuudokuuu
+                ios.bundleIdentifier=com.vitalyiegorov.suuudokuuu
         secrets:
             ASC_API_KEY: ${{ secrets.EXPO_IOS_ASC_API_KEY }}
             ASC_KEY_ID: ${{ secrets.EXPO_IOS_ASC_KEY_ID }}
