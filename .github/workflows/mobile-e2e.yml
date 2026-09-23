@@ -43,7 +43,7 @@ jobs:
             contents: read
             packages: write
             actions: read
-        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@v3.0.1 # v3.0.1
+        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@v3.0.2 # v3.0.2
         with:
             targets: >-
                 [{"name":"e2e","appDir":"packages/app","workspace":"suuudokuuuE2E.xcworkspace","scheme":"suuudokuuuE2E","appId":"com.vitalyiegorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p ios --clean --no-install"}]
@@ -81,22 +81,6 @@ jobs:
                 ios.bundleIdentifier=com.vitalyiegorov.suuudokuuu.e2e
             build-env: |
                 APP_VARIANT=e2e
-            # mobile-ci v3.0.0 repacks the iOS base on the Linux pool, but
-            # @expo/repack-app shells out to macOS `plutil` there and the pool
-            # has none, so the repack dies with `spawn plutil ENOENT`. The plan
-            # job evals build-command before it repacks, so this puts a shim on
-            # PATH for that job only. The Mac build job evals it too, finds the
-            # real plutil, and does nothing. Nothing here enters the native key.
-            # Remove once mobile-ci provides plutil on its repack pool
-            # (rnw-community/mobile-ci#163).
-            build-command: |
-                command -v plutil >/dev/null 2>&1 || {
-                    shim_dir="$RUNNER_TEMP/plutil-shim"
-                    mkdir -p "$shim_dir"
-                    printf '#!/bin/sh\nexec node %s "$@"\n' "'$PWD/.github/scripts/plutil-shim.cjs'" > "$shim_dir/plutil"
-                    chmod +x "$shim_dir/plutil"
-                    echo "$shim_dir" >> "$GITHUB_PATH"
-                }
 
     android:
         name: Android Maestro E2E
@@ -104,7 +88,7 @@ jobs:
             contents: read
             packages: write
             actions: read
-        uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@v3.0.1 # v3.0.1
+        uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@v3.0.2 # v3.0.2
         with:
             targets: >-
                 [{"name":"e2e","appDir":"packages/app","appId":"com.vitaliiyehorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p android --clean --no-install"}]
@@ -164,14 +148,6 @@ jobs:
             expect-config: |
                 name=suuudokuuu (E2E)
                 android.package=com.vitaliiyehorov.suuudokuuu.e2e
-            # mobile-ci v3.0.0's post-repack signature check runs a bare
-            # `apksigner`, but the build-tools it installs for the repack are not
-            # on PATH, so the check fails after a repack that succeeded. Point it
-            # at the build-tools directory the plan job's setup-android installs:
-            # 35.0.0 is the workflow's android-build-tools-version default, under
-            # the runner image's ANDROID_SDK_ROOT. Not part of the native key.
-            # Remove once mobile-ci resolves it (rnw-community/mobile-ci#163).
-            android-build-tools-dir: /opt/android-sdk/build-tools/35.0.0
             # The repacked APK is re-signed with the React Native debug keystore
             # `expo prebuild` ships and Gradle signs its release build with, which
             # is what android-keystore-path already defaults to. The emulator
